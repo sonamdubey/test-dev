@@ -9,10 +9,10 @@ namespace Bikewale.Entities.BikeData
     /// Modified by : Ashutosh Sharma on 03 Oct 2017
     /// Description : Added AvgExShowroomPrice.
     /// Modified by : Pratibha Verma on 26 Mar 2018
-    /// Description : Added SpecsItem.
+    /// Description : Added SpecsItem and Removed MisSpecsEntity Base class.
     /// </summary>
     [Serializable, DataContract]
-    public class SimilarBikeEntity : MinSpecsEntity
+    public class SimilarBikeEntity
     {
         [DataMember]
         public int MinPrice { get; set; }

@@ -108,18 +108,28 @@ namespace Bikewale.Models
                 if (!_similarBikesByModel)
                 {
                     objVM.Bikes = _versionCache.GetSimilarBikesList(_versionId, TopCount, CityId);
-                    if (objVM.Bikes != null)
+                    if (objVM.Bikes != null && objVM.Bikes.Any())
                     {
                         IEnumerable<VersionMinSpecsEntity> versionMinSpecs = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(objVM.Bikes.Select(m => m.VersionBase.VersionId));
                         foreach (var bike in objVM.Bikes)
                         {
-                            bike.MinSpecsList = versionMinSpecs.FirstOrDefault(x => x.VersionId.Equals(bike.VersionBase.VersionId)).MinSpecsList;
+                            VersionMinSpecsEntity minSpecsEntity = versionMinSpecs.FirstOrDefault(x => x.VersionId.Equals(bike.VersionBase.VersionId));
+                            bike.MinSpecsList = minSpecsEntity != null ? minSpecsEntity.MinSpecsList : null;
                         }
                     }
                 }
                 else
                 {
                     objVM.Bikes = _versionCache.GetSimilarBikesByModel(_modelId, TopCount, CityId);
+                    if (objVM.Bikes != null && objVM.Bikes.Any())
+                    {
+                        IEnumerable<VersionMinSpecsEntity> versionMinSpecs = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(objVM.Bikes.Select(m => m.VersionBase.VersionId));
+                        foreach (var bike in objVM.Bikes)
+                        {
+                            VersionMinSpecsEntity minSpecsEntity = versionMinSpecs.FirstOrDefault(x => x.VersionId.Equals(bike.VersionBase.VersionId));
+                            bike.MinSpecsList = minSpecsEntity != null ? minSpecsEntity.MinSpecsList : null;
+                        }
+                    }
                 }
                 objVM.PQSourceId = _pqSource;
                 objVM.IsNew = IsNew;
