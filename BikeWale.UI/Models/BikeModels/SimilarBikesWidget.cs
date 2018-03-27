@@ -108,10 +108,13 @@ namespace Bikewale.Models
                 if (!_similarBikesByModel)
                 {
                     objVM.Bikes = _versionCache.GetSimilarBikesList(_versionId, TopCount, CityId);
-                    IEnumerable<VersionMinSpecsEntity> versionMinSpecs = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(objVM.Bikes.Select(m => m.VersionBase.VersionId));
-                    foreach (var bike in objVM.Bikes)
+                    if (objVM.Bikes != null)
                     {
-                        bike.MinSpecsList = versionMinSpecs.Where(x => x.VersionId.Equals(bike.VersionBase.VersionId)).FirstOrDefault().MinSpecsList;
+                        IEnumerable<VersionMinSpecsEntity> versionMinSpecs = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(objVM.Bikes.Select(m => m.VersionBase.VersionId));
+                        foreach (var bike in objVM.Bikes)
+                        {
+                            bike.MinSpecsList = versionMinSpecs.FirstOrDefault(x => x.VersionId.Equals(bike.VersionBase.VersionId)).MinSpecsList;
+                        }
                     }
                 }
                 else
