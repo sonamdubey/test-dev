@@ -108,28 +108,12 @@ namespace Bikewale.Models
                 if (!_similarBikesByModel)
                 {
                     objVM.Bikes = _versionCache.GetSimilarBikesList(_versionId, TopCount, CityId);
-                    if (objVM.Bikes != null && objVM.Bikes.Any())
-                    {
-                        IEnumerable<VersionMinSpecsEntity> versionMinSpecs = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(objVM.Bikes.Select(m => m.VersionBase.VersionId));
-                        foreach (var bike in objVM.Bikes)
-                        {
-                            VersionMinSpecsEntity minSpecsEntity = versionMinSpecs.FirstOrDefault(x => x.VersionId.Equals(bike.VersionBase.VersionId));
-                            bike.MinSpecsList = minSpecsEntity != null ? minSpecsEntity.MinSpecsList : null;
-                        }
-                    }
+                    BindMinSpecs(objVM.Bikes);
                 }
                 else
                 {
                     objVM.Bikes = _versionCache.GetSimilarBikesByModel(_modelId, TopCount, CityId);
-                    if (objVM.Bikes != null && objVM.Bikes.Any())
-                    {
-                        IEnumerable<VersionMinSpecsEntity> versionMinSpecs = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(objVM.Bikes.Select(m => m.VersionBase.VersionId));
-                        foreach (var bike in objVM.Bikes)
-                        {
-                            VersionMinSpecsEntity minSpecsEntity = versionMinSpecs.FirstOrDefault(x => x.VersionId.Equals(bike.VersionBase.VersionId));
-                            bike.MinSpecsList = minSpecsEntity != null ? minSpecsEntity.MinSpecsList : null;
-                        }
-                    }
+                    BindMinSpecs(objVM.Bikes);
                 }
                 objVM.PQSourceId = _pqSource;
                 objVM.IsNew = IsNew;
@@ -141,6 +125,33 @@ namespace Bikewale.Models
                 ErrorClass.LogError(ex, "Bikewale.Models.SimilarBikesWidget.GetData");
             }
             return objVM;
+        }
+
+        /// <summary>
+        /// Created By : Pratibha Verma on 27 Mar 2018
+        /// Summary : Bind MinSpecs to Generic Bike List
+        /// </summary>
+        private void BindMinSpecs(IEnumerable<SimilarBikeEntity> SimilarBikeList)
+        {
+            try
+            {
+                if (SimilarBikeList != null && SimilarBikeList.Any())
+                {
+                    IEnumerable<VersionMinSpecsEntity> versionMinSpecs = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(SimilarBikeList.Select(m => m.VersionBase.VersionId));
+                    foreach (var bike in SimilarBikeList)
+                    {
+                        VersionMinSpecsEntity minSpecsEntity = versionMinSpecs.FirstOrDefault(x => x.VersionId.Equals(bike.VersionBase.VersionId));
+                        if (minSpecsEntity != null)
+                        {
+                            bike.MinSpecsList = minSpecsEntity.MinSpecsList;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("Bikewale.Models.SimilarBikesWidget.BindMinSpecs({0})",SimilarBikeList));
+            }
         }
     }
 }

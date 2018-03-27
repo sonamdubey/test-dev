@@ -48,7 +48,6 @@ namespace Bikewale.Entities.BikeData
         private BikeVersionEntityBase objDesc = new BikeVersionEntityBase();
         [DataMember]
         public BikeVersionEntityBase VersionBase { get { return objDesc; } set { objDesc = value; } }
-        [IgnoreDataMember]
         public IEnumerable<SpecsItem> MinSpecsList { get; set; }
     }
 }
