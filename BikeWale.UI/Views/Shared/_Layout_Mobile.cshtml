@@ -180,11 +180,13 @@
 
         googletag.cmd.push(function () {
 
-            googletag.pubads().disableInitialLoad();
-            googletag.pubads().setCentering(true);
-
             @if (Model.AdSlots != null)
+                
 	        {
+                <text>
+                    googletag.pubads().disableInitialLoad();
+                    googletag.pubads().setCentering(true);
+                </text>
                 foreach (KeyValuePair<string, Bikewale.Models.AdSlotModel> adentry in Model.AdSlots)
                 {
                     Bikewale.Models.AdSlotModel ad = adentry.Value;
@@ -555,7 +557,10 @@ else if (Model.AdTags.ShowInnovationBannerMobile)
     </script>
     <script defer type="text/javascript" src="@String.Format("{0}/m/src/Plugins.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, Bikewale.Utility.BWConfiguration.Instance.StaticPluginFileVersion)"></script>
     <script defer type="text/javascript" src="@String.Format("{0}/m/src/common.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion)"></script>
+    @if (Model.AdSlots != null)
+    { 
     <script defer type="text/javascript" src="@String.Format("{0}/src/lazyloadad.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, Bikewale.Utility.BWConfiguration.Instance.StaticPluginFileVersion)"></script>
+    }
     @if (!String.IsNullOrEmpty(Model.Page_JS_Path))
     {
         <script defer type="text/javascript" src="@String.Format("{0}{1}?{2}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, Model.Page_JS_Path.Trim(),Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion)"></script>
