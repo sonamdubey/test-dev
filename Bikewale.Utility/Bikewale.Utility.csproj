@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Bikewale.Utility</RootNamespace>
     <AssemblyName>Bikewale.Utility</AssemblyName>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -141,8 +141,12 @@
     <Reference Include="Utils">
       <HintPath>..\Libs\Utils.dll</HintPath>
     </Reference>
-    <Reference Include="WURFL">
-      <HintPath>..\Libs\WURFL.dll</HintPath>
+    <Reference Include="Wurfl, Version=1.9.3.0, Culture=neutral, PublicKeyToken=816aeec277aa13b9, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\WURFL\Wurfl.dll</HintPath>
+    </Reference>
+    <Reference Include="Wurfl.Aspnet.Extensions">
+      <HintPath>..\Libs\WURFL\Wurfl.Aspnet.Extensions.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

@@ -1,8 +1,6 @@
 ﻿using Bikewale.DAL.AutoBiz;
-using Bikewale.DAL.PriceQuote;
 using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.PriceQuote;
-using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Notifications;
 using Microsoft.Practices.Unity;
@@ -19,17 +17,15 @@ namespace Bikewale.BAL.PriceQuote
     /// </summary>
     public class DealerPriceQuoteDetail : IDealerPriceQuoteDetail
     {
-        private readonly IPriceQuote objPQ = null;
-        private readonly Bikewale.Interfaces.BikeBooking.IDealerPriceQuote objDPQ = null;
-        public DealerPriceQuoteDetail()
+        private readonly IPriceQuote _objPQ = null;
+        private readonly Bikewale.Interfaces.BikeBooking.IDealerPriceQuote _objDPQ = null;
+        private readonly IPriceQuoteCache _objPqCache = null;
+        public DealerPriceQuoteDetail(IPriceQuote objPQ, Bikewale.Interfaces.BikeBooking.IDealerPriceQuote objDPQ, IPriceQuoteCache objPqCache)
         {
-            using (IUnityContainer objPQCont = new UnityContainer())
-            {
-                objPQCont.RegisterType<IPriceQuote, PriceQuoteRepository>();
-                objPQCont.RegisterType<IDealerPriceQuote, Bikewale.BAL.BikeBooking.DealerPriceQuote>();
-                objPQ = objPQCont.Resolve<IPriceQuote>();
-                objDPQ = objPQCont.Resolve<IDealerPriceQuote>();
-            }
+            _objPQ = objPQ;
+            _objDPQ = objDPQ;
+            _objPqCache = objPqCache;
+
         }
         /// <summary>
         /// Created By : Lucky Rathore
@@ -80,7 +76,7 @@ namespace Bikewale.BAL.PriceQuote
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"] + "DealerPriceQuoteDetail.GetDealerQuotation");
-                
+
             }
             return dealerQuotation;
         }
@@ -100,42 +96,36 @@ namespace Bikewale.BAL.PriceQuote
             Bikewale.Entities.PriceQuote.v2.DetailedDealerQuotationEntity dealerQuotation = null;
             try
             {
-                using (IUnityContainer container = new UnityContainer())
-                {
-                    container.RegisterType<Bikewale.Interfaces.AutoBiz.IDealerPriceQuote, DealerPriceQuoteRepository>();
-                    Bikewale.Interfaces.AutoBiz.IDealerPriceQuote objPriceQuote = container.Resolve<DealerPriceQuoteRepository>();
-                    PQParameterEntity objParam = new PQParameterEntity();
-                    objParam.CityId = cityId;
-                    objParam.DealerId = dealerId > 0 ? Convert.ToUInt32(dealerId) : default(UInt32);
-                    objParam.VersionId = versionID;
-                    objParam.AreaId = areaId;
-                    dealerQuotation = objPriceQuote.GetDealerPriceQuoteByPackageV2(objParam);
 
-                    if (dealerQuotation != null)
+                PQParameterEntity objParam = new PQParameterEntity();
+                objParam.CityId = cityId;
+                objParam.DealerId = dealerId > 0 ? Convert.ToUInt32(dealerId) : default(UInt32);
+                objParam.VersionId = versionID;
+                objParam.AreaId = areaId;
+                dealerQuotation = _objPqCache.GetDealerPriceQuoteByPackageV2(objParam);
+
+                if (dealerQuotation != null)
+                {
+                    if (dealerQuotation.PrimaryDealer != null && dealerQuotation.PrimaryDealer.DealerDetails != null)
                     {
-                        if (dealerQuotation.PrimaryDealer != null && dealerQuotation.PrimaryDealer.DealerDetails != null)
+                        if (dealerQuotation.PrimaryDealer.EMIDetails == null && (dealerQuotation.PrimaryDealer.IsPremiumDealer || dealerQuotation.PrimaryDealer.IsDeluxDealer))
                         {
-                            if (dealerQuotation.PrimaryDealer.EMIDetails == null && (dealerQuotation.PrimaryDealer.IsPremiumDealer || dealerQuotation.PrimaryDealer.IsDeluxDealer))
-                            {
-                                dealerQuotation.PrimaryDealer.EMIDetails = new EMI();
-                                dealerQuotation.PrimaryDealer.EMIDetails.MaxDownPayment = 40;
-                                dealerQuotation.PrimaryDealer.EMIDetails.MinDownPayment = 10;
-                                dealerQuotation.PrimaryDealer.EMIDetails.MaxTenure = 48;
-                                dealerQuotation.PrimaryDealer.EMIDetails.MinTenure = 12;
-                                dealerQuotation.PrimaryDealer.EMIDetails.MaxRateOfInterest = 15;
-                                dealerQuotation.PrimaryDealer.EMIDetails.MinRateOfInterest = 10;
-                                dealerQuotation.PrimaryDealer.EMIDetails.ProcessingFee = 2000;
-                            }
+                            dealerQuotation.PrimaryDealer.EMIDetails = new EMI();
+                            dealerQuotation.PrimaryDealer.EMIDetails.MaxDownPayment = 40;
+                            dealerQuotation.PrimaryDealer.EMIDetails.MinDownPayment = 10;
+                            dealerQuotation.PrimaryDealer.EMIDetails.MaxTenure = 48;
+                            dealerQuotation.PrimaryDealer.EMIDetails.MinTenure = 12;
+                            dealerQuotation.PrimaryDealer.EMIDetails.MaxRateOfInterest = 15;
+                            dealerQuotation.PrimaryDealer.EMIDetails.MinRateOfInterest = 10;
+                            dealerQuotation.PrimaryDealer.EMIDetails.ProcessingFee = 2000;
                         }
                     }
-
                 }
-
             }
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"] + "DealerPriceQuoteDetail.GetDealerQuotationV2");
-                
+
             }
             return dealerQuotation;
         }
@@ -165,7 +155,7 @@ namespace Bikewale.BAL.PriceQuote
                     objPQEntity.VersionId = versionId.HasValue ? versionId.Value : default(uint);
                     objPQEntity.RefPQId = pqId;
                     objPQEntity.DealerId = dealerId;
-                    pqId = objPQ.RegisterPriceQuote(objPQEntity);
+                    pqId = _objPQ.RegisterPriceQuote(objPQEntity);
                 }
 
                 if (dealerId > 0)
@@ -183,7 +173,7 @@ namespace Bikewale.BAL.PriceQuote
 
                 }
 
-                IEnumerable<OtherVersionInfoEntity> versions = objPQ.GetOtherVersionsPrices(pqId);
+                IEnumerable<OtherVersionInfoEntity> versions = _objPQ.GetOtherVersionsPrices(pqId);
                 pqVersion = new List<PQ_BikeVarient>();
 
                 if (objDealerPQ == null)
@@ -222,7 +212,7 @@ namespace Bikewale.BAL.PriceQuote
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "DealerPriceQuoteDetail: " + "Quotation");
-                
+
             }
             return objDealerPQ;
         }
