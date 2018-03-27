@@ -153,7 +153,7 @@ namespace Bikewale.Models
 
 
 
-        public readonly IDictionary<string, string[]> ViewSlotSizes = new Dictionary<string, string[]>()
+        public static readonly IDictionary<string, string[]> ViewSlotSizes = new Dictionary<string, string[]>()
         {
             {AdSlotSize._200x211, new String[] { ViewSlotSize._200x211 }},
 
@@ -184,6 +184,7 @@ namespace Bikewale.Models
             {AdSlotSize._970x90 + "_B", new String[] { ViewSlotSize._950x90, ViewSlotSize._728x90, ViewSlotSize._960x60, ViewSlotSize._970x60, ViewSlotSize._970x90, ViewSlotSize._960x90 }},
 
             {AdSlotSize._970x90 + "_C", new String[] { ViewSlotSize._970x66, ViewSlotSize._970x60, ViewSlotSize._960x90, ViewSlotSize._950x90, ViewSlotSize._960x66, ViewSlotSize._728x90, ViewSlotSize._960x60, ViewSlotSize._970x90 }},
+
 
             {AdSlotSize._976x204, new String[] { ViewSlotSize._976x200, ViewSlotSize._976x250, ViewSlotSize._976x204 }},
 
