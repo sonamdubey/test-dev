@@ -1,4 +1,6 @@
-﻿using Bikewale.DTO.PriceQuote.Version;
+﻿using Bikewale.BAL.GrpcFiles.Specs_Features;
+using Bikewale.BAL.PriceQuote;
+using Bikewale.DTO.PriceQuote.Version;
 using Bikewale.DTO.PriceQuote.Version.v2;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.PriceQuote;
@@ -95,6 +97,8 @@ namespace Bikewale.Service.Controllers.PriceQuote.Version
         /// Created By : Vivek Gupta 
         /// Date : 17-06-2016
         /// Desc : adding dealerpackage type, secondary dealer count and primary dealer offers
+        /// Modified By : Rajan Chauhan on 23 Mar 2018
+        /// Description : Bind minSpecs data in versionList from Specs Features MS 
         /// </summary>
         /// <param name="modelId"></param>
         /// <param name="cityId"></param>
@@ -113,11 +117,20 @@ namespace Bikewale.Service.Controllers.PriceQuote.Version
             PQByCityAreaEntity pqEntity = null;
 
             objVersionsList = _objVersionCache.GetVersionMinSpecs(Convert.ToUInt32(modelId), true);
-
             try
             {
                 if (objVersionsList != null && objVersionsList.Any())
                 {
+                    IEnumerable<VersionMinSpecsEntity> versionMinSpecsEntityList = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(objVersionsList.Select(objVersion => (int)objVersion.VersionId),
+                        new List<EnumSpecsFeaturesItem> { EnumSpecsFeaturesItem.BrakeType, EnumSpecsFeaturesItem.AlloyWheels, EnumSpecsFeaturesItem.ElectricStart, EnumSpecsFeaturesItem.AntilockBrakingSystem });
+                    foreach (BikeVersionMinSpecs objVersion in objVersionsList)
+                    {
+                        VersionMinSpecsEntity objVersionMinSpec = versionMinSpecsEntityList.Where(versionSpecEntity => versionSpecEntity.VersionId.Equals(objVersion.VersionId)).FirstOrDefault();
+                        if (objVersionMinSpec != null)
+                        {
+                            objVersion.MinSpecsList = objVersionMinSpec.MinSpecsList;
+                        }
+                    }
                     string platformId = string.Empty;
                     ushort platform = default(ushort);
                     if (Request.Headers.Contains("platformId"))
@@ -127,7 +140,6 @@ namespace Bikewale.Service.Controllers.PriceQuote.Version
                     ushort.TryParse(platformId, out platform);
                     pqEntity = _objPQByCityArea.GetVersionListV2(modelId, objVersionsList, cityId, areaId, platform, null, null, deviceId);
                     objPQDTO = ModelMapper.ConvertV2(pqEntity);
-                    objVersionsList = null;
                     return Ok(objPQDTO);
                 }
                 else

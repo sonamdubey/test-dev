@@ -647,6 +647,14 @@ namespace Bikewale.DAL.BikeBooking
         }   //End of GetAreaList
         #endregion
 
+        /// <summary>
+        /// Modified By  : Rajan Chauhan on 23 Mar 2018
+        /// Description  : Removed MinSpec binding
+        /// </summary>
+        /// <param name="cityId"></param>
+        /// <param name="versionId"></param>
+        /// <param name="dealerId"></param>
+        /// <returns></returns>
         public BookingPageDetailsEntity FetchBookingPageDetails(uint cityId, uint versionId, uint dealerId)
         {
             BookingPageDetailsEntity entity = null;
@@ -711,11 +719,7 @@ namespace Bikewale.DAL.BikeBooking
                                                 VersionId = Convert.ToInt32(reader["VersionId"]),
                                                 VersionName = Convert.ToString(reader["VersionName"]),
                                                 Price = Convert.ToUInt64(reader["OnRoadPrice"]),
-                                                ModelName = Convert.ToString(reader["ModelName"]),
-                                                ElectricStart = Convert.IsDBNull(reader["ElectricStart"]) ? false : Convert.ToBoolean(reader["ElectricStart"]),
-                                                BrakeType = Convert.IsDBNull(reader["BreakType"]) ? String.Empty : Convert.ToString(reader["BreakType"]),
-                                                AntilockBrakingSystem = Convert.IsDBNull(reader["ABS"]) ? false : Convert.ToBoolean(reader["ABS"]),
-                                                AlloyWheels = Convert.IsDBNull(reader["AlloyWheels"]) ? false : Convert.ToBoolean(reader["AlloyWheels"])
+                                                ModelName = Convert.ToString(reader["ModelName"])
                                             },
                                             Model = new BikeModelEntityBase()
                                             {

@@ -270,10 +270,6 @@ namespace Bikewale.DAL.BikeData
                                     ModelName = Convert.ToString(dr["Model"]),
                                     Price = Convert.ToUInt64(dr["VersionPrice"]),
                                     AverageExShowroom = Convert.ToUInt32(dr["AverageExShowroom"]),
-                                    BrakeType = !Convert.IsDBNull(dr["BrakeType"]) ? Convert.ToString(dr["BrakeType"]) : String.Empty,
-                                    AlloyWheels = !Convert.IsDBNull(dr["AlloyWheels"]) ? Convert.ToBoolean(dr["AlloyWheels"]) : false,
-                                    ElectricStart = !Convert.IsDBNull(dr["ElectricStart"]) ? Convert.ToBoolean(dr["ElectricStart"]) : false,
-                                    AntilockBrakingSystem = !Convert.IsDBNull(dr["AntilockBrakingSystem"]) ? Convert.ToBoolean(dr["AntilockBrakingSystem"]) : false,
                                     BodyStyle = (EnumBikeBodyStyles)Convert.ToUInt16(dr["BodyStyleId"]),
                                     HostUrl = Convert.ToString(dr["HostURL"]),
                                     OriginalImagePath = Convert.ToString(dr["OriginalImagePath"])
@@ -299,21 +295,43 @@ namespace Bikewale.DAL.BikeData
         /// <summary>
         /// Created by : Ashutosh Sharma on 26-Sep-2017
         /// Description : DAL method to get futuristice version of bike model
+        /// Modified by : Rajan Chauhan on 26 Mar 2018
+        /// Description : Removed MinSpecs mapping from BikeVersionMinSpecs
         /// </summary>
         /// <param name="modelId"></param>
         /// <returns></returns>
         public IEnumerable<BikeVersionMinSpecs> GetFuturisticVersionMinSpecs(U modelId)
         {
 
-            IEnumerable<BikeVersionMinSpecs> objMinSpecs = null;
+            IList<BikeVersionMinSpecs> objMinSpecs = null;
             try
             {
-                using (IDbConnection connection = DatabaseHelper.GetReadonlyConnection())
+                using (DbCommand cmd = DbFactory.GetDBCommand("getfuturisticversions_13112017"))
                 {
-                    DynamicParameters param = new DynamicParameters();
-                    param.Add("par_modelid", modelId);
-
-                    objMinSpecs = connection.Query<BikeVersionMinSpecs>("getfuturisticversions_13112017", param: param, commandType: CommandType.StoredProcedure);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            objMinSpecs = new List<BikeVersionMinSpecs>();
+                            while (dr.Read())
+                            {
+                                BikeVersionMinSpecs objBikeVersion = new BikeVersionMinSpecs
+                                {
+                                    VersionId = Convert.ToInt32(dr["VersionId"]),
+                                    VersionName = Convert.ToString(dr["VersionName"]),
+                                    ModelName = Convert.ToString(dr["ModelName"]),
+                                    Price = Convert.ToUInt32(dr["Price"]),
+                                    HostUrl = Convert.ToString(dr["HostURL"]),
+                                    OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]),
+                                    BodyStyle = (EnumBikeBodyStyles)Convert.ToInt32(dr["BodyStyle"])
+                                };
+                                objMinSpecs.Add(objBikeVersion);
+                            }
+                            dr.Close();
+                        }
+                    }
                 }
             }
             catch (Exception ex)

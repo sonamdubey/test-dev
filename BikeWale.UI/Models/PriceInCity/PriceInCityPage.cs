@@ -25,6 +25,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
+using System.Text;
 using System.Web;
 
 namespace Bikewale.Models
@@ -1091,30 +1092,28 @@ namespace Bikewale.Models
         /// <summary>
         /// Created by : Aditi Srivastava on 12 Apr 2017
         /// Summary    : Format min specs
+        /// Modified By : Rajan Chauhan on 23 Mar 2018
+        /// Description : Min Specs from MinSpecsList
         /// </summary>
         private string FormatVarientMinSpec(BikeVersionMinSpecs objVersion)
         {
-            string minSpecsStr = string.Empty;
+            StringBuilder minSpecsStr = new StringBuilder();
 
             try
             {
-                minSpecsStr = string.Format("{0}<li>{1} Wheels</li>", minSpecsStr, objVersion.AlloyWheels ? "Alloy" : "Spoke");
-                minSpecsStr = string.Format("{0}<li>{1} Start</li>", minSpecsStr, objVersion.ElectricStart ? "Electric" : "Kick");
-
-                if (objVersion.AntilockBrakingSystem)
+                if (objVersion != null && objVersion.MinSpecsList != null)
                 {
-                    minSpecsStr = string.Format("{0}<li>ABS</li>", minSpecsStr);
-                }
+                    minSpecsStr.Append("<ul id='version-specs-list'>");
+                    foreach (var specItem in objVersion.MinSpecsList)
+                    {
+                        string generalSpecName = FormatMinSpecs.GetSpecGeneralName(specItem);
+                        if (String.IsNullOrEmpty(generalSpecName))
+                        {
+                            minSpecsStr.Append(String.Format("<li>{0}</li>", generalSpecName));
+                        }
 
-                if (!String.IsNullOrEmpty(objVersion.BrakeType))
-                {
-                    minSpecsStr = string.Format("{0}<li>{1} Brake</li>", minSpecsStr, objVersion.BrakeType);
-                }
-
-
-                if (!string.IsNullOrEmpty(minSpecsStr))
-                {
-                    minSpecsStr = string.Format("<ul id='version-specs-list'>{0}</ul>", minSpecsStr);
+                    }
+                    minSpecsStr.Append("</ul>");
                 }
             }
             catch (Exception ex)
@@ -1122,7 +1121,7 @@ namespace Bikewale.Models
                 ErrorClass.LogError(ex, string.Format("Bikewale.Models.PriceInCityPAge.FormatVarientMinSpec(): versionId {0}", objVersion.VersionId));
             }
 
-            return minSpecsStr;
+            return minSpecsStr.ToString();
 
         }
 

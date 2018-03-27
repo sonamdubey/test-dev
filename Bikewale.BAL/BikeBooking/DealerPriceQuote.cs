@@ -1,4 +1,5 @@
-﻿using Bikewale.Cache.Core;
+﻿using Bikewale.BAL.GrpcFiles.Specs_Features;
+using Bikewale.Cache.Core;
 using Bikewale.Cache.PriceQuote;
 using Bikewale.DAL.AutoBiz;
 using Bikewale.Entities.BikeBooking;
@@ -10,6 +11,7 @@ using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Notifications;
 using Microsoft.Practices.Unity;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Configuration;
 
@@ -413,12 +415,38 @@ namespace Bikewale.BAL.BikeBooking
             return objPQOutput;
         }   //End of ProcessPQV2
 
+        /// <summary>
+        /// Modified By  : Rajan Chauhan on 26 Mar 2018
+        /// Description  : Added MinSpec to pageDetail.Varients
+        /// </summary>
+        /// <param name="cityId"></param>
+        /// <param name="versionId"></param>
+        /// <param name="dealerId"></param>
+        /// <returns></returns>
         public BookingPageDetailsEntity FetchBookingPageDetails(uint cityId, uint versionId, uint dealerId)
         {
             BookingPageDetailsEntity pageDetail = null;
             try
             {
                 pageDetail = dealerPQRepository.FetchBookingPageDetails(cityId, versionId, dealerId);
+                if (pageDetail != null && pageDetail.Varients != null)
+                {
+                    IEnumerable<VersionMinSpecsEntity> versionMinSpecsEntityList = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(pageDetail.Varients.Select(objVarient => (int)objVarient.MinSpec.VersionId),
+                        new List<EnumSpecsFeaturesItem> { EnumSpecsFeaturesItem.BrakeType, EnumSpecsFeaturesItem.AlloyWheels });
+                    if (versionMinSpecsEntityList != null)
+                    {
+                        foreach (BikeDealerPriceDetail objVersion in pageDetail.Varients)
+                        {
+                            VersionMinSpecsEntity objVersionMinSpec = versionMinSpecsEntityList.Where(versionSpecEntity => versionSpecEntity.VersionId.Equals(objVersion.MinSpec.VersionId)).FirstOrDefault();
+                            if (objVersionMinSpec != null)
+                            {
+                                objVersion.MinSpec.MinSpecsList = objVersionMinSpec.MinSpecsList;
+                            }
+                        }
+                    }
+
+                }
+                
             }
             catch (Exception ex)
             {

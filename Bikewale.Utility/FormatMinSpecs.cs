@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Bikewale.Entities.BikeData;
+using System;
 
 namespace Bikewale.Utility
 {
@@ -84,8 +85,10 @@ namespace Bikewale.Utility
 		}
 
 		/// <summary>
-		/// Written By : Ashish G. Kamble On 10 Sept 2015
-		/// Summary : Function to format the availability
+		/// Written By  : Ashish G. Kamble On 10 Sept 2015
+		/// Summary     : Function to format the availability
+        /// Modified By : Rajan Chauhan on 27 Mar 2018
+        /// Description : Changed logic for specFeature MS
 		/// </summary>
 		/// <param name="value">Value to be checked whether available or not.</param>
 		/// <returns>If value is null function will return --</returns>
@@ -95,20 +98,11 @@ namespace Bikewale.Utility
 
 			if (String.IsNullOrEmpty(value))
 			{
-				showValue = "--";
+				showValue = _notAvaliableText;
 			}
 			else
 			{
-				bool isBoolValue = false;
-
-				if (Boolean.TryParse(value, out isBoolValue))
-				{
-					showValue = isBoolValue ? "Yes" : "No";
-				}
-				else
-				{
-					showValue = value;
-				}
+				showValue = value;
 			}
 			return showValue;
 		}
@@ -239,6 +233,37 @@ namespace Bikewale.Utility
 			return format.Trim().Substring(0, format.Length - 1);
 		}
 
+
+        /// <summary>
+        /// Created By  : Rajan Chauhan on 23 Mar 2018
+        /// Description : Method for getting general name of specs
+        /// </summary>
+        /// <param name="specItem"></param>
+        /// <returns></returns>
+        public static string GetSpecGeneralName(SpecsItem specItem)
+        {
+            if (specItem != null)
+            {
+                if (String.IsNullOrEmpty(specItem.Value))
+                {
+                    return String.Empty;
+                }
+                switch (specItem.Id)
+                {
+                    case (int)EnumSpecsFeaturesItem.AlloyWheels:
+                        return string.Format("{0} Wheels", specItem.Value.Equals("YES" )? "Alloy" : "Spoke");
+                    case (int)EnumSpecsFeaturesItem.ElectricStart:
+                        return string.Format("{0} Start", specItem.Value.Equals("YES") ? "Electric" : "Kick");
+                    case (int)EnumSpecsFeaturesItem.AntilockBrakingSystem:
+                        return specItem.Value.Equals("YES") ? "ABS" : String.Empty;
+                    case (int)EnumSpecsFeaturesItem.BrakeType:
+                        return string.Format("{0} Brake", specItem.Value);
+                    default:
+                        return String.Empty;
+                }
+            }
+            return String.Empty;
+        }
 		//Overloading of ShowAvailable
 
 		/// <summary>

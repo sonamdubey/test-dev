@@ -205,14 +205,14 @@
 													@foreach (var specItem in specCat.SpecsItemList)
 													{
 														<tr class="row-type-heading">
-															<td colspan="2">@specItem.DisplayText@(!string.IsNullOrEmpty(specItem.UnitTypeText) ? string.Format(" ({0})", @specItem.UnitTypeText) : "")</td>
+															<td colspan="2">@Bikewale.Utility.FormatMinSpecs.ShowAvailable(specItem.DisplayText, specItem.UnitTypeText)</td>
 															<td></td>
 														</tr>
 
 														<tr class="row-type-data">
 															@foreach (var specValue in specItem.ItemValues)
 															{
-																<td>@specValue</td>
+																<td>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(specValue)</td>
 															}
 															@if (Model.isSponsoredBike)
 															{
@@ -236,7 +236,7 @@
 											@foreach (var feature in Model.Compare.VersionSpecsFeatures.Features)
 											{
 												<tr class="row-type-heading">
-													<td colspan="2">@feature.DisplayText@(!string.IsNullOrEmpty(feature.UnitTypeText) ? string.Format(" ({0})", @feature.UnitTypeText) : "")</td>
+													<td colspan="2">@Bikewale.Utility.FormatMinSpecs.ShowAvailable(feature.DisplayText, feature.UnitTypeText)</td>
 													<td></td>
 												</tr>
 
@@ -244,7 +244,7 @@
 												<tr class="row-type-data">
 													@foreach (var featureValue in feature.ItemValues)
 													{
-														<td>@featureValue</td>
+														<td>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(featureValue)</td>
 													}
 													@if (!Model.isSponsoredBike)
 													{

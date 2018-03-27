@@ -111,6 +111,8 @@ namespace Bikewale.DAL.BikeData
         /// Description : Changed SP from 'getversions_30082017' to 'getversions_29092017'
         /// Modified by : Ashutosh Sharma on 29 Sep 2017 
         /// Description : Changed SP from 'getversions_30082017' to 'getversions_29092017', to get avg price.
+        /// Modified by : Rajan Chauhan on 23 Mar 2018
+        /// Description : Removed MinSpecs binding
         /// </summary>
         /// <param name="modelId"></param>
         /// <param name="isNew"></param>
@@ -140,10 +142,6 @@ namespace Bikewale.DAL.BikeData
                                     ModelName = dr["Model"].ToString(),
                                     Price = Convert.ToUInt64(dr["VersionPrice"]),
                                     AverageExShowroom = Convert.ToUInt32(dr["AverageExShowroom"]),
-                                    BrakeType = dr["BrakeType"].ToString(),
-                                    AlloyWheels = Convert.ToBoolean(dr["AlloyWheels"]),
-                                    ElectricStart = Convert.ToBoolean(dr["ElectricStart"]),
-                                    AntilockBrakingSystem = Convert.ToBoolean(dr["AntilockBrakingSystem"]),
                                     BodyStyle = (EnumBikeBodyStyles)Enum.Parse(typeof(EnumBikeBodyStyles), Convert.ToString(dr["BodyStyleId"]))
                                 });
                             }

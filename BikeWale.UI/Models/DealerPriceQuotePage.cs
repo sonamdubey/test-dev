@@ -1,4 +1,5 @@
-﻿using Bikewale.Common;
+﻿using Bikewale.BAL.GrpcFiles.Specs_Features;
+using Bikewale.Common;
 using Bikewale.DTO.PriceQuote;
 using Bikewale.Entities;
 using Bikewale.Entities.BikeBooking;
@@ -18,6 +19,7 @@ using Bikewale.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web;
 
 namespace Bikewale.Models
@@ -435,7 +437,7 @@ namespace Bikewale.Models
         /// </summary>
         private void GetBikeVersions(DealerPriceQuotePageVM objData)
         {
-            IEnumerable<BikeVersionMinSpecs> minSpecs = null;
+            IEnumerable<BikeVersionMinSpecs> bikeVersionList = null;
             try
             {
 
@@ -448,14 +450,17 @@ namespace Bikewale.Models
 
                     objData.VersionsList = _objVersionCache.GetVersionsByType(EnumBikeType.PriceQuote, objData.SelectedVersion.ModelBase.ModelId, (int)_cityId);
 
-                    if (objData.VersionsList != null)
+                    if (objData.VersionsList != null && objData.VersionsList.Any())
                     {
-                        minSpecs = _objVersionCache.GetVersionMinSpecs(_modelId, true);
-                        var objMin = minSpecs.FirstOrDefault(x => x.VersionId == _versionId);
-                        if (objMin != null)
+                        bikeVersionList = _objVersionCache.GetVersionMinSpecs(_modelId, true);
+                        BikeVersionMinSpecs selectedBikeVersion = bikeVersionList.FirstOrDefault(x => x.VersionId == _versionId);
+                        IEnumerable<VersionMinSpecsEntity> versionMinSpecsList = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(objData.VersionsList.Select(version => version.VersionId),
+                            new List<EnumSpecsFeaturesItem> {EnumSpecsFeaturesItem.BrakeType, EnumSpecsFeaturesItem.AlloyWheels, EnumSpecsFeaturesItem.ElectricStart,EnumSpecsFeaturesItem.AntilockBrakingSystem });
+                        var objVersionMin = versionMinSpecsList.FirstOrDefault(x => x.VersionId == _versionId);
+                        if (selectedBikeVersion != null && objVersionMin != null)
                         {
-                            objData.MinSpecsHtml = FormatVarientMinSpec(objMin);
-                            objData.BodyStyle = objMin.BodyStyle;
+                            objData.MinSpecsHtml = FormatVarientMinSpec(objVersionMin.MinSpecsList);
+                            objData.BodyStyle = selectedBikeVersion.BodyStyle;
                         }
                     }
                 }
@@ -494,39 +499,38 @@ namespace Bikewale.Models
         /// <summary>
         /// Createdby: Sangram Nandkhile on 15 Dec 2016
         /// Summary: Format Minspecs for each version
+        /// Modified By : Rajan Chauhan on 23 Mar 2018
+        /// Description : Min Specs from MinSpecsList
         /// </summary>
         /// <returns></returns>
-        private string FormatVarientMinSpec(BikeVersionMinSpecs objVersion)
+        private string FormatVarientMinSpec(IEnumerable<SpecsItem> specItemList)
         {
-            string minSpecsStr = string.Empty;
+            StringBuilder minSpecsStr = new StringBuilder();
 
             try
             {
-                minSpecsStr = string.Format("{0}<li>{1} Wheels</li>", minSpecsStr, objVersion.AlloyWheels ? "Alloy" : "Spoke");
-                minSpecsStr = string.Format("{0}<li>{1} Start</li>", minSpecsStr, objVersion.ElectricStart ? "Electric" : "Kick");
-
-                if (objVersion.AntilockBrakingSystem)
+                if (specItemList != null)
                 {
-                    minSpecsStr = string.Format("{0}<li>ABS</li>", minSpecsStr);
+                    minSpecsStr.Append("<ul id='version-specs-list'>");
+                    foreach (var specItem in specItemList)
+                    {
+                        string generalSpecName = FormatMinSpecs.GetSpecGeneralName(specItem);
+                        if (!String.IsNullOrEmpty(generalSpecName))
+                        {
+                            minSpecsStr.Append(String.Format("<li>{0}</li>", generalSpecName));
+                        }
+
+                    }
+                    minSpecsStr.Append("</ul>");
                 }
 
-                if (!String.IsNullOrEmpty(objVersion.BrakeType))
-                {
-                    minSpecsStr = string.Format("{0}<li>{1} Brake</li>", minSpecsStr, objVersion.BrakeType);
-                }
-
-
-                if (!string.IsNullOrEmpty(minSpecsStr))
-                {
-                    minSpecsStr = string.Format("<ul id='version-specs-list'>{0}</ul>", minSpecsStr);
-                }
             }
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, string.Format("Bikewale.Models.DealerPriceQuotePage.FormatVarientMinSpec(): versionId {0}", _versionId));
             }
 
-            return minSpecsStr;
+            return minSpecsStr.ToString();
 
         }
 

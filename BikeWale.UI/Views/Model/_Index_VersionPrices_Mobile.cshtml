@@ -22,7 +22,24 @@
                                 <span>@(version.Price > 0 ? Bikewale.Utility.Format.FormatPrice(version.Price.ToString()) : Bikewale.Utility.Format.FormatPrice(version.AverageExShowroom.ToString()))</span>
                             </span>
                         </td>
-                        <td>@string.Format(@"{0} Brake, {1} Wheels", version.BrakeType, (version.AlloyWheels) ? "Alloy" : "Spoke")</td>
+                        @if (version.MinSpecsList != null && version.MinSpecsList.Any())
+						{
+							string SpecGeneralName, Specs = string.Empty;
+							foreach (var specItem in version.MinSpecsList)
+							{
+								SpecGeneralName = Bikewale.Utility.FormatMinSpecs.GetSpecGeneralName(specItem);
+								if (!String.IsNullOrEmpty(SpecGeneralName))
+								{
+									Specs += SpecGeneralName + ", ";
+								}
+							}
+							Specs = Specs.Substring(0, Specs.Length - 2);
+							<td class="font12">@Specs</td>
+						}
+						else
+						{
+							<td class="font12"></td>
+						}
                     </tr>
                 }
             </tbody>

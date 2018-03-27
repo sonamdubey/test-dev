@@ -1,6 +1,7 @@
 ﻿using Bikewale.BAL.Customer;
 using Bikewale.BAL.EditCMS;
 using Bikewale.BAL.GrpcFiles;
+using Bikewale.BAL.GrpcFiles.Specs_Features;
 using Bikewale.BAL.UserReviews.Search;
 using Bikewale.Cache.BikeData;
 using Bikewale.Cache.CMS;
@@ -295,6 +296,8 @@ namespace Bikewale.BAL.BikeData
         /// Summary: Added a condition to avoid fetching the whole model gallery in case of desktop model page 
         /// Modified by : Sajal Gupta on 28-02-2017
         /// Description : Call function to get images.
+        /// Modified by : Rajan Chauhan on 26 Mar 2018
+        /// Description : Added logic to append MinSpecs to ModelVersions
         /// </summary>
         /// <param name="modelId"></param>
         /// <returns></returns>
@@ -307,6 +310,19 @@ namespace Bikewale.BAL.BikeData
                 objModelPage = _modelCacheRepository.GetModelPageDetails(modelId);
                 if (objModelPage != null)
                 {
+                    if (objModelPage.ModelVersions != null && objModelPage.ModelVersions.Any())
+                    {
+                        IEnumerable<VersionMinSpecsEntity> versionMinSpecsEntityList = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(objModelPage.ModelVersions.Select(objVersion => (int)objVersion.VersionId),
+                        new List<EnumSpecsFeaturesItem> { EnumSpecsFeaturesItem.BrakeType, EnumSpecsFeaturesItem.AlloyWheels });
+                        foreach (BikeVersionMinSpecs objVersion in objModelPage.ModelVersions)
+                        {
+                            VersionMinSpecsEntity objVersionMinSpec = versionMinSpecsEntityList.Where(versionSpecEntity => versionSpecEntity.VersionId.Equals(objVersion.VersionId)).FirstOrDefault();
+                            if (objVersionMinSpec != null)
+                            {
+                                objVersion.MinSpecsList = objVersionMinSpec.MinSpecsList;
+                            }
+                        }
+                    }
                     CreateAllPhotoList(modelId, objModelPage);
                 }
 
@@ -322,6 +338,8 @@ namespace Bikewale.BAL.BikeData
         /// <summary>
         /// Created by : Sajal Gupta on 28-02-2017
         /// Description : Function to get data from cache and photo data from bal itself;
+        /// Modified by : Rajan Chauhan on 26 Mar 2018
+        /// Description : Added logic to append MinSpecs to ModelVersions
         /// </summary>
         /// <param name="modelId"></param>
         /// <param name="versionId"></param>
@@ -334,6 +352,19 @@ namespace Bikewale.BAL.BikeData
                 objModelPage = _modelCacheRepository.GetModelPageDetails(modelId, versionId);
                 if (objModelPage != null)
                 {
+                    if (objModelPage.ModelVersions != null && objModelPage.ModelVersions.Any())
+                    {
+                        IEnumerable<VersionMinSpecsEntity> versionMinSpecsEntityList = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(objModelPage.ModelVersions.Select(objVersion => (int)objVersion.VersionId),
+                        new List<EnumSpecsFeaturesItem> { EnumSpecsFeaturesItem.BrakeType, EnumSpecsFeaturesItem.AlloyWheels });
+                        foreach (BikeVersionMinSpecs objVersion in objModelPage.ModelVersions)
+                        {
+                            VersionMinSpecsEntity objVersionMinSpec = versionMinSpecsEntityList.Where(versionSpecEntity => versionSpecEntity.VersionId.Equals(objVersion.VersionId)).FirstOrDefault();
+                            if (objVersionMinSpec != null)
+                            {
+                                objVersion.MinSpecsList = objVersionMinSpec.MinSpecsList;
+                            }
+                        }
+                    }
                     CreateAllPhotoList(modelId, objModelPage);
                 }
             }
