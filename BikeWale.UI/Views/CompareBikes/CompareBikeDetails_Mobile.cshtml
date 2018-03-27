@@ -205,7 +205,7 @@
 													@foreach (var specItem in specCat.SpecsItemList)
 													{
 														<tr class="row-type-heading">
-															<td colspan="2">@Bikewale.Utility.FormatMinSpecs.ShowAvailable(specItem.DisplayText, specItem.UnitTypeText)</td>
+															<td colspan="2">@specItem.DisplayText@(!string.IsNullOrEmpty(specItem.UnitTypeText) ? string.Format(" ({0})", @specItem.UnitTypeText) : "")</td>
 															<td></td>
 														</tr>
 
@@ -236,7 +236,7 @@
 											@foreach (var feature in Model.Compare.VersionSpecsFeatures.Features)
 											{
 												<tr class="row-type-heading">
-													<td colspan="2">@Bikewale.Utility.FormatMinSpecs.ShowAvailable(feature.DisplayText, feature.UnitTypeText)</td>
+													<td colspan="2">@feature.DisplayText@(!string.IsNullOrEmpty(feature.UnitTypeText) ? string.Format(" ({0})", @feature.UnitTypeText) : "")</td>
 													<td></td>
 												</tr>
 

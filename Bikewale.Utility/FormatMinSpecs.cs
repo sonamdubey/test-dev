@@ -283,11 +283,11 @@ namespace Bikewale.Utility
                 switch (specItem.Id)
                 {
                     case (int)EnumSpecsFeaturesItem.AlloyWheels:
-                        return string.Format("{0} Wheels", specItem.Value.Equals("YES" )? "Alloy" : "Spoke");
+                        return string.Format("{0} Wheels", specItem.Value.Equals("Yes" )? "Alloy" : "Spoke");
                     case (int)EnumSpecsFeaturesItem.ElectricStart:
-                        return string.Format("{0} Start", specItem.Value.Equals("YES") ? "Electric" : "Kick");
+                        return string.Format("{0} Start", specItem.Value.Equals("Yes") ? "Electric" : "Kick");
                     case (int)EnumSpecsFeaturesItem.AntilockBrakingSystem:
-                        return specItem.Value.Equals("YES") ? "ABS" : String.Empty;
+                        return specItem.Value.Equals("Yes") ? "ABS" : String.Empty;
                     case (int)EnumSpecsFeaturesItem.BrakeType:
                         return string.Format("{0} Brake", specItem.Value);
                     default:

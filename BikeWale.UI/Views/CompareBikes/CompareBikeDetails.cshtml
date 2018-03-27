@@ -250,7 +250,7 @@
 														{
 
 															<tr class="row-type-data">
-																<td>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(specItem.DisplayText, specItem.UnitTypeText)</td>
+																<td>@specItem.DisplayText@(!string.IsNullOrEmpty(specItem.UnitTypeText) ? string.Format(" ({0})", @specItem.UnitTypeText) : "")</td>
 																@foreach (var specValue in specItem.ItemValues)
 																{
 																	<td>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(specValue)</td>
@@ -285,7 +285,7 @@
 										{
 
 											<tr class="row-type-data">
-												<td>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(feature.DisplayText, feature.UnitTypeText)</td>
+												<td>@feature.DisplayText@(!string.IsNullOrEmpty(feature.UnitTypeText) ? string.Format(" ({0})", @feature.UnitTypeText) : "")</td>
 												@foreach (var featureValue in feature.ItemValues)
 												{
 													<td>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(featureValue)</td>
