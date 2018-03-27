@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace Bikewale.Entities.PriceQuote.v2
 {
@@ -13,45 +14,46 @@ namespace Bikewale.Entities.PriceQuote.v2
     /// Modified By : Sangram Nandkhile on 29 Dec 2016
     /// Description : Added DisplayTextLarge, DisplayTextSmall
     /// </summary>
+    [Serializable, DataContract]
     public class NewBikeDealerBase
     {
-        [JsonProperty("id")]
+        [JsonProperty("id"), DataMember]
         public UInt32 DealerId { get; set; }
 
-        [JsonProperty("name")]
+        [JsonProperty("name"), DataMember]
         public string Name { get; set; }
 
-        [JsonProperty("area")]
+        [JsonProperty("area"), DataMember]
         public string Area { get; set; }
 
-        [JsonProperty("maskingNumber")]
+        [JsonProperty("maskingNumber"), DataMember]
         public string MaskingNumber { get; set; }
 
-        [JsonProperty("dealerPackageType")]
+        [JsonProperty("dealerPackageType"), DataMember]
         public DealerPackageTypes DealerPackageType { get; set; }
 
-        [JsonProperty("isPremium")]
+        [JsonProperty("isPremium"), DataMember]
         public bool IsPremiumDealer { get { return (DealerPackageType == DealerPackageTypes.Premium || DealerPackageType == DealerPackageTypes.CPS); } }
 
-        [JsonProperty("versions")]
+        [JsonProperty("versions"), DataMember]
         public IEnumerable<VersionPriceEntity> Versions { get; set; }
 
-        [JsonProperty("offerCount")]
+        [JsonProperty("offerCount"), DataMember]
         public UInt16 OfferCount { get; set; }
 
-        [JsonProperty("distance")]
+        [JsonProperty("distance"), DataMember]
         public double Distance { get; set; }
 
-        [JsonProperty("selectedVersionPrice")]
+        [JsonProperty("selectedVersionPrice"), DataMember]
         public uint SelectedVersionPrice { get; set; }
 
-        [JsonProperty("displayTextLarge")]
+        [JsonProperty("displayTextLarge"), DataMember]
         public string DisplayTextLarge { get; set; }
 
-        [JsonProperty("displayTextSmall")]
+        [JsonProperty("displayTextSmall"), DataMember]
         public string DisplayTextSmall { get; set; }
 
-        [JsonProperty("isDSA")]
+        [JsonProperty("isDSA"), DataMember]
         public bool IsDSA { get; set; }
     }
 }
