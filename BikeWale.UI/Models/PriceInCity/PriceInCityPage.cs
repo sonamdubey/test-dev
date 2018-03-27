@@ -506,7 +506,7 @@ namespace Bikewale.Models
                         adTag.Ad_300x250 = true;
                         adTag.Ad_Bot_320x50 = true;
                         adTag.Ad_200x253 = _adSlot.CheckAdSlotStatus("Ad_200x253");  //For similar bikes widget mobile
-                       
+
                         NameValueCollection adInfo = new NameValueCollection();
                         adInfo["adId"] = _adId_Mobile;
                         adInfo["adPath"] = _adPath_Mobile;
@@ -558,7 +558,7 @@ namespace Bikewale.Models
                         }
                         if (objVM.AdTags.Ad_970x90Bottom)
                         {
-                            ads.Add(String.Format("{0}-5", _adId_Desktop), GoogleAdsHelper.SetAdSlotProperties(adInfo, new String[] {ViewSlotSize._970x60, ViewSlotSize._960x90, ViewSlotSize._970x66, ViewSlotSize._960x66, ViewSlotSize._728x90, ViewSlotSize._970x90, ViewSlotSize._950x90, ViewSlotSize._960x60 }, 5, 300, AdSlotSize._300x250, "Bottom"));
+                            ads.Add(String.Format("{0}-5", _adId_Desktop), GoogleAdsHelper.SetAdSlotProperties(adInfo, new String[] { ViewSlotSize._970x60, ViewSlotSize._960x90, ViewSlotSize._970x66, ViewSlotSize._960x66, ViewSlotSize._728x90, ViewSlotSize._970x90, ViewSlotSize._950x90, ViewSlotSize._960x60 }, 5, 300, AdSlotSize._300x250, "Bottom"));
 
                         }
                         if (objVM.AdTags.Ad_292x399)
@@ -1499,7 +1499,7 @@ namespace Bikewale.Models
                         objData.IsManufacturerEMIAdShown = true;
                     }
 
-                    
+
 
                     if (objData.IsManufacturerLeadAdShown)
                     {

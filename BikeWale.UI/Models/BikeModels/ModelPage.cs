@@ -2216,7 +2216,9 @@ namespace Bikewale.Models.BikeModels
 
                         if (adTagsObj.Ad_Model_BTF_970x90)
                         {
-                            ads.Add(String.Format("{0}-12", _adId_Desktop), GoogleAdsHelper.SetAdSlotProperties(adInfo, new String[] { ViewSlotSize._950x90, ViewSlotSize._728x90, ViewSlotSize._960x60, ViewSlotSize._970x60, ViewSlotSize._970x90, ViewSlotSize._960x90 }, 12, 970, AdSlotSize._970x90, false));
+                            ads.Add(String.Format("{0}-12", _adId_Desktop), GoogleAdsHelper.SetAdSlotProperties(adInfo, ViewSlotSize.ViewSlotSizes[AdSlotSize._970x90 + "_B"], 12, 970, AdSlotSize._970x90, false));
+
+                            //ads.Add(String.Format("{0}-12", _adId_Desktop), GoogleAdsHelper.SetAdSlotProperties(adInfo, new String[] { ViewSlotSize._950x90, ViewSlotSize._728x90, ViewSlotSize._960x60, ViewSlotSize._970x60, ViewSlotSize._970x90, ViewSlotSize._960x90 }, 12, 970, AdSlotSize._970x90, false));
                         }
 
                         if (adTagsObj.Ad_Model_ATF_970x90)
