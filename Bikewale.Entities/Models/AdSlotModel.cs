@@ -187,9 +187,9 @@ namespace Bikewale.Models
 
             {AdSlotSize._976x204, new String[] { ViewSlotSize._976x200, ViewSlotSize._976x250, ViewSlotSize._976x204 }},
 
-            {AdSlotSize._976x400, new String[] { ViewSlotSize._976x450, ViewSlotSize._976x300, ViewSlotSize._976x460, ViewSlotSize._976x250, ViewSlotSize._976x400 }},
+            {AdSlotSize._976x400 + "_A", new String[] { ViewSlotSize._976x450, ViewSlotSize._976x300, ViewSlotSize._976x460, ViewSlotSize._976x250, ViewSlotSize._976x400 }},
 
-            {AdSlotSize._976x400, new String[] { ViewSlotSize._976x150, ViewSlotSize._976x100, ViewSlotSize._976x250, ViewSlotSize._976x300, ViewSlotSize._976x350, ViewSlotSize._976x400, ViewSlotSize._970x90, ViewSlotSize._976x200 }},
+            {AdSlotSize._976x400 + "_B", new String[] { ViewSlotSize._976x150, ViewSlotSize._976x100, ViewSlotSize._976x250, ViewSlotSize._976x300, ViewSlotSize._976x350, ViewSlotSize._976x400, ViewSlotSize._970x90, ViewSlotSize._976x200 }},
         };
     }
 
