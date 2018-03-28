@@ -567,11 +567,7 @@ namespace Bikewale.Service.AutoMappers.Model
         /// <returns></returns>
         internal static PQByCityAreaDTOV2 ConvertV2(PQByCityAreaEntity pqCityAea)
         {
-            Mapper.CreateMap<BikeVersionMinSpecs, VersionDetail>()
-                .ForMember(d => d.BrakeType, opt => opt.MapFrom(s => s.MinSpecsList.Where(specItem => specItem.Id.Equals((int)EnumSpecsFeaturesItem.BrakeType)).FirstOrDefault().Value))
-                .ForMember(d => d.AlloyWheels, opt => opt.MapFrom(s => s.MinSpecsList.Where(specItem => specItem.Id.Equals((int)EnumSpecsFeaturesItem.AlloyWheels)).FirstOrDefault().Value.Equals("YES")))
-                .ForMember(d => d.ElectricStart, opt => opt.MapFrom(s => s.MinSpecsList.Where(specItem => specItem.Id.Equals((int)EnumSpecsFeaturesItem.ElectricStart)).FirstOrDefault().Value.Equals("YES")))
-                .ForMember(d => d.AntilockBrakingSystem, opt => opt.MapFrom(s => s.MinSpecsList.Where(specItem => specItem.Id.Equals((int)EnumSpecsFeaturesItem.AntilockBrakingSystem)).FirstOrDefault().Value.Equals("YES")));
+            Mapper.CreateMap<BikeVersionMinSpecs, VersionDetail>();
             Mapper.CreateMap<DealerQuotationEntity, DealerBase>().ForMember(d => d.Name, opt => opt.MapFrom(s => s.DealerDetails.Organization));
             Mapper.CreateMap<DealerQuotationEntity, DealerBase>().ForMember(d => d.DealerId, opt => opt.MapFrom(s => s.DealerDetails.DealerId));
             Mapper.CreateMap<DealerQuotationEntity, DealerBase>().ForMember(d => d.Area, opt => opt.MapFrom(s => s.DealerDetails.objArea.AreaName));
@@ -579,7 +575,16 @@ namespace Bikewale.Service.AutoMappers.Model
             Mapper.CreateMap<DealerQuotationEntity, DealerBase>().ForMember(d => d.DealerPkgType, opt => opt.MapFrom(s => s.DealerDetails.DealerPackageType));
             Mapper.CreateMap<PQByCityAreaEntity, PQByCityAreaDTOV2>();
             var versionPrices = Mapper.Map<PQByCityAreaEntity, PQByCityAreaDTOV2>(pqCityAea);
-
+            if (pqCityAea.VersionList != null && pqCityAea.VersionList.Any())
+            {
+                IList<VersionDetail> versionDetailList = new List<VersionDetail>();
+                foreach (BikeVersionMinSpecs bikeVersion in pqCityAea.VersionList)
+                {
+                    VersionDetail objBikeVersionDetail = SpecsFeaturesMapper.ConvertToVersionDetail(bikeVersion);
+                    versionDetailList.Add(objBikeVersionDetail);
+                }
+                versionPrices.VersionList = versionDetailList;
+            }
             if (pqCityAea.PrimaryDealer != null && pqCityAea.PrimaryDealer.OfferList != null)
             {
                 List<DPQOffer> objOffers = new List<DPQOffer>();
@@ -605,6 +610,16 @@ namespace Bikewale.Service.AutoMappers.Model
             Mapper.CreateMap<BikeVersionMinSpecs, VersionDetail>();
             Mapper.CreateMap<PQByCityAreaEntity, Bikewale.DTO.PriceQuote.Version.v3.PQByCityAreaDTO>();
             var versionPrices = Mapper.Map<PQByCityAreaEntity, Bikewale.DTO.PriceQuote.Version.v3.PQByCityAreaDTO>(pqCityAea);
+            if (pqCityAea.VersionList != null && pqCityAea.VersionList.Any())
+            {
+                IList<VersionDetail> versionDetailList = new List<VersionDetail>();
+                foreach (BikeVersionMinSpecs bikeVersion in pqCityAea.VersionList)
+                {
+                    VersionDetail objBikeVersionDetail = SpecsFeaturesMapper.ConvertToVersionDetail(bikeVersion);
+                    versionDetailList.Add(objBikeVersionDetail);
+                }
+                versionPrices.VersionList = versionDetailList;
+            }
             return versionPrices;
         }
         /// <summary>

@@ -121,16 +121,7 @@ namespace Bikewale.Service.Controllers.PriceQuote.Version
             {
                 if (objVersionsList != null && objVersionsList.Any())
                 {
-                    IEnumerable<VersionMinSpecsEntity> versionMinSpecsEntityList = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(objVersionsList.Select(objVersion => (int)objVersion.VersionId),
-                        new List<EnumSpecsFeaturesItem> { EnumSpecsFeaturesItem.BrakeType, EnumSpecsFeaturesItem.AlloyWheels, EnumSpecsFeaturesItem.ElectricStart, EnumSpecsFeaturesItem.AntilockBrakingSystem });
-                    foreach (BikeVersionMinSpecs objVersion in objVersionsList)
-                    {
-                        VersionMinSpecsEntity objVersionMinSpec = versionMinSpecsEntityList.Where(versionSpecEntity => versionSpecEntity.VersionId.Equals(objVersion.VersionId)).FirstOrDefault();
-                        if (objVersionMinSpec != null)
-                        {
-                            objVersion.MinSpecsList = objVersionMinSpec.MinSpecsList;
-                        }
-                    }
+                    BindMinSpecs(objVersionsList);
                     string platformId = string.Empty;
                     ushort platform = default(ushort);
                     if (Request.Headers.Contains("platformId"))
@@ -181,6 +172,7 @@ namespace Bikewale.Service.Controllers.PriceQuote.Version
                 objVersionsList = _objVersionCache.GetVersionMinSpecs(Convert.ToUInt32(modelId), true);
                 if (objVersionsList != null && objVersionsList.Any())
                 {
+                    BindMinSpecs(objVersionsList);
                     string platformId = string.Empty;
                     ushort platform;
                     if (Request.Headers.Contains("platformId"))
@@ -220,6 +212,27 @@ namespace Bikewale.Service.Controllers.PriceQuote.Version
             }
         }
 
+        private void BindMinSpecs(IEnumerable<BikeVersionMinSpecs> bikeVersionList)
+        {
+            try
+            {
+                if (bikeVersionList != null && bikeVersionList.Any())
+                {
+                    IEnumerable<VersionMinSpecsEntity> versionMinSpecsEntityList = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(bikeVersionList.Select(objVersion => (int)objVersion.VersionId),
+                        new List<EnumSpecsFeaturesItem> { EnumSpecsFeaturesItem.BrakeType, EnumSpecsFeaturesItem.AlloyWheels, EnumSpecsFeaturesItem.ElectricStart, EnumSpecsFeaturesItem.AntilockBrakingSystem });
+                    foreach (BikeVersionMinSpecs objVersion in bikeVersionList)
+                    {
+                        VersionMinSpecsEntity objVersionMinSpec = versionMinSpecsEntityList.Where(versionSpecEntity => versionSpecEntity.VersionId.Equals(objVersion.VersionId)).FirstOrDefault();
+                        objVersion.MinSpecsList = objVersionMinSpec != null ? objVersionMinSpec.MinSpecsList : null;
+                    }
+                }
 
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("Bikewale.Service.Controllers.PriceQuote.Version.PQVersionListByCityAreaController.BindMinSpecs({0})", bikeVersionList));
+            }
+
+        }
     }
 }
