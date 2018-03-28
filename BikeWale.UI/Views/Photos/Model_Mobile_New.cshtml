@@ -96,7 +96,7 @@
                                     <span class="gallery-image__color" data-bind="visible: activeFooterColorOption(), click: colorPopup().openPopup" style="display: none">Colors</span>
                                     <div class="gallery-image__feature">
                                         <a data-bind="attr: { href: getImageDownloadUrl() }" download title="Download Image" class="gallery__download-icon"></a>
-                                        <span data-bind="click: toggleSharePopup" class="gallery__share-icon"></span>
+                                        
                                         <span class="gallery__zoom-icon" data-bind="click: openGalleryPopup"></span>
                                         <span class="landscape-icon__container" data-bind="attr: { 'data-visible': activeLandscapeIcon() && activePopup() && fullScreenSupport() ? 'true': 'false' }, click: toggleFullScreen">
                                             <span class="gallery__landscape-icon" data-bind="visible: !rotateScreenOption()"></span>
@@ -104,22 +104,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="gallery-footer__share" data-bind="visible: activeGalleryFooterShare" style="display: none">
-                                <ul class="share-popup__list">
-                                    <li class="share-list__item">
-                                        <a href="javascript:void(0)" class="share-item__icon share-icon__instagram"></a>
-                                    </li>
-                                    <li class="share-list__item">
-                                        <a href="javascript:void(0)" class="share-item__icon share-icon__whatsapp"></a>
-                                    </li>
-                                    <li class="share-list__item">
-                                        <a href="javascript:void(0)" class="share-item__icon share-icon__facebook"></a>
-                                    </li>
-                                    <li class="share-list__item">
-                                        <a href="javascript:void(0)" class="share-item__icon share-icon__twitter"></a>
-                                    </li>
-                                </ul>
-                            </div>
+                            
                         </div>
                     </div>
                     <div class="gallery__landscape-slug" data-bind="visible: rotateScreenOption() && fullScreenSupport(), css: {'landscape-slug--inactive': fullScreenModeActive() }, click: toggleFullScreen" style="display: none">
@@ -138,27 +123,7 @@
                 <span id="galleryCloseBtn" class="gallery__close-btn" data-bind="visible: activePopup()" onclick="history.back()" style="display: none"></span>
                 <div id="galleryBgWindow" class="black-window"></div>
 
-                <div id="sharePopup" data-bind="css: activeSharePopup() ? 'share-popup--active' : ''">
-                    <div class="share-popup__content">
-                        <span class="share-popup__close" onclick="history.back()"></span>
-                        <p class="share-popup__title">Share this image</p>
-                        <ul class="share-popup__list">
-                            <li class="share-list__item">
-                                <a href="javascript:void(0)" class="share-item__icon share-icon__instagram"></a>
-                            </li>
-                            <li class="share-list__item">
-                                <a href="javascript:void(0)" class="share-item__icon share-icon__whatsapp"></a>
-                            </li>
-                            <li class="share-list__item">
-                                <a href="javascript:void(0)" class="share-item__icon share-icon__facebook"></a>
-                            </li>
-                            <li class="share-list__item">
-                                <a href="javascript:void(0)" class="share-item__icon share-icon__twitter"></a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="share-popup__bg-window" onclick="history.back()"></div>
-                </div>
+                
 
                 <div id="colorGalleryPopup" class="color-popup__content" data-bind="with: colorPopup, css: { 'color-popup--active': colorPopup().activePopup(), 'color-popup--landscape': fullScreenModeActive() }">
                     <div class="color-popup__head">
@@ -184,7 +149,7 @@
                                 </div>
                                 <div class="gallery-image__feature">
                                     <a href="javascript:void(0)" title="" class="gallery__download-icon"></a>
-                                    <span data-bind="click: $root.toggleSharePopup" class="gallery__share-icon"></span>
+                                    
                                     <span class="landscape-icon__container" data-bind="click: $root.toggleFullScreen, visible: $root.fullScreenSupport()">
                                         <span class="gallery__landscape-icon"></span>
                                     </span>
