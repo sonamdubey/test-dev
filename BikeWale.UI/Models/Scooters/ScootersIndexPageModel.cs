@@ -94,6 +94,9 @@ namespace Bikewale.Models
         /// <summary>
         /// Created by  :   Sumit Kate on 30 Mar 2017
         /// Description :   Binds Page Metas
+        /// Modified by: Dhruv Joshi
+        /// Dated: 28th March 2018
+        /// Description: Scooters Landing Page Title change
         /// </summary>
         /// <param name="objVM"></param>
         private static void BindPageMetas(ScootersIndexPageVM objVM)

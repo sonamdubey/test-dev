@@ -217,6 +217,9 @@ namespace Bikewale.Models
 
         /// <summary>
         /// Binds the page meta tags.
+        /// Modified by: Dhruv Joshi
+        /// Dated: 28th March 2018
+        /// Description: Scooters Make Page Title change
         /// </summary>
         /// <param name="pageMetaTags">The page meta tags.</param>
         /// <param name="make">The make.</param>
