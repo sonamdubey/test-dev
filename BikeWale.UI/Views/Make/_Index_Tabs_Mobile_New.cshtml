@@ -20,6 +20,12 @@
             {
                 <li class="overall-tabs-list__item" data-tabs="upcomingBikes">Upcoming Bikes</li>
             }
+
+            @if (Model.IsCompareBikesAvailable)
+            {
+                <li class="overall-tabs-list__item" data-tabs="compareBikes">Top Comparisons</li>
+            }
+
             @if (Model.IsDealerServiceDataAvailable || (Model.DealersServiceCenterPopularCities != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalDealerCount > 0))
             {
                 <li class="overall-tabs-list__item" data-tabs="dealer">Dealer / Stores</li>
