@@ -25,20 +25,10 @@
                                             <img class="lazy" data-original=@(Image.GetPathToShowImages(string.Empty, string.Empty, ImageSize._110x61)) alt="@string.Format("{0} {1}", bike.BikeMake.MakeName, bike.BikeModel.ModelName)" title="@string.Format("{0} {1}", bike.BikeMake.MakeName, bike.BikeModel.ModelName)" src="">
                                         </div>
                                     }
-                                    @if (bike.MinSpecs != null)
-                                    {
-                                        <div class="horizontal-swiper__details inline-block">
-                                            <h3 class="horizontal-swiper__card-title text-truncate">@bike.BikeModel.ModelName</h3>
-                                            <p class="horizontal-swiper__card-subtitle text-truncate">@FormatMinSpecs.GetMinSpecsAsText(Convert.ToString(bike.MinSpecs.Displacement), Convert.ToString(bike.MinSpecs.FuelEfficiencyOverall), Convert.ToString(bike.MinSpecs.MaxPower), string.Empty)</p>
-                                        </div>
-                                    }
-                                    else
-                                    {
-                                        <div class="horizontal-swiper__details inline-block">
-                                            <h3 class="horizontal-swiper__card-title text-truncate">@bike.BikeModel.ModelName</h3>
-                                            <p class="horizontal-swiper__card-subtitle text-truncate">@FormatMinSpecs.GetMinSpecsAsText(string.Empty, string.Empty, string.Empty, string.Empty)</p>
-                                        </div>
-                                    }
+                                    <div class="horizontal-swiper__details inline-block">
+                                        <h3 class="horizontal-swiper__card-title text-truncate">@bike.BikeModel.ModelName</h3>
+                                        <p class="horizontal-swiper__card-subtitle text-truncate">@FormatMinSpecs.GetMinSpecsAsText(bike.MinSpecsList)</p>
+                                    </div>
                                 </a>
                             </li>
                         }
