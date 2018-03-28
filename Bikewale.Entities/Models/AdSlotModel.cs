@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+
 namespace Bikewale.Models
 {
     /// <summary>
@@ -11,6 +12,10 @@ namespace Bikewale.Models
     /// </summary>
     public class AdSlotModel
     {
+
+
+
+
         /// <summary>
         /// Created By : Deepak Israni on 21 March 2018
         /// Description: Base constructor to initialize ViewSizes list.
@@ -194,4 +199,10 @@ namespace Bikewale.Models
         };
     }
 
+
+
+
 }
+
+
+

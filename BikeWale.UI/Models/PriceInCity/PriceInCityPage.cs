@@ -507,7 +507,7 @@ namespace Bikewale.Models
                         adTag.Ad_300x250 = true;
                         adTag.Ad_Bot_320x50 = true;
                         adTag.Ad_200x253 = _adSlot.CheckAdSlotStatus("Ad_200x253");  //For similar bikes widget mobile
-                       
+
                         NameValueCollection adInfo = new NameValueCollection();
                         adInfo["adId"] = _adId_Mobile;
                         adInfo["adPath"] = _adPath_Mobile;
@@ -1503,7 +1503,7 @@ namespace Bikewale.Models
                         objData.IsManufacturerEMIAdShown = true;
                     }
 
-                    
+
 
                     if (objData.IsManufacturerLeadAdShown)
                     {
