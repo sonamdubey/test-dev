@@ -238,17 +238,13 @@
 												</div>
 												<table class="table-content" width="100%" cellspacing="0" cellpadding="0" border="0">
 													<tbody>
-														<tr class="row-width-grid">
-															<td width="162"></td>
-															@foreach (var specItem in specCat.SpecsItemList)
+                                                        <tr class="row-width-grid">
+                                                            <td width="162"></td>
+                                                            @foreach (var specValue in specCat.SpecsItemList.First().ItemValues)
                                                             {
-                                                                foreach (var specValue in specItem.ItemValues)
-                                                                {
-                                                                    <td></td>
-                                                                }
                                                                 <td></td>
                                                             }
-														</tr>
+                                                        </tr>
 														@{isFirstActiveTab = false;}
 														@foreach (var specItem in specCat.SpecsItemList)
 														{
