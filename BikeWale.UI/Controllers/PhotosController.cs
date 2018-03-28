@@ -1,12 +1,10 @@
-﻿using System.Web.Mvc;
-using Bikewale.Entities;
+﻿using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.Videos;
-using Bikewale.Models;
-using Bikewale.BAL.Images;
 using Bikewale.Models.Photos;
+using System.Web.Mvc;
 
 namespace Bikewale.Controllers
 {
@@ -114,7 +112,7 @@ namespace Bikewale.Controllers
             }
             else
             {
-                return Redirect("/pagenotfound.aspx");
+                return Redirect("/m/pagenotfound.aspx");
             }
         }
 
@@ -127,7 +125,7 @@ namespace Bikewale.Controllers
         /// <param name="q"></param>
         /// <returns></returns>
         [Route("photos/{makeMasking}-bikes/{modelMasking}/"), Filters.DeviceDetection]
-		public ActionResult Model(string makeMasking, string modelMasking, string q)
+        public ActionResult Model(string makeMasking, string modelMasking, string q)
         {
             PhotosPage obj = new PhotosPage(makeMasking, modelMasking, _objModelCache, _objModelMaskingCache, _objModelEntity, _objCityCache, _objGenericBike, _objVersionCache, _objVideos);
 
@@ -148,8 +146,9 @@ namespace Bikewale.Controllers
         }
 
         /// <summary>
-        /// Created by  : Sushil Kumar on 30th Sep 2017
-        /// Description :  Photos page for mobile
+        /// Modified by: Dhruv Joshi
+        /// Dated: 28th March 2018
+        /// Description: New Images Page not rendered if no images are present for a model, instead redirected to pagenotfound.aspx
         /// </summary>
         /// <param name="makeMasking"></param>
         /// <param name="modelMasking"></param>
@@ -164,7 +163,14 @@ namespace Bikewale.Controllers
             {
                 obj.IsMobile = true;
                 PhotosPageVM objData = obj.GetData(30, 6, q);
-                return View(objData);
+                if (objData != null && objData.TotalPhotos > 0)
+                {
+                    return View(objData);
+                }
+                else
+                {
+                    return Redirect("/m/pagenotfound.aspx");
+                }
 
             }
             else if (obj.Status.Equals(StatusCodes.RedirectPermanent))
@@ -173,45 +179,8 @@ namespace Bikewale.Controllers
             }
             else
             {
-                return Redirect("/pagenotfound.aspx");
+                return Redirect("/m/pagenotfound.aspx");
             }
         }
-        /// <summary>
-        /// Modified by: Dhruv Joshi
-        /// Dated: 28th March 2018
-        /// Description: New Images Page not rendered if no images are present for a model, instead redirected to pagenotfound.aspx
-        /// </summary>
-        /// <param name="makeMasking"></param>
-        /// <param name="modelMasking"></param>
-        /// <param name="q"></param>
-        /// <returns></returns>
-		[Route("m/photos/{makeMasking}-bikes/{modelMasking}/new/")]
-		public ActionResult Model_Mobile_New(string makeMasking, string modelMasking, string q)
-		{
-			PhotosPage obj = new PhotosPage(makeMasking, modelMasking, _objModelCache, _objModelMaskingCache, _objModelEntity, _objCityCache, _objGenericBike, _objVersionCache, _objVideos);
-
-			if (obj.Status.Equals(StatusCodes.ContentFound))
-			{
-				obj.IsMobile = true;
-				PhotosPageVM objData = obj.GetData(30, 6, q);
-                if (objData != null && objData.TotalPhotos > 0)
-                {
-                    return View(objData);
-                }
-				else
-                {
-                    return Redirect("/m/pagenotfound.aspx");
-                }
-
-			}
-			else if (obj.Status.Equals(StatusCodes.RedirectPermanent))
-			{
-				return RedirectPermanent(obj.RedirectUrl);
-			}
-			else
-			{
-				return Redirect("/m/pagenotfound.aspx");
-			}
-		}
     }
 }
