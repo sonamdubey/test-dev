@@ -692,11 +692,15 @@ namespace Bikewale.Models
                             objVM.BodyStyleText = objVM.BodyStyle == EnumBikeBodyStyles.Scooter ? "Scooters" : "Bikes";
                         }
 
-                        if (firstVersion != null && firstVersion.OnRoadPrice > 0)
+                        if (firstVersion != null)
                         {
-                            BindEMISlider(objVM);
                             BindBikeBasicDetails(objVM);
-                            BindSimilarBikes(objVM);
+
+                            if (firstVersion.OnRoadPrice > 0)
+                            {
+                                BindEMISlider(objVM);
+                                BindSimilarBikes(objVM); 
+                            }
                         }
 
 
