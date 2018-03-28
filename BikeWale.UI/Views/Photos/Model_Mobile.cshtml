@@ -173,17 +173,17 @@
                                 </div>
                             </div>
                             <span class="color-list__back-btn" onclick="history.back()">Back</span>
-                        </div>
 
-                        <div class="color-popup-body__footer">
-                            <div class="color-popup__landscape-slug-content">
-                                <div class="gallery__landscape-slug">
-                                    <span class="landscape-text">Switch to Landscape for better Experience</span>
-                                    <span class="screen--rotate-slug__landscape-container">
-                                        <span class="screen--rotate-slug__landscape-icon"></span>
-                                    </span>
-                                </div>
-                            </div>
+							<div class="color-popup-body__footer">
+								<div class="color-popup__landscape-slug-content">
+									<div class="gallery__landscape-slug" data-bind="click: $root.toggleFullScreen, visible: $root.fullScreenSupport()">
+										<span class="landscape-text">Switch to Landscape for better Experience</span>
+										<span class="screen--rotate-slug__landscape-container">
+											<span class="screen--rotate-slug__landscape-icon"></span>
+										</span>
+									</div>
+								</div>
+							</div>
                         </div>
                     </div>
 
