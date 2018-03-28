@@ -195,7 +195,7 @@ namespace Bikewale.Controllers
 			}
 			else
 			{
-				return Redirect("/pagenotfound.aspx");
+				return Redirect("/m/pagenotfound.aspx");
 			}
 		}
     }
