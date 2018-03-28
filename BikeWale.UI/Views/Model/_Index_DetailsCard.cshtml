@@ -1,4 +1,5 @@
 ﻿@model Bikewale.Models.BikeModels.ModelPageVM
+@{var adIdSimilarBikes = "1505919734321";}
 <div class="grid-12">
 	@if (Model.ExpertReviews != null && Model.ExpertReviews.FetchedCount > 0)
 	{
@@ -22,7 +23,6 @@
         {
             <section>
                 @{Html.RenderPartial("/Views/Shared/Ads/Desktop/AdSlotGeneric.cshtml", Model.AdSlots[String.Format("{0}-18", Model.AdTags.AdId)]);}
-                @*@{Html.RenderPartial("/Views/Shared/Ads/Desktop/Ad_Comparo_976x400.cshtml", new { AdId = Model.AdTags.AdId });}*@
             </section>
         }
         <div id="modelSimilarContent" data-id="modelSimilarContent" class="bw-model-tabs-data content-box-shadow padding-bottom20 card-bottom-margin font14">
@@ -30,10 +30,13 @@
             <div class="jcarousel-wrapper inner-content-carousel">
                 <div class="jcarousel">
                     <ul>
-                        @if (Model.AdTags.Ad_292x399)
+                                                @if (Model.AdTags.Ad_292x399)
                         {
-                            Html.RenderPartial("/Views/Shared/Ads/Desktop/Ad292x399.cshtml", new { AdId = "1505919734321" });
-
+                                                    <li class="sponsored-card">
+                                                        @{Html.RenderPartial("/Views/Shared/Ads/Desktop/AdSlotGeneric.cshtml", Model.AdSlots[String.Format("{0}-14", adIdSimilarBikes)]);}
+                                                    </li>
+                                                     
+                           
                         }
                         @Html.Partial("~/Views/BikeModels/_SimilarBikes.cshtml", Model.SimilarBikes)
                     </ul>
@@ -221,7 +224,6 @@
         <div class="margin-top10">
             @{Html.RenderPartial("/Views/Shared/Ads/Desktop/AdSlotGeneric.cshtml", Model.AdSlots[String.Format("{0}-20", Model.AdTags.AdId)]);}
         </div>
-         //Html.RenderPartial("/Views/Shared/Ads/Desktop/Model_Bottom_970x90.cshtml", Model.AdTags);
      }
         <div id="videosAndServiceCenterContent" data-id="videosAndServiceCenterContent" class="bw-model-tabs-data">
             @if (Model.IsVideosAvailable)

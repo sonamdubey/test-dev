@@ -94,6 +94,11 @@ namespace Bikewale.Models.BikeModels
         private readonly String _adPath_Desktop = "/1017752/BikeWale_Model";
         private readonly String _adId_Desktop = "1516076585526";
 
+        private readonly String _adId_SimilarBikes = "1505919734321";
+        private readonly String _adPath_SimilarBikes_Desktop = "/1017752/SimilarBikes_Desktop";
+        private readonly String _adPath_SimilarBikes_Mobile = "/1017752/SimilarBikes_Mobile";
+
+
         public string RedirectUrl { get; set; }
         public StatusCodes Status { get; set; }
         public uint OtherDealersTopCount { get; set; }
@@ -2175,27 +2180,34 @@ namespace Bikewale.Models.BikeModels
 
                         if (adTagsObj.Ad_300x250)
                         {
-                            ads.Add(String.Format("{0}-2", _adId_Mobile), GoogleAdsHelper.SetAdSlotProperties(adInfo, new String[] { ViewSlotSize._300x250 }, 2, 300, AdSlotSize._300x250));
+                            ads.Add(String.Format("{0}-2", _adId_Mobile), GoogleAdsHelper.SetAdSlotProperties(adInfo, ViewSlotSize.ViewSlotSizes[AdSlotSize._300x250], 2, 300, AdSlotSize._300x250));
                         }
 
                         if (adTagsObj.Ad320x100ATF)
                         {
-                            ads.Add(String.Format("{0}-6", _adId_Mobile), GoogleAdsHelper.SetAdSlotProperties(adInfo, new String[] { ViewSlotSize._320x50, ViewSlotSize._320x100 }, 6, 320, AdSlotSize._320x100, "ATF", true));
+                            ads.Add(String.Format("{0}-6", _adId_Mobile), GoogleAdsHelper.SetAdSlotProperties(adInfo, ViewSlotSize.ViewSlotSizes[AdSlotSize._320x100], 6, 320, AdSlotSize._320x100, "ATF", true));
                         }
 
                         if (adTagsObj.Ad300x250_Bottom)
                         {
-                            ads.Add(String.Format("{0}-16", _adId_Mobile), GoogleAdsHelper.SetAdSlotProperties(adInfo, new String[] { ViewSlotSize._300x250 }, 16, 300, AdSlotSize._300x250, "Bottom"));
+                            ads.Add(String.Format("{0}-16", _adId_Mobile), GoogleAdsHelper.SetAdSlotProperties(adInfo, ViewSlotSize.ViewSlotSizes[AdSlotSize._300x250], 16, 300, AdSlotSize._300x250, "Bottom"));
                         }
 
                         if (adTagsObj.Ad_300x250BTF)
                         {
-                            ads.Add(String.Format("{0}-14", _adId_Mobile), GoogleAdsHelper.SetAdSlotProperties(adInfo, new String[] { ViewSlotSize._300x250 }, 14, 300, AdSlotSize._300x250, "BTF"));
+                            ads.Add(String.Format("{0}-14", _adId_Mobile), GoogleAdsHelper.SetAdSlotProperties(adInfo, ViewSlotSize.ViewSlotSizes[AdSlotSize._300x250], 14, 300, AdSlotSize._300x250, "BTF"));
                         }
 
                         if (adTagsObj.Ad_320x400_Middle)
                         {
-                            ads.Add(String.Format("{0}-10", _adId_Mobile), GoogleAdsHelper.SetAdSlotProperties(adInfo, new String[] { ViewSlotSize._320x300, ViewSlotSize._320x350, ViewSlotSize._320x400, ViewSlotSize._320x450, ViewSlotSize._320x425 }, 10, 320, AdSlotSize._320x400, "Comparo"));
+                            ads.Add(String.Format("{0}-10", _adId_Mobile), GoogleAdsHelper.SetAdSlotProperties(adInfo, ViewSlotSize.ViewSlotSizes[AdSlotSize._320x400], 10, 320, AdSlotSize._320x400, "Comparo"));
+                        }
+                        if (_objData.AdTags.Ad_200x253)
+                        {
+                            NameValueCollection adInfo_SimilarBikes = new NameValueCollection();
+                            adInfo_SimilarBikes["adId"] = _adId_SimilarBikes;
+                            adInfo_SimilarBikes["adPath"] = _adPath_SimilarBikes_Mobile;
+                            ads.Add(String.Format("{0}-11", _adId_SimilarBikes), GoogleAdsHelper.SetAdSlotProperties(adInfo_SimilarBikes, ViewSlotSize.ViewSlotSizes[AdSlotSize._200x253], 11, 200, AdSlotSize._200x253));
                         }
                     }
                     else
@@ -2216,44 +2228,47 @@ namespace Bikewale.Models.BikeModels
 
                         if (adTagsObj.Ad_Model_BTF_970x90)
                         {
-                            ads.Add(String.Format("{0}-12", _adId_Desktop), GoogleAdsHelper.SetAdSlotProperties(adInfo, ViewSlotSize.ViewSlotSizes[AdSlotSize._970x90 + "_B"], 12, 970, AdSlotSize._970x90, false));
+                            ads.Add(String.Format("{0}-12", _adId_Desktop), GoogleAdsHelper.SetAdSlotProperties(adInfo, ViewSlotSize.ViewSlotSizes[AdSlotSize._970x90 + "_B"], 12, 970, AdSlotSize._970x90));
 
-                            //ads.Add(String.Format("{0}-12", _adId_Desktop), GoogleAdsHelper.SetAdSlotProperties(adInfo, new String[] { ViewSlotSize._950x90, ViewSlotSize._728x90, ViewSlotSize._960x60, ViewSlotSize._970x60, ViewSlotSize._970x90, ViewSlotSize._960x90 }, 12, 970, AdSlotSize._970x90, false));
                         }
 
                         if (adTagsObj.Ad_Model_ATF_970x90)
                         {
-                            ads.Add(String.Format("{0}-10", _adId_Desktop), GoogleAdsHelper.SetAdSlotProperties(adInfo, new String[] { ViewSlotSize._950x90, ViewSlotSize._728x90, ViewSlotSize._960x60, ViewSlotSize._970x60, ViewSlotSize._970x90, ViewSlotSize._960x90 }, 10, 970, AdSlotSize._970x90, true));
+                            ads.Add(String.Format("{0}-10", _adId_Desktop), GoogleAdsHelper.SetAdSlotProperties(adInfo, ViewSlotSize.ViewSlotSizes[AdSlotSize._970x90 + "_B"], 10, 970, AdSlotSize._970x90, true));
+
                         }
 
                         if (adTagsObj.Ad_Model_ATF_300x250)
                         {
-                            ads.Add(String.Format("{0}-9", _adId_Desktop), GoogleAdsHelper.SetAdSlotProperties(adInfo, new String[] { ViewSlotSize._300x250 }, 9, 300, AdSlotSize._300x250, true));
+                            ads.Add(String.Format("{0}-9", _adId_Desktop), GoogleAdsHelper.SetAdSlotProperties(adInfo, ViewSlotSize.ViewSlotSizes[AdSlotSize._300x250], 9, 300, AdSlotSize._300x250, true));
                         }
 
                         if (adTagsObj.Ad_Model_BTF_300x250)
                         {
-                            ads.Add(String.Format("{0}-11", _adId_Desktop), GoogleAdsHelper.SetAdSlotProperties(adInfo, new String[] { ViewSlotSize._300x250 }, 11, 300, AdSlotSize._300x250, false));
+                            ads.Add(String.Format("{0}-11", _adId_Desktop), GoogleAdsHelper.SetAdSlotProperties(adInfo, ViewSlotSize.ViewSlotSizes[AdSlotSize._300x250], 11, 300, AdSlotSize._300x250));
+
                         }
 
                         if (adTagsObj.Ad_Model_Bottom_970x90)
                         {
-                            ads.Add(String.Format("{0}-20", _adId_Desktop), GoogleAdsHelper.SetAdSlotProperties(adInfo, new String[] { ViewSlotSize._970x60, ViewSlotSize._960x90, ViewSlotSize._970x66, ViewSlotSize._960x66, ViewSlotSize._728x90, ViewSlotSize._970x90, ViewSlotSize._950x90, ViewSlotSize._960x60 }, 20, 970, AdSlotSize._970x90, false));
+                            ads.Add(String.Format("{0}-20", _adId_Desktop), GoogleAdsHelper.SetAdSlotProperties(adInfo, ViewSlotSize.ViewSlotSizes[AdSlotSize._970x90 + "_C"], 20, 970, AdSlotSize._970x90));
                         }
 
                         if (adTagsObj.Ad_Model_Comparo_976x400)
                         {
-                            ads.Add(String.Format("{0}-18", _adId_Desktop), GoogleAdsHelper.SetAdSlotProperties(adInfo, new String[] { ViewSlotSize._976x250, ViewSlotSize._976x460, ViewSlotSize._976x400, ViewSlotSize._976x300, ViewSlotSize._976x450 }, 18, 976, AdSlotSize._976x400, false));
+                            ads.Add(String.Format("{0}-18", _adId_Desktop), GoogleAdsHelper.SetAdSlotProperties(adInfo, ViewSlotSize.ViewSlotSizes[AdSlotSize._976x400 + "_A"], 18, 976, AdSlotSize._976x400));
+                        }
+                        if (_objData.AdTags.Ad_292x399)
+                        {
+                            NameValueCollection adInfo_SimilarBikes = new NameValueCollection();
+                            adInfo_SimilarBikes["adId"] = _adId_SimilarBikes;
+                            adInfo_SimilarBikes["adPath"] = _adPath_SimilarBikes_Desktop;
+                            ads.Add(String.Format("{0}-14", _adId_SimilarBikes), GoogleAdsHelper.SetAdSlotProperties(adInfo_SimilarBikes, ViewSlotSize.ViewSlotSizes[AdSlotSize._292x399], 14, 292, AdSlotSize._292x399));
                         }
                     }
-
-
-
-
                     objData.AdSlots = ads;
 
                 }
-
             }
             catch (Exception ex)
             {
