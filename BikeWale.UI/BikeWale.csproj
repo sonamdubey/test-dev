@@ -3930,7 +3930,7 @@
     <Content Include="Views\Photos\_SimilarBikeWithPhotos.cshtml" />
     <Content Include="Views\Gallery\_ModelGallery.cshtml" />
     <Content Include="Views\Gallery\_ModelGallery_Mobile.cshtml" />
-    <Content Include="Views\Photos\Model_Mobile_New.cshtml" />
+    <Content Include="Views\Photos\Model_Mobile.cshtml" />
     <Content Include="Views\Photos\_SimilarBikeWithPhotos_Mobile.cshtml" />
     <Content Include="Views\Shared\Ads\Desktop\Ad292x399.cshtml" />
     <Content Include="Views\Shared\Ads\Mobile\Ad200x253.cshtml" />
@@ -4069,7 +4069,6 @@
     <Content Include="Views\Filters\InPageFilters\_InPageBudgetFilter_Mobile.cshtml" />
     <Content Include="sass\m\photos\listing.sass" />
     <Content Include="sass\partials\_similar-bike-carousel.sass" />
-    <Content Include="Views\Photos\Model_Mobile.cshtml" />
     <Content Include="sass\partials\_share-popup.sass" />
     <Content Include="sass\partials\_video-popup.sass" />
     <Content Include="sass\partials\_color-popup.sass" />

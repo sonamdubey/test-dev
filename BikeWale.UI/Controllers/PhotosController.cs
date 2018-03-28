@@ -155,7 +155,7 @@ namespace Bikewale.Controllers
         /// <param name="q"></param>
         /// <returns></returns>
         [Route("m/photos/{makeMasking}-bikes/{modelMasking}/")]
-        public ActionResult Model_Mobile_New(string makeMasking, string modelMasking, string q)
+        public ActionResult Model_Mobile(string makeMasking, string modelMasking, string q)
         {
             PhotosPage obj = new PhotosPage(makeMasking, modelMasking, _objModelCache, _objModelMaskingCache, _objModelEntity, _objCityCache, _objGenericBike, _objVersionCache, _objVideos);
 
