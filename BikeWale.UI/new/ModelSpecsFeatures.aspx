@@ -241,7 +241,7 @@
                                         <div class="card-desc-block">
                                             <p class="bikeTitle"><%= string.Format("{0} {1}", bike.MakeBase.MakeName, bike.ModelBase.ModelName) %></p>
                                             <p class="text-xt-light-grey margin-bottom10">
-                                                <%= Bikewale.Utility.FormatMinSpecs.GetMinSpecs(Convert.ToString(bike.Displacement), Convert.ToString(bike.FuelEfficiencyOverall), Convert.ToString(bike.MaxPower), Convert.ToString(bike.KerbWeight)) %>
+                                                <%= Bikewale.Utility.FormatMinSpecs.GetMinSpecsSpanElements(bike.MinSpecsList) %>
                                             </p>
 
                                             <% if (bike.VersionPrice == 0 && bike.AvgExShowroomPrice == 0)
