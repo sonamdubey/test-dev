@@ -488,24 +488,6 @@ var ModelVideoViewModel = function () {
 		}
 	}
 
-	
-
-	self.formatNumeric = function (numberToFormat) {
-
-	    numberToFormat = numberToFormat.toString();
-	    var formatted = '';
-	    var breakPoint = 3, noOfCommas = 3;
-	    for (var i = numberToFormat.length - 1; i >= 0; i--)
-	    {
-	        formatted = numberToFormat[i] + formatted;
-	        if ((numberToFormat.length - i) == breakPoint && numberToFormat.length > breakPoint && noOfCommas > 0) {
-	            formatted = "," + formatted;
-	            breakPoint += 2;
-	            noOfCommas--;
-	        }
-	    }
-	    return formatted;
-	}
 }
 
 var ColorSlugViewModel = function (colorPhotoList) {
@@ -584,5 +566,18 @@ function formatDate(dateString) {
     return formattedDate;
 }
 
+function formatNumeric(numberToFormat) {
 
-
+    numberToFormat = numberToFormat.toString();
+    var formatted = '';
+    var breakPoint = 3, noOfCommas = 3;
+    for (var i = numberToFormat.length - 1; i >= 0; i--) {
+        formatted = numberToFormat[i] + formatted;
+        if ((numberToFormat.length - i) == breakPoint && numberToFormat.length > breakPoint && noOfCommas > 0) {
+            formatted = "," + formatted;
+            breakPoint += 2;
+            noOfCommas--;
+        }
+    }
+    return formatted;
+}
