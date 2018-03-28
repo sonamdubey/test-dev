@@ -956,6 +956,7 @@
     <Compile Include="Models\Features\IndexPage.cs" />
     <Compile Include="Models\DealerShowroom\DealersServiceCentersIndiaWidgetModel.cs" />
     <Compile Include="Models\ExpertReviews\ExpertReviewsDetailPage.cs" />
+    <Compile Include="Models\Finance\FinanceIndexPage.cs" />
     <Compile Include="Models\Gallery\ModelGalleryWidget.cs" />
     <Compile Include="Models\GenericBestBikes\IndexGenericBestBikes.cs" />
     <Compile Include="Models\Images\ImageCarausel.cs" />
@@ -4071,6 +4072,7 @@
     <Content Include="Views\Shared\Ads\Mobile\Ad320x50.cshtml" />
     <Content Include="Views\Shared\Ads\Mobile\Ad320x50Bottom.cshtml" />
     <Content Include="Views\Finance\Index_Mobile_Pwa.cshtml" />
+    <Content Include="Views\Shared\Index_Mobile_Pwa.cshtml" />
     <None Include="Views\Shared\_Sidebar-section.cshtml" />
     <Content Include="Views\BikeModels\_MultiTabsWidget.cshtml" />
     <Content Include="Views\Shared\_ReviewPopup.cshtml" />
