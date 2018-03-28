@@ -205,13 +205,13 @@
                                         </div>
                                         <div class="video-card__desc clearfix">
                                             <div class="grid-4">
-                                                <p class="font11 text-light-grey" data-bind="text: DisplayDate"></p>
+                                                <p class="font11 text-light-grey" data-bind="text: formatDate(DisplayDate)"></p>
                                             </div>
                                             <div class="grid-8 text-right">
-                                                <span class="model-card__sub-title"><span data-bind="text: Views"></span> Views</span>
+                                                <span class="model-card__sub-title"><span data-bind="text: formatNumeric(Views) + ' ' + ((Views > 1) ? 'Views' : 'View')"></span> </span>
                                                 <span class="model-card__sub-title margin-left20">
                                                     <span class="thumbsup-icon"></span>
-                                                    <span data-bind="text: Likes"></span>
+                                                    <span data-bind="text: formatNumeric(Likes)"></span>
                                                 </span>
                                             </div>
                                         </div>
@@ -339,13 +339,13 @@
                                             </div>
                                             <div class="video-card__desc clearfix">
                                                 <div class="grid-4">
-                                                    <p class="font11 text-light-grey" data-bind="text: $root.formatDate(DisplayDate)"></p>
+                                                    <p class="font11 text-light-grey" data-bind="text: formatDate(DisplayDate)"></p>
                                                 </div>
                                                 <div class="grid-8 text-right">
-                                                    <span class="model-card__sub-title"><span data-bind="text: $root.formatNumeric(Views)"></span> Views</span>
+                                                    <span class="model-card__sub-title"><span data-bind="text: formatNumeric(Views) + ' ' + ((Views > 1) ? 'Views' : 'View')"></span> </span>
                                                     <span class="model-card__sub-title margin-left20">
                                                         <span class="thumbsup-icon"></span>
-                                                        <span data-bind="text: $root.formatNumeric(Likes)"></span>
+                                                        <span data-bind="text: formatNumeric(Likes)"></span>
                                                     </span>
                                                 </div>
                                             </div>
