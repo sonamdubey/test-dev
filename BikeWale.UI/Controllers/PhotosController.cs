@@ -176,7 +176,15 @@ namespace Bikewale.Controllers
                 return Redirect("/pagenotfound.aspx");
             }
         }
-
+        /// <summary>
+        /// Modified by: Dhruv Joshi
+        /// Dated: 28th March 2018
+        /// Description: New Images Page not rendered if no images are present for a model, instead redirected to pagenotfound.aspx
+        /// </summary>
+        /// <param name="makeMasking"></param>
+        /// <param name="modelMasking"></param>
+        /// <param name="q"></param>
+        /// <returns></returns>
 		[Route("m/photos/{makeMasking}-bikes/{modelMasking}/new/")]
 		public ActionResult Model_Mobile_New(string makeMasking, string modelMasking, string q)
 		{
@@ -186,7 +194,14 @@ namespace Bikewale.Controllers
 			{
 				obj.IsMobile = true;
 				PhotosPageVM objData = obj.GetData(30, 6, q);
-				return View(objData);
+                if (objData != null && objData.TotalPhotos > 0)
+                {
+                    return View(objData);
+                }
+				else
+                {
+                    return Redirect("/m/pagenotfound.aspx");
+                }
 
 			}
 			else if (obj.Status.Equals(StatusCodes.RedirectPermanent))
