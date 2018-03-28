@@ -277,11 +277,13 @@ docReady(function () {
 		onTransitionStart: function (swiper) {
 		    lastColourSlide = vmModelColorSwiper.activeIndex();
 		},
-		onTap: function (swiper) {
-			var activeIndex = swiper.activeIndex;
+		onTap: function (swiper, event) {
+			if (!$(event.target).hasClass('color-tab__arrow-btn')) {
+				var activeIndex = swiper.activeIndex;
 
-			vmModelGallery.colorPopup().openPopup();
-			colorGallerySwiper.slideTo(activeIndex);
+				vmModelGallery.colorPopup().openPopup();
+				colorGallerySwiper.slideTo(activeIndex);
+			}
 		},
 		onSlideChangeStart: function (swiper) {
 			SwiperEvents.setDetails(swiper, vmModelColorSwiper);
