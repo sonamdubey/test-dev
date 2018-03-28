@@ -82,7 +82,8 @@ namespace Bikewale.Models
         private readonly String _adId_Desktop = "1517407919554";
 
         private readonly String _adId_SimilarBikes = "1505919734321";
-        private readonly String _adPath_SimilarBikes = "/1017752/SimilarBikes_Desktop";
+        private readonly String _adPath_SimilarBikes_Desktop = "/1017752/SimilarBikes_Desktop";
+        private readonly String _adPath_SimilarBikes_Mobile = "/1017752/SimilarBikes_Mobile";
 
         /// <summary>
         /// Created by  :   Sumit Kate on 28 Mar 2017
@@ -524,7 +525,7 @@ namespace Bikewale.Models
                         {
                             NameValueCollection adInfo_OldAd = new NameValueCollection();
                             adInfo_OldAd["adId"] = _adId_SimilarBikes;
-                            adInfo_OldAd["adPath"] = _adPath_SimilarBikes;
+                            adInfo_OldAd["adPath"] = _adPath_SimilarBikes_Mobile;
                             ads.Add(String.Format("{0}-11", adInfo_OldAd["adId"]), GoogleAdsHelper.SetAdSlotProperties(adInfo_OldAd, ViewSlotSize.ViewSlotSizes[AdSlotSize._200x253], 11, 200, AdSlotSize._200x253));
                         }
                     }
@@ -564,7 +565,7 @@ namespace Bikewale.Models
                         {
                             NameValueCollection adInfo_OldAd = new NameValueCollection();
                             adInfo_OldAd["adId"] = _adId_SimilarBikes;
-                            adInfo_OldAd["adPath"] = _adPath_SimilarBikes;
+                            adInfo_OldAd["adPath"] = _adPath_SimilarBikes_Desktop;
                             ads.Add(String.Format("{0}-14", adInfo_OldAd["adId"]), GoogleAdsHelper.SetAdSlotProperties(adInfo_OldAd, ViewSlotSize.ViewSlotSizes[AdSlotSize._292x399], 14, 292, AdSlotSize._292x399));
                         }
                     }
