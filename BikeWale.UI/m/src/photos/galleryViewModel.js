@@ -348,7 +348,7 @@ var ModelColorPopupViewModel = function () {
 	self.setListHeight = function () {
 		var thumbnailSwiper = $('#thumbnailColorSwiper');
 		var thumbnailSwiperList = thumbnailSwiper.find('.model-color__list');
-		var availableHeight = $('#colorGalleryPopup').innerHeight() - $('#thumbnailColorSwiper').offset().top;
+		var availableHeight = $('#colorGalleryPopup').innerHeight() - ($('#thumbnailColorSwiper').offset().top - (window.pageYOffset || document.documentElement.scrollTop));
 
 		if (thumbnailSwiperList.height() > availableHeight) {
 			thumbnailSwiperList.css('height', availableHeight)
