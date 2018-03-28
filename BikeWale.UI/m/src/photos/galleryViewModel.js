@@ -488,23 +488,7 @@ var ModelVideoViewModel = function () {
 		}
 	}
 
-	self.formatDate = function (dateString) {
-	    var date = new Date(dateString);
-	    var monthNames = [
-    "January", "February", "March", "April", "May", "June", "July","August", "September", "October","November", "December"
-	    ];
-
-	    var dd = date.getDate();
-	    var mm = date.getMonth() + 1;
-	    var yyyy = date.getFullYear();
-
-	    if (dd < 10) {
-	        dd = '0' + dd
-	    }
-
-	    var formattedDate = dd + ' ' + monthNames[mm] + ' ' + yyyy;
-	    return formattedDate;
-	}
+	
 
 	self.formatNumeric = function (numberToFormat) {
 
@@ -581,6 +565,23 @@ var VideoSlugViewModel = function (videoList) {
 		self.isPlaying(true);
 		$(targetElement).closest('.model-gallery__video-slide').find('.iframe-overlay').trigger('click');
 	};
+}
+function formatDate(dateString) {
+    var date = new Date(dateString);
+    var monthNames = [
+"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"
+    ];
+
+    var dd = date.getDate();
+    var mm = date.getMonth() + 1;
+    var yyyy = date.getFullYear();
+
+    if (dd < 10) {
+        dd = '0' + dd
+    }
+
+    var formattedDate = monthNames[mm].substr(0, 3) + ' ' + dd + ' ' + yyyy;
+    return formattedDate;
 }
 
 

@@ -205,7 +205,7 @@
                                         </div>
                                         <div class="video-card__desc clearfix">
                                             <div class="grid-4">
-                                                <p class="font11 text-light-grey" data-bind="text: DisplayDate"></p>
+                                                <p class="font11 text-light-grey" data-bind="text: formatDate(DisplayDate)"></p>
                                             </div>
                                             <div class="grid-8 text-right">
                                                 <span class="model-card__sub-title"><span data-bind="text: Views"></span> Views</span>
@@ -339,7 +339,7 @@
                                             </div>
                                             <div class="video-card__desc clearfix">
                                                 <div class="grid-4">
-                                                    <p class="font11 text-light-grey" data-bind="text: $root.formatDate(DisplayDate)"></p>
+                                                    <p class="font11 text-light-grey" data-bind="text: formatDate(DisplayDate)"></p>
                                                 </div>
                                                 <div class="grid-8 text-right">
                                                     <span class="model-card__sub-title"><span data-bind="text: $root.formatNumeric(Views)"></span> Views</span>
