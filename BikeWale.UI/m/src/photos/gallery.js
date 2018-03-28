@@ -99,22 +99,18 @@ function getImageDownloadUrl() {
 	return currImage.HostUrl + downloadImageResolution + currImage.OriginalImgPath;
 }
 
-function resizePortraitImage(element) {
-	element.hide();
-
+function resizePortraitImageContainer(element) {
 	var imageElement = new Image();
 	imageElement.src = element.attr('data-original') || element.attr('src');
 
 	if ((imageElement.width / imageElement.height) < 1.5) {
 		var elementParent = element.parent();
-		element.css({
-			'width': 'auto',
-			'height': elementParent.innerHeight() + 'px'
+		elementParent.css({
+			'height': (elementParent.innerWidth() * 9 / 16) + 'px'
 		});
 
 		elementParent.css('background', '#fff');
 	}
-	element.show();
 }
 
 function resizeHandler() {
@@ -213,6 +209,18 @@ docReady(function () {
 	resizeHandler();
 	
 	SwiperYT.YouTubeApi.addApiScript();
+
+	// handle portrait images
+	var topGridImages = $('#imageGridTop img');
+	if (topGridImages.length) {
+		topGridImages.each(function() {
+			resizePortraitImageContainer($(this));
+		})
+	}
+
+	$('.image-grid-list__item img').on('load', function () {
+		resizePortraitImageContainer($(this));
+	});
 });
 
 function isInViewport(element) {
