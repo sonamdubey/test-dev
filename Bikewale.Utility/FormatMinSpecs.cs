@@ -108,11 +108,18 @@ namespace Bikewale.Utility
                 {
                     builder.Remove(builder.Length - 2, 2);
                 }
-                return builder.ToString();
+                if (!string.IsNullOrEmpty(builder.ToString()))
+                {
+                    return builder.ToString();
+                }
+                else
+                {
+                    return "Specs Unavailable";
+                }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return string.Empty;
+                throw ex;
             }
         }
 

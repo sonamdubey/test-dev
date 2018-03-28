@@ -2631,15 +2631,6 @@ namespace Bikewale.DAL.BikeData
                                             MaskingName = Convert.ToString(dr["modelmaskingname"])
                                         },
 
-                                        MinSpecs = new MinSpecsEntity()
-                                        {
-                                            Displacement = SqlReaderConvertor.ToNullableFloat(dr["Displacement"]),
-                                            FuelEfficiencyOverall = SqlReaderConvertor.ToNullableUInt16(dr["FuelEfficiencyOverall"]),
-                                            MaxPower = SqlReaderConvertor.ToNullableFloat(dr["maxpower"]),
-                                            MaximumTorque = SqlReaderConvertor.ToNullableFloat(dr["MaximumTorque"]),
-                                            KerbWeight = SqlReaderConvertor.ToNullableUInt16(dr["KerbWeight"])
-                                        },
-
                                         HostUrl = Convert.ToString(dr["hosturl"]),
                                         OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]),
                                         ReviewCount = SqlReaderConvertor.ToUInt32(dr["reviewcount"]),
@@ -2648,8 +2639,9 @@ namespace Bikewale.DAL.BikeData
                                         MaxPrice = SqlReaderConvertor.ToUInt32(dr["maxprice"]),
                                         LaunchedOn = SqlReaderConvertor.ToDateTime(dr["LaunchDate"]),
                                         Price = SqlReaderConvertor.ToUInt32(dr["Price"]),
-                                        BodyStyleId = SqlReaderConvertor.ToUInt32(dr["BodyStyleId"])
-                                    }
+                                        BodyStyleId = SqlReaderConvertor.ToUInt32(dr["BodyStyleId"]),
+                                        VersionId = Convert.ToInt32(dr["TopVersionId"])
+                            }
                                 );
                             }
                             dr.Close();
@@ -2710,15 +2702,6 @@ namespace Bikewale.DAL.BikeData
                                             MaskingName = Convert.ToString(dr["modelmaskingname"])
                                         },
 
-                                        MinSpecs = new MinSpecsEntity()
-                                        {
-                                            Displacement = SqlReaderConvertor.ToNullableFloat(dr["Displacement"]),
-                                            FuelEfficiencyOverall = SqlReaderConvertor.ToNullableUInt16(dr["FuelEfficiencyOverall"]),
-                                            MaxPower = SqlReaderConvertor.ToNullableFloat(dr["maxpower"]),
-                                            MaximumTorque = SqlReaderConvertor.ToNullableFloat(dr["MaximumTorque"]),
-                                            KerbWeight = SqlReaderConvertor.ToNullableUInt16(dr["KerbWeight"])
-                                        },
-
                                         HostUrl = Convert.ToString(dr["hosturl"]),
                                         OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]),
                                         ReviewCount = SqlReaderConvertor.ToUInt32(dr["reviewcount"]),
@@ -2736,7 +2719,8 @@ namespace Bikewale.DAL.BikeData
                                         AvgPrice = SqlReaderConvertor.ToUInt32(dr["AvgPrice"]),
                                         ExshowroomPrice = SqlReaderConvertor.ToUInt32(dr["ExshowroomPrice"]),
                                         VersionPrice = SqlReaderConvertor.ToUInt32(dr["VersionPrice"]),
-                                        BodyStyleId = SqlReaderConvertor.ToUInt32(dr["BodyStyleId"])
+                                        BodyStyleId = SqlReaderConvertor.ToUInt32(dr["BodyStyleId"]),
+                                        VersionId = Convert.ToInt32(dr["TopVersionId"])
                                     }
                                 );
                             }
