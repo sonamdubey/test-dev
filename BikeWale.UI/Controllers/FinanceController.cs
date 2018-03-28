@@ -1,7 +1,12 @@
 ﻿using Bikewale.Entities.Dealer;
 using Bikewale.Entities.Location;
+using Bikewale.Entities.PWA.Articles;
+using Bikewale.Interfaces.PWA.CMS;
+using Bikewale.Models;
 using Bikewale.Models.Finance;
+using Bikewale.Models.Shared;
 using Bikewale.Utility;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Specialized;
 using System.Web;
@@ -18,11 +23,26 @@ namespace Bikewale.Controllers
     /// </author>
     public class FinanceController : Controller
     {
+        private readonly IPWACMSCacheRepository _renderedArticles;
 
-		//[Router("m/finance")]
-		//public ActionResult Index_Mobile_Pwa() {
+        #region Constructor
+        public FinanceController(IPWACMSCacheRepository articles)
+        {
+            _renderedArticles = articles;
+        }
+        #endregion
 
-		//}
+        /// <summary>
+        /// Created by  : Rajan Chauhan on 28 Mar 2018
+        /// </summary>
+        /// <returns></returns>
+        [Route("m/finance/")]
+        public ActionResult Index_Mobile_Pwa()
+        {
+            FinanceIndexPage obj = new FinanceIndexPage(_renderedArticles);
+            PwaBaseVM objData = obj.GetPwaData();
+            return View("~/Views/Shared/Index_Mobile_Pwa.cshtml", objData);
+        }
 
 
         #region Capital finance
@@ -54,7 +74,7 @@ namespace Bikewale.Controllers
             GlobalCityAreaEntity location = GlobalCityArea.GetGlobalCityArea();
             if (location != null)
                 viewModel.ObjLead.CityId = location.CityId;
-            viewModel.objLeadJson = Newtonsoft.Json.JsonConvert.SerializeObject(viewModel.ObjLead);
+            viewModel.objLeadJson = JsonConvert.SerializeObject(viewModel.ObjLead);
             return View(viewModel);
         }
 
@@ -86,7 +106,7 @@ namespace Bikewale.Controllers
             GlobalCityAreaEntity location = GlobalCityArea.GetGlobalCityArea();
             if (location != null)
                 viewModel.ObjLead.CityId = location.CityId;
-            viewModel.objLeadJson = Newtonsoft.Json.JsonConvert.SerializeObject(viewModel.ObjLead);
+            viewModel.objLeadJson = JsonConvert.SerializeObject(viewModel.ObjLead);
             return View(viewModel);
         }
 
