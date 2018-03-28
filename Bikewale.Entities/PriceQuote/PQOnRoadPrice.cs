@@ -1,5 +1,4 @@
 ﻿using Bikewale.Entities.BikeBooking;
-using Bikewale.Entities.BikeData;
 using System.Collections.Generic;
 
 namespace Bikewale.Entities.PriceQuote
@@ -9,7 +8,6 @@ namespace Bikewale.Entities.PriceQuote
         public PQOutputEntity PriceQuote { get; set; }
         public PQ_QuotationEntity DPQOutput { get; set; }
         public BikeQuotationEntity BPQOutput { get; set; }
-        public BikeModelEntity BikeDetails { get; set; }
         public bool IsDealerPriceAvailable { get { if (this.DPQOutput != null) { return true; } else { return false; } } }
         public bool IsInsuranceFree { get; set; }
         public uint InsuranceAmount { get; set; }
