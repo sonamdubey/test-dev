@@ -76,7 +76,8 @@
                 {
 
                     <a class="model-info__specs-item specs-icon" href="@string.Format("/m{0}",Tabsdetails.URL)" title="@Model.BikeName  @Tabsdetails.Title">
-                        @Tabsdetails.TabText
+						<span class="@string.Format("specs__icon specs-icon--{0}", Tabsdetails.IconText)"></span>
+						<span class="specs-icon__label">@Tabsdetails.TabText</span>
                     </a>
 
                 }
