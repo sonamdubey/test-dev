@@ -18,6 +18,13 @@ namespace Bikewale.Controllers
     /// </author>
     public class FinanceController : Controller
     {
+
+		//[Router("m/finance")]
+		//public ActionResult Index_Mobile_Pwa() {
+
+		//}
+
+
         #region Capital finance
 
         /// <summary>

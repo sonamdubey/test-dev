@@ -4070,6 +4070,7 @@
     <Content Include="Views\Shared\fontcss\Oxygen\_Latin700.cshtml" />
     <Content Include="Views\Shared\Ads\Mobile\Ad320x50.cshtml" />
     <Content Include="Views\Shared\Ads\Mobile\Ad320x50Bottom.cshtml" />
+    <Content Include="Views\Finance\Index_Mobile_Pwa.cshtml" />
     <None Include="Views\Shared\_Sidebar-section.cshtml" />
     <Content Include="Views\BikeModels\_MultiTabsWidget.cshtml" />
     <Content Include="Views\Shared\_ReviewPopup.cshtml" />
