@@ -240,10 +240,14 @@
 													<tbody>
 														<tr class="row-width-grid">
 															<td width="162"></td>
-															@foreach (var specValue in specCat.SpecsItemList.First().ItemValues)
-															{
-																<td></td>
-															}
+															@foreach (var specItem in specCat.SpecsItemList)
+                                                            {
+                                                                foreach (var specValue in specItem.ItemValues)
+                                                                {
+                                                                    <td></td>
+                                                                }
+                                                                <td></td>
+                                                            }
 														</tr>
 														@{isFirstActiveTab = false;}
 														@foreach (var specItem in specCat.SpecsItemList)

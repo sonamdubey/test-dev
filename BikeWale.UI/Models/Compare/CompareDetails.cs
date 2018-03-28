@@ -145,6 +145,7 @@ namespace Bikewale.Models
                         if (obj.sponsoredVersionId > 0)
                         {
                             _versionsList = string.Format("{0},{1}", _versionsList, obj.sponsoredVersionId);
+                            _versionIdsList.Add(obj.sponsoredVersionId);
                         }
                     }
 
