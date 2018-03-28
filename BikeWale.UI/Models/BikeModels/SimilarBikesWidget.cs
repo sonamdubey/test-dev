@@ -108,13 +108,12 @@ namespace Bikewale.Models
                 if (!_similarBikesByModel)
                 {
                     objVM.Bikes = _versionCache.GetSimilarBikesList(_versionId, TopCount, CityId);
-                    BindMinSpecs(objVM.Bikes);
                 }
                 else
                 {
                     objVM.Bikes = _versionCache.GetSimilarBikesByModel(_modelId, TopCount, CityId);
-                    BindMinSpecs(objVM.Bikes);
                 }
+                BindMinSpecs(objVM.Bikes);
                 objVM.PQSourceId = _pqSource;
                 objVM.IsNew = IsNew;
                 objVM.IsUpcoming = IsUpcoming;
