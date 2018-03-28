@@ -15,12 +15,13 @@ namespace Bikewale.Cache.PriceQuote
         private readonly ICacheManager _cache = null;
         private readonly IPriceQuote _obPriceQuote = null;
         private readonly Bikewale.Interfaces.BikeBooking.IDealerPriceQuote _dealerPQRepository = null;
-
-        public PriceQuoteCache(ICacheManager cache, IPriceQuote obPriceQuote, Bikewale.Interfaces.BikeBooking.IDealerPriceQuote dealerPQRepository)
+        private readonly Bikewale.Interfaces.AutoBiz.IDealerPriceQuote _objDealerPriceQuote = null;
+        public PriceQuoteCache(ICacheManager cache, IPriceQuote obPriceQuote, Bikewale.Interfaces.BikeBooking.IDealerPriceQuote dealerPQRepository, Bikewale.Interfaces.AutoBiz.IDealerPriceQuote objDealerPriceQuote)
         {
             _cache = cache;
             _obPriceQuote = obPriceQuote;
             _dealerPQRepository = dealerPQRepository;
+            _objDealerPriceQuote = objDealerPriceQuote;
         }
 
         /// <summary>
@@ -135,6 +136,26 @@ namespace Bikewale.Cache.PriceQuote
                 ErrorClass.LogError(ex, String.Format("PriceQuoteCache.GetDefaultPriceQuoteVersion({0},{1})", modelId, cityId));
             }
             return versionId;
+        }
+
+
+        public Entities.PriceQuote.v2.DetailedDealerQuotationEntity GetDealerPriceQuoteByPackageV2(Entities.BikeBooking.PQParameterEntity objParams)
+        {
+            try
+            {
+                if (objParams != null)
+                {
+                    string key = String.Format("BW_DPQ_{0}_{1}_{2}_{3}", objParams.CityId, objParams.VersionId, objParams.DealerId, objParams.AreaId);
+                    Entities.PriceQuote.v2.DetailedDealerQuotationEntity dealerQuotation = _cache.GetFromCache<Entities.PriceQuote.v2.DetailedDealerQuotationEntity>(key, new TimeSpan(0, 30, 0), () => _objDealerPriceQuote.GetDealerPriceQuoteByPackageV2(objParams));
+
+                    return dealerQuotation;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, String.Format("PriceQuoteCache.GetDealerPriceQuoteByPackageV2({0},{1},{2},{3})", objParams.DealerId, objParams.VersionId, objParams.CityId, objParams.AreaId));
+            }
+            return null;
         }
     }
 }

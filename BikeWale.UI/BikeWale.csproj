@@ -15,7 +15,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Bikewale</RootNamespace>
     <AssemblyName>Bikewale</AssemblyName>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <UseIISExpress>false</UseIISExpress>
     <IISUrl>http://localhost:9011</IISUrl>
     <TargetFrameworkProfile />
@@ -311,9 +311,12 @@
     <Reference Include="WebActivatorEx">
       <HintPath>..\Libs\PWA\WebActivatorEx.dll</HintPath>
     </Reference>
-    <Reference Include="WURFL, Version=1.3.1.0, Culture=neutral, PublicKeyToken=816aeec277aa13b9, processorArchitecture=MSIL">
+    <Reference Include="Wurfl, Version=1.9.3.0, Culture=neutral, PublicKeyToken=816aeec277aa13b9, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\WURFL.dll</HintPath>
+      <HintPath>..\Libs\WURFL\Wurfl.dll</HintPath>
+    </Reference>
+    <Reference Include="Wurfl.Aspnet.Extensions">
+      <HintPath>..\Libs\WURFL\Wurfl.Aspnet.Extensions.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -2982,7 +2985,6 @@
     <Content Include="m\videos\default.aspx" />
     <Content Include="m\videos\VideoMakeModel.aspx" />
     <Content Include="News\RepeaterPagerNews.ascx" />
-    <Content Include="App_Data\wurfl.xml.gz" />
     <Content Include="m\sass\new-launch\new-launch.sass" />
     <Content Include="m\sass\new-launch\_new-launch-style.sass" />
     <Content Include="m\sass\modules\_brand-logo.sass" />
@@ -3487,6 +3489,7 @@
     <Content Include="css\fonts\WebRupee.V2.0.eot" />
     <Content Include="css\fonts\WebRupee.V2.0.ttf" />
     <Content Include="css\fonts\WebRupee.V2.0.woff" />
+    <Content Include="App_Data\wurfl-latest.zip" />
     <None Include="sass\components\_card-header.sass" />
     <Content Include="sass\sell-bike\_style.sass" />
     <Content Include="sass\components\_typography.sass" />

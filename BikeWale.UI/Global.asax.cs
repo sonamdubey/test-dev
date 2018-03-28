@@ -13,7 +13,7 @@ namespace Bikewale
     public class Global : System.Web.HttpApplication
     {
         public const String WurflManagerCacheKey = "__WurflManager";
-        public const string WurflDataFilePath = "~/App_Data/wurfl.xml.gz";
+        public const string WurflDataFilePath = "~/App_Data/wurfl-latest.zip";
 
         protected void Application_Start(object sender, EventArgs e)
         {

@@ -849,7 +849,7 @@ namespace Bikewale.DAL.AutoBiz
                                             var curSecondaryDealer = secondaryDealers.Where(i => i.DealerId == dealer.Key).FirstOrDefault();
                                             if (curSecondaryDealer != null)
                                             {
-                                                curSecondaryDealer.Versions = dealer;
+                                                curSecondaryDealer.Versions = dealer.ToList();
                                             }
                                         }
                                     }

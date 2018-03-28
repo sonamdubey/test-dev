@@ -103,13 +103,6 @@
         '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
     })(window, document, 'script', 'dataLayer', 'GTM-5CSHD6');
 
-    setTimeout(function () {
-        var a = document.createElement("script");
-        var b = document.getElementsByTagName("script")[0];
-        a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0012/9477.js?" + Math.floor(new Date().getTime() / 3600000);
-        a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
-    }, 1);
-
     var googletag = googletag || {};
     googletag.cmd = googletag.cmd || [];
     (function () {
@@ -195,25 +188,27 @@
         }
 
     googletag.cmd.push(function () {
-        googletag.pubads().disableInitialLoad();
-        googletag.pubads().setCentering(true);
-
+        
         @if (Model.AdSlots != null)
         {
-            foreach (KeyValuePair<string, Bikewale.Models.AdSlotModel> adentry in Model.AdSlots)
+            <text>
+                googletag.pubads().disableInitialLoad();
+                googletag.pubads().setCentering(true);
+            </text>
+            foreach (KeyValuePair<string, Bikewale.Models.AdSlotModel> adEntry in Model.AdSlots)
             {
-                Bikewale.Models.AdSlotModel ad = adentry.Value;
+                Bikewale.Models.AdSlotModel ad = adEntry.Value;
                 var id = String.Format("div-gpt-ad-{0}-{1}", Model.AdTags.AdId, ad.DivId);
-                if (!String.IsNullOrEmpty(ad.ViewSize)) {
-                    if (ad.Position != null)
-                    {
-                        <text> adSlot['@id']  = @Html.Raw(Bikewale.Utility.GoogleAdsHelper.GenerateSlotDefinition(ad.AdId, ad.AdPath, ad.DivId, ad.Size, ad.ViewSize, ad.Position)); </text>
-                    }
-                    else
-                    {
-                        <text> adSlot['@id']  = @Html.Raw(Bikewale.Utility.GoogleAdsHelper.GenerateSlotDefinition(ad.AdId, ad.AdPath, ad.DivId, ad.Size, ad.ViewSize)); </text>
-                    }
+                
+                if (!string.IsNullOrEmpty(ad.Position))
+                {
+                    <text> adSlot['@id']  = @Html.Raw(Bikewale.Utility.GoogleAdsHelper.GenerateSlotDefinition(ad.AdId, ad.AdPath, ad.DivId, ad.Size, ad.ViewSize, ad.Position)); </text>
                 }
+                else
+                {
+                    <text> adSlot['@id']  = @Html.Raw(Bikewale.Utility.GoogleAdsHelper.GenerateSlotDefinition(ad.AdId, ad.AdPath, ad.DivId, ad.Size, ad.ViewSize)); </text>
+                }
+               
             }
         }
         else
@@ -481,9 +476,10 @@
                 </ul>
             </li>
             <li>
-                <a href="/trackday2016/">
+                <a href="/featured/trackday-2018/" class ="bw-ga" data-lab ="Track Day 2018" data-cat ="" data-act ="Hamburger_Menu_Item_Click">
                     <span class="bwsprite track-day"></span>
-                    <span class="navbarTitle">Track Day 2016</span>
+                    <span class="navbarTitle">Track Day 2018</span>
+					<span class="new-flag"></span>
                 </a>
             </li>
             <li>

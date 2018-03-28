@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Runtime.Serialization;
 
 namespace Bikewale.Entities
 {
@@ -8,21 +9,22 @@ namespace Bikewale.Entities
     /// Created on : 15 march 2016
     /// Summary : To get Dealers Benifits.
     /// </summary>
+    [Serializable, DataContract]
     public class DealerBenefitEntity
     {
-        [JsonProperty("benefitId")]
+        [JsonProperty("benefitId"), DataMember]
         public int BenefitId { get; set; }
-        [JsonProperty("dealerId")]
+        [JsonProperty("dealerId"), DataMember]
         public int DealerId { get; set; }
-        [JsonProperty("catId")]
+        [JsonProperty("catId"), DataMember]
         public int CatId { get; set; }
-        [JsonProperty("categoryText")]
+        [JsonProperty("categoryText"), DataMember]
         public string CategoryText { get; set; }
-        [JsonProperty("benefitText")]
+        [JsonProperty("benefitText"), DataMember]
         public string BenefitText { get; set; }
-        [JsonProperty("city")]
+        [JsonProperty("city"), DataMember]
         public string City { get; set; }
-        [JsonProperty("entryDate")]
+        [JsonProperty("entryDate"), DataMember]
         public DateTime EntryDate { get; set; }
 
     }
