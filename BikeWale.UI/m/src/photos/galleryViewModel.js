@@ -562,7 +562,7 @@ function formatDate(dateString) {
         dd = '0' + dd
     }
 
-    var formattedDate = monthNames[mm].substr(0, 3) + ' ' + dd + ' ' + yyyy;
+    var formattedDate = monthNames[mm].substr(0, 3) + ' ' + dd + ', ' + yyyy;
     return formattedDate;
 }
 
