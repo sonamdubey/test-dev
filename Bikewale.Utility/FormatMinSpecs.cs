@@ -107,9 +107,6 @@ namespace Bikewale.Utility
                 if (builder.Length > 0)
                 {
                     builder.Remove(builder.Length - 2, 2);
-                }
-                if (!string.IsNullOrEmpty(builder.ToString()))
-                {
                     return builder.ToString();
                 }
                 else
