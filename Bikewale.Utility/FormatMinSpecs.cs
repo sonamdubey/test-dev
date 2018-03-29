@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-
+using System.Linq;
 namespace Bikewale.Utility
 {
 	public static class FormatMinSpecs
@@ -97,32 +97,39 @@ namespace Bikewale.Utility
             StringBuilder builder = new StringBuilder();
             try
             {
-                foreach (var specItem in specsItemList)
+                if (specsItemList != null)
                 {
-                    if (!string.IsNullOrEmpty(specItem.Value))
+                    foreach (var specItem in specsItemList)
                     {
-                        builder.AppendFormat("<span>{0} {1}</span>, ", specItem.Value, specItem.UnitType);
+                        if (!string.IsNullOrEmpty(specItem.Value))
+                        {
+                            builder.AppendFormat("<span>{0} {1}</span>, ", specItem.Value, specItem.UnitType);
+                        }
                     }
-                }
-                if (builder.Length > 0)
-                {
-                    builder.Remove(builder.Length - 2, 2);
-                    return builder.ToString();
-                }
-                else
-                {
-                    return "Specs Unavailable";
+                    if (builder.Length > 1)
+                    {
+                        builder.Remove(builder.Length - 2, 2);
+                        return builder.ToString();
+                    }
+                    else
+                    {
+                        return "Specs Unavailable";
+                    }
+
                 }
             }
             catch (Exception)
             {
                 return string.Empty;
             }
+            return string.Empty;
         }
 
         /// <summary>
-        /// Written By : Ashish G. Kamble On 10 Sept 2015
-        /// Summary : Function to format the availability
+        /// Written By  : Ashish G. Kamble On 10 Sept 2015
+        /// Summary     : Function to format the availability
+        /// Modified By : Rajan Chauhan on 27 Mar 2018
+        /// Description : Changed logic for specFeature MS
         /// </summary>
         /// <param name="value">Value to be checked whether available or not.</param>
         /// <returns>If value is null function will return --</returns>
@@ -132,23 +139,37 @@ namespace Bikewale.Utility
 
 			if (String.IsNullOrEmpty(value))
 			{
-				showValue = "--";
+				showValue = _notAvaliableText;
 			}
 			else
 			{
-				bool isBoolValue = false;
-
-				if (Boolean.TryParse(value, out isBoolValue))
-				{
-					showValue = isBoolValue ? "Yes" : "No";
-				}
-				else
-				{
-					showValue = value;
-				}
+				showValue = value;
 			}
 			return showValue;
 		}
+
+        /// <summary>
+        /// Created By  : Rajan Chauhan on 29 Mar 2018
+        /// Description : Method to show value aware of its datatype
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="dataType"></param>
+        /// <returns></returns>
+        public static string ShowAvailable(string value, EnumSpecDataType dataType)
+        {
+            if (!String.IsNullOrEmpty(value))
+            {
+                if (dataType.Equals(EnumSpecDataType.Boolean))
+                {
+                    return value.Equals("1") ? "Yes" : "No";
+                }
+                else
+                {
+                    return value;
+                }
+            }
+            return _notAvaliableText;
+        }
 
 		/// <summary>
 		/// Written By : Ashish G. Kamble On 10 Sept 2015
@@ -276,6 +297,71 @@ namespace Bikewale.Utility
 			return format.Trim().Substring(0, format.Length - 1);
 		}
 
+
+        /// <summary>
+        /// Created By  : Rajan Chauhan on 23 Mar 2018
+        /// Description : Method for getting general name of specs
+        /// </summary>
+        /// <param name="specItem"></param>
+        /// <returns></returns>
+        public static string GetSpecGeneralName(SpecsItem specItem)
+        {
+            if (specItem != null)
+            {
+                if (String.IsNullOrEmpty(specItem.Value))
+                {
+                    return String.Empty;
+                }
+                switch (specItem.Id)
+                {
+                    case (int)EnumSpecsFeaturesItem.AlloyWheels:
+                        return string.Format("{0} Wheels", specItem.Value.Equals("1" )? "Alloy" : "Spoke");
+                    case (int)EnumSpecsFeaturesItem.ElectricStart:
+                        return string.Format("{0} Start", specItem.Value.Equals("1") ? "Electric" : "Kick");
+                    case (int)EnumSpecsFeaturesItem.AntilockBrakingSystem:
+                        return specItem.Value.Equals("1") ? "ABS" : String.Empty;
+                    case (int)EnumSpecsFeaturesItem.BrakeType:
+                        return string.Format("{0} Brake", specItem.Value);
+                    default:
+                        return String.Empty;
+                }
+            }
+            return String.Empty;
+        }
+
+        /// <summary>
+        /// Created By  : Rajan Chauhan on 28 Mar 2018
+        /// Description : Method to return Unordered list 
+        /// </summary>
+        /// <param name="specItemList"></param>
+        /// <returns></returns>
+        public static string GetMinSpecsAsLiElement(IEnumerable<SpecsItem> specItemList)
+        {
+            StringBuilder minSpecsStr = new StringBuilder();
+            if (specItemList != null)
+            {
+                foreach (var specItem in specItemList)
+                {
+                    string generalSpecName = FormatMinSpecs.GetSpecGeneralName(specItem);
+                    if (!String.IsNullOrEmpty(generalSpecName))
+                    {
+                        minSpecsStr.Append(String.Format("<li>{0}</li>", generalSpecName));
+                    }
+                }
+            }
+            return minSpecsStr.ToString();
+        }
+
+        public static string GetCommaSepratedGeneralSpecs(IEnumerable<SpecsItem> specItemList)
+        {
+            if (specItemList != null)
+            {
+                string brakeTypeName = GetSpecGeneralName(specItemList.FirstOrDefault(item => item.Id.Equals((int)EnumSpecsFeaturesItem.BrakeType)));
+                string alloyWheelName = GetSpecGeneralName(specItemList.FirstOrDefault(item => item.Id.Equals((int)EnumSpecsFeaturesItem.AlloyWheels)));
+                return String.Format("{0}{1}{2}", brakeTypeName, String.IsNullOrEmpty(brakeTypeName) ? "" : ", ", alloyWheelName);
+            }
+            return string.Empty;
+        }
 		//Overloading of ShowAvailable
 
 		/// <summary>
@@ -296,6 +382,29 @@ namespace Bikewale.Utility
 			}
             return _notAvaliableText;
 		}
+
+        /// <summary>
+        /// Created By  : Rajan Chauhan on 29 Mar 2018
+        /// Description : Method to show value unit pair aware of its datatype
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="dataType"></param>
+        /// <returns></returns>
+        public static string ShowAvailable(string value, string unit, EnumSpecDataType dataType)
+        {
+            if (!String.IsNullOrEmpty(value))
+            {
+                if (dataType.Equals(EnumSpecDataType.Boolean))
+                {
+                    return value.Equals("1") ? "Yes" : "No";
+                }
+                else
+                {
+                    return String.Format("{0} {1}", value, unit);
+                }
+            }
+            return _notAvaliableText;
+        }
 
 		/// <summary>
 		/// Written By : Lucky Rathore On 23 Sept 2015

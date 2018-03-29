@@ -253,7 +253,7 @@
 																<td>@specItem.DisplayText@(!string.IsNullOrEmpty(specItem.UnitTypeText) ? string.Format(" ({0})", @specItem.UnitTypeText) : "")</td>
 																@foreach (var specValue in specItem.ItemValues)
 																{
-																	<td>@specValue</td>
+																	<td>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(specValue, specItem.DataType)</td>
 																}
 																<td></td>
 															</tr>
@@ -288,7 +288,7 @@
 												<td>@feature.DisplayText@(!string.IsNullOrEmpty(feature.UnitTypeText) ? string.Format(" ({0})", @feature.UnitTypeText) : "")</td>
 												@foreach (var featureValue in feature.ItemValues)
 												{
-													<td>@featureValue</td>
+													<td>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(featureValue, feature.DataType)</td>
 
 												}
 												<td></td>

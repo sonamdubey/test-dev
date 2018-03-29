@@ -136,15 +136,21 @@ namespace Bikewale.Models
             {
                 if (SimilarBikeList != null && SimilarBikeList.Any())
                 {
-                    IEnumerable<VersionMinSpecsEntity> versionMinSpecs = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(SimilarBikeList.Select(m => m.VersionBase.VersionId));
-                    foreach (var bike in SimilarBikeList)
+                    IEnumerable<VersionMinSpecsEntity> versionMinSpecsEntityList = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(SimilarBikeList.Select(m => m.VersionBase.VersionId));
+                    if (versionMinSpecsEntityList != null)
                     {
-                        VersionMinSpecsEntity minSpecsEntity = versionMinSpecs.FirstOrDefault(x => x.VersionId.Equals(bike.VersionBase.VersionId));
-                        if (minSpecsEntity != null)
+                        IEnumerator<VersionMinSpecsEntity> versionIterator = versionMinSpecsEntityList.GetEnumerator();
+                        VersionMinSpecsEntity objVersionMinSpec;
+                        foreach (var bike in SimilarBikeList)
                         {
-                            bike.MinSpecsList = minSpecsEntity.MinSpecsList;
+                            if (versionIterator.MoveNext())
+                            {
+                                objVersionMinSpec = versionIterator.Current;
+                                bike.MinSpecsList = objVersionMinSpec != null ? objVersionMinSpec.MinSpecsList : null;
+                            }
                         }
                     }
+                   
                 }
             }
             catch (Exception ex)

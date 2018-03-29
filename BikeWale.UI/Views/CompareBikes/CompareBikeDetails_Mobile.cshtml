@@ -212,7 +212,7 @@
 														<tr class="row-type-data">
 															@foreach (var specValue in specItem.ItemValues)
 															{
-																<td>@specValue</td>
+																<td>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(specValue, specItem.DataType)</td>
 															}
 															@if (Model.isSponsoredBike)
 															{
@@ -244,7 +244,7 @@
 												<tr class="row-type-data">
 													@foreach (var featureValue in feature.ItemValues)
 													{
-														<td>@featureValue</td>
+														<td>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(featureValue, feature.DataType)</td>
 													}
 													@if (!Model.isSponsoredBike)
 													{

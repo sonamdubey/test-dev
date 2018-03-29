@@ -1,6 +1,7 @@
 ﻿@model Bikewale.Models.Price.DealerPriceQuotePageVM
 @using Bikewale.Common;
 @using Bikewale.BikeBooking;
+@using Bikewale.Utility;
 @{
 
 
@@ -64,10 +65,10 @@
                         @if (Model.SelectedVersion != null)
                         {
                             <div id="model-image">
-                                <img src="@Bikewale.Utility.Image.GetPathToShowImages(Model.SelectedVersion.OriginalImagePath, Model.SelectedVersion.HostUrl, Bikewale.Utility.ImageSize._360x202)" title="@Model.BikeName Images" alt="@Model.BikeName Images" width="100%" />
+                                <img src="@Image.GetPathToShowImages(Model.SelectedVersion.OriginalImagePath, Model.SelectedVersion.HostUrl, ImageSize._360x202)" title="@Model.BikeName Images" alt="@Model.BikeName Images" width="100%" />
                             </div>
                         }
-                        @Html.Raw(Model.MinSpecsHtml)
+                        @Html.Raw(string.Format("<ul id=\"version-specs-list\">{0}</ul>", FormatMinSpecs.GetMinSpecsAsLiElement(Model.SelectedVersionMinSpecs)))
                     </div>
                     <div id="pq-table-column" class="grid-7 alpha omega">
                         @if (Model.VersionsList.Count() > 1)

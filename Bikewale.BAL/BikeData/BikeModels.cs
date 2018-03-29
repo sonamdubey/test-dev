@@ -1,6 +1,7 @@
 ﻿using Bikewale.BAL.Customer;
 using Bikewale.BAL.EditCMS;
 using Bikewale.BAL.GrpcFiles;
+using Bikewale.BAL.GrpcFiles.Specs_Features;
 using Bikewale.BAL.UserReviews.Search;
 using Bikewale.Cache.BikeData;
 using Bikewale.Cache.CMS;
@@ -295,6 +296,8 @@ namespace Bikewale.BAL.BikeData
         /// Summary: Added a condition to avoid fetching the whole model gallery in case of desktop model page 
         /// Modified by : Sajal Gupta on 28-02-2017
         /// Description : Call function to get images.
+        /// Modified by : Rajan Chauhan on 26 Mar 2018
+        /// Description : Added logic to append MinSpecs to ModelVersions
         /// </summary>
         /// <param name="modelId"></param>
         /// <returns></returns>
@@ -307,13 +310,14 @@ namespace Bikewale.BAL.BikeData
                 objModelPage = _modelCacheRepository.GetModelPageDetails(modelId);
                 if (objModelPage != null)
                 {
+                    BindMinSpecs(objModelPage.ModelVersions);
                     CreateAllPhotoList(modelId, objModelPage);
                 }
 
             }
             catch (Exception ex)
             {
-                ErrorClass.LogError(ex, "Exception : Bikewale.BAL.BikeData.GetModelPageDetails");
+                ErrorClass.LogError(ex, "Bikewale.BAL.BikeData.GetModelPageDetails");
             }
 
             return objModelPage;
@@ -322,6 +326,8 @@ namespace Bikewale.BAL.BikeData
         /// <summary>
         /// Created by : Sajal Gupta on 28-02-2017
         /// Description : Function to get data from cache and photo data from bal itself;
+        /// Modified by : Rajan Chauhan on 26 Mar 2018
+        /// Description : Added logic to append MinSpecs to ModelVersions
         /// </summary>
         /// <param name="modelId"></param>
         /// <param name="versionId"></param>
@@ -334,18 +340,52 @@ namespace Bikewale.BAL.BikeData
                 objModelPage = _modelCacheRepository.GetModelPageDetails(modelId, versionId);
                 if (objModelPage != null)
                 {
+                    BindMinSpecs(objModelPage.ModelVersions);
                     CreateAllPhotoList(modelId, objModelPage);
                 }
             }
             catch (Exception ex)
             {
-                ErrorClass.LogError(ex, string.Format("BikeModelsCacheRepository.GetModelPageDetails() => modelid {0}, versionId: {1}", modelId, versionId));
+                ErrorClass.LogError(ex, string.Format("BikeModels.GetModelPageDetails() => modelid {0}, versionId: {1}", modelId, versionId));
             }
 
             return objModelPage;
         }
 
-
+        /// <summary>
+        /// Created By  : Rajan Chauhan on 28 Mar 2018
+        /// Description : Method to Bind MinSpecs from SpecsFeatures MS 
+        /// </summary>
+        /// <param name="bikeVersionList"></param>
+        private static void BindMinSpecs(IEnumerable<BikeVersionMinSpecs> bikeVersionList)
+        {
+            try
+            {
+                if (bikeVersionList != null && bikeVersionList.Any())
+                {
+                    IEnumerable<VersionMinSpecsEntity> versionMinSpecsEntityList = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(bikeVersionList.Select(objVersion => (int)objVersion.VersionId),
+                    new List<EnumSpecsFeaturesItem> { EnumSpecsFeaturesItem.BrakeType, EnumSpecsFeaturesItem.AlloyWheels });
+                    if (versionMinSpecsEntityList != null)
+                    {
+                        IEnumerator<VersionMinSpecsEntity> versionIterator = versionMinSpecsEntityList.GetEnumerator();
+                        VersionMinSpecsEntity objVersionMinSpec;
+                        foreach (BikeVersionMinSpecs objVersion in bikeVersionList)
+                        {
+                            if (versionIterator.MoveNext())
+                            {
+                                objVersionMinSpec = versionIterator.Current;
+                                objVersion.MinSpecsList = objVersionMinSpec != null ? objVersionMinSpec.MinSpecsList : null;
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("BikeModels.BindMinSpecs(IEnumerable<BikeVersionMinSpecs> {0})", bikeVersionList));
+            }
+            
+        }
 
 
         /// <summary>
@@ -584,7 +624,7 @@ namespace Bikewale.BAL.BikeData
                                 img.ModelImage = cmsImages.Take(requiredImageCount);
                             }
                         }
-                    
+
                         var modelIdsArray = Array.ConvertAll(modelIds.Split(','), int.Parse);
                         var missingModelIds = modelIdsArray.Except(modelsImages.Select(m => m.ModelId));
                         if (missingModelIds != null && missingModelIds.Any())

@@ -215,8 +215,6 @@ namespace Bikewale.Models.BikeModels
                     {
                         BindAdSlots(_objData);
                     }
-
-
                     #endregion Do Not change the sequence
                 }
             }

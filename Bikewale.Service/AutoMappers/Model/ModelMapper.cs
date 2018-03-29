@@ -24,6 +24,7 @@ using Bikewale.Entities.PriceQuote;
 using Bikewale.Entities.UserReviews;
 using Bikewale.Entities.Videos;
 using Bikewale.Notifications;
+using Bikewale.Service.AutoMappers.BikeData;
 using Bikewale.Utility;
 using System;
 using System.Collections.Generic;
@@ -99,6 +100,16 @@ namespace Bikewale.Service.AutoMappers.Model
                         }
                     );
             }
+
+            if (objModelPage.ModelVersions != null)
+            {
+                IList<VersionMinSpecs> versionMinSpecsList = new List<VersionMinSpecs>();
+                foreach (BikeVersionMinSpecs bikeVersion in objModelPage.ModelVersions)
+                {
+                    versionMinSpecsList.Add(SpecsFeaturesMapper.ConvertToVersionMinSpecs(bikeVersion));
+                }
+                dto.ModelVersions = versionMinSpecsList;
+            }
             return dto;
         }
         /// <summary>
@@ -140,6 +151,16 @@ namespace Bikewale.Service.AutoMappers.Model
                             OriginalImgPath = m.OriginalImgPath
                         }
                     );
+            }
+
+            if (objModelPage.ModelVersions != null)
+            {
+                IList<VersionMinSpecs> versionMinSpecsList = new List<VersionMinSpecs>();
+                foreach (BikeVersionMinSpecs bikeVersion in objModelPage.ModelVersions)
+                {
+                    versionMinSpecsList.Add(SpecsFeaturesMapper.ConvertToVersionMinSpecs(bikeVersion));
+                }
+                dto.ModelVersions = versionMinSpecsList.ToList();
             }
             return dto;
         }
@@ -248,7 +269,7 @@ namespace Bikewale.Service.AutoMappers.Model
                         }
                     }
                 }
-               
+
                 var bikespecs = Mapper.Map<BikeSpecs>(objModelPage);
                 bikespecs.IsAreaExists = pqEntity.IsAreaExists;
                 bikespecs.IsExShowroomPrice = pqEntity.IsExShowroomPrice;
@@ -554,7 +575,7 @@ namespace Bikewale.Service.AutoMappers.Model
             Mapper.CreateMap<DealerQuotationEntity, DealerBase>().ForMember(d => d.DealerPkgType, opt => opt.MapFrom(s => s.DealerDetails.DealerPackageType));
             Mapper.CreateMap<PQByCityAreaEntity, PQByCityAreaDTOV2>();
             var versionPrices = Mapper.Map<PQByCityAreaEntity, PQByCityAreaDTOV2>(pqCityAea);
-
+            versionPrices.VersionList = ConvertBikeVersionToVersionDetail(pqCityAea.VersionList);
             if (pqCityAea.PrimaryDealer != null && pqCityAea.PrimaryDealer.OfferList != null)
             {
                 List<DPQOffer> objOffers = new List<DPQOffer>();
@@ -580,6 +601,7 @@ namespace Bikewale.Service.AutoMappers.Model
             Mapper.CreateMap<BikeVersionMinSpecs, VersionDetail>();
             Mapper.CreateMap<PQByCityAreaEntity, Bikewale.DTO.PriceQuote.Version.v3.PQByCityAreaDTO>();
             var versionPrices = Mapper.Map<PQByCityAreaEntity, Bikewale.DTO.PriceQuote.Version.v3.PQByCityAreaDTO>(pqCityAea);
+            versionPrices.VersionList = ConvertBikeVersionToVersionDetail(pqCityAea.VersionList);
             return versionPrices;
         }
         /// <summary>
@@ -937,6 +959,25 @@ namespace Bikewale.Service.AutoMappers.Model
             return Mapper.Map<IEnumerable<ModelColorImage>, IEnumerable<ModelColorPhoto>>(objAllPhotosEntity);
         }
 
+        private static IEnumerable<VersionDetail> ConvertBikeVersionToVersionDetail(IEnumerable<BikeVersionMinSpecs> versionList)
+        {
+            try
+            {
+                if (versionList != null && versionList.Any())
+                {
+                    IList<VersionDetail> versionDetailList = new List<VersionDetail>();
+                    VersionDetail objBikeVersionDetail;
+                    foreach (BikeVersionMinSpecs bikeVersion in versionList)
+                    {
+                        objBikeVersionDetail = SpecsFeaturesMapper.ConvertToVersionDetail(bikeVersion);
+                        versionDetailList.Add(objBikeVersionDetail);
+                    }
+                    return versionDetailList;
+                }
+            }
+            catch (Exception) { }
+            return null;
+        }
 
     }
 }
