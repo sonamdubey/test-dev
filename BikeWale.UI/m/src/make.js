@@ -282,9 +282,9 @@ var notifyPopup = (function () {
 		});
 
 		$(window).on('popstate', function () {
-			if (container.hasClass('filter-screen--active')) {
-				close();
-			}
+		    if (container.hasClass('notify-popup--active')) {
+		        notifyPopup.close();
+		    }
 		});
 	}
 
