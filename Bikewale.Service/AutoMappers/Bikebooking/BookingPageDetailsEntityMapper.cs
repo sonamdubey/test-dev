@@ -42,9 +42,10 @@ namespace Bikewale.Service.AutoMappers.Bikebooking
                     if (objBookingPageDetailsEntity.Varients != null)
                     {
                         IList<BikeDealerPriceDetailDTO> VarientList = new List<BikeDealerPriceDetailDTO>();
+                        BikeDealerPriceDetailDTO objbikeDealerPrice;
                         foreach (BikeDealerPriceDetail bikeVersion in objBookingPageDetailsEntity.Varients)
                         {
-                            BikeDealerPriceDetailDTO objbikeDealerPrice = Mapper.Map<BikeDealerPriceDetail, BikeDealerPriceDetailDTO>(bikeVersion);
+                            objbikeDealerPrice = Mapper.Map<BikeDealerPriceDetail, BikeDealerPriceDetailDTO>(bikeVersion);
                             objbikeDealerPrice.MinSpec = SpecsFeaturesMapper.ConvertToVersionMinSpecs(bikeVersion.MinSpec);
                             VarientList.Add(objbikeDealerPrice);
                         }
