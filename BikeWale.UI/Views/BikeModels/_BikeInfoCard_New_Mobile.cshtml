@@ -11,8 +11,7 @@
                 {
                     <a href="@string.Format("/m{0}reviews/", Model.BikeUrl)" title="@string.Format("{0} reviews",Model.BikeName)" style="text-decoration:none">
                         <span class="rating-badge" data-rate-bg="@Math.Round(Model.BikeInfo.Rating)">
-                            <span class="rating-badge__star"></span>
-                            <span>@Model.BikeInfo.Rating.ToString("0.0")</span>
+                            <span class="rating-badge__star margin-right5"></span><span>@Model.BikeInfo.Rating.ToString("0.0")</span>
                         </span>
                     </a>
 
