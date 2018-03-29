@@ -32,24 +32,7 @@
                             }
 
                         </td>
-                        @if (version.MinSpecsList != null && version.MinSpecsList.Any())
-						{
-							string SpecGeneralName, Specs = string.Empty;
-							foreach (var specItem in version.MinSpecsList)
-							{
-								SpecGeneralName = Bikewale.Utility.FormatMinSpecs.GetSpecGeneralName(specItem);
-								if (!String.IsNullOrEmpty(SpecGeneralName))
-								{
-									Specs += SpecGeneralName + ", ";
-								}
-							}
-							Specs = Specs.Substring(0, Specs.Length - 2);
-							<td class="font12">@Specs</td>
-						}
-						else
-						{
-							<td class="font12"></td>
-						}
+                        <td class="font12">@Bikewale.Utility.FormatMinSpecs.GetCommaSepratedGeneralSpecs(version.MinSpecsList)</td>
                     </tr>
                 }
             </tbody>

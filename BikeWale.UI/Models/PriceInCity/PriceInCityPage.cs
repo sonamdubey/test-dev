@@ -1,4 +1,5 @@
-﻿using Bikewale.DTO.PriceQuote;
+﻿using Bikewale.BAL.GrpcFiles.Specs_Features;
+using Bikewale.DTO.PriceQuote;
 using Bikewale.Entities;
 using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.BikeData;
@@ -365,10 +366,29 @@ namespace Bikewale.Models
                         objVM.VersionSpecs = _versionCache.GetVersionMinSpecs(modelId, objVM.IsNew);
                         if (objVM.VersionSpecs != null)
                         {
+                            var versionMinSpecsList = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(objVM.VersionSpecs.Select(x => x.VersionId), new List<EnumSpecsFeaturesItem>
+                            {
+                                EnumSpecsFeaturesItem.BrakeType,
+                                EnumSpecsFeaturesItem.AlloyWheels
+                            });
+                            if (versionMinSpecsList != null)
+                            {
+                                IEnumerator<VersionMinSpecsEntity> versionIterator = versionMinSpecsList.GetEnumerator();
+                                VersionMinSpecsEntity objVersionMinSpec;
+                                foreach (var bikeVersion in objVM.VersionSpecs)
+                                {
+                                    if (versionIterator.MoveNext())
+                                    {
+                                        objVersionMinSpec = versionIterator.Current;
+                                        bikeVersion.MinSpecsList = objVersionMinSpec != null ? objVersionMinSpec.MinSpecsList : null;
+                                    }
+                                }
+                            }
+                            
                             var objMin = objVM.VersionSpecs.FirstOrDefault(x => x.VersionId == firstVersion.VersionId);
                             if (objMin != null)
                             {
-                                objVM.MinSpecsHtml = FormatVarientMinSpec(objMin);
+                                objVM.MinSpecsList = objMin.MinSpecsList;
 
                                 // Set body style
                                 objVM.BodyStyle = objMin.BodyStyle;
@@ -619,20 +639,34 @@ namespace Bikewale.Models
                         objVM.JSONBikeVersions = JsonConvert.SerializeObject(values);
                         if (objVM.VersionSpecs != null)
                         {
+                            var versionMinSpecsList = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(objVM.VersionSpecs.Select(x => x.VersionId));
+                            if (versionMinSpecsList != null)
+                            {
+                                IEnumerator<VersionMinSpecsEntity> versionIterator = versionMinSpecsList.GetEnumerator();
+                                VersionMinSpecsEntity objVersionMinSpec;
+                                foreach (var bikeVersion in objVM.VersionSpecs)
+                                {
+                                    if (versionIterator.MoveNext())
+                                    {
+                                        objVersionMinSpec = versionIterator.Current;
+                                        bikeVersion.MinSpecsList = objVersionMinSpec != null ? objVersionMinSpec.MinSpecsList : null;
+                                    }
+                                }
+                            }
                             var objMin = objVM.VersionSpecs.FirstOrDefault(x => x.VersionId == firstVersion.VersionId);
                             if (objMin != null)
                             {
-                                objVM.MinSpecsHtml = FormatVarientMinSpec(objMin);
+                                objVM.MinSpecsList = objMin.MinSpecsList;
 
                                 // Set body style
                                 objVM.BodyStyle = objMin.BodyStyle;
                             }
                             else
                             {
-                                var firstVersionTemp = objVM.VersionSpecs.FirstOrDefault();
-                                if (firstVersionTemp != null)
+                                var firstVersionSpec = objVM.VersionSpecs.FirstOrDefault();
+                                if (firstVersionSpec != null)
                                 {
-                                    objVM.BodyStyle = firstVersionTemp.BodyStyle;
+                                    objVM.BodyStyle = objVM.VersionSpecs.FirstOrDefault().BodyStyle;
 
                                 }
                             }
@@ -1087,42 +1121,6 @@ namespace Bikewale.Models
             {
                 ErrorClass.LogError(ex, String.Format("BindPriceInNearestCities({0},{1})", modelMaskingName, cityMaskingName));
             }
-        }
-
-        /// <summary>
-        /// Created by : Aditi Srivastava on 12 Apr 2017
-        /// Summary    : Format min specs
-        /// Modified By : Rajan Chauhan on 23 Mar 2018
-        /// Description : Min Specs from MinSpecsList
-        /// </summary>
-        private string FormatVarientMinSpec(BikeVersionMinSpecs objVersion)
-        {
-            StringBuilder minSpecsStr = new StringBuilder();
-
-            try
-            {
-                if (objVersion != null && objVersion.MinSpecsList != null)
-                {
-                    minSpecsStr.Append("<ul id='version-specs-list'>");
-                    foreach (var specItem in objVersion.MinSpecsList)
-                    {
-                        string generalSpecName = FormatMinSpecs.GetSpecGeneralName(specItem);
-                        if (String.IsNullOrEmpty(generalSpecName))
-                        {
-                            minSpecsStr.Append(String.Format("<li>{0}</li>", generalSpecName));
-                        }
-
-                    }
-                    minSpecsStr.Append("</ul>");
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorClass.LogError(ex, string.Format("Bikewale.Models.PriceInCityPAge.FormatVarientMinSpec(): versionId {0}", objVersion.VersionId));
-            }
-
-            return minSpecsStr.ToString();
-
         }
 
         /// <summary>

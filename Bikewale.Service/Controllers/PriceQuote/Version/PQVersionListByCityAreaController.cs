@@ -212,21 +212,33 @@ namespace Bikewale.Service.Controllers.PriceQuote.Version
             }
         }
 
-        private void BindMinSpecs(IEnumerable<BikeVersionMinSpecs> bikeVersionList)
+        private static void BindMinSpecs(IEnumerable<BikeVersionMinSpecs> bikeVersionList)
         {
             try
             {
                 if (bikeVersionList != null && bikeVersionList.Any())
                 {
                     IEnumerable<VersionMinSpecsEntity> versionMinSpecsEntityList = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(bikeVersionList.Select(objVersion => (int)objVersion.VersionId),
-                        new List<EnumSpecsFeaturesItem> { EnumSpecsFeaturesItem.BrakeType, EnumSpecsFeaturesItem.AlloyWheels, EnumSpecsFeaturesItem.ElectricStart, EnumSpecsFeaturesItem.AntilockBrakingSystem });
-                    foreach (BikeVersionMinSpecs objVersion in bikeVersionList)
+                        new List<EnumSpecsFeaturesItem> { 
+                            EnumSpecsFeaturesItem.BrakeType,
+                            EnumSpecsFeaturesItem.AlloyWheels,
+                            EnumSpecsFeaturesItem.ElectricStart,
+                            EnumSpecsFeaturesItem.AntilockBrakingSystem
+                        });
+                    if (versionMinSpecsEntityList != null)
                     {
-                        VersionMinSpecsEntity objVersionMinSpec = versionMinSpecsEntityList.Where(versionSpecEntity => versionSpecEntity.VersionId.Equals(objVersion.VersionId)).FirstOrDefault();
-                        objVersion.MinSpecsList = objVersionMinSpec != null ? objVersionMinSpec.MinSpecsList : null;
+                        IEnumerator<VersionMinSpecsEntity> versionIterator = versionMinSpecsEntityList.GetEnumerator();
+                        VersionMinSpecsEntity objVersionMinSpec;
+                        foreach (BikeVersionMinSpecs objVersion in bikeVersionList)
+                        {
+                            if (versionIterator.MoveNext())
+                            {
+                                objVersionMinSpec = versionIterator.Current;
+                                objVersion.MinSpecsList = objVersionMinSpec != null ? objVersionMinSpec.MinSpecsList : null;
+                            }
+                        }
                     }
                 }
-
             }
             catch (Exception ex)
             {

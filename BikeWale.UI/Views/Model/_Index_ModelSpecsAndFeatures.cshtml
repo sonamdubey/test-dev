@@ -3,7 +3,6 @@
     if (Model.VersionSpecsFeatures != null)
     {
         var features = Model.VersionSpecsFeatures.Features;
-        string itemValue, featureValue;
         <h2 class="h2-heading content-inner-block-20">@Model.ModelName Specifications & Features</h2>
         if (Model.VersionSpecsFeatures != null && Model.VersionSpecsFeatures.Specs.Any())
         {
@@ -30,7 +29,7 @@
                                 {
                                     <p>
 										<span class="specs-features-item__content text-light-grey">@item.DisplayText</span>
-										<span class="specs-features-item__content text-bold">@Bikewale.Utility.FormatMinSpecs.ShowAvailable(item.ItemValues.FirstOrDefault(), item.UnitTypeText)</span>
+										<span class="specs-features-item__content text-bold">@Bikewale.Utility.FormatMinSpecs.ShowAvailable(item.ItemValues.FirstOrDefault(), item.UnitTypeText, item.DataType)</span>
                                     </p>
                                 }
                             </div>
@@ -39,7 +38,7 @@
                                 {
                                     <p>
 										<span class="specs-features-item__content text-light-grey">@item.DisplayText</span>
-										<span class="specs-features-item__content text-bold">@Bikewale.Utility.FormatMinSpecs.ShowAvailable(item.ItemValues.FirstOrDefault(), item.UnitTypeText)</span>
+										<span class="specs-features-item__content text-bold">@Bikewale.Utility.FormatMinSpecs.ShowAvailable(item.ItemValues.FirstOrDefault(), item.UnitTypeText, item.DataType)</span>
                                     </p>
                                 }
                             </div>
@@ -66,7 +65,7 @@
                         {
                             <p>
                                 <span>@feature.DisplayText</span>
-                                <span>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(feature.ItemValues.FirstOrDefault(), feature.UnitTypeText)</span>
+                                <span>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(feature.ItemValues.FirstOrDefault(), feature.UnitTypeText, feature.DataType)</span>
                             </p>
                         }
                     </div>
@@ -75,7 +74,7 @@
                         {
                             <p>
                                 <span>@feature.DisplayText</span>
-                                <span>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(feature.ItemValues.FirstOrDefault(), feature.UnitTypeText)</span>
+                                <span>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(feature.ItemValues.FirstOrDefault(), feature.UnitTypeText, feature.DataType)</span>
                             </p>
                         }
                     </div>
@@ -88,7 +87,7 @@
                         {
                             <p>
                                 <span>@feature.DisplayText</span>
-                                <span>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(feature.ItemValues.FirstOrDefault(), feature.UnitTypeText)</span>
+                                <span>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(feature.ItemValues.FirstOrDefault(), feature.UnitTypeText, feature.DataType)</span>
                             </p>
                         }
 		            </div>
@@ -97,7 +96,7 @@
                         {
                             <p>
                                 <span>@feature.DisplayText</span>
-                                <span>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(feature.ItemValues.FirstOrDefault(), feature.UnitTypeText)</span>
+                                <span>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(feature.ItemValues.FirstOrDefault(), feature.UnitTypeText, feature.DataType)</span>
                             </p>
                         }
                     </div>

@@ -431,22 +431,24 @@ namespace Bikewale.BAL.BikeBooking
                 pageDetail = dealerPQRepository.FetchBookingPageDetails(cityId, versionId, dealerId);
                 if (pageDetail != null && pageDetail.Varients != null)
                 {
-                    IEnumerable<VersionMinSpecsEntity> versionMinSpecsEntityList = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(pageDetail.Varients.Select(objVarient => (int)objVarient.MinSpec.VersionId),
+                    IEnumerable<VersionMinSpecsEntity> versionMinSpecsEntityList = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(new List<int> { (int)versionId },
                         new List<EnumSpecsFeaturesItem> { EnumSpecsFeaturesItem.BrakeType, EnumSpecsFeaturesItem.AlloyWheels });
                     if (versionMinSpecsEntityList != null)
                     {
+                        VersionMinSpecsEntity objVersionMinSpec = null;
                         foreach (BikeDealerPriceDetail objVersion in pageDetail.Varients)
                         {
-                            VersionMinSpecsEntity objVersionMinSpec = versionMinSpecsEntityList.Where(versionSpecEntity => versionSpecEntity.VersionId.Equals(objVersion.MinSpec.VersionId)).FirstOrDefault();
-                            if (objVersionMinSpec != null)
+                            if (objVersion.MinSpec.VersionId == versionId)
                             {
-                                objVersion.MinSpec.MinSpecsList = objVersionMinSpec.MinSpecsList;
+                                objVersionMinSpec = versionMinSpecsEntityList.FirstOrDefault(versionSpecEntity => versionSpecEntity.VersionId.Equals(objVersion.MinSpec.VersionId));
+                                if (objVersionMinSpec != null)
+                                {
+                                    objVersion.MinSpec.MinSpecsList = objVersionMinSpec.MinSpecsList;
+                                }
                             }
                         }
                     }
-
                 }
-                
             }
             catch (Exception ex)
             {

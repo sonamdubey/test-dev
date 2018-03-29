@@ -75,7 +75,7 @@ namespace Bikewale.Service.AutoMappers.BikeData
 
         private static bool CheckBoolSpecItem(SpecsItem specItem)
         {
-            return specItem != null && specItem.Value.Equals("Yes") ? true : false;
+            return specItem != null && specItem.Value.Equals("1") ? true : false;
         }
     }
 }

@@ -7,123 +7,124 @@ using pb = global::Google.Protobuf;
 using pbc = global::Google.Protobuf.Collections;
 using pbr = global::Google.Protobuf.Reflection;
 using scg = global::System.Collections.Generic;
-namespace VehicleData.Service.ProtoClass {
+namespace VehicleData.Service.ProtoClass
+{
 
-  /// <summary>Holder for reflection information generated from vehicleData.proto</summary>
-  public static partial class VehicleDataReflection {
+    /// <summary>Holder for reflection information generated from vehicleData.proto</summary>
+    public static partial class VehicleDataReflection
+    {
 
-    #region Descriptor
-    /// <summary>File descriptor for vehicleData.proto</summary>
-    public static pbr::FileDescriptor Descriptor {
-      get { return descriptor; }
-    }
-    private static pbr::FileDescriptor descriptor;
+        #region Descriptor
+        /// <summary>File descriptor for vehicleData.proto</summary>
+        public static pbr::FileDescriptor Descriptor
+        {
+            get { return descriptor; }
+        }
+        private static pbr::FileDescriptor descriptor;
 
-    static VehicleDataReflection() {
-      byte[] descriptorData = global::System.Convert.FromBase64String(
-          string.Concat(
-            "ChF2ZWhpY2xlRGF0YS5wcm90bxILVmVoaWNsZURhdGEaDmNhdGVnb3J5LnBy",
-            "b3RvGgppdGVtLnByb3RvGg51bml0VHlwZS5wcm90bxoUY3VzdG9tRGF0YVR5",
-            "cGUucHJvdG8aDmRhdGFUeXBlLnByb3RvIoQBChZDb3B5VmVoaWNsZURhdGFS",
-            "ZXF1ZXN0EhQKDFNyY1ZlcnNpb25JZBgBIAEoBRIUCgxUYXJWZXJzaW9uSWQY",
-            "AiABKAUSEgoKQ2F0ZWdvcnlJZBgDIAEoBRIVCg1BcHBsaWNhdGlvbklkGAQg",
-            "ASgFEhMKC1JlcXVlc3RlZEJ5GAUgASgFIgwKCkVtcHR5UGFyYW0iGAoHR3Jw",
-            "Y0ludBINCgVWYWx1ZRgBIAEoBSIZCghHcnBjQm9vbBINCgVWYWx1ZRgBIAEo",
-            "CCIyCg1EZWxldGVSZXF1ZXN0EgoKAklkGAEgASgFEhUKDUFwcGxpY2F0aW9u",
-            "SWQYAiABKAUiMQoMSW5wdXRSZXF1ZXN0EgoKAklkGAEgASgFEhUKDUFwcGxp",
-            "Y2F0aW9uSWQYAiABKAUivwEKEEl0ZW1WYWx1ZVRvV3JpdGUSEQoJVmVyc2lv",
-            "bklkGAEgASgFEhUKDUFwcGxpY2F0aW9uSWQYAiABKAUSDgoGSXRlbUlkGAMg",
-            "ASgFEhIKCkRhdGFUeXBlSWQYBCABKAUSDQoFVmFsdWUYBSABKAkSFAoMQ3Vz",
-            "dG9tVHlwZUlkGAYgASgFEhEKCVVwZGF0ZWRPbhgHIAEoCRIRCglVcGRhdGVk",
-            "QnkYCCABKAUSEgoKQ2F0ZWdvcnlJZBgJIAEoBSJKChVJdGVtVmFsdWVXcml0",
-            "ZVJlcXVlc3QSMQoKSXRlbVZhbHVlcxgBIAMoCzIdLlZlaGljbGVEYXRhLkl0",
-            "ZW1WYWx1ZVRvV3JpdGUiUAoQSXRlbVZhbHVlUmVxdWVzdBIRCglWZXJzaW9u",
-            "SWQYASABKAUSEgoKQ2F0ZWdvcnlJZBgCIAEoBRIVCg1BcHBsaWNhdGlvbklk",
-            "GAMgASgFIiYKCVZhbHVlRGF0YRIKCgJJZBgBIAEoBRINCgVWYWx1ZRgCIAEo",
-            "CSI6Cg1WYWx1ZURhdGFMaXN0EikKCUl0ZW1WYWx1ZRgBIAMoCzIWLlZlaGlj",
-            "bGVEYXRhLlZhbHVlRGF0YSJAChNTcGVjc1N1bW1hcnlSZXF1ZXN0EhIKClZl",
-            "cnNpb25JZHMYASADKAUSFQoNQXBwbGljYXRpb25JZBgCIAEoBSJLChNWZXJz",
-            "aW9uU3BlY3NTdW1tYXJ5EgoKAklkGAEgASgFEigKBVNwZWNzGAIgAygLMhku",
-            "VmVoaWNsZURhdGEuU3BlY3NTdW1tYXJ5IksKF1ZlcnNpb25TcGVjc1N1bW1h",
-            "cnlMaXN0EjAKBlZhbHVlcxgBIAMoCzIgLlZlaGljbGVEYXRhLlZlcnNpb25T",
-            "cGVjc1N1bW1hcnkiVgoYTW9kZWxTcGVjc1N1bW1hcnlSZXF1ZXN0EhIKClZl",
-            "cnNpb25JZHMYASADKAUSDwoHTW9kZWxJZBgCIAEoBRIVCg1BcHBsaWNhdGlv",
-            "bklkGAMgASgFIlEKDFNwZWNzU3VtbWFyeRIOCgZJdGVtSWQYASABKAUSEAoI",
-            "SXRlbU5hbWUYAiABKAkSDQoFVmFsdWUYAyABKAkSEAoIVW5pdFR5cGUYBCAB",
-            "KAkiQgoVTW9kZWxTcGVjc1N1bW1hcnlMaXN0EikKBlZhbHVlcxgBIAMoCzIZ",
-            "LlZlaGljbGVEYXRhLlNwZWNzU3VtbWFyeSJaChxWZXJzaW9uc0RhdGFCeUl0",
-            "ZW1JZHNSZXF1ZXN0EhUKDUFwcGxpY2F0aW9uSWQYASABKAUSEgoKVmVyc2lv",
-            "bklkcxgCIAMoBRIPCgdJdGVtSWRzGAMgAygFIlsKCEl0ZW1EYXRhEg4KBkl0",
-            "ZW1JZBgBIAEoBRIQCghJdGVtTmFtZRgCIAEoCRINCgVWYWx1ZRgDIAEoCRIQ",
-            "CghVbml0VHlwZRgEIAEoCRIMCgRJY29uGAUgASgJIkcKEFZlcnNpb25JdGVt",
-            "c0RhdGESCgoCSWQYASABKAUSJwoISXRlbUxpc3QYAiADKAsyFS5WZWhpY2xl",
-            "RGF0YS5JdGVtRGF0YSJXChhWZXJzaW9uSXRlbXNEYXRhUmVzcG9uc2USOwoU",
-            "VmVyc2lvbkl0ZW1zRGF0YUxpc3QYASADKAsyHS5WZWhpY2xlRGF0YS5WZXJz",
-            "aW9uSXRlbXNEYXRhIo8BChBWZWhpY2xlRGF0YVZhbHVlEi0KDlNwZWNpZmlj",
-            "YXRpb25zGAEgAygLMhUuVmVoaWNsZURhdGEuQ2F0ZWdvcnkSJwoIRmVhdHVy",
-            "ZXMYAiADKAsyFS5WZWhpY2xlRGF0YS5DYXRlZ29yeRIjCghPdmVydmlldxgD",
-            "IAMoCzIRLlZlaGljbGVEYXRhLkl0ZW0iVwoSVmVoaWNsZURhdGFSZXF1ZXN0",
-            "EhIKClZlcnNpb25JZHMYASADKAUSFQoNQXBwbGljYXRpb25JZBgCIAEoBRIW",
-            "Cg5JdGVtR3JvdXBUeXBlcxgDIAEoCTLxEgoSVmVoaWNsZURhdGFTZXJ2aWNl",
-            "Ej8KDkNyZWF0ZUNhdGVnb3J5EhUuVmVoaWNsZURhdGEuQ2F0ZWdvcnkaFC5W",
-            "ZWhpY2xlRGF0YS5HcnBjSW50IgASQAoOVXBkYXRlQ2F0ZWdvcnkSFS5WZWhp",
-            "Y2xlRGF0YS5DYXRlZ29yeRoVLlZlaGljbGVEYXRhLkdycGNCb29sIgASRQoO",
-            "RGVsZXRlQ2F0ZWdvcnkSGi5WZWhpY2xlRGF0YS5EZWxldGVSZXF1ZXN0GhUu",
-            "VmVoaWNsZURhdGEuR3JwY0Jvb2wiABJMChZHZXRDYXRlZ29yeURldGFpbHNC",
-            "eUlkEhkuVmVoaWNsZURhdGEuSW5wdXRSZXF1ZXN0GhUuVmVoaWNsZURhdGEu",
-            "Q2F0ZWdvcnkiABJUChdHZXRBbGxDYXRlZ29yaWVzRGV0YWlscxIcLlZlaGlj",
-            "bGVEYXRhLkNhdGVnb3J5UmVxdWVzdBoZLlZlaGljbGVEYXRhLkNhdGVnb3J5",
-            "TGlzdCIAEjcKCkNyZWF0ZUl0ZW0SES5WZWhpY2xlRGF0YS5JdGVtGhQuVmVo",
-            "aWNsZURhdGEuR3JwY0ludCIAEjgKClVwZGF0ZUl0ZW0SES5WZWhpY2xlRGF0",
-            "YS5JdGVtGhUuVmVoaWNsZURhdGEuR3JwY0Jvb2wiABJBCgpEZWxldGVJdGVt",
-            "EhouVmVoaWNsZURhdGEuRGVsZXRlUmVxdWVzdBoVLlZlaGljbGVEYXRhLkdy",
-            "cGNCb29sIgASRAoSR2V0SXRlbURldGFpbHNCeUlkEhkuVmVoaWNsZURhdGEu",
-            "SW5wdXRSZXF1ZXN0GhEuVmVoaWNsZURhdGEuSXRlbSIAElMKFEdldEl0ZW1z",
-            "QnlDYXRlZ29yeUlkEiIuVmVoaWNsZURhdGEuSXRlbUJ5Q2F0ZWdvcnlSZXF1",
-            "ZXN0GhUuVmVoaWNsZURhdGEuSXRlbUxpc3QiABJLChpHZXRBbGxJdGVtc0J5",
-            "QXBwbGljYXRpb25JZBIULlZlaGljbGVEYXRhLkdycGNJbnQaFS5WZWhpY2xl",
-            "RGF0YS5JdGVtTGlzdCIAEj8KDkNyZWF0ZVVuaXRUeXBlEhUuVmVoaWNsZURh",
-            "dGEuVW5pdFR5cGUaFC5WZWhpY2xlRGF0YS5HcnBjSW50IgASQAoOVXBkYXRl",
-            "VW5pdFR5cGUSFS5WZWhpY2xlRGF0YS5Vbml0VHlwZRoVLlZlaGljbGVEYXRh",
-            "LkdycGNCb29sIgASPwoORGVsZXRlVW5pdFR5cGUSFC5WZWhpY2xlRGF0YS5H",
-            "cnBjSW50GhUuVmVoaWNsZURhdGEuR3JwY0Jvb2wiABJOChZHZXRBbGxVbml0",
-            "VHlwZXNEZXRhaWxzEhcuVmVoaWNsZURhdGEuRW1wdHlQYXJhbRoZLlZlaGlj",
-            "bGVEYXRhLlVuaXRUeXBlTGlzdCIAElQKGEN1c3RvbURhdGFUeXBlT3BlcmF0",
-            "aW9ucxIfLlZlaGljbGVEYXRhLkN1c3RvbURhdGFUeXBlTGlzdBoVLlZlaGlj",
-            "bGVEYXRhLkdycGNCb29sIgASWgocR2V0QWxsQ3VzdG9tRGF0YVR5cGVzRGV0",
-            "YWlscxIXLlZlaGljbGVEYXRhLkVtcHR5UGFyYW0aHy5WZWhpY2xlRGF0YS5D",
-            "dXN0b21EYXRhVHlwZUxpc3QiABI/Cg5DcmVhdGVEYXRhVHlwZRIVLlZlaGlj",
-            "bGVEYXRhLkRhdGFUeXBlGhQuVmVoaWNsZURhdGEuR3JwY0ludCIAEkEKD1Vw",
-            "ZGF0ZWREYXRhVHlwZRIVLlZlaGljbGVEYXRhLkRhdGFUeXBlGhUuVmVoaWNs",
-            "ZURhdGEuR3JwY0Jvb2wiABI/Cg5EZWxldGVEYXRhVHlwZRIULlZlaGljbGVE",
-            "YXRhLkdycGNJbnQaFS5WZWhpY2xlRGF0YS5HcnBjQm9vbCIAEkcKFkdldERh",
-            "dGFUeXBlRGV0YWlsc0J5SWQSFC5WZWhpY2xlRGF0YS5HcnBjSW50GhUuVmVo",
-            "aWNsZURhdGEuRGF0YVR5cGUiABJNChVHZXRBbGxEYXRhVHlwZURldGFpbHMS",
-            "Fy5WZWhpY2xlRGF0YS5FbXB0eVBhcmFtGhkuVmVoaWNsZURhdGEuRGF0YVR5",
-            "cGVMaXN0IgASTgoPQ3JlYXRlSXRlbVZhbHVlEiIuVmVoaWNsZURhdGEuSXRl",
-            "bVZhbHVlV3JpdGVSZXF1ZXN0GhUuVmVoaWNsZURhdGEuR3JwY0Jvb2wiABJO",
-            "Cg9VcGRhdGVJdGVtVmFsdWUSIi5WZWhpY2xlRGF0YS5JdGVtVmFsdWVXcml0",
-            "ZVJlcXVlc3QaFS5WZWhpY2xlRGF0YS5HcnBjQm9vbCIAEk4KD0RlbGV0ZUl0",
-            "ZW1WYWx1ZRIiLlZlaGljbGVEYXRhLkl0ZW1WYWx1ZVdyaXRlUmVxdWVzdBoV",
-            "LlZlaGljbGVEYXRhLkdycGNCb29sIgASVQoWR2V0SXRlbURhdGFCeVZlcnNp",
-            "b25JZBIdLlZlaGljbGVEYXRhLkl0ZW1WYWx1ZVJlcXVlc3QaGi5WZWhpY2xl",
-            "RGF0YS5WYWx1ZURhdGFMaXN0IgASTwoPQ29weVZlaGljbGVEYXRhEiMuVmVo",
-            "aWNsZURhdGEuQ29weVZlaGljbGVEYXRhUmVxdWVzdBoVLlZlaGljbGVEYXRh",
-            "LkdycGNCb29sIgASXgoaR2V0VmVoaWNsZURhdGFGb3JWZXJzaW9uSWQSHy5W",
-            "ZWhpY2xlRGF0YS5WZWhpY2xlRGF0YVJlcXVlc3QaHS5WZWhpY2xlRGF0YS5W",
-            "ZWhpY2xlRGF0YVZhbHVlIgASawoVVmVyc2lvbnNEYXRhQnlJdGVtSWRzEiku",
-            "VmVoaWNsZURhdGEuVmVyc2lvbnNEYXRhQnlJdGVtSWRzUmVxdWVzdBolLlZl",
-            "aGljbGVEYXRhLlZlcnNpb25JdGVtc0RhdGFSZXNwb25zZSIAEmIKFkdldFZl",
-            "cnNpb25TcGVjc1N1bW1hcnkSIC5WZWhpY2xlRGF0YS5TcGVjc1N1bW1hcnlS",
-            "ZXF1ZXN0GiQuVmVoaWNsZURhdGEuVmVyc2lvblNwZWNzU3VtbWFyeUxpc3Qi",
-            "ABJjChRHZXRNb2RlbFNwZWNzU3VtbWFyeRIlLlZlaGljbGVEYXRhLk1vZGVs",
-            "U3BlY3NTdW1tYXJ5UmVxdWVzdBoiLlZlaGljbGVEYXRhLk1vZGVsU3BlY3NT",
-            "dW1tYXJ5TGlzdCIAQiGqAh5WZWhpY2xlRGF0YS5TZXJ2aWNlLlByb3RvQ2xh",
-            "c3NiBnByb3RvMw=="));
-      descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
-          new pbr::FileDescriptor[] { global::VehicleData.Service.ProtoClass.CategoryReflection.Descriptor, global::VehicleData.Service.ProtoClass.ItemReflection.Descriptor, global::VehicleData.Service.ProtoClass.UnitTypeReflection.Descriptor, global::VehicleData.Service.ProtoClass.CustomDataTypeReflection.Descriptor, global::VehicleData.Service.ProtoClass.DataTypeReflection.Descriptor, },
-          new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::VehicleData.Service.ProtoClass.CopyVehicleDataRequest), global::VehicleData.Service.ProtoClass.CopyVehicleDataRequest.Parser, new[]{ "SrcVersionId", "TarVersionId", "CategoryId", "ApplicationId", "RequestedBy" }, null, null, null),
+        static VehicleDataReflection()
+        {
+            byte[] descriptorData = global::System.Convert.FromBase64String(
+                string.Concat(
+                  "ChF2ZWhpY2xlRGF0YS5wcm90bxILVmVoaWNsZURhdGEaDmNhdGVnb3J5LnBy",
+                  "b3RvGgppdGVtLnByb3RvGg51bml0VHlwZS5wcm90bxoUY3VzdG9tRGF0YVR5",
+                  "cGUucHJvdG8aDmRhdGFUeXBlLnByb3RvIgwKCkVtcHR5UGFyYW0iGAoHR3Jw",
+                  "Y0ludBINCgVWYWx1ZRgBIAEoBSIZCghHcnBjQm9vbBINCgVWYWx1ZRgBIAEo",
+                  "CCIyCg1EZWxldGVSZXF1ZXN0EgoKAklkGAEgASgFEhUKDUFwcGxpY2F0aW9u",
+                  "SWQYAiABKAUiMQoMSW5wdXRSZXF1ZXN0EgoKAklkGAEgASgFEhUKDUFwcGxp",
+                  "Y2F0aW9uSWQYAiABKAUivwEKEEl0ZW1WYWx1ZVRvV3JpdGUSEQoJVmVyc2lv",
+                  "bklkGAEgASgFEhUKDUFwcGxpY2F0aW9uSWQYAiABKAUSDgoGSXRlbUlkGAMg",
+                  "ASgFEhIKCkRhdGFUeXBlSWQYBCABKAUSDQoFVmFsdWUYBSABKAkSFAoMQ3Vz",
+                  "dG9tVHlwZUlkGAYgASgFEhEKCVVwZGF0ZWRPbhgHIAEoCRIRCglVcGRhdGVk",
+                  "QnkYCCABKAUSEgoKQ2F0ZWdvcnlJZBgJIAEoBSJKChVJdGVtVmFsdWVXcml0",
+                  "ZVJlcXVlc3QSMQoKSXRlbVZhbHVlcxgBIAMoCzIdLlZlaGljbGVEYXRhLkl0",
+                  "ZW1WYWx1ZVRvV3JpdGUiUAoQSXRlbVZhbHVlUmVxdWVzdBIRCglWZXJzaW9u",
+                  "SWQYASABKAUSEgoKQ2F0ZWdvcnlJZBgCIAEoBRIVCg1BcHBsaWNhdGlvbklk",
+                  "GAMgASgFIiYKCVZhbHVlRGF0YRIKCgJJZBgBIAEoBRINCgVWYWx1ZRgCIAEo",
+                  "CSI6Cg1WYWx1ZURhdGFMaXN0EikKCUl0ZW1WYWx1ZRgBIAMoCzIWLlZlaGlj",
+                  "bGVEYXRhLlZhbHVlRGF0YSJAChNTcGVjc1N1bW1hcnlSZXF1ZXN0EhIKClZl",
+                  "cnNpb25JZHMYASADKAUSFQoNQXBwbGljYXRpb25JZBgCIAEoBSJLChNWZXJz",
+                  "aW9uU3BlY3NTdW1tYXJ5EgoKAklkGAEgASgFEigKBVNwZWNzGAIgAygLMhku",
+                  "VmVoaWNsZURhdGEuU3BlY3NTdW1tYXJ5IksKF1ZlcnNpb25TcGVjc1N1bW1h",
+                  "cnlMaXN0EjAKBlZhbHVlcxgBIAMoCzIgLlZlaGljbGVEYXRhLlZlcnNpb25T",
+                  "cGVjc1N1bW1hcnkiVgoYTW9kZWxTcGVjc1N1bW1hcnlSZXF1ZXN0EhIKClZl",
+                  "cnNpb25JZHMYASADKAUSDwoHTW9kZWxJZBgCIAEoBRIVCg1BcHBsaWNhdGlv",
+                  "bklkGAMgASgFIlEKDFNwZWNzU3VtbWFyeRIOCgZJdGVtSWQYASABKAUSEAoI",
+                  "SXRlbU5hbWUYAiABKAkSDQoFVmFsdWUYAyABKAkSEAoIVW5pdFR5cGUYBCAB",
+                  "KAkiQgoVTW9kZWxTcGVjc1N1bW1hcnlMaXN0EikKBlZhbHVlcxgBIAMoCzIZ",
+                  "LlZlaGljbGVEYXRhLlNwZWNzU3VtbWFyeSJaChxWZXJzaW9uc0RhdGFCeUl0",
+                  "ZW1JZHNSZXF1ZXN0EhUKDUFwcGxpY2F0aW9uSWQYASABKAUSEgoKVmVyc2lv",
+                  "bklkcxgCIAMoBRIPCgdJdGVtSWRzGAMgAygFIm8KCEl0ZW1EYXRhEg4KBkl0",
+                  "ZW1JZBgBIAEoBRIQCghJdGVtTmFtZRgCIAEoCRINCgVWYWx1ZRgDIAEoCRIQ",
+                  "CghVbml0VHlwZRgEIAEoCRIMCgRJY29uGAUgASgJEhIKCkRhdGFUeXBlSWQY",
+                  "BiABKAUiRwoQVmVyc2lvbkl0ZW1zRGF0YRIKCgJJZBgBIAEoBRInCghJdGVt",
+                  "TGlzdBgCIAMoCzIVLlZlaGljbGVEYXRhLkl0ZW1EYXRhIlcKGFZlcnNpb25J",
+                  "dGVtc0RhdGFSZXNwb25zZRI7ChRWZXJzaW9uSXRlbXNEYXRhTGlzdBgBIAMo",
+                  "CzIdLlZlaGljbGVEYXRhLlZlcnNpb25JdGVtc0RhdGEijwEKEFZlaGljbGVE",
+                  "YXRhVmFsdWUSLQoOU3BlY2lmaWNhdGlvbnMYASADKAsyFS5WZWhpY2xlRGF0",
+                  "YS5DYXRlZ29yeRInCghGZWF0dXJlcxgCIAMoCzIVLlZlaGljbGVEYXRhLkNh",
+                  "dGVnb3J5EiMKCE92ZXJ2aWV3GAMgAygLMhEuVmVoaWNsZURhdGEuSXRlbSJX",
+                  "ChJWZWhpY2xlRGF0YVJlcXVlc3QSEgoKVmVyc2lvbklkcxgBIAMoBRIVCg1B",
+                  "cHBsaWNhdGlvbklkGAIgASgFEhYKDkl0ZW1Hcm91cFR5cGVzGAMgASgJMoIT",
+                  "ChJWZWhpY2xlRGF0YVNlcnZpY2USPwoOQ3JlYXRlQ2F0ZWdvcnkSFS5WZWhp",
+                  "Y2xlRGF0YS5DYXRlZ29yeRoULlZlaGljbGVEYXRhLkdycGNJbnQiABJACg5V",
+                  "cGRhdGVDYXRlZ29yeRIVLlZlaGljbGVEYXRhLkNhdGVnb3J5GhUuVmVoaWNs",
+                  "ZURhdGEuR3JwY0Jvb2wiABJFCg5EZWxldGVDYXRlZ29yeRIaLlZlaGljbGVE",
+                  "YXRhLkRlbGV0ZVJlcXVlc3QaFS5WZWhpY2xlRGF0YS5HcnBjQm9vbCIAEkwK",
+                  "FkdldENhdGVnb3J5RGV0YWlsc0J5SWQSGS5WZWhpY2xlRGF0YS5JbnB1dFJl",
+                  "cXVlc3QaFS5WZWhpY2xlRGF0YS5DYXRlZ29yeSIAElQKF0dldEFsbENhdGVn",
+                  "b3JpZXNEZXRhaWxzEhwuVmVoaWNsZURhdGEuQ2F0ZWdvcnlSZXF1ZXN0Ghku",
+                  "VmVoaWNsZURhdGEuQ2F0ZWdvcnlMaXN0IgASNwoKQ3JlYXRlSXRlbRIRLlZl",
+                  "aGljbGVEYXRhLkl0ZW0aFC5WZWhpY2xlRGF0YS5HcnBjSW50IgASOAoKVXBk",
+                  "YXRlSXRlbRIRLlZlaGljbGVEYXRhLkl0ZW0aFS5WZWhpY2xlRGF0YS5HcnBj",
+                  "Qm9vbCIAEkEKCkRlbGV0ZUl0ZW0SGi5WZWhpY2xlRGF0YS5EZWxldGVSZXF1",
+                  "ZXN0GhUuVmVoaWNsZURhdGEuR3JwY0Jvb2wiABJEChJHZXRJdGVtRGV0YWls",
+                  "c0J5SWQSGS5WZWhpY2xlRGF0YS5JbnB1dFJlcXVlc3QaES5WZWhpY2xlRGF0",
+                  "YS5JdGVtIgASUwoUR2V0SXRlbXNCeUNhdGVnb3J5SWQSIi5WZWhpY2xlRGF0",
+                  "YS5JdGVtQnlDYXRlZ29yeVJlcXVlc3QaFS5WZWhpY2xlRGF0YS5JdGVtTGlz",
+                  "dCIAEksKGkdldEFsbEl0ZW1zQnlBcHBsaWNhdGlvbklkEhQuVmVoaWNsZURh",
+                  "dGEuR3JwY0ludBoVLlZlaGljbGVEYXRhLkl0ZW1MaXN0IgASPwoOQ3JlYXRl",
+                  "VW5pdFR5cGUSFS5WZWhpY2xlRGF0YS5Vbml0VHlwZRoULlZlaGljbGVEYXRh",
+                  "LkdycGNJbnQiABJACg5VcGRhdGVVbml0VHlwZRIVLlZlaGljbGVEYXRhLlVu",
+                  "aXRUeXBlGhUuVmVoaWNsZURhdGEuR3JwY0Jvb2wiABI/Cg5EZWxldGVVbml0",
+                  "VHlwZRIULlZlaGljbGVEYXRhLkdycGNJbnQaFS5WZWhpY2xlRGF0YS5HcnBj",
+                  "Qm9vbCIAEk4KFkdldEFsbFVuaXRUeXBlc0RldGFpbHMSFy5WZWhpY2xlRGF0",
+                  "YS5FbXB0eVBhcmFtGhkuVmVoaWNsZURhdGEuVW5pdFR5cGVMaXN0IgASVAoY",
+                  "Q3VzdG9tRGF0YVR5cGVPcGVyYXRpb25zEh8uVmVoaWNsZURhdGEuQ3VzdG9t",
+                  "RGF0YVR5cGVMaXN0GhUuVmVoaWNsZURhdGEuR3JwY0Jvb2wiABJaChxHZXRB",
+                  "bGxDdXN0b21EYXRhVHlwZXNEZXRhaWxzEhcuVmVoaWNsZURhdGEuRW1wdHlQ",
+                  "YXJhbRofLlZlaGljbGVEYXRhLkN1c3RvbURhdGFUeXBlTGlzdCIAEj8KDkNy",
+                  "ZWF0ZURhdGFUeXBlEhUuVmVoaWNsZURhdGEuRGF0YVR5cGUaFC5WZWhpY2xl",
+                  "RGF0YS5HcnBjSW50IgASQQoPVXBkYXRlZERhdGFUeXBlEhUuVmVoaWNsZURh",
+                  "dGEuRGF0YVR5cGUaFS5WZWhpY2xlRGF0YS5HcnBjQm9vbCIAEj8KDkRlbGV0",
+                  "ZURhdGFUeXBlEhQuVmVoaWNsZURhdGEuR3JwY0ludBoVLlZlaGljbGVEYXRh",
+                  "LkdycGNCb29sIgASRwoWR2V0RGF0YVR5cGVEZXRhaWxzQnlJZBIULlZlaGlj",
+                  "bGVEYXRhLkdycGNJbnQaFS5WZWhpY2xlRGF0YS5EYXRhVHlwZSIAEk0KFUdl",
+                  "dEFsbERhdGFUeXBlRGV0YWlscxIXLlZlaGljbGVEYXRhLkVtcHR5UGFyYW0a",
+                  "GS5WZWhpY2xlRGF0YS5EYXRhVHlwZUxpc3QiABJOCg9DcmVhdGVJdGVtVmFs",
+                  "dWUSIi5WZWhpY2xlRGF0YS5JdGVtVmFsdWVXcml0ZVJlcXVlc3QaFS5WZWhp",
+                  "Y2xlRGF0YS5HcnBjQm9vbCIAEk4KD1VwZGF0ZUl0ZW1WYWx1ZRIiLlZlaGlj",
+                  "bGVEYXRhLkl0ZW1WYWx1ZVdyaXRlUmVxdWVzdBoVLlZlaGljbGVEYXRhLkdy",
+                  "cGNCb29sIgASTgoPRGVsZXRlSXRlbVZhbHVlEiIuVmVoaWNsZURhdGEuSXRl",
+                  "bVZhbHVlV3JpdGVSZXF1ZXN0GhUuVmVoaWNsZURhdGEuR3JwY0Jvb2wiABJV",
+                  "ChZHZXRJdGVtRGF0YUJ5VmVyc2lvbklkEh0uVmVoaWNsZURhdGEuSXRlbVZh",
+                  "bHVlUmVxdWVzdBoaLlZlaGljbGVEYXRhLlZhbHVlRGF0YUxpc3QiABJeChpH",
+                  "ZXRWZWhpY2xlRGF0YUZvclZlcnNpb25JZBIfLlZlaGljbGVEYXRhLlZlaGlj",
+                  "bGVEYXRhUmVxdWVzdBodLlZlaGljbGVEYXRhLlZlaGljbGVEYXRhVmFsdWUi",
+                  "ABJrChVWZXJzaW9uc0RhdGFCeUl0ZW1JZHMSKS5WZWhpY2xlRGF0YS5WZXJz",
+                  "aW9uc0RhdGFCeUl0ZW1JZHNSZXF1ZXN0GiUuVmVoaWNsZURhdGEuVmVyc2lv",
+                  "bkl0ZW1zRGF0YVJlc3BvbnNlIgASYgoWR2V0VmVyc2lvblNwZWNzU3VtbWFy",
+                  "eRIgLlZlaGljbGVEYXRhLlNwZWNzU3VtbWFyeVJlcXVlc3QaJC5WZWhpY2xl",
+                  "RGF0YS5WZXJzaW9uU3BlY3NTdW1tYXJ5TGlzdCIAEmMKFEdldE1vZGVsU3Bl",
+                  "Y3NTdW1tYXJ5EiUuVmVoaWNsZURhdGEuTW9kZWxTcGVjc1N1bW1hcnlSZXF1",
+                  "ZXN0GiIuVmVoaWNsZURhdGEuTW9kZWxTcGVjc1N1bW1hcnlMaXN0IgASYAoe",
+                  "SXNWZWhpY2xlRGF0YUV4aXN0c0J5VmVyc2lvbklkEhkuVmVoaWNsZURhdGEu",
+                  "SW5wdXRSZXF1ZXN0GiEuVmVoaWNsZURhdGEuQ2F0ZWdvcnlSZXNwb25zZUxp",
+                  "c3QiAEIhqgIeVmVoaWNsZURhdGEuU2VydmljZS5Qcm90b0NsYXNzYgZwcm90",
+                  "bzM="));
+            descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
+                new pbr::FileDescriptor[] { global::VehicleData.Service.ProtoClass.CategoryReflection.Descriptor, global::VehicleData.Service.ProtoClass.ItemReflection.Descriptor, global::VehicleData.Service.ProtoClass.UnitTypeReflection.Descriptor, global::VehicleData.Service.ProtoClass.CustomDataTypeReflection.Descriptor, global::VehicleData.Service.ProtoClass.DataTypeReflection.Descriptor, },
+                new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::VehicleData.Service.ProtoClass.EmptyParam), global::VehicleData.Service.ProtoClass.EmptyParam.Parser, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::VehicleData.Service.ProtoClass.GrpcInt), global::VehicleData.Service.ProtoClass.GrpcInt.Parser, new[]{ "Value" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::VehicleData.Service.ProtoClass.GrpcBool), global::VehicleData.Service.ProtoClass.GrpcBool.Parser, new[]{ "Value" }, null, null, null),
@@ -141,3546 +142,4043 @@ namespace VehicleData.Service.ProtoClass {
             new pbr::GeneratedClrTypeInfo(typeof(global::VehicleData.Service.ProtoClass.SpecsSummary), global::VehicleData.Service.ProtoClass.SpecsSummary.Parser, new[]{ "ItemId", "ItemName", "Value", "UnitType" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::VehicleData.Service.ProtoClass.ModelSpecsSummaryList), global::VehicleData.Service.ProtoClass.ModelSpecsSummaryList.Parser, new[]{ "Values" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::VehicleData.Service.ProtoClass.VersionsDataByItemIdsRequest), global::VehicleData.Service.ProtoClass.VersionsDataByItemIdsRequest.Parser, new[]{ "ApplicationId", "VersionIds", "ItemIds" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::VehicleData.Service.ProtoClass.ItemData), global::VehicleData.Service.ProtoClass.ItemData.Parser, new[]{ "ItemId", "ItemName", "Value", "UnitType", "Icon" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::VehicleData.Service.ProtoClass.ItemData), global::VehicleData.Service.ProtoClass.ItemData.Parser, new[]{ "ItemId", "ItemName", "Value", "UnitType", "Icon", "DataTypeId" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::VehicleData.Service.ProtoClass.VersionItemsData), global::VehicleData.Service.ProtoClass.VersionItemsData.Parser, new[]{ "Id", "ItemList" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::VehicleData.Service.ProtoClass.VersionItemsDataResponse), global::VehicleData.Service.ProtoClass.VersionItemsDataResponse.Parser, new[]{ "VersionItemsDataList" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::VehicleData.Service.ProtoClass.VehicleDataValue), global::VehicleData.Service.ProtoClass.VehicleDataValue.Parser, new[]{ "Specifications", "Features", "Overview" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::VehicleData.Service.ProtoClass.VehicleDataRequest), global::VehicleData.Service.ProtoClass.VehicleDataRequest.Parser, new[]{ "VersionIds", "ApplicationId", "ItemGroupTypes" }, null, null, null)
           }));
+        }
+        #endregion
+
     }
+    #region Messages
+    public sealed partial class EmptyParam : pb::IMessage<EmptyParam>
+    {
+        private static readonly pb::MessageParser<EmptyParam> _parser = new pb::MessageParser<EmptyParam>(() => new EmptyParam());
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public static pb::MessageParser<EmptyParam> Parser { get { return _parser; } }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public static pbr::MessageDescriptor Descriptor
+        {
+            get { return global::VehicleData.Service.ProtoClass.VehicleDataReflection.Descriptor.MessageTypes[0]; }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        pbr::MessageDescriptor pb::IMessage.Descriptor
+        {
+            get { return Descriptor; }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public EmptyParam()
+        {
+            OnConstruction();
+        }
+
+        partial void OnConstruction();
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public EmptyParam(EmptyParam other)
+            : this()
+        {
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public EmptyParam Clone()
+        {
+            return new EmptyParam(this);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public override bool Equals(object other)
+        {
+            return Equals(other as EmptyParam);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public bool Equals(EmptyParam other)
+        {
+            if (ReferenceEquals(other, null))
+            {
+                return false;
+            }
+            if (ReferenceEquals(other, this))
+            {
+                return true;
+            }
+            return true;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public override int GetHashCode()
+        {
+            int hash = 1;
+            return hash;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public override string ToString()
+        {
+            return pb::JsonFormatter.ToDiagnosticString(this);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public void WriteTo(pb::CodedOutputStream output)
+        {
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public int CalculateSize()
+        {
+            int size = 0;
+            return size;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public void MergeFrom(EmptyParam other)
+        {
+            if (other == null)
+            {
+                return;
+            }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public void MergeFrom(pb::CodedInputStream input)
+        {
+            uint tag;
+            while ((tag = input.ReadTag()) != 0)
+            {
+                switch (tag)
+                {
+                    default:
+                        input.SkipLastField();
+                        break;
+                }
+            }
+        }
+
+    }
+
+    public sealed partial class GrpcInt : pb::IMessage<GrpcInt>
+    {
+        private static readonly pb::MessageParser<GrpcInt> _parser = new pb::MessageParser<GrpcInt>(() => new GrpcInt());
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public static pb::MessageParser<GrpcInt> Parser { get { return _parser; } }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public static pbr::MessageDescriptor Descriptor
+        {
+            get { return global::VehicleData.Service.ProtoClass.VehicleDataReflection.Descriptor.MessageTypes[1]; }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        pbr::MessageDescriptor pb::IMessage.Descriptor
+        {
+            get { return Descriptor; }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public GrpcInt()
+        {
+            OnConstruction();
+        }
+
+        partial void OnConstruction();
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public GrpcInt(GrpcInt other)
+            : this()
+        {
+            value_ = other.value_;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public GrpcInt Clone()
+        {
+            return new GrpcInt(this);
+        }
+
+        /// <summary>Field number for the "Value" field.</summary>
+        public const int ValueFieldNumber = 1;
+        private int value_;
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public int Value
+        {
+            get { return value_; }
+            set
+            {
+                value_ = value;
+            }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public override bool Equals(object other)
+        {
+            return Equals(other as GrpcInt);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public bool Equals(GrpcInt other)
+        {
+            if (ReferenceEquals(other, null))
+            {
+                return false;
+            }
+            if (ReferenceEquals(other, this))
+            {
+                return true;
+            }
+            if (Value != other.Value) return false;
+            return true;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public override int GetHashCode()
+        {
+            int hash = 1;
+            if (Value != 0) hash ^= Value.GetHashCode();
+            return hash;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public override string ToString()
+        {
+            return pb::JsonFormatter.ToDiagnosticString(this);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public void WriteTo(pb::CodedOutputStream output)
+        {
+            if (Value != 0)
+            {
+                output.WriteRawTag(8);
+                output.WriteInt32(Value);
+            }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public int CalculateSize()
+        {
+            int size = 0;
+            if (Value != 0)
+            {
+                size += 1 + pb::CodedOutputStream.ComputeInt32Size(Value);
+            }
+            return size;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public void MergeFrom(GrpcInt other)
+        {
+            if (other == null)
+            {
+                return;
+            }
+            if (other.Value != 0)
+            {
+                Value = other.Value;
+            }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public void MergeFrom(pb::CodedInputStream input)
+        {
+            uint tag;
+            while ((tag = input.ReadTag()) != 0)
+            {
+                switch (tag)
+                {
+                    default:
+                        input.SkipLastField();
+                        break;
+                    case 8:
+                        {
+                            Value = input.ReadInt32();
+                            break;
+                        }
+                }
+            }
+        }
+
+    }
+
+    public sealed partial class GrpcBool : pb::IMessage<GrpcBool>
+    {
+        private static readonly pb::MessageParser<GrpcBool> _parser = new pb::MessageParser<GrpcBool>(() => new GrpcBool());
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public static pb::MessageParser<GrpcBool> Parser { get { return _parser; } }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public static pbr::MessageDescriptor Descriptor
+        {
+            get { return global::VehicleData.Service.ProtoClass.VehicleDataReflection.Descriptor.MessageTypes[2]; }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        pbr::MessageDescriptor pb::IMessage.Descriptor
+        {
+            get { return Descriptor; }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public GrpcBool()
+        {
+            OnConstruction();
+        }
+
+        partial void OnConstruction();
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public GrpcBool(GrpcBool other)
+            : this()
+        {
+            value_ = other.value_;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public GrpcBool Clone()
+        {
+            return new GrpcBool(this);
+        }
+
+        /// <summary>Field number for the "Value" field.</summary>
+        public const int ValueFieldNumber = 1;
+        private bool value_;
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public bool Value
+        {
+            get { return value_; }
+            set
+            {
+                value_ = value;
+            }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public override bool Equals(object other)
+        {
+            return Equals(other as GrpcBool);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public bool Equals(GrpcBool other)
+        {
+            if (ReferenceEquals(other, null))
+            {
+                return false;
+            }
+            if (ReferenceEquals(other, this))
+            {
+                return true;
+            }
+            if (Value != other.Value) return false;
+            return true;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public override int GetHashCode()
+        {
+            int hash = 1;
+            if (Value != false) hash ^= Value.GetHashCode();
+            return hash;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public override string ToString()
+        {
+            return pb::JsonFormatter.ToDiagnosticString(this);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public void WriteTo(pb::CodedOutputStream output)
+        {
+            if (Value != false)
+            {
+                output.WriteRawTag(8);
+                output.WriteBool(Value);
+            }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public int CalculateSize()
+        {
+            int size = 0;
+            if (Value != false)
+            {
+                size += 1 + 1;
+            }
+            return size;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public void MergeFrom(GrpcBool other)
+        {
+            if (other == null)
+            {
+                return;
+            }
+            if (other.Value != false)
+            {
+                Value = other.Value;
+            }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public void MergeFrom(pb::CodedInputStream input)
+        {
+            uint tag;
+            while ((tag = input.ReadTag()) != 0)
+            {
+                switch (tag)
+                {
+                    default:
+                        input.SkipLastField();
+                        break;
+                    case 8:
+                        {
+                            Value = input.ReadBool();
+                            break;
+                        }
+                }
+            }
+        }
+
+    }
+
+    public sealed partial class DeleteRequest : pb::IMessage<DeleteRequest>
+    {
+        private static readonly pb::MessageParser<DeleteRequest> _parser = new pb::MessageParser<DeleteRequest>(() => new DeleteRequest());
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public static pb::MessageParser<DeleteRequest> Parser { get { return _parser; } }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public static pbr::MessageDescriptor Descriptor
+        {
+            get { return global::VehicleData.Service.ProtoClass.VehicleDataReflection.Descriptor.MessageTypes[3]; }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        pbr::MessageDescriptor pb::IMessage.Descriptor
+        {
+            get { return Descriptor; }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public DeleteRequest()
+        {
+            OnConstruction();
+        }
+
+        partial void OnConstruction();
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public DeleteRequest(DeleteRequest other)
+            : this()
+        {
+            id_ = other.id_;
+            applicationId_ = other.applicationId_;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public DeleteRequest Clone()
+        {
+            return new DeleteRequest(this);
+        }
+
+        /// <summary>Field number for the "Id" field.</summary>
+        public const int IdFieldNumber = 1;
+        private int id_;
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public int Id
+        {
+            get { return id_; }
+            set
+            {
+                id_ = value;
+            }
+        }
+
+        /// <summary>Field number for the "ApplicationId" field.</summary>
+        public const int ApplicationIdFieldNumber = 2;
+        private int applicationId_;
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public int ApplicationId
+        {
+            get { return applicationId_; }
+            set
+            {
+                applicationId_ = value;
+            }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public override bool Equals(object other)
+        {
+            return Equals(other as DeleteRequest);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public bool Equals(DeleteRequest other)
+        {
+            if (ReferenceEquals(other, null))
+            {
+                return false;
+            }
+            if (ReferenceEquals(other, this))
+            {
+                return true;
+            }
+            if (Id != other.Id) return false;
+            if (ApplicationId != other.ApplicationId) return false;
+            return true;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public override int GetHashCode()
+        {
+            int hash = 1;
+            if (Id != 0) hash ^= Id.GetHashCode();
+            if (ApplicationId != 0) hash ^= ApplicationId.GetHashCode();
+            return hash;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public override string ToString()
+        {
+            return pb::JsonFormatter.ToDiagnosticString(this);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public void WriteTo(pb::CodedOutputStream output)
+        {
+            if (Id != 0)
+            {
+                output.WriteRawTag(8);
+                output.WriteInt32(Id);
+            }
+            if (ApplicationId != 0)
+            {
+                output.WriteRawTag(16);
+                output.WriteInt32(ApplicationId);
+            }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public int CalculateSize()
+        {
+            int size = 0;
+            if (Id != 0)
+            {
+                size += 1 + pb::CodedOutputStream.ComputeInt32Size(Id);
+            }
+            if (ApplicationId != 0)
+            {
+                size += 1 + pb::CodedOutputStream.ComputeInt32Size(ApplicationId);
+            }
+            return size;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public void MergeFrom(DeleteRequest other)
+        {
+            if (other == null)
+            {
+                return;
+            }
+            if (other.Id != 0)
+            {
+                Id = other.Id;
+            }
+            if (other.ApplicationId != 0)
+            {
+                ApplicationId = other.ApplicationId;
+            }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public void MergeFrom(pb::CodedInputStream input)
+        {
+            uint tag;
+            while ((tag = input.ReadTag()) != 0)
+            {
+                switch (tag)
+                {
+                    default:
+                        input.SkipLastField();
+                        break;
+                    case 8:
+                        {
+                            Id = input.ReadInt32();
+                            break;
+                        }
+                    case 16:
+                        {
+                            ApplicationId = input.ReadInt32();
+                            break;
+                        }
+                }
+            }
+        }
+
+    }
+
+    public sealed partial class InputRequest : pb::IMessage<InputRequest>
+    {
+        private static readonly pb::MessageParser<InputRequest> _parser = new pb::MessageParser<InputRequest>(() => new InputRequest());
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public static pb::MessageParser<InputRequest> Parser { get { return _parser; } }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public static pbr::MessageDescriptor Descriptor
+        {
+            get { return global::VehicleData.Service.ProtoClass.VehicleDataReflection.Descriptor.MessageTypes[4]; }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        pbr::MessageDescriptor pb::IMessage.Descriptor
+        {
+            get { return Descriptor; }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public InputRequest()
+        {
+            OnConstruction();
+        }
+
+        partial void OnConstruction();
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public InputRequest(InputRequest other)
+            : this()
+        {
+            id_ = other.id_;
+            applicationId_ = other.applicationId_;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public InputRequest Clone()
+        {
+            return new InputRequest(this);
+        }
+
+        /// <summary>Field number for the "Id" field.</summary>
+        public const int IdFieldNumber = 1;
+        private int id_;
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public int Id
+        {
+            get { return id_; }
+            set
+            {
+                id_ = value;
+            }
+        }
+
+        /// <summary>Field number for the "ApplicationId" field.</summary>
+        public const int ApplicationIdFieldNumber = 2;
+        private int applicationId_;
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public int ApplicationId
+        {
+            get { return applicationId_; }
+            set
+            {
+                applicationId_ = value;
+            }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public override bool Equals(object other)
+        {
+            return Equals(other as InputRequest);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public bool Equals(InputRequest other)
+        {
+            if (ReferenceEquals(other, null))
+            {
+                return false;
+            }
+            if (ReferenceEquals(other, this))
+            {
+                return true;
+            }
+            if (Id != other.Id) return false;
+            if (ApplicationId != other.ApplicationId) return false;
+            return true;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public override int GetHashCode()
+        {
+            int hash = 1;
+            if (Id != 0) hash ^= Id.GetHashCode();
+            if (ApplicationId != 0) hash ^= ApplicationId.GetHashCode();
+            return hash;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public override string ToString()
+        {
+            return pb::JsonFormatter.ToDiagnosticString(this);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public void WriteTo(pb::CodedOutputStream output)
+        {
+            if (Id != 0)
+            {
+                output.WriteRawTag(8);
+                output.WriteInt32(Id);
+            }
+            if (ApplicationId != 0)
+            {
+                output.WriteRawTag(16);
+                output.WriteInt32(ApplicationId);
+            }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public int CalculateSize()
+        {
+            int size = 0;
+            if (Id != 0)
+            {
+                size += 1 + pb::CodedOutputStream.ComputeInt32Size(Id);
+            }
+            if (ApplicationId != 0)
+            {
+                size += 1 + pb::CodedOutputStream.ComputeInt32Size(ApplicationId);
+            }
+            return size;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public void MergeFrom(InputRequest other)
+        {
+            if (other == null)
+            {
+                return;
+            }
+            if (other.Id != 0)
+            {
+                Id = other.Id;
+            }
+            if (other.ApplicationId != 0)
+            {
+                ApplicationId = other.ApplicationId;
+            }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public void MergeFrom(pb::CodedInputStream input)
+        {
+            uint tag;
+            while ((tag = input.ReadTag()) != 0)
+            {
+                switch (tag)
+                {
+                    default:
+                        input.SkipLastField();
+                        break;
+                    case 8:
+                        {
+                            Id = input.ReadInt32();
+                            break;
+                        }
+                    case 16:
+                        {
+                            ApplicationId = input.ReadInt32();
+                            break;
+                        }
+                }
+            }
+        }
+
+    }
+
+    public sealed partial class ItemValueToWrite : pb::IMessage<ItemValueToWrite>
+    {
+        private static readonly pb::MessageParser<ItemValueToWrite> _parser = new pb::MessageParser<ItemValueToWrite>(() => new ItemValueToWrite());
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public static pb::MessageParser<ItemValueToWrite> Parser { get { return _parser; } }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public static pbr::MessageDescriptor Descriptor
+        {
+            get { return global::VehicleData.Service.ProtoClass.VehicleDataReflection.Descriptor.MessageTypes[5]; }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        pbr::MessageDescriptor pb::IMessage.Descriptor
+        {
+            get { return Descriptor; }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public ItemValueToWrite()
+        {
+            OnConstruction();
+        }
+
+        partial void OnConstruction();
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public ItemValueToWrite(ItemValueToWrite other)
+            : this()
+        {
+            versionId_ = other.versionId_;
+            applicationId_ = other.applicationId_;
+            itemId_ = other.itemId_;
+            dataTypeId_ = other.dataTypeId_;
+            value_ = other.value_;
+            customTypeId_ = other.customTypeId_;
+            updatedOn_ = other.updatedOn_;
+            updatedBy_ = other.updatedBy_;
+            categoryId_ = other.categoryId_;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public ItemValueToWrite Clone()
+        {
+            return new ItemValueToWrite(this);
+        }
+
+        /// <summary>Field number for the "VersionId" field.</summary>
+        public const int VersionIdFieldNumber = 1;
+        private int versionId_;
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public int VersionId
+        {
+            get { return versionId_; }
+            set
+            {
+                versionId_ = value;
+            }
+        }
+
+        /// <summary>Field number for the "ApplicationId" field.</summary>
+        public const int ApplicationIdFieldNumber = 2;
+        private int applicationId_;
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public int ApplicationId
+        {
+            get { return applicationId_; }
+            set
+            {
+                applicationId_ = value;
+            }
+        }
+
+        /// <summary>Field number for the "ItemId" field.</summary>
+        public const int ItemIdFieldNumber = 3;
+        private int itemId_;
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public int ItemId
+        {
+            get { return itemId_; }
+            set
+            {
+                itemId_ = value;
+            }
+        }
+
+        /// <summary>Field number for the "DataTypeId" field.</summary>
+        public const int DataTypeIdFieldNumber = 4;
+        private int dataTypeId_;
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public int DataTypeId
+        {
+            get { return dataTypeId_; }
+            set
+            {
+                dataTypeId_ = value;
+            }
+        }
+
+        /// <summary>Field number for the "Value" field.</summary>
+        public const int ValueFieldNumber = 5;
+        private string value_ = "";
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public string Value
+        {
+            get { return value_; }
+            set
+            {
+                value_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+            }
+        }
+
+        /// <summary>Field number for the "CustomTypeId" field.</summary>
+        public const int CustomTypeIdFieldNumber = 6;
+        private int customTypeId_;
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public int CustomTypeId
+        {
+            get { return customTypeId_; }
+            set
+            {
+                customTypeId_ = value;
+            }
+        }
+
+        /// <summary>Field number for the "UpdatedOn" field.</summary>
+        public const int UpdatedOnFieldNumber = 7;
+        private string updatedOn_ = "";
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public string UpdatedOn
+        {
+            get { return updatedOn_; }
+            set
+            {
+                updatedOn_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+            }
+        }
+
+        /// <summary>Field number for the "UpdatedBy" field.</summary>
+        public const int UpdatedByFieldNumber = 8;
+        private int updatedBy_;
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public int UpdatedBy
+        {
+            get { return updatedBy_; }
+            set
+            {
+                updatedBy_ = value;
+            }
+        }
+
+        /// <summary>Field number for the "CategoryId" field.</summary>
+        public const int CategoryIdFieldNumber = 9;
+        private int categoryId_;
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public int CategoryId
+        {
+            get { return categoryId_; }
+            set
+            {
+                categoryId_ = value;
+            }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public override bool Equals(object other)
+        {
+            return Equals(other as ItemValueToWrite);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public bool Equals(ItemValueToWrite other)
+        {
+            if (ReferenceEquals(other, null))
+            {
+                return false;
+            }
+            if (ReferenceEquals(other, this))
+            {
+                return true;
+            }
+            if (VersionId != other.VersionId) return false;
+            if (ApplicationId != other.ApplicationId) return false;
+            if (ItemId != other.ItemId) return false;
+            if (DataTypeId != other.DataTypeId) return false;
+            if (Value != other.Value) return false;
+            if (CustomTypeId != other.CustomTypeId) return false;
+            if (UpdatedOn != other.UpdatedOn) return false;
+            if (UpdatedBy != other.UpdatedBy) return false;
+            if (CategoryId != other.CategoryId) return false;
+            return true;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public override int GetHashCode()
+        {
+            int hash = 1;
+            if (VersionId != 0) hash ^= VersionId.GetHashCode();
+            if (ApplicationId != 0) hash ^= ApplicationId.GetHashCode();
+            if (ItemId != 0) hash ^= ItemId.GetHashCode();
+            if (DataTypeId != 0) hash ^= DataTypeId.GetHashCode();
+            if (Value.Length != 0) hash ^= Value.GetHashCode();
+            if (CustomTypeId != 0) hash ^= CustomTypeId.GetHashCode();
+            if (UpdatedOn.Length != 0) hash ^= UpdatedOn.GetHashCode();
+            if (UpdatedBy != 0) hash ^= UpdatedBy.GetHashCode();
+            if (CategoryId != 0) hash ^= CategoryId.GetHashCode();
+            return hash;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public override string ToString()
+        {
+            return pb::JsonFormatter.ToDiagnosticString(this);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public void WriteTo(pb::CodedOutputStream output)
+        {
+            if (VersionId != 0)
+            {
+                output.WriteRawTag(8);
+                output.WriteInt32(VersionId);
+            }
+            if (ApplicationId != 0)
+            {
+                output.WriteRawTag(16);
+                output.WriteInt32(ApplicationId);
+            }
+            if (ItemId != 0)
+            {
+                output.WriteRawTag(24);
+                output.WriteInt32(ItemId);
+            }
+            if (DataTypeId != 0)
+            {
+                output.WriteRawTag(32);
+                output.WriteInt32(DataTypeId);
+            }
+            if (Value.Length != 0)
+            {
+                output.WriteRawTag(42);
+                output.WriteString(Value);
+            }
+            if (CustomTypeId != 0)
+            {
+                output.WriteRawTag(48);
+                output.WriteInt32(CustomTypeId);
+            }
+            if (UpdatedOn.Length != 0)
+            {
+                output.WriteRawTag(58);
+                output.WriteString(UpdatedOn);
+            }
+            if (UpdatedBy != 0)
+            {
+                output.WriteRawTag(64);
+                output.WriteInt32(UpdatedBy);
+            }
+            if (CategoryId != 0)
+            {
+                output.WriteRawTag(72);
+                output.WriteInt32(CategoryId);
+            }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public int CalculateSize()
+        {
+            int size = 0;
+            if (VersionId != 0)
+            {
+                size += 1 + pb::CodedOutputStream.ComputeInt32Size(VersionId);
+            }
+            if (ApplicationId != 0)
+            {
+                size += 1 + pb::CodedOutputStream.ComputeInt32Size(ApplicationId);
+            }
+            if (ItemId != 0)
+            {
+                size += 1 + pb::CodedOutputStream.ComputeInt32Size(ItemId);
+            }
+            if (DataTypeId != 0)
+            {
+                size += 1 + pb::CodedOutputStream.ComputeInt32Size(DataTypeId);
+            }
+            if (Value.Length != 0)
+            {
+                size += 1 + pb::CodedOutputStream.ComputeStringSize(Value);
+            }
+            if (CustomTypeId != 0)
+            {
+                size += 1 + pb::CodedOutputStream.ComputeInt32Size(CustomTypeId);
+            }
+            if (UpdatedOn.Length != 0)
+            {
+                size += 1 + pb::CodedOutputStream.ComputeStringSize(UpdatedOn);
+            }
+            if (UpdatedBy != 0)
+            {
+                size += 1 + pb::CodedOutputStream.ComputeInt32Size(UpdatedBy);
+            }
+            if (CategoryId != 0)
+            {
+                size += 1 + pb::CodedOutputStream.ComputeInt32Size(CategoryId);
+            }
+            return size;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public void MergeFrom(ItemValueToWrite other)
+        {
+            if (other == null)
+            {
+                return;
+            }
+            if (other.VersionId != 0)
+            {
+                VersionId = other.VersionId;
+            }
+            if (other.ApplicationId != 0)
+            {
+                ApplicationId = other.ApplicationId;
+            }
+            if (other.ItemId != 0)
+            {
+                ItemId = other.ItemId;
+            }
+            if (other.DataTypeId != 0)
+            {
+                DataTypeId = other.DataTypeId;
+            }
+            if (other.Value.Length != 0)
+            {
+                Value = other.Value;
+            }
+            if (other.CustomTypeId != 0)
+            {
+                CustomTypeId = other.CustomTypeId;
+            }
+            if (other.UpdatedOn.Length != 0)
+            {
+                UpdatedOn = other.UpdatedOn;
+            }
+            if (other.UpdatedBy != 0)
+            {
+                UpdatedBy = other.UpdatedBy;
+            }
+            if (other.CategoryId != 0)
+            {
+                CategoryId = other.CategoryId;
+            }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public void MergeFrom(pb::CodedInputStream input)
+        {
+            uint tag;
+            while ((tag = input.ReadTag()) != 0)
+            {
+                switch (tag)
+                {
+                    default:
+                        input.SkipLastField();
+                        break;
+                    case 8:
+                        {
+                            VersionId = input.ReadInt32();
+                            break;
+                        }
+                    case 16:
+                        {
+                            ApplicationId = input.ReadInt32();
+                            break;
+                        }
+                    case 24:
+                        {
+                            ItemId = input.ReadInt32();
+                            break;
+                        }
+                    case 32:
+                        {
+                            DataTypeId = input.ReadInt32();
+                            break;
+                        }
+                    case 42:
+                        {
+                            Value = input.ReadString();
+                            break;
+                        }
+                    case 48:
+                        {
+                            CustomTypeId = input.ReadInt32();
+                            break;
+                        }
+                    case 58:
+                        {
+                            UpdatedOn = input.ReadString();
+                            break;
+                        }
+                    case 64:
+                        {
+                            UpdatedBy = input.ReadInt32();
+                            break;
+                        }
+                    case 72:
+                        {
+                            CategoryId = input.ReadInt32();
+                            break;
+                        }
+                }
+            }
+        }
+
+    }
+
+    public sealed partial class ItemValueWriteRequest : pb::IMessage<ItemValueWriteRequest>
+    {
+        private static readonly pb::MessageParser<ItemValueWriteRequest> _parser = new pb::MessageParser<ItemValueWriteRequest>(() => new ItemValueWriteRequest());
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public static pb::MessageParser<ItemValueWriteRequest> Parser { get { return _parser; } }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public static pbr::MessageDescriptor Descriptor
+        {
+            get { return global::VehicleData.Service.ProtoClass.VehicleDataReflection.Descriptor.MessageTypes[6]; }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        pbr::MessageDescriptor pb::IMessage.Descriptor
+        {
+            get { return Descriptor; }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public ItemValueWriteRequest()
+        {
+            OnConstruction();
+        }
+
+        partial void OnConstruction();
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public ItemValueWriteRequest(ItemValueWriteRequest other)
+            : this()
+        {
+            itemValues_ = other.itemValues_.Clone();
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public ItemValueWriteRequest Clone()
+        {
+            return new ItemValueWriteRequest(this);
+        }
+
+        /// <summary>Field number for the "ItemValues" field.</summary>
+        public const int ItemValuesFieldNumber = 1;
+        private static readonly pb::FieldCodec<global::VehicleData.Service.ProtoClass.ItemValueToWrite> _repeated_itemValues_codec
+            = pb::FieldCodec.ForMessage(10, global::VehicleData.Service.ProtoClass.ItemValueToWrite.Parser);
+        private readonly pbc::RepeatedField<global::VehicleData.Service.ProtoClass.ItemValueToWrite> itemValues_ = new pbc::RepeatedField<global::VehicleData.Service.ProtoClass.ItemValueToWrite>();
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public pbc::RepeatedField<global::VehicleData.Service.ProtoClass.ItemValueToWrite> ItemValues
+        {
+            get { return itemValues_; }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public override bool Equals(object other)
+        {
+            return Equals(other as ItemValueWriteRequest);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public bool Equals(ItemValueWriteRequest other)
+        {
+            if (ReferenceEquals(other, null))
+            {
+                return false;
+            }
+            if (ReferenceEquals(other, this))
+            {
+                return true;
+            }
+            if (!itemValues_.Equals(other.itemValues_)) return false;
+            return true;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public override int GetHashCode()
+        {
+            int hash = 1;
+            hash ^= itemValues_.GetHashCode();
+            return hash;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public override string ToString()
+        {
+            return pb::JsonFormatter.ToDiagnosticString(this);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public void WriteTo(pb::CodedOutputStream output)
+        {
+            itemValues_.WriteTo(output, _repeated_itemValues_codec);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public int CalculateSize()
+        {
+            int size = 0;
+            size += itemValues_.CalculateSize(_repeated_itemValues_codec);
+            return size;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public void MergeFrom(ItemValueWriteRequest other)
+        {
+            if (other == null)
+            {
+                return;
+            }
+            itemValues_.Add(other.itemValues_);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public void MergeFrom(pb::CodedInputStream input)
+        {
+            uint tag;
+            while ((tag = input.ReadTag()) != 0)
+            {
+                switch (tag)
+                {
+                    default:
+                        input.SkipLastField();
+                        break;
+                    case 10:
+                        {
+                            itemValues_.AddEntriesFrom(input, _repeated_itemValues_codec);
+                            break;
+                        }
+                }
+            }
+        }
+
+    }
+
+    public sealed partial class ItemValueRequest : pb::IMessage<ItemValueRequest>
+    {
+        private static readonly pb::MessageParser<ItemValueRequest> _parser = new pb::MessageParser<ItemValueRequest>(() => new ItemValueRequest());
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public static pb::MessageParser<ItemValueRequest> Parser { get { return _parser; } }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public static pbr::MessageDescriptor Descriptor
+        {
+            get { return global::VehicleData.Service.ProtoClass.VehicleDataReflection.Descriptor.MessageTypes[7]; }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        pbr::MessageDescriptor pb::IMessage.Descriptor
+        {
+            get { return Descriptor; }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public ItemValueRequest()
+        {
+            OnConstruction();
+        }
+
+        partial void OnConstruction();
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public ItemValueRequest(ItemValueRequest other)
+            : this()
+        {
+            versionId_ = other.versionId_;
+            categoryId_ = other.categoryId_;
+            applicationId_ = other.applicationId_;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public ItemValueRequest Clone()
+        {
+            return new ItemValueRequest(this);
+        }
+
+        /// <summary>Field number for the "VersionId" field.</summary>
+        public const int VersionIdFieldNumber = 1;
+        private int versionId_;
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public int VersionId
+        {
+            get { return versionId_; }
+            set
+            {
+                versionId_ = value;
+            }
+        }
+
+        /// <summary>Field number for the "CategoryId" field.</summary>
+        public const int CategoryIdFieldNumber = 2;
+        private int categoryId_;
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public int CategoryId
+        {
+            get { return categoryId_; }
+            set
+            {
+                categoryId_ = value;
+            }
+        }
+
+        /// <summary>Field number for the "ApplicationId" field.</summary>
+        public const int ApplicationIdFieldNumber = 3;
+        private int applicationId_;
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public int ApplicationId
+        {
+            get { return applicationId_; }
+            set
+            {
+                applicationId_ = value;
+            }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public override bool Equals(object other)
+        {
+            return Equals(other as ItemValueRequest);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public bool Equals(ItemValueRequest other)
+        {
+            if (ReferenceEquals(other, null))
+            {
+                return false;
+            }
+            if (ReferenceEquals(other, this))
+            {
+                return true;
+            }
+            if (VersionId != other.VersionId) return false;
+            if (CategoryId != other.CategoryId) return false;
+            if (ApplicationId != other.ApplicationId) return false;
+            return true;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public override int GetHashCode()
+        {
+            int hash = 1;
+            if (VersionId != 0) hash ^= VersionId.GetHashCode();
+            if (CategoryId != 0) hash ^= CategoryId.GetHashCode();
+            if (ApplicationId != 0) hash ^= ApplicationId.GetHashCode();
+            return hash;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public override string ToString()
+        {
+            return pb::JsonFormatter.ToDiagnosticString(this);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public void WriteTo(pb::CodedOutputStream output)
+        {
+            if (VersionId != 0)
+            {
+                output.WriteRawTag(8);
+                output.WriteInt32(VersionId);
+            }
+            if (CategoryId != 0)
+            {
+                output.WriteRawTag(16);
+                output.WriteInt32(CategoryId);
+            }
+            if (ApplicationId != 0)
+            {
+                output.WriteRawTag(24);
+                output.WriteInt32(ApplicationId);
+            }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public int CalculateSize()
+        {
+            int size = 0;
+            if (VersionId != 0)
+            {
+                size += 1 + pb::CodedOutputStream.ComputeInt32Size(VersionId);
+            }
+            if (CategoryId != 0)
+            {
+                size += 1 + pb::CodedOutputStream.ComputeInt32Size(CategoryId);
+            }
+            if (ApplicationId != 0)
+            {
+                size += 1 + pb::CodedOutputStream.ComputeInt32Size(ApplicationId);
+            }
+            return size;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public void MergeFrom(ItemValueRequest other)
+        {
+            if (other == null)
+            {
+                return;
+            }
+            if (other.VersionId != 0)
+            {
+                VersionId = other.VersionId;
+            }
+            if (other.CategoryId != 0)
+            {
+                CategoryId = other.CategoryId;
+            }
+            if (other.ApplicationId != 0)
+            {
+                ApplicationId = other.ApplicationId;
+            }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public void MergeFrom(pb::CodedInputStream input)
+        {
+            uint tag;
+            while ((tag = input.ReadTag()) != 0)
+            {
+                switch (tag)
+                {
+                    default:
+                        input.SkipLastField();
+                        break;
+                    case 8:
+                        {
+                            VersionId = input.ReadInt32();
+                            break;
+                        }
+                    case 16:
+                        {
+                            CategoryId = input.ReadInt32();
+                            break;
+                        }
+                    case 24:
+                        {
+                            ApplicationId = input.ReadInt32();
+                            break;
+                        }
+                }
+            }
+        }
+
+    }
+
+    public sealed partial class ValueData : pb::IMessage<ValueData>
+    {
+        private static readonly pb::MessageParser<ValueData> _parser = new pb::MessageParser<ValueData>(() => new ValueData());
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public static pb::MessageParser<ValueData> Parser { get { return _parser; } }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public static pbr::MessageDescriptor Descriptor
+        {
+            get { return global::VehicleData.Service.ProtoClass.VehicleDataReflection.Descriptor.MessageTypes[8]; }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        pbr::MessageDescriptor pb::IMessage.Descriptor
+        {
+            get { return Descriptor; }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public ValueData()
+        {
+            OnConstruction();
+        }
+
+        partial void OnConstruction();
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public ValueData(ValueData other)
+            : this()
+        {
+            id_ = other.id_;
+            value_ = other.value_;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public ValueData Clone()
+        {
+            return new ValueData(this);
+        }
+
+        /// <summary>Field number for the "Id" field.</summary>
+        public const int IdFieldNumber = 1;
+        private int id_;
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public int Id
+        {
+            get { return id_; }
+            set
+            {
+                id_ = value;
+            }
+        }
+
+        /// <summary>Field number for the "Value" field.</summary>
+        public const int ValueFieldNumber = 2;
+        private string value_ = "";
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public string Value
+        {
+            get { return value_; }
+            set
+            {
+                value_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+            }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public override bool Equals(object other)
+        {
+            return Equals(other as ValueData);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public bool Equals(ValueData other)
+        {
+            if (ReferenceEquals(other, null))
+            {
+                return false;
+            }
+            if (ReferenceEquals(other, this))
+            {
+                return true;
+            }
+            if (Id != other.Id) return false;
+            if (Value != other.Value) return false;
+            return true;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public override int GetHashCode()
+        {
+            int hash = 1;
+            if (Id != 0) hash ^= Id.GetHashCode();
+            if (Value.Length != 0) hash ^= Value.GetHashCode();
+            return hash;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public override string ToString()
+        {
+            return pb::JsonFormatter.ToDiagnosticString(this);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public void WriteTo(pb::CodedOutputStream output)
+        {
+            if (Id != 0)
+            {
+                output.WriteRawTag(8);
+                output.WriteInt32(Id);
+            }
+            if (Value.Length != 0)
+            {
+                output.WriteRawTag(18);
+                output.WriteString(Value);
+            }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public int CalculateSize()
+        {
+            int size = 0;
+            if (Id != 0)
+            {
+                size += 1 + pb::CodedOutputStream.ComputeInt32Size(Id);
+            }
+            if (Value.Length != 0)
+            {
+                size += 1 + pb::CodedOutputStream.ComputeStringSize(Value);
+            }
+            return size;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public void MergeFrom(ValueData other)
+        {
+            if (other == null)
+            {
+                return;
+            }
+            if (other.Id != 0)
+            {
+                Id = other.Id;
+            }
+            if (other.Value.Length != 0)
+            {
+                Value = other.Value;
+            }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public void MergeFrom(pb::CodedInputStream input)
+        {
+            uint tag;
+            while ((tag = input.ReadTag()) != 0)
+            {
+                switch (tag)
+                {
+                    default:
+                        input.SkipLastField();
+                        break;
+                    case 8:
+                        {
+                            Id = input.ReadInt32();
+                            break;
+                        }
+                    case 18:
+                        {
+                            Value = input.ReadString();
+                            break;
+                        }
+                }
+            }
+        }
+
+    }
+
+    public sealed partial class ValueDataList : pb::IMessage<ValueDataList>
+    {
+        private static readonly pb::MessageParser<ValueDataList> _parser = new pb::MessageParser<ValueDataList>(() => new ValueDataList());
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public static pb::MessageParser<ValueDataList> Parser { get { return _parser; } }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public static pbr::MessageDescriptor Descriptor
+        {
+            get { return global::VehicleData.Service.ProtoClass.VehicleDataReflection.Descriptor.MessageTypes[9]; }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        pbr::MessageDescriptor pb::IMessage.Descriptor
+        {
+            get { return Descriptor; }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public ValueDataList()
+        {
+            OnConstruction();
+        }
+
+        partial void OnConstruction();
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public ValueDataList(ValueDataList other)
+            : this()
+        {
+            itemValue_ = other.itemValue_.Clone();
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public ValueDataList Clone()
+        {
+            return new ValueDataList(this);
+        }
+
+        /// <summary>Field number for the "ItemValue" field.</summary>
+        public const int ItemValueFieldNumber = 1;
+        private static readonly pb::FieldCodec<global::VehicleData.Service.ProtoClass.ValueData> _repeated_itemValue_codec
+            = pb::FieldCodec.ForMessage(10, global::VehicleData.Service.ProtoClass.ValueData.Parser);
+        private readonly pbc::RepeatedField<global::VehicleData.Service.ProtoClass.ValueData> itemValue_ = new pbc::RepeatedField<global::VehicleData.Service.ProtoClass.ValueData>();
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public pbc::RepeatedField<global::VehicleData.Service.ProtoClass.ValueData> ItemValue
+        {
+            get { return itemValue_; }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public override bool Equals(object other)
+        {
+            return Equals(other as ValueDataList);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public bool Equals(ValueDataList other)
+        {
+            if (ReferenceEquals(other, null))
+            {
+                return false;
+            }
+            if (ReferenceEquals(other, this))
+            {
+                return true;
+            }
+            if (!itemValue_.Equals(other.itemValue_)) return false;
+            return true;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public override int GetHashCode()
+        {
+            int hash = 1;
+            hash ^= itemValue_.GetHashCode();
+            return hash;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public override string ToString()
+        {
+            return pb::JsonFormatter.ToDiagnosticString(this);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public void WriteTo(pb::CodedOutputStream output)
+        {
+            itemValue_.WriteTo(output, _repeated_itemValue_codec);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public int CalculateSize()
+        {
+            int size = 0;
+            size += itemValue_.CalculateSize(_repeated_itemValue_codec);
+            return size;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public void MergeFrom(ValueDataList other)
+        {
+            if (other == null)
+            {
+                return;
+            }
+            itemValue_.Add(other.itemValue_);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public void MergeFrom(pb::CodedInputStream input)
+        {
+            uint tag;
+            while ((tag = input.ReadTag()) != 0)
+            {
+                switch (tag)
+                {
+                    default:
+                        input.SkipLastField();
+                        break;
+                    case 10:
+                        {
+                            itemValue_.AddEntriesFrom(input, _repeated_itemValue_codec);
+                            break;
+                        }
+                }
+            }
+        }
+
+    }
+
+    public sealed partial class SpecsSummaryRequest : pb::IMessage<SpecsSummaryRequest>
+    {
+        private static readonly pb::MessageParser<SpecsSummaryRequest> _parser = new pb::MessageParser<SpecsSummaryRequest>(() => new SpecsSummaryRequest());
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public static pb::MessageParser<SpecsSummaryRequest> Parser { get { return _parser; } }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public static pbr::MessageDescriptor Descriptor
+        {
+            get { return global::VehicleData.Service.ProtoClass.VehicleDataReflection.Descriptor.MessageTypes[10]; }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        pbr::MessageDescriptor pb::IMessage.Descriptor
+        {
+            get { return Descriptor; }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public SpecsSummaryRequest()
+        {
+            OnConstruction();
+        }
+
+        partial void OnConstruction();
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public SpecsSummaryRequest(SpecsSummaryRequest other)
+            : this()
+        {
+            versionIds_ = other.versionIds_.Clone();
+            applicationId_ = other.applicationId_;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public SpecsSummaryRequest Clone()
+        {
+            return new SpecsSummaryRequest(this);
+        }
+
+        /// <summary>Field number for the "VersionIds" field.</summary>
+        public const int VersionIdsFieldNumber = 1;
+        private static readonly pb::FieldCodec<int> _repeated_versionIds_codec
+            = pb::FieldCodec.ForInt32(10);
+        private readonly pbc::RepeatedField<int> versionIds_ = new pbc::RepeatedField<int>();
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public pbc::RepeatedField<int> VersionIds
+        {
+            get { return versionIds_; }
+        }
+
+        /// <summary>Field number for the "ApplicationId" field.</summary>
+        public const int ApplicationIdFieldNumber = 2;
+        private int applicationId_;
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public int ApplicationId
+        {
+            get { return applicationId_; }
+            set
+            {
+                applicationId_ = value;
+            }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public override bool Equals(object other)
+        {
+            return Equals(other as SpecsSummaryRequest);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public bool Equals(SpecsSummaryRequest other)
+        {
+            if (ReferenceEquals(other, null))
+            {
+                return false;
+            }
+            if (ReferenceEquals(other, this))
+            {
+                return true;
+            }
+            if (!versionIds_.Equals(other.versionIds_)) return false;
+            if (ApplicationId != other.ApplicationId) return false;
+            return true;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public override int GetHashCode()
+        {
+            int hash = 1;
+            hash ^= versionIds_.GetHashCode();
+            if (ApplicationId != 0) hash ^= ApplicationId.GetHashCode();
+            return hash;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public override string ToString()
+        {
+            return pb::JsonFormatter.ToDiagnosticString(this);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public void WriteTo(pb::CodedOutputStream output)
+        {
+            versionIds_.WriteTo(output, _repeated_versionIds_codec);
+            if (ApplicationId != 0)
+            {
+                output.WriteRawTag(16);
+                output.WriteInt32(ApplicationId);
+            }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public int CalculateSize()
+        {
+            int size = 0;
+            size += versionIds_.CalculateSize(_repeated_versionIds_codec);
+            if (ApplicationId != 0)
+            {
+                size += 1 + pb::CodedOutputStream.ComputeInt32Size(ApplicationId);
+            }
+            return size;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public void MergeFrom(SpecsSummaryRequest other)
+        {
+            if (other == null)
+            {
+                return;
+            }
+            versionIds_.Add(other.versionIds_);
+            if (other.ApplicationId != 0)
+            {
+                ApplicationId = other.ApplicationId;
+            }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public void MergeFrom(pb::CodedInputStream input)
+        {
+            uint tag;
+            while ((tag = input.ReadTag()) != 0)
+            {
+                switch (tag)
+                {
+                    default:
+                        input.SkipLastField();
+                        break;
+                    case 10:
+                    case 8:
+                        {
+                            versionIds_.AddEntriesFrom(input, _repeated_versionIds_codec);
+                            break;
+                        }
+                    case 16:
+                        {
+                            ApplicationId = input.ReadInt32();
+                            break;
+                        }
+                }
+            }
+        }
+
+    }
+
+    public sealed partial class VersionSpecsSummary : pb::IMessage<VersionSpecsSummary>
+    {
+        private static readonly pb::MessageParser<VersionSpecsSummary> _parser = new pb::MessageParser<VersionSpecsSummary>(() => new VersionSpecsSummary());
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public static pb::MessageParser<VersionSpecsSummary> Parser { get { return _parser; } }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public static pbr::MessageDescriptor Descriptor
+        {
+            get { return global::VehicleData.Service.ProtoClass.VehicleDataReflection.Descriptor.MessageTypes[11]; }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        pbr::MessageDescriptor pb::IMessage.Descriptor
+        {
+            get { return Descriptor; }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public VersionSpecsSummary()
+        {
+            OnConstruction();
+        }
+
+        partial void OnConstruction();
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public VersionSpecsSummary(VersionSpecsSummary other)
+            : this()
+        {
+            id_ = other.id_;
+            specs_ = other.specs_.Clone();
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public VersionSpecsSummary Clone()
+        {
+            return new VersionSpecsSummary(this);
+        }
+
+        /// <summary>Field number for the "Id" field.</summary>
+        public const int IdFieldNumber = 1;
+        private int id_;
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public int Id
+        {
+            get { return id_; }
+            set
+            {
+                id_ = value;
+            }
+        }
+
+        /// <summary>Field number for the "Specs" field.</summary>
+        public const int SpecsFieldNumber = 2;
+        private static readonly pb::FieldCodec<global::VehicleData.Service.ProtoClass.SpecsSummary> _repeated_specs_codec
+            = pb::FieldCodec.ForMessage(18, global::VehicleData.Service.ProtoClass.SpecsSummary.Parser);
+        private readonly pbc::RepeatedField<global::VehicleData.Service.ProtoClass.SpecsSummary> specs_ = new pbc::RepeatedField<global::VehicleData.Service.ProtoClass.SpecsSummary>();
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public pbc::RepeatedField<global::VehicleData.Service.ProtoClass.SpecsSummary> Specs
+        {
+            get { return specs_; }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public override bool Equals(object other)
+        {
+            return Equals(other as VersionSpecsSummary);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public bool Equals(VersionSpecsSummary other)
+        {
+            if (ReferenceEquals(other, null))
+            {
+                return false;
+            }
+            if (ReferenceEquals(other, this))
+            {
+                return true;
+            }
+            if (Id != other.Id) return false;
+            if (!specs_.Equals(other.specs_)) return false;
+            return true;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public override int GetHashCode()
+        {
+            int hash = 1;
+            if (Id != 0) hash ^= Id.GetHashCode();
+            hash ^= specs_.GetHashCode();
+            return hash;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public override string ToString()
+        {
+            return pb::JsonFormatter.ToDiagnosticString(this);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public void WriteTo(pb::CodedOutputStream output)
+        {
+            if (Id != 0)
+            {
+                output.WriteRawTag(8);
+                output.WriteInt32(Id);
+            }
+            specs_.WriteTo(output, _repeated_specs_codec);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public int CalculateSize()
+        {
+            int size = 0;
+            if (Id != 0)
+            {
+                size += 1 + pb::CodedOutputStream.ComputeInt32Size(Id);
+            }
+            size += specs_.CalculateSize(_repeated_specs_codec);
+            return size;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public void MergeFrom(VersionSpecsSummary other)
+        {
+            if (other == null)
+            {
+                return;
+            }
+            if (other.Id != 0)
+            {
+                Id = other.Id;
+            }
+            specs_.Add(other.specs_);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public void MergeFrom(pb::CodedInputStream input)
+        {
+            uint tag;
+            while ((tag = input.ReadTag()) != 0)
+            {
+                switch (tag)
+                {
+                    default:
+                        input.SkipLastField();
+                        break;
+                    case 8:
+                        {
+                            Id = input.ReadInt32();
+                            break;
+                        }
+                    case 18:
+                        {
+                            specs_.AddEntriesFrom(input, _repeated_specs_codec);
+                            break;
+                        }
+                }
+            }
+        }
+
+    }
+
+    public sealed partial class VersionSpecsSummaryList : pb::IMessage<VersionSpecsSummaryList>
+    {
+        private static readonly pb::MessageParser<VersionSpecsSummaryList> _parser = new pb::MessageParser<VersionSpecsSummaryList>(() => new VersionSpecsSummaryList());
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public static pb::MessageParser<VersionSpecsSummaryList> Parser { get { return _parser; } }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public static pbr::MessageDescriptor Descriptor
+        {
+            get { return global::VehicleData.Service.ProtoClass.VehicleDataReflection.Descriptor.MessageTypes[12]; }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        pbr::MessageDescriptor pb::IMessage.Descriptor
+        {
+            get { return Descriptor; }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public VersionSpecsSummaryList()
+        {
+            OnConstruction();
+        }
+
+        partial void OnConstruction();
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public VersionSpecsSummaryList(VersionSpecsSummaryList other)
+            : this()
+        {
+            values_ = other.values_.Clone();
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public VersionSpecsSummaryList Clone()
+        {
+            return new VersionSpecsSummaryList(this);
+        }
+
+        /// <summary>Field number for the "Values" field.</summary>
+        public const int ValuesFieldNumber = 1;
+        private static readonly pb::FieldCodec<global::VehicleData.Service.ProtoClass.VersionSpecsSummary> _repeated_values_codec
+            = pb::FieldCodec.ForMessage(10, global::VehicleData.Service.ProtoClass.VersionSpecsSummary.Parser);
+        private readonly pbc::RepeatedField<global::VehicleData.Service.ProtoClass.VersionSpecsSummary> values_ = new pbc::RepeatedField<global::VehicleData.Service.ProtoClass.VersionSpecsSummary>();
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public pbc::RepeatedField<global::VehicleData.Service.ProtoClass.VersionSpecsSummary> Values
+        {
+            get { return values_; }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public override bool Equals(object other)
+        {
+            return Equals(other as VersionSpecsSummaryList);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public bool Equals(VersionSpecsSummaryList other)
+        {
+            if (ReferenceEquals(other, null))
+            {
+                return false;
+            }
+            if (ReferenceEquals(other, this))
+            {
+                return true;
+            }
+            if (!values_.Equals(other.values_)) return false;
+            return true;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public override int GetHashCode()
+        {
+            int hash = 1;
+            hash ^= values_.GetHashCode();
+            return hash;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public override string ToString()
+        {
+            return pb::JsonFormatter.ToDiagnosticString(this);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public void WriteTo(pb::CodedOutputStream output)
+        {
+            values_.WriteTo(output, _repeated_values_codec);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public int CalculateSize()
+        {
+            int size = 0;
+            size += values_.CalculateSize(_repeated_values_codec);
+            return size;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public void MergeFrom(VersionSpecsSummaryList other)
+        {
+            if (other == null)
+            {
+                return;
+            }
+            values_.Add(other.values_);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public void MergeFrom(pb::CodedInputStream input)
+        {
+            uint tag;
+            while ((tag = input.ReadTag()) != 0)
+            {
+                switch (tag)
+                {
+                    default:
+                        input.SkipLastField();
+                        break;
+                    case 10:
+                        {
+                            values_.AddEntriesFrom(input, _repeated_values_codec);
+                            break;
+                        }
+                }
+            }
+        }
+
+    }
+
+    public sealed partial class ModelSpecsSummaryRequest : pb::IMessage<ModelSpecsSummaryRequest>
+    {
+        private static readonly pb::MessageParser<ModelSpecsSummaryRequest> _parser = new pb::MessageParser<ModelSpecsSummaryRequest>(() => new ModelSpecsSummaryRequest());
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public static pb::MessageParser<ModelSpecsSummaryRequest> Parser { get { return _parser; } }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public static pbr::MessageDescriptor Descriptor
+        {
+            get { return global::VehicleData.Service.ProtoClass.VehicleDataReflection.Descriptor.MessageTypes[13]; }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        pbr::MessageDescriptor pb::IMessage.Descriptor
+        {
+            get { return Descriptor; }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public ModelSpecsSummaryRequest()
+        {
+            OnConstruction();
+        }
+
+        partial void OnConstruction();
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public ModelSpecsSummaryRequest(ModelSpecsSummaryRequest other)
+            : this()
+        {
+            versionIds_ = other.versionIds_.Clone();
+            modelId_ = other.modelId_;
+            applicationId_ = other.applicationId_;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public ModelSpecsSummaryRequest Clone()
+        {
+            return new ModelSpecsSummaryRequest(this);
+        }
+
+        /// <summary>Field number for the "VersionIds" field.</summary>
+        public const int VersionIdsFieldNumber = 1;
+        private static readonly pb::FieldCodec<int> _repeated_versionIds_codec
+            = pb::FieldCodec.ForInt32(10);
+        private readonly pbc::RepeatedField<int> versionIds_ = new pbc::RepeatedField<int>();
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public pbc::RepeatedField<int> VersionIds
+        {
+            get { return versionIds_; }
+        }
+
+        /// <summary>Field number for the "ModelId" field.</summary>
+        public const int ModelIdFieldNumber = 2;
+        private int modelId_;
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public int ModelId
+        {
+            get { return modelId_; }
+            set
+            {
+                modelId_ = value;
+            }
+        }
+
+        /// <summary>Field number for the "ApplicationId" field.</summary>
+        public const int ApplicationIdFieldNumber = 3;
+        private int applicationId_;
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public int ApplicationId
+        {
+            get { return applicationId_; }
+            set
+            {
+                applicationId_ = value;
+            }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public override bool Equals(object other)
+        {
+            return Equals(other as ModelSpecsSummaryRequest);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public bool Equals(ModelSpecsSummaryRequest other)
+        {
+            if (ReferenceEquals(other, null))
+            {
+                return false;
+            }
+            if (ReferenceEquals(other, this))
+            {
+                return true;
+            }
+            if (!versionIds_.Equals(other.versionIds_)) return false;
+            if (ModelId != other.ModelId) return false;
+            if (ApplicationId != other.ApplicationId) return false;
+            return true;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public override int GetHashCode()
+        {
+            int hash = 1;
+            hash ^= versionIds_.GetHashCode();
+            if (ModelId != 0) hash ^= ModelId.GetHashCode();
+            if (ApplicationId != 0) hash ^= ApplicationId.GetHashCode();
+            return hash;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public override string ToString()
+        {
+            return pb::JsonFormatter.ToDiagnosticString(this);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public void WriteTo(pb::CodedOutputStream output)
+        {
+            versionIds_.WriteTo(output, _repeated_versionIds_codec);
+            if (ModelId != 0)
+            {
+                output.WriteRawTag(16);
+                output.WriteInt32(ModelId);
+            }
+            if (ApplicationId != 0)
+            {
+                output.WriteRawTag(24);
+                output.WriteInt32(ApplicationId);
+            }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public int CalculateSize()
+        {
+            int size = 0;
+            size += versionIds_.CalculateSize(_repeated_versionIds_codec);
+            if (ModelId != 0)
+            {
+                size += 1 + pb::CodedOutputStream.ComputeInt32Size(ModelId);
+            }
+            if (ApplicationId != 0)
+            {
+                size += 1 + pb::CodedOutputStream.ComputeInt32Size(ApplicationId);
+            }
+            return size;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public void MergeFrom(ModelSpecsSummaryRequest other)
+        {
+            if (other == null)
+            {
+                return;
+            }
+            versionIds_.Add(other.versionIds_);
+            if (other.ModelId != 0)
+            {
+                ModelId = other.ModelId;
+            }
+            if (other.ApplicationId != 0)
+            {
+                ApplicationId = other.ApplicationId;
+            }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public void MergeFrom(pb::CodedInputStream input)
+        {
+            uint tag;
+            while ((tag = input.ReadTag()) != 0)
+            {
+                switch (tag)
+                {
+                    default:
+                        input.SkipLastField();
+                        break;
+                    case 10:
+                    case 8:
+                        {
+                            versionIds_.AddEntriesFrom(input, _repeated_versionIds_codec);
+                            break;
+                        }
+                    case 16:
+                        {
+                            ModelId = input.ReadInt32();
+                            break;
+                        }
+                    case 24:
+                        {
+                            ApplicationId = input.ReadInt32();
+                            break;
+                        }
+                }
+            }
+        }
+
+    }
+
+    public sealed partial class SpecsSummary : pb::IMessage<SpecsSummary>
+    {
+        private static readonly pb::MessageParser<SpecsSummary> _parser = new pb::MessageParser<SpecsSummary>(() => new SpecsSummary());
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public static pb::MessageParser<SpecsSummary> Parser { get { return _parser; } }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public static pbr::MessageDescriptor Descriptor
+        {
+            get { return global::VehicleData.Service.ProtoClass.VehicleDataReflection.Descriptor.MessageTypes[14]; }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        pbr::MessageDescriptor pb::IMessage.Descriptor
+        {
+            get { return Descriptor; }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public SpecsSummary()
+        {
+            OnConstruction();
+        }
+
+        partial void OnConstruction();
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public SpecsSummary(SpecsSummary other)
+            : this()
+        {
+            itemId_ = other.itemId_;
+            itemName_ = other.itemName_;
+            value_ = other.value_;
+            unitType_ = other.unitType_;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public SpecsSummary Clone()
+        {
+            return new SpecsSummary(this);
+        }
+
+        /// <summary>Field number for the "ItemId" field.</summary>
+        public const int ItemIdFieldNumber = 1;
+        private int itemId_;
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public int ItemId
+        {
+            get { return itemId_; }
+            set
+            {
+                itemId_ = value;
+            }
+        }
+
+        /// <summary>Field number for the "ItemName" field.</summary>
+        public const int ItemNameFieldNumber = 2;
+        private string itemName_ = "";
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public string ItemName
+        {
+            get { return itemName_; }
+            set
+            {
+                itemName_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+            }
+        }
+
+        /// <summary>Field number for the "Value" field.</summary>
+        public const int ValueFieldNumber = 3;
+        private string value_ = "";
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public string Value
+        {
+            get { return value_; }
+            set
+            {
+                value_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+            }
+        }
+
+        /// <summary>Field number for the "UnitType" field.</summary>
+        public const int UnitTypeFieldNumber = 4;
+        private string unitType_ = "";
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public string UnitType
+        {
+            get { return unitType_; }
+            set
+            {
+                unitType_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+            }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public override bool Equals(object other)
+        {
+            return Equals(other as SpecsSummary);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public bool Equals(SpecsSummary other)
+        {
+            if (ReferenceEquals(other, null))
+            {
+                return false;
+            }
+            if (ReferenceEquals(other, this))
+            {
+                return true;
+            }
+            if (ItemId != other.ItemId) return false;
+            if (ItemName != other.ItemName) return false;
+            if (Value != other.Value) return false;
+            if (UnitType != other.UnitType) return false;
+            return true;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public override int GetHashCode()
+        {
+            int hash = 1;
+            if (ItemId != 0) hash ^= ItemId.GetHashCode();
+            if (ItemName.Length != 0) hash ^= ItemName.GetHashCode();
+            if (Value.Length != 0) hash ^= Value.GetHashCode();
+            if (UnitType.Length != 0) hash ^= UnitType.GetHashCode();
+            return hash;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public override string ToString()
+        {
+            return pb::JsonFormatter.ToDiagnosticString(this);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public void WriteTo(pb::CodedOutputStream output)
+        {
+            if (ItemId != 0)
+            {
+                output.WriteRawTag(8);
+                output.WriteInt32(ItemId);
+            }
+            if (ItemName.Length != 0)
+            {
+                output.WriteRawTag(18);
+                output.WriteString(ItemName);
+            }
+            if (Value.Length != 0)
+            {
+                output.WriteRawTag(26);
+                output.WriteString(Value);
+            }
+            if (UnitType.Length != 0)
+            {
+                output.WriteRawTag(34);
+                output.WriteString(UnitType);
+            }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public int CalculateSize()
+        {
+            int size = 0;
+            if (ItemId != 0)
+            {
+                size += 1 + pb::CodedOutputStream.ComputeInt32Size(ItemId);
+            }
+            if (ItemName.Length != 0)
+            {
+                size += 1 + pb::CodedOutputStream.ComputeStringSize(ItemName);
+            }
+            if (Value.Length != 0)
+            {
+                size += 1 + pb::CodedOutputStream.ComputeStringSize(Value);
+            }
+            if (UnitType.Length != 0)
+            {
+                size += 1 + pb::CodedOutputStream.ComputeStringSize(UnitType);
+            }
+            return size;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public void MergeFrom(SpecsSummary other)
+        {
+            if (other == null)
+            {
+                return;
+            }
+            if (other.ItemId != 0)
+            {
+                ItemId = other.ItemId;
+            }
+            if (other.ItemName.Length != 0)
+            {
+                ItemName = other.ItemName;
+            }
+            if (other.Value.Length != 0)
+            {
+                Value = other.Value;
+            }
+            if (other.UnitType.Length != 0)
+            {
+                UnitType = other.UnitType;
+            }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public void MergeFrom(pb::CodedInputStream input)
+        {
+            uint tag;
+            while ((tag = input.ReadTag()) != 0)
+            {
+                switch (tag)
+                {
+                    default:
+                        input.SkipLastField();
+                        break;
+                    case 8:
+                        {
+                            ItemId = input.ReadInt32();
+                            break;
+                        }
+                    case 18:
+                        {
+                            ItemName = input.ReadString();
+                            break;
+                        }
+                    case 26:
+                        {
+                            Value = input.ReadString();
+                            break;
+                        }
+                    case 34:
+                        {
+                            UnitType = input.ReadString();
+                            break;
+                        }
+                }
+            }
+        }
+
+    }
+
+    public sealed partial class ModelSpecsSummaryList : pb::IMessage<ModelSpecsSummaryList>
+    {
+        private static readonly pb::MessageParser<ModelSpecsSummaryList> _parser = new pb::MessageParser<ModelSpecsSummaryList>(() => new ModelSpecsSummaryList());
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public static pb::MessageParser<ModelSpecsSummaryList> Parser { get { return _parser; } }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public static pbr::MessageDescriptor Descriptor
+        {
+            get { return global::VehicleData.Service.ProtoClass.VehicleDataReflection.Descriptor.MessageTypes[15]; }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        pbr::MessageDescriptor pb::IMessage.Descriptor
+        {
+            get { return Descriptor; }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public ModelSpecsSummaryList()
+        {
+            OnConstruction();
+        }
+
+        partial void OnConstruction();
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public ModelSpecsSummaryList(ModelSpecsSummaryList other)
+            : this()
+        {
+            values_ = other.values_.Clone();
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public ModelSpecsSummaryList Clone()
+        {
+            return new ModelSpecsSummaryList(this);
+        }
+
+        /// <summary>Field number for the "Values" field.</summary>
+        public const int ValuesFieldNumber = 1;
+        private static readonly pb::FieldCodec<global::VehicleData.Service.ProtoClass.SpecsSummary> _repeated_values_codec
+            = pb::FieldCodec.ForMessage(10, global::VehicleData.Service.ProtoClass.SpecsSummary.Parser);
+        private readonly pbc::RepeatedField<global::VehicleData.Service.ProtoClass.SpecsSummary> values_ = new pbc::RepeatedField<global::VehicleData.Service.ProtoClass.SpecsSummary>();
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public pbc::RepeatedField<global::VehicleData.Service.ProtoClass.SpecsSummary> Values
+        {
+            get { return values_; }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public override bool Equals(object other)
+        {
+            return Equals(other as ModelSpecsSummaryList);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public bool Equals(ModelSpecsSummaryList other)
+        {
+            if (ReferenceEquals(other, null))
+            {
+                return false;
+            }
+            if (ReferenceEquals(other, this))
+            {
+                return true;
+            }
+            if (!values_.Equals(other.values_)) return false;
+            return true;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public override int GetHashCode()
+        {
+            int hash = 1;
+            hash ^= values_.GetHashCode();
+            return hash;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public override string ToString()
+        {
+            return pb::JsonFormatter.ToDiagnosticString(this);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public void WriteTo(pb::CodedOutputStream output)
+        {
+            values_.WriteTo(output, _repeated_values_codec);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public int CalculateSize()
+        {
+            int size = 0;
+            size += values_.CalculateSize(_repeated_values_codec);
+            return size;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public void MergeFrom(ModelSpecsSummaryList other)
+        {
+            if (other == null)
+            {
+                return;
+            }
+            values_.Add(other.values_);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public void MergeFrom(pb::CodedInputStream input)
+        {
+            uint tag;
+            while ((tag = input.ReadTag()) != 0)
+            {
+                switch (tag)
+                {
+                    default:
+                        input.SkipLastField();
+                        break;
+                    case 10:
+                        {
+                            values_.AddEntriesFrom(input, _repeated_values_codec);
+                            break;
+                        }
+                }
+            }
+        }
+
+    }
+
+    public sealed partial class VersionsDataByItemIdsRequest : pb::IMessage<VersionsDataByItemIdsRequest>
+    {
+        private static readonly pb::MessageParser<VersionsDataByItemIdsRequest> _parser = new pb::MessageParser<VersionsDataByItemIdsRequest>(() => new VersionsDataByItemIdsRequest());
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public static pb::MessageParser<VersionsDataByItemIdsRequest> Parser { get { return _parser; } }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public static pbr::MessageDescriptor Descriptor
+        {
+            get { return global::VehicleData.Service.ProtoClass.VehicleDataReflection.Descriptor.MessageTypes[16]; }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        pbr::MessageDescriptor pb::IMessage.Descriptor
+        {
+            get { return Descriptor; }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public VersionsDataByItemIdsRequest()
+        {
+            OnConstruction();
+        }
+
+        partial void OnConstruction();
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public VersionsDataByItemIdsRequest(VersionsDataByItemIdsRequest other)
+            : this()
+        {
+            applicationId_ = other.applicationId_;
+            versionIds_ = other.versionIds_.Clone();
+            itemIds_ = other.itemIds_.Clone();
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public VersionsDataByItemIdsRequest Clone()
+        {
+            return new VersionsDataByItemIdsRequest(this);
+        }
+
+        /// <summary>Field number for the "ApplicationId" field.</summary>
+        public const int ApplicationIdFieldNumber = 1;
+        private int applicationId_;
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public int ApplicationId
+        {
+            get { return applicationId_; }
+            set
+            {
+                applicationId_ = value;
+            }
+        }
+
+        /// <summary>Field number for the "VersionIds" field.</summary>
+        public const int VersionIdsFieldNumber = 2;
+        private static readonly pb::FieldCodec<int> _repeated_versionIds_codec
+            = pb::FieldCodec.ForInt32(18);
+        private readonly pbc::RepeatedField<int> versionIds_ = new pbc::RepeatedField<int>();
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public pbc::RepeatedField<int> VersionIds
+        {
+            get { return versionIds_; }
+        }
+
+        /// <summary>Field number for the "ItemIds" field.</summary>
+        public const int ItemIdsFieldNumber = 3;
+        private static readonly pb::FieldCodec<int> _repeated_itemIds_codec
+            = pb::FieldCodec.ForInt32(26);
+        private readonly pbc::RepeatedField<int> itemIds_ = new pbc::RepeatedField<int>();
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public pbc::RepeatedField<int> ItemIds
+        {
+            get { return itemIds_; }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public override bool Equals(object other)
+        {
+            return Equals(other as VersionsDataByItemIdsRequest);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public bool Equals(VersionsDataByItemIdsRequest other)
+        {
+            if (ReferenceEquals(other, null))
+            {
+                return false;
+            }
+            if (ReferenceEquals(other, this))
+            {
+                return true;
+            }
+            if (ApplicationId != other.ApplicationId) return false;
+            if (!versionIds_.Equals(other.versionIds_)) return false;
+            if (!itemIds_.Equals(other.itemIds_)) return false;
+            return true;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public override int GetHashCode()
+        {
+            int hash = 1;
+            if (ApplicationId != 0) hash ^= ApplicationId.GetHashCode();
+            hash ^= versionIds_.GetHashCode();
+            hash ^= itemIds_.GetHashCode();
+            return hash;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public override string ToString()
+        {
+            return pb::JsonFormatter.ToDiagnosticString(this);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public void WriteTo(pb::CodedOutputStream output)
+        {
+            if (ApplicationId != 0)
+            {
+                output.WriteRawTag(8);
+                output.WriteInt32(ApplicationId);
+            }
+            versionIds_.WriteTo(output, _repeated_versionIds_codec);
+            itemIds_.WriteTo(output, _repeated_itemIds_codec);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public int CalculateSize()
+        {
+            int size = 0;
+            if (ApplicationId != 0)
+            {
+                size += 1 + pb::CodedOutputStream.ComputeInt32Size(ApplicationId);
+            }
+            size += versionIds_.CalculateSize(_repeated_versionIds_codec);
+            size += itemIds_.CalculateSize(_repeated_itemIds_codec);
+            return size;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public void MergeFrom(VersionsDataByItemIdsRequest other)
+        {
+            if (other == null)
+            {
+                return;
+            }
+            if (other.ApplicationId != 0)
+            {
+                ApplicationId = other.ApplicationId;
+            }
+            versionIds_.Add(other.versionIds_);
+            itemIds_.Add(other.itemIds_);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public void MergeFrom(pb::CodedInputStream input)
+        {
+            uint tag;
+            while ((tag = input.ReadTag()) != 0)
+            {
+                switch (tag)
+                {
+                    default:
+                        input.SkipLastField();
+                        break;
+                    case 8:
+                        {
+                            ApplicationId = input.ReadInt32();
+                            break;
+                        }
+                    case 18:
+                    case 16:
+                        {
+                            versionIds_.AddEntriesFrom(input, _repeated_versionIds_codec);
+                            break;
+                        }
+                    case 26:
+                    case 24:
+                        {
+                            itemIds_.AddEntriesFrom(input, _repeated_itemIds_codec);
+                            break;
+                        }
+                }
+            }
+        }
+
+    }
+
+    public sealed partial class ItemData : pb::IMessage<ItemData>
+    {
+        private static readonly pb::MessageParser<ItemData> _parser = new pb::MessageParser<ItemData>(() => new ItemData());
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public static pb::MessageParser<ItemData> Parser { get { return _parser; } }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public static pbr::MessageDescriptor Descriptor
+        {
+            get { return global::VehicleData.Service.ProtoClass.VehicleDataReflection.Descriptor.MessageTypes[17]; }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        pbr::MessageDescriptor pb::IMessage.Descriptor
+        {
+            get { return Descriptor; }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public ItemData()
+        {
+            OnConstruction();
+        }
+
+        partial void OnConstruction();
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public ItemData(ItemData other)
+            : this()
+        {
+            itemId_ = other.itemId_;
+            itemName_ = other.itemName_;
+            value_ = other.value_;
+            unitType_ = other.unitType_;
+            icon_ = other.icon_;
+            dataTypeId_ = other.dataTypeId_;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public ItemData Clone()
+        {
+            return new ItemData(this);
+        }
+
+        /// <summary>Field number for the "ItemId" field.</summary>
+        public const int ItemIdFieldNumber = 1;
+        private int itemId_;
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public int ItemId
+        {
+            get { return itemId_; }
+            set
+            {
+                itemId_ = value;
+            }
+        }
+
+        /// <summary>Field number for the "ItemName" field.</summary>
+        public const int ItemNameFieldNumber = 2;
+        private string itemName_ = "";
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public string ItemName
+        {
+            get { return itemName_; }
+            set
+            {
+                itemName_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+            }
+        }
+
+        /// <summary>Field number for the "Value" field.</summary>
+        public const int ValueFieldNumber = 3;
+        private string value_ = "";
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public string Value
+        {
+            get { return value_; }
+            set
+            {
+                value_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+            }
+        }
+
+        /// <summary>Field number for the "UnitType" field.</summary>
+        public const int UnitTypeFieldNumber = 4;
+        private string unitType_ = "";
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public string UnitType
+        {
+            get { return unitType_; }
+            set
+            {
+                unitType_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+            }
+        }
+
+        /// <summary>Field number for the "Icon" field.</summary>
+        public const int IconFieldNumber = 5;
+        private string icon_ = "";
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public string Icon
+        {
+            get { return icon_; }
+            set
+            {
+                icon_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+            }
+        }
+
+        /// <summary>Field number for the "DataTypeId" field.</summary>
+        public const int DataTypeIdFieldNumber = 6;
+        private int dataTypeId_;
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public int DataTypeId
+        {
+            get { return dataTypeId_; }
+            set
+            {
+                dataTypeId_ = value;
+            }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public override bool Equals(object other)
+        {
+            return Equals(other as ItemData);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public bool Equals(ItemData other)
+        {
+            if (ReferenceEquals(other, null))
+            {
+                return false;
+            }
+            if (ReferenceEquals(other, this))
+            {
+                return true;
+            }
+            if (ItemId != other.ItemId) return false;
+            if (ItemName != other.ItemName) return false;
+            if (Value != other.Value) return false;
+            if (UnitType != other.UnitType) return false;
+            if (Icon != other.Icon) return false;
+            if (DataTypeId != other.DataTypeId) return false;
+            return true;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public override int GetHashCode()
+        {
+            int hash = 1;
+            if (ItemId != 0) hash ^= ItemId.GetHashCode();
+            if (ItemName.Length != 0) hash ^= ItemName.GetHashCode();
+            if (Value.Length != 0) hash ^= Value.GetHashCode();
+            if (UnitType.Length != 0) hash ^= UnitType.GetHashCode();
+            if (Icon.Length != 0) hash ^= Icon.GetHashCode();
+            if (DataTypeId != 0) hash ^= DataTypeId.GetHashCode();
+            return hash;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public override string ToString()
+        {
+            return pb::JsonFormatter.ToDiagnosticString(this);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public void WriteTo(pb::CodedOutputStream output)
+        {
+            if (ItemId != 0)
+            {
+                output.WriteRawTag(8);
+                output.WriteInt32(ItemId);
+            }
+            if (ItemName.Length != 0)
+            {
+                output.WriteRawTag(18);
+                output.WriteString(ItemName);
+            }
+            if (Value.Length != 0)
+            {
+                output.WriteRawTag(26);
+                output.WriteString(Value);
+            }
+            if (UnitType.Length != 0)
+            {
+                output.WriteRawTag(34);
+                output.WriteString(UnitType);
+            }
+            if (Icon.Length != 0)
+            {
+                output.WriteRawTag(42);
+                output.WriteString(Icon);
+            }
+            if (DataTypeId != 0)
+            {
+                output.WriteRawTag(48);
+                output.WriteInt32(DataTypeId);
+            }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public int CalculateSize()
+        {
+            int size = 0;
+            if (ItemId != 0)
+            {
+                size += 1 + pb::CodedOutputStream.ComputeInt32Size(ItemId);
+            }
+            if (ItemName.Length != 0)
+            {
+                size += 1 + pb::CodedOutputStream.ComputeStringSize(ItemName);
+            }
+            if (Value.Length != 0)
+            {
+                size += 1 + pb::CodedOutputStream.ComputeStringSize(Value);
+            }
+            if (UnitType.Length != 0)
+            {
+                size += 1 + pb::CodedOutputStream.ComputeStringSize(UnitType);
+            }
+            if (Icon.Length != 0)
+            {
+                size += 1 + pb::CodedOutputStream.ComputeStringSize(Icon);
+            }
+            if (DataTypeId != 0)
+            {
+                size += 1 + pb::CodedOutputStream.ComputeInt32Size(DataTypeId);
+            }
+            return size;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public void MergeFrom(ItemData other)
+        {
+            if (other == null)
+            {
+                return;
+            }
+            if (other.ItemId != 0)
+            {
+                ItemId = other.ItemId;
+            }
+            if (other.ItemName.Length != 0)
+            {
+                ItemName = other.ItemName;
+            }
+            if (other.Value.Length != 0)
+            {
+                Value = other.Value;
+            }
+            if (other.UnitType.Length != 0)
+            {
+                UnitType = other.UnitType;
+            }
+            if (other.Icon.Length != 0)
+            {
+                Icon = other.Icon;
+            }
+            if (other.DataTypeId != 0)
+            {
+                DataTypeId = other.DataTypeId;
+            }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public void MergeFrom(pb::CodedInputStream input)
+        {
+            uint tag;
+            while ((tag = input.ReadTag()) != 0)
+            {
+                switch (tag)
+                {
+                    default:
+                        input.SkipLastField();
+                        break;
+                    case 8:
+                        {
+                            ItemId = input.ReadInt32();
+                            break;
+                        }
+                    case 18:
+                        {
+                            ItemName = input.ReadString();
+                            break;
+                        }
+                    case 26:
+                        {
+                            Value = input.ReadString();
+                            break;
+                        }
+                    case 34:
+                        {
+                            UnitType = input.ReadString();
+                            break;
+                        }
+                    case 42:
+                        {
+                            Icon = input.ReadString();
+                            break;
+                        }
+                    case 48:
+                        {
+                            DataTypeId = input.ReadInt32();
+                            break;
+                        }
+                }
+            }
+        }
+
+    }
+
+    public sealed partial class VersionItemsData : pb::IMessage<VersionItemsData>
+    {
+        private static readonly pb::MessageParser<VersionItemsData> _parser = new pb::MessageParser<VersionItemsData>(() => new VersionItemsData());
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public static pb::MessageParser<VersionItemsData> Parser { get { return _parser; } }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public static pbr::MessageDescriptor Descriptor
+        {
+            get { return global::VehicleData.Service.ProtoClass.VehicleDataReflection.Descriptor.MessageTypes[18]; }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        pbr::MessageDescriptor pb::IMessage.Descriptor
+        {
+            get { return Descriptor; }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public VersionItemsData()
+        {
+            OnConstruction();
+        }
+
+        partial void OnConstruction();
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public VersionItemsData(VersionItemsData other)
+            : this()
+        {
+            id_ = other.id_;
+            itemList_ = other.itemList_.Clone();
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public VersionItemsData Clone()
+        {
+            return new VersionItemsData(this);
+        }
+
+        /// <summary>Field number for the "Id" field.</summary>
+        public const int IdFieldNumber = 1;
+        private int id_;
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public int Id
+        {
+            get { return id_; }
+            set
+            {
+                id_ = value;
+            }
+        }
+
+        /// <summary>Field number for the "ItemList" field.</summary>
+        public const int ItemListFieldNumber = 2;
+        private static readonly pb::FieldCodec<global::VehicleData.Service.ProtoClass.ItemData> _repeated_itemList_codec
+            = pb::FieldCodec.ForMessage(18, global::VehicleData.Service.ProtoClass.ItemData.Parser);
+        private readonly pbc::RepeatedField<global::VehicleData.Service.ProtoClass.ItemData> itemList_ = new pbc::RepeatedField<global::VehicleData.Service.ProtoClass.ItemData>();
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public pbc::RepeatedField<global::VehicleData.Service.ProtoClass.ItemData> ItemList
+        {
+            get { return itemList_; }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public override bool Equals(object other)
+        {
+            return Equals(other as VersionItemsData);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public bool Equals(VersionItemsData other)
+        {
+            if (ReferenceEquals(other, null))
+            {
+                return false;
+            }
+            if (ReferenceEquals(other, this))
+            {
+                return true;
+            }
+            if (Id != other.Id) return false;
+            if (!itemList_.Equals(other.itemList_)) return false;
+            return true;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public override int GetHashCode()
+        {
+            int hash = 1;
+            if (Id != 0) hash ^= Id.GetHashCode();
+            hash ^= itemList_.GetHashCode();
+            return hash;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public override string ToString()
+        {
+            return pb::JsonFormatter.ToDiagnosticString(this);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public void WriteTo(pb::CodedOutputStream output)
+        {
+            if (Id != 0)
+            {
+                output.WriteRawTag(8);
+                output.WriteInt32(Id);
+            }
+            itemList_.WriteTo(output, _repeated_itemList_codec);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public int CalculateSize()
+        {
+            int size = 0;
+            if (Id != 0)
+            {
+                size += 1 + pb::CodedOutputStream.ComputeInt32Size(Id);
+            }
+            size += itemList_.CalculateSize(_repeated_itemList_codec);
+            return size;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public void MergeFrom(VersionItemsData other)
+        {
+            if (other == null)
+            {
+                return;
+            }
+            if (other.Id != 0)
+            {
+                Id = other.Id;
+            }
+            itemList_.Add(other.itemList_);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public void MergeFrom(pb::CodedInputStream input)
+        {
+            uint tag;
+            while ((tag = input.ReadTag()) != 0)
+            {
+                switch (tag)
+                {
+                    default:
+                        input.SkipLastField();
+                        break;
+                    case 8:
+                        {
+                            Id = input.ReadInt32();
+                            break;
+                        }
+                    case 18:
+                        {
+                            itemList_.AddEntriesFrom(input, _repeated_itemList_codec);
+                            break;
+                        }
+                }
+            }
+        }
+
+    }
+
+    public sealed partial class VersionItemsDataResponse : pb::IMessage<VersionItemsDataResponse>
+    {
+        private static readonly pb::MessageParser<VersionItemsDataResponse> _parser = new pb::MessageParser<VersionItemsDataResponse>(() => new VersionItemsDataResponse());
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public static pb::MessageParser<VersionItemsDataResponse> Parser { get { return _parser; } }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public static pbr::MessageDescriptor Descriptor
+        {
+            get { return global::VehicleData.Service.ProtoClass.VehicleDataReflection.Descriptor.MessageTypes[19]; }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        pbr::MessageDescriptor pb::IMessage.Descriptor
+        {
+            get { return Descriptor; }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public VersionItemsDataResponse()
+        {
+            OnConstruction();
+        }
+
+        partial void OnConstruction();
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public VersionItemsDataResponse(VersionItemsDataResponse other)
+            : this()
+        {
+            versionItemsDataList_ = other.versionItemsDataList_.Clone();
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public VersionItemsDataResponse Clone()
+        {
+            return new VersionItemsDataResponse(this);
+        }
+
+        /// <summary>Field number for the "VersionItemsDataList" field.</summary>
+        public const int VersionItemsDataListFieldNumber = 1;
+        private static readonly pb::FieldCodec<global::VehicleData.Service.ProtoClass.VersionItemsData> _repeated_versionItemsDataList_codec
+            = pb::FieldCodec.ForMessage(10, global::VehicleData.Service.ProtoClass.VersionItemsData.Parser);
+        private readonly pbc::RepeatedField<global::VehicleData.Service.ProtoClass.VersionItemsData> versionItemsDataList_ = new pbc::RepeatedField<global::VehicleData.Service.ProtoClass.VersionItemsData>();
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public pbc::RepeatedField<global::VehicleData.Service.ProtoClass.VersionItemsData> VersionItemsDataList
+        {
+            get { return versionItemsDataList_; }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public override bool Equals(object other)
+        {
+            return Equals(other as VersionItemsDataResponse);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public bool Equals(VersionItemsDataResponse other)
+        {
+            if (ReferenceEquals(other, null))
+            {
+                return false;
+            }
+            if (ReferenceEquals(other, this))
+            {
+                return true;
+            }
+            if (!versionItemsDataList_.Equals(other.versionItemsDataList_)) return false;
+            return true;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public override int GetHashCode()
+        {
+            int hash = 1;
+            hash ^= versionItemsDataList_.GetHashCode();
+            return hash;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public override string ToString()
+        {
+            return pb::JsonFormatter.ToDiagnosticString(this);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public void WriteTo(pb::CodedOutputStream output)
+        {
+            versionItemsDataList_.WriteTo(output, _repeated_versionItemsDataList_codec);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public int CalculateSize()
+        {
+            int size = 0;
+            size += versionItemsDataList_.CalculateSize(_repeated_versionItemsDataList_codec);
+            return size;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public void MergeFrom(VersionItemsDataResponse other)
+        {
+            if (other == null)
+            {
+                return;
+            }
+            versionItemsDataList_.Add(other.versionItemsDataList_);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public void MergeFrom(pb::CodedInputStream input)
+        {
+            uint tag;
+            while ((tag = input.ReadTag()) != 0)
+            {
+                switch (tag)
+                {
+                    default:
+                        input.SkipLastField();
+                        break;
+                    case 10:
+                        {
+                            versionItemsDataList_.AddEntriesFrom(input, _repeated_versionItemsDataList_codec);
+                            break;
+                        }
+                }
+            }
+        }
+
+    }
+
+    public sealed partial class VehicleDataValue : pb::IMessage<VehicleDataValue>
+    {
+        private static readonly pb::MessageParser<VehicleDataValue> _parser = new pb::MessageParser<VehicleDataValue>(() => new VehicleDataValue());
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public static pb::MessageParser<VehicleDataValue> Parser { get { return _parser; } }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public static pbr::MessageDescriptor Descriptor
+        {
+            get { return global::VehicleData.Service.ProtoClass.VehicleDataReflection.Descriptor.MessageTypes[20]; }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        pbr::MessageDescriptor pb::IMessage.Descriptor
+        {
+            get { return Descriptor; }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public VehicleDataValue()
+        {
+            OnConstruction();
+        }
+
+        partial void OnConstruction();
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public VehicleDataValue(VehicleDataValue other)
+            : this()
+        {
+            specifications_ = other.specifications_.Clone();
+            features_ = other.features_.Clone();
+            overview_ = other.overview_.Clone();
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public VehicleDataValue Clone()
+        {
+            return new VehicleDataValue(this);
+        }
+
+        /// <summary>Field number for the "Specifications" field.</summary>
+        public const int SpecificationsFieldNumber = 1;
+        private static readonly pb::FieldCodec<global::VehicleData.Service.ProtoClass.Category> _repeated_specifications_codec
+            = pb::FieldCodec.ForMessage(10, global::VehicleData.Service.ProtoClass.Category.Parser);
+        private readonly pbc::RepeatedField<global::VehicleData.Service.ProtoClass.Category> specifications_ = new pbc::RepeatedField<global::VehicleData.Service.ProtoClass.Category>();
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public pbc::RepeatedField<global::VehicleData.Service.ProtoClass.Category> Specifications
+        {
+            get { return specifications_; }
+        }
+
+        /// <summary>Field number for the "Features" field.</summary>
+        public const int FeaturesFieldNumber = 2;
+        private static readonly pb::FieldCodec<global::VehicleData.Service.ProtoClass.Category> _repeated_features_codec
+            = pb::FieldCodec.ForMessage(18, global::VehicleData.Service.ProtoClass.Category.Parser);
+        private readonly pbc::RepeatedField<global::VehicleData.Service.ProtoClass.Category> features_ = new pbc::RepeatedField<global::VehicleData.Service.ProtoClass.Category>();
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public pbc::RepeatedField<global::VehicleData.Service.ProtoClass.Category> Features
+        {
+            get { return features_; }
+        }
+
+        /// <summary>Field number for the "Overview" field.</summary>
+        public const int OverviewFieldNumber = 3;
+        private static readonly pb::FieldCodec<global::VehicleData.Service.ProtoClass.Item> _repeated_overview_codec
+            = pb::FieldCodec.ForMessage(26, global::VehicleData.Service.ProtoClass.Item.Parser);
+        private readonly pbc::RepeatedField<global::VehicleData.Service.ProtoClass.Item> overview_ = new pbc::RepeatedField<global::VehicleData.Service.ProtoClass.Item>();
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public pbc::RepeatedField<global::VehicleData.Service.ProtoClass.Item> Overview
+        {
+            get { return overview_; }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public override bool Equals(object other)
+        {
+            return Equals(other as VehicleDataValue);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public bool Equals(VehicleDataValue other)
+        {
+            if (ReferenceEquals(other, null))
+            {
+                return false;
+            }
+            if (ReferenceEquals(other, this))
+            {
+                return true;
+            }
+            if (!specifications_.Equals(other.specifications_)) return false;
+            if (!features_.Equals(other.features_)) return false;
+            if (!overview_.Equals(other.overview_)) return false;
+            return true;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public override int GetHashCode()
+        {
+            int hash = 1;
+            hash ^= specifications_.GetHashCode();
+            hash ^= features_.GetHashCode();
+            hash ^= overview_.GetHashCode();
+            return hash;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public override string ToString()
+        {
+            return pb::JsonFormatter.ToDiagnosticString(this);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public void WriteTo(pb::CodedOutputStream output)
+        {
+            specifications_.WriteTo(output, _repeated_specifications_codec);
+            features_.WriteTo(output, _repeated_features_codec);
+            overview_.WriteTo(output, _repeated_overview_codec);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public int CalculateSize()
+        {
+            int size = 0;
+            size += specifications_.CalculateSize(_repeated_specifications_codec);
+            size += features_.CalculateSize(_repeated_features_codec);
+            size += overview_.CalculateSize(_repeated_overview_codec);
+            return size;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public void MergeFrom(VehicleDataValue other)
+        {
+            if (other == null)
+            {
+                return;
+            }
+            specifications_.Add(other.specifications_);
+            features_.Add(other.features_);
+            overview_.Add(other.overview_);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public void MergeFrom(pb::CodedInputStream input)
+        {
+            uint tag;
+            while ((tag = input.ReadTag()) != 0)
+            {
+                switch (tag)
+                {
+                    default:
+                        input.SkipLastField();
+                        break;
+                    case 10:
+                        {
+                            specifications_.AddEntriesFrom(input, _repeated_specifications_codec);
+                            break;
+                        }
+                    case 18:
+                        {
+                            features_.AddEntriesFrom(input, _repeated_features_codec);
+                            break;
+                        }
+                    case 26:
+                        {
+                            overview_.AddEntriesFrom(input, _repeated_overview_codec);
+                            break;
+                        }
+                }
+            }
+        }
+
+    }
+
+    public sealed partial class VehicleDataRequest : pb::IMessage<VehicleDataRequest>
+    {
+        private static readonly pb::MessageParser<VehicleDataRequest> _parser = new pb::MessageParser<VehicleDataRequest>(() => new VehicleDataRequest());
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public static pb::MessageParser<VehicleDataRequest> Parser { get { return _parser; } }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public static pbr::MessageDescriptor Descriptor
+        {
+            get { return global::VehicleData.Service.ProtoClass.VehicleDataReflection.Descriptor.MessageTypes[21]; }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        pbr::MessageDescriptor pb::IMessage.Descriptor
+        {
+            get { return Descriptor; }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public VehicleDataRequest()
+        {
+            OnConstruction();
+        }
+
+        partial void OnConstruction();
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public VehicleDataRequest(VehicleDataRequest other)
+            : this()
+        {
+            versionIds_ = other.versionIds_.Clone();
+            applicationId_ = other.applicationId_;
+            itemGroupTypes_ = other.itemGroupTypes_;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public VehicleDataRequest Clone()
+        {
+            return new VehicleDataRequest(this);
+        }
+
+        /// <summary>Field number for the "VersionIds" field.</summary>
+        public const int VersionIdsFieldNumber = 1;
+        private static readonly pb::FieldCodec<int> _repeated_versionIds_codec
+            = pb::FieldCodec.ForInt32(10);
+        private readonly pbc::RepeatedField<int> versionIds_ = new pbc::RepeatedField<int>();
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public pbc::RepeatedField<int> VersionIds
+        {
+            get { return versionIds_; }
+        }
+
+        /// <summary>Field number for the "ApplicationId" field.</summary>
+        public const int ApplicationIdFieldNumber = 2;
+        private int applicationId_;
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public int ApplicationId
+        {
+            get { return applicationId_; }
+            set
+            {
+                applicationId_ = value;
+            }
+        }
+
+        /// <summary>Field number for the "ItemGroupTypes" field.</summary>
+        public const int ItemGroupTypesFieldNumber = 3;
+        private string itemGroupTypes_ = "";
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public string ItemGroupTypes
+        {
+            get { return itemGroupTypes_; }
+            set
+            {
+                itemGroupTypes_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+            }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public override bool Equals(object other)
+        {
+            return Equals(other as VehicleDataRequest);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public bool Equals(VehicleDataRequest other)
+        {
+            if (ReferenceEquals(other, null))
+            {
+                return false;
+            }
+            if (ReferenceEquals(other, this))
+            {
+                return true;
+            }
+            if (!versionIds_.Equals(other.versionIds_)) return false;
+            if (ApplicationId != other.ApplicationId) return false;
+            if (ItemGroupTypes != other.ItemGroupTypes) return false;
+            return true;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public override int GetHashCode()
+        {
+            int hash = 1;
+            hash ^= versionIds_.GetHashCode();
+            if (ApplicationId != 0) hash ^= ApplicationId.GetHashCode();
+            if (ItemGroupTypes.Length != 0) hash ^= ItemGroupTypes.GetHashCode();
+            return hash;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public override string ToString()
+        {
+            return pb::JsonFormatter.ToDiagnosticString(this);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public void WriteTo(pb::CodedOutputStream output)
+        {
+            versionIds_.WriteTo(output, _repeated_versionIds_codec);
+            if (ApplicationId != 0)
+            {
+                output.WriteRawTag(16);
+                output.WriteInt32(ApplicationId);
+            }
+            if (ItemGroupTypes.Length != 0)
+            {
+                output.WriteRawTag(26);
+                output.WriteString(ItemGroupTypes);
+            }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public int CalculateSize()
+        {
+            int size = 0;
+            size += versionIds_.CalculateSize(_repeated_versionIds_codec);
+            if (ApplicationId != 0)
+            {
+                size += 1 + pb::CodedOutputStream.ComputeInt32Size(ApplicationId);
+            }
+            if (ItemGroupTypes.Length != 0)
+            {
+                size += 1 + pb::CodedOutputStream.ComputeStringSize(ItemGroupTypes);
+            }
+            return size;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public void MergeFrom(VehicleDataRequest other)
+        {
+            if (other == null)
+            {
+                return;
+            }
+            versionIds_.Add(other.versionIds_);
+            if (other.ApplicationId != 0)
+            {
+                ApplicationId = other.ApplicationId;
+            }
+            if (other.ItemGroupTypes.Length != 0)
+            {
+                ItemGroupTypes = other.ItemGroupTypes;
+            }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public void MergeFrom(pb::CodedInputStream input)
+        {
+            uint tag;
+            while ((tag = input.ReadTag()) != 0)
+            {
+                switch (tag)
+                {
+                    default:
+                        input.SkipLastField();
+                        break;
+                    case 10:
+                    case 8:
+                        {
+                            versionIds_.AddEntriesFrom(input, _repeated_versionIds_codec);
+                            break;
+                        }
+                    case 16:
+                        {
+                            ApplicationId = input.ReadInt32();
+                            break;
+                        }
+                    case 26:
+                        {
+                            ItemGroupTypes = input.ReadString();
+                            break;
+                        }
+                }
+            }
+        }
+
+    }
+
     #endregion
-
-  }
-  #region Messages
-  public sealed partial class CopyVehicleDataRequest : pb::IMessage<CopyVehicleDataRequest> {
-    private static readonly pb::MessageParser<CopyVehicleDataRequest> _parser = new pb::MessageParser<CopyVehicleDataRequest>(() => new CopyVehicleDataRequest());
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pb::MessageParser<CopyVehicleDataRequest> Parser { get { return _parser; } }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pbr::MessageDescriptor Descriptor {
-      get { return global::VehicleData.Service.ProtoClass.VehicleDataReflection.Descriptor.MessageTypes[0]; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    pbr::MessageDescriptor pb::IMessage.Descriptor {
-      get { return Descriptor; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public CopyVehicleDataRequest() {
-      OnConstruction();
-    }
-
-    partial void OnConstruction();
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public CopyVehicleDataRequest(CopyVehicleDataRequest other) : this() {
-      srcVersionId_ = other.srcVersionId_;
-      tarVersionId_ = other.tarVersionId_;
-      categoryId_ = other.categoryId_;
-      applicationId_ = other.applicationId_;
-      requestedBy_ = other.requestedBy_;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public CopyVehicleDataRequest Clone() {
-      return new CopyVehicleDataRequest(this);
-    }
-
-    /// <summary>Field number for the "SrcVersionId" field.</summary>
-    public const int SrcVersionIdFieldNumber = 1;
-    private int srcVersionId_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int SrcVersionId {
-      get { return srcVersionId_; }
-      set {
-        srcVersionId_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "TarVersionId" field.</summary>
-    public const int TarVersionIdFieldNumber = 2;
-    private int tarVersionId_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int TarVersionId {
-      get { return tarVersionId_; }
-      set {
-        tarVersionId_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "CategoryId" field.</summary>
-    public const int CategoryIdFieldNumber = 3;
-    private int categoryId_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int CategoryId {
-      get { return categoryId_; }
-      set {
-        categoryId_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "ApplicationId" field.</summary>
-    public const int ApplicationIdFieldNumber = 4;
-    private int applicationId_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int ApplicationId {
-      get { return applicationId_; }
-      set {
-        applicationId_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "RequestedBy" field.</summary>
-    public const int RequestedByFieldNumber = 5;
-    private int requestedBy_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int RequestedBy {
-      get { return requestedBy_; }
-      set {
-        requestedBy_ = value;
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override bool Equals(object other) {
-      return Equals(other as CopyVehicleDataRequest);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool Equals(CopyVehicleDataRequest other) {
-      if (ReferenceEquals(other, null)) {
-        return false;
-      }
-      if (ReferenceEquals(other, this)) {
-        return true;
-      }
-      if (SrcVersionId != other.SrcVersionId) return false;
-      if (TarVersionId != other.TarVersionId) return false;
-      if (CategoryId != other.CategoryId) return false;
-      if (ApplicationId != other.ApplicationId) return false;
-      if (RequestedBy != other.RequestedBy) return false;
-      return true;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override int GetHashCode() {
-      int hash = 1;
-      if (SrcVersionId != 0) hash ^= SrcVersionId.GetHashCode();
-      if (TarVersionId != 0) hash ^= TarVersionId.GetHashCode();
-      if (CategoryId != 0) hash ^= CategoryId.GetHashCode();
-      if (ApplicationId != 0) hash ^= ApplicationId.GetHashCode();
-      if (RequestedBy != 0) hash ^= RequestedBy.GetHashCode();
-      return hash;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override string ToString() {
-      return pb::JsonFormatter.ToDiagnosticString(this);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void WriteTo(pb::CodedOutputStream output) {
-      if (SrcVersionId != 0) {
-        output.WriteRawTag(8);
-        output.WriteInt32(SrcVersionId);
-      }
-      if (TarVersionId != 0) {
-        output.WriteRawTag(16);
-        output.WriteInt32(TarVersionId);
-      }
-      if (CategoryId != 0) {
-        output.WriteRawTag(24);
-        output.WriteInt32(CategoryId);
-      }
-      if (ApplicationId != 0) {
-        output.WriteRawTag(32);
-        output.WriteInt32(ApplicationId);
-      }
-      if (RequestedBy != 0) {
-        output.WriteRawTag(40);
-        output.WriteInt32(RequestedBy);
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int CalculateSize() {
-      int size = 0;
-      if (SrcVersionId != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(SrcVersionId);
-      }
-      if (TarVersionId != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(TarVersionId);
-      }
-      if (CategoryId != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(CategoryId);
-      }
-      if (ApplicationId != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(ApplicationId);
-      }
-      if (RequestedBy != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(RequestedBy);
-      }
-      return size;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(CopyVehicleDataRequest other) {
-      if (other == null) {
-        return;
-      }
-      if (other.SrcVersionId != 0) {
-        SrcVersionId = other.SrcVersionId;
-      }
-      if (other.TarVersionId != 0) {
-        TarVersionId = other.TarVersionId;
-      }
-      if (other.CategoryId != 0) {
-        CategoryId = other.CategoryId;
-      }
-      if (other.ApplicationId != 0) {
-        ApplicationId = other.ApplicationId;
-      }
-      if (other.RequestedBy != 0) {
-        RequestedBy = other.RequestedBy;
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(pb::CodedInputStream input) {
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            input.SkipLastField();
-            break;
-          case 8: {
-            SrcVersionId = input.ReadInt32();
-            break;
-          }
-          case 16: {
-            TarVersionId = input.ReadInt32();
-            break;
-          }
-          case 24: {
-            CategoryId = input.ReadInt32();
-            break;
-          }
-          case 32: {
-            ApplicationId = input.ReadInt32();
-            break;
-          }
-          case 40: {
-            RequestedBy = input.ReadInt32();
-            break;
-          }
-        }
-      }
-    }
-
-  }
-
-  public sealed partial class EmptyParam : pb::IMessage<EmptyParam> {
-    private static readonly pb::MessageParser<EmptyParam> _parser = new pb::MessageParser<EmptyParam>(() => new EmptyParam());
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pb::MessageParser<EmptyParam> Parser { get { return _parser; } }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pbr::MessageDescriptor Descriptor {
-      get { return global::VehicleData.Service.ProtoClass.VehicleDataReflection.Descriptor.MessageTypes[1]; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    pbr::MessageDescriptor pb::IMessage.Descriptor {
-      get { return Descriptor; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public EmptyParam() {
-      OnConstruction();
-    }
-
-    partial void OnConstruction();
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public EmptyParam(EmptyParam other) : this() {
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public EmptyParam Clone() {
-      return new EmptyParam(this);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override bool Equals(object other) {
-      return Equals(other as EmptyParam);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool Equals(EmptyParam other) {
-      if (ReferenceEquals(other, null)) {
-        return false;
-      }
-      if (ReferenceEquals(other, this)) {
-        return true;
-      }
-      return true;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override int GetHashCode() {
-      int hash = 1;
-      return hash;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override string ToString() {
-      return pb::JsonFormatter.ToDiagnosticString(this);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void WriteTo(pb::CodedOutputStream output) {
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int CalculateSize() {
-      int size = 0;
-      return size;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(EmptyParam other) {
-      if (other == null) {
-        return;
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(pb::CodedInputStream input) {
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            input.SkipLastField();
-            break;
-        }
-      }
-    }
-
-  }
-
-  public sealed partial class GrpcInt : pb::IMessage<GrpcInt> {
-    private static readonly pb::MessageParser<GrpcInt> _parser = new pb::MessageParser<GrpcInt>(() => new GrpcInt());
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pb::MessageParser<GrpcInt> Parser { get { return _parser; } }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pbr::MessageDescriptor Descriptor {
-      get { return global::VehicleData.Service.ProtoClass.VehicleDataReflection.Descriptor.MessageTypes[2]; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    pbr::MessageDescriptor pb::IMessage.Descriptor {
-      get { return Descriptor; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public GrpcInt() {
-      OnConstruction();
-    }
-
-    partial void OnConstruction();
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public GrpcInt(GrpcInt other) : this() {
-      value_ = other.value_;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public GrpcInt Clone() {
-      return new GrpcInt(this);
-    }
-
-    /// <summary>Field number for the "Value" field.</summary>
-    public const int ValueFieldNumber = 1;
-    private int value_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int Value {
-      get { return value_; }
-      set {
-        value_ = value;
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override bool Equals(object other) {
-      return Equals(other as GrpcInt);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool Equals(GrpcInt other) {
-      if (ReferenceEquals(other, null)) {
-        return false;
-      }
-      if (ReferenceEquals(other, this)) {
-        return true;
-      }
-      if (Value != other.Value) return false;
-      return true;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override int GetHashCode() {
-      int hash = 1;
-      if (Value != 0) hash ^= Value.GetHashCode();
-      return hash;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override string ToString() {
-      return pb::JsonFormatter.ToDiagnosticString(this);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void WriteTo(pb::CodedOutputStream output) {
-      if (Value != 0) {
-        output.WriteRawTag(8);
-        output.WriteInt32(Value);
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int CalculateSize() {
-      int size = 0;
-      if (Value != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Value);
-      }
-      return size;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(GrpcInt other) {
-      if (other == null) {
-        return;
-      }
-      if (other.Value != 0) {
-        Value = other.Value;
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(pb::CodedInputStream input) {
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            input.SkipLastField();
-            break;
-          case 8: {
-            Value = input.ReadInt32();
-            break;
-          }
-        }
-      }
-    }
-
-  }
-
-  public sealed partial class GrpcBool : pb::IMessage<GrpcBool> {
-    private static readonly pb::MessageParser<GrpcBool> _parser = new pb::MessageParser<GrpcBool>(() => new GrpcBool());
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pb::MessageParser<GrpcBool> Parser { get { return _parser; } }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pbr::MessageDescriptor Descriptor {
-      get { return global::VehicleData.Service.ProtoClass.VehicleDataReflection.Descriptor.MessageTypes[3]; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    pbr::MessageDescriptor pb::IMessage.Descriptor {
-      get { return Descriptor; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public GrpcBool() {
-      OnConstruction();
-    }
-
-    partial void OnConstruction();
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public GrpcBool(GrpcBool other) : this() {
-      value_ = other.value_;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public GrpcBool Clone() {
-      return new GrpcBool(this);
-    }
-
-    /// <summary>Field number for the "Value" field.</summary>
-    public const int ValueFieldNumber = 1;
-    private bool value_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool Value {
-      get { return value_; }
-      set {
-        value_ = value;
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override bool Equals(object other) {
-      return Equals(other as GrpcBool);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool Equals(GrpcBool other) {
-      if (ReferenceEquals(other, null)) {
-        return false;
-      }
-      if (ReferenceEquals(other, this)) {
-        return true;
-      }
-      if (Value != other.Value) return false;
-      return true;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override int GetHashCode() {
-      int hash = 1;
-      if (Value != false) hash ^= Value.GetHashCode();
-      return hash;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override string ToString() {
-      return pb::JsonFormatter.ToDiagnosticString(this);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void WriteTo(pb::CodedOutputStream output) {
-      if (Value != false) {
-        output.WriteRawTag(8);
-        output.WriteBool(Value);
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int CalculateSize() {
-      int size = 0;
-      if (Value != false) {
-        size += 1 + 1;
-      }
-      return size;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(GrpcBool other) {
-      if (other == null) {
-        return;
-      }
-      if (other.Value != false) {
-        Value = other.Value;
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(pb::CodedInputStream input) {
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            input.SkipLastField();
-            break;
-          case 8: {
-            Value = input.ReadBool();
-            break;
-          }
-        }
-      }
-    }
-
-  }
-
-  public sealed partial class DeleteRequest : pb::IMessage<DeleteRequest> {
-    private static readonly pb::MessageParser<DeleteRequest> _parser = new pb::MessageParser<DeleteRequest>(() => new DeleteRequest());
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pb::MessageParser<DeleteRequest> Parser { get { return _parser; } }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pbr::MessageDescriptor Descriptor {
-      get { return global::VehicleData.Service.ProtoClass.VehicleDataReflection.Descriptor.MessageTypes[4]; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    pbr::MessageDescriptor pb::IMessage.Descriptor {
-      get { return Descriptor; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public DeleteRequest() {
-      OnConstruction();
-    }
-
-    partial void OnConstruction();
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public DeleteRequest(DeleteRequest other) : this() {
-      id_ = other.id_;
-      applicationId_ = other.applicationId_;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public DeleteRequest Clone() {
-      return new DeleteRequest(this);
-    }
-
-    /// <summary>Field number for the "Id" field.</summary>
-    public const int IdFieldNumber = 1;
-    private int id_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int Id {
-      get { return id_; }
-      set {
-        id_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "ApplicationId" field.</summary>
-    public const int ApplicationIdFieldNumber = 2;
-    private int applicationId_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int ApplicationId {
-      get { return applicationId_; }
-      set {
-        applicationId_ = value;
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override bool Equals(object other) {
-      return Equals(other as DeleteRequest);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool Equals(DeleteRequest other) {
-      if (ReferenceEquals(other, null)) {
-        return false;
-      }
-      if (ReferenceEquals(other, this)) {
-        return true;
-      }
-      if (Id != other.Id) return false;
-      if (ApplicationId != other.ApplicationId) return false;
-      return true;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override int GetHashCode() {
-      int hash = 1;
-      if (Id != 0) hash ^= Id.GetHashCode();
-      if (ApplicationId != 0) hash ^= ApplicationId.GetHashCode();
-      return hash;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override string ToString() {
-      return pb::JsonFormatter.ToDiagnosticString(this);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void WriteTo(pb::CodedOutputStream output) {
-      if (Id != 0) {
-        output.WriteRawTag(8);
-        output.WriteInt32(Id);
-      }
-      if (ApplicationId != 0) {
-        output.WriteRawTag(16);
-        output.WriteInt32(ApplicationId);
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int CalculateSize() {
-      int size = 0;
-      if (Id != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Id);
-      }
-      if (ApplicationId != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(ApplicationId);
-      }
-      return size;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(DeleteRequest other) {
-      if (other == null) {
-        return;
-      }
-      if (other.Id != 0) {
-        Id = other.Id;
-      }
-      if (other.ApplicationId != 0) {
-        ApplicationId = other.ApplicationId;
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(pb::CodedInputStream input) {
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            input.SkipLastField();
-            break;
-          case 8: {
-            Id = input.ReadInt32();
-            break;
-          }
-          case 16: {
-            ApplicationId = input.ReadInt32();
-            break;
-          }
-        }
-      }
-    }
-
-  }
-
-  public sealed partial class InputRequest : pb::IMessage<InputRequest> {
-    private static readonly pb::MessageParser<InputRequest> _parser = new pb::MessageParser<InputRequest>(() => new InputRequest());
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pb::MessageParser<InputRequest> Parser { get { return _parser; } }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pbr::MessageDescriptor Descriptor {
-      get { return global::VehicleData.Service.ProtoClass.VehicleDataReflection.Descriptor.MessageTypes[5]; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    pbr::MessageDescriptor pb::IMessage.Descriptor {
-      get { return Descriptor; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public InputRequest() {
-      OnConstruction();
-    }
-
-    partial void OnConstruction();
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public InputRequest(InputRequest other) : this() {
-      id_ = other.id_;
-      applicationId_ = other.applicationId_;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public InputRequest Clone() {
-      return new InputRequest(this);
-    }
-
-    /// <summary>Field number for the "Id" field.</summary>
-    public const int IdFieldNumber = 1;
-    private int id_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int Id {
-      get { return id_; }
-      set {
-        id_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "ApplicationId" field.</summary>
-    public const int ApplicationIdFieldNumber = 2;
-    private int applicationId_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int ApplicationId {
-      get { return applicationId_; }
-      set {
-        applicationId_ = value;
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override bool Equals(object other) {
-      return Equals(other as InputRequest);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool Equals(InputRequest other) {
-      if (ReferenceEquals(other, null)) {
-        return false;
-      }
-      if (ReferenceEquals(other, this)) {
-        return true;
-      }
-      if (Id != other.Id) return false;
-      if (ApplicationId != other.ApplicationId) return false;
-      return true;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override int GetHashCode() {
-      int hash = 1;
-      if (Id != 0) hash ^= Id.GetHashCode();
-      if (ApplicationId != 0) hash ^= ApplicationId.GetHashCode();
-      return hash;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override string ToString() {
-      return pb::JsonFormatter.ToDiagnosticString(this);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void WriteTo(pb::CodedOutputStream output) {
-      if (Id != 0) {
-        output.WriteRawTag(8);
-        output.WriteInt32(Id);
-      }
-      if (ApplicationId != 0) {
-        output.WriteRawTag(16);
-        output.WriteInt32(ApplicationId);
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int CalculateSize() {
-      int size = 0;
-      if (Id != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Id);
-      }
-      if (ApplicationId != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(ApplicationId);
-      }
-      return size;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(InputRequest other) {
-      if (other == null) {
-        return;
-      }
-      if (other.Id != 0) {
-        Id = other.Id;
-      }
-      if (other.ApplicationId != 0) {
-        ApplicationId = other.ApplicationId;
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(pb::CodedInputStream input) {
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            input.SkipLastField();
-            break;
-          case 8: {
-            Id = input.ReadInt32();
-            break;
-          }
-          case 16: {
-            ApplicationId = input.ReadInt32();
-            break;
-          }
-        }
-      }
-    }
-
-  }
-
-  public sealed partial class ItemValueToWrite : pb::IMessage<ItemValueToWrite> {
-    private static readonly pb::MessageParser<ItemValueToWrite> _parser = new pb::MessageParser<ItemValueToWrite>(() => new ItemValueToWrite());
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pb::MessageParser<ItemValueToWrite> Parser { get { return _parser; } }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pbr::MessageDescriptor Descriptor {
-      get { return global::VehicleData.Service.ProtoClass.VehicleDataReflection.Descriptor.MessageTypes[6]; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    pbr::MessageDescriptor pb::IMessage.Descriptor {
-      get { return Descriptor; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public ItemValueToWrite() {
-      OnConstruction();
-    }
-
-    partial void OnConstruction();
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public ItemValueToWrite(ItemValueToWrite other) : this() {
-      versionId_ = other.versionId_;
-      applicationId_ = other.applicationId_;
-      itemId_ = other.itemId_;
-      dataTypeId_ = other.dataTypeId_;
-      value_ = other.value_;
-      customTypeId_ = other.customTypeId_;
-      updatedOn_ = other.updatedOn_;
-      updatedBy_ = other.updatedBy_;
-      categoryId_ = other.categoryId_;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public ItemValueToWrite Clone() {
-      return new ItemValueToWrite(this);
-    }
-
-    /// <summary>Field number for the "VersionId" field.</summary>
-    public const int VersionIdFieldNumber = 1;
-    private int versionId_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int VersionId {
-      get { return versionId_; }
-      set {
-        versionId_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "ApplicationId" field.</summary>
-    public const int ApplicationIdFieldNumber = 2;
-    private int applicationId_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int ApplicationId {
-      get { return applicationId_; }
-      set {
-        applicationId_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "ItemId" field.</summary>
-    public const int ItemIdFieldNumber = 3;
-    private int itemId_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int ItemId {
-      get { return itemId_; }
-      set {
-        itemId_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "DataTypeId" field.</summary>
-    public const int DataTypeIdFieldNumber = 4;
-    private int dataTypeId_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int DataTypeId {
-      get { return dataTypeId_; }
-      set {
-        dataTypeId_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "Value" field.</summary>
-    public const int ValueFieldNumber = 5;
-    private string value_ = "";
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public string Value {
-      get { return value_; }
-      set {
-        value_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
-      }
-    }
-
-    /// <summary>Field number for the "CustomTypeId" field.</summary>
-    public const int CustomTypeIdFieldNumber = 6;
-    private int customTypeId_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int CustomTypeId {
-      get { return customTypeId_; }
-      set {
-        customTypeId_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "UpdatedOn" field.</summary>
-    public const int UpdatedOnFieldNumber = 7;
-    private string updatedOn_ = "";
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public string UpdatedOn {
-      get { return updatedOn_; }
-      set {
-        updatedOn_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
-      }
-    }
-
-    /// <summary>Field number for the "UpdatedBy" field.</summary>
-    public const int UpdatedByFieldNumber = 8;
-    private int updatedBy_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int UpdatedBy {
-      get { return updatedBy_; }
-      set {
-        updatedBy_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "CategoryId" field.</summary>
-    public const int CategoryIdFieldNumber = 9;
-    private int categoryId_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int CategoryId {
-      get { return categoryId_; }
-      set {
-        categoryId_ = value;
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override bool Equals(object other) {
-      return Equals(other as ItemValueToWrite);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool Equals(ItemValueToWrite other) {
-      if (ReferenceEquals(other, null)) {
-        return false;
-      }
-      if (ReferenceEquals(other, this)) {
-        return true;
-      }
-      if (VersionId != other.VersionId) return false;
-      if (ApplicationId != other.ApplicationId) return false;
-      if (ItemId != other.ItemId) return false;
-      if (DataTypeId != other.DataTypeId) return false;
-      if (Value != other.Value) return false;
-      if (CustomTypeId != other.CustomTypeId) return false;
-      if (UpdatedOn != other.UpdatedOn) return false;
-      if (UpdatedBy != other.UpdatedBy) return false;
-      if (CategoryId != other.CategoryId) return false;
-      return true;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override int GetHashCode() {
-      int hash = 1;
-      if (VersionId != 0) hash ^= VersionId.GetHashCode();
-      if (ApplicationId != 0) hash ^= ApplicationId.GetHashCode();
-      if (ItemId != 0) hash ^= ItemId.GetHashCode();
-      if (DataTypeId != 0) hash ^= DataTypeId.GetHashCode();
-      if (Value.Length != 0) hash ^= Value.GetHashCode();
-      if (CustomTypeId != 0) hash ^= CustomTypeId.GetHashCode();
-      if (UpdatedOn.Length != 0) hash ^= UpdatedOn.GetHashCode();
-      if (UpdatedBy != 0) hash ^= UpdatedBy.GetHashCode();
-      if (CategoryId != 0) hash ^= CategoryId.GetHashCode();
-      return hash;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override string ToString() {
-      return pb::JsonFormatter.ToDiagnosticString(this);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void WriteTo(pb::CodedOutputStream output) {
-      if (VersionId != 0) {
-        output.WriteRawTag(8);
-        output.WriteInt32(VersionId);
-      }
-      if (ApplicationId != 0) {
-        output.WriteRawTag(16);
-        output.WriteInt32(ApplicationId);
-      }
-      if (ItemId != 0) {
-        output.WriteRawTag(24);
-        output.WriteInt32(ItemId);
-      }
-      if (DataTypeId != 0) {
-        output.WriteRawTag(32);
-        output.WriteInt32(DataTypeId);
-      }
-      if (Value.Length != 0) {
-        output.WriteRawTag(42);
-        output.WriteString(Value);
-      }
-      if (CustomTypeId != 0) {
-        output.WriteRawTag(48);
-        output.WriteInt32(CustomTypeId);
-      }
-      if (UpdatedOn.Length != 0) {
-        output.WriteRawTag(58);
-        output.WriteString(UpdatedOn);
-      }
-      if (UpdatedBy != 0) {
-        output.WriteRawTag(64);
-        output.WriteInt32(UpdatedBy);
-      }
-      if (CategoryId != 0) {
-        output.WriteRawTag(72);
-        output.WriteInt32(CategoryId);
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int CalculateSize() {
-      int size = 0;
-      if (VersionId != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(VersionId);
-      }
-      if (ApplicationId != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(ApplicationId);
-      }
-      if (ItemId != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(ItemId);
-      }
-      if (DataTypeId != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(DataTypeId);
-      }
-      if (Value.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(Value);
-      }
-      if (CustomTypeId != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(CustomTypeId);
-      }
-      if (UpdatedOn.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(UpdatedOn);
-      }
-      if (UpdatedBy != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(UpdatedBy);
-      }
-      if (CategoryId != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(CategoryId);
-      }
-      return size;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(ItemValueToWrite other) {
-      if (other == null) {
-        return;
-      }
-      if (other.VersionId != 0) {
-        VersionId = other.VersionId;
-      }
-      if (other.ApplicationId != 0) {
-        ApplicationId = other.ApplicationId;
-      }
-      if (other.ItemId != 0) {
-        ItemId = other.ItemId;
-      }
-      if (other.DataTypeId != 0) {
-        DataTypeId = other.DataTypeId;
-      }
-      if (other.Value.Length != 0) {
-        Value = other.Value;
-      }
-      if (other.CustomTypeId != 0) {
-        CustomTypeId = other.CustomTypeId;
-      }
-      if (other.UpdatedOn.Length != 0) {
-        UpdatedOn = other.UpdatedOn;
-      }
-      if (other.UpdatedBy != 0) {
-        UpdatedBy = other.UpdatedBy;
-      }
-      if (other.CategoryId != 0) {
-        CategoryId = other.CategoryId;
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(pb::CodedInputStream input) {
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            input.SkipLastField();
-            break;
-          case 8: {
-            VersionId = input.ReadInt32();
-            break;
-          }
-          case 16: {
-            ApplicationId = input.ReadInt32();
-            break;
-          }
-          case 24: {
-            ItemId = input.ReadInt32();
-            break;
-          }
-          case 32: {
-            DataTypeId = input.ReadInt32();
-            break;
-          }
-          case 42: {
-            Value = input.ReadString();
-            break;
-          }
-          case 48: {
-            CustomTypeId = input.ReadInt32();
-            break;
-          }
-          case 58: {
-            UpdatedOn = input.ReadString();
-            break;
-          }
-          case 64: {
-            UpdatedBy = input.ReadInt32();
-            break;
-          }
-          case 72: {
-            CategoryId = input.ReadInt32();
-            break;
-          }
-        }
-      }
-    }
-
-  }
-
-  public sealed partial class ItemValueWriteRequest : pb::IMessage<ItemValueWriteRequest> {
-    private static readonly pb::MessageParser<ItemValueWriteRequest> _parser = new pb::MessageParser<ItemValueWriteRequest>(() => new ItemValueWriteRequest());
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pb::MessageParser<ItemValueWriteRequest> Parser { get { return _parser; } }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pbr::MessageDescriptor Descriptor {
-      get { return global::VehicleData.Service.ProtoClass.VehicleDataReflection.Descriptor.MessageTypes[7]; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    pbr::MessageDescriptor pb::IMessage.Descriptor {
-      get { return Descriptor; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public ItemValueWriteRequest() {
-      OnConstruction();
-    }
-
-    partial void OnConstruction();
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public ItemValueWriteRequest(ItemValueWriteRequest other) : this() {
-      itemValues_ = other.itemValues_.Clone();
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public ItemValueWriteRequest Clone() {
-      return new ItemValueWriteRequest(this);
-    }
-
-    /// <summary>Field number for the "ItemValues" field.</summary>
-    public const int ItemValuesFieldNumber = 1;
-    private static readonly pb::FieldCodec<global::VehicleData.Service.ProtoClass.ItemValueToWrite> _repeated_itemValues_codec
-        = pb::FieldCodec.ForMessage(10, global::VehicleData.Service.ProtoClass.ItemValueToWrite.Parser);
-    private readonly pbc::RepeatedField<global::VehicleData.Service.ProtoClass.ItemValueToWrite> itemValues_ = new pbc::RepeatedField<global::VehicleData.Service.ProtoClass.ItemValueToWrite>();
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public pbc::RepeatedField<global::VehicleData.Service.ProtoClass.ItemValueToWrite> ItemValues {
-      get { return itemValues_; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override bool Equals(object other) {
-      return Equals(other as ItemValueWriteRequest);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool Equals(ItemValueWriteRequest other) {
-      if (ReferenceEquals(other, null)) {
-        return false;
-      }
-      if (ReferenceEquals(other, this)) {
-        return true;
-      }
-      if(!itemValues_.Equals(other.itemValues_)) return false;
-      return true;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override int GetHashCode() {
-      int hash = 1;
-      hash ^= itemValues_.GetHashCode();
-      return hash;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override string ToString() {
-      return pb::JsonFormatter.ToDiagnosticString(this);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void WriteTo(pb::CodedOutputStream output) {
-      itemValues_.WriteTo(output, _repeated_itemValues_codec);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int CalculateSize() {
-      int size = 0;
-      size += itemValues_.CalculateSize(_repeated_itemValues_codec);
-      return size;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(ItemValueWriteRequest other) {
-      if (other == null) {
-        return;
-      }
-      itemValues_.Add(other.itemValues_);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(pb::CodedInputStream input) {
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            input.SkipLastField();
-            break;
-          case 10: {
-            itemValues_.AddEntriesFrom(input, _repeated_itemValues_codec);
-            break;
-          }
-        }
-      }
-    }
-
-  }
-
-  public sealed partial class ItemValueRequest : pb::IMessage<ItemValueRequest> {
-    private static readonly pb::MessageParser<ItemValueRequest> _parser = new pb::MessageParser<ItemValueRequest>(() => new ItemValueRequest());
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pb::MessageParser<ItemValueRequest> Parser { get { return _parser; } }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pbr::MessageDescriptor Descriptor {
-      get { return global::VehicleData.Service.ProtoClass.VehicleDataReflection.Descriptor.MessageTypes[8]; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    pbr::MessageDescriptor pb::IMessage.Descriptor {
-      get { return Descriptor; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public ItemValueRequest() {
-      OnConstruction();
-    }
-
-    partial void OnConstruction();
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public ItemValueRequest(ItemValueRequest other) : this() {
-      versionId_ = other.versionId_;
-      categoryId_ = other.categoryId_;
-      applicationId_ = other.applicationId_;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public ItemValueRequest Clone() {
-      return new ItemValueRequest(this);
-    }
-
-    /// <summary>Field number for the "VersionId" field.</summary>
-    public const int VersionIdFieldNumber = 1;
-    private int versionId_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int VersionId {
-      get { return versionId_; }
-      set {
-        versionId_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "CategoryId" field.</summary>
-    public const int CategoryIdFieldNumber = 2;
-    private int categoryId_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int CategoryId {
-      get { return categoryId_; }
-      set {
-        categoryId_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "ApplicationId" field.</summary>
-    public const int ApplicationIdFieldNumber = 3;
-    private int applicationId_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int ApplicationId {
-      get { return applicationId_; }
-      set {
-        applicationId_ = value;
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override bool Equals(object other) {
-      return Equals(other as ItemValueRequest);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool Equals(ItemValueRequest other) {
-      if (ReferenceEquals(other, null)) {
-        return false;
-      }
-      if (ReferenceEquals(other, this)) {
-        return true;
-      }
-      if (VersionId != other.VersionId) return false;
-      if (CategoryId != other.CategoryId) return false;
-      if (ApplicationId != other.ApplicationId) return false;
-      return true;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override int GetHashCode() {
-      int hash = 1;
-      if (VersionId != 0) hash ^= VersionId.GetHashCode();
-      if (CategoryId != 0) hash ^= CategoryId.GetHashCode();
-      if (ApplicationId != 0) hash ^= ApplicationId.GetHashCode();
-      return hash;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override string ToString() {
-      return pb::JsonFormatter.ToDiagnosticString(this);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void WriteTo(pb::CodedOutputStream output) {
-      if (VersionId != 0) {
-        output.WriteRawTag(8);
-        output.WriteInt32(VersionId);
-      }
-      if (CategoryId != 0) {
-        output.WriteRawTag(16);
-        output.WriteInt32(CategoryId);
-      }
-      if (ApplicationId != 0) {
-        output.WriteRawTag(24);
-        output.WriteInt32(ApplicationId);
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int CalculateSize() {
-      int size = 0;
-      if (VersionId != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(VersionId);
-      }
-      if (CategoryId != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(CategoryId);
-      }
-      if (ApplicationId != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(ApplicationId);
-      }
-      return size;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(ItemValueRequest other) {
-      if (other == null) {
-        return;
-      }
-      if (other.VersionId != 0) {
-        VersionId = other.VersionId;
-      }
-      if (other.CategoryId != 0) {
-        CategoryId = other.CategoryId;
-      }
-      if (other.ApplicationId != 0) {
-        ApplicationId = other.ApplicationId;
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(pb::CodedInputStream input) {
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            input.SkipLastField();
-            break;
-          case 8: {
-            VersionId = input.ReadInt32();
-            break;
-          }
-          case 16: {
-            CategoryId = input.ReadInt32();
-            break;
-          }
-          case 24: {
-            ApplicationId = input.ReadInt32();
-            break;
-          }
-        }
-      }
-    }
-
-  }
-
-  public sealed partial class ValueData : pb::IMessage<ValueData> {
-    private static readonly pb::MessageParser<ValueData> _parser = new pb::MessageParser<ValueData>(() => new ValueData());
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pb::MessageParser<ValueData> Parser { get { return _parser; } }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pbr::MessageDescriptor Descriptor {
-      get { return global::VehicleData.Service.ProtoClass.VehicleDataReflection.Descriptor.MessageTypes[9]; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    pbr::MessageDescriptor pb::IMessage.Descriptor {
-      get { return Descriptor; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public ValueData() {
-      OnConstruction();
-    }
-
-    partial void OnConstruction();
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public ValueData(ValueData other) : this() {
-      id_ = other.id_;
-      value_ = other.value_;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public ValueData Clone() {
-      return new ValueData(this);
-    }
-
-    /// <summary>Field number for the "Id" field.</summary>
-    public const int IdFieldNumber = 1;
-    private int id_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int Id {
-      get { return id_; }
-      set {
-        id_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "Value" field.</summary>
-    public const int ValueFieldNumber = 2;
-    private string value_ = "";
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public string Value {
-      get { return value_; }
-      set {
-        value_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override bool Equals(object other) {
-      return Equals(other as ValueData);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool Equals(ValueData other) {
-      if (ReferenceEquals(other, null)) {
-        return false;
-      }
-      if (ReferenceEquals(other, this)) {
-        return true;
-      }
-      if (Id != other.Id) return false;
-      if (Value != other.Value) return false;
-      return true;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override int GetHashCode() {
-      int hash = 1;
-      if (Id != 0) hash ^= Id.GetHashCode();
-      if (Value.Length != 0) hash ^= Value.GetHashCode();
-      return hash;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override string ToString() {
-      return pb::JsonFormatter.ToDiagnosticString(this);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void WriteTo(pb::CodedOutputStream output) {
-      if (Id != 0) {
-        output.WriteRawTag(8);
-        output.WriteInt32(Id);
-      }
-      if (Value.Length != 0) {
-        output.WriteRawTag(18);
-        output.WriteString(Value);
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int CalculateSize() {
-      int size = 0;
-      if (Id != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Id);
-      }
-      if (Value.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(Value);
-      }
-      return size;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(ValueData other) {
-      if (other == null) {
-        return;
-      }
-      if (other.Id != 0) {
-        Id = other.Id;
-      }
-      if (other.Value.Length != 0) {
-        Value = other.Value;
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(pb::CodedInputStream input) {
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            input.SkipLastField();
-            break;
-          case 8: {
-            Id = input.ReadInt32();
-            break;
-          }
-          case 18: {
-            Value = input.ReadString();
-            break;
-          }
-        }
-      }
-    }
-
-  }
-
-  public sealed partial class ValueDataList : pb::IMessage<ValueDataList> {
-    private static readonly pb::MessageParser<ValueDataList> _parser = new pb::MessageParser<ValueDataList>(() => new ValueDataList());
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pb::MessageParser<ValueDataList> Parser { get { return _parser; } }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pbr::MessageDescriptor Descriptor {
-      get { return global::VehicleData.Service.ProtoClass.VehicleDataReflection.Descriptor.MessageTypes[10]; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    pbr::MessageDescriptor pb::IMessage.Descriptor {
-      get { return Descriptor; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public ValueDataList() {
-      OnConstruction();
-    }
-
-    partial void OnConstruction();
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public ValueDataList(ValueDataList other) : this() {
-      itemValue_ = other.itemValue_.Clone();
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public ValueDataList Clone() {
-      return new ValueDataList(this);
-    }
-
-    /// <summary>Field number for the "ItemValue" field.</summary>
-    public const int ItemValueFieldNumber = 1;
-    private static readonly pb::FieldCodec<global::VehicleData.Service.ProtoClass.ValueData> _repeated_itemValue_codec
-        = pb::FieldCodec.ForMessage(10, global::VehicleData.Service.ProtoClass.ValueData.Parser);
-    private readonly pbc::RepeatedField<global::VehicleData.Service.ProtoClass.ValueData> itemValue_ = new pbc::RepeatedField<global::VehicleData.Service.ProtoClass.ValueData>();
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public pbc::RepeatedField<global::VehicleData.Service.ProtoClass.ValueData> ItemValue {
-      get { return itemValue_; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override bool Equals(object other) {
-      return Equals(other as ValueDataList);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool Equals(ValueDataList other) {
-      if (ReferenceEquals(other, null)) {
-        return false;
-      }
-      if (ReferenceEquals(other, this)) {
-        return true;
-      }
-      if(!itemValue_.Equals(other.itemValue_)) return false;
-      return true;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override int GetHashCode() {
-      int hash = 1;
-      hash ^= itemValue_.GetHashCode();
-      return hash;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override string ToString() {
-      return pb::JsonFormatter.ToDiagnosticString(this);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void WriteTo(pb::CodedOutputStream output) {
-      itemValue_.WriteTo(output, _repeated_itemValue_codec);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int CalculateSize() {
-      int size = 0;
-      size += itemValue_.CalculateSize(_repeated_itemValue_codec);
-      return size;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(ValueDataList other) {
-      if (other == null) {
-        return;
-      }
-      itemValue_.Add(other.itemValue_);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(pb::CodedInputStream input) {
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            input.SkipLastField();
-            break;
-          case 10: {
-            itemValue_.AddEntriesFrom(input, _repeated_itemValue_codec);
-            break;
-          }
-        }
-      }
-    }
-
-  }
-
-  public sealed partial class SpecsSummaryRequest : pb::IMessage<SpecsSummaryRequest> {
-    private static readonly pb::MessageParser<SpecsSummaryRequest> _parser = new pb::MessageParser<SpecsSummaryRequest>(() => new SpecsSummaryRequest());
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pb::MessageParser<SpecsSummaryRequest> Parser { get { return _parser; } }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pbr::MessageDescriptor Descriptor {
-      get { return global::VehicleData.Service.ProtoClass.VehicleDataReflection.Descriptor.MessageTypes[11]; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    pbr::MessageDescriptor pb::IMessage.Descriptor {
-      get { return Descriptor; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public SpecsSummaryRequest() {
-      OnConstruction();
-    }
-
-    partial void OnConstruction();
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public SpecsSummaryRequest(SpecsSummaryRequest other) : this() {
-      versionIds_ = other.versionIds_.Clone();
-      applicationId_ = other.applicationId_;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public SpecsSummaryRequest Clone() {
-      return new SpecsSummaryRequest(this);
-    }
-
-    /// <summary>Field number for the "VersionIds" field.</summary>
-    public const int VersionIdsFieldNumber = 1;
-    private static readonly pb::FieldCodec<int> _repeated_versionIds_codec
-        = pb::FieldCodec.ForInt32(10);
-    private readonly pbc::RepeatedField<int> versionIds_ = new pbc::RepeatedField<int>();
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public pbc::RepeatedField<int> VersionIds {
-      get { return versionIds_; }
-    }
-
-    /// <summary>Field number for the "ApplicationId" field.</summary>
-    public const int ApplicationIdFieldNumber = 2;
-    private int applicationId_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int ApplicationId {
-      get { return applicationId_; }
-      set {
-        applicationId_ = value;
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override bool Equals(object other) {
-      return Equals(other as SpecsSummaryRequest);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool Equals(SpecsSummaryRequest other) {
-      if (ReferenceEquals(other, null)) {
-        return false;
-      }
-      if (ReferenceEquals(other, this)) {
-        return true;
-      }
-      if(!versionIds_.Equals(other.versionIds_)) return false;
-      if (ApplicationId != other.ApplicationId) return false;
-      return true;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override int GetHashCode() {
-      int hash = 1;
-      hash ^= versionIds_.GetHashCode();
-      if (ApplicationId != 0) hash ^= ApplicationId.GetHashCode();
-      return hash;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override string ToString() {
-      return pb::JsonFormatter.ToDiagnosticString(this);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void WriteTo(pb::CodedOutputStream output) {
-      versionIds_.WriteTo(output, _repeated_versionIds_codec);
-      if (ApplicationId != 0) {
-        output.WriteRawTag(16);
-        output.WriteInt32(ApplicationId);
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int CalculateSize() {
-      int size = 0;
-      size += versionIds_.CalculateSize(_repeated_versionIds_codec);
-      if (ApplicationId != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(ApplicationId);
-      }
-      return size;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(SpecsSummaryRequest other) {
-      if (other == null) {
-        return;
-      }
-      versionIds_.Add(other.versionIds_);
-      if (other.ApplicationId != 0) {
-        ApplicationId = other.ApplicationId;
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(pb::CodedInputStream input) {
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            input.SkipLastField();
-            break;
-          case 10:
-          case 8: {
-            versionIds_.AddEntriesFrom(input, _repeated_versionIds_codec);
-            break;
-          }
-          case 16: {
-            ApplicationId = input.ReadInt32();
-            break;
-          }
-        }
-      }
-    }
-
-  }
-
-  public sealed partial class VersionSpecsSummary : pb::IMessage<VersionSpecsSummary> {
-    private static readonly pb::MessageParser<VersionSpecsSummary> _parser = new pb::MessageParser<VersionSpecsSummary>(() => new VersionSpecsSummary());
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pb::MessageParser<VersionSpecsSummary> Parser { get { return _parser; } }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pbr::MessageDescriptor Descriptor {
-      get { return global::VehicleData.Service.ProtoClass.VehicleDataReflection.Descriptor.MessageTypes[12]; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    pbr::MessageDescriptor pb::IMessage.Descriptor {
-      get { return Descriptor; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public VersionSpecsSummary() {
-      OnConstruction();
-    }
-
-    partial void OnConstruction();
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public VersionSpecsSummary(VersionSpecsSummary other) : this() {
-      id_ = other.id_;
-      specs_ = other.specs_.Clone();
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public VersionSpecsSummary Clone() {
-      return new VersionSpecsSummary(this);
-    }
-
-    /// <summary>Field number for the "Id" field.</summary>
-    public const int IdFieldNumber = 1;
-    private int id_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int Id {
-      get { return id_; }
-      set {
-        id_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "Specs" field.</summary>
-    public const int SpecsFieldNumber = 2;
-    private static readonly pb::FieldCodec<global::VehicleData.Service.ProtoClass.SpecsSummary> _repeated_specs_codec
-        = pb::FieldCodec.ForMessage(18, global::VehicleData.Service.ProtoClass.SpecsSummary.Parser);
-    private readonly pbc::RepeatedField<global::VehicleData.Service.ProtoClass.SpecsSummary> specs_ = new pbc::RepeatedField<global::VehicleData.Service.ProtoClass.SpecsSummary>();
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public pbc::RepeatedField<global::VehicleData.Service.ProtoClass.SpecsSummary> Specs {
-      get { return specs_; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override bool Equals(object other) {
-      return Equals(other as VersionSpecsSummary);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool Equals(VersionSpecsSummary other) {
-      if (ReferenceEquals(other, null)) {
-        return false;
-      }
-      if (ReferenceEquals(other, this)) {
-        return true;
-      }
-      if (Id != other.Id) return false;
-      if(!specs_.Equals(other.specs_)) return false;
-      return true;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override int GetHashCode() {
-      int hash = 1;
-      if (Id != 0) hash ^= Id.GetHashCode();
-      hash ^= specs_.GetHashCode();
-      return hash;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override string ToString() {
-      return pb::JsonFormatter.ToDiagnosticString(this);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void WriteTo(pb::CodedOutputStream output) {
-      if (Id != 0) {
-        output.WriteRawTag(8);
-        output.WriteInt32(Id);
-      }
-      specs_.WriteTo(output, _repeated_specs_codec);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int CalculateSize() {
-      int size = 0;
-      if (Id != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Id);
-      }
-      size += specs_.CalculateSize(_repeated_specs_codec);
-      return size;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(VersionSpecsSummary other) {
-      if (other == null) {
-        return;
-      }
-      if (other.Id != 0) {
-        Id = other.Id;
-      }
-      specs_.Add(other.specs_);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(pb::CodedInputStream input) {
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            input.SkipLastField();
-            break;
-          case 8: {
-            Id = input.ReadInt32();
-            break;
-          }
-          case 18: {
-            specs_.AddEntriesFrom(input, _repeated_specs_codec);
-            break;
-          }
-        }
-      }
-    }
-
-  }
-
-  public sealed partial class VersionSpecsSummaryList : pb::IMessage<VersionSpecsSummaryList> {
-    private static readonly pb::MessageParser<VersionSpecsSummaryList> _parser = new pb::MessageParser<VersionSpecsSummaryList>(() => new VersionSpecsSummaryList());
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pb::MessageParser<VersionSpecsSummaryList> Parser { get { return _parser; } }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pbr::MessageDescriptor Descriptor {
-      get { return global::VehicleData.Service.ProtoClass.VehicleDataReflection.Descriptor.MessageTypes[13]; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    pbr::MessageDescriptor pb::IMessage.Descriptor {
-      get { return Descriptor; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public VersionSpecsSummaryList() {
-      OnConstruction();
-    }
-
-    partial void OnConstruction();
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public VersionSpecsSummaryList(VersionSpecsSummaryList other) : this() {
-      values_ = other.values_.Clone();
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public VersionSpecsSummaryList Clone() {
-      return new VersionSpecsSummaryList(this);
-    }
-
-    /// <summary>Field number for the "Values" field.</summary>
-    public const int ValuesFieldNumber = 1;
-    private static readonly pb::FieldCodec<global::VehicleData.Service.ProtoClass.VersionSpecsSummary> _repeated_values_codec
-        = pb::FieldCodec.ForMessage(10, global::VehicleData.Service.ProtoClass.VersionSpecsSummary.Parser);
-    private readonly pbc::RepeatedField<global::VehicleData.Service.ProtoClass.VersionSpecsSummary> values_ = new pbc::RepeatedField<global::VehicleData.Service.ProtoClass.VersionSpecsSummary>();
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public pbc::RepeatedField<global::VehicleData.Service.ProtoClass.VersionSpecsSummary> Values {
-      get { return values_; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override bool Equals(object other) {
-      return Equals(other as VersionSpecsSummaryList);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool Equals(VersionSpecsSummaryList other) {
-      if (ReferenceEquals(other, null)) {
-        return false;
-      }
-      if (ReferenceEquals(other, this)) {
-        return true;
-      }
-      if(!values_.Equals(other.values_)) return false;
-      return true;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override int GetHashCode() {
-      int hash = 1;
-      hash ^= values_.GetHashCode();
-      return hash;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override string ToString() {
-      return pb::JsonFormatter.ToDiagnosticString(this);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void WriteTo(pb::CodedOutputStream output) {
-      values_.WriteTo(output, _repeated_values_codec);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int CalculateSize() {
-      int size = 0;
-      size += values_.CalculateSize(_repeated_values_codec);
-      return size;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(VersionSpecsSummaryList other) {
-      if (other == null) {
-        return;
-      }
-      values_.Add(other.values_);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(pb::CodedInputStream input) {
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            input.SkipLastField();
-            break;
-          case 10: {
-            values_.AddEntriesFrom(input, _repeated_values_codec);
-            break;
-          }
-        }
-      }
-    }
-
-  }
-
-  public sealed partial class ModelSpecsSummaryRequest : pb::IMessage<ModelSpecsSummaryRequest> {
-    private static readonly pb::MessageParser<ModelSpecsSummaryRequest> _parser = new pb::MessageParser<ModelSpecsSummaryRequest>(() => new ModelSpecsSummaryRequest());
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pb::MessageParser<ModelSpecsSummaryRequest> Parser { get { return _parser; } }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pbr::MessageDescriptor Descriptor {
-      get { return global::VehicleData.Service.ProtoClass.VehicleDataReflection.Descriptor.MessageTypes[14]; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    pbr::MessageDescriptor pb::IMessage.Descriptor {
-      get { return Descriptor; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public ModelSpecsSummaryRequest() {
-      OnConstruction();
-    }
-
-    partial void OnConstruction();
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public ModelSpecsSummaryRequest(ModelSpecsSummaryRequest other) : this() {
-      versionIds_ = other.versionIds_.Clone();
-      modelId_ = other.modelId_;
-      applicationId_ = other.applicationId_;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public ModelSpecsSummaryRequest Clone() {
-      return new ModelSpecsSummaryRequest(this);
-    }
-
-    /// <summary>Field number for the "VersionIds" field.</summary>
-    public const int VersionIdsFieldNumber = 1;
-    private static readonly pb::FieldCodec<int> _repeated_versionIds_codec
-        = pb::FieldCodec.ForInt32(10);
-    private readonly pbc::RepeatedField<int> versionIds_ = new pbc::RepeatedField<int>();
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public pbc::RepeatedField<int> VersionIds {
-      get { return versionIds_; }
-    }
-
-    /// <summary>Field number for the "ModelId" field.</summary>
-    public const int ModelIdFieldNumber = 2;
-    private int modelId_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int ModelId {
-      get { return modelId_; }
-      set {
-        modelId_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "ApplicationId" field.</summary>
-    public const int ApplicationIdFieldNumber = 3;
-    private int applicationId_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int ApplicationId {
-      get { return applicationId_; }
-      set {
-        applicationId_ = value;
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override bool Equals(object other) {
-      return Equals(other as ModelSpecsSummaryRequest);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool Equals(ModelSpecsSummaryRequest other) {
-      if (ReferenceEquals(other, null)) {
-        return false;
-      }
-      if (ReferenceEquals(other, this)) {
-        return true;
-      }
-      if(!versionIds_.Equals(other.versionIds_)) return false;
-      if (ModelId != other.ModelId) return false;
-      if (ApplicationId != other.ApplicationId) return false;
-      return true;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override int GetHashCode() {
-      int hash = 1;
-      hash ^= versionIds_.GetHashCode();
-      if (ModelId != 0) hash ^= ModelId.GetHashCode();
-      if (ApplicationId != 0) hash ^= ApplicationId.GetHashCode();
-      return hash;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override string ToString() {
-      return pb::JsonFormatter.ToDiagnosticString(this);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void WriteTo(pb::CodedOutputStream output) {
-      versionIds_.WriteTo(output, _repeated_versionIds_codec);
-      if (ModelId != 0) {
-        output.WriteRawTag(16);
-        output.WriteInt32(ModelId);
-      }
-      if (ApplicationId != 0) {
-        output.WriteRawTag(24);
-        output.WriteInt32(ApplicationId);
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int CalculateSize() {
-      int size = 0;
-      size += versionIds_.CalculateSize(_repeated_versionIds_codec);
-      if (ModelId != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(ModelId);
-      }
-      if (ApplicationId != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(ApplicationId);
-      }
-      return size;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(ModelSpecsSummaryRequest other) {
-      if (other == null) {
-        return;
-      }
-      versionIds_.Add(other.versionIds_);
-      if (other.ModelId != 0) {
-        ModelId = other.ModelId;
-      }
-      if (other.ApplicationId != 0) {
-        ApplicationId = other.ApplicationId;
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(pb::CodedInputStream input) {
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            input.SkipLastField();
-            break;
-          case 10:
-          case 8: {
-            versionIds_.AddEntriesFrom(input, _repeated_versionIds_codec);
-            break;
-          }
-          case 16: {
-            ModelId = input.ReadInt32();
-            break;
-          }
-          case 24: {
-            ApplicationId = input.ReadInt32();
-            break;
-          }
-        }
-      }
-    }
-
-  }
-
-  public sealed partial class SpecsSummary : pb::IMessage<SpecsSummary> {
-    private static readonly pb::MessageParser<SpecsSummary> _parser = new pb::MessageParser<SpecsSummary>(() => new SpecsSummary());
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pb::MessageParser<SpecsSummary> Parser { get { return _parser; } }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pbr::MessageDescriptor Descriptor {
-      get { return global::VehicleData.Service.ProtoClass.VehicleDataReflection.Descriptor.MessageTypes[15]; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    pbr::MessageDescriptor pb::IMessage.Descriptor {
-      get { return Descriptor; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public SpecsSummary() {
-      OnConstruction();
-    }
-
-    partial void OnConstruction();
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public SpecsSummary(SpecsSummary other) : this() {
-      itemId_ = other.itemId_;
-      itemName_ = other.itemName_;
-      value_ = other.value_;
-      unitType_ = other.unitType_;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public SpecsSummary Clone() {
-      return new SpecsSummary(this);
-    }
-
-    /// <summary>Field number for the "ItemId" field.</summary>
-    public const int ItemIdFieldNumber = 1;
-    private int itemId_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int ItemId {
-      get { return itemId_; }
-      set {
-        itemId_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "ItemName" field.</summary>
-    public const int ItemNameFieldNumber = 2;
-    private string itemName_ = "";
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public string ItemName {
-      get { return itemName_; }
-      set {
-        itemName_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
-      }
-    }
-
-    /// <summary>Field number for the "Value" field.</summary>
-    public const int ValueFieldNumber = 3;
-    private string value_ = "";
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public string Value {
-      get { return value_; }
-      set {
-        value_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
-      }
-    }
-
-    /// <summary>Field number for the "UnitType" field.</summary>
-    public const int UnitTypeFieldNumber = 4;
-    private string unitType_ = "";
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public string UnitType {
-      get { return unitType_; }
-      set {
-        unitType_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override bool Equals(object other) {
-      return Equals(other as SpecsSummary);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool Equals(SpecsSummary other) {
-      if (ReferenceEquals(other, null)) {
-        return false;
-      }
-      if (ReferenceEquals(other, this)) {
-        return true;
-      }
-      if (ItemId != other.ItemId) return false;
-      if (ItemName != other.ItemName) return false;
-      if (Value != other.Value) return false;
-      if (UnitType != other.UnitType) return false;
-      return true;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override int GetHashCode() {
-      int hash = 1;
-      if (ItemId != 0) hash ^= ItemId.GetHashCode();
-      if (ItemName.Length != 0) hash ^= ItemName.GetHashCode();
-      if (Value.Length != 0) hash ^= Value.GetHashCode();
-      if (UnitType.Length != 0) hash ^= UnitType.GetHashCode();
-      return hash;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override string ToString() {
-      return pb::JsonFormatter.ToDiagnosticString(this);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void WriteTo(pb::CodedOutputStream output) {
-      if (ItemId != 0) {
-        output.WriteRawTag(8);
-        output.WriteInt32(ItemId);
-      }
-      if (ItemName.Length != 0) {
-        output.WriteRawTag(18);
-        output.WriteString(ItemName);
-      }
-      if (Value.Length != 0) {
-        output.WriteRawTag(26);
-        output.WriteString(Value);
-      }
-      if (UnitType.Length != 0) {
-        output.WriteRawTag(34);
-        output.WriteString(UnitType);
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int CalculateSize() {
-      int size = 0;
-      if (ItemId != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(ItemId);
-      }
-      if (ItemName.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(ItemName);
-      }
-      if (Value.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(Value);
-      }
-      if (UnitType.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(UnitType);
-      }
-      return size;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(SpecsSummary other) {
-      if (other == null) {
-        return;
-      }
-      if (other.ItemId != 0) {
-        ItemId = other.ItemId;
-      }
-      if (other.ItemName.Length != 0) {
-        ItemName = other.ItemName;
-      }
-      if (other.Value.Length != 0) {
-        Value = other.Value;
-      }
-      if (other.UnitType.Length != 0) {
-        UnitType = other.UnitType;
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(pb::CodedInputStream input) {
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            input.SkipLastField();
-            break;
-          case 8: {
-            ItemId = input.ReadInt32();
-            break;
-          }
-          case 18: {
-            ItemName = input.ReadString();
-            break;
-          }
-          case 26: {
-            Value = input.ReadString();
-            break;
-          }
-          case 34: {
-            UnitType = input.ReadString();
-            break;
-          }
-        }
-      }
-    }
-
-  }
-
-  public sealed partial class ModelSpecsSummaryList : pb::IMessage<ModelSpecsSummaryList> {
-    private static readonly pb::MessageParser<ModelSpecsSummaryList> _parser = new pb::MessageParser<ModelSpecsSummaryList>(() => new ModelSpecsSummaryList());
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pb::MessageParser<ModelSpecsSummaryList> Parser { get { return _parser; } }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pbr::MessageDescriptor Descriptor {
-      get { return global::VehicleData.Service.ProtoClass.VehicleDataReflection.Descriptor.MessageTypes[16]; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    pbr::MessageDescriptor pb::IMessage.Descriptor {
-      get { return Descriptor; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public ModelSpecsSummaryList() {
-      OnConstruction();
-    }
-
-    partial void OnConstruction();
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public ModelSpecsSummaryList(ModelSpecsSummaryList other) : this() {
-      values_ = other.values_.Clone();
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public ModelSpecsSummaryList Clone() {
-      return new ModelSpecsSummaryList(this);
-    }
-
-    /// <summary>Field number for the "Values" field.</summary>
-    public const int ValuesFieldNumber = 1;
-    private static readonly pb::FieldCodec<global::VehicleData.Service.ProtoClass.SpecsSummary> _repeated_values_codec
-        = pb::FieldCodec.ForMessage(10, global::VehicleData.Service.ProtoClass.SpecsSummary.Parser);
-    private readonly pbc::RepeatedField<global::VehicleData.Service.ProtoClass.SpecsSummary> values_ = new pbc::RepeatedField<global::VehicleData.Service.ProtoClass.SpecsSummary>();
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public pbc::RepeatedField<global::VehicleData.Service.ProtoClass.SpecsSummary> Values {
-      get { return values_; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override bool Equals(object other) {
-      return Equals(other as ModelSpecsSummaryList);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool Equals(ModelSpecsSummaryList other) {
-      if (ReferenceEquals(other, null)) {
-        return false;
-      }
-      if (ReferenceEquals(other, this)) {
-        return true;
-      }
-      if(!values_.Equals(other.values_)) return false;
-      return true;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override int GetHashCode() {
-      int hash = 1;
-      hash ^= values_.GetHashCode();
-      return hash;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override string ToString() {
-      return pb::JsonFormatter.ToDiagnosticString(this);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void WriteTo(pb::CodedOutputStream output) {
-      values_.WriteTo(output, _repeated_values_codec);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int CalculateSize() {
-      int size = 0;
-      size += values_.CalculateSize(_repeated_values_codec);
-      return size;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(ModelSpecsSummaryList other) {
-      if (other == null) {
-        return;
-      }
-      values_.Add(other.values_);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(pb::CodedInputStream input) {
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            input.SkipLastField();
-            break;
-          case 10: {
-            values_.AddEntriesFrom(input, _repeated_values_codec);
-            break;
-          }
-        }
-      }
-    }
-
-  }
-
-  public sealed partial class VersionsDataByItemIdsRequest : pb::IMessage<VersionsDataByItemIdsRequest> {
-    private static readonly pb::MessageParser<VersionsDataByItemIdsRequest> _parser = new pb::MessageParser<VersionsDataByItemIdsRequest>(() => new VersionsDataByItemIdsRequest());
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pb::MessageParser<VersionsDataByItemIdsRequest> Parser { get { return _parser; } }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pbr::MessageDescriptor Descriptor {
-      get { return global::VehicleData.Service.ProtoClass.VehicleDataReflection.Descriptor.MessageTypes[17]; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    pbr::MessageDescriptor pb::IMessage.Descriptor {
-      get { return Descriptor; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public VersionsDataByItemIdsRequest() {
-      OnConstruction();
-    }
-
-    partial void OnConstruction();
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public VersionsDataByItemIdsRequest(VersionsDataByItemIdsRequest other) : this() {
-      applicationId_ = other.applicationId_;
-      versionIds_ = other.versionIds_.Clone();
-      itemIds_ = other.itemIds_.Clone();
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public VersionsDataByItemIdsRequest Clone() {
-      return new VersionsDataByItemIdsRequest(this);
-    }
-
-    /// <summary>Field number for the "ApplicationId" field.</summary>
-    public const int ApplicationIdFieldNumber = 1;
-    private int applicationId_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int ApplicationId {
-      get { return applicationId_; }
-      set {
-        applicationId_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "VersionIds" field.</summary>
-    public const int VersionIdsFieldNumber = 2;
-    private static readonly pb::FieldCodec<int> _repeated_versionIds_codec
-        = pb::FieldCodec.ForInt32(18);
-    private readonly pbc::RepeatedField<int> versionIds_ = new pbc::RepeatedField<int>();
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public pbc::RepeatedField<int> VersionIds {
-      get { return versionIds_; }
-    }
-
-    /// <summary>Field number for the "ItemIds" field.</summary>
-    public const int ItemIdsFieldNumber = 3;
-    private static readonly pb::FieldCodec<int> _repeated_itemIds_codec
-        = pb::FieldCodec.ForInt32(26);
-    private readonly pbc::RepeatedField<int> itemIds_ = new pbc::RepeatedField<int>();
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public pbc::RepeatedField<int> ItemIds {
-      get { return itemIds_; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override bool Equals(object other) {
-      return Equals(other as VersionsDataByItemIdsRequest);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool Equals(VersionsDataByItemIdsRequest other) {
-      if (ReferenceEquals(other, null)) {
-        return false;
-      }
-      if (ReferenceEquals(other, this)) {
-        return true;
-      }
-      if (ApplicationId != other.ApplicationId) return false;
-      if(!versionIds_.Equals(other.versionIds_)) return false;
-      if(!itemIds_.Equals(other.itemIds_)) return false;
-      return true;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override int GetHashCode() {
-      int hash = 1;
-      if (ApplicationId != 0) hash ^= ApplicationId.GetHashCode();
-      hash ^= versionIds_.GetHashCode();
-      hash ^= itemIds_.GetHashCode();
-      return hash;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override string ToString() {
-      return pb::JsonFormatter.ToDiagnosticString(this);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void WriteTo(pb::CodedOutputStream output) {
-      if (ApplicationId != 0) {
-        output.WriteRawTag(8);
-        output.WriteInt32(ApplicationId);
-      }
-      versionIds_.WriteTo(output, _repeated_versionIds_codec);
-      itemIds_.WriteTo(output, _repeated_itemIds_codec);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int CalculateSize() {
-      int size = 0;
-      if (ApplicationId != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(ApplicationId);
-      }
-      size += versionIds_.CalculateSize(_repeated_versionIds_codec);
-      size += itemIds_.CalculateSize(_repeated_itemIds_codec);
-      return size;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(VersionsDataByItemIdsRequest other) {
-      if (other == null) {
-        return;
-      }
-      if (other.ApplicationId != 0) {
-        ApplicationId = other.ApplicationId;
-      }
-      versionIds_.Add(other.versionIds_);
-      itemIds_.Add(other.itemIds_);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(pb::CodedInputStream input) {
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            input.SkipLastField();
-            break;
-          case 8: {
-            ApplicationId = input.ReadInt32();
-            break;
-          }
-          case 18:
-          case 16: {
-            versionIds_.AddEntriesFrom(input, _repeated_versionIds_codec);
-            break;
-          }
-          case 26:
-          case 24: {
-            itemIds_.AddEntriesFrom(input, _repeated_itemIds_codec);
-            break;
-          }
-        }
-      }
-    }
-
-  }
-
-  public sealed partial class ItemData : pb::IMessage<ItemData> {
-    private static readonly pb::MessageParser<ItemData> _parser = new pb::MessageParser<ItemData>(() => new ItemData());
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pb::MessageParser<ItemData> Parser { get { return _parser; } }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pbr::MessageDescriptor Descriptor {
-      get { return global::VehicleData.Service.ProtoClass.VehicleDataReflection.Descriptor.MessageTypes[18]; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    pbr::MessageDescriptor pb::IMessage.Descriptor {
-      get { return Descriptor; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public ItemData() {
-      OnConstruction();
-    }
-
-    partial void OnConstruction();
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public ItemData(ItemData other) : this() {
-      itemId_ = other.itemId_;
-      itemName_ = other.itemName_;
-      value_ = other.value_;
-      unitType_ = other.unitType_;
-      icon_ = other.icon_;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public ItemData Clone() {
-      return new ItemData(this);
-    }
-
-    /// <summary>Field number for the "ItemId" field.</summary>
-    public const int ItemIdFieldNumber = 1;
-    private int itemId_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int ItemId {
-      get { return itemId_; }
-      set {
-        itemId_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "ItemName" field.</summary>
-    public const int ItemNameFieldNumber = 2;
-    private string itemName_ = "";
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public string ItemName {
-      get { return itemName_; }
-      set {
-        itemName_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
-      }
-    }
-
-    /// <summary>Field number for the "Value" field.</summary>
-    public const int ValueFieldNumber = 3;
-    private string value_ = "";
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public string Value {
-      get { return value_; }
-      set {
-        value_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
-      }
-    }
-
-    /// <summary>Field number for the "UnitType" field.</summary>
-    public const int UnitTypeFieldNumber = 4;
-    private string unitType_ = "";
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public string UnitType {
-      get { return unitType_; }
-      set {
-        unitType_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
-      }
-    }
-
-    /// <summary>Field number for the "Icon" field.</summary>
-    public const int IconFieldNumber = 5;
-    private string icon_ = "";
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public string Icon {
-      get { return icon_; }
-      set {
-        icon_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override bool Equals(object other) {
-      return Equals(other as ItemData);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool Equals(ItemData other) {
-      if (ReferenceEquals(other, null)) {
-        return false;
-      }
-      if (ReferenceEquals(other, this)) {
-        return true;
-      }
-      if (ItemId != other.ItemId) return false;
-      if (ItemName != other.ItemName) return false;
-      if (Value != other.Value) return false;
-      if (UnitType != other.UnitType) return false;
-      if (Icon != other.Icon) return false;
-      return true;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override int GetHashCode() {
-      int hash = 1;
-      if (ItemId != 0) hash ^= ItemId.GetHashCode();
-      if (ItemName.Length != 0) hash ^= ItemName.GetHashCode();
-      if (Value.Length != 0) hash ^= Value.GetHashCode();
-      if (UnitType.Length != 0) hash ^= UnitType.GetHashCode();
-      if (Icon.Length != 0) hash ^= Icon.GetHashCode();
-      return hash;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override string ToString() {
-      return pb::JsonFormatter.ToDiagnosticString(this);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void WriteTo(pb::CodedOutputStream output) {
-      if (ItemId != 0) {
-        output.WriteRawTag(8);
-        output.WriteInt32(ItemId);
-      }
-      if (ItemName.Length != 0) {
-        output.WriteRawTag(18);
-        output.WriteString(ItemName);
-      }
-      if (Value.Length != 0) {
-        output.WriteRawTag(26);
-        output.WriteString(Value);
-      }
-      if (UnitType.Length != 0) {
-        output.WriteRawTag(34);
-        output.WriteString(UnitType);
-      }
-      if (Icon.Length != 0) {
-        output.WriteRawTag(42);
-        output.WriteString(Icon);
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int CalculateSize() {
-      int size = 0;
-      if (ItemId != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(ItemId);
-      }
-      if (ItemName.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(ItemName);
-      }
-      if (Value.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(Value);
-      }
-      if (UnitType.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(UnitType);
-      }
-      if (Icon.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(Icon);
-      }
-      return size;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(ItemData other) {
-      if (other == null) {
-        return;
-      }
-      if (other.ItemId != 0) {
-        ItemId = other.ItemId;
-      }
-      if (other.ItemName.Length != 0) {
-        ItemName = other.ItemName;
-      }
-      if (other.Value.Length != 0) {
-        Value = other.Value;
-      }
-      if (other.UnitType.Length != 0) {
-        UnitType = other.UnitType;
-      }
-      if (other.Icon.Length != 0) {
-        Icon = other.Icon;
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(pb::CodedInputStream input) {
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            input.SkipLastField();
-            break;
-          case 8: {
-            ItemId = input.ReadInt32();
-            break;
-          }
-          case 18: {
-            ItemName = input.ReadString();
-            break;
-          }
-          case 26: {
-            Value = input.ReadString();
-            break;
-          }
-          case 34: {
-            UnitType = input.ReadString();
-            break;
-          }
-          case 42: {
-            Icon = input.ReadString();
-            break;
-          }
-        }
-      }
-    }
-
-  }
-
-  public sealed partial class VersionItemsData : pb::IMessage<VersionItemsData> {
-    private static readonly pb::MessageParser<VersionItemsData> _parser = new pb::MessageParser<VersionItemsData>(() => new VersionItemsData());
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pb::MessageParser<VersionItemsData> Parser { get { return _parser; } }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pbr::MessageDescriptor Descriptor {
-      get { return global::VehicleData.Service.ProtoClass.VehicleDataReflection.Descriptor.MessageTypes[19]; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    pbr::MessageDescriptor pb::IMessage.Descriptor {
-      get { return Descriptor; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public VersionItemsData() {
-      OnConstruction();
-    }
-
-    partial void OnConstruction();
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public VersionItemsData(VersionItemsData other) : this() {
-      id_ = other.id_;
-      itemList_ = other.itemList_.Clone();
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public VersionItemsData Clone() {
-      return new VersionItemsData(this);
-    }
-
-    /// <summary>Field number for the "Id" field.</summary>
-    public const int IdFieldNumber = 1;
-    private int id_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int Id {
-      get { return id_; }
-      set {
-        id_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "ItemList" field.</summary>
-    public const int ItemListFieldNumber = 2;
-    private static readonly pb::FieldCodec<global::VehicleData.Service.ProtoClass.ItemData> _repeated_itemList_codec
-        = pb::FieldCodec.ForMessage(18, global::VehicleData.Service.ProtoClass.ItemData.Parser);
-    private readonly pbc::RepeatedField<global::VehicleData.Service.ProtoClass.ItemData> itemList_ = new pbc::RepeatedField<global::VehicleData.Service.ProtoClass.ItemData>();
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public pbc::RepeatedField<global::VehicleData.Service.ProtoClass.ItemData> ItemList {
-      get { return itemList_; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override bool Equals(object other) {
-      return Equals(other as VersionItemsData);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool Equals(VersionItemsData other) {
-      if (ReferenceEquals(other, null)) {
-        return false;
-      }
-      if (ReferenceEquals(other, this)) {
-        return true;
-      }
-      if (Id != other.Id) return false;
-      if(!itemList_.Equals(other.itemList_)) return false;
-      return true;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override int GetHashCode() {
-      int hash = 1;
-      if (Id != 0) hash ^= Id.GetHashCode();
-      hash ^= itemList_.GetHashCode();
-      return hash;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override string ToString() {
-      return pb::JsonFormatter.ToDiagnosticString(this);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void WriteTo(pb::CodedOutputStream output) {
-      if (Id != 0) {
-        output.WriteRawTag(8);
-        output.WriteInt32(Id);
-      }
-      itemList_.WriteTo(output, _repeated_itemList_codec);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int CalculateSize() {
-      int size = 0;
-      if (Id != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Id);
-      }
-      size += itemList_.CalculateSize(_repeated_itemList_codec);
-      return size;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(VersionItemsData other) {
-      if (other == null) {
-        return;
-      }
-      if (other.Id != 0) {
-        Id = other.Id;
-      }
-      itemList_.Add(other.itemList_);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(pb::CodedInputStream input) {
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            input.SkipLastField();
-            break;
-          case 8: {
-            Id = input.ReadInt32();
-            break;
-          }
-          case 18: {
-            itemList_.AddEntriesFrom(input, _repeated_itemList_codec);
-            break;
-          }
-        }
-      }
-    }
-
-  }
-
-  public sealed partial class VersionItemsDataResponse : pb::IMessage<VersionItemsDataResponse> {
-    private static readonly pb::MessageParser<VersionItemsDataResponse> _parser = new pb::MessageParser<VersionItemsDataResponse>(() => new VersionItemsDataResponse());
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pb::MessageParser<VersionItemsDataResponse> Parser { get { return _parser; } }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pbr::MessageDescriptor Descriptor {
-      get { return global::VehicleData.Service.ProtoClass.VehicleDataReflection.Descriptor.MessageTypes[20]; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    pbr::MessageDescriptor pb::IMessage.Descriptor {
-      get { return Descriptor; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public VersionItemsDataResponse() {
-      OnConstruction();
-    }
-
-    partial void OnConstruction();
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public VersionItemsDataResponse(VersionItemsDataResponse other) : this() {
-      versionItemsDataList_ = other.versionItemsDataList_.Clone();
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public VersionItemsDataResponse Clone() {
-      return new VersionItemsDataResponse(this);
-    }
-
-    /// <summary>Field number for the "VersionItemsDataList" field.</summary>
-    public const int VersionItemsDataListFieldNumber = 1;
-    private static readonly pb::FieldCodec<global::VehicleData.Service.ProtoClass.VersionItemsData> _repeated_versionItemsDataList_codec
-        = pb::FieldCodec.ForMessage(10, global::VehicleData.Service.ProtoClass.VersionItemsData.Parser);
-    private readonly pbc::RepeatedField<global::VehicleData.Service.ProtoClass.VersionItemsData> versionItemsDataList_ = new pbc::RepeatedField<global::VehicleData.Service.ProtoClass.VersionItemsData>();
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public pbc::RepeatedField<global::VehicleData.Service.ProtoClass.VersionItemsData> VersionItemsDataList {
-      get { return versionItemsDataList_; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override bool Equals(object other) {
-      return Equals(other as VersionItemsDataResponse);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool Equals(VersionItemsDataResponse other) {
-      if (ReferenceEquals(other, null)) {
-        return false;
-      }
-      if (ReferenceEquals(other, this)) {
-        return true;
-      }
-      if(!versionItemsDataList_.Equals(other.versionItemsDataList_)) return false;
-      return true;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override int GetHashCode() {
-      int hash = 1;
-      hash ^= versionItemsDataList_.GetHashCode();
-      return hash;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override string ToString() {
-      return pb::JsonFormatter.ToDiagnosticString(this);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void WriteTo(pb::CodedOutputStream output) {
-      versionItemsDataList_.WriteTo(output, _repeated_versionItemsDataList_codec);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int CalculateSize() {
-      int size = 0;
-      size += versionItemsDataList_.CalculateSize(_repeated_versionItemsDataList_codec);
-      return size;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(VersionItemsDataResponse other) {
-      if (other == null) {
-        return;
-      }
-      versionItemsDataList_.Add(other.versionItemsDataList_);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(pb::CodedInputStream input) {
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            input.SkipLastField();
-            break;
-          case 10: {
-            versionItemsDataList_.AddEntriesFrom(input, _repeated_versionItemsDataList_codec);
-            break;
-          }
-        }
-      }
-    }
-
-  }
-
-  public sealed partial class VehicleDataValue : pb::IMessage<VehicleDataValue> {
-    private static readonly pb::MessageParser<VehicleDataValue> _parser = new pb::MessageParser<VehicleDataValue>(() => new VehicleDataValue());
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pb::MessageParser<VehicleDataValue> Parser { get { return _parser; } }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pbr::MessageDescriptor Descriptor {
-      get { return global::VehicleData.Service.ProtoClass.VehicleDataReflection.Descriptor.MessageTypes[21]; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    pbr::MessageDescriptor pb::IMessage.Descriptor {
-      get { return Descriptor; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public VehicleDataValue() {
-      OnConstruction();
-    }
-
-    partial void OnConstruction();
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public VehicleDataValue(VehicleDataValue other) : this() {
-      specifications_ = other.specifications_.Clone();
-      features_ = other.features_.Clone();
-      overview_ = other.overview_.Clone();
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public VehicleDataValue Clone() {
-      return new VehicleDataValue(this);
-    }
-
-    /// <summary>Field number for the "Specifications" field.</summary>
-    public const int SpecificationsFieldNumber = 1;
-    private static readonly pb::FieldCodec<global::VehicleData.Service.ProtoClass.Category> _repeated_specifications_codec
-        = pb::FieldCodec.ForMessage(10, global::VehicleData.Service.ProtoClass.Category.Parser);
-    private readonly pbc::RepeatedField<global::VehicleData.Service.ProtoClass.Category> specifications_ = new pbc::RepeatedField<global::VehicleData.Service.ProtoClass.Category>();
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public pbc::RepeatedField<global::VehicleData.Service.ProtoClass.Category> Specifications {
-      get { return specifications_; }
-    }
-
-    /// <summary>Field number for the "Features" field.</summary>
-    public const int FeaturesFieldNumber = 2;
-    private static readonly pb::FieldCodec<global::VehicleData.Service.ProtoClass.Category> _repeated_features_codec
-        = pb::FieldCodec.ForMessage(18, global::VehicleData.Service.ProtoClass.Category.Parser);
-    private readonly pbc::RepeatedField<global::VehicleData.Service.ProtoClass.Category> features_ = new pbc::RepeatedField<global::VehicleData.Service.ProtoClass.Category>();
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public pbc::RepeatedField<global::VehicleData.Service.ProtoClass.Category> Features {
-      get { return features_; }
-    }
-
-    /// <summary>Field number for the "Overview" field.</summary>
-    public const int OverviewFieldNumber = 3;
-    private static readonly pb::FieldCodec<global::VehicleData.Service.ProtoClass.Item> _repeated_overview_codec
-        = pb::FieldCodec.ForMessage(26, global::VehicleData.Service.ProtoClass.Item.Parser);
-    private readonly pbc::RepeatedField<global::VehicleData.Service.ProtoClass.Item> overview_ = new pbc::RepeatedField<global::VehicleData.Service.ProtoClass.Item>();
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public pbc::RepeatedField<global::VehicleData.Service.ProtoClass.Item> Overview {
-      get { return overview_; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override bool Equals(object other) {
-      return Equals(other as VehicleDataValue);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool Equals(VehicleDataValue other) {
-      if (ReferenceEquals(other, null)) {
-        return false;
-      }
-      if (ReferenceEquals(other, this)) {
-        return true;
-      }
-      if(!specifications_.Equals(other.specifications_)) return false;
-      if(!features_.Equals(other.features_)) return false;
-      if(!overview_.Equals(other.overview_)) return false;
-      return true;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override int GetHashCode() {
-      int hash = 1;
-      hash ^= specifications_.GetHashCode();
-      hash ^= features_.GetHashCode();
-      hash ^= overview_.GetHashCode();
-      return hash;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override string ToString() {
-      return pb::JsonFormatter.ToDiagnosticString(this);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void WriteTo(pb::CodedOutputStream output) {
-      specifications_.WriteTo(output, _repeated_specifications_codec);
-      features_.WriteTo(output, _repeated_features_codec);
-      overview_.WriteTo(output, _repeated_overview_codec);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int CalculateSize() {
-      int size = 0;
-      size += specifications_.CalculateSize(_repeated_specifications_codec);
-      size += features_.CalculateSize(_repeated_features_codec);
-      size += overview_.CalculateSize(_repeated_overview_codec);
-      return size;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(VehicleDataValue other) {
-      if (other == null) {
-        return;
-      }
-      specifications_.Add(other.specifications_);
-      features_.Add(other.features_);
-      overview_.Add(other.overview_);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(pb::CodedInputStream input) {
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            input.SkipLastField();
-            break;
-          case 10: {
-            specifications_.AddEntriesFrom(input, _repeated_specifications_codec);
-            break;
-          }
-          case 18: {
-            features_.AddEntriesFrom(input, _repeated_features_codec);
-            break;
-          }
-          case 26: {
-            overview_.AddEntriesFrom(input, _repeated_overview_codec);
-            break;
-          }
-        }
-      }
-    }
-
-  }
-
-  public sealed partial class VehicleDataRequest : pb::IMessage<VehicleDataRequest> {
-    private static readonly pb::MessageParser<VehicleDataRequest> _parser = new pb::MessageParser<VehicleDataRequest>(() => new VehicleDataRequest());
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pb::MessageParser<VehicleDataRequest> Parser { get { return _parser; } }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pbr::MessageDescriptor Descriptor {
-      get { return global::VehicleData.Service.ProtoClass.VehicleDataReflection.Descriptor.MessageTypes[22]; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    pbr::MessageDescriptor pb::IMessage.Descriptor {
-      get { return Descriptor; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public VehicleDataRequest() {
-      OnConstruction();
-    }
-
-    partial void OnConstruction();
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public VehicleDataRequest(VehicleDataRequest other) : this() {
-      versionIds_ = other.versionIds_.Clone();
-      applicationId_ = other.applicationId_;
-      itemGroupTypes_ = other.itemGroupTypes_;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public VehicleDataRequest Clone() {
-      return new VehicleDataRequest(this);
-    }
-
-    /// <summary>Field number for the "VersionIds" field.</summary>
-    public const int VersionIdsFieldNumber = 1;
-    private static readonly pb::FieldCodec<int> _repeated_versionIds_codec
-        = pb::FieldCodec.ForInt32(10);
-    private readonly pbc::RepeatedField<int> versionIds_ = new pbc::RepeatedField<int>();
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public pbc::RepeatedField<int> VersionIds {
-      get { return versionIds_; }
-    }
-
-    /// <summary>Field number for the "ApplicationId" field.</summary>
-    public const int ApplicationIdFieldNumber = 2;
-    private int applicationId_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int ApplicationId {
-      get { return applicationId_; }
-      set {
-        applicationId_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "ItemGroupTypes" field.</summary>
-    public const int ItemGroupTypesFieldNumber = 3;
-    private string itemGroupTypes_ = "";
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public string ItemGroupTypes {
-      get { return itemGroupTypes_; }
-      set {
-        itemGroupTypes_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override bool Equals(object other) {
-      return Equals(other as VehicleDataRequest);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool Equals(VehicleDataRequest other) {
-      if (ReferenceEquals(other, null)) {
-        return false;
-      }
-      if (ReferenceEquals(other, this)) {
-        return true;
-      }
-      if(!versionIds_.Equals(other.versionIds_)) return false;
-      if (ApplicationId != other.ApplicationId) return false;
-      if (ItemGroupTypes != other.ItemGroupTypes) return false;
-      return true;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override int GetHashCode() {
-      int hash = 1;
-      hash ^= versionIds_.GetHashCode();
-      if (ApplicationId != 0) hash ^= ApplicationId.GetHashCode();
-      if (ItemGroupTypes.Length != 0) hash ^= ItemGroupTypes.GetHashCode();
-      return hash;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override string ToString() {
-      return pb::JsonFormatter.ToDiagnosticString(this);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void WriteTo(pb::CodedOutputStream output) {
-      versionIds_.WriteTo(output, _repeated_versionIds_codec);
-      if (ApplicationId != 0) {
-        output.WriteRawTag(16);
-        output.WriteInt32(ApplicationId);
-      }
-      if (ItemGroupTypes.Length != 0) {
-        output.WriteRawTag(26);
-        output.WriteString(ItemGroupTypes);
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int CalculateSize() {
-      int size = 0;
-      size += versionIds_.CalculateSize(_repeated_versionIds_codec);
-      if (ApplicationId != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(ApplicationId);
-      }
-      if (ItemGroupTypes.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(ItemGroupTypes);
-      }
-      return size;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(VehicleDataRequest other) {
-      if (other == null) {
-        return;
-      }
-      versionIds_.Add(other.versionIds_);
-      if (other.ApplicationId != 0) {
-        ApplicationId = other.ApplicationId;
-      }
-      if (other.ItemGroupTypes.Length != 0) {
-        ItemGroupTypes = other.ItemGroupTypes;
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(pb::CodedInputStream input) {
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            input.SkipLastField();
-            break;
-          case 10:
-          case 8: {
-            versionIds_.AddEntriesFrom(input, _repeated_versionIds_codec);
-            break;
-          }
-          case 16: {
-            ApplicationId = input.ReadInt32();
-            break;
-          }
-          case 26: {
-            ItemGroupTypes = input.ReadString();
-            break;
-          }
-        }
-      }
-    }
-
-  }
-
-  #endregion
 
 }
 
