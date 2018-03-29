@@ -30,12 +30,7 @@ namespace BikewaleOpr.DALs.Location
             {
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
-                    connection.Open();
-
                     objStateList = connection.Query<StateEntityBase>("getstates_26052017", commandType: CommandType.StoredProcedure);
-
-                    if (connection.State == ConnectionState.Open)
-                        connection.Close();
                 }
             }
             catch (Exception ex)
@@ -60,12 +55,9 @@ namespace BikewaleOpr.DALs.Location
             {
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
-                    connection.Open();
-
+                    
                     cities = connection.Query<CityNameEntity>("bw_getbikedealercities_01082017", commandType: CommandType.StoredProcedure);
 
-                    if (connection.State == ConnectionState.Open)
-                        connection.Close();
                 }
             }
             catch (Exception ex)
@@ -89,14 +81,10 @@ namespace BikewaleOpr.DALs.Location
             {
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
-                    connection.Open();
                     var param = new DynamicParameters();
                     param.Add("par_stateid", stateId);
 
                     stateCities = connection.Query<CityNameEntity>("getcitiesbystate", param: param, commandType: CommandType.StoredProcedure);
-
-                    if (connection.State == ConnectionState.Open)
-                        connection.Close();
                 }
             }
             catch (Exception ex)
@@ -120,12 +108,7 @@ namespace BikewaleOpr.DALs.Location
             {
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
-                    connection.Open();
-
                     cities = connection.Query<CityNameEntity>("getallcities", commandType: CommandType.StoredProcedure);
-
-                    if (connection.State == ConnectionState.Open)
-                        connection.Close();
                 }
             }
             catch (Exception ex)

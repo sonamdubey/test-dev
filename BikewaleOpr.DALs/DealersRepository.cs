@@ -37,15 +37,11 @@ namespace BikewaleOpr.DAL
                 {
                     using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                     {
-                        connection.Open();
-
                         var param = new DynamicParameters();
                         param.Add("par_DealerId", dealerId);
 
                         objFacilities = connection.Query<FacilityEntity>("BW_GetDealerFacilities", param: param, commandType: CommandType.StoredProcedure);
 
-                        if (connection.State == ConnectionState.Open)
-                            connection.Close();
                     }
                 }
             }
@@ -72,7 +68,6 @@ namespace BikewaleOpr.DAL
             {
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
-                    connection.Open();
                     var param = new DynamicParameters();
                     param.Add("par_Facility", objData.Facility);
                     param.Add("par_IsActive", Convert.ToUInt16(objData.IsActive));
@@ -81,9 +76,6 @@ namespace BikewaleOpr.DAL
                     param.Add("par_latestInsertId", dbType: DbType.UInt16, direction: ParameterDirection.Output);
                     connection.Execute("bw_savedealerfacility", param: param, commandType: CommandType.StoredProcedure);
                     newID = param.Get<UInt16>("par_latestInsertId");
-
-                    if (connection.State == ConnectionState.Open)
-                        connection.Close();
                 }
             }
             catch (Exception ex)
@@ -109,8 +101,6 @@ namespace BikewaleOpr.DAL
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
 
                 {
-                    connection.Open();
-
                     var param = new DynamicParameters();
                     param.Add("par_facility", objData.Facility);
                     param.Add("par_isactive", Convert.ToUInt16(objData.IsActive));
@@ -119,10 +109,6 @@ namespace BikewaleOpr.DAL
 
                     status = (byte)connection.Execute("BW_UpdateDealerFacility", param: param, commandType: CommandType.StoredProcedure);
 
-
-
-                    if (connection.State == ConnectionState.Open)
-                        connection.Close();
                 }
             }
             catch (Exception ex)
@@ -203,14 +189,10 @@ namespace BikewaleOpr.DAL
             {
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
-                    connection.Open();
                     var param = new DynamicParameters();
                     param.Add("par_cityid", cityId);
 
                     dealers = connection.Query<DealerMakeEntity>("bw_getbikedealers_01082017", param: param, commandType: CommandType.StoredProcedure);
-
-                    if (connection.State == ConnectionState.Open)
-                        connection.Close();
                 }
             }
             catch (Exception ex)
@@ -502,8 +484,6 @@ namespace BikewaleOpr.DAL
             {
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
-                    connection.Open();
-
                     var param = new DynamicParameters();
                     param.Add("par_dealerid", dealerId);
                     param.Add("par_bikeversionids", bikeVersionIds);
@@ -535,8 +515,6 @@ namespace BikewaleOpr.DAL
             {
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
-                    connection.Open();
-
                     var param = new DynamicParameters();
                     param.Add("par_dealerid", dealerId);
                     param.Add("par_bikeversionids", bikeVersionId);
@@ -851,13 +829,9 @@ namespace BikewaleOpr.DAL
                     param.Add("par_amount", objBookingAmt.BookingAmountBase.Amount);
                     param.Add("par_updatedby", updatedBy);
 
-                    connection.Open();
                     connection.Execute("bw_savebookingamount_08072017", param: param, commandType: CommandType.StoredProcedure);
                     isUpdated = true;
-                    if (connection != null && connection.State == ConnectionState.Open)
-                    {
-                        connection.Close();
-                    }
+
                 }
             }
             catch (Exception ex)
@@ -924,7 +898,6 @@ namespace BikewaleOpr.DAL
                 {
                     var param = new DynamicParameters();
                     param.Add("par_dealerid", dealerId);
-                    connection.Open();
                     objBookingAmt = connection.Query<BookingAmountEntityBase, BikeMakeEntityBase, BikeModelEntityBase,
                                         BikeVersionEntityBase, BookingAmountEntity, BookingAmountEntity>
                                     (

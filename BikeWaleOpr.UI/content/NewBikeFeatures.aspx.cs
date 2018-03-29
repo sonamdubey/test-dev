@@ -34,25 +34,13 @@ namespace BikeWaleOpr.Content
 		{
 			CommonOpn op = new CommonOpn();
 			
-            //if( HttpContext.Current.User.Identity.IsAuthenticated != true) 
-            //        Response.Redirect("../users/Login.aspx?ReturnUrl=../Contents/NewCarFeaturesStep1.aspx");
-				
-            //if ( Request.Cookies["Customer"] == null )
-            //    Response.Redirect("../Users/Login.aspx?ReturnUrl=../Contents/NewCarFeaturesStep1.aspx");
-				
-            //int pageId = 38;
-            //if ( !op.verifyPrivilege( pageId ) )
-            //    Response.Redirect("../NotAuthorized.aspx");
+          
 				
 			string sql, sql1;
 
 			if ( !IsPostBack )
 			{
-                //if (!String.IsNullOrEmpty(Request.QueryString["versionId"]))
-                //{
-                //    BindRepeater();
-                //    btnSave.Visible = true;
-                //}
+               
 
 				sql = "SELECT ID, Name FROM BikeMakes WHERE IsDeleted <> 1 ORDER BY NAME";
 				op.FillDropDown( sql, cmbMake, "Name", "ID" );
@@ -105,78 +93,7 @@ namespace BikeWaleOpr.Content
 		void btnSave_Click( object Sender, EventArgs e )
 		{
             throw new Exception("Method not used/commented");
-            //if ( Request.Form["cmbVersion"] == null || !CommonOpn.CheckId( Request.Form["cmbVersion"] ) )
-            //    return;
-			
-            //Trace.Warn("saving data for : " + Request.Form["cmbVersion"]);
-			
-            //string sql = "";
-            //Database db = new Database();
-			
-            //try
-            //{
-            //    // Delete all features for this version first.
-            //    sql = " DELETE FROM NewBikeFeatures WHERE BikeVersionId=" + Request.Form["cmbVersion"];
-            //    db.InsertQry( sql );
-            //}
-            //catch (SqlException err)
-            //{
-            //    Trace.Warn(err.Message + err.Source);
-            //    ErrorClass.LogError(err, Request.ServerVariables["URL"]);
-            //    
-            //}
-            //catch( Exception err )
-            //{
-            //    Trace.Warn(err.Message + err.Source);
-            //    ErrorClass.LogError(err,Request.ServerVariables["URL"]);
-            //    
-            //}
-					
-            //foreach ( RepeaterItem item in rptFeatures.Items )
-            //{
-            //    Trace.Warn("Repeater...");
-            //    if( (item.ItemType == ListItemType.Item) || (item.ItemType == ListItemType.AlternatingItem) )
-            //    {
-            //        DataGrid dg = ( DataGrid )item.FindControl( "dgItems" );
-					
-            //        if ( dg != null )
-            //        {
-            //            foreach ( DataGridItem gridItem in dg.Items )
-            //            {
-            //                Trace.Warn("Grid...");
-            //                CheckBox chk = (CheckBox)gridItem.FindControl( "chkFeature" );
-            //                try
-            //                {
-            //                    if ( chk.Checked )
-            //                    {	
-            //                        sql = " INSERT INTO NewBikeFeatures(BikeVersionId,FeatureItemId)"
-            //                            + " VALUES(" + Request.Form["cmbVersion"] + ", " + dg.DataKeys[ gridItem.ItemIndex ] + " )";
-								
-            //                        Trace.Warn( sql );		
-            //                        db.InsertQry( sql );	
-            //                    }
-            //                }
-            //                catch (SqlException err)
-            //                {
-            //                    Trace.Warn(err.Message + err.Source);
-            //                    ErrorClass.LogError(err, Request.ServerVariables["URL"]);
-            //                    
-            //                }
-            //                catch(Exception err)
-            //                {
-            //                    Trace.Warn(err.Message + err.Source);
-            //                    ErrorClass.LogError(err,Request.ServerVariables["URL"]);
-            //                    
-            //                }
-            //            }
-            //        }
-            //    }
-            //}
-            
-            //db.CloseConnection();
-            ////Update Changes Log
-            ////ContentCommon cc = new ContentCommon();
-            ////cc.LogUpdates("Link Features with version", "VersionId", Request.Form["cmbVersion"].ToString());
+          
 		}
 		
 		///<summary>
@@ -187,55 +104,7 @@ namespace BikeWaleOpr.Content
 		{
             throw new Exception("Method not used/commented");
 
-            //string sql = "";
-						
-            //sql = " SELECT NC.Id AS CategoryId, NC.Name As Category "
-            //    + " FROM NewBikeFeatureCategories NC ";
-			
-            //Trace.Warn(sql);
-			
-            //Database db = new Database();
-			
-            //DataSet ds = new DataSet();
-            //SqlConnection cn = new SqlConnection( db.GetConString() );
-			
-            //try
-            //{
-            //    cn.Open();
-				
-            //    SqlDataAdapter adp = new SqlDataAdapter( sql, cn );
-            //    adp.Fill( ds, "Categories" );
-				
-            //    sql = " SELECT NI.ID, NI.Name Feature, NI.CategoryId AS CategoryId,"
-            //        + " (SELECT FeatureItemId FROM NewBikeFeatures "
-            //        + " 	WHERE FeatureItemId=NI.ID AND BikeVersionId=" + Request.Form["cmbVersion"] + ") IsAvailable" 
-            //        + " FROM NewBikeFeatureItems NI WHERE IsObsolete<>1 AND BikeModelId=" + Request.Form["cmbModel"];
-					
-            //    Trace.Warn("sql : ",sql);
-
-            //    adp = new SqlDataAdapter( sql, cn );
-            //    adp.Fill( ds, "Features" );	
-				
-            //    ds.Relations.Add( 
-            //            "myRelation", 
-            //            ds.Tables["Categories"].Columns["CategoryId"], 
-            //            ds.Tables["Features"].Columns["CategoryId"] 
-            //        );
-					
-            //    rptFeatures.DataSource = ds.Tables["Categories"];	
-            //    rptFeatures.DataBind();
-				
-            //}
-            //catch(Exception err)
-            //{
-            //    Trace.Warn(err.Message + err.Source);
-            //    ErrorClass.LogError(err,Request.ServerVariables["URL"]);
-            //    
-            //}
-            //finally
-            //{
-            //    if ( cn.State == ConnectionState.Open ) cn.Close();
-            //}
+          
 			
 		}
 	} // class

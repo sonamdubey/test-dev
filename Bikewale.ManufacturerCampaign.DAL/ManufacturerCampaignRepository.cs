@@ -31,15 +31,8 @@ namespace Bikewale.ManufacturerCampaign.DAL
             {
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
-                    connection.Open();
-
-
                     var param = new DynamicParameters();
                     manufacturers = connection.Query<ManufacturerEntity>("getdealerasmanufacturer", param: param, commandType: CommandType.StoredProcedure);
-
-
-                    if (connection.State == ConnectionState.Open)
-                        connection.Close();
                 }
             }
             catch (Exception ex)
@@ -63,12 +56,9 @@ namespace Bikewale.ManufacturerCampaign.DAL
             {
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
-                    connection.Open();
                     var param = new DynamicParameters();
                     bikeMakes = connection.Query<BikeMakeEntity>("getmanufacturermakes", param: param, commandType: CommandType.StoredProcedure);
 
-                    if (connection.State == ConnectionState.Open)
-                        connection.Close();
                 }
             }
             catch (Exception ex)
@@ -95,7 +85,6 @@ namespace Bikewale.ManufacturerCampaign.DAL
             {
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
-                    connection.Open();
                     var param = new DynamicParameters();
                     param.Add("par_campaignId", campaignId);
                     param.Add("par_dealerId", dealerId);
@@ -105,8 +94,7 @@ namespace Bikewale.ManufacturerCampaign.DAL
                         objEntity.DealerDetails = results.Read<ManufacturerCampaignDetails>().SingleOrDefault();
                         objEntity.CampaignPages = results.Read<ManufacturerCampaignPages>();
                     }
-                    if (connection.State == ConnectionState.Open)
-                        connection.Close();
+
                 }
             }
             catch (Exception ex)
@@ -127,14 +115,10 @@ namespace Bikewale.ManufacturerCampaign.DAL
             {
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
-                    connection.Open();
                     var param = new DynamicParameters();
                     param.Add("par_campaignId", campaignId);
                     objEntity = new ManufacturerCampaignPopup();
                     objEntity = connection.Query<ManufacturerCampaignPopup>("getmanufacturercampaignpopup", param: param, commandType: CommandType.StoredProcedure).FirstOrDefault();
-
-                    if (connection.State == ConnectionState.Open)
-                        connection.Close();
                 }
             }
             catch (Exception ex)
@@ -156,7 +140,6 @@ namespace Bikewale.ManufacturerCampaign.DAL
             {
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
-                    connection.Open();
                     var param = new DynamicParameters();
                     param.Add("par_campaignid", campaignId);
                     campaign = new CampaignPropertyEntity();
@@ -171,8 +154,6 @@ namespace Bikewale.ManufacturerCampaign.DAL
                         campaign.LeadPriority = results.Read<PriorityEntity>();
                     }
 
-                    if (connection.State == ConnectionState.Open)
-                        connection.Close();
                 }
             }
             catch (Exception ex)
@@ -194,7 +175,6 @@ namespace Bikewale.ManufacturerCampaign.DAL
             {
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
-                    connection.Open();
                     var param = new DynamicParameters();
                     param.Add("par_campaignId", objCampaign.CampaignId);
                     param.Add("par_hasEmiProperties", objCampaign.HasEmiProperties);
@@ -219,8 +199,6 @@ namespace Bikewale.ManufacturerCampaign.DAL
 
                     connection.Query<dynamic>("savemanufacturercampaignproperties_28092017", param: param, commandType: CommandType.StoredProcedure);
 
-                    if (connection.State == ConnectionState.Open)
-                        connection.Close();
                     isSaved = true;
                 }
             }
@@ -241,13 +219,9 @@ namespace Bikewale.ManufacturerCampaign.DAL
             {
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
-                    connection.Open();
                     var param = new DynamicParameters();
                     param.Add("par_makeid", makeId);
                     bikeModels = connection.Query<BikeModelEntity>("getmanufacturermodels", param: param, commandType: CommandType.StoredProcedure);
-
-                    if (connection.State == ConnectionState.Open)
-                        connection.Close();
                 }
             }
             catch (Exception ex)
@@ -267,12 +241,8 @@ namespace Bikewale.ManufacturerCampaign.DAL
             {
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
-                    connection.Open();
                     var param = new DynamicParameters();
                     states = connection.Query<StateEntity>("getstates_20062017", param: param, commandType: CommandType.StoredProcedure);
-
-                    if (connection.State == ConnectionState.Open)
-                        connection.Close();
                 }
             }
             catch (Exception ex)
@@ -292,13 +262,9 @@ namespace Bikewale.ManufacturerCampaign.DAL
             {
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
-                    connection.Open();
                     var param = new DynamicParameters();
                     param.Add("par_stateid", stateId);
                     cities = connection.Query<CityEntity>("getcitiesbystate", param: param, commandType: CommandType.StoredProcedure);
-
-                    if (connection.State == ConnectionState.Open)
-                        connection.Close();
                 }
             }
             catch (Exception ex)
@@ -318,7 +284,6 @@ namespace Bikewale.ManufacturerCampaign.DAL
             {
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
-                    connection.Open();
                     var param = new DynamicParameters();
                     param.Add("par_campaignid", campaignId);
                     mfgRules = new ManufacturerCampaignRulesWrapper();
@@ -327,8 +292,6 @@ namespace Bikewale.ManufacturerCampaign.DAL
                         mfgRules.ManufacturerCampaignRules = results.Read<ManufacturerRuleEntity>();
                         mfgRules.ShowOnExShowroom = results.Read<bool>().SingleOrDefault();
                     }
-                    if (connection.State == ConnectionState.Open)
-                        connection.Close();
                 }
             }
             catch (Exception ex)
@@ -353,7 +316,6 @@ namespace Bikewale.ManufacturerCampaign.DAL
             {
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
-                    connection.Open();
                     var param = new DynamicParameters();
                     param.Add("par_userid", objCampaign.UserId);
                     param.Add("par_dealerid", objCampaign.DealerId);
@@ -377,8 +339,7 @@ namespace Bikewale.ManufacturerCampaign.DAL
                     param.Add("par_campaignid", objCampaign.CampaignId, dbType: DbType.Int32, direction: ParameterDirection.InputOutput);
                     connection.Query<dynamic>("savemanufacturercampaign_08032018", param: param, commandType: CommandType.StoredProcedure);
                     campaignId = (uint)param.Get<int>("par_campaignid");
-                    if (connection.State == ConnectionState.Open)
-                        connection.Close();
+
                 }
             }
             catch (Exception ex)
@@ -396,7 +357,6 @@ namespace Bikewale.ManufacturerCampaign.DAL
             {
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
-                    connection.Open();
                     var param = new DynamicParameters();
                     param.Add("par_campaignid", objCampaign.CampaignId);
                     param.Add("par_PopupHeading", objCampaign.PopupHeading);
@@ -406,9 +366,6 @@ namespace Bikewale.ManufacturerCampaign.DAL
                     param.Add("par_PincodeRequired", objCampaign.PinCodeRequired ? 1 : 0);
                     param.Add("par_DealerRequired", objCampaign.DealerRequired ? 1 : 0);
                     connection.Query<dynamic>("savemanufacturercampaignpopup_28092017", param: param, commandType: CommandType.StoredProcedure);
-
-                    if (connection.State == ConnectionState.Open)
-                        connection.Close();
                 }
             }
             catch (Exception ex)
@@ -429,7 +386,6 @@ namespace Bikewale.ManufacturerCampaign.DAL
             {
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
-                    connection.Open();
                     var param = new DynamicParameters();
                     param.Add("par_campaignid", campaignId);
                     param.Add("par_modelids", modelIds);
@@ -439,8 +395,6 @@ namespace Bikewale.ManufacturerCampaign.DAL
                     param.Add("par_isAllIndia", isAllIndia);
                     connection.Query<dynamic>("savemanufacturercampaignrules_20062017", param: param, commandType: CommandType.StoredProcedure);
                     isSuccess = true;
-                    if (connection.State == ConnectionState.Open)
-                        connection.Close();
                 }
 
             }
@@ -463,7 +417,6 @@ namespace Bikewale.ManufacturerCampaign.DAL
 
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
-                    connection.Open();
                     var param = new DynamicParameters();
                     param.Add("par_campaignid", campaignId);
                     param.Add("par_modelid", modelId);
@@ -473,8 +426,6 @@ namespace Bikewale.ManufacturerCampaign.DAL
                     param.Add("par_isAllIndia", isAllIndia);
                     connection.Query<dynamic>("deletemanufacturercampaignrules_20062017", param: param, commandType: CommandType.StoredProcedure);
                     isSuccess = true;
-                    if (connection.State == ConnectionState.Open)
-                        connection.Close();
                 }
             }
             catch (Exception ex)
@@ -596,7 +547,6 @@ namespace Bikewale.ManufacturerCampaign.DAL
             {
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
-                    connection.Open();
                     var param = new DynamicParameters();
                     param.Add("par_dealerid", dealerid);
                     param.Add("par_pqid", pqId);
@@ -612,8 +562,6 @@ namespace Bikewale.ManufacturerCampaign.DAL
                     param.Add("par_leadId", leadId, direction: ParameterDirection.InputOutput);
                     connection.Execute("savemanufacturerpqlead", param: param, commandType: CommandType.StoredProcedure);
                     retLeadId = param.Get<UInt32>("par_leadId");
-                    if (connection.State == ConnectionState.Open)
-                        connection.Close();
                 }
             }
             catch (Exception ex)
@@ -638,13 +586,10 @@ namespace Bikewale.ManufacturerCampaign.DAL
             {
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
-                    connection.Open();
                     var param = new DynamicParameters();
                     param.Add("par_campaignid", campaignId);
                     param.Add("par_userId", userId);
                     connection.Execute("resetmanufacturerleadcount", param: param, commandType: CommandType.StoredProcedure);
-                    if (connection.State == ConnectionState.Open)
-                        connection.Close();
                     isSuccess = true;
                 }
             }

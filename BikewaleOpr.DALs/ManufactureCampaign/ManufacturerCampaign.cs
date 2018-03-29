@@ -35,7 +35,6 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
             {
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
-                    connection.Open();
 
                     var param = new DynamicParameters();
 
@@ -43,8 +42,6 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
                     param.Add("par_allactivecampaign", allActiveCampaign);
                     dtManufactureCampaigns = connection.Query<ManufacturerCampaignDetailsList>("getmanufacturecampaignsdetails_08032018", param: param, commandType: CommandType.StoredProcedure);
 
-                    if (connection.State == ConnectionState.Open)
-                        connection.Close();
                 }
             }
             catch (Exception ex)
@@ -143,8 +140,6 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
             {
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
-                    connection.Open();
-
                     var param = new DynamicParameters();
 
                     param.Add("par_campaignid", campaignId);
@@ -152,8 +147,6 @@ namespace BikewaleOpr.DALs.ManufactureCampaign
 
                     isSuccess= connection.Execute("updatemanufacturercampaignstatus", param: param, commandType: CommandType.StoredProcedure);
 
-                    if (connection.State == ConnectionState.Open)
-                        connection.Close();
                 }
                 
             }

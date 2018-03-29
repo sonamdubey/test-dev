@@ -22,7 +22,7 @@ namespace Bikewale.DAL.PriceQuote
     /// Description :   Implemented newly added method of IPriceQuote interface
     /// </summary>
     public class PriceQuoteRepository : IPriceQuote
-    {
+    {        
         /// <summary>
         /// Summary : function to save the price quote.
         /// Modified By : Sadhana Upadhyay on 24th Oct 2014
