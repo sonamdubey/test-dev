@@ -49,9 +49,8 @@ namespace Bikewale.Common
                 }
                 catch (Exception ex)
                 {
-                    HttpContext.Current.Response.Cookies["DesktopDetected"].Value = "1";
-                    HttpContext.Current.Response.Cookies["DesktopDetected"].Expires = DateTime.Now.AddDays(1);
-                    ThreadContext.Properties["DeviceDetectionHandled"] = true;
+
+                    ThreadContext.Properties["UserAgent"] = HttpContext.Current.Request.ServerVariables["HTTP_USER_AGENT"];
                     _log.Error(ex);
                 }
             }
