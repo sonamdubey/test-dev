@@ -2642,7 +2642,7 @@ namespace Bikewale.DAL.BikeData
                                         LaunchedOn = SqlReaderConvertor.ToDateTime(dr["LaunchDate"]),
                                         Price = SqlReaderConvertor.ToUInt32(dr["Price"]),
                                         BodyStyleId = SqlReaderConvertor.ToUInt32(dr["BodyStyleId"]),
-                                        VersionId = Convert.ToInt32(dr["TopVersionId"])
+                                        VersionId = SqlReaderConvertor.ToInt32(dr["TopVersionId"])
                             }
                                 );
                             }
@@ -2724,7 +2724,7 @@ namespace Bikewale.DAL.BikeData
                                         ExshowroomPrice = SqlReaderConvertor.ToUInt32(dr["ExshowroomPrice"]),
                                         VersionPrice = SqlReaderConvertor.ToUInt32(dr["VersionPrice"]),
                                         BodyStyleId = SqlReaderConvertor.ToUInt32(dr["BodyStyleId"]),
-                                        VersionId = Convert.ToInt32(dr["TopVersionId"])
+                                        VersionId = SqlReaderConvertor.ToInt32(dr["TopVersionId"])
                                     }
                                 );
                             }

@@ -66,11 +66,12 @@ namespace Bikewale.Models
             {
                 IEnumerable<NewLaunchedBikeEntityBase> newLaunchesList = objData.Bikes;
                 var versionMinSpecs = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(newLaunchesList.Select(m => m.VersionId)).GetEnumerator();
+                VersionMinSpecsEntity minSpecs;
                 foreach (var bike in newLaunchesList)
                 {
                     if (versionMinSpecs.MoveNext())
                     {
-                        VersionMinSpecsEntity minSpecs = versionMinSpecs.Current;
+                        minSpecs = versionMinSpecs.Current;
                         bike.MinSpecsList = minSpecs.MinSpecsList;
                     }
                 }

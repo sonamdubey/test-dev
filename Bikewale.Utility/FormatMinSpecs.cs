@@ -114,9 +114,9 @@ namespace Bikewale.Utility
                     return "Specs Unavailable";
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                return string.Empty;
             }
         }
 
