@@ -265,12 +265,12 @@ namespace Bikewale.DAL.BikeData
                             {
                                 objMinSpecs.Add(new BikeVersionMinSpecs()
                                 {
-                                    VersionId = Convert.ToInt32(dr["ID"]),
+                                    VersionId = SqlReaderConvertor.ToInt32(dr["ID"]),
                                     VersionName = Convert.ToString(dr["Version"]),
                                     ModelName = Convert.ToString(dr["Model"]),
-                                    Price = Convert.ToUInt64(dr["VersionPrice"]),
-                                    AverageExShowroom = Convert.ToUInt32(dr["AverageExShowroom"]),
-                                    BodyStyle = (EnumBikeBodyStyles)Convert.ToUInt16(dr["BodyStyleId"]),
+                                    Price = SqlReaderConvertor.ToUInt64(dr["VersionPrice"]),
+                                    AverageExShowroom = SqlReaderConvertor.ToUInt32(dr["AverageExShowroom"]),
+                                    BodyStyle = (EnumBikeBodyStyles)SqlReaderConvertor.ToUInt16(dr["BodyStyleId"]),
                                     HostUrl = Convert.ToString(dr["HostURL"]),
                                     OriginalImagePath = Convert.ToString(dr["OriginalImagePath"])
                                 });
@@ -319,13 +319,13 @@ namespace Bikewale.DAL.BikeData
                             {
                                 BikeVersionMinSpecs objBikeVersion = new BikeVersionMinSpecs
                                 {
-                                    VersionId = Convert.ToInt32(dr["VersionId"]),
+                                    VersionId = SqlReaderConvertor.ToInt32(dr["VersionId"]),
                                     VersionName = Convert.ToString(dr["VersionName"]),
                                     ModelName = Convert.ToString(dr["ModelName"]),
-                                    Price = Convert.ToUInt32(dr["Price"]),
+                                    Price = SqlReaderConvertor.ToUInt32(dr["Price"]),
                                     HostUrl = Convert.ToString(dr["HostURL"]),
                                     OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]),
-                                    BodyStyle = (EnumBikeBodyStyles)Convert.ToInt32(dr["BodyStyle"])
+                                    BodyStyle = (EnumBikeBodyStyles)SqlReaderConvertor.ToInt32(dr["BodyStyle"])
                                 };
                                 objMinSpecs.Add(objBikeVersion);
                             }

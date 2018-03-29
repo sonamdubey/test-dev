@@ -23,14 +23,14 @@ namespace Bikewale.Service.AutoMappers.BikeData
                     objVersion.Price = objVersionMinSpec.Price;
                     if (objVersionMinSpec.MinSpecsList != null)
                     {
-                        SpecsItem specsItem = objVersionMinSpec.MinSpecsList.Where(specItem => specItem.Id.Equals((int)EnumSpecsFeaturesItem.BrakeType)).FirstOrDefault();
+                        SpecsItem specsItem = objVersionMinSpec.MinSpecsList.FirstOrDefault(specItem => specItem.Id.Equals((int)EnumSpecsFeaturesItem.BrakeType));
                         if (specsItem != null)
                         {
                             objVersion.BrakeType = specsItem.Value;
                         }
-                        objVersion.AlloyWheels = CheckBoolSpecItem(objVersionMinSpec.MinSpecsList.Where(specItem => specItem.Id.Equals((int)EnumSpecsFeaturesItem.AlloyWheels)).FirstOrDefault());
-                        objVersion.ElectricStart = CheckBoolSpecItem(objVersionMinSpec.MinSpecsList.Where(specItem => specItem.Id.Equals((int)EnumSpecsFeaturesItem.ElectricStart)).FirstOrDefault());
-                        objVersion.AntilockBrakingSystem = CheckBoolSpecItem(objVersionMinSpec.MinSpecsList.Where(specItem => specItem.Id.Equals((int)EnumSpecsFeaturesItem.AntilockBrakingSystem)).FirstOrDefault());
+                        objVersion.AlloyWheels = CheckBoolSpecItem(objVersionMinSpec.MinSpecsList.FirstOrDefault(specItem => specItem.Id.Equals((int)EnumSpecsFeaturesItem.AlloyWheels)));
+                        objVersion.ElectricStart = CheckBoolSpecItem(objVersionMinSpec.MinSpecsList.FirstOrDefault(specItem => specItem.Id.Equals((int)EnumSpecsFeaturesItem.ElectricStart)));
+                        objVersion.AntilockBrakingSystem = CheckBoolSpecItem(objVersionMinSpec.MinSpecsList.FirstOrDefault(specItem => specItem.Id.Equals((int)EnumSpecsFeaturesItem.AntilockBrakingSystem)));
                     }
                     return objVersion;
                 }
@@ -54,14 +54,14 @@ namespace Bikewale.Service.AutoMappers.BikeData
                     objVersionDetail.Price = objVersionMinSpec.Price;
                     if (objVersionMinSpec.MinSpecsList != null)
                     {
-                        SpecsItem specsItem = objVersionMinSpec.MinSpecsList.Where(specItem => specItem.Id.Equals((int)EnumSpecsFeaturesItem.BrakeType)).FirstOrDefault();
+                        SpecsItem specsItem = objVersionMinSpec.MinSpecsList.FirstOrDefault(specItem => specItem.Id.Equals((int)EnumSpecsFeaturesItem.BrakeType));
                         if (specsItem != null)
                         {
                             objVersionDetail.BrakeType = specsItem.Value;
                         }
-                        objVersionDetail.AlloyWheels = CheckBoolSpecItem(objVersionMinSpec.MinSpecsList.Where(specItem => specItem.Id.Equals((int)EnumSpecsFeaturesItem.AlloyWheels)).FirstOrDefault());
-                        objVersionDetail.ElectricStart = CheckBoolSpecItem(objVersionMinSpec.MinSpecsList.Where(specItem => specItem.Id.Equals((int)EnumSpecsFeaturesItem.ElectricStart)).FirstOrDefault());
-                        objVersionDetail.AntilockBrakingSystem = CheckBoolSpecItem(objVersionMinSpec.MinSpecsList.Where(specItem => specItem.Id.Equals((int)EnumSpecsFeaturesItem.AntilockBrakingSystem)).FirstOrDefault());
+                        objVersionDetail.AlloyWheels = CheckBoolSpecItem(objVersionMinSpec.MinSpecsList.FirstOrDefault(specItem => specItem.Id.Equals((int)EnumSpecsFeaturesItem.AlloyWheels)));
+                        objVersionDetail.ElectricStart = CheckBoolSpecItem(objVersionMinSpec.MinSpecsList.FirstOrDefault(specItem => specItem.Id.Equals((int)EnumSpecsFeaturesItem.ElectricStart)));
+                        objVersionDetail.AntilockBrakingSystem = CheckBoolSpecItem(objVersionMinSpec.MinSpecsList.FirstOrDefault(specItem => specItem.Id.Equals((int)EnumSpecsFeaturesItem.AntilockBrakingSystem)));
                     }
                     return objVersionDetail;
                 }
