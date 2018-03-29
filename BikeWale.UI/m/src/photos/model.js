@@ -124,6 +124,11 @@ var ImageGrid = (function () {
 			$('#galleryLoader').hide();
 			triggerGalleryImageChangeGA = false;
 			mainGallerySwiper.slideTo(imageIndex);
+
+			if (imageIndex == 3) {
+			    vmModelGallery.colorSlug().activeSlug(false);
+			    vmModelGallery.activeContinueSlug(false);
+			}
 		});
 
 		$('.color-type-prev').on('click', function (e) {

@@ -480,7 +480,7 @@ var ColorGallerySwiper = (function () {
 			nextButton: '#mainColorSwiper .color-type-next',
 			prevButton: '#mainColorSwiper .color-type-prev',
 			onInit: function (swiper) {
-				SwiperEvents.setDetails(swiper, vmModelGallery.colorPopup().colorSwiper());
+			    SwiperEvents.setDetails(swiper, vmModelGallery.colorPopup().colorSwiper());
 			},
 
 			onTap: function (swiper, event) {
