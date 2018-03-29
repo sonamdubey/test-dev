@@ -477,11 +477,14 @@ namespace Bikewale.Utility
             StringBuilder builder = new StringBuilder();
             try
             {
-                foreach (var specItem in specsItemList)
+                if (specsItemList != null)
                 {
-                    if (!string.IsNullOrEmpty(specItem.Value))
+                    foreach (var specItem in specsItemList)
                     {
-                        builder.AppendFormat("{0} {1}, ", specItem.Value, specItem.UnitType);
+                        if (!string.IsNullOrEmpty(specItem.Value))
+                        {
+                            builder.AppendFormat("{0} {1}, ", specItem.Value, specItem.UnitType);
+                        }
                     }
                 }
                 if (builder.Length > 0)
@@ -494,9 +497,9 @@ namespace Bikewale.Utility
                     return "Specs Unavailable";
                 }
             }
-            catch(Exception ex)
+            catch(Exception)
             {
-                throw ex;
+                return string.Empty;
             }
         }
 

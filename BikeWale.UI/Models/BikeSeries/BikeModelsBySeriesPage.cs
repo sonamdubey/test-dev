@@ -38,11 +38,12 @@ namespace Bikewale.Models.BikeSeries
                                                                                 EnumSpecsFeaturesItem.Displacement,
                                                                                 EnumSpecsFeaturesItem.FuelEfficiencyOverall,
                                                                                 EnumSpecsFeaturesItem.MaxPower}).GetEnumerator();
+                    VersionMinSpecsEntity minSpecs;
                     foreach (var seriesBike in newBikeList)
                     {
                         if (versionMinSpecs.MoveNext())
                         {
-                            VersionMinSpecsEntity minSpecs = versionMinSpecs.Current;
+                            minSpecs = versionMinSpecs.Current;
                             seriesBike.MinSpecsList = minSpecs.MinSpecsList;
                         }
                     }
