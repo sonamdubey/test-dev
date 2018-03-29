@@ -469,5 +469,43 @@ namespace Bikewale.Utility
 				return "Specs Unavailable";
 			}
 		}
-	}
+
+        /// <summary>
+        /// Created by : Pratibha Verma on 28 Mar 2018
+        /// Description : Method to format specs items.
+        /// </summary>
+        /// <param name="specsItemList">List of Specs Items.</param>
+        /// <returns>String containing comma separated specs items in span elements.</returns>
+        public static string GetMinSpecsAsText(IEnumerable<SpecsItem> specsItemList)
+        {
+            StringBuilder builder = new StringBuilder();
+            try
+            {
+                if (specsItemList != null)
+                {
+                    foreach (var specItem in specsItemList)
+                    {
+                        if (!string.IsNullOrEmpty(specItem.Value))
+                        {
+                            builder.AppendFormat("{0} {1}, ", specItem.Value, specItem.UnitType);
+                        }
+                    }
+                }
+                if (builder.Length > 0)
+                {
+                    builder.Remove(builder.Length - 2, 2);
+                    return builder.ToString();
+                }
+                else
+                {
+                    return "Specs Unavailable";
+                }
+            }
+            catch(Exception)
+            {
+                return string.Empty;
+            }
+        }
+
+    }
 }

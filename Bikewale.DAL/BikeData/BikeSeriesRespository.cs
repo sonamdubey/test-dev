@@ -70,13 +70,6 @@ namespace Bikewale.DAL.BikeData
                                         HostUrl = Convert.ToString(dr["HostUrl"]),
                                         OriginalImagePath = Convert.ToString(dr["OriginalImagePath"])
                                     },
-                                    MinSpecs = new MinSpecsEntity()
-                                    {
-                                        Displacement = SqlReaderConvertor.ToFloat(dr["Displacement"]),
-                                        FuelEfficiencyOverall = SqlReaderConvertor.ToUInt16(dr["FuelEfficiencyOverall"]),
-                                        MaxPower = SqlReaderConvertor.ToFloat(dr["MaxPower"]),
-                                        KerbWeight = SqlReaderConvertor.ToUInt16(dr["KerbWeight"])
-                                    },
                                     Rating = SqlReaderConvertor.ToFloat(dr["Rating"]),
                                     BodyStyle = SqlReaderConvertor.ToUInt16(dr["BodyStyleId"]),
                                     objVersion = new BikeVersionsListEntity()
