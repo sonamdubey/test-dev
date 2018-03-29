@@ -2595,6 +2595,8 @@ namespace Bikewale.DAL.BikeData
         /// Description :   Returns New bikes launched
         /// Modified by:- Subodh jain 09 march 2017
         ///summary :-  Added body type filter
+        /// Modified by : Pratibha Verma on 28 Mar 2018
+        /// Description : Replaced sp with `getnewlaunchedbikes_28032018`
         /// </summary>
         /// <returns></returns>
         public IEnumerable<NewLaunchedBikeEntityBase> GetNewLaunchedBikesList()
@@ -2605,7 +2607,7 @@ namespace Bikewale.DAL.BikeData
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "getnewlaunchedbikes_09032017";
+                    cmd.CommandText = "getnewlaunchedbikes_28032018";
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null)
@@ -2631,15 +2633,6 @@ namespace Bikewale.DAL.BikeData
                                             MaskingName = Convert.ToString(dr["modelmaskingname"])
                                         },
 
-                                        MinSpecs = new MinSpecsEntity()
-                                        {
-                                            Displacement = SqlReaderConvertor.ToNullableFloat(dr["Displacement"]),
-                                            FuelEfficiencyOverall = SqlReaderConvertor.ToNullableUInt16(dr["FuelEfficiencyOverall"]),
-                                            MaxPower = SqlReaderConvertor.ToNullableFloat(dr["maxpower"]),
-                                            MaximumTorque = SqlReaderConvertor.ToNullableFloat(dr["MaximumTorque"]),
-                                            KerbWeight = SqlReaderConvertor.ToNullableUInt16(dr["KerbWeight"])
-                                        },
-
                                         HostUrl = Convert.ToString(dr["hosturl"]),
                                         OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]),
                                         ReviewCount = SqlReaderConvertor.ToUInt32(dr["reviewcount"]),
@@ -2648,8 +2641,9 @@ namespace Bikewale.DAL.BikeData
                                         MaxPrice = SqlReaderConvertor.ToUInt32(dr["maxprice"]),
                                         LaunchedOn = SqlReaderConvertor.ToDateTime(dr["LaunchDate"]),
                                         Price = SqlReaderConvertor.ToUInt32(dr["Price"]),
-                                        BodyStyleId = SqlReaderConvertor.ToUInt32(dr["BodyStyleId"])
-                                    }
+                                        BodyStyleId = SqlReaderConvertor.ToUInt32(dr["BodyStyleId"]),
+                                        VersionId = SqlReaderConvertor.ToInt32(dr["TopVersionId"])
+                            }
                                 );
                             }
                             dr.Close();
@@ -2672,6 +2666,8 @@ namespace Bikewale.DAL.BikeData
         ///summary :-  Added body type filter
         /// Modified by : Sanskar Gupta on 12 Feb 2018
         /// Description : Changed SP to `getnewlaunchedbikesbycity_12022018`
+        /// Modified by : Pratibha Verma on 28 Mar 2018
+        /// Description : Replaced sp with `getnewlaunchedbikesbycity_28032018`
         /// </summary>
         /// <param name="cityId"></param>
         /// <returns></returns>
@@ -2683,7 +2679,7 @@ namespace Bikewale.DAL.BikeData
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "getnewlaunchedbikesbycity_12022018";
+                    cmd.CommandText = "getnewlaunchedbikesbycity_28032018";
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int16, cityId));
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
@@ -2710,15 +2706,6 @@ namespace Bikewale.DAL.BikeData
                                             MaskingName = Convert.ToString(dr["modelmaskingname"])
                                         },
 
-                                        MinSpecs = new MinSpecsEntity()
-                                        {
-                                            Displacement = SqlReaderConvertor.ToNullableFloat(dr["Displacement"]),
-                                            FuelEfficiencyOverall = SqlReaderConvertor.ToNullableUInt16(dr["FuelEfficiencyOverall"]),
-                                            MaxPower = SqlReaderConvertor.ToNullableFloat(dr["maxpower"]),
-                                            MaximumTorque = SqlReaderConvertor.ToNullableFloat(dr["MaximumTorque"]),
-                                            KerbWeight = SqlReaderConvertor.ToNullableUInt16(dr["KerbWeight"])
-                                        },
-
                                         HostUrl = Convert.ToString(dr["hosturl"]),
                                         OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]),
                                         ReviewCount = SqlReaderConvertor.ToUInt32(dr["reviewcount"]),
@@ -2736,7 +2723,8 @@ namespace Bikewale.DAL.BikeData
                                         AvgPrice = SqlReaderConvertor.ToUInt32(dr["AvgPrice"]),
                                         ExshowroomPrice = SqlReaderConvertor.ToUInt32(dr["ExshowroomPrice"]),
                                         VersionPrice = SqlReaderConvertor.ToUInt32(dr["VersionPrice"]),
-                                        BodyStyleId = SqlReaderConvertor.ToUInt32(dr["BodyStyleId"])
+                                        BodyStyleId = SqlReaderConvertor.ToUInt32(dr["BodyStyleId"]),
+                                        VersionId = SqlReaderConvertor.ToInt32(dr["TopVersionId"])
                                     }
                                 );
                             }
