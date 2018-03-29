@@ -283,6 +283,9 @@ docReady(function () {
 
 				vmModelGallery.colorPopup().openPopup();
 				colorGallerySwiper.slideTo(activeIndex);
+				Scroll.lock();
+				$('body').addClass('scroll-lock--color');
+				ColorGallerySwiper.handleThumbnailSwiper(colorThumbnailGallerySwiper);
 			}
 		},
 		onSlideChangeStart: function (swiper) {
