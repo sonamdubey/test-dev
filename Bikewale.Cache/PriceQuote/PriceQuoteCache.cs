@@ -3,6 +3,8 @@ using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Notifications;
+using Bikewale.Utility;
+using log4net;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +18,8 @@ namespace Bikewale.Cache.PriceQuote
         private readonly IPriceQuote _obPriceQuote = null;
         private readonly Bikewale.Interfaces.BikeBooking.IDealerPriceQuote _dealerPQRepository = null;
         private readonly Bikewale.Interfaces.AutoBiz.IDealerPriceQuote _objDealerPriceQuote = null;
+
+        private static readonly ILog _logger = LogManager.GetLogger(typeof(PriceQuoteCache));
         public PriceQuoteCache(ICacheManager cache, IPriceQuote obPriceQuote, Bikewale.Interfaces.BikeBooking.IDealerPriceQuote dealerPQRepository, Bikewale.Interfaces.AutoBiz.IDealerPriceQuote objDealerPriceQuote)
         {
             _cache = cache;
@@ -154,6 +158,60 @@ namespace Bikewale.Cache.PriceQuote
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, String.Format("PriceQuoteCache.GetDealerPriceQuoteByPackageV2({0},{1},{2},{3})", objParams.DealerId, objParams.VersionId, objParams.CityId, objParams.AreaId));
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 29 Mar 2018
+        /// Description :   Get Manufacturer Campaign Mobile Rendered Template from memcache
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="leadCampaign"></param>
+        /// <returns></returns>
+        public string GetManufacturerCampaignMobileRenderedTemplate(string key, Entities.manufacturecampaign.ManufactureCampaignLeadEntity leadCampaign)
+        {
+            try
+            {
+                string htmlTemplate = _cache.GetFromCache<string>(key, new TimeSpan(24, 0, 0), () => GetRenderMobileTemplate(leadCampaign));
+                return htmlTemplate;
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, String.Format("GetManufacturerCampaignMobileRenderedTemplate()", leadCampaign.CampaignId));
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 29 Mar 2018
+        /// Description :   GetRenderMobileTemplate using MvcHelper class
+        /// </summary>
+        /// <param name="leadCampaign"></param>
+        /// <returns></returns>
+        private string GetRenderMobileTemplate(Entities.manufacturecampaign.ManufactureCampaignLeadEntity leadCampaign)
+        {
+            try
+            {
+                var contextProps = ThreadContext.Properties;
+                DateTime dt1 = DateTime.Now;
+                //string template = MvcHelper.GetRenderedContent(string.Format("LeadCampaign_{0}", leadCampaign.CampaignId), leadCampaign.LeadsHtmlMobile, leadCampaign);
+                DateTime dt2 = DateTime.Now;
+
+                //contextProps["GetRenderedContent"] = (dt2 - dt1).TotalMilliseconds;
+
+                dt1 = DateTime.Now;
+                string template = template = MvcHelper.Render(string.Format("LeadCampaign_{0}", leadCampaign.CampaignId), leadCampaign, leadCampaign.LeadsHtmlMobile);
+                dt2 = DateTime.Now;
+
+                contextProps["Render"] = (dt2 - dt1).TotalMilliseconds;
+
+                _logger.Error(String.Format("Cache Miss - GetRenderMobileTemplate {0}", leadCampaign.CampaignId));
+                return template;
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, String.Format("GetManufacturerCampaignMobileRenderedTemplate()", leadCampaign.CampaignId));
             }
             return null;
         }
