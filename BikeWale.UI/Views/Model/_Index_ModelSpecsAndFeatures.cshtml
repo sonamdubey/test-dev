@@ -21,7 +21,7 @@
                             <span class="bwsprite accordion-angle-icon"></span>
                         </div>
                         <div class="specs-features-list">
-                            <div class="grid-6 text-light-grey">
+                            <div class="grid-6">
                                 @{
                                     isCategoryActive = false;
                                     var firstGridSpecsCount = (category.SpecsItemList.Count() + 1) / 2;
@@ -32,16 +32,18 @@
                                     <p @Html.Raw(itemValue.Length > 30 ? string.Format("title=\"{0}\"", itemValue) :"")>
                                         <span>@item.DisplayText</span>
                                         <span>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(itemValue, item.UnitTypeText)</span>
+
                                     </p>
                                 }
                             </div>
-                            <div class="grid-6 text-light-grey">
+                            <div class="grid-6">
                                 @foreach (var item in category.SpecsItemList.Skip(firstGridSpecsCount))
                                 {
                                     itemValue = item.ItemValues.FirstOrDefault();
                                     <p @Html.Raw(itemValue.Length > 30 ? string.Format("title=\"{0}\"", itemValue) : "")>
                                         <span>@item.DisplayText</span>
                                         <span>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(item.ItemValues.FirstOrDefault(), item.UnitTypeText)</span>
+
                                     </p>
                                 }
                             </div>

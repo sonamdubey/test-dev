@@ -380,6 +380,7 @@
     <Compile Include="MobileVerification\MobileVerificationEntity.cs" />
     <Compile Include="MobileVerification\SMSData.cs" />
     <Compile Include="Models\AdSlotEntity.cs" />
+    <Compile Include="Models\AdSlotModel.cs" />
     <Compile Include="Models\AdTags.cs" />
     <Compile Include="Models\AmpJsTags.cs" />
     <Compile Include="Models\BreadCrumb.cs" />

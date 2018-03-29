@@ -155,27 +155,27 @@
                          { %>
                             <% var firstGridSpecsCount = (specCat.SpecsItemList.Count() + 1) / 2;
                             %>
-                            <h3 class="padding-left20"><%=specCat.DisplayText %></h3>
-                            <div class="grid-6 padding-left20 text-light-grey">
+                            <h3 class="specs-feature__category-name"><%=specCat.DisplayText %></h3>
+                            <div class="grid-6">
                                 <% foreach (var specItem in specCat.SpecsItemList.Take(firstGridSpecsCount))
                                     {
                                         itemValue = specItem.ItemValues.FirstOrDefault();
                                           %>
                                            <p>
-                                                <span><%=specItem.DisplayText%></span>
-                                                <span><%=Bikewale.Utility.FormatMinSpecs.ShowAvailable(itemValue,specItem.UnitTypeText)%></span>
+                                                <span class="specs-features-item__content text-light-grey"><%=specItem.DisplayText%></span>
+                                                <span class="specs-features-item__content text-bold"><%=Bikewale.Utility.FormatMinSpecs.ShowAvailable(itemValue,specItem.UnitTypeText)%></span>
                                             </p>
                                 <% } %>
                             </div>
                        
-                            <div class="grid-6 padding-left30 text-light-grey">
+                            <div class="grid-6">
                                 <% foreach (var specItem in specCat.SpecsItemList.Skip(firstGridSpecsCount))
                                     {
                                         itemValue = specItem.ItemValues.FirstOrDefault();
                                         %>
                                          <p>
-                                            <span><%=specItem.DisplayText %></span>
-                                            <span><%=Bikewale.Utility.FormatMinSpecs.ShowAvailable(itemValue,specItem.UnitTypeText)%></span>
+                                            <span class="specs-features-item__content text-light-grey"><%=specItem.DisplayText %></span>
+                                            <span class="specs-features-item__content text-bold"><%=Bikewale.Utility.FormatMinSpecs.ShowAvailable(itemValue,specItem.UnitTypeText)%></span>
                                          </p>
                                 <% } %>
                             </div>
@@ -194,10 +194,10 @@
                             {
                                 featureValue = feature.ItemValues.FirstOrDefault();
                                 %>
-                            <div class="grid-6 padding-left20 text-light-grey">
+                            <div class="grid-6">
                                         <p>
-                                            <span><%=feature.DisplayText %></span>
-                                            <span><%=Bikewale.Utility.FormatMinSpecs.ShowAvailable(featureValue,feature.UnitTypeText) %></span>
+                                            <span class="specs-features-item__content text-light-grey"><%=feature.DisplayText %></span>
+                                            <span class="specs-features-item__content text-bold"><%=Bikewale.Utility.FormatMinSpecs.ShowAvailable(featureValue,feature.UnitTypeText) %></span>
                                          </p>
                             </div>
                         <% } %>
@@ -205,10 +205,10 @@
                             {
                                 featureValue = feature.ItemValues.FirstOrDefault();
                                 %>
-                            <div class="grid-6 padding-left30 text-light-grey">
+                            <div class="grid-6">
                                         <p>
-                                            <span><%=feature.DisplayText %></span>
-                                            <span><%=Bikewale.Utility.FormatMinSpecs.ShowAvailable(featureValue,feature.UnitTypeText) %></span>
+                                            <span class="specs-features-item__content text-light-grey"><%=feature.DisplayText %></span>
+                                            <span class="specs-features-item__content text-bold"><%=Bikewale.Utility.FormatMinSpecs.ShowAvailable(featureValue,feature.UnitTypeText) %></span>
                                          </p>
                             </div>
                         <% } %>
@@ -241,7 +241,7 @@
                                         <div class="card-desc-block">
                                             <p class="bikeTitle"><%= string.Format("{0} {1}", bike.MakeBase.MakeName, bike.ModelBase.ModelName) %></p>
                                             <p class="text-xt-light-grey margin-bottom10">
-                                                <%= Bikewale.Utility.FormatMinSpecs.GetMinSpecs(Convert.ToString(bike.Displacement), Convert.ToString(bike.FuelEfficiencyOverall), Convert.ToString(bike.MaxPower), Convert.ToString(bike.KerbWeight)) %>
+                                                <%= Bikewale.Utility.FormatMinSpecs.GetMinSpecsSpanElements(bike.MinSpecsList) %>
                                             </p>
 
                                             <% if (bike.VersionPrice == 0 && bike.AvgExShowroomPrice == 0)

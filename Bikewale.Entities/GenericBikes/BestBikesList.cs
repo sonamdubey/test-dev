@@ -1,6 +1,7 @@
 ﻿using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Location;
 using System;
+using System.Collections.Generic;
 
 namespace Bikewale.Entities.GenericBikes
 {
@@ -19,6 +20,8 @@ namespace Bikewale.Entities.GenericBikes
     /// Description : Added AvgPrice.
     /// Modified by : Snehal Dange on 24th Nov 2017
     /// Description: Added EnumBikeBodyStyles
+    /// Modified by : Pratibha Verma on 27 Mar 2018
+    /// Description : Added SpecsItem entity and Removed MinSpecs entity
     /// </summary>
     [Serializable]
     public class BestBikeEntityBase //: BasicBikeEntityBase
@@ -26,7 +29,6 @@ namespace Bikewale.Entities.GenericBikes
         public string BikeName { get; set; }
         public uint TotalVersions { get; set; }
         public uint TotalModelColors { get; set; }
-        public MinSpecsEntity MinSpecs { get; set; }
         public DateTime? LaunchDate { get; set; }
         public uint UnitsSold { get; set; }
         public uint PhotosCount { get; set; }
@@ -50,5 +52,7 @@ namespace Bikewale.Entities.GenericBikes
         public bool IsUpcoming { get; set; }
         public uint OnRoadPriceInCity { get; set; }
         public EnumBikeBodyStyles? CurrentPage { get; set; }
+        public int VersionId { get; set; }
+        public IEnumerable<SpecsItem> MinSpecsList { get; set; } 
     }
 }

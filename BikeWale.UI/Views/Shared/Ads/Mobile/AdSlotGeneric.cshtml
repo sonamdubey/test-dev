@@ -1,0 +1,8 @@
+﻿@model Bikewale.Models.AdSlotModel
+
+@{ var loadImmediate = Model.LoadImmediate ? "true" : "false"; }
+<div id='div-gpt-ad-@string.Format("{0}-{1}", Model.AdId, Model.DivId)' class="margin-bottom15 text-center" style="width:@string.Format("{0}", Model.Width)px; margin:0 auto;" data-load-immediate="@loadImmediate">
+    <script type='text/javascript'>
+        googletag.cmd.push(function () { googletag.display('div-gpt-ad-@string.Format("{0}-{1}", Model.AdId, Model.DivId)'); });
+    </script>
+</div>
