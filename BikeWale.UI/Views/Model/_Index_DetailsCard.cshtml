@@ -70,7 +70,7 @@
 
     @if (Model.AdTags.Ad_Model_BTF_970x90)
     {
-        <div class="margin-top10">
+        <div class="margin-bottom15 margin-top10 text-center">
             @{Html.RenderPartial("/Views/Shared/Ads/Desktop/AdSlotGeneric.cshtml", Model.AdSlots[String.Format("{0}-12", Model.AdTags.AdId)]);}
         </div>
     }
@@ -221,7 +221,7 @@
      }
      @if (Model.AdTags.Ad_Model_Bottom_970x90)
      {
-        <div class="margin-top10">
+        <div class="margin-bottom15 margin-top10 text-center">
             @{Html.RenderPartial("/Views/Shared/Ads/Desktop/AdSlotGeneric.cshtml", Model.AdSlots[String.Format("{0}-20", Model.AdTags.AdId)]);}
         </div>
      }
