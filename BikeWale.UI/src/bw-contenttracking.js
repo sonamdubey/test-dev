@@ -34,16 +34,21 @@
         },
 
         contentFlow: function (percentage, basicId, eventLabel, eventCategory) {
+            var j = 0;
             for (var i = ContentTracking.trackList.length - 1; i >= 0 ; i--) {
-                var checkpoint = ContentTracking.trackList[i];
-                if (checkpoint <= percentage) {
-                    if (!ContentTracking.trackingStatus[basicId][checkpoint]) {
-                        ContentTracking.trackingStatus[basicId][checkpoint] = true;
-                        var eventAction = checkpoint === 0 ? "Page_Load" : checkpoint.toString() + "_Viewed" ;
-                        triggerGA(eventCategory, eventAction, eventLabel);
-                    }
+                if (ContentTracking.trackList[i] <= percentage && !ContentTracking.trackingStatus[basicId][checkpoint]) {
+                    j = i;
+                    break;
                 }
             }
+            for (var i = j; i >= 0; i--) {
+                var checkpoint = ContentTracking.trackList[i];
+                if (!ContentTracking.trackingStatus[basicId][checkpoint]) {
+                    ContentTracking.trackingStatus[basicId][checkpoint] = true;
+                    var eventAction = checkpoint === 0 ? "Page_Load" : checkpoint.toString() + "_Viewed";
+                    triggerGA(eventCategory, eventAction, eventLabel);
+                }
+            }       
         },
 
         percetageStatus: function () {
