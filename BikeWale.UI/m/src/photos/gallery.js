@@ -127,8 +127,10 @@ function resizeHandler() {
 		vmModelGallery.setRotateScreenOption();
 		vmModelGallery.setColorOption();
 		vmModelGallery.resetSharePopup();
+	}
 
-		if(colorThumbnailGallerySwiper) {
+	if (vmModelGallery.colorPopup().activePopup()) {
+		if (colorThumbnailGallerySwiper) {
 			ColorGallerySwiper.handleThumbnailSwiper(colorThumbnailGallerySwiper);
 		}
 	}
@@ -148,6 +150,12 @@ function toggleFullScreen(goFullScreen) {
 	else if (cancelFullScreen != undefined) {
 		cancelFullScreen.call(doc);
 		docElement.style.backgroundColor = '';
+	}
+}
+
+function resetFullScreenMode() {
+	if (vmModelGallery.fullScreenModeActive()) {
+		vmModelGallery.fullScreenModeActive(false);
 	}
 }
 
@@ -541,6 +549,7 @@ var ColorGallerySwiper = (function () {
 		}
 		else {
 			swiper.update(true);
+			$('#colorGalleryPopup').find('.color-popup__thumbnail-content').css('height', 'auto');
 			swiper.attachEvents();
 			SwiperEvents.focusThumbnail(swiper, vmModelGallery.colorPopup().colorSwiper().activeIndex(), true);
 		}

@@ -325,7 +325,7 @@ var ModelColorPopupViewModel = function () {
 
 	self.openPopup = function () {
 	  self.activePopup(true);
-	    self.setListHeight();
+		self.setListHeight();
 
 		triggerGA('Gallery_Page', 'Colours_Tab_Clicked_Opened', self.modelName);
 		
@@ -342,17 +342,19 @@ var ModelColorPopupViewModel = function () {
 			if (isClickEvent) {
 				history.back();
 			}
+
+			if($('body').hasClass('scroll-lock--color')) {
+				Scroll.unlock();
+				$('body').removeClass('scroll-lock--color');
+				resetFullScreenMode();
+			}
 		}
 	}
 
 	self.setListHeight = function () {
-		var thumbnailSwiper = $('#thumbnailColorSwiper');
-		var thumbnailSwiperList = thumbnailSwiper.find('.model-color__list');
 		var availableHeight = $('#colorGalleryPopup').innerHeight() - ($('#thumbnailColorSwiper').offset().top - (window.pageYOffset || document.documentElement.scrollTop));
 
-		if (thumbnailSwiperList.height() > availableHeight) {
-			thumbnailSwiperList.css('height', availableHeight)
-		}
+		$('#colorGalleryPopup').find('.color-popup__thumbnail-content').css('height', availableHeight);
 	}
 };
 
