@@ -1,4 +1,4 @@
-﻿ContentTracking = {
+﻿var ContentTracking = {
     contentElement: undefined,
     isDetails: false,
     category: undefined,
@@ -33,48 +33,16 @@
             return visibleHeight > contentHeight ? contentHeight : visibleHeight;
         },
 
-        findNearestPercentage: function(percentage) {
-            for(var i = 1; i < ContentTracking.trackList.length; i++) {
-                if(percentage < ContentTracking.trackList[i]) {
-                    return ContentTracking.trackList[i - 1];
-                }
-            }
-            return 100;
-        },
-
         contentFlow: function (percentage, basicId, eventLabel, eventCategory) {
-            var nearestPercentage = ContentTracking.page.findNearestPercentage(percentage);
-            switch (nearestPercentage) {
-                case 100:
-                    if (!ContentTracking.trackingStatus[basicId][100]) {
-                        ContentTracking.trackingStatus[basicId][100] = true;
-                        triggerGA(eventCategory, "100_Viewed", eventLabel);
+            for (var i = ContentTracking.trackList.length - 1; i >= 0 ; i--) {
+                var checkpoint = ContentTracking.trackList[i];
+                if (checkpoint <= percentage) {
+                    if (!ContentTracking.trackingStatus[basicId][checkpoint]) {
+                        ContentTracking.trackingStatus[basicId][checkpoint] = true;
+                        var eventAction = checkpoint === 0 ? "Page_Load" : checkpoint.toString() + "_Viewed" ;
+                        triggerGA(eventCategory, eventAction, eventLabel);
                     }
-                case 75:
-                    if (!ContentTracking.trackingStatus[basicId][75]) {
-                        ContentTracking.trackingStatus[basicId][75] = true;
-                        triggerGA(eventCategory, "75_Viewed", eventLabel);
-                    }
-                case 50:
-                    if (!ContentTracking.trackingStatus[basicId][50]) {
-                        ContentTracking.trackingStatus[basicId][50] = true;
-                        triggerGA(eventCategory, "50_Viewed", eventLabel);
-                    }
-                case 25:
-                    if (!ContentTracking.trackingStatus[basicId][25]) {
-                        ContentTracking.trackingStatus[basicId][25] = true;
-                        triggerGA(eventCategory, "25_Viewed", eventLabel);
-                    }
-                case 10:
-                    if (!ContentTracking.trackingStatus[basicId][10]) {
-                        ContentTracking.trackingStatus[basicId][10] = true;
-                        triggerGA(eventCategory, "10_Viewed", eventLabel);
-                    }
-                case 0:
-                    if (!ContentTracking.trackingStatus[basicId][0]) {
-                        ContentTracking.trackingStatus[basicId][0] = true;
-                        triggerGA(eventCategory, "Page_Load", eventLabel);
-                    }
+                }
             }
         },
 
@@ -91,7 +59,7 @@
         registerEvent: function () {
 
             $(window).scroll(function () {
-                var trackObj = new ContentTracking.tracking.start();
+                ContentTracking.tracking.start();
             });
 
             $(window).load(function () {
@@ -110,7 +78,7 @@
         },
 
         createObject: function (Id) {
-            if (ContentTracking.trackingStatus[Id] == undefined) {
+            if (ContentTracking.trackingStatus[Id] === undefined) {
                 ContentTracking.trackingStatus[Id] = ContentTracking.page.percetageStatus();
             }
         },
@@ -134,7 +102,7 @@
         },
         setDefaultIdInLocalStorage: function (basicId) {
             if (window.localStorage && basicId != undefined) {
-                if (localStorage.BasicId != undefined && localStorage.BasicId.split('|').indexOf(basicId) == -1)
+                if (localStorage.BasicId != undefined && localStorage.BasicId.split('|').indexOf(basicId) === -1)
                     localStorage.BasicId += "|" + basicId;
                 else localStorage.BasicId = basicId;
             }
