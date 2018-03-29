@@ -269,9 +269,6 @@ var notifyPopup = (function () {
 
 			if (isValid) {
 				formField.setSuccessState($(this), 'Thank You!');
-				setTimeout(function () {
-					$('#notifyCloseBtn').trigger('click');
-				}, 1000);
 			}
 		});
 
