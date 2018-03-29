@@ -218,7 +218,7 @@ namespace Bikewale.Service.Controllers.PriceQuote.Version
             {
                 if (bikeVersionList != null && bikeVersionList.Any())
                 {
-                    IEnumerable<VersionMinSpecsEntity> versionMinSpecsEntityList = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(bikeVersionList.Select(objVersion => (int)objVersion.VersionId),
+                    IEnumerable<VersionMinSpecsEntity> versionMinSpecsEntityList = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(bikeVersionList.Select(objVersion => objVersion.VersionId),
                         new List<EnumSpecsFeaturesItem> { 
                             EnumSpecsFeaturesItem.BrakeType,
                             EnumSpecsFeaturesItem.AlloyWheels,
