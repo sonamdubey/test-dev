@@ -1,8 +1,13 @@
 ﻿docReady(function () {
     var windowScrollTop,
     sidebarBikeSection = $('#sidebarBikeSection'),
-    sidebarHeight = sidebarBikeSection.offset().top,
-    overallContainer = $('#overallContainer'),
+    sidebarHeight;
+
+    if(sidebarBikeSection.offset()) {
+        sidebarHeight = sidebarBikeSection.offset().top;
+    }
+    
+    var overallContainer = $('#overallContainer'),
     overallContainerHeight = overallContainer.outerHeight(),
     sidebarPosition,
     topPosition = 65;   // 65 is top position when sidebar bike section is fixed
