@@ -42,7 +42,7 @@
 
 	// in between slug
 	self.colorSlug = ko.observable(new ColorSlugViewModel(MODEL_COLOR_IMAGES));
-	self.colorSlug().visibilityThreshold(IMAGE_INDEX + 5);
+	self.colorSlug().visibilityThreshold(IMAGE_INDEX + 3);
 	self.isColorSlugEligible = MODEL_COLOR_IMAGES.length > 1 ? true : false;
 	self.activeFloatingColorSlug = ko.observable(false);
 
@@ -555,7 +555,7 @@ function formatDate(dateString) {
     ];
 
     var dd = date.getDate();
-    var mm = date.getMonth() + 1;
+    var mm = date.getMonth();
     var yyyy = date.getFullYear();
 
     if (dd < 10) {
