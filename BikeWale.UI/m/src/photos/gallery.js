@@ -57,15 +57,19 @@ var setPageVariables = function () {
 }
 
 var popupGallery = {
-    open: function () {
-
-		vmModelGallery.openGalleryPopup();
-
+	open: function () {
 		if (COLOR_INDEX) {
 			vmModelGallery.colorPopup().openPopup();
 			colorGallerySwiper.slideTo(COLOR_INDEX);
+			Scroll.lock();
+			$('body').addClass('scroll-lock--color');
+			ColorGallerySwiper.handleThumbnailSwiper(colorThumbnailGallerySwiper);
+			return true;
 		}
-		else if (IMAGE_INDEX) {
+
+		vmModelGallery.openGalleryPopup();
+
+		if (IMAGE_INDEX) {
 			mainGallerySwiper.slideTo(IMAGE_INDEX);
 		}
 	},

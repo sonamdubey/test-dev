@@ -86,8 +86,7 @@
 		    logBhrighuForImage($("#mainPhotoSwiper .swiper-slide-active"));
 		}
 		logBhrighu = true;
-		self.setRotateScreenOption();
-		self.setColorOption();
+		resizeHandler();
 
 		MainGallerySwiper.calculateCenter();
 		Scroll.lock();
@@ -356,6 +355,16 @@ var ModelColorPopupViewModel = function () {
 
 		$('#colorGalleryPopup').find('.color-popup__thumbnail-content').css('height', availableHeight);
 	}
+
+	self.registerEvents = function () {
+		$('#colorGalleryPopup').on('transitionend', function () {
+			if ($(this).hasClass('color-popup--active')) {
+				self.setListHeight();
+			}
+		});
+	}
+
+	self.registerEvents();
 };
 
 var ModelColorSwiperViewModel = function () {

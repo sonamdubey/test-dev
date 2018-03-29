@@ -135,7 +135,7 @@
 // landscape mode
 .video-popup--landscape
 	.swiper__videos
-		padding-right: 43vw
+		padding-right: 50vw
 
 		&.swiper-container
 			height: 90%
@@ -183,3 +183,8 @@
 		.swiper-card__label
 			height: 34px
 			overflow: hidden
+
+@media screen and (orientation: landscape) and (min-width: 720px)
+	.video-popup--landscape
+		.swiper__videos
+			padding-right: 55vw
