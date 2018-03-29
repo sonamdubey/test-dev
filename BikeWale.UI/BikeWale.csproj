@@ -3188,6 +3188,7 @@
     <Content Include="src\common\chosen.jquery.min.js" />
     <Content Include="src\compare\details.js" />
     <Content Include="src\compare\landing.js" />
+    <Content Include="src\bw-contenttracking.js" />
     <Content Include="src\content\details.js" />
     <Content Include="src\dealerlisting.js" />
     <Content Include="src\dealerpricequote.js" />

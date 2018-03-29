@@ -3,7 +3,7 @@
 @{
 	Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
 	Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/content/details.css' inline /> <link rel='stylesheet' type='text/css' href='/css/components/m-brand-logo.css' inline />";
-    Model.Page_JS_Path = "/m/src/content/details.js";
+    Model.Page_JS_Paths = new string[] { "/m/src/content/details.js", "/src/bw-contenttracking.js" };
     Model.AdTags.AdId = "1395986297721";
     Model.AdTags.AdPath = "/1017752/Bikewale_Reviews";
     Model.AdTags.Ad_320x50 = true;
@@ -11,78 +11,80 @@
     if (Model != null && Model.objFeature != null) { Model.AdTags.TargetedTags = String.Join(",", Model.objFeature.TagsList); };
 }
 <section>
-    <div class="container box-shadow bg-white section-bottom-margin">
-        <div class="box-shadow article-head padding-15-20">
-            <h1 class="margin-bottom10">@Model.objFeature.Title</h1>
-            <div class="grid-6 alpha padding-right5">
-                <span class="bwmsprite calender-grey-sm-icon"></span>
-                <span class="article-stats-content">@FormatDate.GetFormatDate(Convert.ToString(Model.objFeature.DisplayDate), "dd MMM yyyy, hh:mm tt")</span>
-            </div>
-            <div class="grid-6 alpha omega">
-                @if(string.IsNullOrEmpty(Model.objFeature.AuthorMaskingName))
-                {
-                    <span class="bwmsprite author-grey-sm-icon"></span>
-                    <span class="article-stats-content"><span>@Model.objFeature.AuthorName</span></span>
-                }
-                else
-                {
-                    <a href=@string.Format("/m{0}", UrlFormatter.AuthorPageUrl(Model.objFeature.AuthorMaskingName)) class="hover-no-underline">
+    <div class="content-details related-details" data-id="@Model.objFeature.BasicId" data-category-id="@Model.objFeature.CategoryId" data-event-label="Feature_Detail">
+        <div class="container box-shadow bg-white section-bottom-margin">
+            <div class="box-shadow article-head padding-15-20">
+                <h1 class="margin-bottom10">@Model.objFeature.Title</h1>
+                <div class="grid-6 alpha padding-right5">
+                    <span class="bwmsprite calender-grey-sm-icon"></span>
+                    <span class="article-stats-content">@FormatDate.GetFormatDate(Convert.ToString(Model.objFeature.DisplayDate), "dd MMM yyyy, hh:mm tt")</span>
+                </div>
+                <div class="grid-6 alpha omega">
+                    @if (string.IsNullOrEmpty(Model.objFeature.AuthorMaskingName))
+                    {
                         <span class="bwmsprite author-grey-sm-icon"></span>
-                        <span class="article-stats-content"><span class="text-link">@Model.objFeature.AuthorName</span></span>
-                    </a>
-                }
+                        <span class="article-stats-content"><span>@Model.objFeature.AuthorName</span></span>
+                    }
+                    else
+                    {
+                        <a href=@string.Format("/m{0}", UrlFormatter.AuthorPageUrl(Model.objFeature.AuthorMaskingName)) class="hover-no-underline">
+                            <span class="bwmsprite author-grey-sm-icon"></span>
+                            <span class="article-stats-content"><span class="text-link">@Model.objFeature.AuthorName</span></span>
+                        </a>
+                    }
+                </div>
+                <div class="clear"></div>
             </div>
-            <div class="clear"></div>
-        </div>
 
-        <div class="article-content-padding">
-            <div id="divPageContent">
-                @foreach (var page in Model.objFeature.PageList)
-                                    {
+            <div class="article-content-padding">
+                <div id="divPageContent">
+                    @foreach (var page in Model.objFeature.PageList)
+                    {
                         <div class="margin-bottom10">
                             <h3 class="margin-bottom10" role="heading">@page.PageName</h3>
                             <div id='@page.pageId' class="margin-top10 article-content">
                                 @Html.Raw(page.Content)
                             </div>
                         </div>
+                    }
+                </div>
+
+                <p class="margin-bottom10 font14 text-light-grey border-light-top">Share this story</p>
+                <ul class="social-wrapper">
+                    <li class="whatsapp-container rounded-corner2 text-center share-btn" data-attr="wp">
+                        <span data-text="share this video" data-link="www.google.com" class="social-icons-sprite whatsapp-icon"></span>
+                    </li>
+                    <li class="fb-container rounded-corner2 text-center share-btn" data-attr="fb">
+                        <span class="social-icons-sprite fb-icon"></span>
+                    </li>
+                    <li class="tweet-container rounded-corner2 text-center share-btn" data-attr="tw">
+                        <span class="social-icons-sprite tweet-icon"></span>
+                    </li>
+                    <li class="gplus-container rounded-corner2 text-center  share-btn" data-attr="gp">
+                        <span class="social-icons-sprite gplus-icon"></span>
+                    </li>
+                </ul>
+                <div class="clear"></div>
+                @if (Model.PhotoGallery != null && Model.PhotoGallery.Images != null)
+                {
+                    <div class="border-solid-top padding-top10">
+                        <h3 class="margin-bottom10">Images</h3>
+                        <div class="swiper-container article-photos-swiper">
+                            <div class="swiper-wrapper">
+                                @foreach (var image in Model.PhotoGallery.Images)
+                                {
+                                    <div class="swiper-slide">
+                                        <img class="swiper-lazy" title="@image.ImageName" alt="@image.ImageName" data-src='@Image.GetPathToShowImages(image.OriginalImgPath,image.HostUrl,ImageSize._110x61,QualityFactor._70)'>
+                                        <span class="swiper-lazy-preloader"></span>
+                                    </div>
+                                }
+                            </div>
+                            <div class="bwmsprite swiper-button-next"></div>
+                            <div class="bwmsprite swiper-button-prev"></div>
+                        </div>
+                    </div>
                 }
             </div>
-
-            <p class="margin-bottom10 font14 text-light-grey border-light-top">Share this story</p>
-            <ul class="social-wrapper">
-                <li class="whatsapp-container rounded-corner2 text-center share-btn" data-attr="wp">
-                    <span data-text="share this video" data-link="www.google.com" class="social-icons-sprite whatsapp-icon"></span>
-                </li>
-                <li class="fb-container rounded-corner2 text-center share-btn" data-attr="fb">
-                    <span class="social-icons-sprite fb-icon"></span>
-                </li>
-                <li class="tweet-container rounded-corner2 text-center share-btn" data-attr="tw">
-                    <span class="social-icons-sprite tweet-icon"></span>
-                </li>
-                <li class="gplus-container rounded-corner2 text-center  share-btn" data-attr="gp">
-                    <span class="social-icons-sprite gplus-icon"></span>
-                </li>
-            </ul>
-            <div class="clear"></div>
-            @if (Model.PhotoGallery != null && Model.PhotoGallery.Images!=null)
-            { 
-            <div class="border-solid-top padding-top10">
-                <h3 class="margin-bottom10">Images</h3>
-                <div class="swiper-container article-photos-swiper">
-                    <div class="swiper-wrapper">
-                     @foreach (var image in Model.PhotoGallery.Images)
-                     {
-                                <div class="swiper-slide">
-                                    <img class="swiper-lazy" title="@image.ImageName" alt="@image.ImageName" data-src='@Image.GetPathToShowImages(image.OriginalImgPath,image.HostUrl,ImageSize._110x61,QualityFactor._70)'>
-                                    <span class="swiper-lazy-preloader"></span>
-                                </div>
-                     }
-                    </div>
-                    <div class="bwmsprite swiper-button-next"></div>
-                    <div class="bwmsprite swiper-button-prev"></div>
-                </div>
-            </div>
-            }
         </div>
     </div>
 </section>
