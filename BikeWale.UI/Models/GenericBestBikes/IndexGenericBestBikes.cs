@@ -1,5 +1,7 @@
 ﻿
+using Bikewale.BAL.GrpcFiles.Specs_Features;
 using Bikewale.Entities;
+using Bikewale.Entities.BikeData;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
@@ -10,6 +12,7 @@ using Bikewale.Notifications;
 using Bikewale.Utility;
 using Bikewale.Utility.GenericBikes;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -246,6 +249,21 @@ namespace Bikewale.Models
                 obj.objBestBikesList = _objBestBikes.GetBestBikesByCategory(BodyStyleType, cityId);
                 if (obj.objBestBikesList != null)
                     obj.objBestBikesList = obj.objBestBikesList.Take(topCount);
+
+                IEnumerable<BestBikeEntityBase> bestBikesList = obj.objBestBikesList;
+                if (bestBikesList != null && bestBikesList.Any())
+                {
+                    var versionMinSpecs = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(bestBikesList.Select(m => m.VersionId)).GetEnumerator();
+                    VersionMinSpecsEntity minSpecs;
+                    foreach (var bike in bestBikesList)
+                    {
+                        if (versionMinSpecs.MoveNext())
+                        {
+                            minSpecs = versionMinSpecs.Current;
+                            bike.MinSpecsList = minSpecs.MinSpecsList;
+                        }
+                    }
+                }
 
             }
             catch (Exception ex)
