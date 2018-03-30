@@ -1,4 +1,5 @@
 ﻿
+using Bikewale.BAL.GrpcFiles.Specs_Features;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeData;
@@ -115,6 +116,13 @@ namespace Bikewale.Models
                 if (objVM.Bikes != null && objVM.Bikes.Any())
                 {
                     objVM.Bikes = objVM.Bikes.Take(TopCount);
+                    var versionIds = objVM.Bikes.Select(b => b.objVersion.VersionId);
+                    var specsList = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(versionIds);
+                    foreach (var bike in objVM.Bikes)
+                    {
+                        var specs = specsList.FirstOrDefault(s => s.VersionId == bike.objVersion.VersionId);
+                        bike.MinSpecsList = specs != null ? specs.MinSpecsList : null;
+                    }
                 }
             }
             catch (Exception ex)

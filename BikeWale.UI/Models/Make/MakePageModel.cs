@@ -1,4 +1,5 @@
-﻿using Bikewale.Common;
+﻿using Bikewale.BAL.GrpcFiles.Specs_Features;
+using Bikewale.Common;
 using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.BikeData.NewLaunched;
@@ -189,6 +190,15 @@ namespace Bikewale.Models
                     objData.Bikes = objData.Bikes.OrderBy(x => x.BikePopularityIndex);
                     objData.SelectedSortingId = 1;
                     objData.SelectedSortingText = "Popular";
+                }
+                var minSpecsFeaturesList = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(objData.Bikes.Select(b => b.objVersion.VersionId));
+                var minSpecsEnumerator = minSpecsFeaturesList.GetEnumerator();
+                foreach (var bike in objData.Bikes)
+                {
+                    if (minSpecsEnumerator.MoveNext())
+                        bike.MinSpecsList = minSpecsEnumerator.Current.MinSpecsList;
+                    else
+                        break;
                 }
                 BindUpcomingBikes(objData);
                 BindPageMetaTags(objData, objData.Bikes, makeBase);
@@ -939,6 +949,8 @@ namespace Bikewale.Models
         /// <summary>
         /// Created by : Snehal Dange on 20th Feb 2018
         /// Description: Method created to get relevant filters for a particular make (according to min values of budget,                           displacements and mileage)
+        /// Modified by : Ashutosh Sharma on 29 Mar 2018
+        /// Description: Made changes due to change in Specs features entites.
         /// </summary>
         /// <param name="objData"></param>
         private void BindPageFilters(MakePageVM objData)
@@ -953,19 +965,28 @@ namespace Bikewale.Models
                     objInputFilters = new CustomInputFilters();
                     if (objData.Bikes != null)
                     {
-                        var bikes = objData.Bikes;
-                        var nonZeroExshowroom = bikes.Where(x => x.ExShowroomPrice > 0);
-                        var nonZeroDisplacement = bikes.Where(x => x.Specs.Displacement > 0);
-                        var nonZeroMileage = bikes.Where(x => x.Specs.FuelEfficiencyOverall > 0);
-                        objInputFilters.MinPrice = nonZeroExshowroom != null && nonZeroExshowroom.Any() ? nonZeroExshowroom.Min(x => x.ExShowroomPrice) : 0;
-                        objInputFilters.MinDisplacement = nonZeroDisplacement != null && nonZeroDisplacement.Any() ? nonZeroDisplacement.Min(x => x.Specs.Displacement).Value : 0;
-                        objInputFilters.MinMileage = (ushort)(nonZeroMileage != null && nonZeroMileage.Any() ? nonZeroMileage.Min(x => x.Specs.FuelEfficiencyOverall).Value : 0);
-
-
-                        if (_makeCategoryId > 0)
+                        float minDisplacement = Single.MaxValue, tempMinDisplacement;
+                        ushort minMileage = UInt16.MaxValue, tempMinMileage;
+                        long minExShowroomPrice = Int64.MaxValue, tempExShowroomPrice;
+                        foreach (var bike in objData.Bikes)
                         {
-                            objInputFilters.MakeCategoryId = _makeCategoryId;
+                            if (bike.MinSpecsList != null)
+                            {
+                                tempMinDisplacement = Convert.ToSingle(bike.MinSpecsList.SingleOrDefault(s => s.Id == (int)EnumSpecsFeaturesItem.Displacement)?.Value);
+                                minDisplacement = tempMinDisplacement > 0 && minDisplacement > tempMinDisplacement ? tempMinDisplacement : minDisplacement;
+
+                                tempMinMileage = Convert.ToUInt16(bike.MinSpecsList.SingleOrDefault(s => s.Id == (int)EnumSpecsFeaturesItem.FuelEfficiencyOverall)?.Value);
+                                minMileage = tempMinMileage > 0 && minMileage > tempMinMileage ? tempMinMileage : minMileage; 
+                            }
+
+                            tempExShowroomPrice = bike.ExShowroomPrice;
+                            minExShowroomPrice = tempExShowroomPrice > 0 && minExShowroomPrice > tempExShowroomPrice ? tempExShowroomPrice : minExShowroomPrice;
+                            objInputFilters.MinDisplacement = minDisplacement; 
                         }
+                        objInputFilters.MinMileage = minMileage != UInt16.MaxValue ? minMileage : (ushort)0;
+                        objInputFilters.MinPrice = minExShowroomPrice != Int64.MaxValue ? minExShowroomPrice : 0;
+                        objInputFilters.MinDisplacement = minDisplacement != Single.MaxValue ? minDisplacement : 0;
+                        objInputFilters.MakeCategoryId = _makeCategoryId;
                         objData.PageFilters.FilterResults = _pageFilters.GetRelevantPageFilters(objInputFilters).ToList();
                     }
                 }

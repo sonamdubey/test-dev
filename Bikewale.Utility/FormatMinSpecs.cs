@@ -94,19 +94,22 @@ namespace Bikewale.Utility
         /// <returns>String containing comma separated specs items in span elements.</returns>
         public static string GetMinSpecsSpanElements(IEnumerable<SpecsItem> specsItemList)
         {
-            StringBuilder builder = new StringBuilder();
             try
             {
-                foreach (var specItem in specsItemList)
+                StringBuilder builder = new StringBuilder();
+                if (specsItemList != null)
                 {
-                    if (!string.IsNullOrEmpty(specItem.Value))
+                    foreach (var specItem in specsItemList)
                     {
-                        builder.AppendFormat("<span>{0} {1}</span>, ", specItem.Value, specItem.UnitType);
+                        if (!string.IsNullOrEmpty(specItem.Value))
+                        {
+                            builder.AppendFormat("<span>{0} {1}</span>, ", specItem.Value, specItem.UnitType);
+                        }
                     }
-                }
-                if (builder.Length > 0)
-                {
-                    builder.Remove(builder.Length - 1, 2);
+                    if (builder.Length > 1)
+                    {
+                        builder.Remove(builder.Length - 2, 2);
+                    } 
                 }
                 return builder.ToString();
             }
@@ -116,6 +119,34 @@ namespace Bikewale.Utility
             }
         }
 
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 30 Mar 2018
+        /// Description : Method to format specs items in li elements.
+        /// </summary>
+        /// <param name="specsItemList">List of Specs Items.</param>
+        /// <returns>String containing specs items in li elements.</returns>
+        public static string GetMinSpecsLiElements(IEnumerable<SpecsItem> specsItemList)
+        {
+            try
+            {
+                StringBuilder builder = new StringBuilder();
+                if (specsItemList != null)
+                {
+                    foreach (var specItem in specsItemList)
+                    {
+                        if (!string.IsNullOrEmpty(specItem.Value))
+                        {
+                            builder.AppendFormat("<li>{0} {1}</li>", specItem.Value, specItem.UnitType);
+                        }
+                    }
+                }
+                return builder.ToString();
+            }
+            catch (Exception)
+            {
+                return string.Empty;
+            }
+        }
         /// <summary>
         /// Written By : Ashish G. Kamble On 10 Sept 2015
         /// Summary : Function to format the availability

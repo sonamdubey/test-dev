@@ -1,4 +1,5 @@
 ﻿@model Bikewale.Models.MakePageVM
+@using Bikewale.Entities.BikeData
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/brand.css' inline /> <link rel='stylesheet' type='text/css' href='/css/components/m-brand-logo.css' inline /> <link rel='stylesheet' type='text/css' href='/sass/partials/photo-grid-carousel.css' inline />";
@@ -84,7 +85,7 @@
                                 {
                                     var modelUrl = Bikewale.Utility.UrlFormatter.BikePageUrl(bike.objMake.MaskingName, bike.objModel.MaskingName);
                                     var bikeName = string.Format("{0} {1}", bike.objMake.MakeName, bike.objModel.ModelName);
-                                    <li class="front" data-price="@bike.VersionPrice" data-mileage="@bike.Specs.FuelEfficiencyOverall" data-popularity="@bike.BikePopularityIndex" data-bike="@bikeName">
+                                    <li class="front" data-price="@bike.VersionPrice" data-mileage="@bike.MinSpecsList.SingleOrDefault(s => s.Id == (int)EnumSpecsFeaturesItem.FuelEfficiencyOverall)?.Value" data-popularity="@bike.BikePopularityIndex" data-bike="@bikeName">
                                         <div class="contentWrapper">
                                             <div class="imageWrapper">
                                                 <a class="modelurl" href='@modelUrl'>
@@ -94,7 +95,7 @@
                                             <div class="bikeDescWrapper">
                                                 <h3 class="bikeTitle margin-bottom10"><a class="modelurl" href='@modelUrl'>@bikeName</a></h3>
                                                 <div class="text-xt-light-grey font14 margin-bottom15">
-                                                    @Html.Raw(Bikewale.Utility.FormatMinSpecs.GetMinSpecs(Convert.ToString(bike.Specs.Displacement), Convert.ToString(bike.Specs.FuelEfficiencyOverall), Convert.ToString(bike.Specs.MaxPower), Convert.ToString(bike.Specs.KerbWeight)))
+                                                    @Html.Raw(Bikewale.Utility.FormatMinSpecs.GetMinSpecsSpanElements(bike.MinSpecsList))
                                                 </div>
                                                 @if (bike.ExShowroomPrice > 0)
                                                 {

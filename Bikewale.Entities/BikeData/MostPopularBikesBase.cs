@@ -2,6 +2,7 @@
 using Bikewale.Entities.GenericBikes;
 using System;
 using System.Runtime.Serialization;
+using System.Collections.Generic;
 
 namespace Bikewale.Entities.BikeData
 {
@@ -44,8 +45,6 @@ namespace Bikewale.Entities.BikeData
         [DataMember]
         public Int64 AvgPrice { get; set; }
         [DataMember]
-        public MinSpecsEntity Specs { get; set; }
-        [DataMember]
         public ushort BikePopularityIndex { get; set; }
         [DataMember]
         public int MakeId { get; set; }
@@ -63,20 +62,17 @@ namespace Bikewale.Entities.BikeData
         public EnumBikeBodyStyles BodyStyle { get; set; }
         [DataMember]
         public bool IsAdPromoted { get; set; }
-
         [DataMember]
         public DateTime StartDate { get; set; }
         [DataMember]
         public DateTime EndDate { get; set; }
-
         [DataMember]
         public EMI EMIDetails { get; set; }
-
         [DataMember]
         public Int64 OnRoadPrice { get; set; }
-
         [DataMember]
         public Int64 OnRoadPriceMumbai { get; set; }
-
+        [IgnoreDataMember]
+        public IEnumerable<SpecsItem> MinSpecsList { get; set; }
     }
 }
