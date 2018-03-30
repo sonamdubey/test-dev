@@ -42,7 +42,7 @@
 
 	// in between slug
 	self.colorSlug = ko.observable(new ColorSlugViewModel(MODEL_COLOR_IMAGES));
-	self.colorSlug().visibilityThreshold(IMAGE_INDEX + 5);
+	self.colorSlug().visibilityThreshold(IMAGE_INDEX + 3);
 	self.isColorSlugEligible = MODEL_COLOR_IMAGES.length > 1 ? true : false;
 	self.activeFloatingColorSlug = ko.observable(false);
 
@@ -86,8 +86,7 @@
 		    logBhrighuForImage($("#mainPhotoSwiper .swiper-slide-active"));
 		}
 		logBhrighu = true;
-		self.setRotateScreenOption();
-		self.setColorOption();
+		resizeHandler();
 
 		MainGallerySwiper.calculateCenter();
 		Scroll.lock();
@@ -325,7 +324,7 @@ var ModelColorPopupViewModel = function () {
 
 	self.openPopup = function () {
 	  self.activePopup(true);
-		self.setListHeight();
+	  self.setListHeight();
 
 		triggerGA('Gallery_Page', 'Colours_Tab_Clicked_Opened', self.modelName);
 		
@@ -356,6 +355,16 @@ var ModelColorPopupViewModel = function () {
 
 		$('#colorGalleryPopup').find('.color-popup__thumbnail-content').css('height', availableHeight);
 	}
+
+	self.registerEvents = function () {
+		$('#colorGalleryPopup').on('transitionend', function () {
+			if ($(this).hasClass('color-popup--active')) {
+				self.setListHeight();
+			}
+		});
+	}
+
+	self.registerEvents();
 };
 
 var ModelColorSwiperViewModel = function () {
@@ -557,7 +566,7 @@ function formatDate(dateString) {
     ];
 
     var dd = date.getDate();
-    var mm = date.getMonth() + 1;
+    var mm = date.getMonth();
     var yyyy = date.getFullYear();
 
     if (dd < 10) {
