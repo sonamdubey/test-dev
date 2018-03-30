@@ -43,16 +43,16 @@ namespace Bikewale.Utility
 				throw ex;
 			}
 		}
-
-		/// <summary>
-		/// Summary: Overload created to cater weight in Min specs
-		/// </summary>
-		/// <param name="displacement">CC</param>
-		/// <param name="fuelEffecient">kmpl</param>
-		/// <param name="maxpower">bhp</param>
-		/// <param name="weight">kgs</param>
-		/// <returns></returns>
-		public static string GetMinSpecs(string displacement, string fuelEffecient, string maxpower, string weight)
+        
+        /// <summary>
+        /// Summary: Overload created to cater weight in Min specs
+        /// </summary>
+        /// <param name="displacement">CC</param>
+        /// <param name="fuelEffecient">kmpl</param>
+        /// <param name="maxpower">bhp</param>
+        /// <param name="weight">kgs</param>
+        /// <returns></returns>
+        public static string GetMinSpecs(string displacement, string fuelEffecient, string maxpower, string weight)
 		{
 			string str = String.Empty;
 			try
@@ -338,18 +338,33 @@ namespace Bikewale.Utility
         public static string GetMinSpecsAsLiElement(IEnumerable<SpecsItem> specItemList)
         {
             StringBuilder minSpecsStr = new StringBuilder();
-            if (specItemList != null)
+            try
             {
-                foreach (var specItem in specItemList)
+                if (specItemList != null)
                 {
-                    string generalSpecName = FormatMinSpecs.GetSpecGeneralName(specItem);
-                    if (!String.IsNullOrEmpty(generalSpecName))
+                    foreach (var specItem in specItemList)
                     {
-                        minSpecsStr.Append(String.Format("<li>{0}</li>", generalSpecName));
+                        if (!string.IsNullOrEmpty(specItem.Value))
+                        {
+                            minSpecsStr.AppendFormat("<li>{0} {1}  </li>", specItem.Value, specItem.UnitType);
+                        }
+                    }
+                    if (minSpecsStr.Length > 1)
+                    {
+                        minSpecsStr.Remove(minSpecsStr.Length - 1, 1);
+                        return minSpecsStr.ToString();
+                    }
+                    else
+                    {
+                        return "Specs Unavailable";
                     }
                 }
             }
-            return minSpecsStr.ToString();
+            catch (Exception)
+            {
+                return string.Empty;
+            }
+            return string.Empty;
         }
 
         public static string GetCommaSepratedGeneralSpecs(IEnumerable<SpecsItem> specItemList)
