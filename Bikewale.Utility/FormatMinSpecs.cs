@@ -373,15 +373,15 @@ namespace Bikewale.Utility
 		/// <param name="value">Value to be checked whether available or not.</param>
 		/// <param name="unit">unit of respective value e.g. cc, kg.</param>
 		/// <returns>If value is null function will return --</returns>
-		public static string ShowAvailable(string value, string unit)
-		{
+        public static string ShowAvailable(string value, string unit)
+        {
 
-			if (!String.IsNullOrEmpty(value))
-			{
-                return value + " " + unit;
-			}
+            if (!String.IsNullOrEmpty(value))
+            {
+                return String.Format("{0}{1}{2}", value, String.IsNullOrEmpty(unit) ? String.Empty : " ", unit);
+            }
             return _notAvaliableText;
-		}
+        }
 
         /// <summary>
         /// Created By  : Rajan Chauhan on 29 Mar 2018

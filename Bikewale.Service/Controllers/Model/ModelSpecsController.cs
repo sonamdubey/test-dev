@@ -125,8 +125,6 @@ namespace Bikewale.Service.Controllers.Model
                     return BadRequest();
                 }
                 objModelPage = _bikeModelEntity.GetModelPageDetails(modelId);
-                objModelPage.VersionSpecsFeatures = SpecsFeaturesServiceGateway.GetVersionsSpecsFeatures(new List<uint>{ 1 });
-
                 if (objModelPage != null)
                 {
                     objPQ = _objPQByCityArea.GetVersionList(modelId, objModelPage.ModelVersions, cityId, areaId, Convert.ToUInt16(platformId), null, null, deviceId);
