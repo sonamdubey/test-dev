@@ -29,13 +29,9 @@ namespace Bikewale.Comparison.DAL
             {
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
-                    connection.Open();
                     var param = new DynamicParameters();
                     param.Add("par_comparisonid", comparisonid);
                     connection.Execute("DeleteSponsoredComparisonBikeAllRules", param: param, commandType: CommandType.StoredProcedure);
-
-                    if (connection.State == ConnectionState.Open)
-                        connection.Close();
                     isSaved = true;
                 }
             }
@@ -59,14 +55,10 @@ namespace Bikewale.Comparison.DAL
             {
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
-                    connection.Open();
                     var param = new DynamicParameters();
                     param.Add("par_comparisonid", comparisonid);
                     param.Add("par_sponsoredmodelid", SponsoredModelId);
                     connection.Execute("DeleteSponsoredComparisonBikeSponsoredModelRules", param: param, commandType: CommandType.StoredProcedure);
-
-                    if (connection.State == ConnectionState.Open)
-                        connection.Close();
                     isSaved = true;
                 }
             }
@@ -90,14 +82,10 @@ namespace Bikewale.Comparison.DAL
             {
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
-                    connection.Open();
                     var param = new DynamicParameters();
                     param.Add("par_comparisonid", comparisonid);
                     param.Add("par_sponsoredversionid", sponsoredVersionId);
                     connection.Execute("deletesponsoredcomparisonbikesponsoredversionrules", param: param, commandType: CommandType.StoredProcedure);
-
-                    if (connection.State == ConnectionState.Open)
-                        connection.Close();
                     isSaved = true;
                 }
             }
@@ -121,14 +109,10 @@ namespace Bikewale.Comparison.DAL
             {
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
-                    connection.Open();
                     var param = new DynamicParameters();
                     param.Add("par_comparisonid", comparisonid);
                     param.Add("par_targetversionid", targetversionId);
                     connection.Execute("deletesponsoredcomparisonbiketargetversionrules", param: param, commandType: CommandType.StoredProcedure);
-
-                    if (connection.State == ConnectionState.Open)
-                        connection.Close();
                     isSaved = true;
                 }
             }
@@ -153,12 +137,7 @@ namespace Bikewale.Comparison.DAL
             {
                 using (IDbConnection connection = DatabaseHelper.GetReadonlyConnection())
                 {
-                    connection.Open();
                     sponsoredVersions = connection.Query<SponsoredVersionEntityBase>("getactiveandfuturisticsponsoredcomparisions", commandType: CommandType.StoredProcedure);
-
-
-                    if (connection.State == ConnectionState.Open)
-                        connection.Close();
                 }
             }
             catch (Exception ex)
@@ -181,13 +160,8 @@ namespace Bikewale.Comparison.DAL
             {
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
-                    connection.Open();
                     var param = new DynamicParameters();
                     objCampaign = connection.Query<SponsoredComparison>("getsponsoredcomparison", param: param, commandType: CommandType.StoredProcedure).FirstOrDefault();
-
-
-                    if (connection.State == ConnectionState.Open)
-                        connection.Close();
                 }
             }
             catch (Exception ex)
@@ -210,14 +184,9 @@ namespace Bikewale.Comparison.DAL
             {
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
-                    connection.Open();
                     var param = new DynamicParameters();
                     param.Add("par_statuses", statuses);
                     comparisonCampaigns = connection.Query<SponsoredComparison>("getsponsoredcomparisons", param: param, commandType: CommandType.StoredProcedure);
-
-
-                    if (connection.State == ConnectionState.Open)
-                        connection.Close();
                 }
             }
             catch (Exception ex)
@@ -241,7 +210,6 @@ namespace Bikewale.Comparison.DAL
             {
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
-                    connection.Open();
                     var param = new DynamicParameters();
                     param.Add("par_comparisonid", comparisonid);
 
@@ -251,9 +219,6 @@ namespace Bikewale.Comparison.DAL
                         return sponsored;
 
                     }, param: param, commandType: CommandType.StoredProcedure, splitOn: "SponsoredVersionId,SponsoredModelId,SponsoredMakeId");
-
-                    if (connection.State == ConnectionState.Open)
-                        connection.Close();
                 }
             }
             catch (Exception ex)
@@ -278,7 +243,6 @@ namespace Bikewale.Comparison.DAL
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
                     objResult = new TargetSponsoredMapping();
-                    connection.Open();
                     var param = new DynamicParameters();
                     param.Add("par_comparisonid", comparisonid);
                     param.Add("par_targetmodelid", targetModelId);
@@ -290,8 +254,6 @@ namespace Bikewale.Comparison.DAL
                         objResult.TargetVersionsMapping = results.Read<BikeModelVersionMapping>();
                     }
 
-                    if (connection.State == ConnectionState.Open)
-                        connection.Close();
                 }
             }
             catch (Exception ex)
@@ -314,7 +276,6 @@ namespace Bikewale.Comparison.DAL
             {
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
-                    connection.Open();
                     var param = new DynamicParameters();
                     param.Add("par_name", campaign.Name);
                     param.Add("par_startdate", campaign.StartDate);
@@ -329,8 +290,6 @@ namespace Bikewale.Comparison.DAL
 
                     comparisonId = Convert.ToUInt32(param.Get<int>("par_id"));
 
-                    if (connection.State == ConnectionState.Open)
-                        connection.Close();
                 }
             }
             catch (Exception ex)
@@ -353,16 +312,12 @@ namespace Bikewale.Comparison.DAL
             {
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
-                    connection.Open();
                     var param = new DynamicParameters();
                     param.Add("par_comparisonid", rules.ComparisonId);
                     param.Add("par_isversionmapping", rules.IsVersionMapping);
                     param.Add("par_targetsponsoredids", rules.TargetSponsoredIds);
                     param.Add("par_impressionurls", rules.ImpressionUrl);
                     connection.Execute("savesponsoredcomparisonsbikerules", param: param, commandType: CommandType.StoredProcedure);
-
-                    if (connection.State == ConnectionState.Open)
-                        connection.Close();
                     isSaved = true;
                 }
             }
@@ -386,15 +341,12 @@ namespace Bikewale.Comparison.DAL
             {
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
-                    connection.Open();
                     var param = new DynamicParameters();
                     param.Add("par_comparisonid", comparisonid);
                     param.Add("par_status", status);
 
                     connection.Execute("changesponsoredcomparisonstatus", param: param, commandType: CommandType.StoredProcedure);
-
-                    if (connection.State == ConnectionState.Open)
-                        connection.Close();
+                 
                     isSaved = true;
                 }
             }
