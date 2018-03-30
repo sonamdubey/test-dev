@@ -10,7 +10,6 @@ namespace Bikewale.Utility
 {
     public static class MvcHelper
     {
-        private static readonly ILog _logger = LogManager.GetLogger(typeof(MvcHelper));
         /// <summary>
         /// Created by  :   Sumit Kate on 29 Jun 2017
         /// Description :   Returns the Render engine raw output
@@ -34,7 +33,7 @@ namespace Bikewale.Utility
 
         public static string Render<T>(string templateName, T model, string template)
         {
-            var contextProps = ThreadContext.Properties;
+
             // loading a template might be expensive, so be careful to cache content
             try
             {
@@ -42,7 +41,6 @@ namespace Bikewale.Utility
                 {
                     // we've never seen this template before, so compile it and stick it in cache.                
                     Razor.Compile(template, typeof(T), templateName);
-                    _logger.Error(String.Format("Compile {0}", templateName));
                 }
 
                 // by now, we know we've got a the template cached and ready to run; this is fast
