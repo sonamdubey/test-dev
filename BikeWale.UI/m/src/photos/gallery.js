@@ -4,7 +4,7 @@ var downloadImageResolution = "1056x594";
 var eleGallery, vmModelGallery, colorIndex = 0;
 
 // page variables
-var PHOTO_COUNT, VIDEO_COUNT, MODEL_NAME, MAKE_NAME, BIKE_MODEL_ID, IMAGE_INDEX, COLOR_IMAGE_ID, COLOR_INDEX, RETURN_URL, isColorImageSet = false, logBhrighu, currentPage, triggerColorImageChangeGA, triggerGalleryImageChangeGA;
+var PHOTO_COUNT, VIDEO_COUNT, MODEL_NAME, MAKE_NAME, BIKE_MODEL_ID, IMAGE_INDEX, COLOR_IMAGE_ID, COLOR_INDEX, COLOR_IMAGE_SELECTED, RETURN_URL, isColorImageSet = false, logBhrighu, currentPage, triggerColorImageChangeGA, triggerGalleryImageChangeGA;
 
 // bhrighu logging
 var imageTypes = ["Other", "ModelImage", "ModelGallaryImage", "ModelColorImage"];
@@ -40,10 +40,11 @@ var setPageVariables = function () {
 
 			if (COLOR_IMAGE_ID > 0) {
 				ko.utils.arrayForEach(MODEL_COLOR_IMAGES, function (item, index) {
-					if (item.ColorId === COLOR_IMAGE_ID) {
+				    if (item.ColorId === COLOR_IMAGE_ID) {
+				        COLOR_IMAGE_SELECTED = true;
 						COLOR_INDEX = index;
 					}
-				});
+			    });
 			}
 		}
 
@@ -58,8 +59,10 @@ var setPageVariables = function () {
 
 var popupGallery = {
 	open: function () {
-		if (COLOR_INDEX) {
-			vmModelGallery.colorPopup().openPopup();
+	    if (COLOR_IMAGE_SELECTED) {
+	        vmModelGallery.activePopup(true);
+	        vmModelGallery.colorPopup().openPopup();
+	        resizeHandler();
 			colorGallerySwiper.slideTo(COLOR_INDEX);
 			Scroll.lock();
 			$('body').addClass('scroll-lock--color');
