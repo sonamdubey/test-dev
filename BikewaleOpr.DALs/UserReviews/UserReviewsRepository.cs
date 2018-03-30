@@ -36,8 +36,6 @@ namespace BikewaleOpr.DALs.UserReviews
             {
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
-                    connection.Open();
-
                     var param = new DynamicParameters();
 
                     param.Add("par_statusid", (ushort)filter.ReviewStatus);
@@ -47,8 +45,6 @@ namespace BikewaleOpr.DALs.UserReviews
 
                     objReviews = connection.Query<ReviewBase>("GetUserReviewsListHavingReview", param: param, commandType: CommandType.StoredProcedure);
 
-                    if (connection.State == ConnectionState.Open)
-                        connection.Close();
                 }
             }
             catch (Exception ex)
@@ -72,14 +68,10 @@ namespace BikewaleOpr.DALs.UserReviews
             {
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
-                    connection.Open();
 
                     var param = new DynamicParameters();                    
 
                     objReviews = connection.Query<ReviewBase>("GetUserReviewsListNotHavingReview", param: param, commandType: CommandType.StoredProcedure);
-
-                    if (connection.State == ConnectionState.Open)
-                        connection.Close();
                 }
             }
             catch (Exception ex)
@@ -105,12 +97,7 @@ namespace BikewaleOpr.DALs.UserReviews
             {
                 using (IDbConnection connection = DatabaseHelper.GetReadonlyConnection())
                 {
-                    connection.Open();
-
                     objReasons = connection.Query<DiscardReasons>("GetUserReviewsDiscardReasons", commandType: CommandType.StoredProcedure);
-
-                    if (connection.State == ConnectionState.Open)
-                        connection.Close();
                 }
             }
             catch (Exception ex)
@@ -151,14 +138,10 @@ namespace BikewaleOpr.DALs.UserReviews
                     param.Add("par_isShortListed", iShortListed);
                     param.Add("par_oldTableReviewId", value: 0, dbType: DbType.UInt32, direction: ParameterDirection.Output);
 
-                    connection.Open();
-
                     connection.Query("updateuserreviewstatus_17052017", param: param, commandType: CommandType.StoredProcedure);
 
                     oldTableReviewId = param.Get<uint>("par_oldTableReviewId");
 
-                    if (connection.State == ConnectionState.Open)
-                        connection.Close();
 
                 }
             }
@@ -401,12 +384,8 @@ namespace BikewaleOpr.DALs.UserReviews
                     param.Add("par_status", (ushort)reviewStatus);
                     param.Add("par_disapproveId", disapprovalReasonId > 0 ? disapprovalReasonId : (ushort?)null);                                        
 
-                    connection.Open();
 
                     connection.Query("updateuserreviewratingsstatus_17072017", param: param, commandType: CommandType.StoredProcedure);                    
-
-                    if (connection.State == ConnectionState.Open)
-                        connection.Close();
 
                 }
             }
@@ -436,12 +415,7 @@ namespace BikewaleOpr.DALs.UserReviews
                     param.Add("par_reviewid", reviewId);
                     param.Add("par_moderatorId", moderatorId);
                    
-                    connection.Open();
-
                     connection.Query("saveuserreviewswinner", param: param, commandType: CommandType.StoredProcedure);
-
-                    if (connection.State == ConnectionState.Open)
-                        connection.Close();
 
                 }
             }

@@ -37,20 +37,11 @@ namespace BikewaleOpr.DALs.ServiceCenter
 
                     using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                     {
-                        connection.Open();
-
                         var param = new DynamicParameters();
-
 
                         param.Add("par_makeid", makeId);
 
                         objCityList = connection.Query<CityEntityBase>("getservicecenterscitiesbymakeid_new_16082017", param: param, commandType: CommandType.StoredProcedure);
-
-
-
-                        if (connection.State == ConnectionState.Open)
-                            connection.Close();
-
 
                     }
                 }
@@ -125,8 +116,6 @@ namespace BikewaleOpr.DALs.ServiceCenter
             {
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
-                    connection.Open();
-
                     var param = new DynamicParameters();
 
                     param.Add("par_cityId", cityId);
@@ -138,8 +127,6 @@ namespace BikewaleOpr.DALs.ServiceCenter
                     serviceCenters.Count = (UInt32)objServiceCenterList.Count();
                     serviceCenters.ServiceCenters = objServiceCenterList;
 
-                    if (connection.State == ConnectionState.Open)
-                        connection.Close();
                 }
             }
             catch (Exception ex)
@@ -166,7 +153,6 @@ namespace BikewaleOpr.DALs.ServiceCenter
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
 
                 {
-                    connection.Open();
 
                     var param = new DynamicParameters();
                     if (serviceCenterDetails.Id > 0)
@@ -193,10 +179,6 @@ namespace BikewaleOpr.DALs.ServiceCenter
                     param.Add("par_updatedby", updatedById);
                     status = connection.Execute("saveupdateservicecenter", param: param, commandType: CommandType.StoredProcedure);
 
-
-
-                    if (connection.State == ConnectionState.Open)
-                        connection.Close();
                 }
 
             }
@@ -228,8 +210,6 @@ namespace BikewaleOpr.DALs.ServiceCenter
                     using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
 
                     {
-                        connection.Open();
-
                         var param = new DynamicParameters();
 
                         param.Add("par_id", serviceCenterId);
@@ -237,9 +217,6 @@ namespace BikewaleOpr.DALs.ServiceCenter
 
                         status = connection.Execute("updateservicecenterstatus", param: param, commandType: CommandType.StoredProcedure);
 
-
-                        if (connection.State == ConnectionState.Open)
-                            connection.Close();
                     }
 
                 }
@@ -267,8 +244,6 @@ namespace BikewaleOpr.DALs.ServiceCenter
                 {
                     using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                     {
-                        connection.Open();
-
                         var param = new DynamicParameters();
 
                         param.Add("par_serviceCenterId", serviceCenterId);
@@ -283,9 +258,6 @@ namespace BikewaleOpr.DALs.ServiceCenter
                                return ServiceCenterCompleteData;
                            }, splitOn: "cityId", param: param, commandType: CommandType.StoredProcedure
                        ).FirstOrDefault();
-
-                        if (connection.State == ConnectionState.Open)
-                            connection.Close();
                     }
                 }
             }
@@ -315,17 +287,12 @@ namespace BikewaleOpr.DALs.ServiceCenter
                     using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
 
                     {
-                        connection.Open();
 
                         var param = new DynamicParameters();
 
                         param.Add("par_cityId", cityId);
 
                         objData = connection.Query<StateCityEntity>("getstatedetailsbycity", param: param, commandType: CommandType.StoredProcedure);
-
-
-                        if (connection.State == ConnectionState.Open)
-                            connection.Close();
                     }
 
                 }

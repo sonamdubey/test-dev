@@ -1667,14 +1667,9 @@ namespace Bikewale.DAL.UserReviews
             {
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
-                    connection.Open();
-
                     var param = new DynamicParameters();
 
                     objReviewsList = connection.Query<RecentReviewsWidget>("getrecentuserreview", param: param, commandType: CommandType.StoredProcedure);
-
-                    if (connection.State == ConnectionState.Open)
-                        connection.Close();
                 }
             }
             catch (Exception ex)
@@ -1697,12 +1692,7 @@ namespace Bikewale.DAL.UserReviews
             {
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
-                    connection.Open();
                     objReviewsWinnersList = connection.Query<RecentReviewsWidget>("getuserreviewswinners", commandType: CommandType.StoredProcedure);
-                    if (connection.State == ConnectionState.Open)
-                    {
-                        connection.Close();
-                    }
                 }
             }
             catch (Exception ex)

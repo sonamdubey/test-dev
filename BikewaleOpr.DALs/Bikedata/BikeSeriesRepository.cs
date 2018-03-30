@@ -29,7 +29,6 @@ namespace BikewaleOpr.DALs.Bikedata
             {
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
-                    connection.Open();
                     objBikeSeries = connection.Query<BikeSeriesEntity, BikeMakeEntityBase,BikeBodyStyleEntity, BikeSeriesEntity>
                                     (
                                         "getbikeseries_12122017",
@@ -40,10 +39,7 @@ namespace BikewaleOpr.DALs.Bikedata
                                             return bikeseries;
                                         }, splitOn: "MakeId, BodyStyleId", commandType: CommandType.StoredProcedure
                                     );
-                    if (connection.State == ConnectionState.Open)
-                    {
-                        connection.Close();
-                    }
+                 
                 }
             }
             catch (Exception ex)
@@ -78,7 +74,7 @@ namespace BikewaleOpr.DALs.Bikedata
                     param.Add("par_updatedby", dbType: DbType.String, direction: ParameterDirection.Output);
                     param.Add("par_seriesid", dbType: DbType.UInt32, direction: ParameterDirection.Output);
                     param.Add("par_createdon", dbType: DbType.Date, direction: ParameterDirection.Output);
-                    connection.Open();
+
                     connection.Execute("addbikeseries_12122017", param: param, commandType: CommandType.StoredProcedure);
                     bikeSeries.SeriesId = param.Get<uint>("par_seriesid");
                     if (bikeSeries.SeriesId != 0)
@@ -87,10 +83,7 @@ namespace BikewaleOpr.DALs.Bikedata
                         bikeSeries.CreatedOn = param.Get<DateTime>("par_createdon");
                         bikeSeries.UpdatedOn = param.Get<DateTime>("par_createdon");
                     }
-                    if (connection.State == ConnectionState.Open)
-                    {
-                        connection.Close();
-                    }
+
                 }
             }
             catch (Exception ex)
@@ -114,12 +107,7 @@ namespace BikewaleOpr.DALs.Bikedata
                 {
                     DynamicParameters param = new DynamicParameters();
                     param.Add("par_makeid", makeId);
-                    connection.Open();
                     objBikeSeriesList = connection.Query<BikeSeriesEntityBase>("getseriesbymake", param: param, commandType: CommandType.StoredProcedure);
-                    if (connection.State == ConnectionState.Open)
-                    {
-                        connection.Close();
-                    }
                 }
             }
             catch (Exception ex)
@@ -155,15 +143,8 @@ namespace BikewaleOpr.DALs.Bikedata
                     param.Add("par_seriesid", bikeSeries.SeriesId);
                     param.Add("par_bodystyleid", bikeSeries.BodyStyle.BodyStyleId);
 
-                    connection.Open();
-
                     rowsAffected = connection.Execute("editbikeseries_12122017", param: param, commandType: CommandType.StoredProcedure);
 
-
-                    if (connection.State == ConnectionState.Open)
-                    {
-                        connection.Close();
-                    }
                 }
             }
             catch (Exception ex)
@@ -193,15 +174,9 @@ namespace BikewaleOpr.DALs.Bikedata
                     param.Add("par_updatedby", deletedBy);
                     param.Add("par_rowsAffected", dbType: DbType.Int32, direction: ParameterDirection.Output);
 
-                    connection.Open();
-
                     connection.Execute("deletebikeseries_23102017", param: param, commandType: CommandType.StoredProcedure);
                     rowsAffected = param.Get<int>("par_rowsAffected");
 
-                    if (connection.State == ConnectionState.Open)
-                    {
-                        connection.Close();
-                    }
                 }
             }
             catch (Exception ex)
@@ -231,17 +206,11 @@ namespace BikewaleOpr.DALs.Bikedata
                     param.Add("par_modelid", modelId);
                     param.Add("par_seriesId", dbType: DbType.Int32, direction: ParameterDirection.Output);
 
-                    connection.Open();
-
                     rowsAffected = connection.Execute("deletemappingofmodelseries_23102017", param: param, commandType: CommandType.StoredProcedure);
 
                     if (rowsAffected > 0)
                         seriesId = param.Get<int>("par_seriesId");
 
-                    if (connection.State == ConnectionState.Open)
-                    {
-                        connection.Close();
-                    }
                 }
             }
             catch (Exception ex)
@@ -265,7 +234,6 @@ namespace BikewaleOpr.DALs.Bikedata
             {
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
-                    connection.Open();
 
                     var param = new DynamicParameters();
 
@@ -273,10 +241,6 @@ namespace BikewaleOpr.DALs.Bikedata
 
                     objSynopsis = connection.Query<SynopsisData>("getseriessynopsis", param: param, commandType: CommandType.StoredProcedure).FirstOrDefault();
 
-                    if (connection.State == ConnectionState.Open)
-                    {
-                        connection.Close();
-                    }
                 }
             }
             catch (Exception ex)
@@ -300,9 +264,7 @@ namespace BikewaleOpr.DALs.Bikedata
             try
             {
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
-                {
-                    connection.Open();
-
+                {                    
                     var param = new DynamicParameters();
 
                     param.Add("par_seriesid", seriesId);
@@ -310,11 +272,6 @@ namespace BikewaleOpr.DALs.Bikedata
                     param.Add("par_discription", objSynopsis.BikeDescription);
 
                     rowsAffected = connection.Execute("manageseriessynopsis", param: param, commandType: CommandType.StoredProcedure);
-
-                    if (connection.State == ConnectionState.Open)
-                    {
-                        connection.Close();
-                    }
                 }
             }
             catch (Exception ex)

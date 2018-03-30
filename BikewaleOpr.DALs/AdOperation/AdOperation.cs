@@ -80,8 +80,6 @@ namespace BikewaleOpr.DALs.AdOperation
             {
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
-                    connection.Open();
-
                     var param = new DynamicParameters();
                     param.Add("par_adoperationid", objPromotedBike.AdOperationType);
                     param.Add("par_makeid", objPromotedBike.Make.MakeId);
@@ -114,8 +112,6 @@ namespace BikewaleOpr.DALs.AdOperation
             {
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
-                    connection.Open();
-
                     var param = new DynamicParameters();
                     param.Add("par_adpromotedbikeid", objPromotedBike.PromotedBikeId);
                     param.Add("par_startdatetime", objPromotedBike.StartTime??null);

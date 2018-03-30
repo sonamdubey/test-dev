@@ -1,6 +1,7 @@
 ﻿
 using Bikewale.Entities;
 using Bikewale.Entities.BikeBooking;
+using Bikewale.Entities.manufacturecampaign;
 using Bikewale.Entities.PriceQuote;
 using System.Collections.Generic;
 
@@ -19,5 +20,7 @@ namespace Bikewale.Interfaces.PriceQuote
         IEnumerable<ManufacturerDealer> GetManufacturerDealers(uint cityId, uint dealerId);
         uint GetDefaultPriceQuoteVersion(uint modelId, uint cityId);
         Bikewale.Entities.PriceQuote.v2.DetailedDealerQuotationEntity GetDealerPriceQuoteByPackageV2(PQParameterEntity objParams);
+
+        string GetManufacturerCampaignMobileRenderedTemplate(string key, ManufactureCampaignLeadEntity leadCampaign);
     }
 }
