@@ -225,7 +225,6 @@ docReady(function () {
 			console.warn(e.message);
 		}
 	}
-
 	$('#galleryLoader').hide();
 });
 
@@ -285,8 +284,9 @@ docReady(function () {
 		onTap: function (swiper, event) {
 			if (!$(event.target).hasClass('color-tab__arrow-btn')) {
 				var activeIndex = swiper.activeIndex;
-
+				vmModelGallery.activePopup(true);
 				vmModelGallery.colorPopup().openPopup();
+				resizeHandler();
 				colorGallerySwiper.slideTo(activeIndex);
 				Scroll.lock();
 				$('body').addClass('scroll-lock--color');

@@ -325,7 +325,6 @@ var ModelColorPopupViewModel = function () {
 	self.openPopup = function () {
 	  self.activePopup(true);
 	  self.setListHeight();
-	  //resizeHandler();
 
 		triggerGA('Gallery_Page', 'Colours_Tab_Clicked_Opened', self.modelName);
 		
