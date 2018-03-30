@@ -27,7 +27,7 @@
                             {
                                 <li>
                                     <div class="specs-features-label">@item.DisplayText</div>
-                                    <div class="text-bold">@Bikewale.Utility.FormatMinSpecs.ShowAvailable(item.ItemValues.FirstOrDefault(), item.UnitTypeText)</div>
+                                    <div class="text-bold">@Bikewale.Utility.FormatMinSpecs.ShowAvailable(item.ItemValues.FirstOrDefault(), item.UnitTypeText, item.DataType)</div>
                                 </li>
                             }
                         </ul>
@@ -49,7 +49,7 @@
                 {
                     <li>
                         <div class="specs-features-label">@feature.DisplayText</div>
-                        <div class="text-bold">@Bikewale.Utility.FormatMinSpecs.ShowAvailable(feature.ItemValues.FirstOrDefault(), feature.UnitTypeText)</div>
+                        <div class="text-bold">@Bikewale.Utility.FormatMinSpecs.ShowAvailable(feature.ItemValues.FirstOrDefault(), feature.UnitTypeText, feature.DataType)</div>
                     </li>
                 }
             </ul>
@@ -58,7 +58,7 @@
                 {
                     <li>
                         <div class="specs-features-label">@feature.DisplayText</div>
-                        <div class="text-bold">@Bikewale.Utility.FormatMinSpecs.ShowAvailable(feature.ItemValues.FirstOrDefault(), feature.UnitTypeText)</div>
+                        <div class="text-bold">@Bikewale.Utility.FormatMinSpecs.ShowAvailable(feature.ItemValues.FirstOrDefault(), feature.UnitTypeText, feature.DataType)</div>
                     </li>
                 }
             </ul>

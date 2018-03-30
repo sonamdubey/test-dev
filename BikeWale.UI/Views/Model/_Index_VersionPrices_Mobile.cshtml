@@ -22,7 +22,7 @@
                                 <span>@(version.Price > 0 ? Bikewale.Utility.Format.FormatPrice(version.Price.ToString()) : Bikewale.Utility.Format.FormatPrice(version.AverageExShowroom.ToString()))</span>
                             </span>
                         </td>
-                        <td>@string.Format(@"{0} Brake, {1} Wheels", version.BrakeType, (version.AlloyWheels) ? "Alloy" : "Spoke")</td>
+                        <td class="font12">@Bikewale.Utility.FormatMinSpecs.GetCommaSepratedGeneralSpecs(version.MinSpecsList)</td>
                     </tr>
                 }
             </tbody>

@@ -139,6 +139,7 @@ namespace Bikewale.BAL.GrpcFiles.Specs_Features
                             DisplayText = item.Name,
                             Icon = item.Icon,
                             Id = item.Id,
+                            DataType = (EnumSpecDataType)item.DataTypeId,
                             ItemValues = item.ItemValues,
                             UnitTypeText = item.UnitTypeName
                         });
@@ -245,6 +246,7 @@ namespace Bikewale.BAL.GrpcFiles.Specs_Features
                         {
                             Id = itemData.ItemId,
                             Icon = itemData.Icon,
+                            DataType = (EnumSpecDataType)itemData.DataTypeId, // To be changed soon
                             Name = itemData.ItemName,
                             Value = itemData.Value,
                             UnitType = itemData.UnitType

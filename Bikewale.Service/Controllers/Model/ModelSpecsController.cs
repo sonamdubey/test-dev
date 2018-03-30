@@ -1,10 +1,11 @@
-﻿using Bikewale.BAL.GrpcFiles.Specs_Features;
+using Bikewale.BAL.GrpcFiles.Specs_Features;
 using Bikewale.BAL.PriceQuote;
 using Bikewale.DTO.Model;
 using Bikewale.DTO.Version;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeData;
+using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.Model;
 using Bikewale.Service.AutoMappers.Version;
@@ -24,28 +25,29 @@ namespace Bikewale.Service.Controllers.Model
     /// </summary>
     public class ModelSpecsController : CompressionApiController//ApiController
     {
-        private  string _cwHostUrl = ConfigurationManager.AppSettings["cwApiHostUrl"];
+        private string _cwHostUrl = ConfigurationManager.AppSettings["cwApiHostUrl"];
         private string _applicationid = ConfigurationManager.AppSettings["applicationId"];
         private readonly IBikeModelsRepository<BikeModelEntity, int> _modelRepository = null;
         private readonly IBikeModelsCacheRepository<int> _cache;
         private readonly IBikeModels<BikeModelEntity, int> _bikeModelEntity = null;
-		private readonly IBikeVersionCacheRepository<BikeVersionEntity, uint> _versionCacheRepository = null;
+        private readonly IBikeVersionCacheRepository<BikeVersionEntity, uint> _versionCacheRepository = null;
+        private readonly IPQByCityArea _objPQByCityArea = null;
 
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="modelRepository"></param>
-		/// <param name="cache"></param>
-		/// <param name="bikeModelEntity"></param>
-		/// <param name="versionCacheRepository"></param>
-		public ModelSpecsController(IBikeModelsRepository<BikeModelEntity, int> modelRepository, IBikeModelsCacheRepository<int> cache, IBikeModels<BikeModelEntity, int> bikeModelEntity, IBikeVersionCacheRepository<BikeVersionEntity, uint> versionCacheRepository)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="modelRepository"></param>
+        /// <param name="cache"></param>
+        /// <param name="bikeModelEntity"></param>
+        /// <param name="versionCacheRepository"></param>
+        public ModelSpecsController(IBikeModelsRepository<BikeModelEntity, int> modelRepository, IBikeModelsCacheRepository<int> cache, IBikeModels<BikeModelEntity, int> bikeModelEntity, IBikeVersionCacheRepository<BikeVersionEntity, uint> versionCacheRepository, IPQByCityArea objPQByCityArea)
         {
             _modelRepository = modelRepository;
             _cache = cache;
             _bikeModelEntity = bikeModelEntity;
-			_versionCacheRepository = versionCacheRepository;
-
-		}
+            _versionCacheRepository = versionCacheRepository;
+            _objPQByCityArea = objPQByCityArea;
+        }
 
         #region Model Specifications and Features
         /// <summary>
@@ -77,7 +79,7 @@ namespace Bikewale.Service.Controllers.Model
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "Exception : Bikewale.Service.Model.ModelController");
-               
+
                 return InternalServerError();
             }
 
@@ -103,7 +105,6 @@ namespace Bikewale.Service.Controllers.Model
             {
                 return BadRequest();
             }
-            PQByCityArea getPQ = null;
             BikeModelPageEntity objModelPage = null;
             BikeSpecs specs = null;
             PQByCityAreaEntity objPQ = null;
@@ -123,14 +124,12 @@ namespace Bikewale.Service.Controllers.Model
                 {
                     return BadRequest();
                 }
-
-                getPQ = new PQByCityArea();
                 objModelPage = _bikeModelEntity.GetModelPageDetails(modelId);
                 objModelPage.VersionSpecsFeatures = SpecsFeaturesServiceGateway.GetVersionsSpecsFeatures(new List<uint>{ 1 });
 
                 if (objModelPage != null)
                 {
-                    objPQ = getPQ.GetVersionList(modelId, objModelPage.ModelVersions, cityId, areaId, Convert.ToUInt16(platformId), null, null, deviceId);
+                    objPQ = _objPQByCityArea.GetVersionList(modelId, objModelPage.ModelVersions, cityId, areaId, Convert.ToUInt16(platformId), null, null, deviceId);
                     if (objPQ != null)
                     {
                         specs = ModelMapper.ConvertToBikeSpecs(objModelPage, objPQ);
@@ -142,7 +141,7 @@ namespace Bikewale.Service.Controllers.Model
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "Exception : Bikewale.Service.Model.ModelController.GetBikeSpecs");
-               
+
                 return InternalServerError();
             }
         }

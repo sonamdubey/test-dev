@@ -200,6 +200,7 @@
     <Compile Include="BikeData\BikeWithMileageInfo.cs" />
     <Compile Include="BikeData\CompareMakeModelEntity.cs" />
     <Compile Include="BikeData\EnumBikeData.cs" />
+    <Compile Include="BikeData\EnumSpecDataType.cs" />
     <Compile Include="BikeData\EnumSpecsFeaturesItem.cs" />
     <Compile Include="BikeData\EnumUpcomingBikesFilter.cs" />
     <Compile Include="BikeData\ExpertReviewCountEntity.cs" />
@@ -380,6 +381,7 @@
     <Compile Include="MobileVerification\MobileVerificationEntity.cs" />
     <Compile Include="MobileVerification\SMSData.cs" />
     <Compile Include="Models\AdSlotEntity.cs" />
+    <Compile Include="Models\AdSlotModel.cs" />
     <Compile Include="Models\AdTags.cs" />
     <Compile Include="Models\AmpJsTags.cs" />
     <Compile Include="Models\BreadCrumb.cs" />

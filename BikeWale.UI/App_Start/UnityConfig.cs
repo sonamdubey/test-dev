@@ -183,6 +183,7 @@ namespace Bikewale
             container.RegisterType<IBikeSearchResult, BikeSearchResult>();
             container.RegisterType<IBikeSearchCacheRepository, BikeSearchCacheRepository>();
             container.RegisterType<IPageFilters, PageFilters>();
+            container.RegisterType<IPQByCityArea, PQByCityArea>();
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }
     }

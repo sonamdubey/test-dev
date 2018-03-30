@@ -111,6 +111,8 @@ namespace Bikewale.DAL.BikeData
         /// Description : Changed SP from 'getversions_30082017' to 'getversions_29092017'
         /// Modified by : Ashutosh Sharma on 29 Sep 2017 
         /// Description : Changed SP from 'getversions_30082017' to 'getversions_29092017', to get avg price.
+        /// Modified by : Rajan Chauhan on 23 Mar 2018
+        /// Description : Removed MinSpecs binding
         /// </summary>
         /// <param name="modelId"></param>
         /// <param name="isNew"></param>
@@ -140,10 +142,6 @@ namespace Bikewale.DAL.BikeData
                                     ModelName = dr["Model"].ToString(),
                                     Price = Convert.ToUInt64(dr["VersionPrice"]),
                                     AverageExShowroom = Convert.ToUInt32(dr["AverageExShowroom"]),
-                                    BrakeType = dr["BrakeType"].ToString(),
-                                    AlloyWheels = Convert.ToBoolean(dr["AlloyWheels"]),
-                                    ElectricStart = Convert.ToBoolean(dr["ElectricStart"]),
-                                    AntilockBrakingSystem = Convert.ToBoolean(dr["AntilockBrakingSystem"]),
                                     BodyStyle = (EnumBikeBodyStyles)Enum.Parse(typeof(EnumBikeBodyStyles), Convert.ToString(dr["BodyStyleId"]))
                                 });
                             }
@@ -456,6 +454,8 @@ namespace Bikewale.DAL.BikeData
         /// Summary :- To get list of similar bikes by version id and cityid
         /// Modified by : Ashutosh Sharma on 03 Oct 2017 
         /// Description : Changed SP from 'getsimilarbikeslist_13102016' to 'getsimilarbikeslist_02102017', to get avg price.
+        /// Modified by : Pratibha Verma on 27 Mar 2018
+        /// Description : Removed MinSpecs code
         /// </summary>
         /// <param name="versionId"></param>
         /// <param name="topCount"></param>
@@ -498,11 +498,6 @@ namespace Bikewale.DAL.BikeData
                                 objBike.VersionPrice = SqlReaderConvertor.ToInt32(dr["versionprice"]);
                                 objBike.AvgExShowroomPrice = SqlReaderConvertor.ToUInt32(dr["AvgPrice"]);
                                 objBike.OriginalImagePath = dr["originalimagepath"].ToString();
-                                objBike.Displacement = SqlReaderConvertor.ToNullableFloat(dr["displacement"]);
-                                objBike.FuelEfficiencyOverall = SqlReaderConvertor.ToNullableUInt16(dr["fuelefficiencyoverall"]);
-                                objBike.MaximumTorque = SqlReaderConvertor.ToNullableFloat(dr["maximumTorque"]);
-                                objBike.KerbWeight = SqlReaderConvertor.ToNullableUInt16(dr["kerbweight"]);
-                                objBike.MaxPower = SqlReaderConvertor.ToNullableFloat(dr["maxpower"]);
                                 objBike.ReviewCount = Convert.ToUInt16(dr["reviewcount"]);
                                 objBike.ReviewRate = Convert.ToDouble(dr["reviewrate"]);
                                 objBike.LargePicUrl = "/bikewaleimg/models/" + Convert.ToString(dr["largePic"]);
@@ -526,7 +521,9 @@ namespace Bikewale.DAL.BikeData
             return objSimilarBikes;
         }   // End of GetSimilarBikesList
 
-
+        /// <Summary>
+        /// Modified by : Pratibha Verma on 27 Mar 2018
+        /// Description : Removed MinSpecs code
         public IEnumerable<SimilarBikeEntity> GetSimilarBikesByModel(U modelId, uint topCount, uint cityid)
         {
             IList<SimilarBikeEntity> objSimilarBikes = null;
@@ -564,11 +561,6 @@ namespace Bikewale.DAL.BikeData
                                 objBike.VersionPrice = SqlReaderConvertor.ToInt32(dr["versionprice"]);
                                 objBike.AvgExShowroomPrice = SqlReaderConvertor.ToUInt32(dr["AvgPrice"]);
                                 objBike.OriginalImagePath = dr["originalimagepath"].ToString();
-                                objBike.Displacement = SqlReaderConvertor.ToNullableFloat(dr["displacement"]);
-                                objBike.FuelEfficiencyOverall = SqlReaderConvertor.ToNullableUInt16(dr["fuelefficiencyoverall"]);
-                                objBike.MaximumTorque = SqlReaderConvertor.ToNullableFloat(dr["maximumTorque"]);
-                                objBike.KerbWeight = SqlReaderConvertor.ToNullableUInt16(dr["kerbweight"]);
-                                objBike.MaxPower = SqlReaderConvertor.ToNullableFloat(dr["maxpower"]);
                                 objBike.ReviewCount = Convert.ToUInt16(dr["reviewcount"]);
                                 objBike.ReviewRate = Convert.ToDouble(dr["reviewrate"]);
                                 objBike.LargePicUrl = "/bikewaleimg/models/" + Convert.ToString(dr["largePic"]);
@@ -593,7 +585,9 @@ namespace Bikewale.DAL.BikeData
         }
 
 
-
+        /// <Summary>
+        /// Modified by : Pratibha Verma on 27 Mar 2018
+        /// Description : Removed MinSpecs code
         public IEnumerable<SimilarBikeEntity> GetSimilarBudgetBikes(U modelId, uint topCount, uint cityid)
         {
             IList<SimilarBikeEntity> objSimilarBikes = null;
@@ -628,11 +622,6 @@ namespace Bikewale.DAL.BikeData
                                 objBike.HostUrl = Convert.ToString(dr["hosturl"]);
                                 objBike.VersionPrice = SqlReaderConvertor.ToInt32(dr["versionprice"]);
                                 objBike.OriginalImagePath = dr["originalimagepath"].ToString();
-                                objBike.Displacement = SqlReaderConvertor.ToNullableFloat(dr["displacement"]);
-                                objBike.FuelEfficiencyOverall = SqlReaderConvertor.ToNullableUInt16(dr["fuelefficiencyoverall"]);
-                                objBike.MaximumTorque = SqlReaderConvertor.ToNullableFloat(dr["maximumTorque"]);
-                                objBike.KerbWeight = SqlReaderConvertor.ToNullableUInt16(dr["kerbweight"]);
-                                objBike.MaxPower = SqlReaderConvertor.ToNullableFloat(dr["maxpower"]);
                                 objBike.CityName = Convert.ToString(dr["cityname"]);
                                 objBike.CityMaskingName = Convert.ToString(dr["CityMaskingName"]);
                                 objSimilarBikes.Add(objBike);

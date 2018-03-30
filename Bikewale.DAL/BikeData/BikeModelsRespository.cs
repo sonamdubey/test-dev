@@ -265,16 +265,12 @@ namespace Bikewale.DAL.BikeData
                             {
                                 objMinSpecs.Add(new BikeVersionMinSpecs()
                                 {
-                                    VersionId = Convert.ToInt32(dr["ID"]),
+                                    VersionId = SqlReaderConvertor.ToInt32(dr["ID"]),
                                     VersionName = Convert.ToString(dr["Version"]),
                                     ModelName = Convert.ToString(dr["Model"]),
-                                    Price = Convert.ToUInt64(dr["VersionPrice"]),
-                                    AverageExShowroom = Convert.ToUInt32(dr["AverageExShowroom"]),
-                                    BrakeType = !Convert.IsDBNull(dr["BrakeType"]) ? Convert.ToString(dr["BrakeType"]) : String.Empty,
-                                    AlloyWheels = !Convert.IsDBNull(dr["AlloyWheels"]) ? Convert.ToBoolean(dr["AlloyWheels"]) : false,
-                                    ElectricStart = !Convert.IsDBNull(dr["ElectricStart"]) ? Convert.ToBoolean(dr["ElectricStart"]) : false,
-                                    AntilockBrakingSystem = !Convert.IsDBNull(dr["AntilockBrakingSystem"]) ? Convert.ToBoolean(dr["AntilockBrakingSystem"]) : false,
-                                    BodyStyle = (EnumBikeBodyStyles)Convert.ToUInt16(dr["BodyStyleId"]),
+                                    Price = SqlReaderConvertor.ToUInt64(dr["VersionPrice"]),
+                                    AverageExShowroom = SqlReaderConvertor.ToUInt32(dr["AverageExShowroom"]),
+                                    BodyStyle = (EnumBikeBodyStyles)SqlReaderConvertor.ToUInt16(dr["BodyStyleId"]),
                                     HostUrl = Convert.ToString(dr["HostURL"]),
                                     OriginalImagePath = Convert.ToString(dr["OriginalImagePath"])
                                 });
@@ -299,21 +295,43 @@ namespace Bikewale.DAL.BikeData
         /// <summary>
         /// Created by : Ashutosh Sharma on 26-Sep-2017
         /// Description : DAL method to get futuristice version of bike model
+        /// Modified by : Rajan Chauhan on 26 Mar 2018
+        /// Description : Removed MinSpecs mapping from BikeVersionMinSpecs
         /// </summary>
         /// <param name="modelId"></param>
         /// <returns></returns>
         public IEnumerable<BikeVersionMinSpecs> GetFuturisticVersionMinSpecs(U modelId)
         {
 
-            IEnumerable<BikeVersionMinSpecs> objMinSpecs = null;
+            IList<BikeVersionMinSpecs> objMinSpecs = null;
             try
             {
-                using (IDbConnection connection = DatabaseHelper.GetReadonlyConnection())
+                using (DbCommand cmd = DbFactory.GetDBCommand("getfuturisticversions_13112017"))
                 {
-                    DynamicParameters param = new DynamicParameters();
-                    param.Add("par_modelid", modelId);
-
-                    objMinSpecs = connection.Query<BikeVersionMinSpecs>("getfuturisticversions_13112017", param: param, commandType: CommandType.StoredProcedure);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            objMinSpecs = new List<BikeVersionMinSpecs>();
+                            while (dr.Read())
+                            {
+                                BikeVersionMinSpecs objBikeVersion = new BikeVersionMinSpecs
+                                {
+                                    VersionId = SqlReaderConvertor.ToInt32(dr["VersionId"]),
+                                    VersionName = Convert.ToString(dr["VersionName"]),
+                                    ModelName = Convert.ToString(dr["ModelName"]),
+                                    Price = SqlReaderConvertor.ToUInt32(dr["Price"]),
+                                    HostUrl = Convert.ToString(dr["HostURL"]),
+                                    OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]),
+                                    BodyStyle = (EnumBikeBodyStyles)SqlReaderConvertor.ToInt32(dr["BodyStyle"])
+                                };
+                                objMinSpecs.Add(objBikeVersion);
+                            }
+                            dr.Close();
+                        }
+                    }
                 }
             }
             catch (Exception ex)
@@ -2158,6 +2176,8 @@ namespace Bikewale.DAL.BikeData
         /// Description : Passed cityid to get used bikes count.     
         /// Modified by : Ashutosh Sharma on 29 Sep 2017 
         /// Description : Changed SP from 'getgenericbikelisting_03042017' to 'getgenericbikelisting_02102017', to get avg price.
+        /// Modified by : Pratibha Verma on 27 Mar 2018
+        /// Description : Removed MinSpecs code
         /// </summary>
         /// <param name="bodyStyle"></param>
         /// <returns></returns>
@@ -2182,12 +2202,6 @@ namespace Bikewale.DAL.BikeData
                             {
                                 BestBikeEntityBase bestBikeObj = new BestBikeEntityBase();
                                 bestBikeObj.BikeName = Convert.ToString(dr["BikeName"]);
-                                bestBikeObj.MinSpecs = new MinSpecsEntity();
-                                bestBikeObj.MinSpecs.Displacement = SqlReaderConvertor.ToNullableFloat(dr["Displacement"]);
-                                bestBikeObj.MinSpecs.FuelEfficiencyOverall = SqlReaderConvertor.ToUInt16(dr["FuelEfficiencyOverall"]);
-                                bestBikeObj.MinSpecs.KerbWeight = SqlReaderConvertor.ToUInt16(dr["Weight"]);
-                                bestBikeObj.MinSpecs.MaxPower = SqlReaderConvertor.ToFloat(dr["Power"]);
-                                bestBikeObj.MinSpecs.MaximumTorque = SqlReaderConvertor.ToNullableFloat(dr["MaximumTorque"]);
                                 bestBikeObj.HostUrl = Convert.ToString(dr["HostURL"]);
                                 bestBikeObj.OriginalImagePath = Convert.ToString(dr["ImagePath"]);
                                 bestBikeObj.Make = new BikeMakeEntityBase();
@@ -2217,6 +2231,7 @@ namespace Bikewale.DAL.BikeData
                                 bestBikeObj.UsedCity.CityMaskingName = Convert.ToString(dr["CityMaskingName"]);
                                 bestBikeObj.UsedCity.CityName = Convert.ToString(dr["CityName"]);
                                 bestBikeObj.PriceInCity = Convert.ToString(dr["PriceInCity"]);
+                                bestBikeObj.VersionId = Convert.ToInt32(dr["TopVersionId"]);
                                 bestBikesList.Add(bestBikeObj);
                             }
                             dr.Close();
@@ -2235,6 +2250,8 @@ namespace Bikewale.DAL.BikeData
         /// <summary>
         /// Created By  :   Vishnu Teja Yalakuntla on 11 Sep 2017
         /// Description :   Fetches best bikes for particular model in its make
+        /// Modified by : Pratibha Verma on 27 Mar 2018
+        /// Description : Removed MinSpecs code
         /// </summary>
         /// <param name="modelId"></param>
         /// <param name="cityId"></param>
@@ -2259,12 +2276,6 @@ namespace Bikewale.DAL.BikeData
                             {
                                 BestBikeEntityBase bestBikeObj = new BestBikeEntityBase();
                                 bestBikeObj.BikeName = Convert.ToString(dr["BikeName"]);
-                                bestBikeObj.MinSpecs = new MinSpecsEntity();
-                                bestBikeObj.MinSpecs.Displacement = SqlReaderConvertor.ToNullableFloat(dr["Displacement"]);
-                                bestBikeObj.MinSpecs.FuelEfficiencyOverall = SqlReaderConvertor.ToUInt16(dr["FuelEfficiencyOverall"]);
-                                bestBikeObj.MinSpecs.KerbWeight = SqlReaderConvertor.ToUInt16(dr["Weight"]);
-                                bestBikeObj.MinSpecs.MaxPower = SqlReaderConvertor.ToFloat(dr["Power"]);
-                                bestBikeObj.MinSpecs.MaximumTorque = SqlReaderConvertor.ToNullableFloat(dr["MaximumTorque"]);
                                 bestBikeObj.HostUrl = Convert.ToString(dr["HostURL"]);
                                 bestBikeObj.OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]);
                                 bestBikeObj.Make = new BikeMakeEntityBase();
@@ -2295,6 +2306,8 @@ namespace Bikewale.DAL.BikeData
         /// <summary>
         /// Created By  :   Vishnu Teja Yalakuntla on 11 Sep 2017
         /// Description :   Fetches best bikes for particular model in its make with on road price in given city
+        /// Modified by : Pratibha Verma on 27 Mar 2018
+        /// Description : Removed MinSpecs code
         /// </summary>
         /// <param name="modelId"></param>
         /// <param name="cityId"></param>
@@ -2320,12 +2333,6 @@ namespace Bikewale.DAL.BikeData
                             {
                                 BestBikeEntityBase bestBikeObj = new BestBikeEntityBase();
                                 bestBikeObj.BikeName = Convert.ToString(dr["BikeName"]);
-                                bestBikeObj.MinSpecs = new MinSpecsEntity();
-                                bestBikeObj.MinSpecs.Displacement = SqlReaderConvertor.ToNullableFloat(dr["Displacement"]);
-                                bestBikeObj.MinSpecs.FuelEfficiencyOverall = SqlReaderConvertor.ToUInt16(dr["FuelEfficiencyOverall"]);
-                                bestBikeObj.MinSpecs.KerbWeight = SqlReaderConvertor.ToUInt16(dr["Weight"]);
-                                bestBikeObj.MinSpecs.MaxPower = SqlReaderConvertor.ToFloat(dr["Power"]);
-                                bestBikeObj.MinSpecs.MaximumTorque = SqlReaderConvertor.ToNullableFloat(dr["MaximumTorque"]);
                                 bestBikeObj.HostUrl = Convert.ToString(dr["HostURL"]);
                                 bestBikeObj.OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]);
                                 bestBikeObj.Make = new BikeMakeEntityBase();
@@ -2583,6 +2590,8 @@ namespace Bikewale.DAL.BikeData
         /// Description :   Returns New bikes launched
         /// Modified by:- Subodh jain 09 march 2017
         ///summary :-  Added body type filter
+        /// Modified by : Pratibha Verma on 28 Mar 2018
+        /// Description : Replaced sp with `getnewlaunchedbikes_28032018`
         /// </summary>
         /// <returns></returns>
         public IEnumerable<NewLaunchedBikeEntityBase> GetNewLaunchedBikesList()
@@ -2593,7 +2602,7 @@ namespace Bikewale.DAL.BikeData
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "getnewlaunchedbikes_09032017";
+                    cmd.CommandText = "getnewlaunchedbikes_28032018";
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null)
@@ -2619,15 +2628,6 @@ namespace Bikewale.DAL.BikeData
                                             MaskingName = Convert.ToString(dr["modelmaskingname"])
                                         },
 
-                                        MinSpecs = new MinSpecsEntity()
-                                        {
-                                            Displacement = SqlReaderConvertor.ToNullableFloat(dr["Displacement"]),
-                                            FuelEfficiencyOverall = SqlReaderConvertor.ToNullableUInt16(dr["FuelEfficiencyOverall"]),
-                                            MaxPower = SqlReaderConvertor.ToNullableFloat(dr["maxpower"]),
-                                            MaximumTorque = SqlReaderConvertor.ToNullableFloat(dr["MaximumTorque"]),
-                                            KerbWeight = SqlReaderConvertor.ToNullableUInt16(dr["KerbWeight"])
-                                        },
-
                                         HostUrl = Convert.ToString(dr["hosturl"]),
                                         OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]),
                                         ReviewCount = SqlReaderConvertor.ToUInt32(dr["reviewcount"]),
@@ -2636,8 +2636,9 @@ namespace Bikewale.DAL.BikeData
                                         MaxPrice = SqlReaderConvertor.ToUInt32(dr["maxprice"]),
                                         LaunchedOn = SqlReaderConvertor.ToDateTime(dr["LaunchDate"]),
                                         Price = SqlReaderConvertor.ToUInt32(dr["Price"]),
-                                        BodyStyleId = SqlReaderConvertor.ToUInt32(dr["BodyStyleId"])
-                                    }
+                                        BodyStyleId = SqlReaderConvertor.ToUInt32(dr["BodyStyleId"]),
+                                        VersionId = SqlReaderConvertor.ToInt32(dr["TopVersionId"])
+                            }
                                 );
                             }
                             dr.Close();
@@ -2660,6 +2661,8 @@ namespace Bikewale.DAL.BikeData
         ///summary :-  Added body type filter
         /// Modified by : Sanskar Gupta on 12 Feb 2018
         /// Description : Changed SP to `getnewlaunchedbikesbycity_12022018`
+        /// Modified by : Pratibha Verma on 28 Mar 2018
+        /// Description : Replaced sp with `getnewlaunchedbikesbycity_28032018`
         /// </summary>
         /// <param name="cityId"></param>
         /// <returns></returns>
@@ -2671,7 +2674,7 @@ namespace Bikewale.DAL.BikeData
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "getnewlaunchedbikesbycity_12022018";
+                    cmd.CommandText = "getnewlaunchedbikesbycity_28032018";
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int16, cityId));
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
@@ -2698,15 +2701,6 @@ namespace Bikewale.DAL.BikeData
                                             MaskingName = Convert.ToString(dr["modelmaskingname"])
                                         },
 
-                                        MinSpecs = new MinSpecsEntity()
-                                        {
-                                            Displacement = SqlReaderConvertor.ToNullableFloat(dr["Displacement"]),
-                                            FuelEfficiencyOverall = SqlReaderConvertor.ToNullableUInt16(dr["FuelEfficiencyOverall"]),
-                                            MaxPower = SqlReaderConvertor.ToNullableFloat(dr["maxpower"]),
-                                            MaximumTorque = SqlReaderConvertor.ToNullableFloat(dr["MaximumTorque"]),
-                                            KerbWeight = SqlReaderConvertor.ToNullableUInt16(dr["KerbWeight"])
-                                        },
-
                                         HostUrl = Convert.ToString(dr["hosturl"]),
                                         OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]),
                                         ReviewCount = SqlReaderConvertor.ToUInt32(dr["reviewcount"]),
@@ -2724,7 +2718,8 @@ namespace Bikewale.DAL.BikeData
                                         AvgPrice = SqlReaderConvertor.ToUInt32(dr["AvgPrice"]),
                                         ExshowroomPrice = SqlReaderConvertor.ToUInt32(dr["ExshowroomPrice"]),
                                         VersionPrice = SqlReaderConvertor.ToUInt32(dr["VersionPrice"]),
-                                        BodyStyleId = SqlReaderConvertor.ToUInt32(dr["BodyStyleId"])
+                                        BodyStyleId = SqlReaderConvertor.ToUInt32(dr["BodyStyleId"]),
+                                        VersionId = SqlReaderConvertor.ToInt32(dr["TopVersionId"])
                                     }
                                 );
                             }

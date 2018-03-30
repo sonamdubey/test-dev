@@ -22,7 +22,7 @@ namespace Bikewale.Models
         public string KnowMoreLinkUrl { get; set; }
         public BikeCompareEntity Compare { get; set; }
         public bool isSponsoredBike { get; set; }
-        public Int64 sponsoredVersionId { get; set; }
+        public UInt32 sponsoredVersionId { get; set; }
         public string comparisionText { get; set; }
         public bool isUsedBikePresent { get; set; }
         public string targetModels { get; set; }
