@@ -307,6 +307,12 @@ var historyObj = (function () {
 	}
 })();
 
+// Function to refresh the ad after every 3 image swipes in the carousel
+function refreshAd() {
+    var id = "div-gpt-ad-1516082576550-0";
+    googletag.pubads().refresh([adsToRefresh[id]]);
+}
+
 // handle gallery popup's browser back state
 var GalleryState = (function() {
 	var _actions = [];
@@ -393,6 +399,10 @@ var MainGallerySwiper = (function() {
 					vmModelGallery.setLandscapeIcon();
 				}
 
+				if (swiper.activeIndex % 3 == 0) {
+				    refreshAd();
+				}
+                
 				vmModelGallery.setColorOption();
 
 				SwiperEvents.setDetails(swiper, vmModelGallery);
