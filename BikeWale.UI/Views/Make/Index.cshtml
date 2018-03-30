@@ -85,7 +85,7 @@
                                 {
                                     var modelUrl = Bikewale.Utility.UrlFormatter.BikePageUrl(bike.objMake.MaskingName, bike.objModel.MaskingName);
                                     var bikeName = string.Format("{0} {1}", bike.objMake.MakeName, bike.objModel.ModelName);
-                                    <li class="front" data-price="@bike.VersionPrice" data-mileage="@bike.MinSpecsList.SingleOrDefault(s => s.Id == (int)EnumSpecsFeaturesItem.FuelEfficiencyOverall)?.Value" data-popularity="@bike.BikePopularityIndex" data-bike="@bikeName">
+                                    <li class="front" data-price="@bike.VersionPrice" data-mileage="@bike.MinSpecsList.FirstOrDefault(s => s.Id == (int)EnumSpecsFeaturesItem.FuelEfficiencyOverall)?.Value" data-popularity="@bike.BikePopularityIndex" data-bike="@bikeName">
                                         <div class="contentWrapper">
                                             <div class="imageWrapper">
                                                 <a class="modelurl" href='@modelUrl'>

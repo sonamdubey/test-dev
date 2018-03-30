@@ -100,6 +100,8 @@ namespace Bikewale.Models
         /// <summary>
         /// <para />Created by  :   Sumit Kate on 24 Mar 2017
         /// <para />Description :   Returns MostPopularBikeWidgetVM
+        /// Modified by : Ashutosh Sharma on 29 Mar 2018
+        /// Description: Fetching specs and features from specs features service.
         /// </summary>
         /// <returns></returns>
         public MostPopularBikeWidgetVM GetData()
@@ -118,10 +120,16 @@ namespace Bikewale.Models
                     objVM.Bikes = objVM.Bikes.Take(TopCount);
                     var versionIds = objVM.Bikes.Select(b => b.objVersion.VersionId);
                     var specsList = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(versionIds);
-                    foreach (var bike in objVM.Bikes)
+                    if (specsList != null)
                     {
-                        var specs = specsList.FirstOrDefault(s => s.VersionId == bike.objVersion.VersionId);
-                        bike.MinSpecsList = specs != null ? specs.MinSpecsList : null;
+                        var specsListEnumerator = specsList.GetEnumerator();
+                        foreach (var bike in objVM.Bikes)
+                        {
+                            if (specsListEnumerator.MoveNext())
+                                bike.MinSpecsList = specsListEnumerator.Current.MinSpecsList;
+                            else
+                                break;
+                        }
                     }
                 }
             }

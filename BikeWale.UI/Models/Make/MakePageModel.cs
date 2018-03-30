@@ -81,7 +81,7 @@ namespace Bikewale.Models
         private readonly String _adId_Mobile_Old = "1444028878952";
         private readonly String _adPath_Mobile_New = "/1017752/Bikewale_Mobile_Make";
         private readonly String _adId_Mobile_New = "1519729632700";
-        
+
 
         public MakePageModel(string makeMaskingName, IBikeModels<BikeModelEntity, int> objModelEntity, IBikeModelsCacheRepository<int> bikeModelsCache, IBikeMakesCacheRepository bikeMakesCache, ICMSCacheContent articles, ICMSCacheContent expertReviews, IVideos videos, IUsedBikeDetailsCacheRepository cachedBikeDetails, IDealerCacheRepository cacheDealers, IUpcoming upcoming, IBikeCompare compareBikes, IServiceCenter objSC, IUserReviewsCache cacheUserReviews, INewBikeLaunchesBL newLaunchesBL, IPageFilters pageFilters)
         {
@@ -198,14 +198,20 @@ namespace Bikewale.Models
                     objData.SelectedSortingId = 1;
                     objData.SelectedSortingText = "Popular";
                 }
-                var minSpecsFeaturesList = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(objData.Bikes.Select(b => b.objVersion.VersionId));
-                var minSpecsEnumerator = minSpecsFeaturesList.GetEnumerator();
-                foreach (var bike in objData.Bikes)
+                if (objData.Bikes != null)
                 {
-                    if (minSpecsEnumerator.MoveNext())
-                        bike.MinSpecsList = minSpecsEnumerator.Current.MinSpecsList;
-                    else
-                        break;
+                    var minSpecsFeaturesList = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(objData.Bikes.Select(b => b.objVersion.VersionId));
+                    if (minSpecsFeaturesList != null)
+                    {
+                        var minSpecsEnumerator = minSpecsFeaturesList.GetEnumerator();
+                        foreach (var bike in objData.Bikes)
+                        {
+                            if (minSpecsEnumerator.MoveNext())
+                                bike.MinSpecsList = minSpecsEnumerator.Current.MinSpecsList;
+                            else
+                                break;
+                        }
+                    }
                 }
                 BindUpcomingBikes(objData);
                 BindPageMetaTags(objData, objData.Bikes, makeBase);
@@ -513,15 +519,15 @@ namespace Bikewale.Models
             RecentExpertReviews objExpertReviews = new RecentExpertReviews(TopCountExpertReviews, _makeId, objData.MakeName, _makeMaskingName, _expertReviews, string.Format("{0} Reviews", objData.MakeName));
 
             List<EnumCMSContentType> categoryList = new List<EnumCMSContentType>
-					{
-						EnumCMSContentType.RoadTest
-					};
+                    {
+                        EnumCMSContentType.RoadTest
+                    };
             List<EnumCMSContentSubCategoryType> subCategoryList = new List<EnumCMSContentSubCategoryType>
-					{
-						EnumCMSContentSubCategoryType.Road_Test,
-						EnumCMSContentSubCategoryType.First_Drive,
-						EnumCMSContentSubCategoryType.Long_Term_Report
-					};
+                    {
+                        EnumCMSContentSubCategoryType.Road_Test,
+                        EnumCMSContentSubCategoryType.First_Drive,
+                        EnumCMSContentSubCategoryType.Long_Term_Report
+                    };
             objData.ExpertReviews = objExpertReviews.GetData(categoryList, subCategoryList);
         }
 
@@ -965,38 +971,35 @@ namespace Bikewale.Models
             try
             {
                 CustomInputFilters objInputFilters = null;
-
-                if (objData != null)
+                objData.PageFilters = new FilterPageEntity();
+                objInputFilters = new CustomInputFilters();
+                if (objData.Bikes != null)
                 {
-                    objData.PageFilters = new FilterPageEntity();
-                    objInputFilters = new CustomInputFilters();
-                    if (objData.Bikes != null)
+                    float minDisplacement = Single.MaxValue, tempMinDisplacement;
+                    ushort minMileage = UInt16.MaxValue, tempMinMileage;
+                    long minExShowroomPrice = Int64.MaxValue, tempExShowroomPrice;
+                    IEnumerable<SpecsItem> minSpecList;
+                    foreach (var bike in objData.Bikes)
                     {
-                        float minDisplacement = Single.MaxValue, tempMinDisplacement;
-                        ushort minMileage = UInt16.MaxValue, tempMinMileage;
-                        long minExShowroomPrice = Int64.MaxValue, tempExShowroomPrice;
-                        foreach (var bike in objData.Bikes)
+                        minSpecList = bike.MinSpecsList;
+                        if (minSpecList != null)
                         {
-                            if (bike.MinSpecsList != null)
-                            {
-                                tempMinDisplacement = Convert.ToSingle(bike.MinSpecsList.SingleOrDefault(s => s.Id == (int)EnumSpecsFeaturesItem.Displacement)?.Value);
-                                minDisplacement = tempMinDisplacement > 0 && minDisplacement > tempMinDisplacement ? tempMinDisplacement : minDisplacement;
+                            tempMinDisplacement = Convert.ToSingle(minSpecList.SingleOrDefault(s => s.Id == (int)EnumSpecsFeaturesItem.Displacement)?.Value);
+                            minDisplacement = tempMinDisplacement > 0 && minDisplacement > tempMinDisplacement ? tempMinDisplacement : minDisplacement;
 
-                                tempMinMileage = Convert.ToUInt16(bike.MinSpecsList.SingleOrDefault(s => s.Id == (int)EnumSpecsFeaturesItem.FuelEfficiencyOverall)?.Value);
-                                minMileage = tempMinMileage > 0 && minMileage > tempMinMileage ? tempMinMileage : minMileage; 
-                            }
-
-                            tempExShowroomPrice = bike.ExShowroomPrice;
-                            minExShowroomPrice = tempExShowroomPrice > 0 && minExShowroomPrice > tempExShowroomPrice ? tempExShowroomPrice : minExShowroomPrice;
-                            objInputFilters.MinDisplacement = minDisplacement; 
+                            tempMinMileage = Convert.ToUInt16(minSpecList.SingleOrDefault(s => s.Id == (int)EnumSpecsFeaturesItem.FuelEfficiencyOverall)?.Value);
+                            minMileage = tempMinMileage > 0 && minMileage > tempMinMileage ? tempMinMileage : minMileage;
                         }
-                        objInputFilters.MinMileage = minMileage != UInt16.MaxValue ? minMileage : (ushort)0;
-                        objInputFilters.MinPrice = minExShowroomPrice != Int64.MaxValue ? minExShowroomPrice : 0;
-                        objInputFilters.MinDisplacement = minDisplacement != Single.MaxValue ? minDisplacement : 0;
-                        objInputFilters.MakeCategoryId = _makeCategoryId;
-                        objData.PageFilters.FilterResults = _pageFilters.GetRelevantPageFilters(objInputFilters).ToList();
+                        tempExShowroomPrice = bike.ExShowroomPrice;
+                        minExShowroomPrice = tempExShowroomPrice > 0 && minExShowroomPrice > tempExShowroomPrice ? tempExShowroomPrice : minExShowroomPrice;
                     }
+                    objInputFilters.MinMileage = minMileage != UInt16.MaxValue ? minMileage : (ushort)0;
+                    objInputFilters.MinPrice = minExShowroomPrice != Int64.MaxValue ? minExShowroomPrice : 0;
+                    objInputFilters.MinDisplacement = minDisplacement <= Single.MaxValue && minDisplacement >= Single.MaxValue ? 0 : minDisplacement;
+                    objInputFilters.MakeCategoryId = _makeCategoryId;
+                    objData.PageFilters.FilterResults = _pageFilters.GetRelevantPageFilters(objInputFilters).ToList();
                 }
+
             }
             catch (Exception ex)
             {
@@ -1038,7 +1041,7 @@ namespace Bikewale.Models
         {
             MakePageVM objData = GetData();
             BindAdSlots(objData, isNew);
-            
+
             return objData;
         }
 
@@ -1068,11 +1071,11 @@ namespace Bikewale.Models
 
                     if (adTagsObj.Ad_320x50)
                     {
-                        ads.Add(String.Format("{0}-0", _adId_Mobile_Old), GoogleAdsHelper.SetAdSlotProperties(adInfo, new String[] { ViewSlotSize._320x50 }, 0, 320, AdSlotSize._320x50, "Top", true)); 
+                        ads.Add(String.Format("{0}-0", _adId_Mobile_Old), GoogleAdsHelper.SetAdSlotProperties(adInfo, new String[] { ViewSlotSize._320x50 }, 0, 320, AdSlotSize._320x50, "Top", true));
                     }
                     if (adTagsObj.Ad_300x250)
                     {
-                        ads.Add(String.Format("{0}-2", _adId_Mobile_Old), GoogleAdsHelper.SetAdSlotProperties(adInfo, new String[] { ViewSlotSize._300x250 }, 2, 300, AdSlotSize._300x250)); 
+                        ads.Add(String.Format("{0}-2", _adId_Mobile_Old), GoogleAdsHelper.SetAdSlotProperties(adInfo, new String[] { ViewSlotSize._300x250 }, 2, 300, AdSlotSize._300x250));
                     }
 
                     objData.AdSlots = ads;
@@ -1098,24 +1101,24 @@ namespace Bikewale.Models
 
                     if (adTagsObj.Ad_320x100_Top)
                     {
-                        ads.Add(String.Format("{0}-3", _adId_Mobile_New), GoogleAdsHelper.SetAdSlotProperties(adInfo, new String[] { ViewSlotSize._320x100, ViewSlotSize._320x50 }, 3, 320, AdSlotSize._320x100, "Top", true)); 
+                        ads.Add(String.Format("{0}-3", _adId_Mobile_New), GoogleAdsHelper.SetAdSlotProperties(adInfo, new String[] { ViewSlotSize._320x100, ViewSlotSize._320x50 }, 3, 320, AdSlotSize._320x100, "Top", true));
                     }
                     if (adTagsObj.Ad_300x250_Top)
                     {
-                        ads.Add(String.Format("{0}-1", _adId_Mobile_New), GoogleAdsHelper.SetAdSlotProperties(adInfo, new String[] { ViewSlotSize._300x250 }, 1, 300, AdSlotSize._300x250, "Top")); 
+                        ads.Add(String.Format("{0}-1", _adId_Mobile_New), GoogleAdsHelper.SetAdSlotProperties(adInfo, new String[] { ViewSlotSize._300x250 }, 1, 300, AdSlotSize._300x250, "Top"));
                     }
                     if (adTagsObj.Ad_300x250_Middle)
                     {
-                        ads.Add(String.Format("{0}-2", _adId_Mobile_New), GoogleAdsHelper.SetAdSlotProperties(adInfo, new String[] { ViewSlotSize._300x250 }, 2, 300, AdSlotSize._300x250, "Middle")); 
+                        ads.Add(String.Format("{0}-2", _adId_Mobile_New), GoogleAdsHelper.SetAdSlotProperties(adInfo, new String[] { ViewSlotSize._300x250 }, 2, 300, AdSlotSize._300x250, "Middle"));
                     }
 
                     if (adTagsObj.Ad_300x250_Bottom)
                     {
-                        ads.Add(String.Format("{0}-0", _adId_Mobile_New), GoogleAdsHelper.SetAdSlotProperties(adInfo, new String[] { ViewSlotSize._300x250 }, 0, 300, AdSlotSize._300x250, "Bottom")); 
+                        ads.Add(String.Format("{0}-0", _adId_Mobile_New), GoogleAdsHelper.SetAdSlotProperties(adInfo, new String[] { ViewSlotSize._300x250 }, 0, 300, AdSlotSize._300x250, "Bottom"));
                     }
 
                     objData.AdSlots = ads;
-                } 
+                }
             }
         }
     }
