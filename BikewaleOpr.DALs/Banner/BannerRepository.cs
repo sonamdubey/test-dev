@@ -29,8 +29,6 @@ namespace BikewaleOpr.DALs.Banner
             {
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
-                    connection.Open();
-
                     var param = new DynamicParameters();
                     param.Add("par_id", bannerId);
 
@@ -52,8 +50,6 @@ namespace BikewaleOpr.DALs.Banner
                         if (bannerId > 0)
                             objBannerVM.CampaignId = bannerId;
                     }
-                    if (connection.State == ConnectionState.Open)
-                        connection.Close();
                 }
             }
             catch (Exception ex)
@@ -77,8 +73,7 @@ namespace BikewaleOpr.DALs.Banner
             {
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
-                    connection.Open();
-
+                    
                     var param = new DynamicParameters();
                     param.Add("par_status", bannerStatus);
                     objBannerList = connection.Query<BannerProperty>("getHomePageBanners", param: param, commandType: CommandType.StoredProcedure);
@@ -98,8 +93,6 @@ namespace BikewaleOpr.DALs.Banner
             {
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
-                    connection.Open();
-
                     var param = new DynamicParameters();
                     param.Add("par_reviewId", bannerId);
                     param.Add("par_status", bannerStatus);
@@ -125,9 +118,7 @@ namespace BikewaleOpr.DALs.Banner
             try
             {
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
-                {
-                    connection.Open();
-
+                {                    
                     var param = new DynamicParameters();
                     param.Add("par_id", objBanner.CampaignId);
                     param.Add("par_startdate", objBanner.StartDate);
@@ -155,7 +146,6 @@ namespace BikewaleOpr.DALs.Banner
             {
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
-                    connection.Open();
                     var param = new DynamicParameters();
                     param.Add("par_horizontalposition", objBanner.HorizontalPosition);
                     param.Add("par_verticalposition", objBanner.VerticalPosition);

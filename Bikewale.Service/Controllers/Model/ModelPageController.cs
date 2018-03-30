@@ -31,16 +31,23 @@ namespace Bikewale.Service.Controllers.Model
         private readonly IUserReviews _userReviews = null;
         private readonly IManufacturerCampaign _objManufacturerCampaign = null;
         private readonly IPQByCityArea _objPQByCityArea = null;
-        private static readonly ILog _logger = LogManager.GetLogger(typeof(ModelPageController)); 
+        private readonly IPriceQuoteCache _objPqCache = null;
+        private static readonly ILog _logger = LogManager.GetLogger(typeof(ModelPageController));
+
         /// <summary>
-        /// 
+        /// Modified by :   Sumit Kate on 29 Mar 2018
+        /// Description :   Added Price Quote cache layer interface
         /// </summary>
+        /// <param name="objManufacturerCampaign"></param>
         /// <param name="modelRepository"></param>
         /// <param name="cache"></param>
         /// <param name="dealers"></param>
         /// <param name="modelBL"></param>
         /// <param name="userReviews"></param>
-        public ModelPageController(IManufacturerCampaign objManufacturerCampaign, IBikeModelsRepository<Bikewale.Entities.BikeData.BikeModelEntity, int> modelRepository, IBikeModelsCacheRepository<int> cache, IDealerPriceQuoteDetail dealers, IBikeModels<Bikewale.Entities.BikeData.BikeModelEntity, int> modelBL, IUserReviews userReviews, IPQByCityArea objPQByCityArea)
+        /// <param name="objPQByCityArea"></param>
+        /// <param name="objPqCache"></param>
+        public ModelPageController(IManufacturerCampaign objManufacturerCampaign, IBikeModelsRepository<Bikewale.Entities.BikeData.BikeModelEntity, int> modelRepository, IBikeModelsCacheRepository<int> cache, IDealerPriceQuoteDetail dealers, IBikeModels<Bikewale.Entities.BikeData.BikeModelEntity, int> modelBL, IUserReviews userReviews, IPQByCityArea objPQByCityArea,
+            IPriceQuoteCache objPqCache)
         {
 
             _dealers = dealers;
@@ -48,6 +55,7 @@ namespace Bikewale.Service.Controllers.Model
             _userReviews = userReviews;
             _objManufacturerCampaign = objManufacturerCampaign;
             _objPQByCityArea = objPQByCityArea;
+            _objPqCache = objPqCache;
 
         }
 
@@ -419,8 +427,7 @@ namespace Bikewale.Service.Controllers.Model
         [ResponseType(typeof(DTO.Model.v5.ModelPage)), Route("api/v5/model/{modelId}/details/")]
         public IHttpActionResult GetV5(uint modelId, uint? cityId = null, int? areaId = null, string deviceId = null)
         {
-            DateTime dt1=DateTime.Now;
-            var contextProps=ThreadContext.Properties;
+
             DTO.Model.v5.ModelPage objDTOModelPage = null;
             try
             {
@@ -429,18 +436,11 @@ namespace Bikewale.Service.Controllers.Model
                     return BadRequest();
                 }
 
-                
-                contextProps["ModelId"] = modelId;
-                contextProps["CityId"] = cityId!=null?cityId.ToString():"null";
-                contextProps["Area"] = areaId != null ? areaId.ToString() : "null";
-                contextProps["DeviceId"] = deviceId != null ? deviceId.ToString() : "null";
-                DateTime dt3, dt4;
+
+
 
                 BikeModelPageEntity objModelPage = null;
-                dt3 = DateTime.Now;
                 objModelPage = _modelBL.GetModelPageDetails((int)modelId);
-                dt4 = DateTime.Now;
-                contextProps["1GetModelPageDetails"] = (dt4 - dt3).TotalMilliseconds;
 
 
                 if (objModelPage != null)
@@ -450,13 +450,10 @@ namespace Bikewale.Service.Controllers.Model
                         PQByCityAreaEntity pqEntity = null;
                         ushort platformId;
 
-                        dt3 = DateTime.Now;
                         if (!objModelPage.ModelDetails.Futuristic)
                         {
                             pqEntity = _objPQByCityArea.GetVersionListV2((int)modelId, objModelPage.ModelVersions, (int)(cityId.HasValue ? cityId.Value : 0), areaId, Convert.ToUInt16(Bikewale.DTO.PriceQuote.PQSources.Android), null, null, deviceId);
                         }
-                        dt4 = DateTime.Now;
-                        contextProps["1GetVersionListV2"] = (dt4 - dt3).TotalMilliseconds;
 
                         if (ushort.TryParse(Request.Headers.GetValues("platformId").First().ToString(), out platformId) && platformId == 3 && cityId.HasValue && cityId.Value > 0)
                         {
@@ -473,38 +470,28 @@ namespace Bikewale.Service.Controllers.Model
                                     }
                                 }
 
-                                dt3 = DateTime.Now;
                                 if (pqEntity != null && pqEntity.IsExShowroomPrice)
-                                    objDTOModelPage = ModelMapper.ConvertV5(objModelPage, pqEntity, null, platformId);
+                                    objDTOModelPage = ModelMapper.ConvertV5(_objPqCache, objModelPage, pqEntity, null, platformId);
                                 else
 
-                                    objDTOModelPage = ModelMapper.ConvertV5(objModelPage, pqEntity,
+                                    objDTOModelPage = ModelMapper.ConvertV5(_objPqCache, objModelPage, pqEntity,
                                     pqEntity.DealerEntity, platformId);
 
                             }
                             else
                             {
-                                dt3 = DateTime.Now;
-                                objDTOModelPage = ModelMapper.ConvertV5(objModelPage, pqEntity, null, platformId);
+                                objDTOModelPage = ModelMapper.ConvertV5(_objPqCache, objModelPage, pqEntity, null, platformId);
                             }
-                            dt4 = DateTime.Now;
-                            contextProps["1ConvertV5"] = (dt4 - dt3).TotalMilliseconds;
                             #endregion
                         }
                         else
                         {
-                            dt3 = DateTime.Now;
-                            objDTOModelPage = ModelMapper.ConvertV5(objModelPage, pqEntity, null, platformId);
-                            dt4 = DateTime.Now;
-                            contextProps["1ConvertV5"] = (dt4 - dt3).TotalMilliseconds;
+                            objDTOModelPage = ModelMapper.ConvertV5(_objPqCache, objModelPage, pqEntity, null, platformId);
                         }
                     }
                     else
                     {
-                        dt3 = DateTime.Now;
-                        objDTOModelPage = ModelMapper.ConvertV5(objModelPage, null, null);
-                        dt4 = DateTime.Now;
-                        contextProps["1ConvertV5"] = (dt4 - dt3).TotalMilliseconds;
+                        objDTOModelPage = ModelMapper.ConvertV5(_objPqCache, objModelPage, null, null);
                     }
 
 
@@ -519,12 +506,6 @@ namespace Bikewale.Service.Controllers.Model
             {
                 ErrorClass.LogError(ex, String.Format("Exception : Bikewale.Service.Model.ModelController.GetV5({0},{1},{2})", modelId, cityId, areaId));
                 return InternalServerError();
-            }
-            finally
-            {
-                DateTime dt2=DateTime.Now;
-                contextProps["TotalTime"]=(dt2-dt1).TotalMilliseconds;
-                _logger.Error("GetV5_Timing");
             }
         }
 

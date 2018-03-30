@@ -237,59 +237,7 @@ namespace Bikewale.Common
             ErrorClass.LogError(new Exception("Method not used/commented"), "SateCity.GetCityDetails");
             
             return null;
-
-            //Database db = null;
-            //SqlConnection conn = null;
-
-            //Cities objCity = null;
-
-            //string city = string.Empty;
-
-            //using (SqlCommand cmd = new SqlCommand())
-            //{
-            //    cmd.CommandType = CommandType.StoredProcedure;
-            //    cmd.CommandText = "GetCityDetails_SP";
-
-            //    cmd.Parameters.Add("@CityId", SqlDbType.Int).Value = cityId;
-            //    cmd.Parameters.Add("@City", SqlDbType.VarChar, 50).Direction = ParameterDirection.Output;
-            //      Bikewale.Notifications.// LogLiveSps.LogSpInGrayLog(cmd);
-            //    try
-            //    {
-            //        db = new Database();
-            //        conn = new SqlConnection(db.GetConString());
-            //        cmd.Connection = conn;
-
-            //        conn.Open();
-
-            //        cmd.ExecuteNonQuery();
-
-            //        // Set all details of the city into the cities object.
-            //        objCity = new Cities();
-
-            //        objCity.City = cmd.Parameters["@City"].Value.ToString();
-            //    }
-            //    catch (SqlException ex)
-            //    {
-            //        HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
-            //        ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-            //        
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
-            //        ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-            //        
-            //    }
-            //    finally
-            //    {
-            //        if (conn.State == ConnectionState.Open)
-            //        {
-            //            conn.Close();
-            //        }
-            //    }
-            //}
-
-            //return objCity;
+           
         }   // End of GetCityDetails function
 
         /// <summary>

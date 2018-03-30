@@ -25,8 +25,6 @@ namespace BikewaleOpr.DALs.ConfigurePageMetas
             {
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
-                    connection.Open();
-
                     var param = new DynamicParameters();
                     objPageList = connection.Query<PageEntity>("getbwpagemaster", param: param, commandType: CommandType.StoredProcedure);
                 }
@@ -46,7 +44,6 @@ namespace BikewaleOpr.DALs.ConfigurePageMetas
             {
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
-                    connection.Open();
                     var param = new DynamicParameters();
                     param.Add("par_id", objMetas.PageMetaId);
                     param.Add("par_pageid", objMetas.PageId);
@@ -104,8 +101,6 @@ namespace BikewaleOpr.DALs.ConfigurePageMetas
             {
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
-                    connection.Open();
-
                     var param = new DynamicParameters();
                     param.Add("par_id", pageMetaId);
 
@@ -133,7 +128,6 @@ namespace BikewaleOpr.DALs.ConfigurePageMetas
             {
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
-                    connection.Open();
                     var param = new DynamicParameters();
                     param.Add("par_ids", idList);
                     param.Add("par_status", status);
