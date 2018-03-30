@@ -120,6 +120,12 @@
     <Reference Include="ClearScript">
       <HintPath>..\Libs\PWA\ClearScript.dll</HintPath>
     </Reference>
+    <Reference Include="Crc32C.NET">
+      <HintPath>..\Libs\zipkin\Crc32C.NET.dll</HintPath>
+    </Reference>
+    <Reference Include="Criteo.Profiling.Tracing">
+      <HintPath>..\Libs\zipkin\Criteo.Profiling.Tracing.dll</HintPath>
+    </Reference>
     <Reference Include="Dapper">
       <HintPath>..\Libs\Dapper.dll</HintPath>
     </Reference>
@@ -169,9 +175,15 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\PWA\JSPool.dll</HintPath>
     </Reference>
+    <Reference Include="Kafka">
+      <HintPath>..\Libs\zipkin\Kafka.dll</HintPath>
+    </Reference>
     <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="LZ4">
+      <HintPath>..\Libs\zipkin\LZ4.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Practices.Unity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
@@ -233,6 +245,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\PWA\React.Web.Mvc4.dll</HintPath>
     </Reference>
+    <Reference Include="Snappy.NET">
+      <HintPath>..\Libs\zipkin\Snappy.NET.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -249,8 +264,20 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
+    <Reference Include="System.Reactive.Core">
+      <HintPath>..\Libs\zipkin\System.Reactive.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.Interfaces">
+      <HintPath>..\Libs\zipkin\System.Reactive.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.Linq">
+      <HintPath>..\Libs\zipkin\System.Reactive.Linq.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Threading.Tasks.Dataflow">
+      <HintPath>..\Libs\zipkin\System.Threading.Tasks.Dataflow.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -2240,9 +2267,20 @@
     <Content Include="css\components\select-box.css" />
     <Content Include="css\electric-bikes\landing.css" />
     <Content Include="css\emicalculator.css" />
+    <Content Include="css\fonts\fontawesome-webfont.svg" />
+    <Content Include="css\fonts\WebRupee.V2.0.svg" />
     <Content Include="css\threesixty-slider.css" />
     <Content Include="css\PopUp\PopUpCityArea.css" />
     <Content Include="css\finance\capital-first.css" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="fonts\WebRupee.V2.0.eot" />
+    <Content Include="fonts\WebRupee.V2.0.svg" />
+    <Content Include="fonts\WebRupee.V2.0.ttf" />
+    <Content Include="fonts\WebRupee.V2.0.woff" />
     <Content Include="m\css\campaign\hero-campaign.css" />
     <Content Include="m\css\electricbikes\landing.css" />
     <Content Include="m\css\finance\capital-first.css" />
@@ -2575,8 +2613,6 @@
     <Content Include="favicon.ico" />
     <Content Include="Feedback\Feedback.aspx" />
     <Content Include="Finance\EMICalculator.aspx" />
-    <Content Include="fonts\fontawesome-webfont.svg" />
-    <Content Include="fonts\WebRupee.V2.0.svg" />
     <Content Include="Generic\BikeListing.aspx" />
     <Content Include="Global.asax" />
     <Content Include="google863c8bc3ae47cfff.html" />
@@ -3186,6 +3222,7 @@
     <Content Include="src\dealer\details.js" />
     <Content Include="src\dealer\landing.js" />
     <Content Include="src\electricbikes\electricbikeindex.js" />
+    <Content Include="src\lazyloadad.js" />
     <Content Include="src\model-series\series.js" />
     <Content Include="src\emi-calculator.js" />
     <Content Include="src\new-launch.js" />
@@ -3365,17 +3402,10 @@
     <!--     <Content Include="test\fonts\WebRupee.V2.0.eot" />
     <Content Include="test\fonts\WebRupee.V2.0.ttf" />
     <Content Include="test\fonts\WebRupee.V2.0.woff" /> -->
-    <Content Include="fonts\WebRupee.V2.0.eot" />
-    <Content Include="fonts\WebRupee.V2.0.ttf" />
-    <Content Include="fonts\WebRupee.V2.0.woff" />
     <!--     <Content Include="m\fonts\WebRupee.V2.0.woff" />
     <Content Include="m\fonts\WebRupee.V2.0.ttf" />
     <Content Include="m\fonts\WebRupee.V2.0.eot" /> -->
     <Content Include="Absure Bike RSA.pdf" />
-    <Content Include="fonts\fontawesome-webfont.eot" />
-    <Content Include="fonts\fontawesome-webfont.ttf" />
-    <Content Include="fonts\fontawesome-webfont.woff" />
-    <Content Include="fonts\FontAwesome.otf" />
     <Content Include="m\fonts\fontawesome-webfont.eot" />
     <Content Include="m\fonts\fontawesome-webfont.ttf" />
     <Content Include="m\fonts\fontawesome-webfont.woff" />
@@ -3465,6 +3495,27 @@
     <Content Include="m\sass\generic\listing.sass" />
     <Content Include="m\sass\generic\_listing-style.sass" />
     <Content Include="m\sass\generic\_media-query.sass" />
+    <Content Include="css\fonts\OpenSans\open-sans-v15-latin-600.woff" />
+    <Content Include="css\fonts\OpenSans\open-sans-v15-latin-600.woff2" />
+    <Content Include="css\fonts\OpenSans\open-sans-v15-latin-700.woff" />
+    <Content Include="css\fonts\OpenSans\open-sans-v15-latin-700.woff2" />
+    <Content Include="css\fonts\OpenSans\open-sans-v15-latin-800.woff" />
+    <Content Include="css\fonts\OpenSans\open-sans-v15-latin-800.woff2" />
+    <Content Include="css\fonts\OpenSans\open-sans-v15-latin-regular.woff" />
+    <Content Include="css\fonts\OpenSans\open-sans-v15-latin-regular.woff2" />
+    <Content Include="css\fonts\Oxygen\oxygen-v7-latin-300.woff" />
+    <Content Include="css\fonts\Oxygen\oxygen-v7-latin-300.woff2" />
+    <Content Include="css\fonts\Oxygen\oxygen-v7-latin-700.woff" />
+    <Content Include="css\fonts\Oxygen\oxygen-v7-latin-700.woff2" />
+    <Content Include="css\fonts\Oxygen\oxygen-v7-latin-regular.woff" />
+    <Content Include="css\fonts\Oxygen\oxygen-v7-latin-regular.woff2" />
+    <Content Include="css\fonts\fontawesome-webfont.eot" />
+    <Content Include="css\fonts\fontawesome-webfont.ttf" />
+    <Content Include="css\fonts\fontawesome-webfont.woff" />
+    <Content Include="css\fonts\FontAwesome.otf" />
+    <Content Include="css\fonts\WebRupee.V2.0.eot" />
+    <Content Include="css\fonts\WebRupee.V2.0.ttf" />
+    <Content Include="css\fonts\WebRupee.V2.0.woff" />
     <None Include="sass\components\_card-header.sass" />
     <Content Include="sass\sell-bike\_style.sass" />
     <Content Include="sass\components\_typography.sass" />
@@ -4034,6 +4085,20 @@
     <Content Include="Views\Filters\InPageFilters\_InPageMinSpecsFilters_Mobile.cshtml" />
     <Content Include="sass\partials\photo-grid-carousel.sass" />
     <Content Include="Views\Filters\InPageFilters\_InPageBudgetFilter_Mobile.cshtml" />
+    <Content Include="Views\Shared\Ads\Mobile\Ad300x250_Generic.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Views\Shared\Ads\Mobile\Ad320x100_Generic.cshtml" />
+    <Content Include="Views\Shared\Ads\Mobile\AdSlotGeneric.cshtml" />
+    <Content Include="Views\Shared\fontcss\OpenSans\_Latin400.cshtml" />
+    <Content Include="Views\Shared\fontcss\OpenSans\_Latin600.cshtml" />
+    <Content Include="Views\Shared\fontcss\OpenSans\_Latin700.cshtml" />
+    <Content Include="Views\Shared\fontcss\OpenSans\_Latin800.cshtml" />
+    <Content Include="Views\Shared\fontcss\Oxygen\_Latin300.cshtml" />
+    <Content Include="Views\Shared\fontcss\Oxygen\_Latin400.cshtml" />
+    <Content Include="Views\Shared\fontcss\Oxygen\_Latin700.cshtml" />
+    <Content Include="Views\Shared\Ads\Mobile\Ad320x50.cshtml" />
+    <Content Include="Views\Shared\Ads\Mobile\Ad320x50Bottom.cshtml" />
     <None Include="Views\Shared\_Sidebar-section.cshtml" />
     <Content Include="Views\BikeModels\_MultiTabsWidget.cshtml" />
     <Content Include="Views\Shared\_ReviewPopup.cshtml" />

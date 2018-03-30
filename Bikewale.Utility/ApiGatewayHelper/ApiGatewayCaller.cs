@@ -70,6 +70,34 @@ namespace Bikewale.Utility.ApiGatewayHelper
 			}
 		}
 
+		public IEnumerable<ApiGatewayResponse> GetResponse(OutputRequest outputRequest, string identifier)
+		{
+			OutputRequest objResponse = CallAggregator.GetResultsForIdentifier(outputRequest, identifier);
+
+			IList<ApiGatewayResponse> responses = new List<ApiGatewayResponse>();
+
+			for (int i = 0; i < objResponse.OutputMessages.Count; i++)
+			{
+				ApiGatewayResponse response = new ApiGatewayResponse();
+
+				if (string.IsNullOrWhiteSpace(objResponse.OutputMessages[i].Exception))
+				{
+					response.Payload = objResponse.OutputMessages[i].Payload;
+				}
+				else
+				{
+					response.Exception = objResponse.OutputMessages[i].Exception;
+					response.ExceptionCode = objResponse.OutputMessages[i].ExceptionCode;
+				}
+				responses.Add(response);
+			}
+			if (!responses.Any())
+			{
+				return null;
+			}
+			return responses;
+		}
+
 		public IEnumerable<ApiGatewayResponse> GetAllResponse
 		{
 			get

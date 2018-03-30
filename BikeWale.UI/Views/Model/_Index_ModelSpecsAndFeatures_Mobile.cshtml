@@ -27,14 +27,10 @@
                         <ul class="specs-features-list">
                             @foreach (var item in category.SpecsItemList)
                             {
-                                itemValue = item.ItemValues.FirstOrDefault();
-                                if (itemValue != null)
-                                {
-                                    <li>
-                                        <div class="specs-features-label">@item.DisplayText</div>
-                                        <div class="text-bold">@itemValue @(itemValue.Equals("-") ? "" : item.UnitTypeText)</div>
-                                    </li>
-                                }
+                                <li>
+                                    <div class="specs-features-label">@item.DisplayText</div>
+                                    <div class="text-bold">@Bikewale.Utility.FormatMinSpecs.ShowAvailable(item.ItemValues.FirstOrDefault(), item.UnitTypeText)</div>
+                                </li>
                             }
                         </ul>
                     </li>
@@ -53,27 +49,19 @@
                 }
                 @foreach (var feature in Model.VersionSpecsFeatures.Features.Take(shownFeaturesHeight))
                 {
-                    featureValue = feature.ItemValues.FirstOrDefault();
-                    if (featureValue != null)
-                    {
-                        <li>
-                            <div class="specs-features-label">@feature.DisplayText</div>
-                            <div class="text-bold">@featureValue @(featureValue.Equals("-") ? "" : feature.UnitTypeText)</div>
-                        </li>
-                    }
+                    <li>
+                        <div class="specs-features-label">@feature.DisplayText</div>
+                        <div class="text-bold">@Bikewale.Utility.FormatMinSpecs.ShowAvailable(feature.ItemValues.FirstOrDefault(), feature.UnitTypeText)</div>
+                    </li>
                 }
             </ul>
             <ul id="model-more-features-list" class="specs-features-list model-features-list">
                 @foreach (var feature in Model.VersionSpecsFeatures.Features.Skip(shownFeaturesHeight))
                 {
-                    featureValue = feature.ItemValues.FirstOrDefault();
-                    if (featureValue != null)
-                    {
-                        <li>
-                            <div class="specs-features-label">@feature.DisplayText</div>
-                            <div class="text-bold">@featureValue @(featureValue.Equals("-") ? "" : feature.UnitTypeText)</div>
-                        </li>
-                    }
+                    <li>
+                        <div class="specs-features-label">@feature.DisplayText</div>
+                        <div class="text-bold">@Bikewale.Utility.FormatMinSpecs.ShowAvailable(feature.ItemValues.FirstOrDefault(), feature.UnitTypeText)</div>
+                    </li>
                 }
             </ul>
             <div class="padding-top10 padding-right20 padding-left20">

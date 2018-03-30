@@ -20,6 +20,7 @@ using Bikewale.Interfaces.Pager;
 using Bikewale.Models;
 using Bikewale.Utility;
 using Microsoft.Practices.Unity;
+using Bikewale.BAL.GrpcFiles.Specs_Features;
 
 namespace Bikewale.New
 {
@@ -37,6 +38,7 @@ namespace Bikewale.New
         protected IEnumerable<AreaEntityBase> objAreaList = null;
         protected bool isDiscontinued, IsExShowroomPrice = true;
         protected BikeSpecificationEntity specs;
+        protected SpecsFeaturesEntity versionSpecsFeatures;
         protected BikeModelPageEntity modelDetail;
         protected DetailedDealerQuotationEntity dealerDetail;
         protected BikeModelPageEntity modelPg;
@@ -79,6 +81,7 @@ namespace Bikewale.New
                 if (versionId > 0)
                 {
                     specs = FetchVariantDetails(versionId);
+                    versionSpecsFeatures = SpecsFeaturesServiceGateway.GetVersionsSpecsFeatures(new List<uint>() { (uint)versionId });
                 }
                 else
                 {

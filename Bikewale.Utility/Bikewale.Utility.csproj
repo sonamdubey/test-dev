@@ -192,6 +192,7 @@
     <Compile Include="GenericBikes\GenericBikesCategoriesMapping.cs" />
     <Compile Include="GetEmailList.cs" />
     <Compile Include="GlobalCityArea.cs" />
+    <Compile Include="GoogleAdsHelper.cs" />
     <Compile Include="LinqHelpers\LinqExtensions.cs" />
     <Compile Include="EditorialsFormatter.cs" />
     <Compile Include="MVCHelper.cs" />

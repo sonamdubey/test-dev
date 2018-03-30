@@ -1,0 +1,13 @@
+﻿@{
+    string fontFile = "/css/fonts/OpenSans/open-sans-v15-latin-regular.woff";
+    string fontUrl = @String.Format("{0}{1}?{2}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, fontFile, Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion);
+}
+<style>
+    @@font-face {
+        font-family: 'Open Sans';
+        font-style: normal;
+        font-weight: 400;
+        src: local('Open Sans Regular'), local('OpenSans-Regular'), url('@fontUrl') format('woff');
+    }
+
+</style>

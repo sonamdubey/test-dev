@@ -65,7 +65,7 @@
                 <div class="clear"></div>
             </div>
 
-            <% if (specs != null)
+            <% if (versionSpecsFeatures != null)
                 { %>
             <div class="specs-features-wrapper">
                 <div id="specsFeaturesTabsWrapper">
@@ -78,234 +78,51 @@
 
             <div id="specsFeaturesDetailsWrapper" class="padding-right20 padding-left20 font14">
                 <div id="specs" class="bw-model-tabs-data padding-top15">
+                    <% string itemValue, featureValue; %>
+                    <% if (versionSpecsFeatures.Specs != null && versionSpecsFeatures.Specs.Any())
+                        { %>
                     <h2 class="margin-bottom15">Specifications</h2>
-                    <h3 class="margin-bottom20">Engine and Transmission</h3>
-                    <ul class="specs-features-list margin-bottom5">
-                        <li>
-                            <p class="specs-features-label">Displacement</p>
-                            <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(specs.Displacement,"cc") %></p>
+                    <% foreach (var specCat in versionSpecsFeatures.Specs)
+                        { %>
+                    <h3 class="margin-bottom20"><%=specCat.DisplayText %></h3>
+                    
+                            <% foreach (var specItem in specCat.SpecsItemList)
+                                    {
+                                        itemValue = specItem.ItemValues.FirstOrDefault();
+                                    %>
+                                   <ul class="specs-features-list margin-bottom5">
+                                      <li>
+                                           <p class="specs-features-label"><%=specItem.DisplayText%></p>
+                                           <p class="specs-features-value"><span><%=Bikewale.Utility.FormatMinSpecs.ShowAvailable(itemValue,specItem.UnitTypeText) %></span></p>
+                                        </li>
+                                    </ul>
+                                <% } %>
                             <div class="clear"></div>
-                        </li>
-                        <li>
-                            <p class="specs-features-label">Cylinders</p>
-                            <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(specs.Cylinders) %></p>
-                            <div class="clear"></div>
-                        </li>
-                        <li>
-                            <p class="specs-features-label">Max Power</p>
-                            <p class="specs-features-value">
-                                <%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(specs.MaxPower, "bhp", 
-                                                                    specs.MaxPowerRPM, "rpm") %>
-                            </p>
-                            <div class="clear"></div>
-                        </li>
-                        <li>
-                            <p class="specs-features-label">Maximum Torque</p>
-                            <p class="specs-features-value">
-                                <%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(specs.MaximumTorque, "Nm",
-                                                                    specs.MaximumTorqueRPM, "rpm") %>
-                            </p>
-                            <div class="clear"></div>
-                        </li>
-                        <li>
-                            <p class="specs-features-label">Bore</p>
-                            <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(specs.Bore, "mm") %></p>
-                            <div class="clear"></div>
-                        </li>
-                        <li>
-                            <p class="specs-features-label">Stroke</p>
-                            <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(specs.Stroke, "mm") %></p>
-                            <div class="clear"></div>
-                        </li>
-                        <li>
-                            <p class="specs-features-label">Valves Per Cylinder</p>
-                            <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(specs.ValvesPerCylinder) %></p>
-                            <div class="clear"></div>
-                        </li>
-                        <li>
-                            <p class="specs-features-label">Fuel Delivery System</p>
-                            <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(specs.FuelDeliverySystem) %></p>
-                            <div class="clear"></div>
-                        </li>
-                    </ul>
-
-                    <h3 class="margin-bottom20">Brakes, Wheels and Suspension</h3>
-                    <ul class="specs-features-list margin-bottom5">
-                        <li>
-                            <p class="specs-features-label">Brake Type</p>
-                            <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(specs.BrakeType) %></p>
-                            <div class="clear"></div>
-                        </li>
-                        <li>
-                            <p class="specs-features-label">Front Disc</p>
-                            <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(specs.FrontDisc) %></p>
-                            <div class="clear"></div>
-                        </li>
-                        <li>
-                            <p class="specs-features-label">Front Disc/Drum Size</p>
-                            <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(specs.FrontDisc_DrumSize, "mm") %></p>
-                            <div class="clear"></div>
-                        </li>
-                        <li>
-                            <p class="specs-features-label">Rear Disc</p>
-                            <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(specs.RearDisc) %></p>
-                            <div class="clear"></div>
-                        </li>
-                        <li>
-                            <p class="specs-features-label">Rear Disc/Drum Size</p>
-                            <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(specs.RearDisc_DrumSize, "mm") %></p>
-                            <div class="clear"></div>
-                        </li>
-                        <li>
-                            <p class="specs-features-label">Calliper Type</p>
-                            <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(specs.CalliperType) %></p>
-                            <div class="clear"></div>
-                        </li>
-                        <li>
-                            <p class="specs-features-label">Wheel Size</p>
-                            <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(specs.WheelSize, "inches") %></p>
-                            <div class="clear"></div>
-                        </li>
-                    </ul>
-
-                    <h3 class="margin-bottom20">Dimensions and Chassis</h3>
-                    <ul class="specs-features-list margin-bottom5">
-                        <li>
-                            <p class="specs-features-label">Kerb Weight</p>
-                            <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(specs.KerbWeight, "kg") %></p>
-                            <div class="clear"></div>
-                        </li>
-                        <li>
-                            <p class="specs-features-label">Overall Length</p>
-                            <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(specs.OverallLength, "mm") %></p>
-                            <div class="clear"></div>
-                        </li>
-                        <li>
-                            <p class="specs-features-label">Overall Width</p>
-                            <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(specs.OverallWidth, "mm") %></p>
-                            <div class="clear"></div>
-                        </li>
-                        <li>
-                            <p class="specs-features-label">Overall Height</p>
-                            <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(specs.OverallHeight, "mm") %></p>
-                            <div class="clear"></div>
-                        </li>
-                    </ul>
-
-                    <h3 class="margin-bottom20">Fuel efficiency and Performance</h3>
-                    <ul class="specs-features-list margin-bottom5">
-                        <li>
-                            <p class="specs-features-label">Fuel Tank Capacity</p>
-                            <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(specs.FuelTankCapacity, "litres") %></p>
-                            <div class="clear"></div>
-                        </li>
-                        <li>
-                            <p class="specs-features-label">Reserve Fuel Capacity</p>
-                            <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(specs.ReserveFuelCapacity, "litres") %></p>
-                            <div class="clear"></div>
-                        </li>
-                        <li>
-                            <p class="specs-features-label">Fuel Efficiency Overall</p>
-                            <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(specs.FuelEfficiencyOverall, "kmpl") %></p>
-                            <div class="clear"></div>
-                        </li>
-                        <li>
-                            <p class="specs-features-label">Fuel Efficiency Range</p>
-                            <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(specs.FuelEfficiencyRange, "km") %></p>
-                            <div class="clear"></div>
-                        </li>
-                        <li>
-                            <p class="specs-features-label">Top Speed</p>
-                            <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(specs.TopSpeed, "kmph") %></p>
-                            <div class="clear"></div>
-                        </li>
-                    </ul>
+                        
+                    <% } %>
+                    <% } %>
                 </div>
                 <div class="border-divider"></div>
-
+               
                 <div id="features" class="padding-top15 bw-model-tabs-data">
+                    <% if (versionSpecsFeatures.Features != null && versionSpecsFeatures.Features.Any())
+                        { %>
                     <h2 class="margin-bottom20">Features</h2>
+                    <% foreach (var feature in versionSpecsFeatures.Features)
+                        { 
+                            featureValue = feature.ItemValues.FirstOrDefault();
+                            %>
                     <ul class="specs-features-list">
                         <li>
-                            <p class="specs-features-label">Speedometer</p>
-                            <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(specs.Speedometer) %></p>
-                            <div class="clear"></div>
-                        </li>
-                        <li>
-                            <p class="specs-features-label">Fuel Guage</p>
-                            <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(specs.FuelGauge) %></p>
-                            <div class="clear"></div>
-                        </li>
-                        <li>
-                            <p class="specs-features-label">Tachometer Type</p>
-                            <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(specs.Tachometer) %></p>
-                            <div class="clear"></div>
-                        </li>
-                        <li>
-                            <p class="specs-features-label">Digital Fuel Guage</p>
-                            <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(specs.DigitalFuelGauge) %></p>
-                            <div class="clear"></div>
-                        </li>
-                        <li>
-                            <p class="specs-features-label">Tripmeter</p>
-                            <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(specs.Tripmeter) %></p>
-                            <div class="clear"></div>
-                        </li>
-                        <li>
-                            <p class="specs-features-label">Electric Start</p>
-                            <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(specs.ElectricStart) %></p>
-                            <div class="clear"></div>
-                        </li>
-                        <li>
-                            <p class="specs-features-label">Tachometer</p>
-                            <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(specs.Tachometer) %></p>
-                            <div class="clear"></div>
-                        </li>
-                        <li>
-                            <p class="specs-features-label">Shift Light</p>
-                            <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(specs.ShiftLight) %></p>
-                            <div class="clear"></div>
-                        </li>
-                        <li>
-                            <p class="specs-features-label">No. of Tripmeters</p>
-                            <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(specs.NoOfTripmeters) %></p>
-                            <div class="clear"></div>
-                        </li>
-                        <li>
-                            <p class="specs-features-label">Tripmeter Type</p>
-                            <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(specs.TripmeterType) %></p>
-                            <div class="clear"></div>
-                        </li>
-                        <li>
-                            <p class="specs-features-label">Low Fuel Indicator</p>
-                            <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(specs.LowFuelIndicator) %></p>
-                            <div class="clear"></div>
-                        </li>
-                        <li>
-                            <p class="specs-features-label">Low Oil Indicator</p>
-                            <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(specs.LowOilIndicator) %></p>
-                            <div class="clear"></div>
-                        </li>
-                        <li>
-                            <p class="specs-features-label">Low Battery Indicator</p>
-                            <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(specs.LowBatteryIndicator) %></p>
-                            <div class="clear"></div>
-                        </li>
-                        <li>
-                            <p class="specs-features-label">Pillion Seat</p>
-                            <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(specs.PillionSeat) %></p>
-                            <div class="clear"></div>
-                        </li>
-                        <li>
-                            <p class="specs-features-label">Pillion Footrest</p>
-                            <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(specs.PillionFootrest) %></p>
-                            <div class="clear"></div>
+                                     <p class="specs-features-label"><%=feature.DisplayText %></p>
+                                     <p class="specs-features-value"><span><%=Bikewale.Utility.FormatMinSpecs.ShowAvailable(featureValue,feature.UnitTypeText) %></span></p>
+                                     <div class="clear"></div>
                         </li>
                     </ul>
-                </div>
-
+                    <% } %>
+                    <% } %>
+                  </div>
             </div>
-
             <div id="specsFeaturesFooter"></div>
             <% } %>
         </section>

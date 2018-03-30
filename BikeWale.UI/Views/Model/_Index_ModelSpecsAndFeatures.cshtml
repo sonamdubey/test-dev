@@ -21,34 +21,26 @@
                             <span class="bwsprite accordion-angle-icon"></span>
                         </div>
                         <div class="specs-features-list">
-                            <div class="grid-6 text-light-grey">
+                            <div class="grid-6">
                                 @{
                                     isCategoryActive = false;
                                     var firstGridSpecsCount = (category.SpecsItemList.Count() + 1) / 2;
                                 }
                                 @foreach (var item in category.SpecsItemList.Take(firstGridSpecsCount))
                                 {
-                                    itemValue = item.ItemValues.FirstOrDefault();
-                                    if (itemValue != null)
-                                    {
-                                        <p>
-                                            <span>@item.DisplayText</span>
-                                            <span>@itemValue @(itemValue.Equals("-") ? "" : item.UnitTypeText)</span>
-                                        </p>
-                                    }
+                                    <p>
+										<span class="specs-features-item__content text-light-grey">@item.DisplayText</span>
+										<span class="specs-features-item__content text-bold">@Bikewale.Utility.FormatMinSpecs.ShowAvailable(item.ItemValues.FirstOrDefault(), item.UnitTypeText)</span>
+                                    </p>
                                 }
                             </div>
-                            <div class="grid-6 text-light-grey">
+                            <div class="grid-6">
                                 @foreach (var item in category.SpecsItemList.Skip(firstGridSpecsCount))
                                 {
-                                    itemValue = item.ItemValues.FirstOrDefault();
-                                    if (itemValue != null)
-                                    {
-                                        <p>
-                                            <span>@item.DisplayText</span>
-                                            <span>@itemValue @(itemValue.Equals("-") ? "" : item.UnitTypeText)</span>
-                                        </p>
-                                    }
+                                    <p>
+										<span class="specs-features-item__content text-light-grey">@item.DisplayText</span>
+										<span class="specs-features-item__content text-bold">@Bikewale.Utility.FormatMinSpecs.ShowAvailable(item.ItemValues.FirstOrDefault(), item.UnitTypeText)</span>
+                                    </p>
                                 }
                             </div>
                             <div class="clear"></div>
@@ -69,25 +61,22 @@
                             var shownFeaturesHeight = 4;
                             var leftGrid = features.Take(firstGridFeaturesCount);
                             var rightGrid = features.Skip(firstGridFeaturesCount);
-                            }
+                        }
                         @foreach (var feature in leftGrid.Take(shownFeaturesHeight))
                         {
-                            featureValue = feature.ItemValues.FirstOrDefault();
-                            if (featureValue != null)
-                            {
-                                <p><span>@feature.DisplayText</span><span>@featureValue @(featureValue.Equals("-") ? "" : feature.UnitTypeText)</span></p>
-                            }
-
+                            <p>
+                                <span>@feature.DisplayText</span>
+                                <span>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(feature.ItemValues.FirstOrDefault(), feature.UnitTypeText)</span>
+                            </p>
                         }
                     </div>
                     <div class="grid-6 omega text-light-grey">
                         @foreach (var feature in rightGrid.Take(shownFeaturesHeight))
                         {
-                            featureValue = feature.ItemValues.FirstOrDefault();
-                            if (featureValue != null)
-                            {
-                                <p><span>@feature.DisplayText</span><span>@featureValue @(featureValue.Equals("-") ? "" : feature.UnitTypeText)</span></p>
-                            }
+                            <p>
+                                <span>@feature.DisplayText</span>
+                                <span>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(feature.ItemValues.FirstOrDefault(), feature.UnitTypeText)</span>
+                            </p>
                         }
                     </div>
                     <div class="clear"></div>
@@ -97,21 +86,19 @@
 		            <div class="grid-6 padding-left20 text-light-grey">
                         @foreach (var feature in leftGrid.Skip(shownFeaturesHeight))
                         {
-                            featureValue = feature.ItemValues.FirstOrDefault();
-                            if (featureValue != null)
-                            {
-                                <p><span>@feature.DisplayText</span><span>@featureValue @(featureValue.Equals("-") ? "" : feature.UnitTypeText)</span></p>
-                            }
+                            <p>
+                                <span>@feature.DisplayText</span>
+                                <span>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(feature.ItemValues.FirstOrDefault(), feature.UnitTypeText)</span>
+                            </p>
                         }
 		            </div>
                     <div class="grid-6 padding-left20 text-light-grey">
                         @foreach (var feature in rightGrid.Skip(shownFeaturesHeight))
                         {
-                            featureValue = feature.ItemValues.FirstOrDefault();
-                            if (featureValue != null)
-                            {
-                                <p><span>@feature.DisplayText</span><span>@featureValue @(featureValue.Equals("-") ? "" : feature.UnitTypeText)</span></p>
-                            }
+                            <p>
+                                <span>@feature.DisplayText</span>
+                                <span>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(feature.ItemValues.FirstOrDefault(), feature.UnitTypeText)</span>
+                            </p>
                         }
                     </div>
 		            <div class="clear"></div>

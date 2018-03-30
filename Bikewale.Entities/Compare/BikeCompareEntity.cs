@@ -20,7 +20,7 @@ namespace Bikewale.Entities.Compare
         public IEnumerable<BikeSpecification> Specifications { get; set; }
         [DataMember]
         public IEnumerable<BikeFeature> Features { get; set; }
-        [DataMember]
+
         public SpecsFeaturesEntity VersionSpecsFeatures { get; set; }
         [DataMember]
         public IEnumerable<BikeColor> Color { get; set; }

@@ -217,6 +217,7 @@ namespace Bikewale.Service.UnityConfiguration
             container.RegisterType<ICMS, CMS>();
             container.RegisterType<Bikewale.ManufacturerCampaign.Interface.IManufacturerCampaignRepository, Bikewale.ManufacturerCampaign.DAL.ManufacturerCampaignRepository>();
             container.RegisterType<IManufacturerCampaign, Bikewale.ManufacturerCampaign.BAL.ManufacturerCampaign>();
+            container.RegisterType<IManufacturerCampaignCache, Bikewale.ManufacturerCampaign.Cache.ManufacturerCampaignCache>();
             container.RegisterType<Bikewale.Interfaces.Finance.CapitalFirst.IFinanceRepository, Bikewale.DAL.Finance.CapitalFirst.FinanceRepository>();
             container.RegisterType<Bikewale.Interfaces.Finance.ICapitalFirst,
                 Bikewale.BAL.Finance.CapitalFirst>();
@@ -230,6 +231,8 @@ namespace Bikewale.Service.UnityConfiguration
             container.RegisterType<IBikeSearch, BikeSearch>();
             container.RegisterType<IBikeSeriesCacheRepository, BikeSeriesCacheRepository>();
             container.RegisterType<IBikeSeriesRepository, BikeSeriesRepository>();
+            container.RegisterType<IPQByCityArea, PQByCityArea>();
+            container.RegisterType<Bikewale.Interfaces.AutoBiz.IDealerPriceQuote, Bikewale.DAL.AutoBiz.DealerPriceQuoteRepository>();
             return container;
 
         }

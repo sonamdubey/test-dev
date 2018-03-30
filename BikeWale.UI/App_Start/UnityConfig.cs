@@ -166,6 +166,7 @@ namespace Bikewale
             container.RegisterType<ISurveyRepository, SurveyRepository>();
             container.RegisterType<ISurvey, BAL.Survey>();
             container.RegisterType<IManufacturerCampaign, Bikewale.ManufacturerCampaign.BAL.ManufacturerCampaign>();
+            container.RegisterType<IManufacturerCampaignCache, Bikewale.ManufacturerCampaign.Cache.ManufacturerCampaignCache>();
             container.RegisterType<Bikewale.ManufacturerCampaign.Interface.IManufacturerCampaignRepository, Bikewale.ManufacturerCampaign.DAL.ManufacturerCampaignRepository>();
             container.RegisterType<ISponsoredComparisonCacheRepository, SponsoredComparisonCacheRepository>();
             container.RegisterType<ISponsoredComparison, SponsoredComparison>();
@@ -183,6 +184,7 @@ namespace Bikewale
             container.RegisterType<IBikeSearchResult, BikeSearchResult>();
             container.RegisterType<IBikeSearchCacheRepository, BikeSearchCacheRepository>();
             container.RegisterType<IPageFilters, PageFilters>();
+            container.RegisterType<IPQByCityArea, PQByCityArea>();
 			container.RegisterType<IApiGatewayCaller, ApiGatewayCaller>();
 
 			DependencyResolver.SetResolver(new UnityDependencyResolver(container));

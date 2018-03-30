@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using GatewayWebservice;
 using Google.Protobuf;
 
 namespace Bikewale.Utility.ApiGatewayHelper
@@ -41,5 +42,7 @@ namespace Bikewale.Utility.ApiGatewayHelper
 		/// 
 		/// </summary>
 		IEnumerable<ApiGatewayResponse> GetAllResponse { get; }
+
+		IEnumerable<ApiGatewayResponse> GetResponse(OutputRequest outputRequest, string Identifier);
 	}
 }

@@ -1,4 +1,5 @@
 ﻿using Bikewale.BAL.BikeData;
+using Bikewale.BAL.GrpcFiles.Specs_Features;
 using Bikewale.BAL.Pager;
 using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
@@ -35,6 +36,7 @@ namespace Bikewale.Mobile
         protected string cityName = "Mumbai", areaName, makeName, modelName, bikeName, versionName, makeMaskingName, modelMaskingName, modelImage, pgTitle;
         protected bool isDiscontinued, IsExShowroomPrice = true;
         protected BikeSpecificationEntity specs;
+        protected SpecsFeaturesEntity versionSpecsFeatures;
         protected BikeModelPageEntity modelDetail;
         protected GenericBikeInfoControl ctrlGenericBikeInfo;
         protected bool IsScooter = false;
@@ -61,12 +63,13 @@ namespace Bikewale.Mobile
         {
             ProcessQueryString();
             modelDetail = FetchModelPageDetails(modelId);
-            if(modelDetail != null && modelDetail.ModelDetails != null)
+            if (modelDetail != null && modelDetail.ModelDetails != null)
             {
                 IsScooterOnly = modelDetail.ModelDetails.MakeBase.IsScooterOnly;
                 if (versionId > 0)
                 {
                     specs = FetchVariantDetails(versionId);
+                    versionSpecsFeatures = SpecsFeaturesServiceGateway.GetVersionsSpecsFeatures(new List<uint> { versionId });
                 }
                 BindWidget();
                 BindSimilarBikes();
@@ -269,7 +272,7 @@ namespace Bikewale.Mobile
             }
             finally
             {
-                if(objResponse != null && (isRedirect || isMakeRedirection))
+                if (objResponse != null && (isRedirect || isMakeRedirection))
                 {
                     redirectUrl = Request.RawUrl.Replace(makeMaskingName, newMakeMasking).Replace(modelMaskingName, objResponse.MaskingName);
                     CommonOpn.RedirectPermanent(redirectUrl);

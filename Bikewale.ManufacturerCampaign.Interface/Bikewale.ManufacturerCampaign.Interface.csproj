@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IManufacturerCampaign.cs" />
+    <Compile Include="IManufacturerCampaignCache.cs" />
     <Compile Include="IManufacturerCampaignRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
