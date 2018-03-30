@@ -566,6 +566,10 @@ namespace Bikewale.BAL.PriceQuote
                         versionID = objDealer.GetDefaultPriceQuoteVersion((uint)modelId, Convert.ToUInt32(cityId));
                 }
 
+                dt4 = DateTime.Now;
+                ThreadContext.Properties["GetVersionListV2_2"] = (dt4 - dt3).TotalMilliseconds;
+                dt3 = DateTime.Now;
+
                 if (cityId > 0 && versionID > 0 && pqOnRoad != null)
                 {
                     Bikewale.Entities.PriceQuote.v2.DetailedDealerQuotationEntity detailedDealer = null;
@@ -580,7 +584,7 @@ namespace Bikewale.BAL.PriceQuote
                 }
 
                 dt4 = DateTime.Now;
-                ThreadContext.Properties["GetVersionListV2_2"] = (dt4 - dt3).TotalMilliseconds;
+                ThreadContext.Properties["GetVersionListV2_3"] = (dt4 - dt3).TotalMilliseconds;
                 dt3 = DateTime.Now;
 
                 // Fetch ES only when Primary dealer is absent for given model
@@ -621,7 +625,7 @@ namespace Bikewale.BAL.PriceQuote
                     }
                 }
                 dt4 = DateTime.Now;
-                ThreadContext.Properties["GetVersionListV2_3"] = (dt4 - dt3).TotalMilliseconds;
+                ThreadContext.Properties["GetVersionListV2_4"] = (dt4 - dt3).TotalMilliseconds;
             }
             catch (Exception ex)
             {
