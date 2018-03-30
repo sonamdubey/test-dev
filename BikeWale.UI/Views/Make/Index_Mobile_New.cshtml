@@ -244,7 +244,7 @@ string.Format("{0} <span class='font14'> onwards</span>", Bikewale.Utility.Forma
             @if (Model.IsUpComingBikesAvailable)
             {
                 <section>
-                    <div data-id="upcomingBikes" class="bg-white section-bottom-margin  overall-tabs-data">
+                    <div data-id="upcomingBikes" class="bg-white section-bottom-margin overall-tabs-data">
                         <div class="carousel__title">
                             <h2 class="page__heading-h2 carousel-title__label">Upcoming @Model.MakeName Bikes</h2>
                             <a href="@string.Format("/m/{0}-bikes/upcoming/", Model.MakeMaskingName)" class="view-all-btn" title="Upcoming @Model.MakeName Bikes in India">
@@ -259,8 +259,8 @@ string.Format("{0} <span class='font14'> onwards</span>", Bikewale.Utility.Forma
                 @if (Model.IsCompareBikesAvailable)
                 {
                     <div data-id="compareBikes" id="popularComparison" class="overall-tabs-data">
-                            <div class="container bg-white">
-                                <div class="padding-top20 padding-bottom15">
+                            <div class="container bg-white section-bottom-margin comparison-section">
+                                <div class="padding-bottom15">
                                     <div class="carousel__title">
                                         <h2 class="page__heading-h2 carousel-title__label">Popular Comparison of @Model.MakeName Bikes</h2>
                                         <a href="/m/comparebikes/" class="view-all-btn" title="View more comparisons">
