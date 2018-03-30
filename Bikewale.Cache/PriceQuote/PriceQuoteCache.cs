@@ -173,7 +173,7 @@ namespace Bikewale.Cache.PriceQuote
         {
             try
             {
-                string htmlTemplate = _cache.GetFromCache<string>(key, new TimeSpan(24, 0, 0), () => GetRenderMobileTemplate(leadCampaign));
+                string htmlTemplate = _cache.GetFromCache<string>(key + "_v1", new TimeSpan(24, 0, 0), () => GetRenderMobileTemplate(leadCampaign));
                 return htmlTemplate;
             }
             catch (Exception ex)
@@ -186,6 +186,8 @@ namespace Bikewale.Cache.PriceQuote
         /// <summary>
         /// Created by  :   Sumit Kate on 29 Mar 2018
         /// Description :   GetRenderMobileTemplate using MvcHelper class
+        /// Modified by :   Sumit Kate on 30 Mar 2018
+        /// Description :   Changed the template name
         /// </summary>
         /// <param name="leadCampaign"></param>
         /// <returns></returns>
@@ -193,20 +195,7 @@ namespace Bikewale.Cache.PriceQuote
         {
             try
             {
-                var contextProps = ThreadContext.Properties;
-                DateTime dt1 = DateTime.Now;
-                //string template = MvcHelper.GetRenderedContent(string.Format("LeadCampaign_{0}", leadCampaign.CampaignId), leadCampaign.LeadsHtmlMobile, leadCampaign);
-                DateTime dt2 = DateTime.Now;
-
-                //contextProps["GetRenderedContent"] = (dt2 - dt1).TotalMilliseconds;
-
-                dt1 = DateTime.Now;
-                string template = template = MvcHelper.Render(string.Format("LeadCampaign_{0}", leadCampaign.CampaignId), leadCampaign, leadCampaign.LeadsHtmlMobile);
-                dt2 = DateTime.Now;
-
-                contextProps["Render"] = (dt2 - dt1).TotalMilliseconds;
-
-                _logger.Error(String.Format("Cache Miss - GetRenderMobileTemplate {0}", leadCampaign.CampaignId));
+                string template = MvcHelper.Render(string.Format("LeadCampaign_Android_{0}", leadCampaign.CampaignId), leadCampaign, leadCampaign.LeadsHtmlMobile);
                 return template;
             }
             catch (Exception ex)

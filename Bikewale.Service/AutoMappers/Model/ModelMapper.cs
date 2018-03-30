@@ -26,7 +26,6 @@ using Bikewale.Entities.Videos;
 using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Notifications;
 using Bikewale.Utility;
-using log4net;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -566,8 +565,6 @@ namespace Bikewale.Service.AutoMappers.Model
         internal static DTO.Model.v5.ModelPage ConvertV5(IPriceQuoteCache objPqCache, BikeModelPageEntity objModelPage, PQByCityAreaEntity pqEntity, Entities.PriceQuote.v2.DetailedDealerQuotationEntity dealers, ushort platformId = 0)
         {
 
-            DateTime dt1 = DateTime.Now;
-            var thContext = ThreadContext.Properties;
             bool isApp = platformId == 3;
             DTO.Model.v5.ModelPage objDTOModelPage = null;
             try
@@ -621,9 +618,7 @@ namespace Bikewale.Service.AutoMappers.Model
                     }
                 }
 
-                DateTime dt4 = DateTime.Now;
-                thContext["ConvertV5_1BasicDetail"] = (dt4 - dt3).TotalMilliseconds;
-                dt3 = DateTime.Now;
+
 
                 if (objModelPage.AllPhotos != null && objModelPage.AllPhotos.Any())
                 {
@@ -650,9 +645,6 @@ namespace Bikewale.Service.AutoMappers.Model
                     objDTOModelPage.ModelColors = ModelMapper.Convert(objModelPage.colorPhotos).OrderByDescending(m => m.IsImageExists);
                 }
 
-                dt4 = DateTime.Now;
-                thContext["ConvertV5_2GallaryColors"] = (dt4 - dt3).TotalMilliseconds;
-                dt3 = DateTime.Now;
                 if (pqEntity != null)
                 {
                     objDTOModelPage.IsCityExists = pqEntity.IsCityExists;
@@ -671,9 +663,6 @@ namespace Bikewale.Service.AutoMappers.Model
                     objDTOModelPage.ExpectedMaxPrice = upcomingBike.EstimatedPriceMax;
                 }
 
-                dt4 = DateTime.Now;
-                thContext["ConvertV5_3VersionListConvert"] = (dt4 - dt3).TotalMilliseconds;
-                dt3 = DateTime.Now;
 
                 if (dealers != null)
                 {
@@ -731,10 +720,6 @@ namespace Bikewale.Service.AutoMappers.Model
 
                 }
 
-                dt4 = DateTime.Now;
-                thContext["ConvertV5_4Dealers"] = (dt4 - dt3).TotalMilliseconds;
-                dt3 = DateTime.Now;
-
                 if
                     (pqEntity != null &&
                     (dealers == null || dealers.PrimaryDealer == null || dealers.PrimaryDealer.DealerDetails == null) &&
@@ -789,10 +774,6 @@ namespace Bikewale.Service.AutoMappers.Model
                     esCampaignDTO.LeadSourceId = (int)LeadSourceEnum.Model_Mobile;
                     esCampaignDTO.LinkUrl = HttpUtility.HtmlDecode(LeadCampaign.PageUrl);
 
-                    dt4 = DateTime.Now;
-                    thContext["ConvertV5_5ESCampaignBeforeREnder"] = (dt4 - dt3).TotalMilliseconds;
-                    dt3 = DateTime.Now;
-
                     #region Render the partial view
                     var esPreRenderCampaignDTO = new PreRenderCampaignBase();
                     var hashCode = Bikewale.PWA.Utils.PwaCmsHelper.GetSha256Hash(JsonConvert.SerializeObject(LeadCampaign));
@@ -809,11 +790,6 @@ namespace Bikewale.Service.AutoMappers.Model
                     detailsDto.EsCamapign = esPreRenderCampaignDTO;
                     #endregion
 
-                    dt4 = DateTime.Now;
-                    thContext["ConvertV5_6ESCampaignPostRender"] = (dt4 - dt3).TotalMilliseconds;
-                    dt3 = DateTime.Now;
-
-
                     esCampaignBase.DetailsCampaign = detailsDto;
                     esCampaignBase.CampaignLeadSource = esCampaignDTO;
                     objDTOModelPage.Campaign = esCampaignBase;
@@ -822,11 +798,6 @@ namespace Bikewale.Service.AutoMappers.Model
             catch (System.Exception ex)
             {
                 ErrorClass.LogError(ex, String.Format("Exception : Bikewale.Service.Model.ModelController.ConvertV5({0})", objModelPage.ModelDetails.ModelId));
-            }
-            finally
-            {
-                DateTime dt2 = DateTime.Now;
-                thContext["ConvertV5_total"] = (dt2 - dt1).TotalMilliseconds;
             }
             return objDTOModelPage;
         }
