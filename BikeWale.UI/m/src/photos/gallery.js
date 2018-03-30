@@ -310,7 +310,9 @@ var historyObj = (function () {
 // Function to refresh the ad after every 3 image swipes in the carousel
 function refreshAd() {
     var id = "div-gpt-ad-1516082576550-0";
-    googletag.pubads().refresh([adsToRefresh[id]]);
+    if (adsToRefresh[id] != null) {
+        googletag.pubads().refresh([adsToRefresh[id]]);
+    }
 }
 
 // handle gallery popup's browser back state
