@@ -10,151 +10,159 @@
     Model.AdTags.Ad_Bot_320x50 = true;
     if (Model != null && Model.objFeature != null) { Model.AdTags.TargetedTags = String.Join(",", Model.objFeature.TagsList); };
 }
-<section>
-    <div class="content-details related-details" data-id="@Model.objFeature.BasicId" data-category-id="@Model.objFeature.CategoryId" data-event-label="Feature_Detail">
-        <div class="container box-shadow bg-white section-bottom-margin">
-            <div class="box-shadow article-head padding-15-20">
-                <h1 class="margin-bottom10">@Model.objFeature.Title</h1>
-                <div class="grid-6 alpha padding-right5">
-                    <span class="bwmsprite calender-grey-sm-icon"></span>
-                    <span class="article-stats-content">@FormatDate.GetFormatDate(Convert.ToString(Model.objFeature.DisplayDate), "dd MMM yyyy, hh:mm tt")</span>
-                </div>
-                <div class="grid-6 alpha omega">
-                    @if (string.IsNullOrEmpty(Model.objFeature.AuthorMaskingName))
-                    {
-                        <span class="bwmsprite author-grey-sm-icon"></span>
-                        <span class="article-stats-content"><span>@Model.objFeature.AuthorName</span></span>
-                    }
-                    else
-                    {
-                        <a href=@string.Format("/m{0}", UrlFormatter.AuthorPageUrl(Model.objFeature.AuthorMaskingName)) class="hover-no-underline">
-                            <span class="bwmsprite author-grey-sm-icon"></span>
-                            <span class="article-stats-content"><span class="text-link">@Model.objFeature.AuthorName</span></span>
-                        </a>
-                    }
-                </div>
-                <div class="clear"></div>
-            </div>
-
-            <div class="article-content-padding">
-                <div id="divPageContent">
-                    @foreach (var page in Model.objFeature.PageList)
-                    {
-                        <div class="margin-bottom10">
-                            <h3 class="margin-bottom10" role="heading">@page.PageName</h3>
-                            <div id='@page.pageId' class="margin-top10 article-content">
-                                @Html.Raw(page.Content)
-                            </div>
-                        </div>
-                    }
-                </div>
-
-                <p class="margin-bottom10 font14 text-light-grey border-light-top">Share this story</p>
-                <ul class="social-wrapper">
-                    <li class="whatsapp-container rounded-corner2 text-center share-btn" data-attr="wp">
-                        <span data-text="share this video" data-link="www.google.com" class="social-icons-sprite whatsapp-icon"></span>
-                    </li>
-                    <li class="fb-container rounded-corner2 text-center share-btn" data-attr="fb">
-                        <span class="social-icons-sprite fb-icon"></span>
-                    </li>
-                    <li class="tweet-container rounded-corner2 text-center share-btn" data-attr="tw">
-                        <span class="social-icons-sprite tweet-icon"></span>
-                    </li>
-                    <li class="gplus-container rounded-corner2 text-center  share-btn" data-attr="gp">
-                        <span class="social-icons-sprite gplus-icon"></span>
-                    </li>
-                </ul>
-                <div class="clear"></div>
-                @if (Model.PhotoGallery != null && Model.PhotoGallery.Images != null)
-                {
-                    <div class="border-solid-top padding-top10">
-                        <h3 class="margin-bottom10">Images</h3>
-                        <div class="swiper-container article-photos-swiper">
-                            <div class="swiper-wrapper">
-                                @foreach (var image in Model.PhotoGallery.Images)
-                                {
-                                    <div class="swiper-slide">
-                                        <img class="swiper-lazy" title="@image.ImageName" alt="@image.ImageName" data-src='@Image.GetPathToShowImages(image.OriginalImgPath,image.HostUrl,ImageSize._110x61,QualityFactor._70)'>
-                                        <span class="swiper-lazy-preloader"></span>
-                                    </div>
-                                }
-                            </div>
-                            <div class="bwmsprite swiper-button-next"></div>
-                            <div class="bwmsprite swiper-button-prev"></div>
-                        </div>
-                    </div>
-                }
-            </div>
-        </div>
-    </div>
-</section>
-@if (Model.MostPopularBikes != null && Model.MostPopularBikes.Bikes != null && Model.MostPopularBikes.Bikes.Count() > 0)
+@if(Model != null)
 {
-    <section>
-        <div class="container box-shadow bg-white section-bottom-margin padding-bottom20 padding-top15">
-            <div class="carousel-heading-content">
-                <div class="swiper-heading-left-grid inline-block">
-                    <h2>@Model.MostPopularBikes.WidgetHeading</h2>
-                </div>
-                <div class="swiper-heading-right-grid inline-block text-right">
-                    <a href="@string.Format("/m{0}",Model.MostPopularBikes.WidgetHref)" title="@Model.MostPopularBikes.WidgetLinkTitle" class="btn view-all-target-btn">View all</a>
-                </div>
-                <div class="clear"></div>
-            </div>
-            @Html.Partial("~/Views/BikeModels/_MostPopularBikes_Mobile.cshtml", Model.MostPopularBikes)
-        </div>
-    </section>
-}
-
-@if (Model.objModel != null && Model.objModel.ModelId > 0)
-{
-    if (Model.PopularBodyStyle != null && Model.PopularBodyStyle.PopularBikes != null && Model.PopularBodyStyle.PopularBikes.Count() > 0)
+    if(Model.objFeature != null)
     {
+     
         <section>
-            <div class="container box-shadow bg-white section-bottom-margin padding-bottom20">
-                <div class="carousel-heading-content padding-top15">
-                    <div class="swiper-heading-left-grid inline-block">
-                        <h2>@Model.PopularBodyStyle.WidgetHeading</h2>
+    
+            <div class="container box-shadow bg-white section-bottom-margin">
+                <div class="box-shadow article-head padding-15-20">
+                    <h1 class="margin-bottom10">@Model.objFeature.Title</h1>
+                    <div class="grid-6 alpha padding-right5">
+                        <span class="bwmsprite calender-grey-sm-icon"></span>
+                        <span class="article-stats-content">@FormatDate.GetFormatDate(Convert.ToString(Model.objFeature.DisplayDate), "dd MMM yyyy, hh:mm tt")</span>
                     </div>
-                    <div class="swiper-heading-right-grid inline-block text-right">
-                        <a href="@string.Format("/m{0}",Model.PopularBodyStyle.WidgetHref)" title="@Model.PopularBodyStyle.WidgetLinkTitle" class="btn view-all-target-btn">View all</a>
+                    <div class="grid-6 alpha omega">
+                        @if (string.IsNullOrEmpty(Model.objFeature.AuthorMaskingName))
+                        {
+                            <span class="bwmsprite author-grey-sm-icon"></span>
+                            <span class="article-stats-content"><span>@Model.objFeature.AuthorName</span></span>
+                        }
+                        else
+                        {
+                            <a href=@string.Format("/m{0}", UrlFormatter.AuthorPageUrl(Model.objFeature.AuthorMaskingName)) class="hover-no-underline">
+                                <span class="bwmsprite author-grey-sm-icon"></span>
+                                <span class="article-stats-content"><span class="text-link">@Model.objFeature.AuthorName</span></span>
+                            </a>
+                        }
                     </div>
                     <div class="clear"></div>
                 </div>
-                @Html.Partial("~/Views/BestBikes/_PopularBodyStyleCarousel_Mobile.cshtml", Model.PopularBodyStyle)
+
+                <div class="article-content-padding">
+                    <div class="content-details related-details" data-id="@Model.objFeature.BasicId" data-category-id="@Model.objFeature.CategoryId" data-event-label="Feature_Detail">
+                        <div id="divPageContent">
+                            @foreach (var page in Model.objFeature.PageList)
+                            {
+                                <div class="margin-bottom10">
+                                    <h3 class="margin-bottom10" role="heading">@page.PageName</h3>
+                                    <div id='@page.pageId' class="margin-top10 article-content">
+                                        @Html.Raw(page.Content)
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+
+                        <p class="margin-bottom10 font14 text-light-grey border-light-top">Share this story</p>
+                        <ul class="social-wrapper">
+                            <li class="whatsapp-container rounded-corner2 text-center share-btn" data-attr="wp">
+                                <span data-text="share this video" data-link="www.google.com" class="social-icons-sprite whatsapp-icon"></span>
+                            </li>
+                            <li class="fb-container rounded-corner2 text-center share-btn" data-attr="fb">
+                                <span class="social-icons-sprite fb-icon"></span>
+                            </li>
+                            <li class="tweet-container rounded-corner2 text-center share-btn" data-attr="tw">
+                                <span class="social-icons-sprite tweet-icon"></span>
+                            </li>
+                            <li class="gplus-container rounded-corner2 text-center  share-btn" data-attr="gp">
+                                <span class="social-icons-sprite gplus-icon"></span>
+                            </li>
+                        </ul>
+                        <div class="clear"></div>
+                        @if (Model.PhotoGallery != null && Model.PhotoGallery.Images != null)
+                        {
+                            <div class="border-solid-top padding-top10">
+                                <h3 class="margin-bottom10">Images</h3>
+                                <div class="swiper-container article-photos-swiper">
+                                    <div class="swiper-wrapper">
+                                        @foreach (var image in Model.PhotoGallery.Images)
+                                        {
+                                            <div class="swiper-slide">
+                                                <img class="swiper-lazy" title="@image.ImageName" alt="@image.ImageName" data-src='@Image.GetPathToShowImages(image.OriginalImgPath,image.HostUrl,ImageSize._110x61,QualityFactor._70)'>
+                                                <span class="swiper-lazy-preloader"></span>
+                                            </div>
+                                        }
+                                    </div>
+                                    <div class="bwmsprite swiper-button-next"></div>
+                                    <div class="bwmsprite swiper-button-prev"></div>
+                                </div>
+                            </div>
+                        }
+                    </div>
             </div>
         </section>
     }
-}
-else
-{
-    if (Model.UpcomingBikes != null && Model.UpcomingBikes.UpcomingBikes != null && Model.UpcomingBikes.UpcomingBikes.Count() > 0)
+    if (Model.MostPopularBikes != null && Model.MostPopularBikes.Bikes != null && Model.MostPopularBikes.Bikes.Count() > 0)
     {
         <section>
             <div class="container box-shadow bg-white section-bottom-margin padding-bottom20 padding-top15">
                 <div class="carousel-heading-content">
                     <div class="swiper-heading-left-grid inline-block">
-                        <h2>@Model.UpcomingBikes.WidgetHeading</h2>
+                        <h2>@Model.MostPopularBikes.WidgetHeading</h2>
                     </div>
                     <div class="swiper-heading-right-grid inline-block text-right">
-                        <a href="@string.Format("/m{0}",Model.UpcomingBikes.WidgetHref)" title="@Model.UpcomingBikes.WidgetLinkTitle" class="btn view-all-target-btn">View all</a>
+                        <a href="@string.Format("/m{0}",Model.MostPopularBikes.WidgetHref)" title="@Model.MostPopularBikes.WidgetLinkTitle" class="btn view-all-target-btn">View all</a>
                     </div>
                     <div class="clear"></div>
                 </div>
-                @Html.Partial("~/Views/Upcoming/_UpcomingBikes_Editorial_Mobile.cshtml", Model.UpcomingBikes)
+                @Html.Partial("~/Views/BikeModels/_MostPopularBikes_Mobile.cshtml", Model.MostPopularBikes)
             </div>
         </section>
     }
-}
 
-@if (Model.PhotoGallery != null && Model.PhotoGallery.Images != null && Model.PhotoGallery.ImageCount > 0)
-{
-    <section>
-        <div class="model-gallery-container relative-gallery-container">
-            <h3 class="font16 text-white">@Model.objFeature.Title</h3>
-            <div class="gallery-close-btn position-abt pos-top15 pos-right15 bwmsprite cross-md-white cur-pointer"></div>
-            @Html.Partial("~/Views/Shared/_EditCMSModelGallery_Mobile.cshtml", Model.PhotoGallery)
-        </div>
-    </section>
-}
+    if (Model.objModel != null && Model.objModel.ModelId > 0)
+    {
+        if (Model.PopularBodyStyle != null && Model.PopularBodyStyle.PopularBikes != null && Model.PopularBodyStyle.PopularBikes.Count() > 0)
+        {
+            <section>
+                <div class="container box-shadow bg-white section-bottom-margin padding-bottom20">
+                    <div class="carousel-heading-content padding-top15">
+                        <div class="swiper-heading-left-grid inline-block">
+                            <h2>@Model.PopularBodyStyle.WidgetHeading</h2>
+                        </div>
+                        <div class="swiper-heading-right-grid inline-block text-right">
+                            <a href="@string.Format("/m{0}",Model.PopularBodyStyle.WidgetHref)" title="@Model.PopularBodyStyle.WidgetLinkTitle" class="btn view-all-target-btn">View all</a>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    @Html.Partial("~/Views/BestBikes/_PopularBodyStyleCarousel_Mobile.cshtml", Model.PopularBodyStyle)
+                </div>
+            </section>
+        }
+    }
+    else
+    {
+        if (Model.UpcomingBikes != null && Model.UpcomingBikes.UpcomingBikes != null && Model.UpcomingBikes.UpcomingBikes.Count() > 0)
+        {
+            <section>
+                <div class="container box-shadow bg-white section-bottom-margin padding-bottom20 padding-top15">
+                    <div class="carousel-heading-content">
+                        <div class="swiper-heading-left-grid inline-block">
+                            <h2>@Model.UpcomingBikes.WidgetHeading</h2>
+                        </div>
+                        <div class="swiper-heading-right-grid inline-block text-right">
+                            <a href="@string.Format("/m{0}",Model.UpcomingBikes.WidgetHref)" title="@Model.UpcomingBikes.WidgetLinkTitle" class="btn view-all-target-btn">View all</a>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    @Html.Partial("~/Views/Upcoming/_UpcomingBikes_Editorial_Mobile.cshtml", Model.UpcomingBikes)
+                </div>
+            </section>
+        }
+    }
+
+    if (Model.PhotoGallery != null && Model.PhotoGallery.Images != null && Model.PhotoGallery.ImageCount > 0)
+    {
+        <section>
+            <div class="model-gallery-container relative-gallery-container">
+                <h3 class="font16 text-white">@Model.objFeature.Title</h3>
+                <div class="gallery-close-btn position-abt pos-top15 pos-right15 bwmsprite cross-md-white cur-pointer"></div>
+                @Html.Partial("~/Views/Shared/_EditCMSModelGallery_Mobile.cshtml", Model.PhotoGallery)
+            </div>
+        </section>
+    }
 <div class="back-to-top" id="back-to-top"></div>
+}

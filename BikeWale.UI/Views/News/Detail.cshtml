@@ -14,9 +14,10 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     if (Model != null && Model.ArticleDetails != null) { Model.AdTags.TargetedTags = String.Join(",", Model.ArticleDetails.TagsList); };
 }
+@if(Model != null)
+{
+    <section id="overallContainer">
 
-<section id="overallContainer">
-    <div class="content-details" data-id="@Model.ArticleDetails.BasicId" data-category-id="@Model.ArticleDetails.CategoryId" data-event-label="News_Detail">
         <div class="container margin-bottom20">
             <div class="grid-12">
                 <div id="content" class="grid-8 alpha">
@@ -45,15 +46,17 @@
                             </div>
                             <div class="section-inner-padding">
                                 <div id="post-@Model.ArticleDetails.BasicId">
-                                    <div class="article-content padding-top5">
-                                        @if (!string.IsNullOrEmpty(Model.PageMetaTags.ShareImage))
+                                    <div class="content-details" data-id="@Model.ArticleDetails.BasicId" data-category-id="@Model.ArticleDetails.CategoryId" data-event-label="News_Detail">
+                                        <div class="article-content padding-top5">
+                                            @if (!string.IsNullOrEmpty(Model.PageMetaTags.ShareImage))
                                         {
-                                            <div style="text-align: center;">
-                                                <img alt='@Model.ArticleDetails.Title' title='@Model.ArticleDetails.Title' src='@Model.PageMetaTags.ShareImage'>
-                                            </div>
+                                                <div style="text-align: center;">
+                                                    <img alt='@Model.ArticleDetails.Title' title='@Model.ArticleDetails.Title' src='@Model.PageMetaTags.ShareImage'>
+                                                </div>
                                         }
-                                        @Html.Raw(Model.ArticleDetails.Content)
-                                        <div class="clear"></div>
+                                            @Html.Raw(Model.ArticleDetails.Content)
+                                            <div class="clear"></div>
+                                        </div>
                                     </div>
                                 </div>
                                 @if (Model.BikeInfo != null)
@@ -234,10 +237,10 @@
             </div>
             <div class="clear"></div>
         </div>
-    </div>
-</section>
-<script>
-    docReady(function () {
-        $("body").floatingSocialShare();
-    });
-</script>
+    </section>
+    <script>
+        docReady(function () {
+            $("body").floatingSocialShare();
+        });
+    </script>
+}
