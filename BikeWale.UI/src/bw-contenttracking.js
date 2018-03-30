@@ -47,7 +47,7 @@
                 if (!ContentTracking.trackingStatus[basicId][checkpoint]) {
                     ContentTracking.trackingStatus[basicId][checkpoint] = true;
                     var eventAction = checkpoint === 0 ? "Page_Load" : checkpoint.toString() + "_Viewed";
-                    triggerGA(eventCategory, eventAction, eventLabel);
+                    triggerNonInteractiveGA(eventCategory, eventAction, eventLabel);
                 }
             }       
         },

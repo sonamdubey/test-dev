@@ -11,47 +11,50 @@
     if (Model != null && Model.ArticleDetails != null) { Model.AdTags.TargetedTags = String.Join(",", Model.ArticleDetails.TagsList); };
 }
 <section>
-    <div class="content-details" data-id="@Model.ArticleDetails.BasicId" data-category-id="@Model.ArticleDetails.CategoryId" data-event-label="Bike_Care_Detail">
-        <div class="container box-shadow bg-white section-bottom-margin">
-            <div class="box-shadow article-head padding-15-20">
-                <h1 class="margin-bottom10">@Model.Page_H1</h1>
-                <div class="grid-6 alpha padding-right5">
-                    <span class="bwmsprite calender-grey-sm-icon"></span>
-                    <span class="article-stats-content">@FormatDate.GetFormatDate(Convert.ToString(Model.ArticleDetails.DisplayDate), "dd MMMM yyyy, hh:mm tt")</span>
-                </div>
-                <div class="grid-6 alpha omega">
-                    @if (string.IsNullOrEmpty(Model.ArticleDetails.AuthorMaskingName))
-                    {
-                        <span class="bwmsprite author-grey-sm-icon"></span>
-                        <span class="article-stats-content"><span>@Model.ArticleDetails.AuthorName</span></span>
-                    }
-                    else
-                    {
-                        <a href=@string.Format("/m{0}", UrlFormatter.AuthorPageUrl(Model.ArticleDetails.AuthorMaskingName)) class="hover-no-underline">
-                            <span class="bwmsprite author-grey-sm-icon"></span>
-                            <span class="article-stats-content"><span class="text-link">@Model.ArticleDetails.AuthorName</span></span>
-                        </a>
-                    }
-                </div>
-                <div class="clear"></div>
+    
+    <div class="container box-shadow bg-white section-bottom-margin">
+        <div class="box-shadow article-head padding-15-20">
+            <h1 class="margin-bottom10">@Model.Page_H1</h1>
+            <div class="grid-6 alpha padding-right5">
+                <span class="bwmsprite calender-grey-sm-icon"></span>
+                <span class="article-stats-content">@FormatDate.GetFormatDate(Convert.ToString(Model.ArticleDetails.DisplayDate), "dd MMMM yyyy, hh:mm tt")</span>
             </div>
-            <div class="article-content-padding">
+            <div class="grid-6 alpha omega">
+                @if (string.IsNullOrEmpty(Model.ArticleDetails.AuthorMaskingName))
+                {
+                    <span class="bwmsprite author-grey-sm-icon"></span>
+                    <span class="article-stats-content"><span>@Model.ArticleDetails.AuthorName</span></span>
+                }
+                else
+                {
+                    <a href=@string.Format("/m{0}", UrlFormatter.AuthorPageUrl(Model.ArticleDetails.AuthorMaskingName)) class="hover-no-underline">
+                        <span class="bwmsprite author-grey-sm-icon"></span>
+                        <span class="article-stats-content"><span class="text-link">@Model.ArticleDetails.AuthorName</span></span>
+                    </a>
+                }
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="article-content-padding">
+            
                 @if (Model.ArticleDetails != null)
                 {
-                    if (Model.ArticleDetails.PageList != null && Model.ArticleDetails.PageList.Count() > 0)
-                    {
-                        <div class="margin-bottom10">
-                            @foreach (var page in Model.ArticleDetails.PageList)
-                            {
-                                <div class="margin-bottom10">
-                                    <h3 role="heading">@page.PageName</h3>
-                                    <div id='@page.pageId' class="margin-top10 article-content">
-                                        @Html.Raw(page.Content)
+                    <div class="content-details" data-id="@Model.ArticleDetails.BasicId" data-category-id="@Model.ArticleDetails.CategoryId" data-event-label="Bike_Care_Detail">
+                        @if (Model.ArticleDetails.PageList != null && Model.ArticleDetails.PageList.Count() > 0)
+                        {
+                            <div class="margin-bottom10">
+                                @foreach (var page in Model.ArticleDetails.PageList)
+                                {
+                                    <div class="margin-bottom10">
+                                        <h3 role="heading">@page.PageName</h3>
+                                        <div id='@page.pageId' class="margin-top10 article-content">
+                                            @Html.Raw(page.Content)
+                                        </div>
                                     </div>
-                                </div>
-                            }
-                        </div>
-                    }
+                                }
+                            </div>
+                        }
+                    </div>
                     <p class="margin-bottom10 font14 text-light-grey border-light-top">Share this story</p>
                     <ul class="social-wrapper">
                         <li class="whatsapp-container rounded-corner2 text-center share-btn" data-attr="wp">
@@ -89,7 +92,6 @@
                     </div>
                 }
             </div>
-        </div>
     </div>
 </section>
         @if (Model.MostPopularBikes != null && Model.MostPopularBikes.Bikes != null && Model.MostPopularBikes.Bikes.Count() > 0)
