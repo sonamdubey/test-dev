@@ -57,7 +57,7 @@
 										<div class="model-card__list-block">
 											<h3 class="model-card__label">@string.Format("{0} {1}", firstModel.BikeMake.MakeName, firstModel.BikeModel.ModelName)</h3>
 											<ul class="summary-specs-list">
-												@Html.Raw(FormatMinSpecs.GetMinSpecsAsLiElement(firstModel.MinSpecsList))
+												@Html.Raw(FormatMinSpecs.GetMinSpecsLiElements(firstModel.MinSpecsList))
 											</ul>
 										</div>
 										<div class="model-card__list-block">
@@ -103,7 +103,7 @@
 											<div class="model-card__list-block">
 												<h3 class="model-card__label">@string.Format("{0} {1}", bike.BikeMake.MakeName, bike.BikeModel.ModelName)</h3>
 												<ul class="summary-specs-list">
-													@Html.Raw(FormatMinSpecs.GetMinSpecsAsLiElement(bike.MinSpecsList))
+													@Html.Raw(FormatMinSpecs.GetMinSpecsLiElements(bike.MinSpecsList))
 												</ul>
 											</div>
 											<div class="model-card__list-block">
