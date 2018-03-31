@@ -1,10 +1,12 @@
-﻿using Bikewale.Entities.BikeData;
+﻿using Bikewale.BAL.GrpcFiles.Specs_Features;
+using Bikewale.Entities.BikeData;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Location;
 using Bikewale.Notifications;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 namespace Bikewale.Models
@@ -52,7 +54,15 @@ namespace Bikewale.Models
             {
                 objVM = new BikeInfoVM();
                 objVM.BikeInfo = _bikeInfo.GetBikeInfo(_modelId, _cityId);
-
+                GenericBikeInfo bikeInfo = objVM.BikeInfo;
+                if (bikeInfo != null)
+                {
+                    var versionMinSpecs = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(Enumerable.Repeat(bikeInfo.VersionId,1)).GetEnumerator();
+                    if (versionMinSpecs.MoveNext())
+                    {
+                        bikeInfo.MinSpecsList = versionMinSpecs.Current.MinSpecsList;
+                    }
+                }
                 if (objVM.BikeInfo != null)
                 {
                     if (_cityId > 0)
