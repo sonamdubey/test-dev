@@ -1,5 +1,5 @@
 ﻿@model Bikewale.Models.NewLaunchesBikesVM
-@{  
+@{
     ushort i = 0;
 }
 @if (Model != null && Model.HasBikes)
@@ -39,23 +39,18 @@
                         </div>
                         <h3 data-bind="text : models()[@i].bikeName ">@bikeName</h3>
                         <ul class="key-specs-list font12 margin-bottom5">
-
-                            <li data-bind="visible : models()[@i].minSpec.displacement != 0" @(bike.MinSpecs.Displacement > 0 ? "" : " style=display:none ")>
-                                <span data-bind="text:models()[@i].minSpec.displacement + ' cc'">@Bikewale.Utility.FormatMinSpecs.ShowAvailable(bike.MinSpecs.Displacement.ToString(), "cc")</span>
-                            </li>
-
-                            <li data-bind="visible : models()[@i].minSpec.fuelEffeciency != 0" @(bike.MinSpecs.FuelEfficiencyOverall > 0 ? "" : " style=display:none ")>
-                                <span data-bind="text:models()[@i].minSpec.fuelEffeciency + ' kmpl'">@Bikewale.Utility.FormatMinSpecs.ShowAvailable(bike.MinSpecs.FuelEfficiencyOverall.ToString(), "kmpl")</span>
-                            </li>
-
-                            <li data-bind="visible : models()[@i].minSpec.maxPower != 0" @(bike.MinSpecs.MaxPower > 0 ? "" : " style=display:none ")>
-                                <span data-bind="text:models()[@i].minSpec.maxPower + ' bhp'">@Bikewale.Utility.FormatMinSpecs.ShowAvailable(bike.MinSpecs.MaxPower.ToString(), "bhp")</span>
-                            </li>
-
-                            <li data-bind="visible : models()[@i].minSpec.kerbWeight != 0" @(bike.MinSpecs.KerbWeight > 0 ? "" : " style=display:none ")>
-                                <span data-bind="text:models()[@i].minSpec.kerbWeight + ' kgs'">@Bikewale.Utility.FormatMinSpecs.ShowAvailable(Convert.ToString(bike.MinSpecs.KerbWeight), "kgs")</span>
-                            </li>
-
+                            @{
+                                ushort j = 0;
+                            }
+                            @foreach (var specItem in bike.MinSpecsList)
+                            {
+                                <!-- ko if : models()[@i].minSpec[@j] -->
+                                <li data-bind="visible : models()[@i].minSpec[@j].value != '',text:models()[@i].minSpec[@j].value +' ' + models()[@i].minSpec[@j].unitType, style: {display:models()[@i].minSpec[@j].value != '' ? 'inline-block' : 'none'}">
+                                    @Bikewale.Utility.FormatMinSpecs.ShowAvailable(specItem.Value, specItem.UnitType)
+                                </li>
+                                <!-- /ko -->
+                                j++;
+                            }
                         </ul>
                         <div class="leftfloat exshowroom-price-content">
                             <p class="key-size-13 text-truncate">Ex-showroom price, <span data-bind="text : selectedCityId() > 0 ? selectedCityName() : 'Mumbai'">@( bike.City != null && !string.IsNullOrEmpty(bike.City.CityName) ? bike.City.CityName : "Mumbai")</span></p>
@@ -73,8 +68,8 @@
                     </div>
                 </li>
                  <!-- /ko -->
-                            i++;
-            }
+                                    i++;
+                                }
 
         </ul>
         <!-- /ko -->
@@ -85,13 +80,13 @@
         </div>
         <div class="margin-right10 margin-left10 padding-top15 padding-bottom15 border-solid-top" data-bind="visible : !noBikes() && TotalBikes() != 0 && Pagination().paginated() > 0" style="display: @(Model.HasPages ? "block" : "none")">
             <div class=" grid-5 omega text-light-grey font13">
-                <div class="font14" data-bind="visible: TotalBikes() > 0"><span class="text-bold" data-bind="CurrencyText: (Pagination().pageNumber() - 1) * Pagination().pageSize() + 1">@((Model.Pager.PageNo - 1) * Model.Pager.PageSize + 1)</span>-<span class="text-bold" data-bind="    CurrencyText: Math.min(TotalBikes(), Pagination().pageNumber() * Pagination().pageSize())">@Math.Min(Model.Pager.PageNo * Model.Pager.PageSize, Model.Pager.TotalResults)</span> of <span class="text-bold" data-bind="CurrencyText: TotalBikes()">@Model.Pager.TotalResults</span> bikes</div>
+                <div class="font14" data-bind="visible: TotalBikes() > 0"><span class="text-bold" data-bind="CurrencyText: (Pagination().pageNumber() - 1) * Pagination().pageSize() + 1">@((Model.Pager.PageNo - 1) * Model.Pager.PageSize + 1)</span>-<span class="text-bold" data-bind=" CurrencyText Math.min(TotalBikes(), Pagination().pageNumber() * Pagination().pageSize())">@Math.Min(Model.Pager.PageNo * Model.Pager.PageSize, Model.Pager.TotalResults)</span> of <span class="text-bold" data-bind="CurrencyText: TotalBikes()">@Model.Pager.TotalResults</span> bikes</div>
             </div>
             @if (Model.Pager.TotalResults > 10) { Html.RenderAction("Index", "Pager", new { objPager = @Model.Pager }); }
             <div class="clear"></div>
         </div>
     </div>
-}
+                                }
 @if (Model.HasMakes)
 {
 
@@ -111,11 +106,11 @@
             <ul class="filter-list" data-filter="makewise">
                 <li data-bind="click : function(d,e) { setMakeFilter(e);}"> <span>All brands</span> </li>
                 @foreach (var make in Model.Makes)
-{
-    <li  data-makeid="@make.Make.MakeId" data-makename="@make.Make.MakeName" data-makename-lower="@make.Make.MakeName.ToLower()" data-bind="click : function(d,e) { setMakeFilter(e);}">
-        <span>@make.Make.MakeName</span>
-    </li>
-}
+                {
+                    <li data-makeid="@make.Make.MakeId" data-makename="@make.Make.MakeName" data-makename-lower="@make.Make.MakeName.ToLower()" data-bind="click : function(d,e) { setMakeFilter(e);}">
+                        <span>@make.Make.MakeName</span>
+                    </li>
+                }
 
             </ul>
         </div>

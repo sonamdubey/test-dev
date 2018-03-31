@@ -49,22 +49,19 @@
                         </div>
                         <div class="card-desc-block">
                             <h3 class="bikeTitle" data-bind="text : models()[@i].bikeName ">@bikeName</h3>
-                            <ul class="key-specs-list margin-bottom10 font12">
-                                <li data-bind="visible : models()[@i].minSpec.displacement != 0,text:models()[@i].minSpec.displacement + ' cc'" style="display:@(bike.MinSpecs.Displacement > 0 ? "inline-block" : "none")">
-                                    @Bikewale.Utility.FormatMinSpecs.ShowAvailable(bike.MinSpecs.Displacement.ToString(), "cc")
-                                </li>
-
-                                <li data-bind="visible : models()[@i].minSpec.fuelEffeciency != 0,text:models()[@i].minSpec.fuelEffeciency + ' kmpl'" style="display:@(bike.MinSpecs.FuelEfficiencyOverall > 0 ? "inline-block" : "none")">
-                                    @Bikewale.Utility.FormatMinSpecs.ShowAvailable(bike.MinSpecs.FuelEfficiencyOverall.ToString(), "kmpl")
-                                </li>
-
-                                <li data-bind="visible : models()[@i].minSpec.maxPower != 0,text:models()[@i].minSpec.maxPower + ' bhp'" style="display:@(bike.MinSpecs.MaxPower > 0 ? "inline-block" : "none")">
-                                    @Bikewale.Utility.FormatMinSpecs.ShowAvailable(bike.MinSpecs.MaxPower.ToString(), "bhp")
-                                </li>
-
-                                <li data-bind="visible : models()[@i].minSpec.kerbWeight != 0,text:models()[@i].minSpec.kerbWeight + ' kgs'" style="display:@(bike.MinSpecs.KerbWeight > 0 ? "inline-block" : "none")">
-                                    @Bikewale.Utility.FormatMinSpecs.ShowAvailable(Convert.ToString(bike.MinSpecs.KerbWeight), "kgs")
-                                </li>
+                            <ul class="key-specs-list margin-bottom10 font12" >
+                                @{
+                                    ushort j = 0;
+                                }
+                                @foreach (var specItem in bike.MinSpecsList)
+                                {
+                                    <!-- ko if : models()[@i].minSpec[@j] -->
+                                    <li data-bind="visible : models()[@i].minSpec[@j].value != '',text:models()[@i].minSpec[@j].value +' ' + models()[@i].minSpec[@j].unitType, style: {display:models()[@i].minSpec[@j].value != '' ? 'inline-block' : 'none'}">
+                                        @Bikewale.Utility.FormatMinSpecs.ShowAvailable(specItem.Value, specItem.UnitType)
+                                    </li>
+                                    <!-- /ko -->
+                                    j++;
+                                }
                             </ul>
                             <div class="grid-6 alpha padding-right20">
                                 <p class="key-size-13 text-truncate margin-bottom5">Ex-showroom,<span data-bind="text : selectedCityId() > 0 ? selectedCityName() : 'Mumbai'">@( bike.City != null && !string.IsNullOrEmpty(bike.City.CityName) ? bike.City.CityName : "Mumbai")</span></p>
