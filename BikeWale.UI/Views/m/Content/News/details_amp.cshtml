@@ -199,4 +199,35 @@
     }
 }
 
+<amp-analytics type="googleanalytics">
+
+    <script type="application/json">
+        {
+        "vars": {
+        "eventCategory": "Editorial_Details_Page_AMP",
+        "eventLabel": "News_Detail"
+        },
+        "triggers": {
+        "pageLoad": {
+        "on": "ini-load",
+        "request": "event",
+        "vars": {
+        "eventAction": "Page_Load"
+        }
+        },
+        "scrollPings": {
+        "on": "scroll",
+        "scrollSpec": {
+        "verticalBoundaries": [10, 25, 50, 75, 100]
+        },
+        "request": "event",
+        "vars": {
+        "eventAction": "${verticalScrollBoundary}_Viewed"
+        }
+        }
+        }
+        }
+    </script>
+
+</amp-analytics>
 
