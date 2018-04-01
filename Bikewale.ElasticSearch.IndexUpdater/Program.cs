@@ -20,6 +20,7 @@ namespace Bikewale.ElasticSearch.IndexUpdaterConsumer
         private const string ES_OPERATION_INSERT = "insert";
         private const string ES_OPERATION_UPDATE = "update";
         private const string ES_OPERATION_DELETE = "delete";
+        private const string ES_OPERATION_PARTIALUPDATE = "partialupdate";
 
         private static ElasticClient client;
         private static int NO_OF_RETRIES;
@@ -103,6 +104,8 @@ namespace Bikewale.ElasticSearch.IndexUpdaterConsumer
 
         /// <summary>
         /// This method is used to Insert/Update/Delete a document in an Elastic Search Index
+        /// Modified by : Ashutosh Sharma on 31 Mar 2018.
+        /// Description : Added case to paritally update a document. No need to pass whole document in "documentJson" field of "queueMessage".
         /// </summary>
         /// <param name="queueMessage"></param>
         /// <param name="c"></param>
@@ -138,7 +141,7 @@ namespace Bikewale.ElasticSearch.IndexUpdaterConsumer
 
             try
             {
-
+                JObject documentJObject;
                 switch (operationType)
                 {
                     case ES_OPERATION_DELETE:
@@ -161,7 +164,7 @@ namespace Bikewale.ElasticSearch.IndexUpdaterConsumer
                     case ES_OPERATION_UPDATE:
 
                     case ES_OPERATION_INSERT:
-                        JObject documentJObject = JObject.Parse(documentJson);
+                        documentJObject = JObject.Parse(documentJson);
                         var esIndexResponse = client.Index(documentJObject, i => i
                                       .Index(indexName)
                                       .Type(documentType)
@@ -173,7 +176,19 @@ namespace Bikewale.ElasticSearch.IndexUpdaterConsumer
                             esResponse = esIndexResponse.DebugInformation;
                         }
                         break;
-
+                    case ES_OPERATION_PARTIALUPDATE:
+                        documentJObject = JObject.Parse(documentJson);
+                        var esUpdateDocResponse = client.Update<DocumentPath<JObject>, object>(documentId, 
+                            d => d.Index(indexName)
+                                .Type(documentType)
+                                .Doc(documentJObject)
+                                .RetryOnConflict(5));
+                        if (esUpdateDocResponse != null)
+                        {
+                            isOperationSuccessful = esUpdateDocResponse.IsValid;
+                            esResponse = esUpdateDocResponse.DebugInformation;
+                        }
+                        break;
                     default:
                         Logs.WriteErrorLog(string.Format("ERROR. Message : Unsupported operationType_{0}", operationType));
                         break;
