@@ -50,7 +50,7 @@ namespace Bikewale.Service.AutoMappers.BikeData
             Mapper.CreateMap<Entities.BikeData.NewLaunched.InputFilter, DTO.BikeData.NewLaunched.InputFilterDTO>();
             Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
             Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
-            Mapper.CreateMap<MinSpecsEntity, DTO.BikeData.v2.MinSpecs>();
+            Mapper.CreateMap<SpecsItem, DTO.BikeData.v2.VersionMinSpecs>();
             Mapper.CreateMap<Entities.Location.CityEntityBase, CityBase>();
             return Mapper.Map<Entities.BikeData.NewLaunched.NewLaunchedBikeResult, DTO.BikeData.NewLaunched.NewLaunchedBikeResultDTO>(entity);
         }
