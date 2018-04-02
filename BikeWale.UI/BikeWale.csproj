@@ -3196,6 +3196,7 @@
     <Content Include="src\dealer\landing.js" />
     <Content Include="src\electricbikes\electricbikeindex.js" />
     <Content Include="src\lazyloadad.js" />
+    <Content Include="src\lazyloadyoutube.js" />
     <Content Include="src\model-series\series.js" />
     <Content Include="src\emi-calculator.js" />
     <Content Include="src\new-launch.js" />
@@ -4073,6 +4074,7 @@
     <Content Include="Views\Shared\fontcss\Oxygen\_Latin700.cshtml" />
     <Content Include="Views\Shared\Ads\Mobile\Ad320x50.cshtml" />
     <Content Include="Views\Shared\Ads\Mobile\Ad320x50Bottom.cshtml" />
+    <Content Include="sass\partials\bw-youtube.sass" />
     <None Include="Views\Shared\_Sidebar-section.cshtml" />
     <Content Include="Views\BikeModels\_MultiTabsWidget.cshtml" />
     <Content Include="Views\Shared\_ReviewPopup.cshtml" />
@@ -4098,6 +4100,7 @@
     <Content Include="Views\BestBikes\_PopularBodyStyleBestBikesCarousel_Mobile.cshtml" />
     <Content Include="Views\UserReview\BikesWithReviewsByMake_Mobile_New.cshtml" />
     <Content Include="Views\Upcoming\_UpcomingBikesWithNotify_Mobile.cshtml" />
+    <Content Include="Views\Videos\_LazyLoadVideos.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
