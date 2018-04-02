@@ -1,3 +1,4 @@
+using log4net;
 using System;
 using System.Web;
 using System.Web.Caching;
@@ -12,6 +13,7 @@ namespace Bikewale.Common
         private string _hostUrl = "~/m";
 
         private string _mobilePageUrl = "";
+        static readonly ILog _log = LogManager.GetLogger(typeof(DeviceDetection));
 
         public DeviceDetection()
         {
@@ -41,7 +43,17 @@ namespace Bikewale.Common
                 //if DesktopDetected cookie does not exist and QueryString parameter site = desktop does not exist 
                 //then  we have to detect device 
                 //to redirect to mobile website or stay with desktop website or show no compatible website page
-                PerformDetection();
+                try
+                {
+                    PerformDetection();
+                }
+                catch (Exception ex)
+                {
+                    HttpContext.Current.Response.Cookies["DesktopDetected"].Value = "1";
+                    HttpContext.Current.Response.Cookies["DesktopDetected"].Expires = DateTime.Now.AddDays(1);
+                    ThreadContext.Properties["DeviceDetectionHandled"] = true;
+                    _log.Error(ex);
+                }
             }
             else if (HttpContext.Current.Request.Cookies["DesktopDetected"] == null && HttpContext.Current.Request.QueryString["site"] != null && HttpContext.Current.Request.QueryString["site"] == "desktop")
             {

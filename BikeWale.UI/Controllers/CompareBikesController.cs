@@ -6,6 +6,7 @@ using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.Compare;
 using Bikewale.Interfaces.EditCMS;
 using Bikewale.Models;
+using System.Collections.Generic;
 using System.Web.Mvc;
 
 namespace Bikewale.Controllers
@@ -87,7 +88,6 @@ namespace Bikewale.Controllers
             {
                 CompareDetailsVM objVM = null;
                 objVM = objDetails.GetData();
-                objVM.Compare.VersionSpecsFeatures = SpecsFeaturesServiceGateway.Call();
                 if (objDetails.status == Entities.StatusCodes.RedirectPermanent)
                 {
                     return RedirectPermanent(objDetails.redirectionUrl);

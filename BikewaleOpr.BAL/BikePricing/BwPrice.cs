@@ -1,5 +1,4 @@
 ﻿using Bikewale.ElasticSearch.Entities;
-using Bikewale.Notifications;
 using Bikewale.Utility;
 using BikewaleOpr.Cache;
 using BikewaleOpr.Interface.BikeData;
@@ -9,6 +8,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Linq;
 namespace BikewaleOpr.BAL.BikePricing
 {
     /// <summary>
@@ -59,8 +59,10 @@ namespace BikewaleOpr.BAL.BikePricing
                             {
                                 BwMemCache.ClearModelPriceInNearestCities(Convert.ToUInt32(modelId), Convert.ToUInt32(cityId), 8);
                                 BwMemCache.ClearMostPopularBikesByModelBodyStyle(Convert.ToUInt32(modelId), Convert.ToUInt32(cityId), 8);
+
                             }
                         }
+
                         foreach (var versionPrice in versionPriceList)
                         {
                             string versionId = versionPrice.Substring(0, versionPrice.IndexOf('#'));
@@ -69,8 +71,8 @@ namespace BikewaleOpr.BAL.BikePricing
                                 BwMemCache.ClearSimilarBikesList(Convert.ToUInt32(versionId), 9, Convert.ToUInt32(cityId));
                             }
                         }
-                        
-
+                        BwMemCache.ClearDefaultPQVersionList(modelIdList, cityIdList);
+                        BwMemCache.ClearVersionPrice(modelIdList, cityIdList);
                     }
                 }
             }
@@ -117,7 +119,10 @@ namespace BikewaleOpr.BAL.BikePricing
                 BWESIndexUpdater.PushToQueue(nvc);
             }
 
-            
+            var modelIds = models.Split(',').Distinct();
+            var cityIdList = cities.Split(',').Distinct();
+            BwMemCache.ClearDefaultPQVersionList(modelIds, cityIdList);
+            BwMemCache.ClearVersionPrice(modelIds, cityIdList);
         }
 
 
@@ -166,14 +171,13 @@ namespace BikewaleOpr.BAL.BikePricing
         public string ParseInput(string value, string[] separators, int step)
         {
             string[] words = value.Split(separators, StringSplitOptions.RemoveEmptyEntries);
-
             string ids = "";
-
-            for (int i = 0; i < words.Length; i += step)
+            var len = words.Length;
+            for (int i = 0; i < len; i += step)
             {
                 ids += string.Format("{0},", words[i]);
             }
-
+            ids = ids.Remove(ids.Length - 1);
             return ids;
         }
     }

@@ -13,6 +13,7 @@
                     <th>Masking Number</th>
                     <th>Start Date</th>
                     <th>End Date</th>
+                    <th>Campaign Days</th>
                     <th>Daily Start Time</th>
                     <th>Daily End Time</th>
                     <th>Daily Lead Limit</th>
@@ -95,6 +96,9 @@
         <td data-bind="text: maskingNumber"></td>
         <td data-bind="text: campaignStartDate"></td>
         <td data-bind="text: campaignEndDate"></td>
+        <td>
+             <a class="tooltipped" data-position="bottom" data-delay="50" data-bind="attr: {'data-tooltip': campaignDays}"><i class="material-icons icon-blue">info</i></a>
+        </td>
         <td data-bind="text: dailyStartTime"></td>
         <td data-bind="text: dailyEndTime"></td>
         <td data-bind="text: dailyLeadLimit"></td>

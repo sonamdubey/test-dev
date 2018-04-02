@@ -110,6 +110,7 @@
     <Compile Include="Authors\AuthorsListVM.cs" />
     <Compile Include="BestBikes\BestBikeByCategoryVM.cs" />
     <Compile Include="BikeCare\BikeCareDetailPageVM.cs" />
+    <Compile Include="BikeModels\BikeSpecsFeaturesVM.cs" />
     <Compile Include="BikeModels\ModelMileageWidgetVM.cs" />
     <Compile Include="BikeModels\ModelPageVM.cs" />
     <Compile Include="BikeCare\BikeCareIndexPageVM.cs" />

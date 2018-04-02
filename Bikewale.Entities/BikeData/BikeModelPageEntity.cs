@@ -41,8 +41,7 @@ namespace Bikewale.Entities.BikeData
         public Specifications objSpecs { get; set; }
         [DataMember]
         public uint UsedListingsCnt { get; set; }
-        [DataMember]
+        public IEnumerable<SpecsItem> SpecsSummaryList { get; set; }
         public SpecsFeaturesEntity VersionSpecsFeatures { get; set; }
-
     }
 }

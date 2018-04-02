@@ -1,6 +1,6 @@
 ﻿using Bikewale.Notifications;
 using System;
-
+using System.Collections.Generic;
 namespace BikewaleOpr.Cache
 {
     /// <summary>
@@ -243,6 +243,19 @@ namespace BikewaleOpr.Cache
             }
         }
 
+        public static void ClearVersionPrice(IEnumerable<string> modelIds, IEnumerable<string> cityIdList)
+        {
+            ICollection<String> keys = new List<String>();
+            foreach (var modelId in modelIds)
+            {
+                foreach (var cityId in cityIdList)
+                {
+                    keys.Add(String.Format("BW_VersionPrices_{0}_C_{1}", modelId, cityId));
+                }
+            }
+            MemCachedUtil.Remove(keys);
+        }
+
         /// <summary>
         /// Created by  :   Sumit Kate on 26 Mar 2017
         /// Description :   Clear User Reviews Cache
@@ -422,5 +435,41 @@ namespace BikewaleOpr.Cache
         {
             MemCachedUtil.Remove(String.Format("BW_DealerBikeModel_v1_{0}", dealerId));
         }
+
+        public static void ClearDefaultPQVersion<T>(T modelId)
+        {
+            ICollection<string> keys = new List<String>();
+            for (int cityId = 1; cityId < 1500; cityId++)
+            {
+                keys.Add(String.Format("BW_DefaultPQVersion_{0}_{1}", modelId, cityId));
+            }
+            MemCachedUtil.Remove(keys);
+        }
+
+        public static void ClearDefaultPQVersionList<T, U>(IEnumerable<T> modelIds, IEnumerable<U> cityIds)
+        {
+            ICollection<String> keys = new List<String>();
+            foreach (var modelId in modelIds)
+            {
+                foreach (var cityId in cityIds)
+                {
+                    keys.Add(String.Format("BW_DefaultPQVersion_{0}_{1}", modelId, cityId));
+                }
+            }
+            MemCachedUtil.Remove(keys);
+        }
+
+        public static void ClearDefaultPQVersion<T, U>(T modelId, U cityId)
+        {
+            string key = String.Format("BW_DefaultPQVersion_{0}_{1}", modelId, cityId);
+            MemCachedUtil.Remove(key);
+        }
+
+
+        public static void ClearManufacturerCampaign(IEnumerable<string> keys)
+        {
+            MemCachedUtil.Remove(keys);
+        }
+
     }
 }

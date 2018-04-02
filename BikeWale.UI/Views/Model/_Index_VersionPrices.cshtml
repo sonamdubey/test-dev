@@ -32,7 +32,7 @@
                             }
 
                         </td>
-                        <td class="font12">@string.Format(@"{0} Brake, {1} Wheels", version.BrakeType, (version.AlloyWheels) ? "Alloy" : "Spoke")</td>
+                        <td class="font12">@Bikewale.Utility.FormatMinSpecs.GetCommaSepratedGeneralSpecs(version.MinSpecsList)</td>
                     </tr>
                 }
             </tbody>

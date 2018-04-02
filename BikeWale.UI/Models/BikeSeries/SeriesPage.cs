@@ -15,6 +15,7 @@ using Bikewale.Models.Used;
 using Bikewale.Utility;
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 namespace Bikewale.Models.BikeSeries
@@ -22,6 +23,8 @@ namespace Bikewale.Models.BikeSeries
     /// <summary>
     /// Created by : Ashutosh Sharma on 17 Nov 2017
     /// Description : Provide methods to get data for series page.
+    /// Modified by : Sanskar Gupta on 22 Mar 2018
+    /// Description : Added `AdPath_Mobile` and `AdId_Mobile
     /// </summary>
     public class SeriesPage
     {
@@ -35,6 +38,9 @@ namespace Bikewale.Models.BikeSeries
         private readonly IVideos _videos = null;
         private readonly IBikeSeriesCacheRepository _seriesCache = null;
         private readonly IBikeCompare _compareScooters = null;
+        private readonly String _adPath_Mobile = "/1017752/Bikewale_Model_";
+        private readonly String _adId_Mobile = "1442913773076";
+
 
         public SeriesPage(IBikeSeriesCacheRepository seriesCache, IUsedBikesCache usedBikesCache, IBikeSeries bikeSeries, ICMSCacheContent articles, IVideos videos, IBikeCompare compareScooters)
         {
@@ -49,6 +55,8 @@ namespace Bikewale.Models.BikeSeries
         /// <summary>
         /// Created by : Ashutosh Sharma on 17 Nov 2017
         /// Description : Base method to get data for series page.
+        /// Modified by : Ashutosh Sharma on 10 Mar 2018
+        /// Description : Removed unnecessary call to fetch models for a series.
         /// </summary>
         /// <param name="seriesId"></param>
         /// <returns></returns>
@@ -58,7 +66,6 @@ namespace Bikewale.Models.BikeSeries
             try
             {
                 objSeriesPage = new SeriesPageVM();
-                objSeriesPage.SeriesModels = _seriesCache.GetModelsListBySeriesId(seriesId);
                 GlobalCityAreaEntity location = GlobalCityArea.GetGlobalCityArea();
                 objSeriesPage.City = new CityEntityBase();
                 if (location != null && location.CityId > 0)
@@ -77,7 +84,6 @@ namespace Bikewale.Models.BikeSeries
 
                 objSeriesPage.SeriesModels = new BikeSeriesModels();
                 objSeriesPage.SeriesModels.NewBikes = _bikeSeries.GetNewModels(seriesId, objSeriesPage.City.CityId);
-
                 if (objSeriesPage.SeriesModels.NewBikes != null && objSeriesPage.SeriesModels.NewBikes.Any())
                 {
                     var firstNewBike = objSeriesPage.SeriesModels.NewBikes.FirstOrDefault();
@@ -96,8 +102,9 @@ namespace Bikewale.Models.BikeSeries
                 BindPageMetas(objSeriesPage);
                 SetBreadcrumList(objSeriesPage);
                 SetPageJSONLDSchema(objSeriesPage);
-                BindCompareScooters(objSeriesPage, CompareSource);
+                BindTopComparisions(objSeriesPage, CompareSource);
                 objSeriesPage.Page = GAPages.Series_Page;
+                BindAdSlots(objSeriesPage);
             }
             catch (Exception ex)
             {
@@ -419,19 +426,61 @@ namespace Bikewale.Models.BikeSeries
             }
         }
 
-
-        private void BindCompareScooters(SeriesPageVM objViewModel, CompareSources CompareSource)
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 17 Nov 2017
+        /// Description : Method to fetch popular comparisions of new models of series.
+        /// </summary>
+        /// <param name="objViewModel"></param>
+        /// <param name="CompareSource"></param>
+        private void BindTopComparisions(SeriesPageVM objViewModel, CompareSources CompareSource)
         {
             try
             {
                 string versionList = string.Join(",", objViewModel.SeriesModels.NewBikes.Select(m => m.objVersion.VersionId));
                 PopularModelCompareWidget objCompare = new PopularModelCompareWidget(_compareScooters, 1, objViewModel.City.CityId, versionList);
-                objViewModel.SimilarCompareScooters = objCompare.GetData();
-                objViewModel.SimilarCompareScooters.CompareSource = CompareSource;
+                objViewModel.TopComparisons = objCompare.GetData();
+                objViewModel.TopComparisons.CompareSource = CompareSource;
             }
             catch (Exception ex)
             {
                 ErrorClass er = new ErrorClass(ex, "ScootersIndexPageModel.BindCompareScootes()");
+            }
+        }
+
+        /// <summary>
+        /// Created by  : Sanskar Gupta on 22 March 2018
+        /// Description : Function to Bind AdSlots dynamically.
+        /// </summary>
+        /// <param name="objViewModel"></param>
+        private void BindAdSlots(SeriesPageVM objViewModel)
+        {
+            if (IsMobile)
+            {
+                AdTags adTagsObj = objViewModel.AdTags;
+
+                adTagsObj.AdPath = _adPath_Mobile;
+                adTagsObj.AdId = _adId_Mobile;
+                adTagsObj.Ad_320x50 = true;
+                adTagsObj.Ad_Bot_320x50 = true;
+
+
+                IDictionary<string, AdSlotModel> ads = new Dictionary<string, AdSlotModel>();
+
+                NameValueCollection adInfo = new NameValueCollection();
+                adInfo["adId"] = _adId_Mobile;
+                adInfo["adPath"] = _adPath_Mobile;
+
+                if (adTagsObj.Ad_320x50)
+                {
+                    ads.Add(String.Format("{0}-0", _adId_Mobile), GoogleAdsHelper.SetAdSlotProperties(adInfo, new String[] { ViewSlotSize._320x50 }, 0, 320, AdSlotSize._320x50, "Top", true)); 
+                }
+                if (adTagsObj.Ad_Bot_320x50)
+                {
+                    ads.Add(String.Format("{0}-1", _adId_Mobile), GoogleAdsHelper.SetAdSlotProperties(adInfo, new String[] { ViewSlotSize._320x50 }, 1, 320, AdSlotSize._320x50, "Bottom")); 
+                }
+
+                objViewModel.AdSlots = ads;
+
             }
         }
 

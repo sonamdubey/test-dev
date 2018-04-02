@@ -1,303 +1,123 @@
-﻿@model Bikewale.Models.BikeModels.ModelPageVM
+﻿@model Bikewale.Models.BikeModels.BikeSpecsFeaturesVM
 @{
-    var objVersion = Model.ModelPageEntity.ModelVersionSpecs;
+    if (Model.VersionSpecsFeatures != null)
+    {
+        var features = Model.VersionSpecsFeatures.Features;
+        string itemValue;
+        <h2 class="h2-heading content-inner-block-20">@Model.ModelName Specifications & Features</h2>
+        if (Model.VersionSpecsFeatures.Specs != null && Model.VersionSpecsFeatures.Specs.Any())
+        {
+            <h3 class="font-bold padding-left20 margin-bottom20">Specifications</h3>
+            <ul id="model-specs-list">
+                @{
+                    var isCategoryActive = true;
+                }        
+                @foreach (var category in Model.VersionSpecsFeatures.Specs)
+                {
+                    <li>
+                        <div class="model-accordion-tab @(isCategoryActive ? "active" : "")">
+                            <span class="model-sprite engine-sm-icon margin-right10"></span>
+                            <span class="inline-block">@category.DisplayText</span>
+                            <span class="bwsprite accordion-angle-icon"></span>
+                        </div>
+                        <div class="specs-features-list">
+                            <div class="grid-6">
+                                @{
+                                    isCategoryActive = false;
+                                    var firstGridSpecsCount = (category.SpecsItemList.Count() + 1) / 2;
+                                }
+                                @foreach (var item in category.SpecsItemList.Take(firstGridSpecsCount))
+                                {
+                                    itemValue = item.ItemValues.FirstOrDefault();
+                                    <p @Html.Raw(itemValue.Length > 30 ? string.Format("title=\"{0}\"", itemValue) :"")>
+										<span class="specs-features-item__content text-light-grey">@item.DisplayText</span>
+										<span class="specs-features-item__content text-bold">@Bikewale.Utility.FormatMinSpecs.ShowAvailable(itemValue, item.UnitTypeText, item.DataType)</span>
+                                    </p>
+                                }
+                            </div>
+                            <div class="grid-6">
+                                @foreach (var item in category.SpecsItemList.Skip(firstGridSpecsCount))
+                                {
+                                    itemValue = item.ItemValues.FirstOrDefault();
+                                    <p @Html.Raw(itemValue.Length > 30 ? string.Format("title=\"{0}\"", itemValue) : "")>
+										<span class="specs-features-item__content text-light-grey">@item.DisplayText</span>
+										<span class="specs-features-item__content text-bold">@Bikewale.Utility.FormatMinSpecs.ShowAvailable(item.ItemValues.FirstOrDefault(), item.UnitTypeText, item.DataType)</span>
+                                    </p>
+                                }
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                    </li>
+                }
+            </ul>  
+        }
+
+        if(Model.VersionSpecsFeatures.Features != null && Model.VersionSpecsFeatures.Features.Any())
+        {
+            <div id="model-features-content" class="padding-top20 padding-bottom20">
+	            <h3 class="font-bold padding-left20 margin-bottom20">Features</h3>
+	            <div class="specs-features-list model-features-list">
+                    <div class="grid-6 padding-left20 text-light-grey">
+                        @{
+                            var firstGridFeaturesCount = (Model.VersionSpecsFeatures.Features.Count() + 1) / 2;
+                            var shownFeaturesHeight = 4;
+                            var leftGrid = features.Take(firstGridFeaturesCount);
+                            var rightGrid = features.Skip(firstGridFeaturesCount);
+                        }
+                        @foreach (var feature in leftGrid.Take(shownFeaturesHeight))
+                        {
+                            itemValue = feature.ItemValues.FirstOrDefault();
+                            <p @Html.Raw(itemValue.Length > 30 ? string.Format("title=\"{0}\"", itemValue) : "")>
+								<span class="specs-features-item__content text-light-grey">@feature.DisplayText</span>
+								<span class="specs-features-item__content text-bold">@Bikewale.Utility.FormatMinSpecs.ShowAvailable(feature.ItemValues.FirstOrDefault(), feature.UnitTypeText, feature.DataType)</span>
+                            </p>
+                        }
+                    </div>
+                    <div class="grid-6 omega text-light-grey">
+                        @foreach (var feature in rightGrid.Take(shownFeaturesHeight))
+                        {
+                            itemValue = feature.ItemValues.FirstOrDefault();
+                            <p @Html.Raw(itemValue.Length > 30 ? string.Format("title=\"{0}\"", itemValue) : "")>
+								<span class="specs-features-item__content text-light-grey">@feature.DisplayText</span>
+								<span class="specs-features-item__content text-bold">@Bikewale.Utility.FormatMinSpecs.ShowAvailable(feature.ItemValues.FirstOrDefault(), feature.UnitTypeText, feature.DataType)</span>
+                            </p>
+                        }
+                    </div>
+                    <div class="clear"></div>
+	            </div>
+
+	            <div id="model-more-features-list" class="specs-features-list model-features-list">
+		            <div class="grid-6 padding-left20 text-light-grey">
+                        @foreach (var feature in leftGrid.Skip(shownFeaturesHeight))
+                        {
+                            itemValue = feature.ItemValues.FirstOrDefault();
+                            <p @Html.Raw(itemValue.Length > 30 ? string.Format("title=\"{0}\"", itemValue) : "")>
+								<span class="specs-features-item__content text-light-grey">@feature.DisplayText</span>
+								<span class="specs-features-item__content text-bold">@Bikewale.Utility.FormatMinSpecs.ShowAvailable(feature.ItemValues.FirstOrDefault(), feature.UnitTypeText, feature.DataType)</span>
+                            </p>
+                        }
+		            </div>
+                    <div class="grid-6 padding-left20 text-light-grey">
+                        @foreach (var feature in rightGrid.Skip(shownFeaturesHeight))
+                        {
+                            itemValue = feature.ItemValues.FirstOrDefault();
+                            <p @Html.Raw(itemValue.Length > 30 ? string.Format("title=\"{0}\"", itemValue) : "")>
+								<span class="specs-features-item__content text-light-grey">@feature.DisplayText</span>
+								<span class="specs-features-item__content text-bold">@Bikewale.Utility.FormatMinSpecs.ShowAvailable(feature.ItemValues.FirstOrDefault(), feature.UnitTypeText, feature.DataType)</span>
+                            </p>
+                        }
+                    </div>
+		            <div class="clear"></div>
+	            </div>
+	            <div class="padding-right20 padding-left20">
+		            <a href="javascript:void(0)" class="view-features-link bw-ga" data-cat="Model_Page" data-act="View_all_features_link_cliked" data-var="myModel.BikeName" title="@Model.BikeName Features" rel="nofollow">View all features</a>
+	            </div>
+            </div>
+    
+        }
+   }
 }
 
-<h2 class="h2-heading content-inner-block-20">@Model.ModelPageEntity.ModelDetails.ModelName Specifications & Features</h2>
-<h3 class="font-bold padding-left20 margin-bottom20">Specifications</h3>
 
-<ul id="model-specs-list">
-	<li>
-		<div class="model-accordion-tab active">
-			<span class="model-sprite engine-sm-icon margin-right10"></span>
-			<span class="inline-block">Engine & transmission</span>
-			<span class="bwsprite accordion-angle-icon"></span>
-		</div>
-		<div class="specs-features-list">
-			<div class="grid-6">
-				<div class="grid-6 text-light-grey">
-					<p>Displacement</p>
-					<p>Cylinders</p>
-					<p>Max Power</p>
-					<p>Maximum Torque</p>
-					<p>Bore</p>
-					<p>Stroke</p>
-					<p>Valves Per Cylinder</p>
-					<p>Fuel Delivery System</p>
-				</div>
-				<div class="grid-6 text-bold">
-					<p>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(objVersion.Displacement,"cc")</p>
-					<p>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(objVersion.Cylinders)</p>
-					<p>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(objVersion.MaxPower, "bhp", objVersion.MaxPowerRPM, "rpm")</p>
-					<p>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(objVersion.MaximumTorque, "Nm", objVersion.MaximumTorqueRPM, "rpm")</p>
-					<p>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(objVersion.Bore, "mm")</p>
-					<p>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(objVersion.Stroke, "mm")</p>
-					<p>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(objVersion.ValvesPerCylinder)</p>
-					<p>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(objVersion.FuelDeliverySystem)</p>
-				</div>
-				<div class="clear"></div>
-			</div>
-			<div class="grid-6">
-				<div class="grid-6 text-light-grey">
-					<p>Fuel Type</p>
-					<p>Ignition</p>
-					<p>Spark Plugs</p>
-					<p>Cooling System</p>
-					<p>Gearbox Type</p>
-					<p>No. of Gears</p>
-					<p>Transmission Type</p>
-					<p>Clutch</p>
-				</div>
-				<div class="grid-6 text-bold">
-					<p>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(objVersion.FuelType)</p>
-					<p>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(objVersion.Ignition)</p>
-					<p>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(objVersion.SparkPlugsPerCylinder, "Per Cylinder")</p>
-					<p>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(objVersion.CoolingSystem)</p>
-					<p>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(objVersion.GearboxType)</p>
-					<p>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(objVersion.NoOfGears)</p>
-					<p>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(objVersion.TransmissionType)</p>
-					<p>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(objVersion.Clutch)</p>
-				</div>
-				<div class="clear"></div>
-			</div>
-			<div class="clear"></div>
-		</div>
-	</li>
-	<li>
-		<div class="model-accordion-tab">
-			<span class="model-sprite brakes-sm-icon margin-right10"></span>
-			<span class="inline-block">Brakes, wheels & suspension</span>
-			<span class="bwsprite accordion-angle-icon"></span>
-		</div>
-		<div class="specs-features-list">
-			<div class="grid-6">
-				<div class="grid-6 text-light-grey">
-					<p>Brake Type</p>
-					<p>Front Disc</p>
-					<p>Front Disc/Drum Size</p>
-					<p>Rear Disc</p>
-					<p>Rear Disc/Drum Size</p>
-					<p>Calliper Type</p>
-					<p>Wheel Size</p>
-				</div>
-				<div class="grid-6 text-bold">
-					<p>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(objVersion.BrakeType)</p>
-					<p>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(objVersion.FrontDisc)</p>
-					<p>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(objVersion.FrontDisc_DrumSize, "mm")</p>
-					<p>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(objVersion.RearDisc)</p>
-					<p>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(objVersion.RearDisc_DrumSize, "mm")</p>
-					<p>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(objVersion.CalliperType)</p>
-					<p>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(objVersion.WheelSize, "inches")</p>
-				</div>
-				<div class="clear"></div>
-			</div>
-			<div class="grid-6">
-				<div class="grid-6 text-light-grey">
-					<p>Front Tyre</p>
-					<p>Rear Tyre</p>
-					<p>Tubeless Tyres</p>
-					<p>Radial Tyres</p>
-					<p>Alloy Wheels</p>
-					<p>Front Suspension</p>
-					<p>Rear Suspension</p>
-				</div>
-				<div class="grid-6 text-bold">
-					<p>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(objVersion.FrontTyre)</p>
-					<p>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(objVersion.RearTyre)</p>
-					<p>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(objVersion.TubelessTyres)</p>
-					<p>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(objVersion.RadialTyres)</p>
-					<p>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(objVersion.AlloyWheels)</p>
-					<p title="@Bikewale.Utility.FormatMinSpecs.ShowAvailable(objVersion.FrontSuspension)">@Bikewale.Utility.FormatMinSpecs.ShowAvailable(objVersion.FrontSuspension)</p>
-					<p title="@Bikewale.Utility.FormatMinSpecs.ShowAvailable(objVersion.RearSuspension)">@Bikewale.Utility.FormatMinSpecs.ShowAvailable(objVersion.RearSuspension)</p>
-				</div>
-				<div class="clear"></div>
-			</div>
-			<div class="clear"></div>
-		</div>
-	</li>
-	<li>
-		<div class="model-accordion-tab">
-			<span class="model-sprite dimension-sm-icon margin-right10"></span>
-			<span class="inline-block">Dimensions & chassis</span>
-			<span class="bwsprite accordion-angle-icon"></span>
-		</div>
-		<div class="specs-features-list">
-			<div class="grid-6">
-				<div class="grid-6 text-light-grey">
-					<p>Kerb Weight</p>
-					<p>Overall Length</p>
-					<p>Overall Width</p>
-					<p>Overall Height</p>
-				</div>
-				<div class="grid-6 text-bold">
-					<p>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(objVersion.KerbWeight, "kg")</p>
-					<p>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(objVersion.OverallLength, "mm")</p>
-					<p>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(objVersion.OverallWidth, "mm")</p>
-					<p>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(objVersion.OverallHeight, "mm")</p>
-				</div>
-				<div class="clear"></div>
-			</div>
-			<div class="grid-6">
-				<div class="grid-6 text-light-grey">
-					<p>Wheelbase</p>
-					<p>Ground Clearance</p>
-					<p>Seat Height</p>
-					<p>Chassis Type</p>
-				</div>
-				<div class="grid-6 text-bold">
-					<p>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(objVersion.Wheelbase, "mm")</p>
-					<p>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(objVersion.GroundClearance, "mm")</p>
-					<p>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(objVersion.SeatHeight, "mm")</p>
-					<p title="@Bikewale.Utility.FormatMinSpecs.ShowAvailable(objVersion.ChassisType)">@Bikewale.Utility.FormatMinSpecs.ShowAvailable(objVersion.ChassisType)</p>
-				</div>
-				<div class="clear"></div>
-			</div>
-			<div class="clear"></div>
-		</div>
-	</li>
-	<li>
-		<div class="model-accordion-tab">
-			<span class="model-sprite fuel-sm-icon margin-right10"></span>
-			<span class="inline-block">Fuel efficiency & performance</span>
-			<span class="bwsprite accordion-angle-icon"></span>
-		</div>
-		<div class="specs-features-list">
-			<div class="grid-6">
-				<div class="grid-6 text-light-grey">
-					<p>Fuel Tank Capacity</p>
-					<p>Reserve Fuel Capacity</p>
-					<p>Fuel Efficiency Overall</p>
-					<p>Fuel Efficiency Range</p>
-					<p>Top Speed</p>
-				</div>
-				<div class="grid-6 text-bold">
-					<p>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(objVersion.FuelTankCapacity, "litres")</p>
-					<p>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(objVersion.ReserveFuelCapacity, "litres")</p>
-					<p>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(objVersion.FuelEfficiencyOverall, "kmpl")</p>
-					<p>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(objVersion.FuelEfficiencyRange, "km")</p>
-					<p>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(objVersion.TopSpeed, "kmph")</p>
-				</div>
-				<div class="clear"></div>
-			</div>
-			<div class="grid-6">
-				<div class="grid-6 text-light-grey">
-					<p>0 to 60 kmph</p>
-					<p>0 to 80 kmph</p>
-					<p>0 to 40 kmph</p>
-					<p>60 to 0 kmph</p>
-					<p>80 to 0 kmph</p>
-				</div>
-				<div class="grid-6 text-bold">
-					<p>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(objVersion.Performance_0_60_kmph, "seconds")</p>
-					<p>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(objVersion.Performance_0_80_kmph, "seconds")</p>
-					<p>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(objVersion.Performance_0_40_m, "seconds")</p>
-					<p>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(objVersion.Performance_60_0_kmph)</p>
-					<p>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(objVersion.Performance_80_0_kmph)</p>
-				</div>
-				<div class="clear"></div>
-			</div>
-			<div class="clear"></div>
-		</div>
-	</li>
-</ul>
 
-<div id="model-features-content" class="padding-top20 padding-bottom20">
-	<h3 class="font-bold padding-left20 margin-bottom20">Features</h3>
-	<div class="specs-features-list model-features-list">
-		<div class="grid-6 alpha">
-			<div class="grid-6 padding-left20 text-light-grey">
-				<p>Speedometer</p>
-				<p>Fuel Guage</p>
-				<p>Tachometer Type</p>
-				<p>Tachometer</p>
-			</div>
-			<div class="grid-6 omega text-bold">
-				<p>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(objVersion.Speedometer)</p>
-				<p>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(objVersion.FuelGauge)</p>
-				<p>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(objVersion.TachometerType)</p>
-				<p>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(objVersion.Tachometer)</p>
-			</div>
-			<div class="clear"></div>
-		</div>
-		<div class="grid-6">
-			<div class="grid-6 padding-left20 text-light-grey">
-				<p>Digital Fuel Guage</p>
-				<p>Tripmeter</p>
-				<p>Electric Start</p>
-				<p>Shift Light</p>
-			</div>
-			<div class="grid-6 omega text-bold">
-				<p>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(objVersion.DigitalFuelGauge)</p>
-				<p>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(objVersion.Tripmeter)</p>
-				<p>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(objVersion.ElectricStart)</p>
-				<p>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(objVersion.ShiftLight)</p>
-			</div>
-			<div class="clear"></div>
-		</div>
-		<div class="clear"></div>
-	</div>
 
-	<div id="model-more-features-list" class="specs-features-list model-features-list">
-		<div class="grid-6 alpha">
-			<div class="grid-6 padding-left20 text-light-grey">
-				<p>Stand Alarm</p>
-				<p>Stepped Seat</p>
-				<p>No. of Tripmeters</p>
-				<p>Tripmeter Type</p>
-				<p>Low Fuel Indicator</p>
-				<p>Low Oil Indicator</p>
-				<p>Low Battery Indicator</p>
-				<p>Pillion Backrest</p>
-				<p>Pillion Grabrail</p>
-				<p>Pillion Seat</p>
-				<p>Pillion Footrest</p>
-			</div>
-			<div class="grid-6 omega text-bold">
-				<p>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(objVersion.StandAlarm)</p>
-				<p>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(objVersion.SteppedSeat)</p>
-				<p>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(objVersion.NoOfTripmeters)</p>
-				<p>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(objVersion.TripmeterType)</p>
-				<p>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(objVersion.LowFuelIndicator)</p>
-				<p>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(objVersion.LowOilIndicator)</p>
-				<p>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(objVersion.LowBatteryIndicator)</p>
-				<p>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(objVersion.PillionBackrest)</p>
-				<p>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(objVersion.PillionGrabrail)</p>
-				<p>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(objVersion.PillionSeat)</p>
-				<p>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(objVersion.PillionFootrest)</p>
-			</div>
-			<div class="clear"></div>
-		</div>
-		<div class="grid-6">
-			<div class="grid-6 padding-left20 text-light-grey">
-				<p>Antilock Braking System</p>
-				<p>Killswitch</p>
-				<p>Clock</p>
-				<p>Electric System</p>
-				<p>Battery</p>
-				<p>Headlight Type</p>
-				<p>Headlight Bulb Type</p>
-				<p>Brake/Tail Light</p>
-				<p>Turn Signal</p>
-				<p>Pass Light</p>
-			</div>
-			<div class="grid-6 omega text-bold">
-				<p>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(objVersion.AntilockBrakingSystem)</p>
-				<p>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(objVersion.Killswitch)</p>
-				<p>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(objVersion.Clock)</p>
-				<p>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(objVersion.ElectricSystem)</p>
-				<p>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(objVersion.Battery)</p>
-				<p>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(objVersion.HeadlightType)</p>
-				<p>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(objVersion.HeadlightBulbType)</p>
-				<p>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(objVersion.Brake_Tail_Light)</p>
-				<p>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(objVersion.TurnSignal)</p>
-				<p>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(objVersion.PassLight)</p>
-			</div>
-			<div class="clear"></div>
-		</div>
-		<div class="clear"></div>
-	</div>
-
-	<div class="padding-right20 padding-left20">
-		<a href="javascript:void(0)" class="view-features-link bw-ga" data-cat="Model_Page" data-act="View_all_features_link_cliked" data-var="myModel.BikeName" title="@Model.BikeName Features" rel="nofollow">View all features</a>
-	</div>
-</div>

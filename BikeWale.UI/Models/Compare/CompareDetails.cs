@@ -1,4 +1,5 @@
 ﻿
+using Bikewale.BAL.GrpcFiles.Specs_Features;
 using Bikewale.Comparison.Interface;
 using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
@@ -44,6 +45,7 @@ namespace Bikewale.Models
         private string _originalUrl, _compareUrl, _modelNameList;
         private readonly uint _maxComparisons;
         private string _bikeQueryString = string.Empty, _versionsList = string.Empty;
+        private IList<uint> _versionIdsList;
         private uint _sponsoredBikeVersionId, _cityId;
         private ushort bikeComparisions;
 
@@ -143,10 +145,12 @@ namespace Bikewale.Models
                         if (obj.sponsoredVersionId > 0)
                         {
                             _versionsList = string.Format("{0},{1}", _versionsList, obj.sponsoredVersionId);
+                            _versionIdsList.Add(obj.sponsoredVersionId);
                         }
                     }
 
                     obj.Compare = _objCompareCache.DoCompare(_versionsList, _cityId);
+                    obj.Compare.VersionSpecsFeatures = SpecsFeaturesServiceGateway.GetVersionsSpecsFeatures(_versionIdsList);
 
                     if (obj.Compare != null && obj.Compare.BasicInfo != null)
                     {
@@ -391,7 +395,7 @@ namespace Bikewale.Models
                 bikeNames = bikeNames.Remove(bikeNames.Length - 5);
                 bikePrice = bikePrice.Remove(bikePrice.Length - 6);
                 variants = variants.Remove(variants.Length - 5);
-                obj.compareSummaryText = string.Format("BikeWale brings you comparison of {0}. The ex-showroom price of{1}.{2}. Apart from prices, you can also find comparison of these bikes based on displacement, mileage, performance, and many more paramete  &#x20B9; Comparison between these bikes have been carried out to help users make correct buying decison between {0}.", bikeNames, bikePrice, variants);
+                obj.compareSummaryText = string.Format("BikeWale brings you comparison of {0}. The ex-showroom price of{1}.{2}. Apart from prices, you can also find comparison of these bikes based on displacement, mileage, performance, and many more parameter  &#x20B9; Comparison between these bikes have been carried out to help users make correct buying decison between {0}.", bikeNames, bikePrice, variants);
 
             }
             catch (Exception ex)
@@ -460,7 +464,7 @@ namespace Bikewale.Models
                         _sponsoredBikeVersionId = vId;
                     }
                 }
-
+                _versionIdsList = new List<uint>();
                 if (_bikeQueryString.Contains("bike"))
                 {
                     for (ushort i = 1; i <= _maxComparisons; i++)
@@ -469,6 +473,7 @@ namespace Bikewale.Models
                         if (uint.TryParse(request["bike" + i], out vId) && vId > 0)
                         {
                             _versionsList = string.Format("{0},{1}", _versionsList, vId);
+                            _versionIdsList.Add(vId);
                             bikeComparisions = i;
                         }
                     }
@@ -498,6 +503,7 @@ namespace Bikewale.Models
                         if (objResponse != null && objResponse.StatusCode == 200 && topVersionId > 0)
                         {
                             _versionsList = string.Format("{0},{1}", _versionsList, topVersionId);
+                            _versionIdsList.Add((uint)topVersionId);
                             status = StatusCodes.ContentFound;
                             bikeComparisions = (ushort)(iTmp + 1);
                             compareUrl.Enqueue(string.Format("{0}-{1}", makeMaskingName, modelMaskingName));

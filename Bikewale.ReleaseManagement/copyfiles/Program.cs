@@ -154,15 +154,15 @@ namespace CopyFiles
                     string filePathName = Path.GetFileName(fileName);
 
                     //copy files to the respective folders, it will even overwrite files if already exists
-                    if ( (!fileExtension.Equals(".config") && !fileExtension.Equals(".xml")) || filePathName.Equals("Web.config") || filePathName.Equals("rewriterules.config") || filePathName.Equals("web_browsers_patch.xml") || filePathName.Equals("wurfl.xml"))
+                    if ((!fileExtension.Equals(".config") && !fileExtension.Equals(".xml")) || filePathName.Equals("Web.config") || filePathName.Equals("rewriterules.config") || filePathName.Equals("web_browsers_patch.xml") || filePathName.Equals("wurfl.xml"))
                     {
                         File.Copy(fileName, targetPath + filePathName, true);
                     }
 
 
-                    if (fileExtension.Equals(".js") || fileExtension.Equals(".css") || filePathName.Contains("appshell") )
+                    if (fileExtension.Equals(".js") || fileExtension.Equals(".css") || filePathName.Contains("appshell") || filePathName.Contains("woff") || filePathName.Contains("woff2"))
                     {
-                        
+
                         string newTargetPath = targetPath.Replace(@"\website\", @"\cdn\");
                         if (!Directory.Exists(newTargetPath))
                         {
@@ -175,7 +175,7 @@ namespace CopyFiles
 
                     if (isMinify && fileName.IsHtmlFile())
                     {
-                        
+
                         string ntargetPath = targetPath + filePathName;
                         // Minify contents
                         string minifiedContents = MinifyHtml(ntargetPath, features);

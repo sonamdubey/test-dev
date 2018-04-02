@@ -24,7 +24,7 @@
     {
         <li data-tabs="#mileageContent" class="bw-ga" data-cat="Model_Page" data-act="Floating_Navigation_Clicked" data-lab="@Model.BikeName&#95;Mileage">Mileage</li>
     }
-    @if (Model.IsVersionSpecsAvailable)
+    @if (Model.BikeSpecsFeatures != null && Model.BikeSpecsFeatures.IsVersionSpecsAvailable)
     {
         <li data-tabs="#specsFeaturesAndAboutContent" class="bw-ga" data-cat="Model_Page" data-act="Floating_Navigation_Clicked" data-lab="@Model.BikeName&#95;SpecsFeatures">Specs & Features</li>
     }

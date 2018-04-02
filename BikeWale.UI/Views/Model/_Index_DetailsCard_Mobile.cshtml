@@ -19,7 +19,7 @@
 @if (Model.AdTags.Ad_320x400_Middle)
 {
     <div class="margin-bottom20 text-center">
-        @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad320x400_Middle.cshtml", new { AdId = Model.AdTags.AdId });}
+        @{Html.RenderPartial("/Views/Shared/Ads/Mobile/AdSlotGeneric.cshtml", Model.AdSlots[String.Format("{0}-10", Model.AdTags.AdId)]);}
     </div>
 }
 
@@ -57,7 +57,7 @@ else if (Model.IsPopularBodyStyleAvailable && (Model.IsNewBike || Model.IsUpcomi
 
 @if (Model.AdTags.Ad_300x250)
 {
-    Html.RenderPartial("~/Views/Shared/Ads/Mobile/Ad300x250.cshtml", Model.AdTags);
+    Html.RenderPartial("/Views/Shared/Ads/Mobile/AdSlotGeneric.cshtml", Model.AdSlots[String.Format("{0}-2", Model.AdTags.AdId)]);
 }
 @if (Model.IsNewBike && Model.IsMileageByUsersAvailable)
 {
@@ -68,9 +68,9 @@ else if (Model.IsPopularBodyStyleAvailable && (Model.IsNewBike || Model.IsUpcomi
         @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad300x250.cshtml", new { AdId = Model.AdTags.AdId });}
     </div>*@
 <div id="specsFeaturesAndAboutContent" data-id="specsFeaturesAndAboutContent" class="bw-model-tabs-data">
-    @if (Model.ModelPageEntity.ModelVersionSpecs != null)
+    @if (Model.BikeSpecsFeatures != null)
     {
-        @Html.Partial("~/Views/Model/_Index_ModelSpecsAndFeatures_Mobile.cshtml", Model)
+        @Html.Partial("~/Views/Model/_Index_ModelSpecsAndFeatures_Mobile.cshtml", Model.BikeSpecsFeatures)
     }
     @if (Model.ModelPageEntity.ModelDesc != null && !string.IsNullOrEmpty(Model.ModelPageEntity.ModelDesc.FullDescription)
                 && Model.ModelPageEntity.ModelDetails != null && Model.IsUpcomingBike)
@@ -104,7 +104,7 @@ else if (Model.IsPopularBodyStyleAvailable && (Model.IsNewBike || Model.IsUpcomi
 @if (Model.AdTags.Ad_300x250BTF)
 {
     <div class="margin-bottom20 text-center">
-        @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad300x250BTF.cshtml", new { AdId = Model.AdTags.AdId });}
+      @{Html.RenderPartial("/Views/Shared/Ads/Mobile/AdSlotGeneric.cshtml", Model.AdSlots[String.Format("{0}-14", Model.AdTags.AdId)]);}
     </div>
 }
 @if ((Model.IsUserReviewsAvailable && !Model.IsUpcomingBike) || (Model.ComparisionTestExpertReviews != null && Model.ComparisionTestExpertReviews.FetchedCount > 0))

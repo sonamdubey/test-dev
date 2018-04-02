@@ -1,12 +1,17 @@
-﻿using Bikewale.DAL.AutoBiz;
+﻿using Bikewale.BAL.GrpcFiles.Specs_Features;
+using Bikewale.Cache.Core;
+using Bikewale.Cache.PriceQuote;
+using Bikewale.DAL.AutoBiz;
 using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.AutoBiz;
+using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Notifications;
 using Microsoft.Practices.Unity;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Configuration;
 
@@ -18,13 +23,17 @@ namespace Bikewale.BAL.BikeBooking
     public class DealerPriceQuote : Bikewale.Interfaces.BikeBooking.IDealerPriceQuote
     {
         private readonly Bikewale.Interfaces.BikeBooking.IDealerPriceQuote dealerPQRepository = null;
-
+        private readonly IPriceQuoteCache _pqCache = null;
         public DealerPriceQuote()
         {
             using (IUnityContainer container = new UnityContainer())
             {
                 container.RegisterType<Bikewale.Interfaces.BikeBooking.IDealerPriceQuote, Bikewale.DAL.BikeBooking.DealerPriceQuoteRepository>();
+                container.RegisterType<ICacheManager, MemcacheManager>();
+                container.RegisterType<IPriceQuote, BAL.PriceQuote.PriceQuote>();
+                container.RegisterType<IPriceQuoteCache, PriceQuoteCache>();
                 dealerPQRepository = container.Resolve<Bikewale.Interfaces.BikeBooking.IDealerPriceQuote>();
+                _pqCache = container.Resolve<IPriceQuoteCache>();
             }
         }
 
@@ -237,7 +246,7 @@ namespace Bikewale.BAL.BikeBooking
         {
             uint versionId = 0;
 
-            versionId = dealerPQRepository.GetDefaultPriceQuoteVersion(modelId, cityId);
+            versionId = _pqCache.GetDefaultPriceQuoteVersion(modelId, cityId);
 
             return versionId;
         }
@@ -284,7 +293,7 @@ namespace Bikewale.BAL.BikeBooking
                     if (PQParams.AreaId > 0)
                         PQParams.VersionId = dealerPQRepository.GetDefaultPriceQuoteVersion(PQParams.ModelId, PQParams.CityId, PQParams.AreaId);
                     else
-                        PQParams.VersionId = dealerPQRepository.GetDefaultPriceQuoteVersion(PQParams.ModelId, PQParams.CityId);
+                        PQParams.VersionId = _pqCache.GetDefaultPriceQuoteVersion(PQParams.ModelId, PQParams.CityId);
                 }
 
                 if (PQParams.VersionId > 0)
@@ -310,7 +319,7 @@ namespace Bikewale.BAL.BikeBooking
                 objDealerDetail.DealerId = 0;
                 objDealerDetail.IsDealerAvailable = false;
                 ErrorClass.LogError(ex, "ProcessPQ ex : " + ex.Message);
-                
+
             }
             finally
             {
@@ -350,7 +359,7 @@ namespace Bikewale.BAL.BikeBooking
                     if (PQParams.AreaId > 0)
                         defaultVersionId = dealerPQRepository.GetDefaultPriceQuoteVersion(PQParams.ModelId, PQParams.CityId, PQParams.AreaId);
                     else
-                        defaultVersionId = dealerPQRepository.GetDefaultPriceQuoteVersion(PQParams.ModelId, PQParams.CityId);
+                        defaultVersionId = _pqCache.GetDefaultPriceQuoteVersion(PQParams.ModelId, PQParams.CityId);
 
                     if (PQParams.CityId > 0)
                     {
@@ -406,18 +415,46 @@ namespace Bikewale.BAL.BikeBooking
             return objPQOutput;
         }   //End of ProcessPQV2
 
+        /// <summary>
+        /// Modified By  : Rajan Chauhan on 26 Mar 2018
+        /// Description  : Added MinSpec to pageDetail.Varients
+        /// </summary>
+        /// <param name="cityId"></param>
+        /// <param name="versionId"></param>
+        /// <param name="dealerId"></param>
+        /// <returns></returns>
         public BookingPageDetailsEntity FetchBookingPageDetails(uint cityId, uint versionId, uint dealerId)
         {
             BookingPageDetailsEntity pageDetail = null;
             try
             {
                 pageDetail = dealerPQRepository.FetchBookingPageDetails(cityId, versionId, dealerId);
+                if (pageDetail != null && pageDetail.Varients != null)
+                {
+                    IEnumerable<VersionMinSpecsEntity> versionMinSpecsEntityList = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(new List<int> { (int)versionId },
+                        new List<EnumSpecsFeaturesItem> { EnumSpecsFeaturesItem.BrakeType, EnumSpecsFeaturesItem.AlloyWheels });
+                    if (versionMinSpecsEntityList != null)
+                    {
+                        VersionMinSpecsEntity objVersionMinSpec = null;
+                        foreach (BikeDealerPriceDetail objVersion in pageDetail.Varients)
+                        {
+                            if (objVersion.MinSpec.VersionId == versionId)
+                            {
+                                objVersionMinSpec = versionMinSpecsEntityList.FirstOrDefault(versionSpecEntity => versionSpecEntity.VersionId.Equals(objVersion.MinSpec.VersionId));
+                                if (objVersionMinSpec != null)
+                                {
+                                    objVersion.MinSpec.MinSpecsList = objVersionMinSpec.MinSpecsList;
+                                }
+                            }
+                        }
+                    }
+                }
             }
             catch (Exception ex)
             {
                 dealerId = 0;
                 ErrorClass.LogError(ex, "FetchBookingPageDetails ex : " + ex.Message);
-                
+
             }
             return pageDetail;
         }
