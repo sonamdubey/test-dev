@@ -834,7 +834,6 @@ namespace Bikewale.DAL.BikeData
                                 objData.objMake = new BikeMakeEntityBase();
                                 objData.objModel = new BikeModelEntityBase();
                                 objData.objVersion = new BikeVersionsListEntity();
-                                objData.Specs = new MinSpecsEntity();
                                 objData.objMake.MakeName = Convert.ToString(dr["Make"]);
                                 objData.objModel.ModelName = Convert.ToString(dr["Model"]);
                                 objData.objMake.MakeId = Convert.ToInt32(dr["MakeId"]);
@@ -848,10 +847,6 @@ namespace Bikewale.DAL.BikeData
                                 objData.HostURL = Convert.ToString(dr["HostUrl"]);
                                 objData.OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]);
                                 objData.VersionPrice = SqlReaderConvertor.ToInt64(dr["VersionPrice"]);
-                                objData.Specs.Displacement = SqlReaderConvertor.ToNullableFloat(dr["Displacement"]);
-                                objData.Specs.FuelEfficiencyOverall = SqlReaderConvertor.ToNullableUInt16(dr["FuelEfficiencyOverall"]);
-                                objData.Specs.MaximumTorque = SqlReaderConvertor.ToNullableFloat(dr["MaximumTorque"]);
-                                objData.Specs.MaxPower = SqlReaderConvertor.ToNullableFloat(dr["MaxPower"]);
                                 objList.Add(objData);
                             }
                             dr.Close();
@@ -893,7 +888,6 @@ namespace Bikewale.DAL.BikeData
                                 objData.objMake = new BikeMakeEntityBase();
                                 objData.objModel = new BikeModelEntityBase();
                                 objData.objVersion = new BikeVersionsListEntity();
-                                objData.Specs = new MinSpecsEntity();
                                 objData.objMake.MakeName = Convert.ToString(dr["Make"]);
                                 objData.objModel.ModelName = Convert.ToString(dr["Model"]);
                                 objData.objMake.MakeId = Convert.ToInt32(dr["MakeId"]);
@@ -907,12 +901,7 @@ namespace Bikewale.DAL.BikeData
                                 objData.HostURL = Convert.ToString(dr["HostUrl"]);
                                 objData.OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]);
                                 objData.VersionPrice = SqlReaderConvertor.ToInt64(dr["VersionPrice"]);
-                                objData.Specs.Displacement = SqlReaderConvertor.ToNullableFloat(dr["Displacement"]);
-                                objData.Specs.FuelEfficiencyOverall = SqlReaderConvertor.ToNullableUInt16(dr["FuelEfficiencyOverall"]);
-                                objData.Specs.MaximumTorque = SqlReaderConvertor.ToNullableFloat(dr["MaximumTorque"]);
-                                objData.Specs.MaxPower = SqlReaderConvertor.ToNullableFloat(dr["MaxPower"]);
                                 objData.BikePopularityIndex = Convert.ToUInt16(dr["PopularityIndex"]);
-                                objData.Specs.KerbWeight = SqlReaderConvertor.ToNullableUInt16(dr["KerbWeight"]);
                                 objList.Add(objData);
                             }
                             dr.Close();
@@ -963,7 +952,6 @@ namespace Bikewale.DAL.BikeData
                                 objData.objMake = new BikeMakeEntityBase();
                                 objData.objModel = new BikeModelEntityBase();
                                 objData.objVersion = new BikeVersionsListEntity();
-                                objData.Specs = new MinSpecsEntity();
                                 objData.objMake.MakeName = Convert.ToString(dr["Make"]);
                                 objData.objModel.ModelName = Convert.ToString(dr["Model"]);
                                 objData.objMake.MakeId = Convert.ToInt32(dr["MakeId"]);
@@ -979,12 +967,7 @@ namespace Bikewale.DAL.BikeData
                                 objData.VersionPrice = SqlReaderConvertor.ToInt64(dr["VersionPrice"]);
                                 objData.AvgPrice = SqlReaderConvertor.ToInt64(dr["AvgVersionPrice"]);
                                 objData.ExShowroomPrice = SqlReaderConvertor.ToInt64(dr["ExShowroomPrice"]);
-                                objData.Specs.Displacement = SqlReaderConvertor.ToNullableFloat(dr["Displacement"]);
-                                objData.Specs.FuelEfficiencyOverall = SqlReaderConvertor.ToNullableUInt16(dr["FuelEfficiencyOverall"]);
-                                objData.Specs.MaximumTorque = SqlReaderConvertor.ToNullableFloat(dr["MaximumTorque"]);
-                                objData.Specs.MaxPower = SqlReaderConvertor.ToNullableFloat(dr["MaxPower"]);
                                 objData.BikePopularityIndex = Convert.ToUInt16(dr["PopularityIndex"]);
-                                objData.Specs.KerbWeight = SqlReaderConvertor.ToNullableUInt16(dr["KerbWeight"]);
                                 objData.OnRoadPrice = SqlReaderConvertor.ToInt64(dr["OnRoad"]);
                                 objData.OnRoadPriceMumbai = SqlReaderConvertor.ToInt64(dr["OnRoadMumbai"]);
                                 objData.CityName = Convert.ToString(dr["cityname"]);
@@ -1304,7 +1287,6 @@ namespace Bikewale.DAL.BikeData
                                 objData.objMake = new BikeMakeEntityBase();
                                 objData.objModel = new BikeModelEntityBase();
                                 objData.objVersion = new BikeVersionsListEntity();
-                                objData.Specs = new MinSpecsEntity();
                                 objData.objMake.MakeName = Convert.ToString(dr["Make"]);
                                 objData.objModel.ModelName = Convert.ToString(dr["Model"]);
                                 objData.objMake.MakeId = Convert.ToInt32(dr["MakeId"]);
@@ -1318,11 +1300,6 @@ namespace Bikewale.DAL.BikeData
                                 objData.HostURL = Convert.ToString(dr["HostUrl"]);
                                 objData.OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]);
                                 objData.VersionPrice = SqlReaderConvertor.ToInt64(dr["VersionPrice"]);
-                                objData.Specs.Displacement = SqlReaderConvertor.ToNullableFloat(dr["Displacement"]);
-                                objData.Specs.FuelEfficiencyOverall = SqlReaderConvertor.ToNullableUInt16(dr["FuelEfficiencyOverall"]);
-                                objData.Specs.MaximumTorque = SqlReaderConvertor.ToNullableFloat(dr["MaximumTorque"]);
-                                objData.Specs.MaxPower = SqlReaderConvertor.ToNullableFloat(dr["MaxPower"]);
-                                objData.Specs.KerbWeight = SqlReaderConvertor.ToNullableUInt16(dr["KerbWeight"]);
                                 objData.CityName = Convert.ToString(dr["cityname"]);
                                 objData.CityMaskingName = Convert.ToString(dr["citymasking"]);
                                 objList.Add(objData);
@@ -2718,14 +2695,6 @@ namespace Bikewale.DAL.BikeData
                                            ModelName = Convert.ToString(dr["model"]),
                                            MaskingName = Convert.ToString(dr["modelmaskingname"]),
                                        },
-                                       Specs = new MinSpecsEntity()
-                                       {
-                                           Displacement = SqlReaderConvertor.ToUInt32(dr["displacement"]),
-                                           KerbWeight = SqlReaderConvertor.ToUInt16(dr["KerbWeight"]),
-                                           MaximumTorque = SqlReaderConvertor.ToUInt32(dr["maximumtorque"]),
-                                           MaxPower = SqlReaderConvertor.ToUInt32(dr["maxpower"]),
-                                           FuelEfficiencyOverall = SqlReaderConvertor.ToUInt16(dr["fuelefficiencyoverall"])
-                                       },
                                        BikeName = Convert.ToString(dr["bikename"]),
                                        MakeId = SqlReaderConvertor.ToInt32(dr["makeid"]),
                                        MakeName = Convert.ToString(dr["make"]),
@@ -2778,7 +2747,6 @@ namespace Bikewale.DAL.BikeData
                                 objData.objMake = new BikeMakeEntityBase();
                                 objData.objModel = new BikeModelEntityBase();
                                 objData.objVersion = new BikeVersionsListEntity();
-                                objData.Specs = new MinSpecsEntity();
                                 objData.objMake.MakeName = Convert.ToString(dr["Make"]);
                                 objData.objModel.ModelName = Convert.ToString(dr["Model"]);
                                 objData.objMake.MakeId = Convert.ToInt32(dr["MakeId"]);
@@ -2791,12 +2759,7 @@ namespace Bikewale.DAL.BikeData
                                 objData.HostURL = Convert.ToString(dr["HostUrl"]);
                                 objData.OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]);
                                 objData.VersionPrice = SqlReaderConvertor.ToInt64(dr["VersionPrice"]);
-                                objData.Specs.Displacement = SqlReaderConvertor.ToNullableFloat(dr["Displacement"]);
-                                objData.Specs.FuelEfficiencyOverall = SqlReaderConvertor.ToNullableUInt16(dr["FuelEfficiencyOverall"]);
-                                objData.Specs.MaximumTorque = SqlReaderConvertor.ToNullableFloat(dr["MaximumTorque"]);
-                                objData.Specs.MaxPower = SqlReaderConvertor.ToNullableFloat(dr["MaxPower"]);
                                 objData.BikePopularityIndex = Convert.ToUInt16(dr["PopularityIndex"]);
-                                objData.Specs.KerbWeight = SqlReaderConvertor.ToNullableUInt16(dr["KerbWeight"]);
                                 objData.objVersion.VersionId = SqlReaderConvertor.ToInt32(dr["VersionId"]);
                                 objList.Add(objData);
                             }
@@ -2839,7 +2802,6 @@ namespace Bikewale.DAL.BikeData
                                 objData.objMake = new BikeMakeEntityBase();
                                 objData.objModel = new BikeModelEntityBase();
                                 objData.objVersion = new BikeVersionsListEntity();
-                                objData.Specs = new MinSpecsEntity();
                                 objData.objMake.MakeName = Convert.ToString(dr["Make"]);
                                 objData.objModel.ModelName = Convert.ToString(dr["Model"]);
                                 objData.objMake.MakeId = Convert.ToInt32(dr["MakeId"]);
@@ -2852,12 +2814,6 @@ namespace Bikewale.DAL.BikeData
                                 objData.HostURL = Convert.ToString(dr["HostUrl"]);
                                 objData.OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]);
                                 objData.VersionPrice = SqlReaderConvertor.ToInt64(dr["VersionPrice"]);
-                                objData.Specs.Displacement = SqlReaderConvertor.ToNullableFloat(dr["Displacement"]);
-                                objData.Specs.FuelEfficiencyOverall = SqlReaderConvertor.ToNullableUInt16(dr["FuelEfficiencyOverall"]);
-                                objData.Specs.MaximumTorque = SqlReaderConvertor.ToNullableFloat(dr["MaximumTorque"]);
-                                objData.Specs.MaxPower = SqlReaderConvertor.ToNullableFloat(dr["MaxPower"]);
-
-                                objData.Specs.KerbWeight = SqlReaderConvertor.ToNullableUInt16(dr["KerbWeight"]);
                                 objData.objVersion.VersionId = SqlReaderConvertor.ToInt32(dr["VersionId"]);
                                 objList.Add(objData);
                             }
@@ -2901,7 +2857,6 @@ namespace Bikewale.DAL.BikeData
                                 objData.objMake = new BikeMakeEntityBase();
                                 objData.objModel = new BikeModelEntityBase();
                                 objData.objVersion = new BikeVersionsListEntity();
-                                objData.Specs = new MinSpecsEntity();
                                 objData.objMake.MakeName = Convert.ToString(dr["Make"]);
                                 objData.objModel.ModelName = Convert.ToString(dr["Model"]);
                                 objData.objMake.MakeId = Convert.ToInt32(dr["MakeId"]);
@@ -2914,11 +2869,6 @@ namespace Bikewale.DAL.BikeData
                                 objData.HostURL = Convert.ToString(dr["HostUrl"]);
                                 objData.OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]);
                                 objData.VersionPrice = SqlReaderConvertor.ToInt64(dr["VersionPrice"]);
-                                objData.Specs.Displacement = SqlReaderConvertor.ToNullableFloat(dr["Displacement"]);
-                                objData.Specs.FuelEfficiencyOverall = SqlReaderConvertor.ToNullableUInt16(dr["FuelEfficiencyOverall"]);
-                                objData.Specs.MaximumTorque = SqlReaderConvertor.ToNullableFloat(dr["MaximumTorque"]);
-                                objData.Specs.MaxPower = SqlReaderConvertor.ToNullableFloat(dr["MaxPower"]);
-                                objData.Specs.KerbWeight = SqlReaderConvertor.ToNullableUInt16(dr["KerbWeight"]);
                                 objData.objVersion.VersionId = SqlReaderConvertor.ToInt32(dr["VersionId"]);
                                 objData.CityName = Convert.ToString(dr["cityname"]);
                                 objData.CityMaskingName = Convert.ToString(dr["citymaskingname"]);
@@ -2980,14 +2930,6 @@ namespace Bikewale.DAL.BikeData
                                            ModelId = SqlReaderConvertor.ToInt32(dr["modelid"]),
                                            ModelName = Convert.ToString(dr["model"]),
                                            MaskingName = Convert.ToString(dr["modelmaskingname"]),
-                                       },
-                                       Specs = new MinSpecsEntity()
-                                       {
-                                           Displacement = SqlReaderConvertor.ToUInt32(dr["displacement"]),
-                                           KerbWeight = SqlReaderConvertor.ToUInt16(dr["KerbWeight"]),
-                                           MaximumTorque = SqlReaderConvertor.ToUInt32(dr["maximumtorque"]),
-                                           MaxPower = SqlReaderConvertor.ToUInt32(dr["maxpower"]),
-                                           FuelEfficiencyOverall = SqlReaderConvertor.ToUInt16(dr["fuelefficiencyoverall"])
                                        },
                                        BikeName = Convert.ToString(dr["bikename"]),
                                        MakeId = SqlReaderConvertor.ToInt32(dr["makeid"]),
@@ -3217,7 +3159,6 @@ namespace Bikewale.DAL.BikeData
                                 objData.objMake = new BikeMakeEntityBase();
                                 objData.objModel = new BikeModelEntityBase();
                                 objData.objVersion = new BikeVersionsListEntity();
-                                objData.Specs = new MinSpecsEntity();
                                 objData.objMake.MakeName = Convert.ToString(dr["Make"]);
                                 objData.objModel.ModelName = Convert.ToString(dr["Model"]);
                                 objData.objMake.MakeId = SqlReaderConvertor.ToInt32(dr["MakeId"]);
@@ -3230,11 +3171,6 @@ namespace Bikewale.DAL.BikeData
                                 objData.HostURL = Convert.ToString(dr["HostUrl"]);
                                 objData.OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]);
                                 objData.VersionPrice = SqlReaderConvertor.ToInt64(dr["VersionPrice"]);
-                                objData.Specs.Displacement = SqlReaderConvertor.ToNullableFloat(dr["Displacement"]);
-                                objData.Specs.FuelEfficiencyOverall = SqlReaderConvertor.ToNullableUInt16(dr["FuelEfficiencyOverall"]);
-                                objData.Specs.MaximumTorque = SqlReaderConvertor.ToNullableFloat(dr["MaximumTorque"]);
-                                objData.Specs.MaxPower = SqlReaderConvertor.ToNullableFloat(dr["MaxPower"]);
-                                objData.Specs.KerbWeight = SqlReaderConvertor.ToNullableUInt16(dr["KerbWeight"]);
                                 objData.CityName = Convert.ToString(dr["cityname"]);
                                 objData.CityMaskingName = Convert.ToString(dr["citymasking"]);
                                 objData.StartDate = SqlReaderConvertor.ToDateTime(dr["startdatetime"]);
@@ -3276,7 +3212,6 @@ namespace Bikewale.DAL.BikeData
                                 objData.objMake = new BikeMakeEntityBase();
                                 objData.objModel = new BikeModelEntityBase();
                                 objData.objVersion = new BikeVersionsListEntity();
-                                objData.Specs = new MinSpecsEntity();
                                 objData.objMake.MakeName = Convert.ToString(dr["Make"]);
                                 objData.objModel.ModelName = Convert.ToString(dr["Model"]);
                                 objData.objMake.MakeId = SqlReaderConvertor.ToInt32(dr["MakeId"]);
@@ -3289,11 +3224,6 @@ namespace Bikewale.DAL.BikeData
                                 objData.HostURL = Convert.ToString(dr["HostUrl"]);
                                 objData.OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]);
                                 objData.VersionPrice = SqlReaderConvertor.ToInt64(dr["VersionPrice"]);
-                                objData.Specs.Displacement = SqlReaderConvertor.ToNullableFloat(dr["Displacement"]);
-                                objData.Specs.FuelEfficiencyOverall = SqlReaderConvertor.ToNullableUInt16(dr["FuelEfficiencyOverall"]);
-                                objData.Specs.MaximumTorque = SqlReaderConvertor.ToNullableFloat(dr["MaximumTorque"]);
-                                objData.Specs.MaxPower = SqlReaderConvertor.ToNullableFloat(dr["MaxPower"]);
-                                objData.Specs.KerbWeight = SqlReaderConvertor.ToNullableUInt16(dr["KerbWeight"]);
                                 objData.CityName = Convert.ToString(dr["cityname"]);
                                 objData.CityMaskingName = Convert.ToString(dr["citymasking"]);
                                 objData.StartDate = SqlReaderConvertor.ToDateTime(dr["startdatetime"]);

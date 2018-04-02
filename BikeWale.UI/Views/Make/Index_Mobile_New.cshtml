@@ -53,7 +53,7 @@
                                                         <h3 class="card-detail__name" title="@bikeName">@bike.objModel.ModelName</h3>
 
                                                         <ul class="card-detail__specs-list">
-                                                            @Html.Raw(Bikewale.Utility.FormatMinSpecs.GetMinSpecsAsLiElement(Convert.ToString(bike.Specs.Displacement), Convert.ToString(bike.Specs.FuelEfficiencyOverall), Convert.ToString(bike.Specs.MaxPower), Convert.ToString(bike.Specs.KerbWeight)))
+                                                            @Html.Raw(Bikewale.Utility.FormatMinSpecs.GetMinSpecsLiElements(bike.MinSpecsList))
                                                         </ul>
                                                     </a>
                                                 </div>
@@ -149,7 +149,7 @@
 
                                                 <h3 class="card-detail__name">@string.Format("{0} {1}", Model.MakeName, bike.objModel.ModelName) </h3>
                                                 <ul class="card-detail__specs-list">
-                                                    @Html.Raw(Bikewale.Utility.FormatMinSpecs.GetMinSpecsAsLiElement(Convert.ToString(bike.Specs.Displacement), Convert.ToString(bike.Specs.FuelEfficiencyOverall), Convert.ToString(bike.Specs.MaxPower), Convert.ToString(bike.Specs.KerbWeight)))
+                                                    @Html.Raw(Bikewale.Utility.FormatMinSpecs.GetMinSpecsLiElements(bike.MinSpecsList))
                                                 </ul>
                                             </div>
                                         </a>
