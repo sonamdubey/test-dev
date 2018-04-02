@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 
 namespace Bikewale.DTO.BikeData.NewLaunched
 {
@@ -26,7 +27,7 @@ namespace Bikewale.DTO.BikeData.NewLaunched
         [JsonProperty("maxPrice")]
         public uint MaxPrice { get; set; }
         [JsonProperty("minSpec")]
-        public v2.MinSpecs MinSpecs { get; set; }
+        public IEnumerable<v2.VersionMinSpecs> MinSpecsList { get; set; }
         [JsonIgnore]
         public DateTime LaunchedOn { get; set; }
         [JsonProperty("launchedOn")]

@@ -162,6 +162,7 @@
     <Compile Include="BikeData\BikeColorsbyVersionDTO.cs" />
     <Compile Include="BikeData\BikeVersionWithMinSpecDTO.cs" />
     <Compile Include="BikeData\ModelSpecificationsDTO.cs" />
+    <Compile Include="BikeData\v2\VersionMinSpecs.cs" />
     <Compile Include="BikeData\VersionSegmentDTO.cs" />
     <Compile Include="BikeData\MakeModelBase.cs" />
     <Compile Include="BikeData\NewLaunched\BikesCountByMakeDTO.cs" />

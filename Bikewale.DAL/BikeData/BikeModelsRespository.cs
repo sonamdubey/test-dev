@@ -1925,6 +1925,8 @@ namespace Bikewale.DAL.BikeData
         /// Summary     : Added new,ued and futuristic flags and Estimated min and max price(for upcoming)
         /// Modifed by : Snehal Dange on 24th Jan 2018
         /// Summary : changed sp name from "getbikeinfo_18092017" to "getbikeinfo_24012018"
+        /// Modified by : Pratibha Verma on 2 April 2018
+        /// Description : Replaced sp "getbikeinfo_24012018" with "getbikeinfo_02042018"
         /// </summary>
         /// <returns></returns>
         public Entities.GenericBikes.GenericBikeInfo GetBikeInfo(uint modelId)
@@ -1936,7 +1938,7 @@ namespace Bikewale.DAL.BikeData
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "getbikeinfo_24012018";
+                    cmd.CommandText = "getbikeinfo_02042018";
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
                     genericBikeInfo = PopulateGenericBikeInfoEntity(genericBikeInfo, cmd);
                 }
@@ -1951,6 +1953,8 @@ namespace Bikewale.DAL.BikeData
         /// <summary>
         /// Modified  By :- subodh Jain 10 Feb 2017
         /// Summary :- BikeInfo Slug details
+        /// Modified by : Pratibha Verma on 2 April 2018
+        /// Description : Removed MinSpecs mapping
         /// </summary>
         private GenericBikeInfo PopulateGenericBikeInfoEntity(GenericBikeInfo genericBikeInfo, DbCommand cmd)
         {
@@ -1965,7 +1969,6 @@ namespace Bikewale.DAL.BikeData
                             genericBikeInfo = new GenericBikeInfo();
                             genericBikeInfo.Make = new Entities.BikeData.BikeMakeEntityBase();
                             genericBikeInfo.Model = new Entities.BikeData.BikeModelEntityBase();
-                            genericBikeInfo.MinSpecs = new MinSpecsEntity();
                             genericBikeInfo.OriginalImagePath = Convert.ToString(dr["originalimagepath"]);
                             genericBikeInfo.HostUrl = Convert.ToString(dr["hosturl"]);
                             genericBikeInfo.VideosCount = SqlReaderConvertor.ToUInt32(dr["videoscount"]);
@@ -1981,11 +1984,6 @@ namespace Bikewale.DAL.BikeData
                             genericBikeInfo.Make.MaskingName = Convert.ToString(dr["makemaskingname"]);
                             genericBikeInfo.Model.ModelName = Convert.ToString(dr["modelname"]);
                             genericBikeInfo.Model.MaskingName = Convert.ToString(dr["modelmaskingname"]);
-                            genericBikeInfo.MinSpecs.Displacement = SqlReaderConvertor.ToNullableFloat(dr["displacement"]);
-                            genericBikeInfo.MinSpecs.FuelEfficiencyOverall = SqlReaderConvertor.ToNullableUInt16(dr["fuelefficiencyoverall"]);
-                            genericBikeInfo.MinSpecs.MaxPower = SqlReaderConvertor.ToNullableFloat(dr["maxpower"]);
-                            genericBikeInfo.MinSpecs.MaximumTorque = SqlReaderConvertor.ToNullableFloat(dr["maxpowerrpm"]);
-                            genericBikeInfo.MinSpecs.KerbWeight = SqlReaderConvertor.ToNullableUInt16(dr["kerbweight"]);
                             genericBikeInfo.IsUsed = SqlReaderConvertor.ToBoolean(dr["Used"]);
                             genericBikeInfo.IsNew = SqlReaderConvertor.ToBoolean(dr["New"]);
                             genericBikeInfo.IsFuturistic = SqlReaderConvertor.ToBoolean(dr["Futuristic"]);
@@ -1999,6 +1997,7 @@ namespace Bikewale.DAL.BikeData
                             genericBikeInfo.UserReviewCount = SqlReaderConvertor.ToUInt16(dr["ReviewCount"]);
                             genericBikeInfo.BodyStyleId = SqlReaderConvertor.ToInt16(dr["BodyStyleId"]);
                             genericBikeInfo.FuelType = SqlReaderConvertor.ToUInt16(dr["fueltype"]);
+                            genericBikeInfo.VersionId = SqlReaderConvertor.ToInt32(dr["TopVersionId"]);
                         }
                         dr.Close();
                     }
@@ -2026,6 +2025,8 @@ namespace Bikewale.DAL.BikeData
         /// Summary : Changed sp from getbikeinfobycity_05072017 to getbikeinfobycity_15112017. Changed logic for onRoadPrice
         /// Modified by : Snehal Dange on 24th Jan 2018
         /// Summary : Modified sp from "getbikeinfobycity_15112017" to "getbikeinfobycity_24012018". Added fueltype parameter.
+        /// Modified by : Pratibha Verma on 2 April 2018
+        /// Description : Replaced sp "getbikeinfobycity_24012018" with "getbikeinfobycity_02042018"
         /// </summary>
         /// <returns></returns>
         public Entities.GenericBikes.GenericBikeInfo GetBikeInfo(uint modelId, uint cityId)
@@ -2037,7 +2038,7 @@ namespace Bikewale.DAL.BikeData
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "getbikeinfobycity_24012018";
+                    cmd.CommandText = "getbikeinfobycity_02042018";
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId));
                     genericBikeInfo = PopulateGenericBikeInfoEntity(genericBikeInfo, cmd);

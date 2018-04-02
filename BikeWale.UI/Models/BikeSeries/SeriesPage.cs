@@ -1,4 +1,5 @@
-﻿using Bikewale.Common;
+﻿using Bikewale.BAL.GrpcFiles.Specs_Features;
+using Bikewale.Common;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Compare;
 using Bikewale.Entities.GenericBikes;
@@ -84,6 +85,18 @@ namespace Bikewale.Models.BikeSeries
 
                 objSeriesPage.SeriesModels = new BikeSeriesModels();
                 objSeriesPage.SeriesModels.NewBikes = _bikeSeries.GetNewModels(seriesId, objSeriesPage.City.CityId);
+                IEnumerable<NewBikeEntityBase> newBikeList = objSeriesPage.SeriesModels.NewBikes;
+                if (newBikeList != null && newBikeList.Any())
+                {
+                    var versionMinSpecs = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(newBikeList.Select(m => m.objVersion.VersionId)).GetEnumerator();
+                    foreach (var bike in newBikeList)
+                    {
+                        if (versionMinSpecs.MoveNext())
+                        {
+                            bike.MinSpecsList = versionMinSpecs.Current.MinSpecsList;
+                        }
+                    }
+                }
                 if (objSeriesPage.SeriesModels.NewBikes != null && objSeriesPage.SeriesModels.NewBikes.Any())
                 {
                     var firstNewBike = objSeriesPage.SeriesModels.NewBikes.FirstOrDefault();
