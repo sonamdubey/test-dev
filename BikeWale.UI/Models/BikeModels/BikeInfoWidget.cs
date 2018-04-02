@@ -59,13 +59,13 @@ namespace Bikewale.Models
                 GenericBikeInfo bikeInfo = objVM.BikeInfo;
                 if (bikeInfo != null)
                 {
-                    var versionMinSpecs = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(Enumerable.Repeat(bikeInfo.VersionId,1)).GetEnumerator();
+                    var versionMinSpecs = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(new List<int> { bikeInfo.VersionId }).GetEnumerator();
                     if (versionMinSpecs.MoveNext())
                     {
                         bikeInfo.MinSpecsList = versionMinSpecs.Current.MinSpecsList;
                     }
                 }
-                if (objVM.BikeInfo != null)
+                if (bikeInfo != null)
                 {
                     if (_cityId > 0)
                     {
@@ -74,11 +74,11 @@ namespace Bikewale.Models
 
                     }
 
-                    objVM.BikeInfo.Tabs = BindInfoWidgetDatas(objVM.BikeInfo, objVM.CityDetails, _tabCount, _pageId);
-                    objVM.BikeName = string.Format("{0} {1}", objVM.BikeInfo.Make.MakeName, objVM.BikeInfo.Model.ModelName);
-                    objVM.BikeUrl = string.Format("{0}", Bikewale.Utility.UrlFormatter.BikePageUrl(objVM.BikeInfo.Make.MaskingName, objVM.BikeInfo.Model.MaskingName));
-                    objVM.IsDiscontinued = (!objVM.BikeInfo.IsNew && !objVM.BikeInfo.IsFuturistic);
-                    objVM.IsUpcoming = objVM.BikeInfo.IsFuturistic;
+                    bikeInfo.Tabs = BindInfoWidgetDatas(bikeInfo, objVM.CityDetails, _tabCount, _pageId);
+                    objVM.BikeName = string.Format("{0} {1}", bikeInfo.Make.MakeName, bikeInfo.Model.ModelName);
+                    objVM.BikeUrl = string.Format("{0}", Bikewale.Utility.UrlFormatter.BikePageUrl(bikeInfo.Make.MaskingName, bikeInfo.Model.MaskingName));
+                    objVM.IsDiscontinued = (!bikeInfo.IsNew && !bikeInfo.IsFuturistic);
+                    objVM.IsUpcoming = bikeInfo.IsFuturistic;
                     objVM.Category = _pageId;
                 }
             }
