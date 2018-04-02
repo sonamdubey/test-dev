@@ -319,7 +319,7 @@ namespace Bikewale.BAL.BikeData
                             new List<EnumSpecsFeaturesItem>
                             {
                                 EnumSpecsFeaturesItem.Displacement,
-                                EnumSpecsFeaturesItem.MaxPower,
+                                EnumSpecsFeaturesItem.MaxPowerMinSpecs,
                                 EnumSpecsFeaturesItem.MaximumTorque,
                                 EnumSpecsFeaturesItem.NoOfGears,
                                 EnumSpecsFeaturesItem.FuelEfficiencyOverall,

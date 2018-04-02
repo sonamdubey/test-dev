@@ -694,8 +694,7 @@ namespace Bikewale.Service.AutoMappers.Model
                 objDTOModelPage.ReviewRate = modelDetails.ReviewRate;
                 objDTOModelPage.NewsCount = modelDetails.NewsCount;
                 objDTOModelPage.IsUpcoming = modelDetails.Futuristic;
-                objDTOModelPage.IsSpecsAvailable = (objModelPage.objOverview != null && objModelPage.objOverview.OverviewList != null && objModelPage.objOverview.OverviewList.Any());
-
+                objDTOModelPage.IsSpecsAvailable = (objModelPage.SpecsSummaryList != null && objModelPage.SpecsSummaryList.Any());
 
                 objDTOModelPage.Review = new DTO.Model.v5.Review()
                 {
@@ -711,21 +710,23 @@ namespace Bikewale.Service.AutoMappers.Model
 
                 if (objDTOModelPage.IsSpecsAvailable)
                 {
-                    foreach (var spec in objModelPage.objOverview.OverviewList)
+                    string displayValue;
+                    foreach (var spec in objModelPage.SpecsSummaryList)
                     {
-                        switch (spec.DisplayText)
+                        displayValue = spec.Value == "" ? null : FormatMinSpecs.ShowAvailable(spec.Value, spec.UnitType);
+                        switch ((EnumSpecsFeaturesItem)spec.Id)
                         {
-                            case "Capacity":
-                                objDTOModelPage.Capacity = spec.DisplayValue.Equals("--") ? null : spec.DisplayValue;
+                            case EnumSpecsFeaturesItem.Displacement:
+                                objDTOModelPage.Capacity = displayValue;
                                 break;
-                            case "Mileage":
-                                objDTOModelPage.Mileage = spec.DisplayValue.Equals("--") ? null : spec.DisplayValue;
+                            case EnumSpecsFeaturesItem.FuelEfficiencyOverall:
+                                objDTOModelPage.Mileage = displayValue;
                                 break;
-                            case "Max power":
-                                objDTOModelPage.MaxPower = spec.DisplayValue.Equals("--") ? null : spec.DisplayValue;
+                            case EnumSpecsFeaturesItem.MaxPowerMinSpecs:
+                                objDTOModelPage.MaxPower = displayValue;
                                 break;
-                            case "Weight":
-                                objDTOModelPage.Weight = spec.DisplayValue.Equals("--") ? null : spec.DisplayValue;
+                            case EnumSpecsFeaturesItem.KerbWeight:
+                                objDTOModelPage.Weight = displayValue;
                                 break;
                         }
                     }
@@ -760,7 +761,7 @@ namespace Bikewale.Service.AutoMappers.Model
                     objDTOModelPage.IsCityExists = pqEntity.IsCityExists;
                     objDTOModelPage.IsAreaExists = pqEntity.IsAreaExists;
                     objDTOModelPage.IsExShowroomPrice = pqEntity.IsExShowroomPrice;
-                    objDTOModelPage.ModelVersions = Convert(pqEntity.VersionList);
+                    objDTOModelPage.ModelVersions = ConvertBikeVersionToVersionDetail(pqEntity.VersionList);
                     objDTOModelPage.DealerId = pqEntity.DealerId;
                     objDTOModelPage.PQId = pqEntity.PqId;
                 }
