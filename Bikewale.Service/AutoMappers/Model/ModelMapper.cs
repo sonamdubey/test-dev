@@ -411,6 +411,8 @@ namespace Bikewale.Service.AutoMappers.Model
         /// <summary>
         /// Created By : Lucky Rathore on 17 June 2016
         /// Descritpion : Mapping for V4 version of ModelpageEntity.
+        /// Modified By : Rajan Chauhan on 2 April 2018
+        /// Description : ModelVersions convertor changed to ConvertBikeVersionToVersionDetail
         /// </summary>
         /// <param name="objModelPage"></param>
         /// <returns></returns>
@@ -433,23 +435,25 @@ namespace Bikewale.Service.AutoMappers.Model
                     objDTOModelPage.IsDiscontinued = !objModelPage.ModelDetails.New;
                 }
 
-                if (objModelPage.objOverview != null)
+                if (objModelPage.SpecsSummaryList != null)
                 {
-                    foreach (var spec in objModelPage.objOverview.OverviewList)
+                    string displayValue;
+                    foreach (var spec in objModelPage.SpecsSummaryList)
                     {
-                        switch (spec.DisplayText)
+                        displayValue = FormatMinSpecs.ShowAvailable(spec.Value, spec.UnitType);
+                        switch ((EnumSpecsFeaturesItem)spec.Id)
                         {
-                            case "Capacity":
-                                objDTOModelPage.Capacity = spec.DisplayValue;
+                            case EnumSpecsFeaturesItem.Displacement:
+                                objDTOModelPage.Capacity = displayValue;
                                 break;
-                            case "Mileage":
-                                objDTOModelPage.Mileage = spec.DisplayValue;
+                            case EnumSpecsFeaturesItem.FuelEfficiencyOverall:
+                                objDTOModelPage.Mileage = displayValue;
                                 break;
-                            case "Max power":
-                                objDTOModelPage.MaxPower = spec.DisplayValue;
+                            case EnumSpecsFeaturesItem.MaxPower:
+                                objDTOModelPage.MaxPower = displayValue;
                                 break;
-                            case "Weight":
-                                objDTOModelPage.Weight = spec.DisplayValue;
+                            case EnumSpecsFeaturesItem.KerbWeight:
+                                objDTOModelPage.Weight = displayValue;
                                 break;
                         }
                     }
@@ -475,7 +479,7 @@ namespace Bikewale.Service.AutoMappers.Model
                     objDTOModelPage.IsCityExists = pqEntity.IsCityExists;
                     objDTOModelPage.IsAreaExists = pqEntity.IsAreaExists;
                     objDTOModelPage.IsExShowroomPrice = pqEntity.IsExShowroomPrice;
-                    objDTOModelPage.ModelVersions = Convert(pqEntity.VersionList);
+                    objDTOModelPage.ModelVersions = ConvertBikeVersionToVersionDetail(pqEntity.VersionList);
                     objDTOModelPage.DealerId = pqEntity.DealerId;
                     objDTOModelPage.PQId = pqEntity.PqId;
                 }
