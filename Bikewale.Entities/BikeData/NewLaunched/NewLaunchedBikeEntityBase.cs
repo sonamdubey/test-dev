@@ -43,5 +43,6 @@ namespace Bikewale.Entities.BikeData.NewLaunched
         public uint ExshowroomPrice { get; set; }
         public int VersionId { get; set; }
         public IEnumerable<SpecsItem> MinSpecsList { get; set; }
+        public uint MinSpecsCount { get; set; }
     }
 }

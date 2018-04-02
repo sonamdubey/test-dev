@@ -46,6 +46,7 @@ namespace Bikewale.Models
                         if (versionMinSpecs.MoveNext())
                         {
                             bike.MinSpecsList = versionMinSpecs.Current.MinSpecsList;
+                            bike.MinSpecsCount = 4;
                         }
                     }
                 }
