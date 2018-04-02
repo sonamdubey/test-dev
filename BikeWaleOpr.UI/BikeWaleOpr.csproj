@@ -14,7 +14,7 @@
     <RootNamespace>BikewaleOpr</RootNamespace>
     <AssemblyName>BikewaleOpr</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -1949,6 +1949,7 @@
     <Content Include="research\urlmapping\map_models.txt" />
     <Content Include="src\AdOperations\AdOperation.js" />
     <Content Include="src\AjaxFunctions.js" />
+    <Content Include="src\api_client.js" />
     <Content Include="src\Banner.js" />
     <Content Include="src\BannerList.js" />
     <Content Include="src\BikeSeries\BikeSeries.js" />
@@ -1987,6 +1988,7 @@
     <Content Include="src\ServiceCenter\ServiceCenterOperations.js" />
     <Content Include="src\userreviews\manageuserratings.js" />
     <Content Include="src\userreviews\manageuserreviews.js" />
+    <Content Include="src\users\login.js" />
     <Content Include="users\Login.aspx" />
   </ItemGroup>
   <ItemGroup>
@@ -2242,7 +2244,7 @@
           <AutoAssignPort>False</AutoAssignPort>
           <DevelopmentServerPort>51984</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:9010</IISUrl>
+          <IISUrl>http://localhost:9010/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

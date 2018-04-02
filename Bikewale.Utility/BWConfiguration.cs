@@ -26,6 +26,8 @@ namespace Bikewale.Utility
     /// Desc:         Added ContestPriceMoney
     /// Modified by : Pratibha Verma on 24 Feb 2018
     /// Description : Removed logNewsUrl for News(PWA) page API
+    /// Modifier    : Kartik Rathod on 30 march
+    /// Desc        : Added GoogleAPIHostUrl and CWOPRHostURL
     /// </summary>
     public sealed class BWConfiguration
     {
@@ -121,7 +123,9 @@ namespace Bikewale.Utility
             _MetasMakeId = string.Empty,
             _ContestPriceMoney = string.Empty,
             _bikeModelIndex = String.Empty,
-            _bikeModelPriceIndex = String.Empty;
+            _bikeModelPriceIndex = String.Empty,
+            _googleAPIHostUrl = string.Empty,
+            _cwOPRHostUrl = string.Empty;
 
         private readonly bool _IsAppTrackDayVisible = false, _UseAPIGateway = false;
         private readonly int _SecurityHashLength = 0;
@@ -272,6 +276,8 @@ namespace Bikewale.Utility
             _MakePageViewShowPercentage = string.IsNullOrEmpty(ConfigurationManager.AppSettings["MakePageViewShowPercentage"]) ? (ushort)0 : Convert.ToUInt16(ConfigurationManager.AppSettings["MakePageViewShowPercentage"]);
             _bikeModelIndex = Convert.ToString(ConfigurationManager.AppSettings["BikeIndex"]);
             _bikeModelPriceIndex = Convert.ToString(ConfigurationManager.AppSettings["BikePriceIndex"]);
+            _googleAPIHostUrl =  Convert.ToString(ConfigurationManager.AppSettings["GoogleAPIHostUrl"]);
+            _cwOPRHostUrl = Convert.ToString(ConfigurationManager.AppSettings["CwOprHostUrl"]);
         }
 
         // Static method to provide access to instance
@@ -449,5 +455,7 @@ namespace Bikewale.Utility
         public ushort MakePageViewShowPercentage { get { return _MakePageViewShowPercentage; } }
         public string BikeModelIndex { get { return _bikeModelIndex; } }
         public string BikeModelPriceIndex { get { return _bikeModelPriceIndex; } }
+        public string GoogleAPIHostUrl { get { return _googleAPIHostUrl; } }
+        public string CWOPRHostUrl { get { return _cwOPRHostUrl; } }
     }   // class
 }   // namespace

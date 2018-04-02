@@ -231,6 +231,7 @@
     <Compile Include="UserReviews\UserReviewOverallRating.cs" />
     <Compile Include="UserReviews\UserReviews.cs" />
     <Compile Include="UserReviews\UserReviewSummary.cs" />
+    <Compile Include="Users\UserDetailsEntity.cs" />
     <Compile Include="VersionColorBase.cs" />
     <Compile Include="VersionColorWithAvailability.cs" />
     <Compile Include="VersionEntityBase.cs" />

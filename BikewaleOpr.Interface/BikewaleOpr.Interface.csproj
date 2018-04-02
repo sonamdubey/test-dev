@@ -153,6 +153,7 @@
     <Compile Include="Used\ISellBikes.cs" />
     <Compile Include="Used\ISellerRepository.cs" />
     <Compile Include="Used\IUsedBikes.cs" />
+    <Compile Include="Users\IUsers.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bikewale.Comparison.Entities\Bikewale.Comparison.Entities.csproj">
