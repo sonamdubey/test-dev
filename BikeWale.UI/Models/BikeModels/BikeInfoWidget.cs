@@ -45,6 +45,8 @@ namespace Bikewale.Models
         /// <summary>
         /// Created by  :   Sumit Kate on 25 Mar 2017
         /// Description :   Returns the View Model
+        /// Modified by : Pratibha Verma on 2 April 2018
+        /// Description : Added grpc method call to get MinSpecs
         /// </summary>
         /// <returns></returns>
         public BikeInfoVM GetData()

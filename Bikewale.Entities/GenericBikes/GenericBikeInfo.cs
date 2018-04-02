@@ -19,6 +19,8 @@ namespace Bikewale.Entities.GenericBikes
     /// Summary     :   Added BodyStyleId property
     /// Modified by : Snehal Dange on 24th Jan 2018
     /// Desc:       Added IsElectricBike flag
+    /// Modified by : Pratibha Verma on 2 April 2018
+    /// Description : Added SpecsItem List, VersionId and Removed MinSpecs
     /// </summary>
     [Serializable]
     public class GenericBikeInfo //: BasicBikeEntityBase

@@ -20,7 +20,7 @@ namespace Bikewale.BAL.GrpcFiles.Specs_Features
             {
                 EnumSpecsFeaturesItem.Displacement,
                 EnumSpecsFeaturesItem.FuelEfficiencyOverall,
-                EnumSpecsFeaturesItem.MaxPower,
+                EnumSpecsFeaturesItem.MaxPowerMinSpecs,
                 EnumSpecsFeaturesItem.KerbWeight
             };
         }
