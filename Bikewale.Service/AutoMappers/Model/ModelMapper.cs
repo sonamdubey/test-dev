@@ -694,7 +694,7 @@ namespace Bikewale.Service.AutoMappers.Model
                 objDTOModelPage.ReviewRate = modelDetails.ReviewRate;
                 objDTOModelPage.NewsCount = modelDetails.NewsCount;
                 objDTOModelPage.IsUpcoming = modelDetails.Futuristic;
-                objDTOModelPage.IsSpecsAvailable = (objModelPage.SpecsSummaryList != null && objModelPage.SpecsSummaryList.Any());
+                objDTOModelPage.IsSpecsAvailable = (objModelPage.SpecsSummaryList != null && objModelPage.SpecsSummaryList.Any(spec => spec.Value != ""));
 
                 objDTOModelPage.Review = new DTO.Model.v5.Review()
                 {
