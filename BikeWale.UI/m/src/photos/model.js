@@ -125,8 +125,13 @@ var ImageGrid = (function () {
 			triggerGalleryImageChangeGA = false;
 			mainGallerySwiper.slideTo(imageIndex);
 
-			if (imageIndex == 3) {
+			if (imageIndex === vmModelGallery.colorSlug().visibilityThreshold()) {
 			    vmModelGallery.colorSlug().activeSlug(false);
+			    vmModelGallery.activeContinueSlug(false);
+			}
+
+			if (imageIndex === vmModelGallery.videoSlug().visibilityThreshold()) {
+			    vmModelGallery.videoSlug().activeSlug(false);
 			    vmModelGallery.activeContinueSlug(false);
 			}
 		});
