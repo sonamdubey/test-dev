@@ -1,9 +1,11 @@
-﻿using Bikewale.BindViewModels.Controls;
+﻿using Bikewale.BAL.GrpcFiles.Specs_Features;
+using Bikewale.BindViewModels.Controls;
 using Bikewale.Common;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
 using System;
+using System.Collections.Generic;
 
 namespace Bikewale.Controls
 {
@@ -52,6 +54,11 @@ namespace Bikewale.Controls
                 bikeInfo = genericBikeInfo.GetBikeInfo();
                 if (bikeInfo != null)
                 {
+                    var versionMinSpecs = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(new List<int> { bikeInfo.VersionId }).GetEnumerator();
+                    if (versionMinSpecs.MoveNext())
+                    {
+                        bikeInfo.MinSpecsList = versionMinSpecs.Current.MinSpecsList;
+                    }
                     if (bikeInfo.Make != null && bikeInfo.Model != null)
                     {
                         bikeUrl = string.Format("{0}", Bikewale.Utility.UrlFormatter.BikePageUrl(bikeInfo.Make.MaskingName, bikeInfo.Model.MaskingName));

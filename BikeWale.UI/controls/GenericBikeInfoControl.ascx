@@ -38,34 +38,15 @@
                         <img class="lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages(bikeInfo.OriginalImagePath,bikeInfo.HostUrl,Bikewale.Utility.ImageSize._160x89) %>" src="" alt="<%=bikeName%>" />
                     </a>                   
                     <div class="model-details-block vertical-top">
-                        <% if (bikeInfo.MinSpecs != null)
+                        <% if (bikeInfo.MinSpecsList != null && bikeInfo.MinSpecsList.Any())
                            { %>
                         <ul class="key-specs-list margin-bottom15 text-light-grey">
-                            <%if (bikeInfo.MinSpecs.Displacement > 0)
-                              { %>
+                          <% foreach(var specItem in bikeInfo.MinSpecsList) {%>
                             <li>
                                 <span class="bwsprite capacity-sm"></span>
-                                <span><%=Bikewale.Utility.FormatMinSpecs.ShowAvailable(Convert.ToString(bikeInfo.MinSpecs.Displacement))%> cc</span>
+                                <span><%=Bikewale.Utility.FormatMinSpecs.ShowAvailable(specItem.Value, specItem.UnitType)%></span>
                             </li>
-                            <%} if (bikeInfo.MinSpecs.FuelEfficiencyOverall > 0)
-                              { %>
-                            <li>
-                                <span class="bwsprite mileage-sm"></span>
-                                <span><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(Convert.ToString(bikeInfo.MinSpecs.FuelEfficiencyOverall),"kmpl") %></span>
-                            </li>
-                            <%} if (bikeInfo.MinSpecs.MaxPower > 0)
-                              { %>
-                            <li>
-                                <span class="bwsprite power-sm"></span>
-                                <span><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(Convert.ToString(bikeInfo.MinSpecs.MaxPower)) %> bhp</span>
-                            </li>
-                            <%} if (bikeInfo.MinSpecs.KerbWeight > 0)
-                              { %>
-                            <li>
-                                <span class="bwsprite weight-sm"></span>
-                                <span><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(Convert.ToString(bikeInfo.MinSpecs.KerbWeight)) %> kgs</span>
-                            </li>
-                            <%} %>
+                            <%} %>  
                         </ul>
                         <%} %>                        
                         <ul class="item-more-details-list margin-bottom5 inline-block">
