@@ -39,17 +39,19 @@
                         </div>
                         <h3 data-bind="text : models()[@i].bikeName ">@bikeName</h3>
                         <ul class="key-specs-list font12 margin-bottom5">
-                            @{
-                                ushort j = 0;
+                            @{ var specItem = bike.MinSpecsList.GetEnumerator();
+                                var specsCount = bike.MinSpecsCount;
                             }
-                            @foreach (var specItem in bike.MinSpecsList)
+                            @for (ushort j = 0; j < specsCount; j++)
                             {
                                 <!-- ko if : models()[@i].minSpec[@j] -->
                                 <li data-bind="visible : models()[@i].minSpec[@j].value != '',text:models()[@i].minSpec[@j].value +' ' + models()[@i].minSpec[@j].unitType, style: {display:models()[@i].minSpec[@j].value != '' ? 'inline-block' : 'none'}">
-                                    @Bikewale.Utility.FormatMinSpecs.ShowAvailable(specItem.Value, specItem.UnitType)
+                                    @if (specItem.MoveNext())
+                                    {
+                                        @Bikewale.Utility.FormatMinSpecs.ShowAvailable(specItem.Current.Value, specItem.Current.UnitType)
+                                    }
                                 </li>
                                 <!-- /ko -->
-                                j++;
                             }
                         </ul>
                         <div class="leftfloat exshowroom-price-content">
