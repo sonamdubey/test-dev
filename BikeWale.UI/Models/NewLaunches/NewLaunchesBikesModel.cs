@@ -40,13 +40,13 @@ namespace Bikewale.Models
                 IEnumerable<NewLaunchedBikeEntityBase> newLaunchesList = objVM.Bikes.Bikes;
                 if (newLaunchesList != null && newLaunchesList.Any())
                 {
+                    objVM.Bikes.MinSpecsCount = 4;
                     var versionMinSpecs = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(newLaunchesList.Select(m => m.VersionId)).GetEnumerator();
                     foreach (var bike in newLaunchesList)
                     {
                         if (versionMinSpecs.MoveNext())
                         {
                             bike.MinSpecsList = versionMinSpecs.Current.MinSpecsList;
-                            bike.MinSpecsCount = 4;
                         }
                     }
                 }

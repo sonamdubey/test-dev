@@ -40,12 +40,11 @@
                         <h3 data-bind="text : models()[@i].bikeName ">@bikeName</h3>
                         <ul class="key-specs-list font12 margin-bottom5">
                             @{ var specItem = bike.MinSpecsList.GetEnumerator();
-                                var specsCount = bike.MinSpecsCount;
                             }
-                            @for (ushort j = 0; j < specsCount; j++)
+                            @for (ushort j = 0; j < Model.Bikes.MinSpecsCount; j++)
                             {
                                 <!-- ko if : models()[@i].minSpec[@j] -->
-                                <li data-bind="visible : models()[@i].minSpec[@j].value != '',text:models()[@i].minSpec[@j].value +' ' + models()[@i].minSpec[@j].unitType, style: {display:models()[@i].minSpec[@j].value != '' ? 'inline-block' : 'none'}">
+                                <li data-bind="visible : models()[@i].minSpec[@j].value != '',text:models()[@i].minSpec[@j].value +' ' + models()[@i].minSpec[@j].unitType" style="display:@(bike.MinSpecsList.Count() > 0 ? "inline-block" : "none")">
                                     @if (specItem.MoveNext())
                                     {
                                         @Bikewale.Utility.FormatMinSpecs.ShowAvailable(specItem.Current.Value, specItem.Current.UnitType)
