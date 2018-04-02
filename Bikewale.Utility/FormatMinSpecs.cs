@@ -43,7 +43,7 @@ namespace Bikewale.Utility
                 throw ex;
             }
         }
-
+        
         /// <summary>
         /// Summary: Overload created to cater weight in Min specs
         /// </summary>
@@ -400,7 +400,7 @@ namespace Bikewale.Utility
 
             if (!String.IsNullOrEmpty(value))
             {
-                return value + " " + unit;
+                return String.Format("{0}{1}{2}", value, String.IsNullOrEmpty(unit) ? String.Empty : " ", unit);
             }
             return _notAvaliableText;
         }

@@ -81,7 +81,7 @@ namespace Bikewale.BAL.GrpcFiles.Specs_Features
             {
                 if (versionIds != null)
                 {
-                    return GetVersionSpecsFeatures(versionIds.Select(versionId => versionId));
+                    return GetVersionSpecsFeatures(versionIds);
                 }
             }
             catch (Exception ex)

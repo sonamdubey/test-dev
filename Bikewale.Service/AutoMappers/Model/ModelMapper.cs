@@ -221,6 +221,38 @@ namespace Bikewale.Service.AutoMappers.Model
         }
 
         /// <summary>
+        /// Created By  : Rajan Chauhan on 30 Mar 2018
+        /// Description : Convertor from SpecsItem to DTO.Model.Specs
+        /// </summary>
+        /// <param name="specSummaryList"></param>
+        /// <returns></returns>
+        internal static IEnumerable<DTO.Model.Specs> Convert(IEnumerable<SpecsItem> specSummaryList)
+        {
+            IList<DTO.Model.Specs> specsList = null;
+            try
+            {
+                if (specSummaryList != null)
+                {
+                    specsList = new List<DTO.Model.Specs>();
+                    foreach (SpecsItem specsFeaturesItem in specSummaryList)
+                    {
+                        string itemValue = FormatMinSpecs.ShowAvailable(specsFeaturesItem.Value, specsFeaturesItem.UnitType);
+                        specsList.Add(new DTO.Model.Specs()
+                        {
+                            DisplayText = specsFeaturesItem.Name,
+                            DisplayValue = itemValue
+                        });
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, String.Format("Exception : Bikewale.Service.AutoMappers.Model.ModelMapper.Convert( IEnumerable<SpecsItem> {0})", specSummaryList));
+            }
+            return specsList;
+        }
+
+        /// <summary>
         /// Created By : Lucky Rathore on 15 Apr 2016
         /// Description : Mapper for BikeSpecs DTO and BikeModelPageEntity Entity
         /// Modified by : Pratibha Verma on 19 Mar 2018
@@ -268,12 +300,17 @@ namespace Bikewale.Service.AutoMappers.Model
                             });
                         }
                     }
+                    specsCategory.Insert(0, new DTO.Model.v2.SpecsCategory()
+                    {
+                        DisplayName = "Summary",
+                        Specs = Convert(objModelPage.SpecsSummaryList)
+                    });
                 }
 
                 var bikespecs = Mapper.Map<BikeSpecs>(objModelPage);
                 bikespecs.IsAreaExists = pqEntity.IsAreaExists;
                 bikespecs.IsExShowroomPrice = pqEntity.IsExShowroomPrice;
-                bikespecs.ModelVersions = Convert(pqEntity.VersionList);
+                bikespecs.ModelVersions = ConvertBikeVersionToVersionDetail(pqEntity.VersionList);
                 bikespecs.FeaturesList = featuresList;
                 bikespecs.SpecsCategory = specsCategory;
                 return bikespecs;

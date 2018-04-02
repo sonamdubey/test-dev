@@ -503,6 +503,7 @@ namespace Bikewale.Models
                         if (objResponse != null && objResponse.StatusCode == 200 && topVersionId > 0)
                         {
                             _versionsList = string.Format("{0},{1}", _versionsList, topVersionId);
+                            _versionIdsList.Add((uint)topVersionId);
                             status = StatusCodes.ContentFound;
                             bikeComparisions = (ushort)(iTmp + 1);
                             compareUrl.Enqueue(string.Format("{0}-{1}", makeMaskingName, modelMaskingName));

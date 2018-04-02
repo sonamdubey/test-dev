@@ -310,7 +310,38 @@ namespace Bikewale.BAL.BikeData
                 objModelPage = _modelCacheRepository.GetModelPageDetails(modelId);
                 if (objModelPage != null)
                 {
-                    BindMinSpecs(objModelPage.ModelVersions);
+                    if (objModelPage.ModelVersions != null && objModelPage.ModelVersions.Any())
+                    {
+                        int versionId = objModelPage.ModelVersions.FirstOrDefault().VersionId;
+                        objModelPage.VersionSpecsFeatures = SpecsFeaturesServiceGateway.GetVersionsSpecsFeatures(new List<int> { versionId });
+                        BikeVersionMinSpecs objOverview = new BikeVersionMinSpecs() { VersionId = versionId };
+                        BindMinSpecs(new List<BikeVersionMinSpecs> { objOverview },
+                            new List<EnumSpecsFeaturesItem>
+                            {
+                                EnumSpecsFeaturesItem.Displacement,
+                                EnumSpecsFeaturesItem.MaxPower,
+                                EnumSpecsFeaturesItem.MaximumTorque,
+                                EnumSpecsFeaturesItem.NoOfGears,
+                                EnumSpecsFeaturesItem.FuelEfficiencyOverall,
+                                EnumSpecsFeaturesItem.BrakeType,
+                                EnumSpecsFeaturesItem.FrontDisc,
+                                EnumSpecsFeaturesItem.RearDisc,
+                                EnumSpecsFeaturesItem.AlloyWheels,
+                                EnumSpecsFeaturesItem.KerbWeight,
+                                EnumSpecsFeaturesItem.ChassisType,
+                                EnumSpecsFeaturesItem.TopSpeed,
+                                EnumSpecsFeaturesItem.TubelessTyres,
+                                EnumSpecsFeaturesItem.FuelTankCapacity
+                            });
+                        objModelPage.SpecsSummaryList = objOverview != null ? objOverview.MinSpecsList : null;
+                        BindMinSpecs(objModelPage.ModelVersions,
+                            new List<EnumSpecsFeaturesItem>{
+                                EnumSpecsFeaturesItem.BrakeType,
+                                EnumSpecsFeaturesItem.AlloyWheels,
+                                EnumSpecsFeaturesItem.ElectricStart,
+                                EnumSpecsFeaturesItem.AntilockBrakingSystem
+                            });
+                    }
                     CreateAllPhotoList(modelId, objModelPage);
                 }
 
@@ -340,7 +371,11 @@ namespace Bikewale.BAL.BikeData
                 objModelPage = _modelCacheRepository.GetModelPageDetails(modelId, versionId);
                 if (objModelPage != null)
                 {
-                    BindMinSpecs(objModelPage.ModelVersions);
+                    BindMinSpecs(objModelPage.ModelVersions, 
+                        new List<EnumSpecsFeaturesItem>{ 
+                            EnumSpecsFeaturesItem.BrakeType,
+                            EnumSpecsFeaturesItem.AlloyWheels 
+                        });
                     CreateAllPhotoList(modelId, objModelPage);
                 }
             }
@@ -357,14 +392,13 @@ namespace Bikewale.BAL.BikeData
         /// Description : Method to Bind MinSpecs from SpecsFeatures MS 
         /// </summary>
         /// <param name="bikeVersionList"></param>
-        private static void BindMinSpecs(IEnumerable<BikeVersionMinSpecs> bikeVersionList)
+        private static void BindMinSpecs(IEnumerable<BikeVersionMinSpecs> bikeVersionList, IEnumerable<EnumSpecsFeaturesItem> itemIds)
         {
             try
             {
                 if (bikeVersionList != null && bikeVersionList.Any())
                 {
-                    IEnumerable<VersionMinSpecsEntity> versionMinSpecsEntityList = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(bikeVersionList.Select(objVersion => (int)objVersion.VersionId),
-                    new List<EnumSpecsFeaturesItem> { EnumSpecsFeaturesItem.BrakeType, EnumSpecsFeaturesItem.AlloyWheels });
+                    IEnumerable<VersionMinSpecsEntity> versionMinSpecsEntityList = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(bikeVersionList.Select(objVersion => (int)objVersion.VersionId), itemIds);
                     if (versionMinSpecsEntityList != null)
                     {
                         IEnumerator<VersionMinSpecsEntity> versionIterator = versionMinSpecsEntityList.GetEnumerator();

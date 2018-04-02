@@ -1,4 +1,5 @@
-﻿using Bikewale.DTO.BikeData;
+﻿using Bikewale.BAL.GrpcFiles.Specs_Features;
+using Bikewale.DTO.BikeData;
 using Bikewale.DTO.BikeData.NewLaunched;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.BikeData.NewLaunched;
@@ -95,6 +96,18 @@ namespace Bikewale.Service.Controllers.BikeData
                 {
                     InputFilter filterEntity = LaunchedBikeListMapper.Convert(filter);
                     NewLaunchedBikeResult entity = _newBikeLaunchBL.GetBikes(filterEntity);
+                    IEnumerable<NewLaunchedBikeEntityBase> newLaunchesList = entity.Bikes;
+                    if (newLaunchesList != null && newLaunchesList.Any())
+                    {
+                        var versionMinSpecs = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(newLaunchesList.Select(m => m.VersionId)).GetEnumerator();
+                        foreach (var bike in newLaunchesList)
+                        {
+                            if (versionMinSpecs.MoveNext())
+                            {
+                                bike.MinSpecsList = versionMinSpecs.Current.MinSpecsList;
+                            }
+                        }
+                    }
                     if (entity.TotalCount > 0)
                     {
                         NewLaunchedBikeResultDTO dto = LaunchedBikeListMapper.Convert(entity);
