@@ -1,10 +1,12 @@
-﻿using Bikewale.Entities.BikeData;
+﻿using Bikewale.BAL.GrpcFiles.Specs_Features;
+using Bikewale.Entities.BikeData;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Location;
 using Bikewale.Notifications;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 namespace Bikewale.Models
@@ -43,6 +45,8 @@ namespace Bikewale.Models
         /// <summary>
         /// Created by  :   Sumit Kate on 25 Mar 2017
         /// Description :   Returns the View Model
+        /// Modified by : Pratibha Verma on 2 April 2018
+        /// Description : Added grpc method call to get MinSpecs
         /// </summary>
         /// <returns></returns>
         public BikeInfoVM GetData()
@@ -52,8 +56,16 @@ namespace Bikewale.Models
             {
                 objVM = new BikeInfoVM();
                 objVM.BikeInfo = _bikeInfo.GetBikeInfo(_modelId, _cityId);
-
-                if (objVM.BikeInfo != null)
+                GenericBikeInfo bikeInfo = objVM.BikeInfo;
+                if (bikeInfo != null)
+                {
+                    var versionMinSpecs = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(new List<int> { bikeInfo.VersionId }).GetEnumerator();
+                    if (versionMinSpecs.MoveNext())
+                    {
+                        bikeInfo.MinSpecsList = versionMinSpecs.Current.MinSpecsList;
+                    }
+                }
+                if (bikeInfo != null)
                 {
                     if (_cityId > 0)
                     {
@@ -62,11 +74,11 @@ namespace Bikewale.Models
 
                     }
 
-                    objVM.BikeInfo.Tabs = BindInfoWidgetDatas(objVM.BikeInfo, objVM.CityDetails, _tabCount, _pageId);
-                    objVM.BikeName = string.Format("{0} {1}", objVM.BikeInfo.Make.MakeName, objVM.BikeInfo.Model.ModelName);
-                    objVM.BikeUrl = string.Format("{0}", Bikewale.Utility.UrlFormatter.BikePageUrl(objVM.BikeInfo.Make.MaskingName, objVM.BikeInfo.Model.MaskingName));
-                    objVM.IsDiscontinued = (!objVM.BikeInfo.IsNew && !objVM.BikeInfo.IsFuturistic);
-                    objVM.IsUpcoming = objVM.BikeInfo.IsFuturistic;
+                    bikeInfo.Tabs = BindInfoWidgetDatas(bikeInfo, objVM.CityDetails, _tabCount, _pageId);
+                    objVM.BikeName = string.Format("{0} {1}", bikeInfo.Make.MakeName, bikeInfo.Model.ModelName);
+                    objVM.BikeUrl = string.Format("{0}", Bikewale.Utility.UrlFormatter.BikePageUrl(bikeInfo.Make.MaskingName, bikeInfo.Model.MaskingName));
+                    objVM.IsDiscontinued = (!bikeInfo.IsNew && !bikeInfo.IsFuturistic);
+                    objVM.IsUpcoming = bikeInfo.IsFuturistic;
                     objVM.Category = _pageId;
                 }
             }
