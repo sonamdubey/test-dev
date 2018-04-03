@@ -85,20 +85,18 @@
                     <% foreach (var specCat in versionSpecsFeatures.Specs)
                         { %>
                     <h3 class="margin-bottom20"><%=specCat.DisplayText %></h3>
-                    
+						<ul class="specs-features-list margin-bottom5">
                             <% foreach (var specItem in specCat.SpecsItemList)
                                     {
                                         itemValue = specItem.ItemValues.FirstOrDefault();
                                     %>
-                                   <ul class="specs-features-list margin-bottom5">
                                       <li>
-                                           <p class="specs-features-label"><%=specItem.DisplayText%></p>
-                                           <p class="specs-features-value"><span><%=Bikewale.Utility.FormatMinSpecs.ShowAvailable(itemValue, specItem.UnitTypeText, specItem.DataType) %></span></p>
+                                           <p><%=specItem.DisplayText%></p>
+                                           <p><span><%=Bikewale.Utility.FormatMinSpecs.ShowAvailable(itemValue, specItem.UnitTypeText, specItem.DataType) %></span></p>
+										  <div class="clear"></div>
                                         </li>
-                                    </ul>
                                 <% } %>
-                            <div class="clear"></div>
-                        
+                        </ul>
                     <% } %>
                     <% } %>
                 </div>
