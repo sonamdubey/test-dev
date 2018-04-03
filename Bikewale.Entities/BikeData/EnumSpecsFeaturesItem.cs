@@ -81,7 +81,7 @@ namespace Bikewale.Entities.BikeData
         Killswitch = 450,
         Clock = 451,
         MaxPowerRpm = 452,
-        MaximumTorqueRpm = 453,
-        MaxPowerMinSpecs = 454  //MinSpec
+        MaximumTorqueNm = 455,
+        MaxPowerBhp = 454  //MinSpec
     }
 }
