@@ -253,17 +253,19 @@ namespace Bikewale.Models
                 IEnumerable<BestBikeEntityBase> bestBikesList = obj.objBestBikesList;
                 if (bestBikesList != null && bestBikesList.Any())
                 {
-                    var versionMinSpecs = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(bestBikesList.Select(m => m.VersionId), new List<EnumSpecsFeaturesItem> {
+                    IEnumerable<VersionMinSpecsEntity> versionMinSpecs = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(bestBikesList.Select(m => m.VersionId), new List<EnumSpecsFeaturesItem> {
                                                                                             EnumSpecsFeaturesItem.Displacement,
                                                                                             EnumSpecsFeaturesItem.FuelEfficiencyOverall,
-                                                                                            EnumSpecsFeaturesItem.MaxPower}).GetEnumerator();
-                    VersionMinSpecsEntity minSpecs;
-                    foreach (var bike in bestBikesList)
+                                                                                            EnumSpecsFeaturesItem.MaxPower});
+                    if (versionMinSpecs != null)
                     {
-                        if (versionMinSpecs.MoveNext())
+                        var minSpecs = versionMinSpecs.GetEnumerator();
+                        foreach (var bike in bestBikesList)
                         {
-                            minSpecs = versionMinSpecs.Current;
-                            bike.MinSpecsList = minSpecs.MinSpecsList;
+                            if (minSpecs.MoveNext())
+                            {
+                                bike.MinSpecsList = minSpecs.Current.MinSpecsList;
+                            }
                         }
                     }
                 }

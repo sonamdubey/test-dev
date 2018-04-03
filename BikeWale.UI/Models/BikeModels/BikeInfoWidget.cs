@@ -59,10 +59,14 @@ namespace Bikewale.Models
                 GenericBikeInfo bikeInfo = objVM.BikeInfo;
                 if (bikeInfo != null)
                 {
-                    var versionMinSpecs = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(new List<int> { bikeInfo.VersionId }).GetEnumerator();
-                    if (versionMinSpecs.MoveNext())
+                    IEnumerable<VersionMinSpecsEntity> versionMinSpecs = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(new List<int> { bikeInfo.VersionId });
+                    if (versionMinSpecs != null)
                     {
-                        bikeInfo.MinSpecsList = versionMinSpecs.Current.MinSpecsList;
+                        var minSpecs = versionMinSpecs.GetEnumerator();
+                        if (minSpecs.MoveNext())
+                        {
+                            bikeInfo.MinSpecsList = minSpecs.Current.MinSpecsList;
+                        }
                     }
                 }
                 if (bikeInfo != null)
