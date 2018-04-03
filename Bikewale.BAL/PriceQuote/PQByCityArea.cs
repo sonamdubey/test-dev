@@ -635,7 +635,7 @@ namespace Bikewale.BAL.PriceQuote
             {
                 dt2 = DateTime.Now;
                 ThreadContext.Properties["GetVersionListV2_Total"] = (dt2 - dt1).TotalMilliseconds;                
-                _logger.Error("GetVersionListV2");                
+                _logger.Info("GetVersionListV2");                
             }
             return pqEntity;
         }

@@ -193,11 +193,11 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\MSMQLibrary.dll</HintPath>
     </Reference>
-    <Reference Include="MySql.Data, Version=6.9.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+    <Reference Include="MySql.Data, Version=6.10.6.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\MySqlDatabaseDLL\MySql.Data.dll</HintPath>
+      <HintPath>..\Libs\Mysql6.10.6.0\MySql.Data.dll</HintPath>
     </Reference>
-    <Reference Include="MySqlDatabaseLibrary, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="MySqlDatabaseLibrary, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\MySqlDatabaseDLL\MySqlDatabaseLibrary.dll</HintPath>
     </Reference>
@@ -3196,6 +3196,7 @@
     <Content Include="src\dealer\landing.js" />
     <Content Include="src\electricbikes\electricbikeindex.js" />
     <Content Include="src\lazyloadad.js" />
+    <Content Include="src\lazyloadyoutube.js" />
     <Content Include="src\model-series\series.js" />
     <Content Include="src\emi-calculator.js" />
     <Content Include="src\new-launch.js" />
@@ -4074,6 +4075,7 @@
     <Content Include="Views\Shared\Ads\Mobile\Ad320x50.cshtml" />
     <Content Include="Views\Shared\Ads\Mobile\Ad320x50Bottom.cshtml" />
     <Content Include="Views\Shared\Ads\Desktop\AdSlotGeneric.cshtml" />
+    <Content Include="sass\partials\bw-youtube.sass" />
     <None Include="Views\Shared\_Sidebar-section.cshtml" />
     <Content Include="Views\BikeModels\_MultiTabsWidget.cshtml" />
     <Content Include="Views\Shared\_ReviewPopup.cshtml" />
@@ -4099,6 +4101,7 @@
     <Content Include="Views\BestBikes\_PopularBodyStyleBestBikesCarousel_Mobile.cshtml" />
     <Content Include="Views\UserReview\BikesWithReviewsByMake_Mobile_New.cshtml" />
     <Content Include="Views\Upcoming\_UpcomingBikesWithNotify_Mobile.cshtml" />
+    <Content Include="Views\Videos\_LazyLoadVideos.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
