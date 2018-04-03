@@ -449,7 +449,7 @@ namespace Bikewale.Service.AutoMappers.Model
                             case EnumSpecsFeaturesItem.FuelEfficiencyOverall:
                                 objDTOModelPage.Mileage = displayValue;
                                 break;
-                            case EnumSpecsFeaturesItem.MaxPowerMinSpecs:
+                            case EnumSpecsFeaturesItem.MaxPowerBhp:
                                 objDTOModelPage.MaxPower = displayValue;
                                 break;
                             case EnumSpecsFeaturesItem.KerbWeight:
@@ -726,7 +726,7 @@ namespace Bikewale.Service.AutoMappers.Model
                             case EnumSpecsFeaturesItem.FuelEfficiencyOverall:
                                 objDTOModelPage.Mileage = displayValue;
                                 break;
-                            case EnumSpecsFeaturesItem.MaxPowerMinSpecs:
+                            case EnumSpecsFeaturesItem.MaxPowerBhp:
                                 objDTOModelPage.MaxPower = displayValue;
                                 break;
                             case EnumSpecsFeaturesItem.KerbWeight:
