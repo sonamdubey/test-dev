@@ -33,18 +33,20 @@ namespace Bikewale.Models.BikeSeries
                 IEnumerable<NewBikeEntityBase> newBikeList = objModelsVM.SeriesModels.NewBikes;
                 if (newBikeList != null && newBikeList.Any())
                 {
-                    var versionMinSpecs = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(newBikeList.Select(m => m.objVersion.VersionId),
+                    IEnumerable<VersionMinSpecsEntity> versionMinSpecs = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(newBikeList.Select(m => m.objVersion.VersionId),
                                                                             new List<EnumSpecsFeaturesItem> {
                                                                                 EnumSpecsFeaturesItem.Displacement,
                                                                                 EnumSpecsFeaturesItem.FuelEfficiencyOverall,
-                                                                                EnumSpecsFeaturesItem.MaxPower}).GetEnumerator();
-                    VersionMinSpecsEntity minSpecs;
-                    foreach (var seriesBike in newBikeList)
+                                                                                EnumSpecsFeaturesItem.MaxPowerMinSpecs});
+                    if (versionMinSpecs != null)
                     {
-                        if (versionMinSpecs.MoveNext())
+                        var minSpecs = versionMinSpecs.GetEnumerator();
+                        foreach (var seriesBike in newBikeList)
                         {
-                            minSpecs = versionMinSpecs.Current;
-                            seriesBike.MinSpecsList = minSpecs.MinSpecsList;
+                            if (minSpecs.MoveNext())
+                            {
+                                seriesBike.MinSpecsList = minSpecs.Current.MinSpecsList;
+                            }
                         }
                     }
                 }

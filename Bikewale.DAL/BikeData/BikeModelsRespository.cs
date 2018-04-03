@@ -2660,6 +2660,8 @@ namespace Bikewale.DAL.BikeData
         /// <summary>
         /// Created By : Aditi Srivastava on 9 Mar 2017
         /// Summary    : Return list of popular scooters
+        /// Modified by : Ashutosh Sharma on 03 Apr 2018
+        /// Description : Assigning version object in bike models.
         /// </summary>
         public IEnumerable<MostPopularBikesBase> GetMostPopularScooters(uint topCount, uint? cityId)
         {
@@ -2695,6 +2697,10 @@ namespace Bikewale.DAL.BikeData
                                            ModelId = SqlReaderConvertor.ToInt32(dr["modelid"]),
                                            ModelName = Convert.ToString(dr["model"]),
                                            MaskingName = Convert.ToString(dr["modelmaskingname"]),
+                                       },
+                                       objVersion = new BikeVersionsListEntity
+                                       {
+                                           VersionId = SqlReaderConvertor.ToInt32(dr["versionid"])
                                        },
                                        BikeName = Convert.ToString(dr["bikename"]),
                                        MakeId = SqlReaderConvertor.ToInt32(dr["makeid"]),

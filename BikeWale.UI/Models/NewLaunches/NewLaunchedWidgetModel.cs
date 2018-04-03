@@ -65,14 +65,16 @@ namespace Bikewale.Models
             if (objData.Bikes != null && objData.Bikes.Any())
             {
                 IEnumerable<NewLaunchedBikeEntityBase> newLaunchesList = objData.Bikes;
-                var versionMinSpecs = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(newLaunchesList.Select(m => m.VersionId)).GetEnumerator();
-                VersionMinSpecsEntity minSpecs;
-                foreach (var bike in newLaunchesList)
+                IEnumerable<VersionMinSpecsEntity> versionMinSpecs = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(newLaunchesList.Select(m => m.VersionId));
+                if (versionMinSpecs != null)
                 {
-                    if (versionMinSpecs.MoveNext())
+                    var minSpecs = versionMinSpecs.GetEnumerator();
+                    foreach (var bike in newLaunchesList)
                     {
-                        minSpecs = versionMinSpecs.Current;
-                        bike.MinSpecsList = minSpecs.MinSpecsList;
+                        if (minSpecs.MoveNext())
+                        {
+                            bike.MinSpecsList = minSpecs.Current.MinSpecsList;
+                        }
                     }
                 }
             }
