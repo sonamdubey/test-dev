@@ -631,7 +631,10 @@
     </script>
     <script defer type="text/javascript" src="@String.Format("{0}/src/Plugins.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, Bikewale.Utility.BWConfiguration.Instance.StaticPluginFileVersion)"></script>
     <script defer type="text/javascript" src="@String.Format("{0}/src/common.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion)"></script>
+    @if (Model.AdSlots != null)
+    {
     <script defer type="text/javascript" src="@String.Format("{0}/src/lazyloadad.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, Bikewale.Utility.BWConfiguration.Instance.StaticPluginFileVersion)"></script>
+    }
     @if (!String.IsNullOrEmpty(Model.Page_JS_Path))
     {
         <script defer type="text/javascript" src="@String.Format("{0}{1}?{2}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, Model.Page_JS_Path.Trim(),Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion)"></script>
