@@ -1,4 +1,8 @@
-﻿using System;
+﻿using Bikewale.Entities.BikeData;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+
 namespace Bikewale.Entities.BikeSeries
 {
     [Serializable]
@@ -15,10 +19,11 @@ namespace Bikewale.Entities.BikeSeries
         public double Mileage { get; set; }
         public double SeatHeight { get; set; }
         public string BrakeType { get; set; }
-        public ushort Gears { get; set; }
+        public uint Gears { get; set; }
         public double MaxPower { get; set; }
         public double MaxPowerRpm { get; set; }
-
+        public IEnumerable<SpecsItem> MinSpecsList { get; set; }
+        public int VersionId { get; set; }
     }
 
 

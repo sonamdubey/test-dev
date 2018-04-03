@@ -1,6 +1,7 @@
 ﻿using Bikewale.BAL.GrpcFiles.Specs_Features;
 using Bikewale.Common;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.BikeSeries;
 using Bikewale.Entities.Compare;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
@@ -404,13 +405,82 @@ namespace Bikewale.Models.BikeSeries
 
                     objSeriesPage.ObjModel = new BikeSeriesCompareVM();
                     objSeriesPage.ObjModel.BikeSeriesCompareBikeWithSpecs = _seriesCache.GetBikesToCompare(objSeriesPage.SeriesBase.SeriesId);
-
+                    IEnumerable<BikeSeriesCompareBikes> seriesCompareBikesWithSpecs = objSeriesPage.ObjModel.BikeSeriesCompareBikeWithSpecs;
+                    if (seriesCompareBikesWithSpecs != null && seriesCompareBikesWithSpecs.Any())
+                    {
+                        IEnumerable<VersionMinSpecsEntity> versionMinSpecs = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(seriesCompareBikesWithSpecs.Select(m => m.VersionId),
+                                                                            new List<EnumSpecsFeaturesItem> {
+                                                                            EnumSpecsFeaturesItem.Displacement,
+                                                                            EnumSpecsFeaturesItem.KerbWeight,
+                                                                            EnumSpecsFeaturesItem.FuelTankCapacity,
+                                                                            EnumSpecsFeaturesItem.FuelEfficiencyOverall,
+                                                                            EnumSpecsFeaturesItem.SeatHeight,
+                                                                            EnumSpecsFeaturesItem.BrakeType,
+                                                                            EnumSpecsFeaturesItem.NoOfGears,
+                                                                            EnumSpecsFeaturesItem.MaxPowerMinSpecs,
+                                                                            EnumSpecsFeaturesItem.MaxPowerRpm
+                                                                            });
+                        if (versionMinSpecs != null)
+                        {
+                            var minSpecs = versionMinSpecs.GetEnumerator();
+                            foreach (var seriesBike in seriesCompareBikesWithSpecs)
+                            {
+                                if (minSpecs.MoveNext())
+                                {
+                                    seriesBike.MinSpecsList = minSpecs.Current.MinSpecsList;
+                                    foreach (var spec in minSpecs.Current.MinSpecsList)
+                                    {
+                                        Double value;
+                                        uint gears;
+                                        switch (spec.Id)
+                                        {
+                                            case (int)EnumSpecsFeaturesItem.Displacement:
+                                                if (Double.TryParse(spec.Value, out value))
+                                                    seriesBike.Displacement = value;
+                                                break;
+                                            case (int)EnumSpecsFeaturesItem.KerbWeight:
+                                                if (Double.TryParse(spec.Value, out value))
+                                                    seriesBike.Weight = value;
+                                                break;
+                                            case (int)EnumSpecsFeaturesItem.FuelEfficiencyOverall:
+                                                if (Double.TryParse(spec.Value, out value))
+                                                    seriesBike.FuelCapacity = value;
+                                                break;
+                                            case (int)EnumSpecsFeaturesItem.FuelTankCapacity:
+                                                if (Double.TryParse(spec.Value, out value))
+                                                    seriesBike.Mileage = value;
+                                                break;
+                                            case (int)EnumSpecsFeaturesItem.SeatHeight:
+                                                if (Double.TryParse(spec.Value, out value))
+                                                    seriesBike.SeatHeight = value;
+                                                break;
+                                             case (int)EnumSpecsFeaturesItem.BrakeType:
+                                                    seriesBike.BrakeType = spec.Value;
+                                                break;
+                                            case (int)EnumSpecsFeaturesItem.NoOfGears:
+                                                if (uint.TryParse(spec.Value, out gears))
+                                                    seriesBike.Gears = gears;
+                                                break;
+                                            case (int)EnumSpecsFeaturesItem.MaxPowerRpm:
+                                                if (Double.TryParse(spec.Value, out value))
+                                                    seriesBike.MaxPowerRpm = value;
+                                                break;
+                                            case (int)EnumSpecsFeaturesItem.MaxPowerMinSpecs:
+                                                if (Double.TryParse(spec.Value, out value))
+                                                    seriesBike.MaxPower = value;
+                                                break;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
                     for (int i = 0; i < objSeriesPage.ObjModel.BikeSeriesCompareBikeWithSpecs.Count(); i++)
                     {
                         objSeriesPage.ObjModel.BikeSeriesCompareBikeWithSpecs.ElementAt(i).Price = objSeriesPage.SeriesModels.NewBikes.ElementAt(i).Price.ExShowroomPrice > 0 ? objSeriesPage.SeriesModels.NewBikes.ElementAt(i).Price.ExShowroomPrice : objSeriesPage.SeriesModels.NewBikes.ElementAt(i).Price.AvgPrice;
                     }
 
-
+                    
                     IList<string> objList = new List<string>();
                     objList.Add("Price");
                     objList.Add("Displacement");
@@ -430,6 +500,7 @@ namespace Bikewale.Models.BikeSeries
                     objSeriesPage.ObjModel.ObjBikeSpecs.Weight = (ushort)(objSeriesPage.ObjModel.BikeSeriesCompareBikeWithSpecs.TakeWhile(x => x.Weight != objSeriesPage.ObjModel.BikeSeriesCompareBikeWithSpecs.Min(m => m.Weight)).Count() + 1);
                     objSeriesPage.ObjModel.ObjBikeSpecs.FuelCapacity = (ushort)(objSeriesPage.ObjModel.BikeSeriesCompareBikeWithSpecs.TakeWhile(x => x.FuelCapacity != objSeriesPage.ObjModel.BikeSeriesCompareBikeWithSpecs.Max(m => m.FuelCapacity)).Count() + 1);
                     objSeriesPage.ObjModel.ObjBikeSpecs.Displacement = (ushort)(objSeriesPage.ObjModel.BikeSeriesCompareBikeWithSpecs.TakeWhile(x => x.Displacement != objSeriesPage.ObjModel.BikeSeriesCompareBikeWithSpecs.Max(m => m.Displacement)).Count() + 1);
+                    
 
                     objSeriesPage.ObjModel.BikeCompareSegments = objList;
                     objSeriesPage.ObjModel.BikeMake = objSeriesPage.BikeMake;

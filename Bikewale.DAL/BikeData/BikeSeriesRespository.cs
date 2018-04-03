@@ -155,13 +155,18 @@ namespace Bikewale.DAL.BikeData
             return objUpcomingBikeList;
         }
 
-
+        /// <summary>
+        /// Modified by : Pratibha Verma on 3 April 2018
+        /// Description : Replaced sp 'getbikebyseriesidforcompare' with 'getbikebyseriesidforcompare_03042018' and Removed specs mapping
+        /// </summary>
+        /// <param name="seriesId"></param>
+        /// <returns></returns>
         public IEnumerable<BikeSeriesCompareBikes> GetBikesToCompare(uint seriesId)
         {
             IList<BikeSeriesCompareBikes> objModelsList = null;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getbikebyseriesidforcompare"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getbikebyseriesidforcompare_03042018"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
@@ -181,16 +186,7 @@ namespace Bikewale.DAL.BikeData
                                     ModelMaskingName = Convert.ToString(dr["ModelMaskingName"]),
                                     HostUrl = Convert.ToString(dr["HostURL"]),
                                     OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]),
-                                    Displacement = SqlReaderConvertor.ParseToDouble(dr["Displacement"]),
-                                    FuelCapacity = SqlReaderConvertor.ParseToDouble(dr["FuelEfficiencyOverall"]),
-                                    MaxPower = SqlReaderConvertor.ParseToDouble(dr["MaxPower"]),
-                                    Weight = SqlReaderConvertor.ParseToDouble(dr["KerbWeight"]),
-                                    Mileage = SqlReaderConvertor.ParseToDouble(dr["mileage"]),
-                                    SeatHeight = SqlReaderConvertor.ParseToDouble(dr["seatheight"]),
-                                    Gears = SqlReaderConvertor.ToUInt16(dr["NoOfGears"]),
-                                    BrakeType = Convert.ToString(dr["BrakeType"]),
-                                    MaxPowerRpm = SqlReaderConvertor.ParseToDouble(dr["MaxPowerRpm"])
-
+                                    VersionId = SqlReaderConvertor.ToInt32(dr["TopVersionId"])
                                 });
                             }
                             dr.Close();
