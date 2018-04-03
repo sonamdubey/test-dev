@@ -75,12 +75,12 @@ namespace Bikewale.Service.Controllers.UsedBikes
         public IHttpActionResult Post(SellBikeAdOtherInformationDTO otherInfo, int inquiryId, ulong customerId)
         {
             SellBikeAdOtherInformation sellOtherEntity = null;
-            bool result = false;
             if (ModelState.IsValid)
             {
                 sellOtherEntity = UsedBikeBuyerMapper.Convert(otherInfo);
-                result = _usedBikesRepo.UpdateOtherInformation(sellOtherEntity, inquiryId, customerId);
-                return Ok(result);
+                SellBikeInquiryResultEntity inquiry = _usedBikesRepo.UpdateOtherInformation(sellOtherEntity, inquiryId, customerId);
+                SellBikeInquiryResultDTO inquiryDTO = UsedBikeBuyerMapper.Convert(inquiry);
+                return Ok(inquiryDTO);
             }
             else
             {
@@ -138,7 +138,7 @@ namespace Bikewale.Service.Controllers.UsedBikes
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, String.Format("api/used/{0}/image/validate/?isMain={1},FileUploadCount={2},contentType={3}", profileId, isMain, HttpContext.Current.Request.Files.Count, HttpContext.Current.Request.ContentType));
-               
+
                 return InternalServerError();
             }
 
@@ -194,7 +194,7 @@ namespace Bikewale.Service.Controllers.UsedBikes
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, String.Format("api/used/{0}/image/upload/?isMain={1},FileUploadCount={2},contentType={3}", profileId, isMain, HttpContext.Current.Request.Files.Count, HttpContext.Current.Request.ContentType));
-               
+
                 return InternalServerError();
             }
 

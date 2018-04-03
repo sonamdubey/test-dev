@@ -91,7 +91,7 @@ namespace Bikewale.MyBikeWale
             }
             else
             {
-                if (IsAuthorisedUser())
+                if (IsAuthorisedUser(Convert.ToInt32(inquiryId)))
                 {
                     if (Request["Id"] == null || !CommonOpn.CheckId(Request["Id"]))
                     {
@@ -123,7 +123,7 @@ namespace Bikewale.MyBikeWale
             catch (Exception err)
             {
                 ErrorClass.LogError(err, "RemoveFromListing.IsUserLoggedin()");
-                
+
                 return false;
             }
         }
@@ -133,7 +133,7 @@ namespace Bikewale.MyBikeWale
         /// Desc       : Check if user is authorised.
         /// </summary>
         /// <returns></returns>
-        protected bool IsAuthorisedUser()
+        protected bool IsAuthorisedUser(int inquiryId)
         {
             try
             {
@@ -154,7 +154,7 @@ namespace Bikewale.MyBikeWale
                     obj = container.Resolve<ISellBikes>();
                     if (obj != null)
                     {
-                        SellBikeAd inquiryDetailsObject = obj.GetById(Convert.ToInt32(inquiryId), Convert.ToUInt32(CurrentUser.Id));
+                        SellBikeAd inquiryDetailsObject = obj.GetById(inquiryId, Convert.ToUInt32(CurrentUser.Id));
 
                         if (inquiryDetailsObject == null || !inquiryDetailsObject.Status.Equals(SellAdStatus.Approved))
                             return false;
@@ -171,7 +171,7 @@ namespace Bikewale.MyBikeWale
             catch (Exception err)
             {
                 ErrorClass.LogError(err, "RemoveFromListing.IsAuthorisedUser()");
-                
+
                 return false;
             }
         }
@@ -199,14 +199,27 @@ namespace Bikewale.MyBikeWale
             lblMsg.Text = "Please choose a reason to remove the bike from listing and then click 'Remove My Bike' button.";
         }
 
-
+        /// <summary>
+        /// Modified by :   Sumit Kate on 04 Dec 2017
+        /// Description :   Added a check if Used bike inquiry is added by the user who wants to remove it.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            UpdateClassifiedInquirySoldStatus();
-            UpdateSoldStatus();
+            //Check if seller wants to remove its own used bike listing
+            if (IsAuthorisedUser(Convert.ToInt32(inquiryId)))
+            {
+                UpdateClassifiedInquirySoldStatus();
+                UpdateSoldStatus();
 
-            _mc.Remove("BW_ModelWiseUsedBikesCount");
-            isRemovedListing = "1";
+                _mc.Remove("BW_ModelWiseUsedBikesCount");
+                isRemovedListing = "200";
+            }
+            else
+            {
+                isRemovedListing = "401";
+            }
         }
 
         protected void UpdateClassifiedInquirySoldStatus()
@@ -253,13 +266,13 @@ namespace Bikewale.MyBikeWale
             {
                 Trace.Warn(err.Message);
                 ErrorClass.LogError(err, Request.ServerVariables["URL"]);
-                
+
             } // catch Exception
             catch (Exception err)
             {
                 Trace.Warn(err.Message);
                 ErrorClass.LogError(err, Request.ServerVariables["URL"]);
-                
+
             } // catch Exception
 
         }   // End of UpdateSoldStatus method
