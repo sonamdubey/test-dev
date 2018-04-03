@@ -7,6 +7,7 @@ using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Bikewale.Controls
 {
@@ -58,11 +59,7 @@ namespace Bikewale.Controls
                     IEnumerable<VersionMinSpecsEntity> versionMinSpecs = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(new List<int> { bikeInfo.VersionId });
                     if (versionMinSpecs != null)
                     {
-                        var minSpecs = versionMinSpecs.GetEnumerator();
-                        if (minSpecs.MoveNext())
-                        {
-                            bikeInfo.MinSpecsList = minSpecs.Current.MinSpecsList;
-                        }
+                        bikeInfo.MinSpecsList = versionMinSpecs.FirstOrDefault(x => x.VersionId.Equals(bikeInfo.VersionId)).MinSpecsList;
                     }
                     if (bikeInfo.Make != null && bikeInfo.Model != null)
                     {
