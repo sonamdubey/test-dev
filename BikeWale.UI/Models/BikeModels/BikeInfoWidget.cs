@@ -64,9 +64,6 @@ namespace Bikewale.Models
                     {
                         bikeInfo.MinSpecsList = versionMinSpecs.FirstOrDefault(x => x.VersionId.Equals(bikeInfo.VersionId)).MinSpecsList;
                     }
-                }
-                if (bikeInfo != null)
-                {
                     if (_cityId > 0)
                     {
                         var objCityList = _cityCacheRepo.GetAllCities(EnumBikeType.All);
