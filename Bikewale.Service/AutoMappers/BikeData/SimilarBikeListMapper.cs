@@ -20,14 +20,14 @@ namespace Bikewale.Service.AutoMappers.BikeData
         /// <returns></returns>
         internal static IEnumerable<SimilarBike> Convert(IEnumerable<Entities.BikeData.SimilarBikeEntity> objSimilarBikes)
         {
-            try
+            if (objSimilarBikes != null)
             {
                 Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
                 Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
                 Mapper.CreateMap<BikeVersionEntityBase, VersionBase>();
                 Mapper.CreateMap<SimilarBikeEntity, SimilarBike>();
                 IEnumerable<SimilarBike> dtoSimilarBikeList = Mapper.Map<IEnumerable<SimilarBikeEntity>, IEnumerable<SimilarBike>>(objSimilarBikes);
-                if (dtoSimilarBikeList != null && objSimilarBikes != null)
+                if (dtoSimilarBikeList != null)
                 {
                     IEnumerator<SimilarBikeEntity> similarBikeEnumerator = objSimilarBikes.GetEnumerator();
                     foreach (var dtoBike in dtoSimilarBikeList)
@@ -64,10 +64,7 @@ namespace Bikewale.Service.AutoMappers.BikeData
                 }
                 return dtoSimilarBikeList;
             }
-            catch (Exception)
-            {
-                return null;
-            }
+            return null;
         }
     }
 }
