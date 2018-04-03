@@ -57,7 +57,6 @@
             var ytVideo = youtubeVideos[i];
             var ytVideoId = ytVideo.dataset.embed;
             var iframe = lazyloadYoutube.generateIFrame(ytVideoId);
-            //ytVideo.innerHTML = "";
             ytVideo.appendChild(iframe);
         }
 
