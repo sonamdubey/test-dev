@@ -1,4 +1,7 @@
-﻿var ContentTracking = {
+﻿import {triggerNonInteractiveGA}  from './analyticsUtils'
+import {  GA_PAGE_MAPPING } from './constants'
+
+var ContentTracking = {
     contentElement: undefined,
     isDetails: false,
     category: undefined,
@@ -10,18 +13,17 @@
 
     page: {
 
-        getPageType: function () {
-            if (ContentTracking.isDetails) { return "details"; }
-            else { return "listing"; }
-        },
-
         getBasicInfo: function (element, len) {
 
             var currentEle = element[len];
             var categoryId = currentEle.getAttribute('data-category-id');
             var Id = currentEle.getAttribute('data-id');
             var eventLabel = currentEle.getAttribute('data-event-label') + '_' + Id;
-            var eventCategory = document.body.getAttribute('data-page-name')
+            if(typeof(gaObj)!="undefined")
+            {
+                gaObj = GA_PAGE_MAPPING["DetailsPage"];
+            }
+            var eventCategory = gaObj.name;
             return { id: Id, categoryId: categoryId, eventLabel: eventLabel, eventCategory: eventCategory };
         },
 
@@ -44,7 +46,7 @@
                 if (!ContentTracking.trackingStatus[basicId][checkpoint]) {
                     ContentTracking.trackingStatus[basicId][checkpoint] = true;
                     var eventAction = checkpoint === 0 ? "Page_Load" : checkpoint.toString() + "_Viewed";
-                    triggerGA(eventCategory, eventAction, eventLabel);
+                    triggerNonInteractiveGA(eventCategory, eventAction, eventLabel);
                 }
             }       
         },
@@ -61,11 +63,11 @@
 
         registerEvent: function () {
 
-           window.scroll(function () {
+           window.addEventListener('scroll', function () {
                 ContentTracking.tracking.start();
             });
 
-           window.onload(function () {
+           window.addEventListener('load', function () {
                 ContentTracking.tracking.start();
                 ContentTracking.tracking.setDefaultIdInLocalStorage((document.getElementsByClassName('content-details')[0]).getAttribute('data-id'));
             });
@@ -114,9 +116,9 @@
 
     },
 };
-docReady(function () {
 
-    ContentTracking.tracking.setUpTracking(1, 'content-details');
-    ContentTracking.page.registerEvent();
 
-});
+
+module.exports = {
+    ContentTracking
+    };
