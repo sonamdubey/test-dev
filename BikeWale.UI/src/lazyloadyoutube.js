@@ -14,7 +14,13 @@
     },
 
     getPageHeight: function() {
-        return Math.max(lazyloadYoutube.body.scrollHeight, lazyloadYoutube.body.offsetHeight, lazyloadYoutube.html.clientHeight, lazyloadYoutube.html.scrollHeight, lazyloadYoutube.html.offsetHeight);
+        var bodyEle = lazyloadYoutube.body;
+        var htmlEle = lazyloadYoutube.html;
+        return Math.max(bodyEle.scrollHeight, bodyEle.offsetHeight, htmlEle.clientHeight, htmlEle.scrollHeight, htmlEle.offsetHeight);
+    },
+
+    appendImage: function (ytVideo, img) {
+        ytVideo.appendChild(img);
     },
 
     setVideoPreviews: function () {
@@ -29,16 +35,13 @@
 
             var image = new Image();
             image.src = source;
-            image.addEventListener("load", function () {
-                youtubeVideos[i].appendChild(image);
-            }(i));
+            image.addEventListener("load", lazyloadYoutube.appendImage(youtubeVideos[i], image));
         }
     },
 
     getScrollPercent: function () {
         var scrollTop = lazyloadYoutube.html.scrollTop;
-        var scrollPercentage = (scrollTop / lazyloadYoutube.getPageHeight());
-        return scrollPercentage;
+        return (scrollTop / lazyloadYoutube.getPageHeight());
     },
 
     generateIFrame: function (videoId) {
@@ -64,7 +67,7 @@
     }
 }
 
-docReady(lazyloadYoutube.setVideoPreviews());
+docReady(lazyloadYoutube.setVideoPreviews);
 
 window.addEventListener("scroll", function (event) {
     if (!lazyloadYoutube._videosLoaded) {
