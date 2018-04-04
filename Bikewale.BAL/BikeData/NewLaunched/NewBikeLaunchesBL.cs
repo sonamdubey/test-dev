@@ -1,4 +1,5 @@
-﻿using Bikewale.Entities.BikeData;
+﻿using Bikewale.BAL.GrpcFiles.Specs_Features;
+using Bikewale.Entities.BikeData;
 using Bikewale.Entities.BikeData.NewLaunched;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.NewLaunched;
@@ -103,10 +104,50 @@ namespace Bikewale.BAL.BikeData.NewLaunched
         }
 
         /// <summary>
+        /// Created by  : Rajan Chauhan on 3 Apr 2018
+        /// Description : Method to get NewLaunchedBikesList
+        /// </summary>
+        /// <param name="startIndex"></param>
+        /// <param name="endIndex"></param>
+        /// <param name="makeId"></param>
+        /// <returns></returns>
+        public NewLaunchedBikesBase GetNewLaunchedBikesList(int startIndex, int endIndex, int? makeId = null)
+        {
+            NewLaunchedBikesBase result = null;
+            try
+            {
+                result = _modelCache.GetNewLaunchedBikesList(startIndex, endIndex, makeId);
+                IEnumerable<NewLaunchedBikeEntity> newLaunchesList = result != null ? result.Models : null;
+                if (newLaunchesList != null && newLaunchesList.Any())
+                {
+                    IEnumerable<VersionMinSpecsEntity> versionMinSpecs = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(newLaunchesList.Select(m => m.VersionId));
+                    if (versionMinSpecs != null)
+                    {
+                        var minSpecs = versionMinSpecs.GetEnumerator();
+                        foreach (var bike in newLaunchesList)
+                        {
+                            if (minSpecs.MoveNext())
+                            {
+                                bike.MinSpecsList = minSpecs.Current.MinSpecsList;
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, String.Format("NewBikeLaunchesBL.GetNewLaunchedBikesList({0}, {1}, {2})", startIndex, endIndex, makeId));
+            }
+            return result;
+        }
+
+        /// <summary>
         /// Created by  :   Sumit Kate on 10 Feb 2017
         /// Description :   Get New Launched Bikes with filters
         /// Modified by:- Subodh jain 09 march 2017
         ///summary :-  Added body type filter
+        /// Modified by : Rajan Chauhan on 04 Apr 2018
+        /// Description : Binding logic for minSpecs from MS added
         /// </summary>
         /// <param name="filters"></param>
         /// <returns></returns>
@@ -131,6 +172,22 @@ namespace Bikewale.BAL.BikeData.NewLaunched
                         result.Bikes = filteredBikes.Page(filters.PageNo, filters.PageSize);
                         result.TotalCount = (uint)filteredBikes.Count();
                         result.Filter = filters;
+                    }
+                    IEnumerable<NewLaunchedBikeEntityBase> newLaunchesList = result.Bikes;
+                    if (newLaunchesList != null && newLaunchesList.Any())
+                    {
+                        IEnumerable<VersionMinSpecsEntity> versionMinSpecs = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(newLaunchesList.Select(m => m.VersionId));
+                        if (versionMinSpecs != null)
+                        {
+                            var minSpecs = versionMinSpecs.GetEnumerator();
+                            foreach (var bike in newLaunchesList)
+                            {
+                                if (minSpecs.MoveNext())
+                                {
+                                    bike.MinSpecsList = minSpecs.Current.MinSpecsList;
+                                }
+                            }
+                        }
                     }
                 }
             }
