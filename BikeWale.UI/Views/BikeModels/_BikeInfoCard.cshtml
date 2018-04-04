@@ -40,13 +40,7 @@
                             @if (Model.BikeInfo.MinSpecsList != null && Model.BikeInfo.MinSpecsList.Any())
                             {
                                 <ul class="key-specs-list margin-bottom15 text-light-grey">
-                                    @foreach (var specsItem in Model.BikeInfo.MinSpecsList)
-                                    {
-                                    <li>
-                                        <span class="bwsprite capacity-sm"></span>
-                                        <span>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(specsItem.Value,specsItem.UnitType)</span>
-                                    </li>
-                                     }
+                                    @Html.Raw(Bikewale.Utility.FormatMinSpecs.GetMinSpecsLiElementsWithIcon(Model.BikeInfo.MinSpecsList))
                                 </ul>
                             }
                             <ul class="item-more-details-list margin-bottom5 inline-block">

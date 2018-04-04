@@ -147,6 +147,36 @@ namespace Bikewale.Utility
                 return string.Empty;
             }
         }
+
+        /// <summary>
+        /// Created by : Pratibha Verma on 4 April 2018
+        /// Description : Method to format specs items in li elements with Icons.
+        /// </summary>
+        /// <param name="specsItemList">List of Specs Items.</param>
+        /// <returns>String containing specs items with Icons in li elements.</returns>
+        public static string GetMinSpecsLiElementsWithIcon(IEnumerable<SpecsItem> specsItemList)
+        {
+            try
+            {
+                StringBuilder builder = new StringBuilder();
+                if (specsItemList != null)
+                {
+                    foreach (var specItem in specsItemList)
+                    {
+                        if (!string.IsNullOrEmpty(specItem.Value))
+                        {
+                            specItem.Icon = "bwsprite capacity-sm";
+                            builder.AppendFormat("<li><span class = \"{0}\"></span>{1} {2}</li>", specItem.Icon, specItem.Value, specItem.UnitType);
+                        }
+                    }
+                }
+                return builder.ToString();
+            }
+            catch (Exception)
+            {
+                return string.Empty;
+            }
+        }
         /// <summary>
         /// Written By  : Ashish G. Kamble On 10 Sept 2015
         /// Summary     : Function to format the availability
@@ -419,6 +449,10 @@ namespace Bikewale.Utility
                 if (dataType.Equals(EnumSpecDataType.Boolean))
                 {
                     return value.Equals("1") ? "Yes" : "No";
+                }
+                else if (dataType.Equals(EnumSpecDataType.Integer))
+                {
+                    return String.Format("{0} {1}", Format.FormatNumeric(value), unit);
                 }
                 else
                 {

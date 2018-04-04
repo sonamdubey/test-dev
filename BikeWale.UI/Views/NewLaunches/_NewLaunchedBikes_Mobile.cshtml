@@ -46,10 +46,10 @@
                                 specItem.MoveNext();
                                 var currentSpec = specItem.Current;
                                 <!-- ko if : models()[@i].minSpec[@j] -->
-                                <li data-bind="visible : models()[@i].minSpec[@j].value != '',text:models()[@i].minSpec[@j].value +' ' + models()[@i].minSpec[@j].unitType" style="display:@(currentSpec != null ? "inline-block" : "none")">
-                                    @if (currentSpec != null)
+                                <li data-bind="visible : models()[@i].minSpec[@j].value != '',text:models()[@i].minSpec[@j].value +' ' + models()[@i].minSpec[@j].unitType" style="display:@(!String.IsNullOrEmpty(currentSpec.Value) ? "inline-block" : "none")">
+                                    @if (!String.IsNullOrEmpty(currentSpec.Value))
                                     {
-                                        @Bikewale.Utility.FormatMinSpecs.ShowAvailable(currentSpec.Value, currentSpec.UnitType)
+                                        @Bikewale.Utility.FormatMinSpecs.ShowAvailable(currentSpec.Value, currentSpec.UnitType, currentSpec.DataType)
                                     }
                                 </li>
                                 <!-- /ko -->
