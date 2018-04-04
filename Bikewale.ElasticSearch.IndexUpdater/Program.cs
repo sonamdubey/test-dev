@@ -23,7 +23,6 @@ namespace Bikewale.ElasticSearch.IndexUpdaterConsumer
         private const string ES_OPERATION_PARTIALUPDATE = "partialupdate";
 
         private static ElasticClient client;
-        private static int NO_OF_RETRIES;
 
         static Program(){
             log4net.Config.XmlConfigurator.Configure();
@@ -31,7 +30,6 @@ namespace Bikewale.ElasticSearch.IndexUpdaterConsumer
             {
                 client = ElasticSearchInstance.GetInstance();
                 isESInstanceInitialized = true;
-                NO_OF_RETRIES = Convert.ToInt32(ConfigurationManager.AppSettings["RetryCount"]);
             }
             catch (Exception e)
             {
@@ -106,16 +104,13 @@ namespace Bikewale.ElasticSearch.IndexUpdaterConsumer
         /// This method is used to Insert/Update/Delete a document in an Elastic Search Index
         /// Modified by : Ashutosh Sharma on 31 Mar 2018.
         /// Description : Added case to paritally update a document. No need to pass whole document in "documentJson" field of "queueMessage".
+        ///               Removed retries on failure as message is pushed to DeadLetterQueue.
         /// </summary>
         /// <param name="queueMessage"></param>
         /// <param name="c"></param>
         /// <returns></returns>
-        private static bool InsertOrUpdateDocumentInIndex(NameValueCollection queueMessage, int c = 0)
+        private static bool InsertOrUpdateDocumentInIndex(NameValueCollection queueMessage)
         {
-            if (c >= NO_OF_RETRIES) {
-                return true;
-            }
-
             string indexName = queueMessage["indexName"];
             string documentType = queueMessage["documentType"];
             string documentJson = null;
@@ -208,12 +203,9 @@ namespace Bikewale.ElasticSearch.IndexUpdaterConsumer
                 else
                 {
                     Logs.WriteErrorLog(string.Format("Error! ES Operation can't be processed, Response : {0}", esResponse));
-                    isOperationSuccessful = InsertOrUpdateDocumentInIndex(queueMessage, ++c);
                 }
             }
             return isOperationSuccessful;
-            
-
         }
 
     }
