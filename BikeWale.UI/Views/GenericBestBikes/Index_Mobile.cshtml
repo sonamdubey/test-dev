@@ -72,12 +72,7 @@
                                     <ul class="key-specs-list font12 text-xx-light">
                                         @if (bike.MinSpecsList != null)
                                         {
-                                            foreach (var specItem in bike.MinSpecsList)
-                                            {
-                                            <li>
-                                                <span>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(specItem.Value, specItem.UnitType) </span>
-                                            </li>
-                                            }
+                                            @Html.Raw(Bikewale.Utility.FormatMinSpecs.GetMinSpecsLiElements(bike.MinSpecsList))
                                         }
                                     </ul>
                                 </div>
