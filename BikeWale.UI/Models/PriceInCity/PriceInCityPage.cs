@@ -77,6 +77,14 @@ namespace Bikewale.Models
         private readonly String _adPath_Mobile = "/1017752/Bikewale_CityPrice_Mobile";
         private readonly String _adId_Mobile = "1516080888816";
 
+
+        private readonly String _adPath_Desktop = "/1017752/Bikewale_CityPrice";
+        private readonly String _adId_Desktop = "1517407919554";
+
+        private readonly String _adId_SimilarBikes = "1505919734321";
+        private readonly String _adPath_SimilarBikes_Desktop = "/1017752/SimilarBikes_Desktop";
+        private readonly String _adPath_SimilarBikes_Mobile = "/1017752/SimilarBikes_Mobile";
+
         /// <summary>
         /// Created by  :   Sumit Kate on 28 Mar 2017
         /// Description :   Constructor to initialize the member variables
@@ -488,45 +496,81 @@ namespace Bikewale.Models
             {
                 if (objVM.AdTags != null)
                 {
+                    IDictionary<string, AdSlotModel> ads = new Dictionary<string, AdSlotModel>();
+                    var adTag = objVM.AdTags;
+
                     if (IsMobile)
                     {
-                        var adTag = objVM.AdTags;
                         adTag.AdPath = _adPath_Mobile;
                         adTag.AdId = _adId_Mobile;
                         adTag.Ad_320x50 = !objVM.AdTags.ShowInnovationBannerMobile;
                         adTag.Ad_300x250 = true;
                         adTag.Ad_Bot_320x50 = true;
                         adTag.Ad_200x253 = _adSlot.CheckAdSlotStatus("Ad_200x253");  //For similar bikes widget mobile
-                       
-                        IDictionary < string, AdSlotModel > ads = new Dictionary<string, AdSlotModel>();
 
                         NameValueCollection adInfo = new NameValueCollection();
                         adInfo["adId"] = _adId_Mobile;
                         adInfo["adPath"] = _adPath_Mobile;
 
                         if (objVM.AdTags.Ad_320x50)
-                            ads.Add(String.Format("{0}-0", _adId_Mobile), GoogleAdsHelper.SetAdSlotProperties(adInfo, new String[] { ViewSlotSize._320x50 }, 0, 320, AdSlotSize._320x50, "Top", true));
+                            ads.Add(String.Format("{0}-0", _adId_Mobile), GoogleAdsHelper.SetAdSlotProperties(adInfo, ViewSlotSize.ViewSlotSizes[AdSlotSize._320x50], 0, 320, AdSlotSize._320x50, "Top", true));
 
                         if (objVM.AdTags.Ad_300x250)
-                            ads.Add(String.Format("{0}-2", _adId_Mobile), GoogleAdsHelper.SetAdSlotProperties(adInfo, new String[] { ViewSlotSize._300x250 }, 2, 300, AdSlotSize._300x250));
+                            ads.Add(String.Format("{0}-2", _adId_Mobile), GoogleAdsHelper.SetAdSlotProperties(adInfo, ViewSlotSize.ViewSlotSizes[AdSlotSize._300x250], 2, 300, AdSlotSize._300x250));
 
                         if (objVM.AdTags.Ad_Bot_320x50)
-                            ads.Add(String.Format("{0}-1", _adId_Mobile), GoogleAdsHelper.SetAdSlotProperties(adInfo, new String[] { ViewSlotSize._320x50 }, 1, 320, AdSlotSize._320x50, "Bottom"));
+                            ads.Add(String.Format("{0}-1", _adId_Mobile), GoogleAdsHelper.SetAdSlotProperties(adInfo, ViewSlotSize.ViewSlotSizes[AdSlotSize._320x50], 1, 320, AdSlotSize._320x50, "Bottom"));
 
                         if (objVM.AdTags.Ad_200x253)
                         {
                             NameValueCollection adInfo_OldAd = new NameValueCollection();
-                            adInfo_OldAd["adId"] = "1505919734321";
-                            adInfo_OldAd["adPath"] = _adPath_Mobile;
-                            ads.Add(String.Format("{0}-11", adInfo_OldAd["adId"]), GoogleAdsHelper.SetAdSlotProperties(adInfo_OldAd, new String[] { ViewSlotSize._200x253 }, 11, 200, AdSlotSize._200x253));
+                            adInfo_OldAd["adId"] = _adId_SimilarBikes;
+                            adInfo_OldAd["adPath"] = _adPath_SimilarBikes_Mobile;
+                            ads.Add(String.Format("{0}-11", adInfo_OldAd["adId"]), GoogleAdsHelper.SetAdSlotProperties(adInfo_OldAd, ViewSlotSize.ViewSlotSizes[AdSlotSize._200x253], 11, 200, AdSlotSize._200x253));
                         }
-                        objVM.AdSlots = ads;
-
                     }
                     else
                     {
-                        objVM.AdTags.Ad_292x399 = _adSlot.CheckAdSlotStatus("Ad_292x399");   //For similar bikes widget desktop
+                        adTag.AdPath = _adPath_Desktop;
+                        adTag.AdId = _adId_Desktop;
+                        adTag.Ad_300x250 = objVM.IsNew;
+                        adTag.Ad_Model_BTF_300x250 = (objVM.NearestPriceCities != null && objVM.NearestPriceCities.PriceQuoteList != null && objVM.NearestPriceCities.PriceQuoteList.Count() > 8) ? true : false;
+                        adTag.Ad_970x90 = !objVM.AdTags.ShowInnovationBannerDesktop;
+                        adTag.Ad_970x90Bottom = true;
+                        adTag.Ad_292x399 = _adSlot.CheckAdSlotStatus("Ad_292x399");  //For similar bikes widget desktop
+
+                        NameValueCollection adInfo = new NameValueCollection();
+                        adInfo["adId"] = _adId_Desktop;
+                        adInfo["adPath"] = _adPath_Desktop;
+
+                        if (objVM.AdTags.Ad_300x250)
+                        {
+                            ads.Add(String.Format("{0}-1", _adId_Desktop), GoogleAdsHelper.SetAdSlotProperties(adInfo, ViewSlotSize.ViewSlotSizes[AdSlotSize._300x250], 1, 300, AdSlotSize._300x250, true));
+                        }
+                        if (objVM.AdTags.Ad_Model_BTF_300x250)
+                        {
+                            ads.Add(String.Format("{0}-11", _adId_Desktop), GoogleAdsHelper.SetAdSlotProperties(adInfo, ViewSlotSize.ViewSlotSizes[AdSlotSize._300x250], 11, 300, AdSlotSize._300x250));
+
+                        }
+                        if (objVM.AdTags.Ad_970x90)
+                        {
+                            ads.Add(String.Format("{0}-3", _adId_Desktop), GoogleAdsHelper.SetAdSlotProperties(adInfo, ViewSlotSize.ViewSlotSizes[AdSlotSize._970x90 + "_C"], 3, 970, AdSlotSize._970x90, true));
+                        }
+                        if (objVM.AdTags.Ad_970x90Bottom)
+                        {
+                            ads.Add(String.Format("{0}-5", _adId_Desktop), GoogleAdsHelper.SetAdSlotProperties(adInfo, ViewSlotSize.ViewSlotSizes[AdSlotSize._970x90 + "_C"], 5, 970, AdSlotSize._970x90, "Bottom"));
+
+                        }
+                        if (objVM.AdTags.Ad_292x399)
+                        {
+                            NameValueCollection adInfo_OldAd = new NameValueCollection();
+                            adInfo_OldAd["adId"] = _adId_SimilarBikes;
+                            adInfo_OldAd["adPath"] = _adPath_SimilarBikes_Desktop;
+                            ads.Add(String.Format("{0}-14", adInfo_OldAd["adId"]), GoogleAdsHelper.SetAdSlotProperties(adInfo_OldAd, ViewSlotSize.ViewSlotSizes[AdSlotSize._292x399], 14, 292, AdSlotSize._292x399));
+                        }
                     }
+
+                    objVM.AdSlots = ads;
 
                 }
 
@@ -648,11 +692,15 @@ namespace Bikewale.Models
                             objVM.BodyStyleText = objVM.BodyStyle == EnumBikeBodyStyles.Scooter ? "Scooters" : "Bikes";
                         }
 
-                        if (firstVersion != null && firstVersion.OnRoadPrice > 0)
+                        if (firstVersion != null)
                         {
-                            BindEMISlider(objVM);
                             BindBikeBasicDetails(objVM);
-                            BindSimilarBikes(objVM);
+
+                            if (firstVersion.OnRoadPrice > 0)
+                            {
+                                BindEMISlider(objVM);
+                                BindSimilarBikes(objVM); 
+                            }
                         }
 
 
@@ -1455,7 +1503,7 @@ namespace Bikewale.Models
                         objData.IsManufacturerEMIAdShown = true;
                     }
 
-                    
+
 
                     if (objData.IsManufacturerLeadAdShown)
                     {

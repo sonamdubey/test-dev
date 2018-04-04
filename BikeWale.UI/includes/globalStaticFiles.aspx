@@ -4,7 +4,32 @@
     private bool isTransparentHeader = false;
 </script>
 <link rel="SHORTCUT ICON" href="<%= staticUrlPath != "" ? "https://img2.aeplcdn.com/bikewaleimg" : "" %>/images/favicon.png?<%= staticFilesVersion%>" type="image/png" />
-<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+
+        <%
+            string fontFile = "/css/fonts/OpenSans/open-sans-v15-latin-regular.woff",
+            fontUrl = String.Format("{0}{1}?{2}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, fontFile, Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion);
+        %>
+        <style>
+            @font-face { 
+                font-family: 'Open Sans';
+                font-style: normal;
+                font-weight: 400;
+                src: local('Open Sans Regular'), local('OpenSans-Regular'), url('<%= fontUrl%>') format('woff');
+             }
+        </style>
+        
+        <%  
+            fontFile = "/css/fonts/OpenSans/open-sans-v15-latin-700.woff";
+            fontUrl  = String.Format("{0}{1}?{2}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, fontFile, Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion); 
+        %>
+        <style>
+             @font-face { 
+	            font-family: 'Open Sans';
+	            font-style: normal;
+	            font-weight: 700;
+	            src: local('Open Sans Bold'), local('OpenSans-Bold'), url('<% =fontUrl %>') format('woff');
+             }
+        </style>
 
 <link href="<%= String.IsNullOrEmpty(staticUrlPath) ? "" : staticUrlPath %>/css/style.css?<%= staticFilesVersion%>" rel="stylesheet" type="text/css" />
 <link href="<%= String.IsNullOrEmpty(staticUrlPath) ? "" : staticUrlPath %>/css/960.css?<%= staticFilesVersion%>" rel="stylesheet" type="text/css" />

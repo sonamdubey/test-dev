@@ -97,7 +97,9 @@
             <div class="text-left alpha">
                 @if (Model.AdTags.Ad_Model_ATF_300x250)
                 {
-                    @Html.Partial("~/Views/Shared/Ads/Desktop/Model_ATF_300x250.cshtml", Model.AdTags)
+                    <div class="sponsored-card">
+                        @{Html.RenderPartial("/Views/Shared/Ads/Desktop/AdSlotGeneric.cshtml", Model.AdSlots[String.Format("{0}-9", Model.AdTags.AdId)]);}
+                    </div>
                 }
             </div>
             <div id="adBlocker" class="adBlocker-grid text-left alpha hide">
