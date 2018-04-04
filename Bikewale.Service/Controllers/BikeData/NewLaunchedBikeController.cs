@@ -57,20 +57,19 @@ namespace Bikewale.Service.Controllers.BikeData
         {
             try
             {
-                LaunchedBikeList objLaunched = new LaunchedBikeList();
                 int startIndex = 0, endIndex = 0, currentPageNo = 1;
                 currentPageNo = curPageNo.HasValue ? curPageNo.Value : 1;
 
                 _objPager.GetStartEndIndex(pageSize, currentPageNo, out startIndex, out endIndex);
-
-                IEnumerable<NewLaunchedBikeEntity> objRecent = _modelCacheRepository.GetNewLaunchedBikesList(startIndex, endIndex).Models;
-
-                objLaunched.LaunchedBike = LaunchedBikeListMapper.Convert(objRecent);
-
-                if (objLaunched != null && objLaunched.LaunchedBike != null && objLaunched.LaunchedBike.Any())
-                    return Ok(objLaunched);
-                else
-                    return NotFound();
+                NewLaunchedBikesBase objNewLaunched = _newBikeLaunchBL.GetNewLaunchedBikesList(startIndex, endIndex);
+                if (objNewLaunched != null)
+                {
+                    IEnumerable<NewLaunchedBikeEntity> objRecent = objNewLaunched.Models;
+                    LaunchedBikeList objLaunched = new LaunchedBikeList();
+                    objLaunched.LaunchedBike = LaunchedBikeListMapper.Convert(objRecent);
+                    if (objLaunched.LaunchedBike != null && objLaunched.LaunchedBike.Any())
+                        return Ok(objLaunched);
+                }
             }
             catch (Exception ex)
             {
@@ -78,6 +77,7 @@ namespace Bikewale.Service.Controllers.BikeData
                
                 return InternalServerError();
             }
+            return NotFound();
         }
 
 
@@ -96,22 +96,6 @@ namespace Bikewale.Service.Controllers.BikeData
                 {
                     InputFilter filterEntity = LaunchedBikeListMapper.Convert(filter);
                     NewLaunchedBikeResult entity = _newBikeLaunchBL.GetBikes(filterEntity);
-                    IEnumerable<NewLaunchedBikeEntityBase> newLaunchesList = entity.Bikes;
-                    if (newLaunchesList != null && newLaunchesList.Any())
-                    {
-                        IEnumerable<VersionMinSpecsEntity> versionMinSpecs = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(newLaunchesList.Select(m => m.VersionId));
-                        if (versionMinSpecs != null)
-                        {
-                            var minSpecs = versionMinSpecs.GetEnumerator();
-                            foreach (var bike in newLaunchesList)
-                            {
-                                if (minSpecs.MoveNext())
-                                {
-                                    bike.MinSpecsList = minSpecs.Current.MinSpecsList;
-                                }
-                            }
-                        }
-                    }
                     if (entity.TotalCount > 0)
                     {
                         NewLaunchedBikeResultDTO dto = LaunchedBikeListMapper.Convert(entity);
