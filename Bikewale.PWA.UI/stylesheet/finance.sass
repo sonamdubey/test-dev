@@ -1,2 +1,33 @@
-body
-	background: #e2e2e2
+// Core variables and mixins
+@import 'base/variables'
+@import 'base/typography'
+@import 'base/mixin'
+
+// Components
+@import 'components/common'
+@import 'components/text-color'
+
+@import 'components/header'
+@import 'components/loader'
+@import 'components/visibility'
+
+@import 'mixins/index'
+@import 'utils/index'
+
+.finance-content__head
+  padding: 15px 20px
+  background: #fff
+
+.finance-head__title
+  font-size: 20px
+
+// overview
+.overview__content
+  font-size: 13px
+  line-height: 22px
+  color: #82888b
+  padding: 20px
+  background-color: #fff
+
+// tabs
+@include scroll-spy-tabs

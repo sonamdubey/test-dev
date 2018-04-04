@@ -13,7 +13,7 @@
 		var ManifestJsUrl = "/pwa/js/manifest.bundle.js";
 		var VendorJsUrl = "/pwa/js/vendor.bundle.js";
 		var AppJsUrl = "/pwa/js/app.bundle.js";
-		var NewsJsUrl = "/pwa/js/newsBundle.bundle.js";
+		var NewsJsUrl = "/pwa/js/financeBundle.bundle.js";
 		var BwcacheJsUrl = (!String.IsNullOrEmpty(StaticUrl) ? StaticUrl : "") + "/src/bwcache.js?" + Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion;
 
 	}
@@ -129,7 +129,7 @@
 
 	</script>
 	<link rel='stylesheet' type='text/css' href='/pwa/css/app.css' atf-css />
-	<link rel='stylesheet' type='text/css' href='/pwa/css/news/newsBundle.css' atf-css />
+	<link rel='stylesheet' type='text/css' href='/pwa/css/finance/financeBundle.css' atf-css />
 
 	<link rel="dns-prefetch" href="https://imgd.aeplcdn.com/">
 	<link rel="dns-prefetch" href="https://stb.aeplcdn.com/">
@@ -180,7 +180,7 @@
 <body>
 	@Html.Raw(Model.ServerRouterWrapper)
 
-
+	<div id="root"></div>
 
 
 	@{Html.RenderPartial("/Views/Shared/_ServiceWorkerScript.cshtml");}
