@@ -390,6 +390,8 @@ namespace Bikewale.Models.BikeSeries
         /// <summary>
         /// Created By :- Subodh Jain 17-11-2017
         /// Summary :- GetCompareBikes Details
+        /// Modified by : Pratibha Verma on 3 April 2018
+        /// Description : Added grpc call to fetch min specs data
         /// </summary>
         /// <param name="objSeriesPage"></param>
         private void GetBikesToCompare(SeriesPageVM objSeriesPage)
