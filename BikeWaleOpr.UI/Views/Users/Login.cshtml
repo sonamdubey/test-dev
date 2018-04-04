@@ -9,38 +9,21 @@
     <title>@ViewBag.Title</title>
     <link href="~/css/materialize.css" rel="stylesheet" />
     <link href="~/css/Common.css" rel="stylesheet" />
+    <link href="~/css/login.css" rel="stylesheet" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     </head>
-<body id="cbody">
-    <div class="container">
-        <div id="gSignInWrapper ">
-            <div id="customBtn" class="customGPlusSignIn pointer offset-m3">
-                <img src="~/images/glogin.png" />
-            </div>
+<body class="center-align">
+    <div class="mainDiv" style="">
+        <div class="loginHeader"  >BikeWale Operations</div>
+        <div id="gSignInWrapper">
+            <button id="customBtn" class="offset-m3 loginBtn loginBtn--google">Sign in with Google</button>
         </div>
-        <div id="invalidLogin" class="hide">
-            <p><strong>Bikewale Opr login using personal Gmail address is restricted</strong></p>
-            <p>You've attempted to access Opr using your personal email address ( xxxx@gmail.com). Please try logging in using a CarWale email address (xxxx@carwale.com). Here is how you can try again:</p>
-            <ul>
-                <li>
-                    <p>Open <a href='https://accounts.google.com' target='_blank'>www.gmail.com</a> in a new tab. You should be automatically logged in</p>
-                </li>
-                <li>
-                    <p>Log out of Gmail</p>
-                </li>
-                <li>
-                    <p>Refresh this page or open Bikewale Opr again in another tab</p>
-                </li>
-                <li>
-                    <p>Log in using your CarWale email address</p>
-                </li>
-            </ul>
-            <p>If you're still not able to login, please contact the system administration team.</p>
-        </div>
+        <p class="displayMsg">Login using CarWale email address (xxxx@carwale.com)</p>
     </div>
 
     <script src="~/src/framework.js" type="text/javascript"></script>
     <script src="~/src/api_client.js"></script>
+    <script> var isAuthenticated = '@TempData["isAuthenticated"]'; </script>
     <script src="~/src/users/login.js"></script>
 </body>
 </html>

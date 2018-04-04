@@ -10,21 +10,37 @@ using System.Web.Mvc;
 
 namespace BikeWaleOpr.MVC.UI.Controllers
 {
+    /// <summary>
+    /// Created By : Ashish G. Kamble
+    /// </summary>
     public class UsersController : Controller
     {
         private readonly IUsers _users = null;
 
+        /// <summary>
+        /// Constructor to pass the dependencies
+        /// </summary>
+        /// <param name="users"></param>
         public UsersController(IUsers users)
         {
             _users = users;
         }
 
-        // GET: Users
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Index()
         {
             return View();
         }
 
+        /// <summary>
+        /// Written By : Ashish Kamble
+        /// Summary : Action method will redirect user to home page if user is already authenticated 
+        /// else user will be redirected to the login page
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Login()
         {
             try
@@ -51,48 +67,61 @@ namespace BikeWaleOpr.MVC.UI.Controllers
         /// <returns></returns>
         public ActionResult Authenticate(string returnUrl, string idtoken)
         {
-           try
+            try
             {
-               if(!string.IsNullOrEmpty(idtoken))
-               {
-                   string loginId = string.Empty;
-                   UserDetailsEntity objUserDetailsEntity = null;
+                bool isAuthenticated = true;
+                if (!string.IsNullOrEmpty(idtoken))
+                {
+                    string loginId = string.Empty;
+                    
+                    loginId = _users.GoogleApiAuthentication(idtoken);
 
-                   loginId = _users.GoogleApiAuthentication(idtoken);
+                    if (!string.IsNullOrEmpty(loginId))
+                    {                        
+                        UserDetailsEntity objUserDetailsEntity = _users.GetUserDetails(loginId);
 
-                   if (!string.IsNullOrEmpty(loginId))
-                   {
-                       objUserDetailsEntity = _users.GetUserDetails(loginId);
-                   }
+                        if (objUserDetailsEntity != null && objUserDetailsEntity.UserId > 0)
+                        {
+                            //create a ticket and add it to the cookie
+                            System.Web.Security.FormsAuthenticationTicket ticket;
+                            //now add the id and the role to the ticket, concat the id and role, separated by ',' 
 
-                   if (objUserDetailsEntity != null && objUserDetailsEntity.UserId > 0)
-                   {
-                       //create a ticket and add it to the cookie
-                       System.Web.Security.FormsAuthenticationTicket ticket;
-                       //now add the id and the role to the ticket, concat the id and role, separated by ',' 
+                            string strUserData = Convert.ToString(objUserDetailsEntity.UserId) + ":" + loginId + ":" + objUserDetailsEntity.UserName;
+                            ticket = new System.Web.Security.FormsAuthenticationTicket(1, Convert.ToString(objUserDetailsEntity.UserId), DateTime.Now, DateTime.Now.AddHours(12), false, strUserData);
 
-                       string strUserData = Convert.ToString(objUserDetailsEntity.UserId) + ":" + loginId + ":" + objUserDetailsEntity.UserName;
-                       ticket = new System.Web.Security.FormsAuthenticationTicket(1, Convert.ToString(objUserDetailsEntity.UserId), DateTime.Now, DateTime.Now.AddHours(12), false, strUserData);
+                            //add the ticket into the cookie
+                            HttpCookie objCookie;
+                            objCookie = new HttpCookie(System.Web.Security.FormsAuthentication.FormsCookieName);
+                            objCookie.Value = System.Web.Security.FormsAuthentication.Encrypt(ticket);
+                            objCookie.Expires = DateTime.Now.AddHours(12);
 
-                       //add the ticket into the cookie
-                       HttpCookie objCookie;
-                       objCookie = new HttpCookie(System.Web.Security.FormsAuthentication.FormsCookieName);
-                       objCookie.Value = System.Web.Security.FormsAuthentication.Encrypt(ticket);
-                       objCookie.Expires = DateTime.Now.AddHours(12);
+                            ControllerContext.HttpContext.Response.Cookies.Add(objCookie);
+                        }
+                        else
+                        {
+                            isAuthenticated = false;
+                        }
+                    }
+                    else
+                    {
+                        isAuthenticated = false;
+                    }
+                }
 
-                       ControllerContext.HttpContext.Response.Cookies.Add(objCookie);
-                   }
-               }
-               
-               if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
-                    && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
-               {
-                   return Redirect(returnUrl);
-               }
-               else
-               {
-                   return RedirectToAction("Index", "Home");
-               }
+                if (!isAuthenticated)
+                {
+                    TempData["isAuthenticated"] = "false";
+                    return RedirectToAction("Login");
+                }
+
+                if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/") && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
+                {
+                    return Redirect(returnUrl);
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Home");
+                }
             }
             catch (Exception ex)
             {
