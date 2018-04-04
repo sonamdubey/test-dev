@@ -1,4 +1,5 @@
-﻿using Bikewale.Common;
+﻿using Bikewale.BAL.GrpcFiles.Specs_Features;
+using Bikewale.Common;
 using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Compare;
@@ -111,6 +112,21 @@ namespace Bikewale.Models
                 objData.Make = _objMakeCache.GetMakeDetails(_makeId);
                 objData.Description = _objMakeCache.GetScooterMakeDescription(objResponse.MakeId);
                 objData.Scooters = _bikeModels.GetMostPopularScooters(_makeId);
+                if (objData.Scooters != null)
+                {
+                    var minSpecsFeaturesList = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(objData.Scooters.Select(b => b.objVersion.VersionId));
+                    if (minSpecsFeaturesList != null)
+                    {
+                        var minSpecsEnumerator = minSpecsFeaturesList.GetEnumerator();
+                        foreach (var scooter in objData.Scooters)
+                        {
+                            if (minSpecsEnumerator.MoveNext())
+                            {
+                                scooter.MinSpecsList = minSpecsEnumerator.Current.MinSpecsList;
+                            }
+                        }
+                    }
+                }
 
                 if (objData.Make != null)
                 {
