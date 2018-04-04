@@ -1,4 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.New.ModelSpecsFeatures" EnableViewState="false" %>
+
 <%@ Register TagPrefix="BW" TagName="GenericBikeInfo" Src="~/controls/GenericBikeInfoControl.ascx" %>
 <!DOCTYPE html>
 
@@ -21,7 +22,7 @@
     %>
     <!-- #include file="/includes/headscript.aspx" -->
     <link href="<%=  staticUrl  %>/css/specsandfeature.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
-    
+
 </head>
 <body class="bg-light-grey">
     <form runat="server">
@@ -34,7 +35,7 @@
                             <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
                                 <a href="/" itemprop="url"><span itemprop="title">Home</span></a>
                             </li>
-                             <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
                                 <span class="bwsprite fa-angle-right margin-right10"></span>
                                 <a href="/new-bikes-in-india/" itemprop="url"><span itemprop="title">New Bikes</span></a>
                             </li>
@@ -43,21 +44,21 @@
                                 <a href="/<%= makeMaskingName %>-bikes/" itemprop="url"><span itemprop="title"><%= makeName %> Bikes</span></a>
                             </li>
 
-                              <% if (IsScooter && !IsScooterOnly)
-                                  { %>
-                              <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                            <% if (IsScooter && !IsScooterOnly)
+                                { %>
+                            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
                                 <span class="bwsprite fa-angle-right margin-right10"></span>
                                 <a href="/<%= makeMaskingName %>-scooters/" itemprop="url"><span itemprop="title"><%= String.Format("{0} Scooters", makeName) %></span></a>
                             </li>
-                              <%  }
-                                 %>
+                            <%  }
+                            %>
 
                             <% if (!string.IsNullOrEmpty(seriesUrl))
                                 { %>
-                                <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-                                    <span class="bwsprite fa-angle-right margin-right10"></span>
-                                    <a href="/<%= seriesUrl %>" itemprop="url"><span itemprop="title"><%= Series.SeriesName %></span></a>
-                                </li>
+                            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                                <span class="bwsprite fa-angle-right margin-right10"></span>
+                                <a href="/<%= seriesUrl %>" itemprop="url"><span itemprop="title"><%= Series.SeriesName %></span></a>
+                            </li>
                             <% } %>
 
                             <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
@@ -68,7 +69,7 @@
                                 <span class="bwsprite fa-angle-right margin-right10"></span>
                                 <span>Specifications & Features</span>
                             </li>
-                          
+
                         </ul>
                         <div class="clear"></div>
                     </div>
@@ -77,20 +78,23 @@
             </div>
         </section>
         <div>
-    </div>
+        </div>
 
         <section id="bikeModelHeading" class="container">
             <div class="grid-12">
-                <% if (Bikewale.Utility.BWConfiguration.Instance.MetasMakeId.Split(',').Contains(_makeId.ToString())) {%> 
+                <% if (Bikewale.Utility.BWConfiguration.Instance.MetasMakeId.Split(',').Contains(_makeId.ToString()))
+                    {%>
                 <h1 class="content-box-shadow content-inner-block-1420 box-shadow">Specifications & Feature of <%= bikeName%></h1>
-                
-                <%} else { %>
+
+                <%}
+                    else
+                    { %>
                 <h1 class="content-box-shadow content-inner-block-1420 box-shadow"><%= bikeName %> Specifications and Features</h1>
                 <%} %>
             </div>
             <div class="clear"></div>
         </section>
-        
+
         <section id="modelCardAndDetailsWrapper" class="container margin-bottom20 font14">
             <div class="grid-12">
                 <div id="modelFloatingCardContent">
@@ -98,120 +102,123 @@
                         <div class="content-inner-block-1020">
                             <div class="grid-5 alpha omega">
                                 <div class="model-card-image-content inline-block-top margin-right20">
-                                    <img src="<%= modelImage %>" 
-                                        title="<%= String.Format("{0} {1}", bikeName, versionName) %> Images" alt="<%= String.Format("{0} {1}", bikeName, versionName) %> Photos"  />
+                                    <img src="<%= modelImage %>"
+                                        title="<%= String.Format("{0} {1}", bikeName, versionName) %> Images" alt="<%= String.Format("{0} {1}", bikeName, versionName) %> Photos" />
                                 </div>
                                 <div class="model-card-title-content inline-block-top">
                                     <p class="font16 text-bold margin-bottom5"><%= bikeName %></p>
                                     <p class="font14 text-light-grey"><%= versionName %></p>
                                 </div>
                             </div>
-                            
+
                             <% if (isDiscontinued)
                                 { %>
-                                <div class="grid-7 padding-left30">
-                                    <p class="font14 text-light-grey text-truncate">Last known Ex-showroom price</p>
-                                    <div>
-                                        <span class="bwsprite inr-lg"></span>&nbsp;<span class="font18 text-bold"><%= Bikewale.Utility.Format.FormatPrice(price.ToString()) %></span>
-                                    </div>
-                                    <p class="font14 text-light-grey"><%= bikeName %> is now discontinued in India.</p>
+                            <div class="grid-7 padding-left30">
+                                <p class="font14 text-light-grey text-truncate">Last known Ex-showroom price</p>
+                                <div>
+                                    <span class="bwsprite inr-lg"></span>&nbsp;<span class="font18 text-bold"><%= Bikewale.Utility.Format.FormatPrice(price.ToString()) %></span>
                                 </div>
-                                <div class="clear"></div>
+                                <p class="font14 text-light-grey"><%= bikeName %> is now discontinued in India.</p>
+                            </div>
+                            <div class="clear"></div>
                             <%  }
                                 else
                                 { %>
-                                <div class="grid-4 padding-left30">
-                                    <p class="font14 text-light-grey text-truncate"><%=IsExShowroomPrice ? "Ex-showroom price in Mumbai" : string.Format("On-road price in {0} {1}", areaName, cityName) %></p>
-                                    <span class="bwsprite inr-lg"></span>
-                                    <span class="font18 text-bold">
-                                        <% if (price > 0)
-                                            { %>
-                                        <%= Bikewale.Utility.Format.FormatPrice(price.ToString()) %>
-                                        <% }
-                                            else
-                                            { %>
+                            <div class="grid-4 padding-left30">
+                                <p class="font14 text-light-grey text-truncate"><%=IsExShowroomPrice ? "Ex-showroom price in Mumbai" : string.Format("On-road price in {0} {1}", areaName, cityName) %></p>
+                                <span class="bwsprite inr-lg"></span>
+                                <span class="font18 text-bold">
+                                    <% if (price > 0)
+                                        { %>
+                                    <%= Bikewale.Utility.Format.FormatPrice(price.ToString()) %>
+                                    <% }
+                                        else
+                                        { %>
                                         Price not available
                                         <% } %>
-                                    </span>
-                                </div>
+                                </span>
+                            </div>
                             <%} %>
-                             <div class="clear"></div>
-              
+                            <div class="clear"></div>
+
                         </div>
                         <div class="overall-specs-tabs-wrapper">
                             <a class="active" href="#specs">Specifications</a>
                             <a href="#features">Features</a>
                         </div>
                     </div>
-                 </div>
+                </div>
                 <div id="modelSpecsAndFeaturesWrapper" class="content-box-shadow">
                     <div class="border-divider"></div>
-                    <% if(versionSpecsFeatures != null) { %>
+                    <% if (versionSpecsFeatures != null)
+                        { %>
                     <% string itemValue, featureValue; %>
-                    <% if (versionSpecsFeatures.Specs != null && versionSpecsFeatures.Specs.Any()) { %>
+                    <% if (versionSpecsFeatures.Specs != null && versionSpecsFeatures.Specs.Any())
+                        { %>
                     <div id="specs" class="bw-model-tabs-data padding-top20">
-                    <h2 class="padding-left20 padding-right20">Specifications</h2>
-                     <% foreach (var specCat in versionSpecsFeatures.Specs)
-                         { %>
-                            <% var firstGridSpecsCount = (specCat.SpecsItemList.Count() + 1) / 2;
+                        <h2 class="padding-left20 padding-right20">Specifications</h2>
+                        <% foreach (var specCat in versionSpecsFeatures.Specs)
+                            { %>
+                        <% var firstGridSpecsCount = (specCat.SpecsItemList.Count() + 1) / 2;
+                        %>
+                        <h3 class="specs-feature__category-name"><%=specCat.DisplayText %></h3>
+                        <div class="grid-6">
+                            <% foreach (var specItem in specCat.SpecsItemList.Take(firstGridSpecsCount))
+                                {
+                                    itemValue = specItem.ItemValues.FirstOrDefault();
                             %>
-                            <h3 class="specs-feature__category-name"><%=specCat.DisplayText %></h3>
-                            <div class="grid-6">
-                                <% foreach (var specItem in specCat.SpecsItemList.Take(firstGridSpecsCount))
-                                    {
-                                        itemValue = specItem.ItemValues.FirstOrDefault();
-                                          %>
-                                           <p>
-                                                <span class="specs-features-item__content text-light-grey"><%=specItem.DisplayText%></span>
-                                                <span class="specs-features-item__content text-bold"><%=Bikewale.Utility.FormatMinSpecs.ShowAvailable(itemValue, specItem.UnitTypeText, specItem.DataType)%></span>
-                                            </p>
-                                <% } %>
-                            </div>
-                       
-                            <div class="grid-6">
-                                <% foreach (var specItem in specCat.SpecsItemList.Skip(firstGridSpecsCount))
-                                    {
-                                        itemValue = specItem.ItemValues.FirstOrDefault();
-                                        %>
-                                         <p>
-                                            <span class="specs-features-item__content text-light-grey"><%=specItem.DisplayText %></span>
-                                            <span class="specs-features-item__content text-bold"><%=Bikewale.Utility.FormatMinSpecs.ShowAvailable(itemValue, specItem.UnitTypeText, specItem.DataType)%></span>
-                                         </p>
-                                <% } %>
-                            </div>
-                            <div class="clear"></div>
-                         <% } %>
+                            <p>
+                                <span class="specs-features-item__content text-light-grey"><%=specItem.DisplayText%></span>
+                                <span class="specs-features-item__content text-bold"><%=Bikewale.Utility.FormatMinSpecs.ShowAvailable(itemValue, specItem.UnitTypeText, specItem.DataType)%></span>
+                            </p>
+                            <% } %>
+                        </div>
+
+                        <div class="grid-6">
+                            <% foreach (var specItem in specCat.SpecsItemList.Skip(firstGridSpecsCount))
+                                {
+                                    itemValue = specItem.ItemValues.FirstOrDefault();
+                            %>
+                            <p>
+                                <span class="specs-features-item__content text-light-grey"><%=specItem.DisplayText %></span>
+                                <span class="specs-features-item__content text-bold"><%=Bikewale.Utility.FormatMinSpecs.ShowAvailable(itemValue, specItem.UnitTypeText, specItem.DataType)%></span>
+                            </p>
+                            <% } %>
+                        </div>
+                        <div class="clear"></div>
+                        <% } %>
                         <div class="margin-top30 margin-right10 margin-left10 border-divider"></div>
                         <% } %>
                     </div>
 
                     <div id="features" class="bw-model-tabs-data padding-top20 padding-bottom40">
-                        <% if (versionSpecsFeatures.Features != null && versionSpecsFeatures.Features.Any()) { %>
+                        <% if (versionSpecsFeatures.Features != null && versionSpecsFeatures.Features.Any())
+                            { %>
                         <% var firstGridFeaturesCount = (versionSpecsFeatures.Features.Count() + 1) / 2;
-                          %>
-                        <h2 class="padding-left20 padding-right20">Features</h2>
-                        <% foreach (var feature in versionSpecsFeatures.Features.Take(firstGridFeaturesCount))
-                            {
-                                featureValue = feature.ItemValues.FirstOrDefault();
-                                %>
-                            <div class="grid-6">
-                                        <p>
-                                            <span class="specs-features-item__content text-light-grey"><%=feature.DisplayText %></span>
-                                            <span class="specs-features-item__content text-bold"><%=Bikewale.Utility.FormatMinSpecs.ShowAvailable(featureValue, feature.UnitTypeText, feature.DataType) %></span>
-                                         </p>
-                            </div>
-                        <% } %>
-                        <% foreach (var feature in versionSpecsFeatures.Features.Skip(firstGridFeaturesCount))
-                            {
-                                featureValue = feature.ItemValues.FirstOrDefault();
-                                %>
-                            <div class="grid-6">
-                                        <p>
-                                            <span class="specs-features-item__content text-light-grey"><%=feature.DisplayText %></span>
-                                            <span class="specs-features-item__content text-bold"><%=Bikewale.Utility.FormatMinSpecs.ShowAvailable(featureValue, feature.UnitTypeText, feature.DataType) %></span>
-                                         </p>
-                            </div>
-                        <% } %>
+                        %>
+                        <h2 class="padding-left20 padding-right20 padding-bottom15">Features</h2>
+                        <div class="grid-6">
+                            <% foreach (var feature in versionSpecsFeatures.Features.Take(firstGridFeaturesCount))
+                                {
+                                    featureValue = feature.ItemValues.FirstOrDefault();
+                            %>
+                            <p>
+                                <span class="specs-features-item__content text-light-grey"><%=feature.DisplayText %></span>
+                                <span class="specs-features-item__content text-bold"><%=Bikewale.Utility.FormatMinSpecs.ShowAvailable(featureValue, feature.UnitTypeText, feature.DataType) %></span>
+                            </p>
+                            <% } %>
+                        </div>
+                        <div class="grid-6">
+                            <% foreach (var feature in versionSpecsFeatures.Features.Skip(firstGridFeaturesCount))
+                                {
+                                    featureValue = feature.ItemValues.FirstOrDefault();
+                            %>
+                            <p>
+                                <span class="specs-features-item__content text-light-grey"><%=feature.DisplayText %></span>
+                                <span class="specs-features-item__content text-bold"><%=Bikewale.Utility.FormatMinSpecs.ShowAvailable(featureValue, feature.UnitTypeText, feature.DataType) %></span>
+                            </p>
+                            <% } %>
+                        </div>
                         <div class="clear"></div>
                         <% } %>
                     </div>
@@ -254,12 +261,12 @@
                                                 {
                                                     if (bike.VersionPrice > 0)
                                                     { %>
-                                                        <p class="text-light-grey margin-bottom5"><%= string.Format("Ex-showroom, {0}", bike.CityName) %></p>
-                                                     <% }
-                                                    else
-                                                    { %>
-                                                    <p>
-                                                    <span class="text-light-grey margin-bottom5 margin-right5">Avg. Ex-showroom price</span><span class="bwsprite info-icon tooltip-icon-target tooltip-top">
+                                            <p class="text-light-grey margin-bottom5"><%= string.Format("Ex-showroom, {0}", bike.CityName) %></p>
+                                            <% }
+                                                else
+                                                { %>
+                                            <p>
+                                                <span class="text-light-grey margin-bottom5 margin-right5">Avg. Ex-showroom price</span><span class="bwsprite info-icon tooltip-icon-target tooltip-top">
                                                     <span class="bw-tooltip info-tooltip">
                                                         <span class="bw-tooltip-text"><%= string.Format("Price is not available in {0}", bike.CityName) %></span>
                                                     </span>
@@ -286,8 +293,8 @@
                                     <% } %>
                                     <% if (similarBikes.Make != null && similarBikes.Model != null && similarBikes.IsNew)
                                         {
-                                           string fullUrl = string.Format("/{0}",Bikewale.Utility.UrlFormatter.CreateCompareUrl(similarBikes.Make.MaskingName, similarBikes.Model.MaskingName, bike.MakeBase.MaskingName, bike.ModelBase.MaskingName, Convert.ToString(similarBikes.VersionId),  Convert.ToString(bike.VersionBase.VersionId), (uint)similarBikes.Model.ModelId, (uint)bike.ModelBase.ModelId, Bikewale.Entities.Compare.CompareSources.Desktop_Model_MostPopular_Compare_Widget));
-                                            %>
+                                            string fullUrl = string.Format("/{0}", Bikewale.Utility.UrlFormatter.CreateCompareUrl(similarBikes.Make.MaskingName, similarBikes.Model.MaskingName, bike.MakeBase.MaskingName, bike.ModelBase.MaskingName, Convert.ToString(similarBikes.VersionId), Convert.ToString(bike.VersionBase.VersionId), (uint)similarBikes.Model.ModelId, (uint)bike.ModelBase.ModelId, Bikewale.Entities.Compare.CompareSources.Desktop_Model_MostPopular_Compare_Widget));
+                                    %>
                                     <a title="<%= Bikewale.Utility.UrlFormatter.CreateCompareTitle(bike.ModelBase.ModelName, similarBikes.Model.ModelName) %>" href="<%=Bikewale.Utility.UrlFormatter.RemoveQueryString(fullUrl) %>" data-url="<%=fullUrl  %>" class="compare-with-target text-truncate redirect-url">
                                         <span class="bwsprite compare-sm"></span>Compare with <%= similarBikes.Model.ModelName %><span class="bwsprite next-grey-icon"></span>
                                     </a>
@@ -394,8 +401,8 @@
                         <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
                     </div>
                     <% } %>
-            </div>
-            <% } %>
+                </div>
+                <% } %>
             </div>
             <div class="clear"></div>
         </section>
@@ -406,10 +413,10 @@
             var pageUrl = window.location.href;
             var clientIP = '<%= clientIP %>';
             var bikename = '<%= bikeName %>';
-            var bikeVersionName = bikename + '_' + '<%= versionName %>'; 
+            var bikeVersionName = bikename + '_' + '<%= versionName %>';
             var cityArea = '<%=cityName%>' + '_' + '<%=areaName%>';
-            var BkCityArea=bikename+'_'+cityArea;
-            ga_pg_id=15;
+            var BkCityArea = bikename + '_' + cityArea;
+            ga_pg_id = 15;
             $(document).ready(function () {
 
                 var hashValue = window.location.hash.substr(1);
@@ -463,7 +470,7 @@
                     $('html, body').animate({ scrollTop: target.offset().top - modelDetailsFloatingCard.height() }, 1000);
                     return false;
                 });
-           });
+            });
         </script>
 
     </form>
