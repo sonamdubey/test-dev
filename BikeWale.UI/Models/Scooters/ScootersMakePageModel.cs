@@ -87,6 +87,8 @@ namespace Bikewale.Models
         /// Description :   Returns the Scooters Index Page view model
         /// Modified by : snehal Dange on 28th Nov 2017
         /// Descritpion : Added ga for page
+        /// Modified by : Pratibha Verma on 4 April 2018
+        /// Description : Added grpc call to get minSpecs
         /// </summary>
         /// <returns></returns>
         public ScootersMakePageVM GetData()
