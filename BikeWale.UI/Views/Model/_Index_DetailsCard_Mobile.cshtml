@@ -1,4 +1,5 @@
 ﻿@model Bikewale.Models.BikeModels.ModelPageVM
+@{var adIdSimilarBikes = "1505919734321";}
 @if (Model.ExpertReviews != null && Model.ExpertReviews.FetchedCount > 0)
 {
     <div id="expertReviewsContent" data-id="expertReviewsContent" class="bw-model-tabs-data padding-top15 padding-bottom20 content-box-shadow card-bottom-margin content-details-wrapper font14">
@@ -31,10 +32,10 @@
         <div class="swiper-container card-container swiper-type-similar">
             <div class="swiper-wrapper">
                 @if (Model.AdTags.Ad_200x253)
-                    {
-                        { Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad200x253.cshtml", new { AdId = "1505919734321" }); }
+                {
+                    {Html.RenderPartial("/Views/Shared/Ads/Mobile/AdSlotGeneric.cshtml", Model.AdSlots[String.Format("{0}-11", adIdSimilarBikes)]);}
 
-                    }
+                }
                 @Html.Partial("~/Views/BikeModels/_SimilarBikes_Mobile.cshtml", Model.SimilarBikes)
             </div>
         </div>

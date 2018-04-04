@@ -15,7 +15,7 @@ namespace Bikewale.PinCodesAutosuggest
     /// </summary>
     public class GetPinCodeListDb
     {
-        private static string _con = ConfigurationManager.AppSettings["ReadOnlyConnectionString"];
+        private static string _con = ConfigurationManager.ConnectionStrings["ReadOnlyConnectionString"].ConnectionString;
 
         /// <summary>
         /// Created By : Sushil Kumar on 9th March 2017
