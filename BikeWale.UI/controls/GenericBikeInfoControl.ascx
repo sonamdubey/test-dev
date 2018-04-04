@@ -41,7 +41,7 @@
                         <% if (bikeInfo.MinSpecsList != null && bikeInfo.MinSpecsList.Any())
                            { %>
                         <ul class="key-specs-list margin-bottom15 text-light-grey">
-                            <%=Bikewale.Utility.FormatMinSpecs.GetMinSpecsLiElementsWithIcon(bikeInfo.MinSpecsList, "bwsprite capacity-sm")%>
+                            <%=Bikewale.Utility.FormatMinSpecs.GetMinSpecsLiElementsWithIcon(bikeInfo.MinSpecsList)%>
                         </ul>
                         <%} %>                        
                         <ul class="item-more-details-list margin-bottom5 inline-block">

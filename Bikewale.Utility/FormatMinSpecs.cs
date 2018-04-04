@@ -153,8 +153,8 @@ namespace Bikewale.Utility
         /// Description : Method to format specs items in li elements with Icons.
         /// </summary>
         /// <param name="specsItemList">List of Specs Items.</param>
-        /// <returns>String containing specs items in li elements.</returns>
-        public static string GetMinSpecsLiElementsWithIcon(IEnumerable<SpecsItem> specsItemList, string Icon)
+        /// <returns>String containing specs items with Icons in li elements.</returns>
+        public static string GetMinSpecsLiElementsWithIcon(IEnumerable<SpecsItem> specsItemList)
         {
             try
             {
@@ -165,7 +165,8 @@ namespace Bikewale.Utility
                     {
                         if (!string.IsNullOrEmpty(specItem.Value))
                         {
-                            builder.AppendFormat("<li><span class = \"{0}\"></span>{1} {2}</li>", Icon, specItem.Value, specItem.UnitType);
+                            specItem.Icon = "bwsprite capacity-sm";
+                            builder.AppendFormat("<li><span class = \"{0}\"></span>{1} {2}</li>", specItem.Icon, specItem.Value, specItem.UnitType);
                         }
                     }
                 }

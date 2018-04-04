@@ -67,6 +67,12 @@ namespace Bikewale.Utility
             try
             {
                 int breakPoint = 3, noOfCommas = 3;
+                if (numberToFormat.Contains("."))
+                {
+                    int index = numberToFormat.IndexOf(".");
+                    formatted += numberToFormat.Substring(index);
+                    numberToFormat = numberToFormat.Substring(0,numberToFormat.Length - (numberToFormat.Length - index));
+                }
                 for (int i = numberToFormat.Length - 1; i >= 0; i--)
                 {
                     formatted = numberToFormat[i].ToString() + formatted;
