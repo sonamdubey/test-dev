@@ -67,11 +67,11 @@ namespace Bikewale.Utility
             try
             {
                 int breakPoint = 3, noOfCommas = 3;
-                if (numberToFormat.Contains("."))
+                if (numberToFormat.IndexOf(".") != -1)
                 {
-                    int index = numberToFormat.IndexOf(".");
-                    formatted += numberToFormat.Substring(index);
-                    numberToFormat = numberToFormat.Substring(0,numberToFormat.Length - (numberToFormat.Length - index));
+                    string [] tokens = numberToFormat.Split('.');
+                    numberToFormat = tokens[0];
+                    formatted += "." + tokens[1];
                 }
                 for (int i = numberToFormat.Length - 1; i >= 0; i--)
                 {
