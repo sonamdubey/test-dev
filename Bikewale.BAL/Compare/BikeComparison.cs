@@ -77,6 +77,8 @@ namespace Bikewale.BAL.Compare
         /// Summary     : used nullable bool function to format specs and features
         /// Modified by : Vivek Singh Tomar on 20th Dec 2017
         /// Summary     : Optimization of TransposeCompareBikeData method reduced extra operations
+        /// Modified by : Rajan Chauhan on 4 Apr 2018
+        /// Description : Removed compareSpecifications and compareFeatures
         /// </summary>
         /// <param name="compareEntity"></param>
         /// <param name="versions"></param>
@@ -88,35 +90,6 @@ namespace Bikewale.BAL.Compare
 
                 if (compareEntity != null && arrVersion != null)
                 {
-                    CompareMainCategory compareSpecifications = GetCompareMainCategory(BWConstants.Specifications);
-
-                    var specificationsSpec = new List<CompareSubMainCategory>();
-
-                    #region Specifications
-                    CompareSubMainCategory engineTransmission = GetEngineAndTransmission(compareEntity, arrVersion);
-                    specificationsSpec.Add(engineTransmission);
-
-                    CompareSubMainCategory brakesWheelsSuspension = GetBrakeWheelSuspension(compareEntity, arrVersion);
-                    specificationsSpec.Add(brakesWheelsSuspension);
-
-                    CompareSubMainCategory dimensionChasis = GetDimensionsAndChasis(compareEntity, arrVersion);
-                    specificationsSpec.Add(dimensionChasis);
-
-                    CompareSubMainCategory fuelEfficiencyPerformance = GetFuelEfficiencyPerformance(compareEntity, arrVersion);
-                    specificationsSpec.Add(fuelEfficiencyPerformance);
-
-                    compareSpecifications.Spec = specificationsSpec;
-                    compareEntity.CompareSpecifications = compareSpecifications;
-
-                    #endregion
-
-                    CompareMainCategory compareFeatures = GetCompareMainCategory(BWConstants.Features);
-                    #region Features
-                    CompareSubMainCategory features = GetFeatures(compareEntity, arrVersion);
-                    compareFeatures.Spec.Add(features);
-                    compareEntity.CompareFeatures = compareFeatures;
-                    #endregion
-
                     CompareBikeColorCategory compareColors = GetCompareColors(compareEntity, arrVersion);
                     compareEntity.CompareColors = compareColors;
 

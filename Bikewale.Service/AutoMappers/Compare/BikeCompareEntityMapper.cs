@@ -1,4 +1,10 @@
 ﻿using AutoMapper;
+using Bikewale.DTO.Compare;
+using Bikewale.Entities.BikeData;
+using Bikewale.Entities.Compare;
+using Bikewale.Utility;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace Bikewale.Service.AutoMappers.Compare
 {
@@ -10,27 +16,111 @@ namespace Bikewale.Service.AutoMappers.Compare
     {
         /// <summary>
         /// Converts Entity to DTO
+        /// Modified By : Rajan Chauhan on 04 Apr 2018
+        /// Description : Binding of compareSpecifications and compareFeatures with VersionSpecsFeatures
         /// </summary>
         /// <param name="compareEntity"></param>
         /// <returns></returns>
-        internal static DTO.Compare.BikeCompareDTO Convert(Entities.Compare.BikeCompareEntity compareEntity)
+        internal static BikeCompareDTO Convert(BikeCompareEntity compareEntity)
         {
             if (compareEntity != null)
             {
-                Mapper.CreateMap<Bikewale.Entities.Compare.BikeEntityBase, Bikewale.DTO.Compare.BikeDTOBase>();
-                Mapper.CreateMap<Bikewale.Entities.Compare.BikeColor, Bikewale.DTO.Compare.BikeColorDTO>();
-                Mapper.CreateMap<Bikewale.Entities.Compare.BikeCompareEntity, Bikewale.DTO.Compare.BikeCompareDTO>();                
-                Mapper.CreateMap<Bikewale.Entities.Compare.BikeEntityBase, Bikewale.DTO.Compare.BikeDTOBase>();
-                Mapper.CreateMap<Bikewale.Entities.Compare.BikeFeature, Bikewale.DTO.Compare.BikeFeatureDTO>();
-                Mapper.CreateMap<Bikewale.Entities.Compare.BikeModelColor, Bikewale.DTO.Compare.BikeModelColorDTO>();
-                Mapper.CreateMap<Bikewale.Entities.Compare.BikeSpecification, Bikewale.DTO.Compare.BikeSpecificationDTO>();
-                Mapper.CreateMap<Bikewale.Entities.Compare.CompareBikeColor, Bikewale.DTO.Compare.CompareBikeColorDTO>();
-                Mapper.CreateMap<Bikewale.Entities.Compare.CompareBikeColorCategory, Bikewale.DTO.Compare.CompareBikeColorCategoryDTO>();
-                Mapper.CreateMap<Bikewale.Entities.Compare.CompareBikeData, Bikewale.DTO.Compare.CompareBikeDataDTO>();
-                Mapper.CreateMap<Bikewale.Entities.Compare.CompareMainCategory, Bikewale.DTO.Compare.CompareMainCategoryDTO>();
-                Mapper.CreateMap<Bikewale.Entities.Compare.CompareSubCategory, Bikewale.DTO.Compare.CompareSubCategoryDTO>();
-                Mapper.CreateMap<Bikewale.Entities.Compare.CompareSubMainCategory, Bikewale.DTO.Compare.CompareSubMainCategoryDTO>();
-                return Mapper.Map<Bikewale.Entities.Compare.BikeCompareEntity, Bikewale.DTO.Compare.BikeCompareDTO>(compareEntity);
+                Mapper.CreateMap<BikeEntityBase, BikeDTOBase>();
+                Mapper.CreateMap<BikeColor, BikeColorDTO>();
+                Mapper.CreateMap<BikeCompareEntity, BikeCompareDTO>();
+                Mapper.CreateMap<BikeEntityBase, BikeDTOBase>();
+                Mapper.CreateMap<BikeFeature, BikeFeatureDTO>();
+                Mapper.CreateMap<Bikewale.Entities.Compare.BikeModelColor, BikeModelColorDTO>();
+                Mapper.CreateMap<BikeSpecification, BikeSpecificationDTO>();
+                Mapper.CreateMap<CompareBikeColor, CompareBikeColorDTO>();
+                Mapper.CreateMap<CompareBikeColorCategory, CompareBikeColorCategoryDTO>();
+                Mapper.CreateMap<CompareBikeData, CompareBikeDataDTO>();
+                Mapper.CreateMap<CompareMainCategory, CompareMainCategoryDTO>();
+                Mapper.CreateMap<CompareSubCategory, CompareSubCategoryDTO>();
+                Mapper.CreateMap<CompareSubMainCategory, CompareSubMainCategoryDTO>();
+                DTO.Compare.BikeCompareDTO objDto = Mapper.Map<BikeCompareEntity, BikeCompareDTO>(compareEntity);
+                if (compareEntity.VersionSpecsFeatures != null)
+                {
+                    var specList = compareEntity.VersionSpecsFeatures.Specs;
+                    if (specList != null && specList.Any())
+                    {
+                        CompareMainCategoryDTO specsDto = new CompareMainCategoryDTO()
+                        {
+                            Text = BWConstants.Specifications,
+                            Value = BWConstants.Specifications,
+                            Spec = new List<CompareSubMainCategoryDTO>()
+                        };
+                        CompareSubMainCategoryDTO subCategoryDto;
+                        // Used for setting Value field in CompareSubMainCategoryDTO required for Icon placement in APP
+                        int value = 2; 
+                        foreach (var specCategory in specList)
+                        {
+                            subCategoryDto = new CompareSubMainCategoryDTO()
+                            {
+                                Text = specCategory.DisplayText,
+                                Value = value.ToString(),
+                                SpecCategory = Convert(specCategory.SpecsItemList)
+                            };
+                            specsDto.Spec.Add(subCategoryDto);
+                            value++;
+                        }
+                        objDto.CompareSpecifications = specsDto;
+                    }
+
+                    var featuresList = compareEntity.VersionSpecsFeatures.Features;
+                    if (featuresList != null && featuresList.Any())
+                    {
+                        CompareMainCategoryDTO featuresDto = new CompareMainCategoryDTO()
+                        {
+                            Text = BWConstants.Features,
+                            Value = BWConstants.Features,
+                            Spec = new List<CompareSubMainCategoryDTO>()
+                        };
+                        CompareSubMainCategoryDTO subCategoryDto;
+                        subCategoryDto = new CompareSubMainCategoryDTO()
+                        {
+                            Text = BWConstants.Features,
+                            Value = BWConstants.Features,
+                            SpecCategory = Convert(featuresList)
+                        };
+                        featuresDto.Spec.Add(subCategoryDto);
+                        objDto.CompareFeatures = featuresDto;
+                    }
+
+                }
+                return objDto;
+            }
+            return null;
+        }
+
+        private static IList<CompareSubCategoryDTO> Convert(IEnumerable<SpecsFeaturesItem> specFeaturesItemList)
+        {
+            if (specFeaturesItemList != null)
+            {
+                IList<CompareSubCategoryDTO> subCategoryDto = new List<CompareSubCategoryDTO>();
+                IList<CompareBikeDataDTO> bikeDataDtoList;
+                string specDisplayText;
+                foreach (var specFeatureItem in specFeaturesItemList)
+                {
+                    bikeDataDtoList = new List<CompareBikeDataDTO>(); 
+                    foreach(var itemValue in specFeatureItem.ItemValues){
+                        specDisplayText = FormatMinSpecs.ShowAvailable(itemValue, specFeatureItem.DataType);
+                        bikeDataDtoList.Add(new CompareBikeDataDTO(){
+                            Text =  specDisplayText,
+                            Value = specDisplayText
+                        });
+                    }
+                    specDisplayText = string.Format("{0}{1}", specFeatureItem.DisplayText, string.IsNullOrEmpty(specFeatureItem.UnitTypeText) ?
+                        string.Empty : string.Format(" ({0})", specFeatureItem.UnitTypeText));
+                    subCategoryDto.Add(new CompareSubCategoryDTO()
+                    {
+                        Text = specDisplayText,
+                        Value = specDisplayText,
+                        CompareSpec = bikeDataDtoList
+                    });
+
+                }
+                return subCategoryDto;
             }
             return null;
         }

@@ -319,7 +319,7 @@ namespace Bikewale.BAL.BikeData
                             new List<EnumSpecsFeaturesItem>
                             {
                                 EnumSpecsFeaturesItem.Displacement,
-                                EnumSpecsFeaturesItem.MaxPowerBhp,
+                                EnumSpecsFeaturesItem.MaxPower,
                                 EnumSpecsFeaturesItem.MaximumTorque,
                                 EnumSpecsFeaturesItem.NoOfGears,
                                 EnumSpecsFeaturesItem.FuelEfficiencyOverall,
@@ -331,7 +331,8 @@ namespace Bikewale.BAL.BikeData
                                 EnumSpecsFeaturesItem.ChassisType,
                                 EnumSpecsFeaturesItem.TopSpeed,
                                 EnumSpecsFeaturesItem.TubelessTyres,
-                                EnumSpecsFeaturesItem.FuelTankCapacity
+                                EnumSpecsFeaturesItem.FuelTankCapacity,
+                                EnumSpecsFeaturesItem.MaxPowerBhp
                             });
                         objModelPage.SpecsSummaryList = objOverview != null ? objOverview.MinSpecsList : null;
                         BindMinSpecs(objModelPage.ModelVersions,

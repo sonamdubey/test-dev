@@ -303,7 +303,7 @@ namespace Bikewale.Service.AutoMappers.Model
                     specsCategory.Insert(0, new DTO.Model.v2.SpecsCategory()
                     {
                         DisplayName = "Summary",
-                        Specs = Convert(objModelPage.SpecsSummaryList)
+                        Specs = Convert(objModelPage.SpecsSummaryList.Reverse().Skip(1).Reverse())
                     });
                 }
 
