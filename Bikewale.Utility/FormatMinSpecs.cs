@@ -103,7 +103,7 @@ namespace Bikewale.Utility
                     {
                         if (!string.IsNullOrEmpty(specItem.Value))
                         {
-                           builder.AppendFormat("<span>{0} {1}</span>, ", specItem.DataType.Equals(EnumSpecDataType.Integer) ? Format.FormatNumeric(specItem.Value) : specItem.UnitType);
+                           builder.AppendFormat("<span>{0} {1}</span>, ", specItem.DataType.Equals(EnumSpecDataType.Integer) ? Format.FormatNumeric(specItem.Value) : specItem.Value, specItem.UnitType);
                         }
                     }
                     if (builder.Length > 1)
@@ -136,7 +136,7 @@ namespace Bikewale.Utility
                     {
                         if (!string.IsNullOrEmpty(specItem.Value))
                         {
-                           builder.AppendFormat("<li>{0} {1}</li>", specItem.DataType.Equals(EnumSpecDataType.Integer) ? Format.FormatNumeric(specItem.Value) : specItem.UnitType);
+                           builder.AppendFormat("<li>{0} {1}</li>", specItem.DataType.Equals(EnumSpecDataType.Integer) ? Format.FormatNumeric(specItem.Value) : specItem.Value, specItem.UnitType);
                         }
                     }
                 }
@@ -166,7 +166,7 @@ namespace Bikewale.Utility
                         if (!string.IsNullOrEmpty(specItem.Value))
                         {
                             specItem.Icon = "bwsprite capacity-sm";
-                            builder.AppendFormat("<li><span class = \"{0}\"></span>{1} {2}</li>", specItem.Icon, specItem.DataType.Equals(EnumSpecDataType.Integer) ? Format.FormatNumeric(specItem.Value) : specItem.UnitType);
+                            builder.AppendFormat("<li><span class = \"{0}\"></span>{1} {2}</li>", specItem.Icon, specItem.DataType.Equals(EnumSpecDataType.Integer) ? Format.FormatNumeric(specItem.Value) : specItem.Value, specItem.UnitType);
                         }
                     }
                 }
