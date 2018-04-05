@@ -1,4 +1,6 @@
-﻿using Bikewale.DTO.Compare;
+﻿using Bikewale.BAL.GrpcFiles.Specs_Features;
+using Bikewale.DTO.Compare;
+using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Compare;
 using Bikewale.Interfaces.Compare;
 using Bikewale.Notifications;
@@ -55,15 +57,14 @@ namespace Bikewale.Service.Controllers.Compare
 
                     if (!string.IsNullOrEmpty(platformId) && (platformId == "3" || platformId == "4"))
                     {
+                        compareEntity.VersionSpecsFeatures = SpecsFeaturesServiceGateway.GetVersionsSpecsFeatures(versionList.Split(',').Select(int.Parse).ToList());
                         compareEntity.Features = null;
                         compareEntity.Specifications = null;
                         compareEntity.Color = null;
                     }
                     else
                     {
-                        compareEntity.CompareSpecifications = null;
                         compareEntity.CompareColors = null;
-                        compareEntity.CompareFeatures = null;
                     }
                     compareDTO = BikeCompareEntityMapper.Convert(compareEntity);
                     return Ok(compareDTO);
