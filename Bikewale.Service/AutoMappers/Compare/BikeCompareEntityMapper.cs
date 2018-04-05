@@ -35,9 +35,6 @@ namespace Bikewale.Service.AutoMappers.Compare
                 Mapper.CreateMap<CompareBikeColor, CompareBikeColorDTO>();
                 Mapper.CreateMap<CompareBikeColorCategory, CompareBikeColorCategoryDTO>();
                 Mapper.CreateMap<CompareBikeData, CompareBikeDataDTO>();
-                Mapper.CreateMap<CompareMainCategory, CompareMainCategoryDTO>();
-                Mapper.CreateMap<CompareSubCategory, CompareSubCategoryDTO>();
-                Mapper.CreateMap<CompareSubMainCategory, CompareSubMainCategoryDTO>();
                 DTO.Compare.BikeCompareDTO objDto = Mapper.Map<BikeCompareEntity, BikeCompareDTO>(compareEntity);
                 if (compareEntity.VersionSpecsFeatures != null)
                 {
