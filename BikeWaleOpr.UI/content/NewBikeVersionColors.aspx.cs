@@ -5,6 +5,7 @@ IN THIS CLASS THE NEW MEMBEERS WHO HAVE REQUESTED FOR REGISTRATION ARE SHOWN
 *******************************************************************************************************/
 using System;
 using System.Data;
+using System.Data.Common;
 using System.Data.SqlClient;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
@@ -261,13 +262,16 @@ namespace BikeWaleOpr.Content
 
             try
             {
-                using (IDataReader dr = MySqlDatabase.SelectQuery(sql, ConnectionType.ReadOnly))
+                using (DbCommand cmd = DbFactory.GetDBCommand(sql))
                 {
-                    if (dr != null)
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
-                        while (dr.Read())
+                        if (dr != null)
                         {
-                            bikeName = dr[0].ToString();
+                            while (dr.Read())
+                            {
+                                bikeName = dr[0].ToString();
+                            }
                         }
                     }
                 }
