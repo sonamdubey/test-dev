@@ -1,0 +1,51 @@
+﻿@model EditorialWidgetVM
+@using Bikewale.Models.Shared;
+@using Bikewale.Entities.BikeData;
+@using Bikewale.Models.BikeModels;
+
+@if (Model != null)
+{
+    var widgets = Model.WidgetColumns;
+    int noOfWidgets = widgets.Count();
+
+    foreach (KeyValuePair<string, EditorialWidgetInfo> widgetItem in widgets)
+    {
+        switch (noOfWidgets)
+        {
+            case 1:
+                break;
+            case 2:
+            default:
+                break;
+        }
+    }
+
+
+    @helper  GenerateWidgetTab(EditorialWidgetInfo widget)
+    {
+        string partialView = null;
+
+        if (widget != null)
+        {
+            switch (widget.WidgetType)
+            {
+            case EditorialWidgetType.Popular:
+                partialView = "~/Views/BikeModels/_PopularBikesWidgetBase.cshtml";
+                break;
+
+            case EditorialWidgetType.Upcoming:
+                partialView = "~/Views/BikeModels/_UpcomingBikesWidgetBase.cshtml";
+                break;
+
+            case EditorialWidgetType.OtherBrands:
+                partialView = "~/Views/Make/_OtherBrandsWidgetBase.cshtml";
+                break;
+            }
+
+            if (!string.IsNullOrEmpty(partialView))
+            {
+                    @Html.Partial(partialView, widget);
+            }
+        }
+    }
+}

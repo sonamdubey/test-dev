@@ -1,0 +1,36 @@
+﻿@model Bikewale.Models.BikeModels.EditorialUpcomingBikesWidget
+@using Bikewale.Utility;
+
+@if (Model != null)
+{
+    var bikeList = Model.UpcomingBikeList;
+
+    if (bikeList != null && bikeList.Any())
+    {
+        <ul>
+            @foreach (var bike in bikeList)
+            {
+                var bikeName = bike.BikeName;
+                <li>
+                    <a href="@UrlFormatter.BikePageUrl(bike.MakeBase.MaskingName, bike.ModelBase.MaskingName)" title="@bikeName" class="bike-target-link">
+                        <div class="bike-target-image inline-block">
+                            <img src="@Image.GetPathToShowImages(bike.OriginalImagePath, bike.HostUrl, ImageSize._110x61, QualityFactor._70)" alt="@bikeName" border="0">
+                        </div>
+                        <div class="bike-target-content inline-block padding-left10">
+                            <h3>@bikeName</h3>
+                            @if (bike.EstimatedPriceMin > 0)
+                            {
+                                <p class="font11 text-light-grey">Expected price</p>
+                                @Html.Raw("<span class='font16'>&#x20B9;</span>")<span class="font16 text-bold">&nbsp;@Format.FormatPrice(Convert.ToString(bike.EstimatedPriceMin)) <span class="font14">onwards</span></span>
+                            }
+                            else
+                            {
+                                <span class='font14 text-light-grey'>Price not available</span>
+                            }
+                        </div>
+                    </a>
+                </li>
+            }
+        </ul>
+    }
+}

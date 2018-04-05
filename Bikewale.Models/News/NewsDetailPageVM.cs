@@ -21,5 +21,6 @@ namespace Bikewale.Models
         public string BaseUrl { get; set; }
 
         public EditorialSeriesWidgetVM SeriesWidget { get; set; }
+        public IDictionary<string, EditorialWidgetVM> PageWidgets { get; set; }
     }
 }

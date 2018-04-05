@@ -1,0 +1,26 @@
+﻿@model Bikewale.Models.BikeMakes.EditorialOtherBrandsWidget
+
+@if (Model != null)
+{
+    var otherBrandsList = Model.OtherBrandsList;
+
+    if (otherBrandsList != null && otherBrandsList.Any())
+    {
+        <ul>
+            @foreach (var make in otherBrandsList)
+            {
+                <li>
+                    <a href="@string.Format("/{0}-{1}/", make.MaskingName, !make.IsScooterOnly ? "scooters" : "bikes")" title="@make.MakeName scooters" class="bike-target-link">
+                        <div class="bike-target-image inline-block">
+                            <span class="brandlogosprite brand-@make.MakeId"></span>
+                        </div>
+                        <div class="bike-target-content inline-block padding-left10">
+                            <h3>@make.MakeName</h3>
+                            <p class="font12 text-slate-grey">@String.Format("{0} {1}", make.TotalCount, make.TotalCount > 1 ? "scooters" : "scooter")</p>
+                        </div>
+                    </a>
+                </li>
+            }
+        </ul>
+    }
+}
