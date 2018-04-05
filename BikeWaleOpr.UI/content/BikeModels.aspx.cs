@@ -548,11 +548,14 @@ namespace BikeWaleOpr.Content
 
             try
             {
-                using (IDataReader dr = MySqlDatabase.SelectQuery(sql, ConnectionType.ReadOnly))
+                using (DbCommand cmd = DbFactory.GetDBCommand(sql))
                 {
-                    if (!(dr != null && dr.Read()))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
-                        MySqlDatabase.InsertQuery(sqlSave, ConnectionType.MasterDatabase);
+                        if (!(dr != null && dr.Read()))
+                        {
+                            MySqlDatabase.InsertQuery(sqlSave, ConnectionType.MasterDatabase);
+                        }
                     }
                 }
 
