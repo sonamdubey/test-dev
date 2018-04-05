@@ -21,18 +21,18 @@ namespace Bikewale.Service.Controllers.Make
     /// </summary>
     public class MakePageController : CompressionApiController//ApiController
     {
-        private readonly IBikeMakes<BikeMakeEntity, int> _makesRepository;
-        private readonly IBikeModelsRepository<BikeModelEntity, int> _modelRepository = null;
+        private readonly IBikeMakes<BikeMakeEntity, int> _bikeMakes;
+        private readonly IBikeModels<BikeModelEntity, int> _bikeModels;
 
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="makesRepository"></param>
         /// <param name="modelRepository"></param>
-        public MakePageController(IBikeMakes<BikeMakeEntity, int> makesRepository, IBikeModelsRepository<BikeModelEntity, int> modelRepository)
+        public MakePageController(IBikeMakes<BikeMakeEntity, int> makesRepository, IBikeModels<BikeModelEntity, int> modelRepository)
         {
-            _makesRepository = makesRepository;
-            _modelRepository = modelRepository;
+            _bikeMakes = makesRepository;
+            _bikeModels = modelRepository;
         }
 
         /// <summary>
@@ -52,8 +52,8 @@ namespace Bikewale.Service.Controllers.Make
 
             try
             {
-                objModelList = _modelRepository.GetMostPopularBikesByMake(makeId);
-                description = _makesRepository.GetMakeDescription(makeId);
+                objModelList = _bikeModels.GetMostPopularBikesbyMakeCity(0, (uint)makeId, 0);
+                description = _bikeMakes.GetMakeDescription(makeId);
 
                 if (objModelList != null && objModelList.Any() && description != null)
                 {

@@ -24,12 +24,14 @@ namespace Bikewale.Interfaces.BikeData
     /// Summary     : Created Method ResearchMoreAboutMakeByCity to get 'research more about make' widget data (with city) 
     /// Modified By : Deepak Israni on 9th Feb 2018
     /// Summary     : Created method GetExpertReviewCountByMake to get expert review count for make and number of models with expert reviews
+    /// Modified By : Rajan Chauhan on 5th Apr 2018
+    /// Summary     : Change in GetMakeDescription makeId param from uint to int
     /// </summary>
     public interface IBikeMakesCacheRepository
     {
         IEnumerable<BikeMakeEntityBase> GetMakesByType(EnumBikeType makeType);
         IEnumerable<BikeVersionEntity> GetDiscontinuedBikeModelsByMake(uint makeId);
-        BikeDescriptionEntity GetMakeDescription(uint makeId);
+        BikeDescriptionEntity GetMakeDescription(int makeId);
         BikeMakeEntityBase GetMakeDetails(uint makeId);
         IEnumerable<BikeMakeModelBase> GetAllMakeModels();
         MakeMaskingResponse GetMakeMaskingResponse(string maskingName);
