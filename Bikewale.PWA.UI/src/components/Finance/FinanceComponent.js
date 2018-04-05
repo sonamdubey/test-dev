@@ -1,5 +1,4 @@
 import React from 'react'
-import ExpandCollapse from 'react-expand-collapse'
 import Tabs from './Tabs'
 
 if (!process.env.SERVER) {
@@ -9,7 +8,7 @@ if (!process.env.SERVER) {
 class FinanceComponent extends React.Component {
   render() {
     return (
-      <div className="finance__content">
+      <div className="finance-content">
         <div className="finance-content__head">
           <p>Finance Know-how</p>
         </div>

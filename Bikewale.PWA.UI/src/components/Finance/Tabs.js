@@ -1,10 +1,17 @@
 import React from 'react';
+
 import { addTabEvents, removeTabEvents } from '../../utils/scrollSpyTabs';
+
+import EMICalculator from './EMICalculator'
 
 class Tabs extends React.Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      selectBikePopupStatus: false
+    }
+  
     this.setRef = this.setRef.bind(this);
   }
 
@@ -38,13 +45,13 @@ class Tabs extends React.Component {
         <div className="tabs-panel__item" data-tab-panel="overviewTab">
           <div className="overview__content">
             Overview: Bike loan EMI calculation was never this easy. Just select the bike you wish to avail loan for and which city do you wish to purchase the bike. Bike loan EMI calculation was never this easy. Just select the bike you wish to avail loan for and which city do you wish to purchase the bike. Bike loan EMI calculation was never this easy. Just select the bike you wish to avail loan for and which city do you wish to purchase the bike.
-              </div>
+          </div>
         </div>
 
         <div className="tabs-panel__item" data-tab-panel="emiTab">
           <div className="overview__content">
-            EMI Calculator: Passport-size photographs, at least 2 to 6 are recommended to be kept handy for your loan application. Passport-size photographs, at least 2 to 6 are recommended to be kept handy for your loan application. Passport-size photographs, at least 2 to 6 are recommended to be kept handy for your loan application. Passport-size photographs, at least 2 to 6 are recommended to be kept handy for your loan application.
-              </div>
+            <EMICalculator />
+          </div>
         </div>
 
         <div className="tabs-panel__item" data-tab-panel="loanEligibilityTab">
