@@ -427,10 +427,10 @@ namespace Bikewale.Models.BikeSeries
                             {
                                 if (minSpecs.MoveNext())
                                 {
+                                    float value;
+                                    ushort gears;
                                     foreach (var spec in minSpecs.Current.MinSpecsList)
                                     {
-                                        float value;
-                                        ushort gears;
                                         switch ((EnumSpecsFeaturesItem)spec.Id)
                                         {
                                             case EnumSpecsFeaturesItem.Displacement:
@@ -473,12 +473,17 @@ namespace Bikewale.Models.BikeSeries
                                 }
                             }
                         }
+                        if (objSeriesPage.SeriesModels != null && objSeriesPage.SeriesModels.NewBikes != null)
+                        {
+                            var seriesCompareBikesIterator = seriesCompareBikesWithSpecs.GetEnumerator();
+                            var newBikesIterator = objSeriesPage.SeriesModels.NewBikes.GetEnumerator();
+                            while (seriesCompareBikesIterator.MoveNext() && newBikesIterator.MoveNext())
+                            {
+                                seriesCompareBikesIterator.Current.Price = newBikesIterator.Current.Price.ExShowroomPrice > 0 ? newBikesIterator.Current.Price.ExShowroomPrice : newBikesIterator.Current.Price.AvgPrice;
+                            }
+                        }
+                        
                     }
-                    for (int i = 0; i < seriesCompareBikesWithSpecs.Count(); i++)
-                    {
-                        seriesCompareBikesWithSpecs.ElementAt(i).Price = objSeriesPage.SeriesModels.NewBikes.ElementAt(i).Price.ExShowroomPrice > 0 ? objSeriesPage.SeriesModels.NewBikes.ElementAt(i).Price.ExShowroomPrice : objSeriesPage.SeriesModels.NewBikes.ElementAt(i).Price.AvgPrice;
-                    }
-
                     
                     IList<string> objList = new List<string>();
                     objList.Add("Price");
