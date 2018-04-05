@@ -201,6 +201,7 @@ namespace Bikewale.BAL.BikeData
             objNewLaunchedBikeList = modelRepository.GetNewLaunchedBikesList(startIndex, endIndex);
             return objNewLaunchedBikeList;
         }
+
         /// <summary>
         /// Created by Subodh jain 22 sep 2016
         /// des: to deicide to fetch by makecity or only make
@@ -216,6 +217,26 @@ namespace Bikewale.BAL.BikeData
                 objList = modelRepository.GetMostPopularBikesbyMakeCity(topCount, makeId, cityId);
             else
                 objList = modelRepository.GetMostPopularBikesByMake((int)makeId);
+
+            IEnumerable<VersionMinSpecsEntity> versionList = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(objList.Select(m => m.objVersion.VersionId),
+                new List<EnumSpecsFeaturesItem>{
+                    EnumSpecsFeaturesItem.Displacement,
+                    EnumSpecsFeaturesItem.FuelEfficiencyOverall,
+                    EnumSpecsFeaturesItem.MaxPowerBhp,
+                    EnumSpecsFeaturesItem.MaximumTorqueNm,
+                    EnumSpecsFeaturesItem.KerbWeight
+                });
+            if (versionList != null)
+            {
+                var minSpecs = versionList.GetEnumerator();
+                foreach (var bike in objList)
+                {
+                    if (minSpecs.MoveNext())
+                    {
+                        bike.MinSpecsList = minSpecs.Current.MinSpecsList;
+                    }
+                }
+            }
             return objList;
 
         }

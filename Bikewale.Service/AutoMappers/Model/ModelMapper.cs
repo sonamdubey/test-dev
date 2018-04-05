@@ -177,17 +177,6 @@ namespace Bikewale.Service.AutoMappers.Model
             return Mapper.Map<List<BikeModelEntityBase>, List<ModelBase>>(objModelList);
         }
 
-        internal static List<DTO.Widgets.MostPopularBikes> Convert(List<MostPopularBikesBase> objModelList)
-        {
-            Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
-            Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
-            Mapper.CreateMap<BikeVersionsListEntity, VersionBase>();
-            Mapper.CreateMap<MinSpecsEntity, MinSpecs>();
-            Mapper.CreateMap<MostPopularBikesBase, MostPopularBikes>();
-            return Mapper.Map<List<MostPopularBikesBase>, List<MostPopularBikes>>(objModelList);
-
-        }
-
         /// <summary>
         /// Created by  : Pratibha Verma on 20 Mar 2018
         /// Description : Mapping SpecsFeaturesItem List to Bikewale.DTO.ModelSpecs
