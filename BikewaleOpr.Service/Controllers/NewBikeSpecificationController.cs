@@ -26,7 +26,7 @@ namespace BikewaleOpr.Service.Controllers
         /// <param name="versionId">Version Id for which min specs to be updated in elastic index.</param>
         /// <param name="specItemList">List of specs items with updated values which need to updated in ealstic index.</param>
         /// <returns></returns>
-        [HttpPost, Route("api/bikespecs/versions/{versionId}/")]
+        [HttpPost, Route("api/versions/{versionId}/specs/")]
         public IHttpActionResult UpdateSpecsInESIndex(int versionId, [FromBody]IEnumerable<SpecsItem> specItemList)
         {
             try
