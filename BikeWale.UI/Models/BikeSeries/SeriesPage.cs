@@ -473,11 +473,12 @@ namespace Bikewale.Models.BikeSeries
 
                 if (adTagsObj.Ad_320x50)
                 {
-                    ads.Add(String.Format("{0}-0", _adId_Mobile), GoogleAdsHelper.SetAdSlotProperties(adInfo, ViewSlotSize.ViewSlotSizes[AdSlotSize._320x50], 0, 320, AdSlotSize._320x50, "Top", true)); 
+                    ads.Add(String.Format("{0}-0", _adId_Mobile), GoogleAdsHelper.SetAdSlotProperties(adInfo, ViewSlotSize.ViewSlotSizes[AdSlotSize._320x50], 0, 320, AdSlotSize._320x50, "Top", true));
                 }
                 if (adTagsObj.Ad_Bot_320x50)
                 {
-                    ads.Add(String.Format("{0}-1", _adId_Mobile), GoogleAdsHelper.SetAdSlotProperties(adInfo, ViewSlotSize.ViewSlotSizes[AdSlotSize._320x50], 1, 320, AdSlotSize._320x50, "Bottom"));                 }
+                    ads.Add(String.Format("{0}-1", _adId_Mobile), GoogleAdsHelper.SetAdSlotProperties(adInfo, ViewSlotSize.ViewSlotSizes[AdSlotSize._320x50], 1, 320, AdSlotSize._320x50, "Bottom"));
+                }
 
                 objViewModel.AdSlots = ads;
 
@@ -501,7 +502,7 @@ namespace Bikewale.Models.BikeSeries
 
                 if (adTagsObj.Ad_970x90)
                 {
-                    ads.Add(String.Format("{0}-3", _adId_Desktop), GoogleAdsHelper.SetAdSlotProperties(adInfo, ViewSlotSize.ViewSlotSizes[AdSlotSize._970x90 + "_A"], 3, 970, AdSlotSize._970x90, "Top", true));
+                    ads.Add(String.Format("{0}-3", _adId_Desktop), GoogleAdsHelper.SetAdSlotProperties(adInfo, ViewSlotSize.ViewSlotSizes[AdSlotSize._970x90 + "_A"], 3, 970, AdSlotSize._970x90, true));
                 }
                 if (adTagsObj.Ad_970x90Bottom)
                 {
