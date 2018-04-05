@@ -102,7 +102,7 @@ namespace Bikewale.Service.AutoMappers.Version
                     foreach (SpecsFeaturesItem specFeatureItem in specFeatureItemList)
                     {
                         string itemValue = specFeatureItem.ItemValues.FirstOrDefault();
-                        itemValue = FormatMinSpecs.ShowAvailable(itemValue, specFeatureItem.UnitTypeText);
+                        itemValue = FormatMinSpecs.ShowAvailable(itemValue, specFeatureItem.UnitTypeText,specFeatureItem.DataType);
                         specsList.Add(new Bikewale.DTO.Model.Specs()
                         {
                             DisplayText = specFeatureItem.DisplayText,

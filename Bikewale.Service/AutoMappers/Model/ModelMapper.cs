@@ -204,7 +204,7 @@ namespace Bikewale.Service.AutoMappers.Model
                     specsList = new List<DTO.Model.Specs>();
                     foreach (SpecsFeaturesItem specsFeaturesItem in specFeatureItemList)
                     {
-                        string itemValue = FormatMinSpecs.ShowAvailable(specsFeaturesItem.ItemValues.FirstOrDefault(), specsFeaturesItem.UnitTypeText);
+                        string itemValue = FormatMinSpecs.ShowAvailable(specsFeaturesItem.ItemValues.FirstOrDefault(), specsFeaturesItem.UnitTypeText, specsFeaturesItem.DataType);
                         specsList.Add(new DTO.Model.Specs()
                         {
                             DisplayText = specsFeaturesItem.DisplayText,
@@ -236,7 +236,7 @@ namespace Bikewale.Service.AutoMappers.Model
                     specsList = new List<DTO.Model.Specs>();
                     foreach (SpecsItem specsFeaturesItem in specSummaryList)
                     {
-                        string itemValue = FormatMinSpecs.ShowAvailable(specsFeaturesItem.Value, specsFeaturesItem.UnitType);
+                        string itemValue = FormatMinSpecs.ShowAvailable(specsFeaturesItem.Value, specsFeaturesItem.UnitType, specsFeaturesItem.DataType);
                         specsList.Add(new DTO.Model.Specs()
                         {
                             DisplayText = specsFeaturesItem.Name,
@@ -440,7 +440,7 @@ namespace Bikewale.Service.AutoMappers.Model
                     string displayValue;
                     foreach (var spec in objModelPage.SpecsSummaryList)
                     {
-                        displayValue = FormatMinSpecs.ShowAvailable(spec.Value, spec.UnitType);
+                        displayValue = FormatMinSpecs.ShowAvailable(spec.Value, spec.UnitType, spec.DataType);
                         switch ((EnumSpecsFeaturesItem)spec.Id)
                         {
                             case EnumSpecsFeaturesItem.Displacement:
@@ -717,7 +717,7 @@ namespace Bikewale.Service.AutoMappers.Model
                     string displayValue;
                     foreach (var spec in objModelPage.SpecsSummaryList)
                     {
-                        displayValue = spec.Value == "" ? null : FormatMinSpecs.ShowAvailable(spec.Value, spec.UnitType);
+                        displayValue = spec.Value == "" ? null : FormatMinSpecs.ShowAvailable(spec.Value, spec.UnitType, spec.DataType);
                         switch ((EnumSpecsFeaturesItem)spec.Id)
                         {
                             case EnumSpecsFeaturesItem.Displacement:
