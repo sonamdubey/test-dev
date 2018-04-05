@@ -1,7 +1,7 @@
 ﻿var googleUser = {};
 
 $(document).ready(function () {
-    if (isAuthenticated.toLowerCase() == "false") { // if user is invalid
+    if (isAuthenticated.toLowerCase() == "false") { 
         showErrorMessage();
     }
     startApp();
@@ -10,12 +10,14 @@ $(document).ready(function () {
 var startApp = function () {    
     gapi.load('auth2', function () {
         
-        auth2 = gapi.auth2.init({ // Retrieve the singleton for the GoogleAuth library and set up the client.
+        auth2 = gapi.auth2.init({ 
             client_id: '417730742919-mth5klvuievpjh584agduun3dpn4680o.apps.googleusercontent.com', // client id provided by google
             hosted_domain: 'carwale.com',
             response_type: 'token',
-            //ux_mode: 'redirect',
-            //redirect_uri: 
+            /* ----- this properties of api can be use for redirection to uri in case we need to redirect -----
+            ux_mode: 'redirect',
+            redirect_uri: 
+            */
         });
         attachSignin(document.getElementById('customBtn'));
     });

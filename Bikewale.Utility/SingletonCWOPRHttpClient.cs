@@ -27,7 +27,7 @@ namespace Bikewale.Utility
         static SingletonCWOPRHttpClient()
         {
             _httpClient = new HttpClient();
-            _httpClient.BaseAddress = new Uri(BWConfiguration.Instance.CWOPRHostUrl);
+            _httpClient.BaseAddress = new Uri(BWOprConfiguration.Instance.CwOprHostUrl);
 
             _httpClient.DefaultRequestHeaders.Add("clientid", "5");
             _httpClient.DefaultRequestHeaders.Add("platformid", "2");

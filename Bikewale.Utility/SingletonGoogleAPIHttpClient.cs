@@ -23,10 +23,8 @@ namespace Bikewale.Utility
         static SingletonGoogleAPIHttpClient()
         {
             _httpClient = new HttpClient();
-            _httpClient.BaseAddress = new Uri(BWConfiguration.Instance.GoogleAPIHostUrl);
+            _httpClient.BaseAddress = new Uri(BWOprConfiguration.Instance.GoogleAPIHostUrl);
 
-            _httpClient.DefaultRequestHeaders.Add("clientid", "5");
-            _httpClient.DefaultRequestHeaders.Add("platformid", "2");
 
             //sets the Accept header to "application/json", which tells the server to send data in JSON format.
             _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(BWConfiguration.Instance.APIRequestTypeJSON));

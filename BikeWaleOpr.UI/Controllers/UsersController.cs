@@ -86,7 +86,7 @@ namespace BikeWaleOpr.MVC.UI.Controllers
                             System.Web.Security.FormsAuthenticationTicket ticket;
                             //now add the id and the role to the ticket, concat the id and role, separated by ',' 
 
-                            string strUserData = Convert.ToString(objUserDetailsEntity.UserId) + ":" + loginId + ":" + objUserDetailsEntity.UserName;
+                            string strUserData = string.Format("{0}:{1}:{2}", objUserDetailsEntity.UserId, loginId, objUserDetailsEntity.UserName);
                             ticket = new System.Web.Security.FormsAuthenticationTicket(1, Convert.ToString(objUserDetailsEntity.UserId), DateTime.Now, DateTime.Now.AddHours(12), false, strUserData);
 
                             //add the ticket into the cookie

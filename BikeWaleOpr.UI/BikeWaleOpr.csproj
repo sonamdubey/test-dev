@@ -14,7 +14,7 @@
     <RootNamespace>BikewaleOpr</RootNamespace>
     <AssemblyName>BikewaleOpr</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -1950,7 +1950,7 @@
     <Content Include="research\urlmapping\map_models.txt" />
     <Content Include="src\AdOperations\AdOperation.js" />
     <Content Include="src\AjaxFunctions.js" />
-    <Content Include="src\api_client.js" />
+    <Content Include="src\googleApiClient.js" />
     <Content Include="src\Banner.js" />
     <Content Include="src\BannerList.js" />
     <Content Include="src\BikeSeries\BikeSeries.js" />
