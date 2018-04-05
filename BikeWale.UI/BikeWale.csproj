@@ -4358,6 +4358,10 @@
   <Target Name="BeforeBuild">
     <Message Text="Bikewale Build Initialized..." Importance="high" />
   </Target>
+  <Target Name="CheckNPMInstall" AfterTargets="BeforeBuild" Condition="'$(Configuration)' != 'Debug'">	
+    <Message Text="Checking and installing NPM on machine.." Importance="high" />	
+    <Exec Command="npm install  --quiet" WorkingDirectory="$(ProjectDir)" />	
+  </Target>
   <Target Name="ExecuteGulpEvent" AfterTargets="AfterBuild" DependsOnTargets="CheckNPMInstall" Condition="'$(Configuration)' != 'Debug'">
     <Message Text="Running gulp task $(Configuration)" Importance="high" />
     <Exec Command=".\..\node_modules\.bin\gulp --env $(Configuration)" WorkingDirectory="$(ProjectDir)" />
