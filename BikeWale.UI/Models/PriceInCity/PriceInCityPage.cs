@@ -549,7 +549,7 @@ namespace Bikewale.Models
                         }
                         if (objVM.AdTags.Ad_Model_BTF_300x250)
                         {
-                            ads.Add(String.Format("{0}-11", _adId_Desktop), GoogleAdsHelper.SetAdSlotProperties(adInfo, ViewSlotSize.ViewSlotSizes[AdSlotSize._300x250], 11, 300, AdSlotSize._300x250));
+                            ads.Add(String.Format("{0}-11", _adId_Desktop), GoogleAdsHelper.SetAdSlotProperties(adInfo, ViewSlotSize.ViewSlotSizes[AdSlotSize._300x250], 11, 300, AdSlotSize._300x250, "BTF"));
 
                         }
                         if (objVM.AdTags.Ad_970x90)
@@ -699,7 +699,7 @@ namespace Bikewale.Models
                             if (firstVersion.OnRoadPrice > 0)
                             {
                                 BindEMISlider(objVM);
-                                BindSimilarBikes(objVM); 
+                                BindSimilarBikes(objVM);
                             }
                         }
 
