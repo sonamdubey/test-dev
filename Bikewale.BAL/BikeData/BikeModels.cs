@@ -216,7 +216,7 @@ namespace Bikewale.BAL.BikeData
             if (cityId > 0)
                 objList = modelRepository.GetMostPopularBikesbyMakeCity(topCount, makeId, cityId);
             else
-                objList = modelRepository.GetMostPopularBikesByMake((int)makeId);
+                objList = modelRepository.GetMostPopularBikesByMake(makeId);
 
             IEnumerable<VersionMinSpecsEntity> versionList = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(objList.Select(m => m.objVersion.VersionId),
                 new List<EnumSpecsFeaturesItem>{

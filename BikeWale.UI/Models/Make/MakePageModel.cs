@@ -181,7 +181,7 @@ namespace Bikewale.Models
                 }
 
                 BikeMakeEntityBase makeBase = _bikeMakesCache.GetMakeDetails(_makeId);
-                objData.BikeDescription = _bikeMakesCache.GetMakeDescription((int)_makeId);
+                objData.BikeDescription = _bikeMakesCache.GetMakeDescription(_makeId);
                 objData.SelectedSortingId = 0;
                 objData.SelectedSortingText = "Price: Low to High";
 
