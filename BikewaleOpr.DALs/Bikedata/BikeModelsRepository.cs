@@ -665,6 +665,31 @@ namespace BikewaleOpr.DALs.Bikedata
 
             return models;
         }
+
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 01 Apr 2018
+        /// Description : DAL method to fetch model id of input version id to check if version is Top version among other versions of a bike model.
+        /// </summary>
+        /// <param name="versionId">VersionId of bike version.</param>
+        /// <returns>ModelId if top version, otherwise 0.</returns>
+        public int GetModelIdIfTopVersion(int versionId)
+        {
+            int modelId = 0;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("getmodelidiftopversion"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_versionid", DbType.Int16, versionId));
+                    modelId = SqlReaderConvertor.ToInt32(MySqlDatabase.ExecuteScalar(cmd, ConnectionType.ReadOnly));
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("BikewaleOpr.DALs.Bikedata.CheckIfTopVersion_versionId_{0}", versionId));
+            }
+            return modelId;
+        }
     }
 }
 
