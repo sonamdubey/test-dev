@@ -14,5 +14,6 @@ namespace Bikewale.Models.Shared
         public string TabId { get; set; }
         public bool ShowViewAll { get; set; }
         public string ViewAllUrl { get; set; }
+        public string ViewAllTitle { get; set; }
     }
 }

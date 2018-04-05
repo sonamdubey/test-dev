@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Bikewale.Entities.BikeData;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,6 @@ namespace Bikewale.Models.Shared
 {
     public class EditorialWidgetVM
     {
-        public IDictionary<string, EditorialWidgetInfo> WidgetColumns { get; set; }
+        public IDictionary<EditorialWidgetColumnPosition, EditorialWidgetInfo> WidgetColumns { get; set; }
     }
 }

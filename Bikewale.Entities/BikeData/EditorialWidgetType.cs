@@ -6,4 +6,16 @@
         Upcoming,
         OtherBrands
     }
+
+    public enum EditorialPageWidgetPosition
+    {
+        First,
+        Second
+    }
+
+    public enum EditorialWidgetColumnPosition
+    {
+        Left,
+        Right
+    }
 }
