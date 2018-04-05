@@ -197,6 +197,14 @@
 	background-size: 20px
 	cursor: pointer
 
+.landscape-icon__container
+	&[data-visible="false"]
+		display: none
+		width: 0
+
+	&[data-visible="true"]
+		display: inline-block
+		width: 40px
 
 // gallery active/popup state
 .gallery-popup--active
@@ -225,13 +233,6 @@
 		width: 100%
 		text-align: center
 		font-size: 12px
-
-	.landscape-icon__container
-		&[data-visible="false"]
-			width: 0
-
-		&[data-visible="true"]
-			width: 40px
 
 	.swiper--next
 		right: 0
@@ -308,6 +309,13 @@
 		100%
 			transform: rotate(0deg)
 
+@media only screen and (max-width: 320px)
+	.gallery__landscape-slug
+		.landscape-text
+			font-size: 10px
+
+	.gallery__color-floating-slug
+		bottom: 5%
 
 // color slug/button
 .gallery-image__color

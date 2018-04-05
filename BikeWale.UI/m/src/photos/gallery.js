@@ -147,7 +147,7 @@ function toggleFullScreen(goFullScreen) {
 	var doc = window.document;
 	var docElement = doc.documentElement;
 
-	var requestFullScreen = docElement.requestFullscreen || docElement.mozRequestFullScreen || docElement.webkitRequestFullScreen || docElement.msRequestFullscreen;
+	var requestFullScreen = checkFullScreenSupport();
 	var cancelFullScreen = doc.exitFullscreen || doc.mozCancelFullScreen || doc.webkitExitFullscreen || doc.msExitFullscreen || doc.webkitCancelFullScreen;
 
 	if (goFullScreen && requestFullScreen != undefined) {
@@ -158,6 +158,14 @@ function toggleFullScreen(goFullScreen) {
 		cancelFullScreen.call(doc);
 		docElement.style.backgroundColor = '';
 	}
+}
+
+function checkFullScreenSupport() {
+	var docElement = window.document.documentElement;
+
+	var requestFullScreen = docElement.requestFullscreen || docElement.mozRequestFullScreen || docElement.webkitRequestFullScreen || docElement.msRequestFullscreen;
+
+	return requestFullScreen;
 }
 
 function resetFullScreenMode() {
