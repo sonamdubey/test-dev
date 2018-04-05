@@ -85,7 +85,7 @@ namespace Bikewale.Interfaces.BikeData
         /// </summary>
         /// <param name="makeId"></param>
         /// <returns></returns>
-        List<MostPopularBikesBase> GetMostPopularBikesByMake(int makeId);
+        List<MostPopularBikesBase> GetMostPopularBikesByMake(uint makeId);
         IEnumerable<MostPopularBikesBase> GetMostPopularBikesByMakeWithCityPrice(int makeId, uint cityId);
 
         Hashtable GetMaskingNames();

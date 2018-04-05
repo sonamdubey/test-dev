@@ -908,7 +908,7 @@ namespace Bikewale.Cache.BikeData
         /// </summary>
         /// <param name="modelId"></param>
         /// <returns>Returns BikeModelPageEntity</returns>
-        public IEnumerable<MostPopularBikesBase> GetMostPopularBikesByMake(int makeId)
+        public IEnumerable<MostPopularBikesBase> GetMostPopularBikesByMake(uint makeId)
         {
             IEnumerable<MostPopularBikesBase> objBikes = null;
             string key = "BW_PopularBikesByMake_" + makeId;

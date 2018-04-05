@@ -857,7 +857,7 @@ namespace Bikewale.DAL.BikeData
         }
 
 
-        public List<MostPopularBikesBase> GetMostPopularBikesByMake(int makeId)
+        public List<MostPopularBikesBase> GetMostPopularBikesByMake(uint makeId)
         {
             List<MostPopularBikesBase> objList = null;
             MostPopularBikesBase objData = null;

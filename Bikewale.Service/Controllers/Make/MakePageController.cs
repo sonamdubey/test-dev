@@ -1,9 +1,11 @@
-﻿using Bikewale.DTO.Make;
+﻿using Bikewale.BAL.BikeData;
+using Bikewale.DTO.Make;
 using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.Make;
 using Bikewale.Service.Utilities;
+using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,10 +31,14 @@ namespace Bikewale.Service.Controllers.Make
         /// </summary>
         /// <param name="makesRepository"></param>
         /// <param name="modelRepository"></param>
-        public MakePageController(IBikeMakes<BikeMakeEntity, int> makesRepository, IBikeModels<BikeModelEntity, int> modelRepository)
+        public MakePageController(IBikeModels<BikeModelEntity, int> bikeModels)
         {
-            _bikeMakes = makesRepository;
-            _bikeModels = modelRepository;
+            using (IUnityContainer container = new UnityContainer())
+            {
+                container.RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakes<BikeMakeEntity, int>>();
+                _bikeMakes = container.Resolve<IBikeMakes<BikeMakeEntity, int>>();
+            }
+            _bikeModels = bikeModels;
         }
 
         /// <summary>
