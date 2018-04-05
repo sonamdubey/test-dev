@@ -175,11 +175,6 @@
 			        <%# DataBinder.Eval( Container.DataItem, "UpdatedBy" ) %>
 			    </itemtemplate>
 			</asp:TemplateColumn>
-            <asp:TemplateColumn HeaderText="Specs" ItemStyle-Width="350">
-			    <itemtemplate>
-			        <input type="button" value="Add" onclick="javascript:window.open('newbikespecification.aspx?&modelid=<%#DataBinder.Eval( Container.DataItem, "bikemodelid")%>&versionId=<%# DataBinder.Eval( Container.DataItem, "id" ) %>    &isNew=<%# DataBinder.Eval( Container.DataItem, "new" ) %>    ','','left=200,width=900,height=600,scrollbars=yes')" />
-			    </itemtemplate>
-			</asp:TemplateColumn>
             <asp:TemplateColumn HeaderText="Colors" ItemStyle-Width="350">
 			    <itemtemplate>
 			        <input type="button" value="Add" onclick="javascript:window.open('NewBikeVersionColors.aspx?Model=<%# DataBinder.Eval( Container.DataItem, "bikemodelid" ) %>&Version=<%# DataBinder.Eval( Container.DataItem, "id" ) %>','','left=200,width=900,height=600,scrollbars=yes')" />
