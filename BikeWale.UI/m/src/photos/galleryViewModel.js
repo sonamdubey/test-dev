@@ -15,9 +15,11 @@
 	self.fullScreenModeActive = ko.observable(false);
 	self.fullScreenSupport = ko.observable(true);
 
-	if (navigator.userAgent.indexOf('UCBrowser/11') >= 0) {
+	var requestFullScreen = checkFullScreenSupport();
+	if (typeof requestFullScreen === 'undefined') {
 		self.fullScreenSupport(false);
 	}
+
 	self.floatingLandscapeSlugVisibilityThreshold = ko.observable(IMAGE_INDEX + 2);
 
 	self.activeSwiperTitle = ko.observable(true);
@@ -357,11 +359,13 @@ var ModelColorPopupViewModel = function () {
 	}
 
 	self.registerEvents = function () {
-		$('#colorGalleryPopup').on('transitionend', function () {
-			if ($(this).hasClass('color-popup--active')) {
-				self.setListHeight();
+		$('#colorGalleryPopup').on('transitionend', function (event) {
+			if($(event.target).attr('id') === 'colorGalleryPopup') {
+				if ($(this).hasClass('color-popup--active')) {
+					self.setListHeight();
+				}
 			}
-		});
+		})
 	}
 
 	self.registerEvents();
