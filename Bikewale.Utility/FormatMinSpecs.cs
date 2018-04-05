@@ -103,14 +103,7 @@ namespace Bikewale.Utility
                     {
                         if (!string.IsNullOrEmpty(specItem.Value))
                         {
-                            if (specItem.DataType.Equals(EnumSpecDataType.Integer))
-                            {
-                                builder.AppendFormat("<span>{0} {1}</span>, ", Format.FormatNumeric(specItem.Value), specItem.UnitType);
-                            }
-                            else
-                            {
-                                builder.AppendFormat("<span>{0} {1}</span>, ", specItem.Value, specItem.UnitType);
-                            }
+                           builder.AppendFormat("<span>{0} {1}</span>, ", specItem.DataType.Equals(EnumSpecDataType.Integer) ? Format.FormatNumeric(specItem.Value) : specItem.UnitType);
                         }
                     }
                     if (builder.Length > 1)
@@ -143,14 +136,7 @@ namespace Bikewale.Utility
                     {
                         if (!string.IsNullOrEmpty(specItem.Value))
                         {
-                            if (specItem.DataType.Equals(EnumSpecDataType.Integer))
-                            {
-                                builder.AppendFormat("<li>{0} {1}</li>", Format.FormatNumeric(specItem.Value), specItem.UnitType);
-                            }
-                            else
-                            {
-                                builder.AppendFormat("<li>{0} {1}</li>", specItem.Value, specItem.UnitType);
-                            }
+                           builder.AppendFormat("<li>{0} {1}</li>", specItem.DataType.Equals(EnumSpecDataType.Integer) ? Format.FormatNumeric(specItem.Value) : specItem.UnitType);
                         }
                     }
                 }
@@ -180,14 +166,7 @@ namespace Bikewale.Utility
                         if (!string.IsNullOrEmpty(specItem.Value))
                         {
                             specItem.Icon = "bwsprite capacity-sm";
-                            if (specItem.DataType.Equals(EnumSpecDataType.Integer))
-                            {
-                                builder.AppendFormat("<li><span class = \"{0}\"></span>{1} {2}</li>", specItem.Icon, Format.FormatNumeric(specItem.Value), specItem.UnitType);
-                            }
-                            else
-                            {
-                                builder.AppendFormat("<li><span class = \"{0}\"></span>{1} {2}</li>", specItem.Icon, specItem.Value, specItem.UnitType);
-                            }
+                            builder.AppendFormat("<li><span class = \"{0}\"></span>{1} {2}</li>", specItem.Icon, specItem.DataType.Equals(EnumSpecDataType.Integer) ? Format.FormatNumeric(specItem.Value) : specItem.UnitType);
                         }
                     }
                 }
@@ -236,13 +215,9 @@ namespace Bikewale.Utility
                 {
                     return value.Equals("1") ? "Yes" : "No";
                 }
-                else if (dataType.Equals(EnumSpecDataType.Integer))
-                {
-                    return Format.FormatNumeric(value);
-                }
                 else
                 {
-                    return value;
+                    return dataType.Equals(EnumSpecDataType.Integer) ? Format.FormatNumeric(value) : value;
                 }
             }
             return _notAvaliableText;
