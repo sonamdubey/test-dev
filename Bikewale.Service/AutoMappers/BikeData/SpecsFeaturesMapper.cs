@@ -7,6 +7,7 @@ using Bikewale.Notifications;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 
 namespace Bikewale.Service.AutoMappers.BikeData
 {
@@ -83,34 +84,25 @@ namespace Bikewale.Service.AutoMappers.BikeData
                 {
                     IEnumerator<MostPopularBikesBase> popularBikeEnumerator = popularBikeList.GetEnumerator();
                     float specValue;
+
+                    IEnumerable<PropertyInfo> minSpecPropList = new MinSpecs().GetType().GetProperties();
+                    IEnumerator<PropertyInfo> minSpecPropEnumerator = minSpecPropList.GetEnumerator();
+                    IEnumerable<SpecsItem> specItemList;
                     foreach (var dtoBike in popularBikeListDto)
                     {
                         if (popularBikeEnumerator.MoveNext())
                         {
                             dtoBike.Specs = new MinSpecs();
-                            IEnumerable<SpecsItem> specItemList = popularBikeEnumerator.Current.MinSpecsList;
+                            specItemList = popularBikeEnumerator.Current.MinSpecsList;
                             foreach (var spec in specItemList)
                             {
                                 specValue = float.TryParse(spec.Value, out specValue) ? specValue : 0;
-                                switch ((EnumSpecsFeaturesItem)spec.Id)
+                                if (minSpecPropEnumerator.MoveNext())
                                 {
-                                    case EnumSpecsFeaturesItem.Displacement:
-                                        dtoBike.Specs.Displacement = specValue;
-                                        break;
-                                    case EnumSpecsFeaturesItem.FuelEfficiencyOverall:
-                                        dtoBike.Specs.FuelEfficiencyOverall = specValue;
-                                        break;
-                                    case EnumSpecsFeaturesItem.MaxPowerBhp:
-                                        dtoBike.Specs.MaxPower = specValue;
-                                        break;
-                                    case EnumSpecsFeaturesItem.MaximumTorqueNm:
-                                        dtoBike.Specs.MaximumTorque = specValue;
-                                        break;
-                                    case EnumSpecsFeaturesItem.KerbWeight:
-                                        dtoBike.Specs.KerbWeight = specValue;
-                                        break;
+                                    minSpecPropEnumerator.Current.SetValue(dtoBike.Specs, specValue);
                                 }
                             }
+                            minSpecPropEnumerator.Reset();
                         }
                     }
                     return popularBikeListDto;
