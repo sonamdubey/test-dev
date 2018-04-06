@@ -417,7 +417,7 @@ namespace Bikewale.Models.BikeSeries
                                                                             EnumSpecsFeaturesItem.SeatHeight,
                                                                             EnumSpecsFeaturesItem.BrakeType,
                                                                             EnumSpecsFeaturesItem.NoOfGears,
-                                                                            EnumSpecsFeaturesItem.MaxPowerMinSpecs,
+                                                                            EnumSpecsFeaturesItem.MaxPowerBhp,
                                                                             EnumSpecsFeaturesItem.MaxPowerRpm
                                                                             });
                         if (versionMinSpecs != null)
@@ -464,7 +464,7 @@ namespace Bikewale.Models.BikeSeries
                                                 if (float.TryParse(spec.Value, out value))
                                                     seriesBike.MaxPowerRpm = value;
                                                 break;
-                                            case EnumSpecsFeaturesItem.MaxPowerMinSpecs:
+                                            case EnumSpecsFeaturesItem.MaxPowerBhp:
                                                 if (float.TryParse(spec.Value, out value))
                                                     seriesBike.MaxPower = value;
                                                 break;
