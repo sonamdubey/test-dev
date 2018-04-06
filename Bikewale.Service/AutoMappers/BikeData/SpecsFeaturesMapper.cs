@@ -1,5 +1,7 @@
-﻿using Bikewale.DTO.Model.v3;
+﻿using Bikewale.DTO.BikeData;
+using Bikewale.DTO.Model.v3;
 using Bikewale.DTO.Version;
+using Bikewale.DTO.Widgets;
 using Bikewale.Entities.BikeData;
 using Bikewale.Notifications;
 using System;
@@ -73,9 +75,60 @@ namespace Bikewale.Service.AutoMappers.BikeData
             return null;
         }
 
+        public static IEnumerable<MostPopularBikes> ConvertToMostPopularBikes(IEnumerable<MostPopularBikes> popularBikeListDto, IEnumerable<MostPopularBikesBase> popularBikeList)
+        {
+            try
+            {
+                if (popularBikeList != null)
+                {
+                    IEnumerator<MostPopularBikesBase> popularBikeEnumerator = popularBikeList.GetEnumerator();
+                    float specValue;
+                    foreach (var dtoBike in popularBikeListDto)
+                    {
+                        if (popularBikeEnumerator.MoveNext())
+                        {
+                            dtoBike.Specs = new MinSpecs();
+                            IEnumerable<SpecsItem> specItemList = popularBikeEnumerator.Current.MinSpecsList;
+                            foreach (var spec in specItemList)
+                            {
+                                specValue = float.TryParse(spec.Value, out specValue) ? specValue : 0;
+                                switch ((EnumSpecsFeaturesItem)spec.Id)
+                                {
+                                    case EnumSpecsFeaturesItem.Displacement:
+                                        dtoBike.Specs.Displacement = specValue;
+                                        break;
+                                    case EnumSpecsFeaturesItem.FuelEfficiencyOverall:
+                                        dtoBike.Specs.FuelEfficiencyOverall = specValue;
+                                        break;
+                                    case EnumSpecsFeaturesItem.MaxPowerBhp:
+                                        dtoBike.Specs.MaxPower = specValue;
+                                        break;
+                                    case EnumSpecsFeaturesItem.MaximumTorqueNm:
+                                        dtoBike.Specs.MaximumTorque = specValue;
+                                        break;
+                                    case EnumSpecsFeaturesItem.KerbWeight:
+                                        dtoBike.Specs.KerbWeight = specValue;
+                                        break;
+                                }
+                            }
+                        }
+                    }
+                    return popularBikeListDto;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, String.Format("Bikewale.Service.AutoMappers.BikeData.ConvertToMostPopularBikes( {0}, {1})", popularBikeListDto, popularBikeList));
+            }
+            
+            return null;
+        }
+
         private static bool CheckBoolSpecItem(SpecsItem specItem)
         {
             return specItem != null && specItem.Value.Equals("1") ? true : false;
         }
+
+
     }
 }
