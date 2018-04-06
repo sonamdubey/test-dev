@@ -10,7 +10,6 @@ namespace Bikewale.Utility
     /// </summary>
     public class SingletonGoogleAPIHttpClient
     {
-        private static readonly object _lock = new object();
         private static HttpClient _httpClient = null;
 
         /// <summary>
