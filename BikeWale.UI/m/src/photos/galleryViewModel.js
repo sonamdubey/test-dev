@@ -326,7 +326,7 @@ var ModelColorPopupViewModel = function () {
 
 	self.openPopup = function () {
 	  self.activePopup(true);
-	  self.setListHeight();
+		ColorGallerySwiper.handleThumbnailSwiper(colorThumbnailGallerySwiper);
 
 		triggerGA('Gallery_Page', 'Colours_Tab_Clicked_Opened', self.modelName);
 		
@@ -338,6 +338,7 @@ var ModelColorPopupViewModel = function () {
 	self.closePopup = function (isClickEvent) {
 		if (self.activePopup()) {
 			self.activePopup(false);
+			self.resetListHeight();
 			triggerGA('Gallery_Page', 'Colours_Tab_Clicked_Closed', self.modelName);
 				
 			if (isClickEvent) {
@@ -356,6 +357,10 @@ var ModelColorPopupViewModel = function () {
 		var availableHeight = $('#colorGalleryPopup').innerHeight() - ($('#thumbnailColorSwiper').offset().top - (window.pageYOffset || document.documentElement.scrollTop));
 
 		$('#colorGalleryPopup').find('.color-popup__thumbnail-content').css('height', availableHeight);
+	}
+
+	self.resetListHeight = function () {
+		$('#colorGalleryPopup').find('.color-popup__thumbnail-content').css('height', 'auto');
 	}
 
 	self.registerEvents = function () {
