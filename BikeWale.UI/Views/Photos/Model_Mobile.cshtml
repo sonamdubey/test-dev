@@ -93,7 +93,7 @@
                                         </span>
                                         <h2 class="model-gallery__image-title" data-bind="text: activeTitle(), visible: activeSwiperTitle()"></h2>
                                     </div>
-                                    <span class="gallery-image__color" data-bind="visible: activeFooterColorOption(), click: colorPopup().openPopup" style="display: none">Colors</span>
+                                    <span class="gallery-image__color" data-bind="visible: activeFooterColorOption(), click: colorPopup().openPopup" style="display: none">Colours</span>
                                     <div class="gallery-image__feature">
                                         <a data-bind="attr: { href: getImageDownloadUrl() }" download title="Download Image" class="gallery__download-icon"></a>
                                         
@@ -157,7 +157,7 @@
                             </div>
                         </div>
                         <div class="color-popup__thumbnail-content" data-bind="css: { 'color-footer--inactive': !activeLandscapeFooter() }">
-                            <p class="color-list__heading">Colors</p>
+                            <p class="color-list__heading">Colours</p>
                             <div id="thumbnailColorSwiper" class="swiper-container noSwiper swiper__color-thumbnail" data-bind="css: { 'color-list--scrollable': !$root.fullScreenModeActive() }">
                                 <div class="model-color__list swiper-wrapper " data-bind="foreach: colorSwiper().colorList, css: colorSwiper().colorList().length == 3 ? 'list-column--3' : ''">
                                     <div class="swiper-slide">

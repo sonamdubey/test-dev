@@ -568,6 +568,7 @@ var ColorGallerySwiper = (function () {
 	function handleThumbnailSwiper(swiper) {
 		if (!vmModelGallery.fullScreenModeActive()) {
 			swiper.destroy(false);
+			vmModelGallery.colorPopup().setListHeight();
 			$(swiper.container[0]).find('.swiper-wrapper').css({
 				'transform': 'translate3d(0, 0, 0)'
 			});
@@ -576,7 +577,7 @@ var ColorGallerySwiper = (function () {
 		}
 		else {
 			swiper.update(true);
-			$('#colorGalleryPopup').find('.color-popup__thumbnail-content').css('height', 'auto');
+			vmModelGallery.colorPopup().resetListHeight();
 			swiper.attachEvents();
 			SwiperEvents.focusThumbnail(swiper, vmModelGallery.colorPopup().colorSwiper().activeIndex(), true);
 		}
