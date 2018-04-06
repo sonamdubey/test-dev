@@ -175,12 +175,15 @@ namespace Bikewale.Models.BikeModels
                     {
                         GetManufacturerCampaign();
                     }
-                    _objData.BikeSpecsFeatures = new BikeSpecsFeaturesVM()
+                    if (!_objData.IsUpcomingBike)
                     {
-                        BikeName = _objData.BikeName,
-                        ModelName = _objData.ModelPageEntity.ModelDetails.ModelName,
-                        VersionSpecsFeatures = SpecsFeaturesServiceGateway.GetVersionsSpecsFeatures(new List<uint> { _objData.VersionId })
-                    };
+                        _objData.BikeSpecsFeatures = new BikeSpecsFeaturesVM()
+                        {
+                            BikeName = _objData.BikeName,
+                            ModelName = _objData.ModelPageEntity.ModelDetails.ModelName,
+                            VersionSpecsFeatures = SpecsFeaturesServiceGateway.GetVersionsSpecsFeatures(new List<uint> { _objData.VersionId })
+                        };
+                    }
                     BindControls();
 
                     BindColorString();
