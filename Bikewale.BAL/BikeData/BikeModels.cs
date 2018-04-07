@@ -391,13 +391,33 @@ namespace Bikewale.BAL.BikeData
             try
             {
                 objModelPage = _modelCacheRepository.GetModelPageDetails(modelId, versionId);
-                if (objModelPage != null)
+                if (objModelPage != null && objModelPage.ModelVersions != null && objModelPage.ModelVersions.Any())
                 {
+                    // First 2 in versionPrices in city widget
                     BindMinSpecs(objModelPage.ModelVersions, 
-                        new List<EnumSpecsFeaturesItem>{ 
+                        new List<EnumSpecsFeaturesItem>{
                             EnumSpecsFeaturesItem.BrakeType,
-                            EnumSpecsFeaturesItem.AlloyWheels 
+                            EnumSpecsFeaturesItem.AlloyWheels,
+                            EnumSpecsFeaturesItem.Displacement,
+                            EnumSpecsFeaturesItem.MaxPowerBhp,
+                            EnumSpecsFeaturesItem.FuelEfficiencyOverall,
+                            EnumSpecsFeaturesItem.KerbWeight,
+                            EnumSpecsFeaturesItem.TopSpeed
                         });
+                    var modelVersion = versionId != 0 ? objModelPage.ModelVersions.FirstOrDefault(version => version.VersionId == versionId) : objModelPage.ModelVersions.FirstOrDefault();
+                    if (modelVersion != null)
+                    {
+                        objModelPage.ModelVersionMinSpecs = new BikeVersionMinSpecs()
+                        {
+                            VersionId = modelVersion.VersionId,
+                            MinSpecsList = new List<SpecsItem>()
+                        };
+                        IEnumerable<SpecsItem> minSpecsList = modelVersion.MinSpecsList;
+                        if( minSpecsList != null)
+                        {
+                            objModelPage.ModelVersionMinSpecs.MinSpecsList = minSpecsList.Skip(2);
+                        }
+                    }
                     CreateAllPhotoList(modelId, objModelPage);
                 }
             }

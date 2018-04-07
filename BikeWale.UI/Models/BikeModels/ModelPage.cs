@@ -440,6 +440,8 @@ namespace Bikewale.Models.BikeModels
 
         /// <summary>
         /// Sets the additional properties for JSONLD
+        /// Modified by  : Rajan Chauhan on 7 Apr 2018
+        /// Description  : Added minSpec to JsonLD
         /// </summary>
         /// <param name="product">The product.</param>
         private void SetAdditionalProperties(Product product)
@@ -449,62 +451,65 @@ namespace Bikewale.Models.BikeModels
                 List<AdditionalProperty> listSpecs = new List<AdditionalProperty>();
                 AdditionalProperty property = null;
 
-                if (_objData != null && _objData.ModelPageEntity != null && _objData.ModelPageEntity.ModelVersionSpecs != null)
+                if (_objData != null && _objData.ModelPageEntity != null && _objData.ModelPageEntity.ModelVersionMinSpecs != null && _objData.ModelPageEntity.ModelVersionMinSpecs.MinSpecsList != null)
                 {
-                    if (_objData.ModelPageEntity.ModelVersionSpecs.FuelEfficiencyOverall > 0)
+                    IEnumerable<SpecsItem> versionMinSpecsList = _objData.ModelPageEntity.ModelVersionMinSpecs.MinSpecsList;
+                    SpecsItem specItem = versionMinSpecsList.FirstOrDefault(spec => spec.Id == (int)EnumSpecsFeaturesItem.FuelEfficiencyOverall);
+                    if (specItem != null && specItem.Value != "0")
                     {
                         property = new AdditionalProperty
                         {
                             Name = "Mileage",
-                            Value = Convert.ToString(_objData.ModelPageEntity.ModelVersionSpecs.FuelEfficiencyOverall),
+                            Value = specItem.Value,
                             UnitText = "KMPL"
 
                         };
                         listSpecs.Add(property);
                     }
-
-                    if (_objData.ModelPageEntity.ModelVersionSpecs.Displacement > 0)
+                    specItem = versionMinSpecsList.FirstOrDefault(spec => spec.Id == (int)EnumSpecsFeaturesItem.Displacement);
+                    if (specItem != null && specItem.Value != "0")
                     {
                         property = new AdditionalProperty
                         {
                             Name = "Displacement",
-                            Value = Convert.ToString(_objData.ModelPageEntity.ModelVersionSpecs.Displacement),
+                            Value = specItem.Value,
                             UnitText = "CC"
 
                         };
                         listSpecs.Add(property);
                     }
-
-                    if (_objData.ModelPageEntity.ModelVersionSpecs.MaxPower > 0)
+                    specItem = versionMinSpecsList.FirstOrDefault(spec => spec.Id == (int)EnumSpecsFeaturesItem.MaxPowerBhp);
+                    if (specItem != null && specItem.Value != "0")
                     {
                         property = new AdditionalProperty
                         {
                             Name = "Max Power",
-                            MaxValue = Convert.ToString(_objData.ModelPageEntity.ModelVersionSpecs.MaxPower),
+                            MaxValue = specItem.Value,
                             UnitText = "BHP"
 
                         };
                         listSpecs.Add(property);
 
                     }
-                    if (_objData.ModelPageEntity.ModelVersionSpecs.KerbWeight > 0)
+                    specItem = versionMinSpecsList.FirstOrDefault(spec => spec.Id == (int)EnumSpecsFeaturesItem.KerbWeight);
+                    if (specItem != null && specItem.Value != "0")
                     {
                         property = new AdditionalProperty
                         {
                             Name = "Weight",
-                            Value = Convert.ToString(_objData.ModelPageEntity.ModelVersionSpecs.KerbWeight),
+                            Value = specItem.Value,
                             UnitText = "KG"
 
                         };
+                        listSpecs.Add(property);
                     }
-                    listSpecs.Add(property);
-
-                    if (_objData.ModelPageEntity.ModelVersionSpecs.TopSpeed > 0)
+                    specItem = versionMinSpecsList.FirstOrDefault(spec => spec.Id == (int)EnumSpecsFeaturesItem.TopSpeed);
+                    if (specItem != null && specItem.Value != "0")
                     {
                         property = new AdditionalProperty
                         {
                             Name = "Top speed",
-                            MaxValue = Convert.ToString(_objData.ModelPageEntity.ModelVersionSpecs.TopSpeed),
+                            MaxValue = specItem.Value,
                             UnitText = "KMPH"
 
                         };

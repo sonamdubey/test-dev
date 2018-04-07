@@ -1,52 +1,28 @@
 ﻿@model Bikewale.Models.BikeModels.ModelPageVM
 @if (!Model.IsUpcomingBike)
 {
-
+	var minSpecAvailable = false;
+	if (Model.ModelPageEntity.ModelVersionSpecs != null && Model.ModelPageEntity.ModelVersionMinSpecs.MinSpecsList != null)
+	{
+		minSpecAvailable  = true;
+	}
     <div id="overviewContent" data-id="overviewContent" class="content-box-shadow card-bottom-margin padding-top15 padding-right20 padding-bottom20 padding-left20">
         <h2>@Model.BikeName Summary</h2>
-        @if (Model.ModelPageEntity.ModelVersionSpecs != null)
+        @if (minSpecAvailable)
         {
             <ul class="summary-specs-list text-center padding-bottom10">
-                <li>
-                    <span class="offers-sprite specs-capacity"></span>
-                    <p class="font12 text-light-grey">
-                        @Bikewale.Utility.FormatMinSpecs.ShowAvailable(Model.ModelPageEntity.ModelVersionSpecs.Displacement)
-                        @if (!Bikewale.Utility.FormatMinSpecs.ShowAvailable(Model.ModelPageEntity.ModelVersionSpecs.Displacement).Equals("--"))
-                        {
-                            <span>&nbsp;cc</span>
-                        }
-                    </p>
-                </li>
-                <li>
-                    <span class="offers-sprite specs-maxpower"></span>
-                    <p class="font12 text-light-grey">
-                        @Bikewale.Utility.FormatMinSpecs.ShowAvailable(Model.ModelPageEntity.ModelVersionSpecs.MaxPower)
-                        @if (!Bikewale.Utility.FormatMinSpecs.ShowAvailable(Model.ModelPageEntity.ModelVersionSpecs.MaxPower).Equals("--"))
-                        {
-                            <span>&nbsp;bhp</span>
-                        }
-                    </p>
-                </li>
-                <li>
-                    <span class="offers-sprite specs-mileage"></span>
-                    <p class="font12 text-light-grey">
-                        @Bikewale.Utility.FormatMinSpecs.ShowAvailable(Model.ModelPageEntity.ModelVersionSpecs.FuelEfficiencyOverall)
-                        @if (!Bikewale.Utility.FormatMinSpecs.ShowAvailable(Model.ModelPageEntity.ModelVersionSpecs.FuelEfficiencyOverall).Equals("--"))
-                        {
-                            <span>&nbsp;kmpl</span>
-                        }
-                    </p>
-                </li>
-                <li>
-                    <span class="offers-sprite specs-weight"></span>
-                    <p class="font12 text-light-grey">
-                        @Bikewale.Utility.FormatMinSpecs.ShowAvailable(Model.ModelPageEntity.ModelVersionSpecs.KerbWeight)
-                        @if (!Bikewale.Utility.FormatMinSpecs.ShowAvailable(Model.ModelPageEntity.ModelVersionSpecs.KerbWeight).Equals("--"))
-                        {
-                            <span>&nbsp;kgs</span>
-                        }
-                    </p>
-                </li>
+				@{
+					var minSpecsList = Model.ModelPageEntity.ModelVersionMinSpecs.MinSpecsList.Take(4);
+				}
+				@foreach (var minSpec in minSpecsList)
+				{
+					<li>
+						<span class="offers-sprite specs-capacity"></span>
+						<p class="font12 text-light-grey">
+							@Bikewale.Utility.FormatMinSpecs.ShowAvailable(minSpec.Value, minSpec.UnitType, minSpec.DataType)
+						</p>
+					</li>
+				}
             </ul>
             <div class="border-solid-bottom margin-bottom15"></div>
 
@@ -69,20 +45,25 @@
                             </td>
                         </tr>
                     }
-                    @if (Model.ModelPageEntity != null && Model.ModelPageEntity.ModelVersionSpecs != null && Model.ModelPageEntity.ModelVersionSpecs.TopSpeed > 0)
-                    {
-                        <tr>
-                            <td valign="top">Top speed</td>
-                            <td valign="top" class="text-bold">@Model.ModelPageEntity.ModelVersionSpecs.TopSpeed kmph</td>
-                        </tr>
-                    }
-                    @if (Model.ModelPageEntity != null && Model.ModelPageEntity.ModelVersionSpecs != null && Model.ModelPageEntity.ModelVersionSpecs.FuelEfficiencyOverall > 0)
-                    {
-                        <tr>
-                            <td valign="top">Mileage</td>
-                            <td valign="top" class="text-bold">@Model.ModelPageEntity.ModelVersionSpecs.FuelEfficiencyOverall kmpl</td>
-                        </tr>
-                    }
+			@if (minSpecAvailable)
+			{
+				var topSpeed = Model.ModelPageEntity.ModelVersionMinSpecs.MinSpecsList.FirstOrDefault(spec => spec.Id == (int)Bikewale.Entities.BikeData.EnumSpecsFeaturesItem.TopSpeed);
+				if (topSpeed != null && !string.IsNullOrEmpty(topSpeed.Value) && topSpeed.Value != "0")
+				{
+					<tr>
+						<td valign="top">Top speed</td>
+						<td valign="top" class="text-bold">@Bikewale.Utility.FormatMinSpecs.ShowAvailable(topSpeed.Value, topSpeed.UnitType, topSpeed.DataType)</td>
+					</tr>
+				}
+				var fuelEfficiency = Model.ModelPageEntity.ModelVersionMinSpecs.MinSpecsList.FirstOrDefault(spec => spec.Id == (int)Bikewale.Entities.BikeData.EnumSpecsFeaturesItem.FuelEfficiencyOverall);
+				if (fuelEfficiency != null && !string.IsNullOrEmpty(fuelEfficiency.Value) && fuelEfficiency.Value != "0")
+				{
+					<tr>
+						<td valign="top">Mileage</td>
+						<td valign="top" class="text-bold">@Bikewale.Utility.FormatMinSpecs.ShowAvailable(fuelEfficiency.Value, fuelEfficiency.UnitType, fuelEfficiency.DataType)</td>
+					</tr>
+				}
+			}
                     @if (Model.IsModelColorsAvailable)
                     {
                         <tr>
