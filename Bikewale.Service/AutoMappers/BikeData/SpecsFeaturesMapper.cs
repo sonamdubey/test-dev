@@ -76,6 +76,14 @@ namespace Bikewale.Service.AutoMappers.BikeData
             return null;
         }
 
+        /// <summary>
+        /// Created By  : Rajan Chauhan on 07 Apr 2018
+        /// Description : Convertor Function to convert to MostPopularBikes from MostPopularBikeBase
+        ///               Underlying assumption that order of calling minSpecs will be in the converting order
+        /// </summary>
+        /// <param name="popularBikeListDto"></param>
+        /// <param name="popularBikeList"></param>
+        /// <returns></returns>
         public static IEnumerable<MostPopularBikes> ConvertToMostPopularBikes(IEnumerable<MostPopularBikes> popularBikeListDto, IEnumerable<MostPopularBikesBase> popularBikeList)
         {
             try
@@ -84,9 +92,6 @@ namespace Bikewale.Service.AutoMappers.BikeData
                 {
                     IEnumerator<MostPopularBikesBase> popularBikeEnumerator = popularBikeList.GetEnumerator();
                     float specValue;
-
-                    IEnumerable<PropertyInfo> minSpecPropList = new MinSpecs().GetType().GetProperties();
-                    IEnumerator<PropertyInfo> minSpecPropEnumerator = minSpecPropList.GetEnumerator();
                     IEnumerable<SpecsItem> specItemList;
                     foreach (var dtoBike in popularBikeListDto)
                     {
@@ -94,15 +99,32 @@ namespace Bikewale.Service.AutoMappers.BikeData
                         {
                             dtoBike.Specs = new MinSpecs();
                             specItemList = popularBikeEnumerator.Current.MinSpecsList;
-                            foreach (var spec in specItemList)
+                            IEnumerator<SpecsItem> minSpecEnumerator = specItemList.GetEnumerator();
+                            if(minSpecEnumerator.MoveNext())
                             {
-                                specValue = float.TryParse(spec.Value, out specValue) ? specValue : 0;
-                                if (minSpecPropEnumerator.MoveNext())
-                                {
-                                    minSpecPropEnumerator.Current.SetValue(dtoBike.Specs, specValue);
-                                }
+                                specValue = float.TryParse(minSpecEnumerator.Current.Value, out specValue) ? specValue : 0;
+                                dtoBike.Specs.Displacement = specValue;
                             }
-                            minSpecPropEnumerator.Reset();
+                             if(minSpecEnumerator.MoveNext())
+                            {
+                                specValue = float.TryParse(minSpecEnumerator.Current.Value, out specValue) ? specValue : 0;
+                                dtoBike.Specs.FuelEfficiencyOverall = specValue;
+                            }
+                             if(minSpecEnumerator.MoveNext())
+                            {
+                                specValue = float.TryParse(minSpecEnumerator.Current.Value, out specValue) ? specValue : 0;
+                                dtoBike.Specs.MaxPower = specValue;
+                            }
+                             if(minSpecEnumerator.MoveNext())
+                            {
+                                specValue = float.TryParse(minSpecEnumerator.Current.Value, out specValue) ? specValue : 0;
+                                dtoBike.Specs.MaximumTorque = specValue;
+                            }
+                             if(minSpecEnumerator.MoveNext())
+                            {
+                                specValue = float.TryParse(minSpecEnumerator.Current.Value, out specValue) ? specValue : 0;
+                                dtoBike.Specs.KerbWeight = specValue;
+                            }
                         }
                     }
                     return popularBikeListDto;
