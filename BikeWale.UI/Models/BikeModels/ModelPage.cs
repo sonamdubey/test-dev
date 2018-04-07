@@ -36,14 +36,14 @@ using Bikewale.Models.Used;
 using Bikewale.Models.UserReviews;
 using Bikewale.Notifications;
 using Bikewale.Utility;
-using Bikewale.Utility.ApiGatewayHelper;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Web;
-using Bikewale.BAL.ApiGateway.Extensions;
+using Bikewale.BAL.ApiGateway.ApiGatewayHelper;
+using Bikewale.BAL.ApiGateway.Adapters.BikeData;
 
 namespace Bikewale.Models.BikeModels
 {
@@ -185,9 +185,12 @@ namespace Bikewale.Models.BikeModels
 						specs.BikeName = _objData.BikeName;
 						specs.ModelName = _objData.ModelPageEntity.ModelDetails.ModelName;
 
-						IApiGatewayCaller objCaller = BikeData.GetVehicleDataForVersionId(_apiGatewayCaller, new List<int> { (int)_objData.VersionId });						
-						objCaller.Call();
-						specs.VersionSpecsFeatures = BikeData.ConvertToBwSpecsFeaturesEntity(objCaller.GetResponse<VehicleData.Service.ProtoClass.VehicleDataValue>(0));
+						GetVersionSpecsByIdAdapter adapt1 = new GetVersionSpecsByIdAdapter();
+						adapt1.AddApiGatewayCall(_apiGatewayCaller, new List<int> { (int)_objData.VersionId });
+						
+						_apiGatewayCaller.Call();
+
+						specs.VersionSpecsFeatures = adapt1.Output;
 						
 						_objData.BikeSpecsFeatures = specs;
 					}
@@ -201,12 +204,12 @@ namespace Bikewale.Models.BikeModels
                     BindControls();
 
                     BindColorString();
+
                     if (_modelId > 0)
                     {
                         BindMileageWidget(_objData);
                     }
-
-
+					
                     CreateMetas();
 
                     ImageAccordingToVersion();

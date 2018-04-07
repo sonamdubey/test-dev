@@ -79,7 +79,7 @@ using Bikewale.Interfaces.UserReviews;
 using Bikewale.Interfaces.UserReviews.Search;
 using Bikewale.Interfaces.Videos;
 using Bikewale.ManufacturerCampaign.Interface;
-using Bikewale.Utility.ApiGatewayHelper;
+using Bikewale.BAL.ApiGateway.ApiGatewayHelper;
 using Microsoft.Practices.Unity;
 using System.Web.Mvc;
 using Unity.Mvc5;

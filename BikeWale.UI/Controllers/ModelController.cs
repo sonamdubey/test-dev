@@ -18,7 +18,7 @@ using Bikewale.Interfaces.Videos;
 using Bikewale.ManufacturerCampaign.Entities;
 using Bikewale.ManufacturerCampaign.Interface;
 using Bikewale.Models.BikeModels;
-using Bikewale.Utility.ApiGatewayHelper;
+using Bikewale.BAL.ApiGateway.ApiGatewayHelper;
 
 namespace Bikewale.Controllers
 {

@@ -194,7 +194,6 @@
   <ItemGroup>
     <Compile Include="ABServiceRef\TCApi_Inquiry.cs" />
     <Compile Include="AdSlot\AdSlot.cs" />
-    <Compile Include="ApiGateway\Extensions\BikeData.cs" />
     <Compile Include="AppDeepLinking\DeepLinking.cs" />
     <Compile Include="App\SplashScreen.cs" />
     <Compile Include="Authors\Authors.cs" />

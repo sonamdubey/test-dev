@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.40629.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2020
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Bikewale.DAL", "Bikewale.DAL", "{42FF1FB7-AC82-4750-8DF6-2BF39E69950E}"
 EndProject
@@ -166,6 +166,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bikewale.ElasticSearch.DocumentBuilderConsumer", "Bikewale.ElasticSearch.DocumentBuilderConsumer\Bikewale.ElasticSearch.DocumentBuilderConsumer.csproj", "{EBB5EABD-FC2E-4734-AD92-2B938BA2B6A8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bikewale.ManufacturerCampaign.Cache", "Bikewale.ManufacturerCampaign.Cache\Bikewale.ManufacturerCampaign.Cache.csproj", "{A00B0A07-EB13-4B08-8089-6ED33B9896FE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bikewale.BAL.ApiGateway", "Bikewale.BAL.ApiGateway\Bikewale.BAL.ApiGateway.csproj", "{281D4C7B-6329-4307-A1A3-DE25135659F6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -1750,6 +1752,30 @@ Global
 		{A00B0A07-EB13-4B08-8089-6ED33B9896FE}.Testing|Any CPU.Build.0 = Release|Any CPU
 		{A00B0A07-EB13-4B08-8089-6ED33B9896FE}.Testing|x64.ActiveCfg = Release|Any CPU
 		{A00B0A07-EB13-4B08-8089-6ED33B9896FE}.Testing|x86.ActiveCfg = Release|Any CPU
+		{281D4C7B-6329-4307-A1A3-DE25135659F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{281D4C7B-6329-4307-A1A3-DE25135659F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{281D4C7B-6329-4307-A1A3-DE25135659F6}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{281D4C7B-6329-4307-A1A3-DE25135659F6}.Debug|x64.Build.0 = Debug|Any CPU
+		{281D4C7B-6329-4307-A1A3-DE25135659F6}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{281D4C7B-6329-4307-A1A3-DE25135659F6}.Debug|x86.Build.0 = Debug|Any CPU
+		{281D4C7B-6329-4307-A1A3-DE25135659F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{281D4C7B-6329-4307-A1A3-DE25135659F6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{281D4C7B-6329-4307-A1A3-DE25135659F6}.Release|x64.ActiveCfg = Release|Any CPU
+		{281D4C7B-6329-4307-A1A3-DE25135659F6}.Release|x64.Build.0 = Release|Any CPU
+		{281D4C7B-6329-4307-A1A3-DE25135659F6}.Release|x86.ActiveCfg = Release|Any CPU
+		{281D4C7B-6329-4307-A1A3-DE25135659F6}.Release|x86.Build.0 = Release|Any CPU
+		{281D4C7B-6329-4307-A1A3-DE25135659F6}.Staging|Any CPU.ActiveCfg = Release|Any CPU
+		{281D4C7B-6329-4307-A1A3-DE25135659F6}.Staging|Any CPU.Build.0 = Release|Any CPU
+		{281D4C7B-6329-4307-A1A3-DE25135659F6}.Staging|x64.ActiveCfg = Release|Any CPU
+		{281D4C7B-6329-4307-A1A3-DE25135659F6}.Staging|x64.Build.0 = Release|Any CPU
+		{281D4C7B-6329-4307-A1A3-DE25135659F6}.Staging|x86.ActiveCfg = Release|Any CPU
+		{281D4C7B-6329-4307-A1A3-DE25135659F6}.Staging|x86.Build.0 = Release|Any CPU
+		{281D4C7B-6329-4307-A1A3-DE25135659F6}.Testing|Any CPU.ActiveCfg = Release|Any CPU
+		{281D4C7B-6329-4307-A1A3-DE25135659F6}.Testing|Any CPU.Build.0 = Release|Any CPU
+		{281D4C7B-6329-4307-A1A3-DE25135659F6}.Testing|x64.ActiveCfg = Release|Any CPU
+		{281D4C7B-6329-4307-A1A3-DE25135659F6}.Testing|x64.Build.0 = Release|Any CPU
+		{281D4C7B-6329-4307-A1A3-DE25135659F6}.Testing|x86.ActiveCfg = Release|Any CPU
+		{281D4C7B-6329-4307-A1A3-DE25135659F6}.Testing|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1825,5 +1851,9 @@ Global
 		{EB619D5C-78BB-4236-BE23-630995E3DCC2} = {5E11D1E6-8D14-438B-AA77-883DAA63F4F2}
 		{EBB5EABD-FC2E-4734-AD92-2B938BA2B6A8} = {5E11D1E6-8D14-438B-AA77-883DAA63F4F2}
 		{A00B0A07-EB13-4B08-8089-6ED33B9896FE} = {7960339E-0DDB-4B69-BA53-B20F63897143}
+		{281D4C7B-6329-4307-A1A3-DE25135659F6} = {D2AE1DE5-22CC-4CA0-AD06-E5B85E93F6E9}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {44CB52F1-17BB-4C73-B049-98A8D01DE5BA}
 	EndGlobalSection
 EndGlobal
