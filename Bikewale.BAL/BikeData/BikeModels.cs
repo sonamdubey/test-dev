@@ -170,6 +170,55 @@ namespace Bikewale.BAL.BikeData
         }
 
         /// <summary>
+        /// Created By  : Rajan Chauhan on 06 Apr 2018
+        /// Description : Added BAL function for binding MinSpecs
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <param name="topCount"></param>
+        /// <param name="cityId"></param>
+        /// <returns></returns>
+        public ICollection<MostPopularBikesBase> GetMostPopularBikesByModelBodyStyle(int modelId, int topCount, uint cityId)
+        {
+            ICollection<MostPopularBikesBase> modelList = null;
+            try
+            {
+                modelList = _modelCacheRepository.GetMostPopularBikesByModelBodyStyle(modelId, topCount, cityId);
+                if (modelList != null)
+                {
+                    IEnumerable<VersionMinSpecsEntity> versionList = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(modelList.Select(m => m.objVersion.VersionId),
+                        new List<EnumSpecsFeaturesItem>{
+                            EnumSpecsFeaturesItem.Displacement,
+                            EnumSpecsFeaturesItem.FuelEfficiencyOverall,
+                            EnumSpecsFeaturesItem.MaxPowerBhp,
+                            EnumSpecsFeaturesItem.MaximumTorqueNm,
+                            EnumSpecsFeaturesItem.KerbWeight
+                    });
+                    if (versionList != null)
+                    {
+                        var minSpecs = versionList.GetEnumerator();
+                        foreach (var model in modelList)
+                        {
+                            if (minSpecs.MoveNext())
+                            {
+                                model.MinSpecsList = minSpecs.Current.MinSpecsList;
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, String.Format("Bikewale.BAL.BikeModels.GetMostPopularBikesByModelBodyStyle({0}, {1}, {2})", modelId, topCount, cityId));
+            }
+            return modelList;
+        }
+        
+        public IEnumerable<MostPopularBikesBase> GetMostPopularBikes(int? topCount = null, int? makeId = null)
+        {
+            return _modelCacheRepository.GetMostPopularBikes(topCount, makeId);
+        }
+
+        /// <summary>
         /// Created By : Ashish G. Kamble on 12 May 2014
         /// Summary : 
         /// </summary>
@@ -203,8 +252,54 @@ namespace Bikewale.BAL.BikeData
         }
 
         /// <summary>
+        /// Created By  : Rajan Chauhan on 6 Apr 2018
+        /// Description : Method to get PopularBikes list by Make
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <returns></returns>
+        public IEnumerable<MostPopularBikesBase> GetMostPopularBikesByMake(uint makeId)
+        {
+            IEnumerable<MostPopularBikesBase> objList = null;
+            try
+            {
+                objList = _modelCacheRepository.GetMostPopularBikesByMake(makeId);
+                if (objList != null)
+                {
+                    IEnumerable<VersionMinSpecsEntity> versionList = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(objList.Select(m => m.objVersion.VersionId),
+                        new List<EnumSpecsFeaturesItem>{
+                        EnumSpecsFeaturesItem.Displacement,
+                        EnumSpecsFeaturesItem.FuelEfficiencyOverall,
+                        EnumSpecsFeaturesItem.MaxPowerBhp,
+                        EnumSpecsFeaturesItem.MaximumTorqueNm,
+                        EnumSpecsFeaturesItem.KerbWeight
+                    });
+                    if (versionList != null)
+                    {
+                        var minSpecs = versionList.GetEnumerator();
+                        foreach (var bike in objList)
+                        {
+                            if (minSpecs.MoveNext())
+                            {
+                                bike.MinSpecsList = minSpecs.Current.MinSpecsList;
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, String.Format("Bikewale.BAL.BikeModels.GetMostPopularBikesByMake({0})", makeId));
+            }
+            return objList;
+        }
+
+
+        /// <summary>
         /// Created by Subodh jain 22 sep 2016
         /// des: to deicide to fetch by makecity or only make
+        /// Modified by : Rajan Chauhan on 6 Apr 2018
+        /// Description : Corrected returning bikeModels count to be exactly topCount
+        ///               Added Error Logging
         /// </summary>
         /// <param name="topCount"></param>
         /// <param name="makeId"></param>
@@ -213,32 +308,41 @@ namespace Bikewale.BAL.BikeData
         public IEnumerable<MostPopularBikesBase> GetMostPopularBikesbyMakeCity(uint topCount, uint makeId, uint cityId)
         {
             IEnumerable<MostPopularBikesBase> objList = null;
-            if (cityId > 0)
-                objList = modelRepository.GetMostPopularBikesbyMakeCity(topCount, makeId, cityId);
-            else
-                objList = modelRepository.GetMostPopularBikesByMake(makeId);
-
-            IEnumerable<VersionMinSpecsEntity> versionList = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(objList.Select(m => m.objVersion.VersionId),
-                new List<EnumSpecsFeaturesItem>{
-                    EnumSpecsFeaturesItem.Displacement,
-                    EnumSpecsFeaturesItem.FuelEfficiencyOverall,
-                    EnumSpecsFeaturesItem.MaxPowerBhp,
-                    EnumSpecsFeaturesItem.MaximumTorqueNm,
-                    EnumSpecsFeaturesItem.KerbWeight
-                });
-            if (versionList != null)
+            try
             {
-                var minSpecs = versionList.GetEnumerator();
-                foreach (var bike in objList)
+                if (cityId > 0)
+                    objList = _modelCacheRepository.GetMostPopularBikesbyMakeCity(topCount, makeId, cityId);
+                else
+                    objList = _modelCacheRepository.GetMostPopularBikesByMake(makeId);
+                if (objList != null)
                 {
-                    if (minSpecs.MoveNext())
+                    objList = objList.Take((int)topCount);
+                    IEnumerable<VersionMinSpecsEntity> versionList = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(objList.Select(m => m.objVersion.VersionId),
+                        new List<EnumSpecsFeaturesItem>{
+                        EnumSpecsFeaturesItem.Displacement,
+                        EnumSpecsFeaturesItem.FuelEfficiencyOverall,
+                        EnumSpecsFeaturesItem.MaxPowerBhp,
+                        EnumSpecsFeaturesItem.MaximumTorqueNm,
+                        EnumSpecsFeaturesItem.KerbWeight
+                    });
+                    if (versionList != null)
                     {
-                        bike.MinSpecsList = minSpecs.Current.MinSpecsList;
+                        var minSpecs = versionList.GetEnumerator();
+                        foreach (var bike in objList)
+                        {
+                            if (minSpecs.MoveNext())
+                            {
+                                bike.MinSpecsList = minSpecs.Current.MinSpecsList;
+                            }
+                        }
                     }
                 }
             }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, String.Format("Bikewale.BAL.BikeModels.GetMostPopularBikesbyMakeCity({0}, {1}, {2})", topCount, makeId, cityId));
+            }
             return objList;
-
         }
 
         public IEnumerable<MostPopularBikesBase> GetAdPromotedBike(BikeFilters ObjData, bool isCityLogicPresent)
@@ -1239,6 +1343,48 @@ namespace Bikewale.BAL.BikeData
         public IEnumerable<MostPopularBikesBase> GetMostPopularScooters(uint makeId)
         {
             return _modelCacheRepository.GetMostPopularScooters(makeId);
+        }
+
+        /// <summary>
+        /// Created By  : Rajan Chauhan on 06 Apr 2018
+        /// Description : BAL function for binding specs to MostPopularBikes
+        /// </summary>
+        /// <param name="topCount"></param>
+        /// <returns></returns>
+        public IEnumerable<MostPopularBikesBase> GetMostPopularBikes(int topCount)
+        {
+            IEnumerable<MostPopularBikesBase> modelList = null;
+            try
+            {
+                modelList = _modelCacheRepository.GetMostPopularBikes(topCount, null);
+                if (modelList != null)
+                {
+                    IEnumerable<VersionMinSpecsEntity> bikesList = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(modelList.Select(m => m.objVersion.VersionId),
+                        new List<EnumSpecsFeaturesItem>{
+                        EnumSpecsFeaturesItem.Displacement,
+                        EnumSpecsFeaturesItem.FuelEfficiencyOverall,
+                        EnumSpecsFeaturesItem.MaxPowerBhp,
+                        EnumSpecsFeaturesItem.MaximumTorqueNm,
+                        EnumSpecsFeaturesItem.KerbWeight
+                    });
+                    if (bikesList != null)
+                    {
+                        var minSpecs = bikesList.GetEnumerator();
+                        foreach (var model in modelList)
+                        {
+                            if (minSpecs.MoveNext())
+                            {
+                                model.MinSpecsList = minSpecs.Current.MinSpecsList;
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, String.Format("Bikewale.BAL.BikeModels.GetMostPopularBikes({0})", topCount));
+            }
+            return modelList;
         }
 
         /// <summary>

@@ -1,10 +1,13 @@
-﻿using Bikewale.DTO.Model.v3;
+﻿using Bikewale.DTO.BikeData;
+using Bikewale.DTO.Model.v3;
 using Bikewale.DTO.Version;
+using Bikewale.DTO.Widgets;
 using Bikewale.Entities.BikeData;
 using Bikewale.Notifications;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 
 namespace Bikewale.Service.AutoMappers.BikeData
 {
@@ -73,9 +76,73 @@ namespace Bikewale.Service.AutoMappers.BikeData
             return null;
         }
 
+        /// <summary>
+        /// Created By  : Rajan Chauhan on 07 Apr 2018
+        /// Description : Convertor Function to convert to MostPopularBikes from MostPopularBikeBase
+        ///               Underlying assumption that order of calling minSpecs will be in the converting order
+        /// </summary>
+        /// <param name="popularBikeListDto"></param>
+        /// <param name="popularBikeList"></param>
+        /// <returns></returns>
+        public static IEnumerable<MostPopularBikes> ConvertToMostPopularBikes(IEnumerable<MostPopularBikes> popularBikeListDto, IEnumerable<MostPopularBikesBase> popularBikeList)
+        {
+            try
+            {
+                if (popularBikeList != null)
+                {
+                    IEnumerator<MostPopularBikesBase> popularBikeEnumerator = popularBikeList.GetEnumerator();
+                    float specValue;
+                    IEnumerable<SpecsItem> specItemList;
+                    foreach (var dtoBike in popularBikeListDto)
+                    {
+                        if (popularBikeEnumerator.MoveNext())
+                        {
+                            dtoBike.Specs = new MinSpecs();
+                            specItemList = popularBikeEnumerator.Current.MinSpecsList;
+                            IEnumerator<SpecsItem> minSpecEnumerator = specItemList.GetEnumerator();
+                            if(minSpecEnumerator.MoveNext())
+                            {
+                                specValue = float.TryParse(minSpecEnumerator.Current.Value, out specValue) ? specValue : 0;
+                                dtoBike.Specs.Displacement = specValue;
+                            }
+                             if(minSpecEnumerator.MoveNext())
+                            {
+                                specValue = float.TryParse(minSpecEnumerator.Current.Value, out specValue) ? specValue : 0;
+                                dtoBike.Specs.FuelEfficiencyOverall = specValue;
+                            }
+                             if(minSpecEnumerator.MoveNext())
+                            {
+                                specValue = float.TryParse(minSpecEnumerator.Current.Value, out specValue) ? specValue : 0;
+                                dtoBike.Specs.MaxPower = specValue;
+                            }
+                             if(minSpecEnumerator.MoveNext())
+                            {
+                                specValue = float.TryParse(minSpecEnumerator.Current.Value, out specValue) ? specValue : 0;
+                                dtoBike.Specs.MaximumTorque = specValue;
+                            }
+                             if(minSpecEnumerator.MoveNext())
+                            {
+                                specValue = float.TryParse(minSpecEnumerator.Current.Value, out specValue) ? specValue : 0;
+                                dtoBike.Specs.KerbWeight = specValue;
+                            }
+                        }
+                    }
+                    return popularBikeListDto;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, String.Format("Bikewale.Service.AutoMappers.BikeData.ConvertToMostPopularBikes( {0}, {1})", popularBikeListDto, popularBikeList));
+            }
+            
+            return null;
+        }
+
         private static bool CheckBoolSpecItem(SpecsItem specItem)
         {
             return specItem != null && specItem.Value.Equals("1") ? true : false;
         }
+
+
     }
 }

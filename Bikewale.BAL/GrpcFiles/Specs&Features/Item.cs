@@ -36,11 +36,14 @@ namespace VehicleData.Service.ProtoClass {
             "bklkGAIgASgFEhUKDUFwcGxpY2F0aW9uSWQYAyABKAUiLAoISXRlbUxpc3QS",
             "IAoFSXRlbXMYASADKAsyES5WZWhpY2xlRGF0YS5JdGVtKloKDkl0ZW1Hcm91",
             "cFR5cGVzEggKBE5vbmUQABIOCgpJbmRpdmlkdWFsEAESFwoTSW5kaXZpZHVh",
-            "bGx5Q3JlYXRlZBACEhUKEUluZGl2aWR1YWxseVNob3duEANCIaoCHlZlaGlj",
-            "bGVEYXRhLlNlcnZpY2UuUHJvdG9DbGFzc2IGcHJvdG8z"));
+            "bGx5Q3JlYXRlZBACEhUKEUluZGl2aWR1YWxseVNob3duEAMqNQoKSXRlbVN0",
+            "YXR1cxINCglQdWJsaXNoZWQQABIPCgtVblB1Ymxpc2hlZBABEgcKA0FsbBAC",
+            "KkMKCEl0ZW1UeXBlEgwKCEFsbF9JdGVtEAASEgoOQXZhaWxhYmxlX0l0ZW0Q",
+            "ARIVChFOb3RBdmFpbGFibGVfSXRlbRACQiGqAh5WZWhpY2xlRGF0YS5TZXJ2",
+            "aWNlLlByb3RvQ2xhc3NiBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
-          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::VehicleData.Service.ProtoClass.ItemGroupTypes), }, new pbr::GeneratedClrTypeInfo[] {
+          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::VehicleData.Service.ProtoClass.ItemGroupTypes), typeof(global::VehicleData.Service.ProtoClass.ItemStatus), typeof(global::VehicleData.Service.ProtoClass.ItemType), }, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::VehicleData.Service.ProtoClass.Item), global::VehicleData.Service.ProtoClass.Item.Parser, new[]{ "Id", "CategoryId", "Name", "DataTypeId", "UnitTypeId", "UnitTypeName", "SortOrder", "Description", "IsActive", "Abbreviation", "MinVal", "MaxVal", "IsPublished", "Icon", "PriorityOrder", "ItemImportance", "UpdatedOn", "UpdatedBy", "ApplicationId", "ItemValues", "ItemGroupType" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::VehicleData.Service.ProtoClass.ItemByCategoryRequest), global::VehicleData.Service.ProtoClass.ItemByCategoryRequest.Parser, new[]{ "CategoryId", "VersionId", "ApplicationId" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::VehicleData.Service.ProtoClass.ItemList), global::VehicleData.Service.ProtoClass.ItemList.Parser, new[]{ "Items" }, null, null, null)
@@ -55,6 +58,18 @@ namespace VehicleData.Service.ProtoClass {
     [pbr::OriginalName("Individual")] Individual = 1,
     [pbr::OriginalName("IndividuallyCreated")] IndividuallyCreated = 2,
     [pbr::OriginalName("IndividuallyShown")] IndividuallyShown = 3,
+  }
+
+  public enum ItemStatus {
+    [pbr::OriginalName("Published")] Published = 0,
+    [pbr::OriginalName("UnPublished")] UnPublished = 1,
+    [pbr::OriginalName("All")] All = 2,
+  }
+
+  public enum ItemType {
+    [pbr::OriginalName("All_Item")] AllItem = 0,
+    [pbr::OriginalName("Available_Item")] AvailableItem = 1,
+    [pbr::OriginalName("NotAvailable_Item")] NotAvailableItem = 2,
   }
 
   #endregion

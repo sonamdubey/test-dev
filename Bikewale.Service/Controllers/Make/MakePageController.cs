@@ -29,8 +29,7 @@ namespace Bikewale.Service.Controllers.Make
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="makesRepository"></param>
-        /// <param name="modelRepository"></param>
+        /// <param name="bikeModels"></param>
         public MakePageController(IBikeModels<BikeModelEntity, int> bikeModels)
         {
             using (IUnityContainer container = new UnityContainer())
@@ -46,10 +45,9 @@ namespace Bikewale.Service.Controllers.Make
         /// Make name, Description(small and large) and popular bikes
         /// </summary>
         /// <param name="makeId">make id</param>
-        /// <param name="totalBikeCount">total popular bike count</param>
         /// <returns></returns>
         [ResponseType(typeof(MakePage))]
-        public IHttpActionResult Get(int makeId)
+        public IHttpActionResult Get(uint makeId)
         {
             BikeMakePageEntity entity = null;
             BikeDescriptionEntity description = null;
@@ -58,8 +56,8 @@ namespace Bikewale.Service.Controllers.Make
 
             try
             {
-                objModelList = _bikeModels.GetMostPopularBikesbyMakeCity(0, (uint)makeId, 0);
-                description = _bikeMakes.GetMakeDescription(makeId);
+                objModelList = _bikeModels.GetMostPopularBikesByMake(makeId);
+                description = _bikeMakes.GetMakeDescription((int)makeId);
 
                 if (objModelList != null && objModelList.Any() && description != null)
                 {
