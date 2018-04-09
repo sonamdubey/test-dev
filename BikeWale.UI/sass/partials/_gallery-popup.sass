@@ -125,6 +125,7 @@
 		height: 26px
 
 .gallery-image__footer
+	display: inline-block
 	@include flexbox
 	@include justify-content(space-between)
 	@include align-items(center)
@@ -258,9 +259,10 @@
 	width: auto
 	white-space: nowrap
 	padding-right: 15px
-	z-index: 6
+	z-index: 8
 	border-radius: 2px
 	user-select: none
+	background-color: color('dark-black')
 
 	.landscape-text
 		display: inline-block
@@ -341,7 +343,7 @@
 	bottom: 7%
 	left: 50%
 	text-transform: capitalize
-	z-index: 6
+	z-index: 8
 
 .model-gallery__image-title
 	@include text-truncate(100%)
@@ -387,11 +389,13 @@
 		
 		.model-gallery__image-title
 			padding: 0 20px
-			display: inline
+			display: inline-block
+			vertical-align: middle
 			position: static
 			font-size: 12px
 			background: transparent
 			color: color('light-grey')
+			text-align: left
 
 		.landscape-icon__container
 			&[data-visible="true"]
@@ -479,7 +483,7 @@
 
 .slide__more-btn-content
 	position: absolute
-	bottom: -19px
+	bottom: -9%
 	left: 0
 	right: 0
 	margin: 0 auto
@@ -525,6 +529,16 @@
 	.color-box
 		width: 48px
 		height: 48px
+
+.browser--uc
+	.orientation--landscape
+		.color-slide__list
+			margin-bottom: 5px
+
+.browser--uc-v10
+	.orientation--landscape
+		.gallery-image__left-section
+			min-width: 220px
 
 // video slug
 .model-gallery__video-slide
@@ -579,11 +593,6 @@
 
 	.gallery-footer__content
 		display: none
-
-.orientation--landscape
-	.model-gallery__video-slide
-		.slide__more-btn-content
-			bottom: -50px
 
 // video playing state
 .video-slug--video-playing

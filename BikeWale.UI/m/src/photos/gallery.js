@@ -219,6 +219,10 @@ docReady(function () {
 		$('body').addClass('browser--uc');
 	}
 
+	if (navigator.userAgent.match(/UCBrowser\/10/g)) {
+		$('body').addClass('browser--uc-v10');
+	}
+
 	// initialize and register main gallery swiper
 	mainGallerySwiper = MainGallerySwiper.init();
 	MainGallerySwiper.registerEvents();
