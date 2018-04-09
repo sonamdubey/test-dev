@@ -677,7 +677,7 @@ namespace Bikewale.DAL.BikeData
             int recordCount = 0;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getnewlaunchedbikes_04042018"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getnewlaunchedbikes_28032018"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_startindex", DbType.Int32, startIndex));
@@ -709,7 +709,7 @@ namespace Bikewale.DAL.BikeData
                                 objModels.MaxPrice = SqlReaderConvertor.ToInt64(dr["MaxPrice"]);
                                 objModels.LaunchDate = SqlReaderConvertor.ToDateTime(dr["LaunchDate"]);
                                 objModels.OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]);
-                                objModels.VersionId = SqlReaderConvertor.ToInt32(dr["VersionId"]);
+                                objModels.VersionId = SqlReaderConvertor.ToInt32(dr["TopVersionId"]);
                                 objModelList.Add(objModels);
 
                             }
