@@ -9,6 +9,10 @@ using System.Linq;
 
 namespace Bikewale.Sitemap.MainSitemap
 {
+    /// <summary>
+    /// Created by  :   Pratibha Verma on 9 April 2018
+    /// Description :   Elastic Search Instance
+    /// </summary>
     public class ElasticSearchInstance
     {
         private static readonly ElasticSearchInstance _clientInstance = new ElasticSearchInstance();

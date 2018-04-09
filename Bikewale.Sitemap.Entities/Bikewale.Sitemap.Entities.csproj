@@ -53,8 +53,8 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BikeMake.cs" />
-    <Compile Include="BikeModel.cs" />
+    <Compile Include="BikeMakeEntity.cs" />
+    <Compile Include="BikeModelEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SiteMapEntity.cs" />
     <Compile Include="TUrl.cs" />

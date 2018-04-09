@@ -2,7 +2,7 @@
 
 namespace Bikewale.Sitemap.Entities
 {
-    public class BikeModel
+    public class BikeModelEntity
     {
         [JsonProperty("modelMaskingName")]
         public string ModelMaskingName { get; set; }

@@ -4,8 +4,8 @@ namespace Bikewale.Sitemap.Entities
     public class SiteMapEntity
     {
         [JsonProperty("bikeMake")]
-        public BikeMake BikeMake { get; set; }
+        public BikeMakeEntity BikeMake { get; set; }
         [JsonProperty("bikeModel")]
-        public BikeModel BikeModel { get; set; }
+        public BikeModelEntity BikeModel { get; set; }
     }
 }
