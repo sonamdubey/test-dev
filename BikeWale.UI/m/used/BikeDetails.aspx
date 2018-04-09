@@ -169,8 +169,8 @@
             </div>
         </section>
         <% }
-        else
-        { %>
+            else
+            { %>
         <section>
             <div class="container bg-white clearfix box-shadow margin-bottom10">
                 <div class="font14 padding-top15 padding-right20 padding-bottom15 padding-left20">
@@ -178,7 +178,8 @@
 
                     <div class="bike-sold-msg text-grey ">
                         <h1><%= bikeName %></h1>
-                        The <%= bikeName %> bike you are looking for has been sold. You might want to consider other used bikes shown below.</div>
+                        The <%= bikeName %> bike you are looking for has been sold. You might want to consider other used bikes shown below.
+                    </div>
                 </div>
             </div>
         </section>
@@ -209,35 +210,18 @@
                     </div>
                 </div>
 
-                <% if (inquiryDetails.SpecsFeatures != null && !isBikeSold)
+                <% if (inquiryDetails.versionMinSpecs != null && !isBikeSold)
                     { %>
                 <div id="modelSpecs" class="bw-model-tabs-data margin-right20 margin-left20 padding-top15 padding-bottom20 font14 border-solid-bottom">
                     <h2 class="margin-bottom20">Specification summary</h2>
                     <ul class="specs-features-list">
+                        <%foreach (var specItem in inquiryDetails.versionMinSpecs.Take(6))
+                            {%>
                         <li>
-                            <p class="specs-features-label">Displacement</p>
-                            <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(inquiryDetails.SpecsFeatures.Displacement,"cc") %></p>
+                            <p class="specs-features-label"><%=specItem.Name %></p>
+                            <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(specItem.Value, specItem.UnitType, specItem.DataType) %></p>
                         </li>
-                        <li>
-                            <p class="specs-features-label">Max Power</p>
-                            <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(inquiryDetails.SpecsFeatures.MaxPower, "bhp",inquiryDetails.SpecsFeatures.MaxPowerRPM, "rpm") %></p>
-                        </li>
-                        <li>
-                            <p class="specs-features-label">Maximum Torque</p>
-                            <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(inquiryDetails.SpecsFeatures.MaximumTorque, "Nm",inquiryDetails.SpecsFeatures.MaximumTorqueRPM, "rpm") %></p>
-                        </li>
-                        <li>
-                            <p class="specs-features-label">No. of gears</p>
-                            <p class="specs-features-value"><%= inquiryDetails.SpecsFeatures.NoOfGears %></p>
-                        </li>
-                        <li>
-                            <p class="specs-features-label">Mileage</p>
-                            <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(inquiryDetails.SpecsFeatures.FuelEfficiencyOverall, "kmpl") %></p>
-                        </li>
-                        <li>
-                            <p class="specs-features-label">Brake Type</p>
-                            <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(inquiryDetails.SpecsFeatures.BrakeType) %></p>
-                        </li>
+                        <%} %>
                     </ul>
                     <div class="clear"></div>
 
@@ -249,30 +233,13 @@
                 <div id="modelFeatures" class="bw-model-tabs-data margin-right20 margin-left20 padding-top20 padding-bottom20 font14 border-solid-bottom">
                     <h2 class="margin-bottom20">Features summary</h2>
                     <ul class="specs-features-list">
+                        <%foreach (var specItem in inquiryDetails.versionMinSpecs.Skip(12))
+                            {%>
                         <li>
-                            <p class="specs-features-label">Speedometer</p>
-                            <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(inquiryDetails.SpecsFeatures.Speedometer) %></p>
+                            <p class="specs-features-label"><%=specItem.Name %></p>
+                            <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(specItem.Value, specItem.UnitType, specItem.DataType) %></p>
                         </li>
-                        <li>
-                            <p class="specs-features-label">Fuel Guage</p>
-                            <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(inquiryDetails.SpecsFeatures.FuelGauge) %></p>
-                        </li>
-                        <li>
-                            <p class="specs-features-label">Tachometer Type</p>
-                            <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(inquiryDetails.SpecsFeatures.TachometerType) %></p>
-                        </li>
-                        <li>
-                            <p class="specs-features-label">Digital Fuel Guage</p>
-                            <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(inquiryDetails.SpecsFeatures.DigitalFuelGauge) %></p>
-                        </li>
-                        <li>
-                            <p class="specs-features-label">Tripmeter</p>
-                            <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(inquiryDetails.SpecsFeatures.Tripmeter) %></p>
-                        </li>
-                        <li>
-                            <p class="specs-features-label">Electric Start</p>
-                            <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(inquiryDetails.SpecsFeatures.ElectricStart) %></p>
-                        </li>
+                        <%} %>
                     </ul>
                     <div class="clear"></div>
                     <div class="margin-top15">
@@ -418,9 +385,9 @@
         <link href="<%= staticUrl  %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
         <!-- #include file="/includes/footerscript_mobile.aspx" -->
         <script type="text/javascript" src="<%= staticUrl  %>/m/src/used-details.js?<%= staticFileVersion%>"></script>
-                <script type="text/javascript" >
-                    var gaObj = { 'id': '<%= (int)Bikewale.Entities.Pages.GAPages.Used_Bike_Details%>', 'name': '<%= Bikewale.Entities.Pages.GAPages.Used_Bike_Details%>' };
-            </script>
+        <script type="text/javascript">
+            var gaObj = { 'id': '<%= (int)Bikewale.Entities.Pages.GAPages.Used_Bike_Details%>', 'name': '<%= Bikewale.Entities.Pages.GAPages.Used_Bike_Details%>' };
+        </script>
         <!-- #include file="/includes/fontBW_Mobile.aspx" -->
     </form>
 </body>

@@ -1,12 +1,15 @@
-﻿using Bikewale.Cache.Core;
+﻿using Bikewale.BAL.GrpcFiles.Specs_Features;
+using Bikewale.Cache.Core;
 using Bikewale.Cache.Used;
 using Bikewale.DAL.Used;
+using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Used;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Used;
 using Bikewale.Notifications;
 using Microsoft.Practices.Unity;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
@@ -82,6 +85,34 @@ namespace Bikewale.BindViewModels.Webforms.Used
                     var objCache = container.Resolve<IUsedBikeDetailsCacheRepository>();
 
                     InquiryDetails = objCache.GetProfileDetails(InquiryId);
+                    if (InquiryDetails != null)
+                    {
+                        IEnumerable<VersionMinSpecsEntity> minSpecs = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(new List<int>() { InquiryDetails.Version.VersionId },
+                            new List<EnumSpecsFeaturesItem> {
+                            EnumSpecsFeaturesItem.Displacement,
+                            EnumSpecsFeaturesItem.MaxPower,
+                            EnumSpecsFeaturesItem.MaximumTorque,
+                            EnumSpecsFeaturesItem.NoOfGears,
+                            EnumSpecsFeaturesItem.FuelEfficiencyOverall,
+                            EnumSpecsFeaturesItem.BrakeType,
+                            EnumSpecsFeaturesItem.FrontDisc,
+                            EnumSpecsFeaturesItem.RearDisc,
+                            EnumSpecsFeaturesItem.AlloyWheels,
+                            EnumSpecsFeaturesItem.KerbWeight,
+                            EnumSpecsFeaturesItem.TopSpeed,
+                            EnumSpecsFeaturesItem.FuelTankCapacity,
+                            EnumSpecsFeaturesItem.Speedometer,
+                            EnumSpecsFeaturesItem.FuelGuage,
+                            EnumSpecsFeaturesItem.Tachometer,
+                            EnumSpecsFeaturesItem.DigitalFuelGuage,
+                            EnumSpecsFeaturesItem.Tripmeter,
+                            EnumSpecsFeaturesItem.ElectricStart,
+                            });
+                        if (minSpecs != null)
+                        {
+                            InquiryDetails.versionMinSpecs = minSpecs.FirstOrDefault().MinSpecsList;
+                        }
+                    }
                     if (InquiryDetails != null && InquiryDetails.MinDetails != null)
                     {
 
