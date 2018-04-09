@@ -10,6 +10,30 @@ namespace Bikewale.Utility
 
         private static readonly string _notAvaliableText = "--";
 
+        /// <summary>
+        /// Function to remove 0 value for numeric minSpec
+        /// </summary>
+        /// <param name="specItemList"></param>
+        /// <param name="specId"></param>
+        /// <returns></returns>
+        public static SpecsItem SanitizeNumericMinSpec(IEnumerable<SpecsItem> specItemList, EnumSpecsFeaturesItem specId)
+        {
+            SpecsItem minSpec = null;
+            if (specItemList != null)
+            {
+                minSpec = specItemList.FirstOrDefault(spec => spec.Id == (int)specId);
+                if (minSpec != null)
+                {
+                    minSpec.Value = minSpec.Value != "0" ? minSpec.Value : String.Empty;
+                }
+            }
+            else
+            {
+                minSpec = new SpecsItem();
+            }
+            return minSpec;
+        }
+
         public static string GetMinSpecsAsLiElement(string displacement, string fuelEffecient, string maxpower, string weight)
         {
             string str = String.Empty;

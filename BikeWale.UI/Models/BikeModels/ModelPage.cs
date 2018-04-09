@@ -440,6 +440,8 @@ namespace Bikewale.Models.BikeModels
 
         /// <summary>
         /// Sets the additional properties for JSONLD
+        /// Modified by  : Rajan Chauhan on 7 Apr 2018
+        /// Description  : Added minSpec to JsonLD
         /// </summary>
         /// <param name="product">The product.</param>
         private void SetAdditionalProperties(Product product)
@@ -449,62 +451,65 @@ namespace Bikewale.Models.BikeModels
                 List<AdditionalProperty> listSpecs = new List<AdditionalProperty>();
                 AdditionalProperty property = null;
 
-                if (_objData != null && _objData.ModelPageEntity != null && _objData.ModelPageEntity.ModelVersionSpecs != null)
+                if (_objData != null && _objData.ModelPageEntity != null && _objData.ModelPageEntity.ModelVersionMinSpecs != null && _objData.ModelPageEntity.ModelVersionMinSpecs.MinSpecsList != null)
                 {
-                    if (_objData.ModelPageEntity.ModelVersionSpecs.FuelEfficiencyOverall > 0)
+                    IEnumerable<SpecsItem> versionMinSpecsList = _objData.ModelPageEntity.ModelVersionMinSpecs.MinSpecsList;
+                    SpecsItem specItem = FormatMinSpecs.SanitizeNumericMinSpec(versionMinSpecsList, EnumSpecsFeaturesItem.FuelEfficiencyOverall);
+                    if (!string.IsNullOrEmpty(specItem.Value))
                     {
                         property = new AdditionalProperty
                         {
                             Name = "Mileage",
-                            Value = Convert.ToString(_objData.ModelPageEntity.ModelVersionSpecs.FuelEfficiencyOverall),
+                            Value = specItem.Value,
                             UnitText = "KMPL"
 
                         };
                         listSpecs.Add(property);
                     }
-
-                    if (_objData.ModelPageEntity.ModelVersionSpecs.Displacement > 0)
+                    specItem = FormatMinSpecs.SanitizeNumericMinSpec(versionMinSpecsList, EnumSpecsFeaturesItem.Displacement);
+                    if (!string.IsNullOrEmpty(specItem.Value))
                     {
                         property = new AdditionalProperty
                         {
                             Name = "Displacement",
-                            Value = Convert.ToString(_objData.ModelPageEntity.ModelVersionSpecs.Displacement),
+                            Value = specItem.Value,
                             UnitText = "CC"
 
                         };
                         listSpecs.Add(property);
                     }
-
-                    if (_objData.ModelPageEntity.ModelVersionSpecs.MaxPower > 0)
+                    specItem = FormatMinSpecs.SanitizeNumericMinSpec(versionMinSpecsList, EnumSpecsFeaturesItem.MaxPowerBhp);
+                    if (!string.IsNullOrEmpty(specItem.Value))
                     {
                         property = new AdditionalProperty
                         {
                             Name = "Max Power",
-                            MaxValue = Convert.ToString(_objData.ModelPageEntity.ModelVersionSpecs.MaxPower),
+                            MaxValue = specItem.Value,
                             UnitText = "BHP"
 
                         };
                         listSpecs.Add(property);
 
                     }
-                    if (_objData.ModelPageEntity.ModelVersionSpecs.KerbWeight > 0)
+                    specItem = FormatMinSpecs.SanitizeNumericMinSpec(versionMinSpecsList, EnumSpecsFeaturesItem.KerbWeight);
+                    if (!string.IsNullOrEmpty(specItem.Value))
                     {
                         property = new AdditionalProperty
                         {
                             Name = "Weight",
-                            Value = Convert.ToString(_objData.ModelPageEntity.ModelVersionSpecs.KerbWeight),
+                            Value = specItem.Value,
                             UnitText = "KG"
 
                         };
+                        listSpecs.Add(property);
                     }
-                    listSpecs.Add(property);
-
-                    if (_objData.ModelPageEntity.ModelVersionSpecs.TopSpeed > 0)
+                    specItem = FormatMinSpecs.SanitizeNumericMinSpec(versionMinSpecsList, EnumSpecsFeaturesItem.TopSpeed);
+                    if (!string.IsNullOrEmpty(specItem.Value))
                     {
                         property = new AdditionalProperty
                         {
                             Name = "Top speed",
-                            MaxValue = Convert.ToString(_objData.ModelPageEntity.ModelVersionSpecs.TopSpeed),
+                            MaxValue = specItem.Value,
                             UnitText = "KMPH"
 
                         };
@@ -611,17 +616,21 @@ namespace Bikewale.Models.BikeModels
                         priceDescription = string.Format("Price - &#x20B9; {0} onwards (Avg. Ex-showroom price).", Bikewale.Utility.Format.FormatPrice(Convert.ToString(_objData.SelectedVersion.AverageExShowroom)));
                     else
                         priceDescription = _objData.ModelPageEntity.ModelDetails.MinPrice > 0 ? string.Format("Price - &#x20B9; {0} onwards (Ex-showroom, {1}).", Bikewale.Utility.Format.FormatPrice(Convert.ToString(_objData.ModelPageEntity.ModelDetails.MinPrice)), Bikewale.Utility.BWConfiguration.Instance.DefaultName) : string.Empty;
-                    if (_objData.ModelPageEntity != null && _objData.ModelPageEntity.ModelVersionSpecs != null && (_objData.ModelPageEntity.ModelVersionSpecs.TopSpeed > 0 || _objData.ModelPageEntity.ModelVersionSpecs.FuelEfficiencyOverall > 0))
+                    if (_objData.ModelPageEntity != null && _objData.ModelPageEntity.ModelVersionMinSpecs != null && _objData.ModelPageEntity.ModelVersionMinSpecs.MinSpecsList != null)
                     {
-                        if ((_objData.ModelPageEntity.ModelVersionSpecs.TopSpeed > 0 && _objData.ModelPageEntity.ModelVersionSpecs.FuelEfficiencyOverall > 0))
-                            specsDescirption = string.Format("{0} has a mileage of {1} kmpl and a top speed of {2} kmph.", bikeModelName, _objData.ModelPageEntity.ModelVersionSpecs.FuelEfficiencyOverall, _objData.ModelPageEntity.ModelVersionSpecs.TopSpeed);
-                        else if (_objData.ModelPageEntity.ModelVersionSpecs.TopSpeed == 0)
+                        SpecsItem mileage = FormatMinSpecs.SanitizeNumericMinSpec(_objData.ModelPageEntity.ModelVersionMinSpecs.MinSpecsList, EnumSpecsFeaturesItem.FuelEfficiencyOverall);
+                        SpecsItem topSpeed = FormatMinSpecs.SanitizeNumericMinSpec(_objData.ModelPageEntity.ModelVersionMinSpecs.MinSpecsList, EnumSpecsFeaturesItem.TopSpeed);
+                        if (!string.IsNullOrEmpty(mileage.Value) && !string.IsNullOrEmpty(topSpeed.Value))
                         {
-                            specsDescirption = string.Format("{0} has a mileage of {1} kmpl.", bikeModelName, _objData.ModelPageEntity.ModelVersionSpecs.FuelEfficiencyOverall);
+                            specsDescirption = string.Format("{0} has a mileage of {1} kmpl and a top speed of {2} kmph.", bikeModelName, mileage.Value, topSpeed.Value);
                         }
-                        else
+                        else if (!string.IsNullOrEmpty(mileage.Value))
                         {
-                            specsDescirption = string.Format("{0} has a top speed of {1} kmph.", bikeModelName, _objData.ModelPageEntity.ModelVersionSpecs.TopSpeed);
+                            specsDescirption = string.Format("{0} has a mileage of {1} kmpl.", bikeModelName, mileage.Value);
+                        }
+                        else if (!string.IsNullOrEmpty(topSpeed.Value))
+                        {
+                            specsDescirption = string.Format("{0} has a top speed of {1} kmph.", bikeModelName, topSpeed.Value);
                         }
                     }
                     _objData.ModelSummary = string.Format("{0} {1}{2}. {3} {4}", _objData.BikeName, priceDescription, versionDescirption, specsDescirption, _colorStr);
