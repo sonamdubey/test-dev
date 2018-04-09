@@ -279,7 +279,7 @@
         </section>
         <% } %>
 
-        <% if ((inquiryDetails.SpecsFeatures != null && !isBikeSold) || ctrlusedBikeModel.FetchCount>0|| ctrlSimilarUsedBikes.FetchedRecordsCount > 0)
+        <% if ((inquiryDetails.versionMinSpecs != null && !isBikeSold) || ctrlusedBikeModel.FetchCount>0|| ctrlSimilarUsedBikes.FetchedRecordsCount > 0)
            { %>
         <section>
             <div class="container">
@@ -288,7 +288,7 @@
                         <div id="makeOverallTabsWrapper">
                             <div id="makeOverallTabs" class="overall-floating-tabs">
                                 <div class="overall-specs-tabs-wrapper">
-                                    <% if (inquiryDetails.SpecsFeatures != null && !isBikeSold)
+                                    <% if (inquiryDetails.versionMinSpecs != null && !isBikeSold)
                                        { %>
                                     <a href="#specsContent" rel="nofollow">Specs & Features</a>
                                     <% } %>
@@ -307,22 +307,44 @@
                            { %>
                         <div id="specsContent" class="bw-model-tabs-data specs-features-list font14">
                             <h2 class="content-inner-block-20">Specifications summary</h2>
-                             <% var featuresCount = (inquiryDetails.versionMinSpecs.Count() + 1) / 3;
-                                 var specsCount = (inquiryDetails.versionMinSpecs.Count()) - featuresCount;
+                             <% 
+                                 var specsList = inquiryDetails.versionMinSpecs;
+                                 var index = 0;
+                                 var listLength = inquiryDetails.versionMinSpecs.Count();
                              %>
-                            <%for (int i = 0; i < 3; i++)
-                            {%>
                             <div class="grid-4 omega specs-features__content margin-bottom20">
-                                <% foreach (var specItem in inquiryDetails.versionMinSpecs.Skip(i*4).Take(4))
+                                <% for(int i=0; i<4 && index < listLength; i++)
                                  {
                                  %>
                                 <p>
-                                    <span class="specs-features-item__content text-light-grey"><%=specItem.Name%> </span>
-                                    <span class="specs-features-item__content text-bold"><%=Bikewale.Utility.FormatMinSpecs.ShowAvailable(specItem.Value, specItem.UnitType, specItem.DataType)%> </span>
+                                    <span class="specs-features-item__content text-light-grey"><%=specsList[index].Name%> </span>
+                                    <span class="specs-features-item__content text-bold"><%=Bikewale.Utility.FormatMinSpecs.ShowAvailable(specsList[index].Value, specsList[index].UnitType, specsList[index].DataType)%> </span>
                                 </p>
+                                <%index++; %>
                                  <%} %>
                             </div>
-                            <%} %>
+                            <div class="grid-4 omega specs-features__content margin-bottom20">
+                                <% for(int i=0; i<4 && index < listLength; i++)
+                                 {
+                                 %>
+                                <p>
+                                    <span class="specs-features-item__content text-light-grey"><%=specsList[index].Name%> </span>
+                                    <span class="specs-features-item__content text-bold"><%=Bikewale.Utility.FormatMinSpecs.ShowAvailable(specsList[index].Value, specsList[index].UnitType, specsList[index].DataType)%> </span>
+                                </p>
+                                <%index++; %>
+                                 <%} %>
+                            </div>
+                            <div class="grid-4 omega specs-features__content margin-bottom20">
+                                <% for(int i=0; i<4 && index < listLength; i++)
+                                 {
+                                 %>
+                                <p>
+                                    <span class="specs-features-item__content text-light-grey"><%=specsList[index].Name%> </span>
+                                    <span class="specs-features-item__content text-bold"><%=Bikewale.Utility.FormatMinSpecs.ShowAvailable(specsList[index].Value, specsList[index].UnitType, specsList[index].DataType)%> </span>
+                                </p>
+                                <%index++; %>
+                                 <%} %>
+                            </div>
                             <div class="clear"></div>
                             <div class="padding-left20 margin-bottom10">
                                 <a href="<%= moreBikeSpecsUrl %>" title="<%= string.Format("{0} Specifications",bikeName) %>">View full specifications<span class="bwsprite blue-right-arrow-icon"></span></a>
@@ -330,20 +352,28 @@
 
                             <div class="grid-8 alpha margin-bottom25">
                                 <h2 class="content-inner-block-20">Features summary</h2>
-                                    <%var feturesList = inquiryDetails.versionMinSpecs.Skip(specsCount);%>
-                                  <%for (int i = 0; i < 2; i++)
-                                    {%>
                                     <div class="grid-6 omega specs-features__content margin-bottom20">
-                                    <% foreach (var featureItem in feturesList.Skip(i*3).Take(3))
+                                    <% for(int i=0; i<3 && index < listLength; i++)
                                     {
                                      %>
                                     <p>
-                                      <span class="specs-features-item__content text-light-grey"><%=featureItem.Name%> </span>
-                                      <span class="specs-features-item__content text-bold"><%=Bikewale.Utility.FormatMinSpecs.ShowAvailable(featureItem.Value, featureItem.UnitType, featureItem.DataType)%> </span>  
+                                      <span class="specs-features-item__content text-light-grey"><%=specsList[index].Name%> </span>
+                                      <span class="specs-features-item__content text-bold"><%=Bikewale.Utility.FormatMinSpecs.ShowAvailable(specsList[index].Value, specsList[index].UnitType, specsList[index].DataType)%> </span>  
                                     </p>
+                                     <%index++; %>
                                      <%} %>
                                     </div>
-                                   <%} %>
+                                 <div class="grid-6 omega specs-features__content margin-bottom20">
+                                    <% for(int i=0; i<3 && index < listLength; i++)
+                                    {
+                                     %>
+                                    <p>
+                                      <span class="specs-features-item__content text-light-grey"><%=specsList[index].Name%> </span>
+                                      <span class="specs-features-item__content text-bold"><%=Bikewale.Utility.FormatMinSpecs.ShowAvailable(specsList[index].Value, specsList[index].UnitType, specsList[index].DataType)%> </span>  
+                                    </p>
+                                     <%index++; %>
+                                     <%} %>
+                                    </div>
                                 <div class="padding-left20">
                                     <a href="<%= moreBikeFeaturesUrl %>" title="<%= string.Format("{0} Features",bikeName) %>">View all features <span class="bwsprite blue-right-arrow-icon"></span></a>
                                 </div>

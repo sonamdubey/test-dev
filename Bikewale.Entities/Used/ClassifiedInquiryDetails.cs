@@ -19,7 +19,6 @@ namespace Bikewale.Entities.Used
         public CityEntityBase City { get; set; }
         public BikeDetailsMin MinDetails { get; set; }
         public BikeDetails OtherDetails { get; set; }
-        public BikeSpecifications SpecsFeatures { get; set; }
         public IList<BikePhoto> Photo { get; set; }
         public ushort PhotosCount { get { if (Photo != null) { return Convert.ToUInt16(Photo.Count); } return 0; } }
         public short AdStatus { get; set; }
@@ -31,6 +30,6 @@ namespace Bikewale.Entities.Used
         public string HostUrl { get; set; }
         public bool IsDiscontinued { get; set; }
         public bool IsUpcoming { get; set; }
-        public IEnumerable<SpecsItem> versionMinSpecs { get; set; }
+        public IList<SpecsItem> versionMinSpecs { get; set; }
     }
 }

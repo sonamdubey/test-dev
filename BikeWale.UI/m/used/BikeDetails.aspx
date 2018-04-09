@@ -186,21 +186,21 @@
         <% } %>
 
         <script type="text/javascript" src="<%= staticUrl %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
-        <% if ((inquiryDetails.SpecsFeatures != null && !isBikeSold) || ctrlusedBikeModel.FetchCount > 0 || ctrlSimilarUsedBikes.FetchedRecordsCount > 0)
+        <% if ((inquiryDetails.versionMinSpecs != null && !isBikeSold) || ctrlusedBikeModel.FetchCount > 0 || ctrlSimilarUsedBikes.FetchedRecordsCount > 0)
             { %>
         <section>
             <div id="model-bottom-card-wrapper" class="container bg-white clearfix box-shadow margin-bottom30">
                 <div id="model-overall-specs-wrapper">
                     <div id="overall-specs-tab" class="overall-specs-tabs-container">
                         <ul class="overall-specs-tabs-wrapper">
-                            <% if (inquiryDetails.SpecsFeatures != null && !isBikeSold)
+                            <% if (inquiryDetails.versionMinSpecs != null && !isBikeSold)
                                 { %>
                             <li data-tabs="#modelSpecs" class="active">Specifications</li>
                             <li data-tabs="#modelFeatures">Features</li>
                             <% } %>
                             <% if (ctrlSimilarUsedBikes.FetchedRecordsCount > 0)
                                 { %>
-                            <li class="<%= (inquiryDetails.SpecsFeatures!=null)?string.Empty:"active" %>" data-tabs="#modelSimilar">Similar bikes</li>
+                            <li class="<%= (inquiryDetails.versionMinSpecs!=null)?string.Empty:"active" %>" data-tabs="#modelSimilar">Similar bikes</li>
                             <% } %>
                             <% if (ctrlusedBikeModel.FetchCount > 0)
                                 { %>
@@ -214,13 +214,19 @@
                     { %>
                 <div id="modelSpecs" class="bw-model-tabs-data margin-right20 margin-left20 padding-top15 padding-bottom20 font14 border-solid-bottom">
                     <h2 class="margin-bottom20">Specification summary</h2>
+                    <% 
+                        var specsList = inquiryDetails.versionMinSpecs;
+                        var index = 0;
+                        var listLength = inquiryDetails.versionMinSpecs.Count();
+                    %>
                     <ul class="specs-features-list">
-                        <%foreach (var specItem in inquiryDetails.versionMinSpecs.Take(6))
-                            {%>
+                        <%for(int i=0; i<6 && index < listLength; i++)
+                        {%>
                         <li>
-                            <p class="specs-features-label"><%=specItem.Name %></p>
-                            <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(specItem.Value, specItem.UnitType, specItem.DataType) %></p>
+                            <p class="specs-features-label"><%=specsList[index].Name %></p>
+                            <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(specsList[index].Value, specsList[index].UnitType, specsList[index].DataType) %></p>
                         </li>
+                        <%index++; %>
                         <%} %>
                     </ul>
                     <div class="clear"></div>
@@ -233,12 +239,13 @@
                 <div id="modelFeatures" class="bw-model-tabs-data margin-right20 margin-left20 padding-top20 padding-bottom20 font14 border-solid-bottom">
                     <h2 class="margin-bottom20">Features summary</h2>
                     <ul class="specs-features-list">
-                        <%foreach (var specItem in inquiryDetails.versionMinSpecs.Skip(12))
+                        <%for(int i=0; i<6 && index < listLength; i++)
                             {%>
                         <li>
-                            <p class="specs-features-label"><%=specItem.Name %></p>
-                            <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(specItem.Value, specItem.UnitType, specItem.DataType) %></p>
+                            <p class="specs-features-label"><%=specsList[index].Name %></p>
+                            <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(specsList[index].Value, specsList[index].UnitType, specsList[index].DataType) %></p>
                         </li>
+                        <%index++; %>
                         <%} %>
                     </ul>
                     <div class="clear"></div>
