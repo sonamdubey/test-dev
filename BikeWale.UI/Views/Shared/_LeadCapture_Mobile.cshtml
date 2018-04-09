@@ -625,7 +625,10 @@
                             }
                             setPQUserCookie();
                             self.triggerABTestGA(gaLabel);
-                            fbq('track', fbPixelLeadEvent);
+                            if(fbPixelLeadEvent)
+                            {
+                                fbq('track', fbPixelLeadEvent);
+                            }
                         }
                     }
 
@@ -859,7 +862,10 @@
                             if (self.cityRequired() && self.selectedCity()) {
                                 SetCookieInDays("location", self.selectedCity().cityId + "_" + self.selectedCity().cityName, 365);
                             }
-                            fbq('track', fbPixelLeadEvent);
+                            if(fbPixelLeadEvent)
+                            {
+                                fbq('track', fbPixelLeadEvent);
+                            }
                         },
                         error: function (xhr, ajaxOptions, thrownError) {
                             $('#processing').hide();
@@ -1150,8 +1156,10 @@
 
             leadBtnBookNow = $(".leadcapturebtn"), leadCapturePopup = $("#leadCapturePopup"), leadBike = $("#getLeadBike");
             fullName = $("#getFullName"), emailid = $("#getEmailID"), mobile = $("#getMobile"), detailsSubmitBtn = $("#user-details-submit-btn");
-            fbPixelLeadEvent = FbPixelEvent.lead;
-
+            if(FbPixelEvent)
+            {
+                fbPixelLeadEvent = FbPixelEvent.lead;
+            }
             leadBtnBookNow.on('click', function () {
                 $('#selectedbike').html('Select a bike<sup>*</sup>');
                 dleadvm.selectedBike(null);
