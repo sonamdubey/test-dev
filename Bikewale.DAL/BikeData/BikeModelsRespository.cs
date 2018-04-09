@@ -1946,7 +1946,7 @@ namespace Bikewale.DAL.BikeData
         /// Modified  By :- subodh Jain 10 Feb 2017
         /// Summary :- BikeInfo Slug details
         /// Modified by : Pratibha Verma on 2 April 2018
-        /// Description : Removed MinSpecs mapping
+        /// Description : Removed MinSpecs mapping removed isSpecsAvailable
         /// </summary>
         private GenericBikeInfo PopulateGenericBikeInfoEntity(GenericBikeInfo genericBikeInfo, DbCommand cmd)
         {
@@ -1968,7 +1968,6 @@ namespace Bikewale.DAL.BikeData
                             genericBikeInfo.PhotosCount = SqlReaderConvertor.ToUInt32(dr["photoscount"]);
                             genericBikeInfo.ExpertReviewsCount = SqlReaderConvertor.ToUInt32(dr["expertreviewscount"]);
                             genericBikeInfo.FeaturesCount = SqlReaderConvertor.ToUInt32(dr["featurescount"]);
-                            genericBikeInfo.IsSpecsAvailable = SqlReaderConvertor.ToBoolean(dr["isspecsavailable"]);
                             genericBikeInfo.BikePrice = SqlReaderConvertor.ToUInt32(dr["price"]);
                             genericBikeInfo.EstimatedPriceMin = SqlReaderConvertor.ToUInt32(dr["EstimatedPriceMin"]);
                             genericBikeInfo.EstimatedPriceMax = SqlReaderConvertor.ToUInt32(dr["EstimatedPriceMax"]);

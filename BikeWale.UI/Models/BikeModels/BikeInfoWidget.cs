@@ -45,8 +45,6 @@ namespace Bikewale.Models
         /// <summary>
         /// Created by  :   Sumit Kate on 25 Mar 2017
         /// Description :   Returns the View Model
-        /// Modified by : Pratibha Verma on 2 April 2018
-        /// Description : Added grpc method call to get MinSpecs
         /// </summary>
         /// <returns></returns>
         public BikeInfoVM GetData()
@@ -59,11 +57,6 @@ namespace Bikewale.Models
                 GenericBikeInfo bikeInfo = objVM.BikeInfo;
                 if (bikeInfo != null)
                 {
-                    IEnumerable<VersionMinSpecsEntity> versionMinSpecs = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(new List<int> { bikeInfo.VersionId });
-                    if (versionMinSpecs != null)
-                    {
-                        bikeInfo.MinSpecsList = versionMinSpecs.FirstOrDefault(x => x.VersionId.Equals(bikeInfo.VersionId)).MinSpecsList;
-                    }
                     if (_cityId > 0)
                     {
                         var objCityList = _cityCacheRepo.GetAllCities(EnumBikeType.All);
