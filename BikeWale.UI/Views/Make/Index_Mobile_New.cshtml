@@ -512,13 +512,15 @@ string.Format("{0} <span class='font14'> onwards</span>", Bikewale.Utility.Forma
                     }
                 }   
             }
-            
+            if (FbPixelEvent) {
+                fbq('track', FbPixelEvent.viewContent);
+            }
     
         }
         catch (e) {
             console.log(e.message);
         }
-        fbq('track', FbPixelEvent.viewContent);
+        
     });
 
 </script>
