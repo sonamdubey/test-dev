@@ -59,7 +59,8 @@ namespace Bikewale.Sitemap.MainSitemap
 
                 IDictionary<UrlType, IDictionary<int, ICollection<KeyValuePair<int, string>>>> data = repo.GetData();
                 SiteMapElasticSearch siteMapobj = new SiteMapElasticSearch();
-                IEnumerable<SiteMapResultEntity> siteMapESResult =  siteMapobj.GetSiteMapResult();
+                IDictionary<int, ICollection<KeyValuePair<int, string>>> siteMapESResult =  siteMapobj.GetSiteMapResult();
+                data.Add(UrlType.ModelSpec,siteMapESResult);
                 if (data != null && data.Any())
                 {
                     foreach (var item in data)

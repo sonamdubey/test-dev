@@ -84,7 +84,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ArticleEntity.cs" />
-    <Compile Include="BikeSearchEnum.cs" />
     <Compile Include="ElasticSearchInstance.cs" />
     <Compile Include="Sitemap.cs" />
     <Compile Include="SiteMapElasticSearch.cs" />

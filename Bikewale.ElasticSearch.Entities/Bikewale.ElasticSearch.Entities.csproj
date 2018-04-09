@@ -62,7 +62,6 @@
     <Compile Include="ModelEntity.cs" />
     <Compile Include="PriceEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SiteMapESEntity.cs" />
     <Compile Include="VersionEntity.cs" />
     <Compile Include="WeightedDocument.cs" />
   </ItemGroup>

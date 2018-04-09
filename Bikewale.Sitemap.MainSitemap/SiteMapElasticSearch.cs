@@ -16,12 +16,11 @@ namespace Bikewale.Sitemap.MainSitemap
             _client = ElasticSearchInstance.GetInstance();
         }
 
-        public IEnumerable<SiteMapResultEntity> GetSiteMapResult()
+        public IDictionary<int, ICollection<KeyValuePair<int, string>>> GetSiteMapResult()
         {
-            List<SiteMapResultEntity> siteMapResultList = null;
+            IDictionary<int, ICollection<KeyValuePair<int, string>>> siteMapESResult = null;
             try
             {
-                siteMapResultList = new List<SiteMapResultEntity>();
                 var elasticReasult = _client.Search<SiteMapEntity>(
                        s => s.Index("bikeindex").Type("bikemodeldocument")
                        .From(0)
@@ -42,12 +41,15 @@ namespace Bikewale.Sitemap.MainSitemap
 
                 if (elasticReasult != null && elasticReasult.Hits != null && elasticReasult.Hits.Count > 0)
                 {
-                  foreach (var x in elasticReasult.Documents)
+                    siteMapESResult = new Dictionary<int, ICollection<KeyValuePair<int, string>>>();
+                    int index = 0;
+                    foreach (var x in elasticReasult.Documents)
                     {
-                        siteMapResultList.Add(new SiteMapResultEntity() {
-                            MakeMaskingName = x.BikeMake.MakeMaskingName,
-                            ModelMaskingName = x.BikeModel.ModelMaskingName
-                        });
+                        ICollection<KeyValuePair<int, string>> cv = new List<KeyValuePair<int, string>>();
+                        int i = 0;
+                        cv.Add(new KeyValuePair<int, string>(i++,x.BikeMake.MakeMaskingName.ToString()));
+                        cv.Add(new KeyValuePair<int, string>(i++, x.BikeModel.ModelMaskingName.ToString()));
+                        siteMapESResult.Add(index++,cv);
                     }
                 }
             }
@@ -55,7 +57,7 @@ namespace Bikewale.Sitemap.MainSitemap
             {
                 Logs.WriteErrorLog("Bikewale.Sitemap.MainSitemap.GetSiteMapResult", ex);
             }
-            return siteMapResultList;
+            return siteMapESResult;
         }
     }
 }
