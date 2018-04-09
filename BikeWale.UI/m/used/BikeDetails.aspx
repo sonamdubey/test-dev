@@ -239,6 +239,9 @@
                 <div id="modelFeatures" class="bw-model-tabs-data margin-right20 margin-left20 padding-top20 padding-bottom20 font14 border-solid-bottom">
                     <h2 class="margin-bottom20">Features summary</h2>
                     <ul class="specs-features-list">
+                        <%if (index < listLength && listLength > 12) {
+                                index = 12;
+                            } %>
                         <%for(int i=0; i<6 && index < listLength; i++)
                             {%>
                         <li>
