@@ -216,7 +216,7 @@
 	self.setColorOption = function () {
 		if (self.isColorSlugEligible) {
 			if (self.activePopup()) {
-				if (self.colorSlug().slugShown() && !self.videoSlug().activeSlug()) {
+				if (!self.activeFloatingRotateScreenOption() && self.colorSlug().slugShown() && !self.videoSlug().activeSlug()) {
 					if (!self.fullScreenModeActive()) {
 						self.activeFooterColorOption(false);
 						self.activeFloatingColorSlug(true);
