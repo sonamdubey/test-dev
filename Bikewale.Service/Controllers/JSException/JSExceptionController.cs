@@ -19,16 +19,21 @@ namespace Bikewale.Service.Controllers.JSException
         /// Created On : 10th March 2016
         /// Description : Post method used for logging javascript exception/error to bikewalebugs@gmail.com
         /// </summary>
+        
+        public class JSException: Exception
+        {
+            public JSException(string message) : base(message) { }
+        }
+
         public IHttpActionResult Post([FromBody] JSExceptionEntity error)
         {
             try
             {
+                string errorString = string.Format("\nMessage - {0}\nErrorType - {1}\nSourceFile - {2}\nLine - {3}\nTrace - {4}", error.Message, error.ErrorType, error.SourceFile, error.LineNo, error.Trace);
+
                 if (error != null)
                 {
-                    string emailTo = Bikewale.Utility.BWConfiguration.Instance.ErrorMailTo;
-                    string subject = String.Format("Javascript Error in {0} at page: {1}", Bikewale.Utility.BWConfiguration.Instance.ApplicationName, HttpContext.Current.Request.ServerVariables["HTTP_REFERER"]);
-                    ComposeEmailBase mail = new JSExceptionTemplate(error);
-                    mail.Send(emailTo, subject);
+                    ErrorClass.LogError(new JSException(errorString), "Client Side Error");
                 }
             }
             catch (Exception ex)

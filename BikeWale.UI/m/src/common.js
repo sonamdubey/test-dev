@@ -1977,14 +1977,18 @@ docReady(function () {
 
         window.onerror = function (message, filename, lineno, colno, err) {
             error = {};
+            var log_source = new RegExp(["aeplcdn", "bikewale"].join('|'));
             try {
-                error.Message = err.message || message || "";
-                error.SourceFile = err.fileName || filename || "";
-                error.ErrorType = err.name || "Uncatched Exception";
-                error.LineNo = lineno || "Unable to trace";
-                error.Trace = (err.stack.toString() || '-');
-                // errorLog(error);
-            } catch (e) {
+                if (filename && filename.match(log_source)) {
+                    error.Message = err.message || message || "";
+                    error.SourceFile = err.fileName || filename || "";
+                    error.ErrorType = err.name || "Uncatched Exception";
+                    error.LineNo = lineno || "Unable to trace";
+                    error.Trace = (err.stack.toString() || '-');
+                    errorLog(error);
+                }
+            }
+            catch (e) {
                 return false;
             }
         };
