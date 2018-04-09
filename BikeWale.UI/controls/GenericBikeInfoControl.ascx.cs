@@ -56,11 +56,6 @@ namespace Bikewale.Controls
                 bikeInfo = genericBikeInfo.GetBikeInfo();
                 if (bikeInfo != null)
                 {
-                    IEnumerable<VersionMinSpecsEntity> versionMinSpecs = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(new List<int> { bikeInfo.VersionId });
-                    if (versionMinSpecs != null)
-                    {
-                        bikeInfo.MinSpecsList = versionMinSpecs.FirstOrDefault(x => x.VersionId.Equals(bikeInfo.VersionId)).MinSpecsList;
-                    }
                     if (bikeInfo.Make != null && bikeInfo.Model != null)
                     {
                         bikeUrl = string.Format("{0}", Bikewale.Utility.UrlFormatter.BikePageUrl(bikeInfo.Make.MaskingName, bikeInfo.Model.MaskingName));

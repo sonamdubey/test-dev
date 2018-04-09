@@ -1,7 +1,11 @@
-﻿using Bikewale.Entities.GenericBikes;
+﻿using Bikewale.BAL.GrpcFiles.Specs_Features;
+using Bikewale.Entities.BikeData;
+using Bikewale.Entities.GenericBikes;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Notifications;
 using System;
+using System.Linq;
+using System.Collections.Generic;
 namespace Bikewale.BAL.BikeData
 {
     /// <summary>
@@ -63,6 +67,8 @@ namespace Bikewale.BAL.BikeData
         /// <summary>
         /// Created By :- subodh Jain 10 Feb 2017
         /// Summary :- BikeInfo Slug details
+        /// Modified By : Rajan Chauhan on 9 Apr 2018
+        /// Description : Added MinSpecsBinding to Generic BikeInfo
         /// </summary>
         public GenericBikeInfo GetBikeInfo(uint modelId, uint cityId)
         {
@@ -78,6 +84,21 @@ namespace Bikewale.BAL.BikeData
                     else
                     {
                         genericBike = _modelCache.GetBikeInfo(modelId);
+                    }
+                    var bikeVersionMinSpecList = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(new List<int> { genericBike.VersionId }, new List<EnumSpecsFeaturesItem>() { 
+                            EnumSpecsFeaturesItem.Displacement,
+                            EnumSpecsFeaturesItem.FuelEfficiencyOverall,
+                            EnumSpecsFeaturesItem.MaxPowerBhp,
+                            EnumSpecsFeaturesItem.MaximumTorqueNm,
+                            EnumSpecsFeaturesItem.KerbWeight
+                        });
+                    if (bikeVersionMinSpecList != null && bikeVersionMinSpecList.Any())
+                    {
+                        genericBike.MinSpecsList = bikeVersionMinSpecList.FirstOrDefault().MinSpecsList;
+                        if (genericBike.MinSpecsList.Any(spec => !string.IsNullOrEmpty(spec.Value)))
+                        {
+                            genericBike.IsSpecsAvailable = true;
+                        }
                     }
                 }
             }
