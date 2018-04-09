@@ -443,11 +443,11 @@ namespace Bikewale.Models.BikeSeries
                                                 break;
                                             case EnumSpecsFeaturesItem.FuelEfficiencyOverall:
                                                 if (float.TryParse(spec.Value, out value))
-                                                    seriesBike.FuelCapacity = value;
+                                                    seriesBike.Mileage = value;
                                                 break;
                                             case EnumSpecsFeaturesItem.FuelTankCapacity:
                                                 if (float.TryParse(spec.Value, out value))
-                                                    seriesBike.Mileage = value;
+                                                    seriesBike.FuelCapacity = value;
                                                 break;
                                             case EnumSpecsFeaturesItem.SeatHeight:
                                                 if (float.TryParse(spec.Value, out value))
