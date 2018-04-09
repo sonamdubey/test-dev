@@ -126,6 +126,9 @@
 }
 <script>
     docReady(function () {
-        fbq('track',FbPixelEvent.viewContent);
+        if(FbPixelEvent)
+        {
+            fbq('track',FbPixelEvent.viewContent);
+        }
     });
 </script>

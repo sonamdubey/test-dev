@@ -559,7 +559,9 @@
                         if (self.cityRequired() && self.selectedCity()) {
                             SetCookieInDays("location", self.selectedCity().cityId + "_" + self.selectedCity().cityName, 365);
                         }
-                        fbq('track', fbPixelLeadEvent);
+                        if (fbPixelLeadEvent) {
+                            fbq('track', fbPixelLeadEvent);
+                        }
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
                         $("#leadCapturePopup").show();
@@ -629,7 +631,10 @@
                         }
                         setPQUserCookie();
                         self.triggerABTestGA(gaLabel);
-                        fbq('track', fbPixelLeadEvent);
+                        if (fbPixelLeadEvent)
+                        {
+                            fbq('track', fbPixelLeadEvent);
+                        }
                     }
                     
                 }
@@ -1016,7 +1021,10 @@
         fullName = $("#getFullName"), emailid = $("#getEmailID"), mobile = $("#getMobile");
         assistanceGetName = $('#assistanceGetName'), assistanceGetEmail = $('#assistanceGetEmail'), assistanceGetMobile = $('#assistanceGetMobile');
         detailsSubmitBtn = $("#user-details-submit-btn");
-        fbPixelLeadEvent = FbPixelEvent.lead;
+        if (FbPixelEvent)
+        {
+            fbPixelLeadEvent = FbPixelEvent.lead;
+        }
         /* form validation */
         validate = {
             setError: function (element, message) {
