@@ -6,6 +6,10 @@ using Bikewale.Sitemap.Entities;
 
 namespace Bikewale.Sitemap.MainSitemap
 {
+    /// <summary>
+    /// Created by  :   Pratibha Verma on 9 April 2018
+    /// Description :   get data specs URL from ES
+    /// </summary>
     public class SiteMapElasticSearch
     {
         private readonly ElasticClient _client;
