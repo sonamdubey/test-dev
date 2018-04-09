@@ -110,7 +110,11 @@ namespace Bikewale.BindViewModels.Webforms.Used
                             });
                         if (minSpecs != null)
                         {
-                            InquiryDetails.versionMinSpecs = minSpecs.FirstOrDefault().MinSpecsList.ToList();
+                            IEnumerable<SpecsItem> minSpecsList = minSpecs.FirstOrDefault().MinSpecsList;
+                            if(minSpecsList != null)
+                            {
+                                InquiryDetails.versionMinSpecs = minSpecsList.ToList();
+                            }
                         }
                     }
                     if (InquiryDetails != null && InquiryDetails.MinDetails != null)

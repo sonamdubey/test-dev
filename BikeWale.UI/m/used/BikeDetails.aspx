@@ -217,7 +217,7 @@
                     <% 
                         var specsList = inquiryDetails.versionMinSpecs;
                         var index = 0;
-                        var listLength = inquiryDetails.versionMinSpecs.Count();
+                        var listLength = specsList.Count();
                     %>
                     <ul class="specs-features-list">
                         <%for(int i=0; i<6 && index < listLength; i++)
