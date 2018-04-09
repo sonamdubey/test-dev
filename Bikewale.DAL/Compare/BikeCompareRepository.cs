@@ -354,7 +354,6 @@ namespace Bikewale.DAL.Compare
                                 StartingPrice = SqlReaderConvertor.ToUInt32(reader["minPrice"]),
                                 CityMaskingName = Convert.ToString(reader["citymaskingname"])
                             },
-                            Mileage = SqlReaderConvertor.ToUInt16(reader["FuelEfficiencyOverall"]),
                             Versions = versionsList.Where(x => x.ModelId == modelId).ToList()                           
                         });
 

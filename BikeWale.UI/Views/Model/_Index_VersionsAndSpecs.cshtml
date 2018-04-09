@@ -1,41 +1,27 @@
 ﻿@model Bikewale.Models.BikeModels.ModelPageVM
-
+@using Bikewale.Entities.BikeData;
 @if (Model.ModelPageEntity != null)
 {
-    if (Model.ModelPageEntity.ModelVersionSpecs != null)
+	if (Model.ModelPageEntity.ModelVersionMinSpecs != null && Model.ModelPageEntity.ModelVersionMinSpecs.MinSpecsList != null)
     {   
         <div class="font12 text-light-grey margin-bottom20">
             <span class="inline-block margin-right15">Key specs</span>
             <ul id="key-specs-list" class="inline-block">
-                @if (Model.ModelPageEntity.ModelVersionSpecs.Displacement != 0)
-                {
-                <li>
-                    <span class="bwsprite capacity-sm"></span>
-                    <span>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(Model.ModelPageEntity.ModelVersionSpecs.Displacement) cc</span>
-                </li>
-                }
-                    @if (Model.ModelPageEntity.ModelVersionSpecs.FuelEfficiencyOverall != 0)
-                {
-                <li>
-                    <span class="bwsprite mileage-sm"></span>
-                    <span>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(Model.ModelPageEntity.ModelVersionSpecs.FuelEfficiencyOverall) kmpl</span>
-                </li>
-                }
-                    @if (Model.ModelPageEntity.ModelVersionSpecs.MaxPower != 0)
-                {
-                <li>
-                    <span class="bwsprite power-sm"></span>
-                    <span>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(Model.ModelPageEntity.ModelVersionSpecs.MaxPower) bhp</span>
-                </li>
-                }
-                    @if (Model.ModelPageEntity.ModelVersionSpecs.KerbWeight != 0)
-                {
-                <li>
-                    <span class="bwsprite weight-sm"></span>
-                    <span>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(Model.ModelPageEntity.ModelVersionSpecs.KerbWeight) kgs</span>
-                </li>
-                }
+            	@{
+            		var minSpecsList = Model.ModelPageEntity.ModelVersionMinSpecs.MinSpecsList.Take(4);
+            	}
+            	@foreach (SpecsItem minSpec in minSpecsList)
+            	{
+            		if (!string.IsNullOrEmpty(minSpec.Value))
+            		{
+            			<li>
+            				<span class="bwsprite capacity-sm"></span>
+            				<span>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(minSpec.Value, minSpec.UnitType, minSpec.DataType)</span>
+            			</li>
+            		}
+            	}
             </ul>
+
         </div>
     }
 

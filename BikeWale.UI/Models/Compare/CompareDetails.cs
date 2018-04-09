@@ -151,9 +151,28 @@ namespace Bikewale.Models
 
                     obj.Compare = _objCompareCache.DoCompare(_versionsList, _cityId);
                     obj.Compare.VersionSpecsFeatures = SpecsFeaturesServiceGateway.GetVersionsSpecsFeatures(_versionIdsList);
-
+                    
                     if (obj.Compare != null && obj.Compare.BasicInfo != null)
                     {
+                        if (obj.Compare.VersionSpecsFeatures != null && obj.Compare.VersionSpecsFeatures.Specs != null)
+                        {
+                            SpecsFeaturesCategory specCategory = obj.Compare.VersionSpecsFeatures.Specs.ElementAtOrDefault(3);
+                            if (specCategory != null && specCategory.SpecsItemList != null)
+                            {
+                                SpecsFeaturesItem specItem = specCategory.SpecsItemList.FirstOrDefault(spec => spec.Id == (int)EnumSpecsFeaturesItem.FuelEfficiencyOverall);
+                                if (specItem != null)
+                                {
+                                    IEnumerator<string> specItemEnumerator = specItem.ItemValues.GetEnumerator();
+                                    IEnumerator<BikeEntityBase> basicInfoEnumerator = obj.Compare.BasicInfo.GetEnumerator();
+                                    ushort mileage;
+                                    while(specItemEnumerator.MoveNext() && basicInfoEnumerator.MoveNext())
+                                    {
+                                        basicInfoEnumerator.Current.Mileage = ushort.TryParse(specItemEnumerator.Current, out mileage) ? mileage : ushort.MinValue;
+                                    }
+                                }
+                            }
+                        }
+
                         CreateCanonicalUrlAndCheckRedirection(obj);
                         CreateDisclaimerText(obj);
                         if (status != StatusCodes.RedirectPermanent)
