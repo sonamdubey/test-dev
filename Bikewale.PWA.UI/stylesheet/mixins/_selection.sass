@@ -1,0 +1,18 @@
+@mixin tick($dimension: 20)
+  @if unitless($dimension)
+    $dimensionWithUnit: 20 * 1px
+
+    @include tick-fff-icon
+    background-size: (floor($dimension / 1.8)) * 1px
+    content: ''
+    display: block
+    position: absolute
+    top: 1px
+    right: 0
+    width: $dimensionWithUnit
+    height: $dimensionWithUnit
+    background-color: color('mona-lisa')
+    border-radius: 50%
+
+  @else
+    @warn 'Please provide unitless value for tick `$dimension` parameter'

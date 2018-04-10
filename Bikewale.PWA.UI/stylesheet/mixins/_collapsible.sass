@@ -1,0 +1,27 @@
+@mixin collapsible-arrow($dimension: 15)
+  @if unitless($dimension)
+    $dimensionWithUnit: $dimension * 1px
+
+    .collapsible__trigger
+      &:after
+        @include vendor-prefix('transition', transform 300ms)
+        @include arrow-down-4d5057-icon
+        background-size: $dimensionWithUnit
+        content: ''
+        position: absolute
+        right: 20px
+        top: 0px
+        width: $dimensionWithUnit
+        height: 100%
+        display: block
+        will-change: transform
+
+      &.is-open
+        &:after
+          @include vendor-prefix('transform', rotateZ(180deg))
+
+      &.is-disabled
+        opacity: .5
+
+  @else
+    @warn 'Please provide unitless value for collapsible-arrow `$dimension` parameter'
