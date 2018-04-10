@@ -27,10 +27,9 @@ namespace Bikewale.Service.Controllers.JSException
         {
             try
             {
-                string errorString = string.Format("\nClient Side Error\nDetails - {0}\nErrorType - {1}\nSourceFile - {2}\nLine - {3}\nTrace - {4}", error.Details, error.ErrorType, error.SourceFile, error.LineNo, error.Trace);
-
                 if (error != null)
                 {
+                    string errorString = string.Format("\nClient Side Error\nDetails - {0}\nErrorType - {1}\nSourceFile - {2}\nLine - {3}\nTrace - {4}", error.Details, error.ErrorType, error.SourceFile, error.LineNo, error.Trace);
                     ErrorClass.LogError(error, errorString);
                 }
             }
