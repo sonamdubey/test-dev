@@ -216,17 +216,17 @@
                     <h2 class="margin-bottom20">Specification summary</h2>
                     <% 
                         var specsList = inquiryDetails.VersionMinSpecs;
-                        var index = 0;
+                        var specsIndex = 0;
                         var listLength = specsList.Count();
                     %>
                     <ul class="specs-features-list">
-                        <%for(int i=0; i<6 && index < listLength; i++)
+                        <%for(int i=0; i<6 && specsIndex < listLength; i++)
                         {%>
                         <li>
-                            <p class="specs-features-label"><%=specsList[index].Name %></p>
-                            <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(specsList[index].Value, specsList[index].UnitType, specsList[index].DataType) %></p>
+                            <p class="specs-features-label"><%=specsList[specsIndex].Name %></p>
+                            <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(specsList[specsIndex].Value, specsList[specsIndex].UnitType, specsList[specsIndex].DataType) %></p>
                         </li>
-                        <%index++; %>
+                        <%specsIndex++; %>
                         <%} %>
                     </ul>
                     <div class="clear"></div>
@@ -239,16 +239,16 @@
                 <div id="modelFeatures" class="bw-model-tabs-data margin-right20 margin-left20 padding-top20 padding-bottom20 font14 border-solid-bottom">
                     <h2 class="margin-bottom20">Features summary</h2>
                     <ul class="specs-features-list">
-                        <%if (index < listLength && listLength > 12) {
-                                index = 12;
+                        <%if (specsIndex < listLength && listLength > 12) {
+                                specsIndex = 12;
                             } %>
-                        <%for(int i=0; i<6 && index < listLength; i++)
+                        <%for(int i=0; i<6 && specsIndex < listLength; i++)
                             {%>
                         <li>
-                            <p class="specs-features-label"><%=specsList[index].Name %></p>
-                            <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(specsList[index].Value, specsList[index].UnitType, specsList[index].DataType) %></p>
+                            <p class="specs-features-label"><%=specsList[specsIndex].Name %></p>
+                            <p class="specs-features-value"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(specsList[specsIndex].Value, specsList[specsIndex].UnitType, specsList[specsIndex].DataType) %></p>
                         </li>
-                        <%index++; %>
+                        <%specsIndex++; %>
                         <%} %>
                     </ul>
                     <div class="clear"></div>

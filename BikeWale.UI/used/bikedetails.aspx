@@ -309,20 +309,20 @@
                             <h2 class="content-inner-block-20">Specifications summary</h2>
                              <% 
                                  var specsList = inquiryDetails.VersionMinSpecs;
-                                 var index = 0;
+                                 var specsIndex = 0;
                                  var listLength = specsList.Count();
                              %>
-                            <%for (int x = 0; x < 3 && index < listLength; x++)
+                            <%for (int gridCount = 0; gridCount < 3 && specsIndex < listLength; gridCount++)
                             {%>
                             <div class="grid-4 omega specs-features__content margin-bottom20">
-                                <% for (int i = 0; i < 4 && index < listLength; i++)
+                                <% for (int i = 0; i < 4 && specsIndex < listLength; i++)
                                      {
                                  %>
                                 <p>
-                                    <span class="specs-features-item__content text-light-grey"><%=specsList[index].Name%> </span>
-                                    <span class="specs-features-item__content text-bold"><%=Bikewale.Utility.FormatMinSpecs.ShowAvailable(specsList[index].Value, specsList[index].UnitType, specsList[index].DataType)%> </span>
+                                    <span class="specs-features-item__content text-light-grey"><%=specsList[specsIndex].Name%> </span>
+                                    <span class="specs-features-item__content text-bold"><%=Bikewale.Utility.FormatMinSpecs.ShowAvailable(specsList[specsIndex].Value, specsList[specsIndex].UnitType, specsList[specsIndex].DataType)%> </span>
                                 </p>
-                                <%index++; %>
+                                <%specsIndex++; %>
                                  <%} %>
                             </div>
                             <%} %>
@@ -333,17 +333,17 @@
 
                             <div class="grid-8 alpha margin-bottom25">
                                 <h2 class="content-inner-block-20">Features summary</h2>
-                                 <%for (int x = 0; x < 2 && index < listLength; x++)
+                                 <%for (int gridCount = 0; gridCount < 2 && specsIndex < listLength; gridCount++)
                                      {%>
                                     <div class="grid-6 omega specs-features__content margin-bottom20">
-                                    <% for (int i = 0; i < 3 && index < listLength; i++)
+                                    <% for (int i = 0; i < 3 && specsIndex < listLength; i++)
                                     {
                                      %>
                                     <p>
-                                      <span class="specs-features-item__content text-light-grey"><%=specsList[index].Name%> </span>
-                                      <span class="specs-features-item__content text-bold"><%=Bikewale.Utility.FormatMinSpecs.ShowAvailable(specsList[index].Value, specsList[index].UnitType, specsList[index].DataType)%> </span>  
+                                      <span class="specs-features-item__content text-light-grey"><%=specsList[specsIndex].Name%> </span>
+                                      <span class="specs-features-item__content text-bold"><%=Bikewale.Utility.FormatMinSpecs.ShowAvailable(specsList[specsIndex].Value, specsList[specsIndex].UnitType, specsList[specsIndex].DataType)%> </span>  
                                     </p>
-                                     <%index++; %>
+                                     <%specsIndex++; %>
                                      <%} %>
                                     </div>
                                  <%} %>

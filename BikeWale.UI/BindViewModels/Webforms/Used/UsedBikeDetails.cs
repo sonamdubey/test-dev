@@ -108,13 +108,10 @@ namespace Bikewale.BindViewModels.Webforms.Used
                             EnumSpecsFeaturesItem.Tripmeter,
                             EnumSpecsFeaturesItem.ElectricStart,
                             });
-                        if (minSpecs != null)
+                        if (minSpecs != null && minSpecs.FirstOrDefault() != null && minSpecs.FirstOrDefault().MinSpecsList != null)
                         {
                             IEnumerable<SpecsItem> minSpecsList = minSpecs.FirstOrDefault().MinSpecsList;
-                            if(minSpecsList != null)
-                            {
-                                InquiryDetails.VersionMinSpecs = minSpecsList.ToList();
-                            }
+                            InquiryDetails.VersionMinSpecs = minSpecsList.ToList();
                         }
                     }
                     if (InquiryDetails != null && InquiryDetails.MinDetails != null)
