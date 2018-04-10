@@ -1,4 +1,6 @@
-﻿using Bikewale.DTO.BikeData;
+﻿using Bikewale.BAL.ApiGateway.ApiGatewayHelper;
+using Bikewale.BAL.BikeData;
+using Bikewale.DTO.BikeData;
 using Bikewale.DTO.Dealer;
 using Bikewale.DTO.DealerLocator;
 using Bikewale.DTO.MobileVerification;
@@ -9,6 +11,7 @@ using Bikewale.Interfaces.Dealer;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.DealerLocator;
 using Bikewale.Service.Utilities;
+using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
 using System.Web.Http;
@@ -27,7 +30,7 @@ namespace Bikewale.Service.Controllers.DealerLocator
     {
         private readonly IDealer _dealer = null;
         private readonly IDealerCacheRepository _cache = null;
-        private readonly IBikeVersionCacheRepository<BikeVersionEntity, uint> _objVersionCache = null;
+        private readonly IBikeVersions<BikeVersionEntity, uint> _objVersion = null;
 
         /// <summary>
         /// Created By : Lucky Rathore
@@ -36,11 +39,16 @@ namespace Bikewale.Service.Controllers.DealerLocator
         /// </summary>
         /// <param name="dealer"></param>
         /// <param name="cache"></param>
-        public DealerBikesController(IDealer dealer, IDealerCacheRepository cache, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionColorCache)
+        public DealerBikesController(IDealer dealer, IDealerCacheRepository cache)
         {
             _dealer = dealer;
             _cache = cache;
-            _objVersionCache = objVersionColorCache;
+            using (IUnityContainer container = new UnityContainer())
+            {
+                container.RegisterType<IApiGatewayCaller, ApiGatewayCaller>();
+                container.RegisterType<IBikeVersions<BikeVersionEntity, uint>, BikeVersions<BikeVersionEntity, uint>>(new InjectionConstructor(new ResolvedParameter<IApiGatewayCaller>()));
+                _objVersion = container.Resolve<IBikeVersions<BikeVersionEntity, uint>>();
+            }
         }
 
         /// <summary>
@@ -175,7 +183,7 @@ namespace Bikewale.Service.Controllers.DealerLocator
             {
                 if (dealerId > 0 && modelId > 0)
                 {
-                    IEnumerable<BikeVersionWithMinSpec> versionList = _objVersionCache.GetDealerVersionsByModel(dealerId, modelId);
+                    IEnumerable<BikeVersionWithMinSpec> versionList = _objVersion.GetDealerVersionsByModel(dealerId, modelId);
                     if (versionList != null)
                     {
                         objeVersionList = DealerBikesEntityMapper.Convert(versionList);

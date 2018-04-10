@@ -793,6 +793,8 @@ namespace Bikewale.DAL.BikeData
 
         /// <summary>
         /// Gets the dealer versions by model.
+        /// Modified By : Rajan Chauhan on 10 Apr 2018
+        /// Description : Removed minSpec 
         /// </summary>
         /// <param name="dealerId">The dealer identifier.</param>
         /// <param name="modelId">The model identifier.</param>
@@ -820,10 +822,6 @@ namespace Bikewale.DAL.BikeData
                                 objVersion.VersionId = SqlReaderConvertor.ToUInt32(dr["bikeversionid"]);
                                 objVersion.VersionName = Convert.ToString(dr["versionname"]);
                                 objVersion.OnRoadPrice = SqlReaderConvertor.ToInt64(dr["onroadprice"]);
-                                objVersion.BrakingSystem = SqlReaderConvertor.ToBoolean(dr["antilockbrakingsystem"]) ? "ABS" : string.Empty;
-                                objVersion.BrakeType = string.Format("{0} Brake", Convert.ToString(dr["braketype"]));
-                                objVersion.WheelType = SqlReaderConvertor.ToBoolean(dr["alloywheels"]) ? "Alloy Wheels" : string.Empty;
-                                objVersion.StartType = SqlReaderConvertor.ToBoolean(dr["electricstart"]) ? "Electric Start" : "Kick Start";
                                 objBikeVersions.Add(objVersion);
                             }
                             dr.Close();

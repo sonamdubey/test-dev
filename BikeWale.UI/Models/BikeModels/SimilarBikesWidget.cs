@@ -1,9 +1,12 @@
 ﻿
+using Bikewale.BAL.ApiGateway.ApiGatewayHelper;
+using Bikewale.BAL.BikeData;
 using Bikewale.BAL.GrpcFiles.Specs_Features;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Notifications;
+using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +21,7 @@ namespace Bikewale.Models
     {
         #region Private Readonly
         private readonly IBikeVersionCacheRepository<BikeVersionEntity, uint> _versionCache = null;
+        private readonly IBikeVersions<BikeVersionEntity, uint> _objVersion;
         private readonly PQSourceEnum _pqSource;
         private readonly uint _versionId;
         private readonly uint _modelId;
@@ -47,6 +51,12 @@ namespace Bikewale.Models
             _versionCache = versionCache;
             _versionId = versionId;
             _pqSource = pqSource;
+            using (IUnityContainer container = new UnityContainer())
+            {
+                container.RegisterType<IBikeVersions<BikeVersionEntity, uint>, BikeVersions<BikeVersionEntity, uint>>()
+                    .RegisterType<IApiGatewayCaller, ApiGatewayCaller>();
+                _objVersion = container.Resolve<IBikeVersions<BikeVersionEntity, uint>>();
+            }
         }
 
         public SimilarBikesWidget(IBikeVersionCacheRepository<BikeVersionEntity, uint> versionCache
@@ -107,11 +117,11 @@ namespace Bikewale.Models
                 objVM.ShowPriceInCityCTA = _showPriceInCityCTA;
                 if (!_similarBikesByModel)
                 {
-                    objVM.Bikes = _versionCache.GetSimilarBikesList(_versionId, TopCount, CityId);
+                    objVM.Bikes = _objVersion.GetSimilarBikesList(_versionId, TopCount, CityId);
                 }
                 else
                 {
-                    objVM.Bikes = _versionCache.GetSimilarBikesByModel(_modelId, TopCount, CityId);
+                    objVM.Bikes = _objVersion.GetSimilarBikesByModel(_modelId, TopCount, CityId);
                 }
                 BindMinSpecs(objVM.Bikes);
                 objVM.PQSourceId = _pqSource;

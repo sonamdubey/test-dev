@@ -1,7 +1,9 @@
-﻿using Bikewale.Entities.BikeData;
+﻿using Bikewale.DAL.BikeData;
+using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Notifications;
+using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
 
@@ -16,6 +18,7 @@ namespace Bikewale.Cache.BikeData
     {
         private readonly ICacheManager _cache;
         private readonly IBikeVersions<T, U> _objVersions;
+        private readonly IBikeVersions<BikeVersionEntity, uint> _objVersionsRepository;
 
         /// <summary>
         /// Constructor
@@ -26,6 +29,11 @@ namespace Bikewale.Cache.BikeData
         {
             _cache = cache;
             _objVersions = objVersions;
+            using (IUnityContainer container = new UnityContainer())
+            {
+                container.RegisterType<IBikeVersions<BikeVersionEntity, uint>, BikeVersionsRepository<BikeVersionEntity, uint>>();
+                _objVersionsRepository = container.Resolve<IBikeVersions<BikeVersionEntity, uint>>();
+            }
         }
 
 
@@ -48,7 +56,7 @@ namespace Bikewale.Cache.BikeData
                 {
                     cacheTime = new TimeSpan(23, 0, 0);
                 }
-                versions = _cache.GetFromCache<IEnumerable<Entities.BikeData.SimilarBikeEntity>>(key, cacheTime, () => _objVersions.GetSimilarBikesList(versionId, topCount, cityid));
+                versions = _cache.GetFromCache<IEnumerable<Entities.BikeData.SimilarBikeEntity>>(key, cacheTime, () => _objVersionsRepository.GetSimilarBikesList(Convert.ToUInt32(versionId), topCount, cityid));
             }
             catch (Exception ex)
             {
@@ -69,7 +77,7 @@ namespace Bikewale.Cache.BikeData
                 {
                     cacheTime = new TimeSpan(23, 0, 0);
                 }
-                bikelist = _cache.GetFromCache<IEnumerable<Entities.BikeData.SimilarBikeEntity>>(key, cacheTime, () => _objVersions.GetSimilarBikesByModel(modelId, topCount, cityid));
+                bikelist = _cache.GetFromCache<IEnumerable<Entities.BikeData.SimilarBikeEntity>>(key, cacheTime, () => _objVersionsRepository.GetSimilarBikesByModel(Convert.ToUInt32(modelId), topCount, cityid));
             }
             catch (Exception ex)
             {
@@ -891,7 +899,7 @@ namespace Bikewale.Cache.BikeData
             string key = String.Format("BW_Versions_Dealer_{0}_Model_{1}", dealerId, modelId);
             try
             {
-                versions = _cache.GetFromCache<IEnumerable<BikeVersionWithMinSpec>>(key, new TimeSpan(0, 30, 0), () => _objVersions.GetDealerVersionsByModel(dealerId, modelId));
+                versions = _cache.GetFromCache<IEnumerable<BikeVersionWithMinSpec>>(key, new TimeSpan(0, 30, 0), () => _objVersionsRepository.GetDealerVersionsByModel(dealerId, modelId));
             }
             catch (Exception ex)
             {
