@@ -1,5 +1,6 @@
 ﻿using Bikewale.Entities.JSErrorLog;
 using Bikewale.Notifications;
+using log4net;
 using System;
 using System.Web;
 using System.Web.Http;
@@ -13,6 +14,8 @@ namespace Bikewale.Service.Controllers.JSException
     /// </summary>
     public class JSExceptionController : ApiController
     {
+
+        private readonly ILog _logger = LogManager.GetLogger("JSExceptionLogger");
 
         /// <summary>
         /// Author : Sushil Kumar
@@ -30,7 +33,7 @@ namespace Bikewale.Service.Controllers.JSException
                 if (error != null)
                 {
                     string errorString = string.Format("\nClient Side Error\nDetails - {0}\nErrorType - {1}\nSourceFile - {2}\nLine - {3}\nTrace - {4}", error.Details, error.ErrorType, error.SourceFile, error.LineNo, error.Trace);
-                    ErrorClass.LogError(error, errorString);
+                    _logger.Info(errorString, error);
                 }
             }
             catch (Exception ex)
