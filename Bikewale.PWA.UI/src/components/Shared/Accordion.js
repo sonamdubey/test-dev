@@ -1,3 +1,7 @@
+/*
+ * https://github.com/glennflanagan/react-responsive-accordion
+ */
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import Collapsible from './Collapsible';
