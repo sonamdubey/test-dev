@@ -23,7 +23,7 @@ namespace Bikewale.Service.Controllers.JSException
         /// Details: Details fetched from JSException's properties for logging
         /// </summary>
         
-        public IHttpActionResult Post([FromBody] JSExceptionEntity error)
+        public IHttpActionResult Post([FromBody] JSException error)
         {
             try
             {
