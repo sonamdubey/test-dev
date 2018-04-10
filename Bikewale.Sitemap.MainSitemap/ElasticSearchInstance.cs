@@ -1,17 +1,19 @@
-﻿using Bikewale.Notifications;
+﻿using Consumer;
 using Elasticsearch.Net;
 using Nest;
 using System;
 using System.Configuration;
 using System.Linq;
 
-namespace Bikewale.DAL.CoreDAL
+
+
+namespace Bikewale.Sitemap.MainSitemap
 {
     /// <summary>
     /// Created by  :   Pratibha Verma on 9 April 2018
-    /// Description :   client for ES created
+    /// Description :   Elastic Search Instance
     /// </summary>
-    public sealed class ElasticSearchInstance
+    public class ElasticSearchInstance
     {
         private static readonly ElasticSearchInstance _clientInstance = new ElasticSearchInstance();
 
@@ -48,9 +50,10 @@ namespace Bikewale.DAL.CoreDAL
             }
             catch (Exception ex)
             {
-                ErrorClass.LogError(ex, "ElasticClientInstance.ElasticClientInstance()" + ex.InnerException);
+                Logs.WriteErrorLog("ElasticClientInstance.ElasticClientInstance()", ex.InnerException);
             }
 
         }
     }
 }
+
