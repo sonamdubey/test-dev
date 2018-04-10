@@ -975,8 +975,8 @@ namespace Bikewale.Models
                 objInputFilters = new CustomInputFilters();
                 if (objData.Bikes != null)
                 {
-                    float minDisplacement = Single.MaxValue, tempMinDisplacement;
-                    ushort minMileage = UInt16.MaxValue, tempMinMileage;
+                    float minDisplacement = Single.MaxValue, tempMinDisplacement,displacementValue;
+                    ushort minMileage = UInt16.MaxValue, tempMinMileage,mileageValue;
                     long minExShowroomPrice = Int64.MaxValue, tempExShowroomPrice;
                     IEnumerable<SpecsItem> minSpecList;
                     foreach (var bike in objData.Bikes)
@@ -984,10 +984,9 @@ namespace Bikewale.Models
                         minSpecList = bike.MinSpecsList;
                         if (minSpecList != null)
                         {
-                            tempMinDisplacement = Convert.ToSingle(minSpecList.SingleOrDefault(s => s.Id == (int)EnumSpecsFeaturesItem.Displacement)?.Value);
+                            tempMinDisplacement = Single.TryParse(minSpecList.SingleOrDefault(s => s.Id == (int)EnumSpecsFeaturesItem.Displacement).Value, out displacementValue) ? displacementValue : 0;
                             minDisplacement = tempMinDisplacement > 0 && minDisplacement > tempMinDisplacement ? tempMinDisplacement : minDisplacement;
-
-                            tempMinMileage = Convert.ToUInt16(minSpecList.SingleOrDefault(s => s.Id == (int)EnumSpecsFeaturesItem.FuelEfficiencyOverall)?.Value);
+                            tempMinMileage = (UInt16.TryParse(minSpecList.SingleOrDefault(s => s.Id == (int)EnumSpecsFeaturesItem.FuelEfficiencyOverall).Value, out mileageValue)) ? mileageValue : Convert.ToUInt16(0);
                             minMileage = tempMinMileage > 0 && minMileage > tempMinMileage ? tempMinMileage : minMileage;
                         }
                         tempExShowroomPrice = bike.ExShowroomPrice;
