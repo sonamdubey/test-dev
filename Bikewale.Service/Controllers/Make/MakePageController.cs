@@ -1,9 +1,11 @@
-﻿using Bikewale.DTO.Make;
+﻿using Bikewale.BAL.BikeData;
+using Bikewale.DTO.Make;
 using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.Make;
 using Bikewale.Service.Utilities;
+using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,18 +23,21 @@ namespace Bikewale.Service.Controllers.Make
     /// </summary>
     public class MakePageController : CompressionApiController//ApiController
     {
-        private readonly IBikeMakes<BikeMakeEntity, int> _makesRepository;
-        private readonly IBikeModelsRepository<BikeModelEntity, int> _modelRepository = null;
+        private readonly IBikeMakes<BikeMakeEntity, int> _bikeMakes;
+        private readonly IBikeModels<BikeModelEntity, int> _bikeModels;
 
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="makesRepository"></param>
-        /// <param name="modelRepository"></param>
-        public MakePageController(IBikeMakes<BikeMakeEntity, int> makesRepository, IBikeModelsRepository<BikeModelEntity, int> modelRepository)
+        /// <param name="bikeModels"></param>
+        public MakePageController(IBikeModels<BikeModelEntity, int> bikeModels)
         {
-            _makesRepository = makesRepository;
-            _modelRepository = modelRepository;
+            using (IUnityContainer container = new UnityContainer())
+            {
+                container.RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakes<BikeMakeEntity, int>>();
+                _bikeMakes = container.Resolve<IBikeMakes<BikeMakeEntity, int>>();
+            }
+            _bikeModels = bikeModels;
         }
 
         /// <summary>
@@ -40,10 +45,9 @@ namespace Bikewale.Service.Controllers.Make
         /// Make name, Description(small and large) and popular bikes
         /// </summary>
         /// <param name="makeId">make id</param>
-        /// <param name="totalBikeCount">total popular bike count</param>
         /// <returns></returns>
         [ResponseType(typeof(MakePage))]
-        public IHttpActionResult Get(int makeId)
+        public IHttpActionResult Get(uint makeId)
         {
             BikeMakePageEntity entity = null;
             BikeDescriptionEntity description = null;
@@ -52,8 +56,8 @@ namespace Bikewale.Service.Controllers.Make
 
             try
             {
-                objModelList = _modelRepository.GetMostPopularBikesByMake(makeId);
-                description = _makesRepository.GetMakeDescription(makeId);
+                objModelList = _bikeModels.GetMostPopularBikesByMake(makeId);
+                description = _bikeMakes.GetMakeDescription((int)makeId);
 
                 if (objModelList != null && objModelList.Any() && description != null)
                 {

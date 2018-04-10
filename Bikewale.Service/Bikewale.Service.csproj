@@ -243,6 +243,7 @@
     <Compile Include="AutoMappers\BikeData\LaunchedBikeListMapper.cs" />
     <Compile Include="AutoMappers\BikeData\MakeModelEntityMapper.cs" />
     <Compile Include="AutoMappers\BikeData\SimilarBikeListMapper.cs" />
+    <Compile Include="AutoMappers\BikeData\SpecsFeaturesMapper.cs" />
     <Compile Include="AutoMappers\BikeData\UpcomingBikeListMapper.cs" />
     <Compile Include="AutoMappers\BookingSummary\BookingSummaryMapper.cs" />
     <Compile Include="AutoMappers\BookingSummary\DDQDealerDetailBaseMapper.cs" />

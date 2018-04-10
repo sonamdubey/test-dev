@@ -86,16 +86,6 @@ namespace Bikewale.Cache.BikeData
                     var curVersionSpecs = objModelPage.ModelVersionSpecsList.FirstOrDefault(m => m.BikeVersionId == (uint)versionId);
                     if (curVersionSpecs != null)
                         objModelPage.ModelVersionSpecs = curVersionSpecs;
-                    if (objModelPage.TransposeModelSpecs != null)
-                    {
-                        var transposeSpecs = objModelPage.TransposeModelSpecs.FirstOrDefault(m => m.BikeVersionId == versionId);
-                        if (transposeSpecs != null)
-                        {
-                            objModelPage.objOverview = transposeSpecs.objOverview;
-                            objModelPage.objSpecs = transposeSpecs.objSpecs;
-                            objModelPage.objFeatures = transposeSpecs.objFeatures;
-                        }
-                    }
                 }
             }
             catch (Exception ex)
@@ -117,26 +107,6 @@ namespace Bikewale.Cache.BikeData
         {
             BikeModelPageEntity objModelPage = null;
             objModelPage = _modelRepository.GetModelPage(modelId, versionId);
-            if (objModelPage != null && objModelPage.ModelVersionSpecsList != null)
-            {
-                List<TransposeModelSpecEntity> objSpecList = new List<TransposeModelSpecEntity>();
-                foreach (var bikeVersion in objModelPage.ModelVersionSpecsList)
-                {
-                    TransposeModelSpecEntity versionTranspos = new TransposeModelSpecEntity();
-                    versionTranspos.BikeVersionId = bikeVersion.BikeVersionId;
-                    versionTranspos.objOverview = FetchOverViewList(bikeVersion);
-                    versionTranspos.objSpecs = FetchSpecList(bikeVersion);
-                    versionTranspos.objFeatures = FetchFeatures(bikeVersion);
-                    objSpecList.Add(versionTranspos);
-                }
-                objModelPage.TransposeModelSpecs = objSpecList;
-                if (objModelPage.ModelVersionSpecs != null)
-                {
-                    objModelPage.objOverview = FetchOverViewList(objModelPage.ModelVersionSpecs);
-                    objModelPage.objSpecs = FetchSpecList(objModelPage.ModelVersionSpecs);
-                    objModelPage.objFeatures = FetchFeatures(objModelPage.ModelVersionSpecs);
-                }
-            }
             return objModelPage;
         }
 
@@ -938,7 +908,7 @@ namespace Bikewale.Cache.BikeData
         /// </summary>
         /// <param name="modelId"></param>
         /// <returns>Returns BikeModelPageEntity</returns>
-        public IEnumerable<MostPopularBikesBase> GetMostPopularBikesByMake(int makeId)
+        public IEnumerable<MostPopularBikesBase> GetMostPopularBikesByMake(uint makeId)
         {
             IEnumerable<MostPopularBikesBase> objBikes = null;
             string key = "BW_PopularBikesByMake_" + makeId;

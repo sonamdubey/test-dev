@@ -37,37 +37,10 @@
                             <img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(Model.BikeInfo.OriginalImagePath, Model.BikeInfo.HostUrl, Bikewale.Utility.ImageSize._160x89, Bikewale.Utility.QualityFactor._70) " src="" alt="@Model.BikeName" width="157" height="88" />
                         </a>
                         <div class="model-details-block vertical-top bw-ga" data-cat="@Model.Category" data-act="Clicked_OtherElements_GenericSlug" data-lab="@Model.BikeName">
-                            @if (Model.BikeInfo.MinSpecs != null)
+                            @if (Model.BikeInfo.MinSpecsList != null && Model.BikeInfo.MinSpecsList.Any())
                             {
                                 <ul class="key-specs-list margin-bottom15 text-light-grey">
-                                    @if (Model.BikeInfo.MinSpecs.Displacement > 0)
-                                    {
-                                    <li>
-                                        <span class="bwsprite capacity-sm"></span>
-                                        <span>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(Convert.ToString(Model.BikeInfo.MinSpecs.Displacement)) cc</span>
-                                    </li>
-                                    }
-                                    @if (Model.BikeInfo.MinSpecs.FuelEfficiencyOverall > 0)
-                                    {
-                                    <li>
-                                        <span class="bwsprite mileage-sm"></span>
-                                        <span>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(Convert.ToString(Model.BikeInfo.MinSpecs.FuelEfficiencyOverall),"kmpl") </span>
-                                    </li>
-                                    }
-                                    @if (Model.BikeInfo.MinSpecs.MaxPower > 0)
-                                    {
-                                    <li>
-                                        <span class="bwsprite power-sm"></span>
-                                        <span>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(Convert.ToString(Model.BikeInfo.MinSpecs.MaxPower))  bhp</span>
-                                    </li>
-                                    }
-                                    @if (Model.BikeInfo.MinSpecs.KerbWeight > 0)
-                                    {
-                                    <li>
-                                        <span class="bwsprite weight-sm"></span>
-                                        <span>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(Convert.ToString(Model.BikeInfo.MinSpecs.KerbWeight))  kgs</span>
-                                    </li>
-                                    }
+                                    @Html.Raw(Bikewale.Utility.FormatMinSpecs.GetMinSpecsLiElementsWithIcon(Model.BikeInfo.MinSpecsList))
                                 </ul>
                             }
                             <ul class="item-more-details-list margin-bottom5 inline-block">

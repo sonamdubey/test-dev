@@ -238,13 +238,13 @@
 												</div>
 												<table class="table-content" width="100%" cellspacing="0" cellpadding="0" border="0">
 													<tbody>
-														<tr class="row-width-grid">
-															<td width="162"></td>
-															@foreach (var specValue in specCat.SpecsItemList.First().ItemValues)
-															{
-																<td></td>
-															}
-														</tr>
+                                                        <tr class="row-width-grid">
+                                                            <td width="162"></td>
+                                                            @foreach (var specValue in specCat.SpecsItemList.First().ItemValues)
+                                                            {
+                                                                <td></td>
+                                                            }
+                                                        </tr>
 														@{isFirstActiveTab = false;}
 														@foreach (var specItem in specCat.SpecsItemList)
 														{
@@ -253,7 +253,7 @@
 																<td>@specItem.DisplayText@(!string.IsNullOrEmpty(specItem.UnitTypeText) ? string.Format(" ({0})", @specItem.UnitTypeText) : "")</td>
 																@foreach (var specValue in specItem.ItemValues)
 																{
-																	<td>@specValue</td>
+																	<td>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(specValue, specItem.DataType)</td>
 																}
 																<td></td>
 															</tr>
@@ -288,7 +288,7 @@
 												<td>@feature.DisplayText@(!string.IsNullOrEmpty(feature.UnitTypeText) ? string.Format(" ({0})", @feature.UnitTypeText) : "")</td>
 												@foreach (var featureValue in feature.ItemValues)
 												{
-													<td>@featureValue</td>
+													<td>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(featureValue, feature.DataType)</td>
 
 												}
 												<td></td>

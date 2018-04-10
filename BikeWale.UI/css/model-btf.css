@@ -249,7 +249,7 @@
     display: block
 }
 .specs-features-list .grid-6 p {
-	font-size: 0;
+    font-size: 0px;
     margin-top: 25px;
 }
 .specs-features-list .grid-6 p:first-child {

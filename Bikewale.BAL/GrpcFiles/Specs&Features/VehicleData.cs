@@ -24,10 +24,7 @@ namespace VehicleData.Service.ProtoClass {
           string.Concat(
             "ChF2ZWhpY2xlRGF0YS5wcm90bxILVmVoaWNsZURhdGEaDmNhdGVnb3J5LnBy",
             "b3RvGgppdGVtLnByb3RvGg51bml0VHlwZS5wcm90bxoUY3VzdG9tRGF0YVR5",
-            "cGUucHJvdG8aDmRhdGFUeXBlLnByb3RvIoQBChZDb3B5VmVoaWNsZURhdGFS",
-            "ZXF1ZXN0EhQKDFNyY1ZlcnNpb25JZBgBIAEoBRIUCgxUYXJWZXJzaW9uSWQY",
-            "AiABKAUSEgoKQ2F0ZWdvcnlJZBgDIAEoBRIVCg1BcHBsaWNhdGlvbklkGAQg",
-            "ASgFEhMKC1JlcXVlc3RlZEJ5GAUgASgFIgwKCkVtcHR5UGFyYW0iGAoHR3Jw",
+            "cGUucHJvdG8aDmRhdGFUeXBlLnByb3RvIgwKCkVtcHR5UGFyYW0iGAoHR3Jw",
             "Y0ludBINCgVWYWx1ZRgBIAEoBSIZCghHcnBjQm9vbBINCgVWYWx1ZRgBIAEo",
             "CCIyCg1EZWxldGVSZXF1ZXN0EgoKAklkGAEgASgFEhUKDUFwcGxpY2F0aW9u",
             "SWQYAiABKAUiMQoMSW5wdXRSZXF1ZXN0EgoKAklkGAEgASgFEhUKDUFwcGxp",
@@ -53,77 +50,83 @@ namespace VehicleData.Service.ProtoClass {
             "KAkiQgoVTW9kZWxTcGVjc1N1bW1hcnlMaXN0EikKBlZhbHVlcxgBIAMoCzIZ",
             "LlZlaGljbGVEYXRhLlNwZWNzU3VtbWFyeSJaChxWZXJzaW9uc0RhdGFCeUl0",
             "ZW1JZHNSZXF1ZXN0EhUKDUFwcGxpY2F0aW9uSWQYASABKAUSEgoKVmVyc2lv",
-            "bklkcxgCIAMoBRIPCgdJdGVtSWRzGAMgAygFIlsKCEl0ZW1EYXRhEg4KBkl0",
+            "bklkcxgCIAMoBRIPCgdJdGVtSWRzGAMgAygFIm8KCEl0ZW1EYXRhEg4KBkl0",
             "ZW1JZBgBIAEoBRIQCghJdGVtTmFtZRgCIAEoCRINCgVWYWx1ZRgDIAEoCRIQ",
-            "CghVbml0VHlwZRgEIAEoCRIMCgRJY29uGAUgASgJIkcKEFZlcnNpb25JdGVt",
-            "c0RhdGESCgoCSWQYASABKAUSJwoISXRlbUxpc3QYAiADKAsyFS5WZWhpY2xl",
-            "RGF0YS5JdGVtRGF0YSJXChhWZXJzaW9uSXRlbXNEYXRhUmVzcG9uc2USOwoU",
-            "VmVyc2lvbkl0ZW1zRGF0YUxpc3QYASADKAsyHS5WZWhpY2xlRGF0YS5WZXJz",
-            "aW9uSXRlbXNEYXRhIo8BChBWZWhpY2xlRGF0YVZhbHVlEi0KDlNwZWNpZmlj",
-            "YXRpb25zGAEgAygLMhUuVmVoaWNsZURhdGEuQ2F0ZWdvcnkSJwoIRmVhdHVy",
-            "ZXMYAiADKAsyFS5WZWhpY2xlRGF0YS5DYXRlZ29yeRIjCghPdmVydmlldxgD",
-            "IAMoCzIRLlZlaGljbGVEYXRhLkl0ZW0iVwoSVmVoaWNsZURhdGFSZXF1ZXN0",
-            "EhIKClZlcnNpb25JZHMYASADKAUSFQoNQXBwbGljYXRpb25JZBgCIAEoBRIW",
-            "Cg5JdGVtR3JvdXBUeXBlcxgDIAEoCTLxEgoSVmVoaWNsZURhdGFTZXJ2aWNl",
-            "Ej8KDkNyZWF0ZUNhdGVnb3J5EhUuVmVoaWNsZURhdGEuQ2F0ZWdvcnkaFC5W",
-            "ZWhpY2xlRGF0YS5HcnBjSW50IgASQAoOVXBkYXRlQ2F0ZWdvcnkSFS5WZWhp",
-            "Y2xlRGF0YS5DYXRlZ29yeRoVLlZlaGljbGVEYXRhLkdycGNCb29sIgASRQoO",
-            "RGVsZXRlQ2F0ZWdvcnkSGi5WZWhpY2xlRGF0YS5EZWxldGVSZXF1ZXN0GhUu",
-            "VmVoaWNsZURhdGEuR3JwY0Jvb2wiABJMChZHZXRDYXRlZ29yeURldGFpbHNC",
-            "eUlkEhkuVmVoaWNsZURhdGEuSW5wdXRSZXF1ZXN0GhUuVmVoaWNsZURhdGEu",
-            "Q2F0ZWdvcnkiABJUChdHZXRBbGxDYXRlZ29yaWVzRGV0YWlscxIcLlZlaGlj",
-            "bGVEYXRhLkNhdGVnb3J5UmVxdWVzdBoZLlZlaGljbGVEYXRhLkNhdGVnb3J5",
-            "TGlzdCIAEjcKCkNyZWF0ZUl0ZW0SES5WZWhpY2xlRGF0YS5JdGVtGhQuVmVo",
-            "aWNsZURhdGEuR3JwY0ludCIAEjgKClVwZGF0ZUl0ZW0SES5WZWhpY2xlRGF0",
-            "YS5JdGVtGhUuVmVoaWNsZURhdGEuR3JwY0Jvb2wiABJBCgpEZWxldGVJdGVt",
-            "EhouVmVoaWNsZURhdGEuRGVsZXRlUmVxdWVzdBoVLlZlaGljbGVEYXRhLkdy",
-            "cGNCb29sIgASRAoSR2V0SXRlbURldGFpbHNCeUlkEhkuVmVoaWNsZURhdGEu",
-            "SW5wdXRSZXF1ZXN0GhEuVmVoaWNsZURhdGEuSXRlbSIAElMKFEdldEl0ZW1z",
-            "QnlDYXRlZ29yeUlkEiIuVmVoaWNsZURhdGEuSXRlbUJ5Q2F0ZWdvcnlSZXF1",
-            "ZXN0GhUuVmVoaWNsZURhdGEuSXRlbUxpc3QiABJLChpHZXRBbGxJdGVtc0J5",
-            "QXBwbGljYXRpb25JZBIULlZlaGljbGVEYXRhLkdycGNJbnQaFS5WZWhpY2xl",
-            "RGF0YS5JdGVtTGlzdCIAEj8KDkNyZWF0ZVVuaXRUeXBlEhUuVmVoaWNsZURh",
-            "dGEuVW5pdFR5cGUaFC5WZWhpY2xlRGF0YS5HcnBjSW50IgASQAoOVXBkYXRl",
-            "VW5pdFR5cGUSFS5WZWhpY2xlRGF0YS5Vbml0VHlwZRoVLlZlaGljbGVEYXRh",
-            "LkdycGNCb29sIgASPwoORGVsZXRlVW5pdFR5cGUSFC5WZWhpY2xlRGF0YS5H",
-            "cnBjSW50GhUuVmVoaWNsZURhdGEuR3JwY0Jvb2wiABJOChZHZXRBbGxVbml0",
-            "VHlwZXNEZXRhaWxzEhcuVmVoaWNsZURhdGEuRW1wdHlQYXJhbRoZLlZlaGlj",
-            "bGVEYXRhLlVuaXRUeXBlTGlzdCIAElQKGEN1c3RvbURhdGFUeXBlT3BlcmF0",
-            "aW9ucxIfLlZlaGljbGVEYXRhLkN1c3RvbURhdGFUeXBlTGlzdBoVLlZlaGlj",
-            "bGVEYXRhLkdycGNCb29sIgASWgocR2V0QWxsQ3VzdG9tRGF0YVR5cGVzRGV0",
-            "YWlscxIXLlZlaGljbGVEYXRhLkVtcHR5UGFyYW0aHy5WZWhpY2xlRGF0YS5D",
-            "dXN0b21EYXRhVHlwZUxpc3QiABI/Cg5DcmVhdGVEYXRhVHlwZRIVLlZlaGlj",
-            "bGVEYXRhLkRhdGFUeXBlGhQuVmVoaWNsZURhdGEuR3JwY0ludCIAEkEKD1Vw",
-            "ZGF0ZWREYXRhVHlwZRIVLlZlaGljbGVEYXRhLkRhdGFUeXBlGhUuVmVoaWNs",
-            "ZURhdGEuR3JwY0Jvb2wiABI/Cg5EZWxldGVEYXRhVHlwZRIULlZlaGljbGVE",
-            "YXRhLkdycGNJbnQaFS5WZWhpY2xlRGF0YS5HcnBjQm9vbCIAEkcKFkdldERh",
-            "dGFUeXBlRGV0YWlsc0J5SWQSFC5WZWhpY2xlRGF0YS5HcnBjSW50GhUuVmVo",
-            "aWNsZURhdGEuRGF0YVR5cGUiABJNChVHZXRBbGxEYXRhVHlwZURldGFpbHMS",
-            "Fy5WZWhpY2xlRGF0YS5FbXB0eVBhcmFtGhkuVmVoaWNsZURhdGEuRGF0YVR5",
-            "cGVMaXN0IgASTgoPQ3JlYXRlSXRlbVZhbHVlEiIuVmVoaWNsZURhdGEuSXRl",
-            "bVZhbHVlV3JpdGVSZXF1ZXN0GhUuVmVoaWNsZURhdGEuR3JwY0Jvb2wiABJO",
-            "Cg9VcGRhdGVJdGVtVmFsdWUSIi5WZWhpY2xlRGF0YS5JdGVtVmFsdWVXcml0",
-            "ZVJlcXVlc3QaFS5WZWhpY2xlRGF0YS5HcnBjQm9vbCIAEk4KD0RlbGV0ZUl0",
-            "ZW1WYWx1ZRIiLlZlaGljbGVEYXRhLkl0ZW1WYWx1ZVdyaXRlUmVxdWVzdBoV",
-            "LlZlaGljbGVEYXRhLkdycGNCb29sIgASVQoWR2V0SXRlbURhdGFCeVZlcnNp",
-            "b25JZBIdLlZlaGljbGVEYXRhLkl0ZW1WYWx1ZVJlcXVlc3QaGi5WZWhpY2xl",
-            "RGF0YS5WYWx1ZURhdGFMaXN0IgASTwoPQ29weVZlaGljbGVEYXRhEiMuVmVo",
-            "aWNsZURhdGEuQ29weVZlaGljbGVEYXRhUmVxdWVzdBoVLlZlaGljbGVEYXRh",
-            "LkdycGNCb29sIgASXgoaR2V0VmVoaWNsZURhdGFGb3JWZXJzaW9uSWQSHy5W",
-            "ZWhpY2xlRGF0YS5WZWhpY2xlRGF0YVJlcXVlc3QaHS5WZWhpY2xlRGF0YS5W",
-            "ZWhpY2xlRGF0YVZhbHVlIgASawoVVmVyc2lvbnNEYXRhQnlJdGVtSWRzEiku",
-            "VmVoaWNsZURhdGEuVmVyc2lvbnNEYXRhQnlJdGVtSWRzUmVxdWVzdBolLlZl",
-            "aGljbGVEYXRhLlZlcnNpb25JdGVtc0RhdGFSZXNwb25zZSIAEmIKFkdldFZl",
-            "cnNpb25TcGVjc1N1bW1hcnkSIC5WZWhpY2xlRGF0YS5TcGVjc1N1bW1hcnlS",
-            "ZXF1ZXN0GiQuVmVoaWNsZURhdGEuVmVyc2lvblNwZWNzU3VtbWFyeUxpc3Qi",
-            "ABJjChRHZXRNb2RlbFNwZWNzU3VtbWFyeRIlLlZlaGljbGVEYXRhLk1vZGVs",
-            "U3BlY3NTdW1tYXJ5UmVxdWVzdBoiLlZlaGljbGVEYXRhLk1vZGVsU3BlY3NT",
-            "dW1tYXJ5TGlzdCIAQiGqAh5WZWhpY2xlRGF0YS5TZXJ2aWNlLlByb3RvQ2xh",
-            "c3NiBnByb3RvMw=="));
+            "CghVbml0VHlwZRgEIAEoCRIMCgRJY29uGAUgASgJEhIKCkRhdGFUeXBlSWQY",
+            "BiABKAUiRwoQVmVyc2lvbkl0ZW1zRGF0YRIKCgJJZBgBIAEoBRInCghJdGVt",
+            "TGlzdBgCIAMoCzIVLlZlaGljbGVEYXRhLkl0ZW1EYXRhIlcKGFZlcnNpb25J",
+            "dGVtc0RhdGFSZXNwb25zZRI7ChRWZXJzaW9uSXRlbXNEYXRhTGlzdBgBIAMo",
+            "CzIdLlZlaGljbGVEYXRhLlZlcnNpb25JdGVtc0RhdGEijwEKEFZlaGljbGVE",
+            "YXRhVmFsdWUSLQoOU3BlY2lmaWNhdGlvbnMYASADKAsyFS5WZWhpY2xlRGF0",
+            "YS5DYXRlZ29yeRInCghGZWF0dXJlcxgCIAMoCzIVLlZlaGljbGVEYXRhLkNh",
+            "dGVnb3J5EiMKCE92ZXJ2aWV3GAMgAygLMhEuVmVoaWNsZURhdGEuSXRlbSKt",
+            "AQoSVmVoaWNsZURhdGFSZXF1ZXN0EhIKClZlcnNpb25JZHMYASADKAUSFQoN",
+            "QXBwbGljYXRpb25JZBgCIAEoBRIWCg5JdGVtR3JvdXBUeXBlcxgDIAEoCRIr",
+            "CgpJdGVtU3RhdHVzGAQgASgOMhcuVmVoaWNsZURhdGEuSXRlbVN0YXR1cxIn",
+            "CghJdGVtVHlwZRgFIAEoDjIVLlZlaGljbGVEYXRhLkl0ZW1UeXBlIooBChZD",
+            "b3B5VmVoaWNsZURhdGFSZXF1ZXN0EhcKD1NvdXJjZVZlcnNpb25JZBgBIAEo",
+            "BRIXCg9UYXJnZXRWZXJzaW9uSWQYAiABKAUSEgoKQ2F0ZWdvcnlJZBgDIAEo",
+            "BRIVCg1BcHBsaWNhdGlvbklkGAQgASgFEhMKC1JlcXVlc3RlZEJ5GAUgASgF",
+            "MtMTChJWZWhpY2xlRGF0YVNlcnZpY2USPwoOQ3JlYXRlQ2F0ZWdvcnkSFS5W",
+            "ZWhpY2xlRGF0YS5DYXRlZ29yeRoULlZlaGljbGVEYXRhLkdycGNJbnQiABJA",
+            "Cg5VcGRhdGVDYXRlZ29yeRIVLlZlaGljbGVEYXRhLkNhdGVnb3J5GhUuVmVo",
+            "aWNsZURhdGEuR3JwY0Jvb2wiABJFCg5EZWxldGVDYXRlZ29yeRIaLlZlaGlj",
+            "bGVEYXRhLkRlbGV0ZVJlcXVlc3QaFS5WZWhpY2xlRGF0YS5HcnBjQm9vbCIA",
+            "EkwKFkdldENhdGVnb3J5RGV0YWlsc0J5SWQSGS5WZWhpY2xlRGF0YS5JbnB1",
+            "dFJlcXVlc3QaFS5WZWhpY2xlRGF0YS5DYXRlZ29yeSIAElQKF0dldEFsbENh",
+            "dGVnb3JpZXNEZXRhaWxzEhwuVmVoaWNsZURhdGEuQ2F0ZWdvcnlSZXF1ZXN0",
+            "GhkuVmVoaWNsZURhdGEuQ2F0ZWdvcnlMaXN0IgASNwoKQ3JlYXRlSXRlbRIR",
+            "LlZlaGljbGVEYXRhLkl0ZW0aFC5WZWhpY2xlRGF0YS5HcnBjSW50IgASOAoK",
+            "VXBkYXRlSXRlbRIRLlZlaGljbGVEYXRhLkl0ZW0aFS5WZWhpY2xlRGF0YS5H",
+            "cnBjQm9vbCIAEkEKCkRlbGV0ZUl0ZW0SGi5WZWhpY2xlRGF0YS5EZWxldGVS",
+            "ZXF1ZXN0GhUuVmVoaWNsZURhdGEuR3JwY0Jvb2wiABJEChJHZXRJdGVtRGV0",
+            "YWlsc0J5SWQSGS5WZWhpY2xlRGF0YS5JbnB1dFJlcXVlc3QaES5WZWhpY2xl",
+            "RGF0YS5JdGVtIgASUwoUR2V0SXRlbXNCeUNhdGVnb3J5SWQSIi5WZWhpY2xl",
+            "RGF0YS5JdGVtQnlDYXRlZ29yeVJlcXVlc3QaFS5WZWhpY2xlRGF0YS5JdGVt",
+            "TGlzdCIAEksKGkdldEFsbEl0ZW1zQnlBcHBsaWNhdGlvbklkEhQuVmVoaWNs",
+            "ZURhdGEuR3JwY0ludBoVLlZlaGljbGVEYXRhLkl0ZW1MaXN0IgASPwoOQ3Jl",
+            "YXRlVW5pdFR5cGUSFS5WZWhpY2xlRGF0YS5Vbml0VHlwZRoULlZlaGljbGVE",
+            "YXRhLkdycGNJbnQiABJACg5VcGRhdGVVbml0VHlwZRIVLlZlaGljbGVEYXRh",
+            "LlVuaXRUeXBlGhUuVmVoaWNsZURhdGEuR3JwY0Jvb2wiABI/Cg5EZWxldGVV",
+            "bml0VHlwZRIULlZlaGljbGVEYXRhLkdycGNJbnQaFS5WZWhpY2xlRGF0YS5H",
+            "cnBjQm9vbCIAEk4KFkdldEFsbFVuaXRUeXBlc0RldGFpbHMSFy5WZWhpY2xl",
+            "RGF0YS5FbXB0eVBhcmFtGhkuVmVoaWNsZURhdGEuVW5pdFR5cGVMaXN0IgAS",
+            "VAoYQ3VzdG9tRGF0YVR5cGVPcGVyYXRpb25zEh8uVmVoaWNsZURhdGEuQ3Vz",
+            "dG9tRGF0YVR5cGVMaXN0GhUuVmVoaWNsZURhdGEuR3JwY0Jvb2wiABJaChxH",
+            "ZXRBbGxDdXN0b21EYXRhVHlwZXNEZXRhaWxzEhcuVmVoaWNsZURhdGEuRW1w",
+            "dHlQYXJhbRofLlZlaGljbGVEYXRhLkN1c3RvbURhdGFUeXBlTGlzdCIAEj8K",
+            "DkNyZWF0ZURhdGFUeXBlEhUuVmVoaWNsZURhdGEuRGF0YVR5cGUaFC5WZWhp",
+            "Y2xlRGF0YS5HcnBjSW50IgASQQoPVXBkYXRlZERhdGFUeXBlEhUuVmVoaWNs",
+            "ZURhdGEuRGF0YVR5cGUaFS5WZWhpY2xlRGF0YS5HcnBjQm9vbCIAEj8KDkRl",
+            "bGV0ZURhdGFUeXBlEhQuVmVoaWNsZURhdGEuR3JwY0ludBoVLlZlaGljbGVE",
+            "YXRhLkdycGNCb29sIgASRwoWR2V0RGF0YVR5cGVEZXRhaWxzQnlJZBIULlZl",
+            "aGljbGVEYXRhLkdycGNJbnQaFS5WZWhpY2xlRGF0YS5EYXRhVHlwZSIAEk0K",
+            "FUdldEFsbERhdGFUeXBlRGV0YWlscxIXLlZlaGljbGVEYXRhLkVtcHR5UGFy",
+            "YW0aGS5WZWhpY2xlRGF0YS5EYXRhVHlwZUxpc3QiABJPCg9Db3B5VmVoaWNs",
+            "ZURhdGESIy5WZWhpY2xlRGF0YS5Db3B5VmVoaWNsZURhdGFSZXF1ZXN0GhUu",
+            "VmVoaWNsZURhdGEuR3JwY0Jvb2wiABJOCg9DcmVhdGVJdGVtVmFsdWUSIi5W",
+            "ZWhpY2xlRGF0YS5JdGVtVmFsdWVXcml0ZVJlcXVlc3QaFS5WZWhpY2xlRGF0",
+            "YS5HcnBjQm9vbCIAEk4KD1VwZGF0ZUl0ZW1WYWx1ZRIiLlZlaGljbGVEYXRh",
+            "Lkl0ZW1WYWx1ZVdyaXRlUmVxdWVzdBoVLlZlaGljbGVEYXRhLkdycGNCb29s",
+            "IgASTgoPRGVsZXRlSXRlbVZhbHVlEiIuVmVoaWNsZURhdGEuSXRlbVZhbHVl",
+            "V3JpdGVSZXF1ZXN0GhUuVmVoaWNsZURhdGEuR3JwY0Jvb2wiABJVChZHZXRJ",
+            "dGVtRGF0YUJ5VmVyc2lvbklkEh0uVmVoaWNsZURhdGEuSXRlbVZhbHVlUmVx",
+            "dWVzdBoaLlZlaGljbGVEYXRhLlZhbHVlRGF0YUxpc3QiABJeChpHZXRWZWhp",
+            "Y2xlRGF0YUZvclZlcnNpb25JZBIfLlZlaGljbGVEYXRhLlZlaGljbGVEYXRh",
+            "UmVxdWVzdBodLlZlaGljbGVEYXRhLlZlaGljbGVEYXRhVmFsdWUiABJrChVW",
+            "ZXJzaW9uc0RhdGFCeUl0ZW1JZHMSKS5WZWhpY2xlRGF0YS5WZXJzaW9uc0Rh",
+            "dGFCeUl0ZW1JZHNSZXF1ZXN0GiUuVmVoaWNsZURhdGEuVmVyc2lvbkl0ZW1z",
+            "RGF0YVJlc3BvbnNlIgASYgoWR2V0VmVyc2lvblNwZWNzU3VtbWFyeRIgLlZl",
+            "aGljbGVEYXRhLlNwZWNzU3VtbWFyeVJlcXVlc3QaJC5WZWhpY2xlRGF0YS5W",
+            "ZXJzaW9uU3BlY3NTdW1tYXJ5TGlzdCIAEmMKFEdldE1vZGVsU3BlY3NTdW1t",
+            "YXJ5EiUuVmVoaWNsZURhdGEuTW9kZWxTcGVjc1N1bW1hcnlSZXF1ZXN0GiIu",
+            "VmVoaWNsZURhdGEuTW9kZWxTcGVjc1N1bW1hcnlMaXN0IgASYAoeSXNWZWhp",
+            "Y2xlRGF0YUV4aXN0c0J5VmVyc2lvbklkEhkuVmVoaWNsZURhdGEuSW5wdXRS",
+            "ZXF1ZXN0GiEuVmVoaWNsZURhdGEuQ2F0ZWdvcnlSZXNwb25zZUxpc3QiAEIh",
+            "qgIeVmVoaWNsZURhdGEuU2VydmljZS5Qcm90b0NsYXNzYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::VehicleData.Service.ProtoClass.CategoryReflection.Descriptor, global::VehicleData.Service.ProtoClass.ItemReflection.Descriptor, global::VehicleData.Service.ProtoClass.UnitTypeReflection.Descriptor, global::VehicleData.Service.ProtoClass.CustomDataTypeReflection.Descriptor, global::VehicleData.Service.ProtoClass.DataTypeReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::VehicleData.Service.ProtoClass.CopyVehicleDataRequest), global::VehicleData.Service.ProtoClass.CopyVehicleDataRequest.Parser, new[]{ "SrcVersionId", "TarVersionId", "CategoryId", "ApplicationId", "RequestedBy" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::VehicleData.Service.ProtoClass.EmptyParam), global::VehicleData.Service.ProtoClass.EmptyParam.Parser, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::VehicleData.Service.ProtoClass.GrpcInt), global::VehicleData.Service.ProtoClass.GrpcInt.Parser, new[]{ "Value" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::VehicleData.Service.ProtoClass.GrpcBool), global::VehicleData.Service.ProtoClass.GrpcBool.Parser, new[]{ "Value" }, null, null, null),
@@ -141,246 +144,18 @@ namespace VehicleData.Service.ProtoClass {
             new pbr::GeneratedClrTypeInfo(typeof(global::VehicleData.Service.ProtoClass.SpecsSummary), global::VehicleData.Service.ProtoClass.SpecsSummary.Parser, new[]{ "ItemId", "ItemName", "Value", "UnitType" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::VehicleData.Service.ProtoClass.ModelSpecsSummaryList), global::VehicleData.Service.ProtoClass.ModelSpecsSummaryList.Parser, new[]{ "Values" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::VehicleData.Service.ProtoClass.VersionsDataByItemIdsRequest), global::VehicleData.Service.ProtoClass.VersionsDataByItemIdsRequest.Parser, new[]{ "ApplicationId", "VersionIds", "ItemIds" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::VehicleData.Service.ProtoClass.ItemData), global::VehicleData.Service.ProtoClass.ItemData.Parser, new[]{ "ItemId", "ItemName", "Value", "UnitType", "Icon" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::VehicleData.Service.ProtoClass.ItemData), global::VehicleData.Service.ProtoClass.ItemData.Parser, new[]{ "ItemId", "ItemName", "Value", "UnitType", "Icon", "DataTypeId" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::VehicleData.Service.ProtoClass.VersionItemsData), global::VehicleData.Service.ProtoClass.VersionItemsData.Parser, new[]{ "Id", "ItemList" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::VehicleData.Service.ProtoClass.VersionItemsDataResponse), global::VehicleData.Service.ProtoClass.VersionItemsDataResponse.Parser, new[]{ "VersionItemsDataList" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::VehicleData.Service.ProtoClass.VehicleDataValue), global::VehicleData.Service.ProtoClass.VehicleDataValue.Parser, new[]{ "Specifications", "Features", "Overview" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::VehicleData.Service.ProtoClass.VehicleDataRequest), global::VehicleData.Service.ProtoClass.VehicleDataRequest.Parser, new[]{ "VersionIds", "ApplicationId", "ItemGroupTypes" }, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::VehicleData.Service.ProtoClass.VehicleDataRequest), global::VehicleData.Service.ProtoClass.VehicleDataRequest.Parser, new[]{ "VersionIds", "ApplicationId", "ItemGroupTypes", "ItemStatus", "ItemType" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::VehicleData.Service.ProtoClass.CopyVehicleDataRequest), global::VehicleData.Service.ProtoClass.CopyVehicleDataRequest.Parser, new[]{ "SourceVersionId", "TargetVersionId", "CategoryId", "ApplicationId", "RequestedBy" }, null, null, null)
           }));
     }
     #endregion
 
   }
   #region Messages
-  public sealed partial class CopyVehicleDataRequest : pb::IMessage<CopyVehicleDataRequest> {
-    private static readonly pb::MessageParser<CopyVehicleDataRequest> _parser = new pb::MessageParser<CopyVehicleDataRequest>(() => new CopyVehicleDataRequest());
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pb::MessageParser<CopyVehicleDataRequest> Parser { get { return _parser; } }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pbr::MessageDescriptor Descriptor {
-      get { return global::VehicleData.Service.ProtoClass.VehicleDataReflection.Descriptor.MessageTypes[0]; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    pbr::MessageDescriptor pb::IMessage.Descriptor {
-      get { return Descriptor; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public CopyVehicleDataRequest() {
-      OnConstruction();
-    }
-
-    partial void OnConstruction();
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public CopyVehicleDataRequest(CopyVehicleDataRequest other) : this() {
-      srcVersionId_ = other.srcVersionId_;
-      tarVersionId_ = other.tarVersionId_;
-      categoryId_ = other.categoryId_;
-      applicationId_ = other.applicationId_;
-      requestedBy_ = other.requestedBy_;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public CopyVehicleDataRequest Clone() {
-      return new CopyVehicleDataRequest(this);
-    }
-
-    /// <summary>Field number for the "SrcVersionId" field.</summary>
-    public const int SrcVersionIdFieldNumber = 1;
-    private int srcVersionId_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int SrcVersionId {
-      get { return srcVersionId_; }
-      set {
-        srcVersionId_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "TarVersionId" field.</summary>
-    public const int TarVersionIdFieldNumber = 2;
-    private int tarVersionId_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int TarVersionId {
-      get { return tarVersionId_; }
-      set {
-        tarVersionId_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "CategoryId" field.</summary>
-    public const int CategoryIdFieldNumber = 3;
-    private int categoryId_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int CategoryId {
-      get { return categoryId_; }
-      set {
-        categoryId_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "ApplicationId" field.</summary>
-    public const int ApplicationIdFieldNumber = 4;
-    private int applicationId_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int ApplicationId {
-      get { return applicationId_; }
-      set {
-        applicationId_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "RequestedBy" field.</summary>
-    public const int RequestedByFieldNumber = 5;
-    private int requestedBy_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int RequestedBy {
-      get { return requestedBy_; }
-      set {
-        requestedBy_ = value;
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override bool Equals(object other) {
-      return Equals(other as CopyVehicleDataRequest);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool Equals(CopyVehicleDataRequest other) {
-      if (ReferenceEquals(other, null)) {
-        return false;
-      }
-      if (ReferenceEquals(other, this)) {
-        return true;
-      }
-      if (SrcVersionId != other.SrcVersionId) return false;
-      if (TarVersionId != other.TarVersionId) return false;
-      if (CategoryId != other.CategoryId) return false;
-      if (ApplicationId != other.ApplicationId) return false;
-      if (RequestedBy != other.RequestedBy) return false;
-      return true;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override int GetHashCode() {
-      int hash = 1;
-      if (SrcVersionId != 0) hash ^= SrcVersionId.GetHashCode();
-      if (TarVersionId != 0) hash ^= TarVersionId.GetHashCode();
-      if (CategoryId != 0) hash ^= CategoryId.GetHashCode();
-      if (ApplicationId != 0) hash ^= ApplicationId.GetHashCode();
-      if (RequestedBy != 0) hash ^= RequestedBy.GetHashCode();
-      return hash;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override string ToString() {
-      return pb::JsonFormatter.ToDiagnosticString(this);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void WriteTo(pb::CodedOutputStream output) {
-      if (SrcVersionId != 0) {
-        output.WriteRawTag(8);
-        output.WriteInt32(SrcVersionId);
-      }
-      if (TarVersionId != 0) {
-        output.WriteRawTag(16);
-        output.WriteInt32(TarVersionId);
-      }
-      if (CategoryId != 0) {
-        output.WriteRawTag(24);
-        output.WriteInt32(CategoryId);
-      }
-      if (ApplicationId != 0) {
-        output.WriteRawTag(32);
-        output.WriteInt32(ApplicationId);
-      }
-      if (RequestedBy != 0) {
-        output.WriteRawTag(40);
-        output.WriteInt32(RequestedBy);
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int CalculateSize() {
-      int size = 0;
-      if (SrcVersionId != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(SrcVersionId);
-      }
-      if (TarVersionId != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(TarVersionId);
-      }
-      if (CategoryId != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(CategoryId);
-      }
-      if (ApplicationId != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(ApplicationId);
-      }
-      if (RequestedBy != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(RequestedBy);
-      }
-      return size;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(CopyVehicleDataRequest other) {
-      if (other == null) {
-        return;
-      }
-      if (other.SrcVersionId != 0) {
-        SrcVersionId = other.SrcVersionId;
-      }
-      if (other.TarVersionId != 0) {
-        TarVersionId = other.TarVersionId;
-      }
-      if (other.CategoryId != 0) {
-        CategoryId = other.CategoryId;
-      }
-      if (other.ApplicationId != 0) {
-        ApplicationId = other.ApplicationId;
-      }
-      if (other.RequestedBy != 0) {
-        RequestedBy = other.RequestedBy;
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(pb::CodedInputStream input) {
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            input.SkipLastField();
-            break;
-          case 8: {
-            SrcVersionId = input.ReadInt32();
-            break;
-          }
-          case 16: {
-            TarVersionId = input.ReadInt32();
-            break;
-          }
-          case 24: {
-            CategoryId = input.ReadInt32();
-            break;
-          }
-          case 32: {
-            ApplicationId = input.ReadInt32();
-            break;
-          }
-          case 40: {
-            RequestedBy = input.ReadInt32();
-            break;
-          }
-        }
-      }
-    }
-
-  }
-
   public sealed partial class EmptyParam : pb::IMessage<EmptyParam> {
     private static readonly pb::MessageParser<EmptyParam> _parser = new pb::MessageParser<EmptyParam>(() => new EmptyParam());
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -388,7 +163,7 @@ namespace VehicleData.Service.ProtoClass {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::VehicleData.Service.ProtoClass.VehicleDataReflection.Descriptor.MessageTypes[1]; }
+      get { return global::VehicleData.Service.ProtoClass.VehicleDataReflection.Descriptor.MessageTypes[0]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -477,7 +252,7 @@ namespace VehicleData.Service.ProtoClass {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::VehicleData.Service.ProtoClass.VehicleDataReflection.Descriptor.MessageTypes[2]; }
+      get { return global::VehicleData.Service.ProtoClass.VehicleDataReflection.Descriptor.MessageTypes[1]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -594,7 +369,7 @@ namespace VehicleData.Service.ProtoClass {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::VehicleData.Service.ProtoClass.VehicleDataReflection.Descriptor.MessageTypes[3]; }
+      get { return global::VehicleData.Service.ProtoClass.VehicleDataReflection.Descriptor.MessageTypes[2]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -711,7 +486,7 @@ namespace VehicleData.Service.ProtoClass {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::VehicleData.Service.ProtoClass.VehicleDataReflection.Descriptor.MessageTypes[4]; }
+      get { return global::VehicleData.Service.ProtoClass.VehicleDataReflection.Descriptor.MessageTypes[3]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -856,7 +631,7 @@ namespace VehicleData.Service.ProtoClass {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::VehicleData.Service.ProtoClass.VehicleDataReflection.Descriptor.MessageTypes[5]; }
+      get { return global::VehicleData.Service.ProtoClass.VehicleDataReflection.Descriptor.MessageTypes[4]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1001,7 +776,7 @@ namespace VehicleData.Service.ProtoClass {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::VehicleData.Service.ProtoClass.VehicleDataReflection.Descriptor.MessageTypes[6]; }
+      get { return global::VehicleData.Service.ProtoClass.VehicleDataReflection.Descriptor.MessageTypes[5]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1342,7 +1117,7 @@ namespace VehicleData.Service.ProtoClass {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::VehicleData.Service.ProtoClass.VehicleDataReflection.Descriptor.MessageTypes[7]; }
+      get { return global::VehicleData.Service.ProtoClass.VehicleDataReflection.Descriptor.MessageTypes[6]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1451,7 +1226,7 @@ namespace VehicleData.Service.ProtoClass {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::VehicleData.Service.ProtoClass.VehicleDataReflection.Descriptor.MessageTypes[8]; }
+      get { return global::VehicleData.Service.ProtoClass.VehicleDataReflection.Descriptor.MessageTypes[7]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1624,7 +1399,7 @@ namespace VehicleData.Service.ProtoClass {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::VehicleData.Service.ProtoClass.VehicleDataReflection.Descriptor.MessageTypes[9]; }
+      get { return global::VehicleData.Service.ProtoClass.VehicleDataReflection.Descriptor.MessageTypes[8]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1769,7 +1544,7 @@ namespace VehicleData.Service.ProtoClass {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::VehicleData.Service.ProtoClass.VehicleDataReflection.Descriptor.MessageTypes[10]; }
+      get { return global::VehicleData.Service.ProtoClass.VehicleDataReflection.Descriptor.MessageTypes[9]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1878,7 +1653,7 @@ namespace VehicleData.Service.ProtoClass {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::VehicleData.Service.ProtoClass.VehicleDataReflection.Descriptor.MessageTypes[11]; }
+      get { return global::VehicleData.Service.ProtoClass.VehicleDataReflection.Descriptor.MessageTypes[10]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -2016,7 +1791,7 @@ namespace VehicleData.Service.ProtoClass {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::VehicleData.Service.ProtoClass.VehicleDataReflection.Descriptor.MessageTypes[12]; }
+      get { return global::VehicleData.Service.ProtoClass.VehicleDataReflection.Descriptor.MessageTypes[11]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -2153,7 +1928,7 @@ namespace VehicleData.Service.ProtoClass {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::VehicleData.Service.ProtoClass.VehicleDataReflection.Descriptor.MessageTypes[13]; }
+      get { return global::VehicleData.Service.ProtoClass.VehicleDataReflection.Descriptor.MessageTypes[12]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -2262,7 +2037,7 @@ namespace VehicleData.Service.ProtoClass {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::VehicleData.Service.ProtoClass.VehicleDataReflection.Descriptor.MessageTypes[14]; }
+      get { return global::VehicleData.Service.ProtoClass.VehicleDataReflection.Descriptor.MessageTypes[13]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -2428,7 +2203,7 @@ namespace VehicleData.Service.ProtoClass {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::VehicleData.Service.ProtoClass.VehicleDataReflection.Descriptor.MessageTypes[15]; }
+      get { return global::VehicleData.Service.ProtoClass.VehicleDataReflection.Descriptor.MessageTypes[14]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -2629,7 +2404,7 @@ namespace VehicleData.Service.ProtoClass {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::VehicleData.Service.ProtoClass.VehicleDataReflection.Descriptor.MessageTypes[16]; }
+      get { return global::VehicleData.Service.ProtoClass.VehicleDataReflection.Descriptor.MessageTypes[15]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -2738,7 +2513,7 @@ namespace VehicleData.Service.ProtoClass {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::VehicleData.Service.ProtoClass.VehicleDataReflection.Descriptor.MessageTypes[17]; }
+      get { return global::VehicleData.Service.ProtoClass.VehicleDataReflection.Descriptor.MessageTypes[16]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -2897,7 +2672,7 @@ namespace VehicleData.Service.ProtoClass {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::VehicleData.Service.ProtoClass.VehicleDataReflection.Descriptor.MessageTypes[18]; }
+      get { return global::VehicleData.Service.ProtoClass.VehicleDataReflection.Descriptor.MessageTypes[17]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -2919,6 +2694,7 @@ namespace VehicleData.Service.ProtoClass {
       value_ = other.value_;
       unitType_ = other.unitType_;
       icon_ = other.icon_;
+      dataTypeId_ = other.dataTypeId_;
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -2981,6 +2757,17 @@ namespace VehicleData.Service.ProtoClass {
       }
     }
 
+    /// <summary>Field number for the "DataTypeId" field.</summary>
+    public const int DataTypeIdFieldNumber = 6;
+    private int dataTypeId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int DataTypeId {
+      get { return dataTypeId_; }
+      set {
+        dataTypeId_ = value;
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
       return Equals(other as ItemData);
@@ -2999,6 +2786,7 @@ namespace VehicleData.Service.ProtoClass {
       if (Value != other.Value) return false;
       if (UnitType != other.UnitType) return false;
       if (Icon != other.Icon) return false;
+      if (DataTypeId != other.DataTypeId) return false;
       return true;
     }
 
@@ -3010,6 +2798,7 @@ namespace VehicleData.Service.ProtoClass {
       if (Value.Length != 0) hash ^= Value.GetHashCode();
       if (UnitType.Length != 0) hash ^= UnitType.GetHashCode();
       if (Icon.Length != 0) hash ^= Icon.GetHashCode();
+      if (DataTypeId != 0) hash ^= DataTypeId.GetHashCode();
       return hash;
     }
 
@@ -3040,6 +2829,10 @@ namespace VehicleData.Service.ProtoClass {
         output.WriteRawTag(42);
         output.WriteString(Icon);
       }
+      if (DataTypeId != 0) {
+        output.WriteRawTag(48);
+        output.WriteInt32(DataTypeId);
+      }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -3059,6 +2852,9 @@ namespace VehicleData.Service.ProtoClass {
       }
       if (Icon.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(Icon);
+      }
+      if (DataTypeId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(DataTypeId);
       }
       return size;
     }
@@ -3082,6 +2878,9 @@ namespace VehicleData.Service.ProtoClass {
       }
       if (other.Icon.Length != 0) {
         Icon = other.Icon;
+      }
+      if (other.DataTypeId != 0) {
+        DataTypeId = other.DataTypeId;
       }
     }
 
@@ -3113,6 +2912,10 @@ namespace VehicleData.Service.ProtoClass {
             Icon = input.ReadString();
             break;
           }
+          case 48: {
+            DataTypeId = input.ReadInt32();
+            break;
+          }
         }
       }
     }
@@ -3126,7 +2929,7 @@ namespace VehicleData.Service.ProtoClass {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::VehicleData.Service.ProtoClass.VehicleDataReflection.Descriptor.MessageTypes[19]; }
+      get { return global::VehicleData.Service.ProtoClass.VehicleDataReflection.Descriptor.MessageTypes[18]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -3263,7 +3066,7 @@ namespace VehicleData.Service.ProtoClass {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::VehicleData.Service.ProtoClass.VehicleDataReflection.Descriptor.MessageTypes[20]; }
+      get { return global::VehicleData.Service.ProtoClass.VehicleDataReflection.Descriptor.MessageTypes[19]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -3372,7 +3175,7 @@ namespace VehicleData.Service.ProtoClass {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::VehicleData.Service.ProtoClass.VehicleDataReflection.Descriptor.MessageTypes[21]; }
+      get { return global::VehicleData.Service.ProtoClass.VehicleDataReflection.Descriptor.MessageTypes[20]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -3521,7 +3324,7 @@ namespace VehicleData.Service.ProtoClass {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::VehicleData.Service.ProtoClass.VehicleDataReflection.Descriptor.MessageTypes[22]; }
+      get { return global::VehicleData.Service.ProtoClass.VehicleDataReflection.Descriptor.MessageTypes[21]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -3541,6 +3344,8 @@ namespace VehicleData.Service.ProtoClass {
       versionIds_ = other.versionIds_.Clone();
       applicationId_ = other.applicationId_;
       itemGroupTypes_ = other.itemGroupTypes_;
+      itemStatus_ = other.itemStatus_;
+      itemType_ = other.itemType_;
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -3580,6 +3385,28 @@ namespace VehicleData.Service.ProtoClass {
       }
     }
 
+    /// <summary>Field number for the "ItemStatus" field.</summary>
+    public const int ItemStatusFieldNumber = 4;
+    private global::VehicleData.Service.ProtoClass.ItemStatus itemStatus_ = 0;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public global::VehicleData.Service.ProtoClass.ItemStatus ItemStatus {
+      get { return itemStatus_; }
+      set {
+        itemStatus_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "ItemType" field.</summary>
+    public const int ItemTypeFieldNumber = 5;
+    private global::VehicleData.Service.ProtoClass.ItemType itemType_ = 0;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public global::VehicleData.Service.ProtoClass.ItemType ItemType {
+      get { return itemType_; }
+      set {
+        itemType_ = value;
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
       return Equals(other as VehicleDataRequest);
@@ -3596,6 +3423,8 @@ namespace VehicleData.Service.ProtoClass {
       if(!versionIds_.Equals(other.versionIds_)) return false;
       if (ApplicationId != other.ApplicationId) return false;
       if (ItemGroupTypes != other.ItemGroupTypes) return false;
+      if (ItemStatus != other.ItemStatus) return false;
+      if (ItemType != other.ItemType) return false;
       return true;
     }
 
@@ -3605,6 +3434,8 @@ namespace VehicleData.Service.ProtoClass {
       hash ^= versionIds_.GetHashCode();
       if (ApplicationId != 0) hash ^= ApplicationId.GetHashCode();
       if (ItemGroupTypes.Length != 0) hash ^= ItemGroupTypes.GetHashCode();
+      if (ItemStatus != 0) hash ^= ItemStatus.GetHashCode();
+      if (ItemType != 0) hash ^= ItemType.GetHashCode();
       return hash;
     }
 
@@ -3624,6 +3455,14 @@ namespace VehicleData.Service.ProtoClass {
         output.WriteRawTag(26);
         output.WriteString(ItemGroupTypes);
       }
+      if (ItemStatus != 0) {
+        output.WriteRawTag(32);
+        output.WriteEnum((int) ItemStatus);
+      }
+      if (ItemType != 0) {
+        output.WriteRawTag(40);
+        output.WriteEnum((int) ItemType);
+      }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -3635,6 +3474,12 @@ namespace VehicleData.Service.ProtoClass {
       }
       if (ItemGroupTypes.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(ItemGroupTypes);
+      }
+      if (ItemStatus != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) ItemStatus);
+      }
+      if (ItemType != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) ItemType);
       }
       return size;
     }
@@ -3650,6 +3495,12 @@ namespace VehicleData.Service.ProtoClass {
       }
       if (other.ItemGroupTypes.Length != 0) {
         ItemGroupTypes = other.ItemGroupTypes;
+      }
+      if (other.ItemStatus != 0) {
+        ItemStatus = other.ItemStatus;
+      }
+      if (other.ItemType != 0) {
+        ItemType = other.ItemType;
       }
     }
 
@@ -3672,6 +3523,243 @@ namespace VehicleData.Service.ProtoClass {
           }
           case 26: {
             ItemGroupTypes = input.ReadString();
+            break;
+          }
+          case 32: {
+            itemStatus_ = (global::VehicleData.Service.ProtoClass.ItemStatus) input.ReadEnum();
+            break;
+          }
+          case 40: {
+            itemType_ = (global::VehicleData.Service.ProtoClass.ItemType) input.ReadEnum();
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
+  public sealed partial class CopyVehicleDataRequest : pb::IMessage<CopyVehicleDataRequest> {
+    private static readonly pb::MessageParser<CopyVehicleDataRequest> _parser = new pb::MessageParser<CopyVehicleDataRequest>(() => new CopyVehicleDataRequest());
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<CopyVehicleDataRequest> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::VehicleData.Service.ProtoClass.VehicleDataReflection.Descriptor.MessageTypes[22]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public CopyVehicleDataRequest() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public CopyVehicleDataRequest(CopyVehicleDataRequest other) : this() {
+      sourceVersionId_ = other.sourceVersionId_;
+      targetVersionId_ = other.targetVersionId_;
+      categoryId_ = other.categoryId_;
+      applicationId_ = other.applicationId_;
+      requestedBy_ = other.requestedBy_;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public CopyVehicleDataRequest Clone() {
+      return new CopyVehicleDataRequest(this);
+    }
+
+    /// <summary>Field number for the "SourceVersionId" field.</summary>
+    public const int SourceVersionIdFieldNumber = 1;
+    private int sourceVersionId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int SourceVersionId {
+      get { return sourceVersionId_; }
+      set {
+        sourceVersionId_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "TargetVersionId" field.</summary>
+    public const int TargetVersionIdFieldNumber = 2;
+    private int targetVersionId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int TargetVersionId {
+      get { return targetVersionId_; }
+      set {
+        targetVersionId_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "CategoryId" field.</summary>
+    public const int CategoryIdFieldNumber = 3;
+    private int categoryId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CategoryId {
+      get { return categoryId_; }
+      set {
+        categoryId_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "ApplicationId" field.</summary>
+    public const int ApplicationIdFieldNumber = 4;
+    private int applicationId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int ApplicationId {
+      get { return applicationId_; }
+      set {
+        applicationId_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "RequestedBy" field.</summary>
+    public const int RequestedByFieldNumber = 5;
+    private int requestedBy_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int RequestedBy {
+      get { return requestedBy_; }
+      set {
+        requestedBy_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as CopyVehicleDataRequest);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(CopyVehicleDataRequest other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (SourceVersionId != other.SourceVersionId) return false;
+      if (TargetVersionId != other.TargetVersionId) return false;
+      if (CategoryId != other.CategoryId) return false;
+      if (ApplicationId != other.ApplicationId) return false;
+      if (RequestedBy != other.RequestedBy) return false;
+      return true;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (SourceVersionId != 0) hash ^= SourceVersionId.GetHashCode();
+      if (TargetVersionId != 0) hash ^= TargetVersionId.GetHashCode();
+      if (CategoryId != 0) hash ^= CategoryId.GetHashCode();
+      if (ApplicationId != 0) hash ^= ApplicationId.GetHashCode();
+      if (RequestedBy != 0) hash ^= RequestedBy.GetHashCode();
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (SourceVersionId != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(SourceVersionId);
+      }
+      if (TargetVersionId != 0) {
+        output.WriteRawTag(16);
+        output.WriteInt32(TargetVersionId);
+      }
+      if (CategoryId != 0) {
+        output.WriteRawTag(24);
+        output.WriteInt32(CategoryId);
+      }
+      if (ApplicationId != 0) {
+        output.WriteRawTag(32);
+        output.WriteInt32(ApplicationId);
+      }
+      if (RequestedBy != 0) {
+        output.WriteRawTag(40);
+        output.WriteInt32(RequestedBy);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (SourceVersionId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(SourceVersionId);
+      }
+      if (TargetVersionId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(TargetVersionId);
+      }
+      if (CategoryId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(CategoryId);
+      }
+      if (ApplicationId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(ApplicationId);
+      }
+      if (RequestedBy != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(RequestedBy);
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(CopyVehicleDataRequest other) {
+      if (other == null) {
+        return;
+      }
+      if (other.SourceVersionId != 0) {
+        SourceVersionId = other.SourceVersionId;
+      }
+      if (other.TargetVersionId != 0) {
+        TargetVersionId = other.TargetVersionId;
+      }
+      if (other.CategoryId != 0) {
+        CategoryId = other.CategoryId;
+      }
+      if (other.ApplicationId != 0) {
+        ApplicationId = other.ApplicationId;
+      }
+      if (other.RequestedBy != 0) {
+        RequestedBy = other.RequestedBy;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            input.SkipLastField();
+            break;
+          case 8: {
+            SourceVersionId = input.ReadInt32();
+            break;
+          }
+          case 16: {
+            TargetVersionId = input.ReadInt32();
+            break;
+          }
+          case 24: {
+            CategoryId = input.ReadInt32();
+            break;
+          }
+          case 32: {
+            ApplicationId = input.ReadInt32();
+            break;
+          }
+          case 40: {
+            RequestedBy = input.ReadInt32();
             break;
           }
         }

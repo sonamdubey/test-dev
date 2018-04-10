@@ -1,4 +1,5 @@
-﻿using Bikewale.DAL.BikeData;
+﻿using Bikewale.BAL.GrpcFiles.Specs_Features;
+using Bikewale.DAL.BikeData;
 using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Notifications;
@@ -95,6 +96,8 @@ namespace Bikewale.BAL.BikeData
         /// <summary>
         /// Created By : Sadhana Upadhyay on 5th Aug 2014
         /// Summary : To get list of similar bikes by version id
+        /// Modified By : Rajan Chauhan on 3 Apr 2018
+        /// Description : Binding of specs to similarBikesList from SpecsFeatures MS
         /// </summary>
         /// <param name="versionId"></param>
         /// <param name="topCount"></param>
@@ -102,8 +105,39 @@ namespace Bikewale.BAL.BikeData
         /// <returns></returns>
         public IEnumerable<SimilarBikeEntity> GetSimilarBikesList(U versionId, uint topCount, uint cityid)
         {
+            try
+            {
+                IEnumerable<SimilarBikeEntity> similarBikesList = versionRepository.GetSimilarBikesList(versionId, topCount, cityid);
+                if (similarBikesList != null && similarBikesList.Any())
+                {
+                    IEnumerable<VersionMinSpecsEntity> verisonMinSpecsList = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(similarBikesList.Select(bike => bike.VersionBase.VersionId),
+                        new List<EnumSpecsFeaturesItem>{
+                        EnumSpecsFeaturesItem.Displacement,
+                        EnumSpecsFeaturesItem.FuelEfficiencyOverall,
+                        EnumSpecsFeaturesItem.MaxPowerBhp,
+                        EnumSpecsFeaturesItem.MaximumTorqueNm,
+                        EnumSpecsFeaturesItem.KerbWeight
+                    });
+                    if (verisonMinSpecsList != null)
+                    {
+                        IEnumerator<VersionMinSpecsEntity> versionMinSpecsEnumerator = verisonMinSpecsList.GetEnumerator();
+                        foreach (var similarBike in similarBikesList)
+                        {
+                            if (versionMinSpecsEnumerator.MoveNext())
+                            {
+                                similarBike.MinSpecsList = versionMinSpecsEnumerator.Current.MinSpecsList;
+                            }
+                        }
+                    }
 
-            return versionRepository.GetSimilarBikesList(versionId, topCount, cityid);
+                }
+                return similarBikesList;
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, String.Format("Bikewale.BAL.BikeData.Bikeversions.GetSimilarBikesList({0}, {1}, {2})", versionId, topCount, cityid));
+            }
+            return null;
         }
 
         public IEnumerable<SimilarBikeEntity> GetSimilarBikesByModel(U modelId, uint topCount, uint cityid)

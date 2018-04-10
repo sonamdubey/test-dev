@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System;
 using Bikewale.Notifications;
+using Bikewale.Service.AutoMappers.BikeData;
 
 namespace Bikewale.Service.AutoMappers.Version
 {
@@ -36,11 +37,24 @@ namespace Bikewale.Service.AutoMappers.Version
             return Mapper.Map<BikeSpecificationEntity, VersionSpecifications>(objSpecs);
         }
 
+        /// <summary>
+        /// Modified By : Rajan Chauhan
+        /// Description : Used common Convertor to convert BikeVersionMinSpecs to VersionMinSpecs
+        /// </summary>
+        /// <param name="objMVSpecsList"></param>
+        /// <returns></returns>
         internal static List<VersionMinSpecs> Convert(List<BikeVersionMinSpecs> objMVSpecsList)
         {
-            Mapper.CreateMap<BikeVersionsListEntity, ModelVersionList>();
-            Mapper.CreateMap<BikeVersionMinSpecs, VersionMinSpecs>();
-            return Mapper.Map<List<BikeVersionMinSpecs>, List<VersionMinSpecs>>(objMVSpecsList);
+            if (objMVSpecsList != null)
+            {
+                IList<VersionMinSpecs> versionMinSpecsList = new List<VersionMinSpecs>();
+                foreach (BikeVersionMinSpecs bikeVersion in objMVSpecsList)
+                {
+                    versionMinSpecsList.Add(SpecsFeaturesMapper.ConvertToVersionMinSpecs(bikeVersion));
+                }
+                return versionMinSpecsList.ToList();
+            }
+            return null;
         }
 
         internal static IEnumerable<VersionBase> Convert(List<BikeVersionsListEntity> objVersionList)
@@ -88,7 +102,7 @@ namespace Bikewale.Service.AutoMappers.Version
                     foreach (SpecsFeaturesItem specFeatureItem in specFeatureItemList)
                     {
                         string itemValue = specFeatureItem.ItemValues.FirstOrDefault();
-                        itemValue = FormatMinSpecs.ShowAvailable(itemValue, specFeatureItem.UnitTypeText);
+                        itemValue = FormatMinSpecs.ShowAvailable(itemValue, specFeatureItem.UnitTypeText,specFeatureItem.DataType);
                         specsList.Add(new Bikewale.DTO.Model.Specs()
                         {
                             DisplayText = specFeatureItem.DisplayText,

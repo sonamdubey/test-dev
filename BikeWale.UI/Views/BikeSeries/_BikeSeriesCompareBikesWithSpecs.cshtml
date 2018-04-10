@@ -62,7 +62,7 @@
 								</a>
 								<div class="right-bike__desc">
 									<span class="right-bike__label">
-										@string.Format("{0}", bike.Displacement > 0 ? string.Format("₹ {0}", Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.Price))) : "--")
+										@string.Format("{0}", bike.Price > 0 ? string.Format("₹ {0}", Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.Price))) : "--")
 									</span>
 									<span class="right-bike__label">
 										@string.Format("{0}", bike.Displacement > 0 ? string.Format("{0} cc", bike.Displacement) : "--")

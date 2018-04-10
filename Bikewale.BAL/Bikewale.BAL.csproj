@@ -238,7 +238,6 @@
     <Compile Include="GrpcFiles\Specs&amp;Features\SpecsFeaturesServiceGateway.cs" />
     <Compile Include="GrpcFiles\Specs&amp;Features\Unittype.cs" />
     <Compile Include="GrpcFiles\Specs&amp;Features\VehicleData.cs" />
-    <Compile Include="GrpcFiles\Specs&amp;Features\VehicleDataGrpc.cs" />
     <Compile Include="Images\ImageBL.cs" />
     <Compile Include="Location\Cities.cs" />
     <Compile Include="Location\States.cs" />

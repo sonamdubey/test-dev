@@ -1,4 +1,5 @@
 ﻿
+using Bikewale.BAL.GrpcFiles.Specs_Features;
 using Bikewale.Common;
 using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
@@ -345,6 +346,8 @@ namespace Bikewale.Models
         /// <summary>
         /// Created By :- Subodh Jain 27 March 2017
         /// Summary :- To fetch data for Dealers details 
+        /// Modified by : Ashutosh Sharma on 03 Apr 2018.
+        /// Description : Calling Specs Features service to fetch min specs for bike models available with dealer.
         /// </summary>
         /// <returns></returns>
         private DealerBikesEntity BindDealersData()
@@ -353,6 +356,21 @@ namespace Bikewale.Models
             try
             {
                 objDealerDetails = _objDealerCache.GetDealerDetailsAndBikesByDealerAndMake(dealerId, (int)makeId);
+                if (objDealerDetails != null && objDealerDetails.Models != null)
+                {
+                    var specsList = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(objDealerDetails.Models.Select(m => m.objVersion.VersionId));
+                    if (specsList != null)
+                    {
+                        var specsListEnumerator = specsList.GetEnumerator();
+                        foreach (var bike in objDealerDetails.Models)
+                        {
+                            if (specsListEnumerator.MoveNext())
+                                bike.MinSpecsList = specsListEnumerator.Current.MinSpecsList;
+                            else
+                                break;
+                        }
+                    }
+                }
             }
             catch (System.Exception ex)
             {

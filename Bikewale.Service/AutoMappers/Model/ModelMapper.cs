@@ -24,6 +24,7 @@ using Bikewale.Entities.PriceQuote;
 using Bikewale.Entities.UserReviews;
 using Bikewale.Entities.Videos;
 using Bikewale.Notifications;
+using Bikewale.Service.AutoMappers.BikeData;
 using Bikewale.Utility;
 using System;
 using System.Collections.Generic;
@@ -99,6 +100,16 @@ namespace Bikewale.Service.AutoMappers.Model
                         }
                     );
             }
+
+            if (objModelPage.ModelVersions != null)
+            {
+                IList<VersionMinSpecs> versionMinSpecsList = new List<VersionMinSpecs>();
+                foreach (BikeVersionMinSpecs bikeVersion in objModelPage.ModelVersions)
+                {
+                    versionMinSpecsList.Add(SpecsFeaturesMapper.ConvertToVersionMinSpecs(bikeVersion));
+                }
+                dto.ModelVersions = versionMinSpecsList;
+            }
             return dto;
         }
         /// <summary>
@@ -141,6 +152,16 @@ namespace Bikewale.Service.AutoMappers.Model
                         }
                     );
             }
+
+            if (objModelPage.ModelVersions != null)
+            {
+                IList<VersionMinSpecs> versionMinSpecsList = new List<VersionMinSpecs>();
+                foreach (BikeVersionMinSpecs bikeVersion in objModelPage.ModelVersions)
+                {
+                    versionMinSpecsList.Add(SpecsFeaturesMapper.ConvertToVersionMinSpecs(bikeVersion));
+                }
+                dto.ModelVersions = versionMinSpecsList.ToList();
+            }
             return dto;
         }
 
@@ -154,17 +175,6 @@ namespace Bikewale.Service.AutoMappers.Model
         {
             Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
             return Mapper.Map<List<BikeModelEntityBase>, List<ModelBase>>(objModelList);
-        }
-
-        internal static List<DTO.Widgets.MostPopularBikes> Convert(List<MostPopularBikesBase> objModelList)
-        {
-            Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
-            Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
-            Mapper.CreateMap<BikeVersionsListEntity, VersionBase>();
-            Mapper.CreateMap<MinSpecsEntity, MinSpecs>();
-            Mapper.CreateMap<MostPopularBikesBase, MostPopularBikes>();
-            return Mapper.Map<List<MostPopularBikesBase>, List<MostPopularBikes>>(objModelList);
-
         }
 
         /// <summary>
@@ -183,7 +193,7 @@ namespace Bikewale.Service.AutoMappers.Model
                     specsList = new List<DTO.Model.Specs>();
                     foreach (SpecsFeaturesItem specsFeaturesItem in specFeatureItemList)
                     {
-                        string itemValue = FormatMinSpecs.ShowAvailable(specsFeaturesItem.ItemValues.FirstOrDefault(), specsFeaturesItem.UnitTypeText);
+                        string itemValue = FormatMinSpecs.ShowAvailable(specsFeaturesItem.ItemValues.FirstOrDefault(), specsFeaturesItem.UnitTypeText, specsFeaturesItem.DataType);
                         specsList.Add(new DTO.Model.Specs()
                         {
                             DisplayText = specsFeaturesItem.DisplayText,
@@ -195,6 +205,38 @@ namespace Bikewale.Service.AutoMappers.Model
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, String.Format("Exception : Bikewale.Service.AutoMappers.Model.ModelMapper.Convert( IEnumerable<SpecsFeaturesItem> {0})", specFeatureItemList));
+            }
+            return specsList;
+        }
+
+        /// <summary>
+        /// Created By  : Rajan Chauhan on 30 Mar 2018
+        /// Description : Convertor from SpecsItem to DTO.Model.Specs
+        /// </summary>
+        /// <param name="specSummaryList"></param>
+        /// <returns></returns>
+        internal static IEnumerable<DTO.Model.Specs> Convert(IEnumerable<SpecsItem> specSummaryList)
+        {
+            IList<DTO.Model.Specs> specsList = null;
+            try
+            {
+                if (specSummaryList != null)
+                {
+                    specsList = new List<DTO.Model.Specs>();
+                    foreach (SpecsItem specsFeaturesItem in specSummaryList)
+                    {
+                        string itemValue = FormatMinSpecs.ShowAvailable(specsFeaturesItem.Value, specsFeaturesItem.UnitType, specsFeaturesItem.DataType);
+                        specsList.Add(new DTO.Model.Specs()
+                        {
+                            DisplayText = specsFeaturesItem.Name,
+                            DisplayValue = itemValue
+                        });
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, String.Format("Exception : Bikewale.Service.AutoMappers.Model.ModelMapper.Convert( IEnumerable<SpecsItem> {0})", specSummaryList));
             }
             return specsList;
         }
@@ -247,12 +289,17 @@ namespace Bikewale.Service.AutoMappers.Model
                             });
                         }
                     }
+                    specsCategory.Insert(0, new DTO.Model.v2.SpecsCategory()
+                    {
+                        DisplayName = "Summary",
+                        Specs = Convert(objModelPage.SpecsSummaryList.Reverse().Skip(1).Reverse())
+                    });
                 }
-               
+
                 var bikespecs = Mapper.Map<BikeSpecs>(objModelPage);
                 bikespecs.IsAreaExists = pqEntity.IsAreaExists;
                 bikespecs.IsExShowroomPrice = pqEntity.IsExShowroomPrice;
-                bikespecs.ModelVersions = Convert(pqEntity.VersionList);
+                bikespecs.ModelVersions = ConvertBikeVersionToVersionDetail(pqEntity.VersionList);
                 bikespecs.FeaturesList = featuresList;
                 bikespecs.SpecsCategory = specsCategory;
                 return bikespecs;
@@ -353,6 +400,8 @@ namespace Bikewale.Service.AutoMappers.Model
         /// <summary>
         /// Created By : Lucky Rathore on 17 June 2016
         /// Descritpion : Mapping for V4 version of ModelpageEntity.
+        /// Modified By : Rajan Chauhan on 2 April 2018
+        /// Description : ModelVersions convertor changed to ConvertBikeVersionToVersionDetail
         /// </summary>
         /// <param name="objModelPage"></param>
         /// <returns></returns>
@@ -375,23 +424,25 @@ namespace Bikewale.Service.AutoMappers.Model
                     objDTOModelPage.IsDiscontinued = !objModelPage.ModelDetails.New;
                 }
 
-                if (objModelPage.objOverview != null)
+                if (objModelPage.SpecsSummaryList != null)
                 {
-                    foreach (var spec in objModelPage.objOverview.OverviewList)
+                    string displayValue;
+                    foreach (var spec in objModelPage.SpecsSummaryList)
                     {
-                        switch (spec.DisplayText)
+                        displayValue = FormatMinSpecs.ShowAvailable(spec.Value, spec.UnitType, spec.DataType);
+                        switch ((EnumSpecsFeaturesItem)spec.Id)
                         {
-                            case "Capacity":
-                                objDTOModelPage.Capacity = spec.DisplayValue;
+                            case EnumSpecsFeaturesItem.Displacement:
+                                objDTOModelPage.Capacity = displayValue;
                                 break;
-                            case "Mileage":
-                                objDTOModelPage.Mileage = spec.DisplayValue;
+                            case EnumSpecsFeaturesItem.FuelEfficiencyOverall:
+                                objDTOModelPage.Mileage = displayValue;
                                 break;
-                            case "Max power":
-                                objDTOModelPage.MaxPower = spec.DisplayValue;
+                            case EnumSpecsFeaturesItem.MaxPowerBhp:
+                                objDTOModelPage.MaxPower = displayValue;
                                 break;
-                            case "Weight":
-                                objDTOModelPage.Weight = spec.DisplayValue;
+                            case EnumSpecsFeaturesItem.KerbWeight:
+                                objDTOModelPage.Weight = displayValue;
                                 break;
                         }
                     }
@@ -417,7 +468,7 @@ namespace Bikewale.Service.AutoMappers.Model
                     objDTOModelPage.IsCityExists = pqEntity.IsCityExists;
                     objDTOModelPage.IsAreaExists = pqEntity.IsAreaExists;
                     objDTOModelPage.IsExShowroomPrice = pqEntity.IsExShowroomPrice;
-                    objDTOModelPage.ModelVersions = Convert(pqEntity.VersionList);
+                    objDTOModelPage.ModelVersions = ConvertBikeVersionToVersionDetail(pqEntity.VersionList);
                     objDTOModelPage.DealerId = pqEntity.DealerId;
                     objDTOModelPage.PQId = pqEntity.PqId;
                 }
@@ -554,7 +605,7 @@ namespace Bikewale.Service.AutoMappers.Model
             Mapper.CreateMap<DealerQuotationEntity, DealerBase>().ForMember(d => d.DealerPkgType, opt => opt.MapFrom(s => s.DealerDetails.DealerPackageType));
             Mapper.CreateMap<PQByCityAreaEntity, PQByCityAreaDTOV2>();
             var versionPrices = Mapper.Map<PQByCityAreaEntity, PQByCityAreaDTOV2>(pqCityAea);
-
+            versionPrices.VersionList = ConvertBikeVersionToVersionDetail(pqCityAea.VersionList);
             if (pqCityAea.PrimaryDealer != null && pqCityAea.PrimaryDealer.OfferList != null)
             {
                 List<DPQOffer> objOffers = new List<DPQOffer>();
@@ -580,6 +631,7 @@ namespace Bikewale.Service.AutoMappers.Model
             Mapper.CreateMap<BikeVersionMinSpecs, VersionDetail>();
             Mapper.CreateMap<PQByCityAreaEntity, Bikewale.DTO.PriceQuote.Version.v3.PQByCityAreaDTO>();
             var versionPrices = Mapper.Map<PQByCityAreaEntity, Bikewale.DTO.PriceQuote.Version.v3.PQByCityAreaDTO>(pqCityAea);
+            versionPrices.VersionList = ConvertBikeVersionToVersionDetail(pqCityAea.VersionList);
             return versionPrices;
         }
         /// <summary>
@@ -635,8 +687,7 @@ namespace Bikewale.Service.AutoMappers.Model
                 objDTOModelPage.ReviewRate = modelDetails.ReviewRate;
                 objDTOModelPage.NewsCount = modelDetails.NewsCount;
                 objDTOModelPage.IsUpcoming = modelDetails.Futuristic;
-                objDTOModelPage.IsSpecsAvailable = (objModelPage.objOverview != null && objModelPage.objOverview.OverviewList != null && objModelPage.objOverview.OverviewList.Any());
-
+                objDTOModelPage.IsSpecsAvailable = (objModelPage.SpecsSummaryList != null && objModelPage.SpecsSummaryList.Any(spec => spec.Value != ""));
 
                 objDTOModelPage.Review = new DTO.Model.v5.Review()
                 {
@@ -652,21 +703,23 @@ namespace Bikewale.Service.AutoMappers.Model
 
                 if (objDTOModelPage.IsSpecsAvailable)
                 {
-                    foreach (var spec in objModelPage.objOverview.OverviewList)
+                    string displayValue;
+                    foreach (var spec in objModelPage.SpecsSummaryList)
                     {
-                        switch (spec.DisplayText)
+                        displayValue = spec.Value == "" ? null : FormatMinSpecs.ShowAvailable(spec.Value, spec.UnitType, spec.DataType);
+                        switch ((EnumSpecsFeaturesItem)spec.Id)
                         {
-                            case "Capacity":
-                                objDTOModelPage.Capacity = spec.DisplayValue.Equals("--") ? null : spec.DisplayValue;
+                            case EnumSpecsFeaturesItem.Displacement:
+                                objDTOModelPage.Capacity = displayValue;
                                 break;
-                            case "Mileage":
-                                objDTOModelPage.Mileage = spec.DisplayValue.Equals("--") ? null : spec.DisplayValue;
+                            case EnumSpecsFeaturesItem.FuelEfficiencyOverall:
+                                objDTOModelPage.Mileage = displayValue;
                                 break;
-                            case "Max power":
-                                objDTOModelPage.MaxPower = spec.DisplayValue.Equals("--") ? null : spec.DisplayValue;
+                            case EnumSpecsFeaturesItem.MaxPowerBhp:
+                                objDTOModelPage.MaxPower = displayValue;
                                 break;
-                            case "Weight":
-                                objDTOModelPage.Weight = spec.DisplayValue.Equals("--") ? null : spec.DisplayValue;
+                            case EnumSpecsFeaturesItem.KerbWeight:
+                                objDTOModelPage.Weight = displayValue;
                                 break;
                         }
                     }
@@ -701,7 +754,7 @@ namespace Bikewale.Service.AutoMappers.Model
                     objDTOModelPage.IsCityExists = pqEntity.IsCityExists;
                     objDTOModelPage.IsAreaExists = pqEntity.IsAreaExists;
                     objDTOModelPage.IsExShowroomPrice = pqEntity.IsExShowroomPrice;
-                    objDTOModelPage.ModelVersions = Convert(pqEntity.VersionList);
+                    objDTOModelPage.ModelVersions = ConvertBikeVersionToVersionDetail(pqEntity.VersionList);
                     objDTOModelPage.DealerId = pqEntity.DealerId;
                     objDTOModelPage.PQId = pqEntity.PqId;
                 }
@@ -937,6 +990,25 @@ namespace Bikewale.Service.AutoMappers.Model
             return Mapper.Map<IEnumerable<ModelColorImage>, IEnumerable<ModelColorPhoto>>(objAllPhotosEntity);
         }
 
+        private static IEnumerable<VersionDetail> ConvertBikeVersionToVersionDetail(IEnumerable<BikeVersionMinSpecs> versionList)
+        {
+            try
+            {
+                if (versionList != null && versionList.Any())
+                {
+                    IList<VersionDetail> versionDetailList = new List<VersionDetail>();
+                    VersionDetail objBikeVersionDetail;
+                    foreach (BikeVersionMinSpecs bikeVersion in versionList)
+                    {
+                        objBikeVersionDetail = SpecsFeaturesMapper.ConvertToVersionDetail(bikeVersion);
+                        versionDetailList.Add(objBikeVersionDetail);
+                    }
+                    return versionDetailList;
+                }
+            }
+            catch (Exception) { }
+            return null;
+        }
 
     }
 }

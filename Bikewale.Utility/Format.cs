@@ -67,6 +67,12 @@ namespace Bikewale.Utility
             try
             {
                 int breakPoint = 3, noOfCommas = 3;
+                string [] tokens = numberToFormat.Split('.');
+                if(tokens.Length > 1)
+                {
+                    formatted += "." + tokens[1];
+                }
+                numberToFormat = tokens[0];
                 for (int i = numberToFormat.Length - 1; i >= 0; i--)
                 {
                     formatted = numberToFormat[i].ToString() + formatted;

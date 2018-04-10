@@ -1,4 +1,5 @@
-﻿using Bikewale.DTO.BikeData;
+﻿using Bikewale.BAL.GrpcFiles.Specs_Features;
+using Bikewale.DTO.BikeData;
 using Bikewale.DTO.BikeData.NewLaunched;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.BikeData.NewLaunched;
@@ -56,20 +57,19 @@ namespace Bikewale.Service.Controllers.BikeData
         {
             try
             {
-                LaunchedBikeList objLaunched = new LaunchedBikeList();
                 int startIndex = 0, endIndex = 0, currentPageNo = 1;
                 currentPageNo = curPageNo.HasValue ? curPageNo.Value : 1;
 
                 _objPager.GetStartEndIndex(pageSize, currentPageNo, out startIndex, out endIndex);
-
-                IEnumerable<NewLaunchedBikeEntity> objRecent = _modelCacheRepository.GetNewLaunchedBikesList(startIndex, endIndex).Models;
-
-                objLaunched.LaunchedBike = LaunchedBikeListMapper.Convert(objRecent);
-
-                if (objLaunched != null && objLaunched.LaunchedBike != null && objLaunched.LaunchedBike.Any())
-                    return Ok(objLaunched);
-                else
-                    return NotFound();
+                NewLaunchedBikesBase objNewLaunched = _newBikeLaunchBL.GetNewLaunchedBikesList(startIndex, endIndex);
+                if (objNewLaunched != null)
+                {
+                    IEnumerable<NewLaunchedBikeEntity> objRecent = objNewLaunched.Models;
+                    LaunchedBikeList objLaunched = new LaunchedBikeList();
+                    objLaunched.LaunchedBike = LaunchedBikeListMapper.Convert(objRecent);
+                    if (objLaunched.LaunchedBike != null && objLaunched.LaunchedBike.Any())
+                        return Ok(objLaunched);
+                }
             }
             catch (Exception ex)
             {
@@ -77,6 +77,7 @@ namespace Bikewale.Service.Controllers.BikeData
                
                 return InternalServerError();
             }
+            return NotFound();
         }
 
 

@@ -28,18 +28,20 @@ namespace VehicleData.Service.ProtoClass {
             "VXBkYXRlZE9uGAYgASgJEhEKCVVwZGF0ZWRCeRgHIAEoBRIVCg1BcHBsaWNh",
             "dGlvbklkGAggASgFEhUKDVByaW9yaXR5T3JkZXIYCSABKAUSIAoFaXRlbXMY",
             "CiADKAsyES5WZWhpY2xlRGF0YS5JdGVtIjQKD0NhdGVnb3J5UmVxdWVzdBIK",
-            "CgJJZBgBIAEoBRIVCg1BcHBsaWNhdGlvbklkGAIgASgFIk8KD0NhdGVnb3J5",
-            "UmVwb25zZRIKCgJJZBgBIAEoBRIMCgROYW1lGAIgASgJEhAKCElzU3JjVmFs",
-            "GAMgASgFEhAKCElzVGFyVmFsGAQgASgFIjkKDENhdGVnb3J5TGlzdBIpCgpD",
-            "YXRlZ29yaWVzGAEgAygLMhUuVmVoaWNsZURhdGEuQ2F0ZWdvcnlCIaoCHlZl",
-            "aGljbGVEYXRhLlNlcnZpY2UuUHJvdG9DbGFzc2IGcHJvdG8z"));
+            "CgJJZBgBIAEoBRIVCg1BcHBsaWNhdGlvbklkGAIgASgFIjcKEENhdGVnb3J5",
+            "UmVzcG9uc2USCgoCSWQYASABKAUSFwoPSXNEYXRhQXZhaWxhYmxlGAIgASgI",
+            "IjkKDENhdGVnb3J5TGlzdBIpCgpDYXRlZ29yaWVzGAEgAygLMhUuVmVoaWNs",
+            "ZURhdGEuQ2F0ZWdvcnkiSQoUQ2F0ZWdvcnlSZXNwb25zZUxpc3QSMQoKQ2F0",
+            "ZWdvcmllcxgBIAMoCzIdLlZlaGljbGVEYXRhLkNhdGVnb3J5UmVzcG9uc2VC",
+            "IaoCHlZlaGljbGVEYXRhLlNlcnZpY2UuUHJvdG9DbGFzc2IGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::VehicleData.Service.ProtoClass.ItemReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::VehicleData.Service.ProtoClass.Category), global::VehicleData.Service.ProtoClass.Category.Parser, new[]{ "Id", "Name", "Level", "NodeCode", "IsActive", "UpdatedOn", "UpdatedBy", "ApplicationId", "PriorityOrder", "Items" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::VehicleData.Service.ProtoClass.CategoryRequest), global::VehicleData.Service.ProtoClass.CategoryRequest.Parser, new[]{ "Id", "ApplicationId" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::VehicleData.Service.ProtoClass.CategoryReponse), global::VehicleData.Service.ProtoClass.CategoryReponse.Parser, new[]{ "Id", "Name", "IsSrcVal", "IsTarVal" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::VehicleData.Service.ProtoClass.CategoryList), global::VehicleData.Service.ProtoClass.CategoryList.Parser, new[]{ "Categories" }, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::VehicleData.Service.ProtoClass.CategoryResponse), global::VehicleData.Service.ProtoClass.CategoryResponse.Parser, new[]{ "Id", "IsDataAvailable" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::VehicleData.Service.ProtoClass.CategoryList), global::VehicleData.Service.ProtoClass.CategoryList.Parser, new[]{ "Categories" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::VehicleData.Service.ProtoClass.CategoryResponseList), global::VehicleData.Service.ProtoClass.CategoryResponseList.Parser, new[]{ "Categories" }, null, null, null)
           }));
     }
     #endregion
@@ -552,10 +554,10 @@ namespace VehicleData.Service.ProtoClass {
 
   }
 
-  public sealed partial class CategoryReponse : pb::IMessage<CategoryReponse> {
-    private static readonly pb::MessageParser<CategoryReponse> _parser = new pb::MessageParser<CategoryReponse>(() => new CategoryReponse());
+  public sealed partial class CategoryResponse : pb::IMessage<CategoryResponse> {
+    private static readonly pb::MessageParser<CategoryResponse> _parser = new pb::MessageParser<CategoryResponse>(() => new CategoryResponse());
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pb::MessageParser<CategoryReponse> Parser { get { return _parser; } }
+    public static pb::MessageParser<CategoryResponse> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
@@ -568,23 +570,21 @@ namespace VehicleData.Service.ProtoClass {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public CategoryReponse() {
+    public CategoryResponse() {
       OnConstruction();
     }
 
     partial void OnConstruction();
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public CategoryReponse(CategoryReponse other) : this() {
+    public CategoryResponse(CategoryResponse other) : this() {
       id_ = other.id_;
-      name_ = other.name_;
-      isSrcVal_ = other.isSrcVal_;
-      isTarVal_ = other.isTarVal_;
+      isDataAvailable_ = other.isDataAvailable_;
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public CategoryReponse Clone() {
-      return new CategoryReponse(this);
+    public CategoryResponse Clone() {
+      return new CategoryResponse(this);
     }
 
     /// <summary>Field number for the "Id" field.</summary>
@@ -598,46 +598,24 @@ namespace VehicleData.Service.ProtoClass {
       }
     }
 
-    /// <summary>Field number for the "Name" field.</summary>
-    public const int NameFieldNumber = 2;
-    private string name_ = "";
+    /// <summary>Field number for the "IsDataAvailable" field.</summary>
+    public const int IsDataAvailableFieldNumber = 2;
+    private bool isDataAvailable_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public string Name {
-      get { return name_; }
+    public bool IsDataAvailable {
+      get { return isDataAvailable_; }
       set {
-        name_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
-      }
-    }
-
-    /// <summary>Field number for the "IsSrcVal" field.</summary>
-    public const int IsSrcValFieldNumber = 3;
-    private int isSrcVal_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int IsSrcVal {
-      get { return isSrcVal_; }
-      set {
-        isSrcVal_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "IsTarVal" field.</summary>
-    public const int IsTarValFieldNumber = 4;
-    private int isTarVal_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int IsTarVal {
-      get { return isTarVal_; }
-      set {
-        isTarVal_ = value;
+        isDataAvailable_ = value;
       }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
-      return Equals(other as CategoryReponse);
+      return Equals(other as CategoryResponse);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool Equals(CategoryReponse other) {
+    public bool Equals(CategoryResponse other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
@@ -645,9 +623,7 @@ namespace VehicleData.Service.ProtoClass {
         return true;
       }
       if (Id != other.Id) return false;
-      if (Name != other.Name) return false;
-      if (IsSrcVal != other.IsSrcVal) return false;
-      if (IsTarVal != other.IsTarVal) return false;
+      if (IsDataAvailable != other.IsDataAvailable) return false;
       return true;
     }
 
@@ -655,9 +631,7 @@ namespace VehicleData.Service.ProtoClass {
     public override int GetHashCode() {
       int hash = 1;
       if (Id != 0) hash ^= Id.GetHashCode();
-      if (Name.Length != 0) hash ^= Name.GetHashCode();
-      if (IsSrcVal != 0) hash ^= IsSrcVal.GetHashCode();
-      if (IsTarVal != 0) hash ^= IsTarVal.GetHashCode();
+      if (IsDataAvailable != false) hash ^= IsDataAvailable.GetHashCode();
       return hash;
     }
 
@@ -672,17 +646,9 @@ namespace VehicleData.Service.ProtoClass {
         output.WriteRawTag(8);
         output.WriteInt32(Id);
       }
-      if (Name.Length != 0) {
-        output.WriteRawTag(18);
-        output.WriteString(Name);
-      }
-      if (IsSrcVal != 0) {
-        output.WriteRawTag(24);
-        output.WriteInt32(IsSrcVal);
-      }
-      if (IsTarVal != 0) {
-        output.WriteRawTag(32);
-        output.WriteInt32(IsTarVal);
+      if (IsDataAvailable != false) {
+        output.WriteRawTag(16);
+        output.WriteBool(IsDataAvailable);
       }
     }
 
@@ -692,34 +658,22 @@ namespace VehicleData.Service.ProtoClass {
       if (Id != 0) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(Id);
       }
-      if (Name.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(Name);
-      }
-      if (IsSrcVal != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(IsSrcVal);
-      }
-      if (IsTarVal != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(IsTarVal);
+      if (IsDataAvailable != false) {
+        size += 1 + 1;
       }
       return size;
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(CategoryReponse other) {
+    public void MergeFrom(CategoryResponse other) {
       if (other == null) {
         return;
       }
       if (other.Id != 0) {
         Id = other.Id;
       }
-      if (other.Name.Length != 0) {
-        Name = other.Name;
-      }
-      if (other.IsSrcVal != 0) {
-        IsSrcVal = other.IsSrcVal;
-      }
-      if (other.IsTarVal != 0) {
-        IsTarVal = other.IsTarVal;
+      if (other.IsDataAvailable != false) {
+        IsDataAvailable = other.IsDataAvailable;
       }
     }
 
@@ -735,16 +689,8 @@ namespace VehicleData.Service.ProtoClass {
             Id = input.ReadInt32();
             break;
           }
-          case 18: {
-            Name = input.ReadString();
-            break;
-          }
-          case 24: {
-            IsSrcVal = input.ReadInt32();
-            break;
-          }
-          case 32: {
-            IsTarVal = input.ReadInt32();
+          case 16: {
+            IsDataAvailable = input.ReadBool();
             break;
           }
         }
@@ -838,6 +784,115 @@ namespace VehicleData.Service.ProtoClass {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void MergeFrom(CategoryList other) {
+      if (other == null) {
+        return;
+      }
+      categories_.Add(other.categories_);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            input.SkipLastField();
+            break;
+          case 10: {
+            categories_.AddEntriesFrom(input, _repeated_categories_codec);
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
+  public sealed partial class CategoryResponseList : pb::IMessage<CategoryResponseList> {
+    private static readonly pb::MessageParser<CategoryResponseList> _parser = new pb::MessageParser<CategoryResponseList>(() => new CategoryResponseList());
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<CategoryResponseList> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::VehicleData.Service.ProtoClass.CategoryReflection.Descriptor.MessageTypes[4]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public CategoryResponseList() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public CategoryResponseList(CategoryResponseList other) : this() {
+      categories_ = other.categories_.Clone();
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public CategoryResponseList Clone() {
+      return new CategoryResponseList(this);
+    }
+
+    /// <summary>Field number for the "Categories" field.</summary>
+    public const int CategoriesFieldNumber = 1;
+    private static readonly pb::FieldCodec<global::VehicleData.Service.ProtoClass.CategoryResponse> _repeated_categories_codec
+        = pb::FieldCodec.ForMessage(10, global::VehicleData.Service.ProtoClass.CategoryResponse.Parser);
+    private readonly pbc::RepeatedField<global::VehicleData.Service.ProtoClass.CategoryResponse> categories_ = new pbc::RepeatedField<global::VehicleData.Service.ProtoClass.CategoryResponse>();
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public pbc::RepeatedField<global::VehicleData.Service.ProtoClass.CategoryResponse> Categories {
+      get { return categories_; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as CategoryResponseList);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(CategoryResponseList other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if(!categories_.Equals(other.categories_)) return false;
+      return true;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      hash ^= categories_.GetHashCode();
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      categories_.WriteTo(output, _repeated_categories_codec);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      size += categories_.CalculateSize(_repeated_categories_codec);
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(CategoryResponseList other) {
       if (other == null) {
         return;
       }

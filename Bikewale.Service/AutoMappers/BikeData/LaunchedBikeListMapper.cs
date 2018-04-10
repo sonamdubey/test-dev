@@ -12,17 +12,58 @@ namespace Bikewale.Service.AutoMappers.BikeData
     /// <summary>
     /// Modified by :   Sumit Kate on 13 Feb 2017
     /// Description :   Added new Entity to DTO convert methods
+    /// Modified by :   Rajan Chauhan on 4 Apr 2018
+    /// Description :   Binding of MinSpecList to DtoMinSpec
     /// </summary>
     public class LaunchedBikeListMapper
     {
-        internal static IEnumerable<DTO.BikeData.LaunchedBike> Convert(IEnumerable<Entities.BikeData.NewLaunchedBikeEntity> objRecent)
+        internal static IEnumerable<DTO.BikeData.LaunchedBike> Convert(IEnumerable<NewLaunchedBikeEntity> objRecent)
         {
-            Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
-            Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
-            Mapper.CreateMap<BikeSeriesEntityBase, SeriesBase>();
-            Mapper.CreateMap<NewLaunchedBikeEntity, LaunchedBike>();
-            Mapper.CreateMap<MinSpecsEntity, MinSpecs>();
-            return Mapper.Map<IEnumerable<NewLaunchedBikeEntity>, IEnumerable<LaunchedBike>>(objRecent);
+            if (objRecent != null)
+            {
+                Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
+                Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
+                Mapper.CreateMap<BikeSeriesEntityBase, SeriesBase>();
+                Mapper.CreateMap<NewLaunchedBikeEntity, LaunchedBike>();
+                IEnumerable<DTO.BikeData.LaunchedBike> objDto = Mapper.Map<IEnumerable<NewLaunchedBikeEntity>, IEnumerable<LaunchedBike>>(objRecent);
+                if (objDto != null)
+                {
+                    IEnumerator<NewLaunchedBikeEntity> similarBikeEnumerator = objRecent.GetEnumerator();
+                    float specValue;
+                    foreach (var dtoBike in objDto)
+                    {
+                        if (similarBikeEnumerator.MoveNext())
+                        {
+                            IEnumerable<SpecsItem> specItemList = similarBikeEnumerator.Current.MinSpecsList;
+                            dtoBike.Specs = new MinSpecs();
+                            foreach (var spec in specItemList)
+                            {
+                                specValue = float.TryParse(spec.Value, out specValue) ? specValue : 0;
+                                switch ((EnumSpecsFeaturesItem)spec.Id)
+                                {
+                                    case EnumSpecsFeaturesItem.Displacement:
+                                        dtoBike.Specs.Displacement = specValue;
+                                        break;
+                                    case EnumSpecsFeaturesItem.FuelEfficiencyOverall:
+                                        dtoBike.Specs.FuelEfficiencyOverall = specValue;
+                                        break;
+                                    case EnumSpecsFeaturesItem.MaxPowerBhp:
+                                        dtoBike.Specs.MaxPower = specValue;
+                                        break;
+                                    case EnumSpecsFeaturesItem.MaximumTorqueNm:
+                                        dtoBike.Specs.MaximumTorque = specValue;
+                                        break;
+                                    case EnumSpecsFeaturesItem.KerbWeight:
+                                        dtoBike.Specs.KerbWeight = specValue;
+                                        break;
+                                }
+                            }
+                        }
+                    }
+                }
+                return objDto;
+            }
+            return null;
         }
 
         /// <summary>
@@ -50,7 +91,7 @@ namespace Bikewale.Service.AutoMappers.BikeData
             Mapper.CreateMap<Entities.BikeData.NewLaunched.InputFilter, DTO.BikeData.NewLaunched.InputFilterDTO>();
             Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
             Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
-            Mapper.CreateMap<MinSpecsEntity, DTO.BikeData.v2.MinSpecs>();
+            Mapper.CreateMap<SpecsItem, DTO.BikeData.v2.VersionMinSpecs>();
             Mapper.CreateMap<Entities.Location.CityEntityBase, CityBase>();
             return Mapper.Map<Entities.BikeData.NewLaunched.NewLaunchedBikeResult, DTO.BikeData.NewLaunched.NewLaunchedBikeResultDTO>(entity);
         }

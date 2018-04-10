@@ -1,6 +1,7 @@
 ﻿using Bikewale.BAL.Customer;
 using Bikewale.BAL.EditCMS;
 using Bikewale.BAL.GrpcFiles;
+using Bikewale.BAL.GrpcFiles.Specs_Features;
 using Bikewale.BAL.UserReviews.Search;
 using Bikewale.Cache.BikeData;
 using Bikewale.Cache.CMS;
@@ -169,6 +170,55 @@ namespace Bikewale.BAL.BikeData
         }
 
         /// <summary>
+        /// Created By  : Rajan Chauhan on 06 Apr 2018
+        /// Description : Added BAL function for binding MinSpecs
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <param name="topCount"></param>
+        /// <param name="cityId"></param>
+        /// <returns></returns>
+        public ICollection<MostPopularBikesBase> GetMostPopularBikesByModelBodyStyle(int modelId, int topCount, uint cityId)
+        {
+            ICollection<MostPopularBikesBase> modelList = null;
+            try
+            {
+                modelList = _modelCacheRepository.GetMostPopularBikesByModelBodyStyle(modelId, topCount, cityId);
+                if (modelList != null)
+                {
+                    IEnumerable<VersionMinSpecsEntity> versionList = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(modelList.Select(m => m.objVersion.VersionId),
+                        new List<EnumSpecsFeaturesItem>{
+                            EnumSpecsFeaturesItem.Displacement,
+                            EnumSpecsFeaturesItem.FuelEfficiencyOverall,
+                            EnumSpecsFeaturesItem.MaxPowerBhp,
+                            EnumSpecsFeaturesItem.MaximumTorqueNm,
+                            EnumSpecsFeaturesItem.KerbWeight
+                    });
+                    if (versionList != null)
+                    {
+                        var minSpecs = versionList.GetEnumerator();
+                        foreach (var model in modelList)
+                        {
+                            if (minSpecs.MoveNext())
+                            {
+                                model.MinSpecsList = minSpecs.Current.MinSpecsList;
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, String.Format("Bikewale.BAL.BikeModels.GetMostPopularBikesByModelBodyStyle({0}, {1}, {2})", modelId, topCount, cityId));
+            }
+            return modelList;
+        }
+        
+        public IEnumerable<MostPopularBikesBase> GetMostPopularBikes(int? topCount = null, int? makeId = null)
+        {
+            return _modelCacheRepository.GetMostPopularBikes(topCount, makeId);
+        }
+
+        /// <summary>
         /// Created By : Ashish G. Kamble on 12 May 2014
         /// Summary : 
         /// </summary>
@@ -200,9 +250,56 @@ namespace Bikewale.BAL.BikeData
             objNewLaunchedBikeList = modelRepository.GetNewLaunchedBikesList(startIndex, endIndex);
             return objNewLaunchedBikeList;
         }
+
+        /// <summary>
+        /// Created By  : Rajan Chauhan on 6 Apr 2018
+        /// Description : Method to get PopularBikes list by Make
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <returns></returns>
+        public IEnumerable<MostPopularBikesBase> GetMostPopularBikesByMake(uint makeId)
+        {
+            IEnumerable<MostPopularBikesBase> objList = null;
+            try
+            {
+                objList = _modelCacheRepository.GetMostPopularBikesByMake(makeId);
+                if (objList != null)
+                {
+                    IEnumerable<VersionMinSpecsEntity> versionList = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(objList.Select(m => m.objVersion.VersionId),
+                        new List<EnumSpecsFeaturesItem>{
+                        EnumSpecsFeaturesItem.Displacement,
+                        EnumSpecsFeaturesItem.FuelEfficiencyOverall,
+                        EnumSpecsFeaturesItem.MaxPowerBhp,
+                        EnumSpecsFeaturesItem.MaximumTorqueNm,
+                        EnumSpecsFeaturesItem.KerbWeight
+                    });
+                    if (versionList != null)
+                    {
+                        var minSpecs = versionList.GetEnumerator();
+                        foreach (var bike in objList)
+                        {
+                            if (minSpecs.MoveNext())
+                            {
+                                bike.MinSpecsList = minSpecs.Current.MinSpecsList;
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, String.Format("Bikewale.BAL.BikeModels.GetMostPopularBikesByMake({0})", makeId));
+            }
+            return objList;
+        }
+
+
         /// <summary>
         /// Created by Subodh jain 22 sep 2016
         /// des: to deicide to fetch by makecity or only make
+        /// Modified by : Rajan Chauhan on 6 Apr 2018
+        /// Description : Corrected returning bikeModels count to be exactly topCount
+        ///               Added Error Logging
         /// </summary>
         /// <param name="topCount"></param>
         /// <param name="makeId"></param>
@@ -211,12 +308,41 @@ namespace Bikewale.BAL.BikeData
         public IEnumerable<MostPopularBikesBase> GetMostPopularBikesbyMakeCity(uint topCount, uint makeId, uint cityId)
         {
             IEnumerable<MostPopularBikesBase> objList = null;
-            if (cityId > 0)
-                objList = modelRepository.GetMostPopularBikesbyMakeCity(topCount, makeId, cityId);
-            else
-                objList = modelRepository.GetMostPopularBikesByMake((int)makeId);
+            try
+            {
+                if (cityId > 0)
+                    objList = _modelCacheRepository.GetMostPopularBikesbyMakeCity(topCount, makeId, cityId);
+                else
+                    objList = _modelCacheRepository.GetMostPopularBikesByMake(makeId);
+                if (objList != null)
+                {
+                    objList = objList.Take((int)topCount);
+                    IEnumerable<VersionMinSpecsEntity> versionList = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(objList.Select(m => m.objVersion.VersionId),
+                        new List<EnumSpecsFeaturesItem>{
+                        EnumSpecsFeaturesItem.Displacement,
+                        EnumSpecsFeaturesItem.FuelEfficiencyOverall,
+                        EnumSpecsFeaturesItem.MaxPowerBhp,
+                        EnumSpecsFeaturesItem.MaximumTorqueNm,
+                        EnumSpecsFeaturesItem.KerbWeight
+                    });
+                    if (versionList != null)
+                    {
+                        var minSpecs = versionList.GetEnumerator();
+                        foreach (var bike in objList)
+                        {
+                            if (minSpecs.MoveNext())
+                            {
+                                bike.MinSpecsList = minSpecs.Current.MinSpecsList;
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, String.Format("Bikewale.BAL.BikeModels.GetMostPopularBikesbyMakeCity({0}, {1}, {2})", topCount, makeId, cityId));
+            }
             return objList;
-
         }
 
         public IEnumerable<MostPopularBikesBase> GetAdPromotedBike(BikeFilters ObjData, bool isCityLogicPresent)
@@ -295,6 +421,8 @@ namespace Bikewale.BAL.BikeData
         /// Summary: Added a condition to avoid fetching the whole model gallery in case of desktop model page 
         /// Modified by : Sajal Gupta on 28-02-2017
         /// Description : Call function to get images.
+        /// Modified by : Rajan Chauhan on 26 Mar 2018
+        /// Description : Added logic to append MinSpecs to ModelVersions
         /// </summary>
         /// <param name="modelId"></param>
         /// <returns></returns>
@@ -307,13 +435,46 @@ namespace Bikewale.BAL.BikeData
                 objModelPage = _modelCacheRepository.GetModelPageDetails(modelId);
                 if (objModelPage != null)
                 {
+                    if (objModelPage.ModelVersions != null && objModelPage.ModelVersions.Any())
+                    {
+                        int versionId = objModelPage.ModelVersions.FirstOrDefault().VersionId;
+                        objModelPage.VersionSpecsFeatures = SpecsFeaturesServiceGateway.GetVersionsSpecsFeatures(new List<int> { versionId });
+                        BikeVersionMinSpecs objOverview = new BikeVersionMinSpecs() { VersionId = versionId };
+                        BindMinSpecs(new List<BikeVersionMinSpecs> { objOverview },
+                            new List<EnumSpecsFeaturesItem>
+                            {
+                                EnumSpecsFeaturesItem.Displacement,
+                                EnumSpecsFeaturesItem.MaxPower,
+                                EnumSpecsFeaturesItem.MaximumTorque,
+                                EnumSpecsFeaturesItem.NoOfGears,
+                                EnumSpecsFeaturesItem.FuelEfficiencyOverall,
+                                EnumSpecsFeaturesItem.BrakeType,
+                                EnumSpecsFeaturesItem.FrontDisc,
+                                EnumSpecsFeaturesItem.RearDisc,
+                                EnumSpecsFeaturesItem.AlloyWheels,
+                                EnumSpecsFeaturesItem.KerbWeight,
+                                EnumSpecsFeaturesItem.ChassisType,
+                                EnumSpecsFeaturesItem.TopSpeed,
+                                EnumSpecsFeaturesItem.TubelessTyres,
+                                EnumSpecsFeaturesItem.FuelTankCapacity,
+                                EnumSpecsFeaturesItem.MaxPowerBhp
+                            });
+                        objModelPage.SpecsSummaryList = objOverview != null ? objOverview.MinSpecsList : null;
+                        BindMinSpecs(objModelPage.ModelVersions,
+                            new List<EnumSpecsFeaturesItem>{
+                                EnumSpecsFeaturesItem.BrakeType,
+                                EnumSpecsFeaturesItem.AlloyWheels,
+                                EnumSpecsFeaturesItem.ElectricStart,
+                                EnumSpecsFeaturesItem.AntilockBrakingSystem
+                            });
+                    }
                     CreateAllPhotoList(modelId, objModelPage);
                 }
 
             }
             catch (Exception ex)
             {
-                ErrorClass.LogError(ex, "Exception : Bikewale.BAL.BikeData.GetModelPageDetails");
+                ErrorClass.LogError(ex, "Bikewale.BAL.BikeData.GetModelPageDetails");
             }
 
             return objModelPage;
@@ -322,6 +483,8 @@ namespace Bikewale.BAL.BikeData
         /// <summary>
         /// Created by : Sajal Gupta on 28-02-2017
         /// Description : Function to get data from cache and photo data from bal itself;
+        /// Modified by : Rajan Chauhan on 26 Mar 2018
+        /// Description : Added logic to append MinSpecs to ModelVersions
         /// </summary>
         /// <param name="modelId"></param>
         /// <param name="versionId"></param>
@@ -332,20 +495,77 @@ namespace Bikewale.BAL.BikeData
             try
             {
                 objModelPage = _modelCacheRepository.GetModelPageDetails(modelId, versionId);
-                if (objModelPage != null)
+                if (objModelPage != null && objModelPage.ModelVersions != null && objModelPage.ModelVersions.Any())
                 {
+                    // First 2 in versionPrices in city widget
+                    BindMinSpecs(objModelPage.ModelVersions, 
+                        new List<EnumSpecsFeaturesItem>{
+                            EnumSpecsFeaturesItem.BrakeType,
+                            EnumSpecsFeaturesItem.AlloyWheels,
+                            EnumSpecsFeaturesItem.Displacement,
+                            EnumSpecsFeaturesItem.MaxPowerBhp,
+                            EnumSpecsFeaturesItem.FuelEfficiencyOverall,
+                            EnumSpecsFeaturesItem.KerbWeight,
+                            EnumSpecsFeaturesItem.TopSpeed
+                        });
+                    var modelVersion = versionId != 0 ? objModelPage.ModelVersions.FirstOrDefault(version => version.VersionId == versionId) : objModelPage.ModelVersions.FirstOrDefault();
+                    if (modelVersion != null)
+                    {
+                        objModelPage.ModelVersionMinSpecs = new BikeVersionMinSpecs()
+                        {
+                            VersionId = modelVersion.VersionId,
+                            MinSpecsList = new List<SpecsItem>()
+                        };
+                        IEnumerable<SpecsItem> minSpecsList = modelVersion.MinSpecsList;
+                        if( minSpecsList != null)
+                        {
+                            objModelPage.ModelVersionMinSpecs.MinSpecsList = minSpecsList.Skip(2);
+                        }
+                    }
                     CreateAllPhotoList(modelId, objModelPage);
                 }
             }
             catch (Exception ex)
             {
-                ErrorClass.LogError(ex, string.Format("BikeModelsCacheRepository.GetModelPageDetails() => modelid {0}, versionId: {1}", modelId, versionId));
+                ErrorClass.LogError(ex, string.Format("BikeModels.GetModelPageDetails() => modelid {0}, versionId: {1}", modelId, versionId));
             }
 
             return objModelPage;
         }
 
-
+        /// <summary>
+        /// Created By  : Rajan Chauhan on 28 Mar 2018
+        /// Description : Method to Bind MinSpecs from SpecsFeatures MS 
+        /// </summary>
+        /// <param name="bikeVersionList"></param>
+        private static void BindMinSpecs(IEnumerable<BikeVersionMinSpecs> bikeVersionList, IEnumerable<EnumSpecsFeaturesItem> itemIds)
+        {
+            try
+            {
+                if (bikeVersionList != null && bikeVersionList.Any())
+                {
+                    IEnumerable<VersionMinSpecsEntity> versionMinSpecsEntityList = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(bikeVersionList.Select(objVersion => (int)objVersion.VersionId), itemIds);
+                    if (versionMinSpecsEntityList != null)
+                    {
+                        IEnumerator<VersionMinSpecsEntity> versionIterator = versionMinSpecsEntityList.GetEnumerator();
+                        VersionMinSpecsEntity objVersionMinSpec;
+                        foreach (BikeVersionMinSpecs objVersion in bikeVersionList)
+                        {
+                            if (versionIterator.MoveNext())
+                            {
+                                objVersionMinSpec = versionIterator.Current;
+                                objVersion.MinSpecsList = objVersionMinSpec != null ? objVersionMinSpec.MinSpecsList : null;
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("BikeModels.BindMinSpecs(IEnumerable<BikeVersionMinSpecs> {0})", bikeVersionList));
+            }
+            
+        }
 
 
         /// <summary>
@@ -584,7 +804,7 @@ namespace Bikewale.BAL.BikeData
                                 img.ModelImage = cmsImages.Take(requiredImageCount);
                             }
                         }
-                    
+
                         var modelIdsArray = Array.ConvertAll(modelIds.Split(','), int.Parse);
                         var missingModelIds = modelIdsArray.Except(modelsImages.Select(m => m.ModelId));
                         if (missingModelIds != null && missingModelIds.Any())
@@ -1143,6 +1363,48 @@ namespace Bikewale.BAL.BikeData
         public IEnumerable<MostPopularBikesBase> GetMostPopularScooters(uint makeId)
         {
             return _modelCacheRepository.GetMostPopularScooters(makeId);
+        }
+
+        /// <summary>
+        /// Created By  : Rajan Chauhan on 06 Apr 2018
+        /// Description : BAL function for binding specs to MostPopularBikes
+        /// </summary>
+        /// <param name="topCount"></param>
+        /// <returns></returns>
+        public IEnumerable<MostPopularBikesBase> GetMostPopularBikes(int topCount)
+        {
+            IEnumerable<MostPopularBikesBase> modelList = null;
+            try
+            {
+                modelList = _modelCacheRepository.GetMostPopularBikes(topCount, null);
+                if (modelList != null)
+                {
+                    IEnumerable<VersionMinSpecsEntity> bikesList = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(modelList.Select(m => m.objVersion.VersionId),
+                        new List<EnumSpecsFeaturesItem>{
+                        EnumSpecsFeaturesItem.Displacement,
+                        EnumSpecsFeaturesItem.FuelEfficiencyOverall,
+                        EnumSpecsFeaturesItem.MaxPowerBhp,
+                        EnumSpecsFeaturesItem.MaximumTorqueNm,
+                        EnumSpecsFeaturesItem.KerbWeight
+                    });
+                    if (bikesList != null)
+                    {
+                        var minSpecs = bikesList.GetEnumerator();
+                        foreach (var model in modelList)
+                        {
+                            if (minSpecs.MoveNext())
+                            {
+                                model.MinSpecsList = minSpecs.Current.MinSpecsList;
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, String.Format("Bikewale.BAL.BikeModels.GetMostPopularBikes({0})", topCount));
+            }
+            return modelList;
         }
 
         /// <summary>

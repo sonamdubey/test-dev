@@ -7,6 +7,8 @@ namespace Bikewale.Entities.BikeData
 {
     /// <summary>
     /// Modified BY : Ashish G. Kamble on 8 Oct 2015
+    /// Modified By : Rajan Chauhan on 7 Apr 2018
+    /// Description : Added ModelVersionMinSpecs
     /// </summary>
     [Serializable, DataContract]
     public class BikeModelPageEntity
@@ -41,7 +43,8 @@ namespace Bikewale.Entities.BikeData
         public Specifications objSpecs { get; set; }
         [DataMember]
         public uint UsedListingsCnt { get; set; }
-        [DataMember]
+        public BikeVersionMinSpecs ModelVersionMinSpecs { get; set; }
+        public IEnumerable<SpecsItem> SpecsSummaryList { get; set; }
         public SpecsFeaturesEntity VersionSpecsFeatures { get; set; }
     }
 }

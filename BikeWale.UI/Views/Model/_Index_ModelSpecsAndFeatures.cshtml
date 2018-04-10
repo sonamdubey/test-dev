@@ -3,9 +3,9 @@
     if (Model.VersionSpecsFeatures != null)
     {
         var features = Model.VersionSpecsFeatures.Features;
-        string itemValue, featureValue;
+        string itemValue;
         <h2 class="h2-heading content-inner-block-20">@Model.ModelName Specifications & Features</h2>
-        if (Model.VersionSpecsFeatures != null && Model.VersionSpecsFeatures.Specs.Any())
+        if (Model.VersionSpecsFeatures.Specs != null && Model.VersionSpecsFeatures.Specs.Any())
         {
             <h3 class="font-bold padding-left20 margin-bottom20">Specifications</h3>
             <ul id="model-specs-list">
@@ -28,18 +28,20 @@
                                 }
                                 @foreach (var item in category.SpecsItemList.Take(firstGridSpecsCount))
                                 {
-                                    <p>
+                                    itemValue = item.ItemValues.FirstOrDefault();
+                                    <p @Html.Raw(itemValue.Length > 30 ? string.Format("title=\"{0}\"", itemValue) :"")>
 										<span class="specs-features-item__content text-light-grey">@item.DisplayText</span>
-										<span class="specs-features-item__content text-bold">@Bikewale.Utility.FormatMinSpecs.ShowAvailable(item.ItemValues.FirstOrDefault(), item.UnitTypeText)</span>
+										<span class="specs-features-item__content text-bold">@Bikewale.Utility.FormatMinSpecs.ShowAvailable(itemValue, item.UnitTypeText, item.DataType)</span>
                                     </p>
                                 }
                             </div>
                             <div class="grid-6">
                                 @foreach (var item in category.SpecsItemList.Skip(firstGridSpecsCount))
                                 {
-                                    <p>
+                                    itemValue = item.ItemValues.FirstOrDefault();
+                                    <p @Html.Raw(itemValue.Length > 30 ? string.Format("title=\"{0}\"", itemValue) : "")>
 										<span class="specs-features-item__content text-light-grey">@item.DisplayText</span>
-										<span class="specs-features-item__content text-bold">@Bikewale.Utility.FormatMinSpecs.ShowAvailable(item.ItemValues.FirstOrDefault(), item.UnitTypeText)</span>
+										<span class="specs-features-item__content text-bold">@Bikewale.Utility.FormatMinSpecs.ShowAvailable(item.ItemValues.FirstOrDefault(), item.UnitTypeText, item.DataType)</span>
                                     </p>
                                 }
                             </div>
@@ -64,18 +66,20 @@
                         }
                         @foreach (var feature in leftGrid.Take(shownFeaturesHeight))
                         {
-                            <p>
-                                <span>@feature.DisplayText</span>
-                                <span>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(feature.ItemValues.FirstOrDefault(), feature.UnitTypeText)</span>
+                            itemValue = feature.ItemValues.FirstOrDefault();
+                            <p @Html.Raw(itemValue.Length > 30 ? string.Format("title=\"{0}\"", itemValue) : "")>
+								<span class="specs-features-item__content text-light-grey">@feature.DisplayText</span>
+								<span class="specs-features-item__content text-bold">@Bikewale.Utility.FormatMinSpecs.ShowAvailable(feature.ItemValues.FirstOrDefault(), feature.UnitTypeText, feature.DataType)</span>
                             </p>
                         }
                     </div>
                     <div class="grid-6 omega text-light-grey">
                         @foreach (var feature in rightGrid.Take(shownFeaturesHeight))
                         {
-                            <p>
-                                <span>@feature.DisplayText</span>
-                                <span>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(feature.ItemValues.FirstOrDefault(), feature.UnitTypeText)</span>
+                            itemValue = feature.ItemValues.FirstOrDefault();
+                            <p @Html.Raw(itemValue.Length > 30 ? string.Format("title=\"{0}\"", itemValue) : "")>
+								<span class="specs-features-item__content text-light-grey">@feature.DisplayText</span>
+								<span class="specs-features-item__content text-bold">@Bikewale.Utility.FormatMinSpecs.ShowAvailable(feature.ItemValues.FirstOrDefault(), feature.UnitTypeText, feature.DataType)</span>
                             </p>
                         }
                     </div>
@@ -86,18 +90,20 @@
 		            <div class="grid-6 padding-left20 text-light-grey">
                         @foreach (var feature in leftGrid.Skip(shownFeaturesHeight))
                         {
-                            <p>
-                                <span>@feature.DisplayText</span>
-                                <span>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(feature.ItemValues.FirstOrDefault(), feature.UnitTypeText)</span>
+                            itemValue = feature.ItemValues.FirstOrDefault();
+                            <p @Html.Raw(itemValue.Length > 30 ? string.Format("title=\"{0}\"", itemValue) : "")>
+								<span class="specs-features-item__content text-light-grey">@feature.DisplayText</span>
+								<span class="specs-features-item__content text-bold">@Bikewale.Utility.FormatMinSpecs.ShowAvailable(feature.ItemValues.FirstOrDefault(), feature.UnitTypeText, feature.DataType)</span>
                             </p>
                         }
 		            </div>
-                    <div class="grid-6 padding-left20 text-light-grey">
+                    <div class="grid-6 text-light-grey">
                         @foreach (var feature in rightGrid.Skip(shownFeaturesHeight))
                         {
-                            <p>
-                                <span>@feature.DisplayText</span>
-                                <span>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(feature.ItemValues.FirstOrDefault(), feature.UnitTypeText)</span>
+                            itemValue = feature.ItemValues.FirstOrDefault();
+                            <p @Html.Raw(itemValue.Length > 30 ? string.Format("title=\"{0}\"", itemValue) : "")>
+								<span class="specs-features-item__content text-light-grey">@feature.DisplayText</span>
+								<span class="specs-features-item__content text-bold">@Bikewale.Utility.FormatMinSpecs.ShowAvailable(feature.ItemValues.FirstOrDefault(), feature.UnitTypeText, feature.DataType)</span>
                             </p>
                         }
                     </div>

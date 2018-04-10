@@ -1,7 +1,8 @@
-﻿using Bikewale.Utility;
+﻿using Bikewale.Notifications;
+using Bikewale.Utility;
 using BikewaleOpr.Entity.BikeData;
 using BikewaleOpr.Interface.BikeData;
-using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -57,7 +58,7 @@ namespace BikewaleOpr.BAL
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass.LogError(ex, "BikewaleOpr.BAL.BikeModels.GetPendingUsedBikesWithoutModelImage");
+                ErrorClass.LogError(ex, "BikewaleOpr.BAL.BikeModels.GetPendingUsedBikesWithoutModelImage");
             }
             return objBikeByMakeNotificationData;
         }
@@ -90,7 +91,7 @@ namespace BikewaleOpr.BAL
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass.LogError(ex, "BikewaleOpr.BAL.BikeModels.GetModelsWithMissingColorImage");
+                ErrorClass.LogError(ex, "BikewaleOpr.BAL.BikeModels.GetModelsWithMissingColorImage");
             }
             return objBikeModelsByMakeList;
         }
@@ -110,6 +111,57 @@ namespace BikewaleOpr.BAL
             nvc["operationType"] = operation;
 
             BWESDocumentBuilder.PushToQueue(nvc);
+        }
+
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 02 Apr 2018
+        /// Description : Method to update bike min specs in elastic search index when specs are updated for a version if that version is top version among other versions of bike model.
+        /// </summary>
+        /// <param name="versionId">Version Id for which min specs to be updated in elastic index.</param>
+        /// <param name="specItemList">List of specs items with updated values which need to updated in ealstic index.</param>
+        public void UpdateMinSpecsInESIndex(int versionId, IEnumerable<SpecsItem> specItemList)
+        {
+            try
+            {
+                int modelId = _IBikeModel.GetModelIdIfTopVersion(versionId);
+                if (modelId > 0)
+                {
+                    var mileage = specItemList.SingleOrDefault(s => s.Id == (int)EnumSpecsFeaturesItem.FuelEfficiencyOverall);
+                    var kerbWeight = specItemList.SingleOrDefault(s => s.Id == (int)EnumSpecsFeaturesItem.KerbWeight);
+                    var maxPower = specItemList.SingleOrDefault(s => s.Id == (int)EnumSpecsFeaturesItem.MaxPowerBhp);
+                    var displacement = specItemList.SingleOrDefault(s => s.Id == (int)EnumSpecsFeaturesItem.Displacement);
+                    dynamic jsonSpecs = new JObject();
+                    if (mileage != null)
+                    {
+                        jsonSpecs.mileage = mileage.Value;
+                    }
+                    if (kerbWeight != null)
+                    {
+                        jsonSpecs.kerbWeight = kerbWeight.Value;
+                    }
+                    if (maxPower != null)
+                    {
+                        jsonSpecs.power = maxPower.Value;
+                    }
+                    if (displacement != null)
+                    {
+                        jsonSpecs.displacement = displacement.Value;
+                    }
+                    JObject jsonTopVersionObj = new JObject();
+                    jsonTopVersionObj["topVersion"] = jsonSpecs;
+                    NameValueCollection nvc = new NameValueCollection();
+                    nvc["indexName"] = BWOprConfiguration.Instance.BikeModelIndex;
+                    nvc["documentType"] = "bikemodeldocument";
+                    nvc["documentId"] = Convert.ToString(modelId);
+                    nvc["operationType"] = "partialupdate";
+                    nvc["documentJson"] = jsonTopVersionObj.ToString();
+                    BWESIndexUpdater.PushToQueue(nvc);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("BikewaleOpr.BAL.BikeModels.UpdateMinSpecsInESIndex_versionId_{0}", versionId));
+            }
         }
     }
 }
