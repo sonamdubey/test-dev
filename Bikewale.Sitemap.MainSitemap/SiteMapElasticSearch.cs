@@ -56,8 +56,8 @@ namespace Bikewale.Sitemap.MainSitemap
                         int i = 0;
                         if (x.BikeMake != null && !string.IsNullOrEmpty(x.BikeMake.MakeMaskingName) && !string.IsNullOrEmpty(x.BikeModel.ModelMaskingName))
                         {
-                            cv.Add(new KeyValuePair<int, string>(i++, x.BikeMake.MakeMaskingName.ToString()));
-                            cv.Add(new KeyValuePair<int, string>(i++, x.BikeModel.ModelMaskingName.ToString()));
+                            cv.Add(new KeyValuePair<int, string>(i++, x.BikeMake.MakeMaskingName));
+                            cv.Add(new KeyValuePair<int, string>(i++, x.BikeModel.ModelMaskingName));
                         }
                         siteMapESResult.Add(index++,cv);
                     }
