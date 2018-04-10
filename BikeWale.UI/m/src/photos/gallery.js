@@ -125,6 +125,8 @@ function resizeHandler() {
 		if (window.innerWidth > window.innerHeight) {
 			vmModelGallery.fullScreenModeActive(true);
 			vmModelGallery.hideFooterTabs();
+
+			$('body').addClass('device--landscape-no-fullscreen');
 		}
 		else {
 			vmModelGallery.fullScreenModeActive(false);

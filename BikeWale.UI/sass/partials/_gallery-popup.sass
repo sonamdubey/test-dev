@@ -70,11 +70,11 @@
 
 	.swiper--next
 		@include arrow-right
-		right: 10px
+		right: 0
 
 	.swiper--prev
 		@include arrow-left
-		left: 10px
+		left: 0
 
 		&.swiper-button-disabled
 			opacity: .4
@@ -418,6 +418,15 @@
 		display: inline-block
 		vertical-align: middle
 
+.device--landscape-no-fullscreen
+	.orientation--landscape
+		.gallery-popup--active
+			.model-gallery
+				.swiper-slide
+					height: 90vh
+
+					img
+						max-height: 90%
 
 // color slug
 .gallery-color-slug--active
@@ -483,7 +492,7 @@
 
 .slide__more-btn-content
 	position: absolute
-	bottom: -9%
+	bottom: -19px
 	left: 0
 	right: 0
 	margin: 0 auto
