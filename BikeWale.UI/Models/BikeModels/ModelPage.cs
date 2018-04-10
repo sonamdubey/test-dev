@@ -42,6 +42,8 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Web;
+using Bikewale.BAL.ApiGateway.ApiGatewayHelper;
+using Bikewale.BAL.ApiGateway.Adapters.BikeData;
 
 namespace Bikewale.Models.BikeModels
 {
@@ -79,8 +81,10 @@ namespace Bikewale.Models.BikeModels
         private readonly IAdSlot _adSlot = null;
         private readonly IBikeInfo _bikeInfo = null;
         private readonly IBikeMakesCacheRepository _bikeMakesCacheRepository;
+		private readonly IApiGatewayCaller _apiGatewayCaller;
 
-        private uint _modelId, _cityId, _areaId;
+
+		private uint _modelId, _cityId, _areaId;
 
         private readonly IManufacturerCampaign _objManufacturerCampaign = null;
 
@@ -107,7 +111,7 @@ namespace Bikewale.Models.BikeModels
         /// Modified by : Ashutosh Sharma on 31 Oct 2017
         /// Description : Added IAdSlot.
         /// </summary>
-        public ModelPage(string makeMasking, string modelMasking, IUserReviewsSearch userReviewsSearch, IUserReviewsCache userReviewsCache, IBikeModels<Entities.BikeData.BikeModelEntity, int> objModel, IDealerPriceQuote objDealerPQ, IAreaCacheRepository objAreaCache, ICityCacheRepository objCityCache, IPriceQuote objPQ, IDealerCacheRepository objDealerCache, IDealerPriceQuoteDetail objDealerDetails, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionCache, ICMSCacheContent objArticles, IVideos objVideos, IUsedBikeDetailsCacheRepository objUsedBikescache, IServiceCenter objServiceCenter, IPriceQuoteCache objPQCache, IUsedBikesCache usedBikesCache, IBikeModelsCacheRepository<int> objBestBikes, IUpcoming upcoming, IManufacturerCampaign objManufacturerCampaign, IBikeSeries bikeSeries, IAdSlot adSlot, IBikeInfo bikeInfo, IBikeMakesCacheRepository bikeMakesCacheRepository)
+        public ModelPage(string makeMasking, string modelMasking, IUserReviewsSearch userReviewsSearch, IUserReviewsCache userReviewsCache, IBikeModels<Entities.BikeData.BikeModelEntity, int> objModel, IDealerPriceQuote objDealerPQ, IAreaCacheRepository objAreaCache, ICityCacheRepository objCityCache, IPriceQuote objPQ, IDealerCacheRepository objDealerCache, IDealerPriceQuoteDetail objDealerDetails, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionCache, ICMSCacheContent objArticles, IVideos objVideos, IUsedBikeDetailsCacheRepository objUsedBikescache, IServiceCenter objServiceCenter, IPriceQuoteCache objPQCache, IUsedBikesCache usedBikesCache, IBikeModelsCacheRepository<int> objBestBikes, IUpcoming upcoming, IManufacturerCampaign objManufacturerCampaign, IBikeSeries bikeSeries, IAdSlot adSlot, IBikeInfo bikeInfo, IBikeMakesCacheRepository bikeMakesCacheRepository, IApiGatewayCaller apiGatewayCaller)
         {
             _objModel = objModel;
             _objDealerPQ = objDealerPQ;
@@ -132,7 +136,9 @@ namespace Bikewale.Models.BikeModels
             _adSlot = adSlot;
             _bikeInfo = bikeInfo;
             _bikeMakesCacheRepository = bikeMakesCacheRepository;
-            ParseQueryString(makeMasking, modelMasking);
+			_apiGatewayCaller = apiGatewayCaller;
+
+			ParseQueryString(makeMasking, modelMasking);
         }
 
         #endregion Global Variables
@@ -152,47 +158,58 @@ namespace Bikewale.Models.BikeModels
             {
                 _objData = new ModelPageVM();
 
-                if (_modelId > 0)
-                {
-                    _objData.ModelId = _modelId;
+				if (_modelId > 0)
+				{
+					_objData.ModelId = _modelId;
 
-                    #region Do Not change the sequence
+					#region Do Not change the sequence
 
-                    CheckCityCookie();
-                    _objData.CityId = _cityId;
-                    _objData.AreaId = _areaId;
-                    _objData.VersionId = versionId.HasValue ? versionId.Value : 0;
+					CheckCityCookie();
+					_objData.CityId = _cityId;
+					_objData.AreaId = _areaId;
+					_objData.VersionId = versionId.HasValue ? versionId.Value : 0;
 
-                    _objData.ModelPageEntity = FetchModelPageDetails(_modelId);
-                    
-                    if (_objData.IsModelDetails && _objData.ModelPageEntity.ModelDetails.New)
-                    {
-                        FetchOnRoadPrice(_objData.ModelPageEntity);
-                    }
+					_objData.ModelPageEntity = FetchModelPageDetails(_modelId);
 
-                    LoadVariants(_objData.ModelPageEntity);
-                    if (_objData.IsModelDetails && _objData.ModelPageEntity.ModelDetails.New)
+					if (_objData.IsModelDetails && _objData.ModelPageEntity.ModelDetails.New)
+					{
+						FetchOnRoadPrice(_objData.ModelPageEntity);
+					}
+
+					LoadVariants(_objData.ModelPageEntity);
+
+					#region Code to get the specs and features data from microservice
+					if (!_objData.IsUpcomingBike && _objData.VersionId > 0)
+					{
+						var specs = new BikeSpecsFeaturesVM();
+						specs.BikeName = _objData.BikeName;
+						specs.ModelName = _objData.ModelPageEntity.ModelDetails.ModelName;
+
+						GetVersionSpecsByIdAdapter adapt1 = new GetVersionSpecsByIdAdapter();
+						adapt1.AddApiGatewayCall(_apiGatewayCaller, new List<int> { (int)_objData.VersionId });
+						
+						_apiGatewayCaller.Call();
+
+						specs.VersionSpecsFeatures = adapt1.Output;
+						
+						_objData.BikeSpecsFeatures = specs;
+					}
+					#endregion
+
+					if (_objData.IsModelDetails && _objData.ModelPageEntity.ModelDetails.New)
                     {
                         GetManufacturerCampaign();
                     }
-                    if (!_objData.IsUpcomingBike)
-                    {
-                        _objData.BikeSpecsFeatures = new BikeSpecsFeaturesVM()
-                        {
-                            BikeName = _objData.BikeName,
-                            ModelName = _objData.ModelPageEntity.ModelDetails.ModelName,
-                            VersionSpecsFeatures = SpecsFeaturesServiceGateway.GetVersionsSpecsFeatures(new List<uint> { _objData.VersionId })
-                        };
-                    }
+
                     BindControls();
 
                     BindColorString();
+
                     if (_modelId > 0)
                     {
                         BindMileageWidget(_objData);
                     }
-
-
+					
                     CreateMetas();
 
                     ImageAccordingToVersion();
