@@ -9,9 +9,9 @@ namespace Bikewale.Entities.JSErrorLog
     /// Dated: 10th April 2018
     /// Details: Inherited Exception Class, changed property name from Message to Details
     /// </summary>
-    public class JSException: Exception
+    public class JSExceptionEntity: Exception
     {
-        public JSException() : base() { }
+        public JSExceptionEntity(): base() { }
         public string Details { get; set; }
         public string ErrorType { get; set; }
         public string SourceFile { get; set; }
