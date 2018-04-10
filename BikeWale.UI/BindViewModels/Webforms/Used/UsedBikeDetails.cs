@@ -113,7 +113,7 @@ namespace Bikewale.BindViewModels.Webforms.Used
                             IEnumerable<SpecsItem> minSpecsList = minSpecs.FirstOrDefault().MinSpecsList;
                             if(minSpecsList != null)
                             {
-                                InquiryDetails.versionMinSpecs = minSpecsList.ToList();
+                                InquiryDetails.VersionMinSpecs = minSpecsList.ToList();
                             }
                         }
                     }

@@ -279,7 +279,7 @@
         </section>
         <% } %>
 
-        <% if ((inquiryDetails.versionMinSpecs != null && !isBikeSold) || ctrlusedBikeModel.FetchCount>0|| ctrlSimilarUsedBikes.FetchedRecordsCount > 0)
+        <% if ((inquiryDetails.VersionMinSpecs != null && !isBikeSold) || ctrlusedBikeModel.FetchCount>0|| ctrlSimilarUsedBikes.FetchedRecordsCount > 0)
            { %>
         <section>
             <div class="container">
@@ -288,7 +288,7 @@
                         <div id="makeOverallTabsWrapper">
                             <div id="makeOverallTabs" class="overall-floating-tabs">
                                 <div class="overall-specs-tabs-wrapper">
-                                    <% if (inquiryDetails.versionMinSpecs != null && !isBikeSold)
+                                    <% if (inquiryDetails.VersionMinSpecs != null && !isBikeSold)
                                        { %>
                                     <a href="#specsContent" rel="nofollow">Specs & Features</a>
                                     <% } %>
@@ -303,12 +303,12 @@
                                 </div>
                             </div>
                         </div>
-                        <% if (inquiryDetails.versionMinSpecs != null && !isBikeSold)
+                        <% if (inquiryDetails.VersionMinSpecs != null && !isBikeSold)
                            { %>
                         <div id="specsContent" class="bw-model-tabs-data specs-features-list font14">
                             <h2 class="content-inner-block-20">Specifications summary</h2>
                              <% 
-                                 var specsList = inquiryDetails.versionMinSpecs;
+                                 var specsList = inquiryDetails.VersionMinSpecs;
                                  var index = 0;
                                  var listLength = specsList.Count();
                              %>

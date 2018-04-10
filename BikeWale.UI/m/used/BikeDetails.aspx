@@ -186,21 +186,21 @@
         <% } %>
 
         <script type="text/javascript" src="<%= staticUrl %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
-        <% if ((inquiryDetails.versionMinSpecs != null && !isBikeSold) || ctrlusedBikeModel.FetchCount > 0 || ctrlSimilarUsedBikes.FetchedRecordsCount > 0)
+        <% if ((inquiryDetails.VersionMinSpecs != null && !isBikeSold) || ctrlusedBikeModel.FetchCount > 0 || ctrlSimilarUsedBikes.FetchedRecordsCount > 0)
             { %>
         <section>
             <div id="model-bottom-card-wrapper" class="container bg-white clearfix box-shadow margin-bottom30">
                 <div id="model-overall-specs-wrapper">
                     <div id="overall-specs-tab" class="overall-specs-tabs-container">
                         <ul class="overall-specs-tabs-wrapper">
-                            <% if (inquiryDetails.versionMinSpecs != null && !isBikeSold)
+                            <% if (inquiryDetails.VersionMinSpecs != null && !isBikeSold)
                                 { %>
                             <li data-tabs="#modelSpecs" class="active">Specifications</li>
                             <li data-tabs="#modelFeatures">Features</li>
                             <% } %>
                             <% if (ctrlSimilarUsedBikes.FetchedRecordsCount > 0)
                                 { %>
-                            <li class="<%= (inquiryDetails.versionMinSpecs!=null)?string.Empty:"active" %>" data-tabs="#modelSimilar">Similar bikes</li>
+                            <li class="<%= (inquiryDetails.VersionMinSpecs!=null)?string.Empty:"active" %>" data-tabs="#modelSimilar">Similar bikes</li>
                             <% } %>
                             <% if (ctrlusedBikeModel.FetchCount > 0)
                                 { %>
@@ -210,12 +210,12 @@
                     </div>
                 </div>
 
-                <% if (inquiryDetails.versionMinSpecs != null && !isBikeSold)
+                <% if (inquiryDetails.VersionMinSpecs != null && !isBikeSold)
                     { %>
                 <div id="modelSpecs" class="bw-model-tabs-data margin-right20 margin-left20 padding-top15 padding-bottom20 font14 border-solid-bottom">
                     <h2 class="margin-bottom20">Specification summary</h2>
                     <% 
-                        var specsList = inquiryDetails.versionMinSpecs;
+                        var specsList = inquiryDetails.VersionMinSpecs;
                         var index = 0;
                         var listLength = specsList.Count();
                     %>

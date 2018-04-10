@@ -30,6 +30,6 @@ namespace Bikewale.Entities.Used
         public string HostUrl { get; set; }
         public bool IsDiscontinued { get; set; }
         public bool IsUpcoming { get; set; }
-        public IList<SpecsItem> versionMinSpecs { get; set; }
+        public IList<SpecsItem> VersionMinSpecs { get; set; }
     }
 }
