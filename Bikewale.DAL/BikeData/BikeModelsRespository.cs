@@ -249,7 +249,7 @@ namespace Bikewale.DAL.BikeData
             try
             {
 
-                using (DbCommand cmd = DbFactory.GetDBCommand("getversions_08112017"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getversions_05042018"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
@@ -272,7 +272,8 @@ namespace Bikewale.DAL.BikeData
                                     AverageExShowroom = SqlReaderConvertor.ToUInt32(dr["AverageExShowroom"]),
                                     BodyStyle = (EnumBikeBodyStyles)SqlReaderConvertor.ToUInt16(dr["BodyStyleId"]),
                                     HostUrl = Convert.ToString(dr["HostURL"]),
-                                    OriginalImagePath = Convert.ToString(dr["OriginalImagePath"])
+                                    OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]),
+                                    FuelType = Convert.ToString(dr["BikeFuelType"])
                                 });
                             }
                             dr.Close();
