@@ -91,7 +91,38 @@ namespace Bikewale.Utility
             return formatted;
         }
 
-
+        /// <summary>
+        /// Created by  : Pratibha Verma on 10 April 2018
+        /// Description : Format string containing numbers
+        /// </summary>
+        /// <param name="numberToFormat"></param>
+        /// <returns></returns>
+        public static string FormatNumericWithRpm(string numberToFormat)
+        {
+            string formatted = string.Empty;
+            try
+            {
+                string[] tokens = numberToFormat.Split(' ');
+                float num;
+                if (tokens.Length > 1)
+                {
+                    for (int i = 0; i < tokens.Length; i++)
+                    {
+                        if (float.TryParse(tokens[i], out num))
+                        {
+                            tokens[i] = FormatNumeric(tokens[i]);
+                        }
+                        formatted += tokens[i] + " ";
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                return numberToFormat;
+            }
+            return formatted;
+        }
+        
         /// <summary>
         /// Created by  : Sushil Kumar on 30th Aug 2016 
         /// Description : Represent number in ordinals i.e 1st,2nd,3rd,11th 

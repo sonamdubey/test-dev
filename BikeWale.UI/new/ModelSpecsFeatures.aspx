@@ -169,7 +169,7 @@
                             %>
                             <p>
                                 <span class="specs-features-item__content text-light-grey"><%=specItem.DisplayText%></span>
-                                <span class="specs-features-item__content text-bold"><%=Bikewale.Utility.FormatMinSpecs.ShowAvailable(itemValue, specItem.UnitTypeText, specItem.DataType)%></span>
+                                <span class="specs-features-item__content text-bold"><%=Bikewale.Utility.FormatMinSpecs.ShowAvailable(itemValue, specItem.UnitTypeText, specItem.DataType, specItem.Id)%></span>
                             </p>
                             <% } %>
                         </div>
@@ -181,7 +181,7 @@
                             %>
                             <p>
                                 <span class="specs-features-item__content text-light-grey"><%=specItem.DisplayText %></span>
-                                <span class="specs-features-item__content text-bold"><%=Bikewale.Utility.FormatMinSpecs.ShowAvailable(itemValue, specItem.UnitTypeText, specItem.DataType)%></span>
+                                <span class="specs-features-item__content text-bold"><%=Bikewale.Utility.FormatMinSpecs.ShowAvailable(itemValue, specItem.UnitTypeText, specItem.DataType, specItem.Id)%></span>
                             </p>
                             <% } %>
                         </div>
@@ -204,7 +204,7 @@
                             %>
                             <p>
                                 <span class="specs-features-item__content text-light-grey"><%=feature.DisplayText %></span>
-                                <span class="specs-features-item__content text-bold"><%=Bikewale.Utility.FormatMinSpecs.ShowAvailable(featureValue, feature.UnitTypeText, feature.DataType) %></span>
+                                <span class="specs-features-item__content text-bold"><%=Bikewale.Utility.FormatMinSpecs.ShowAvailable(featureValue, feature.UnitTypeText, feature.DataType, feature.Id) %></span>
                             </p>
                             <% } %>
                         </div>
@@ -215,7 +215,7 @@
                             %>
                             <p>
                                 <span class="specs-features-item__content text-light-grey"><%=feature.DisplayText %></span>
-                                <span class="specs-features-item__content text-bold"><%=Bikewale.Utility.FormatMinSpecs.ShowAvailable(featureValue, feature.UnitTypeText, feature.DataType) %></span>
+                                <span class="specs-features-item__content text-bold"><%=Bikewale.Utility.FormatMinSpecs.ShowAvailable(featureValue, feature.UnitTypeText, feature.DataType, feature.Id) %></span>
                             </p>
                             <% } %>
                         </div>

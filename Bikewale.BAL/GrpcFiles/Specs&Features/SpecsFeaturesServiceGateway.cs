@@ -106,6 +106,7 @@ namespace Bikewale.BAL.GrpcFiles.Specs_Features
                         specs.Add(new SpecsFeaturesCategory
                         {
                             DisplayText = category.Name,
+                            Icon = category.Icon,
                             SpecsItemList = ConvertToSpecFeaturesItemList(category.Items)
                         });
                     }

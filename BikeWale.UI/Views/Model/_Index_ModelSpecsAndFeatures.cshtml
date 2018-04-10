@@ -16,7 +16,7 @@
                 {
                     <li>
                         <div class="model-accordion-tab @(isCategoryActive ? "active" : "")">
-                            <span class="model-sprite engine-sm-icon margin-right10"></span>
+                            <img src="@Bikewale.Utility.FormatMinSpecs.GetOutlineIconUrl(category.Icon)" width="30" height="28" class="inline-block margin-right10">
                             <span class="inline-block">@category.DisplayText</span>
                             <span class="bwsprite accordion-angle-icon"></span>
                         </div>
@@ -31,7 +31,7 @@
                                     itemValue = item.ItemValues.FirstOrDefault();
                                     <p @Html.Raw(itemValue.Length > 30 ? string.Format("title=\"{0}\"", itemValue) :"")>
 										<span class="specs-features-item__content text-light-grey">@item.DisplayText</span>
-										<span class="specs-features-item__content text-bold">@Bikewale.Utility.FormatMinSpecs.ShowAvailable(itemValue, item.UnitTypeText, item.DataType)</span>
+										<span class="specs-features-item__content text-bold">@Bikewale.Utility.FormatMinSpecs.ShowAvailable(itemValue, item.UnitTypeText, item.DataType, item.Id)</span>
                                     </p>
                                 }
                             </div>
@@ -41,7 +41,7 @@
                                     itemValue = item.ItemValues.FirstOrDefault();
                                     <p @Html.Raw(itemValue.Length > 30 ? string.Format("title=\"{0}\"", itemValue) : "")>
 										<span class="specs-features-item__content text-light-grey">@item.DisplayText</span>
-										<span class="specs-features-item__content text-bold">@Bikewale.Utility.FormatMinSpecs.ShowAvailable(item.ItemValues.FirstOrDefault(), item.UnitTypeText, item.DataType)</span>
+										<span class="specs-features-item__content text-bold">@Bikewale.Utility.FormatMinSpecs.ShowAvailable(item.ItemValues.FirstOrDefault(), item.UnitTypeText, item.DataType, item.Id)</span>
                                     </p>
                                 }
                             </div>
@@ -69,7 +69,7 @@
                             itemValue = feature.ItemValues.FirstOrDefault();
                             <p @Html.Raw(itemValue.Length > 30 ? string.Format("title=\"{0}\"", itemValue) : "")>
 								<span class="specs-features-item__content text-light-grey">@feature.DisplayText</span>
-								<span class="specs-features-item__content text-bold">@Bikewale.Utility.FormatMinSpecs.ShowAvailable(feature.ItemValues.FirstOrDefault(), feature.UnitTypeText, feature.DataType)</span>
+								<span class="specs-features-item__content text-bold">@Bikewale.Utility.FormatMinSpecs.ShowAvailable(feature.ItemValues.FirstOrDefault(), feature.UnitTypeText, feature.DataType, feature.Id)</span>
                             </p>
                         }
                     </div>
@@ -79,7 +79,7 @@
                             itemValue = feature.ItemValues.FirstOrDefault();
                             <p @Html.Raw(itemValue.Length > 30 ? string.Format("title=\"{0}\"", itemValue) : "")>
 								<span class="specs-features-item__content text-light-grey">@feature.DisplayText</span>
-								<span class="specs-features-item__content text-bold">@Bikewale.Utility.FormatMinSpecs.ShowAvailable(feature.ItemValues.FirstOrDefault(), feature.UnitTypeText, feature.DataType)</span>
+								<span class="specs-features-item__content text-bold">@Bikewale.Utility.FormatMinSpecs.ShowAvailable(feature.ItemValues.FirstOrDefault(), feature.UnitTypeText, feature.DataType, feature.Id)</span>
                             </p>
                         }
                     </div>
@@ -93,7 +93,7 @@
                             itemValue = feature.ItemValues.FirstOrDefault();
                             <p @Html.Raw(itemValue.Length > 30 ? string.Format("title=\"{0}\"", itemValue) : "")>
 								<span class="specs-features-item__content text-light-grey">@feature.DisplayText</span>
-								<span class="specs-features-item__content text-bold">@Bikewale.Utility.FormatMinSpecs.ShowAvailable(feature.ItemValues.FirstOrDefault(), feature.UnitTypeText, feature.DataType)</span>
+								<span class="specs-features-item__content text-bold">@Bikewale.Utility.FormatMinSpecs.ShowAvailable(feature.ItemValues.FirstOrDefault(), feature.UnitTypeText, feature.DataType, feature.Id)</span>
                             </p>
                         }
 		            </div>
@@ -103,7 +103,7 @@
                             itemValue = feature.ItemValues.FirstOrDefault();
                             <p @Html.Raw(itemValue.Length > 30 ? string.Format("title=\"{0}\"", itemValue) : "")>
 								<span class="specs-features-item__content text-light-grey">@feature.DisplayText</span>
-								<span class="specs-features-item__content text-bold">@Bikewale.Utility.FormatMinSpecs.ShowAvailable(feature.ItemValues.FirstOrDefault(), feature.UnitTypeText, feature.DataType)</span>
+								<span class="specs-features-item__content text-bold">@Bikewale.Utility.FormatMinSpecs.ShowAvailable(feature.ItemValues.FirstOrDefault(), feature.UnitTypeText, feature.DataType, feature.Id)</span>
                             </p>
                         }
                     </div>

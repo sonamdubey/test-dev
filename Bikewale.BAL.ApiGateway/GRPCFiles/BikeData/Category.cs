@@ -22,22 +22,23 @@ namespace VehicleData.Service.ProtoClass {
     static CategoryReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "Cg5jYXRlZ29yeS5wcm90bxILVmVoaWNsZURhdGEaCml0ZW0ucHJvdG8izQEK",
+            "Cg5jYXRlZ29yeS5wcm90bxILVmVoaWNsZURhdGEaCml0ZW0ucHJvdG8i2wEK",
             "CENhdGVnb3J5EgoKAklkGAEgASgFEgwKBE5hbWUYAiABKAkSDQoFTGV2ZWwY",
             "AyABKAUSEAoITm9kZUNvZGUYBCABKAkSEAoISXNBY3RpdmUYBSABKAgSEQoJ",
             "VXBkYXRlZE9uGAYgASgJEhEKCVVwZGF0ZWRCeRgHIAEoBRIVCg1BcHBsaWNh",
             "dGlvbklkGAggASgFEhUKDVByaW9yaXR5T3JkZXIYCSABKAUSIAoFaXRlbXMY",
-            "CiADKAsyES5WZWhpY2xlRGF0YS5JdGVtIjQKD0NhdGVnb3J5UmVxdWVzdBIK",
-            "CgJJZBgBIAEoBRIVCg1BcHBsaWNhdGlvbklkGAIgASgFIjcKEENhdGVnb3J5",
-            "UmVzcG9uc2USCgoCSWQYASABKAUSFwoPSXNEYXRhQXZhaWxhYmxlGAIgASgI",
-            "IjkKDENhdGVnb3J5TGlzdBIpCgpDYXRlZ29yaWVzGAEgAygLMhUuVmVoaWNs",
-            "ZURhdGEuQ2F0ZWdvcnkiSQoUQ2F0ZWdvcnlSZXNwb25zZUxpc3QSMQoKQ2F0",
-            "ZWdvcmllcxgBIAMoCzIdLlZlaGljbGVEYXRhLkNhdGVnb3J5UmVzcG9uc2VC",
-            "IaoCHlZlaGljbGVEYXRhLlNlcnZpY2UuUHJvdG9DbGFzc2IGcHJvdG8z"));
+            "CiADKAsyES5WZWhpY2xlRGF0YS5JdGVtEgwKBEljb24YCyABKAkiNAoPQ2F0",
+            "ZWdvcnlSZXF1ZXN0EgoKAklkGAEgASgFEhUKDUFwcGxpY2F0aW9uSWQYAiAB",
+            "KAUiNwoQQ2F0ZWdvcnlSZXNwb25zZRIKCgJJZBgBIAEoBRIXCg9Jc0RhdGFB",
+            "dmFpbGFibGUYAiABKAgiOQoMQ2F0ZWdvcnlMaXN0EikKCkNhdGVnb3JpZXMY",
+            "ASADKAsyFS5WZWhpY2xlRGF0YS5DYXRlZ29yeSJJChRDYXRlZ29yeVJlc3Bv",
+            "bnNlTGlzdBIxCgpDYXRlZ29yaWVzGAEgAygLMh0uVmVoaWNsZURhdGEuQ2F0",
+            "ZWdvcnlSZXNwb25zZUIhqgIeVmVoaWNsZURhdGEuU2VydmljZS5Qcm90b0Ns",
+            "YXNzYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::VehicleData.Service.ProtoClass.ItemReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::VehicleData.Service.ProtoClass.Category), global::VehicleData.Service.ProtoClass.Category.Parser, new[]{ "Id", "Name", "Level", "NodeCode", "IsActive", "UpdatedOn", "UpdatedBy", "ApplicationId", "PriorityOrder", "Items" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::VehicleData.Service.ProtoClass.Category), global::VehicleData.Service.ProtoClass.Category.Parser, new[]{ "Id", "Name", "Level", "NodeCode", "IsActive", "UpdatedOn", "UpdatedBy", "ApplicationId", "PriorityOrder", "Items", "Icon" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::VehicleData.Service.ProtoClass.CategoryRequest), global::VehicleData.Service.ProtoClass.CategoryRequest.Parser, new[]{ "Id", "ApplicationId" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::VehicleData.Service.ProtoClass.CategoryResponse), global::VehicleData.Service.ProtoClass.CategoryResponse.Parser, new[]{ "Id", "IsDataAvailable" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::VehicleData.Service.ProtoClass.CategoryList), global::VehicleData.Service.ProtoClass.CategoryList.Parser, new[]{ "Categories" }, null, null, null),
@@ -82,6 +83,7 @@ namespace VehicleData.Service.ProtoClass {
       applicationId_ = other.applicationId_;
       priorityOrder_ = other.priorityOrder_;
       items_ = other.items_.Clone();
+      icon_ = other.icon_;
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -198,6 +200,17 @@ namespace VehicleData.Service.ProtoClass {
       get { return items_; }
     }
 
+    /// <summary>Field number for the "Icon" field.</summary>
+    public const int IconFieldNumber = 11;
+    private string icon_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public string Icon {
+      get { return icon_; }
+      set {
+        icon_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
       return Equals(other as Category);
@@ -221,6 +234,7 @@ namespace VehicleData.Service.ProtoClass {
       if (ApplicationId != other.ApplicationId) return false;
       if (PriorityOrder != other.PriorityOrder) return false;
       if(!items_.Equals(other.items_)) return false;
+      if (Icon != other.Icon) return false;
       return true;
     }
 
@@ -237,6 +251,7 @@ namespace VehicleData.Service.ProtoClass {
       if (ApplicationId != 0) hash ^= ApplicationId.GetHashCode();
       if (PriorityOrder != 0) hash ^= PriorityOrder.GetHashCode();
       hash ^= items_.GetHashCode();
+      if (Icon.Length != 0) hash ^= Icon.GetHashCode();
       return hash;
     }
 
@@ -284,6 +299,10 @@ namespace VehicleData.Service.ProtoClass {
         output.WriteInt32(PriorityOrder);
       }
       items_.WriteTo(output, _repeated_items_codec);
+      if (Icon.Length != 0) {
+        output.WriteRawTag(90);
+        output.WriteString(Icon);
+      }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -317,6 +336,9 @@ namespace VehicleData.Service.ProtoClass {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(PriorityOrder);
       }
       size += items_.CalculateSize(_repeated_items_codec);
+      if (Icon.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Icon);
+      }
       return size;
     }
 
@@ -353,6 +375,9 @@ namespace VehicleData.Service.ProtoClass {
         PriorityOrder = other.PriorityOrder;
       }
       items_.Add(other.items_);
+      if (other.Icon.Length != 0) {
+        Icon = other.Icon;
+      }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -401,6 +426,10 @@ namespace VehicleData.Service.ProtoClass {
           }
           case 82: {
             items_.AddEntriesFrom(input, _repeated_items_codec);
+            break;
+          }
+          case 90: {
+            Icon = input.ReadString();
             break;
           }
         }
