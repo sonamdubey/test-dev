@@ -32,6 +32,7 @@ namespace Bikewale.BAL.BikeBooking
                 container.RegisterType<ICacheManager, MemcacheManager>();
                 container.RegisterType<IPriceQuote, BAL.PriceQuote.PriceQuote>();
                 container.RegisterType<IPriceQuoteCache, PriceQuoteCache>();
+                container.RegisterType<Bikewale.Interfaces.AutoBiz.IDealerPriceQuote, Bikewale.DAL.AutoBiz.DealerPriceQuoteRepository>();
                 dealerPQRepository = container.Resolve<Bikewale.Interfaces.BikeBooking.IDealerPriceQuote>();
                 _pqCache = container.Resolve<IPriceQuoteCache>();
             }

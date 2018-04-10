@@ -49,9 +49,8 @@ namespace Bikewale.Common
                 }
                 catch (Exception ex)
                 {
-                    HttpContext.Current.Response.Cookies["DesktopDetected"].Value = "1";
-                    HttpContext.Current.Response.Cookies["DesktopDetected"].Expires = DateTime.Now.AddDays(1);
-                    ThreadContext.Properties["DeviceDetectionHandled"] = true;
+
+                    ThreadContext.Properties["UserAgent"] = HttpContext.Current.Request.ServerVariables["HTTP_USER_AGENT"];
                     _log.Error(ex);
                 }
             }
@@ -80,7 +79,7 @@ namespace Bikewale.Common
             IWURFLManager wurflManager;
             if (HttpContext.Current.Cache[WurflManagerCacheKey] == null)																//checked whether cahce already exists
             {
-                string WurflDataFilePath = HttpContext.Current.Server.MapPath("~/wurfl/wurfl.xml");
+                string WurflDataFilePath = HttpContext.Current.Server.MapPath("~/App_Data/wurfl-latest.zip");
                 string WurflPatchFilePath = HttpContext.Current.Server.MapPath("~/wurfl/web_browsers_patch.xml");
 
                 CacheDependency dependency = new CacheDependency(WurflDataFilePath);													//dependacy of the cache is on wurfl.xml
@@ -102,18 +101,18 @@ namespace Bikewale.Common
 
             string is_wireless_device = device.GetCapability("is_wireless_device");														//gets the capability of device
             //HttpContext.Current.Response.Write("<br/>is_wireless_device : " + is_wireless_device);
-            string ajax_support_javascript = device.GetCapability("ajax_support_javascript").ToString().Trim();
+            string uxFullDesktop = device.GetCapability("ux_full_desktop").ToString().Trim();
             //HttpContext.Current.Response.Write("<br/>ajax_support_javascript : " + ajax_support_javascript);
             string is_tablet = device.GetCapability("is_tablet").ToString().Trim();
             //HttpContext.Current.Response.Write("<br/>is_tablet : " + is_tablet);
 
-            if (is_wireless_device == "true" && ajax_support_javascript == "true" && is_tablet == "false")
+            if (is_wireless_device == "true" && uxFullDesktop == "false" && is_tablet == "false")
             {
                 //Redirect to mobile website
                 //Response.Write("<br/>Redirect to mobile website");
                 HttpContext.Current.Response.Redirect(_hostUrl + _mobilePageUrl);
             }
-            else if ((is_wireless_device == "false" && ajax_support_javascript == "true") || (is_wireless_device == "true" && ajax_support_javascript == "true" && is_tablet == "true"))
+            else if ((is_wireless_device == "false" && uxFullDesktop == "true") || (is_wireless_device == "true" && uxFullDesktop == "true" && is_tablet == "true"))
             {
                 //Stay on the desktop website
                 //HttpContext.Current.Response.Write("<br/>Stay on the desktop website as the device detected is desktop");

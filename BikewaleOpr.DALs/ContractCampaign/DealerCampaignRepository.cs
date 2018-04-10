@@ -379,7 +379,6 @@ namespace BikewaleOpr.DALs.ContractCampaign
             {
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
-                    connection.Open();
 
                     var param = new DynamicParameters();
 
@@ -393,8 +392,6 @@ namespace BikewaleOpr.DALs.ContractCampaign
                         objDealerCampaignArea.Areas = results.Read<CampaignAreas>();
                     }
 
-                        if (connection.State == ConnectionState.Open)
-                            connection.Close();
                 }
             }
             catch (Exception ex)
@@ -422,8 +419,7 @@ namespace BikewaleOpr.DALs.ContractCampaign
             {
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
-                    connection.Open();
-
+                    
                     var param = new DynamicParameters();
 
                     param.Add("par_dealerid", dealerId);
@@ -435,8 +431,6 @@ namespace BikewaleOpr.DALs.ContractCampaign
 
                     connection.Query("SaveDealerCampaignAreasMapping", param: param, commandType: CommandType.StoredProcedure);
 
-                    if (connection.State == ConnectionState.Open)
-                        connection.Close();
                 }
             }
             catch (Exception ex)
@@ -466,7 +460,6 @@ namespace BikewaleOpr.DALs.ContractCampaign
             {
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
-                    connection.Open();
 
                     var param = new DynamicParameters();
 
@@ -484,8 +477,6 @@ namespace BikewaleOpr.DALs.ContractCampaign
                         objDistances.Areas = results.Read<GeoLocationEntity>();
                     }
 
-                    if (connection.State == ConnectionState.Open)
-                        connection.Close();
                 }
             }
             catch (Exception ex)
@@ -513,7 +504,7 @@ namespace BikewaleOpr.DALs.ContractCampaign
             {
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
-                    connection.Open();
+
 
                     var param = new DynamicParameters();
 
@@ -527,8 +518,7 @@ namespace BikewaleOpr.DALs.ContractCampaign
                         objDistances.Areas = results.Read<GeoLocationEntity>();
                     }
 
-                    if (connection.State == ConnectionState.Open)
-                        connection.Close();
+
                 }
             }
             catch (Exception ex)
@@ -555,17 +545,12 @@ namespace BikewaleOpr.DALs.ContractCampaign
             {
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
-                    connection.Open();
-
                     var param = new DynamicParameters();
 
                     param.Add("par_dealerid", dealerId);
                     param.Add("par_arealist", areasList);
 
                     connection.Query("SaveAdditionalAreasMapping", param: param, commandType: CommandType.StoredProcedure);
-
-                    if (connection.State == ConnectionState.Open)
-                        connection.Close();
                 }
             }
             catch (Exception ex)
@@ -589,17 +574,12 @@ namespace BikewaleOpr.DALs.ContractCampaign
             {
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
-                    connection.Open();
-
                     var param = new DynamicParameters();
 
                     param.Add("par_dealerId", dealerId);
                     param.Add("par_areaIds", areadIdList);
 
                     connection.Query("deleteAdditionalMappedAreas", param: param, commandType: CommandType.StoredProcedure);
-
-                    if (connection.State == ConnectionState.Open)
-                        connection.Close();
                 }
             }
             catch (Exception ex)

@@ -307,7 +307,6 @@ namespace BikewaleOpr.DALs.Bikedata
             {
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
-                    connection.Open();
 
                     var param = new DynamicParameters();
 
@@ -316,8 +315,6 @@ namespace BikewaleOpr.DALs.Bikedata
 
                     objModels = connection.Query<BikeModelEntityBase>("getbikemodels_new_1704442017", param: param, commandType: CommandType.StoredProcedure);
 
-                    if (connection.State == ConnectionState.Open)
-                        connection.Close();
                 }
             }
             catch (Exception ex)
@@ -429,7 +426,6 @@ namespace BikewaleOpr.DALs.Bikedata
             {
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
-                    connection.Open();
 
                     objBikeDataList = connection.Query<BikeModelEntityBase, BikeMakeEntityBase, BikeMakeModelData>
                         (
@@ -445,10 +441,6 @@ namespace BikewaleOpr.DALs.Bikedata
                             }, splitOn: "MakeId", commandType: CommandType.StoredProcedure
                         );
 
-                    if (connection != null && connection.State == ConnectionState.Open)
-                    {
-                        connection.Close();
-                    }
                 }
             }
             catch (Exception ex)
@@ -504,12 +496,8 @@ namespace BikewaleOpr.DALs.Bikedata
                     param.Add("par_modelid", modelId);
                     param.Add("par_requesttype", requestType);
                     param.Add("par_cityid", 0);
-                    connection.Open();
+
                     objBikeVersionEntityBaseList = connection.Query<BikeVersionEntityBase>("getbikeversions_new", param: param, commandType: CommandType.StoredProcedure);
-                    if (connection != null && connection.State == ConnectionState.Open)
-                    {
-                        connection.Close();
-                    }
                 }
             }
             catch (Exception ex)
@@ -610,7 +598,6 @@ namespace BikewaleOpr.DALs.Bikedata
 				{
 					var param = new DynamicParameters();
 					param.Add("par_modelsList", modelsList);
-
 					connection.Execute("savemodelpageviews", param: param, commandType: CommandType.StoredProcedure);
 					isSuccess = true;
 				}

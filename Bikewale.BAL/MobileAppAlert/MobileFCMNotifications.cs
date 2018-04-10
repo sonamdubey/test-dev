@@ -146,12 +146,10 @@ namespace Bikewale.BAL.MobileAppAlert
         /// <returns></returns>
         private SubscriptionResponse SubscribeFCMNotification(string action, string payload, int retries)
         {
-            SubscriptionResponse subsResponse = null;
             try
             {
                 if (_maxRetries > retries)
                 {
-                    subsResponse = new SubscriptionResponse();
 
                     WebRequest tRequest = WebRequest.Create(action);
                     tRequest.Method = "POST";
@@ -161,7 +159,7 @@ namespace Bikewale.BAL.MobileAppAlert
                     Byte[] byteArray = Encoding.UTF8.GetBytes(payload);
 
                     tRequest.ContentLength = byteArray.Length;
-
+                    String sResponseFromServer = string.Empty;
                     using (Stream dataStream = tRequest.GetRequestStream())
                     {
                         dataStream.Write(byteArray, 0, byteArray.Length);
@@ -169,23 +167,28 @@ namespace Bikewale.BAL.MobileAppAlert
                         using (HttpWebResponse tResponse = (HttpWebResponse)tRequest.GetResponse())
                         {
 
-                            Stream dataStreamResponse = tResponse.GetResponseStream();
-                            using (StreamReader tReader = new StreamReader(dataStreamResponse))
+                            using (Stream dataStreamResponse = tResponse.GetResponseStream())
                             {
+                                using (StreamReader tReader = new StreamReader(dataStreamResponse))
+                                {
 
-                                if (tResponse.StatusCode.Equals(HttpStatusCode.OK) && subsResponse.Results == null)
-                                {
-                                    String sResponseFromServer = tReader.ReadToEnd();
-                                    subsResponse = JsonConvert.DeserializeObject<SubscriptionResponse>(sResponseFromServer);
-                                }
-                                else if (tResponse.StatusCode.Equals(HttpStatusCode.ServiceUnavailable))
-                                {
-                                    System.Threading.Thread.Sleep(TimeSpan.FromSeconds(30)); //hard coded 30 seconds | should be exponential backoff
-                                    return SubscribeFCMNotification(action, payload, retries + 1);
-                                }
+                                    if (tResponse.StatusCode.Equals(HttpStatusCode.OK))
+                                    {
+                                        sResponseFromServer = tReader.ReadToEnd();                                        
+                                    }
+                                    else if (tResponse.StatusCode.Equals(HttpStatusCode.ServiceUnavailable))
+                                    {
+                                        System.Threading.Thread.Sleep(TimeSpan.FromSeconds(5)); //hard coded 30 seconds | should be exponential backoff
+                                        //Prasad: Changed the value to 5 seconds
+                                        return SubscribeFCMNotification(action, payload, retries + 1);
+                                    }
+                                } 
                             }
                         }
                     }
+                    //moved the task out of stream
+                    if(!string.IsNullOrEmpty(sResponseFromServer))
+                        return JsonConvert.DeserializeObject<SubscriptionResponse>(sResponseFromServer);
                 }
             }
             catch (Exception ex)
@@ -193,7 +196,7 @@ namespace Bikewale.BAL.MobileAppAlert
                 ErrorClass.LogError(ex, string.Format("{0} - Bikewale.BAL.MobileAppAlert.SubscribeFCMNotification, action : {1}, payload : {2}, retries : {3}", HttpContext.Current.Request.ServerVariables["URL"], action, payload, retries));
             }
 
-            return subsResponse;
+            return null;
         }
 
         /// <summary>
@@ -231,17 +234,19 @@ namespace Bikewale.BAL.MobileAppAlert
                     {
                         if (tResponse.StatusCode.Equals(HttpStatusCode.OK))
                         {
-                            Stream dataStreamResponse = tResponse.GetResponseStream();
-
-                            using (StreamReader tReader = new StreamReader(dataStreamResponse))
+                            using (Stream dataStreamResponse = tResponse.GetResponseStream())
                             {
-                                String sResponseFromServer = tReader.ReadToEnd();
-                                var result = JsonConvert.DeserializeObject<NotificationResponse>(sResponseFromServer);
-                                if (result != null && string.IsNullOrEmpty(result.Error))
+
+                                using (StreamReader tReader = new StreamReader(dataStreamResponse))
                                 {
-                                    isSuccess = true;
-                                }
-                                _appAlertRepo.CompleteNotificationProcess(payload, result);
+                                    String sResponseFromServer = tReader.ReadToEnd();
+                                    var result = JsonConvert.DeserializeObject<NotificationResponse>(sResponseFromServer);
+                                    if (result != null && string.IsNullOrEmpty(result.Error))
+                                    {
+                                        isSuccess = true;
+                                    }
+                                    _appAlertRepo.CompleteNotificationProcess(payload, result);
+                                } 
                             }
                         }
                     }

@@ -313,7 +313,7 @@
 			background: url('https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/new-flag.png') no-repeat;
 			display: inline-block;
 			position: relative;
-			top: 5px;
+			top: 2px;
 			margin-left: 5px;
 		}
 
@@ -447,10 +447,13 @@
 
     }
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css' />
-
+   
+    
 
 </head>
 <body>
+    <amp-pixel src="https://www.facebook.com/tr?id=904915516356416&ev=PageView&noscript=1"
+               layout="nodisplay"></amp-pixel>
     <amp-sidebar id="nav" layout="nodisplay" side="left">
         <ul class="navUL padding-top10">
             <li>
@@ -545,9 +548,10 @@
             </li>
             <li>
                 <h2>
-                    <a href="https://www.bikewale.com/m/trackday2016/" target="_top">
+                    <a href="https://www.bikewale.com/featured/trackday-2018/" target="_top" class ="track-day-nav-ga">
                         <span class="bwmsprite track-day"></span>
-                        <span class="vertical-middle">Track Day 2016</span>
+                        <span class="vertical-middle">Track Day 2018</span>
+						<span class="new-flag"></span>
                     </a>
                 </h2>
             </li>
@@ -566,12 +570,13 @@
             },
             "triggers": {
             "trackEvent": {
-            "selector": ".auto-expo-nav-ga",
+            "selector": ".track-day-nav-ga",
             "on": "click",
             "request": "event",
             "vars": {
             "eventCategory": "@(Model.Page)_AMP",
-            "eventAction": "AutoExpo_2018_Link Clicked"
+            "eventAction": "Hamburger_Menu_Item_Click",
+            "eventLabel":"Track Day 2018"
             }
             }
             }

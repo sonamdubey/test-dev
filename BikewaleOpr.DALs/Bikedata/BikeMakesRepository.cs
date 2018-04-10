@@ -75,12 +75,7 @@ namespace BikewaleOpr.DALs.Bikedata
             {
                 using (IDbConnection connection = DatabaseHelper.GetReadonlyConnection())
                 {
-                    connection.Open();
-
                     objMakes = connection.Query<BikeMakeEntity>("GetMakesList", CommandType.StoredProcedure);
-
-                    if (connection.State == ConnectionState.Open)
-                        connection.Close();
                 }
             }
             catch (Exception ex)
@@ -106,15 +101,11 @@ namespace BikewaleOpr.DALs.Bikedata
             {
                 using (IDbConnection connection = DatabaseHelper.GetReadonlyConnection())
                 {
-                    connection.Open();
 
                     var param = new DynamicParameters();
                     param.Add("par_makeId", makeId);
 
                     objMakeFooterData = connection.Query<MakeFooterCategory>("getmakefootercategorydata", param: param, commandType: CommandType.StoredProcedure);
-
-                    if (connection.State == ConnectionState.Open)
-                        connection.Close();
                 }
             }
             catch (Exception ex)
@@ -138,8 +129,6 @@ namespace BikewaleOpr.DALs.Bikedata
             {
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
-                    connection.Open();
-
                     var param = new DynamicParameters();
 
                     param.Add("par_makeid", makeId);
@@ -149,8 +138,6 @@ namespace BikewaleOpr.DALs.Bikedata
 
                     connection.Query("savemakefootercategories", param: param, commandType: CommandType.StoredProcedure);
 
-                    if (connection.State == ConnectionState.Open)
-                        connection.Close();
                 }
             }
             catch (Exception ex)
@@ -171,7 +158,6 @@ namespace BikewaleOpr.DALs.Bikedata
             {
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
-                    connection.Open();
 
                     var param = new DynamicParameters();
 
@@ -179,9 +165,6 @@ namespace BikewaleOpr.DALs.Bikedata
                     param.Add("par_userid", userId);
 
                     connection.Query("disableallmakefootercategoriesformake", param: param, commandType: CommandType.StoredProcedure);
-
-                    if (connection.State == ConnectionState.Open)
-                        connection.Close();
                 }
             }
             catch (Exception ex)
@@ -202,8 +185,6 @@ namespace BikewaleOpr.DALs.Bikedata
             {
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
-                    connection.Open();
-
                     var param = new DynamicParameters();
 
                     param.Add("par_make", make.MakeName);
@@ -216,9 +197,6 @@ namespace BikewaleOpr.DALs.Bikedata
 
                     isMakeExist = param.Get<short>("par_ismakeexist");
                     makeId = param.Get<int>("par_makeid");
-
-                    if (connection.State == ConnectionState.Open)
-                        connection.Close();
 
                     if (makeId > 0)
                     {
@@ -251,7 +229,6 @@ namespace BikewaleOpr.DALs.Bikedata
             {
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
-                    connection.Open();
 
                     var param = new DynamicParameters();
 
@@ -264,9 +241,6 @@ namespace BikewaleOpr.DALs.Bikedata
                     param.Add("par_userid", make.UpdatedBy);
 
                     connection.Query("updatebikemake", param: param, commandType: CommandType.StoredProcedure);
-
-                    if (connection.State == ConnectionState.Open)
-                        connection.Close();
 
                     // Push the data to carwale DB
                     // Create name value collection
@@ -300,7 +274,6 @@ namespace BikewaleOpr.DALs.Bikedata
             {
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
-                    connection.Open();
 
                     var param = new DynamicParameters();
 
@@ -308,9 +281,6 @@ namespace BikewaleOpr.DALs.Bikedata
                     param.Add("par_updatedby", updatedBy);
 
                     connection.Query("updatemodelversionisdeleted", param: param, commandType: CommandType.StoredProcedure);
-
-                    if (connection.State == ConnectionState.Open)
-                        connection.Close();
 
                     NameValueCollection nvc = new NameValueCollection();
                     nvc.Add("v_MakeId", makeId.ToString());
@@ -346,7 +316,6 @@ namespace BikewaleOpr.DALs.Bikedata
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
                     objSynopsis = new SynopsisData();
-                    connection.Open();
 
                     var param = new DynamicParameters();
 
@@ -356,9 +325,6 @@ namespace BikewaleOpr.DALs.Bikedata
 
                     objSynopsis.BikeDescription = ReferenceEquals(null, temp) ? string.Empty : temp.description;
                     objSynopsis.ScooterDescription = ReferenceEquals(null, temp) ? string.Empty : temp.scooterdescription;
-
-                    if (connection.State == ConnectionState.Open)
-                        connection.Close();
                 }
             }
             catch (Exception ex)
@@ -384,8 +350,6 @@ namespace BikewaleOpr.DALs.Bikedata
             {
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
-                    connection.Open();
-
                     var param = new DynamicParameters();
 
                     param.Add("par_makeid", makeId);
@@ -397,9 +361,6 @@ namespace BikewaleOpr.DALs.Bikedata
                     }
 
                     connection.Query("managemakesynopsis_10032017", param: param, commandType: CommandType.StoredProcedure);
-
-                    if (connection.State == ConnectionState.Open)
-                        connection.Close();
                 }
             }
             catch (Exception ex)
@@ -422,16 +383,11 @@ namespace BikewaleOpr.DALs.Bikedata
             {
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
-                    connection.Open();
-
                     var param = new DynamicParameters();
 
                     param.Add("par_requesttype", requestType);
 
                     objMakes = connection.Query<BikeMakeEntityBase>("getbikemakes_11082017", param: param, commandType: CommandType.StoredProcedure);
-
-                    if (connection.State == ConnectionState.Open)
-                        connection.Close();
                 }
             }
             catch (Exception ex)
@@ -461,13 +417,10 @@ namespace BikewaleOpr.DALs.Bikedata
                     var param = new DynamicParameters();
                     param.Add("par_makeid", makeId);
                     param.Add("par_requesttype", requestType.ToString());
-                    connection.Open();
+
                     objBikeModelEntityBaseList = connection.Query<BikeModelEntityBase>
                         ("getbikemodels_new_07082017", param: param, commandType: CommandType.StoredProcedure);
-                    if (connection != null && connection.State == ConnectionState.Open)
-                    {
-                        connection.Close();
-                    }
+
                 }
             }
             catch (Exception ex)

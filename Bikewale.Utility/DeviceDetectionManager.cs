@@ -34,21 +34,21 @@ namespace Bikewale.Utility
 
                 //gets the capability of device        
                 bool boolIsWirelessDevice = device.GetCapability("is_wireless_device").Equals("true");
-                bool boolIsAjaxSupportJavascript = device.GetCapability("ajax_support_javascript").Trim().Equals("true");
+                bool boolIsUXFullDesktop = device.GetCapability("ux_full_desktop").Trim().Equals("false");
                 bool boolIsTablet = device.GetCapability("is_tablet").Trim().Equals("true");
 
-                if (boolIsWirelessDevice && boolIsAjaxSupportJavascript && !boolIsTablet)
+                if (boolIsWirelessDevice && boolIsUXFullDesktop && !boolIsTablet)
                 {
                     _redirectToMobile = true; //Redirect to mobile website
                 }
-                else if ((!boolIsWirelessDevice && boolIsAjaxSupportJavascript) || (boolIsWirelessDevice && boolIsAjaxSupportJavascript && boolIsTablet))
+                else if ((!boolIsWirelessDevice && boolIsUXFullDesktop) || (boolIsWirelessDevice && boolIsUXFullDesktop && boolIsTablet))
                 {
                     StayOnDesktopSite(httpContextBase);
                 }
             }
             catch (Exception)
             {
-                StayOnDesktopSite(httpContextBase);
+                throw;
             }
 
             return _redirectToMobile;

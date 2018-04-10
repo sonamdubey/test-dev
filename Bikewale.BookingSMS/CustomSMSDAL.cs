@@ -35,47 +35,7 @@ namespace Bikewale.BookingSMS
         {
 
             throw new Exception(" InsertSMS(string number, string message, EnumSMSServiceType smsType, string retMsg, bool status) Method is NotImplemented ");
-
-            //SqlConnection connection = null;
-            //SqlCommand command = null;
-            //string currentId = string.Empty;
-            //try
-            //{
-            //    using (connection = new SqlConnection(this.connectionString))
-            //    {
-            //        using (command = new SqlCommand())
-            //        {
-            //            command.CommandType = CommandType.StoredProcedure;
-            //            command.CommandText = "InsertSMSSent";
-            //            command.Connection = connection;
-            //            command.Parameters.AddWithValue("@Number", number);
-            //            command.Parameters.AddWithValue("@Message", message);
-            //            command.Parameters.AddWithValue("@ServiceType", smsType);
-            //            command.Parameters.AddWithValue("@SMSSentDateTime", DateTime.Now);
-            //            command.Parameters.AddWithValue("@Successfull", status);
-            //            command.Parameters.AddWithValue("@ReturnedMsg", String.Empty);
-            //            command.Parameters.AddWithValue("@SMSPageUrl", String.Empty);
-            //            connection.Open();
-            //            currentId = Convert.ToString(command.ExecuteScalar());
-            //        }
-            //    }
-            //}
-            //catch (SqlException sqlEx)
-            //{
-            //    Logs.WriteErrorLog("SqlException in InsertSMS : " + sqlEx.Message);
-            //}
-            //catch (Exception ex)
-            //{
-            //    Logs.WriteErrorLog("Exception in InsertSMS : " + ex.Message);
-            //}
-            //finally
-            //{
-            //    if (connection != null && connection.State == ConnectionState.Open)
-            //    {
-            //        connection.Close();
-            //    }
-            //}
-            //return currentId;
+            
         }
 
         /// <summary>
@@ -85,64 +45,6 @@ namespace Bikewale.BookingSMS
         public IEnumerable<CustomSMSEntity> FetchSMSData()
         {
             throw new Exception("FetchSMSData() Method is NotImplemented ");
-//            SqlConnection connection = null;
-//            SqlCommand command = null;
-//            SqlDataReader objReader = null;
-//            CustomSMSEntity objEntity = null;
-//            List<CustomSMSEntity> lstSMS = null;
-//            try
-//            {
-//                using (connection = new SqlConnection(this.connectionString))
-//                {
-//                    using (command = new SqlCommand())
-//                    {
-//                        command.Connection = connection;
-//                        command.CommandText = "GetRecipientForOfferSMS";
-//                        command.CommandType = CommandType.StoredProcedure;
-//                        connection.Open();
-//                        objReader = command.ExecuteReader();
-//                        if (objReader != null && objReader.HasRows)
-//                        {
-//                            lstSMS = new List<CustomSMSEntity>();
-//                            while (objReader.Read())
-//                            {
-//                                objEntity = new CustomSMSEntity();
-//                                objEntity.BikeName = Convert.ToString(objReader["Bike"]);
-//                                objEntity.CustomerContact = Convert.ToString(objReader["CustomerMobile"]);
-//                                objEntity.DealerContact = Convert.ToString(objReader["DealerMobileNo"]);
-//                                objEntity.DealerName = Convert.ToString(objReader["Organization"]);
-//                                lstSMS.Add(objEntity);
-//                            }
-//                            Logs.WriteInfoLog(String.Format("Total Records fetched : {0}", lstSMS.Count));
-//                        }
-//                        else
-//                        {
-//                            Logs.WriteInfoLog("No Records fetched");
-//#if DEBUG
-//                            //This is executed ONLY Debug VS Profile is selected
-//                            lstSMS = new List<CustomSMSEntity>();
-//                            lstSMS.Add(new CustomSMSEntity() { BikeName = "Test Bike", DealerName = "Test Dealer", DealerContact = "9028300490", CustomerContact = "9028300490" });
-//#endif
-//                        }
-//                    }
-//                }
-//            }
-//            catch (SqlException sqlEx)
-//            {
-//                Logs.WriteErrorLog("SqlException in FetchSMSData : " + sqlEx.Message);
-//            }
-//            catch (Exception ex)
-//            {
-//                Logs.WriteErrorLog("Exception in FetchSMSData : " + ex.Message);
-//            }
-//            finally
-//            {
-//                if (connection != null && connection.State == ConnectionState.Open)
-//                {
-//                    connection.Close();
-//                }
-//            }
-//            return lstSMS;
         }
     }
 }

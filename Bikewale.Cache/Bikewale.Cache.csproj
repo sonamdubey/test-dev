@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Bikewale.Cache</RootNamespace>
     <AssemblyName>Bikewale.Cache</AssemblyName>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -98,12 +98,21 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\Enyim.Caching.dll</HintPath>
     </Reference>
-    <Reference Include="MySqlDatabaseLibrary">
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="MySqlDatabaseLibrary, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\MySqlDatabaseDLL\MySqlDatabaseLibrary.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\mvc 5\mvc 5.2.3\System.Web.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -163,6 +172,10 @@
     <ProjectReference Include="..\Bikewale.Interfaces\Bikewale.Interfaces.csproj">
       <Project>{12b0edcd-aa9e-41bb-bdc9-cef75952fd49}</Project>
       <Name>Bikewale.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bikewale.ManufacturerCampaign.Entities\Bikewale.ManufacturerCampaign.Entities.csproj">
+      <Project>{ea73dda4-317e-4b79-bb03-f48125c2501b}</Project>
+      <Name>Bikewale.ManufacturerCampaign.Entities</Name>
     </ProjectReference>
     <ProjectReference Include="..\Bikewale.Notifications\Bikewale.Notifications.csproj">
       <Project>{db695e13-ed0e-4349-a32e-a6d03d06c597}</Project>

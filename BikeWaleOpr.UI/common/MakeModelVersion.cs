@@ -1,4 +1,7 @@
 ﻿
+using Bikewale.Utility;
+using Enyim.Caching;
+using MySql.CoreDAL;
 using System;
 using System.Collections.Specialized;
 using System.Configuration;
@@ -6,9 +9,6 @@ using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
 using System.Web;
-using Bikewale.Utility;
-using Enyim.Caching;
-using MySql.CoreDAL;
 
 /// <summary>
 /// Getting All details of make model and versions of the bikes
@@ -82,13 +82,13 @@ namespace BikeWaleOpr.Common
             {
                 HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
             return dt;
         }
@@ -126,13 +126,13 @@ namespace BikeWaleOpr.Common
             {
                 HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
             return dt;
         }
@@ -170,13 +170,13 @@ namespace BikeWaleOpr.Common
             {
                 HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
             return dt;
         }
@@ -218,7 +218,7 @@ namespace BikeWaleOpr.Common
             catch (Exception err)
             {
                 ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
 
             return Make;
@@ -272,12 +272,12 @@ namespace BikeWaleOpr.Common
             catch (SqlException err)
             {
                 ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
             catch (Exception err)
             {
                 ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
 
             return isSuccess;
@@ -316,7 +316,6 @@ namespace BikeWaleOpr.Common
                         nvc.Add("v_ModelMaskingName", maskingName);
                         nvc.Add("v_MakeId", null);
                         nvc.Add("v_ModelName", null);
-                        nvc.Add("v_ModelMaskingName", maskingName);
                         nvc.Add("v_HostUrl", null);
                         nvc.Add("v_OriginalImagePath", null);
                         nvc.Add("v_IsUsed", null);
@@ -341,12 +340,12 @@ namespace BikeWaleOpr.Common
             catch (SqlException err)
             {
                 ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
             catch (Exception err)
             {
                 ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
 
             return isSuccess;
@@ -373,12 +372,12 @@ namespace BikeWaleOpr.Common
             catch (SqlException err)
             {
                 ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
             catch (Exception err)
             {
                 ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
         }//End of DiscontinueBikeModel
 
@@ -406,13 +405,13 @@ namespace BikeWaleOpr.Common
             {
                 HttpContext.Current.Trace.Warn("ManageMakeSynopsis Sql Error : ", sqlEx.Message);
                 ErrorClass.LogError(sqlEx, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn("ManageMakeSynopsis Exception : ", ex.Message);
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
         }   // End of ManageMakeSynopsis
 
@@ -453,13 +452,13 @@ namespace BikeWaleOpr.Common
             {
                 HttpContext.Current.Trace.Warn("DeleteMakeModelVersion Sql Error : ", sqlEx.Message);
                 ErrorClass.LogError(sqlEx, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn("DeleteMakeModelVersion Exception : ", ex.Message);
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
         }
 
@@ -499,13 +498,13 @@ namespace BikeWaleOpr.Common
             {
                 HttpContext.Current.Trace.Warn("DeleteModelVersions Sql Error : ", sqlEx.Message);
                 ErrorClass.LogError(sqlEx, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn("DeleteModelVersions Exception : ", ex.Message);
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
         }
 
@@ -536,13 +535,13 @@ namespace BikeWaleOpr.Common
             {
                 HttpContext.Current.Trace.Warn("GetMakeSynopsis Sql Error : ", sqlEx.Message);
                 ErrorClass.LogError(sqlEx, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn("GetMakeSynopsis Exception : ", ex.Message);
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
         }   // End of GetMakeSynopsis
 

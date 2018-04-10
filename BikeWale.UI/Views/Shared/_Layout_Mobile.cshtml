@@ -69,6 +69,7 @@
     <script type="text/javascript">
         var ga_pg_id = '0', gaObj;
         var adSlot = {};
+        var FbPixelEvent = { pageView: 'PageView', viewContent: 'ViewContent' ,lead : 'Lead'};
     @if(Model.Page !=null)
     {
         <text>gaObj = {'id':@((int)Model.Page), 'name': '@Model.Page'};</text>
@@ -81,13 +82,6 @@
         j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
         '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
     })(window, document, 'script', 'dataLayer', 'GTM-5CSHD6');
-
-    setTimeout(function () {
-        var a = document.createElement("script");
-        var b = document.getElementsByTagName("script")[0];
-        a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0012/9477.js?" + Math.floor(new Date().getTime() / 3600000);
-        a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
-    }, 1);
 
     var googletag = googletag || {};
     googletag.cmd = googletag.cmd || [];
@@ -180,11 +174,13 @@
 
         googletag.cmd.push(function () {
 
-            googletag.pubads().disableInitialLoad();
-            googletag.pubads().setCentering(true);
-
             @if (Model.AdSlots != null)
+                
 	        {
+                <text>
+                    googletag.pubads().disableInitialLoad();
+                    googletag.pubads().setCentering(true);
+                </text>
                 foreach (KeyValuePair<string, Bikewale.Models.AdSlotModel> adentry in Model.AdSlots)
                 {
                     Bikewale.Models.AdSlotModel ad = adentry.Value;
@@ -253,6 +249,26 @@
             @(Html.Raw(Model.PageMetaTags.PageSchemaJSON))
         </script>
     }
+    <!-- Facebook Pixel Code -->
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window,document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('set', 'autoConfig', 'false', '904915516356416');
+    fbq('init', '904915516356416');
+    fbq('track', 'PageView');
+    </script>
+    <noscript>
+        <img height="1" width="1"
+             src="https://www.facebook.com/tr?id=904915516356416&ev=PageView
+    &noscript=1" />
+    </noscript>
+    <!-- End Facebook Pixel Code -->
 </head>
 <body class="@(@Model.IsTransparentHeader ? " page-type-landing " : "") bg-light-grey @(@Model.IsHeaderFix ? "header-fixed-inner" : "")" data-page-id="@((int)Model.Page)" data-page-name="@Model.Page">
     @if (Model.IsHeaderRequired)
@@ -425,9 +441,10 @@ else if (Model.AdTags.ShowInnovationBannerMobile)
                 </ul>
             </li>
             <li>
-                <a href="/m/trackday2016/">
+                <a href="/featured/trackday-2018/" class ="bw-ga" data-lab ="Track Day 2018" data-cat ="" data-act ="Hamburger_Menu_Item_Click">
                     <span class="bwmsprite track-day"></span>
-                    <span class="navbarTitle">Track Day 2016</span>
+                    <span class="navbarTitle">Track Day 2018</span>
+					<span class="new-flag"></span>
                 </a>
             </li>
             @** Render login control here *@
@@ -554,7 +571,10 @@ else if (Model.AdTags.ShowInnovationBannerMobile)
     </script>
     <script defer type="text/javascript" src="@String.Format("{0}/m/src/Plugins.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, Bikewale.Utility.BWConfiguration.Instance.StaticPluginFileVersion)"></script>
     <script defer type="text/javascript" src="@String.Format("{0}/m/src/common.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion)"></script>
+    @if (Model.AdSlots != null)
+    { 
     <script defer type="text/javascript" src="@String.Format("{0}/src/lazyloadad.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, Bikewale.Utility.BWConfiguration.Instance.StaticPluginFileVersion)"></script>
+    }
     @if (!String.IsNullOrEmpty(Model.Page_JS_Path))
     {
         <script defer type="text/javascript" src="@String.Format("{0}{1}?{2}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, Model.Page_JS_Path.Trim(),Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion)"></script>

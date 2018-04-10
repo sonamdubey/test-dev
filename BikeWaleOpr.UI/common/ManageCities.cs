@@ -102,72 +102,7 @@ namespace BikeWaleOpr.Common
         {
             throw new Exception("City GetCityDetails(string cityId) : Method not used/commented");
 
-            //Database db = null;
-            //City objCity = null;
-            //SqlConnection conn = null;
-            //try
-            //{
-            //    db = new Database();
-
-            //    objCity = new City();
-
-            //    using(conn = new SqlConnection(db.GetConString()))
-            //    {
-            //        using (SqlCommand cmd = new SqlCommand())
-            //        {
-
-            //            cmd.CommandType = CommandType.StoredProcedure;
-            //            cmd.CommandText = "GetCityDetails";
-            //            cmd.Connection = conn;
-
-            //            HttpContext.Current.Trace.Warn("CITYID : " + cityId);
-
-            //            cmd.Parameters.Add("@ID", SqlDbType.Int).Value = cityId;
-            //            cmd.Parameters.Add("@Name", SqlDbType.VarChar, 50).Direction = ParameterDirection.Output;
-            //            cmd.Parameters.Add("@MaskingName", SqlDbType.VarChar, 60).Direction = ParameterDirection.Output;
-            //            cmd.Parameters.Add("@Lattitude", SqlDbType.Float).Direction = ParameterDirection.Output;
-            //            cmd.Parameters.Add("@Longitude", SqlDbType.Float).Direction = ParameterDirection.Output;
-            //            cmd.Parameters.Add("@DefaultPinCode", SqlDbType.VarChar, 10).Direction = ParameterDirection.Output;
-            //            cmd.Parameters.Add("@StateId", SqlDbType.Int).Direction = ParameterDirection.Output;
-            //            cmd.Parameters.Add("@IsDeleted", SqlDbType.Bit).Direction = ParameterDirection.Output;
-            //            cmd.Parameters.Add("@StdCode", SqlDbType.Int).Direction = ParameterDirection.Output;
-
-            //            conn.Open();
-            //            cmd.ExecuteNonQuery();
-
-            //            HttpContext.Current.Trace.Warn("qry success");
-
-            //            objCity.CityName = cmd.Parameters["@Name"].Value.ToString();                  
-            //            objCity.MaskingName = cmd.Parameters["@MaskingName"].Value.ToString();
-            //            objCity.Lattitude = cmd.Parameters["@Lattitude"].Value.ToString();
-            //            objCity.Longitude = cmd.Parameters["@Longitude"].Value.ToString();
-            //            objCity.DefaultPinCode = cmd.Parameters["@DefaultPinCode"].Value.ToString();
-            //            objCity.StateId = cmd.Parameters["@StateId"].Value.ToString();
-            //            objCity.IsDeleted = Convert.ToBoolean(cmd.Parameters["@IsDeleted"].Value);
-            //            objCity.StdCode = cmd.Parameters["@StdCode"].Value.ToString();
-            //        }
-            //    }
-            //}
-            //catch (SqlException ex)
-            //{
-            //    HttpContext.Current.Trace.Warn("GetCityDetails sql ex : " + ex.Message + ex.Source);
-            //    ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-            //    
-            //}
-            //catch (Exception ex)
-            //{
-            //    HttpContext.Current.Trace.Warn("GetCityDetails ex : " + ex.Message + ex.Source);
-            //    ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-            //    
-            //}
-            //finally
-            //{
-            //    if (conn.State == ConnectionState.Open)
-            //    {
-            //        conn.Close();
-            //    }
-            //}
-            //return objCity;
+            
         }//End of GetCityDetails
 
         /// <summary>

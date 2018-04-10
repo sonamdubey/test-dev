@@ -85,8 +85,8 @@ namespace Bikewale.Utility
         private BWOprConfiguration()
         {
             // Initialize _data member here            
-            _ReadOnlyConnectionString = ConfigurationManager.AppSettings["ReadOnlyConnectionString"];
-            _MasterConnectionString = ConfigurationManager.AppSettings["MasterConnectionString"];
+            _ReadOnlyConnectionString = ConfigurationManager.ConnectionStrings["ReadOnlyConnectionString"].ConnectionString;
+            _MasterConnectionString = ConfigurationManager.ConnectionStrings["MasterConnectionString"].ConnectionString;
             _imgHostURL = ConfigurationManager.AppSettings["imgHostURL"];
             _RabbitImgHostURL = ConfigurationManager.AppSettings["RabbitImgHostURL"];
             _ImgPathFolder = ConfigurationManager.AppSettings["imgPathFolder"];

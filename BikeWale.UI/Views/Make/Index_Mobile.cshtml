@@ -2,7 +2,7 @@
 @using Bikewale.Entities.BikeData
 @{
 	Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
-	Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/bwm-brand.css' inline /> <link rel='stylesheet' type='text/css' href='/css/components/m-brand-logo.css' inline />";
+	Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/bwm-brand.css' inline /> <link rel='stylesheet' type='text/css' href='/css/components/m-brand-logo.css' inline /> <link rel='stylesheet' type='text/css' href='/sass/partials/bw-youtube.css' inline />";
     Model.Page_JS_Paths = new string[] { "/m/src/bwm-brand.js", "/src/review-popup.js" };
 }
 <section id="makeTabsContentWrapper">
@@ -291,7 +291,7 @@
                     <div id="makeVideosContent" class="bw-model-tabs-data margin-right20 margin-left20 padding-top15 padding-bottom20 border-solid-bottom font14">
                         <h2 class="text-bold">@Model.MakeName Videos</h2>
 
-                        @Html.Partial("~/Views/Videos/_RecentVideos_v1_Mobile.cshtml", Model.Videos)
+                        @Html.Partial("~/Views/Videos/_LazyLoadVideos.cshtml", Model.Videos)
 
                         <div class="margin-top10">
 							<a title="@Model.Videos.LinkTitle" href="@string.Format("/m{0}",Model.Videos.MoreVideoUrl)" class="btn view-all-target-btn">
@@ -388,6 +388,10 @@
         },
         value: suggestionText
     };
-
+    docReady(function () {
+        if (FbPixelEvent) {
+            fbq('track', FbPixelEvent.viewContent);
+        }
+    });
 </script>
 

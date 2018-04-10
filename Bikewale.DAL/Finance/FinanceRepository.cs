@@ -22,7 +22,6 @@ namespace Bikewale.DAL.Finance.CapitalFirst
             {
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
-                    connection.Open();
                     var param = new DynamicParameters();
                     param.Add("par_id", objDetails.Id, DbType.Int32, ParameterDirection.InputOutput);
                     param.Add("par_leadid", objDetails.LeadId);
@@ -76,7 +75,6 @@ namespace Bikewale.DAL.Finance.CapitalFirst
                     var param = new DynamicParameters();
                     param.Add("par_leadId", leadId, dbType: DbType.Int32);
                     param.Add("par_isvalid", dbType: DbType.Int16, direction: ParameterDirection.Output);
-                    conn.Open();
                     conn.Execute("isvalidcapitalfirstlead", param: param, commandType: CommandType.StoredProcedure);
                     isValid = SqlReaderConvertor.ToBoolean(param.Get<Int16>("par_isvalid"));
                 }
@@ -102,7 +100,6 @@ namespace Bikewale.DAL.Finance.CapitalFirst
                     param.Add("par_agentName", voucherDetails.AgentName, dbType: DbType.String);
                     param.Add("par_agentNumber", voucherDetails.AgentContactNumber, dbType: DbType.String);
                     param.Add("par_leadStatus", (int)voucherDetails.Status, dbType: DbType.Int32);
-                    conn.Open();
                     conn.Execute("savecapitalfirstvoucherdetails", param: param, commandType: CommandType.StoredProcedure);
                     isSaved = true;
                 }
@@ -166,7 +163,6 @@ namespace Bikewale.DAL.Finance.CapitalFirst
                     param.Add("par_ctleadid", ctleadid, dbType: DbType.Int32);
                     param.Add("par_status", status);
                     param.Add("par_apiresponse", responseText, dbType: DbType.String);
-                    conn.Open();
                     conn.Execute("updatecapitalfirstleadresponse", param: param, commandType: CommandType.StoredProcedure);
                     isSaved = true;
                 }

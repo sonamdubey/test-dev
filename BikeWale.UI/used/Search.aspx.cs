@@ -176,7 +176,10 @@ namespace Bikewale.Used
                 objCity = objUsedBikesPage.SelectedCity;
                 objMake = objUsedBikesPage.SelectedMake;
                 makeModelsList = objUsedBikesPage.MakeModels;
-                usedBikesList = objUsedBikesPage.UsedBikes.Result;
+                if (objUsedBikesPage.UsedBikes != null)
+                {
+                    usedBikesList = objUsedBikesPage.UsedBikes.Result;
+                }
                 currentQueryString = objUsedBikesPage.CurrentQS;
                 makeMaskingName = objUsedBikesPage.makeMaskingName;
                 modelMaskingName = objUsedBikesPage.modelMaskingName;

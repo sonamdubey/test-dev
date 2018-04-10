@@ -185,7 +185,8 @@ namespace Bikewale
             container.RegisterType<IBikeSearchCacheRepository, BikeSearchCacheRepository>();
             container.RegisterType<IPageFilters, PageFilters>();
             container.RegisterType<IPQByCityArea, PQByCityArea>();
-			container.RegisterType<IApiGatewayCaller, ApiGatewayCaller>();
+            container.RegisterType<Bikewale.Interfaces.AutoBiz.IDealerPriceQuote, Bikewale.DAL.AutoBiz.DealerPriceQuoteRepository>();
+	    container.RegisterType<IApiGatewayCaller, ApiGatewayCaller>();
 
 			DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }

@@ -8,6 +8,7 @@ using Bikewale.ManufacturerCampaign.Interface;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.Model;
 using Bikewale.Service.Utilities;
+using log4net;
 using Microsoft.Practices.Unity;
 using System;
 using System.Linq;
@@ -30,15 +31,23 @@ namespace Bikewale.Service.Controllers.Model
         private readonly IUserReviews _userReviews = null;
         private readonly IManufacturerCampaign _objManufacturerCampaign = null;
         private readonly IPQByCityArea _objPQByCityArea = null;
+        private readonly IPriceQuoteCache _objPqCache = null;
+        private static readonly ILog _logger = LogManager.GetLogger(typeof(ModelPageController));
+
         /// <summary>
-        /// 
+        /// Modified by :   Sumit Kate on 29 Mar 2018
+        /// Description :   Added Price Quote cache layer interface
         /// </summary>
+        /// <param name="objManufacturerCampaign"></param>
         /// <param name="modelRepository"></param>
         /// <param name="cache"></param>
         /// <param name="dealers"></param>
         /// <param name="modelBL"></param>
         /// <param name="userReviews"></param>
-        public ModelPageController(IManufacturerCampaign objManufacturerCampaign, IBikeModelsRepository<Bikewale.Entities.BikeData.BikeModelEntity, int> modelRepository, IBikeModelsCacheRepository<int> cache, IDealerPriceQuoteDetail dealers, IBikeModels<Bikewale.Entities.BikeData.BikeModelEntity, int> modelBL, IUserReviews userReviews, IPQByCityArea objPQByCityArea)
+        /// <param name="objPQByCityArea"></param>
+        /// <param name="objPqCache"></param>
+        public ModelPageController(IManufacturerCampaign objManufacturerCampaign, IBikeModelsRepository<Bikewale.Entities.BikeData.BikeModelEntity, int> modelRepository, IBikeModelsCacheRepository<int> cache, IDealerPriceQuoteDetail dealers, IBikeModels<Bikewale.Entities.BikeData.BikeModelEntity, int> modelBL, IUserReviews userReviews, IPQByCityArea objPQByCityArea,
+            IPriceQuoteCache objPqCache)
         {
 
             _dealers = dealers;
@@ -46,6 +55,7 @@ namespace Bikewale.Service.Controllers.Model
             _userReviews = userReviews;
             _objManufacturerCampaign = objManufacturerCampaign;
             _objPQByCityArea = objPQByCityArea;
+            _objPqCache = objPqCache;
 
         }
 
@@ -425,8 +435,14 @@ namespace Bikewale.Service.Controllers.Model
                 {
                     return BadRequest();
                 }
+
+
+
+
                 BikeModelPageEntity objModelPage = null;
                 objModelPage = _modelBL.GetModelPageDetails((int)modelId);
+
+
                 if (objModelPage != null)
                 {
                     if (Request.Headers.Contains("platformId"))
@@ -441,7 +457,6 @@ namespace Bikewale.Service.Controllers.Model
 
                         if (ushort.TryParse(Request.Headers.GetValues("platformId").First().ToString(), out platformId) && platformId == 3 && cityId.HasValue && cityId.Value > 0)
                         {
-
                             #region On road pricing for versions
                             if (cityId != null && cityId.Value > 0 && !objModelPage.ModelDetails.Futuristic)
                             {
@@ -456,28 +471,27 @@ namespace Bikewale.Service.Controllers.Model
                                 }
 
                                 if (pqEntity != null && pqEntity.IsExShowroomPrice)
-                                    objDTOModelPage = ModelMapper.ConvertV5(objModelPage, pqEntity, null, platformId);
+                                    objDTOModelPage = ModelMapper.ConvertV5(_objPqCache, objModelPage, pqEntity, null, platformId);
                                 else
 
-                                    objDTOModelPage = ModelMapper.ConvertV5(objModelPage, pqEntity,
+                                    objDTOModelPage = ModelMapper.ConvertV5(_objPqCache, objModelPage, pqEntity,
                                     pqEntity.DealerEntity, platformId);
 
                             }
                             else
                             {
-                                objDTOModelPage = ModelMapper.ConvertV5(objModelPage, pqEntity, null, platformId);
+                                objDTOModelPage = ModelMapper.ConvertV5(_objPqCache, objModelPage, pqEntity, null, platformId);
                             }
-
                             #endregion
                         }
                         else
                         {
-                            objDTOModelPage = ModelMapper.ConvertV5(objModelPage, pqEntity, null, platformId);
+                            objDTOModelPage = ModelMapper.ConvertV5(_objPqCache, objModelPage, pqEntity, null, platformId);
                         }
                     }
                     else
                     {
-                        objDTOModelPage = ModelMapper.ConvertV5(objModelPage, null, null);
+                        objDTOModelPage = ModelMapper.ConvertV5(_objPqCache, objModelPage, null, null);
                     }
 
 

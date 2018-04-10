@@ -233,3 +233,10 @@
 </section>
 @Html.Partial("~/Views/Make/_BrandCityPopup_Mobile.cshtml", Model.BrandCityPopupWidget)
 @{Html.RenderAction("ChangeLocation_Mobile", "Location", new { cityId = Model.CityDetails.CityId, cityName = Model.CityDetails.CityName });}
+<script>
+    docReady(function () {
+        if (FbPixelEvent) {
+            fbq('track', FbPixelEvent.viewContent);
+        }
+    });
+</script>
