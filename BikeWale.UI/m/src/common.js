@@ -1980,7 +1980,7 @@ docReady(function () {
             var log_source = new RegExp(["aeplcdn", "bikewale"].join('|'));
             try {
                 if (filename && filename.match(log_source)) {
-                    error.Message = err.message || message || "";
+                    error.Details = err.message || message || "";
                     error.SourceFile = err.fileName || filename || "";
                     error.ErrorType = err.name || "Uncatched Exception";
                     error.LineNo = lineno || "Unable to trace";
