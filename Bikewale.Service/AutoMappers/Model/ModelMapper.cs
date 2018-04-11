@@ -859,11 +859,11 @@ namespace Bikewale.Service.AutoMappers.Model
                         PopupHeading = leadCampaign.PopupHeading,
                         PopupSuccessMessage = leadCampaign.PopupSuccessMessage,
                         ShowOnExshowroom = leadCampaign.ShowOnExshowroom,
-                        VersionId = objModelPage.ModelVersionSpecs.BikeVersionId,
+                        VersionId = (uint)objModelPage.ModelVersionMinSpecs.VersionId,
                         PlatformId = platformId,
                         IsAmp = !isApp,
                         BikeName = string.Format("{0} {1}", modelDetails.MakeBase.MakeName, modelDetails.ModelName),
-                        LoanAmount = (uint)System.Convert.ToUInt32((pqEntity.VersionList.FirstOrDefault(m => m.VersionId == objModelPage.ModelVersionSpecs.BikeVersionId).Price) * 0.8)
+                        LoanAmount = (uint)System.Convert.ToUInt32((pqEntity.VersionList.FirstOrDefault(m => m.VersionId == objModelPage.ModelVersionMinSpecs.VersionId).Price) * 0.8)
                     };
 
                     if (LeadCampaign.DealerId == Bikewale.Utility.BWConfiguration.Instance.CapitalFirstDealerId)

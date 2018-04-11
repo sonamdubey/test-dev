@@ -1636,7 +1636,7 @@ namespace Bikewale.Models.BikeModels
                         }
 
                         // for new bike
-                        if (!modelPg.ModelDetails.Futuristic && modelPg.ModelVersionSpecs != null && _objData.SelectedVersion != null)
+                        if (!modelPg.ModelDetails.Futuristic && modelPg.ModelVersionMinSpecs != null && modelPg.ModelVersionMinSpecs.MinSpecsList != null && modelPg.ModelVersionMinSpecs.MinSpecsList.Any() && _objData.SelectedVersion != null)
                         {
                             // Check it versionId passed through url exists in current model's versions
                             _objData.VersionId = (uint)_objData.SelectedVersion.VersionId;

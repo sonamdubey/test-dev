@@ -98,6 +98,7 @@ namespace Bikewale.BAL.BikeData
                         {
                             genericBike.IsSpecsAvailable = true;
                         }
+                        }
                     }
                 }
             }

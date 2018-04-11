@@ -127,12 +127,12 @@ namespace Bikewale.Mobile
                             IsScooter = (modelPg.ModelVersions.FirstOrDefault().BodyStyle.Equals(EnumBikeBodyStyles.Scooter));
                             bikeName = string.Format("{0} {1}", makeName, modelName);
 
-                            if (!modelPg.ModelDetails.Futuristic && modelPg.ModelVersionSpecs != null)
+                            if (!modelPg.ModelDetails.Futuristic && modelPg.ModelVersionMinSpecs != null)
                             {
                                 // Check it versionId passed through url exists in current model's versions
                                 if (this.versionId == 0)
                                 {
-                                    this.versionId = modelPg.ModelVersionSpecs.BikeVersionId;
+                                    this.versionId = (uint)modelPg.ModelVersionMinSpecs.VersionId;
                                 }
                                 modelImage = Bikewale.Utility.Image.GetPathToShowImages(modelPg.ModelDetails.OriginalImagePath, modelPg.ModelDetails.HostUrl, Bikewale.Utility.ImageSize._272x153);
                                 var selectedVersion = modelPg.ModelVersions.FirstOrDefault(p => p.VersionId == this.versionId);

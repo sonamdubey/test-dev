@@ -37,13 +37,9 @@ namespace Bikewale.Models
                 objData = new BestBikeByCategoryVM();
 
                 objData.objBestScootersList = FetchBestBikesList(EnumBikeBodyStyles.Scooter);
-                BindMinSpecs(objData.objBestScootersList);
                 objData.objBestSportsBikeList = FetchBestBikesList(EnumBikeBodyStyles.Sports);
-                BindMinSpecs(objData.objBestSportsBikeList);
                 objData.objBestCruiserBikesList = FetchBestBikesList(EnumBikeBodyStyles.Cruiser);
-                BindMinSpecs(objData.objBestCruiserBikesList);
                 objData.objBestMileageBikesList = FetchBestBikesList(EnumBikeBodyStyles.Mileage);
-                BindMinSpecs(objData.objBestMileageBikesList);
             }
             catch (Exception ex)
             {
@@ -55,36 +51,30 @@ namespace Bikewale.Models
         /// <summary>
         /// Created By : Pratibha Verma on 27 Mar 2018
         /// Summary : Bind MinSpecs to Generic Bike List
+        /// Modified by : Ashutosh Sharma on 09 Apr 2017
         /// </summary>
-        private void BindMinSpecs(IEnumerable<BestBikeEntityBase> GenericBikeList)
+        private void BindMinSpecs(IEnumerable<BestBikeEntityBase> genericBikeList)
         {
             try
             {
-                if (GenericBikeList != null && GenericBikeList.Any())
+                if (genericBikeList != null && genericBikeList.Any())
                 {
-                    IEnumerable<VersionMinSpecsEntity> versionMinSpecsEntityList = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(GenericBikeList.Select(m => m.VersionId));
-                    if (versionMinSpecsEntityList != null)
+                    var specsList = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(genericBikeList.Select(m => m.VersionId));
+                    if (specsList != null)
                     {
-                        IEnumerator<VersionMinSpecsEntity> versionIterator = versionMinSpecsEntityList.GetEnumerator();
-                        VersionMinSpecsEntity objVersionMinSpec;
-                        foreach (var genericBike in GenericBikeList)
+                        var specsEnumerator = specsList.GetEnumerator();
+                        var bikesEnumerator = genericBikeList.GetEnumerator();
+                        while (bikesEnumerator.MoveNext() && specsEnumerator.MoveNext())
                         {
-                            if (versionIterator.MoveNext())
-                            {
-                                objVersionMinSpec = versionIterator.Current;
-                                genericBike.MinSpecsList = objVersionMinSpec != null ? objVersionMinSpec.MinSpecsList : null;
-                            }
+                            bikesEnumerator.Current.MinSpecsList = specsEnumerator.Current.MinSpecsList;
                         }
                     }
-                    
                 }
-
             }
             catch (Exception ex)
             {
-                ErrorClass.LogError(ex, string.Format("Bikewale.Models.BestBikeByBodyStyle.BindMinSpecs({0})", GenericBikeList));
+                ErrorClass.LogError(ex, string.Format("Bikewale.Models.BestBikeByBodyStyle.BindMinSpecs({0})", genericBikeList));
             }
-
         }
         /// <summary>
         /// Created By :- Subodh Jain 18 May 2017
@@ -107,9 +97,8 @@ namespace Bikewale.Models
                     {
                         objBikesList.First().CurrentPage = BodyStyleType;
                     }
+                    BindMinSpecs(objBikesList);
                 }
-
-
             }
             catch (Exception ex)
             {

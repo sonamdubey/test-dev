@@ -70,10 +70,10 @@ namespace Bikewale.Cache.DealersLocator
         public DealerBikesEntity GetDealerDetailsAndBikes(uint dealerId, uint campaignId)
         {
             DealerBikesEntity models = null;
-            string key = String.Format("BW_DealerBikeModel_v1_{0}", dealerId);
+            string key = String.Format("BW_DealerBikeModel_{0}", dealerId);
             try
             {
-                models = _cache.GetFromCache<DealerBikesEntity>(key, new TimeSpan(0, 30, 0), () => _objDealersRepository.GetDealerDetailsAndBikes(dealerId, campaignId));
+                models = _cache.GetFromCache(key, new TimeSpan(0, 30, 0), () => _objDealersRepository.GetDealerDetailsAndBikes(dealerId, campaignId));
             }
             catch (Exception ex)
             {
@@ -112,10 +112,10 @@ namespace Bikewale.Cache.DealersLocator
         public DealerBikeModelsEntity GetBikesByDealerAndMake(uint dealerId, uint makeId)
         {
             DealerBikeModelsEntity models = null;
-            string key = String.Format("BW_BikeModelsByDealer_{0}_{1}", dealerId, makeId);
+            string key = String.Format("BW_BikeModelsByDealer_V1_{0}_{1}", dealerId, makeId);
             try
             {
-                models = _cache.GetFromCache<DealerBikeModelsEntity>(key, new TimeSpan(1, 0, 0, 0), () => _objDealersRepository.GetBikesByDealerAndMake(dealerId, makeId));
+                models = _cache.GetFromCache(key, new TimeSpan(1, 0, 0, 0), () => _objDealersRepository.GetBikesByDealerAndMake(dealerId, makeId));
             }
             catch (Exception ex)
             {

@@ -179,13 +179,13 @@ namespace Bikewale.BAL.BikeData.NewLaunched
                         IEnumerable<VersionMinSpecsEntity> versionMinSpecs = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(newLaunchesList.Select(m => m.VersionId));
                         if (versionMinSpecs != null)
                         {
-                            var minSpecs = versionMinSpecs.GetEnumerator();
-                            foreach (var bike in newLaunchesList)
+                            var specsEnumerator = versionMinSpecs.GetEnumerator();
+                            var bikesEnumerator = newLaunchesList.GetEnumerator();
+                            while (bikesEnumerator.MoveNext() && specsEnumerator.MoveNext())
                             {
-                                if (minSpecs.MoveNext())
-                                {
-                                    bike.MinSpecsList = minSpecs.Current.MinSpecsList;
-                                }
+                                bikesEnumerator.Current.MinSpecsList = specsEnumerator.Current.MinSpecsList;
+                            }
+                        }
                             }
                         }
                     }

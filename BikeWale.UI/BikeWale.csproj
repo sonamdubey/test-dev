@@ -3380,6 +3380,8 @@
     <Content Include="Views\Make\_DealerServiceCentersWidget_Mobile.cshtml">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="Views\Model\_Index_MileageDetails.cshtml" />
+    <Content Include="Views\Model\_Index_MileageDetails_Mobile.cshtml" />
     <Content Include="Views\News\_RecentNews_v1.cshtml" />
     <Content Include="Views\Photos\_ModelsImageList.cshtml" />
     <Content Include="Views\Photos\_ModelsImageListBase_Mobile.cshtml">

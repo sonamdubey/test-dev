@@ -218,7 +218,7 @@ namespace BikeWaleOpr.Content
                     MemCachedUtility.Remove(string.Format("BW_MakeDetails_{0}", makeid));
 
                     //Refresh memcache object for popularBikes change
-                    MemCachedUtility.Remove(string.Format("BW_PopularBikesByMake_{0}", makeid));
+                    MemCachedUtility.Remove(string.Format("BW_PopularBikesByMake_V1_{0}", makeid));
 
                     //Refresh memcache object for BikeMake change
                     MemCachedUtility.Remove("BW_BikeMakes");

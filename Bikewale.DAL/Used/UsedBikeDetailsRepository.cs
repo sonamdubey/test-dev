@@ -27,6 +27,8 @@ namespace Bikewale.DAL.Used
         /// Description : Added AdStatus and CustomerId for sold bikes scenario
         /// Modified by :   Sumit Kate on 25 Oct 2016
         /// Description :   Changed the sp to read lastupdated value
+        /// Modified by : Ashutosh Sharma on 07 Apr 2018.
+        /// Description : Changed sp from 'classified_getprofiledetails_25102016' to 'classified_getprofiledetails_07042018' to remove specs features.
         /// </summary>
         /// <param name="inquiryId"></param>
         /// <returns></returns>
@@ -35,7 +37,7 @@ namespace Bikewale.DAL.Used
             ClassifiedInquiryDetails _objInquiryDetails = null;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("classified_getprofiledetails_25102016"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("classified_getprofiledetails_07042018"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
@@ -91,7 +93,6 @@ namespace Bikewale.DAL.Used
                             _objInquiryDetails.OtherDetails.RegisteredAt = Convert.ToString(dr["RegisteredAt"]);
                             _objInquiryDetails.OtherDetails.RegistrationNo = Convert.ToString(dr["RegistrationNo"]);
                             _objInquiryDetails.OtherDetails.Color = new VersionColor() { ColorName = Convert.ToString(dr["Color"]) };
-                           
                         }
 
                         if (dr.NextResult())

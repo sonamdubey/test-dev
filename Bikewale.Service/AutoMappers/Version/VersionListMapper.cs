@@ -43,16 +43,16 @@ namespace Bikewale.Service.AutoMappers.Version
         /// </summary>
         /// <param name="objMVSpecsList"></param>
         /// <returns></returns>
-        internal static List<VersionMinSpecs> Convert(List<BikeVersionMinSpecs> objMVSpecsList)
+        internal static IEnumerable<VersionMinSpecs> Convert(IEnumerable<BikeVersionMinSpecs> objMVSpecsList)
         {
             if (objMVSpecsList != null)
             {
-                IList<VersionMinSpecs> versionMinSpecsList = new List<VersionMinSpecs>();
+                ICollection<VersionMinSpecs> versionMinSpecsList = new List<VersionMinSpecs>();
                 foreach (BikeVersionMinSpecs bikeVersion in objMVSpecsList)
                 {
                     versionMinSpecsList.Add(SpecsFeaturesMapper.ConvertToVersionMinSpecs(bikeVersion));
                 }
-                return versionMinSpecsList.ToList();
+                return versionMinSpecsList;
             }
             return null;
         }

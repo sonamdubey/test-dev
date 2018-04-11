@@ -411,9 +411,9 @@ namespace Bikewale.Models.Videos
                 {
                     EnumBikeBodyStyles bodyStyle = EnumBikeBodyStyles.AllBikes;
 
-                    List<BikeVersionMinSpecs> objVersionsList = _objBikeVersionsCache.GetVersionMinSpecs(_modelId, false);
+                    IEnumerable<BikeVersionMinSpecs> objVersionsList = _objBikeVersionsCache.GetVersionMinSpecs(_modelId, false);
 
-                    if (objVersionsList != null && objVersionsList.Count > 0)
+                    if (objVersionsList != null && objVersionsList.Any())
                     {
                         bodyStyle = objVersionsList.FirstOrDefault().BodyStyle;
                     }

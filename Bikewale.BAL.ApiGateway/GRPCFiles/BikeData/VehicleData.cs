@@ -67,7 +67,11 @@ namespace VehicleData.Service.ProtoClass {
             "b3B5VmVoaWNsZURhdGFSZXF1ZXN0EhcKD1NvdXJjZVZlcnNpb25JZBgBIAEo",
             "BRIXCg9UYXJnZXRWZXJzaW9uSWQYAiABKAUSEgoKQ2F0ZWdvcnlJZBgDIAEo",
             "BRIVCg1BcHBsaWNhdGlvbklkGAQgASgFEhMKC1JlcXVlc3RlZEJ5GAUgASgF",
+<<<<<<< HEAD
+            "MtMTChJWZWhpY2xlRGF0YVNlcnZpY2USPwoOQ3JlYXRlQ2F0ZWdvcnkSFS5W",
+=======
             "MqoUChJWZWhpY2xlRGF0YVNlcnZpY2USPwoOQ3JlYXRlQ2F0ZWdvcnkSFS5W",
+>>>>>>> 0c796b8739268785892b9d7e5f7038f952dc7e97
             "ZWhpY2xlRGF0YS5DYXRlZ29yeRoULlZlaGljbGVEYXRhLkdycGNJbnQiABJA",
             "Cg5VcGRhdGVDYXRlZ29yeRIVLlZlaGljbGVEYXRhLkNhdGVnb3J5GhUuVmVo",
             "aWNsZURhdGEuR3JwY0Jvb2wiABJFCg5EZWxldGVDYXRlZ29yeRIaLlZlaGlj",
@@ -94,6 +98,38 @@ namespace VehicleData.Service.ProtoClass {
             "VAoYQ3VzdG9tRGF0YVR5cGVPcGVyYXRpb25zEh8uVmVoaWNsZURhdGEuQ3Vz",
             "dG9tRGF0YVR5cGVMaXN0GhUuVmVoaWNsZURhdGEuR3JwY0Jvb2wiABJaChxH",
             "ZXRBbGxDdXN0b21EYXRhVHlwZXNEZXRhaWxzEhcuVmVoaWNsZURhdGEuRW1w",
+<<<<<<< HEAD
+            "dHlQYXJhbRofLlZlaGljbGVEYXRhLkN1c3RvbURhdGFUeXBlTGlzdCIAEj8K",
+            "DkNyZWF0ZURhdGFUeXBlEhUuVmVoaWNsZURhdGEuRGF0YVR5cGUaFC5WZWhp",
+            "Y2xlRGF0YS5HcnBjSW50IgASQQoPVXBkYXRlZERhdGFUeXBlEhUuVmVoaWNs",
+            "ZURhdGEuRGF0YVR5cGUaFS5WZWhpY2xlRGF0YS5HcnBjQm9vbCIAEj8KDkRl",
+            "bGV0ZURhdGFUeXBlEhQuVmVoaWNsZURhdGEuR3JwY0ludBoVLlZlaGljbGVE",
+            "YXRhLkdycGNCb29sIgASRwoWR2V0RGF0YVR5cGVEZXRhaWxzQnlJZBIULlZl",
+            "aGljbGVEYXRhLkdycGNJbnQaFS5WZWhpY2xlRGF0YS5EYXRhVHlwZSIAEk0K",
+            "FUdldEFsbERhdGFUeXBlRGV0YWlscxIXLlZlaGljbGVEYXRhLkVtcHR5UGFy",
+            "YW0aGS5WZWhpY2xlRGF0YS5EYXRhVHlwZUxpc3QiABJPCg9Db3B5VmVoaWNs",
+            "ZURhdGESIy5WZWhpY2xlRGF0YS5Db3B5VmVoaWNsZURhdGFSZXF1ZXN0GhUu",
+            "VmVoaWNsZURhdGEuR3JwY0Jvb2wiABJOCg9DcmVhdGVJdGVtVmFsdWUSIi5W",
+            "ZWhpY2xlRGF0YS5JdGVtVmFsdWVXcml0ZVJlcXVlc3QaFS5WZWhpY2xlRGF0",
+            "YS5HcnBjQm9vbCIAEk4KD1VwZGF0ZUl0ZW1WYWx1ZRIiLlZlaGljbGVEYXRh",
+            "Lkl0ZW1WYWx1ZVdyaXRlUmVxdWVzdBoVLlZlaGljbGVEYXRhLkdycGNCb29s",
+            "IgASTgoPRGVsZXRlSXRlbVZhbHVlEiIuVmVoaWNsZURhdGEuSXRlbVZhbHVl",
+            "V3JpdGVSZXF1ZXN0GhUuVmVoaWNsZURhdGEuR3JwY0Jvb2wiABJVChZHZXRJ",
+            "dGVtRGF0YUJ5VmVyc2lvbklkEh0uVmVoaWNsZURhdGEuSXRlbVZhbHVlUmVx",
+            "dWVzdBoaLlZlaGljbGVEYXRhLlZhbHVlRGF0YUxpc3QiABJeChpHZXRWZWhp",
+            "Y2xlRGF0YUZvclZlcnNpb25JZBIfLlZlaGljbGVEYXRhLlZlaGljbGVEYXRh",
+            "UmVxdWVzdBodLlZlaGljbGVEYXRhLlZlaGljbGVEYXRhVmFsdWUiABJrChVW",
+            "ZXJzaW9uc0RhdGFCeUl0ZW1JZHMSKS5WZWhpY2xlRGF0YS5WZXJzaW9uc0Rh",
+            "dGFCeUl0ZW1JZHNSZXF1ZXN0GiUuVmVoaWNsZURhdGEuVmVyc2lvbkl0ZW1z",
+            "RGF0YVJlc3BvbnNlIgASYgoWR2V0VmVyc2lvblNwZWNzU3VtbWFyeRIgLlZl",
+            "aGljbGVEYXRhLlNwZWNzU3VtbWFyeVJlcXVlc3QaJC5WZWhpY2xlRGF0YS5W",
+            "ZXJzaW9uU3BlY3NTdW1tYXJ5TGlzdCIAEmMKFEdldE1vZGVsU3BlY3NTdW1t",
+            "YXJ5EiUuVmVoaWNsZURhdGEuTW9kZWxTcGVjc1N1bW1hcnlSZXF1ZXN0GiIu",
+            "VmVoaWNsZURhdGEuTW9kZWxTcGVjc1N1bW1hcnlMaXN0IgASYAoeSXNWZWhp",
+            "Y2xlRGF0YUV4aXN0c0J5VmVyc2lvbklkEhkuVmVoaWNsZURhdGEuSW5wdXRS",
+            "ZXF1ZXN0GiEuVmVoaWNsZURhdGEuQ2F0ZWdvcnlSZXNwb25zZUxpc3QiAEIh",
+            "qgIeVmVoaWNsZURhdGEuU2VydmljZS5Qcm90b0NsYXNzYgZwcm90bzM="));
+=======
             "dHlQYXJhbRofLlZlaGljbGVEYXRhLkN1c3RvbURhdGFUeXBlTGlzdCIAElUK",
             "GkdldEN1c3RvbURhdGFUeXBlc0J5SXRlbUlkEhQuVmVoaWNsZURhdGEuR3Jw",
             "Y0ludBofLlZlaGljbGVEYXRhLkN1c3RvbURhdGFUeXBlTGlzdCIAEj8KDkNy",
@@ -126,6 +162,7 @@ namespace VehicleData.Service.ProtoClass {
             "RGF0YUV4aXN0c0J5VmVyc2lvbklkEhkuVmVoaWNsZURhdGEuSW5wdXRSZXF1",
             "ZXN0GiEuVmVoaWNsZURhdGEuQ2F0ZWdvcnlSZXNwb25zZUxpc3QiAEIhqgIe",
             "VmVoaWNsZURhdGEuU2VydmljZS5Qcm90b0NsYXNzYgZwcm90bzM="));
+>>>>>>> 0c796b8739268785892b9d7e5f7038f952dc7e97
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::VehicleData.Service.ProtoClass.CategoryReflection.Descriptor, global::VehicleData.Service.ProtoClass.ItemReflection.Descriptor, global::VehicleData.Service.ProtoClass.UnitTypeReflection.Descriptor, global::VehicleData.Service.ProtoClass.CustomDataTypeReflection.Descriptor, global::VehicleData.Service.ProtoClass.DataTypeReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {

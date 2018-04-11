@@ -37,18 +37,22 @@ namespace Bikewale.Cache.BikeData
         /// </summary>
         /// <param name="makeType">Type of make</param>
         /// <returns></returns>
-        public IEnumerable<Entities.BikeData.SimilarBikeEntity> GetSimilarBikesList(U versionId, uint topCount, uint cityid)
+        public IEnumerable<SimilarBikeEntity> GetSimilarBikesList(U versionId, uint topCount, uint cityid)
         {
-            IEnumerable<Entities.BikeData.SimilarBikeEntity> versions = null;
-            string key = String.Format("BW_SimilarBikes_V1_{0}_Cnt_{1}_{2}", versionId, topCount, cityid);
+            IEnumerable<SimilarBikeEntity> versions = null;
             try
             {
-                TimeSpan cacheTime = new TimeSpan(3, 0, 0);
+                string key = String.Format("BW_SimilarBikes_{0}_Cnt_{1}_{2}", versionId, topCount, cityid);
+                TimeSpan cacheTime;
                 if (cityid == 0)
                 {
                     cacheTime = new TimeSpan(23, 0, 0);
                 }
-                versions = _cache.GetFromCache<IEnumerable<Entities.BikeData.SimilarBikeEntity>>(key, cacheTime, () => _objVersions.GetSimilarBikesList(versionId, topCount, cityid));
+                else
+                {
+                    cacheTime = new TimeSpan(3, 0, 0);
+                }
+                versions = _cache.GetFromCache(key, cacheTime, () => _objVersions.GetSimilarBikesList(versionId, topCount, cityid));
             }
             catch (Exception ex)
             {
@@ -58,43 +62,49 @@ namespace Bikewale.Cache.BikeData
             return versions;
         }
 
-        public IEnumerable<Entities.BikeData.SimilarBikeEntity> GetSimilarBikesByModel(U modelId, uint topCount, uint cityid)
+        public IEnumerable<SimilarBikeEntity> GetSimilarBikesByModel(U modelId, uint topCount, uint cityid)
         {
-            IEnumerable<Entities.BikeData.SimilarBikeEntity> bikelist = null;
-            string key = String.Format("BW_SimilarBikes_M1_{0}_Cnt_{1}_{2}", modelId, topCount, cityid);
+            IEnumerable<SimilarBikeEntity> bikelist = null;
             try
             {
-                TimeSpan cacheTime = new TimeSpan(3, 0, 0);
+                string key = String.Format("BW_SimilarBikes_V1_M1_{0}_Cnt_{1}_{2}", modelId, topCount, cityid);
+                TimeSpan cacheTime;
                 if (cityid == 0)
                 {
                     cacheTime = new TimeSpan(23, 0, 0);
                 }
-                bikelist = _cache.GetFromCache<IEnumerable<Entities.BikeData.SimilarBikeEntity>>(key, cacheTime, () => _objVersions.GetSimilarBikesByModel(modelId, topCount, cityid));
+                else
+                {
+                    cacheTime = new TimeSpan(3, 0, 0);
+                }
+                bikelist = _cache.GetFromCache(key, cacheTime, () => _objVersions.GetSimilarBikesByModel(modelId, topCount, cityid));
             }
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, string.Format("BikeMakesCacheRepository.GetSimilarBikesByModel ModelId:{0}", modelId));
-
             }
             return bikelist;
         }
-        public IEnumerable<Entities.BikeData.SimilarBikeEntity> GetSimilarBikesByMinPriceDiff(U modelId, uint topCount, uint cityid)
+        public IEnumerable<SimilarBikeEntity> GetSimilarBikesByMinPriceDiff(U modelId, uint topCount, uint cityid)
         {
-            IEnumerable<Entities.BikeData.SimilarBikeEntity> bikelist = null;
-            string key = String.Format("BW_SimilarBikesMinDiff_M1_{0}_Cnt_{1}_{2}", modelId, topCount, cityid);
+            IEnumerable<SimilarBikeEntity> bikelist = null;
             try
             {
-                TimeSpan cacheTime = new TimeSpan(3, 0, 0);
+                string key = String.Format("BW_SimilarBikesMinDiff_V1_M1_{0}_Cnt_{1}_{2}", modelId, topCount, cityid);
+                TimeSpan cacheTime;
                 if (cityid == 0)
                 {
                     cacheTime = new TimeSpan(23, 0, 0);
                 }
-                bikelist = _cache.GetFromCache<IEnumerable<Entities.BikeData.SimilarBikeEntity>>(key, cacheTime, () => _objVersions.GetSimilarBudgetBikes(modelId, topCount, cityid));
+                else
+                {
+                    cacheTime = new TimeSpan(3, 0, 0);
+                }
+                bikelist = _cache.GetFromCache(key, cacheTime, () => _objVersions.GetSimilarBudgetBikes(modelId, topCount, cityid));
             }
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, string.Format("BikeMakesCacheRepository.GetSimilarBikesByMinPriceDiff ModelId:{0}", modelId));
-
             }
             return bikelist;
         }
@@ -164,18 +174,17 @@ namespace Bikewale.Cache.BikeData
         /// </summary>
         /// <param name="makeType">Type of make</param>
         /// <returns></returns>
-        public List<BikeVersionMinSpecs> GetVersionMinSpecs(uint modelId, bool isNew)
+        public IEnumerable<BikeVersionMinSpecs> GetVersionMinSpecs(uint modelId, bool isNew)
         {
-            List<BikeVersionMinSpecs> versions = null;
-            string key = String.Format("BW_VersionMinSpecs_V1_{0}_New_{1}", modelId, isNew);
+            IEnumerable<BikeVersionMinSpecs> versions = null;
             try
             {
-                versions = _cache.GetFromCache<List<BikeVersionMinSpecs>>(key, new TimeSpan(1, 0, 0), () => _objVersions.GetVersionMinSpecs(modelId, isNew));
+                string key = String.Format("BW_VersionMinSpecs_{0}_New_{1}", modelId, isNew);
+                versions = _cache.GetFromCache(key, new TimeSpan(1, 0, 0), () => _objVersions.GetVersionMinSpecs(modelId, isNew));
             }
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "BikeMakesCacheRepository.GetVersionMinSpecs");
-
             }
             return versions;
         }
@@ -207,6 +216,7 @@ namespace Bikewale.Cache.BikeData
         /// </summary>
         /// <param name="versionId">Version Id of bike version for which specifications are to be fetched.</param>
         /// <returns>Specs and features of a version.</returns>
+        [Obsolete("Use Specification and Features Micro Service to get all specs.", true)]
         public TransposeModelSpecEntity GetSpecifications(U versionId)
         {
             try

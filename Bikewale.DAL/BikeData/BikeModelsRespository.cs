@@ -1,5 +1,4 @@
-﻿using Bikewale.DAL.CoreDAL;
-using Bikewale.Entities;
+﻿using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.BikeData.NewLaunched;
 using Bikewale.Entities.CMS.Photos;
@@ -10,7 +9,6 @@ using Bikewale.Entities.UserReviews;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Notifications;
 using Bikewale.Utility;
-using Dapper;
 using MySql.CoreDAL;
 using System;
 using System.Collections;
@@ -126,29 +124,20 @@ namespace Bikewale.DAL.BikeData
                 {
                     return null;
                 }
-                if (modelPage.ModelDetails != null)
+                // If bike is upcoming Bike get the upcoming bike data and version min specs for futuristic bike
+                if (modelPage.ModelDetails.Futuristic)
                 {
-                    // If bike is upcoming Bike get the upcoming bike data and version min specs for futuristic bike
-                    if (modelPage.ModelDetails.Futuristic)
-                    {
-                        modelPage.UpcomingBike = GetUpcomingBikeDetails(modelId);
-                        modelPage.ModelVersions = GetFuturisticVersionMinSpecs(modelId).ToList();
-                    }
-                    else
-                    {
-                        // Get model min specs
-                        modelPage.ModelVersions = GetVersionMinSpecs(modelId, modelPage.ModelDetails.New);
-                    }
-
-                    // Get version all specs
-                    if (modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 0 && !modelPage.ModelDetails.Futuristic)
-                    {
-                        modelPage.ModelVersionSpecsList = GetModelSpecifications(modelId);
-                        modelPage.ModelVersionSpecs = modelPage.ModelVersionSpecsList.FirstOrDefault(m => m.BikeVersionId == modelPage.ModelVersions[0].VersionId);
-                    }
-                    modelPage.ModelColors = GetModelColor(modelId);
-                    modelPage.colorPhotos = GetModelColorPhotos(modelId);
+                    modelPage.UpcomingBike = GetUpcomingBikeDetails(modelId);
+                    modelPage.ModelVersions = GetFuturisticVersions(modelId).ToList();
                 }
+                else
+                {
+                    // Get model min specs
+                    modelPage.ModelVersions = GetVersions(modelId, modelPage.ModelDetails.New);
+                }
+                modelPage.ModelColors = GetModelColor(modelId);
+                modelPage.colorPhotos = GetModelColorPhotos(modelId);
+                
             }
             catch (Exception ex)
             {
@@ -210,7 +199,7 @@ namespace Bikewale.DAL.BikeData
                         NewBikeModelColor tempColor = new NewBikeModelColor();
                         tempColor.Id = color.Key;
 
-                        IList<string> HexCodeList = new List<string>();
+                        ICollection<string> HexCodeList = new List<string>();
                         foreach (var colorList in color)
                         {
                             tempColor.ColorName = colorList.ColorName;
@@ -228,7 +217,6 @@ namespace Bikewale.DAL.BikeData
             {
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
             }
-
             return objMultiToneColor;
         }
 
@@ -238,11 +226,13 @@ namespace Bikewale.DAL.BikeData
         /// Description : Changed SP from 'getversions_23082017' to 'getversions_30082017', removed IsGstPrice flag
         /// Modified by : Ashutosh Sharma on 29 Sep 2017 
         /// Description : Changed SP from 'getversions_30082017' to 'getversions_29092017', to get avg price.
+        /// Modified by : Ashutosh Sharma on 05 Apr 2018.
+        /// Description : Changed sp from 'getversions_08112017' to 'getversions_05042018' to remove min specs.
         /// </summary>
         /// <param name="modelId">model id</param>
         /// <param name="isNew">is new</param>
         /// <returns></returns>
-        public List<BikeVersionMinSpecs> GetVersionMinSpecs(U modelId, bool isNew)
+        public List<BikeVersionMinSpecs> GetVersions(U modelId, bool isNew)
         {
 
             List<BikeVersionMinSpecs> objMinSpecs = new List<BikeVersionMinSpecs>();
@@ -301,13 +291,13 @@ namespace Bikewale.DAL.BikeData
         /// </summary>
         /// <param name="modelId"></param>
         /// <returns></returns>
-        public IEnumerable<BikeVersionMinSpecs> GetFuturisticVersionMinSpecs(U modelId)
+        public IEnumerable<BikeVersionMinSpecs> GetFuturisticVersions(U modelId)
         {
 
-            IList<BikeVersionMinSpecs> objMinSpecs = null;
+            ICollection<BikeVersionMinSpecs> objMinSpecs = null;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getfuturisticversions_13112017"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getfuturisticversions_05042018"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
@@ -315,10 +305,11 @@ namespace Bikewale.DAL.BikeData
                     {
                         if (dr != null)
                         {
-                            objMinSpecs = new List<BikeVersionMinSpecs>();
+                            objMinSpecs = new Collection<BikeVersionMinSpecs>();
+                            BikeVersionMinSpecs objBikeVersion;
                             while (dr.Read())
                             {
-                                BikeVersionMinSpecs objBikeVersion = new BikeVersionMinSpecs
+                                objBikeVersion = new BikeVersionMinSpecs
                                 {
                                     VersionId = SqlReaderConvertor.ToInt32(dr["VersionId"]),
                                     VersionName = Convert.ToString(dr["VersionName"]),
@@ -341,7 +332,7 @@ namespace Bikewale.DAL.BikeData
             }
             return objMinSpecs;
         }
-
+        [Obsolete("Use Specification and Features Micro Service to get all specs.", true)]
         public BikeSpecificationEntity MVSpecsFeatures(int versionId)
         {
             var mv = new BikeVersionsRepository<BikeVersionEntity, int>();
@@ -674,7 +665,6 @@ namespace Bikewale.DAL.BikeData
         public NewLaunchedBikesBase GetNewLaunchedBikesList(int startIndex, int endIndex)
         {
             NewLaunchedBikesBase newLaunchedBikes = new NewLaunchedBikesBase();
-            List<NewLaunchedBikeEntity> objModelList = null;
             int recordCount = 0;
             try
             {
@@ -688,7 +678,7 @@ namespace Bikewale.DAL.BikeData
                     {
                         if (dr != null)
                         {
-                            objModelList = new List<NewLaunchedBikeEntity>();
+                            ICollection<NewLaunchedBikeEntity> objModelList = new Collection<NewLaunchedBikeEntity>();
 
                             while (dr.Read())
                             {
@@ -801,14 +791,19 @@ namespace Bikewale.DAL.BikeData
             return newLaunchedBikes;
         }
 
-
-        public List<MostPopularBikesBase> GetMostPopularBikes(int? topCount = null, int? makeId = null)
+        /// <summary>
+        /// Modified by : Ashutosh Sharma on 07 Apr 2018.
+        /// Description : Changed sp from 'getmostpopularbikes' to 'getmostpopularbikes_07042018' to remove min specs.
+        /// </summary>
+        /// <param name="topCount"></param>
+        /// <param name="makeId"></param>
+        /// <returns></returns>
+        public IEnumerable<MostPopularBikesBase> GetMostPopularBikes(int? topCount = null, int? makeId = null)
         {
-            List<MostPopularBikesBase> objList = null;
-            MostPopularBikesBase objData = null;
+            ICollection<MostPopularBikesBase> objList = null;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getmostpopularbikes"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getmostpopularbikes_07042018"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int16, topCount));
@@ -819,8 +814,8 @@ namespace Bikewale.DAL.BikeData
                     {
                         if (dr != null)
                         {
-                            objList = new List<MostPopularBikesBase>();
-
+                            objList = new Collection<MostPopularBikesBase>();
+                            MostPopularBikesBase objData = null;
                             while (dr.Read())
                             {
                                 objData = new MostPopularBikesBase();
@@ -851,20 +846,22 @@ namespace Bikewale.DAL.BikeData
             {
                 HttpContext.Current.Trace.Warn("Exception in GetModelsList", err.Message);
                 ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
-
             }
-
             return objList;
         }
 
-
-        public List<MostPopularBikesBase> GetMostPopularBikesByMake(uint makeId)
+        /// <summary>
+        /// Modified by : Ashutosh Sharma on 07 Apr 2018.
+        /// Description : Changed sp from 'getmostpopularbikesbymake_04082016' to 'getmostpopularbikesbymake_07042018' to remove min specs.
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <returns></returns>
+        public IEnumerable<MostPopularBikesBase> GetMostPopularBikesByMake(int makeId)
         {
-            List<MostPopularBikesBase> objList = null;
-            MostPopularBikesBase objData = null;
+            ICollection<MostPopularBikesBase> objList = null;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getmostpopularbikesbymake_04082016"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getmostpopularbikesbymake_07042018"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, makeId));
@@ -873,8 +870,8 @@ namespace Bikewale.DAL.BikeData
                     {
                         if (dr != null)
                         {
-                            objList = new List<MostPopularBikesBase>();
-
+                            objList = new Collection<MostPopularBikesBase>();
+                            MostPopularBikesBase objData = null;
                             while (dr.Read())
                             {
                                 objData = new MostPopularBikesBase();
@@ -917,17 +914,18 @@ namespace Bikewale.DAL.BikeData
         /// Modified by : Snehal Dange on 6th Feb 2018 
         /// Description : Added parameter for on-road price and modified sp from 'getmostpopularbikesbymakewithcityprice' to 'getmostpopularbikesbymakewithcityprice_06022018'
         /// Description : Added parameter for 'cityname' and modified sp from 'getmostpopularbikesbymakewithcityprice_06022018' to 'getmostpopularbikesbymakewithcityprice_01032018'.
+        /// Modified by : Ashutosh Sharma on 05 Apr 2018.
+        /// Description : Changed sp from 'getmostpopularbikesbymakewithcityprice_01032018' to 'getmostpopularbikesbymakewithcityprice_05042018' to remove min specs.
         /// </summary>
         /// <param name="makeId"></param>
         /// <param name="cityId"></param>
         /// <returns></returns>
         public IEnumerable<MostPopularBikesBase> GetMostPopularBikesByMakeWithCityPrice(int makeId, uint cityId)
         {
-            List<MostPopularBikesBase> objList = null;
-            MostPopularBikesBase objData = null;
+            ICollection<MostPopularBikesBase> objList = null;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getmostpopularbikesbymakewithcityprice_01032018"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getmostpopularbikesbymakewithcityprice_05042018"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, makeId));
@@ -937,8 +935,8 @@ namespace Bikewale.DAL.BikeData
                     {
                         if (dr != null)
                         {
-                            objList = new List<MostPopularBikesBase>();
-
+                            objList = new Collection<MostPopularBikesBase>();
+                            MostPopularBikesBase objData = null;
                             while (dr.Read())
                             {
                                 objData = new MostPopularBikesBase();
@@ -1249,18 +1247,16 @@ namespace Bikewale.DAL.BikeData
         /// Des:- To fetch most popular bikes on make and city
         /// Modified By : Sushil Kumar on 10th Nov 2016
         /// Description : Get cityname with other info
+        /// Modified by : Ashutosh Sharma on 04 Apr 2018.
+        /// Description : Changed sp from 'getmostpopularbikesbymakecity' to 'getmostpopularbikesbymakecity_04042018'.
         /// </summary>
-        /// <param name="topCount"></param>
-        /// <param name="makeId"></param>
-        /// <param name="cityId"></param>
         /// <returns></returns>
         public IEnumerable<MostPopularBikesBase> GetMostPopularBikesbyMakeCity(uint topCount, uint makeId, uint cityId)
         {
-            List<MostPopularBikesBase> objList = null;
-            MostPopularBikesBase objData = null;
+            IList<MostPopularBikesBase> objList = null;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getmostpopularbikesbymakecity"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getmostpopularbikesbymakecity_04042018"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int16, topCount));
@@ -1273,7 +1269,7 @@ namespace Bikewale.DAL.BikeData
                         if (dr != null)
                         {
                             objList = new List<MostPopularBikesBase>();
-
+                            MostPopularBikesBase objData = null;
                             while (dr.Read())
                             {
                                 objData = new MostPopularBikesBase();
@@ -1305,7 +1301,6 @@ namespace Bikewale.DAL.BikeData
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "BikeModelsRepository.GetMostPopularBikesbymakecity");
-
             }
             return objList;
         }
@@ -1384,7 +1379,7 @@ namespace Bikewale.DAL.BikeData
                             {
                                 var bikeInfo = new SimilarBikesWithPhotos();
                                 bikeInfo.Make = new Entities.BikeData.BikeMakeEntityBase();
-                                bikeInfo.Model = new Entities.BikeData.BikeModelEntityBase();
+                                bikeInfo.Model = new BikeModelEntityBase();
                                 bikeInfo.OriginalImagePath = Convert.ToString(dr["originalimagepath"]);
                                 bikeInfo.HostUrl = Convert.ToString(dr["hosturl"]);
                                 bikeInfo.PhotosCount = SqlReaderConvertor.ToUInt32(dr["photoscount"]);
@@ -1466,6 +1461,8 @@ namespace Bikewale.DAL.BikeData
         /// Summary : to retrieve isnew and isused flag
         /// Modified By :- Subodh Jain 17 Jan 2017
         /// Summary :- shift function to dal layer
+        /// Modified by : Ashutosh Sharma on 07 Apr 2018.
+        /// Description : Changed sp from 'getmodeldescription_24042017' to 'getmodeldescription_07042018' to remove min specs.
         /// </summary>
         /// <param name="modelId"></param>
         public ReviewDetailsEntity GetDetailsByModel(U modelId, uint cityId)
@@ -1473,7 +1470,7 @@ namespace Bikewale.DAL.BikeData
             ReviewDetailsEntity objReview = null;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getmodeldescription_24042017"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getmodeldescription_07042018"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
@@ -1484,7 +1481,6 @@ namespace Bikewale.DAL.BikeData
                         if (dr != null && dr.Read())
                         {
                             objReview = new ReviewDetailsEntity();
-                            objReview.ModelSpecs = new MinSpecsEntity();
                             objReview.BikeEntity.MakeEntity.MakeId = SqlReaderConvertor.ToInt32(dr["makeid"]);
                             objReview.BikeEntity.MakeEntity.MakeName = Convert.ToString(dr["MakeName"]);
                             objReview.BikeEntity.ModelEntity.ModelName = Convert.ToString(dr["ModelName"]);
@@ -1507,10 +1503,6 @@ namespace Bikewale.DAL.BikeData
                             objReview.ModelBasePrice = Convert.ToString(dr["MinPrice"]);
                             objReview.ModelHighendPrice = Convert.ToString(dr["MaxPrice"]);
                             objReview.OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]);
-                            objReview.ModelSpecs.FuelEfficiencyOverall = SqlReaderConvertor.ToUInt16(dr["fuelefficiencyoverall"]);
-                            objReview.ModelSpecs.KerbWeight = SqlReaderConvertor.ToUInt16(dr["kerbweight"]);
-                            objReview.ModelSpecs.MaxPower = SqlReaderConvertor.ToFloat(dr["maxpower"]);
-                            objReview.ModelSpecs.Displacement = SqlReaderConvertor.ToFloat(dr["displacement"]);
                             dr.Close();
                         }
                     }
@@ -1526,6 +1518,8 @@ namespace Bikewale.DAL.BikeData
         /// <summary>
         /// Modified By :- Subodh Jain on 17 Jan 2017
         /// Summary :- shifted function to dal layer
+        /// Modified by : Ashutosh Sharma on 07 Apr 2018.
+        /// Description : Changed sp from 'getversiondescription_13012017' to 'getversiondescription_13012017' to remove min specs.
         /// </summary>
         /// <param name="versionId"></param>
         /// <param name="cityId"></param>
@@ -1546,7 +1540,6 @@ namespace Bikewale.DAL.BikeData
                         if (dr != null && dr.Read())
                         {
                             objReview = new ReviewDetailsEntity();
-                            objReview.ModelSpecs = new MinSpecsEntity();
                             objReview.BikeEntity.MakeEntity.MakeId = SqlReaderConvertor.ToInt32(dr["makeid"]);
                             objReview.BikeEntity.MakeEntity.MakeName = Convert.ToString(dr["MakeName"]);
                             objReview.BikeEntity.ModelEntity.ModelName = Convert.ToString(dr["ModelName"]);
@@ -1561,18 +1554,12 @@ namespace Bikewale.DAL.BikeData
                             objReview.ReviewRatingEntity.FuelEconomyRating = SqlReaderConvertor.ToFloat(dr["FuelEconomy"]);
                             objReview.ReviewRatingEntity.OverAllRating = SqlReaderConvertor.ToFloat(dr["ReviewRate"]);
                             objReview.BikeEntity.ReviewsCount = Convert.ToUInt32(dr["ReviewCount"]);
-
                             objReview.IsFuturistic = Convert.ToBoolean(dr["Futuristic"]);
                             objReview.New = Convert.ToBoolean(dr["New"]);
                             objReview.Used = Convert.ToBoolean(dr["Used"]);
                             objReview.ModelBasePrice = Convert.ToString(dr["MinPrice"]);
                             objReview.ModelHighendPrice = Convert.ToString(dr["MaxPrice"]);
                             objReview.OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]);
-                            objReview.ModelSpecs.FuelEfficiencyOverall = SqlReaderConvertor.ToUInt16(dr["fuelefficiencyoverall"]);
-                            objReview.ModelSpecs.KerbWeight = SqlReaderConvertor.ToUInt16(dr["kerbweight"]);
-                            objReview.ModelSpecs.MaxPower = SqlReaderConvertor.ToFloat(dr["maxpower"]);
-                            objReview.ModelSpecs.Displacement = SqlReaderConvertor.ToFloat(dr["displacement"]);
-
                             dr.Close();
                         }
                     }
@@ -1641,6 +1628,8 @@ namespace Bikewale.DAL.BikeData
         /// <summary>
         /// Modified By :- Subodh Jain on 17 Jan 2017
         /// Summary :- shifted function to dal layer       
+        /// Modified by : Ashutosh Sharma on 07 Apr 2018.
+        /// Description : Changed sp from 'getcustomerreviewinfo_12052017' to 'getcustomerreviewinfo_07042018' to remove min specs.
         /// </summary>
         /// <param name="reviewId"></param>
         /// <param name="isAlreadyViewed"></param>
@@ -1670,7 +1659,7 @@ namespace Bikewale.DAL.BikeData
                         }
 
                         cmd1.CommandType = CommandType.StoredProcedure;
-                        cmd1.CommandText = "getcustomerreviewinfo_12052017";
+                        cmd1.CommandText = "getcustomerreviewinfo_07042018";
                         cmd1.Parameters.Add(DbFactory.GetDbParam("par_reviewid", DbType.Int64, reviewId));
 
 
@@ -1692,7 +1681,6 @@ namespace Bikewale.DAL.BikeData
                                 objReview.ReviewEntity.ReviewTitle = Convert.ToString(dr["Title"]);
                                 objReview.ReviewEntity.WrittenBy = Convert.ToString(dr["CustomerName"]);
                                 objReview.ReviewEntity.Viewed = Convert.ToUInt32(dr["viewed"]);
-                                objReview.ModelSpecs = new MinSpecsEntity();
                                 objReview.BikeEntity.MakeEntity.MakeId = SqlReaderConvertor.ToInt32(dr["makeid"]);
                                 objReview.BikeEntity.MakeEntity.MakeName = Convert.ToString(dr["Make"]);
                                 objReview.BikeEntity.ModelEntity.ModelName = Convert.ToString(dr["Model"]);
@@ -1713,10 +1701,6 @@ namespace Bikewale.DAL.BikeData
                                 objReview.New = Convert.ToBoolean(dr["new"]);
                                 objReview.Used = Convert.ToBoolean(dr["used"]);
                                 objReview.HostUrl = Convert.ToString(dr["HostURL"]);
-                                objReview.ModelSpecs.FuelEfficiencyOverall = SqlReaderConvertor.ToUInt16(dr["fuelefficiencyoverall"]);
-                                objReview.ModelSpecs.KerbWeight = SqlReaderConvertor.ToUInt16(dr["kerbweight"]);
-                                objReview.ModelSpecs.MaxPower = SqlReaderConvertor.ToFloat(dr["maxpower"]);
-                                objReview.ModelSpecs.Displacement = SqlReaderConvertor.ToFloat(dr["displacement"]);
                                 dr.Close();
                             }
                         }
@@ -1922,12 +1906,11 @@ namespace Bikewale.DAL.BikeData
         /// Description : Replaced sp "getbikeinfo_24012018" with "getbikeinfo_02042018"
         /// </summary>
         /// <returns></returns>
-        public Entities.GenericBikes.GenericBikeInfo GetBikeInfo(uint modelId)
+        public GenericBikeInfo GetBikeInfo(uint modelId)
         {
             GenericBikeInfo genericBikeInfo = null;
             try
             {
-
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
@@ -1939,7 +1922,6 @@ namespace Bikewale.DAL.BikeData
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, String.Format("GenericBikeRepository.GetBikeInfo: ModelId:{0}", modelId));
-
             }
             return genericBikeInfo;
         }
@@ -1960,8 +1942,8 @@ namespace Bikewale.DAL.BikeData
                         if (dr.Read())
                         {
                             genericBikeInfo = new GenericBikeInfo();
-                            genericBikeInfo.Make = new Entities.BikeData.BikeMakeEntityBase();
-                            genericBikeInfo.Model = new Entities.BikeData.BikeModelEntityBase();
+                            genericBikeInfo.Make = new BikeMakeEntityBase();
+                            genericBikeInfo.Model = new BikeModelEntityBase();
                             genericBikeInfo.OriginalImagePath = Convert.ToString(dr["originalimagepath"]);
                             genericBikeInfo.HostUrl = Convert.ToString(dr["hosturl"]);
                             genericBikeInfo.VideosCount = SqlReaderConvertor.ToUInt32(dr["videoscount"]);
@@ -1988,7 +1970,6 @@ namespace Bikewale.DAL.BikeData
                             genericBikeInfo.RatingCount = SqlReaderConvertor.ToUInt16(dr["RatingsCount"]);
                             genericBikeInfo.UserReviewCount = SqlReaderConvertor.ToUInt16(dr["ReviewCount"]);
                             genericBikeInfo.BodyStyleId = SqlReaderConvertor.ToInt16(dr["BodyStyleId"]);
-                            genericBikeInfo.FuelType = SqlReaderConvertor.ToUInt16(dr["fueltype"]);
                             genericBikeInfo.VersionId = SqlReaderConvertor.ToInt32(dr["TopVersionId"]);
                         }
                         dr.Close();
@@ -1999,7 +1980,7 @@ namespace Bikewale.DAL.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass.LogError(ex, "GenericBikeRepository.PopulateGenericBikeInfoEntity: ModelId:{0}");
+                ErrorClass.LogError(ex, "GenericBikeRepository.PopulateGenericBikeInfoEntity");
             }
             return null;
         }
@@ -2021,7 +2002,7 @@ namespace Bikewale.DAL.BikeData
         /// Description : Replaced sp "getbikeinfobycity_24012018" with "getbikeinfobycity_02042018"
         /// </summary>
         /// <returns></returns>
-        public Entities.GenericBikes.GenericBikeInfo GetBikeInfo(uint modelId, uint cityId)
+        public GenericBikeInfo GetBikeInfo(uint modelId, uint cityId)
         {
             GenericBikeInfo genericBikeInfo = null;
             try
@@ -2092,6 +2073,8 @@ namespace Bikewale.DAL.BikeData
         /// Description : Changed SP from 'getgenericbikelisting_03042017' to 'getgenericbikelisting_02102017', to get avg price.
         /// Modified by : Pratibha Verma on 27 Mar 2018
         /// Description : Removed MinSpecs code
+        /// Modified by : Ashutosh Sharma on 05 Apr 2018.
+        /// Description : Changed sp from 'getgenericbikelisting_02102017' to 'getgenericbikelisting_05042018' to remove min specs.
         /// </summary>
         /// <param name="bodyStyle"></param>
         /// <returns></returns>
@@ -2103,7 +2086,7 @@ namespace Bikewale.DAL.BikeData
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "getgenericbikelisting_02102017";
+                    cmd.CommandText = "getgenericbikelisting_05042018";
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_bodystyleid", DbType.Int32, bodyStyle));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, (cityId.HasValue && cityId.Value > 0) ? cityId.Value : Convert.DBNull));
 
@@ -2166,11 +2149,13 @@ namespace Bikewale.DAL.BikeData
         /// Description :   Fetches best bikes for particular model in its make
         /// Modified by : Pratibha Verma on 27 Mar 2018
         /// Description : Removed MinSpecs code
+        /// Modified by : Ashutosh Sharma on 05 Apr 2018.
+        /// Description : Changed sp from 'getsimilarbikemodelswithinmake' to 'getsimilarbikemodelswithinmake_05042018' to remove min specs.
         /// </summary>
         /// <param name="modelId"></param>
         /// <param name="cityId"></param>
         /// <returns></returns>
-        public ICollection<BestBikeEntityBase> GetBestBikesByModelInMake(uint modelId)
+        public IEnumerable<BestBikeEntityBase> GetBestBikesByModelInMake(uint modelId)
         {
             ICollection<BestBikeEntityBase> bestBikesList = null;
             try
@@ -2178,7 +2163,7 @@ namespace Bikewale.DAL.BikeData
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "getsimilarbikemodelswithinmake";
+                    cmd.CommandText = "getsimilarbikemodelswithinmake_05042018";
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
@@ -2186,9 +2171,10 @@ namespace Bikewale.DAL.BikeData
                         if (dr != null)
                         {
                             bestBikesList = new Collection<BestBikeEntityBase>();
+                            BestBikeEntityBase bestBikeObj;
                             while (dr.Read())
                             {
-                                BestBikeEntityBase bestBikeObj = new BestBikeEntityBase();
+                                bestBikeObj = new BestBikeEntityBase();
                                 bestBikeObj.BikeName = Convert.ToString(dr["BikeName"]);
                                 bestBikeObj.HostUrl = Convert.ToString(dr["HostURL"]);
                                 bestBikeObj.OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]);
@@ -2222,6 +2208,8 @@ namespace Bikewale.DAL.BikeData
         /// Description :   Fetches best bikes for particular model in its make with on road price in given city
         /// Modified by : Pratibha Verma on 27 Mar 2018
         /// Description : Removed MinSpecs code
+        /// Modified by : Ashutosh Sharma on 05 Apr 2018.
+        /// Description : Changed sp from 'getsimilarbikemodelswithinmakebycity' to 'getsimilarbikemodelswithinmakebycity_05042018' to remove min specs.
         /// </summary>
         /// <param name="modelId"></param>
         /// <param name="cityId"></param>
@@ -2234,7 +2222,7 @@ namespace Bikewale.DAL.BikeData
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "getsimilarbikemodelswithinmakebycity";
+                    cmd.CommandText = "getsimilarbikemodelswithinmakebycity_05042018";
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId));
 
@@ -2415,7 +2403,7 @@ namespace Bikewale.DAL.BikeData
                             {
                                 var bikeInfo = new SimilarBikeUserReview();
                                 bikeInfo.Make = new Entities.BikeData.BikeMakeEntityBase();
-                                bikeInfo.Model = new Entities.BikeData.BikeModelEntityBase();
+                                bikeInfo.Model = new BikeModelEntityBase();
                                 bikeInfo.OriginalImagePath = Convert.ToString(dr["originalimagepath"]);
                                 bikeInfo.HostUrl = Convert.ToString(dr["hosturl"]);
                                 bikeInfo.OverAllRating = SqlReaderConvertor.ParseToDouble(dr["overallrating"]);
@@ -2472,7 +2460,7 @@ namespace Bikewale.DAL.BikeData
                             {
                                 var bikeInfo = new SimilarBikeUserReview();
                                 bikeInfo.Make = new Entities.BikeData.BikeMakeEntityBase();
-                                bikeInfo.Model = new Entities.BikeData.BikeModelEntityBase();
+                                bikeInfo.Model = new BikeModelEntityBase();
                                 bikeInfo.OriginalImagePath = Convert.ToString(dr["originalimagepath"]);
                                 bikeInfo.HostUrl = Convert.ToString(dr["hosturl"]);
                                 bikeInfo.OverAllRating = SqlReaderConvertor.ParseToDouble(dr["overallrating"]);
@@ -2552,12 +2540,11 @@ namespace Bikewale.DAL.BikeData
                                         Price = SqlReaderConvertor.ToUInt32(dr["Price"]),
                                         BodyStyleId = SqlReaderConvertor.ToUInt32(dr["BodyStyleId"]),
                                         VersionId = SqlReaderConvertor.ToInt32(dr["TopVersionId"])
-                            }
+                                    }
                                 );
                             }
                             dr.Close();
                         }
-
                     }
                 }
             }
@@ -2572,7 +2559,7 @@ namespace Bikewale.DAL.BikeData
         /// Created by  :   Sumit Kate on 13 Feb 2017
         /// Description :   Returns New Bikes launched with Exshowroom of given city
         /// Modified by:- Subodh jain 09 march 2017
-        ///summary :-  Added body type filter
+        /// Summary :-  Added body type filter
         /// Modified by : Sanskar Gupta on 12 Feb 2018
         /// Description : Changed SP to `getnewlaunchedbikesbycity_12022018`
         /// Modified by : Pratibha Verma on 28 Mar 2018
@@ -2654,6 +2641,8 @@ namespace Bikewale.DAL.BikeData
         /// Summary    : Return list of popular scooters
         /// Modified by : Ashutosh Sharma on 03 Apr 2018
         /// Description : Assigning version object in bike models.
+        /// Modified  by : Ashutosh Sharma on 05 Apr 2018
+        /// Description : Changed sp 'getmostpopularscootersbymakecity' from to 'getmostpopularscootersbymakecity_05042018' to remove min specs.
         /// </summary>
         public IEnumerable<MostPopularBikesBase> GetMostPopularScooters(uint topCount, uint? cityId)
         {
@@ -2663,7 +2652,7 @@ namespace Bikewale.DAL.BikeData
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "getmostpopularscootersbymakecity";
+                    cmd.CommandText = "getmostpopularscootersbymakecity_05042018";
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int32, topCount));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, (cityId.HasValue && cityId.Value > 0) ? cityId.Value : Convert.DBNull));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, Convert.DBNull));
@@ -2721,6 +2710,8 @@ namespace Bikewale.DAL.BikeData
         /// <summary>
         /// Created by:- Subodh Jain 10 March 2017
         /// Summary :- Get comparision list of popular bike 
+        /// Modified by : Ashutosh Sharma on 05 Apr 2018
+        /// Description : Changed sp 'getmostpopularscootersbymake' from to 'getmostpopularscootersbymake_04042018' to remove min specs.
         /// </summary>
         /// <param name="makeId"></param>
         /// <returns></returns>
@@ -2729,7 +2720,7 @@ namespace Bikewale.DAL.BikeData
             ICollection<MostPopularBikesBase> objList = null;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getmostpopularscootersbymake"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getmostpopularscootersbymake_04042018"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, makeId));
@@ -2776,6 +2767,8 @@ namespace Bikewale.DAL.BikeData
         /// <summary>
         /// Created By :- Subodh Jain 07-12-2017
         /// Summary :- Method to GetElectricBikes 
+        /// Modified by : Ashutosh Sharma on 07 Apr 2018.
+        /// Description : Changed sp from 'getelectricbikes' to 'getelectricbikes_07042018' to remove min specs.
         /// </summary>
         /// <returns></returns>
         public IEnumerable<MostPopularBikesBase> GetElectricBikes()
@@ -2783,12 +2776,9 @@ namespace Bikewale.DAL.BikeData
             ICollection<MostPopularBikesBase> objList = null;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getelectricbikes"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getelectricbikes_07042018"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-
-
-
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null)
@@ -2832,6 +2822,8 @@ namespace Bikewale.DAL.BikeData
         /// <summary>
         /// Created By :- Subodh Jain 07-12-2017
         /// Summary :- Method to GetElectricBikes 
+        /// Modified by : Ashutosh Sharma on 07 Apr 2018.
+        /// Description : Changed sp from 'getelectricbikesbycity' to 'getelectricbikesbycity_07042018' to remove min specs.
         /// </summary>
         /// <returns></returns>
         public IEnumerable<MostPopularBikesBase> GetElectricBikes(uint cityId)
@@ -2839,7 +2831,7 @@ namespace Bikewale.DAL.BikeData
             ICollection<MostPopularBikesBase> objList = null;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getelectricbikesbycity"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getelectricbikesbycity_07042018"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId));
@@ -2887,8 +2879,10 @@ namespace Bikewale.DAL.BikeData
         }
 
         /// <summary>
-        /// Created by  :   Sumit Kate on 24 Mar 2017
-        /// Description :   Returns GetMostPopularScooters by make and city
+        /// Created by  : Sumit Kate on 24 Mar 2017
+        /// Description : Returns GetMostPopularScooters by make and city
+        /// Modified by : Ashutosh Sharma on 05 Apr 2018
+        /// Description : Changed sp 'getmostpopularscootersbymakecity' from to 'getmostpopularscootersbymakecity_05042018' to remove min specs.
         /// </summary>
         /// <param name="topCount"></param>
         /// <param name="makeId"></param>
@@ -2902,7 +2896,7 @@ namespace Bikewale.DAL.BikeData
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "getmostpopularscootersbymakecity";
+                    cmd.CommandText = "getmostpopularscootersbymakecity_05042018";
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int32, topCount));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, makeId));
@@ -2941,7 +2935,7 @@ namespace Bikewale.DAL.BikeData
                                        CityName = Convert.ToString(dr["cityname"]),
                                        CityMaskingName = Convert.ToString(dr["citymasking"])
                                    }
-                  );
+                                );
                             }
                             dr.Close();
                         }
@@ -3033,8 +3027,8 @@ namespace Bikewale.DAL.BikeData
                     {
                         if (dr != null)
                         {
-                            IList<BikeWithMileageInfo> bikes = new List<BikeWithMileageInfo>();
-                            IList<MileageInfoByBodyStyle> bodyStyleMileage = new List<MileageInfoByBodyStyle>();
+                            ICollection<BikeWithMileageInfo> bikes = new List<BikeWithMileageInfo>();
+                            ICollection<MileageInfoByBodyStyle> bodyStyleMileage = new List<MileageInfoByBodyStyle>();
                             while (dr.Read())
                             {
                                 bikes.Add(
@@ -3132,13 +3126,18 @@ namespace Bikewale.DAL.BikeData
             }
             return objSeries;
         }
+        /// <summary>
+        /// Modified by : Ashutosh Sharma on 05 Apr 2018.
+        /// Description : Changed sp from 'getadpromotedbikesdetailsbycity' to 'getadpromotedbikesdetailsbycity_05042018' to remove min specs.
+        /// </summary>
+        /// <param name="bikeFilters"></param>
+        /// <returns></returns>
         public IEnumerable<MostPopularBikesBase> GetAdPromotedBike(BikeFilters bikeFilters)
         {
-            List<MostPopularBikesBase> objList = null;
-            MostPopularBikesBase objData = null;
+            ICollection<MostPopularBikesBase> objList = null;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getadpromotedbikesdetailsbycity"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getadpromotedbikesdetailsbycity_05042018"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
@@ -3150,8 +3149,8 @@ namespace Bikewale.DAL.BikeData
                     {
                         if (dr != null)
                         {
-                            objList = new List<MostPopularBikesBase>();
-
+                            objList = new Collection<MostPopularBikesBase>();
+                            MostPopularBikesBase objData = null;
                             while (dr.Read())
                             {
                                 objData = new MostPopularBikesBase();
@@ -3190,21 +3189,26 @@ namespace Bikewale.DAL.BikeData
             return objList;
         }
 
+        /// <summary>
+        /// Modified by : Ashutosh Sharma on 05 Apr 2018
+        /// Description : Changed sp 'getadpromotedbikesdetails' from to 'getadpromotedbikesdetails_05042018' to remove min specs.
+        /// </summary>
+        /// <param name="bikeFilters"></param>
+        /// <returns></returns>
         public IEnumerable<MostPopularBikesBase> GetAdPromotedBikeWithOutCity(BikeFilters bikeFilters)
         {
-            List<MostPopularBikesBase> objList = null;
-            MostPopularBikesBase objData = null;
+            ICollection<MostPopularBikesBase> objList = null;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getadpromotedbikesdetails"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getadpromotedbikesdetails_05042018"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null)
                         {
-                            objList = new List<MostPopularBikesBase>();
-
+                            objList = new Collection<MostPopularBikesBase>();
+                            MostPopularBikesBase objData = null;
                             while (dr.Read())
                             {
                                 objData = new MostPopularBikesBase();

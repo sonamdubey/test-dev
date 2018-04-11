@@ -19,10 +19,10 @@ namespace Bikewale.Entities.BikeData
         public BikeModelEntity ModelDetails { get; set; }
         [DataMember]
         public List<BikeVersionMinSpecs> ModelVersions { get; set; }
-        [DataMember]
-        public BikeSpecificationEntity ModelVersionSpecs { get; set; }
-        [DataMember]
-        public IEnumerable<BikeSpecificationEntity> ModelVersionSpecsList { get; set; }
+        //[DataMember]
+        //public BikeSpecificationEntity ModelVersionSpecs { get; set; }
+        //[DataMember]
+        //public IEnumerable<BikeSpecificationEntity> ModelVersionSpecsList { get; set; }
         [DataMember]
         public IEnumerable<TransposeModelSpecEntity> TransposeModelSpecs { get; set; }
         [DataMember]

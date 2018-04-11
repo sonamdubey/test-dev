@@ -74,19 +74,10 @@ namespace Bikewale.Cache.BikeData
         public BikeModelPageEntity GetModelPageDetails(U modelId, int versionId)
         {
             BikeModelPageEntity objModelPage = null;
-            string key = string.Format("BW_ModelDetail_{0}", modelId);
+            string key = string.Format("BW_ModelDetail_V1_{0}", modelId);
             try
             {
-                objModelPage = _cache.GetFromCache<BikeModelPageEntity>(key, new TimeSpan(1, 0, 0), () => GetModelPageDetailsNew(modelId, versionId));
-
-                if (objModelPage != null && objModelPage.ModelVersionSpecsList != null && objModelPage.ModelVersionSpecs != null && objModelPage.ModelVersions.Count > 1)
-                {
-                    // First page load where version id is Zero, fetch default version properties
-                    versionId = versionId == 0 ? (int)objModelPage.ModelVersionSpecs.BikeVersionId : versionId;
-                    var curVersionSpecs = objModelPage.ModelVersionSpecsList.FirstOrDefault(m => m.BikeVersionId == (uint)versionId);
-                    if (curVersionSpecs != null)
-                        objModelPage.ModelVersionSpecs = curVersionSpecs;
-                }
+                objModelPage = _cache.GetFromCache(key, new TimeSpan(1, 0, 0), () => GetModelPageDetailsNew(modelId, versionId));
             }
             catch (Exception ex)
             {
@@ -105,9 +96,7 @@ namespace Bikewale.Cache.BikeData
         /// <returns></returns>
         private BikeModelPageEntity GetModelPageDetailsNew(U modelId, int versionId)
         {
-            BikeModelPageEntity objModelPage = null;
-            objModelPage = _modelRepository.GetModelPage(modelId, versionId);
-            return objModelPage;
+            return _modelRepository.GetModelPage(modelId, versionId);
         }
 
         /// <summary>
@@ -911,11 +900,10 @@ namespace Bikewale.Cache.BikeData
         public IEnumerable<MostPopularBikesBase> GetMostPopularBikesByMake(uint makeId)
         {
             IEnumerable<MostPopularBikesBase> objBikes = null;
-            string key = "BW_PopularBikesByMake_" + makeId;
-
             try
             {
-                objBikes = _cache.GetFromCache<IEnumerable<MostPopularBikesBase>>(key, new TimeSpan(1, 0, 0), () => _modelRepository.GetMostPopularBikesByMake(makeId));
+                string key = "BW_PopularBikesByMake_V1_" + makeId;
+                objBikes = _cache.GetFromCache<IEnumerable<MostPopularBikesBase>>(key, new TimeSpan(1, 0, 0), () => _modelRepository.GetMostPopularBikesByMake((int)makeId));
             }
             catch (Exception ex)
             {
@@ -936,11 +924,10 @@ namespace Bikewale.Cache.BikeData
         public IEnumerable<MostPopularBikesBase> GetMostPopularBikesByMakeWithCityPrice(int makeId, uint cityId)
         {
             IEnumerable<MostPopularBikesBase> objBikes = null;
-            string key = string.Format("BW_PopularBikesByMakeWithCityPrice_{0}_{1}", makeId, cityId);
-
             try
             {
-                objBikes = _cache.GetFromCache<IEnumerable<MostPopularBikesBase>>(key, new TimeSpan(1, 0, 0), () => _modelRepository.GetMostPopularBikesByMakeWithCityPrice(makeId, cityId));
+                string key = string.Format("BW_PopularBikesByMakeWithCityPrice_V1_{0}_{1}", makeId, cityId);
+                objBikes = _cache.GetFromCache(key, new TimeSpan(1, 0, 0), () => _modelRepository.GetMostPopularBikesByMakeWithCityPrice(makeId, cityId));
             }
             catch (Exception ex)
             {
@@ -961,13 +948,13 @@ namespace Bikewale.Cache.BikeData
         public IEnumerable<MostPopularBikesBase> GetMostPopularBikesbyMakeCity(uint topCount, uint makeId, uint cityId)
         {
             IEnumerable<MostPopularBikesBase> objBikes = null;
-            string key = "BW_PopularBikesByMake_" + makeId + "_TC_" + topCount;
+            string key = "BW_PopularBikesByMake_V1_" + makeId + "_TC_" + topCount;
             if (cityId > 0)
                 key = key + "_City_" + cityId;
 
             try
             {
-                objBikes = _cache.GetFromCache<IEnumerable<MostPopularBikesBase>>(key, new TimeSpan(1, 0, 0), () => _modelRepository.GetMostPopularBikesbyMakeCity(topCount, makeId, cityId));
+                objBikes = _cache.GetFromCache(key, new TimeSpan(1, 0, 0), () => _modelRepository.GetMostPopularBikesbyMakeCity(topCount, makeId, cityId));
             }
             catch (Exception ex)
             {
@@ -1013,23 +1000,21 @@ namespace Bikewale.Cache.BikeData
         public NewLaunchedBikesBase GetNewLaunchedBikesList(int startIndex, int endIndex, int? makeid = null)
         {
             NewLaunchedBikesBase objBikes = null;
-            string key = String.Format("BW_NewLaunchedBikes_SI_{0}_EI_{1}", startIndex, endIndex);
-            if (makeid.HasValue && makeid > 0)
-                key = key + String.Format("_MKID_{0}", makeid);
-
             try
             {
+                string key = String.Format("BW_NewLaunchedBikes_V1_SI_{0}_EI_{1}", startIndex, endIndex);
                 if (makeid.HasValue && makeid > 0)
-                    objBikes = _cache.GetFromCache<NewLaunchedBikesBase>(key, new TimeSpan(1, 0, 0), () => _modelRepository.GetNewLaunchedBikesListByMake(startIndex, endIndex, makeid));
+                    key = key + String.Format("_MKID_{0}", makeid);
+                if (makeid.HasValue && makeid > 0)
+                    objBikes = _cache.GetFromCache(key, new TimeSpan(1, 0, 0), () => _modelRepository.GetNewLaunchedBikesListByMake(startIndex, endIndex, makeid));
                 else
-                    objBikes = _cache.GetFromCache<NewLaunchedBikesBase>(key, new TimeSpan(1, 0, 0), () => _modelRepository.GetNewLaunchedBikesList(startIndex, endIndex));
+                    objBikes = _cache.GetFromCache(key, new TimeSpan(1, 0, 0), () => _modelRepository.GetNewLaunchedBikesList(startIndex, endIndex));
             }
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "BikeModelsCacheRepository.GetMostPopularBikesByMake");
 
             }
-
             return objBikes;
         }
         public NewLaunchedBikesBase GetNewLaunchedBikesListByMake(int startIndex, int endIndex, int? makeid = null)
@@ -1060,10 +1045,10 @@ namespace Bikewale.Cache.BikeData
         public IEnumerable<MostPopularBikesBase> GetMostPopularBikes(int? topCount = null, int? makeId = null)
         {
             IEnumerable<MostPopularBikesBase> objBikes = null;
-            string key = "BW_PopularBikes" + (topCount.HasValue ? String.Format("_TC_{0}", topCount.Value) : "") + (makeId.HasValue ? String.Format("_MK_{0}", makeId.Value) : "");
             try
             {
-                objBikes = _cache.GetFromCache<IEnumerable<MostPopularBikesBase>>(key, new TimeSpan(1, 0, 0), () => _modelRepository.GetMostPopularBikes(topCount, makeId));
+                string key = "BW_PopularBikes_V1" + (topCount.HasValue ? String.Format("_TC_{0}", topCount.Value) : "") + (makeId.HasValue ? String.Format("_MK_{0}", makeId.Value) : "");
+                objBikes = _cache.GetFromCache(key, new TimeSpan(1, 0, 0), () => _modelRepository.GetMostPopularBikes(topCount, makeId));
             }
             catch (Exception ex)
             {
@@ -1149,12 +1134,11 @@ namespace Bikewale.Cache.BikeData
         /// <returns></returns>
         public GenericBikeInfo GetBikeInfo(uint modelId)
         {
-            string key = string.Format("BW_GenericBikeInfo_MO_{0}_V1", modelId);
             GenericBikeInfo objSearchList = null;
             try
             {
-                objSearchList = _cache.GetFromCache<GenericBikeInfo>(key, new TimeSpan(23, 0, 0), () => _modelRepository.GetBikeInfo(modelId));
-
+                string key = string.Format("BW_GenericBikeInfo_MO_{0}", modelId);
+                objSearchList = _cache.GetFromCache(key, new TimeSpan(23, 0, 0), () => _modelRepository.GetBikeInfo(modelId));
             }
             catch (Exception ex)
             {
@@ -1170,16 +1154,20 @@ namespace Bikewale.Cache.BikeData
         /// <returns></returns>
         public GenericBikeInfo GetBikeInfo(uint modelId, uint cityId)
         {
-            string key = string.Format("BW_GenericBikeInfo_MO_{0}_cityId_{1}", modelId, cityId);
             GenericBikeInfo objSearchList = null;
             try
             {
-                TimeSpan cacheTime = new TimeSpan(3, 0, 0);
+                string key = string.Format("BW_GenericBikeInfo_V1_MO_{0}_cityId_{1}", modelId, cityId);
+                TimeSpan cacheTime;
                 if (cityId == 0)
                 {
                     cacheTime = new TimeSpan(23, 0, 0);
                 }
-                objSearchList = _cache.GetFromCache<GenericBikeInfo>(key, cacheTime, () => _modelRepository.GetBikeInfo(modelId, cityId));
+                else
+                {
+                    cacheTime = new TimeSpan(3, 0, 0);
+                }
+                objSearchList = _cache.GetFromCache(key, cacheTime, () => _modelRepository.GetBikeInfo(modelId, cityId));
 
             }
             catch (Exception ex)
@@ -1222,15 +1210,13 @@ namespace Bikewale.Cache.BikeData
         /// <returns></returns>
         public ICollection<BestBikeEntityBase> GetBestBikesByCategory(EnumBikeBodyStyles bodyStyle, uint? cityId = null)
         {
-            string key = string.Format("BW_BestBikesByBodyStyle_V1_{0}", bodyStyle);
-
-            if (cityId != null)
-                key = string.Format("{0}_{1}", key, cityId.Value);
-
             ICollection<BestBikeEntityBase> bestBikesList = null;
             try
             {
-                bestBikesList = _cache.GetFromCache<ICollection<BestBikeEntityBase>>(key, new TimeSpan(0, 30, 0), () => _modelRepository.GetBestBikesByCategory(bodyStyle, cityId));
+                string key = string.Format("BW_BestBikesByBodyStyle_{0}", bodyStyle);
+                if (cityId != null)
+                    key = string.Format("{0}_{1}", key, cityId.Value);
+                bestBikesList = _cache.GetFromCache(key, new TimeSpan(0, 30, 0), () => _modelRepository.GetBestBikesByCategory(bodyStyle, cityId));
             }
             catch (Exception ex)
             {
@@ -1247,21 +1233,19 @@ namespace Bikewale.Cache.BikeData
         /// <param name="makeId"></param>
         /// <param name="cityId"></param>
         /// <returns></returns>
-        public ICollection<BestBikeEntityBase> GetBestBikesByModelInMake(uint modelId, uint? cityId = null)
+        public IEnumerable<BestBikeEntityBase> GetBestBikesByModelInMake(uint modelId, uint? cityId = null)
         {
-            string key = string.Format("BW_BestBikesByModelInMake_{0}", modelId);
-
-            ICollection<BestBikeEntityBase> bestBikesList = null;
+            IEnumerable<BestBikeEntityBase> bestBikesList = null;
             try
             {
+                string key = string.Format("BW_BestBikesByModelInMake_V1_{0}", modelId);
                 if (cityId != null && cityId.Value > 0)
                 {
                     key = string.Format("{0}_City_{1}", key, cityId.Value);
-                    bestBikesList = _cache.GetFromCache<ICollection<BestBikeEntityBase>>(key, new TimeSpan(0, 30, 0), () => _modelRepository.GetBestBikesByModelInMake(modelId, cityId.Value));
+                    bestBikesList = _cache.GetFromCache(key, new TimeSpan(0, 30, 0), () => _modelRepository.GetBestBikesByModelInMake(modelId, cityId.Value));
                 }
                 else
-                    bestBikesList = _cache.GetFromCache<ICollection<BestBikeEntityBase>>(key, new TimeSpan(0, 30, 0), () => _modelRepository.GetBestBikesByModelInMake(modelId));
-
+                    bestBikesList = _cache.GetFromCache(key, new TimeSpan(0, 30, 0), () => _modelRepository.GetBestBikesByModelInMake(modelId));
             }
             catch (Exception ex)
             {
@@ -1298,11 +1282,11 @@ namespace Bikewale.Cache.BikeData
         /// <returns></returns>
         public IEnumerable<NewLaunchedBikeEntityBase> GetNewLaunchedBikesList()
         {
-            string key = "BW_NewLaunchedBikes";
             IEnumerable<NewLaunchedBikeEntityBase> bikes = null;
             try
             {
-                bikes = _cache.GetFromCache<IEnumerable<NewLaunchedBikeEntityBase>>(key, new TimeSpan(0, 30, 0), () => _modelRepository.GetNewLaunchedBikesList());
+                string key = "BW_NewLaunchedBikes_V1";
+                bikes = _cache.GetFromCache(key, new TimeSpan(0, 30, 0), () => _modelRepository.GetNewLaunchedBikesList());
             }
             catch (Exception ex)
             {
@@ -1320,11 +1304,11 @@ namespace Bikewale.Cache.BikeData
         /// <returns></returns>
         public IEnumerable<NewLaunchedBikeEntityBase> GetNewLaunchedBikesList(uint cityId)
         {
-            string key = String.Format("BW_NewLaunchedBikes_CityId_{0}_V1", cityId);
             IEnumerable<NewLaunchedBikeEntityBase> bikes = null;
             try
             {
-                bikes = _cache.GetFromCache<IEnumerable<NewLaunchedBikeEntityBase>>(key, new TimeSpan(0, 30, 0), () => _modelRepository.GetNewLaunchedBikesList(cityId));
+                string key = String.Format("BW_NewLaunchedBikes_CityId_{0}", cityId);
+                bikes = _cache.GetFromCache(key, new TimeSpan(0, 30, 0), () => _modelRepository.GetNewLaunchedBikesList(cityId));
             }
             catch (Exception ex)
             {
@@ -1339,7 +1323,7 @@ namespace Bikewale.Cache.BikeData
         /// </summary>
         public IEnumerable<MostPopularBikesBase> GetMostPopularScooters(uint topCount, uint? cityId)
         {
-            string key = String.Format("BW_MostPopularScooters_topCount_{0}", topCount);
+            string key = String.Format("BW_MostPopularScooters_topCount_V1_{0}", topCount);
             if (cityId != null)
                 key = string.Format("{0}_CityId_{1}", key, cityId.Value);
             IEnumerable<MostPopularBikesBase> popularScooters = null;
@@ -1362,7 +1346,7 @@ namespace Bikewale.Cache.BikeData
         public IEnumerable<MostPopularBikesBase> GetMostPopularScooters(uint makeId)
         {
             IEnumerable<MostPopularBikesBase> popularBikesList = null;
-            string key = string.Format("BW_GetMostPopularScooters_MK_{0}", makeId);
+            string key = string.Format("BW_GetMostPopularScooters_V1_MK_{0}", makeId);
             try
             {
                 popularBikesList = _cache.GetFromCache<IEnumerable<MostPopularBikesBase>>(key, new TimeSpan(1, 0, 0), () => _modelRepository.GetMostPopularScooters(makeId));
@@ -1382,15 +1366,14 @@ namespace Bikewale.Cache.BikeData
         public IEnumerable<MostPopularBikesBase> GetElectricBikes()
         {
             IEnumerable<MostPopularBikesBase> popularBikesList = null;
-            string key = string.Format("BW_ElectricBikes");
             try
             {
-                popularBikesList = _cache.GetFromCache<IEnumerable<MostPopularBikesBase>>(key, new TimeSpan(24, 0, 0), () => _modelRepository.GetElectricBikes());
+                string key = string.Format("BW_ElectricBikes_V1");
+                popularBikesList = _cache.GetFromCache(key, new TimeSpan(24, 0, 0), () => _modelRepository.GetElectricBikes());
             }
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, string.Format("BikeModelsCacheRepository.GetElectricBikes"));
-
             }
             return popularBikesList;
         }
@@ -1403,10 +1386,10 @@ namespace Bikewale.Cache.BikeData
         public IEnumerable<MostPopularBikesBase> GetElectricBikes(uint cityId)
         {
             IEnumerable<MostPopularBikesBase> popularBikesList = null;
-            string key = string.Format("BW_ElectricBikes_CityId_{0}", cityId);
             try
             {
-                popularBikesList = _cache.GetFromCache<IEnumerable<MostPopularBikesBase>>(key, new TimeSpan(24, 0, 0), () => _modelRepository.GetElectricBikes(cityId));
+                string key = string.Format("BW_ElectricBikes_V1_CityId_{0}", cityId);
+                popularBikesList = _cache.GetFromCache(key, new TimeSpan(24, 0, 0), () => _modelRepository.GetElectricBikes(cityId));
             }
             catch (Exception ex)
             {
@@ -1419,7 +1402,7 @@ namespace Bikewale.Cache.BikeData
         public IEnumerable<MostPopularBikesBase> GetMostPopularScooters(uint topCount, uint makeId, uint cityId)
         {
             IEnumerable<MostPopularBikesBase> popularBikesList = null;
-            string key = string.Format("BW_GetMostPopularScooters_MK_{0}_CID_{1}_TC_{2}", makeId, cityId, topCount);
+            string key = string.Format("BW_GetMostPopularScooters_V1_MK_{0}_CID_{1}_TC_{2}", makeId, cityId, topCount);
             try
             {
                 popularBikesList = _cache.GetFromCache<IEnumerable<MostPopularBikesBase>>(key, new TimeSpan(1, 0, 0), () => _modelRepository.GetMostPopularScooters(topCount, makeId, cityId));
@@ -1570,11 +1553,10 @@ namespace Bikewale.Cache.BikeData
         public IEnumerable<MostPopularBikesBase> GetAdPromotedBike(BikeFilters bikeFilters)
         {
             IEnumerable<MostPopularBikesBase> mostPopularBikes = null;
-            string key = string.Empty;
             try
             {
-                key = string.Format("BW_AdPromotedBike_MakeId_{0}_CityId_{1}", bikeFilters.MakeId, bikeFilters.CityId);
-                mostPopularBikes = _cache.GetFromCache<IEnumerable<MostPopularBikesBase>>(key, new TimeSpan(24, 0, 0), () => _modelRepository.GetAdPromotedBike(bikeFilters));
+                string key = string.Format("BW_AdPromotedBike_V1_MakeId_{0}_CityId_{1}", bikeFilters.MakeId, bikeFilters.CityId);
+                mostPopularBikes = _cache.GetFromCache(key, new TimeSpan(24, 0, 0), () => _modelRepository.GetAdPromotedBike(bikeFilters));
             }
             catch (Exception ex)
             {
@@ -1585,11 +1567,10 @@ namespace Bikewale.Cache.BikeData
         public IEnumerable<MostPopularBikesBase> GetAdPromotedBikeWithOutCity(BikeFilters bikeFilters)
         {
             IEnumerable<MostPopularBikesBase> mostPopularBikes = null;
-            string key = string.Empty;
             try
             {
-                key = "BW_AdPromotedBike";
-                mostPopularBikes = _cache.GetFromCache<IEnumerable<MostPopularBikesBase>>(key, new TimeSpan(24, 0, 0), () => _modelRepository.GetAdPromotedBikeWithOutCity(bikeFilters));
+                string key = "BW_AdPromotedBike_V1";
+                mostPopularBikes = _cache.GetFromCache(key, new TimeSpan(24, 0, 0), () => _modelRepository.GetAdPromotedBikeWithOutCity(bikeFilters));
             }
             catch (Exception ex)
             {

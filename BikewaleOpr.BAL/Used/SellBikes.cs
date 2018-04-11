@@ -37,7 +37,7 @@ namespace BikewaleOpr.BAL.Used
             bool isSuccess = _sellerRepo.SaveEditedInquiry(inquiryId, isApproved, approvedBy);
             if (isSuccess)
             {
-                MemCachedUtil.Remove(string.Format("BW_ProfileDetails_{0}", inquiryId));
+                MemCachedUtil.Remove(string.Format("BW_ProfileDetails_V1_{0}", inquiryId));
                 UsedBikeProfileDetails seller = _sellerRepo.GetUsedBikeSellerDetails((int)inquiryId, false);
                 if (seller != null)
                 {

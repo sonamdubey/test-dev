@@ -582,9 +582,9 @@ namespace Bikewale.Models
                 EnumBikeBodyStyles bodyStyle = EnumBikeBodyStyles.AllBikes;
                 try
                 {
-                    List<BikeVersionMinSpecs> objVersionsList = _objBikeVersionsCache.GetVersionMinSpecs(ModelId, false);
+                    IEnumerable<BikeVersionMinSpecs> objVersionsList = _objBikeVersionsCache.GetVersionMinSpecs(ModelId, false);
 
-                    if (objVersionsList != null && objVersionsList.Count > 0)
+                    if (objVersionsList != null && objVersionsList.Any())
                         bodyStyle = objVersionsList.FirstOrDefault().BodyStyle;
 
                     MostPopularBikesWidget objPopularBikes = new MostPopularBikesWidget(_bikeModels, EnumBikeType.All, showCheckOnRoadCTA, false, pqSource, pageCatId, MakeId);

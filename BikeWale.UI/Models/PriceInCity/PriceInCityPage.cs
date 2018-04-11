@@ -374,22 +374,18 @@ namespace Bikewale.Models
                         objVM.VersionSpecs = _versionCache.GetVersionMinSpecs(modelId, objVM.IsNew);
                         if (objVM.VersionSpecs != null)
                         {
-                            var versionMinSpecsList = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(objVM.VersionSpecs.Select(x => x.VersionId), new List<EnumSpecsFeaturesItem>
+                            var minSpecsFeaturesList = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(objVM.VersionSpecs.Select(x => x.VersionId), new List<EnumSpecsFeaturesItem>
                             {
                                 EnumSpecsFeaturesItem.BrakeType,
                                 EnumSpecsFeaturesItem.AlloyWheels
                             });
-                            if (versionMinSpecsList != null)
+                            if (minSpecsFeaturesList != null)
                             {
-                                IEnumerator<VersionMinSpecsEntity> versionIterator = versionMinSpecsList.GetEnumerator();
-                                VersionMinSpecsEntity objVersionMinSpec;
-                                foreach (var bikeVersion in objVM.VersionSpecs)
+                                var specsEnumerator = minSpecsFeaturesList.GetEnumerator();
+                                var bikesEnumerator = objVM.VersionSpecs.GetEnumerator();
+                                while (bikesEnumerator.MoveNext() && specsEnumerator.MoveNext())
                                 {
-                                    if (versionIterator.MoveNext())
-                                    {
-                                        objVersionMinSpec = versionIterator.Current;
-                                        bikeVersion.MinSpecsList = objVersionMinSpec != null ? objVersionMinSpec.MinSpecsList : null;
-                                    }
+                                    bikesEnumerator.Current.MinSpecsList = specsEnumerator.Current.MinSpecsList;
                                 }
                             }
                             

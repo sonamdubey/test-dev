@@ -44,21 +44,15 @@ namespace Bikewale.BAL.BikeData
 
             return objVersionList;
         }
-
+        [Obsolete("Use Specification and Features Micro Service to get all specs.", true)]
         public BikeSpecificationEntity GetSpecifications(U versionId)
         {
-            BikeSpecificationEntity objVersion = null;
-
-            objVersion = versionRepository.GetSpecifications(versionId);
-
-            return objVersion;
+            return versionRepository.GetSpecifications(versionId);
         }
 
-        public List<BikeVersionMinSpecs> GetVersionMinSpecs(uint modelId, bool isNew)
+        public IEnumerable<BikeVersionMinSpecs> GetVersionMinSpecs(uint modelId, bool isNew)
         {
-            List<BikeVersionMinSpecs> objMVSpecsMin = null;
-            objMVSpecsMin = versionRepository.GetVersionMinSpecs(modelId, isNew);
-            return objMVSpecsMin;
+            return versionRepository.GetVersionMinSpecs(modelId, isNew);
         }
 
         public U Add(T t)
@@ -120,13 +114,11 @@ namespace Bikewale.BAL.BikeData
                     });
                     if (verisonMinSpecsList != null)
                     {
-                        IEnumerator<VersionMinSpecsEntity> versionMinSpecsEnumerator = verisonMinSpecsList.GetEnumerator();
-                        foreach (var similarBike in similarBikesList)
+                        var specsEnumerator = verisonMinSpecsList.GetEnumerator();
+                        var bikesEnumerator = similarBikesList.GetEnumerator();
+                        while (bikesEnumerator.MoveNext() && specsEnumerator.MoveNext())
                         {
-                            if (versionMinSpecsEnumerator.MoveNext())
-                            {
-                                similarBike.MinSpecsList = versionMinSpecsEnumerator.Current.MinSpecsList;
-                            }
+                            bikesEnumerator.Current.MinSpecsList = specsEnumerator.Current.MinSpecsList;
                         }
                     }
 
