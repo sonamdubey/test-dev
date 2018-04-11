@@ -1332,13 +1332,20 @@ var moreDetails = function () {
 
     try {
         self.updateAd = function () {
-            
+            var pdetails = vmSellBike.personalDetails();
             if ((!vmSellBike.isPhotoQueued()) || confirm("Photos are still being uploaded. Are you sure you want to abort photo upload?")) {
 
                     var moreDetailsData = {
                         "registrationNo": vmSellBike.moreDetails().registrationNumber().trim() ? vmSellBike.moreDetails().registrationNumber() : '',
                         "insuranceType": vmSellBike.moreDetails().insuranceType(),
-                        "adDescription": vmSellBike.moreDetails().adDescription().trim() ? vmSellBike.moreDetails().adDescription().replace(/\s/g, ' ') : ''
+                        "adDescription": vmSellBike.moreDetails().adDescription().trim() ? vmSellBike.moreDetails().adDescription().replace(/\s/g, ' ') : '',
+                        "seller": {
+                            "sellerType": vmSellBike.personalDetails().sellerTypeVal(),
+                            "customerId": userId > 0 ? userId : 0,
+                            "customerName": pdetails.sellerName(),
+                            "customerEmail": pdetails.sellerEmail(),
+                            "customerMobile": pdetails.sellerMobile()
+                        }
                     }
                     $.ajax({
                         type: "Post",
@@ -1347,17 +1354,27 @@ var moreDetails = function () {
                         dataType: 'json',
                         data: ko.toJSON(moreDetailsData),
                         success: function (response) {
-
-
+                            if (response && response.Status && response.Status.Code) {
+                                switch (response.Status.Code) {
+                                    case 1:
+                                        vmSellBike.formStep(4);
+                                        scrollToForm.activate();
+                                        break;
+                                    default:
+                                        vmSellBike.formStep(2);
+                                        scrollToForm.activate();
+                                }
+                            }
+                            else {
+                                vmSellBike.formStep(2);
+                                scrollToForm.activate();
+                            }
                         }
                        ,
                         complete: function (xhr, ajaxOptions, thrownError) {
 
                         }
                     });
-
-                    vmSellBike.formStep(4);
-                    scrollToForm.activate();
                     triggerGA('Sell_Page', 'Step3_Update_My_Ad_Clicked', vmSellBike.bikeDetails().makeName() + '_' + vmSellBike.bikeDetails().modelName() + '_' + vmSellBike.bikeDetails().registeredCity() + '_' + vmSellBike.inquiryId());
                 }            
         };

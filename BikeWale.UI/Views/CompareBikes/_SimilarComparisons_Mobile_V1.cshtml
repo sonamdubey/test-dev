@@ -17,7 +17,7 @@
         </div>
         <div class="padding-left10 padding-right5">
             <p class="font11 text-light-grey text-truncate">@(bikedetails.Price1 > 0 ? string.Format("Ex-showroom, {0}", bikedetails.City1) : "Avg. Ex-showroom price")</p>
-            <span class="text-default font16">&#x20B9;</span>&nbsp;<span class="font16 text-default font-bold">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(bikedetails.Price1 > 0 ? bikedetails.Price1 : bikedetails.AvgPrice1))</span>
+            <span class="text-default font16">&#x20B9;</span>&nbsp;<span class="font16 text-default text-bold">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(bikedetails.Price1 > 0 ? bikedetails.Price1 : bikedetails.AvgPrice1))</span>
         </div>
         <span class="compare-icon">
             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="26px" height="26px" viewBox="0 0 26 26" version="1.1">

@@ -11,6 +11,7 @@ import NewBikes from '../NewBikes'
 import ModelSlug from './ModelSlug'
 import Footer from '../Shared/Footer'
 import { isServer } from '../../utils/commonUtils'
+import {ContentTracking} from '../../utils/contentTrackingUtils'
 import {mapNewsArticleDataToInitialData, extractPageCategoryFromURL} from './NewsCommon'
 import {addAdSlot , removeAdSlot} from '../../utils/googleAdUtils'
 import { scrollPosition , resetScrollPosition , isBrowserWithoutScrollSupport } from '../../utils/scrollUtils'
@@ -70,7 +71,8 @@ class ArticleDetail extends React.Component {
         if(!basicId) {
             return;
         }
-
+        ContentTracking.tracking.setUpTracking(1, 'content-details');
+        ContentTracking.page.registerEvent();
         
         if(this.props.ArticleDetailData && this.props.ArticleDetailData.Status == Status.Fetched) { // data to be further rendered after server render
             if(this.props.RelatedModelObject && this.props.RelatedModelObject.Status !== Status.Fetched) {
@@ -196,6 +198,8 @@ class ArticleDetail extends React.Component {
             var imageUrl = (!articleDetail.HostUrl || !articleDetail.LargePicUrl) ? 'https://imgd.aeplcdn.com/640x348/bikewaleimg/images/noimage.png?q=70' : articleDetail.HostUrl + articleDetail.LargePicUrl;
             var imageTag = (this.pageCategory === "news") ? this.renderImage(articleDetail.Title, imageUrl) : null;
             var bottomContent, imageCarousel;
+            var eventLable =  (this.pageCategory === "news" ? "News_Detail" : "Expert_Review_Detail") ; 
+
             if (articleDetail.BottomContent) {
                 bottomContent = <ArticleDetailContent htmlContent={articleDetail.BottomContent}/>;
             }
@@ -204,11 +208,13 @@ class ArticleDetail extends React.Component {
             }
             return (
                 <div>
+                 <div className="content-details related-details" data-id={initialData.BasicId} data-category-id={initialData.CategoryId}  data-event-label={eventLable}>
                     <div className="article-content">
                             {imageTag}
                         <ArticleDetailContent htmlContent={articleDetail.TopContent}/>
                         {this.renderModelSlug()}
                         {bottomContent}
+                    </div>
                     </div>
                     <SocialMediaSlug/>
                     {imageCarousel} 
@@ -322,12 +328,14 @@ class ArticleDetail extends React.Component {
         }
 
         var documentTitle = (articleInitialData.Title == "") ?"BikeWale" : (articleInitialData.Title + " - BikeWale");
+     
         //To be changed
 			 
         return (
             <div>
 
                 {adSlotTop}
+           
                 <div className="container bg-white box-shadow section-bottom-margin article-details-container">
                     <ArticleDetailTitle title={articleInitialData.Title} authorName={articleInitialData.AuthorName} authorMaskingName={articleInitialData.AuthorMaskingName} displayDate={articleInitialData.DisplayDateTime} />
                     
@@ -335,6 +343,7 @@ class ArticleDetail extends React.Component {
                         {this.renderArticleContent(articleDetail,articleInitialData)}
                     </div>
                 </div>
+           
                 {this.renderNewBikesList()}
                 {this.renderPopularBrandList()}
                 <div className="margin-bottom15">
