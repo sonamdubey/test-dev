@@ -11,7 +11,6 @@ namespace Bikewale.Entities.JSErrorLog
     /// </summary>
     public class JSExceptionEntity: Exception
     {
-        public JSExceptionEntity(): base() { }
         public string Details { get; set; }
         public string ErrorType { get; set; }
         public string SourceFile { get; set; }
