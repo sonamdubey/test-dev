@@ -102,10 +102,10 @@ namespace Bikewale.Utility
             string formatted = string.Empty;
             try
             {
-                string[] tokens = numberToFormat.Split(' ');
-                float num;
-                if (tokens.Length > 1)
+                if (!string.IsNullOrEmpty(numberToFormat))
                 {
+                    string[] tokens = numberToFormat.Split(' ');
+                    float num;
                     for (int i = 0; i < tokens.Length; i++)
                     {
                         if (float.TryParse(tokens[i], out num))
@@ -113,6 +113,10 @@ namespace Bikewale.Utility
                             tokens[i] = FormatNumeric(tokens[i]);
                         }
                         formatted += tokens[i] + " ";
+                    }
+                    if (formatted.Length > 1)
+                    {
+                        formatted.Remove(formatted.Length - 2, 1);
                     }
                 }
             }

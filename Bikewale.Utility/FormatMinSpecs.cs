@@ -723,15 +723,15 @@ namespace Bikewale.Utility
             string outputUrl = string.Empty;
             try
             {
-                string[] stringSeparators = new string[] { ".svg" };
-                string[] tokens = inputUrl.Split(stringSeparators, StringSplitOptions.RemoveEmptyEntries);
-                if (tokens.Length > 0)
+                if (!string.IsNullOrEmpty(inputUrl))
                 {
-                    outputUrl += tokens[0] + "-outline.svg";
+                    inputUrl = inputUrl.Trim();
+                    outputUrl = inputUrl.Substring(0, inputUrl.Length - 4) + "-outline.svg";
                 }
             }
             catch (Exception)
             {
+                return inputUrl;
             }
             return outputUrl;
         }

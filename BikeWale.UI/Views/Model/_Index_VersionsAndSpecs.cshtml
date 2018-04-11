@@ -10,16 +10,10 @@
             	@{
             		var minSpecsList = Model.ModelPageEntity.ModelVersionMinSpecs.MinSpecsList.Take(4);
             	}
-            	@foreach (SpecsItem minSpec in minSpecsList)
-            	{
-            		if (!string.IsNullOrEmpty(minSpec.Value))
-            		{
-            			<li>
-            				<span class="bwsprite capacity-sm"></span>
-            				<span>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(minSpec.Value, minSpec.UnitType, minSpec.DataType)</span>
-            			</li>
-            		}
-            	}
+                @if (minSpecsList != null)
+                {
+                    @Html.Raw(Bikewale.Utility.FormatMinSpecs.GetMinSpecsLiElementsWithIcon(minSpecsList));
+                }
             </ul>
 
         </div>
