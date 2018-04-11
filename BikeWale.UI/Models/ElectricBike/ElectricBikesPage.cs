@@ -1,4 +1,6 @@
 ﻿
+using Bikewale.BAL.GrpcFiles.Specs_Features;
+using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.Schema;
 using Bikewale.Interfaces.BikeData;
@@ -52,6 +54,20 @@ namespace Bikewale.Models
                     objData.ElectricBikes = _modelCacheRepository.GetElectricBikes(customerCityId);
                 else
                     objData.ElectricBikes = _modelCacheRepository.GetElectricBikes();
+                IEnumerable<MostPopularBikesBase> electricBikes = objData.ElectricBikes;
+                if (electricBikes != null && electricBikes.Any())
+                {
+                    IEnumerable<VersionMinSpecsEntity> versionMinSpecs = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(electricBikes.Select(m => m.objVersion.VersionId));
+                    if (versionMinSpecs != null)
+                    {
+                        var specsEnumerator = versionMinSpecs.GetEnumerator();
+                        var bikesEnumerator = electricBikes.GetEnumerator();
+                        while (bikesEnumerator.MoveNext() && specsEnumerator.MoveNext())
+                        {
+                            bikesEnumerator.Current.MinSpecsList = specsEnumerator.Current.MinSpecsList;
+                        }
+                    }
+                }
                 BindEditorialWidget();
                 objData.Brands = new BrandWidgetModel(TopCountBrand, _bikeMakes).GetData(Entities.BikeData.EnumBikeType.New);
                 BindPageMetas();
