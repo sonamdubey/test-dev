@@ -699,6 +699,21 @@ namespace Bikewale.Utility
             return string.Format("{0}-bikes/", make);
         }
 
+        public static string ScooterMakeUrl(string makeMaskingName, bool isScooterOnly)
+        {
+            return String.Format("/{0}-{1}/", makeMaskingName, isScooterOnly ? "bikes" : "scooters");
+        }
+
+        public static string UpcomingBikesUrl()
+        {
+            return string.Format("/upcoming-bikes/");
+        }
+
+        public static string AllScootersUrl()
+        {
+            return string.Format("/scooters/");
+        }
+
     }
 }
 

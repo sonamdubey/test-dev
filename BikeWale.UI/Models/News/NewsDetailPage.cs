@@ -13,8 +13,10 @@ using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.PWA.CMS;
 using Bikewale.Memcache;
 using Bikewale.Models.BestBikes;
+using Bikewale.Models.BikeMakes;
 using Bikewale.Models.BikeModels;
 using Bikewale.Models.Scooters;
+using Bikewale.Models.Shared;
 using Bikewale.Notifications;
 using Bikewale.PWA.Utils;
 using Bikewale.Utility;
@@ -22,7 +24,9 @@ using log4net;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
+using System.Text;
 using System.Web;
 
 namespace Bikewale.Models
@@ -34,6 +38,7 @@ namespace Bikewale.Models
     /// Description : Added _bikeMakesCacheRepository,_objBikeVersionsCache.
     ///               Added PopularScooterBrandsWidget
     /// </summary>
+    [System.Runtime.InteropServices.Guid("3C5A3C0F-8084-46E7-BE75-F7FDFA9BBB60")]
     public class NewsDetailPage
     {
         #region Variables for dependency injection
@@ -67,6 +72,7 @@ namespace Bikewale.Models
         private uint basicId, _versionId;
         private PQSourceEnum pqSource = 0;
         public BikeSeriesEntityBase bikeSeriesEntityBase;
+        private static string _widgetCruiserSports;
         #endregion
 
         #region Public properties
@@ -97,6 +103,17 @@ namespace Bikewale.Models
             ProcessQueryString();
 
         }
+
+        static NewsDetailPage()
+        {
+
+            IList<EnumBikeBodyStyles> bodyStyles = new List<EnumBikeBodyStyles>();
+            bodyStyles.Add(EnumBikeBodyStyles.Cruiser);
+            bodyStyles.Add(EnumBikeBodyStyles.Sports);
+
+            _widgetCruiserSports = CommonApiOpn.GetContentTypesString(bodyStyles);
+        }
+
         /// <summary>
         /// Created by  : Rajan Chauhan on 26 Feb 2018
         /// Description : To set currentCityArea, CityName and      
@@ -201,6 +218,7 @@ namespace Bikewale.Models
                     GetTaggedBikeListByModel(objData);
                     CheckSeriesData(objData);
                     GetWidgetData(objData, widgetTopCount, false);
+                    SetEditorialWidgetData(objData);
                     BindSimilarBikes(objData);
                     SetPageMetas(objData);
 
@@ -1159,7 +1177,9 @@ namespace Bikewale.Models
                 popularSeriesBikes = _models.GetMostPopularBikesByMakeWithCityPrice((int)MakeId, CityId);
                 string modelIds = string.Empty;
                 if (seriesId > 0)
+                {
                     modelIds = _series.GetModelIdsBySeries(seriesId);
+                }
                 string[] modelArray = modelIds.Split(',');
                 if (modelArray.Length > 0)
                 {
@@ -1206,5 +1226,340 @@ namespace Bikewale.Models
 
         }
         #endregion
+
+        /// <summary>
+        /// Created By  : Sanskar Gupta on 09 April 2018
+        /// Description : Function to Get Editorial Widget Data
+        /// </summary>
+        /// <param name="objData"></param>
+        private void SetEditorialWidgetData(NewsDetailPageVM objData)
+        {
+            BindBikeInfoWidget(objData);
+
+            bool isModelTagged = ModelId > 0;
+            bool isMakeTagged = MakeId > 0;
+            bool isMakeLive = !(objData.BikeInfo != null && (objData.BikeInfo.IsUpcoming || objData.BikeInfo.IsDiscontinued));
+
+            objData.PageWidgets = new Dictionary<EditorialPageWidgetPosition, EditorialWidgetVM>();
+            
+            EditorialWidgetVM FirstWidget = new EditorialWidgetVM();
+            FirstWidget.WidgetColumns = new Dictionary<EditorialWidgetColumnPosition, EditorialWidgetInfo>();
+            EditorialWidgetVM SecondWidget = new EditorialWidgetVM();
+            SecondWidget.WidgetColumns = new Dictionary<EditorialWidgetColumnPosition, EditorialWidgetInfo>();
+
+            EnumBikeBodyStyles bodyStyle = objData.BodyStyle;
+            bool isSeriesAvailable = objData.IsSeriesAvailable;
+
+            if (isModelTagged)
+            {
+                if (bodyStyle == EnumBikeBodyStyles.Cruiser || bodyStyle == EnumBikeBodyStyles.Sports)
+                {
+                    if (isSeriesAvailable)
+                    {
+                        //A1
+                        FirstWidget.WidgetColumns[EditorialWidgetColumnPosition.Left] = BindWidget(EditorialWidgetCategory.Popular_Series, objData);
+                    }
+                    else
+                    {
+                        //A1
+                        FirstWidget.WidgetColumns[EditorialWidgetColumnPosition.Left] = BindWidget(EditorialWidgetCategory.Popular_Make, objData);
+                    }
+                    if (!IsMobile)
+                    {
+                        //A2
+                        FirstWidget.WidgetColumns[EditorialWidgetColumnPosition.Right] = BindWidget(EditorialWidgetCategory.Popular_BodyStyle, objData);
+
+                        //B1
+                        SecondWidget.WidgetColumns[EditorialWidgetColumnPosition.Left] = BindWidget(EditorialWidgetCategory.Popular_All, objData);
+
+                        //B2
+                        SecondWidget.WidgetColumns[EditorialWidgetColumnPosition.Right] = BindWidget(EditorialWidgetCategory.Upcoming_All, objData);
+                    }
+                    else
+                    {
+                        //B1
+                        SecondWidget.WidgetColumns[EditorialWidgetColumnPosition.Left] = BindWidget(EditorialWidgetCategory.Popular_BodyStyle, objData);
+                    }
+                }
+                else if (bodyStyle == EnumBikeBodyStyles.Scooter)
+                {
+                    if (isSeriesAvailable)
+                    {
+                        //A1
+                        FirstWidget.WidgetColumns[EditorialWidgetColumnPosition.Left] = BindWidget(EditorialWidgetCategory.Series_Scooters, objData);
+                    }
+                    else
+                    {
+                        //A1
+                        FirstWidget.WidgetColumns[EditorialWidgetColumnPosition.Left] = BindWidget(EditorialWidgetCategory.Popular_Make_Scooters, objData);
+                    }
+                    if (!IsMobile)
+                    {
+                        //A2
+                        FirstWidget.WidgetColumns[EditorialWidgetColumnPosition.Right] = BindWidget(EditorialWidgetCategory.OtherBrands_All, objData);
+
+                        //B1 
+                        SecondWidget.WidgetColumns[EditorialWidgetColumnPosition.Left] = BindWidget(EditorialWidgetCategory.Popular_Scooters, objData);
+
+                        //B2
+                        SecondWidget.WidgetColumns[EditorialWidgetColumnPosition.Right] = BindWidget(EditorialWidgetCategory.Upcoming_Scooters, objData);
+
+                    }
+                    else
+                    {
+                        //B1
+                        SecondWidget.WidgetColumns[EditorialWidgetColumnPosition.Left] = BindWidget(EditorialWidgetCategory.OtherBrands_All, objData);
+
+                    }
+                }
+                else
+                {
+                    //B1
+                    SecondWidget.WidgetColumns[EditorialWidgetColumnPosition.Left] = BindWidget(EditorialWidgetCategory.Popular_All, objData);
+
+                    if (isSeriesAvailable)
+                    {
+                        //A1
+                        FirstWidget.WidgetColumns[EditorialWidgetColumnPosition.Left] = BindWidget(EditorialWidgetCategory.Popular_Series, objData);
+
+                    }
+                    else
+                    {
+                        //A1
+                        FirstWidget.WidgetColumns[EditorialWidgetColumnPosition.Left] = BindWidget(EditorialWidgetCategory.Popular_Make, objData);
+
+                    }
+                    if (!IsMobile)
+                    {
+                        //B2
+                        SecondWidget.WidgetColumns[EditorialWidgetColumnPosition.Right] = BindWidget(EditorialWidgetCategory.Upcoming_All, objData);
+
+                    }
+                }
+            }
+            else
+            {
+                if (isMakeTagged && isMakeLive)
+                {
+                    //A1
+                    FirstWidget.WidgetColumns[EditorialWidgetColumnPosition.Left] = BindWidget(EditorialWidgetCategory.Popular_Make, objData);
+
+                    //B1
+                    SecondWidget.WidgetColumns[EditorialWidgetColumnPosition.Left] = BindWidget(EditorialWidgetCategory.Popular_All, objData);
+
+                    if (!IsMobile)
+                    {
+                        //B2
+                        SecondWidget.WidgetColumns[EditorialWidgetColumnPosition.Right] = BindWidget(EditorialWidgetCategory.Upcoming_All, objData);
+                    }
+                }
+                else
+                {
+                    //A1
+                    FirstWidget.WidgetColumns[EditorialWidgetColumnPosition.Left] = BindWidget(EditorialWidgetCategory.Popular_All, objData);
+
+                    //B1
+                    SecondWidget.WidgetColumns[EditorialWidgetColumnPosition.Left] = BindWidget(EditorialWidgetCategory.Upcoming_All, objData);
+                }
+            }
+
+            objData.PageWidgets.Add(EditorialPageWidgetPosition.First, FirstWidget);
+            objData.PageWidgets.Add(EditorialPageWidgetPosition.Second, SecondWidget);
+
+        }
+
+        /// <summary>
+        /// Created By  : Sanskar Gupta on 09 April 2018
+        /// Description : Function to Bind Editorial Widget
+        /// </summary>
+        /// <param name="category"></param>
+        /// <param name="widgetPos"></param>
+        /// <param name="widgetColumnPos"></param>
+        private EditorialWidgetInfo BindWidget(EditorialWidgetCategory category, NewsDetailPageVM objdata)
+        {
+            EditorialWidgetInfo widget = null;
+            EnumBikeBodyStyles bodyStyle = objdata.BodyStyle;
+
+            EditorialPopularBikesWidget popularWidget = new EditorialPopularBikesWidget {
+                WidgetType = EditorialWidgetType.Popular
+            };
+            EditorialUpcomingBikesWidget upcomingWidget = new EditorialUpcomingBikesWidget
+            {
+                WidgetType = EditorialWidgetType.Upcoming
+            };
+            EditorialOtherBrandsWidget otherBrandsWidget = new EditorialOtherBrandsWidget
+            {
+                WidgetType = EditorialWidgetType.OtherBrands
+            };
+
+
+            int topCount = IsMobile ? 9 : 6;
+
+            switch (category)
+            {
+                case EditorialWidgetCategory.Popular_All:
+                    popularWidget.Title = "Popular Bikes";
+                    popularWidget.ViewAllUrl = UrlFormatter.FormatGenericPageUrl(EnumBikeBodyStyles.AllBikes);
+                    popularWidget.ViewAllTitle = "View all bikes";
+                    popularWidget.ShowViewAll = true;
+
+                    popularWidget.MostPopularBikeList = _models.GetMostPopularBikes(topCount);
+                    widget = popularWidget;
+
+                    break;
+
+                case EditorialWidgetCategory.Popular_Make:
+                    popularWidget.CityId = CityId;
+
+                    popularWidget.Title = string.Format("{0} Bikes", objdata.Make.MakeName);
+                    popularWidget.ViewAllUrl = UrlFormatter.BikeMakeUrl(objdata.Make.MaskingName);
+                    popularWidget.ViewAllTitle = "View all bikes";
+                    popularWidget.ShowViewAll = true;
+
+                    popularWidget.MostPopularBikeList = _models.GetMostPopularBikesByMake((int)MakeId);
+                    widget = popularWidget;
+                    break;
+
+                case EditorialWidgetCategory.Popular_BodyStyle:
+                    if(bodyStyle == EnumBikeBodyStyles.Sports)
+                    {
+                        popularWidget.Title = "Sports Bikes";
+                        popularWidget.ViewAllTitle = "View all Sports bikes";
+                    }
+                    else if(bodyStyle == EnumBikeBodyStyles.Cruiser)
+                    {
+                        popularWidget.Title = "Cruisers";
+                        popularWidget.ViewAllTitle = "View all Cruisers";
+                    }
+                    popularWidget.ViewAllUrl = UrlFormatter.FormatGenericPageUrl(bodyStyle);
+                    
+                    popularWidget.ShowViewAll = true;
+
+                    popularWidget.MostPopularBikeList = _models.GetPopularBikesByBodyStyle((ushort)bodyStyle, (uint)topCount, CityId);
+                    widget = popularWidget;
+                    break;
+
+                case EditorialWidgetCategory.Popular_Scooters:
+                    popularWidget.Title = "Scooters";
+                    popularWidget.ViewAllUrl = UrlFormatter.FormatGenericPageUrl(bodyStyle);
+                    popularWidget.ViewAllTitle = "View all bikes";
+                    popularWidget.ShowViewAll = true;
+
+                    popularWidget.MostPopularBikeList = _models.GetMostPopularScooters((uint)topCount, CityId);
+                    widget = popularWidget;
+                    break;
+
+                case EditorialWidgetCategory.Popular_Make_Scooters:
+                    popularWidget.Title = string.Format("{0} Scooters", objdata.Make.MakeName);
+                    popularWidget.ViewAllUrl = UrlFormatter.ScooterMakeUrl(objdata.Make.MaskingName, objdata.Make.IsScooterOnly);
+                    popularWidget.ViewAllTitle = "View all scooters";
+                    popularWidget.ShowViewAll = true;
+
+                    popularWidget.MostPopularBikeList = _models.GetMostPopularScooters((uint)topCount, MakeId, CityId);
+                    widget = popularWidget;
+                    break;
+
+                case EditorialWidgetCategory.Upcoming_All:
+                    upcomingWidget.Title = "Upcoming Bikes";
+                    upcomingWidget.ViewAllUrl = UrlFormatter.UpcomingBikesUrl();
+                    upcomingWidget.ViewAllTitle = "View all bikes";
+                    upcomingWidget.ShowViewAll = true;
+
+                    upcomingWidget.UpcomingBikeList = _models.GetUpcomingBikesList(EnumUpcomingBikesFilter.Default, topCount);
+                    widget = upcomingWidget;
+                    break;
+
+                case EditorialWidgetCategory.Upcoming_Scooters:
+                    upcomingWidget.Title = "Upcoming Scooters";
+                    upcomingWidget.ShowViewAll = false;
+
+                    upcomingWidget.UpcomingBikeList = GetUpcomingScooters(topCount);
+                    widget = upcomingWidget;
+                    break;
+
+                case EditorialWidgetCategory.OtherBrands_All:
+                    otherBrandsWidget.Title = "Other Brands";
+                    otherBrandsWidget.ViewAllUrl = UrlFormatter.AllScootersUrl();
+                    otherBrandsWidget.ViewAllTitle = "View other brands";
+                    otherBrandsWidget.ShowViewAll = true;
+
+                    otherBrandsWidget.OtherBrandsList = GetOtherScooterBrands((int)MakeId, topCount);
+                    widget = otherBrandsWidget;
+                    break;
+
+                case EditorialWidgetCategory.Popular_Series:
+                    popularWidget.Title = string.Format("{0} Bikes", bikeSeriesEntityBase.SeriesName);
+                    popularWidget.ViewAllUrl = UrlFormatter.BikeSeriesUrl(objdata.Make.MaskingName, bikeSeriesEntityBase.MaskingName);
+                    popularWidget.ViewAllTitle = string.Format("View all {0} bikes", bikeSeriesEntityBase.SeriesName);
+                    popularWidget.ShowViewAll = true;
+
+                    popularWidget.MostPopularBikeList = FetchPopularSeriesBikes(bikeSeriesEntityBase.SeriesId);
+                    widget = popularWidget;
+                    break;
+            }
+            return widget;
+            
+        }
+
+        /// <summary>
+        /// Created By  : Sanskar Gupta on 09 April 2018
+        /// Description : Function to Get Scooters of other brands.
+        /// </summary>
+        /// <param name="skipMakeId"></param>
+        /// <param name="topCount"></param>
+        /// <returns></returns>
+        private IEnumerable<BikeMakeEntityBase> GetOtherScooterBrands(int skipMakeId, int topCount)
+        {
+            IEnumerable<BikeMakeEntityBase> bikeList = null;
+            try
+            {
+                bikeList = _bikeMakesCacheRepository.GetScooterMakes();
+
+                if (bikeList != null && skipMakeId > 0 && bikeList.Any())
+                {
+                    bikeList = bikeList.Where(x => x.MakeId != skipMakeId);
+                }
+
+                if (bikeList != null && topCount > 0 && bikeList.Count() > topCount)
+                {
+                    bikeList = bikeList.Take(topCount);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "NewsDetailPage.GetOtherScooterBrands()");
+            }
+            return bikeList;
+        }
+
+        /// <summary>
+        /// Created By : Deepak Israni on 9 April 2018
+        /// Description: Function to get list of Upcoming scooters.
+        /// </summary>
+        /// <param name="topCount"></param>
+        /// <returns></returns>
+        private IEnumerable<UpcomingBikeEntity> GetUpcomingScooters(int topCount)
+        {
+            IEnumerable<UpcomingBikeEntity> UpcomingScooters = null;
+
+            UpcomingBikesListInputEntity Filters = new UpcomingBikesListInputEntity()
+            {
+                PageNo = 1,
+                PageSize = topCount,
+                BodyStyleId = (uint)EnumBikeBodyStyles.Scooter
+            };
+            
+                UpcomingScooters = _upcoming.GetModels(Filters, EnumUpcomingBikesFilter.Default);
+
+            return UpcomingScooters;
+        }
+
+        private void BindBikeInfoWidget(NewsDetailPageVM objData)
+        {
+            BikeInfoWidget objBikeInfo = new BikeInfoWidget(_bikeInfo, _cityCacheRepo, ModelId, CityId, _totalTabCount, _pageId);
+            objData.BikeInfo = objBikeInfo.GetData();
+            objData.BikeInfo.IsSmallSlug = true;
+        }
     }
 }

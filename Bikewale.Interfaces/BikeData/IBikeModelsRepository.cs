@@ -55,6 +55,9 @@ namespace Bikewale.Interfaces.BikeData
     /// 
     /// Modified by :   Sumit Kate on 15 Jan 2018
     /// Description :   Added new method to fetch model image + color photos by model ids
+    /// 
+    /// Modified by : Sanskar Gupta on 09 April 2018
+    /// Description : Added GetPopularBikesByBodyStyles(string bodyStyleIds, uint topCount, uint cityId)
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <typeparam name="U"></typeparam>
@@ -132,5 +135,6 @@ namespace Bikewale.Interfaces.BikeData
         ICollection<Entities.BikeData.BikeModelColorImageEntity> GetModelImages(string modelIds);
         IEnumerable<MostPopularBikesBase> GetAdPromotedBike(BikeFilters ObjData);
         IEnumerable<MostPopularBikesBase> GetAdPromotedBikeWithOutCity(BikeFilters ObjData);
+        IEnumerable<MostPopularBikesBase> GetPopularBikesByBodyStyles(string bodyStyleIds, uint topCount, uint cityId);
     }
 }
