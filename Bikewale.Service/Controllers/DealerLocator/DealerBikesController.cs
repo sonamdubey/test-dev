@@ -32,6 +32,11 @@ namespace Bikewale.Service.Controllers.DealerLocator
         private readonly IDealerCacheRepository _cache = null;
         private readonly IBikeVersions<BikeVersionEntity, uint> _objVersion = null;
 
+
+        public DealerBikesController()
+        {
+
+        }
         /// <summary>
         /// Created By : Lucky Rathore
         /// Created on : 22 march 2016
@@ -39,16 +44,11 @@ namespace Bikewale.Service.Controllers.DealerLocator
         /// </summary>
         /// <param name="dealer"></param>
         /// <param name="cache"></param>
-        public DealerBikesController(IDealer dealer, IDealerCacheRepository cache)
+        public DealerBikesController(IDealer dealer, IDealerCacheRepository cache, IBikeVersions<BikeVersionEntity, uint> objVersion)
         {
             _dealer = dealer;
             _cache = cache;
-            using (IUnityContainer container = new UnityContainer())
-            {
-                container.RegisterType<IApiGatewayCaller, ApiGatewayCaller>();
-                container.RegisterType<IBikeVersions<BikeVersionEntity, uint>, BikeVersions<BikeVersionEntity, uint>>(new InjectionConstructor(new ResolvedParameter<IApiGatewayCaller>()));
-                _objVersion = container.Resolve<IBikeVersions<BikeVersionEntity, uint>>();
-            }
+            _objVersion = objVersion;
         }
 
         /// <summary>

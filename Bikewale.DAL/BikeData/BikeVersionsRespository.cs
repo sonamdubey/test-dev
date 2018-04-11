@@ -20,7 +20,7 @@ namespace Bikewale.DAL.BikeData
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <typeparam name="U"></typeparam>
-    public class BikeVersionsRepository<T, U> : IBikeVersions<T, U> where T : BikeVersionEntity, new()
+    public class BikeVersionsRepository<T, U> : IBikeVersionsRepository<T, U> where T : BikeVersionEntity, new()
     {
         /// <summary>
         /// Summary : Function to get all versions basic data in list.
@@ -95,11 +95,6 @@ namespace Bikewale.DAL.BikeData
         }
 
         public List<T> GetAll()
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<BikeModelVersionsDetails> GetModelVersions()
         {
             throw new NotImplementedException();
         }

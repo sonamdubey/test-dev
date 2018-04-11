@@ -24,21 +24,15 @@ namespace Bikewale.BAL.BikeData
     /// <typeparam name="U"></typeparam>
     public class BikeVersions<T, U> : IBikeVersions<T, U> where T : BikeVersionEntity, new()
     {
-        private IBikeVersions<T, U> versionRepository = null;
+        private IBikeVersionsRepository<T, U> _versionRepository = null;
         private IBikeVersionCacheRepository<T, U> _versionCacheRepository;
         private readonly IApiGatewayCaller _apiGatewayCaller;
 
-        public BikeVersions(IApiGatewayCaller apiGatewayCaller)
+        public BikeVersions(IBikeVersionsRepository<T, U> versionRepository, IBikeVersionCacheRepository<T, U> versionCacheRepository, IApiGatewayCaller apiGatewayCaller)
         {
             _apiGatewayCaller = apiGatewayCaller;
-            using (IUnityContainer container = new UnityContainer())
-            {
-                container.RegisterType<ICacheManager, MemcacheManager>();
-                container.RegisterType<IBikeVersions<T, U>, BikeVersionsRepository<T, U>>();
-                versionRepository = container.Resolve<IBikeVersions<T, U>>();
-                container.RegisterType<IBikeVersionCacheRepository<T, U>, BikeVersionsCacheRepository<T, U>>(new InjectionConstructor(new ResolvedParameter<ICacheManager>(), versionRepository));
-                _versionCacheRepository = container.Resolve<IBikeVersionCacheRepository<T, U>>();
-            }
+            _versionRepository = versionRepository;
+            _versionCacheRepository = versionCacheRepository;
         }
 
         /// <summary>
@@ -52,24 +46,15 @@ namespace Bikewale.BAL.BikeData
         {
             List<BikeVersionsListEntity> objVersionList = null;
 
-            objVersionList = versionRepository.GetVersionsByType(requestType, modelId, cityId);
+            objVersionList = _versionCacheRepository.GetVersionsByType(requestType, modelId, cityId);
 
             return objVersionList;
-        }
-
-        public BikeSpecificationEntity GetSpecifications(U versionId)
-        {
-            BikeSpecificationEntity objVersion = null;
-
-            objVersion = versionRepository.GetSpecifications(versionId);
-
-            return objVersion;
         }
 
         public List<BikeVersionMinSpecs> GetVersionMinSpecs(uint modelId, bool isNew)
         {
             List<BikeVersionMinSpecs> objMVSpecsMin = null;
-            objMVSpecsMin = versionRepository.GetVersionMinSpecs(modelId, isNew);
+            objMVSpecsMin = _versionCacheRepository.GetVersionMinSpecs(modelId, isNew);
             return objMVSpecsMin;
         }
 
@@ -100,7 +85,7 @@ namespace Bikewale.BAL.BikeData
 
         public T GetById(U id)
         {
-            T t = versionRepository.GetById(id);
+            T t = _versionCacheRepository.GetById(id);
 
             return t;
         }
@@ -166,7 +151,7 @@ namespace Bikewale.BAL.BikeData
         public IEnumerable<SimilarBikeEntity> GetSimilarBudgetBikes(U modelId, uint topCount, uint cityid)
         {
 
-            return versionRepository.GetSimilarBudgetBikes(modelId, topCount, cityid);
+            return _versionCacheRepository.GetSimilarBikesByMinPriceDiff(modelId, topCount, cityid);
         }
 
 
@@ -180,7 +165,7 @@ namespace Bikewale.BAL.BikeData
         {
             List<VersionColor> objColors = null;
 
-            objColors = versionRepository.GetColorByVersion(versionId);
+            objColors = _versionRepository.GetColorByVersion(versionId);
 
             return objColors;
         }
@@ -192,7 +177,7 @@ namespace Bikewale.BAL.BikeData
         /// <returns></returns>
         public IEnumerable<BikeColorsbyVersion> GetColorsbyVersionId(uint versionId)
         {
-            return versionRepository.GetColorsbyVersionId(versionId);
+            return _versionCacheRepository.GetColorsbyVersionId(versionId);
         }
 
         /// <summary>
@@ -203,7 +188,7 @@ namespace Bikewale.BAL.BikeData
         {
             try
             {
-                IEnumerable<BikeVersionsSegment> bikeVersions = versionRepository.GetModelVersionsDAL();
+                IEnumerable<BikeVersionsSegment> bikeVersions = _versionRepository.GetModelVersionsDAL();
 
                 IEnumerable<BikeModelVersionsDetails> objVersionList = new List<BikeModelVersionsDetails>();
 
