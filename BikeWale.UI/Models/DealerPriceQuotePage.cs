@@ -33,7 +33,7 @@ namespace Bikewale.Models
 
         private readonly IDealerPriceQuoteDetail _objDealerPQDetails = null;
         private readonly IDealerPriceQuote _objDealerPQ = null;
-        private readonly IBikeVersionCacheRepository<BikeVersionEntity, uint> _objVersionCache = null;
+        private readonly IBikeVersions<BikeVersionEntity, uint> _objVersion;
         private readonly IAreaCacheRepository _objAreaCache = null;
         private readonly ICityCacheRepository _objCityCache = null;
         private readonly IDealerCacheRepository _objDealerCache = null;
@@ -57,11 +57,11 @@ namespace Bikewale.Models
         /// Modified by : Ashutosh Sharma on 31 Oct 2017
         /// Description : Added IAdSlot.
         /// </summary>
-        public DealerPriceQuotePage(IDealerPriceQuoteDetail objDealerPQDetails, IDealerPriceQuote objDealerPQ, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionCache, IAreaCacheRepository objAreaCache, ICityCacheRepository objCityCache, IPriceQuote objPQ, IDealerCacheRepository objDealerCache, IManufacturerCampaign objManufacturerCampaign, IAdSlot adSlot)
+        public DealerPriceQuotePage(IDealerPriceQuoteDetail objDealerPQDetails, IDealerPriceQuote objDealerPQ, IBikeVersions<BikeVersionEntity, uint> objVersion, IAreaCacheRepository objAreaCache, ICityCacheRepository objCityCache, IPriceQuote objPQ, IDealerCacheRepository objDealerCache, IManufacturerCampaign objManufacturerCampaign, IAdSlot adSlot)
         {
             _objDealerPQDetails = objDealerPQDetails;
             _objDealerPQ = objDealerPQ;
-            _objVersionCache = objVersionCache;
+            _objVersion = objVersion;
             _objAreaCache = objAreaCache;
             _objCityCache = objCityCache;
             _objPQ = objPQ;
@@ -263,7 +263,7 @@ namespace Bikewale.Models
 
         private void BindSimilarBikes(DealerPriceQuotePageVM objData)
         {
-            var objSimilarBikes = new SimilarBikesWidget(_objVersionCache, _versionId, PQSourceEnum.Desktop_DPQ_Alternative);
+            var objSimilarBikes = new SimilarBikesWidget(_objVersion, _versionId, PQSourceEnum.Desktop_DPQ_Alternative);
             objSimilarBikes.TopCount = 9;
             objSimilarBikes.CityId = _cityId;
             objData.SimilarBikesVM = objSimilarBikes.GetData();
@@ -443,15 +443,15 @@ namespace Bikewale.Models
             try
             {
 
-                objData.SelectedVersion = _objVersionCache.GetById(_versionId);
+                objData.SelectedVersion = _objVersion.GetById(_versionId);
                 if (objData.SelectedVersion != null && objData.SelectedVersion.MakeBase != null && objData.SelectedVersion.ModelBase != null)
                 {
                     objData.BikeName = String.Format("{0} {1}", objData.SelectedVersion.MakeBase.MakeName, objData.SelectedVersion.ModelBase.ModelName);
                     _modelId = (uint)objData.SelectedVersion.ModelBase.ModelId;
                     _makeId = (uint)objData.SelectedVersion.MakeBase.MakeId;
 
-                    objData.VersionsList = _objVersionCache.GetVersionsByType(EnumBikeType.PriceQuote, objData.SelectedVersion.ModelBase.ModelId, (int)_cityId);
-                    bikeVersionList = _objVersionCache.GetVersionMinSpecs(_modelId, true);
+                    objData.VersionsList = _objVersion.GetVersionsByType(EnumBikeType.PriceQuote, objData.SelectedVersion.ModelBase.ModelId, (int)_cityId);
+                    bikeVersionList = _objVersion.GetVersionMinSpecs(_modelId, true);
                     BikeVersionMinSpecs selectedBikeVersion = bikeVersionList.FirstOrDefault(x => x.VersionId == _versionId);
                     if (selectedBikeVersion != null)
                     {

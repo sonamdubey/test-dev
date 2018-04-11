@@ -36,7 +36,7 @@ namespace Bikewale.Models.UserReviews
         private readonly IBikeModels<BikeModelEntity, int> _models;
 
         private readonly IBikeModelsCacheRepository<int> _objModelCache = null;
-        private readonly IBikeVersionCacheRepository<BikeVersionEntity, uint> _objVersionCache = null;
+        private readonly IBikeVersions<BikeVersionEntity, uint> _objVersion;
         private readonly ICityCacheRepository _objCityCache = null;
         private readonly IBikeInfo _objGenericBike = null;
 
@@ -60,7 +60,7 @@ namespace Bikewale.Models.UserReviews
         /// <param name="objUserReviewSearch"></param>
         /// <param name="objArticles"></param>
         public UserReviewListingPage(string makeMasking, string modelMasking, IBikeMaskingCacheRepository<BikeModelEntity, int> objModelMaskingCache, IUserReviewsCache userReviewCache, IUserReviewsSearch objUserReviewSearch,
-            ICMSCacheContent objArticles, IUserReviewsSearch userReviewsSearch, IBikeModels<BikeModelEntity, int> models, IBikeModelsCacheRepository<int> objModelCache, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionCache,
+            ICMSCacheContent objArticles, IUserReviewsSearch userReviewsSearch, IBikeModels<BikeModelEntity, int> models, IBikeModelsCacheRepository<int> objModelCache, IBikeVersions<BikeVersionEntity, uint> objVersion,
             ICityCacheRepository objCityCache, IBikeInfo objGenericBike)
         {
             _objModelMaskingCache = objModelMaskingCache;
@@ -70,7 +70,7 @@ namespace Bikewale.Models.UserReviews
             _userReviewsSearch = userReviewsSearch;
             _models = models;
             _objModelCache = objModelCache;
-            _objVersionCache = objVersionCache;
+            _objVersion = objVersion;
             _objCityCache = objCityCache;
             _objGenericBike = objGenericBike;
             ParseQueryString(makeMasking, modelMasking);
@@ -419,7 +419,7 @@ namespace Bikewale.Models.UserReviews
         {
             try
             {
-                MoreAboutScootersWidget obj = new MoreAboutScootersWidget(_objModelCache, _objCityCache, _objVersionCache, _objGenericBike, Entities.GenericBikes.BikeInfoTabType.UserReview);
+                MoreAboutScootersWidget obj = new MoreAboutScootersWidget(_objModelCache, _objCityCache, _objVersion, _objGenericBike, Entities.GenericBikes.BikeInfoTabType.UserReview);
                 obj.modelId = _modelId;
                 objPage.objMoreAboutScooter = obj.GetData();
             }

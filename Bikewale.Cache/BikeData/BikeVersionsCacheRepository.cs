@@ -3,7 +3,6 @@ using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Notifications;
-using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
 

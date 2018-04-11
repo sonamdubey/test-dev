@@ -111,12 +111,12 @@ namespace Bikewale.BAL.BikeData
                     VersionsDataByItemIds_Input adaptInput = new VersionsDataByItemIds_Input
                     {
                         Versions = similarBikesList.Select(bike => bike.VersionBase.VersionId),
-                        Items = new List<Bikewale.BAL.ApiGateway.Entities.BikeData.EnumSpecsFeaturesItems>{
-                            Bikewale.BAL.ApiGateway.Entities.BikeData.EnumSpecsFeaturesItems.Displacement,
-                            Bikewale.BAL.ApiGateway.Entities.BikeData.EnumSpecsFeaturesItems.FuelEfficiencyOverall,
-                            Bikewale.BAL.ApiGateway.Entities.BikeData.EnumSpecsFeaturesItems.MaxPowerBhp,
-                            Bikewale.BAL.ApiGateway.Entities.BikeData.EnumSpecsFeaturesItems.MaximumTorqueNm,
-                            Bikewale.BAL.ApiGateway.Entities.BikeData.EnumSpecsFeaturesItems.KerbWeight
+                        Items = new List<EnumSpecsFeaturesItems>{
+                            EnumSpecsFeaturesItems.Displacement,
+                            EnumSpecsFeaturesItems.FuelEfficiencyOverall,
+                            EnumSpecsFeaturesItems.MaxPowerBhp,
+                            EnumSpecsFeaturesItems.MaximumTorqueNm,
+                            EnumSpecsFeaturesItems.KerbWeight
                         }
                     };
                     adapt.AddApiGatewayCall(_apiGatewayCaller, adaptInput);
@@ -226,11 +226,11 @@ namespace Bikewale.BAL.BikeData
                     VersionsDataByItemIds_Input adaptInput = new VersionsDataByItemIds_Input
                     {
                         Versions = versionList.Select(version => (int)version.VersionId),
-                        Items = new List<Bikewale.BAL.ApiGateway.Entities.BikeData.EnumSpecsFeaturesItems>{
-                            Bikewale.BAL.ApiGateway.Entities.BikeData.EnumSpecsFeaturesItems.AntilockBrakingSystem,
-                            Bikewale.BAL.ApiGateway.Entities.BikeData.EnumSpecsFeaturesItems.BrakeType,
-                            Bikewale.BAL.ApiGateway.Entities.BikeData.EnumSpecsFeaturesItems.AlloyWheels,
-                            Bikewale.BAL.ApiGateway.Entities.BikeData.EnumSpecsFeaturesItems.ElectricStart
+                        Items = new List<EnumSpecsFeaturesItems>{
+                            EnumSpecsFeaturesItems.AntilockBrakingSystem,
+                            EnumSpecsFeaturesItems.BrakeType,
+                            EnumSpecsFeaturesItems.AlloyWheels,
+                            EnumSpecsFeaturesItems.ElectricStart
                         }
                     };
                     adapt.AddApiGatewayCall(_apiGatewayCaller, adaptInput);

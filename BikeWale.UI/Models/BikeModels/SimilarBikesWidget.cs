@@ -20,7 +20,6 @@ namespace Bikewale.Models
     public class SimilarBikesWidget
     {
         #region Private Readonly
-        private readonly IBikeVersionCacheRepository<BikeVersionEntity, uint> _versionCache = null;
         private readonly IBikeVersions<BikeVersionEntity, uint> _objVersion;
         private readonly PQSourceEnum _pqSource;
         private readonly uint _versionId;
@@ -41,28 +40,23 @@ namespace Bikewale.Models
         /// <summary>
         /// Created by  :   Sumit Kate on 24 Mar 2017
         /// Description :   Constructor to initialize member variables
+        /// Modified by :   Rajan Chauhan on 11 Apr 2018
+        /// Description :   Replaced IBikeVersionsCacheRepository with IBikeVersions 
         /// </summary>
-        /// <param name="versionCache"></param>
+        /// <param name="objVersion"></param>
         /// <param name="versionId"></param>
         /// <param name="pqSource"></param>
-        public SimilarBikesWidget(IBikeVersionCacheRepository<BikeVersionEntity, uint> versionCache
+        public SimilarBikesWidget(IBikeVersions<BikeVersionEntity, uint> objVersion
             , uint versionId, PQSourceEnum pqSource)
         {
-            _versionCache = versionCache;
             _versionId = versionId;
             _pqSource = pqSource;
-            using (IUnityContainer container = new UnityContainer())
-            {
-                container.RegisterType<IBikeVersions<BikeVersionEntity, uint>, BikeVersions<BikeVersionEntity, uint>>()
-                    .RegisterType<IApiGatewayCaller, ApiGatewayCaller>();
-                _objVersion = container.Resolve<IBikeVersions<BikeVersionEntity, uint>>();
-            }
+            _objVersion = objVersion;
         }
 
-        public SimilarBikesWidget(IBikeVersionCacheRepository<BikeVersionEntity, uint> versionCache
+        public SimilarBikesWidget(IBikeVersions<BikeVersionEntity, uint> objVersion
           , uint modelId, bool similarBikesByModel, PQSourceEnum pqSource)
         {
-            _versionCache = versionCache;
             _modelId = modelId;
             _similarBikesByModel = similarBikesByModel;
             _pqSource = pqSource;
@@ -72,13 +66,13 @@ namespace Bikewale.Models
         /// Created by  :   Sumit Kate on 24 Mar 2017
         /// Description :   Overload Constructor
         /// </summary>
-        /// <param name="versionCache"></param>
+        /// <param name="objVersion"></param>
         /// <param name="versionId"></param>
         /// <param name="pqSource"></param>
         /// <param name="showCheckOnRoadCTA"></param>
-        public SimilarBikesWidget(IBikeVersionCacheRepository<BikeVersionEntity, uint> versionCache
+        public SimilarBikesWidget(IBikeVersions<BikeVersionEntity, uint> objVersion
             , uint versionId, PQSourceEnum pqSource, bool showCheckOnRoadCTA)
-            : this(versionCache, versionId, pqSource)
+            : this(objVersion, versionId, pqSource)
         {
 
             _showCheckOnRoadCTA = showCheckOnRoadCTA;
@@ -88,14 +82,14 @@ namespace Bikewale.Models
         /// Created by  :   Sumit Kate on 24 Mar 2017
         /// Description :   Overload Constructor
         /// </summary>
-        /// <param name="versionCache"></param>
+        /// <param name="objVersion"></param>
         /// <param name="versionId"></param>
         /// <param name="pqSource"></param>
         /// <param name="showCheckOnRoadCTA"></param>
         /// <param name="showPriceInCityCTA"></param>
-        public SimilarBikesWidget(IBikeVersionCacheRepository<BikeVersionEntity, uint> versionCache
+        public SimilarBikesWidget(IBikeVersions<BikeVersionEntity, uint> objVersion
             , uint versionId, PQSourceEnum pqSource, bool showCheckOnRoadCTA, bool showPriceInCityCTA)
-            : this(versionCache, versionId, pqSource, showCheckOnRoadCTA)
+            : this(objVersion, versionId, pqSource, showCheckOnRoadCTA)
         {
             _showPriceInCityCTA = showPriceInCityCTA;
         }
