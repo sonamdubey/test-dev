@@ -27,8 +27,8 @@ namespace Bikewale.Controllers
         private readonly IBikeCompare _objCompare = null;
         private readonly ISponsoredComparison _objSponsored = null;
         private readonly IArticles _objArticles = null;
-        private readonly IBikeVersionCacheRepository<BikeVersionEntity, uint> _objVersionCache = null;
-        public CompareBikesController(IBikeCompareCacheRepository cachedCompare, ICMSCacheContent compareTest, IBikeMaskingCacheRepository<BikeModelEntity, int> objModelMaskingCache, IBikeCompare objCompare, IBikeMakesCacheRepository objMakeCache, ISponsoredComparison objSponsored, IArticles objArticles, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionCache)
+        private readonly IBikeVersions<BikeVersionEntity, uint> _objVersion;
+        public CompareBikesController(IBikeCompareCacheRepository cachedCompare, ICMSCacheContent compareTest, IBikeMaskingCacheRepository<BikeModelEntity, int> objModelMaskingCache, IBikeCompare objCompare, IBikeMakesCacheRepository objMakeCache, ISponsoredComparison objSponsored, IArticles objArticles, IBikeVersions<BikeVersionEntity, uint> objVersion)
         {
             _cachedCompare = cachedCompare;
             _compareTest = compareTest;
@@ -37,7 +37,7 @@ namespace Bikewale.Controllers
             _objMakeCache = objMakeCache;
             _objSponsored = objSponsored;
             _objArticles = objArticles;
-            _objVersionCache = objVersionCache;
+            _objVersion = objVersion;
         }
 
         // GET: CompareBikes
@@ -83,7 +83,7 @@ namespace Bikewale.Controllers
         [Filters.DeviceDetection()]
         public ActionResult CompareBikeDetails()
         {
-            CompareDetails objDetails = new CompareDetails(_compareTest, _objModelMaskingCache, _cachedCompare, _objCompare, _objMakeCache, _objSponsored, _objArticles, _objVersionCache, 4);
+            CompareDetails objDetails = new CompareDetails(_compareTest, _objModelMaskingCache, _cachedCompare, _objCompare, _objMakeCache, _objSponsored, _objArticles, _objVersion, 4);
             if (objDetails.status == Entities.StatusCodes.ContentFound)
             {
                 CompareDetailsVM objVM = null;
@@ -131,7 +131,7 @@ namespace Bikewale.Controllers
         [Route("m/compare/details/")]
         public ActionResult CompareBikeDetails_Mobile()
         {
-            CompareDetails objDetails = new CompareDetails(_compareTest, _objModelMaskingCache, _cachedCompare, _objCompare, _objMakeCache, _objSponsored, _objArticles, _objVersionCache, 2);
+            CompareDetails objDetails = new CompareDetails(_compareTest, _objModelMaskingCache, _cachedCompare, _objCompare, _objMakeCache, _objSponsored, _objArticles, _objVersion, 2);
 
             if (objDetails.status == Entities.StatusCodes.ContentFound)
             {

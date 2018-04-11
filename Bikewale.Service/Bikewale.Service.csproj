@@ -51,6 +51,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\AutoMapper.dll</HintPath>
     </Reference>
+    <Reference Include="Bikewale.BAL.ApiGateway, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\BikeWale.UI\bin\Bikewale.BAL.ApiGateway.dll</HintPath>
+    </Reference>
     <Reference Include="Carwale.DAL">
       <HintPath>..\Libs\Carwale.DAL.dll</HintPath>
     </Reference>

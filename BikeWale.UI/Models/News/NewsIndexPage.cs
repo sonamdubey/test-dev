@@ -32,7 +32,7 @@ namespace Bikewale.Models
     /// Created by : Aditi Srivastava on 27 Mar 2017
     /// Summary    : Model to get data for news default page
     /// Modified by:Snehal Dange on 24 August,2017
-    /// Description: Added _bikeMakesCacheRepository,_objBikeVersionsCache.
+    /// Description: Added _bikeMakesCacheRepository,_objVersion.
     ///              Added PopularScooterBrandsWidget
     /// Modified by : Ashutosh Sharma on 27 Nov 2017
     /// Description : Added IBikeSeriesCacheRepository and IBikeSeries for series news page.
@@ -50,7 +50,7 @@ namespace Bikewale.Models
         private readonly IBikeMakesCacheRepository _objMakeCache = null;
         private readonly IUpcoming _upcoming = null;
         private readonly IBikeModels<BikeModelEntity, int> _bikeModels = null;
-        private readonly IBikeVersionCacheRepository<BikeVersionEntity, uint> _objBikeVersionsCache = null;
+        private readonly IBikeVersions<BikeVersionEntity, uint> _objVersion;
         private readonly IBikeSeriesCacheRepository _seriesCache;
         private readonly IBikeSeries _series;
         private EditorialPageType currentPageType = EditorialPageType.Default;
@@ -111,7 +111,7 @@ namespace Bikewale.Models
         /// Description : Added call to ProcessCityArea.
         /// </summary>
         public NewsIndexPage(ICMSCacheContent cacheContent, IPager pager, IBikeMakesCacheRepository objMakeCache, IBikeModelsCacheRepository<int> models, IBikeModels<BikeModelEntity, int> bikeModels, IUpcoming upcoming, IPWACMSCacheRepository renderedArticles,
-            IBikeVersionCacheRepository<BikeVersionEntity, uint> objBikeVersionsCache, IArticles articles, IBikeSeriesCacheRepository seriesCache,
+            IBikeVersions<BikeVersionEntity, uint> objBikeVersions, IArticles articles, IBikeSeriesCacheRepository seriesCache,
             IBikeSeries series, ICityCacheRepository objCityCache, IBikeInfo objGenericBike)
         {
             _articles = articles;
@@ -122,7 +122,7 @@ namespace Bikewale.Models
             _upcoming = upcoming;
             _renderedArticles = renderedArticles;
             _objMakeCache = objMakeCache;
-            _objBikeVersionsCache = objBikeVersionsCache;
+            _objVersion = objBikeVersions;
             _seriesCache = seriesCache;
             _series = series;
             _objCityCache = objCityCache;
@@ -484,7 +484,7 @@ namespace Bikewale.Models
             }
             else if (ModelId > 0)
             {
-                List<BikeVersionMinSpecs> objVersionsList = _objBikeVersionsCache.GetVersionMinSpecs(ModelId, false);
+                List<BikeVersionMinSpecs> objVersionsList = _objVersion.GetVersionMinSpecs(ModelId, false);
 
                 if (objVersionsList != null && objVersionsList.Count > 0)
                     bodyStyle = objVersionsList.FirstOrDefault().BodyStyle;
@@ -613,7 +613,7 @@ namespace Bikewale.Models
                 {
                     
 
-                    List<BikeVersionMinSpecs> objVersionsList = _objBikeVersionsCache.GetVersionMinSpecs(ModelId, false);
+                    List<BikeVersionMinSpecs> objVersionsList = _objVersion.GetVersionMinSpecs(ModelId, false);
 
                     if (objVersionsList != null && objVersionsList.Count > 0)
                         bodyStyle = objVersionsList.FirstOrDefault().BodyStyle;
@@ -1367,7 +1367,7 @@ namespace Bikewale.Models
         {
             try
             {
-                MoreAboutScootersWidget obj = new MoreAboutScootersWidget(_models, _objCityCache, _objBikeVersionsCache, _objGenericBike, Entities.GenericBikes.BikeInfoTabType.News);
+                MoreAboutScootersWidget obj = new MoreAboutScootersWidget(_models, _objCityCache, _objVersion, _objGenericBike, Entities.GenericBikes.BikeInfoTabType.News);
                 obj.modelId = ModelId;
                 objData.ObjMoreAboutScooter = obj.GetData();
             }

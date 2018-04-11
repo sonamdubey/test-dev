@@ -678,7 +678,7 @@ namespace Bikewale.DAL.BikeData
             int recordCount = 0;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getnewlaunchedbikes_28032018"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getnewlaunchedbikes_10042018"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_startindex", DbType.Int32, startIndex));

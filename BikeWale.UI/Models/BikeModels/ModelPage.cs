@@ -66,7 +66,7 @@ namespace Bikewale.Models.BikeModels
         private readonly IPriceQuote _objPQ = null;
         private readonly IBikeModels<Entities.BikeData.BikeModelEntity, int> _objModel = null;
         private readonly IDealerPriceQuoteDetail _objDealerDetails = null;
-        private readonly IBikeVersionCacheRepository<BikeVersionEntity, uint> _objVersionCache = null;
+        private readonly IBikeVersions<BikeVersionEntity, uint> _objVersion;
         private readonly IBikeModelsCacheRepository<int> _objBestBikes = null;
         private readonly ICMSCacheContent _objArticles = null;
         private readonly IVideos _objVideos = null;
@@ -119,7 +119,7 @@ namespace Bikewale.Models.BikeModels
         /// Modified by : Ashutosh Sharma on 31 Oct 2017
         /// Description : Added IAdSlot.
         /// </summary>
-        public ModelPage(string makeMasking, string modelMasking, IUserReviewsSearch userReviewsSearch, IUserReviewsCache userReviewsCache, IBikeModels<Entities.BikeData.BikeModelEntity, int> objModel, IDealerPriceQuote objDealerPQ, IAreaCacheRepository objAreaCache, ICityCacheRepository objCityCache, IPriceQuote objPQ, IDealerCacheRepository objDealerCache, IDealerPriceQuoteDetail objDealerDetails, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionCache, ICMSCacheContent objArticles, IVideos objVideos, IUsedBikeDetailsCacheRepository objUsedBikescache, IServiceCenter objServiceCenter, IPriceQuoteCache objPQCache, IUsedBikesCache usedBikesCache, IBikeModelsCacheRepository<int> objBestBikes, IUpcoming upcoming, IManufacturerCampaign objManufacturerCampaign, IBikeSeries bikeSeries, IAdSlot adSlot, IBikeInfo bikeInfo, IBikeMakesCacheRepository bikeMakesCacheRepository, IApiGatewayCaller apiGatewayCaller)
+        public ModelPage(string makeMasking, string modelMasking, IUserReviewsSearch userReviewsSearch, IUserReviewsCache userReviewsCache, IBikeModels<Entities.BikeData.BikeModelEntity, int> objModel, IDealerPriceQuote objDealerPQ, IAreaCacheRepository objAreaCache, ICityCacheRepository objCityCache, IPriceQuote objPQ, IDealerCacheRepository objDealerCache, IDealerPriceQuoteDetail objDealerDetails, IBikeVersions<BikeVersionEntity, uint> objVersion, ICMSCacheContent objArticles, IVideos objVideos, IUsedBikeDetailsCacheRepository objUsedBikescache, IServiceCenter objServiceCenter, IPriceQuoteCache objPQCache, IUsedBikesCache usedBikesCache, IBikeModelsCacheRepository<int> objBestBikes, IUpcoming upcoming, IManufacturerCampaign objManufacturerCampaign, IBikeSeries bikeSeries, IAdSlot adSlot, IBikeInfo bikeInfo, IBikeMakesCacheRepository bikeMakesCacheRepository, IApiGatewayCaller apiGatewayCaller)
         {
             _objModel = objModel;
             _objDealerPQ = objDealerPQ;
@@ -128,7 +128,7 @@ namespace Bikewale.Models.BikeModels
             _objPQ = objPQ;
             _objDealerCache = objDealerCache;
             _objDealerDetails = objDealerDetails;
-            _objVersionCache = objVersionCache;
+            _objVersion = objVersion;
             _objBestBikes = objBestBikes;
             _upcoming = upcoming;
             _objArticles = objArticles;
@@ -867,7 +867,7 @@ namespace Bikewale.Models.BikeModels
             {
                 if (_modelId > 0)
                 {
-                    var objSimilarBikes = new SimilarBikesWidget(_objVersionCache, _objData.VersionId, PQSourceEnum.Desktop_DPQ_Alternative);
+                    var objSimilarBikes = new SimilarBikesWidget(_objVersion, _objData.VersionId, PQSourceEnum.Desktop_DPQ_Alternative);
 
                     objSimilarBikes.TopCount = 9;
                     objSimilarBikes.CityId = _cityId;

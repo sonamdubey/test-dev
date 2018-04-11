@@ -33,7 +33,7 @@ namespace Bikewale.Controllers
         private readonly IBikeInfo _bikeInfo = null;
         private readonly ICityCacheRepository _cityCache = null;
         private readonly IBikeMakesCacheRepository _bikeMakesCacheRepository = null;
-        private readonly IBikeVersionCacheRepository<BikeVersionEntity, uint> _objBikeVersionsCache = null;
+        private readonly IBikeVersions<BikeVersionEntity, uint> _objVersion;
         private readonly IBikeSeriesCacheRepository _seriesCache;
         private readonly IBikeSeries _series;
         private readonly IArticles _articles;
@@ -47,7 +47,9 @@ namespace Bikewale.Controllers
 
 
         #region Constructor
-        public ExpertReviewsController(ICMSCacheContent cmsCache, IPager pager, IBikeModelsCacheRepository<int> models, IBikeModels<BikeModelEntity, int> bikeModels, IUpcoming upcoming, IBikeInfo bikeInfo, ICityCacheRepository cityCache, IBikeMakesCacheRepository bikeMakesCacheRepository, IBikeVersionCacheRepository<BikeVersionEntity, uint> objBikeVersionsCache, IBikeMaskingCacheRepository<BikeModelEntity, int> bikeMasking, IBikeSeriesCacheRepository seriesCache, IBikeSeries series, IArticles articles, IPWACMSCacheRepository renderedArticles)
+        public ExpertReviewsController(ICMSCacheContent cmsCache, IPager pager, IBikeModelsCacheRepository<int> models, IBikeModels<BikeModelEntity, int> bikeModels, IUpcoming upcoming,
+            IBikeInfo bikeInfo, ICityCacheRepository cityCache, IBikeMakesCacheRepository bikeMakesCacheRepository, IBikeVersions<BikeVersionEntity, uint> objBikeVersions,
+            IBikeMaskingCacheRepository<BikeModelEntity, int> bikeMasking, IBikeSeriesCacheRepository seriesCache, IBikeSeries series, IArticles articles, IPWACMSCacheRepository renderedArticles)
         {
             _cmsCache = cmsCache;
             _pager = pager;
@@ -57,7 +59,7 @@ namespace Bikewale.Controllers
             _bikeInfo = bikeInfo;
             _cityCache = cityCache;
             _bikeMakesCacheRepository = bikeMakesCacheRepository;
-            _objBikeVersionsCache = objBikeVersionsCache;
+            _objVersion = objBikeVersions;
             _bikeMasking = bikeMasking;
             _seriesCache = seriesCache;
             _series = series;
@@ -77,7 +79,7 @@ namespace Bikewale.Controllers
         [Filters.DeviceDetection()]
         public ActionResult Index()
         {
-            ExpertReviewsIndexPage obj = new ExpertReviewsIndexPage(_cmsCache, _pager, _models, _bikeModels, _upcoming, _bikeMakesCacheRepository, _objBikeVersionsCache, _seriesCache, _series, _cityCache, _bikeInfo);
+            ExpertReviewsIndexPage obj = new ExpertReviewsIndexPage(_cmsCache, _pager, _models, _bikeModels, _upcoming, _bikeMakesCacheRepository, _objVersion, _seriesCache, _series, _cityCache, _bikeInfo);
             if (obj.status == Entities.StatusCodes.ContentNotFound)
             {
                 return Redirect("/pagenotfound.aspx");
@@ -103,7 +105,7 @@ namespace Bikewale.Controllers
         [Route("m/expertreviews/")]
         public ActionResult Index_Mobile()
         {
-            ExpertReviewsIndexPage obj = new ExpertReviewsIndexPage(_cmsCache, _pager, _models, _bikeModels, _upcoming, _bikeMakesCacheRepository, _objBikeVersionsCache, _seriesCache, _series, _cityCache, _bikeInfo);
+            ExpertReviewsIndexPage obj = new ExpertReviewsIndexPage(_cmsCache, _pager, _models, _bikeModels, _upcoming, _bikeMakesCacheRepository, _objVersion, _seriesCache, _series, _cityCache, _bikeInfo);
             obj.IsMobile = true;
             if (obj.status == Entities.StatusCodes.ContentNotFound)
             {
@@ -127,7 +129,7 @@ namespace Bikewale.Controllers
         [Route("m/expertreviews/index_pwa/")]
         public ActionResult Index_Mobile_Pwa()
         {
-            ExpertReviewsIndexPage obj = new ExpertReviewsIndexPage(_cmsCache, _pager, _models, _bikeModels, _upcoming, _bikeMakesCacheRepository, _objBikeVersionsCache, _seriesCache, _series, _cityCache, _bikeInfo, _articles, _renderedArticles);
+            ExpertReviewsIndexPage obj = new ExpertReviewsIndexPage(_cmsCache, _pager, _models, _bikeModels, _upcoming, _bikeMakesCacheRepository, _objVersion, _seriesCache, _series, _cityCache, _bikeInfo, _articles, _renderedArticles);
             obj.IsMobile = true;
             if (obj.status == StatusCodes.ContentNotFound)
             {
@@ -169,7 +171,7 @@ namespace Bikewale.Controllers
         [Route("m/expertreviews/details/{basicid}/")]
         public ActionResult Detail_Mobile(string basicid)
         {
-            ExpertReviewsDetailPage obj = new ExpertReviewsDetailPage(_cmsCache, _models, _bikeModels, _upcoming, _bikeInfo, _cityCache, _bikeMakesCacheRepository, _objBikeVersionsCache, _bikeMasking, basicid, _renderedArticles, _seriesCache, _series);
+            ExpertReviewsDetailPage obj = new ExpertReviewsDetailPage(_cmsCache, _models, _bikeModels, _upcoming, _bikeInfo, _cityCache, _bikeMakesCacheRepository, _objVersion, _bikeMasking, basicid, _renderedArticles, _seriesCache, _series);
             if (obj.status == Entities.StatusCodes.ContentNotFound)
             {
                 return Redirect("/m/pagenotfound.aspx");
@@ -199,7 +201,7 @@ namespace Bikewale.Controllers
         [Route("m/expertreviews/details/{basicid}/pwa/")]
         public ActionResult Detail_Mobile_Pwa(string basicid)
         {
-            ExpertReviewsDetailPage obj = new ExpertReviewsDetailPage(_cmsCache, _models, _bikeModels, _upcoming, _bikeInfo, _cityCache, _bikeMakesCacheRepository, _objBikeVersionsCache, _bikeMasking, basicid, _renderedArticles, _seriesCache, _series);
+            ExpertReviewsDetailPage obj = new ExpertReviewsDetailPage(_cmsCache, _models, _bikeModels, _upcoming, _bikeInfo, _cityCache, _bikeMakesCacheRepository, _objVersion, _bikeMasking, basicid, _renderedArticles, _seriesCache, _series);
             obj.IsMobile = true;
             if (obj.status == Entities.StatusCodes.ContentNotFound)
             {
@@ -242,7 +244,7 @@ namespace Bikewale.Controllers
         [Filters.DeviceDetection()]
         public ActionResult Detail(string basicid)
         {
-            ExpertReviewsDetailPage obj = new ExpertReviewsDetailPage(_cmsCache, _models, _bikeModels, _upcoming, _bikeInfo, _cityCache, _bikeMakesCacheRepository, _objBikeVersionsCache, _bikeMasking, basicid, _renderedArticles, _seriesCache, _series);
+            ExpertReviewsDetailPage obj = new ExpertReviewsDetailPage(_cmsCache, _models, _bikeModels, _upcoming, _bikeInfo, _cityCache, _bikeMakesCacheRepository, _objVersion, _bikeMasking, basicid, _renderedArticles, _seriesCache, _series);
             if (obj.status == Entities.StatusCodes.ContentNotFound)
             {
                 return Redirect("/pagenotfound.aspx");
@@ -274,7 +276,7 @@ namespace Bikewale.Controllers
         {
             ExpertReviewsDetailPageVM objData = null;
 
-            ExpertReviewsDetailPage obj = new ExpertReviewsDetailPage(_cmsCache, _models, _bikeModels, _upcoming, _bikeInfo, _cityCache, _bikeMakesCacheRepository, _objBikeVersionsCache, _bikeMasking, basicid, _renderedArticles, _seriesCache, _series);
+            ExpertReviewsDetailPage obj = new ExpertReviewsDetailPage(_cmsCache, _models, _bikeModels, _upcoming, _bikeInfo, _cityCache, _bikeMakesCacheRepository, _objVersion, _bikeMasking, basicid, _renderedArticles, _seriesCache, _series);
             if (obj.status == StatusCodes.ContentNotFound)
             {
                 return Redirect("/pagenotfound.aspx");
