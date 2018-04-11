@@ -17,9 +17,9 @@
 				@foreach (var minSpec in minSpecsList)
 				{
 					<li>
-						<span class="offers-sprite specs-capacity"></span>
+                        <img src="@minSpec.Icon" width="22" height="20" class="inline-block margin-right5 margin-bottom5">
 						<p class="font12 text-light-grey">
-							@Bikewale.Utility.FormatMinSpecs.ShowAvailable(minSpec.Value, minSpec.UnitType, minSpec.DataType)
+							@Bikewale.Utility.FormatMinSpecs.ShowAvailable(minSpec.Value, minSpec.UnitType, minSpec.DataType, minSpec.Id)
 						</p>
 					</li>
 				}
@@ -52,7 +52,7 @@
 				{
 					<tr>
 						<td valign="top">Top speed</td>
-						<td valign="top" class="text-bold">@Bikewale.Utility.FormatMinSpecs.ShowAvailable(topSpeed.Value, topSpeed.UnitType, topSpeed.DataType)</td>
+						<td valign="top" class="text-bold">@Bikewale.Utility.FormatMinSpecs.ShowAvailable(topSpeed.Value, topSpeed.UnitType, topSpeed.DataType, topSpeed.Id)</td>
 					</tr>
 				}
 				var fuelEfficiency = Bikewale.Utility.FormatMinSpecs.SanitizeNumericMinSpec(Model.ModelPageEntity.ModelVersionMinSpecs.MinSpecsList, Bikewale.Entities.BikeData.EnumSpecsFeaturesItem.FuelEfficiencyOverall);
@@ -60,7 +60,7 @@
 				{
 					<tr>
 						<td valign="top">Mileage</td>
-						<td valign="top" class="text-bold">@Bikewale.Utility.FormatMinSpecs.ShowAvailable(fuelEfficiency.Value, fuelEfficiency.UnitType, fuelEfficiency.DataType)</td>
+						<td valign="top" class="text-bold">@Bikewale.Utility.FormatMinSpecs.ShowAvailable(fuelEfficiency.Value, fuelEfficiency.UnitType, fuelEfficiency.DataType, fuelEfficiency.Id)</td>
 					</tr>
 				}
 			}

@@ -75,6 +75,7 @@ namespace Bikewale.BAL.ApiGateway.Adapters.BikeData
 						specs.Add(new SpecsFeaturesCategory
 						{
 							DisplayText = category.Name,
+                            Icon = category.Icon,
 							SpecsItemList = ConvertToBwSpecsFeaturesEntity(category.Items)
 						});
 					}

@@ -127,7 +127,7 @@ namespace Bikewale.Utility
                     {
                         if (!string.IsNullOrEmpty(specItem.Value))
                         {
-                           builder.AppendFormat("<span>{0} {1}</span>, ", specItem.DataType.Equals(EnumSpecDataType.Integer) ? Format.FormatNumeric(specItem.Value) : specItem.Value, specItem.UnitType);
+                           builder.AppendFormat("<span>{0}</span>, ", ShowAvailable(specItem.Value,specItem.UnitType,specItem.DataType,specItem.Id));
                         }
                     }
                     if (builder.Length > 1)
@@ -160,7 +160,7 @@ namespace Bikewale.Utility
                     {
                         if (!string.IsNullOrEmpty(specItem.Value))
                         {
-                           builder.AppendFormat("<li>{0} {1}</li>", specItem.DataType.Equals(EnumSpecDataType.Integer) ? Format.FormatNumeric(specItem.Value) : specItem.Value, specItem.UnitType);
+                           builder.AppendFormat("<li>{0}</li>", ShowAvailable(specItem.Value, specItem.UnitType, specItem.DataType, specItem.Id));
                         }
                     }
                 }
@@ -189,8 +189,7 @@ namespace Bikewale.Utility
                     {
                         if (!string.IsNullOrEmpty(specItem.Value))
                         {
-                            specItem.Icon = "bwsprite capacity-sm";
-                            builder.AppendFormat("<li><span class = \"{0}\"></span>{1} {2}</li>", specItem.Icon, specItem.DataType.Equals(EnumSpecDataType.Integer) ? Format.FormatNumeric(specItem.Value) : specItem.Value, specItem.UnitType);
+                            builder.AppendFormat("<li><img src=\"{0}\" width=\"16\" height=\"14\" class=\"inline-block margin-right5\">{1}</li>", specItem.Icon, ShowAvailable(specItem.Value, specItem.UnitType, specItem.DataType, specItem.Id));
                         }
                     }
                 }
@@ -231,7 +230,7 @@ namespace Bikewale.Utility
         /// <param name="value"></param>
         /// <param name="dataType"></param>
         /// <returns></returns>
-        public static string ShowAvailable(string value, EnumSpecDataType dataType)
+        public static string ShowAvailable(string value, EnumSpecDataType dataType, int id)
         {
             if (!String.IsNullOrEmpty(value))
             {
@@ -239,9 +238,20 @@ namespace Bikewale.Utility
                 {
                     return value.Equals("1") ? "Yes" : "No";
                 }
+                else if (dataType.Equals(EnumSpecDataType.Integer))
+                {
+                    return Format.FormatNumeric(value);
+                }
                 else
                 {
-                    return dataType.Equals(EnumSpecDataType.Integer) ? Format.FormatNumeric(value) : value;
+                    if (id == 377 || id == 378)
+                    {
+                        return Format.FormatNumericWithRpm(value);
+                    }
+                    else
+                    {
+                        return value;
+                    }
                 }
             }
             return _notAvaliableText;
@@ -466,7 +476,7 @@ namespace Bikewale.Utility
         /// <param name="value"></param>
         /// <param name="dataType"></param>
         /// <returns></returns>
-        public static string ShowAvailable(string value, string unit, EnumSpecDataType dataType)
+        public static string ShowAvailable(string value, string unit, EnumSpecDataType dataType, int id)
         {
             if (!String.IsNullOrEmpty(value))
             {
@@ -480,7 +490,14 @@ namespace Bikewale.Utility
                 }
                 else
                 {
-                    return String.Format("{0} {1}", value, unit);
+                    if (id == 377 || id == 378)
+                    {
+                        return String.Format("{0} {1}", Format.FormatNumericWithRpm(value), unit);
+                    }
+                    else
+                    {
+                        return String.Format("{0} {1}", value, unit);
+                    }
                 }
             }
             return _notAvaliableText;
@@ -694,6 +711,29 @@ namespace Bikewale.Utility
             {
                 return string.Empty;
             }
+        }
+        /// <summary>
+        /// Created by : Pratibha Verma on 10 April 2018
+        /// Description : Method to get outline url
+        /// </summary>
+        /// <param name="inputUrl">Input URL.</param>
+        /// <returns>Outline URL.</returns>
+        public static string GetOutlineIconUrl(string inputUrl)
+        {
+            string outputUrl = string.Empty;
+            try
+            {
+                if (!string.IsNullOrEmpty(inputUrl))
+                {
+                    inputUrl = inputUrl.Trim();
+                    outputUrl = inputUrl.Substring(0, inputUrl.Length - 4) + "-outline.svg";
+                }
+            }
+            catch (Exception)
+            {
+                return inputUrl;
+            }
+            return outputUrl;
         }
 
     }

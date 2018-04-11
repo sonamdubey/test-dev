@@ -89,7 +89,6 @@ namespace Bikewale.BAL.BikeData
                             EnumSpecsFeaturesItem.Displacement,
                             EnumSpecsFeaturesItem.FuelEfficiencyOverall,
                             EnumSpecsFeaturesItem.MaxPowerBhp,
-                            EnumSpecsFeaturesItem.MaximumTorqueNm,
                             EnumSpecsFeaturesItem.KerbWeight
                         });
                     if (bikeVersionMinSpecList != null && bikeVersionMinSpecList.Any())
