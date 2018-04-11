@@ -60,13 +60,11 @@ namespace Bikewale.Models
                     IEnumerable<VersionMinSpecsEntity> versionMinSpecs = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(electricBikes.Select(m => m.objVersion.VersionId));
                     if (versionMinSpecs != null)
                     {
-                        var minSpecs = versionMinSpecs.GetEnumerator();
-                        foreach (var electricBike in electricBikes)
+                        var specsEnumerator = versionMinSpecs.GetEnumerator();
+                        var bikesEnumerator = electricBikes.GetEnumerator();
+                        while (bikesEnumerator.MoveNext() && specsEnumerator.MoveNext())
                         {
-                            if (minSpecs.MoveNext())
-                            {
-                                electricBike.MinSpecsList = minSpecs.Current.MinSpecsList;
-                            }
+                            bikesEnumerator.Current.MinSpecsList = specsEnumerator.Current.MinSpecsList;
                         }
                     }
                 }
