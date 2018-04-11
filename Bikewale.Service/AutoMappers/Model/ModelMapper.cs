@@ -344,7 +344,7 @@ namespace Bikewale.Service.AutoMappers.Model
                     string displayValue;
                     foreach (var spec in objModelPage.SpecsSummaryList)
                     {
-                        displayValue = FormatMinSpecs.ShowAvailable(spec.Value, spec.UnitType, spec.DataType);
+                        displayValue = FormatMinSpecs.ShowAvailable(spec.Value, spec.UnitType, spec.DataType, spec.Id);
                         switch ((EnumSpecsFeaturesItem)spec.Id)
                         {
                             case EnumSpecsFeaturesItem.Displacement:
