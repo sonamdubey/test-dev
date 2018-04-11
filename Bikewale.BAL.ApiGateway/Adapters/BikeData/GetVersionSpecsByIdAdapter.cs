@@ -115,8 +115,9 @@ namespace Bikewale.BAL.ApiGateway.Adapters.BikeData
 							Icon = item.Icon,
 							Id = item.Id,
 							ItemValues = item.ItemValues,
-							UnitTypeText = item.UnitTypeName
-						});
+							UnitTypeText = item.UnitTypeName,
+                            DataType = (EnumSpecDataType)item.DataTypeId
+                        });
 					}
 					return itemList;
 				}
