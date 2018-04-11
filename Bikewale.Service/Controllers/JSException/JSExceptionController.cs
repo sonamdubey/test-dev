@@ -33,7 +33,7 @@ namespace Bikewale.Service.Controllers.JSException
                 if (error != null)
                 {
                     string errorString = string.Format("\nClient Side Error\nDetails - {0}\nErrorType - {1}\nSourceFile - {2}\nLine - {3}\nTrace - {4}", error.Details, error.ErrorType, error.SourceFile, error.LineNo, error.Trace);
-                    _logger.Info(errorString, error);
+                    _logger.Error(errorString, error);
                 }
             }
             catch (Exception ex)
