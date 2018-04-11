@@ -30,6 +30,19 @@
   height: 100%
   padding: 20px
 
+  &:after    
+    @include skyline-bg
+    @include vendor-prefix('animation', animateSkyline 30s linear 10)
+    background-position: center bottom
+    content: ''
+    position: absolute
+    bottom: 0
+    width: 2048px
+    height: 90px
+    display: block
+    opacity: .1
+    will-change: transform
+
 .select-bike__close
   @include cross-fff-icon
   background-size: 14px
