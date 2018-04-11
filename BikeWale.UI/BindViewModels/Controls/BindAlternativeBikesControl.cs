@@ -26,14 +26,9 @@ namespace Bikewale.BindViewModels.Controls
         private const ushort TotalWidgetItems = 9;
         private readonly IBikeVersions<BikeVersionEntity, uint> _objVersion;
 
-        public BindAlternativeBikesControl()
+        public BindAlternativeBikesControl(IBikeVersions<BikeVersionEntity, uint> objVersion)
         {
-            using (IUnityContainer container = new UnityContainer())
-            {
-                container.RegisterType<IBikeVersions<BikeVersionEntity, uint>, BikeVersions<BikeVersionEntity, uint>>()
-                    .RegisterType<IApiGatewayCaller, ApiGatewayCaller>();
-                _objVersion = container.Resolve<IBikeVersions<BikeVersionEntity, uint>>();
-            }
+            _objVersion = objVersion;
         }
 
         /// <summary>
