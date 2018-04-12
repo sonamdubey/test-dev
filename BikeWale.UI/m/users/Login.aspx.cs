@@ -31,25 +31,6 @@ namespace BikWale.Mobile.Users
 
         private void Page_Load(object sender, EventArgs e)
         {
-            if (Request["logout"] != null && Request.QueryString["logout"] == "logout")
-            {
-                logout = true;
-            }
-
-            if (logout == true)
-            {
-                CurrentUser.EndSession();
-
-                HttpCookie rememberMe = Request.Cookies.Get("RememberMe");
-
-                if (rememberMe != null)
-                {
-                    rememberMe.Expires = DateTime.Now.AddDays(-1);
-                    Response.Cookies.Add(rememberMe);
-                }
-
-                RedirectPath();
-            }
 
         }
 

@@ -38,7 +38,7 @@ var updateData = function(state,updateDict) {
   }
   catch(err){
     console.log(err);
-    return state;
+    return state;   
   }
   
 }

@@ -41,7 +41,7 @@ namespace Bikewale.Entities.Used
         public string RegistrationNo { get; set; }
         public string InsuranceType { get; set; }
         public string AdDescription { get; set; }
-
+        public SellerEntity Seller { get; set; }
     }
 
     /// <summary>

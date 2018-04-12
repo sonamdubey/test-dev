@@ -4,7 +4,7 @@
 @{
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/content/details.css' inline /> <link rel='stylesheet' type='text/css' href='/css/components/m-brand-logo.css' inline />";
     Model.Page_BTF_CSS_Path = "/css/jquery.floating-social-share.min.css";
-    Model.Page_JS_Paths = new string[] { "/src/content/details.js", "/src/sidebarsection.js" };
+    Model.Page_JS_Paths = new string[] { "/src/content/details.js", "/src/sidebarsection.js", "/src/bw-contenttracking.js" };
     Model.PageMetaTags.FBTitle = Model.ArticleDetails.Title;
     Model.AdTags.AdId = "1395986297721";
     Model.AdTags.AdPath = "/1017752/Bikewale_Reviews_";
@@ -16,255 +16,263 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     if (Model != null && Model.ArticleDetails != null) { Model.AdTags.TargetedTags = String.Join(",", Model.ArticleDetails.TagsList); };
 }
-<section>
-    <div id="overallContainer" class="container margin-bottom20">
-        <div class="grid-12">
-            <div id="content" class="grid-8 alpha">
-                <div class="bg-white">
-                    <div class="section-header">
-                        <h1 class="margin-bottom5">@Model.ArticleDetails.Title</h1>
-                        <div>
-                            <span class="bwsprite calender-grey-sm-icon"></span>
-                            <span class="article-stats-content margin-right20">@FormatDate.GetFormatDate(Convert.ToString(Model.ArticleDetails.DisplayDate), "dd MMMM yyyy, hh:mm tt")</span>
-                            @if (string.IsNullOrEmpty(Model.ArticleDetails.AuthorMaskingName))
+@if(Model != null)
+{
+    <section>
+    
+            <div id="overallContainer" class="container margin-bottom20">
+                <div class="grid-12">
+                    @if(Model.ArticleDetails != null)
+                    {                   
+                        <div id="content" class="grid-8 alpha">
+                            <div class="bg-white">
+                                <div class="section-header">
+                                    <h1 class="margin-bottom5">@Model.ArticleDetails.Title</h1>
+                                    <div>
+                                        <span class="bwsprite calender-grey-sm-icon"></span>
+                                        <span class="article-stats-content margin-right20">@FormatDate.GetFormatDate(Convert.ToString(Model.ArticleDetails.DisplayDate), "dd MMMM yyyy, hh:mm tt")</span>
+                                        @if (string.IsNullOrEmpty(Model.ArticleDetails.AuthorMaskingName))
+                                        {
+                                            <span class="bwsprite author-grey-sm-icon"></span>
+                                            <span class="article-stats-content margin-right20"><span>@Model.ArticleDetails.AuthorName</span></span>
+                                        }
+                                        else
+                                        {
+                                            <a href=@UrlFormatter.AuthorPageUrl(Model.ArticleDetails.AuthorMaskingName) class="hover-no-underline">
+                                                <span class="bwsprite author-grey-sm-icon"></span>
+                                                <span class="article-stats-content margin-right20"><span class="text-link">@Model.ArticleDetails.AuthorName</span></span>
+                                            </a>
+                                        }
+                                        <span class="font12 inline-block text-light-grey">
+                                            @if (Model.BikeTested != null && !string.IsNullOrEmpty(Model.BikeTested.ToString()))
+                                            {
+                                                @Html.Raw(Model.BikeTested)}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="section-inner-padding">
+                                    <div id="topNav" class="margin-bottom10">
+                                        @if (Model.ArticleDetails.PageList != null && Model.ArticleDetails.PageList.Any())
+                                        {
+                                            <ul>
+                                                @foreach (var page in Model.ArticleDetails.PageList)
+                                                {
+                                                    <li>
+                                                        <a href="#@page.pageId">@page.PageName</a>
+                                                    </li>
+                                                }
+                                                <li>
+                                                    <a href="#divPhotos">Images</a>
+                                                </li>
+                                            </ul>
+                                        }
+                                    </div>
+                                    <div class="clear"></div>
+                                    <div class="content-details" data-id="@Model.ArticleDetails.BasicId" data-category-id="@Model.ArticleDetails.CategoryId" data-event-label="Expert_Review_Detail">
+                                        @if (Model.ArticleDetails.PageList != null && Model.ArticleDetails.PageList.Any())
+                                        {
+                                            foreach (var page in Model.ArticleDetails.PageList)
+                                            {
+                                                <div class="margin-top10 margin-bottom10">
+                                                    <h3 class="article-content-title">@page.PageName</h3>
+                                                    <div id='@page.pageId' class="margin-top10 article-content">
+                                                        @Html.Raw(page.Content)
+                                                    </div>
+                                                </div>
+                                            }
+                                        }
+                                    </div>
+
+                                        @if (Model.PhotoGallery != null && Model.PhotoGallery.Images != null && Model.PhotoGallery.ImageCount > 0)
+                                        {
+                                            <div id="divPhotos">
+                                                @Html.Partial("~/Views/Shared/_EditCMSPhotoGallery.cshtml", Model.PhotoGallery.Images)
+                                            </div>
+                                        }
+
+
+                                        @if (Model.TaggedBikes != null && Model.TaggedBikes.Any())
+                                        {
+
+                                            <div class="padding-top20 padding-left20 padding-right20 padding-bottom20 bg-read-more-articles">
+                                                <h2 class="list-head">More expert reviews</h2>
+                                                <ul class="disk-list">
+                                                    @foreach (var bike in Model.TaggedBikes)
+                                                    {
+                                                        string bikeName = string.Format("{0} {1}", bike.MakeBase.MakeName, bike.MakeBase.MakeName);
+                                                        <li data-cat="Expert_Reviews" data-lab="@bikeName" data-act="Clicked_ModelExpertReviews_Link">
+                                                            <a href="@string.Format("/{0}-bikes/{1}/expert-reviews/", bike.MakeBase.MaskingName, bike.ModelBase.MaskingName)" title="@bikeName Expert Reviews">Read more @bikeName Reviews</a>
+                                                        </li>
+
+                                                    }
+                                                </ul>
+                                            </div>
+
+                                        }
+
+                                    </div>
+                            </div>
+                        </div>
+                    }
+                    <div class="grid-4 omega">
+                        @if (Model.Model != null && Model.Model.ModelId > 0)
+                        {
+                            if (Model.IsSeriesAvailable)
                             {
-                                <span class="bwsprite author-grey-sm-icon"></span>
-                                <span class="article-stats-content margin-right20"><span>@Model.ArticleDetails.AuthorName</span></span>
+                                if (Model.IsScooter && Model.SeriesBikesAndOtherBrands != null && Model.PopularScootersAndUpcomingScootersWidget != null)
+                                {
+                                    @Html.Partial("~/Views/BikeModels/_MultiTabsWidget.cshtml", Model.SeriesBikesAndOtherBrands)
+                                    @Html.Partial("~/Views/BikeModels/_MultiTabsWidget.cshtml", Model.PopularScootersAndUpcomingScootersWidget)
+                                }
+                                else if (Model.BodyStyle.Equals(EnumBikeBodyStyles.Street))
+                                {
+                                    if (Model.SeriesBikesAndModelBodyStyleBikes.PopularSeriesBikes != null && Model.SeriesBikesAndModelBodyStyleBikes.PopularSeriesBikes.Any())
+                                    {
+                                        <div class="bw-tabs-panel content-box-shadow section-bottom-margin" data-slide="1">
+                                            <div class="bw-tabs bw-tabs-flex tabs-flex--reset-margin">
+                                                <ul id="widgetTab">
+                                                    <li>
+                                                        <h2 class="bw-tabs__item bw-tabs-item--sm">@Model.SeriesWidget.SeriesName Bikes</h2>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="sidebar-list--overflow">
+                                                @Html.Partial("~/Views/Shared/_EditorialSeriesBikesWidget.cshtml", Model.SeriesBikesAndModelBodyStyleBikes.PopularSeriesBikes)
+                                            </div>
+                                            <div class="view-all-btn-container padding-10-20-20 read-more">
+                                                <a href="@Model.SeriesWidget.WidgetLink" title="@Model.SeriesWidget.WidgetLinkTitle" class="btn view-all-target-btn">@Model.SeriesWidget.WidgetLinkTitle<span class="bwsprite teal-right"></span></a>
+                                            </div>
+                                        </div>
+                                    }
+                                    if (Model.PopularBikesAndUpcomingBikesWidget != null)
+                                    {
+                                        @Html.Partial("~/Views/BikeModels/_MultiTabsWidget.cshtml", Model.PopularBikesAndUpcomingBikesWidget)
+                                    }
+                                }
+                                else if (Model.SeriesBikesAndModelBodyStyleBikes != null && Model.PopularBikesAndUpcomingBikesWidget != null)
+                                {
+                                    @Html.Partial("~/Views/BikeModels/_MultiTabsWidget.cshtml", Model.SeriesBikesAndModelBodyStyleBikes)
+                                    @Html.Partial("~/Views/BikeModels/_MultiTabsWidget.cshtml", Model.PopularBikesAndUpcomingBikesWidget)
+                                }
+                            }
+                            else if (Model.PopularMakeScootersAndOtherBrandsWidget != null && Model.PopularScootersAndUpcomingScootersWidget != null)
+                            {
+                                @Html.Partial("~/Views/BikeModels/_MultiTabsWidget.cshtml", Model.PopularMakeScootersAndOtherBrandsWidget)
+                                @Html.Partial("~/Views/BikeModels/_MultiTabsWidget.cshtml", Model.PopularScootersAndUpcomingScootersWidget)
+                            }
+                            else if ( Model.PopularMakeBikesAndBodyStyleBikesWidget != null && Model.PopularBikesAndUpcomingBikesWidget != null)
+                            {
+                        
+                                @Html.Partial("~/Views/BikeModels/_MultiTabsWidget.cshtml", Model.PopularMakeBikesAndBodyStyleBikesWidget)
+                                @Html.Partial("~/Views/BikeModels/_MultiTabsWidget.cshtml", Model.PopularBikesAndUpcomingBikesWidget)
                             }
                             else
                             {
-                                <a href=@UrlFormatter.AuthorPageUrl(Model.ArticleDetails.AuthorMaskingName) class="hover-no-underline">
-                                    <span class="bwsprite author-grey-sm-icon"></span>
-                                    <span class="article-stats-content margin-right20"><span class="text-link">@Model.ArticleDetails.AuthorName</span></span>
-                                </a>
-                            }
-                            <span class="font12 inline-block text-light-grey">
-                                @if (Model.BikeTested != null && !string.IsNullOrEmpty(Model.BikeTested.ToString()))
+                                if (Model.MostPopularMakeBikes != null && Model.MostPopularMakeBikes.Bikes != null && Model.MostPopularMakeBikes.Bikes.Any())
                                 {
-                                    @Html.Raw(Model.BikeTested)}
-                            </span>
-                        </div>
-                    </div>
-                    <div class="section-inner-padding">
-                        <div id="topNav" class="margin-bottom10">
-                            @if (Model.ArticleDetails.PageList != null && Model.ArticleDetails.PageList.Any())
-                            {
-                                <ul>
-                                    @foreach (var page in Model.ArticleDetails.PageList)
-                                    {
-                                        <li>
-                                            <a href="#@page.pageId">@page.PageName</a>
-                                        </li>
-                                    }
-                                    <li>
-                                        <a href="#divPhotos">Images</a>
-                                    </li>
-                                </ul>
+                                    <div class="bw-tabs-panel content-box-shadow section-bottom-margin" data-slide="1">
+                                        <div class="bw-tabs bw-tabs-flex tabs-flex--reset-margin">
+                                            <ul id="widgetTab">
+                                                <li>
+                                                    <h2 class="bw-tabs__item bw-tabs-item--sm">@Model.Make.MakeName Bikes</h2>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="sidebar-list--overflow">
+                                            @Html.Partial("~/Views/BikeModels/_MostPopularBikesSideBar.cshtml", Model.MostPopularMakeBikes)
+                                        </div>
+                                        <div class="view-all-btn-container padding-10-20-20 read-more">
+                                            <a href="@Model.MostPopularMakeBikes.WidgetHref" title="@Model.MostPopularMakeBikes.WidgetLinkTitle" class="btn view-all-target-btn">@Model.MostPopularMakeBikes.WidgetLinkTitle<span class="bwsprite teal-right"></span></a>
+                                        </div>
+                                    </div>
+                                }
+                                if (Model.PopularBikesAndUpcomingBikesWidget != null)
+                                {
+                                    @Html.Partial("~/Views/BikeModels/_MultiTabsWidget.cshtml", Model.PopularBikesAndUpcomingBikesWidget)
+                                }
                             }
-                        </div>
-                        <div class="clear"></div>
-                        @if (Model.ArticleDetails.PageList != null && Model.ArticleDetails.PageList.Any())
+                        }
+                        else
                         {
-                            foreach (var page in Model.ArticleDetails.PageList)
+                            if (Model.PopularScooterMakesWidget != null && Model.PopularScooterMakesWidget.Count() > 0)
                             {
-                                <div class="margin-top10 margin-bottom10">
-                                    <h3 class="article-content-title">@page.PageName</h3>
-                                    <div id='@page.pageId' class="margin-top10 article-content">
-                                        @Html.Raw(page.Content)
+                                <div class="content-box-shadow padding-15-20-10 margin-bottom20">
+                                    <h2>Popular scooter brands</h2>
+                                    @Html.Partial("~/Views/Scooters/_PopularScooterBrandsVerticalWidget.cshtml", Model.PopularScooterMakesWidget)
+                                    <div class="view-all-btn-container padding-top10 padding-bottom10">
+                                        <a href="/scooters/" title="Scooters" class="btn view-all-target-btn">
+                                            View all scooters<span class="bwsprite teal-right"></span>
+                                        </a>
                                     </div>
                                 </div>
                             }
-                        }
-
-
-                        @if (Model.PhotoGallery != null && Model.PhotoGallery.Images != null && Model.PhotoGallery.ImageCount > 0)
-                        {
-                            <div id="divPhotos">
-                                @Html.Partial("~/Views/Shared/_EditCMSPhotoGallery.cshtml", Model.PhotoGallery.Images)
-                            </div>
-                        }
-
-
-                        @if (Model.TaggedBikes != null && Model.TaggedBikes.Any())
-                        {
-
-                            <div class="padding-top20 padding-left20 padding-right20 padding-bottom20 bg-read-more-articles">
-                                <h2 class="list-head">More expert reviews</h2>
-                                <ul class="disk-list">
-                                    @foreach (var bike in Model.TaggedBikes)
-                                    {
-                                        string bikeName = string.Format("{0} {1}", bike.MakeBase.MakeName, bike.MakeBase.MakeName);
-                                        <li data-cat="Expert_Reviews" data-lab="@bikeName" data-act="Clicked_ModelExpertReviews_Link">
-                                            <a href="@string.Format("/{0}-bikes/{1}/expert-reviews/", bike.MakeBase.MaskingName, bike.ModelBase.MaskingName)" title="@bikeName Expert Reviews">Read more @bikeName Reviews</a>
-                                        </li>
-
-                                    }
-                                </ul>
-                            </div>
-
-                        }
-
-                    </div>
-                </div>
-            </div>
-            <div class="grid-4 omega">
-                @if (Model.Model != null && Model.Model.ModelId > 0)
-                {
-                    if (Model.IsSeriesAvailable)
-                    {
-                        if (Model.IsScooter && Model.SeriesBikesAndOtherBrands != null && Model.PopularScootersAndUpcomingScootersWidget != null)
-                        {
-                            @Html.Partial("~/Views/BikeModels/_MultiTabsWidget.cshtml", Model.SeriesBikesAndOtherBrands)
-                            @Html.Partial("~/Views/BikeModels/_MultiTabsWidget.cshtml", Model.PopularScootersAndUpcomingScootersWidget)
-                        }
-                        else if (Model.BodyStyle.Equals(EnumBikeBodyStyles.Street))
-                        {
-                            if (Model.SeriesBikesAndModelBodyStyleBikes.PopularSeriesBikes != null && Model.SeriesBikesAndModelBodyStyleBikes.PopularSeriesBikes.Any())
+                            else if (Model.MostPopularBikes != null)
                             {
-                                <div class="bw-tabs-panel content-box-shadow section-bottom-margin" data-slide="1">
-                                    <div class="bw-tabs bw-tabs-flex tabs-flex--reset-margin">
-                                        <ul id="widgetTab">
-                                            <li>
-                                                <h2 class="bw-tabs__item bw-tabs-item--sm">@Model.SeriesWidget.SeriesName Bikes</h2>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="sidebar-list--overflow">
-                                        @Html.Partial("~/Views/Shared/_EditorialSeriesBikesWidget.cshtml", Model.SeriesBikesAndModelBodyStyleBikes.PopularSeriesBikes)
-                                    </div>
-                                    <div class="view-all-btn-container padding-10-20-20 read-more">
-                                        <a href="@Model.SeriesWidget.WidgetLink" title="@Model.SeriesWidget.WidgetLinkTitle" class="btn view-all-target-btn">@Model.SeriesWidget.WidgetLinkTitle<span class="bwsprite teal-right"></span></a>
-                                    </div>
-                                </div>
-                            }
-                            if (Model.PopularBikesAndUpcomingBikesWidget != null)
-                            {
-                                @Html.Partial("~/Views/BikeModels/_MultiTabsWidget.cshtml", Model.PopularBikesAndUpcomingBikesWidget)
-                            }
-                        }
-                        else if (Model.SeriesBikesAndModelBodyStyleBikes != null && Model.PopularBikesAndUpcomingBikesWidget != null)
-                        {
-                            @Html.Partial("~/Views/BikeModels/_MultiTabsWidget.cshtml", Model.SeriesBikesAndModelBodyStyleBikes)
-                            @Html.Partial("~/Views/BikeModels/_MultiTabsWidget.cshtml", Model.PopularBikesAndUpcomingBikesWidget)
-                        }
-                    }
-                    else if (Model.PopularMakeScootersAndOtherBrandsWidget != null && Model.PopularScootersAndUpcomingScootersWidget != null)
-                    {
-                        @Html.Partial("~/Views/BikeModels/_MultiTabsWidget.cshtml", Model.PopularMakeScootersAndOtherBrandsWidget)
-                        @Html.Partial("~/Views/BikeModels/_MultiTabsWidget.cshtml", Model.PopularScootersAndUpcomingScootersWidget)
-                    }
-                    else if ( Model.PopularMakeBikesAndBodyStyleBikesWidget != null && Model.PopularBikesAndUpcomingBikesWidget != null)
-                    {
-                        
-                        @Html.Partial("~/Views/BikeModels/_MultiTabsWidget.cshtml", Model.PopularMakeBikesAndBodyStyleBikesWidget)
-                        @Html.Partial("~/Views/BikeModels/_MultiTabsWidget.cshtml", Model.PopularBikesAndUpcomingBikesWidget)
-                    }
-                    else
-                    {
-                        if (Model.MostPopularMakeBikes != null && Model.MostPopularMakeBikes.Bikes != null && Model.MostPopularMakeBikes.Bikes.Any())
-                        {
-                            <div class="bw-tabs-panel content-box-shadow section-bottom-margin" data-slide="1">
-                                <div class="bw-tabs bw-tabs-flex tabs-flex--reset-margin">
-                                    <ul id="widgetTab">
-                                        <li>
-                                            <h2 class="bw-tabs__item bw-tabs-item--sm">@Model.Make.MakeName Bikes</h2>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="sidebar-list--overflow">
-                                    @Html.Partial("~/Views/BikeModels/_MostPopularBikesSideBar.cshtml", Model.MostPopularMakeBikes)
-                                </div>
-                                <div class="view-all-btn-container padding-10-20-20 read-more">
-                                    <a href="@Model.MostPopularMakeBikes.WidgetHref" title="@Model.MostPopularMakeBikes.WidgetLinkTitle" class="btn view-all-target-btn">@Model.MostPopularMakeBikes.WidgetLinkTitle<span class="bwsprite teal-right"></span></a>
-                                </div>
-                            </div>
-                        }
-                        if (Model.PopularBikesAndUpcomingBikesWidget != null)
-                        {
-                            @Html.Partial("~/Views/BikeModels/_MultiTabsWidget.cshtml", Model.PopularBikesAndUpcomingBikesWidget)
-                        }
-                    }
-                }
-                else
-                {
-                    if (Model.PopularScooterMakesWidget != null && Model.PopularScooterMakesWidget.Count() > 0)
-                    {
-                        <div class="content-box-shadow padding-15-20-10 margin-bottom20">
-                            <h2>Popular scooter brands</h2>
-                            @Html.Partial("~/Views/Scooters/_PopularScooterBrandsVerticalWidget.cshtml", Model.PopularScooterMakesWidget)
-                            <div class="view-all-btn-container padding-top10 padding-bottom10">
-                                <a href="/scooters/" title="Scooters" class="btn view-all-target-btn">
-                                    View all scooters<span class="bwsprite teal-right"></span>
-                                </a>
-                            </div>
-                        </div>
-                    }
-                    else if (Model.MostPopularBikes != null)
-                    {
-                        <div class="content-box-shadow margin-bottom20 @string.Format("{0}", Model.PopularScooterMakesWidget != null && Model.PopularScooterMakesWidget.Count() > 0 ? "padding-15-20-10" : "padding-top15 padding-bottom10")">
-                            <h2 class="padding-left20">@Model.MostPopularBikes.WidgetHeading</h2>
-                            @Html.Partial("~/Views/BikeModels/_MostPopularBikesSideBar.cshtml", Model.MostPopularBikes)
+                                <div class="content-box-shadow margin-bottom20 @string.Format("{0}", Model.PopularScooterMakesWidget != null && Model.PopularScooterMakesWidget.Count() > 0 ? "padding-15-20-10" : "padding-top15 padding-bottom10")">
+                                    <h2 class="padding-left20">@Model.MostPopularBikes.WidgetHeading</h2>
+                                    @Html.Partial("~/Views/BikeModels/_MostPopularBikesSideBar.cshtml", Model.MostPopularBikes)
 
-                            <div class="view-all-btn-container  @string.Format("{0}", Model.PopularScooterMakesWidget != null && Model.PopularScooterMakesWidget.Count() > 0 ? "padding-top10 padding-bottom10" : "padding-10-20-20")">
-                                <a href="@Model.MostPopularBikes.WidgetHref" title="@Model.MostPopularBikes.WidgetLinkTitle" class="btn view-all-target-btn">View all bikes<span class="bwsprite teal-right"></span></a>
-                            </div>
-                        </div>
-                        if (Model.AdTags.Ad_Model_ATF_300x250)
-                        {
-                            <div class="margin-bottom20 text-center">
-                                @{Html.RenderPartial("/Views/Shared/Ads/Desktop/Model_ATF_300x250.cshtml", Model.AdTags);}
-                            </div>
-                        }
-                    }
+                                    <div class="view-all-btn-container  @string.Format("{0}", Model.PopularScooterMakesWidget != null && Model.PopularScooterMakesWidget.Count() > 0 ? "padding-top10 padding-bottom10" : "padding-10-20-20")">
+                                        <a href="@Model.MostPopularBikes.WidgetHref" title="@Model.MostPopularBikes.WidgetLinkTitle" class="btn view-all-target-btn">View all bikes<span class="bwsprite teal-right"></span></a>
+                                    </div>
+                                </div>
+                                if (Model.AdTags.Ad_Model_ATF_300x250)
+                                {
+                                    <div class="margin-bottom20 text-center">
+                                        @{Html.RenderPartial("/Views/Shared/Ads/Desktop/Model_ATF_300x250.cshtml", Model.AdTags);}
+                                    </div>
+                                }
+                            }
                     
-                    if (Model.UpcomingBikes != null && Model.UpcomingBikes.UpcomingBikes != null && Model.UpcomingBikes.UpcomingBikes.Count() > 0)
-                    {
-                        <div class="content-box-shadow margin-bottom20 @string.Format("{0}", Model.PopularScooterMakesWidget != null && Model.PopularScooterMakesWidget.Count() > 0 ? "padding-15-20-10" : "padding-top15 padding-bottom10")">
-                            <h2 class="padding-left20">@Model.UpcomingBikes.WidgetHeading</h2>
-                            @Html.Partial("~/Views/Upcoming/_UpcomingBikes_Vertical.cshtml", Model.UpcomingBikes)
-                            <div class="view-all-btn-container  @string.Format("{0}", Model.PopularScooterMakesWidget != null && Model.PopularScooterMakesWidget.Count() > 0 ? "padding-top10 padding-bottom10" : "padding-10-20-20")">
-                                <a href="@Model.UpcomingBikes.WidgetHref" title="@Model.UpcomingBikes.WidgetLinkTitle" class="btn view-all-target-btn">View all bikes<span class="bwsprite teal-right"></span></a>
-                            </div>
+                            if (Model.UpcomingBikes != null && Model.UpcomingBikes.UpcomingBikes != null && Model.UpcomingBikes.UpcomingBikes.Count() > 0)
+                            {
+                                <div class="content-box-shadow margin-bottom20 @string.Format("{0}", Model.PopularScooterMakesWidget != null && Model.PopularScooterMakesWidget.Count() > 0 ? "padding-15-20-10" : "padding-top15 padding-bottom10")">
+                                    <h2 class="padding-left20">@Model.UpcomingBikes.WidgetHeading</h2>
+                                    @Html.Partial("~/Views/Upcoming/_UpcomingBikes_Vertical.cshtml", Model.UpcomingBikes)
+                                    <div class="view-all-btn-container  @string.Format("{0}", Model.PopularScooterMakesWidget != null && Model.PopularScooterMakesWidget.Count() > 0 ? "padding-top10 padding-bottom10" : "padding-10-20-20")">
+                                        <a href="@Model.UpcomingBikes.WidgetHref" title="@Model.UpcomingBikes.WidgetLinkTitle" class="btn view-all-target-btn">View all bikes<span class="bwsprite teal-right"></span></a>
+                                    </div>
+                                </div>
+                            }
+                        }
+
+                        <div class="margin-bottom20">
+                            @Html.Partial("~/Views/Shared/Ads/Desktop/Ad300x250.cshtml", Model.AdTags)
                         </div>
-                    }
-                }
-
-                <div class="margin-bottom20">
-                    @Html.Partial("~/Views/Shared/Ads/Desktop/Ad300x250.cshtml", Model.AdTags)
-                </div>
-                @if (Model.SimilarBikes != null && Model.SimilarBikes.Bikes != null && Model.SimilarBikes.Bikes.Any() && Model.Model.ModelId != 987)
-                {
-                    <div id="sidebarBikeSection" class="content-box-shadow sidebar-bike-section margin-bottom20">
-                        <h2 class="sidebar-list-heading">You may also like</h2>
-                        @Html.Partial("~/Views/Shared/_Sidebar-section.cshtml", Model.SimilarBikes)
+                        @if (Model.SimilarBikes != null && Model.SimilarBikes.Bikes != null && Model.SimilarBikes.Bikes.Any() && Model.Model.ModelId != 987)
+                        {
+                            <div id="sidebarBikeSection" class="content-box-shadow sidebar-bike-section margin-bottom20">
+                                <h2 class="sidebar-list-heading">You may also like</h2>
+                                @Html.Partial("~/Views/Shared/_Sidebar-section.cshtml", Model.SimilarBikes)
+                            </div>
+                        }
                     </div>
-                }
-            </div>
-            <div class="clear"></div>
-        </div>
-        <div class="clear"></div>
-    </div>
-</section>
-<div class="back-to-top" id="back-to-top"></div>
-@if (Model.PhotoGallery != null && Model.PhotoGallery.Images != null && Model.PhotoGallery.ImageCount > 0)
-{
-    <section>
-        <div class="model-gallery-container">
-            <div class="blackOut-window-model"></div>
-            <div class="modelgallery-close-btn position-abt pos-top20 pos-right20 bwsprite cross-lg-white cur-pointer hide"></div>
-            <div class="bw-tabs-panel bike-gallery-popup hide" id="bike-gallery-popup">
-
-                <div class="bike-gallery-heading margin-bottom20 margin-left30 margin-top90">
-                    <p class="font18 text-bold text-white">@Model.ArticleDetails.Title</p>
+                    <div class="clear"></div>
                 </div>
-                @Html.Partial("~/Views/Shared/_EditCMSModelGallery.cshtml", Model.PhotoGallery)
+                <div class="clear"></div>
             </div>
-        </div>
     </section>
+    <div class="back-to-top" id="back-to-top"></div>
+    if (Model.PhotoGallery != null && Model.PhotoGallery.Images != null && Model.PhotoGallery.ImageCount > 0)
+    {
+        <section>
+            <div class="model-gallery-container">
+                <div class="blackOut-window-model"></div>
+                <div class="modelgallery-close-btn position-abt pos-top20 pos-right20 bwsprite cross-lg-white cur-pointer hide"></div>
+                <div class="bw-tabs-panel bike-gallery-popup hide" id="bike-gallery-popup">
+
+                    <div class="bike-gallery-heading margin-bottom20 margin-left30 margin-top90">
+                        <p class="font18 text-bold text-white">@Model.ArticleDetails.Title</p>
+                    </div>
+                    @Html.Partial("~/Views/Shared/_EditCMSModelGallery.cshtml", Model.PhotoGallery)
+                </div>
+            </div>
+        </section>
+    }
+    <script defer type="text/javascript" src="@String.Format("{0}/src/jquery.floating-social-share.min.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl,Bikewale.Utility.BWConfiguration.Instance.StaticPluginFileVersion)"></script>
+    <div id="lightBoxContainer" class="hide">
+        <span class="light-box__close-icon"></span>
+        <span class="spin-loader fixed-loader"></span>
+        <img class="lazy" data-original="" src=" " alt="">
+    </div>
 }
-<script defer type="text/javascript" src="@String.Format("{0}/src/jquery.floating-social-share.min.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl,Bikewale.Utility.BWConfiguration.Instance.StaticPluginFileVersion)"></script>
-<div id="lightBoxContainer" class="hide">
-    <span class="light-box__close-icon"></span>
-    <span class="spin-loader fixed-loader"></span>
-    <img class="lazy" data-original="" src=" " alt="">
-</div>

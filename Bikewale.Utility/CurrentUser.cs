@@ -295,5 +295,39 @@ namespace Bikewale.Utility
             Random r = new Random((int)DateTime.Now.Ticks);
             BWCookies.SetCookie("_bwtest", 365, Convert.ToString(r.Next(1, 101)));
         }
+
+        public static void EndSession()
+        {
+            FormsAuthentication.SignOut();
+
+            // Added by : Ashish G. Kamble on 5 Sept 2015. Remove remember me cookie
+            HttpCookie rememberMe = HttpContext.Current.Request.Cookies.Get("RememberMe");
+
+            if (rememberMe != null)
+            {
+                rememberMe.Expires = DateTime.Now.AddDays(-1);
+                HttpContext.Current.Response.Cookies.Add(rememberMe);
+            }
+
+            //also clear the cookie for the contact information            
+            ExpireNeedContactInformation();
+
+            // delete auction cookie if not exists
+            // it will be reassign
+            DeleteAuctionCookie();
+        }
+
+        public static void ExpireNeedContactInformation()
+        {
+            HttpContext.Current.Response.Cookies["NeedContactInformation"].Expires = DateTime.Now.AddYears(-1);
+        }
+        public static void DeleteAuctionCookie()
+        {
+            //Delete auction cookies if exists
+            if (HttpContext.Current.Request.Cookies["CookieBidderId"] != null)
+            {
+                HttpContext.Current.Response.Cookies["CookieBidderId"].Expires = DateTime.Now.AddYears(-1);
+            }
+        }
     }
 }

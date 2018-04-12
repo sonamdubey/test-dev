@@ -134,7 +134,6 @@
     <Compile Include="Configuration\ErrorMailConfiguration.cs" />
     <Compile Include="Configuration\MailConfiguration.cs" />
     <Compile Include="ErrorClass.cs" />
-    <Compile Include="JSExceptionTemplate.cs" />
     <Compile Include="MailTemplates\BookingCancellationTemplate.cs" />
     <Compile Include="MailTemplates\CancellationFeedbackTemplate.cs" />
     <Compile Include="MailTemplates\CapitalFirstSuccessEmailTemplate.cs" />

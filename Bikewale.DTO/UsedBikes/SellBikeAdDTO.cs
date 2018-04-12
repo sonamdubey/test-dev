@@ -78,6 +78,8 @@ namespace Bikewale.DTO.UsedBikes
         public string InsuranceType { get; set; }
         [JsonProperty("adDescription")]
         public string AdDescription { get; set; }
+        [JsonProperty("seller")]
+        public SellerDTO Seller { get; set; }
     }
 
 }
