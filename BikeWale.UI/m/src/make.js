@@ -195,7 +195,7 @@ var floatingNav = (function () {
 			$('html, body').animate({ scrollTop: Math.ceil($(".overall-tabs-data[data-id=" + target + "]").offset().top) - topNavBarHeight }, 1000, function () {
 				overallTabsContainer.attr('data-clicked', '0');
 			});
-
+			triggerGA("Make_Page", "Floating_Navigation_Clicked", $('.overall-tabs__list').data('make-name') + '_' + $(this).data('lab'));
 		});
 
 		function centerNavBar(target, outer) {
