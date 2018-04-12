@@ -77,7 +77,7 @@ var updateData = function(state,updateDict) {
                 error.ErrorType = error.ErrorType || "Uncaught Exception";
                 error.LineNo = lineno || "Unable to trace";
                 error.Trace = error.Trace || '-';
-                errorLog(error);
+                //errorLog(error);
             
         }
         catch (e) {
