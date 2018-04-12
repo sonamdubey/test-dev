@@ -124,6 +124,7 @@ var ImageGrid = (function () {
 			$('#galleryLoader').hide();
 			triggerGalleryImageChangeGA = false;
 			mainGallerySwiper.slideTo(imageIndex);
+			SwiperEvents.setDetails(mainGallerySwiper, vmModelGallery);
 
 			if (imageIndex === vmModelGallery.colorSlug().visibilityThreshold()) {
 			    vmModelGallery.colorSlug().activeSlug(false);
