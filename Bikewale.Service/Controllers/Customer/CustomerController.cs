@@ -4,7 +4,9 @@ using Bikewale.DTO.Customer;
 using Bikewale.Entities.Customer;
 using Bikewale.Interfaces.Customer;
 using Bikewale.Notifications;
+using Bikewale.Utility;
 using System;
+using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Description;
 
@@ -81,10 +83,81 @@ namespace Bikewale.Service.Controllers.Customer
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "Exception : Bikewale.Service.Controllers.CustomerController.POST");
-               
+
                 return InternalServerError();
             }
         }   // POST
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 01 Dec 2017
+        /// Description :   Function to logout a customer
+        /// </summary>
+        /// <param name="ReturnUrl"></param>
+        /// <param name="hash"></param>
+        /// <returns></returns>
+        [HttpPost, Route("api/customer/logout/")]
+        public IHttpActionResult Logout(string ReturnUrl, string hash = "")
+        {
+            if (Request.Headers.Contains("token") && Request.Headers.Contains("customerId"))
+            {
+                var token = Request.Headers.GetValues("token").First();
+                var customerId = Request.Headers.GetValues("customerId").First();
+                if (Bikewale.Utility.BikewaleSecurity.Decrypt(token).Equals(customerId))
+                {
+                    CurrentUser.EndSession();
+                    string returnUrl = ReturnUrl;
+                    if (!string.IsNullOrEmpty(hash))
+                        returnUrl = returnUrl.Replace(Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, "");
+                    if (IsLocalUrl(returnUrl))
+                    {
+                        if (!string.IsNullOrEmpty(hash))
+                        {
+                            returnUrl = string.Format("{0}#{1}", returnUrl, hash);
+                        }
+                        return Ok(returnUrl);
+                    }
+                    else
+                    {
+                        return Ok("/");
+                    }
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
+
+        /// <summary>
+        /// Created by : Sangram Nandkhile on 09 Nov 2016
+        /// Desc: Function to check if url is local url or not
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns></returns>
+        private bool IsLocalUrl(string url)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(url))
+                {
+                    return false;
+                }
+                else
+                {
+                    return ((url[0] == '/' && (url.Length == 1 || (url[1] != '/' && url[1] != '\\'))) || (url.Length > 1 && url[0] == '~' && url[1] == '/'));
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "IsLocalUrl()");
+
+                return false;
+            }
+        }
 
     }   // Class
 }   // namespace

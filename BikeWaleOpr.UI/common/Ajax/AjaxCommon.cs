@@ -58,7 +58,7 @@ namespace BikeWaleOpr.Common
                 _series = container.Resolve<IBikeSeries>();
                 _indexName = ConfigurationManager.AppSettings["MMIndexName"];
                 _bikeESRepository = container.Resolve<IBikeESRepository>();
-                
+
                 _bikeModels = container.Resolve<IBikeModels>();
             }
         }
@@ -792,7 +792,11 @@ namespace BikeWaleOpr.Common
 
                 CwWebserviceAPI callApp = new CwWebserviceAPI();
                 callApp.ReleaseMaskingNumber(_dealerId, ccInputs.LastUpdatedBy, ccInputs.OldMaskingNumber);
-                callApp.AddCampaignContractData(ccInputs);
+                if (!String.IsNullOrEmpty(ccInputs.MaskingNumber))
+                {
+                    callApp.AddCampaignContractData(ccInputs);
+                }
+                callApp.IsCCMapped(Convert.ToUInt32(dealerId), Convert.ToUInt32(contractId), Convert.ToUInt32(campaignId));
             }
             catch (Exception ex)
             {

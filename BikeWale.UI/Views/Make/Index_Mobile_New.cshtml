@@ -244,7 +244,7 @@ string.Format("{0} <span class='font14'> onwards</span>", Bikewale.Utility.Forma
             @if (Model.IsUpComingBikesAvailable)
             {
                 <section>
-                    <div data-id="upcomingBikes" class="bg-white section-bottom-margin  overall-tabs-data">
+                    <div data-id="upcomingBikes" class="bg-white section-bottom-margin overall-tabs-data">
                         <div class="carousel__title">
                             <h2 class="page__heading-h2 carousel-title__label">Upcoming @Model.MakeName Bikes</h2>
                             <a href="@string.Format("/m/{0}-bikes/upcoming/", Model.MakeMaskingName)" class="view-all-btn" title="Upcoming @Model.MakeName Bikes in India">
@@ -255,6 +255,30 @@ string.Format("{0} <span class='font14'> onwards</span>", Bikewale.Utility.Forma
                     </div>
                 </section>
             }
+
+                @if (Model.IsCompareBikesAvailable)
+                {
+                    <div data-id="compareBikes" id="popularComparison" class="overall-tabs-data">
+                            <div class="container bg-white section-bottom-margin comparison-section">
+                                <div class="padding-bottom15">
+                                    <div class="carousel__title">
+                                        <h2 class="page__heading-h2 carousel-title__label">Popular Comparison of @Model.MakeName Bikes</h2>
+                                        <a href="/m/comparebikes/" class="view-all-btn" title="View more comparisons">
+                                            View all
+                                        </a>
+                                        <div class="clear"></div>
+                                    </div>
+
+                                    <div class="swiper-container comparison-swiper card-container">
+                                        <div class="swiper-wrapper">
+                                            @Html.Partial("~/Views/CompareBikes/_SimilarComparisons_Mobile_V1.cshtml", Model.CompareSimilarBikes)
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                }
+
 
             <div id="notifyPopup">
                 <div class="notify-popup__content">
@@ -299,7 +323,7 @@ string.Format("{0} <span class='font14'> onwards</span>", Bikewale.Utility.Forma
                 </div>                
 
                 <section>
-                    <div data-id="@(Model.IsUpComingBikesAvailable ? "upcomingBikes" : "bikeModel")" class="section-bottom-margin interesting-fact-section  overall-tabs-data">
+                    <div data-id="@(Model.IsCompareBikesAvailable ? "compareBikes" : Model.IsUpComingBikesAvailable ? "upcomingBikes" : "bikeModel")" class="section-bottom-margin interesting-fact-section  overall-tabs-data">
                         <h2 class="interesting-fact__title page__heading-h2">Interesting Fact</h2>
                         <div class="interesting-fact-container">
                             <p class="interesting-fact__content">
@@ -512,13 +536,15 @@ string.Format("{0} <span class='font14'> onwards</span>", Bikewale.Utility.Forma
                     }
                 }   
             }
-            
+            if (FbPixelEvent) {
+                fbq('track', FbPixelEvent.viewContent);
+            }
     
         }
         catch (e) {
             console.log(e.message);
         }
-        fbq('track', FbPixelEvent.viewContent);
+        
     });
 
 </script>

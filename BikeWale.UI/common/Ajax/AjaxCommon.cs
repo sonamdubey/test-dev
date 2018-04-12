@@ -164,6 +164,8 @@ namespace Bikewale.Ajax
         /// <summary>
         ///     Written By : Ashish G. Kamble on 5 Nov 2012
         ///     Summary : Function will send a get passowrd link to customer.
+        ///     Modified by :   Sumit Kate on 01 Dec 2017
+        ///     Description :   return true always to avoid User Email Enumeration
         /// </summary>
         /// <param name="email">Email on which get password link to be send.</param>
         /// <returns>Return true if password link is send else false.</returns>
@@ -175,7 +177,7 @@ namespace Bikewale.Ajax
             RegisterCustomer objCust = new RegisterCustomer();
             retVal = objCust.SendCustomerPassword(email.Trim());
 
-            return retVal;
+            return true;
         }
 
         /// <summary>

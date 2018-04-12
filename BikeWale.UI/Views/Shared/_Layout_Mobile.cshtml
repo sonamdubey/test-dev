@@ -69,6 +69,7 @@
     <script type="text/javascript">
         var ga_pg_id = '0', gaObj;
         var adSlot = {};
+        var FbPixelEvent = { pageView: 'PageView', viewContent: 'ViewContent' ,lead : 'Lead'};
     @if(Model.Page !=null)
     {
         <text>gaObj = {'id':@((int)Model.Page), 'name': '@Model.Page'};</text>
@@ -560,10 +561,10 @@ else if (Model.AdTags.ShowInnovationBannerMobile)
         {
             <link href="@String.Format("{0}{1}?{2}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, Model.Page_BTF_CSS_Path,Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion)" rel="stylesheet" type="text/css" />
         }
-        @Html.Partial("~/Views/Shared/fontcss/OpenSans/_Latin400.cshtml");
-        @Html.Partial("~/Views/Shared/fontcss/OpenSans/_Latin600.cshtml");
-        @Html.Partial("~/Views/Shared/fontcss/OpenSans/_Latin700.cshtml");
-        @Html.Partial("~/Views/Shared/fontcss/OpenSans/_Latin800.cshtml");
+        @Html.Partial("~/Views/Shared/fontcss/OpenSans/_Latin400.cshtml")
+        @Html.Partial("~/Views/Shared/fontcss/OpenSans/_Latin600.cshtml")
+        @Html.Partial("~/Views/Shared/fontcss/OpenSans/_Latin700.cshtml")
+        @Html.Partial("~/Views/Shared/fontcss/OpenSans/_Latin800.cshtml")
     </noscript>
     <script type="text/javascript">
         var loadAsyncCss = function () { var a = document.getElementById("asynced-css"); if (a) { var b = document.createElement("div"); b.style.display = 'none', b.innerHTML = a.textContent, document.body.appendChild(b), a.parentElement.removeChild(a) } }, raf = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame; raf ? raf(function () { window.setTimeout(loadAsyncCss, 0) }) : window.addEventListener("load", loadAsyncCss);
