@@ -1281,10 +1281,10 @@ namespace Bikewale.Models
             SecondWidget.WidgetColumns = new Dictionary<EditorialWidgetColumnPosition, EditorialWidgetInfo>();
 
 
-            //A1 (First-Left) => FirstWidget.WidgetColumns[EditorialWidgetColumnPosition.Left] => widgets[0]
-            //A2 (First-Right) => FirstWidget.WidgetColumns[EditorialWidgetColumnPosition.Right] => widgets[1]
-            //B1 (Second-Left) => SecondWidget.WidgetColumns[EditorialWidgetColumnPosition.Left] => widgets[2]
-            //B2 (Second-Right) => SecondWidget.WidgetColumns[EditorialWidgetColumnPosition.Right] => widgets[3]
+            // A1 (First-Left)   : FirstWidget.WidgetColumns[EditorialWidgetColumnPosition.Left]   : widgets[0]
+            // A2 (First-Right)  : FirstWidget.WidgetColumns[EditorialWidgetColumnPosition.Right]  : widgets[1]
+            // B1 (Second-Left)  : SecondWidget.WidgetColumns[EditorialWidgetColumnPosition.Left]  : widgets[2]
+            // B2 (Second-Right) : SecondWidget.WidgetColumns[EditorialWidgetColumnPosition.Right] : widgets[3]
             EditorialWidgetInfo[] widgets = new EditorialWidgetInfo[noOfEditorialWidgetColumns];
 
             if (isModelTagged)
@@ -1349,17 +1349,11 @@ namespace Bikewale.Models
         {
             try
             {
-                //A1
                 widgets[0] = isSeriesAvailable ? BindWidget(EditorialWidgetCategory.Popular_Series, objData) : BindWidget(EditorialWidgetCategory.Popular_Make, objData);
-
-                //B1
                 widgets[2] = BindWidget(EditorialWidgetCategory.Popular_All, objData);
-
                 if (!IsMobile)
                 {
-                    //B2
                     widgets[3] = BindWidget(EditorialWidgetCategory.Upcoming_All, objData);
-
                 }
             }
             catch (Exception ex)
@@ -1378,26 +1372,16 @@ namespace Bikewale.Models
         {
             try
             {
-                //A1
                 widgets[0] = isSeriesAvailable ? BindWidget(EditorialWidgetCategory.Series_Scooters, objData) : BindWidget(EditorialWidgetCategory.Popular_Make_Scooters, objData);
-
                 if (!IsMobile)
                 {
-                    //A2
                     widgets[1] = BindWidget(EditorialWidgetCategory.OtherBrands_All, objData);
-
-                    //B1 
                     widgets[2] = BindWidget(EditorialWidgetCategory.Popular_Scooters, objData);
-
-                    //B2
                     widgets[3] = BindWidget(EditorialWidgetCategory.Upcoming_Scooters, objData);
-
                 }
                 else
                 {
-                    //B1
                     widgets[2] = BindWidget(EditorialWidgetCategory.OtherBrands_All, objData);
-
                 }
             }
             catch (Exception ex)
@@ -1416,23 +1400,15 @@ namespace Bikewale.Models
         {
             try
             {
-                //A1
                 widgets[0] = isSeriesAvailable ? BindWidget(EditorialWidgetCategory.Popular_Series, objData) : BindWidget(EditorialWidgetCategory.Popular_Make, objData);
-
                 if (!IsMobile)
                 {
-                    //A2
                     widgets[1] = BindWidget(EditorialWidgetCategory.Popular_BodyStyle, objData);
-
-                    //B1
                     widgets[2] = BindWidget(EditorialWidgetCategory.Popular_All, objData);
-
-                    //B2
                     widgets[3] = BindWidget(EditorialWidgetCategory.Upcoming_All, objData);
                 }
                 else
                 {
-                    //B1
                     widgets[2] = BindWidget(EditorialWidgetCategory.Popular_BodyStyle, objData);
                 }
             }
@@ -1454,24 +1430,16 @@ namespace Bikewale.Models
             {
                 if (isMakeTagged && isMakeLive)
                 {
-                    //A1
                     widgets[0] = BindWidget(EditorialWidgetCategory.Popular_Make, objData);
-
-                    //B1
                     widgets[2] = BindWidget(EditorialWidgetCategory.Popular_All, objData);
-
                     if (!IsMobile)
                     {
-                        //B2
                         widgets[3] = BindWidget(EditorialWidgetCategory.Upcoming_All, objData);
                     }
                 }
                 else
                 {
-                    //A1
                     widgets[0] = BindWidget(EditorialWidgetCategory.Popular_All, objData);
-
-                    //B1
                     widgets[2] = BindWidget(EditorialWidgetCategory.Upcoming_All, objData);
                 }
             }
