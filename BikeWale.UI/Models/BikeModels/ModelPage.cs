@@ -2147,6 +2147,15 @@ namespace Bikewale.Models.BikeModels
                         if (obj.Bikes != null && obj.BodyStyleMileage != null)
                         {
                             mileageWidgetObj.MileageInfo = obj.Bikes.FirstOrDefault(m => m.Model.ModelId == _modelId);
+                            if (_objData.ModelPageEntity != null && _objData.ModelPageEntity.ModelVersionMinSpecs != null && _objData.ModelPageEntity.ModelVersionMinSpecs.MinSpecsList != null)
+                            {
+                                float ariMileageTemp;
+                                SpecsItem minSpec = _objData.ModelPageEntity.ModelVersionMinSpecs.MinSpecsList.FirstOrDefault(x => x.Id.Equals((int)EnumSpecsFeaturesItem.FuelEfficiencyOverall));
+                                if (minSpec != null)
+                                {
+                                    mileageWidgetObj.MileageInfo.ARAIMileage = float.TryParse(minSpec.Value, out ariMileageTemp) ? ariMileageTemp : 0;
+                                }
+                            }
                             mileageWidgetObj.AvgBodyStyleMileageByUserReviews = obj.BodyStyleMileage.FirstOrDefault().AvgBodyStyleMileageByUserReviews;
                             mileageWidgetObj.SimilarBikeList = obj.Bikes.Where(u => u.Model.ModelId != _modelId);
                         }
