@@ -41,7 +41,7 @@ namespace Bikewale.Models
         private readonly IUpcoming _upcoming = null;
         private readonly IBikeModels<BikeModelEntity, int> _bikeModels = null;
         private readonly IBikeMakesCacheRepository _objMakeCache = null;
-        private readonly IBikeVersionCacheRepository<BikeVersionEntity, uint> _objBikeVersionsCache = null;
+        private readonly IBikeVersions<BikeVersionEntity, uint> _objVersion;
         private readonly IBikeSeriesCacheRepository _seriesCache;
         private readonly IBikeSeries _series;
         private EditorialPageType currentPageType = EditorialPageType.Default;
@@ -82,7 +82,7 @@ namespace Bikewale.Models
 
         #region Constructor
         public ExpertReviewsIndexPage(ICMSCacheContent cmsCache, IPager pager, IBikeModelsCacheRepository<int> models,
-            IBikeModels<BikeModelEntity, int> bikeModels, IUpcoming upcoming, IBikeMakesCacheRepository objMakeCache, IBikeVersionCacheRepository<BikeVersionEntity, uint> objBikeVersionsCache,
+            IBikeModels<BikeModelEntity, int> bikeModels, IUpcoming upcoming, IBikeMakesCacheRepository objMakeCache, IBikeVersions<BikeVersionEntity, uint> objBikeVersions,
             IBikeSeriesCacheRepository seriesCache, IBikeSeries series, ICityCacheRepository objCityCache, IBikeInfo objGenericBike)
         {
             _cmsCache = cmsCache;
@@ -91,7 +91,7 @@ namespace Bikewale.Models
             _bikeModels = bikeModels;
             _upcoming = upcoming;
             _objMakeCache = objMakeCache;
-            _objBikeVersionsCache = objBikeVersionsCache;
+            _objVersion = objBikeVersions;
             _seriesCache = seriesCache;
             _series = series;
             _objCityCache = objCityCache;
@@ -101,7 +101,7 @@ namespace Bikewale.Models
         }
 
         public ExpertReviewsIndexPage(ICMSCacheContent cmsCache, IPager pager, IBikeModelsCacheRepository<int> models,
-            IBikeModels<BikeModelEntity, int> bikeModels, IUpcoming upcoming, IBikeMakesCacheRepository objMakeCache, IBikeVersionCacheRepository<BikeVersionEntity, uint> objBikeVersionsCache,
+            IBikeModels<BikeModelEntity, int> bikeModels, IUpcoming upcoming, IBikeMakesCacheRepository objMakeCache, IBikeVersions<BikeVersionEntity, uint> objBikeVersions,
             IBikeSeriesCacheRepository seriesCache, IBikeSeries series, ICityCacheRepository objCityCache, IBikeInfo objGenericBike, IArticles articles, IPWACMSCacheRepository renderedArticles)
         {
             _cmsCache = cmsCache;
@@ -110,7 +110,7 @@ namespace Bikewale.Models
             _bikeModels = bikeModels;
             _upcoming = upcoming;
             _objMakeCache = objMakeCache;
-            _objBikeVersionsCache = objBikeVersionsCache;
+            _objVersion = objBikeVersions;
             _seriesCache = seriesCache;
             _series = series;
             _objCityCache = objCityCache;
@@ -582,7 +582,7 @@ namespace Bikewale.Models
                 EnumBikeBodyStyles bodyStyle = EnumBikeBodyStyles.AllBikes;
                 try
                 {
-                    IEnumerable<BikeVersionMinSpecs> objVersionsList = _objBikeVersionsCache.GetVersionMinSpecs(ModelId, false);
+                    IEnumerable<BikeVersionMinSpecs> objVersionsList = _objVersion.GetVersionMinSpecs(ModelId, false);
 
                     if (objVersionsList != null && objVersionsList.Any())
                         bodyStyle = objVersionsList.FirstOrDefault().BodyStyle;
@@ -1322,7 +1322,7 @@ namespace Bikewale.Models
         {
             try
             {
-                MoreAboutScootersWidget obj = new MoreAboutScootersWidget(_models, _objCityCache, _objBikeVersionsCache, _objGenericBike, BikeInfoTabType.ExpertReview);
+                MoreAboutScootersWidget obj = new MoreAboutScootersWidget(_models, _objCityCache, _objVersion, _objGenericBike, BikeInfoTabType.ExpertReview);
                 obj.modelId = ModelId;
                 objData.ObjMoreAboutScooter = obj.GetData();
             }

@@ -59,7 +59,7 @@
                                 <li data-bind="visible : models()[@i].minSpec[@j].value != '',text:models()[@i].minSpec[@j].value +' ' + models()[@i].minSpec[@j].unitType" style="display:@(!String.IsNullOrEmpty(currentSpec.Value) ? "inline-block" : "none")">
                                     @if (!String.IsNullOrEmpty(currentSpec.Value))
                                     {
-                                        @Bikewale.Utility.FormatMinSpecs.ShowAvailable(currentSpec.Value, currentSpec.UnitType, currentSpec.DataType)
+                                        @Bikewale.Utility.FormatMinSpecs.ShowAvailable(currentSpec.Value, currentSpec.UnitType, currentSpec.DataType, currentSpec.Id)
                                     }
                                 </li>
                                 <!-- /ko -->

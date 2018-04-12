@@ -1,14 +1,21 @@
-﻿using Bikewale.BAL.ApiGateway.Adapters.BikeData;
+﻿using Bikewale.Cache.BikeData;
+using Bikewale.Cache.Core;
+using Bikewale.BAL.ApiGateway.Adapters.BikeData;
 using Bikewale.BAL.ApiGateway.ApiGatewayHelper;
 using Bikewale.BAL.ApiGateway.Entities.BikeData;
 using Bikewale.DAL.BikeData;
 using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
+using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Notifications;
 using Microsoft.Practices.Unity;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Bikewale.BAL.ApiGateway.ApiGatewayHelper;
+using Bikewale.BAL.ApiGateway.Adapters.BikeData;
+using Bikewale.BAL.ApiGateway.Entities.BikeData;
 
 namespace Bikewale.BAL.BikeData
 {
@@ -20,18 +27,15 @@ namespace Bikewale.BAL.BikeData
     /// <typeparam name="U"></typeparam>
     public class BikeVersions<T, U> : IBikeVersions<T, U> where T : BikeVersionEntity, new()
     {
-        private IBikeVersions<T, U> versionRepository = null;
+        private IBikeVersionsRepository<T, U> _versionRepository = null;
+        private IBikeVersionCacheRepository<T, U> _versionCacheRepository;
         private readonly IApiGatewayCaller _apiGatewayCaller;
 
-        public BikeVersions()
+        public BikeVersions(IBikeVersionsRepository<T, U> versionRepository, IBikeVersionCacheRepository<T, U> versionCacheRepository, IApiGatewayCaller apiGatewayCaller)
         {
-            using (IUnityContainer container = new UnityContainer())
-            {
-                container.RegisterType<IBikeVersions<T, U>, BikeVersionsRepository<T, U>>();
-                container.RegisterType<IApiGatewayCaller, ApiGatewayCaller>();
-                versionRepository = container.Resolve<IBikeVersions<T, U>>();
-                _apiGatewayCaller = container.Resolve<IApiGatewayCaller>();
-            }
+            _apiGatewayCaller = apiGatewayCaller;
+            _versionRepository = versionRepository;
+            _versionCacheRepository = versionCacheRepository;
         }
 
         /// <summary>
@@ -45,22 +49,17 @@ namespace Bikewale.BAL.BikeData
         {
             List<BikeVersionsListEntity> objVersionList = null;
 
-            objVersionList = versionRepository.GetVersionsByType(requestType, modelId, cityId);
+            objVersionList = _versionCacheRepository.GetVersionsByType(requestType, modelId, cityId);
 
             return objVersionList;
         }
         [Obsolete("Use Specification and Features Micro Service to get all specs.", true)]
-        public BikeSpecificationEntity GetSpecifications(U versionId)
-        {
-            return versionRepository.GetSpecifications(versionId);
-        }
-
         public IEnumerable<BikeVersionMinSpecs> GetVersionMinSpecs(uint modelId, bool isNew)
         {
             IEnumerable<BikeVersionMinSpecs> versionsList = null;
             try
             {
-                versionsList = versionRepository.GetVersionMinSpecs(modelId, isNew);
+                versionsList = _versionCacheRepository.GetVersionMinSpecs(modelId, isNew);
                 GetVersionSpecsByItemIdAdapter adapt1 = new GetVersionSpecsByItemIdAdapter();
                 var specItemInput = new VersionsDataByItemIds_Input
                 {
@@ -120,7 +119,7 @@ namespace Bikewale.BAL.BikeData
 
         public T GetById(U id)
         {
-            T t = versionRepository.GetById(id);
+            T t = _versionCacheRepository.GetById(id);
 
             return t;
         }
@@ -139,7 +138,7 @@ namespace Bikewale.BAL.BikeData
         {
             try
             {
-                IEnumerable<SimilarBikeEntity> similarBikesList = versionRepository.GetSimilarBikesList(versionId, topCount, cityid);
+                IEnumerable<SimilarBikeEntity> similarBikesList = _versionCacheRepository.GetSimilarBikesList(versionId, topCount, cityid);
                 if (similarBikesList != null && similarBikesList.Any())
                 {
                     var specItemLIst = new List<EnumSpecsFeaturesItems>{
@@ -163,7 +162,7 @@ namespace Bikewale.BAL.BikeData
         {
             try
             {
-                IEnumerable<SimilarBikeEntity> similarBikesList = versionRepository.GetSimilarBikesByModel(modelId, topCount, cityid);
+                IEnumerable<SimilarBikeEntity> similarBikesList = _versionCacheRepository.GetSimilarBikesByModel(modelId, topCount, cityid);
                 if (similarBikesList != null && similarBikesList.Any())
                 {
                     var specItemLIst = new List<EnumSpecsFeaturesItems>{
@@ -185,7 +184,7 @@ namespace Bikewale.BAL.BikeData
         public IEnumerable<SimilarBikeEntity> GetSimilarBudgetBikes(U modelId, uint topCount, uint cityid)
         {
 
-            return versionRepository.GetSimilarBudgetBikes(modelId, topCount, cityid);
+            return _versionCacheRepository.GetSimilarBikesByMinPriceDiff(modelId, topCount, cityid);
         }
 
 
@@ -199,7 +198,7 @@ namespace Bikewale.BAL.BikeData
         {
             List<VersionColor> objColors = null;
 
-            objColors = versionRepository.GetColorByVersion(versionId);
+            objColors = _versionRepository.GetColorByVersion(versionId);
 
             return objColors;
         }
@@ -211,7 +210,7 @@ namespace Bikewale.BAL.BikeData
         /// <returns></returns>
         public IEnumerable<BikeColorsbyVersion> GetColorsbyVersionId(uint versionId)
         {
-            return versionRepository.GetColorsbyVersionId(versionId);
+            return _versionCacheRepository.GetColorsbyVersionId(versionId);
         }
 
         /// <summary>
@@ -222,7 +221,7 @@ namespace Bikewale.BAL.BikeData
         {
             try
             {
-                IEnumerable<BikeVersionsSegment> bikeVersions = versionRepository.GetModelVersionsDAL();
+                IEnumerable<BikeVersionsSegment> bikeVersions = _versionRepository.GetModelVersionsDAL();
 
                 IEnumerable<BikeModelVersionsDetails> objVersionList = new List<BikeModelVersionsDetails>();
 
@@ -243,13 +242,49 @@ namespace Bikewale.BAL.BikeData
 
         /// <summary>
         /// Gets the dealer versions by model.
+        /// Modified By : Rajan Chauhan on 10 Apr 2018
+        /// Description : Added minSpec Logic
         /// </summary>
         /// <param name="dealerId">The dealer identifier.</param>
         /// <param name="modelId">The model identifier.</param>
         /// <returns></returns>
         public IEnumerable<BikeVersionWithMinSpec> GetDealerVersionsByModel(uint dealerId, uint modelId)
         {
-            return versionRepository.GetDealerVersionsByModel(dealerId, modelId);
+            try
+            {
+                IEnumerable<BikeVersionWithMinSpec> versionList = _versionCacheRepository.GetDealerVersionsByModel(dealerId, modelId);
+                if (versionList != null)
+                {
+                    GetVersionSpecsByItemIdAdapter adapt = new GetVersionSpecsByItemIdAdapter();
+                    VersionsDataByItemIds_Input adaptInput = new VersionsDataByItemIds_Input
+                    {
+                        Versions = versionList.Select(version => (int)version.VersionId),
+                        Items = new List<EnumSpecsFeaturesItems>{
+                            EnumSpecsFeaturesItems.AntilockBrakingSystem,
+                            EnumSpecsFeaturesItems.BrakeType,
+                            EnumSpecsFeaturesItems.AlloyWheels,
+                            EnumSpecsFeaturesItems.ElectricStart
+                        }
+                    };
+                    adapt.AddApiGatewayCall(_apiGatewayCaller, adaptInput);
+                    _apiGatewayCaller.Call();
+                    if (adapt.Output != null)
+                    {
+                        IEnumerator<BikeVersionWithMinSpec> bikeVersionEnumerator = versionList.GetEnumerator();
+                        IEnumerator<VersionMinSpecsEntity> versionMinSpecEnumertor = adapt.Output.GetEnumerator();
+                        while (bikeVersionEnumerator.MoveNext() && versionMinSpecEnumertor.MoveNext())
+                        {
+                            bikeVersionEnumerator.Current.MinSpecsList = versionMinSpecEnumertor.Current.MinSpecsList;
+                        }
+                    }
+                }
+                return versionList;
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, String.Format("Bikewale.BAL.BikeData.Bikeversions.GetDealerVersionsByModel({0}, {1})", dealerId, modelId));
+            }
+            return null;
         }
 
         /// <summary>

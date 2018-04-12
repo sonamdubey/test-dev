@@ -44,7 +44,7 @@ namespace Bikewale.BAL.ApiGateway.Adapters.BikeData
 					vehicleDataRequest.ApplicationId = 2;
 					vehicleDataRequest.ItemGroupTypes = string.Format("{0},{1}", (int)ItemGroupTypes.Individual, (int)ItemGroupTypes.IndividuallyShown);
 				}
-			}
+			}			
 			catch (Exception ex)
 			{
 				ErrorClass.LogError(ex, "Bikewale.BAL.ApiGateway.Adapters.BikeData.GetVehicleDataForVersionIdAdapter.BuildRequest");
@@ -115,8 +115,9 @@ namespace Bikewale.BAL.ApiGateway.Adapters.BikeData
 							Icon = item.Icon,
 							Id = item.Id,
 							ItemValues = item.ItemValues,
-							UnitTypeText = item.UnitTypeName
-						});
+							UnitTypeText = item.UnitTypeName,
+                            DataType = (EnumSpecDataType)item.DataTypeId
+                        });
 					}
 					return itemList;
 				}

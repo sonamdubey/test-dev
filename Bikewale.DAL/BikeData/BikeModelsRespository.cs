@@ -668,7 +668,7 @@ namespace Bikewale.DAL.BikeData
             int recordCount = 0;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getnewlaunchedbikes_28032018"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getnewlaunchedbikes_10042018"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_startindex", DbType.Int32, startIndex));
@@ -3012,6 +3012,8 @@ namespace Bikewale.DAL.BikeData
         /// <summary>
         /// Created By:Snehal Dange on 3rd Nov 2017]
         /// Description: Dal Method to get mileage details for a model
+        /// Modified by : Pratibha Verma on 12 April 2018
+        /// Description : change sp 'getbikesdatawithmileage' to 'getbikesdatawithmileage_11042018'
         /// </summary>
         /// <param name="modelId"></param>
         /// <returns></returns>
@@ -3020,7 +3022,7 @@ namespace Bikewale.DAL.BikeData
             BikeMileageEntity mileageDetails = new BikeMileageEntity();
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getbikesdatawithmileage"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getbikesdatawithmileage_11042018"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
@@ -3049,7 +3051,6 @@ namespace Bikewale.DAL.BikeData
                                    HostUrl = Convert.ToString(dr["HostUrl"]),
                                    OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]),
                                    BodyStyleId = Convert.ToUInt16(dr["BodyStyleId"]),
-                                   ARAIMileage = SqlReaderConvertor.ToFloat(dr["mileagebyarai"]),
                                    MileageByUserReviews = SqlReaderConvertor.ToFloat(dr["mileagebyuserreview"]),
                                    Rank = Convert.ToUInt16(dr["rank"]),
                                    Percentile = SqlReaderConvertor.ToFloat(dr["percentilescore"])
@@ -3065,7 +3066,6 @@ namespace Bikewale.DAL.BikeData
                                     bodyStyleMileageobj.BodyStyleId = Convert.ToUInt16(dr["bodystyleid"]);
                                     bodyStyleMileageobj.TotalBikesInBodyStyle = Convert.ToUInt16(dr["totalBikes"]);
                                     bodyStyleMileageobj.AvgBodyStyleMileageByUserReviews = SqlReaderConvertor.ToFloat(dr["avgmileagebyuserreview"]);
-                                    bodyStyleMileageobj.AvgMileageByARAI = SqlReaderConvertor.ToFloat(dr["avgmileagebyarai"]);
 
                                     bodyStyleMileage.Add(bodyStyleMileageobj);
                                 }

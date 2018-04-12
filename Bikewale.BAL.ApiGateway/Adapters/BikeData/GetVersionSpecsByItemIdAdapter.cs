@@ -93,7 +93,7 @@ namespace Bikewale.BAL.ApiGateway.Adapters.BikeData
 		/// </summary>
 		/// <param name="items">GRPC Message</param>
 		/// <returns>Bikewale Entity</returns>
-		private static IEnumerable<SpecsItem> ConvertToMinSpecsList(RepeatedField<ItemData> items)
+		private IEnumerable<SpecsItem> ConvertToMinSpecsList(RepeatedField<ItemData> items)
 		{
 			ICollection<SpecsItem> specItemList = null;
 

@@ -320,7 +320,7 @@
                                  %>
                                 <p>
                                     <span class="specs-features-item__content text-light-grey"><%=specsList[specsIndex].Name%> </span>
-                                    <span class="specs-features-item__content text-bold"><%=Bikewale.Utility.FormatMinSpecs.ShowAvailable(specsList[specsIndex].Value, specsList[specsIndex].UnitType, specsList[specsIndex].DataType)%> </span>
+                                    <span class="specs-features-item__content text-bold"><%=Bikewale.Utility.FormatMinSpecs.ShowAvailable(specsList[specsIndex].Value, specsList[specsIndex].UnitType, specsList[specsIndex].DataType, specsList[specsIndex].Id)%> </span>
                                 </p>
                                 <%specsIndex++; %>
                                  <%} %>
@@ -341,7 +341,7 @@
                                      %>
                                     <p>
                                       <span class="specs-features-item__content text-light-grey"><%=specsList[specsIndex].Name%> </span>
-                                      <span class="specs-features-item__content text-bold"><%=Bikewale.Utility.FormatMinSpecs.ShowAvailable(specsList[specsIndex].Value, specsList[specsIndex].UnitType, specsList[specsIndex].DataType)%> </span>  
+                                      <span class="specs-features-item__content text-bold"><%=Bikewale.Utility.FormatMinSpecs.ShowAvailable(specsList[specsIndex].Value, specsList[specsIndex].UnitType, specsList[specsIndex].DataType, specsList[specsIndex].Id)%> </span>  
                                     </p>
                                      <%specsIndex++; %>
                                      <%} %>

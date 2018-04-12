@@ -121,41 +121,6 @@ namespace Bikewale.Service.Controllers.Version
         }   // Get 
         #endregion
 
-        #region Versions Specifications
-        /// <summary>
-        ///  To Get Version's Specifications  and Features 
-        /// </summary>
-        /// <param name="versionId"></param>
-        /// <param name="specs"></param>
-        /// <returns></returns>
-        [ResponseType(typeof(VersionSpecifications))]
-        public IHttpActionResult Get(uint versionId, bool? specs)
-        {
-            BikeSpecificationEntity objSpecs = null;
-            VersionSpecifications objDTOVersionList = null;
-            try
-            {
-                objSpecs = _versionRepository.GetSpecifications(versionId);
-
-                if (objSpecs != null)
-                {
-                    // Auto map the properties
-                    objDTOVersionList = new VersionSpecifications();
-                    objDTOVersionList = VersionListMapper.Convert(objSpecs);
-
-                    return Ok(objSpecs);
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorClass.LogError(ex, "Exception : Bikewale.Service.Version.VersionController");
-               
-                return InternalServerError();
-            }
-            return NotFound();
-        }   // Get  Versions Specifications
-        #endregion
-
         /// <summary>
         /// Created By: Aditi Srivastava on 17 Oct 2016
         /// Summary: Get version colors by version id
