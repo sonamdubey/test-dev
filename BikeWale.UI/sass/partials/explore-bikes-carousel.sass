@@ -1,0 +1,178 @@
+﻿@import ../base/variables
+@import ../components/typography
+
+@import ../mixins/index
+@import ../utils/index
+
+.carousel__explore-bikes
+	padding: 5px 16px 20px 0
+
+	.carousel-slide
+		width: 217px
+		min-height: 82px
+		padding-left: 10px
+
+		&:first-child
+			margin-left: 6px
+
+		&:nth-child(5n+1)
+			.model__explore-card
+				background-color: #ee9f94
+				background: linear-gradient(to right, #dc685d, #ee9f94)
+
+		&:nth-child(5n+2)
+			.model__explore-card
+				background-color: #edbb6f
+				background: linear-gradient(to right, #e59d3a, #edbb6f)
+
+		&:nth-child(5n+3)
+			.model__explore-card
+				background-color: #82888b
+				background: linear-gradient(to right, #82888b, #82888b)
+
+		&:nth-child(5n+4)
+			.model__explore-card
+				background-color: #95d8c5
+				background: linear-gradient(to right, #4acea8, #95d8c5)
+
+		&:nth-child(5n+5)
+			.model__explore-card
+				background-color: #57a8d4
+				background: linear-gradient(to right, #0288d1, #57a8d4)
+
+.carousel__title
+	@include flexbox()
+	@include flex-wrap()
+	@include align-items(center)
+	padding: 25px 16px 10px
+
+.page__heading-h2
+	@include heading-h2
+	margin-bottom: 2px
+
+.model__explore-card
+	min-height: 82px
+	padding: 15px 18px
+	color: #fff
+	display: block
+	box-shadow: 0 2px 4px rgba(213, 213, 213, .5)
+	border-radius: 2px
+	text-decoration: none
+
+	&:hover
+		text-decoration: none
+
+.explore-card__title
+	@include text-truncate(100%)
+	color: #fff
+	font-size: 16px
+	font-weight: $font-semibold
+	margin-bottom: 8px
+
+.explore-card__list
+	@include text-truncate(100%)
+
+	.explore-card-list__item
+		position: relative
+		color: #fff
+		font-size: 13px
+		padding-left: 5px
+		margin-left: 5px
+
+		&:before
+			content: ''
+			position: absolute
+			top: 2px
+			left: 0
+			width: 1px
+			height: 15px
+			border-left: 1px solid rgba(255, 255, 255, .6)
+			display: block
+
+		&:first-child
+			padding-left: 0
+			margin-left: 0
+
+			&:before
+				content: none
+
+
+// default carousel
+.explore-bikes-carousel--default
+	.carousel__explore-bikes
+		.carousel-slide
+			.model__explore-card
+				color: #82888b
+				background: #fff9f9
+				border: 1px solid #fd8d81
+
+	.carousel__title
+		padding-top: 20px
+
+	.page__heading-h2
+		color: #2a2a2a
+		font-weight: 700
+
+	.explore-card__title
+		color: #2a2a2a
+
+	.explore-card__list
+		.explore-card-list__item
+			color: #82888b
+
+			&:before
+				border-left-color: rgba(130, 136, 139, .6)
+
+
+@media only screen and (min-width: 800px)
+	.carousel__explore-bikes
+		&.jcarousel-wrapper
+			width: 644px
+			overflow: hidden
+
+			.jcarousel
+				width: 627px
+
+				&:after
+					content: ''
+					position: absolute
+					top: 0
+					right: 0
+					background: linear-gradient(to right, rgba(255, 255, 255, 0) 0, #fff 100%)
+					width: 20px
+					height: 100%
+
+		&.inner-content-carousel
+			.carousel-slide
+				width: 243px !important
+				padding-left: 0
+				border: none
+				margin-right: 20px
+				-webkit-box-shadow: none
+				box-shadow: none
+
+				&:first-child
+					margin-left: 0
+
+				&:last-child
+					width: 263px
+					padding-right: 20px
+
+			.jcarousel-control-right,
+			.jcarousel-control-left
+				top: 15px
+
+	.explore-card__list
+		.explore-card-list__item
+			margin-left: 10px
+			padding-left: 10px
+			font-size: 14px
+
+	.explore-bikes-carousel--default
+		.page__heading-h2
+			font-weight: 600
+
+	.carousel__title
+		padding-right: 20px
+		padding-left: 20px
+

@@ -2,6 +2,7 @@
 @{
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/m/make/make.css' inline /><link rel='stylesheet' type='text/css' href='/css/emicalculator.css' inline />";
+	Model.Page_BTF_CSS_Path = "/sass/partials/explore-bikes-carousel.css";
     Model.Page_JS_Paths = new[] { "/m/src/make.js", "/m/src/popup/newBikeSearchPopup.js", "/src/emi-calculator.js" };
     ushort index = 0, prev = 0, gap = 2, j = 0;    
 }
@@ -20,6 +21,7 @@
                     @Html.Partial("~/Views/Make/_NewLaunchedMake_Mobile.cshtml", Model.NewLaunchedWidget)
                 </section>
             }
+
             @if (Model.TopPopularBikes != null && Model.TopPopularBikes.Any())
             {
                 <section>
@@ -98,6 +100,81 @@
                 </section>
             }
             
+			<section>
+				<div class="bg-white section-bottom-margin">
+					<div class="carousel__title">
+						<h2 class="page__heading-h2">Explore TVS Bikes</h2>
+					</div>
+					<div class="swiper-container carousel__explore-bikes" data-spacebetween="0">
+						<ul class="swiper-wrapper">
+							<li class="swiper-slide carousel-slide">
+								<a href="" title="Bikes" class="model__explore-card">
+									<h3 class="explore-card__title">Royal Enfield Thunderbird Bikes</h3>
+									<div class="explore-card__list">
+										<span class="explore-card-list__item">6 Bikes</span>
+										<span class="explore-card-list__item">&#x20b9; 70,000 Onwards</span>
+									</div>
+								</a>
+							</li>
+							<li class="swiper-slide carousel-slide">
+								<a href="" title="Bikes" class="model__explore-card">
+									<h3 class="explore-card__title">TVS Apache Bikes</h3>
+									<div class="explore-card__list">
+										<span class="explore-card-list__item">16 Bikes</span>
+										<span class="explore-card-list__item">&#x20b9; 1,40,000 Onwards</span>
+									</div>
+								</a>
+							</li>
+							<li class="swiper-slide carousel-slide">
+								<a href="" title="Bikes" class="model__explore-card">
+									<h3 class="explore-card__title">Honda Pulsar Bikes</h3>
+									<div class="explore-card__list">
+										<span class="explore-card-list__item">26 Bikes</span>
+										<span class="explore-card-list__item">&#x20b9; 30,000 Onwards</span>
+									</div>
+								</a>
+							</li>
+							<li class="swiper-slide carousel-slide">
+								<a href="" title="Bikes" class="model__explore-card">
+									<h3 class="explore-card__title">TVS Apache Bikes</h3>
+									<div class="explore-card__list">
+										<span class="explore-card-list__item">36 Bikes</span>
+										<span class="explore-card-list__item">&#x20b9; 50,000 Onwards</span>
+									</div>
+								</a>
+							</li>
+							<li class="swiper-slide carousel-slide">
+								<a href="" title="Bikes" class="model__explore-card">
+									<h3 class="explore-card__title">TVS Apache Bikes</h3>
+									<div class="explore-card__list">
+										<span class="explore-card-list__item">46 Bikes</span>
+										<span class="explore-card-list__item">&#x20b9; 70,000 Onwards</span>
+									</div>
+								</a>
+							</li>
+							<li class="swiper-slide carousel-slide">
+								<a href="" title="Bikes" class="model__explore-card">
+									<h3 class="explore-card__title">TVS Apache Bikes</h3>
+									<div class="explore-card__list">
+										<span class="explore-card-list__item">56 Bikes</span>
+										<span class="explore-card-list__item">&#x20b9; 70,000 Onwards</span>
+									</div>
+								</a>
+							</li>
+							<li class="swiper-slide carousel-slide">
+								<a href="" title="Bikes" class="model__explore-card">
+									<h3 class="explore-card__title">TVS Apache Bikes</h3>
+									<div class="explore-card__list">
+										<span class="explore-card-list__item">66 Bikes</span>
+										<span class="explore-card-list__item">&#x20b9; 70,000 Onwards</span>
+									</div>
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</section>
+
             @if (Model.AdTags.Ad_320x100_Top) { 
                 <section>
                     <div style="margin-bottom: 20px">

@@ -2,6 +2,7 @@
 @{
 	Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
 	Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/bwm-brand.css' inline /> <link rel='stylesheet' type='text/css' href='/css/components/m-brand-logo.css' inline /> <link rel='stylesheet' type='text/css' href='/sass/partials/bw-youtube.css' inline />";
+	Model.Page_BTF_CSS_Path = "/sass/partials/explore-bikes-carousel.css";
     Model.Page_JS_Paths = new string[] { "/m/src/bwm-brand.js", "/src/review-popup.js" };
 }
 <section id="makeTabsContentWrapper">
@@ -51,6 +52,82 @@
                         </div>
                     </div>
                 }
+				
+				<section class="explore-bikes-carousel--default">
+					<div class="content-box-shadow bg-white section-bottom-margin">
+						<div class="carousel__title">
+							<h2 class="page__heading-h2">Explore TVS Bikes</h2>
+						</div>
+						<div class="swiper-container carousel__explore-bikes" data-spacebetween="0">
+							<ul class="swiper-wrapper">
+								<li class="swiper-slide carousel-slide">
+									<a href="" title="Bikes" class="model__explore-card">
+										<h3 class="explore-card__title">Royal Enfield Thunderbird Bikes</h3>
+										<div class="explore-card__list">
+											<span class="explore-card-list__item">6 Bikes</span>
+											<span class="explore-card-list__item">&#x20b9; 70,000 Onwards</span>
+										</div>
+									</a>
+								</li>
+								<li class="swiper-slide carousel-slide">
+									<a href="" title="Bikes" class="model__explore-card">
+										<h3 class="explore-card__title">TVS Apache Bikes</h3>
+										<div class="explore-card__list">
+											<span class="explore-card-list__item">16 Bikes</span>
+											<span class="explore-card-list__item">&#x20b9; 1,40,000 Onwards</span>
+										</div>
+									</a>
+								</li>
+								<li class="swiper-slide carousel-slide">
+									<a href="" title="Bikes" class="model__explore-card">
+										<h3 class="explore-card__title">Honda Pulsar Bikes</h3>
+										<div class="explore-card__list">
+											<span class="explore-card-list__item">26 Bikes</span>
+											<span class="explore-card-list__item">&#x20b9; 30,000 Onwards</span>
+										</div>
+									</a>
+								</li>
+								<li class="swiper-slide carousel-slide">
+									<a href="" title="Bikes" class="model__explore-card">
+										<h3 class="explore-card__title">TVS Apache Bikes</h3>
+										<div class="explore-card__list">
+											<span class="explore-card-list__item">36 Bikes</span>
+											<span class="explore-card-list__item">&#x20b9; 50,000 Onwards</span>
+										</div>
+									</a>
+								</li>
+								<li class="swiper-slide carousel-slide">
+									<a href="" title="Bikes" class="model__explore-card">
+										<h3 class="explore-card__title">TVS Apache Bikes</h3>
+										<div class="explore-card__list">
+											<span class="explore-card-list__item">46 Bikes</span>
+											<span class="explore-card-list__item">&#x20b9; 70,000 Onwards</span>
+										</div>
+									</a>
+								</li>
+								<li class="swiper-slide carousel-slide">
+									<a href="" title="Bikes" class="model__explore-card">
+										<h3 class="explore-card__title">TVS Apache Bikes</h3>
+										<div class="explore-card__list">
+											<span class="explore-card-list__item">56 Bikes</span>
+											<span class="explore-card-list__item">&#x20b9; 70,000 Onwards</span>
+										</div>
+									</a>
+								</li>
+								<li class="swiper-slide carousel-slide">
+									<a href="" title="Bikes" class="model__explore-card">
+										<h3 class="explore-card__title">TVS Apache Bikes</h3>
+										<div class="explore-card__list">
+											<span class="explore-card-list__item">66 Bikes</span>
+											<span class="explore-card-list__item">&#x20b9; 70,000 Onwards</span>
+										</div>
+									</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</section>
+
                 @if (Model.Bikes != null && Model.Bikes.Any())
                 {
                     <div id="bikeMakeList" class="search-bike-container bw-model-tabs-data padding-top15 bg-white position-rel pos-top3 box-shadow">
