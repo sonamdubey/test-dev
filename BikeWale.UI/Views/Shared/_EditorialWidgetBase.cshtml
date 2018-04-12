@@ -7,11 +7,15 @@
 @if (Model != null)
 {
     var columns = Model.WidgetColumns;
-    int noOfColumns = columns.Count();
+    int noOfColumns = columns.Count(x => x.Value != null);
 
     switch (noOfColumns)
     {
         case 1:
+            if(columns[EditorialWidgetColumnPosition.Left] == null)
+            {
+                break;
+            }
             // Render 1 tab
             var widget = columns[EditorialWidgetColumnPosition.Left];
             <div class="bw-tabs-panel content-box-shadow section-bottom-margin" data-slide="1">
@@ -42,6 +46,10 @@
             // Render 2 tabs
             var column1 = columns[EditorialWidgetColumnPosition.Left];
             var column2 = columns[EditorialWidgetColumnPosition.Right];
+            if(column1 == null || column2 == null)
+            {
+                break;
+            }
             <div class="bw-tabs-panel content-box-shadow section-bottom-margin">
                 <div class="bw-tabs bw-tabs-flex tabs-flex--reset-margin">
                     <ul id="widgetTab">
