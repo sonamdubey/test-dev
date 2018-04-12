@@ -44,7 +44,7 @@ namespace Bikewale.BAL.ApiGateway.Adapters.BikeData
 					vehicleDataRequest.ApplicationId = 2;
 					vehicleDataRequest.ItemGroupTypes = string.Format("{0},{1}", (int)ItemGroupTypes.Individual, (int)ItemGroupTypes.IndividuallyShown);
 				}
-			}
+			}			
 			catch (Exception ex)
 			{
 				ErrorClass.LogError(ex, "Bikewale.BAL.ApiGateway.Adapters.BikeData.GetVehicleDataForVersionIdAdapter.BuildRequest");

@@ -30,7 +30,7 @@ namespace Bikewale.BAL.ApiGateway.ApiGatewayHelper
 		/// <summary>
 		/// Index at which response object for current method is available in APIGateway response.
 		/// </summary>
-		private int ResponseIndex { get; set; }
+		private ushort ResponseIndex { get; set; }
 
 		/// <summary>
 		/// 1. Method to add a call into APIGateway.
@@ -53,7 +53,7 @@ namespace Bikewale.BAL.ApiGateway.ApiGatewayHelper
 			}
 			catch (Exception ex)
 			{
-				throw new Exception("Bikewale.BAL.ApiGateway.ApiGatewayHelper.AbstractApiGatewayAdapater.AddApiGatewayCall", ex);
+				Notifications.ErrorClass.LogError(ex, "Bikewale.BAL.ApiGateway.ApiGatewayHelper.AbstractApiGatewayAdapater.AddApiGatewayCall");
 			}
 		}
 
@@ -85,7 +85,7 @@ namespace Bikewale.BAL.ApiGateway.ApiGatewayHelper
 			}
 			catch (Exception ex)
 			{
-				Notifications.ErrorClass.LogError(ex, "Bikewale.BAL.ApiGateway.ApiGatewayHelper.AbstractApiGatewayAdapater.ParseAPIResponse");				
+				Notifications.ErrorClass.LogError(ex, "Bikewale.BAL.ApiGateway.ApiGatewayHelper.AbstractApiGatewayAdapater.ParseAPIResponse");
 			}
 		}
 
