@@ -11,7 +11,8 @@
             		var minSpecsList = Model.ModelPageEntity.ModelVersionMinSpecs.MinSpecsList.Take(4);
             	}
                 @if (minSpecsList != null)
-                    { Html.Raw(Bikewale.Utility.FormatMinSpecs.GetMinSpecsLiElementsWithIcon(minSpecsList)); }
+                {
+                    @Html.Raw(Bikewale.Utility.FormatMinSpecs.GetMinSpecsLiElementsWithIcon(minSpecsList));
                 }
             </ul>
 

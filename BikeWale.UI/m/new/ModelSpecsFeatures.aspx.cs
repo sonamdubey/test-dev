@@ -1,7 +1,6 @@
 ﻿using Bikewale.BAL.ApiGateway.Adapters.BikeData;
 using Bikewale.BAL.ApiGateway.ApiGatewayHelper;
 using Bikewale.BAL.BikeData;
-using Bikewale.BAL.GrpcFiles.Specs_Features;
 using Bikewale.BAL.Pager;
 using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;

@@ -4,7 +4,6 @@ using Bikewale.BAL.ApiGateway.Entities.BikeData;
 using Bikewale.BAL.Customer;
 using Bikewale.BAL.EditCMS;
 using Bikewale.BAL.GrpcFiles;
-using Bikewale.BAL.GrpcFiles.Specs_Features;
 using Bikewale.BAL.UserReviews.Search;
 using Bikewale.Cache.BikeData;
 using Bikewale.Cache.CMS;
@@ -550,6 +549,7 @@ namespace Bikewale.BAL.BikeData
                         Items = itemIds
                     };
                     adapt1.AddApiGatewayCall(_apiGatewayCaller, specItemInput);
+                    _apiGatewayCaller.Call();
                     JoinBikeListWithMinSpecs(bikeVersionList, adapt1.Output);
                 }
             }

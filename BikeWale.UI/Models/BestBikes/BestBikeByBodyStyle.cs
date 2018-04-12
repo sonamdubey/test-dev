@@ -1,4 +1,6 @@
-﻿using Bikewale.BAL.GrpcFiles.Specs_Features;
+﻿using Bikewale.BAL.ApiGateway.Adapters.BikeData;
+using Bikewale.BAL.ApiGateway.ApiGatewayHelper;
+using Bikewale.BAL.ApiGateway.Entities.BikeData;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Interfaces.BikeData;
@@ -12,14 +14,15 @@ namespace Bikewale.Models
     public class BestBikeByBodyStyle
     {
         private readonly IBikeModelsCacheRepository<int> _objBestBikes = null;
+        private readonly IApiGatewayCaller _apiGatewayCaller;
 
         public EnumBikeBodyStyles BodyStyleType;
 
         public uint topCount { get; set; }
-        public BestBikeByBodyStyle(IBikeModelsCacheRepository<int> objBestBikes)
+        public BestBikeByBodyStyle(IBikeModelsCacheRepository<int> objBestBikes, IApiGatewayCaller apiGatewayCaller)
         {
-
             _objBestBikes = objBestBikes;
+            _apiGatewayCaller = apiGatewayCaller;
         }
 
         /// <summary>
@@ -59,7 +62,21 @@ namespace Bikewale.Models
             {
                 if (genericBikeList != null && genericBikeList.Any())
                 {
-                    var specsList = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(genericBikeList.Select(m => m.VersionId));
+                    GetVersionSpecsByItemIdAdapter adapt1 = new GetVersionSpecsByItemIdAdapter();
+                    var specItemInput = new VersionsDataByItemIds_Input
+                    {
+                        Versions = genericBikeList.Select(m => m.VersionId),
+                        Items = new List<EnumSpecsFeaturesItems>
+                        {
+                            EnumSpecsFeaturesItems.Displacement,
+                            EnumSpecsFeaturesItems.FuelEfficiencyOverall,
+                            EnumSpecsFeaturesItems.MaxPowerBhp,
+                            EnumSpecsFeaturesItems.KerbWeight
+                        }
+                    };
+                    adapt1.AddApiGatewayCall(_apiGatewayCaller, specItemInput);
+                    _apiGatewayCaller.Call();
+                    var specsList = adapt1.Output;
                     if (specsList != null)
                     {
                         var specsEnumerator = specsList.GetEnumerator();

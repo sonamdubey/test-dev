@@ -231,13 +231,6 @@
     <Compile Include="GrpcFiles\EditCmsGrpc.cs" />
     <Compile Include="GrpcFiles\GrpcMethods.cs" />
     <Compile Include="GrpcFiles\GrpcToBikeWaleConvert.cs" />
-    <Compile Include="GrpcFiles\Specs&amp;Features\Category.cs" />
-    <Compile Include="GrpcFiles\Specs&amp;Features\Customdatatype.cs" />
-    <Compile Include="GrpcFiles\Specs&amp;Features\DataType.cs" />
-    <Compile Include="GrpcFiles\Specs&amp;Features\Item.cs" />
-    <Compile Include="GrpcFiles\Specs&amp;Features\SpecsFeaturesServiceGateway.cs" />
-    <Compile Include="GrpcFiles\Specs&amp;Features\Unittype.cs" />
-    <Compile Include="GrpcFiles\Specs&amp;Features\VehicleData.cs" />
     <Compile Include="Images\ImageBL.cs" />
     <Compile Include="Location\Cities.cs" />
     <Compile Include="Location\States.cs" />

@@ -1,7 +1,6 @@
 ﻿using Bikewale.BAL.ApiGateway.Adapters.BikeData;
 using Bikewale.BAL.ApiGateway.ApiGatewayHelper;
 using Bikewale.BAL.ApiGateway.Entities.BikeData;
-using Bikewale.BAL.GrpcFiles.Specs_Features;
 using Bikewale.DAL.BikeData;
 using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
@@ -147,7 +146,6 @@ namespace Bikewale.BAL.BikeData
                         EnumSpecsFeaturesItems.Displacement,
                         EnumSpecsFeaturesItems.FuelEfficiencyOverall,
                         EnumSpecsFeaturesItems.MaxPowerBhp,
-                        EnumSpecsFeaturesItems.MaximumTorqueNm,
                         EnumSpecsFeaturesItems.KerbWeight
                     };
                     BindMinSpecs(similarBikesList, specItemLIst);
@@ -163,8 +161,26 @@ namespace Bikewale.BAL.BikeData
 
         public IEnumerable<SimilarBikeEntity> GetSimilarBikesByModel(U modelId, uint topCount, uint cityid)
         {
-
-            return versionRepository.GetSimilarBikesByModel(modelId, topCount, cityid);
+            try
+            {
+                IEnumerable<SimilarBikeEntity> similarBikesList = versionRepository.GetSimilarBikesByModel(modelId, topCount, cityid);
+                if (similarBikesList != null && similarBikesList.Any())
+                {
+                    var specItemLIst = new List<EnumSpecsFeaturesItems>{
+                        EnumSpecsFeaturesItems.Displacement,
+                        EnumSpecsFeaturesItems.FuelEfficiencyOverall,
+                        EnumSpecsFeaturesItems.MaxPowerBhp,
+                        EnumSpecsFeaturesItems.KerbWeight
+                    };
+                    BindMinSpecs(similarBikesList, specItemLIst);
+                }
+                return similarBikesList;
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, String.Format("Bikewale.BAL.BikeData.Bikeversions.GetSimilarBikesByModel_modelId_{0}_topCount_{1}_cityId_{2})", modelId, topCount, cityid));
+            }
+            return null;
         }
         public IEnumerable<SimilarBikeEntity> GetSimilarBudgetBikes(U modelId, uint topCount, uint cityid)
         {

@@ -1,5 +1,4 @@
-﻿using Bikewale.BAL.GrpcFiles.Specs_Features;
-using Bikewale.BindViewModels.Controls;
+﻿using Bikewale.BindViewModels.Controls;
 using Bikewale.BindViewModels.Webforms;
 using Bikewale.common;
 using Bikewale.DTO.PriceQuote;
@@ -882,10 +881,9 @@ namespace Bikewale.Models.BikeModels
                         _objData.SimilarBikes.VersionId = _objData.VersionId;
                         _objData.SimilarBikes.Page = GAPages.Model_Page;
                     }
-                    else
+                    else if(_objData.IsNewBike || _objData.IsUpcomingBike)
                     {
-                        if (_objData.IsNewBike || _objData.IsUpcomingBike)
-                            BindPopularBodyStyle(_objData);
+                        BindPopularBodyStyle(_objData);
                     }
                 }
             }

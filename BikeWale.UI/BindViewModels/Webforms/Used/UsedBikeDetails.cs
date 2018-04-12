@@ -1,7 +1,6 @@
 ﻿using Bikewale.BAL.ApiGateway.Adapters.BikeData;
 using Bikewale.BAL.ApiGateway.ApiGatewayHelper;
 using Bikewale.BAL.ApiGateway.Entities.BikeData;
-using Bikewale.BAL.GrpcFiles.Specs_Features;
 using Bikewale.Cache.Core;
 using Bikewale.Cache.Used;
 using Bikewale.DAL.Used;
@@ -119,6 +118,7 @@ namespace Bikewale.BindViewModels.Webforms.Used
                             }
                         };
                         adapt1.AddApiGatewayCall(_apiGatewayCaller, specItemInput);
+                        _apiGatewayCaller.Call();
                         IEnumerable<VersionMinSpecsEntity> minSpecs = adapt1.Output;
                         if (minSpecs != null && minSpecs.FirstOrDefault() != null && minSpecs.FirstOrDefault().MinSpecsList != null)
                         {

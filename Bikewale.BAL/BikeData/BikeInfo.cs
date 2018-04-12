@@ -1,14 +1,12 @@
-﻿using Bikewale.BAL.GrpcFiles.Specs_Features;
-using Bikewale.Entities.BikeData;
+﻿using Bikewale.BAL.ApiGateway.Adapters.BikeData;
+using Bikewale.BAL.ApiGateway.ApiGatewayHelper;
+using Bikewale.BAL.ApiGateway.Entities.BikeData;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Notifications;
 using System;
-using System.Linq;
 using System.Collections.Generic;
-using Bikewale.BAL.ApiGateway.Adapters.BikeData;
-using Bikewale.BAL.ApiGateway.Entities.BikeData;
-using Bikewale.BAL.ApiGateway.ApiGatewayHelper;
+using System.Linq;
 
 namespace Bikewale.BAL.BikeData
 {
