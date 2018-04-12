@@ -1,4 +1,7 @@
-﻿using Bikewale.ElasticSearch.DocumentBuilderConsumer.Interfaces;
+﻿using Bikewale.BAL.ApiGateway.Adapters.BikeData;
+using Bikewale.BAL.ApiGateway.ApiGatewayHelper;
+using Bikewale.BAL.ApiGateway.Entities.BikeData;
+using Bikewale.ElasticSearch.DocumentBuilderConsumer.Interfaces;
 using Bikewale.ElasticSearch.Entities;
 using Bikewale.Utility;
 using Consumer;
@@ -15,11 +18,24 @@ using System.Data.Common;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using VehicleData.Service.ProtoClass;
+using Microsoft.Practices.Unity;
+using Bikewale.Entities.BikeData;
 
 namespace Bikewale.ElasticSearch.DocumentBuilderConsumer.DocumentBuilders
 {
     public class ModelIndexDocumentBuilder : IDocumentBuilder
     {
+        private IApiGatewayCaller _apiGatewayCaller;
+        IUnityContainer container = null;
+
+        public ModelIndexDocumentBuilder()
+        {
+            using (container = new UnityContainer())
+            {
+                container.RegisterType<IApiGatewayCaller, ApiGatewayCaller>();
+            }
+        }
 
         /// <summary>
         /// Created By : Deepak Israni on 8 March 2018
@@ -54,7 +70,7 @@ namespace Bikewale.ElasticSearch.DocumentBuilderConsumer.DocumentBuilders
             {
                 return false;
             }
-            
+
         }
 
         /// <summary>
@@ -121,6 +137,7 @@ namespace Bikewale.ElasticSearch.DocumentBuilderConsumer.DocumentBuilders
         /// <summary>
         /// Created By : Deepak Israni on 8 March 2018
         /// Description: To create index documents for specific modelids.
+        /// Modified by : Kartik Rathod on 12 apr 2018 fetched minspecs from microservice
         /// </summary>
         /// <param name="inputParameters"></param>
         /// <returns></returns>
@@ -186,10 +203,6 @@ namespace Bikewale.ElasticSearch.DocumentBuilderConsumer.DocumentBuilders
                                         {
                                             VersionId = SqlReaderConvertor.ToUInt32(dr["TopVersionId"]),
                                             VersionName = Convert.ToString(dr["VersionName"]),
-                                            Mileage = SqlReaderConvertor.ToUInt32(dr["Mileage"]),
-                                            KerbWeight = SqlReaderConvertor.ToUInt32(dr["KerbWeight"]),
-                                            Displacement = SqlReaderConvertor.ParseToDouble(dr["Displacement"]),
-                                            Power = SqlReaderConvertor.ParseToDouble(dr["Power"]),
                                             PriceList = objPrices,
                                             Exshowroom = SqlReaderConvertor.ToUInt32(dr["Exshowroom"]),
                                             Onroad = SqlReaderConvertor.ToUInt32(dr["RTO"]) + SqlReaderConvertor.ToUInt32(dr["Insurance"]) + SqlReaderConvertor.ToUInt32(dr["Exshowroom"]),
@@ -211,13 +224,17 @@ namespace Bikewale.ElasticSearch.DocumentBuilderConsumer.DocumentBuilders
                                         UserReviewsCount = SqlReaderConvertor.ToUInt32(dr["UserReviewsCount"]),
                                         ReviewRatings = SqlReaderConvertor.ParseToDouble(dr["ReviewRatings"]),
                                         RatingsCount = SqlReaderConvertor.ToUInt32(dr["RatingsCount"]),
-                                       
+
                                     });
                             }
                             dr.Close();
                         }
                     }
                 }
+
+                
+                objList = GetMinSpecs(objList); // get min specs for version
+
             }
             catch (Exception ex)
             {
@@ -247,6 +264,96 @@ namespace Bikewale.ElasticSearch.DocumentBuilderConsumer.DocumentBuilders
         {
             RabbitMqPublish publish = new RabbitMqPublish();
             publish.PublishToQueue(ConfigurationManager.AppSettings["BWEsIndexUpdaterQueue"], nvc);
+        }
+
+        /// <summary>
+        /// Author  : Kartik Rathod on 11 Apr 2018 
+        /// Desc    : fetch minspecs for topversion from microservice
+        /// </summary>
+        /// <param name="objList">BikeModelDocument document </param>
+        /// <returns> IList of BikeModelDocument document </returns>
+        private IList<BikeModelDocument> GetMinSpecs(IList<BikeModelDocument> objList)
+        {
+            try
+            {
+                if (objList != null && objList.Count > 0)
+                {
+                    _apiGatewayCaller = container.Resolve<IApiGatewayCaller>();
+
+                    IEnumerable<int> versionIds = objList.Select(r => Convert.ToInt32(r.TopVersion.VersionId));
+
+                    VersionsDataByItemIds_Input input = new VersionsDataByItemIds_Input()
+                    {
+                        Versions = versionIds,
+                        Items = new List<EnumSpecsFeaturesItems>{
+                                        EnumSpecsFeaturesItems.Displacement,
+                                        EnumSpecsFeaturesItems.FuelEfficiencyOverall,
+                                        EnumSpecsFeaturesItems.MaxPowerBhp,
+                                        EnumSpecsFeaturesItems.KerbWeight,
+                                        EnumSpecsFeaturesItems.BrakeType,
+                                        EnumSpecsFeaturesItems.AlloyWheels,
+                                        EnumSpecsFeaturesItems.AntilockBrakingSystem,
+                                        EnumSpecsFeaturesItems.ElectricStart
+                                    }
+                    };
+
+                    GetVersionSpecsByItemIdAdapter adapter = new GetVersionSpecsByItemIdAdapter();
+
+                    adapter.AddApiGatewayCall(_apiGatewayCaller, input);
+
+                    _apiGatewayCaller.Call();
+
+                    IEnumerable<VersionMinSpecsEntity> minSpec = adapter.Output;
+
+                    if (minSpec != null)
+                    {
+                        var objEnumerator = objList.GetEnumerator();
+                        var versionEnumerator = minSpec.GetEnumerator();
+
+                        while (objEnumerator.MoveNext() && versionEnumerator.MoveNext())
+                        {
+                            objEnumerator.Current.TopVersion.Power = Convert.ToDouble(GetSpecsValue(versionEnumerator.Current.MinSpecsList, (int)EnumSpecsFeaturesItems.MaxPowerBhp));
+                            objEnumerator.Current.TopVersion.Mileage = Convert.ToUInt16(GetSpecsValue(versionEnumerator.Current.MinSpecsList, (int)EnumSpecsFeaturesItems.FuelEfficiencyOverall));
+                            objEnumerator.Current.TopVersion.KerbWeight = Convert.ToUInt16(GetSpecsValue(versionEnumerator.Current.MinSpecsList, (int)EnumSpecsFeaturesItems.KerbWeight));
+                            objEnumerator.Current.TopVersion.Displacement = Convert.ToDouble(GetSpecsValue(versionEnumerator.Current.MinSpecsList, (int)EnumSpecsFeaturesItems.Displacement));
+
+                            objEnumerator.Current.TopVersion.ABS = GetSpecsValue(versionEnumerator.Current.MinSpecsList, (int)EnumSpecsFeaturesItems.AntilockBrakingSystem) == "1";
+                            objEnumerator.Current.TopVersion.BrakeType = GetSpecsValue(versionEnumerator.Current.MinSpecsList, (int)EnumSpecsFeaturesItems.BrakeType);
+                            objEnumerator.Current.TopVersion.Wheels = GetSpecsValue(versionEnumerator.Current.MinSpecsList, (int)EnumSpecsFeaturesItems.AlloyWheels);
+                            objEnumerator.Current.TopVersion.StartType = GetSpecsValue(versionEnumerator.Current.MinSpecsList, (int)EnumSpecsFeaturesItems.ElectricStart);
+                        }
+
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Logs.WriteErrorLog("Exception at Bikewale.ElasticSearch.DocumentBuilderConsumer.DocumentBuilders: GetMinSpecs() ", ex);
+            }
+            return objList;
+        }
+
+        /// <summary>
+        /// Author  : Kartik Rathod on 11 Apr 2018 
+        ///  Desc    : gets value of passed specsId
+        /// </summary>
+        /// <param name="objSpec">list of SpecsItem</param>
+        /// <param name="propertyId">specsId for which value is needed</param>
+        /// <returns></returns>
+        private string GetSpecsValue(IEnumerable<SpecsItem> objSpec, int propertyId)
+        {
+            try
+            {
+                string value = string.Empty;
+                value = objSpec.Where(d => d.Id == propertyId).Select(k => k.Value).FirstOrDefault();
+                return !string.IsNullOrEmpty(value) ? value : null;
+            }
+            catch (Exception ex)
+            {
+                Logs.WriteErrorLog("Exception at Bikewale.ElasticSearch.DocumentBuilderConsumer.DocumentBuilders: GetSpecsValue() ", ex);
+                return null;
+            }
         }
 
     }
