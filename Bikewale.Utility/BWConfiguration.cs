@@ -26,6 +26,8 @@ namespace Bikewale.Utility
     /// Desc:         Added ContestPriceMoney
     /// Modified by : Pratibha Verma on 24 Feb 2018
     /// Description : Removed logNewsUrl for News(PWA) page API
+    /// Modifier    : Kartik Rathod on 30 march
+    /// Desc        : Added GoogleAPIHostUrl and CWOPRHostURL
     /// </summary>
     public sealed class BWConfiguration
     {
