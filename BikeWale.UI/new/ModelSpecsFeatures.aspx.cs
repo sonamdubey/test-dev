@@ -167,6 +167,7 @@ namespace Bikewale.New
                                     BikeVersionMinSpecs selectedVersion = modelPg.ModelVersions.FirstOrDefault();
                                     if (selectedVersion != null)
                                     {
+                                        this.versionId = Convert.ToUInt32(selectedVersion.VersionId);
                                         price = Convert.ToUInt32(selectedVersion.Price);
                                         versionName = selectedVersion.VersionName;
                                     }
