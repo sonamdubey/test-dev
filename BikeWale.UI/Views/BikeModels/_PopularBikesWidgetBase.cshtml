@@ -7,10 +7,13 @@
 
     if (bikeList != null && bikeList.Any())
     {
-        <ul>
+        <ul class="sidebar-bike-list sidebar-list__popuplar-bikes">
             @foreach (var bike in bikeList)
             {
-                var bikeName = bike.BikeName;
+                if (bike.objMake == null || bike.objModel == null) {
+                    continue;
+                }
+                var bikeName = string.Format("{0} {1}", bike.objMake.MakeName, bike.objModel.ModelName);
                 <li>
                     <a href="@UrlFormatter.BikePageUrl(bike.objMake.MaskingName, bike.objModel.MaskingName)" title="@bikeName " class="bike-target-link" data-newlaunch="@string.Format("{0}", bike.IsAdPromoted ? 1 : 0)">
                         <div class="bike-target-image inline-block">

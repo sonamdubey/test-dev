@@ -3101,6 +3101,8 @@ namespace Bikewale.DAL.BikeData
         /// <summary>
         /// Created by : Ashutosh Sharma on 18-Aug-2017
         /// Description : DAL method to get popular bikes by body style.
+        /// Modified By : Sanskar Gupta on 11 April 2018
+        /// Descirption : Added code for population of `popularObj.objMake.MakeName` and `popularObj.objMake.MaskingName`
         /// </summary>
         /// <param name="bodyStyleId"></param>
         /// <param name="topCount"></param>
@@ -3129,9 +3131,12 @@ namespace Bikewale.DAL.BikeData
                             {
                                 MostPopularBikesBase popularObj = new MostPopularBikesBase();
                                 popularObj.objModel = new BikeModelEntityBase();
+                                popularObj.objMake = new BikeMakeEntityBase();
                                 popularObj.MakeId = SqlReaderConvertor.ToInt32(dr["MakeId"]);
                                 popularObj.MakeName = Convert.ToString(dr["MakeName"]);
                                 popularObj.MakeMaskingName = Convert.ToString(dr["MakeMaskingName"]);
+                                popularObj.objMake.MakeName = popularObj.MakeName;
+                                popularObj.objMake.MaskingName = popularObj.MakeMaskingName;
                                 popularObj.objModel.ModelId = SqlReaderConvertor.ToInt32(dr["ModelId"]);
                                 popularObj.objModel.ModelName = Convert.ToString(dr["ModelName"]);
                                 popularObj.objModel.MaskingName = Convert.ToString(dr["ModelMaskingName"]);
@@ -3516,66 +3521,7 @@ namespace Bikewale.DAL.BikeData
             }
             return images;
         }
-
-        /// <summary>
-        /// Created By : Deepak Israni on 9 April 2018
-        /// Description: It does something.
-        /// </summary>
-        /// <param name="bodyStyleId"></param>
-        /// <param name="topCount"></param>
-        /// <param name="cityId"></param>
-        /// <returns></returns>
-        public IEnumerable<MostPopularBikesBase> GetPopularBikesByBodyStyles(string bodyStyleIds, uint topCount, uint cityId)
-        {
-
-            ICollection<MostPopularBikesBase> popularBikesList = null;
-            try
-            {
-                using (DbCommand cmd = DbFactory.GetDBCommand())
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "getmostpopularbikesbybodystyles";
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_bodystyleids", DbType.String, bodyStyleIds));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int32, topCount));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId > 0 ? cityId : 0));
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
-                    {
-                        if (dr != null)
-                        {
-                            popularBikesList = new Collection<MostPopularBikesBase>();
-                            EnumBikeBodyStyles bodyStyle;
-                            while (dr.Read())
-                            {
-                                MostPopularBikesBase popularObj = new MostPopularBikesBase();
-                                popularObj.objModel = new BikeModelEntityBase();
-                                popularObj.MakeId = SqlReaderConvertor.ToInt32(dr["MakeId"]);
-                                popularObj.MakeName = Convert.ToString(dr["MakeName"]);
-                                popularObj.MakeMaskingName = Convert.ToString(dr["MakeMaskingName"]);
-                                popularObj.objModel.ModelId = SqlReaderConvertor.ToInt32(dr["ModelId"]);
-                                popularObj.objModel.ModelName = Convert.ToString(dr["ModelName"]);
-                                popularObj.objModel.MaskingName = Convert.ToString(dr["ModelMaskingName"]);
-                                popularObj.OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]);
-                                popularObj.HostURL = Convert.ToString(dr["HostURL"]);
-                                popularObj.VersionPrice = SqlReaderConvertor.ToInt64(dr["VersionPrice"]);
-                                popularObj.CityName = Convert.ToString(dr["CityName"]);
-                                popularObj.CityMaskingName = Convert.ToString(dr["CityMaskingName"]);
-                                popularObj.BikePopularityIndex = SqlReaderConvertor.ToUInt16(dr["Rank"]);
-                                Enum.TryParse(Convert.ToString(SqlReaderConvertor.ToInt32(dr["BodyStyleId"])), out bodyStyle);
-                                popularObj.BodyStyle = bodyStyle;
-                                popularBikesList.Add(popularObj);
-                            }
-                            dr.Close();
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorClass.LogError(ex, string.Format(" GetPopularBikesByBodyStyle_bodyStyleId: {0}, topCount: {1}, cityId: {2}", bodyStyleIds, topCount, cityId));
-            }
-            return popularBikesList;
-
-        }
+        
 
     }   // class
 }   // namespace

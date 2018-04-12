@@ -23,11 +23,16 @@
                     </ul>
                 </div>
 
-                <div id="@widget.TabId" class="bw-tabs-data sidebar-list--overflow">
-                    @GenerateWidgetTab(widget);
-                    <div class="view-all-btn-container padding-10-20-20 read-more">
-                        <a href="@widget.ViewAllUrl" title="@widget.ViewAllTitle" data-tab="@widget.TabId" class="btn view-all-target-btn">@widget.ViewAllTitle<span class="bwsprite teal-right"></span></a>
-                    </div>
+                <div id="@widget.TabId" class="sidebar-list--overflow">
+
+                    @GenerateWidgetTab(widget)
+
+                    @if (widget.ShowViewAll)
+                    {
+                        <div class="view-all-btn-container padding-10-20-20 read-more">
+                            <a href="@widget.ViewAllUrl" title="@widget.ViewAllTitle" data-tab="@widget.TabId" class="btn view-all-target-btn">@widget.ViewAllTitle<span class="bwsprite teal-right"></span></a>
+                        </div>
+                    }
                 </div>
             </div>
 
@@ -37,7 +42,7 @@
             // Render 2 tabs
             var column1 = columns[EditorialWidgetColumnPosition.Left];
             var column2 = columns[EditorialWidgetColumnPosition.Right];
-            <div class="bw-tabs bw-tabs-flex tabs-flex--reset-margin">
+            <div class="bw-tabs-panel content-box-shadow section-bottom-margin">
                 <div class="bw-tabs bw-tabs-flex tabs-flex--reset-margin">
                     <ul id="widgetTab">
                         <li class='@(column1.ShowViewAll ? "active" : "")' data-tabs="@column1.TabId" data-other-tabs="@column2.TabId">
@@ -52,11 +57,18 @@
                 @foreach (KeyValuePair<EditorialWidgetColumnPosition, EditorialWidgetInfo> widgetItem in columns)
                 {
                     var widgetData = widgetItem.Value;
-                    <div id="@widgetData.TabId" class="bw-tabs-data sidebar-list--overflow">
-                        @GenerateWidgetTab(widgetData);
-                        <div class="view-all-btn-container padding-10-20-20 read-more">
-                            <a href="@widgetData.ViewAllUrl" title="@widgetData.ViewAllTitle" data-tab="@widgetData.TabId" class="btn view-all-target-btn">@widgetData.ViewAllTitle<span class="bwsprite teal-right"></span></a>
-                        </div>
+                    var divClass = widgetItem.Key == EditorialWidgetColumnPosition.Left ? "bw-tabs-data sidebar-list--overflow" : "bw-tabs-data sidebar-list--overflow hide";
+
+                    <div id="@widgetData.TabId" class="@divClass">
+
+                        @GenerateWidgetTab(widgetData)
+
+                        @if (widgetData.ShowViewAll)
+                        {
+                            <div class="view-all-btn-container padding-10-20-20 read-more">
+                                <a href="@widgetData.ViewAllUrl" title="@widgetData.ViewAllTitle" data-tab="@widgetData.TabId" class="btn view-all-target-btn">@widgetData.ViewAllTitle<span class="bwsprite teal-right"></span></a>
+                            </div>
+                        }
                     </div>
                 }
 

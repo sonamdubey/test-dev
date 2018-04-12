@@ -1628,43 +1628,5 @@ namespace Bikewale.Cache.BikeData
             return mostPopularBikes;
         }
 
-        /// <summary>
-        /// Created By  : Deepak Israni on 09 April 2018
-        /// Description : Cache Layer to get popular bikes by multiple BodyStyleIDs.
-        /// </summary>
-        /// <param name="bodyStyleIds"></param>
-        /// <param name="topCount"></param>
-        /// <param name="cityId"></param>
-        /// <returns></returns>
-        public IEnumerable<MostPopularBikesBase> GetPopularBikesByBodyStyles(string bodyStyleIds, uint topCount, uint cityId)
-        {
-            IEnumerable<MostPopularBikesBase> popularBikesList = null;
-            string key = string.Empty;
-
-
-            try
-            {
-                if (cityId > 0)
-                {
-
-                    key = string.Format("BW_PopularBikesListByBodyType_Bodystyle_{0}_City_{1}", bodyStyleIds, cityId);
-                    popularBikesList = _cache.GetFromCache<IEnumerable<MostPopularBikesBase>>(key, new TimeSpan(1, 0, 0), () => (IEnumerable<MostPopularBikesBase>)_modelRepository.GetPopularBikesByBodyStyles(bodyStyleIds, topCount, cityId));
-                }
-                else
-                {
-
-                    key = string.Format("BW_PopularBikesListByBodyType_Bodystyle_{0}", bodyStyleIds);
-                    popularBikesList = _cache.GetFromCache<IEnumerable<MostPopularBikesBase>>(key, new TimeSpan(24, 0, 0), () => (IEnumerable<MostPopularBikesBase>)_modelRepository.GetPopularBikesByBodyStyles(bodyStyleIds, topCount, cityId));
-                }
-
-            }
-            catch (Exception ex)
-            {
-                ErrorClass.LogError(ex, string.Format("BikeModelsCacheRepository.GetPopularBikesByBodyStyle: BodyStyleId: {0}, topCount: {1}, CityId {2}", bodyStyleIds, topCount, cityId));
-
-            }
-            return popularBikesList;
-        }
-
     }
 }

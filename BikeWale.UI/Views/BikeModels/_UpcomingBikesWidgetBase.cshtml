@@ -7,9 +7,13 @@
 
     if (bikeList != null && bikeList.Any())
     {
-        <ul>
+        <ul class="sidebar-bike-list">
             @foreach (var bike in bikeList)
             {
+                if (bike.MakeBase == null || bike.ModelBase == null)
+                {
+                    continue;
+                }
                 var bikeName = bike.BikeName;
                 <li>
                     <a href="@UrlFormatter.BikePageUrl(bike.MakeBase.MaskingName, bike.ModelBase.MaskingName)" title="@bikeName" class="bike-target-link">
