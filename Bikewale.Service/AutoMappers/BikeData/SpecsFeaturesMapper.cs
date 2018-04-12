@@ -105,12 +105,12 @@ namespace Bikewale.Service.AutoMappers.BikeData
                                 specValue = float.TryParse(minSpecEnumerator.Current.Value, out specValue) ? specValue : 0;
                                 dtoBike.Specs.Displacement = specValue;
                             }
-                             if(minSpecEnumerator.MoveNext())
+                            if (minSpecEnumerator.MoveNext())
                             {
                                 specValue = float.TryParse(minSpecEnumerator.Current.Value, out specValue) ? specValue : 0;
-                                dtoBike.Specs.FuelEfficiencyOverall = specValue;
+                                dtoBike.Specs.FuelEfficiencyOverall = specValue.Equals(0) ? null : (float?)specValue;
                             }
-                             if(minSpecEnumerator.MoveNext())
+                            if (minSpecEnumerator.MoveNext())
                             {
                                 specValue = float.TryParse(minSpecEnumerator.Current.Value, out specValue) ? specValue : 0;
                                 dtoBike.Specs.MaxPower = specValue;
