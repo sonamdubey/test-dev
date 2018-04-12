@@ -172,10 +172,8 @@ namespace BikeIndex
                     }
                 }
 
-                if (objList != null && objList.Count > 0)
-                {
-                    objList = GetMinSpecs(objList); // get min specs for version
-                }
+                
+                objList = GetMinSpecs(objList); // get min specs for version
             }
             catch (Exception ex)
             {
@@ -196,14 +194,16 @@ namespace BikeIndex
         {
             try
             {
-                _apiGatewayCaller = container.Resolve<IApiGatewayCaller>();
-
-                IEnumerable<int> versionIds = objList.Select(r => Convert.ToInt32(r.TopVersion.VersionId));
-
-                VersionsDataByItemIds_Input input = new VersionsDataByItemIds_Input()
+                if (objList != null && objList.Count > 0)
                 {
-                    Versions = versionIds,
-                    Items = new List<EnumSpecsFeaturesItems>{
+                    _apiGatewayCaller = container.Resolve<IApiGatewayCaller>();
+
+                    IEnumerable<int> versionIds = objList.Select(r => Convert.ToInt32(r.TopVersion.VersionId));
+
+                    VersionsDataByItemIds_Input input = new VersionsDataByItemIds_Input()
+                    {
+                        Versions = versionIds,
+                        Items = new List<EnumSpecsFeaturesItems>{
                                         EnumSpecsFeaturesItems.Displacement,
                                         EnumSpecsFeaturesItems.FuelEfficiencyOverall,
                                         EnumSpecsFeaturesItems.MaxPowerBhp,
@@ -213,34 +213,34 @@ namespace BikeIndex
                                         EnumSpecsFeaturesItems.AntilockBrakingSystem,
                                         EnumSpecsFeaturesItems.ElectricStart
                                     }
-                };
+                    };
 
-                GetVersionSpecsByItemIdAdapter adapter = new GetVersionSpecsByItemIdAdapter();
+                    GetVersionSpecsByItemIdAdapter adapter = new GetVersionSpecsByItemIdAdapter();
 
-                adapter.AddApiGatewayCall(_apiGatewayCaller, input);
+                    adapter.AddApiGatewayCall(_apiGatewayCaller, input);
 
-                _apiGatewayCaller.Call();
+                    _apiGatewayCaller.Call();
 
-                IEnumerable<VersionMinSpecsEntity> minSpec = adapter.Output;
+                    IEnumerable<VersionMinSpecsEntity> minSpec = adapter.Output;
 
-                if (minSpec != null)
-                {
-                    foreach (BikeModelDocument item in objList)
+                    if (minSpec != null)
                     {
-                        IEnumerable<IEnumerable<SpecsItem>> obj = minSpec.Where(r => r.VersionId == item.TopVersion.VersionId).Select(d => d.MinSpecsList);
-                        var specList = obj.GetEnumerator();
-                        if (specList.MoveNext())
+                        var objEnumerator = objList.GetEnumerator();
+                        var versionEnumerator = minSpec.GetEnumerator();
+                        
+                        while (objEnumerator.MoveNext() && versionEnumerator.MoveNext())
                         {
-                            item.TopVersion.Power = Convert.ToDouble(GetSpecsValue(specList.Current, (int)EnumSpecsFeaturesItems.MaxPowerBhp));
-                            item.TopVersion.Mileage = Convert.ToUInt16(GetSpecsValue(specList.Current, (int)EnumSpecsFeaturesItems.FuelEfficiencyOverall));
-                            item.TopVersion.KerbWeight = Convert.ToUInt16(GetSpecsValue(specList.Current, (int)EnumSpecsFeaturesItems.KerbWeight));
-                            item.TopVersion.Displacement = Convert.ToDouble(GetSpecsValue(specList.Current, (int)EnumSpecsFeaturesItems.Displacement));
+                            objEnumerator.Current.TopVersion.Power = Convert.ToDouble(GetSpecsValue(versionEnumerator.Current.MinSpecsList, (int)EnumSpecsFeaturesItems.MaxPowerBhp));
+                            objEnumerator.Current.TopVersion.Mileage = Convert.ToUInt16(GetSpecsValue(versionEnumerator.Current.MinSpecsList, (int)EnumSpecsFeaturesItems.FuelEfficiencyOverall));
+                            objEnumerator.Current.TopVersion.KerbWeight = Convert.ToUInt16(GetSpecsValue(versionEnumerator.Current.MinSpecsList, (int)EnumSpecsFeaturesItems.KerbWeight));
+                            objEnumerator.Current.TopVersion.Displacement = Convert.ToDouble(GetSpecsValue(versionEnumerator.Current.MinSpecsList, (int)EnumSpecsFeaturesItems.Displacement));
 
-                            item.TopVersion.ABS = GetSpecsValue(specList.Current, (int)EnumSpecsFeaturesItems.AntilockBrakingSystem) == "1";
-                            item.TopVersion.BrakeType = GetSpecsValue(specList.Current, (int)EnumSpecsFeaturesItems.BrakeType);
-                            item.TopVersion.Wheels = GetSpecsValue(specList.Current, (int)EnumSpecsFeaturesItems.AlloyWheels);
-                            item.TopVersion.StartType = GetSpecsValue(specList.Current, (int)EnumSpecsFeaturesItems.ElectricStart) ;
+                            objEnumerator.Current.TopVersion.ABS = GetSpecsValue(versionEnumerator.Current.MinSpecsList, (int)EnumSpecsFeaturesItems.AntilockBrakingSystem) == "1";
+                            objEnumerator.Current.TopVersion.BrakeType = GetSpecsValue(versionEnumerator.Current.MinSpecsList, (int)EnumSpecsFeaturesItems.BrakeType);
+                            objEnumerator.Current.TopVersion.Wheels = GetSpecsValue(versionEnumerator.Current.MinSpecsList, (int)EnumSpecsFeaturesItems.AlloyWheels);
+                            objEnumerator.Current.TopVersion.StartType = GetSpecsValue(versionEnumerator.Current.MinSpecsList, (int)EnumSpecsFeaturesItems.ElectricStart);
                         }
+
                     }
                 }
 
