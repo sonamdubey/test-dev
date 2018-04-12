@@ -46,7 +46,7 @@ namespace Bikewale.BAL.ApiGateway.ApiGatewayHelper
 		/// <param name="methondName">Used to execute given method in a module</param>
 		/// <param name="message">Input parameters to the method</param>
 		/// <returns>Returns true when operation is successfull</returns>
-		public bool Add(string module, string methodName, IMessage message)
+		bool IApiGatewayCaller.Add(string module, string methodName, IMessage message)
 		{
 			bool isSuccess = false;
 
@@ -71,9 +71,9 @@ namespace Bikewale.BAL.ApiGateway.ApiGatewayHelper
 		/// <param name="message">Input parameters to the method</param>
 		/// <param name="callback">Callback function to convert grpc message to bikewale entities. This function will be executed after APIGateway returns result.</param>
 		/// <returns>Returns index of callback function</returns>
-		public int Add(string module, string methodName, IMessage message, Action<IApiGatewayCaller> callback)
+		ushort IApiGatewayCaller.Add(string module, string methodName, IMessage message, Action<IApiGatewayCaller> callback)
 		{
-			int callbackIndex = 0;
+			ushort callbackIndex = 0;
 
 			try
 			{
@@ -81,7 +81,7 @@ namespace Bikewale.BAL.ApiGateway.ApiGatewayHelper
 
 				_callbackActionList.Add(callback);
 
-				callbackIndex = _callbackActionList.Count - 1;
+				callbackIndex = (ushort)(_callbackActionList.Count - 1);
 			}
 			catch (Exception ex)
 			{
@@ -99,7 +99,7 @@ namespace Bikewale.BAL.ApiGateway.ApiGatewayHelper
 		/// <param name="message">Input parameters to the method</param>
 		/// <param name="identifier">Identifier for group of methods added in APIGateway caller. Identifier can be used to get data.</param>
 		/// <returns>Returns true when operation is successfull</returns>
-		public bool Add(string module, string methodName, IMessage message, string identifier)
+		bool IApiGatewayCaller.Add(string module, string methodName, IMessage message, string identifier)
 		{
 			bool isSuccess = false;
 
@@ -119,11 +119,14 @@ namespace Bikewale.BAL.ApiGateway.ApiGatewayHelper
 		/// <summary>
 		/// Function to Call APIGateway. It also saves response from APIGateway
 		/// </summary>
-		public void Call()
+		void IApiGatewayCaller.Call()
 		{
 			try
 			{
 				_outRequest = _aggregator.GetResultsFromGateway();
+
+				if(_outRequest == null)
+					throw new Exception("Bikewale.BAL.ApiGatewayHelper.ApiGatewayCaller.Call => API Gateway output is null.");
 
 				InvokeCallbackFunctions();
 			}
@@ -140,6 +143,9 @@ namespace Bikewale.BAL.ApiGateway.ApiGatewayHelper
 		{			
 			try
 			{
+				if (_callbackActionList.Count <= 0)
+					return;
+
 				TaskFactory factory = Task.Factory;
 
 				var mainTask = factory.StartNew(() =>
@@ -167,8 +173,11 @@ namespace Bikewale.BAL.ApiGateway.ApiGatewayHelper
 		/// <typeparam name="T">Specify GRPC message type.  Data will be converted into this type. T should inherit from IMesage interface.</typeparam>
 		/// <param name="index">index at which data is present in response.</param>
 		/// <returns>Response from APIGatway will be converted into this(T) type.</returns>
-		public T GetResponse<T>(int index) where T : IMessage
+		T IApiGatewayCaller.GetResponse<T>(ushort index)
 		{
+			if(_outRequest == null || _outRequest.OutputMessages == null)
+				throw new Exception("Bikewale.BAL.ApiGatewayHelper.ApiGatewayCaller.GetResponse =>_outRequest or _outRequest.OutputMessages Response from apigateway is null");
+
 			if (index < _outRequest.OutputMessages.Count)
 			{
 				if (String.IsNullOrWhiteSpace(_outRequest.OutputMessages[index].Exception))
@@ -177,13 +186,13 @@ namespace Bikewale.BAL.ApiGateway.ApiGatewayHelper
 				}
 				else
 				{
-					throw new GateWayException(string.Format("Bikewale.BAL.ApiGatewayHelper.ApiGatewayCaller.GetResponse => Exception Code: {0} Exception: {1}",
+					throw new Exception(string.Format("Bikewale.BAL.ApiGatewayHelper.ApiGatewayCaller.GetResponse => Exception Code: {0} Exception: {1}",
 						_outRequest.OutputMessages[index].ExceptionCode, _outRequest.OutputMessages[index].Exception));					
 				}
 			}
 			else
 			{
-				throw new GateWayException("Bikewale.BAL.ApiGatewayHelper.ApiGatewayCaller.GetResponse => The provided index is out of range");
+				throw new Exception("Bikewale.BAL.ApiGatewayHelper.ApiGatewayCaller.GetResponse => The provided index is out of range");
 			}
 		}
 
@@ -193,7 +202,7 @@ namespace Bikewale.BAL.ApiGateway.ApiGatewayHelper
 		/// <param name="outputRequest">List of reponse objects</param>
 		/// <param name="Identifier">Identifier for group of methods added in APIGateway caller. Identifier used to get data from APIGatway response.</param>
 		/// <returns>Complete response object from APIGateway</returns>
-		public IEnumerable<ApiGatewayResponse> GetResponse(OutputRequest outputRequest, string identifier)
+		IEnumerable<ApiGatewayResponse> IApiGatewayCaller.GetResponse(OutputRequest outputRequest, string identifier)
 		{
 			ICollection<ApiGatewayResponse> objResponse = null;
 
@@ -240,7 +249,7 @@ namespace Bikewale.BAL.ApiGateway.ApiGatewayHelper
 		/// <summary>
 		/// Property to get complete response object from APIGateway
 		/// </summary>
-		public IEnumerable<ApiGatewayResponse> GetAllResponse
+		IEnumerable<ApiGatewayResponse> IApiGatewayCaller.GetAllResponse
 		{
 			get
 			{
@@ -280,35 +289,6 @@ namespace Bikewale.BAL.ApiGateway.ApiGatewayHelper
 				return objResponse;
 			}
 		}
-
-		/// <summary>
-		/// Follow ISerialize pattern 
-		/// Important: This attribute is NOT inherited from Exception, and MUST be specified 
-		/// otherwise serialization will fail with a SerializationException stating that
-		/// "Type X in Assembly Y is not marked as serializable."
-		/// </summary>
-		[Serializable]
-		public class GateWayException : Exception
-		{
-			public GateWayException()
-			{
-			}
-
-			public GateWayException(string message) : base(message)
-			{
-			}
-
-			public GateWayException(string message, Exception innerException)
-				: base(message, innerException)
-			{
-			}
-			// Without this constructor, deserialization will fail
-			protected GateWayException(SerializationInfo info, StreamingContext context)
-				: base(info, context)
-			{
-			}
-		}
-
 		
-	}
-}
+	}	// class
+}	// namespace
