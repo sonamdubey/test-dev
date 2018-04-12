@@ -38,22 +38,7 @@ namespace Bikewale.Models
                 objVM = new NewLaunchesBikesVM();
                 objVM.Bikes = _newLaunches.GetBikes(_filter);
                 IEnumerable<NewLaunchedBikeEntityBase> newLaunchesList = objVM.Bikes.Bikes;
-                if (newLaunchesList != null && newLaunchesList.Any())
-                {
-                    objVM.Bikes.MinSpecsCount = 4;
-                    IEnumerable<VersionMinSpecsEntity> versionMinSpecs = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(newLaunchesList.Select(m => m.VersionId));
-                    if (versionMinSpecs != null)
-                    {
-                        var minSpecs = versionMinSpecs.GetEnumerator();
-                        foreach (var bike in newLaunchesList)
-                        {
-                            if (minSpecs.MoveNext())
-                            {
-                                bike.MinSpecsList = minSpecs.Current.MinSpecsList;
-                            }
-                        }
-                    }
-                }
+                objVM.Bikes.MinSpecsCount = 4;
                 objVM.Makes = _newLaunches.GetMakeList();
                 objVM.PqSource = _pqSource;
                 objVM.Page_H2 = string.Format("Latest bikes in India - {0}", DateTime.Now.Year);

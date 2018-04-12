@@ -1,4 +1,7 @@
-﻿using Bikewale.BAL.GrpcFiles.Specs_Features;
+﻿using Bikewale.BAL.ApiGateway.Adapters.BikeData;
+using Bikewale.BAL.ApiGateway.ApiGatewayHelper;
+using Bikewale.BAL.ApiGateway.Entities.BikeData;
+using Bikewale.BAL.GrpcFiles.Specs_Features;
 using Bikewale.Cache.Core;
 using Bikewale.Cache.Used;
 using Bikewale.DAL.Used;
@@ -38,6 +41,7 @@ namespace Bikewale.BindViewModels.Webforms.Used
         public bool IsAdUserLoggedIn { get; set; }
         public string ProfileId { get; set; }
         private string _customerId = string.Empty;
+        private IApiGatewayCaller _apiGatewayCaller;
 
         /// <summary>
         /// Created By : Sushil Kumar on 17th August 2016
@@ -81,33 +85,41 @@ namespace Bikewale.BindViewModels.Webforms.Used
                     container.RegisterType<IUsedBikeDetailsCacheRepository, UsedBikeDetailsCache>()
                              .RegisterType<ICacheManager, MemcacheManager>()
                              .RegisterType<IUsedBikeDetails, UsedBikeDetailsRepository>()
+                             .RegisterType<IApiGatewayCaller, ApiGatewayCaller>()
                             ;
                     var objCache = container.Resolve<IUsedBikeDetailsCacheRepository>();
+                    _apiGatewayCaller = container.Resolve<IApiGatewayCaller>();
 
                     InquiryDetails = objCache.GetProfileDetails(InquiryId);
                     if (InquiryDetails != null)
                     {
-                        IEnumerable<VersionMinSpecsEntity> minSpecs = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(new List<int>() { InquiryDetails.Version.VersionId },
-                            new List<EnumSpecsFeaturesItem> {
-                            EnumSpecsFeaturesItem.Displacement,
-                            EnumSpecsFeaturesItem.MaxPower,
-                            EnumSpecsFeaturesItem.MaximumTorque,
-                            EnumSpecsFeaturesItem.NoOfGears,
-                            EnumSpecsFeaturesItem.FuelEfficiencyOverall,
-                            EnumSpecsFeaturesItem.BrakeType,
-                            EnumSpecsFeaturesItem.FrontDisc,
-                            EnumSpecsFeaturesItem.RearDisc,
-                            EnumSpecsFeaturesItem.AlloyWheels,
-                            EnumSpecsFeaturesItem.KerbWeight,
-                            EnumSpecsFeaturesItem.TopSpeed,
-                            EnumSpecsFeaturesItem.FuelTankCapacity,
-                            EnumSpecsFeaturesItem.Speedometer,
-                            EnumSpecsFeaturesItem.FuelGuage,
-                            EnumSpecsFeaturesItem.Tachometer,
-                            EnumSpecsFeaturesItem.DigitalFuelGuage,
-                            EnumSpecsFeaturesItem.Tripmeter,
-                            EnumSpecsFeaturesItem.ElectricStart,
-                            });
+                        GetVersionSpecsByItemIdAdapter adapt1 = new GetVersionSpecsByItemIdAdapter();
+                        var specItemInput = new VersionsDataByItemIds_Input
+                        {
+                            Versions = new List<int>() { InquiryDetails.Version.VersionId },
+                            Items = new List<EnumSpecsFeaturesItems> {
+                                EnumSpecsFeaturesItems.Displacement,
+                                EnumSpecsFeaturesItems.MaxPower,
+                                EnumSpecsFeaturesItems.MaximumTorque,
+                                EnumSpecsFeaturesItems.NoOfGears,
+                                EnumSpecsFeaturesItems.FuelEfficiencyOverall,
+                                EnumSpecsFeaturesItems.BrakeType,
+                                EnumSpecsFeaturesItems.FrontDisc,
+                                EnumSpecsFeaturesItems.RearDisc,
+                                EnumSpecsFeaturesItems.AlloyWheels,
+                                EnumSpecsFeaturesItems.KerbWeight,
+                                EnumSpecsFeaturesItems.TopSpeed,
+                                EnumSpecsFeaturesItems.FuelTankCapacity,
+                                EnumSpecsFeaturesItems.Speedometer,
+                                EnumSpecsFeaturesItems.FuelGuage,
+                                EnumSpecsFeaturesItems.Tachometer,
+                                EnumSpecsFeaturesItems.DigitalFuelGuage,
+                                EnumSpecsFeaturesItems.Tripmeter,
+                                EnumSpecsFeaturesItems.ElectricStart,
+                            }
+                        };
+                        adapt1.AddApiGatewayCall(_apiGatewayCaller, specItemInput);
+                        IEnumerable<VersionMinSpecsEntity> minSpecs = adapt1.Output;
                         if (minSpecs != null && minSpecs.FirstOrDefault() != null && minSpecs.FirstOrDefault().MinSpecsList != null)
                         {
                             IEnumerable<SpecsItem> minSpecsList = minSpecs.FirstOrDefault().MinSpecsList;

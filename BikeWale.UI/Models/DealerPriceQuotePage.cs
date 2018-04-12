@@ -1,4 +1,6 @@
-﻿using Bikewale.BAL.GrpcFiles.Specs_Features;
+﻿using Bikewale.BAL.ApiGateway.Adapters.BikeData;
+using Bikewale.BAL.ApiGateway.Entities.BikeData;
+using Bikewale.BAL.GrpcFiles.Specs_Features;
 using Bikewale.Common;
 using Bikewale.DTO.PriceQuote;
 using Bikewale.Entities;
@@ -442,7 +444,6 @@ namespace Bikewale.Models
             IEnumerable<BikeVersionMinSpecs> bikeVersionList = null;
             try
             {
-
                 objData.SelectedVersion = _objVersionCache.GetById(_versionId);
                 if (objData.SelectedVersion != null && objData.SelectedVersion.MakeBase != null && objData.SelectedVersion.ModelBase != null)
                 {
@@ -456,21 +457,7 @@ namespace Bikewale.Models
                     if (selectedBikeVersion != null)
                     {
                         objData.BodyStyle = selectedBikeVersion.BodyStyle;
-                    }
-                    if (objData.VersionsList != null && objData.VersionsList.Any())
-                    {
-                        IEnumerable<VersionMinSpecsEntity> versionMinSpecsList = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(new List<int> { (int)_versionId },
-                            new List<EnumSpecsFeaturesItem> {
-                                EnumSpecsFeaturesItem.BrakeType,
-                                EnumSpecsFeaturesItem.AlloyWheels,
-                                EnumSpecsFeaturesItem.ElectricStart,
-                                EnumSpecsFeaturesItem.AntilockBrakingSystem 
-                            });
-                        var objVersionMin = versionMinSpecsList.FirstOrDefault(x => x.VersionId == _versionId);
-                        if (objVersionMin != null)
-                        {
-                            objData.SelectedVersionMinSpecs = objVersionMin.MinSpecsList;
-                        }
+                        objData.SelectedVersionMinSpecs = selectedBikeVersion.MinSpecsList;
                     }
                 }
             }

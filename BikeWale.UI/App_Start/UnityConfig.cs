@@ -186,9 +186,9 @@ namespace Bikewale
             container.RegisterType<IPageFilters, PageFilters>();
             container.RegisterType<IPQByCityArea, PQByCityArea>();
             container.RegisterType<Bikewale.Interfaces.AutoBiz.IDealerPriceQuote, Bikewale.DAL.AutoBiz.DealerPriceQuoteRepository>();
-	    container.RegisterType<IApiGatewayCaller, ApiGatewayCaller>();
+            container.RegisterType<IApiGatewayCaller, ApiGatewayCaller>();
 
-			DependencyResolver.SetResolver(new UnityDependencyResolver(container));
+            DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }
     }
 }

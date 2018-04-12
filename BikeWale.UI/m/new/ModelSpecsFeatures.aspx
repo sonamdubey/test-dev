@@ -339,7 +339,7 @@
 
                     <li>
                         <a class="breadcrumb-link" href="/m/<%= makeMaskingName %>-bikes/<%= modelMaskingName %>/" title="<%= String.Format("{0} {1}", makeName, modelName) %>">
-                            <span class="breadcrumb-link__label" itemprop="name"><%= String.Format("{0} {1}", makeName, modelName) %> </span>
+                            <span class="breadcrumb-link__label" itemprop="name"><%= String.Format("{0} {1}", makeName, modelName)%></span>
                         </a>
                     </li>
                     <li>

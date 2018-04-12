@@ -1,4 +1,7 @@
-﻿using Bikewale.BAL.GrpcFiles.Specs_Features;
+﻿using Bikewale.BAL.ApiGateway.Adapters.BikeData;
+using Bikewale.BAL.ApiGateway.ApiGatewayHelper;
+using Bikewale.BAL.ApiGateway.Entities.BikeData;
+using Bikewale.BAL.GrpcFiles.Specs_Features;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.BikeData.NewLaunched;
 using Bikewale.Interfaces.BikeData;
@@ -18,14 +21,15 @@ namespace Bikewale.BAL.BikeData.NewLaunched
     public class NewBikeLaunchesBL : INewBikeLaunchesBL
     {
         private readonly IBikeModelsCacheRepository<int> _modelCache = null;
-
+        private readonly IApiGatewayCaller _apiGatewayCaller;
         /// <summary>
         /// Type Initializer
         /// </summary>
         /// <param name="modelCache"></param>
-        public NewBikeLaunchesBL(IBikeModelsCacheRepository<int> modelCache)
+        public NewBikeLaunchesBL(IBikeModelsCacheRepository<int> modelCache, IApiGatewayCaller apiGatewayCaller)
         {
             _modelCache = modelCache;
+            _apiGatewayCaller = apiGatewayCaller;
         }
 
         /// <summary>
@@ -120,18 +124,14 @@ namespace Bikewale.BAL.BikeData.NewLaunched
                 IEnumerable<NewLaunchedBikeEntity> newLaunchesList = result != null ? result.Models : null;
                 if (newLaunchesList != null && newLaunchesList.Any())
                 {
-                    IEnumerable<VersionMinSpecsEntity> versionMinSpecs = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(newLaunchesList.Select(m => m.VersionId));
-                    if (versionMinSpecs != null)
+                    var specsItemList = new List<EnumSpecsFeaturesItems>
                     {
-                        var minSpecs = versionMinSpecs.GetEnumerator();
-                        foreach (var bike in newLaunchesList)
-                        {
-                            if (minSpecs.MoveNext())
-                            {
-                                bike.MinSpecsList = minSpecs.Current.MinSpecsList;
-                            }
-                        }
-                    }
+                        EnumSpecsFeaturesItems.Displacement,
+                        EnumSpecsFeaturesItems.FuelEfficiencyOverall,
+                        EnumSpecsFeaturesItems.MaxPowerBhp,
+                        EnumSpecsFeaturesItems.KerbWeight
+                    };
+                    BindMinSpecs(newLaunchesList, specsItemList);
                 }
             }
             catch (Exception ex)
@@ -176,18 +176,14 @@ namespace Bikewale.BAL.BikeData.NewLaunched
                     IEnumerable<NewLaunchedBikeEntityBase> newLaunchesList = result.Bikes;
                     if (newLaunchesList != null && newLaunchesList.Any())
                     {
-                        IEnumerable<VersionMinSpecsEntity> versionMinSpecs = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(newLaunchesList.Select(m => m.VersionId));
-                        if (versionMinSpecs != null)
+                        var specsItemList = new List<EnumSpecsFeaturesItems>
                         {
-                            var specsEnumerator = versionMinSpecs.GetEnumerator();
-                            var bikesEnumerator = newLaunchesList.GetEnumerator();
-                            while (bikesEnumerator.MoveNext() && specsEnumerator.MoveNext())
-                            {
-                                bikesEnumerator.Current.MinSpecsList = specsEnumerator.Current.MinSpecsList;
-                            }
-                        }
-                            }
-                        }
+                            EnumSpecsFeaturesItems.Displacement,
+                            EnumSpecsFeaturesItems.FuelEfficiencyOverall,
+                            EnumSpecsFeaturesItems.MaxPowerBhp,
+                            EnumSpecsFeaturesItems.KerbWeight
+                        };
+                        BindMinSpecs(newLaunchesList, specsItemList);
                     }
                 }
             }
@@ -238,6 +234,14 @@ namespace Bikewale.BAL.BikeData.NewLaunched
                 if(bikes != null)
                 {
                     bikes = bikes.Where(x => x.Make.MakeId == filters.Make && DateTime.Now >= x.LaunchedOn && DateTime.Now <= x.LaunchedOn.AddDays(10));
+                    var specsItemList = new List<EnumSpecsFeaturesItems>
+                    {
+                        EnumSpecsFeaturesItems.Displacement,
+                        EnumSpecsFeaturesItems.FuelEfficiencyOverall,
+                        EnumSpecsFeaturesItems.MaxPowerBhp,
+                        EnumSpecsFeaturesItems.KerbWeight
+                    };
+                    BindMinSpecs(bikes, specsItemList);
                 }
 
             }
@@ -323,5 +327,82 @@ namespace Bikewale.BAL.BikeData.NewLaunched
             return m => m.BodyStyleId == BodyStyleId;
         }
         #endregion
+
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 11 Apr 2018.
+        /// Description : Method to call specs features service and bind specs features data in bikeList object.
+        /// </summary>
+        /// <param name="bikesList">List of bikes object in which specs binding has to be done.</param>
+        /// <param name="specItemList">List of specs ids for which specs data has to be done.</param>
+        private void BindMinSpecs(IEnumerable<NewLaunchedBikeEntity> bikesList, IEnumerable<EnumSpecsFeaturesItems> specItemList)
+        {
+            try
+            {
+                if (bikesList != null && bikesList.Any())
+                {
+                    GetVersionSpecsByItemIdAdapter adapt1 = new GetVersionSpecsByItemIdAdapter();
+                    var specItemInput = new VersionsDataByItemIds_Input
+                    {
+                        Versions = bikesList.Select(m => m.VersionId),
+                        Items = specItemList
+                    };
+                    adapt1.AddApiGatewayCall(_apiGatewayCaller, specItemInput);
+                    _apiGatewayCaller.Call();
+
+                    IEnumerable<VersionMinSpecsEntity> specsResponseList = adapt1.Output;
+                    if (specsResponseList != null)
+                    {
+                        var specsEnumerator = specsResponseList.GetEnumerator();
+                        var bikesEnumerator = bikesList.GetEnumerator();
+                        while (bikesEnumerator.MoveNext() && specsEnumerator.MoveNext())
+                        {
+                            bikesEnumerator.Current.MinSpecsList = specsEnumerator.Current.MinSpecsList;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("Bikewale.BAL.BikeData.BikeModels.BindMinSpecs_bikesList_{0}_specItemList_{1}", bikesList, specItemList));
+            }
+        }
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 11 Apr 2018.
+        /// Description : Method to call specs features service and bind specs features data in bikeList object.
+        /// </summary>
+        /// <param name="bikesList">List of bikes object in which specs binding has to be done.</param>
+        /// <param name="specItemList">List of specs ids for which specs data has to be done.</param>
+        private void BindMinSpecs(IEnumerable<NewLaunchedBikeEntityBase> bikesList, IEnumerable<EnumSpecsFeaturesItems> specItemList)
+        {
+            try
+            {
+                if (bikesList != null && bikesList.Any())
+                {
+                    GetVersionSpecsByItemIdAdapter adapt1 = new GetVersionSpecsByItemIdAdapter();
+                    var specItemInput = new VersionsDataByItemIds_Input
+                    {
+                        Versions = bikesList.Select(m => m.VersionId),
+                        Items = specItemList
+                    };
+                    adapt1.AddApiGatewayCall(_apiGatewayCaller, specItemInput);
+                    _apiGatewayCaller.Call();
+
+                    IEnumerable<VersionMinSpecsEntity> specsResponseList = adapt1.Output;
+                    if (specsResponseList != null)
+                    {
+                        var specsEnumerator = specsResponseList.GetEnumerator();
+                        var bikesEnumerator = bikesList.GetEnumerator();
+                        while (bikesEnumerator.MoveNext() && specsEnumerator.MoveNext())
+                        {
+                            bikesEnumerator.Current.MinSpecsList = specsEnumerator.Current.MinSpecsList;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("Bikewale.BAL.BikeData.NewLaunched.NewBikeLaunchesBL.BindMinSpecs_bikesList_{0}_specItemList_{1}", bikesList, specItemList));
+            }
+        }
     }
 }

@@ -1,4 +1,7 @@
 ﻿
+using Bikewale.BAL.ApiGateway.Adapters.BikeData;
+using Bikewale.BAL.ApiGateway.ApiGatewayHelper;
+using Bikewale.BAL.ApiGateway.Entities.BikeData;
 using Bikewale.BAL.GrpcFiles.Specs_Features;
 using Bikewale.Common;
 using Bikewale.Entities;
@@ -32,6 +35,7 @@ namespace Bikewale.Models
         private readonly IBikeMakesCacheRepository _bikeMakesCache = null;
         private readonly IBikeModels<BikeModelEntity, int> _bikeModels = null;
         private readonly IServiceCenter _objSC = null;
+        private readonly IApiGatewayCaller _apiGatewayCaller;
         private uint cityId, makeId, dealerId, TopCount;
         public StatusCodes status;
         public MakeMaskingResponse objResponse;
@@ -50,7 +54,7 @@ namespace Bikewale.Models
         /// <param name="bikeModels"></param>
         /// <param name="makeMaskingName"></param>
         /// <param name="dealerId"></param>
-        public DealerShowroomDealerDetail(IServiceCenter objSC, IDealerCacheRepository objDealerCache, IBikeMakesCacheRepository bikeMakesCache, IBikeModels<BikeModelEntity, int> bikeModels, string makeMaskingName, string cityMaskingName, uint dealerId, uint topCount, bool isMobile)
+        public DealerShowroomDealerDetail(IServiceCenter objSC, IDealerCacheRepository objDealerCache, IBikeMakesCacheRepository bikeMakesCache, IBikeModels<BikeModelEntity, int> bikeModels, string makeMaskingName, string cityMaskingName, uint dealerId, uint topCount, bool isMobile, IApiGatewayCaller apiGatewayCaller)
         {
             _objDealerCache = objDealerCache;
             _bikeMakesCache = bikeMakesCache;
@@ -59,6 +63,7 @@ namespace Bikewale.Models
             TopCount = topCount;
             IsMobile = isMobile;
             objDealerDetails = new DealerShowroomDealerDetailsVM();
+            _apiGatewayCaller = apiGatewayCaller;
             ProcessQuery(makeMaskingName, cityMaskingName, dealerId);
         }
 
@@ -358,16 +363,28 @@ namespace Bikewale.Models
                 objDealerDetails = _objDealerCache.GetDealerDetailsAndBikesByDealerAndMake(dealerId, (int)makeId);
                 if (objDealerDetails != null && objDealerDetails.Models != null)
                 {
-                    var specsList = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(objDealerDetails.Models.Select(m => m.objVersion.VersionId));
+                    GetVersionSpecsByItemIdAdapter adapt1 = new GetVersionSpecsByItemIdAdapter();
+                    var specItemInput = new VersionsDataByItemIds_Input
+                    {
+                        Versions = objDealerDetails.Models.Select(m => m.objVersion.VersionId),
+                        Items = new List<EnumSpecsFeaturesItems>
+                        {
+                            EnumSpecsFeaturesItems.Displacement,
+                            EnumSpecsFeaturesItems.FuelEfficiencyOverall,
+                            EnumSpecsFeaturesItems.MaxPowerBhp,
+                            EnumSpecsFeaturesItems.KerbWeight
+                        }
+                    };
+                    adapt1.AddApiGatewayCall(_apiGatewayCaller, specItemInput);
+                    _apiGatewayCaller.Call();
+                    var specsList = adapt1.Output;
                     if (specsList != null)
                     {
-                        var specsListEnumerator = specsList.GetEnumerator();
-                        foreach (var bike in objDealerDetails.Models)
+                        var specsEnumerator = specsList.GetEnumerator();
+                        var bikesEnumerator = objDealerDetails.Models.GetEnumerator();
+                        while (bikesEnumerator.MoveNext() && specsEnumerator.MoveNext())
                         {
-                            if (specsListEnumerator.MoveNext())
-                                bike.MinSpecsList = specsListEnumerator.Current.MinSpecsList;
-                            else
-                                break;
+                            bikesEnumerator.Current.MinSpecsList = specsEnumerator.Current.MinSpecsList;
                         }
                     }
                 }

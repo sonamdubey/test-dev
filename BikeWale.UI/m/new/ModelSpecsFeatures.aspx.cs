@@ -1,4 +1,6 @@
-﻿using Bikewale.BAL.BikeData;
+﻿using Bikewale.BAL.ApiGateway.Adapters.BikeData;
+using Bikewale.BAL.ApiGateway.ApiGatewayHelper;
+using Bikewale.BAL.BikeData;
 using Bikewale.BAL.GrpcFiles.Specs_Features;
 using Bikewale.BAL.Pager;
 using Bikewale.Cache.BikeData;
@@ -68,14 +70,28 @@ namespace Bikewale.Mobile
                 IsScooterOnly = modelDetail.ModelDetails.MakeBase.IsScooterOnly;
                 if (versionId > 0)
                 {
-                    specs = FetchVariantDetails(versionId);
-                    versionSpecsFeatures = SpecsFeaturesServiceGateway.GetVersionsSpecsFeatures(new List<uint> { versionId });
+                    BindFullSpecsFeatures();
+                    
                 }
                 BindWidget();
                 BindSimilarBikes();
                 BindSeriesBreadCrum();
             }
         }
+
+        private void BindFullSpecsFeatures()
+        {
+            using (IUnityContainer container = new UnityContainer())
+            {
+                container.RegisterType<IApiGatewayCaller, ApiGatewayCaller>();
+                var _apiGatewayCaller = container.Resolve<IApiGatewayCaller>();
+                GetVersionSpecsByIdAdapter adapter = new GetVersionSpecsByIdAdapter();
+                adapter.AddApiGatewayCall(_apiGatewayCaller, new List<int> { (int)versionId });
+                _apiGatewayCaller.Call();
+                versionSpecsFeatures = adapter.Output;
+            }
+        }
+
         /// Created  By :- subodh Jain 10 Feb 2017
         /// Summary :- BikeInfo Slug details
         /// </summary>

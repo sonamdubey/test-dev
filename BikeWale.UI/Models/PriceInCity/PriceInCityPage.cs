@@ -374,26 +374,10 @@ namespace Bikewale.Models
                         objVM.VersionSpecs = _versionCache.GetVersionMinSpecs(modelId, objVM.IsNew);
                         if (objVM.VersionSpecs != null)
                         {
-                            var minSpecsFeaturesList = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(objVM.VersionSpecs.Select(x => x.VersionId), new List<EnumSpecsFeaturesItem>
-                            {
-                                EnumSpecsFeaturesItem.BrakeType,
-                                EnumSpecsFeaturesItem.AlloyWheels
-                            });
-                            if (minSpecsFeaturesList != null)
-                            {
-                                var specsEnumerator = minSpecsFeaturesList.GetEnumerator();
-                                var bikesEnumerator = objVM.VersionSpecs.GetEnumerator();
-                                while (bikesEnumerator.MoveNext() && specsEnumerator.MoveNext())
-                                {
-                                    bikesEnumerator.Current.MinSpecsList = specsEnumerator.Current.MinSpecsList;
-                                }
-                            }
-                            
                             var objMin = objVM.VersionSpecs.FirstOrDefault(x => x.VersionId == firstVersion.VersionId);
                             if (objMin != null)
                             {
                                 objVM.MinSpecsList = objMin.MinSpecsList;
-
                                 // Set body style
                                 objVM.BodyStyle = objMin.BodyStyle;
                             }
@@ -679,20 +663,6 @@ namespace Bikewale.Models
                         objVM.JSONBikeVersions = JsonConvert.SerializeObject(values);
                         if (objVM.VersionSpecs != null)
                         {
-                            var versionMinSpecsList = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(objVM.VersionSpecs.Select(x => x.VersionId));
-                            if (versionMinSpecsList != null)
-                            {
-                                IEnumerator<VersionMinSpecsEntity> versionIterator = versionMinSpecsList.GetEnumerator();
-                                VersionMinSpecsEntity objVersionMinSpec;
-                                foreach (var bikeVersion in objVM.VersionSpecs)
-                                {
-                                    if (versionIterator.MoveNext())
-                                    {
-                                        objVersionMinSpec = versionIterator.Current;
-                                        bikeVersion.MinSpecsList = objVersionMinSpec != null ? objVersionMinSpec.MinSpecsList : null;
-                                    }
-                                }
-                            }
                             var objMin = objVM.VersionSpecs.FirstOrDefault(x => x.VersionId == firstVersion.VersionId);
                             if (objMin != null)
                             {
@@ -707,7 +677,6 @@ namespace Bikewale.Models
                                 if (firstVersionSpec != null)
                                 {
                                     objVM.BodyStyle = objVM.VersionSpecs.FirstOrDefault().BodyStyle;
-
                                 }
                             }
 
@@ -719,7 +688,6 @@ namespace Bikewale.Models
                                     version.Price = Convert.ToUInt64(versionPrice.BikeQuotationEntity.OnRoadPrice);
                                 }
                             }
-
                             objVM.BodyStyleText = objVM.BodyStyle == EnumBikeBodyStyles.Scooter ? "Scooters" : "Bikes";
                         }
 

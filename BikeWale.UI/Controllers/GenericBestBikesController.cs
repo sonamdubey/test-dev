@@ -1,4 +1,5 @@
-﻿using Bikewale.CoreDAL;
+﻿using Bikewale.BAL.ApiGateway.ApiGatewayHelper;
+using Bikewale.CoreDAL;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Models;
@@ -15,12 +16,14 @@ namespace Bikewale.Controllers
         private readonly IBikeModelsCacheRepository<int> _objBestBikes = null;
         private readonly IBikeMakesCacheRepository _bikeMakes = null;
         private readonly ICMSCacheContent _objArticles = null;
+        private readonly IApiGatewayCaller _apiGatewayCaller;
 
-        public GenericBestBikesController(IBikeModelsCacheRepository<int> objBestBikes, IBikeMakesCacheRepository bikeMakes, ICMSCacheContent objArticles)
+        public GenericBestBikesController(IBikeModelsCacheRepository<int> objBestBikes, IBikeMakesCacheRepository bikeMakes, ICMSCacheContent objArticles, IApiGatewayCaller apiGatewayCaller)
         {
             _objBestBikes = objBestBikes;
             _bikeMakes = bikeMakes;
             _objArticles = objArticles;
+            _apiGatewayCaller = apiGatewayCaller;
         }
         /// <summary>
         /// Created By :- Subodh Jain 18 May 2017
@@ -30,7 +33,7 @@ namespace Bikewale.Controllers
         [Filters.DeviceDetection()]
         public ActionResult Index()
         {
-            IndexGenericBestBikes objBestBikes = new IndexGenericBestBikes(_objBestBikes, _bikeMakes, _objArticles);
+            IndexGenericBestBikes objBestBikes = new IndexGenericBestBikes(_objBestBikes, _bikeMakes, _objArticles, _apiGatewayCaller);
 
             if (objBestBikes != null)
             {
@@ -67,7 +70,7 @@ namespace Bikewale.Controllers
         [Route("m/bestbikes/")]
         public ActionResult Index_Mobile()
         {
-            IndexGenericBestBikes objBestBikes = new IndexGenericBestBikes(_objBestBikes, _bikeMakes, _objArticles);
+            IndexGenericBestBikes objBestBikes = new IndexGenericBestBikes(_objBestBikes, _bikeMakes, _objArticles, _apiGatewayCaller);
 
             if (objBestBikes != null)
             {

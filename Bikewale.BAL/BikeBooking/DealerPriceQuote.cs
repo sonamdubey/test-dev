@@ -14,6 +14,9 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using System.Configuration;
+using Bikewale.BAL.ApiGateway.Adapters.BikeData;
+using Bikewale.BAL.ApiGateway.ApiGatewayHelper;
+using Bikewale.BAL.ApiGateway.Entities.BikeData;
 
 namespace Bikewale.BAL.BikeBooking
 {
@@ -24,6 +27,7 @@ namespace Bikewale.BAL.BikeBooking
     {
         private readonly Bikewale.Interfaces.BikeBooking.IDealerPriceQuote dealerPQRepository = null;
         private readonly IPriceQuoteCache _pqCache = null;
+        private readonly IApiGatewayCaller _apiGatewayCaller;
         public DealerPriceQuote()
         {
             using (IUnityContainer container = new UnityContainer())
@@ -34,7 +38,9 @@ namespace Bikewale.BAL.BikeBooking
                 container.RegisterType<IPriceQuoteCache, PriceQuoteCache>();
                 container.RegisterType<Bikewale.Interfaces.AutoBiz.IDealerPriceQuote, Bikewale.DAL.AutoBiz.DealerPriceQuoteRepository>();
                 dealerPQRepository = container.Resolve<Bikewale.Interfaces.BikeBooking.IDealerPriceQuote>();
+                container.RegisterType<IApiGatewayCaller, ApiGatewayCaller>();
                 _pqCache = container.Resolve<IPriceQuoteCache>();
+                _apiGatewayCaller = container.Resolve<IApiGatewayCaller>();
             }
         }
 
@@ -432,8 +438,17 @@ namespace Bikewale.BAL.BikeBooking
                 pageDetail = dealerPQRepository.FetchBookingPageDetails(cityId, versionId, dealerId);
                 if (pageDetail != null && pageDetail.Varients != null)
                 {
-                    IEnumerable<VersionMinSpecsEntity> versionMinSpecsEntityList = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(new List<int> { (int)versionId },
-                        new List<EnumSpecsFeaturesItem> { EnumSpecsFeaturesItem.BrakeType, EnumSpecsFeaturesItem.AlloyWheels });
+                    GetVersionSpecsByItemIdAdapter adapt1 = new GetVersionSpecsByItemIdAdapter();
+                    var specItemInput = new VersionsDataByItemIds_Input {
+                        Versions = new List<int> { (int)versionId },
+                        Items = new List<EnumSpecsFeaturesItems> {
+                            EnumSpecsFeaturesItems.BrakeType,
+                            EnumSpecsFeaturesItems.AlloyWheels
+                        }
+                    };
+                    adapt1.AddApiGatewayCall(_apiGatewayCaller, specItemInput);
+                    _apiGatewayCaller.Call();
+                    IEnumerable<VersionMinSpecsEntity> versionMinSpecsEntityList = adapt1.Output;
                     if (versionMinSpecsEntityList != null)
                     {
                         VersionMinSpecsEntity objVersionMinSpec = null;

@@ -27,15 +27,6 @@ namespace VehicleData.Service.ProtoClass {
             "AyABKAUSEAoITm9kZUNvZGUYBCABKAkSEAoISXNBY3RpdmUYBSABKAgSEQoJ",
             "VXBkYXRlZE9uGAYgASgJEhEKCVVwZGF0ZWRCeRgHIAEoBRIVCg1BcHBsaWNh",
             "dGlvbklkGAggASgFEhUKDVByaW9yaXR5T3JkZXIYCSABKAUSIAoFaXRlbXMY",
-<<<<<<< HEAD
-            "CiADKAsyES5WZWhpY2xlRGF0YS5JdGVtIjQKD0NhdGVnb3J5UmVxdWVzdBIK",
-            "CgJJZBgBIAEoBRIVCg1BcHBsaWNhdGlvbklkGAIgASgFIjcKEENhdGVnb3J5",
-            "UmVzcG9uc2USCgoCSWQYASABKAUSFwoPSXNEYXRhQXZhaWxhYmxlGAIgASgI",
-            "IjkKDENhdGVnb3J5TGlzdBIpCgpDYXRlZ29yaWVzGAEgAygLMhUuVmVoaWNs",
-            "ZURhdGEuQ2F0ZWdvcnkiSQoUQ2F0ZWdvcnlSZXNwb25zZUxpc3QSMQoKQ2F0",
-            "ZWdvcmllcxgBIAMoCzIdLlZlaGljbGVEYXRhLkNhdGVnb3J5UmVzcG9uc2VC",
-            "IaoCHlZlaGljbGVEYXRhLlNlcnZpY2UuUHJvdG9DbGFzc2IGcHJvdG8z"));
-=======
             "CiADKAsyES5WZWhpY2xlRGF0YS5JdGVtEgwKBEljb24YCyABKAkiNAoPQ2F0",
             "ZWdvcnlSZXF1ZXN0EgoKAklkGAEgASgFEhUKDUFwcGxpY2F0aW9uSWQYAiAB",
             "KAUiNwoQQ2F0ZWdvcnlSZXNwb25zZRIKCgJJZBgBIAEoBRIXCg9Jc0RhdGFB",
@@ -44,7 +35,6 @@ namespace VehicleData.Service.ProtoClass {
             "bnNlTGlzdBIxCgpDYXRlZ29yaWVzGAEgAygLMh0uVmVoaWNsZURhdGEuQ2F0",
             "ZWdvcnlSZXNwb25zZUIhqgIeVmVoaWNsZURhdGEuU2VydmljZS5Qcm90b0Ns",
             "YXNzYgZwcm90bzM="));
->>>>>>> 0c796b8739268785892b9d7e5f7038f952dc7e97
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::VehicleData.Service.ProtoClass.ItemReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {

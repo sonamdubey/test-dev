@@ -80,5 +80,7 @@ namespace Bikewale.Interfaces.BikeData
         ModelImageWrapper GetBikeModelsPhotos(string modelIds, string categoryIds, int requiredImageCount, ImagePager pager);
         IDictionary<EnumBikeBodyStyles, IEnumerable<uint>> GetModelsWithBodyStyleLookupArray(uint makeId);
         IEnumerable<MostPopularBikesBase> GetMostPopularBikesByMakeWithCityPrice(int makeId, uint cityId);
+        IEnumerable<MostPopularBikesBase> GetElectricBikes();
+        IEnumerable<MostPopularBikesBase> GetElectricBikes(uint cityId);
     }
 }

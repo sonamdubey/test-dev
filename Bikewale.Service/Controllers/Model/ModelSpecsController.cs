@@ -1,3 +1,5 @@
+using Bikewale.BAL.ApiGateway.Adapters.BikeData;
+using Bikewale.BAL.ApiGateway.ApiGatewayHelper;
 using Bikewale.BAL.GrpcFiles.Specs_Features;
 using Bikewale.BAL.PriceQuote;
 using Bikewale.DTO.Model;
@@ -32,7 +34,7 @@ namespace Bikewale.Service.Controllers.Model
         private readonly IBikeModels<BikeModelEntity, int> _bikeModelEntity = null;
         private readonly IBikeVersionCacheRepository<BikeVersionEntity, uint> _versionCacheRepository = null;
         private readonly IPQByCityArea _objPQByCityArea = null;
-
+        private readonly IApiGatewayCaller _apiGatewayCaller;
         /// <summary>
         /// 
         /// </summary>
@@ -40,13 +42,14 @@ namespace Bikewale.Service.Controllers.Model
         /// <param name="cache"></param>
         /// <param name="bikeModelEntity"></param>
         /// <param name="versionCacheRepository"></param>
-        public ModelSpecsController(IBikeModelsRepository<BikeModelEntity, int> modelRepository, IBikeModelsCacheRepository<int> cache, IBikeModels<BikeModelEntity, int> bikeModelEntity, IBikeVersionCacheRepository<BikeVersionEntity, uint> versionCacheRepository, IPQByCityArea objPQByCityArea)
+        public ModelSpecsController(IBikeModelsRepository<BikeModelEntity, int> modelRepository, IBikeModelsCacheRepository<int> cache, IBikeModels<BikeModelEntity, int> bikeModelEntity, IBikeVersionCacheRepository<BikeVersionEntity, uint> versionCacheRepository, IPQByCityArea objPQByCityArea, IApiGatewayCaller apiGatewayCaller)
         {
             _modelRepository = modelRepository;
             _cache = cache;
             _bikeModelEntity = bikeModelEntity;
             _versionCacheRepository = versionCacheRepository;
             _objPQByCityArea = objPQByCityArea;
+            _apiGatewayCaller = apiGatewayCaller;
         }
 
         #region Model Specifications and Features
@@ -158,8 +161,10 @@ namespace Bikewale.Service.Controllers.Model
                 {
                     return BadRequest();
                 }
-                SpecsFeaturesEntity versionSpecsFeatures = SpecsFeaturesServiceGateway.GetVersionsSpecsFeatures(new List<uint> { versionId});
-        
+                GetVersionSpecsByIdAdapter adapt1 = new GetVersionSpecsByIdAdapter();
+                adapt1.AddApiGatewayCall(_apiGatewayCaller, new List<int> { (int)versionId });
+                _apiGatewayCaller.Call();
+                SpecsFeaturesEntity versionSpecsFeatures = adapt1.Output;
                 if (versionSpecsFeatures != null)
                 {
                     VersionSpecs versionSpecs = VersionListMapper.Convert(versionSpecsFeatures);
