@@ -915,3 +915,22 @@
 	top: 0;
 	left: -50%
 }
+
+.model-image-section .image-grid-list__item {
+    border-color: #fff;
+}
+
+.model-image-section .carousel__recently-added .model-image__card {
+    background-color: #fff;
+    border-color: #e6e6e6;
+}
+
+.model-image__card {
+	width: 100%;
+	max-height: 354px;
+	display: block;
+	background-color: #fff9f9;
+	border: 1px solid #e6e6e6;
+	box-shadow: 0 2px 4px 0 rgba(213,213,213,.5);
+	border-radius: 2px
+}
