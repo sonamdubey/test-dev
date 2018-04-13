@@ -26,11 +26,6 @@ namespace Bikewale.Models.BikeModels
 
 
         public IEnumerable<MostPopularBikesBase> MostPopularBikeList { get; set; }
-        public uint PageCatId { get; set; }
-        public PQSourceEnum PQSourceId { get; set; }
-        public bool ShowCheckOnRoadCTA { get; set; }
-        public bool ShowPriceInCityCTA { get; set; }
-        public string CtaText { get; set; }
         public uint CityId { get; set; }
         public string ReturnUrlForAmpPages { get; set; }
     }

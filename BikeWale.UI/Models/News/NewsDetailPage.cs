@@ -231,7 +231,7 @@ namespace Bikewale.Models
 
                     BindBikeInfoWidget(objData);
                     SetAdditionalVariables(objData);
-                    objData.PageWidgets = SetEditorialWidgetData(objData.PageWidgets);
+                    SetEditorialWidgetData(objData.PageWidgets);
 
                     BindSimilarBikes(objData);
                     SetPageMetas(objData);
