@@ -1,6 +1,5 @@
 var $sortDiv = $("#sort-by-div"),
     applyFilter = $('#btnApplyFilters'),
-    mileage = $('.mileage'),
     CheckBoxFilter = $('.multiSelect .unchecked'),
     multiSelect = $('.multiSelect'),
     nobikediv = $('#nobike'),
@@ -262,10 +261,6 @@ CheckBoxFilter.on('click', function () {
     }
 });
 
-/* Mileage */
-mileage.click(function () {
-    $(this).toggleClass('optionSelected');
-});
 
 $('.checkOption').click(function () {
     $(this).siblings().removeClass('optionSelected');
@@ -687,28 +682,6 @@ $.applyToggelFilter = function () {
     return completeQS;
 }
 
-$.applyMileageFilter = function () {
-    var selected = 'optionSelected',
-        curValue = "",
-        completeQS = "",
-        name = "",
-        value = "";
-    mileage.each(function () {
-        name = $(this).parent().parent().attr('name');
-        if ($(this).hasClass(selected)) {
-            var filterId = $(this).attr('filterid');
-            value += filterId + '+';
-        }
-    });
-    if (value.length > 1) {
-        value = value.substring(0, value.length - 1);
-        completeQS = $.AddToQS(name, value);
-    }
-    else
-        completeQS = "";
-    return completeQS;
-};
-
 $.applyCheckBoxFilter = function () {
     var selected = 'checked',
         completeQS = '',
@@ -797,27 +770,19 @@ $.fn.resetAll = function () {
 resetButton.resetAll();
 
 $.resetFilterUI = function () {
-    var params = ['bike', 'displacement', 'ridestyle', 'ABS', 'braketype', 'alloywheel', 'starttype', 'budget', 'mileage'];
+    var params = ['bike', 'ridestyle', 'budget'];
     for (var i = 0; i < params.length; i++) {
         if (params[i].length > 0) {
             var node = $('div[name=' + params[i] + ']');
-            if (params[i] == 'bike' || params[i] == 'displacement' || params[i] == 'ridestyle') {
+            if (params[i] == 'bike' || params[i] == 'ridestyle') {
                 node.prev().find('.hida').removeClass('hide');
                 node.prev().find('.multiSel').html('');
                 node.find('li').each(function () {
                     $(this).removeClass('checked');
                 });
-            } else if (params[i] == 'ABS' || params[i] == 'braketype' || params[i] == 'alloywheel' || params[i] == 'starttype') {
-                node.children().each(function () {
-                    $(this).removeClass('optionSelected');
-                });
             } else if (params[i] == 'budget') {
                 $.setSliderRangeQS($('#mSlider-range'), 1, 20);
                 $("#rangeAmount").html('<span class="bw-m-sprite rupee"></span> 0 -' + ' ' + '<span class="bw-m-sprite rupee"></span> Any value');
-            } else if (params[i] == 'mileage') {
-                node.each(function () {
-                    $(this).find('span').removeClass('optionSelected');
-                });
             }
         }
     }
@@ -829,7 +794,7 @@ $.selectFiltersPresentInQS = function () {
     for (var i = 0; i < params.length; i++) {
         if (params[i].length > 0) {
             var node = $('div[name=' + params[i] + ']');
-            if (params[i] == 'bike' || params[i] == 'displacement' || params[i] == 'ridestyle') {
+            if (params[i] == 'bike' || params[i] == 'ridestyle') {
                 var values = $.getFilterFromQS(params[i]).replace(/ /g, '+').split('+');
                 var html = '';
                 for (var j = 0; j < values.length; j++) {
@@ -841,12 +806,6 @@ $.selectFiltersPresentInQS = function () {
                 node.prev().find('.hida').addClass('hide');
                 node.prev().find('.multiSel').html(html);
 
-            } else if (params[i] == 'ABS' || params[i] == 'braketype' || params[i] == 'alloywheel' || params[i] == 'starttype') {
-                var values = $.getFilterFromQS(params[i]);
-
-                for (var j = 0; j < values.length; j++) {
-                    node.find('span[filterid=' + values[j] + ']').addClass('optionSelected');
-                }
             } else if (params[i] == 'budget') {
                 var values = $.getFilterFromQS(params[i]).split('-');
                 values[0] = (values[0] == '0' ? '30000' : values[0]);
@@ -862,12 +821,6 @@ $.selectFiltersPresentInQS = function () {
                     $("#rangeAmount").html('<span class="bw-m-sprite rupee"></span> 0 -' + ' ' + '<span class="bw-m-sprite rupee"></span> Any value');
                 } else {
                     $("#rangeAmount").html('<span class="bw-m-sprite rupee"></span>' + ' ' + budgetminValue + ' ' + '-' + ' ' + '<span class="bw-m-sprite rupee"></span>' + ' ' + budgetmaxValue);
-                }
-            } else if (params[i] == 'mileage') {
-                var values = $.getFilterFromQS(params[i]).replace(/ /g, '+').split('+');
-
-                for (var j = 0; j < values.length; j++) {
-                    node.find('span[filterid=' + values[j] + ']').addClass('optionSelected');
                 }
             } else if (params[i] == 'sc') {
                 $.sc = $.getFilterFromQS('sc');
@@ -903,9 +856,6 @@ $.pushGACode = function (qs, noOfRecords) {
                         break;
                     case '1':
                         filterName = so == '0' ? "Price :Low to High" : "Price :High to Low";
-                        break;
-                    case '2':
-                        filterName = 'Mileage :High to Low';
                         break;
                 }
                 $.pushGTACode(noOfRecords, filterName);

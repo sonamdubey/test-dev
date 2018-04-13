@@ -49,14 +49,14 @@
                     <div id="filter-container">
                         <div class="filter-container content-box-shadow">
                             <div class="grid-10 omega padding-left20">
-                                <div class="grid-3 alpha">
+                                <div class="grid-4 alpha">
                                     <div class="filter-div rounded-corner2">
                                         <div class="filter-select-title">
                                             <span class="hide">Select brand</span>
                                             <span class="leftfloat filter-select-btn default-text">Select brand</span>
                                             <span class="clear"></span>
                                         </div>
-                                        <span id="upDownArrow" class="rightfloat fa fa-angle-down position-abt pos-top15 pos-right10"></span>
+                                        <span class="rightfloat fa fa-angle-down position-abt pos-top15 pos-right10 upDownArrow"></span>
                                     </div>
                                     <div id="filter-select-brand" name="makeIds" class="filter-selection-div filter-brand-list list-items hide">
                                         <span class="top-arrow"></span>
@@ -79,14 +79,14 @@
                                         <div class="clear"></div>
                                     </div>
                                 </div>
-                                <div class="grid-3 alpha">
+                                <div class="grid-4 alpha">
                                     <div class="rounded-corner2 budget-box">
                                         <div id="minMaxContainer" class="filter-select-title">
                                             <span class="hide">Select budget</span>
                                             <span class="default-text" id="budgetBtn">Select budget</span>
                                             <span class="minAmount"></span>
                                             <span class="maxAmount"></span>
-                                            <span id="upDownArrow" class="rightfloat fa fa-angle-down position-abt pos-top15 pos-right10"></span>
+                                            <span class="rightfloat fa fa-angle-down position-abt pos-top15 pos-right10 upDownArrow"></span>
                                             <span class="clear"></span>
                                         </div>
                                     </div>
@@ -105,167 +105,38 @@
                                         </ul>
                                     </div>
                                 </div>
-                                <div class="grid-3 alpha">
-                                    <div class="filter-div rounded-corner2">
-                                        <div id="filter-select-mileage" class="filter-select-title">
-                                            <span class="hide">Select mileage</span>
-                                            <span class="leftfloat filter-select-btn default-text">Select mileage</span>
-                                            <span class="clear"></span>
-                                        </div>
-                                        <span id="upDownArrow" class="rightfloat fa fa-angle-down position-abt pos-top15 pos-right10"></span>
-                                    </div>
-                                    <div name="mileage" class="filter-selection-div filter-mileage-list list-items hide">
-                                        <span class="top-arrow"></span>
-                                        <ul class="content-inner-block-10">
-                                            <li class="uncheck" filterid="1"><span>70 kmpl +</span></li>
-                                            <li class="uncheck" filterid="2"><span>70 - 50 kmpl</span></li>
-                                            <li class="uncheck" filterid="3"><span>50 - 30 kmpl</span></li>
-                                            <li class="uncheck" filterid="4"><span>30 - 0 kmpl</span></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="grid-3 alpha">
-                                    <div class="filter-div rounded-corner2">
-                                        <div id="filter-select-displacement" class="filter-select-title">
-                                            <span class="hide">Select displacement</span>
-                                            <span class="leftfloat filter-select-btn default-text">Select displacement</span>
-                                            <span class="clear"></span>
-                                        </div>
-                                        <span id="upDownArrow" class="rightfloat fa fa-angle-down position-abt pos-top15 pos-right10"></span>
-                                    </div>
-                                    <div name="displacement" class="filter-selection-div filter-displacement-list list-items hide">
-                                        <span class="top-arrow"></span>
-                                        <ul class="content-inner-block-10">
-                                            <li class="uncheck" filterid="1"><span>Up to 110 cc</span></li>
-                                            <li class="uncheck" filterid="2"><span>110-150 cc</span></li>
-                                            <li class="uncheck" filterid="3"><span>150-200 cc</span></li>
-                                            <li class="uncheck" filterid="4"><span>200-250 cc</span></li>
-                                            <li class="uncheck" filterid="5"><span>250-500 cc</span></li>
-                                            <li class="uncheck" filterid="6"><span>500 cc and more</span></li>
-                                        </ul>
-                                    </div>
-                                </div>
+				<div class="grid-4">
+					<div class="more-filter-ride">
+						<div class="filter-div rounded-corner2">
+							<div class="filter-select-title">
+								<span class="hide">Select ride style</span>
+								<span class="leftfloat filter-select-btn default-text">Select ride style</span>
+								<span class="clear"></span>
+							</div>
+							<span class="rightfloat fa fa-angle-down position-abt pos-top15 pos-right10 upDownArrow"></span>
+						</div>
+						<div name="rideStyle" class="filter-selection-div more-filter-item-data ride-style-list list-items hide">
+							<span class="top-arrow"></span>
+							<ul class="content-inner-block-10">
+								<li class="uncheck" filterid="1"><span>Cruisers</span></li>
+								<li class="uncheck" filterid="2"><span>Sports</span></li>
+								<li class="uncheck" filterid="3"><span>Street</span></li>
+								<li class="uncheck" filterid="5"><span>Scooters</span></li>
+							</ul>
+						</div>
+					</div>
+				</div>
                                 <div class="clear"></div>
                             </div>
                             <div class="grid-2 alpha padding-right20">
-                                <div class="leftfloat">
+                                <div>
                                     <div id="reset-btn-container" class="margin-top20">
-                                        <p id="btnReset" class="filter-reset-btn font14">Reset</p>
-                                    </div>
-                                </div>
-                                <div class="rightfloat">
-                                    <div class="more-filters-btn position-rel rounded-corner2">
-                                        <span class="font14"><span id="more-less-filter-text">More</span> Filters</span>
-                                        <div class="filter-count-container">
-                                            <div class="filter-counter">0</div>
-                                            <span></span>
-                                        </div>
+                                        <p id="btnReset" class="filter-reset-btn font14 text-center">Reset</p>
                                     </div>
                                 </div>
                                 <div class="clear"></div>
                             </div>
                             <div class="clear"></div>
-                        </div>
-                        <div class="more-filters-container content-box-shadow padding-right10 padding-bottom10 padding-left10 hide">
-                            <div class="grid-3 padding-top10">
-                                <div class="more-filter-ride">
-
-                                    <div class="more-filter-item-title">
-                                        <h3>Ride Style</h3>
-                                    </div>
-
-                                    <div class="filter-div rounded-corner2">
-                                        <div id="filter-style-displacement" class="filter-select-title">
-                                            <span class="hide">Select ride style</span>
-                                            <span class="leftfloat filter-select-btn default-text">Select ride style</span>
-                                            <span class="clear"></span>
-                                        </div>
-                                        <span id="upDownArrow" class="rightfloat fa fa-angle-down position-abt pos-top15 pos-right10"></span>
-                                    </div>
-                                    <div name="rideStyle" class="filter-selection-div more-filter-item-data ride-style-list list-items hide">
-                                        <span class="top-arrow"></span>
-                                        <ul class="content-inner-block-10">
-                                            <li class="uncheck" filterid="1"><span>Cruisers</span></li>
-                                            <li class="uncheck" filterid="2"><span>Sports</span></li>
-                                            <li class="uncheck" filterid="3"><span>Street</span></li>
-                                            <li class="uncheck" filterid="5"><span>Scooters</span></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="grid-2 padding-top10">
-                                <div class="more-filter-abs">
-                                    <div class="more-filter-item-title">
-                                        <h3>ABS</h3>
-                                    </div>
-                                    <div name="ABS" class="more-filter-item-data margin-top10">
-                                        <div class="bw-tabs-panel">
-                                            <div class="bw-tabs home-tabs">
-                                                <ul>
-                                                    <li filterid="1" class="first" data-tabs="yes">Yes</li>
-                                                    <li filterid="0" data-tabs="no" class="second">No</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="grid-2 padding-top10">
-                                <div class="more-filter-brakes">
-                                    <div class="more-filter-item-title">
-                                        <h3>Brakes</h3>
-                                    </div>
-                                    <div name="brakeType" class="more-filter-item-data margin-top10">
-                                        <div class="bw-tabs-panel">
-                                            <div class="bw-tabs home-tabs">
-                                                <ul>
-                                                    <li filterid="1" class="first" data-tabs="disc">Disc</li>
-                                                    <li filterid="0" data-tabs="drum" class="second">Drum</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="grid-2 padding-top10">
-                                <div class="more-filter-wheels">
-                                    <div class="more-filter-item-title">
-                                        <h3>Wheels</h3>
-                                    </div>
-                                    <div name="alloyWheel" class="more-filter-item-data margin-top10">
-                                        <div class="bw-tabs-panel">
-                                            <div class="bw-tabs home-tabs">
-                                                <ul>
-                                                    <li filterid="1" class="first" data-tabs="alloy">Alloy</li>
-                                                    <li filterid="0" data-tabs="spoke" class="second">Spoke</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="grid-3 padding-top10">
-                                <div class="more-filter-start-type">
-                                    <div class="more-filter-item-title">
-                                        <h3>Start type</h3>
-                                    </div>
-                                    <div name="startType" class="more-filter-item-data margin-top10">
-                                        <div class="bw-tabs-panel">
-                                            <div class="bw-tabs home-tabs">
-                                                <ul>
-                                                    <li filterid="1" class="first" data-tabs="electric">Electric</li>
-                                                    <li filterid="0" data-tabs="kick" class="second">Kick</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="clear"></div>
-                            <div class="padding-left10 margin-top10 margin-bottom10">
-                                <input type="button" class="filter-done-btn btn btn-orange margin-right15" value="Done" />
-                                <div class="clear"></div>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -286,14 +157,13 @@
                                         <span class="leftfloat sort-select-btn">Price: Low to High</span>
                                         <span class="clear"></span>
                                     </div>
-                                    <span id="upDownArrow" class="rightfloat fa fa-angle-down position-abt pos-top15 pos-right10"></span>
+                                    <span class="rightfloat fa fa-angle-down position-abt pos-top15 pos-right10 upDownArrow"></span>
                                 </div>
                                 <div class="sort-selection-div sort-list-items hide">
                                     <ul>
                                         <li so="1" sc="3" sortqs="so=1&sc=3">Popular</li>
                                         <li class="selected" so="0" sc="1" sortqs="so=0&sc=1">Price: Low to High</li>
                                         <li so="1" sc="1" sortqs="so=1&sc=1">Price: High to Low</li>
-                                        <li so="1" sc="2" sortqs="so=1&sc=2">Mileage: High to Low</li>
                                     </ul>
                                 </div>
                             </div>

@@ -78,10 +78,6 @@
                             <a data-title="sort" class="position-rel">Popularity 
                             </a>
                         </div>
-                        <div sc="2" class="border-solid-left">
-                            <a data-title="sort" class="position-rel">Mileage 
-                            </a>
-                        </div>
                     </div>
                 </div>
                 <div id="listingCountContainer" class="font14 padding-top20 padding-bottom20 text-center">
@@ -282,27 +278,6 @@
             </div>
             <!--Budget section ends here-->
 
-            <!--Displacement section starts here-->
-            <div class="dropdown form-control-box margin-bottom20">
-                <h3 class="text-black margin-bottom10">Displacement</h3>
-                <div class="form-control">
-                    <span class="hida">Displacement</span>
-                    <div class="multiSel"></div>
-                </div>
-
-                <div name="displacement" class="multiSelect">
-                    <ul>
-                        <li class="unchecked" filterid="1"><span>Up to 110 cc</span></li>
-                        <li class="unchecked" filterid="2"><span>110-150 cc</span></li>
-                        <li class="unchecked" filterid="3"><span>150-200 cc</span></li>
-                        <li class="unchecked" filterid="4"><span>200-250 cc</span></li>
-                        <li class="unchecked" filterid="5"><span>250-500 cc</span></li>
-                        <li class="unchecked" filterid="6"><span>500 cc and more</span></li>
-                    </ul>
-                </div>
-            </div>
-            <!--Displacement section starts here-->
-
             <!--ride section starts here-->
             <div class="dropdown form-control-box margin-bottom20">
                 <h3 class="text-black margin-bottom10">Ride style</h3>
@@ -322,67 +297,6 @@
                 </div>
             </div>
             <!--ride section starts here-->
-
-
-            <!--ride section starts here-->
-            <div class="form-control-box margin-bottom20 clearfix">
-                <h3 class="text-black margin-bottom10">Mileage</h3>
-                <div name="mileage" class="grid-12 mileage-box">
-                    <div class="grid-3 content-inner-block-5">
-                        <span filterid="1" class="form-control mileage">70+</span>
-                    </div>
-                    <div class="grid-3 content-inner-block-5">
-                        <span filterid="2" class="form-control mileage">70-50</span>
-                    </div>
-                    <div class="grid-3 content-inner-block-5">
-                        <span filterid="3" class="form-control mileage">50-30</span>
-                    </div>
-                    <div class="grid-3 content-inner-block-5">
-                        <span filterid="4" class="form-control mileage">30-0</span>
-                    </div>
-                </div>
-            </div>
-            <!--ride section starts here-->
-
-            <div class="grid-12 alpha omega margin-bottom20 clear">
-                <div class="grid-5 alpha">
-                    <h3>ABS</h3>
-                </div>
-                <div name="ABS" class="grid-7 omega">
-                    <span filterid="1" class="form-control grid-6 checkOption">Yes</span>
-                    <span filterid="0" class="form-control grid-6 checkOption">No</span>
-                </div>
-            </div>
-
-            <div class="grid-12 alpha omega margin-bottom20 clear">
-                <div class="grid-5 alpha">
-                    <h3>Brakes</h3>
-                </div>
-                <div name="braketype" class="grid-7 omega">
-                    <span filterid="1" class="form-control grid-6 checkOption">Disc</span>
-                    <span filterid="0" class="form-control grid-6 checkOption">Drum</span>
-                </div>
-            </div>
-
-            <div class="grid-12 alpha omega margin-bottom20 clear">
-                <div class="grid-5 alpha">
-                    <h3>Wheels</h3>
-                </div>
-                <div name="alloywheel" class="grid-7 omega">
-                    <span filterid="1" class="form-control grid-6 checkOption">Alloy</span>
-                    <span filterid="0" class="form-control grid-6 checkOption">Spoke</span>
-                </div>
-            </div>
-
-            <div class="grid-12 alpha omega margin-bottom20 clear">
-                <div class="grid-5 alpha">
-                    <h3>Start type</h3>
-                </div>
-                <div name="starttype" class="grid-7 omega">
-                    <span filterid="1" class="form-control grid-6 checkOption">Electric</span>
-                    <span filterid="0" class="form-control grid-6 checkOption">Kick</span>
-                </div>
-            </div>
 
         </div>
 
