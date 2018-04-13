@@ -105,13 +105,14 @@ namespace Bikewale.BAL.ApiGateway.Adapters.BikeData
 
 					foreach (var itemData in items)
 					{
-						specItemList.Add(new SpecsItem
-						{
-							Id = itemData.ItemId,
-							Icon = itemData.Icon,
-							Name = itemData.ItemName,
-							Value = itemData.Value,
-							UnitType = itemData.UnitType
+                        specItemList.Add(new SpecsItem
+                        {
+                            Id = itemData.ItemId,
+                            Icon = itemData.Icon,
+                            Name = itemData.ItemName,
+                            Value = itemData.Value,
+                            UnitType = itemData.UnitType,
+                            DataType = (EnumSpecDataType)itemData.DataTypeId
 						});
 					}
 				}
