@@ -262,7 +262,10 @@ namespace Bikewale.Models
             isMakeLive = !(objData.BikeInfo != null && (objData.BikeInfo.IsUpcoming || objData.BikeInfo.IsDiscontinued));
             bodyStyle = objData.BodyStyle;
             isSeriesAvailable = objData.IsSeriesAvailable;
-            isScooterOnlyMake = objData.Make.IsScooterOnly;
+            if (objData.Make != null)
+            {
+                isScooterOnlyMake = objData.Make.IsScooterOnly;
+            }
         }
 
         /// <summary>
