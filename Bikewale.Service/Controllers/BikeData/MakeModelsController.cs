@@ -20,10 +20,12 @@ namespace Bikewale.Service.Controllers.BikeData
     {
         private readonly IBikeMakesCacheRepository _makesCacheRepository;
         private readonly IBikeModels<BikeModelEntity, int> _bikeModels;
+        
         /// <summary>
         /// Constructor to Initialize cache layer
         /// </summary>
-        /// <param name="makesRepository"></param>
+        /// <param name="makesCacheRepository"></param>
+        /// <param name="bikeModels"></param>
         public MakeModelsController(IBikeMakesCacheRepository makesCacheRepository, IBikeModels<BikeModelEntity, int> bikeModels)
         {
             _makesCacheRepository = makesCacheRepository;
