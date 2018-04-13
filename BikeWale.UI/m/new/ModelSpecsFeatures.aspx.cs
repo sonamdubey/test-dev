@@ -1,6 +1,6 @@
-﻿using Bikewale.BAL.ApiGateway.ApiGatewayHelper;
+﻿using Bikewale.BAL.ApiGateway.Adapters.BikeData;
+using Bikewale.BAL.ApiGateway.ApiGatewayHelper;
 using Bikewale.BAL.BikeData;
-using Bikewale.BAL.GrpcFiles.Specs_Features;
 using Bikewale.BAL.Pager;
 using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
@@ -69,14 +69,28 @@ namespace Bikewale.Mobile
                 IsScooterOnly = modelDetail.ModelDetails.MakeBase.IsScooterOnly;
                 if (versionId > 0)
                 {
-                    specs = FetchVariantDetails(versionId);
-                    versionSpecsFeatures = SpecsFeaturesServiceGateway.GetVersionsSpecsFeatures(new List<uint> { versionId });
+                    BindFullSpecsFeatures();
+                    
                 }
                 BindWidget();
                 BindSimilarBikes();
                 BindSeriesBreadCrum();
             }
         }
+
+        private void BindFullSpecsFeatures()
+        {
+            using (IUnityContainer container = new UnityContainer())
+            {
+                container.RegisterType<IApiGatewayCaller, ApiGatewayCaller>();
+                var _apiGatewayCaller = container.Resolve<IApiGatewayCaller>();
+                GetVersionSpecsByIdAdapter adapter = new GetVersionSpecsByIdAdapter();
+                adapter.AddApiGatewayCall(_apiGatewayCaller, new List<int> { (int)versionId });
+                _apiGatewayCaller.Call();
+                versionSpecsFeatures = adapter.Output;
+            }
+        }
+
         /// Created  By :- subodh Jain 10 Feb 2017
         /// Summary :- BikeInfo Slug details
         /// </summary>
@@ -128,12 +142,12 @@ namespace Bikewale.Mobile
                             IsScooter = (modelPg.ModelVersions.FirstOrDefault().BodyStyle.Equals(EnumBikeBodyStyles.Scooter));
                             bikeName = string.Format("{0} {1}", makeName, modelName);
 
-                            if (!modelPg.ModelDetails.Futuristic && modelPg.ModelVersionSpecs != null)
+                            if (!modelPg.ModelDetails.Futuristic && modelPg.ModelVersionMinSpecs != null)
                             {
                                 // Check it versionId passed through url exists in current model's versions
                                 if (this.versionId == 0)
                                 {
-                                    this.versionId = modelPg.ModelVersionSpecs.BikeVersionId;
+                                    this.versionId = (uint)modelPg.ModelVersionMinSpecs.VersionId;
                                 }
                                 modelImage = Bikewale.Utility.Image.GetPathToShowImages(modelPg.ModelDetails.OriginalImagePath, modelPg.ModelDetails.HostUrl, Bikewale.Utility.ImageSize._272x153);
                                 var selectedVersion = modelPg.ModelVersions.FirstOrDefault(p => p.VersionId == this.versionId);

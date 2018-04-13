@@ -470,9 +470,9 @@ namespace Bikewale.Models
 
                 objData.BodyStyle = EnumBikeBodyStyles.AllBikes;
 
-                List<BikeVersionMinSpecs> objVersionsList = _objBikeVersions.GetVersionMinSpecs(ModelId, false);
+                IEnumerable<BikeVersionMinSpecs> objVersionsList = _objBikeVersions.GetVersionMinSpecs(ModelId, false);
 
-                if (objVersionsList != null && objVersionsList.Count > 0 && objVersionsList.FirstOrDefault() != null)
+                if (objVersionsList != null && objVersionsList.Any() && objVersionsList.FirstOrDefault() != null)
                 {
                     objData.BodyStyle = objVersionsList.FirstOrDefault().BodyStyle;
                 }

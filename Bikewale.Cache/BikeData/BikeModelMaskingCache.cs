@@ -156,10 +156,10 @@ namespace Bikewale.Cache.BikeData
         public ReviewDetailsEntity GetDetailsByModel(U modelId, uint cityId)
         {
             ReviewDetailsEntity objReview = null;
-            string key = string.Format("BW_DetailsByModel_ModelId_{0}_CityId_{1}", modelId, cityId);
             try
             {
-                objReview = _cache.GetFromCache<ReviewDetailsEntity>(key, new TimeSpan(1, 0, 0), () => _modelsRepository.GetDetailsByModel(modelId, cityId));
+                string key = string.Format("BW_DetailsByModel_V1_ModelId_{0}_CityId_{1}", modelId, cityId);
+                objReview = _cache.GetFromCache(key, new TimeSpan(1, 0, 0), () => _modelsRepository.GetDetailsByModel(modelId, cityId));
             }
             catch (Exception ex)
             {
@@ -177,10 +177,10 @@ namespace Bikewale.Cache.BikeData
         public ReviewDetailsEntity GetDetailsByVersion(U versionId, uint cityId)
         {
             ReviewDetailsEntity objReview = null;
-            string key = string.Format("BW_DetailsByVersion_VersionId_{0}_CityId_{1}", versionId, cityId);
             try
             {
-                objReview = _cache.GetFromCache<ReviewDetailsEntity>(key, new TimeSpan(1, 0, 0), () => _modelsRepository.GetDetailsByVersion(versionId, cityId));
+                string key = string.Format("BW_DetailsByVersion_V1_VersionId_{0}_CityId_{1}", versionId, cityId);
+                objReview = _cache.GetFromCache(key, new TimeSpan(1, 0, 0), () => _modelsRepository.GetDetailsByVersion(versionId, cityId));
             }
             catch (Exception ex)
             {
@@ -198,10 +198,10 @@ namespace Bikewale.Cache.BikeData
         public ReviewDetailsEntity GetDetails(string reviewId, bool isAlreadyViewed)
         {
             ReviewDetailsEntity objReview = null;
-            string key = string.Format("BW_Details_ReviewId_{0}", reviewId);
+            string key = string.Format("BW_Details_ V1_ReviewId_{0}", reviewId);
             try
             {
-                objReview = _cache.GetFromCache<ReviewDetailsEntity>(key, new TimeSpan(1, 0, 0), () => _modelsRepository.GetDetails(reviewId, isAlreadyViewed));
+                objReview = _cache.GetFromCache(key, new TimeSpan(1, 0, 0), () => _modelsRepository.GetDetails(reviewId, isAlreadyViewed));
             }
             catch (Exception ex)
             {

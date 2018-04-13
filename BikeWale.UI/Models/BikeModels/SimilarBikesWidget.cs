@@ -1,7 +1,6 @@
 ﻿
 using Bikewale.BAL.ApiGateway.ApiGatewayHelper;
 using Bikewale.BAL.BikeData;
-using Bikewale.BAL.GrpcFiles.Specs_Features;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeData;
@@ -57,6 +56,7 @@ namespace Bikewale.Models
         public SimilarBikesWidget(IBikeVersions<BikeVersionEntity, uint> objVersion
           , uint modelId, bool similarBikesByModel, PQSourceEnum pqSource)
         {
+            _objVersion = objVersion;
             _modelId = modelId;
             _similarBikesByModel = similarBikesByModel;
             _pqSource = pqSource;
@@ -117,7 +117,6 @@ namespace Bikewale.Models
                 {
                     objVM.Bikes = _objVersion.GetSimilarBikesByModel(_modelId, TopCount, CityId);
                 }
-                BindMinSpecs(objVM.Bikes);
                 objVM.PQSourceId = _pqSource;
                 objVM.IsNew = IsNew;
                 objVM.IsUpcoming = IsUpcoming;
@@ -128,39 +127,6 @@ namespace Bikewale.Models
                 ErrorClass.LogError(ex, "Bikewale.Models.SimilarBikesWidget.GetData");
             }
             return objVM;
-        }
-
-        /// <summary>
-        /// Created By : Pratibha Verma on 27 Mar 2018
-        /// Summary : Bind MinSpecs to Generic Bike List
-        /// </summary>
-        private void BindMinSpecs(IEnumerable<SimilarBikeEntity> SimilarBikeList)
-        {
-            try
-            {
-                if (SimilarBikeList != null && SimilarBikeList.Any())
-                {
-                    IEnumerable<VersionMinSpecsEntity> versionMinSpecsEntityList = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(SimilarBikeList.Select(m => m.VersionBase.VersionId));
-                    if (versionMinSpecsEntityList != null)
-                    {
-                        IEnumerator<VersionMinSpecsEntity> versionIterator = versionMinSpecsEntityList.GetEnumerator();
-                        VersionMinSpecsEntity objVersionMinSpec;
-                        foreach (var bike in SimilarBikeList)
-                        {
-                            if (versionIterator.MoveNext())
-                            {
-                                objVersionMinSpec = versionIterator.Current;
-                                bike.MinSpecsList = objVersionMinSpec != null ? objVersionMinSpec.MinSpecsList : null;
-                            }
-                        }
-                    }
-                   
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorClass.LogError(ex, string.Format("Bikewale.Models.SimilarBikesWidget.BindMinSpecs({0})",SimilarBikeList));
-            }
         }
     }
 }

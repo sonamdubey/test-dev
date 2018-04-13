@@ -4,7 +4,7 @@
 
 @if (Model != null && Model.Any())
 {
-    string imageSrc, bikeList, url, cardTitle;
+    string imageSrc, url, cardTitle;
 
     switch (Model.First().CurrentPage)
     {
@@ -39,7 +39,7 @@
                cardTitle = "Top 10 bikes in India";
                break;
     }
-    bikeList = String.Join(", ", Model.Select(x => x.Model.ModelName));
+
 
     foreach (var bike in Model)
     {

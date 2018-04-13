@@ -13,7 +13,7 @@ namespace Bikewale.Interfaces.BikeData
     {
         List<BikeVersionsListEntity> GetVersionsByType(EnumBikeType requestType, int modelId, int? cityId = null);
         BikeSpecificationEntity GetSpecifications(U versionId);
-        List<BikeVersionMinSpecs> GetVersionMinSpecs(uint modelId, bool isNew);
+        IEnumerable<BikeVersionMinSpecs> GetVersionMinSpecs(uint modelId, bool isNew);
         IEnumerable<SimilarBikeEntity> GetSimilarBikesList(U versionId, uint topCount, uint cityId);
         IEnumerable<SimilarBikeEntity> GetSimilarBikesByModel(U modelId, uint topCount, uint cityId);
         IEnumerable<SimilarBikeEntity> GetSimilarBudgetBikes(U modelId, uint topCount, uint cityId);

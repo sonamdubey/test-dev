@@ -6,6 +6,7 @@ using Bikewale.Utility;
 using MySql.CoreDAL;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
@@ -108,19 +109,21 @@ namespace Bikewale.DAL.BikeData
         /// Description : Changed SP from 'getversions_30082017' to 'getversions_29092017', to get avg price.
         /// Modified by : Rajan Chauhan on 23 Mar 2018
         /// Description : Removed MinSpecs binding
+        /// Modified by : Ashutosh Sharma on 05 Apr 2018.
+        /// Description : Changed sp from 'getversions_29092017' to 'getversions_05042018' to remove min specs.
         /// </summary>
         /// <param name="modelId"></param>
         /// <param name="isNew"></param>
         /// <returns></returns>
-        public List<BikeVersionMinSpecs> GetVersionMinSpecs(uint modelId, bool isNew)
+        public IEnumerable<BikeVersionMinSpecs> GetVersionMinSpecs(uint modelId, bool isNew)
         {
-            List<BikeVersionMinSpecs> objMinSpecs = new List<BikeVersionMinSpecs>();
+            ICollection<BikeVersionMinSpecs> objMinSpecs = null;
             try
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "getversions_29092017";
+                    cmd.CommandText = "getversions_05042018";
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_new", DbType.Boolean, isNew));
 
@@ -128,6 +131,7 @@ namespace Bikewale.DAL.BikeData
                     {
                         if (dr != null)
                         {
+                            objMinSpecs = new Collection<BikeVersionMinSpecs>();
                             while (dr.Read())
                             {
                                 objMinSpecs.Add(new BikeVersionMinSpecs()
@@ -149,7 +153,6 @@ namespace Bikewale.DAL.BikeData
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-
             }
             return objMinSpecs;
         }   // End of GetVersionsMinSpecs method
@@ -242,6 +245,7 @@ namespace Bikewale.DAL.BikeData
         /// </summary>
         /// <param name="versionId">Only positive numbers are allowed.</param>
         /// <returns>Returns object containing all specifications of the given version.</returns>
+        [Obsolete("Use Specification and Features Micro Service to get all specs.", true)]
         public BikeSpecificationEntity GetSpecifications(U versionId)
         {
             BikeSpecificationEntity objSpecs = null;
@@ -451,6 +455,8 @@ namespace Bikewale.DAL.BikeData
         /// Description : Changed SP from 'getsimilarbikeslist_13102016' to 'getsimilarbikeslist_02102017', to get avg price.
         /// Modified by : Pratibha Verma on 27 Mar 2018
         /// Description : Removed MinSpecs code
+        /// Modified by : Ashutosh Sharma on 05 Apr 2018.
+        /// Description : Changed sp from 'getsimilarbikeslist_02102017' to 'getsimilarbikeslist_05042018' to remove min specs.
         /// </summary>
         /// <param name="versionId"></param>
         /// <param name="topCount"></param>
@@ -458,29 +464,26 @@ namespace Bikewale.DAL.BikeData
         /// <returns></returns>
         public IEnumerable<SimilarBikeEntity> GetSimilarBikesList(U versionId, uint topCount, uint cityid)
         {
-            IList<SimilarBikeEntity> objSimilarBikes = null;
+            ICollection<SimilarBikeEntity> objSimilarBikes = null;
             try
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.CommandText = "getsimilarbikeslist_02102017";
+                    cmd.CommandText = "getsimilarbikeslist_05042018";
                     cmd.CommandType = CommandType.StoredProcedure;
-
-
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_bikeversionid", DbType.Int32, versionId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int32, topCount));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityid));
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
-
-
                         if (dr != null)
                         {
-                            objSimilarBikes = new List<SimilarBikeEntity>();
+                            objSimilarBikes = new Collection<SimilarBikeEntity>();
+                            SimilarBikeEntity objBike;
                             while (dr.Read())
                             {
-                                SimilarBikeEntity objBike = new SimilarBikeEntity();
+                                objBike = new SimilarBikeEntity();
                                 objBike.MakeBase.MakeId = SqlReaderConvertor.ToInt32(dr["makeid"]);
                                 objBike.MakeBase.MakeName = Convert.ToString(dr["makename"]);
                                 objBike.MakeBase.MaskingName = Convert.ToString(dr["makemaskingname"]);
@@ -503,47 +506,44 @@ namespace Bikewale.DAL.BikeData
                             }
                             dr.Close();
                         }
-
                     }
                 }
             }
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "GetSimilarBikesListByCity");
-
             }
-
             return objSimilarBikes;
         }   // End of GetSimilarBikesList
 
         /// <Summary>
         /// Modified by : Pratibha Verma on 27 Mar 2018
         /// Description : Removed MinSpecs code
+        /// Modified by : Ashutosh Sharma on 05 Apr 2018.
+        /// Description : Changed sp from 'getsimilarbikelistbymodelid' to 'getsimilarbikelistbymodelid_05042018' to remove min specs.
+        /// </summary>
         public IEnumerable<SimilarBikeEntity> GetSimilarBikesByModel(U modelId, uint topCount, uint cityid)
         {
-            IList<SimilarBikeEntity> objSimilarBikes = null;
+            ICollection<SimilarBikeEntity> objSimilarBikes = null;
             try
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.CommandText = "getsimilarbikelistbymodelid";
+                    cmd.CommandText = "getsimilarbikelistbymodelid_05042018";
                     cmd.CommandType = CommandType.StoredProcedure;
-
-
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int32, topCount));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityid));
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
-
-
                         if (dr != null)
                         {
-                            objSimilarBikes = new List<SimilarBikeEntity>();
+                            objSimilarBikes = new Collection<SimilarBikeEntity>();
+                            SimilarBikeEntity objBike;
                             while (dr.Read())
                             {
-                                SimilarBikeEntity objBike = new SimilarBikeEntity();
+                                objBike = new SimilarBikeEntity();
                                 objBike.MakeBase.MakeId = SqlReaderConvertor.ToInt32(dr["makeid"]);
                                 objBike.MakeBase.MakeName = Convert.ToString(dr["makename"]);
                                 objBike.MakeBase.MaskingName = Convert.ToString(dr["makemaskingname"]);
@@ -566,7 +566,6 @@ namespace Bikewale.DAL.BikeData
                             }
                             dr.Close();
                         }
-
                     }
                 }
             }
@@ -583,27 +582,25 @@ namespace Bikewale.DAL.BikeData
         /// <Summary>
         /// Modified by : Pratibha Verma on 27 Mar 2018
         /// Description : Removed MinSpecs code
+        /// Modified by : Ashutosh Sharma on 06 Apr 2018.
+        /// Description : Changed sp from 'getsimilarbudgetbikes' to 'getsimilarbudgetbikes_06042018' to remove min specs.
         public IEnumerable<SimilarBikeEntity> GetSimilarBudgetBikes(U modelId, uint topCount, uint cityid)
         {
-            IList<SimilarBikeEntity> objSimilarBikes = null;
+            ICollection<SimilarBikeEntity> objSimilarBikes = null;
             try
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.CommandText = "getsimilarbudgetbikes";
+                    cmd.CommandText = "getsimilarbudgetbikes_06042018";
                     cmd.CommandType = CommandType.StoredProcedure;
-
-
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int32, topCount));
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
-
-
                         if (dr != null)
                         {
-                            objSimilarBikes = new List<SimilarBikeEntity>();
+                            objSimilarBikes = new Collection<SimilarBikeEntity>();
                             while (dr.Read())
                             {
                                 SimilarBikeEntity objBike = new SimilarBikeEntity();

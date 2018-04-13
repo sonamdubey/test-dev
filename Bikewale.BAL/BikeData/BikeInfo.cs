@@ -1,11 +1,13 @@
-﻿using Bikewale.BAL.GrpcFiles.Specs_Features;
-using Bikewale.Entities.BikeData;
+﻿using Bikewale.BAL.ApiGateway.Adapters.BikeData;
+using Bikewale.BAL.ApiGateway.ApiGatewayHelper;
+using Bikewale.BAL.ApiGateway.Entities.BikeData;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Notifications;
 using System;
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
+
 namespace Bikewale.BAL.BikeData
 {
     /// <summary>
@@ -15,14 +17,16 @@ namespace Bikewale.BAL.BikeData
     public class BikeInfo : IBikeInfo
     {
         private readonly IBikeModelsCacheRepository<int> _modelCache = null;
+        private readonly IApiGatewayCaller _apiGatewayCaller;
         /// <summary>
         /// Constructor to initialize all the dependencies
         /// </summary>
         /// <param name="_cache"></param>
         /// <param name="_genericBike"></param>
-        public BikeInfo(IBikeModelsCacheRepository<int> modelCache)
+        public BikeInfo(IBikeModelsCacheRepository<int> modelCache, IApiGatewayCaller apiGatewayCaller)
         {
             _modelCache = modelCache;
+            _apiGatewayCaller = apiGatewayCaller;
         }
 
         /// <summary>
@@ -85,12 +89,21 @@ namespace Bikewale.BAL.BikeData
                     {
                         genericBike = _modelCache.GetBikeInfo(modelId);
                     }
-                    var bikeVersionMinSpecList = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(new List<int> { genericBike.VersionId }, new List<EnumSpecsFeaturesItem>() { 
-                            EnumSpecsFeaturesItem.Displacement,
-                            EnumSpecsFeaturesItem.FuelEfficiencyOverall,
-                            EnumSpecsFeaturesItem.MaxPowerBhp,
-                            EnumSpecsFeaturesItem.KerbWeight
-                        });
+
+                    GetVersionSpecsByItemIdAdapter adapt1 = new GetVersionSpecsByItemIdAdapter();
+                    var specItemInput = new VersionsDataByItemIds_Input
+                    {
+                        Versions = new List<int> { genericBike.VersionId },
+                        Items = new List<EnumSpecsFeaturesItems>() {
+                            EnumSpecsFeaturesItems.Displacement,
+                            EnumSpecsFeaturesItems.FuelEfficiencyOverall,
+                            EnumSpecsFeaturesItems.MaxPowerBhp,
+                            EnumSpecsFeaturesItems.KerbWeight
+                        }
+                    };
+                    adapt1.AddApiGatewayCall(_apiGatewayCaller, specItemInput);
+                    _apiGatewayCaller.Call();
+                    var bikeVersionMinSpecList = adapt1.Output;
                     if (bikeVersionMinSpecList != null && bikeVersionMinSpecList.Any())
                     {
                         genericBike.MinSpecsList = bikeVersionMinSpecList.FirstOrDefault().MinSpecsList;

@@ -1,5 +1,4 @@
-﻿using Bikewale.BAL.GrpcFiles.Specs_Features;
-using Bikewale.Entities.BikeData;
+﻿using Bikewale.Entities.BikeData;
 using Bikewale.Entities.BikeData.NewLaunched;
 using Bikewale.Interfaces.BikeData.NewLaunched;
 using System.Collections.Generic;
@@ -46,8 +45,6 @@ namespace Bikewale.Models
         /// </summary>
         /// <returns>
         /// Created by : Sangram Nandkhile on 25-Mar-2017 
-        /// Modified by : Pratibha Verma on 28 Mar 2018
-        /// Description : Added grpc method call to get MinSpecs data
         /// </returns>
         public NewLaunchedWidgetVM GetData()
         {
@@ -62,22 +59,6 @@ namespace Bikewale.Models
             };
             var bikeBase = _newLaunches.GetBikes(objFilters);
             objData.Bikes = bikeBase.Bikes;
-            if (objData.Bikes != null && objData.Bikes.Any())
-            {
-                IEnumerable<NewLaunchedBikeEntityBase> newLaunchesList = objData.Bikes;
-                IEnumerable<VersionMinSpecsEntity> versionMinSpecs = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(newLaunchesList.Select(m => m.VersionId));
-                if (versionMinSpecs != null)
-                {
-                    var minSpecs = versionMinSpecs.GetEnumerator();
-                    foreach (var bike in newLaunchesList)
-                    {
-                        if (minSpecs.MoveNext())
-                        {
-                            bike.MinSpecsList = minSpecs.Current.MinSpecsList;
-                        }
-                    }
-                }
-            }
             return objData;
         }
     }

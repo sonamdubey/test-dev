@@ -18,7 +18,7 @@ namespace BikewaleOpr.Cache
         {
             try
             {
-                string key = string.Format("BW_PopularBikesByMakeWithCityPrice_V2_{0}_", makeId);
+                string key = string.Format("BW_PopularBikesByMakeWithCityPrice_V1_{0}_", makeId);
                 string temp = string.Empty;
                 for (int i = 0; i < 1500; i++)
                 {
@@ -38,7 +38,7 @@ namespace BikewaleOpr.Cache
             try
             {
                 string key;
-                key = string.Format("BW_PopularBikes" + (topCount.HasValue ? String.Format("_TC_{0}", topCount.Value) : "") + (makeId.HasValue ? String.Format("_MK_{0}", makeId.Value) : ""));
+                key = string.Format("BW_PopularBikes_V1" + (topCount.HasValue ? String.Format("_TC_{0}", topCount.Value) : "") + (makeId.HasValue ? String.Format("_MK_{0}", makeId.Value) : ""));
                 MemCachedUtil.Remove(key);
                 cacheKeyClearStatus = true;
             }
@@ -190,13 +190,13 @@ namespace BikewaleOpr.Cache
             {
                 for (int cityId = 0; cityId < 1500; cityId++)
                 {
-                    MemCachedUtil.Remove(string.Format("BW_NewModelsBySeriesId_seriesId_{0}_cityId_{1}", seriesId, cityId));
+                    MemCachedUtil.Remove(string.Format("BW_NewModelsBySeriesId_V1_seriesId_{0}_cityId_{1}", seriesId, cityId));
                 }
                 MemCachedUtil.Remove(string.Format("BW_GetModelIdsBySeries_{0}", seriesId));
                 MemCachedUtil.Remove(string.Format("BW_UpcomingModelsBySeriesId_{0}", seriesId));
                 MemCachedUtil.Remove(string.Format("BW_SynopsisBySeriesId_{0}", seriesId));
                 MemCachedUtil.Remove(string.Format("BW_OtherSeriesByMakeId_{0}", makeId));
-                MemCachedUtil.Remove(string.Format("BW_BikeSeriesComparision_{0}", seriesId));
+                MemCachedUtil.Remove(string.Format("BW_BikeSeriesComparision_V1_{0}", seriesId));
                 MemCachedUtil.Remove(string.Format("BW_GetModelIdsBySeries_{0}", seriesId));
 
 
@@ -220,7 +220,7 @@ namespace BikewaleOpr.Cache
             bool cacheKeyClearStatus = false;
             try
             {
-                string key = String.Format("BW_NewLaunchedBikes_CityId_{0}_V1", cityId);
+                string key = String.Format("BW_NewLaunchedBikes_CityId_{0}", cityId);
                 MemCachedUtil.Remove(key);
             }
             catch (Exception ex)
@@ -302,7 +302,7 @@ namespace BikewaleOpr.Cache
         {
             try
             {
-                MemCachedUtil.Remove(string.Format("BW_ModelDetail_{0}", modelId));
+                MemCachedUtil.Remove(string.Format("BW_ModelDetail_V1_{0}", modelId));
             }
             catch (Exception ex)
             {
@@ -319,7 +319,7 @@ namespace BikewaleOpr.Cache
         {
             try
             {
-                MemCachedUtil.Remove(string.Format("BW_PopularBikesByMake_{0}", makeId));
+                MemCachedUtil.Remove(string.Format("BW_PopularBikesByMake_V1_{0}", makeId));
             }
             catch (Exception ex)
             {
@@ -433,7 +433,7 @@ namespace BikewaleOpr.Cache
         /// <param name="dealerId"></param>
         public static void ClearDealerBikes(uint dealerId)
         {
-            MemCachedUtil.Remove(String.Format("BW_DealerBikeModel_v1_{0}", dealerId));
+            MemCachedUtil.Remove(String.Format("BW_DealerBikeModel_{0}", dealerId));
         }
 
         public static void ClearDefaultPQVersion<T>(T modelId)

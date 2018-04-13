@@ -234,13 +234,6 @@
     <Compile Include="GrpcFiles\EditCmsGrpc.cs" />
     <Compile Include="GrpcFiles\GrpcMethods.cs" />
     <Compile Include="GrpcFiles\GrpcToBikeWaleConvert.cs" />
-    <Compile Include="GrpcFiles\Specs&amp;Features\Category.cs" />
-    <Compile Include="GrpcFiles\Specs&amp;Features\Customdatatype.cs" />
-    <Compile Include="GrpcFiles\Specs&amp;Features\DataType.cs" />
-    <Compile Include="GrpcFiles\Specs&amp;Features\Item.cs" />
-    <Compile Include="GrpcFiles\Specs&amp;Features\SpecsFeaturesServiceGateway.cs" />
-    <Compile Include="GrpcFiles\Specs&amp;Features\Unittype.cs" />
-    <Compile Include="GrpcFiles\Specs&amp;Features\VehicleData.cs" />
     <Compile Include="Images\ImageBL.cs" />
     <Compile Include="Location\Cities.cs" />
     <Compile Include="Location\States.cs" />
@@ -276,6 +269,10 @@
     <ProjectReference Include="..\Bikewale.Automappers\Bikewale.Automappers.csproj">
       <Project>{de038fa1-6471-43ba-8877-659bba7416dd}</Project>
       <Name>Bikewale.Automappers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bikewale.BAL.ApiGateway\Bikewale.BAL.ApiGateway.csproj">
+      <Project>{281D4C7B-6329-4307-A1A3-DE25135659F6}</Project>
+      <Name>Bikewale.BAL.ApiGateway</Name>
     </ProjectReference>
     <ProjectReference Include="..\Bikewale.Cache.Core\Bikewale.Cache.Core.csproj">
       <Project>{038bc901-9d7f-4a95-8ca6-117db3aa48cc}</Project>

@@ -1,4 +1,5 @@
-﻿using Bikewale.BAL.GrpcFiles.Specs_Features;
+﻿using Bikewale.BAL.ApiGateway.Adapters.BikeData;
+using Bikewale.BAL.ApiGateway.ApiGatewayHelper;
 using Bikewale.DTO.Compare;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Compare;
@@ -21,15 +22,16 @@ namespace Bikewale.Service.Controllers.Compare
     {
         private readonly IBikeCompare _bikeCompare = null;
         private readonly IBikeCompareCacheRepository _cache = null;
+        private readonly IApiGatewayCaller _apiGatewayCaller;
         /// <summary>
         /// Constructor to initialize the members
         /// </summary>
-        /// <param name="bikeCompare"></param>
-        /// <param name="cache"></param>
-        public BikeCompareController(IBikeCompare bikeCompare, IBikeCompareCacheRepository cache)
+        
+        public BikeCompareController(IBikeCompare bikeCompare, IBikeCompareCacheRepository cache, IApiGatewayCaller apiGatewayCaller)
         {
             _bikeCompare = bikeCompare;
             _cache = cache;
+            _apiGatewayCaller = apiGatewayCaller;
         }
 
         /// <summary>
@@ -57,7 +59,11 @@ namespace Bikewale.Service.Controllers.Compare
 
                     if (!string.IsNullOrEmpty(platformId) && (platformId == "3" || platformId == "4"))
                     {
-                        compareEntity.VersionSpecsFeatures = SpecsFeaturesServiceGateway.GetVersionsSpecsFeatures(versionList.Split(',').Select(int.Parse).ToList());
+                        GetVersionSpecsByIdAdapter adapt1 = new GetVersionSpecsByIdAdapter();
+                        adapt1.AddApiGatewayCall(_apiGatewayCaller, versionList.Split(',').Select(int.Parse).ToList());
+                        _apiGatewayCaller.Call();
+
+                        compareEntity.VersionSpecsFeatures = adapt1.Output;
                         compareEntity.Features = null;
                         compareEntity.Specifications = null;
                         compareEntity.Color = null;

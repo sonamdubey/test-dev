@@ -1,5 +1,4 @@
-﻿using Bikewale.BAL.GrpcFiles.Specs_Features;
-using Bikewale.Common;
+﻿using Bikewale.Common;
 using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.BikeData.NewLaunched;
@@ -175,7 +174,7 @@ namespace Bikewale.Models
 
                 #endregion
 
-                objData.Bikes = _bikeModelsCache.GetMostPopularBikesByMakeWithCityPrice((int)_makeId, cityId);
+                objData.Bikes = _objModelEntity.GetMostPopularBikesByMakeWithCityPrice((int)_makeId, cityId);
 
                 if (objData.Bikes != null && objData.Bikes.Count() > 5)
                 {
@@ -200,21 +199,7 @@ namespace Bikewale.Models
                     objData.SelectedSortingId = 1;
                     objData.SelectedSortingText = "Popular";
                 }
-                if (objData.Bikes != null)
-                {
-                    var minSpecsFeaturesList = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(objData.Bikes.Select(b => b.objVersion.VersionId));
-                    if (minSpecsFeaturesList != null)
-                    {
-                        var minSpecsEnumerator = minSpecsFeaturesList.GetEnumerator();
-                        foreach (var bike in objData.Bikes)
-                        {
-                            if (minSpecsEnumerator.MoveNext())
-                                bike.MinSpecsList = minSpecsEnumerator.Current.MinSpecsList;
-                            else
-                                break;
-                        }
-                    }
-                }
+                
                 BindUpcomingBikes(objData);
                 BindPageMetaTags(objData, objData.Bikes, makeBase);
                 BindCompareBikes(objData, CompareSource, cityId);

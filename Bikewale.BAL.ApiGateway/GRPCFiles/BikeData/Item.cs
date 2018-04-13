@@ -6,11 +6,11 @@
 using pb = global::Google.Protobuf;
 using pbc = global::Google.Protobuf.Collections;
 using pbr = global::Google.Protobuf.Reflection;
-using scg = global::System.Collections.Generic;
-namespace VehicleData.Service.ProtoClass {
+namespace VehicleData.Service.ProtoClass
+{
 
-  /// <summary>Holder for reflection information generated from item.proto</summary>
-  public static partial class ItemReflection {
+    /// <summary>Holder for reflection information generated from item.proto</summary>
+    public static partial class ItemReflection {
 
     #region Descriptor
     /// <summary>File descriptor for item.proto</summary>
