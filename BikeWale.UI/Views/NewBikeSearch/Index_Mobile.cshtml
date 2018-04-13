@@ -385,15 +385,15 @@
                 </div>
 
                 <div name="braketype" class="multiSelect">
-                    <ul>
                         @if (Model.BrakeTypes != null)
                         {
-                            foreach (var item in Model.BrakeTypes)
-                            {
+                            <ul>
+                                foreach (var item in Model.BrakeTypes)
+                                {
                                 <li class="unchecked" filterid="@item.Id"><span>@item.Value</span></li>
-                            }
+                                }
+                            </ul>
                         }
-                    </ul>
                 </div>
             </div>
             <!--Brakes section ends here-->
@@ -408,15 +408,15 @@
                 </div>
 
                 <div name="alloywheel" class="multiSelect">
-                    <ul>
                         @if (Model.WheelTypes != null)
                         {
-                            foreach (var item in Model.WheelTypes)
-                            {
+                            <ul>
+                                foreach (var item in Model.WheelTypes)
+                                {
                                 <li class="unchecked" filterid="@item.Id"><span>@item.Value</span></li>
-                            }
+                                }
+                            </ul>
                         }
-                    </ul>
                 </div>
             </div>
             <!--Wheels section ends here-->
@@ -431,15 +431,15 @@
                 </div>
 
                 <div name="starttype" class="multiSelect">
-                    <ul>
-                        @if (Model.StartTypes != null)
+                    @if (Model.StartTypes != null)
+                    {
+                        <ul>
+                        foreach (var item in Model.StartTypes)
                         {
-                            foreach (var item in Model.StartTypes)
-                            {
-                                <li class="unchecked" filterid="@item.Id"><span>@item.Value</span></li>
-                            }
+                            <li class="unchecked" filterid="@item.Id"><span>@item.Value</span></li>
                         }
-                    </ul>
+                        </ul>
+                    }
                 </div>
             </div>
             <!--Start type section ends here-->

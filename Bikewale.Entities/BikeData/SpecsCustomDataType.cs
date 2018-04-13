@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace Bikewale.Entities.BikeData
 {
+    /// <summary>
+    /// Created By : Deepak Israni on 12 April 2018
+    /// Description: Entity to bind custom data types returned from GRPC.
+    /// </summary>
     public class SpecsCustomDataType
     {
         public ushort Id { get; set; }

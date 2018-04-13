@@ -335,23 +335,31 @@ namespace Bikewale.Models.NewBikeSearch
         /// <param name="objData"></param>
         private void BindDropDowns(NewBikeSearchVM objData)
         {
-            //Brake Type -- Change the enum to whatever is decided for brake types
-            GetCustomDataTypesByItemIdAdapter adapt1 = new GetCustomDataTypesByItemIdAdapter();
-            adapt1.AddApiGatewayCall(_apiGatewayCaller, new GetCustomDataType_Input() { InputType = Bikewale.BAL.ApiGateway.Entities.BikeData.EnumSpecsFeaturesItems.FuelType });
+            try
+            {
+                //Brake Type -- Change the enum to whatever is decided for brake types
+                GetCustomDataTypesByItemIdAdapter adapt1 = new GetCustomDataTypesByItemIdAdapter();
+                adapt1.AddApiGatewayCall(_apiGatewayCaller, new GetCustomDataType_Input() { InputType = Bikewale.BAL.ApiGateway.Entities.BikeData.EnumSpecsFeaturesItems.FuelType });
 
-            //Start Type -- Change the enum to whatever is decided for start types
-            GetCustomDataTypesByItemIdAdapter adapt2 = new GetCustomDataTypesByItemIdAdapter();
-            adapt2.AddApiGatewayCall(_apiGatewayCaller, new GetCustomDataType_Input() { InputType = Bikewale.BAL.ApiGateway.Entities.BikeData.EnumSpecsFeaturesItems.FuelType });
+                //Start Type -- Change the enum to whatever is decided for start types
+                GetCustomDataTypesByItemIdAdapter adapt2 = new GetCustomDataTypesByItemIdAdapter();
+                adapt2.AddApiGatewayCall(_apiGatewayCaller, new GetCustomDataType_Input() { InputType = Bikewale.BAL.ApiGateway.Entities.BikeData.EnumSpecsFeaturesItems.FuelType });
 
-            //Wheel Type -- Change the enum to whatever is decided for wheel types
-            GetCustomDataTypesByItemIdAdapter adapt3 = new GetCustomDataTypesByItemIdAdapter();
-            adapt3.AddApiGatewayCall(_apiGatewayCaller, new GetCustomDataType_Input() { InputType = Bikewale.BAL.ApiGateway.Entities.BikeData.EnumSpecsFeaturesItems.FuelType });
+                //Wheel Type -- Change the enum to whatever is decided for wheel types
+                GetCustomDataTypesByItemIdAdapter adapt3 = new GetCustomDataTypesByItemIdAdapter();
+                adapt3.AddApiGatewayCall(_apiGatewayCaller, new GetCustomDataType_Input() { InputType = Bikewale.BAL.ApiGateway.Entities.BikeData.EnumSpecsFeaturesItems.FuelType });
 
-            _apiGatewayCaller.Call();
+                _apiGatewayCaller.Call();
 
-            objData.BrakeTypes = adapt1.Output;
-            objData.StartTypes = adapt2.Output;
-            objData.WheelTypes = adapt3.Output;
+                objData.BrakeTypes = adapt1.Output;
+                objData.StartTypes = adapt2.Output;
+                objData.WheelTypes = adapt3.Output;
+            }
+            catch (Exception ex)
+            {
+
+                Bikewale.Notifications.ErrorClass.LogError(ex, "NewBikeSearchModel.BindDropDowns()");
+            }
         }
 
     }

@@ -212,15 +212,15 @@
                                         </div>
                                         <div name="braketype" class="filter-selection-div more-filter-item-data ride-style-list list-items hide">
                                             <span class="top-arrow"></span>
-                                            <ul class="content-inner-block-10">
-                                                @if (Model.BrakeTypes != null)
-                                                {
+                                            @if (Model.BrakeTypes != null)
+                                            {
+                                                <ul class="content-inner-block-10">
                                                     foreach (var item in Model.BrakeTypes)
                                                     {
-                                                        <li class="uncheck" filterid="@item.Id"><span>@item.Value</span></li>
+                                                    <li class="uncheck" filterid="@item.Id"><span>@item.Value</span></li>
                                                     }
-                                                }
-                                            </ul>
+                                                </ul>
+                                            }                                            
                                         </div>
                                     </div>
                                 </div>
@@ -242,15 +242,15 @@
                                         </div>
                                         <div name="alloywheel" class="filter-selection-div more-filter-item-data ride-style-list list-items hide">
                                             <span class="top-arrow"></span>
-                                            <ul class="content-inner-block-10">
-                                                @if (Model.WheelTypes != null)
-                                                {
+                                            @if (Model.WheelTypes != null)
+                                            {
+                                                <ul class="content-inner-block-10">
                                                     foreach (var item in Model.WheelTypes)
                                                     {
-                                                        <li class="uncheck" filterid="@item.Id"><span>@item.Value</span></li>
+                                                    <li class="uncheck" filterid="@item.Id"><span>@item.Value</span></li>
                                                     }
-                                                }
-                                            </ul>
+                                                </ul>
+                                            }
                                         </div>
                                     </div>
                                 </div>
@@ -271,16 +271,16 @@
                                             <span id="upDownArrow" class="rightfloat fa fa-angle-down position-abt pos-top15 pos-right10"></span>
                                         </div>
                                         <div name="starttype" class="filter-selection-div more-filter-item-data ride-style-list list-items hide">
-                                            <span class="top-arrow"></span>
-                                            <ul class="content-inner-block-10">
-                                                @if (Model.StartTypes != null)
-                                                {
+                                            <span class="top-arrow"></span>                                            
+                                            @if (Model.StartTypes != null)
+                                            {
+                                                <ul class="content-inner-block-10">
                                                     foreach (var item in Model.StartTypes)
                                                     {
-                                                        <li class="uncheck" filterid="@item.Id"><span>@item.Value</span></li>
+                                                    <li class="uncheck" filterid="@item.Id"><span>@item.Value</span></li>
                                                     }
-                                                }
-                                            </ul>
+                                                </ul>
+                                            }
                                         </div>
                                     </div>
                                 </div>

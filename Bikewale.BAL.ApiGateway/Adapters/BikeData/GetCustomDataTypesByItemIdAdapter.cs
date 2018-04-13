@@ -14,14 +14,27 @@ using VehicleData.Service.ProtoClass;
 
 namespace Bikewale.BAL.ApiGateway.Adapters.BikeData
 {
+    /// <summary>
+    /// Created By : Deepak Israni on 12 April 2018
+    /// Description: Adapter class responsible for executing GRPC method to get related data for
+    /// </summary>
     public class GetCustomDataTypesByItemIdAdapter : AbstractApiGatewayAdapater<GetCustomDataType_Input, IEnumerable<SpecsCustomDataType>, CustomDataTypeList>
     {
+        /// <summary>
+        /// Constructor will set all dependencies required to get the data from APIGateway
+        /// </summary>
         public GetCustomDataTypesByItemIdAdapter()
         {
             ModuleName = BWConfiguration.Instance.SpecsFeaturesServiceModuleName;
             MethodName = "GetCustomDataTypesByItemId";
         }
 
+        /// <summary>
+        /// Created By : Deepak Israni on 12 April 2018
+        /// Description: Function converts the input into an input compatible with the GRPC service.
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         protected override IMessage BuildRequest(GetCustomDataType_Input input)
         {
             return new GrpcInt()
@@ -30,6 +43,12 @@ namespace Bikewale.BAL.ApiGateway.Adapters.BikeData
             };
         }
 
+        /// <summary>
+        /// Created By : Deepak Israni on 12 April 2018
+        /// Description: Function converts the output of the GRPC service into a compatible Bikewale entity.
+        /// </summary>
+        /// <param name="responseMessage"></param>
+        /// <returns></returns>
         protected override IEnumerable<SpecsCustomDataType> BuildResponse(IMessage responseMessage)
         {
             IEnumerable<SpecsCustomDataType> dataTypes = null;
@@ -51,6 +70,12 @@ namespace Bikewale.BAL.ApiGateway.Adapters.BikeData
             return dataTypes;
         }
 
+        /// <summary>
+        /// Created By : Deepak Israni on 12 April 2018
+        /// Description: Function performs operations and binds data returned from GRPC service to a bikewale compatible data type.
+        /// </summary>
+        /// <param name="items"></param>
+        /// <returns></returns>
         private IEnumerable<SpecsCustomDataType> ConvertToSpecsCustomDataType(RepeatedField<CustomDataType> items)
         {
             try
