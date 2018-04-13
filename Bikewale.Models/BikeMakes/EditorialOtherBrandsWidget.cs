@@ -10,6 +10,10 @@ namespace Bikewale.Models.BikeMakes
 {
     public class EditorialOtherBrandsWidget : EditorialWidgetInfo
     {
+        public EditorialOtherBrandsWidget()
+        {
+            WidgetType = EditorialWidgetType.OtherBrands;
+        }
         public override EditorialWidgetType WidgetType
         {
             get
@@ -19,7 +23,7 @@ namespace Bikewale.Models.BikeMakes
 
             protected set
             {
-                base.WidgetType = EditorialWidgetType.OtherBrands;
+                base.WidgetType = value;
             }
         }
 

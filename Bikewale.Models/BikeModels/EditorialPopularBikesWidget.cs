@@ -11,6 +11,10 @@ namespace Bikewale.Models.BikeModels
 {
     public class EditorialPopularBikesWidget : EditorialWidgetInfo
     {
+        public EditorialPopularBikesWidget()
+        {
+            this.WidgetType = EditorialWidgetType.Popular;
+        }
         public override EditorialWidgetType WidgetType
         {
             get
@@ -20,13 +24,12 @@ namespace Bikewale.Models.BikeModels
 
             protected set
             {
-                base.WidgetType = EditorialWidgetType.Popular;
+                base.WidgetType = value;
             }
         }
 
 
         public IEnumerable<MostPopularBikesBase> MostPopularBikeList { get; set; }
-        public uint CityId { get; set; }
         public string ReturnUrlForAmpPages { get; set; }
     }
 }

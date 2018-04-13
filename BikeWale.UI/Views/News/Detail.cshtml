@@ -1,5 +1,5 @@
 @model Bikewale.Models.NewsDetailPageVM
-@using Bikewale.Entities.GenericBikes
+@using Bikewale.Entities.BikeData
 @using Bikewale.Utility
 @{
 	Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/content/details.css' inline /> <link rel='stylesheet' type='text/css' href='/css/components/m-brand-logo.css' inline />";
@@ -95,17 +95,15 @@
                     </div>
                 </div>
                 <div class="grid-4 omega">
-                    @if (Model.PageWidgets != null)
-                    {
-                        if (Model.PageWidgets[Bikewale.Entities.BikeData.EditorialPageWidgetPosition.First] != null)
+                    @if(Model.PageWidgets != null){
+                        foreach (KeyValuePair<EditorialPageWidgetPosition, Bikewale.Models.Shared.EditorialWidgetVM> widgetItem in Model.PageWidgets)
                         {
-                            @Html.Partial("~/Views/Shared/_EditorialWidgetBase.cshtml", Model.PageWidgets[Bikewale.Entities.BikeData.EditorialPageWidgetPosition.First])
-                            <div class="clear"></div>
-                        }
-                        if (Model.PageWidgets[Bikewale.Entities.BikeData.EditorialPageWidgetPosition.Second] != null)
-                        {
-                            @Html.Partial("~/Views/Shared/_EditorialWidgetBase.cshtml", Model.PageWidgets[Bikewale.Entities.BikeData.EditorialPageWidgetPosition.Second])
-                            <div class="clear"></div>
+                            var widget = widgetItem.Value;
+                            if (widget != null)
+                            {
+                                @Html.Partial("~/Views/Shared/_EditorialWidgetBase.cshtml", widget)
+                                <div class="clear"></div>
+                            }
                         }
                     }
 

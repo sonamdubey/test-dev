@@ -78,8 +78,6 @@ namespace Bikewale.Models
         private bool isMakeTagged;
         private bool isMakeLive;
         private string MakeName, MakeMaskingName;
-        private int editorialWidgetTopCount;
-        private int noOfEditorialWidgetColumns;
         private EnumBikeBodyStyles bodyStyle;
         private bool isSeriesAvailable;
         private bool isScooterOnlyMake;
@@ -231,7 +229,7 @@ namespace Bikewale.Models
 
                     BindBikeInfoWidget(objData);
                     SetAdditionalVariables(objData);
-                    SetEditorialWidgetData(objData.PageWidgets);
+                    SetEditorialWidgetData(objData);
 
                     BindSimilarBikes(objData);
                     SetPageMetas(objData);
@@ -261,9 +259,7 @@ namespace Bikewale.Models
         /// <param name="objData">VM of the page.</param>
         private void SetAdditionalVariables(NewsDetailPageVM objData)
         {
-            editorialWidgetTopCount = IsMobile ? 9 : 6;
             isMakeLive = !(objData.BikeInfo != null && (objData.BikeInfo.IsUpcoming || objData.BikeInfo.IsDiscontinued));
-            noOfEditorialWidgetColumns = 4;
             bodyStyle = objData.BodyStyle;
             isSeriesAvailable = objData.IsSeriesAvailable;
             isScooterOnlyMake = objData.Make.IsScooterOnly;
@@ -1267,30 +1263,30 @@ namespace Bikewale.Models
         /// Description : Function to Set Editorial Widget Data. Added the conditionals to Bind the widgets using this function.
         /// </summary>
         /// <param name="objData">VM of the page.</param>
-        private void SetEditorialWidgetData(IDictionary<EditorialPageWidgetPosition, EditorialWidgetVM> PageWidgets)
+        private void SetEditorialWidgetData(NewsDetailPageVM objData)
         {
             if (isModelTagged)
             {
                 if (bodyStyle == EnumBikeBodyStyles.Cruiser || bodyStyle == EnumBikeBodyStyles.Sports)
                 {
                     // Model is Tagged, Body Style is either Cruiser or Sports
-                    PageWidgets = SetWidgetDataForModelCruiserSports();
+                    objData.PageWidgets = SetWidgetDataForModelCruiserSports();
                 }
                 else if (bodyStyle == EnumBikeBodyStyles.Scooter)
                 {
                     // Model is Tagged, Body Style is Scooter
-                    PageWidgets = SetWidgetDataForModelScooter();
+                    objData.PageWidgets = SetWidgetDataForModelScooter();
                 }
                 else
                 {
                     // Model is Tagged, Body Style is something other than Cruiser/Sports/Scooter
-                    PageWidgets = SetWidgetDataForModelExceptCruiserSportsScooter();
+                    objData.PageWidgets = SetWidgetDataForModelExceptCruiserSportsScooter();
                 }
             }
             else
             {
                 // Make is Tagged
-                PageWidgets = SetWidgetDataForMakeNews();
+                objData.PageWidgets = SetWidgetDataForMakeNews();
             }
         }
 
@@ -1442,19 +1438,18 @@ namespace Bikewale.Models
             try
             {
                 int editorialWidgetTopCount = IsMobile ? 9 : 6;
-                widget = InitializeWidgetCategories(category);
+                widget = InitializeWidgetCategory(category);
                 string viewAllTitle = string.Empty;
 
                 switch (category)
                 {
                     case EditorialWidgetCategory.Popular_All:
-                        SetWidgetMiscData(widget, "Popular Bikes", "PopularBikes", true, UrlFormatter.FormatGenericPageUrl(EnumBikeBodyStyles.AllBikes), "View all bikes", "View all bikes");
-                        ((EditorialPopularBikesWidget)widget).MostPopularBikeList = SetAdPromotedBikes(_models.GetMostPopularBikes(), editorialWidgetTopCount);
+                        SetWidgetStructureData(widget, "Popular Bikes", "PopularBikes", true, UrlFormatter.FormatGenericPageUrl(EnumBikeBodyStyles.AllBikes), "View all bikes", "View all bikes");
+                        ((EditorialPopularBikesWidget)widget).MostPopularBikeList = SetAdPromotedBikes(_models.GetMostPopularBikesbyMakeCity((uint)editorialWidgetTopCount, 0, CityId), editorialWidgetTopCount);
                         break;
 
                     case EditorialWidgetCategory.Popular_Make:
-                        ((EditorialPopularBikesWidget)widget).CityId = CityId;
-                        SetWidgetMiscData(widget, string.Format("{0} Bikes", MakeName), "PopularMakeBikes", true, UrlFormatter.BikeMakeUrl(MakeMaskingName), "View all bikes", "View all bikes");
+                        SetWidgetStructureData(widget, string.Format("{0} Bikes", MakeName), "PopularMakeBikes", true, UrlFormatter.BikeMakeUrl(MakeMaskingName), "View all bikes", "View all bikes");
                         ((EditorialPopularBikesWidget)widget).MostPopularBikeList = _models.GetMostPopularBikesbyMakeCity((uint)editorialWidgetTopCount, MakeId, CityId);
                         break;
 
@@ -1472,46 +1467,46 @@ namespace Bikewale.Models
                             viewAllTitle = "View all Cruisers";
                             tabId = "PopularCruisers";
                         }
-                        SetWidgetMiscData(widget, title, tabId, true, UrlFormatter.FormatGenericPageUrl(bodyStyle), "View all bikes", viewAllTitle);
+                        SetWidgetStructureData(widget, title, tabId, true, UrlFormatter.FormatGenericPageUrl(bodyStyle), "View all bikes", viewAllTitle);
                         ((EditorialPopularBikesWidget)widget).MostPopularBikeList = _models.GetPopularBikesByBodyStyle((ushort)bodyStyle, (uint)editorialWidgetTopCount, CityId);
                         break;
 
                     case EditorialWidgetCategory.Popular_Scooters:
-                        SetWidgetMiscData(widget, "Popular Scooters", "PopularScooters", true, UrlFormatter.FormatGenericPageUrl(bodyStyle), "View all scooters", "View all scooters");
+                        SetWidgetStructureData(widget, "Popular Scooters", "PopularScooters", true, UrlFormatter.FormatGenericPageUrl(bodyStyle), "View all scooters", "View all scooters");
                         ((EditorialPopularBikesWidget)widget).MostPopularBikeList = _models.GetMostPopularScooters((uint)editorialWidgetTopCount, CityId);
                         break;
 
                     case EditorialWidgetCategory.Popular_Make_Scooters:
-                        SetWidgetMiscData(widget, string.Format("{0} Scooters", MakeName), "PopularMakeScooters", true, UrlFormatter.ScooterMakeUrl(MakeMaskingName, isScooterOnlyMake), "View all scooters", "View all scooters");
+                        SetWidgetStructureData(widget, string.Format("{0} Scooters", MakeName), "PopularMakeScooters", true, UrlFormatter.ScooterMakeUrl(MakeMaskingName, isScooterOnlyMake), "View all scooters", "View all scooters");
                         ((EditorialPopularBikesWidget)widget).MostPopularBikeList = _models.GetMostPopularScooters((uint)editorialWidgetTopCount, MakeId, CityId);
                         break;
 
                     case EditorialWidgetCategory.Popular_Series:
                         viewAllTitle = string.Format("View all {0} bikes", bikeSeriesEntityBase.SeriesName);
-                        SetWidgetMiscData(widget, string.Format("{0} Bikes", bikeSeriesEntityBase.SeriesName), "PopularSeriesBikes", true, UrlFormatter.BikeSeriesUrl(MakeMaskingName, bikeSeriesEntityBase.MaskingName), viewAllTitle, viewAllTitle);
+                        SetWidgetStructureData(widget, string.Format("{0} Bikes", bikeSeriesEntityBase.SeriesName), "PopularSeriesBikes", true, UrlFormatter.BikeSeriesUrl(MakeMaskingName, bikeSeriesEntityBase.MaskingName), viewAllTitle, viewAllTitle);
                         ((EditorialPopularBikesWidget)widget).MostPopularBikeList = FetchPopularSeriesBikes(bikeSeriesEntityBase.SeriesId).Take(editorialWidgetTopCount);
                         break;
 
                     case EditorialWidgetCategory.Series_Scooters:
                         viewAllTitle = string.Format("View all {0} Scooters", bikeSeriesEntityBase.SeriesName);
-                        SetWidgetMiscData(widget, string.Format("{0} Scooters", bikeSeriesEntityBase.SeriesName), "PopularSeriesScooters", true, UrlFormatter.BikeSeriesUrl(MakeMaskingName, bikeSeriesEntityBase.MaskingName), viewAllTitle, viewAllTitle);
+                        SetWidgetStructureData(widget, string.Format("{0} Scooters", bikeSeriesEntityBase.SeriesName), "PopularSeriesScooters", true, UrlFormatter.BikeSeriesUrl(MakeMaskingName, bikeSeriesEntityBase.MaskingName), viewAllTitle, viewAllTitle);
                         ((EditorialPopularBikesWidget)widget).MostPopularBikeList = FetchPopularSeriesBikes(bikeSeriesEntityBase.SeriesId).Take(editorialWidgetTopCount);
                         break;
 
                     case EditorialWidgetCategory.Upcoming_All:
                         viewAllTitle = "View all upcoming bikes";
-                        SetWidgetMiscData(widget, "Upcoming Bikes", "UpcomingBikes", true, UrlFormatter.UpcomingBikesUrl(), viewAllTitle, viewAllTitle);
+                        SetWidgetStructureData(widget, "Upcoming Bikes", "UpcomingBikes", true, UrlFormatter.UpcomingBikesUrl(), viewAllTitle, viewAllTitle);
                         ((EditorialUpcomingBikesWidget)widget).UpcomingBikeList = _models.GetUpcomingBikesList(EnumUpcomingBikesFilter.Default, editorialWidgetTopCount);
                         break;
 
                     case EditorialWidgetCategory.Upcoming_Scooters:
-                        SetWidgetMiscData(widget, "Upcoming Scooters", "UpcomingScooters", false);
+                        SetWidgetStructureData(widget, "Upcoming Scooters", "UpcomingScooters", false);
                         ((EditorialUpcomingBikesWidget)widget).UpcomingBikeList = GetUpcomingScooters(editorialWidgetTopCount);
                         break;
 
                     case EditorialWidgetCategory.OtherBrands_All:
                         viewAllTitle = "View other brands";
-                        SetWidgetMiscData(widget, "Other Brands", "OtherBrands", true, UrlFormatter.AllScootersUrl(), viewAllTitle, viewAllTitle);
+                        SetWidgetStructureData(widget, "Other Brands", "OtherBrands", true, UrlFormatter.AllScootersUrl(), viewAllTitle, viewAllTitle);
                         ((EditorialOtherBrandsWidget)widget).OtherBrandsList = GetOtherScooterBrands((int)MakeId, editorialWidgetTopCount);
                         break;
                 }
@@ -1527,9 +1522,9 @@ namespace Bikewale.Models
         /// Created By  : Sanskar Gupta on 12 April 2018
         /// Description : Function to Initialize the Editorial Widget categories. 
         /// </summary>
-        private EditorialWidgetInfo InitializeWidgetCategories(EditorialWidgetCategory category)
+        private EditorialWidgetInfo InitializeWidgetCategory(EditorialWidgetCategory category)
         {
-
+            EditorialWidgetInfo widget = null;
             switch (category)
             {
                 case EditorialWidgetCategory.Popular_All:
@@ -1539,17 +1534,20 @@ namespace Bikewale.Models
                 case EditorialWidgetCategory.Popular_Scooters:
                 case EditorialWidgetCategory.Popular_Series:
                 case EditorialWidgetCategory.Series_Scooters:
-                    return new EditorialPopularBikesWidget();
+                    widget = new EditorialPopularBikesWidget();
+                    break;
                 case EditorialWidgetCategory.Upcoming_All:
                 case EditorialWidgetCategory.Upcoming_Make:
                 case EditorialWidgetCategory.Upcoming_Scooters:
-                    return new EditorialUpcomingBikesWidget();
+                    widget = new EditorialUpcomingBikesWidget();
+                    break;
                 case EditorialWidgetCategory.OtherBrands_All:
-                    return new EditorialOtherBrandsWidget();
-                
+                    widget = new EditorialOtherBrandsWidget();
+                    break;
                 default:
-                    return null;
+                    return widget;
             }           
+            return widget;
         }
 
         /// <summary>
@@ -1642,7 +1640,7 @@ namespace Bikewale.Models
         /// <param name="viewAllUrl">Url where the user is redirected when the `View All` button is clicked</param>
         /// <param name="viewAllText">String for Text of `View All` button</param>
         /// <param name="viewAllTitle">Link title as well as the button text of the view all link/button</param>
-        private void SetWidgetMiscData(EditorialWidgetInfo widget, string title, string tabId, bool showViewAll, string viewAllUrl=null, string viewAllText=null, string viewAllTitle=null)
+        private void SetWidgetStructureData(EditorialWidgetInfo widget, string title, string tabId, bool showViewAll, string viewAllUrl=null, string viewAllText=null, string viewAllTitle=null)
         {
             try
             {
