@@ -4076,8 +4076,12 @@
     <Content Include="Views\Shared\fontcss\Oxygen\_Latin700.cshtml" />
     <Content Include="Views\Shared\Ads\Mobile\Ad320x50.cshtml" />
     <Content Include="Views\Shared\Ads\Mobile\Ad320x50Bottom.cshtml" />
+    <Content Include="Views\BikeModels\_PopularBikesWidgetBase.cshtml" />
+    <Content Include="Views\BikeModels\_UpcomingBikesWidgetBase.cshtml" />
     <Content Include="Views\Shared\Ads\Desktop\AdSlotGeneric.cshtml" />
     <Content Include="sass\partials\bw-youtube.sass" />
+    <Content Include="Views\Make\_OtherBrandsWidgetBase.cshtml" />
+    <Content Include="Views\Shared\_EditorialWidgetBase.cshtml" />
     <None Include="Views\Shared\_Sidebar-section.cshtml" />
     <Content Include="Views\BikeModels\_MultiTabsWidget.cshtml" />
     <Content Include="Views\Shared\_ReviewPopup.cshtml" />

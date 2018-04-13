@@ -1,0 +1,122 @@
+﻿@model EditorialWidgetVM
+@using Bikewale.Models.Shared;
+@using Bikewale.Entities.BikeData;
+@using Bikewale.Models.BikeModels;
+@using Bikewale.Models.BikeMakes;
+
+@if (Model != null)
+{
+    var columns = Model.WidgetColumns;
+    int noOfColumns = columns.Count(x => x.Value != null);
+
+    switch (noOfColumns)
+    {
+        case 1:
+            if(columns[EditorialWidgetColumnPosition.Left] == null)
+            {
+                break;
+            }
+            // Render 1 tab
+            var widget = columns[EditorialWidgetColumnPosition.Left];
+            <div class="bw-tabs-panel content-box-shadow section-bottom-margin" data-slide="1">
+                <div class="bw-tabs bw-tabs-flex tabs-flex--reset-margin">
+                    <ul id="widgetTab">
+                        <li class='@(widget.ShowViewAll ? "active" : "")' data-tabs="@widget.TabId">
+                            <h2 class="bw-tabs__item bw-tabs-item--sm">@widget.Title</h2>
+                        </li>
+                    </ul>
+                </div>
+
+                <div id="@widget.TabId" class="sidebar-list--overflow">
+
+                    @GenerateWidgetTab(widget)
+
+                    @if (widget.ShowViewAll)
+                    {
+                        <div class="view-all-btn-container padding-10-20-20 read-more">
+                            <a href="@widget.ViewAllUrl" title="@widget.ViewAllTitle" data-tab="@widget.TabId" class="btn view-all-target-btn">@widget.ViewAllText<span class="bwsprite teal-right"></span></a>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            break;
+
+        case 2:
+            // Render 2 tabs
+            var column1 = columns[EditorialWidgetColumnPosition.Left];
+            var column2 = columns[EditorialWidgetColumnPosition.Right];
+            if(column1 == null || column2 == null)
+            {
+                break;
+            }
+            <div class="bw-tabs-panel content-box-shadow section-bottom-margin">
+                <div class="bw-tabs bw-tabs-flex tabs-flex--reset-margin">
+                    <ul id="widgetTab">
+                        <li class='@(column1.ShowViewAll ? "active" : "")' data-tabs="@column1.TabId" data-other-tabs="@column2.TabId">
+                            <h2 class="bw-tabs__item bw-tabs-item--sm">@column1.Title</h2>
+                        </li>
+                        <li data-tabs="@column2.TabId" data-other-tabs="@column1.TabId">
+                            <h2 class='@((!column1.ShowViewAll && column2.ShowViewAll) ? "bw-single-tab_multiwidget" : "bw-tabs__item bw-tabs-item--sm")'>@column2.Title</h2>
+                        </li>
+                    </ul>
+                </div>
+
+                @foreach (KeyValuePair<EditorialWidgetColumnPosition, EditorialWidgetInfo> widgetItem in columns)
+                {
+                    var widgetData = widgetItem.Value;
+                    var divClass = widgetItem.Key == EditorialWidgetColumnPosition.Left ? "bw-tabs-data sidebar-list--overflow" : "bw-tabs-data sidebar-list--overflow hide";
+
+                    <div id="@widgetData.TabId" class="@divClass">
+
+                        @GenerateWidgetTab(widgetData)
+
+                        @if (widgetData.ShowViewAll)
+                        {
+                            <div class="view-all-btn-container padding-10-20-20 read-more">
+                                <a href="@widgetData.ViewAllUrl" title="@widgetData.ViewAllTitle" data-tab="@widgetData.TabId" class="btn view-all-target-btn">@widgetData.ViewAllText<span class="bwsprite teal-right"></span></a>
+                            </div>
+                        }
+                    </div>
+                }
+
+            </div>
+            break;
+
+        default:
+            break;
+    }
+
+
+    @helper  GenerateWidgetTab(EditorialWidgetInfo inputColumn)
+    {
+        string partialView = null;
+
+        if (inputColumn != null)
+        {
+            var columnView = inputColumn;
+            switch (inputColumn.WidgetType)
+            {
+                case EditorialWidgetType.Popular:
+                    partialView = "~/Views/BikeModels/_PopularBikesWidgetBase.cshtml";
+                    columnView = (EditorialPopularBikesWidget)inputColumn;
+                    break;
+
+                case EditorialWidgetType.Upcoming:
+                    partialView = "~/Views/BikeModels/_UpcomingBikesWidgetBase.cshtml";
+                    columnView = (EditorialUpcomingBikesWidget)inputColumn;
+                    break;
+
+                case EditorialWidgetType.OtherBrands:
+                    partialView = "~/Views/Make/_OtherBrandsWidgetBase.cshtml";
+                    columnView = (EditorialOtherBrandsWidget)inputColumn;
+                    break;
+            }
+
+            if (!string.IsNullOrEmpty(partialView))
+            {
+                @Html.Partial(partialView, columnView);
+            }
+        }
+    }
+}

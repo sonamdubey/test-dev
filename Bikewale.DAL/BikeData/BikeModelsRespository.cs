@@ -3101,6 +3101,8 @@ namespace Bikewale.DAL.BikeData
         /// <summary>
         /// Created by : Ashutosh Sharma on 18-Aug-2017
         /// Description : DAL method to get popular bikes by body style.
+        /// Modified By : Sanskar Gupta on 11 April 2018
+        /// Descirption : Added code for population of `popularObj.objMake.MakeName` and `popularObj.objMake.MaskingName`
         /// </summary>
         /// <param name="bodyStyleId"></param>
         /// <param name="topCount"></param>
@@ -3129,9 +3131,12 @@ namespace Bikewale.DAL.BikeData
                             {
                                 MostPopularBikesBase popularObj = new MostPopularBikesBase();
                                 popularObj.objModel = new BikeModelEntityBase();
+                                popularObj.objMake = new BikeMakeEntityBase();
                                 popularObj.MakeId = SqlReaderConvertor.ToInt32(dr["MakeId"]);
                                 popularObj.MakeName = Convert.ToString(dr["MakeName"]);
                                 popularObj.MakeMaskingName = Convert.ToString(dr["MakeMaskingName"]);
+                                popularObj.objMake.MakeName = popularObj.MakeName;
+                                popularObj.objMake.MaskingName = popularObj.MakeMaskingName;
                                 popularObj.objModel.ModelId = SqlReaderConvertor.ToInt32(dr["ModelId"]);
                                 popularObj.objModel.ModelName = Convert.ToString(dr["ModelName"]);
                                 popularObj.objModel.MaskingName = Convert.ToString(dr["ModelMaskingName"]);
@@ -3516,5 +3521,7 @@ namespace Bikewale.DAL.BikeData
             }
             return images;
         }
+        
+
     }   // class
 }   // namespace
