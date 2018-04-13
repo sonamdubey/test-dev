@@ -22,6 +22,7 @@ using Bikewale.Utility;
 using Microsoft.Practices.Unity;
 
 using Bikewale.BAL.ApiGateway.ApiGatewayHelper;
+using Bikewale.BAL.ApiGateway.Adapters.BikeData;
 
 namespace Bikewale.New
 {
@@ -79,6 +80,19 @@ namespace Bikewale.New
             modelDetail = FetchModelPageDetails(modelId);
             if (modelDetail != null && modelDetail.ModelDetails != null)
             {
+                if (versionId > 0)
+                {
+                    using (IUnityContainer container = new UnityContainer())
+                    {
+                        container.RegisterType<IApiGatewayCaller, ApiGatewayCaller>();
+                        var _apiGatewayCaller = container.Resolve<IApiGatewayCaller>();
+                        GetVersionSpecsByIdAdapter adapt1 = new GetVersionSpecsByIdAdapter();
+                        adapt1.AddApiGatewayCall(_apiGatewayCaller, new List<int> { (int)versionId });
+
+                        _apiGatewayCaller.Call();
+                        versionSpecsFeatures = adapt1.Output;
+                    }
+                }
                 IsScooterOnly = modelDetail.ModelDetails.MakeBase.IsScooterOnly;
                 BindWidget();
                 BindSimilarBikes();
