@@ -24,9 +24,7 @@ using log4net;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Linq;
-using System.Text;
 using System.Web;
 
 namespace Bikewale.Models
@@ -225,11 +223,17 @@ namespace Bikewale.Models
                     GetTaggedBikeListByMake(objData);
                     GetTaggedBikeListByModel(objData);
                     CheckSeriesData(objData);
-                    GetWidgetData(objData, widgetTopCount, false);
+
 
                     BindBikeInfoWidget(objData);
                     SetAdditionalVariables(objData);
-                    SetEditorialWidgetData(objData);
+                    if (IsMobile || IsAMPPage)
+                    {
+                        GetWidgetData(objData, widgetTopCount, false);
+                    }
+                    {
+                        SetEditorialWidgetData(objData);
+                    }
 
                     BindSimilarBikes(objData);
                     SetPageMetas(objData);
@@ -600,7 +604,7 @@ namespace Bikewale.Models
                             CityId = CityId,
                             WidgetHeading = string.Format("Popular {0} {1}", bikeSeriesEntityBase.SeriesName, objData.IsScooter ? "Scooters" : "Bikes"),
                             WidgetLinkTitle = string.Format("View all {0} {1}", bikeSeriesEntityBase.SeriesName, objData.IsScooter ? "Scooters" : "Bikes"),
-                            WidgetHref = string.Format("/{0}{1}-bikes/{2}/", IsMobile ? "m/":"",objData.Make.MaskingName, bikeSeriesEntityBase.MaskingName)
+                            WidgetHref = string.Format("/{0}{1}-bikes/{2}/", IsMobile ? "m/" : "", objData.Make.MaskingName, bikeSeriesEntityBase.MaskingName)
 
                         };
                     }
@@ -1099,11 +1103,12 @@ namespace Bikewale.Models
                 {
                     objData.PopularBodyStyle.WidgetHeading = string.Format("Popular {0}", objData.PopularBodyStyle.BodyStyleText);
                     objData.PopularBodyStyle.WidgetLinkTitle = string.Format("Best {0} in India", objData.PopularBodyStyle.BodyStyleLinkTitle);
-                    objData.PopularBodyStyle.WidgetHref = string.Format("{0}{1}",IsMobile ? "/m":"",UrlFormatter.FormatGenericPageUrl(objData.PopularBodyStyle.BodyStyle));
+                    objData.PopularBodyStyle.WidgetHref = string.Format("{0}{1}", IsMobile ? "/m" : "", UrlFormatter.FormatGenericPageUrl(objData.PopularBodyStyle.BodyStyle));
                     objData.PopularBodyStyle.CityId = CityId;
                     objData.PopularBodyStyle.ReturnUrlForAmpPages = string.Format("{0}/m/news/{1}-{2}.html", BWConfiguration.Instance.BwHostUrl, objData.ArticleDetails.BasicId, objData.ArticleDetails.ArticleUrl);
 
-                    if (objData.PopularBodyStyle.BodyStyle == EnumBikeBodyStyles.AllBikes) {
+                    if (objData.PopularBodyStyle.BodyStyle == EnumBikeBodyStyles.AllBikes)
+                    {
                         BikeFilters obj = new BikeFilters();
                         obj.CityId = CityId;
                         IEnumerable<MostPopularBikesBase> promotedBikes = _bikeModels.GetAdPromotedBike(obj, true);
@@ -1549,7 +1554,7 @@ namespace Bikewale.Models
                     break;
                 default:
                     return widget;
-            }           
+            }
             return widget;
         }
 
@@ -1601,8 +1606,8 @@ namespace Bikewale.Models
                 PageSize = topCount,
                 BodyStyleId = (uint)EnumBikeBodyStyles.Scooter
             };
-            
-                UpcomingScooters = _upcoming.GetModels(Filters, EnumUpcomingBikesFilter.Default);
+
+            UpcomingScooters = _upcoming.GetModels(Filters, EnumUpcomingBikesFilter.Default);
 
             return UpcomingScooters;
         }
@@ -1643,7 +1648,7 @@ namespace Bikewale.Models
         /// <param name="viewAllUrl">Url where the user is redirected when the `View All` button is clicked</param>
         /// <param name="viewAllText">String for Text of `View All` button</param>
         /// <param name="viewAllTitle">Link title as well as the button text of the view all link/button</param>
-        private void SetWidgetStructureData(EditorialWidgetInfo widget, string title, string tabId, bool showViewAll, string viewAllUrl=null, string viewAllText=null, string viewAllTitle=null)
+        private void SetWidgetStructureData(EditorialWidgetInfo widget, string title, string tabId, bool showViewAll, string viewAllUrl = null, string viewAllText = null, string viewAllTitle = null)
         {
             try
             {
@@ -1663,7 +1668,7 @@ namespace Bikewale.Models
                 ErrorClass.LogError(ex, string.Format("BikeWale.UI.Models.News.NewsDetailPage.SetWidgetMiscData__WidgetTitle: {0}", title));
             }
         }
-        
+
 
     }
 
