@@ -272,6 +272,7 @@ namespace Bikewale.BAL.BikeData
                         if (minSpecs.MoveNext())
                         {
                             float value;
+                            ushort gears;
                             foreach (var spec in minSpecs.Current.MinSpecsList)
                             {
                                 switch ((EnumSpecsFeaturesItem)spec.Id)
@@ -300,7 +301,7 @@ namespace Bikewale.BAL.BikeData
                                         seriesBike.BrakeType = spec.Value;
                                         break;
                                     case EnumSpecsFeaturesItem.NoOfGears:
-                                        if (ushort.TryParse(spec.Value, out ushort gears))
+                                        if (ushort.TryParse(spec.Value, out gears))
                                             seriesBike.Gears = gears;
                                         break;
                                     case EnumSpecsFeaturesItem.MaxPowerRpm:
