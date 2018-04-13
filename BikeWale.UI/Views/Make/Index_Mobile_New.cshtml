@@ -1,8 +1,7 @@
 ﻿@model Bikewale.Models.MakePageVM
 @{
-    Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/m/make/make.css' inline /><link rel='stylesheet' type='text/css' href='/css/emicalculator.css' inline />";
-	Model.Page_BTF_CSS_Path = "/sass/partials/explore-bikes-carousel.css";
+	Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
+	Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/m/make/make.css' inline /><link rel='stylesheet' type='text/css' href='/css/emicalculator.css' inline /> <link rel='stylesheet' type='text/css' href='/sass/partials/explore-bikes-carousel.css' inline />";
     Model.Page_JS_Paths = new[] { "/m/src/make.js", "/m/src/popup/newBikeSearchPopup.js", "/src/emi-calculator.js" };
     ushort index = 0, prev = 0, gap = 2, j = 0;    
 }
