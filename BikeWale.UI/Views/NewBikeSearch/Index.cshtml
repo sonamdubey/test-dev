@@ -194,97 +194,97 @@
                                         </div>
                                     </div>
                                 </div>
+                                @if (Model.BrakeTypes != null)
+                                {
+                                    <div class="grid-3 padding-top10 alpha">
+                                        <div class="more-filter-brakes">
 
-                                <div class="grid-3 padding-top10 alpha">
-                                    <div class="more-filter-brakes">
-
-                                        <div class="more-filter-item-title">
-                                            <h3>Brakes</h3>
-                                        </div>
-
-                                        <div class="filter-div rounded-corner2">
-                                            <div id="filter-style-displacement" class="filter-select-title">
-                                                <span class="hide">Select brake types</span>
-                                                <span class="leftfloat filter-select-btn default-text">Select ride style</span>
-                                                <span class="clear"></span>
+                                            <div class="more-filter-item-title">
+                                                <h3>Brakes</h3>
                                             </div>
-                                            <span id="upDownArrow" class="rightfloat fa fa-angle-down position-abt pos-top15 pos-right10"></span>
-                                        </div>
-                                        <div name="braketype" class="filter-selection-div more-filter-item-data ride-style-list list-items hide">
-                                            <span class="top-arrow"></span>
-                                            @if (Model.BrakeTypes != null)
-                                            {
+
+                                            <div class="filter-div rounded-corner2">
+                                                <div id="filter-style-displacement" class="filter-select-title">
+                                                    <span class="hide">Select brake types</span>
+                                                    <span class="leftfloat filter-select-btn default-text">Select ride style</span>
+                                                    <span class="clear"></span>
+                                                </div>
+                                                <span id="upDownArrow" class="rightfloat fa fa-angle-down position-abt pos-top15 pos-right10"></span>
+                                            </div>
+                                            <div name="braketype" class="filter-selection-div more-filter-item-data ride-style-list list-items hide">
+                                                <span class="top-arrow"></span>
                                                 <ul class="content-inner-block-10">
-                                                    foreach (var item in Model.BrakeTypes)
+                                                    @foreach (var item in Model.BrakeTypes)
+                                                    {
+                                                    <li class="uncheck" filterid="@item.Id"><span>@item.Value</span></li>
+                                                    }
+                                                </ul>                                                  
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                                
+                                @if (Model.WheelTypes != null)
+                                {
+                                    <div class="grid-3 padding-top10 alpha">
+                                        <div class="more-filter-wheels">
+
+                                            <div class="more-filter-item-title">
+                                                <h3>Wheels</h3>
+                                            </div>
+
+                                            <div class="filter-div rounded-corner2">
+                                                <div id="filter-style-displacement" class="filter-select-title">
+                                                    <span class="hide">Select wheel types</span>
+                                                    <span class="leftfloat filter-select-btn default-text">Select ride style</span>
+                                                    <span class="clear"></span>
+                                                </div>
+                                                <span id="upDownArrow" class="rightfloat fa fa-angle-down position-abt pos-top15 pos-right10"></span>
+                                            </div>
+                                            <div name="alloywheel" class="filter-selection-div more-filter-item-data ride-style-list list-items hide">
+                                                <span class="top-arrow"></span>
+                                                <ul class="content-inner-block-10">
+                                                    @foreach (var item in Model.WheelTypes)
                                                     {
                                                     <li class="uncheck" filterid="@item.Id"><span>@item.Value</span></li>
                                                     }
                                                 </ul>
-                                            }                                            
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                }
+                                
+                                @if (Model.StartTypes != null)
+                                {
+                                    <div class="grid-3 padding-top10 alpha">
+                                        <div class="more-filter-start-type">
 
-                                <div class="grid-3 padding-top10 alpha">
-                                    <div class="more-filter-wheels">
-
-                                        <div class="more-filter-item-title">
-                                            <h3>Wheels</h3>
-                                        </div>
-
-                                        <div class="filter-div rounded-corner2">
-                                            <div id="filter-style-displacement" class="filter-select-title">
-                                                <span class="hide">Select wheel types</span>
-                                                <span class="leftfloat filter-select-btn default-text">Select ride style</span>
-                                                <span class="clear"></span>
+                                            <div class="more-filter-item-title">
+                                                <h3>Start type</h3>
                                             </div>
-                                            <span id="upDownArrow" class="rightfloat fa fa-angle-down position-abt pos-top15 pos-right10"></span>
-                                        </div>
-                                        <div name="alloywheel" class="filter-selection-div more-filter-item-data ride-style-list list-items hide">
-                                            <span class="top-arrow"></span>
-                                            @if (Model.WheelTypes != null)
-                                            {
+
+                                            <div class="filter-div rounded-corner2">
+                                                <div id="filter-style-displacement" class="filter-select-title">
+                                                    <span class="hide">Select start type</span>
+                                                    <span class="leftfloat filter-select-btn default-text">Select ride style</span>
+                                                    <span class="clear"></span>
+                                                </div>
+                                                <span id="upDownArrow" class="rightfloat fa fa-angle-down position-abt pos-top15 pos-right10"></span>
+                                            </div>
+                                            <div name="starttype" class="filter-selection-div more-filter-item-data ride-style-list list-items hide">
+                                                <span class="top-arrow"></span>                                            
                                                 <ul class="content-inner-block-10">
-                                                    foreach (var item in Model.WheelTypes)
+                                                    @foreach (var item in Model.StartTypes)
                                                     {
                                                     <li class="uncheck" filterid="@item.Id"><span>@item.Value</span></li>
                                                     }
                                                 </ul>
-                                            }
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="grid-3 padding-top10 alpha">
-                                    <div class="more-filter-start-type">
-
-                                        <div class="more-filter-item-title">
-                                            <h3>Start type</h3>
-                                        </div>
-
-                                        <div class="filter-div rounded-corner2">
-                                            <div id="filter-style-displacement" class="filter-select-title">
-                                                <span class="hide">Select start type</span>
-                                                <span class="leftfloat filter-select-btn default-text">Select ride style</span>
-                                                <span class="clear"></span>
                                             </div>
-                                            <span id="upDownArrow" class="rightfloat fa fa-angle-down position-abt pos-top15 pos-right10"></span>
-                                        </div>
-                                        <div name="starttype" class="filter-selection-div more-filter-item-data ride-style-list list-items hide">
-                                            <span class="top-arrow"></span>                                            
-                                            @if (Model.StartTypes != null)
-                                            {
-                                                <ul class="content-inner-block-10">
-                                                    foreach (var item in Model.StartTypes)
-                                                    {
-                                                    <li class="uncheck" filterid="@item.Id"><span>@item.Value</span></li>
-                                                    }
-                                                </ul>
-                                            }
                                         </div>
                                     </div>
-                                </div>
+                                }
                             </div>
+                                
                             <div class="grid-2 padding-top10 alpha">
                                 <div class="more-filter-abs">
                                     <div class="more-filter-item-title">

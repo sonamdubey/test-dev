@@ -376,72 +376,73 @@
             <!--ride section starts here-->
 
             <!--Brakes section ends here-->
-            <div class="dropdown form-control-box margin-bottom20">
-                <h3 class="text-black margin-bottom10">Brakes</h3>
-                <div class="form-control">
-                    <span class="hide">Brakes</span>
-                    <span class="hida">Brakes</span>
-                    <div class="multiSel"></div>
-                </div>
+            @if (Model.BrakeTypes != null)
+            {
+                <div class="dropdown form-control-box margin-bottom20">
+                    <h3 class="text-black margin-bottom10">Brakes</h3>
+                    <div class="form-control">
+                        <span class="hide">Brakes</span>
+                        <span class="hida">Brakes</span>
+                        <div class="multiSel"></div>
+                    </div>
 
-                <div name="braketype" class="multiSelect">
-                        @if (Model.BrakeTypes != null)
-                        {
-                            <ul>
-                                foreach (var item in Model.BrakeTypes)
-                                {
-                                <li class="unchecked" filterid="@item.Id"><span>@item.Value</span></li>
-                                }
-                            </ul>
-                        }
+                    <div name="braketype" class="multiSelect">
+                        <ul>
+                            @foreach (var item in Model.BrakeTypes)
+                            {
+                            <li class="unchecked" filterid="@item.Id"><span>@item.Value</span></li>
+                            }
+                        </ul>
+                    </div>
                 </div>
-            </div>
+            }
             <!--Brakes section ends here-->
 
             <!--Wheels section ends here-->
-            <div class="dropdown form-control-box margin-bottom20">
-                <h3 class="text-black margin-bottom10">Wheels</h3>
-                <div class="form-control">
-                    <span class="hide">Wheels</span>
-                    <span class="hida">Wheels</span>
-                    <div class="multiSel"></div>
-                </div>
+            @if (Model.WheelTypes != null)
+            {
+                <div class="dropdown form-control-box margin-bottom20">
+                    <h3 class="text-black margin-bottom10">Wheels</h3>
+                    <div class="form-control">
+                        <span class="hide">Wheels</span>
+                        <span class="hida">Wheels</span>
+                        <div class="multiSel"></div>
+                    </div>
 
-                <div name="alloywheel" class="multiSelect">
-                        @if (Model.WheelTypes != null)
-                        {
-                            <ul>
-                                foreach (var item in Model.WheelTypes)
-                                {
-                                <li class="unchecked" filterid="@item.Id"><span>@item.Value</span></li>
-                                }
-                            </ul>
-                        }
+                    <div name="alloywheel" class="multiSelect">
+                        <ul>
+                            @foreach (var item in Model.WheelTypes)
+                            {
+                            <li class="unchecked" filterid="@item.Id"><span>@item.Value</span></li>
+                            }
+                        </ul>                        
+                    </div>
                 </div>
-            </div>
+            }
             <!--Wheels section ends here-->
 
             <!--Start type section ends here-->
-            <div class="dropdown form-control-box margin-bottom20">
-                <h3 class="text-black margin-bottom10">Start type</h3>
-                <div class="form-control">
-                    <span class="hide">Start type</span>
-                    <span class="hida">Start type</span>
-                    <div class="multiSel"></div>
-                </div>
+            @if (Model.StartTypes != null)
+            {
+                <div class="dropdown form-control-box margin-bottom20">
+                    <h3 class="text-black margin-bottom10">Start type</h3>
+                    <div class="form-control">
+                        <span class="hide">Start type</span>
+                        <span class="hida">Start type</span>
+                        <div class="multiSel"></div>
+                    </div>
 
-                <div name="starttype" class="multiSelect">
-                    @if (Model.StartTypes != null)
-                    {
+                    <div name="starttype" class="multiSelect">
                         <ul>
-                        foreach (var item in Model.StartTypes)
+                        @foreach (var item in Model.StartTypes)
                         {
                             <li class="unchecked" filterid="@item.Id"><span>@item.Value</span></li>
                         }
                         </ul>
-                    }
+                    
+                    </div>
                 </div>
-            </div>
+            }
             <!--Start type section ends here-->
 
             <div class="grid-12 alpha omega margin-bottom20 clear">
