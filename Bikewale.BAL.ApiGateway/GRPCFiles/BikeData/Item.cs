@@ -6,11 +6,11 @@
 using pb = global::Google.Protobuf;
 using pbc = global::Google.Protobuf.Collections;
 using pbr = global::Google.Protobuf.Reflection;
-namespace VehicleData.Service.ProtoClass
-{
+using scg = global::System.Collections.Generic;
+namespace VehicleData.Service.ProtoClass {
 
-    /// <summary>Holder for reflection information generated from item.proto</summary>
-    public static partial class ItemReflection {
+  /// <summary>Holder for reflection information generated from item.proto</summary>
+  public static partial class ItemReflection {
 
     #region Descriptor
     /// <summary>File descriptor for item.proto</summary>
@@ -22,7 +22,7 @@ namespace VehicleData.Service.ProtoClass
     static ItemReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "CgppdGVtLnByb3RvEgtWZWhpY2xlRGF0YSKcAwoESXRlbRIKCgJJZBgBIAEo",
+            "CgppdGVtLnByb3RvEgtWZWhpY2xlRGF0YSKxAwoESXRlbRIKCgJJZBgBIAEo",
             "BRISCgpDYXRlZ29yeUlkGAIgASgFEgwKBE5hbWUYAyABKAkSEgoKRGF0YVR5",
             "cGVJZBgEIAEoBRISCgpVbml0VHlwZUlkGAUgASgFEhQKDFVuaXRUeXBlTmFt",
             "ZRgGIAEoCRIRCglTb3J0T3JkZXIYByABKAUSEwoLRGVzY3JpcHRpb24YCCAB",
@@ -30,21 +30,20 @@ namespace VehicleData.Service.ProtoClass
             "Bk1pblZhbBgLIAEoBRIOCgZNYXhWYWwYDCABKAUSEwoLSXNQdWJsaXNoZWQY",
             "DSABKAgSDAoESWNvbhgOIAEoCRIVCg1Qcmlvcml0eU9yZGVyGA8gASgFEhYK",
             "Dkl0ZW1JbXBvcnRhbmNlGBAgASgFEhEKCVVwZGF0ZWRPbhgRIAEoCRIRCglV",
-            "cGRhdGVkQnkYEiABKAUSFQoNQXBwbGljYXRpb25JZBgTIAEoBRISCgpJdGVt",
-            "VmFsdWVzGBQgAygJEhUKDUl0ZW1Hcm91cFR5cGUYFSABKAUiVQoVSXRlbUJ5",
-            "Q2F0ZWdvcnlSZXF1ZXN0EhIKCkNhdGVnb3J5SWQYASABKAUSEQoJVmVyc2lv",
-            "bklkGAIgASgFEhUKDUFwcGxpY2F0aW9uSWQYAyABKAUiLAoISXRlbUxpc3QS",
-            "IAoFSXRlbXMYASADKAsyES5WZWhpY2xlRGF0YS5JdGVtKloKDkl0ZW1Hcm91",
-            "cFR5cGVzEggKBE5vbmUQABIOCgpJbmRpdmlkdWFsEAESFwoTSW5kaXZpZHVh",
-            "bGx5Q3JlYXRlZBACEhUKEUluZGl2aWR1YWxseVNob3duEAMqNQoKSXRlbVN0",
-            "YXR1cxINCglQdWJsaXNoZWQQABIPCgtVblB1Ymxpc2hlZBABEgcKA0FsbBAC",
-            "KkMKCEl0ZW1UeXBlEgwKCEFsbF9JdGVtEAASEgoOQXZhaWxhYmxlX0l0ZW0Q",
-            "ARIVChFOb3RBdmFpbGFibGVfSXRlbRACQiGqAh5WZWhpY2xlRGF0YS5TZXJ2",
-            "aWNlLlByb3RvQ2xhc3NiBnByb3RvMw=="));
+            "cGRhdGVkQnkYEiABKAUSFQoNQXBwbGljYXRpb25JZBgTIAEoBRIRCglJdGVt",
+            "VmFsdWUYFCABKAkSFQoNSXRlbUdyb3VwVHlwZRgVIAEoBRIUCgxDdXN0b21U",
+            "eXBlSWQYFiABKAUiVQoVSXRlbUJ5Q2F0ZWdvcnlSZXF1ZXN0EhIKCkNhdGVn",
+            "b3J5SWQYASABKAUSEQoJVmVyc2lvbklkGAIgASgFEhUKDUFwcGxpY2F0aW9u",
+            "SWQYAyABKAUiLAoISXRlbUxpc3QSIAoFSXRlbXMYASADKAsyES5WZWhpY2xl",
+            "RGF0YS5JdGVtKloKDkl0ZW1Hcm91cFR5cGVzEggKBE5vbmUQABIOCgpJbmRp",
+            "dmlkdWFsEAESFwoTSW5kaXZpZHVhbGx5Q3JlYXRlZBACEhUKEUluZGl2aWR1",
+            "YWxseVNob3duEAMqNQoKSXRlbVN0YXR1cxINCglQdWJsaXNoZWQQABIPCgtV",
+            "blB1Ymxpc2hlZBABEgcKA0FsbBACQiGqAh5WZWhpY2xlRGF0YS5TZXJ2aWNl",
+            "LlByb3RvQ2xhc3NiBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
-          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::VehicleData.Service.ProtoClass.ItemGroupTypes), typeof(global::VehicleData.Service.ProtoClass.ItemStatus), typeof(global::VehicleData.Service.ProtoClass.ItemType), }, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::VehicleData.Service.ProtoClass.Item), global::VehicleData.Service.ProtoClass.Item.Parser, new[]{ "Id", "CategoryId", "Name", "DataTypeId", "UnitTypeId", "UnitTypeName", "SortOrder", "Description", "IsActive", "Abbreviation", "MinVal", "MaxVal", "IsPublished", "Icon", "PriorityOrder", "ItemImportance", "UpdatedOn", "UpdatedBy", "ApplicationId", "ItemValues", "ItemGroupType" }, null, null, null),
+          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::VehicleData.Service.ProtoClass.ItemGroupTypes), typeof(global::VehicleData.Service.ProtoClass.ItemStatus), }, new pbr::GeneratedClrTypeInfo[] {
+            new pbr::GeneratedClrTypeInfo(typeof(global::VehicleData.Service.ProtoClass.Item), global::VehicleData.Service.ProtoClass.Item.Parser, new[]{ "Id", "CategoryId", "Name", "DataTypeId", "UnitTypeId", "UnitTypeName", "SortOrder", "Description", "IsActive", "Abbreviation", "MinVal", "MaxVal", "IsPublished", "Icon", "PriorityOrder", "ItemImportance", "UpdatedOn", "UpdatedBy", "ApplicationId", "ItemValue", "ItemGroupType", "CustomTypeId" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::VehicleData.Service.ProtoClass.ItemByCategoryRequest), global::VehicleData.Service.ProtoClass.ItemByCategoryRequest.Parser, new[]{ "CategoryId", "VersionId", "ApplicationId" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::VehicleData.Service.ProtoClass.ItemList), global::VehicleData.Service.ProtoClass.ItemList.Parser, new[]{ "Items" }, null, null, null)
           }));
@@ -64,12 +63,6 @@ namespace VehicleData.Service.ProtoClass
     [pbr::OriginalName("Published")] Published = 0,
     [pbr::OriginalName("UnPublished")] UnPublished = 1,
     [pbr::OriginalName("All")] All = 2,
-  }
-
-  public enum ItemType {
-    [pbr::OriginalName("All_Item")] AllItem = 0,
-    [pbr::OriginalName("Available_Item")] AvailableItem = 1,
-    [pbr::OriginalName("NotAvailable_Item")] NotAvailableItem = 2,
   }
 
   #endregion
@@ -118,8 +111,9 @@ namespace VehicleData.Service.ProtoClass
       updatedOn_ = other.updatedOn_;
       updatedBy_ = other.updatedBy_;
       applicationId_ = other.applicationId_;
-      itemValues_ = other.itemValues_.Clone();
+      itemValue_ = other.itemValue_;
       itemGroupType_ = other.itemGroupType_;
+      customTypeId_ = other.customTypeId_;
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -336,14 +330,15 @@ namespace VehicleData.Service.ProtoClass
       }
     }
 
-    /// <summary>Field number for the "ItemValues" field.</summary>
-    public const int ItemValuesFieldNumber = 20;
-    private static readonly pb::FieldCodec<string> _repeated_itemValues_codec
-        = pb::FieldCodec.ForString(162);
-    private readonly pbc::RepeatedField<string> itemValues_ = new pbc::RepeatedField<string>();
+    /// <summary>Field number for the "ItemValue" field.</summary>
+    public const int ItemValueFieldNumber = 20;
+    private string itemValue_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public pbc::RepeatedField<string> ItemValues {
-      get { return itemValues_; }
+    public string ItemValue {
+      get { return itemValue_; }
+      set {
+        itemValue_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
     }
 
     /// <summary>Field number for the "ItemGroupType" field.</summary>
@@ -354,6 +349,17 @@ namespace VehicleData.Service.ProtoClass
       get { return itemGroupType_; }
       set {
         itemGroupType_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "CustomTypeId" field.</summary>
+    public const int CustomTypeIdFieldNumber = 22;
+    private int customTypeId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CustomTypeId {
+      get { return customTypeId_; }
+      set {
+        customTypeId_ = value;
       }
     }
 
@@ -389,8 +395,9 @@ namespace VehicleData.Service.ProtoClass
       if (UpdatedOn != other.UpdatedOn) return false;
       if (UpdatedBy != other.UpdatedBy) return false;
       if (ApplicationId != other.ApplicationId) return false;
-      if(!itemValues_.Equals(other.itemValues_)) return false;
+      if (ItemValue != other.ItemValue) return false;
       if (ItemGroupType != other.ItemGroupType) return false;
+      if (CustomTypeId != other.CustomTypeId) return false;
       return true;
     }
 
@@ -416,8 +423,9 @@ namespace VehicleData.Service.ProtoClass
       if (UpdatedOn.Length != 0) hash ^= UpdatedOn.GetHashCode();
       if (UpdatedBy != 0) hash ^= UpdatedBy.GetHashCode();
       if (ApplicationId != 0) hash ^= ApplicationId.GetHashCode();
-      hash ^= itemValues_.GetHashCode();
+      if (ItemValue.Length != 0) hash ^= ItemValue.GetHashCode();
       if (ItemGroupType != 0) hash ^= ItemGroupType.GetHashCode();
+      if (CustomTypeId != 0) hash ^= CustomTypeId.GetHashCode();
       return hash;
     }
 
@@ -504,10 +512,17 @@ namespace VehicleData.Service.ProtoClass
         output.WriteRawTag(152, 1);
         output.WriteInt32(ApplicationId);
       }
-      itemValues_.WriteTo(output, _repeated_itemValues_codec);
+      if (ItemValue.Length != 0) {
+        output.WriteRawTag(162, 1);
+        output.WriteString(ItemValue);
+      }
       if (ItemGroupType != 0) {
         output.WriteRawTag(168, 1);
         output.WriteInt32(ItemGroupType);
+      }
+      if (CustomTypeId != 0) {
+        output.WriteRawTag(176, 1);
+        output.WriteInt32(CustomTypeId);
       }
     }
 
@@ -571,9 +586,14 @@ namespace VehicleData.Service.ProtoClass
       if (ApplicationId != 0) {
         size += 2 + pb::CodedOutputStream.ComputeInt32Size(ApplicationId);
       }
-      size += itemValues_.CalculateSize(_repeated_itemValues_codec);
+      if (ItemValue.Length != 0) {
+        size += 2 + pb::CodedOutputStream.ComputeStringSize(ItemValue);
+      }
       if (ItemGroupType != 0) {
         size += 2 + pb::CodedOutputStream.ComputeInt32Size(ItemGroupType);
+      }
+      if (CustomTypeId != 0) {
+        size += 2 + pb::CodedOutputStream.ComputeInt32Size(CustomTypeId);
       }
       return size;
     }
@@ -640,9 +660,14 @@ namespace VehicleData.Service.ProtoClass
       if (other.ApplicationId != 0) {
         ApplicationId = other.ApplicationId;
       }
-      itemValues_.Add(other.itemValues_);
+      if (other.ItemValue.Length != 0) {
+        ItemValue = other.ItemValue;
+      }
       if (other.ItemGroupType != 0) {
         ItemGroupType = other.ItemGroupType;
+      }
+      if (other.CustomTypeId != 0) {
+        CustomTypeId = other.CustomTypeId;
       }
     }
 
@@ -731,11 +756,15 @@ namespace VehicleData.Service.ProtoClass
             break;
           }
           case 162: {
-            itemValues_.AddEntriesFrom(input, _repeated_itemValues_codec);
+            ItemValue = input.ReadString();
             break;
           }
           case 168: {
             ItemGroupType = input.ReadInt32();
+            break;
+          }
+          case 176: {
+            CustomTypeId = input.ReadInt32();
             break;
           }
         }

@@ -15,7 +15,7 @@ namespace Bikewale.BAL.ApiGateway.Adapters.BikeData
 	/// Created By : Ashish G. Kamble on 4 Apr 2018
 	/// Summary : Adapter class responsible for executing GRPC method through APIGateway and return reponse to the client.
 	/// </summary>
-	public class GetVersionSpecsByIdAdapter : AbstractApiGatewayAdapater<IEnumerable<int>, SpecsFeaturesEntity, VehicleDataValue>
+	public class GetVersionSpecsByIdAdapter : AbstractApiGatewayAdapater<IEnumerable<int>, SpecsFeaturesEntity, VehicleDataList>
 	{
 		/// <summary>
 		/// Constructor will set all dependencies required to get the data from APIGateway
@@ -55,36 +55,42 @@ namespace Bikewale.BAL.ApiGateway.Adapters.BikeData
 
 		/// <summary>
 		/// Function to convert GRPC message to the respective bikewale entity. This function should be overridden in derived class
+		/// Modified By : Rajan Chauhan on 12 Apr 2018
+		/// Description : Convertor change for change in grpc response object
 		/// </summary>
 		/// <param name="responseMessage">GRPC message</param>
 		/// <returns>Returns bikewale entity as a response for the current adapter method</returns>
 		protected override SpecsFeaturesEntity BuildResponse(IMessage responseMessage)
 		{
 			SpecsFeaturesEntity specsFeaturesEntity = null;
-			
+
 			try
 			{
-				VehicleDataValue vehicleDataValue = responseMessage as VehicleDataValue;
+				VehicleDataList vehicleDataList = responseMessage as VehicleDataList;
 
-				if (vehicleDataValue != null)
+				IEnumerable<VehicleDataValue> vehicleDataValueList = vehicleDataList != null ? vehicleDataList.VehicleData : null;
+
+				if (vehicleDataValueList != null && vehicleDataValueList.Any())
 				{
 					specsFeaturesEntity = new SpecsFeaturesEntity();
-					var specs = new List<SpecsFeaturesCategory>();
-					foreach (var category in vehicleDataValue.Specifications)
+					var specCategoryList = new List<SpecsFeaturesCategory>();
+					IEnumerable<IEnumerator<Category>> vehicleSpecsEnumeratorList = vehicleDataValueList.Select(vehicle => vehicle.Specifications.GetEnumerator());
+					while (vehicleSpecsEnumeratorList.All(specCat => specCat.MoveNext()))
 					{
-						specs.Add(new SpecsFeaturesCategory
+						specCategoryList.Add(new SpecsFeaturesCategory
 						{
-							DisplayText = category.Name,
-                            				Icon = category.Icon,
-							SpecsItemList = ConvertToBwSpecsFeaturesEntity(category.Items)
+							DisplayText = vehicleSpecsEnumeratorList.FirstOrDefault().Current.Name,
+							Icon = vehicleSpecsEnumeratorList.FirstOrDefault().Current.Icon,
+							SpecsItemList = ConvertToBwSpecsFeaturesEntity(vehicleSpecsEnumeratorList.Select(specCat => specCat.Current.Items))
 						});
 					}
-					specsFeaturesEntity.Specs = specs;
-					var specsCategory = vehicleDataValue.Features.FirstOrDefault();
-					if (specsCategory != null)
+					specsFeaturesEntity.Specs = specCategoryList;
+					IEnumerable<IEnumerator<Category>> vehicleFeaturesEnumeratorList = vehicleDataValueList.Select(vehicle => vehicle.Features.GetEnumerator());
+
+					while (vehicleFeaturesEnumeratorList.All(featureCat => featureCat.MoveNext()))
 					{
-						var features = ConvertToBwSpecsFeaturesEntity(specsCategory.Items);
-						specsFeaturesEntity.Features = features;
+						specsFeaturesEntity.Features = ConvertToBwSpecsFeaturesEntity(vehicleFeaturesEnumeratorList.Select(featureCat => featureCat.Current.Items));
+
 					}
 				}
 			}
@@ -97,27 +103,30 @@ namespace Bikewale.BAL.ApiGateway.Adapters.BikeData
 
 		/// <summary>
 		/// Function to convert GRPC message for items into bikewale entities
+		/// Modified By : Rajan Chauhan on 12 Apr 2018
+		/// Description : Convertor change for change in grpc response object
 		/// </summary>
 		/// <param name="items">GRPC Message</param>
 		/// <returns>Bikewale Entity</returns>
-		private IEnumerable<SpecsFeaturesItem> ConvertToBwSpecsFeaturesEntity(RepeatedField<Item> items)
+		private IEnumerable<SpecsFeaturesItem> ConvertToBwSpecsFeaturesEntity(IEnumerable<RepeatedField<Item>> itemsList)
 		{
 			try
 			{
-				if (items != null)
+				if (itemsList != null)
 				{
 					var itemList = new List<SpecsFeaturesItem>();
-					foreach (var item in items)
+					IEnumerable<IEnumerator<Item>> itemsEnumeratorList = itemsList.Select(items => items.GetEnumerator());
+					while (itemsEnumeratorList.All(items => items.MoveNext()))
 					{
 						itemList.Add(new SpecsFeaturesItem
 						{
-							DisplayText = item.Name,
-							Icon = item.Icon,
-							Id = item.Id,
-							ItemValues = item.ItemValues,
-							UnitTypeText = item.UnitTypeName,
-                            DataType = (EnumSpecDataType)item.DataTypeId
-                        });
+							DisplayText = itemsEnumeratorList.FirstOrDefault().Current.Name,
+							Icon = itemsEnumeratorList.FirstOrDefault().Current.Icon,
+							Id = itemsEnumeratorList.FirstOrDefault().Current.Id,
+							ItemValues = itemsEnumeratorList.Select(item => item.Current.ItemValue),
+							UnitTypeText = itemsEnumeratorList.FirstOrDefault().Current.UnitTypeName,
+							DataType = (EnumSpecDataType)itemsEnumeratorList.FirstOrDefault().Current.DataTypeId
+						});
 					}
 					return itemList;
 				}
