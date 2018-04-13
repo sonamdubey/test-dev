@@ -313,25 +313,6 @@
 	self.handleGalleryContinueClick = function () {
 		$('.model-gallery__container .gallery__next').trigger('click');
 	}
-
-	self.handleFullscreenChange = function() {
-		var isFullScreen = isFullscreenEnabled();
-
-		if (!isFullScreen) {
-			if (window.innerWidth > window.innerHeight) {
-				$('body').addClass('device--landscape-no-fullscreen');
-			}
-		}
-		else {
-			$('body').removeClass('device--landscape-no-fullscreen');
-		}
-	}
-
-	self.registerEvents = function() {
-		$(document).on('webkitfullscreenchange mozfullscreenchange fullscreenchange MSFullscreenChange', function () {
-			self.handleFullscreenChange();
-		})
-	}
 };
 
 var ModelColorPopupViewModel = function () {

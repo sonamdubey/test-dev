@@ -134,10 +134,6 @@ function resizeHandler() {
 		vmModelGallery.setRotateScreenOption();
 		vmModelGallery.setColorOption();
 		vmModelGallery.resetSharePopup();
-
-		setTimeout(function () {
-			vmModelGallery.handleFullscreenChange();
-		}, 0);
 	}
 
 	if (vmModelGallery.colorPopup().activePopup()) {
@@ -146,20 +142,6 @@ function resizeHandler() {
 		}
 	}
 };
-
-function isFullscreenEnabled(element) {
-	if (typeof element === 'undefined') {
-		element = document;
-	}
-
-	var isFullScreen = element.fullScreen || element.mozFullScreen || element.webkitIsFullScreen || element.msFullscreenElement;
-
-	if (isFullScreen) {
-		return true;
-	}
-
-	return false;
-}
 
 function toggleFullScreen(goFullScreen) {
 	var doc = window.document;
@@ -222,7 +204,6 @@ docReady(function () {
 
 	if (galleryRoot.length) {
 		ko.applyBindings(vmModelGallery, galleryRoot[0]);
-		vmModelGallery.registerEvents();
 	}
 
 	// popup states
