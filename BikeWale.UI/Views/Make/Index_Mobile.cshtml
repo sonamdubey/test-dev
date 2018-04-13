@@ -284,7 +284,25 @@
                     </div>
                 }
 
-          
+                @if (Model.BikeModelsPhotos != null && Model.BikeModelsPhotos.ModelList != null && Model.BikeModelsPhotos.ModelList.Any())
+                {
+                    <section id="makeImagesContent" class="bw-model-tabs-data padding-top15 padding-bottom20 border-solid-bottom font14">
+                        <div class="bw-model-tabs-data model-image-section">
+                            <div class="carousel-heading-content">
+                                <div class="swiper-heading-left-grid inline-block">
+                                    <h2 class="text-bold">@Model.MakeName Images</h2>
+                                </div>
+                                <div class="swiper-heading-right-grid inline-block text-right">
+                                    <a href="/m/@Model.MakeMaskingName-bikes/images/" title="@string.Format("{0} Images",Model.MakeName)" class="btn view-all-target-btn">View all</a>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                            @Html.Partial("~/Views/Photos/_ImageCaraousel_Mobile.cshtml", Model.BikeModelsPhotos)
+                        </div>
+                    </section>
+
+                }
+
                 @if (Model.Videos != null && Model.Videos.VideosList != null && Model.Videos.VideosList.Any())
                 {
                     <div id="makeVideosContent" class="bw-model-tabs-data margin-right20 margin-left20 padding-top15 padding-bottom20 border-solid-bottom font14">
