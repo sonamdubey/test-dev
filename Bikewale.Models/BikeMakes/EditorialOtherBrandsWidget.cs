@@ -10,6 +10,19 @@ namespace Bikewale.Models.BikeMakes
 {
     public class EditorialOtherBrandsWidget : EditorialWidgetInfo
     {
+        public override EditorialWidgetType WidgetType
+        {
+            get
+            {
+                return base.WidgetType;
+            }
+
+            protected set
+            {
+                base.WidgetType = EditorialWidgetType.OtherBrands;
+            }
+        }
+
         public IEnumerable<BikeMakeEntityBase> OtherBrandsList { get; set; }
     }
 }

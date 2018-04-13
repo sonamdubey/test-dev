@@ -10,6 +10,18 @@ namespace Bikewale.Models.BikeModels
 {
     public class EditorialUpcomingBikesWidget : EditorialWidgetInfo
     {
+        public override EditorialWidgetType WidgetType
+        {
+            get
+            {
+                return base.WidgetType;
+            }
+
+          protected set
+            {
+                base.WidgetType = EditorialWidgetType.Upcoming;
+            }
+        }
         public IEnumerable<UpcomingBikeEntity> UpcomingBikeList { get; set; }
     }
 }

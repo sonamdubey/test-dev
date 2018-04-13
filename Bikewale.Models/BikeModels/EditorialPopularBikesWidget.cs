@@ -11,6 +11,20 @@ namespace Bikewale.Models.BikeModels
 {
     public class EditorialPopularBikesWidget : EditorialWidgetInfo
     {
+        public override EditorialWidgetType WidgetType
+        {
+            get
+            {
+                return base.WidgetType;
+            }
+
+            protected set
+            {
+                base.WidgetType = EditorialWidgetType.Popular;
+            }
+        }
+
+
         public IEnumerable<MostPopularBikesBase> MostPopularBikeList { get; set; }
         public uint PageCatId { get; set; }
         public PQSourceEnum PQSourceId { get; set; }
