@@ -108,9 +108,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Bikewale.Entities\Bikewale.Entities.csproj">
       <Project>{8223a4b8-db14-4658-9897-257d872ae8d9}</Project>
       <Name>Bikewale.Entities</Name>
