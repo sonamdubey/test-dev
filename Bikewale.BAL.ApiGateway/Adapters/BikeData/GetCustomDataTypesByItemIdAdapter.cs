@@ -51,7 +51,7 @@ namespace Bikewale.BAL.ApiGateway.Adapters.BikeData
             return dataTypes;
         }
 
-        private static IEnumerable<SpecsCustomDataType> ConvertToSpecsCustomDataType(RepeatedField<CustomDataType> items)
+        private IEnumerable<SpecsCustomDataType> ConvertToSpecsCustomDataType(RepeatedField<CustomDataType> items)
         {
             try
             {
@@ -62,7 +62,7 @@ namespace Bikewale.BAL.ApiGateway.Adapters.BikeData
                     {
                         itemList.Add(new SpecsCustomDataType
                         {
-                            Id = Convert.ToUInt16(item.ItemId),
+                            Id = Convert.ToUInt16(item.Id),
                             Value = Convert.ToString(item.Name)
                         });
                     }

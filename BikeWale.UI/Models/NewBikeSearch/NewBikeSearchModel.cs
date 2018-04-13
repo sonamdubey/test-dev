@@ -1,4 +1,7 @@
-﻿using Bikewale.DTO.NewBikeSearch;
+﻿using Bikewale.BAL.ApiGateway.Adapters.BikeData;
+using Bikewale.BAL.ApiGateway.ApiGatewayHelper;
+using Bikewale.BAL.ApiGateway.Entities.BikeData;
+using Bikewale.DTO.NewBikeSearch;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.NewBikeSearch;
 using Bikewale.Entities.PriceQuote;
@@ -36,9 +39,10 @@ namespace Bikewale.Models.NewBikeSearch
         private readonly PQSourceEnum _pqSource;
         NewSearchPage currentPage;
         NewBikeSearchVM viewModel;
+        private readonly IApiGatewayCaller _apiGatewayCaller;
 
 
-        public NewBikeSearchModel(HttpRequestBase Request, ICMSCacheContent objArticles, IVideos objVideos, IBikeMakesCacheRepository makes, IBikeSearchResult searchResult, IProcessFilter processFilter, PQSourceEnum pqSource)
+        public NewBikeSearchModel(HttpRequestBase Request, ICMSCacheContent objArticles, IVideos objVideos, IBikeMakesCacheRepository makes, IBikeSearchResult searchResult, IProcessFilter processFilter, PQSourceEnum pqSource, IApiGatewayCaller apiGatewayCaller)
         {
             _request = Request;
             _makes = makes;
@@ -48,6 +52,7 @@ namespace Bikewale.Models.NewBikeSearch
             _searchResult = searchResult;
             _processFilter = processFilter;
             _pqSource = pqSource;
+            _apiGatewayCaller = apiGatewayCaller;
         }
 
         /// <summary>
@@ -68,6 +73,7 @@ namespace Bikewale.Models.NewBikeSearch
                 BindPageMetas(viewModel.PageMetaTags);
                 CreatePager(viewModel);
                 BindBrands(viewModel);
+                BindDropDowns(viewModel);
             }
             return viewModel;
         }
@@ -320,6 +326,32 @@ namespace Bikewale.Models.NewBikeSearch
             {
                 Bikewale.Notifications.ErrorClass.LogError(ex, "NewBikeSearchModel.CreatePager()");
             }
+        }
+
+        /// <summary>
+        /// Created By : Deepak Israni on 12 April 2018
+        /// Description: Bind data for brake type, start type and wheel type dropdown menus.
+        /// </summary>
+        /// <param name="objData"></param>
+        private void BindDropDowns(NewBikeSearchVM objData)
+        {
+            //Brake Type -- Change the enum to whatever is decided for brake types
+            GetCustomDataTypesByItemIdAdapter adapt1 = new GetCustomDataTypesByItemIdAdapter();
+            adapt1.AddApiGatewayCall(_apiGatewayCaller, new GetCustomDataType_Input() { InputType = Bikewale.BAL.ApiGateway.Entities.BikeData.EnumSpecsFeaturesItems.FuelType });
+
+            //Start Type -- Change the enum to whatever is decided for start types
+            GetCustomDataTypesByItemIdAdapter adapt2 = new GetCustomDataTypesByItemIdAdapter();
+            adapt2.AddApiGatewayCall(_apiGatewayCaller, new GetCustomDataType_Input() { InputType = Bikewale.BAL.ApiGateway.Entities.BikeData.EnumSpecsFeaturesItems.FuelType });
+
+            //Wheel Type -- Change the enum to whatever is decided for wheel types
+            GetCustomDataTypesByItemIdAdapter adapt3 = new GetCustomDataTypesByItemIdAdapter();
+            adapt3.AddApiGatewayCall(_apiGatewayCaller, new GetCustomDataType_Input() { InputType = Bikewale.BAL.ApiGateway.Entities.BikeData.EnumSpecsFeaturesItems.FuelType });
+
+            _apiGatewayCaller.Call();
+
+            objData.BrakeTypes = adapt1.Output;
+            objData.StartTypes = adapt2.Output;
+            objData.WheelTypes = adapt3.Output;
         }
 
     }
