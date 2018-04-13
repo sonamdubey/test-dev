@@ -1011,7 +1011,6 @@
     <Compile Include="Models\ExpertReviews\ExpertReviewsIndexPage.cs" />
     <Compile Include="Models\ExpertReviews\RecentExpertReviews.cs" />
     <Compile Include="Models\NewBikeSearch\NewBikeSearchModel.cs" />
-    <Compile Include="Models\NewBikeSearch\NewBikeSearchPopupModel.cs" />
     <Compile Include="Models\NewPage\NewPageModel.cs" />
     <Compile Include="Models\News\NewsDetailPage.cs" />
     <Compile Include="Models\NewLaunches\NewLaunchedIndexModel.cs" />

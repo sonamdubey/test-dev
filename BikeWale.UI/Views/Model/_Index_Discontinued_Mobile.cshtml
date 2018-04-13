@@ -59,7 +59,7 @@
                     @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad320x100ATF.cshtml", new { AdId = Model.AdTags.AdId });}
                 </div>
              }
-            @if (Model.ModelPageEntity.ModelVersionSpecs != null)
+            @if (Model.ModelPageEntity.ModelVersionMinSpecs != null)
             {
                 <div>
                     @Html.Partial("~/Views/Model/_Index_ModelSummary_Mobile.cshtml", Model)

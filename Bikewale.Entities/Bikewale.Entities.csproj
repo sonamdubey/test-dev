@@ -239,6 +239,7 @@
     <Compile Include="BikeData\Specifications.cs" />
     <Compile Include="BikeData\Specs.cs" />
     <Compile Include="BikeData\SpecsCategory.cs" />
+    <Compile Include="BikeData\SpecsCustomDataType.cs" />
     <Compile Include="BikeData\SpecsFeaturesEntity.cs" />
     <Compile Include="BikeData\SpecsFeaturesCategory.cs" />
     <Compile Include="BikeData\SpecsFeaturesItem.cs" />

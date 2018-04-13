@@ -134,6 +134,11 @@ namespace Bikewale.BAL.ApiGateway.ApiGatewayHelper
 			{
 				throw new Exception("Bikewale.BAL.ApiGatewayHelper.ApiGatewayCaller.Call", ex);
 			}
+			finally
+			{
+				_outRequest.OutputMessages.Clear();
+				_callbackActionList.Clear();
+			}
 		}		
 
 		/// <summary>
