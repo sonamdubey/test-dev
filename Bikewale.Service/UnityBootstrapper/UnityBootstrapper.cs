@@ -111,7 +111,7 @@ namespace Bikewale.Service.UnityConfiguration
         /// Description :   Register Road Test/Feature/Article BAL classes for CMS Controller constructor resolution
         /// Modified By :   Sajal Gupta on 10-10-2016
         /// Description :   Register usedBikeDetailsRepository, usedBikeDetails
-        ///  /// Modified By : Subodh Jain on 08 Nov 2016
+        /// Modified By :   Subodh Jain on 08 Nov 2016
         /// Description :   Register Service Center
         /// Modified by :   Sumit Kate on 15 Nov 2016
         /// Description :   Register IImage, ISecurity and IImageRepository interfaces
@@ -179,7 +179,9 @@ namespace Bikewale.Service.UnityConfiguration
             container.RegisterType<ILeadNofitication, LeadNotificationBL>();
             container.RegisterType<IBikeMakesCacheRepository, BikeMakesCacheRepository>();
             container.RegisterType<IBikeVersionCacheRepository<BikeVersionEntity, uint>, BikeVersionsCacheRepository<BikeVersionEntity, uint>>();
+            container.RegisterType<IBikeVersionCacheRepository<BikeVersionEntity, int>, BikeVersionsCacheRepository<BikeVersionEntity, int>>();
             container.RegisterType<IBikeVersionsRepository<BikeVersionEntity, uint>, BikeVersionsRepository<BikeVersionEntity, uint>>();
+            container.RegisterType<IBikeVersionsRepository<BikeVersionEntity, int>, BikeVersionsRepository<BikeVersionEntity, int>>();
             container.RegisterType<ICMSCacheContent, CMSCacheRepository>();
             container.RegisterType<IArticles, Articles>();
             container.RegisterType<ISearch, SearchBikes>();

@@ -15,6 +15,7 @@ namespace Bikewale.Service.AutoMappers.Version
 {
     public class VersionListMapper
     {
+        private static IList<string> _categoryNameList = new List<string> { "Summary", "EngTrans", "BrakesAndWheels", "DimChassis", "FuelEffieciency" };
         /// <summary>
         /// Modified by :   Sumit Kate on 12 Apr 2016
         /// Description :   Mapping for MakeBase and ModelBase
@@ -146,12 +147,13 @@ namespace Bikewale.Service.AutoMappers.Version
                     if (modelSpecEntity.Specs != null)
                     {
                         IList<Bikewale.DTO.Model.SpecsCategory> specCategoryList = new List<Bikewale.DTO.Model.SpecsCategory>();
+                        int specCategoryCount = modelSpecEntity.Specs.Count();
                         foreach (SpecsFeaturesCategory specCategory in modelSpecEntity.Specs)
                         {
                             specCategoryList.Add(new Bikewale.DTO.Model.SpecsCategory()
                             {
                                 DisplayName = specCategory.DisplayText,
-                                CategoryName = specCategory.DisplayText,
+                                CategoryName = GetCategoryName(specCategoryList.Count, specCategoryCount),
                                 Specs = Convert(specCategory.SpecsItemList)
                             });
                         }
@@ -171,5 +173,16 @@ namespace Bikewale.Service.AutoMappers.Version
             
             return verisonSpecs;
 		}
+
+        /// <summary>
+        /// Method for supporting CategoryName field in api/version/{versionId}/specs/
+        /// </summary>
+        /// <param name="currentIndex"></param>
+        /// <param name="TotalCategory"></param>
+        /// <returns></returns>
+        private static string GetCategoryName(int currentIndex, int TotalCategory)
+        {
+            return _categoryNameList[_categoryNameList.Count - TotalCategory + currentIndex];
+        }
 	}
 }
