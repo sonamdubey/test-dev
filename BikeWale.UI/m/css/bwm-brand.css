@@ -752,6 +752,15 @@
     font-size: 14px
 }
 
+.carousel__recently-added .carousel-slide:first-child {
+    margin-left: 5px; 
+}
+.carousel__recently-added .carousel-slide {
+    width: 292px;
+    height: 354px;
+    padding-left: 15px;
+}
+
 .card-image__details {
                 font-size: 0;
                 padding: 8px 20px 18px
@@ -803,8 +812,9 @@
                 color: #4d5057
             }
 
+
+
 .image-grid__list {
-                padding: 4px;
                 overflow: hidden
             }
 
