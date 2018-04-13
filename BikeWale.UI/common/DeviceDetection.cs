@@ -1,5 +1,6 @@
 using log4net;
 using System;
+using System.Threading;
 using System.Web;
 using System.Web.Caching;
 using WURFL;
@@ -47,9 +48,12 @@ namespace Bikewale.Common
                 {
                     PerformDetection();
                 }
+                catch (ThreadAbortException)
+                {
+                    //  no need to log thread abort exception.
+                }
                 catch (Exception ex)
                 {
-
                     ThreadContext.Properties["UserAgent"] = HttpContext.Current.Request.ServerVariables["HTTP_USER_AGENT"];
                     _log.Error(ex);
                 }

@@ -595,13 +595,16 @@ namespace BikeWaleOpr.Content
             {
                 if (!string.IsNullOrEmpty(sql))
                 {
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(sql, ConnectionType.ReadOnly))
+                    using (DbCommand cmd = DbFactory.GetDBCommand(sql))
                     {
-                        if (dr != null)
+                        using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                         {
-                            while (dr.Read())
+                            if (dr != null)
                             {
-                                bikeName = dr[0].ToString();
+                                while (dr.Read())
+                                {
+                                    bikeName = dr[0].ToString();
+                                }
                             }
                         }
                     }

@@ -10,6 +10,7 @@ using BikewaleOpr.BAL.BikePricing;
 using BikewaleOpr.BAL.ContractCampaign;
 using BikewaleOpr.BAL.ServiceCenter;
 using BikewaleOpr.BAL.Used;
+using BikewaleOpr.BAL.Users;
 using BikewaleOpr.CommuteDistance;
 using BikewaleOpr.DAL;
 using BikewaleOpr.DALs;
@@ -34,6 +35,7 @@ using BikewaleOpr.Interface.Location;
 using BikewaleOpr.Interface.ServiceCenter;
 using BikewaleOpr.Interface.Used;
 using BikewaleOpr.Interface.UserReviews;
+using BikewaleOpr.Interface.Users;
 using Microsoft.Practices.Unity;
 using System.Web.Mvc;
 using Unity.Mvc5;
@@ -52,6 +54,8 @@ namespace BikewaleOpr
     /// Summary : Added IBikeSeriesRepository
     /// Modified by : Rajan Chauhan on 13th Dec 2017
     /// Summary : Added IBikeBodyStylesRepository and IBikeBodyStyles
+    /// Modified by : Kartik Rathod on 30 mar 18
+    /// Desc    : added IUsers
     /// </summary>
     public static class UnityConfig
     {
@@ -100,8 +104,8 @@ namespace BikewaleOpr
                 .RegisterType<IAdSlotRepository, AdSlot>()
                 .RegisterType<IBikeBodyStylesRepository, BikeBodyStyleRepository>()
                 .RegisterType<IBikeBodyStyles, BikeBodyStyles>()
-                .RegisterType<IAdOperation, AdOperation>();
-
+                .RegisterType<IAdOperation, AdOperation>()
+                .RegisterType<IUsers, Users>();
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
 
         }

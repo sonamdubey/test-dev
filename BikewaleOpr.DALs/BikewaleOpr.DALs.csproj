@@ -104,7 +104,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\ElasticSearch\Elasticsearch.Net.dll</HintPath>
     </Reference>
-    <Reference Include="MySqlDatabaseLibrary">
+    <Reference Include="MySqlDatabaseLibrary, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\MySqlDatabaseDLL\MySqlDatabaseLibrary.dll</HintPath>
     </Reference>
     <Reference Include="Nest, Version=5.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">

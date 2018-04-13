@@ -499,9 +499,13 @@
         {
             <text>triggerNonInteractiveGA('Dealer_PQ', 'ICICIBank_Link_Shown', bikeVerLocation);</text>
         }
+            if (FbPixelEvent) {
+                fbq('track', FbPixelEvent.viewContent);
+            }
         }
         catch (e) {
             console.log(e.message);
         }
+       
     });
 </script>

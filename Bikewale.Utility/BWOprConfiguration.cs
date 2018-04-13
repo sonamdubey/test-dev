@@ -75,7 +75,8 @@ namespace Bikewale.Utility
             _BWEsIndexUpdaterQueue = string.Empty,
             _bikeModelPriceIndex = String.Empty,
             _BWEsBuilderQueue = String.Empty,
-            _bikeModelIndex = String.Empty;
+            _bikeModelIndex = String.Empty,
+            _googleAPIHostUrl = string.Empty;
 
 
         private readonly bool _CORSEnabled = false, _IsAppTrackDayVisible = false;
@@ -85,8 +86,8 @@ namespace Bikewale.Utility
         private BWOprConfiguration()
         {
             // Initialize _data member here            
-            _ReadOnlyConnectionString = ConfigurationManager.AppSettings["ReadOnlyConnectionString"];
-            _MasterConnectionString = ConfigurationManager.AppSettings["MasterConnectionString"];
+            _ReadOnlyConnectionString = ConfigurationManager.ConnectionStrings["ReadOnlyConnectionString"].ConnectionString;
+            _MasterConnectionString = ConfigurationManager.ConnectionStrings["MasterConnectionString"].ConnectionString;
             _imgHostURL = ConfigurationManager.AppSettings["imgHostURL"];
             _RabbitImgHostURL = ConfigurationManager.AppSettings["RabbitImgHostURL"];
             _ImgPathFolder = ConfigurationManager.AppSettings["imgPathFolder"];
@@ -151,6 +152,7 @@ namespace Bikewale.Utility
             _bikeModelPriceIndex = Convert.ToString(ConfigurationManager.AppSettings["BikePriceIndex"]);
             _BWEsBuilderQueue = Convert.ToString(ConfigurationManager.AppSettings["BWEsBuilderQueue"]);
             _bikeModelIndex = Convert.ToString(ConfigurationManager.AppSettings["BikeIndex"]);
+            _googleAPIHostUrl = Convert.ToString(ConfigurationManager.AppSettings["GoogleAPIHostUrl"]);
         }
 
         // Static method to provide access to instance
@@ -298,5 +300,6 @@ namespace Bikewale.Utility
         public string BikeModelPriceIndex { get { return _bikeModelPriceIndex; } }
         public string BWEsBuilderQueue { get { return _BWEsBuilderQueue; } }
         public string BikeModelIndex { get { return _bikeModelIndex; } }
+        public string GoogleAPIHostUrl { get { return _googleAPIHostUrl; } }
     }   // class
 }   // namespace

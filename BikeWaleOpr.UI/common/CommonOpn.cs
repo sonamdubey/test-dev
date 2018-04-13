@@ -32,11 +32,14 @@ namespace BikeWaleOpr.Common
         {
             try
             {
-                using (IDataReader dataReader = MySqlDatabase.SelectQuery(sql, ConnectionType.ReadOnly))
+                using (DbCommand cmd=DbFactory.GetDBCommand(sql))
                 {
-                    dtgrd.DataSource = dataReader;
-                    dtgrd.DataBind();
-                    dataReader.Close();
+                    using (IDataReader dataReader = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        dtgrd.DataSource = dataReader;
+                        dtgrd.DataBind();
+                        dataReader.Close();
+                    } 
                 }
             }
             catch (Exception)
@@ -53,11 +56,22 @@ namespace BikeWaleOpr.Common
 
             try
             {
-                using (IDataReader dataReader = MySqlDatabase.SelectQuery(sql, param, ConnectionType.ReadOnly))
+
+                using (DbCommand cmd = DbFactory.GetDBCommand(sql))
                 {
-                    dtgrd.DataSource = dataReader;
-                    dtgrd.DataBind();
-                    dataReader.Close();
+                    foreach (DbParameter p in param)
+                    {
+                        if ((p.Direction == ParameterDirection.InputOutput) && (p.Value == null))
+                            p.Value = DBNull.Value;
+
+                        cmd.Parameters.Add(p);
+                    }
+                    using (IDataReader dataReader = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        dtgrd.DataSource = dataReader;
+                        dtgrd.DataBind();
+                        dataReader.Close();
+                    } 
                 }
             }
             catch (Exception)
@@ -74,10 +88,13 @@ namespace BikeWaleOpr.Common
         {
             try
             {
-                using (IDataReader dr = MySqlDatabase.SelectQuery(sql, ConnectionType.ReadOnly))
+                using (DbCommand cmd = DbFactory.GetDBCommand(sql))
                 {
-                    rpt.DataSource = dr;
-                    rpt.DataBind();
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        rpt.DataSource = dr;
+                        rpt.DataBind();
+                    }
                 }
 
             }
@@ -93,10 +110,20 @@ namespace BikeWaleOpr.Common
         {
             try
             {
-                using (IDataReader dr = MySqlDatabase.SelectQuery(sql, param, ConnectionType.ReadOnly))
+                using (DbCommand cmd = DbFactory.GetDBCommand(sql))
                 {
-                    rpt.DataSource = dr;
-                    rpt.DataBind();
+                    foreach (DbParameter p in param)
+                    {
+                        if ((p.Direction == ParameterDirection.InputOutput) && (p.Value == null))
+                            p.Value = DBNull.Value;
+
+                        cmd.Parameters.Add(p);
+                    }
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        rpt.DataSource = dr;
+                        rpt.DataBind();
+                    }
                 }
             }
             catch (Exception)
@@ -263,19 +290,22 @@ namespace BikeWaleOpr.Common
         {
             try
             {
-                using (IDataReader dr = MySqlDatabase.SelectQuery(sql, ConnectionType.ReadOnly))
+                using (DbCommand cmd = DbFactory.GetDBCommand(sql))
                 {
-
-                    if (dr != null)
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
-                        drp.DataSource = dr;
-                        drp.DataTextField = text;
-                        drp.DataValueField = value;
-                        drp.DataBind();
+
+                        if (dr != null)
+                        {
+                            drp.DataSource = dr;
+                            drp.DataTextField = text;
+                            drp.DataValueField = value;
+                            drp.DataBind();
+                        }
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 throw;
             }
@@ -287,14 +317,24 @@ namespace BikeWaleOpr.Common
         {
             try
             {
-                using (IDataReader dr = MySqlDatabase.SelectQuery(sql, param, ConnectionType.ReadOnly))
+                using (DbCommand cmd = DbFactory.GetDBCommand(sql))
                 {
-                    if (dr != null)
+                    foreach (DbParameter p in param)
                     {
-                        drp.DataSource = dr;
-                        drp.DataTextField = text;
-                        drp.DataValueField = value;
-                        drp.DataBind();
+                        if ((p.Direction == ParameterDirection.InputOutput) && (p.Value == null))
+                            p.Value = DBNull.Value;
+
+                        cmd.Parameters.Add(p);
+                    }
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            drp.DataSource = dr;
+                            drp.DataTextField = text;
+                            drp.DataValueField = value;
+                            drp.DataBind();
+                        }
                     }
                 }
 
@@ -311,15 +351,17 @@ namespace BikeWaleOpr.Common
         {
             try
             {
-
-                using (IDataReader dr = MySqlDatabase.SelectQuery(sql, ConnectionType.ReadOnly))
+                using (DbCommand cmd = DbFactory.GetDBCommand(sql))
                 {
-                    if (dr != null)
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
-                        chk.DataSource = dr;
-                        chk.DataTextField = text;
-                        chk.DataValueField = value;
-                        chk.DataBind();
+                        if (dr != null)
+                        {
+                            chk.DataSource = dr;
+                            chk.DataTextField = text;
+                            chk.DataValueField = value;
+                            chk.DataBind();
+                        }
                     }
                 }
             }
@@ -336,14 +378,24 @@ namespace BikeWaleOpr.Common
         {
             try
             {
-                using (IDataReader dr = MySqlDatabase.SelectQuery(sql, param, ConnectionType.ReadOnly))
+                using (DbCommand cmd = DbFactory.GetDBCommand(sql))
                 {
-                    if (dr != null)
+                    foreach (DbParameter p in param)
                     {
-                        chk.DataSource = dr;
-                        chk.DataTextField = text;
-                        chk.DataValueField = value;
-                        chk.DataBind();
+                        if ((p.Direction == ParameterDirection.InputOutput) && (p.Value == null))
+                            p.Value = DBNull.Value;
+
+                        cmd.Parameters.Add(p);
+                    }
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            chk.DataSource = dr;
+                            chk.DataTextField = text;
+                            chk.DataValueField = value;
+                            chk.DataBind();
+                        }
                     }
                 }
 
@@ -360,12 +412,15 @@ namespace BikeWaleOpr.Common
         {
             try
             {
-                using (IDataReader dr = MySqlDatabase.SelectQuery(sql, ConnectionType.ReadOnly))
+                using (DbCommand cmd = DbFactory.GetDBCommand(sql))
                 {
-                    if (dr != null)
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
-                        clst.DataSource = dr;
-                        clst.DataBind();
+                        if (dr != null)
+                        {
+                            clst.DataSource = dr;
+                            clst.DataBind();
+                        }
                     }
                 }
 
@@ -382,12 +437,22 @@ namespace BikeWaleOpr.Common
         {
             try
             {
-                using (IDataReader dr = MySqlDatabase.SelectQuery(sql, param, ConnectionType.ReadOnly))
+                using (DbCommand cmd = DbFactory.GetDBCommand(sql))
                 {
-                    if (dr != null)
+                    foreach (DbParameter p in param)
                     {
-                        clst.DataSource = dr;
-                        clst.DataBind();
+                        if ((p.Direction == ParameterDirection.InputOutput) && (p.Value == null))
+                            p.Value = DBNull.Value;
+
+                        cmd.Parameters.Add(p);
+                    }
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            clst.DataSource = dr;
+                            clst.DataBind();
+                        }
                     }
                 }
 
@@ -1299,15 +1364,19 @@ namespace BikeWaleOpr.Common
 
             try
             {
-                using (IDataReader dr = MySqlDatabase.SelectQuery(Query1, ConnectionType.ReadOnly))
+
+                using (DbCommand cmd = DbFactory.GetDBCommand(Query1))
                 {
-                    if (dr != null)
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
-                        while (dr.Read())
+                        if (dr != null)
                         {
-                            sb.Append("\narrayValues[i++] = [ " + dr[0] + ",\"" + dr[1] + "\"," + dr[2] + " ];");
+                            while (dr.Read())
+                            {
+                                sb.Append("\narrayValues[i++] = [ " + dr[0] + ",\"" + dr[1] + "\"," + dr[2] + " ];");
+                            }
                         }
-                    }
+                    } 
                 }
 
                 sb.Append("\nfunction " + DropDownList1 + "_OnChange( e ) {");
@@ -1401,14 +1470,17 @@ namespace BikeWaleOpr.Common
 
             try
             {
-                using (IDataReader dr = MySqlDatabase.SelectQuery(sql, ConnectionType.ReadOnly))
+                using (DbCommand cmd = DbFactory.GetDBCommand(sql))
                 {
-                    if (dr != null && dr.Read())
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
-                        cc = Convert.ToDouble(dr["Displacement"].ToString() == "" ? "0" : dr["Displacement"].ToString());
-                        city = dr["city"].ToString();
-                        topSpeed = Convert.ToInt32(dr["topspeed"]);
-                        fuelType = dr["fueltype"].ToString();
+                        if (dr != null && dr.Read())
+                        {
+                            cc = Convert.ToDouble(dr["Displacement"].ToString() == "" ? "0" : dr["Displacement"].ToString());
+                            city = dr["city"].ToString();
+                            topSpeed = Convert.ToInt32(dr["topspeed"]);
+                            fuelType = dr["fueltype"].ToString();
+                        }
                     }
                 }
             }
@@ -1556,27 +1628,30 @@ namespace BikeWaleOpr.Common
 
             try
             {
-                using (IDataReader dr = MySqlDatabase.SelectQuery(sql, ConnectionType.ReadOnly))
+                using (DbCommand cmd = DbFactory.GetDBCommand(sql))
                 {
-                    if (dr != null && dr.Read())
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
-                        stateId = Convert.ToInt32(dr["StateId"].ToString());
-                        weight = Convert.ToInt32(dr["Weight"].ToString());
-                        regCharges = Convert.ToDouble(dr["RegCharges"]);
-                        fuelType = dr["FuelType"].ToString();
-                        bodyStyleId = dr["BodyStyleId"].ToString();
-                        topSpeed = Convert.ToInt32(dr["topspeed"]);
+                        if (dr != null && dr.Read())
+                        {
+                            stateId = Convert.ToInt32(dr["StateId"].ToString());
+                            weight = Convert.ToInt32(dr["Weight"].ToString());
+                            regCharges = Convert.ToDouble(dr["RegCharges"]);
+                            fuelType = dr["FuelType"].ToString();
+                            bodyStyleId = dr["BodyStyleId"].ToString();
+                            topSpeed = Convert.ToInt32(dr["topspeed"]);
 
-                        HttpContext.Current.Trace.Warn("stateId : ", stateId.ToString());
-                        HttpContext.Current.Trace.Warn("weight : ", weight.ToString());
-                        HttpContext.Current.Trace.Warn("regCharges : ", regCharges.ToString());
-                        HttpContext.Current.Trace.Warn("FuelType : ", fuelType);
+                            HttpContext.Current.Trace.Warn("stateId : ", stateId.ToString());
+                            HttpContext.Current.Trace.Warn("weight : ", weight.ToString());
+                            HttpContext.Current.Trace.Warn("regCharges : ", regCharges.ToString());
+                            HttpContext.Current.Trace.Warn("FuelType : ", fuelType);
 
-                        isImported = Convert.ToBoolean(dr["isimported"]);
+                            isImported = Convert.ToBoolean(dr["isimported"]);
 
-                        //sc = Convert.ToInt32(dr["SeatingCapacity"]);
-                        cc = Convert.ToInt32(dr["Displacement"]);
-                        //hasAC = dr["ACStatus"].ToString() == "A" ? true : false;
+                            //sc = Convert.ToInt32(dr["SeatingCapacity"]);
+                            cc = Convert.ToInt32(dr["Displacement"]);
+                            //hasAC = dr["ACStatus"].ToString() == "A" ? true : false;
+                        }
                     }
                 }
             }

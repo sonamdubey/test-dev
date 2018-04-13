@@ -374,11 +374,13 @@
                 $("#headerText").removeClass("font12").addClass("font20 margin-top5");
             }
 
+            if (FbPixelEvent) {
+                fbq('track', FbPixelEvent.viewContent);
+            }
         }
         catch (e) {
             console.log(e.message);
         }
-
+       
     });
-
 </script>

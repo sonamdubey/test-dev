@@ -109,3 +109,11 @@
         </div>
     }
 }
+<script>
+    docReady(function () {
+        if(FbPixelEvent)
+        {
+            fbq('track',FbPixelEvent.viewContent);
+        }
+    });
+</script>
