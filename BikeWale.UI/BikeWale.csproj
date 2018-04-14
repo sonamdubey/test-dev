@@ -3208,6 +3208,7 @@
     <Content Include="src\photos\landing.js" />
     <Content Include="src\photos\photos.js" />
     <Content Include="src\photos\modelgallery.js" />
+    <Content Include="src\plugins\screenfull.js" />
     <Content Include="src\popup\makemodelpopup.js" />
     <Content Include="m\src\popup\newBikeSearchPopup.js" />
     <Content Include="src\priceincity.js" />

@@ -123,25 +123,47 @@ function resizePortraitImageContainer(element) {
 function resizeHandler() {
 	if(vmModelGallery.activePopup()) {
 		if (window.innerWidth > window.innerHeight) {
-			vmModelGallery.fullScreenModeActive(true);
+			//vmModelGallery.fullScreenModeActive(true);
 			vmModelGallery.hideFooterTabs();
 		}
 		else {
-			vmModelGallery.fullScreenModeActive(false);
+			//vmModelGallery.fullScreenModeActive(false);
 			vmModelGallery.showFooterTabs();
 		}
+
+		handleOrientationChangeFallback();
 
 		vmModelGallery.setRotateScreenOption();
 		vmModelGallery.setColorOption();
 		vmModelGallery.resetSharePopup();
 	}
 
-	if (vmModelGallery.colorPopup().activePopup()) {
-		if (colorThumbnailGallerySwiper) {
-			ColorGallerySwiper.handleThumbnailSwiper(colorThumbnailGallerySwiper);
+	handleColorPopupResize();
+};
+
+function handleOrientationChange() {
+	var orientationType = screen.orientation.type;
+
+	if (orientationType === 'landscape-primary') {
+		vmModelGallery.fullScreenModeActive(true);
+	}
+	else if (orientationType === 'portrait-primary') {
+		vmModelGallery.fullScreenModeActive(false);
+	}
+
+	$(window).trigger('resize');
+}
+
+function handleOrientationChangeFallback() {
+	if (typeof screen.orientation === 'undefined') {
+		if (window.innerWidth > window.innerHeight) {
+			vmModelGallery.fullScreenModeActive(true);
+		}
+		else {
+			vmModelGallery.fullScreenModeActive(false);
 		}
 	}
-};
+}
 
 function toggleFullScreen(goFullScreen) {
 	var doc = window.document;
@@ -171,6 +193,14 @@ function checkFullScreenSupport() {
 function resetFullScreenMode() {
 	if (vmModelGallery.fullScreenModeActive()) {
 		vmModelGallery.fullScreenModeActive(false);
+	}
+}
+
+function handleColorPopupResize() {
+	if (vmModelGallery.colorPopup().activePopup()) {
+		if (colorThumbnailGallerySwiper) {
+			ColorGallerySwiper.handleThumbnailSwiper(colorThumbnailGallerySwiper);
+		}
 	}
 }
 
@@ -244,6 +274,27 @@ docReady(function () {
 	$('.image-grid-list__item img').on('load', function () {
 		resizePortraitImageContainer($(this));
 	});
+
+	if (screenfull.enabled) {
+		screenfull.on('change', function () {
+			if (screenfull.isFullscreen) {
+				if ("orientation" in screen && screen.orientation.type == 'portrait-primary') {
+					screen.orientation.unlock();
+					screen.orientation.lock('landscape-primary');
+				}
+			}
+			else {
+				if ("orientation" in screen && screen.orientation.type == 'landscape-primary') {
+					screen.orientation.unlock();
+					screen.orientation.lock('portrait-primary');
+				}
+			}
+		});
+	}
+
+	if ("orientation" in screen) {
+		screen.orientation.addEventListener("change", handleOrientationChange);
+	}
 });
 
 function isInViewport(element) {
