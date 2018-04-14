@@ -686,8 +686,17 @@ var SwiperEvents = (function () {
 		viewModel.activeTitle(activeSlideTitle);
 	}
 
+	function setColorDetails(swiper, viewModel) {
+		var activeSlideIndex = swiper.activeIndex;
+		var activeSlideTitle = $(swiper.slides[activeSlideIndex]).attr('data-imgcat');
+
+		viewModel.activeIndex(activeSlideIndex + 1);
+		viewModel.activeTitle(activeSlideTitle);
+	}
+
 	return {
 		setDetails: setDetails,
+		setColorDetails: setColorDetails,
 		focusThumbnail: focusThumbnail
 	}
 })();
