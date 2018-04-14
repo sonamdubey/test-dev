@@ -289,6 +289,8 @@ docReady(function () {
 					screen.orientation.lock('portrait-primary');
 				}
 			}
+
+			handleOrientationChangeFallback();
 		});
 	}
 

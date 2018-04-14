@@ -125,6 +125,12 @@
 
 	self.toggleFullScreen = function () {
 		if (screenfull.enabled) {
+			if (!screenfull.isFullscreen) {
+				document.documentElement.style.backgroundColor = '#000';
+			}
+			else {
+				document.documentElement.style.backgroundColor = '';
+			}
 			screenfull.toggle();
 		}
 	};
