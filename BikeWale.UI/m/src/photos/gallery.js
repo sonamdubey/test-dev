@@ -195,7 +195,9 @@ function resetFullScreenMode() {
 function handleColorPopupResize() {
 	if (vmModelGallery.colorPopup().activePopup()) {
 		if (colorThumbnailGallerySwiper) {
-			ColorGallerySwiper.handleThumbnailSwiper(colorThumbnailGallerySwiper);
+			setTimeout(function() {
+				ColorGallerySwiper.handleThumbnailSwiper(colorThumbnailGallerySwiper);
+			}, 0);
 		}
 	}
 }
@@ -617,6 +619,7 @@ var ColorGallerySwiper = (function () {
 			swiper.destroy(false);
 			vmModelGallery.colorPopup().setListHeight();
 			$(swiper.container[0]).find('.swiper-wrapper').css({
+				'-webkit-transform': 'translate3d(0, 0, 0)',
 				'transform': 'translate3d(0, 0, 0)'
 			});
 			_attachColorEvents(swiper);

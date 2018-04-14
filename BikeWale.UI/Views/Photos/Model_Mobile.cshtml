@@ -59,7 +59,7 @@
                             </div>
 
                             <div data-bind="with: videoSlug">
-								<!-- ko if : videoCount -->
+								<!-- ko if : videoCount && slugSupport() -->
                                 <div class="model-gallery__video-slide gallery__slide-slug" data-bind="if: videoCount, visible: activeSlug(), css: {'video-slug--single-video': videoCount === 1, 'video-slug--video-playing': isPlaying()}">
                                     <p class="gallery-slide-slug__title" data-bind="text: modelName + ' Video' + (videoCount > 1 ? 's' : '')"></p>
                                     <!-- ko if : videoCount === 1 -->
@@ -189,6 +189,7 @@
 
                 </div>
 
+								<!-- ko if: !videoPopup().browserCustomPlayer() -->
                 <div id="videoGalleryPopup" class="video-popup__content" data-bind="with: videoPopup, css: { 'video-popup--active': videoPopup().activePopup(), 'video-popup--landscape': fullScreenModeActive() }">
                     <div class="video-popup__head">
                         <span class="video-popup-head__back" data-bind="click: closePopup(true)"></span>
@@ -222,6 +223,7 @@
                         <span class="video-list__back-btn" onclick="history.back()">Back</span>
                     </div>
                 </div>
+								<!-- /ko -->
 
                 <div id="galleryLoader" class="gallery__loader black-window">
                     <span class="loader__spin loader--fixed"></span>

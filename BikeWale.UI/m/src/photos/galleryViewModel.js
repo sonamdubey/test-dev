@@ -50,7 +50,12 @@
 
 	self.videoSlug = ko.observable(new VideoSlugViewModel(MODEL_VIDEO_LIST));
 	self.videoSlug().description('');
-	self.videoSlug().visibilityThreshold(IMAGE_INDEX + 10);
+	if(self.videoSlug().slugSupport()) {
+		self.videoSlug().visibilityThreshold(IMAGE_INDEX + 10);
+	}
+	else {
+		self.videoSlug().visibilityThreshold(-1);
+	}
 
 	self.renderImage = function (hostUrl, originalImagePath, imageSize) {
 		if (originalImagePath && originalImagePath != null) {
@@ -391,6 +396,10 @@ var ModelVideoPopupViewModel = function () {
 	var self = this;
 
 	self.activePopup = ko.observable(false);
+	self.browserCustomPlayer = ko.observable(false);
+	if (navigator.userAgent.match(/UCBrowser/g)) {
+		self.browserCustomPlayer(true);
+	}
 	self.videoData = ko.observable(new ModelVideoViewModel());
 	self.videoData().getVideos();
 	self.modelName = MODEL_NAME;
@@ -451,12 +460,14 @@ var ModelVideoPopupViewModel = function () {
 			self.videoSwiper.params.direction = 'horizontal';
 			self.videoSwiper.params.initialSlide = self.videoSwiper.slides.length;
 			swiperElement.removeClass('swiper-container-vertical');
+			self.setSlidesDimension();
 		}
 		else {
 			self.videoSwiper.params.freeMode = true;
 			self.videoSwiper.params.direction = 'vertical';
 			self.videoSwiper.params.initialSlide = 0;
 			swiperElement.addClass('swiper-container-vertical');
+			self.resetSlidesDimension();
 		}
 
 		self.videoSwiper.destroy(false);
@@ -470,6 +481,16 @@ var ModelVideoPopupViewModel = function () {
 				self.videoSwiper.update(true);
 			}, 1000);
 		}
+	}
+
+	self.setSlidesDimension = function() {
+		var swiperElement = $(self.videoSwiper.container[0]);
+
+		swiperElement.find('.swiper-slide').css('min-height', swiperElement.height());
+	}
+
+	self.resetSlidesDimension = function () {
+		$(self.videoSwiper.container[0]).find('.swiper-slide').css('min-height', '250px'); // set minimum value to override the value that was set in landscape mode
 	}
 
 	self.registerEvents = function () {
@@ -537,6 +558,10 @@ var VideoSlugViewModel = function (videoList) {
 	var self = this;
 
 	self.activeSlug = ko.observable(false);
+	self.slugSupport = ko.observable(true);
+	if (navigator.userAgent.match(/UCBrowser/g)) {
+		self.slugSupport(false);
+	}
 	self.visibilityThreshold = ko.observable(5);
 	self.modelName = MODEL_NAME;
 	if (videoList) {
