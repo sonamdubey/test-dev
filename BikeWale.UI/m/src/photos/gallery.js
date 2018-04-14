@@ -123,11 +123,9 @@ function resizePortraitImageContainer(element) {
 function resizeHandler() {
 	if(vmModelGallery.activePopup()) {
 		if (window.innerWidth > window.innerHeight) {
-			//vmModelGallery.fullScreenModeActive(true);
 			vmModelGallery.hideFooterTabs();
 		}
 		else {
-			//vmModelGallery.fullScreenModeActive(false);
 			vmModelGallery.showFooterTabs();
 		}
 
@@ -142,12 +140,10 @@ function resizeHandler() {
 };
 
 function handleOrientationChange() {
-	var orientationType = screen.orientation.type;
-
-	if (orientationType === 'landscape-primary') {
+	if ('orientation' in screen && screen.orientation.type === 'landscape-primary') {
 		vmModelGallery.fullScreenModeActive(true);
 	}
-	else if (orientationType === 'portrait-primary') {
+	else {
 		vmModelGallery.fullScreenModeActive(false);
 	}
 
@@ -155,7 +151,7 @@ function handleOrientationChange() {
 }
 
 function handleOrientationChangeFallback() {
-	if (typeof screen.orientation === 'undefined') {
+	if ('orientation' in screen && typeof screen.orientation.lock !== 'function') {
 		if (window.innerWidth > window.innerHeight) {
 			vmModelGallery.fullScreenModeActive(true);
 		}
@@ -278,24 +274,22 @@ docReady(function () {
 	if (screenfull.enabled) {
 		screenfull.on('change', function () {
 			if (screenfull.isFullscreen) {
-				if ("orientation" in screen && screen.orientation.type == 'portrait-primary') {
+				if ('orientation' in screen && screen.orientation.type === 'portrait-primary') {
 					screen.orientation.unlock();
 					screen.orientation.lock('landscape-primary');
 				}
 			}
 			else {
-				if ("orientation" in screen && screen.orientation.type == 'landscape-primary') {
+				if ('orientation' in screen && screen.orientation.type === 'landscape-primary') {
 					screen.orientation.unlock();
 					screen.orientation.lock('portrait-primary');
 				}
 			}
-
-			handleOrientationChangeFallback();
 		});
 	}
 
-	if ("orientation" in screen) {
-		screen.orientation.addEventListener("change", handleOrientationChange);
+	if ('orientation' in screen) {
+		screen.orientation.addEventListener('change', handleOrientationChange);
 	}
 });
 
