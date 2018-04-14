@@ -74,9 +74,11 @@ namespace Bikewale.BAL.ApiGateway.Adapters.BikeData
 				{
 					specsFeaturesEntity = new SpecsFeaturesEntity();
 					ICollection<IEnumerator<Category>> vehicleSpecsEnumeratorList = new List<IEnumerator<Category>>();
+					ICollection<IEnumerator<Category>> vehicleFeaturesEnumeratorList = new List<IEnumerator<Category>>();
 					foreach (var vehicleDataValue in vehicleDataValueList)
 					{
 						vehicleSpecsEnumeratorList.Add(vehicleDataValue.Specifications.GetEnumerator());
+						vehicleFeaturesEnumeratorList.Add(vehicleDataValue.Features.GetEnumerator());
 					}
 
 					ICollection<SpecsFeaturesCategory> specCategoryList = new List<SpecsFeaturesCategory>();
@@ -90,12 +92,6 @@ namespace Bikewale.BAL.ApiGateway.Adapters.BikeData
 						});
 					}
 					specsFeaturesEntity.Specs = specCategoryList;
-					ICollection<IEnumerator<Category>> vehicleFeaturesEnumeratorList = new List<IEnumerator<Category>>();
-					foreach (var vehicleDataValue in vehicleDataValueList)
-					{
-						vehicleFeaturesEnumeratorList.Add(vehicleDataValue.Features.GetEnumerator());
-					}
-
 					while (vehicleFeaturesEnumeratorList.All(featureCat => featureCat.MoveNext()))
 					{
 						specsFeaturesEntity.Features = ConvertToBwSpecsFeaturesEntity(vehicleFeaturesEnumeratorList.Select(featureCat => featureCat.Current.Items));
