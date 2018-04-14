@@ -68,13 +68,20 @@ namespace Bikewale.BAL.ApiGateway.Adapters.BikeData
 			{
 				VehicleDataList vehicleDataList = responseMessage as VehicleDataList;
 
-				IEnumerable<VehicleDataValue> vehicleDataValueList = vehicleDataList != null ? vehicleDataList.VehicleData : null;
+				ICollection<VehicleDataValue> vehicleDataValueList = vehicleDataList != null ? vehicleDataList.VehicleData : null;
 
 				if (vehicleDataValueList != null && vehicleDataValueList.Any())
 				{
 					specsFeaturesEntity = new SpecsFeaturesEntity();
-					var specCategoryList = new List<SpecsFeaturesCategory>();
-					IEnumerable<IEnumerator<Category>> vehicleSpecsEnumeratorList = vehicleDataValueList.Select(vehicle => vehicle.Specifications.GetEnumerator());
+					ICollection<IEnumerator<Category>> vehicleSpecsEnumeratorList = new List<IEnumerator<Category>>();
+					ICollection<IEnumerator<Category>> vehicleFeaturesEnumeratorList = new List<IEnumerator<Category>>();
+					foreach (var vehicleDataValue in vehicleDataValueList)
+					{
+						vehicleSpecsEnumeratorList.Add(vehicleDataValue.Specifications.GetEnumerator());
+						vehicleFeaturesEnumeratorList.Add(vehicleDataValue.Features.GetEnumerator());
+					}
+
+					ICollection<SpecsFeaturesCategory> specCategoryList = new List<SpecsFeaturesCategory>();
 					while (vehicleSpecsEnumeratorList.All(specCat => specCat.MoveNext()))
 					{
 						specCategoryList.Add(new SpecsFeaturesCategory
@@ -85,8 +92,6 @@ namespace Bikewale.BAL.ApiGateway.Adapters.BikeData
 						});
 					}
 					specsFeaturesEntity.Specs = specCategoryList;
-					IEnumerable<IEnumerator<Category>> vehicleFeaturesEnumeratorList = vehicleDataValueList.Select(vehicle => vehicle.Features.GetEnumerator());
-
 					while (vehicleFeaturesEnumeratorList.All(featureCat => featureCat.MoveNext()))
 					{
 						specsFeaturesEntity.Features = ConvertToBwSpecsFeaturesEntity(vehicleFeaturesEnumeratorList.Select(featureCat => featureCat.Current.Items));
@@ -114,8 +119,12 @@ namespace Bikewale.BAL.ApiGateway.Adapters.BikeData
 			{
 				if (itemsList != null)
 				{
-					var itemList = new List<SpecsFeaturesItem>();
-					IEnumerable<IEnumerator<Item>> itemsEnumeratorList = itemsList.Select(items => items.GetEnumerator());
+					ICollection<SpecsFeaturesItem> itemList = new List<SpecsFeaturesItem>();
+					ICollection<IEnumerator<Item>> itemsEnumeratorList = new List<IEnumerator<Item>>();
+					foreach (var items in itemsList)
+					{
+						itemsEnumeratorList.Add(items.GetEnumerator());
+					}
 					while (itemsEnumeratorList.All(items => items.MoveNext()))
 					{
 						itemList.Add(new SpecsFeaturesItem
@@ -123,7 +132,7 @@ namespace Bikewale.BAL.ApiGateway.Adapters.BikeData
 							DisplayText = itemsEnumeratorList.FirstOrDefault().Current.Name,
 							Icon = itemsEnumeratorList.FirstOrDefault().Current.Icon,
 							Id = itemsEnumeratorList.FirstOrDefault().Current.Id,
-							ItemValues = itemsEnumeratorList.Select(item => item.Current.ItemValue),
+							ItemValues = itemsEnumeratorList.Select(item => item.Current.ItemValue).ToList(),
 							UnitTypeText = itemsEnumeratorList.FirstOrDefault().Current.UnitTypeName,
 							DataType = (EnumSpecDataType)itemsEnumeratorList.FirstOrDefault().Current.DataTypeId
 						});
