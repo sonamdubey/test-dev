@@ -124,23 +124,8 @@
 	};
 
 	self.toggleFullScreen = function () {
-		if (!self.fullScreenModeActive()) {
-			toggleFullScreen(true);
-			self.fullScreenModeActive(true);
-
-			if ("orientation" in screen && screen.orientation.type == 'portrait-primary') {
-				screen.orientation.unlock();
-				screen.orientation.lock('landscape-primary');
-			}
-		}
-		else {
-			toggleFullScreen(false);
-			self.fullScreenModeActive(false);
-
-			if ("orientation" in screen && screen.orientation.type == 'landscape-primary') {
-				screen.orientation.unlock();
-				screen.orientation.lock('portrait-primary');
-			}
+		if (screenfull.enabled) {
+			screenfull.toggle();
 		}
 	};
 
@@ -354,9 +339,10 @@ var ModelColorPopupViewModel = function () {
 	}
 
 	self.setListHeight = function () {
-		var availableHeight = $('#colorGalleryPopup').innerHeight() - ($('#thumbnailColorSwiper').offset().top - (window.pageYOffset || document.documentElement.scrollTop));
+		var colorGalleryPopup = $('#colorGalleryPopup');
+		var availableHeight = colorGalleryPopup.innerHeight() - ($('#thumbnailColorSwiper').offset().top - (window.pageYOffset || document.documentElement.scrollTop));
 
-		$('#colorGalleryPopup').find('.color-popup__thumbnail-content').css('height', availableHeight);
+		colorGalleryPopup.find('.color-popup__thumbnail-content').css('height', availableHeight);
 	}
 
 	self.resetListHeight = function () {
