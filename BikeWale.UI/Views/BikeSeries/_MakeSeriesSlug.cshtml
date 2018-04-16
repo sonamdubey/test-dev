@@ -1,7 +1,9 @@
 ﻿@model Bikewale.Models.BikeSeries.MakeSeriesSlugVM
 @using Bikewale.Entities.BikeData;
 
-<section class="explore-bikes-carousel--default">
+@if (Model != null && Model.MakeSeriesList != null && Model.MakeSeriesList.Any())
+{
+    <section class="explore-bikes-carousel--default">
     <div class="content-box-shadow bg-white section-bottom-margin">
         <div class="carousel__title">
             <h2 class="page__heading-h2">Explore @Model.MakeName Bikes</h2>
@@ -32,4 +34,5 @@
             </span>
         </div>
     </div>
-</section>
+    </section>
+}
