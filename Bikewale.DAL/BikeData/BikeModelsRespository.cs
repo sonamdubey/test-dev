@@ -609,7 +609,7 @@ namespace Bikewale.DAL.BikeData
                             {
                                 UpcomingBikeEntity objModel = new UpcomingBikeEntity();
 
-                                objModel.ExpectedLaunchId = Convert.ToUInt16(dr["ExpectedLaunchId"]);
+                                objModel.ExpectedLaunchId = SqlReaderConvertor.ToUInt16(dr["ExpectedLaunchId"]);
                                 objModel.ExpectedLaunchedDate = SqlReaderConvertor.ToDateTime(dr["ExpectedLaunch"]);
                                 objModel.ExpectedLaunchDate = objModel.ExpectedLaunchedDate.ToString("MMMM yyyy");
                                 objModel.EstimatedPriceMin = SqlReaderConvertor.ToUInt64(dr["EstimatedPriceMin"]);

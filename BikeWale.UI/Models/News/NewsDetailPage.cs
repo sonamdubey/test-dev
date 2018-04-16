@@ -264,7 +264,16 @@ namespace Bikewale.Models
         private void SetAdditionalVariables(NewsDetailPageVM objData)
         {
             isMakeLive = !(objData.BikeInfo != null && (objData.BikeInfo.IsUpcoming || objData.BikeInfo.IsDiscontinued));
-            bodyStyle = objData.BodyStyle;
+
+            bodyStyle = EnumBikeBodyStyles.AllBikes;
+
+            List<BikeVersionMinSpecs> objVersionsList = _objBikeVersionsCache.GetVersionMinSpecs(ModelId, false);
+
+            if (objVersionsList != null && objVersionsList.Count > 0)
+                bodyStyle = objVersionsList.FirstOrDefault().BodyStyle;
+
+            objData.BodyStyle = bodyStyle;
+
             isSeriesAvailable = objData.IsSeriesAvailable;
             if (objData.Make != null)
             {
@@ -559,13 +568,7 @@ namespace Bikewale.Models
         {
             try
             {
-                objData.BodyStyle = EnumBikeBodyStyles.AllBikes;
-
-                List<BikeVersionMinSpecs> objVersionsList = _objBikeVersionsCache.GetVersionMinSpecs(ModelId, false);
-
-                if (objVersionsList != null && objVersionsList.Count > 0)
-                    objData.BodyStyle = objVersionsList.FirstOrDefault().BodyStyle;
-
+               
                 objData.IsScooter = objData.BodyStyle.Equals(EnumBikeBodyStyles.Scooter);
                 MostPopularBikesWidget objPopularBikes = new MostPopularBikesWidget(_bikeModels, objData.IsScooter ? EnumBikeType.Scooters : EnumBikeType.All, showCheckOnRoadCTA, false, pqSource, pageCatId, MakeId);
                 objPopularBikes.TopCount = topCount;
@@ -1293,7 +1296,7 @@ namespace Bikewale.Models
             }
             else
             {
-                // Make is Tagged
+                // Model is Not Tagged
                 objData.PageWidgets = SetWidgetDataForMakeNews();
             }
         }
@@ -1422,6 +1425,11 @@ namespace Bikewale.Models
                 {
                     FirstWidget.WidgetColumns[EditorialWidgetColumnPosition.Left] = BindWidget(EditorialWidgetCategory.Popular_All);
                     SecondWidget.WidgetColumns[EditorialWidgetColumnPosition.Left] = BindWidget(EditorialWidgetCategory.Upcoming_All);
+                    if (!IsMobile)
+                    {
+                        FirstWidget.WidgetColumns[EditorialWidgetColumnPosition.Right] = BindWidget(EditorialWidgetCategory.Popular_Scooters);
+                        SecondWidget.WidgetColumns[EditorialWidgetColumnPosition.Right] = BindWidget(EditorialWidgetCategory.Upcoming_Scooters);
+                    }
                 }
             }
             catch (Exception ex)
@@ -1495,6 +1503,11 @@ namespace Bikewale.Models
                                 title = "Cruisers";
                                 viewAllTitle = "View all Cruisers";
                                 tabId = "PopularCruisers";
+                            }
+                            else
+                            {
+                                _logger.Info(string.Format("BikeWale.UI.Models.News.NewsDetailPage.BindWidget__{0}. Body style : {1}, is invalid.", category, bodyStyle));
+                                return null;
                             }
                             SetWidgetStructureData(widget, title, tabId, true, UrlFormatter.FormatGenericPageUrl(bodyStyle), "View all bikes", viewAllTitle);
                         }
