@@ -421,7 +421,7 @@ namespace Bikewale.DAL.BikeData
                                     BodyStyle = Enum.TryParse(Convert.ToString(dr["BodyStyle"]), out bodyStyle) ? bodyStyle : Entities.GenericBikes.EnumBikeBodyStyles.AllBikes,
                                     HostUrl = Convert.ToString(dr["HostUrl"]),
                                     OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]),
-                                    ModelsCount = SqlReaderConvertor.ToUInt32(dr["ModelsCount"]),
+                                    ModelsCount = SqlReaderConvertor.ToUInt32(dr["BikeCount"]),
                                     MinPrice = SqlReaderConvertor.ToUInt32(dr["MinPrice"])
                                 });
 

@@ -51,81 +51,6 @@
                         </div>
                     </div>
                 }
-				
-				<section class="explore-bikes-carousel--default">
-					<div class="content-box-shadow bg-white section-bottom-margin">
-						<div class="carousel__title">
-							<h2 class="page__heading-h2">Explore TVS Bikes</h2>
-						</div>
-						<div class="swiper-container carousel__explore-bikes" data-spacebetween="0">
-							<ul class="swiper-wrapper">
-								<li class="swiper-slide carousel-slide">
-									<a href="" title="Bikes" class="model__explore-card">
-										<h3 class="explore-card__title">Royal Enfield Thunderbird Bikes</h3>
-										<div class="explore-card__list">
-											<span class="explore-card-list__item">6 Bikes</span>
-											<span class="explore-card-list__item">&#x20b9; 70,000 Onwards</span>
-										</div>
-									</a>
-								</li>
-								<li class="swiper-slide carousel-slide">
-									<a href="" title="Bikes" class="model__explore-card">
-										<h3 class="explore-card__title">TVS Apache Bikes</h3>
-										<div class="explore-card__list">
-											<span class="explore-card-list__item">16 Bikes</span>
-											<span class="explore-card-list__item">&#x20b9; 1,40,000 Onwards</span>
-										</div>
-									</a>
-								</li>
-								<li class="swiper-slide carousel-slide">
-									<a href="" title="Bikes" class="model__explore-card">
-										<h3 class="explore-card__title">Honda Pulsar Bikes</h3>
-										<div class="explore-card__list">
-											<span class="explore-card-list__item">26 Bikes</span>
-											<span class="explore-card-list__item">&#x20b9; 30,000 Onwards</span>
-										</div>
-									</a>
-								</li>
-								<li class="swiper-slide carousel-slide">
-									<a href="" title="Bikes" class="model__explore-card">
-										<h3 class="explore-card__title">TVS Apache Bikes</h3>
-										<div class="explore-card__list">
-											<span class="explore-card-list__item">36 Bikes</span>
-											<span class="explore-card-list__item">&#x20b9; 50,000 Onwards</span>
-										</div>
-									</a>
-								</li>
-								<li class="swiper-slide carousel-slide">
-									<a href="" title="Bikes" class="model__explore-card">
-										<h3 class="explore-card__title">TVS Apache Bikes</h3>
-										<div class="explore-card__list">
-											<span class="explore-card-list__item">46 Bikes</span>
-											<span class="explore-card-list__item">&#x20b9; 70,000 Onwards</span>
-										</div>
-									</a>
-								</li>
-								<li class="swiper-slide carousel-slide">
-									<a href="" title="Bikes" class="model__explore-card">
-										<h3 class="explore-card__title">TVS Apache Bikes</h3>
-										<div class="explore-card__list">
-											<span class="explore-card-list__item">56 Bikes</span>
-											<span class="explore-card-list__item">&#x20b9; 70,000 Onwards</span>
-										</div>
-									</a>
-								</li>
-								<li class="swiper-slide carousel-slide">
-									<a href="" title="Bikes" class="model__explore-card">
-										<h3 class="explore-card__title">TVS Apache Bikes</h3>
-										<div class="explore-card__list">
-											<span class="explore-card-list__item">66 Bikes</span>
-											<span class="explore-card-list__item">&#x20b9; 70,000 Onwards</span>
-										</div>
-									</a>
-								</li>
-							</ul>
-						</div>
-					</div>
-				</section>
 
                 @if (Model.Bikes != null && Model.Bikes.Any())
                 {
@@ -195,6 +120,12 @@
             <div class="clear"></div>
         </div>
     </section>
+
+    @if (Model.SeriesLinkages.MakeSeriesList != null && Model.SeriesLinkages.MakeSeriesList.Any())
+    {
+        @Html.Partial("~/Views/BikeSeries/_MakeSeriesSlug_Mobile.cshtml", Model.SeriesLinkages)
+    }
+    
     <section id="bikeByMakesUpcoming" class="bw-model-tabs-data bg-white margin-bottom20">
         @if (Model.IsUpComingBikesAvailable)
         {
