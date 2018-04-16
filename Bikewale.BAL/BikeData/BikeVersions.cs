@@ -61,7 +61,7 @@ namespace Bikewale.BAL.BikeData
             {
                 versionsList = _versionCacheRepository.GetVersionMinSpecs(modelId, isNew);
                 GetVersionSpecsByItemIdAdapter adapt1 = new GetVersionSpecsByItemIdAdapter();
-                var specItemInput = new VersionsDataByItemIds_Input
+                VersionsDataByItemIds_Input specItemInput = new VersionsDataByItemIds_Input
                 {
                     Versions = versionsList.Select(v => v.VersionId),
                     Items = new List<EnumSpecsFeaturesItems>
@@ -300,7 +300,7 @@ namespace Bikewale.BAL.BikeData
                 if (bikesList != null && bikesList.Any())
                 {
                     GetVersionSpecsByItemIdAdapter adapt1 = new GetVersionSpecsByItemIdAdapter();
-                    var specItemInput = new VersionsDataByItemIds_Input
+                    VersionsDataByItemIds_Input specItemInput = new VersionsDataByItemIds_Input
                     {
                         Versions = bikesList.Select(m => m.VersionBase.VersionId),
                         Items = specItemList

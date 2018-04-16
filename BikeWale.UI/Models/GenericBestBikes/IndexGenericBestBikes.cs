@@ -258,7 +258,7 @@ namespace Bikewale.Models
                 if (bestBikesList != null && bestBikesList.Any())
                 {
                     GetVersionSpecsByItemIdAdapter adapt1 = new GetVersionSpecsByItemIdAdapter();
-                    var specItemInput = new VersionsDataByItemIds_Input
+                    VersionsDataByItemIds_Input specItemInput = new VersionsDataByItemIds_Input
                     {
                         Versions = bestBikesList.Select(m => m.VersionId),
                         Items = new List<EnumSpecsFeaturesItems> {

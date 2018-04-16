@@ -48,9 +48,12 @@ namespace Bikewale.BAL.ApiGateway.ApiGatewayHelper
 				{
 					IMessage request = BuildRequest(input);
 					Action<IApiGatewayCaller> callBack = ParseAPIResponse;
-					ResponseIndex = caller.Add(ModuleName, MethodName, request, callBack);
-				}
-			}
+
+                    if (!String.IsNullOrEmpty(ModuleName) && !String.IsNullOrEmpty(MethodName) && request != null && callBack != null)
+                        ResponseIndex = caller.Add(ModuleName, MethodName, request, callBack);
+
+                }
+            }
 			catch (Exception ex)
 			{
 				Notifications.ErrorClass.LogError(ex, "Bikewale.BAL.ApiGateway.ApiGatewayHelper.AbstractApiGatewayAdapater.AddApiGatewayCall");

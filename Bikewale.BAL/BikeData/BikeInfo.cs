@@ -91,7 +91,7 @@ namespace Bikewale.BAL.BikeData
                     }
 
                     GetVersionSpecsByItemIdAdapter adapt1 = new GetVersionSpecsByItemIdAdapter();
-                    var specItemInput = new VersionsDataByItemIds_Input
+                    VersionsDataByItemIds_Input specItemInput = new VersionsDataByItemIds_Input
                     {
                         Versions = new List<int> { genericBike.VersionId },
                         Items = new List<EnumSpecsFeaturesItems>() {

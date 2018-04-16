@@ -93,7 +93,7 @@ namespace Bikewale.BindViewModels.Webforms.Used
                     if (InquiryDetails != null)
                     {
                         GetVersionSpecsByItemIdAdapter adapt1 = new GetVersionSpecsByItemIdAdapter();
-                        var specItemInput = new VersionsDataByItemIds_Input
+                        VersionsDataByItemIds_Input specItemInput = new VersionsDataByItemIds_Input
                         {
                             Versions = new List<int>() { InquiryDetails.Version.VersionId },
                             Items = new List<EnumSpecsFeaturesItems> {

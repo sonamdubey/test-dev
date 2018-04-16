@@ -363,7 +363,7 @@ namespace Bikewale.Models
                 if (objDealerDetails != null && objDealerDetails.Models != null)
                 {
                     GetVersionSpecsByItemIdAdapter adapt1 = new GetVersionSpecsByItemIdAdapter();
-                    var specItemInput = new VersionsDataByItemIds_Input
+                    VersionsDataByItemIds_Input specItemInput = new VersionsDataByItemIds_Input
                     {
                         Versions = objDealerDetails.Models.Select(m => m.objVersion.VersionId),
                         Items = new List<EnumSpecsFeaturesItems>
