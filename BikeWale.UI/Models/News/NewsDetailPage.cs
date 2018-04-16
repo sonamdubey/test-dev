@@ -264,7 +264,16 @@ namespace Bikewale.Models
         private void SetAdditionalVariables(NewsDetailPageVM objData)
         {
             isMakeLive = !(objData.BikeInfo != null && (objData.BikeInfo.IsUpcoming || objData.BikeInfo.IsDiscontinued));
-            bodyStyle = objData.BodyStyle;
+
+            bodyStyle = EnumBikeBodyStyles.AllBikes;
+
+            List<BikeVersionMinSpecs> objVersionsList = _objBikeVersionsCache.GetVersionMinSpecs(ModelId, false);
+
+            if (objVersionsList != null && objVersionsList.Count > 0)
+                bodyStyle = objVersionsList.FirstOrDefault().BodyStyle;
+
+            objData.BodyStyle = bodyStyle;
+
             isSeriesAvailable = objData.IsSeriesAvailable;
             if (objData.Make != null)
             {
@@ -559,13 +568,7 @@ namespace Bikewale.Models
         {
             try
             {
-                objData.BodyStyle = EnumBikeBodyStyles.AllBikes;
-
-                List<BikeVersionMinSpecs> objVersionsList = _objBikeVersionsCache.GetVersionMinSpecs(ModelId, false);
-
-                if (objVersionsList != null && objVersionsList.Count > 0)
-                    objData.BodyStyle = objVersionsList.FirstOrDefault().BodyStyle;
-
+               
                 objData.IsScooter = objData.BodyStyle.Equals(EnumBikeBodyStyles.Scooter);
                 MostPopularBikesWidget objPopularBikes = new MostPopularBikesWidget(_bikeModels, objData.IsScooter ? EnumBikeType.Scooters : EnumBikeType.All, showCheckOnRoadCTA, false, pqSource, pageCatId, MakeId);
                 objPopularBikes.TopCount = topCount;
@@ -1293,7 +1296,7 @@ namespace Bikewale.Models
             }
             else
             {
-                // Make is Tagged
+                // Model is Not Tagged
                 objData.PageWidgets = SetWidgetDataForMakeNews();
             }
         }
@@ -1422,6 +1425,11 @@ namespace Bikewale.Models
                 {
                     FirstWidget.WidgetColumns[EditorialWidgetColumnPosition.Left] = BindWidget(EditorialWidgetCategory.Popular_All);
                     SecondWidget.WidgetColumns[EditorialWidgetColumnPosition.Left] = BindWidget(EditorialWidgetCategory.Upcoming_All);
+                    if (!IsMobile)
+                    {
+                        FirstWidget.WidgetColumns[EditorialWidgetColumnPosition.Right] = BindWidget(EditorialWidgetCategory.Popular_Scooters);
+                        SecondWidget.WidgetColumns[EditorialWidgetColumnPosition.Right] = BindWidget(EditorialWidgetCategory.Upcoming_Scooters);
+                    }
                 }
             }
             catch (Exception ex)
@@ -1452,72 +1460,152 @@ namespace Bikewale.Models
                 switch (category)
                 {
                     case EditorialWidgetCategory.Popular_All:
-                        SetWidgetStructureData(widget, "Popular Bikes", "PopularBikes", true, UrlFormatter.FormatGenericPageUrl(EnumBikeBodyStyles.AllBikes), "View all bikes", "View all bikes");
-                        ((EditorialPopularBikesWidget)widget).MostPopularBikeList = SetAdPromotedBikes(_models.GetMostPopularBikesbyMakeCity((uint)editorialWidgetTopCount, 0, CityId), editorialWidgetTopCount);
+                        {
+                            var mostPopular = SetAdPromotedBikes(_models.GetMostPopularBikesbyMakeCity((uint)editorialWidgetTopCount, 0, CityId), editorialWidgetTopCount);
+                            if (mostPopular == null || !mostPopular.Any())
+                            {
+                                return null;
+                            }
+                            ((EditorialPopularBikesWidget)widget).MostPopularBikeList = mostPopular;
+                            SetWidgetStructureData(widget, "Popular Bikes", "PopularBikes", true, UrlFormatter.FormatGenericPageUrl(EnumBikeBodyStyles.AllBikes), "View all bikes", "View all bikes");
+                        }
                         break;
 
                     case EditorialWidgetCategory.Popular_Make:
-                        SetWidgetStructureData(widget, string.Format("{0} Bikes", MakeName), "PopularMakeBikes", true, UrlFormatter.BikeMakeUrl(MakeMaskingName), "View all bikes", "View all bikes");
-                        ((EditorialPopularBikesWidget)widget).MostPopularBikeList = _models.GetMostPopularBikesbyMakeCity((uint)editorialWidgetTopCount, MakeId, CityId);
+                        {
+                            var mostPopular = _models.GetMostPopularBikesbyMakeCity((uint)editorialWidgetTopCount, MakeId, CityId);
+                            if (mostPopular == null || !mostPopular.Any())
+                            {
+                                return null;
+                            }
+                            ((EditorialPopularBikesWidget)widget).MostPopularBikeList = mostPopular;
+                            SetWidgetStructureData(widget, string.Format("{0} Bikes", MakeName), "PopularMakeBikes", true, UrlFormatter.BikeMakeUrl(MakeMaskingName), "View all bikes", "View all bikes");
+                        }
                         break;
 
                     case EditorialWidgetCategory.Popular_BodyStyle:
-                        string title = null, tabId = null;
-                        if (bodyStyle == EnumBikeBodyStyles.Sports)
                         {
-                            title = "Sports Bikes";
-                            viewAllTitle = "View all Sports bikes";
-                            tabId = "PopularSportsBikes";
+                            var mostPopular = _models.GetPopularBikesByBodyStyle((ushort)bodyStyle, (uint)editorialWidgetTopCount, CityId);
+                            if (mostPopular == null || !mostPopular.Any())
+                            {
+                                return null;
+                            }
+                            ((EditorialPopularBikesWidget)widget).MostPopularBikeList = mostPopular;
+                            string title = null, tabId = null;
+                            if (bodyStyle == EnumBikeBodyStyles.Sports)
+                            {
+                                title = "Sports Bikes";
+                                viewAllTitle = "View all Sports bikes";
+                                tabId = "PopularSportsBikes";
+                            }
+                            else if (bodyStyle == EnumBikeBodyStyles.Cruiser)
+                            {
+                                title = "Cruisers";
+                                viewAllTitle = "View all Cruisers";
+                                tabId = "PopularCruisers";
+                            }
+                            else
+                            {
+                                _logger.Info(string.Format("BikeWale.UI.Models.News.NewsDetailPage.BindWidget__{0}. Body style : {1}, is invalid.", category, bodyStyle));
+                                return null;
+                            }
+                            SetWidgetStructureData(widget, title, tabId, true, UrlFormatter.FormatGenericPageUrl(bodyStyle), "View all bikes", viewAllTitle);
                         }
-                        else if (bodyStyle == EnumBikeBodyStyles.Cruiser)
-                        {
-                            title = "Cruisers";
-                            viewAllTitle = "View all Cruisers";
-                            tabId = "PopularCruisers";
-                        }
-                        SetWidgetStructureData(widget, title, tabId, true, UrlFormatter.FormatGenericPageUrl(bodyStyle), "View all bikes", viewAllTitle);
-                        ((EditorialPopularBikesWidget)widget).MostPopularBikeList = _models.GetPopularBikesByBodyStyle((ushort)bodyStyle, (uint)editorialWidgetTopCount, CityId);
                         break;
 
                     case EditorialWidgetCategory.Popular_Scooters:
-                        SetWidgetStructureData(widget, "Popular Scooters", "PopularScooters", true, UrlFormatter.FormatGenericPageUrl(bodyStyle), "View all scooters", "View all scooters");
-                        ((EditorialPopularBikesWidget)widget).MostPopularBikeList = _models.GetMostPopularScooters((uint)editorialWidgetTopCount, CityId);
+                        {
+                            var mostPopular = _models.GetMostPopularScooters((uint)editorialWidgetTopCount, CityId);
+                            if (mostPopular == null || !mostPopular.Any())
+                            {
+                                return null;
+                            }
+                            ((EditorialPopularBikesWidget)widget).MostPopularBikeList = mostPopular;
+                            SetWidgetStructureData(widget, "Popular Scooters", "PopularScooters", true, UrlFormatter.FormatGenericPageUrl(bodyStyle), "View all scooters", "View all scooters");
+                        }
                         break;
 
                     case EditorialWidgetCategory.Popular_Make_Scooters:
-                        SetWidgetStructureData(widget, string.Format("{0} Scooters", MakeName), "PopularMakeScooters", true, UrlFormatter.ScooterMakeUrl(MakeMaskingName, isScooterOnlyMake), "View all scooters", "View all scooters");
-                        ((EditorialPopularBikesWidget)widget).MostPopularBikeList = _models.GetMostPopularScooters((uint)editorialWidgetTopCount, MakeId, CityId);
+                        {
+                            var mostPopular = _models.GetMostPopularScooters((uint)editorialWidgetTopCount, MakeId, CityId);
+                            if (mostPopular == null || !mostPopular.Any())
+                            {
+                                return null;
+                            }
+                            ((EditorialPopularBikesWidget)widget).MostPopularBikeList = mostPopular;
+                            SetWidgetStructureData(widget, string.Format("{0} Scooters", MakeName), "PopularMakeScooters", true, UrlFormatter.ScooterMakeUrl(MakeMaskingName, isScooterOnlyMake), "View all scooters", "View all scooters");
+                        }
                         break;
 
                     case EditorialWidgetCategory.Popular_Series:
-                        viewAllTitle = string.Format("View all {0} bikes", bikeSeriesEntityBase.SeriesName);
-                        SetWidgetStructureData(widget, string.Format("{0} Bikes", bikeSeriesEntityBase.SeriesName), "PopularSeriesBikes", true, UrlFormatter.BikeSeriesUrl(MakeMaskingName, bikeSeriesEntityBase.MaskingName), viewAllTitle, viewAllTitle);
-                        ((EditorialPopularBikesWidget)widget).MostPopularBikeList = FetchPopularSeriesBikes(bikeSeriesEntityBase.SeriesId).Take(editorialWidgetTopCount);
+                        {
+                            var mostPopular = FetchPopularSeriesBikes(bikeSeriesEntityBase.SeriesId).Take(editorialWidgetTopCount);
+                            if (mostPopular == null || !mostPopular.Any())
+                            {
+                                return null;
+                            }
+                            ((EditorialPopularBikesWidget)widget).MostPopularBikeList = mostPopular;
+                            viewAllTitle = string.Format("View all {0} bikes", bikeSeriesEntityBase.SeriesName);
+                            SetWidgetStructureData(widget, string.Format("{0} Bikes", bikeSeriesEntityBase.SeriesName), "PopularSeriesBikes", true, UrlFormatter.BikeSeriesUrl(MakeMaskingName, bikeSeriesEntityBase.MaskingName), viewAllTitle, viewAllTitle);
+                        }
                         break;
 
                     case EditorialWidgetCategory.Series_Scooters:
-                        viewAllTitle = string.Format("View all {0} Scooters", bikeSeriesEntityBase.SeriesName);
-                        SetWidgetStructureData(widget, string.Format("{0} Scooters", bikeSeriesEntityBase.SeriesName), "PopularSeriesScooters", true, UrlFormatter.BikeSeriesUrl(MakeMaskingName, bikeSeriesEntityBase.MaskingName), viewAllTitle, viewAllTitle);
-                        ((EditorialPopularBikesWidget)widget).MostPopularBikeList = FetchPopularSeriesBikes(bikeSeriesEntityBase.SeriesId).Take(editorialWidgetTopCount);
+                        {
+                            var mostPopular = FetchPopularSeriesBikes(bikeSeriesEntityBase.SeriesId).Take(editorialWidgetTopCount);
+                            if (mostPopular == null || !mostPopular.Any())
+                            {
+                                return null;
+                            }
+                            ((EditorialPopularBikesWidget)widget).MostPopularBikeList = mostPopular;
+                            viewAllTitle = string.Format("View all {0} Scooters", bikeSeriesEntityBase.SeriesName);
+                            SetWidgetStructureData(widget, string.Format("{0} Scooters", bikeSeriesEntityBase.SeriesName), "PopularSeriesScooters", true, UrlFormatter.BikeSeriesUrl(MakeMaskingName, bikeSeriesEntityBase.MaskingName), viewAllTitle, viewAllTitle);
+                        }
                         break;
 
                     case EditorialWidgetCategory.Upcoming_All:
-                        viewAllTitle = "View all upcoming bikes";
-                        SetWidgetStructureData(widget, "Upcoming Bikes", "UpcomingBikes", true, UrlFormatter.UpcomingBikesUrl(), viewAllTitle, viewAllTitle);
-                        ((EditorialUpcomingBikesWidget)widget).UpcomingBikeList = _models.GetUpcomingBikesList(EnumUpcomingBikesFilter.Default, editorialWidgetTopCount);
+                        {
+                            var upcomingBikes = _models.GetUpcomingBikesList(EnumUpcomingBikesFilter.Default, editorialWidgetTopCount);
+                            if (upcomingBikes == null || !upcomingBikes.Any())
+                            {
+                                return null;
+                            }
+                            ((EditorialUpcomingBikesWidget)widget).UpcomingBikeList = upcomingBikes;
+                            viewAllTitle = "View all upcoming bikes";
+                            SetWidgetStructureData(widget, "Upcoming Bikes", "UpcomingBikes", true, UrlFormatter.UpcomingBikesUrl(), viewAllTitle, viewAllTitle);
+                        }
                         break;
 
                     case EditorialWidgetCategory.Upcoming_Scooters:
-                        SetWidgetStructureData(widget, "Upcoming Scooters", "UpcomingScooters", false);
-                        ((EditorialUpcomingBikesWidget)widget).UpcomingBikeList = GetUpcomingScooters(editorialWidgetTopCount);
+                        {
+                            var upcomingBikes = GetUpcomingScooters(editorialWidgetTopCount);
+                            if (upcomingBikes == null || !upcomingBikes.Any())
+                            {
+                                return null;
+                            }
+                            ((EditorialUpcomingBikesWidget)widget).UpcomingBikeList = upcomingBikes;
+                            SetWidgetStructureData(widget, "Upcoming Scooters", "UpcomingScooters", false);
+                        }
                         break;
 
                     case EditorialWidgetCategory.OtherBrands_All:
-                        viewAllTitle = "View other brands";
-                        SetWidgetStructureData(widget, "Other Brands", "OtherBrands", true, UrlFormatter.AllScootersUrl(), viewAllTitle, viewAllTitle);
-                        ((EditorialOtherBrandsWidget)widget).OtherBrandsList = GetOtherScooterBrands((int)MakeId, editorialWidgetTopCount);
+                        {
+                            var otherBrands = GetOtherScooterBrands((int)MakeId, editorialWidgetTopCount);
+                            if (otherBrands == null || !otherBrands.Any())
+                            {
+                                return null;
+                            }
+                            ((EditorialOtherBrandsWidget)widget).OtherBrandsList = otherBrands;
+                            viewAllTitle = "View other brands";
+                            SetWidgetStructureData(widget, "Other Brands", "OtherBrands", true, UrlFormatter.AllScootersUrl(), viewAllTitle, viewAllTitle);
+                        }
+                        break;
+
+                    default:
+                        _logger.Info(string.Format("BikeWale.UI.Models.News.NewsDetailPage.BindWidget__{0} is not a valid category", category));
                         break;
                 }
+
             }
             catch (Exception ex)
             {
