@@ -4081,6 +4081,7 @@
     <Content Include="Views\Shared\Ads\Desktop\AdSlotGeneric.cshtml" />
     <Content Include="sass\partials\bw-youtube.sass" />
     <Content Include="Views\Make\_OtherBrandsWidgetBase.cshtml" />
+    <Content Include="sass\partials\explore-bikes-carousel.sass" />
     <Content Include="Views\Shared\_EditorialWidgetBase.cshtml" />
     <None Include="Views\Shared\_Sidebar-section.cshtml" />
     <Content Include="Views\BikeModels\_MultiTabsWidget.cshtml" />
