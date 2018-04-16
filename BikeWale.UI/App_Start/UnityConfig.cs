@@ -1,4 +1,5 @@
 using Bikewale.BAL.AdSlot;
+using Bikewale.BAL.ApiGateway.ApiGatewayHelper;
 using Bikewale.BAL.Authors;
 using Bikewale.BAL.BikeBooking;
 using Bikewale.BAL.BikeData;
@@ -79,7 +80,6 @@ using Bikewale.Interfaces.UserReviews;
 using Bikewale.Interfaces.UserReviews.Search;
 using Bikewale.Interfaces.Videos;
 using Bikewale.ManufacturerCampaign.Interface;
-using Bikewale.BAL.ApiGateway.ApiGatewayHelper;
 using Microsoft.Practices.Unity;
 using System.Web.Mvc;
 using Unity.Mvc5;
@@ -186,9 +186,10 @@ namespace Bikewale
             container.RegisterType<IPageFilters, PageFilters>();
             container.RegisterType<IPQByCityArea, PQByCityArea>();
             container.RegisterType<Bikewale.Interfaces.AutoBiz.IDealerPriceQuote, Bikewale.DAL.AutoBiz.DealerPriceQuoteRepository>();
-	    container.RegisterType<IApiGatewayCaller, ApiGatewayCaller>();
+            container.RegisterType<IApiGatewayCaller, ApiGatewayCaller>();
+            container.RegisterType<IBikeSearch, BikeSearch>();
 
-			DependencyResolver.SetResolver(new UnityDependencyResolver(container));
+            DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }
     }
 }

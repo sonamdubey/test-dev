@@ -1,5 +1,9 @@
 ﻿namespace Bikewale.Entities.NewBikeSearch
 {
+    /// <summary>
+    /// Modified by : Snehal Dange on 11th April 2018
+    /// Description: Added string arrays for Brakes,Wheels,StartType
+    /// </summary>
     public class FilterInput
     {
         public string[] Make { get; set; }
@@ -23,5 +27,9 @@
         public string so { get; set; }
         public string PageSize { get; set; }
         public string PageNo { get; set; }
+
+        public string[] Brakes { get; set; }
+        public string[] Wheels { get; set; }
+        public string[] StartType { get; set; }
     }
 }

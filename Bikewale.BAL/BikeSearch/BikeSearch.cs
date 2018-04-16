@@ -18,6 +18,8 @@ namespace Bikewale.BAL.BikeSearch
     /// Description: To get the search result according to filter passed, source and noofRecords.
     /// Modified By: Deepak Israni on 5 March 2018
     /// Description: Added GetDocuments function and modified GetBikeSearch to get price according to the city using the bikewalepricingindex.
+    /// Modified by : SnehaL Dange on 16th April 2018
+    /// Description: Added 
     /// </summary>
     public class BikeSearch : IBikeSearch
     {
@@ -32,6 +34,11 @@ namespace Bikewale.BAL.BikeSearch
         private static readonly string _cityId = "city.cityId";
         private static readonly string _bikeStatus = "bikeModel.modelStatus";
         private static readonly string _topVersionStatus = "topVersion.versionStatus";
+        private static readonly string _abs = "topVersion.abs";
+        private static readonly string _brakes = "topVersion.brakeType.keyword";
+        private static readonly string _wheels = "topVersion.wheels.keyword";
+        private static readonly string _startType = "topVersion.startType.keyword";
+
         private static readonly byte _modelStatus = 1;// by defaut all new bikes status
         private static readonly byte _versionStatus = 1;
 
@@ -217,17 +224,18 @@ namespace Bikewale.BAL.BikeSearch
                                      .Bool(bq => bq
                                       .Filter(ff => ff
                                           .Bool(bb => bb.
-                                              Must(ProcessFilters(filters)))))).From((filters.PageNumber - 1) * filters.PageSize).Take(filters.PageSize));
+                                              Must(ProcessFilters(filters)))))).From((filters.PageNumber - 1) * filters.PageSize).Sort(GetSortDescriptor<T>(filters.SortCriteria, filters.SortOrder)).Take(filters.PageSize));
+
                 }
                 else
                 {
                     searchDescriptor = new Func<SearchDescriptor<T>, SearchDescriptor<T>>(
-                          sd => sd.Index(indexName).Type(typeName)
-                                   .Query(q => q
-                                   .Bool(bq => bq
-                                    .Filter(ff => ff
-                                        .Bool(bb => bb.
-                                            Must(ProcessFilters(filters)))))).Size(40));
+                        sd => sd.Index(indexName).Type(typeName)
+                           .Query(q => q
+                           .Bool(bq => bq
+                            .Filter(ff => ff
+                                .Bool(bb => bb.
+                                    Must(ProcessFilters(filters)))))).Sort(GetSortDescriptor<T>(filters.SortCriteria, filters.SortOrder)).Size(40));
                 }
             }
             catch (Exception ex)
@@ -239,11 +247,51 @@ namespace Bikewale.BAL.BikeSearch
         }
 
         /// <summary>
+        /// Created by : Snehal Dange on 13TH April 2018
+        /// Desc: Method created to get sort query for ES
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="sortCriteria"></param>
+        /// <param name="sortOrder"></param>
+        /// <returns></returns>
+        private static Func<SortDescriptor<T>, IPromise<IList<ISort>>> GetSortDescriptor<T>(string sortCriteria, string sortOrder) where T : class
+        {
+            Func<SortDescriptor<T>, IPromise<IList<ISort>>> returnVal = null;
+            try
+            {
+                switch (sortCriteria)
+                {
+                    case "1":
+                        Field exshowroomField = _exshowroom;
+                        returnVal = a => (sortOrder == "1" ? a.Descending(exshowroomField) : a.Ascending(exshowroomField));
+                        break;
+
+                    case "2":
+                        Field mileageField = _mileage;
+                        returnVal = a => (sortOrder == "0" ? a.Descending(mileageField) : a.Ascending(mileageField));
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("Exception : Bikewale.BAL.BikeSearch.GetSortDescriptor"));
+            }
+            return returnVal;
+        }
+
+
+
+        /// <summary>
         /// Created By :- Subodh Jain on 21 feb 2018
         /// Summary :- Process Filters according to req.
         /// Modified by: Dhruv Joshi
         /// Dated: 8th March 2018
         /// Description: Query for body style changed to handle string Ienumerable
+        /// Modified by : Snehal Dange on 13th April 2018
+        /// Desc: Added filters for makes, abs , wheels, starttype and brakes
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="filters"></param>
@@ -289,13 +337,62 @@ namespace Bikewale.BAL.BikeSearch
                     QueryContainer qtmp = new QueryContainer();
                     foreach (string style in filters.BodyStyle)
                     {
-                        if (!string.IsNullOrEmpty(style))
+                        if (!String.IsNullOrEmpty(style))
                         {
                             qtmp |= FDS.Term(_bodyStyleId, SqlReaderConvertor.ToUInt32(style));
                         }
                     }
                     query &= qtmp;
                 }
+                if (filters.Make != null && filters.Make.Any())
+                {
+                    QueryContainer queryTmp = new QueryContainer();
+                    foreach (uint makeId in filters.Make)
+                    {
+                        if (makeId > 0)
+                        {
+                            queryTmp |= FDS.Term(_bikeMakeId, SqlReaderConvertor.ToUInt32(makeId));
+                        }
+                    }
+                    query &= queryTmp;
+                }
+
+                if (filters.ABS != null)
+                {
+                    query &= FDS.Term(_abs, filters.ABS);
+                }
+                if (filters.Wheels != null && filters.Wheels.Any())
+                {
+                    QueryContainer qtmp = new QueryContainer();
+                    foreach (sbyte wheelType in filters.Wheels)
+                    {
+                        qtmp |= FDS.Term(_wheels, wheelType);
+                    }
+                    query &= qtmp;
+                }
+                if (filters.StartType != null && filters.StartType.Any())
+                {
+                    QueryContainer qtmp = new QueryContainer();
+                    foreach (sbyte startType in filters.StartType)
+                    {
+                        qtmp |= FDS.Term(_startType, startType);
+                    }
+                    query &= qtmp;
+                }
+
+                if (filters.Brakes != null && filters.Brakes.Any())
+                {
+                    QueryContainer qtmp = new QueryContainer();
+                    foreach (string brakeType in filters.Brakes)
+                    {
+                        if (String.IsNullOrEmpty(brakeType))
+                        {
+                            qtmp |= FDS.Term(_brakes, brakeType);
+                        }
+                    }
+                    query &= qtmp;
+                }
+
 
             }
             catch (Exception ex)
