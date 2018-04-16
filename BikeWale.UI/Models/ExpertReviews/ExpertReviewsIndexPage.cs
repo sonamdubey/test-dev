@@ -31,6 +31,9 @@ namespace Bikewale.Models
     /// <summary>
     /// Created By : Ashish G. Kamble on 21 Mar 2017
     /// Summary : Model for the expert reviews landing page
+    /// Modified by: Dhruv Joshi
+    /// Dated: 16th April 2018
+    /// Description: Added _pageId and _totalTabCount to page variables for generic info widget
     /// </summary>
     public class ExpertReviewsIndexPage
     {
@@ -561,6 +564,9 @@ namespace Bikewale.Models
         /// Summary : added
         /// Modified by : Sanskar Gupta on 22 Jan 2018
         /// Description : Added Newly Launched feature
+        /// Modified by: Dhruv Joshi
+        /// Dated: 16th April 2018
+        /// Description: Getting data for generic bike widget for Model listing page
         /// </summary>
         private void GetWidgetData(ExpertReviewsIndexPageVM objData, int topCount)
         {

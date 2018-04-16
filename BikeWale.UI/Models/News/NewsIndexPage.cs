@@ -38,6 +38,9 @@ namespace Bikewale.Models
     /// Description : Added IBikeSeriesCacheRepository and IBikeSeries for series news page.
     /// Modified by : Rajan Chauhan on 27 Feb 2017
     /// Description : changed CityName from public to private
+    /// Modified by: Dhruv Joshi
+    /// Dated: 16th April 2018
+    /// Description: Added _pageId and _totalTabCount to page variables for generic info widget
     /// </summary>
     public class NewsIndexPage
     {
@@ -590,6 +593,9 @@ namespace Bikewale.Models
         /// Desc: Added BindMoreAboutScootersWidget
         /// Modified by : Sanskar Gupta on 22 Jan 2018
         /// Description : Added Newly Launched feature
+        /// Modified by: Dhruv Joshi
+        /// Dated: 16th April 2018
+        /// Description: Getting data for generic bike widget for Model listing page
         /// </summary>
         private void GetWidgetData(NewsIndexPageVM objData, int topCount)
         {
