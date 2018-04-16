@@ -82,5 +82,6 @@ namespace Bikewale.Interfaces.BikeData
         IEnumerable<MostPopularBikesBase> GetMostPopularBikesByMakeWithCityPrice(int makeId, uint cityId);
         IEnumerable<MostPopularBikesBase> GetElectricBikes();
         IEnumerable<MostPopularBikesBase> GetElectricBikes(uint cityId);
+        SpecsFeaturesEntity GetFullSpecsFeatures(int versionId);
     }
 }

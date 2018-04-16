@@ -105,6 +105,13 @@ namespace Bikewale.BAL.BikeData
             }
         }
 
+        public SpecsFeaturesEntity GetFullSpecsFeatures(int versionId)
+        {
+            GetVersionSpecsByIdAdapter adapter = new GetVersionSpecsByIdAdapter();
+            adapter.AddApiGatewayCall(_apiGatewayCaller, new List<int> { (int)versionId });
+            _apiGatewayCaller.Call();
+            return adapter.Output;
+        }
         public List<BikeModelEntityBase> GetModelsByType(EnumBikeType requestType, int makeId)
         {
             List<BikeModelEntityBase> objModelList = null;
