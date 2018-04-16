@@ -4079,6 +4079,7 @@
     <Content Include="Views\Shared\Ads\Desktop\AdSlotGeneric.cshtml" />
     <Content Include="sass\partials\bw-youtube.sass" />
     <Content Include="Views\GenericBikeInfo\_GenericBikeInfoWidget.cshtml" />
+    <Content Include="Views\GenericBikeInfo\_GenericBikeInfoWidget_Mobile.cshtml" />
     <None Include="Views\Shared\_Sidebar-section.cshtml" />
     <Content Include="Views\BikeModels\_MultiTabsWidget.cshtml" />
     <Content Include="Views\Shared\_ReviewPopup.cshtml" />

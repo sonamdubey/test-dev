@@ -491,3 +491,7 @@
 .lazy.no-zoom, .model-details-block {
     display: inline-block;
 }
+
+.card-bottom-margin {
+    margin-bottom: 20px;
+}
