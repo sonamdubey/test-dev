@@ -28,38 +28,38 @@ namespace Bikewale.DAL.NewBikeSearch
             _filters = new FilterInput();
             try
             {
-                if(!String.IsNullOrEmpty(_input.Bike))
+                if (!String.IsNullOrEmpty(_input.Bike))
                 {
                     ProcessBike();
                 }
 
-                if(!String.IsNullOrEmpty(_input.Displacement))
+                if (!String.IsNullOrEmpty(_input.Displacement))
                 {
                     ProcessDisplacement();
                 }
 
-                if(!String.IsNullOrEmpty(_input.Budget))
+                if (!String.IsNullOrEmpty(_input.Budget))
                 {
                     ProcessBudget();
                 }
 
-                if(!String.IsNullOrEmpty(_input.Mileage))
+                if (!String.IsNullOrEmpty(_input.Mileage))
                 {
                     ProcessMileage();
                 }
 
-                if(!String.IsNullOrEmpty(_input.RideStyle))
+                if (!String.IsNullOrEmpty(_input.RideStyle))
                 {
                     ProcessRideStyle();
                 }
 
-                if(!String.IsNullOrEmpty(_input.StartType))
+                if (!String.IsNullOrEmpty(_input.StartType))
                 {
                     ProcessStartType();
                 }
 
 
-                if(!String.IsNullOrEmpty(_input.ABS))
+                if (!String.IsNullOrEmpty(_input.ABS))
                 {
                     ProcessABS();
                 }
@@ -69,12 +69,12 @@ namespace Bikewale.DAL.NewBikeSearch
                     ProcessAntiBreakingSystem();
                 }
 
-                if(!String.IsNullOrEmpty(_input.BrakeType))
+                if (!String.IsNullOrEmpty(_input.BrakeType))
                 {
                     ProcessBrakeType();
                 }
 
-                if(!String.IsNullOrEmpty(_input.AlloyWheel))
+                if (!String.IsNullOrEmpty(_input.AlloyWheel))
                 {
                     ProcessAlloyWheel();
                 }
@@ -92,10 +92,10 @@ namespace Bikewale.DAL.NewBikeSearch
                 if (!String.IsNullOrEmpty(_input.so) && _input.so != "-1")
                     _filters.so = _input.so;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "Bikewale.BAL.NewBikeSearch.ProcessFilter.ProcessFilters");
-                
+
             }
             return _filters;
         }
@@ -111,7 +111,7 @@ namespace Bikewale.DAL.NewBikeSearch
             {
                 _input.PageSize = !String.IsNullOrEmpty(_input.PageSize) ? _input.PageSize : ConfigurationManager.AppSettings["PageSize"];
 
-                using(IUnityContainer container=new UnityContainer())
+                using (IUnityContainer container = new UnityContainer())
                 {
                     Paging.GetStartEndIndex(Convert.ToInt32(_input.PageSize), Convert.ToInt32(_input.PageNo), out startIndex, out endIndex);
 
@@ -121,22 +121,28 @@ namespace Bikewale.DAL.NewBikeSearch
                     _filters.PageNo = _input.PageNo;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "Bikewale.BAL.NewBikeSearch.ProcessFilter.ProcessPaging");
-                
+
             }
         }
 
         /// <summary>
         /// Created By : Sadhana Upadhyay on 31 Aug 2015
         /// Summary : To process alloy wheel filter
+        /// Modified by : Snehal Dange on 11th April 2018
+        /// Desc : Added wheel types array to filters
         /// </summary>
         private void ProcessAlloyWheel()
         {
             try
             {
                 string[] wheelTypes = _input.AlloyWheel.Split(' ');
+                if (wheelTypes != null && wheelTypes.Any())
+                {
+                    _filters.Wheels = wheelTypes;
+                }
                 foreach (string wheelType in wheelTypes)
                 {
                     if (wheelType == ((int)WheelType.Alloy).ToString())
@@ -148,19 +154,25 @@ namespace Bikewale.DAL.NewBikeSearch
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "Bikewale.BAL.NewBikeSearch.ProcessFilter.ProcessAlloyWheel");
-                
+
             }
         }
 
         /// <summary>
         /// Created By : Sadhana Upadhyay on 31 Aug 2015
         /// Summary : To process brake type filter
+        /// Modified by : Snehal Dange on 11th April 2018
+        /// Desc : added brakes values in Brakes array
         /// </summary>
         private void ProcessBrakeType()
         {
             try
             {
                 string[] brakeTypes = _input.BrakeType.Split(' ');
+                if (brakeTypes != null && brakeTypes.Any())
+                {
+                    _filters.Brakes = brakeTypes;
+                }
                 foreach (string brakeType in brakeTypes)
                 {
                     if (brakeType == ((int)Brake.Disc).ToString())
@@ -172,7 +184,7 @@ namespace Bikewale.DAL.NewBikeSearch
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "Bikewale.BAL.NewBikeSearch.ProcessFilter.ProcessBrakeType");
-                
+
             }
         }
 
@@ -185,7 +197,7 @@ namespace Bikewale.DAL.NewBikeSearch
             try
             {
                 string[] ABS = _input.ABS.Split(' ');
-                foreach(string strABS in ABS)
+                foreach (string strABS in ABS)
                 {
                     if (strABS == ((int)AntiBreakingSystem.ABSAvailable).ToString())
                         _filters.ABSAvailable = true;
@@ -196,7 +208,7 @@ namespace Bikewale.DAL.NewBikeSearch
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "Bikewale.BAL.NewBikeSearch.ProcessFilter.ProcessABS");
-                
+
             }
         }
 
@@ -220,19 +232,25 @@ namespace Bikewale.DAL.NewBikeSearch
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "Bikewale.BAL.NewBikeSearch.ProcessFilter.ProcessAntiBreakingSystem");
-                
+
             }
         }
 
         /// <summary>
         /// Created By : Sadhana Upadhyay on 31 Aug 2015
         /// Summary : To process start type filter
+        /// Modified by : Snehal Dange on 11th April 2018
+        /// Desc : Added startTypes array values to filters
         /// </summary>
         private void ProcessStartType()
         {
             try
             {
                 string[] startTypes = _input.StartType.Split(' ');
+                if (startTypes != null && startTypes.Any())
+                {
+                    _filters.StartType = startTypes;
+                }
                 foreach (string startType in startTypes)
                 {
                     if (startType == ((int)StartType.Electric).ToString())
@@ -241,10 +259,10 @@ namespace Bikewale.DAL.NewBikeSearch
                         _filters.Manual = true;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "Bikewale.BAL.NewBikeSearch.ProcessFilter.ProcessStartType");
-                
+
             }
         }
 
@@ -256,17 +274,17 @@ namespace Bikewale.DAL.NewBikeSearch
         {
             try
             {
-                if(_input.RideStyle.Contains("3"))
+                if (_input.RideStyle.Contains("3"))
                 {
                     _input.RideStyle += " 4";
                 }
 
                 _filters.RideStyle = _input.RideStyle.Split(' ');
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "Bikewale.BAL.NewBikeSearch.ProcessFilter.ProcessRideStyle");
-                
+
             }
         }
 
@@ -280,10 +298,10 @@ namespace Bikewale.DAL.NewBikeSearch
             {
                 _filters.Mileage = _input.Mileage.Split(' ');
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "Bikewale.BAL.NewBikeSearch.ProcessFilter.ProcessMileage");
-                
+
             }
         }
 
@@ -297,10 +315,10 @@ namespace Bikewale.DAL.NewBikeSearch
             {
                 _filters.Displacement = _input.Displacement.Split(' ');
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "Bikewale.BAL.NewBikeSearch.ProcessFilter.ProcessDisplacement");
-                
+
             }
         }
 
@@ -316,21 +334,21 @@ namespace Bikewale.DAL.NewBikeSearch
                 {
                     string[] budgetRange = _input.Budget.Split('-');
 
-                    if(!String.IsNullOrEmpty(budgetRange[0]) && !String.IsNullOrEmpty(budgetRange[1]))
+                    if (!String.IsNullOrEmpty(budgetRange[0]) && !String.IsNullOrEmpty(budgetRange[1]))
                     {
                         _filters.MinBudget = budgetRange[0];
-                        _filters.MaxBudget=budgetRange[1];
+                        _filters.MaxBudget = budgetRange[1];
                     }
-                    else if(!String.IsNullOrEmpty(budgetRange[0]) && String.IsNullOrEmpty(budgetRange[1]))
+                    else if (!String.IsNullOrEmpty(budgetRange[0]) && String.IsNullOrEmpty(budgetRange[1]))
                     {
-                        _filters.MinBudget=budgetRange[0];
+                        _filters.MinBudget = budgetRange[0];
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "Bikewale.BAL.NewBikeSearch.ProcessFilter.ProcessBudget");
-                
+
             }
         }
 
@@ -345,9 +363,9 @@ namespace Bikewale.DAL.NewBikeSearch
                 string[] bike = _input.Bike.Split(' ');
                 string make = string.Empty, model = string.Empty;
 
-                foreach(string str in bike)
+                foreach (string str in bike)
                 {
-                    if(str.Contains('.'))
+                    if (str.Contains('.'))
                     {
                         model += str.Split('.')[1] + " ";
                     }
@@ -363,10 +381,10 @@ namespace Bikewale.DAL.NewBikeSearch
                 _filters.Model = model.Split(' ');
                 _filters.Model = _filters.Model.Take<string>(_filters.Model.Length - 1).ToArray<string>();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "Bikewale.BAL.NewBikeSearch.ProcessFilter.ProcessBike");
-                
+
             }
         }
     }   //End of class
