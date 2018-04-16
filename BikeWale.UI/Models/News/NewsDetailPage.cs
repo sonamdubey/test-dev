@@ -1587,6 +1587,10 @@ namespace Bikewale.Models
                             SetWidgetStructureData(widget, "Other Brands", "OtherBrands", true, UrlFormatter.AllScootersUrl(), viewAllTitle, viewAllTitle);
                         }
                         break;
+
+                    default:
+                        _logger.Info(string.Format("BikeWale.UI.Models.News.NewsDetailPage.BindWidget__{0} is not a valid category", category));
+                        break;
                 }
 
             }
