@@ -4081,7 +4081,11 @@
     <Content Include="Views\Shared\Ads\Desktop\AdSlotGeneric.cshtml" />
     <Content Include="sass\partials\bw-youtube.sass" />
     <Content Include="Views\Make\_OtherBrandsWidgetBase.cshtml" />
+    <Content Include="sass\partials\explore-bikes-carousel.sass" />
     <Content Include="Views\Shared\_EditorialWidgetBase.cshtml" />
+    <Content Include="Views\BikeSeries\_MakeSeriesSlug.cshtml" />
+    <Content Include="Views\BikeSeries\_MakeSeriesSlug_Mobile.cshtml" />
+    <Content Include="Views\BikeSeries\_MakeSeriesSlug_Mobile_New.cshtml" />
     <None Include="Views\Shared\_Sidebar-section.cshtml" />
     <Content Include="Views\BikeModels\_MultiTabsWidget.cshtml" />
     <Content Include="Views\Shared\_ReviewPopup.cshtml" />
@@ -4363,9 +4367,9 @@
   <Target Name="BeforeBuild">
     <Message Text="Bikewale Build Initialized..." Importance="high" />
   </Target>
-  <Target Name="CheckNPMInstall" AfterTargets="BeforeBuild" Condition="'$(Configuration)' != 'Debug'">	
-    <Message Text="Checking and installing NPM on machine.." Importance="high" />	
-    <Exec Command="npm install  --quiet" WorkingDirectory="$(ProjectDir)" />	
+  <Target Name="CheckNPMInstall" AfterTargets="BeforeBuild" Condition="'$(Configuration)' != 'Debug'">
+    <Message Text="Checking and installing NPM on machine.." Importance="high" />
+    <Exec Command="npm install  --quiet" WorkingDirectory="$(ProjectDir)" />
   </Target>
   <Target Name="ExecuteGulpEvent" AfterTargets="AfterBuild" DependsOnTargets="CheckNPMInstall" Condition="'$(Configuration)' != 'Debug'">
     <Message Text="Running gulp task $(Configuration)" Importance="high" />
