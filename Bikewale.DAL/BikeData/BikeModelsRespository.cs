@@ -573,6 +573,8 @@ namespace Bikewale.DAL.BikeData
         /// <summary>
         /// Modified By : Sadhana Upadhyay on 29 Oct 2015
         /// Summary : To fetch
+        /// Modified By : Sanskar Gupta on 16 April 2018
+        /// Description : Added null check for `dr["ExpectedLaunch"]` and optimized some code around it.
         /// </summary>
         /// <param name="inputParams"></param>
         /// <param name="sortBy"></param>
@@ -609,7 +611,15 @@ namespace Bikewale.DAL.BikeData
 
                                 objModel.ExpectedLaunchId = Convert.ToUInt16(dr["ExpectedLaunchId"]);
                                 objModel.ExpectedLaunchDate = !String.IsNullOrEmpty(Convert.ToString(dr["ExpectedLaunch"])) ? Convert.ToDateTime(dr["ExpectedLaunch"]).ToString("MMMM yyyy") : "";
-                                objModel.ExpectedLaunchedDate = Convert.ToDateTime(dr["ExpectedLaunch"]);
+
+                                var expectedLaunch = dr["ExpectedLaunch"];
+                                if (expectedLaunch != null && !String.IsNullOrEmpty(Convert.ToString(expectedLaunch)))
+                                {
+                                    objModel.ExpectedLaunchedDate = Convert.ToDateTime(dr["ExpectedLaunch"]);
+                                    objModel.ExpectedLaunchDate = objModel.ExpectedLaunchedDate.ToString("MMMM yyyy");
+
+                                }
+
                                 objModel.EstimatedPriceMin = Convert.ToUInt64(dr["EstimatedPriceMin"]);
                                 objModel.EstimatedPriceMax = Convert.ToUInt64(dr["EstimatedPriceMax"]);
                                 objModel.HostUrl = Convert.ToString(dr["HostURL"]);
