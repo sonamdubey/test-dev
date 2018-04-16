@@ -73,6 +73,8 @@ namespace Bikewale.Models
         private readonly PQSourceEnum pqSource = 0;
         private EnumBikeType bikeType = EnumBikeType.All;
         private string ModelIds = string.Empty;
+        private readonly uint _totalTabCount = 3;
+        private BikeInfoTabType _pageId = BikeInfoTabType.ExpertReview;
         #endregion
 
         #region Public properties
@@ -590,6 +592,12 @@ namespace Bikewale.Models
                     MostPopularBikesWidget objPopularBikes = new MostPopularBikesWidget(_bikeModels, EnumBikeType.All, showCheckOnRoadCTA, false, pqSource, pageCatId, MakeId);
                     objPopularBikes.TopCount = 9;
                     objPopularBikes.CityId = CityId;
+
+                    if (ModelId > 0)
+                    {
+                        BikeInfoWidget genericInfoWidget = new BikeInfoWidget(_objGenericBike, _objCityCache, ModelId, CityId, _totalTabCount, _pageId);
+                        objData.GenericBikeInfoWidget = genericInfoWidget.GetData();
+                    }
 
                     if (MakeId > 0)
                     {

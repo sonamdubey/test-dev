@@ -51,5 +51,7 @@ namespace Bikewale.Models.Shared
         public PwaReduxStore ReduxStore { get; set; }
         public IHtmlString ServerRouterWrapper { get; set; }
         public string WindowState { get; set; }
+        public BikeInfoVM GenericBikeInfoWidget { get; set; }
+
     }
 }

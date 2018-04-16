@@ -1,0 +1,83 @@
+﻿@model Bikewale.Models.BikeInfoVM
+
+<div class="content-box-shadow ">
+    <div class="model-grid-8-slug">
+        <div class="clear"></div>
+        <div class="grid-8 alpha border-solid-right">
+            <a href="@Model.BikeUrl" title="@Model.BikeName" class="block text-default bw-ga" data-cat="@Model.Category" data-act="Clicked_Model_GenericSlug" data-lab="@Model.BikeName" >
+                <h2> @Model.BikeName</h2>
+            </a>
+            @if (Model.BikeInfo.RatingCount > 0)
+            { 
+                <div id="reviewRatingsDiv" >
+                    <span class="rate-count-@Math.Round(Model.BikeInfo.Rating)">
+                        <span class="bwsprite star-icon star-size-16" > </span>
+                        <span class="font14 text-bold inline-block">@Model.BikeInfo.Rating.ToString("0.0")</span>
+                    </span>
+                    <span class="font11 text-xt-light-grey inline-block padding-left5">(@string.Format("{0} {1}", Model.BikeInfo.RatingCount, Model.BikeInfo.RatingCount > 1 ? "ratings" : "rating"))</span>
+                    @if (Model.BikeInfo.UserReviewCount > 0)
+                    {
+                        <a class="text-xt-light review-left-divider inline-block" href="@string.Format("{0}reviews/", Model.BikeUrl)" title="@Model.BikeName user reviews" > <!-- style="padding-left: 10px;margin-left: 6px;"-->@string.Format("{0} {1}", Model.BikeInfo.UserReviewCount, Model.BikeInfo.UserReviewCount > 1 ? "reviews" : "review")</a>    
+                    }
+                
+                </div>
+            }
+            <br>
+            <a href="@Model.BikeUrl" title="@Model.BikeName" class="model-image-target vertical-top bw-ga" data-cat="@Model.Category" data-act="Clicked_Model_GenericSlug" data-lab="Honda Activa 5G" > 
+                <img class="lazy no-zoom" data-original="@Bikewale.Utility.Image.GetPathToShowImages(Model.BikeInfo.OriginalImagePath, Model.BikeInfo.HostUrl, Bikewale.Utility.ImageSize._160x89, Bikewale.Utility.QualityFactor._70) " src="@Bikewale.Utility.Image.GetPathToShowImages(Model.BikeInfo.OriginalImagePath, Model.BikeInfo.HostUrl, Bikewale.Utility.ImageSize._160x89, Bikewale.Utility.QualityFactor._70)" alt="@Model.BikeName" > <!-- style="display: inline;"-->
+            </a>
+            <div class="model-details-block vertical-top" > 
+                @if (Model.BikeInfo.MinSpecs != null)
+                {
+                    <ul class="key-specs-list margin-bottom15 text-light-grey" >
+                        
+                        @if (Model.BikeInfo.MinSpecs.Displacement > 0)
+                        {
+                        <li>
+                            <span class="bwsprite capacity-sm"></span>
+                            <span>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(Convert.ToString(Model.BikeInfo.MinSpecs.Displacement)) cc</span>
+                        </li>
+                        }
+                        @if (Model.BikeInfo.MinSpecs.MaxPower > 0)
+                        {
+                            <li>
+                                <span class="bwsprite power-sm"></span>
+                                <span>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(Convert.ToString(Model.BikeInfo.MinSpecs.MaxPower)) bhp</span>
+                            </li>
+                        }
+                        @if (Model.BikeInfo.MinSpecs.KerbWeight > 0)
+                        {
+                            <li>
+                                <span class="bwsprite weight-sm"></span>
+                                <span>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(Convert.ToString(Model.BikeInfo.MinSpecs.KerbWeight))  kgs</span>
+                            </li>
+                        }
+                    </ul>
+                }
+                @if (Model.BikeInfo.Tabs != null)
+                { 
+                    <ul class="item-more-details-list inline-block bw-ga" data-cat="@Model.Category" data-act="Clicked_OtherElements_GenericSlug" data-lab="@Model.BikeName">
+                        @foreach (var Tabsdetails in Model.BikeInfo.Tabs)
+                        {
+                         
+                            <li > 
+                                <a href="@Tabsdetails.URL" title="@Model.BikeName @Tabsdetails.Title">
+                                    <span class="bwsprite @Tabsdetails.IconText-sm"></span>
+                                    <span class="icon-label" >@Tabsdetails.TabText</span>                                
+                                </a>
+                            </li>
+                        }                     
+                    </ul>
+                }
+            </div>
+        </div>
+        <div class="grid-4 omega" > 
+            @if (Model.BikeInfo.PriceInCity > 0 && Model.CityDetails != null)
+            {
+                <p class="font12 text-light-grey margin-bottom5 text-truncate" title="@String.Format(" On-road price, {0}", Model.CityDetails.CityName)">@String.Format("On-road price, {0}", Model.CityDetails.CityName)</p>
+                <span class="font16">₹</span><span class="font16 text-bold">&nbsp;@Bikewale.Utility.Format.FormatPrice(Convert.ToString(Model.BikeInfo.BikePrice))</span>
+            }
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
