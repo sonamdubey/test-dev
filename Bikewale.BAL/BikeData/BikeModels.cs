@@ -421,7 +421,26 @@ namespace Bikewale.BAL.BikeData
                     dt1 = DateTime.Now;
                     if (objModelPage.ModelVersions != null && objModelPage.ModelVersions.Any())
                     {
-                        int versionId = objModelPage.ModelVersions.FirstOrDefault().VersionId;
+                        BindMinSpecs(objModelPage.ModelVersions,
+                        new List<EnumSpecsFeaturesItems>{
+                            EnumSpecsFeaturesItems.BrakeType,
+                            EnumSpecsFeaturesItems.AlloyWheels,
+                            EnumSpecsFeaturesItems.Displacement,
+                            EnumSpecsFeaturesItems.MaxPowerBhp,
+                            EnumSpecsFeaturesItems.FuelEfficiencyOverall,
+                            EnumSpecsFeaturesItems.KerbWeight,
+                            EnumSpecsFeaturesItems.TopSpeed
+                        });
+                        var modelVersion = objModelPage.ModelVersions.FirstOrDefault();
+                        int versionId = modelVersion.VersionId;
+                        if (modelVersion != null && modelVersion.MinSpecsList != null)
+                        {
+                            objModelPage.ModelVersionMinSpecs = new BikeVersionMinSpecs()
+                            {
+                                VersionId = versionId,
+                                MinSpecsList = modelVersion.MinSpecsList.Skip(2)
+                            };
+                        }
                         BikeVersionMinSpecs objOverview = new BikeVersionMinSpecs() { VersionId = versionId };
 
                         GetVersionSpecsByItemIdAdapter adapt1 = new GetVersionSpecsByItemIdAdapter();
