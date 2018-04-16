@@ -438,7 +438,7 @@ namespace Bikewale.BAL.BikeBooking
                 if (pageDetail != null && pageDetail.Varients != null)
                 {
                     GetVersionSpecsByItemIdAdapter adapt1 = new GetVersionSpecsByItemIdAdapter();
-                    var specItemInput = new VersionsDataByItemIds_Input {
+                    VersionsDataByItemIds_Input specItemInput = new VersionsDataByItemIds_Input {
                         Versions = new List<int> { (int)versionId },
                         Items = new List<EnumSpecsFeaturesItems> {
                             EnumSpecsFeaturesItems.BrakeType,

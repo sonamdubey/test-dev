@@ -55,7 +55,7 @@ namespace Bikewale.Models.BestBikes
                     objPopular.BodyStyleLinkTitle = BodyStyleLinks.BodyStyleFooterLink(objPopular.BodyStyle);
 
                     GetVersionSpecsByItemIdAdapter adapt1 = new GetVersionSpecsByItemIdAdapter();
-                    var specItemInput = new VersionsDataByItemIds_Input
+                    VersionsDataByItemIds_Input specItemInput = new VersionsDataByItemIds_Input
                     {
                         Versions = objPopular.PopularBikes.Select(m => m.objVersion.VersionId),
                         Items = new List<EnumSpecsFeaturesItems>

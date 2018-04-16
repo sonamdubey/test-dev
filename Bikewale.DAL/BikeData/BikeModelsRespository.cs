@@ -1880,6 +1880,10 @@ namespace Bikewale.DAL.BikeData
                                 popularObj.BikePopularityIndex = SqlReaderConvertor.ToUInt16(dr["Rank"]);
                                 Enum.TryParse(Convert.ToString(dr["CategoryId"]), out bodyStyle);
                                 popularObj.BodyStyle = bodyStyle;
+                                popularObj.objVersion = new BikeVersionsListEntity
+                                {
+                                    VersionId = SqlReaderConvertor.ToInt32(dr["topversionid"])
+                                };
                                 popularBikesList.Add(popularObj);
                             }
                             dr.Close();
@@ -2923,6 +2927,10 @@ namespace Bikewale.DAL.BikeData
                                            ModelId = SqlReaderConvertor.ToInt32(dr["modelid"]),
                                            ModelName = Convert.ToString(dr["model"]),
                                            MaskingName = Convert.ToString(dr["modelmaskingname"]),
+                                       },
+                                       objVersion = new BikeVersionsListEntity
+                                       {
+                                           VersionId = SqlReaderConvertor.ToInt32(dr["versionid"])
                                        },
                                        BikeName = Convert.ToString(dr["bikename"]),
                                        MakeId = SqlReaderConvertor.ToInt32(dr["makeid"]),

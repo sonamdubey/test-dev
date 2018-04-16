@@ -378,7 +378,7 @@ namespace Bikewale.BAL.BikeData.NewLaunched
                 if (bikesList != null && bikesList.Any())
                 {
                     GetVersionSpecsByItemIdAdapter adapt1 = new GetVersionSpecsByItemIdAdapter();
-                    var specItemInput = new VersionsDataByItemIds_Input
+                    VersionsDataByItemIds_Input specItemInput = new VersionsDataByItemIds_Input
                     {
                         Versions = bikesList.Select(m => m.VersionId),
                         Items = specItemList

@@ -35,7 +35,7 @@ namespace Bikewale.BAL.ApiGateway.Adapters.BikeData
 
 			try
 			{
-				if (input != null && input.Versions != null && input.Items != null)
+				if (input != null && input.Versions != null && input.Versions.Any() && input.Items != null)
 				{
 					requestInput = new VersionsDataByItemIdsRequest
 					{
