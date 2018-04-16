@@ -574,7 +574,7 @@ namespace Bikewale.DAL.BikeData
         /// Modified By : Sadhana Upadhyay on 29 Oct 2015
         /// Summary : To fetch
         /// Modified By : Sanskar Gupta on 16 April 2018
-        /// Description : Added null check for `dr["ExpectedLaunch"]` and optimized some code around it.
+        /// Description : Added null check for `dr["ExpectedLaunch"]` and optimized some code around it. Changed `Convert.To...` to `SQLReaderConverted...` wherever possible.
         /// </summary>
         /// <param name="inputParams"></param>
         /// <param name="sortBy"></param>
@@ -610,25 +610,20 @@ namespace Bikewale.DAL.BikeData
                                 UpcomingBikeEntity objModel = new UpcomingBikeEntity();
 
                                 objModel.ExpectedLaunchId = Convert.ToUInt16(dr["ExpectedLaunchId"]);
-                                objModel.ExpectedLaunchDate = !String.IsNullOrEmpty(Convert.ToString(dr["ExpectedLaunch"])) ? Convert.ToDateTime(dr["ExpectedLaunch"]).ToString("MMMM yyyy") : "";
-
-                                var expectedLaunch = dr["ExpectedLaunch"];
-                                if (expectedLaunch != null && !String.IsNullOrEmpty(Convert.ToString(expectedLaunch)))
+                                objModel.ExpectedLaunchedDate = SqlReaderConvertor.ToDateTime(dr["ExpectedLaunch"]);
+                                if (objModel.ExpectedLaunchedDate != null)
                                 {
-                                    objModel.ExpectedLaunchedDate = Convert.ToDateTime(dr["ExpectedLaunch"]);
                                     objModel.ExpectedLaunchDate = objModel.ExpectedLaunchedDate.ToString("MMMM yyyy");
-
                                 }
-
-                                objModel.EstimatedPriceMin = Convert.ToUInt64(dr["EstimatedPriceMin"]);
-                                objModel.EstimatedPriceMax = Convert.ToUInt64(dr["EstimatedPriceMax"]);
+                                objModel.EstimatedPriceMin = SqlReaderConvertor.ToUInt64(dr["EstimatedPriceMin"]);
+                                objModel.EstimatedPriceMax = SqlReaderConvertor.ToUInt64(dr["EstimatedPriceMax"]);
                                 objModel.HostUrl = Convert.ToString(dr["HostURL"]);
                                 objModel.LargePicImagePath = Convert.ToString(dr["LargePicImagePath"]);
                                 objModel.BikeDescription.SmallDescription = Convert.ToString(dr["Description"]);
-                                objModel.MakeBase.MakeId = Convert.ToInt32(dr["MakeId"]);
+                                objModel.MakeBase.MakeId = SqlReaderConvertor.ToInt32(dr["MakeId"]);
                                 objModel.MakeBase.MakeName = Convert.ToString(dr["MakeName"]);
                                 objModel.MakeBase.MaskingName = Convert.ToString(dr["MakeMaskingName"]);
-                                objModel.ModelBase.ModelId = Convert.ToInt32(dr["ModelId"]);
+                                objModel.ModelBase.ModelId = SqlReaderConvertor.ToInt32(dr["ModelId"]);
                                 objModel.ModelBase.ModelName = Convert.ToString(dr["ModelName"]);
                                 objModel.ModelBase.MaskingName = Convert.ToString(dr["ModelMaskingName"]);
                                 objModel.OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]);
