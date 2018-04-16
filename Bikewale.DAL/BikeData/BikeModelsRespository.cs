@@ -611,10 +611,7 @@ namespace Bikewale.DAL.BikeData
 
                                 objModel.ExpectedLaunchId = Convert.ToUInt16(dr["ExpectedLaunchId"]);
                                 objModel.ExpectedLaunchedDate = SqlReaderConvertor.ToDateTime(dr["ExpectedLaunch"]);
-                                if (objModel.ExpectedLaunchedDate != null)
-                                {
-                                    objModel.ExpectedLaunchDate = objModel.ExpectedLaunchedDate.ToString("MMMM yyyy");
-                                }
+                                objModel.ExpectedLaunchDate = objModel.ExpectedLaunchedDate.ToString("MMMM yyyy");
                                 objModel.EstimatedPriceMin = SqlReaderConvertor.ToUInt64(dr["EstimatedPriceMin"]);
                                 objModel.EstimatedPriceMax = SqlReaderConvertor.ToUInt64(dr["EstimatedPriceMax"]);
                                 objModel.HostUrl = Convert.ToString(dr["HostURL"]);
