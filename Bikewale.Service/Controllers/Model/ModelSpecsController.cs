@@ -127,6 +127,11 @@ namespace Bikewale.Service.Controllers.Model
                     return BadRequest();
                 }
                 objModelPage = _bikeModelEntity.GetModelPageDetails(modelId);
+                int versionId = objModelPage.ModelVersionMinSpecs.VersionId;
+                if (versionId > 0)
+                {
+                    objModelPage.VersionSpecsFeatures = _bikeModelEntity.GetFullSpecsFeatures(versionId);
+                }
                 if (objModelPage != null)
                 {
                     objPQ = _objPQByCityArea.GetVersionList(modelId, objModelPage.ModelVersions, cityId, areaId, Convert.ToUInt16(platformId), null, null, deviceId);

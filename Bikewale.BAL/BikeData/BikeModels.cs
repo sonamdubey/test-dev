@@ -105,6 +105,27 @@ namespace Bikewale.BAL.BikeData
             }
         }
 
+        /// <summary>
+        /// Created By : Pratibha Verma on 16 April 2018
+        /// Summary : get full specs and features from grpc
+        /// </summary>
+        /// <param name="versionId"></param>
+        /// <returns></returns>
+        public SpecsFeaturesEntity GetFullSpecsFeatures(int versionId)
+        {
+            GetVersionSpecsByIdAdapter adapter = null;
+            try
+            {
+                adapter = new GetVersionSpecsByIdAdapter();
+                adapter.AddApiGatewayCall(_apiGatewayCaller, new List<int> { (int)versionId });
+                _apiGatewayCaller.Call();
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("Bikewale.BAL.BikeData.BikeModels.GetFullSpecsFeatures({0})",versionId));
+            }
+            return adapter.Output;
+        }
         public List<BikeModelEntityBase> GetModelsByType(EnumBikeType requestType, int makeId)
         {
             List<BikeModelEntityBase> objModelList = null;

@@ -82,16 +82,7 @@ namespace Bikewale.New
             {
                 if (versionId > 0)
                 {
-                    using (IUnityContainer container = new UnityContainer())
-                    {
-                        container.RegisterType<IApiGatewayCaller, ApiGatewayCaller>();
-                        var _apiGatewayCaller = container.Resolve<IApiGatewayCaller>();
-                        GetVersionSpecsByIdAdapter adapt1 = new GetVersionSpecsByIdAdapter();
-                        adapt1.AddApiGatewayCall(_apiGatewayCaller, new List<int> { (int)versionId });
-
-                        _apiGatewayCaller.Call();
-                        versionSpecsFeatures = adapt1.Output;
-                    }
+                    BindFullSpecsFeatures();
                 }
                 IsScooterOnly = modelDetail.ModelDetails.MakeBase.IsScooterOnly;
                 BindWidget();
@@ -322,6 +313,25 @@ namespace Bikewale.New
             }
 
             return "";
+        }
+
+        /// <summary>
+        /// Created By : Pratibha Verma on 16 April 2018
+        /// Summary : get full specs and features from grpc
+        /// </summary>
+        /// <param name="versionId"></param>
+        /// <returns></returns>
+        private void BindFullSpecsFeatures()
+        {
+            using (IUnityContainer container = new UnityContainer())
+            {
+                container.RegisterType<IApiGatewayCaller, ApiGatewayCaller>();
+                var _apiGatewayCaller = container.Resolve<IApiGatewayCaller>();
+                GetVersionSpecsByIdAdapter adapter = new GetVersionSpecsByIdAdapter();
+                adapter.AddApiGatewayCall(_apiGatewayCaller, new List<int> { (int)versionId });
+                _apiGatewayCaller.Call();
+                versionSpecsFeatures = adapter.Output;
+            }
         }
 
         /// Created  By :- Sajal Gupta on 13-02-2017
