@@ -192,5 +192,37 @@ namespace Bikewale.Cache.BikeData
             }
             return modelIds;
         }
+
+
+        /// <summary>
+        /// Created By : Deepak Israni on 16 April 2018
+        /// Description: To get the list of series by make with minimum price by city.
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <param name="cityId"></param>
+        /// <returns></returns>
+        public IEnumerable<BikeSeriesEntity> GetMakeSeries(int makeId, int cityId)
+        {
+            IEnumerable<BikeSeriesEntity> makeSeriesEntityList = null;
+            try
+            {
+                string key;
+                if (cityId == 0)
+                {
+                    key = string.Format("BW_MakeSeries_M_{0}", makeId);
+                }
+                else
+                {
+                    key = string.Format("BW_MakeSeries_M_{0}_C_{1}", makeId, cityId);
+                }
+
+                makeSeriesEntityList = _cache.GetFromCache(key, new TimeSpan(24, 0, 0), () => _bikeSeriesRepository.GetMakeSeries(makeId, cityId));
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("Cache.BikeData.BikeSeries.GetMakeSeries_makeId_{0}_cityId_{1}", makeId, cityId));
+            }
+            return makeSeriesEntityList;
+        }
     }
 }
