@@ -161,7 +161,10 @@ namespace Bikewale.Service.Controllers.PriceQuote
                         isVerified = true; // Set Verified to true to push the lead into AB for un-verified leads as well
 
                         pqCustomer = _objDealerPriceQuote.GetCustomerDetails(input.PQId);
-                        objCust = pqCustomer.objCustomerBase;
+                        if(pqCustomer != null && pqCustomer.objCustomerBase != null)
+                        {
+                            objCust = pqCustomer.objCustomerBase;
+                        }
 
                         PQ_DealerDetailEntity dealerDetailEntity = null;
 
