@@ -1772,8 +1772,8 @@ namespace Bikewale.Models
         /// Created by  : Sanskar Gupta on 16 April 2018
         /// Description : Function to get first `noOfElements` elements from an IEnumerable<T> with null check handled in the same.
         /// </summary>
-        /// <param name="elements"></param>
-        /// <param name="topCount"></param>
+        /// <param name="elements">IEnumerable of the items</param>
+        /// <param name="topCount">noOfElements to be taken out of the list.</param>
         /// <returns></returns>
         private IEnumerable<T> GetTopElements<T>(IEnumerable<T> elements, int noOfElements)
         {
