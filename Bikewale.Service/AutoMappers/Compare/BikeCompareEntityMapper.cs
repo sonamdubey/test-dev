@@ -101,7 +101,7 @@ namespace Bikewale.Service.AutoMappers.Compare
                 {
                     bikeDataDtoList = new List<CompareBikeDataDTO>(); 
                     foreach(var itemValue in specFeatureItem.ItemValues){
-                        specDisplayText = FormatMinSpecs.ShowAvailable(itemValue, specFeatureItem.DataType);
+                        specDisplayText = FormatMinSpecs.ShowAvailable(itemValue, specFeatureItem.DataType,specFeatureItem.Id);
                         bikeDataDtoList.Add(new CompareBikeDataDTO(){
                             Text =  specDisplayText,
                             Value = specDisplayText

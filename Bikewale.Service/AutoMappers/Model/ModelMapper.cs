@@ -195,7 +195,7 @@ namespace Bikewale.Service.AutoMappers.Model
                     specsList = new List<DTO.Model.Specs>();
                     foreach (SpecsFeaturesItem specsFeaturesItem in specFeatureItemList)
                     {
-                        string itemValue = FormatMinSpecs.ShowAvailable(specsFeaturesItem.ItemValues.FirstOrDefault(), specsFeaturesItem.UnitTypeText, specsFeaturesItem.DataType);
+                        string itemValue = FormatMinSpecs.ShowAvailable(specsFeaturesItem.ItemValues.FirstOrDefault(), specsFeaturesItem.UnitTypeText, specsFeaturesItem.DataType, specsFeaturesItem.Id);
                         specsList.Add(new DTO.Model.Specs()
                         {
                             DisplayText = specsFeaturesItem.DisplayText,
@@ -227,7 +227,7 @@ namespace Bikewale.Service.AutoMappers.Model
                     specsList = new List<DTO.Model.Specs>();
                     foreach (SpecsItem specsFeaturesItem in specSummaryList)
                     {
-                        string itemValue = FormatMinSpecs.ShowAvailable(specsFeaturesItem.Value, specsFeaturesItem.UnitType, specsFeaturesItem.DataType);
+                        string itemValue = FormatMinSpecs.ShowAvailable(specsFeaturesItem.Value, specsFeaturesItem.UnitType, specsFeaturesItem.DataType, specsFeaturesItem.Id);
                         specsList.Add(new DTO.Model.Specs()
                         {
                             DisplayText = specsFeaturesItem.Name,
@@ -318,6 +318,8 @@ namespace Bikewale.Service.AutoMappers.Model
         /// Summary:To map Object for V3 model entity and PQ entity
         /// updated by: Sangram Nandkhile on 05 May 2016 
         /// Summary: Added upcoming section
+        /// Modified By : Rajan Chauhan on 10 Apr 2018
+        /// Description : Changed spec binding from overView to specSummaryList
         /// </summary>
         /// <param name="objModelPage"></param>
         /// <returns></returns>
@@ -337,23 +339,25 @@ namespace Bikewale.Service.AutoMappers.Model
                 objDTOModelPage.IsDiscontinued = !objModelPage.ModelDetails.New;
                 objDTOModelPage.IsUpcoming = objModelPage.ModelDetails.Futuristic;
 
-                if (objModelPage.objOverview != null)
+                if (objModelPage.SpecsSummaryList != null)
                 {
-                    foreach (var spec in objModelPage.objOverview.OverviewList)
+                    string displayValue;
+                    foreach (var spec in objModelPage.SpecsSummaryList)
                     {
-                        switch (spec.DisplayText)
+                        displayValue = FormatMinSpecs.ShowAvailable(spec.Value, spec.UnitType, spec.DataType, spec.Id);
+                        switch ((EnumSpecsFeaturesItem)spec.Id)
                         {
-                            case "Capacity":
-                                objDTOModelPage.Capacity = spec.DisplayValue;
+                            case EnumSpecsFeaturesItem.Displacement:
+                                objDTOModelPage.Capacity = displayValue;
                                 break;
-                            case "Mileage":
-                                objDTOModelPage.Mileage = spec.DisplayValue;
+                            case EnumSpecsFeaturesItem.FuelEfficiencyOverall:
+                                objDTOModelPage.Mileage = displayValue;
                                 break;
-                            case "Max power":
-                                objDTOModelPage.MaxPower = spec.DisplayValue;
+                            case EnumSpecsFeaturesItem.MaxPowerBhp:
+                                objDTOModelPage.MaxPower = displayValue;
                                 break;
-                            case "Weight":
-                                objDTOModelPage.Weight = spec.DisplayValue;
+                            case EnumSpecsFeaturesItem.KerbWeight:
+                                objDTOModelPage.Weight = displayValue;
                                 break;
                         }
                     }
@@ -380,7 +384,7 @@ namespace Bikewale.Service.AutoMappers.Model
                     objDTOModelPage.IsCityExists = pqEntity.IsCityExists; //soo
                     objDTOModelPage.IsAreaExists = pqEntity.IsAreaExists; //soo
                     objDTOModelPage.IsExShowroomPrice = pqEntity.IsExShowroomPrice; //soo
-                    objDTOModelPage.ModelVersions = Convert(pqEntity.VersionList);
+                    objDTOModelPage.ModelVersions = ConvertBikeVersionToVersionDetail(pqEntity.VersionList);
                     objDTOModelPage.DealerId = pqEntity.DealerId;
                     objDTOModelPage.PQId = pqEntity.PqId;
                 }
@@ -431,7 +435,7 @@ namespace Bikewale.Service.AutoMappers.Model
                     string displayValue;
                     foreach (var spec in objModelPage.SpecsSummaryList)
                     {
-                        displayValue = FormatMinSpecs.ShowAvailable(spec.Value, spec.UnitType, spec.DataType);
+                        displayValue = FormatMinSpecs.ShowAvailable(spec.Value, spec.UnitType, spec.DataType, spec.Id);
                         switch ((EnumSpecsFeaturesItem)spec.Id)
                         {
                             case EnumSpecsFeaturesItem.Displacement:
@@ -709,7 +713,7 @@ namespace Bikewale.Service.AutoMappers.Model
                     string displayValue;
                     foreach (var spec in objModelPage.SpecsSummaryList)
                     {
-                        displayValue = spec.Value == "" ? null : FormatMinSpecs.ShowAvailable(spec.Value, spec.UnitType, spec.DataType);
+                        displayValue = spec.Value == "" ? null : FormatMinSpecs.ShowAvailable(spec.Value, spec.UnitType, spec.DataType, spec.Id);
                         switch ((EnumSpecsFeaturesItem)spec.Id)
                         {
                             case EnumSpecsFeaturesItem.Displacement:
@@ -859,11 +863,11 @@ namespace Bikewale.Service.AutoMappers.Model
                         PopupHeading = leadCampaign.PopupHeading,
                         PopupSuccessMessage = leadCampaign.PopupSuccessMessage,
                         ShowOnExshowroom = leadCampaign.ShowOnExshowroom,
-                        VersionId = objModelPage.ModelVersionSpecs.BikeVersionId,
+                        VersionId = (uint)objModelPage.ModelVersionMinSpecs.VersionId,
                         PlatformId = platformId,
                         IsAmp = !isApp,
                         BikeName = string.Format("{0} {1}", modelDetails.MakeBase.MakeName, modelDetails.ModelName),
-                        LoanAmount = (uint)System.Convert.ToUInt32((pqEntity.VersionList.FirstOrDefault(m => m.VersionId == objModelPage.ModelVersionSpecs.BikeVersionId).Price) * 0.8)
+                        LoanAmount = (uint)System.Convert.ToUInt32((pqEntity.VersionList.FirstOrDefault(m => m.VersionId == objModelPage.ModelVersionMinSpecs.VersionId).Price) * 0.8)
                     };
 
                     if (LeadCampaign.DealerId == Bikewale.Utility.BWConfiguration.Instance.CapitalFirstDealerId)

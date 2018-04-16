@@ -1,5 +1,6 @@
 ﻿
-using Bikewale.BAL.GrpcFiles.Specs_Features;
+using Bikewale.BAL.ApiGateway.Adapters.BikeData;
+using Bikewale.BAL.ApiGateway.ApiGatewayHelper;
 using Bikewale.Comparison.Interface;
 using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
@@ -38,7 +39,8 @@ namespace Bikewale.Models
         private readonly ISponsoredComparison _objSponsored = null;
         private readonly IArticles _objArticles = null;
         private string modelIdList;
-        private readonly IBikeVersionCacheRepository<BikeVersionEntity, uint> _objVersionCache = null;
+        private readonly IBikeVersions<BikeVersionEntity, uint> _objVersion;
+        private readonly IApiGatewayCaller _apiGatewayCaller;
         public bool IsMobile { get; set; }
         public StatusCodes status { get; set; }
         public string redirectionUrl { get; set; }
@@ -49,7 +51,7 @@ namespace Bikewale.Models
         private uint _sponsoredBikeVersionId, _cityId;
         private ushort bikeComparisions;
 
-        public CompareDetails(ICMSCacheContent compareTest, IBikeMaskingCacheRepository<BikeModelEntity, int> objModelMaskingCache, IBikeCompareCacheRepository objCompareCache, IBikeCompare objCompare, IBikeMakesCacheRepository objMakeCache, ISponsoredComparison objSponsored, IArticles objArticles, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionCache, uint maxComparisons)
+        public CompareDetails(ICMSCacheContent compareTest, IBikeMaskingCacheRepository<BikeModelEntity, int> objModelMaskingCache, IBikeCompareCacheRepository objCompareCache, IBikeCompare objCompare, IBikeMakesCacheRepository objMakeCache, ISponsoredComparison objSponsored, IArticles objArticles, IBikeVersions<BikeVersionEntity, uint> objVersion, uint maxComparisons, IApiGatewayCaller apiGatewayCaller)
         {
             _objModelMaskingCache = objModelMaskingCache;
             _objCompareCache = objCompareCache;
@@ -59,7 +61,8 @@ namespace Bikewale.Models
             _objSponsored = objSponsored;
             _maxComparisons = maxComparisons;
             _objArticles = objArticles;
-            _objVersionCache = objVersionCache;
+            _objVersion = objVersion;
+            _apiGatewayCaller = apiGatewayCaller;
             ProcessQueryString();
         }
         /// <summary>
@@ -150,7 +153,12 @@ namespace Bikewale.Models
                     }
 
                     obj.Compare = _objCompareCache.DoCompare(_versionsList, _cityId);
-                    obj.Compare.VersionSpecsFeatures = SpecsFeaturesServiceGateway.GetVersionsSpecsFeatures(_versionIdsList);
+
+                    GetVersionSpecsByIdAdapter adapt1 = new GetVersionSpecsByIdAdapter();
+                    adapt1.AddApiGatewayCall(_apiGatewayCaller, _versionIdsList.Select(versionId => Convert.ToInt32(versionId)));
+                    _apiGatewayCaller.Call();
+
+                    obj.Compare.VersionSpecsFeatures = adapt1.Output;
                     
                     if (obj.Compare != null && obj.Compare.BasicInfo != null)
                     {
@@ -239,7 +247,7 @@ namespace Bikewale.Models
         {
             try
             {
-                var objSimilarBikes = new SimilarBikesWidget(_objVersionCache, !string.IsNullOrEmpty(_versionsList) ? Convert.ToUInt32(_versionsList.Split(',')[0]) : 0, PQSourceEnum.Desktop_CompareBike);
+                var objSimilarBikes = new SimilarBikesWidget(_objVersion, !string.IsNullOrEmpty(_versionsList) ? Convert.ToUInt32(_versionsList.Split(',')[0]) : 0, PQSourceEnum.Desktop_CompareBike);
 
                 objSimilarBikes.TopCount = 9;
                 objSimilarBikes.CityId = _cityId;

@@ -87,20 +87,15 @@ namespace Bikewale.BAL.Compare
             try
             {
                 int[] arrVersion = versions.Split(',').Select(int.Parse).ToArray();
-
                 if (compareEntity != null && arrVersion != null)
                 {
                     CompareBikeColorCategory compareColors = GetCompareColors(compareEntity, arrVersion);
                     compareEntity.CompareColors = compareColors;
-
-
                     if (compareEntity.Reviews != null && compareEntity.Reviews.Any())
                     {
-                        #region Reviews
                         CompareReviewsData userReviewData = GetReviewData(compareEntity, arrVersion);
                         compareEntity.UserReviewData = userReviewData;
                     }
-                    #endregion
                 }
             }
             catch (Exception ex)

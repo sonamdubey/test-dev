@@ -1,5 +1,4 @@
 ﻿
-using Bikewale.BAL.GrpcFiles.Specs_Features;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeData;
@@ -115,23 +114,6 @@ namespace Bikewale.Models
                 objVM.ShowCheckOnRoadCTA = _showCheckOnRoadCTA;
                 objVM.ShowPriceInCityCTA = _showPriceInCityCTA;
                 objVM.Bikes = _bikeModels.GetMostPopularBikes(_bikeType, TotalWidgetItems, _makeId, CityId);
-                if (objVM.Bikes != null && objVM.Bikes.Any())
-                {
-                    objVM.Bikes = objVM.Bikes.Take(TopCount);
-                    var versionIds = objVM.Bikes.Select(b => b.objVersion.VersionId);
-                    var specsList = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(versionIds);
-                    if (specsList != null)
-                    {
-                        var specsListEnumerator = specsList.GetEnumerator();
-                        foreach (var bike in objVM.Bikes)
-                        {
-                            if (specsListEnumerator.MoveNext())
-                                bike.MinSpecsList = specsListEnumerator.Current.MinSpecsList;
-                            else
-                                break;
-                        }
-                    }
-                }
             }
             catch (Exception ex)
             {

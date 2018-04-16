@@ -47,7 +47,7 @@ namespace Bikewale.Models
         private readonly string _basicId;
         private readonly IPWACMSCacheRepository _renderedArticles = null;
         private readonly IBikeMakesCacheRepository _bikeMakesCacheRepository = null;
-        private readonly IBikeVersionCacheRepository<BikeVersionEntity, uint> _objBikeVersionsCache = null;
+        private readonly IBikeVersions<BikeVersionEntity, uint> _objBikeVersions;
         private readonly IBikeMaskingCacheRepository<BikeModelEntity, int> _bikeMasking = null;
         private readonly IBikeSeriesCacheRepository _seriesCache = null;
         private readonly IBikeSeries _series;
@@ -76,7 +76,7 @@ namespace Bikewale.Models
 
         #region Constructor
         public ExpertReviewsDetailPage(ICMSCacheContent cmsCache, IBikeModelsCacheRepository<int> models, IBikeModels<BikeModelEntity, int> bikeModels, IUpcoming upcoming, IBikeInfo bikeInfo, ICityCacheRepository cityCacheRepo,
-            IBikeMakesCacheRepository bikeMakesCacheRepository, IBikeVersionCacheRepository<BikeVersionEntity, uint> objBikeVersionsCache, IBikeMaskingCacheRepository<BikeModelEntity, int> bikeMasking, string basicId,
+            IBikeMakesCacheRepository bikeMakesCacheRepository, IBikeVersions<BikeVersionEntity, uint> objBikeVersions, IBikeMaskingCacheRepository<BikeModelEntity, int> bikeMasking, string basicId,
             IPWACMSCacheRepository renderedArticles, IBikeSeriesCacheRepository seriesCache, IBikeSeries series)
         {
             _cmsCache = cmsCache;
@@ -88,7 +88,7 @@ namespace Bikewale.Models
             _basicId = basicId;
             _renderedArticles = renderedArticles;
             _bikeMakesCacheRepository = bikeMakesCacheRepository;
-            _objBikeVersionsCache = objBikeVersionsCache;
+            _objBikeVersions = objBikeVersions;
             _bikeMasking = bikeMasking;
             _seriesCache = seriesCache;
             _series = series;
@@ -277,7 +277,7 @@ namespace Bikewale.Models
             {
                 if (objData.Model != null && objData.Model.ModelId > 0)
                 {
-                    var objSimilarBikes = new SimilarBikesWidget(_objBikeVersionsCache, (uint)objData.Model.ModelId, true, PQSourceEnum.Desktop_NewsDetailsPage);
+                    var objSimilarBikes = new SimilarBikesWidget(_objBikeVersions, (uint)objData.Model.ModelId, true, PQSourceEnum.Desktop_NewsDetailsPage);
 
                     objSimilarBikes.TopCount = 9;
                     objSimilarBikes.CityId = CityId;
@@ -470,9 +470,9 @@ namespace Bikewale.Models
 
                 objData.BodyStyle = EnumBikeBodyStyles.AllBikes;
 
-                List<BikeVersionMinSpecs> objVersionsList = _objBikeVersionsCache.GetVersionMinSpecs(ModelId, false);
+                IEnumerable<BikeVersionMinSpecs> objVersionsList = _objBikeVersions.GetVersionMinSpecs(ModelId, false);
 
-                if (objVersionsList != null && objVersionsList.Count > 0 && objVersionsList.FirstOrDefault() != null)
+                if (objVersionsList != null && objVersionsList.Any() && objVersionsList.FirstOrDefault() != null)
                 {
                     objData.BodyStyle = objVersionsList.FirstOrDefault().BodyStyle;
                 }

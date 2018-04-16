@@ -1,9 +1,11 @@
 ﻿
-using Bikewale.BAL.GrpcFiles.Specs_Features;
+using Bikewale.BAL.ApiGateway.ApiGatewayHelper;
+using Bikewale.BAL.BikeData;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Notifications;
+using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +19,7 @@ namespace Bikewale.Models
     public class SimilarBikesWidget
     {
         #region Private Readonly
-        private readonly IBikeVersionCacheRepository<BikeVersionEntity, uint> _versionCache = null;
+        private readonly IBikeVersions<BikeVersionEntity, uint> _objVersion;
         private readonly PQSourceEnum _pqSource;
         private readonly uint _versionId;
         private readonly uint _modelId;
@@ -37,22 +39,24 @@ namespace Bikewale.Models
         /// <summary>
         /// Created by  :   Sumit Kate on 24 Mar 2017
         /// Description :   Constructor to initialize member variables
+        /// Modified by :   Rajan Chauhan on 11 Apr 2018
+        /// Description :   Replaced IBikeVersionsCacheRepository with IBikeVersions 
         /// </summary>
-        /// <param name="versionCache"></param>
+        /// <param name="objVersion"></param>
         /// <param name="versionId"></param>
         /// <param name="pqSource"></param>
-        public SimilarBikesWidget(IBikeVersionCacheRepository<BikeVersionEntity, uint> versionCache
+        public SimilarBikesWidget(IBikeVersions<BikeVersionEntity, uint> objVersion
             , uint versionId, PQSourceEnum pqSource)
         {
-            _versionCache = versionCache;
             _versionId = versionId;
             _pqSource = pqSource;
+            _objVersion = objVersion;
         }
 
-        public SimilarBikesWidget(IBikeVersionCacheRepository<BikeVersionEntity, uint> versionCache
+        public SimilarBikesWidget(IBikeVersions<BikeVersionEntity, uint> objVersion
           , uint modelId, bool similarBikesByModel, PQSourceEnum pqSource)
         {
-            _versionCache = versionCache;
+            _objVersion = objVersion;
             _modelId = modelId;
             _similarBikesByModel = similarBikesByModel;
             _pqSource = pqSource;
@@ -62,13 +66,13 @@ namespace Bikewale.Models
         /// Created by  :   Sumit Kate on 24 Mar 2017
         /// Description :   Overload Constructor
         /// </summary>
-        /// <param name="versionCache"></param>
+        /// <param name="objVersion"></param>
         /// <param name="versionId"></param>
         /// <param name="pqSource"></param>
         /// <param name="showCheckOnRoadCTA"></param>
-        public SimilarBikesWidget(IBikeVersionCacheRepository<BikeVersionEntity, uint> versionCache
+        public SimilarBikesWidget(IBikeVersions<BikeVersionEntity, uint> objVersion
             , uint versionId, PQSourceEnum pqSource, bool showCheckOnRoadCTA)
-            : this(versionCache, versionId, pqSource)
+            : this(objVersion, versionId, pqSource)
         {
 
             _showCheckOnRoadCTA = showCheckOnRoadCTA;
@@ -78,14 +82,14 @@ namespace Bikewale.Models
         /// Created by  :   Sumit Kate on 24 Mar 2017
         /// Description :   Overload Constructor
         /// </summary>
-        /// <param name="versionCache"></param>
+        /// <param name="objVersion"></param>
         /// <param name="versionId"></param>
         /// <param name="pqSource"></param>
         /// <param name="showCheckOnRoadCTA"></param>
         /// <param name="showPriceInCityCTA"></param>
-        public SimilarBikesWidget(IBikeVersionCacheRepository<BikeVersionEntity, uint> versionCache
+        public SimilarBikesWidget(IBikeVersions<BikeVersionEntity, uint> objVersion
             , uint versionId, PQSourceEnum pqSource, bool showCheckOnRoadCTA, bool showPriceInCityCTA)
-            : this(versionCache, versionId, pqSource, showCheckOnRoadCTA)
+            : this(objVersion, versionId, pqSource, showCheckOnRoadCTA)
         {
             _showPriceInCityCTA = showPriceInCityCTA;
         }
@@ -107,13 +111,12 @@ namespace Bikewale.Models
                 objVM.ShowPriceInCityCTA = _showPriceInCityCTA;
                 if (!_similarBikesByModel)
                 {
-                    objVM.Bikes = _versionCache.GetSimilarBikesList(_versionId, TopCount, CityId);
+                    objVM.Bikes = _objVersion.GetSimilarBikesList(_versionId, TopCount, CityId);
                 }
                 else
                 {
-                    objVM.Bikes = _versionCache.GetSimilarBikesByModel(_modelId, TopCount, CityId);
+                    objVM.Bikes = _objVersion.GetSimilarBikesByModel(_modelId, TopCount, CityId);
                 }
-                BindMinSpecs(objVM.Bikes);
                 objVM.PQSourceId = _pqSource;
                 objVM.IsNew = IsNew;
                 objVM.IsUpcoming = IsUpcoming;
@@ -124,39 +127,6 @@ namespace Bikewale.Models
                 ErrorClass.LogError(ex, "Bikewale.Models.SimilarBikesWidget.GetData");
             }
             return objVM;
-        }
-
-        /// <summary>
-        /// Created By : Pratibha Verma on 27 Mar 2018
-        /// Summary : Bind MinSpecs to Generic Bike List
-        /// </summary>
-        private void BindMinSpecs(IEnumerable<SimilarBikeEntity> SimilarBikeList)
-        {
-            try
-            {
-                if (SimilarBikeList != null && SimilarBikeList.Any())
-                {
-                    IEnumerable<VersionMinSpecsEntity> versionMinSpecsEntityList = SpecsFeaturesServiceGateway.GetVersionsMinSpecs(SimilarBikeList.Select(m => m.VersionBase.VersionId));
-                    if (versionMinSpecsEntityList != null)
-                    {
-                        IEnumerator<VersionMinSpecsEntity> versionIterator = versionMinSpecsEntityList.GetEnumerator();
-                        VersionMinSpecsEntity objVersionMinSpec;
-                        foreach (var bike in SimilarBikeList)
-                        {
-                            if (versionIterator.MoveNext())
-                            {
-                                objVersionMinSpec = versionIterator.Current;
-                                bike.MinSpecsList = objVersionMinSpec != null ? objVersionMinSpec.MinSpecsList : null;
-                            }
-                        }
-                    }
-                   
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorClass.LogError(ex, string.Format("Bikewale.Models.SimilarBikesWidget.BindMinSpecs({0})",SimilarBikeList));
-            }
         }
     }
 }

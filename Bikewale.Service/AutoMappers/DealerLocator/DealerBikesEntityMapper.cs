@@ -14,6 +14,7 @@ using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.DealerLocator;
 using Bikewale.Entities.PriceQuote;
+using Bikewale.Utility;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -85,10 +86,52 @@ namespace Bikewale.Service.AutoMappers.DealerLocator
             return Mapper.Map<DealerBikeModelsEntity, DealerBikeModels>(dealerBikes);
         }
 
+        /// <summary>
+        /// Modified by Rajan Chauhan on 10 Apr 2018
+        /// Description : Created Logic for converting BikerversionWithMinSpec to DTO
+        /// </summary>
+        /// <param name="versionList"></param>
+        /// <returns></returns>
          internal static IEnumerable<BikeVersionWithMinSpecDTO> Convert(IEnumerable<BikeVersionWithMinSpec> versionList)
         {
-            Mapper.CreateMap<BikeVersionWithMinSpec, BikeVersionWithMinSpecDTO>();
-            return Mapper.Map<IEnumerable<BikeVersionWithMinSpec>, IEnumerable<BikeVersionWithMinSpecDTO>>(versionList);
+            if (versionList != null)
+            {
+                BikeVersionWithMinSpecDTO bikeVersionDto;
+                ICollection<BikeVersionWithMinSpecDTO> bikeVersionDtoList = new List<BikeVersionWithMinSpecDTO>();
+                foreach (var bike in versionList)
+                {
+                    bikeVersionDto = new BikeVersionWithMinSpecDTO
+                    {
+                        VersionId = bike.VersionId,
+                        VersionName = bike.VersionName,
+                        OnRoadPrice = bike.OnRoadPrice
+                    };
+                    if (bike.MinSpecsList != null)
+                    {
+                        IEnumerator<SpecsItem> specEnumerator = bike.MinSpecsList.GetEnumerator();
+                        if (specEnumerator.MoveNext())
+                        {
+                            bikeVersionDto.BrakingSystem = FormatMinSpecs.GetSpecGeneralName(specEnumerator.Current);
+                        }
+                        if (specEnumerator.MoveNext())
+                        {
+                            bikeVersionDto.BrakeType = FormatMinSpecs.GetSpecGeneralName(specEnumerator.Current);
+                        }
+                        if (specEnumerator.MoveNext())
+                        {
+                            bikeVersionDto.WheelType = FormatMinSpecs.GetSpecGeneralName(specEnumerator.Current);
+                        }
+                        if (specEnumerator.MoveNext())
+                        {
+                            bikeVersionDto.StartType = FormatMinSpecs.GetSpecGeneralName(specEnumerator.Current);
+                        }
+                        
+                    }
+                    bikeVersionDtoList.Add(bikeVersionDto);
+                }
+                return bikeVersionDtoList;
+            }
+            return null;
         }
 		
 		internal static DTO.Dealer.DealerVersionPricesDTO Convert(DealerVersionPrices versionPrice)

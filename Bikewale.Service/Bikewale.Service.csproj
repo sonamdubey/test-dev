@@ -51,6 +51,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\AutoMapper.dll</HintPath>
     </Reference>
+    <Reference Include="Bikewale.BAL.ApiGateway, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\BikeWale.UI\bin\Bikewale.BAL.ApiGateway.dll</HintPath>
+    </Reference>
     <Reference Include="Carwale.DAL">
       <HintPath>..\Libs\Carwale.DAL.dll</HintPath>
     </Reference>
@@ -71,7 +75,8 @@
       <HintPath>..\Libs\Gelf4Net.UdpAppender.dll</HintPath>
     </Reference>
     <Reference Include="Google.Protobuf, Version=3.5.1.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
-      <HintPath>..\packages\Google.Protobuf.3.5.1\lib\net45\Google.Protobuf.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\APIGateway\Google.Protobuf.dll</HintPath>
     </Reference>
     <Reference Include="Grpc.Core">
       <HintPath>..\Libs\Grpc.Core.dll</HintPath>
@@ -433,6 +438,10 @@
     <Folder Include="Views\SplashScreen\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Bikewale.BAL.ApiGateway\Bikewale.BAL.ApiGateway.csproj">
+      <Project>{281D4C7B-6329-4307-A1A3-DE25135659F6}</Project>
+      <Name>Bikewale.BAL.ApiGateway</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Bikewale.BAL\Bikewale.BAL.csproj">
       <Project>{3ca0d7b6-7e09-449c-a34d-c08ca8118876}</Project>
       <Name>Bikewale.BAL</Name>

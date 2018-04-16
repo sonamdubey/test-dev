@@ -146,8 +146,7 @@
     </Reference>
     <Reference Include="Google.Protobuf, Version=3.5.1.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Google.Protobuf.3.5.1\lib\net45\Google.Protobuf.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\Libs\APIGateway\Google.Protobuf.dll</HintPath>
     </Reference>
     <Reference Include="Grpc.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=d754f35622e28bad, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -1011,7 +1010,6 @@
     <Compile Include="Models\ExpertReviews\ExpertReviewsIndexPage.cs" />
     <Compile Include="Models\ExpertReviews\RecentExpertReviews.cs" />
     <Compile Include="Models\NewBikeSearch\NewBikeSearchModel.cs" />
-    <Compile Include="Models\NewBikeSearch\NewBikeSearchPopupModel.cs" />
     <Compile Include="Models\NewPage\NewPageModel.cs" />
     <Compile Include="Models\News\NewsDetailPage.cs" />
     <Compile Include="Models\NewLaunches\NewLaunchedIndexModel.cs" />
@@ -3380,6 +3378,8 @@
     <Content Include="Views\Make\_DealerServiceCentersWidget_Mobile.cshtml">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="Views\Model\_Index_MileageDetails.cshtml" />
+    <Content Include="Views\Model\_Index_MileageDetails_Mobile.cshtml" />
     <Content Include="Views\News\_RecentNews_v1.cshtml" />
     <Content Include="Views\Photos\_ModelsImageList.cshtml" />
     <Content Include="Views\Photos\_ModelsImageListBase_Mobile.cshtml">

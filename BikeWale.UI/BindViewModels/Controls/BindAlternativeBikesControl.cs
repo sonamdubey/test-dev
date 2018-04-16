@@ -1,4 +1,5 @@
-﻿using Bikewale.BAL.BikeData;
+﻿using Bikewale.BAL.ApiGateway.ApiGatewayHelper;
+using Bikewale.BAL.BikeData;
 using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
 using Bikewale.Common;
@@ -23,6 +24,12 @@ namespace Bikewale.BindViewModels.Controls
         public int PQSourceId { get; set; }
         public uint cityId { get; set; }
         private const ushort TotalWidgetItems = 9;
+        private readonly IBikeVersions<BikeVersionEntity, uint> _objVersion;
+
+        public BindAlternativeBikesControl(IBikeVersions<BikeVersionEntity, uint> objVersion)
+        {
+            _objVersion = objVersion;
+        }
 
         /// <summary>
         /// Modified By : Sushil Kumar on 10th Nov 2016
@@ -32,32 +39,18 @@ namespace Bikewale.BindViewModels.Controls
         public void BindAlternativeBikes(Repeater rptAlternativeBikes)
         {
             FetchedRecordsCount = 0;
-
             try
             {
-                using (IUnityContainer container = new UnityContainer())
+                IEnumerable<SimilarBikeEntity> objSimilarBikes = _objVersion.GetSimilarBikesList(VersionId, TotalWidgetItems, cityId);
+                if (objSimilarBikes != null && objSimilarBikes.Any())
                 {
-                    container.RegisterType<IBikeVersionCacheRepository<BikeVersionEntity, int>, BikeVersionsCacheRepository<BikeVersionEntity, int>>()
-                        .RegisterType<IBikeVersions<BikeVersionEntity, int>, BikeVersions<BikeVersionEntity, int>>()
-                              .RegisterType<ICacheManager, MemcacheManager>()
-                             ;
-                    var objCache = container.Resolve<IBikeVersionCacheRepository<BikeVersionEntity, int>>();
-                    IEnumerable<SimilarBikeEntity> objSimilarBikes = objCache.GetSimilarBikesList(Convert.ToInt32(VersionId), TotalWidgetItems, cityId);
-
-
-                    if (objSimilarBikes != null && objSimilarBikes.Any())
+                    objSimilarBikes = objSimilarBikes.Take(TopCount);
+                    if (rptAlternativeBikes != null)
                     {
-                        objSimilarBikes = objSimilarBikes.Take(TopCount);
-                        if (rptAlternativeBikes != null)
-                        {
-                            rptAlternativeBikes.DataSource = objSimilarBikes;
-                            rptAlternativeBikes.DataBind();
-                        }
-
-
-                        FetchedRecordsCount = objSimilarBikes.Count();
+                        rptAlternativeBikes.DataSource = objSimilarBikes;
+                        rptAlternativeBikes.DataBind();
                     }
-
+                    FetchedRecordsCount = objSimilarBikes.Count();
                 }
             }
             catch (Exception ex)

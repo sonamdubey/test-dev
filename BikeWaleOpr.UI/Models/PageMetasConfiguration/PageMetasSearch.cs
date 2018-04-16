@@ -67,7 +67,7 @@ namespace BikewaleOpr.Models.PageMetasConfiguration
                     }
 
                     if (objMetas.ModelId > 0)
-                        MemCachedUtil.Remove(string.Format("BW_ModelDetail_{0}", objMetas.ModelId));
+                        MemCachedUtil.Remove(string.Format("BW_ModelDetail_V1_{0}", objMetas.ModelId));
 
                     MemCachedUtil.Remove("BW_MakeDetails_" + objMetas.MakeId);
                 }

@@ -92,7 +92,7 @@ namespace Bikewale.Service.Controllers.Model
 
                     if (!string.IsNullOrEmpty(platformId) && (platformId == "3" || platformId == "4"))
                     {
-                        objModelPage.ModelVersionSpecs = null;
+                        objModelPage.ModelVersionMinSpecs = null;
                         objModelPage.ModelDetails.ReviewCount = (int)_userReviews.GetUserReviews(0, 0, (uint)modelId, 0, Entities.UserReviews.FilterBy.MostHelpful).TotalReviews;
                     }
                     else
@@ -200,7 +200,7 @@ namespace Bikewale.Service.Controllers.Model
 
                     if (!string.IsNullOrEmpty(platformId) && (platformId == "3" || platformId == "4"))
                     {
-                        objModelPage.ModelVersionSpecs = null;
+                        objModelPage.ModelVersionMinSpecs = null;
                         objModelPage.ModelDetails.ReviewCount = (int)_userReviews.GetUserReviews(0, 0, (uint)modelId, 0, Entities.UserReviews.FilterBy.MostHelpful).TotalReviews;
                     }
                     else

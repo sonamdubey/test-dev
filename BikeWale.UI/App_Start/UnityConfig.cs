@@ -96,6 +96,8 @@ namespace Bikewale
     /// Description : Added IAdSlot, IAdSlotCacheRepository, IAdSlotRepository.
     /// Modified by :   Sumit Kate on 05 Jan 2018
     /// Description :   Register IBikeSearchCacheRepository
+    /// Modified by :   Rajan Chauhan on 11 Apr 2018
+    /// Description :   Registered IBikeVersionRepository
     /// </summary>
     public static class UnityConfig
     {
@@ -144,6 +146,7 @@ namespace Bikewale
             container.RegisterType<IBikeModelsCacheRepository<int>>();
             container.RegisterType<IBikeVersions<BikeVersionEntity, uint>, BikeVersions<BikeVersionEntity, uint>>();
             container.RegisterType<IBikeVersionCacheRepository<BikeVersionEntity, uint>, BikeVersionsCacheRepository<BikeVersionEntity, uint>>();
+            container.RegisterType<IBikeVersionsRepository<BikeVersionEntity, uint>, BikeVersionsRepository<BikeVersionEntity, uint>>();
             container.RegisterType<IHomePageBannerRepository, HomePageBannerRepository>();
             container.RegisterType<IHomePageBannerCacheRepository, HomePageBannerCacheRepository>();
             container.RegisterType<ICityMaskingCacheRepository, CityMaskingCache>();

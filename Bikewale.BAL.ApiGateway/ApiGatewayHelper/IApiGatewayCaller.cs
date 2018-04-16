@@ -28,7 +28,7 @@ namespace Bikewale.BAL.ApiGateway.ApiGatewayHelper
 		/// <param name="message">Input parameters to the method</param>
 		/// <param name="callback">Callback function to convert grpc message to bikewale entities. This function will be executed after APIGateway returns result.</param>
 		/// <returns>Returns index of callback function</returns>
-		int Add(string module, string methodName, IMessage message, Action<IApiGatewayCaller> callback);
+		ushort Add(string module, string methodName, IMessage message, Action<IApiGatewayCaller> callback);
 
 		/// <summary>
 		/// Function Adds a call to the APIGateway Agregator.
@@ -51,7 +51,7 @@ namespace Bikewale.BAL.ApiGateway.ApiGatewayHelper
 		/// <typeparam name="T">Specify GRPC message type.  Data will be converted into this type. T should inherit from IMesage interface.</typeparam>
 		/// <param name="index">index at which data is present in response.</param>
 		/// <returns>Response from APIGatway will be converted into this(T) type.</returns>
-		T GetResponse<T>(int index) where T : IMessage;
+		T GetResponse<T>(ushort index) where T : IMessage;
 
 		/// <summary>
 		/// Function to get reponse for the given identifier

@@ -36,7 +36,7 @@ namespace Bikewale.Controllers
         private readonly IPriceQuote _objPQ = null;
         private readonly IDealerCacheRepository _objDealerCache = null;
         private readonly IDealerPriceQuoteDetail _objDealerDetails = null;
-        private readonly IBikeVersionCacheRepository<BikeVersionEntity, uint> _objVersionCache = null;
+        private readonly IBikeVersions<BikeVersionEntity, uint> _objVersion;
         private readonly IBikeModelsCacheRepository<int> _objBestBikes = null;
         private readonly ICMSCacheContent _objArticles = null;
         private readonly IVideos _objVideos = null;
@@ -58,7 +58,7 @@ namespace Bikewale.Controllers
 		/// Modified by : Ashutosh Sharma on 31 Oct 2017
 		/// Description : Added IAdSlot.
 		/// </summary>
-		public ModelController(IUserReviewsCache userReviewsCache, IUserReviewsSearch userReviewsSearch, IBikeModels<Entities.BikeData.BikeModelEntity, int> objModel, IDealerPriceQuote objDealerPQ, IAreaCacheRepository objAreaCache, ICityCacheRepository objCityCache, IPriceQuote objPQ, IDealerCacheRepository objDealerCache, IDealerPriceQuoteDetail objDealerDetails, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionCache, ICMSCacheContent objArticles, IVideos objVideos, IUsedBikeDetailsCacheRepository objUsedBikescache, IServiceCenter objServiceCenter, IPriceQuoteCache objPQCache, IUserReviewsCache userReviewCache, IUsedBikesCache usedBikesCache, IBikeModelsCacheRepository<int> objBestBikes, IUpcoming upcoming, IManufacturerCampaign objManufacturerCampaign, IBikeSeries bikeSeries, IAdSlot adSlot, IBikeInfo bikeInfo, IBikeMakesCacheRepository bikeMakesCacheRepository, IApiGatewayCaller apiGatewayCaller)
+		public ModelController(IUserReviewsCache userReviewsCache, IUserReviewsSearch userReviewsSearch, IBikeModels<Entities.BikeData.BikeModelEntity, int> objModel, IDealerPriceQuote objDealerPQ, IAreaCacheRepository objAreaCache, ICityCacheRepository objCityCache, IPriceQuote objPQ, IDealerCacheRepository objDealerCache, IDealerPriceQuoteDetail objDealerDetails, IBikeVersions<BikeVersionEntity, uint> objVersion, ICMSCacheContent objArticles, IVideos objVideos, IUsedBikeDetailsCacheRepository objUsedBikescache, IServiceCenter objServiceCenter, IPriceQuoteCache objPQCache, IUserReviewsCache userReviewCache, IUsedBikesCache usedBikesCache, IBikeModelsCacheRepository<int> objBestBikes, IUpcoming upcoming, IManufacturerCampaign objManufacturerCampaign, IBikeSeries bikeSeries, IAdSlot adSlot, IBikeInfo bikeInfo, IBikeMakesCacheRepository bikeMakesCacheRepository, IApiGatewayCaller apiGatewayCaller)
         {
             _objModel = objModel;
             _objDealerPQ = objDealerPQ;
@@ -68,7 +68,7 @@ namespace Bikewale.Controllers
             _upcoming = upcoming;
             _objDealerCache = objDealerCache;
             _objDealerDetails = objDealerDetails;
-            _objVersionCache = objVersionCache;
+            _objVersion = objVersion;
             _objArticles = objArticles;
             _objVideos = objVideos;
             _objUsedBikescache = objUsedBikescache;
@@ -102,7 +102,7 @@ namespace Bikewale.Controllers
         [Route("model/{makeMasking}-bikes/{modelMasking}/"), Filters.DeviceDetection]
         public ActionResult Index(string makeMasking, string modelMasking, uint? versionId)
         {
-            ModelPage obj = new ModelPage(makeMasking, modelMasking, _userReviewsSearch, _userReviewsCache, _objModel, _objDealerPQ, _objAreaCache, _objCityCache, _objPQ, _objDealerCache, _objDealerDetails, _objVersionCache, _objArticles, _objVideos, _objUsedBikescache, _objServiceCenter, _objPQCache, _usedBikesCache, _objBestBikes, _upcoming, _objManufacturerCampaign, _bikeSeries, _adSlot, _bikeInfo, _bikeMakesCacheRepository, _apiGatewayCaller);
+            ModelPage obj = new ModelPage(makeMasking, modelMasking, _userReviewsSearch, _userReviewsCache, _objModel, _objDealerPQ, _objAreaCache, _objCityCache, _objPQ, _objDealerCache, _objDealerDetails, _objVersion, _objArticles, _objVideos, _objUsedBikescache, _objServiceCenter, _objPQCache, _usedBikesCache, _objBestBikes, _upcoming, _objManufacturerCampaign, _bikeSeries, _adSlot, _bikeInfo, _bikeMakesCacheRepository, _apiGatewayCaller);
 
             if (obj.Status.Equals(StatusCodes.ContentFound))
             {
@@ -144,7 +144,7 @@ namespace Bikewale.Controllers
         [Route("m/model/{makeMasking}-bikes/{modelMasking}/")]
         public ActionResult Index_Mobile(string makeMasking, string modelMasking, uint? versionId)
         {
-            ModelPage obj = new ModelPage(makeMasking, modelMasking, _userReviewsSearch, _userReviewsCache, _objModel, _objDealerPQ, _objAreaCache, _objCityCache, _objPQ, _objDealerCache, _objDealerDetails, _objVersionCache, _objArticles, _objVideos, _objUsedBikescache, _objServiceCenter, _objPQCache, _usedBikesCache, _objBestBikes, _upcoming, _objManufacturerCampaign, _bikeSeries, _adSlot, _bikeInfo, _bikeMakesCacheRepository, _apiGatewayCaller);
+            ModelPage obj = new ModelPage(makeMasking, modelMasking, _userReviewsSearch, _userReviewsCache, _objModel, _objDealerPQ, _objAreaCache, _objCityCache, _objPQ, _objDealerCache, _objDealerDetails, _objVersion, _objArticles, _objVideos, _objUsedBikescache, _objServiceCenter, _objPQCache, _usedBikesCache, _objBestBikes, _upcoming, _objManufacturerCampaign, _bikeSeries, _adSlot, _bikeInfo, _bikeMakesCacheRepository, _apiGatewayCaller);
 
             if (obj.Status.Equals(StatusCodes.ContentFound))
             {

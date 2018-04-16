@@ -20,7 +20,9 @@ using Bikewale.Interfaces.Pager;
 using Bikewale.Models;
 using Bikewale.Utility;
 using Microsoft.Practices.Unity;
-using Bikewale.BAL.GrpcFiles.Specs_Features;
+
+using Bikewale.BAL.ApiGateway.ApiGatewayHelper;
+using Bikewale.BAL.ApiGateway.Adapters.BikeData;
 
 namespace Bikewale.New
 {
@@ -32,7 +34,8 @@ namespace Bikewale.New
     /// </summary>
     public class ModelSpecsFeatures : PageBase
     {
-        protected uint cityId, areaId, modelId, versionId, dealerId, price = 0, _makeId;
+        protected uint cityId, areaId, modelId, dealerId, price = 0, _makeId;
+        protected int versionId;
         protected string cityName, areaName, makeName, modelName, modelImage, bikeName, versionName, makeMaskingName, modelMaskingName, clientIP = CommonOpn.GetClientIP(), pgTitle;
         protected IEnumerable<CityEntityBase> objCityList = null;
         protected IEnumerable<AreaEntityBase> objAreaList = null;
@@ -77,16 +80,20 @@ namespace Bikewale.New
             modelDetail = FetchModelPageDetails(modelId);
             if (modelDetail != null && modelDetail.ModelDetails != null)
             {
-                IsScooterOnly = modelDetail.ModelDetails.MakeBase.IsScooterOnly;
                 if (versionId > 0)
                 {
-                    specs = FetchVariantDetails(versionId);
-                    versionSpecsFeatures = SpecsFeaturesServiceGateway.GetVersionsSpecsFeatures(new List<uint>() { (uint)versionId });
+                    using (IUnityContainer container = new UnityContainer())
+                    {
+                        container.RegisterType<IApiGatewayCaller, ApiGatewayCaller>();
+                        var _apiGatewayCaller = container.Resolve<IApiGatewayCaller>();
+                        GetVersionSpecsByIdAdapter adapt1 = new GetVersionSpecsByIdAdapter();
+                        adapt1.AddApiGatewayCall(_apiGatewayCaller, new List<int> { (int)versionId });
+
+                        _apiGatewayCaller.Call();
+                        versionSpecsFeatures = adapt1.Output;
+                    }
                 }
-                else
-                {
-                    specs = modelPg.ModelVersionSpecs;
-                }
+                IsScooterOnly = modelDetail.ModelDetails.MakeBase.IsScooterOnly;
                 BindWidget();
                 BindSimilarBikes();
                 BindSeriesBreadCrum();
@@ -128,15 +135,15 @@ namespace Bikewale.New
                             }
                             IsScooter = (modelPg.ModelVersions.FirstOrDefault().BodyStyle.Equals(EnumBikeBodyStyles.Scooter));
                             bikeName = string.Format("{0} {1}", makeName, modelName);
-                            if (!modelPg.ModelDetails.Futuristic && modelPg.ModelVersionSpecs != null)
+                            if (!modelPg.ModelDetails.Futuristic && modelPg.ModelVersionMinSpecs != null)
                             {
                                 // Check it versionId passed through url exists in current model's versions
-                                if (this.versionId == 0)
+                                if (versionId == 0)
                                 {
-                                    this.versionId = modelPg.ModelVersionSpecs.BikeVersionId;
+                                    versionId = modelPg.ModelVersionMinSpecs.VersionId;
                                 }
                                 modelImage = Bikewale.Utility.Image.GetPathToShowImages(modelPg.ModelDetails.OriginalImagePath, modelPg.ModelDetails.HostUrl, Bikewale.Utility.ImageSize._272x153);
-                                var selectedVersion = modelPg.ModelVersions.FirstOrDefault(p => p.VersionId == this.versionId);
+                                var selectedVersion = modelPg.ModelVersions.FirstOrDefault(p => p.VersionId == versionId);
                                 if (selectedVersion != null)
                                 {
                                     price = Convert.ToUInt32(selectedVersion.Price);
@@ -166,6 +173,7 @@ namespace Bikewale.New
                                     BikeVersionMinSpecs selectedVersion = modelPg.ModelVersions.FirstOrDefault();
                                     if (selectedVersion != null)
                                     {
+                                        this.versionId = selectedVersion.VersionId;
                                         price = Convert.ToUInt32(selectedVersion.Price);
                                         versionName = selectedVersion.VersionName;
                                     }
@@ -189,7 +197,7 @@ namespace Bikewale.New
         /// Created Date    :   18 Nov 2015
         /// Description     :   Sends the notification to Customer and Dealer
         /// </summary>
-        private BikeSpecificationEntity FetchVariantDetails(uint versionId)
+        private BikeSpecificationEntity FetchVariantDetails(int versionId)
         {
             BikeSpecificationEntity specsFeature = null;
             try
@@ -201,7 +209,7 @@ namespace Bikewale.New
                              .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
                             ;
                     var objCache = container.Resolve<IBikeMaskingCacheRepository<BikeModelEntity, int>>();
-                    specsFeature = objCache.MVSpecsFeatures((int)versionId);
+                    specsFeature = objCache.MVSpecsFeatures(versionId);
                 }
             }
             catch (Exception ex)
@@ -227,7 +235,7 @@ namespace Bikewale.New
             {
                 if (HttpContext.Current.Request.QueryString != null && HttpContext.Current.Request.QueryString.HasKeys())
                 {
-                    UInt32.TryParse(Request.QueryString["vid"], out versionId);
+                    Int32.TryParse(Request.QueryString["vid"], out versionId);
                     modelMaskingName = Request.QueryString["model"];
                     makeMaskingName = Request.QueryString["make"];
 
@@ -342,11 +350,12 @@ namespace Bikewale.New
                 {
                     using (IUnityContainer container = new UnityContainer())
                     {
-                        container.RegisterType<IBikeVersionCacheRepository<BikeVersionEntity, uint>, BikeVersionsCacheRepository<BikeVersionEntity, uint>>()
-                                .RegisterType<ICacheManager, MemcacheManager>()
-                                .RegisterType<IBikeVersions<BikeVersionEntity, uint>, BikeVersions<BikeVersionEntity, uint>>();
-                        var objVersionCache = container.Resolve<IBikeVersionCacheRepository<BikeVersionEntity, uint>>();
-                        var objSimilarBikes = new SimilarBikesWidget(objVersionCache, versionId, PQSourceEnum.Desktop_DPQ_Alternative);
+                        container.RegisterType<IBikeVersions<BikeVersionEntity, uint>, BikeVersions<BikeVersionEntity, uint>>()
+                                .RegisterType<IApiGatewayCaller, ApiGatewayCaller>()
+                                .RegisterType<IBikeVersionsRepository<BikeVersionEntity, uint>, BikeVersionsRepository<BikeVersionEntity, uint>>()
+                                .RegisterType<IBikeVersionCacheRepository<BikeVersionEntity, uint>, BikeVersionsCacheRepository<BikeVersionEntity, uint>>();
+                        var objVersion = container.Resolve<IBikeVersions<BikeVersionEntity, uint>>();
+                        var objSimilarBikes = new SimilarBikesWidget(objVersion, (uint)versionId, PQSourceEnum.Desktop_DPQ_Alternative);
 
                         objSimilarBikes.TopCount = 9;
                         objSimilarBikes.CityId = cityId;
@@ -358,7 +367,7 @@ namespace Bikewale.New
                         {
                             similarBikes.Make = modelPg.ModelDetails.MakeBase;
                             similarBikes.Model = modelPg.ModelDetails;
-                            similarBikes.VersionId = versionId;
+                            similarBikes.VersionId = (uint)versionId;
                             similarBikes.BodyStyle = bodyStyle;
                             similarBikes.Page = GAPages.Model_Page;
                         }

@@ -93,7 +93,7 @@ namespace Bikewale.BAL.ApiGateway.Adapters.BikeData
 		/// </summary>
 		/// <param name="items">GRPC Message</param>
 		/// <returns>Bikewale Entity</returns>
-		private static IEnumerable<SpecsItem> ConvertToMinSpecsList(RepeatedField<ItemData> items)
+		private IEnumerable<SpecsItem> ConvertToMinSpecsList(RepeatedField<ItemData> items)
 		{
 			ICollection<SpecsItem> specItemList = null;
 
@@ -105,13 +105,14 @@ namespace Bikewale.BAL.ApiGateway.Adapters.BikeData
 
 					foreach (var itemData in items)
 					{
-						specItemList.Add(new SpecsItem
-						{
-							Id = itemData.ItemId,
-							Icon = itemData.Icon,
-							Name = itemData.ItemName,
-							Value = itemData.Value,
-							UnitType = itemData.UnitType
+                        specItemList.Add(new SpecsItem
+                        {
+                            Id = itemData.ItemId,
+                            Icon = itemData.Icon,
+                            Name = itemData.ItemName,
+                            Value = itemData.Value,
+                            UnitType = itemData.UnitType,
+                            DataType = (EnumSpecDataType)itemData.DataTypeId
 						});
 					}
 				}

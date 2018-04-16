@@ -39,7 +39,7 @@ namespace Bikewale.Controllers
         private readonly IBikeInfo _bikeInfo = null;
         private readonly ICityCacheRepository _cityCache = null;
         private readonly IPWACMSCacheRepository _renderedArticles = null;
-        private readonly IBikeVersionCacheRepository<BikeVersionEntity, uint> _objBikeVersionsCache = null;
+        private readonly IBikeVersions<BikeVersionEntity, uint> _objVersion;
         private readonly IBikeSeriesCacheRepository _seriesCache;
         private readonly IBikeSeries _series;
 
@@ -50,7 +50,7 @@ namespace Bikewale.Controllers
         /// Modified by : Ashutosh Sharma on 27 Nov 2017
         /// Description : Added IBikeSeriesCacheRepository and IBikeSeries for series news page.
         /// </summary>
-        public NewsController(ICMSCacheContent cacheContent, IPager pager, IBikeModelsCacheRepository<int> models, IBikeMakesCacheRepository makes, IBikeModels<BikeModelEntity, int> bikeModels, IUpcoming upcoming, IBikeInfo bikeInfo, ICityCacheRepository cityCache, IPWACMSCacheRepository renderedArticles, IBikeVersionCacheRepository<BikeVersionEntity, uint> objBikeVersionsCache, IArticles articles, IBikeSeriesCacheRepository seriesCache, IBikeSeries series)
+        public NewsController(ICMSCacheContent cacheContent, IPager pager, IBikeModelsCacheRepository<int> models, IBikeMakesCacheRepository makes, IBikeModels<BikeModelEntity, int> bikeModels, IUpcoming upcoming, IBikeInfo bikeInfo, ICityCacheRepository cityCache, IPWACMSCacheRepository renderedArticles, IBikeVersions<BikeVersionEntity, uint> objBikeVersions, IArticles articles, IBikeSeriesCacheRepository seriesCache, IBikeSeries series)
         {
             _cacheContent = cacheContent;
             _pager = pager;
@@ -61,7 +61,7 @@ namespace Bikewale.Controllers
             _cityCache = cityCache;
             _renderedArticles = renderedArticles;
             _makes = makes;
-            _objBikeVersionsCache = objBikeVersionsCache;
+            _objVersion = objBikeVersions;
             _articles = articles;
             _seriesCache = seriesCache;
             _series = series;
@@ -79,7 +79,7 @@ namespace Bikewale.Controllers
         [Filters.DeviceDetection()]
         public ActionResult Index()
         {
-            NewsIndexPage obj = new NewsIndexPage(_cacheContent, _pager, _makes, _models, _bikeModels, _upcoming, _renderedArticles, _objBikeVersionsCache, _articles, _seriesCache, _series, _cityCache, _bikeInfo);
+            NewsIndexPage obj = new NewsIndexPage(_cacheContent, _pager, _makes, _models, _bikeModels, _upcoming, _renderedArticles, _objVersion, _articles, _seriesCache, _series, _cityCache, _bikeInfo);
             if (obj.status == Entities.StatusCodes.ContentNotFound)
             {
                 return Redirect("/pagenotfound.aspx");
@@ -106,7 +106,7 @@ namespace Bikewale.Controllers
         [Route("m/news/index/")]
         public ActionResult Index_Mobile()
         {
-            NewsIndexPage obj = new NewsIndexPage(_cacheContent, _pager, _makes, _models, _bikeModels, _upcoming, _renderedArticles, _objBikeVersionsCache, _articles, _seriesCache, _series, _cityCache, _bikeInfo);
+            NewsIndexPage obj = new NewsIndexPage(_cacheContent, _pager, _makes, _models, _bikeModels, _upcoming, _renderedArticles, _objVersion, _articles, _seriesCache, _series, _cityCache, _bikeInfo);
             obj.IsMobile = true;
             if (obj.status == Entities.StatusCodes.ContentNotFound)
             {
@@ -133,7 +133,7 @@ namespace Bikewale.Controllers
         [Route("m/news/index_pwa/")]
         public ActionResult Index_Mobile_Pwa()
         {
-            NewsIndexPage obj = new NewsIndexPage(_cacheContent, _pager, _makes, _models, _bikeModels, _upcoming, _renderedArticles, _objBikeVersionsCache, _articles, _seriesCache, _series, _cityCache, _bikeInfo);
+            NewsIndexPage obj = new NewsIndexPage(_cacheContent, _pager, _makes, _models, _bikeModels, _upcoming, _renderedArticles, _objVersion, _articles, _seriesCache, _series, _cityCache, _bikeInfo);
             obj.IsMobile = true;
             if (obj.status == Entities.StatusCodes.ContentNotFound)
             {
@@ -183,7 +183,7 @@ namespace Bikewale.Controllers
         [Filters.DeviceDetection()]
         public ActionResult Detail(string basicid)
         {
-            NewsDetailPage obj = new NewsDetailPage(_cacheContent, _makes, _models, _bikeModels, _upcoming, _bikeInfo, _cityCache, basicid, _renderedArticles, _objBikeVersionsCache, _seriesCache, _series);
+            NewsDetailPage obj = new NewsDetailPage(_cacheContent, _makes, _models, _bikeModels, _upcoming, _bikeInfo, _cityCache, basicid, _renderedArticles, _objVersion, _seriesCache, _series);
             if (obj.status == Entities.StatusCodes.ContentNotFound)
             {
                 return Redirect("/pagenotfound.aspx");
@@ -209,7 +209,7 @@ namespace Bikewale.Controllers
         [Route("m/news/detail/{basicid}/")]
         public ActionResult Detail_Mobile(string basicid)
         {
-            NewsDetailPage obj = new NewsDetailPage(_cacheContent, _makes, _models, _bikeModels, _upcoming, _bikeInfo, _cityCache, basicid, _renderedArticles, _objBikeVersionsCache, _seriesCache, _series);
+            NewsDetailPage obj = new NewsDetailPage(_cacheContent, _makes, _models, _bikeModels, _upcoming, _bikeInfo, _cityCache, basicid, _renderedArticles, _objVersion, _seriesCache, _series);
             obj.IsMobile = true;
             if (obj.status == Entities.StatusCodes.ContentNotFound)
             {
@@ -265,7 +265,7 @@ namespace Bikewale.Controllers
             NewsDetailPageVM objData = null;
             try
             {
-                NewsDetailPage obj = new NewsDetailPage(_cacheContent, _makes, _models, _bikeModels, _upcoming, _bikeInfo, _cityCache, basicid, _renderedArticles, _objBikeVersionsCache, _seriesCache, _series);
+                NewsDetailPage obj = new NewsDetailPage(_cacheContent, _makes, _models, _bikeModels, _upcoming, _bikeInfo, _cityCache, basicid, _renderedArticles, _objVersion, _seriesCache, _series);
                 obj.IsMobile = true;
                 obj.IsAMPPage = true;
                 if (obj.status == Entities.StatusCodes.ContentNotFound)

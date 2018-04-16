@@ -233,7 +233,7 @@
 										{
 											<li>
 												<div class="model-accordion-tab">
-													<span class="model-sprite specs-2-sm"></span>
+                                                    <img src="@Bikewale.Utility.FormatMinSpecs.GetOutlineIconUrl(specCat.Icon)" width="30" height="28" class="inline-block margin-right10">
 													<span class="accordion-tab-label">@specCat.DisplayText</span>
 												</div>
 												<table class="table-content" width="100%" cellspacing="0" cellpadding="0" border="0">
@@ -253,7 +253,7 @@
 																<td>@specItem.DisplayText@(!string.IsNullOrEmpty(specItem.UnitTypeText) ? string.Format(" ({0})", @specItem.UnitTypeText) : "")</td>
 																@foreach (var specValue in specItem.ItemValues)
 																{
-																	<td>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(specValue, specItem.DataType)</td>
+																	<td>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(specValue, specItem.DataType, specItem.Id)</td>
 																}
 																<td></td>
 															</tr>
@@ -288,7 +288,7 @@
 												<td>@feature.DisplayText@(!string.IsNullOrEmpty(feature.UnitTypeText) ? string.Format(" ({0})", @feature.UnitTypeText) : "")</td>
 												@foreach (var featureValue in feature.ItemValues)
 												{
-													<td>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(featureValue, feature.DataType)</td>
+													<td>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(featureValue, feature.DataType, feature.Id)</td>
 
 												}
 												<td></td>

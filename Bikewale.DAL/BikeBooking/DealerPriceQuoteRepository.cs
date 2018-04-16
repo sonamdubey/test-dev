@@ -650,6 +650,8 @@ namespace Bikewale.DAL.BikeBooking
         /// <summary>
         /// Modified By  : Rajan Chauhan on 23 Mar 2018
         /// Description  : Removed MinSpec binding
+        /// Modified by : Ashutosh Sharma on 07 Apr 2018.
+        /// Description : Changed sp from 'bw_getvarientspricedetail_13012016' to 'bw_getvarientspricedetail_07042018' to remove min specs.
         /// </summary>
         /// <param name="cityId"></param>
         /// <param name="versionId"></param>
@@ -668,7 +670,7 @@ namespace Bikewale.DAL.BikeBooking
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.CommandText = "bw_getvarientspricedetail_13012016";
+                    cmd.CommandText = "bw_getvarientspricedetail_07042018";
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId));

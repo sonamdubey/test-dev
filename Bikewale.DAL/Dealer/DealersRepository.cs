@@ -488,6 +488,8 @@ namespace Bikewale.DAL.Dealer
         /// Created By : Lucky Rathore
         /// Created on : 22 march 2016
         /// Description : for getting dealer detail and bike detail w.r.t dealer.
+        /// Modified by : Ashutosh Sharma on 07 Apr 2018.
+        /// Description : Changed sp from 'getdealerbikedetails' to 'getdealerbikedetails_07042018' to remove min specs.
         /// </summary>
         /// <param name="dealerId">e.g. 4</param>
         /// <returns>DealerBikesEntity Entity object.</returns>
@@ -497,8 +499,7 @@ namespace Bikewale.DAL.Dealer
 
             try
             {
-
-                using (DbCommand cmd = DbFactory.GetDBCommand("getdealerbikedetails"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getdealerbikedetails_07042018"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, dealerId));
@@ -702,7 +703,7 @@ namespace Bikewale.DAL.Dealer
             try
             {
 
-                using (DbCommand cmd = DbFactory.GetDBCommand("modelsavailablefordealer_21122017"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("modelsavailablefordealer_08042018"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, dealerId));
