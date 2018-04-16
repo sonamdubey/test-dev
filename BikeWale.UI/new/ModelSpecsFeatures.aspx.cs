@@ -315,6 +315,12 @@ namespace Bikewale.New
             return "";
         }
 
+        /// <summary>
+        /// Created By : Pratibha Verma on 16 April 2018
+        /// Summary : get full specs and features from grpc
+        /// </summary>
+        /// <param name="versionId"></param>
+        /// <returns></returns>
         private void BindFullSpecsFeatures()
         {
             using (IUnityContainer container = new UnityContainer())
