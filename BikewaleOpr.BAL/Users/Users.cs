@@ -4,6 +4,7 @@ using BikewaleOpr.Entity.Users;
 using BikewaleOpr.Interface.Users;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace BikewaleOpr.BAL.Users
 {
@@ -16,6 +17,7 @@ namespace BikewaleOpr.BAL.Users
         /// <summary>
         /// Author  : Kartik rathod on 30 march 18
         /// Desc    : Google authentication with passed id_token provides authorised emailid
+        /// Modifier: allow both domain carwale.com and bikewale.com 
         /// </summary>
         /// <param name="id_token">provided token through google signin api</param>
         /// <returns>valid email id</returns>
@@ -26,6 +28,7 @@ namespace BikewaleOpr.BAL.Users
             try
             {
                 string requestUri = string.Format(googleApiTokenInfoUrl, id_token);
+                string[] allowDomains = new string[] { "carwale.com", "bikewale.com" };
 
                 IDictionary<string, string> userData = null;
 
@@ -34,9 +37,9 @@ namespace BikewaleOpr.BAL.Users
                     userData = objClient.GetApiResponseSync<IDictionary<string, string>>(APIHost.GoogleApi, BWConfiguration.Instance.APIRequestTypeJSON, requestUri, userData);
                 }
 
-                if (userData != null && userData["email_verified"] == "true" && userData["hd"] == "carwale.com" && !string.IsNullOrEmpty(userData["email"]))
-                {       
-                    loginId = userData["email"].Split('@')[0];
+                if (userData != null && userData["email_verified"] == "true" && userData.ContainsKey("hd") && allowDomains.Contains(userData["hd"]))
+                {
+                    loginId = !string.IsNullOrEmpty(userData["email"]) ? userData["email"].Split('@')[0] : string.Empty;
                 }
             }
             catch (Exception ex)

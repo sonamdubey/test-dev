@@ -11,10 +11,10 @@ var startApp = function () {
     gapi.load('auth2', function () {
         
         auth2 = gapi.auth2.init({ 
-            client_id: '417730742919-mth5klvuievpjh584agduun3dpn4680o.apps.googleusercontent.com', // client id provided by google
-            hosted_domain: 'carwale.com',
+            client_id: '417730742919-mth5klvuievpjh584agduun3dpn4680o.apps.googleusercontent.com', 
             response_type: 'token',
             /* ----- this properties of api can be use for redirection to uri in case we need to redirect -----
+            hosted_domain: 'carwale.com',
             ux_mode: 'redirect',
             redirect_uri: 
             */
@@ -26,12 +26,8 @@ var startApp = function () {
 function attachSignin(element) {
     auth2.attachClickHandler(element, {},
         function (googleUser) {
-            if (googleUser.getHostedDomain().toLowerCase() == "carwale.com") {
-                location.href = '/users/authenticate/?idtoken=' + googleUser.getAuthResponse().id_token + '&returnUrl=' + getUrlParameter('returnUrl');
-            }
-            else {
-                showErrorMessage();
-            }
+            location.href = '/users/authenticate/?idtoken=' + googleUser.getAuthResponse().id_token + '&returnUrl=' + getUrlParameter('returnUrl');
+           
         }, function (error) {
             showErrorMessage();
         });
