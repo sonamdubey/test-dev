@@ -2,6 +2,7 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/brand.css' inline /> <link rel='stylesheet' type='text/css' href='/css/components/m-brand-logo.css' inline /> <link rel='stylesheet' type='text/css' href='/sass/partials/photo-grid-carousel.css' inline />";
+	Model.Page_BTF_CSS_Path = "/sass/partials/explore-bikes-carousel.css";
     Model.Page_JS_Paths = new string[] { "/src/new/bikemake.js", "/src/review-popup.js" };
 
 }
@@ -35,6 +36,7 @@
                     <div class="clear"></div>
                 </div>
             }
+
             @if (Model.Bikes != null && Model.Bikes.Count() > 0)
             {
                 <section id="bikeMakeList" class="bw-model-tabs-data">
@@ -124,6 +126,11 @@
                     </div>
 
                 </section>
+            }
+            
+            @if (Model.SeriesLinkages.MakeSeriesList != null && Model.SeriesLinkages.MakeSeriesList.Any())
+            {
+                        @Html.Partial("~/Views/BikeSeries/_MakeSeriesSlug.cshtml", Model.SeriesLinkages)
             }
 
 

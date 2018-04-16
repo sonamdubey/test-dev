@@ -1,0 +1,38 @@
+﻿@model Bikewale.Models.BikeSeries.MakeSeriesSlugVM
+@using Bikewale.Entities.BikeData;
+
+@if (Model != null && Model.MakeSeriesList != null && Model.MakeSeriesList.Any())
+{
+    <section class="explore-bikes-carousel--default">
+    <div class="content-box-shadow bg-white section-bottom-margin">
+        <div class="carousel__title">
+            <h2 class="page__heading-h2">Explore @Model.MakeName Bikes</h2>
+        </div>
+        <div class="jcarousel-wrapper inner-content-carousel carousel__explore-bikes">
+            <div class="jcarousel">
+                <ul>
+                    @foreach (BikeSeriesEntity makeSeries in Model.MakeSeriesList)
+                    {
+                        var seriesUrl = Bikewale.Utility.UrlFormatter.BikeSeriesUrl(Model.MakeMaskingName, makeSeries.MaskingName);
+                        <li class="carousel-slide">
+                            <a href="@seriesUrl" title="Bikes" class="model__explore-card">
+                                <h3 class="explore-card__title">@String.Format("{0} {1} Bikes", Model.MakeName, makeSeries.SeriesName)</h3>
+                                <div class="explore-card__list">
+                                    <span class="explore-card-list__item">@Html.Raw(@makeSeries.ModelsCount) Bikes</span>
+                                    <span class="explore-card-list__item">&#x20b9; @Html.Raw(Bikewale.Utility.Format.FormatPrice(Convert.ToString(makeSeries.MinPrice))) Onwards</span>
+                                </div>
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </div>
+            <span class="jcarousel-control-left">
+                <a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a>
+            </span>
+            <span class="jcarousel-control-right">
+                <a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a>
+            </span>
+        </div>
+    </div>
+    </section>
+}

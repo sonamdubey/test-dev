@@ -1,7 +1,7 @@
 ﻿@model Bikewale.Models.MakePageVM
 @{
-    Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/m/make/make.css' inline /><link rel='stylesheet' type='text/css' href='/css/emicalculator.css' inline />";
+	Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
+	Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/m/make/make.css' inline /><link rel='stylesheet' type='text/css' href='/css/emicalculator.css' inline /> <link rel='stylesheet' type='text/css' href='/sass/partials/explore-bikes-carousel.css' inline />";
     Model.Page_JS_Paths = new[] { "/m/src/make.js", "/m/src/popup/newBikeSearchPopup.js", "/src/emi-calculator.js" };
     ushort index = 0, prev = 0, gap = 2, j = 0;    
 }
@@ -20,6 +20,7 @@
                     @Html.Partial("~/Views/Make/_NewLaunchedMake_Mobile.cshtml", Model.NewLaunchedWidget)
                 </section>
             }
+
             @if (Model.TopPopularBikes != null && Model.TopPopularBikes.Any())
             {
                 <section>
@@ -230,7 +231,12 @@ string.Format("{0} <span class='font14'> onwards</span>", Bikewale.Utility.Forma
             <div id="mobileEmiCalculator">
                 @Html.Partial("~/Views/Shared/_EmiCalculator.cshtml", Model.EMICalculator)
                 <span class="clear"></span>
-            </div> 
+            </div>
+            
+            @if (Model.SeriesLinkages.MakeSeriesList != null && Model.SeriesLinkages.MakeSeriesList.Any())
+            {
+                @Html.Partial("~/Views/BikeSeries/_MakeSeriesSlug_Mobile_New.cshtml", Model.SeriesLinkages)
+            }
             
             @if (Model.AdTags.Ad_300x250_Top)
             { 
