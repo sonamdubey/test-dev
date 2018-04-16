@@ -93,7 +93,7 @@
                             <h2>@Model.SeriesBikes.WidgetHeading</h2>
                         </div>
                         <div class="swiper-heading-right-grid inline-block text-right">
-                            <a href="@string.Format("{0}/m{1}", BWConfiguration.Instance.BwHostUrl, Model.SeriesBikes.WidgetHref)" title="@Model.SeriesBikes.WidgetLinkTitle" class="btn view-all-target-btn">@Model.SeriesBikes.WidgetLinkTitle</a>
+                            <a href="@string.Format("{0}{1}", BWConfiguration.Instance.BwHostUrl, Model.SeriesBikes.WidgetHref)" title="@Model.SeriesBikes.WidgetLinkTitle" class="btn view-all-target-btn">@Model.SeriesBikes.WidgetLinkTitle</a>
                         </div>
                         <div class="clear"></div>
                     </div>
@@ -111,7 +111,7 @@
                             <h2>@Model.MostPopularBikes.WidgetHeading</h2>
                         </div>
                         <div class="swiper-heading-right-grid inline-block text-right">
-                            <a href="@string.Format("{0}/m{1}",BWConfiguration.Instance.BwHostUrl, Model.MostPopularBikes.WidgetHref)" title="@Model.MostPopularBikes.WidgetLinkTitle" class="btn view-all-target-btn">@Model.MostPopularBikes.WidgetLinkTitle</a>
+                            <a href="@string.Format("{0}{1}",BWConfiguration.Instance.BwHostUrl, Model.MostPopularBikes.WidgetHref)" title="@Model.MostPopularBikes.WidgetLinkTitle" class="btn view-all-target-btn">@Model.MostPopularBikes.WidgetLinkTitle</a>
                         </div>
                         <div class="clear"></div>
                     </div>
@@ -148,7 +148,7 @@
                                 <h2>@Model.PopularBodyStyle.WidgetHeading</h2>
                             </div>
                             <div class="swiper-heading-right-grid inline-block text-right">
-                                <a href="@string.Format("{0}/m{1}", BWConfiguration.Instance.BwHostUrl, Model.PopularBodyStyle.WidgetHref)" title="@Model.PopularBodyStyle.WidgetLinkTitle" class="btn view-all-target-btn">View all</a>
+                                <a href="@string.Format("{0}{1}", BWConfiguration.Instance.BwHostUrl, Model.PopularBodyStyle.WidgetHref)" title="@Model.PopularBodyStyle.WidgetLinkTitle" class="btn view-all-target-btn">View all</a>
                             </div>
                             <div class="clear"></div>
                         </div>
@@ -168,7 +168,7 @@
                                 <h2>@Model.UpcomingBikes.WidgetHeading</h2>
                             </div>
                             <div class="swiper-heading-right-grid inline-block text-right">
-                                <a href="@string.Format("{0}/m{1}",BWConfiguration.Instance.BwHostUrl, Model.UpcomingBikes.WidgetHref)" title="@Model.UpcomingBikes.WidgetLinkTitle" class="btn view-all-target-btn">View all</a>
+                                <a href="@string.Format("{0}{1}",BWConfiguration.Instance.BwHostUrl, Model.UpcomingBikes.WidgetHref)" title="@Model.UpcomingBikes.WidgetLinkTitle" class="btn view-all-target-btn">View all</a>
                             </div>
                             <div class="clear"></div>
                         </div>
@@ -199,4 +199,35 @@
     }
 }
 
+<amp-analytics type="googleanalytics">
+
+    <script type="application/json">
+        {
+        "vars": {
+        "eventCategory": "Editorial_Details_Page_AMP",
+        "eventLabel": "News_Detail"
+        },
+        "triggers": {
+        "pageLoad": {
+        "on": "ini-load",
+        "request": "event",
+        "vars": {
+        "eventAction": "Page_Load"
+        }
+        },
+        "scrollPings": {
+        "on": "scroll",
+        "scrollSpec": {
+        "verticalBoundaries": [10, 25, 50, 75, 100]
+        },
+        "request": "event",
+        "vars": {
+        "eventAction": "${verticalScrollBoundary}_Page_Viewed"
+        }
+        }
+        }
+        }
+    </script>
+
+</amp-analytics>
 

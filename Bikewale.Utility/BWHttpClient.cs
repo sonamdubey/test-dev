@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace Bikewale.Utility
 {
@@ -58,7 +59,8 @@ namespace Bikewale.Utility
         }
 
         /// <summary>
-        /// 
+        /// Modified By : Kartik rathod on  30 march 2018
+        /// Desc    : added case for GoogleApi, CWOPR
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="apiHost"></param>
@@ -87,6 +89,12 @@ namespace Bikewale.Utility
                         httpClient = SingletonCWSHttpClient.Instance;
                         break;
                     case APIHost.None:
+                        break;
+                    case APIHost.GoogleApi:
+                        httpClient = SingletonGoogleAPIHttpClient.Instance;
+                        break;
+                    case APIHost.CWOPR:
+                        httpClient = SingletonCWOPRHttpClient.Instance;
                         break;
                     default:
                         break;

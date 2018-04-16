@@ -144,6 +144,7 @@
     <Content Include="src\utils\analyticsUtils.js" />
     <Content Include="src\utils\commonUtils.js" />
     <Content Include="src\utils\constants.js" />
+    <Content Include="src\utils\contentTrackingUtils.js" />
     <Content Include="src\utils\googleAdUtils.js" />
     <Content Include="src\utils\popUpUtils.js" />
     <Content Include="src\utils\scrollUtils.js" />

@@ -54,7 +54,10 @@
                 <div class="card-desc-block">
                     <h3 class="bikeTitle">@bikeName</h3>
                     <p class="text-xt-light-grey font14 margin-bottom10">
-                        @Html.Raw(FormatMinSpecs.GetMinSpecsSpanElements(bike.MinSpecsList))
+                        @if (bike.MinSpecsList != null)
+                        {
+                            Html.Raw(FormatMinSpecs.GetMinSpecsSpanElements(bike.MinSpecsList));    
+                        }
                     </p>
                     @if (bike.Price > 0)
                     {

@@ -218,6 +218,9 @@ namespace Bikewale.Models
 
         /// <summary>
         /// Binds the page meta tags.
+        /// Modified by: Dhruv Joshi
+        /// Dated: 28th March 2018
+        /// Description: Scooters Make Page Title change
         /// </summary>
         /// <param name="pageMetaTags">The page meta tags.</param>
         /// <param name="make">The make.</param>
@@ -229,7 +232,7 @@ namespace Bikewale.Models
                 objData.PageMetaTags.AlternateUrl = string.Format("https://www.bikewale.com/m/{0}-scooters/", objData.Make.MaskingName);
                 objData.PageMetaTags.Keywords = string.Format("{0} Scooter, {0} Scooty, Scooter {0}, Scooty {0}, Scooters, Scooty", objData.Make.MakeName);
                 objData.PageMetaTags.Description = string.Format("Check {0} Scooty prices in India. Know more about new and upcoming {0} scooters, their prices, performance and mileage.", objData.Make.MakeName);
-                objData.PageMetaTags.Title = string.Format("{0} Scooters in India | Scooty Prices, Mileage & Images - BikeWale", objData.Make.MakeName);
+                objData.PageMetaTags.Title = string.Format("{0} Scooters in India | {0} Scooty Prices, Mileage & Images - BikeWale", objData.Make.MakeName);
                 objData.Page_H1 = string.Format("{0} Scooters", objData.Make.MakeName);
 
                 SetBreadcrumList();

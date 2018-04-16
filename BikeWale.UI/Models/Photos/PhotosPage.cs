@@ -32,6 +32,7 @@ namespace Bikewale.Models.Photos
         private readonly IVideos _objVideos = null;
 
         private uint _modelId, _cityId;
+        private string _cityName;
         private PhotosPageVM _objData = null;
         private string _returnUrl;
         private uint _selectedColorImageId;
@@ -94,6 +95,7 @@ namespace Bikewale.Models.Photos
                 _objData.BodyStyle = 0;
                 GlobalCityAreaEntity currentCityArea = GlobalCityArea.GetGlobalCityArea();
                 _cityId = currentCityArea.CityId;
+                _cityName = currentCityArea.City;
                 ProcessQueryStringVariables(qstr);
                 _objData.Series = _objModelEntity.GetSeriesByModelId(_modelId);
                 BindPhotos();
@@ -289,6 +291,14 @@ namespace Bikewale.Models.Photos
 
                     SetBreadcrumList();
                     SetPageJSONLDSchema(_objData.PageMetaTags);
+
+                    _objData.AdTags.TargetedModel = _objData.Model.ModelName;
+                    _objData.AdTags.TargetedMakes = _objData.Make.MakeName;
+
+                    if (!String.IsNullOrEmpty(_cityName))
+                    {
+                        _objData.AdTags.TargetedCity = _cityName;
+                    }
 
                 }
             }

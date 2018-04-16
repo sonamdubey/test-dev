@@ -4,6 +4,7 @@
 
 @import ../../mixins/index
 @import ../../utils/index
+@import ../../components/mixins
 
 html
 	-webkit-tap-highlight-color: transparent
@@ -35,6 +36,17 @@ body
 
 /* upcoming bikes carousel */
 @import ../../partials/popular-bikes-carousel
+
+
+/* Bike comparison swiper */
+@import ../../partials/comparision-swiper
+
+//comparison-swiper
+@include comparison-swiper()
+@include compare-img()
+.comparison-section
+	.carousel-title__label
+		width: 78%
 
 
 @import ../../partials/all-bikes-list

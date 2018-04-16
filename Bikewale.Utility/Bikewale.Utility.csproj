@@ -206,6 +206,8 @@
     <Compile Include="LinqHelpers\PredicateBuilder.cs" />
     <Compile Include="SanitizeHTML.cs" />
     <Compile Include="SchemaHelper.cs" />
+    <Compile Include="SingletonCWOPRHttpClient.cs" />
+    <Compile Include="SingletonGoogleAPIHttpClient.cs" />
     <Compile Include="StrinHtmlHelpers.cs" />
     <Compile Include="TermsHtmlFormatting.cs" />
     <Compile Include="Image.cs" />
