@@ -94,6 +94,9 @@ namespace Bikewale.Models
         /// <summary>
         /// Created by  :   Sumit Kate on 30 Mar 2017
         /// Description :   Binds Page Metas
+        /// Modified by: Dhruv Joshi
+        /// Dated: 28th March 2018
+        /// Description: Scooters Landing Page Title change
         /// </summary>
         /// <param name="objVM"></param>
         private static void BindPageMetas(ScootersIndexPageVM objVM)
@@ -104,7 +107,7 @@ namespace Bikewale.Models
                 objVM.PageMetaTags.AlternateUrl = "https://www.bikewale.com/m/scooters/";
                 objVM.PageMetaTags.Keywords = "Scooters, Scooty, New scooter, New Scooty, Scooter in India, scooty, Scooter comparison, compare scooter, scooter price, scooty price";
                 objVM.PageMetaTags.Description = "Find scooters of Honda, Hero, TVS, Vespa and many more brands. Know about prices, images, colours, specs and reviews of scooters in India";
-                objVM.PageMetaTags.Title = "New Scooters - Scooters Prices, Reviews, Images, Colours - BikeWale";
+                objVM.PageMetaTags.Title = "Scooters in India - Scooty Prices, Reviews, Images, Colours - BikeWale";
             }
             catch (Exception ex)
             {

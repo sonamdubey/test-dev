@@ -128,6 +128,8 @@ namespace Bikewale.BAL.UsedBikes
         /// <summary>
         /// Created by : Sajal Gupta on 5-12-2016
         /// Desc : stop Reassigning customerId if already registered.
+        /// Modified by :   Sumit Kate on 07 Dec 2017
+        /// Description :   Reassign the customerId to sellerEntity.CustomerId, It will prevent an attacker to create an ads in behalf of any user remotely
         /// </summary>
         /// <param name="user"></param>
         /// <returns></returns>
@@ -142,21 +144,15 @@ namespace Bikewale.BAL.UsedBikes
                 {
                     //If exists update the mobile number and name
                     _objCustomerRepo.UpdateCustomerMobileNumber(user.CustomerMobile, user.CustomerEmail, user.CustomerName);
-                    //set customer id for further use
-                    if (user.CustomerId < 1)
-                    {
-                        user.CustomerId = objCust.CustomerId;
-                    }
+                    user.CustomerId = objCust.CustomerId;
                 }
                 else
                 {
                     //Register the new customer and send login details
                     objCust = new CustomerEntity() { CustomerName = user.CustomerName, CustomerEmail = user.CustomerEmail, CustomerMobile = user.CustomerMobile };
-                    if (user.CustomerId < 1)
-                    {
-                        user.CustomerId = _objCustomer.Add(objCust);
+                    user.CustomerId = _objCustomer.Add(objCust);
+                    if (user.CustomerId > 0)
                         SendEmailSMSToDealerCustomer.CustomerRegistrationEmail(objCust.CustomerEmail, objCust.CustomerName, objCust.Password);
-                    }
                 }
             }
             catch (Exception ex)
@@ -166,9 +162,55 @@ namespace Bikewale.BAL.UsedBikes
             return user.CustomerId;
         }
 
-        public bool UpdateOtherInformation(SellBikeAdOtherInformation adInformation, int inquiryAd, ulong customerId)
+        /// <summary>
+        /// Modified by :   Sumit Kate on 07 Dec 2017
+        /// Description :   Update other information for sell bike ad
+        /// Added entity response to send appropriate status
+        /// </summary>
+        /// <param name="adInformation"></param>
+        /// <param name="inquiryAd"></param>
+        /// <param name="customerId"></param>
+        /// <returns></returns>
+        public SellBikeInquiryResultEntity UpdateOtherInformation(SellBikeAdOtherInformation adInformation, int inquiryAd, ulong customerId)
         {
-            return _sellBikeRepository.UpdateOtherInformation(adInformation, inquiryAd, customerId);
+            SellBikeInquiryResultEntity result = new SellBikeInquiryResultEntity();
+            result.Status = new SellBikeAdStatusEntity();
+            try
+            {
+                // Check if user is registered
+                if (RegisterUser(adInformation.Seller) > 0)
+                {
+                    // Check if customer is fake
+                    if (!IsFakeCustomer(adInformation.Seller.CustomerId))
+                    {
+                        //Check if mobile verified
+                        if (_mobileVerRespo.IsMobileVerified(adInformation.Seller.CustomerMobile, adInformation.Seller.CustomerEmail))
+                        {
+                            var isUpdated = _sellBikeRepository.UpdateOtherInformation(adInformation, inquiryAd, customerId);
+                            result.Status.Code = SellAdStatus.Approved;
+                        }
+                        else
+                        {
+                            //Set Status as Mobile unverified
+                            result.Status.Code = SellAdStatus.MobileUnverified;
+                        }
+                    }
+                    else // Redirect user
+                    {
+                        result.Status.Code = SellAdStatus.Fake;
+                    }
+                }
+                else
+                {
+                    result.Status.Code = SellAdStatus.Fake;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, String.Format("UpdateOtherInformation({0},{1})", inquiryAd, Newtonsoft.Json.JsonConvert.SerializeObject(adInformation)));
+            }
+
+            return result;
         }
         /// <summary>
         /// Modified By : Aditi Srivastava on 10 Nov 2016

@@ -146,6 +146,9 @@
     <Compile Include="ServiceCenter\ServiceCenter.cs" />
     <Compile Include="Used\SellBikes.cs" />
     <Compile Include="Used\UsedBikes.cs" />
+    <Compile Include="Users\Users.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bikewale.Cache.Core\Bikewale.Cache.Core.csproj">

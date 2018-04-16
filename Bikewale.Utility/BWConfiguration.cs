@@ -28,6 +28,8 @@ namespace Bikewale.Utility
     /// Description : Removed logNewsUrl for News(PWA) page API
     /// Modified by : Ashutosh Sharma on 20 Mar 2018
     /// Description : Added SpecsFeaturesServiceModuleName for specs & features service module name.
+    /// Modifier    : Kartik Rathod on 30 march
+    /// Desc        : Added GoogleAPIHostUrl and CWOPRHostURL
     /// </summary>
     public sealed class BWConfiguration
     {
