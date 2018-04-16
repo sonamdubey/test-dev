@@ -218,7 +218,13 @@ namespace Bikewale.BAL.BikeData
             return objList;
 
         }
-
+        /// <summary>
+        /// Modified by : Sanskar Gupta on 16 April 2018
+        /// Description : Added null check for `objList`
+        /// </summary>
+        /// <param name="ObjData"></param>
+        /// <param name="isCityLogicPresent"></param>
+        /// <returns></returns>
         public IEnumerable<MostPopularBikesBase> GetAdPromotedBike(BikeFilters ObjData, bool isCityLogicPresent)
         {
             IEnumerable<MostPopularBikesBase> objList = null;
@@ -233,7 +239,10 @@ namespace Bikewale.BAL.BikeData
             else
                 objList = _modelCacheRepository.GetAdPromotedBikeWithOutCity(ObjData);
 
-            objList = objList.Where(x => x.StartDate < DateTime.Now && x.EndDate > DateTime.Now);
+            if (objList != null)
+            {
+                objList = objList.Where(x => x.StartDate < DateTime.Now && x.EndDate > DateTime.Now);
+            }
 
             return objList;
 

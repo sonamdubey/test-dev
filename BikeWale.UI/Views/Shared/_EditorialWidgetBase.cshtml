@@ -8,16 +8,26 @@
 {
     var columns = Model.WidgetColumns;
     int noOfColumns = columns.Count(x => x.Value != null);
+    EditorialWidgetInfo column1 = null, column2 = null;
+    if (columns.ContainsKey(EditorialWidgetColumnPosition.Left))
+    {
+        column1 = columns[EditorialWidgetColumnPosition.Left];
+    }
+    if (columns.ContainsKey(EditorialWidgetColumnPosition.Right))
+    {
+        column2 = columns[EditorialWidgetColumnPosition.Right];
+    }
+
+    if (column1 == null && column2 == null)
+    {
+        return;
+    }
 
     switch (noOfColumns)
     {
         case 1:
-            if(columns[EditorialWidgetColumnPosition.Left] == null)
-            {
-                break;
-            }
             // Render 1 tab
-            var widget = columns[EditorialWidgetColumnPosition.Left];
+            var widget = (column1 != null) ? column1 : column2;
             <div class="bw-tabs-panel content-box-shadow section-bottom-margin" data-slide="1">
                 <div class="bw-tabs bw-tabs-flex tabs-flex--reset-margin">
                     <ul id="widgetTab">
@@ -44,12 +54,6 @@
 
         case 2:
             // Render 2 tabs
-            var column1 = columns[EditorialWidgetColumnPosition.Left];
-            var column2 = columns[EditorialWidgetColumnPosition.Right];
-            if(column1 == null || column2 == null)
-            {
-                break;
-            }
             <div class="bw-tabs-panel content-box-shadow section-bottom-margin">
                 <div class="bw-tabs bw-tabs-flex tabs-flex--reset-margin">
                     <ul id="widgetTab">
