@@ -353,7 +353,8 @@ namespace Bikewale.New
                         container.RegisterType<IBikeVersions<BikeVersionEntity, uint>, BikeVersions<BikeVersionEntity, uint>>()
                                 .RegisterType<IApiGatewayCaller, ApiGatewayCaller>()
                                 .RegisterType<IBikeVersionsRepository<BikeVersionEntity, uint>, BikeVersionsRepository<BikeVersionEntity, uint>>()
-                                .RegisterType<IBikeVersionCacheRepository<BikeVersionEntity, uint>, BikeVersionsCacheRepository<BikeVersionEntity, uint>>();
+                                .RegisterType<IBikeVersionCacheRepository<BikeVersionEntity, uint>, BikeVersionsCacheRepository<BikeVersionEntity, uint>>()
+								.RegisterType<ICacheManager, MemcacheManager>();
                         var objVersion = container.Resolve<IBikeVersions<BikeVersionEntity, uint>>();
                         var objSimilarBikes = new SimilarBikesWidget(objVersion, (uint)versionId, PQSourceEnum.Desktop_DPQ_Alternative);
 
