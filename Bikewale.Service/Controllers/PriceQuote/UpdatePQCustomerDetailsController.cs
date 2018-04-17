@@ -232,22 +232,24 @@ namespace Bikewale.Service.Controllers.PriceQuote
                             DPQSmsEntity objDPQSmsEntity = new DPQSmsEntity();
                             objDPQSmsEntity.CustomerMobile = objCust.CustomerMobile;
                             objDPQSmsEntity.CustomerName = objCust.CustomerName;
-                            objDPQSmsEntity.DealerMobile = dealerDetailEntity.objDealer.MobileNo;
-                            objDPQSmsEntity.DealerName = dealerDetailEntity.objDealer.Organization;
-                            objDPQSmsEntity.Locality = dealerDetailEntity.objDealer.Address;
-                            objDPQSmsEntity.BookingAmount = bookingAmount;
-                            objDPQSmsEntity.BikeName = String.Format("{0} {1} {2}", dealerDetailEntity.objQuotation.objMake.MakeName, dealerDetailEntity.objQuotation.objModel.ModelName, dealerDetailEntity.objQuotation.objVersion.VersionName);
-                            objDPQSmsEntity.DealerArea = dealerDetailEntity.objDealer.objArea.AreaName != null ? dealerDetailEntity.objDealer.objArea.AreaName : string.Empty;
-                            objDPQSmsEntity.DealerAdd = dealerDetailEntity.objDealer.Address;
-                            objDPQSmsEntity.DealerCity = dealerDetailEntity.objDealer.objCity != null ? dealerDetailEntity.objDealer.objCity.CityName : string.Empty;
-                            objDPQSmsEntity.OrganisationName = dealerDetailEntity.objDealer.Organization;
+                            if (dealerDetailEntity != null && dealerDetailEntity.objDealer != null)
+                            {
+                                objDPQSmsEntity.DealerMobile = dealerDetailEntity.objDealer.MobileNo;
+                                objDPQSmsEntity.DealerName = dealerDetailEntity.objDealer.Organization;
+                                objDPQSmsEntity.Locality = dealerDetailEntity.objDealer.Address;
+                                objDPQSmsEntity.BookingAmount = bookingAmount;
+                                objDPQSmsEntity.BikeName = String.Format("{0} {1} {2}", dealerDetailEntity.objQuotation.objMake.MakeName, dealerDetailEntity.objQuotation.objModel.ModelName, dealerDetailEntity.objQuotation.objVersion.VersionName);
+                                objDPQSmsEntity.DealerArea = dealerDetailEntity.objDealer.objArea.AreaName != null ? dealerDetailEntity.objDealer.objArea.AreaName : string.Empty;
+                                objDPQSmsEntity.DealerAdd = dealerDetailEntity.objDealer.Address;
+                                objDPQSmsEntity.DealerCity = dealerDetailEntity.objDealer.objCity != null ? dealerDetailEntity.objDealer.objCity.CityName : string.Empty;
+                                objDPQSmsEntity.OrganisationName = dealerDetailEntity.objDealer.Organization;
 
-                            string custArea = objCust.AreaDetails == null ? string.Empty : objCust.AreaDetails.AreaName,
-                                custCity = objCust.cityDetails == null ? string.Empty : objCust.cityDetails.CityName;
+                                string custArea = objCust.AreaDetails == null ? string.Empty : objCust.AreaDetails.AreaName,
+                                    custCity = objCust.cityDetails == null ? string.Empty : objCust.cityDetails.CityName;
 
-                            _objLeadNofitication.NotifyDealer(input.PQId, dealerDetailEntity.objQuotation.objMake.MakeName, dealerDetailEntity.objQuotation.objModel.ModelName, dealerDetailEntity.objQuotation.objVersion.VersionName,
-                                dealerDetailEntity.objDealer.Organization, dealerDetailEntity.objDealer.EmailId, objCust.CustomerName, objCust.CustomerEmail, objCust.CustomerMobile, custArea, custCity, dealerDetailEntity.objQuotation.PriceList, Convert.ToInt32(TotalPrice), dealerDetailEntity.objOffers, imagePath, dealerDetailEntity.objDealer.PhoneNo, bikeName, objDPQSmsEntity.DealerArea);
-
+                                _objLeadNofitication.NotifyDealer(input.PQId, dealerDetailEntity.objQuotation.objMake.MakeName, dealerDetailEntity.objQuotation.objModel.ModelName, dealerDetailEntity.objQuotation.objVersion.VersionName,
+                                    dealerDetailEntity.objDealer.Organization, dealerDetailEntity.objDealer.EmailId, objCust.CustomerName, objCust.CustomerEmail, objCust.CustomerMobile, custArea, custCity, dealerDetailEntity.objQuotation.PriceList, Convert.ToInt32(TotalPrice), dealerDetailEntity.objOffers, imagePath, dealerDetailEntity.objDealer.PhoneNo, bikeName, objDPQSmsEntity.DealerArea);
+                            }
 
                             if (isVerified)
                             {
