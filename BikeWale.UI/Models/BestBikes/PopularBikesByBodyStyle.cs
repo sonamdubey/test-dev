@@ -47,7 +47,7 @@ namespace Bikewale.Models.BestBikes
             PopularBodyStyleVM objPopular = new PopularBodyStyleVM();
             try
             {
-                objPopular.PopularBikes = _models.GetMostPopularBikesByModelBodyStyle((int)ModelId, TotalWidgetItems, CityId);
+                objPopular.PopularBikes = _models.GetMostPopularBikesByModelBodyStyle((int)ModelId, TotalWidgetItems, CityId, true);
                 if (objPopular.PopularBikes != null && objPopular.PopularBikes.Any())
                 {
                     objPopular.PopularBikes = objPopular.PopularBikes.Take(TopCount);

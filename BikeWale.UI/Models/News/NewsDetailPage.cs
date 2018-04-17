@@ -1187,7 +1187,7 @@ namespace Bikewale.Models
             try
             {
                 objData.SeriesWidget = new EditorialSeriesWidgetVM();
-                IEnumerable<MostPopularBikesBase> makePopularBikes = _bikeModels.GetMostPopularBikesByMake((uint)MakeId);
+                IEnumerable<MostPopularBikesBase> makePopularBikes = _bikeModels.GetMostPopularBikesByMake((uint)MakeId, false);
                 string modelIds = string.Empty;
                 modelIds = _series.GetModelIdsBySeries(seriesId);
                 string[] modelArray = modelIds.Split(',');

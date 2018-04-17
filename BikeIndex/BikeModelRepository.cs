@@ -208,7 +208,7 @@ namespace BikeIndex
                                         EnumSpecsFeaturesItems.FuelEfficiencyOverall,
                                         EnumSpecsFeaturesItems.MaxPowerBhp,
                                         EnumSpecsFeaturesItems.KerbWeight,
-                                        EnumSpecsFeaturesItems.BrakeType,
+                                        EnumSpecsFeaturesItems.RearDisc,
                                         EnumSpecsFeaturesItems.AlloyWheels,
                                         EnumSpecsFeaturesItems.AntilockBrakingSystem,
                                         EnumSpecsFeaturesItems.ElectricStart
@@ -236,7 +236,7 @@ namespace BikeIndex
                             objEnumerator.Current.TopVersion.Displacement = Convert.ToDouble(GetSpecsValue(versionEnumerator.Current.MinSpecsList, (int)EnumSpecsFeaturesItems.Displacement));
 
                             objEnumerator.Current.TopVersion.ABS = GetSpecsValue(versionEnumerator.Current.MinSpecsList, (int)EnumSpecsFeaturesItems.AntilockBrakingSystem) == "1";
-                            objEnumerator.Current.TopVersion.BrakeType = GetSpecsValue(versionEnumerator.Current.MinSpecsList, (int)EnumSpecsFeaturesItems.BrakeType);
+                            objEnumerator.Current.TopVersion.BrakeType = GetSpecsValue(versionEnumerator.Current.MinSpecsList, (int)EnumSpecsFeaturesItems.RearDisc);
                             objEnumerator.Current.TopVersion.Wheels = GetSpecsValue(versionEnumerator.Current.MinSpecsList, (int)EnumSpecsFeaturesItems.AlloyWheels);
                             objEnumerator.Current.TopVersion.StartType = GetSpecsValue(versionEnumerator.Current.MinSpecsList, (int)EnumSpecsFeaturesItems.ElectricStart);
                         }

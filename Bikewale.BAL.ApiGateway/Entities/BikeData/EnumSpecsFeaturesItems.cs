@@ -43,7 +43,6 @@ namespace Bikewale.BAL.ApiGateway.Entities.BikeData
 		ChassisType = 408,
 		FrontSuspension = 409,
 		RearSuspension = 410,
-		BrakeType = 411,
 		FrontDisc = 412,
 		FrontDisc_DrumSize = 413,
 		RearDisc = 414,

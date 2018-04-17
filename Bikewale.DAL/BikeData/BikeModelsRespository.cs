@@ -332,12 +332,6 @@ namespace Bikewale.DAL.BikeData
             }
             return objMinSpecs;
         }
-        [Obsolete("Use Specification and Features Micro Service to get all specs.", true)]
-        public BikeSpecificationEntity MVSpecsFeatures(int versionId)
-        {
-            var mv = new BikeVersionsRepository<BikeVersionEntity, int>();
-            return mv.GetSpecifications(versionId);
-        }
 
 
         /// <summary>

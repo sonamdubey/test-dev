@@ -441,7 +441,7 @@ namespace Bikewale.BAL.BikeBooking
                     VersionsDataByItemIds_Input specItemInput = new VersionsDataByItemIds_Input {
                         Versions = new List<int> { (int)versionId },
                         Items = new List<EnumSpecsFeaturesItems> {
-                            EnumSpecsFeaturesItems.BrakeType,
+                            EnumSpecsFeaturesItems.RearDisc,
                             EnumSpecsFeaturesItems.AlloyWheels
                         }
                     };

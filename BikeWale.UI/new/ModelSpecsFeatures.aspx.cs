@@ -184,34 +184,6 @@ namespace Bikewale.New
         }
 
         /// <summary>
-        /// Author          :   Sangram Nandkhile
-        /// Created Date    :   18 Nov 2015
-        /// Description     :   Sends the notification to Customer and Dealer
-        /// </summary>
-        private BikeSpecificationEntity FetchVariantDetails(int versionId)
-        {
-            BikeSpecificationEntity specsFeature = null;
-            try
-            {
-                using (IUnityContainer container = new UnityContainer())
-                {
-                    container.RegisterType<IBikeMaskingCacheRepository<BikeModelEntity, int>, BikeModelMaskingCache<BikeModelEntity, int>>()
-                             .RegisterType<ICacheManager, MemcacheManager>()
-                             .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
-                            ;
-                    var objCache = container.Resolve<IBikeMaskingCacheRepository<BikeModelEntity, int>>();
-                    specsFeature = objCache.MVSpecsFeatures(versionId);
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorClass.LogError(ex, Request.ServerVariables["URL"] + "FetchVariantDetails");
-
-            }
-            return specsFeature;
-        }
-
-        /// <summary>
         /// Created By : Lucky Rathore on 03 June 2016
         /// Description : Private Method to proceess mpq queryString and set the values 
         /// for queried parameters versionId, ModelMaskingName and set value of modelId from Model Masking Name. 

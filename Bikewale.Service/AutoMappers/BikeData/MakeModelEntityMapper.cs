@@ -55,5 +55,18 @@ namespace Bikewale.Service.AutoMappers.BikeData
             }
             return null;
         }
+
+        public static IEnumerable<MostPopularBikes> ConvertWithoutMinSpec(IEnumerable<MostPopularBikesBase> objModelList)
+        {
+            if (objModelList != null)
+            {
+                Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
+                Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
+                Mapper.CreateMap<BikeVersionsListEntity, VersionBase>();
+                Mapper.CreateMap<MostPopularBikesBase, MostPopularBikes>();
+                return Mapper.Map<IEnumerable<MostPopularBikesBase>, IEnumerable<MostPopularBikes>>(objModelList);
+            }
+            return null;
+        }
     }
 }

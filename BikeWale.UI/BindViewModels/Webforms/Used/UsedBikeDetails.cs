@@ -102,7 +102,6 @@ namespace Bikewale.BindViewModels.Webforms.Used
                                 EnumSpecsFeaturesItems.MaximumTorque,
                                 EnumSpecsFeaturesItems.NoOfGears,
                                 EnumSpecsFeaturesItems.FuelEfficiencyOverall,
-                                EnumSpecsFeaturesItems.BrakeType,
                                 EnumSpecsFeaturesItems.FrontDisc,
                                 EnumSpecsFeaturesItems.RearDisc,
                                 EnumSpecsFeaturesItems.AlloyWheels,

@@ -401,12 +401,12 @@ namespace Bikewale.Utility
                 switch (specItem.Id)
                 {
                     case (int)EnumSpecsFeaturesItem.AlloyWheels:
-                        return string.Format("{0} Wheels", specItem.Value.Equals("1") ? "Alloy" : "Spoke");
+                        return string.Format("{0} Wheels", specItem.Value);
                     case (int)EnumSpecsFeaturesItem.ElectricStart:
-                        return string.Format("{0} Start", specItem.Value.Equals("1") ? "Electric" : "Kick");
+                        return string.Format("{0} Start", specItem.Value);
                     case (int)EnumSpecsFeaturesItem.AntilockBrakingSystem:
                         return specItem.Value.Equals("1") ? "ABS" : String.Empty;
-                    case (int)EnumSpecsFeaturesItem.BrakeType:
+                    case (int)EnumSpecsFeaturesItem.RearDisc:
                         return string.Format("{0} Brake", specItem.Value);
                     default:
                         return String.Empty;
@@ -442,7 +442,7 @@ namespace Bikewale.Utility
         {
             if (specItemList != null)
             {
-                string brakeTypeName = GetSpecGeneralName(specItemList.FirstOrDefault(item => item.Id.Equals((int)EnumSpecsFeaturesItem.BrakeType)));
+                string brakeTypeName = GetSpecGeneralName(specItemList.FirstOrDefault(item => item.Id.Equals((int)EnumSpecsFeaturesItem.RearDisc)));
                 string alloyWheelName = GetSpecGeneralName(specItemList.FirstOrDefault(item => item.Id.Equals((int)EnumSpecsFeaturesItem.AlloyWheels)));
                 return String.Format("{0}{1}{2}", brakeTypeName, String.IsNullOrEmpty(brakeTypeName) ? "" : ", ", alloyWheelName);
             }

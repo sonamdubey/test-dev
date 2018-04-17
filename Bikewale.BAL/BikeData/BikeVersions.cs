@@ -66,7 +66,7 @@ namespace Bikewale.BAL.BikeData
                     Versions = versionsList.Select(v => v.VersionId),
                     Items = new List<EnumSpecsFeaturesItems>
                     {
-                        EnumSpecsFeaturesItems.BrakeType,
+                        EnumSpecsFeaturesItems.RearDisc,
                         EnumSpecsFeaturesItems.AlloyWheels,
                         EnumSpecsFeaturesItems.ElectricStart,
                         EnumSpecsFeaturesItems.AntilockBrakingSystem
@@ -261,7 +261,7 @@ namespace Bikewale.BAL.BikeData
                         Versions = versionList.Select(version => (int)version.VersionId),
                         Items = new List<EnumSpecsFeaturesItems>{
                             EnumSpecsFeaturesItems.AntilockBrakingSystem,
-                            EnumSpecsFeaturesItems.BrakeType,
+                            EnumSpecsFeaturesItems.RearDisc,
                             EnumSpecsFeaturesItems.AlloyWheels,
                             EnumSpecsFeaturesItems.ElectricStart
                         }

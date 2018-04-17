@@ -63,8 +63,8 @@ namespace Bikewale.Interfaces.BikeData
         BikeModelPageEntity GetModelPageDetails(U modelId, int versionId);
         IEnumerable<MostPopularBikesBase> GetMostPopularScooters(uint makeId);
         IEnumerable<MostPopularBikesBase> GetMostPopularScooters(uint topCount, uint? cityId);
-        IEnumerable<MostPopularBikesBase> GetMostPopularBikesByMake(uint makeId);
-        IEnumerable<MostPopularBikesBase> GetMostPopularBikesByModelBodyStyle(int modelId, int topCount, uint cityId);
+        IEnumerable<MostPopularBikesBase> GetMostPopularBikesByMake(uint makeId, bool specs);
+        IEnumerable<MostPopularBikesBase> GetMostPopularBikesByModelBodyStyle(int modelId, int topCount, uint cityId, bool specs);
         IEnumerable<MostPopularBikesBase> GetMostPopularBikes(EnumBikeType requestType, uint topCount, uint makeId, uint cityId);
         IEnumerable<MostPopularBikesBase> GetMostPopularBikes(int topCount);
 
