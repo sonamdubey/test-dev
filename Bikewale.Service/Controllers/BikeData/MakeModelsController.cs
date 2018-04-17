@@ -61,7 +61,7 @@ namespace Bikewale.Service.Controllers.BikeData
             IEnumerable<MostPopularBikes> makeModels = null;
             try
             {
-                ICollection<MostPopularBikesBase> bikeModelEntity = _bikeModels.GetMostPopularBikesByModelBodyStyle((int)modelId, (int)topCount, cityId);
+                IEnumerable<MostPopularBikesBase> bikeModelEntity = _bikeModels.GetMostPopularBikesByModelBodyStyle((int)modelId, (int)topCount, cityId);
                 makeModels = MakeModelEntityMapper.Convert(bikeModelEntity);
             }
             catch (System.Exception ex)

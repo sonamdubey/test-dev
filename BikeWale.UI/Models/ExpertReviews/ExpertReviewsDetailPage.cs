@@ -626,7 +626,7 @@ namespace Bikewale.Models
                         }
                         else
                         {
-                            PopularBikesByBodyStyle BodyStyleBikes = new PopularBikesByBodyStyle(_models);
+                            PopularBikesByBodyStyle BodyStyleBikes = new PopularBikesByBodyStyle(_bikeModels);
                             BodyStyleBikes.ModelId = ModelId;
                             BodyStyleBikes.CityId = CityId;
                             BodyStyleBikes.TopCount = topCount > 6 ? topCount : 6;
@@ -1125,7 +1125,7 @@ namespace Bikewale.Models
             {
                 if (objData != null && topCount > 0)
                 {
-                    PopularBikesByBodyStyle objPopularStyle = new PopularBikesByBodyStyle(_models);
+                    PopularBikesByBodyStyle objPopularStyle = new PopularBikesByBodyStyle(_bikeModels);
                     objPopularStyle.ModelId = ModelId;
                     objPopularStyle.CityId = CityId;
                     objPopularStyle.TopCount = topCount;
@@ -1181,7 +1181,7 @@ namespace Bikewale.Models
                 }
 
                 // Popular BodyStyles
-                IEnumerable<BestBikeEntityBase> bestBikesByBodyStyle = _models.GetBestBikesByCategory(bodyStyle, CityId);
+                IEnumerable<BestBikeEntityBase> bestBikesByBodyStyle = _bikeModels.GetBestBikesByCategory(bodyStyle, CityId);
                 if (bestBikesByBodyStyle != null && bestBikesByBodyStyle.Any())
                 {
                     objData.SeriesWidget.PopularBikesByBodyStyle = bestBikesByBodyStyle.Take(6);
@@ -1348,7 +1348,7 @@ namespace Bikewale.Models
             {
                 if (articleDetails != null && articleDetails.PageList != null)
                 {
-                    int totalStrippedHTMLLength = 0, currentPageLength = 0, requiredLength = 0, totalPages = articleDetails.PageList.Count; string inputString = null, viewName = null;
+                    int totalStrippedHTMLLength = 0, currentPageLength = 0, requiredLength = 0, totalPages = articleDetails.PageList.Count;
                     IList<Tuple<int, int>> objPagesInfo = new List<Tuple<int, int>>();
                     Shared.BikeInfo ampBikeInfo = null;
 
@@ -1483,7 +1483,7 @@ namespace Bikewale.Models
             try
             {
                 objData.SeriesWidget = new EditorialSeriesWidgetVM();
-                IEnumerable<MostPopularBikesBase> makePopularBikes = _models.GetMostPopularBikesByMake((uint)MakeId);
+                IEnumerable<MostPopularBikesBase> makePopularBikes = _bikeModels.GetMostPopularBikesByMake((uint)MakeId);
                 string modelIds = string.Empty;
                 modelIds = _series.GetModelIdsBySeries(seriesId);
                 string[] modelArray = modelIds.Split(',');

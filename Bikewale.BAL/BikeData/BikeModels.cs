@@ -203,9 +203,9 @@ namespace Bikewale.BAL.BikeData
         /// <param name="topCount"></param>
         /// <param name="cityId"></param>
         /// <returns></returns>
-        public ICollection<MostPopularBikesBase> GetMostPopularBikesByModelBodyStyle(int modelId, int topCount, uint cityId)
+        public IEnumerable<MostPopularBikesBase> GetMostPopularBikesByModelBodyStyle(int modelId, int topCount, uint cityId)
         {
-            ICollection<MostPopularBikesBase> modelList = null;
+            IEnumerable<MostPopularBikesBase> modelList = null;
             try
             {
                 modelList = _modelCacheRepository.GetMostPopularBikesByModelBodyStyle(modelId, topCount, cityId);
@@ -215,7 +215,6 @@ namespace Bikewale.BAL.BikeData
                             EnumSpecsFeaturesItems.Displacement,
                             EnumSpecsFeaturesItems.FuelEfficiencyOverall,
                             EnumSpecsFeaturesItems.MaxPowerBhp,
-                            EnumSpecsFeaturesItems.MaximumTorqueNm,
                             EnumSpecsFeaturesItems.KerbWeight
                         };
                     BindMinSpecs(modelList, specItemList);
@@ -282,7 +281,6 @@ namespace Bikewale.BAL.BikeData
                             EnumSpecsFeaturesItems.Displacement,
                             EnumSpecsFeaturesItems.FuelEfficiencyOverall,
                             EnumSpecsFeaturesItems.MaxPowerBhp,
-                            EnumSpecsFeaturesItems.MaximumTorqueNm,
                             EnumSpecsFeaturesItems.KerbWeight
                         };
                     BindMinSpecs(objList, specItemList);
@@ -1793,6 +1791,90 @@ namespace Bikewale.BAL.BikeData
             }
             return mostPopularBikes;
         }
+
+        /// <summary>
+        /// Created By  : Rajan Chauhan on 17 Apr 2018
+        /// Description : Added method to BAL get bestbike by bodystyle and bind minSpecs
+        /// </summary>
+        /// <param name="bodyStyle"></param>
+        /// <param name="cityId"></param>
+        /// <returns></returns>
+        public IEnumerable<BestBikeEntityBase> GetBestBikesByCategory(EnumBikeBodyStyles bodyStyle, uint? cityId = null)
+        {
+            IEnumerable<BestBikeEntityBase> bestBikesList = null;
+            try
+            {
+                bestBikesList = _modelCacheRepository.GetBestBikesByCategory(bodyStyle, cityId);
+                BindMinSpecs(bestBikesList);
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("Bikewale.BAL.BikeModels.GetBestBikesByCategory: BodyStyle:{0}", bodyStyle));
+            }
+            return bestBikesList;
+        }
+
+        /// <summary>
+        /// Created By  : Rajan Chauhan on 17 Apr 2018
+        /// Description : Added method to BAL get bestbike by modelId and bind minSpecs
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <param name="cityId"></param>
+        /// <returns></returns>
+        public IEnumerable<BestBikeEntityBase> GetBestBikesByModelInMake(uint modelId, uint? cityId = null)
+        {
+            IEnumerable<BestBikeEntityBase> bestBikesList = null;
+            try
+            {
+                bestBikesList = _modelCacheRepository.GetBestBikesByModelInMake(modelId, cityId);
+                BindMinSpecs(bestBikesList);
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("Bikewale.BAL.BikeModels.GetBestBikesByCategory: ModelId:{0}", modelId));
+            }
+            return bestBikesList;
+        }
+
+        private void BindMinSpecs(IEnumerable<BestBikeEntityBase> bikesList)
+        {
+            try
+            {
+                IEnumerable<EnumSpecsFeaturesItems> specItemList = new List<EnumSpecsFeaturesItems>{
+                    EnumSpecsFeaturesItems.Displacement,
+                    EnumSpecsFeaturesItems.FuelEfficiencyOverall,
+                    EnumSpecsFeaturesItems.MaxPowerBhp,
+                    EnumSpecsFeaturesItems.KerbWeight
+                };
+                if (bikesList != null && bikesList.Any())
+                {
+                    GetVersionSpecsByItemIdAdapter adapt1 = new GetVersionSpecsByItemIdAdapter();
+                    VersionsDataByItemIds_Input specItemInput = new VersionsDataByItemIds_Input
+                    {
+                        Versions = bikesList.Select(m => m.VersionId),
+                        Items = specItemList
+                    };
+                    adapt1.AddApiGatewayCall(_apiGatewayCaller, specItemInput);
+                    _apiGatewayCaller.Call();
+
+                    IEnumerable<VersionMinSpecsEntity> specsResponseList = adapt1.Output;
+                    if (specsResponseList != null)
+                    {
+                        var specsEnumerator = specsResponseList.GetEnumerator();
+                        var bikesEnumerator = bikesList.GetEnumerator();
+                        while (bikesEnumerator.MoveNext() && specsEnumerator.MoveNext())
+                        {
+                            bikesEnumerator.Current.MinSpecsList = specsEnumerator.Current.MinSpecsList;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("Bikewale.BAL.BikeData.BikeModels.BindMinSpecs({0})", bikesList));
+            }
+        }
+
         private class MostPopularBikesBaseComparer : IEqualityComparer<MostPopularBikesBase>
         {
 
@@ -1886,7 +1968,6 @@ namespace Bikewale.BAL.BikeData
                 ErrorClass.LogError(ex, string.Format("Bikewale.BAL.BikeData.BikeModels.JoinBikeListWithMinSpecs_versionList_{0}_specItemList_{1}", versionList, specItemList));
             }
         }
-
         
     }   // Class
 }   // namespace

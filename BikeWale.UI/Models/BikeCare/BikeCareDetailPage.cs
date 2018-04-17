@@ -20,6 +20,8 @@ namespace Bikewale.Models
     /// <summary>
     /// Created by : Aditi Srivastava on 1 Apr 2017
     /// Summary    : Model to fetch data for bike care details page
+    /// Modified by : Rajan Chauhan on 17 Apr 2018
+    /// Description : Removed IBikeModelsCacheRepository dependencyssss
     /// </summary>
     public class BikeCareDetailPage
     {
@@ -27,7 +29,6 @@ namespace Bikewale.Models
         private readonly ICMSCacheContent _cmsCache = null;
         private readonly IUpcoming _upcoming = null;
         private readonly IBikeModels<BikeModelEntity, int> _bikeModels = null;
-        private readonly IBikeModelsCacheRepository<int> _models = null;
         private string _basicId;
         #endregion
 
@@ -44,12 +45,11 @@ namespace Bikewale.Models
         #endregion
 
         #region Constructor
-        public BikeCareDetailPage(ICMSCacheContent cmsCache, IUpcoming upcoming, IBikeModels<BikeModelEntity, int> bikeModels, IBikeModelsCacheRepository<int> models, string basicId)
+        public BikeCareDetailPage(ICMSCacheContent cmsCache, IUpcoming upcoming, IBikeModels<BikeModelEntity, int> bikeModels, string basicId)
         {
             _cmsCache = cmsCache;
             _upcoming = upcoming;
             _bikeModels = bikeModels;
-            _models = models;
             _basicId = basicId;
             ProcessQueryString();
         }
@@ -245,7 +245,7 @@ namespace Bikewale.Models
 
                     if (ModelId > 0)
                     {
-                        PopularBikesByBodyStyle objPopularStyle = new PopularBikesByBodyStyle(_models);
+                        PopularBikesByBodyStyle objPopularStyle = new PopularBikesByBodyStyle(_bikeModels);
                         objPopularStyle.ModelId = ModelId;
                         objPopularStyle.CityId = CityId;
                         objPopularStyle.TopCount = topCount;

@@ -2155,6 +2155,8 @@ namespace Bikewale.DAL.BikeData
         /// Description : Removed MinSpecs code
         /// Modified by : Ashutosh Sharma on 05 Apr 2018.
         /// Description : Changed sp from 'getsimilarbikemodelswithinmake' to 'getsimilarbikemodelswithinmake_05042018' to remove min specs.
+        /// Modified by : Rajan Chauhan on 17 Apr 2018
+        /// Description : Added VersionId
         /// </summary>
         /// <param name="modelId"></param>
         /// <param name="cityId"></param>
@@ -2191,6 +2193,7 @@ namespace Bikewale.DAL.BikeData
                                 bestBikeObj.Make.MakeName = Convert.ToString(dr["MakeName"]);
                                 bestBikeObj.Make.MaskingName = Convert.ToString(dr["MakeMaskingName"]);
                                 bestBikeObj.Price = SqlReaderConvertor.ToUInt32(dr["VersionPrice"]);
+                                bestBikeObj.VersionId = SqlReaderConvertor.ToInt32(dr["VersionId"]);
                                 bestBikeObj.UsedCity = new CityEntityBase();
                                 bestBikesList.Add(bestBikeObj);
                             }
@@ -2214,6 +2217,8 @@ namespace Bikewale.DAL.BikeData
         /// Description : Removed MinSpecs code
         /// Modified by : Ashutosh Sharma on 05 Apr 2018.
         /// Description : Changed sp from 'getsimilarbikemodelswithinmakebycity' to 'getsimilarbikemodelswithinmakebycity_05042018' to remove min specs.
+        /// Modified by : Rajan Chauhan on 17 Apr 2018
+        /// Description : Added VersionId
         /// </summary>
         /// <param name="modelId"></param>
         /// <param name="cityId"></param>
@@ -2256,6 +2261,7 @@ namespace Bikewale.DAL.BikeData
                                 bestBikeObj.UsedCity.CityId = SqlReaderConvertor.ToUInt32(dr["CityId"]);
                                 bestBikeObj.UsedCity.CityMaskingName = Convert.ToString(dr["CityMaskingName"]);
                                 bestBikeObj.UsedCity.CityName = Convert.ToString(dr["CityName"]);
+                                bestBikeObj.VersionId = SqlReaderConvertor.ToInt32(dr["VersionId"]);
                                 bestBikesList.Add(bestBikeObj);
                             }
                             dr.Close();

@@ -683,7 +683,7 @@ namespace Bikewale.Models
                     }
                     else
                     {
-                        PopularBikesByBodyStyle BodyStyleBikes = new PopularBikesByBodyStyle(_models);
+                        PopularBikesByBodyStyle BodyStyleBikes = new PopularBikesByBodyStyle(_bikeModels);
                         BodyStyleBikes.ModelId = ModelId;
                         BodyStyleBikes.CityId = CityId;
                         BodyStyleBikes.TopCount = topCount > 6 ? topCount : 6;

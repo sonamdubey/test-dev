@@ -66,7 +66,6 @@ namespace Bikewale.Models.BikeModels
         private readonly IBikeModels<Entities.BikeData.BikeModelEntity, int> _objModel = null;
         private readonly IDealerPriceQuoteDetail _objDealerDetails = null;
         private readonly IBikeVersions<BikeVersionEntity, uint> _objVersion;
-        private readonly IBikeModelsCacheRepository<int> _objBestBikes = null;
         private readonly ICMSCacheContent _objArticles = null;
         private readonly IVideos _objVideos = null;
         private readonly IUsedBikeDetailsCacheRepository _objUsedBikescache = null;
@@ -118,7 +117,7 @@ namespace Bikewale.Models.BikeModels
         /// Modified by : Ashutosh Sharma on 31 Oct 2017
         /// Description : Added IAdSlot.
         /// </summary>
-        public ModelPage(string makeMasking, string modelMasking, IUserReviewsSearch userReviewsSearch, IUserReviewsCache userReviewsCache, IBikeModels<Entities.BikeData.BikeModelEntity, int> objModel, IDealerPriceQuote objDealerPQ, IAreaCacheRepository objAreaCache, ICityCacheRepository objCityCache, IPriceQuote objPQ, IDealerCacheRepository objDealerCache, IDealerPriceQuoteDetail objDealerDetails, IBikeVersions<BikeVersionEntity, uint> objVersion, ICMSCacheContent objArticles, IVideos objVideos, IUsedBikeDetailsCacheRepository objUsedBikescache, IServiceCenter objServiceCenter, IPriceQuoteCache objPQCache, IUsedBikesCache usedBikesCache, IBikeModelsCacheRepository<int> objBestBikes, IUpcoming upcoming, IManufacturerCampaign objManufacturerCampaign, IBikeSeries bikeSeries, IAdSlot adSlot, IBikeInfo bikeInfo, IBikeMakesCacheRepository bikeMakesCacheRepository, IApiGatewayCaller apiGatewayCaller)
+        public ModelPage(string makeMasking, string modelMasking, IUserReviewsSearch userReviewsSearch, IUserReviewsCache userReviewsCache, IBikeModels<Entities.BikeData.BikeModelEntity, int> objModel, IDealerPriceQuote objDealerPQ, IAreaCacheRepository objAreaCache, ICityCacheRepository objCityCache, IPriceQuote objPQ, IDealerCacheRepository objDealerCache, IDealerPriceQuoteDetail objDealerDetails, IBikeVersions<BikeVersionEntity, uint> objVersion, ICMSCacheContent objArticles, IVideos objVideos, IUsedBikeDetailsCacheRepository objUsedBikescache, IServiceCenter objServiceCenter, IPriceQuoteCache objPQCache, IUsedBikesCache usedBikesCache, IUpcoming upcoming, IManufacturerCampaign objManufacturerCampaign, IBikeSeries bikeSeries, IAdSlot adSlot, IBikeInfo bikeInfo, IBikeMakesCacheRepository bikeMakesCacheRepository, IApiGatewayCaller apiGatewayCaller)
         {
             _objModel = objModel;
             _objDealerPQ = objDealerPQ;
@@ -128,7 +127,6 @@ namespace Bikewale.Models.BikeModels
             _objDealerCache = objDealerCache;
             _objDealerDetails = objDealerDetails;
             _objVersion = objVersion;
-            _objBestBikes = objBestBikes;
             _upcoming = upcoming;
             _objArticles = objArticles;
             _objVideos = objVideos;
@@ -904,7 +902,7 @@ namespace Bikewale.Models.BikeModels
             {
                 if (_modelId > 0)
                 {
-                    var modelPopularBikesByBodyStyle = new PopularBikesByBodyStyle(_objBestBikes);
+                    var modelPopularBikesByBodyStyle = new PopularBikesByBodyStyle(_objModel);
                     modelPopularBikesByBodyStyle.CityId = _cityId;
                     modelPopularBikesByBodyStyle.ModelId = _modelId;
                     modelPopularBikesByBodyStyle.TopCount = 9;
@@ -1196,7 +1194,7 @@ namespace Bikewale.Models.BikeModels
         {
             try
             {
-                OtherBestBikesModel otherBestBikesModel = new OtherBestBikesModel((uint)_objData.ModelPageEntity.ModelDetails.MakeBase.MakeId, _objData.ModelPageEntity.ModelDetails.MakeBase.MakeName, (uint)_objData.ModelId, BodyStyleType, _objBestBikes, cityId);
+                OtherBestBikesModel otherBestBikesModel = new OtherBestBikesModel((uint)_objData.ModelPageEntity.ModelDetails.MakeBase.MakeId, _objData.ModelPageEntity.ModelDetails.MakeBase.MakeName, (uint)_objData.ModelId, BodyStyleType, _objModel, cityId);
 
                 _objData.OtherBestBikes = otherBestBikesModel.GetData();
             }

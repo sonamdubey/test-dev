@@ -393,12 +393,9 @@ namespace Bikewale.Mobile
                 {
                     using (IUnityContainer container = new UnityContainer())
                     {
-                        container.RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>()
-                                .RegisterType<ICacheManager, MemcacheManager>()
-                                .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
-                                .RegisterType<IPager, Pager>();
-                        var objBestBikes = container.Resolve<IBikeModelsCacheRepository<int>>();
-                        var modelPopularBikesByBodyStyle = new Models.BestBikes.PopularBikesByBodyStyle(objBestBikes);
+                        container.RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>();
+                        var bikeModel = container.Resolve<IBikeModels<BikeModelEntity, int>>();
+                        var modelPopularBikesByBodyStyle = new Models.BestBikes.PopularBikesByBodyStyle(bikeModel);
                         modelPopularBikesByBodyStyle.CityId = cityId;
                         modelPopularBikesByBodyStyle.ModelId = modelId;
                         modelPopularBikesByBodyStyle.TopCount = 9;
