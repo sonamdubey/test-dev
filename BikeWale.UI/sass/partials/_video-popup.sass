@@ -1,6 +1,6 @@
 .video-popup__content
 	@include vendor-prefix('transform', translate(240%, 0))
-	@include vendor-prefix('transition', transform .4s ease)
+	@include vendor-prefix('transition', transform .8s ease)
 	position: fixed
 	top: 0
 	left: 0
@@ -118,6 +118,9 @@
 
 .video-list__back-btn
 	@include arrow-right
+	background-size: 5px
+	background-position: right 10px center
+	background-color: color('white')
 	display: none
 	position: absolute
 	right: 15px
@@ -127,8 +130,6 @@
 	font-size: 10px
 	font-weight: 600
 	line-height: 46px
-	background-size: 5px
-	background-position: 85% center
 	cursor: pointer
 	z-index: 1
 
@@ -186,6 +187,10 @@
 		.swiper-card__label
 			height: 34px
 			overflow: hidden
+
+video
+	background: red !important
+	z-index: 0 !important
 
 @media screen and (orientation: landscape) and (min-width: 720px)
 	.video-popup--landscape

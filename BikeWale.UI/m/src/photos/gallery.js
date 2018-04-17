@@ -195,9 +195,7 @@ function resetFullScreenMode() {
 function handleColorPopupResize() {
 	if (vmModelGallery.colorPopup().activePopup()) {
 		if (colorThumbnailGallerySwiper) {
-			setTimeout(function() {
 				ColorGallerySwiper.handleThumbnailSwiper(colorThumbnailGallerySwiper);
-			}, 0);
 		}
 	}
 }
@@ -256,7 +254,20 @@ docReady(function () {
 	colorThumbnailGallerySwiper = ColorGallerySwiper.initThumbnailSwiper();
 	ColorGallerySwiper.registerEvents();
 
-	window.addEventListener('resize', resizeHandler, true);
+	/* trigger resize event after orientation change event for UC browser */
+	if(navigator.userAgent.match(/UCBrowser/g)) {
+		window.addEventListener('resize', function() {
+			var timeout;
+			clearTimeout(timeout);
+			timeout = setTimeout(function() {
+				resizeHandler();
+			}, 1000);
+		}, true);
+	}
+	else {
+		window.addEventListener('resize', resizeHandler, true);
+	}
+	
 	resizeHandler();
 	
 	SwiperYT.YouTubeApi.addApiScript();
@@ -290,9 +301,7 @@ docReady(function () {
 		});
 	}
 
-	if ('orientation' in screen) {
-		screen.orientation.addEventListener('change', handleOrientationChange);
-	}
+	window.addEventListener("orientationchange", handleOrientationChange)
 });
 
 function isInViewport(element) {
@@ -615,13 +624,11 @@ var ColorGallerySwiper = (function () {
 	}
 
 	function handleThumbnailSwiper(swiper) {
+		swiper.slideTo(0);
+
 		if (!vmModelGallery.fullScreenModeActive()) {
 			swiper.destroy(false);
 			vmModelGallery.colorPopup().setListHeight();
-			$(swiper.container[0]).find('.swiper-wrapper').css({
-				'-webkit-transform': 'translate3d(0, 0, 0)',
-				'transform': 'translate3d(0, 0, 0)'
-			});
 			_attachColorEvents(swiper);
 			SwiperEvents.focusThumbnail(swiper, vmModelGallery.colorPopup().colorSwiper().activeIndex(), false);
 		}

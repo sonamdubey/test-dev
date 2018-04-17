@@ -3,7 +3,7 @@
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
 	Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/m/photos/listing.css' inline /> <link rel='stylesheet' type='text/css' href='/sass/m/photos/gallery-popup.css' inline />";
 	Model.Page_BTF_CSS_Paths = new string[] { "/sass/m/photos/listing-btf.css", "/sass/m/photos/colours-popup.css", "/sass/m/photos/videos-popup.css" };
-	Model.Page_JS_Paths = new string[] { "/src/utils/swiperYoutube.js", "/src/utils/scroll.js", "/src/utils/navigationTabs.js", "/src/utils/viewport.js", "/src/plugins/screenfull.js", "/m/src/photos/galleryViewModel.js", "/m/src/photos/gallery.js", "/m/src/photos/model.js" };
+	Model.Page_JS_Paths = new string[] { "/src/utils/swiperYoutube.js", "/src/utils/scroll.js", "/src/utils/navigationTabs.js", "/src/utils/viewport.js", "/src/plugins/screenfull.js", "/m/src/photos/videoPopupViewModel.js", "/m/src/photos/colorPopupViewModel.js", "/m/src/photos/galleryViewModel.js", "/m/src/photos/gallery.js", "/m/src/photos/model.js" };
     Model.AdTags.Ad_320x50Top = true;
     Model.AdTags.Ad_300x250BTF = true;
     Model.AdTags.Ad_320x50BTF = true;
@@ -334,11 +334,29 @@
                             <div class="swiper-youtube swiper__videos">
                                 <div class="video-list" data-bind="foreach: videoList">
                                     <div class="video-card-container">
+                                      <!-- ko if: $parent.listTypeIFrame -->
+                                      <h4 class="swiper-card__label" data-bind="text: VideoTitle"></h4>
+                                      <!-- /ko -->
+
+                                      <!-- ko ifnot: $parent.listTypeIFrame -->
+                                      <a data-bind="attr: {title: VideoTitle, href: '/m/bike-videos/' + VideoTitleUrl + '-' + BasicId + '/' }" class="text-default">
                                         <h4 class="swiper-card__label" data-bind="text: VideoTitle"></h4>
+                                      </a>
+                                      <!-- /ko -->
                                         <div class="model-card__list__video-card">
+                                          <!-- ko if: $parent.listTypeIFrame -->
                                             <div class="youtube-iframe-preview video-card__video-preview">
                                                 <iframe width="320" height="180" data-bind="attr: { 'id': 'videoTab_' + $index(), 'src': 'https://www.youtube.com/embed/' + VideoId + '?rel=0&amp;showinfo=0&amp;enablejsapi=1' }" src="" frameborder="0" allowfullscreen=""></iframe>
                                             </div>
+                                          <!-- /ko -->
+                                          <!-- ko ifnot: $parent.listTypeIFrame -->
+                                          <a data-bind="attr: {title: VideoTitle, href: '/m/bike-videos/' + VideoTitleUrl + '-' + BasicId + '/' }" class="video-card__video-preview">
+                                            <img class="video-card__iframe-image lazy" src="" data-bind="attr: {alt: VideoTitle, 'data-original': 'https://img.youtube.com/vi/' + VideoId + '/mqdefault.jpg' }" class="video-card__iframe" />
+                                            <span class="video-card__play-container">
+                                              <span class="video-card-play__icon"></span>
+                                            </span>
+                                          </a>
+                                          <!-- /ko -->
                                             <div class="video-card__desc clearfix">
                                                 <div class="grid-4">
                                                     <p class="font11 text-light-grey" data-bind="text: formatDate(DisplayDate)"></p>
