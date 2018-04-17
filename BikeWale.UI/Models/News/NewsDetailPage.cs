@@ -231,6 +231,7 @@ namespace Bikewale.Models
                     {
                         GetWidgetData(objData, widgetTopCount, false);
                     }
+                    else
                     {
                         SetEditorialWidgetData(objData);
                     }

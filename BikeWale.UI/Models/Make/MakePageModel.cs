@@ -1157,6 +1157,12 @@ namespace Bikewale.Models
         }
 
 
+        /// <summary>
+        /// Created By : Deepak Israni on 16 April 2018
+        /// Description: To bind the series linkage widget on the page.
+        /// </summary>
+        /// <param name="objData"></param>
+        /// <param name="cityId"></param>
         private void BindSeriesLinkages(MakePageVM objData, uint cityId)
         {
             try

@@ -2087,6 +2087,7 @@
     <Content Include="bikewaleimg\used\S93\93_20120913123500720_300x225.jpg" />
     <Content Include="bikewaleimg\used\S93\93_20120913123500720_640x428.jpg" />
     <Content Include="bikewaleimg\used\S93\93_20120913123500720_80x60.jpg" />
+    <Content Include="BingSiteAuth.xml" />
     <Content Include="bin\Bikewale.dll" />
     <!--     <Content Include="bin\DotNetOpenAuth.AspNet.dll" />
     <Content Include="bin\DotNetOpenAuth.AspNet.xml" />
@@ -4089,6 +4090,7 @@
     <Content Include="Views\BikeSeries\_MakeSeriesSlug.cshtml" />
     <Content Include="Views\BikeSeries\_MakeSeriesSlug_Mobile.cshtml" />
     <Content Include="Views\BikeSeries\_MakeSeriesSlug_Mobile_New.cshtml" />
+    <Content Include="Views\BikeSeries\_MakeSeriesSlug_Mobile_AMP.cshtml" />
     <None Include="Views\Shared\_Sidebar-section.cshtml" />
     <Content Include="Views\BikeModels\_MultiTabsWidget.cshtml" />
     <Content Include="Views\Shared\_ReviewPopup.cshtml" />

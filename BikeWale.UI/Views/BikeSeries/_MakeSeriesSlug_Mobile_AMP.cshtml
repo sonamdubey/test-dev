@@ -1,0 +1,30 @@
+﻿@model Bikewale.Models.BikeSeries.MakeSeriesSlugVM
+@using Bikewale.Entities.BikeData;
+
+@if (Model != null && Model.MakeSeriesList != null && Model.MakeSeriesList.Any())
+{
+    <div class="container box-shadow bg-white margin-bottom20 explore-bikes-carousel--default">
+    <div class="carousel__title">
+        <h2 class="page__heading-h2">Explore @Model.MakeName Bikes</h2>
+    </div>
+    <div class="carousel__explore-bikes">
+        <amp-carousel height="85" layout="fixed-height" type="carousel" id="comparisonSwiper">
+
+            @foreach (BikeSeriesEntity makeSeries in Model.MakeSeriesList)
+            {
+                var seriesUrl = Bikewale.Utility.UrlFormatter.BikeSeriesUrl(Model.MakeMaskingName, makeSeries.MaskingName);
+                <div class="swiper-card carousel-slide">
+                    <a href="@String.Format("/m{0}", seriesUrl)" title="@String.Format("{0} {1} Bikes", Model.MakeName, makeSeries.SeriesName)" class="model__explore-card">
+                        <h3 class="explore-card__title">@String.Format("{0} {1} Bikes", Model.MakeName, makeSeries.SeriesName)</h3>
+                        <div class="explore-card__list">
+                            <span class="explore-card-list__item">@Html.Raw(@makeSeries.ModelsCount) Bikes</span>
+                            <span class="explore-card-list__item">&#x20b9; @Html.Raw(Bikewale.Utility.Format.FormatPrice(Convert.ToString(makeSeries.MinPrice))) Onwards</span>
+                        </div>
+                    </a>
+                </div>  
+            }
+                 
+        </amp-carousel>
+    </div>
+</div>
+}
