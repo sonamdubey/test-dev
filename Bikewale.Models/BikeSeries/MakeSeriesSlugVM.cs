@@ -7,6 +7,10 @@ using Bikewale.Entities.BikeData;
 
 namespace Bikewale.Models.BikeSeries
 {
+    /// <summary>
+    /// Created By : Deepak Israni on 16 April 2018
+    /// Description: ViewModel for the series linkage slug.
+    /// </summary>
     public class MakeSeriesSlugVM
     {
         public string MakeName { get; set; }

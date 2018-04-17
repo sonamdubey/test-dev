@@ -417,7 +417,7 @@ namespace Bikewale.DAL.BikeData
                                     SeriesId = SqlReaderConvertor.ToUInt32(dr["SeriesId"]),
                                     SeriesName = Convert.ToString(dr["SeriesName"]),
                                     MaskingName = Convert.ToString(dr["SeriesMaskingName"]),
-                                    IsSeriesPageUrl = Convert.ToBoolean(dr["IsSeriesPageUrl"]),
+                                    IsSeriesPageUrl = SqlReaderConvertor.ToBoolean(dr["IsSeriesPageUrl"]),
                                     BodyStyle = Enum.TryParse(Convert.ToString(dr["BodyStyle"]), out bodyStyle) ? bodyStyle : Entities.GenericBikes.EnumBikeBodyStyles.AllBikes,
                                     HostUrl = Convert.ToString(dr["HostUrl"]),
                                     OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]),

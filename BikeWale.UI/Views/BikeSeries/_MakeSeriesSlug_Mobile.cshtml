@@ -14,7 +14,7 @@
                     {
                         var seriesUrl = Bikewale.Utility.UrlFormatter.BikeSeriesUrl(Model.MakeMaskingName, makeSeries.MaskingName);
                         <li class="swiper-slide carousel-slide">
-                            <a href="@seriesUrl" title="Bikes" class="model__explore-card">
+                            <a href="@String.Format("/m{0}", seriesUrl)" title="@String.Format("{0} {1} Bikes", Model.MakeName, makeSeries.SeriesName)" class="model__explore-card">
                                 <h3 class="explore-card__title">@String.Format("{0} {1} Bikes", Model.MakeName, makeSeries.SeriesName)</h3>
                                 <div class="explore-card__list">
                                     <span class="explore-card-list__item">@Html.Raw(@makeSeries.ModelsCount) Bikes</span>
