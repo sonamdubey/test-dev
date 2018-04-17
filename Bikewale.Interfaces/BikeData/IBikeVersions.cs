@@ -7,6 +7,8 @@ namespace Bikewale.Interfaces.BikeData
     /// <summary>
     /// Created By : Ashish G. Kamble
     /// Summary : Interface for bike versions data
+    /// Modified By : Rajan Chauhan on 17 Apr 2018
+    /// Description : Changed signature of GetSimilarBikesList to include maxTorqueRequired
     /// </summary>
     /// <typeparam name="T">Generic type (need to specify type while implementing this interface)</typeparam>
     /// <typeparam name="U">Generic type (need to specify type while implementing this interface)</typeparam>
@@ -23,7 +25,7 @@ namespace Bikewale.Interfaces.BikeData
         /// <returns></returns>
         List<BikeVersionsListEntity> GetVersionsByType(EnumBikeType requestType, int modelId, int? cityId = null);
         IEnumerable<BikeVersionMinSpecs> GetVersionMinSpecs(uint modelId, bool isNew);
-        IEnumerable<SimilarBikeEntity> GetSimilarBikesList(U versionId, uint topCount, uint cityId);
+        IEnumerable<SimilarBikeEntity> GetSimilarBikesList(U versionId, uint topCount, uint cityId, bool maxTorqueRequired);
         IEnumerable<SimilarBikeEntity> GetSimilarBikesByModel(U modelId, uint topCount, uint cityId);
         IEnumerable<SimilarBikeEntity> GetSimilarBudgetBikes(U modelId, uint topCount, uint cityId);
 

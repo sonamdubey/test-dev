@@ -41,7 +41,7 @@ namespace Bikewale.BindViewModels.Controls
             FetchedRecordsCount = 0;
             try
             {
-                IEnumerable<SimilarBikeEntity> objSimilarBikes = _objVersion.GetSimilarBikesList(VersionId, TotalWidgetItems, cityId);
+                IEnumerable<SimilarBikeEntity> objSimilarBikes = _objVersion.GetSimilarBikesList(VersionId, TotalWidgetItems, cityId, false);
                 if (objSimilarBikes != null && objSimilarBikes.Any())
                 {
                     objSimilarBikes = objSimilarBikes.Take(TopCount);

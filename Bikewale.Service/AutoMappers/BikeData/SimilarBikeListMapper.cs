@@ -36,7 +36,6 @@ namespace Bikewale.Service.AutoMappers.BikeData
                         {
                             IEnumerable<SpecsItem> specItemList = similarBikeEnumerator.Current.MinSpecsList;
                             float specValue;
-                            ushort u;
                             foreach (var spec in specItemList)
                             {
                                 specValue = float.TryParse(spec.Value, out specValue) ? specValue : 0;
@@ -46,7 +45,7 @@ namespace Bikewale.Service.AutoMappers.BikeData
                                         dtoBike.Displacement = specValue;
                                         break;
                                     case EnumSpecsFeaturesItem.FuelEfficiencyOverall:
-                                        dtoBike.FuelEfficiencyOverall = ushort.TryParse(spec.Value, out u) ? u : ushort.MinValue;
+                                        dtoBike.FuelEfficiencyOverall = specValue;
                                         break;
                                     case EnumSpecsFeaturesItem.MaxPowerBhp:
                                         dtoBike.MaxPower = specValue;

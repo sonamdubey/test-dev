@@ -111,7 +111,7 @@ namespace Bikewale.Models
                 objVM.ShowPriceInCityCTA = _showPriceInCityCTA;
                 if (!_similarBikesByModel)
                 {
-                    objVM.Bikes = _objVersion.GetSimilarBikesList(_versionId, TopCount, CityId);
+                    objVM.Bikes = _objVersion.GetSimilarBikesList(_versionId, TopCount, CityId, false);
                 }
                 else
                 {
