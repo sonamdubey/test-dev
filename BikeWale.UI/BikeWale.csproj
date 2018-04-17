@@ -4088,6 +4088,7 @@
     <Content Include="Views\BikeSeries\_MakeSeriesSlug.cshtml" />
     <Content Include="Views\BikeSeries\_MakeSeriesSlug_Mobile.cshtml" />
     <Content Include="Views\BikeSeries\_MakeSeriesSlug_Mobile_New.cshtml" />
+    <Content Include="Views\BikeSeries\_MakeSeriesSlug_Mobile_AMP.cshtml" />
     <None Include="Views\Shared\_Sidebar-section.cshtml" />
     <Content Include="Views\BikeModels\_MultiTabsWidget.cshtml" />
     <Content Include="Views\Shared\_ReviewPopup.cshtml" />

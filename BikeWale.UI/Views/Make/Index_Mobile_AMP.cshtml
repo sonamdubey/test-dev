@@ -85,69 +85,7 @@
             </div>
         }
 		
-		<div class="container box-shadow bg-white margin-bottom20 explore-bikes-carousel--default">
-			<div class="carousel__title">
-				<h2 class="page__heading-h2">Explore TVS Bikes</h2>
-			</div>
-			<div class="carousel__explore-bikes">
-				<amp-carousel height="85" layout="fixed-height" type="carousel" id="comparisonSwiper">
-					<div class="swiper-card carousel-slide">
-						<a href="/" title="Bikes" class="model__explore-card">
-							<h3 class="explore-card__title">TVS Apache Bikes</h3>
-							<div class="explore-card__list">
-								<span class="explore-card-list__item">65 Bikes</span>
-								<span class="explore-card-list__item">&#x20b9; 1,70,000 Onwards</span>
-							</div>
-						</a>
-					</div>
-					<div class="swiper-card carousel-slide">
-						<a href="/" title="Bikes" class="model__explore-card">
-							<h3 class="explore-card__title">Royal Enfield Thunderbird Bikes</h3>
-							<div class="explore-card__list">
-								<span class="explore-card-list__item">6 Bikes</span>
-								<span class="explore-card-list__item">&#x20b9; 70,000 Onwards</span>
-							</div>
-						</a>
-					</div>
-					<div class="swiper-card carousel-slide">
-						<a href="/" title="Bikes" class="model__explore-card">
-							<h3 class="explore-card__title">Royal Enfield Thunderbird Bikes</h3>
-							<div class="explore-card__list">
-								<span class="explore-card-list__item">6 Bikes</span>
-								<span class="explore-card-list__item">&#x20b9; 1,70,000 Onwards</span>
-							</div>
-						</a>
-					</div>
-					<div class="swiper-card carousel-slide">
-						<a href="/" title="Bikes" class="model__explore-card">
-							<h3 class="explore-card__title">Royal Enfield Thunderbird Bikes</h3>
-							<div class="explore-card__list">
-								<span class="explore-card-list__item">6 Bikes</span>
-								<span class="explore-card-list__item">&#x20b9; 70,000 Onwards</span>
-							</div>
-						</a>
-					</div>
-					<div class="swiper-card carousel-slide">
-						<a href="/" title="Bikes" class="model__explore-card">
-							<h3 class="explore-card__title">Royal Enfield Thunderbird Bikes</h3>
-							<div class="explore-card__list">
-								<span class="explore-card-list__item">6 Bikes</span>
-								<span class="explore-card-list__item">&#x20b9; 70,000 Onwards</span>
-							</div>
-						</a>
-					</div>
-					<div class="swiper-card carousel-slide">
-						<a href="/" title="Bikes" class="model__explore-card">
-							<h3 class="explore-card__title">Royal Enfield Thunderbird Bikes</h3>
-							<div class="explore-card__list">
-								<span class="explore-card-list__item">6 Bikes</span>
-								<span class="explore-card-list__item">&#x20b9; 70,000 Onwards</span>
-							</div>
-						</a>
-					</div>
-				</amp-carousel>
-			</div>
-		</div>
+		
 
         @if (Model.Bikes != null && Model.Bikes.Any())
         {
@@ -215,6 +153,11 @@
                     </div>
                 </div>
             </div>
+        }
+        
+        @if (Model.SeriesLinkages.MakeSeriesList != null && Model.SeriesLinkages.MakeSeriesList.Any())
+        {
+            @Html.Partial("~/Views/BikeSeries/_MakeSeriesSlug_Mobile_AMP.cshtml", Model.SeriesLinkages)
         }
 
     </section>
