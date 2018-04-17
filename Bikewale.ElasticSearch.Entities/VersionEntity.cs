@@ -43,11 +43,11 @@ namespace Bikewale.ElasticSearch.Entities
         [JsonProperty("abs")]
         public bool ABS { get; set; }
         [JsonProperty("brakeType")]
-        public string BrakeType { get; set; }
+        public short RearBrakeType { get; set; }
         [JsonProperty("wheels")]
-        public string Wheels { get; set; }
+        public short Wheels { get; set; }
         [JsonProperty("startType")]
-        public string StartType { get; set; }
+        public short StartType { get; set; }
     }
  
 }

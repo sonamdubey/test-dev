@@ -290,7 +290,7 @@ namespace Bikewale.ElasticSearch.DocumentBuilderConsumer.DocumentBuilders
                                         EnumSpecsFeaturesItems.FuelEfficiencyOverall,
                                         EnumSpecsFeaturesItems.MaxPowerBhp,
                                         EnumSpecsFeaturesItems.KerbWeight,
-                                        EnumSpecsFeaturesItems.BrakeType,
+                                        EnumSpecsFeaturesItems.RearDisc,
                                         EnumSpecsFeaturesItems.AlloyWheels,
                                         EnumSpecsFeaturesItems.AntilockBrakingSystem,
                                         EnumSpecsFeaturesItems.ElectricStart
@@ -318,9 +318,9 @@ namespace Bikewale.ElasticSearch.DocumentBuilderConsumer.DocumentBuilders
                             objEnumerator.Current.TopVersion.Displacement = Convert.ToDouble(GetSpecsValue(versionEnumerator.Current.MinSpecsList, (int)EnumSpecsFeaturesItems.Displacement));
 
                             objEnumerator.Current.TopVersion.ABS = GetSpecsValue(versionEnumerator.Current.MinSpecsList, (int)EnumSpecsFeaturesItems.AntilockBrakingSystem) == "1";
-                            objEnumerator.Current.TopVersion.BrakeType = GetSpecsValue(versionEnumerator.Current.MinSpecsList, (int)EnumSpecsFeaturesItems.BrakeType);
-                            objEnumerator.Current.TopVersion.Wheels = GetSpecsValue(versionEnumerator.Current.MinSpecsList, (int)EnumSpecsFeaturesItems.AlloyWheels);
-                            objEnumerator.Current.TopVersion.StartType = GetSpecsValue(versionEnumerator.Current.MinSpecsList, (int)EnumSpecsFeaturesItems.ElectricStart);
+                            objEnumerator.Current.TopVersion.RearBrakeType = Convert.ToInt16(GetSpecsValue(versionEnumerator.Current.MinSpecsList, (int)EnumSpecsFeaturesItems.RearDisc));
+                            objEnumerator.Current.TopVersion.Wheels = Convert.ToInt16(GetSpecsValue(versionEnumerator.Current.MinSpecsList, (int)EnumSpecsFeaturesItems.AlloyWheels));
+                            objEnumerator.Current.TopVersion.StartType = Convert.ToInt16(GetSpecsValue(versionEnumerator.Current.MinSpecsList, (int)EnumSpecsFeaturesItems.ElectricStart));
                         }
 
                     }
@@ -346,7 +346,11 @@ namespace Bikewale.ElasticSearch.DocumentBuilderConsumer.DocumentBuilders
             try
             {
                 string value = string.Empty;
-                value = objSpec.Where(d => d.Id == propertyId).Select(k => k.Value).FirstOrDefault();
+
+                value = (from data in objSpec
+                         where data.Id == propertyId
+                         select (data.DataType == EnumSpecDataType.Custom) ? Convert.ToString(data.CustomTypeId) : data.Value).FirstOrDefault();
+
                 return !string.IsNullOrEmpty(value) ? value : null;
             }
             catch (Exception ex)
