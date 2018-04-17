@@ -396,6 +396,8 @@ namespace Bikewale.Models
         /// <summary>
         /// Created By :- Subodh Jain 09 May 2017
         /// Summary :- Function for CreateCompareSummary
+        /// Modified By : Rajan Chauhan on 17 Apr 2017
+        /// Description : Corrected text typos
         /// </summary>
         /// <returns></returns>
         private void CreateCompareSummary(IEnumerable<BikeEntityBase> basicInfo, CompareBikeColorCategory colors, CompareDetailsVM obj)
@@ -422,7 +424,7 @@ namespace Bikewale.Models
                 bikeNames = bikeNames.Remove(bikeNames.Length - 5);
                 bikePrice = bikePrice.Remove(bikePrice.Length - 6);
                 variants = variants.Remove(variants.Length - 5);
-                obj.compareSummaryText = string.Format("BikeWale brings you comparison of {0}. The ex-showroom price of{1}.{2}. Apart from prices, you can also find comparison of these bikes based on displacement, mileage, performance, and many more parameter  &#x20B9; Comparison between these bikes have been carried out to help users make correct buying decison between {0}.", bikeNames, bikePrice, variants);
+                obj.compareSummaryText = string.Format("BikeWale brings you comparison of {0}. The ex-showroom price of{1}.{2}. Apart from prices, you can also find comparison of these bikes based on displacement, mileage, performance, and many more parameters. Comparison between these bikes have been carried out to help users make correct buying decision between {0}.", bikeNames, bikePrice, variants);
 
             }
             catch (Exception ex)
