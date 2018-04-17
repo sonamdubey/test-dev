@@ -28,6 +28,17 @@ namespace Bikewale.ElasticSearch.DocumentBuilderConsumer.DocumentBuilders
     {
         private IApiGatewayCaller _apiGatewayCaller;
         IUnityContainer container = null;
+        private static IEnumerable<EnumSpecsFeaturesItems> requiredSpec = new List<EnumSpecsFeaturesItems>{
+                                        EnumSpecsFeaturesItems.Displacement,
+                                        EnumSpecsFeaturesItems.FuelEfficiencyOverall,
+                                        EnumSpecsFeaturesItems.MaxPowerBhp,
+                                        EnumSpecsFeaturesItems.KerbWeight,
+                                        EnumSpecsFeaturesItems.RearDisc,
+                                        EnumSpecsFeaturesItems.AlloyWheels,
+                                        EnumSpecsFeaturesItems.AntilockBrakingSystem,
+                                        EnumSpecsFeaturesItems.ElectricStart
+                                    };
+
 
         public ModelIndexDocumentBuilder()
         {
@@ -285,16 +296,7 @@ namespace Bikewale.ElasticSearch.DocumentBuilderConsumer.DocumentBuilders
                     VersionsDataByItemIds_Input input = new VersionsDataByItemIds_Input()
                     {
                         Versions = versionIds,
-                        Items = new List<EnumSpecsFeaturesItems>{
-                                        EnumSpecsFeaturesItems.Displacement,
-                                        EnumSpecsFeaturesItems.FuelEfficiencyOverall,
-                                        EnumSpecsFeaturesItems.MaxPowerBhp,
-                                        EnumSpecsFeaturesItems.KerbWeight,
-                                        EnumSpecsFeaturesItems.RearDisc,
-                                        EnumSpecsFeaturesItems.AlloyWheels,
-                                        EnumSpecsFeaturesItems.AntilockBrakingSystem,
-                                        EnumSpecsFeaturesItems.ElectricStart
-                                    }
+                        Items = requiredSpec
                     };
 
                     GetVersionSpecsByItemIdAdapter adapter = new GetVersionSpecsByItemIdAdapter();
