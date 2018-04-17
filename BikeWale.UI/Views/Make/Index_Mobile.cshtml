@@ -1,7 +1,7 @@
 ﻿@model Bikewale.Models.MakePageVM
 @{
 	Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
-	Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/bwm-brand.css' inline /> <link rel='stylesheet' type='text/css' href='/css/components/m-brand-logo.css' inline /> <link rel='stylesheet' type='text/css' href='/sass/partials/bw-youtube.css' inline />";
+	Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/bwm-brand.css' inline /> <link rel='stylesheet' type='text/css' href='/css/components/m-brand-logo.css' inline /> <link rel='stylesheet' type='text/css' href='/sass/partials/bw-youtube.css' inline /> <link rel='stylesheet' type='text/css' href='/sass/partials/explore-bikes-carousel.css' inline />";
     Model.Page_JS_Paths = new string[] { "/m/src/bwm-brand.js", "/src/review-popup.js" };
 }
 <section id="makeTabsContentWrapper">
@@ -51,6 +51,7 @@
                         </div>
                     </div>
                 }
+
                 @if (Model.Bikes != null && Model.Bikes.Any())
                 {
                     <div id="bikeMakeList" class="search-bike-container bw-model-tabs-data padding-top15 bg-white position-rel pos-top3 box-shadow">
@@ -119,6 +120,12 @@
             <div class="clear"></div>
         </div>
     </section>
+
+    @if (Model.SeriesLinkages.MakeSeriesList != null && Model.SeriesLinkages.MakeSeriesList.Any())
+    {
+        @Html.Partial("~/Views/BikeSeries/_MakeSeriesSlug_Mobile.cshtml", Model.SeriesLinkages)
+    }
+    
     <section id="bikeByMakesUpcoming" class="bw-model-tabs-data bg-white margin-bottom20">
         @if (Model.IsUpComingBikesAvailable)
         {
@@ -284,7 +291,25 @@
                     </div>
                 }
 
-          
+                @if (Model.BikeModelsPhotos != null && Model.BikeModelsPhotos.ModelList != null && Model.BikeModelsPhotos.ModelList.Any())
+                {
+                    <section id="makeImagesContent" class="bw-model-tabs-data padding-top15 padding-bottom20 border-solid-bottom font14">
+                        <div class="model-image-section">
+                            <div class="carousel-heading-content">
+                                <div class="swiper-heading-left-grid inline-block">
+                                    <h2 class="text-bold">@Model.MakeName Images</h2>
+                                </div>
+                                <div class="swiper-heading-right-grid inline-block text-right">
+                                    <a href="/m/@Model.MakeMaskingName-bikes/images/" title="@string.Format("{0} Images",Model.MakeName)" class="btn view-all-target-btn">View all</a>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                            @Html.Partial("~/Views/Photos/_ImageCaraousel_Mobile.cshtml", Model.BikeModelsPhotos)
+                        </div>
+                    </section>
+
+                }
+
                 @if (Model.Videos != null && Model.Videos.VideosList != null && Model.Videos.VideosList.Any())
                 {
                     <div id="makeVideosContent" class="bw-model-tabs-data margin-right20 margin-left20 padding-top15 padding-bottom20 border-solid-bottom font14">
