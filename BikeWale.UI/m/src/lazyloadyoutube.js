@@ -1,14 +1,22 @@
 ﻿var lazyloadYoutube = {
 
     _videosLoaded: false,
+    loadVideosAt: 0.4,
+    body: document.body,
     html: document.documentElement,
     imgSource: "https://img.youtube.com/vi/",
-    imgQuality: "/maxresdefault.jpg",
+    imgQuality: "/sddefault.jpg",
     videoSource: "https://www.youtube.com/embed/",
 
 
-    getAllVideoSlots: function () {
+    getAllVideoSlots: function() {
         return document.querySelectorAll(".bw-youtube");
+    },
+
+    getPageHeight: function() {
+        var bodyEle = lazyloadYoutube.body;
+        var htmlEle = lazyloadYoutube.html;
+        return Math.max(bodyEle.scrollHeight, bodyEle.offsetHeight, htmlEle.clientHeight, htmlEle.scrollHeight, htmlEle.offsetHeight);
     },
 
     appendImage: function (ytVideo, img) {
@@ -31,12 +39,16 @@
         }
     },
 
+    getScrollPercent: function () {
+        var scrollTop = lazyloadYoutube.html.scrollTop;
+        return (scrollTop / lazyloadYoutube.getPageHeight());
+    },
 
     generateIFrame: function (videoId) {
         var iframe = document.createElement("iframe");
         iframe.setAttribute("frameborder", "0");
         iframe.setAttribute("allowfullscreen", "");
-        iframe.setAttribute("src", lazyloadYoutube.videoSource + videoId + "?rel=0&showinfo=0&autoplay=1");
+        iframe.setAttribute("src", lazyloadYoutube.videoSource + videoId + "?rel=0&showinfo=0&autoplay=0");
         return iframe;
     },
 
@@ -47,14 +59,21 @@
         for (var i = 0; i < youtubeVideos.length; i++) {
             var ytVideo = youtubeVideos[i];
             var ytVideoId = ytVideo.dataset.embed;
-            ytVideo.addEventListener("click", function (event) {
-                var iframe = lazyloadYoutube.generateIFrame(ytVideoId);
-                ytVideo.innerHTML = "";
-                ytVideo.appendChild(iframe);
-            });
+            var iframe = lazyloadYoutube.generateIFrame(ytVideoId);
+            ytVideo.innerHTML = "";
+            ytVideo.appendChild(iframe);
         }
+
+        lazyloadYoutube._videosLoaded = true;
     }
 }
 
 docReady(lazyloadYoutube.setVideoPreviews);
-docReady(lazyloadYoutube.loadYoutubeVideos);
+
+window.addEventListener("scroll", function (event) {
+    if (!lazyloadYoutube._videosLoaded) {
+        if (lazyloadYoutube.getScrollPercent() > lazyloadYoutube.loadVideosAt) {
+            lazyloadYoutube.loadYoutubeVideos();
+        }
+    }
+});

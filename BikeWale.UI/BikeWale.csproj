@@ -3198,6 +3198,7 @@
     <Content Include="src\dealer\landing.js" />
     <Content Include="src\electricbikes\electricbikeindex.js" />
     <Content Include="src\lazyloadad.js" />
+    <Content Include="m\src\lazyloadyoutube.js" />
     <Content Include="src\lazyloadyoutube.js" />
     <Content Include="src\model-series\series.js" />
     <Content Include="src\emi-calculator.js" />
@@ -4113,6 +4114,7 @@
     <Content Include="Views\BestBikes\_PopularBodyStyleBestBikesCarousel_Mobile.cshtml" />
     <Content Include="Views\UserReview\BikesWithReviewsByMake_Mobile_New.cshtml" />
     <Content Include="Views\Upcoming\_UpcomingBikesWithNotify_Mobile.cshtml" />
+    <Content Include="Views\Videos\_LazyLoadVideos_Mobile.cshtml" />
     <Content Include="Views\Videos\_LazyLoadVideos.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
