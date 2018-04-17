@@ -1208,6 +1208,8 @@ namespace Bikewale.Models
 
         /// <summary>
         /// Fetches the popular series bikes.
+        /// Modified by : Sanskar Gupta on 16 April 2018
+        /// Description : Added null check for `popularSeriesBikes`
         /// </summary>
         /// <param name="seriesId">The series identifier.</param>
         /// <returns></returns>
@@ -1217,6 +1219,10 @@ namespace Bikewale.Models
             try
             {
                 popularSeriesBikes = _models.GetMostPopularBikesByMakeWithCityPrice((int)MakeId, CityId);
+                if(popularSeriesBikes == null)
+                {
+                    return null;
+                }
                 string modelIds = string.Empty;
                 if (seriesId > 0)
                 {
@@ -1461,7 +1467,8 @@ namespace Bikewale.Models
                 {
                     case EditorialWidgetCategory.Popular_All:
                         {
-                            var mostPopular = SetAdPromotedBikes(_models.GetMostPopularBikesbyMakeCity((uint)editorialWidgetTopCount, 0, CityId), editorialWidgetTopCount);
+                            var mostPopular = _models.GetMostPopularBikesbyMakeCity((uint)editorialWidgetTopCount, 0, CityId);
+                            mostPopular = SetAdPromotedBikes(mostPopular, editorialWidgetTopCount);
                             if (mostPopular == null || !mostPopular.Any())
                             {
                                 return null;
@@ -1539,7 +1546,7 @@ namespace Bikewale.Models
 
                     case EditorialWidgetCategory.Popular_Series:
                         {
-                            var mostPopular = FetchPopularSeriesBikes(bikeSeriesEntityBase.SeriesId).Take(editorialWidgetTopCount);
+                            var mostPopular = GetTopElements(FetchPopularSeriesBikes(bikeSeriesEntityBase.SeriesId), editorialWidgetTopCount);
                             if (mostPopular == null || !mostPopular.Any())
                             {
                                 return null;
@@ -1552,7 +1559,7 @@ namespace Bikewale.Models
 
                     case EditorialWidgetCategory.Series_Scooters:
                         {
-                            var mostPopular = FetchPopularSeriesBikes(bikeSeriesEntityBase.SeriesId).Take(editorialWidgetTopCount);
+                            var mostPopular = GetTopElements(FetchPopularSeriesBikes(bikeSeriesEntityBase.SeriesId), editorialWidgetTopCount);
                             if (mostPopular == null || !mostPopular.Any())
                             {
                                 return null;
@@ -1718,6 +1725,10 @@ namespace Bikewale.Models
         /// </summary>
         private IEnumerable<MostPopularBikesBase> SetAdPromotedBikes(IEnumerable<MostPopularBikesBase> PopularBikesList, int topCount)
         {
+            if(PopularBikesList == null)
+            {
+                return null;
+            }
             BikeFilters obj = new BikeFilters();
             obj.CityId = CityId;
             IEnumerable<MostPopularBikesBase> promotedBikes = _bikeModels.GetAdPromotedBike(obj, true);
@@ -1755,6 +1766,22 @@ namespace Bikewale.Models
             {
                 ErrorClass.LogError(ex, string.Format("BikeWale.UI.Models.News.NewsDetailPage.SetWidgetMiscData__WidgetTitle: {0}", title));
             }
+        }
+
+        /// <summary>
+        /// Created by  : Sanskar Gupta on 16 April 2018
+        /// Description : Function to get first `noOfElements` elements from an IEnumerable<T> with null check handled in the same.
+        /// </summary>
+        /// <param name="elements">IEnumerable of the items</param>
+        /// <param name="topCount">noOfElements to be taken out of the list.</param>
+        /// <returns></returns>
+        private IEnumerable<T> GetTopElements<T>(IEnumerable<T> elements, int noOfElements)
+        {
+            if(elements == null)
+            {
+                return null;
+            }
+            return elements.Take(noOfElements);
         }
 
 
