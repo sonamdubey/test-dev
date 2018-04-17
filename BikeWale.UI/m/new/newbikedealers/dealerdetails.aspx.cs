@@ -1,4 +1,6 @@
-﻿using Bikewale.Cache.BikeData;
+﻿using Bikewale.BAL.ApiGateway.ApiGatewayHelper;
+using Bikewale.BAL.Dealer;
+using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
 using Bikewale.Cache.DealersLocator;
 using Bikewale.CoreDAL;
@@ -16,6 +18,7 @@ using Bikewale.Notifications;
 using Bikewale.Utility;
 using Microsoft.Practices.Unity;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI.WebControls;
@@ -33,6 +36,7 @@ namespace Bikewale.Mobile
     public class DealerDetails : System.Web.UI.Page
     {
         protected Repeater rptModels, rptModelList;
+        protected IEnumerable<MostPopularBikesBase> dealerModels;
         protected uint dealerId, campaignId, cityId, customerCityId, customerAreaId, areaId, pqAreaId, pqCityId;
         protected int dealerBikesCount = 0, makeId;
         protected DealerDetailEntity dealerDetails;
@@ -132,6 +136,8 @@ namespace Bikewale.Mobile
         /// Summary :- Added heading to dealer widget
         /// Modified by : Sajal Gupta on 29-12-2016
         /// Description : Added ctaSmallText
+        /// Modified by : Rajan Chauhan on 16 Apr 2018
+        /// Description : Changed call GetDealerDetailsAndBikesByDealerAndMake from cache to BAL
         /// </summary>
         private void GetDealerDetails()
         {
@@ -140,12 +146,13 @@ namespace Bikewale.Mobile
             {
                 using (IUnityContainer container = new UnityContainer())
                 {
-                    container.RegisterType<IDealerCacheRepository, DealerCacheRepository>()
+                    container.RegisterType<IDealer, Dealer>()
+                             .RegisterType<IDealerCacheRepository, DealerCacheRepository>()
                              .RegisterType<ICacheManager, MemcacheManager>()
                              .RegisterType<IDealerRepository, DealersRepository>()
-                            ;
-                    var objCache = container.Resolve<IDealerCacheRepository>();
-                    dealer = objCache.GetDealerDetailsAndBikesByDealerAndMake(dealerId, makeId);
+                             .RegisterType<IApiGatewayCaller, ApiGatewayCaller>();
+                    var objDealer = container.Resolve<IDealer>();
+                    dealer = objDealer.GetDealerDetailsAndBikesByDealerAndMake(dealerId, makeId);
 
                     if (dealer != null && dealer.DealerDetails != null)
                     {
@@ -187,8 +194,7 @@ namespace Bikewale.Mobile
 
                         if (dealer.Models != null && dealer.Models.Any())
                         {
-                            rptModels.DataSource = dealer.Models;
-                            rptModels.DataBind();
+                            dealerModels = dealer.Models;
                             dealerBikesCount = dealer.Models.Count();
                         }
                     }
