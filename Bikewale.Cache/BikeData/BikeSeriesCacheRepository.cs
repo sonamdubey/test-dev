@@ -206,16 +206,7 @@ namespace Bikewale.Cache.BikeData
             IEnumerable<BikeSeriesEntity> makeSeriesEntityList = null;
             try
             {
-                string key;
-                if (cityId == 0)
-                {
-                    key = string.Format("BW_MakeSeries_M_{0}", makeId);
-                }
-                else
-                {
-                    key = string.Format("BW_MakeSeries_M_{0}_C_{1}", makeId, cityId);
-                }
-
+                string key = (cityId == 0 ? string.Format("BW_MakeSeries_M_{0}", makeId) : string.Format("BW_MakeSeries_M_{0}_C_{1}", makeId, cityId));
                 makeSeriesEntityList = _cache.GetFromCache(key, new TimeSpan(24, 0, 0), () => _bikeSeriesRepository.GetMakeSeries(makeId, cityId));
             }
             catch (Exception ex)
