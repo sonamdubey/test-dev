@@ -38,6 +38,9 @@ namespace Bikewale.Models
     /// Description : Added IBikeSeriesCacheRepository and IBikeSeries for series news page.
     /// Modified by : Rajan Chauhan on 27 Feb 2017
     /// Description : changed CityName from public to private
+    /// Modified by: Dhruv Joshi
+    /// Dated: 16th April 2018
+    /// Description: Added _pageId and _totalTabCount to page variables for generic info widget
     /// </summary>
     public class NewsIndexPage
     {
@@ -77,6 +80,8 @@ namespace Bikewale.Models
         private EnumBikeType bikeType = EnumBikeType.All;
         private bool showCheckOnRoadCTA = false;
         private PQSourceEnum pqSource = 0;
+        private readonly uint _totalTabCount = 3;
+        private BikeInfoTabType _pageId = BikeInfoTabType.News;
         #endregion
 
         #region Public properties
@@ -588,6 +593,9 @@ namespace Bikewale.Models
         /// Desc: Added BindMoreAboutScootersWidget
         /// Modified by : Sanskar Gupta on 22 Jan 2018
         /// Description : Added Newly Launched feature
+        /// Modified by: Dhruv Joshi
+        /// Dated: 16th April 2018
+        /// Description: Getting data for generic bike widget for Model listing page
         /// </summary>
         private void GetWidgetData(NewsIndexPageVM objData, int topCount)
         {
@@ -621,6 +629,12 @@ namespace Bikewale.Models
                     MostPopularBikesWidget objPopularBikes = new MostPopularBikesWidget(_bikeModels, EnumBikeType.All, showCheckOnRoadCTA, false, pqSource, pageCatId, MakeId);
                     objPopularBikes.TopCount = 9;
                     objPopularBikes.CityId = CityId;
+
+                    if(ModelId > 0)
+                    {
+                        BikeInfoWidget genericInfoWidget = new BikeInfoWidget(_objGenericBike, _objCityCache, ModelId, CityId, _totalTabCount, _pageId);
+                        objData.GenericBikeInfoWidget = genericInfoWidget.GetData();
+                    }
 
                     if (MakeId > 0)
                     {

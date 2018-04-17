@@ -106,6 +106,13 @@
                         </div>
                     }
                 </div>
+
+                @if (Model.GenericBikeInfoWidget != null)
+                {
+                    @Html.Partial("~/Views/GenericBikeInfo/_GenericBikeInfoWidget.cshtml", Model.GenericBikeInfoWidget)
+
+                }
+
                 @if (Model.ObjMoreAboutScooter != null)
                 {
 
