@@ -7,12 +7,7 @@ class SelectBikePopup extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      isFocus: false
-    }
-
     this.getList = this.getList.bind(this);
-    this.handleInputFocus = this.handleInputFocus.bind(this);
     this.setReference = this.setReference.bind(this);
   }
 
@@ -90,16 +85,6 @@ class SelectBikePopup extends React.Component {
     )
   }
 
-  handleInputFocus() {
-    let popupSearchBox = this.popupContent.querySelector('.select-bike__search-box');
-
-    this.popupContent.scrollTo(0, popupSearchBox.offsetTop);
-
-    this.setState({
-      isFocus: true
-    })
-  }
-
   setReference(ref) {
     this.popupContent = ref;
   }
@@ -108,14 +93,9 @@ class SelectBikePopup extends React.Component {
     const {
       isActive
     } = this.props
-    
-    const {
-      isFocus
-    } = this.state
 
     const popupActiveClassName = isActive ? 'select-bike-popup--active' : ''
-    const fixedHeader = isFocus ? 'select-bike-head--fixed' : ''
-    const popupClasses = `select-bike-popup ${popupActiveClassName} ${fixedHeader}`
+    const popupClasses = `select-bike-popup ${popupActiveClassName}`
 
     return (
       <div className={popupClasses}>
@@ -132,7 +112,6 @@ class SelectBikePopup extends React.Component {
                         className: "form-control",
                         placeholder: "Type to select Make and Model"
                       }}
-                      onClick={this.handleInputFocus}
                     />
                   </div>
                 </div>
@@ -144,9 +123,9 @@ class SelectBikePopup extends React.Component {
               {this.getList()}
             </Accordion>
           </div>
-          {/*<div className="select-bike__footer">
+          <div className="select-bike__footer">
             <span className="select-bike__next">Next</span>
-          </div>*/}
+          </div>
         </div>
       </div>
     );
