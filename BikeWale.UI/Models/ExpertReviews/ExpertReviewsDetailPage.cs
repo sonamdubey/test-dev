@@ -1,6 +1,7 @@
 ﻿using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS.Articles;
+using Bikewale.Entities.EditorialWidgets;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.Pages;
@@ -15,6 +16,7 @@ using Bikewale.Interfaces.PWA.CMS;
 using Bikewale.Memcache;
 using Bikewale.Models.BestBikes;
 using Bikewale.Models.BikeModels;
+using Bikewale.Models.EditorialPages;
 using Bikewale.Models.Scooters;
 using Bikewale.Notifications;
 using Bikewale.PWA.Utils;
@@ -35,7 +37,7 @@ namespace Bikewale.Models
     /// Modified by : Rajan Chauhan on 26 Feb 2017
     /// Description : Added private variable CityName and IPWACMSCacheRepository _renderedArticles
     /// </summary>
-    public class ExpertReviewsDetailPage
+    public class ExpertReviewsDetailPage: EditorialBasePage
     {
         #region Variables for dependency injection
         private readonly ICMSCacheContent _cmsCache = null;
@@ -66,6 +68,16 @@ namespace Bikewale.Models
         private uint basicId;
         private PQSourceEnum pqSource = 0;
         public BikeSeriesEntityBase bikeSeriesEntityBase;
+        private static string _widgetCruiserSports;
+        private static string pageName = "Editorial Details";
+
+        private bool isModelTagged;
+        private bool isMakeTagged;
+        private bool isMakeLive;
+        private string MakeName, MakeMaskingName;
+        private EnumBikeBodyStyles bodyStyle;
+        private bool isSeriesAvailable;
+        private bool isScooterOnlyMake;
         #endregion
 
         #region Public properties
@@ -77,7 +89,7 @@ namespace Bikewale.Models
         #region Constructor
         public ExpertReviewsDetailPage(ICMSCacheContent cmsCache, IBikeModelsCacheRepository<int> models, IBikeModels<BikeModelEntity, int> bikeModels, IUpcoming upcoming, IBikeInfo bikeInfo, ICityCacheRepository cityCacheRepo,
             IBikeMakesCacheRepository bikeMakesCacheRepository, IBikeVersionCacheRepository<BikeVersionEntity, uint> objBikeVersionsCache, IBikeMaskingCacheRepository<BikeModelEntity, int> bikeMasking, string basicId,
-            IPWACMSCacheRepository renderedArticles, IBikeSeriesCacheRepository seriesCache, IBikeSeries series)
+            IPWACMSCacheRepository renderedArticles, IBikeSeriesCacheRepository seriesCache, IBikeSeries series): base(bikeMakesCacheRepository, models, bikeModels, upcoming, series)
         {
             _cmsCache = cmsCache;
             _models = models;
@@ -186,6 +198,8 @@ namespace Bikewale.Models
                     GetTaggedBikeListByModel(objData);
                     SetPageMetas(objData);
                     CheckSeriesData(objData);
+                    SetAdditionalVariables(objData);
+
                     GetWidgetData(objData, widgetTopCount);
                     PopulatePhotoGallery(objData);
                     BindSimilarBikes(objData);
@@ -205,6 +219,40 @@ namespace Bikewale.Models
                 ErrorClass.LogError(err, "Bikewale.Models.ExpertReviewsDetailPage.GetData - BasicId : " + _basicId);
             }
             return objData;
+        }
+
+        private void SetAdditionalVariables(ExpertReviewsDetailPageVM objData)
+        {
+            objData.PageName = pageName;
+            isMakeLive = !(objData.BikeInfo != null && (objData.BikeInfo.IsUpcoming || objData.BikeInfo.IsDiscontinued));
+
+            bodyStyle = EnumBikeBodyStyles.AllBikes;
+
+            List<BikeVersionMinSpecs> objVersionsList = _objBikeVersionsCache.GetVersionMinSpecs(ModelId, false);
+
+            if (objVersionsList != null && objVersionsList.Count > 0)
+                bodyStyle = objVersionsList.FirstOrDefault().BodyStyle;
+
+            objData.BodyStyle = bodyStyle;
+
+            isSeriesAvailable = objData.IsSeriesAvailable;
+            if (objData.Make != null)
+            {
+                isScooterOnlyMake = objData.Make.IsScooterOnly;
+            }
+            EditorialWidgetEntity editorialWidgetData = new EditorialWidgetEntity
+            {
+                IsMobile = IsMobile,
+                IsMakeLive = isMakeLive,
+                IsModelTagged = isModelTagged,
+                IsSeriesAvailable = isSeriesAvailable,
+                IsScooterOnlyMake = isScooterOnlyMake,
+                BodyStyle = bodyStyle,
+                CityId = CityId,
+                Make = objData.Make,
+                Series = bikeSeriesEntityBase
+            };
+            base.SetAdditionalData(editorialWidgetData);
         }
 
         /// <summary>
