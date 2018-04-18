@@ -333,6 +333,7 @@
     <Compile Include="EditCMS\Photos\BikeModelEntityBase.cs" />
     <Compile Include="EditCMS\Photos\CMSImage.cs" />
     <Compile Include="EditCMS\Photos\ModelImage.cs" />
+    <Compile Include="EditorialWidgets\EditorialWidgetEntity.cs" />
     <Compile Include="EMISliderAMP.cs" />
     <Compile Include="Feedback\FeedbackTypeEnum.cs" />
     <Compile Include="Filters\CustomInputFilters.cs" />

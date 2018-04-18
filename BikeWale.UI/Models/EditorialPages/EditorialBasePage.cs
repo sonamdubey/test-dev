@@ -12,6 +12,7 @@ using Bikewale;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Models.BikeMakes;
 using Bikewale.Interfaces.BikeData.UpComing;
+using Bikewale.Entities.EditorialWidgets;
 
 namespace Bikewale.Models.EditorialPages
 {
@@ -22,17 +23,11 @@ namespace Bikewale.Models.EditorialPages
     public class EditorialBasePage
     {
 
-        private bool IsMobile;
-        private bool IsModelTagged;
-        private bool IsMakeTagged;
-        private bool IsMakeLive;
-        private string MakeName, MakeMaskingName;
-        private uint SeriesId;
-        private string SeriesName, SeriesMaskingName;
+        private EditorialWidgetEntity widgetData;
+        private bool IsMobile, IsMakeTagged, IsSeriesAvailable;
+        private string MakeName, MakeMaskingName, SeriesName, SeriesMaskingName;
+        private uint MakeId, SeriesId, CityId;
         private EnumBikeBodyStyles BodyStyle;
-        private bool IsSeriesAvailable;
-        private bool IsScooterOnlyMake;
-        private uint MakeId, ModelId, CityId;
 
         private IDictionary<EditorialPageWidgetPosition, EditorialWidgetVM> PageWidgets = null;
         private IBikeMakesCacheRepository _bikeMakesCacheRepository = null;
@@ -51,27 +46,39 @@ namespace Bikewale.Models.EditorialPages
         }
 
         
-        public void SetAdditionalGenericVariables(bool isMobile, uint makeId, string makeName, string makeMaskingName, bool isMakeLive, uint modelId, uint seriesId, string seriesName, string seriesMaskingName, uint cityId, bool isSeriesAvailable, bool isScooterOnlyMake, EnumBikeBodyStyles bodyStyle)
+        public void SetAdditionalData(EditorialWidgetEntity editorialWidgetData)
         {
-            IsMobile = isMobile;
+            if(editorialWidgetData == null)
+            {
+                return;
+            }
+            widgetData = editorialWidgetData;
 
-            MakeId = makeId;
-            MakeName = makeName;
-            MakeMaskingName = makeMaskingName;
-            IsMakeLive = isMakeLive;
-            IsMakeTagged = MakeId > 0;
+            IsMobile = widgetData.IsMobile;
 
-            ModelId = modelId;
-            IsModelTagged = ModelId > 0;
 
-            SeriesId = seriesId;
-            SeriesName = seriesName;
-            SeriesMaskingName = seriesMaskingName;
+            BodyStyle = widgetData.BodyStyle;
+            CityId = widgetData.CityId;
 
-            CityId = cityId;
-            IsSeriesAvailable = isSeriesAvailable;
-            IsScooterOnlyMake = isScooterOnlyMake;
-            BodyStyle = bodyStyle;
+            BikeMakeEntityBase make = editorialWidgetData.Make;
+            if (make != null)
+            {
+                MakeId = (uint)make.MakeId;
+                MakeName = make.MakeName;
+                MakeMaskingName = make.MaskingName;
+                IsMakeTagged = MakeId > 0; 
+            }
+
+            BikeSeriesEntityBase series = editorialWidgetData.Series;
+            if (series != null)
+            {
+                SeriesId = series.SeriesId;
+                SeriesName = series.SeriesName;
+                SeriesMaskingName = series.MaskingName;
+            }
+            IsSeriesAvailable = widgetData.IsSeriesAvailable;
+
+
         }
         /// <summary>
         /// Created by  : Sanskar Gupta on 17 April 2018
@@ -83,7 +90,10 @@ namespace Bikewale.Models.EditorialPages
         {
             try
             {
-
+                if(widgetData == null)
+                {
+                    return null;
+                }
                 switch (pageType)
                 {
                     case EnumEditorialPageType.Listing:
@@ -111,22 +121,23 @@ namespace Bikewale.Models.EditorialPages
         /// <param name="objData">VM of the page.</param>
         private void SetEditorialDetailPageWidgets()
         {
-            if (IsModelTagged)
+            if (widgetData.IsModelTagged)
             {
-                if (BodyStyle == EnumBikeBodyStyles.Cruiser || BodyStyle == EnumBikeBodyStyles.Sports)
+                switch (widgetData.BodyStyle)
                 {
-                    // Model is Tagged, Body Style is either Cruiser or Sports
-                    PageWidgets = GetWidgetDataForModelCruiserSports();
-                }
-                else if (BodyStyle == EnumBikeBodyStyles.Scooter)
-                {
-                    // Model is Tagged, Body Style is Scooter
-                    PageWidgets = GetWidgetDataForModelScooter();
-                }
-                else
-                {
-                    // Model is Tagged, Body Style is something other than Cruiser/Sports/Scooter
-                    PageWidgets = GetWidgetDataForModelExceptCruiserSportsScooter();
+                    case EnumBikeBodyStyles.Cruiser:
+                    case EnumBikeBodyStyles.Sports:
+                        // Model is Tagged, Body Style is either Cruiser or Sports
+                        PageWidgets = GetWidgetDataForModelCruiserSports();
+                        break;
+                    case EnumBikeBodyStyles.Scooter:
+                        // Model is Tagged, Body Style is Scooter
+                        PageWidgets = GetWidgetDataForModelScooter();
+                        break;
+                    default:
+                        // Model is Tagged, Body Style is something other than Cruiser/Sports/Scooter
+                        PageWidgets = GetWidgetDataForModelExceptCruiserSportsScooter();
+                        break;
                 }
             }
             else
@@ -247,7 +258,7 @@ namespace Bikewale.Models.EditorialPages
             SecondWidget.WidgetColumns = new Dictionary<EditorialWidgetColumnPosition, EditorialWidgetInfo>();
             try
             {
-                if (IsMakeTagged && IsMakeLive)
+                if (IsMakeTagged && widgetData.IsMakeLive)
                 {
                     FirstWidget.WidgetColumns[EditorialWidgetColumnPosition.Left] = BindWidget(EditorialWidgetCategory.Popular_Make);
                     SecondWidget.WidgetColumns[EditorialWidgetColumnPosition.Left] = BindWidget(EditorialWidgetCategory.Popular_All);
@@ -369,7 +380,7 @@ namespace Bikewale.Models.EditorialPages
                                 return null;
                             }
                             ((EditorialPopularBikesWidget)widget).MostPopularBikeList = mostPopular;
-                            SetWidgetStructureData(widget, string.Format("{0} Scooters", MakeName), "PopularMakeScooters", true, UrlFormatter.ScooterMakeUrl(MakeMaskingName, IsScooterOnlyMake), "View all scooters", "View all scooters");
+                            SetWidgetStructureData(widget, string.Format("{0} Scooters", MakeName), "PopularMakeScooters", true, UrlFormatter.ScooterMakeUrl(MakeMaskingName, widgetData.IsScooterOnlyMake), "View all scooters", "View all scooters");
                         }
                         break;
 
