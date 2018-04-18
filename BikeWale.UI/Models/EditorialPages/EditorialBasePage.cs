@@ -97,12 +97,15 @@ namespace Bikewale.Models.EditorialPages
                 switch (pageType)
                 {
                     case EnumEditorialPageType.Listing:
+                        SetEditorialListingPageWidgets();
+                        break;
+                    case EnumEditorialPageType.MakeListing:
+                        SetMakeWiseEditorialListingPageWidgets();
                         break;
                     case EnumEditorialPageType.Detail:
                         SetEditorialDetailPageWidgets();
                         break;
                     default:
-                        //_logger.Info(string.Format("Bikewale.Models.EditorialPages.EditorialWidgets.GetEditorialWidgetData()__{0} is not a valid PageType", pageType));
                         break;
                 }
             }
@@ -145,6 +148,68 @@ namespace Bikewale.Models.EditorialPages
                 // Model is Not Tagged
                 PageWidgets = GetWidgetDataForMake();
             }
+        }
+
+        /// <summary>
+        /// Created By : Deepak Israni on 18 April 2018
+        /// Description: Function to Set Editorial Widget Data on Listing Page.
+        /// </summary>
+        private void SetEditorialListingPageWidgets()
+        {
+            EditorialWidgetVM FirstWidget = new EditorialWidgetVM();
+            FirstWidget.WidgetColumns = new Dictionary<EditorialWidgetColumnPosition, EditorialWidgetInfo>();
+            EditorialWidgetVM SecondWidget = new EditorialWidgetVM();
+            SecondWidget.WidgetColumns = new Dictionary<EditorialWidgetColumnPosition, EditorialWidgetInfo>();
+
+            //Bind A1 -> Popular Bikes
+            FirstWidget.WidgetColumns[EditorialWidgetColumnPosition.Left] = BindWidget(EditorialWidgetCategory.Popular_All);
+            //Bind B1 -> Upcoming Bikes
+            SecondWidget.WidgetColumns[EditorialWidgetColumnPosition.Left] = BindWidget(EditorialWidgetCategory.Upcoming_All);
+
+            if (!IsMobile)
+            {
+                //Bind A2 -> Popular Scooters
+                FirstWidget.WidgetColumns[EditorialWidgetColumnPosition.Right] = BindWidget(EditorialWidgetCategory.Popular_Scooters);
+                //Bind B2 -> Upcoming Scooters
+                SecondWidget.WidgetColumns[EditorialWidgetColumnPosition.Right] = BindWidget(EditorialWidgetCategory.Upcoming_Scooters);
+            }
+
+            PageWidgets = new Dictionary<EditorialPageWidgetPosition, EditorialWidgetVM>();
+            PageWidgets[EditorialPageWidgetPosition.First] = FirstWidget;
+            PageWidgets[EditorialPageWidgetPosition.Second] = SecondWidget;
+        }
+
+
+        /// <summary>
+        /// Created By : Deepak Israni on 18 April 2018
+        /// Description: Function to Set Editorial Widget Data on Makewise Listing Page.
+        /// </summary>
+        private void SetMakeWiseEditorialListingPageWidgets()
+        {
+            EditorialWidgetVM FirstWidget = new EditorialWidgetVM();
+            FirstWidget.WidgetColumns = new Dictionary<EditorialWidgetColumnPosition, EditorialWidgetInfo>();
+            EditorialWidgetVM SecondWidget = new EditorialWidgetVM();
+            SecondWidget.WidgetColumns = new Dictionary<EditorialWidgetColumnPosition, EditorialWidgetInfo>();
+
+            //Bind A1 -> Popular Make Bikes
+            FirstWidget.WidgetColumns[EditorialWidgetColumnPosition.Left] = BindWidget(EditorialWidgetCategory.Popular_Make);
+
+            if (IsMobile)
+            {
+                //Bind B1 -> Upcoming Bikes
+                SecondWidget.WidgetColumns[EditorialWidgetColumnPosition.Left] = BindWidget(EditorialWidgetCategory.Upcoming_All);
+            }
+            else
+            {
+                //Bind B1 -> Popular Bikes
+                SecondWidget.WidgetColumns[EditorialWidgetColumnPosition.Left] = BindWidget(EditorialWidgetCategory.Popular_All);
+                //Bind B2 -> Upcoming Scooters
+                SecondWidget.WidgetColumns[EditorialWidgetColumnPosition.Right] = BindWidget(EditorialWidgetCategory.Upcoming_Scooters);
+            }
+
+            PageWidgets = new Dictionary<EditorialPageWidgetPosition, EditorialWidgetVM>();
+            PageWidgets[EditorialPageWidgetPosition.First] = FirstWidget;
+            PageWidgets[EditorialPageWidgetPosition.Second] = SecondWidget;
         }
 
         /// <summary>
@@ -651,6 +716,8 @@ namespace Bikewale.Models.EditorialPages
             }
             return elements.Take(noOfElements);
         }
+
+
 
 
     }
