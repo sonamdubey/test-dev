@@ -25,6 +25,8 @@ using Bikewale.Models.Scooters;
 using Bikewale.PWA.Utils;
 using Bikewale.Utility;
 using Newtonsoft.Json;
+using Bikewale.Models.EditorialPages;
+using Bikewale.Entities.EditorialWidgets;
 
 namespace Bikewale.Models
 {
@@ -42,7 +44,7 @@ namespace Bikewale.Models
     /// Dated: 16th April 2018
     /// Description: Added _pageId and _totalTabCount to page variables for generic info widget
     /// </summary>
-    public class NewsIndexPage
+    public class NewsIndexPage : EditorialBasePage
     {
         #region Variables for dependency injection and constructor
         private readonly ICMSCacheContent _cacheContent = null;
@@ -82,6 +84,7 @@ namespace Bikewale.Models
         private PQSourceEnum pqSource = 0;
         private readonly uint _totalTabCount = 3;
         private BikeInfoTabType _pageId = BikeInfoTabType.News;
+        private static string pageName = "Editorial List";
         #endregion
 
         #region Public properties
@@ -118,6 +121,7 @@ namespace Bikewale.Models
         public NewsIndexPage(ICMSCacheContent cacheContent, IPager pager, IBikeMakesCacheRepository objMakeCache, IBikeModelsCacheRepository<int> models, IBikeModels<BikeModelEntity, int> bikeModels, IUpcoming upcoming, IPWACMSCacheRepository renderedArticles,
             IBikeVersionCacheRepository<BikeVersionEntity, uint> objBikeVersionsCache, IArticles articles, IBikeSeriesCacheRepository seriesCache,
             IBikeSeries series, ICityCacheRepository objCityCache, IBikeInfo objGenericBike)
+            : base(objMakeCache, models, bikeModels, upcoming, series)
         {
             _articles = articles;
             _cacheContent = cacheContent;
@@ -209,7 +213,15 @@ namespace Bikewale.Models
                     objData.EndIndex = _endIndex > recordCount ? recordCount : _endIndex;
                     BindLinkPager(objData, recordCount);
                     CreatePrevNextUrl(objData, recordCount);
-                    GetWidgetData(objData, widgetTopCount);
+                    if (!IsMobile)
+                    {
+                        SetAdditionalVariables(objData);
+                        objData.PageWidgets = base.GetEditorialWidgetData(EnumEditorialPageType.Listing);
+                    }
+                    else
+                    {
+                        GetWidgetData(objData, widgetTopCount); 
+                    }
                     SetPageMetas(objData);
                     objData.Page = Entities.Pages.GAPages.Editorial_List_Page;
 
@@ -1389,6 +1401,24 @@ namespace Bikewale.Models
             {
                 Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("Bikewale.Models.News.NewsIndexPage..BindMoreAboutScootersWidget : ModelId {0}", ModelId));
             }
+        }
+
+
+        /// <summary>
+        /// Created By  : Sanskar Gupta on 12 April 2018
+        /// Description : Function to set additional Page level variables.
+        /// </summary>
+        /// <param name="objData">VM of the page.</param>
+        private void SetAdditionalVariables(NewsIndexPageVM objData)
+        {
+            objData.PageName = pageName;
+
+            EditorialWidgetEntity editorialWidgetData = new EditorialWidgetEntity
+            {
+                IsMobile = IsMobile,
+                CityId = CityId
+            };
+            base.SetAdditionalData(editorialWidgetData);
         }
 
         #endregion

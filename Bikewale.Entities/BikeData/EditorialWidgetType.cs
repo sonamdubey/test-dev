@@ -43,6 +43,7 @@
     public enum EnumEditorialPageType
     {
         Listing,
-        Detail
+        Detail,
+        MakeListing,
     }
 }
