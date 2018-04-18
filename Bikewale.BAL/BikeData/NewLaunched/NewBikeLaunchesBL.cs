@@ -128,6 +128,7 @@ namespace Bikewale.BAL.BikeData.NewLaunched
                         EnumSpecsFeaturesItems.Displacement,
                         EnumSpecsFeaturesItems.FuelEfficiencyOverall,
                         EnumSpecsFeaturesItems.MaxPowerBhp,
+                        EnumSpecsFeaturesItems.MaximumTorqueNm,
                         EnumSpecsFeaturesItems.KerbWeight
                     };
                     BindMinSpecs(newLaunchesList, specsItemList);
