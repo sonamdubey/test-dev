@@ -14,7 +14,7 @@ using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.DealerLocator;
 using Bikewale.Entities.PriceQuote;
-using Bikewale.BAL.ApiGateway.Utils;
+using Bikewale.Utility;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -111,19 +111,19 @@ namespace Bikewale.Service.AutoMappers.DealerLocator
                         IEnumerator<SpecsItem> specEnumerator = bike.MinSpecsList.GetEnumerator();
                         if (specEnumerator.MoveNext())
                         {
-                            bikeVersionDto.BrakingSystem = FormatMinSpecsItem.GetSpecGeneralName(specEnumerator.Current);
+                            bikeVersionDto.BrakingSystem = FormatMinSpecs.GetSpecGeneralName(specEnumerator.Current);
                         }
                         if (specEnumerator.MoveNext())
                         {
-                            bikeVersionDto.BrakeType = FormatMinSpecsItem.GetSpecGeneralName(specEnumerator.Current);
+                            bikeVersionDto.BrakeType = FormatMinSpecs.GetSpecGeneralName(specEnumerator.Current);
                         }
                         if (specEnumerator.MoveNext())
                         {
-                            bikeVersionDto.WheelType = FormatMinSpecsItem.GetSpecGeneralName(specEnumerator.Current);
+                            bikeVersionDto.WheelType = FormatMinSpecs.GetSpecGeneralName(specEnumerator.Current);
                         }
                         if (specEnumerator.MoveNext())
                         {
-                            bikeVersionDto.StartType = FormatMinSpecsItem.GetSpecGeneralName(specEnumerator.Current);
+                            bikeVersionDto.StartType = FormatMinSpecs.GetSpecGeneralName(specEnumerator.Current);
                         }
                         
                     }
