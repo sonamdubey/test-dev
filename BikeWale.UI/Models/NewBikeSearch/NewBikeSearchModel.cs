@@ -338,22 +338,25 @@ namespace Bikewale.Models.NewBikeSearch
             try
             {
                 //Brake Type -- Change the enum to whatever is decided for brake types
-                GetCustomDataTypesByItemIdAdapter adapt1 = new GetCustomDataTypesByItemIdAdapter();
-                adapt1.AddApiGatewayCall(_apiGatewayCaller, new GetCustomDataType_Input() { InputType = Bikewale.BAL.ApiGateway.Entities.BikeData.EnumSpecsFeaturesItems.FuelType });
+                GetCustomDataTypesByItemIdAdapter brakeAdapt = new GetCustomDataTypesByItemIdAdapter();
+                brakeAdapt.AddApiGatewayCall(_apiGatewayCaller, new GetCustomDataType_Input() { InputType = Bikewale.BAL.ApiGateway.Entities.BikeData.EnumSpecsFeaturesItems.RearBrakeType });
 
                 //Start Type -- Change the enum to whatever is decided for start types
-                GetCustomDataTypesByItemIdAdapter adapt2 = new GetCustomDataTypesByItemIdAdapter();
-                adapt2.AddApiGatewayCall(_apiGatewayCaller, new GetCustomDataType_Input() { InputType = Bikewale.BAL.ApiGateway.Entities.BikeData.EnumSpecsFeaturesItems.FuelType });
+                GetCustomDataTypesByItemIdAdapter startAdapt = new GetCustomDataTypesByItemIdAdapter();
+                startAdapt.AddApiGatewayCall(_apiGatewayCaller, new GetCustomDataType_Input() { InputType = Bikewale.BAL.ApiGateway.Entities.BikeData.EnumSpecsFeaturesItems.StartType });
 
                 //Wheel Type -- Change the enum to whatever is decided for wheel types
-                GetCustomDataTypesByItemIdAdapter adapt3 = new GetCustomDataTypesByItemIdAdapter();
-                adapt3.AddApiGatewayCall(_apiGatewayCaller, new GetCustomDataType_Input() { InputType = Bikewale.BAL.ApiGateway.Entities.BikeData.EnumSpecsFeaturesItems.FuelType });
+                GetCustomDataTypesByItemIdAdapter wheelAdapt = new GetCustomDataTypesByItemIdAdapter();
+                wheelAdapt.AddApiGatewayCall(_apiGatewayCaller, new GetCustomDataType_Input() { InputType = Bikewale.BAL.ApiGateway.Entities.BikeData.EnumSpecsFeaturesItems.WheelType });
 
                 _apiGatewayCaller.Call();
 
-                objData.BrakeTypes = adapt1.Output;
-                objData.StartTypes = adapt2.Output;
-                objData.WheelTypes = adapt3.Output;
+                if (brakeAdapt.Output != null)
+                {
+                    objData.BrakeTypes = brakeAdapt.Output.Where(bt => bt.Id != 910);
+                }
+                objData.StartTypes = startAdapt.Output;
+                objData.WheelTypes = wheelAdapt.Output;
             }
             catch (Exception ex)
             {
