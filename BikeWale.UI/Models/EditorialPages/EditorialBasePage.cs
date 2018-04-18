@@ -357,7 +357,7 @@ namespace Bikewale.Models.EditorialPages
                                 return null;
                             }
                             ((EditorialPopularBikesWidget)widget).MostPopularBikeList = mostPopular;
-                            SetWidgetStructureData(widget, "Popular Scooters", "PopularScooters", true, UrlFormatter.FormatGenericPageUrl(BodyStyle), "View all scooters", "View all scooters");
+                            SetWidgetStructureData(widget, "Popular Scooters", "PopularScooters", true, UrlFormatter.FormatGenericPageUrl(EnumBikeBodyStyles.Scooter), "View all scooters", "View all scooters");
                         }
                         break;
 

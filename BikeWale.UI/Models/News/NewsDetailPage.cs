@@ -233,7 +233,7 @@ namespace Bikewale.Models
                     }
                     else
                     {
-                        objData.PageWidgets = GetEditorialWidgetData(EnumEditorialPageType.Detail);
+                        objData.PageWidgets = base.GetEditorialWidgetData(EnumEditorialPageType.Detail);
                     }
 
                     BindSimilarBikes(objData);
