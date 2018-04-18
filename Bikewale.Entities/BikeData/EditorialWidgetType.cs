@@ -36,4 +36,13 @@
 
         Series_Scooters
     }
+
+    /// <summary>
+    /// Enum denoting the Type of the Page for which Editorial which data has to be returned. (e.g. `Listing`/`Detail` etc.)
+    /// </summary>
+    public enum EnumEditorialPageType
+    {
+        Listing,
+        Detail
+    }
 }

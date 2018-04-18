@@ -954,6 +954,7 @@
     <Compile Include="Models\ComparisonTest\ComparisonTestWidget.cs" />
     <Compile Include="Models\ComparisonTests\ComparisonTestsIndexPage.cs" />
     <Compile Include="Models\DealerShowroom\DealerCardWidget.cs" />
+    <Compile Include="Models\EditorialPages\EditorialBasePage.cs" />
     <Compile Include="Models\ElectricBike\ElectricBikesPage.cs" />
     <Compile Include="Models\ExpertReviews\ScooterExpertReviewsPage.cs" />
     <Compile Include="Models\Features\DetailPage.cs" />
