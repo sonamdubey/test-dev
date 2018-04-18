@@ -390,7 +390,7 @@
 												<tr>
 													<td class="text-slate-grey">@string.Format("{0} {1}", version.ModelName, version.VersionName)</td>
 													<td>@Html.Raw("&#x20B9;")<span class="text-bold">&nbsp;@Bikewale.Utility.Format.FormatPrice(Convert.ToString(version.Price))</span></td>
-													<td class="text-slate-grey">@FormatMinSpecs.GetCommaSepratedGeneralSpecs(version.MinSpecsList)</td>
+													<td class="text-slate-grey">@Bikewale.BAL.ApiGateway.Utils.FormatMinSpecsItem.GetCommaSepratedGeneralSpecs(version.MinSpecsList)</td>
 												</tr>
 											}
 										</tbody>

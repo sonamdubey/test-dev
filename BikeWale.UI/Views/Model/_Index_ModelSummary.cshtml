@@ -33,7 +33,7 @@
                         }
 			@if (minSpecAvailable)
 			{
-				var topSpeed = Bikewale.Utility.FormatMinSpecs.SanitizeNumericMinSpec(Model.ModelPageEntity.ModelVersionMinSpecs.MinSpecsList, EnumSpecsFeaturesItems.TopSpeed);
+				var topSpeed = Bikewale.BAL.ApiGateway.Utils.FormatMinSpecsItem.SanitizeNumericMinSpec(Model.ModelPageEntity.ModelVersionMinSpecs.MinSpecsList, EnumSpecsFeaturesItems.TopSpeed);
 				if (topSpeed != null && !string.IsNullOrEmpty(topSpeed.Value))
 				{
 					<tr>
@@ -41,7 +41,7 @@
 						<td class="text-bold">@Bikewale.Utility.FormatMinSpecs.ShowAvailable(topSpeed.Value, topSpeed.UnitType, topSpeed.DataType, topSpeed.Id)</td>
 					</tr>
 				}
-				var fuelEfficiency = Bikewale.Utility.FormatMinSpecs.SanitizeNumericMinSpec(Model.ModelPageEntity.ModelVersionMinSpecs.MinSpecsList, EnumSpecsFeaturesItems.FuelEfficiencyOverall);
+				var fuelEfficiency = Bikewale.BAL.ApiGateway.Utils.FormatMinSpecsItem.SanitizeNumericMinSpec(Model.ModelPageEntity.ModelVersionMinSpecs.MinSpecsList, EnumSpecsFeaturesItems.FuelEfficiencyOverall);
 				if (fuelEfficiency != null && !string.IsNullOrEmpty(fuelEfficiency.Value))
 				{
 					<tr>

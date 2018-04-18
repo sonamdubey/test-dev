@@ -32,7 +32,7 @@
                             }
 
                         </td>
-			<td class="font12">@((version.MinSpecsList != null) ? Bikewale.Utility.FormatMinSpecs.GetCommaSepratedGeneralSpecs(version.MinSpecsList.Take(2)) : "")</td>
+			<td class="font12">@((version.MinSpecsList != null) ? Bikewale.BAL.ApiGateway.Utils.FormatMinSpecsItem.GetCommaSepratedGeneralSpecs(version.MinSpecsList.Take(2)) : "")</td>
                     </tr>
                 }
             </tbody>
