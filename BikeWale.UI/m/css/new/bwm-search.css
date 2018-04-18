@@ -118,7 +118,7 @@ span.ui-helper-hidden-accessible { display: none; }
 .dropdown .hida.shiftRight { float: right; color: #82888b; }
 .dropdown .hida.shiftRight:after { content: ")"; }
 .dropdown .form-control span, .multiSel span { cursor: pointer; padding: 0 3px 2px 0; }
-.dropdown ul { background-color: #fff; border: 0; display: none; left: 0px; padding: 5px 15px; position: absolute; top: 44px; width: 100%; list-style: none; height: 115px; overflow: auto !important; z-index: 3; box-shadow: 0 1px 1px 0 #cacaca; -webkit-box-shadow: 0 1px 1px 0 #cacaca; -moz-box-shadow: 0 1px 1px 0 #cacaca; -ms-box-shadow: 0 1px 1px 0 #cacaca; -o-box-shadow: 0 1px 1px 0 #cacaca; }
+.dropdown ul { background-color: #fff; border: 0; display: none; left: 0px; padding: 5px 15px; position: absolute; top: 44px; width: 100%; list-style: none; max-height: 115px; overflow: auto !important; z-index: 3; box-shadow: 0 1px 1px 0 #cacaca; -webkit-box-shadow: 0 1px 1px 0 #cacaca; -moz-box-shadow: 0 1px 1px 0 #cacaca; -ms-box-shadow: 0 1px 1px 0 #cacaca; -o-box-shadow: 0 1px 1px 0 #cacaca; }
 .dropdown ul li { padding: 5px 0; }
 .dropdown ul li span { padding-left: 30px; }
 

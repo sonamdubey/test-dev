@@ -348,6 +348,7 @@ namespace Bikewale.BAL.BikeSearch
             SearchOutput objSearchOutput = null;
             SearchFilters filtersInputES = null;
             BikeSearchOutputEntity objEsOutput = null;
+            List<DTO.NewBikeSearch.SearchBudgetLink> searchBudgetLinks = null;
             try
             {
                 if (filterInputs != null)
@@ -360,11 +361,25 @@ namespace Bikewale.BAL.BikeSearch
                         {
                             objSearchOutput = MapEsOutputToBikeSearchOutput(objEsOutput);
 
+                            var links = SearchBudgetLinksBetween(filterInputs.MinBudget, filterInputs.MaxBudget);
+
+                            if (links != null && links.Any())
+                            {
+                                searchBudgetLinks = new List<DTO.NewBikeSearch.SearchBudgetLink>();
+                                foreach (var item in links)
+                                {
+                                    searchBudgetLinks.Add(new DTO.NewBikeSearch.SearchBudgetLink() { Link = item });
+                                }
+                            }
                             if (objSearchOutput != null)
                             {
                                 objSearchOutput.PageUrl = GetPrevNextUrl(filterInputs, input, objEsOutput.TotalCount);
                                 objSearchOutput.TotalCount = objEsOutput.TotalCount;
                                 objSearchOutput.CurrentPageNo = Convert.ToInt32(filterInputs.PageNo);
+                                if (searchBudgetLinks != null && searchBudgetLinks.Any())
+                                {
+                                    objSearchOutput.BudgetLinks = searchBudgetLinks;
+                                }
                             }
                         }
                     }
