@@ -340,13 +340,12 @@
 /* new launch category tag end */
 
 
-.model-grid-8-slug {
+.model-grid-9-slug {
     border: none;
     
     padding-top: 20px;
-    padding-right: 20px;
     padding-bottom: 15px;
-    padding-left: 20px;
+    padding-left: 10px;
     
 }
 
@@ -484,7 +483,7 @@
     font-size: 12px;
 }
 
-.model-grid-8-slug .grid-4.omega {
+.model-grid-9-slug .grid-3.omega {
     padding-top: 5px;
 }
 
@@ -494,4 +493,8 @@
 
 .card-bottom-margin {
     margin-bottom: 20px;
+}
+
+.model-widget__title.text-truncate { 
+    width: 45%; 
 }
