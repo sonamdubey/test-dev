@@ -1,4 +1,5 @@
-﻿using Bikewale.Common;
+﻿using Bikewale.BAL.ApiGateway.Entities.BikeData;
+using Bikewale.Common;
 using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.BikeData.NewLaunched;
@@ -977,9 +978,9 @@ namespace Bikewale.Models
                         minSpecList = bike.MinSpecsList;
                         if (minSpecList != null)
                         {
-                            tempMinDisplacement = Single.TryParse(minSpecList.SingleOrDefault(s => s.Id == (int)EnumSpecsFeaturesItem.Displacement).Value, out displacementValue) ? displacementValue : 0;
+                            tempMinDisplacement = Single.TryParse(minSpecList.SingleOrDefault(s => s.Id == (int)EnumSpecsFeaturesItems.Displacement).Value, out displacementValue) ? displacementValue : 0;
                             minDisplacement = tempMinDisplacement > 0 && minDisplacement > tempMinDisplacement ? tempMinDisplacement : minDisplacement;
-                            tempMinMileage = (UInt16.TryParse(minSpecList.SingleOrDefault(s => s.Id == (int)EnumSpecsFeaturesItem.FuelEfficiencyOverall).Value, out mileageValue)) ? mileageValue : Convert.ToUInt16(0);
+                            tempMinMileage = (UInt16.TryParse(minSpecList.SingleOrDefault(s => s.Id == (int)EnumSpecsFeaturesItems.FuelEfficiencyOverall).Value, out mileageValue)) ? mileageValue : Convert.ToUInt16(0);
                             minMileage = tempMinMileage > 0 && minMileage > tempMinMileage ? tempMinMileage : minMileage;
                         }
                         tempExShowroomPrice = bike.ExShowroomPrice;

@@ -1,4 +1,5 @@
-﻿using Bikewale.DTO.BikeData;
+﻿using Bikewale.BAL.ApiGateway.Entities.BikeData;
+using Bikewale.DTO.BikeData;
 using Bikewale.DTO.Model.v3;
 using Bikewale.DTO.Version;
 using Bikewale.DTO.Widgets;
@@ -26,14 +27,14 @@ namespace Bikewale.Service.AutoMappers.BikeData
                     objVersion.Price = objVersionMinSpec.Price;
                     if (objVersionMinSpec.MinSpecsList != null)
                     {
-                        SpecsItem specsItem = objVersionMinSpec.MinSpecsList.FirstOrDefault(specItem => specItem.Id.Equals((int)EnumSpecsFeaturesItem.BrakeType));
+                        SpecsItem specsItem = objVersionMinSpec.MinSpecsList.FirstOrDefault(specItem => specItem.Id.Equals((int)EnumSpecsFeaturesItems.RearBrakeType));
                         if (specsItem != null)
                         {
                             objVersion.BrakeType = specsItem.Value;
                         }
-                        objVersion.AlloyWheels = CheckBoolSpecItem(objVersionMinSpec.MinSpecsList.FirstOrDefault(specItem => specItem.Id.Equals((int)EnumSpecsFeaturesItem.AlloyWheels)));
-                        objVersion.ElectricStart = CheckBoolSpecItem(objVersionMinSpec.MinSpecsList.FirstOrDefault(specItem => specItem.Id.Equals((int)EnumSpecsFeaturesItem.ElectricStart)));
-                        objVersion.AntilockBrakingSystem = CheckBoolSpecItem(objVersionMinSpec.MinSpecsList.FirstOrDefault(specItem => specItem.Id.Equals((int)EnumSpecsFeaturesItem.AntilockBrakingSystem)));
+                        objVersion.AlloyWheels = IsAlloy(objVersionMinSpec.MinSpecsList.FirstOrDefault(specItem => specItem.Id.Equals((int)EnumSpecsFeaturesItems.WheelType)));
+                        objVersion.ElectricStart = IsElectric(objVersionMinSpec.MinSpecsList.FirstOrDefault(specItem => specItem.Id.Equals((int)EnumSpecsFeaturesItems.StartType)));
+                        objVersion.AntilockBrakingSystem = CheckBoolSpecItem(objVersionMinSpec.MinSpecsList.FirstOrDefault(specItem => specItem.Id.Equals((int)EnumSpecsFeaturesItems.AntilockBrakingSystem)));
                     }
                     return objVersion;
                 }
@@ -57,14 +58,14 @@ namespace Bikewale.Service.AutoMappers.BikeData
                     objVersionDetail.Price = objVersionMinSpec.Price;
                     if (objVersionMinSpec.MinSpecsList != null)
                     {
-                        SpecsItem specsItem = objVersionMinSpec.MinSpecsList.FirstOrDefault(specItem => specItem.Id.Equals((int)EnumSpecsFeaturesItem.BrakeType));
+                        SpecsItem specsItem = objVersionMinSpec.MinSpecsList.FirstOrDefault(specItem => specItem.Id.Equals((int)EnumSpecsFeaturesItems.RearBrakeType));
                         if (specsItem != null)
                         {
                             objVersionDetail.BrakeType = specsItem.Value;
                         }
-                        objVersionDetail.AlloyWheels = CheckBoolSpecItem(objVersionMinSpec.MinSpecsList.FirstOrDefault(specItem => specItem.Id.Equals((int)EnumSpecsFeaturesItem.AlloyWheels)));
-                        objVersionDetail.ElectricStart = CheckBoolSpecItem(objVersionMinSpec.MinSpecsList.FirstOrDefault(specItem => specItem.Id.Equals((int)EnumSpecsFeaturesItem.ElectricStart)));
-                        objVersionDetail.AntilockBrakingSystem = CheckBoolSpecItem(objVersionMinSpec.MinSpecsList.FirstOrDefault(specItem => specItem.Id.Equals((int)EnumSpecsFeaturesItem.AntilockBrakingSystem)));
+                        objVersionDetail.AlloyWheels = IsAlloy(objVersionMinSpec.MinSpecsList.FirstOrDefault(specItem => specItem.Id.Equals((int)EnumSpecsFeaturesItems.WheelType)));
+                        objVersionDetail.ElectricStart = IsElectric(objVersionMinSpec.MinSpecsList.FirstOrDefault(specItem => specItem.Id.Equals((int)EnumSpecsFeaturesItems.StartType)));
+                        objVersionDetail.AntilockBrakingSystem = CheckBoolSpecItem(objVersionMinSpec.MinSpecsList.FirstOrDefault(specItem => specItem.Id.Equals((int)EnumSpecsFeaturesItems.AntilockBrakingSystem)));
                     }
                     return objVersionDetail;
                 }
@@ -139,6 +140,16 @@ namespace Bikewale.Service.AutoMappers.BikeData
             }
             
             return null;
+        }
+
+        private static bool IsAlloy(SpecsItem specItem)
+        {
+            return specItem != null && specItem.Value.Equals("Alloy");
+        }
+
+        private static bool IsElectric(SpecsItem specItem)
+        {
+            return specItem != null && specItem.Value.Equals("Electric Start");
         }
 
         private static bool CheckBoolSpecItem(SpecsItem specItem)

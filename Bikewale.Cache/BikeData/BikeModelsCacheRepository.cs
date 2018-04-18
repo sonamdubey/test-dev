@@ -1202,7 +1202,7 @@ namespace Bikewale.Cache.BikeData
         /// Description : To get top 10 bikes of a given body style
         /// Modified by : Sajal Gupta on 02-02-2017
         /// Description : Passed cityid to get used bikes count. 
-        ///  Modified by : Ashutosh Sharma on 29 Sep 2017.
+        /// Modified by : Ashutosh Sharma on 29 Sep 2017.
         /// Description : Changed version of key from 'BW_BestBikesByBodyStyle_' to 'BW_BestBikesByBodyStyle_V1'.
         /// </summary>
         /// <param name="modelId"></param>
@@ -1212,7 +1212,7 @@ namespace Bikewale.Cache.BikeData
             ICollection<BestBikeEntityBase> bestBikesList = null;
             try
             {
-                string key = string.Format("BW_BestBikesByBodyStyle_{0}", bodyStyle);
+                string key = string.Format("BW_BestBikesByBodyStyle_V_{0}", bodyStyle);
                 if (cityId != null)
                     key = string.Format("{0}_{1}", key, cityId.Value);
                 bestBikesList = _cache.GetFromCache(key, new TimeSpan(0, 30, 0), () => _modelRepository.GetBestBikesByCategory(bodyStyle, cityId));
@@ -1237,7 +1237,7 @@ namespace Bikewale.Cache.BikeData
             IEnumerable<BestBikeEntityBase> bestBikesList = null;
             try
             {
-                string key = string.Format("BW_BestBikesByModelInMake_V1_{0}", modelId);
+                string key = string.Format("BW_BestBikesByModelInMake_V_{0}", modelId);
                 if (cityId != null && cityId.Value > 0)
                 {
                     key = string.Format("{0}_City_{1}", key, cityId.Value);

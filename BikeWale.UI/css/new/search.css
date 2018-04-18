@@ -22,7 +22,7 @@
 
 .filter-brand-list { width:480px; min-height:280px; }
 .filter-budget-list, .filter-mileage-list, .filter-displacement-list { width:187px; }
-.list-items ul { min-height:100px; }
+.list-items ul { min-height:35px; }
 .list-items li { background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/inputUnchecked.png) no-repeat scroll 0 3px; cursor: pointer; display: block; padding-bottom: 8px; padding-left: 30px; position: relative; width:150px; float:left; font-size:14px; }
 .list-items li.active { background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/inputChecked.png) no-repeat scroll 0 3px; }
 .filter-budget-list.list-items li, .filter-mileage-list.list-items li, .filter-displacement-list.list-items li { width:165px; }

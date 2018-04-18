@@ -1,4 +1,5 @@
-﻿using Bikewale.Entities.GenericBikes;
+﻿using Bikewale.Entities.BikeData;
+using Bikewale.Entities.GenericBikes;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Utility;
 using Bikewale.Utility.GenericBikes;
@@ -20,16 +21,15 @@ namespace Bikewale.Models.BikeModels
         private readonly string _makeName;
         private readonly bool _isMakePresentinConfig;
         public EnumBikeBodyStyles _bodyStyleType { get; set; }
-        private readonly IBikeModelsCacheRepository<int> _objBestBikes = null;
-
-        public OtherBestBikesModel(uint makeId, string makeName, uint modelId, EnumBikeBodyStyles bodyStyleType, IBikeModelsCacheRepository<int> objBestBikes, uint? cityId = null)
+        private readonly IBikeModels<BikeModelEntity, int> _bikeModel = null;
+        public OtherBestBikesModel(uint makeId, string makeName, uint modelId, EnumBikeBodyStyles bodyStyleType, IBikeModels<BikeModelEntity, int> bikeModel, uint? cityId = null)
         {
             _makeId = makeId;
             _makeName = makeName;
             _modelId = modelId;
             _bodyStyleType = bodyStyleType;
-            _objBestBikes = objBestBikes;
             _cityId = cityId;
+            _bikeModel = bikeModel;
             _isMakePresentinConfig = IsMakePresentInConfig(makeId);
         }
 
@@ -50,7 +50,7 @@ namespace Bikewale.Models.BikeModels
 
                 if (!_isMakePresentinConfig)
                 {
-                    bestBikes = _objBestBikes.GetBestBikesByCategory(_bodyStyleType, _cityId);
+                    bestBikes = _bikeModel.GetBestBikesByCategory(_bodyStyleType, _cityId);
 
                     if (bestBikes != null && bestBikes.Any())
                         otherBestBikes.BestBikes = bestBikes.Reverse().Take(3);
@@ -61,7 +61,7 @@ namespace Bikewale.Models.BikeModels
                 }
                 else
                 {
-                    otherBestBikes.BestBikes = _objBestBikes.GetBestBikesByModelInMake(_modelId, _cityId);
+                    otherBestBikes.BestBikes = _bikeModel.GetBestBikesByModelInMake(_modelId, _cityId);
                     otherBestBikes.OtherBestBikesHeading = string.Format("More bikes from {0}", _makeName);
                 }
             }
