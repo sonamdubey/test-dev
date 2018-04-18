@@ -1,3 +1,4 @@
+# Ignore rules
 */bin
 */obj
 *.suo
@@ -26,3 +27,7 @@ BikeWale.UI/pwa/css/
 BikeWale.UI/pwa/js/
 BikeWale.UI/pwa/server/
 BikeWale.UI/pwa/webpack-assets.json
+
+# Allow
+!Bikewale.ReleaseManagement/copyfiles/bin/Staging/copyfiles.exe
+!Bikewale.ReleaseManagement/copyfiles/bin/Release/copyfiles.exe
