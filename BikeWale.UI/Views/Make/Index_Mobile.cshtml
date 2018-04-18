@@ -1,5 +1,6 @@
 ﻿@model Bikewale.Models.MakePageVM
 @using Bikewale.Entities.BikeData
+@using Bikewale.BAL.ApiGateway.Entities.BikeData
 @{
 	Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
 	Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/bwm-brand.css' inline /> <link rel='stylesheet' type='text/css' href='/css/components/m-brand-logo.css' inline /> <link rel='stylesheet' type='text/css' href='/sass/partials/bw-youtube.css' inline />";
@@ -63,7 +64,7 @@
                                     var modelUrl = Bikewale.Utility.UrlFormatter.BikePageUrl(bike.objMake.MaskingName, bike.objModel.MaskingName);
                                     var bikeName = string.Format("{0} {1}", bike.objMake.MakeName, bike.objModel.ModelName);
 
-                                    <li class="front" data-price="@bike.VersionPrice" data-mileage="@bike.MinSpecsList.FirstOrDefault(s => s.Id == (int)EnumSpecsFeaturesItem.FuelEfficiencyOverall)?.Value" data-popularity="@bike.BikePopularityIndex" data-bike="@bikeName">
+                                    <li class="front" data-price="@bike.VersionPrice" data-mileage="@bike.MinSpecsList.FirstOrDefault(s => s.Id == (int)EnumSpecsFeaturesItems.FuelEfficiencyOverall)?.Value" data-popularity="@bike.BikePopularityIndex" data-bike="@bikeName">
                                         <div class="border-top1 margin-left20 margin-right20 padding-top20"></div>
                                         <div class="contentWrapper">
                                             <div class="imageWrapper">

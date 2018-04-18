@@ -102,10 +102,10 @@ namespace Bikewale.BindViewModels.Webforms.Used
                                 EnumSpecsFeaturesItems.MaximumTorque,
                                 EnumSpecsFeaturesItems.NoOfGears,
                                 EnumSpecsFeaturesItems.FuelEfficiencyOverall,
-                                EnumSpecsFeaturesItems.BrakeType,
-                                EnumSpecsFeaturesItems.FrontDisc,
-                                EnumSpecsFeaturesItems.RearDisc,
-                                EnumSpecsFeaturesItems.AlloyWheels,
+                                EnumSpecsFeaturesItems.RearBrakeType,
+                                EnumSpecsFeaturesItems.FrontBrakeType,
+                                EnumSpecsFeaturesItems.RearBrakeType,
+                                EnumSpecsFeaturesItems.WheelType,
                                 EnumSpecsFeaturesItems.KerbWeight,
                                 EnumSpecsFeaturesItems.TopSpeed,
                                 EnumSpecsFeaturesItems.FuelTankCapacity,
@@ -113,8 +113,8 @@ namespace Bikewale.BindViewModels.Webforms.Used
                                 EnumSpecsFeaturesItems.FuelGuage,
                                 EnumSpecsFeaturesItems.Tachometer,
                                 EnumSpecsFeaturesItems.DigitalFuelGuage,
-                                EnumSpecsFeaturesItems.Tripmeter,
-                                EnumSpecsFeaturesItems.ElectricStart,
+                                EnumSpecsFeaturesItems.TripmeterType,
+                                EnumSpecsFeaturesItems.StartType,
                             }
                         };
                         adapt1.AddApiGatewayCall(_apiGatewayCaller, specItemInput);

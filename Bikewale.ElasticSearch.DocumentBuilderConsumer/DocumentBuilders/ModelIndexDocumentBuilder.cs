@@ -290,10 +290,10 @@ namespace Bikewale.ElasticSearch.DocumentBuilderConsumer.DocumentBuilders
                                         EnumSpecsFeaturesItems.FuelEfficiencyOverall,
                                         EnumSpecsFeaturesItems.MaxPowerBhp,
                                         EnumSpecsFeaturesItems.KerbWeight,
-                                        EnumSpecsFeaturesItems.BrakeType,
-                                        EnumSpecsFeaturesItems.AlloyWheels,
+                                        EnumSpecsFeaturesItems.RearBrakeType,
+                                        EnumSpecsFeaturesItems.WheelType,
                                         EnumSpecsFeaturesItems.AntilockBrakingSystem,
-                                        EnumSpecsFeaturesItems.ElectricStart
+                                        EnumSpecsFeaturesItems.StartType
                                     }
                     };
 
@@ -318,9 +318,9 @@ namespace Bikewale.ElasticSearch.DocumentBuilderConsumer.DocumentBuilders
                             objEnumerator.Current.TopVersion.Displacement = Convert.ToDouble(GetSpecsValue(versionEnumerator.Current.MinSpecsList, (int)EnumSpecsFeaturesItems.Displacement));
 
                             objEnumerator.Current.TopVersion.ABS = GetSpecsValue(versionEnumerator.Current.MinSpecsList, (int)EnumSpecsFeaturesItems.AntilockBrakingSystem) == "1";
-                            objEnumerator.Current.TopVersion.BrakeType = GetSpecsValue(versionEnumerator.Current.MinSpecsList, (int)EnumSpecsFeaturesItems.BrakeType);
-                            objEnumerator.Current.TopVersion.Wheels = GetSpecsValue(versionEnumerator.Current.MinSpecsList, (int)EnumSpecsFeaturesItems.AlloyWheels);
-                            objEnumerator.Current.TopVersion.StartType = GetSpecsValue(versionEnumerator.Current.MinSpecsList, (int)EnumSpecsFeaturesItems.ElectricStart);
+                            objEnumerator.Current.TopVersion.BrakeType = GetSpecsValue(versionEnumerator.Current.MinSpecsList, (int)EnumSpecsFeaturesItems.RearBrakeType);
+                            objEnumerator.Current.TopVersion.Wheels = GetSpecsValue(versionEnumerator.Current.MinSpecsList, (int)EnumSpecsFeaturesItems.WheelType);
+                            objEnumerator.Current.TopVersion.StartType = GetSpecsValue(versionEnumerator.Current.MinSpecsList, (int)EnumSpecsFeaturesItems.StartType);
                         }
 
                     }

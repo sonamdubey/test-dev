@@ -1053,7 +1053,7 @@ namespace Bikewale.Models
             {
                 if (modelId > 0)
                 {
-                    var modelPopularBikesByBodyStyle = new PopularBikesByBodyStyle(_modelCache);
+                    var modelPopularBikesByBodyStyle = new PopularBikesByBodyStyle(_objModelEntity);
                     modelPopularBikesByBodyStyle.CityId = cityId;
                     modelPopularBikesByBodyStyle.ModelId = modelId;
                     modelPopularBikesByBodyStyle.TopCount = 9;

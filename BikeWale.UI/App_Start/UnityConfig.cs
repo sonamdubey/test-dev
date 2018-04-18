@@ -8,6 +8,7 @@ using Bikewale.BAL.BikeData.UpComingBike;
 using Bikewale.BAL.BikeSearch;
 using Bikewale.BAL.CMS;
 using Bikewale.BAL.Customer;
+using Bikewale.BAL.Dealer;
 using Bikewale.BAL.EditCMS;
 using Bikewale.BAL.Filters;
 using Bikewale.BAL.Pager;
@@ -191,6 +192,7 @@ namespace Bikewale
             container.RegisterType<Bikewale.Interfaces.AutoBiz.IDealerPriceQuote, Bikewale.DAL.AutoBiz.DealerPriceQuoteRepository>();
             container.RegisterType<IApiGatewayCaller, ApiGatewayCaller>();
             container.RegisterType<IBikeSearch, BikeSearch>();
+            container.RegisterType<IDealer, Dealer>();
 
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }

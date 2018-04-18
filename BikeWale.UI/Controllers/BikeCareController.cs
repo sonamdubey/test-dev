@@ -86,7 +86,7 @@ namespace Bikewale.Controllers
         [Filters.DeviceDetection()]
         public ActionResult Detail(string basicid)
         {
-            BikeCareDetailPage obj = new BikeCareDetailPage(_cmsCache, _upcoming, _bikeModels, _models, basicid);
+            BikeCareDetailPage obj = new BikeCareDetailPage(_cmsCache, _upcoming, _bikeModels, basicid);
             if (obj.status == Entities.StatusCodes.ContentNotFound)
             {
                 return Redirect("/pagenotfound.aspx");
@@ -108,7 +108,7 @@ namespace Bikewale.Controllers
         [Route("m/bikecare/details/{basicid}/")]
         public ActionResult Detail_Mobile(string basicid)
         {
-            BikeCareDetailPage obj = new BikeCareDetailPage(_cmsCache, _upcoming, _bikeModels, _models, basicid);
+            BikeCareDetailPage obj = new BikeCareDetailPage(_cmsCache, _upcoming, _bikeModels, basicid);
             if (obj.status == Entities.StatusCodes.ContentNotFound)
             {
                 return Redirect("/m/pagenotfound.aspx");

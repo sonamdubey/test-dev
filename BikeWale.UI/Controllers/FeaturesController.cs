@@ -93,7 +93,7 @@ namespace Bikewale.Controllers
         [Filters.DeviceDetection()]
         public ActionResult Detail(string basicId)
         {
-            DetailPage objDetail = new DetailPage(_Cache, _upcoming, _bikeModels, _models, basicId, _objBikeVersionsCache, _bikeInfo, _cityCacheRepo, _bikeMakesCacheRepository);
+            DetailPage objDetail = new DetailPage(_Cache, _upcoming, _bikeModels, basicId, _objBikeVersionsCache, _bikeInfo, _cityCacheRepo, _bikeMakesCacheRepository);
             if (objDetail.status == Entities.StatusCodes.ContentNotFound)
             {
                 return Redirect("/pagenotfound.aspx");
@@ -120,7 +120,7 @@ namespace Bikewale.Controllers
         [Route("m/features/detail/{basicid}/")]
         public ActionResult Detail_Mobile(string basicId)
         {
-            DetailPage objDetail = new DetailPage(_Cache, _upcoming, _bikeModels, _models, basicId, _objBikeVersionsCache, _bikeInfo, _cityCacheRepo, _bikeMakesCacheRepository);
+            DetailPage objDetail = new DetailPage(_Cache, _upcoming, _bikeModels, basicId, _objBikeVersionsCache, _bikeInfo, _cityCacheRepo, _bikeMakesCacheRepository);
             objDetail.IsMobile = true;
             if (objDetail.status == Entities.StatusCodes.ContentNotFound)
             {
@@ -152,7 +152,7 @@ namespace Bikewale.Controllers
         [Route("m/features/details/{basicid}/amp/")]
         public ActionResult DetailsAMP(string basicid)
         {
-            DetailPage objDetail = new DetailPage(_Cache, _upcoming, _bikeModels, _models, basicid, _objBikeVersionsCache, _bikeInfo, _cityCacheRepo, _bikeMakesCacheRepository);
+            DetailPage objDetail = new DetailPage(_Cache, _upcoming, _bikeModels, basicid, _objBikeVersionsCache, _bikeInfo, _cityCacheRepo, _bikeMakesCacheRepository);
             if (objDetail.status == Entities.StatusCodes.ContentNotFound)
             {
                 return Redirect("/pagenotfound.aspx");
