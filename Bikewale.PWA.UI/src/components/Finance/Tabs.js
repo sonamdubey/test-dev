@@ -1,4 +1,5 @@
 import React from 'react';
+import ExpandCollapse from 'react-expand-collapse';
 
 import { addTabEvents, removeTabEvents } from '../../utils/scrollSpyTabs';
 
@@ -44,7 +45,9 @@ class Tabs extends React.Component {
 
         <div className="tabs-panel__item" data-tab-panel="overviewTab">
           <div className="overview__content">
-            Overview: Bike loan EMI calculation was never this easy. Just select the bike you wish to avail loan for and which city do you wish to purchase the bike. Bike loan EMI calculation was never this easy. Just select the bike you wish to avail loan for and which city do you wish to purchase the bike. Bike loan EMI calculation was never this easy. Just select the bike you wish to avail loan for and which city do you wish to purchase the bike.
+            <ExpandCollapse previewHeight="66px" expandText="Read more">
+              Bike loan EMI calculation was never this easy. Just select the bike you wish to avail loan for and which city do you wish to purchase the bike. Bike loan EMI calculation was never this easy. Just select the bike you wish to avail loan for and which city do you wish to purchase the bike. Bike loan EMI calculation was never this easy. Just select the bike you wish to avail loan for and which city do you wish to purchase the bike.
+            </ExpandCollapse>
           </div>
         </div>
 
