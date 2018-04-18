@@ -1,12 +1,14 @@
 import React from 'react';
 
+import Autocomplete from '../Autocomplete';
 import Accordion from '../Shared/Accordion';
 
 class SelectBikePopup extends React.Component {
   constructor(props) {
     super(props);
-    
+
     this.getList = this.getList.bind(this);
+    this.setReference = this.setReference.bind(this);
   }
 
   getList() {
@@ -42,6 +44,18 @@ class SelectBikePopup extends React.Component {
       {
         makeId: 8,
         makeName: "KTM"
+      },
+      {
+        makeId: 9,
+        makeName: "Yamaha"
+      },
+      {
+        makeId: 10,
+        makeName: "Suzuki"
+      },
+      {
+        makeId: 11,
+        makeName: "KTM"
       }
     ];
 
@@ -71,19 +85,37 @@ class SelectBikePopup extends React.Component {
     )
   }
 
+  setReference(ref) {
+    this.popupContent = ref;
+  }
+
   render() {
-    let {
+    const {
       isActive
     } = this.props
 
     const popupActiveClassName = isActive ? 'select-bike-popup--active' : ''
+    const popupClasses = `select-bike-popup ${popupActiveClassName}`
 
     return (
-      <div className={"select-bike-popup " + popupActiveClassName}>
-        <div className="select-bike-popup__content">
+      <div className={popupClasses}>
+        <div ref={this.setReference} className="select-bike-popup__content">
           <div className="select-bike__head">
             <div className="select-bike-head__content">
               <span className="select-bike__close"></span>
+              <div className="select-bike__search-box">
+                <p className="select-bike-search__title">Select Make and Model</p>
+                <div className="autocomplete-box">
+                  <div className="autocomplete-field">
+                    <Autocomplete
+                      inputProps={{
+                        className: "form-control",
+                        placeholder: "Type to select Make and Model"
+                      }}
+                    />
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
           <div className="select-bike__body select-bike__accordion">
