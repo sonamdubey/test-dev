@@ -42,7 +42,7 @@ namespace Bikewale.ElasticSearch.Entities
         public uint Onroad { get; set; }
         [JsonProperty("abs")]
         public bool ABS { get; set; }
-        [JsonProperty("brakeType")]
+        [JsonProperty("rearBrakeType")]
         public short RearBrakeType { get; set; }
         [JsonProperty("wheels")]
         public short Wheels { get; set; }
