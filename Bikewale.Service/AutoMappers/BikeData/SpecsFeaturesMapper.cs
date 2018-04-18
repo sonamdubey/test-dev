@@ -144,12 +144,12 @@ namespace Bikewale.Service.AutoMappers.BikeData
 
         private static bool IsAlloy(SpecsItem specItem)
         {
-            return specItem != null && specItem.Value.Equals("Alloy") ? true : false;
+            return specItem != null && specItem.Value.Equals("Alloy");
         }
 
         private static bool IsElectric(SpecsItem specItem)
         {
-            return specItem != null && specItem.Value.Equals("Electric Start") ? true : false;
+            return specItem != null && specItem.Value.Equals("Electric Start");
         }
 
         private static bool CheckBoolSpecItem(SpecsItem specItem)

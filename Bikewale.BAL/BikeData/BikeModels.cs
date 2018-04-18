@@ -283,8 +283,8 @@ namespace Bikewale.BAL.BikeData
                     var specItemList = new List<EnumSpecsFeaturesItems> {
                             EnumSpecsFeaturesItems.Displacement,
                             EnumSpecsFeaturesItems.FuelEfficiencyOverall,
-                            EnumSpecsFeaturesItems.MaximumTorqueNm,
                             EnumSpecsFeaturesItems.MaxPowerBhp,
+                            EnumSpecsFeaturesItems.MaximumTorqueNm,
                             EnumSpecsFeaturesItems.KerbWeight
                         };
                     BindMinSpecs(objList, specItemList);

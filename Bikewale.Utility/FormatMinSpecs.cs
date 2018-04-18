@@ -399,15 +399,15 @@ namespace Bikewale.Utility
                 {
                     return String.Empty;
                 }
-                switch (specItem.Id)
+                switch ((EnumSpecsFeaturesItems)specItem.Id)
                 {
-                    case (int)EnumSpecsFeaturesItems.WheelType:
+                    case EnumSpecsFeaturesItems.WheelType:
                         return string.Format("{0} Wheels", specItem.Value);
-                    case (int)EnumSpecsFeaturesItems.StartType:
+                    case EnumSpecsFeaturesItems.StartType:
                         return specItem.Value;
-                    case (int)EnumSpecsFeaturesItems.AntilockBrakingSystem:
+                    case EnumSpecsFeaturesItems.AntilockBrakingSystem:
                         return specItem.Value.Equals("1") ? "ABS" : String.Empty;
-                    case (int)EnumSpecsFeaturesItems.RearBrakeType:
+                    case EnumSpecsFeaturesItems.RearBrakeType:
                         return string.Format("{0} Brake", specItem.Value);
                     default:
                         return String.Empty;
