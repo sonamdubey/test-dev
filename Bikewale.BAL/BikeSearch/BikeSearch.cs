@@ -35,9 +35,9 @@ namespace Bikewale.BAL.BikeSearch
         private static readonly string _bikeStatus = "bikeModel.modelStatus";
         private static readonly string _topVersionStatus = "topVersion.versionStatus";
         private static readonly string _abs = "topVersion.abs";
-        private static readonly string _brakes = "topVersion.brakeType.keyword";
-        private static readonly string _wheels = "topVersion.wheels.keyword";
-        private static readonly string _startType = "topVersion.startType.keyword";
+        private static readonly string _brakes = "topVersion.rearBrakeType";
+        private static readonly string _wheels = "topVersion.wheels";
+        private static readonly string _startType = "topVersion.startType";
 
         private static readonly byte _modelStatus = 1;// by defaut all new bikes status
         private static readonly byte _versionStatus = 1;
