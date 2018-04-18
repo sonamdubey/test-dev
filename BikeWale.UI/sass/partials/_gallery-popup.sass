@@ -11,21 +11,24 @@
 	z-index: 5
 
 .gallery__close-btn
-	@include cross-979797-icon
-	background-size: 12px
-	width: 12px
-	height: 12px
-	padding: 20px
+	width: 40px
+	height: 40px
+	text-align: center
 	position: fixed
 	top: 5px
 	right: 5px
 	cursor: pointer
 	z-index: 10
 
-.orientation--landscape
-	.gallery__close-btn
-		background-color: rgba(213, 213, 213, .7)
-		border-radius: 50%
+.gallery-close-btn__icon
+	@include cross-4d5057-icon
+	background-size: 10px
+	width: 30px
+	height: 30px
+	margin: 5px auto
+	display: block
+	background-color: rgba(245, 245, 245,.8)
+	border-radius: 50%
 
 // gallery active state
 .gallery-popup--active
@@ -76,10 +79,14 @@
 	.swiper--next
 		@include arrow-right
 		right: 0
+		border-top-left-radius: 4px
+		border-bottom-left-radius: 4px
 
 	.swiper--prev
 		@include arrow-left
 		left: 0
+		border-top-right-radius: 4px
+		border-bottom-right-radius: 4px
 
 		&.swiper-button-disabled
 			opacity: .4
@@ -250,17 +257,6 @@
 		width: 100%
 		text-align: center
 		font-size: 12px
-
-	.swiper--next
-		right: 0
-		border-top-left-radius: 4px
-		border-bottom-left-radius: 4px
-
-	.swiper--prev
-		left: 0
-		border-top-right-radius: 4px
-		border-bottom-right-radius: 4px
-
 
 // rotate slug
 .gallery__landscape-slug
@@ -464,12 +460,7 @@
 	.gallery__slide-slug
 		padding-bottom: 50px
 
-@keyframes fadeIn
-	0%
-		opacity: 0
-
-	100%
-		opacity: 1
+@include fadeIn
 
 // colors slide
 .gallery__slide-slug
@@ -701,26 +692,4 @@
 		z-index: 10
 		background-color: rgba(0, 0, 0, .8)
 
-@-webkit-keyframes spin
-	from
-		-webkit-transform: rotate(0deg)
-		transform: rotate(0deg)
-	to
-		-webkit-transform: rotate(360deg)
-		transform: rotate(360deg)
-
-@-moz-keyframes spin
-	from
-		-moz-transform: rotate(0deg)
-		transform: rotate(0deg)
-	to
-		-moz-transform: rotate(360deg)
-		transform: rotate(360deg)
-
-@keyframes spin
-	from
-		transform: rotate(0deg)
-		transform: rotate(0deg)
-	to
-		transform: rotate(360deg)
-		transform: rotate(360deg)
+@include spin

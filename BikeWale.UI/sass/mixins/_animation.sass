@@ -1,40 +1,97 @@
 ﻿@mixin animateSkyline()
-	@-webkit-keyframes animateSkyline
-		from
-			@include vendor-prefix('transform', translate(-1024px, 0))
-		to
-			@include vendor-prefix('transform', translate(0, 0))
+  @-webkit-keyframes animateSkyline
+    from
+      @include vendor-prefix('transform', translate(-1024px, 0))
+    to
+      @include vendor-prefix('transform', translate(0, 0))
 
-	@keyframes animateSkyline
-		from
-			@include vendor-prefix('transform', translate(-1024px, 0))
-		to
-			@include vendor-prefix('transform', translate(0, 0))
+  @keyframes animateSkyline
+    from
+      @include vendor-prefix('transform', translate(-1024px, 0))
+    to
+      @include vendor-prefix('transform', translate(0, 0))
 
 @mixin bell-swing
-	@-webkit-keyframes bell-swing
-		0%
-			-webkit-transform: rotate(-20deg)
-		100%
-			-webkit-transform: rotate(20deg)
+  @-webkit-keyframes bell-swing
+    0%
+      -webkit-transform: rotate(-20deg)
+    100%
+      -webkit-transform: rotate(20deg)
 
-	@keyframes bell-swing
-		0%
-			transform: rotate(-20deg)
-		100%
-			transform: rotate(20deg)
+  @keyframes bell-swing
+    0%
+      transform: rotate(-20deg)
+    100%
+      transform: rotate(20deg)
 
 
 @mixin bell-clapper-swing
-	@-webkit-keyframes bell-clapper-swing
-		0%
-			-webkit-transform: translateX(-8px)
-		100%
-			-webkit-transform: translateX(8px)
+  @-webkit-keyframes bell-clapper-swing
+    0%
+      -webkit-transform: translateX(-8px)
+    100%
+      -webkit-transform: translateX(8px)
 
-	@keyframes bell-clapper-swing
-		0%
-			transform: translateX(-8px)
-		100%
-			transform: translateX(8px)
+  @keyframes bell-clapper-swing
+    0%
+      transform: translateX(-8px)
+    100%
+      transform: translateX(8px)
 
+
+@mixin fadeIn
+  @keyframes fadeIn
+    0%
+      opacity: 0
+
+    100%
+      opacity: 1
+
+
+@mixin spin
+  @-webkit-keyframes spin
+    from
+      -webkit-transform: rotate(0deg)
+      transform: rotate(0deg)
+    to
+      -webkit-transform: rotate(360deg)
+      transform: rotate(360deg)
+
+  @-moz-keyframes spin
+    from
+      -moz-transform: rotate(0deg)
+      transform: rotate(0deg)
+    to
+      -moz-transform: rotate(360deg)
+      transform: rotate(360deg)
+
+  @keyframes spin
+    from
+      transform: rotate(0deg)
+      transform: rotate(0deg)
+    to
+      transform: rotate(360deg)
+      transform: rotate(360deg)
+
+
+@mixin fadeInTranslate
+  @-webkit-keyframes fadeInTranslate
+    0%
+      display: none
+      opacity: 0
+
+    100%
+      opacity: 1
+      display: block
+      -webkit-transform: translate(0, 0)
+      transform: translate(0, 0)
+
+  @keyframes fadeInTranslate
+    0%
+      display: none
+      opacity: 0
+
+    100%
+      opacity: 1
+      display: block
+      transform: translate(0, 0)

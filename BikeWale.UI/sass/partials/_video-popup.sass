@@ -70,26 +70,7 @@
 	.swiper-card__label
 		font-size: 12px
 
-@-webkit-keyframes fadeInTranslate
-	0%
-		display: none
-		opacity: 0
-
-	100%
-		opacity: 1
-		display: block
-		-webkit-transform: translate(0, 0)
-		transform: translate(0, 0)
-
-@keyframes fadeInTranslate
-	0%
-		display: none
-		opacity: 0
-
-	100%
-		opacity: 1
-		display: block
-		transform: translate(0, 0)
+@include fadeInTranslate
 
 .swiper__videos
 	&.swiper-container
@@ -115,6 +96,7 @@
 		top: 0
 		bottom: 0
 		z-index: 8
+		cursor: pointer
 
 .video-list__back-btn
 	@include arrow-right

@@ -68,6 +68,20 @@
 	.landscape-icon__container
 		width: 40px
 
+@media only screen and (min-width: 375px) and (max-width: 400px)
+	.swiper__colors
+		height: 213px
+
+		.swiper-wrapper
+			height: 213px
+
+@media only screen and (min-width: 410px) and (max-width: 420px)
+	.swiper__colors
+		height: 234px
+
+		.swiper-wrapper
+			height: 234px
+
 .color-popup--landscape
 	.swiper__colors
 		height: auto
@@ -187,26 +201,7 @@
 			bottom: -100%
 
 // animation
-@-webkit-keyframes fadeInTranslate
-	0%
-		display: none
-		opacity: 0
-
-	100%
-		opacity: 1
-		display: block
-		-webkit-transform: translate(0, 0)
-		transform: translate(0, 0)
-
-@keyframes fadeInTranslate
-	0%
-		display: none
-		opacity: 0
-
-	100%
-		opacity: 1
-		display: block
-		transform: translate(0, 0)
+@include fadeInTranslate
 
 @-webkit-keyframes colorPopupFooter
 	0%
@@ -378,4 +373,3 @@
 	.screen--rotate-slug__landscape-icon
 		@include rotate-2d2d2d-icon
 		background-size: 20px
-
