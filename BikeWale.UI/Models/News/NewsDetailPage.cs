@@ -27,6 +27,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Bikewale.Models.EditorialPages;
+using Bikewale.Entities.EditorialWidgets;
 
 namespace Bikewale.Models
 {
@@ -280,7 +281,19 @@ namespace Bikewale.Models
             {
                 isScooterOnlyMake = objData.Make.IsScooterOnly;
             }
-            SetAdditionalGenericVariables(IsMobile, MakeId, MakeName, MakeMaskingName, isMakeLive, ModelId, bikeSeriesEntityBase.SeriesId, bikeSeriesEntityBase.SeriesName, bikeSeriesEntityBase.MaskingName, CityId, isSeriesAvailable, isScooterOnlyMake, bodyStyle);
+            EditorialWidgetEntity editorialWidgetData = new EditorialWidgetEntity
+            {
+                IsMobile = IsMobile,
+                IsMakeLive = isMakeLive,
+                IsModelTagged = isModelTagged,
+                IsSeriesAvailable = isSeriesAvailable,
+                IsScooterOnlyMake = isScooterOnlyMake,
+                BodyStyle = bodyStyle,
+                CityId = CityId,
+                Make = objData.Make,
+                Series = bikeSeriesEntityBase
+            };
+            base.SetAdditionalData(editorialWidgetData);
         }
 
         /// <summary>
