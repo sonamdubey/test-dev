@@ -498,3 +498,7 @@
 .model-widget__title.text-truncate { 
     width: 45%; 
 }
+
+.model-grid-9-slug .model-ribbon-tag { 
+    left: -10px 
+}
