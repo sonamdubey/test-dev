@@ -348,11 +348,12 @@ namespace Bikewale.ElasticSearch.DocumentBuilderConsumer.DocumentBuilders
             try
             {
                 string value = string.Empty;
-
-                value = (from data in objSpec
-                         where data.Id == propertyId
-                         select (data.DataType == EnumSpecDataType.Custom) ? Convert.ToString(data.CustomTypeId) : data.Value).FirstOrDefault();
-
+                if (objSpec != null)
+                {
+                    value = (from data in objSpec
+                             where data.Id == propertyId
+                             select (data.DataType == EnumSpecDataType.Custom) ? Convert.ToString(data.CustomTypeId) : data.Value).FirstOrDefault();
+                }
                 return !string.IsNullOrEmpty(value) ? value : null;
             }
             catch (Exception ex)
