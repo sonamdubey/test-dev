@@ -161,10 +161,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
                         isVerified = true; // Set Verified to true to push the lead into AB for un-verified leads as well
 
                         pqCustomer = _objDealerPriceQuote.GetCustomerDetails(input.PQId);
-                        if(pqCustomer != null && pqCustomer.objCustomerBase != null)
-                        {
-                            objCust = pqCustomer.objCustomerBase;
-                        }
+                        objCust = pqCustomer.objCustomerBase;
 
                         PQ_DealerDetailEntity dealerDetailEntity = null;
 
@@ -178,60 +175,60 @@ namespace Bikewale.Service.Controllers.PriceQuote
                             objParam.VersionId = Convert.ToUInt32(input.VersionId);
                             dealerDetailEntity = objDealer.GetDealerDetailsPQ(objParam);
                         }
-
-                        if (dealerDetailEntity != null && dealerDetailEntity.objQuotation != null)
+                        
+                        if (dealerDetailEntity.objBookingAmt != null)
                         {
-                            if (dealerDetailEntity.objBookingAmt != null)
+                            bookingAmount = dealerDetailEntity.objBookingAmt.Amount;
+                        }
+                        foreach (var price in dealerDetailEntity.objQuotation.PriceList)
+                        {
+                            IsInsuranceFree = OfferHelper.HasFreeInsurance(input.DealerId.ToString(), dealerDetailEntity.objQuotation.objModel.ModelId.ToString(), price.CategoryName, price.Price, ref insuranceAmount);
+                        }
+                        if (insuranceAmount > 0)
+                        {
+                            IsInsuranceFree = true;
+                        }
+
+                        bool isShowroomPriceAvail = false, isBasicAvail = false;
+
+                        foreach (var item in dealerDetailEntity.objQuotation.PriceList)
+                        {
+                            //Check if Ex showroom price for a bike is available CategoryId = 3 (exshowrrom)
+                            if (item.CategoryId == 3)
                             {
-                                bookingAmount = dealerDetailEntity.objBookingAmt.Amount;
-                            }
-                            foreach (var price in dealerDetailEntity.objQuotation.PriceList)
-                            {
-                                IsInsuranceFree = OfferHelper.HasFreeInsurance(input.DealerId.ToString(), dealerDetailEntity.objQuotation.objModel.ModelId.ToString(), price.CategoryName, price.Price, ref insuranceAmount);
-                            }
-                            if (insuranceAmount > 0)
-                            {
-                                IsInsuranceFree = true;
-                            }
-
-                            bool isShowroomPriceAvail = false, isBasicAvail = false;
-
-                            foreach (var item in dealerDetailEntity.objQuotation.PriceList)
-                            {
-                                //Check if Ex showroom price for a bike is available CategoryId = 3 (exshowrrom)
-                                if (item.CategoryId == 3)
-                                {
-                                    isShowroomPriceAvail = true;
-                                    exShowroomCost = item.Price;
-                                }
-
-                                //if Ex showroom price for a bike is not available  then set basic cost for bike price CategoryId = 1 (basic bike cost)
-                                if (!isShowroomPriceAvail && item.CategoryId == 1)
-                                {
-                                    exShowroomCost += item.Price;
-                                    isBasicAvail = true;
-                                }
-
-                                if (item.CategoryId == 2 && !isShowroomPriceAvail)
-                                    exShowroomCost += item.Price;
-
-                                TotalPrice += item.Price;
+                                isShowroomPriceAvail = true;
+                                exShowroomCost = item.Price;
                             }
 
-                            if (isBasicAvail && isShowroomPriceAvail)
-                                TotalPrice = TotalPrice - exShowroomCost;
-
-                            imagePath = Bikewale.Utility.Image.GetPathToShowImages(dealerDetailEntity.objQuotation.OriginalImagePath, dealerDetailEntity.objQuotation.HostUrl, Bikewale.Utility.ImageSize._210x118);
-                            bikeName = dealerDetailEntity.objQuotation.objMake.MakeName + " " + dealerDetailEntity.objQuotation.objModel.ModelName + " " + dealerDetailEntity.objQuotation.objVersion.VersionName;
-                            versionName = dealerDetailEntity.objQuotation.objVersion.VersionName;
-                            var platformId = "";
-                            if (Request.Headers.Contains("platformId"))
+                            //if Ex showroom price for a bike is not available  then set basic cost for bike price CategoryId = 1 (basic bike cost)
+                            if (!isShowroomPriceAvail && item.CategoryId == 1)
                             {
-                                platformId = Request.Headers.GetValues("platformId").First().ToString();
+                                exShowroomCost += item.Price;
+                                isBasicAvail = true;
                             }
-                            DPQSmsEntity objDPQSmsEntity = new DPQSmsEntity();
-                            objDPQSmsEntity.CustomerMobile = objCust.CustomerMobile;
-                            objDPQSmsEntity.CustomerName = objCust.CustomerName;
+
+                            if (item.CategoryId == 2 && !isShowroomPriceAvail)
+                                exShowroomCost += item.Price;
+
+                            TotalPrice += item.Price;
+                        }
+
+                        if (isBasicAvail && isShowroomPriceAvail)
+                            TotalPrice = TotalPrice - exShowroomCost;
+
+                        imagePath = Bikewale.Utility.Image.GetPathToShowImages(dealerDetailEntity.objQuotation.OriginalImagePath, dealerDetailEntity.objQuotation.HostUrl, Bikewale.Utility.ImageSize._210x118);
+                        bikeName = dealerDetailEntity.objQuotation.objMake.MakeName + " " + dealerDetailEntity.objQuotation.objModel.ModelName + " " + dealerDetailEntity.objQuotation.objVersion.VersionName;
+                        versionName = dealerDetailEntity.objQuotation.objVersion.VersionName;
+                        var platformId = "";
+                        if (Request.Headers.Contains("platformId"))
+                        {
+                            platformId = Request.Headers.GetValues("platformId").First().ToString();
+                        }
+                        DPQSmsEntity objDPQSmsEntity = new DPQSmsEntity();
+                        objDPQSmsEntity.CustomerMobile = objCust.CustomerMobile;
+                        objDPQSmsEntity.CustomerName = objCust.CustomerName;
+                        if (dealerDetailEntity != null && dealerDetailEntity.objDealer != null)
+                        {
                             objDPQSmsEntity.DealerMobile = dealerDetailEntity.objDealer.MobileNo;
                             objDPQSmsEntity.DealerName = dealerDetailEntity.objDealer.Organization;
                             objDPQSmsEntity.Locality = dealerDetailEntity.objDealer.Address;
@@ -247,13 +244,12 @@ namespace Bikewale.Service.Controllers.PriceQuote
 
                             _objLeadNofitication.NotifyDealer(input.PQId, dealerDetailEntity.objQuotation.objMake.MakeName, dealerDetailEntity.objQuotation.objModel.ModelName, dealerDetailEntity.objQuotation.objVersion.VersionName,
                                 dealerDetailEntity.objDealer.Organization, dealerDetailEntity.objDealer.EmailId, objCust.CustomerName, objCust.CustomerEmail, objCust.CustomerMobile, custArea, custCity, dealerDetailEntity.objQuotation.PriceList, Convert.ToInt32(TotalPrice), dealerDetailEntity.objOffers, imagePath, dealerDetailEntity.objDealer.PhoneNo, bikeName, objDPQSmsEntity.DealerArea);
+                        }
 
-
-                            if (isVerified)
-                            {
-                                _objPriceQuote.SaveBookingState(input.PQId, PriceQuoteStates.LeadSubmitted);
-                                _objLeadNofitication.PushtoAB(input.DealerId.ToString(), input.PQId, objCust.CustomerName, objCust.CustomerMobile, objCust.CustomerEmail, input.VersionId, input.CityId);
-                            }
+                        if (isVerified)
+                        {
+                            _objPriceQuote.SaveBookingState(input.PQId, PriceQuoteStates.LeadSubmitted);
+                            _objLeadNofitication.PushtoAB(input.DealerId.ToString(), input.PQId, objCust.CustomerName, objCust.CustomerMobile, objCust.CustomerEmail, input.VersionId, input.CityId);
                         }
                     }
                     if (isVerified)

@@ -51,43 +51,6 @@ namespace Bikewale.Service.Controllers.Model
             _apiGatewayCaller = apiGatewayCaller;
         }
 
-        #region Model Specifications and Features
-        /// <summary>
-        ///  To get Model's Specifications and Features based on VersionId 
-        /// </summary>
-        /// <param name="versionId">Model's Version ID</param>        
-        /// <returns>Model's Specs and Features</returns>
-        [ResponseType(typeof(VersionSpecifications)), Route("api/version/specs/")]
-        public IHttpActionResult Get(int versionId)
-        {
-            BikeSpecificationEntity objVersionSpecs = null;
-            VersionSpecifications objDTOVersionSpecs = null;
-            try
-            {
-                objVersionSpecs = _modelRepository.MVSpecsFeatures(versionId);
-
-                if (objVersionSpecs != null)
-                {
-                    // Auto map the properties
-                    objDTOVersionSpecs = new VersionSpecifications();
-                    objDTOVersionSpecs = ModelMapper.Convert(objVersionSpecs);
-                    return Ok(objDTOVersionSpecs);
-                }
-                else
-                {
-                    return NotFound();
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorClass.LogError(ex, "Exception : Bikewale.Service.Model.ModelController");
-
-                return InternalServerError();
-            }
-
-        }   // Get  Specs and Features
-        #endregion
-
         /// <summary>
         /// Created By : Lucky Rathore on 14 Apr 2016
         /// Description : API to give Model Specification, Feature, Versions and Colors.

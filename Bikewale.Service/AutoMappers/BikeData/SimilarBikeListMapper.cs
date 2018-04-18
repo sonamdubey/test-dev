@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Bikewale.BAL.ApiGateway.Entities.BikeData;
 using Bikewale.DTO.BikeData;
 using Bikewale.DTO.Make;
 using Bikewale.DTO.Model;
@@ -40,21 +41,21 @@ namespace Bikewale.Service.AutoMappers.BikeData
                             foreach (var spec in specItemList)
                             {
                                 specValue = float.TryParse(spec.Value, out specValue) ? specValue : 0;
-                                switch ((EnumSpecsFeaturesItem)spec.Id)
+                                switch ((EnumSpecsFeaturesItems)spec.Id)
                                 {
-                                    case EnumSpecsFeaturesItem.Displacement:
+                                    case EnumSpecsFeaturesItems.Displacement:
                                         dtoBike.Displacement = specValue;
                                         break;
-                                    case EnumSpecsFeaturesItem.FuelEfficiencyOverall:
+                                    case EnumSpecsFeaturesItems.FuelEfficiencyOverall:
                                         dtoBike.FuelEfficiencyOverall = ushort.TryParse(spec.Value, out u) ? u : ushort.MinValue;
                                         break;
-                                    case EnumSpecsFeaturesItem.MaxPowerBhp:
+                                    case EnumSpecsFeaturesItems.MaxPowerBhp:
                                         dtoBike.MaxPower = specValue;
                                         break;
-                                    case EnumSpecsFeaturesItem.MaximumTorqueNm:
+                                    case EnumSpecsFeaturesItems.MaximumTorqueNm:
                                         dtoBike.MaximumTorque = specValue;
                                         break;
-                                    case EnumSpecsFeaturesItem.KerbWeight:
+                                    case EnumSpecsFeaturesItems.KerbWeight:
                                         dtoBike.KerbWeight = specValue;
                                         break;
                                 }

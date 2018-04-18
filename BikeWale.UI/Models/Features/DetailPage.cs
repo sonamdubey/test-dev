@@ -22,6 +22,8 @@ namespace Bikewale.Models.Features
     /// <summary>
     /// Modified by : Ashutosh Sharma on 28 Oct 2017
     /// Description : Added IsAMPPage
+    /// Modified by : Rajan Chauhan on 17 Apr 2018
+    /// Description : Removed IBikeModelsCacheRepository dependency
     /// </summary>
     public class DetailPage
     {
@@ -29,7 +31,6 @@ namespace Bikewale.Models.Features
         private readonly ICMSCacheContent _cache = null;
         private readonly IUpcoming _upcoming = null;
         private readonly IBikeModels<BikeModelEntity, int> _bikeModels = null;
-        private readonly IBikeModelsCacheRepository<int> _models = null;
         private GlobalCityAreaEntity currentCityArea;
         private readonly IBikeVersionCacheRepository<BikeVersionEntity, uint> _objBikeVersionsCache = null;
         private readonly bool showCheckOnRoadCTA = false;
@@ -54,12 +55,11 @@ namespace Bikewale.Models.Features
         #endregion
 
         #region Constructor
-        public DetailPage(ICMSCacheContent cache, IUpcoming upcoming, IBikeModels<BikeModelEntity, int> bikeModels, IBikeModelsCacheRepository<int> models, string basicId, IBikeVersionCacheRepository<BikeVersionEntity, uint> objBikeVersionsCache, IBikeInfo bikeInfo, ICityCacheRepository cityCacheRepo, IBikeMakesCacheRepository bikeMakesCacheRepository)
+        public DetailPage(ICMSCacheContent cache, IUpcoming upcoming, IBikeModels<BikeModelEntity, int> bikeModels, string basicId, IBikeVersionCacheRepository<BikeVersionEntity, uint> objBikeVersionsCache, IBikeInfo bikeInfo, ICityCacheRepository cityCacheRepo, IBikeMakesCacheRepository bikeMakesCacheRepository)
         {
             _cache = cache;
             _upcoming = upcoming;
             _bikeModels = bikeModels;
-            _models = models;
             _basicId = basicId;
             _objBikeVersionsCache = objBikeVersionsCache;
             _bikeMakesCacheRepository = bikeMakesCacheRepository;
@@ -154,7 +154,7 @@ namespace Bikewale.Models.Features
 
                     if (objData.objModel != null && objData.objModel.ModelId > 0)
                     {
-                        PopularBikesByBodyStyle objPopularStyle = new PopularBikesByBodyStyle(_models);
+                        PopularBikesByBodyStyle objPopularStyle = new PopularBikesByBodyStyle(_bikeModels);
                         objPopularStyle.ModelId = (uint)objData.objModel.ModelId;
                         objPopularStyle.CityId = CityId;
                         objPopularStyle.TopCount = topCount;
@@ -357,7 +357,7 @@ namespace Bikewale.Models.Features
         {
             if (objData != null && topCount > 0)
             {
-                PopularBikesByBodyStyle objPopularStyle = new PopularBikesByBodyStyle(_models);
+                PopularBikesByBodyStyle objPopularStyle = new PopularBikesByBodyStyle(_bikeModels);
                 objPopularStyle.ModelId = ModelId;
                 objPopularStyle.CityId = CityId;
                 objPopularStyle.TopCount = topCount;

@@ -41,6 +41,7 @@ namespace Bikewale.Models
         public BikeMakeEntityBase objMake;
         public CityEntityBase CityDetails;
         public DealerShowroomDealerDetailsVM objDealerDetails = null;
+        private readonly IDealer _objDealer;
 
         public bool IsMobile { get; internal set; }
 
@@ -53,7 +54,9 @@ namespace Bikewale.Models
         /// <param name="bikeModels"></param>
         /// <param name="makeMaskingName"></param>
         /// <param name="dealerId"></param>
-        public DealerShowroomDealerDetail(IServiceCenter objSC, IDealerCacheRepository objDealerCache, IBikeMakesCacheRepository bikeMakesCache, IBikeModels<BikeModelEntity, int> bikeModels, string makeMaskingName, string cityMaskingName, uint dealerId, uint topCount, bool isMobile, IApiGatewayCaller apiGatewayCaller)
+        public DealerShowroomDealerDetail(IServiceCenter objSC, IDealerCacheRepository objDealerCache, IBikeMakesCacheRepository bikeMakesCache,
+            IBikeModels<BikeModelEntity, int> bikeModels, string makeMaskingName, string cityMaskingName, uint dealerId, uint topCount, bool isMobile,
+            IApiGatewayCaller apiGatewayCaller, IDealer objDealer)
         {
             _objDealerCache = objDealerCache;
             _bikeMakesCache = bikeMakesCache;
@@ -63,6 +66,7 @@ namespace Bikewale.Models
             IsMobile = isMobile;
             objDealerDetails = new DealerShowroomDealerDetailsVM();
             _apiGatewayCaller = apiGatewayCaller;
+            _objDealer = objDealer;
             ProcessQuery(makeMaskingName, cityMaskingName, dealerId);
         }
 
@@ -359,7 +363,7 @@ namespace Bikewale.Models
             DealerBikesEntity objDealerDetails = null;
             try
             {
-                objDealerDetails = _objDealerCache.GetDealerDetailsAndBikesByDealerAndMake(dealerId, (int)makeId);
+                objDealerDetails = _objDealer.GetDealerDetailsAndBikesByDealerAndMake(dealerId, (int)makeId);
                 if (objDealerDetails != null && objDealerDetails.Models != null)
                 {
                     GetVersionSpecsByItemIdAdapter adapt1 = new GetVersionSpecsByItemIdAdapter();

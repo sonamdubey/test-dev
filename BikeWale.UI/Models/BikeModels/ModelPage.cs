@@ -34,7 +34,6 @@ using Bikewale.Models.PriceInCity;
 using Bikewale.Models.Used;
 using Bikewale.Models.UserReviews;
 using Bikewale.Notifications;
-using Bikewale.Utility;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -43,6 +42,9 @@ using System.Text;
 using System.Web;
 using Bikewale.BAL.ApiGateway.ApiGatewayHelper;
 using Bikewale.BAL.ApiGateway.Adapters.BikeData;
+using Bikewale.BAL.ApiGateway.Entities.BikeData;
+using Bikewale.BAL.ApiGateway.Utils;
+using Bikewale.Utility;
 
 namespace Bikewale.Models.BikeModels
 {
@@ -66,7 +68,6 @@ namespace Bikewale.Models.BikeModels
         private readonly IBikeModels<Entities.BikeData.BikeModelEntity, int> _objModel = null;
         private readonly IDealerPriceQuoteDetail _objDealerDetails = null;
         private readonly IBikeVersions<BikeVersionEntity, uint> _objVersion;
-        private readonly IBikeModelsCacheRepository<int> _objBestBikes = null;
         private readonly ICMSCacheContent _objArticles = null;
         private readonly IVideos _objVideos = null;
         private readonly IUsedBikeDetailsCacheRepository _objUsedBikescache = null;
@@ -118,7 +119,7 @@ namespace Bikewale.Models.BikeModels
         /// Modified by : Ashutosh Sharma on 31 Oct 2017
         /// Description : Added IAdSlot.
         /// </summary>
-        public ModelPage(string makeMasking, string modelMasking, IUserReviewsSearch userReviewsSearch, IUserReviewsCache userReviewsCache, IBikeModels<Entities.BikeData.BikeModelEntity, int> objModel, IDealerPriceQuote objDealerPQ, IAreaCacheRepository objAreaCache, ICityCacheRepository objCityCache, IPriceQuote objPQ, IDealerCacheRepository objDealerCache, IDealerPriceQuoteDetail objDealerDetails, IBikeVersions<BikeVersionEntity, uint> objVersion, ICMSCacheContent objArticles, IVideos objVideos, IUsedBikeDetailsCacheRepository objUsedBikescache, IServiceCenter objServiceCenter, IPriceQuoteCache objPQCache, IUsedBikesCache usedBikesCache, IBikeModelsCacheRepository<int> objBestBikes, IUpcoming upcoming, IManufacturerCampaign objManufacturerCampaign, IBikeSeries bikeSeries, IAdSlot adSlot, IBikeInfo bikeInfo, IBikeMakesCacheRepository bikeMakesCacheRepository, IApiGatewayCaller apiGatewayCaller)
+        public ModelPage(string makeMasking, string modelMasking, IUserReviewsSearch userReviewsSearch, IUserReviewsCache userReviewsCache, IBikeModels<Entities.BikeData.BikeModelEntity, int> objModel, IDealerPriceQuote objDealerPQ, IAreaCacheRepository objAreaCache, ICityCacheRepository objCityCache, IPriceQuote objPQ, IDealerCacheRepository objDealerCache, IDealerPriceQuoteDetail objDealerDetails, IBikeVersions<BikeVersionEntity, uint> objVersion, ICMSCacheContent objArticles, IVideos objVideos, IUsedBikeDetailsCacheRepository objUsedBikescache, IServiceCenter objServiceCenter, IPriceQuoteCache objPQCache, IUsedBikesCache usedBikesCache, IUpcoming upcoming, IManufacturerCampaign objManufacturerCampaign, IBikeSeries bikeSeries, IAdSlot adSlot, IBikeInfo bikeInfo, IBikeMakesCacheRepository bikeMakesCacheRepository, IApiGatewayCaller apiGatewayCaller)
         {
             _objModel = objModel;
             _objDealerPQ = objDealerPQ;
@@ -128,7 +129,6 @@ namespace Bikewale.Models.BikeModels
             _objDealerCache = objDealerCache;
             _objDealerDetails = objDealerDetails;
             _objVersion = objVersion;
-            _objBestBikes = objBestBikes;
             _upcoming = upcoming;
             _objArticles = objArticles;
             _objVideos = objVideos;
@@ -478,7 +478,7 @@ namespace Bikewale.Models.BikeModels
                 if (_objData != null && _objData.ModelPageEntity != null && _objData.ModelPageEntity.ModelVersionMinSpecs != null && _objData.ModelPageEntity.ModelVersionMinSpecs.MinSpecsList != null)
                 {
                     IEnumerable<SpecsItem> versionMinSpecsList = _objData.ModelPageEntity.ModelVersionMinSpecs.MinSpecsList;
-                    SpecsItem specItem = FormatMinSpecs.SanitizeNumericMinSpec(versionMinSpecsList, EnumSpecsFeaturesItem.FuelEfficiencyOverall);
+                    SpecsItem specItem = FormatMinSpecsItem.SanitizeNumericMinSpec(versionMinSpecsList, EnumSpecsFeaturesItems.FuelEfficiencyOverall);
                     if (!string.IsNullOrEmpty(specItem.Value))
                     {
                         property = new AdditionalProperty
@@ -490,7 +490,7 @@ namespace Bikewale.Models.BikeModels
                         };
                         listSpecs.Add(property);
                     }
-                    specItem = FormatMinSpecs.SanitizeNumericMinSpec(versionMinSpecsList, EnumSpecsFeaturesItem.Displacement);
+                    specItem = FormatMinSpecsItem.SanitizeNumericMinSpec(versionMinSpecsList, EnumSpecsFeaturesItems.Displacement);
                     if (!string.IsNullOrEmpty(specItem.Value))
                     {
                         property = new AdditionalProperty
@@ -502,7 +502,7 @@ namespace Bikewale.Models.BikeModels
                         };
                         listSpecs.Add(property);
                     }
-                    specItem = FormatMinSpecs.SanitizeNumericMinSpec(versionMinSpecsList, EnumSpecsFeaturesItem.MaxPowerBhp);
+                    specItem = FormatMinSpecsItem.SanitizeNumericMinSpec(versionMinSpecsList, EnumSpecsFeaturesItems.MaxPowerBhp);
                     if (!string.IsNullOrEmpty(specItem.Value))
                     {
                         property = new AdditionalProperty
@@ -515,7 +515,7 @@ namespace Bikewale.Models.BikeModels
                         listSpecs.Add(property);
 
                     }
-                    specItem = FormatMinSpecs.SanitizeNumericMinSpec(versionMinSpecsList, EnumSpecsFeaturesItem.KerbWeight);
+                    specItem = FormatMinSpecsItem.SanitizeNumericMinSpec(versionMinSpecsList, EnumSpecsFeaturesItems.KerbWeight);
                     if (!string.IsNullOrEmpty(specItem.Value))
                     {
                         property = new AdditionalProperty
@@ -527,7 +527,7 @@ namespace Bikewale.Models.BikeModels
                         };
                         listSpecs.Add(property);
                     }
-                    specItem = FormatMinSpecs.SanitizeNumericMinSpec(versionMinSpecsList, EnumSpecsFeaturesItem.TopSpeed);
+                    specItem = FormatMinSpecsItem.SanitizeNumericMinSpec(versionMinSpecsList, EnumSpecsFeaturesItems.TopSpeed);
                     if (!string.IsNullOrEmpty(specItem.Value))
                     {
                         property = new AdditionalProperty
@@ -642,8 +642,8 @@ namespace Bikewale.Models.BikeModels
                         priceDescription = _objData.ModelPageEntity.ModelDetails.MinPrice > 0 ? string.Format("Price - &#x20B9; {0} onwards (Ex-showroom, {1}).", Bikewale.Utility.Format.FormatPrice(Convert.ToString(_objData.ModelPageEntity.ModelDetails.MinPrice)), Bikewale.Utility.BWConfiguration.Instance.DefaultName) : string.Empty;
                     if (_objData.ModelPageEntity != null && _objData.ModelPageEntity.ModelVersionMinSpecs != null && _objData.ModelPageEntity.ModelVersionMinSpecs.MinSpecsList != null)
                     {
-                        SpecsItem mileage = FormatMinSpecs.SanitizeNumericMinSpec(_objData.ModelPageEntity.ModelVersionMinSpecs.MinSpecsList, EnumSpecsFeaturesItem.FuelEfficiencyOverall);
-                        SpecsItem topSpeed = FormatMinSpecs.SanitizeNumericMinSpec(_objData.ModelPageEntity.ModelVersionMinSpecs.MinSpecsList, EnumSpecsFeaturesItem.TopSpeed);
+                        SpecsItem mileage = FormatMinSpecsItem.SanitizeNumericMinSpec(_objData.ModelPageEntity.ModelVersionMinSpecs.MinSpecsList, EnumSpecsFeaturesItems.FuelEfficiencyOverall);
+                        SpecsItem topSpeed = FormatMinSpecsItem.SanitizeNumericMinSpec(_objData.ModelPageEntity.ModelVersionMinSpecs.MinSpecsList, EnumSpecsFeaturesItems.TopSpeed);
                         if (!string.IsNullOrEmpty(mileage.Value) && !string.IsNullOrEmpty(topSpeed.Value))
                         {
                             specsDescirption = string.Format("{0} has a mileage of {1} kmpl and a top speed of {2} kmph.", bikeModelName, mileage.Value, topSpeed.Value);
@@ -904,7 +904,7 @@ namespace Bikewale.Models.BikeModels
             {
                 if (_modelId > 0)
                 {
-                    var modelPopularBikesByBodyStyle = new PopularBikesByBodyStyle(_objBestBikes);
+                    var modelPopularBikesByBodyStyle = new PopularBikesByBodyStyle(_objModel);
                     modelPopularBikesByBodyStyle.CityId = _cityId;
                     modelPopularBikesByBodyStyle.ModelId = _modelId;
                     modelPopularBikesByBodyStyle.TopCount = 9;
@@ -1196,7 +1196,7 @@ namespace Bikewale.Models.BikeModels
         {
             try
             {
-                OtherBestBikesModel otherBestBikesModel = new OtherBestBikesModel((uint)_objData.ModelPageEntity.ModelDetails.MakeBase.MakeId, _objData.ModelPageEntity.ModelDetails.MakeBase.MakeName, (uint)_objData.ModelId, BodyStyleType, _objBestBikes, cityId);
+                OtherBestBikesModel otherBestBikesModel = new OtherBestBikesModel((uint)_objData.ModelPageEntity.ModelDetails.MakeBase.MakeId, _objData.ModelPageEntity.ModelDetails.MakeBase.MakeName, (uint)_objData.ModelId, BodyStyleType, _objModel, cityId);
 
                 _objData.OtherBestBikes = otherBestBikesModel.GetData();
             }
@@ -2148,7 +2148,7 @@ namespace Bikewale.Models.BikeModels
                             if (_objData.ModelPageEntity != null && _objData.ModelPageEntity.ModelVersionMinSpecs != null && _objData.ModelPageEntity.ModelVersionMinSpecs.MinSpecsList != null)
                             {
                                 float ariMileageTemp;
-                                SpecsItem minSpec = _objData.ModelPageEntity.ModelVersionMinSpecs.MinSpecsList.FirstOrDefault(x => x.Id.Equals((int)EnumSpecsFeaturesItem.FuelEfficiencyOverall));
+                                SpecsItem minSpec = _objData.ModelPageEntity.ModelVersionMinSpecs.MinSpecsList.FirstOrDefault(x => x.Id.Equals((int)EnumSpecsFeaturesItems.FuelEfficiencyOverall));
                                 if (minSpec != null)
                                 {
                                     mileageWidgetObj.MileageInfo.ARAIMileage = float.TryParse(minSpec.Value, out ariMileageTemp) ? ariMileageTemp : 0;
