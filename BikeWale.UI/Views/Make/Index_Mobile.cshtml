@@ -94,7 +94,7 @@
                                                         </span>
                                                     </div>
                                                 }
-                                                <div class="margin-bottom5">                                                    
+                                                <div class="margin-bottom5">
                                                     @if (bike.AvgPrice > 0)
                                                     {
                                                         <span class="text-bold font18">@Html.Raw(String.Format(" <span class='font18'>&#x20B9;</span>&nbsp;<span class='font18'>{0}</span><span class='font14'> onwards</span>", Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.ExShowroomPrice > 0 ? bike.ExShowroomPrice : bike.AvgPrice))))</span>
@@ -123,9 +123,16 @@
 
     @if (Model.SeriesLinkages.MakeSeriesList != null && Model.SeriesLinkages.MakeSeriesList.Any())
     {
-        @Html.Partial("~/Views/BikeSeries/_MakeSeriesSlug_Mobile.cshtml", Model.SeriesLinkages)
+        <section class="explore-bikes-carousel--default">
+            <div class="content-box-shadow bg-white section-bottom-margin">
+                <div class="carousel__title">
+                    <h2 class="page__heading-h2">Explore @Model.MakeName Bike Series</h2>
+                </div>
+                @Html.Partial("~/Views/BikeSeries/_MakeSeriesSlug_Mobile.cshtml", Model.SeriesLinkages)
+            </div>
+        </section>
     }
-    
+
     <section id="bikeByMakesUpcoming" class="bw-model-tabs-data bg-white margin-bottom20">
         @if (Model.IsUpComingBikesAvailable)
         {
@@ -318,9 +325,9 @@
                         @Html.Partial("~/Views/Videos/_LazyLoadVideos_Mobile.cshtml", Model.Videos)
 
                         <div class="margin-top10">
-							<a title="@Model.Videos.LinkTitle" href="@string.Format("/m{0}",Model.Videos.MoreVideoUrl)" class="btn view-all-target-btn">
-								View all videos <span class="bwmsprite teal-right"></span>
-							</a>
+                            <a title="@Model.Videos.LinkTitle" href="@string.Format("/m{0}",Model.Videos.MoreVideoUrl)" class="btn view-all-target-btn">
+                                View all videos <span class="bwmsprite teal-right"></span>
+                            </a>
                         </div>
 
                     </div>
