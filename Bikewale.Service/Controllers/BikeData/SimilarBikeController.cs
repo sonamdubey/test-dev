@@ -37,7 +37,7 @@ namespace Bikewale.Service.Controllers.BikeData
             SimilarBikeList objSimilar = new SimilarBikeList();
             try
             {
-                IEnumerable<SimilarBikeEntity> objSimilarBikes = _objVersion.GetSimilarBikesList(versionId, topCount, 1);
+                IEnumerable<SimilarBikeEntity> objSimilarBikes = _objVersion.GetSimilarBikesList(versionId, topCount, 1, true);
 
                 objSimilar.SimilarBike = SimilarBikeListMapper.Convert(objSimilarBikes);
 

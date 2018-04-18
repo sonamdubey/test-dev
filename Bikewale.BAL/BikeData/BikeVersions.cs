@@ -131,25 +131,32 @@ namespace Bikewale.BAL.BikeData
         /// Summary : To get list of similar bikes by version id
         /// Modified By : Rajan Chauhan on 3 Apr 2018
         /// Description : Binding of specs to similarBikesList from SpecsFeatures MS
+        /// Modified By : Rajan Chauhan on 17 Apr 2018
+        /// Description : Added maxTorqueRequired param to cater to SimilarBike API
         /// </summary>
         /// <param name="versionId"></param>
         /// <param name="topCount"></param>
         /// <param name="cityid"></param>
+        /// <param name="maxTorqueRequired"></param>
         /// <returns></returns>
-        public IEnumerable<SimilarBikeEntity> GetSimilarBikesList(U versionId, uint topCount, uint cityid)
+        public IEnumerable<SimilarBikeEntity> GetSimilarBikesList(U versionId, uint topCount, uint cityid, bool maxTorqueRequired)
         {
             try
             {
                 IEnumerable<SimilarBikeEntity> similarBikesList = _versionCacheRepository.GetSimilarBikesList(versionId, topCount, cityid);
                 if (similarBikesList != null && similarBikesList.Any())
                 {
-                    var specItemLIst = new List<EnumSpecsFeaturesItems>{
+                    IList<EnumSpecsFeaturesItems> specItemList = new List<EnumSpecsFeaturesItems>{
                         EnumSpecsFeaturesItems.Displacement,
                         EnumSpecsFeaturesItems.FuelEfficiencyOverall,
                         EnumSpecsFeaturesItems.MaxPowerBhp,
                         EnumSpecsFeaturesItems.KerbWeight
                     };
-                    BindMinSpecs(similarBikesList, specItemLIst);
+                    if (maxTorqueRequired)
+                    {
+                        specItemList.Add(EnumSpecsFeaturesItems.MaximumTorqueNm);
+                    }
+                    BindMinSpecs(similarBikesList, specItemList);
                 }
                 return similarBikesList;
             }
