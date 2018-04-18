@@ -268,10 +268,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
                             container.RegisterType<Bikewale.Interfaces.AutoBiz.IDealers, Bikewale.DAL.AutoBiz.DealersRepository>();
                             Bikewale.Interfaces.AutoBiz.IDealers objDealer = container.Resolve<Bikewale.DAL.AutoBiz.DealersRepository>();
                             PQParameterEntity objParam = new PQParameterEntity();
-                            if (objCustomer != null && objCustomer.objCustomerBase != null && objCustomer.objCustomerBase.cityDetails != null)
-                            {
-                                objParam.CityId = Convert.ToUInt32(objCustomer.objCustomerBase.cityDetails.CityId);
-                            }
+                            objParam.CityId = Convert.ToUInt32(objCustomer.objCustomerBase.cityDetails.CityId);
                             objParam.DealerId = Convert.ToUInt32(objCustomer.DealerId);
                             objParam.VersionId = Convert.ToUInt32(input.VersionId);
                             dealerDetailEntity = objDealer.GetDealerDetailsPQ(objParam);
@@ -336,32 +333,29 @@ namespace Bikewale.Service.Controllers.PriceQuote
 
 
                             DPQSmsEntity objDPQSmsEntity = new DPQSmsEntity();
-                            if (objCustomer != null && objCustomer.objCustomerBase != null)
-                            {
-                                objDPQSmsEntity.CustomerMobile = objCustomer.objCustomerBase.CustomerMobile;
-                                objDPQSmsEntity.CustomerName = objCustomer.objCustomerBase.CustomerName;
-                                objDPQSmsEntity.DealerMobile = dealerDetailEntity.objDealer.PhoneNo;
-                                objDPQSmsEntity.DealerName = dealerDetailEntity.objDealer.Organization;
-                                objDPQSmsEntity.Locality = dealerDetailEntity.objDealer.Address;
-                                objDPQSmsEntity.BookingAmount = dealerDetailEntity.objBookingAmt != null ? dealerDetailEntity.objBookingAmt.Amount : 0;
-                                objDPQSmsEntity.BikeName = String.Format("{0} {1} {2}", dealerDetailEntity.objQuotation.objMake.MakeName, dealerDetailEntity.objQuotation.objModel.ModelName, dealerDetailEntity.objQuotation.objVersion.VersionName);
-                                objDPQSmsEntity.DealerArea = dealerDetailEntity.objDealer.objArea.AreaName != null ? dealerDetailEntity.objDealer.objArea.AreaName : string.Empty;
-                                objDPQSmsEntity.DealerAdd = dealerDetailEntity.objDealer.Address;
-                                objDPQSmsEntity.DealerCity = dealerDetailEntity.objDealer.objCity != null ? dealerDetailEntity.objDealer.objCity.CityName : string.Empty;
-                                objDPQSmsEntity.OrganisationName = dealerDetailEntity.objDealer.Organization;
+                            objDPQSmsEntity.CustomerMobile = objCustomer.objCustomerBase.CustomerMobile;
+                            objDPQSmsEntity.CustomerName = objCustomer.objCustomerBase.CustomerName;
+                            objDPQSmsEntity.DealerMobile = dealerDetailEntity.objDealer.PhoneNo;
+                            objDPQSmsEntity.DealerName = dealerDetailEntity.objDealer.Organization;
+                            objDPQSmsEntity.Locality = dealerDetailEntity.objDealer.Address;
+                            objDPQSmsEntity.BookingAmount = dealerDetailEntity.objBookingAmt != null ? dealerDetailEntity.objBookingAmt.Amount : 0;
+                            objDPQSmsEntity.BikeName = String.Format("{0} {1} {2}", dealerDetailEntity.objQuotation.objMake.MakeName, dealerDetailEntity.objQuotation.objModel.ModelName, dealerDetailEntity.objQuotation.objVersion.VersionName);
+                            objDPQSmsEntity.DealerArea = dealerDetailEntity.objDealer.objArea.AreaName != null ? dealerDetailEntity.objDealer.objArea.AreaName : string.Empty;
+                            objDPQSmsEntity.DealerAdd = dealerDetailEntity.objDealer.Address;
+                            objDPQSmsEntity.DealerCity = dealerDetailEntity.objDealer.objCity != null ? dealerDetailEntity.objDealer.objCity.CityName : string.Empty;
+                            objDPQSmsEntity.OrganisationName = dealerDetailEntity.objDealer.Organization;
 
-                                _objLeadNofitication.NotifyCustomer(input.PQId, bikeName, imagePath, dealerDetailEntity.objDealer.Organization,
-                                    dealerDetailEntity.objDealer.EmailId, dealerDetailEntity.objDealer.PhoneNo, dealerDetailEntity.objDealer.Organization,
-                                    dealerDetailEntity.objDealer.Address, objCustomer.objCustomerBase.CustomerName, objCustomer.objCustomerBase.CustomerEmail,
-                                    dealerDetailEntity.objQuotation.PriceList, dealerDetailEntity.objOffers, dealerDetailEntity.objDealer.objArea.PinCode,
-                                    dealerDetailEntity.objDealer.objState.StateName, dealerDetailEntity.objDealer.objCity.CityName, TotalPrice, objDPQSmsEntity,
-                                    "api/UpdatePQ", 16, versionName, dealerDetailEntity.objDealer.objArea.Latitude, dealerDetailEntity.objDealer.objArea.Longitude, dealerDetailEntity.objDealer.WorkingTime, platformId = "");
+                            _objLeadNofitication.NotifyCustomer(input.PQId, bikeName, imagePath, dealerDetailEntity.objDealer.Organization,
+                                dealerDetailEntity.objDealer.EmailId, dealerDetailEntity.objDealer.PhoneNo, dealerDetailEntity.objDealer.Organization,
+                                dealerDetailEntity.objDealer.Address, objCustomer.objCustomerBase.CustomerName, objCustomer.objCustomerBase.CustomerEmail,
+                                dealerDetailEntity.objQuotation.PriceList, dealerDetailEntity.objOffers, dealerDetailEntity.objDealer.objArea.PinCode,
+                                dealerDetailEntity.objDealer.objState.StateName, dealerDetailEntity.objDealer.objCity.CityName, TotalPrice, objDPQSmsEntity,
+                                "api/UpdatePQ", 16, versionName, dealerDetailEntity.objDealer.objArea.Latitude, dealerDetailEntity.objDealer.objArea.Longitude, dealerDetailEntity.objDealer.WorkingTime, platformId = "");
 
 
 
-                                _objPQ.SaveBookingState(input.PQId, PriceQuoteStates.LeadSubmitted);
-                                _objLeadNofitication.PushtoAB(dealerDetailEntity.objDealer.DealerId.ToString(), input.PQId, objCustomer.objCustomerBase.CustomerName, objCustomer.objCustomerBase.CustomerMobile, objCustomer.objCustomerBase.CustomerEmail, input.VersionId.ToString(), details.CityId.ToString());
-                            }
+                            _objPQ.SaveBookingState(input.PQId, PriceQuoteStates.LeadSubmitted);
+                            _objLeadNofitication.PushtoAB(dealerDetailEntity.objDealer.DealerId.ToString(), input.PQId, objCustomer.objCustomerBase.CustomerName, objCustomer.objCustomerBase.CustomerMobile, objCustomer.objCustomerBase.CustomerEmail, input.VersionId.ToString(), details.CityId.ToString());
                             #region Old notification way
                             //if (platformId != "3" && platformId != "4")
                             //{
