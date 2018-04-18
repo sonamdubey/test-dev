@@ -339,15 +339,15 @@ namespace Bikewale.Models.NewBikeSearch
             {
                 //Brake Type -- Change the enum to whatever is decided for brake types
                 GetCustomDataTypesByItemIdAdapter brakeAdapt = new GetCustomDataTypesByItemIdAdapter();
-                brakeAdapt.AddApiGatewayCall(_apiGatewayCaller, new GetCustomDataType_Input() { InputType = Bikewale.BAL.ApiGateway.Entities.BikeData.EnumSpecsFeaturesItems.RearDisc });
+                brakeAdapt.AddApiGatewayCall(_apiGatewayCaller, new GetCustomDataType_Input() { InputType = Bikewale.BAL.ApiGateway.Entities.BikeData.EnumSpecsFeaturesItems.RearBrakeType });
 
                 //Start Type -- Change the enum to whatever is decided for start types
                 GetCustomDataTypesByItemIdAdapter startAdapt = new GetCustomDataTypesByItemIdAdapter();
-                startAdapt.AddApiGatewayCall(_apiGatewayCaller, new GetCustomDataType_Input() { InputType = Bikewale.BAL.ApiGateway.Entities.BikeData.EnumSpecsFeaturesItems.ElectricStart });
+                startAdapt.AddApiGatewayCall(_apiGatewayCaller, new GetCustomDataType_Input() { InputType = Bikewale.BAL.ApiGateway.Entities.BikeData.EnumSpecsFeaturesItems.StartType });
 
                 //Wheel Type -- Change the enum to whatever is decided for wheel types
                 GetCustomDataTypesByItemIdAdapter wheelAdapt = new GetCustomDataTypesByItemIdAdapter();
-                wheelAdapt.AddApiGatewayCall(_apiGatewayCaller, new GetCustomDataType_Input() { InputType = Bikewale.BAL.ApiGateway.Entities.BikeData.EnumSpecsFeaturesItems.AlloyWheels });
+                wheelAdapt.AddApiGatewayCall(_apiGatewayCaller, new GetCustomDataType_Input() { InputType = Bikewale.BAL.ApiGateway.Entities.BikeData.EnumSpecsFeaturesItems.WheelType });
 
                 _apiGatewayCaller.Call();
 
