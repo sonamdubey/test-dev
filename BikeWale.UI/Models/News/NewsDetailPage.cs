@@ -73,6 +73,7 @@ namespace Bikewale.Models
         private PQSourceEnum pqSource = 0;
         public BikeSeriesEntityBase bikeSeriesEntityBase;
         private static string _widgetCruiserSports;
+        private static string pageName = "Editorial Details";
 
         private bool isModelTagged;
         private bool isMakeTagged;
@@ -265,6 +266,7 @@ namespace Bikewale.Models
         /// <param name="objData">VM of the page.</param>
         private void SetAdditionalVariables(NewsDetailPageVM objData)
         {
+            objData.PageName = pageName;
             isMakeLive = !(objData.BikeInfo != null && (objData.BikeInfo.IsUpcoming || objData.BikeInfo.IsDiscontinued));
 
             bodyStyle = EnumBikeBodyStyles.AllBikes;

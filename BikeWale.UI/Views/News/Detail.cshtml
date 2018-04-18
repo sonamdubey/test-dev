@@ -14,7 +14,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     if (Model != null && Model.ArticleDetails != null) { Model.AdTags.TargetedTags = String.Join(",", Model.ArticleDetails.TagsList); };
 }
-@if(Model != null)
+@if (Model != null)
 {
     <section id="overallContainer">
 
@@ -49,11 +49,11 @@
                                     <div class="content-details" data-id="@Model.ArticleDetails.BasicId" data-category-id="@Model.ArticleDetails.CategoryId" data-event-label="News_Detail">
                                         <div class="article-content padding-top5">
                                             @if (!string.IsNullOrEmpty(Model.PageMetaTags.ShareImage))
-                                        {
+                                            {
                                                 <div style="text-align: center;">
                                                     <img alt='@Model.ArticleDetails.Title' title='@Model.ArticleDetails.Title' src='@Model.PageMetaTags.ShareImage'>
                                                 </div>
-                                        }
+                                            }
                                             @Html.Raw(Model.ArticleDetails.Content)
                                             <div class="clear"></div>
                                         </div>
@@ -95,7 +95,7 @@
                     </div>
                 </div>
                 <div class="grid-4 omega">
-                    @if(Model.PageWidgets != null){
+                    @if (Model.PageWidgets != null) {
                         foreach (KeyValuePair<EditorialPageWidgetPosition, Bikewale.Models.Shared.EditorialWidgetVM> widgetItem in Model.PageWidgets)
                         {
                             var widget = widgetItem.Value;
@@ -119,6 +119,25 @@
     <script>
         docReady(function () {
             $("body").floatingSocialShare();
+
+            @{var pageName = Model.PageName;}
+            $('#widgetTab li').on('click', function (ele) {
+                if (ele) {
+                    triggerGA(pageName, 'Clicked_on_Tab', ele.currentTarget.getAttribute('data-tabs') + '_' + ele.currentTarget.getAttribute('data-other-tabs'));
+                }
+            });
+
+            $('.sidebar-list--overflow ul li a').on('click', function (ele) {
+                if (ele) {
+                    triggerGA(pageName, 'Clicked_on_Model_Card', ele.currentTarget.getAttribute('title'));
+                }
+            });
+
+            $('.read-more a').on('click', function (ele) {
+                if (ele) {
+                    triggerGA(pageName, 'Clicked_on_View_All', ele.currentTarget.getAttribute('data-tab'));
+                }
+            });
         });
     </script>
 }
