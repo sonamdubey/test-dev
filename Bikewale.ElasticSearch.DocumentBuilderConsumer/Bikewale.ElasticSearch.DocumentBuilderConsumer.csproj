@@ -69,6 +69,12 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\BookingSMS\Consumer.dll</HintPath>
     </Reference>
+    <Reference Include="Gelf4Net">
+      <HintPath>..\Libs\Gelf4Net.dll</HintPath>
+    </Reference>
+    <Reference Include="Gelf4Net.UdpAppender">
+      <HintPath>..\Libs\Gelf4Net.UdpAppender.dll</HintPath>
+    </Reference>
     <Reference Include="Google.Protobuf">
       <HintPath>..\Libs\APIGateway\Google.Protobuf.dll</HintPath>
     </Reference>

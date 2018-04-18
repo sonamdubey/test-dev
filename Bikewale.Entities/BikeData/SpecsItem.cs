@@ -15,5 +15,6 @@ namespace Bikewale.Entities.BikeData
         public string Name { get; set; }
         public string Value { get; set; }
         public string UnitType { get; set; }
+        public int CustomTypeId { get; set; }
     }
 }
