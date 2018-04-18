@@ -90,11 +90,11 @@ namespace Bikewale.BAL.BikeSearch
                     }
                     if (filterInputs.Wheels != null)
                     {
-                        filtersOutput.Wheels = Array.ConvertAll(filterInputs.Wheels, sbyte.Parse);
+                        filtersOutput.Wheels = Array.ConvertAll(filterInputs.Wheels, uint.Parse);
                     }
                     if (filterInputs.StartType != null)
                     {
-                        filtersOutput.StartType = Array.ConvertAll(filterInputs.StartType, sbyte.Parse);
+                        filtersOutput.StartType = Array.ConvertAll(filterInputs.StartType, uint.Parse);
                     }
 
                     if (filterInputs.ABSAvailable || filterInputs.ABSNotAvailable)
@@ -184,77 +184,72 @@ namespace Bikewale.BAL.BikeSearch
                     IEnumerable<BikeModelDocumentEntity> bikesList = objEsOutput.Bikes;
 
 
-                    foreach (var bike in bikesList)
+                    if (bikesList != null)
                     {
-                        SearchOutputBase bikesOutput = new SearchOutputBase();
-
-                        ModelDetail bikemodel = new ModelDetail();
-                        MakeBase bikeMakebase = null;
-
-                        if (bike.BikeMake != null)
+                        foreach (var bike in bikesList)
                         {
-                            var bikeMakeObj = bike.BikeMake;
-                            bikeMakebase = new MakeBase();
-                            bikeMakebase.MakeId = SqlReaderConvertor.ToInt32(bikeMakeObj.MakeId);
-                            bikeMakebase.MakeName = bikeMakeObj.MakeName;
-                            bikeMakebase.MaskingName = bikeMakeObj.MakeMaskingName;
-                            bikemodel.MakeBase = bikeMakebase;
-                        }
+                            SearchOutputBase bikesOutput = new SearchOutputBase();
 
-                        if (bike.BikeModel != null)
-                        {
-                            var bikeModelObj = bike.BikeModel;
-                            bikemodel.ModelId = SqlReaderConvertor.ToInt32(bikeModelObj.ModelId);
-                            bikemodel.ModelName = bikeModelObj.ModelName;
-                            bikemodel.MaskingName = bikeModelObj.ModelMaskingName;
-                        }
+                            ModelDetail bikemodel = new ModelDetail();
+                            MakeBase bikeMakebase = null;
 
-                        if (bike.BikeImage != null)
-                        {
-                            var bikeImageObj = bike.BikeImage;
-                            bikemodel.HostUrl = bikeImageObj.HostURL;
-                            bikemodel.OriginalImagePath = bikeImageObj.ImageURL;
-                        }
-
-                        if (bike.TopVersion != null)
-                        {
-                            var topversionDetails = bike.TopVersion;
-                            if (topversionDetails != null)
+                            if (bike.BikeMake != null)
                             {
+                                var bikeMakeObj = bike.BikeMake;
+                                bikeMakebase = new MakeBase();
+                                bikeMakebase.MakeId = SqlReaderConvertor.ToInt32(bikeMakeObj.MakeId);
+                                bikeMakebase.MakeName = bikeMakeObj.MakeName;
+                                bikeMakebase.MaskingName = bikeMakeObj.MakeMaskingName;
+                                bikemodel.MakeBase = bikeMakebase;
+                            }
+
+                            if (bike.BikeModel != null)
+                            {
+                                var bikeModelObj = bike.BikeModel;
+                                bikemodel.ModelId = SqlReaderConvertor.ToInt32(bikeModelObj.ModelId);
+                                bikemodel.ModelName = bikeModelObj.ModelName;
+                                bikemodel.MaskingName = bikeModelObj.ModelMaskingName;
+                            }
+
+                            if (bike.BikeImage != null)
+                            {
+                                var bikeImageObj = bike.BikeImage;
+                                bikemodel.HostUrl = bikeImageObj.HostURL;
+                                bikemodel.OriginalImagePath = bikeImageObj.ImageURL;
+                            }
+
+                            if (bike.TopVersion != null)
+                            {
+                                var topversionDetails = bike.TopVersion;
+
                                 var exshowroomPrice = topversionDetails.PriceList.FirstOrDefault(m => m.PriceType == "Exshowroom");
                                 if (exshowroomPrice != null)
                                 {
                                     bikemodel.MinPrice = exshowroomPrice.PriceValue;
                                 }
                                 bikesOutput.Displacement = SqlReaderConvertor.ToFloat(topversionDetails.Displacement);
-
                                 bikesOutput.FuelEfficiency = SqlReaderConvertor.ToUInt16(topversionDetails.Mileage);
                                 bikesOutput.KerbWeight = SqlReaderConvertor.ToUInt16(topversionDetails.KerbWeight);
-                                if (topversionDetails.Power != null)
-                                {
-                                    bikesOutput.Power = topversionDetails.Power.ToString();
-                                }
-                                if (topversionDetails.Exshowroom != null)
-                                {
-                                    bikesOutput.FinalPrice = Format.FormatPrice(topversionDetails.Exshowroom.ToString());
-                                }
+                                bikesOutput.Power = Convert.ToString(topversionDetails.Power);
+                                bikesOutput.FinalPrice = Format.FormatPrice(Convert.ToString(topversionDetails.Exshowroom));
+
+
                             }
 
+                            bikemodel.RatingCount = SqlReaderConvertor.ToInt32(bike.RatingsCount);
+                            bikemodel.ReviewCount = SqlReaderConvertor.ToInt32(bike.UserReviewsCount);
+                            bikemodel.ReviewRate = SqlReaderConvertor.ParseToDouble(bike.ReviewRatings.ToString("0.0"));
+                            bikemodel.ReviewRateStar = (byte)Math.Round(bike.ReviewRatings);
+
+
+                            bikesOutput.BikeModel = bikemodel;
+                            bikesOutput.BikeName = string.Format("{0} {1}", bikeMakebase.MakeName, bikemodel.ModelName);
+                            bikesOutput.AvailableSpecs = FormatMinSpecs.GetMinSpecs(Convert.ToString(bikesOutput.Displacement), Convert.ToString(bikesOutput.FuelEfficiency), Convert.ToString(bikesOutput.Power), Convert.ToString(bikesOutput.KerbWeight));
+
+
+
+                            searchOutputList.Add(bikesOutput);
                         }
-
-                        bikemodel.RatingCount = SqlReaderConvertor.ToInt32(bike.RatingsCount);
-                        bikemodel.ReviewCount = SqlReaderConvertor.ToInt32(bike.UserReviewsCount);
-                        bikemodel.ReviewRate = SqlReaderConvertor.ParseToDouble(bike.ReviewRatings.ToString("0.0"));
-                        bikemodel.ReviewRateStar = (byte)Math.Round(bike.ReviewRatings);
-
-
-                        bikesOutput.BikeModel = bikemodel;
-                        bikesOutput.BikeName = string.Format("{0} {1}", bikeMakebase.MakeName, bikemodel.ModelName);
-                        bikesOutput.AvailableSpecs = FormatMinSpecs.GetMinSpecs(bikesOutput.Displacement.ToString(), bikesOutput.FuelEfficiency.ToString(), bikesOutput.Power.ToString(), bikesOutput.KerbWeight.ToString());
-
-
-
-                        searchOutputList.Add(bikesOutput);
                     }
                     objSearchOutput.SearchResult = searchOutputList;
                 }
@@ -265,6 +260,7 @@ namespace Bikewale.BAL.BikeSearch
             }
             return objSearchOutput;
         }
+
 
         private string GetApiUrl(InputBaseEntity filterInputs)
         {

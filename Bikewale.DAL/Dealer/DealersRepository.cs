@@ -586,6 +586,8 @@ namespace Bikewale.DAL.Dealer
         /// Description : Added DisplayTextLarge, DisplayTextSmall
         /// Modified by :   Sumit Kate on 19 Jan 2017
         /// Description :   Populate AreaId
+        /// Modified by :   Rajan Chauhan on 16 Apr 2018
+        /// Description :   Changed sp getdealerdetails_04082017 to getdealerdetails_16042018
         /// </summary>
         public DealerBikesEntity GetDealerDetailsAndBikesByDealerAndMake(uint dealerId, int makeId)
         {
@@ -594,7 +596,7 @@ namespace Bikewale.DAL.Dealer
             try
             {
 
-                using (DbCommand cmd = DbFactory.GetDBCommand("getdealerdetails_04082017"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getdealerdetails_16042018"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, dealerId));

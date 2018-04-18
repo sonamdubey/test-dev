@@ -1,4 +1,6 @@
-﻿using Bikewale.Cache.BikeData;
+﻿using Bikewale.BAL.ApiGateway.ApiGatewayHelper;
+using Bikewale.BAL.Dealer;
+using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
 using Bikewale.Cache.DealersLocator;
 using Bikewale.Controls;
@@ -162,6 +164,8 @@ namespace Bikewale.New
         /// Description : Added ctaSmallText
         /// Modified by :   Sumit Kate on 19 Jan 2017
         /// Description :   Set Dealers AreaId
+        /// Modified By : Rajan Chauhan on 16 Apr 2017
+        /// Description : Added dependency and changed call from Cache to BAL
         /// </summary>
         /// <param name="dealerid"></param>
         private void GetDealerDetails(uint dealerid)
@@ -170,12 +174,13 @@ namespace Bikewale.New
             {
                 using (IUnityContainer container = new UnityContainer())
                 {
-                    container.RegisterType<IDealerCacheRepository, DealerCacheRepository>()
+                    container.RegisterType<IDealer, Dealer>()
+                             .RegisterType<IDealerCacheRepository, DealerCacheRepository>()
                              .RegisterType<ICacheManager, MemcacheManager>()
                              .RegisterType<IDealerRepository, DealersRepository>()
-                            ;
-                    var objCache = container.Resolve<IDealerCacheRepository>();
-                    dealerDetails = objCache.GetDealerDetailsAndBikesByDealerAndMake(dealerId, makeId);
+                             .RegisterType<IApiGatewayCaller, ApiGatewayCaller>();
+                    var objDealer = container.Resolve<IDealer>();
+                    dealerDetails = objDealer.GetDealerDetailsAndBikesByDealerAndMake(dealerId, makeId);
 
                     if (dealerDetails != null && dealerDetails.DealerDetails != null)
                     {
