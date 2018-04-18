@@ -90,11 +90,11 @@ namespace Bikewale.BAL.BikeSearch
                     }
                     if (filterInputs.Wheels != null)
                     {
-                        filtersOutput.Wheels = Array.ConvertAll(filterInputs.Wheels, sbyte.Parse);
+                        filtersOutput.Wheels = Array.ConvertAll(filterInputs.Wheels, uint.Parse);
                     }
                     if (filterInputs.StartType != null)
                     {
-                        filtersOutput.StartType = Array.ConvertAll(filterInputs.StartType, sbyte.Parse);
+                        filtersOutput.StartType = Array.ConvertAll(filterInputs.StartType, uint.Parse);
                     }
 
                     if (filterInputs.ABSAvailable || filterInputs.ABSNotAvailable)
@@ -260,6 +260,7 @@ namespace Bikewale.BAL.BikeSearch
             }
             return objSearchOutput;
         }
+
 
         private string GetApiUrl(InputBaseEntity filterInputs)
         {
