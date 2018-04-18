@@ -496,7 +496,8 @@
 }
 
 .model-widget__title.text-truncate { 
-    width: 45%; 
+    max-width: 45%;
+    width: auto; 
 }
 
 .model-grid-9-slug .model-ribbon-tag { 
