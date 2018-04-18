@@ -1,5 +1,6 @@
 ﻿@model Bikewale.Models.MakePageVM
 @using Bikewale.Entities.BikeData
+@using Bikewale.BAL.ApiGateway.Entities.BikeData
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/brand.css' inline /> <link rel='stylesheet' type='text/css' href='/css/components/m-brand-logo.css' inline /> <link rel='stylesheet' type='text/css' href='/sass/partials/photo-grid-carousel.css' inline />";
@@ -79,7 +80,7 @@
 					var mileage = "0";
 					if (bike.MinSpecsList != null)
 					{
-						SpecsItem specItem = bike.MinSpecsList.FirstOrDefault(s => s.Id == (int)EnumSpecsFeaturesItem.FuelEfficiencyOverall);
+						SpecsItem specItem = bike.MinSpecsList.FirstOrDefault(s => s.Id == (int)EnumSpecsFeaturesItems.FuelEfficiencyOverall);
 						if (specItem != null)
 						{
 							mileage = specItem.Value;

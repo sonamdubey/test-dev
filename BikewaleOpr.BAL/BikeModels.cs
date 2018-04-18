@@ -1,4 +1,5 @@
-﻿using Bikewale.Notifications;
+﻿using Bikewale.BAL.ApiGateway.Entities.BikeData;
+using Bikewale.Notifications;
 using Bikewale.Utility;
 using BikewaleOpr.Entity.BikeData;
 using BikewaleOpr.Interface.BikeData;
@@ -126,10 +127,10 @@ namespace BikewaleOpr.BAL
                 int modelId = _IBikeModel.GetModelIdIfTopVersion(versionId);
                 if (modelId > 0)
                 {
-                    var mileage = specItemList.SingleOrDefault(s => s.Id == (int)EnumSpecsFeaturesItem.FuelEfficiencyOverall);
-                    var kerbWeight = specItemList.SingleOrDefault(s => s.Id == (int)EnumSpecsFeaturesItem.KerbWeight);
-                    var maxPower = specItemList.SingleOrDefault(s => s.Id == (int)EnumSpecsFeaturesItem.MaxPowerBhp);
-                    var displacement = specItemList.SingleOrDefault(s => s.Id == (int)EnumSpecsFeaturesItem.Displacement);
+                    var mileage = specItemList.SingleOrDefault(s => s.Id == (int)EnumSpecsFeaturesItems.FuelEfficiencyOverall);
+                    var kerbWeight = specItemList.SingleOrDefault(s => s.Id == (int)EnumSpecsFeaturesItems.KerbWeight);
+                    var maxPower = specItemList.SingleOrDefault(s => s.Id == (int)EnumSpecsFeaturesItems.MaxPowerBhp);
+                    var displacement = specItemList.SingleOrDefault(s => s.Id == (int)EnumSpecsFeaturesItems.Displacement);
                     dynamic jsonSpecs = new JObject();
                     if (mileage != null)
                     {

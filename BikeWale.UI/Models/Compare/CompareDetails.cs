@@ -1,6 +1,7 @@
 ﻿
 using Bikewale.BAL.ApiGateway.Adapters.BikeData;
 using Bikewale.BAL.ApiGateway.ApiGatewayHelper;
+using Bikewale.BAL.ApiGateway.Entities.BikeData;
 using Bikewale.Comparison.Interface;
 using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
@@ -167,7 +168,7 @@ namespace Bikewale.Models
                             SpecsFeaturesCategory specCategory = obj.Compare.VersionSpecsFeatures.Specs.ElementAtOrDefault(3);
                             if (specCategory != null && specCategory.SpecsItemList != null)
                             {
-                                SpecsFeaturesItem specItem = specCategory.SpecsItemList.FirstOrDefault(spec => spec.Id == (int)EnumSpecsFeaturesItem.FuelEfficiencyOverall);
+                                SpecsFeaturesItem specItem = specCategory.SpecsItemList.FirstOrDefault(spec => spec.Id == (int)EnumSpecsFeaturesItems.FuelEfficiencyOverall);
                                 if (specItem != null)
                                 {
                                     IEnumerator<string> specItemEnumerator = specItem.ItemValues.GetEnumerator();

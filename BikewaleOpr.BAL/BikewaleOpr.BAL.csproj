@@ -97,6 +97,9 @@
     <Reference Include="AutoMapper">
       <HintPath>..\Libs\AutoMapper.dll</HintPath>
     </Reference>
+    <Reference Include="Bikewale.BAL.ApiGateway">
+      <HintPath>..\BikeWale.UI\bin\Bikewale.BAL.ApiGateway.dll</HintPath>
+    </Reference>
     <Reference Include="Enyim.Caching">
       <HintPath>..\Libs\Enyim.Caching.dll</HintPath>
     </Reference>

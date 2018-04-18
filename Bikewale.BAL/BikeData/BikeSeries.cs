@@ -254,7 +254,7 @@ namespace Bikewale.BAL.BikeData
                         EnumSpecsFeaturesItems.FuelTankCapacity,
                         EnumSpecsFeaturesItems.FuelEfficiencyOverall,
                         EnumSpecsFeaturesItems.SeatHeight,
-                        EnumSpecsFeaturesItems.RearDisc,
+                        EnumSpecsFeaturesItems.RearBrakeType,
                         EnumSpecsFeaturesItems.NoOfGears,
                         EnumSpecsFeaturesItems.MaxPowerBhp,
                         EnumSpecsFeaturesItems.MaxPowerRpm
@@ -275,40 +275,40 @@ namespace Bikewale.BAL.BikeData
                             ushort gears;
                             foreach (var spec in minSpecs.Current.MinSpecsList)
                             {
-                                switch ((EnumSpecsFeaturesItem)spec.Id)
+                                switch ((EnumSpecsFeaturesItems)spec.Id)
                                 {
-                                    case EnumSpecsFeaturesItem.Displacement:
+                                    case EnumSpecsFeaturesItems.Displacement:
                                         if (float.TryParse(spec.Value, out value))
                                             seriesBike.Displacement = value;
                                         break;
-                                    case EnumSpecsFeaturesItem.KerbWeight:
+                                    case EnumSpecsFeaturesItems.KerbWeight:
                                         if (float.TryParse(spec.Value, out value))
                                             seriesBike.Weight = value;
                                         break;
-                                    case EnumSpecsFeaturesItem.FuelEfficiencyOverall:
+                                    case EnumSpecsFeaturesItems.FuelEfficiencyOverall:
                                         if (float.TryParse(spec.Value, out value))
                                             seriesBike.Mileage = value;
                                         break;
-                                    case EnumSpecsFeaturesItem.FuelTankCapacity:
+                                    case EnumSpecsFeaturesItems.FuelTankCapacity:
                                         if (float.TryParse(spec.Value, out value))
                                             seriesBike.FuelCapacity = value;
                                         break;
-                                    case EnumSpecsFeaturesItem.SeatHeight:
+                                    case EnumSpecsFeaturesItems.SeatHeight:
                                         if (float.TryParse(spec.Value, out value))
                                             seriesBike.SeatHeight = value;
                                         break;
-                                    case EnumSpecsFeaturesItem.RearDisc:
+                                    case EnumSpecsFeaturesItems.RearBrakeType:
                                         seriesBike.BrakeType = spec.Value;
                                         break;
-                                    case EnumSpecsFeaturesItem.NoOfGears:
+                                    case EnumSpecsFeaturesItems.NoOfGears:
                                         if (ushort.TryParse(spec.Value, out gears))
                                             seriesBike.Gears = gears;
                                         break;
-                                    case EnumSpecsFeaturesItem.MaxPowerRpm:
+                                    case EnumSpecsFeaturesItems.MaxPowerRpm:
                                         if (float.TryParse(spec.Value, out value))
                                             seriesBike.MaxPowerRpm = value;
                                         break;
-                                    case EnumSpecsFeaturesItem.MaxPowerBhp:
+                                    case EnumSpecsFeaturesItems.MaxPowerBhp:
                                         if (float.TryParse(spec.Value, out value))
                                             seriesBike.MaxPower = value;
                                         break;

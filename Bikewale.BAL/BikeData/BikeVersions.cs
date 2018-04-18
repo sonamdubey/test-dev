@@ -66,9 +66,9 @@ namespace Bikewale.BAL.BikeData
                     Versions = versionsList.Select(v => v.VersionId),
                     Items = new List<EnumSpecsFeaturesItems>
                     {
-                        EnumSpecsFeaturesItems.RearDisc,
-                        EnumSpecsFeaturesItems.AlloyWheels,
-                        EnumSpecsFeaturesItems.ElectricStart,
+                        EnumSpecsFeaturesItems.RearBrakeType,
+                        EnumSpecsFeaturesItems.WheelType,
+                        EnumSpecsFeaturesItems.StartType,
                         EnumSpecsFeaturesItems.AntilockBrakingSystem
                     }
                 };
@@ -261,9 +261,9 @@ namespace Bikewale.BAL.BikeData
                         Versions = versionList.Select(version => (int)version.VersionId),
                         Items = new List<EnumSpecsFeaturesItems>{
                             EnumSpecsFeaturesItems.AntilockBrakingSystem,
-                            EnumSpecsFeaturesItems.RearDisc,
-                            EnumSpecsFeaturesItems.AlloyWheels,
-                            EnumSpecsFeaturesItems.ElectricStart
+                            EnumSpecsFeaturesItems.RearBrakeType,
+                            EnumSpecsFeaturesItems.WheelType,
+                            EnumSpecsFeaturesItems.StartType
                         }
                     };
                     adapt.AddApiGatewayCall(_apiGatewayCaller, adaptInput);

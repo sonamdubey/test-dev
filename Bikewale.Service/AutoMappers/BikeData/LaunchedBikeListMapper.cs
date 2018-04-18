@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Bikewale.BAL.ApiGateway.Entities.BikeData;
 using Bikewale.DTO.BikeData;
 using Bikewale.DTO.City;
 using Bikewale.DTO.Make;
@@ -39,21 +40,21 @@ namespace Bikewale.Service.AutoMappers.BikeData
                             foreach (var spec in specItemList)
                             {
                                 specValue = float.TryParse(spec.Value, out specValue) ? specValue : 0;
-                                switch ((EnumSpecsFeaturesItem)spec.Id)
+                                switch ((EnumSpecsFeaturesItems)spec.Id)
                                 {
-                                    case EnumSpecsFeaturesItem.Displacement:
+                                    case EnumSpecsFeaturesItems.Displacement:
                                         dtoBike.Specs.Displacement = specValue;
                                         break;
-                                    case EnumSpecsFeaturesItem.FuelEfficiencyOverall:
+                                    case EnumSpecsFeaturesItems.FuelEfficiencyOverall:
                                         dtoBike.Specs.FuelEfficiencyOverall = specValue.Equals(0) ? null : (float?)specValue;
                                         break;
-                                    case EnumSpecsFeaturesItem.MaxPowerBhp:
+                                    case EnumSpecsFeaturesItems.MaxPowerBhp:
                                         dtoBike.Specs.MaxPower = specValue;
                                         break;
-                                    case EnumSpecsFeaturesItem.MaximumTorqueNm:
+                                    case EnumSpecsFeaturesItems.MaximumTorqueNm:
                                         dtoBike.Specs.MaximumTorque = specValue;
                                         break;
-                                    case EnumSpecsFeaturesItem.KerbWeight:
+                                    case EnumSpecsFeaturesItems.KerbWeight:
                                         dtoBike.Specs.KerbWeight = specValue;
                                         break;
                                 }

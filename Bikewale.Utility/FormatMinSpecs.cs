@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
+using Bikewale.BAL.ApiGateway.Entities.BikeData;
 namespace Bikewale.Utility
 {
     public static class FormatMinSpecs
@@ -16,7 +17,7 @@ namespace Bikewale.Utility
         /// <param name="specItemList"></param>
         /// <param name="specId"></param>
         /// <returns></returns>
-        public static SpecsItem SanitizeNumericMinSpec(IEnumerable<SpecsItem> specItemList, EnumSpecsFeaturesItem specId)
+        public static SpecsItem SanitizeNumericMinSpec(IEnumerable<SpecsItem> specItemList, EnumSpecsFeaturesItems specId)
         {
             SpecsItem minSpec = null;
             if (specItemList != null)
@@ -400,13 +401,13 @@ namespace Bikewale.Utility
                 }
                 switch (specItem.Id)
                 {
-                    case (int)EnumSpecsFeaturesItem.AlloyWheels:
+                    case (int)EnumSpecsFeaturesItems.WheelType:
                         return string.Format("{0} Wheels", specItem.Value);
-                    case (int)EnumSpecsFeaturesItem.ElectricStart:
-                        return string.Format("{0} Start", specItem.Value);
-                    case (int)EnumSpecsFeaturesItem.AntilockBrakingSystem:
+                    case (int)EnumSpecsFeaturesItems.StartType:
+                        return specItem.Value;
+                    case (int)EnumSpecsFeaturesItems.AntilockBrakingSystem:
                         return specItem.Value.Equals("1") ? "ABS" : String.Empty;
-                    case (int)EnumSpecsFeaturesItem.RearDisc:
+                    case (int)EnumSpecsFeaturesItems.RearBrakeType:
                         return string.Format("{0} Brake", specItem.Value);
                     default:
                         return String.Empty;
@@ -442,8 +443,8 @@ namespace Bikewale.Utility
         {
             if (specItemList != null)
             {
-                string brakeTypeName = GetSpecGeneralName(specItemList.FirstOrDefault(item => item.Id.Equals((int)EnumSpecsFeaturesItem.RearDisc)));
-                string alloyWheelName = GetSpecGeneralName(specItemList.FirstOrDefault(item => item.Id.Equals((int)EnumSpecsFeaturesItem.AlloyWheels)));
+                string brakeTypeName = GetSpecGeneralName(specItemList.FirstOrDefault(item => item.Id.Equals((int)EnumSpecsFeaturesItems.RearBrakeType)));
+                string alloyWheelName = GetSpecGeneralName(specItemList.FirstOrDefault(item => item.Id.Equals((int)EnumSpecsFeaturesItems.WheelType)));
                 return String.Format("{0}{1}{2}", brakeTypeName, String.IsNullOrEmpty(brakeTypeName) ? "" : ", ", alloyWheelName);
             }
             return string.Empty;

@@ -446,8 +446,8 @@ namespace Bikewale.BAL.BikeData
                     {
                         BindMinSpecs(objModelPage.ModelVersions,
                         new List<EnumSpecsFeaturesItems>{
-                            EnumSpecsFeaturesItems.RearDisc,
-                            EnumSpecsFeaturesItems.AlloyWheels,
+                            EnumSpecsFeaturesItems.RearBrakeType,
+                            EnumSpecsFeaturesItems.WheelType,
                             EnumSpecsFeaturesItems.Displacement,
                             EnumSpecsFeaturesItems.MaxPowerBhp,
                             EnumSpecsFeaturesItems.FuelEfficiencyOverall,
@@ -477,14 +477,14 @@ namespace Bikewale.BAL.BikeData
                                 EnumSpecsFeaturesItems.MaximumTorque,
                                 EnumSpecsFeaturesItems.NoOfGears,
                                 EnumSpecsFeaturesItems.FuelEfficiencyOverall,
-                                EnumSpecsFeaturesItems.RearDisc,
-                                EnumSpecsFeaturesItems.FrontDisc,
-                                EnumSpecsFeaturesItems.RearDisc,
-                                EnumSpecsFeaturesItems.AlloyWheels,
+                                EnumSpecsFeaturesItems.RearBrakeType,
+                                EnumSpecsFeaturesItems.FrontBrakeType,
+                                EnumSpecsFeaturesItems.RearBrakeType,
+                                EnumSpecsFeaturesItems.WheelType,
                                 EnumSpecsFeaturesItems.KerbWeight,
                                 EnumSpecsFeaturesItems.ChassisType,
                                 EnumSpecsFeaturesItems.TopSpeed,
-                                EnumSpecsFeaturesItems.TubelessTyres,
+                                EnumSpecsFeaturesItems.TyreType,
                                 EnumSpecsFeaturesItems.FuelTankCapacity,
                                 EnumSpecsFeaturesItems.MaxPowerBhp
                             }
@@ -496,9 +496,9 @@ namespace Bikewale.BAL.BikeData
                         {
                             Versions = objModelPage.ModelVersions.Select(v => v.VersionId),
                             Items = new List<EnumSpecsFeaturesItems>{
-                                EnumSpecsFeaturesItems.RearDisc,
-                                EnumSpecsFeaturesItems.AlloyWheels,
-                                EnumSpecsFeaturesItems.ElectricStart,
+                                EnumSpecsFeaturesItems.RearBrakeType,
+                                EnumSpecsFeaturesItems.WheelType,
+                                EnumSpecsFeaturesItems.StartType,
                                 EnumSpecsFeaturesItems.AntilockBrakingSystem
                             }
                         };
@@ -545,8 +545,8 @@ namespace Bikewale.BAL.BikeData
                     // First 2 in versionPrices in city widget
                     BindMinSpecs(objModelPage.ModelVersions, 
                         new List<EnumSpecsFeaturesItems>{
-                            EnumSpecsFeaturesItems.RearDisc,
-                            EnumSpecsFeaturesItems.AlloyWheels,
+                            EnumSpecsFeaturesItems.RearBrakeType,
+                            EnumSpecsFeaturesItems.WheelType,
                             EnumSpecsFeaturesItems.Displacement,
                             EnumSpecsFeaturesItems.MaxPowerBhp,
                             EnumSpecsFeaturesItems.FuelEfficiencyOverall,
