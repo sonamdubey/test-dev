@@ -34,7 +34,6 @@ using Bikewale.Models.PriceInCity;
 using Bikewale.Models.Used;
 using Bikewale.Models.UserReviews;
 using Bikewale.Notifications;
-using Bikewale.Utility;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -44,6 +43,8 @@ using System.Web;
 using Bikewale.BAL.ApiGateway.ApiGatewayHelper;
 using Bikewale.BAL.ApiGateway.Adapters.BikeData;
 using Bikewale.BAL.ApiGateway.Entities.BikeData;
+using Bikewale.BAL.ApiGateway.Utils;
+using Bikewale.Utility;
 
 namespace Bikewale.Models.BikeModels
 {
@@ -477,7 +478,7 @@ namespace Bikewale.Models.BikeModels
                 if (_objData != null && _objData.ModelPageEntity != null && _objData.ModelPageEntity.ModelVersionMinSpecs != null && _objData.ModelPageEntity.ModelVersionMinSpecs.MinSpecsList != null)
                 {
                     IEnumerable<SpecsItem> versionMinSpecsList = _objData.ModelPageEntity.ModelVersionMinSpecs.MinSpecsList;
-                    SpecsItem specItem = FormatMinSpecs.SanitizeNumericMinSpec(versionMinSpecsList, EnumSpecsFeaturesItems.FuelEfficiencyOverall);
+                    SpecsItem specItem = FormatMinSpecsItem.SanitizeNumericMinSpec(versionMinSpecsList, EnumSpecsFeaturesItems.FuelEfficiencyOverall);
                     if (!string.IsNullOrEmpty(specItem.Value))
                     {
                         property = new AdditionalProperty
@@ -489,7 +490,7 @@ namespace Bikewale.Models.BikeModels
                         };
                         listSpecs.Add(property);
                     }
-                    specItem = FormatMinSpecs.SanitizeNumericMinSpec(versionMinSpecsList, EnumSpecsFeaturesItems.Displacement);
+                    specItem = FormatMinSpecsItem.SanitizeNumericMinSpec(versionMinSpecsList, EnumSpecsFeaturesItems.Displacement);
                     if (!string.IsNullOrEmpty(specItem.Value))
                     {
                         property = new AdditionalProperty
@@ -501,7 +502,7 @@ namespace Bikewale.Models.BikeModels
                         };
                         listSpecs.Add(property);
                     }
-                    specItem = FormatMinSpecs.SanitizeNumericMinSpec(versionMinSpecsList, EnumSpecsFeaturesItems.MaxPowerBhp);
+                    specItem = FormatMinSpecsItem.SanitizeNumericMinSpec(versionMinSpecsList, EnumSpecsFeaturesItems.MaxPowerBhp);
                     if (!string.IsNullOrEmpty(specItem.Value))
                     {
                         property = new AdditionalProperty
@@ -514,7 +515,7 @@ namespace Bikewale.Models.BikeModels
                         listSpecs.Add(property);
 
                     }
-                    specItem = FormatMinSpecs.SanitizeNumericMinSpec(versionMinSpecsList, EnumSpecsFeaturesItems.KerbWeight);
+                    specItem = FormatMinSpecsItem.SanitizeNumericMinSpec(versionMinSpecsList, EnumSpecsFeaturesItems.KerbWeight);
                     if (!string.IsNullOrEmpty(specItem.Value))
                     {
                         property = new AdditionalProperty
@@ -526,7 +527,7 @@ namespace Bikewale.Models.BikeModels
                         };
                         listSpecs.Add(property);
                     }
-                    specItem = FormatMinSpecs.SanitizeNumericMinSpec(versionMinSpecsList, EnumSpecsFeaturesItems.TopSpeed);
+                    specItem = FormatMinSpecsItem.SanitizeNumericMinSpec(versionMinSpecsList, EnumSpecsFeaturesItems.TopSpeed);
                     if (!string.IsNullOrEmpty(specItem.Value))
                     {
                         property = new AdditionalProperty
@@ -641,8 +642,8 @@ namespace Bikewale.Models.BikeModels
                         priceDescription = _objData.ModelPageEntity.ModelDetails.MinPrice > 0 ? string.Format("Price - &#x20B9; {0} onwards (Ex-showroom, {1}).", Bikewale.Utility.Format.FormatPrice(Convert.ToString(_objData.ModelPageEntity.ModelDetails.MinPrice)), Bikewale.Utility.BWConfiguration.Instance.DefaultName) : string.Empty;
                     if (_objData.ModelPageEntity != null && _objData.ModelPageEntity.ModelVersionMinSpecs != null && _objData.ModelPageEntity.ModelVersionMinSpecs.MinSpecsList != null)
                     {
-                        SpecsItem mileage = FormatMinSpecs.SanitizeNumericMinSpec(_objData.ModelPageEntity.ModelVersionMinSpecs.MinSpecsList, EnumSpecsFeaturesItems.FuelEfficiencyOverall);
-                        SpecsItem topSpeed = FormatMinSpecs.SanitizeNumericMinSpec(_objData.ModelPageEntity.ModelVersionMinSpecs.MinSpecsList, EnumSpecsFeaturesItems.TopSpeed);
+                        SpecsItem mileage = FormatMinSpecsItem.SanitizeNumericMinSpec(_objData.ModelPageEntity.ModelVersionMinSpecs.MinSpecsList, EnumSpecsFeaturesItems.FuelEfficiencyOverall);
+                        SpecsItem topSpeed = FormatMinSpecsItem.SanitizeNumericMinSpec(_objData.ModelPageEntity.ModelVersionMinSpecs.MinSpecsList, EnumSpecsFeaturesItems.TopSpeed);
                         if (!string.IsNullOrEmpty(mileage.Value) && !string.IsNullOrEmpty(topSpeed.Value))
                         {
                             specsDescirption = string.Format("{0} has a mileage of {1} kmpl and a top speed of {2} kmph.", bikeModelName, mileage.Value, topSpeed.Value);

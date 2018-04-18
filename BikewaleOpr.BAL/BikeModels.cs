@@ -1,5 +1,4 @@
-﻿using Bikewale.BAL.ApiGateway.Entities.BikeData;
-using Bikewale.Notifications;
+﻿using Bikewale.Notifications;
 using Bikewale.Utility;
 using BikewaleOpr.Entity.BikeData;
 using BikewaleOpr.Interface.BikeData;
