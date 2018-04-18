@@ -35,7 +35,7 @@ namespace Bikewale.Entities.NewBikeSearch
 
         public IEnumerable<RangeEntity> Power { get; set; }
 
-        public IEnumerable<string> Brakes { get; set; }
+        public IEnumerable<uint> Brakes { get; set; }
         public IEnumerable<uint> Wheels { get; set; }
         public IEnumerable<uint> StartType { get; set; }
 
