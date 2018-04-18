@@ -122,7 +122,7 @@
 	background-position: right 10px center
 	background-color: color('white')
 	display: none
-	position: absolute
+	position: fixed
 	right: 15px
 	bottom: 0
 	padding-right: 20px
@@ -137,9 +137,6 @@
 .video-popup--landscape
 	.swiper__videos
 		padding-right: 50vw
-
-		&.swiper-container
-			height: 85%
 
 		.swiper-wrapper
 			display: flex
@@ -188,9 +185,10 @@
 			height: 34px
 			overflow: hidden
 
-video
-	background: red !important
-	z-index: 0 !important
+.video-card__desc
+	.video-list
+		.grid-4
+			top: 0
 
 @media screen and (orientation: landscape) and (min-width: 720px)
 	.video-popup--landscape

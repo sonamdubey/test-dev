@@ -148,7 +148,7 @@
                                     </span>
                                 </div>
                                 <div class="gallery-image__feature">
-                                    <a href="javascript:void(0)" title="" class="gallery__download-icon"></a>
+                                    <a data-bind="attr: { href: getColorImageDownloadUrl() }" download title="Download Image" class="gallery__download-icon"></a>
                                     
                                     <span class="landscape-icon__container" data-bind="click: $root.toggleFullScreen, visible: $root.fullScreenSupport()">
                                         <span class="gallery__landscape-icon"></span>
@@ -206,9 +206,9 @@
                                         </div>
                                         <div class="video-card__desc clearfix">
                                             <div class="grid-4">
-                                                <p class="font11 text-light-grey" data-bind="text: formatDate(DisplayDate)"></p>
+                                                <p class="font11 text-light-grey text-truncate" data-bind="text: formatDate(DisplayDate)"></p>
                                             </div>
-                                            <div class="grid-8 text-right">
+                                            <div class="grid-8 text-right font11">
                                                 <span class="model-card__sub-title"><span data-bind="text: formatNumeric(Views) + ' ' + ((Views > 1) ? 'Views' : 'View')"></span> </span>
                                                 <span class="model-card__sub-title margin-left20">
                                                     <span class="thumbsup-icon"></span>

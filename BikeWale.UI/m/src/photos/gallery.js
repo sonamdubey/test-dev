@@ -106,6 +106,14 @@ function getImageDownloadUrl() {
 	return currImage.HostUrl + downloadImageResolution + currImage.OriginalImgPath;
 }
 
+function getColorImageDownloadUrl() {
+	var activeImageIndex = vmModelGallery.colorPopup().colorSwiper().activeIndex() - 1;
+	if (activeImageIndex == -1)
+		activeImageIndex++;
+	var currImage = MODEL_COLOR_IMAGES[activeImageIndex];
+	return currImage.HostUrl + downloadImageResolution + currImage.OriginalImgPath;
+}
+
 function resizePortraitImageContainer(element) {
 	var imageElement = new Image();
 	imageElement.src = element.attr('data-original') || element.attr('src');
@@ -151,14 +159,12 @@ function handleOrientationChange() {
 }
 
 function handleOrientationChangeFallback() {
-	if ('orientation' in screen && typeof screen.orientation.lock !== 'function') {
-		if (window.innerWidth > window.innerHeight) {
-			vmModelGallery.fullScreenModeActive(true);
-		}
-		else {
-			vmModelGallery.fullScreenModeActive(false);
-		}
-	}
+  if (window.innerWidth > window.innerHeight) {
+    vmModelGallery.fullScreenModeActive(true);
+  }
+  else {
+    vmModelGallery.fullScreenModeActive(false);
+  }
 }
 
 function toggleFullScreen(goFullScreen) {
