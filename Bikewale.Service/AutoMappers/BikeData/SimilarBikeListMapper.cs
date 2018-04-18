@@ -45,7 +45,7 @@ namespace Bikewale.Service.AutoMappers.BikeData
                                     case EnumSpecsFeaturesItems.Displacement:
                                         dtoBike.Displacement = specValue;
                                         break;
-                                    case EnumSpecsFeaturesItem.FuelEfficiencyOverall:
+                                    case EnumSpecsFeaturesItems.FuelEfficiencyOverall:
                                         dtoBike.FuelEfficiencyOverall = specValue;
                                         break;
                                     case EnumSpecsFeaturesItems.MaxPowerBhp:
