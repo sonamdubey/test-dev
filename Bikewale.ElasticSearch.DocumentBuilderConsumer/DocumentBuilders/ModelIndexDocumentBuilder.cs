@@ -297,6 +297,7 @@ namespace Bikewale.ElasticSearch.DocumentBuilderConsumer.DocumentBuilders
                     {
                         Versions = versionIds,
                         Items = requiredSpec
+
                     };
 
                     GetVersionSpecsByItemIdAdapter adapter = new GetVersionSpecsByItemIdAdapter();
@@ -324,7 +325,6 @@ namespace Bikewale.ElasticSearch.DocumentBuilderConsumer.DocumentBuilders
                             objEnumerator.Current.TopVersion.Wheels = Convert.ToInt16(GetSpecsValue(versionEnumerator.Current.MinSpecsList, (int)EnumSpecsFeaturesItems.AlloyWheels));
                             objEnumerator.Current.TopVersion.StartType = Convert.ToInt16(GetSpecsValue(versionEnumerator.Current.MinSpecsList, (int)EnumSpecsFeaturesItems.ElectricStart));
                         }
-
                     }
                 }
 

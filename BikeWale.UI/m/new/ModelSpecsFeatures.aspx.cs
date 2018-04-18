@@ -199,34 +199,6 @@ namespace Bikewale.Mobile
         }
 
         /// <summary>
-        /// Author          :   Sangram Nandkhile
-        /// Created Date    :   18 Nov 2015
-        /// Description     :   Sends the notification to Customer and Dealer
-        /// </summary>
-        private BikeSpecificationEntity FetchVariantDetails(uint versionId)
-        {
-            BikeSpecificationEntity specsFeature = null;
-            try
-            {
-                using (IUnityContainer container = new UnityContainer())
-                {
-                    container.RegisterType<IBikeMaskingCacheRepository<BikeModelEntity, int>, BikeModelMaskingCache<BikeModelEntity, int>>()
-                             .RegisterType<ICacheManager, MemcacheManager>()
-                             .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
-                            ;
-                    var objCache = container.Resolve<IBikeMaskingCacheRepository<BikeModelEntity, int>>();
-                    specsFeature = objCache.MVSpecsFeatures((int)versionId);
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorClass.LogError(ex, Request.ServerVariables["URL"] + "FetchVariantDetails");
-
-            }
-            return specsFeature;
-        }
-
-        /// <summary>
         /// Created By : Lucky Rathore on 03 June 2016
         /// Description : Private Method to proceess mpq queryString and set the values 
         /// for queried parameters versionId, ModelMaskingName and set value of modelId from Model Masking Name. 
@@ -393,12 +365,9 @@ namespace Bikewale.Mobile
                 {
                     using (IUnityContainer container = new UnityContainer())
                     {
-                        container.RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>()
-                                .RegisterType<ICacheManager, MemcacheManager>()
-                                .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
-                                .RegisterType<IPager, Pager>();
-                        var objBestBikes = container.Resolve<IBikeModelsCacheRepository<int>>();
-                        var modelPopularBikesByBodyStyle = new Models.BestBikes.PopularBikesByBodyStyle(objBestBikes);
+                        container.RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>();
+                        var bikeModel = container.Resolve<IBikeModels<BikeModelEntity, int>>();
+                        var modelPopularBikesByBodyStyle = new Models.BestBikes.PopularBikesByBodyStyle(bikeModel);
                         modelPopularBikesByBodyStyle.CityId = cityId;
                         modelPopularBikesByBodyStyle.ModelId = modelId;
                         modelPopularBikesByBodyStyle.TopCount = 9;

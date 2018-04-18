@@ -267,7 +267,6 @@ namespace BikeIndex
                                 objEnumerator.Current.TopVersion.Wheels = Convert.ToInt16(GetSpecsValue(versionEnumerator.Current.MinSpecsList, (int)EnumSpecsFeaturesItems.AlloyWheels));
                                 objEnumerator.Current.TopVersion.StartType = Convert.ToInt16(GetSpecsValue(versionEnumerator.Current.MinSpecsList, (int)EnumSpecsFeaturesItems.ElectricStart));
                             }
-                            
                         }
 
                     }

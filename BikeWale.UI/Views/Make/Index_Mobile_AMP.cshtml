@@ -1,6 +1,7 @@
 ﻿@model Bikewale.Models.MakePageVM
 @using Bikewale.Utility
 @using Bikewale.Entities.BikeData
+@using Bikewale.BAL.ApiGateway.Entities.BikeData
 @if (Model != null)
 {
     {
@@ -96,7 +97,7 @@
                             {
                             	var modelUrl = Bikewale.Utility.UrlFormatter.BikePageUrl(bike.objMake.MaskingName, bike.objModel.MaskingName);
                             	var bikeName = string.Format("{0} {1}", bike.objMake.MakeName, bike.objModel.ModelName);
-                            	<li class="front" data-price="@bike.VersionPrice" data-mileage="@bike.MinSpecsList.FirstOrDefault(s => s.Id == (int)EnumSpecsFeaturesItem.FuelEfficiencyOverall)?.Value" data-popularity="@bike.BikePopularityIndex">
+                            	<li class="front" data-price="@bike.VersionPrice" data-mileage="@bike.MinSpecsList.FirstOrDefault(s => s.Id == (int)EnumSpecsFeaturesItems.FuelEfficiencyOverall)?.Value" data-popularity="@bike.BikePopularityIndex">
                             		<div class="border-top1 margin-left20 margin-right20 padding-top20"></div>
                             		<div class="contentWrapper">
                             			<div class="imageWrapper">

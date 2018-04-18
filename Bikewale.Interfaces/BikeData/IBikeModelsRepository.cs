@@ -69,7 +69,6 @@ namespace Bikewale.Interfaces.BikeData
         NewLaunchedBikesBase GetNewLaunchedBikesListByMake(int startIndex, int endIndex, int? makeid = null);
         BikeModelPageEntity GetModelPage(U modelId, int versionId);
         IEnumerable<NewBikeModelColor> GetModelColor(U modelId);
-        BikeSpecificationEntity MVSpecsFeatures(int versionId);
         IEnumerable<BikeSpecificationEntity> GetModelSpecifications(U modelId);
         IEnumerable<MostPopularBikesBase> GetMostPopularBikesbyMakeCity(uint topCount, uint makeId, uint cityId);
         IEnumerable<BikeUserReviewRating> GetUserReviewSimilarBike(uint modelId, uint topCount);

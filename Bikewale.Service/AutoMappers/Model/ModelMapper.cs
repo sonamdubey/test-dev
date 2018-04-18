@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Bikewale.BAL.ApiGateway.Entities.BikeData;
 using Bikewale.DTO.BikeData;
 using Bikewale.DTO.Campaign;
 using Bikewale.DTO.CMS.Articles;
@@ -345,18 +346,18 @@ namespace Bikewale.Service.AutoMappers.Model
                     foreach (var spec in objModelPage.SpecsSummaryList)
                     {
                         displayValue = FormatMinSpecs.ShowAvailable(spec.Value, spec.UnitType, spec.DataType, spec.Id);
-                        switch ((EnumSpecsFeaturesItem)spec.Id)
+                        switch ((EnumSpecsFeaturesItems)spec.Id)
                         {
-                            case EnumSpecsFeaturesItem.Displacement:
+                            case EnumSpecsFeaturesItems.Displacement:
                                 objDTOModelPage.Capacity = displayValue;
                                 break;
-                            case EnumSpecsFeaturesItem.FuelEfficiencyOverall:
+                            case EnumSpecsFeaturesItems.FuelEfficiencyOverall:
                                 objDTOModelPage.Mileage = displayValue;
                                 break;
-                            case EnumSpecsFeaturesItem.MaxPowerBhp:
+                            case EnumSpecsFeaturesItems.MaxPowerBhp:
                                 objDTOModelPage.MaxPower = displayValue;
                                 break;
-                            case EnumSpecsFeaturesItem.KerbWeight:
+                            case EnumSpecsFeaturesItems.KerbWeight:
                                 objDTOModelPage.Weight = displayValue;
                                 break;
                         }
@@ -436,18 +437,18 @@ namespace Bikewale.Service.AutoMappers.Model
                     foreach (var spec in objModelPage.SpecsSummaryList)
                     {
                         displayValue = FormatMinSpecs.ShowAvailable(spec.Value, spec.UnitType, spec.DataType, spec.Id);
-                        switch ((EnumSpecsFeaturesItem)spec.Id)
+                        switch ((EnumSpecsFeaturesItems)spec.Id)
                         {
-                            case EnumSpecsFeaturesItem.Displacement:
+                            case EnumSpecsFeaturesItems.Displacement:
                                 objDTOModelPage.Capacity = displayValue;
                                 break;
-                            case EnumSpecsFeaturesItem.FuelEfficiencyOverall:
+                            case EnumSpecsFeaturesItems.FuelEfficiencyOverall:
                                 objDTOModelPage.Mileage = displayValue;
                                 break;
-                            case EnumSpecsFeaturesItem.MaxPowerBhp:
+                            case EnumSpecsFeaturesItems.MaxPowerBhp:
                                 objDTOModelPage.MaxPower = displayValue;
                                 break;
-                            case EnumSpecsFeaturesItem.KerbWeight:
+                            case EnumSpecsFeaturesItems.KerbWeight:
                                 objDTOModelPage.Weight = displayValue;
                                 break;
                         }
@@ -714,18 +715,18 @@ namespace Bikewale.Service.AutoMappers.Model
                     foreach (var spec in objModelPage.SpecsSummaryList)
                     {
                         displayValue = spec.Value == "" ? null : FormatMinSpecs.ShowAvailable(spec.Value, spec.UnitType, spec.DataType, spec.Id);
-                        switch ((EnumSpecsFeaturesItem)spec.Id)
+                        switch ((EnumSpecsFeaturesItems)spec.Id)
                         {
-                            case EnumSpecsFeaturesItem.Displacement:
+                            case EnumSpecsFeaturesItems.Displacement:
                                 objDTOModelPage.Capacity = displayValue;
                                 break;
-                            case EnumSpecsFeaturesItem.FuelEfficiencyOverall:
+                            case EnumSpecsFeaturesItems.FuelEfficiencyOverall:
                                 objDTOModelPage.Mileage = displayValue;
                                 break;
-                            case EnumSpecsFeaturesItem.MaxPowerBhp:
+                            case EnumSpecsFeaturesItems.MaxPowerBhp:
                                 objDTOModelPage.MaxPower = displayValue;
                                 break;
-                            case EnumSpecsFeaturesItem.KerbWeight:
+                            case EnumSpecsFeaturesItems.KerbWeight:
                                 objDTOModelPage.Weight = displayValue;
                                 break;
                         }

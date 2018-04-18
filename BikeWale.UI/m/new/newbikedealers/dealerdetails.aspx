@@ -123,40 +123,38 @@
             <div class="box-shadow padding-top15 padding-right20 padding-bottom5 padding-left20">
                 <h2 class="font18 margin-bottom15">Bikes available at <%= dealerName %></h2>
                 <ul id="model-available-list">
-                    <asp:Repeater ID="rptModels" runat="server">
-                        <ItemTemplate>
+					<% foreach(var model in dealerModels) { %>
                             <li>
-                                <a class="modelurl" href='/m<%# Bikewale.Utility.UrlFormatter.BikePageUrl(Convert.ToString(DataBinder.Eval(Container.DataItem,"objMake.MaskingName")),Convert.ToString(DataBinder.Eval(Container.DataItem,"objModel.MaskingName"))) %>'>
+                                <a class="modelurl" href='/m<%= Bikewale.Utility.UrlFormatter.BikePageUrl(model.objMake.MaskingName, model.objModel.MaskingName) %>'>
                                     <div class="image-block">
                                         <div class="image-content">
                                             <img class="lazy"
-                                                data-original="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImagePath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._310x174) %>"
-                                                alt="<%# DataBinder.Eval(Container.DataItem, "BikeName") %>" src="https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif">
+                                                data-original="<%= Bikewale.Utility.Image.GetPathToShowImages(model.OriginalImagePath, model.HostURL, Bikewale.Utility.ImageSize._310x174) %>"
+                                                alt="<%= model.BikeName %>" src="https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif">
                                         </div>
                                     </div>
 
                                     <div class="details-block">
-                                        <h3 class="font16 margin-bottom10 text-black text-truncate"><%# DataBinder.Eval(Container.DataItem, "BikeName") %></h3>
+                                        <h3 class="font16 margin-bottom10 text-black text-truncate"><%= model.BikeName %></h3>
                                         <div class="font14 text-x-light margin-bottom5">
-                                            <%# Bikewale.Utility.FormatMinSpecs.GetMinSpecs(Convert.ToString(DataBinder.Eval(Container.DataItem, "Specs.Displacement")),Convert.ToString(DataBinder.Eval(Container.DataItem, "Specs.FuelEfficiencyOverall")),Convert.ToString(DataBinder.Eval(Container.DataItem, "Specs.MaxPower"))) %>
+                                            <%= Bikewale.Utility.FormatMinSpecs.GetMinSpecsSpanElements(model.MinSpecsList) %>
                                         </div>
                                         <div class="text-default">
                                             <span class="font14 text-light-grey"> On-road Price, <%= cityName %></span>
                                             </div>
                                         <div class="text-default">
                                             <span class="bwmsprite inr-sm-icon"></span>
-                                            <span class="font18 text-bold"><%# Bikewale.Utility.Format.FormatPrice(Convert.ToString(DataBinder.Eval(Container.DataItem, "VersionPrice"))) %></span>
+                                            <span class="font18 text-bold"><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(model.VersionPrice)) %></span>
                                         </div>
                                         <% if(pqAreaId > 0){ %>    
                                         <div class="text-default">
-                                            <a rel="nofollow" class="btn btn-white btn-sm-1 margin-top5 inline-block dealerDetails" href="javascript:void(0)" data-versionid="<%# Convert.ToString(DataBinder.Eval(Container.DataItem,"objVersion.VersionId")) %>" data-pqsourceid="<%= (int) Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_DealerLocator_Detail_AvailableModels %>" data-modelid="<%# Convert.ToString(DataBinder.Eval(Container.DataItem,"objModel.ModelId")) %>">Show detailed price</a>
+                                            <a rel="nofollow" class="btn btn-white btn-sm-1 margin-top5 inline-block dealerDetails" href="javascript:void(0)" data-versionid="<%= model.objVersion.VersionId %>" data-pqsourceid="<%= (int) Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_DealerLocator_Detail_AvailableModels %>" data-modelid="<%= model.objModel.ModelId %>">Show detailed price</a>
                                         </div>              
                                         <%} %>                  
                                     </div>                                
                                 </a>
                             </li>
-                        </ItemTemplate>
-                    </asp:Repeater>
+						<% } %>
                 </ul>
             </div>
         </section>

@@ -1,4 +1,5 @@
-﻿using Bikewale.Notifications;
+﻿using Bikewale.BAL.ApiGateway.Entities.BikeData;
+using Bikewale.Notifications;
 using Bikewale.Utility;
 using BikewaleOpr.Entity.BikeData;
 using BikewaleOpr.Interface.BikeData;
@@ -16,11 +17,11 @@ namespace BikewaleOpr.BAL
     /// </summary>
     public class BikeModels : IBikeModels
     {
-        private readonly IBikeModelsRepository _IBikeModel;
+        private readonly IBikeModelsRepository _IBikeModelRepository;
 
-        public BikeModels(IBikeModelsRepository bikeModel)
+        public BikeModels(IBikeModelsRepository bikeModelRepository)
         {
-            _IBikeModel = bikeModel;
+            _IBikeModelRepository = bikeModelRepository;
         }
 
         /// <summary>
@@ -34,7 +35,7 @@ namespace BikewaleOpr.BAL
             IEnumerable<UsedModelsByMake> objBikesByMake = null;
             try
             {
-                UsedBikeImagesNotificationData usedBikeNotificationDataList = _IBikeModel.GetPendingUsedBikesWithoutModelImage();
+                UsedBikeImagesNotificationData usedBikeNotificationDataList = _IBikeModelRepository.GetPendingUsedBikesWithoutModelImage();
                 objBikesByMake = new List<UsedModelsByMake>();
                 if (usedBikeNotificationDataList != null && usedBikeNotificationDataList.Bikes != null)
                 {
@@ -75,7 +76,7 @@ namespace BikewaleOpr.BAL
 
             try
             {
-                objBikeDataList = _IBikeModel.GetModelsWithMissingColorImage();
+                objBikeDataList = _IBikeModelRepository.GetModelsWithMissingColorImage();
 
                 if(objBikeDataList != null)
                 {
@@ -114,54 +115,23 @@ namespace BikewaleOpr.BAL
         }
 
         /// <summary>
-        /// Created by : Ashutosh Sharma on 02 Apr 2018
-        /// Description : Method to update bike min specs in elastic search index when specs are updated for a version if that version is top version among other versions of bike model.
+        /// Created by : Ashutosh Sharma on 01 Apr 2018
+        /// Description : Method to fetch model id of input version id to check if version is Top version among other versions of a bike model.
         /// </summary>
-        /// <param name="versionId">Version Id for which min specs to be updated in elastic index.</param>
-        /// <param name="specItemList">List of specs items with updated values which need to updated in ealstic index.</param>
-        public void UpdateMinSpecsInESIndex(int versionId, IEnumerable<SpecsItem> specItemList)
+        /// <param name="versionId">VersionId of bike version.</param>
+        /// <returns>ModelId if top version, otherwise 0.</returns>
+        public int GetModelIdIfTopVersion(int versionId)
         {
+            int modelId = 0;
             try
             {
-                int modelId = _IBikeModel.GetModelIdIfTopVersion(versionId);
-                if (modelId > 0)
-                {
-                    var mileage = specItemList.SingleOrDefault(s => s.Id == (int)EnumSpecsFeaturesItem.FuelEfficiencyOverall);
-                    var kerbWeight = specItemList.SingleOrDefault(s => s.Id == (int)EnumSpecsFeaturesItem.KerbWeight);
-                    var maxPower = specItemList.SingleOrDefault(s => s.Id == (int)EnumSpecsFeaturesItem.MaxPowerBhp);
-                    var displacement = specItemList.SingleOrDefault(s => s.Id == (int)EnumSpecsFeaturesItem.Displacement);
-                    dynamic jsonSpecs = new JObject();
-                    if (mileage != null)
-                    {
-                        jsonSpecs.mileage = mileage.Value;
-                    }
-                    if (kerbWeight != null)
-                    {
-                        jsonSpecs.kerbWeight = kerbWeight.Value;
-                    }
-                    if (maxPower != null)
-                    {
-                        jsonSpecs.power = maxPower.Value;
-                    }
-                    if (displacement != null)
-                    {
-                        jsonSpecs.displacement = displacement.Value;
-                    }
-                    JObject jsonTopVersionObj = new JObject();
-                    jsonTopVersionObj["topVersion"] = jsonSpecs;
-                    NameValueCollection nvc = new NameValueCollection();
-                    nvc["indexName"] = BWOprConfiguration.Instance.BikeModelIndex;
-                    nvc["documentType"] = "bikemodeldocument";
-                    nvc["documentId"] = Convert.ToString(modelId);
-                    nvc["operationType"] = "partialupdate";
-                    nvc["documentJson"] = jsonTopVersionObj.ToString();
-                    BWESIndexUpdater.PushToQueue(nvc);
-                }
+                modelId = _IBikeModelRepository.GetModelIdIfTopVersion(versionId);
             }
             catch (Exception ex)
             {
-                ErrorClass.LogError(ex, string.Format("BikewaleOpr.BAL.BikeModels.UpdateMinSpecsInESIndex_versionId_{0}", versionId));
+                ErrorClass.LogError(ex, string.Format("BikewaleOpr.BAL.BikeModels.GetModelIdIfTopVersion_versionId_{0}", versionId));
             }
+            return modelId;
         }
     }
 }

@@ -243,6 +243,10 @@
       <Project>{ea73dda4-317e-4b79-bb03-f48125c2501b}</Project>
       <Name>Bikewale.ManufacturerCampaign.Entities</Name>
     </ProjectReference>
+	<ProjectReference Include="..\Bikewale.BAL.ApiGateway\Bikewale.BAL.ApiGateway.csproj">
+      <Project>{281d4c7b-6329-4307-a1a3-de25135659f6}</Project>
+      <Name>Bikewale.BAL.ApiGateway</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

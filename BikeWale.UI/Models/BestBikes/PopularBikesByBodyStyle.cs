@@ -7,6 +7,7 @@ using Bikewale.BAL.ApiGateway.Adapters.BikeData;
 using Bikewale.BAL.ApiGateway.Entities.BikeData;
 using System.Collections.Generic;
 using Bikewale.BAL.ApiGateway.ApiGatewayHelper;
+using Bikewale.Entities.BikeData;
 
 namespace Bikewale.Models.BestBikes
 {
@@ -17,7 +18,7 @@ namespace Bikewale.Models.BestBikes
     public class PopularBikesByBodyStyle
     {
         #region Private variables
-        private readonly IBikeModelsCacheRepository<int> _models = null;
+        private readonly IBikeModels<BikeModelEntity, int> _models = null;
         private readonly IApiGatewayCaller _apiGatewayCaller;
         private int TotalWidgetItems = 9;
         #endregion
@@ -29,7 +30,7 @@ namespace Bikewale.Models.BestBikes
         #endregion
 
         #region Constructor
-        public PopularBikesByBodyStyle(IBikeModelsCacheRepository<int> models)
+        public PopularBikesByBodyStyle(IBikeModels<BikeModelEntity, int> models)
         {
             _models = models;
             _apiGatewayCaller = new ApiGatewayCaller();
@@ -46,38 +47,13 @@ namespace Bikewale.Models.BestBikes
             PopularBodyStyleVM objPopular = new PopularBodyStyleVM();
             try
             {
-                objPopular.PopularBikes = _models.GetMostPopularBikesByModelBodyStyle((int)ModelId, TotalWidgetItems, CityId);
+                objPopular.PopularBikes = _models.GetMostPopularBikesByModelBodyStyle((int)ModelId, TotalWidgetItems, CityId, true);
                 if (objPopular.PopularBikes != null && objPopular.PopularBikes.Any())
                 {
                     objPopular.PopularBikes = objPopular.PopularBikes.Take(TopCount);
                     objPopular.BodyStyle = objPopular.PopularBikes.FirstOrDefault().BodyStyle;
                     objPopular.BodyStyleText = BodyStyleLinks.BodyStyleHeadingText(objPopular.BodyStyle);
                     objPopular.BodyStyleLinkTitle = BodyStyleLinks.BodyStyleFooterLink(objPopular.BodyStyle);
-
-                    GetVersionSpecsByItemIdAdapter adapt1 = new GetVersionSpecsByItemIdAdapter();
-                    VersionsDataByItemIds_Input specItemInput = new VersionsDataByItemIds_Input
-                    {
-                        Versions = objPopular.PopularBikes.Select(m => m.objVersion.VersionId),
-                        Items = new List<EnumSpecsFeaturesItems>
-                        {
-                            EnumSpecsFeaturesItems.Displacement,
-                            EnumSpecsFeaturesItems.FuelEfficiencyOverall,
-                            EnumSpecsFeaturesItems.MaxPowerBhp,
-                            EnumSpecsFeaturesItems.KerbWeight
-                        }
-                    };
-                    adapt1.AddApiGatewayCall(_apiGatewayCaller, specItemInput);
-                    _apiGatewayCaller.Call();
-                    var minSpecsFeaturesList = adapt1.Output;
-                    if (minSpecsFeaturesList != null)
-                    {
-                        var specsEnumerator = minSpecsFeaturesList.GetEnumerator();
-                        var bikesEnumerator = objPopular.PopularBikes.GetEnumerator();
-                        while (bikesEnumerator.MoveNext() && specsEnumerator.MoveNext())
-                        {
-                            bikesEnumerator.Current.MinSpecsList = specsEnumerator.Current.MinSpecsList;
-                        } 
-                    }
                 }
             }
             catch (Exception ex)

@@ -19,6 +19,7 @@ namespace Bikewale.Cache.DealersLocator
         private readonly ICacheManager _cache;
         private readonly IDealerRepository _objDealersRepository;
 
+
         public DealerCacheRepository(ICacheManager cache, IDealerRepository objDealersRepository)
         {
             _cache = cache;
@@ -90,7 +91,7 @@ namespace Bikewale.Cache.DealersLocator
         public DealerBikesEntity GetDealerDetailsAndBikesByDealerAndMake(uint dealerId, int makeId)
         {
             DealerBikesEntity models = null;
-            string key = String.Format("BW_DealerBikeModel_v1_{0}_{1}", dealerId, makeId);
+            string key = String.Format("BW_DealerBikeModel_V_{0}_{1}", dealerId, makeId);
             try
             {
                 models = _cache.GetFromCache<DealerBikesEntity>(key, new TimeSpan(0, 30, 0), () => _objDealersRepository.GetDealerDetailsAndBikesByDealerAndMake(dealerId, makeId));

@@ -56,7 +56,7 @@ namespace Bikewale.Service.Controllers.Make
 
             try
             {
-                objModelList = _bikeModels.GetMostPopularBikesByMake(makeId);
+                objModelList = _bikeModels.GetMostPopularBikesByMake(makeId, true);
                 description = _bikeMakes.GetMakeDescription((int)makeId);
 
                 if (objModelList != null && objModelList.Any() && description != null)

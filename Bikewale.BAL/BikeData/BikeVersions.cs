@@ -53,35 +53,37 @@ namespace Bikewale.BAL.BikeData
 
             return objVersionList;
         }
-        [Obsolete("Use Specification and Features Micro Service to get all specs.", true)]
         public IEnumerable<BikeVersionMinSpecs> GetVersionMinSpecs(uint modelId, bool isNew)
         {
             IEnumerable<BikeVersionMinSpecs> versionsList = null;
             try
             {
                 versionsList = _versionCacheRepository.GetVersionMinSpecs(modelId, isNew);
-                GetVersionSpecsByItemIdAdapter adapt1 = new GetVersionSpecsByItemIdAdapter();
-                VersionsDataByItemIds_Input specItemInput = new VersionsDataByItemIds_Input
+                if (versionsList != null && versionsList.Any())
                 {
-                    Versions = versionsList.Select(v => v.VersionId),
-                    Items = new List<EnumSpecsFeaturesItems>
+                    GetVersionSpecsByItemIdAdapter adapt1 = new GetVersionSpecsByItemIdAdapter();
+                    VersionsDataByItemIds_Input specItemInput = new VersionsDataByItemIds_Input
                     {
-                        EnumSpecsFeaturesItems.BrakeType,
-                        EnumSpecsFeaturesItems.AlloyWheels,
-                        EnumSpecsFeaturesItems.ElectricStart,
+                        Versions = versionsList.Select(v => v.VersionId),
+                        Items = new List<EnumSpecsFeaturesItems>
+                    {
+                        EnumSpecsFeaturesItems.RearBrakeType,
+                        EnumSpecsFeaturesItems.WheelType,
+                        EnumSpecsFeaturesItems.StartType,
                         EnumSpecsFeaturesItems.AntilockBrakingSystem
                     }
-                };
-                adapt1.AddApiGatewayCall(_apiGatewayCaller, specItemInput);
-                _apiGatewayCaller.Call();
-                var specsResponseList = adapt1.Output;
-                if (specsResponseList != null)
-                {
-                    var specsEnumerator = specsResponseList.GetEnumerator();
-                    var bikesEnumerator = versionsList.GetEnumerator();
-                    while (bikesEnumerator.MoveNext() && specsEnumerator.MoveNext())
+                    };
+                    adapt1.AddApiGatewayCall(_apiGatewayCaller, specItemInput);
+                    _apiGatewayCaller.Call();
+                    var specsResponseList = adapt1.Output;
+                    if (specsResponseList != null)
                     {
-                        bikesEnumerator.Current.MinSpecsList = specsEnumerator.Current.MinSpecsList;
+                        var specsEnumerator = specsResponseList.GetEnumerator();
+                        var bikesEnumerator = versionsList.GetEnumerator();
+                        while (bikesEnumerator.MoveNext() && specsEnumerator.MoveNext())
+                        {
+                            bikesEnumerator.Current.MinSpecsList = specsEnumerator.Current.MinSpecsList;
+                        }
                     }
                 }
             }
@@ -261,9 +263,9 @@ namespace Bikewale.BAL.BikeData
                         Versions = versionList.Select(version => (int)version.VersionId),
                         Items = new List<EnumSpecsFeaturesItems>{
                             EnumSpecsFeaturesItems.AntilockBrakingSystem,
-                            EnumSpecsFeaturesItems.BrakeType,
-                            EnumSpecsFeaturesItems.AlloyWheels,
-                            EnumSpecsFeaturesItems.ElectricStart
+                            EnumSpecsFeaturesItems.RearBrakeType,
+                            EnumSpecsFeaturesItems.WheelType,
+                            EnumSpecsFeaturesItems.StartType
                         }
                     };
                     adapt.AddApiGatewayCall(_apiGatewayCaller, adaptInput);
