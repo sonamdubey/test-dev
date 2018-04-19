@@ -2,8 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types'
 
 const propTypes = {
-	// class name
-	childClassName: PropTypes.string,
 	// count
   id: PropTypes.string,
   // status
@@ -11,36 +9,35 @@ const propTypes = {
 }
 
 const defaultProps = {
-	childClassName: '',
   id: '',
-  status: '2'  // here, status 1: active; 2: disabled; 3: done 
+  status: 2  // here, status 1: active; 2: disabled; 3: done 
 }
 
-class ProgressBar extends React.Component {
+class ProgressBarItem extends React.Component {
   constructor(props) {
     super(props);
+    this.getClassName = this.getClassName.bind(this);
   }
 
-  getClassName() {
-    switch(this.props.status) {
+  getClassName (status) {
+    switch(status) {
       case 1:
-        return 'active';
+      return 'active';
     case 2:
-        return 'disabled';
+      return 'disabled';
     case 3:
-        return 'done';
+      return 'done';
     }
   }
   render() {
     const {
-      childClassName,
       id,
       status
     } = this.props
-    const classStatus = ' '+this.getClassName();
+    const classStatus = ' ' + this.getClassName(status);
     return(
       <div className="progress-bar__item">
-        <div className={"progress-bar__item-content " + childClassName + classStatus}>
+        <div className={"progress-bar__item-content " + classStatus}>
             <span className="selection-field__index">{id}</span>
               {this.props.children}
           </div>
@@ -50,7 +47,7 @@ class ProgressBar extends React.Component {
   }
 }
 
-ProgressBar.propTypes = propTypes
-ProgressBar.defaultProps = defaultProps
+ProgressBarItem.propTypes = propTypes
+ProgressBarItem.defaultProps = defaultProps
 
-export default ProgressBar
+export default ProgressBarItem

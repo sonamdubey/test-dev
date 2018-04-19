@@ -1,7 +1,7 @@
 import React from 'react';
 
 import SelectBikePopup from '../Shared/SelectBikePopup'
-import ProgressContainer from './ProgressContainer'
+import EMICalculatorSelection from './EMICalculatorSelection'
 
 class EMICalculator extends React.Component {
   constructor(props) {
@@ -33,7 +33,7 @@ class EMICalculator extends React.Component {
             Know the tentative EMI for bike of your choice in 2 simple steps.
           </p>
         </div>
-        <ProgressContainer />
+        <EMICalculatorSelection />
         <span onClick={this.handleSelectBikeClick}>Select bike</span>
         <SelectBikePopup isActive={selectBikePopupStatus} />
       </div>
