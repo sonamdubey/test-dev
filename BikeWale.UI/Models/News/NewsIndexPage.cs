@@ -214,7 +214,11 @@ namespace Bikewale.Models
                     BindLinkPager(objData, recordCount);
                     CreatePrevNextUrl(objData, recordCount);
 
-                    BindBikeInfoWidget(objData);
+                    if (ModelId > 0)
+                    {
+                        BindBikeInfoWidget(objData);
+                    }
+
                     if (!IsMobile)
                     {
                         SetAdditionalVariables(objData);
@@ -1425,11 +1429,8 @@ namespace Bikewale.Models
 
         private void BindBikeInfoWidget(NewsIndexPageVM objData)
         {
-            if (ModelId > 0)
-            {
-                BikeInfoWidget genericInfoWidget = new BikeInfoWidget(_objGenericBike, _objCityCache, ModelId, CityId, _totalTabCount, _pageId);
-                objData.GenericBikeInfoWidget = genericInfoWidget.GetData();
-            }
+            BikeInfoWidget genericInfoWidget = new BikeInfoWidget(_objGenericBike, _objCityCache, ModelId, CityId, _totalTabCount, _pageId);
+            objData.GenericBikeInfoWidget = genericInfoWidget.GetData();
         }
         #endregion
 
