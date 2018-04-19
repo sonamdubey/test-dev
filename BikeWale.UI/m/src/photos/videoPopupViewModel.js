@@ -69,14 +69,14 @@
 		if (window.innerWidth > window.innerHeight) {
 			self.videoSwiper.params.freeMode = false;
 			self.videoSwiper.params.direction = 'horizontal';
-			self.videoSwiper.params.initialSlide = self.videoSwiper.slides.length;
+			self.videoSwiper.params.initialSlide = self.videoSwiper.activeIndex;
 			swiperElement.removeClass('swiper-container-vertical');
 			self.setSlidesDimension();
 		}
 		else {
 			self.videoSwiper.params.freeMode = true;
 			self.videoSwiper.params.direction = 'vertical';
-			self.videoSwiper.params.initialSlide = 0;
+			self.videoSwiper.params.initialSlide = self.videoSwiper.activeIndex;
 			swiperElement.addClass('swiper-container-vertical');
 			self.resetSlidesDimension();
 		}
@@ -86,8 +86,6 @@
 		self.videoSwiper.update(true);
 
 		if (window.innerWidth > window.innerHeight) {
-			self.videoSwiper.slideTo(0, 1000);
-
 			var timeout;
 			clearTimeout(timeout);
 			timeout = setTimeout(function () {
@@ -105,12 +103,15 @@
 		var swiperElement = $(self.videoSwiper.container[0]);
 		var sliderHeight = window.innerHeight - (gallery.find(".video-popup__head").height() * 1.5) - gallery.find(".video-list__back-btn").height();
 		var sliderWidth = sliderHeight * 16 / 9;
+		var swiperPadding = window.innerWidth - sliderWidth + 10; // 10px offset padding from left
 
-		swiperElement.find(".swiper-slide").css('width', sliderWidth);
+		swiperElement.find(".swiper-slide").css("width", sliderWidth);
+		$("#mainVideoSwiper").css("padding-right", swiperPadding);
 	}
 
 	self.resetSlidesDimension = function () {
-		$(self.videoSwiper.container[0]).find('.swiper-slide').css('width', '100%');
+		$(self.videoSwiper.container[0]).find(".swiper-slide").css("width", "100%");
+		$("#mainVideoSwiper").css("padding-right", 0);
 	}
 
 	self.registerEvents = function () {
