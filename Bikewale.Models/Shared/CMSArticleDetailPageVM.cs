@@ -45,5 +45,7 @@ namespace Bikewale.Models.Shared
         public EnumBikeBodyStyles BodyStyle { get; set; }
         public bool IsSeriesAvailable { get; set; }
         public bool IsScooter { get; set; }
+        public IDictionary<EditorialPageWidgetPosition, EditorialWidgetVM> PageWidgets { get; set; }
+
     }
 }

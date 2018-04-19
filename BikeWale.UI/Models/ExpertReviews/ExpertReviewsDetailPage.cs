@@ -199,8 +199,15 @@ namespace Bikewale.Models
                     SetPageMetas(objData);
                     CheckSeriesData(objData);
                     SetAdditionalVariables(objData);
+                    if(IsMobile || IsAMPPage)
+                    {
+                        GetWidgetData(objData, widgetTopCount);
+                    }
+                    else
+                    {
+                        objData.PageWidgets = base.GetEditorialWidgetData(EnumEditorialPageType.Detail);
+                    }
 
-                    GetWidgetData(objData, widgetTopCount);
                     PopulatePhotoGallery(objData);
                     BindSimilarBikes(objData);
                     SetBikeTested(objData);
@@ -460,6 +467,7 @@ namespace Bikewale.Models
                             objData.Make = new Bikewale.Common.MakeHelper().GetMakeNameByMakeId((uint)objData.Make.MakeId);
                     }
                     MakeId = (uint)objData.Make.MakeId;
+                    isMakeTagged = MakeId > 0;
                 }
             }
             catch (Exception ex)
@@ -493,6 +501,8 @@ namespace Bikewale.Models
                             objData.Model = new Bikewale.Common.ModelHelper().GetModelDataById((uint)objData.Model.ModelId);
                     }
                     ModelId = (uint)objData.Model.ModelId;
+                    isModelTagged = ModelId > 0;
+
                 }
             }
             catch (Exception ex)
