@@ -52,12 +52,12 @@
 			}
 		}
 		else {
-			SwiperYT.YouTubeApi.videoPause();
+			SwiperYT.YouTubeApi.handleVideoPause();
 		}
-		
-		if(typeof handleFullscreenAnchestor !== 'undefined') {
-			handleFullscreenAnchestor();
-		}
+
+		if (typeof handleFullscreenAnchestor !== "undefined") {
+      handleFullscreenAnchestor();
+    }
 	},
 
 	YouTubeApi: {
@@ -108,20 +108,24 @@
 
 			var handleScroll = function () {
 				try {
-					if ($('.youtube-iframe-preview').find('iframe.current').length) {
-						var videoFrame = $('.youtube-iframe-preview').find('iframe.current');
-						var inViewPortTopBottom = ViewPort.isElementInViewportTopBottom(videoFrame);
-
-						if (!inViewPortTopBottom) {
-							SwiperYT.handleOrientationType();
-						}
-					}
+					SwiperYT.YouTubeApi.handleVideoPause();
 				} catch (e) {
 					console.log(e);
 				}
 			}
 
 			$(window).on('scroll', handleScroll);
+		},
+
+		handleVideoPause: function() {
+			if ($('.youtube-iframe-preview').find('iframe.current').length) {
+				var videoFrame = $('.youtube-iframe-preview').find('iframe.current');
+				var inViewPortTopBottom = ViewPort.isElementInViewportTopBottom(videoFrame);
+
+				if (!inViewPortTopBottom) {
+					SwiperYT.handleOrientationType();
+				}
+			}
 		},
 
 		//youtube player state change event
