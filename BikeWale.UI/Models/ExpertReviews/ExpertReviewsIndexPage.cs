@@ -213,6 +213,11 @@ namespace Bikewale.Models
                     SetPageMetas(objData);
                     CreatePrevNextUrl(objData, (int)objData.Articles.RecordCount);
 
+                    if (ModelId > 0)
+                    {
+                        BindBikeInfoWidget(objData);
+                    }
+
                     if (!IsMobile)
                     {
                         SetAdditionalVariables(objData);
@@ -629,11 +634,7 @@ namespace Bikewale.Models
                     objPopularBikes.TopCount = 9;
                     objPopularBikes.CityId = CityId;
 
-                    if (ModelId > 0)
-                    {
-                        BikeInfoWidget genericInfoWidget = new BikeInfoWidget(_objGenericBike, _objCityCache, ModelId, CityId, _totalTabCount, _pageId);
-                        objData.GenericBikeInfoWidget = genericInfoWidget.GetData();
-                    }
+                    
 
                     if (MakeId > 0)
                     {
@@ -1374,6 +1375,12 @@ namespace Bikewale.Models
             {
                 Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("Bikewale.Models.ExpertReviewsIndexPage.BindMoreAboutScootersWidget : ModelId {0}", ModelId));
             }
+        }
+
+        private void BindBikeInfoWidget(ExpertReviewsIndexPageVM objData)
+        {
+            BikeInfoWidget genericInfoWidget = new BikeInfoWidget(_objGenericBike, _objCityCache, ModelId, CityId, _totalTabCount, _pageId);
+            objData.GenericBikeInfoWidget = genericInfoWidget.GetData();
         }
         #endregion
     }
