@@ -36,7 +36,12 @@
 	self.setBodyHeight = function () {
 		var availableHeight = $('#videoGalleryPopup').outerHeight() - $('.video-popup__head').outerHeight();
 
-		$('.video-popup__body').css('height', availableHeight);
+		if($('body').hasClass('fullscreen-mode--iframe')) {
+			$('.video-popup__body').css('height', window.innerHeight);
+		}
+		else {
+			$('.video-popup__body').css('height', availableHeight);
+		}
 	}
 
 	self.videoSwiper = new Swiper('#mainVideoSwiper', {
@@ -83,9 +88,15 @@
 		if (window.innerWidth > window.innerHeight) {
 			self.videoSwiper.slideTo(0, 1000);
 
-			setTimeout(function () {
+			var timeout;
+			clearTimeout(timeout);
+			timeout = setTimeout(function () {
 				self.videoSwiper.update(true);
 			}, 1000);
+
+			if(typeof handleFullscreenAnchestor !== 'undefined') {
+				handleFullscreenAnchestor();
+			}
 		}
 	}
 

@@ -1,4 +1,5 @@
 ﻿var SwiperYT = {
+	isVideoPlaying: false,
 	Initialize: function () {
 		$('.swiper-youtube:not(".noSwiper")').each(function (index, element) {
 			var currentSwiper = $(this);
@@ -37,10 +38,25 @@
 	slideChangeStart: function () {
 		if (SwiperYT.YouTubeApi.playerState == 'playing' || SwiperYT.YouTubeApi.playerState == 'buffering') {
 			try {
-				SwiperYT.YouTubeApi.videoPause();
+				SwiperYT.handleOrientationType();
 			} catch (e) {
 				console.warn(e);
 			}
+		}
+	},
+
+	handleOrientationType: function() {
+		if ("orientation" in screen && screen.orientation.type === "landscape-primary") {
+			if (typeof screenfull !== "undefined" && !screenfull.isFullscreen) {
+				SwiperYT.YouTubeApi.videoPause();
+			}
+		}
+		else {
+			SwiperYT.YouTubeApi.videoPause();
+		}
+		
+		if(typeof handleFullscreenAnchestor !== 'undefined') {
+			handleFullscreenAnchestor();
 		}
 	},
 
@@ -97,7 +113,7 @@
 						var inViewPortTopBottom = ViewPort.isElementInViewportTopBottom(videoFrame);
 
 						if (!inViewPortTopBottom) {
-							SwiperYT.YouTubeApi.videoPause();
+							SwiperYT.handleOrientationType();
 						}
 					}
 				} catch (e) {
@@ -147,6 +163,7 @@
 			SwiperYT.YouTubeApi.player[SwiperYT.YouTubeApi.count].playVideo();
 			targetIframe.siblings('.iframe-overlay').hide();
 			SwiperYT.YouTubeApi.countArray.push(SwiperYT.YouTubeApi.count);
+			SwiperYT.isVideoPlaying = true;
 		},
 
 		videoPause: function () {
@@ -156,6 +173,7 @@
 				}
 				$('.youtube-iframe-preview .iframe-overlay:not(":visible")').show();
 				SwiperYT.YouTubeApi.countArray = [];
+				SwiperYT.isVideoPlaying = false;
 			}
 		}
 	}

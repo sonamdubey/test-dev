@@ -144,17 +144,18 @@ function resizeHandler() {
 		vmModelGallery.resetSharePopup();
 	}
 
-	handleColorPopupResize();
+  handleColorPopupResize();
 };
 
 function handleOrientationChange() {
 	if ('orientation' in screen && screen.orientation.type === 'landscape-primary') {
-		vmModelGallery.fullScreenModeActive(true);
+    vmModelGallery.fullScreenModeActive(true);
 	}
 	else {
-		vmModelGallery.fullScreenModeActive(false);
-	}
+    vmModelGallery.fullScreenModeActive(false);
+  }
 
+  handleFullscreenAnchestor();
 	$(window).trigger('resize');
 }
 
@@ -164,6 +165,15 @@ function handleOrientationChangeFallback() {
   }
   else {
     vmModelGallery.fullScreenModeActive(false);
+  }
+}
+
+function handleFullscreenAnchestor() {
+  if (SwiperYT.isVideoPlaying && screenfull.isFullscreen) {
+    $("body").addClass("fullscreen-mode--iframe");
+  }
+  else {
+    $("body").removeClass("fullscreen-mode--iframe");
   }
 }
 
@@ -303,7 +313,9 @@ docReady(function () {
 					screen.orientation.unlock();
 					screen.orientation.lock('portrait-primary');
 				}
-			}
+      }
+
+      handleFullscreenAnchestor();
 		});
 	}
 
