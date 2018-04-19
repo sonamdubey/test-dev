@@ -379,9 +379,9 @@
                                                     <div class="font14 text-light-grey margin-bottom5">Ex-showroom, @BWConfiguration.Instance.DefaultName </div>
                                                     <div class="text-bold">
                                                         <span class="bwsprite inr-lg"></span>
-                                                        <span class="font18" data-bind="text: models()[@i].price">@bike.FinalPrice</span><span class="font14 padding-left5 @(bike.FinalPrice.Equals("N/A") ? "hide" : "") " data-bind="visible : models()[@i].price != 'N/A'">onwards</span>
+                                                        <span class="font18" data-bind="text: models()[@i].price">@bike.FinalPrice</span><span class="font14 padding-left5" style="display: @(bike.FinalPrice.Equals("N/A") ? "none" : "") " data-bind="visible : models()[@i].price != 'N/A'">onwards</span>
                                                     </div>
-                                                    <div class="margin-bottom10 @(bike.FinalPrice.Equals("N/A") ? "hide" : "")" data-bind="visible : models()[@i].price != 'N/A'">
+                                                    <div class="margin-bottom10)" style="display: @(bike.FinalPrice.Equals("N/A") ? "none" : "") " data-bind="visible : models()[@i].price != 'N/A'">
                                                         <a href="javascript:void(0)" data-pqsourceid="@Model.BikeSearch.PqSource" data-bind="attr: { 'data-modelid' : models()[@i].bikemodel.modelId}" data-modelid="@bike.BikeModel.ModelId" class="btn btn-grey btn-sm margin-top15 font14 getquotation">Check on-road price</a>
                                                     </div>
                                                 </div>
