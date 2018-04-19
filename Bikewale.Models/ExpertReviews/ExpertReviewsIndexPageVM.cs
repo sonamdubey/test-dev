@@ -30,7 +30,7 @@ namespace Bikewale.Models
     /// </summary>
     public class ExpertReviewsIndexPageVM : CmsArticlesListIndexPageVM
     {
-        
+        public IDictionary<EditorialPageWidgetPosition, EditorialWidgetVM> PageWidgets { get; set; }
     }
 
 }
