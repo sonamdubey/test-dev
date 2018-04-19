@@ -1,4 +1,11 @@
-@mixin progress-bar
+@mixin progress-bar($size: 23)
+  @if unitless($size)== false
+    @error please provide unitless value in progress bar
+
+  $size: $size * 1px
+  $ActiveSize: $size + 5
+  $CheckedSize: $size - 3
+
   .progress-bar
     @include flexbox
     @include justify-content(justify)
@@ -28,7 +35,7 @@
         display: none
 
   .progress-bar__item-content
-    padding-left: 40px
+    padding-left: 8px
     padding-right: 8px
     font-size: 12px
     line-height: 22px
@@ -39,31 +46,27 @@
     position: relative
     z-index: 1
     text-transform: capitalize
-
     
     &.active
       .selection-field__index
-        height: 28px
-        width: 28px
+        height: $ActiveSize
+        width: $ActiveSize
         padding-top: 3px
-        top: -5px
-        left: 4px
 
     &.disabled
       color: color('dark-black', .3)
 
     &.done
       .selection-field__index
-        height: 20px
-        width: 20px
-        
+        height: $CheckedSize
+        width: $CheckedSize
         &:after
           @include vendor-prefix('border-radius', 30px)
           @include tick-fff-icon
           content: ''
           display: block
-          height: 100%
-          width: 100%
+          height: $CheckedSize
+          width: $CheckedSize
           background-color: color('mona-lisa')
           position: absolute
           top: 0
@@ -75,10 +78,15 @@
     @include vendor-prefix('border-radius', 30px)
     content: ''
     display: inline-block
-    height: 23px
-    width: 23px
+    vertical-align: middle
+    height: $size
+    width: $size
     background-color: color('border-light')
-    position: absolute
-    left: 8px
     font-size: 12px
     text-align: center
+    position: relative
+
+  .selection-field__title
+    display: inline-block
+    vertical-align: middle
+    margin-left: 10px

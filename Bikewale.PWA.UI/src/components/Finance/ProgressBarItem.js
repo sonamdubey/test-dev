@@ -3,14 +3,14 @@ import PropTypes from 'prop-types'
 
 const propTypes = {
 	// count
-  id: PropTypes.string,
+  id: PropTypes.number,
   // status
   status: PropTypes.number
 }
 
 const defaultProps = {
-  id: '',
-  status: 2  // here, status 1: active; 2: disabled; 3: done 
+  id: {},
+  status: 1  // here, status 1: disabled; 2: active; 3: done 
 }
 
 class ProgressBarItem extends React.Component {
@@ -22,11 +22,13 @@ class ProgressBarItem extends React.Component {
   getClassName (status) {
     switch(status) {
       case 1:
-      return 'active';
-    case 2:
       return 'disabled';
+    case 2:
+      return 'active';
     case 3:
       return 'done';
+    default:
+      return 'disabled';
     }
   }
   render() {
@@ -34,12 +36,12 @@ class ProgressBarItem extends React.Component {
       id,
       status
     } = this.props
-    const classStatus = ' ' + this.getClassName(status);
+    const classStatus = this.getClassName(status);
     return(
       <div className="progress-bar__item">
         <div className={"progress-bar__item-content " + classStatus}>
             <span className="selection-field__index">{id}</span>
-              {this.props.children}
+            <span className="selection-field__title">{this.props.children}</span>
           </div>
       </div>
 

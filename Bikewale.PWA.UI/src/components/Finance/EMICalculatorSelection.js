@@ -6,8 +6,8 @@ class EMICalculatorSelection extends React.Component {
   constructor(props) {
     super(props);
     this.setState({
-      bike: 1,  // here 1: active; 2: disabled; 3: done
-      city: 2
+      bike: 2,  // here 1: disabled; 2: active; 3: done
+      city: 1
     });
   }
 
@@ -15,10 +15,10 @@ class EMICalculatorSelection extends React.Component {
     return (
       <div className="emi-calculator__progress-container">
         <ProgressBar>
-          <ProgressBarItem id="1" status={this.state.bike}>
+          <ProgressBarItem id={1} status={this.state.bike}>
               Select bike
           </ProgressBarItem>
-          <ProgressBarItem id="2" status={this.state.city}>
+          <ProgressBarItem id={2} status={this.state.city}>
               Select city
           </ProgressBarItem>
         </ProgressBar>
