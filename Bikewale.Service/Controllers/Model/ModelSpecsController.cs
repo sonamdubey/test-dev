@@ -41,6 +41,8 @@ namespace Bikewale.Service.Controllers.Model
         /// <param name="cache"></param>
         /// <param name="bikeModelEntity"></param>
         /// <param name="versionCacheRepository"></param>
+        /// <param name="objPQByCityArea"></param>
+        /// <param name="apiGatewayCaller"></param>
         public ModelSpecsController(IBikeModelsRepository<BikeModelEntity, int> modelRepository, IBikeModelsCacheRepository<int> cache, IBikeModels<BikeModelEntity, int> bikeModelEntity, IBikeVersionCacheRepository<BikeVersionEntity, uint> versionCacheRepository, IPQByCityArea objPQByCityArea, IApiGatewayCaller apiGatewayCaller)
         {
             _modelRepository = modelRepository;

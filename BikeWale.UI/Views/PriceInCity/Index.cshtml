@@ -42,7 +42,7 @@
 										</a>
 
 									</div>
-									@Html.Raw(string.Format("<ul id=\"version-specs-list\">{0}</ul>", Bikewale.BAL.ApiGateway.Utils.FormatMinSpecsItem.GetMinSpecsAsLiElement(Model.MinSpecsList)))
+									@Html.Raw(string.Format("<ul id=\"version-specs-list\">{0}</ul>",FormatMinSpecs.GetMinSpecsAsLiElement(Model.MinSpecsList)))
 								</div>
 								<div class="orp-right-grid leftfloat">
 									@if (Model.BikeVersionPrices.Count() > 1)
@@ -414,7 +414,7 @@
 																@Html.Raw("&#x20B9;")<span class="text-bold">&nbsp; @Format.FormatPrice(Convert.ToString(bikeversion.Price))</span>
 																&nbsp;<span class="font12">(On-road, @Model.CityEntity.CityName)</span>
 															</td>
-															<td class="font12">@Bikewale.BAL.ApiGateway.Utils.FormatMinSpecsItem.GetCommaSepratedGeneralSpecs(bikeversion.MinSpecsList)</td>
+															<td class="font12">@FormatMinSpecs.GetCommaSepratedGeneralSpecs(bikeversion.MinSpecsList)</td>
 														</tr>
 													}
 												</tbody>

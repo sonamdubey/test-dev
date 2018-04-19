@@ -96,7 +96,6 @@
     <Compile Include="ApiGatewayHelper\ApiGatewayResponse.cs" />
     <Compile Include="ApiGatewayHelper\IApiGatewayAdapter.cs" />
     <Compile Include="ApiGatewayHelper\IApiGatewayCaller.cs" />
-    <Compile Include="Entities\BikeData\EnumSpecsFeaturesItems.cs" />
     <Compile Include="Entities\BikeData\GetCustomDataType_Input.cs" />
     <Compile Include="Entities\BikeData\GetVersionsMinSpecs_Input.cs" />
     <Compile Include="GRPCFiles\BikeData\Category.cs" />
@@ -106,7 +105,6 @@
     <Compile Include="GRPCFiles\BikeData\Unittype.cs" />
     <Compile Include="GRPCFiles\BikeData\VehicleData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utils\FormatMinSpecsItem.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bikewale.Entities\Bikewale.Entities.csproj">

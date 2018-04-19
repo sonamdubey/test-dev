@@ -35,9 +35,9 @@ namespace Bikewale.BAL.BikeSearch
         private static readonly string _bikeStatus = "bikeModel.modelStatus";
         private static readonly string _topVersionStatus = "topVersion.versionStatus";
         private static readonly string _abs = "topVersion.abs";
-        private static readonly string _brakes = "topVersion.brakeType.keyword";
-        private static readonly string _wheels = "topVersion.wheels.keyword";
-        private static readonly string _startType = "topVersion.startType.keyword";
+        private static readonly string _brakes = "topVersion.rearBrakeType";
+        private static readonly string _wheels = "topVersion.wheels";
+        private static readonly string _startType = "topVersion.startType";
 
         private static readonly byte _modelStatus = 1;// by defaut all new bikes status
         private static readonly byte _versionStatus = 1;
@@ -364,7 +364,7 @@ namespace Bikewale.BAL.BikeSearch
                 if (filters.Wheels != null && filters.Wheels.Any())
                 {
                     QueryContainer qtmp = new QueryContainer();
-                    foreach (sbyte wheelType in filters.Wheels)
+                    foreach (uint wheelType in filters.Wheels)
                     {
                         qtmp |= FDS.Term(_wheels, wheelType);
                     }
@@ -373,7 +373,7 @@ namespace Bikewale.BAL.BikeSearch
                 if (filters.StartType != null && filters.StartType.Any())
                 {
                     QueryContainer qtmp = new QueryContainer();
-                    foreach (sbyte startType in filters.StartType)
+                    foreach (uint startType in filters.StartType)
                     {
                         qtmp |= FDS.Term(_startType, startType);
                     }
@@ -383,12 +383,9 @@ namespace Bikewale.BAL.BikeSearch
                 if (filters.Brakes != null && filters.Brakes.Any())
                 {
                     QueryContainer qtmp = new QueryContainer();
-                    foreach (string brakeType in filters.Brakes)
+                    foreach (uint brakeType in filters.Brakes)
                     {
-                        if (String.IsNullOrEmpty(brakeType))
-                        {
-                            qtmp |= FDS.Term(_brakes, brakeType);
-                        }
+                        qtmp |= FDS.Term(_brakes, brakeType);
                     }
                     query &= qtmp;
                 }

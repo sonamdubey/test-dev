@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Bikewale.Entities.BikeData;
 
 namespace Bikewale.BAL.ApiGateway.Entities.BikeData
 {

@@ -112,7 +112,8 @@ namespace Bikewale.BAL.ApiGateway.Adapters.BikeData
                             Name = itemData.ItemName,
                             Value = itemData.Value,
                             UnitType = itemData.UnitType,
-                            DataType = (EnumSpecDataType)itemData.DataTypeId
+                            DataType = (EnumSpecDataType)itemData.DataTypeId,
+                            CustomTypeId = itemData.CustomTypeId
 						});
 					}
 				}

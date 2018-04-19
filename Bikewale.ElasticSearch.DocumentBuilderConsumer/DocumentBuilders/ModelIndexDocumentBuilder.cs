@@ -28,6 +28,17 @@ namespace Bikewale.ElasticSearch.DocumentBuilderConsumer.DocumentBuilders
     {
         private IApiGatewayCaller _apiGatewayCaller;
         IUnityContainer container = null;
+        private static IEnumerable<EnumSpecsFeaturesItems> requiredSpec = new List<EnumSpecsFeaturesItems>{
+                                        EnumSpecsFeaturesItems.Displacement,
+                                        EnumSpecsFeaturesItems.FuelEfficiencyOverall,
+                                        EnumSpecsFeaturesItems.MaxPowerBhp,
+                                        EnumSpecsFeaturesItems.KerbWeight,
+                                        EnumSpecsFeaturesItems.RearBrakeType,
+                                        EnumSpecsFeaturesItems.WheelType,
+                                        EnumSpecsFeaturesItems.AntilockBrakingSystem,
+                                        EnumSpecsFeaturesItems.StartType
+                                    };
+
 
         public ModelIndexDocumentBuilder()
         {
@@ -285,16 +296,8 @@ namespace Bikewale.ElasticSearch.DocumentBuilderConsumer.DocumentBuilders
                     VersionsDataByItemIds_Input input = new VersionsDataByItemIds_Input()
                     {
                         Versions = versionIds,
-                        Items = new List<EnumSpecsFeaturesItems>{
-                                        EnumSpecsFeaturesItems.Displacement,
-                                        EnumSpecsFeaturesItems.FuelEfficiencyOverall,
-                                        EnumSpecsFeaturesItems.MaxPowerBhp,
-                                        EnumSpecsFeaturesItems.KerbWeight,
-                                        EnumSpecsFeaturesItems.RearBrakeType,
-                                        EnumSpecsFeaturesItems.WheelType,
-                                        EnumSpecsFeaturesItems.AntilockBrakingSystem,
-                                        EnumSpecsFeaturesItems.StartType
-                                    }
+                        Items = requiredSpec
+
                     };
 
                     GetVersionSpecsByItemIdAdapter adapter = new GetVersionSpecsByItemIdAdapter();
@@ -318,11 +321,10 @@ namespace Bikewale.ElasticSearch.DocumentBuilderConsumer.DocumentBuilders
                             objEnumerator.Current.TopVersion.Displacement = Convert.ToDouble(GetSpecsValue(versionEnumerator.Current.MinSpecsList, (int)EnumSpecsFeaturesItems.Displacement));
 
                             objEnumerator.Current.TopVersion.ABS = GetSpecsValue(versionEnumerator.Current.MinSpecsList, (int)EnumSpecsFeaturesItems.AntilockBrakingSystem) == "1";
-                            objEnumerator.Current.TopVersion.BrakeType = GetSpecsValue(versionEnumerator.Current.MinSpecsList, (int)EnumSpecsFeaturesItems.RearBrakeType);
-                            objEnumerator.Current.TopVersion.Wheels = GetSpecsValue(versionEnumerator.Current.MinSpecsList, (int)EnumSpecsFeaturesItems.WheelType);
-                            objEnumerator.Current.TopVersion.StartType = GetSpecsValue(versionEnumerator.Current.MinSpecsList, (int)EnumSpecsFeaturesItems.StartType);
+                            objEnumerator.Current.TopVersion.RearBrakeType = Convert.ToInt16(GetSpecsValue(versionEnumerator.Current.MinSpecsList, (int)EnumSpecsFeaturesItems.RearBrakeType));
+                            objEnumerator.Current.TopVersion.Wheels = Convert.ToInt16(GetSpecsValue(versionEnumerator.Current.MinSpecsList, (int)EnumSpecsFeaturesItems.WheelType));
+                            objEnumerator.Current.TopVersion.StartType = Convert.ToInt16(GetSpecsValue(versionEnumerator.Current.MinSpecsList, (int)EnumSpecsFeaturesItems.StartType));
                         }
-
                     }
                 }
 
@@ -346,7 +348,12 @@ namespace Bikewale.ElasticSearch.DocumentBuilderConsumer.DocumentBuilders
             try
             {
                 string value = string.Empty;
-                value = objSpec.Where(d => d.Id == propertyId).Select(k => k.Value).FirstOrDefault();
+                if (objSpec != null)
+                {
+                    value = (from data in objSpec
+                             where data.Id == propertyId
+                             select (data.DataType == EnumSpecDataType.Custom) ? Convert.ToString(data.CustomTypeId) : data.Value).FirstOrDefault();
+                }
                 return !string.IsNullOrEmpty(value) ? value : null;
             }
             catch (Exception ex)

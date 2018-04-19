@@ -86,7 +86,7 @@ namespace Bikewale.BAL.BikeSearch
                     }
                     if (filterInputs.Brakes != null)
                     {
-                        filtersOutput.Brakes = filterInputs.Brakes;
+                        filtersOutput.Brakes = Array.ConvertAll(filterInputs.Brakes, uint.Parse);
                     }
                     if (filterInputs.Wheels != null)
                     {
@@ -103,8 +103,8 @@ namespace Bikewale.BAL.BikeSearch
                     }
                     if (filterInputs.PageNo != null && filterInputs.PageSize != null)
                     {
-                        filtersOutput.PageNumber = SqlReaderConvertor.ToUInt16(filterInputs.PageNo);
-                        filtersOutput.PageSize = SqlReaderConvertor.ToUInt16(filterInputs.PageSize);
+                        filtersOutput.PageNumber = Convert.ToUInt16(filterInputs.PageNo);
+                        filtersOutput.PageSize = Convert.ToUInt16(filterInputs.PageSize);
                     }
                     if (filterInputs.sc != null && filterInputs.so != null)
                     {
@@ -197,7 +197,7 @@ namespace Bikewale.BAL.BikeSearch
                             {
                                 var bikeMakeObj = bike.BikeMake;
                                 bikeMakebase = new MakeBase();
-                                bikeMakebase.MakeId = SqlReaderConvertor.ToInt32(bikeMakeObj.MakeId);
+                                bikeMakebase.MakeId = Convert.ToInt32(bikeMakeObj.MakeId);
                                 bikeMakebase.MakeName = bikeMakeObj.MakeName;
                                 bikeMakebase.MaskingName = bikeMakeObj.MakeMaskingName;
                                 bikemodel.MakeBase = bikeMakebase;
@@ -206,7 +206,7 @@ namespace Bikewale.BAL.BikeSearch
                             if (bike.BikeModel != null)
                             {
                                 var bikeModelObj = bike.BikeModel;
-                                bikemodel.ModelId = SqlReaderConvertor.ToInt32(bikeModelObj.ModelId);
+                                bikemodel.ModelId = Convert.ToInt32(bikeModelObj.ModelId);
                                 bikemodel.ModelName = bikeModelObj.ModelName;
                                 bikemodel.MaskingName = bikeModelObj.ModelMaskingName;
                             }
@@ -227,18 +227,16 @@ namespace Bikewale.BAL.BikeSearch
                                 {
                                     bikemodel.MinPrice = exshowroomPrice.PriceValue;
                                 }
-                                bikesOutput.Displacement = SqlReaderConvertor.ToFloat(topversionDetails.Displacement);
-                                bikesOutput.FuelEfficiency = SqlReaderConvertor.ToUInt16(topversionDetails.Mileage);
-                                bikesOutput.KerbWeight = SqlReaderConvertor.ToUInt16(topversionDetails.KerbWeight);
+                                bikesOutput.Displacement = Convert.ToSingle(topversionDetails.Displacement);
+                                bikesOutput.FuelEfficiency = Convert.ToUInt16(topversionDetails.Mileage);
+                                bikesOutput.KerbWeight = Convert.ToUInt16(topversionDetails.KerbWeight);
                                 bikesOutput.Power = Convert.ToString(topversionDetails.Power);
                                 bikesOutput.FinalPrice = Format.FormatPrice(Convert.ToString(topversionDetails.Exshowroom));
-
-
                             }
 
-                            bikemodel.RatingCount = SqlReaderConvertor.ToInt32(bike.RatingsCount);
-                            bikemodel.ReviewCount = SqlReaderConvertor.ToInt32(bike.UserReviewsCount);
-                            bikemodel.ReviewRate = SqlReaderConvertor.ParseToDouble(bike.ReviewRatings.ToString("0.0"));
+                            bikemodel.RatingCount = Convert.ToInt32(bike.RatingsCount);
+                            bikemodel.ReviewCount = Convert.ToInt32(bike.UserReviewsCount);
+                            bikemodel.ReviewRate = Convert.ToDouble(bike.ReviewRatings.ToString("0.0"));
                             bikemodel.ReviewRateStar = (byte)Math.Round(bike.ReviewRatings);
 
 
@@ -350,6 +348,7 @@ namespace Bikewale.BAL.BikeSearch
             SearchOutput objSearchOutput = null;
             SearchFilters filtersInputES = null;
             BikeSearchOutputEntity objEsOutput = null;
+            List<DTO.NewBikeSearch.SearchBudgetLink> searchBudgetLinks = null;
             try
             {
                 if (filterInputs != null)
@@ -362,11 +361,25 @@ namespace Bikewale.BAL.BikeSearch
                         {
                             objSearchOutput = MapEsOutputToBikeSearchOutput(objEsOutput);
 
+                            var links = SearchBudgetLinksBetween(filterInputs.MinBudget, filterInputs.MaxBudget);
+
+                            if (links != null && links.Any())
+                            {
+                                searchBudgetLinks = new List<DTO.NewBikeSearch.SearchBudgetLink>();
+                                foreach (var item in links)
+                                {
+                                    searchBudgetLinks.Add(new DTO.NewBikeSearch.SearchBudgetLink() { Link = item });
+                                }
+                            }
                             if (objSearchOutput != null)
                             {
                                 objSearchOutput.PageUrl = GetPrevNextUrl(filterInputs, input, objEsOutput.TotalCount);
                                 objSearchOutput.TotalCount = objEsOutput.TotalCount;
                                 objSearchOutput.CurrentPageNo = Convert.ToInt32(filterInputs.PageNo);
+                                if (searchBudgetLinks != null && searchBudgetLinks.Any())
+                                {
+                                    objSearchOutput.BudgetLinks = searchBudgetLinks;
+                                }
                             }
                         }
                     }
