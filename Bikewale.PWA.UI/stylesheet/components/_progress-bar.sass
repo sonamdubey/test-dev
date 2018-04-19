@@ -1,0 +1,92 @@
+@mixin progress-bar($size: 23)
+  @if unitless($size)== false
+    @error please provide unitless value in progress bar
+
+  $size: $size * 1px
+  $activeSize: $size + 5
+  $checkedSize: $size - 3
+
+  .progress-bar
+    @include flexbox
+    @include justify-content(justify)
+    align-content: space-between
+    padding: 18px 20px 11px
+
+  .progress-bar__item
+    @include flex-grow(1)
+    padding: 5px
+    position: relative
+    text-align: right
+
+    &:before
+      content: ''
+      display: block
+      height: 1px
+      width: 100%
+      background-color: color('border-dark')
+      position: absolute
+      top: 50%
+      left: -5px
+
+    &:first-child
+      @include flex-grow(0)
+
+      &:before
+        display: none
+
+  .progress-bar-item__content
+    padding-left: 8px
+    padding-right: 8px
+    font-size: 12px
+    line-height: 22px
+    font-weight: $font-semibold
+    display: inline-block
+    background-color: color('white')
+    color: color('light-grey')
+    position: relative
+    z-index: 1
+    text-transform: capitalize
+    
+    &.active
+      .progress-bar-item__step-count
+        height: $activeSize
+        width: $activeSize
+        padding-top: 3px
+
+    &.disabled
+      color: color('dark-black', .3)
+
+    &.done
+      .progress-bar-item__step-count
+        height: $checkedSize
+        width: $checkedSize
+        &:after
+          @include vendor-prefix('border-radius', 30px)
+          @include tick-fff-icon
+          content: ''
+          display: block
+          height: $checkedSize
+          width: $checkedSize
+          background-color: color('mona-lisa')
+          position: absolute
+          top: 0
+          left: 0
+          bottom: 0
+          right: 0
+
+  .progress-bar-item__step-count
+    @include vendor-prefix('border-radius', 30px)
+    content: ''
+    display: inline-block
+    vertical-align: middle
+    height: $size
+    width: $size
+    background-color: color('border-light')
+    font-size: 12px
+    text-align: center
+    position: relative
+
+  .progress-bar-item__step-title
+    display: inline-block
+    vertical-align: middle
+    margin-left: 10px
