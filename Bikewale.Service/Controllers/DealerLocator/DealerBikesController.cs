@@ -44,6 +44,7 @@ namespace Bikewale.Service.Controllers.DealerLocator
         /// </summary>
         /// <param name="dealer"></param>
         /// <param name="cache"></param>
+        /// <param name="objVersion"></param>
         public DealerBikesController(IDealer dealer, IDealerCacheRepository cache, IBikeVersions<BikeVersionEntity, uint> objVersion)
         {
             _dealer = dealer;

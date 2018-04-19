@@ -49,6 +49,7 @@ namespace Bikewale.Service.Controllers.PriceQuote.Version
         /// <param name="modelId"></param>
         /// <param name="cityId"></param>
         /// <param name="areaId"></param>
+        /// <param name="deviceId"></param>
         /// <returns></returns>
         [ResponseType(typeof(PQByCityAreaDTO)), Route("api/model/versionlistprice/")]
         public IHttpActionResult Get(int modelId, int? cityId = null, int? areaId = null, string deviceId = null)

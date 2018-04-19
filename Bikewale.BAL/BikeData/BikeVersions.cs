@@ -13,9 +13,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Bikewale.BAL.ApiGateway.ApiGatewayHelper;
-using Bikewale.BAL.ApiGateway.Adapters.BikeData;
-using Bikewale.BAL.ApiGateway.Entities.BikeData;
 
 namespace Bikewale.BAL.BikeData
 {
