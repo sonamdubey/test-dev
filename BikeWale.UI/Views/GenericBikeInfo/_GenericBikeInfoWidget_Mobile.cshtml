@@ -108,6 +108,17 @@
                 </ul>
             }
             <div class="clear"></div>
+            @if (bikeInfo.UsedBikeCount > 0)
+            {
+                <div class="border-solid-bottom margin-top5 margin-bottom10"></div>
+                <a href="@string.Format("/m{0}", Bikewale.Utility.UrlFormatter.UsedBikesUrlNoCity(bikeInfo.Make.MaskingName, bikeInfo.Model.MaskingName, (cityDetails != null) ? cityDetails.CityMaskingName : "india"))" title="Used @Model.BikeName" class="block text-default hover-no-underline">
+                    <span class="used-target-label inline-block">
+                        <span class="font14 text-bold">@bikeInfo.UsedBikeCount Used @bikeInfo.Model.ModelName bikes</span><br />
+                        <span class="font12 text-light-grey">starting at &#x20b9; @Bikewale.Utility.Format.FormatNumeric(Convert.ToString(bikeInfo.UsedBikeMinPrice))</span>
+                    </span>
+                    <span class="bwmsprite next-grey-icon"></span>
+                </a>
+            }
         </div>
     </div>
 }
