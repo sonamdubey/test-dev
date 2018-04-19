@@ -3,13 +3,13 @@ import PropTypes from 'prop-types'
 
 const propTypes = {
 	// count
-  id: PropTypes.number,
+  stepNumber: PropTypes.number,
   // status
   status: PropTypes.number
 }
 
 const defaultProps = {
-  id: -1,
+  stepNumber: -1,
   status: 1  // here, status 1: disabled; 2: active; 3: done 
 }
 
@@ -39,9 +39,14 @@ class ProgressBarItem extends React.Component {
     const classStatus = this.getClassName(status);
     return(
       <div className="progress-bar__item">
-        <div className={"progress-bar__item-content " + classStatus}>
-            <span className="selection-field__index">{stepNumber}</span>
-            <span className="selection-field__title">{this.props.children}</span>
+        <div className={"progress-bar-item__content " + classStatus}>
+            { stepNumber != -1 
+            ?
+              <span className="progress-bar-item__step-count">{stepNumber}</span>
+            :
+              ''
+            }
+            <span className="progress-bar-item__step-title">{this.props.children}</span>
           </div>
       </div>
 

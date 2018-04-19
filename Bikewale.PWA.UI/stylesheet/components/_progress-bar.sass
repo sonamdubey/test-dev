@@ -34,7 +34,7 @@
       &:before
         display: none
 
-  .progress-bar__item-content
+  .progress-bar-item__content
     padding-left: 8px
     padding-right: 8px
     font-size: 12px
@@ -48,7 +48,7 @@
     text-transform: capitalize
     
     &.active
-      .selection-field__index
+      .progress-bar-item__step-count
         height: $activeSize
         width: $activeSize
         padding-top: 3px
@@ -57,7 +57,7 @@
       color: color('dark-black', .3)
 
     &.done
-      .selection-field__index
+      .progress-bar-item__step-count
         height: $checkedSize
         width: $checkedSize
         &:after
@@ -74,7 +74,7 @@
           bottom: 0
           right: 0
 
-  .selection-field__index
+  .progress-bar-item__step-count
     @include vendor-prefix('border-radius', 30px)
     content: ''
     display: inline-block
@@ -86,7 +86,7 @@
     text-align: center
     position: relative
 
-  .selection-field__title
+  .progress-bar-item__step-title
     display: inline-block
     vertical-align: middle
     margin-left: 10px
