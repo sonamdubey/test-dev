@@ -50,10 +50,13 @@
         left: 4px
 
     &.disabled
-      color: color('dark-black', .2)
+      color: color('dark-black', .3)
 
     &.done
       .selection-field__index
+        height: 20px
+        width: 20px
+        
         &:after
           @include vendor-prefix('border-radius', 30px)
           @include tick-fff-icon
@@ -72,8 +75,8 @@
     @include vendor-prefix('border-radius', 30px)
     content: ''
     display: inline-block
-    height: 20px
-    width: 20px
+    height: 23px
+    width: 23px
     background-color: color('border-light')
     position: absolute
     left: 8px
