@@ -157,7 +157,12 @@
         
         @if (Model.SeriesLinkages.MakeSeriesList != null && Model.SeriesLinkages.MakeSeriesList.Any())
         {
-            @Html.Partial("~/Views/BikeSeries/_MakeSeriesSlug_Mobile_AMP.cshtml", Model.SeriesLinkages)
+            <div class="container box-shadow bg-white margin-bottom20 explore-bikes-carousel--default">
+                <div class="carousel__title">
+                    <h2 class="page__heading-h2">Explore @Model.MakeName Bike Series</h2>
+                </div>
+                @Html.Partial("~/Views/BikeSeries/_MakeSeriesSlug_Mobile_AMP.cshtml", Model.SeriesLinkages)
+            </div>
         }
 
     </section>

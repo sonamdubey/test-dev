@@ -25,6 +25,8 @@ using Bikewale.Interfaces.EditCMS;
 using Bikewale.PWA.Utils;
 using Bikewale.Interfaces.PWA.CMS;
 using Newtonsoft.Json;
+using Bikewale.Models.EditorialPages;
+using Bikewale.Entities.EditorialWidgets;
 
 namespace Bikewale.Models
 {
@@ -35,7 +37,7 @@ namespace Bikewale.Models
     /// Dated: 16th April 2018
     /// Description: Added _pageId and _totalTabCount to page variables for generic info widget
     /// </summary>
-    public class ExpertReviewsIndexPage
+    public class ExpertReviewsIndexPage : EditorialBasePage
     {
         #region Variables for dependency injection
         private readonly ICMSCacheContent _cmsCache = null;
@@ -57,6 +59,7 @@ namespace Bikewale.Models
         #endregion
 
         #region Page level variables
+        private string _pageName = "Editorial List";
         private const int pageSize = 10, pagerSlotSize = 5;
         private int curPageNo = 1;
         private uint _totalPagesCount;
@@ -88,7 +91,7 @@ namespace Bikewale.Models
         #region Constructor
         public ExpertReviewsIndexPage(ICMSCacheContent cmsCache, IPager pager, IBikeModelsCacheRepository<int> models,
             IBikeModels<BikeModelEntity, int> bikeModels, IUpcoming upcoming, IBikeMakesCacheRepository objMakeCache, IBikeVersionCacheRepository<BikeVersionEntity, uint> objBikeVersionsCache,
-            IBikeSeriesCacheRepository seriesCache, IBikeSeries series, ICityCacheRepository objCityCache, IBikeInfo objGenericBike)
+            IBikeSeriesCacheRepository seriesCache, IBikeSeries series, ICityCacheRepository objCityCache, IBikeInfo objGenericBike) : base(objMakeCache, models, bikeModels, upcoming, series)
         {
             _cmsCache = cmsCache;
             _pager = pager;
@@ -107,7 +110,7 @@ namespace Bikewale.Models
 
         public ExpertReviewsIndexPage(ICMSCacheContent cmsCache, IPager pager, IBikeModelsCacheRepository<int> models,
             IBikeModels<BikeModelEntity, int> bikeModels, IUpcoming upcoming, IBikeMakesCacheRepository objMakeCache, IBikeVersionCacheRepository<BikeVersionEntity, uint> objBikeVersionsCache,
-            IBikeSeriesCacheRepository seriesCache, IBikeSeries series, ICityCacheRepository objCityCache, IBikeInfo objGenericBike, IArticles articles, IPWACMSCacheRepository renderedArticles)
+            IBikeSeriesCacheRepository seriesCache, IBikeSeries series, ICityCacheRepository objCityCache, IBikeInfo objGenericBike, IArticles articles, IPWACMSCacheRepository renderedArticles) : base(objMakeCache, models, bikeModels, upcoming, series)
         {
             _cmsCache = cmsCache;
             _pager = pager;
@@ -209,7 +212,17 @@ namespace Bikewale.Models
                     BindLinkPager(objData, (int) objData.Articles.RecordCount);
                     SetPageMetas(objData);
                     CreatePrevNextUrl(objData, (int)objData.Articles.RecordCount);
-                    GetWidgetData(objData, widgetTopCount);
+
+                    if (!IsMobile)
+                    {
+                        SetAdditionalVariables(objData);
+                        objData.PageWidgets = base.GetEditorialWidgetData(EnumEditorialPageType.Listing);
+                    }
+                    else
+                    {
+                        GetWidgetData(objData, widgetTopCount);
+                    }
+
                     if (objData.Model != null)
                     {
                         objData.Series = _models.GetSeriesByModelId(ModelId);
@@ -232,6 +245,23 @@ namespace Bikewale.Models
             }
 
             return objData;
+        }
+
+        /// <summary>
+        /// Created By  : Sanskar Gupta on 12 April 2018
+        /// Description : Function to set additional Page level variables.
+        /// </summary>
+        /// <param name="objData">VM of the page.</param>
+        private void SetAdditionalVariables(ExpertReviewsIndexPageVM objData)
+        {
+            objData.PageName = _pageName;
+
+            EditorialWidgetEntity editorialWidgetData = new EditorialWidgetEntity
+            {
+                IsMobile = IsMobile,
+                CityId = CityId
+            };
+            base.SetAdditionalData(editorialWidgetData);
         }
 
 

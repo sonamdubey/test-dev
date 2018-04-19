@@ -27,6 +27,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Bikewale.Models.EditorialPages;
+using Bikewale.Entities.EditorialWidgets;
 
 namespace Bikewale.Models
 {
@@ -72,6 +73,7 @@ namespace Bikewale.Models
         private PQSourceEnum pqSource = 0;
         public BikeSeriesEntityBase bikeSeriesEntityBase;
         private static string _widgetCruiserSports;
+        private static string pageName = "Editorial Details";
 
         private bool isModelTagged;
         private bool isMakeTagged;
@@ -264,6 +266,7 @@ namespace Bikewale.Models
         /// <param name="objData">VM of the page.</param>
         private void SetAdditionalVariables(NewsDetailPageVM objData)
         {
+            objData.PageName = pageName;
             isMakeLive = !(objData.BikeInfo != null && (objData.BikeInfo.IsUpcoming || objData.BikeInfo.IsDiscontinued));
 
             bodyStyle = EnumBikeBodyStyles.AllBikes;
@@ -280,7 +283,19 @@ namespace Bikewale.Models
             {
                 isScooterOnlyMake = objData.Make.IsScooterOnly;
             }
-            SetAdditionalGenericVariables(IsMobile, MakeId, MakeName, MakeMaskingName, isMakeLive, ModelId, bikeSeriesEntityBase.SeriesId, bikeSeriesEntityBase.SeriesName, bikeSeriesEntityBase.MaskingName, CityId, isSeriesAvailable, isScooterOnlyMake, bodyStyle);
+            EditorialWidgetEntity editorialWidgetData = new EditorialWidgetEntity
+            {
+                IsMobile = IsMobile,
+                IsMakeLive = isMakeLive,
+                IsModelTagged = isModelTagged,
+                IsSeriesAvailable = isSeriesAvailable,
+                IsScooterOnlyMake = isScooterOnlyMake,
+                BodyStyle = bodyStyle,
+                CityId = CityId,
+                Make = objData.Make,
+                Series = bikeSeriesEntityBase
+            };
+            base.SetAdditionalData(editorialWidgetData);
         }
 
         /// <summary>
