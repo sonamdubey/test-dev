@@ -6,7 +6,7 @@
   input[type='text']
     @include vendor-prefix('box-shadow', 0 1px 4px 0 color('light-gray', .8))
     @include vendor-prefix('border-radius', 4px)
-    width: 100%
+    @include text-truncate(100%)
     height: auto
     font-size: 16px
     padding: 12px 70px 12px 20px
@@ -16,6 +16,7 @@
 
     &:-webkit-input-placeholder
       color: color('dark-gray')
+      text-truncate: ellipsis
 
 .autocomplete-field
   position: relative

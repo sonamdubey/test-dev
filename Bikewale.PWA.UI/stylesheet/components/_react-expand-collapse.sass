@@ -1,0 +1,35 @@
+.react-expand-collapse__content
+  position: relative
+  overflow: hidden
+
+.react-expand-collapse__body
+  display: inline
+
+.react-expand-collapse__button
+  color: color('pacific-blue')
+  position: absolute
+  bottom: 0
+  right: 0
+  background-color: color('white')
+  cursor: pointer
+  -webkit-tap-highlight-color: transparent
+  
+  &:before
+    content: ''
+    position: absolute
+    top: 0
+    left: -20px
+    width: 20px
+    height: 100%
+    background: linear-gradient(to right, transparent 0, color('white') 100%)
+
+/* expanded state */
+.react-expand-collapse--expanded
+  .react-expand-collapse__button
+    padding-left: 5px
+    position: relative
+    bottom: auto
+    right: auto
+    
+    &:before
+      content: none
