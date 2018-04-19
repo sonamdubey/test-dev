@@ -49,7 +49,7 @@ class Tabs extends React.Component {
         </div>
 
         <div className="tabs-panel__item" data-tab-panel="emiTab">
-          <div className="overview__content">
+          <div className="emi-calculator">
             <EMICalculator />
           </div>
         </div>
