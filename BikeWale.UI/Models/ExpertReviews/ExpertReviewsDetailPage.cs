@@ -36,6 +36,9 @@ namespace Bikewale.Models
     /// Summary    : Model to populate view model for expert review detail page
     /// Modified by : Rajan Chauhan on 26 Feb 2017
     /// Description : Added private variable CityName and IPWACMSCacheRepository _renderedArticles
+    /// Modified by: Dhruv Joshi
+    /// Dated: 19th April 2018
+    /// Description: Added variables to be set before calling parent class's GetEditorialWidgetData() function
     /// </summary>
     public class ExpertReviewsDetailPage: EditorialBasePage
     {
@@ -182,6 +185,9 @@ namespace Bikewale.Models
         /// Modified by : Ashutosh Sharma on 27 Oct 2017
         /// Description : Added call to BindAmpJsTags.
         /// Modified by : snehal Dange on 28th Nov 2017
+        /// Modified by: Dhruv Joshi
+        /// Dated: 19th April 2018
+        /// Description: GetWidgetData called if mobile or amp otherwise base.GetEditorialWidgetData()
         /// Descritpion : Added ga for page
         /// </summary>
         public ExpertReviewsDetailPageVM GetData(int widgetTopCount)
@@ -228,6 +234,12 @@ namespace Bikewale.Models
             return objData;
         }
 
+        /// <summary>
+        /// Created by: Dhruv Joshi
+        /// Dated: 19th April 2018
+        /// Description: Setting variables before calling base class function
+        /// </summary>
+        /// <param name="objData"></param>
         private void SetAdditionalVariables(ExpertReviewsDetailPageVM objData)
         {
             objData.PageName = pageName;
@@ -447,6 +459,9 @@ namespace Bikewale.Models
         /// <summary>
         /// Created by : Aditi Srivastava on 31 Mar 2017
         /// Summary    : Get tagged make in article
+        /// Modified by: Dhruv Joshi
+        /// Dated: 19th April 2018
+        /// Description: Setting Value for isMakeTagged
         /// </summary>
         private void GetTaggedBikeListByMake(ExpertReviewsDetailPageVM objData)
         {
@@ -480,6 +495,9 @@ namespace Bikewale.Models
         /// <summary>
         /// Created by : Aditi Srivastava on 31 Mar 2017
         /// Summary    : Get tagged model in article
+        /// Modified by: Dhruv Joshi
+        /// Dated: 19th April 2018
+        /// Description: Setting Value for isModelTagged
         /// </summary>
         private void GetTaggedBikeListByModel(ExpertReviewsDetailPageVM objData)
         {

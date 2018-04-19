@@ -14,6 +14,9 @@ namespace Bikewale.Models.Shared
     /// <summary>
     /// Created By  : Rajan Chauhan on 26 Feb 2018
     /// Summary     : Base class for article detail pages
+    /// Modified by: Dhruv Joshi
+    /// Dated: 19th April 2018
+    /// Description: Added PageWidgets dictionary for news and expert reviews details page
     /// </summary>
     public class CMSArticleDetailPageVM : ModelBase
     {
