@@ -3,8 +3,8 @@
     @error please provide unitless value in progress bar
 
   $size: $size * 1px
-  $ActiveSize: $size + 5
-  $CheckedSize: $size - 3
+  $activeSize: $size + 5
+  $checkedSize: $size - 3
 
   .progress-bar
     @include flexbox
@@ -49,8 +49,8 @@
     
     &.active
       .selection-field__index
-        height: $ActiveSize
-        width: $ActiveSize
+        height: $activeSize
+        width: $activeSize
         padding-top: 3px
 
     &.disabled
@@ -58,15 +58,15 @@
 
     &.done
       .selection-field__index
-        height: $CheckedSize
-        width: $CheckedSize
+        height: $checkedSize
+        width: $checkedSize
         &:after
           @include vendor-prefix('border-radius', 30px)
           @include tick-fff-icon
           content: ''
           display: block
-          height: $CheckedSize
-          width: $CheckedSize
+          height: $checkedSize
+          width: $checkedSize
           background-color: color('mona-lisa')
           position: absolute
           top: 0

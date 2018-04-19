@@ -9,7 +9,7 @@ const propTypes = {
 }
 
 const defaultProps = {
-  id: null,
+  id: -1,
   status: 1  // here, status 1: disabled; 2: active; 3: done 
 }
 
