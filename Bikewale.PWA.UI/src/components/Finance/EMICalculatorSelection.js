@@ -15,10 +15,10 @@ class EMICalculatorSelection extends React.Component {
     return (
       <div className="emi-calculator__progress-container">
         <ProgressBar>
-          <ProgressBarItem id={1} status={this.state.bike}>
+          <ProgressBarItem stepNumber={1} status={this.state.bike}>
               Select bike
           </ProgressBarItem>
-          <ProgressBarItem id={2} status={this.state.city}>
+          <ProgressBarItem stepNumber={2} status={this.state.city}>
               Select city
           </ProgressBarItem>
         </ProgressBar>

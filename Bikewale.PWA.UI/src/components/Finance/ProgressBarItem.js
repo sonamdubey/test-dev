@@ -9,7 +9,7 @@ const propTypes = {
 }
 
 const defaultProps = {
-  id: {},
+  id: null,
   status: 1  // here, status 1: disabled; 2: active; 3: done 
 }
 
@@ -33,14 +33,14 @@ class ProgressBarItem extends React.Component {
   }
   render() {
     const {
-      id,
+      stepNumber,
       status
     } = this.props
     const classStatus = this.getClassName(status);
     return(
       <div className="progress-bar__item">
         <div className={"progress-bar__item-content " + classStatus}>
-            <span className="selection-field__index">{id}</span>
+            <span className="selection-field__index">{stepNumber}</span>
             <span className="selection-field__title">{this.props.children}</span>
           </div>
       </div>
