@@ -199,7 +199,7 @@
     <Compile Include="BikeData\BikeVersionsSegment.cs" />
     <Compile Include="BikeData\BikeWithMileageInfo.cs" />
     <Compile Include="BikeData\CompareMakeModelEntity.cs" />
-    <Compile Include="BikeData\EditorialWidgetType.cs" />
+    <Compile Include="BikeData\EditorialWidgetHelper.cs" />
     <Compile Include="BikeData\EnumBikeData.cs" />
     <Compile Include="BikeData\EnumUpcomingBikesFilter.cs" />
     <Compile Include="BikeData\ExpertReviewCountEntity.cs" />
