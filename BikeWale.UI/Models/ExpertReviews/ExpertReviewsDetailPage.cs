@@ -75,8 +75,7 @@ namespace Bikewale.Models
 
         private bool isModelTagged;
         private bool isMakeTagged;
-        private bool isMakeLive;
-        private string MakeMaskingName;
+        private bool isMakeLive;       
         private EnumBikeBodyStyles bodyStyle;
         private bool isSeriesAvailable;
         private bool isScooterOnlyMake;
