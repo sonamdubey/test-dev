@@ -183,10 +183,10 @@ namespace Bikewale.Models
         /// Modified by : Ashutosh Sharma on 27 Oct 2017
         /// Description : Added call to BindAmpJsTags.
         /// Modified by : snehal Dange on 28th Nov 2017
+        /// Descritpion : Added ga for page
         /// Modified by: Dhruv Joshi
         /// Dated: 19th April 2018
         /// Description: GetWidgetData called if mobile or amp otherwise base.GetEditorialWidgetData()
-        /// Descritpion : Added ga for page
         /// </summary>
         public ExpertReviewsDetailPageVM GetData(int widgetTopCount)
         {
@@ -203,6 +203,7 @@ namespace Bikewale.Models
                     SetPageMetas(objData);
                     CheckSeriesData(objData);
                     SetAdditionalVariables(objData);
+                    PopulateBikeInfo(objData);
                     if(IsMobile || IsAMPPage)
                     {
                         GetWidgetData(objData, widgetTopCount);
@@ -1334,7 +1335,6 @@ namespace Bikewale.Models
             }
         }
 
-
         private void InsertBikeInfoWidgetIntoContent(ExpertReviewsDetailPageVM objData)
         {
             try
@@ -1579,6 +1579,29 @@ namespace Bikewale.Models
             }
 
         }
+
+
+        /// <summary>
+        /// Created by: Dhruv Joshi
+        /// Dated: 20th April 2018
+        /// Description: Populate BikeInfo object of objData
+        /// </summary>
+        /// <param name="objData"></param>
+        private void PopulateBikeInfo(ExpertReviewsDetailPageVM objData)
+        {
+            try
+            {
+                BikeInfoWidget objBikeInfo = new BikeInfoWidget(_bikeInfo, _cityCacheRepo, ModelId, CityId, _totalTabCount, BikeInfoTabType.ExpertReview);
+                objData.BikeInfo = objBikeInfo.GetData();
+                objData.BikeInfo.IsSmallSlug = true;                    
+            }
+            catch(Exception ex)
+            {
+                ErrorClass.LogError(ex, "Exception: Bikewale.Models.News.NewsIndexPage.PopulateBikeInfo");
+            }
+        }
         #endregion
+
     }
+
 }
