@@ -13,13 +13,25 @@ namespace Bikewale.Entities.PWA.Articles
         public PwaNewsReducer News { get; private set; }
         public PwaVideosReducer Videos { get; private set; }
         public PwaWidgetsReducer Widgets { get; private set; }
+		public PwaFinanceReducer Finance { get; set; }
 
         public PwaReduxStore()
         {
             News = new PwaNewsReducer();
             Videos = new PwaVideosReducer();
             Widgets = new PwaWidgetsReducer();
+			Finance = new PwaFinanceReducer();
         }
 
     }
+
+	public class PwaFinanceReducer
+	{
+		public object SelectBikePopup;
+
+		public PwaFinanceReducer()
+		{
+			SelectBikePopup = new object();
+		}
+	}
 }

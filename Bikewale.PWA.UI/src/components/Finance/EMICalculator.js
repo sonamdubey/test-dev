@@ -1,4 +1,9 @@
 import React from 'react';
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux';
+import { toJS } from '../../immutableWrapperContainer'
+
+import { openSelectBikePopup } from '../../actionCreators/SelectBikePopup'
 
 import SelectBikePopup from '../Shared/SelectBikePopup'
 
@@ -6,32 +11,34 @@ class EMICalculator extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      selectBikePopupStatus: false
-    }
-
     this.handleSelectBikeClick = this.handleSelectBikeClick.bind(this);
   }
 
   handleSelectBikeClick() {
-    this.setState({
-      selectBikePopupStatus: true
-    })
+		this.props.openSelectBikePopup();
   }
 
   render() {
-    const {
-      selectBikePopupStatus
-    } = this.state
-
     return (
       <div>
         <h2>EMI Calculator</h2>
         <span onClick={this.handleSelectBikeClick}>Select bike</span>
-        <SelectBikePopup isActive={selectBikePopupStatus} />
+				<SelectBikePopup isActive={this.props.SelectBikePopup.open} />
       </div>
     );
   }
 }
 
-export default EMICalculator;
+var mapStateToProps = function (store) {
+	return {
+		SelectBikePopup: store.getIn(['Finance', 'SelectBikePopup'])
+	}
+}
+
+var mapDispatchToProps = function(dispatch) {
+	return {
+		openSelectBikePopup: bindActionCreators(openSelectBikePopup, dispatch)
+	}
+}
+
+module.exports = connect(mapStateToProps, mapDispatchToProps)(toJS(EMICalculator));

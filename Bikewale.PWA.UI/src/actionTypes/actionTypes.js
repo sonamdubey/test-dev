@@ -76,6 +76,11 @@ const bikeImageCarouselAction = {
 
 }
 
+const selectBikePopupAction = {
+	OPEN: 'OPEN_POPUP',
+	CLOSE: 'CLOSE_POPUP'
+}
+
 module.exports = {
 	newsListAction : newsListAction,
 	newsDetailAction : newsDetailAction,
@@ -84,8 +89,7 @@ module.exports = {
 	videosLandingAction : videosLandingAction,
 	videosByCategoryAction : videosByCategoryAction,
 	videosDetailAction : videosDetailAction,
-	bikeImageCarouselAction : bikeImageCarouselAction
-
-
+	bikeImageCarouselAction : bikeImageCarouselAction,
+	selectBikePopupAction: selectBikePopupAction
 }
 
