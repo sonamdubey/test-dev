@@ -1335,12 +1335,6 @@ namespace Bikewale.Models
             }
         }
 
-        /// <summary>
-        /// Created by: Dhruv Joshi
-        /// Dated: 20th April 2018
-        /// Description: Populate BikeInfo object of objData
-        /// </summary>
-        /// <param name="objData"></param>
         private void InsertBikeInfoWidgetIntoContent(ExpertReviewsDetailPageVM objData)
         {
             try
@@ -1586,7 +1580,13 @@ namespace Bikewale.Models
 
         }
 
-        
+
+        /// <summary>
+        /// Created by: Dhruv Joshi
+        /// Dated: 20th April 2018
+        /// Description: Populate BikeInfo object of objData
+        /// </summary>
+        /// <param name="objData"></param>
         private void PopulateBikeInfo(ExpertReviewsDetailPageVM objData)
         {
             try
