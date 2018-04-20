@@ -1,6 +1,7 @@
 ﻿using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS.Articles;
+using Bikewale.Entities.EditorialWidgets;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.Pages;
@@ -15,6 +16,7 @@ using Bikewale.Interfaces.PWA.CMS;
 using Bikewale.Memcache;
 using Bikewale.Models.BestBikes;
 using Bikewale.Models.BikeModels;
+using Bikewale.Models.EditorialPages;
 using Bikewale.Models.Scooters;
 using Bikewale.Notifications;
 using Bikewale.PWA.Utils;
@@ -34,8 +36,11 @@ namespace Bikewale.Models
     /// Summary    : Model to populate view model for expert review detail page
     /// Modified by : Rajan Chauhan on 26 Feb 2017
     /// Description : Added private variable CityName and IPWACMSCacheRepository _renderedArticles
+    /// Modified by: Dhruv Joshi
+    /// Dated: 19th April 2018
+    /// Description: Added variables to be set before calling parent class's GetEditorialWidgetData() function
     /// </summary>
-    public class ExpertReviewsDetailPage
+    public class ExpertReviewsDetailPage: EditorialBasePage
     {
         #region Variables for dependency injection
         private readonly ICMSCacheContent _cmsCache = null;
@@ -66,6 +71,14 @@ namespace Bikewale.Models
         private uint basicId;
         private PQSourceEnum pqSource = 0;
         public BikeSeriesEntityBase bikeSeriesEntityBase;
+        private static string pageName = "Editorial Details";
+
+        private bool isModelTagged;
+        private bool isMakeTagged;
+        private bool isMakeLive;       
+        private EnumBikeBodyStyles bodyStyle;
+        private bool isSeriesAvailable;
+        private bool isScooterOnlyMake;
         #endregion
 
         #region Public properties
@@ -77,7 +90,7 @@ namespace Bikewale.Models
         #region Constructor
         public ExpertReviewsDetailPage(ICMSCacheContent cmsCache, IBikeModelsCacheRepository<int> models, IBikeModels<BikeModelEntity, int> bikeModels, IUpcoming upcoming, IBikeInfo bikeInfo, ICityCacheRepository cityCacheRepo,
             IBikeMakesCacheRepository bikeMakesCacheRepository, IBikeVersionCacheRepository<BikeVersionEntity, uint> objBikeVersionsCache, IBikeMaskingCacheRepository<BikeModelEntity, int> bikeMasking, string basicId,
-            IPWACMSCacheRepository renderedArticles, IBikeSeriesCacheRepository seriesCache, IBikeSeries series)
+            IPWACMSCacheRepository renderedArticles, IBikeSeriesCacheRepository seriesCache, IBikeSeries series): base(bikeMakesCacheRepository, models, bikeModels, upcoming, series)
         {
             _cmsCache = cmsCache;
             _models = models;
@@ -170,6 +183,9 @@ namespace Bikewale.Models
         /// Modified by : Ashutosh Sharma on 27 Oct 2017
         /// Description : Added call to BindAmpJsTags.
         /// Modified by : snehal Dange on 28th Nov 2017
+        /// Modified by: Dhruv Joshi
+        /// Dated: 19th April 2018
+        /// Description: GetWidgetData called if mobile or amp otherwise base.GetEditorialWidgetData()
         /// Descritpion : Added ga for page
         /// </summary>
         public ExpertReviewsDetailPageVM GetData(int widgetTopCount)
@@ -186,7 +202,16 @@ namespace Bikewale.Models
                     GetTaggedBikeListByModel(objData);
                     SetPageMetas(objData);
                     CheckSeriesData(objData);
-                    GetWidgetData(objData, widgetTopCount);
+                    SetAdditionalVariables(objData);
+                    if(IsMobile || IsAMPPage)
+                    {
+                        GetWidgetData(objData, widgetTopCount);
+                    }
+                    else
+                    {
+                        objData.PageWidgets = base.GetEditorialWidgetData(EnumEditorialPageType.Detail);
+                    }
+
                     PopulatePhotoGallery(objData);
                     BindSimilarBikes(objData);
                     SetBikeTested(objData);
@@ -205,6 +230,48 @@ namespace Bikewale.Models
                 ErrorClass.LogError(err, "Bikewale.Models.ExpertReviewsDetailPage.GetData - BasicId : " + _basicId);
             }
             return objData;
+        }
+
+        /// <summary>
+        /// Created by: Dhruv Joshi
+        /// Dated: 19th April 2018
+        /// Description: Setting variables before calling base class function
+        /// </summary>
+        /// <param name="objData"></param>
+        private void SetAdditionalVariables(ExpertReviewsDetailPageVM objData)
+        {
+            objData.PageName = pageName;
+            isMakeLive = !(objData.BikeInfo != null && (objData.BikeInfo.IsUpcoming || objData.BikeInfo.IsDiscontinued));
+
+            bodyStyle = EnumBikeBodyStyles.AllBikes;
+
+            List<BikeVersionMinSpecs> objVersionsList = _objBikeVersionsCache.GetVersionMinSpecs(ModelId, false);
+
+            if (objVersionsList != null && objVersionsList.Count > 0)
+            {
+                bodyStyle = objVersionsList.FirstOrDefault().BodyStyle;
+            }
+            
+            objData.BodyStyle = bodyStyle;
+
+            isSeriesAvailable = objData.IsSeriesAvailable;
+            if (objData.Make != null)
+            {
+                isScooterOnlyMake = objData.Make.IsScooterOnly;
+            }
+            EditorialWidgetEntity editorialWidgetData = new EditorialWidgetEntity
+            {
+                IsMobile = IsMobile,
+                IsMakeLive = isMakeLive,
+                IsModelTagged = isModelTagged,
+                IsSeriesAvailable = isSeriesAvailable,
+                IsScooterOnlyMake = isScooterOnlyMake,
+                BodyStyle = bodyStyle,
+                CityId = CityId,
+                Make = objData.Make,
+                Series = bikeSeriesEntityBase
+            };
+            base.SetAdditionalData(editorialWidgetData);
         }
 
         /// <summary>
@@ -392,6 +459,9 @@ namespace Bikewale.Models
         /// <summary>
         /// Created by : Aditi Srivastava on 31 Mar 2017
         /// Summary    : Get tagged make in article
+        /// Modified by: Dhruv Joshi
+        /// Dated: 19th April 2018
+        /// Description: Setting Value for isMakeTagged
         /// </summary>
         private void GetTaggedBikeListByMake(ExpertReviewsDetailPageVM objData)
         {
@@ -412,6 +482,7 @@ namespace Bikewale.Models
                             objData.Make = new Bikewale.Common.MakeHelper().GetMakeNameByMakeId((uint)objData.Make.MakeId);
                     }
                     MakeId = (uint)objData.Make.MakeId;
+                    isMakeTagged = MakeId > 0;
                 }
             }
             catch (Exception ex)
@@ -424,6 +495,9 @@ namespace Bikewale.Models
         /// <summary>
         /// Created by : Aditi Srivastava on 31 Mar 2017
         /// Summary    : Get tagged model in article
+        /// Modified by: Dhruv Joshi
+        /// Dated: 19th April 2018
+        /// Description: Setting Value for isModelTagged
         /// </summary>
         private void GetTaggedBikeListByModel(ExpertReviewsDetailPageVM objData)
         {
@@ -445,6 +519,8 @@ namespace Bikewale.Models
                             objData.Model = new Bikewale.Common.ModelHelper().GetModelDataById((uint)objData.Model.ModelId);
                     }
                     ModelId = (uint)objData.Model.ModelId;
+                    isModelTagged = ModelId > 0;
+
                 }
             }
             catch (Exception ex)
