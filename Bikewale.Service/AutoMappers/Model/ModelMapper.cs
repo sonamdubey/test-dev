@@ -42,6 +42,7 @@ namespace Bikewale.Service.AutoMappers.Model
     /// </summary>
     public class ModelMapper
     {
+        private static IList<string> _categoryDisplayNameList = new List<string> { "Summary", "Engine & Transmission", "Brakes, Wheels and Suspension", "Dimensions and Chassis", "Fuel efficiency and Performance" };
         internal static DTO.Model.ModelDetails Convert(Entities.BikeData.BikeModelEntity objModel)
         {
             Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
@@ -249,6 +250,8 @@ namespace Bikewale.Service.AutoMappers.Model
         /// Description : Mapper for BikeSpecs DTO and BikeModelPageEntity Entity
         /// Modified by : Pratibha Verma on 19 Mar 2018
         /// Description : Added logic to integrate CW specs and features to BW
+        /// Modified by : Rajan Chauhan on 20 Apr 2018
+        /// Description : Added Summary under Specification
         /// </summary>
         /// <param name="objModelPage">object of BikeModelPageEntity</param>
         /// <returns>BikeSpecs DTO</returns>
@@ -282,21 +285,20 @@ namespace Bikewale.Service.AutoMappers.Model
                     if (objModelPage.VersionSpecsFeatures.Specs != null)
                     {
                         specsCategory = new List<DTO.Model.v2.SpecsCategory>();
+                        specsCategory.Add(new DTO.Model.v2.SpecsCategory()
+                        {
+                            DisplayName = "Summary",
+                            Specs = Convert(objModelPage.SpecsSummaryList.Reverse().Skip(1).Reverse())
+                        });
                         foreach (var specsCat in objModelPage.VersionSpecsFeatures.Specs)
                         {
                             specsCategory.Add(new DTO.Model.v2.SpecsCategory()
                             {
-                                DisplayName = specsCat.DisplayText,
-                                CategoryName = specsCat.DisplayText,
+                                DisplayName = GetCategoryDisplayName(specsCategory.Count),
                                 Specs = Convert(specsCat.SpecsItemList)
                             });
                         }
                     }
-                    specsCategory.Insert(0, new DTO.Model.v2.SpecsCategory()
-                    {
-                        DisplayName = "Summary",
-                        Specs = Convert(objModelPage.SpecsSummaryList.Reverse().Skip(1).Reverse())
-                    });
                 }
 
                 var bikespecs = Mapper.Map<BikeSpecs>(objModelPage);
@@ -1025,6 +1027,19 @@ namespace Bikewale.Service.AutoMappers.Model
             }
             catch (Exception) { }
             return null;
+        }
+        /// <summary>
+        /// Method for supporting displayName field for specsCategory in api/model/bikespecs/ 
+        /// on which icons setting condition is applied
+        /// </summary>
+        /// <param name="currentIndex"></param>
+        /// <returns></returns>
+        private static string GetCategoryDisplayName(int currentIndex)
+        {
+            if(currentIndex >=0 && currentIndex <_categoryDisplayNameList.Count )
+                return _categoryDisplayNameList[currentIndex];
+            else
+                return "";
         }
 
     }

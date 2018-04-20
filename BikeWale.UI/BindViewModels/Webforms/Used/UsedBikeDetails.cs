@@ -74,6 +74,7 @@ namespace Bikewale.BindViewModels.Webforms.Used
         /// Description : Bind profile details for the used bike
         /// Modified By : Sushil Kumar on 17th August 2016
         /// Description : Redirect to pageNOt found if listing is not approved and not sold and not an ad user (IsPageNotFoundRedirection = (InquiryDetails.AdStatus != 1 && !IsBikeSold) && !IsAdUserLoggedIn)
+        /// Modified By : Rajan Chauhan added TyreType in place of BrakeType (removed field)
         /// </summary>
         private void GetProfileDetails()
         {
@@ -92,7 +93,7 @@ namespace Bikewale.BindViewModels.Webforms.Used
                     InquiryDetails = objCache.GetProfileDetails(InquiryId);
                     if (InquiryDetails != null)
                     {
-                        GetVersionSpecsByItemIdAdapter adapt1 = new GetVersionSpecsByItemIdAdapter();
+                        GetVersionSpecsByItemIdAdapter adapt = new GetVersionSpecsByItemIdAdapter();
                         VersionsDataByItemIds_Input specItemInput = new VersionsDataByItemIds_Input
                         {
                             Versions = new List<int>() { InquiryDetails.Version.VersionId },
@@ -102,7 +103,7 @@ namespace Bikewale.BindViewModels.Webforms.Used
                                 EnumSpecsFeaturesItems.MaximumTorque,
                                 EnumSpecsFeaturesItems.NoOfGears,
                                 EnumSpecsFeaturesItems.FuelEfficiencyOverall,
-                                EnumSpecsFeaturesItems.RearBrakeType,
+                                EnumSpecsFeaturesItems.TyreType,
                                 EnumSpecsFeaturesItems.FrontBrakeType,
                                 EnumSpecsFeaturesItems.RearBrakeType,
                                 EnumSpecsFeaturesItems.WheelType,
@@ -117,9 +118,9 @@ namespace Bikewale.BindViewModels.Webforms.Used
                                 EnumSpecsFeaturesItems.StartType,
                             }
                         };
-                        adapt1.AddApiGatewayCall(_apiGatewayCaller, specItemInput);
+                        adapt.AddApiGatewayCall(_apiGatewayCaller, specItemInput);
                         _apiGatewayCaller.Call();
-                        IEnumerable<VersionMinSpecsEntity> minSpecs = adapt1.Output;
+                        IEnumerable<VersionMinSpecsEntity> minSpecs = adapt.Output;
                         if (minSpecs != null && minSpecs.FirstOrDefault() != null && minSpecs.FirstOrDefault().MinSpecsList != null)
                         {
                             IEnumerable<SpecsItem> minSpecsList = minSpecs.FirstOrDefault().MinSpecsList;

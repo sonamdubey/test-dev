@@ -362,7 +362,7 @@ namespace Bikewale.Models
                     objVM.BikeVersionPrices = _objPQ.GetVersionPricesByModelId(modelId, cityId, out hasAreaAvailable);
                     if (objVM.BikeVersionPrices != null && objVM.BikeVersionPrices.Any())
                     {
-                        firstVersion = objVM.BikeVersionPrices.OrderByDescending(m => m.IsVersionNew).OrderBy(v => v.ExShowroomPrice).First();
+                        firstVersion = objVM.BikeVersionPrices.Where(m => m.IsVersionNew).OrderBy(v => v.ExShowroomPrice).First();
                         objVM.IsNew = isNew = firstVersion.IsModelNew;
                         var newVersions = objVM.BikeVersionPrices.Where(x => x.IsVersionNew);
                         if (objVM.IsNew && newVersions != null && newVersions.Any())

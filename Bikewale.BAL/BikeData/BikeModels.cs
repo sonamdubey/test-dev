@@ -548,8 +548,8 @@ namespace Bikewale.BAL.BikeData
                             EnumSpecsFeaturesItems.RearBrakeType,
                             EnumSpecsFeaturesItems.WheelType,
                             EnumSpecsFeaturesItems.Displacement,
-                            EnumSpecsFeaturesItems.MaxPowerBhp,
                             EnumSpecsFeaturesItems.FuelEfficiencyOverall,
+                            EnumSpecsFeaturesItems.MaxPowerBhp,
                             EnumSpecsFeaturesItems.KerbWeight,
                             EnumSpecsFeaturesItems.TopSpeed
                         });
