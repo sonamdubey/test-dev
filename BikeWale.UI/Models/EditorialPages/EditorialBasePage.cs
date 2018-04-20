@@ -48,7 +48,8 @@ namespace Bikewale.Models.EditorialPages
         
         public void SetAdditionalData(EditorialWidgetEntity editorialWidgetData)
         {
-            if(editorialWidgetData == null)
+
+            if (editorialWidgetData == null)
             {
                 return;
             }
@@ -77,7 +78,6 @@ namespace Bikewale.Models.EditorialPages
                 SeriesMaskingName = series.MaskingName;
             }
             IsSeriesAvailable = widgetData.IsSeriesAvailable;
-
 
         }
         /// <summary>
@@ -366,7 +366,11 @@ namespace Bikewale.Models.EditorialPages
             {
                 int editorialWidgetTopCount = IsMobile ? 9 : 6;
                 widget = InitializeWidgetCategory(category);
+                string tabHeading = string.Empty;
                 string viewAllTitle = string.Empty;
+
+                IDictionary<EditorialWidgetCategory, string> tabHeadings = !IsMobile ? EditorialWidgetHelper.EditorialTabHeading : EditorialWidgetHelper.EditorialTabHeading_Mobile;
+                IDictionary<EditorialWidgetCategory, string> viewAllTitles = EditorialWidgetHelper.EditorialViewAllTitles;
 
                 switch (category)
                 {
@@ -379,8 +383,9 @@ namespace Bikewale.Models.EditorialPages
                                 return null;
                             }
                             ((EditorialPopularBikesWidget)widget).MostPopularBikeList = mostPopular;
-                            viewAllTitle = string.Format(EditorialWidgetViewAllHelper.EditorialViewAllTitles[EditorialWidgetCategory.Popular_All]);
-                            SetWidgetStructureData(widget, "Popular Bikes", "PopularBikes", true, UrlFormatter.FormatGenericPageUrl(EnumBikeBodyStyles.AllBikes), "View all bikes", viewAllTitle);
+                            tabHeading = string.Format(tabHeadings[category]);
+                            viewAllTitle = string.Format(viewAllTitles[EditorialWidgetCategory.Popular_All]);
+                            SetWidgetStructureData(widget, tabHeading, "PopularBikes", true, UrlFormatter.FormatGenericPageUrl(EnumBikeBodyStyles.AllBikes), "View all bikes", viewAllTitle);
                         }
                         break;
 
@@ -392,8 +397,9 @@ namespace Bikewale.Models.EditorialPages
                                 return null;
                             }
                             ((EditorialPopularBikesWidget)widget).MostPopularBikeList = mostPopular;
-                            viewAllTitle = string.Format(EditorialWidgetViewAllHelper.EditorialViewAllTitles[EditorialWidgetCategory.Popular_Make], MakeName);
-                            SetWidgetStructureData(widget, string.Format("{0} Bikes", MakeName), "PopularMakeBikes", true, UrlFormatter.BikeMakeUrl(MakeMaskingName), "View all bikes", viewAllTitle);
+                            tabHeading = string.Format(tabHeadings[category], MakeName);
+                            viewAllTitle = string.Format(viewAllTitles[EditorialWidgetCategory.Popular_Make], MakeName);
+                            SetWidgetStructureData(widget, tabHeading, "PopularMakeBikes", true, UrlFormatter.BikeMakeUrl(MakeMaskingName), "View all bikes", viewAllTitle);
                         }
                         break;
 
@@ -405,24 +411,24 @@ namespace Bikewale.Models.EditorialPages
                                 return null;
                             }
                             ((EditorialPopularBikesWidget)widget).MostPopularBikeList = mostPopular;
-                            string title = null, tabId = null;
+                            string tabId = null;
                             if (BodyStyle == EnumBikeBodyStyles.Sports)
                             {
-                                title = "Sports Bikes";
-                                viewAllTitle = string.Format(EditorialWidgetViewAllHelper.EditorialViewAllTitles[EditorialWidgetCategory.Popular_Sports]);
+                                tabHeading = string.Format(tabHeadings[EditorialWidgetCategory.Popular_Sports]);
+                                viewAllTitle = string.Format(viewAllTitles[EditorialWidgetCategory.Popular_Sports]);
                                 tabId = "PopularSportsBikes";
                             }
                             else if (BodyStyle == EnumBikeBodyStyles.Cruiser)
                             {
-                                title = "Cruisers";
-                                viewAllTitle = string.Format(EditorialWidgetViewAllHelper.EditorialViewAllTitles[EditorialWidgetCategory.Popular_Cruisers]);
+                                tabHeading = string.Format(tabHeadings[EditorialWidgetCategory.Popular_Cruisers]);
+                                viewAllTitle = string.Format(viewAllTitles[EditorialWidgetCategory.Popular_Cruisers]);
                                 tabId = "PopularCruisers";
                             }
                             else
                             {
                                 return null;
                             }
-                            SetWidgetStructureData(widget, title, tabId, true, UrlFormatter.FormatGenericPageUrl(BodyStyle), "View all bikes", viewAllTitle);
+                            SetWidgetStructureData(widget, tabHeading, tabId, true, UrlFormatter.FormatGenericPageUrl(BodyStyle), "View all bikes", viewAllTitle);
                         }
                         break;
 
@@ -434,8 +440,9 @@ namespace Bikewale.Models.EditorialPages
                                 return null;
                             }
                             ((EditorialPopularBikesWidget)widget).MostPopularBikeList = mostPopular;
-                            viewAllTitle = string.Format(EditorialWidgetViewAllHelper.EditorialViewAllTitles[category]);
-                            SetWidgetStructureData(widget, "Popular Scooters", "PopularScooters", true, UrlFormatter.FormatGenericPageUrl(EnumBikeBodyStyles.Scooter), "View all scooters", viewAllTitle);
+                            tabHeading = string.Format(tabHeadings[category]);
+                            viewAllTitle = string.Format(viewAllTitles[category]);
+                            SetWidgetStructureData(widget, tabHeading, "PopularScooters", true, UrlFormatter.FormatGenericPageUrl(EnumBikeBodyStyles.Scooter), "View all scooters", viewAllTitle);
                         }
                         break;
 
@@ -447,8 +454,9 @@ namespace Bikewale.Models.EditorialPages
                                 return null;
                             }
                             ((EditorialPopularBikesWidget)widget).MostPopularBikeList = mostPopular;
-                            viewAllTitle = string.Format(EditorialWidgetViewAllHelper.EditorialViewAllTitles[category], MakeName);
-                            SetWidgetStructureData(widget, string.Format("{0} Scooters", MakeName), "PopularMakeScooters", true, UrlFormatter.ScooterMakeUrl(MakeMaskingName, widgetData.IsScooterOnlyMake), "View all scooters", viewAllTitle);
+                            tabHeading = string.Format(tabHeadings[category], MakeName);
+                            viewAllTitle = string.Format(viewAllTitles[category], MakeName);
+                            SetWidgetStructureData(widget, tabHeading, "PopularMakeScooters", true, UrlFormatter.ScooterMakeUrl(MakeMaskingName, widgetData.IsScooterOnlyMake), "View all scooters", viewAllTitle);
                         }
                         break;
 
@@ -460,8 +468,9 @@ namespace Bikewale.Models.EditorialPages
                                 return null;
                             }
                             ((EditorialPopularBikesWidget)widget).MostPopularBikeList = mostPopular;
-                            viewAllTitle = string.Format(EditorialWidgetViewAllHelper.EditorialViewAllTitles[category], SeriesName);
-                            SetWidgetStructureData(widget, string.Format("{0} Bikes", SeriesName), "PopularSeriesBikes", true, UrlFormatter.BikeSeriesUrl(MakeMaskingName, SeriesMaskingName), "View all bikes", viewAllTitle);
+                            tabHeading = string.Format(tabHeadings[category], SeriesName);
+                            viewAllTitle = string.Format(viewAllTitles[category], SeriesName);
+                            SetWidgetStructureData(widget, tabHeading, "PopularSeriesBikes", true, UrlFormatter.BikeSeriesUrl(MakeMaskingName, SeriesMaskingName), "View all bikes", viewAllTitle);
                         }
                         break;
 
@@ -473,8 +482,9 @@ namespace Bikewale.Models.EditorialPages
                                 return null;
                             }
                             ((EditorialPopularBikesWidget)widget).MostPopularBikeList = mostPopular;
-                            viewAllTitle = string.Format(EditorialWidgetViewAllHelper.EditorialViewAllTitles[category], SeriesName);
-                            SetWidgetStructureData(widget, string.Format("{0} Scooters", SeriesName), "PopularSeriesScooters", true, UrlFormatter.BikeSeriesUrl(MakeMaskingName, SeriesMaskingName), "View all scooters", viewAllTitle);
+                            tabHeading = string.Format(tabHeadings[category], SeriesName);
+                            viewAllTitle = string.Format(viewAllTitles[category], SeriesName);
+                            SetWidgetStructureData(widget, tabHeading, "PopularSeriesScooters", true, UrlFormatter.BikeSeriesUrl(MakeMaskingName, SeriesMaskingName), "View all scooters", viewAllTitle);
                         }
                         break;
 
@@ -486,8 +496,9 @@ namespace Bikewale.Models.EditorialPages
                                 return null;
                             }
                             ((EditorialUpcomingBikesWidget)widget).UpcomingBikeList = upcomingBikes;
-                            viewAllTitle = string.Format(EditorialWidgetViewAllHelper.EditorialViewAllTitles[category]);
-                            SetWidgetStructureData(widget, "Upcoming Bikes", "UpcomingBikes", true, UrlFormatter.UpcomingBikesUrl(), "View all upcoming bikes", viewAllTitle);
+                            tabHeading = string.Format(tabHeadings[category]);
+                            viewAllTitle = string.Format(viewAllTitles[category]);
+                            SetWidgetStructureData(widget, tabHeading, "UpcomingBikes", true, UrlFormatter.UpcomingBikesUrl(), "View all upcoming bikes", viewAllTitle);
                         }
                         break;
 
@@ -499,7 +510,8 @@ namespace Bikewale.Models.EditorialPages
                                 return null;
                             }
                             ((EditorialUpcomingBikesWidget)widget).UpcomingBikeList = upcomingBikes;
-                            SetWidgetStructureData(widget, "Upcoming Scooters", "UpcomingScooters", false);
+                            tabHeading = string.Format(tabHeadings[category]);
+                            SetWidgetStructureData(widget, tabHeading, "UpcomingScooters", false);
                         }
                         break;
 
@@ -511,13 +523,13 @@ namespace Bikewale.Models.EditorialPages
                                 return null;
                             }
                             ((EditorialOtherBrandsWidget)widget).OtherBrandsList = otherBrands;
-                            viewAllTitle = string.Format(EditorialWidgetViewAllHelper.EditorialViewAllTitles[category]);
-                            SetWidgetStructureData(widget, "Other Brands", "OtherBrands", true, UrlFormatter.AllScootersUrl(), "View other brands ", viewAllTitle);
+                            tabHeading = string.Format(tabHeadings[category]);
+                            viewAllTitle = string.Format(viewAllTitles[category]);
+                            SetWidgetStructureData(widget, tabHeading, "OtherBrands", true, UrlFormatter.AllScootersUrl(), "View other brands ", viewAllTitle);
                         }
                         break;
 
                     default:
-                        //_logger.Info(string.Format("BikeWale.UI.Models.News.NewsDetailPage.BindWidget__{0} is not a valid category", category));
                         break;
                 }
 

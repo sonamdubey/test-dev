@@ -8,9 +8,9 @@ namespace Bikewale.Entities.BikeData
     /// </summary>
 
 
-    
     //Class to hold helpers related to `View all` button links.
-    public static class EditorialWidgetViewAllHelper
+
+    public static class EditorialWidgetHelper
     {
 
         public static readonly IDictionary<EditorialWidgetCategory, string> EditorialViewAllTitles = new Dictionary<EditorialWidgetCategory, string>
@@ -28,6 +28,41 @@ namespace Bikewale.Entities.BikeData
             { EditorialWidgetCategory.Popular_Series, "{0} Bikes in India"},
             { EditorialWidgetCategory.Series_Scooters, "{0} Scooters in India"}
         };
+
+        public static readonly IDictionary<EditorialWidgetCategory, string> EditorialTabHeading =
+            new Dictionary<EditorialWidgetCategory, string>
+            {
+                { EditorialWidgetCategory.Popular_Make, "{0} Bikes"},
+                { EditorialWidgetCategory.Popular_All, "Popular Bikes"},
+                { EditorialWidgetCategory.Popular_Cruisers, "Cruisers"},
+                { EditorialWidgetCategory.Popular_Sports, "Sports Bikes"},
+                { EditorialWidgetCategory.Popular_Scooters, "Popular Scooters"},
+                { EditorialWidgetCategory.Upcoming_All, "Upcoming Bikes"},
+                { EditorialWidgetCategory.Upcoming_Make, "Upcoming {0} Bikes"},
+                { EditorialWidgetCategory.Upcoming_Scooters, "Upcoming Scooters"},
+                { EditorialWidgetCategory.OtherBrands_All, "Other Brands"},
+                { EditorialWidgetCategory.Popular_Make_Scooters, "{0} Scooters"},
+                { EditorialWidgetCategory.Popular_Series, "{0} Bikes"},
+                { EditorialWidgetCategory.Series_Scooters, "{0} Scooters"}
+        };
+
+        public static readonly IDictionary<EditorialWidgetCategory, string> EditorialTabHeading_Mobile =
+            new Dictionary<EditorialWidgetCategory, string>
+            {
+                { EditorialWidgetCategory.Popular_Make, "Popular {0} Bikes"},
+                { EditorialWidgetCategory.Popular_All, "Popular Bikes"},
+                { EditorialWidgetCategory.Popular_Cruisers, "Popular Cruiser Bikes"},
+                { EditorialWidgetCategory.Popular_Sports, "Popular Sports Bikes"},
+                { EditorialWidgetCategory.Popular_Scooters, "Popular Scooters"},
+                { EditorialWidgetCategory.Upcoming_All, "Upcoming Bikes"},
+                { EditorialWidgetCategory.Upcoming_Make, "Upcoming {0} Bikes"},
+                { EditorialWidgetCategory.Upcoming_Scooters, "Upcoming Scooters"},
+                { EditorialWidgetCategory.OtherBrands_All, "Popular Scooter Brands"},
+                { EditorialWidgetCategory.Popular_Make_Scooters, "Popular {0} Scooters"},
+                { EditorialWidgetCategory.Popular_Series, "Popular {0} Bikes"},
+                { EditorialWidgetCategory.Series_Scooters, "Popular {0} Scooters"}
+            };
+         }
     }
     public enum EditorialWidgetType
     {
@@ -78,5 +113,3 @@ namespace Bikewale.Entities.BikeData
         MakeListing
     }
     
-    
-}
