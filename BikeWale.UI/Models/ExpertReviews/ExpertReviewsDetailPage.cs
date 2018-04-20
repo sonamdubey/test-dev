@@ -71,13 +71,12 @@ namespace Bikewale.Models
         private uint basicId;
         private PQSourceEnum pqSource = 0;
         public BikeSeriesEntityBase bikeSeriesEntityBase;
-        private static string _widgetCruiserSports;
         private static string pageName = "Editorial Details";
 
         private bool isModelTagged;
         private bool isMakeTagged;
         private bool isMakeLive;
-        private string MakeName, MakeMaskingName;
+        private string MakeMaskingName;
         private EnumBikeBodyStyles bodyStyle;
         private bool isSeriesAvailable;
         private bool isScooterOnlyMake;
@@ -250,8 +249,10 @@ namespace Bikewale.Models
             List<BikeVersionMinSpecs> objVersionsList = _objBikeVersionsCache.GetVersionMinSpecs(ModelId, false);
 
             if (objVersionsList != null && objVersionsList.Count > 0)
+            {
                 bodyStyle = objVersionsList.FirstOrDefault().BodyStyle;
-
+            }
+            
             objData.BodyStyle = bodyStyle;
 
             isSeriesAvailable = objData.IsSeriesAvailable;
