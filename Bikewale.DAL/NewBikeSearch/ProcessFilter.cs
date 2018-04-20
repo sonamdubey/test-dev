@@ -13,7 +13,15 @@ namespace Bikewale.DAL.NewBikeSearch
     {
         private InputBaseEntity _input = null;
         private FilterInput _filters = null;
-
+        private enum NewBikeSearchSpecFeaturesEnum
+        {
+            Disc = 911,
+            Drum = 912,
+            Alloy = 846,
+            Spoke = 847,
+            ElectricStart = 853,
+            KickStart = 854
+        }
         /// <summary>
         /// Created By : Sadhana Upadhyay on 31 Aug 2015
         /// Summary : To process new search page filters
@@ -138,17 +146,18 @@ namespace Bikewale.DAL.NewBikeSearch
         {
             try
             {
-                string[] wheelTypes = _input.AlloyWheel.Split(' ');
-                if (wheelTypes != null && wheelTypes.Any())
+                string wheelTypes = _input.AlloyWheel;
+                if (!String.IsNullOrEmpty(wheelTypes))
                 {
-                    _filters.Wheels = wheelTypes;
-                }
-                foreach (string wheelType in wheelTypes)
-                {
-                    if (wheelType == ((int)WheelType.Alloy).ToString())
-                        _filters.SpokeWheel = true;
-                    else if (wheelType == ((int)WheelType.Spoke).ToString())
-                        _filters.AlloyWheel = true;
+                    if (wheelTypes.Equals("1"))
+                    {
+                        wheelTypes = Convert.ToString((ushort)NewBikeSearchSpecFeaturesEnum.Alloy); //alloy "846"
+                    }
+                    else if (wheelTypes.Equals("2"))
+                    {
+                        wheelTypes = Convert.ToString((ushort)NewBikeSearchSpecFeaturesEnum.Spoke); //spoke "847"
+                    }
+                    _filters.Wheels = wheelTypes.Split(' ');
                 }
             }
             catch (Exception ex)
@@ -168,17 +177,18 @@ namespace Bikewale.DAL.NewBikeSearch
         {
             try
             {
-                string[] brakeTypes = _input.BrakeType.Split(' ');
-                if (brakeTypes != null && brakeTypes.Any())
+                string brakeTypes = _input.BrakeType;
+                if (!String.IsNullOrEmpty(brakeTypes))
                 {
-                    _filters.Brakes = brakeTypes;
-                }
-                foreach (string brakeType in brakeTypes)
-                {
-                    if (brakeType == ((int)Brake.Disc).ToString())
-                        _filters.DiscBrake = true;
-                    else if (brakeType == ((int)Brake.Drum).ToString())
-                        _filters.DrumBrake = true;
+                    if (brakeTypes.Equals("1"))
+                    {
+                        brakeTypes = Convert.ToString((ushort)NewBikeSearchSpecFeaturesEnum.Drum); //drum "912"
+                    }
+                    else if (brakeTypes.Equals("2"))
+                    {
+                        brakeTypes = Convert.ToString((ushort)NewBikeSearchSpecFeaturesEnum.Disc); //disc "911"
+                    }
+                    _filters.Brakes = brakeTypes.Split(' ');
                 }
             }
             catch (Exception ex)
@@ -246,17 +256,19 @@ namespace Bikewale.DAL.NewBikeSearch
         {
             try
             {
-                string[] startTypes = _input.StartType.Split(' ');
-                if (startTypes != null && startTypes.Any())
+                string startTypes = _input.StartType;
+
+                if (!String.IsNullOrEmpty(startTypes))
                 {
-                    _filters.StartType = startTypes;
-                }
-                foreach (string startType in startTypes)
-                {
-                    if (startType == ((int)StartType.Electric).ToString())
-                        _filters.Electric = true;
-                    else if (startType == ((int)StartType.Manual).ToString())
-                        _filters.Manual = true;
+                    if (startTypes.Equals("1"))
+                    {
+                        startTypes = Convert.ToString((ushort)NewBikeSearchSpecFeaturesEnum.ElectricStart); // "853" electric
+                    }
+                    else if (startTypes.Equals("2"))
+                    {
+                        startTypes = Convert.ToString((ushort)NewBikeSearchSpecFeaturesEnum.KickStart); //"854" kick
+                    }
+                    _filters.StartType = startTypes.Split(' ');
                 }
             }
             catch (Exception ex)
