@@ -1,5 +1,6 @@
 using Bikewale.BAL.ApiGateway.Adapters.BikeData;
 using Bikewale.BAL.ApiGateway.ApiGatewayHelper;
+using Bikewale.BAL.ApiGateway.Entities.BikeData;
 using Bikewale.BAL.PriceQuote;
 using Bikewale.DTO.Model;
 using Bikewale.DTO.Version;
@@ -130,13 +131,39 @@ namespace Bikewale.Service.Controllers.Model
                 {
                     return BadRequest();
                 }
+                GetVersionSpecsByItemIdAdapter adapt = new GetVersionSpecsByItemIdAdapter();
+                VersionsDataByItemIds_Input specItemInput = new VersionsDataByItemIds_Input
+                {
+                    Versions = new List<int> { Convert.ToInt32(versionId) },
+                    Items = new List<EnumSpecsFeaturesItems>() {
+                            EnumSpecsFeaturesItems.Displacement,
+                            EnumSpecsFeaturesItems.MaxPower,
+                            EnumSpecsFeaturesItems.MaximumTorque,
+                            EnumSpecsFeaturesItems.NoOfGears,
+                            EnumSpecsFeaturesItems.FuelEfficiencyOverall,
+                            EnumSpecsFeaturesItems.FrontBrakeType,
+                            EnumSpecsFeaturesItems.RearBrakeType,
+                            EnumSpecsFeaturesItems.WheelType,
+                            EnumSpecsFeaturesItems.KerbWeight,
+                            EnumSpecsFeaturesItems.ChassisType,
+                            EnumSpecsFeaturesItems.TopSpeed,
+                            EnumSpecsFeaturesItems.TyreType,
+                            EnumSpecsFeaturesItems.FuelTankCapacity
+                        }
+                };
+                adapt.AddApiGatewayCall(_apiGatewayCaller, specItemInput );
                 GetVersionSpecsByIdAdapter adapt1 = new GetVersionSpecsByIdAdapter();
                 adapt1.AddApiGatewayCall(_apiGatewayCaller, new List<int> { (int)versionId });
                 _apiGatewayCaller.Call();
                 SpecsFeaturesEntity versionSpecsFeatures = adapt1.Output;
                 if (versionSpecsFeatures != null)
                 {
-                    VersionSpecs versionSpecs = VersionListMapper.Convert(versionSpecsFeatures);
+                    IEnumerable<SpecsItem> summarySpecsList =  null;
+                    if (adapt.Output != null && adapt.Output.Any())
+                    {
+                        summarySpecsList = adapt.Output.FirstOrDefault().MinSpecsList;
+                    }
+                    VersionSpecs versionSpecs = VersionListMapper.Convert(versionSpecsFeatures, summarySpecsList);
                     if (versionSpecs != null)
                     {
                         return Ok(versionSpecs);
