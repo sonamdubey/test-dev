@@ -108,7 +108,12 @@
 
 			var handleScroll = function () {
 				try {
-					SwiperYT.YouTubeApi.handleVideoPause();
+					if ("orientation" in screen && screen.orientation.type === "portrait-primary") {
+						SwiperYT.YouTubeApi.handleVideoPause();
+					}
+					else {
+						SwiperYT.YouTubeApi.handleOrientationType();
+					}
 				} catch (e) {
 					console.log(e);
 				}
@@ -123,7 +128,7 @@
 				var inViewPortTopBottom = ViewPort.isElementInViewportTopBottom(videoFrame);
 
 				if (!inViewPortTopBottom) {
-					SwiperYT.handleOrientationType();
+					SwiperYT.YouTubeApi.videoPause();
 				}
 			}
 		},
