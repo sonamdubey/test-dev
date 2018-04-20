@@ -56,7 +56,7 @@
                     <p class="text-xt-light-grey font14 margin-bottom10">
                         @if (bike.MinSpecsList != null)
                         {
-                            Html.Raw(FormatMinSpecs.GetMinSpecsSpanElements(bike.MinSpecsList));    
+                            @Html.Raw(FormatMinSpecs.GetMinSpecsSpanElements(bike.MinSpecsList));    
                         }
                     </p>
                     @if (bike.Price > 0)
