@@ -172,6 +172,8 @@ namespace Bikewale.Models
         /// Descritpion : Added ga for page
         /// Modified by : Pratibha Verma on 25the January
         /// Description : Added AutoExpo2018 in news category
+        /// Modified By : Deepak Israni on 20 April 2018
+        /// Description : Bind data for page widgets.
         /// </summary>
         /// <returns></returns>
         public NewsIndexPageVM GetData(int widgetTopCount)
