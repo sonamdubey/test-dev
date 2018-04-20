@@ -204,7 +204,7 @@ namespace Bikewale.Models.EditorialPages
                 //Bind B1 -> Popular Bikes
                 SecondWidget.WidgetColumns[EditorialWidgetColumnPosition.Left] = BindWidget(EditorialWidgetCategory.Popular_All);
                 //Bind B2 -> Upcoming Scooters
-                SecondWidget.WidgetColumns[EditorialWidgetColumnPosition.Right] = BindWidget(EditorialWidgetCategory.Upcoming_Scooters);
+                SecondWidget.WidgetColumns[EditorialWidgetColumnPosition.Right] = BindWidget(EditorialWidgetCategory.Upcoming_All);
             }
 
             PageWidgets = new Dictionary<EditorialPageWidgetPosition, EditorialWidgetVM>();

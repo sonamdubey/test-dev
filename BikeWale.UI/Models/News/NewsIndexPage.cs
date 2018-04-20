@@ -172,6 +172,8 @@ namespace Bikewale.Models
         /// Descritpion : Added ga for page
         /// Modified by : Pratibha Verma on 25the January
         /// Description : Added AutoExpo2018 in news category
+        /// Modified By : Deepak Israni on 20 April 2018
+        /// Description : Bind data for page widgets.
         /// </summary>
         /// <returns></returns>
         public NewsIndexPageVM GetData(int widgetTopCount)
@@ -219,12 +221,27 @@ namespace Bikewale.Models
                         BindBikeInfoWidget(objData);
                     }
 
-                    if (!IsMobile)
+                    #region Bind Editorial Widgets (Maintain order)
+                    SetAdditionalVariables(objData);
+
+                    if (objData.Make != null)
                     {
-                        SetAdditionalVariables(objData);
-                        objData.PageWidgets = base.GetEditorialWidgetData(EnumEditorialPageType.Listing);
+                        if (objData.Model != null)
+                        {
+                            objData.PageWidgets = base.GetEditorialWidgetData(EnumEditorialPageType.Detail);
+                        }
+                        else
+                        {
+                            objData.PageWidgets = base.GetEditorialWidgetData(EnumEditorialPageType.MakeListing);
+                        }
                     }
                     else
+                    {
+                        objData.PageWidgets = base.GetEditorialWidgetData(EnumEditorialPageType.Listing);
+                    }
+                    #endregion
+
+                    if (IsMobile)
                     {
                         GetWidgetData(objData, widgetTopCount); 
                     }
@@ -1419,12 +1436,54 @@ namespace Bikewale.Models
         {
             objData.PageName = pageName;
 
-            EditorialWidgetEntity editorialWidgetData = new EditorialWidgetEntity
+            if (objData.Make != null)
             {
-                IsMobile = IsMobile,
-                CityId = CityId
-            };
-            base.SetAdditionalData(editorialWidgetData);
+                BikeMakeEntityBase taggedMake = _objMakeCache.GetMakeDetails((uint)objData.Make.MakeId);
+                bool isMakeLive = taggedMake.IsNew && !taggedMake.IsFuturistic;
+
+                EnumBikeBodyStyles bodyStyle = EnumBikeBodyStyles.AllBikes;
+
+                if (objData.Series != null)
+                {
+                    objData.Model = _series.GetNewModels(objData.Series.SeriesId, CityId).FirstOrDefault().BikeModel;
+                    ModelId = (uint) objData.Model.ModelId;
+                }
+
+                if (objData.Model != null)
+                {
+                    List<BikeVersionMinSpecs> objVersionsList = _objBikeVersionsCache.GetVersionMinSpecs(ModelId, false);
+
+                    if (objVersionsList != null && objVersionsList.Count > 0)
+                    {
+                        bodyStyle = objVersionsList.FirstOrDefault().BodyStyle;
+                    }
+                }
+
+                objData.BodyStyle = bodyStyle;
+
+                EditorialWidgetEntity editorialWidgetData = new EditorialWidgetEntity
+                {
+                    IsMobile = IsMobile,
+                    IsMakeLive = isMakeLive,
+                    IsModelTagged = objData.Model != null,
+                    IsSeriesAvailable = objData.Series != null,
+                    IsScooterOnlyMake = objData.Make.IsScooterOnly,
+                    BodyStyle = bodyStyle,
+                    CityId = CityId,
+                    Make = objData.Make,
+                    Series = objData.Series
+                };
+                base.SetAdditionalData(editorialWidgetData);
+            }
+            else
+            {
+                EditorialWidgetEntity editorialWidgetData = new EditorialWidgetEntity
+                {
+                    IsMobile = IsMobile,
+                    CityId = CityId
+                };
+                base.SetAdditionalData(editorialWidgetData); 
+            }
         }
 
         private void BindBikeInfoWidget(NewsIndexPageVM objData)

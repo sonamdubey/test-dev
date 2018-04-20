@@ -4093,6 +4093,10 @@
     <Content Include="Views\BikeSeries\_MakeSeriesSlug_Mobile.cshtml" />
     <Content Include="Views\BikeSeries\_MakeSeriesSlug_Mobile_New.cshtml" />
     <Content Include="Views\BikeSeries\_MakeSeriesSlug_Mobile_AMP.cshtml" />
+    <Content Include="Views\Shared\_EditorialWidgetBase_Mobile.cshtml" />
+    <Content Include="Views\BikeModels\_PopularBikesWidgetBase_Mobile.cshtml" />
+    <Content Include="Views\Make\_OtherBrandsWidgetBase_Mobile.cshtml" />
+    <Content Include="Views\BikeModels\_UpcomingBikesWidgetBase_Mobile.cshtml" />
     <None Include="Views\Shared\_Sidebar-section.cshtml" />
     <Content Include="Views\BikeModels\_MultiTabsWidget.cshtml" />
     <Content Include="Views\Shared\_ReviewPopup.cshtml" />

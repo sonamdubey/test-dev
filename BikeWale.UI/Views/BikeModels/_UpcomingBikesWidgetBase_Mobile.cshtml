@@ -1,0 +1,47 @@
+﻿@model Bikewale.Models.BikeModels.EditorialUpcomingBikesWidget
+@using Bikewale.Utility;
+
+
+@if (Model != null)
+{
+    var bikeList = Model.UpcomingBikeList;
+
+    if (bikeList != null && bikeList.Any())
+    {
+        <div class="swiper-container card-container swiper-small">
+            <div class="swiper-wrapper">
+
+                @foreach (var bike in bikeList)
+                {
+                    if (bike.MakeBase == null || bike.ModelBase == null)
+                    {
+                        continue;
+                    }
+                    string bikeName = string.Format("{0} {1}", bike.MakeBase.MakeName, bike.ModelBase.ModelName);
+                    <div class="swiper-slide">
+                        <div class="swiper-card">
+                            <a href="@string.Format("/m{0}",UrlFormatter.BikePageUrl(bike.MakeBase.MaskingName,bike.ModelBase.MaskingName))" title="@bikeName" class="block">
+                                <div class="swiper-image-preview position-rel">
+                                    <img class="swiper-lazy" alt="@bikeName" data-src="@Image.GetPathToShowImages(bike.OriginalImagePath,bike.HostUrl,ImageSize._174x98,QualityFactor._70)" title="@bikeName">
+                                </div>
+                                <div class="swiper-details-block">
+                                    <h3 class="target-link font12 text-truncate margin-bottom5">@bikeName</h3>
+                                    @if(bike.EstimatedPriceMin > 0) { 
+                                    <p class="text-truncate text-light-grey font11">Expected price</p>
+                                    <p class="text-default font16">
+                                        @Html.Raw("<span> &#x20B9;</span>")&nbsp;<span class="text-bold">@Format.FormatPrice(Convert.ToString(bike.EstimatedPriceMin)) onwards</span>
+                                    </p>
+                                    }else {
+                                    <p class="text-default">
+                                        <span class="font14 text-light-grey">Price not available</span>
+                                    </p>
+                                     }
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                } 
+            </div>
+        </div>
+    }
+}
