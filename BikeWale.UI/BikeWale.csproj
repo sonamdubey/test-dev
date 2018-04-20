@@ -3162,6 +3162,11 @@
     <Content Include="sass\mixins\_check-box.sass" />
     <Content Include="sass\partials\_filter-screen.sass" />
     <Content Include="Scripts\app.bundle.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\server.bundle.js" />
     <Content Include="Scripts\sw-toolbox.js" />
     <Content Include="Scripts\vendor.bundle.js" />
@@ -4093,6 +4098,10 @@
     <Content Include="Views\BikeSeries\_MakeSeriesSlug_Mobile.cshtml" />
     <Content Include="Views\BikeSeries\_MakeSeriesSlug_Mobile_New.cshtml" />
     <Content Include="Views\BikeSeries\_MakeSeriesSlug_Mobile_AMP.cshtml" />
+    <Content Include="Views\Shared\_EditorialWidgetBase_Mobile.cshtml" />
+    <Content Include="Views\BikeModels\_PopularBikesWidgetBase_Mobile.cshtml" />
+    <Content Include="Views\Make\_OtherBrandsWidgetBase_Mobile.cshtml" />
+    <Content Include="Views\BikeModels\_UpcomingBikesWidgetBase_Mobile.cshtml" />
     <None Include="Views\Shared\_Sidebar-section.cshtml" />
     <Content Include="Views\BikeModels\_MultiTabsWidget.cshtml" />
     <Content Include="Views\Shared\_ReviewPopup.cshtml" />

@@ -31,6 +31,8 @@ namespace BikewaleOpr.Service.Controllers.PageMetas
         /// Description : Changed cacke key from 'BW_ModelDetail_' to 'BW_ModelDetail_V1'.
         /// Modified by : Snehal Dange on 30th Jan 2018
         /// Description: Changed datatype of 'pageMetaId' from uint to string to facilitate multiple delete functionalty
+        /// Modified By : Deepak Israni on 20 April 2018
+        /// Description : Versioned MakeDetails cache.
         /// </summary>
         /// <param name="dealerId"></param>
         /// <param name="activecontract"></param>
@@ -59,7 +61,7 @@ namespace BikewaleOpr.Service.Controllers.PageMetas
                     {
                         foreach (var make in makeIdList.Distinct())
                         {
-                            MemCachedUtil.Remove("BW_MakeDetails_" + make);
+                            MemCachedUtil.Remove(string.Format("BW_MakeDetails_{0}_V1", make));
                         }
                     }
                     if (modelIdList != null && modelIdList.Any())

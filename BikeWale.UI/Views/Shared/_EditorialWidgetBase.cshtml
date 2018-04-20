@@ -92,36 +92,35 @@
     }
 
 
-    @helper  GenerateWidgetTab(EditorialWidgetInfo inputColumn)
-    {
-string partialView = null;
-
-if (inputColumn != null)
+@helper  GenerateWidgetTab(EditorialWidgetInfo inputColumn)
 {
-    var columnView = inputColumn;
-    switch (inputColumn.WidgetType)
+    string partialView = null;
+
+    if (inputColumn != null)
     {
-        case EditorialWidgetType.Popular:
-            partialView = "~/Views/BikeModels/_PopularBikesWidgetBase.cshtml";
-            columnView = (EditorialPopularBikesWidget)inputColumn;
-            break;
+        var columnView = inputColumn;
+        switch (inputColumn.WidgetType)
+        {
+            case EditorialWidgetType.Popular:
+                partialView = "~/Views/BikeModels/_PopularBikesWidgetBase.cshtml";
+                columnView = (EditorialPopularBikesWidget)inputColumn;
+                break;
 
-        case EditorialWidgetType.Upcoming:
-            partialView = "~/Views/BikeModels/_UpcomingBikesWidgetBase.cshtml";
-            columnView = (EditorialUpcomingBikesWidget)inputColumn;
-            break;
+            case EditorialWidgetType.Upcoming:
+                partialView = "~/Views/BikeModels/_UpcomingBikesWidgetBase.cshtml";
+                columnView = (EditorialUpcomingBikesWidget)inputColumn;
+                break;
 
-        case EditorialWidgetType.OtherBrands:
-            partialView = "~/Views/Make/_OtherBrandsWidgetBase.cshtml";
-            columnView = (EditorialOtherBrandsWidget)inputColumn;
-            break;
-    }
+            case EditorialWidgetType.OtherBrands:
+                partialView = "~/Views/Make/_OtherBrandsWidgetBase.cshtml";
+                columnView = (EditorialOtherBrandsWidget)inputColumn;
+                break;
+        }
 
-    if (!string.IsNullOrEmpty(partialView))
-    {
-                @Html.Partial(partialView, columnView);
+        if (!string.IsNullOrEmpty(partialView))
+        {
+                    @Html.Partial(partialView, columnView);
             }
         }
-    }
-    
+    }    
 }
