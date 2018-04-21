@@ -62,7 +62,6 @@ namespace Bikewale.Entities.BikeData
                 { EditorialWidgetCategory.Popular_Series, "Popular {0} Bikes"},
                 { EditorialWidgetCategory.Series_Scooters, "Popular {0} Scooters"}
             };
-         }
     }
     public enum EditorialWidgetType
     {
@@ -112,4 +111,4 @@ namespace Bikewale.Entities.BikeData
         Detail,
         MakeListing
     }
-    
+}
