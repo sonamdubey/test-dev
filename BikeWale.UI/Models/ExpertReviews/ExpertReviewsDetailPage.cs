@@ -280,6 +280,8 @@ namespace Bikewale.Models
         /// Description : Function to get PWA data for expert reviews
         /// Modified by : Ashutosh Sharma on 01 Mar 2018.
         /// Description : Added logic to split article html content into two parts to insert bikeinfo card at 25% height of article content.
+        /// Modified by : Sanskar Gupta on 21 April 2018
+        /// Description : Added call for `SetAddtionalVariables()`, populate `objData.PageWidgets` and changed method call to populate `newsDetailReducer.NewBikesListData.NewBikesList` and `newsDetailReducer.NewBikesListData.BikeMakeList`
         /// </summary>
         /// <param name="widgetTopCount"></param>
         /// <returns></returns>
@@ -296,6 +298,11 @@ namespace Bikewale.Models
                     GetTaggedBikeListByModel(objData);
                     SetPageMetas(objData);
                     CheckSeriesData(objData);
+
+
+                    SetAdditionalVariables(objData);
+                    objData.PageWidgets = base.GetEditorialWidgetData(EnumEditorialPageType.Detail);
+
                     GetWidgetData(objData, widgetTopCount);
                     PopulatePhotoGallery(objData);
                     BindSimilarBikes(objData);
@@ -306,8 +313,12 @@ namespace Bikewale.Models
                     newsDetailReducer.ArticleDetailData.ArticleDetail = ConverterUtility.MapArticleDetailsToPwaExpertReviewDetails(objData.ArticleDetails, matchedPage);
                     newsDetailReducer.ArticleDetailData.ArticleDetail.ImageGallery = ConverterUtility.MapPhotoGalleryToPwaImageList(objData.PhotoGallery);
                     newsDetailReducer.RelatedModelObject.ModelObject = ConverterUtility.MapGenericBikeInfoToPwaBikeInfo(objData.BikeInfo);
-                    newsDetailReducer.NewBikesListData.NewBikesList = ConverterUtility.MapNewBikeListToPwaNewBikeList(objData, CityName);
-                    newsDetailReducer.NewBikesListData.BikeMakeList = ConverterUtility.MapBikeMakeEntityBaseListToPwaMakeBikeBaseList(objData);
+
+                    if (objData.PageWidgets != null)
+                    {
+                        newsDetailReducer.NewBikesListData.NewBikesList = ConverterUtility.MapPopularAndUpcomingWidgetDataToPwa(objData.PageWidgets);
+                        newsDetailReducer.NewBikesListData.BikeMakeList = ConverterUtility.MapOtherBrandsWidgetDataToPWA(objData.PageWidgets);
+                    }
                     var storeJson = JsonConvert.SerializeObject(objData.ReduxStore);
                     objData.ServerRouterWrapper = _renderedArticles.GetNewsDetails(PwaCmsHelper.GetSha256Hash(storeJson), objData.ReduxStore.News.NewsDetailReducer,
                                 newsDetailReducer.ArticleDetailData.ArticleDetail.ArticleUrl, "root", "ServerRouterWrapper", "Expert Reviews");
