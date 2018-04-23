@@ -1,0 +1,117 @@
+.select-city__popular
+  padding-top: 15px
+
+.city-list__heading
+  padding: 10px 20px
+  color: color('tuna')
+  font-size: 12px
+  font-weight: $font-semibold
+  text-transform: uppercase
+  letter-spacing: 2px
+
+// city list
+.city-popular__list
+  padding: 5px 10px
+  text-align: center
+  overflow: hidden
+
+.city-popular-list__item
+  width: 90px
+  min-height: 90px
+  margin: 7px 10px
+  display: inline-block
+  vertical-align: top
+  text-align: center
+  cursor: pointer
+
+  .item__icon-content
+    margin-bottom: 5px
+    line-height: 0
+
+  .item-icon__image-content
+    margin: 0 auto
+    position: relative
+
+  .item-icon__image-content,
+  .item-icon-image
+    width: 70px
+    height: 70px
+
+  .item__heading
+    color: color('fiord')
+    font-size: 13px
+
+.list-group__item
+  padding: 20px
+  font-size: 14px
+  color: color('default')
+  cursor: pointer
+  border-top: 1px solid color('gainsboro')
+
+  &:first-child
+    border-top: 0
+
+.list-group-item__title
+  position: relative
+  padding-right: 30px
+  display: inline-block
+
+// selection state
+.city--active
+  .item-icon__image-content
+    &:before,
+    &:after
+      content: ''
+      position: absolute
+      top: 0
+      left: 0
+      width: 100%
+      height: 100%
+      display: block
+
+    &:before      
+      @include vendor-prefix('border-radius', 50%)
+
+    &:after
+      @include vendor-prefix('transform', scaleX(-1) rotate(135deg))
+      @include vendor-prefix('transform-origin', left top)
+      @include vendor-prefix('animation', tick .8s ease)
+      left: 20px
+      top: 50%
+      width: 15px
+      height: 30px
+      border-top: 3px solid color('white')
+      border-right: 3px solid color('white')
+
+.city--global
+  .item-icon__image-content
+    &:before
+      background-color: color('dark-gray-2', .88)
+
+.city--select
+  .item-icon__image-content
+    &:before
+      background-color: color('mona-lisa', .88)
+
+@keyframes tick
+  0%
+    width: 0
+    height: 0
+    opacity: 0
+
+  20%
+    width: 15px
+    height: 0
+    opacity: 1
+
+  40%
+  100%
+    width: 15px
+    height: 30px
+    opacity: 1
+
+// other city
+.list-group-item--active
+  .list-group-item__title
+    &:after
+      @include tick

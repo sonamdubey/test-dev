@@ -1,6 +1,7 @@
 import React from 'react';
 import ProgressBar from './ProgressBar'
 import ProgressBarItem from './ProgressBarItem'
+import ModelCard from '../Shared/ModelCard'
 
 class EMICalculatorSelection extends React.Component {
   constructor(props) {
@@ -12,6 +13,12 @@ class EMICalculatorSelection extends React.Component {
   }
 
   render() {
+    const modelData = {
+      makeName: "Royal Enfield",
+      modelName: "Thunderbird 350",
+      modelImage: "https://imgd.aeplcdn.com//310x174//bw/models/honda-cb-hornet-160r.jpg",
+      rating: 4.2
+    }
     return (
       <div className="emi-calculator__progress-container">
         <ProgressBar>
@@ -22,6 +29,9 @@ class EMICalculatorSelection extends React.Component {
               Select city
           </ProgressBarItem>
         </ProgressBar>
+        <div className="select-bike__model-card">
+          <ModelCard model={modelData} />
+        </div>
       </div>
     );
   }

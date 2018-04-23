@@ -2,6 +2,7 @@
   position: relative
   width: 100%
   margin: 0 auto
+  z-index: 1
 
   input[type='text']
     @include vendor-prefix('box-shadow', 0 1px 4px 0 color('light-gray', .8))
@@ -28,3 +29,11 @@
     right: 20px
     color: color('summer-sky')
     cursor: pointer
+
+.autocomplete-box__clear
+  position: absolute
+  top: 12px
+  right: 20px
+  color: color('pacific-blue')
+  font-size: 13px
+  cursor: pointer
