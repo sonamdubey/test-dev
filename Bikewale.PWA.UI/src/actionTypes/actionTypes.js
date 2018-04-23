@@ -81,6 +81,12 @@ const selectBikePopupAction = {
 	CLOSE: 'CLOSE_POPUP'
 }
 
+const financeCityPopupAction = {
+	FETCH_CITY_SUCCESS: 'FETCH_CITY_SUCCESS',
+	OPEN_POPUP: 'OPEN_POPUP',
+	SET_CITY: 'SET_CITY'
+}
+
 module.exports = {
 	newsListAction : newsListAction,
 	newsDetailAction : newsDetailAction,
@@ -90,6 +96,7 @@ module.exports = {
 	videosByCategoryAction : videosByCategoryAction,
 	videosDetailAction : videosDetailAction,
 	bikeImageCarouselAction : bikeImageCarouselAction,
-	selectBikePopupAction: selectBikePopupAction
+	selectBikePopupAction: selectBikePopupAction,
+	financeCityPopupAction: financeCityPopupAction
 }
 

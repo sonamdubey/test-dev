@@ -42,3 +42,17 @@
 @import 'components/emi-calculator'
 @import 'components/progress-bar'
 @include progress-bar
+
+@import 'components/select-city-popup'
+
+/* select bike model card */
+.select-bike__model-card
+	@include flexbox
+	@include align-items(center)
+	width: 100%
+	min-height: 160px
+	border-radius: 2px
+	background-color: color('snow')
+	border: 1px solid color('mona-lisa')
+
+@import 'components/model-card'

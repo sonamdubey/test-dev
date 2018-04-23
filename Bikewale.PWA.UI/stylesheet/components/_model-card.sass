@@ -1,0 +1,44 @@
+.model-card__placeholder
+	width: 100%
+	background-color: color('white')
+
+.model-card__content
+	@include flexbox
+	@include flex-wrap
+	@include align-items(center)
+	min-width: 0
+	padding: 8px 14px
+	background-color: color('white')
+
+.model-card__image
+	width: 137px
+	height: 83px
+	background-color: color('white-smoke')
+
+	img
+		height: 83px
+
+.model-card__detail
+	@include flex-grow
+	width: 50%
+	padding-left: 10px
+
+@include all-rating-badge(sm)
+
+.model-card__content
+	.rating-badge-sm
+		margin-bottom: 10px
+
+	.model-card__make
+		@include text-truncate
+		color: color('aluminium')
+		font-size: 10px
+		font-weight: $font-normal
+		display: block
+
+	.model-card__model
+		@include text-truncate
+		color: color('tuna')
+		font-size: 14px
+		font-weight: $font-semibold
+		display: block

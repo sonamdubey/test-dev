@@ -1,0 +1,59 @@
+// rating badge
+
+@mixin _badge-size-property($size)
+  @if ($size == 'sm')
+    min-width: 35px
+    height: 17px
+    line-height: 17px
+    font-size: 10px
+
+  @else
+    min-width: 40px
+    height: 20px
+    line-height: 20px
+    font-size: 14px
+
+@mixin _badge-star-property($size)
+  @if ($size == 'sm')
+    width: 7.5px
+    height: 7.5px
+    margin-right: 3px
+
+  @else
+    width: 10px
+    height: 10px
+    margin-right: 4px
+
+@mixin rating-badge($count: 0, $size: '')
+  @if map-has-key($rating-colors, $count)
+    $className: 'rating-badge';
+
+    @if ($size != '')
+      $className: 'rating-badge-' + $size
+
+    .#{$className}
+      @include vendor-prefix('border-radius', 2px)
+      @include _badge-size-property($size)
+      padding-right: 5px
+      padding-left: 5px
+      font-weight: 600
+      color: color('white')
+      display: inline-block
+      vertical-align: middle
+      text-align: center
+
+      &[data-rate-bg='#{$count}']
+        background-color: map-get($rating-colors, $count)
+
+    .rating-badge__star
+      @include star-white
+      @include _badge-star-property($size)
+      background-size: contain
+      display: inline-block
+
+  @else
+    @warn 'Unfortunately, no value could be retrieved from '#{$count}'. Please make sure it is defined in $rating-colors mixin.'
+
+@mixin all-rating-badge($size: '')
+  @for $i from 1 through 5
+	  @include rating-badge($i, $size)

@@ -2,7 +2,7 @@ import {combineReducers} from 'redux-immutable'
 import News from './newsReducer'
 import Videos from './videosReducer'
 import Widgets from './widgetReducer'
-import Finance from './SelectBikePopup'
+import Finance from './financeReducer'
 
 var RootReducer = combineReducers({
 	  News,
@@ -10,6 +10,5 @@ var RootReducer = combineReducers({
 		Widgets,
 	  Finance
 })
-
 
 module.exports = RootReducer;

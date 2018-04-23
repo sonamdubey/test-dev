@@ -28,10 +28,12 @@ namespace Bikewale.Entities.PWA.Articles
 	public class PwaFinanceReducer
 	{
 		public object SelectBikePopup;
+		public object FinanceCityPopup;
 
 		public PwaFinanceReducer()
 		{
 			SelectBikePopup = new object();
+			FinanceCityPopup = new object();
 		}
 	}
 }
