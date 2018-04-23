@@ -619,9 +619,9 @@
                                 triggerGA(self.eventCategory(), eventAction, gaLabel);
                             }
                             else {
-                                $("#leadCapturePopup").show();
-                                $('body').addClass('lock-browser-scroll');
-                                $(".blackOut-window").show();
+                                $("#contactDetailsPopup").hide();
+                                $("#personalInfo").hide();
+                                $("#notify-response").fadeIn();
                             }
                             setPQUserCookie();
                             self.triggerABTestGA(gaLabel);

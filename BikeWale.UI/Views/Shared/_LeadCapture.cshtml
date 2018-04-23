@@ -625,8 +625,9 @@
                         }
                         else {
                             if (self.IsLeadPopup()) {
-                                $("#leadCapturePopup").show();
-                                popup.lock();
+                                $("#contactDetailsPopup").hide();
+                                $("#personalInfo").hide();
+                                $("#dealer-lead-msg").fadeIn();
                             }
                         }
                         setPQUserCookie();
