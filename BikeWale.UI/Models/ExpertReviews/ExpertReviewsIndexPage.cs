@@ -319,7 +319,9 @@ namespace Bikewale.Models
                     BindLinkPager(objData, (int)pwaCmsContent.RecordCount);
                     SetPageMetas(objData);
                     CreatePrevNextUrl(objData, (int)pwaCmsContent.RecordCount);
-                    GetWidgetData(objData, widgetTopCount);
+
+                    SetAdditionalVariables(objData);
+                    objData.PageWidgets = base.GetEditorialWidgetData(EnumEditorialPageType.Listing);
 
                     if (objData.Model != null)
                         objData.Series = _models.GetSeriesByModelId(ModelId);
@@ -332,11 +334,12 @@ namespace Bikewale.Models
                     }
 
                     //Populate ReduxStore and Server rendered Html
-
                     objData.ReduxStore = new PwaReduxStore();
                     objData.ReduxStore.News.NewsArticleListReducer.ArticleListData.ArticleList = pwaCmsContent;
-                    PopulateStoreForWidgetData(objData);
-
+                    if (objData.PageWidgets != null)
+                    {
+                        PopulateStoreForWidgetData(objData); 
+                    }
                     string storeJson = JsonConvert.SerializeObject(objData.ReduxStore);
 
                     objData.ServerRouterWrapper = _renderedArticles.GetNewsListDetails(PwaCmsHelper.GetSha256Hash(storeJson), objData.ReduxStore.News.NewsArticleListReducer,
@@ -359,37 +362,13 @@ namespace Bikewale.Models
         /// <summary>
         /// Created by : Ashutosh Sharma on 23 Feb 2018
         /// Description : Method to populate widget data.
+        /// Modified by : Sanskar Gupta om 23 April 2018
+        /// Description : Changed the widget population methodology, simplified it by calling a generic function and used the new `PageWidgets` (Dictionary) logic.
         /// </summary>
         /// <param name="objData"></param>
         private void PopulateStoreForWidgetData(ExpertReviewsIndexPageVM objData)
         {
-            List<PwaBikeNews> objPwaBikes = new List<PwaBikeNews>();
-            if (objData.MostPopularBikes != null && objData.MostPopularBikes.Bikes != null)
-            {
-                PwaBikeNews popularBikes = new PwaBikeNews();
-                popularBikes.Heading = "Popular Bikes";
-                popularBikes.CompleteListUrl = "/m/best-bikes-in-india/";
-                popularBikes.CompleteListUrlAlternateLabel = "Best Bikes in India";
-                popularBikes.CompleteListUrlLabel = "View all";
-                popularBikes.BikesList = ConverterUtility.MapMostPopularBikesBaseToPwaBikeDetails(objData.MostPopularBikes.Bikes);
-
-                objPwaBikes.Add(popularBikes);
-            }
-
-            if (objData.UpcomingBikes != null && objData.UpcomingBikes.UpcomingBikes != null)
-            {
-                PwaBikeNews upcomingBikes = new PwaBikeNews();
-                upcomingBikes.Heading = "Upcoming Bikes";
-                upcomingBikes.CompleteListUrl = "/m/upcoming-bikes/";
-                upcomingBikes.CompleteListUrlAlternateLabel = "Upcoming Bikes in India";
-                upcomingBikes.CompleteListUrlLabel = "View all";
-                upcomingBikes.BikesList = ConverterUtility.MapUpcomingBikeEntityToPwaBikeDetails(objData.UpcomingBikes.UpcomingBikes, CityName);
-
-                objPwaBikes.Add(upcomingBikes);
-            }
-
-            objData.ReduxStore.News.NewsArticleListReducer.NewBikesListData.NewBikesList = objPwaBikes;
-            objData.ReduxStore.News.NewsArticleListReducer.NewBikesListData.BikeMakeList = new List<PwaMakeBikeBase>();
+            objData.ReduxStore.News.NewsArticleListReducer.NewBikesListData.NewBikesList = ConverterUtility.MapPopularAndUpcomingWidgetDataToPwa(objData.PageWidgets);
         }
 
         /// <summary>
