@@ -589,7 +589,6 @@ $.fn.applyFilterOnButtonClick = function () {
         var completeQS = '';
         var completeQSArr = new Array();
         completeQSArr.push($.applyToggelFilter());
-        completeQSArr.push($.applyMileageFilter());
         completeQSArr.push($.applyCheckBoxFilter());
         completeQSArr.push($.applySliderFilter($('#mSlider-range'), $('#mSlider-range').attr('name')));
 

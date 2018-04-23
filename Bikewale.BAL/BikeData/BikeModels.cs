@@ -477,7 +477,6 @@ namespace Bikewale.BAL.BikeData
                                 EnumSpecsFeaturesItems.MaximumTorque,
                                 EnumSpecsFeaturesItems.NoOfGears,
                                 EnumSpecsFeaturesItems.FuelEfficiencyOverall,
-                                EnumSpecsFeaturesItems.RearBrakeType,
                                 EnumSpecsFeaturesItems.FrontBrakeType,
                                 EnumSpecsFeaturesItems.RearBrakeType,
                                 EnumSpecsFeaturesItems.WheelType,
@@ -530,6 +529,8 @@ namespace Bikewale.BAL.BikeData
         /// Description : Function to get data from cache and photo data from bal itself;
         /// Modified by : Rajan Chauhan on 26 Mar 2018
         /// Description : Added logic to append MinSpecs to ModelVersions
+        /// Modified by : Rajan Chauhan on 23 Apr 2018
+        /// Description : Added condition for selected bike version to have non zero AverageExShowroom
         /// </summary>
         /// <param name="modelId"></param>
         /// <param name="versionId"></param>
@@ -548,12 +549,21 @@ namespace Bikewale.BAL.BikeData
                             EnumSpecsFeaturesItems.RearBrakeType,
                             EnumSpecsFeaturesItems.WheelType,
                             EnumSpecsFeaturesItems.Displacement,
-                            EnumSpecsFeaturesItems.FuelEfficiencyOverall,
                             EnumSpecsFeaturesItems.MaxPowerBhp,
+                            EnumSpecsFeaturesItems.FuelEfficiencyOverall,
                             EnumSpecsFeaturesItems.KerbWeight,
                             EnumSpecsFeaturesItems.TopSpeed
                         });
-                    var modelVersion = versionId != 0 ? objModelPage.ModelVersions.FirstOrDefault(version => version.VersionId == versionId) : objModelPage.ModelVersions.FirstOrDefault();
+                    BikeVersionMinSpecs modelVersion = null;
+                    if (versionId > 0)
+                    {
+                        modelVersion = objModelPage.ModelVersions.FirstOrDefault(version => version.VersionId == versionId);
+                    }
+                    else
+                    {
+                        BikeVersionMinSpecs priceTaggedVersion = objModelPage.ModelVersions.FirstOrDefault(m => m.AverageExShowroom > 0);
+                        modelVersion = priceTaggedVersion != null ? priceTaggedVersion : objModelPage.ModelVersions.FirstOrDefault();
+                    }
                     if (modelVersion != null && modelVersion.MinSpecsList != null)
                     {
                         objModelPage.ModelVersionMinSpecs = new BikeVersionMinSpecs()

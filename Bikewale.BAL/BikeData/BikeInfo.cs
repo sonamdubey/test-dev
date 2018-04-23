@@ -74,6 +74,8 @@ namespace Bikewale.BAL.BikeData
         /// Summary :- BikeInfo Slug details
         /// Modified By : Rajan Chauhan on 9 Apr 2018
         /// Description : Added MinSpecsBinding to Generic BikeInfo
+        /// Modified By : Rajan Chauhan on 23 Apr 2018
+        /// Description : Added null check on genericBike
         /// </summary>
         public GenericBikeInfo GetBikeInfo(uint modelId, uint cityId)
         {
@@ -90,27 +92,29 @@ namespace Bikewale.BAL.BikeData
                     {
                         genericBike = _modelCache.GetBikeInfo(modelId);
                     }
-
-                    GetVersionSpecsByItemIdAdapter adapt1 = new GetVersionSpecsByItemIdAdapter();
-                    VersionsDataByItemIds_Input specItemInput = new VersionsDataByItemIds_Input
+                    if (genericBike != null)
                     {
-                        Versions = new List<int> { genericBike.VersionId },
-                        Items = new List<EnumSpecsFeaturesItems>() {
+                        GetVersionSpecsByItemIdAdapter adapt1 = new GetVersionSpecsByItemIdAdapter();
+                        VersionsDataByItemIds_Input specItemInput = new VersionsDataByItemIds_Input
+                        {
+                            Versions = new List<int> { genericBike.VersionId },
+                            Items = new List<EnumSpecsFeaturesItems>() {
                             EnumSpecsFeaturesItems.Displacement,
                             EnumSpecsFeaturesItems.FuelEfficiencyOverall,
                             EnumSpecsFeaturesItems.MaxPowerBhp,
                             EnumSpecsFeaturesItems.KerbWeight
                         }
-                    };
-                    adapt1.AddApiGatewayCall(_apiGatewayCaller, specItemInput);
-                    _apiGatewayCaller.Call();
-                    var bikeVersionMinSpecList = adapt1.Output;
-                    if (bikeVersionMinSpecList != null && bikeVersionMinSpecList.Any())
-                    {
-                        genericBike.MinSpecsList = bikeVersionMinSpecList.FirstOrDefault().MinSpecsList;
-                        if (genericBike.MinSpecsList.Any(spec => !string.IsNullOrEmpty(spec.Value)))
+                        };
+                        adapt1.AddApiGatewayCall(_apiGatewayCaller, specItemInput);
+                        _apiGatewayCaller.Call();
+                        var bikeVersionMinSpecList = adapt1.Output;
+                        if (bikeVersionMinSpecList != null && bikeVersionMinSpecList.Any())
                         {
-                            genericBike.IsSpecsAvailable = true;
+                            genericBike.MinSpecsList = bikeVersionMinSpecList.FirstOrDefault().MinSpecsList;
+                            if (genericBike.MinSpecsList.Any(spec => !string.IsNullOrEmpty(spec.Value)))
+                            {
+                                genericBike.IsSpecsAvailable = true;
+                            }
                         }
                     }
                 }

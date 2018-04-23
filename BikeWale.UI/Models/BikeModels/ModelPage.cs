@@ -1376,7 +1376,7 @@ namespace Bikewale.Models.BikeModels
                     if (_pqOnRoad != null)
                     {
                         ///Dealer Pricing
-                        if (_pqOnRoad.IsDealerPriceAvailable && _pqOnRoad.DPQOutput != null && _pqOnRoad.DPQOutput.Varients.Any() && modelPg.ModelVersions.Count > 0)
+                        if (_pqOnRoad.IsDealerPriceAvailable && _pqOnRoad.DPQOutput.Varients.Any() && modelPg.ModelVersions.Count > 0)
                         {
                             foreach (var version in modelPg.ModelVersions)
                             {
@@ -1431,12 +1431,12 @@ namespace Bikewale.Models.BikeModels
                                 }
                                 else
                                 {
-                                    var firstVersion = modelPg.ModelVersions.FirstOrDefault();
-                                    if (firstVersion != null)
+                                    if (_objData.SelectedVersion != null)
                                     {
-                                        _objData.VersionId = (uint)firstVersion.VersionId;
-                                        _objData.BikePrice = _objData.CityId == 0 ? (uint)firstVersion.Price : 0;
+                                        _objData.SelectedVersion = modelPg.ModelVersions.FirstOrDefault();
                                     }
+                                    _objData.VersionId = (uint)_objData.SelectedVersion.VersionId;
+                                    _objData.BikePrice = _objData.CityId == 0 ? (uint)_objData.SelectedVersion.Price : 0;
                                 }
                             }
                         }
@@ -1446,36 +1446,28 @@ namespace Bikewale.Models.BikeModels
                         ///Choose the min price version
                         if (_objData.VersionId == 0)
                         {
-                            if (_objData.IsDiscontinuedBike)
+                            var nonZeroVersion = modelPg.ModelVersions.Where(m => m.Price > 0);
+                            if (nonZeroVersion != null && nonZeroVersion.Any())
                             {
-                                var nonZeroVersion = modelPg.ModelVersions.Where(m => m.Price > 0);
-                                if (nonZeroVersion != null && nonZeroVersion.Any())
-                                {
-                                    _objData.SelectedVersion = nonZeroVersion.OrderBy(x => x.Price).FirstOrDefault();
-                                    _objData.VersionId = (uint)_objData.SelectedVersion.VersionId;
-                                    _objData.BikePrice = (uint)_objData.SelectedVersion.Price;
-                                }
-                                else
-                                {
-                                    _objData.VersionId = (uint)modelPg.ModelVersions.FirstOrDefault().VersionId;
-                                    _objData.BikePrice = Convert.ToUInt32(_objData.SelectedVersion != null ? _objData.SelectedVersion.Price : modelPg.ModelVersions.FirstOrDefault().Price);
-                                }
+                                _objData.SelectedVersion = nonZeroVersion.OrderBy(x => x.Price).FirstOrDefault();
                             }
                             else
                             {
-                                var nonZeroVersion = modelPg.ModelVersions.Where(m => m.Price > 0);
-                                if (nonZeroVersion != null && nonZeroVersion.Any())
+                                if (_objData.SelectedVersion == null)
                                 {
-                                    _objData.SelectedVersion = nonZeroVersion.OrderBy(x => x.Price).FirstOrDefault();
-                                    _objData.VersionId = (uint)_objData.SelectedVersion.VersionId;
-                                    _objData.BikePrice = _objData.ShowOnRoadButton ? (uint)_objData.SelectedVersion.Price : (_objData.CityId == 0 ? (uint)_objData.SelectedVersion.Price : 0);
+                                    _objData.SelectedVersion = modelPg.ModelVersions.FirstOrDefault();
                                 }
-                                else
-                                {
-                                    _objData.VersionId = (uint)modelPg.ModelVersions.FirstOrDefault().VersionId;
-                                    _objData.BikePrice = _objData.ShowOnRoadButton ? (uint)_objData.SelectedVersion.Price : (_objData.CityId == 0 ? (uint)_objData.SelectedVersion.Price : 0);
+                            }
 
-                                }
+                            _objData.VersionId = (uint)_objData.SelectedVersion.VersionId;
+
+                            if (_objData.IsDiscontinuedBike)
+                            {
+                                _objData.BikePrice = (uint)_objData.SelectedVersion.Price;
+                            }
+                            else
+                            {
+                                _objData.BikePrice = _objData.ShowOnRoadButton ? (uint)_objData.SelectedVersion.Price : (_objData.CityId == 0 ? (uint)_objData.SelectedVersion.Price : 0);
                             }
                         }
 
@@ -1500,6 +1492,10 @@ namespace Bikewale.Models.BikeModels
                     BikeVersionMinSpecs objBikeVersionMinSpecs = modelPg.ModelVersions.FirstOrDefault();
                     if (objBikeVersionMinSpecs != null)
                     {
+                        if (_objData.SelectedVersion == null)
+                        {
+                            _objData.SelectedVersion = objBikeVersionMinSpecs;
+                        }
                         _objData.VersionId = Convert.ToUInt32(objBikeVersionMinSpecs.VersionId);
                     }
                 }
