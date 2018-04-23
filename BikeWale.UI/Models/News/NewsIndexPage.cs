@@ -1421,64 +1421,69 @@ namespace Bikewale.Models
         /// <param name="objData">VM of the page.</param>
         private void SetAdditionalVariables(NewsIndexPageVM objData)
         {
-            objData.PageName = pageName;
-
-            if (objData.Make != null)
+            try
             {
-                BikeMakeEntityBase taggedMake = _objMakeCache.GetMakeDetails((uint)objData.Make.MakeId);
-                bool isMakeLive = taggedMake.IsNew && !taggedMake.IsFuturistic;
+                objData.PageName = pageName;
 
-                EnumBikeBodyStyles bodyStyle = EnumBikeBodyStyles.AllBikes;
-
-                if (objData.Series != null)
+                if (objData.Make != null)
                 {
-                    objData.Model = _series.GetNewModels(objData.Series.SeriesId, CityId).FirstOrDefault().BikeModel;
-                    ModelId = (uint) objData.Model.ModelId;
-                }
+                    BikeMakeEntityBase taggedMake = _objMakeCache.GetMakeDetails((uint)objData.Make.MakeId);
+                    bool isMakeLive = taggedMake.IsNew && !taggedMake.IsFuturistic;
 
-                if (objData.Model != null)
-                {
-                    List<BikeVersionMinSpecs> objVersionsList = _objBikeVersionsCache.GetVersionMinSpecs(ModelId, false);
+                    EnumBikeBodyStyles bodyStyle = EnumBikeBodyStyles.AllBikes;
 
-                    if (objVersionsList != null && objVersionsList.Count > 0)
+                    if (objData.Series != null && objData.Series.IsSeriesPageUrl == true)
                     {
-                        bodyStyle = objVersionsList.FirstOrDefault().BodyStyle;
+                        objData.Model = _series.GetNewModels(objData.Series.SeriesId, CityId).FirstOrDefault().BikeModel;
+                        ModelId = (uint)objData.Model.ModelId;
                     }
 
-                    if (objData.Series == null)
+                    if (objData.Model != null)
                     {
+                        List<BikeVersionMinSpecs> objVersionsList = _objBikeVersionsCache.GetVersionMinSpecs(ModelId, false);
+
+                        if (objVersionsList != null && objVersionsList.Count > 0)
+                        {
+                            bodyStyle = objVersionsList.FirstOrDefault().BodyStyle;
+                        }
+
                         BikeSeriesEntityBase bikeSeriesEntityBase = _models.GetSeriesByModelId(ModelId);
                         if (bikeSeriesEntityBase != null && bikeSeriesEntityBase.IsSeriesPageUrl)
                         {
                             objData.Series = bikeSeriesEntityBase;
                         }
+
                     }
+
+                    objData.BodyStyle = bodyStyle;
+
+                    EditorialWidgetEntity editorialWidgetData = new EditorialWidgetEntity
+                    {
+                        IsMobile = IsMobile,
+                        IsMakeLive = isMakeLive,
+                        IsModelTagged = objData.Model != null,
+                        IsSeriesAvailable = objData.Series != null ? objData.Series.IsSeriesPageUrl : false,
+                        IsScooterOnlyMake = objData.Make.IsScooterOnly,
+                        BodyStyle = bodyStyle,
+                        CityId = CityId,
+                        Make = objData.Make,
+                        Series = objData.Series
+                    };
+                    base.SetAdditionalData(editorialWidgetData);
                 }
-
-                objData.BodyStyle = bodyStyle;
-
-                EditorialWidgetEntity editorialWidgetData = new EditorialWidgetEntity
+                else
                 {
-                    IsMobile = IsMobile,
-                    IsMakeLive = isMakeLive,
-                    IsModelTagged = objData.Model != null,
-                    IsSeriesAvailable = objData.Series != null,
-                    IsScooterOnlyMake = objData.Make.IsScooterOnly,
-                    BodyStyle = bodyStyle,
-                    CityId = CityId,
-                    Make = objData.Make,
-                    Series = objData.Series
-                };
-                base.SetAdditionalData(editorialWidgetData);
+                    EditorialWidgetEntity editorialWidgetData = new EditorialWidgetEntity
+                    {
+                        IsMobile = IsMobile,
+                        CityId = CityId
+                    };
+                    base.SetAdditionalData(editorialWidgetData);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                EditorialWidgetEntity editorialWidgetData = new EditorialWidgetEntity
-                {
-                    IsMobile = IsMobile,
-                    CityId = CityId
-                };
-                base.SetAdditionalData(editorialWidgetData); 
+                Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("Bikewale.Models.News.NewsIndexPage.SetAdditionalVariables"));
             }
         }
 
