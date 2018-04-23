@@ -57,7 +57,7 @@
             <div id="model-features-content" class="padding-top20 padding-bottom20">
 	            <h3 class="font-bold padding-left20 margin-bottom20">Features</h3>
 	            <div class="specs-features-list model-features-list">
-                    <div class="grid-6 padding-left20 text-light-grey">
+                    <div class="grid-6">
                         @{
                             var firstGridFeaturesCount = (Model.VersionSpecsFeatures.Features.Count() + 1) / 2;
                             var shownFeaturesHeight = 4;
@@ -73,7 +73,7 @@
                             </p>
                         }
                     </div>
-                    <div class="grid-6 text-light-grey">
+                    <div class="grid-6">
                         @foreach (var feature in rightGrid.Take(shownFeaturesHeight))
                         {
                             itemValue = feature.ItemValues.FirstOrDefault();
@@ -87,7 +87,7 @@
 	            </div>
 
 	            <div id="model-more-features-list" class="specs-features-list model-features-list">
-		            <div class="grid-6 padding-left20 text-light-grey">
+		            <div class="grid-6">
                         @foreach (var feature in leftGrid.Skip(shownFeaturesHeight))
                         {
                             itemValue = feature.ItemValues.FirstOrDefault();
@@ -97,7 +97,7 @@
                             </p>
                         }
 		            </div>
-                    <div class="grid-6 text-light-grey">
+                    <div class="grid-6">
                         @foreach (var feature in rightGrid.Skip(shownFeaturesHeight))
                         {
                             itemValue = feature.ItemValues.FirstOrDefault();
