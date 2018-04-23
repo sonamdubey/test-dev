@@ -287,7 +287,6 @@ namespace Bikewale.Models
                 PwaContentBase pwaCmsContent = _articles.GetArticlesByCategoryListPwa(contentTypeList, _startIndex, _endIndex, (int)MakeId, (int)ModelId);
 
 
-
                 if (pwaCmsContent != null && pwaCmsContent.RecordCount > 0)
                 {
                     _totalPagesCount = (uint)_pager.GetTotalPages((int)pwaCmsContent.RecordCount, pageSize);
@@ -300,7 +299,10 @@ namespace Bikewale.Models
                     BindLinkPager(objData, recordCount); //needs the record count
                     SetPageMetas(objData); //needs nothing
                     CreatePrevNextUrl(objData, recordCount); // needs record count
-                    GetWidgetData(objData, widgetTopCount); // needs nothing
+
+
+                    SetAdditionalVariables(objData);
+                    objData.PageWidgets = base.GetEditorialWidgetData(EnumEditorialPageType.Listing);
 
                     try
                     {
@@ -310,7 +312,10 @@ namespace Bikewale.Models
                             //setting the store for Redux
                             objData.ReduxStore = new PwaReduxStore();
                             objData.ReduxStore.News.NewsArticleListReducer.ArticleListData.ArticleList = pwaCmsContent;
-                            PopulateStoreForWidgetData(objData, CityName);
+                            if (objData.PageWidgets != null)
+                            {
+                                PopulateStoreForWidgetData(objData);
+                            }
 
                             var storeJson = JsonConvert.SerializeObject(objData.ReduxStore);
 
@@ -337,34 +342,14 @@ namespace Bikewale.Models
             return objData;
         }
 
-        private void PopulateStoreForWidgetData(NewsIndexPageVM objData, string cityName)
+        /// <summary>
+        /// Modified by : Sanskar Gupta om 23 April 2018
+        /// Description : Changed the widget population methodology, simplified it by calling a generic function and used the new `PageWidgets` (Dictionary) logic.
+        /// </summary>
+        /// <param name="objData"></param>
+        private void PopulateStoreForWidgetData(NewsIndexPageVM objData)
         {
-            List<PwaBikeNews> objPwaBikeNews = new List<PwaBikeNews>();
-            if (objData.MostPopularBikes != null && objData.MostPopularBikes.Bikes != null)
-            {
-                PwaBikeNews popularBikes = new PwaBikeNews();
-                popularBikes.Heading = "Popular Bikes";
-                popularBikes.CompleteListUrl = "/m/best-bikes-in-india/";
-                popularBikes.CompleteListUrlAlternateLabel = "Best Bikes in India";
-                popularBikes.CompleteListUrlLabel = "View all";
-                popularBikes.BikesList = ConverterUtility.MapMostPopularBikesBaseToPwaBikeDetails(objData.MostPopularBikes.Bikes);
-
-                objPwaBikeNews.Add(popularBikes);
-            }
-
-            if (objData.UpcomingBikes != null && objData.UpcomingBikes.UpcomingBikes != null)
-            {
-                PwaBikeNews upcomingBikes = new PwaBikeNews();
-                upcomingBikes.Heading = "Upcoming bikes";
-                upcomingBikes.CompleteListUrl = "/m/upcoming-bikes/";
-                upcomingBikes.CompleteListUrlAlternateLabel = "Upcoming Bikes in India";
-                upcomingBikes.CompleteListUrlLabel = "View all";
-                upcomingBikes.BikesList = ConverterUtility.MapUpcomingBikeEntityToPwaBikeDetails(objData.UpcomingBikes.UpcomingBikes
-                    , cityName);
-                objPwaBikeNews.Add(upcomingBikes);
-            }
-
-            objData.ReduxStore.News.NewsArticleListReducer.NewBikesListData.NewBikesList = objPwaBikeNews;
+            objData.ReduxStore.News.NewsArticleListReducer.NewBikesListData.NewBikesList = ConverterUtility.MapPopularAndUpcomingWidgetDataToPwa(objData.PageWidgets);
         }
 
 
