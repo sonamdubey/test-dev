@@ -611,17 +611,11 @@
                         isValidDetails = self.validateUserInfo(fullName, emailid, mobile);
                         if (self.dealerId() && isValidDetails) {
                             self.verifyCustomer();
+                            $("#contactDetailsPopup").hide();
+                            $("#personalInfo").hide();
+                            $("#notify-response").fadeIn();
                             if (self.IsVerified()) {
-
-                                $("#contactDetailsPopup").hide();
-                                $("#personalInfo").hide();
-                                $("#notify-response").fadeIn();
                                 triggerGA(self.eventCategory(), eventAction, gaLabel);
-                            }
-                            else {
-                                $("#contactDetailsPopup").hide();
-                                $("#personalInfo").hide();
-                                $("#notify-response").fadeIn();
                             }
                             setPQUserCookie();
                             self.triggerABTestGA(gaLabel);
