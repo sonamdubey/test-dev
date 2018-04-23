@@ -221,7 +221,9 @@ namespace Bikewale.Models
                         BindBikeInfoWidget(objData);
                     }
 
-                    #region Bind Editorial Widgets (Maintain order)
+                    SetPageMetas(objData);
+
+                    #region Bind Editorial Widgets (Maintain order, set page metas before this)
                     SetAdditionalVariables(objData);
 
                     if (objData.Make != null)
@@ -245,7 +247,7 @@ namespace Bikewale.Models
                     {
                         GetWidgetData(objData, widgetTopCount); 
                     }
-                    SetPageMetas(objData);
+                    
                     objData.Page = Entities.Pages.GAPages.Editorial_List_Page;
 
                 }
@@ -1456,6 +1458,15 @@ namespace Bikewale.Models
                     if (objVersionsList != null && objVersionsList.Count > 0)
                     {
                         bodyStyle = objVersionsList.FirstOrDefault().BodyStyle;
+                    }
+
+                    if (objData.Series == null)
+                    {
+                        BikeSeriesEntityBase bikeSeriesEntityBase = _models.GetSeriesByModelId(ModelId);
+                        if (bikeSeriesEntityBase != null && bikeSeriesEntityBase.IsSeriesPageUrl)
+                        {
+                            objData.Series = bikeSeriesEntityBase;
+                        }
                     }
                 }
 
