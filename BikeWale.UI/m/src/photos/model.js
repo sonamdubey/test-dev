@@ -282,7 +282,7 @@ docReady(function () {
 		prevButton: '#colorTabSwiper .color-type-prev',
 		onInit: function (swiper) {
 			vmModelColorSwiper.activeIndex(1);
-			SwiperEvents.setDetails(swiper, vmModelColorSwiper);
+			SwiperEvents.setColorDetails(swiper, vmModelColorSwiper);
 		},
 		onTransitionStart: function (swiper) {
 		    lastColourSlide = vmModelColorSwiper.activeIndex();
@@ -300,7 +300,7 @@ docReady(function () {
 			}
 		},
 		onSlideChangeStart: function (swiper) {
-			SwiperEvents.setDetails(swiper, vmModelColorSwiper);
+			SwiperEvents.setColorDetails(swiper, vmModelColorSwiper);
 			SwiperEvents.focusThumbnail(colorTabThumbnailSwiper, vmModelColorSwiper.activeIndex(), true);
 		},
 		onSlideChangeEnd: function (swiper) {

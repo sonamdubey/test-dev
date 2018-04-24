@@ -1,6 +1,6 @@
 ﻿.color-popup__content
-	@include vendor-prefix('transform', translate(100%, 0))
-	@include vendor-prefix('transition', transform .4s ease)
+	@include vendor-prefix('transform', translate(240%, 0))
+	@include vendor-prefix('transition', transform .8s ease)
 	position: fixed
 	top: 0
 	left: 0
@@ -68,6 +68,20 @@
 	.landscape-icon__container
 		width: 40px
 
+@media only screen and (min-width: 375px) and (max-width: 400px)
+	.swiper__colors
+		height: 213px
+
+		.swiper-wrapper
+			height: 213px
+
+@media only screen and (min-width: 410px) and (max-width: 420px)
+	.swiper__colors
+		height: 234px
+
+		.swiper-wrapper
+			height: 234px
+
 .color-popup--landscape
 	.swiper__colors
 		height: auto
@@ -132,7 +146,8 @@
 
 		.color-box-label
 			font-size: 8px
-			padding-left: 8px			
+			padding-left: 8px
+			height: auto
 			max-height: 24px
 
 		.color-box__content
@@ -186,26 +201,7 @@
 			bottom: -100%
 
 // animation
-@-webkit-keyframes fadeInTranslate
-	0%
-		display: none
-		opacity: 0
-
-	100%
-		opacity: 1
-		display: block
-		-webkit-transform: translate(0, 0)
-		transform: translate(0, 0)
-
-@keyframes fadeInTranslate
-	0%
-		display: none
-		opacity: 0
-
-	100%
-		opacity: 1
-		display: block
-		transform: translate(0, 0)
+@include fadeInTranslate
 
 @-webkit-keyframes colorPopupFooter
 	0%
@@ -242,6 +238,7 @@
 		padding: 6px
 		margin-bottom: 15px
 		display: inline-block
+		vertical-align: top
 
 @media only screen and (max-width: 320px)
 	.color-list--scrollable
@@ -286,7 +283,7 @@
 	.color-box-label
 		margin-top: 10px
 		padding-left: 0
-
+		height: 30px
 
 // slide focus state
 .slide--focus
@@ -376,4 +373,3 @@
 	.screen--rotate-slug__landscape-icon
 		@include rotate-2d2d2d-icon
 		background-size: 20px
-

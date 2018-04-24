@@ -11,16 +11,24 @@
 	z-index: 5
 
 .gallery__close-btn
-	@include cross-fff-icon
-	background-size: 12px
-	width: 12px
-	height: 12px
-	padding: 20px
+	width: 40px
+	height: 40px
+	text-align: center
 	position: fixed
 	top: 5px
 	right: 5px
 	cursor: pointer
 	z-index: 10
+
+.gallery-close-btn__icon
+	@include cross-4d5057-icon
+	background-size: 10px
+	width: 30px
+	height: 30px
+	margin: 5px auto
+	display: block
+	background-color: rgba(245, 245, 245,.8)
+	border-radius: 50%
 
 // gallery active state
 .gallery-popup--active
@@ -71,10 +79,14 @@
 	.swiper--next
 		@include arrow-right
 		right: 0
+		border-top-left-radius: 4px
+		border-bottom-left-radius: 4px
 
 	.swiper--prev
 		@include arrow-left
 		left: 0
+		border-top-right-radius: 4px
+		border-bottom-right-radius: 4px
 
 		&.swiper-button-disabled
 			opacity: .4
@@ -84,16 +96,31 @@
 		&.swiper-container
 			overflow: visible
 
-@media only screen and (min-width: 375px) and (max-width: 412px)
+	~ .gallery-placeholder
+			min-height: 243px
+			margin-bottom: 60px
+
+@media only screen and (min-width: 375px) and (max-width: 400px)
 	.model-gallery-section
-		height: 266px
+		height: 245px
 
 	.model-gallery
 		.swiper-slide
-			height: 232px
+			height: 213px
 
 			img
-				max-height: 232px
+				max-height: 213px
+
+@media only screen and (min-width: 410px) and (max-width: 420px)
+	.model-gallery-section
+		height: 268px
+
+	.model-gallery
+		.swiper-slide
+			height: 234px
+
+			img
+				max-height: 234px
 
 @media only screen and (max-width: 320px)
 	.model-gallery-section
@@ -109,7 +136,7 @@
 // footer
 .gallery-footer
 	height: 40px
-	background: #f5f5f5
+	background: color('bg-light-grey')
 
 .gallery-footer__share
 	position: relative
@@ -235,17 +262,6 @@
 		text-align: center
 		font-size: 12px
 
-	.swiper--next
-		right: 0
-		border-top-left-radius: 4px
-		border-bottom-left-radius: 4px
-
-	.swiper--prev
-		left: 0
-		border-top-right-radius: 4px
-		border-bottom-right-radius: 4px
-
-
 // rotate slug
 .gallery__landscape-slug
 	@include vendor-prefix('border-radius', 2px)
@@ -363,7 +379,7 @@
 
 			.swiper-slide
 				height: 100vh
-				background: #000
+				background: color('dark-black')
 					
 				img
 					max-height: 100%
@@ -444,12 +460,11 @@
 	.gallery__color-floating-slug
 		display: none
 
-@keyframes fadeIn
-	0%
-		opacity: 0
+.orientation--landscape
+	.gallery__slide-slug
+		padding-bottom: 50px
 
-	100%
-		opacity: 1
+@include fadeIn
 
 // colors slide
 .gallery__slide-slug
@@ -468,16 +483,16 @@
 	z-index: 0
 
 .model-gallery__color-slide
-	background: radial-gradient(#82888b, #ffffff)
+	background: radial-gradient(color('aluminium'), color('white'))
 
 .gallery-slide-slug__title
-	color: #2a2a2a
+	color: color('black')
 	font-size: 16px
 	font-weight: 700
 	margin-bottom: 30px
 
 .color-slide__more-count
-	color: #fff
+	color: color('white')
 	font-size: 12px
 	font-weight: 600
 	user-select: none
@@ -515,7 +530,7 @@
 	padding-right: 30px
 	padding-left: 30px
 	font-size: 13px
-	color: #e2e2e2
+	color: color('gainsboro')
 	position: absolute
 	top: 100%
 	margin-top: 85px // footer height + swiper title height
@@ -557,7 +572,7 @@
 
 	.gallery-slide-slug__title
 		margin-bottom: 20px
-		color: #fff
+		color: color('white')
 		z-index: 9
 
 	.iframe-overlay
@@ -594,7 +609,7 @@
 .video-slug__description
 	max-width: 85%
 	font-size: 14px
-	color: #fff
+	color: color('white')
 	margin-bottom: 10px
 	text-align: center
 
@@ -625,13 +640,13 @@
 	left: 0
 	width: 100%
 	line-height: 40px
-	background: #000
+	background: color('dark-black')
 	text-align: center
 	z-index: 8
 	
 .continue-info__label
 	font-size: 12px
-	color: #fd8d81
+	color: color('mona-lisa')
 	padding-right: 5px
 	text-decoration: underline
 	display: inline-block
@@ -664,7 +679,7 @@
 	height: 40px
 	display: inline-block
 	margin: 0 auto
-	border: 3px solid #f5f5f5
+	border: 3px solid color('bg-light-grey')
 	border-top-color: transparent
 	border-radius: 50%
 	@include vendor-prefix('animation', spin 1.1s infinite linear)
@@ -681,26 +696,4 @@
 		z-index: 10
 		background-color: rgba(0, 0, 0, .8)
 
-@-webkit-keyframes spin
-	from
-		-webkit-transform: rotate(0deg)
-		transform: rotate(0deg)
-	to
-		-webkit-transform: rotate(360deg)
-		transform: rotate(360deg)
-
-@-moz-keyframes spin
-	from
-		-moz-transform: rotate(0deg)
-		transform: rotate(0deg)
-	to
-		-moz-transform: rotate(360deg)
-		transform: rotate(360deg)
-
-@keyframes spin
-	from
-		transform: rotate(0deg)
-		transform: rotate(0deg)
-	to
-		transform: rotate(360deg)
-		transform: rotate(360deg)
+@include spin

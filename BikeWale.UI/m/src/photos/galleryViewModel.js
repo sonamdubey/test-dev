@@ -50,7 +50,12 @@
 
 	self.videoSlug = ko.observable(new VideoSlugViewModel(MODEL_VIDEO_LIST));
 	self.videoSlug().description('');
-	self.videoSlug().visibilityThreshold(IMAGE_INDEX + 10);
+	if(self.videoSlug().slugSupport()) {
+		self.videoSlug().visibilityThreshold(IMAGE_INDEX + 10);
+	}
+	else {
+		self.videoSlug().visibilityThreshold(-1);
+	}
 
 	self.renderImage = function (hostUrl, originalImagePath, imageSize) {
 		if (originalImagePath && originalImagePath != null) {
@@ -124,23 +129,14 @@
 	};
 
 	self.toggleFullScreen = function () {
-		if (!self.fullScreenModeActive()) {
-			toggleFullScreen(true);
-			self.fullScreenModeActive(true);
-
-			if ("orientation" in screen && screen.orientation.type == 'portrait-primary') {
-				screen.orientation.unlock();
-				screen.orientation.lock('landscape-primary');
+		if (screenfull.enabled) {
+			if (!screenfull.isFullscreen) {
+				document.documentElement.style.backgroundColor = '#000';
 			}
-		}
-		else {
-			toggleFullScreen(false);
-			self.fullScreenModeActive(false);
-
-			if ("orientation" in screen && screen.orientation.type == 'landscape-primary') {
-				screen.orientation.unlock();
-				screen.orientation.lock('portrait-primary');
+			else {
+				document.documentElement.style.backgroundColor = '';
 			}
+			screenfull.toggle();
 		}
 	};
 
@@ -315,201 +311,6 @@
 	}
 };
 
-var ModelColorPopupViewModel = function () {
-	var self = this;
-
-	self.modelName = MODEL_NAME;
-	self.activePopup = ko.observable(false);
-	self.activeLandscapeFooter = ko.observable(true);
-
-	self.colorSwiper = ko.observable(new ModelColorSwiperViewModel());
-
-	self.openPopup = function () {
-	  self.activePopup(true);
-		ColorGallerySwiper.handleThumbnailSwiper(colorThumbnailGallerySwiper);
-
-		triggerGA('Gallery_Page', 'Colours_Tab_Clicked_Opened', self.modelName);
-		
-		historyObj.addToHistory('colorPopup');
-
-		GalleryState.subscribeAction(self.closePopup);
-	}
-
-	self.closePopup = function (isClickEvent) {
-		if (self.activePopup()) {
-			self.activePopup(false);
-			self.resetListHeight();
-			triggerGA('Gallery_Page', 'Colours_Tab_Clicked_Closed', self.modelName);
-				
-			if (isClickEvent) {
-				history.back();
-			}
-
-			if($('body').hasClass('scroll-lock--color')) {
-				Scroll.unlock();
-				$('body').removeClass('scroll-lock--color');
-				resetFullScreenMode();
-			}
-		}
-	}
-
-	self.setListHeight = function () {
-		var availableHeight = $('#colorGalleryPopup').innerHeight() - ($('#thumbnailColorSwiper').offset().top - (window.pageYOffset || document.documentElement.scrollTop));
-
-		$('#colorGalleryPopup').find('.color-popup__thumbnail-content').css('height', availableHeight);
-	}
-
-	self.resetListHeight = function () {
-		$('#colorGalleryPopup').find('.color-popup__thumbnail-content').css('height', 'auto');
-	}
-
-	self.registerEvents = function () {
-		$('#colorGalleryPopup').on('transitionend', function (event) {
-			if($(event.target).attr('id') === 'colorGalleryPopup') {
-				if ($(this).hasClass('color-popup--active')) {
-					self.setListHeight();
-				}
-			}
-		})
-	}
-
-	self.registerEvents();
-};
-
-var ModelColorSwiperViewModel = function () {
-	var self = this;
-
-	self.modelName = MODEL_NAME;
-	self.activeIndex = ko.observable(0);
-	self.activeTitle = ko.observable('');
-
-	self.colorList = ko.observableArray(MODEL_COLOR_IMAGES);
-
-	self.renderImage = function (hostUrl, originalImagePath, imageSize) {
-		if (originalImagePath && originalImagePath != null) {
-			return (hostUrl + '/' + imageSize + '/' + originalImagePath);
-		}
-		else {
-			return ('https://imgd.aeplcdn.com/' + imageSize + '/bikewaleimg/images/noimage.png?q=70');
-		}
-	}
-}
-
-var ModelVideoPopupViewModel = function () {
-	var self = this;
-
-	self.activePopup = ko.observable(false);
-	self.videoData = ko.observable(new ModelVideoViewModel());
-	self.videoData().getVideos();
-	self.modelName = MODEL_NAME;
-
-	self.openPopup = function () {
-		self.activePopup(true);
-		self.setBodyHeight();
-		self.handleSwiperResize();
-		self.videoSwiper.update(true);
-		triggerGA('Gallery_Page', 'All_Videos_Tab_Clicked_Opened', self.modelName);
-		historyObj.addToHistory('videosPopup');
-
-		GalleryState.subscribeAction(self.closePopup);
-	}
-
-	self.closePopup = function (isClickEvent) {
-		if (self.activePopup()) {
-			self.activePopup(false);
-			triggerGA('Gallery_Page', 'All_Videos_Tab_Clicked_Closed', self.modelName);
-			SwiperYT.YouTubeApi.videoPause();
-
-			if (isClickEvent) {
-				history.back();
-			}
-		}
-	}
-
-	self.setBodyHeight = function () {
-		var availableHeight = $('#videoGalleryPopup').outerHeight() - $('.video-popup__head').outerHeight();
-
-		$('.video-popup__body').css('height', availableHeight);
-	}
-
-	self.videoSwiper = new Swiper('#mainVideoSwiper', {
-		direction: 'vertical',
-		freeMode: true,
-		spaceBetween: 0,
-		slidesPerView: 'auto',
-		onTap: function (swiper) {
-			if (window.innerWidth > window.innerHeight) {
-				swiper.slideTo(swiper.clickedIndex);
-			}
-		},
-		onSlideChangeStart: function (swiper) {
-			SwiperYT.slideChangeStart();
-			if((swiper.activeIndex + 1) % 4 === 0) {
-				self.videoData().getVideos();
-				self.videoSwiper.update(true);
-			}
-		}
-	})
-
-	self.handleSwiperResize = function () {
-		var swiperElement = $(self.videoSwiper.container[0]);
-
-		if (window.innerWidth > window.innerHeight) {
-			self.videoSwiper.params.freeMode = false;
-			self.videoSwiper.params.direction = 'horizontal';
-			self.videoSwiper.params.initialSlide = self.videoSwiper.slides.length;
-			swiperElement.removeClass('swiper-container-vertical');
-		}
-		else {
-			self.videoSwiper.params.freeMode = true;
-			self.videoSwiper.params.direction = 'vertical';
-			self.videoSwiper.params.initialSlide = 0;
-			swiperElement.addClass('swiper-container-vertical');
-		}
-
-		self.videoSwiper.destroy(false);
-		self.videoSwiper.init();
-		self.videoSwiper.update(true);
-
-		if (window.innerWidth > window.innerHeight) {
-			self.videoSwiper.slideTo(0, 1000);
-
-			setTimeout(function () {
-				self.videoSwiper.update(true);
-			}, 1000);
-		}
-	}
-
-	self.registerEvents = function () {
-		$(window).on('resize', function () {
-			if (self.activePopup()) {
-				self.setBodyHeight();
-				self.handleSwiperResize();
-			}
-		});
-	}
-
-	self.registerEvents();
-}
-
-var ModelVideoViewModel = function () {
-	var self = this;
-
-	self.defaultVideoCount = ko.observable(10);
-	self.videoList = ko.observable([]);
-
-	self.getVideos = function () {
-		if (MODEL_VIDEO_LIST) {
-			if (self.videoList().length !== MODEL_VIDEO_LIST.length) {
-				var list = MODEL_VIDEO_LIST.slice(self.videoList().length, self.defaultVideoCount() + self.videoList().length);
-
-				self.videoList(self.videoList().concat(list));
-			}
-		}
-	}
-
-}
-
 var ColorSlugViewModel = function (colorPhotoList) {
 	var self = this;
 
@@ -545,6 +346,10 @@ var VideoSlugViewModel = function (videoList) {
 	var self = this;
 
 	self.activeSlug = ko.observable(false);
+	self.slugSupport = ko.observable(true);
+	if (navigator.userAgent.match(/UCBrowser/g)) {
+		self.slugSupport(false);
+	}
 	self.visibilityThreshold = ko.observable(5);
 	self.modelName = MODEL_NAME;
 	if (videoList) {

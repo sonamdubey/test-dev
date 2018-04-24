@@ -3,7 +3,7 @@
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
 	Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/m/photos/listing.css' inline /> <link rel='stylesheet' type='text/css' href='/sass/m/photos/gallery-popup.css' inline />";
 	Model.Page_BTF_CSS_Paths = new string[] { "/sass/m/photos/listing-btf.css", "/sass/m/photos/colours-popup.css", "/sass/m/photos/videos-popup.css" };
-	Model.Page_JS_Paths = new string[] { "/src/utils/swiperYoutube.js", "/src/utils/scroll.js", "/src/utils/navigationTabs.js", "/src/utils/viewport.js", "/m/src/photos/gallery.js", "/m/src/photos/galleryViewModel.js", "/m/src/photos/model.js" };
+	Model.Page_JS_Paths = new string[] { "/src/utils/swiperYoutube.js", "/src/utils/scroll.js", "/src/utils/navigationTabs.js", "/src/utils/viewport.js", "/src/plugins/screenfull.js", "/m/src/photos/videoPopupViewModel.js", "/m/src/photos/colorPopupViewModel.js", "/m/src/photos/galleryViewModel.js", "/m/src/photos/gallery.js", "/m/src/photos/model.js" };
     Model.AdTags.Ad_320x50Top = true;
     Model.AdTags.Ad_300x250BTF = true;
     Model.AdTags.Ad_320x50BTF = true;
@@ -24,8 +24,8 @@
 
 			<div class="bg-white">
             <div id="galleryRoot" class="margin-bottom60" data-bind="css: { 'orientation--landscape': fullScreenModeActive(), 'gallery-popup--active': activePopup() }">
-                <h1 class="page-header">@Model.Page_H1</h1>
-                <div class="model-gallery-section" data-bind="css: {'gallery-color-slug--active': colorSlug().activeSlug(), 'gallery-video-slug--active': videoSlug().activeSlug()}">
+                <h1 class="page-header fullscreen--anchestor">@Model.Page_H1</h1>
+                <div class="model-gallery-section fullscreen--anchestor" data-bind="css: {'gallery-color-slug--active': colorSlug().activeSlug(), 'gallery-video-slug--active': videoSlug().activeSlug()}">
                     <div class="model-gallery__container" data-bind="css: activePopup() ? 'gallery-popup--active' : ''">
                         <div id="mainPhotoSwiper" class="swiper-container swiper__image noSwiper model-gallery">
                             <div class="swiper-wrapper" data-bind="foreach: photoList">
@@ -48,7 +48,7 @@
                                         </li>
                                     </ul>
 									<!-- ko if : remainingCount > 0 -->
-                                    <p class="color-slide__more-count" data-bind="text: '+' + remainingCount + ' More Color' + (remainingCount > 1 ? 's' : '') "></p>
+                                    <p class="color-slide__more-count" data-bind="text: '+' + remainingCount + ' More Colour' + (remainingCount > 1 ? 's' : '') "></p>
 									<!-- /ko -->
                                     <div class="slide__more-btn-content">
                                         <button type="button" class="btn btn-inv-blue slide__more-btn" data-bind="click: $parent.colorPopup().openPopup">Show All Colour Images</button>
@@ -59,7 +59,7 @@
                             </div>
 
                             <div data-bind="with: videoSlug">
-								<!-- ko if : videoCount -->
+								<!-- ko if : videoCount && slugSupport() -->
                                 <div class="model-gallery__video-slide gallery__slide-slug" data-bind="if: videoCount, visible: activeSlug(), css: {'video-slug--single-video': videoCount === 1, 'video-slug--video-playing': isPlaying()}">
                                     <p class="gallery-slide-slug__title" data-bind="text: modelName + ' Video' + (videoCount > 1 ? 's' : '')"></p>
                                     <!-- ko if : videoCount === 1 -->
@@ -120,10 +120,10 @@
                     </div>
                 </div>
 
-                <span id="galleryCloseBtn" class="gallery__close-btn" data-bind="visible: activePopup()" onclick="history.back()" style="display: none"></span>
-                <div id="galleryBgWindow" class="black-window"></div>
-
-                
+                <span id="galleryCloseBtn" class="gallery__close-btn fullscreen--anchestor" data-bind="visible: activePopup()" onclick="history.back()" style="display: none">
+					<span class="gallery-close-btn__icon"></span>
+				</span>
+                <div id="galleryBgWindow" class="black-window fullscreen--anchestor"></div>
 
                 <div id="colorGalleryPopup" class="color-popup__content" data-bind="with: colorPopup, css: { 'color-popup--active': colorPopup().activePopup(), 'color-popup--landscape': fullScreenModeActive() }">
                     <div class="color-popup__head">
@@ -148,7 +148,7 @@
                                     </span>
                                 </div>
                                 <div class="gallery-image__feature">
-                                    <a href="javascript:void(0)" title="" class="gallery__download-icon"></a>
+                                    <a data-bind="attr: { href: getColorImageDownloadUrl() }" download title="Download Image" class="gallery__download-icon"></a>
                                     
                                     <span class="landscape-icon__container" data-bind="click: $root.toggleFullScreen, visible: $root.fullScreenSupport()">
                                         <span class="gallery__landscape-icon"></span>
@@ -189,8 +189,9 @@
 
                 </div>
 
+								<!-- ko if: !videoPopup().browserCustomPlayer() -->
                 <div id="videoGalleryPopup" class="video-popup__content" data-bind="with: videoPopup, css: { 'video-popup--active': videoPopup().activePopup(), 'video-popup--landscape': fullScreenModeActive() }">
-                    <div class="video-popup__head">
+                    <div class="video-popup__head fullscreen--anchestor">
                         <span class="video-popup-head__back" data-bind="click: closePopup(true)"></span>
 						<p class="video-popup-head__title" data-bind="text: modelName + ' Videos'"></p>
                     </div>
@@ -205,9 +206,9 @@
                                         </div>
                                         <div class="video-card__desc clearfix">
                                             <div class="grid-4">
-                                                <p class="font11 text-light-grey" data-bind="text: formatDate(DisplayDate)"></p>
+                                                <p class="font11 text-light-grey text-truncate" data-bind="text: formatDate(DisplayDate)"></p>
                                             </div>
-                                            <div class="grid-8 text-right">
+                                            <div class="grid-8 text-right font11">
                                                 <span class="model-card__sub-title"><span data-bind="text: formatNumeric(Views) + ' ' + ((Views > 1) ? 'Views' : 'View')"></span> </span>
                                                 <span class="model-card__sub-title margin-left20">
                                                     <span class="thumbsup-icon"></span>
@@ -222,11 +223,13 @@
                         <span class="video-list__back-btn" onclick="history.back()">Back</span>
                     </div>
                 </div>
+								<!-- /ko -->
 
                 <div id="galleryLoader" class="gallery__loader black-window">
                     <span class="loader__spin loader--fixed"></span>
                 </div>
             </div>
+						<div class="gallery-placeholder"></div>
             @if (Model.AdTags.Ad_320x50Top)
             {
                 <div class="bg-white text-center gallery__sponsored-top-slot">
@@ -332,11 +335,29 @@
                             <div class="swiper-youtube swiper__videos">
                                 <div class="video-list" data-bind="foreach: videoList">
                                     <div class="video-card-container">
+                                      <!-- ko if: $parent.listTypeIFrame -->
+                                      <h4 class="swiper-card__label" data-bind="text: VideoTitle"></h4>
+                                      <!-- /ko -->
+
+                                      <!-- ko ifnot: $parent.listTypeIFrame -->
+                                      <a data-bind="attr: {title: VideoTitle, href: '/m/bike-videos/' + VideoTitleUrl + '-' + BasicId + '/' }" class="text-default">
                                         <h4 class="swiper-card__label" data-bind="text: VideoTitle"></h4>
+                                      </a>
+                                      <!-- /ko -->
                                         <div class="model-card__list__video-card">
+                                          <!-- ko if: $parent.listTypeIFrame -->
                                             <div class="youtube-iframe-preview video-card__video-preview">
                                                 <iframe width="320" height="180" data-bind="attr: { 'id': 'videoTab_' + $index(), 'src': 'https://www.youtube.com/embed/' + VideoId + '?rel=0&amp;showinfo=0&amp;enablejsapi=1' }" src="" frameborder="0" allowfullscreen=""></iframe>
                                             </div>
+                                          <!-- /ko -->
+                                          <!-- ko ifnot: $parent.listTypeIFrame -->
+                                          <a data-bind="attr: {title: VideoTitle, href: '/m/bike-videos/' + VideoTitleUrl + '-' + BasicId + '/' }" class="video-card__video-preview">
+                                            <img class="video-card__iframe-image lazy" src="" data-bind="attr: {alt: VideoTitle, 'data-original': 'https://img.youtube.com/vi/' + VideoId + '/mqdefault.jpg' }" class="video-card__iframe" />
+                                            <span class="video-card__play-container">
+                                              <span class="video-card-play__icon"></span>
+                                            </span>
+                                          </a>
+                                          <!-- /ko -->
                                             <div class="video-card__desc clearfix">
                                                 <div class="grid-4">
                                                     <p class="font11 text-light-grey" data-bind="text: formatDate(DisplayDate)"></p>

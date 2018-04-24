@@ -1,4 +1,5 @@
 ﻿var SwiperYT = {
+	isVideoPlaying: false,
 	Initialize: function () {
 		$('.swiper-youtube:not(".noSwiper")').each(function (index, element) {
 			var currentSwiper = $(this);
@@ -37,11 +38,26 @@
 	slideChangeStart: function () {
 		if (SwiperYT.YouTubeApi.playerState == 'playing' || SwiperYT.YouTubeApi.playerState == 'buffering') {
 			try {
-				SwiperYT.YouTubeApi.videoPause();
+				SwiperYT.handleOrientationType();
 			} catch (e) {
 				console.warn(e);
 			}
 		}
+	},
+
+	handleOrientationType: function() {
+		if ("orientation" in screen && screen.orientation.type === "landscape-primary") {
+			if (typeof screenfull !== "undefined" && !screenfull.isFullscreen) {
+				SwiperYT.YouTubeApi.videoPause();
+			}
+		}
+		else {
+			SwiperYT.YouTubeApi.handleVideoPause();
+		}
+
+		if (typeof handleFullscreenAnchestor !== "undefined") {
+      handleFullscreenAnchestor();
+    }
 	},
 
 	YouTubeApi: {
@@ -92,13 +108,11 @@
 
 			var handleScroll = function () {
 				try {
-					if ($('.youtube-iframe-preview').find('iframe.current').length) {
-						var videoFrame = $('.youtube-iframe-preview').find('iframe.current');
-						var inViewPortTopBottom = ViewPort.isElementInViewportTopBottom(videoFrame);
-
-						if (!inViewPortTopBottom) {
-							SwiperYT.YouTubeApi.videoPause();
-						}
+					if ("orientation" in screen && screen.orientation.type === "portrait-primary") {
+						SwiperYT.YouTubeApi.handleVideoPause();
+					}
+					else {
+						SwiperYT.YouTubeApi.handleOrientationType();
 					}
 				} catch (e) {
 					console.log(e);
@@ -106,6 +120,17 @@
 			}
 
 			$(window).on('scroll', handleScroll);
+		},
+
+		handleVideoPause: function() {
+			if ($('.youtube-iframe-preview').find('iframe.current').length) {
+				var videoFrame = $('.youtube-iframe-preview').find('iframe.current');
+				var inViewPortTopBottom = ViewPort.isElementInViewportTopBottom(videoFrame);
+
+				if (!inViewPortTopBottom) {
+					SwiperYT.YouTubeApi.videoPause();
+				}
+			}
 		},
 
 		//youtube player state change event
@@ -147,6 +172,7 @@
 			SwiperYT.YouTubeApi.player[SwiperYT.YouTubeApi.count].playVideo();
 			targetIframe.siblings('.iframe-overlay').hide();
 			SwiperYT.YouTubeApi.countArray.push(SwiperYT.YouTubeApi.count);
+			SwiperYT.isVideoPlaying = true;
 		},
 
 		videoPause: function () {
@@ -156,6 +182,7 @@
 				}
 				$('.youtube-iframe-preview .iframe-overlay:not(":visible")').show();
 				SwiperYT.YouTubeApi.countArray = [];
+				SwiperYT.isVideoPlaying = false;
 			}
 		}
 	}

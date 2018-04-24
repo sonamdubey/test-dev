@@ -41,6 +41,7 @@
 			if (panel.attr('data-panel-type') === 'toggle') {		
 				panel.find('[data-id]').hide();
 				panelContent.show();
+				panelContent.find('.lazy').lazyload();
 
 				$('html, body').animate({
 					scrollTop: panel.offset().top
