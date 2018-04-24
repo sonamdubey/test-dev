@@ -561,8 +561,16 @@ namespace Bikewale.BAL.BikeData
                     }
                     else
                     {
-                        BikeVersionMinSpecs priceTaggedVersion = objModelPage.ModelVersions.FirstOrDefault(m => m.AverageExShowroom > 0);
-                        modelVersion = priceTaggedVersion != null ? priceTaggedVersion : objModelPage.ModelVersions.FirstOrDefault();
+                        BikeVersionMinSpecs priceTaggedVersion = objModelPage.ModelVersions.FirstOrDefault(m => m.Price > 0);
+                        if (priceTaggedVersion != null)
+                        {
+                            modelVersion = priceTaggedVersion;
+                        }
+                        else
+                        {
+                            BikeVersionMinSpecs avgExshowroomTaggedVersion = objModelPage.ModelVersions.FirstOrDefault(m => m.AverageExShowroom > 0);
+                            modelVersion = avgExshowroomTaggedVersion != null ? avgExshowroomTaggedVersion : objModelPage.ModelVersions.FirstOrDefault();
+                        }
                     }
                     if (modelVersion != null && modelVersion.MinSpecsList != null)
                     {
