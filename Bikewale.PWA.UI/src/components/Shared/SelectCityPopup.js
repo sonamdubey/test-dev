@@ -55,17 +55,17 @@ class SelectCityPopup extends React.Component {
       data
     } = this.props
 
-    const popupActiveClassName = isActive ? 'select-bike-popup--active' : ''
-    const popupClasses = `select-bike-popup ${popupActiveClassName}`
+    const popupActiveClassName = isActive ? 'popup--active' : ''
+    const popupClasses = `select-city-popup popup-content ${popupActiveClassName}`
 
     return (
       <div className={popupClasses}>
-        <div className="select-bike-popup__content">
-          <div className="select-bike__head">
-            <div className="select-bike-head__content">
-              <span className="select-bike__close"></span>
-              <div className="select-bike__search-box">
-                <p className="select-bike-search__title">Select City</p>
+        <div className="select-city-popup__content">
+          <div className="popup__head">
+            <div className="popup-head__content">
+              <span className="popup__close"></span>
+              <div className="popup__search-box">
+                <p className="popup-search__title">Select City</p>
                 <div className="autocomplete-box">
                   <div className="autocomplete-field">
                     <Autocomplete
@@ -88,8 +88,8 @@ class SelectCityPopup extends React.Component {
           </div>
           {
             data.Popular && data.Other && (
-              <div className="select-bike__body select-bike__accordion">
-                <div className="select-city__popular">
+              <div className="select-bike__body">
+                <div className="city-list-content">
                   <p className="city-list__heading">Popular cities</p>
                   <PopularCityList
                     data={data.Popular}
@@ -97,15 +97,15 @@ class SelectCityPopup extends React.Component {
                     onClick={this.handleCityClick}
                   />
                 </div>
-                <div className="select-city__popular">
+                <div className="city-list-content">
                   <p className="city-list__heading">Other cities</p>
                   {this.getOtherCityList()}
                 </div>
               </div>
             )
           }
-          <div className="select-bike__footer">
-            <span className="select-bike__next">Next</span>
+          <div className="popup__footer">
+            <span className="popup-footer__next">Next</span>
           </div>
         </div>
       </div>

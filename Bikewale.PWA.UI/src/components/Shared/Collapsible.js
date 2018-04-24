@@ -1,5 +1,6 @@
 /*
  * https://github.com/glennflanagan/react-collapsible
+ * - Modify class names with BEM convention
  */
 
 import React, { Component } from 'react';
@@ -252,8 +253,8 @@ class Collapsible extends Component {
       inTransition
     } = this.state
 
-    var openClass = isClosed ? 'is-closed' : 'is-open';
-    var disabledClass = this.props.triggerDisabled ? 'is-disabled' : '';
+    var openClass = isClosed ? 'collapsible--closed' : 'collapsible--open';
+    var disabledClass = this.props.triggerDisabled ? 'collapsible--disabled' : '';
 
     //If user wants different text when tray is open
     var trigger = (isClosed === false) && (this.props.triggerWhenOpen !== undefined)
@@ -273,8 +274,8 @@ class Collapsible extends Component {
     const parentClassString = `${this.props.classParentString} ${
       isClosed ? this.props.className : this.props.openedClassName
       }`;
-    const outerClassString = `${this.props.classParentString}__contentOuter ${this.props.contentOuterClassName}`;
-    const innerClassString = `${this.props.classParentString}__contentInner ${this.props.contentInnerClassName}`;
+    const outerClassString = `${this.props.classParentString}__content-outer ${this.props.contentOuterClassName}`;
+    const innerClassString = `${this.props.classParentString}__content-inner ${this.props.contentInnerClassName}`;
 
     return (
       <div className={parentClassString.trim()}>

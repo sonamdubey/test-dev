@@ -1,3 +1,18 @@
+@mixin collapsible($background: 'white')
+  .collapsible
+    background-color: color('bg-light-grey')
+    border-bottom: 1px solid color('gainsboro')
+
+  .collapsible__trigger
+    position: relative
+    padding: 20px 50px 20px 20px
+    color: color('default')
+    font-size: 14px
+    font-weight: $font-semibold
+    background-color: color($background)
+    cursor: pointer
+
+
 @mixin collapsible-arrow($dimension: 15)
   @if unitless($dimension)
     $dimensionWithUnit: $dimension * 1px
@@ -16,11 +31,11 @@
         display: block
         will-change: transform
 
-      &.is-open
+      &.collapsible--open
         &:after
           @include vendor-prefix('transform', rotateZ(180deg))
 
-      &.is-disabled
+      &.collapsible--disabled
         opacity: .5
 
   @else

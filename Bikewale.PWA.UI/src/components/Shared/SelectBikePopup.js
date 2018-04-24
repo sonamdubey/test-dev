@@ -8,7 +8,6 @@ class SelectBikePopup extends React.Component {
     super(props);
 
     this.getList = this.getList.bind(this);
-    this.setReference = this.setReference.bind(this);
   }
 
   getList() {
@@ -85,26 +84,22 @@ class SelectBikePopup extends React.Component {
     )
   }
 
-  setReference(ref) {
-    this.popupContent = ref;
-  }
-
   render() {
     const {
       isActive
     } = this.props
 
-    const popupActiveClassName = isActive ? 'select-bike-popup--active' : ''
-    const popupClasses = `select-bike-popup ${popupActiveClassName}`
+    const popupActiveClassName = isActive ? 'popup--active' : ''
+    const popupClasses = `select-bike-popup popup-content ${popupActiveClassName}`
 
     return (
       <div className={popupClasses}>
-        <div ref={this.setReference} className="select-bike-popup__content">
-          <div className="select-bike__head">
-            <div className="select-bike-head__content">
-              <span className="select-bike__close"></span>
-              <div className="select-bike__search-box">
-                <p className="select-bike-search__title">Select Make and Model</p>
+        <div className="select-bike-popup__content">
+          <div className="popup__head">
+            <div className="popup-head__content">
+              <span className="popup__close"></span>
+              <div className="popup__search-box">
+                <p className="popup-search__title">Select Make and Model</p>
                 <div className="autocomplete-box">
                   <div className="autocomplete-field">
                     <Autocomplete
@@ -123,8 +118,8 @@ class SelectBikePopup extends React.Component {
               {this.getList()}
             </Accordion>
           </div>
-          <div className="select-bike__footer">
-            <span className="select-bike__next">Next</span>
+          <div className="popup__footer">
+            <span className="popup-footer__next">Next</span>
           </div>
         </div>
       </div>
