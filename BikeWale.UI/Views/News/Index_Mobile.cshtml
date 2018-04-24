@@ -90,6 +90,14 @@
         @Html.Partial("~/Views/GenericBikeInfo/_GenericBikeInfoWidget_Mobile.cshtml", Model.GenericBikeInfoWidget)
     }
 
+    
+    if (Model.AdTags.Ad_300x250BTF)
+    {
+        <div class="margin-bottom20 text-center">
+            @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad300x250BTF.cshtml", Model.AdTags);}
+        </div>
+    }
+    
     if (Model.ObjMoreAboutScooter != null)
     {
         <section>
@@ -102,13 +110,6 @@
             </div>
         </section>
 
-    }
-
-    if (Model.AdTags.Ad_300x250BTF)
-    {
-        <div class="margin-bottom20 text-center">
-            @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad300x250BTF.cshtml", Model.AdTags);}
-        </div>
     }
 
     if (Model.PageWidgets != null)

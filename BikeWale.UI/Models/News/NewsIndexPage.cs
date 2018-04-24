@@ -1432,7 +1432,7 @@ namespace Bikewale.Models
 
                     EnumBikeBodyStyles bodyStyle = EnumBikeBodyStyles.AllBikes;
 
-                    if (objData.Series != null && objData.Series.IsSeriesPageUrl == true)
+                    if (objData.Series != null && objData.Series.IsSeriesPageUrl == true && objData.Model == null)
                     {
                         objData.Model = _series.GetNewModels(objData.Series.SeriesId, CityId).FirstOrDefault().BikeModel;
                         ModelId = (uint)objData.Model.ModelId;

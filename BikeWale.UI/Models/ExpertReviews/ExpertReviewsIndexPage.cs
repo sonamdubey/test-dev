@@ -159,6 +159,8 @@ namespace Bikewale.Models
         /// Descritpion : Added ga for page
         /// Modified by : Ashutosh Sharma on 26 Feb 2018
         /// Description : Added recordCount in call to method 'BindLinkPager'.
+        /// Modified By : Deepak Israni on 24 April 2018
+        /// Description : Set page widgets through new method.
         /// </summary>
         public ExpertReviewsIndexPageVM GetData(int widgetTopCount)
         {
@@ -218,20 +220,37 @@ namespace Bikewale.Models
                         BindBikeInfoWidget(objData);
                     }
 
-                    if (!IsMobile)
+                    #region Bind Editorial Widgets (Maintain order, set page metas before this)
+
+                    SetAdditionalVariables(objData);
+
+                    if (objData.Make != null)
                     {
-                        SetAdditionalVariables(objData);
-                        objData.PageWidgets = base.GetEditorialWidgetData(EnumEditorialPageType.Listing);
+                        if (objData.Model != null)
+                        {
+                            objData.PageWidgets = base.GetEditorialWidgetData(EnumEditorialPageType.Detail);
+                        }
+                        else
+                        {
+                            objData.PageWidgets = base.GetEditorialWidgetData(EnumEditorialPageType.MakeListing);
+                        }
                     }
                     else
                     {
-                        GetWidgetData(objData, widgetTopCount);
+                        objData.PageWidgets = base.GetEditorialWidgetData(EnumEditorialPageType.Listing);
+                    }
+                    #endregion
+
+                    if (IsMobile)
+                    {
+                        GetWidgetData(objData, widgetTopCount); 
                     }
 
                     if (objData.Model != null)
                     {
                         objData.Series = _models.GetSeriesByModelId(ModelId);
                     }
+
                     SetBreadcrumList(objData);
                     objData.Page = Entities.Pages.GAPages.Editorial_List_Page;
                     if (bikeType.Equals(EnumBikeType.Scooters))
@@ -255,18 +274,77 @@ namespace Bikewale.Models
         /// <summary>
         /// Created By  : Sanskar Gupta on 12 April 2018
         /// Description : Function to set additional Page level variables.
+        /// Modified By : Deepak Israni on 24 April 2018
+        /// Description : Changed function to handle tagged makes, models and series.
         /// </summary>
         /// <param name="objData">VM of the page.</param>
         private void SetAdditionalVariables(ExpertReviewsIndexPageVM objData)
         {
-            objData.PageName = _pageName;
-
-            EditorialWidgetEntity editorialWidgetData = new EditorialWidgetEntity
+            try
             {
-                IsMobile = IsMobile,
-                CityId = CityId
-            };
-            base.SetAdditionalData(editorialWidgetData);
+                objData.PageName = _pageName;
+
+                if (objData.Make != null)
+                {
+                    BikeMakeEntityBase taggedMake = _objMakeCache.GetMakeDetails((uint)objData.Make.MakeId);
+                    bool isMakeLive = taggedMake.IsNew && !taggedMake.IsFuturistic;
+
+                    EnumBikeBodyStyles bodyStyle = EnumBikeBodyStyles.AllBikes;
+
+                    if (objData.Series != null && objData.Series.IsSeriesPageUrl == true && objData.Model == null)
+                    {
+                        objData.Model = _series.GetNewModels(objData.Series.SeriesId, CityId).FirstOrDefault().BikeModel;
+                        ModelId = (uint)objData.Model.ModelId;
+                    }
+
+                    if (objData.Model != null)
+                    {
+                        List<BikeVersionMinSpecs> objVersionsList = _objBikeVersionsCache.GetVersionMinSpecs(ModelId, false);
+
+                        if (objVersionsList != null && objVersionsList.Count > 0)
+                        {
+                            bodyStyle = objVersionsList.FirstOrDefault().BodyStyle;
+                        }
+
+                        BikeSeriesEntityBase bikeSeriesEntityBase = _models.GetSeriesByModelId(ModelId);
+                        if (bikeSeriesEntityBase != null && bikeSeriesEntityBase.IsSeriesPageUrl)
+                        {
+                            objData.Series = bikeSeriesEntityBase;
+                        }
+
+                    }
+
+                    objData.BodyStyle = bodyStyle;
+
+                    EditorialWidgetEntity editorialWidgetData = new EditorialWidgetEntity
+                    {
+                        IsMobile = IsMobile,
+                        IsMakeLive = isMakeLive,
+                        IsModelTagged = objData.Model != null,
+                        IsSeriesAvailable = objData.Series != null ? objData.Series.IsSeriesPageUrl : false,
+                        IsScooterOnlyMake = objData.Make.IsScooterOnly,
+                        BodyStyle = bodyStyle,
+                        CityId = CityId,
+                        Make = objData.Make,
+                        Series = objData.Series
+                    };
+                    base.SetAdditionalData(editorialWidgetData);
+                }
+                else
+                {
+                    EditorialWidgetEntity editorialWidgetData = new EditorialWidgetEntity
+                    {
+                        IsMobile = IsMobile,
+                        CityId = CityId
+                    };
+                    base.SetAdditionalData(editorialWidgetData);
+                }
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("Bikewale.Models.News.NewsIndexPage.SetAdditionalVariables"));
+            }
+
         }
 
 
