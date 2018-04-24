@@ -1,5 +1,6 @@
 /*
  * https://github.com/glennflanagan/react-responsive-accordion
+ * - Modify class name
  */
 
 import React from 'react';

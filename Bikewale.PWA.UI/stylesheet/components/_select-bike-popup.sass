@@ -1,20 +1,4 @@
-.select-bike-popup
-  @include vendor-prefix('transform', translate(110%, 0))
-  @include vendor-prefix('transition', transform .2s linear)
-  width: 100%
-  height: 100%
-  height: 100vh
-  position: fixed
-  top: 0
-  left: 0
-  right: 0
-  bottom: 0
-  background: color('white')
-  z-index: 10
-  will-change: transform
-
-  &.select-bike-popup--active
-    @include vendor-prefix('transform', translate(0, 0))
+@include popup
 
 .select-bike-popup__content
   @include vendor-prefix('transition', translate .2s linear)
@@ -25,105 +9,10 @@
   overflow-x: hidden
   overflow-y: scroll
 
-.select-bike__head
-  position: absolute
-  top: 0
-  left: 0
-  right: 0
-  width: 100%
-  height: 145px
-  background: color('tomato')
-  z-index: 2
-
-.select-bike-head__content
-  position: relative
-  height: 100%
-
-  &:after    
-    @include skyline-bg
-    @include vendor-prefix('animation', animateSkyline 30s linear 10)
-    background-position: center bottom
-    content: ''
-    position: absolute
-    bottom: 0
-    width: 2048px
-    height: 90px
-    display: block
-    opacity: .1
-    will-change: transform
-
-@include animateSkyline
-
-.select-bike__close
-  @include cross-fff-icon
-  background-size: 14px
-  width: 30px
-  height: 30px
-  display: block
-  position: absolute
-  top: 17px
-  right: 17px
-  cursor: pointer
-
-.select-bike__search-box
-  position: absolute
-  bottom: -25px
-  left: 0
-  right: 0
-  padding-top: 20px
-  margin-right: 20px
-  margin-left: 20px
-
-.select-bike-search__title
-  color: color('white')
-  font-size: 18px
-  font-weight: $font-bold
-  margin-bottom: 20px
-
 @import './autocomplete-box'
 
 .select-bike__body
   padding-top: 25px
-
-.select-bike__footer
-  @include vendor-prefix('transform', translate3d(0, 0, 0))
-  width: 100%
-  height: 50px
-  position: fixed
-  right: 0
-  bottom: 0
-  left: 0
-  box-shadow: 0 2px 6px 0 rgba(0, 0, 0, .5)
-  background: color('white')
-  z-index: 10
-
-  &:after
-    content: ''
-    clear: both
-    display: block
-
-.select-bike__next
-  position: relative
-  font-size: 16px
-  font-weight: 700
-  color: color('default')
-  padding-right: 35px
-  padding-left: 20px
-  float: right
-  line-height: 50px
-  cursor: pointer
-
-  &:after
-    @include arrow-right-4d5057-icon
-    background-position: center 52%
-    background-size: 7px
-    content: ''
-    position: absolute
-    top: 0
-    right: 20px
-    width: 10px
-    height: 50px
-    display: block
 
 /* accordion */
 .panel-bike-list__item
@@ -144,17 +33,5 @@
       @include tick
 
 .select-bike__accordion
-  .collapsible
-    background-color: color('bg-light-grey')
-    border-bottom: 1px solid color('gainsboro')
-
-  .collapsible__trigger
-    position: relative
-    padding: 20px 50px 20px 20px
-    color: color('default')
-    font-size: 14px
-    font-weight: $font-semibold
-    background-color: color('white')
-    cursor: pointer
-
+  @include collapsible
   @include collapsible-arrow

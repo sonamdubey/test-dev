@@ -1,4 +1,17 @@
-.select-city__popular
+@include popup
+
+.select-city-popup__content
+  @include vendor-prefix('transition', translate .2s linear)
+  position: relative
+  height: 100%
+  padding-top: 145px
+  padding-bottom: 50px
+  overflow-x: hidden
+  overflow-y: scroll
+
+@import './autocomplete-box'
+
+.city-list-content
   padding-top: 15px
 
 .city-list__heading
