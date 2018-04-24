@@ -1258,14 +1258,19 @@ namespace Bikewale.Models
             }
         }
 
-
+        /// <summary>
+        /// Modified by : Rajan Chauhan on 24 Apr 2018
+        /// Desciption  : Corrected the condition for setting trucatingIndex on matched page 
+        /// </summary>
+        /// <param name="objData"></param>
         private void InsertBikeInfoWidgetIntoContent(ExpertReviewsDetailPageVM objData)
         {
             try
             {
                 if (objData.ArticleDetails != null && objData.ArticleDetails.PageList != null && objData.BikeInfo != null)
                 {
-                    int totalStrippedHTMLLength = 0, matchedPage = 0, currentPageLength = 0, requiredLength = 0, totalPages = objData.ArticleDetails.PageList.Count; string inputString = null, viewName = null;
+                    int totalStrippedHTMLLength = 0, matchedPage = 0, currentPageLength = 0, requiredLength = 0, totalPages = objData.ArticleDetails.PageList.Count; 
+                    string inputString = null, viewName = null;
                     IList<Tuple<int, int>> objPagesInfo = new List<Tuple<int, int>>();
                     Bikewale.Models.Shared.BikeInfo ampBikeInfo = null;
 
@@ -1296,18 +1301,19 @@ namespace Bikewale.Models
 
 
                     requiredLength = Convert.ToInt32(totalStrippedHTMLLength * 0.25);
-
                     foreach (var item in objPagesInfo)
                     {
-                        currentPageLength += item.Item2;
-                        if (currentPageLength >= requiredLength)
+                        currentPageLength = item.Item2;
+                        if (currentPageLength < requiredLength)
+                        {
+                            requiredLength = requiredLength - currentPageLength;
+                        }
+                        else
                         {
                             matchedPage = item.Item1;
-                            requiredLength = currentPageLength - requiredLength;
                             break;
                         }
-
-                    }
+                    }  
 
                     if (RefControllerContext != null)
                     {
@@ -1338,6 +1344,8 @@ namespace Bikewale.Models
         /// Created by : Ashutosh Sharma on 01 Mar 2018.
         /// Description : Method to split article html content into two parts to insert bikeinfo card at 25% height of article content, if there
         ///                 is only one page in article pagelist, than one more page is added if bottomContent is not empty.
+        /// Modified by : Rajan Chauhan on 24 Apr 2018
+        /// Desciption  : Corrected the condition for setting trucatingIndex on matched page 
         /// </summary>
         /// <param name="articleDetails"></param>
         /// <returns></returns>
@@ -1348,9 +1356,8 @@ namespace Bikewale.Models
             {
                 if (articleDetails != null && articleDetails.PageList != null)
                 {
-                    int totalStrippedHTMLLength = 0, currentPageLength = 0, requiredLength = 0, totalPages = articleDetails.PageList.Count; string inputString = null, viewName = null;
+                    int totalStrippedHTMLLength = 0, currentPageLength = 0, requiredLength = 0, totalPages = articleDetails.PageList.Count;
                     IList<Tuple<int, int>> objPagesInfo = new List<Tuple<int, int>>();
-                    Shared.BikeInfo ampBikeInfo = null;
 
 
 
@@ -1367,14 +1374,16 @@ namespace Bikewale.Models
 
                     foreach (var item in objPagesInfo)
                     {
-                        currentPageLength += item.Item2;
-                        if (currentPageLength >= requiredLength)
+                        currentPageLength = item.Item2;
+                        if (currentPageLength < requiredLength)
+                        {
+                            requiredLength = requiredLength - currentPageLength;
+                        }
+                        else
                         {
                             matchedPage = item.Item1;
-                            requiredLength = currentPageLength - requiredLength;
                             break;
                         }
-
                     }
 
 
@@ -1386,7 +1395,13 @@ namespace Bikewale.Models
                     articleDetails.PageList[matchedPage].Content = topContentInPage;
                     if (matchedPage != articleDetails.PageList.Count - 1)
                     {
-                        articleDetails.PageList[matchedPage + 1].Content = bottomContentInPage + articleDetails.PageList[matchedPage + 1].Content;
+                        articleDetails.PageList.Insert(matchedPage + 1, new Page()
+                        {
+                            Content = bottomContentInPage,
+                            PageName = "",
+                            pageId = articleDetails.PageList[matchedPage + 1].pageId,
+                            Priority = articleDetails.PageList[matchedPage + 1].Priority
+                        });
                     }
                     else
                     {
