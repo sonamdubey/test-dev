@@ -7,10 +7,10 @@ import { openSelectBikePopup } from '../../actionCreators/SelectBikePopup'
 import { fetchCity, openSelectCityPopup, setCity } from '../../actionCreators/financeCityPopupActionCreator'
 
 import SelectBikePopup from '../Shared/SelectBikePopup'
-import EMICalculatorSelection from './EMICalculatorSelection'
+import EMISteps from './EMISteps'
 import SelectCityPopup from '../Shared/SelectCityPopup'
 
-class EMICalculator extends React.Component {
+class EMITab extends React.Component {
   constructor(props) {
     super(props);
 
@@ -78,4 +78,4 @@ var mapDispatchToProps = function(dispatch) {
   }
 }
 
-module.exports = connect(mapStateToProps, mapDispatchToProps)(toJS(EMICalculator));
+module.exports = connect(mapStateToProps, mapDispatchToProps)(toJS(EMITab));

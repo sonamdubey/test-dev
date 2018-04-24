@@ -3,7 +3,7 @@ import ProgressBar from './ProgressBar'
 import ProgressBarItem from './ProgressBarItem'
 import ModelCard from '../Shared/ModelCard'
 
-class EMICalculatorSelection extends React.Component {
+class EMISteps extends React.Component {
   constructor(props) {
     super(props);
     this.setState({
@@ -37,4 +37,4 @@ class EMICalculatorSelection extends React.Component {
   }
 }
 
-export default EMICalculatorSelection
+export default EMISteps

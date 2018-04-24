@@ -3,7 +3,7 @@ import ExpandCollapse from 'react-expand-collapse';
 
 import { addTabEvents, removeTabEvents } from '../../utils/scrollSpyTabs';
 
-import EMICalculator from './EMICalculator'
+import EMITab from './EMITab'
 
 class Tabs extends React.Component {
   constructor(props) {
@@ -53,7 +53,7 @@ class Tabs extends React.Component {
 
         <div className="tabs-panel__item" data-tab-panel="emiTab">
           <div className="emi-calculator">
-            <EMICalculator />
+            <EMITab />
           </div>
         </div>
 
