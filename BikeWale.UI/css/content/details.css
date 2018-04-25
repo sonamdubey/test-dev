@@ -682,6 +682,17 @@ img:hover ~ .image__zoom-btn {
     left: -5%;
 }
 
+.compare-with-link {
+    margin-left: 115px;
+    font-size: 12px;
+    margin-bottom: 10px;
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 172px;
+}
+
 @-moz-keyframes spin {
     from { -moz-transform: rotate(0deg); }
     to { -moz-transform: rotate(360deg); }
@@ -703,3 +714,4 @@ img:hover ~ .image__zoom-btn {
         width: 90%;
     }
 }
+

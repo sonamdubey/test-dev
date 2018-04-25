@@ -66,13 +66,19 @@
     @{Bikewale.Utility.BWCookies.SetBWUtmz();}
     <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-5CSHD6" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     @Html.Raw(Model.Page_ATF_CSS)
+
     <script type="text/javascript">
-        var ga_pg_id = '0', gaObj;
-        var adSlot = {};
+    var ga_pg_id = '0', gaObj, galleryId, lastPageId;
+    var adSlot = {};
         var FbPixelEvent = { pageView: 'PageView', viewContent: 'ViewContent' ,lead : 'Lead'};
+    var adsToRefresh = {}; 
     @if(Model.Page !=null)
     {
-        <text>gaObj = {'id':@((int)Model.Page), 'name': '@Model.Page'};</text>
+        <text>
+        gaObj = {'id':@((int)Model.Page), 'name': '@Model.Page'};
+        lastPageId = gaObj.id;
+        galleryId = @((int)Bikewale.Entities.Pages.GAPages.Image_Gallery);
+        </text>
     }
     (function (w, d, s, l, i) {
         w[l] = w[l] || []; w[l].push({
@@ -82,6 +88,13 @@
         j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
         '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
     })(window, document, 'script', 'dataLayer', 'GTM-5CSHD6');
+
+    setTimeout(function () {
+        var a = document.createElement("script");
+        var b = document.getElementsByTagName("script")[0];
+        a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0012/9477.js?" + Math.floor(new Date().getTime() / 3600000);
+        a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
+    }, 1);
 
     var googletag = googletag || {};
     googletag.cmd = googletag.cmd || [];
@@ -221,6 +234,12 @@
                 if(Model.AdTags.Ad_300x250_Top){ @Html.Raw(GetAdSlot(19, Model.AdTags.AdPath, Model.AdTags.AdId))}
                 if(Model.AdTags.Ad_300x250_Middle){ @Html.Raw(GetAdSlot(20, Model.AdTags.AdPath, Model.AdTags.AdId))}
                 if(Model.AdTags.Ad_300x250_Bottom){ @Html.Raw(GetAdSlot(21, Model.AdTags.AdPath, Model.AdTags.AdId))}
+                if (Model.AdTags.Ad_320x50Top)
+                {
+                    // Ad Slot below Image carousel on Model Images page to be refreshed every 3 swipes.
+                    var id = String.Format("div-gpt-ad-{0}-{1}", Model.AdTags.AdId, 0);
+                    <text>adsToRefresh['@id'] = @Html.Raw(GetAdSlot(1, Model.AdTags.AdPath, Model.AdTags.AdId))</text>
+                }
             }
                 
 
@@ -565,6 +584,16 @@ else if (Model.AdTags.ShowInnovationBannerMobile)
         @Html.Partial("~/Views/Shared/fontcss/OpenSans/_Latin600.cshtml")
         @Html.Partial("~/Views/Shared/fontcss/OpenSans/_Latin700.cshtml")
         @Html.Partial("~/Views/Shared/fontcss/OpenSans/_Latin800.cshtml")
+
+        @if (Model.Page_BTF_CSS_Paths != null && Model.Page_BTF_CSS_Paths.Any())
+        {
+          foreach (var cssFile in Model.Page_BTF_CSS_Paths)
+          {
+            <link href="@String.Format("{0}{1}?{2}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, cssFile.Trim(), Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion)" rel="stylesheet" type="text/css" />
+          }
+        }
+
+
     </noscript>
     <script type="text/javascript">
         var loadAsyncCss = function () { var a = document.getElementById("asynced-css"); if (a) { var b = document.createElement("div"); b.style.display = 'none', b.innerHTML = a.textContent, document.body.appendChild(b), a.parentElement.removeChild(a) } }, raf = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame; raf ? raf(function () { window.setTimeout(loadAsyncCss, 0) }) : window.addEventListener("load", loadAsyncCss);
@@ -586,6 +615,8 @@ else if (Model.AdTags.ShowInnovationBannerMobile)
             <script defer type="text/javascript" src="@String.Format("{0}{1}?{2}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, scriptLink.Trim(),Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion)"></script>
         }
     }
+    
+   
     <script type="text/javascript" src="//www.googleadservices.com/pagead/conversion_async.js" defer>
     </script>
     <script type="text/javascript">

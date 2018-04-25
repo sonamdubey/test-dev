@@ -103,3 +103,38 @@
 
 	-webkit-justify-content: $value
 	justify-content: $value
+
+
+/*
+ * Flexbox direction
+ * The 'flex-direction' property specifies how flex items are placed in the flex container, by setting the direction of the flex container's main axis.
+ *
+ * Values: row | row-reverse | column | column-reverse
+ * Default: row
+ */
+@mixin flex-direction($value: row)
+  @if $value == row-reverse
+    -webkit-box-direction: reverse
+    -webkit-box-orient: horizontal
+    -moz-box-direction: reverse
+    -moz-box-orient: horizontal
+  @else if $value == column
+    -webkit-box-direction: normal
+    -webkit-box-orient: vertical
+    -moz-box-direction: normal
+    -moz-box-orient: vertical
+  @else if $value == column-reverse
+    -webkit-box-direction: reverse
+    -webkit-box-orient: vertical
+    -moz-box-direction: reverse
+    -moz-box-orient: vertical
+  @else
+    -webkit-box-direction: normal
+    -webkit-box-orient: horizontal
+    -moz-box-direction: normal
+    -moz-box-orient: horizontal
+
+  -webkit-flex-direction: $value
+  -ms-flex-direction: $value
+  flex-direction: $value
+

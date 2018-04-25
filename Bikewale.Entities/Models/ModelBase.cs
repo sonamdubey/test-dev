@@ -47,6 +47,7 @@ namespace Bikewale.Models
         public string Page_H1 { get; set; }
 
         public string[] Page_JS_Paths { get; set; }
+		    public string[] Page_BTF_CSS_Paths { get; set; }
 
         public ModelBase()
         {
@@ -59,6 +60,7 @@ namespace Bikewale.Models
         public GAPages Page { get; set; }
         public AmpJsTags AmpJsTags { get; set; }
         public string Amp_Page_CSS { get; set; }
+
         public IDictionary<string, AdSlotModel> AdSlots { get; set; }
     }
 }

@@ -25,7 +25,7 @@
                     }
                     else
                     {
-                        <span onclick="location='@String.Format("/m{0}?q={1}", Bikewale.Utility.UrlFormatter.FormatPhotoPageUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName), Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(string.Format("imageindex={0}&retUrl={1}", imageIndex, Model.PageMetaTags.CanonicalUrl)))'" class="bw-ga" data-cat="Model_Page" data-act="Main_Image_Clicked" data-lab="@Model.BikeName">
+                        <span onclick="location='@String.Format("/m{0}?q={1}", Bikewale.Utility.UrlFormatter.FormatPhotoPageUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName), Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(string.Format("imageindex={0}&retUrl={1}", imageIndex, Model.PageMetaTags.AlternateUrl)))'" class="bw-ga" data-cat="Model_Page" data-act="Main_Image_Clicked" data-lab="@Model.BikeName">
                             @if (imageIndex < 2)
                         {
                                 <img src="@Bikewale.Utility.Image.GetPathToShowImages(image.OriginalImgPath,image.HostUrl,Bikewale.Utility.ImageSize._360x202,"85")" alt="@imageProperty" title="@imageProperty" border="0" />
