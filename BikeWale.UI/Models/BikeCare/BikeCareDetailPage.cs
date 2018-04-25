@@ -3,7 +3,6 @@ using Bikewale.Entities.BikeData;
 using Bikewale.Entities.EditorialWidgets;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
-using Bikewale.Entities.PriceQuote;
 using Bikewale.Entities.Schema;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.UpComing;
@@ -40,10 +39,7 @@ namespace Bikewale.Models
         private uint basicId;
         public StatusCodes status;
         private GlobalCityAreaEntity currentCityArea;
-        private uint CityId, MakeId, ModelId, pageCatId = 0;
-        private EnumBikeType bikeType = EnumBikeType.All;
-        private bool showCheckOnRoadCTA = false;
-        private PQSourceEnum pqSource = 0;
+        private uint CityId, MakeId, ModelId;
         private bool isMakeLive;
         private bool IsModelTagged { get { return ModelId > 0; } }
         private bool isSeriesAvailable;
