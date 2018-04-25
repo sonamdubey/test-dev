@@ -14,14 +14,7 @@ namespace Bikewale.DAL.HomePage
     /// </summary>
     public class HomePageBannerRepository : IHomePageBannerRepository
     {
-        /// <summary>
-        /// Created by  :   Sumit Kate on 29 Dec 2016 
-        /// Description :   Calls sp gethomepagebanner
-        /// Modified By:-Subodh Jain 26 july 2017
-        /// Summary :- changed Sp and modified according to platform id
-        /// </summary>
-        /// <returns></returns>
-        public HomePageBannerEntity GetHomePageBanner(uint platformId)
+        public Tuple<HomePageBannerEntity, TimeSpan> GetHomePageBannerWithCacheTime(uint platformId)
         {
             HomePageBannerEntity banner = null;
             try
@@ -36,7 +29,7 @@ namespace Bikewale.DAL.HomePage
                     {
                         if (dr != null)
                         {
-                           
+
                             if (dr.Read())
                             {
 
@@ -45,10 +38,10 @@ namespace Bikewale.DAL.HomePage
                                     Html = Convert.ToString(dr["html"]),
                                     Css = Convert.ToString(dr["css"]),
                                     JS = Convert.ToString(dr["js"]),
-                                   
+
                                 };
                             }
-                         
+
                             dr.Close();
                         }
 
@@ -57,9 +50,9 @@ namespace Bikewale.DAL.HomePage
             }
             catch (Exception ex)
             {
-                ErrorClass.LogError(ex, string.Format("HomePageBannerRepository.GetHomePageBanner platformid:{0}",platformId));
+                ErrorClass.LogError(ex, string.Format("HomePageBannerRepository.GetHomePageBanner platformid:{0}", platformId));
             }
-            return banner;
+            return Tuple.Create(banner, new TimeSpan());
         }
     }
 }

@@ -116,7 +116,7 @@ namespace Bikewale.Cache.Core
                              catch (Exception ex)
                              {
                                  _logger.Error(ex);
-                                 return AddDummyData<T>(key);
+                                 t = AddDummyData<T>(key);
                              }
 
                              mc.Remove(key + "_lock");
@@ -145,6 +145,77 @@ namespace Bikewale.Cache.Core
                  _logger.Error(ex);
                  return default(T);
              }             
+        }
+
+        /// <summary>
+        /// Created By : Ashish G. Kamble on 25 Apr 2018
+        /// Summary : Function to set cache duration from DAL itself
+        /// </summary>
+        /// <typeparam name="T">Output type for callback function</typeparam>
+        /// <param name="key">Memcache key name</param>
+        /// <param name="dbCallback">Callback function to call incase of memcache miss</param>
+        /// <returns>Returns specified entity of type T. In case of data from cache or db not available returns -1</returns>
+        public T GetFromCache<T>(string key, Func<Tuple<T, TimeSpan>> dbCallback)
+        {
+            object cacheObject = new object();
+            Tuple<T, TimeSpan> t;
+
+            try
+            {
+                if (_useMemcached) //  Check if memcache need to hit or not based on key in config file
+                {
+                    if (!mc.TryGet(key, out cacheObject)) //Cache Miss
+                    {
+                        if (mc.Store(StoreMode.Add, key + "_lock", "lock", DateTime.Now.AddSeconds(60)))
+                        {
+                            try
+                            {
+                                t = dbCallback();
+
+                                if (t != null && t.Item1 != null)
+                                {
+                                    // Verify change                                      
+                                    mc.Store(StoreMode.Add, key, t.Item1, DateTime.Now.Add(t.Item2));
+                                }
+                                else
+                                {
+                                    t = Tuple.Create(AddDummyData<T>(key), new TimeSpan());
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                _logger.Error(ex);
+                                t= Tuple.Create(AddDummyData<T>(key), new TimeSpan());
+                            }
+
+                            mc.Remove(key + "_lock");
+                            return t.Item1;
+                        }
+                        else
+                        {
+                            t = dbCallback();
+                            return t.Item1;
+                        }
+                    }
+                    else
+                    {
+                        if (cacheObject is string && cacheObject.Equals(_dummyData))
+                            return default(T);
+
+                        return (T)cacheObject;
+                    }
+                }
+                else
+                {
+                    t = dbCallback();
+                    return t.Item1;
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex);
+                return default(T);
+            }
         }
 
         public T GetFromCache<T>(string key, TimeSpan cacheDuration, Func<T> dbCallback, out bool isDataFromCache)
@@ -176,7 +247,7 @@ namespace Bikewale.Cache.Core
                             catch (Exception ex)
                             {
                                 _logger.Error(ex);
-                                return AddDummyData<T>(key);
+                                t = AddDummyData<T>(key);
                             }
 
                             mc.Remove(key + "_lock");

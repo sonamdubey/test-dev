@@ -34,7 +34,7 @@ namespace Bikewale.Cache.HomePage
             HomePageBannerEntity homePageBanner = null;
             try
             {
-                homePageBanner = _cache.GetFromCache<HomePageBannerEntity>(key, new TimeSpan(0, 30, 0), () => _homePageRepository.GetHomePageBanner(platformId));
+                homePageBanner = _cache.GetFromCache<HomePageBannerEntity>(key, () => _homePageRepository.GetHomePageBannerWithCacheTime(platformId));
 
             }
             catch (Exception ex)

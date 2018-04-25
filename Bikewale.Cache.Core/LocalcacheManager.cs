@@ -76,5 +76,11 @@ namespace Bikewale.Cache.Core
         {
             throw new NotImplementedException();
         }
+
+
+        public T GetFromCache<T>(string key, Func<Tuple<T, TimeSpan>> dbCallback)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
