@@ -15,7 +15,12 @@ namespace Bikewale.Controllers
         private readonly IPager _objPager = null;
         private readonly IUpcoming _upcoming = null;
         private readonly IBikeModels<BikeModelEntity, int> _bikeModels = null;
-        IBikeModelsCacheRepository<int> _models = null;
+        private readonly IBikeModelsCacheRepository<int> _models = null;
+        private readonly IBikeMakesCacheRepository _bikeMakesCacheRepository = null;
+        private readonly IBikeSeriesCacheRepository _seriesCache = null;
+        private readonly IBikeSeries _series = null;
+        private readonly IBikeMaskingCacheRepository<BikeModelEntity, int> _modelMaskingCacheRepo = null;
+        private readonly IBikeVersionCacheRepository<BikeVersionEntity, uint> _objBikeVersionsCache = null;
         #endregion
 
         #region Constructor
@@ -86,12 +91,12 @@ namespace Bikewale.Controllers
         [Filters.DeviceDetection()]
         public ActionResult Detail(string basicid)
         {
-            BikeCareDetailPage obj = new BikeCareDetailPage(_cmsCache, _upcoming, _bikeModels, _models, basicid);
+            BikeCareDetailPage obj = new BikeCareDetailPage(_cmsCache, _upcoming, _bikeModels, _models, basicid, _bikeMakesCacheRepository, _seriesCache, _series, _modelMaskingCacheRepo, _objBikeVersionsCache);
             if (obj.status == Entities.StatusCodes.ContentNotFound)
             {
                 return Redirect("/pagenotfound.aspx");
             }
-             else
+            else
             {
                 BikeCareDetailPageVM objData = obj.GetData(3);
                 if (obj.status == Entities.StatusCodes.ContentNotFound)
@@ -108,7 +113,7 @@ namespace Bikewale.Controllers
         [Route("m/bikecare/details/{basicid}/")]
         public ActionResult Detail_Mobile(string basicid)
         {
-            BikeCareDetailPage obj = new BikeCareDetailPage(_cmsCache, _upcoming, _bikeModels, _models, basicid);
+            BikeCareDetailPage obj = new BikeCareDetailPage(_cmsCache, _upcoming, _bikeModels, _models, basicid, _bikeMakesCacheRepository, _seriesCache, _series, _modelMaskingCacheRepo, _objBikeVersionsCache);
             if (obj.status == Entities.StatusCodes.ContentNotFound)
             {
                 return Redirect("/m/pagenotfound.aspx");
@@ -121,7 +126,7 @@ namespace Bikewale.Controllers
                     return Redirect("/m/pagenotfound.aspx");
                 else
                     return View(objData);
-            } 
+            }
         }
         #endregion
     }
