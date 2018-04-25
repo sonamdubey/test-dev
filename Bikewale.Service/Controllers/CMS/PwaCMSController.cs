@@ -779,7 +779,7 @@ namespace Bikewale.Service.Controllers.PWA.CMS
                         articleDetails.PageList.Insert(matchedPage + 1, new Page()
                         {
                             Content = bottomContentInPage,
-                            PageName = "",
+                            PageName = string.Empty,
                             pageId = articleDetails.PageList[matchedPage + 1].pageId,
                             Priority = articleDetails.PageList[matchedPage + 1].Priority
                         });
@@ -789,7 +789,7 @@ namespace Bikewale.Service.Controllers.PWA.CMS
                         articleDetails.PageList.Add(new Page()
                         {
                             Content = bottomContentInPage,
-                            PageName = "",
+                            PageName = string.Empty,
                             pageId = articleDetails.PageList[matchedPage].pageId + 1,
                             Priority = articleDetails.PageList.Max(p => p.Priority)
                         });
