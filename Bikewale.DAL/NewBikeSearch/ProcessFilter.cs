@@ -149,11 +149,11 @@ namespace Bikewale.DAL.NewBikeSearch
                 string wheelTypes = _input.AlloyWheel;
                 if (!String.IsNullOrEmpty(wheelTypes))
                 {
-                    if (wheelTypes.Equals("1"))
+                    if (wheelTypes.Equals("2"))
                     {
                         wheelTypes = Convert.ToString((ushort)NewBikeSearchSpecFeaturesEnum.Alloy); //alloy "846"
                     }
-                    else if (wheelTypes.Equals("2"))
+                    else if (wheelTypes.Equals("1"))
                     {
                         wheelTypes = Convert.ToString((ushort)NewBikeSearchSpecFeaturesEnum.Spoke); //spoke "847"
                     }
