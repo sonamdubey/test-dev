@@ -25,7 +25,7 @@
                     <h2>@column.Title</h2>
                 </div>
                 <div class="swiper-heading-right-grid inline-block text-right">
-                    <a href="@string.Format("{0}{1}", BWConfiguration.Instance.BwHostUrl, column.ViewAllUrl)" title="@column.ViewAllTitle" class="btn view-all-target-btn">View all</a>
+                    <a href="@string.Format("/m{0}", column.ViewAllUrl)" title="@column.ViewAllTitle" class="btn view-all-target-btn">View all</a>
                 </div>
                 <div class="clear"></div>
             </div>
