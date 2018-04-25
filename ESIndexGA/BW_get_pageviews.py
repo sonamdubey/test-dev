@@ -20,17 +20,17 @@ import elasticsearch.exceptions
 
 PROFILE_ID = "110715270"
 INDEX_NAME = "bikewalekeywords"	#Live
-ELASTIC_SEARCH_IP = '10.10.3.70'	#Live
+ELASTIC_SEARCH_IP = '10.10.3.72'	#Live
 ELASTIC_SEARCH_PORT = 9212			#Live
 #INDEX_NAME = "bikewalekeywordsstgv1"	#Staging
-#ELASTIC_SEARCH_IP = '10.10.3.70'		#Staging
+#ELASTIC_SEARCH_IP = '10.10.3.72'		#Staging
 #ELASTIC_SEARCH_PORT = 9211				#Staging
 #INDEX_NAME = "11bwsrckeywordsv1"	#Local
 #ELASTIC_SEARCH_IP = '172.16.0.11'	#Local
 #ELASTIC_SEARCH_PORT = 9201			#Local
 BW_HOSTURL = "https://www.bikewale.com"	#Live
 #BW_HOSTURL = "https://staging.bikewale.com"	#Staging
-#BW_HOSTURL = "http://webserver:9011"	#Local
+#BW_HOSTURL = "http://localhost:9011"	#Local
 current_directory = sys.path[0] + "/"
 key_file_location = current_directory + 'GoogleKey.json' # + '/GoogleDFPProductionKey.p12'
 DOC_TYPE = 'bikelist'
@@ -59,6 +59,7 @@ def getMakeModels(URL):
 	return data
 
 def saveModelsPageviews(URL, data, headers):
+	logf(data)
 	response = requests.post(url = URL, data = data, headers=headers)
 	data_json = response.text
 	logf("{} > ({})".format(URL, response.status_code))
@@ -105,10 +106,9 @@ def main():
 	service = get_service('analytics', 'v3', scope, key_file_location)
 
 	# Get make and model URLS
-	makeModelUrl = BW_HOSTURL + "/api/model/all/new/"
-	makeModelUrlUpcoming = BW_HOSTURL + "/api/model/all/upcoming/"
+	makeModelUrl = BW_HOSTURL + "/api/model/all/all/"	
 	
-	MakeModels = getMakeModels(makeModelUrl) + getMakeModels(makeModelUrlUpcoming)
+	MakeModels = getMakeModels(makeModelUrl)
 
 	# # For each MakeModel 
 	# # create URL and fetch from GA
@@ -157,21 +157,6 @@ def main():
 
 			es.update(index=INDEX_NAME, doc_type=DOC_TYPE, id= Id, body = doc1)
 
-			# Push it into Queue
-			#fields = {}
-			#fields['content'] = 'json'
-			#if roundrobinflag == 0:			
-			#	channel.basic_publish(exchange='',
-		    #                  routing_key=QUEUE_NAME,
-		    #                  body=doc1,
-		    #                  properties = pika.BasicProperties(headers = fields))
-			#	roundrobinflag = 1
-			#else :
-			#	channel.basic_publish(exchange='',
-		    #                  routing_key=QUEUE_NAME,
-		    #                  body=doc1,
-		    #                  properties = pika.BasicProperties(headers = fields))
-			#	roundrobinflag = 0
 		except:
 			logf("Document {} not found in index ".format(Id))
 
@@ -209,7 +194,7 @@ def main():
 	modelPageViews = modelPageViews[:-1] # Remove trailing comma
 
 	# Send to model page views to api which will save data to database
-	logf("ModelPageViews updation started")
+	logf("ModelPageViews updation started")	
 	
 	modelsPageviewsURL = BWOPR_HOSTURL + "/api/models/pageviews/"
 	headers = {
