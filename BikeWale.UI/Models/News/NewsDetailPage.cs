@@ -229,13 +229,13 @@ namespace Bikewale.Models
 
                     BindBikeInfoWidget(objData);
                     SetAdditionalVariables(objData);
-                    if (IsMobile || IsAMPPage)
+                    if (IsAMPPage || !IsMobile)
                     {
-                        GetWidgetData(objData, widgetTopCount, false);
+                        objData.PageWidgets = base.GetEditorialWidgetData(EnumEditorialPageType.Detail);
                     }
                     else
                     {
-                        objData.PageWidgets = base.GetEditorialWidgetData(EnumEditorialPageType.Detail);
+                        GetWidgetData(objData, widgetTopCount, false);
                     }
 
                     BindSimilarBikes(objData);

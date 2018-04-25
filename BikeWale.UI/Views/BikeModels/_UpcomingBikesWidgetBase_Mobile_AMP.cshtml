@@ -1,0 +1,44 @@
+﻿@model Bikewale.Models.BikeModels.EditorialUpcomingBikesWidget
+
+@if (Model != null)
+{
+    <amp-carousel height="220" layout="fixed-height" type="carousel">
+        @foreach (var bike in Model.UpcomingBikeList)
+        {
+            <div class="swiper-card">
+                <a href="@string.Format("{0}/m/{1}-bikes/{2}/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, bike.MakeBase.MaskingName, bike.ModelBase.MaskingName)" title="@bike.BikeName" class="block">
+                    <div class="swiper-image-preview position-rel">
+                        <amp-img title="@bike.BikeName" alt="@bike.BikeName" src="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath,bike.HostUrl,Bikewale.Utility.ImageSize._174x98,Bikewale.Utility.QualityFactor._70)" width="160" height="90"></amp-img>
+                    </div>
+                    <div class="swiper-details-block">
+                        <h3 class="target-link font12 text-truncate margin-bottom5">@bike.BikeName</h3>
+                        @if (bike.ExpectedLaunchDate != null)
+                        {
+                            <div class="text-light-grey margin-bottom5">
+                                <p class="font11 text-light-grey">Expected launch</p>
+                                <p class="font16 text-bold text-default">@Bikewale.Utility.FormatDate.GetFormatDate(bike.ExpectedLaunchDate, "MMMM yyyy")</p>
+                            </div>
+                        }
+                        @if (bike.EstimatedPriceMin > 0)
+                        {
+                            <div>
+                                <div class="font11 text-light-grey">Expected Price</div>
+                                <div class="text-default">
+                                    @Html.Raw("<span class='font16'> &#x20B9;</span>")
+                                    &nbsp;<span class="text-bold font16">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.EstimatedPriceMin))</span>
+                                    <span class="font14 text-bold"> onwards</span>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="text-default price-not-available-span">
+                                <span class="font14 text-light-grey">Price not available</span>
+                            </div>
+                        }
+                    </div>
+                </a>
+            </div>
+        }
+    </amp-carousel>
+}

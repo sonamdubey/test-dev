@@ -16,7 +16,7 @@
     <RootNamespace>Bikewale</RootNamespace>
     <AssemblyName>Bikewale</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
-    <UseIISExpress>false</UseIISExpress>
+	<UseIISExpress>false</UseIISExpress>
     <IISUrl>http://localhost:9011/</IISUrl>
     <TargetFrameworkProfile />
     <UseGlobalApplicationHostFile />
@@ -3348,6 +3348,7 @@
     <Content Include="Videos\video.aspx" />
     <Content Include="Videos\VideoCategories.aspx" />
     <Content Include="Videos\VideoMakeModel.aspx" />
+    <Content Include="Views\BikeModels\_UpcomingBikesWidgetBase_Mobile_AMP.cshtml" />
     <Content Include="Views\BikeSeries\_Index_Tabs_Mobile.cshtml" />
     <Content Include="Views\ExpertReviews\_ExpertReview_Mobile.cshtml" />
     <Content Include="Views\Make\_DealerServiceCentersWidget.cshtml">
@@ -4097,6 +4098,9 @@
     <Content Include="Views\BikeModels\_PopularBikesWidgetBase_Mobile.cshtml" />
     <Content Include="Views\Make\_OtherBrandsWidgetBase_Mobile.cshtml" />
     <Content Include="Views\BikeModels\_UpcomingBikesWidgetBase_Mobile.cshtml" />
+    <Content Include="Views\Shared\_EditorialWidgetBase_Mobile_AMP.cshtml" />
+    <Content Include="Views\BikeModels\_PopularBikesWidgetBase_Mobile_AMP.cshtml" />
+    <Content Include="Views\Make\_OtherBrandsWidgetBase_Mobile_AMP.cshtml" />
     <None Include="Views\Shared\_Sidebar-section.cshtml" />
     <Content Include="Views\BikeModels\_MultiTabsWidget.cshtml" />
     <Content Include="Views\Shared\_ReviewPopup.cshtml" />
