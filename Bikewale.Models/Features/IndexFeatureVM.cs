@@ -1,7 +1,8 @@
 ﻿
+using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS.Articles;
 using Bikewale.Entities.Pager;
-using Bikewale.Models.BikeModels;
+using Bikewale.Models.Shared;
 using System.Collections.Generic;
 namespace Bikewale.Models
 {
@@ -18,9 +19,6 @@ namespace Bikewale.Models
         public uint StartIndex { get; set; }
         public uint EndIndex { get; set; }
         public uint TotalArticles { get; set; }
-        public MostPopularBikeWidgetVM MostPopularBikes { get; set; }
-        public UpcomingBikesWidgetVM UpcomingBikes { get; set; }
-        public MultiTabsWidgetVM PopularBikesAndPopularScootersWidget { get; set; }
-        public MultiTabsWidgetVM UpcomingBikesAndUpcomingScootersWidget { get; set; }
+        public IDictionary<EditorialPageWidgetPosition, EditorialWidgetVM> PageWidgets { get; set; }
     }
 }

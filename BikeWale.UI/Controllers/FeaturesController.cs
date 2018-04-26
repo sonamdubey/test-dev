@@ -46,7 +46,7 @@ namespace Bikewale.Controllers
         [Filters.DeviceDetection()]
         public ActionResult Index()
         {
-            IndexPage obj = new IndexPage(_Cache, _objPager, _upcoming, _bikeModels);
+            IndexPage obj = new IndexPage(_Cache, _objPager, _upcoming, _bikeModels, _bikeMakesCacheRepository, _models, _series);
             if (obj.status == Entities.StatusCodes.ContentNotFound)
             {
                 return Redirect("/pagenotfound.aspx");
@@ -69,7 +69,7 @@ namespace Bikewale.Controllers
         [Route("m/features/")]
         public ActionResult Index_Mobile()
         {
-            IndexPage obj = new IndexPage(_Cache, _objPager, _upcoming, _bikeModels);
+            IndexPage obj = new IndexPage(_Cache, _objPager, _upcoming, _bikeModels, _bikeMakesCacheRepository, _models, _series);
             obj.IsMobile = true;
             if (obj.status == Entities.StatusCodes.ContentNotFound)
             {
