@@ -10,27 +10,26 @@ var initialState = fromJS({
     modelName: "CB Hornet 160R",
     modelImage: "https://imgd.aeplcdn.com//310x174//bw/models/honda-cb-hornet-160r.jpg",
     rating: 4.5,
-    versionId: 4792,
     version: [
       {
-        id: 4792,
-        name: "STD"
+        value: 4792,
+        label: "STD"
       },
       {
-        id: 4481,
-        name: "Special Edition - CBS [2017]"
+        value: 4481,
+        label: "Special Edition - CBS [2017]"
       },
       {
-        id: 4793,
-        name: "CBS"
+        value: 4793,
+        label: "CBS"
       },
       {
-        id: 4782,
-        name: "ABS - Std"
+        value: 4782,
+        label: "ABS - Std"
       },
       {
-        id: 4783,
-        name: "ABS - Dlx"
+        value: 4783,
+        label: "ABS - Dlx"
       }
     ]
   }
