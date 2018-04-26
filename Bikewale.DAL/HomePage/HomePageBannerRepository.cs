@@ -44,10 +44,7 @@ namespace Bikewale.DAL.HomePage
                                     Css = Convert.ToString(dr["css"]),
                                     JS = Convert.ToString(dr["js"]),
                                 };
-                                if (dr["endtime"] != null)
-                                {
-                                    duration = Convert.ToDateTime(dr["endtime"]) - DateTime.Now;
-                                }
+                                duration = SqlReaderConvertor.ToDateTime(dr["endtime"]) - DateTime.Now;
                             }
 
                             dr.Close();
