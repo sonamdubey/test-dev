@@ -9,7 +9,21 @@
     height: 130px
     background-color: color($bg-color)
     border: 1px solid color($color)
-  
+    position: relative
+
+    &:before
+      content: ''
+      display: block
+      position: absolute
+      top: 0
+      height: 90px
+      width: 100%
+      background-color: color('white')
+
+  @media only screen and (max-width: 320px)
+    .selection-step__card-content
+      min-width: 270px
+      
 .selection-steps__container
   padding-left: 20px
   padding-right: 20px
@@ -19,16 +33,16 @@
   padding-right: 0
   width: 100%
   overflow-x: auto
+  white-space: nowrap
 
   .selection-steps__card
-    @include vendor-prefix('transform', scaleY(.9))
     opacity: .5
     padding-right: 16px
     will-change: opacity
-    will-change: transform
+    display: inline-block
+    width: 90%
 
     &.inview--active
-      @include vendor-prefix('transform', scaleY(1))
       opacity: 1
 
     &:first-child
@@ -38,10 +52,7 @@
       padding-right: 20px
 
   .emi-calulator__selection-steps
-    @include flexbox
-    @include flex-wrap(nowrap)
     width: 100%
-    white-space: nowrap
 
 .select-step-card__placeholder
   height: 100%
@@ -49,15 +60,7 @@
   min-height: 160px
   max-width: 320px
   position: relative
-
-  &:before
-    content: ''
-    display: block
-    position: absolute
-    top: 2px
-    height: 90px
-    width: 100%
-    background-color: color('white')
+  margin: 0 auto
 
   &:after
     content: ''
@@ -89,17 +92,24 @@
   text-align: center
   font-size: 13px
   font-weight: $font-semibold
-  max-width: 360px
 
-.selection-step__right-arrow
-  @include vendor-prefix('border-radius', 50px)
-  @include down-fff-arrow
-  @include vendor-prefix('transform', rotate(-90deg))
-  background-color: color('salmon')
-  background-position: center
-  background-size: 10px
-  height: 16px
-  width: 16px
-  margin-left: 10px
+.selection-step__text
   display: inline-block
   vertical-align: middle
+  overflow: hidden
+  text-overflow: ellipsis
+  max-width: 245px
+  position: relative
+
+.selection-step__right-arrow
+    @include vendor-prefix('border-radius', 50px)
+    @include down-fff-arrow
+    @include vendor-prefix('transform', rotate(-90deg))
+    background-color: color('salmon')
+    background-position: center
+    background-size: 10px
+    height: 16px
+    width: 16px
+    margin-left: 10px
+    display: inline-block
+    vertical-align: middle

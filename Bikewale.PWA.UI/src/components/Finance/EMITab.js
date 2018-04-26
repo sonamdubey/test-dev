@@ -52,7 +52,7 @@ class EMITab extends React.Component {
             Know the tentative EMI for bike of your choice in 2 simple steps.
           </p>
         </div>
-        <EMISteps handleSelectBikeClick={this.handleSelectBikeClick}  handleSelectCityClick={this.handleSelectCityClick}/>
+        <EMISteps onSelectBikeClick={this.handleSelectBikeClick}  onSelectCityClick={this.handleSelectCityClick}/>
         <SelectBikePopup isActive={selectBikePopup.isActive} />
         <SelectCityPopup isActive={FinanceCityPopup.isActive} data={FinanceCityPopup} fetchCity={fetchCity} onCityClick={this.handleCityClick} />
       </div>

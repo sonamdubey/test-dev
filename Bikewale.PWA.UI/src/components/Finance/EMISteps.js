@@ -9,12 +9,13 @@ import {
   scrollIntoView,
    inView
   } from '../../utils/ScrollTo'
+import {debounce} from '../../utils/debounce'
 
 
 const propTypes = {
-	// body type data
-	handleSelectBikeClick: PropTypes.func,
-	// body type count
+	// handle select bike text click function
+  handleSelectBikeClick: PropTypes.func,
+	// handle select city text click function
 	handleSelectCityClick: PropTypes.func
 }
 
@@ -32,37 +33,34 @@ class EMISteps extends React.Component {
     });
   }
 
-  renderMakeCard = (modelData) =>{
-    if(modelData.makeName != '') {
-      return (
-        <div className="select-step-card__placeholder select-card__make-selection" onClick={this.handleMakeSelect} >
-          <span className="select-step-card__link">
+  renderMakeCard = (makeName) =>{
+    return (makeName != '')
+    ?
+      (
+      <div className="select-step-card__placeholder select-card__make-selection" onClick={this.handleMakeSelect} >
+        <div className="select-step-card__link">
+          <span className="selection-step__text">
             Search Make and Model
-            <span className="selection-step__right-arrow"></span>
           </span>
+          <span className="selection-step__right-arrow"></span>
         </div>
+      </div>
       )
-    }
-    else {
-      return (
-        <ModelCard model={modelData} />
-      )
-    }
+    :
+      <ModelCard model={modelData} />
   }
 
-  renderCityCard =(isOverflow, handleSelectCityClick) => {
-    if(isOverflow) {
-      return(
-        <SelectionStepCard>
-          <div ref={this.setCitySelectRef} className="select-step-card__placeholder select-card__city-selection" onClick={this.props.handleSelectCityClick}>
-            <span className="select-step-card__link">
-                Select your City
-                <span className="selection-step__right-arrow"></span>
-              </span>
-          </div>
-        </SelectionStepCard>
-      )
-    }
+  renderCityCard =() => {
+    return(
+      <div ref={this.setCitySelectRef} className="select-step-card__placeholder select-card__city-selection" onClick={this.props.onSelectCityClick}>
+        <div className="select-step-card__link">
+          <span className="selection-step__text">
+            Select your City
+          </span>
+          <span className="selection-step__right-arrow"></span>
+        </div>
+      </div>
+    )
   }
   setSelectionContainerRef = (element) => {
     this.StepSelectionContainer = element;
@@ -74,17 +72,24 @@ class EMISteps extends React.Component {
     this.citySelect = element;
   };
   handleMakeSelect = () => {
-    // {this.props.handleSelectBikeClick()}
+    {this.props.onSelectBikeClick()}
     scrollIntoView(this.StepSelectionContainer, this.citySelect)
   }
   handleScroll = (event) => {
-    let CurrentTarget = event.currentTarget;
-    if(CurrentTarget.classList.contains('selection-step--overflow')) {    
-      inView(this.StepSelection, this.StepSelectionContainer);
-    }
+    var currentElement = this.StepSelectionContainer;
+    var childElement = this.StepSelection;
+    debounce(function(event) {
+      if(currentElement.classList.contains('selection-step--overflow')) {    
+        inView(childElement, currentElement);
+      }
+    }, 250)();
+    
   }
   componentDidMount = () => {
     this.StepSelectionContainer.addEventListener('scroll', this.handleScroll);
+  }
+  componentWillUnmount = () => {
+    this.StepSelectionContainer.removeEventListener('scroll', this.handleScroll);
   }
   render() {
     const modelData = {
@@ -98,7 +103,7 @@ class EMISteps extends React.Component {
       <div className="emi-calculator__progress-container">
         <ProgressBar>
           <ProgressBarItem stepNumber={1} status={this.state.bike}>
-              <span>Select bike </span>
+              Select bike
           </ProgressBarItem>
           <ProgressBarItem stepNumber={2} status={this.state.city}>
               Select city
@@ -108,9 +113,13 @@ class EMISteps extends React.Component {
         <div ref={this.setSelectionContainerRef} className={"selection-steps__container " + isOverflow}>
           <div ref={this.setSelectionStepsRef} className="emi-calulator__selection-steps">
             <SelectionStepCard>
-              {this.renderMakeCard(modelData)}
+              {this.renderMakeCard(modelData.makeName)}
             </SelectionStepCard>
-            {this.renderCityCard(isOverflow, this.handleSelectCityClick)}
+            {(isOverflow) &&
+              <SelectionStepCard>
+              {this.renderCityCard()}
+              </SelectionStepCard>
+            }
           </div>
         </div>
       </div>

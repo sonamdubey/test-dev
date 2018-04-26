@@ -29,53 +29,77 @@ export const scrollTop = (element, to, duration = 500) => {
   animateScroll()
 }
 
-export const inView = (element, elementContainer) => {
-  let children = element.childNodes;
+export const inView = (element) => {
   let isViewSelected = false;
-  children.forEach(function(item) {
+  Array.from(element.children).forEach(function(item) {
 
-    if(isElementVisible(item)) {
+    if(isElementVisible(item.firstChild, 'horizontal', 50)) {
       if(isViewSelected != true) {
+        Array.from(item.parentElement.children).forEach(function(child){
+          child.classList.remove('inview--active');
+        })
+
         item.classList.add("inview--active");
         isViewSelected = true
       }
-      else {
-        item.classList.remove("inview--active");
-      }
-    }
-    else {
-      item.classList.remove("inview--active");
     }
 
-    
-    // if(isViewSelected != true) {
-    //   if(isElementVisible(item)) {
-    //     item.classList.add("inview--active");
-    //     isViewSelected = true
-    //   }
-    // }
   });
     
 }
 
-export const isElementVisible = (el) => {
-  var rect     = el.getBoundingClientRect(),
-  vWidth   = window.innerWidth || doc.documentElement.clientWidth,
-  vHeight  = window.innerHeight || doc.documentElement.clientHeight,
-  efp      = function (x, y) { return document.elementFromPoint(x, y) };     
+/*
+  direction: horizontal, vertical
+  threshold: visiblity of card on viewport eg, 50, 75
+*/
+export const isElementVisible = (element,  direction, threshold) => {
+  var elementRect= element.getBoundingClientRect();
+  var ThresholdValue;
+  if(typeof threshold==='number'){
+    ThresholdValue = threshold ? elementRect.width*(parseInt(threshold)/100) : 0;
+  }
+  else {
+    console.log('please provide threshold value as int in isElementVisible')
+  }
+  
+  switch(direction) {
+    case 'horizontal':
+      if(elementRect.left + ThresholdValue > 0 && elementRect.right - ThresholdValue < window.innerWidth) {
+        return true;
+      }
+      else {
+        return false;
+      }
+    
+    case 'vertical':
+      if(elementRect.top + ThresholdValue > 0 && elementRect.bottom - ThresholdValue < window.innerHeight) {
+        return true;
+      }
+      else {
+        return false;
+      }
+    
+    default:
+      if(elementRect.left + ThresholdValue > 0 && elementRect.right - ThresholdValue < window.innerWidth && elementRect.top + ThresholdValue > 0 && elementRect.bottom - ThresholdValue < window.innerHeight) {
+        return true;
+      }
+      else {
+        return false;
+      }    
+  }
+    
+// // Return false if it's not in the viewport
+// if (rect.right < 0 || rect.bottom < 0 
+//       || rect.left > vWidth || rect.top > vHeight)
+//   return false;
 
-// Return false if it's not in the viewport
-if (rect.right < 0 || rect.bottom < 0 
-      || rect.left > vWidth || rect.top > vHeight)
-  return false;
-
-// Return true if any of its four corners are visible
-return (
-    el.contains(efp(rect.left,  rect.top))
-||  el.contains(efp(rect.right, rect.top))
-||  el.contains(efp(rect.right, rect.bottom))
-||  el.contains(efp(rect.left,  rect.bottom))
-);
+// // Return true if all of its four corners are visible
+// return (
+//     el.contains(efp(rect.left,  rect.top))
+// &&  el.contains(efp(rect.right, rect.top))
+// &&  el.contains(efp(rect.right, rect.bottom))
+// &&  el.contains(efp(rect.left,  rect.bottom))
+// );
   
 }
 export const scrollLeft = (element, to, duration = 500) => {
