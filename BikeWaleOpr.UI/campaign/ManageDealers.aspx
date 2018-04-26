@@ -90,11 +90,11 @@
             <li><a target="_blank" rel="noopener" href="/dealercampaign/servingareas/dealerid/<%= dealerId %>/campaignid/<%= campaignId %>/" title="Manage Campaign Areas Mapping">Campaign Serving Areas (Step 4)</a></li>
         </ul>
         <div id="box" class="box">
-            <table class="margin-top10" rules="all" cellspacing="0" cellpadding="8" style="border-width: 1px; border-style: solid; width: 75%; border-collapse: collapse;font-size: 13px;">
+            <table class="margin-top10" rules="all" cellspacing="0" cellpadding="8" style="border-width: 1px; border-style: solid; width: 80%; border-collapse: collapse;font-size: 13px;">
                 <tbody>
                     <tr>
-                        <td style="width: 22%"><strong>Dealer Name :</strong> </td>
-                        <td><span id="spnDealerName"><%= dealerName  %></span></td>
+                        <td style="width: 25%"><strong>Dealer Name :</strong> </td>
+                        <td><span id="spnDealerName"><strong><%= dealerName  %></strong></span></td>
                     </tr>
                     <tr>
                         <td style="width: 22%"><strong>Campaign Name :</strong> </td>
@@ -128,10 +128,10 @@
                     <tr>
                         <td style="width: 22%"><strong>Additional Communication No's:</strong> </td>
                         <td>
-                            <asp:textbox runat="server" name="communicationNumber1" id="txtCommunicationNumber1" maxlength="10" class="numeric width300 font13" enabled="true" />
-                            <asp:textbox runat="server" name="communicationNumber2" id="txtCommunicationNumber2" maxlength="10" class="numeric width300 font13" enabled="true" />
-                            <asp:textbox runat="server" name="communicationNumber3" id="txtCommunicationNumber3" maxlength="10" class="numeric width300 font13" enabled="true" />
-                            <asp:textbox runat="server" name="communicationNumber4" id="txtCommunicationNumber4" maxlength="10" class="numeric width300 font13" enabled="true" />
+                            <asp:textbox runat="server" name="communicationNumber1" id="txtCommunicationNumber1" maxlength="10" class="numeric width300 font13" enabled="true" placeholder="Mobile 1 (Optional)" />
+                            <asp:textbox runat="server" name="communicationNumber2" id="txtCommunicationNumber2" maxlength="10" class="numeric width300 font13" enabled="true" placeholder="Mobile 2 (Optional)"/>
+                            <asp:textbox runat="server" name="communicationNumber3" id="txtCommunicationNumber3" maxlength="10" class="numeric width300 font13" enabled="true" placeholder="Mobile 3 (Optional)"/>
+                            <asp:textbox runat="server" name="communicationNumber4" id="txtCommunicationNumber4" maxlength="10" class="numeric width300 font13" enabled="true" placeholder="Mobile 4 (Optional)"/>
                         </td>
                     </tr>
                     <tr>
@@ -144,10 +144,10 @@
                     <tr>
                         <td style="width: 22%"><strong>Additional Communication Emails:</strong> </td>
                         <td>
-                            <asp:textbox runat="server" name="communicationEmail1" id="txtCommunicationEmail1" maxlength="100" class=" width300 font13" type ="email" enabled="true" />
-                            <asp:textbox runat="server" name="communicationEmail2" id="txtCommunicationEmail2" maxlength="100" class=" width300 font13" type ="email" enabled="true" />
-                            <asp:textbox runat="server" name="communicationEmail3" id="txtCommunicationEmail3" maxlength="100" class=" width300 font13" type ="email" enabled="true" />
-                            <asp:textbox runat="server" name="communicationEmail4" id="txtCommunicationEmail4" maxlength="100" class=" width300 font13" type ="email" enabled="true" />
+                            <asp:textbox runat="server" name="communicationEmail1" id="txtCommunicationEmail1" maxlength="100" class=" width300 font13" type ="email" enabled="true" placeholder="Email 1 (Optional)"/>
+                            <asp:textbox runat="server" name="communicationEmail2" id="txtCommunicationEmail2" maxlength="100" class=" width300 font13" type ="email" enabled="true" placeholder="Email 2 (Optional)"/>
+                            <asp:textbox runat="server" name="communicationEmail3" id="txtCommunicationEmail3" maxlength="100" class=" width300 font13" type ="email" enabled="true" placeholder="Email 3 (Optional)"/>
+                            <asp:textbox runat="server" name="communicationEmail4" id="txtCommunicationEmail4" maxlength="100" class=" width300 font13" type ="email" enabled="true" placeholder="Email 4 (Optional)"/>
                         </td>
                     </tr>
                     <tr>

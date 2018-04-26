@@ -114,8 +114,8 @@ namespace BikewaleOpr.Campaign
                 UInt16 callToAction = (UInt16)(chkUseDefaultCallToAction.Checked ? DEFAULT_CALL_TO_ACTION : Convert.ToUInt16(ddlCallToAction.SelectedValue));
                 string campaignName = txtCampaignName.Text.Trim();
                 string dealerEmail = txtDealerEmail.Text.Trim();
-                string additionalNumbers = FormatAdditionalCommunication(txtCommunicationNumber1.Text, txtCommunicationNumber2.Text, txtCommunicationNumber3.Text, txtCommunicationNumber4.Text);
-                string additionalEmails = FormatAdditionalCommunication(txtCommunicationEmail1.Text, txtCommunicationEmail2.Text, txtCommunicationEmail3.Text, txtCommunicationEmail4.Text);
+                string additionalNumbers = FormatAdditionalCommunication( new string[] { txtCommunicationNumber1.Text, txtCommunicationNumber2.Text, txtCommunicationNumber3.Text, txtCommunicationNumber4.Text });
+                string additionalEmails = FormatAdditionalCommunication(new string[] { txtCommunicationEmail1.Text, txtCommunicationEmail2.Text, txtCommunicationEmail3.Text, txtCommunicationEmail4.Text });
                 if (isCampaignPresent)
                 {
                     campaignRepository.UpdateBWDealerCampaign(
@@ -342,22 +342,50 @@ namespace BikewaleOpr.Campaign
                         txtLeadsLimit.Text = Convert.ToString(campaign.DailyLeadLimit);
                         useDefaultCallToAction = campaign.CallToAction == DEFAULT_CALL_TO_ACTION ? true : false;
                         chkUseDefaultCallToAction.Checked = useDefaultCallToAction;
-                        string communication1, communication2, communication3, communication4;
+                        List<string> communications;
                         if (!String.IsNullOrEmpty(campaign.CommunicationNumbers))
                         {
-                            MapAdditionalCommunication(campaign.CommunicationNumbers, out communication1, out communication2, out communication3, out communication4);
-                            txtCommunicationNumber1.Text = communication1;
-                            txtCommunicationNumber2.Text = communication2;
-                            txtCommunicationNumber3.Text = communication3;
-                            txtCommunicationNumber4.Text = communication4;
+                            communications = new List<string>();
+                            MapAdditionalCommunication(campaign.CommunicationNumbers, communications);
+                            var numberIterator = communications.GetEnumerator();
+                            if (numberIterator.MoveNext())
+                            {
+                                txtCommunicationNumber1.Text = numberIterator.Current.ToString();
+                            }
+                            if (numberIterator.MoveNext())
+                            {
+                                txtCommunicationNumber2.Text = numberIterator.Current.ToString();
+                            }
+                            if (numberIterator.MoveNext())
+                            {
+                                txtCommunicationNumber3.Text = numberIterator.Current.ToString();
+                            }
+                            if (numberIterator.MoveNext())
+                            {
+                                txtCommunicationNumber4.Text = numberIterator.Current.ToString();
+                            }
                         }
                         if (!String.IsNullOrEmpty(campaign.CommunicationEmails))
                         {
-                            MapAdditionalCommunication(campaign.CommunicationEmails, out communication1, out communication2, out communication3, out communication4);
-                            txtCommunicationEmail1.Text = communication1;
-                            txtCommunicationEmail2.Text = communication2;
-                            txtCommunicationEmail3.Text = communication3;
-                            txtCommunicationEmail4.Text = communication4;
+                            communications = new List<string>();
+                            MapAdditionalCommunication(campaign.CommunicationEmails, communications);
+                            var emailIterator = communications.GetEnumerator();
+                            if (emailIterator.MoveNext())
+                            {
+                                txtCommunicationEmail1.Text = emailIterator.Current.ToString();
+                            }
+                            if (emailIterator.MoveNext())
+                            {
+                                txtCommunicationEmail2.Text = emailIterator.Current.ToString();
+                            }
+                            if (emailIterator.MoveNext())
+                            {
+                                txtCommunicationEmail3.Text = emailIterator.Current.ToString();
+                            }
+                            if (emailIterator.MoveNext())
+                            {
+                                txtCommunicationEmail4.Text = emailIterator.Current.ToString();
+                            }
                         }
                     }
                 }
@@ -461,31 +489,23 @@ namespace BikewaleOpr.Campaign
         /// Created by  : Pratibha Verma on 26 April 2018
         /// Description : Method to format additional communicatio
         /// </summary>
-        /// <param name="communication1"></param>
-        /// <param name="communication2"></param>
-        /// <param name="communication3"></param>
-        /// <param name="communication4"></param>
+        /// <param name="additionalCommunications"></param>
         /// <returns></returns>
-        private string FormatAdditionalCommunication(string communication1, string communication2, string communication3, string communication4)
+        private string FormatAdditionalCommunication(string[] additionalCommunications)
         {
             try
             {
                 StringBuilder builder = new StringBuilder();
-                if (!string.IsNullOrEmpty(communication1))
+                for (int i = 0; i < additionalCommunications.Length; i++)
                 {
-                    builder.Append(string.Format("{0}", communication1.Trim()));
+                    if (!string.IsNullOrEmpty(additionalCommunications[i]))
+                    {
+                        builder.AppendFormat(string.Format("{0},", additionalCommunications[i]));
+                    }
                 }
-                if (!string.IsNullOrEmpty(communication2))
+                if (builder.Length > 1)
                 {
-                    builder.Append(string.Format(",{0}", communication2.Trim()));
-                }
-                if (!string.IsNullOrEmpty(communication3))
-                {
-                    builder.Append(string.Format(",{0}", communication3.Trim()));
-                }
-                if (!string.IsNullOrEmpty(communication4))
-                {
-                    builder.Append(string.Format(",{0}", communication4.Trim()));
+                    builder.Remove(builder.Length - 1, 1);
                 }
                 return builder.ToString();
             }
@@ -500,32 +520,18 @@ namespace BikewaleOpr.Campaign
         /// Description : Method to map additional communications
         /// </summary>
         /// <param name="additionalCommunication"></param>
-        /// <param name="communication1"></param>
-        /// <param name="communication2"></param>
-        /// <param name="communication3"></param>
-        /// <param name="communication4"></param>
-        private void MapAdditionalCommunication(string additionalCommunication, out string communication1, out string communication2, out string communication3, out string communication4)
+        private void MapAdditionalCommunication(string additionalCommunication, List<string> communications)
         {
-            communication1 = communication2 = communication3 = communication4 = string.Empty;
             try
             {
                 string[] tokens = additionalCommunication.Split(',');
-                int length = tokens.Length;
-                if (length >= 1)
+                if (tokens.Length > 0)
                 {
-                    communication1 = tokens[0];
-                }
-                if (length >= 2)
-                {
-                    communication2 = tokens[1];
-                }
-                if (length >= 3)
-                {
-                    communication3 = tokens[2];
-                }
-                if (length >= 4)
-                {
-                    communication4 = tokens[3];
+                    var iterator = tokens.GetEnumerator();
+                    while (iterator.MoveNext())
+                    {
+                        communications.Add(iterator.Current.ToString());
+                    }
                 }
             }
             catch (Exception ex)
