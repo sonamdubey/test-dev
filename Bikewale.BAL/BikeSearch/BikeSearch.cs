@@ -268,7 +268,7 @@ namespace Bikewale.BAL.BikeSearch
 
                     case "2":
                         Field mileageField = _mileage;
-                        returnVal = a => (sortOrder == "0" ? a.Descending(mileageField) : a.Ascending(mileageField));
+                        returnVal = a => ((String.IsNullOrEmpty(sortOrder) || sortOrder == "0") ? a.Descending(mileageField) : a.Ascending(mileageField));
                         break;
 
                     default:
