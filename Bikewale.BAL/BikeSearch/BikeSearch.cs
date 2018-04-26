@@ -38,6 +38,7 @@ namespace Bikewale.BAL.BikeSearch
         private static readonly string _brakes = "topVersion.rearBrakeType";
         private static readonly string _wheels = "topVersion.wheels";
         private static readonly string _startType = "topVersion.startType";
+        private static readonly string _popular = "weight";
 
         private static readonly byte _modelStatus = 1;// by defaut all new bikes status
         private static readonly byte _versionStatus = 1;
@@ -272,6 +273,8 @@ namespace Bikewale.BAL.BikeSearch
                         break;
 
                     default:
+                        Field popularField = _popular;
+                        returnVal = a => a.Descending(popularField);
                         break;
                 }
             }
