@@ -76,17 +76,6 @@ const bikeImageCarouselAction = {
 
 }
 
-const selectBikePopupAction = {
-	OPEN: 'OPEN_POPUP',
-	CLOSE: 'CLOSE_POPUP'
-}
-
-const financeCityPopupAction = {
-	FETCH_CITY_SUCCESS: 'FETCH_CITY_SUCCESS',
-	OPEN_POPUP: 'OPEN_POPUP',
-	SET_CITY: 'SET_CITY'
-}
-
 module.exports = {
 	newsListAction : newsListAction,
 	newsDetailAction : newsDetailAction,
@@ -95,8 +84,6 @@ module.exports = {
 	videosLandingAction : videosLandingAction,
 	videosByCategoryAction : videosByCategoryAction,
 	videosDetailAction : videosDetailAction,
-	bikeImageCarouselAction : bikeImageCarouselAction,
-	selectBikePopupAction: selectBikePopupAction,
-	financeCityPopupAction: financeCityPopupAction
+	bikeImageCarouselAction : bikeImageCarouselAction
 }
 
