@@ -106,9 +106,12 @@ namespace Bikewale.BAL.BikeSearch
                         filtersOutput.PageNumber = Convert.ToUInt16(filterInputs.PageNo);
                         filtersOutput.PageSize = Convert.ToUInt16(filterInputs.PageSize);
                     }
-                    if (filterInputs.sc != null && filterInputs.so != null)
+                    if (filterInputs.sc != null)
                     {
                         filtersOutput.SortCriteria = filterInputs.sc;
+                    }
+                    if (filterInputs.so != null)
+                    {
                         filtersOutput.SortOrder = filterInputs.so;
                     }
                 }
