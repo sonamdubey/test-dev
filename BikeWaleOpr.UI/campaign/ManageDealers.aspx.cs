@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
@@ -35,7 +36,8 @@ namespace BikewaleOpr.Campaign
         protected string dealerName, oldMaskingNumber, dealerMobile, reqFormMaskingNumber, reqLeadsLimit;
         protected Button btnUpdate;
         protected ManageDealerCampaign dealerCampaign;
-        protected TextBox txtdealerRadius, txtDealerEmail, txtMaskingNumber, txtCampaignName, txtLeadsLimit, txtDealerNumber;
+        protected TextBox txtdealerRadius, txtDealerEmail, txtMaskingNumber, txtCampaignName, txtLeadsLimit, txtDealerNumber, txtCommunicationNumber1, txtCommunicationNumber2, txtCommunicationNumber3, txtCommunicationNumber4,
+                          txtCommunicationEmail1, txtCommunicationEmail2, txtCommunicationEmail3, txtCommunicationEmail4;
         protected string startDate, endDate;
         protected Label lblGreenMessage, lblErrorSummary;
         protected HtmlGenericControl textArea;
@@ -112,6 +114,8 @@ namespace BikewaleOpr.Campaign
                 UInt16 callToAction = (UInt16)(chkUseDefaultCallToAction.Checked ? DEFAULT_CALL_TO_ACTION : Convert.ToUInt16(ddlCallToAction.SelectedValue));
                 string campaignName = txtCampaignName.Text.Trim();
                 string dealerEmail = txtDealerEmail.Text.Trim();
+                string additionalNumbers = FormatAdditionalCommunication(txtCommunicationNumber1.Text, txtCommunicationNumber2.Text, txtCommunicationNumber3.Text, txtCommunicationNumber4.Text);
+                string additionalEmails = FormatAdditionalCommunication(txtCommunicationEmail1.Text, txtCommunicationEmail2.Text, txtCommunicationEmail3.Text, txtCommunicationEmail4.Text);
                 if (isCampaignPresent)
                 {
                     campaignRepository.UpdateBWDealerCampaign(
@@ -124,7 +128,9 @@ namespace BikewaleOpr.Campaign
                         campaignName,
                         dealerEmail,
                         leadLimit,
-                        callToAction
+                        callToAction,
+                        additionalNumbers,
+                        additionalEmails
                         );
 
                     lblGreenMessage.Text = "Selected campaign has been Updated !";
@@ -141,7 +147,9 @@ namespace BikewaleOpr.Campaign
                          campaignName,
                          dealerEmail,
                          leadLimit,
-                         callToAction
+                         callToAction,
+                         additionalNumbers,
+                         additionalEmails
                          );
                     lblGreenMessage.Text = "New campaign has been added !";
                     isCampaignPresent = true;
@@ -322,7 +330,7 @@ namespace BikewaleOpr.Campaign
                     {
                         if (!String.IsNullOrEmpty(campaign.MaskingNumber))
                         {
-                            txtMaskingNumber.Text = campaign.MaskingNumber;
+                           txtMaskingNumber.Text = campaign.MaskingNumber;
                             oldMaskingNumber = txtMaskingNumber.Text;
                             hdnOldMaskingNumber.Value = txtMaskingNumber.Text;
                         }
@@ -334,6 +342,23 @@ namespace BikewaleOpr.Campaign
                         txtLeadsLimit.Text = Convert.ToString(campaign.DailyLeadLimit);
                         useDefaultCallToAction = campaign.CallToAction == DEFAULT_CALL_TO_ACTION ? true : false;
                         chkUseDefaultCallToAction.Checked = useDefaultCallToAction;
+                        string communication1, communication2, communication3, communication4;
+                        if (!String.IsNullOrEmpty(campaign.CommunicationNumbers))
+                        {
+                            MapAdditionalCommunication(campaign.CommunicationNumbers, out communication1, out communication2, out communication3, out communication4);
+                            txtCommunicationNumber1.Text = communication1;
+                            txtCommunicationNumber2.Text = communication2;
+                            txtCommunicationNumber3.Text = communication3;
+                            txtCommunicationNumber4.Text = communication4;
+                        }
+                        if (!String.IsNullOrEmpty(campaign.CommunicationEmails))
+                        {
+                            MapAdditionalCommunication(campaign.CommunicationEmails, out communication1, out communication2, out communication3, out communication4);
+                            txtCommunicationEmail1.Text = communication1;
+                            txtCommunicationEmail2.Text = communication2;
+                            txtCommunicationEmail3.Text = communication3;
+                            txtCommunicationEmail4.Text = communication4;
+                        }
                     }
                 }
 
@@ -431,5 +456,82 @@ namespace BikewaleOpr.Campaign
             }
         }
         #endregion
+
+        /// <summary>
+        /// Created by  : Pratibha Verma on 26 April 2018
+        /// Description : Method to format additional communicatio
+        /// </summary>
+        /// <param name="communication1"></param>
+        /// <param name="communication2"></param>
+        /// <param name="communication3"></param>
+        /// <param name="communication4"></param>
+        /// <returns></returns>
+        private string FormatAdditionalCommunication(string communication1, string communication2, string communication3, string communication4)
+        {
+            try
+            {
+                StringBuilder builder = new StringBuilder();
+                if (!string.IsNullOrEmpty(communication1))
+                {
+                    builder.Append(string.Format("{0}", communication1.Trim()));
+                }
+                if (!string.IsNullOrEmpty(communication2))
+                {
+                    builder.Append(string.Format(",{0}", communication2.Trim()));
+                }
+                if (!string.IsNullOrEmpty(communication3))
+                {
+                    builder.Append(string.Format(",{0}", communication3.Trim()));
+                }
+                if (!string.IsNullOrEmpty(communication4))
+                {
+                    builder.Append(string.Format(",{0}", communication4.Trim()));
+                }
+                return builder.ToString();
+            }
+            catch (Exception)
+            {
+                return string.Empty;
+            }
+        }
+
+        /// <summary>
+        /// Created by  : Pratibha Verma on 26 April 2018
+        /// Description : Method to map additional communications
+        /// </summary>
+        /// <param name="additionalCommunication"></param>
+        /// <param name="communication1"></param>
+        /// <param name="communication2"></param>
+        /// <param name="communication3"></param>
+        /// <param name="communication4"></param>
+        private void MapAdditionalCommunication(string additionalCommunication, out string communication1, out string communication2, out string communication3, out string communication4)
+        {
+            communication1 = communication2 = communication3 = communication4 = string.Empty;
+            try
+            {
+                string[] tokens = additionalCommunication.Split(',');
+                int length = tokens.Length;
+                if (length >= 1)
+                {
+                    communication1 = tokens[0];
+                }
+                if (length >= 2)
+                {
+                    communication2 = tokens[1];
+                }
+                if (length >= 3)
+                {
+                    communication3 = tokens[2];
+                }
+                if (length >= 4)
+                {
+                    communication4 = tokens[3];
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "BikewaleOpr.Campaign.MapAdditionalCommunication()");
+            }
+        }
     }
 }

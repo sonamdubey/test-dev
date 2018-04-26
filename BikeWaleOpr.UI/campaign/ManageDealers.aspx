@@ -90,28 +90,28 @@
             <li><a target="_blank" rel="noopener" href="/dealercampaign/servingareas/dealerid/<%= dealerId %>/campaignid/<%= campaignId %>/" title="Manage Campaign Areas Mapping">Campaign Serving Areas (Step 4)</a></li>
         </ul>
         <div id="box" class="box">
-            <table class="margin-top10" rules="all" cellspacing="0" cellpadding="8" style="border-width: 1px; border-style: solid; width: 70%; border-collapse: collapse;font-size: 13px;">
+            <table class="margin-top10" rules="all" cellspacing="0" cellpadding="8" style="border-width: 1px; border-style: solid; width: 75%; border-collapse: collapse;font-size: 13px;">
                 <tbody>
                     <tr>
-                        <td style="width: 20%"><strong>Dealer Name :</strong> </td>
+                        <td style="width: 22%"><strong>Dealer Name :</strong> </td>
                         <td><span id="spnDealerName"><%= dealerName  %></span></td>
                     </tr>
                     <tr>
-                        <td style="width: 20%"><strong>Campaign Name :</strong> </td>
+                        <td style="width: 22%"><strong>Campaign Name :</strong> </td>
                         <td>
                             <asp:textbox runat="server" name="maskingNumber" id="txtCampaignName" maxlength="100" class="req width300 font13" enabled="true" />
                             <span style="color: red">Please do not add area names in the campaign name.</span>
                         </td>
                     </tr>
                     <tr>
-                        <td style="width: 20%"><strong>Campaign Dealer Number :</strong></td>
+                        <td style="width: 22%"><strong>Campaign Dealer Number :</strong></td>
                         <td>
                             <asp:textbox runat="server" name="dealerNumber" id="txtDealerNumber" class="width300 font13" disabled />
                             <span style="color: red" id="dealerNumberMsg">Mapping a masking number will result in calling to both masking and dealer numbers one after another.</span>
                         </td>
                     </tr>
                     <tr>
-                        <td style="width: 20%"><strong>Campaign Masking Number :</strong><b class='required'>*</b></td>
+                        <td style="width: 22%"><strong>Campaign Masking Number :</strong><b class='required'>*</b></td>
                         <td>
                             <asp:textbox runat="server" readonly="true" name="maskingNumber" id="txtMaskingNumber" maxlength="10" class="numeric width300 font13" enabled="true" />
                             <%
@@ -126,20 +126,39 @@
                         </td>
                     </tr>
                     <tr>
-                        <td style="width: 20%"><strong>Campaign Email ID :</strong><b class="required">*</b></td>
+                        <td style="width: 22%"><strong>Additional Communication No's:</strong> </td>
                         <td>
-                            <asp:textbox textmode="multiline" multiline="true" height="50" width="600" runat="server" id="txtDealerEmail" placeholder="Enter Email ids separated by comma" class="req font13" />
+                            <asp:textbox runat="server" name="communicationNumber1" id="txtCommunicationNumber1" maxlength="10" class="numeric width300 font13" enabled="true" />
+                            <asp:textbox runat="server" name="communicationNumber2" id="txtCommunicationNumber2" maxlength="10" class="numeric width300 font13" enabled="true" />
+                            <asp:textbox runat="server" name="communicationNumber3" id="txtCommunicationNumber3" maxlength="10" class="numeric width300 font13" enabled="true" />
+                            <asp:textbox runat="server" name="communicationNumber4" id="txtCommunicationNumber4" maxlength="10" class="numeric width300 font13" enabled="true" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 22%"><strong>Campaign Email ID :</strong><b class="required">*</b></td>
+                        <td>
+                            <asp:textbox runat="server" id="txtDealerEmail" placeholder="Enter Email id" class="req font13" type ="email" />
                             <span id="spnDealerEmail" class="Required marginleft18"></span>
                         </td>
                     </tr>
                     <tr>
-                        <td style="width: 20%"><strong>Daily Leads Limit :</strong></td>
+                        <td style="width: 22%"><strong>Additional Communication Emails:</strong> </td>
+                        <td>
+                            <asp:textbox runat="server" name="communicationEmail1" id="txtCommunicationEmail1" maxlength="100" class=" width300 font13" type ="email" enabled="true" />
+                            <asp:textbox runat="server" name="communicationEmail2" id="txtCommunicationEmail2" maxlength="100" class=" width300 font13" type ="email" enabled="true" />
+                            <asp:textbox runat="server" name="communicationEmail3" id="txtCommunicationEmail3" maxlength="100" class=" width300 font13" type ="email" enabled="true" />
+                            <asp:textbox runat="server" name="communicationEmail4" id="txtCommunicationEmail4" maxlength="100" class=" width300 font13" type ="email" enabled="true" />
+                        </td>
+                    </tr>
+                    <tr>
+                    <tr>
+                        <td style="width: 22%"><strong>Daily Leads Limit :</strong></td>
                         <td>
                             <asp:textbox runat="server" id="txtLeadsLimit" placeholder="" class="numeric width300 font13" />
                         </td>
                     </tr>
                     <tr>
-                        <td style="width: 20%"><strong>Call to Action :</strong></td>
+                        <td style="width: 22%"><strong>Call to Action :</strong></td>
                         <td>
                             <asp:checkbox runat="server" id="chkUseDefaultCallToAction" text="Use Default" autopostback="false"></asp:checkbox>
                             <asp:dropdownlist id="ddlCallToAction" autopostback="false" runat="server">                                
@@ -187,7 +206,6 @@
                     $(this).removeClass('redmsg');
                 }
             });
-
             if (isValid) {
                 var maskingNumber = $("#txtMaskingNumber").val().trim();
                 var nos = parseInt(dealerNoEle.attr("data-numberCount"));
