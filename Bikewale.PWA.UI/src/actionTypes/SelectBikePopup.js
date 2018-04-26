@@ -1,0 +1,5 @@
+export const selectBikePopup = {
+  OPEN_BIKE_POPUP: 'OPEN_BIKE_POPUP',
+  CLOSE_BIKE_POPUP: 'CLOSE_BIKE_POPUP',
+  SELECT_MODEL: 'SELECT_MODEL'
+}

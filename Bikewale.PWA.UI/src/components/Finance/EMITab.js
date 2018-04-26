@@ -3,45 +3,44 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux';
 import { toJS } from '../../immutableWrapperContainer'
 
-import { openSelectBikePopup } from '../../actionCreators/SelectBikePopup'
-import { fetchCity, openSelectCityPopup, setCity } from '../../actionCreators/financeCityPopupActionCreator'
+import { openSelectBikePopup, closeSelectBikePopup } from '../../actionCreators/SelectBikePopup'
+import { fetchCity, openSelectCityPopup, closeSelectCityPopup, selectCity } from '../../actionCreators/FinanceCityPopup'
 
 import SelectBikePopup from '../Shared/SelectBikePopup'
 import EMISteps from './EMISteps'
 import SelectCityPopup from '../Shared/SelectCityPopup'
+import ModelInfo from './ModelInfoContainer'
 
 class EMITab extends React.Component {
   constructor(props) {
     super(props);
-
-    this.handleSelectBikeClick = this.handleSelectBikeClick.bind(this);
-    this.handleSelectCityClick = this.handleSelectCityClick.bind(this);
-    this.handleCityClick = this.handleCityClick.bind(this);
   }
-
-  handleSelectBikeClick() {
+  
+  handleSelectBikeClick = () => {
     this.props.openSelectBikePopup();
   }
   
-  handleSelectCityClick() {
+  handleSelectCityClick = () => {
     this.props.openSelectCityPopup();
   }
 
-  handleCityClick(item) {
+  handleCityClick = (item) => {
     let payload = {
       cityId: item.cityId,
       cityName: item.cityName,
       userChange: true
     }
 
-    this.props.setCity(payload);
+    this.props.selectCity(payload);
   }
 
   render() {
     const {
       selectBikePopup,
       FinanceCityPopup,
-      fetchCity
+      fetchCity,
+      closeSelectBikePopup,
+      closeSelectCityPopup
     } = this.props
 
     return (
@@ -52,29 +51,32 @@ class EMITab extends React.Component {
             Know the tentative EMI for bike of your choice in 2 simple steps.
           </p>
         </div>
+        <ModelInfo />
         <EMISteps />
         <span onClick={this.handleSelectBikeClick}>Select bike</span>
         <span onClick={this.handleSelectCityClick}>Select city</span>
-        <SelectBikePopup isActive={selectBikePopup.isActive} />
-        <SelectCityPopup isActive={FinanceCityPopup.isActive} data={FinanceCityPopup} fetchCity={fetchCity} onCityClick={this.handleCityClick} />
+        <SelectBikePopup isActive={selectBikePopup.isActive} onCloseClick={closeSelectBikePopup} />
+        <SelectCityPopup isActive={FinanceCityPopup.isActive} data={FinanceCityPopup} fetchCity={fetchCity} onCityClick={this.handleCityClick} onCloseClick={closeSelectCityPopup} />
       </div>
     );
   }
 }
 
-var mapStateToProps = function (store) {
+var mapStateToProps = (store) => {
   return {
     selectBikePopup: store.getIn(['Finance', 'SelectBikePopup']),
     FinanceCityPopup: store.getIn(['Finance', 'FinanceCityPopup'])
   }
 }
 
-var mapDispatchToProps = function(dispatch) {
+var mapDispatchToProps = (dispatch) => {
   return {
     openSelectBikePopup: bindActionCreators(openSelectBikePopup, dispatch),
+    closeSelectBikePopup: bindActionCreators(closeSelectBikePopup, dispatch),
     openSelectCityPopup: bindActionCreators(openSelectCityPopup, dispatch),
+    closeSelectCityPopup: bindActionCreators(closeSelectCityPopup, dispatch),
     fetchCity: bindActionCreators(fetchCity, dispatch),
-    setCity: bindActionCreators(setCity, dispatch)
+    selectCity: bindActionCreators(selectCity, dispatch)
   }
 }
 
