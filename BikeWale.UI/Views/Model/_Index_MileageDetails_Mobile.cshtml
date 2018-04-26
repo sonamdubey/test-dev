@@ -6,7 +6,7 @@
 {
     var currentBike = string.Format("{0} {1}", Model.MileageInfo.Make.MakeName, Model.MileageInfo.Model.ModelName);
     var bodyType = (Model.MileageInfo.BodyStyleId.Equals((uint)EnumBikeBodyStyles.Scooter) ? "scooters" : "commuters");
-    <div id="mileageContent" data-id ="mileageContent" class="bw-model-tabs-data content-box-shadow padding-top15 padding-bottom20 card-bottom-margin content-details-wrapper bg-white">
+    <div id="mileageContent" data-id ="mileageContent" class="bw-model-tabs-data content-box-shadow margin-top15 padding-bottom20 card-bottom-margin content-details-wrapper bg-white">
 		<table class="mileage-box-list">
 			@if (Model.MileageInfo.Make != null && Model.MileageInfo.Model != null)
 			{

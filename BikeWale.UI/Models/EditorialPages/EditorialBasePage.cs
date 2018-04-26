@@ -193,16 +193,11 @@ namespace Bikewale.Models.EditorialPages
 
             //Bind A1 -> Popular Make Bikes
             FirstWidget.WidgetColumns[EditorialWidgetColumnPosition.Left] = BindWidget(EditorialWidgetCategory.Popular_Make);
+            //Bind B1 -> Upcoming Bikes
+            SecondWidget.WidgetColumns[EditorialWidgetColumnPosition.Left] = BindWidget(EditorialWidgetCategory.Popular_All);
 
-            if (IsMobile)
+            if (!IsMobile)
             {
-                //Bind B1 -> Upcoming Bikes
-                SecondWidget.WidgetColumns[EditorialWidgetColumnPosition.Left] = BindWidget(EditorialWidgetCategory.Upcoming_All);
-            }
-            else
-            {
-                //Bind B1 -> Popular Bikes
-                SecondWidget.WidgetColumns[EditorialWidgetColumnPosition.Left] = BindWidget(EditorialWidgetCategory.Popular_All);
                 //Bind B2 -> Upcoming Scooters
                 SecondWidget.WidgetColumns[EditorialWidgetColumnPosition.Right] = BindWidget(EditorialWidgetCategory.Upcoming_All);
             }

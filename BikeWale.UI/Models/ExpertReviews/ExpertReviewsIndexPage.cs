@@ -298,7 +298,7 @@ namespace Bikewale.Models
                         break;
 
                     case EditorialPageType.MakePage:
-                        widgetType = EnumEditorialPageType.MakeListing;
+                        widgetType = isMakeLive ? EnumEditorialPageType.MakeListing : EnumEditorialPageType.Listing;
 
                         editorialWidgetData = new EditorialWidgetEntity
                         {
