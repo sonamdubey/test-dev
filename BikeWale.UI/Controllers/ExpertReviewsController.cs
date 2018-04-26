@@ -288,6 +288,7 @@ namespace Bikewale.Controllers
             else
             {
                 obj.IsAMPPage = true;
+                obj.IsMobile = true;
                 obj.RefControllerContext = ControllerContext;
                 objData = obj.GetData(9);
                 if (obj.status == StatusCodes.ContentNotFound)
