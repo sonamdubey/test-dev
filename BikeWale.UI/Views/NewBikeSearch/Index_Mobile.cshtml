@@ -69,7 +69,7 @@
     }
     <section>
         <!--  Used Search code starts here -->
-        <div class="container">
+        <div class="container margin-bottom15">
             <div>
                 <!--  class="grid-12"-->
 
@@ -202,7 +202,7 @@
                                 <img src="https://imgd.aeplcdn.com/0x0/bw/static/design15/old-images/d/search-loading.gif" />
                             </div>
                         </div>
-                        <div class="load-more-btn-container margin-bottom15" style="display: @(String.IsNullOrEmpty(Model.BikeSearch.PageUrl.NextPageUrl) ? "none" : "")" data-bind="visible: IsMoreBikesAvailable() && !IsLoading()">
+                        <div class="load-more-btn-container" style="display: @(String.IsNullOrEmpty(Model.BikeSearch.PageUrl.NextPageUrl) ? "none" : "")" data-bind="visible: IsMoreBikesAvailable() && !IsLoading()">
                             <a id="loadMoreBikes" title="Load More Bikes" href="@Model.PageMetaTags.NextPageUrl" data-url="@Model.BikeSearch.PageUrl.NextPageUrl" class="btn btn-teal" data-bind="attr: {'data-url' : LoadMoreTarget()}">
                                 <span data-bind="visible: (!IsLoadMore() && IsMoreBikesAvailable())">
                                     Load More
@@ -213,7 +213,7 @@
                             </a>
                         </div>
                         <div style="text-align: center" data-bind="visible: TotalBikes() == 0">
-                            <div id="nobikeresults" class="hide margin-bottom15">
+                            <div id="nobikeresults" class="hide">
                                 <img src="/image/no_result_m.png" />
                             </div>
                         </div>

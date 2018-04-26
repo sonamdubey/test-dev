@@ -18,16 +18,22 @@ namespace Bikewale.Controllers
         private readonly IBikeModels<BikeModelEntity, int> _bikeModels = null;
         private readonly IUpcoming _upcoming = null;
         private readonly ICityCacheRepository _cityCache = null;
+        private readonly IBikeMakesCacheRepository _objMakeCache = null;
+        private readonly IBikeModelsCacheRepository<int> _models = null;
+        private readonly IBikeSeries _series;
         #endregion
 
         #region Constructor
-        public ComparisonTestsController(ICMSCacheContent cmsCache, IPager pager, IBikeModels<BikeModelEntity, int> bikeModels, IUpcoming upcoming, ICityCacheRepository cityCache)
+        public ComparisonTestsController(ICMSCacheContent cmsCache, IPager pager, IBikeModels<BikeModelEntity, int> bikeModels, IUpcoming upcoming, ICityCacheRepository cityCache, IBikeMakesCacheRepository objMakeCache, IBikeModelsCacheRepository<int> models, IBikeSeries series)
         {
             _cmsCache = cmsCache;
             _pager = pager;
             _bikeModels = bikeModels;
             _upcoming = upcoming;
             _cityCache = cityCache;
+            _objMakeCache = objMakeCache;
+            _models = models;
+            _series = series;
         }
         #endregion
         #region Action Methods
@@ -39,7 +45,7 @@ namespace Bikewale.Controllers
         [Filters.DeviceDetection()]
         public ActionResult Index()
         {
-            ComparisonTestsIndexPage obj = new ComparisonTestsIndexPage(_cmsCache, _pager, _bikeModels, _upcoming);
+            ComparisonTestsIndexPage obj = new ComparisonTestsIndexPage(_cmsCache, _pager, _bikeModels, _upcoming, _objMakeCache, _models, _series);
             if (obj.status == Entities.StatusCodes.ContentNotFound)
             {
                 return Redirect("/pagenotfound.aspx");
@@ -65,7 +71,7 @@ namespace Bikewale.Controllers
         [Route("m/comparisontests/index/")]
         public ActionResult Index_Mobile()
         {
-            ComparisonTestsIndexPage obj = new ComparisonTestsIndexPage(_cmsCache, _pager, _bikeModels, _upcoming);
+            ComparisonTestsIndexPage obj = new ComparisonTestsIndexPage(_cmsCache, _pager, _bikeModels, _upcoming, _objMakeCache, _models, _series);
             obj.IsMobile = true;
             if (obj.status == Entities.StatusCodes.ContentNotFound)
             {
