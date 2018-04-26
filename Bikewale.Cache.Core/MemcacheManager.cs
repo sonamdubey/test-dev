@@ -91,7 +91,7 @@ namespace Bikewale.Cache.Core
 
         public T GetFromCache<T>(string key, TimeSpan cacheDuration, Func<T> dbCallback)
         {
-             object cacheObject = new object();
+             object cacheObject;
              try
              {
                  if (_useMemcached) //  Check if memcache need to hit or not based on key in config file
@@ -130,7 +130,9 @@ namespace Bikewale.Cache.Core
                      else
                      {
                          if (cacheObject is string && cacheObject.Equals(_dummyData))
+                         {
                              return default(T);
+                         }
 
                          return (T)cacheObject;
                      }
@@ -157,7 +159,7 @@ namespace Bikewale.Cache.Core
         /// <returns>Returns specified entity of type T. In case of data from cache or db not available returns -1</returns>
         public T GetFromCache<T>(string key, Func<Tuple<T, TimeSpan>> dbCallback)
         {
-            object cacheObject = new object();
+            object cacheObject;
             Tuple<T, TimeSpan> t;
 
             try
@@ -200,8 +202,9 @@ namespace Bikewale.Cache.Core
                     else
                     {
                         if (cacheObject is string && cacheObject.Equals(_dummyData))
+                        {
                             return default(T);
-
+                        }
                         return (T)cacheObject;
                     }
                 }
@@ -221,7 +224,7 @@ namespace Bikewale.Cache.Core
         public T GetFromCache<T>(string key, TimeSpan cacheDuration, Func<T> dbCallback, out bool isDataFromCache)
         {            
             isDataFromCache = false;
-            object cacheObject = new object();
+            object cacheObject;
             try
             {
                 if (_useMemcached) //  Check if memcache need to hit or not based on key in config file
@@ -263,7 +266,9 @@ namespace Bikewale.Cache.Core
                     {
                         isDataFromCache = true;
                         if (cacheObject is string && cacheObject.Equals(_dummyData))
+                        {
                             return default(T);
+                        }
 
                         return (T)cacheObject;
                     }
