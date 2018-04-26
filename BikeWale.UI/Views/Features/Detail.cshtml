@@ -80,15 +80,18 @@
                         </div>
                     }
                     <div class="grid-4 omega">
-                        @if (Model.PopularBikesAndPopularScootersWidget != null)
-                        {
-                            @Html.Partial("~/Views/BikeModels/_MultiTabsWidget.cshtml", Model.PopularBikesAndPopularScootersWidget)
-                        }
-                        @if (Model.UpcomingBikesAndUpcomingScootersWidget != null)
-                        {
-                            @Html.Partial("~/Views/BikeModels/_MultiTabsWidget.cshtml", Model.UpcomingBikesAndUpcomingScootersWidget)
-                        }
+                        @{
+                            var pageWidgets = Model.PageWidgets;
+                            if (pageWidgets != null)
+                            {
+                                @Html.Partial("~/Views/Shared/_EditorialWidgetBase.cshtml", Model.PageWidgets[Bikewale.Entities.BikeData.EditorialPageWidgetPosition.First])
+                                    <div class="clear"></div>
 
+
+                                    @Html.Partial("~/Views/Shared/_EditorialWidgetBase.cshtml", Model.PageWidgets[Bikewale.Entities.BikeData.EditorialPageWidgetPosition.Second])
+                                    <div class="clear"></div>
+                            }
+                        }
                         <div class="margin-bottom20">
                             @Html.Partial("~/Views/Shared/Ads/Desktop/Ad300x250.cshtml", Model.AdTags)
                         </div>
