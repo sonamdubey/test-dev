@@ -21,7 +21,7 @@ namespace Bikewale.DAL.HomePage
         public Tuple<HomePageBannerEntity, TimeSpan> GetHomePageBannerWithCacheTime(uint platformId)
         {
             HomePageBannerEntity banner = null;
-            TimeSpan duration = new TimeSpan(0, 30, 0); //Default cache time to be 30 minutes when no data returned 
+            TimeSpan duration = default(TimeSpan);
             try
             {
 
