@@ -1431,7 +1431,7 @@ namespace Bikewale.Models.BikeModels
                                 }
                                 else
                                 {
-                                    if (_objData.SelectedVersion != null)
+                                    if (_objData.SelectedVersion == null)
                                     {
                                         _objData.SelectedVersion = modelPg.ModelVersions.FirstOrDefault();
                                     }
