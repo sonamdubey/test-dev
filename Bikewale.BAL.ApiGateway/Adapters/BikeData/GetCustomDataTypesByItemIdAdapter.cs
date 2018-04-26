@@ -16,7 +16,7 @@ namespace Bikewale.BAL.ApiGateway.Adapters.BikeData
     /// Created By : Deepak Israni on 12 April 2018
     /// Description: Adapter class responsible for executing GRPC method to get related data for
     /// </summary>
-    public class GetCustomDataTypesByItemIdAdapter : AbstractApiGatewayAdapater<GetCustomDataType_Input, IEnumerable<SpecsCustomDataType>, CustomDataTypeList>
+    public class GetCustomDataTypesByItemIdAdapter : AbstractApiGatewayAdapter<GetCustomDataType_Input, IEnumerable<SpecsCustomDataType>, CustomDataTypeList>
     {
         /// <summary>
         /// Constructor will set all dependencies required to get the data from APIGateway

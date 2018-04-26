@@ -16,7 +16,7 @@ namespace Bikewale.BAL.ApiGateway.Adapters.BikeData
 	/// Created By : Ashish G. Kamble on 6 Apr 2018
 	/// Summary : Adapter class responsible for executing GRPC method through APIGateway and return reponse to the client.
 	/// </summary>
-	public class GetVersionSpecsByItemIdAdapter : AbstractApiGatewayAdapater<VersionsDataByItemIds_Input, IEnumerable<VersionMinSpecsEntity>, VersionItemsDataResponse>
+	public class GetVersionSpecsByItemIdAdapter : AbstractApiGatewayAdapter<VersionsDataByItemIds_Input, IEnumerable<VersionMinSpecsEntity>, VersionItemsDataResponse>
 	{
 		public GetVersionSpecsByItemIdAdapter()
 		{

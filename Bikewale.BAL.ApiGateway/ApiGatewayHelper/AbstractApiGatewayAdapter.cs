@@ -10,7 +10,7 @@ namespace Bikewale.BAL.ApiGateway.ApiGatewayHelper
 	/// <typeparam name="TInput"></typeparam>
 	/// <typeparam name="TResult"></typeparam>
 	/// <typeparam name="TApigatewayResponse"></typeparam>
-	public abstract class AbstractApiGatewayAdapater<TInput, TResult, TApigatewayResponse> : IApiGatewayAdapter<TInput, TResult, TApigatewayResponse> where TApigatewayResponse : IMessage
+	public abstract class AbstractApiGatewayAdapter<TInput, TResult, TApigatewayResponse> : IApiGatewayAdapter<TInput, TResult, TApigatewayResponse> where TApigatewayResponse : IMessage
 	{
 		/// <summary>
 		/// Module name for microservice
