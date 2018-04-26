@@ -125,7 +125,7 @@ namespace Bikewale.Models
                     BindLinkPager(objData);
                     SetPageMetas(objData);
                     CreatePrevNextUrl(objData);
-                    GetWidgetData(objData, widgetTopCount);
+                    GetWidgetData(objData);
                     objData.Page = Entities.Pages.GAPages.Editorial_List_Page;
                 }
                 else
@@ -233,11 +233,11 @@ namespace Bikewale.Models
         /// Modified by : Sanskar Gupta on 22 Jan 2018
         /// Description : Added Newly Launched feature
         /// </summary>
-        private void GetWidgetData(BikeCareIndexPageVM objData, int topCount)
+        private void GetWidgetData(BikeCareIndexPageVM objData)
         {
             try
             {
-                SetAdditionalVariables(objData);
+                SetAdditionalVariables();
                 objData.PageWidgets = base.GetEditorialWidgetData(EnumEditorialPageType.Listing);
             }
             catch (Exception ex)
@@ -285,7 +285,7 @@ namespace Bikewale.Models
         /// Description :   Set basic flags to get the editorial widgets
         /// </summary>
         /// <param name="objData"></param>
-        private void SetAdditionalVariables(BikeCareIndexPageVM objData)
+        private void SetAdditionalVariables()
         {
             EditorialWidgetEntity editorialWidgetData = new EditorialWidgetEntity
             {

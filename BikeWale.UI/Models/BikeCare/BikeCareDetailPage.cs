@@ -107,7 +107,7 @@ namespace Bikewale.Models
                     GetTaggedBikeListByMake(objData);
                     GetTaggedBikeListByModel(objData);
                     SetPageMetas(objData);
-                    GetWidgetData(objData, widgetTopCount);
+                    GetWidgetData(objData);
                     PopulatePhotoGallery(objData);
                     objData.Page = Entities.Pages.GAPages.Editorial_Details_Page;
                 }
@@ -243,7 +243,7 @@ namespace Bikewale.Models
         /// Modified by : Sanskar Gupta on 22 Jan 2018
         /// Description : Added Newly Launched feature
         /// </summary>
-        private void GetWidgetData(BikeCareDetailPageVM objData, int topCount)
+        private void GetWidgetData(BikeCareDetailPageVM objData)
         {
             try
             {
