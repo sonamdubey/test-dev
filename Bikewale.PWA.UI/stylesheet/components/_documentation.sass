@@ -1,0 +1,65 @@
+.finance-documentation
+  background-color: color('white')
+  
+.finance-documentation__head
+  @include flexbox
+  @include justify-content(space-between)
+  padding-top: 25px
+  padding-bottom: 5px
+
+.finance-documentation__title
+  font-size: 18px
+  font-weight: $font-bold
+  padding-left: 20px
+  padding-right: 20px
+
+.finance-documentation__save
+  background-position: left center
+  font-size: 13px
+  font-weight: $font-semibold
+  color: color('pacific-blue')
+  padding-left: 20px
+  padding-right: 20px
+  padding-bottom: 5px
+
+.finance-documentation__list
+  padding-left: 20px
+  padding-right: 20px
+
+.documentation-list__item
+  padding-top: 20px
+  padding-bottom: 20px
+  border-top: 1px solid color('border-dark')
+
+  &:first-child
+    border-top: none
+
+.documentation-list-item__head
+  @include text-truncate(100%)
+  font-size: 14px
+  font-weight: $font-semibold
+
+  img
+    display: inline-block
+    vertical-align: middle
+
+.documentation-list-head__title
+  display: inline-block
+  vertical-align: middle
+  padding-left: 20px
+
+.documentation-list-item__body
+  padding-top: 20px
+  font-size: 13px
+  color: color('light-grey')
+
+.documentation-item__list
+  list-style-type: disc
+  padding-left: 20px
+  padding-top: 10px
+
+.list-head--padding-top
+  display: block
+  padding-top: 10px
+
+  
