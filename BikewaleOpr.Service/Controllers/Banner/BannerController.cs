@@ -24,6 +24,8 @@ namespace BikewaleOpr.Service.Controllers
         /// <summary>
         /// Created By :- Subodh Jain on 24 july 2017
         /// Summary :- Banner SaveBannerBasicDetails
+        /// Modified By : Rajan Chauhan on 26 Apr 2018
+        /// Description : Added Cache key removal logic on save
         /// </summary>
         [HttpPost, Route("api/bannerbasic/save/")]
         public IHttpActionResult SaveBannerBasicDetails([FromBody] BannerVM objBanner)
@@ -32,6 +34,8 @@ namespace BikewaleOpr.Service.Controllers
             try
             {
                 campaignid = _objBannerRespository.SaveBannerBasicDetails(objBanner);
+                MemCachedUtil.Remove("BW_HomePageBanner_V1_PlatformId_0");
+                MemCachedUtil.Remove("BW_HomePageBanner_V1_PlatformId_1");
                 return Ok(campaignid);
             }
             catch (Exception ex)
@@ -43,6 +47,14 @@ namespace BikewaleOpr.Service.Controllers
             }
         }
 
+        /// <summary>
+        /// Modified By : Rajan Chauhan on 26 Apr 2018
+        /// Description : Changed cache key version from BW_HomePageBanner_PlatformId_0 
+        ///               to BW_HomePageBanner_V1_PlatformId_0
+        /// </summary>
+        /// <param name="reviewId"></param>
+        /// <param name="bannerStatus"></param>
+        /// <returns></returns>
         [HttpPost, Route("api/banner/changeStatus/{reviewId}/{bannerStatus}")]
         public IHttpActionResult ChangeBannerStatus(uint reviewId, UInt16 bannerStatus)
         {
@@ -50,8 +62,8 @@ namespace BikewaleOpr.Service.Controllers
             try
             {
                 status = _objBannerRespository.ChangeBannerStatus(reviewId, bannerStatus);
-                MemCachedUtil.Remove("BW_HomePageBanner_PlatformId_0");
-                MemCachedUtil.Remove("BW_HomePageBanner_PlatformId_1");
+                MemCachedUtil.Remove("BW_HomePageBanner_V1_PlatformId_0");
+                MemCachedUtil.Remove("BW_HomePageBanner_V1_PlatformId_1");
                 return Ok(status);
             }
             catch (Exception ex)
@@ -77,7 +89,7 @@ namespace BikewaleOpr.Service.Controllers
                     bool success = _objBannerRespository.SaveBannerProperties(objBannerDetails, platformId, objBanner.CampaignId);
                     if (success)
                     {
-                        MemCachedUtil.Remove(string.Format("BW_HomePageBanner_PlatformId_{0}", platformId));
+                        MemCachedUtil.Remove(string.Format("BW_HomePageBanner_V1_PlatformId_{0}", platformId));
                     }
 
                     return Ok(success);
