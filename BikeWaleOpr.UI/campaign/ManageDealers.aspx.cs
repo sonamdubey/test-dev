@@ -345,8 +345,7 @@ namespace BikewaleOpr.Campaign
                         List<string> additionalCommunications;
                         if (!String.IsNullOrEmpty(campaign.CommunicationNumbers))
                         {
-                            additionalCommunications = new List<string>();
-                            MapAdditionalCommunication(campaign.CommunicationNumbers, additionalCommunications);
+                            additionalCommunications = MapAdditionalCommunication(campaign.CommunicationNumbers);
                             if (additionalCommunications != null && additionalCommunications.Any())
                             {
                                 var numberIterator = additionalCommunications.GetEnumerator();
@@ -370,8 +369,7 @@ namespace BikewaleOpr.Campaign
                         }
                         if (!String.IsNullOrEmpty(campaign.CommunicationEmails))
                         {
-                            additionalCommunications = new List<string>();
-                            MapAdditionalCommunication(campaign.CommunicationEmails, additionalCommunications);
+                            additionalCommunications = MapAdditionalCommunication(campaign.CommunicationEmails);
                             if (additionalCommunications != null && additionalCommunications.Any())
                             {
                                 var emailIterator = additionalCommunications.GetEnumerator();
@@ -526,17 +524,19 @@ namespace BikewaleOpr.Campaign
         /// Description : Method to map additional communications
         /// </summary>
         /// <param name="additionalCommunication"></param>
-        private void MapAdditionalCommunication(string additionalCommunication, List<string> communications)
+        private List<string> MapAdditionalCommunication(string additionalCommunication)
         {
+            List<string> AdCommunications = null;
             try
             {
+                AdCommunications = new List<string>();
                 string[] tokens = additionalCommunication.Split(',');
                 if (tokens.Length > 0)
                 {
                     var iterator = tokens.GetEnumerator();
                     while (iterator.MoveNext())
                     {
-                        communications.Add(iterator.Current.ToString());
+                        AdCommunications.Add(iterator.Current.ToString());
                     }
                 }
             }
@@ -544,6 +544,7 @@ namespace BikewaleOpr.Campaign
             {
                 ErrorClass.LogError(ex, "BikewaleOpr.Campaign.MapAdditionalCommunication()");
             }
+            return AdCommunications;
         }
     }
 }
