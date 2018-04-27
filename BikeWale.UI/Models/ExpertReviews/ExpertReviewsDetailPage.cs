@@ -298,7 +298,6 @@ namespace Bikewale.Models
                     SetAdditionalVariables(objData);
                     objData.PageWidgets = base.GetEditorialWidgetData(EnumEditorialPageType.Detail);
 
-                    //     GetWidgetData(objData, widgetTopCount);
                     PopulatePhotoGallery(objData);
                     BindSimilarBikes(objData);
                     SetBikeTested(objData);
