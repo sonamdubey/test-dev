@@ -6,81 +6,81 @@
 {
     var currentBike = string.Format("{0} {1}", Model.MileageInfo.Make.MakeName, Model.MileageInfo.Model.ModelName);
     var bodyType = (Model.MileageInfo.BodyStyleId.Equals((uint)EnumBikeBodyStyles.Scooter) ? "scooters" : "commuters");
-    <div id="mileageContent" data-id ="mileageContent" class="bw-model-tabs-data content-box-shadow margin-top15 padding-bottom20 card-bottom-margin content-details-wrapper bg-white">
-		<table class="mileage-box-list">
-			@if (Model.MileageInfo.Make != null && Model.MileageInfo.Model != null)
-			{
-			<thead>
-				<tr>
-					<th colspan="2">
-						<h2 class="padding-left20 padding-right20">@currentBike Mileage</h2>
-					</th>
-				</tr>
-			</thead>
-			}
-			<tbody>
-				<tr>
-					@if (Model.MileageInfo != null && Model.MileageInfo.ARAIMileage > 0)
-					{
-					<td class="mileage-list__item">
-						<div class="mileage-box__arai-block">
-							<p class="font14">
-								<span class="font18 text-bold">@Model.MileageInfo.ARAIMileage</span>
-								kmpl
-							</p>
-							<p>
-								<span class="mileage-box__subtitle">ARAI certified</span>
-								<span class="info-icon tooltip-icon-target tooltip-top tooltip--right">
-									<span class="bw-tooltip info-tooltip">
-										<span class="bw-tooltip-text">ARAI is a research association under GOI responsible for verifying mileage data for every bike sold in India.</span>
-									</span>
-								</span>
-							</p>
-						</div>
-					</td>
-					}
-					<td class="mileage-list__item">
-						<div class="mileage-box__users-block">
-							<p class="font14">
-								<span class="font18 text-default text-bold">@Model.MileageInfo.MileageByUserReviews</span>
-								kmpl
-							</p>
-							<p>
-								<span class="mileage-box__subtitle">Reported by owners</span>
-							</p>
-						</div>
-					</td>
-				</tr>
-			</tbody>
-		</table>
+    <div id="mileageContent" data-id="mileageContent" class="bw-model-tabs-data content-box-shadow margin-top15 padding-top15 padding-bottom20 card-bottom-margin content-details-wrapper bg-white">
+        <table class="mileage-box-list">
+            @if (Model.MileageInfo.Make != null && Model.MileageInfo.Model != null)
+            {
+                <thead>
+                    <tr>
+                        <th colspan="2">
+                            <h2 class="padding-left20 padding-right20">@currentBike Mileage</h2>
+                        </th>
+                    </tr>
+                </thead>
+            }
+            <tbody>
+                <tr>
+                    @if (Model.MileageInfo != null && Model.MileageInfo.ARAIMileage > 0)
+                    {
+                        <td class="mileage-list__item">
+                            <div class="mileage-box__arai-block">
+                                <p class="font14">
+                                    <span class="font18 text-bold">@Model.MileageInfo.ARAIMileage</span>
+                                    kmpl
+                                </p>
+                                <p>
+                                    <span class="mileage-box__subtitle">ARAI certified</span>
+                                    <span class="info-icon tooltip-icon-target tooltip-top tooltip--right">
+                                        <span class="bw-tooltip info-tooltip">
+                                            <span class="bw-tooltip-text">ARAI is a research association under GOI responsible for verifying mileage data for every bike sold in India.</span>
+                                        </span>
+                                    </span>
+                                </p>
+                            </div>
+                        </td>
+                    }
+                    <td class="mileage-list__item">
+                        <div class="mileage-box__users-block">
+                            <p class="font14">
+                                <span class="font18 text-default text-bold">@Model.MileageInfo.MileageByUserReviews</span>
+                                kmpl
+                            </p>
+                            <p>
+                                <span class="mileage-box__subtitle">Reported by owners</span>
+                            </p>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
 
-		<h3 class="text-bold padding-bottom5 padding-left20 padding-right20">@string.Format("Where does {0} stand among {1}?", Model.MileageInfo.Model != null ? Model.MileageInfo.Model.ModelName : currentBike, bodyType)</h3>
+        <h3 class="text-bold padding-bottom5 padding-left20 padding-right20">@string.Format("Where does {0} stand among {1}?", Model.MileageInfo.Model != null ? Model.MileageInfo.Model.ModelName : currentBike, bodyType)</h3>
 
-		<ul class="mileage-box-list">
-			<li class="mileage-list__item">
-				<p class="mileage-box__desc margin-bottom5">@string.Format("Average mileage among {0}", bodyType)</p>
-				<div class="inline-block">
-					@if (Model.MileageInfo.BodyStyleId.Equals((uint)EnumBikeBodyStyles.Scooter))
-					{
-						<span class="grey-scooter-icon"></span>
-					}
-					else
-					{
-						<span class="grey-bike-icon"></span>
-					}
-					<p class="inline-block font12 padding-left10">
-						<span class="font14 text-light-grey font-bold">@Math.Round(Model.AvgBodyStyleMileageByUserReviews, 2) </span>
-						kmpl
-					</p>
-				</div>
-			</li>
-			<li class="mileage-list__item">
-				<p class="inline-block font30 text-teal font-bold">@Math.Round(Model.MileageInfo.Percentile)%</p>
-				<p class="mileage-box__desc">
+        <ul class="mileage-box-list">
+            <li class="mileage-list__item">
+                <p class="mileage-box__desc margin-bottom5">@string.Format("Average mileage among {0}", bodyType)</p>
+                <div class="inline-block">
+                    @if (Model.MileageInfo.BodyStyleId.Equals((uint)EnumBikeBodyStyles.Scooter))
+                    {
+                        <span class="grey-scooter-icon"></span>
+                    }
+                    else
+                    {
+                        <span class="grey-bike-icon"></span>
+                    }
+                    <p class="inline-block font12 padding-left10">
+                        <span class="font14 text-light-grey font-bold">@Math.Round(Model.AvgBodyStyleMileageByUserReviews, 2) </span>
+                        kmpl
+                    </p>
+                </div>
+            </li>
+            <li class="mileage-list__item">
+                <p class="inline-block font30 text-teal font-bold">@Math.Round(Model.MileageInfo.Percentile)%</p>
+                <p class="mileage-box__desc">
                     @string.Format("{0} has better mileage than {1}% of {2}", Model.MileageInfo.Model != null ? Model.MileageInfo.Model.ModelName : currentBike, Math.Round(Model.MileageInfo.Percentile), bodyType)
-				</p>
-			</li>
-		</ul>
+                </p>
+            </li>
+        </ul>
 
         <h3 class="text-bold top-grey-divider">@Model.WidgetHeading</h3>
         <div class="model-mileage-carousel swiper-container card-container padding-bottom20 noSwiper" id="similar-mileage-swiper">
