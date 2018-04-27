@@ -1,6 +1,9 @@
 /*
  * ScrollTo animation using pure javascript
  * https://gist.github.com/andjosh/6764939
+ * 
+ * debounce
+ * https://davidwalsh.name/javascript-debounce-function
  */
 
 export const scrollTop = (element, to, duration = 500) => {
@@ -31,11 +34,11 @@ export const scrollTop = (element, to, duration = 500) => {
 
 export const inView = (element) => {
   let isViewSelected = false;
-  Array.from(element.children).forEach(function(item) {
+  [...element.children].forEach(function(item) {
 
     if(isElementVisible(item.firstChild, 'horizontal', 50)) {
       if(isViewSelected != true) {
-        Array.from(item.parentElement.children).forEach(function(child){
+        [...item.parentElement.children].forEach(function(child){
           child.classList.remove('inview--active');
         })
 
@@ -54,9 +57,9 @@ export const inView = (element) => {
 */
 export const isElementVisible = (element,  direction, threshold) => {
   var elementRect= element.getBoundingClientRect();
-  var ThresholdValue;
+  var thresholdValue;
   if(typeof threshold==='number'){
-    ThresholdValue = threshold ? elementRect.width*(parseInt(threshold)/100) : 0;
+    thresholdValue = threshold ? elementRect.width*(parseInt(threshold)/100) : 0;
   }
   else {
     console.log('please provide threshold value as int in isElementVisible')
@@ -64,7 +67,7 @@ export const isElementVisible = (element,  direction, threshold) => {
   
   switch(direction) {
     case 'horizontal':
-      if(elementRect.left + ThresholdValue > 0 && elementRect.right - ThresholdValue < window.innerWidth) {
+      if(elementRect.left + thresholdValue > 0 && elementRect.right - thresholdValue < window.innerWidth) {
         return true;
       }
       else {
@@ -72,7 +75,7 @@ export const isElementVisible = (element,  direction, threshold) => {
       }
     
     case 'vertical':
-      if(elementRect.top + ThresholdValue > 0 && elementRect.bottom - ThresholdValue < window.innerHeight) {
+      if(elementRect.top + thresholdValue > 0 && elementRect.bottom - thresholdValue < window.innerHeight) {
         return true;
       }
       else {
@@ -80,7 +83,7 @@ export const isElementVisible = (element,  direction, threshold) => {
       }
     
     default:
-      if(elementRect.left + ThresholdValue > 0 && elementRect.right - ThresholdValue < window.innerWidth && elementRect.top + ThresholdValue > 0 && elementRect.bottom - ThresholdValue < window.innerHeight) {
+      if(elementRect.left + thresholdValue > 0 && elementRect.right - thresholdValue < window.innerWidth && elementRect.top + thresholdValue > 0 && elementRect.bottom - thresholdValue < window.innerHeight) {
         return true;
       }
       else {
@@ -108,12 +111,14 @@ export const scrollLeft = (element, to, duration = 500) => {
 }
 
 export const scrollIntoView = (element, event) => {
-  let elementRect = null
-  event.currentTarget 
-    ? 
-      elementRect=event.currentTarget.getBoundingClientRect() 
-    : 
-      elementRect=event.getBoundingClientRect()
+  let elementRect = null;
+  if(event.currentTarget ) {
+    elementRect=event.currentTarget.getBoundingClientRect();
+  }
+  else {
+    elementRect=event.getBoundingClientRect();
+  }
+
 	if(elementRect.left < 0 || elementRect.right > window.innerWidth) {
 		let leftPosition = element.scrollLeft + elementRect.left - 20
 

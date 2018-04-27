@@ -36,13 +36,17 @@
   white-space: nowrap
 
   .selection-steps__card
+    @include vendor-prefix('transition', all .5s ease)
+    @include vendor-prefix('transform', scale(.95))
     opacity: .5
     padding-right: 16px
     will-change: opacity
+    will-change: transform
     display: inline-block
-    width: 90%
+    width: 88%
 
     &.inview--active
+      @include vendor-prefix('transform', scale(1))
       opacity: 1
 
     &:first-child
@@ -74,12 +78,12 @@
 
 .select-card__city-selection
   &:after
-    @include city-skyline
+    @include skyline-city
     background-position: bottom
 
 .select-card__make-selection
   &:after
-    @include make-selection
+    @include search-bike
     background-position: bottom
     top: 25px
 
@@ -94,11 +98,10 @@
   font-weight: $font-semibold
 
 .selection-step__text
+  @include text-truncate
   display: inline-block
   vertical-align: middle
-  overflow: hidden
-  text-overflow: ellipsis
-  max-width: 245px
+  max-width: 200px
   position: relative
 
 .selection-step__right-arrow

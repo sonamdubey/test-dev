@@ -72,15 +72,13 @@ class EMISteps extends React.Component {
     this.citySelect = element;
   };
   handleMakeSelect = () => {
-    {this.props.onSelectBikeClick()}
+    this.props.onSelectBikeClick()
     scrollIntoView(this.StepSelectionContainer, this.citySelect)
   }
   handleScroll = (event) => {
-    var currentElement = this.StepSelectionContainer;
-    var childElement = this.StepSelection;
-    debounce(function(event) {
-      if(currentElement.classList.contains('selection-step--overflow')) {    
-        inView(childElement, currentElement);
+    debounce(() => {
+      if(this.StepSelectionContainer.classList.contains('selection-step--overflow')) {    
+        inView(this.StepSelection, this.StepSelectionContainer );
       }
     }, 250)();
     
@@ -98,7 +96,7 @@ class EMISteps extends React.Component {
       modelImage: "https://imgd.aeplcdn.com//310x174//bw/models/honda-cb-hornet-160r.jpg",
       rating: 4.2
     }
-    const isOverflow = modelData.makeName != '' ? 'selection-step--overflow': '';
+    const isOverflow = modelData.makeName !== '' ? 'selection-step--overflow': '';
     return (
       <div className="emi-calculator__progress-container">
         <ProgressBar>
