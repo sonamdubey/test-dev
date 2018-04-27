@@ -20,10 +20,8 @@ namespace Bikewale.BAL.ApiGateway.Adapters.BikeData
 		/// <summary>
 		/// Constructor will set all dependencies required to get the data from APIGateway
 		/// </summary>
-		public GetVersionSpecsByIdAdapter()
-		{
-			ModuleName = BWConfiguration.Instance.SpecsFeaturesServiceModuleName;
-			MethodName = "GetVehicleDataForVersionId";
+		public GetVersionSpecsByIdAdapter() : base(BWConfiguration.Instance.SpecsFeaturesServiceModuleName, "GetVehicleDataForVersionId")
+		{			
 		}
 
 		/// <summary>

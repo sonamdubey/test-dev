@@ -4,23 +4,23 @@ using Google.Protobuf;
 namespace Bikewale.BAL.ApiGateway.ApiGatewayHelper
 {
 	/// <summary>
-	/// Created By : Ashish G. Kamble on 4 Apr 2018
-	/// Summary : 
+	/// Created By : Ashish G. Kamble on 4 Apr 2018	
+	/// Summary : Class defines template to call the APIGateway. Adapters which needs to implement GRPC method should inherit from this class.
 	/// </summary>
-	/// <typeparam name="TInput"></typeparam>
-	/// <typeparam name="TResult"></typeparam>
-	/// <typeparam name="TApigatewayResponse"></typeparam>
+	/// <typeparam name="TInput">Input entity</typeparam>
+	/// <typeparam name="TResult">Output entity</typeparam>
+	/// <typeparam name="TApigatewayResponse">GRPC response message</typeparam>
 	public abstract class AbstractApiGatewayAdapter<TInput, TResult, TApigatewayResponse> : IApiGatewayAdapter<TInput, TResult, TApigatewayResponse> where TApigatewayResponse : IMessage
 	{
 		/// <summary>
 		/// Module name for microservice
 		/// </summary>
-		protected virtual string ModuleName { get; set; }
+		private readonly string _moduleName;
 
 		/// <summary>
 		/// Method name in a module
 		/// </summary>
-		protected virtual string MethodName { get; set; }
+		private readonly string _methodName;
 
 		/// <summary>
 		/// Response object for the current method
@@ -31,6 +31,17 @@ namespace Bikewale.BAL.ApiGateway.ApiGatewayHelper
 		/// Index at which response object for current method is available in APIGateway response.
 		/// </summary>
 		private ushort ResponseIndex { get; set; }
+
+		/// <summary>
+		/// Constructor to initialize the properties required call the GRPC method
+		/// </summary>
+		/// <param name="moduleName"></param>
+		/// <param name="methodName"></param>
+		protected AbstractApiGatewayAdapter(string moduleName, string methodName)
+		{
+			_moduleName = moduleName;
+			_methodName = methodName;
+		}
 
 		/// <summary>
 		/// 1. Method to add a call into APIGateway.
@@ -49,8 +60,8 @@ namespace Bikewale.BAL.ApiGateway.ApiGatewayHelper
 					IMessage request = BuildRequest(input);
 					Action<IApiGatewayCaller> callBack = ParseAPIResponse;
 
-                    if (!String.IsNullOrEmpty(ModuleName) && !String.IsNullOrEmpty(MethodName) && request != null && callBack != null)
-                        ResponseIndex = caller.Add(ModuleName, MethodName, request, callBack);
+                    if (!String.IsNullOrEmpty(_moduleName) && !String.IsNullOrEmpty(_methodName) && request != null && callBack != null)
+                        ResponseIndex = caller.Add(_moduleName, _methodName, request, callBack);
 
                 }
             }

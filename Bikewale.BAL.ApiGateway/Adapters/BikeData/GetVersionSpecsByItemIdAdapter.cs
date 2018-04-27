@@ -18,10 +18,8 @@ namespace Bikewale.BAL.ApiGateway.Adapters.BikeData
 	/// </summary>
 	public class GetVersionSpecsByItemIdAdapter : AbstractApiGatewayAdapter<VersionsDataByItemIds_Input, IEnumerable<VersionMinSpecsEntity>, VersionItemsDataResponse>
 	{
-		public GetVersionSpecsByItemIdAdapter()
+		public GetVersionSpecsByItemIdAdapter() : base(BWConfiguration.Instance.SpecsFeaturesServiceModuleName, "VersionsDataByItemIds")
 		{
-			ModuleName = BWConfiguration.Instance.SpecsFeaturesServiceModuleName;
-			MethodName = "VersionsDataByItemIds";
 		}
 
 		/// <summary>

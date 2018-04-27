@@ -21,19 +21,17 @@ namespace Bikewale.BAL.ApiGateway.Adapters.BikeData
         /// <summary>
         /// Constructor will set all dependencies required to get the data from APIGateway
         /// </summary>
-        public GetCustomDataTypesByItemIdAdapter()
-        {
-            ModuleName = BWConfiguration.Instance.SpecsFeaturesServiceModuleName;
-            MethodName = "GetCustomDataTypesByItemId";
+        public GetCustomDataTypesByItemIdAdapter() : base(BWConfiguration.Instance.SpecsFeaturesServiceModuleName, "GetCustomDataTypesByItemId")
+		{            
         }
 
-        /// <summary>
-        /// Created By : Deepak Israni on 12 April 2018
-        /// Description: Function converts the input into an input compatible with the GRPC service.
-        /// </summary>
-        /// <param name="input"></param>
-        /// <returns></returns>
-        protected override IMessage BuildRequest(GetCustomDataType_Input input)
+		/// <summary>
+		/// Created By : Deepak Israni on 12 April 2018
+		/// Description: Function converts the input into an input compatible with the GRPC service.
+		/// </summary>
+		/// <param name="input"></param>
+		/// <returns></returns>
+		protected override IMessage BuildRequest(GetCustomDataType_Input input)
         {
             return new GrpcInt()
             {
