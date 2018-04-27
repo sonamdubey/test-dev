@@ -78,6 +78,8 @@ namespace Bikewale.Service.Controllers.PriceQuote
         /// Modified by :   Sumit Kate on 01 June 2016
         /// Description :   Commented Mobile verification process
         /// noOfAttempts = -1 and isVerified = true to by pass the Mobile Verification Process
+        /// MOdified by : Pratibha Verma on 27 April 2018
+        /// Description : added parameters additionalnumbers and additionalemails in NotifyDealer()
         /// </summary>
         /// <param name="input">Customer details with price quote details</param>
         /// <returns></returns>
@@ -243,7 +245,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
                                 custCity = objCust.cityDetails == null ? string.Empty : objCust.cityDetails.CityName;
 
                             _objLeadNofitication.NotifyDealer(input.PQId, dealerDetailEntity.objQuotation.objMake.MakeName, dealerDetailEntity.objQuotation.objModel.ModelName, dealerDetailEntity.objQuotation.objVersion.VersionName,
-                                dealerDetailEntity.objDealer.Organization, dealerDetailEntity.objDealer.EmailId, objCust.CustomerName, objCust.CustomerEmail, objCust.CustomerMobile, custArea, custCity, dealerDetailEntity.objQuotation.PriceList, Convert.ToInt32(TotalPrice), dealerDetailEntity.objOffers, imagePath, dealerDetailEntity.objDealer.PhoneNo, bikeName, objDPQSmsEntity.DealerArea);
+                                dealerDetailEntity.objDealer.Organization, dealerDetailEntity.objDealer.EmailId, objCust.CustomerName, objCust.CustomerEmail, objCust.CustomerMobile, custArea, custCity, dealerDetailEntity.objQuotation.PriceList, Convert.ToInt32(TotalPrice), dealerDetailEntity.objOffers, imagePath, dealerDetailEntity.objDealer.PhoneNo, bikeName, objDPQSmsEntity.DealerArea, dealerDetailEntity.objDealer.AdditionalNumbers,dealerDetailEntity.objDealer.AdditionalEmails);
 
 
                             if (isVerified)
