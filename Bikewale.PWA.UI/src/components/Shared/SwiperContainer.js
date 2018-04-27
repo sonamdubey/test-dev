@@ -16,7 +16,7 @@ const defaultProps = {
   type: '',
   heading: '',
   data: null,
-  carouselCard: ''
+  carouselCard: '' //TODO: Add default carousel card
 }
 
 class SwiperContainer extends React.Component {
@@ -33,9 +33,9 @@ class SwiperContainer extends React.Component {
 
     let CarouselCard = carouselCard
 
-    let list = data.map((item) => {
+    let list = data.map((item, index) => {
       return (
-        <li className="carousel__slide" key={item.modelId}>
+        <li className="carousel__slide" key={index}>
           <CarouselCard item={item} />
         </li>
       )
