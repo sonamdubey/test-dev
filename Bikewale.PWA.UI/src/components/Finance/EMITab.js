@@ -5,15 +5,22 @@ import { toJS } from '../../immutableWrapperContainer'
 
 import { openSelectBikePopup, closeSelectBikePopup } from '../../actionCreators/SelectBikePopup'
 import { fetchCity, openSelectCityPopup, closeSelectCityPopup, selectCity } from '../../actionCreators/FinanceCityPopup'
+import { fetchSimilarBikes } from '../../actionCreators/SimilarBikesEMI'
 
 import SelectBikePopup from '../Shared/SelectBikePopup'
 import EMISteps from './EMISteps'
 import SelectCityPopup from '../Shared/SelectCityPopup'
 import ModelInfo from './ModelInfoContainer'
+import SwiperContainer from '../Shared/SwiperContainer';
+import SwiperSimilarBikesEMI from '../Shared/SwiperSimilarBikesEMI';
 
 class EMITab extends React.Component {
   constructor(props) {
     super(props);
+  }
+  
+  componentDidMount() {
+    this.props.fetchSimilarBikes();
   }
   
   handleSelectBikeClick = () => {
@@ -40,7 +47,8 @@ class EMITab extends React.Component {
       FinanceCityPopup,
       fetchCity,
       closeSelectBikePopup,
-      closeSelectCityPopup
+      closeSelectCityPopup,
+      SimilarBikesEMI
     } = this.props
 
     return (
@@ -51,6 +59,16 @@ class EMITab extends React.Component {
             Know the tentative EMI for bike of your choice in 2 simple steps.
           </p>
         </div>
+        {
+          SimilarBikesEMI.data && (
+            <SwiperContainer
+              type="carousel__similar-emi"
+              heading="Other Bikes in similar range"
+              data={SimilarBikesEMI.data}
+              carouselCard={SwiperSimilarBikesEMI}
+            />
+          )
+        }
         <ModelInfo />
         <EMISteps />
         <span onClick={this.handleSelectBikeClick}>Select bike</span>
@@ -65,7 +83,8 @@ class EMITab extends React.Component {
 var mapStateToProps = (store) => {
   return {
     selectBikePopup: store.getIn(['Finance', 'SelectBikePopup']),
-    FinanceCityPopup: store.getIn(['Finance', 'FinanceCityPopup'])
+    FinanceCityPopup: store.getIn(['Finance', 'FinanceCityPopup']),
+    SimilarBikesEMI: store.getIn(['Finance', 'SimilarBikesEMI'])
   }
 }
 
@@ -76,7 +95,8 @@ var mapDispatchToProps = (dispatch) => {
     openSelectCityPopup: bindActionCreators(openSelectCityPopup, dispatch),
     closeSelectCityPopup: bindActionCreators(closeSelectCityPopup, dispatch),
     fetchCity: bindActionCreators(fetchCity, dispatch),
-    selectCity: bindActionCreators(selectCity, dispatch)
+    selectCity: bindActionCreators(selectCity, dispatch),
+    fetchSimilarBikes: bindActionCreators(fetchSimilarBikes, dispatch)
   }
 }
 
