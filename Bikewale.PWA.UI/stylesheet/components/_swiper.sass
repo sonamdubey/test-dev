@@ -9,7 +9,7 @@
 
 @mixin carousel-card-image($width: 122)
   @if unitless($width)
-    $_height: ceil((122 * 9) / 16)
+    $_height: ceil(($width * 9) / 16)
 
     width: $width * 1px
     height: $_height * 1px
