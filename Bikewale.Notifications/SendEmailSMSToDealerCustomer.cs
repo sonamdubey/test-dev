@@ -110,7 +110,7 @@ namespace Bikewale.Notifications
             Bikewale.Notifications.SMSTypes obj = new Bikewale.Notifications.SMSTypes();
             obj.NewBikePriceQuoteSMSToDealer(dealerMobile, customerName, customerMobile, bikeName, areaName, cityName, HttpContext.Current.Request.ServerVariables["URL"].ToString(), dealerArea);
             string[] arrAdditionalNumbers = null;
-            if (additionalNumbers != null)
+            if (!string.IsNullOrEmpty(additionalNumbers))
             {
                 arrAdditionalNumbers = additionalNumbers.Split(',');
             }

@@ -343,55 +343,49 @@ namespace BikewaleOpr.Campaign
                         useDefaultCallToAction = campaign.CallToAction == DEFAULT_CALL_TO_ACTION ? true : false;
                         chkUseDefaultCallToAction.Checked = useDefaultCallToAction;
                         List<string> additionalCommunications;
-                        if (!String.IsNullOrEmpty(campaign.CommunicationNumbers))
-                        {
-                            additionalCommunications = MapAdditionalCommunication(campaign.CommunicationNumbers);
-                            if (additionalCommunications != null && additionalCommunications.Any())
+                        additionalCommunications = MapAdditionalCommunication(campaign.CommunicationNumbers);
+                            if (additionalCommunications != null)
                             {
                                 var numberIterator = additionalCommunications.GetEnumerator();
                                 if (numberIterator.MoveNext())
                                 {
-                                    txtCommunicationNumber1.Text = numberIterator.Current.ToString();
+                                    txtCommunicationNumber1.Text = numberIterator.Current;
                                 }
                                 if (numberIterator.MoveNext())
                                 {
-                                    txtCommunicationNumber2.Text = numberIterator.Current.ToString();
+                                    txtCommunicationNumber2.Text = numberIterator.Current;
                                 }
                                 if (numberIterator.MoveNext())
                                 {
-                                    txtCommunicationNumber3.Text = numberIterator.Current.ToString();
+                                    txtCommunicationNumber3.Text = numberIterator.Current;
                                 }
                                 if (numberIterator.MoveNext())
                                 {
-                                    txtCommunicationNumber4.Text = numberIterator.Current.ToString();
+                                    txtCommunicationNumber4.Text = numberIterator.Current;
                                 }
                             }
-                        }
-                        if (!String.IsNullOrEmpty(campaign.CommunicationEmails))
-                        {
                             additionalCommunications = MapAdditionalCommunication(campaign.CommunicationEmails);
-                            if (additionalCommunications != null && additionalCommunications.Any())
+                            if (additionalCommunications != null)
                             {
                                 var emailIterator = additionalCommunications.GetEnumerator();
                                 if (emailIterator.MoveNext())
                                 {
-                                    txtCommunicationEmail1.Text = emailIterator.Current.ToString();
+                                    txtCommunicationEmail1.Text = emailIterator.Current;
                                 }
                                 if (emailIterator.MoveNext())
                                 {
-                                    txtCommunicationEmail2.Text = emailIterator.Current.ToString();
+                                    txtCommunicationEmail2.Text = emailIterator.Current;
                                 }
                                 if (emailIterator.MoveNext())
                                 {
-                                    txtCommunicationEmail3.Text = emailIterator.Current.ToString();
+                                    txtCommunicationEmail3.Text = emailIterator.Current;
                                 }
                                 if (emailIterator.MoveNext())
                                 {
-                                    txtCommunicationEmail4.Text = emailIterator.Current.ToString();
+                                    txtCommunicationEmail4.Text = emailIterator.Current;
                                 }
                             }
-                        }
-                    }
+                      }
                 }
 
 
@@ -500,16 +494,19 @@ namespace BikewaleOpr.Campaign
             try
             {
                 StringBuilder builder = new StringBuilder();
-                for (int i = 0; i < additionalCommunications.Length; i++)
+                if (additionalCommunications != null)
                 {
-                    if (!string.IsNullOrEmpty(additionalCommunications[i]))
+                    for (int i = 0; i < additionalCommunications.Length; i++)
                     {
-                        builder.AppendFormat(string.Format("{0},", additionalCommunications[i]));
+                        if (!string.IsNullOrEmpty(additionalCommunications[i]))
+                        {
+                            builder.AppendFormat(string.Format("{0},", additionalCommunications[i]));
+                        }
                     }
-                }
-                if (builder.Length > 1)
-                {
-                    builder.Remove(builder.Length - 1, 1);
+                    if (builder.Length > 1)
+                    {
+                        builder.Remove(builder.Length - 1, 1);
+                    }
                 }
                 return builder.ToString();
             }
@@ -529,14 +526,17 @@ namespace BikewaleOpr.Campaign
             List<string> AdCommunications = null;
             try
             {
-                AdCommunications = new List<string>();
-                string[] tokens = additionalCommunication.Split(',');
-                if (tokens.Length > 0)
+                if (!string.IsNullOrEmpty(additionalCommunication))
                 {
-                    var iterator = tokens.GetEnumerator();
-                    while (iterator.MoveNext())
+                    AdCommunications = new List<string>();
+                    string[] tokens = additionalCommunication.Split(',');
+                    if (tokens.Length > 0)
                     {
-                        AdCommunications.Add(iterator.Current.ToString());
+                        var iterator = tokens.GetEnumerator();
+                        while (iterator.MoveNext())
+                        {
+                            AdCommunications.Add(iterator.Current.ToString());
+                        }
                     }
                 }
             }
