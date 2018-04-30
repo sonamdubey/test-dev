@@ -87,6 +87,12 @@ const financeCityPopupAction = {
 	SET_CITY: 'SET_CITY'
 }
 
+const emiCalculatorAction = {
+	UPDATE_DOWNPAYMENT_SLIDER_VALUE: 'UPDATE_DOWNPAYMENT_SLIDER_VALUE',
+	UPDATE_TENURE_SLIDER_VALUE: 'UPDATE_TENURE_SLIDER_VALUE',
+	UPDATE_INTEREST_SLIDER_VALUE: 'UPDATE_INTEREST_SLIDER_VALUE'
+}
+
 module.exports = {
 	newsListAction : newsListAction,
 	newsDetailAction : newsDetailAction,
@@ -97,6 +103,7 @@ module.exports = {
 	videosDetailAction : videosDetailAction,
 	bikeImageCarouselAction : bikeImageCarouselAction,
 	selectBikePopupAction: selectBikePopupAction,
-	financeCityPopupAction: financeCityPopupAction
+	financeCityPopupAction: financeCityPopupAction,
+	emiCalculatorAction: emiCalculatorAction
 }
 

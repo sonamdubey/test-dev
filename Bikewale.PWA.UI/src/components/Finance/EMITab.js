@@ -8,6 +8,7 @@ import { fetchCity, openSelectCityPopup, setCity } from '../../actionCreators/fi
 
 import SelectBikePopup from '../Shared/SelectBikePopup'
 import EMISteps from './EMISteps'
+import EMICalculator from './EMICalculator'
 import SelectCityPopup from '../Shared/SelectCityPopup'
 
 class EMITab extends React.Component {
@@ -57,6 +58,7 @@ class EMITab extends React.Component {
         <span onClick={this.handleSelectCityClick}>Select city</span>
         <SelectBikePopup isActive={selectBikePopup.isActive} />
         <SelectCityPopup isActive={FinanceCityPopup.isActive} data={FinanceCityPopup} fetchCity={fetchCity} onCityClick={this.handleCityClick} />
+        <EMICalculator />
       </div>
     );
   }

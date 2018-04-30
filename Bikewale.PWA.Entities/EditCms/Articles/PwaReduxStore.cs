@@ -29,11 +29,17 @@ namespace Bikewale.Entities.PWA.Articles
 	{
 		public object SelectBikePopup;
 		public object FinanceCityPopup;
+        public object VehicleDownPayment;
+        public object VehicleTenure;
+        public object VehicleInterest;
 
 		public PwaFinanceReducer()
 		{
 			SelectBikePopup = new object();
 			FinanceCityPopup = new object();
+            VehicleDownPayment = new object();
+            VehicleTenure = new object();
+            VehicleInterest = new object();
 		}
 	}
 }
