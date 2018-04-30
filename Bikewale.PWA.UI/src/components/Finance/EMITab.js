@@ -59,6 +59,7 @@ class EMITab extends React.Component {
             Know the tentative EMI for bike of your choice in 2 simple steps.
           </p>
         </div>
+
         {
           SimilarBikesEMI.data && (
             <SwiperContainer
@@ -69,10 +70,10 @@ class EMITab extends React.Component {
             />
           )
         }
+
+        <EMISteps onSelectBikeClick={this.handleSelectBikeClick}  onSelectCityClick={this.handleSelectCityClick}/>
+
         <ModelInfo />
-        <EMISteps />
-        <span onClick={this.handleSelectBikeClick}>Select bike</span>
-        <span onClick={this.handleSelectCityClick}>Select city</span>
         <SelectBikePopup isActive={selectBikePopup.isActive} onCloseClick={closeSelectBikePopup} />
         <SelectCityPopup isActive={FinanceCityPopup.isActive} data={FinanceCityPopup} fetchCity={fetchCity} onCityClick={this.handleCityClick} onCloseClick={closeSelectCityPopup} />
       </div>
