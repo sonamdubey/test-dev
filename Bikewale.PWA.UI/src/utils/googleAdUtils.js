@@ -43,10 +43,10 @@ function addAdSlot(adUnitPath , adDimension , adDivId , tags) {
 		}
 		
     if(!adExists) {
-    	let adTarget = {
+        let adTarget = {
+            City: '',
+            Make: '',
     		Model: '',
-    		Make: '',
-    		City: '',
     		Series: '',
     		Tags: ''
     	}

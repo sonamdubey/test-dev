@@ -313,8 +313,11 @@ namespace Bikewale.BAL.GrpcFiles
                         PrevArticle = ConvertFromGrpcToBikeWale(grpcAtricleDet.PrevArticle),
                         NextArticle = ConvertFromGrpcToBikeWale(grpcAtricleDet.NextArticle),
                         TagsList = ConvertFromGrpcToBikeWale(grpcAtricleDet.TagsList),
-                        VehiclTagsList = ConvertFromGrpcToBikeWale(grpcAtricleDet.VehiclTagsList)
+                        VehiclTagsList = ConvertFromGrpcToBikeWale(grpcAtricleDet.VehiclTagsList),
+                        
                     };
+                    bwArticleDetails.MakeName = !string.IsNullOrEmpty(artSummary.MakeName) ? artSummary.MakeName : GetMakeNameFromTaggedVehicle(bwArticleDetails.VehiclTagsList);
+                    bwArticleDetails.ModelName = !string.IsNullOrEmpty(artSummary.ModelName) ? artSummary.ModelName : GetModelNameFromTaggedVehicle(bwArticleDetails.VehiclTagsList);
                     return bwArticleDetails;
                 }
                 catch (Exception e)
@@ -325,6 +328,46 @@ namespace Bikewale.BAL.GrpcFiles
             }
             else
                 return null;
+        }
+
+        public static string GetMakeNameFromTaggedVehicle(IList<VehicleTag> vehicles)
+        {
+            string makeName = string.Empty;
+            try
+            {
+                if (vehicles != null)
+                {
+                    var makeBase = vehicles.FirstOrDefault().MakeBase;
+                    if (makeBase != null)
+                        makeName = makeBase.MakeName;
+                }
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex);
+                throw;
+            }
+            return makeName;
+        }
+
+        public static string GetModelNameFromTaggedVehicle(IList<VehicleTag> vehicles)
+        {
+            string modelName = string.Empty;
+            try
+            {
+                if (vehicles != null)
+                {
+                    var modelBase = vehicles.FirstOrDefault().ModelBase;
+                    if (modelBase != null)
+                        modelName = modelBase.ModelName;
+                }
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex);
+                throw;
+            }
+            return modelName;
         }
 
         public static ArticleSummary ConvertFromGrpcToBikeWale(GrpcArticleSummary data)
@@ -393,6 +436,8 @@ namespace Bikewale.BAL.GrpcFiles
                         VehiclTagsList = ConvertFromGrpcToBikeWale(grpcAtricleDet.VehiclTagsList),
                         AuthorMaskingName = artSummary.AuthorMaskingName
                     };
+                    bwArticleDetails.MakeName = !string.IsNullOrEmpty(artSummary.MakeName) ? artSummary.MakeName : GetMakeNameFromTaggedVehicle(bwArticleDetails.VehiclTagsList);
+                    bwArticleDetails.ModelName = !string.IsNullOrEmpty(artSummary.ModelName) ? artSummary.ModelName : GetModelNameFromTaggedVehicle(bwArticleDetails.VehiclTagsList);
                     return bwArticleDetails;
                 }
                 catch (Exception e)

@@ -79,6 +79,8 @@ namespace Bikewale.PWA.Utils
                 outDetails.ArticleApi = string.Format("api/pwa/cms/id/{0}/page/", inpDet.BasicId);
                 outDetails.Tags = (inpDet.TagsList != null && inpDet.TagsList.Count() > 0) ? String.Join(",", inpDet.TagsList) : string.Empty;
                 outDetails.ShareUrl = PwaCmsHelper.ReturnShareUrl(inpDet);
+                outDetails.MakeName = inpDet.MakeName;
+                outDetails.ModelName = inpDet.ModelName;
             }
             return outDetails;
         }
@@ -110,6 +112,8 @@ namespace Bikewale.PWA.Utils
                 outDetails.ArticleApi = string.Format("api/pwa/cms/id/{0}/pages/", inpDet.BasicId);
                 outDetails.Tags = (inpDet.TagsList != null && inpDet.TagsList.Count() > 0) ? String.Join(",", inpDet.TagsList) : string.Empty;
                 outDetails.ShareUrl = PwaCmsHelper.ReturnSharePageUrl(inpDet);
+                outDetails.MakeName = inpDet.MakeName;
+                outDetails.ModelName = inpDet.ModelName;
             }
             return outDetails;
         }

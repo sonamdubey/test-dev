@@ -19,7 +19,5 @@ namespace Bikewale.Models
     {
         public ArticleDetails ArticleDetails { get; set; }
         public string BaseUrl { get; set; }
-
-        public EditorialSeriesWidgetVM SeriesWidget { get; set; }
     }
 }
