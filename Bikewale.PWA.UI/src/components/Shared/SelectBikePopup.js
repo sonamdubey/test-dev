@@ -6,11 +6,15 @@ import Accordion from '../Shared/Accordion';
 class SelectBikePopup extends React.Component {
   constructor(props) {
     super(props);
-
-    this.getList = this.getList.bind(this);
   }
 
-  getList() {
+  handleCloseClick = () => {
+    if (this.props.onCloseClick) {
+      this.props.onCloseClick();
+    }
+  }
+
+  getList = () => {
     let data = [
       {
         makeId: 1,
@@ -97,7 +101,7 @@ class SelectBikePopup extends React.Component {
         <div className="select-bike-popup__content">
           <div className="popup__head">
             <div className="popup-head__content">
-              <span className="popup__close"></span>
+              <span onClick={this.handleCloseClick} className="popup__close"></span>
               <div className="popup__search-box">
                 <p className="popup-search__title">Select Make and Model</p>
                 <div className="autocomplete-box">

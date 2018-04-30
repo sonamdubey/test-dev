@@ -8,28 +8,31 @@ import ListGroupItem from './ListGroupItem';
 class SelectCityPopup extends React.Component {
   constructor(props) {
     super(props);
-
-    this.handleCityClick = this.handleCityClick.bind(this);
-    this.getOtherCityList = this.getOtherCityList.bind(this);
   }
 
   componentDidMount() {
     this.props.fetchCity();
   }
 
-  handleCityClick(item) {
+  handleCityClick = (item) => {
     if (this.props.onCityClick) {
       this.props.onCityClick(item);
     }
   }
 
-  getOtherCityList() {
+  handleCloseClick = () => {
+    if (this.props.onCloseClick) {
+      this.props.onCloseClick();
+    }
+  }
+
+  getOtherCityList = () => {
     const {
       data,
       onClick
     } = this.props
 
-    let listItems = data.Other.map(function(item, index) {
+    let listItems = data.Other.map((item, index) => {
       let active = data.Selection.cityId === item.cityId ? true : false;
 
       return (
@@ -40,7 +43,7 @@ class SelectCityPopup extends React.Component {
           onClick={this.handleCityClick.bind(this, item)}
         />
       )
-    }, this)
+    })
 
     return (
       <ListGroup type="other-city__list">
@@ -63,7 +66,7 @@ class SelectCityPopup extends React.Component {
         <div className="select-city-popup__content">
           <div className="popup__head">
             <div className="popup-head__content">
-              <span className="popup__close"></span>
+              <span onClick={this.handleCloseClick} className="popup__close"></span>
               <div className="popup__search-box">
                 <p className="popup-search__title">Select City</p>
                 <div className="autocomplete-box">
