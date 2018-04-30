@@ -743,6 +743,8 @@ namespace Bikewale.Service.Controllers.PWA.CMS
         /// Created by : Ashutosh Sharma on 01 Mar 2018.
         /// Description : Method to split article html content into two parts to insert bikeinfo card at 25% height of article content, if there
         ///                 is only one page in article pagelist, than one more page is added if bottomContent is not empty.
+        /// Modified by : Rajan Chauhan on 24 Apr 2018
+        /// Desciption  : Corrected the condition for setting trucatingIndex on matched page 
         /// </summary>
         /// <param name="articleDetails"></param>
         /// <returns></returns>
@@ -753,9 +755,8 @@ namespace Bikewale.Service.Controllers.PWA.CMS
             {
                 if (articleDetails != null && articleDetails.PageList != null)
                 {
-                    int totalStrippedHTMLLength = 0, currentPageLength = 0, requiredLength = 0, totalPages = articleDetails.PageList.Count; string inputString = null, viewName = null;
+                    int totalStrippedHTMLLength = 0, currentPageLength = 0, requiredLength = 0, totalPages = articleDetails.PageList.Count;
                     IList<Tuple<int, int>> objPagesInfo = new List<Tuple<int, int>>();
-                    Models.Shared.BikeInfo ampBikeInfo = null;
 
 
 
@@ -772,11 +773,14 @@ namespace Bikewale.Service.Controllers.PWA.CMS
 
                     foreach (var item in objPagesInfo)
                     {
-                        currentPageLength += item.Item2;
-                        if (currentPageLength >= requiredLength)
+                        currentPageLength = item.Item2;
+                        if (currentPageLength < requiredLength)
+                        {
+                            requiredLength = requiredLength - currentPageLength;
+                        }
+                        else
                         {
                             matchedPage = item.Item1;
-                            requiredLength = currentPageLength - requiredLength;
                             break;
                         }
 
@@ -788,14 +792,20 @@ namespace Bikewale.Service.Controllers.PWA.CMS
                     articleDetails.PageList[matchedPage].Content = topContentInPage;
                     if (matchedPage != articleDetails.PageList.Count - 1)
                     {
-                        articleDetails.PageList[matchedPage + 1].Content = bottomContentInPage + articleDetails.PageList[matchedPage + 1].Content;
+                        articleDetails.PageList.Insert(matchedPage + 1, new Page()
+                        {
+                            Content = bottomContentInPage,
+                            PageName = string.Empty,
+                            pageId = articleDetails.PageList[matchedPage + 1].pageId,
+                            Priority = articleDetails.PageList[matchedPage + 1].Priority
+                        });
                     }
                     else if (!string.IsNullOrEmpty(bottomContentInPage))
                     {
                         articleDetails.PageList.Add(new Page()
                         {
                             Content = bottomContentInPage,
-                            PageName = "",
+                            PageName = string.Empty,
                             pageId = articleDetails.PageList[matchedPage].pageId + 1,
                             Priority = articleDetails.PageList.Max(p => p.Priority)
                         });
