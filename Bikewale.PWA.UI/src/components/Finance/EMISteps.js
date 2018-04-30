@@ -28,13 +28,14 @@ class EMISteps extends React.Component {
   constructor(props) {
     super(props);
     this.setState({
-      bike: 2,  // here 1: disabled; 2: active; 3: done
-      city: 1
+      bike: 1,  // here 1: disabled; 2: done
+      city: 1,
+      focused: 1   //current step
     });
   }
 
-  renderMakeCard = (makeName) =>{
-    return (makeName != '')
+  renderMakeCard = (modelData) =>{
+    return (modelData.makeName == '')
     ?
       (
       <div className="select-step-card__placeholder select-card__make-selection" onClick={this.handleMakeSelect} >
@@ -72,16 +73,25 @@ class EMISteps extends React.Component {
     this.citySelect = element;
   };
   handleMakeSelect = () => {
-    this.props.onSelectBikeClick()
-    scrollIntoView(this.StepSelectionContainer, this.citySelect)
+    this.props.onSelectBikeClick();
+    scrollIntoView(this.StepSelectionContainer, this.citySelect);
   }
   handleScroll = (event) => {
     debounce(() => {
       if(this.StepSelectionContainer.classList.contains('selection-step--overflow')) {    
         inView(this.StepSelection, this.StepSelectionContainer );
+        var count = 0;
+        var child = this.StepSelection.querySelectorAll('.selection-steps__card.inview--active')[0];
+        while( (child = child.previousSibling) != null ) {
+          count++;          
+        }
+        
+      [...document.querySelectorAll('.progress-bar')[0].children].forEach(function(item) {
+        item.firstChild.classList.remove('focused')
+      });  
+      document.querySelectorAll('.progress-bar__item:nth-of-type('+ (count+1) + ') .progress-bar-item__content')[0].classList.add('focused');
       }
     }, 250)();
-    
   }
   componentDidMount = () => {
     this.StepSelectionContainer.addEventListener('scroll', this.handleScroll);
@@ -100,10 +110,10 @@ class EMISteps extends React.Component {
     return (
       <div className="emi-calculator__progress-container">
         <ProgressBar>
-          <ProgressBarItem stepNumber={1} status={this.state.bike}>
+          <ProgressBarItem stepNumber={1} status={this.state.bike} currentFocused={this.state.focused == 1? ' focused': ''}>
               Select bike
           </ProgressBarItem>
-          <ProgressBarItem stepNumber={2} status={this.state.city}>
+          <ProgressBarItem stepNumber={2} status={this.state.city} currentFocused={this.state.focused == 2? ' focused': ''}>
               Select city
           </ProgressBarItem>
         </ProgressBar>
@@ -111,7 +121,7 @@ class EMISteps extends React.Component {
         <div ref={this.setSelectionContainerRef} className={"selection-steps__container " + isOverflow}>
           <div ref={this.setSelectionStepsRef} className="emi-calulator__selection-steps">
             <SelectionStepCard>
-              {this.renderMakeCard(modelData.makeName)}
+              {this.renderMakeCard(modelData)}
             </SelectionStepCard>
             {(isOverflow) &&
               <SelectionStepCard>

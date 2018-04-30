@@ -5,12 +5,15 @@ const propTypes = {
 	// count
   stepNumber: PropTypes.number,
   // status
-  status: PropTypes.number
+  status: PropTypes.number,
+  //current focused
+  currentFocused: PropTypes.String
 }
 
 const defaultProps = {
   stepNumber: -1,
-  status: 1  // here, status 1: disabled; 2: active; 3: done 
+  status: 1,  // here, status 1: disabled; 2: done 
+  currentFocused: ''
 }
 
 class ProgressBarItem extends React.Component {
@@ -23,12 +26,10 @@ class ProgressBarItem extends React.Component {
     switch(status) {
       case 1:
       return 'disabled';
-    case 2:
-      return 'active';
-    case 3:
-      return 'done';
-    default:
-      return 'disabled';
+      case 2:
+        return 'done';
+      default:
+        return 'disabled';
     }
   }
   render() {
@@ -37,9 +38,10 @@ class ProgressBarItem extends React.Component {
       status
     } = this.props
     const classStatus = this.getClassName(status);
+    console.log(this.props.currentFocused)
     return(
       <div className="progress-bar__item">
-        <div className={"progress-bar-item__content " + classStatus}>
+        <div className={"progress-bar-item__content " + classStatus + this.props.currentFocused}>
             { stepNumber != -1 
             ?
               <span className="progress-bar-item__step-count">{stepNumber}</span>
