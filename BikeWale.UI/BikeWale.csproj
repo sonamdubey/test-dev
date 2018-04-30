@@ -954,6 +954,7 @@
     <Compile Include="Models\ComparisonTest\ComparisonTestWidget.cs" />
     <Compile Include="Models\ComparisonTests\ComparisonTestsIndexPage.cs" />
     <Compile Include="Models\DealerShowroom\DealerCardWidget.cs" />
+    <Compile Include="Models\EditorialPages\EditorialBasePage.cs" />
     <Compile Include="Models\ElectricBike\ElectricBikesPage.cs" />
     <Compile Include="Models\ExpertReviews\ScooterExpertReviewsPage.cs" />
     <Compile Include="Models\Features\DetailPage.cs" />
@@ -2087,6 +2088,7 @@
     <Content Include="bikewaleimg\used\S93\93_20120913123500720_300x225.jpg" />
     <Content Include="bikewaleimg\used\S93\93_20120913123500720_640x428.jpg" />
     <Content Include="bikewaleimg\used\S93\93_20120913123500720_80x60.jpg" />
+    <Content Include="BingSiteAuth.xml" />
     <Content Include="bin\Bikewale.dll" />
     <!--     <Content Include="bin\DotNetOpenAuth.AspNet.dll" />
     <Content Include="bin\DotNetOpenAuth.AspNet.xml" />
@@ -3196,8 +3198,10 @@
     <Content Include="src\dealersbylocation.js" />
     <Content Include="src\dealer\details.js" />
     <Content Include="src\dealer\landing.js" />
+    <Content Include="src\editorialwidgetga.js" />
     <Content Include="src\electricbikes\electricbikeindex.js" />
     <Content Include="src\lazyloadad.js" />
+    <Content Include="m\src\lazyloadyoutube.js" />
     <Content Include="src\lazyloadyoutube.js" />
     <Content Include="src\model-series\series.js" />
     <Content Include="src\emi-calculator.js" />
@@ -3344,6 +3348,7 @@
     <Content Include="Videos\video.aspx" />
     <Content Include="Videos\VideoCategories.aspx" />
     <Content Include="Videos\VideoMakeModel.aspx" />
+    <Content Include="Views\BikeModels\_UpcomingBikesWidgetBase_Mobile_AMP.cshtml" />
     <Content Include="Views\BikeSeries\_Index_Tabs_Mobile.cshtml" />
     <Content Include="Views\ExpertReviews\_ExpertReview_Mobile.cshtml" />
     <Content Include="Views\Make\_DealerServiceCentersWidget.cshtml">
@@ -4076,8 +4081,28 @@
     <Content Include="Views\Shared\fontcss\Oxygen\_Latin700.cshtml" />
     <Content Include="Views\Shared\Ads\Mobile\Ad320x50.cshtml" />
     <Content Include="Views\Shared\Ads\Mobile\Ad320x50Bottom.cshtml" />
+    <Content Include="Views\BikeModels\_PopularBikesWidgetBase.cshtml" />
+    <Content Include="Views\BikeModels\_UpcomingBikesWidgetBase.cshtml" />
     <Content Include="Views\Shared\Ads\Desktop\AdSlotGeneric.cshtml" />
     <Content Include="sass\partials\bw-youtube.sass" />
+    <Content Include="Views\GenericBikeInfo\_GenericBikeInfoWidget.cshtml" />
+    <Content Include="Views\GenericBikeInfo\_GenericBikeInfoWidget_Mobile.cshtml" />
+    <Content Include="Views\Make\_OtherBrandsWidgetBase.cshtml" />
+    <Content Include="sass\partials\explore-bikes-carousel.sass" />
+    <Content Include="Views\Shared\_EditorialWidgetBase.cshtml" />
+    <Content Include="Views\BikeSeries\_MakeSeriesSlug.cshtml" />
+    <Content Include="Views\BikeSeries\_MakeSeriesSlug_Mobile.cshtml" />
+    <Content Include="Views\BikeSeries\_MakeSeriesSlug_Mobile_New.cshtml" />
+    <Content Include="Views\BikeSeries\_MakeSeriesSlug_Mobile_AMP.cshtml" />
+    <Content Include="Views\Shared\_EditorialWidgetBase_Mobile.cshtml" />
+    <Content Include="Views\BikeModels\_PopularBikesWidgetBase_Mobile.cshtml" />
+    <Content Include="Views\Make\_OtherBrandsWidgetBase_Mobile.cshtml" />
+    <Content Include="Views\BikeModels\_UpcomingBikesWidgetBase_Mobile.cshtml" />
+    <Content Include="Views\Shared\_EditorialWidgetBase_Mobile_AMP.cshtml" />
+    <Content Include="Views\BikeModels\_PopularBikesWidgetBase_Mobile_AMP.cshtml" />
+    <Content Include="Views\Make\_OtherBrandsWidgetBase_Mobile_AMP.cshtml" />
+    <Content Include="Views\Model\_Index_MileageDetails.cshtml" />
+    <Content Include="Views\Model\_Index_MileageDetails_Mobile.cshtml" />
     <None Include="Views\Shared\_Sidebar-section.cshtml" />
     <Content Include="Views\BikeModels\_MultiTabsWidget.cshtml" />
     <Content Include="Views\Shared\_ReviewPopup.cshtml" />
@@ -4103,6 +4128,7 @@
     <Content Include="Views\BestBikes\_PopularBodyStyleBestBikesCarousel_Mobile.cshtml" />
     <Content Include="Views\UserReview\BikesWithReviewsByMake_Mobile_New.cshtml" />
     <Content Include="Views\Upcoming\_UpcomingBikesWithNotify_Mobile.cshtml" />
+    <Content Include="Views\Videos\_LazyLoadVideos_Mobile.cshtml" />
     <Content Include="Views\Videos\_LazyLoadVideos.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -4133,7 +4159,6 @@
     <Folder Include="obj\Release\TempPE\" />
     <Folder Include="Views\BikeInfo\" />
     <Folder Include="Views\Content\News\Amp\" />
-    <Folder Include="Views\GenericBikeInfo\" />
     <Folder Include="Views\Privacy\" />
   </ItemGroup>
   <ItemGroup>
@@ -4359,9 +4384,9 @@
   <Target Name="BeforeBuild">
     <Message Text="Bikewale Build Initialized..." Importance="high" />
   </Target>
-  <Target Name="CheckNPMInstall" AfterTargets="BeforeBuild" Condition="'$(Configuration)' != 'Debug'">	
-    <Message Text="Checking and installing NPM on machine.." Importance="high" />	
-    <Exec Command="npm install  --quiet" WorkingDirectory="$(ProjectDir)" />	
+  <Target Name="CheckNPMInstall" AfterTargets="BeforeBuild" Condition="'$(Configuration)' != 'Debug'">
+    <Message Text="Checking and installing NPM on machine.." Importance="high" />
+    <Exec Command="npm install  --quiet" WorkingDirectory="$(ProjectDir)" />
   </Target>
   <Target Name="ExecuteGulpEvent" AfterTargets="AfterBuild" DependsOnTargets="CheckNPMInstall" Condition="'$(Configuration)' != 'Debug'">
     <Message Text="Running gulp task $(Configuration)" Importance="high" />

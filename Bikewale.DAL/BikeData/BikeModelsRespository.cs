@@ -573,6 +573,8 @@ namespace Bikewale.DAL.BikeData
         /// <summary>
         /// Modified By : Sadhana Upadhyay on 29 Oct 2015
         /// Summary : To fetch
+        /// Modified By : Sanskar Gupta on 16 April 2018
+        /// Description : Added null check for `dr["ExpectedLaunch"]` and optimized some code around it. Changed `Convert.To...` to `SQLReaderConverted...` wherever possible.
         /// </summary>
         /// <param name="inputParams"></param>
         /// <param name="sortBy"></param>
@@ -607,18 +609,18 @@ namespace Bikewale.DAL.BikeData
                             {
                                 UpcomingBikeEntity objModel = new UpcomingBikeEntity();
 
-                                objModel.ExpectedLaunchId = Convert.ToUInt16(dr["ExpectedLaunchId"]);
-                                objModel.ExpectedLaunchDate = !String.IsNullOrEmpty(Convert.ToString(dr["ExpectedLaunch"])) ? Convert.ToDateTime(dr["ExpectedLaunch"]).ToString("MMMM yyyy") : "";
-                                objModel.ExpectedLaunchedDate = Convert.ToDateTime(dr["ExpectedLaunch"]);
-                                objModel.EstimatedPriceMin = Convert.ToUInt64(dr["EstimatedPriceMin"]);
-                                objModel.EstimatedPriceMax = Convert.ToUInt64(dr["EstimatedPriceMax"]);
+                                objModel.ExpectedLaunchId = SqlReaderConvertor.ToUInt16(dr["ExpectedLaunchId"]);
+                                objModel.ExpectedLaunchedDate = SqlReaderConvertor.ToDateTime(dr["ExpectedLaunch"]);
+                                objModel.ExpectedLaunchDate = objModel.ExpectedLaunchedDate.ToString("MMMM yyyy");
+                                objModel.EstimatedPriceMin = SqlReaderConvertor.ToUInt64(dr["EstimatedPriceMin"]);
+                                objModel.EstimatedPriceMax = SqlReaderConvertor.ToUInt64(dr["EstimatedPriceMax"]);
                                 objModel.HostUrl = Convert.ToString(dr["HostURL"]);
                                 objModel.LargePicImagePath = Convert.ToString(dr["LargePicImagePath"]);
                                 objModel.BikeDescription.SmallDescription = Convert.ToString(dr["Description"]);
-                                objModel.MakeBase.MakeId = Convert.ToInt32(dr["MakeId"]);
+                                objModel.MakeBase.MakeId = SqlReaderConvertor.ToInt32(dr["MakeId"]);
                                 objModel.MakeBase.MakeName = Convert.ToString(dr["MakeName"]);
                                 objModel.MakeBase.MaskingName = Convert.ToString(dr["MakeMaskingName"]);
-                                objModel.ModelBase.ModelId = Convert.ToInt32(dr["ModelId"]);
+                                objModel.ModelBase.ModelId = SqlReaderConvertor.ToInt32(dr["ModelId"]);
                                 objModel.ModelBase.ModelName = Convert.ToString(dr["ModelName"]);
                                 objModel.ModelBase.MaskingName = Convert.ToString(dr["ModelMaskingName"]);
                                 objModel.OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]);
@@ -3101,6 +3103,8 @@ namespace Bikewale.DAL.BikeData
         /// <summary>
         /// Created by : Ashutosh Sharma on 18-Aug-2017
         /// Description : DAL method to get popular bikes by body style.
+        /// Modified By : Sanskar Gupta on 11 April 2018
+        /// Descirption : Added code for population of `popularObj.objMake.MakeName` and `popularObj.objMake.MaskingName`
         /// </summary>
         /// <param name="bodyStyleId"></param>
         /// <param name="topCount"></param>
@@ -3129,9 +3133,12 @@ namespace Bikewale.DAL.BikeData
                             {
                                 MostPopularBikesBase popularObj = new MostPopularBikesBase();
                                 popularObj.objModel = new BikeModelEntityBase();
+                                popularObj.objMake = new BikeMakeEntityBase();
                                 popularObj.MakeId = SqlReaderConvertor.ToInt32(dr["MakeId"]);
                                 popularObj.MakeName = Convert.ToString(dr["MakeName"]);
                                 popularObj.MakeMaskingName = Convert.ToString(dr["MakeMaskingName"]);
+                                popularObj.objMake.MakeName = popularObj.MakeName;
+                                popularObj.objMake.MaskingName = popularObj.MakeMaskingName;
                                 popularObj.objModel.ModelId = SqlReaderConvertor.ToInt32(dr["ModelId"]);
                                 popularObj.objModel.ModelName = Convert.ToString(dr["ModelName"]);
                                 popularObj.objModel.MaskingName = Convert.ToString(dr["ModelMaskingName"]);
@@ -3516,5 +3523,7 @@ namespace Bikewale.DAL.BikeData
             }
             return images;
         }
+        
+
     }   // class
 }   // namespace

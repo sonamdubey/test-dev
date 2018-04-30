@@ -111,6 +111,9 @@
     <Compile Include="Authors\AuthorsListVM.cs" />
     <Compile Include="BestBikes\BestBikeByCategoryVM.cs" />
     <Compile Include="BikeCare\BikeCareDetailPageVM.cs" />
+    <Compile Include="BikeMakes\EditorialOtherBrandsWidget.cs" />
+    <Compile Include="BikeModels\EditorialPopularBikesWidget.cs" />
+    <Compile Include="BikeModels\EditorialUpcomingBikesWidget.cs" />
     <Compile Include="BikeModels\ModelMileageWidgetVM.cs" />
     <Compile Include="BikeModels\ModelPageVM.cs" />
     <Compile Include="BikeCare\BikeCareIndexPageVM.cs" />
@@ -118,6 +121,7 @@
     <Compile Include="BikeModels\OtherBestBikesVM.cs" />
     <Compile Include="BikeSeries\BikeSeriesCompareVM.cs" />
     <Compile Include="BikeSeries\BikeSeriesModelsVM.cs" />
+    <Compile Include="BikeSeries\MakeSeriesSlugVM.cs" />
     <Compile Include="BikeSeries\OtherSeriesVM.cs" />
     <Compile Include="BikeSeries\PopularSeriesBikesVM.cs" />
     <Compile Include="BikeSeries\SeriesPageVM.cs" />
@@ -202,6 +206,8 @@
     <Compile Include="Shared\CMSArticleDetailPageVM.cs" />
     <Compile Include="Shared\CMSArticlesListIndexPageVM.cs" />
     <Compile Include="Shared\EditCMSPhotoGalleryVM.cs" />
+    <Compile Include="Shared\EditorialWidgetInfo.cs" />
+    <Compile Include="Shared\EditorialWidgetVM.cs" />
     <Compile Include="Shared\EMICalculatorVM.cs" />
     <Compile Include="Shared\Pager.cs" />
     <Compile Include="Shared\PopularScootersList.cs" />
@@ -261,7 +267,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="BikeMakes\" />
     <Folder Include="ComparisonTest\" />
     <Folder Include="Desktop\" />
   </ItemGroup>
