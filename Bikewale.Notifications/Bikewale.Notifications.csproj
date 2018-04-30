@@ -184,6 +184,10 @@
     <Compile Include="UserReviewsEmails.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Bikewale.DTO\Bikewale.DTO.csproj">
+      <Project>{a6404f19-b267-4e37-b186-d8fc010ad2ce}</Project>
+      <Name>Bikewale.DTO</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Bikewale.Entities\Bikewale.Entities.csproj">
       <Project>{8223a4b8-db14-4658-9897-257d872ae8d9}</Project>
       <Name>Bikewale.Entities</Name>
