@@ -385,5 +385,58 @@ namespace Bikewale.DAL.BikeData
 
             return modelIds;
         }
+
+        /// <summary>
+        /// Created By : Deepak Israni on 16 April 2018
+        /// Description: To get the list of series by make with minimum price by city.
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <param name="cityId"></param>
+        /// <returns></returns>
+        public IEnumerable<BikeSeriesEntity> GetMakeSeries(int makeId, int cityId)
+        {
+            IList<BikeSeriesEntity> makeSeriesEntityList = null;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("getseriesbymake_16042018"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, makeId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            Bikewale.Entities.GenericBikes.EnumBikeBodyStyles bodyStyle;
+                            makeSeriesEntityList = new List<BikeSeriesEntity>();
+                            while (dr.Read())
+                            {
+                                makeSeriesEntityList.Add(new BikeSeriesEntity()
+                                {
+                                    SeriesId = SqlReaderConvertor.ToUInt32(dr["SeriesId"]),
+                                    SeriesName = Convert.ToString(dr["SeriesName"]),
+                                    MaskingName = Convert.ToString(dr["SeriesMaskingName"]),
+                                    IsSeriesPageUrl = SqlReaderConvertor.ToBoolean(dr["IsSeriesPageUrl"]),
+                                    BodyStyle = Enum.TryParse(Convert.ToString(dr["BodyStyle"]), out bodyStyle) ? bodyStyle : Entities.GenericBikes.EnumBikeBodyStyles.AllBikes,
+                                    HostUrl = Convert.ToString(dr["HostUrl"]),
+                                    OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]),
+                                    ModelsCount = SqlReaderConvertor.ToUInt32(dr["BikeCount"]),
+                                    MinPrice = SqlReaderConvertor.ToUInt32(dr["MinPrice"])
+                                });
+
+                            }
+                            dr.Close();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("DAL.BikeData.BikeSeriesRepository.GetMakeSeries SeriesId = {0}, CityId = {1}", makeId, cityId));
+            }
+            return makeSeriesEntityList;
+        }
+
     }   // class
 }   // namespace

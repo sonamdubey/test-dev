@@ -10,5 +10,6 @@ namespace Bikewale.Entities.BikeData
 		public string HostUrl { get; set; }
 		public string OriginalImagePath { get; set; }
 		public uint ModelsCount { get; set; }
+        public uint MinPrice { get; set; }
 	}
 }
