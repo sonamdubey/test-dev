@@ -1,0 +1,67 @@
+﻿@model EditorialWidgetVM
+@using Bikewale.Models.Shared;
+@using Bikewale.Entities.BikeData;
+@using Bikewale.Models.BikeModels;
+@using Bikewale.Models.BikeMakes;
+@using Bikewale.Utility;
+
+@if (Model != null)
+{
+    var columns = Model.WidgetColumns;
+    EditorialWidgetInfo column = null;
+    if (columns.ContainsKey(EditorialWidgetColumnPosition.Left))
+    {
+        column = columns[EditorialWidgetColumnPosition.Left];
+    }
+    if (column == null)
+    {
+        return;
+    }
+
+    <section>
+        <div class="container box-shadow bg-white section-bottom-margin padding-bottom20 padding-top15">
+            <div class="carousel-heading-content">
+                <div class="swiper-heading-left-grid inline-block">
+                    <h2>@column.Title</h2>
+                </div>
+                <div class="swiper-heading-right-grid inline-block text-right">
+                    <a href="@string.Format("{0}/m{1}", BWConfiguration.Instance.BwHostUrl, column.ViewAllUrl)" title="@column.ViewAllTitle" class="btn view-all-target-btn">View all</a>
+                </div>
+                <div class="clear"></div>
+            </div>
+            @GenerateWidgetTab(column)
+        </div>
+    </section>
+}
+
+@helper  GenerateWidgetTab(EditorialWidgetInfo inputColumn)
+{
+string partialView = null;
+
+if (inputColumn != null)
+{
+    var columnView = inputColumn;
+    switch (inputColumn.WidgetType)
+    {
+        case EditorialWidgetType.Popular:
+            partialView = "~/Views/BikeModels/_PopularBikesWidgetBase_Mobile_AMP.cshtml";
+            columnView = (EditorialPopularBikesWidget)inputColumn;
+            break;
+
+        case EditorialWidgetType.Upcoming:
+            partialView = "~/Views/BikeModels/_UpcomingBikesWidgetBase_Mobile_AMP.cshtml";
+            columnView = (EditorialUpcomingBikesWidget)inputColumn;
+            break;
+
+        case EditorialWidgetType.OtherBrands:
+            partialView = "~/Views/Make/_OtherBrandsWidgetBase_Mobile_AMP.cshtml";
+            columnView = (EditorialOtherBrandsWidget)inputColumn;
+            break;
+    }
+
+    if (!string.IsNullOrEmpty(partialView))
+    {
+            Html.RenderPartial(partialView, columnView);
+        }
+    }
+}

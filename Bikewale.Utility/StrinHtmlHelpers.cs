@@ -335,6 +335,7 @@ namespace System
             return Tuple.Create(new string(arr, 0, arrayIndex), arrayIndex);
         }
         /// <summary>
+        /// Updated the logic by Prasad 
         /// Created By : Sushil Kumar on 2nd Oct 2017
         /// Description : To insert html in between the source html 
         ///               If location is found i.e. index where html to be injected then 
@@ -344,77 +345,107 @@ namespace System
         /// <param name="inputHtml"></param>
         /// <param name="truncateAt"></param>
         /// <returns></returns>
+        
         public static string InsertHTMLBetweenHTML(string source, string inputHtml, int truncateAt)
         {
-            if (string.IsNullOrEmpty(source))
-            {
-                return inputHtml;
-            }
-
             if (string.IsNullOrEmpty(inputHtml))
-            {
                 return source;
+
+            string topContent, bottomContent;
+            GetTopContentBottomContentAtSplitLoc(source, truncateAt, out topContent, out bottomContent);
+            
+            return string.Concat(topContent, inputHtml, bottomContent);
+
+        }
+
+        /// <summary>
+        /// find the first '<p>' tag or '</p>' tag and set the split location accordingly
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="truncateAt"></param>
+        /// <param name="topContent"></param>
+        /// <param name="bottomContent"></param>
+        private static void GetTopContentBottomContentAtSplitLoc(string source,int truncateAt,out string topContent,out string bottomContent)
+        {
+
+            if(string.IsNullOrEmpty(source))
+            {
+                topContent = string.Empty;
+                bottomContent = string.Empty;
+                return;
             }
 
-            var arr = new char[source.Length + inputHtml.Length];
-            int arrayIndex = 0;
-            bool inside = false;
-
-            try
+            if (truncateAt <= 0)
             {
+                topContent = string.Empty;
+                bottomContent = source;
+                return;
+            }
 
-                for (int i = 0, j = 0; i < source.Length; i++)
+            //convert to Char array to process data in O(n)
+            char[] sourceArr = source.ToCharArray();
+            int arrayLength = sourceArr.Length;
+            //find the first matching <p> or </p> or end of text
+            StringBuilder sb = new StringBuilder();
+            bool addedToStack = false;
+            int startId = -1,endId=-1;
+            char curChar;
+            string tempStr;
+            int pTagRelativeSplitId = arrayLength;
+            for (int i = truncateAt; i < arrayLength; i++)
+            {
+                curChar = sourceArr[i];
+                if (curChar.Equals('<'))
+                {//add to stack
+
+                    startId = i;//length of the string
+                    addedToStack = true;
+                    sb.Append('<');
+                }
+                else if (addedToStack)
                 {
-                    char let = source[i];
-                    arr[j] = let;
-                    if (let == '<')
-                    {
-                        inside = true;
-                    }
-                    else if (let == '>')
-                    {
-                        inside = false;
-                    }
+                    sb.Append(curChar);
+                    if (curChar.Equals('>'))
+                    {//remove from stack                        
+                        endId = i + 1;
+                        tempStr = sb.ToString();
 
-                    if (!inside)
-                    {
-                        arrayIndex++;
-                        if (arrayIndex == truncateAt)
+                        if (tempStr.Equals("<p>", StringComparison.InvariantCultureIgnoreCase))
                         {
-                            while (i < source.Length)
-                            {
-                                if (source[i] == '<')
-                                {
-                                    i--; j--;
-                                    break;
-                                }
-                                else if (source[i] == '>')
-                                {
-                                    i++; j++;
-                                    break;
-                                }
-                                arr[j++] = source[i++];
-                            }
-
-                            for (int k = 0; k < inputHtml.Length; k++, j++)
-                            {
-                                arr[j] = inputHtml[k];
-                            }
+                            pTagRelativeSplitId = startId;
+                            break;
                         }
-                        else j++;
+
+                        if (tempStr.Equals("</p>", StringComparison.InvariantCultureIgnoreCase))
+                        {
+                            pTagRelativeSplitId = endId;
+                            break;
+                        }
+                        //nothing matched so reset everything
+                        startId = -1;
+                        endId = -1;
+                        addedToStack = false;
+                        sb.Clear();
 
                     }
-                    else j++;
                 }
 
             }
-            catch (Exception)
+
+            //nothing matched
+            if (pTagRelativeSplitId >= (arrayLength - 1))
             {
-                throw;
+                topContent = source;
+                bottomContent = string.Empty;
+                return;
+            }else //match found
+            {
+                topContent = source.Substring(0, pTagRelativeSplitId);
+                bottomContent = source.Substring(pTagRelativeSplitId);
             }
 
-            return new string(arr);
         }
+
         /// <summary>
         /// Created By : Ashutosh Sharma on 01 Mar 2018
         /// Description : To split source html into two html contents according to 'truncateAt' length of content inside html tags.
@@ -425,61 +456,7 @@ namespace System
         /// <param name="bottomContent">Strign containing remaining part of split.</param>
         public static void InsertHTMLBetweenHTMLPwa(string source, int truncateAt, out string topContent, out string bottomContent)
         {
-            var arr = new char[source.Length];
-            int truncateIndex = 0;
-            int arrayIndex = 0, endIndex = 0;
-            bool inside = false;
-
-            try
-            {
-                for (int i = 0, j = 0; i < source.Length; i++)
-                {
-                    char let = source[i];
-                    arr[j] = let;
-                    endIndex = j;
-                    if (let == '<')
-                    {
-                        inside = true;
-                    }
-                    else if (let == '>')
-                    {
-                        inside = false;
-                    }
-
-                    if (!inside)
-                    {
-                        arrayIndex++;
-                        if (arrayIndex == truncateAt)
-                        {
-                            while (i < source.Length)
-                            {
-                                if (source[i] == '<')
-                                {
-                                    i--; j--;
-                                    break;
-                                }
-                                else if (source[i] == '>')
-                                {
-                                    i++; j++;
-                                    break;
-                                }
-                                arr[j++] = source[i++];
-                            }
-                            truncateIndex = i;
-                        }
-                        else j++;
-
-                    }
-                    else j++;
-                }
-
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            topContent = new string(arr, 0, truncateIndex);
-            bottomContent = new string(arr, truncateIndex, endIndex - truncateIndex + 1);
+            GetTopContentBottomContentAtSplitLoc(source, truncateAt, out topContent, out bottomContent);
         }
 
         /// <summary>

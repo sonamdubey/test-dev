@@ -22,6 +22,8 @@ namespace Bikewale.Models
     /// Description : Added AdSlots list.
     /// Modified by : Sanskar Gupta on 23 March 2018
     /// Description : Changed type of `AdSlots` to dictionary
+    /// Modified by : Sanskar Gupta on 18 April 2018
+    /// Description : Added property named `PageName`
     /// </summary>
     public class ModelBase
     {
@@ -62,5 +64,7 @@ namespace Bikewale.Models
         public string Amp_Page_CSS { get; set; }
 
         public IDictionary<string, AdSlotModel> AdSlots { get; set; }
+
+        public string PageName { get; set; }
     }
 }

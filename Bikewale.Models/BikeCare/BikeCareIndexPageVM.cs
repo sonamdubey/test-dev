@@ -1,6 +1,5 @@
 ﻿using Bikewale.Entities.CMS.Articles;
 using Bikewale.Entities.Pager;
-using Bikewale.Models.BikeModels;
 namespace Bikewale.Models
 {
     /// <summary>
@@ -15,8 +14,7 @@ namespace Bikewale.Models
         public int StartIndex { get; set; }
         public int EndIndex { get; set; }
         public PagerEntity PagerEntity { get; set; }
-        public MultiTabsWidgetVM PopularBikesAndPopularScootersWidget { get; set; }
 
-        public MultiTabsWidgetVM UpcomingBikesAndUpcomingScootersWidget { get; set; }
+        public System.Collections.Generic.IDictionary<Entities.BikeData.EditorialPageWidgetPosition, Shared.EditorialWidgetVM> PageWidgets { get; set; }
     }
 }
