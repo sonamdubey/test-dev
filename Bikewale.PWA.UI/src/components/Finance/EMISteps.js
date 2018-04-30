@@ -30,12 +30,12 @@ class EMISteps extends React.Component {
     this.setState({
       bike: 1,  // here 1: disabled; 2: done
       city: 1,
-      focused: 1   //current step
+      currentFocusStep: 1   //current active step
     });
   }
 
-  renderMakeCard = (modelData) =>{
-    return (modelData.makeName == '')
+  renderMakeCard = (modelData) => {
+    return (modelData.makeName === '')
     ?
       (
       <div className="select-step-card__placeholder select-card__make-selection" onClick={this.handleMakeSelect} >
@@ -80,16 +80,11 @@ class EMISteps extends React.Component {
     debounce(() => {
       if(this.StepSelectionContainer.classList.contains('selection-step--overflow')) {    
         inView(this.StepSelection, this.StepSelectionContainer );
-        var count = 0;
-        var child = this.StepSelection.querySelectorAll('.selection-steps__card.inview--active')[0];
-        while( (child = child.previousSibling) != null ) {
-          count++;          
-        }
-        
-      [...document.querySelectorAll('.progress-bar')[0].children].forEach(function(item) {
-        item.firstChild.classList.remove('focused')
-      });  
-      document.querySelectorAll('.progress-bar__item:nth-of-type('+ (count+1) + ') .progress-bar-item__content')[0].classList.add('focused');
+        let activeIndex = [...this.StepSelection.children].indexOf(this.StepSelection.querySelectorAll(".selection-steps__card.inview--active")[0]);
+        [...document.querySelectorAll('.progress-bar')[0].children].forEach(function(item) {
+          item.firstChild.classList.remove('focused');
+        });  
+        document.querySelectorAll('.progress-bar__item:nth-of-type('+ (activeIndex + 1) + ') .progress-bar-item__content')[0].classList.add('focused')
       }
     }, 250)();
   }
@@ -110,10 +105,10 @@ class EMISteps extends React.Component {
     return (
       <div className="emi-calculator__progress-container">
         <ProgressBar>
-          <ProgressBarItem stepNumber={1} status={this.state.bike} currentFocused={this.state.focused == 1? ' focused': ''}>
+          <ProgressBarItem stepNumber={1} status={this.state.bike} currentFocusStep={this.state.currentFocusStep == 1? true: false}>
               Select bike
           </ProgressBarItem>
-          <ProgressBarItem stepNumber={2} status={this.state.city} currentFocused={this.state.focused == 2? ' focused': ''}>
+          <ProgressBarItem stepNumber={2} status={this.state.city} currentFocusStep={this.state.currentFocusStep == 2? true: false}>
               Select city
           </ProgressBarItem>
         </ProgressBar>

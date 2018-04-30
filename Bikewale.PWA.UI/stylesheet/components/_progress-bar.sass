@@ -35,7 +35,7 @@
         display: none
 
   .progress-bar-item__content
-    @include vendor-prefix ('transition', all .5s ease)
+    @include vendor-prefix ('transition', all .2s ease)
     padding-left: 8px
     padding-right: 8px
     font-size: 12px
@@ -56,6 +56,7 @@
       .progress-bar-item__step-count
         height: $checkedSize
         width: $checkedSize
+
         &:after
           @include vendor-prefix('border-radius', 30px)
           @include tick-fff-icon
@@ -69,10 +70,13 @@
           left: 0
           bottom: 0
           right: 0
+          
     &.focused
       color: color('light-grey')
+      top: -2px
 
       .progress-bar-item__step-count
+        @include vendor-prefix ('transition', all .2s ease)
         height: $activeSize
         width: $activeSize
         padding-top: 3px
