@@ -42,6 +42,7 @@ namespace Bikewale.Controllers
         private readonly IBikeVersionCacheRepository<BikeVersionEntity, uint> _objBikeVersionsCache = null;
         private readonly IBikeSeriesCacheRepository _seriesCache;
         private readonly IBikeSeries _series;
+        private readonly IBikeMaskingCacheRepository<BikeModelEntity, int> _modelMaskingCache = null;
 
         #endregion
 
@@ -50,7 +51,7 @@ namespace Bikewale.Controllers
         /// Modified by : Ashutosh Sharma on 27 Nov 2017
         /// Description : Added IBikeSeriesCacheRepository and IBikeSeries for series news page.
         /// </summary>
-        public NewsController(ICMSCacheContent cacheContent, IPager pager, IBikeModelsCacheRepository<int> models, IBikeMakesCacheRepository makes, IBikeModels<BikeModelEntity, int> bikeModels, IUpcoming upcoming, IBikeInfo bikeInfo, ICityCacheRepository cityCache, IPWACMSCacheRepository renderedArticles, IBikeVersionCacheRepository<BikeVersionEntity, uint> objBikeVersionsCache, IArticles articles, IBikeSeriesCacheRepository seriesCache, IBikeSeries series)
+        public NewsController(ICMSCacheContent cacheContent, IPager pager, IBikeModelsCacheRepository<int> models, IBikeMakesCacheRepository makes, IBikeModels<BikeModelEntity, int> bikeModels, IUpcoming upcoming, IBikeInfo bikeInfo, ICityCacheRepository cityCache, IPWACMSCacheRepository renderedArticles, IBikeVersionCacheRepository<BikeVersionEntity, uint> objBikeVersionsCache, IArticles articles, IBikeSeriesCacheRepository seriesCache, IBikeSeries series, IBikeMaskingCacheRepository<BikeModelEntity, int> modelMaskingCache)
         {
             _cacheContent = cacheContent;
             _pager = pager;
@@ -65,6 +66,7 @@ namespace Bikewale.Controllers
             _articles = articles;
             _seriesCache = seriesCache;
             _series = series;
+            _modelMaskingCache = modelMaskingCache;
         }
         #endregion
 
@@ -79,19 +81,19 @@ namespace Bikewale.Controllers
         [Filters.DeviceDetection()]
         public ActionResult Index()
         {
-            NewsIndexPage obj = new NewsIndexPage(_cacheContent, _pager, _makes, _models, _bikeModels, _upcoming, _renderedArticles, _objBikeVersionsCache, _articles, _seriesCache, _series, _cityCache, _bikeInfo);
-            if (obj.status == Entities.StatusCodes.ContentNotFound)
+            NewsIndexPage obj = new NewsIndexPage(_cacheContent, _pager, _makes, _models, _bikeModels, _upcoming, _renderedArticles, _objBikeVersionsCache, _articles, _seriesCache, _series, _cityCache, _bikeInfo, _modelMaskingCache);
+            if (obj.Status == Entities.StatusCodes.ContentNotFound)
             {
                 return Redirect("/pagenotfound.aspx");
             }
-            else if (obj.status == Entities.StatusCodes.RedirectPermanent)
+            else if (obj.Status == Entities.StatusCodes.RedirectPermanent)
             {
-                return RedirectPermanent(obj.redirectUrl);
+                return RedirectPermanent(obj.RedirectUrl);
             }
             else
             {
                 NewsIndexPageVM objData = obj.GetData(4);
-                if (obj.status == Entities.StatusCodes.ContentNotFound)
+                if (obj.Status == Entities.StatusCodes.ContentNotFound)
                     return Redirect("/pagenotfound.aspx");
                 else
                     return View(objData);
@@ -106,20 +108,20 @@ namespace Bikewale.Controllers
         [Route("m/news/index/")]
         public ActionResult Index_Mobile()
         {
-            NewsIndexPage obj = new NewsIndexPage(_cacheContent, _pager, _makes, _models, _bikeModels, _upcoming, _renderedArticles, _objBikeVersionsCache, _articles, _seriesCache, _series, _cityCache, _bikeInfo);
+            NewsIndexPage obj = new NewsIndexPage(_cacheContent, _pager, _makes, _models, _bikeModels, _upcoming, _renderedArticles, _objBikeVersionsCache, _articles, _seriesCache, _series, _cityCache, _bikeInfo, _modelMaskingCache);
             obj.IsMobile = true;
-            if (obj.status == Entities.StatusCodes.ContentNotFound)
+            if (obj.Status == Entities.StatusCodes.ContentNotFound)
             {
                 return Redirect("/m/pagenotfound.aspx");
             }
-            else if (obj.status == Entities.StatusCodes.RedirectPermanent)
+            else if (obj.Status == Entities.StatusCodes.RedirectPermanent)
             {
-                return RedirectPermanent(obj.redirectUrl);
+                return RedirectPermanent(obj.RedirectUrl);
             }
             else
             {
                 NewsIndexPageVM objData = obj.GetData(9);
-                if (obj.status == Entities.StatusCodes.ContentNotFound)
+                if (obj.Status == Entities.StatusCodes.ContentNotFound)
                     return Redirect("/m/pagenotfound.aspx");
                 else
                     return View(objData);
@@ -133,15 +135,15 @@ namespace Bikewale.Controllers
         [Route("m/news/index_pwa/")]
         public ActionResult Index_Mobile_Pwa()
         {
-            NewsIndexPage obj = new NewsIndexPage(_cacheContent, _pager, _makes, _models, _bikeModels, _upcoming, _renderedArticles, _objBikeVersionsCache, _articles, _seriesCache, _series, _cityCache, _bikeInfo);
+            NewsIndexPage obj = new NewsIndexPage(_cacheContent, _pager, _makes, _models, _bikeModels, _upcoming, _renderedArticles, _objBikeVersionsCache, _articles, _seriesCache, _series, _cityCache, _bikeInfo, _modelMaskingCache);
             obj.IsMobile = true;
-            if (obj.status == Entities.StatusCodes.ContentNotFound)
+            if (obj.Status == Entities.StatusCodes.ContentNotFound)
             {
                 return Redirect("/m/pagenotfound.aspx");
             }
-            else if (obj.status == Entities.StatusCodes.RedirectPermanent)
+            else if (obj.Status == Entities.StatusCodes.RedirectPermanent)
             {
-                return RedirectPermanent(obj.redirectUrl);
+                return RedirectPermanent(obj.RedirectUrl);
             }
             else
             {
@@ -158,7 +160,7 @@ namespace Bikewale.Controllers
                     ThreadContext.Properties["PageName"] = "NewsController - List";
                     _logger.Error(sw.ElapsedMilliseconds);
                 }
-                if (obj.status == Entities.StatusCodes.ContentNotFound)
+                if (obj.Status == Entities.StatusCodes.ContentNotFound)
                     return Redirect("/m/pagenotfound.aspx");
                 else
                 {
