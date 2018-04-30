@@ -59,7 +59,7 @@
 
 	self.renderImage = function (hostUrl, originalImagePath, imageSize) {
 		if (originalImagePath && originalImagePath != null) {
-			return (hostUrl + '/' + imageSize + '/' + originalImagePath);
+		    return (hostUrl + '/' + imageSize + '/' + (originalImagePath.indexOf("?") > -1 ? (originalImagePath + "&q=70") : (originalImagePath + "?q=70")));
 		}
 		else {
 			return ('https://imgd.aeplcdn.com/' + imageSize + '/bikewaleimg/images/noimage.png?q=70');
