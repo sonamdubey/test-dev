@@ -1,0 +1,20 @@
+﻿@model Bikewale.Models.BikeMakes.EditorialOtherBrandsWidget
+@using Bikewale.Utility
+<amp-carousel class="swiper-small" height="125" layout="fixed-height" typeof="carousel">
+    @foreach (var make in Model.OtherBrandsList)
+    {
+        <div class="swiper-card">
+            <a href="@string.Format("{0}/m/{1}-{2}/", BWConfiguration.Instance.BwHostUrl, make.MaskingName, !make.IsScooterOnly ? "scooters" : "bikes")" title="@make.MakeName scooters">
+                <div class="brand-logo-image">
+                    <span class="brand-type">
+                        <span class="brandlogosprite brand-@make.MakeId"></span>
+                    </span>
+                </div>
+                <div class="swiper-details-block">
+                    <p class="text-bold text-black font12 margin-bottom5 border-solid-top padding-top10">@make.MakeName</p>
+                    <h3 class="text-unbold text-light-grey font11">@String.Format("{0} {1}", make.TotalCount, make.TotalCount > 1 ? "scooters" : "scooter")</h3>
+                </div>
+            </a>
+        </div>
+    }
+</amp-carousel>

@@ -1,0 +1,51 @@
+﻿@model Bikewale.Models.BikeModels.EditorialPopularBikesWidget
+@using Bikewale.Utility;
+
+@if (Model != null)
+{
+    var bikeList = Model.MostPopularBikeList;
+    
+    if (bikeList != null && bikeList.Any())
+    {
+        <div class="swiper-container card-container swiper-small">
+            <div class="swiper-wrapper discover-bike-carousel">
+                @foreach (var bike in bikeList)
+                {
+                    if (bike.objMake == null || bike.objModel == null)
+                    {
+                        continue;
+                    }
+                    var bikeName = String.Format("{0} {1}", bike.objMake.MakeName, bike.objModel.ModelName);
+                    <div class="swiper-slide">
+                        <div class="swiper-card" data-newlaunch="@string.Format("{0}",bike.IsAdPromoted?1:0)">
+                            <a href="@string.Format("/m{0}",UrlFormatter.BikePageUrl(bike.objMake.MaskingName,bike.objModel.MaskingName))" title="@bikeName" class="block">
+                                @if (bike.IsAdPromoted)
+                                {<span class="model-category__tag category--newlaunch">Newly Launched</span>}
+                                <div class="swiper-image-preview">
+                                    <img class="swiper-lazy" data-src="@Image.GetPathToShowImages(bike.OriginalImagePath, bike.HostURL, ImageSize._174x98, QualityFactor._70)" title="@bikeName" alt="@bikeName" src="" />
+                                    <span class="swiper-lazy-preloader"></span>
+                                </div>
+                                <div class="swiper-details-block">
+                                    <h3 class="target-link font12 text-truncate margin-bottom5">@bikeName</h3>
+                                    @if (bike.VersionPrice > 0)
+                                    {
+                                        <p class="text-truncate text-light-grey font11">Ex-showroom, @(!String.IsNullOrEmpty(bike.CityName) ? bike.CityName : BWConfiguration.Instance.GetDefaultCityName)</p>
+                                        <p class="text-default font16">
+                                            @Html.Raw("<span>&#x20B9;</span>")&nbsp;<span class="text-bold">@Format.FormatPrice(Convert.ToString(bike.VersionPrice))</span><span class="font14 text-bold"> onwards</span>
+                                        </p>
+                                    }
+                                    else
+                                    {
+                                        <p class="text-default">
+                                            <span class="font14 text-light-grey">Price not available </span>
+                                        </p>
+                                    }
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+}

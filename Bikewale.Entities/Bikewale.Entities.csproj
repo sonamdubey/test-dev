@@ -199,6 +199,7 @@
     <Compile Include="BikeData\BikeVersionsSegment.cs" />
     <Compile Include="BikeData\BikeWithMileageInfo.cs" />
     <Compile Include="BikeData\CompareMakeModelEntity.cs" />
+    <Compile Include="BikeData\EditorialWidgetHelper.cs" />
     <Compile Include="BikeData\EnumBikeData.cs" />
     <Compile Include="BikeData\EnumUpcomingBikesFilter.cs" />
     <Compile Include="BikeData\ExpertReviewCountEntity.cs" />
@@ -332,6 +333,7 @@
     <Compile Include="EditCMS\Photos\BikeModelEntityBase.cs" />
     <Compile Include="EditCMS\Photos\CMSImage.cs" />
     <Compile Include="EditCMS\Photos\ModelImage.cs" />
+    <Compile Include="EditorialWidgets\EditorialWidgetEntity.cs" />
     <Compile Include="EMISliderAMP.cs" />
     <Compile Include="Feedback\FeedbackTypeEnum.cs" />
     <Compile Include="Filters\CustomInputFilters.cs" />
