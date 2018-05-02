@@ -31,7 +31,7 @@ namespace Bikewale.Models
     /// </summary>
     public class NewsIndexPageVM : CmsArticlesListIndexPageVM
     {
-
+        public IDictionary<EditorialPageWidgetPosition, EditorialWidgetVM> PageWidgets { get; set; }
     }
 
     public class EditorialSeriesWidgetVM
@@ -42,6 +42,7 @@ namespace Bikewale.Models
         public IEnumerable<MostPopularBikesBase> PopularSeriesBikes { get; set; }
         public IEnumerable<BestBikeEntityBase> PopularBikesByBodyStyle { get; set; }
         public IEnumerable<UpcomingBikeEntity> UpcomingBikesByBodyStyle { get; set; }
+
     }
 
     public class EditorialSeriesMobileWidgetVM

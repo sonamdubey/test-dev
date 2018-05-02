@@ -55,6 +55,7 @@ namespace Bikewale.Interfaces.BikeData
     /// 
     /// Modified by :   Sumit Kate on 15 Jan 2018
     /// Description :   Added new method to fetch model image + color photos by model ids
+    /// 
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <typeparam name="U"></typeparam>

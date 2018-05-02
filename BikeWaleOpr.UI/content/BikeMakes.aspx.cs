@@ -173,6 +173,8 @@ namespace BikeWaleOpr.Content
         /// <summary>
         /// Modified By : Sushil Kumar on 9th July 2017
         /// Description : Change input parametres as per carwale mysql master base conventions
+        /// Modified By : Deepak Israni on 20 April 2018
+        /// Description : Versioned the cache key for bikemake description
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -215,7 +217,7 @@ namespace BikeWaleOpr.Content
                     SyncBWData.PushToQueue("BW_UpdateBikeMakes", DataBaseName.CW, nvc);
 
                     //Refresh memcache object for bikemake description change
-                    MemCachedUtility.Remove(string.Format("BW_MakeDetails_{0}", makeid));
+                    MemCachedUtility.Remove(string.Format("BW_MakeDetails_{0}_V1", makeid));
 
                     //Refresh memcache object for popularBikes change
                     MemCachedUtility.Remove(string.Format("BW_PopularBikesByMake_{0}", makeid));

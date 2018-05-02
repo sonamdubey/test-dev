@@ -30,6 +30,10 @@
             {
                 <li data-tabs="#makeReviewsContent" data-lab="@string.Format("{0}_Reviews", Model.MakeName)">Reviews</li>
             }
+            @if (Model.BikeModelsPhotos != null && Model.BikeModelsPhotos.ModelList != null && Model.BikeModelsPhotos.ModelList.Any())
+            {
+                <li data-tabs="#makeImagesContent" data-lab="@string.Format("{0}_Images", Model.MakeName)">Images</li>
+            }
             @if (Model.IsVideosAvailable)
             {
                 <li data-tabs="#makeVideosContent" data-lab="@string.Format("{0}_Videos", Model.MakeName)">Videos</li>

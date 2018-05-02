@@ -4,7 +4,9 @@ using System.Runtime.Serialization;
 namespace Bikewale.Entities.PWA.Articles
 {
     /// <summary>
-    ///  Created By: Prasad Gawde
+    ///  Created By  : Prasad Gawde
+    ///  Modified by : Pratibha Verma on 30 April 2018
+    ///  Description : Added MakeName and ModelName
     /// </summary>
     [Serializable, DataContract]
     public class PwaArticleSummary : PwaArticleBase

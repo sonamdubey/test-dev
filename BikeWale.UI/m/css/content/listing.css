@@ -209,3 +209,92 @@
 
 .brand-type-carousel .swiper-details-block {
   padding-bottom: 12px; }
+
+
+#reviewRatingsDiv {
+    display: inline-block;
+    vertical-align:middle; 
+    margin-bottom: 10px;
+}
+.star-span {
+    position: relative;
+    top: -2px;
+    transform: scale(0.9);
+}
+
+.border-light-left {
+    border-left: 1px solid #ededed;
+}
+
+.star-icon {
+    width: 26px;
+    height: 25px;
+    vertical-align: middle;
+    -webkit-transform: scale(0.8);
+    -moz-transform: scale(0.8);
+    -o-transform: scale(0.8);
+    transform: scale(0.8);
+}
+
+    .star-icon.star-size-16 {
+        -webkit-transform: scale(0.6);
+        -moz-transform: scale(0.6);
+        -o-transform: scale(0.6);
+        transform: scale(0.6);
+    }
+
+.rate-count-1 .star-icon {
+    background-position: 0 -667px;
+}
+
+.rate-count-2 .star-icon {
+    background-position: -38px -667px;
+}
+
+.rate-count-3 .star-icon {
+    background-position: 0 -278px;
+}
+
+.rate-count-4 .star-icon {
+    background-position: -74px -667px;
+}
+
+.rate-count-5 .star-icon {
+    background-position: -110px -667px;
+}
+
+.rate-count-5 {
+    color: #198D55;
+}
+
+.rate-count-4 {
+    color: #13B65D;
+}
+
+.rate-count-3 {
+    color: #EFD700;
+}
+
+.rate-count-2 {
+    color: #FD971C;
+}
+
+.rate-count-1 {
+    color: #EF3F30;
+}
+
+.review-left-divider {
+    position: relative;
+    margin-left: 15px;
+    padding-left: 15px;
+}
+
+    .review-left-divider:before {
+        content: "";
+        position: absolute;
+        top: 4px;
+        left: 0;
+        width: 1px;
+        height: 12px;
+        border-left: 1px solid #e2e2e2;
+    }

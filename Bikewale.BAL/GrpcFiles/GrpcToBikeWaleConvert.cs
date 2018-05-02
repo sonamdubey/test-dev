@@ -283,6 +283,12 @@ namespace Bikewale.BAL.GrpcFiles
                 return null;
         }
 
+        /// <summary>
+        /// Modified by : Pratibha Verma on 30 April 2018
+        /// Description : Added MakeName and MOdelName mapping
+        /// </summary>
+        /// <param name="grpcAtricleDet"></param>
+        /// <returns></returns>
         public static ArticleDetails ConvertFromGrpcToBikeWale(GrpcArticleDetails grpcAtricleDet)
         {
             if (grpcAtricleDet != null && grpcAtricleDet.ArticleSummary != null)

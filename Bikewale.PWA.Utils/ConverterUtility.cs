@@ -12,6 +12,8 @@ using Bikewale.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Bikewale.Models.BikeModels;
+using Bikewale.Models.BikeMakes;
 
 namespace Bikewale.PWA.Utils
 {
@@ -53,6 +55,8 @@ namespace Bikewale.PWA.Utils
         ///  Converts ArticleDetails to PwaArticleDetails
         /// Modified By : Ashish G. Kamble on 5 Jan 2018
         /// Modified : Assigend Tags property value in PwaArticleDetails response object
+        /// Modified by : Pratibha Verma on 30 April 2018
+        /// Description : Added mapping for makeName and modelName
         /// </summary>
         /// <param name="inpDet"></param>
         /// <returns></returns>
@@ -445,6 +449,142 @@ namespace Bikewale.PWA.Utils
             return outData;
         }
 
+
+        /// <summary>
+        /// Created by : Sanskar Gupta on 27 Feb 2018
+        /// Description : To convert Article page OtherBrands data to List<PwaMakeBikeBase>
+        /// </summary>
+        /// <returns></returns>
+        public static List<PwaMakeBikeBase> MapOtherBrandsWidgetDataToPWA(IDictionary<EditorialPageWidgetPosition, EditorialWidgetVM> PageWidgets)
+        {
+            if (PageWidgets == null)
+            {
+                return null;
+            }
+
+            List<PwaMakeBikeBase> widgetList = new List<PwaMakeBikeBase>();
+            try
+            {
+                foreach (KeyValuePair<EditorialPageWidgetPosition, EditorialWidgetVM> widgetItem in PageWidgets)
+                {
+                    IDictionary<EditorialWidgetColumnPosition, EditorialWidgetInfo> widgets = widgetItem.Value.WidgetColumns;
+                    EditorialWidgetColumnPosition populatedKey = widgets.ContainsKey(EditorialWidgetColumnPosition.Left) ? EditorialWidgetColumnPosition.Left : EditorialWidgetColumnPosition.Right;
+                    EditorialWidgetInfo widget = widgets[populatedKey];
+
+                    switch (widget.WidgetType)
+                    {
+                        case EditorialWidgetType.Popular:
+                            break;
+                        case EditorialWidgetType.Upcoming:
+                            break;
+                        case EditorialWidgetType.OtherBrands:
+                            EditorialOtherBrandsWidget otherBrandsWidget = widget as EditorialOtherBrandsWidget;
+                            IEnumerable<BikeMakeEntityBase> otherBrandsList = null;
+                            if(otherBrandsWidget != null)
+                            {
+                                otherBrandsList = otherBrandsWidget.OtherBrandsList;
+                            }
+
+                            if (otherBrandsList != null && otherBrandsList.Any())
+                            {
+                                PwaMakeBikeBase makeListBase = new PwaMakeBikeBase()
+                                {
+                                    MakeList = MapBikeMakeEntityBaseListToPwaMakeBikeEntityList(otherBrandsList),
+                                    Heading = string.Format("Popular {0} Brands", BodyStyleLinks.BodyStyleHeadingText(EnumBikeBodyStyles.Scooter)),
+                                    CompleteListUrlAlternateLabel = string.Format("{0} Brands", BodyStyleLinks.BodyStyleHeadingText(EnumBikeBodyStyles.Scooter)),
+                                    CompleteListUrl = "/m/scooters/",
+                                    CompleteListUrlLabel = "View all"
+                                };
+                                widgetList.Add(makeListBase);
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            return widgetList;
+        }
+
+
+
+        /// <summary>
+        /// Created by  : Sanskar Gupta on 19 April 2018
+        /// Description : Utility to Map Popular Bikes from normal list to PWA list.  
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="objData"></param>
+        /// <param name="city"></param>
+        /// <returns></returns>
+        public static List<PwaBikeNews> MapPopularAndUpcomingWidgetDataToPwa(IDictionary<EditorialPageWidgetPosition, EditorialWidgetVM> PageWidgets)
+        {
+            if(PageWidgets == null)
+            {
+                return null;
+            }
+            List<PwaBikeNews> widgetList = new List<PwaBikeNews>();
+
+            try
+            {
+                foreach (KeyValuePair<EditorialPageWidgetPosition, EditorialWidgetVM> widgetItem in PageWidgets)
+                {
+                    IDictionary<EditorialWidgetColumnPosition, EditorialWidgetInfo> widgets = widgetItem.Value.WidgetColumns;
+                    EditorialWidgetColumnPosition populatedKey = widgets.ContainsKey(EditorialWidgetColumnPosition.Left) ? EditorialWidgetColumnPosition.Left : EditorialWidgetColumnPosition.Right;
+                    EditorialWidgetInfo widget = widgets[populatedKey];
+
+                    PwaBikeNews bikes = new PwaBikeNews();
+
+                    switch (widget.WidgetType)
+                    {
+                        case EditorialWidgetType.Popular:
+                            {
+                                var widgetData = widget as EditorialPopularBikesWidget;
+                                if (widgetData != null)
+                                {
+                                    bikes.CompleteListUrl = widgetData.ViewAllUrl;
+                                    bikes.CompleteListUrlAlternateLabel = widgetData.ViewAllTitle;
+                                    bikes.CompleteListUrlLabel = "View all";
+                                    bikes.Heading = widgetData.Title;
+                                    bikes.BikesList = MapMostPopularBikesBaseToPwaBikeDetails(widgetData.MostPopularBikeList);
+                                }
+                            }
+                            break;
+                        case EditorialWidgetType.Upcoming:
+                            {
+                                var widgetData = widget as EditorialUpcomingBikesWidget;
+                                if (widgetData != null)
+                                {
+                                    bikes.CompleteListUrl = widgetData.ViewAllUrl;
+                                    bikes.CompleteListUrlAlternateLabel = widgetData.ViewAllTitle;
+                                    bikes.CompleteListUrlLabel = "View all";
+                                    bikes.Heading = widgetData.Title;
+                                    bikes.BikesList = MapUpcomingBikeEntityToPwaBikeDetails(widgetData.UpcomingBikeList, ""); 
+                                }
+                            }
+                            break;
+                        case EditorialWidgetType.OtherBrands:
+                            break;
+                        default:
+                            break;
+                    }
+                    widgetList.Add(bikes);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return widgetList;
+        }
+
+        
         /// <summary>
         /// Converts the BikeInfo to the PWABikeInfo
         /// </summary>

@@ -32,6 +32,8 @@ namespace Bikewale.Service.Controllers.PWA.CMS
     /// Description :   Extend from CompressionApiController instead of ApiController
     /// Modified by :   Rajan Chauhan on 24 Feb 2018
     /// Description :   Added IArticles in constructor and removed _logger
+    /// Modified By : Sanskar Gupta on 20 April 2018
+    /// Description : Added dictionary logic to populated widget View All link titles (IDictionary<EditorialWidgetCategory, string> viewAllTitles).
     /// </summary>
     public class PwaCMSController : CompressionApiController//ApiController
     {
@@ -46,6 +48,7 @@ namespace Bikewale.Service.Controllers.PWA.CMS
         private readonly IBikeInfo _bikeInfo;
         private readonly ICityCacheRepository _cityCacheRepository;
         private readonly IArticles _articles;
+        IDictionary<EditorialWidgetCategory, string> viewAllTitles = EditorialWidgetHelper.EditorialViewAllTitles;
 
 
         public PwaCMSController(IPager pager, ICMSCacheContent cmsCache,
@@ -171,6 +174,8 @@ namespace Bikewale.Service.Controllers.PWA.CMS
         /// Summary : 
         /// Modified By : Pratibha Verma on 27 Feb, 2018
         /// Summary : Fetch Series Bikes and Popular Scooter Brands
+        /// Modified By : Sanskar Gupta on 20 April 2018
+        /// Description : Added dictionary logic to populated widget View All link titles.
         /// </summary>
         /// <param name="basicId"></param>
         /// <returns>Two Lists of Bikes</returns>
@@ -219,13 +224,13 @@ namespace Bikewale.Service.Controllers.PWA.CMS
                                     {
                                         heading = string.Format("Popular {0} Scooters", bikeSeriesEntityBase.SeriesName);
                                         viewAllUrl = string.Format("/m/{0}-bikes/{1}/", makeData.MaskingName, bikeSeriesEntityBase.MaskingName);
-                                        viewAllBtnLabel = string.Format("View all {0} Scooters", bikeSeriesEntityBase.SeriesName);
+                                        viewAllBtnLabel = string.Format(viewAllTitles[EditorialWidgetCategory.Series_Scooters], bikeSeriesEntityBase.SeriesName);
                                     }
                                     else
                                     {
                                         heading = string.Format("Popular {0} Bikes", bikeSeriesEntityBase.SeriesName);
                                         viewAllUrl = string.Format("/m/{0}-bikes/{1}/", makeData.MaskingName, bikeSeriesEntityBase.MaskingName);
-                                        viewAllBtnLabel = string.Format("View all {0} Bikes", bikeSeriesEntityBase.SeriesName);
+                                        viewAllBtnLabel = string.Format(viewAllTitles[EditorialWidgetCategory.Popular_Series], bikeSeriesEntityBase.SeriesName);
                                     }
                                 }
                                 else if (makeId > 0)
@@ -237,20 +242,20 @@ namespace Bikewale.Service.Controllers.PWA.CMS
                                             viewAllUrl = string.Format("/m/{0}-bikes/", makeData.MaskingName);
                                         else
                                             viewAllUrl = string.Format("/m/{0}-scooters/", makeData.MaskingName);
-                                        viewAllBtnLabel = string.Format("View all {0} Scooters", makeData.MakeName);
+                                        viewAllBtnLabel = string.Format(viewAllTitles[EditorialWidgetCategory.Popular_Make_Scooters], makeData.MakeName);
                                     }
                                     else
                                     {
                                         heading = string.Format("Popular {0} Bikes", makeData.MakeName);
                                         viewAllUrl = string.Format("/m/{0}-bikes/", makeData.MaskingName);
-                                        viewAllBtnLabel = string.Format("View all {0} Bikes", makeData.MakeName);
+                                        viewAllBtnLabel = string.Format(viewAllTitles[EditorialWidgetCategory.Popular_Make], makeData.MakeName);
                                     }
                                 }
                                 else
                                 {// When Model is not tagged
                                     heading = "Popular Bikes";
                                     viewAllUrl = "/m/best-bikes-in-india/";
-                                    viewAllBtnLabel = "Best Bikes in India";
+                                    viewAllBtnLabel = string.Format(viewAllTitles[EditorialWidgetCategory.Popular_All]);
                                 }
                                 viewAllBtnText = "View all";
                                 BindPopularWidgetProperties(popularBikes, heading, viewAllUrl, viewAllBtnLabel, viewAllBtnText);
@@ -269,7 +274,7 @@ namespace Bikewale.Service.Controllers.PWA.CMS
 
                                     heading = string.Format("Popular {0} Brands", BodyStyleLinks.BodyStyleHeadingText(EnumBikeBodyStyles.Scooter));
                                     viewAllUrl = "/m/scooters/";
-                                    viewAllBtnLabel = string.Format("View all {0} Brands", BodyStyleLinks.BodyStyleHeadingText(EnumBikeBodyStyles.Scooter));
+                                    viewAllBtnLabel = string.Format(viewAllTitles[EditorialWidgetCategory.OtherBrands_All]);
                                     viewAllBtnText = "View all";
                                     BindBrandsWidgetProperties(scooterMakeList, heading, viewAllUrl, viewAllBtnLabel, viewAllBtnText);
 
@@ -288,7 +293,18 @@ namespace Bikewale.Service.Controllers.PWA.CMS
 
                                         heading = string.Format("Popular {0}", BodyStyleLinks.BodyStyleHeadingText(bodyStyle));
                                         viewAllUrl = "/m" + UrlFormatter.FormatGenericPageUrl(bodyStyle);
-                                        viewAllBtnLabel = string.Format("Best {0} in India", BodyStyleLinks.BodyStyleHeadingText(bodyStyle));
+                                        if(bodyStyle == EnumBikeBodyStyles.Cruiser)
+                                        {
+                                            viewAllBtnLabel = string.Format(viewAllTitles[EditorialWidgetCategory.Popular_Cruisers]);
+                                        }
+                                        else if(bodyStyle == EnumBikeBodyStyles.Sports)
+                                        {
+                                            viewAllBtnLabel = string.Format(viewAllTitles[EditorialWidgetCategory.Popular_Sports]);
+                                        }
+                                        else
+                                        {
+                                            viewAllBtnLabel = string.Format(viewAllTitles[EditorialWidgetCategory.Popular_All]);
+                                        }
                                         viewAllBtnText = "View all";
                                         BindPopularWidgetProperties(popularBikes, heading, viewAllUrl, viewAllBtnLabel, viewAllBtnText);
 
@@ -316,13 +332,13 @@ namespace Bikewale.Service.Controllers.PWA.CMS
                                 {
                                     heading = string.Format("Upcoming {0} Bikes", makeData.MakeName);
                                     viewAllUrl = string.Format("/m/{0}-bikes/upcoming/", makeData.MaskingName);
-                                    viewAllBtnLabel = "Upcoming Bikes in India";
+                                    viewAllBtnLabel = string.Format(viewAllTitles[EditorialWidgetCategory.Upcoming_Make], makeData.MakeName);
                                 }
                                 else
                                 {
                                     heading = "Upcoming Bikes";
                                     viewAllUrl = "/m/upcoming-bikes/";
-                                    viewAllBtnLabel = "Upcoming Bikes in India";
+                                    viewAllBtnLabel = string.Format(viewAllTitles[EditorialWidgetCategory.Upcoming_All]);
                                 }
                                 viewAllBtnText = "View all";
                                 BindPopularWidgetProperties(upcomingBikes, heading, viewAllUrl, viewAllBtnLabel, viewAllBtnText);
@@ -340,7 +356,7 @@ namespace Bikewale.Service.Controllers.PWA.CMS
                         if (bikes != null && bikes.Any())
                         {
                             PwaBikeNews popularBikes = new PwaBikeNews();
-                            BindPopularWidgetProperties(popularBikes, "Popular bikes", "/m/best-bikes-in-india/", "Best Bikes in India", "View all");
+                            BindPopularWidgetProperties(popularBikes, "Popular bikes", "/m/best-bikes-in-india/", string.Format(viewAllTitles[EditorialWidgetCategory.Popular_All]), "View all");
                             popularBikes.BikesList = ConverterUtility.MapMostPopularBikesBaseToPwaBikeDetails(bikes);
                             objPwaBikeNews.NewBikesList.Add(popularBikes);
                         }
@@ -352,7 +368,7 @@ namespace Bikewale.Service.Controllers.PWA.CMS
                         if (tempbikes != null && tempbikes.Any())
                         {
                             PwaBikeNews upcomingBikes = new PwaBikeNews();
-                            BindPopularWidgetProperties(upcomingBikes, "Upcoming bikes", "/m/upcoming-bikes/", "Upcoming Bikes in India", "View all");
+                            BindPopularWidgetProperties(upcomingBikes, "Upcoming bikes", "/m/upcoming-bikes/", string.Format(viewAllTitles[EditorialWidgetCategory.Upcoming_All]), "View all");
                             upcomingBikes.BikesList = ConverterUtility.MapUpcomingBikeEntityToPwaBikeDetails(tempbikes, currentCityArea.City);
                             objPwaBikeNews.NewBikesList.Add(upcomingBikes);
                         }
@@ -727,6 +743,8 @@ namespace Bikewale.Service.Controllers.PWA.CMS
         /// Created by : Ashutosh Sharma on 01 Mar 2018.
         /// Description : Method to split article html content into two parts to insert bikeinfo card at 25% height of article content, if there
         ///                 is only one page in article pagelist, than one more page is added if bottomContent is not empty.
+        /// Modified by : Rajan Chauhan on 24 Apr 2018
+        /// Desciption  : Corrected the condition for setting trucatingIndex on matched page 
         /// </summary>
         /// <param name="articleDetails"></param>
         /// <returns></returns>
@@ -737,9 +755,8 @@ namespace Bikewale.Service.Controllers.PWA.CMS
             {
                 if (articleDetails != null && articleDetails.PageList != null)
                 {
-                    int totalStrippedHTMLLength = 0, currentPageLength = 0, requiredLength = 0, totalPages = articleDetails.PageList.Count; string inputString = null, viewName = null;
+                    int totalStrippedHTMLLength = 0, currentPageLength = 0, requiredLength = 0, totalPages = articleDetails.PageList.Count;
                     IList<Tuple<int, int>> objPagesInfo = new List<Tuple<int, int>>();
-                    Models.Shared.BikeInfo ampBikeInfo = null;
 
 
 
@@ -756,11 +773,14 @@ namespace Bikewale.Service.Controllers.PWA.CMS
 
                     foreach (var item in objPagesInfo)
                     {
-                        currentPageLength += item.Item2;
-                        if (currentPageLength >= requiredLength)
+                        currentPageLength = item.Item2;
+                        if (currentPageLength < requiredLength)
+                        {
+                            requiredLength = requiredLength - currentPageLength;
+                        }
+                        else
                         {
                             matchedPage = item.Item1;
-                            requiredLength = currentPageLength - requiredLength;
                             break;
                         }
 
@@ -772,14 +792,20 @@ namespace Bikewale.Service.Controllers.PWA.CMS
                     articleDetails.PageList[matchedPage].Content = topContentInPage;
                     if (matchedPage != articleDetails.PageList.Count - 1)
                     {
-                        articleDetails.PageList[matchedPage + 1].Content = bottomContentInPage + articleDetails.PageList[matchedPage + 1].Content;
+                        articleDetails.PageList.Insert(matchedPage + 1, new Page()
+                        {
+                            Content = bottomContentInPage,
+                            PageName = string.Empty,
+                            pageId = articleDetails.PageList[matchedPage + 1].pageId,
+                            Priority = articleDetails.PageList[matchedPage + 1].Priority
+                        });
                     }
                     else if (!string.IsNullOrEmpty(bottomContentInPage))
                     {
                         articleDetails.PageList.Add(new Page()
                         {
                             Content = bottomContentInPage,
-                            PageName = "",
+                            PageName = string.Empty,
                             pageId = articleDetails.PageList[matchedPage].pageId + 1,
                             Priority = articleDetails.PageList.Max(p => p.Priority)
                         });
