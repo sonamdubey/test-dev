@@ -25,28 +25,3 @@ export function TotalPrincipalAmt(loanAmount, tenure, interest) {
   let TotalPrincipalAmt = parseInt(finalLoanAmout + intPayable)
   return TotalPrincipalAmt
 }
-
-export function monthsToYears(tenure) {
-  let yeartext = ""
-  let monthtext = ""
-  let yearCal = Math.floor(tenure/12)    
-  let monthCal =  (tenure%12)
-  if(monthCal < 2){
-    monthtext = "month"
-  }
-  else{
-    monthtext = "months"
-  }
-  if(tenure > 11 && tenure < 24 ){
-    yeartext = "Year"
-  }
-  else{
-    yeartext = "Years"
-  }
-  if(tenure > 11){
-      return yearCal + " " + yeartext + " and " + monthCal + " " + monthtext
-  }
-  else{
-      return monthCal + " " + monthtext
-  }
-}
