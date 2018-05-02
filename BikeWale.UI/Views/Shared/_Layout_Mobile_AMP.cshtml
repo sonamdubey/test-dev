@@ -628,7 +628,13 @@
         </section>
     }
 
-   
+    @if (Model.AdTags != null && Model.AdTags.Ad_Bot_320x50)
+    {
+        <div class="margin-bottom10 margin-top15">
+            <amp-ad width=320 height=50 type="doubleclick" layout=responsive data-slot=@string.Format("{0}_Bottom_320x50",Model.AdTags.AdPath)></amp-ad>
+        </div>
+    }
+
 
     @if (Model.AdTags != null && Model.AdTags.Ad300x250_Bottom)
     {
