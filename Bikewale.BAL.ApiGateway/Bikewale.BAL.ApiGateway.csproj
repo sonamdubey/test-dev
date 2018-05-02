@@ -96,7 +96,6 @@
     <Compile Include="ApiGatewayHelper\ApiGatewayResponse.cs" />
     <Compile Include="ApiGatewayHelper\IApiGatewayAdapter.cs" />
     <Compile Include="ApiGatewayHelper\IApiGatewayCaller.cs" />
-    <Compile Include="Entities\BikeData\GetCustomDataType_Input.cs" />
     <Compile Include="Entities\BikeData\GetVersionsMinSpecs_Input.cs" />
     <Compile Include="GRPCFiles\BikeData\Category.cs" />
     <Compile Include="GRPCFiles\BikeData\Customdatatype.cs" />
