@@ -84,7 +84,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
         /// <param name="input">Customer details with price quote details</param>
         /// <returns></returns>
         [ResponseType(typeof(PQCustomerDetailOutput))]
-        public IHttpActionResult Post([FromBody]PQCustomerDetailInput input)
+        public IHttpActionResult Post([FromBody]Bikewale.DTO.PriceQuote.PQCustomerDetailInput input)
         {
 
             PQCustomerDetailOutput output = null;
@@ -308,10 +308,244 @@ namespace Bikewale.Service.Controllers.PriceQuote
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, String.Format("Exception : Bikewale.Service.Controllers.PriceQuote.PQCustomerDetailController.Post({0})", Newtonsoft.Json.JsonConvert.SerializeObject(input)));
-               
+
                 return InternalServerError();
             }
         }
+
+
+
+        public IHttpActionResult Post([FromBody]Bikewale.DTO.PriceQuote.PQCustomerDetailInput input)
+        {
+
+            PQCustomerDetailOutput output = null;
+            Bikewale.Entities.PriceQuote.PQCustomerDetailInput pqInput = null;
+            bool isSuccess = false;
+            bool isVerified = false;
+            string password = string.Empty, salt = string.Empty, hash = string.Empty;
+            string bikeName = String.Empty;
+            string imagePath = String.Empty;
+            string versionName = string.Empty;
+
+            CustomerEntity objCust = null;
+            PQCustomerDetail pqCustomer = null;
+            BookingPageDetailsEntity objBookingPageDetailsEntity = null;
+            PriceQuoteParametersEntity pqParam = null;
+            BookingPageDetailsDTO objBookingPageDetailsDTO = null;
+            DealerDetailsDTO dealer = null;
+            uint exShowroomCost = 0;
+            UInt32 TotalPrice = 0;
+            uint bookingAmount = 0;
+            UInt32 insuranceAmount = 0;
+            bool IsInsuranceFree = false;
+            sbyte noOfAttempts = 0;
+            try
+            {
+                if (input != null && !String.IsNullOrEmpty(input.CustomerMobile) && input.PQId > 0 && input.DealerId > 0)
+                {
+                    pqInput = PQCustomerMapper.Convert(input);
+                    if (input != null && ((input.PQId > 0) && (Convert.ToUInt32(input.VersionId) > 0)))
+                    {
+                        pqParam = new PriceQuoteParametersEntity();
+                        pqParam.VersionId = Convert.ToUInt32(input.VersionId);
+
+                        _objPriceQuote.UpdatePriceQuote(input.PQId, pqParam);
+                    }
+                    if (!_objAuthCustomer.IsRegisteredUser(input.CustomerEmail, input.CustomerMobile))
+                    {
+                        objCust = new CustomerEntity() { CustomerName = input.CustomerName, CustomerEmail = input.CustomerEmail, CustomerMobile = input.CustomerMobile, ClientIP = input.ClientIP };
+                        UInt32 CustomerId = _objCustomer.Add(objCust);
+                    }
+                    else
+                    {
+                        var objCustomer = _objCustomer.GetByEmailMobile(input.CustomerEmail, input.CustomerMobile);
+                        objCust = new CustomerEntity()
+                        {
+                            CustomerId = objCustomer.CustomerId,
+                            CustomerName = input.CustomerName,
+                            CustomerEmail = input.CustomerEmail = !String.IsNullOrEmpty(input.CustomerEmail) ? input.CustomerEmail : objCustomer.CustomerEmail,
+                            CustomerMobile = input.CustomerMobile
+                        };
+                        _objCustomer.Update(objCust);
+                    }
+
+
+                    DPQ_SaveEntity entity = new DPQ_SaveEntity()
+                    {
+                        DealerId = input.DealerId,
+                        PQId = input.PQId,
+                        CustomerName = input.CustomerName,
+                        CustomerEmail = input.CustomerEmail,
+                        CustomerMobile = input.CustomerMobile,
+                        ColorId = null,
+                        UTMA = Request.Headers.Contains("utma") ? Request.Headers.GetValues("utma").FirstOrDefault() : String.Empty,
+                        UTMZ = Request.Headers.Contains("utmz") ? Request.Headers.GetValues("utmz").FirstOrDefault() : String.Empty,
+                        DeviceId = input.DeviceId,
+                        LeadSourceId = input.LeadSourceId
+                    };
+
+                    isSuccess = _objDealerPriceQuote.SaveCustomerDetail(entity);
+
+                    var numberList = _mobileVerCacheRepo.GetBlockedNumbers();
+
+                    if (numberList != null && !numberList.Contains(input.CustomerMobile))
+                    {
+                        //Don't mark mobile verified for pq
+                        //isVerified = _objDealerPriceQuote.UpdateIsMobileVerified(input.PQId);
+                        isVerified = true;// Set Verified to true to push the lead into AB for un-verified leads as well
+
+                        objBookingPageDetailsEntity = _objDealerPriceQuote.FetchBookingPageDetails(Convert.ToUInt32(input.CityId), Convert.ToUInt32(input.VersionId), input.DealerId);
+                        objBookingPageDetailsDTO = BookingPageDetailsEntityMapper.Convert(objBookingPageDetailsEntity);
+
+                        if (objBookingPageDetailsEntity != null)
+                        {
+                            objBookingPageDetailsEntity.VersionColors = null;
+
+                            if (objBookingPageDetailsEntity.Disclaimers != null)
+                            {
+                                objBookingPageDetailsEntity.Disclaimers.Clear();
+                                objBookingPageDetailsEntity.Disclaimers = null;
+                            }
+
+                            if (objBookingPageDetailsEntity.Offers != null)
+                            {
+                                objBookingPageDetailsEntity.Offers.Clear();
+                                objBookingPageDetailsEntity.Offers = null;
+                            }
+
+                            if (objBookingPageDetailsEntity.Varients != null)
+                            {
+                                objBookingPageDetailsEntity.Varients.Clear();
+                                objBookingPageDetailsEntity.Varients = null;
+                            }
+                        }
+
+                        dealer = objBookingPageDetailsDTO.Dealer;
+
+                        pqCustomer = _objDealerPriceQuote.GetCustomerDetails(input.PQId);
+                        objCust = pqCustomer.objCustomerBase;
+
+                        PQ_DealerDetailEntity dealerDetailEntity = null;
+
+                        using (IUnityContainer container = new UnityContainer())
+                        {
+                            container.RegisterType<Bikewale.Interfaces.AutoBiz.IDealers, Bikewale.DAL.AutoBiz.DealersRepository>();
+                            Bikewale.Interfaces.AutoBiz.IDealers objDealer = container.Resolve<Bikewale.DAL.AutoBiz.DealersRepository>();
+                            PQParameterEntity objParam = new PQParameterEntity();
+                            objParam.CityId = Convert.ToUInt32(input.CityId);
+                            objParam.DealerId = Convert.ToUInt32(input.DealerId);
+                            objParam.VersionId = Convert.ToUInt32(input.VersionId);
+                            dealerDetailEntity = objDealer.GetDealerDetailsPQ(objParam);
+                        }
+
+                        if (dealerDetailEntity != null && dealerDetailEntity.objQuotation != null)
+                        {
+                            if (dealerDetailEntity.objBookingAmt != null)
+                            {
+                                bookingAmount = dealerDetailEntity.objBookingAmt.Amount;
+                            }
+                            foreach (var price in dealerDetailEntity.objQuotation.PriceList)
+                            {
+                                IsInsuranceFree = OfferHelper.HasFreeInsurance(input.DealerId.ToString(), dealerDetailEntity.objQuotation.objModel.ModelId.ToString(), price.CategoryName, price.Price, ref insuranceAmount);
+                            }
+                            if (insuranceAmount > 0)
+                            {
+                                IsInsuranceFree = true;
+                            }
+
+                            bool isShowroomPriceAvail = false, isBasicAvail = false;
+
+                            foreach (var item in dealerDetailEntity.objQuotation.PriceList)
+                            {
+                                //Check if Ex showroom price for a bike is available CategoryId = 3 (exshowrrom)
+                                if (item.CategoryId == 3)
+                                {
+                                    isShowroomPriceAvail = true;
+                                    exShowroomCost = item.Price;
+                                }
+
+                                //if Ex showroom price for a bike is not available  then set basic cost for bike price CategoryId = 1 (basic bike cost)
+                                if (!isShowroomPriceAvail && item.CategoryId == 1)
+                                {
+                                    exShowroomCost += item.Price;
+                                    isBasicAvail = true;
+                                }
+
+                                if (item.CategoryId == 2 && !isShowroomPriceAvail)
+                                    exShowroomCost += item.Price;
+
+                                TotalPrice += item.Price;
+                            }
+
+                            if (isBasicAvail && isShowroomPriceAvail)
+                                TotalPrice = TotalPrice - exShowroomCost;
+
+                            imagePath = Bikewale.Utility.Image.GetPathToShowImages(dealerDetailEntity.objQuotation.OriginalImagePath, dealerDetailEntity.objQuotation.HostUrl, Bikewale.Utility.ImageSize._210x118);
+                            bikeName = dealerDetailEntity.objQuotation.objMake.MakeName + " " + dealerDetailEntity.objQuotation.objModel.ModelName + " " + dealerDetailEntity.objQuotation.objVersion.VersionName;
+                            versionName = dealerDetailEntity.objQuotation.objVersion.VersionName;
+                            var platformId = "";
+                            if (Request.Headers.Contains("platformId"))
+                            {
+                                platformId = Request.Headers.GetValues("platformId").First().ToString();
+                            }
+
+                            DPQSmsEntity objDPQSmsEntity = new DPQSmsEntity();
+                            objDPQSmsEntity.CustomerMobile = objCust.CustomerMobile;
+                            objDPQSmsEntity.CustomerName = objCust.CustomerName;
+                            objDPQSmsEntity.DealerMobile = dealerDetailEntity.objDealer != null ? dealerDetailEntity.objDealer.PhoneNo : string.Empty;
+                            objDPQSmsEntity.DealerName = dealerDetailEntity.objDealer != null ? dealerDetailEntity.objDealer.Organization : string.Empty;
+                            objDPQSmsEntity.Locality = dealerDetailEntity.objDealer != null ? dealerDetailEntity.objDealer.Address : string.Empty;
+                            objDPQSmsEntity.BookingAmount = bookingAmount;
+                            objDPQSmsEntity.BikeName = String.Format("{0} {1} {2}", dealerDetailEntity.objQuotation.objMake.MakeName, dealerDetailEntity.objQuotation.objModel.ModelName, dealerDetailEntity.objQuotation.objVersion.VersionName);
+                            objDPQSmsEntity.DealerArea = dealerDetailEntity.objDealer != null && dealerDetailEntity.objDealer.objArea != null ? dealerDetailEntity.objDealer.objArea.AreaName : string.Empty;
+                            objDPQSmsEntity.DealerAdd = dealerDetailEntity.objDealer != null ? dealerDetailEntity.objDealer.Address : string.Empty;
+                            objDPQSmsEntity.DealerCity = dealerDetailEntity.objDealer != null ? dealerDetailEntity.objDealer.objCity.CityName : string.Empty;
+                            objDPQSmsEntity.OrganisationName = dealerDetailEntity.objDealer != null ? dealerDetailEntity.objDealer.Organization : string.Empty;
+                            if (dealerDetailEntity.objDealer != null)
+                            {
+                                _objLeadNofitication.NotifyCustomer(input.PQId, bikeName, imagePath, dealerDetailEntity.objDealer.Organization,
+                                   dealerDetailEntity.objDealer.EmailId, dealerDetailEntity.objDealer.PhoneNo, dealerDetailEntity.objDealer.Organization,
+                                   dealerDetailEntity.objDealer.Address, objCust.CustomerName, objCust.CustomerEmail,
+                                   dealerDetailEntity.objQuotation.PriceList, dealerDetailEntity.objOffers, dealerDetailEntity.objDealer.objArea.PinCode,
+                                   dealerDetailEntity.objDealer.objState.StateName, dealerDetailEntity.objDealer.objCity.CityName, TotalPrice, objDPQSmsEntity,
+                                   "api/PQCustomerDetail", input.LeadSourceId, versionName, dealerDetailEntity.objDealer.objArea.Latitude, dealerDetailEntity.objDealer.objArea.Longitude,
+                                   dealerDetailEntity.objDealer.WorkingTime, platformId);
+                            }
+                            if (dealerDetailEntity.objDealer != null)
+                                _objLeadNofitication.NotifyDealer(input.PQId, dealerDetailEntity.objQuotation.objMake.MakeName, dealerDetailEntity.objQuotation.objModel.ModelName, dealerDetailEntity.objQuotation.objVersion.VersionName,
+                                    dealerDetailEntity.objDealer.Organization, dealerDetailEntity.objDealer.EmailId, objCust.CustomerName, objCust.CustomerEmail, objCust.CustomerMobile, objCust.AreaDetails.AreaName, objCust.cityDetails.CityName, dealerDetailEntity.objQuotation.PriceList, Convert.ToInt32(TotalPrice), dealerDetailEntity.objOffers, imagePath, dealerDetailEntity.objDealer.PhoneNo, bikeName, objDPQSmsEntity.DealerArea);
+
+                            if (isVerified)
+                            {
+                                _objPriceQuote.SaveBookingState(input.PQId, PriceQuoteStates.LeadSubmitted);
+                                _objLeadNofitication.PushtoAB(input.DealerId.ToString(), input.PQId, objCust.CustomerName, objCust.CustomerMobile, objCust.CustomerEmail, input.VersionId, input.CityId);
+                            }
+                        }
+
+                        output = new PQCustomerDetailOutput();
+                        output.IsSuccess = isVerified;
+                        output.Dealer = dealer;
+                        output.NoOfAttempts = noOfAttempts;
+                        return Ok(output);
+                    }
+                    else
+                    {
+                        return NotFound();
+                    }
+                }
+                else
+                {
+                    return Unauthorized();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, String.Format("Exception : Bikewale.Service.Controllers.PriceQuote.PQCustomerDetailController.Post({0})", Newtonsoft.Json.JsonConvert.SerializeObject(input)));
+
+                return InternalServerError();
+            }
+        }
+
 
         /// <summary>
         /// Created by  :   Sumit Kate on 23 May 2016
@@ -512,7 +746,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "Exception : Bikewale.Service.Controllers.PriceQuote.PQCustomerDetailController.Postv2");
-               
+
                 return InternalServerError();
             }
         }
@@ -543,7 +777,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "Exception : Bikewale.Service.Controllers.PriceQuote.PQCustomerDetailController.Get");
-               
+
                 return InternalServerError();
             }
         }
