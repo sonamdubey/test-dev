@@ -2,6 +2,7 @@ import React from 'react';
 
 import Autocomplete from '../Autocomplete';
 import Accordion from '../Shared/Accordion';
+import NoResult from './NoResult';
 
 class SelectBikePopup extends React.Component {
   constructor(props) {
@@ -121,6 +122,11 @@ class SelectBikePopup extends React.Component {
             <Accordion closeable={true}>
               {this.getList()}
             </Accordion>
+            {/*<NoResult
+              type="select-bike__no-bike-content"
+              imageClass="select-bike__no-bike"
+              title="No Matching Bikes Found"
+            />*/}
           </div>
           <div className="popup__footer">
             <span className="popup-footer__next">Next</span>
