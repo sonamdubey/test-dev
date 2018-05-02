@@ -30,7 +30,7 @@ class EMISteps extends React.Component {
     this.setState({
       bike: 1,  // here 1: disabled; 2: done
       city: 1,
-      currentFocusStep: 1   //current active step
+      activeStep: 1   //current active step
     });
   }
 
@@ -80,11 +80,12 @@ class EMISteps extends React.Component {
     debounce(() => {
       if(this.StepSelectionContainer.classList.contains('selection-step--overflow')) {    
         inView(this.StepSelection, this.StepSelectionContainer );
-        let activeIndex = [...this.StepSelection.children].indexOf(this.StepSelection.querySelectorAll(".selection-steps__card.inview--active")[0]);
-        [...document.querySelectorAll('.progress-bar')[0].children].forEach(function(item) {
+        let activeCard = this.StepSelection.querySelector(".selection-steps__card.inview--active")
+        let activeIndex = [...this.StepSelection.children].indexOf(activeCard);
+        [...document.querySelector('.progress-bar').children].forEach(function(item) {
           item.firstChild.classList.remove('focused');
         });  
-        document.querySelectorAll('.progress-bar__item:nth-of-type('+ (activeIndex + 1) + ') .progress-bar-item__content')[0].classList.add('focused')
+        document.querySelector('.progress-bar__item:nth-of-type('+ (activeIndex + 1) + ') .progress-bar-item__content').classList.add('focused')
       }
     }, 250)();
   }
@@ -105,10 +106,10 @@ class EMISteps extends React.Component {
     return (
       <div className="emi-calculator__progress-container">
         <ProgressBar>
-          <ProgressBarItem stepNumber={1} status={this.state.bike} currentFocusStep={this.state.currentFocusStep == 1? true: false}>
+          <ProgressBarItem stepNumber={1} status={this.state.bike} isActive={this.state.activeStep == 1? true: false}>
               Select bike
           </ProgressBarItem>
-          <ProgressBarItem stepNumber={2} status={this.state.city} currentFocusStep={this.state.currentFocusStep == 2? true: false}>
+          <ProgressBarItem stepNumber={2} status={this.state.city} isActive={this.state.activeStep == 2? true: false}>
               Select city
           </ProgressBarItem>
         </ProgressBar>

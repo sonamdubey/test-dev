@@ -1,4 +1,4 @@
-@mixin progress-bar($size: 23)
+@mixin progress-bar($size: 23, $min-height: 67px)
   @if unitless($size)== false
     @error please provide unitless value in progress bar
 
@@ -11,6 +11,7 @@
     @include justify-content(justify)
     align-content: space-between
     padding: 18px 7px 11px
+    min-height: $min-height
 
   .progress-bar__item
     @include flex-grow(1)
