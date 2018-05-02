@@ -229,6 +229,7 @@
     <Compile Include="GrpcFiles\GrpcMethods.cs" />
     <Compile Include="GrpcFiles\GrpcToBikeWaleConvert.cs" />
     <Compile Include="Images\ImageBL.cs" />
+    <Compile Include="Lead\LeadProcess.cs" />
     <Compile Include="Location\Cities.cs" />
     <Compile Include="Location\States.cs" />
     <Compile Include="MobileAppAlert\MobileFCMNotifications.cs" />
