@@ -322,8 +322,8 @@ namespace Bikewale.BAL.GrpcFiles
                         VehiclTagsList = ConvertFromGrpcToBikeWale(grpcAtricleDet.VehiclTagsList),
                         
                     };
-                    bwArticleDetails.MakeName = !string.IsNullOrEmpty(artSummary.MakeName) ? artSummary.MakeName : GetMakeNameFromTaggedVehicle(bwArticleDetails.VehiclTagsList);
-                    bwArticleDetails.ModelName = !string.IsNullOrEmpty(artSummary.ModelName) ? artSummary.ModelName : GetModelNameFromTaggedVehicle(bwArticleDetails.VehiclTagsList);
+                    bwArticleDetails.MakeName = GetMakeNameFromTaggedVehicle(bwArticleDetails.VehiclTagsList);
+                    bwArticleDetails.ModelName = GetModelNameFromTaggedVehicle(bwArticleDetails.VehiclTagsList);
                     return bwArticleDetails;
                 }
                 catch (Exception e)
@@ -341,7 +341,7 @@ namespace Bikewale.BAL.GrpcFiles
             string makeName = string.Empty;
             try
             {
-                if (vehicles != null)
+                if (vehicles != null && vehicles.Any())
                 {
                     var makeBase = vehicles.FirstOrDefault().MakeBase;
                     if (makeBase != null)
@@ -361,7 +361,7 @@ namespace Bikewale.BAL.GrpcFiles
             string modelName = string.Empty;
             try
             {
-                if (vehicles != null)
+                if (vehicles != null && vehicles.Any())
                 {
                     var modelBase = vehicles.FirstOrDefault().ModelBase;
                     if (modelBase != null)
