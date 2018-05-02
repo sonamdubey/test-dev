@@ -122,11 +122,14 @@ class SelectBikePopup extends React.Component {
             <Accordion closeable={true}>
               {this.getList()}
             </Accordion>
-            {/*<NoResult
-              type="select-bike__no-bike-content"
-              imageClass="select-bike__no-bike"
-              title="No Matching Bikes Found"
-            />*/}
+            {/*
+              TODO: Render this when no bike is found
+              <NoResult
+                type="select-bike__no-bike-content"
+                imageClass="select-bike__no-bike"
+                title="No Matching Bikes Found"
+              />
+            */}
           </div>
           <div className="popup__footer">
             <span className="popup-footer__next">Next</span>
