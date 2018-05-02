@@ -5,8 +5,8 @@ import { emiCalculatorAction } from '../actionTypes/actionTypes'
 
 const initialSliderState = {
 	min: 15400,
-	max: 1200000,
-	values: [15400],
+	max: 60000,
+	values: [17000],
 	userChange:false,
 	sliderTitleRight:'On-Road Price'
 }
