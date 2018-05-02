@@ -20,10 +20,10 @@ using Bikewale.Interfaces.ServiceCenter;
 using Bikewale.Interfaces.Used;
 using Bikewale.Interfaces.UserReviews;
 using Bikewale.Interfaces.Videos;
+using Bikewale.Models.BikeSeries;
 using Bikewale.Models.CompareBikes;
 using Bikewale.Models.Images;
 using Bikewale.Models.Make;
-using Bikewale.Models.BikeSeries;
 using Bikewale.Models.UserReviews;
 using Bikewale.Utility;
 using System;
@@ -68,6 +68,7 @@ namespace Bikewale.Models
         private readonly IPageFilters _pageFilters;
         private readonly IBikeSeries _bikeSeries;
         private uint _makeCategoryId;
+        private bool _newMakePageV1Status;
         public StatusCodes Status { get; set; }
         public MakeMaskingResponse objResponse { get; set; }
         public string RedirectUrl { get; set; }
@@ -84,7 +85,7 @@ namespace Bikewale.Models
         private readonly String _adId_Mobile_New = "1519729632700";
         private readonly String _adPath_Desktop = "/1017752/Bikewale_Make";
         private readonly String _adId_Desktop = "1516179232964";
-        
+
 
         public MakePageModel(string makeMaskingName, IBikeModels<BikeModelEntity, int> objModelEntity, IBikeModelsCacheRepository<int> bikeModelsCache, IBikeMakesCacheRepository bikeMakesCache, ICMSCacheContent articles, ICMSCacheContent expertReviews, IVideos videos, IUsedBikeDetailsCacheRepository cachedBikeDetails, IDealerCacheRepository cacheDealers, IUpcoming upcoming, IBikeCompare compareBikes, IServiceCenter objSC, IUserReviewsCache cacheUserReviews, INewBikeLaunchesBL newLaunchesBL, IPageFilters pageFilters, IBikeSeries bikeSeries)
         {
@@ -1022,14 +1023,21 @@ namespace Bikewale.Models
         /// <summary>
         /// Created By : Deepak Israni on 20 March 2018
         /// Description: Overload of GetData function to Bind different ad slots with old and new Make page.
+        /// Modified by : Snehal Dange on 30th April 2018
+        /// Description: Added MakeABTestCookie to get abTestValues
         /// </summary>
         /// <param name="isNew"></param>
         /// <returns></returns>
-        public MakePageVM GetData(bool isNew)
+        public MakePageVM GetData(MakeABTestCookie abTestValues)
         {
+            bool isNew = false;
+            if (abTestValues != null)
+            {
+                isNew = abTestValues.IsNewPage;
+                _newMakePageV1Status = abTestValues.NewMakePageV1Status;
+            }
             MakePageVM objData = GetData();
             BindAdSlots(objData, isNew);
-            
             return objData;
         }
 
@@ -1059,7 +1067,7 @@ namespace Bikewale.Models
 
                     if (adTagsObj.Ad_320x50)
                     {
-                        ads.Add(String.Format("{0}-0", _adId_Mobile_Old), GoogleAdsHelper.SetAdSlotProperties(adInfo, ViewSlotSize.ViewSlotSizes[AdSlotSize._320x50], 0, 320, AdSlotSize._320x50, "Top", true)); 
+                        ads.Add(String.Format("{0}-0", _adId_Mobile_Old), GoogleAdsHelper.SetAdSlotProperties(adInfo, ViewSlotSize.ViewSlotSizes[AdSlotSize._320x50], 0, 320, AdSlotSize._320x50, "Top", true));
                     }
                     if (adTagsObj.Ad300x250_Bottom)
                     {
@@ -1073,7 +1081,11 @@ namespace Bikewale.Models
                     AdTags adTagsObj = objData.AdTags;
                     adTagsObj.AdId = _adId_Mobile_New;
                     adTagsObj.AdPath = _adPath_Mobile_New;
-                    adTagsObj.Ad_320x100_Top = true;
+                    if (!_newMakePageV1Status)
+                    {
+                        adTagsObj.Ad_320x100_Top = true;
+                    }
+
                     adTagsObj.Ad_300x250_Top = true;
                     adTagsObj.Ad_300x250_Middle = true;
                     adTagsObj.Ad_300x250_Bottom = true;
@@ -1087,26 +1099,26 @@ namespace Bikewale.Models
                     adInfo["adPath"] = _adPath_Mobile_New;
 
 
-                    if (adTagsObj.Ad_320x100_Top)
+                    if (!_newMakePageV1Status && adTagsObj.Ad_320x100_Top)
                     {
-                        ads.Add(String.Format("{0}-3", _adId_Mobile_New), GoogleAdsHelper.SetAdSlotProperties(adInfo, ViewSlotSize.ViewSlotSizes[AdSlotSize._320x100], 3, 320, AdSlotSize._320x100, "Top", true)); 
+                        ads.Add(String.Format("{0}-3", _adId_Mobile_New), GoogleAdsHelper.SetAdSlotProperties(adInfo, ViewSlotSize.ViewSlotSizes[AdSlotSize._320x100], 3, 320, AdSlotSize._320x100, "Top", true));
                     }
                     if (adTagsObj.Ad_300x250_Top)
                     {
-                        ads.Add(String.Format("{0}-1", _adId_Mobile_New), GoogleAdsHelper.SetAdSlotProperties(adInfo, ViewSlotSize.ViewSlotSizes[AdSlotSize._300x250], 1, 300, AdSlotSize._300x250, "Top")); 
+                        ads.Add(String.Format("{0}-1", _adId_Mobile_New), GoogleAdsHelper.SetAdSlotProperties(adInfo, ViewSlotSize.ViewSlotSizes[AdSlotSize._300x250], 1, 300, AdSlotSize._300x250, "Top"));
                     }
                     if (adTagsObj.Ad_300x250_Middle)
                     {
-                        ads.Add(String.Format("{0}-2", _adId_Mobile_New), GoogleAdsHelper.SetAdSlotProperties(adInfo, ViewSlotSize.ViewSlotSizes[AdSlotSize._300x250], 2, 300, AdSlotSize._300x250, "Middle")); 
+                        ads.Add(String.Format("{0}-2", _adId_Mobile_New), GoogleAdsHelper.SetAdSlotProperties(adInfo, ViewSlotSize.ViewSlotSizes[AdSlotSize._300x250], 2, 300, AdSlotSize._300x250, "Middle"));
                     }
 
                     if (adTagsObj.Ad_300x250_Bottom)
                     {
-                        ads.Add(String.Format("{0}-0", _adId_Mobile_New), GoogleAdsHelper.SetAdSlotProperties(adInfo, ViewSlotSize.ViewSlotSizes[AdSlotSize._300x250], 0, 300, AdSlotSize._300x250, "Bottom")); 
+                        ads.Add(String.Format("{0}-0", _adId_Mobile_New), GoogleAdsHelper.SetAdSlotProperties(adInfo, ViewSlotSize.ViewSlotSizes[AdSlotSize._300x250], 0, 300, AdSlotSize._300x250, "Bottom"));
                     }
 
                     objData.AdSlots = ads;
-                } 
+                }
             }
         }
 
