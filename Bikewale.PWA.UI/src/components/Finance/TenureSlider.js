@@ -17,29 +17,12 @@ import { formatToRound } from '../../utils/formatAmount'
 class EMITenure  extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      isDownpaymentValid: true,
-      DownpaymentErrorText: '',
-      oldDownpaymentAmount: 0,
-      cursorPosition: 0,
-      isFetching: true,
-    }
-    this.cursorTimer = null
   }
   componentDidMount(){
     const {
 			slider
 		} = this.props
   }
-	componentDidUpdate(){
-		if (!this.state.isFetching) {
-
-			const {
-				oldDownpaymentAmount,
-				cursorPosition
-			} = this.state
-		}
-	}
   handleSliderChange = ({ values }) => {
 		const {
 			updateTenureSlider,

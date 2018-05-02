@@ -15,41 +15,13 @@ import { formatToINR, formatToCurrency } from '../../utils/formatAmount'
 class EMIDownPayment  extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      isDownpaymentValid: true,
-      DownpaymentErrorText: '',
-      oldDownpaymentAmount: 0,
-      cursorPosition: 0,
-      isFetching: true,
-    }
-    this.cursorTimer = null
   }
   componentDidMount(){
     const {
 			slider
 		} = this.props
   }
-	componentDidUpdate(){
-		if (!this.state.isFetching) {
-
-			const {
-				oldDownpaymentAmount,
-				cursorPosition
-			} = this.state
-
-			let newPosition = handleCursorPosition(inputBox.value, oldDownpaymentAmount, cursorPosition)
-
-			if (this.DownPaymentInputField === document.activeElement) {
-				this.DownPaymentInputField.classList.add('disable--cursor')
-
-				clearTimeout(this.cursorTimer)
-				this.cursorTimer = setTimeout(() => {
-					this.DownPaymentInputField.selectionStart = this.DownPaymentInputField.selectionEnd = newPosition
-					this.DownPaymentInputField.classList.remove('disable--cursor')
-				}, 0)
-			}
-		}
-	}
+	
   handleSliderChange = ({ values }) => {
 		const {
 			updateDownPaymentSlider,
