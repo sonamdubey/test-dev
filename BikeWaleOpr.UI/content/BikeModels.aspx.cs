@@ -378,7 +378,7 @@ namespace BikeWaleOpr.Content
                 using (DbCommand cmd = DbFactory.GetDBCommand("Updatebikemodel"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelname", DbType.String, 30, modelName.Trim().Replace("'", "''")));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelname", DbType.String, 30, modelName.Replace("'", "''")));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_indian", DbType.Boolean, chkIndian1.Checked));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_Imported", DbType.Boolean, chkImported1.Checked));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_classic", DbType.Boolean, chkClassic1.Checked));
