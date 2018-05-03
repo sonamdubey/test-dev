@@ -5,6 +5,8 @@
     /// Summary     : Added oldmaskingname property for mails on masking name change
     /// Modified by sajal Gupta on 20-11-2017
     /// Desc : Added MakeFooterAdded
+    /// Modified by : Sanskar Gupta on 27 April 2018
+    /// Description : Added property `OldMakeName`
     /// </summary>
     public class BikeMakeEntity : BikeMakeEntityBase
     {
@@ -16,5 +18,6 @@
         public string UpdatedBy { get; set; }
         public string OldMakeMasking { get; set; }
         public bool MakeFooterAdded { get; set; }
+        public string OldMakeName { get; set; }
     }
 }

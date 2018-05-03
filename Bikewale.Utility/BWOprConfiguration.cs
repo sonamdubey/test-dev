@@ -70,6 +70,7 @@ namespace Bikewale.Utility
             _notificationToUserMailId = String.Empty,
             _notificationCCUserMailId = String.Empty,
             _EmailsForBikeChange = String.Empty,
+            _EmailsForMakeModelNameChange = String.Empty,
             _BwHostUrl = String.Empty,
             _notificationToMailIdForPageMetas = string.Empty,
             _BWEsIndexUpdaterQueue = string.Empty,
@@ -146,6 +147,7 @@ namespace Bikewale.Utility
             _UnitSoldDataNotificationDay = Convert.ToInt32(ConfigurationManager.AppSettings["unitSoldDataNotificationDay"]);
             _AWSS3Region = Convert.ToString(ConfigurationManager.AppSettings["AWSS3Region"]);
             _EmailsForBikeChange = Convert.ToString(ConfigurationManager.AppSettings["EmailsForBikeChange"]);
+            _EmailsForMakeModelNameChange = Convert.ToString(ConfigurationManager.AppSettings["EmailsForMakeModelNameChange"]);
             _BwHostUrl = Convert.ToString(ConfigurationManager.AppSettings["BwHostUrl"]);
             _notificationToMailIdForPageMetas = Convert.ToString(ConfigurationManager.AppSettings["notificationToMailIdForPageMetas"]);
             _BWEsIndexUpdaterQueue = Convert.ToString(ConfigurationManager.AppSettings["BWEsIndexUpdaterQueue"]);
@@ -294,6 +296,8 @@ namespace Bikewale.Utility
         public int UnitSoldDataNotificationDay { get { return _UnitSoldDataNotificationDay; } }
         public String AWSS3Region { get { return _AWSS3Region; } }
         public string EmailsForBikeChange { get { return _EmailsForBikeChange; } }
+
+        public string EmailsForMakeModelNameChange { get { return _EmailsForMakeModelNameChange;  } }
         public string BwHostUrl { get { return _BwHostUrl; } }
 
         public string BWEsIndexUpdaterQueue { get { return _BWEsIndexUpdaterQueue; } }

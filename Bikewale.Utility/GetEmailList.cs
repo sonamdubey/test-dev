@@ -12,5 +12,18 @@ namespace Bikewale.Utility
             mailIDList = mails.Split(',');
             return mailIDList;
         }
+
+        /// <summary>
+        /// Created by : Sanskar Gupta on 27 April 2018
+        /// Description : 
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public static IEnumerable<string> FetchMailList(string key)
+        {
+            ICollection<string> mailIDList = new Collection<string>();
+            mailIDList = key.Split(',');
+            return mailIDList;
+        }
     }
 }

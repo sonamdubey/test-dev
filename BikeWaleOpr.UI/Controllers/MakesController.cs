@@ -93,6 +93,8 @@ namespace BikeWaleOpr.MVC.UI.Controllers.Content
         /// Summary     : Send mail when make masking name is changed
         /// Modified By : Deepak Israni on 14 March 2018
         /// Description : Added call to update bikemodel ES Index
+        /// Modified by : Sanskar Gupta on 27 April 2018
+        /// Description : Send mail when Make name is changed.
         /// </summary>
         /// <returns></returns>         
         public ActionResult Update(BikeMakeEntity make)
@@ -123,6 +125,16 @@ namespace BikeWaleOpr.MVC.UI.Controllers.Content
                     }
                     else
                     {
+                        if(string.Compare(make.OldMakeName, make.MakeName) != 0)
+                        {
+                            IEnumerable<string> emails = Bikewale.Utility.GetEmailList.FetchMailList(BWOprConfiguration.Instance.EmailsForMakeModelNameChange);
+                            foreach (var mail in emails)
+                            {
+                                SendInternalEmail.OnFieldChanged(mail, "Name", make.OldMakeName, make.MakeName);
+                            }
+
+                        }
+
                         IEnumerable<BikeModelEntityBase> updatedModels = _modelsRepo.GetModelsByMake((uint)make.MakeId);
                         if (updatedModels != null)
                         {
