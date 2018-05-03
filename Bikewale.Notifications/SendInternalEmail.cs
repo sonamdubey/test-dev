@@ -24,10 +24,14 @@ namespace Bikewale.Notifications
         /// <param name="fieldName"></param>
         /// <param name="oldFieldValue"></param>
         /// <param name="newFieldValue"></param>
-        public static void OnFieldChanged(string userEmail, string fieldName, string oldFieldValue, string newFieldValue)
+        public static void OnFieldChanged(IEnumerable<string> emails, string fieldName, string oldFieldValue, string newFieldValue)
         {
             ComposeEmailBase objEmail = new MakeModelNameChangeMailTemplate(oldFieldValue, newFieldValue);
-            objEmail.Send(userEmail, string.Format(makeModelNameChangedSubject, fieldName, oldFieldValue, newFieldValue));
+            string subject = string.Format(makeModelNameChangedSubject, fieldName, oldFieldValue, newFieldValue);
+            foreach (var mail in emails)
+            {
+                objEmail.Send(mail, subject);
+            }
         }
     }
 

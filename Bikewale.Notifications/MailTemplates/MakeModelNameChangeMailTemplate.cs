@@ -20,9 +20,7 @@ namespace Bikewale.Notifications.MailTemplates
         }
         public override string ComposeBody()
         {
-            StringBuilder sb = new StringBuilder();
-            sb.AppendFormat("<p>Name of {1} has been changed to {2}.</p>", oldName, newName);
-            return sb.ToString();
+            return string.Format("<p>Name of <b>{0}</b> has been changed to <b>{1}</b>.</p>", oldName, newName);
         }
     }
 }
