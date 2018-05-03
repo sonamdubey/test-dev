@@ -128,7 +128,10 @@ namespace BikeWaleOpr.MVC.UI.Controllers.Content
                         if(string.Compare(make.OldMakeName, make.MakeName) != 0)
                         {
                             IEnumerable<string> emails = Bikewale.Utility.GetEmailList.FetchMailList(BWOprConfiguration.Instance.EmailsForMakeModelNameChange);
-                            SendInternalEmail.OnFieldChanged(emails, "Name", make.OldMakeName, make.MakeName);
+                            if (emails != null)
+                            {
+                                SendInternalEmail.OnFieldChanged(emails, "Name", make.OldMakeName, make.MakeName);
+                            }
                         }
 
                         IEnumerable<BikeModelEntityBase> updatedModels = _modelsRepo.GetModelsByMake((uint)make.MakeId);

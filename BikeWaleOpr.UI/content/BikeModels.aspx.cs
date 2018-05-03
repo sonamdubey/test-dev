@@ -401,7 +401,10 @@ namespace BikeWaleOpr.Content
                         if (string.Compare(oldModelName, modelName) != 0)
                         {
                             IEnumerable<string> emails = Bikewale.Utility.GetEmailList.FetchMailList(BWOprConfiguration.Instance.EmailsForMakeModelNameChange);
-                            SendInternalEmail.OnFieldChanged(emails, "Name", oldModelName, modelName);
+                            if (emails != null)
+                            {
+                                SendInternalEmail.OnFieldChanged(emails, "Name", oldModelName, modelName);
+                            }
                         }
                     }
 

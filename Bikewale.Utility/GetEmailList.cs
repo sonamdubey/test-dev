@@ -14,16 +14,14 @@ namespace Bikewale.Utility
         }
 
         /// <summary>
-        /// Created by : Sanskar Gupta on 27 April 2018
-        /// Description : 
+        /// Created by  : Sanskar Gupta on 27 April 2018
+        /// Description : Method returning list of emails by splitting the value of a `Web.Config` key.
         /// </summary>
-        /// <param name="key"></param>
+        /// <param name="emails">Value of the key to be splitted around `,` and get the list</param>
         /// <returns></returns>
-        public static IEnumerable<string> FetchMailList(string key)
+        public static IEnumerable<string> FetchMailList(string emails)
         {
-            ICollection<string> mailIDList = new Collection<string>();
-            mailIDList = key.Split(',');
-            return mailIDList;
+            return emails != null ? emails.Split(',') : null;
         }
     }
 }
