@@ -1109,6 +1109,7 @@ namespace Bikewale.DAL.Dealer
         /// <summary>
         /// Created by Snehal Dange on 18TH Jan 2018
         /// Descritpion:DAL layer Function for fetching dealer details for sending sms.
+        /// Modifier : Kartik rathod on 30 apl 2018, fetched PinCode 
         /// </summary>
         /// <param name="dealerId"></param>
         /// <param name="mobileNumber"></param>
@@ -1148,6 +1149,7 @@ namespace Bikewale.DAL.Dealer
                                         objSMSData.Area = Convert.ToString(dr["area"]);
                                         objSMSData.Latitude = SqlReaderConvertor.ParseToDouble(dr["latitude"]);
                                         objSMSData.Longitude = SqlReaderConvertor.ParseToDouble(dr["longitude"]);
+                                        objSMSData.PinCode = Convert.ToString(dr["pincode"]);
                                         dr.Close();
                                     }
                                 }

@@ -111,6 +111,8 @@ namespace Bikewale.BAL.PriceQuote
         /// Description : parameter dealerArea added in NotifyDealer(). 
         /// Modified by : Aditi Srivastava on 16 Feb 2017
         /// Summary     : Added function to check if mobile number is authentic before notifying dealer
+        /// Modified by : Pratibha Verma on 27 April 2018
+        /// Description : Added additional commumication parameters
         /// </summary>
         /// <param name="pqId"></param>
         /// <param name="makeName"></param>
@@ -131,14 +133,14 @@ namespace Bikewale.BAL.PriceQuote
         /// <param name="bikeName"></param>
         /// <param name="insuranceAmount"></param>
 
-        public void NotifyDealer(uint pqId, string makeName, string modelName, string versionName, string dealerName, string dealerEmail, string customerName, string customerEmail, string customerMobile, string areaName, string cityName, List<PQ_Price> priceList, int totalPrice, List<OfferEntity> offerList, string imagePath, string dealerMobile, string bikeName, string dealerArea)
+        public void NotifyDealer(uint pqId, string makeName, string modelName, string versionName, string dealerName, string dealerEmail, string customerName, string customerEmail, string customerMobile, string areaName, string cityName, List<PQ_Price> priceList, int totalPrice, List<OfferEntity> offerList, string imagePath, string dealerMobile, string bikeName, string dealerArea, string additionalNumbers, string additionalEmails)
         {
             try
             {
                 if (!IsFakeMobileNumber(customerMobile))
                 {
-                    SendEmailSMSToDealerCustomer.SendEmailToDealer(makeName, modelName, versionName, dealerName, dealerEmail, customerName, customerEmail, customerMobile, areaName, cityName, priceList, totalPrice, offerList, imagePath);
-                    SendEmailSMSToDealerCustomer.SMSToDealer(dealerMobile, customerName, customerMobile, bikeName, areaName, cityName, dealerArea);
+                    SendEmailSMSToDealerCustomer.SendEmailToDealer(makeName, modelName, versionName, dealerName, dealerEmail, customerName, customerEmail, customerMobile, areaName, cityName, priceList, totalPrice, offerList, imagePath, additionalEmails);
+                    SendEmailSMSToDealerCustomer.SMSToDealer(dealerMobile, customerName, customerMobile, bikeName, areaName, cityName, dealerArea, additionalNumbers);
                 }
             }
             catch (Exception ex)

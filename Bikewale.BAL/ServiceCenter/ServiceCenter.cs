@@ -115,8 +115,7 @@ namespace Bikewale.BAL.ServiceCenter
                 {
                     if (objSMSData.SMSStatus == EnumSMSStatus.Success)
                     {
-                        SMSTypes newSms = new SMSTypes();
-                        newSms.ServiceCenterDetailsSMS(mobileNumber, objSMSData.Name, objSMSData.Address, objSMSData.Phone, objSMSData.CityName, pageUrl, objSMSData.Latitude, objSMSData.Longitude, objSMSData.MakeName);
+                        SMSTypes.ServiceCenterDetailsSMS(objSMSData, mobileNumber, pageUrl);
                         return EnumSMSStatus.Success;
                     }
                     else if (objSMSData.SMSStatus == EnumSMSStatus.Daily_Limit_Exceeded)
