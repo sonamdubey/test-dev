@@ -610,7 +610,6 @@
 
                     if (self.dealerId() && isValidDetails) {
                         self.verifyCustomer();
-                        if (self.IsVerified()) {
 
                             if (self.IsLeadPopup()) {
                                 $("#contactDetailsPopup").hide();
@@ -622,13 +621,6 @@
                                 $("#dealer-assist-msg").fadeIn();
                             }
                             triggerGA(self.eventCategory(), eventAction, gaLabel);
-                        }
-                        else {
-                            if (self.IsLeadPopup()) {
-                                $("#leadCapturePopup").show();
-                                popup.lock();
-                            }
-                        }
                         setPQUserCookie();
                         self.triggerABTestGA(gaLabel);
                         if (fbPixelLeadEvent)
