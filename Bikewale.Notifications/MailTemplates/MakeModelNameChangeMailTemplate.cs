@@ -8,7 +8,7 @@ namespace Bikewale.Notifications.MailTemplates
 {
     class MakeModelNameChangeMailTemplate : ComposeEmailBase
     {
-        private string oldName, newName;
+        private readonly string oldName, newName;
 
         /// <summary>
         /// Initialize the member variables values
