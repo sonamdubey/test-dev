@@ -1056,7 +1056,7 @@ namespace Bikewale.Models
                     adTagsObj.AdPath = _adPath_Mobile_Old;
                     adTagsObj.AdId = _adId_Mobile_Old;
                     adTagsObj.Ad_320x50 = true;
-                    adTagsObj.Ad_300x250 = true;
+                    adTagsObj.Ad300x250_Bottom = true;
 
 
                     IDictionary<string, AdSlotModel> ads = new Dictionary<string, AdSlotModel>();
@@ -1069,9 +1069,9 @@ namespace Bikewale.Models
                     {
                         ads.Add(String.Format("{0}-0", _adId_Mobile_Old), GoogleAdsHelper.SetAdSlotProperties(adInfo, ViewSlotSize.ViewSlotSizes[AdSlotSize._320x50], 0, 320, AdSlotSize._320x50, "Top", true));
                     }
-                    if (adTagsObj.Ad_300x250)
+                    if (adTagsObj.Ad300x250_Bottom)
                     {
-                        ads.Add(String.Format("{0}-2", _adId_Mobile_Old), GoogleAdsHelper.SetAdSlotProperties(adInfo, ViewSlotSize.ViewSlotSizes[AdSlotSize._300x250], 2, 300, AdSlotSize._300x250));
+                        ads.Add(String.Format("{0}-16", _adId_Mobile_Old), GoogleAdsHelper.SetAdSlotProperties(adInfo, ViewSlotSize.ViewSlotSizes[AdSlotSize._300x250], 16, 300, AdSlotSize._300x250, "Bottom"));
                     }
 
                     objData.AdSlots = ads;
@@ -1136,7 +1136,7 @@ namespace Bikewale.Models
             adTagsObj.Ad_Model_BTF_300x250 = true;
             adTagsObj.Ad_Top_300x250 = true;
             adTagsObj.Ad_970x90Bottom = true;
-            adTagsObj.Ad_970x90 = true;
+            adTagsObj.Ad_970x90Top = true;
 
             IDictionary<string, AdSlotModel> ads = new Dictionary<string, AdSlotModel>();
 
@@ -1160,9 +1160,9 @@ namespace Bikewale.Models
             {
                 ads.Add(String.Format("{0}-5", _adId_Desktop), GoogleAdsHelper.SetAdSlotProperties(adInfo, ViewSlotSize.ViewSlotSizes[AdSlotSize._970x90 + "_C"], 5, 970, AdSlotSize._970x90, "Bottom"));
             }
-            if (adTagsObj.Ad_970x90)
+            if (adTagsObj.Ad_970x90Top)
             {
-                ads.Add(String.Format("{0}-3", _adId_Desktop), GoogleAdsHelper.SetAdSlotProperties(adInfo, ViewSlotSize.ViewSlotSizes[AdSlotSize._970x90 + "_C"], 3, 970, AdSlotSize._970x90, true));
+                ads.Add(String.Format("{0}-19", _adId_Desktop), GoogleAdsHelper.SetAdSlotProperties(adInfo, ViewSlotSize.ViewSlotSizes[AdSlotSize._970x90 + "_C"], 19, 970, AdSlotSize._970x90, "Top", true));
             }
 
             objData.AdSlots = ads;
