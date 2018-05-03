@@ -17,4 +17,113 @@
   line-height: 22px
   font-weight: $font-semibold
 
+.emi-outer-container
+  padding: 20px
+  background: color('bg-light-grey')
 
+.emi-calci-container
+  @include vendor-prefix("box-shadow", 0 0 8px -3px rgba(138,135,138,1))
+  background: color('white')
+  padding: 20px
+
+.emi-calci-top-header
+  padding-bottom: 10px
+  border-bottom: 2px solid color('border-dark')
+
+  .emi-calci__orp-text
+    font-size: 12px
+    color: color('light-grey')
+
+  .emi-calci__orp-data
+    font-size: 20px
+    font-weight: $font-semibold
+
+  .price-link
+    font-size: 13px
+    font-weight: $font-bold
+    margin-left: 15px
+
+.emi-slider-container
+  padding-top: 20px
+  padding-bottom: 20px
+  position: relative
+
+.rheostat
+  margin: 0 auto
+  width: 85%
+  .pit-item:last-child
+    left: auto !important
+    right: 0
+
+.downpayment-unit
+  border-bottom: 1px solid color('bright-grey')
+  padding-bottom: 20px
+  margin-bottom: 20px
+  .pit-item
+    display: none
+
+.tenure-interest-slider
+  display: table
+  width: 100%
+
+.slider__unit-title
+  font-size: 13px
+  margin: 10px 0
+
+.slider-section 
+  padding-top: 50px
+  .rheostat-background 
+    margin-bottom: 14px
+
+.slider__label
+  margin-top: 15px
+
+.slider-label__left
+  font-size: 11px
+  color: color('light-grey')
+
+.vehicle-loan-text
+  margin-top: 15px
+
+.vehicle-loan__amount
+  font-size: 16px
+  font-weight: $font-bold
+
+.slider__unit-text
+  color: color('dark-gray-2')
+  font-size: 11px
+
+.slider-input-container
+  &.tenure-unit,
+  &.interest-unit
+    display: inline-block
+    width: 47.5%
+    vertical-align: top
+  &.tenure-unit
+    margin-right: 10px
+    float: left
+  &.interest-unit
+    float: right
+
+.emi-cost-container
+  padding-top: 15px
+
+.emi-text
+  font-weight: $font-bold
+  font-size: 12px
+  color: color('light-grey')
+
+.final-emi-text
+  font-size: 32px
+  color: color('black')
+  font-weight: $font-bold
+
+.emi-total-year
+  display: inline-block
+  font-size: 11px
+  margin-left: 10px
+  margin-top: 7px
+  color: color('light-grey')
+
+  .emi-total-year-text
+    display: block

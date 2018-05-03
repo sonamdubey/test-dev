@@ -9,6 +9,7 @@ import { fetchSimilarBikes } from '../../actionCreators/SimilarBikesEMI'
 
 import SelectBikePopup from '../Shared/SelectBikePopup'
 import EMISteps from './EMISteps'
+import EMICalculator from './EMICalculator'
 import SelectCityPopup from '../Shared/SelectCityPopup'
 import ModelInfo from './ModelInfoContainer'
 import SwiperContainer from '../Shared/SwiperContainer';
@@ -62,12 +63,14 @@ class EMITab extends React.Component {
           <p className="emi-calculator__head-description">
             Know the tentative EMI for bike of your choice in 2 simple steps.
           </p>
-        </div>
+        </div>        
 
-        <EMISteps onSelectBikeClick={this.handleSelectBikeClick}  onSelectCityClick={this.handleSelectCityClick}/>
+        <EMISteps onSelectBikeClick={this.handleSelectBikeClick} onSelectCityClick={this.handleSelectCityClick}/>
 
         <ModelInfo />
-
+          
+        <EMICalculator />
+      
         {
           SimilarBikesEMI.data && (
             <SwiperContainer
@@ -81,6 +84,7 @@ class EMITab extends React.Component {
 
         <SelectBikePopup isActive={selectBikePopup.isActive} onCloseClick={closeSelectBikePopup} />
         <SelectCityPopup isActive={FinanceCityPopup.isActive} data={FinanceCityPopup} fetchCity={fetchCity} onCityClick={this.handleCityClick} onCloseClick={closeSelectCityPopup} />
+
       </div>
     );
   }
