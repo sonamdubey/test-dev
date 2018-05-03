@@ -26,6 +26,10 @@ namespace Bikewale.Notifications
         /// <param name="newFieldValue"></param>
         public static void OnFieldChanged(IEnumerable<string> emails, string fieldName, string oldFieldValue, string newFieldValue)
         {
+            if(emails == null)
+            {
+                return;
+            }
             ComposeEmailBase objEmail = new MakeModelNameChangeMailTemplate(oldFieldValue, newFieldValue);
             string subject = string.Format(makeModelNameChangedSubject, fieldName, oldFieldValue, newFieldValue);
             foreach (var mail in emails)
