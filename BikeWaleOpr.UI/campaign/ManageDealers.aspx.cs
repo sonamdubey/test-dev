@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
@@ -35,7 +36,8 @@ namespace BikewaleOpr.Campaign
         protected string dealerName, oldMaskingNumber, dealerMobile, reqFormMaskingNumber, reqLeadsLimit;
         protected Button btnUpdate;
         protected ManageDealerCampaign dealerCampaign;
-        protected TextBox txtdealerRadius, txtDealerEmail, txtMaskingNumber, txtCampaignName, txtLeadsLimit, txtDealerNumber;
+        protected TextBox txtdealerRadius, txtDealerEmail, txtMaskingNumber, txtCampaignName, txtLeadsLimit, txtDealerNumber, txtCommunicationNumber1, txtCommunicationNumber2, txtCommunicationNumber3, txtCommunicationNumber4,
+                          txtCommunicationEmail1, txtCommunicationEmail2, txtCommunicationEmail3, txtCommunicationEmail4;
         protected string startDate, endDate;
         protected Label lblGreenMessage, lblErrorSummary;
         protected HtmlGenericControl textArea;
@@ -112,6 +114,8 @@ namespace BikewaleOpr.Campaign
                 UInt16 callToAction = (UInt16)(chkUseDefaultCallToAction.Checked ? DEFAULT_CALL_TO_ACTION : Convert.ToUInt16(ddlCallToAction.SelectedValue));
                 string campaignName = txtCampaignName.Text.Trim();
                 string dealerEmail = txtDealerEmail.Text.Trim();
+                string additionalNumbers = FormatAdditionalCommunication( new string[] { txtCommunicationNumber1.Text, txtCommunicationNumber2.Text, txtCommunicationNumber3.Text, txtCommunicationNumber4.Text });
+                string additionalEmails = FormatAdditionalCommunication(new string[] { txtCommunicationEmail1.Text, txtCommunicationEmail2.Text, txtCommunicationEmail3.Text, txtCommunicationEmail4.Text });
                 if (isCampaignPresent)
                 {
                     campaignRepository.UpdateBWDealerCampaign(
@@ -124,7 +128,9 @@ namespace BikewaleOpr.Campaign
                         campaignName,
                         dealerEmail,
                         leadLimit,
-                        callToAction
+                        callToAction,
+                        additionalNumbers,
+                        additionalEmails
                         );
 
                     lblGreenMessage.Text = "Selected campaign has been Updated !";
@@ -141,7 +147,9 @@ namespace BikewaleOpr.Campaign
                          campaignName,
                          dealerEmail,
                          leadLimit,
-                         callToAction
+                         callToAction,
+                         additionalNumbers,
+                         additionalEmails
                          );
                     lblGreenMessage.Text = "New campaign has been added !";
                     isCampaignPresent = true;
@@ -322,7 +330,7 @@ namespace BikewaleOpr.Campaign
                     {
                         if (!String.IsNullOrEmpty(campaign.MaskingNumber))
                         {
-                            txtMaskingNumber.Text = campaign.MaskingNumber;
+                           txtMaskingNumber.Text = campaign.MaskingNumber;
                             oldMaskingNumber = txtMaskingNumber.Text;
                             hdnOldMaskingNumber.Value = txtMaskingNumber.Text;
                         }
@@ -334,7 +342,50 @@ namespace BikewaleOpr.Campaign
                         txtLeadsLimit.Text = Convert.ToString(campaign.DailyLeadLimit);
                         useDefaultCallToAction = campaign.CallToAction == DEFAULT_CALL_TO_ACTION ? true : false;
                         chkUseDefaultCallToAction.Checked = useDefaultCallToAction;
-                    }
+                        List<string> additionalCommunications;
+                        additionalCommunications = MapAdditionalCommunication(campaign.CommunicationNumbers);
+                            if (additionalCommunications != null)
+                            {
+                                var numberIterator = additionalCommunications.GetEnumerator();
+                                if (numberIterator.MoveNext())
+                                {
+                                    txtCommunicationNumber1.Text = numberIterator.Current;
+                                }
+                                if (numberIterator.MoveNext())
+                                {
+                                    txtCommunicationNumber2.Text = numberIterator.Current;
+                                }
+                                if (numberIterator.MoveNext())
+                                {
+                                    txtCommunicationNumber3.Text = numberIterator.Current;
+                                }
+                                if (numberIterator.MoveNext())
+                                {
+                                    txtCommunicationNumber4.Text = numberIterator.Current;
+                                }
+                            }
+                            additionalCommunications = MapAdditionalCommunication(campaign.CommunicationEmails);
+                            if (additionalCommunications != null)
+                            {
+                                var emailIterator = additionalCommunications.GetEnumerator();
+                                if (emailIterator.MoveNext())
+                                {
+                                    txtCommunicationEmail1.Text = emailIterator.Current;
+                                }
+                                if (emailIterator.MoveNext())
+                                {
+                                    txtCommunicationEmail2.Text = emailIterator.Current;
+                                }
+                                if (emailIterator.MoveNext())
+                                {
+                                    txtCommunicationEmail3.Text = emailIterator.Current;
+                                }
+                                if (emailIterator.MoveNext())
+                                {
+                                    txtCommunicationEmail4.Text = emailIterator.Current;
+                                }
+                            }
+                      }
                 }
 
 
@@ -431,5 +482,69 @@ namespace BikewaleOpr.Campaign
             }
         }
         #endregion
+
+        /// <summary>
+        /// Created by  : Pratibha Verma on 26 April 2018
+        /// Description : Method to format additional communicatio
+        /// </summary>
+        /// <param name="additionalCommunications"></param>
+        /// <returns></returns>
+        private string FormatAdditionalCommunication(string[] additionalCommunications)
+        {
+            try
+            {
+                StringBuilder builder = new StringBuilder();
+                if (additionalCommunications != null)
+                {
+                    for (int i = 0; i < additionalCommunications.Length; i++)
+                    {
+                        if (!string.IsNullOrEmpty(additionalCommunications[i]))
+                        {
+                            builder.AppendFormat(string.Format("{0},", additionalCommunications[i]));
+                        }
+                    }
+                    if (builder.Length > 1)
+                    {
+                        builder.Remove(builder.Length - 1, 1);
+                    }
+                }
+                return builder.ToString();
+            }
+            catch (Exception)
+            {
+                return string.Empty;
+            }
+        }
+
+        /// <summary>
+        /// Created by  : Pratibha Verma on 26 April 2018
+        /// Description : Method to map additional communications
+        /// </summary>
+        /// <param name="additionalCommunication"></param>
+        private List<string> MapAdditionalCommunication(string additionalCommunication)
+        {
+            List<string> AdCommunications = null;
+            try
+            {
+                if (!string.IsNullOrEmpty(additionalCommunication))
+                {
+                    AdCommunications = new List<string>();
+                    string[] tokens = additionalCommunication.Split(',');
+                    if (tokens.Length > 0)
+                    {
+                        var iterator = tokens.GetEnumerator();
+                        while (iterator.MoveNext())
+                        {
+                            AdCommunications.Add(iterator.Current.ToString());
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "BikewaleOpr.Campaign.MapAdditionalCommunication()");
+            }
+            return AdCommunications;
+        }
     }
 }

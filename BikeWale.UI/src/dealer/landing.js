@@ -10,7 +10,7 @@ docReady(function () {
     ddlCities = $("#ddlCities"), ddlMakes = $("#ddlMakes");
     bikeCityId = $("#ddlCities").val()
     
-    
+    ddlMakes.val(0).change();
     ddlCities.chosen({ no_results_text: "No matches found!!" });
     ddlMakes.chosen({ no_results_text: "No matches found!!" });
     $('div.chosen-container').attr('style', 'width:100%;border:0');
