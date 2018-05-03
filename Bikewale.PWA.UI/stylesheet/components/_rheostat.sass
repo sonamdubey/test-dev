@@ -11,6 +11,9 @@
 	background-color: color("tomato")
 
 .rheostat-handle
+	@include vendor-prefix("border-radius", 100%)
+	@include vendor-prefix("transition", all .1s linear)
+	@include vendor-prefix("box-shadow", -1px 1px 13px -2px color("gull-grey"))
 	position: relative
 	width: 32px
 	height: 32px
@@ -19,9 +22,6 @@
 	outline: none
 	z-index: 2
 	border: 2px solid color("white")
-	@include vendor-prefix("border-radius", 100%)
-	@include vendor-prefix("transition", all .1s linear)
-	@include vendor-prefix("box-shadow", -1px 1px 13px -2px #8a878a)
 
 .rheostat-handle-tooltip
 	position: absolute
@@ -41,9 +41,9 @@
 	
 
 	.rheostat-progress
-		height: 4px
-		top: 2px
 		@include vendor-prefix("transition", all .1s linear)
+		height: 4px
+		top: 2px	
 	
 
 	.rheostat-handle

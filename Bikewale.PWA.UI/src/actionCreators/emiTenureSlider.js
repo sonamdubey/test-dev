@@ -1,4 +1,4 @@
-import { emiCalculatorAction } from '../actionTypes/actionTypes'
+import { emiCalculatorAction } from '../actionTypes/emiActionTypes'
 import { fromJS } from 'immutable'
 
 const updateTenureSliderValue = function(values, min, max, userChange) {
@@ -24,7 +24,7 @@ const shouldTenureSliderUpdate = (values, slider) => {
 }
 
 export const updateTenureSlider = ({values, min, max, userChange}) => (dispatch, getState) => {
-    let tenureSliderMap = getState(['Finance', 'VehicleTenure', 'slider']);
+    let tenureSliderMap = getState(['Emi', 'VehicleTenure', 'slider']);
 	if (shouldTenureSliderUpdate(values, tenureSliderMap)) {
 		dispatch(updateTenureSliderValue(values, min, max, userChange))
 	}

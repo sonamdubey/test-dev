@@ -43,9 +43,7 @@ function formatValueWithComma(inputField) {
 }
 
 function formatToRound(value) {
-	let roundValue
-	roundValue = Math.round(value)
-	return roundValue
+	return Math.round(value)
 }
 
 module.exports = {

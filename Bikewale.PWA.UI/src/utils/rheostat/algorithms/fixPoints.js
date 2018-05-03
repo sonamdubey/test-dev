@@ -1,6 +1,3 @@
-//import snapPoints from '../constants/tenureSnapPoints'
-// const snapPoints = [1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6, 6.5, 7]
-
 export default {
 	getPosition(snapPoints, value, min, max) {
         let percentOfEachInterval = 100/(snapPoints.length-1);

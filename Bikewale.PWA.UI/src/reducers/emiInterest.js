@@ -1,13 +1,13 @@
 import { combineReducers } from 'redux-immutable'
 import { fromJS } from 'immutable'
 
-import { emiCalculatorAction } from '../actionTypes/actionTypes'
+import { emiCalculatorAction } from '../actionTypes/emiActionTypes'
 
 const initialSliderState = {
 	min: 10,
 	max: 15,
 	values: [12],
-	userChange:false
+	userChange: false
 }
 
 export const slider = (state = initialSliderState, action) => {

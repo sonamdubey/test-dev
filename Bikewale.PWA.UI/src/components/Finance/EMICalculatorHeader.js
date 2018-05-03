@@ -17,22 +17,22 @@ import { formatToINR } from '../../utils/formatAmount'
 class EMICalculatorHeader extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {EmiCalculation: EmiCalculation(this.props.sliderDp, this.props.sliderTenure, this.props.sliderInt),
-                  InterestPayable: InterestPayable(this.props.sliderDp, this.props.sliderTenure, this.props.sliderInt),
-                  TotalPrincipalAmt: TotalPrincipalAmt(this.props.sliderDp, this.props.sliderTenure, this.props.sliderInt),
+    this.state = {emiCalculation: EmiCalculation(this.props.sliderDp, this.props.sliderTenure, this.props.sliderInt),
+                  interestPayable: InterestPayable(this.props.sliderDp, this.props.sliderTenure, this.props.sliderInt),
+                  totalPrincipalAmt: TotalPrincipalAmt(this.props.sliderDp, this.props.sliderTenure, this.props.sliderInt),
                   monthsToYears: monthsToYears(this.props.sliderTenure.values)
                  }
     }
   componentWillReceiveProps(nextProps){
-    this.setState({ EmiCalculation : EmiCalculation(nextProps.sliderDp, nextProps.sliderTenure, nextProps.sliderInt),
-                    InterestPayable : InterestPayable(nextProps.sliderDp, nextProps.sliderTenure, nextProps.sliderInt),
-                    TotalPrincipalAmt : TotalPrincipalAmt(nextProps.sliderDp, nextProps.sliderTenure, nextProps.sliderInt),
+    this.setState({ emiCalculation : EmiCalculation(nextProps.sliderDp, nextProps.sliderTenure, nextProps.sliderInt),
+                    interestPayable : InterestPayable(nextProps.sliderDp, nextProps.sliderTenure, nextProps.sliderInt),
+                    totalPrincipalAmt : TotalPrincipalAmt(nextProps.sliderDp, nextProps.sliderTenure, nextProps.sliderInt),
                     monthsToYears: monthsToYears(nextProps.sliderTenure.values)
                   })
    }
    
   render() {
-        let finalEmi = formatToINR(this.state.EmiCalculation)
+        let finalEmi = formatToINR(this.state.emiCalculation)
         let tenureText = (this.state.monthsToYears)
         let orpAmount = formatToINR(this.props.sliderDp.max)
     return (
@@ -57,9 +57,9 @@ class EMICalculatorHeader extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  const sliderDp = state.getIn(['Finance', 'VehicleDownPayment', 'slider'])
-  const sliderTenure = state.getIn(['Finance', 'VehicleTenure', 'slider'])
-  const sliderInt = state.getIn(['Finance', 'VehicleInterest', 'slider'])
+  const sliderDp = state.getIn(['Emi', 'VehicleDownPayment', 'slider'])
+  const sliderTenure = state.getIn(['Emi', 'VehicleTenure', 'slider'])
+  const sliderInt = state.getIn(['Emi', 'VehicleInterest', 'slider'])
 
 	return {
 		sliderDp,

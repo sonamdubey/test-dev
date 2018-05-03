@@ -1,7 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux';
-import { toJS } from '../../immutableWrapperContainer'
 
 import EMICalculatorHeader from './EMICalculatorHeader'
 import DownPaymentSlider from './DownPaymentSlider'

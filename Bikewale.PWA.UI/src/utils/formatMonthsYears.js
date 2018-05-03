@@ -1,26 +1,26 @@
 
 function monthsToYears(months) {
-	let yeartext = ""
-	let monthtext = ""
+	let yearText = ""
+	let monthText = ""
 	let yearCal = Math.floor(months/12)    
 	let monthCal =  (months%12)
 	if(monthCal < 2){
-		monthtext = "month"
+		monthText = "month"
 	}
 	else{
-		monthtext = "months"
+		monthText = "months"
 	}
 	if(months > 11 && months < 24 ){
-		yeartext = "Year"
+		yearText = "Year"
 	}
 	else{
-		yeartext = "Years"
+		yearText = "Years"
 	}
 	if(months > 11){
-		return yearCal + " " + yeartext + " and " + monthCal + " " + monthtext
+		return yearCal + " " + yearText + " and " + monthCal + " " + monthText
 	}
 	else{
-		return monthCal + " " + monthtext
+		return monthCal + " " + monthText
 	}
 }
 

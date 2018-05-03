@@ -5,14 +5,12 @@ import { toJS } from '../../immutableWrapperContainer'
 
 import Rheostat from '../Shared/Rheostat'
 import PitComponent from '../Shared/RheostatPit'
-import algorithm from '../../utils/rheostat/algorithms/fix'
+import algorithm from '../../utils/rheostat/algorithms/fixPoints'
 import {algoObj} from '../../utils/rheostat/constants/interestSnapPoints'
 import {createNewSnapPoints} from '../../utils/rheostat/function/DiffSnapPoints'
 
 import { emiCalculatorAction } from '../../actionCreators/emiInterestSlider'
 import { updateInterestSlider } from '../../actionCreators/emiInterestSlider'
-
-import { formatToRound } from '../../utils/formatAmount'
 
 class EMIInterest  extends React.Component {
   constructor(props) {
@@ -66,7 +64,7 @@ class EMIInterest  extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-	const slider = state.getIn(['Finance', 'VehicleInterest', 'slider'])
+	const slider = state.getIn(['Emi', 'VehicleInterest', 'slider'])
 
 	return {
 		slider
