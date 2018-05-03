@@ -1,5 +1,8 @@
 @include popup
 
+.select-city__body
+  padding-top: 25px
+
 .select-city-popup__content
   @include vendor-prefix('transition', translate .2s linear)
   position: relative
@@ -10,6 +13,18 @@
   overflow-y: scroll
 
 @import './autocomplete-box'
+
+// locate me
+.select-city__locate-me
+  @include locate-me-aeaeae-icon
+  background-size: 18px
+  width: 44px
+  height: 100%
+  display: inline-block
+  position: absolute
+  top: 0
+  right: 2px
+  cursor: pointer
 
 .city-list-content
   padding-top: 15px

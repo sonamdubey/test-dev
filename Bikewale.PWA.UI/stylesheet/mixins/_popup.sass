@@ -75,10 +75,11 @@
     width: 30px
     height: 30px
     display: block
-    position: absolute
+    position: fixed
     top: 17px
     right: 17px
     cursor: pointer
+    z-index: 2
 
 
 @mixin popup-search-box
@@ -87,9 +88,9 @@
     bottom: -25px
     left: 0
     right: 0
-    padding-top: 20px
     margin-right: 20px
     margin-left: 20px
+    z-index: 1
 
 
 @mixin popup-footer($height: 50)
