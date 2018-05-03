@@ -4,6 +4,8 @@ import ExpandCollapse from 'react-expand-collapse';
 import { addTabEvents, removeTabEvents } from '../../utils/scrollSpyTabs';
 
 import EMITab from './EMITab'
+import Documentation from './Documentation'
+import FAQ from './FAQ'
 
 class Tabs extends React.Component {
   constructor(props) {
@@ -64,14 +66,14 @@ class Tabs extends React.Component {
         </div>
 
         <div className="tabs-panel__item" data-tab-panel="documentationTab">
-          <div className="overview__content">
-            Documentation: Passport-size photographs, at least 2 to 6 are recommended to be kept handy for your loan application. Passport-size photographs, at least 2 to 6 are recommended to be kept handy for your loan application. Passport-size photographs, at least 2 to 6 are recommended to be kept handy for your loan application. Passport-size photographs, at least 2 to 6 are recommended to be kept handy for your loan application. Passport-size photographs, at least 2 to 6 are recommended to be kept handy for your loan application. Passport-size photographs, at least 2 to 6 are recommended to be kept handy for your loan application. Passport-size photographs, at least 2 to 6 are recommended to be kept handy for your loan application. Passport-size photographs, at least 2 to 6 are recommended to be kept handy for your loan application. Passport-size photographs, at least 2 to 6 are recommended to be kept handy for your loan application. Passport-size photographs, at least 2 to 6 are recommended to be kept handy for your loan application. Passport-size photographs, at least 2 to 6 are recommended to be kept handy for your loan application. Passport-size photographs, at least 2 to 6 are recommended to be kept handy for your loan application. 
+          <div className="finance-documentation">
+            <Documentation />
           </div>
         </div>
 
         <div className="tabs-panel__item" data-tab-panel="faqTab">
-          <div className="overview__content">
-            FAQ: Passport-size photographs, at least 2 to 6 are recommended to be kept handy for your loan application. Passport-size photographs, at least 2 to 6 are recommended to be kept handy for your loan application. Passport-size photographs, at least 2 to 6 are recommended to be kept handy for your loan application. Passport-size photographs, at least 2 to 6 are recommended to be kept handy for your loan application. Passport-size photographs, at least 2 to 6 are recommended to be kept handy for your loan application. Passport-size photographs, at least 2 to 6 are recommended to be kept handy for your loan application. Passport-size photographs, at least 2 to 6 are recommended to be kept handy for your loan application. Passport-size photographs, at least 2 to 6 are recommended to be kept handy for your loan application. Passport-size photographs, at least 2 to 6 are recommended to be kept handy for your loan application. Passport-size photographs, at least 2 to 6 are recommended to be kept handy for your loan application. Passport-size photographs, at least 2 to 6 are recommended to be kept handy for your loan application. Passport-size photographs, at least 2 to 6 are recommended to be kept handy for your loan application. Passport-size photographs, at least 2 to 6 are recommended to be kept handy for your loan application. Passport-size photographs, at least 2 to 6 are recommended to be kept handy for your loan application. Passport-size photographs, at least 2 to 6 are recommended to be kept handy for your loan application. Passport-size photographs, at least 2 to 6 are recommended to be kept handy for your loan application.
+          <div className="finance-faq">
+            <FAQ />
           </div>
         </div>
 

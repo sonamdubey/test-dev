@@ -15,18 +15,21 @@ const defaultProps = {
 class PopularCityList extends React.Component {
   constructor(props) {
     super(props);
-
-    this.getList = this.getList.bind(this);
+  }
+  
+  handleCityClick = (item) => {
+    if(this.props.onClick) {
+      this.props.onClick(item);
+    }
   }
 
-  getList() {
+  getList = () => {
     const {
       data,
-      selection,
-      onClick
+      selection
     } = this.props
 
-    let listItems = data.map(function (item, index) {
+    let listItems = data.map((item, index) => {
       let element = {
         name: item.cityName,
         icon: item.icon
@@ -41,12 +44,12 @@ class PopularCityList extends React.Component {
         <li
           key={item.id}
           className={"city-popular-list__item " + activeClass}
-          onClick={onClick.bind(this, item)}
+          onClick={this.handleCityClick.bind(this, item)}
         >
           <ListItem item={element} />
         </li>
       )
-    }, this);
+    });
 
     return listItems;
   }

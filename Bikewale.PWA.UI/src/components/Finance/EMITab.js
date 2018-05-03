@@ -3,46 +3,53 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux';
 import { toJS } from '../../immutableWrapperContainer'
 
-import { openSelectBikePopup } from '../../actionCreators/SelectBikePopup'
-import { fetchCity, openSelectCityPopup, setCity } from '../../actionCreators/financeCityPopupActionCreator'
+import { openSelectBikePopup, closeSelectBikePopup } from '../../actionCreators/SelectBikePopup'
+import { fetchCity, openSelectCityPopup, closeSelectCityPopup, selectCity } from '../../actionCreators/FinanceCityPopup'
+import { fetchSimilarBikes } from '../../actionCreators/SimilarBikesEMI'
 
 import SelectBikePopup from '../Shared/SelectBikePopup'
 import EMISteps from './EMISteps'
 import EMICalculator from './EMICalculator'
 import SelectCityPopup from '../Shared/SelectCityPopup'
+import ModelInfo from './ModelInfoContainer'
+import SwiperContainer from '../Shared/SwiperContainer';
+import SwiperSimilarBikesEMI from '../Shared/SwiperSimilarBikesEMI';
 
 class EMITab extends React.Component {
   constructor(props) {
     super(props);
-
-    this.handleSelectBikeClick = this.handleSelectBikeClick.bind(this);
-    this.handleSelectCityClick = this.handleSelectCityClick.bind(this);
-    this.handleCityClick = this.handleCityClick.bind(this);
   }
-
-  handleSelectBikeClick() {
+  
+  componentDidMount() {
+    this.props.fetchSimilarBikes();
+  }
+  
+  handleSelectBikeClick = () => {
     this.props.openSelectBikePopup();
   }
   
-  handleSelectCityClick() {
+  handleSelectCityClick = () => {
     this.props.openSelectCityPopup();
   }
 
-  handleCityClick(item) {
+  handleCityClick = (item) => {
     let payload = {
       cityId: item.cityId,
       cityName: item.cityName,
       userChange: true
     }
 
-    this.props.setCity(payload);
+    this.props.selectCity(payload);
   }
 
   render() {
     const {
       selectBikePopup,
       FinanceCityPopup,
-      fetchCity
+      fetchCity,
+      closeSelectBikePopup,
+      closeSelectCityPopup,
+      SimilarBikesEMI
     } = this.props
 
     return (
@@ -52,31 +59,50 @@ class EMITab extends React.Component {
           <p className="emi-calculator__head-description">
             Know the tentative EMI for bike of your choice in 2 simple steps.
           </p>
-        </div>
-        <EMISteps />
-        <span onClick={this.handleSelectBikeClick}>Select bike</span>
-        <span onClick={this.handleSelectCityClick}>Select city</span>
-        <SelectBikePopup isActive={selectBikePopup.isActive} />
-        <SelectCityPopup isActive={FinanceCityPopup.isActive} data={FinanceCityPopup} fetchCity={fetchCity} onCityClick={this.handleCityClick} />
+        </div>        
+
+        {
+          SimilarBikesEMI.data && (
+            <SwiperContainer
+              type="carousel__similar-emi"
+              heading="Other Bikes in similar range"
+              data={SimilarBikesEMI.data}
+              carouselCard={SwiperSimilarBikesEMI}
+            />
+          )
+        }
+
+        <EMISteps onSelectBikeClick={this.handleSelectBikeClick} onSelectCityClick={this.handleSelectCityClick}/>
+
+        <ModelInfo />
+          
         <EMICalculator />
+
+        <SelectBikePopup isActive={selectBikePopup.isActive} onCloseClick={closeSelectBikePopup} />
+        <SelectCityPopup isActive={FinanceCityPopup.isActive} data={FinanceCityPopup} fetchCity={fetchCity} onCityClick={this.handleCityClick} onCloseClick={closeSelectCityPopup} />
+
       </div>
     );
   }
 }
 
-var mapStateToProps = function (store) {
+var mapStateToProps = (store) => {
   return {
     selectBikePopup: store.getIn(['Finance', 'SelectBikePopup']),
-    FinanceCityPopup: store.getIn(['Finance', 'FinanceCityPopup'])
+    FinanceCityPopup: store.getIn(['Finance', 'FinanceCityPopup']),
+    SimilarBikesEMI: store.getIn(['Finance', 'SimilarBikesEMI'])
   }
 }
 
-var mapDispatchToProps = function(dispatch) {
+var mapDispatchToProps = (dispatch) => {
   return {
     openSelectBikePopup: bindActionCreators(openSelectBikePopup, dispatch),
+    closeSelectBikePopup: bindActionCreators(closeSelectBikePopup, dispatch),
     openSelectCityPopup: bindActionCreators(openSelectCityPopup, dispatch),
+    closeSelectCityPopup: bindActionCreators(closeSelectCityPopup, dispatch),
     fetchCity: bindActionCreators(fetchCity, dispatch),
-    setCity: bindActionCreators(setCity, dispatch)
+    selectCity: bindActionCreators(selectCity, dispatch),
+    fetchSimilarBikes: bindActionCreators(fetchSimilarBikes, dispatch)
   }
 }
 

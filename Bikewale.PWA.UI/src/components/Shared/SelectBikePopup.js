@@ -2,15 +2,20 @@ import React from 'react';
 
 import Autocomplete from '../Autocomplete';
 import Accordion from '../Shared/Accordion';
+import NoResult from './NoResult';
 
 class SelectBikePopup extends React.Component {
   constructor(props) {
     super(props);
-
-    this.getList = this.getList.bind(this);
   }
 
-  getList() {
+  handleCloseClick = () => {
+    if (this.props.onCloseClick) {
+      this.props.onCloseClick();
+    }
+  }
+
+  getList = () => {
     let data = [
       {
         makeId: 1,
@@ -97,7 +102,7 @@ class SelectBikePopup extends React.Component {
         <div className="select-bike-popup__content">
           <div className="popup__head">
             <div className="popup-head__content">
-              <span className="popup__close"></span>
+              <span onClick={this.handleCloseClick} className="popup__close"></span>
               <div className="popup__search-box">
                 <p className="popup-search__title">Select Make and Model</p>
                 <div className="autocomplete-box">
@@ -117,6 +122,14 @@ class SelectBikePopup extends React.Component {
             <Accordion closeable={true}>
               {this.getList()}
             </Accordion>
+            {/*
+              TODO: Render this when no bike is found
+              <NoResult
+                type="select-bike__no-bike-content"
+                imageClass="select-bike__no-bike"
+                title="No Matching Bikes Found"
+              />
+            */}
           </div>
           <div className="popup__footer">
             <span className="popup-footer__next">Next</span>

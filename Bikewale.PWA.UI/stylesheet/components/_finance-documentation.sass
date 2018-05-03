@@ -1,0 +1,80 @@
+.finance-documentation
+  background-color: color('white')
+  
+.finance-documentation__head
+  @include flexbox
+  @include align-items(center)
+  padding: 25px 20px 5px
+
+.finance-documentation__title
+  @include flex-grow(1)
+  font-size: 18px
+  font-weight: $font-bold
+  padding-right: 20px
+
+.finance-documentation__save
+  @include save-0288d1-icon
+  background-position: left center
+  padding-left: 25px
+  font-size: 13px
+  font-weight: $font-semibold
+  color: color('pacific-blue')
+  cursor: pointer
+
+.finance-documentation__list
+  padding-left: 20px
+  padding-right: 20px
+
+.documentation-list__item
+  padding-top: 20px
+  padding-bottom: 20px
+  border-top: 1px solid color('border-dark')
+
+  &:first-child
+    border-top: none
+
+.documentation-list-item__head
+  @include text-truncate(100%)
+  font-size: 14px
+  font-weight: $font-semibold
+
+.documentation-list-head__title
+  display: inline-block
+  vertical-align: middle
+  padding-left: 15px
+
+.documentation-list-item__body
+  padding-top: 20px
+  font-size: 13px
+  color: color('light-grey')
+
+.documentation-item__list
+  list-style-type: disc
+  padding-left: 20px
+  padding-top: 10px
+
+.list-head--padding-top
+  display: block
+  padding-top: 10px
+
+.documentation-list-head__icon
+  width: 36px
+  height: 36px
+  display: inline-block
+  vertical-align: middle
+
+.documentation-icon__photo
+  @include photo-identity-4d5057-icon
+  background-size: 22px
+
+.documentation-icon__identity
+  @include identity-proof-4d5057-icon
+  background-size: 36px
+
+.documentation-icon__address
+  @include address-proof-4d5057-icon
+  background-size: 29px
+
+.documentation-icon__employment
+  @include employment-proof-4d5057-icon
+  background-size: 28px

@@ -1,5 +1,6 @@
 import React from 'react'
 import Tabs from './Tabs'
+import Disclaimer from './Disclaimer'
 
 if (!process.env.SERVER) {
   require('../../../stylesheet/finance.sass');
@@ -18,7 +19,7 @@ class FinanceComponent extends React.Component {
           </div>
           
           <Tabs />
-
+          <Disclaimer />
         </div>
       </div>
     );
