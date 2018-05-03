@@ -233,17 +233,13 @@ namespace Bikewale.Utility
         {
             try
             {
-                HttpCookie cookie = HttpContext.Current.Request.Cookies.Get(name);
-                if (cookie == null)
-                {
-                    cookie = new HttpCookie(name);
-                }
+                Cookie bwCookie = new Cookie(name);
                 if (value != null)
                 {
-                    cookie.Value = value;
+                    bwCookie.Value = value;
                 }
-                cookie.Expires = DateTime.Now.AddDays(lifeTime);
-                HttpContext.Current.Response.Cookies.Add(cookie);
+                bwCookie.Expires = DateTime.Now.AddDays(lifeTime);
+                CookieManager.Add(bwCookie);
             }
             catch (Exception)
             {
