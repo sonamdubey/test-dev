@@ -15,6 +15,7 @@ namespace Bikewale.Notifications
     /// </summary>
     public class SendEmailSMSToDealerCustomer
     {
+        private static string[] commaSeperator = new string[] {","};
         /// <summary>
         /// Modified BY : Lucky Rathore on 12 May 2016
         /// Description : Signature of NewBikePriceQuoteMailToDealerTemplate() changed.
@@ -41,13 +42,12 @@ namespace Bikewale.Notifications
         {
             if (!String.IsNullOrEmpty(dealerEmail))
             {
-                string[] arrDealerEmail = dealerEmail.Split(',');
+                string[] arrDealerEmail = dealerEmail.Split(commaSeperator, StringSplitOptions.RemoveEmptyEntries);
                 string[] arrAdditionalEmail = null;
                 if (!string.IsNullOrEmpty(additionalEmails))
                 {
-                    arrAdditionalEmail = additionalEmails.Split(',');
+                    arrAdditionalEmail = additionalEmails.Split(commaSeperator, StringSplitOptions.RemoveEmptyEntries);
                 }
-
                 foreach (string email in arrDealerEmail)
                 {
                     ComposeEmailBase objEmail = new NewBikePriceQuoteMailToDealerTemplate(makeName + " " + modelName, versionName, dealerName, customerName,
@@ -112,11 +112,11 @@ namespace Bikewale.Notifications
             string[] arrAdditionalNumbers = null;
             if (!string.IsNullOrEmpty(additionalNumbers))
             {
-                arrAdditionalNumbers = additionalNumbers.Split(',');
-            }
-            foreach (var additionalNumber in arrAdditionalNumbers)
-            {
-                obj.NewBikePriceQuoteSMSToDealer(additionalNumber, customerName, customerMobile, bikeName, areaName, cityName, HttpContext.Current.Request.ServerVariables["URL"].ToString(), dealerArea);
+                arrAdditionalNumbers = additionalNumbers.Split(commaSeperator, StringSplitOptions.RemoveEmptyEntries);
+                foreach (var additionalNumber in arrAdditionalNumbers)
+                {
+                    obj.NewBikePriceQuoteSMSToDealer(additionalNumber, customerName, customerMobile, bikeName, areaName, cityName, HttpContext.Current.Request.ServerVariables["URL"].ToString(), dealerArea);
+                }
             }
         }
 
