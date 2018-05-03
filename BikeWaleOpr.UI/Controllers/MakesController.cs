@@ -107,9 +107,15 @@ namespace BikeWaleOpr.MVC.UI.Controllers.Content
                     IEnumerable<BikeModelMailEntity> models = null;
                     make.UpdatedBy = BikeWaleOpr.Common.CurrentUser.Id;
                     _makesRepo.UpdateMake(make);
-                    if (string.Compare(make.OldMakeMasking, make.MaskingName) != 0)
+
+                    string oldMakeMaskingName = make.OldMakeMasking;
+                    string makeMaskingName = make.MaskingName;
+                    string oldMakeName = make.OldMakeName;
+                    string makeName = make.MakeName;
+
+                    if (string.Compare(oldMakeMaskingName, makeMaskingName) != 0)
                     {
-                        models = _modelsRepo.GetModelsByMake((uint)make.MakeId, hostUrl, make.OldMakeMasking, make.MaskingName);
+                        models = _modelsRepo.GetModelsByMake((uint)make.MakeId, hostUrl, oldMakeMaskingName, makeMaskingName);
 
                         if (models != null)
                         {
@@ -119,18 +125,18 @@ namespace BikeWaleOpr.MVC.UI.Controllers.Content
                             IEnumerable<string> emails = Bikewale.Utility.GetEmailList.FetchMailList();
                             foreach (var mail in emails)
                             {
-                                SendEmailOnModelChange.SendMakeMaskingNameChangeMail(mail, make.MakeName, models);
+                                SendEmailOnModelChange.SendMakeMaskingNameChangeMail(mail, makeName, models);
                             } 
                         }
                     }
                     else
                     {
-                        if(string.Compare(make.OldMakeName, make.MakeName) != 0)
+                        if(string.Compare(oldMakeName, makeName) != 0)
                         {
                             IEnumerable<string> emails = Bikewale.Utility.GetEmailList.FetchMailList(BWOprConfiguration.Instance.EmailsForMakeModelNameChange);
                             if (emails != null)
                             {
-                                SendInternalEmail.OnFieldChanged(emails, "Name", make.OldMakeName, make.MakeName);
+                                SendInternalEmail.OnFieldChanged(emails, "Name", oldMakeName, makeName);
                             }
                         }
 
@@ -141,7 +147,7 @@ namespace BikeWaleOpr.MVC.UI.Controllers.Content
                             _bikeModels.UpdateModelESIndex(updatedIds, "update"); 
                         }
                     }
-                    TempData["msg"] = make.MakeName + " Make Updated Successfully";
+                    TempData["msg"] = makeName + " Make Updated Successfully";
                 }
                 else
                 {
