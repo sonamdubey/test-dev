@@ -1,0 +1,68 @@
+.rheostat
+	overflow: visible
+
+.rheostat-background
+	position: relative
+	background-color: color("bright-grey")
+	border: 2px solid color("white")
+
+.rheostat-progress
+	position: absolute
+	background-color: color("tomato")
+
+.rheostat-handle
+	@include vendor-prefix("border-radius", 100%)
+	@include vendor-prefix("transition", all .1s linear)
+	@include vendor-prefix("box-shadow", -1px 1px 13px -2px color("gull-grey"))
+	position: relative
+	width: 32px
+	height: 32px
+	line-height: 32px
+	background-color: color("tomato")
+	outline: none
+	z-index: 2
+	border: 2px solid color("white")
+
+.rheostat-handle-tooltip
+	position: absolute
+	bottom: 30px
+	left: -25px
+	min-width: 75px
+	font-size: 13px
+	color: color("default")
+	text-align: center
+
+
+.rheostat-horizontal
+	.rheostat-background
+		top: 0
+		width: 100%
+		height: 8px
+	
+
+	.rheostat-progress
+		@include vendor-prefix("transition", all .1s linear)
+		height: 4px
+		top: 2px	
+	
+
+	.rheostat-handle
+		top: -11px
+		margin-left: -12px
+
+		&:before,
+		&:after
+			top: 7px
+			width: 1px
+			height: 10px
+		
+
+		&:before
+			left: 10px
+		
+
+		&:after
+			left: 13px
+		
+	
+

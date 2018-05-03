@@ -14,6 +14,7 @@ namespace Bikewale.Entities.PWA.Articles
         public PwaVideosReducer Videos { get; private set; }
         public PwaWidgetsReducer Widgets { get; private set; }
 		public PwaFinanceReducer Finance { get; set; }
+        public PwaEmiReducer Emi { get; set; }
 
         public PwaReduxStore()
         {
@@ -21,6 +22,7 @@ namespace Bikewale.Entities.PWA.Articles
             Videos = new PwaVideosReducer();
             Widgets = new PwaWidgetsReducer();
 			Finance = new PwaFinanceReducer();
+            Emi = new PwaEmiReducer();
         }
 
     }
@@ -38,4 +40,18 @@ namespace Bikewale.Entities.PWA.Articles
 			SimilarBikesEMI = new object();
 		}
 	}
+
+    public class PwaEmiReducer
+    {
+        public object VehicleDownPayment;
+        public object VehicleTenure;
+        public object VehicleInterest;
+
+        public PwaEmiReducer()
+        {
+            VehicleDownPayment = new object();
+            VehicleTenure = new object();
+            VehicleInterest = new object();
+        }
+    }
 }
