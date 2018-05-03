@@ -635,6 +635,14 @@
         </div>
     }
 
+
+    @if (Model.AdTags != null && Model.AdTags.Ad300x250_Bottom)
+    {
+        <div class="margin-bottom10 margin-top15">
+            <amp-ad width=300 height=250 type="doubleclick" layout="responsive" data-slot=@string.Format("{0}_Bottom_300x250", Model.AdTags.AdPath)></amp-ad>
+        </div>
+    }
+
     <footer>
         <div class="footer-top padding-bottom15">
             <ul>

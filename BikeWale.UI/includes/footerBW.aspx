@@ -35,24 +35,8 @@
 </div>
 
 <footer class="bg-footer padding-top10 padding-bottom20" id="bg-footer"><!-- Footer section code starts here -->
-    <div class="container">
-
-        <div class="margin-top10">
-            <ul class="font14 popularMakes">
-                <li class="font16 text-white padding-right50">Popular Bike Brands</li>
-                <li><a href="/honda-bikes/" title="Honda Bikes">Honda Bikes</a></li>
-                <li><a href="/hero-bikes/" title="Hero Bikes">Hero Bikes</a></li>
-                <li><a href="/suzuki-bikes/" title="Suzuki Bikes">Suzuki Bikes</a></li>
-            </ul>
-        </div>
-         <div class="margin-top10 border-solid-bottom margin-bottom25 padding-bottom20">
-                <ul class="font14 popularMakes">
-                    <li class="font16 text-white padding-right50">Popular Car Brands &nbsp;</li>
-                    <li><a href="https://www.carwale.com/marutisuzuki-cars/" title="Maruti Cars">Maruti Cars&nbsp;</a></li>
-                    <li><a href="https://www.carwale.com/hyundai-cars/" title="Hyundai Cars">Hyundai Cars</a></li>
-                </ul>
-            </div>
-        <div class=" border-solid-bottom margin-bottom25 padding-bottom20">
+    <div class="container margin-top25">
+        <div class="margin-bottom25 padding-bottom20">
             <div class="grid-4">
                 <p class="font18 text-white margin-bottom20">Join us on</p>
                 <div class="footer-social-icons">
