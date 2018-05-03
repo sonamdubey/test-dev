@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import * as SliderConstants from '../../utils/rheostat/constants/sliderConstants'
-import sliderAlgorithm from '../../utils/rheostat/algorithms/custom'
+import sliderAlgorithm from '../../utils/rheostat/algorithms/linear'
 
 const has = Object.prototype.hasOwnProperty
 
