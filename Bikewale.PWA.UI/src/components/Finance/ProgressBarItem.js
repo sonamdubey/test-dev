@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types'
 
 const propTypes = {
-	// count
+  // count
   stepNumber: PropTypes.number,
   // status
   status: PropTypes.number,
@@ -45,7 +45,9 @@ class ProgressBarItem extends React.Component {
         <div className={`progress-bar-item__content ${classStatus} ${classActive}`}>
             { stepNumber != -1 
             ?
-              <span className="progress-bar-item__step-count">{stepNumber}</span>
+              <span className="progress-bar-item__step-count">
+                <span className="progress-step-count__label">{stepNumber}</span>
+              </span>
             :
               ''
             }

@@ -1,10 +1,9 @@
 @mixin progress-bar($size: 23, $min-height: 67px)
-  @if unitless($size)== false
-    @error please provide unitless value in progress bar
+  @if unitless($size) == false
+    @error 'Please provide unitless for `$size` paramter in progress-bar mixin'
 
   $size: $size * 1px
-  $activeSize: $size + 5
-  $checkedSize: $size - 3
+  $containerSize: $size + 5
 
   .progress-bar
     @include flexbox
@@ -54,12 +53,9 @@
       color: color('dark-black', .3)
 
     &.done
-      .progress-bar-item__step-count
-        height: $checkedSize
-        width: $checkedSize
-
+      .progress-step-count__label
         &:after
-          @include vendor-prefix('border-radius', 30px)
+          @include vendor-prefix('border-radius', $containerSize)
           @include tick-fff-icon
           content: ''
           display: block
@@ -71,31 +67,38 @@
           left: 0
           bottom: 0
           right: 0
-          
+
     &.focused
       color: color('light-grey')
-      top: -2px
 
-      .progress-bar-item__step-count
-        @include vendor-prefix ('transition', all .2s ease)
-        height: $activeSize
-        width: $activeSize
-        padding-top: 3px
+      .progress-step-count__label
+        @include vendor-prefix ('transition', all .1s ease)
+        height: $containerSize
+        width: $containerSize
+        margin-top: 0
+        line-height: $containerSize
 
 
   .progress-bar-item__step-count
-    @include vendor-prefix('border-radius', 30px)
-    content: ''
     display: inline-block
     vertical-align: middle
-    height: $size
-    width: $size
-    background-color: color('border-light')
+    height: $containerSize
+    width: $containerSize
     font-size: 12px
     text-align: center
+
+  .progress-step-count__label
+    @include vendor-prefix('border-radius', $size)
+    width: $size
+    height: $size
+    line-height: $size
+    display: inline-block
+    margin-top: floor(($containerSize - $size) / 2)
+    background-color: color('border-light')
     position: relative
 
   .progress-bar-item__step-title
     display: inline-block
     vertical-align: middle
     margin-left: 10px
+    line-height: $containerSize
