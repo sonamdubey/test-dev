@@ -15,6 +15,8 @@ import ModelInfo from './ModelInfoContainer'
 import SwiperContainer from '../Shared/SwiperContainer';
 import SwiperSimilarBikesEMI from '../Shared/SwiperSimilarBikesEMI';
 
+import { lockScroll, unlockScroll } from '../../utils/scrollLock';
+
 class EMITab extends React.Component {
   constructor(props) {
     super(props);
@@ -26,10 +28,12 @@ class EMITab extends React.Component {
   
   handleSelectBikeClick = () => {
     this.props.openSelectBikePopup();
+    lockScroll();
   }
   
   handleSelectCityClick = () => {
     this.props.openSelectCityPopup();
+    lockScroll();
   }
 
   handleCityClick = (item) => {
@@ -61,6 +65,12 @@ class EMITab extends React.Component {
           </p>
         </div>        
 
+        <EMISteps onSelectBikeClick={this.handleSelectBikeClick} onSelectCityClick={this.handleSelectCityClick}/>
+
+        <ModelInfo />
+          
+        <EMICalculator />
+      
         {
           SimilarBikesEMI.data && (
             <SwiperContainer
@@ -71,12 +81,6 @@ class EMITab extends React.Component {
             />
           )
         }
-
-        <EMISteps onSelectBikeClick={this.handleSelectBikeClick} onSelectCityClick={this.handleSelectCityClick}/>
-
-        <ModelInfo />
-          
-        <EMICalculator />
 
         <SelectBikePopup isActive={selectBikePopup.isActive} onCloseClick={closeSelectBikePopup} />
         <SelectCityPopup isActive={FinanceCityPopup.isActive} data={FinanceCityPopup} fetchCity={fetchCity} onCityClick={this.handleCityClick} onCloseClick={closeSelectCityPopup} />

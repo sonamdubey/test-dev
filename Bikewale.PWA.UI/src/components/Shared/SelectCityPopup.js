@@ -5,6 +5,9 @@ import PopularCityList from './PopularCityList';
 import ListGroup from './ListGroup';
 import ListGroupItem from './ListGroupItem';
 
+import { unlockScroll } from '../../utils/scrollLock';
+import { addPopupEvents, removePopupEvents } from '../../utils/popupScroll';
+
 class SelectCityPopup extends React.Component {
   constructor(props) {
     super(props);
@@ -12,6 +15,11 @@ class SelectCityPopup extends React.Component {
 
   componentDidMount() {
     this.props.fetchCity();
+    addPopupEvents(this.popupContent)
+  }
+  
+  componentWillUnmount() {
+    removePopupEvents(this.popupContent)
   }
 
   handleCityClick = (item) => {
@@ -24,6 +32,8 @@ class SelectCityPopup extends React.Component {
     if (this.props.onCloseClick) {
       this.props.onCloseClick();
     }
+    
+    unlockScroll();
   }
 
   getOtherCityList = () => {
@@ -51,6 +61,10 @@ class SelectCityPopup extends React.Component {
       </ListGroup>
     )
   }
+  
+  setContentRef = (ref) => {
+    this.popupContent = ref
+  }
 
   render() {
     const {
@@ -63,7 +77,7 @@ class SelectCityPopup extends React.Component {
 
     return (
       <div className={popupClasses}>
-        <div className="select-city-popup__content">
+        <div ref={this.setContentRef} className="select-city-popup__content">
           <div className="popup__head">
             <div className="popup-head__content">
               <span onClick={this.handleCloseClick} className="popup__close"></span>
@@ -79,10 +93,9 @@ class SelectCityPopup extends React.Component {
                       }}
                     />
                     {
-                      data.Selection && data.Selection.cityId > 0 && 
-                      (
-                        <span className="autocomplete-box__clear">Clear</span>
-                      )
+                      data.Selection && data.Selection.cityId > 0
+                        ? <span className="autocomplete-box__clear">Clear</span>
+                        : <span className="select-city__locate-me"></span> 
                     }
                   </div>
                 </div>
@@ -91,7 +104,7 @@ class SelectCityPopup extends React.Component {
           </div>
           {
             data.Popular && data.Other && (
-              <div className="select-bike__body">
+              <div className="select-city__body">
                 <div className="city-list-content">
                   <p className="city-list__heading">Popular cities</p>
                   <PopularCityList

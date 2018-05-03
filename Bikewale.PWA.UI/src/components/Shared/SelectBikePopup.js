@@ -4,15 +4,28 @@ import Autocomplete from '../Autocomplete';
 import Accordion from '../Shared/Accordion';
 import NoResult from './NoResult';
 
+import { unlockScroll } from '../../utils/scrollLock';
+import { addPopupEvents, removePopupEvents } from '../../utils/popupScroll';
+
 class SelectBikePopup extends React.Component {
   constructor(props) {
     super(props);
+  }
+
+  componentDidMount() {
+   addPopupEvents(this.popupContent)
+  }
+
+  componentWillUnmount() {
+    removePopupEvents(this.popupContent)
   }
 
   handleCloseClick = () => {
     if (this.props.onCloseClick) {
       this.props.onCloseClick();
     }
+
+    unlockScroll()
   }
 
   getList = () => {
@@ -89,6 +102,10 @@ class SelectBikePopup extends React.Component {
     )
   }
 
+  setContentRef = (ref) => {
+    this.popupContent = ref
+  }
+
   render() {
     const {
       isActive
@@ -99,7 +116,7 @@ class SelectBikePopup extends React.Component {
 
     return (
       <div className={popupClasses}>
-        <div className="select-bike-popup__content">
+        <div ref={this.setContentRef} className="select-bike-popup__content">
           <div className="popup__head">
             <div className="popup-head__content">
               <span onClick={this.handleCloseClick} className="popup__close"></span>
@@ -113,6 +130,7 @@ class SelectBikePopup extends React.Component {
                         placeholder: "Type to select Make and Model"
                       }}
                     />
+                    {/*<span className="autocomplete-box__clear">Clear</span>*/}
                   </div>
                 </div>
               </div>

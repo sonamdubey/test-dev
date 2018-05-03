@@ -1,0 +1,156 @@
+// speedometer-loader
+@mixin speedometer-loader($loaderWidth: 80)
+  // loader
+  $loaderBorderWidth: 6
+
+  // needle
+  $needleWidth: 4
+  $needleHeight: $loaderWidth / 2
+
+  // animation
+  $animationCommonValue: '1.5s ease-in-out 50'
+
+  .speedometer__container
+    @include flexbox
+    @include justify-content(center)
+    @include align-items(center)
+    width: 100%
+    height: 100%
+    position: fixed
+    top: 0
+    left: 0
+    background: color('black', .7)
+    z-index: 10
+
+  .speedometer-loader__content
+    width: $loaderWidth * 1px
+    height: ($loaderWidth / 2 + $needleWidth) * 1px
+    overflow: hidden
+    margin: 0 auto
+    text-align: center
+    position: relative
+
+  .speedometer-loader
+    width: $loaderWidth * 1px
+    height: ($loaderWidth / 2) * 1px
+    overflow: hidden
+    margin: 0 auto
+    text-align: center
+    position: relative
+
+    &:before
+      @include vendor-prefix('animation', rotateSpeedometer #{$animationCommonValue})
+      @include vendor-prefix('transform', rotate(-225deg))
+      @include vendor-prefix('border-radius', 50%)
+
+      content: ''			
+      width: $loaderWidth * 1px
+      height: $loaderWidth * 1px
+      display: block
+      position: absolute
+      top: 0
+      left: 0
+      border-width: $loaderBorderWidth * 1px
+      border-style: solid
+      border-top-color: color('white')
+      border-right-color: color('white')
+      border-left-color: transparent
+      border-bottom-color: transparent
+
+    &:after
+      @include vendor-prefix('border-radius', $needleWidth * 1px)
+      content: ''
+      width: $needleWidth * 1px
+      height: $needleHeight * 1px
+      background-color: color('white')
+      position: absolute
+      left: 0
+      right: 0
+      margin: 0 auto
+      text-align: center
+      bottom: -($needleHeight / 2) * 1px
+      @include vendor-prefix('animation', rotateNeedle #{$animationCommonValue})
+      @include vendor-prefix('transform', rotate(35deg))
+
+  .speedometer-needle-circle
+    @include vendor-prefix('border-radius', 50%)
+    width: $needleWidth * 2px
+    height: $needleWidth * 2px
+    display: block
+    background-color: color('white')
+    position: absolute
+    left: 0
+    right: 0
+    bottom: 0
+    text-align: center
+    margin: 0 auto
+
+  @-webkit-keyframes rotateSpeedometer
+    10%
+      -webkit-transform: rotate(-55deg)
+    
+    30%
+      -webkit-transform: rotate(-85deg)
+    
+    50%
+      -webkit-transform: rotate(-65deg)
+    
+    70%
+      -webkit-transform: rotate(-105deg)
+    
+    80%
+      border-width: $loaderBorderWidth * 1px
+    
+    100%
+      border-width: ($loaderBorderWidth - 1) * 1px
+
+  @keyframes rotateSpeedometer
+    10%
+      transform: rotate(-55deg)
+    
+    30%
+      transform: rotate(-85deg)
+    
+    50%
+      transform: rotate(-65deg)
+    
+    70%
+      transform: rotate(-105deg)
+    
+    80%
+      border-width: $loaderBorderWidth * 1px
+    
+    100%
+      border-width: ($loaderBorderWidth - 1) * 1px
+
+  @-webkit-keyframes rotateNeedle
+    0%
+      height: $needleHeight
+    
+    10%
+      -webkit-transform: rotate(-55deg)
+    
+    30%
+      -webkit-transform: rotate(-25deg)
+    
+    50%
+      -webkit-transform: rotate(-45deg)
+    
+    100%
+      -webkit-transform: rotate(45deg)
+
+  @keyframes rotateNeedle
+    0%
+      height: $needleHeight
+    
+    10%
+      transform: rotate(-55deg)
+    
+    30%
+      transform: rotate(-25deg)
+    
+    50%
+      transform: rotate(-45deg)
+    
+    100%
+      transform: rotate(45deg)
