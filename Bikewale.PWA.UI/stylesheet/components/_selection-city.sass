@@ -40,9 +40,9 @@
     @include vendor-prefix('transform', scale(.95))
     opacity: .5
     padding-right: 16px
-    will-change: opacity
-    will-change: transform
+    will-change: opacity, transform
     display: inline-block
+    vertical-align: top
     width: 88%
 
     &.inview--active
@@ -54,6 +54,9 @@
       
     &:last-child
       padding-right: 20px
+    
+    .model-card__placeholder
+      z-index: 1
 
   .emi-calulator__selection-steps
     width: 100%

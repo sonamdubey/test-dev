@@ -1,4 +1,4 @@
-@mixin progress-bar($size: 23)
+@mixin progress-bar($size: 23, $min-height: 67px)
   @if unitless($size)== false
     @error please provide unitless value in progress bar
 
@@ -11,6 +11,7 @@
     @include justify-content(justify)
     align-content: space-between
     padding: 18px 7px 11px
+    min-height: $min-height
 
   .progress-bar__item
     @include flex-grow(1)
@@ -35,24 +36,20 @@
         display: none
 
   .progress-bar-item__content
+    @include vendor-prefix ('transition', all .2s ease)
     padding-left: 8px
     padding-right: 8px
     font-size: 12px
     line-height: 22px
     font-weight: $font-semibold
     display: inline-block
+    vertical-align: middle
     background-color: color('white')
     color: color('light-grey')
     position: relative
     z-index: 1
     text-transform: capitalize
     
-    &.active
-      .progress-bar-item__step-count
-        height: $activeSize
-        width: $activeSize
-        padding-top: 3px
-
     &.disabled
       color: color('dark-black', .3)
 
@@ -60,19 +57,31 @@
       .progress-bar-item__step-count
         height: $checkedSize
         width: $checkedSize
+
         &:after
           @include vendor-prefix('border-radius', 30px)
           @include tick-fff-icon
           content: ''
           display: block
-          height: $checkedSize
-          width: $checkedSize
+          height: 100%
+          width: 100%
           background-color: color('mona-lisa')
           position: absolute
           top: 0
           left: 0
           bottom: 0
           right: 0
+          
+    &.focused
+      color: color('light-grey')
+      top: -2px
+
+      .progress-bar-item__step-count
+        @include vendor-prefix ('transition', all .2s ease)
+        height: $activeSize
+        width: $activeSize
+        padding-top: 3px
+
 
   .progress-bar-item__step-count
     @include vendor-prefix('border-radius', 30px)
