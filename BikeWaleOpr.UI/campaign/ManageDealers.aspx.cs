@@ -510,8 +510,9 @@ namespace BikewaleOpr.Campaign
                 }
                 return builder.ToString();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                ErrorClass.LogError(ex, "BikewaleOpr.Campaign.ManageDealers.FormatAdditionalCommunication");
                 return string.Empty;
             }
         }
