@@ -1,5 +1,9 @@
-﻿using Consumer;
+﻿using Bikewale.Interfaces.PriceQuote;
+using Bikewale.RabbitMq.LeadProcessingConsumer.Cache;
+using Consumer;
+using Microsoft.Practices.Unity;
 using System;
+using System.Collections;
 using System.Net.Http;
 
 namespace Bikewale.RabbitMq.LeadProcessingConsumer
@@ -10,6 +14,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
     /// </summary>
     internal class HondaManufacturerLeadHandler : ManufacturerLeadHandler
     {
+        private readonly IHondaModelCache _hondaModels;
         /// <summary>
         /// Type initializer
         /// </summary>
@@ -18,6 +23,11 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
         /// <param name="isAPIEnabled"></param>
         public HondaManufacturerLeadHandler(uint manufacturerId, string urlAPI, bool isAPIEnabled) : base(manufacturerId, urlAPI, isAPIEnabled)
         {
+            using (IUnityContainer container = new UnityContainer())
+            {
+                container.RegisterType<IHondaModelCache, HondaModelCacheRepository>();
+                _hondaModels = container.Resolve<IHondaModelCache>();
+            }
         }
 
         /// <summary>
@@ -41,21 +51,35 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
         {
             string leadURL = string.Empty;
             string response = string.Empty;
+            string apiModelName = string.Empty;
+            GaadiLeadEntity gaadiLead = null;
             try
             {
 
                 BikeQuotationEntity quotation = base.LeadRepostiory.GetPriceQuoteById(leadEntity.PQId);
-
-                GaadiLeadEntity gaadiLead = new GaadiLeadEntity()
+                Hashtable hondaModels = _hondaModels.GetHondaModelMapping();
+                if (quotation != null)
                 {
-                    City = quotation.City,
-                    Email = leadEntity.CustomerEmail,
-                    Make = quotation.MakeName,
-                    Mobile = leadEntity.CustomerMobile,
-                    Model = quotation.ModelName,
-                    Name = leadEntity.CustomerName,
-                    State = quotation.State
-                };
+                    if (hondaModels.ContainsKey((int)quotation.ModelId))
+                    {
+                        apiModelName = hondaModels[(int)quotation.ModelId].ToString();
+                    }
+                    else
+                    {
+                        apiModelName = quotation.ModelName;
+                    }
+
+                    gaadiLead = new GaadiLeadEntity()
+                    {
+                        City = quotation.City,
+                        Email = leadEntity.CustomerEmail,
+                        Make = quotation.MakeName,
+                        Mobile = leadEntity.CustomerMobile,
+                        Model = apiModelName,
+                        Name = leadEntity.CustomerName,
+                        State = quotation.State
+                    };
+                }
 
                 using (HttpClient _httpClient = new HttpClient())
                 {
