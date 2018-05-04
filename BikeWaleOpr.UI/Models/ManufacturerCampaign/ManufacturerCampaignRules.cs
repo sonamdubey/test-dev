@@ -29,6 +29,9 @@ namespace BikewaleOpr.Models.ManufacturerCampaign
         /// <summary>
         /// Created by : Aditi Srivastava on 23 Jun 2017
         /// Summary    : Function to populate manufacturer campaign rules view model
+        /// Modified by : Rajan Chauhan on 4 May 2018
+        /// Description : Sorted list of rules based on Makename and modelName and 
+        ///               set UnmappedModels for Honda dealers
         /// </summary>
         public ManufacturerCampaignRulesVM GetData()
         {
@@ -68,11 +71,11 @@ namespace BikewaleOpr.Models.ManufacturerCampaign
                                CityName = r.CityName
                            })
                        })
-                    }).OrderBy(x => x.Make.MakeId);
+                    }).OrderBy(x => string.Format("{0} {1}", x.Make.MakeName, x.Model.ModelName));
 
                 objData.ShowOnExShowroom = rules.ShowOnExShowroom;
             }
-            
+            objData.UnmappedModels = _mfgCampaign.GetUnmappedHondaModels(DealerId);
             objData.Makes = _mfgCampaign.GetBikeMakes();
             objData.States = _mfgCampaign.GetStates();
             return objData;

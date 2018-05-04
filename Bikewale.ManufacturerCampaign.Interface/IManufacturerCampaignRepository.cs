@@ -28,5 +28,6 @@ namespace Bikewale.ManufacturerCampaign.Interface
         Entities.ManufacturerCampaignEntity GetCampaigns(uint modelId, uint cityId, ManufacturerCampaignServingPages pageId);
         uint SaveManufacturerCampaignLead(uint dealerid, uint pqId, UInt64 customerId, string customerName, string customerEmail, string customerMobile, uint leadSourceId, string utma, string utmz, string deviceId, uint campaignId, uint leadId);
         bool ResetTotalLeadDelivered(uint campaignId, uint userId);
+        IEnumerable<BikeModelEntity> GetUnmappedHondaModels( uint dealerId);
     }
 }
