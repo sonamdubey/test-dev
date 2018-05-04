@@ -27,18 +27,24 @@ namespace VehicleData.Service.ProtoClass {
             "AyABKAUSEAoITm9kZUNvZGUYBCABKAkSEAoISXNBY3RpdmUYBSABKAgSEQoJ",
             "VXBkYXRlZE9uGAYgASgJEhEKCVVwZGF0ZWRCeRgHIAEoBRIVCg1BcHBsaWNh",
             "dGlvbklkGAggASgFEhUKDVByaW9yaXR5T3JkZXIYCSABKAUSIAoFaXRlbXMY",
-            "CiADKAsyES5WZWhpY2xlRGF0YS5JdGVtEgwKBEljb24YCyABKAkiNAoPQ2F0",
-            "ZWdvcnlSZXF1ZXN0EgoKAklkGAEgASgFEhUKDUFwcGxpY2F0aW9uSWQYAiAB",
-            "KAUiNwoQQ2F0ZWdvcnlSZXNwb25zZRIKCgJJZBgBIAEoBRIXCg9Jc0RhdGFB",
-            "dmFpbGFibGUYAiABKAgiOQoMQ2F0ZWdvcnlMaXN0EikKCkNhdGVnb3JpZXMY",
-            "ASADKAsyFS5WZWhpY2xlRGF0YS5DYXRlZ29yeSJJChRDYXRlZ29yeVJlc3Bv",
-            "bnNlTGlzdBIxCgpDYXRlZ29yaWVzGAEgAygLMh0uVmVoaWNsZURhdGEuQ2F0",
-            "ZWdvcnlSZXNwb25zZUIhqgIeVmVoaWNsZURhdGEuU2VydmljZS5Qcm90b0Ns",
-            "YXNzYgZwcm90bzM="));
+            "CiADKAsyES5WZWhpY2xlRGF0YS5JdGVtEgwKBEljb24YCyABKAki5wEKDkNh",
+            "dGVnb3J5T2xkQXBwEgoKAklkGAEgASgFEgwKBE5hbWUYAiABKAkSDQoFTGV2",
+            "ZWwYAyABKAUSEAoITm9kZUNvZGUYBCABKAkSEAoISXNBY3RpdmUYBSABKAgS",
+            "EQoJVXBkYXRlZE9uGAYgASgJEhEKCVVwZGF0ZWRCeRgHIAEoBRIVCg1BcHBs",
+            "aWNhdGlvbklkGAggASgFEhUKDVByaW9yaXR5T3JkZXIYCSABKAUSJgoFSXRl",
+            "bXMYCiADKAsyFy5WZWhpY2xlRGF0YS5JdGVtT2xkQXBwEgwKBEljb24YCyAB",
+            "KAkiNAoPQ2F0ZWdvcnlSZXF1ZXN0EgoKAklkGAEgASgFEhUKDUFwcGxpY2F0",
+            "aW9uSWQYAiABKAUiNwoQQ2F0ZWdvcnlSZXNwb25zZRIKCgJJZBgBIAEoBRIX",
+            "Cg9Jc0RhdGFBdmFpbGFibGUYAiABKAgiOQoMQ2F0ZWdvcnlMaXN0EikKCkNh",
+            "dGVnb3JpZXMYASADKAsyFS5WZWhpY2xlRGF0YS5DYXRlZ29yeSJJChRDYXRl",
+            "Z29yeVJlc3BvbnNlTGlzdBIxCgpDYXRlZ29yaWVzGAEgAygLMh0uVmVoaWNs",
+            "ZURhdGEuQ2F0ZWdvcnlSZXNwb25zZUIhqgIeVmVoaWNsZURhdGEuU2Vydmlj",
+            "ZS5Qcm90b0NsYXNzYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::VehicleData.Service.ProtoClass.ItemReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::VehicleData.Service.ProtoClass.Category), global::VehicleData.Service.ProtoClass.Category.Parser, new[]{ "Id", "Name", "Level", "NodeCode", "IsActive", "UpdatedOn", "UpdatedBy", "ApplicationId", "PriorityOrder", "Items", "Icon" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::VehicleData.Service.ProtoClass.CategoryOldApp), global::VehicleData.Service.ProtoClass.CategoryOldApp.Parser, new[]{ "Id", "Name", "Level", "NodeCode", "IsActive", "UpdatedOn", "UpdatedBy", "ApplicationId", "PriorityOrder", "Items", "Icon" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::VehicleData.Service.ProtoClass.CategoryRequest), global::VehicleData.Service.ProtoClass.CategoryRequest.Parser, new[]{ "Id", "ApplicationId" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::VehicleData.Service.ProtoClass.CategoryResponse), global::VehicleData.Service.ProtoClass.CategoryResponse.Parser, new[]{ "Id", "IsDataAvailable" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::VehicleData.Service.ProtoClass.CategoryList), global::VehicleData.Service.ProtoClass.CategoryList.Parser, new[]{ "Categories" }, null, null, null),
@@ -438,6 +444,395 @@ namespace VehicleData.Service.ProtoClass {
 
   }
 
+  public sealed partial class CategoryOldApp : pb::IMessage<CategoryOldApp> {
+    private static readonly pb::MessageParser<CategoryOldApp> _parser = new pb::MessageParser<CategoryOldApp>(() => new CategoryOldApp());
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<CategoryOldApp> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::VehicleData.Service.ProtoClass.CategoryReflection.Descriptor.MessageTypes[1]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public CategoryOldApp() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public CategoryOldApp(CategoryOldApp other) : this() {
+      id_ = other.id_;
+      name_ = other.name_;
+      level_ = other.level_;
+      nodeCode_ = other.nodeCode_;
+      isActive_ = other.isActive_;
+      updatedOn_ = other.updatedOn_;
+      updatedBy_ = other.updatedBy_;
+      applicationId_ = other.applicationId_;
+      priorityOrder_ = other.priorityOrder_;
+      items_ = other.items_.Clone();
+      icon_ = other.icon_;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public CategoryOldApp Clone() {
+      return new CategoryOldApp(this);
+    }
+
+    /// <summary>Field number for the "Id" field.</summary>
+    public const int IdFieldNumber = 1;
+    private int id_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int Id {
+      get { return id_; }
+      set {
+        id_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "Name" field.</summary>
+    public const int NameFieldNumber = 2;
+    private string name_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public string Name {
+      get { return name_; }
+      set {
+        name_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "Level" field.</summary>
+    public const int LevelFieldNumber = 3;
+    private int level_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int Level {
+      get { return level_; }
+      set {
+        level_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "NodeCode" field.</summary>
+    public const int NodeCodeFieldNumber = 4;
+    private string nodeCode_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public string NodeCode {
+      get { return nodeCode_; }
+      set {
+        nodeCode_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "IsActive" field.</summary>
+    public const int IsActiveFieldNumber = 5;
+    private bool isActive_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool IsActive {
+      get { return isActive_; }
+      set {
+        isActive_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "UpdatedOn" field.</summary>
+    public const int UpdatedOnFieldNumber = 6;
+    private string updatedOn_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public string UpdatedOn {
+      get { return updatedOn_; }
+      set {
+        updatedOn_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "UpdatedBy" field.</summary>
+    public const int UpdatedByFieldNumber = 7;
+    private int updatedBy_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int UpdatedBy {
+      get { return updatedBy_; }
+      set {
+        updatedBy_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "ApplicationId" field.</summary>
+    public const int ApplicationIdFieldNumber = 8;
+    private int applicationId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int ApplicationId {
+      get { return applicationId_; }
+      set {
+        applicationId_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "PriorityOrder" field.</summary>
+    public const int PriorityOrderFieldNumber = 9;
+    private int priorityOrder_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int PriorityOrder {
+      get { return priorityOrder_; }
+      set {
+        priorityOrder_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "Items" field.</summary>
+    public const int ItemsFieldNumber = 10;
+    private static readonly pb::FieldCodec<global::VehicleData.Service.ProtoClass.ItemOldApp> _repeated_items_codec
+        = pb::FieldCodec.ForMessage(82, global::VehicleData.Service.ProtoClass.ItemOldApp.Parser);
+    private readonly pbc::RepeatedField<global::VehicleData.Service.ProtoClass.ItemOldApp> items_ = new pbc::RepeatedField<global::VehicleData.Service.ProtoClass.ItemOldApp>();
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public pbc::RepeatedField<global::VehicleData.Service.ProtoClass.ItemOldApp> Items {
+      get { return items_; }
+    }
+
+    /// <summary>Field number for the "Icon" field.</summary>
+    public const int IconFieldNumber = 11;
+    private string icon_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public string Icon {
+      get { return icon_; }
+      set {
+        icon_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as CategoryOldApp);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(CategoryOldApp other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (Id != other.Id) return false;
+      if (Name != other.Name) return false;
+      if (Level != other.Level) return false;
+      if (NodeCode != other.NodeCode) return false;
+      if (IsActive != other.IsActive) return false;
+      if (UpdatedOn != other.UpdatedOn) return false;
+      if (UpdatedBy != other.UpdatedBy) return false;
+      if (ApplicationId != other.ApplicationId) return false;
+      if (PriorityOrder != other.PriorityOrder) return false;
+      if(!items_.Equals(other.items_)) return false;
+      if (Icon != other.Icon) return false;
+      return true;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (Id != 0) hash ^= Id.GetHashCode();
+      if (Name.Length != 0) hash ^= Name.GetHashCode();
+      if (Level != 0) hash ^= Level.GetHashCode();
+      if (NodeCode.Length != 0) hash ^= NodeCode.GetHashCode();
+      if (IsActive != false) hash ^= IsActive.GetHashCode();
+      if (UpdatedOn.Length != 0) hash ^= UpdatedOn.GetHashCode();
+      if (UpdatedBy != 0) hash ^= UpdatedBy.GetHashCode();
+      if (ApplicationId != 0) hash ^= ApplicationId.GetHashCode();
+      if (PriorityOrder != 0) hash ^= PriorityOrder.GetHashCode();
+      hash ^= items_.GetHashCode();
+      if (Icon.Length != 0) hash ^= Icon.GetHashCode();
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (Id != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(Id);
+      }
+      if (Name.Length != 0) {
+        output.WriteRawTag(18);
+        output.WriteString(Name);
+      }
+      if (Level != 0) {
+        output.WriteRawTag(24);
+        output.WriteInt32(Level);
+      }
+      if (NodeCode.Length != 0) {
+        output.WriteRawTag(34);
+        output.WriteString(NodeCode);
+      }
+      if (IsActive != false) {
+        output.WriteRawTag(40);
+        output.WriteBool(IsActive);
+      }
+      if (UpdatedOn.Length != 0) {
+        output.WriteRawTag(50);
+        output.WriteString(UpdatedOn);
+      }
+      if (UpdatedBy != 0) {
+        output.WriteRawTag(56);
+        output.WriteInt32(UpdatedBy);
+      }
+      if (ApplicationId != 0) {
+        output.WriteRawTag(64);
+        output.WriteInt32(ApplicationId);
+      }
+      if (PriorityOrder != 0) {
+        output.WriteRawTag(72);
+        output.WriteInt32(PriorityOrder);
+      }
+      items_.WriteTo(output, _repeated_items_codec);
+      if (Icon.Length != 0) {
+        output.WriteRawTag(90);
+        output.WriteString(Icon);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (Id != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Id);
+      }
+      if (Name.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Name);
+      }
+      if (Level != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Level);
+      }
+      if (NodeCode.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(NodeCode);
+      }
+      if (IsActive != false) {
+        size += 1 + 1;
+      }
+      if (UpdatedOn.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(UpdatedOn);
+      }
+      if (UpdatedBy != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(UpdatedBy);
+      }
+      if (ApplicationId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(ApplicationId);
+      }
+      if (PriorityOrder != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(PriorityOrder);
+      }
+      size += items_.CalculateSize(_repeated_items_codec);
+      if (Icon.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Icon);
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(CategoryOldApp other) {
+      if (other == null) {
+        return;
+      }
+      if (other.Id != 0) {
+        Id = other.Id;
+      }
+      if (other.Name.Length != 0) {
+        Name = other.Name;
+      }
+      if (other.Level != 0) {
+        Level = other.Level;
+      }
+      if (other.NodeCode.Length != 0) {
+        NodeCode = other.NodeCode;
+      }
+      if (other.IsActive != false) {
+        IsActive = other.IsActive;
+      }
+      if (other.UpdatedOn.Length != 0) {
+        UpdatedOn = other.UpdatedOn;
+      }
+      if (other.UpdatedBy != 0) {
+        UpdatedBy = other.UpdatedBy;
+      }
+      if (other.ApplicationId != 0) {
+        ApplicationId = other.ApplicationId;
+      }
+      if (other.PriorityOrder != 0) {
+        PriorityOrder = other.PriorityOrder;
+      }
+      items_.Add(other.items_);
+      if (other.Icon.Length != 0) {
+        Icon = other.Icon;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            input.SkipLastField();
+            break;
+          case 8: {
+            Id = input.ReadInt32();
+            break;
+          }
+          case 18: {
+            Name = input.ReadString();
+            break;
+          }
+          case 24: {
+            Level = input.ReadInt32();
+            break;
+          }
+          case 34: {
+            NodeCode = input.ReadString();
+            break;
+          }
+          case 40: {
+            IsActive = input.ReadBool();
+            break;
+          }
+          case 50: {
+            UpdatedOn = input.ReadString();
+            break;
+          }
+          case 56: {
+            UpdatedBy = input.ReadInt32();
+            break;
+          }
+          case 64: {
+            ApplicationId = input.ReadInt32();
+            break;
+          }
+          case 72: {
+            PriorityOrder = input.ReadInt32();
+            break;
+          }
+          case 82: {
+            items_.AddEntriesFrom(input, _repeated_items_codec);
+            break;
+          }
+          case 90: {
+            Icon = input.ReadString();
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
   public sealed partial class CategoryRequest : pb::IMessage<CategoryRequest> {
     private static readonly pb::MessageParser<CategoryRequest> _parser = new pb::MessageParser<CategoryRequest>(() => new CategoryRequest());
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -445,7 +840,7 @@ namespace VehicleData.Service.ProtoClass {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::VehicleData.Service.ProtoClass.CategoryReflection.Descriptor.MessageTypes[1]; }
+      get { return global::VehicleData.Service.ProtoClass.CategoryReflection.Descriptor.MessageTypes[2]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -590,7 +985,7 @@ namespace VehicleData.Service.ProtoClass {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::VehicleData.Service.ProtoClass.CategoryReflection.Descriptor.MessageTypes[2]; }
+      get { return global::VehicleData.Service.ProtoClass.CategoryReflection.Descriptor.MessageTypes[3]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -735,7 +1130,7 @@ namespace VehicleData.Service.ProtoClass {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::VehicleData.Service.ProtoClass.CategoryReflection.Descriptor.MessageTypes[3]; }
+      get { return global::VehicleData.Service.ProtoClass.CategoryReflection.Descriptor.MessageTypes[4]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -844,7 +1239,7 @@ namespace VehicleData.Service.ProtoClass {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::VehicleData.Service.ProtoClass.CategoryReflection.Descriptor.MessageTypes[4]; }
+      get { return global::VehicleData.Service.ProtoClass.CategoryReflection.Descriptor.MessageTypes[5]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]

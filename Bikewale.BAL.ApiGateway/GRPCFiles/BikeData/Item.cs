@@ -32,18 +32,29 @@ namespace VehicleData.Service.ProtoClass {
             "Dkl0ZW1JbXBvcnRhbmNlGBAgASgFEhEKCVVwZGF0ZWRPbhgRIAEoCRIRCglV",
             "cGRhdGVkQnkYEiABKAUSFQoNQXBwbGljYXRpb25JZBgTIAEoBRIRCglJdGVt",
             "VmFsdWUYFCABKAkSFQoNSXRlbUdyb3VwVHlwZRgVIAEoBRIUCgxDdXN0b21U",
-            "eXBlSWQYFiABKAUiVQoVSXRlbUJ5Q2F0ZWdvcnlSZXF1ZXN0EhIKCkNhdGVn",
-            "b3J5SWQYASABKAUSEQoJVmVyc2lvbklkGAIgASgFEhUKDUFwcGxpY2F0aW9u",
-            "SWQYAyABKAUiLAoISXRlbUxpc3QSIAoFSXRlbXMYASADKAsyES5WZWhpY2xl",
-            "RGF0YS5JdGVtKloKDkl0ZW1Hcm91cFR5cGVzEggKBE5vbmUQABIOCgpJbmRp",
-            "dmlkdWFsEAESFwoTSW5kaXZpZHVhbGx5Q3JlYXRlZBACEhUKEUluZGl2aWR1",
-            "YWxseVNob3duEAMqNQoKSXRlbVN0YXR1cxINCglQdWJsaXNoZWQQABIPCgtV",
-            "blB1Ymxpc2hlZBABEgcKA0FsbBACQiGqAh5WZWhpY2xlRGF0YS5TZXJ2aWNl",
-            "LlByb3RvQ2xhc3NiBnByb3RvMw=="));
+            "eXBlSWQYFiABKAUitAMKCkl0ZW1PbGRBcHASCgoCSWQYASABKAUSEgoKQ2F0",
+            "ZWdvcnlJZBgCIAEoBRIMCgROYW1lGAMgASgJEhIKCkRhdGFUeXBlSWQYBCAB",
+            "KAUSEgoKVW5pdFR5cGVJZBgFIAEoBRIUCgxVbml0VHlwZU5hbWUYBiABKAkS",
+            "EQoJU29ydE9yZGVyGAcgASgFEhMKC0Rlc2NyaXB0aW9uGAggASgJEhAKCElz",
+            "QWN0aXZlGAkgASgIEhQKDEFiYnJldmlhdGlvbhgKIAEoCRIOCgZNaW5WYWwY",
+            "CyABKAUSDgoGTWF4VmFsGAwgASgFEhMKC0lzUHVibGlzaGVkGA0gASgIEgwK",
+            "BEljb24YDiABKAkSFQoNUHJpb3JpdHlPcmRlchgPIAEoBRIWCg5JdGVtSW1w",
+            "b3J0YW5jZRgQIAEoBRIRCglVcGRhdGVkT24YESABKAkSEQoJVXBkYXRlZEJ5",
+            "GBIgASgFEhUKDUFwcGxpY2F0aW9uSWQYEyABKAUSDgoGVmFsdWVzGBQgAygJ",
+            "EhUKDUl0ZW1Hcm91cFR5cGUYFSABKAUSFAoMQ3VzdG9tVHlwZUlkGBYgASgF",
+            "IlUKFUl0ZW1CeUNhdGVnb3J5UmVxdWVzdBISCgpDYXRlZ29yeUlkGAEgASgF",
+            "EhEKCVZlcnNpb25JZBgCIAEoBRIVCg1BcHBsaWNhdGlvbklkGAMgASgFIiwK",
+            "CEl0ZW1MaXN0EiAKBUl0ZW1zGAEgAygLMhEuVmVoaWNsZURhdGEuSXRlbSpa",
+            "Cg5JdGVtR3JvdXBUeXBlcxIICgROb25lEAASDgoKSW5kaXZpZHVhbBABEhcK",
+            "E0luZGl2aWR1YWxseUNyZWF0ZWQQAhIVChFJbmRpdmlkdWFsbHlTaG93bhAD",
+            "KjUKCkl0ZW1TdGF0dXMSDQoJUHVibGlzaGVkEAASDwoLVW5QdWJsaXNoZWQQ",
+            "ARIHCgNBbGwQAkIhqgIeVmVoaWNsZURhdGEuU2VydmljZS5Qcm90b0NsYXNz",
+            "YgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::VehicleData.Service.ProtoClass.ItemGroupTypes), typeof(global::VehicleData.Service.ProtoClass.ItemStatus), }, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::VehicleData.Service.ProtoClass.Item), global::VehicleData.Service.ProtoClass.Item.Parser, new[]{ "Id", "CategoryId", "Name", "DataTypeId", "UnitTypeId", "UnitTypeName", "SortOrder", "Description", "IsActive", "Abbreviation", "MinVal", "MaxVal", "IsPublished", "Icon", "PriorityOrder", "ItemImportance", "UpdatedOn", "UpdatedBy", "ApplicationId", "ItemValue", "ItemGroupType", "CustomTypeId" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::VehicleData.Service.ProtoClass.ItemOldApp), global::VehicleData.Service.ProtoClass.ItemOldApp.Parser, new[]{ "Id", "CategoryId", "Name", "DataTypeId", "UnitTypeId", "UnitTypeName", "SortOrder", "Description", "IsActive", "Abbreviation", "MinVal", "MaxVal", "IsPublished", "Icon", "PriorityOrder", "ItemImportance", "UpdatedOn", "UpdatedBy", "ApplicationId", "Values", "ItemGroupType", "CustomTypeId" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::VehicleData.Service.ProtoClass.ItemByCategoryRequest), global::VehicleData.Service.ProtoClass.ItemByCategoryRequest.Parser, new[]{ "CategoryId", "VersionId", "ApplicationId" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::VehicleData.Service.ProtoClass.ItemList), global::VehicleData.Service.ProtoClass.ItemList.Parser, new[]{ "Items" }, null, null, null)
           }));
@@ -773,6 +784,703 @@ namespace VehicleData.Service.ProtoClass {
 
   }
 
+  public sealed partial class ItemOldApp : pb::IMessage<ItemOldApp> {
+    private static readonly pb::MessageParser<ItemOldApp> _parser = new pb::MessageParser<ItemOldApp>(() => new ItemOldApp());
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<ItemOldApp> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::VehicleData.Service.ProtoClass.ItemReflection.Descriptor.MessageTypes[1]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public ItemOldApp() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public ItemOldApp(ItemOldApp other) : this() {
+      id_ = other.id_;
+      categoryId_ = other.categoryId_;
+      name_ = other.name_;
+      dataTypeId_ = other.dataTypeId_;
+      unitTypeId_ = other.unitTypeId_;
+      unitTypeName_ = other.unitTypeName_;
+      sortOrder_ = other.sortOrder_;
+      description_ = other.description_;
+      isActive_ = other.isActive_;
+      abbreviation_ = other.abbreviation_;
+      minVal_ = other.minVal_;
+      maxVal_ = other.maxVal_;
+      isPublished_ = other.isPublished_;
+      icon_ = other.icon_;
+      priorityOrder_ = other.priorityOrder_;
+      itemImportance_ = other.itemImportance_;
+      updatedOn_ = other.updatedOn_;
+      updatedBy_ = other.updatedBy_;
+      applicationId_ = other.applicationId_;
+      values_ = other.values_.Clone();
+      itemGroupType_ = other.itemGroupType_;
+      customTypeId_ = other.customTypeId_;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public ItemOldApp Clone() {
+      return new ItemOldApp(this);
+    }
+
+    /// <summary>Field number for the "Id" field.</summary>
+    public const int IdFieldNumber = 1;
+    private int id_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int Id {
+      get { return id_; }
+      set {
+        id_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "CategoryId" field.</summary>
+    public const int CategoryIdFieldNumber = 2;
+    private int categoryId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CategoryId {
+      get { return categoryId_; }
+      set {
+        categoryId_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "Name" field.</summary>
+    public const int NameFieldNumber = 3;
+    private string name_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public string Name {
+      get { return name_; }
+      set {
+        name_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "DataTypeId" field.</summary>
+    public const int DataTypeIdFieldNumber = 4;
+    private int dataTypeId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int DataTypeId {
+      get { return dataTypeId_; }
+      set {
+        dataTypeId_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "UnitTypeId" field.</summary>
+    public const int UnitTypeIdFieldNumber = 5;
+    private int unitTypeId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int UnitTypeId {
+      get { return unitTypeId_; }
+      set {
+        unitTypeId_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "UnitTypeName" field.</summary>
+    public const int UnitTypeNameFieldNumber = 6;
+    private string unitTypeName_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public string UnitTypeName {
+      get { return unitTypeName_; }
+      set {
+        unitTypeName_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "SortOrder" field.</summary>
+    public const int SortOrderFieldNumber = 7;
+    private int sortOrder_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int SortOrder {
+      get { return sortOrder_; }
+      set {
+        sortOrder_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "Description" field.</summary>
+    public const int DescriptionFieldNumber = 8;
+    private string description_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public string Description {
+      get { return description_; }
+      set {
+        description_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "IsActive" field.</summary>
+    public const int IsActiveFieldNumber = 9;
+    private bool isActive_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool IsActive {
+      get { return isActive_; }
+      set {
+        isActive_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "Abbreviation" field.</summary>
+    public const int AbbreviationFieldNumber = 10;
+    private string abbreviation_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public string Abbreviation {
+      get { return abbreviation_; }
+      set {
+        abbreviation_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "MinVal" field.</summary>
+    public const int MinValFieldNumber = 11;
+    private int minVal_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int MinVal {
+      get { return minVal_; }
+      set {
+        minVal_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "MaxVal" field.</summary>
+    public const int MaxValFieldNumber = 12;
+    private int maxVal_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int MaxVal {
+      get { return maxVal_; }
+      set {
+        maxVal_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "IsPublished" field.</summary>
+    public const int IsPublishedFieldNumber = 13;
+    private bool isPublished_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool IsPublished {
+      get { return isPublished_; }
+      set {
+        isPublished_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "Icon" field.</summary>
+    public const int IconFieldNumber = 14;
+    private string icon_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public string Icon {
+      get { return icon_; }
+      set {
+        icon_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "PriorityOrder" field.</summary>
+    public const int PriorityOrderFieldNumber = 15;
+    private int priorityOrder_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int PriorityOrder {
+      get { return priorityOrder_; }
+      set {
+        priorityOrder_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "ItemImportance" field.</summary>
+    public const int ItemImportanceFieldNumber = 16;
+    private int itemImportance_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int ItemImportance {
+      get { return itemImportance_; }
+      set {
+        itemImportance_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "UpdatedOn" field.</summary>
+    public const int UpdatedOnFieldNumber = 17;
+    private string updatedOn_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public string UpdatedOn {
+      get { return updatedOn_; }
+      set {
+        updatedOn_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "UpdatedBy" field.</summary>
+    public const int UpdatedByFieldNumber = 18;
+    private int updatedBy_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int UpdatedBy {
+      get { return updatedBy_; }
+      set {
+        updatedBy_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "ApplicationId" field.</summary>
+    public const int ApplicationIdFieldNumber = 19;
+    private int applicationId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int ApplicationId {
+      get { return applicationId_; }
+      set {
+        applicationId_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "Values" field.</summary>
+    public const int ValuesFieldNumber = 20;
+    private static readonly pb::FieldCodec<string> _repeated_values_codec
+        = pb::FieldCodec.ForString(162);
+    private readonly pbc::RepeatedField<string> values_ = new pbc::RepeatedField<string>();
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public pbc::RepeatedField<string> Values {
+      get { return values_; }
+    }
+
+    /// <summary>Field number for the "ItemGroupType" field.</summary>
+    public const int ItemGroupTypeFieldNumber = 21;
+    private int itemGroupType_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int ItemGroupType {
+      get { return itemGroupType_; }
+      set {
+        itemGroupType_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "CustomTypeId" field.</summary>
+    public const int CustomTypeIdFieldNumber = 22;
+    private int customTypeId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CustomTypeId {
+      get { return customTypeId_; }
+      set {
+        customTypeId_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as ItemOldApp);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(ItemOldApp other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (Id != other.Id) return false;
+      if (CategoryId != other.CategoryId) return false;
+      if (Name != other.Name) return false;
+      if (DataTypeId != other.DataTypeId) return false;
+      if (UnitTypeId != other.UnitTypeId) return false;
+      if (UnitTypeName != other.UnitTypeName) return false;
+      if (SortOrder != other.SortOrder) return false;
+      if (Description != other.Description) return false;
+      if (IsActive != other.IsActive) return false;
+      if (Abbreviation != other.Abbreviation) return false;
+      if (MinVal != other.MinVal) return false;
+      if (MaxVal != other.MaxVal) return false;
+      if (IsPublished != other.IsPublished) return false;
+      if (Icon != other.Icon) return false;
+      if (PriorityOrder != other.PriorityOrder) return false;
+      if (ItemImportance != other.ItemImportance) return false;
+      if (UpdatedOn != other.UpdatedOn) return false;
+      if (UpdatedBy != other.UpdatedBy) return false;
+      if (ApplicationId != other.ApplicationId) return false;
+      if(!values_.Equals(other.values_)) return false;
+      if (ItemGroupType != other.ItemGroupType) return false;
+      if (CustomTypeId != other.CustomTypeId) return false;
+      return true;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (Id != 0) hash ^= Id.GetHashCode();
+      if (CategoryId != 0) hash ^= CategoryId.GetHashCode();
+      if (Name.Length != 0) hash ^= Name.GetHashCode();
+      if (DataTypeId != 0) hash ^= DataTypeId.GetHashCode();
+      if (UnitTypeId != 0) hash ^= UnitTypeId.GetHashCode();
+      if (UnitTypeName.Length != 0) hash ^= UnitTypeName.GetHashCode();
+      if (SortOrder != 0) hash ^= SortOrder.GetHashCode();
+      if (Description.Length != 0) hash ^= Description.GetHashCode();
+      if (IsActive != false) hash ^= IsActive.GetHashCode();
+      if (Abbreviation.Length != 0) hash ^= Abbreviation.GetHashCode();
+      if (MinVal != 0) hash ^= MinVal.GetHashCode();
+      if (MaxVal != 0) hash ^= MaxVal.GetHashCode();
+      if (IsPublished != false) hash ^= IsPublished.GetHashCode();
+      if (Icon.Length != 0) hash ^= Icon.GetHashCode();
+      if (PriorityOrder != 0) hash ^= PriorityOrder.GetHashCode();
+      if (ItemImportance != 0) hash ^= ItemImportance.GetHashCode();
+      if (UpdatedOn.Length != 0) hash ^= UpdatedOn.GetHashCode();
+      if (UpdatedBy != 0) hash ^= UpdatedBy.GetHashCode();
+      if (ApplicationId != 0) hash ^= ApplicationId.GetHashCode();
+      hash ^= values_.GetHashCode();
+      if (ItemGroupType != 0) hash ^= ItemGroupType.GetHashCode();
+      if (CustomTypeId != 0) hash ^= CustomTypeId.GetHashCode();
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (Id != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(Id);
+      }
+      if (CategoryId != 0) {
+        output.WriteRawTag(16);
+        output.WriteInt32(CategoryId);
+      }
+      if (Name.Length != 0) {
+        output.WriteRawTag(26);
+        output.WriteString(Name);
+      }
+      if (DataTypeId != 0) {
+        output.WriteRawTag(32);
+        output.WriteInt32(DataTypeId);
+      }
+      if (UnitTypeId != 0) {
+        output.WriteRawTag(40);
+        output.WriteInt32(UnitTypeId);
+      }
+      if (UnitTypeName.Length != 0) {
+        output.WriteRawTag(50);
+        output.WriteString(UnitTypeName);
+      }
+      if (SortOrder != 0) {
+        output.WriteRawTag(56);
+        output.WriteInt32(SortOrder);
+      }
+      if (Description.Length != 0) {
+        output.WriteRawTag(66);
+        output.WriteString(Description);
+      }
+      if (IsActive != false) {
+        output.WriteRawTag(72);
+        output.WriteBool(IsActive);
+      }
+      if (Abbreviation.Length != 0) {
+        output.WriteRawTag(82);
+        output.WriteString(Abbreviation);
+      }
+      if (MinVal != 0) {
+        output.WriteRawTag(88);
+        output.WriteInt32(MinVal);
+      }
+      if (MaxVal != 0) {
+        output.WriteRawTag(96);
+        output.WriteInt32(MaxVal);
+      }
+      if (IsPublished != false) {
+        output.WriteRawTag(104);
+        output.WriteBool(IsPublished);
+      }
+      if (Icon.Length != 0) {
+        output.WriteRawTag(114);
+        output.WriteString(Icon);
+      }
+      if (PriorityOrder != 0) {
+        output.WriteRawTag(120);
+        output.WriteInt32(PriorityOrder);
+      }
+      if (ItemImportance != 0) {
+        output.WriteRawTag(128, 1);
+        output.WriteInt32(ItemImportance);
+      }
+      if (UpdatedOn.Length != 0) {
+        output.WriteRawTag(138, 1);
+        output.WriteString(UpdatedOn);
+      }
+      if (UpdatedBy != 0) {
+        output.WriteRawTag(144, 1);
+        output.WriteInt32(UpdatedBy);
+      }
+      if (ApplicationId != 0) {
+        output.WriteRawTag(152, 1);
+        output.WriteInt32(ApplicationId);
+      }
+      values_.WriteTo(output, _repeated_values_codec);
+      if (ItemGroupType != 0) {
+        output.WriteRawTag(168, 1);
+        output.WriteInt32(ItemGroupType);
+      }
+      if (CustomTypeId != 0) {
+        output.WriteRawTag(176, 1);
+        output.WriteInt32(CustomTypeId);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (Id != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Id);
+      }
+      if (CategoryId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(CategoryId);
+      }
+      if (Name.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Name);
+      }
+      if (DataTypeId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(DataTypeId);
+      }
+      if (UnitTypeId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(UnitTypeId);
+      }
+      if (UnitTypeName.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(UnitTypeName);
+      }
+      if (SortOrder != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(SortOrder);
+      }
+      if (Description.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Description);
+      }
+      if (IsActive != false) {
+        size += 1 + 1;
+      }
+      if (Abbreviation.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Abbreviation);
+      }
+      if (MinVal != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(MinVal);
+      }
+      if (MaxVal != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(MaxVal);
+      }
+      if (IsPublished != false) {
+        size += 1 + 1;
+      }
+      if (Icon.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Icon);
+      }
+      if (PriorityOrder != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(PriorityOrder);
+      }
+      if (ItemImportance != 0) {
+        size += 2 + pb::CodedOutputStream.ComputeInt32Size(ItemImportance);
+      }
+      if (UpdatedOn.Length != 0) {
+        size += 2 + pb::CodedOutputStream.ComputeStringSize(UpdatedOn);
+      }
+      if (UpdatedBy != 0) {
+        size += 2 + pb::CodedOutputStream.ComputeInt32Size(UpdatedBy);
+      }
+      if (ApplicationId != 0) {
+        size += 2 + pb::CodedOutputStream.ComputeInt32Size(ApplicationId);
+      }
+      size += values_.CalculateSize(_repeated_values_codec);
+      if (ItemGroupType != 0) {
+        size += 2 + pb::CodedOutputStream.ComputeInt32Size(ItemGroupType);
+      }
+      if (CustomTypeId != 0) {
+        size += 2 + pb::CodedOutputStream.ComputeInt32Size(CustomTypeId);
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(ItemOldApp other) {
+      if (other == null) {
+        return;
+      }
+      if (other.Id != 0) {
+        Id = other.Id;
+      }
+      if (other.CategoryId != 0) {
+        CategoryId = other.CategoryId;
+      }
+      if (other.Name.Length != 0) {
+        Name = other.Name;
+      }
+      if (other.DataTypeId != 0) {
+        DataTypeId = other.DataTypeId;
+      }
+      if (other.UnitTypeId != 0) {
+        UnitTypeId = other.UnitTypeId;
+      }
+      if (other.UnitTypeName.Length != 0) {
+        UnitTypeName = other.UnitTypeName;
+      }
+      if (other.SortOrder != 0) {
+        SortOrder = other.SortOrder;
+      }
+      if (other.Description.Length != 0) {
+        Description = other.Description;
+      }
+      if (other.IsActive != false) {
+        IsActive = other.IsActive;
+      }
+      if (other.Abbreviation.Length != 0) {
+        Abbreviation = other.Abbreviation;
+      }
+      if (other.MinVal != 0) {
+        MinVal = other.MinVal;
+      }
+      if (other.MaxVal != 0) {
+        MaxVal = other.MaxVal;
+      }
+      if (other.IsPublished != false) {
+        IsPublished = other.IsPublished;
+      }
+      if (other.Icon.Length != 0) {
+        Icon = other.Icon;
+      }
+      if (other.PriorityOrder != 0) {
+        PriorityOrder = other.PriorityOrder;
+      }
+      if (other.ItemImportance != 0) {
+        ItemImportance = other.ItemImportance;
+      }
+      if (other.UpdatedOn.Length != 0) {
+        UpdatedOn = other.UpdatedOn;
+      }
+      if (other.UpdatedBy != 0) {
+        UpdatedBy = other.UpdatedBy;
+      }
+      if (other.ApplicationId != 0) {
+        ApplicationId = other.ApplicationId;
+      }
+      values_.Add(other.values_);
+      if (other.ItemGroupType != 0) {
+        ItemGroupType = other.ItemGroupType;
+      }
+      if (other.CustomTypeId != 0) {
+        CustomTypeId = other.CustomTypeId;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            input.SkipLastField();
+            break;
+          case 8: {
+            Id = input.ReadInt32();
+            break;
+          }
+          case 16: {
+            CategoryId = input.ReadInt32();
+            break;
+          }
+          case 26: {
+            Name = input.ReadString();
+            break;
+          }
+          case 32: {
+            DataTypeId = input.ReadInt32();
+            break;
+          }
+          case 40: {
+            UnitTypeId = input.ReadInt32();
+            break;
+          }
+          case 50: {
+            UnitTypeName = input.ReadString();
+            break;
+          }
+          case 56: {
+            SortOrder = input.ReadInt32();
+            break;
+          }
+          case 66: {
+            Description = input.ReadString();
+            break;
+          }
+          case 72: {
+            IsActive = input.ReadBool();
+            break;
+          }
+          case 82: {
+            Abbreviation = input.ReadString();
+            break;
+          }
+          case 88: {
+            MinVal = input.ReadInt32();
+            break;
+          }
+          case 96: {
+            MaxVal = input.ReadInt32();
+            break;
+          }
+          case 104: {
+            IsPublished = input.ReadBool();
+            break;
+          }
+          case 114: {
+            Icon = input.ReadString();
+            break;
+          }
+          case 120: {
+            PriorityOrder = input.ReadInt32();
+            break;
+          }
+          case 128: {
+            ItemImportance = input.ReadInt32();
+            break;
+          }
+          case 138: {
+            UpdatedOn = input.ReadString();
+            break;
+          }
+          case 144: {
+            UpdatedBy = input.ReadInt32();
+            break;
+          }
+          case 152: {
+            ApplicationId = input.ReadInt32();
+            break;
+          }
+          case 162: {
+            values_.AddEntriesFrom(input, _repeated_values_codec);
+            break;
+          }
+          case 168: {
+            ItemGroupType = input.ReadInt32();
+            break;
+          }
+          case 176: {
+            CustomTypeId = input.ReadInt32();
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
   public sealed partial class ItemByCategoryRequest : pb::IMessage<ItemByCategoryRequest> {
     private static readonly pb::MessageParser<ItemByCategoryRequest> _parser = new pb::MessageParser<ItemByCategoryRequest>(() => new ItemByCategoryRequest());
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -780,7 +1488,7 @@ namespace VehicleData.Service.ProtoClass {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::VehicleData.Service.ProtoClass.ItemReflection.Descriptor.MessageTypes[1]; }
+      get { return global::VehicleData.Service.ProtoClass.ItemReflection.Descriptor.MessageTypes[2]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -953,7 +1661,7 @@ namespace VehicleData.Service.ProtoClass {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::VehicleData.Service.ProtoClass.ItemReflection.Descriptor.MessageTypes[2]; }
+      get { return global::VehicleData.Service.ProtoClass.ItemReflection.Descriptor.MessageTypes[3]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
