@@ -111,6 +111,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\MySqlDatabaseDLL\log4net.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Practices.Unity, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
     <Reference Include="MySql.Data, Version=6.10.6.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\Mysql6.10.6.0\MySql.Data.dll</HintPath>
@@ -146,14 +150,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AutoBizServiceRef.cs" />
+    <Compile Include="Cache\HondaModelCacheRepository.cs" />
     <Compile Include="Entities\BajajFinanceLeadEntity.cs" />
-    <Compile Include="LeadHandlers\BajajFinanceLeadHandler.cs" />
+    <Compile Include="Interface\LeadHandlers\BajajFinanceLeadHandler.cs" />
     <Compile Include="Entities\BikeQuotationEntity.cs" />
-    <Compile Include="LeadHandlers\DefaultManufacturerLeadHandler.cs" />
-    <Compile Include="LeadHandlers\HondaManufacturerLeadHandler.cs" />
+    <Compile Include="Interface\LeadHandlers\DefaultManufacturerLeadHandler.cs" />
+    <Compile Include="Interface\LeadHandlers\HondaManufacturerLeadHandler.cs" />
     <Compile Include="IManufacturerLeadHandler.cs" />
     <Compile Include="Entities\ManufacturerLeadEntityBase.cs" />
-    <Compile Include="LeadHandlers\TVSManufacturerLeadHandler.cs" />
+    <Compile Include="Interface\LeadHandlers\TVSManufacturerLeadHandler.cs" />
     <Compile Include="LeadProcessingRepository.cs" />
     <Compile Include="LeadProcessor.cs" />
     <Compile Include="Entities\LeadTypes.cs" />
@@ -169,9 +174,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="Entities\RoyalEnfieldDealer.cs" />
-    <Compile Include="LeadHandlers\RoyalEnfieldLeadHandler.cs" />
+    <Compile Include="Interface\LeadHandlers\RoyalEnfieldLeadHandler.cs" />
     <Compile Include="Entities\TataCapitalInputEntity.cs" />
-    <Compile Include="LeadHandlers\TataCapitalLeadHandler.cs" />
+    <Compile Include="Interface\LeadHandlers\TataCapitalLeadHandler.cs" />
     <Compile Include="Web References\RoyalEnfieldWebAPI\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -191,6 +196,18 @@
     <None Include="Web References\RoyalEnfieldWebAPI\Service.wsdl" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Bikewale.BAL\Bikewale.BAL.csproj">
+      <Project>{3CA0D7B6-7E09-449C-A34D-C08CA8118876}</Project>
+      <Name>Bikewale.BAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bikewale.Cache.Core\Bikewale.Cache.Core.csproj">
+      <Project>{038BC901-9D7F-4A95-8CA6-117DB3AA48CC}</Project>
+      <Name>Bikewale.Cache.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bikewale.Interfaces\Bikewale.Interfaces.csproj">
+      <Project>{12B0EDCD-AA9E-41BB-BDC9-CEF75952FD49}</Project>
+      <Name>Bikewale.Interfaces</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Bikewale.Utility\Bikewale.Utility.csproj">
       <Project>{ea0864e7-7715-4d93-80be-3300bb542e42}</Project>
       <Name>Bikewale.Utility</Name>
@@ -218,6 +235,7 @@
   <ItemGroup>
     <None Include="Web References\RoyalEnfieldWebAPI\Service.disco" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

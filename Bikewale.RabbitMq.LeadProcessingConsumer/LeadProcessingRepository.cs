@@ -3,6 +3,7 @@ using Bikewale.Utility;
 using Consumer;
 using MySql.CoreDAL;
 using System;
+using System.Collections;
 using System.Data;
 using System.Data.Common;
 namespace Bikewale.RabbitMq.LeadProcessingConsumer
@@ -168,6 +169,8 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
         /// Summary : Function to Get the price quote by price quote id.
         /// Modified by :   Sumit Kate on 18 Aug 2016
         /// Description :   Created new SP to return state name in result. Replaced in/out parameters with DataReader approach
+        /// Modified by :  Pratibha Verma on 4 April 2018
+        /// Description :  Added modelid mapping
         /// </summary>
         /// <param name="pqId">price quote id. Only positive numbers are allowed</param>
         /// <returns>Returns price quote object.</returns>
@@ -199,6 +202,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                             objQuotation.CampaignId = SqlReaderConvertor.ToUInt32(dr["campaignid"]);
                             objQuotation.ManufacturerId = SqlReaderConvertor.ToUInt32(dr["manufacturerid"]);
                             objQuotation.State = Convert.ToString(dr["statename"]);
+                            objQuotation.ModelId = SqlReaderConvertor.ToUInt32(dr["modelid"]);
 
                             objQuotation.PriceQuoteId = pqId;
                         }
@@ -211,6 +215,44 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
             }
 
             return objQuotation;
+        }
+
+        /// <summary>
+        /// Created By  : Pratibha Verma on 4 April 2018
+        /// Description : function to get honda model mapping
+        /// </summary>
+        /// <returns></returns>
+        public Hashtable GetHondaModelApiMapping()
+        {
+            Hashtable hondaModel = null;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand())
+                {
+                    cmd.CommandText = "gethondamodelmapping_04052018";
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
+                    {
+                        if (dr != null)
+                        {
+                            hondaModel = new Hashtable();
+                            while (dr.Read())
+                            {
+                                if (!hondaModel.ContainsKey(dr["modelid"]))
+                                {
+                                    hondaModel.Add(SqlReaderConvertor.ToInt32(dr["modelid"]), Convert.ToString(dr["modelname"]));
+                                }
+                            }
+                            dr.Close();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logs.WriteErrorLog(String.Format("Error in GetHondaModelApiMapping() : Msg: { 1}", ex.Message));
+            }
+            return hondaModel;
         }
 
         /// <summary>
