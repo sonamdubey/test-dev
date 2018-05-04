@@ -13,7 +13,7 @@ namespace Bikewale.Notifications
     /// </summary>
     public class SendInternalEmail
     {
-        static string makeModelNameChangedSubject = "<p>{0} of {1} has been changed to {2}.</p>";
+        static string makeModelNameChangedSubject = "{0} of {1} has been changed to {2}";
 
 
         /// <summary>
