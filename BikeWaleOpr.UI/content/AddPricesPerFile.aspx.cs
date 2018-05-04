@@ -118,13 +118,16 @@ namespace BikeWaleOpr.Content
 
             try
             {
+
                 using (DbCommand cmd = DbFactory.GetDBCommand("insertshowroomprices_30082017"))
                 {
+
+
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_bikeversionid", DbType.Int64, bikeId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_mumbaiprice", DbType.Int64, price));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_mumbaiinsurance", DbType.Int64, insurance));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_mumbairto", DbType.Int64, rto));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_mumbaiinsurance", DbType.Int64, Convert.ToUInt64(insurance)));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_mumbairto", DbType.Int64, Convert.ToUInt64(rto)));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_mumbaicorporaterto", DbType.Int64, Convert.DBNull));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_mumbaimetprice", DbType.Int64, Convert.DBNull));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_mumbaimetinsurance", DbType.Int64, Convert.DBNull));
