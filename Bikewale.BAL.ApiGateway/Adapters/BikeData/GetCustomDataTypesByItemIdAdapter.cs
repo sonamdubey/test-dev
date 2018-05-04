@@ -21,11 +21,7 @@ namespace Bikewale.BAL.ApiGateway.Adapters.BikeData
         /// <summary>
         /// Constructor will set all dependencies required to get the data from APIGateway
         /// </summary>
-        public GetCustomDataTypesByItemIdAdapter()
-        {
-            ModuleName = BWConfiguration.Instance.SpecsFeaturesServiceModuleName;
-            MethodName = "GetCustomDataTypesByItemId";
-        }
+        public GetCustomDataTypesByItemIdAdapter() : base(BWConfiguration.Instance.SpecsFeaturesServiceModuleName, "GetCustomDataTypesByItemId") { }
 
         /// <summary>
         /// Created By : Deepak Israni on 12 April 2018
