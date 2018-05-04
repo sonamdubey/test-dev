@@ -291,49 +291,47 @@ namespace Bikewale.BAL.GrpcFiles
         /// <returns></returns>
         public static ArticleDetails ConvertFromGrpcToBikeWale(GrpcArticleDetails grpcAtricleDet)
         {
-            if (grpcAtricleDet != null && grpcAtricleDet.ArticleSummary != null)
-            {
+                ArticleDetails bwArticleDetails = null;
                 try
                 {
-                    var artBase = grpcAtricleDet.ArticleSummary.ArticleBase;
-                    var artSummary = grpcAtricleDet.ArticleSummary;
-
-                    ArticleDetails bwArticleDetails = new ArticleDetails()
+                    if (grpcAtricleDet != null && grpcAtricleDet.ArticleSummary != null)
                     {
-                        ArticleUrl = artBase.ArticleUrl,
-                        Title = artBase.Title.Replace("&#x20B9;", "₹"),
-                        BasicId = artBase.BasicId,
-                        CategoryId = (ushort)artSummary.CategoryId,
-                        AuthorName = artSummary.AuthorName,
-                        Description = artSummary.Description.Replace("&#x20B9;", "₹"),
-                        DisplayDate = ParseDateObject(artSummary.DisplayDate),
-                        FacebookCommentCount = artSummary.FacebookCommentCount,
-                        HostUrl = artSummary.HostUrl,
-                        IsSticky = artSummary.IsSticky,
-                        LargePicUrl = artSummary.LargePicUrl,
-                        SmallPicUrl = artSummary.SmallPicUrl,
-                        OriginalImgUrl = artSummary.OriginalImgUrl,
-                        Views = artSummary.Views,
-                        AuthorMaskingName = artSummary.AuthorMaskingName,
-                        Content = grpcAtricleDet.Content,
-                        PrevArticle = ConvertFromGrpcToBikeWale(grpcAtricleDet.PrevArticle),
-                        NextArticle = ConvertFromGrpcToBikeWale(grpcAtricleDet.NextArticle),
-                        TagsList = ConvertFromGrpcToBikeWale(grpcAtricleDet.TagsList),
-                        VehiclTagsList = ConvertFromGrpcToBikeWale(grpcAtricleDet.VehiclTagsList),
-                        
-                    };
-                    bwArticleDetails.MakeName = GetMakeNameFromTaggedVehicle(bwArticleDetails.VehiclTagsList);
-                    bwArticleDetails.ModelName = GetModelNameFromTaggedVehicle(bwArticleDetails.VehiclTagsList);
-                    return bwArticleDetails;
+                        var artBase = grpcAtricleDet.ArticleSummary.ArticleBase;
+                        var artSummary = grpcAtricleDet.ArticleSummary;
+
+                        bwArticleDetails = new ArticleDetails()
+                        {
+                            ArticleUrl = artBase.ArticleUrl,
+                            Title = artBase.Title.Replace("&#x20B9;", "₹"),
+                            BasicId = artBase.BasicId,
+                            CategoryId = (ushort)artSummary.CategoryId,
+                            AuthorName = artSummary.AuthorName,
+                            Description = artSummary.Description.Replace("&#x20B9;", "₹"),
+                            DisplayDate = ParseDateObject(artSummary.DisplayDate),
+                            FacebookCommentCount = artSummary.FacebookCommentCount,
+                            HostUrl = artSummary.HostUrl,
+                            IsSticky = artSummary.IsSticky,
+                            LargePicUrl = artSummary.LargePicUrl,
+                            SmallPicUrl = artSummary.SmallPicUrl,
+                            OriginalImgUrl = artSummary.OriginalImgUrl,
+                            Views = artSummary.Views,
+                            AuthorMaskingName = artSummary.AuthorMaskingName,
+                            Content = grpcAtricleDet.Content,
+                            PrevArticle = ConvertFromGrpcToBikeWale(grpcAtricleDet.PrevArticle),
+                            NextArticle = ConvertFromGrpcToBikeWale(grpcAtricleDet.NextArticle),
+                            TagsList = ConvertFromGrpcToBikeWale(grpcAtricleDet.TagsList),
+                            VehiclTagsList = ConvertFromGrpcToBikeWale(grpcAtricleDet.VehiclTagsList),
+
+                        };
+                        bwArticleDetails.MakeName = GetMakeNameFromTaggedVehicle(bwArticleDetails.VehiclTagsList);
+                        bwArticleDetails.ModelName = GetModelNameFromTaggedVehicle(bwArticleDetails.VehiclTagsList);
+                    }
                 }
                 catch (Exception e)
                 {
                     log.Error(e);
-                    throw;
                 }
-            }
-            else
-                return null;
+                return bwArticleDetails;
         }
 
         public static string GetMakeNameFromTaggedVehicle(IList<VehicleTag> vehicles)
@@ -351,7 +349,6 @@ namespace Bikewale.BAL.GrpcFiles
             catch (Exception ex)
             {
                 log.Error(ex);
-                throw;
             }
             return makeName;
         }
@@ -371,7 +368,6 @@ namespace Bikewale.BAL.GrpcFiles
             catch (Exception ex)
             {
                 log.Error(ex);
-                throw;
             }
             return modelName;
         }
@@ -412,14 +408,15 @@ namespace Bikewale.BAL.GrpcFiles
 
         public static ArticlePageDetails ConvertFromGrpcToBikeWale(GrpcArticlePageDetails grpcAtricleDet)
         {
-            if (grpcAtricleDet != null && grpcAtricleDet.ArticleSummary != null)
+           ArticlePageDetails bwArticleDetails = null;
+            try
             {
-                try
+                if (grpcAtricleDet != null && grpcAtricleDet.ArticleSummary != null)
                 {
                     var artBase = grpcAtricleDet.ArticleSummary.ArticleBase;
                     var artSummary = grpcAtricleDet.ArticleSummary;
 
-                    ArticlePageDetails bwArticleDetails = new ArticlePageDetails()
+                    bwArticleDetails = new ArticlePageDetails()
                     {
                         ArticleUrl = artBase.ArticleUrl,
                         Title = artBase.Title.Replace("&#x20B9;", "₹"),
@@ -442,18 +439,15 @@ namespace Bikewale.BAL.GrpcFiles
                         VehiclTagsList = ConvertFromGrpcToBikeWale(grpcAtricleDet.VehiclTagsList),
                         AuthorMaskingName = artSummary.AuthorMaskingName
                     };
-                    bwArticleDetails.MakeName = !string.IsNullOrEmpty(artSummary.MakeName) ? artSummary.MakeName : GetMakeNameFromTaggedVehicle(bwArticleDetails.VehiclTagsList);
-                    bwArticleDetails.ModelName = !string.IsNullOrEmpty(artSummary.ModelName) ? artSummary.ModelName : GetModelNameFromTaggedVehicle(bwArticleDetails.VehiclTagsList);
-                    return bwArticleDetails;
-                }
-                catch (Exception e)
-                {
-                    log.Error(e);
-                    throw;
+                    bwArticleDetails.MakeName = GetMakeNameFromTaggedVehicle(bwArticleDetails.VehiclTagsList);
+                    bwArticleDetails.ModelName = GetModelNameFromTaggedVehicle(bwArticleDetails.VehiclTagsList);
                 }
             }
-            else
-                return null;
+            catch (Exception e)
+            {
+                log.Error(e);
+            }
+            return bwArticleDetails;
         }
 
         public static List<VehicleTag> ConvertFromGrpcToBikeWale(RepeatedField<GrpcVehicleTag> data)
