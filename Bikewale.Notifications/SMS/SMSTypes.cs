@@ -1,8 +1,11 @@
-﻿using Bikewale.Entities.BikeBooking;
+﻿using Bikewale.DTO.MobileVerification;
+using Bikewale.Entities.BikeBooking;
+using Bikewale.Entities.MobileVerification;
 using Bikewale.Notifications.NotificationDAL;
 using Bikewale.Utility;
 using System;
 using System.Configuration;
+using System.Text;
 using System.Web;
 
 namespace Bikewale.Notifications
@@ -642,24 +645,52 @@ namespace Bikewale.Notifications
         /// <summary>
         /// Created By  : Sajal Gupta on 16-11-2016
         /// Description : Send SMS to customer on requesting service center details.
+        /// Modiefier   : Kartik Rathod on 30 apl 2018,  Change formatting for dealer address,make static method
         /// </summary>
-        public void ServiceCenterDetailsSMS(string number, string name, string address, string phone, string city, string pageUrl, double latitude, double longitude, string makeName)
+        public static void ServiceCenterDetailsSMS(SMSData objSMSData, string mobileNumber, string pageUrl)
         {
             try
             {
                 UrlShortner objUrlShortner = new UrlShortner();
 
-                var shortUrlObj = objUrlShortner.GetShortUrl(string.Format("https://maps.google.com/?saddr=&daddr={0},{1}", latitude, longitude));
+                var shortUrlObj = objUrlShortner.GetShortUrl(string.Format("https://maps.google.com/?saddr=&daddr={0},{1}", objSMSData.Latitude, objSMSData.Longitude));
                 string shortUrl = shortUrlObj != null ? shortUrlObj.ShortUrl : "";
-                string message = String.Format("{1}{0}{2},{3}{0}+91-{4}{0}{5}Thanks for visiting BikeWale.", Environment.NewLine, name, address, city, phone, (!string.IsNullOrEmpty(shortUrl) ? string.Format("Get Directions-{1}{0}", Environment.NewLine, shortUrl) : ""));
+                StringBuilder messageBuilder = new StringBuilder();
+                if (!String.IsNullOrEmpty(objSMSData.Name))
+                {
+                    messageBuilder.Append(objSMSData.Name);
+                    messageBuilder.Append(",");
+                    messageBuilder.Append(Environment.NewLine);
+                }
+                if (!String.IsNullOrEmpty(objSMSData.Address))
+                {
+                    messageBuilder.Append(objSMSData.Address);
+                    messageBuilder.Append(",");
+                    messageBuilder.Append(Environment.NewLine);
+                }
+                if (!String.IsNullOrEmpty(objSMSData.Phone))
+                {
+                    messageBuilder.Append("+91-");
+                    messageBuilder.Append(objSMSData.Phone);
+                    messageBuilder.Append(Environment.NewLine);
+                }
+                if (!string.IsNullOrEmpty(shortUrl))
+                {
+                    messageBuilder.Append("Get Directions-");
+                    messageBuilder.Append(shortUrl);
+                    messageBuilder.Append(Environment.NewLine);
+                }
+                messageBuilder.Append("Thanks for visiting BikeWale.");
+                string message = messageBuilder.ToString();
 
                 EnumSMSServiceType esms = EnumSMSServiceType.ServiceCenterDetailsSMSToCustomer;
                 SMSCommon sc = new SMSCommon();
-                sc.ProcessSMS(number, message, esms, pageUrl);
+                sc.ProcessSMS(mobileNumber, message, esms, pageUrl);
             }
             catch (Exception ex)
             {
-                ErrorClass.LogError(ex, String.Format("Notifications.ServiceCenterDetailsSMS({0},{1},{2},{3},{4},{5})", number, name, address, phone, city, pageUrl));
+                ErrorClass.LogError(ex, String.Format("Notifications.ServiceCenterDetailsSMS({0},{1},{2},{3},{4},{5})", mobileNumber, objSMSData.Name,
+                    objSMSData.Address, objSMSData.Phone, pageUrl));
 
             }
         }
@@ -704,6 +735,7 @@ namespace Bikewale.Notifications
         /// <summary>
         /// Created by : Snehal Dange on 18th Jan 2018
         /// Description :Send SMS to customer on requesting dealer showroom details.
+        /// Modiefier   : Kartik Rathod on 30 apl 2018,  Change formatting for dealer address, make static method
         /// </summary>
         /// <param name="number"></param>
         /// <param name="name"></param>
@@ -711,24 +743,69 @@ namespace Bikewale.Notifications
         /// <param name="phone"></param>
         /// <param name="city"></param>
         /// <param name="pageUrl"></param>
-        public void DealerShowroomDetailsSMS(string number, string name, string area, string address, string phone, string city, string pageUrl, double latitude, double longitude)
+        public static void DealerShowroomDetailsSMS(SMSData objSMSData,MobileSmsVerification objMobileVerification)
         {
             try
             {
                 UrlShortner objUrlShortner = new UrlShortner();
 
-                var shortUrlObj = objUrlShortner.GetShortUrl(string.Format("https://maps.google.com/?saddr=&daddr={0},{1}", latitude, longitude));
+                var shortUrlObj = objUrlShortner.GetShortUrl(string.Format("https://maps.google.com/?saddr=&daddr={0},{1}", objSMSData.Latitude, objSMSData.Longitude));
                 string shortUrl = shortUrlObj != null ? shortUrlObj.ShortUrl : "";
-                string message = String.Format("{1},{2}{0}{3}{0}+91-{4}{0}{5}Thanks for visiting BikeWale.", Environment.NewLine, name, area, address, phone, (!string.IsNullOrEmpty(shortUrl) ? string.Format("Get Directions-{1}{0}", Environment.NewLine, shortUrl) : ""));
+                StringBuilder messageBuilder = new StringBuilder();
+                if (!String.IsNullOrEmpty(objSMSData.Name))
+                {
+                    messageBuilder.Append(objSMSData.Name);
+                    messageBuilder.Append(",");
+                    messageBuilder.Append(Environment.NewLine);
+                }
+                if (!String.IsNullOrEmpty(objSMSData.Address))
+                {
+                    messageBuilder.Append(objSMSData.Address);
+                    messageBuilder.Append(",");
+                }
+                if (!String.IsNullOrEmpty(objSMSData.Area))
+                {
+                    messageBuilder.Append(objSMSData.Area);
+                    messageBuilder.Append(",");
+                }
+                if (!String.IsNullOrEmpty(objSMSData.CityName))
+                {
+                    messageBuilder.Append(objSMSData.CityName);
+                    messageBuilder.Append("-");
+                }
+                if (!String.IsNullOrEmpty(objSMSData.PinCode))
+                {
+                    messageBuilder.Append(objSMSData.PinCode);
+                    messageBuilder.Append(Environment.NewLine);
+                }
+                if (!String.IsNullOrEmpty(objSMSData.Phone))
+                {
+                    messageBuilder.Append("+91-");
+                    messageBuilder.Append(objSMSData.Phone);
+                    messageBuilder.Append(Environment.NewLine);
+                }
+                if (!string.IsNullOrEmpty(shortUrl))
+                {
+                    messageBuilder.Append("Get Directions-");
+                    messageBuilder.Append(shortUrl);
+                    messageBuilder.Append(Environment.NewLine);
+                }
+                messageBuilder.Append("Thanks for visiting BikeWale.");
+                string message = messageBuilder.ToString();                    
+
                 EnumSMSServiceType esms = EnumSMSServiceType.DealerShowroomDetailsSMSToCustomer;
                 SMSCommon sc = new SMSCommon();
-                sc.ProcessSMS(number, message, esms, pageUrl);
+                sc.ProcessSMS(objMobileVerification.MobileNumber, message, esms, objMobileVerification.PageUrl);
             }
             catch (Exception ex)
             {
-                ErrorClass.LogError(ex, String.Format("Notifications.DealerShowroomDetailsSMS({0},{1},{2},{3})", number, pageUrl, city, phone));
+                ErrorClass.LogError(ex, String.Format("Notifications.DealerShowroomDetailsSMS({0},{1},{2},{3})", objMobileVerification.MobileNumber, 
+                    objMobileVerification.PageUrl, objSMSData.CityName, objSMSData.Phone));
             }
 
         }
+
+
+
     }   //End of class
 }   //End of namespace

@@ -24,6 +24,8 @@ namespace BikewaleOpr.DALs.ContractCampaign
         /// <summary>
         /// Created by  :   Sumit Kate on 29 Dec 2016
         /// Description :   Fetch Dealer Campaign
+        /// Modified by :   Pratibha Verma on 26 April 2018
+        /// Description :   changed sp 'bw_fetchbwdealercampaign_21112016' to 'bw_fetchbwdealercampaign_26042018'
         /// </summary>
         /// <param name="campaignId"></param>
         /// <returns></returns>
@@ -32,7 +34,7 @@ namespace BikewaleOpr.DALs.ContractCampaign
             DealerCampaignEntity dealerCampaign = null;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("bw_fetchbwdealercampaign_29122016"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("bw_fetchbwdealercampaign_26042018"))
                 {
 
                     cmd.CommandType = CommandType.StoredProcedure;
@@ -54,6 +56,8 @@ namespace BikewaleOpr.DALs.ContractCampaign
                                 dealerCampaign.DailyLeadLimit = SqlReaderConvertor.ToUInt32(dr["dailyleadlimit"]);
                                 dealerCampaign.CallToAction = SqlReaderConvertor.ToUInt16(dr["calltoaction"]);
                                 dealerCampaign.DealerMobile = Convert.ToString(dr["dealermobile"]);
+                                dealerCampaign.CommunicationEmails = Convert.ToString(dr["additionalemails"]);
+                                dealerCampaign.CommunicationNumbers = Convert.ToString(dr["additionalnumbers"]); 
                             }
                             dr.Close();
                         }
@@ -114,6 +118,8 @@ namespace BikewaleOpr.DALs.ContractCampaign
         /// Description :   Update Dealer Campaign
         /// Modified by :   Sumit Kate on 12 May 2017
         /// Description :   Modified the SP and removed dealer lead serving radius parameter
+        /// Modified by :   Pratibha Verma on 26 April 2018
+        /// Description :   changed sp 'updatedealercampaign_12052017' to 'updatedealercampaign_26042018'
         /// </summary>
         /// <param name="isActive"></param>
         /// <param name="campaignId"></param>
@@ -128,13 +134,13 @@ namespace BikewaleOpr.DALs.ContractCampaign
         /// <param name="callToAction"></param>
         /// <param name="isBookingAvailable"></param>
         /// <returns></returns>
-        public bool UpdateBWDealerCampaign(bool isActive, int campaignId, int userId, int dealerId, int contractId, string maskingNumber, string dealerName, string dealerEmailId, int dailyleadlimit, ushort callToAction, bool isBookingAvailable = false)
+        public bool UpdateBWDealerCampaign(bool isActive, int campaignId, int userId, int dealerId, int contractId, string maskingNumber, string dealerName, string dealerEmailId, int dailyleadlimit, ushort callToAction,string additionalNumbers,string additionalEmails, bool isBookingAvailable = false)
         {
             bool isSuccess = false;
 
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("updatedealercampaign_12052017"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("updatedealercampaign_26042018"))
                 {
 
                     cmd.CommandType = CommandType.StoredProcedure;
@@ -148,6 +154,8 @@ namespace BikewaleOpr.DALs.ContractCampaign
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_updatedby", DbType.Int32, userId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_contractid", DbType.Int32, contractId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_calltoaction", DbType.Int16, callToAction));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_additionalnumbers", DbType.String, additionalNumbers));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_additionalemails", DbType.String, additionalEmails));
                     isSuccess = MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
                 }
             }
@@ -165,6 +173,8 @@ namespace BikewaleOpr.DALs.ContractCampaign
         /// Description :   Insert new Dealer Campaign
         /// Modified by :   Sumit Kate on 12 May 2017
         /// Description :   Modified the SP and removed dealer lead serving radius parameter
+        /// Modified by :   Pratibha Verma on 26 April 2018
+        /// Description :   changed sp 'insertdealercampaign_12052017' to 'insertdealercampaign_26042018'
         /// </summary>
         /// <param name="isActive"></param>
         /// <param name="userId"></param>
@@ -178,12 +188,12 @@ namespace BikewaleOpr.DALs.ContractCampaign
         /// <param name="callToAction"></param>
         /// <param name="isBookingAvailable"></param>
         /// <returns></returns>
-        public int InsertBWDealerCampaign(bool isActive, int userId, int dealerId, int contractId, string maskingNumber, string dealerName, string dealerEmailId, int dailyleadlimit, ushort callToAction, bool isBookingAvailable = false)
+        public int InsertBWDealerCampaign(bool isActive, int userId, int dealerId, int contractId, string maskingNumber, string dealerName, string dealerEmailId, int dailyleadlimit, ushort callToAction,string additionalNumbers, string additionalEmails, bool isBookingAvailable = false)
         {
             int newCampaignId = 0;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("insertdealercampaign_12052017"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("insertdealercampaign_26042018"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_dealername", DbType.String, 200, dealerName));
@@ -196,6 +206,8 @@ namespace BikewaleOpr.DALs.ContractCampaign
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_isbookingavailable", DbType.Boolean, isBookingAvailable));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, dealerId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_calltoaction", DbType.Int16, callToAction));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_additionalnumbers", DbType.String, additionalNumbers));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_additionalemails", DbType.String, additionalEmails));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_newcampaignid", DbType.Int32, ParameterDirection.Output));
                     MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
                     newCampaignId = SqlReaderConvertor.ToInt32(cmd.Parameters["par_newcampaignid"].Value);

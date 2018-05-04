@@ -1,5 +1,6 @@
 ﻿
 using Bikewale.Entities.HomePage;
+using System;
 namespace Bikewale.Interfaces.HomePage
 {
     /// <summary>
@@ -8,6 +9,6 @@ namespace Bikewale.Interfaces.HomePage
     /// </summary>
     public interface IHomePageBannerRepository
     {
-        HomePageBannerEntity GetHomePageBanner(uint platformId);
+        Tuple<HomePageBannerEntity, TimeSpan> GetHomePageBannerWithCacheTime(uint platformId);
     }
 }

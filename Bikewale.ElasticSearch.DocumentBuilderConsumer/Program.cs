@@ -39,7 +39,8 @@ namespace Bikewale.ElasticSearch.DocumentBuilderConsumer
                 NO_OF_RETRIES = Convert.ToInt32(ConfigurationManager.AppSettings["RetryCount"]);
                 DOCBUILDERS = new Dictionary<String, IDocumentBuilder>()
                 {
-                    {ConfigurationManager.AppSettings["BikeIndex"], new ModelIndexDocumentBuilder()}
+                    {ConfigurationManager.AppSettings["BikeIndex"], new ModelIndexDocumentBuilder()},
+                    {ConfigurationManager.AppSettings["BikePriceIndex"], new ModelPriceDocumentBuilder()}
                 };
             }
             catch (Exception ex)
@@ -81,7 +82,6 @@ namespace Bikewale.ElasticSearch.DocumentBuilderConsumer
             {
                 if (nvc != null
                             && nvc.HasKeys()
-                            && !String.IsNullOrEmpty(nvc["ids"])
                             && !String.IsNullOrEmpty(nvc["indexName"])
                             && !String.IsNullOrEmpty(nvc["documentType"])
                             && !String.IsNullOrEmpty(nvc["operationType"]))

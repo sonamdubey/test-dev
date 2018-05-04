@@ -9,6 +9,8 @@ namespace Bikewale.Entities.BikeBooking
     /// <summary>
     /// Modified By :Sangram Nandkhile on 29 Dec 2016
     /// Description : Added DisplayTextLarge, DisplayTextSmall
+    /// Modified by : Pratibha Verma on 27 April 2018
+    /// Description : Added AdditionalNumbers, AdditionalEmails
     /// </summary>
     [Serializable, DataContract]
     public class NewBikeDealers
@@ -67,6 +69,12 @@ namespace Bikewale.Entities.BikeBooking
 
         [JsonProperty("isDSA"), DataMember]
         public bool IsDSA { get; set; }
+
+        [JsonProperty("additionalNumbers"), DataMember]
+        public string AdditionalNumbers { get; set; }
+
+        [JsonProperty("additionalEmails"), DataMember]
+        public string AdditionalEmails { get; set; }
 
     }   //End of Class
 }   //End of namespace
