@@ -32,5 +32,25 @@ namespace Bikewale.Service.AutoMappers.PriceQuote
             return Mapper.Map<Bikewale.DTO.PriceQuote.PQCustomerDetailInput, Bikewale.Entities.PriceQuote.PQCustomerDetailInput>(entity);
         }
 
+
+
+
+        internal static DTO.PriceQuote.v2.PQCustomerDetailOutput Convertv2(Entities.PriceQuote.PQCustomerDetailOutputEntity outEntity)
+        {
+            Mapper.CreateMap<Entities.PriceQuote.PQCustomerDetailOutputEntity, DTO.PriceQuote.v2.PQCustomerDetailOutput>();
+            return Mapper.Map<Entities.PriceQuote.PQCustomerDetailOutputEntity, DTO.PriceQuote.v2.PQCustomerDetailOutput>(outEntity);
+        }
+
+        internal static DTO.PriceQuote.PQCustomerDetailOutput Convert(Entities.PriceQuote.PQCustomerDetailOutputEntity outEntity)
+        {
+            Mapper.CreateMap<Entities.PriceQuote.PQCustomerDetailOutputEntity, DTO.PriceQuote.PQCustomerDetailOutput>();
+            return Mapper.Map<Entities.PriceQuote.PQCustomerDetailOutputEntity, DTO.PriceQuote.PQCustomerDetailOutput>(outEntity);
+        }
+
+        internal static Entities.PriceQuote.PQCustomerDetailInput Convert(DTO.PriceQuote.v2.PQCustomerDetailInput input)
+        {
+            Mapper.CreateMap<DTO.PriceQuote.v2.PQCustomerDetailInput, Entities.PriceQuote.PQCustomerDetailInput>();
+            return Mapper.Map<DTO.PriceQuote.v2.PQCustomerDetailInput, Entities.PriceQuote.PQCustomerDetailInput>(input);
+        }
     }
 }

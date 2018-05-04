@@ -1,4 +1,6 @@
 ﻿
+
+using Bikewale.Entities.PriceQuote;
 namespace Bikewale.Interfaces.Lead
 {
     /// <summary>
@@ -8,5 +10,8 @@ namespace Bikewale.Interfaces.Lead
     public interface ILead
     {
 
+        PQCustomerDetailOutputEntity ProcessPQCustomerDetailInput(Entities.PriceQuote.PQCustomerDetailInput pqInput, System.Collections.Specialized.NameValueCollection requestHeaders);
+
+        PQCustomerDetailOutputEntity ProcessPQCustomerDetailInputV1(PQCustomerDetailInput pqInput, System.Collections.Specialized.NameValueCollection requestHeaders);
     }
 }

@@ -430,6 +430,7 @@
     <Compile Include="PriceQuote\OtherVersionInfoEntity.cs" />
     <Compile Include="PriceQuote\PQByCityAreaEntity.cs" />
     <Compile Include="PriceQuote\PQCustomerDetailInput.cs" />
+    <Compile Include="PriceQuote\PQCustomerDetailOutputEntity.cs" />
     <Compile Include="PriceQuote\PQOnRoadPrice.cs" />
     <Compile Include="PriceQuote\PQSourceEnum.cs" />
     <Compile Include="PriceQuote\PQVersionList.cs" />
