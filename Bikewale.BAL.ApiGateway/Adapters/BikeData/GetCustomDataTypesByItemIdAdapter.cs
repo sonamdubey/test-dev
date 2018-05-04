@@ -16,26 +16,24 @@ namespace Bikewale.BAL.ApiGateway.Adapters.BikeData
     /// Created By : Deepak Israni on 12 April 2018
     /// Description: Adapter class responsible for executing GRPC method to get related data for
     /// </summary>
-    public class GetCustomDataTypesByItemIdAdapter : AbstractApiGatewayAdapter<GetCustomDataType_Input, IEnumerable<SpecsCustomDataType>, CustomDataTypeList>
+    public class GetCustomDataTypesByItemIdAdapter : AbstractApiGatewayAdapter<EnumSpecsFeaturesItems, IEnumerable<SpecsCustomDataType>, CustomDataTypeList>
     {
         /// <summary>
         /// Constructor will set all dependencies required to get the data from APIGateway
         /// </summary>
-        public GetCustomDataTypesByItemIdAdapter() : base(BWConfiguration.Instance.SpecsFeaturesServiceModuleName, "GetCustomDataTypesByItemId")
-		{            
-        }
+        public GetCustomDataTypesByItemIdAdapter() : base(BWConfiguration.Instance.SpecsFeaturesServiceModuleName, "GetCustomDataTypesByItemId") { }
 
-		/// <summary>
-		/// Created By : Deepak Israni on 12 April 2018
-		/// Description: Function converts the input into an input compatible with the GRPC service.
-		/// </summary>
-		/// <param name="input"></param>
-		/// <returns></returns>
-		protected override IMessage BuildRequest(GetCustomDataType_Input input)
+        /// <summary>
+        /// Created By : Deepak Israni on 12 April 2018
+        /// Description: Function converts the input into an input compatible with the GRPC service.
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        protected override IMessage BuildRequest(EnumSpecsFeaturesItems input)
         {
             return new GrpcInt()
             {
-                Value = (int) input.InputType
+                Value = (int) input
             };
         }
 
@@ -78,8 +76,8 @@ namespace Bikewale.BAL.ApiGateway.Adapters.BikeData
             {
                 if (items != null && items.Any())
                 {
-                    var itemList = new List<SpecsCustomDataType>();
-                    foreach (var item in items)
+                    ICollection<SpecsCustomDataType> itemList = new List<SpecsCustomDataType>();
+                    foreach (CustomDataType item in items)
                     {
                         itemList.Add(new SpecsCustomDataType
                         {
