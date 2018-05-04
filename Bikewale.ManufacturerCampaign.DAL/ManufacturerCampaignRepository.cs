@@ -628,15 +628,15 @@ namespace Bikewale.ManufacturerCampaign.DAL
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_utmz", DbType.String, campaignDetails.UTMZ));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_deviceid", DbType.String, campaignDetails.DeviceId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_campaignId", DbType.UInt32, campaignDetails.CampaignId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_leadId", DbType.UInt32,ParameterDirection.Output));
 
-                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);                    
                     leadId = Convert.ToUInt32(cmd.Parameters["par_leadId"].Value);
                 }
 
             }
             catch (Exception ex)
-            {
-                
+            {  
                 ErrorClass.LogError(ex, string.Format("ManufacturerCampaignRepository.SaveManufacturerCampaignLead: ({0})", JsonConvert.SerializeObject(campaignDetails)));
             }
             return leadId;

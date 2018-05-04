@@ -9,6 +9,6 @@ namespace Bikewale.Interfaces.Lead
     /// </summary>
     public interface ILead
     {
-        void ProcessESLead(ManufacturerLeadEntity input, NameValueCollection headers);
+        uint ProcessESLead(ManufacturerLeadEntity input, NameValueCollection headers);
     }
 }
