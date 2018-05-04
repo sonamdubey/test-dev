@@ -599,5 +599,31 @@ namespace Bikewale.ManufacturerCampaign.DAL
             }
             return isSuccess;
         }
+
+        /// <summary>
+        /// Created By  : Rajan Chauhan on 4 May 2018
+        /// Description : Return UnmappedHondaModels if dealerId belong to honda dealer 
+        /// </summary>
+        /// <param name="dealerId"></param>
+        /// <returns></returns>
+        public IEnumerable<BikeModelEntity> GetUnmappedHondaModels(uint dealerId)
+        {
+            IEnumerable<BikeModelEntity> unmappedModels = null;
+            try
+            {
+                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
+                {
+                    var param = new DynamicParameters();
+                    param.Add("par_dealerid", dealerId);
+                    unmappedModels = connection.Query<BikeModelEntity>("getmissinghondamodelmapping", param: param, commandType: CommandType.StoredProcedure);
+
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("ManufacturerCampaignRepository.GetUnmappedHondaModels({0})", dealerId));
+            }
+            return unmappedModels;
+        }
     }
 }
