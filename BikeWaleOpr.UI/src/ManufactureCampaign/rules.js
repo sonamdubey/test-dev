@@ -210,10 +210,11 @@ $(document).ready(function () {
         var rdoModel = $("[name=rdoModel]:checked").val();
         switch (rdoModel) {
             case "1":
-                $("#ddlModels :selected").each(function () {
-                	if ($(this).val()) {
-                		if (isMappedModel($(this).val()))
-                			modelIds = modelIds + $(this).val() + ',';
+            	$("#ddlModels :selected").each(function () {
+            		var currentModelid = $(this).val();
+            		if (currentModelid) {
+            			if (isMappedModel(currentModelid))
+            				modelIds = modelIds + currentModelid + ',';
                 		else {
                 			isValid = false;
                 			Materialize.toast("Mapping for One or more of honda models is missing. Please add it through admin.", 6000);
