@@ -5,6 +5,7 @@ using BikewaleOpr.Interface.BikeData;
 using BikewaleOpr.Interface.BikePricing;
 using BikewaleOpr.Interface.Dealers;
 using BikeWaleOpr.Common;
+using log4net;
 using Microsoft.Practices.Unity;
 using MySql.CoreDAL;
 using System;
@@ -19,6 +20,15 @@ namespace BikeWaleOpr.Content
     public class AddPricesPerFile : Page
     {
         public bool finished = false;
+        static readonly ILog _logger = LogManager.GetLogger(typeof(AddPricesPerFile));
+        static IUnityContainer _container = new UnityContainer();
+
+        static AddPricesPerFile()
+        {
+            _container.RegisterType<IBwPrice, BwPrice>();
+            _container.RegisterType<IShowroomPricesRepository, BikeShowroomPrices>();
+            _container.RegisterType<IBikeModelsRepository, BikeModelsRepository>();
+        }
 
         protected override void OnInit(EventArgs e)
         {
@@ -115,10 +125,10 @@ namespace BikeWaleOpr.Content
             //get the new insurance and the new RTO
             double insurance = CommonOpn.GetInsurancePremium(bikeId, cityId, Convert.ToDouble(price));
             double rto = CommonOpn.GetRegistrationCharges(bikeId, cityId, Convert.ToDouble(price));
-
+            DateTime dt1 = DateTime.Now, dt2 = DateTime.Now, dt3 = DateTime.Now;
             try
             {
-
+                dt1 = DateTime.Now;
                 using (DbCommand cmd = DbFactory.GetDBCommand("insertshowroomprices_30082017"))
                 {
 
@@ -139,26 +149,25 @@ namespace BikeWaleOpr.Content
                     //run the command
                     MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
                 }
-
-                using (IUnityContainer container = new UnityContainer())
-                {
-                    container.RegisterType<IBwPrice, BwPrice>();
-                    container.RegisterType<IShowroomPricesRepository, BikeShowroomPrices>();
-                    container.RegisterType<IBikeModelsRepository, BikeModelsRepository>();
-                    IBwPrice bwPrice = container.Resolve<IBwPrice>();
-
-                    bwPrice.UpdateModelPriceDocument(bikeId, cityId);
-                }
-
+                dt2 = DateTime.Now;                                   
+                IBwPrice bwPrice = _container.Resolve<IBwPrice>();
+                bwPrice.UpdateModelPriceDocument(bikeId, cityId);                
+                dt3 = DateTime.Now;
             }
             catch (Exception err)
             {
                 Trace.Warn(err.Message);
-                Exception ex = new Exception(err.Message + " : " + cityId + " : " + bikeId + " : " + price + " : " + insurance.ToString() + " : " + rto.ToString());
+                Exception ex = new Exception(err.Message + "city: " + cityId + " bike : " + bikeId + " price: " + price + " insurance: " + insurance.ToString() + " rto: " + rto.ToString());
 
                 ErrorClass.LogError(ex, Request.ServerVariables["URL"]);
                 
             } // catch Exception
+            finally
+            {
+                ThreadContext.Properties["insertshowroomprices_30082017"] = (dt2 - dt1).Milliseconds;
+                ThreadContext.Properties["UpdateModelPriceDocument"] = (dt3 - dt2).Milliseconds;
+                _logger.Error("SaveDataTiming");
+            }
         }
     }//Class
 }// Namespace
