@@ -302,6 +302,7 @@
     <None Include="stylesheet\mixins\_popup.sass" />
     <None Include="stylesheet\mixins\_rating.sass" />
     <None Include="stylesheet\mixins\_scroll-spy-tabs.sass" />
+    <None Include="stylesheet\mixins\_scrollbar.sass" />
     <None Include="stylesheet\mixins\_selection.sass" />
     <None Include="stylesheet\mixins\_text.sass" />
     <None Include="stylesheet\mixins\_vendor-prefix.sass" />
