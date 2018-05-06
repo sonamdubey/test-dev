@@ -497,7 +497,7 @@
                         "areaId": self.areaId(),
                         "clientIP": self.clientIP,
                         "pageUrl": self.pageUrl,
-                        "sourceType": @Model.PlatformId,
+                        "sourceType": @(Model.PlatformId != 0 ? Model.PlatformId : 2),
                         "pQLeadId": self.pqSourceId(),
                         "deviceId": getCookie('BWC')
                     };
