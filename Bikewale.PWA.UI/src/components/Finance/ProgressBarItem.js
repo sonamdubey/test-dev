@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types'
 
+import { progressBarStatus } from '../../utils/progressBarConstants'
+
 const propTypes = {
   // count
   stepNumber: PropTypes.number,
@@ -12,7 +14,7 @@ const propTypes = {
 
 const defaultProps = {
   stepNumber: -1,
-  status: 1,  // here, status 1: disabled; 2: done 
+  status: progressBarStatus.DISABLE,
   isActive: false  //here, true is on focus
 }
 
@@ -24,9 +26,9 @@ class ProgressBarItem extends React.Component {
 
   getClassName (status) {
     switch(status) {
-      case 1:
+      case progressBarStatus.DISABLE:
       return 'disabled';
-      case 2:
+      case progressBarStatus.DONE:
         return 'done';
       default:
         return 'disabled';
