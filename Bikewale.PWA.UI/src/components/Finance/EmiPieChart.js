@@ -6,32 +6,32 @@ import { toJS } from '../../immutableWrapperContainer'
 import { formatToINR } from '../../utils/formatAmount'
 
 export default class PieChart extends React.Component {
-    constructor(props){
-        super(props)
-        this.state = {
-            data: [this.props.intStatePay, this.props.pieLoanAmt]
-        }
-    }
-    componentDidMount(){
-        this.setState({
-            data: [this.props.intStatePay, this.props.pieLoanAmt]
-        })
-    }
-    componentWillReceiveProps(){
-        this.setState({
-            data: [this.props.intStatePay, this.props.pieLoanAmt]
-        })
-    }
-    render(){
-        let colors = ['#f45944', '#fed1cd'];
-        let finalAmountPay = formatToINR(this.props.pieTotalPay)
-        return(
-            <div className="pie-graph-container">
-            <div className="totalpayment">
-                <div className="title-text">Total Payment</div>
-                <div className="pie-center-amount">{(finalAmountPay)}</div>
-            </div>
-            <Pie
+	constructor(props){
+		super(props)
+		this.state = {
+			data: [this.props.intStatePay, this.props.pieLoanAmt]
+		}
+	}
+	componentDidMount(){
+		this.setState({
+			data: [this.props.intStatePay, this.props.pieLoanAmt]
+		})
+	}
+	componentWillReceiveProps(){
+		this.setState({
+			data: [this.props.intStatePay, this.props.pieLoanAmt]
+		})
+	}
+	render(){
+		let colors = ['#f45944', '#fed1cd'];
+		let finalAmountPay = formatToINR(this.props.pieTotalPay)
+		return(
+			<div className="pie-graph-container">
+			<div className="totalpayment">
+				<div className="title-text">Total Payment</div>
+				<div className="pie-center-amount">{(finalAmountPay)}</div>
+			</div>
+			<Pie
 				data={ this.state.data }
 				radius={ 70 }
 				hole={ 60 }
@@ -42,24 +42,24 @@ export default class PieChart extends React.Component {
 				stroke={ '#fff' }
 				isAnimation = {this.props.isAnimation}
 			/>
-            </div>
-        )
-    }
+			</div>
+		)
+	}
 }
 
 let getAnglePoint = (startAngle, endAngle, radius, x, y) => {
-    let x1, y1, x2, y2;
-    x1 = x + radius * Math.cos(Math.PI * startAngle / 180);
-    y1 = y + radius * Math.sin(Math.PI * startAngle / 180);
-    x2 = x + radius * Math.cos(Math.PI * endAngle / 180);
-    y2 = y + radius * Math.sin(Math.PI * endAngle / 180);
-    return { x1, y1, x2, y2 };
+	let x1, y1, x2, y2;
+	x1 = x + radius * Math.cos(Math.PI * startAngle / 180);
+	y1 = y + radius * Math.sin(Math.PI * startAngle / 180);
+	x2 = x + radius * Math.cos(Math.PI * endAngle / 180);
+	y2 = y + radius * Math.sin(Math.PI * endAngle / 180);
+	return { x1, y1, x2, y2 };
 }
 let getRandomInt = (min, max) => {
-    return Math.floor(Math.random() * (max - min)) + min;
+	return Math.floor(Math.random() * (max - min)) + min;
 }
 class Pie extends React.Component{
-    render() {
+	render() {
 		let colors = this.props.colors,
 			colorsLength = colors.length,
 			labels = this.props.labels,
@@ -105,33 +105,33 @@ class Pie extends React.Component{
 	}
 }
 class Slice extends React.Component{
-    constructor(props){
-        super(props)
-        this.state = {
-            path: '',
+	constructor(props){
+		super(props)
+		this.state = {
+			path: '',
 			x: 0,
 			y: 0
-        }
-    }
-    componentWillReceiveProps (nextProps){
-        this.setState({ path: '' });
+		}
+	}
+	componentWillReceiveProps (nextProps){
+		this.setState({ path: '' });
 		if(nextProps.isAnimation){
 			this.animate();
 		}
 	}
 	componentDidMount(){
-        this.mounted = true;
+		this.mounted = true;
 		this.animate();
 	}
-    componentWillUnmount(){
-        this.mounted = false;
-    }
+	componentWillUnmount(){
+		this.mounted = false;
+	}
 	animate = () =>  {
 		this.draw(0);
 	}
-    draw = (s) =>  {
+	draw = (s) =>  {
 		if (!this.mounted) {
-            return
+			return
 		}
 		let p = this.props, path = [], a, b, c, self = this, step;
 		step = p.angle / (100 / 2);
@@ -163,8 +163,8 @@ class Slice extends React.Component{
 			});
 		}
 	}
-    render(){
-        return (
+	render(){
+		return (
 			<g>
 				<path
 					d={ this.state.path }
@@ -179,5 +179,5 @@ class Slice extends React.Component{
 				: null }*/}
 			</g>
 		);
-    }
+	}
 }

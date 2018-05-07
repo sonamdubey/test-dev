@@ -5,16 +5,16 @@ const updatePieValue = function(pieInterestPayable, pieTotalPrincipalAmount, pie
        dispatch({
         type: emiCalculatorAction.UPDATE_PIE_VALUE,
         pieInterestPayable,
-		pieTotalPrincipalAmount,
-		pieloanAmount
+        pieTotalPrincipalAmount,
+        pieloanAmount
       })
     }
 }
 
 
 export const updatePieValueData = ({pieInterestPayable, pieTotalPrincipalAmount, pieloanAmount}) => (dispatch, getState) => {
-		dispatch(updatePieValue(pieInterestPayable, pieTotalPrincipalAmount, pieloanAmount))
-		getState(['Emi', 'VehiclePieData'])
+        dispatch(updatePieValue(pieInterestPayable, pieTotalPrincipalAmount, pieloanAmount))
+        getState(['Emi', 'VehiclePieData'])
 }
 
 module.exports = {
