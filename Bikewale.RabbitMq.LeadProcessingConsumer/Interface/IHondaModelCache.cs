@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 
-namespace Bikewale.Interfaces.PriceQuote
+namespace Bikewale.RabbitMq.LeadProcessingConsumer.Interface
 {
     /// <summary>
     /// Honda model cache method reference

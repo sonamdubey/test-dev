@@ -1,6 +1,6 @@
 ﻿using Bikewale.Cache.Core;
 using Bikewale.Interfaces.Cache.Core;
-using Bikewale.Interfaces.PriceQuote;
+using Bikewale.RabbitMq.LeadProcessingConsumer.Interface;
 using Consumer;
 using Microsoft.Practices.Unity;
 using System;
@@ -15,7 +15,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer.Cache
     public class HondaModelCacheRepository : IHondaModelCache
     {
         private readonly ICacheManager _cache;
-        private readonly LeadProcessingRepository _leadRepository = null;
+        private readonly LeadProcessingRepository _leadRepository;
         public HondaModelCacheRepository()
         {
             using (IUnityContainer container = new UnityContainer())

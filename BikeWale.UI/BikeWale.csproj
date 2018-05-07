@@ -4257,10 +4257,6 @@
       <Project>{c1ec6868-50c6-41a0-a849-c0f8e4351eb2}</Project>
       <Name>Bikewale.PWA.Utils</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Bikewale.RabbitMq.LeadProcessingConsumer\Bikewale.RabbitMq.LeadProcessingConsumer.csproj">
-      <Project>{BD0B3D5A-52B0-4353-9C4F-1BB24DDC9E8A}</Project>
-      <Name>Bikewale.RabbitMq.LeadProcessingConsumer</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Bikewale.Service\Bikewale.Service.csproj">
       <Project>{ad048b21-3cd3-406c-ba62-86260f6de6e6}</Project>
       <Name>Bikewale.Service</Name>

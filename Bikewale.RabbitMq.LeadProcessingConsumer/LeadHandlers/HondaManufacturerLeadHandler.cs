@@ -1,5 +1,6 @@
-﻿using Bikewale.Interfaces.PriceQuote;
+﻿
 using Bikewale.RabbitMq.LeadProcessingConsumer.Cache;
+using Bikewale.RabbitMq.LeadProcessingConsumer.Interface;
 using Consumer;
 using Microsoft.Practices.Unity;
 using System;
@@ -44,6 +45,8 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
         /// <summary>
         /// Created by  :   Sumit Kate on 05 Jul 2017
         /// Description :   Push Lead To Manufacturer using API
+        /// Modified by :   Pratibha Verma on 4 April 2018
+        /// Description :   pass mapped model name in api
         /// </summary>
         /// <param name="leadEntity"></param>
         /// <returns></returns>
@@ -60,14 +63,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                 Hashtable hondaModels = _hondaModels.GetHondaModelMapping();
                 if (quotation != null)
                 {
-                    if (hondaModels.ContainsKey((int)quotation.ModelId))
-                    {
-                        apiModelName = hondaModels[(int)quotation.ModelId].ToString();
-                    }
-                    else
-                    {
-                        apiModelName = quotation.ModelName;
-                    }
+                    apiModelName = hondaModels.ContainsKey((int)quotation.ModelId) ? hondaModels[(int)quotation.ModelId].ToString() : quotation.ModelName;
 
                     gaadiLead = new GaadiLeadEntity()
                     {
