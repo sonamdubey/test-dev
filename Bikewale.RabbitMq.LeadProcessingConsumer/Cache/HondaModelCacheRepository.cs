@@ -2,7 +2,6 @@
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.RabbitMq.LeadProcessingConsumer.Interface;
 using Consumer;
-using Microsoft.Practices.Unity;
 using System;
 using System.Collections;
 
@@ -18,11 +17,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer.Cache
         private readonly LeadProcessingRepository _leadRepository;
         public HondaModelCacheRepository()
         {
-            using (IUnityContainer container = new UnityContainer())
-            {
-                container.RegisterType<ICacheManager,MemcacheManager>();
-                _cache = container.Resolve<ICacheManager>();
-            }
+            _cache = new MemcacheManager();
             _leadRepository = new LeadProcessingRepository();
         }
         public Hashtable GetHondaModelMapping()

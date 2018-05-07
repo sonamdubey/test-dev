@@ -2,7 +2,6 @@
 using Bikewale.RabbitMq.LeadProcessingConsumer.Cache;
 using Bikewale.RabbitMq.LeadProcessingConsumer.Interface;
 using Consumer;
-using Microsoft.Practices.Unity;
 using System;
 using System.Collections;
 using System.Net.Http;
@@ -24,11 +23,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
         /// <param name="isAPIEnabled"></param>
         public HondaManufacturerLeadHandler(uint manufacturerId, string urlAPI, bool isAPIEnabled) : base(manufacturerId, urlAPI, isAPIEnabled)
         {
-            using (IUnityContainer container = new UnityContainer())
-            {
-                container.RegisterType<IHondaModelCache, HondaModelCacheRepository>();
-                _hondaModels = container.Resolve<IHondaModelCache>();
-            }
+            _hondaModels = new HondaModelCacheRepository();
         }
 
         /// <summary>
@@ -63,7 +58,14 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                 Hashtable hondaModels = _hondaModels.GetHondaModelMapping();
                 if (quotation != null)
                 {
-                    apiModelName = hondaModels.ContainsKey((int)quotation.ModelId) ? hondaModels[(int)quotation.ModelId].ToString() : quotation.ModelName;
+                    if (hondaModels != null && hondaModels.ContainsKey((int)quotation.ModelId))
+                    {
+                        apiModelName = hondaModels[(int)quotation.ModelId].ToString();
+                    }
+                    else
+                    {
+                        apiModelName = quotation.ModelName;
+                    }
 
                     gaadiLead = new GaadiLeadEntity()
                     {
