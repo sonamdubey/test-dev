@@ -11,27 +11,28 @@ import {
   } from '../../utils/ScrollTo'
 import {debounce} from '../../utils/debounce'
 
+import { progressBarStatus } from '../../utils/progressBarConstants'
 
 const propTypes = {
-	// handle select bike text click function
+  // handle select bike text click function
   handleSelectBikeClick: PropTypes.func,
-	// handle select city text click function
-	handleSelectCityClick: PropTypes.func
+  // handle select city text click function
+  handleSelectCityClick: PropTypes.func
 }
 
 const defaultProps = {
-	handleSelectBikeClick: null,
-	handleSelectCityClick: null
+  handleSelectBikeClick: null,
+  handleSelectCityClick: null
 }
 
 class EMISteps extends React.Component {
   constructor(props) {
     super(props);
-    this.setState({
-      bike: 1,  // here 1: disabled; 2: done
-      city: 1,
+    this.state = {
+      bike: progressBarStatus.DISABLE,
+      city: progressBarStatus.DISABLE,
       activeStep: 1   //current active step
-    });
+    };
   }
 
   renderMakeCard = (modelData) => {
