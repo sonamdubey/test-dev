@@ -11,6 +11,7 @@ import {createNewSnapPoints} from '../../utils/rheostat/function/DiffSnapPoints'
 
 import { emiCalculatorAction } from '../../actionCreators/emiInterestSlider'
 import { updateInterestSlider } from '../../actionCreators/emiInterestSlider'
+import { startAnimation, stopAnimation } from '../../actionCreators/pieAnimation'
 
 class EMIInterest  extends React.Component {
   constructor(props) {
@@ -33,6 +34,15 @@ class EMIInterest  extends React.Component {
 			this.refs.interestSlider.querySelectorAll('.rheostat-handle')[0].focus()
 		}
 	}
+	handleSliderDragEnd = () => {
+    const {
+      startAnimation,
+      stopAnimation
+    } = this.props
+    startAnimation(setTimeout(function(){
+      stopAnimation()
+    }, 500))
+  }
   render() {
     let {
       slider
@@ -49,11 +59,13 @@ class EMIInterest  extends React.Component {
 			snapOnDragMove: true,
 			disableSnapOnClick: false,
 			onChange: this.handleSliderChange,
+			onSliderDragStart: this.handleSliderDragStart,
+      onSliderDragEnd: this.handleSliderDragEnd,
 		}
     return (
         <div className="emi-calci-header slider-input-container">
 					<span className="slider__unit-title">Interest <span className="slider__unit-text">(%)</span></span>
-           <div className="slider-section" ref="interesttSlider">
+           <div className="slider-section" ref="interestSlider">
               <Rheostat
                   {...slider}
               />
@@ -73,7 +85,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch, getState) => {
 	return {
-		updateInterestSlider: bindActionCreators(updateInterestSlider, dispatch)
+		updateInterestSlider: bindActionCreators(updateInterestSlider, dispatch),
+		startAnimation: bindActionCreators(startAnimation, dispatch),
+    stopAnimation: bindActionCreators(stopAnimation, dispatch)
 	}
 }
 

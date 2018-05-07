@@ -11,6 +11,7 @@ import {createNewSnapPoints} from '../../utils/rheostat/function/DiffSnapPoints'
 
 import { emiCalculatorAction } from '../../actionCreators/emiTenureSlider'
 import { updateTenureSlider } from '../../actionCreators/emiTenureSlider'
+import { startAnimation, stopAnimation } from '../../actionCreators/pieAnimation'
 
 import { formatToRound } from '../../utils/formatAmount'
 
@@ -35,6 +36,15 @@ class EMITenure  extends React.Component {
       this.refs.tenureSlider.querySelectorAll('.rheostat-handle')[0].focus()
     }
   }
+  handleSliderDragEnd = () => {
+    const {
+      startAnimation,
+      stopAnimation
+    } = this.props
+    startAnimation(setTimeout(function(){
+      stopAnimation()
+    }, 500))
+  }
   render() {
     let {
       slider
@@ -52,11 +62,13 @@ class EMITenure  extends React.Component {
       disableSnapOnClick: false,
       handleTooltipLabel: formatToRound,
       onChange: this.handleSliderChange,
+      onSliderDragStart: this.handleSliderDragStart,
+      onSliderDragEnd: this.handleSliderDragEnd,
     }
     return (
         <div className="emi-calci-header slider-input-container">
           <span className="slider__unit-title">Tenure <span className="slider__unit-text">(Months)</span></span>
-           <div className="slider-section" ref="tenuretSlider">
+           <div className="slider-section" ref="tenureSlider">
               <Rheostat
                   {...slider}
               />
@@ -76,7 +88,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch, getState) => {
   return {
-    updateTenureSlider: bindActionCreators(updateTenureSlider, dispatch)
+    updateTenureSlider: bindActionCreators(updateTenureSlider, dispatch),
+    startAnimation: bindActionCreators(startAnimation, dispatch),
+    stopAnimation: bindActionCreators(stopAnimation, dispatch)
   }
 }
 
