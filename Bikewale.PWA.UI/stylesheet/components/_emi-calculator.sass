@@ -21,14 +21,19 @@
   padding: 20px
   background: color('bg-light-grey')
 
+@media (max-width: 320px)
+  .emi-outer-container
+    padding-right: 0
+    padding-left: 0
+
 .emi-calci-container
-  @include vendor-prefix("box-shadow", 0 0 8px -3px rgba(138,135,138,1))
+  @include vendor-prefix('box-shadow', 0 2px 4px 0 color('bright-grey', .5))
   background: color('white')
   padding: 20px
 
 .emi-calci-top-header
   padding-bottom: 10px
-  border-bottom: 2px solid color('border-dark')
+  border-bottom: 1px solid color('border-dark')
 
   .emi-calci__orp-text
     font-size: 12px
@@ -59,8 +64,13 @@
   border-bottom: 1px solid color('bright-grey')
   padding-bottom: 20px
   margin-bottom: 20px
+
   .pit-item
     display: none
+
+.rheostat-downpayment
+  &.rheostat
+    width: 82%
 
 .tenure-interest-slider
   display: table
@@ -72,6 +82,7 @@
 
 .slider-section 
   padding-top: 50px
+
   .rheostat-background 
     margin-bottom: 14px
 

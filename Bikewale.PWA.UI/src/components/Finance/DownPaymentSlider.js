@@ -44,7 +44,7 @@ updateLoanText() {
     slider = {
       ...slider,
       algorithm: sliderAlgorithm,
-      className: 'slider-rheostat',
+      className: 'rheostat-downpayment',
       pitComponent: PitComponent,
       pitPoints: [slider.min, slider.max],
       snap: true,

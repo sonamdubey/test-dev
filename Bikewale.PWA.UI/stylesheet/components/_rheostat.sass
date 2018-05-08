@@ -2,12 +2,13 @@
 	overflow: visible
 
 .rheostat-background
+	@include vendor-prefix('border-radius', 4px)
 	position: relative
 	background-color: color('bright-grey')
 	border: 2px solid color('white')
-	@include vendor-prefix('border-radius', 2px)
 
 .rheostat-progress
+	@include vendor-prefix('border-radius', 4px)
 	position: absolute
 	background-color: color('tomato')
 
