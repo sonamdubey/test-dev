@@ -100,16 +100,18 @@ namespace Bikewale.Cache.BikeData
         /// <summary>
         /// Created by  : Sushil Kumar on 28th June 2016
         /// Summary     : Gets the bike details for make
+        /// Modified By : Deepak Israni on 20 April 2018
+        /// Description : Versioned the cache key and increased cache duration to 24 hours.
         /// </summary>
         /// <param name="makeId"></param>
         /// <returns></returns>
         public BikeMakeEntityBase GetMakeDetails(uint makeId)
         {
             BikeMakeEntityBase objMakeDetails = null;
-            string key = String.Format("BW_MakeDetails_{0}", makeId);
+            string key = String.Format("BW_MakeDetails_{0}_V1", makeId);
             try
             {
-                objMakeDetails = _cache.GetFromCache<BikeMakeEntityBase>(key, new TimeSpan(1, 0, 0), () => _objMakes.GetMakeDetails(makeId));
+                objMakeDetails = _cache.GetFromCache<BikeMakeEntityBase>(key, new TimeSpan(24, 0, 0), () => _objMakes.GetMakeDetails(makeId));
             }
             catch (Exception ex)
             {

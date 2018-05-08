@@ -13,6 +13,9 @@ namespace Bikewale.Models.Shared
     /// <summary>
     /// Created by : Ashutosh Sharma on 24 Feb 2018.
     /// Description : Moved common properties of NewsIndexPageVM and ExpertReviewsIndexPageVM here.
+    /// Modified by: Dhruv Joshi
+    /// Dated: 16th April 2018
+    /// Description: Added GenericBikeInfoWidget
     /// </summary>
     public class CmsArticlesListIndexPageVM : ModelBase
     {
@@ -51,5 +54,7 @@ namespace Bikewale.Models.Shared
         public PwaReduxStore ReduxStore { get; set; }
         public IHtmlString ServerRouterWrapper { get; set; }
         public string WindowState { get; set; }
+        public BikeInfoVM GenericBikeInfoWidget { get; set; }
+
     }
 }

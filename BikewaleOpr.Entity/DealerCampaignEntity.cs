@@ -17,5 +17,7 @@ namespace BikewaleOpr.Entities
         public uint DailyLeadLimit { get; set; }
         public ushort CallToAction { get; set; }
         public string DealerMobile { get; set; }
+        public string CommunicationNumbers { get; set; }
+        public string CommunicationEmails { get; set; }
     }
 }

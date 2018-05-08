@@ -38,6 +38,7 @@ namespace Bikewale.Controllers
         private readonly IBikeSeries _series;
         private readonly IArticles _articles;
         private readonly IPWACMSCacheRepository _renderedArticles;
+        private readonly IBikeMaskingCacheRepository<BikeModelEntity, int> _modelMaskingCache = null;
         #endregion
 
         #region Variables for Pwa Logging
@@ -47,9 +48,7 @@ namespace Bikewale.Controllers
 
 
         #region Constructor
-        public ExpertReviewsController(ICMSCacheContent cmsCache, IPager pager, IBikeModelsCacheRepository<int> models, IBikeModels<BikeModelEntity, int> bikeModels, IUpcoming upcoming,
-            IBikeInfo bikeInfo, ICityCacheRepository cityCache, IBikeMakesCacheRepository bikeMakesCacheRepository, IBikeVersions<BikeVersionEntity, uint> objBikeVersions,
-            IBikeMaskingCacheRepository<BikeModelEntity, int> bikeMasking, IBikeSeriesCacheRepository seriesCache, IBikeSeries series, IArticles articles, IPWACMSCacheRepository renderedArticles)
+        public ExpertReviewsController(ICMSCacheContent cmsCache, IPager pager, IBikeModelsCacheRepository<int> models, IBikeModels<BikeModelEntity, int> bikeModels, IUpcoming upcoming, IBikeInfo bikeInfo, ICityCacheRepository cityCache, IBikeMakesCacheRepository bikeMakesCacheRepository, IBikeVersionCacheRepository<BikeVersionEntity, uint> objBikeVersionsCache, IBikeMaskingCacheRepository<BikeModelEntity, int> bikeMasking, IBikeSeriesCacheRepository seriesCache, IBikeSeries series, IArticles articles, IPWACMSCacheRepository renderedArticles, IBikeMaskingCacheRepository<BikeModelEntity, int> modelMaskingCache, IBikeVersions<BikeVersionEntity, uint> objBikeVersions)
         {
             _cmsCache = cmsCache;
             _pager = pager;
@@ -65,6 +64,7 @@ namespace Bikewale.Controllers
             _series = series;
             _articles = articles;
             _renderedArticles = renderedArticles;
+            _modelMaskingCache = modelMaskingCache;
 
         }
         #endregion
@@ -79,7 +79,7 @@ namespace Bikewale.Controllers
         [Filters.DeviceDetection()]
         public ActionResult Index()
         {
-            ExpertReviewsIndexPage obj = new ExpertReviewsIndexPage(_cmsCache, _pager, _models, _bikeModels, _upcoming, _bikeMakesCacheRepository, _objVersion, _seriesCache, _series, _cityCache, _bikeInfo);
+            ExpertReviewsIndexPage obj = new ExpertReviewsIndexPage(_cmsCache, _pager, _models, _bikeModels, _upcoming, _bikeMakesCacheRepository, _objVersion, _seriesCache, _series, _cityCache, _bikeInfo, _modelMaskingCache);
             if (obj.status == Entities.StatusCodes.ContentNotFound)
             {
                 return Redirect("/pagenotfound.aspx");
@@ -105,7 +105,7 @@ namespace Bikewale.Controllers
         [Route("m/expertreviews/")]
         public ActionResult Index_Mobile()
         {
-            ExpertReviewsIndexPage obj = new ExpertReviewsIndexPage(_cmsCache, _pager, _models, _bikeModels, _upcoming, _bikeMakesCacheRepository, _objVersion, _seriesCache, _series, _cityCache, _bikeInfo);
+            ExpertReviewsIndexPage obj = new ExpertReviewsIndexPage(_cmsCache, _pager, _models, _bikeModels, _upcoming, _bikeMakesCacheRepository, _objVersion, _seriesCache, _series, _cityCache, _bikeInfo, _modelMaskingCache);
             obj.IsMobile = true;
             if (obj.status == Entities.StatusCodes.ContentNotFound)
             {
@@ -129,7 +129,7 @@ namespace Bikewale.Controllers
         [Route("m/expertreviews/index_pwa/")]
         public ActionResult Index_Mobile_Pwa()
         {
-            ExpertReviewsIndexPage obj = new ExpertReviewsIndexPage(_cmsCache, _pager, _models, _bikeModels, _upcoming, _bikeMakesCacheRepository, _objVersion, _seriesCache, _series, _cityCache, _bikeInfo, _articles, _renderedArticles);
+            ExpertReviewsIndexPage obj = new ExpertReviewsIndexPage(_cmsCache, _pager, _models, _bikeModels, _upcoming, _bikeMakesCacheRepository, _objVersion, _seriesCache, _series, _cityCache, _bikeInfo, _articles, _renderedArticles, _modelMaskingCache);
             obj.IsMobile = true;
             if (obj.status == StatusCodes.ContentNotFound)
             {
@@ -288,6 +288,7 @@ namespace Bikewale.Controllers
             else
             {
                 obj.IsAMPPage = true;
+                obj.IsMobile = true;
                 obj.RefControllerContext = ControllerContext;
                 objData = obj.GetData(9);
                 if (obj.status == StatusCodes.ContentNotFound)

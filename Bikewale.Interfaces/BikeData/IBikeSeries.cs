@@ -11,6 +11,8 @@ namespace Bikewale.Interfaces.BikeData
     /// Description : Added GetNewModels, GetUpcomingModels, GetOtherSeriesFromMake, GetSynopsis.
     /// Modified by : vivek singh tomar on 24th nov 2017
     /// Summary : added GetModelIdsBySeries
+    /// Modified By : Deepak Israni on 16 April 2018
+    /// Description : Added GetMakeSeries
     /// </summary>
     public interface IBikeSeries
     {
@@ -21,6 +23,7 @@ namespace Bikewale.Interfaces.BikeData
 		IEnumerable<BikeSeriesEntity> GetOtherSeriesFromMake(int makeId, uint seriesId);
 		IEnumerable<BikeSeriesCompareBikes> GetBikesToCompare(uint seriesId);
         string GetModelIdsBySeries(uint seriesId);
+        IEnumerable<BikeSeriesEntity> GetMakeSeries(int makeId, int cityId);
 
     }
 }

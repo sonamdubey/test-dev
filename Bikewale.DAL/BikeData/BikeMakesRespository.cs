@@ -261,6 +261,8 @@ namespace Bikewale.DAL.BikeData
         /// Summarry; Fetch make list by UINT makeid (method overload)
         /// Modified by Sajal Gupta on 26-04-2017
         /// Description : Added is Scooter only flag
+        /// Modified By : Deepak Israni on 20 April 2018
+        /// Description : Versioned the SP to get IsNew and IsFuturistic flags.
         /// </summary>
         /// <param name="makeId"></param>
         /// <returns></returns>
@@ -272,7 +274,7 @@ namespace Bikewale.DAL.BikeData
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "getmakedetails_14082017";
+                    cmd.CommandText = "getmakedetails_20042018";
 
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, makeId));
 
@@ -289,6 +291,8 @@ namespace Bikewale.DAL.BikeData
                                 makeDetails.HostUrl = Convert.ToString(reader["hosturl"]);
                                 makeDetails.LogoUrl = Convert.ToString(reader["logourl"]);
                                 makeDetails.IsScooterOnly = SqlReaderConvertor.ToBoolean(reader["isscooteronly"]);
+                                makeDetails.IsNew = SqlReaderConvertor.ToBoolean(reader["New"]);
+                                makeDetails.IsFuturistic = SqlReaderConvertor.ToBoolean(reader["Futuristic"]);
                             }
 
                             if (reader.NextResult())

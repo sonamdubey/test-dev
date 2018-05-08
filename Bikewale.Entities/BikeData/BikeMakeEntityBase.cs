@@ -15,6 +15,8 @@ namespace Bikewale.Entities.BikeData
     /// Description : Added MakeCategoryId
     /// Modified by : Rajan Chauhan on 11 Jan 2018
     /// Description : Added PhotosCount
+    /// Modified By : Deepak Israni on 20 April 2018
+    /// Description : Added IsNew and IsFuturistic properties
     /// </summary>
     [Serializable, DataContract]
     public class BikeMakeEntityBase
@@ -60,5 +62,11 @@ namespace Bikewale.Entities.BikeData
 
         [JsonProperty(PropertyName = "makeCategoryId"), DataMember]
         public ushort MakeCategoryId { get; set; }
+
+        [JsonProperty("isNew"), DataMember]
+        public bool IsNew { get; set; }
+
+        [JsonProperty("isFuturistic"), DataMember]
+        public bool IsFuturistic { get; set; }
     }
 }
