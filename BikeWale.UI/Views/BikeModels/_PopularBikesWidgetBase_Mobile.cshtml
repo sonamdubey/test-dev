@@ -17,7 +17,7 @@
                     }
                     var bikeName = String.Format("{0} {1}", bike.objMake.MakeName, bike.objModel.ModelName);
                     <div class="swiper-slide">
-                        <div class="swiper-card" data-newlaunch="@string.Format("{0}",bike.IsAdPromoted?1:0)">
+                        <div class="swiper-card" style="min-height: 226px" data-newlaunch="@string.Format("{0}",bike.IsAdPromoted?1:0)">
                             <a href="@string.Format("/m{0}",UrlFormatter.BikePageUrl(bike.objMake.MaskingName,bike.objModel.MaskingName))" title="@bikeName" class="block">
                                 @if (bike.IsAdPromoted)
                                 {<span class="model-category__tag category--newlaunch">Newly Launched</span>}
@@ -33,7 +33,7 @@
                                         <p class="text-default font16">
                                             @Html.Raw("<span>&#x20B9;</span>")&nbsp;<span class="text-bold">@Format.FormatPrice(Convert.ToString(bike.VersionPrice))</span><span class="font14 text-bold"> onwards</span>
                                         </p>
-                                        
+
                                     }
                                     else
                                     {
