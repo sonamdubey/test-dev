@@ -568,6 +568,13 @@
             "pageSourceType": "AMP"
             },
             "triggers": {
+            "trackPageview": {
+                "on": "visible",
+                "request": "pageview",
+                "vars": {
+                    "title": "@Html.Raw(Model.PageMetaTags.Title)"
+                }
+            },
             "trackEvent": {
             "selector": ".track-day-nav-ga",
             "on": "click",
