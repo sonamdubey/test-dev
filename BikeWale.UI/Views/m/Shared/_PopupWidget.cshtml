@@ -179,7 +179,7 @@
                 }
 
 
-                gtmCodeAppender(self.PageCatId, "Get_On_Road_Price_Click", self.MakeName + self.ModelName);
+                gtmCodeAppender(self.PageCatId, "Get_On_Road_Price_Click", self.MakeName + "_" + self.ModelName);
             }
         };
 
@@ -492,6 +492,12 @@
                     break;
                 case '6':
                     category = 'Search_Page';
+                    break;
+                case "7":
+                    category = "Editorial_List_Page";
+                    break;
+                case "8":
+                    category = "Editorial_Details_Page";
                     break;
             }
             if (label) {

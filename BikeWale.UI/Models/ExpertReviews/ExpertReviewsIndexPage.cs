@@ -259,6 +259,8 @@ namespace Bikewale.Models
         /// Description : Function to set additional Page level variables.
         /// Modified By : Deepak Israni on 24 April 2018
         /// Description : Changed function to handle tagged makes, models and series.
+        /// Modified By : Deepak Israni on 8 May 2018
+        /// Description : Added flag for show on road price button and added GA related information.
         /// </summary>
         /// <param name="objData">VM of the page.</param>
         private void SetAdditionalVariables(ExpertReviewsIndexPageVM objData)
@@ -332,6 +334,17 @@ namespace Bikewale.Models
                     default:
                         break;
                 }
+
+                if (editorialWidgetData != null)
+                {
+                    editorialWidgetData.ShowOnRoadPriceButton = true;
+                    editorialWidgetData.GAInfo = new EditorialGAEntity
+                    {
+                        CategoryId = EditorialGACategories.Editorial_List_Page,
+                        PQSourceId = PQSourceEnum.Mobile_ExpertReviews_Listing_Page
+                    };
+                }
+
 
                 base.SetAdditionalData(editorialWidgetData);
                

@@ -351,6 +351,8 @@ namespace Bikewale.Models.EditorialPages
         /// <summary>
         /// Created By  : Sanskar Gupta, Deepak Israni on 09 April 2018
         /// Description : Function to Bind Editorial Widget. Pass the `category` of the bike data to be bound and the VM object.
+        /// Modified By : Deepak Israni on 8 May 2018
+        /// Description : Added flag for show on road price button and added GA related information on widgets with Popular Bikes.
         /// </summary>
         /// <param name="category">The category Enum of the bike list to be bound.</param>
         /// <returns></returns>
@@ -381,6 +383,8 @@ namespace Bikewale.Models.EditorialPages
                             tabHeading = string.Format(tabHeadings[category]);
                             viewAllTitle = string.Format(viewAllTitles[EditorialWidgetCategory.Popular_All]);
                             SetWidgetStructureData(widget, tabHeading, "PopularBikes", true, UrlFormatter.FormatGenericPageUrl(EnumBikeBodyStyles.AllBikes), "View all bikes", viewAllTitle);
+                            ((EditorialPopularBikesWidget)widget).ShowOnRoadPriceButton = widgetData.ShowOnRoadPriceButton;
+                            ((EditorialPopularBikesWidget)widget).GAInfo = widgetData.GAInfo;
                         }
                         break;
 
@@ -395,6 +399,8 @@ namespace Bikewale.Models.EditorialPages
                             tabHeading = string.Format(tabHeadings[category], MakeName);
                             viewAllTitle = string.Format(viewAllTitles[EditorialWidgetCategory.Popular_Make], MakeName);
                             SetWidgetStructureData(widget, tabHeading, "PopularMakeBikes", true, UrlFormatter.BikeMakeUrl(MakeMaskingName), "View all bikes", viewAllTitle);
+                            ((EditorialPopularBikesWidget)widget).ShowOnRoadPriceButton = widgetData.ShowOnRoadPriceButton;
+                            ((EditorialPopularBikesWidget)widget).GAInfo = widgetData.GAInfo;
                         }
                         break;
 
@@ -424,6 +430,8 @@ namespace Bikewale.Models.EditorialPages
                                 return null;
                             }
                             SetWidgetStructureData(widget, tabHeading, tabId, true, UrlFormatter.FormatGenericPageUrl(BodyStyle), "View all bikes", viewAllTitle);
+                            ((EditorialPopularBikesWidget)widget).ShowOnRoadPriceButton = widgetData.ShowOnRoadPriceButton;
+                            ((EditorialPopularBikesWidget)widget).GAInfo = widgetData.GAInfo;
                         }
                         break;
 
@@ -438,6 +446,8 @@ namespace Bikewale.Models.EditorialPages
                             tabHeading = string.Format(tabHeadings[category]);
                             viewAllTitle = string.Format(viewAllTitles[category]);
                             SetWidgetStructureData(widget, tabHeading, "PopularScooters", true, UrlFormatter.FormatGenericPageUrl(EnumBikeBodyStyles.Scooter), "View all scooters", viewAllTitle);
+                            ((EditorialPopularBikesWidget)widget).ShowOnRoadPriceButton = widgetData.ShowOnRoadPriceButton;
+                            ((EditorialPopularBikesWidget)widget).GAInfo = widgetData.GAInfo;
                         }
                         break;
 
@@ -452,6 +462,8 @@ namespace Bikewale.Models.EditorialPages
                             tabHeading = string.Format(tabHeadings[category], MakeName);
                             viewAllTitle = string.Format(viewAllTitles[category], MakeName);
                             SetWidgetStructureData(widget, tabHeading, "PopularMakeScooters", true, UrlFormatter.ScooterMakeUrl(MakeMaskingName, widgetData.IsScooterOnlyMake), "View all scooters", viewAllTitle);
+                            ((EditorialPopularBikesWidget)widget).ShowOnRoadPriceButton = widgetData.ShowOnRoadPriceButton;
+                            ((EditorialPopularBikesWidget)widget).GAInfo = widgetData.GAInfo;
                         }
                         break;
 
@@ -466,6 +478,8 @@ namespace Bikewale.Models.EditorialPages
                             tabHeading = string.Format(tabHeadings[category], SeriesName);
                             viewAllTitle = string.Format(viewAllTitles[category], SeriesName);
                             SetWidgetStructureData(widget, tabHeading, "PopularSeriesBikes", true, UrlFormatter.BikeSeriesUrl(MakeMaskingName, SeriesMaskingName), "View all bikes", viewAllTitle);
+                            ((EditorialPopularBikesWidget)widget).ShowOnRoadPriceButton = widgetData.ShowOnRoadPriceButton;
+                            ((EditorialPopularBikesWidget)widget).GAInfo = widgetData.GAInfo;
                         }
                         break;
 
@@ -480,6 +494,8 @@ namespace Bikewale.Models.EditorialPages
                             tabHeading = string.Format(tabHeadings[category], SeriesName);
                             viewAllTitle = string.Format(viewAllTitles[category], SeriesName);
                             SetWidgetStructureData(widget, tabHeading, "PopularSeriesScooters", true, UrlFormatter.BikeSeriesUrl(MakeMaskingName, SeriesMaskingName), "View all scooters", viewAllTitle);
+                            ((EditorialPopularBikesWidget)widget).ShowOnRoadPriceButton = widgetData.ShowOnRoadPriceButton;
+                            ((EditorialPopularBikesWidget)widget).GAInfo = widgetData.GAInfo;
                         }
                         break;
 
