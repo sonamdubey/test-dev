@@ -11,7 +11,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer.Cache
     /// Created by  :  Pratibha Verma on 4 April 2018
     /// Description :  cache layer to get honda model mapping
     /// </summary>
-    public class HondaModelCacheRepository : IHondaModelCache
+    public class HondaModelCacheRepository : IHondaManufacturerCache
     {
         private readonly ICacheManager _cache;
         private readonly LeadProcessingRepository _leadRepository;
@@ -25,7 +25,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer.Cache
             Hashtable hondaModel = null;
             try
             {
-               hondaModel = _cache.GetFromCache<Hashtable>("BW_hondamodelmapping_v1", new TimeSpan(7, 0, 0, 0), () => _leadRepository.GetHondaModelApiMapping());              
+               hondaModel = _cache.GetFromCache<Hashtable>("BW_hondamodelmapping", new TimeSpan(7, 0, 0, 0), () => _leadRepository.GetHondaModelApiMapping());              
             }
             catch (Exception ex)
             {

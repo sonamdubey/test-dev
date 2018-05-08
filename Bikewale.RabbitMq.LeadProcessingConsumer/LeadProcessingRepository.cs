@@ -250,7 +250,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
             }
             catch (Exception ex)
             {
-                Logs.WriteErrorLog(String.Format("Bikewale.RabbitMq.LeadProcessingConsumer.GetHondaModelApiMapping()", ex));
+                Logs.WriteErrorLog("Bikewale.RabbitMq.LeadProcessingConsumer.GetHondaModelApiMapping()", ex);
             }
             return hondaModel;
         }

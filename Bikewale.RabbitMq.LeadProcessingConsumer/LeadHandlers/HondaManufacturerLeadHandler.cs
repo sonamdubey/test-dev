@@ -14,7 +14,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
     /// </summary>
     internal class HondaManufacturerLeadHandler : ManufacturerLeadHandler
     {
-        private readonly IHondaModelCache _hondaModels;
+        private readonly IHondaManufacturerCache _hondaModels;
         /// <summary>
         /// Type initializer
         /// </summary>
@@ -60,7 +60,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                 {
                     if (hondaModels != null && hondaModels.ContainsKey((int)quotation.ModelId))
                     {
-                        apiModelName = hondaModels[(int)quotation.ModelId].ToString();
+                        apiModelName = Convert.ToString(hondaModels[(int)quotation.ModelId]);
                     }
                     else
                     {

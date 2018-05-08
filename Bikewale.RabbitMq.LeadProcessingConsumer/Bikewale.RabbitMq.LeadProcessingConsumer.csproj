@@ -148,7 +148,7 @@
     <Compile Include="AutoBizServiceRef.cs" />
     <Compile Include="Cache\HondaModelCacheRepository.cs" />
     <Compile Include="Entities\BajajFinanceLeadEntity.cs" />
-    <Compile Include="Interface\IHondaModelCache.cs" />
+    <Compile Include="Interface\IHondaManufacturerCache.cs" />
     <Compile Include="LeadHandlers\BajajFinanceLeadHandler.cs" />
     <Compile Include="Entities\BikeQuotationEntity.cs" />
     <Compile Include="LeadHandlers\DefaultManufacturerLeadHandler.cs" />

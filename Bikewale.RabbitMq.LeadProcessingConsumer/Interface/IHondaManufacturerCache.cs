@@ -5,7 +5,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer.Interface
     /// <summary>
     /// Honda model cache method reference
     /// </summary>
-    public interface IHondaModelCache
+    public interface IHondaManufacturerCache
     {
         Hashtable GetHondaModelMapping();
     }
