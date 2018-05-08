@@ -210,6 +210,8 @@ namespace Bikewale.Models
         /// <summary>
         /// Created By  : Deepak Israni on 26 April 2018
         /// Description : Function to set additional Page level variables.
+        /// Modified By : Deepak Israni on 8 May 2018
+        /// Description : Added flag for show on road price button and added GA related information.
         /// </summary>
         /// <param name="objData"></param>
         private void SetAdditionalVariables(ComparisonTestsIndexPageVM objData)
@@ -220,7 +222,13 @@ namespace Bikewale.Models
                 EditorialWidgetEntity editorialWidgetData = new EditorialWidgetEntity
                 {
                     IsMobile = IsMobile,
-                    CityId = CityId
+                    CityId = CityId,
+                    ShowOnRoadPriceButton = true,
+                    GAInfo = new EditorialGAEntity
+                    {
+                        CategoryId = EditorialGACategories.Editorial_List_Page,
+                        PQSourceId = PQSourceEnum.Mobile_ComparisionTest_Listing_Page
+                    }
                 };
 
 

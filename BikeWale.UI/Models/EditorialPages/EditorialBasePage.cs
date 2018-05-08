@@ -351,12 +351,15 @@ namespace Bikewale.Models.EditorialPages
         /// <summary>
         /// Created By  : Sanskar Gupta, Deepak Israni on 09 April 2018
         /// Description : Function to Bind Editorial Widget. Pass the `category` of the bike data to be bound and the VM object.
+        /// Modified By : Deepak Israni on 8 May 2018
+        /// Description : Added flag for show on road price button and added GA related information on widgets with Popular Bikes.
         /// </summary>
         /// <param name="category">The category Enum of the bike list to be bound.</param>
         /// <returns></returns>
         private EditorialWidgetInfo BindWidget(EditorialWidgetCategory category)
         {
             EditorialWidgetInfo widget = null;
+            EditorialPopularBikesWidget popular = null;
             try
             {
                 int editorialWidgetTopCount = IsMobile ? 9 : 6;
@@ -371,13 +374,17 @@ namespace Bikewale.Models.EditorialPages
                 {
                     case EditorialWidgetCategory.Popular_All:
                         {
+                            popular = widget as EditorialPopularBikesWidget;
                             var mostPopular = _models.GetMostPopularBikesbyMakeCity((uint)editorialWidgetTopCount, 0, CityId);
                             mostPopular = SetAdPromotedBikes(mostPopular, editorialWidgetTopCount);
                             if (mostPopular == null || !mostPopular.Any())
                             {
                                 return null;
                             }
-                            ((EditorialPopularBikesWidget)widget).MostPopularBikeList = mostPopular;
+                            popular.MostPopularBikeList = mostPopular;
+                            popular.ShowOnRoadPriceButton = widgetData.ShowOnRoadPriceButton;
+                            popular.GAInfo = widgetData.GAInfo;
+                            widget = popular;
                             tabHeading = string.Format(tabHeadings[category]);
                             viewAllTitle = string.Format(viewAllTitles[EditorialWidgetCategory.Popular_All]);
                             SetWidgetStructureData(widget, tabHeading, "PopularBikes", true, UrlFormatter.FormatGenericPageUrl(EnumBikeBodyStyles.AllBikes), "View all bikes", viewAllTitle);
@@ -386,12 +393,16 @@ namespace Bikewale.Models.EditorialPages
 
                     case EditorialWidgetCategory.Popular_Make:
                         {
+                            popular = widget as EditorialPopularBikesWidget;
                             var mostPopular = _models.GetMostPopularBikesbyMakeCity((uint)editorialWidgetTopCount, MakeId, CityId);
                             if (mostPopular == null || !mostPopular.Any())
                             {
                                 return null;
                             }
-                            ((EditorialPopularBikesWidget)widget).MostPopularBikeList = mostPopular;
+                            popular.MostPopularBikeList = mostPopular;
+                            popular.ShowOnRoadPriceButton = widgetData.ShowOnRoadPriceButton;
+                            popular.GAInfo = widgetData.GAInfo;
+                            widget = popular;
                             tabHeading = string.Format(tabHeadings[category], MakeName);
                             viewAllTitle = string.Format(viewAllTitles[EditorialWidgetCategory.Popular_Make], MakeName);
                             SetWidgetStructureData(widget, tabHeading, "PopularMakeBikes", true, UrlFormatter.BikeMakeUrl(MakeMaskingName), "View all bikes", viewAllTitle);
@@ -400,12 +411,16 @@ namespace Bikewale.Models.EditorialPages
 
                     case EditorialWidgetCategory.Popular_BodyStyle:
                         {
+                            popular = widget as EditorialPopularBikesWidget;
                             var mostPopular = _models.GetPopularBikesByBodyStyle((ushort)BodyStyle, (uint)editorialWidgetTopCount, CityId);
                             if (mostPopular == null || !mostPopular.Any())
                             {
                                 return null;
                             }
-                            ((EditorialPopularBikesWidget)widget).MostPopularBikeList = mostPopular;
+                            popular.MostPopularBikeList = mostPopular;
+                            popular.ShowOnRoadPriceButton = widgetData.ShowOnRoadPriceButton;
+                            popular.GAInfo = widgetData.GAInfo;
+                            widget = popular;
                             string tabId = null;
                             if (BodyStyle == EnumBikeBodyStyles.Sports)
                             {
@@ -423,18 +438,23 @@ namespace Bikewale.Models.EditorialPages
                             {
                                 return null;
                             }
+                            
                             SetWidgetStructureData(widget, tabHeading, tabId, true, UrlFormatter.FormatGenericPageUrl(BodyStyle), "View all bikes", viewAllTitle);
                         }
                         break;
 
                     case EditorialWidgetCategory.Popular_Scooters:
                         {
+                            popular = widget as EditorialPopularBikesWidget;
                             var mostPopular = _models.GetMostPopularScooters((uint)editorialWidgetTopCount, CityId);
                             if (mostPopular == null || !mostPopular.Any())
                             {
                                 return null;
                             }
-                            ((EditorialPopularBikesWidget)widget).MostPopularBikeList = mostPopular;
+                            popular.MostPopularBikeList = mostPopular;
+                            popular.ShowOnRoadPriceButton = widgetData.ShowOnRoadPriceButton;
+                            popular.GAInfo = widgetData.GAInfo;
+                            widget = popular;
                             tabHeading = string.Format(tabHeadings[category]);
                             viewAllTitle = string.Format(viewAllTitles[category]);
                             SetWidgetStructureData(widget, tabHeading, "PopularScooters", true, UrlFormatter.FormatGenericPageUrl(EnumBikeBodyStyles.Scooter), "View all scooters", viewAllTitle);
@@ -443,12 +463,16 @@ namespace Bikewale.Models.EditorialPages
 
                     case EditorialWidgetCategory.Popular_Make_Scooters:
                         {
+                            popular = widget as EditorialPopularBikesWidget;
                             var mostPopular = _models.GetMostPopularScooters((uint)editorialWidgetTopCount, MakeId, CityId);
                             if (mostPopular == null || !mostPopular.Any())
                             {
                                 return null;
                             }
-                            ((EditorialPopularBikesWidget)widget).MostPopularBikeList = mostPopular;
+                            popular.MostPopularBikeList = mostPopular;
+                            popular.ShowOnRoadPriceButton = widgetData.ShowOnRoadPriceButton;
+                            popular.GAInfo = widgetData.GAInfo;
+                            widget = popular;
                             tabHeading = string.Format(tabHeadings[category], MakeName);
                             viewAllTitle = string.Format(viewAllTitles[category], MakeName);
                             SetWidgetStructureData(widget, tabHeading, "PopularMakeScooters", true, UrlFormatter.ScooterMakeUrl(MakeMaskingName, widgetData.IsScooterOnlyMake), "View all scooters", viewAllTitle);
@@ -457,12 +481,16 @@ namespace Bikewale.Models.EditorialPages
 
                     case EditorialWidgetCategory.Popular_Series:
                         {
+                            popular = widget as EditorialPopularBikesWidget;
                             var mostPopular = GetTopElements(FetchPopularSeriesBikes(SeriesId), editorialWidgetTopCount);
                             if (mostPopular == null || !mostPopular.Any())
                             {
                                 return null;
                             }
-                            ((EditorialPopularBikesWidget)widget).MostPopularBikeList = mostPopular;
+                            popular.MostPopularBikeList = mostPopular;
+                            popular.ShowOnRoadPriceButton = widgetData.ShowOnRoadPriceButton;
+                            popular.GAInfo = widgetData.GAInfo;
+                            widget = popular;
                             tabHeading = string.Format(tabHeadings[category], SeriesName);
                             viewAllTitle = string.Format(viewAllTitles[category], SeriesName);
                             SetWidgetStructureData(widget, tabHeading, "PopularSeriesBikes", true, UrlFormatter.BikeSeriesUrl(MakeMaskingName, SeriesMaskingName), "View all bikes", viewAllTitle);
@@ -471,12 +499,16 @@ namespace Bikewale.Models.EditorialPages
 
                     case EditorialWidgetCategory.Series_Scooters:
                         {
+                            popular = widget as EditorialPopularBikesWidget;
                             var mostPopular = GetTopElements(FetchPopularSeriesBikes(SeriesId), editorialWidgetTopCount);
                             if (mostPopular == null || !mostPopular.Any())
                             {
                                 return null;
                             }
-                            ((EditorialPopularBikesWidget)widget).MostPopularBikeList = mostPopular;
+                            popular.MostPopularBikeList = mostPopular;
+                            popular.ShowOnRoadPriceButton = widgetData.ShowOnRoadPriceButton;
+                            popular.GAInfo = widgetData.GAInfo;
+                            widget = popular;
                             tabHeading = string.Format(tabHeadings[category], SeriesName);
                             viewAllTitle = string.Format(viewAllTitles[category], SeriesName);
                             SetWidgetStructureData(widget, tabHeading, "PopularSeriesScooters", true, UrlFormatter.BikeSeriesUrl(MakeMaskingName, SeriesMaskingName), "View all scooters", viewAllTitle);
