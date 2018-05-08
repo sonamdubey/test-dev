@@ -1,0 +1,38 @@
+.finance-faq
+  padding: 20px 20px 10px
+
+.finance-faq__head
+  padding-top: 10px
+  padding-bottom: 20px
+  text-align: center
+
+.finance-faq__image
+  @include faq-banner-icon
+  background-size: 210px
+  width: 210px
+  height: 100px
+  text-align: center
+  display: inline-block
+
+.finance-faq__heading
+  color: color('default')
+  font-size: 16px
+  font-weight: $font-semibold
+  margin-bottom: 15px
+  text-align: center
+
+.finance-faq__list
+  @include collapsible($background: 'bg-light-grey', $fullwidth: false)
+  @include collapsible-handle($type: 'plus', $dimension: 18, $fullwidth: false)
+
+  .collapsible__trigger
+    font-size: 13px
+    font-weight: $font-normal
+
+  .collapsible
+    &:last-child
+      border-bottom: 0
+
+.faq-list-item__content
+  font-size: 13px
+  padding-bottom: 20px

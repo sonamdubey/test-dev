@@ -11,6 +11,8 @@ var extractVideoSass = new ExtractCssChunks( {filename : "css/videos/videosBundl
 var extractAppSass = new ExtractCssChunks( {filename : "css/app.css" , publicPath : cssChunksPublicPath } );
 var extractNewsSass = new ExtractCssChunks( {filename : "css/news/newsBundle.css" , publicPath : cssChunksPublicPath } );
 
+var extractFinanceSass = new ExtractCssChunks({ filename: "css/finance/financeBundle.css", publicPath: cssChunksPublicPath });
+
 const config = merge(commonConfig, {
 	output : {
     filename: 'js/[name].bundle.js',
@@ -39,8 +41,14 @@ const config = merge(commonConfig, {
                 use : ['css-loader','sass-loader'],
                 fallback : 'style-loader'
               })
-            }
-            
+						},
+						{
+              test: /(finance\.sass)/,
+							loader: extractFinanceSass.extract({
+                use: ['css-loader','sass-loader'],
+                fallback : 'style-loader'
+              })
+            }            
         ]
     },
 	plugins : [
@@ -52,7 +60,8 @@ const config = merge(commonConfig, {
         }),
         extractAppSass,
         extractNewsSass,
-        extractVideoSass
+				extractVideoSass,
+				extractFinanceSass
 	]
 })
 

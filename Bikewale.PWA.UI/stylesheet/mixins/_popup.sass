@@ -1,0 +1,160 @@
+@mixin popup-content($direction: right)
+  $_translateX: 110%
+  $_translateY: 0
+
+  @if $direction == left
+    $_translateX: -110%
+    $_translateY: 0
+
+  .popup-content
+    @include vendor-prefix('transform', translate($_translateX, $_translateY))
+    @include vendor-prefix('transition', transform .2s linear)
+    width: 100%
+    height: 100%
+    height: 100vh
+    position: fixed
+    top: 0
+    left: 0
+    right: 0
+    bottom: 0
+    background: color('white')
+    z-index: 10
+    will-change: transform
+
+    &.popup--active
+      @include vendor-prefix('transform', translate(0, 0))
+
+
+@mixin popup-head($backgroundColor: 'tomato')
+  .popup__head
+    position: absolute
+    top: 0
+    left: 0
+    right: 0
+    width: 100%
+    height: 145px
+    background: color($backgroundColor)
+    z-index: 2
+
+
+@mixin popup-head-background($background: 'skyline')
+  .popup-head__content
+    position: relative
+    height: 100%
+
+    &:after
+      @if $background == 'skyline'
+        @include skyline-bg
+        @include vendor-prefix('animation', animateSkyline 30s linear 10)
+
+      background-position: center bottom
+      content: ''
+      position: absolute
+      bottom: 0
+      width: 2048px
+      height: 90px
+      display: block
+      opacity: .1
+      will-change: transform
+
+  @include animateSkyline
+
+
+@mixin popup-title
+  .popup-search__title
+    color: color('white')
+    font-size: 18px
+    font-weight: $font-bold
+    margin-bottom: 20px
+
+
+@mixin popup-close-btn
+  .popup__close
+    @include cross-fff-icon
+    background-size: 14px
+    width: 30px
+    height: 30px
+    display: block
+    position: fixed
+    top: 17px
+    right: 17px
+    cursor: pointer
+    z-index: 2
+
+
+@mixin popup-search-box
+  .popup__search-box
+    position: absolute
+    bottom: -25px
+    left: 0
+    right: 0
+    margin-right: 20px
+    margin-left: 20px
+    z-index: 1
+
+
+@mixin popup-footer($height: 50)
+  @if unitless($height)
+    $heightWithUnit: $height * 1px
+
+    .popup__footer
+      @include vendor-prefix('transform', translate3d(0, 0, 0))
+      width: 100%
+      height: $heightWithUnit
+      position: fixed
+      right: 0
+      bottom: 0
+      left: 0
+      box-shadow: 0 2px 6px 0 rgba(0, 0, 0, .5)
+      background: color('white')
+      z-index: 10
+
+      &:after
+        content: ''
+        clear: both
+        display: block
+
+  @else
+    @warn 'Please provide unitless value for popup-footer `$height` parameter'
+
+
+@mixin popup-footer-next-btn($height: 50)
+  @if unitless($height)
+    $heightWithUnit: $height * 1px
+
+    .popup-footer__next
+      position: relative
+      font-size: 16px
+      font-weight: 700
+      color: color('default')
+      padding-right: 35px
+      padding-left: 20px
+      float: right
+      line-height: 50px
+      cursor: pointer
+
+      &:after
+        @include arrow-right-4d5057-icon
+        background-position: center 52%
+        background-size: 7px
+        content: ''
+        position: absolute
+        top: 0
+        right: 20px
+        width: 10px
+        height: 50px
+        display: block
+
+  @else
+    @warn 'Please provide unitless value for popup-footer `$height` parameter'
+
+
+@mixin popup
+  @include popup-content
+  @include popup-head
+  @include popup-head-background
+  @include popup-close-btn
+  @include popup-title
+  @include popup-search-box
+  @include popup-footer
+  @include popup-footer-next-btn
