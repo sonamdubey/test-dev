@@ -1,12 +1,10 @@
 import { emiCalculatorAction } from '../actionTypes/emiActionTypes'
 
-const updateDownpaymentSliderValue = function(values, min, max, userChange) {
+const updateDownpaymentSliderValue = function(values, userChange) {
     return function(dispatch) {
        dispatch({
         type: emiCalculatorAction.UPDATE_DOWNPAYMENT_SLIDER_VALUE,
         values,
-        min,
-        max,
         userChange
       })
     }
@@ -22,10 +20,10 @@ const shouldDownpaymentSliderUpdate = (values, slider) => {
 	return update
 }
 
-export const updateDownPaymentSlider = ({values, min, max, userChange}) => (dispatch, getState) => {
+export const updateDownPaymentSlider = ({values, userChange}) => (dispatch, getState) => {
     let downpaymentSliderMap = getState(['Emi', 'VehicleDownPayment', 'slider']);
 	if (shouldDownpaymentSliderUpdate(values, downpaymentSliderMap)) {
-		dispatch(updateDownpaymentSliderValue(values, min, max, userChange))
+		dispatch(updateDownpaymentSliderValue(values, userChange))
 	}
 }
 
