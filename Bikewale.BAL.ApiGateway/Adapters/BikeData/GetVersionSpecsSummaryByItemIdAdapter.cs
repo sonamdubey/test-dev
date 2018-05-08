@@ -82,7 +82,7 @@ namespace Bikewale.BAL.ApiGateway.Adapters.BikeData
 			}
 			catch (Exception ex)
 			{
-				ErrorClass.LogError(ex, "Bikewale.BAL.ApiGateway.Adapters.BikeData.VersionsDataByItemIdsAdapter.BuildResponse");
+				ErrorClass.LogError(ex, "Bikewale.BAL.ApiGateway.Adapters.BikeData.GetVersionSpecsSummaryByItemIdAdapter.BuildResponse");
 			}
 
 			return versionMinSpecsList;
@@ -120,7 +120,7 @@ namespace Bikewale.BAL.ApiGateway.Adapters.BikeData
 			}
 			catch (Exception ex)
 			{
-				ErrorClass.LogError(ex, "Bikewale.BAL.ApiGateway.Adapters.BikeData.VersionsDataByItemIdsAdapter.ConvertToMinSpecsList");
+				ErrorClass.LogError(ex, "Bikewale.BAL.ApiGateway.Adapters.BikeData.GetVersionSpecsSummaryByItemIdAdapter.ConvertToMinSpecsList");
 			}
 
 			return specItemList;
