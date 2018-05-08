@@ -34,12 +34,6 @@
                                             @Html.Raw("<span>&#x20B9;</span>")&nbsp;<span class="text-bold">@Format.FormatPrice(Convert.ToString(bike.VersionPrice))</span><span class="font14 text-bold"> onwards</span>
                                         </p>
                                         
-                                        if (Model.ShowOnRoadPriceButton)
-                                        {
-                                            <div class="swiper-btn-block">
-                                                <a href="javascript:void(0)" data-pagecatid="@((int)Model.GAInfo.CategoryId)" data-pqsourceid="@((int)Model.GAInfo.PQSourceId)" data-makename="@bike.objMake.MakeName" data-modelname="@bike.objModel.ModelName" data-modelid="@bike.objModel.ModelId" class="btn btn-card btn-full-width btn-white getquotation">Check on-road price</a>
-                                            </div>
-                                        }
                                     }
                                     else
                                     {
@@ -49,6 +43,12 @@
                                     }
                                 </div>
                             </a>
+                            @if (bike.VersionPrice > 0 && Model.ShowOnRoadPriceButton)
+                            {
+                                <div class="swiper-btn-block">
+                                    <a href="javascript:void(0)" data-pagecatid="@((int)Model.GAInfo.CategoryId)" data-pqsourceid="@((int)Model.GAInfo.PQSourceId)" data-makename="@bike.objMake.MakeName" data-modelname="@bike.objModel.ModelName" data-modelid="@bike.objModel.ModelId" class="btn btn-card btn-full-width btn-white getquotation">Check on-road price</a>
+                                </div>
+                            }
                         </div>
                     </div>
                 }
