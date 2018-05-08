@@ -1,4 +1,5 @@
-﻿using Bikewale.DTO.PriceQuote;
+﻿using Bikewale.BAL.ApiGateway.ApiGatewayHelper;
+using Bikewale.DTO.PriceQuote;
 using Bikewale.DTO.PriceQuote.BikeBooking;
 using Bikewale.DTO.PriceQuote.CustomerDetails;
 using Bikewale.Entities.BikeBooking;
@@ -45,6 +46,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
         private readonly IPriceQuote _objPriceQuote = null;
         private readonly ILeadNofitication _objLeadNofitication = null;
         private readonly ILead _objLeadProcess = null;
+        private readonly IApiGatewayCaller _apiGatewayCaller;
 
         public PQCustomerDetailController(
             ICustomerAuthentication<CustomerEntity, UInt32> objAuthCustomer,
@@ -53,7 +55,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
             IMobileVerificationRepository mobileVerRespo,
             IMobileVerification mobileVerificetion,
             IDealer objDealer,
-            IPriceQuote objPriceQuote, ILeadNofitication objLeadNofitication, IMobileVerificationCache mobileVerCacheRepo, ILead objLeadProcess)
+            IPriceQuote objPriceQuote, ILeadNofitication objLeadNofitication, IMobileVerificationCache mobileVerCacheRepo, ILead objLeadProcess, IApiGatewayCaller apiGatewayCaller)
         {
             _objAuthCustomer = objAuthCustomer;
             _objCustomer = objCustomer;
@@ -65,6 +67,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
             _objLeadNofitication = objLeadNofitication;
             _mobileVerCacheRepo = mobileVerCacheRepo;
             _objLeadProcess = objLeadProcess;
+            _apiGatewayCaller = apiGatewayCaller;
         }
         /// <summary>
         /// Saves the Customer details if it is a new customer.
@@ -90,7 +93,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
         /// <param name="input">Customer details with price quote details</param>
         /// <returns></returns>
         [ResponseType(typeof(PQCustomerDetailOutput))]
-        public IHttpActionResult Post([FromBody]Bikewale.DTO.PriceQuote.PQCustomerDetailInput input)
+        public IHttpActionResult Post([FromBody]PQCustomerDetailInput input)
         {
 
             PQCustomerDetailOutput output = null;
@@ -160,6 +163,11 @@ namespace Bikewale.Service.Controllers.PriceQuote
                     isSuccess = _objDealerPriceQuote.SaveCustomerDetail(entity);
 
                     var numberList = _mobileVerCacheRepo.GetBlockedNumbers();
+
+                    Bikewale.BAL.ApiGateway.Adapters.SpamFilter.GetScoreAdapter spamFilter = new BAL.ApiGateway.Adapters.SpamFilter.GetScoreAdapter();
+                    spamFilter.AddApiGatewayCall(_apiGatewayCaller, objCust);
+                    _apiGatewayCaller.Call();
+                    var o = spamFilter.Output;
 
                     if (numberList != null && !numberList.Contains(input.CustomerMobile))
                     {

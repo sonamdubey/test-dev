@@ -9,7 +9,6 @@
 
 @if (Model != null)
 {
-
     <section id="overallContainer">
         <div id="bikeMakeContainer" class="container section-bottom-margin">
             <h1 class="page__heading">@Model.MakeName Bikes</h1>
@@ -389,6 +388,28 @@
         </div>
 
     </section>
+    if (Model.IsDiscontinuedBikeAvailable)
+    {
+        <section>
+            <div class="container">
+                <div class="content-inner-block-10 margin-bottom20">
+                    <div id="discontinuedModels" style="display: block;">
+                        <div id="discontinuedLess">
+                            Discontinued @Model.MakeName models: - <span id="spnContent"></span>
+                        </div>
+                        <div id="discontinuedMore">
+                            Discontinued @Model.MakeName models: -
+                            @foreach (var bike in Model.DiscontinuedBikes)
+                            {
+                                <a title="@bike.BikeName" href="@string.Format("/m{0}",bike.Href)">@bike.BikeName</a>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    }
+
     if (Model.AdTags.Ad_300x250_Bottom)
     {
         <section>

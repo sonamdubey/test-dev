@@ -151,6 +151,7 @@ namespace Bikewale.Utility
         private readonly bool _EnablePwdResetLogging;
         private readonly int _MemcachedDefaultObjDuration;
         private readonly string _MakePageViewShowPercentage;
+        private string _SpamFilterServiceModuleName;
 
         // Private constructor, so no outsiders have access.
         private BWConfiguration()
@@ -274,6 +275,7 @@ namespace Bikewale.Utility
             _MakePageViewShowPercentage = string.IsNullOrEmpty(ConfigurationManager.AppSettings["MakePageViewShowPercentage"]) ? string.Empty : (ConfigurationManager.AppSettings["MakePageViewShowPercentage"]);
             _bikeModelIndex = Convert.ToString(ConfigurationManager.AppSettings["BikeIndex"]);
             _bikeModelPriceIndex = Convert.ToString(ConfigurationManager.AppSettings["BikePriceIndex"]);
+            _SpamFilterServiceModuleName = Convert.ToString(ConfigurationManager.AppSettings["SpamFilterServiceModuleName"]);
         }
 
         // Static method to provide access to instance
@@ -451,5 +453,7 @@ namespace Bikewale.Utility
         public string MakePageViewShowPercentage { get { return _MakePageViewShowPercentage; } }
         public string BikeModelIndex { get { return _bikeModelIndex; } }
         public string BikeModelPriceIndex { get { return _bikeModelPriceIndex; } }
+
+        public string SpamFilterServiceModuleName { get { return _SpamFilterServiceModuleName; } }
     }   // class
 }   // namespace
