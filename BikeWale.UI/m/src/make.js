@@ -37,6 +37,24 @@
 		}
 	});
 
+    //discontinued model links
+	$('#sort-by-div').insertAfter('header');
+	if ($("#discontinuedMore a").length > 4) {
+	    $('#discontinuedMore').hide();
+	}
+	else {
+	    $('#discontinuedLess').hide();
+	}
+	$("#spnContent").append($("#discontinuedMore a:eq(0)").clone()).append(", ").append($("#discontinuedMore a:eq(1)").clone()).append(", ").append($("#discontinuedMore a:eq(2)").clone()).append(", ").append($("#discontinuedMore a:eq(3)").clone());
+	$("#spnContent").append("... <a class='f-small' id='viewall' >View All</a>");
+
+	$("#viewall").click(function () {
+	    $("#discontinuedLess").hide();
+	    $("#discontinuedMore").show();
+	    var xContents = $('#discontinuedMore').contents();
+	    xContents[xContents.length - 1].nodeValue = "";
+	});
+
 	$('.carousel__popular-bikes').on('webkitTransitionEnd transitionend', '.model-card__detail', function () {
 		var modelCard = $(this).closest('.model__card');
 		var collpaseTargetElement = modelCard.find('.view-pros-cons__target');

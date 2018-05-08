@@ -379,11 +379,11 @@
     </section>
 }
 
-@if (Model.AdTags.Ad_300x250)
+@if (Model.AdTags.Ad300x250_Bottom)
 { 
     <section>
         <div style="margin-bottom: 15px">
-            @{Html.RenderPartial("/Views/Shared/Ads/Mobile/AdSlotGeneric.cshtml", Model.AdSlots[String.Format("{0}-2", Model.AdTags.AdId)]);}
+            @{Html.RenderPartial("/Views/Shared/Ads/Mobile/AdSlotGeneric.cshtml", Model.AdSlots[String.Format("{0}-16", Model.AdTags.AdId)]);}
         </div>
     </section>
 }
