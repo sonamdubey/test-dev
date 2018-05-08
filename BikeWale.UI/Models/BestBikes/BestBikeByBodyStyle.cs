@@ -62,7 +62,7 @@ namespace Bikewale.Models
             {
                 if (genericBikeList != null && genericBikeList.Any())
                 {
-                    GetVersionSpecsByItemIdAdapter adapt1 = new GetVersionSpecsByItemIdAdapter();
+                    GetVersionSpecsSummaryByItemIdAdapter adapt1 = new GetVersionSpecsSummaryByItemIdAdapter();
                     VersionsDataByItemIds_Input specItemInput = new VersionsDataByItemIds_Input
                     {
                         Versions = genericBikeList.Select(m => m.VersionId),

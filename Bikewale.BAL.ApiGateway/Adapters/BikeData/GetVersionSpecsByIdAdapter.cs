@@ -42,10 +42,10 @@ namespace Bikewale.BAL.ApiGateway.Adapters.BikeData
 					vehicleDataRequest.ApplicationId = 2;
 					vehicleDataRequest.ItemGroupTypes = string.Format("{0},{1}", (int)ItemGroupTypes.Individual, (int)ItemGroupTypes.IndividuallyShown);
 				}
-			}			
+			}
 			catch (Exception ex)
 			{
-				ErrorClass.LogError(ex, "Bikewale.BAL.ApiGateway.Adapters.BikeData.GetVehicleDataForVersionIdAdapter.BuildRequest");
+				ErrorClass.LogError(ex, "Bikewale.BAL.ApiGateway.Adapters.BikeData.GetVersionSpecsByIdAdapter.BuildRequest");
 			}
 
 			return vehicleDataRequest;
@@ -99,7 +99,7 @@ namespace Bikewale.BAL.ApiGateway.Adapters.BikeData
 			}
 			catch (Exception ex)
 			{
-				ErrorClass.LogError(ex, "Bikewale.BAL.ApiGateway.Adapters.BikeData.GetVehicleDataForVersionIdAdapter.BuildResponse");
+				ErrorClass.LogError(ex, "Bikewale.BAL.ApiGateway.Adapters.BikeData.GetVersionSpecsByIdAdapter.BuildResponse");
 			}
 			return specsFeaturesEntity;
 		}
@@ -140,7 +140,7 @@ namespace Bikewale.BAL.ApiGateway.Adapters.BikeData
 			}
 			catch (Exception ex)
 			{
-				ErrorClass.LogError(ex, "Bikewale.BAL.ApiGateway.Adapters.GetVehicleDataForVersionIdAdapter.ConvertToBwSpecsFeaturesEntity");
+				ErrorClass.LogError(ex, "Bikewale.BAL.ApiGateway.Adapters.GetVersionSpecsByIdAdapter.ConvertToBwSpecsFeaturesEntity");
 			}
 			return null;
 		}

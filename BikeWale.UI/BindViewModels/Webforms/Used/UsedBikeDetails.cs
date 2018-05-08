@@ -93,7 +93,7 @@ namespace Bikewale.BindViewModels.Webforms.Used
                     InquiryDetails = objCache.GetProfileDetails(InquiryId);
                     if (InquiryDetails != null)
                     {
-                        GetVersionSpecsByItemIdAdapter adapt = new GetVersionSpecsByItemIdAdapter();
+                        GetVersionSpecsSummaryByItemIdAdapter adapt = new GetVersionSpecsSummaryByItemIdAdapter();
                         VersionsDataByItemIds_Input specItemInput = new VersionsDataByItemIds_Input
                         {
                             Versions = new List<int>() { InquiryDetails.Version.VersionId },

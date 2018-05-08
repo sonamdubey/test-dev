@@ -473,7 +473,7 @@ namespace Bikewale.BAL.BikeData
                         }
                         BikeVersionMinSpecs objOverview = new BikeVersionMinSpecs() { VersionId = versionId };
 
-                        GetVersionSpecsByItemIdAdapter adapt1 = new GetVersionSpecsByItemIdAdapter();
+                        GetVersionSpecsSummaryByItemIdAdapter adapt1 = new GetVersionSpecsSummaryByItemIdAdapter();
                         VersionsDataByItemIds_Input specItemInput = new VersionsDataByItemIds_Input
                         {
                             Versions = new List<int> { objOverview.VersionId },
@@ -497,7 +497,7 @@ namespace Bikewale.BAL.BikeData
                         };
                         adapt1.AddApiGatewayCall(_apiGatewayCaller, specItemInput);
 
-                        GetVersionSpecsByItemIdAdapter adapt2 = new GetVersionSpecsByItemIdAdapter();
+                        GetVersionSpecsSummaryByItemIdAdapter adapt2 = new GetVersionSpecsSummaryByItemIdAdapter();
                         specItemInput = new VersionsDataByItemIds_Input
                         {
                             Versions = objModelPage.ModelVersions.Select(v => v.VersionId),
@@ -609,7 +609,7 @@ namespace Bikewale.BAL.BikeData
             {
                 if (bikeVersionList != null && bikeVersionList.Any())
                 {
-                    GetVersionSpecsByItemIdAdapter adapt1 = new GetVersionSpecsByItemIdAdapter();
+                    GetVersionSpecsSummaryByItemIdAdapter adapt1 = new GetVersionSpecsSummaryByItemIdAdapter();
                     VersionsDataByItemIds_Input specItemInput = new VersionsDataByItemIds_Input
                     {
                         Versions = bikeVersionList.Select(m => m.VersionId),
@@ -1838,7 +1838,7 @@ namespace Bikewale.BAL.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass.LogError(ex, string.Format("Bikewale.BAL.BikeModels.GetBestBikesByCategory: BodyStyle:{0}", bodyStyle));
+                ErrorClass.LogError(ex, string.Format("Bikewale.BAL.BikeModels.GetBestBikesByCategory : BodyStyle:{0}", bodyStyle));
             }
             return bestBikesList;
         }
@@ -1860,7 +1860,7 @@ namespace Bikewale.BAL.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass.LogError(ex, string.Format("Bikewale.BAL.BikeModels.GetBestBikesByCategory: ModelId:{0}", modelId));
+				ErrorClass.LogError(ex, string.Format("Bikewale.BAL.BikeModels.GetBestBikesByModelInMake: ModelId:{0}", modelId));
             }
             return bestBikesList;
         }
@@ -1877,7 +1877,7 @@ namespace Bikewale.BAL.BikeData
                 };
                 if (bikesList != null && bikesList.Any())
                 {
-                    GetVersionSpecsByItemIdAdapter adapt1 = new GetVersionSpecsByItemIdAdapter();
+                    GetVersionSpecsSummaryByItemIdAdapter adapt1 = new GetVersionSpecsSummaryByItemIdAdapter();
                     VersionsDataByItemIds_Input specItemInput = new VersionsDataByItemIds_Input
                     {
                         Versions = bikesList.Select(m => m.VersionId),
@@ -1948,7 +1948,7 @@ namespace Bikewale.BAL.BikeData
             {
                 if (bikesList != null && bikesList.Any())
                 {
-                    GetVersionSpecsByItemIdAdapter adapt1 = new GetVersionSpecsByItemIdAdapter();
+                    GetVersionSpecsSummaryByItemIdAdapter adapt1 = new GetVersionSpecsSummaryByItemIdAdapter();
                     VersionsDataByItemIds_Input specItemInput = new VersionsDataByItemIds_Input
                     {
                         Versions = bikesList.Select(m => m.objVersion.VersionId),

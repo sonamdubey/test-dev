@@ -94,7 +94,7 @@ namespace Bikewale.BAL.BikeData
                     }
                     if (genericBike != null)
                     {
-                        GetVersionSpecsByItemIdAdapter adapt1 = new GetVersionSpecsByItemIdAdapter();
+                        GetVersionSpecsSummaryByItemIdAdapter adapt1 = new GetVersionSpecsSummaryByItemIdAdapter();
                         VersionsDataByItemIds_Input specItemInput = new VersionsDataByItemIds_Input
                         {
                             Versions = new List<int> { genericBike.VersionId },

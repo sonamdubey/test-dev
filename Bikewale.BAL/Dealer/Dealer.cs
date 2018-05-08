@@ -242,7 +242,7 @@ namespace Bikewale.BAL.Dealer
                         EnumSpecsFeaturesItems.MaxPowerBhp,
                         EnumSpecsFeaturesItems.KerbWeight
                     };
-                    GetVersionSpecsByItemIdAdapter adapt = new GetVersionSpecsByItemIdAdapter();
+                    GetVersionSpecsSummaryByItemIdAdapter adapt = new GetVersionSpecsSummaryByItemIdAdapter();
                     VersionsDataByItemIds_Input specItemInput = new VersionsDataByItemIds_Input
                     {
                         Versions = bikesList.Select(m => m.objVersion.VersionId),

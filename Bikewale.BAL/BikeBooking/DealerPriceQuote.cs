@@ -437,7 +437,7 @@ namespace Bikewale.BAL.BikeBooking
                 pageDetail = dealerPQRepository.FetchBookingPageDetails(cityId, versionId, dealerId);
                 if (pageDetail != null && pageDetail.Varients != null)
                 {
-                    GetVersionSpecsByItemIdAdapter adapt1 = new GetVersionSpecsByItemIdAdapter();
+                    GetVersionSpecsSummaryByItemIdAdapter adapt1 = new GetVersionSpecsSummaryByItemIdAdapter();
                     VersionsDataByItemIds_Input specItemInput = new VersionsDataByItemIds_Input {
                         Versions = new List<int> { (int)versionId },
                         Items = new List<EnumSpecsFeaturesItems> {

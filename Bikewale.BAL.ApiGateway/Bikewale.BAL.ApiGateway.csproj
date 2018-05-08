@@ -91,6 +91,7 @@
     <Compile Include="Adapters\BikeData\GetCustomDataTypesByItemIdAdapter.cs" />
     <Compile Include="Adapters\BikeData\GetVersionSpecsByIdAdapter.cs" />
     <Compile Include="Adapters\BikeData\GetVersionSpecsByItemIdAdapter.cs" />
+    <Compile Include="Adapters\BikeData\GetVersionSpecsSummaryByItemIdAdapter.cs" />
     <Compile Include="ApiGatewayHelper\AbstractApiGatewayAdapter.cs" />
     <Compile Include="ApiGatewayHelper\ApiGatewayCaller.cs" />
     <Compile Include="ApiGatewayHelper\ApiGatewayResponse.cs" />
