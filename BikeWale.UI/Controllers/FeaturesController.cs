@@ -18,11 +18,12 @@ namespace Bikewale.Controllers
         private readonly IBikeModels<BikeModelEntity, int> _bikeModels = null;
         private readonly IBikeModelsCacheRepository<int> _models = null;
         private readonly IBikeVersionCacheRepository<BikeVersionEntity, uint> _objBikeVersionsCache = null;
-        private readonly IBikeInfo _bikeInfo = null;       
+        private readonly IBikeInfo _bikeInfo = null;
         private readonly ICityCacheRepository _cityCacheRepo;
         private readonly IBikeMakesCacheRepository _bikeMakesCacheRepository = null;
+        private readonly IBikeSeries _series;
 
-        public FeaturesController(ICMSCacheContent Cache, IPager objPager, IUpcoming upcoming, IBikeModels<BikeModelEntity, int> bikeModels, IBikeModelsCacheRepository<int> models, IBikeVersionCacheRepository<BikeVersionEntity, uint> objBikeVersionsCache, IBikeInfo bikeInfo, ICityCacheRepository cityCacheRepo, IBikeMakesCacheRepository bikeMakesCacheRepository)
+        public FeaturesController(ICMSCacheContent Cache, IPager objPager, IUpcoming upcoming, IBikeModels<BikeModelEntity, int> bikeModels, IBikeModelsCacheRepository<int> models, IBikeVersionCacheRepository<BikeVersionEntity, uint> objBikeVersionsCache, IBikeInfo bikeInfo, ICityCacheRepository cityCacheRepo, IBikeMakesCacheRepository bikeMakesCacheRepository, IBikeSeries series)
         {
             _Cache = Cache;
             _objPager = objPager;
@@ -33,6 +34,7 @@ namespace Bikewale.Controllers
             _bikeMakesCacheRepository = bikeMakesCacheRepository;
             _cityCacheRepo = cityCacheRepo;
             _bikeInfo = bikeInfo;
+            _series = series;
         }
 
         /// <summary>
@@ -44,7 +46,7 @@ namespace Bikewale.Controllers
         [Filters.DeviceDetection()]
         public ActionResult Index()
         {
-            IndexPage obj = new IndexPage(_Cache, _objPager, _upcoming, _bikeModels);
+            IndexPage obj = new IndexPage(_Cache, _objPager, _upcoming, _bikeModels, _bikeMakesCacheRepository, _models, _series);
             if (obj.status == Entities.StatusCodes.ContentNotFound)
             {
                 return Redirect("/pagenotfound.aspx");
@@ -67,7 +69,7 @@ namespace Bikewale.Controllers
         [Route("m/features/")]
         public ActionResult Index_Mobile()
         {
-            IndexPage obj = new IndexPage(_Cache, _objPager, _upcoming, _bikeModels);
+            IndexPage obj = new IndexPage(_Cache, _objPager, _upcoming, _bikeModels, _bikeMakesCacheRepository, _models, _series);
             obj.IsMobile = true;
             if (obj.status == Entities.StatusCodes.ContentNotFound)
             {
@@ -93,7 +95,7 @@ namespace Bikewale.Controllers
         [Filters.DeviceDetection()]
         public ActionResult Detail(string basicId)
         {
-            DetailPage objDetail = new DetailPage(_Cache, _upcoming, _bikeModels, basicId, _objBikeVersionsCache, _bikeInfo, _cityCacheRepo, _bikeMakesCacheRepository);
+            DetailPage objDetail = new DetailPage(_Cache, _upcoming, _bikeModels, _models, basicId, _objBikeVersionsCache, _bikeInfo, _cityCacheRepo, _bikeMakesCacheRepository, _series);
             if (objDetail.status == Entities.StatusCodes.ContentNotFound)
             {
                 return Redirect("/pagenotfound.aspx");
@@ -120,7 +122,7 @@ namespace Bikewale.Controllers
         [Route("m/features/detail/{basicid}/")]
         public ActionResult Detail_Mobile(string basicId)
         {
-            DetailPage objDetail = new DetailPage(_Cache, _upcoming, _bikeModels, basicId, _objBikeVersionsCache, _bikeInfo, _cityCacheRepo, _bikeMakesCacheRepository);
+            DetailPage objDetail = new DetailPage(_Cache, _upcoming, _bikeModels, _models, basicId, _objBikeVersionsCache, _bikeInfo, _cityCacheRepo, _bikeMakesCacheRepository, _series);
             objDetail.IsMobile = true;
             if (objDetail.status == Entities.StatusCodes.ContentNotFound)
             {
@@ -152,7 +154,7 @@ namespace Bikewale.Controllers
         [Route("m/features/details/{basicid}/amp/")]
         public ActionResult DetailsAMP(string basicid)
         {
-            DetailPage objDetail = new DetailPage(_Cache, _upcoming, _bikeModels, basicid, _objBikeVersionsCache, _bikeInfo, _cityCacheRepo, _bikeMakesCacheRepository);
+            DetailPage objDetail = new DetailPage(_Cache, _upcoming, _bikeModels, _models, basicid, _objBikeVersionsCache, _bikeInfo, _cityCacheRepo, _bikeMakesCacheRepository, _series);
             if (objDetail.status == Entities.StatusCodes.ContentNotFound)
             {
                 return Redirect("/pagenotfound.aspx");
@@ -164,6 +166,7 @@ namespace Bikewale.Controllers
             else
             {
                 objDetail.IsAMPPage = true;
+                objDetail.IsMobile = true;
                 DetailFeatureVM objData = objDetail.GetData(9);
                 if (objDetail.status == Entities.StatusCodes.ContentNotFound)
                     return Redirect("/m/pageNotFound.aspx");

@@ -24,6 +24,7 @@ using Bikewale.Interfaces.Videos;
 using Bikewale.Models.CompareBikes;
 using Bikewale.Models.Images;
 using Bikewale.Models.Make;
+using Bikewale.Models.BikeSeries;
 using Bikewale.Models.UserReviews;
 using Bikewale.Utility;
 using System;
@@ -66,6 +67,7 @@ namespace Bikewale.Models
         private readonly IUserReviewsCache _cacheUserReviews;
         private readonly INewBikeLaunchesBL _newLaunchesBL;
         private readonly IPageFilters _pageFilters;
+        private readonly IBikeSeries _bikeSeries;
         private uint _makeCategoryId;
         public StatusCodes Status { get; set; }
         public MakeMaskingResponse objResponse { get; set; }
@@ -85,7 +87,7 @@ namespace Bikewale.Models
         private readonly String _adId_Desktop = "1516179232964";
 
 
-        public MakePageModel(string makeMaskingName, IBikeModels<BikeModelEntity, int> objModelEntity, IBikeModelsCacheRepository<int> bikeModelsCache, IBikeMakesCacheRepository bikeMakesCache, ICMSCacheContent articles, ICMSCacheContent expertReviews, IVideos videos, IUsedBikeDetailsCacheRepository cachedBikeDetails, IDealerCacheRepository cacheDealers, IUpcoming upcoming, IBikeCompare compareBikes, IServiceCenter objSC, IUserReviewsCache cacheUserReviews, INewBikeLaunchesBL newLaunchesBL, IPageFilters pageFilters)
+        public MakePageModel(string makeMaskingName, IBikeModels<BikeModelEntity, int> objModelEntity, IBikeModelsCacheRepository<int> bikeModelsCache, IBikeMakesCacheRepository bikeMakesCache, ICMSCacheContent articles, ICMSCacheContent expertReviews, IVideos videos, IUsedBikeDetailsCacheRepository cachedBikeDetails, IDealerCacheRepository cacheDealers, IUpcoming upcoming, IBikeCompare compareBikes, IServiceCenter objSC, IUserReviewsCache cacheUserReviews, INewBikeLaunchesBL newLaunchesBL, IPageFilters pageFilters, IBikeSeries bikeSeries)
         {
             this._makeMaskingName = makeMaskingName;
             this._bikeModelsCache = bikeModelsCache;
@@ -103,6 +105,7 @@ namespace Bikewale.Models
             _objModelEntity = objModelEntity;
             this._pageFilters = pageFilters;
             ProcessQuery(this._makeMaskingName);
+            this._bikeSeries = bikeSeries;
         }
 
         /// <summary>
@@ -227,6 +230,7 @@ namespace Bikewale.Models
                 BindResearchMoreMakeWidget(objData);
                 GetEMIDetails(objData);
                 BindExpertReviewCount(objData.ExpertReviews);
+                BindSeriesLinkages(objData, cityId);
 
                 if (!IsMobile)
                 {
@@ -1159,6 +1163,30 @@ namespace Bikewale.Models
             }
 
             objData.AdSlots = ads;
+        }
+
+
+        /// <summary>
+        /// Created By : Deepak Israni on 16 April 2018
+        /// Description: To bind the series linkage widget on the page.
+        /// </summary>
+        /// <param name="objData"></param>
+        /// <param name="cityId"></param>
+        private void BindSeriesLinkages(MakePageVM objData, uint cityId)
+        {
+            try
+            {
+                objData.SeriesLinkages = new MakeSeriesSlugVM
+                {
+                    MakeName = objData.MakeName,
+                    MakeMaskingName = objData.MakeMaskingName
+                };
+                objData.SeriesLinkages.MakeSeriesList = _bikeSeries.GetMakeSeries(Convert.ToInt32(_makeId), Convert.ToInt32(cityId));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, String.Format("MakePageModel.BindSeriesLinkages_MakeId_{0}_CityId_{1}", _makeId, cityId));
+            }
         }
     }
 }

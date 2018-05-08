@@ -1,6 +1,7 @@
 ﻿using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Filters;
 using Bikewale.Entities.Location;
+using Bikewale.Models.BikeSeries;
 using Bikewale.Models.Images;
 using Bikewale.Models.Make;
 using Bikewale.Models.NewBikeSearch;
@@ -58,6 +59,8 @@ namespace Bikewale.Models
     /// Modified By : Sanskar Gupta on 07 Mar 2018
     /// Description : Added `EMICalculator`
     /// Description: Added NewBikeSearchPopup
+    /// Modified By : Deepak Israni on 16 April 2018
+    /// Description : Added SeriesLinkages
     /// </author>
     public class MakePageVM : ModelBase
     {
@@ -118,5 +121,6 @@ namespace Bikewale.Models
         public EMICalculatorVM EMICalculator { get; set; }
         public FilterPageEntity PageFilters { get; set; }
         public NewBikeSearchPopupVM NewBikeSearchPopup { get; set; }
+        public MakeSeriesSlugVM SeriesLinkages { get; set; }
     }
 }

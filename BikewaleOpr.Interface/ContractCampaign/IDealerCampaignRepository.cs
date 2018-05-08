@@ -17,8 +17,8 @@ namespace BikewaleOpr.Interface.ContractCampaign
     {
         DealerCampaignEntity FetchBWDealerCampaign(uint campaignId);
         ICollection<CallToActionEntityBase> FetchDealerCallToActions();
-        bool UpdateBWDealerCampaign(bool isActive, int campaignId, int userId, int dealerId, int contractId, string maskingNumber, string dealerName, string dealerEmailId, int dailyleadlimit, ushort callToAction, bool isBookingAvailable = false);
-        int InsertBWDealerCampaign(bool isActive, int userId, int dealerId, int contractId, string maskingNumber, string dealerName, string dealerEmailId, int dailyleadlimit, ushort callToAction, bool isBookingAvailable = false);
+        bool UpdateBWDealerCampaign(bool isActive, int campaignId, int userId, int dealerId, int contractId, string maskingNumber, string dealerName, string dealerEmailId, int dailyleadlimit, ushort callToAction, string additionalNumbers, string additionalEmails,bool isBookingAvailable = false);
+        int InsertBWDealerCampaign(bool isActive, int userId, int dealerId, int contractId, string maskingNumber, string dealerName, string dealerEmailId, int dailyleadlimit, ushort callToAction,string additionalNumbers, string additionalEmails, bool isBookingAvailable = false);
         ICollection<BikeMakeEntityBase> MakesByDealerCity(uint cityId);
         ICollection<DealerEntityBase> DealersByMakeCity(uint cityId, uint makeId, bool activecontract);
         ICollection<DealerCampaignDetailsEntity> DealerCampaigns(uint dealerId, uint cityId, uint makeId, bool activecontract);

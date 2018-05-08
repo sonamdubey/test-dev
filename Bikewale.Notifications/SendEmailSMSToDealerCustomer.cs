@@ -15,9 +15,12 @@ namespace Bikewale.Notifications
     /// </summary>
     public class SendEmailSMSToDealerCustomer
     {
+        private static string[] commaSeperator = new string[] {","};
         /// <summary>
         /// Modified BY : Lucky Rathore on 12 May 2016
         /// Description : Signature of NewBikePriceQuoteMailToDealerTemplate() changed.
+        /// Modified by : Pratibha Verma on 27 April 2018
+        /// Description : send email to multiple dealers
         /// </summary>
         /// <param name="makeName"></param>
         /// <param name="modelName"></param>
@@ -33,19 +36,24 @@ namespace Bikewale.Notifications
         /// <param name="totalPrice"></param>
         /// <param name="offerList"></param>
         /// <param name="imagePath"></param>
+        /// <param name="additionalEmails"></param>
         public static void SendEmailToDealer(string makeName, string modelName, string versionName, string dealerName, string dealerEmail, string customerName, string customerEmail, string customerMobile, string areaName, string cityName, List<PQ_Price> priceList, int totalPrice, List<OfferEntity> offerList,
-            string imagePath)
+            string imagePath, string additionalEmails)
         {
             if (!String.IsNullOrEmpty(dealerEmail))
             {
-                string[] arrDealerEmail = dealerEmail.Split(',');
-
+                string[] arrDealerEmail = dealerEmail.Split(commaSeperator, StringSplitOptions.RemoveEmptyEntries);
+                string[] arrAdditionalEmail = null;
+                if (!string.IsNullOrEmpty(additionalEmails))
+                {
+                    arrAdditionalEmail = additionalEmails.Split(commaSeperator, StringSplitOptions.RemoveEmptyEntries);
+                }
                 foreach (string email in arrDealerEmail)
                 {
                     ComposeEmailBase objEmail = new NewBikePriceQuoteMailToDealerTemplate(makeName + " " + modelName, versionName, dealerName, customerName,
                         customerEmail, customerMobile, areaName, cityName,
                         priceList, totalPrice, offerList, imagePath);
-                    objEmail.Send(email, "BikeWale Purchase Inquiry - " + makeName + " " + modelName + " " + versionName, customerEmail);
+                    objEmail.Send(email, "BikeWale Purchase Inquiry - " + makeName + " " + modelName + " " + versionName, customerEmail, arrAdditionalEmail, null);
                 }
             }
         }
@@ -86,6 +94,8 @@ namespace Bikewale.Notifications
         /// <summary>
         /// Modified By : Lucky Rathore on 11 July 2016.
         /// Description : parameter dealerArea added. 
+        /// Modified by : Pratibha Verma on 27 April 2018
+        /// Description : send sms to multiple dealers
         /// </summary>
         /// <param name="dealerMobile"></param>
         /// <param name="customerName"></param>
@@ -94,10 +104,20 @@ namespace Bikewale.Notifications
         /// <param name="areaName"></param>
         /// <param name="cityName"></param>
         /// <param name="dealerArea"></param>
-        public static void SMSToDealer(string dealerMobile, string customerName, string customerMobile, string bikeName, string areaName, string cityName, string dealerArea)
+        /// <param name="additionalNumbers"></param>
+        public static void SMSToDealer(string dealerMobile, string customerName, string customerMobile, string bikeName, string areaName, string cityName, string dealerArea, string additionalNumbers)
         {
             Bikewale.Notifications.SMSTypes obj = new Bikewale.Notifications.SMSTypes();
             obj.NewBikePriceQuoteSMSToDealer(dealerMobile, customerName, customerMobile, bikeName, areaName, cityName, HttpContext.Current.Request.ServerVariables["URL"].ToString(), dealerArea);
+            string[] arrAdditionalNumbers = null;
+            if (!string.IsNullOrEmpty(additionalNumbers))
+            {
+                arrAdditionalNumbers = additionalNumbers.Split(commaSeperator, StringSplitOptions.RemoveEmptyEntries);
+                foreach (var additionalNumber in arrAdditionalNumbers)
+                {
+                    obj.NewBikePriceQuoteSMSToDealer(additionalNumber, customerName, customerMobile, bikeName, areaName, cityName, HttpContext.Current.Request.ServerVariables["URL"].ToString(), dealerArea);
+                }
+            }
         }
 
         public static void SMSToCustomer(PQ_DealerDetailEntity dealerEntity, string customerMobile, string customerName, string BikeName, string dealerName, string dealerContactNo, string dealerAddress, uint bookingAmount, uint insuranceAmount = 0, bool hasBumperDealerOffer = false)

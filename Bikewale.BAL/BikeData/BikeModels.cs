@@ -337,7 +337,13 @@ namespace Bikewale.BAL.BikeData
             }
             return objList;
         }
-
+        /// <summary>
+        /// Modified by : Sanskar Gupta on 16 April 2018
+        /// Description : Added null check for `objList`
+        /// </summary>
+        /// <param name="ObjData"></param>
+        /// <param name="isCityLogicPresent"></param>
+        /// <returns></returns>
         public IEnumerable<MostPopularBikesBase> GetAdPromotedBike(BikeFilters ObjData, bool isCityLogicPresent)
         {
             IEnumerable<MostPopularBikesBase> objList = null;
@@ -352,9 +358,10 @@ namespace Bikewale.BAL.BikeData
             else
                 objList = _modelCacheRepository.GetAdPromotedBikeWithOutCity(ObjData);
 
-            objList = objList.Where(x => x.StartDate < DateTime.Now && x.EndDate > DateTime.Now);
             if (objList != null)
             {
+                objList = objList.Where(x => x.StartDate < DateTime.Now && x.EndDate > DateTime.Now);
+
                 var specsItemList = new List<EnumSpecsFeaturesItems>
                 {
                     EnumSpecsFeaturesItems.Displacement,
@@ -1831,7 +1838,7 @@ namespace Bikewale.BAL.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass.LogError(ex, string.Format("Bikewale.BAL.BikeModels.GetBestBikesByCategory: BodyStyle:{0}", bodyStyle));
+                ErrorClass.LogError(ex, string.Format("Bikewale.BAL.BikeModels.GetBestBikesByCategory : BodyStyle:{0}", bodyStyle));
             }
             return bestBikesList;
         }
@@ -1853,7 +1860,7 @@ namespace Bikewale.BAL.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass.LogError(ex, string.Format("Bikewale.BAL.BikeModels.GetBestBikesByCategory: ModelId:{0}", modelId));
+				ErrorClass.LogError(ex, string.Format("Bikewale.BAL.BikeModels.GetBestBikesByModelInMake: ModelId:{0}", modelId));
             }
             return bestBikesList;
         }

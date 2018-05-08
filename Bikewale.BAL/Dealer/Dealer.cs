@@ -356,6 +356,7 @@ namespace Bikewale.BAL.Dealer
         /// <summary>
         /// Created By : Snehal Dange on 18th Jan 2018
         /// Description: BAL layer Function for sending dealer showroom sms data from DAL.
+        /// Modifier : Kartik Rathod on 30 apl 2018 changed input para of DealerShowroomDetailsSMS method
         /// </summary>
         public EnumSMSStatus GetDealerShowroomSMSData(MobileSmsVerification objData)
         {
@@ -367,8 +368,7 @@ namespace Bikewale.BAL.Dealer
                 {
                     if (objSMSData.SMSStatus == EnumSMSStatus.Success)
                     {
-                        SMSTypes newSms = new SMSTypes();
-                        newSms.DealerShowroomDetailsSMS(objData.MobileNumber, objSMSData.Name, objSMSData.Area, objSMSData.Address, objSMSData.Phone, objSMSData.CityName, objData.PageUrl, objSMSData.Latitude, objSMSData.Longitude);
+                        SMSTypes.DealerShowroomDetailsSMS(objSMSData, objData);
                         return EnumSMSStatus.Success;
                     }
                     else if (objSMSData.SMSStatus == EnumSMSStatus.Daily_Limit_Exceeded)

@@ -1,7 +1,7 @@
 ﻿@model Bikewale.Models.MakePageVM
 @{
-    Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/m/make/make.css' inline /><link rel='stylesheet' type='text/css' href='/css/emicalculator.css' inline />";
+	Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
+	Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/m/make/make.css' inline /><link rel='stylesheet' type='text/css' href='/css/emicalculator.css' inline /> <link rel='stylesheet' type='text/css' href='/sass/partials/explore-bikes-carousel.css' inline />";
     Model.Page_JS_Paths = new[] { "/m/src/make.js", "/m/src/popup/newBikeSearchPopup.js", "/src/emi-calculator.js" };
     ushort index = 0, prev = 0, gap = 2, j = 0;    
 }
@@ -20,6 +20,7 @@
                     @Html.Partial("~/Views/Make/_NewLaunchedMake_Mobile.cshtml", Model.NewLaunchedWidget)
                 </section>
             }
+
             @if (Model.TopPopularBikes != null && Model.TopPopularBikes.Any())
             {
                 <section>
@@ -30,7 +31,7 @@
                         </div>
 
                         <div class="swiper-container carousel__popular-bikes" data-spacebetween="0">
-                            <ul class="swiper-wrapper">                                
+                            <ul class="swiper-wrapper">
                                 @foreach (var bike in Model.TopPopularBikes)
                                 {
                                     var modelUrl = Bikewale.Utility.UrlFormatter.BikePageUrl(bike.objMake.MaskingName, bike.objModel.MaskingName);
@@ -97,15 +98,16 @@
                     </div>
                 </section>
             }
-            
-            @if (Model.AdTags.Ad_320x100_Top) { 
+
+            @if (Model.AdTags.Ad_320x100_Top)
+            {
                 <section>
                     <div style="margin-bottom: 20px">
                         @{Html.RenderPartial("/Views/Shared/Ads/Mobile/AdSlotGeneric.cshtml", Model.AdSlots[String.Format("{0}-3", Model.AdTags.AdId)]);}
                     </div>
                 </section>
             }
-            
+
             @if (Model.Bikes != null && Model.Bikes.Count() > 0)
             {
                 <section>
@@ -116,18 +118,18 @@
                         <ul class="all-model__list">
                             @foreach (var bike in Model.Bikes)
                             {
-                                if (Model.PageFilters != null && Model.PageFilters.FilterResults!=null)
+                                if (Model.PageFilters != null && Model.PageFilters.FilterResults != null)
                                 {
 
                                     if (j - prev == gap && index < Model.PageFilters.FilterResults.Count() && Model.PageFilters.FilterResults[index].FilterType != null)
                                     {
                                         <li class="model-list__item filter-type__item" data-filter-type="@Model.PageFilters.FilterResults[index].FilterType">
-                                        @Html.Partial("~/Views/Filters/InPageFilters/_InPageFilters_Mobile.cshtml", Model.PageFilters.FilterResults[index])
-                                        </li> 
+                                            @Html.Partial("~/Views/Filters/InPageFilters/_InPageFilters_Mobile.cshtml", Model.PageFilters.FilterResults[index])
+                                        </li>
                                         gap++;
                                         prev = j;
                                         index++;
-                                    
+
                                     }
                                     j++;
                                 }
@@ -191,9 +193,9 @@ string.Format("{0} <span class='font14'> onwards</span>", Bikewale.Utility.Forma
 
                                                     @if (bike.AvgPrice > 0)
                                                     {
-                                                    <p class="margin-top5 text--semibold">
-                                                        <a href="javascript:void(0)" data-makename="@Model.MakeName" data-modelname="@bike.objModel.ModelName" data-modelid="@bike.objModel.ModelId" data-pagecatid="1" data-pqsourceid=@((int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_MakePage) class="getquotation bw-ga" rel="nofollow">Check On Road Price</a>
-                                                    </p>
+                                                        <p class="margin-top5 text--semibold">
+                                                            <a href="javascript:void(0)" data-makename="@Model.MakeName" data-modelname="@bike.objModel.ModelName" data-modelid="@bike.objModel.ModelId" data-pagecatid="1" data-pqsourceid=@((int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_MakePage) class="getquotation bw-ga" rel="nofollow">Check On Road Price</a>
+                                                        </p>
                                                     }
 
                                                 </div>
@@ -203,23 +205,24 @@ string.Format("{0} <span class='font14'> onwards</span>", Bikewale.Utility.Forma
                                                         <p class="card-emi__label">EMI starting at</p>
                                                         <span class="card-emi__value">@Html.Raw("<span>&#x20B9;</span>") @Bikewale.Utility.Format.FormatPrice(bike.EMIDetails.EMIAmount.ToString())</span>
                                                         @{var emiDetails = bike.EMIDetails;
-                                                            var bikePrice = bike.OnRoadPrice>0 ? bike.OnRoadPrice : bike.OnRoadPriceMumbai;
-                             
+                                                        var bikePrice = bike.OnRoadPrice > 0 ? bike.OnRoadPrice : bike.OnRoadPriceMumbai;
+
                                                         }
-                                                        @if(bikePrice > 0){
+                                                        @if (bikePrice > 0)
+                                                        {
                                                             <p class="margin-top10 text--semibold">
-                                                                <a href="javascript:void(0)" rel="nofollow" class="emi-calculator__link emicalculator_link_event bw-ga" data-cat="Make_Page" data-act="Calculate_EMI_Clicked" data-lab="@string.Format("{0}_{1}", Model.MakeName, bike.objModel.ModelName)" id="emiCalculatorLink-@bike.objModel.ModelId"data-bikePrice="@bikePrice" data-bikeExshowroomPrice="@bike.ExShowroomPrice" data-emiDetails="@Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(Newtonsoft.Json.JsonConvert.SerializeObject(emiDetails))">
+                                                                <a href="javascript:void(0)" rel="nofollow" class="emi-calculator__link emicalculator_link_event bw-ga" data-cat="Make_Page" data-act="Calculate_EMI_Clicked" data-lab="@string.Format("{0}_{1}", Model.MakeName, bike.objModel.ModelName)" id="emiCalculatorLink-@bike.objModel.ModelId" data-bikeprice="@bikePrice" data-bikeexshowroomprice="@bike.ExShowroomPrice" data-emidetails="@Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(Newtonsoft.Json.JsonConvert.SerializeObject(emiDetails))">
                                                                     Calculate EMI
                                                                 </a>
                                                             </p>
                                                         }
-                                                        
+
                                                     </div>
                                                 }
 
                                             </div>
                                         </div>
-                                        
+
                                     </div>
                                 </li>
                             }
@@ -230,10 +233,22 @@ string.Format("{0} <span class='font14'> onwards</span>", Bikewale.Utility.Forma
             <div id="mobileEmiCalculator">
                 @Html.Partial("~/Views/Shared/_EmiCalculator.cshtml", Model.EMICalculator)
                 <span class="clear"></span>
-            </div> 
-            
+            </div>
+
+            @if (Model.SeriesLinkages.MakeSeriesList != null && Model.SeriesLinkages.MakeSeriesList.Any())
+            {
+                <section>
+                    <div class="bg-white section-bottom-margin">
+                        <div class="carousel__title">
+                            <h2 class="page__heading-h2">Explore @Model.MakeName Bike Series</h2>
+                        </div>
+                        @Html.Partial("~/Views/BikeSeries/_MakeSeriesSlug_Mobile_New.cshtml", Model.SeriesLinkages)
+                    </div>
+                </section>
+            }
+
             @if (Model.AdTags.Ad_300x250_Top)
-            { 
+            {
                 <section>
                     <div style="margin-bottom: 20px">
                         @{Html.RenderPartial("/Views/Shared/Ads/Mobile/AdSlotGeneric.cshtml", Model.AdSlots[String.Format("{0}-1", Model.AdTags.AdId)]);}
@@ -256,28 +271,28 @@ string.Format("{0} <span class='font14'> onwards</span>", Bikewale.Utility.Forma
                 </section>
             }
 
-                @if (Model.IsCompareBikesAvailable)
-                {
-                    <div data-id="compareBikes" id="popularComparison" class="overall-tabs-data">
-                            <div class="container bg-white section-bottom-margin comparison-section">
-                                <div class="padding-bottom15">
-                                    <div class="carousel__title">
-                                        <h2 class="page__heading-h2 carousel-title__label">Popular Comparison of @Model.MakeName Bikes</h2>
-                                        <a href="/m/comparebikes/" class="view-all-btn" title="View more comparisons">
-                                            View all
-                                        </a>
-                                        <div class="clear"></div>
-                                    </div>
+            @if (Model.IsCompareBikesAvailable)
+            {
+                <div data-id="compareBikes" id="popularComparison" class="overall-tabs-data">
+                    <div class="container bg-white section-bottom-margin comparison-section">
+                        <div class="padding-bottom15">
+                            <div class="carousel__title">
+                                <h2 class="page__heading-h2 carousel-title__label">Popular Comparison of @Model.MakeName Bikes</h2>
+                                <a href="/m/comparebikes/" class="view-all-btn" title="View more comparisons">
+                                    View all
+                                </a>
+                                <div class="clear"></div>
+                            </div>
 
-                                    <div class="swiper-container comparison-swiper card-container">
-                                        <div class="swiper-wrapper">
-                                            @Html.Partial("~/Views/CompareBikes/_SimilarComparisons_Mobile_V1.cshtml", Model.CompareSimilarBikes)
-                                        </div>
-                                    </div>
+                            <div class="swiper-container comparison-swiper card-container">
+                                <div class="swiper-wrapper">
+                                    @Html.Partial("~/Views/CompareBikes/_SimilarComparisons_Mobile_V1.cshtml", Model.CompareSimilarBikes)
                                 </div>
                             </div>
+                        </div>
                     </div>
-                }
+                </div>
+            }
 
 
             <div id="notifyPopup">
@@ -320,7 +335,7 @@ string.Format("{0} <span class='font14'> onwards</span>", Bikewale.Utility.Forma
 
                     </div>
                     <div class="interesting-fact__bg-window"></div>
-                </div>                
+                </div>
 
                 <section>
                     <div data-id="@(Model.IsCompareBikesAvailable ? "compareBikes" : Model.IsUpComingBikesAvailable ? "upcomingBikes" : "bikeModel")" class="section-bottom-margin interesting-fact-section  overall-tabs-data">
@@ -407,16 +422,16 @@ string.Format("{0} <span class='font14'> onwards</span>", Bikewale.Utility.Forma
                     </div>
                 </section>
             }
-            
+
             @if (Model.AdTags.Ad_300x250_Middle)
-            { 
+            {
                 <section>
-                    <div style = "margin-bottom: 20px">
+                    <div style="margin-bottom: 20px">
                         @{Html.RenderPartial("/Views/Shared/Ads/Mobile/AdSlotGeneric.cshtml", Model.AdSlots[String.Format("{0}-2", Model.AdTags.AdId)]);}
                     </div>
                 </section>
             }
-            
+
             @if (Model.IsExpertReviewsAvailable || Model.IsUserReviewsAvailable)
             {
                 <section>
@@ -482,7 +497,7 @@ string.Format("{0} <span class='font14'> onwards</span>", Bikewale.Utility.Forma
                         <div class="carousel__title">
                             <h2 class="page__heading-h2 carousel-title__label">@Model.MakeName Videos</h2>
                         </div>
-                        @Html.Partial("~/Views/Videos/_LazyLoadVideos.cshtml", Model.Videos)
+                        @Html.Partial("~/Views/Videos/_LazyLoadVideos_Mobile.cshtml", Model.Videos)
                         <div class="video-list__more-btn-content">
                             <a href="@string.Format("/m{0}", Model.Videos.MoreVideoUrl)" title="@Model.Videos.LinkTitle" class="btn btn-inv-blue">View all</a>
                         </div>

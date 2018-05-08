@@ -17,6 +17,9 @@ namespace Bikewale.Models
     /// description : added PopularScooterMakesWidget
     /// Modified by : Rajan Chauhan on 26 Feb 2018
     /// description : Added base class CMSArticleDetailPageVM
+    /// Modified by: Dhruv Joshi
+    /// Dated: 19th April 2018
+    /// Description: Moved PageWidgets Dictionary to parent class
     /// </summary>
     public class ExpertReviewsDetailPageVM : CMSArticleDetailPageVM
     {
