@@ -146,7 +146,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AutoBizServiceRef.cs" />
+    <Compile Include="Cache\HondaModelCacheRepository.cs" />
     <Compile Include="Entities\BajajFinanceLeadEntity.cs" />
+    <Compile Include="Interface\IHondaManufacturerCache.cs" />
     <Compile Include="LeadHandlers\BajajFinanceLeadHandler.cs" />
     <Compile Include="Entities\BikeQuotationEntity.cs" />
     <Compile Include="LeadHandlers\DefaultManufacturerLeadHandler.cs" />
@@ -191,8 +193,12 @@
     <None Include="Web References\RoyalEnfieldWebAPI\Service.wsdl" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Bikewale.Cache.Core\Bikewale.Cache.Core.csproj">
+      <Project>{038BC901-9D7F-4A95-8CA6-117DB3AA48CC}</Project>
+      <Name>Bikewale.Cache.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Bikewale.Utility\Bikewale.Utility.csproj">
-      <Project>{ea0864e7-7715-4d93-80be-3300bb542e42}</Project>
+      <Project>{EA0864E7-7715-4D93-80BE-3300BB542E42}</Project>
       <Name>Bikewale.Utility</Name>
     </ProjectReference>
   </ItemGroup>

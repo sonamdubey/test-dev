@@ -65,6 +65,7 @@ namespace Bikewale.Entities.PriceQuote
         public bool PinCodeRequired { get; set; }
         public bool DealersRequired { get; set; }
         public bool EmailRequired { get; set; }
+        public uint ModelId { get; set; }
 
     }
 }

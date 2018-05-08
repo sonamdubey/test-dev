@@ -1,5 +1,9 @@
-﻿using Consumer;
+﻿
+using Bikewale.RabbitMq.LeadProcessingConsumer.Cache;
+using Bikewale.RabbitMq.LeadProcessingConsumer.Interface;
+using Consumer;
 using System;
+using System.Collections;
 using System.Net.Http;
 
 namespace Bikewale.RabbitMq.LeadProcessingConsumer
@@ -10,6 +14,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
     /// </summary>
     internal class HondaManufacturerLeadHandler : ManufacturerLeadHandler
     {
+        private readonly IHondaManufacturerCache _hondaModels;
         /// <summary>
         /// Type initializer
         /// </summary>
@@ -18,6 +23,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
         /// <param name="isAPIEnabled"></param>
         public HondaManufacturerLeadHandler(uint manufacturerId, string urlAPI, bool isAPIEnabled) : base(manufacturerId, urlAPI, isAPIEnabled)
         {
+            _hondaModels = new HondaModelCacheRepository();
         }
 
         /// <summary>
@@ -34,6 +40,8 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
         /// <summary>
         /// Created by  :   Sumit Kate on 05 Jul 2017
         /// Description :   Push Lead To Manufacturer using API
+        /// Modified by :   Pratibha Verma on 4 April 2018
+        /// Description :   pass mapped model name in api
         /// </summary>
         /// <param name="leadEntity"></param>
         /// <returns></returns>
@@ -41,21 +49,35 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
         {
             string leadURL = string.Empty;
             string response = string.Empty;
+            string apiModelName = string.Empty;
+            GaadiLeadEntity gaadiLead = null;
             try
             {
 
                 BikeQuotationEntity quotation = base.LeadRepostiory.GetPriceQuoteById(leadEntity.PQId);
-
-                GaadiLeadEntity gaadiLead = new GaadiLeadEntity()
+                Hashtable hondaModels = _hondaModels.GetHondaModelMapping();
+                if (quotation != null)
                 {
-                    City = quotation.City,
-                    Email = leadEntity.CustomerEmail,
-                    Make = quotation.MakeName,
-                    Mobile = leadEntity.CustomerMobile,
-                    Model = quotation.ModelName,
-                    Name = leadEntity.CustomerName,
-                    State = quotation.State
-                };
+                    if (hondaModels != null && hondaModels.ContainsKey((int)quotation.ModelId))
+                    {
+                        apiModelName = Convert.ToString(hondaModels[(int)quotation.ModelId]);
+                    }
+                    else
+                    {
+                        apiModelName = quotation.ModelName;
+                    }
+
+                    gaadiLead = new GaadiLeadEntity()
+                    {
+                        City = quotation.City,
+                        Email = leadEntity.CustomerEmail,
+                        Make = quotation.MakeName,
+                        Mobile = leadEntity.CustomerMobile,
+                        Model = apiModelName,
+                        Name = leadEntity.CustomerName,
+                        State = quotation.State
+                    };
+                }
 
                 using (HttpClient _httpClient = new HttpClient())
                 {
