@@ -131,6 +131,7 @@
     <Compile Include="BikeModels.cs" />
     <Compile Include="BikePricing\BwPrice.cs" />
     <Compile Include="BikeSeries.cs" />
+    <Compile Include="BWCache.cs" />
     <Compile Include="ContractCampaign\ContractCampaignMapping.cs" />
     <Compile Include="BikePricing\DealerPrice.cs" />
     <Compile Include="Dealers.cs" />
