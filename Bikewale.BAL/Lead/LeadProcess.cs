@@ -97,6 +97,7 @@ namespace Bikewale.BAL.Lead
                         pqCustomerDetailEntity = NotifyCustomerAndDealer(pqInput, requestHeaders);
                         pqCustomerDetailEntity.Dealer = objBookingPageDetailsEntity.Dealer;
                         pqCustomerDetailEntity.NoOfAttempts = noOfAttempts;
+                        pqCustomerDetailEntity.IsSuccess = isSuccess;
 
                     }
 

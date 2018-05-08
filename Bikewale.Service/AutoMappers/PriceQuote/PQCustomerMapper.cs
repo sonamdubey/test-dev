@@ -44,6 +44,7 @@ namespace Bikewale.Service.AutoMappers.PriceQuote
         internal static DTO.PriceQuote.PQCustomerDetailOutput Convert(Entities.PriceQuote.PQCustomerDetailOutputEntity outEntity)
         {
             Mapper.CreateMap<Entities.PriceQuote.PQCustomerDetailOutputEntity, DTO.PriceQuote.PQCustomerDetailOutput>();
+            Mapper.CreateMap<Entities.PriceQuote.DealerDetails, DTO.PriceQuote.BikeBooking.DealerDetailsDTO>();
             return Mapper.Map<Entities.PriceQuote.PQCustomerDetailOutputEntity, DTO.PriceQuote.PQCustomerDetailOutput>(outEntity);
         }
 

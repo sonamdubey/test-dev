@@ -93,7 +93,8 @@ namespace Bikewale.Service.Controllers.PriceQuote
         /// <param name="input">Customer details with price quote details</param>
         /// <returns></returns>
         [ResponseType(typeof(PQCustomerDetailOutput))]
-        public IHttpActionResult Post([FromBody]PQCustomerDetailInput input)
+        [HttpPost,Route("api/PQCustomerDetail/")]
+        public IHttpActionResult Post([FromBody]DTO.PriceQuote.PQCustomerDetailInput input)
         {
 
             PQCustomerDetailOutput output = null;
@@ -376,6 +377,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
         /// </summary>
         /// <param name="input">Customer details with price quote details</param>
         /// <returns></returns>
+        [HttpPost, Route("api/PQCustomerDetail/1")]
         public IHttpActionResult PostNew([FromBody]Bikewale.DTO.PriceQuote.PQCustomerDetailInput input)
         {
 
