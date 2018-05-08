@@ -50,7 +50,7 @@
 <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-5CSHD6"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
-<% Bikewale.Utility.BWCookies.SetBWUtmz(); %>
+
 
 <!--[if lt IE 9]>
     <script src="<%= staticUrl  %>/src/html5.js?<%= staticFileVersion %>"></script>

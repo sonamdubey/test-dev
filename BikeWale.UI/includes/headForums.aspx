@@ -13,7 +13,7 @@
         private string staticUrl = System.Configuration.ConfigurationManager.AppSettings["staticUrl"];
         private string staticFileVersion = System.Configuration.ConfigurationManager.AppSettings["staticFileVersion"];
     </script>
-    <% Bikewale.Utility.BWCookies.SetBWUtmz(); %>
+
 </head>
 <body>
     <form runat="server">
