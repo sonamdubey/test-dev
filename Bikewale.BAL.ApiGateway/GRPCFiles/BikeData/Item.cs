@@ -47,7 +47,7 @@ namespace VehicleData.Service.ProtoClass {
             "CEl0ZW1MaXN0EiAKBUl0ZW1zGAEgAygLMhEuVmVoaWNsZURhdGEuSXRlbSpa",
             "Cg5JdGVtR3JvdXBUeXBlcxIICgROb25lEAASDgoKSW5kaXZpZHVhbBABEhcK",
             "E0luZGl2aWR1YWxseUNyZWF0ZWQQAhIVChFJbmRpdmlkdWFsbHlTaG93bhAD",
-            "KjUKCkl0ZW1TdGF0dXMSDQoJUHVibGlzaGVkEAASDwoLVW5QdWJsaXNoZWQQ",
+            "KjUKCkl0ZW1TdGF0dXMSDwoLVW5QdWJsaXNoZWQQABINCglQdWJsaXNoZWQQ",
             "ARIHCgNBbGwQAkIhqgIeVmVoaWNsZURhdGEuU2VydmljZS5Qcm90b0NsYXNz",
             "YgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
@@ -71,8 +71,8 @@ namespace VehicleData.Service.ProtoClass {
   }
 
   public enum ItemStatus {
-    [pbr::OriginalName("Published")] Published = 0,
-    [pbr::OriginalName("UnPublished")] UnPublished = 1,
+    [pbr::OriginalName("UnPublished")] UnPublished = 0,
+    [pbr::OriginalName("Published")] Published = 1,
     [pbr::OriginalName("All")] All = 2,
   }
 

@@ -13,12 +13,14 @@ using VehicleData.Service.ProtoClass;
 namespace Bikewale.BAL.ApiGateway.Adapters.BikeData
 {
 	/// <summary>
-	/// Created By : Ashish G. Kamble on 6 Apr 2018
-	/// Summary : Adapter class responsible for executing GRPC method through APIGateway and return reponse to the client.
+	/// Created By : Rajan Chauhan on 7 May 2018
+	/// Summary    : Adapter class responsible for executing GetVersionSpecsSummary GRPC method through APIGateway and return reponse to the client.
+	///	             Only specific set of ItemIds is allowed in the input 
 	/// </summary>
-	public class GetVersionSpecsByItemIdAdapter : AbstractApiGatewayAdapter<VersionsDataByItemIds_Input, IEnumerable<VersionMinSpecsEntity>, VersionItemsDataResponse>
+	public class GetVersionSpecsSummaryByItemIdAdapter : AbstractApiGatewayAdapter<VersionsDataByItemIds_Input, IEnumerable<VersionMinSpecsEntity>, VersionSpecsSummaryList>
 	{
-		public GetVersionSpecsByItemIdAdapter() : base(BWConfiguration.Instance.SpecsFeaturesServiceModuleName, "VersionsDataByItemIds")
+		public GetVersionSpecsSummaryByItemIdAdapter()
+			: base(BWConfiguration.Instance.SpecsFeaturesServiceModuleName, "GetVersionSpecsSummary")
 		{
 		}
 
@@ -29,13 +31,13 @@ namespace Bikewale.BAL.ApiGateway.Adapters.BikeData
 		/// <returns>Returns GRPC message</returns>
 		protected override IMessage BuildRequest(VersionsDataByItemIds_Input input)
 		{
-			VersionsDataByItemIdsRequest requestInput = null;
+			SpecsSummaryRequest requestInput = null;
 
 			try
 			{
 				if (input != null && input.Versions != null && input.Versions.Any() && input.Items != null)
 				{
-					requestInput = new VersionsDataByItemIdsRequest
+					requestInput = new SpecsSummaryRequest
 					{
 						ItemIds = { input.Items.Select(specId => (int)specId) },
 						VersionIds = { input.Versions },
@@ -45,7 +47,7 @@ namespace Bikewale.BAL.ApiGateway.Adapters.BikeData
 			}
 			catch (Exception ex)
 			{
-				ErrorClass.LogError(ex, "Bikewale.BAL.ApiGateway.Adapters.BikeData.GetVersionSpecsByItemIdAdapter.BuildRequest");
+				ErrorClass.LogError(ex, "Bikewale.BAL.ApiGateway.Adapters.BikeData.GetVersionSpecsSummaryByItemIdAdapter.BuildRequest");
 			}
 
 			return requestInput;
@@ -62,25 +64,25 @@ namespace Bikewale.BAL.ApiGateway.Adapters.BikeData
 
 			try
 			{
-				VersionItemsDataResponse response = responseMessage as VersionItemsDataResponse;
+				VersionSpecsSummaryList response = responseMessage as VersionSpecsSummaryList;
 
 				if (response != null)
-				{					
+				{
 					versionMinSpecsList = new List<VersionMinSpecsEntity>();
 
-					foreach (var versionItemsData in response.VersionItemsDataList)
+					foreach (var versionItemsData in response.Values)
 					{
 						versionMinSpecsList.Add(new VersionMinSpecsEntity
 						{
 							VersionId = versionItemsData.Id,
-							MinSpecsList = ConvertToMinSpecsList(versionItemsData.ItemList)
+							MinSpecsList = ConvertToMinSpecsList(versionItemsData.Specs)
 						});
 					}
 				}
 			}
 			catch (Exception ex)
 			{
-				ErrorClass.LogError(ex, "Bikewale.BAL.ApiGateway.Adapters.BikeData.GetVersionSpecsByItemIdAdapter.BuildResponse");
+				ErrorClass.LogError(ex, "Bikewale.BAL.ApiGateway.Adapters.BikeData.VersionsDataByItemIdsAdapter.BuildResponse");
 			}
 
 			return versionMinSpecsList;
@@ -91,7 +93,7 @@ namespace Bikewale.BAL.ApiGateway.Adapters.BikeData
 		/// </summary>
 		/// <param name="items">GRPC Message</param>
 		/// <returns>Bikewale Entity</returns>
-		private IEnumerable<SpecsItem> ConvertToMinSpecsList(RepeatedField<ItemData> items)
+		private IEnumerable<SpecsItem> ConvertToMinSpecsList(RepeatedField<SpecsSummary> items)
 		{
 			ICollection<SpecsItem> specItemList = null;
 
@@ -103,22 +105,22 @@ namespace Bikewale.BAL.ApiGateway.Adapters.BikeData
 
 					foreach (var itemData in items)
 					{
-                        specItemList.Add(new SpecsItem
-                        {
-                            Id = itemData.ItemId,
-                            Icon = itemData.Icon,
-                            Name = itemData.ItemName,
-                            Value = itemData.Value,
-                            UnitType = itemData.UnitType,
-                            DataType = (EnumSpecDataType)itemData.DataTypeId,
-                            CustomTypeId = itemData.CustomTypeId
+						specItemList.Add(new SpecsItem
+						{
+							Id = itemData.ItemId,
+							Icon = itemData.Icon,
+							Name = itemData.ItemName,
+							Value = itemData.Value,
+							UnitType = itemData.UnitType,
+							DataType = (EnumSpecDataType)itemData.DataTypeId,
+							CustomTypeId = itemData.CustomTypeId
 						});
 					}
 				}
 			}
 			catch (Exception ex)
 			{
-				ErrorClass.LogError(ex, "Bikewale.BAL.ApiGateway.Adapters.BikeData.GetVersionSpecsByItemIdAdapter.ConvertToMinSpecsList");
+				ErrorClass.LogError(ex, "Bikewale.BAL.ApiGateway.Adapters.BikeData.VersionsDataByItemIdsAdapter.ConvertToMinSpecsList");
 			}
 
 			return specItemList;

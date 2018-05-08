@@ -366,7 +366,7 @@ namespace Bikewale.Models
                 objDealerDetails = _objDealer.GetDealerDetailsAndBikesByDealerAndMake(dealerId, (int)makeId);
                 if (objDealerDetails != null && objDealerDetails.Models != null)
                 {
-                    GetVersionSpecsByItemIdAdapter adapt1 = new GetVersionSpecsByItemIdAdapter();
+                    GetVersionSpecsSummaryByItemIdAdapter adapt1 = new GetVersionSpecsSummaryByItemIdAdapter();
                     VersionsDataByItemIds_Input specItemInput = new VersionsDataByItemIds_Input
                     {
                         Versions = objDealerDetails.Models.Select(m => m.objVersion.VersionId),

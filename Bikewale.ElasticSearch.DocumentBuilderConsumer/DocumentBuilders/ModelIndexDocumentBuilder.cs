@@ -300,7 +300,7 @@ namespace Bikewale.ElasticSearch.DocumentBuilderConsumer.DocumentBuilders
 
                     };
 
-                    GetVersionSpecsByItemIdAdapter adapter = new GetVersionSpecsByItemIdAdapter();
+                    GetVersionSpecsSummaryByItemIdAdapter adapter = new GetVersionSpecsSummaryByItemIdAdapter();
 
                     adapter.AddApiGatewayCall(_apiGatewayCaller, input);
 

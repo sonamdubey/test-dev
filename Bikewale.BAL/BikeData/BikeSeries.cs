@@ -212,7 +212,7 @@ namespace Bikewale.BAL.BikeData
             {
                 if (bikesList != null && bikesList.Any())
                 {
-                    GetVersionSpecsByItemIdAdapter adapt1 = new GetVersionSpecsByItemIdAdapter();
+                    GetVersionSpecsSummaryByItemIdAdapter adapt1 = new GetVersionSpecsSummaryByItemIdAdapter();
                     VersionsDataByItemIds_Input specItemInput = new VersionsDataByItemIds_Input
                     {
                         Versions = bikesList.Select(m => m.objVersion.VersionId),
@@ -243,7 +243,7 @@ namespace Bikewale.BAL.BikeData
         {
             if (seriesCompareBikesWithSpecs != null && seriesCompareBikesWithSpecs.Any())
             {
-                GetVersionSpecsByItemIdAdapter adapt1 = new GetVersionSpecsByItemIdAdapter();
+                GetVersionSpecsSummaryByItemIdAdapter adapt1 = new GetVersionSpecsSummaryByItemIdAdapter();
                 VersionsDataByItemIds_Input specItemInput = new VersionsDataByItemIds_Input
                 {
                     Versions = seriesCompareBikesWithSpecs.Select(m => m.VersionId),

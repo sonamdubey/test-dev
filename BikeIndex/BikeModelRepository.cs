@@ -215,7 +215,7 @@ namespace BikeIndex
 
                     // This list discards all items which have TopVersion.VersionId as 0(zero) eg. contains only valid versionid list
                     List<BikeModelDocument> validVersionList = objList.Where(d => d.TopVersion.VersionId != 0).ToList();
-                    GetVersionSpecsByItemIdAdapter[] adapter = new GetVersionSpecsByItemIdAdapter[(validVersionList.Count / chunkSize) + 1];
+                    GetVersionSpecsSummaryByItemIdAdapter[] adapter = new GetVersionSpecsSummaryByItemIdAdapter[(validVersionList.Count / chunkSize) + 1];
 
 
                     for (int i = 0, j = 0; i < validVersionList.Count; i+=chunkSize, j++)
@@ -229,14 +229,14 @@ namespace BikeIndex
                             Items = requiredSpec
                         };
 
-                        adapter[j] = new GetVersionSpecsByItemIdAdapter();
+                        adapter[j] = new GetVersionSpecsSummaryByItemIdAdapter();
                         adapter[j].AddApiGatewayCall(_apiGatewayCaller, input);
                     }
                     
 
                     _apiGatewayCaller.Call();
 
-                    foreach(GetVersionSpecsByItemIdAdapter adapt in adapter)    // get output of each chunks from adapter
+                    foreach(GetVersionSpecsSummaryByItemIdAdapter adapt in adapter)    // get output of each chunks from adapter
                     {
                         if (adapt != null)
                         {

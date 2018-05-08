@@ -257,7 +257,7 @@ namespace Bikewale.Models
                 IEnumerable<BestBikeEntityBase> bestBikesList = obj.objBestBikesList;
                 if (bestBikesList != null && bestBikesList.Any())
                 {
-                    GetVersionSpecsByItemIdAdapter adapt1 = new GetVersionSpecsByItemIdAdapter();
+                    GetVersionSpecsSummaryByItemIdAdapter adapt1 = new GetVersionSpecsSummaryByItemIdAdapter();
                     VersionsDataByItemIds_Input specItemInput = new VersionsDataByItemIds_Input
                     {
                         Versions = bestBikesList.Select(m => m.VersionId),
