@@ -17,22 +17,14 @@ import { formatToINR } from '../../utils/formatAmount'
 class EMICalculatorHeader extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state = {emiCalculation: EmiCalculation(this.props.sliderDp, this.props.sliderTenure, this.props.sliderInt),
-									interestPayable: InterestPayable(this.props.sliderDp, this.props.sliderTenure, this.props.sliderInt),
-									totalPrincipalAmt: TotalPrincipalAmt(this.props.sliderDp, this.props.sliderTenure, this.props.sliderInt),
-									monthsToYears: monthsToYears(this.props.sliderTenure.values)
-								 }
+		this.state = {monthsToYears: monthsToYears(this.props.sliderTenure.values)}
 		}
 	componentWillReceiveProps(nextProps){
-		this.setState({ emiCalculation : EmiCalculation(nextProps.sliderDp, nextProps.sliderTenure, nextProps.sliderInt),
-										interestPayable : InterestPayable(nextProps.sliderDp, nextProps.sliderTenure, nextProps.sliderInt),
-										totalPrincipalAmt : TotalPrincipalAmt(nextProps.sliderDp, nextProps.sliderTenure, nextProps.sliderInt),
-										monthsToYears: monthsToYears(nextProps.sliderTenure.values)
-									})
+		this.setState({monthsToYears: monthsToYears(nextProps.sliderTenure.values)})
 	 }
-
+	 
 	render() {
-				let finalEmi = formatToINR(this.state.emiCalculation)
+				let finalEmi = formatToINR(this.props.emiCalculationParam.emiCalculation)
 				let tenureText = (this.state.monthsToYears)
 				let orpAmount = formatToINR(this.props.sliderDp.max)
 		return (

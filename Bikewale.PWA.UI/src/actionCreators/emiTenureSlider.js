@@ -27,8 +27,3 @@ export const updateTenureSlider = ({values, userChange}) => (dispatch, getState)
 		dispatch(updateTenureSliderValue(values, userChange))
 	}
 }
-
-
-module.exports = {
-    updateTenureSlider : updateTenureSlider
-};

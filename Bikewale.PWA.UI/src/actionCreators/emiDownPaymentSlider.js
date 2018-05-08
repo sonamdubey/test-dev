@@ -26,8 +26,3 @@ export const updateDownPaymentSlider = ({values, userChange}) => (dispatch, getS
 		dispatch(updateDownpaymentSliderValue(values, userChange))
 	}
 }
-
-
-module.exports = {
-    updateDownPaymentSlider : updateDownPaymentSlider
-};

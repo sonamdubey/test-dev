@@ -7,7 +7,6 @@ import PieChart from './EmiPieChart'
 import { formatToINR } from '../../utils/formatAmount'
 
 import { emiCalculatorAction } from '../../actionCreators/emiTenureSlider'
-import { updatePieValueData } from '../../actionCreators/emiPieData'
 
 import EMICalculatorHeader from './EMICalculatorHeader'
 import DownPaymentSlider from './DownPaymentSlider'
@@ -22,46 +21,32 @@ import {
 class PieBreakUp  extends React.Component {
 	constructor(props) {
 		super(props)
-		this.state = {emiCalculation: EmiCalculation(this.props.sliderDp, this.props.sliderTenure, this.props.sliderInt),
-									interestPayable: InterestPayable(this.props.sliderDp, this.props.sliderTenure, this.props.sliderInt),
-									totalPrincipalAmt: TotalPrincipalAmt(this.props.sliderDp, this.props.sliderTenure, this.props.sliderInt),
-									}
-	}
-	componentWillReceiveProps(nextProps){
-		this.setState({ emiCalculation : EmiCalculation(nextProps.sliderDp, nextProps.sliderTenure, nextProps.sliderInt),
-										interestPayable : InterestPayable(nextProps.sliderDp, nextProps.sliderTenure, nextProps.sliderInt),
-										totalPrincipalAmt : TotalPrincipalAmt(nextProps.sliderDp, nextProps.sliderTenure, nextProps.sliderInt),
-									})
-	 }
-	componentDidMount(){
-		const {
-				updatePieValueData
-		} = this.props
+
 	}
 	render() {
 		const loanAmount = parseFloat(this.props.sliderDp.max - this.props.sliderDp.values[0])
 		let pricipalLoan = formatToINR(loanAmount);
-		const PieInterestAmt = formatToINR(this.state.interestPayable)
+		const pieInterestAmt = formatToINR(this.props.emiCalculationParam.interestPayable)
 		let colors = ['#f45944', '#fed1cd'];
 		return (
 				<div>          
 					<div className="pie-breakup-data">
-							<div className="breakup-unit">
-									<div className="title-text">
-										<span className="pieBullet" style={{ backgroundColor: colors[0]}}></span> Total Interest Payable</div>
-									<div className="breakup-amount">{PieInterestAmt}</div>
+							<div className="pie-breakup_unit">
+									<div className="pie-breakup_title">
+										<span className="pie-breakup_bullet" style={{ backgroundColor: colors[0]}}></span> Total Interest Payable</div>
+									<div className="pie-breakup_amount">{pieInterestAmt}</div>
 							</div>
-							<div className="breakup-unit">
-									<div className="title-text">
-										<span className="pieBullet" style={{ backgroundColor: colors[1]}}></span> Principle Loan Amount</div>
-									<div className="breakup-amount">{pricipalLoan}</div>
+							<div className="pie-breakup_unit">
+									<div className="pie-breakup_title">
+										<span className="pie-breakup_bullet" style={{ backgroundColor: colors[1]}}></span> Principle Loan Amount</div>
+									<div className="pie-breakup_amount">{pricipalLoan}</div>
 							</div>
-							<div className="breakup-unit">
-									<div className="title-text">Tenure {this.props.sliderTenure.values[0]}</div>
+							<div className="pie-breakup_unit">
+									<div className="pie-breakup_title">Tenure {this.props.sliderTenure.values[0]}</div>
 							</div>
 					</div>
 					<div className="pie-breakup-graph">
-							<PieChart ref="pieChart" isAnimation={this.props.isAnimation} intStatePay={this.props.intStatePay} pieLoanAmt={this.props.pieLoanAmt} pieTotalPay={this.props.pieTotalPay} />
+							<PieChart ref="pieChart" isAnimation={this.props.isAnimation} pieChartObjc={this.props.pieChartObjc} />
 					</div>
 			</div>
 		)
@@ -80,10 +65,4 @@ const mapStateToProps = (state) => {
 	}
 }
 
-const mapDispatchToProps = (dispatch, getState) => {
-	return {
-		updatePieValueData: bindActionCreators(updatePieValueData, dispatch)
-	}
-}
-
-module.exports = connect(mapStateToProps, mapDispatchToProps)(toJS(PieBreakUp));
+module.exports = connect(mapStateToProps, null)(toJS(PieBreakUp));

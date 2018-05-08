@@ -9,38 +9,33 @@ export default class PieChart extends React.Component {
 	constructor(props){
 		super(props)
 		this.state = {
-			data: [this.props.intStatePay, this.props.pieLoanAmt]
+			data: [this.props.pieChartObjc.intStatePay, this.props.pieChartObjc.pieLoanAmt]
 		}
-	}
-	componentDidMount(){
-		this.setState({
-			data: [this.props.intStatePay, this.props.pieLoanAmt]
-		})
 	}
 	componentWillReceiveProps(){
 		this.setState({
-			data: [this.props.intStatePay, this.props.pieLoanAmt]
+			data: [this.props.pieChartObjc.intStatePay, this.props.pieChartObjc.pieLoanAmt]
 		})
 	}
 	render(){
 		let colors = ['#f45944', '#fed1cd'];
-		let finalAmountPay = formatToINR(this.props.pieTotalPay)
+		let finalAmountPay = formatToINR(this.props.pieChartObjc.pieTotalPay)
 		return(
 			<div className="pie-graph-container">
 			<div className="totalpayment">
-				<div className="title-text">Total Payment</div>
+				<div className="pie-breakup_title">Total Payment</div>
 				<div className="pie-center-amount">{(finalAmountPay)}</div>
 			</div>
 			<Pie
-				data={ this.state.data }
-				radius={ 70 }
-				hole={ 60 }
-				colors={ colors }
-				labels={ true }
-				percent={ true }
-				strokeWidth={ 1 }
-				stroke={ '#fff' }
-				isAnimation = {this.props.isAnimation}
+				data={this.state.data}
+				radius={70}
+				hole={60}
+				colors={colors}
+				labels={true}
+				percent={true}
+				strokeWidth={1}
+				stroke={'#fff'}
+				isAnimation={this.props.isAnimation}
 			/>
 			</div>
 		)
@@ -68,7 +63,7 @@ class Pie extends React.Component{
 			diameter = radius * 2,
 			self = this,
 			sum, startAngle, d = null;
-
+			console.log(this.props.data)
 		sum = this.props.data.reduce(function (carry, current) { return carry + current }, 0);
 		startAngle = 150;
 		return (
@@ -83,20 +78,20 @@ class Pie extends React.Component{
 
 					return <Slice
 						ref="slice"
-						key={ sliceIndex }
-						value={ slice }
-						percent={ self.props.percent }
-						percentValue={ percent.toFixed(1) }
-						startAngle={ nextAngle }
-						angle={ angle }
-						radius={ radius }
-						hole={ radius - hole }
-						trueHole={ hole }
-						showLabel= { labels }
-						fill={ colors[sliceIndex % colorsLength] }
-						stroke={ self.props.stroke }
-						strokeWidth={ self.props.strokeWidth }
-						isAnimation = {self.props.isAnimation }
+						key={sliceIndex}
+						value={slice}
+						percent={self.props.percent}
+						percentValue={percent.toFixed(1)}
+						startAngle={nextAngle}
+						angle={angle}
+						radius={radius}
+						hole={radius - hole}
+						trueHole={hole}
+						showLabel= {labels}
+						fill={colors[sliceIndex % colorsLength]}
+						stroke={self.props.stroke}
+						strokeWidth={self.props.strokeWidth}
+						isAnimation = {self.props.isAnimation}
 					/>
 				}) }
 

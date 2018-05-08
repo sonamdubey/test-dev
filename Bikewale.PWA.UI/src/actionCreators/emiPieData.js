@@ -10,14 +10,3 @@ const updatePieValue = function(pieInterestPayable, pieTotalPrincipalAmount, pie
       })
     }
 }
-
-
-export const updatePieValueData = ({pieInterestPayable, pieTotalPrincipalAmount, pieloanAmount}) => (dispatch, getState) => {
-        dispatch(updatePieValue(pieInterestPayable, pieTotalPrincipalAmount, pieloanAmount))
-        getState(['Emi', 'VehiclePieData'])
-}
-
-module.exports = {
-    updatePieValueData : updatePieValueData
-};
-

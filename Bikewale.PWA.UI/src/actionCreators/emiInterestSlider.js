@@ -26,8 +26,3 @@ export const updateInterestSlider = ({values,userChange}) => (dispatch, getState
 		dispatch(updateInterestSliderValue(values, userChange))
 	}
 }
-
-
-module.exports = {
-    updateInterestSlider : updateInterestSlider
-};

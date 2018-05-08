@@ -21,26 +21,37 @@ class EMICalculator extends React.Component {
 		this.state = {emiCalculation: EmiCalculation(this.props.sliderDp, this.props.sliderTenure, this.props.sliderInt),
 									interestPayable: InterestPayable(this.props.sliderDp, this.props.sliderTenure, this.props.sliderInt),
 									totalPrincipalAmt: TotalPrincipalAmt(this.props.sliderDp, this.props.sliderTenure, this.props.sliderInt),
-									}
-	}
+								 }
+		}
 	componentWillReceiveProps(nextProps){
 		this.setState({ emiCalculation : EmiCalculation(nextProps.sliderDp, nextProps.sliderTenure, nextProps.sliderInt),
 										interestPayable : InterestPayable(nextProps.sliderDp, nextProps.sliderTenure, nextProps.sliderInt),
 										totalPrincipalAmt : TotalPrincipalAmt(nextProps.sliderDp, nextProps.sliderTenure, nextProps.sliderInt),
 									})
 	 }
-
+	 
 	render() {
-		const { state } = this.props;
-		const PieInterestAmt = (this.state.interestPayable)
-		const PieLoanAmt = (this.props.sliderDp.max - this.props.sliderDp.values[0]); 
-		const PieTotalAmtPay = this.state.totalPrincipalAmt  
+		let pieInterestAmt = (this.state.interestPayable)
+		let pieLoanAmt = (this.props.sliderDp.max - this.props.sliderDp.values[0]); 
+		let pieTotalAmtPay = this.state.totalPrincipalAmt  
 		let finalIntPayable = formatToINR(parseInt(this.state.InterestPayable))
 		let finalTotalPrincipalAmt = formatToINR(this.state.totalPrincipalAmt)
+		let pieChartObj = {
+			intStatePay: pieInterestAmt,
+			pieLoanAmt: pieLoanAmt,
+			pieTotalPay: pieTotalAmtPay,
+			interestPay: finalIntPayable,
+			TotalPrincipalAmt: finalTotalPrincipalAmt
+		}
+		let emiCalculationParam = {
+			emiCalculation: this.state.emiCalculation,
+			interestPayable: this.state.interestPayable,
+			totalPrincipalAmt: this.state.totalPrincipalAmt
+		}
 		return (
 			<div className="emi-outer-container">
 				<div className="emi-calci-container">
-					 <EMICalculatorHeader />
+					 <EMICalculatorHeader emiCalculationParam={emiCalculationParam} />
 					 <div className="emi-slider-container">
 							<DownPaymentSlider/>
 							<div className="tenure-interest-slider">
@@ -55,7 +66,7 @@ class EMICalculator extends React.Component {
 						
 				</div>
 				<div className="view-breakup-container">
-						<PieBreakUp ref="piebreakup" isAnimation={this.props.pieAnimate} intStatePay={PieInterestAmt} pieLoanAmt={PieLoanAmt} pieTotalPay={PieTotalAmtPay} interestPay={finalIntPayable} TotalPrincipalAmt={finalTotalPrincipalAmt}/>
+						<PieBreakUp ref="piebreakup" isAnimation={this.props.pieAnimate} emiCalculationParam={emiCalculationParam} pieChartObjc={pieChartObj}/>
 				</div>
 			</div>
 		);

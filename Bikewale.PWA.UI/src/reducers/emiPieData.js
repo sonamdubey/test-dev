@@ -3,14 +3,14 @@ import { fromJS } from 'immutable'
 
 import { emiCalculatorAction } from '../actionTypes/emiActionTypes'
 
-let initialEmiState = {
+let initialState = {
 	pieloanAmount: "",
 	pieInterestPayable: "",
 	pieTotalPrincipalAmount: "",
 	pieEmiAmount: "",
 }
 
-export const vehiclePie = (state = initialEmiState, action) => {
+export const vehiclePie = (state = initialState, action) => {
 	if (!state)
 	return initialState; 
 
