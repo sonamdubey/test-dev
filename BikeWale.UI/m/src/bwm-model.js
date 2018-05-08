@@ -416,10 +416,7 @@ docReady(function () {
         prevButton: '.gallery-type-prev',
         preloadImages: false,
         lazyLoading: true,
-        lazyLoadingInPrevNext: true,
-        onInit: function (swiper) {
-            logBhrighuForImage($('#model-photos-swiper .swiper-slide-active'));
-        },
+        lazyLoadingInPrevNext: true,        
         onSlideChangeEnd: function (swiper) {
             if (userEventSource) {
                 if (swiper.activeIndex < swiper.previousIndex) {
