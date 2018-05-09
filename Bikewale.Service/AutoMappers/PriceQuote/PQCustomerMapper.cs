@@ -34,13 +34,23 @@ namespace Bikewale.Service.AutoMappers.PriceQuote
 
 
 
-
+        /// <summary>
+        /// Modified by : Sanskar Gupta on 08 May 2018
+        /// Description : Added mapping for `DealerDetailsDTO` to `DealerDetails` entity.
+        /// </summary>
+        /// <param name="outEntity"></param>
+        /// <returns></returns>
         internal static DTO.PriceQuote.v2.PQCustomerDetailOutput Convertv2(Entities.PriceQuote.PQCustomerDetailOutputEntity outEntity)
         {
             Mapper.CreateMap<Entities.PriceQuote.PQCustomerDetailOutputEntity, DTO.PriceQuote.v2.PQCustomerDetailOutput>();
+            Mapper.CreateMap<Entities.PriceQuote.DealerDetails, DTO.PriceQuote.BikeBooking.DealerDetailsDTO>();
             return Mapper.Map<Entities.PriceQuote.PQCustomerDetailOutputEntity, DTO.PriceQuote.v2.PQCustomerDetailOutput>(outEntity);
         }
 
+        /// <summary>
+        /// Modified by : Sanskar Gupta on 08 May 2018
+        /// Description : Added mapping for `DealerDetailsDTO` to `DealerDetails` entity.
+        /// </summary>
         internal static DTO.PriceQuote.PQCustomerDetailOutput Convert(Entities.PriceQuote.PQCustomerDetailOutputEntity outEntity)
         {
             Mapper.CreateMap<Entities.PriceQuote.PQCustomerDetailOutputEntity, DTO.PriceQuote.PQCustomerDetailOutput>();

@@ -3,6 +3,7 @@ using Bikewale.DTO.PriceQuote.BikeBooking;
 using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.Customer;
 using Bikewale.Entities.PriceQuote;
+using Bikewale.Entities.Dealer;
 using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.Customer;
 using Bikewale.Interfaces.Dealer;
@@ -10,8 +11,13 @@ using Bikewale.Interfaces.Lead;
 using Bikewale.Interfaces.MobileVerification;
 using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Notifications;
+using Bikewale.ManufacturerCampaign.Interface;
+using RabbitMqPublishing;
 using System;
 using System.Linq;
+using System.Collections.Generic;
+using System.Collections.Specialized;
+using Bikewale.ManufacturerCampaign.Entities;
 
 namespace Bikewale.BAL.Lead
 {
@@ -31,6 +37,7 @@ namespace Bikewale.BAL.Lead
         private readonly IPriceQuote _objPriceQuote = null;
         private readonly ILeadNofitication _objLeadNofitication = null;
         private readonly Bikewale.Interfaces.AutoBiz.IDealers _objAutobizDealer = null;
+        private readonly IManufacturerCampaignRepository _manufacturerCampaignRepo = null;
         public bool IsPQCustomerDetailWithPQ { get; set; }
         CustomerEntity objCust = null;
 
@@ -42,7 +49,7 @@ namespace Bikewale.BAL.Lead
             IMobileVerificationRepository mobileVerRespo,
             IMobileVerification mobileVerificetion,
             IDealer objDealer,
-            IPriceQuote objPriceQuote, ILeadNofitication objLeadNofitication, IMobileVerificationCache mobileVerCacheRepo, Bikewale.Interfaces.AutoBiz.IDealers objAutobizDealer)
+            IPriceQuote objPriceQuote, ILeadNofitication objLeadNofitication, IMobileVerificationCache mobileVerCacheRepo, Bikewale.Interfaces.AutoBiz.IDealers objAutobizDealer, IManufacturerCampaignRepository manufacturerCampaignRepo)
         {
             _objAuthCustomer = objAuthCustomer;
             _objCustomer = objCustomer;
@@ -54,6 +61,7 @@ namespace Bikewale.BAL.Lead
             _objLeadNofitication = objLeadNofitication;
             _mobileVerCacheRepo = mobileVerCacheRepo;
             _objAutobizDealer = objAutobizDealer;
+            _manufacturerCampaignRepo = manufacturerCampaignRepo;
         }
 
 
@@ -97,7 +105,6 @@ namespace Bikewale.BAL.Lead
                         pqCustomerDetailEntity = NotifyCustomerAndDealer(pqInput, requestHeaders);
                         pqCustomerDetailEntity.Dealer = objBookingPageDetailsEntity.Dealer;
                         pqCustomerDetailEntity.NoOfAttempts = noOfAttempts;
-                        pqCustomerDetailEntity.IsSuccess = isSuccess;
 
                     }
 
@@ -111,8 +118,7 @@ namespace Bikewale.BAL.Lead
             return pqCustomerDetailEntity;
         }
 
-
-
+     
        public PQCustomerDetailOutputEntity ProcessPQCustomerDetailInputV1(PQCustomerDetailInput pqInput, System.Collections.Specialized.NameValueCollection requestHeaders)
         {
             PriceQuoteParametersEntity objPQEntity = null;
@@ -182,6 +188,13 @@ namespace Bikewale.BAL.Lead
             return pqCustomerDetailEntity;
         }
 
+        /// <summary>
+        /// Modified by : Sanskar Gupta on 09 May 2018
+        /// Description : Optimized the code using object caching and added null checks wherever required.
+        /// </summary>
+        /// <param name="pqInput"></param>
+        /// <param name="requestHeaders"></param>
+        /// <returns></returns>
         private PQCustomerDetailOutputEntity NotifyCustomerAndDealer(Bikewale.Entities.PriceQuote.PQCustomerDetailInput pqInput, System.Collections.Specialized.NameValueCollection requestHeaders)
         {
             PQCustomerDetailOutputEntity output = null;
@@ -196,7 +209,7 @@ namespace Bikewale.BAL.Lead
                 string bikeName = String.Empty;
                 string imagePath = String.Empty;
                 string versionName = string.Empty;
-                bool isVerified = false;
+                bool isVerified = true;
 
 
                 PQParameterEntity objParam = new PQParameterEntity();
@@ -251,32 +264,35 @@ namespace Bikewale.BAL.Lead
 
                     apiValue = (IsPQCustomerDetailWithPQ ? "api/PQCustomerDetail" : "api/v2/PQCustomerDetail");
 
+                    NewBikeDealers dealer = dealerDetailEntity.objDealer;
+
                     DPQSmsEntity objDPQSmsEntity = new DPQSmsEntity();
                     objDPQSmsEntity.CustomerMobile = objCust.CustomerMobile;
                     objDPQSmsEntity.CustomerName = objCust.CustomerName;
-                    objDPQSmsEntity.DealerMobile = dealerDetailEntity.objDealer != null ? dealerDetailEntity.objDealer.PhoneNo : string.Empty;
-                    objDPQSmsEntity.DealerName = dealerDetailEntity.objDealer != null ? dealerDetailEntity.objDealer.Organization : string.Empty;
-                    objDPQSmsEntity.Locality = dealerDetailEntity.objDealer != null ? dealerDetailEntity.objDealer.Address : string.Empty;
+                    objDPQSmsEntity.DealerMobile = dealer != null ? dealer.PhoneNo : string.Empty;
+                    objDPQSmsEntity.DealerName = dealer != null ? dealer.Organization : string.Empty;
+                    objDPQSmsEntity.Locality = dealer != null ? dealer.Address : string.Empty;
                     objDPQSmsEntity.BookingAmount = bookingAmount;
                     objDPQSmsEntity.BikeName = String.Format("{0} {1} {2}", dealerDetailEntity.objQuotation.objMake.MakeName, dealerDetailEntity.objQuotation.objModel.ModelName, dealerDetailEntity.objQuotation.objVersion.VersionName);
-                    objDPQSmsEntity.DealerArea = dealerDetailEntity.objDealer != null && dealerDetailEntity.objDealer.objArea != null ? dealerDetailEntity.objDealer.objArea.AreaName : string.Empty;
-                    objDPQSmsEntity.DealerAdd = dealerDetailEntity.objDealer != null ? dealerDetailEntity.objDealer.Address : string.Empty;
-                    objDPQSmsEntity.DealerCity = dealerDetailEntity.objDealer != null ? dealerDetailEntity.objDealer.objCity.CityName : string.Empty;
-                    objDPQSmsEntity.OrganisationName = dealerDetailEntity.objDealer != null ? dealerDetailEntity.objDealer.Organization : string.Empty;
-                    if (dealerDetailEntity.objDealer != null)
-                    {
-                        _objLeadNofitication.NotifyCustomer(pqInput.PQId, bikeName, imagePath, dealerDetailEntity.objDealer.Name,
-                           dealerDetailEntity.objDealer.EmailId, dealerDetailEntity.objDealer.PhoneNo, dealerDetailEntity.objDealer.Organization,
-                           dealerDetailEntity.objDealer.Address, objCust.CustomerName, objCust.CustomerEmail,
-                           dealerDetailEntity.objQuotation.PriceList, dealerDetailEntity.objOffers, dealerDetailEntity.objDealer.objArea.PinCode,
-                           dealerDetailEntity.objDealer.objState.StateName, dealerDetailEntity.objDealer.objCity.CityName, TotalPrice, objDPQSmsEntity,
-                           apiValue, pqInput.LeadSourceId, versionName, dealerDetailEntity.objDealer.objArea.Latitude, dealerDetailEntity.objDealer.objArea.Longitude,
-                           dealerDetailEntity.objDealer.WorkingTime, platformId);
-                    }
-                    if (dealerDetailEntity.objDealer != null)
-                        _objLeadNofitication.NotifyDealer(pqInput.PQId, dealerDetailEntity.objQuotation.objMake.MakeName, dealerDetailEntity.objQuotation.objModel.ModelName, dealerDetailEntity.objQuotation.objVersion.VersionName,
-                            dealerDetailEntity.objDealer.Name, dealerDetailEntity.objDealer.EmailId, objCust.CustomerName, objCust.CustomerEmail, objCust.CustomerMobile, objCust.AreaDetails.AreaName, objCust.cityDetails.CityName, dealerDetailEntity.objQuotation.PriceList, Convert.ToInt32(TotalPrice), dealerDetailEntity.objOffers, imagePath, dealerDetailEntity.objDealer.PhoneNo, bikeName, objDPQSmsEntity.DealerArea);
+                    objDPQSmsEntity.DealerArea = dealer != null && dealer.objArea != null ? dealer.objArea.AreaName : string.Empty;
+                    objDPQSmsEntity.DealerAdd = dealer != null ? dealer.Address : string.Empty;
+                    objDPQSmsEntity.DealerCity = dealer != null ? dealer.objCity.CityName : string.Empty;
+                    objDPQSmsEntity.OrganisationName = dealer != null ? dealer.Organization : string.Empty;
 
+                    if (dealer != null)
+                    {
+                        _objLeadNofitication.NotifyCustomer(pqInput.PQId, bikeName, imagePath, dealer.Name,
+                           dealer.EmailId, dealer.PhoneNo, dealer.Organization,
+                           dealer.Address, objCust.CustomerName, objCust.CustomerEmail,
+                           dealerDetailEntity.objQuotation.PriceList, dealerDetailEntity.objOffers, dealer.objArea.PinCode,
+                           dealer.objState.StateName, dealer.objCity.CityName, TotalPrice, objDPQSmsEntity,
+                           apiValue, pqInput.LeadSourceId, versionName, dealer.objArea.Latitude, dealer.objArea.Longitude,
+                           dealer.WorkingTime, platformId);
+
+                        _objLeadNofitication.NotifyDealer(pqInput.PQId, dealerDetailEntity.objQuotation.objMake.MakeName, dealerDetailEntity.objQuotation.objModel.ModelName, dealerDetailEntity.objQuotation.objVersion.VersionName,
+                            dealer.Name, dealer.EmailId, objCust.CustomerName, objCust.CustomerEmail, objCust.CustomerMobile, objCust.AreaDetails.AreaName, objCust.cityDetails.CityName, dealerDetailEntity.objQuotation.PriceList, Convert.ToInt32(TotalPrice), dealerDetailEntity.objOffers, imagePath, dealer.PhoneNo, bikeName, objDPQSmsEntity.DealerArea);
+                    }
+                    
                     if (isVerified)
                     {
                         _objPriceQuote.SaveBookingState(pqInput.PQId, PriceQuoteStates.LeadSubmitted);
@@ -284,8 +300,6 @@ namespace Bikewale.BAL.Lead
                     }
                     output = new Entities.PriceQuote.PQCustomerDetailOutputEntity();
                     output.IsSuccess = isVerified;
-
-
 
                 }
 
@@ -296,6 +310,135 @@ namespace Bikewale.BAL.Lead
             }
             return output;
         }
+
+        
+        /// <summary>
+        /// Created By : Deepak Israni on 4 May 2018
+        /// Description: BAL function to process manufacturer leads.
+        /// </summary>
+        /// <param name="input"></param>
+        /// <param name="headers"></param>
+        public uint ProcessESLead(ManufacturerLeadEntity input, NameValueCollection headers)
+        {
+            uint leadId = 0;
+
+            try
+            {
+                String utma = headers["UTMA"];
+                String utmz = headers["UTMZ"];
+                //String platformId = headers["PlatformId"];
+
+                if (input.CityId > 0 && input.VersionId > 0 && input.PQId > 0 && !String.IsNullOrEmpty(input.Name) && !String.IsNullOrEmpty(input.Mobile) && input.DealerId > 0)
+                {
+                    CustomerEntity objCust = GetCustomerEntity(input.Name, input.Mobile, input.Email);
+
+                    ES_SaveEntity leadInfo = new ES_SaveEntity
+                    {
+                        DealerId = input.DealerId,
+                        PQId = input.PQId,
+                        CustomerId = objCust.CustomerId,
+                        CustomerName = input.Name,
+                        CustomerEmail = input.Email,
+                        CustomerMobile = input.Mobile,
+                        LeadSourceId = input.LeadSourceId,
+                        UTMA = utma,
+                        UTMZ = utmz,
+                        DeviceId = input.DeviceId,
+                        CampaignId = input.CampaignId,
+                        LeadId = input.LeadId
+                    };
+
+                    input.LeadId = leadId = _manufacturerCampaignRepo.SaveManufacturerCampaignLead(leadInfo);
+
+                    if (leadId > 0)
+                    {
+                        IEnumerable<String> numberList = _mobileVerCacheRepo.GetBlockedNumbers();
+
+                        if (numberList != null && !numberList.Contains(input.Mobile))
+                        {
+                            PushToLeadConsumer(input);
+
+                            if (input.CampaignId == Utility.BWConfiguration.Instance.KawasakiCampaignId)
+                            {
+                                SMSKawasaki(input);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "Exception : Bikewale.BAL.Lead.ProcessESLead : " + Newtonsoft.Json.JsonConvert.SerializeObject(input));
+            }
+
+            return leadId;
+        }
+
+        /// <summary>
+        /// Created By : Deepak Israni on 4 May 2018
+        /// Description: Checks if customer exists and if not creates a new customer entity.
+        /// </summary>
+        /// <param name="customerName"></param>
+        /// <param name="mobile"></param>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        private CustomerEntity GetCustomerEntity(string customerName, string mobile, string email)
+        {
+            CustomerEntity objCust = null;
+
+            if (!_objAuthCustomer.IsRegisteredUser(email, mobile))
+            {
+                objCust = new CustomerEntity() { CustomerName = customerName, CustomerEmail = email, CustomerMobile = mobile, ClientIP = "" };
+                objCust.CustomerId = _objCustomer.Add(objCust);
+            }
+            else
+            {
+                objCust = _objCustomer.GetByEmailMobile(email, mobile);
+
+                objCust.CustomerName = customerName;
+                objCust.CustomerEmail = !String.IsNullOrEmpty(email) ? email : objCust.CustomerEmail;
+                objCust.CustomerMobile = mobile;
+
+                _objCustomer.Update(objCust);
+            }
+
+            return objCust;
+        }
+        
+        /// <summary>
+        /// Created By : Deepak Israni on 4 May 2018
+        /// Description: Pushes lead to Lead Processing Consumer.
+        /// </summary>
+        /// <param name="input"></param>
+        private static void PushToLeadConsumer(ManufacturerLeadEntity input)
+        {
+            NameValueCollection objNVC = new NameValueCollection();
+
+            objNVC.Add("pqId", input.PQId.ToString());
+            objNVC.Add("dealerId", input.DealerId.ToString());
+            objNVC.Add("customerName", input.Name);
+            objNVC.Add("customerEmail", input.Email);
+            objNVC.Add("customerMobile", input.Mobile);
+            objNVC.Add("versionId", input.VersionId.ToString());
+            objNVC.Add("pincodeId", input.PinCode.ToString());
+            objNVC.Add("cityId", input.CityId.ToString());
+            objNVC.Add("leadType", "2");
+            objNVC.Add("manufacturerDealerId", input.ManufacturerDealerId.ToString());
+            objNVC.Add("manufacturerLeadId", input.LeadId.ToString());
+
+            RabbitMqPublish objRMQPublish = new RabbitMqPublish();
+            objRMQPublish.PublishToQueue(Bikewale.Utility.BWConfiguration.Instance.LeadConsumerQueue, objNVC);
+        }
+
+        private void SMSKawasaki(ManufacturerLeadEntity objLead)
+        {
+            DPQSmsEntity objDPQSmsEntity = new DPQSmsEntity();
+            objDPQSmsEntity.CustomerMobile = objLead.Mobile;
+            objDPQSmsEntity.CustomerName = objLead.Name;
+            objDPQSmsEntity.DealerName = objLead.ManufacturerDealer;
+            SendEmailSMSToDealerCustomer.SendSMSToCustomer(objLead.PQId, string.Empty, objDPQSmsEntity, DPQTypes.KawasakiCampaign);
+        }
+
 
         private DPQ_SaveEntity CheckRegisteredUser(Entities.PriceQuote.PQCustomerDetailInput input, System.Collections.Specialized.NameValueCollection requestHeaders)
         {

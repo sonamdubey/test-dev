@@ -377,7 +377,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
         /// </summary>
         /// <param name="input">Customer details with price quote details</param>
         /// <returns></returns>
-        [HttpPost, Route("api/PQCustomerDetail/1")]
+        [HttpPost, Route("api/PQCustomerDetail/new/")]
         public IHttpActionResult PostNew([FromBody]Bikewale.DTO.PriceQuote.PQCustomerDetailInput input)
         {
 
@@ -425,7 +425,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        [ResponseType(typeof(Bikewale.DTO.PriceQuote.v2.PQCustomerDetailOutput)), Route("api/PQCustomerDetailWithOutPQ"), HttpPost]
+        [ResponseType(typeof(Bikewale.DTO.PriceQuote.v2.PQCustomerDetailOutput)), Route("api/PQCustomerDetailWithOutPQ/"), HttpPost]
         public IHttpActionResult Postv2([FromBody]Bikewale.DTO.PriceQuote.v2.PQCustomerDetailInput input)
         {
 
@@ -632,7 +632,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        [ResponseType(typeof(Bikewale.DTO.PriceQuote.v2.PQCustomerDetailOutput)), Route("api/PQCustomerDetailWithOutPQ"), HttpPost]
+        [ResponseType(typeof(Bikewale.DTO.PriceQuote.v2.PQCustomerDetailOutput)), Route("api/PQCustomerDetailWithOutPQ/new/"), HttpPost]
         public IHttpActionResult Postv2New([FromBody]Bikewale.DTO.PriceQuote.v2.PQCustomerDetailInput input)
         {
 
