@@ -75,7 +75,6 @@ namespace Bikewale.BAL.Lead
             PQCustomerDetailOutputEntity pqCustomerDetailEntity = null;
             bool isSuccess = false;
             sbyte noOfAttempts = 0;
-            bool isVerified = false;
             try
             {
                 if (pqInput != null && (pqInput.PQId > 0) && (Convert.ToUInt32(pqInput.VersionId) > 0))
@@ -94,7 +93,6 @@ namespace Bikewale.BAL.Lead
                     {
                         //Don't mark mobile verified for pq
                         //isVerified = _objDealerPriceQuote.UpdateIsMobileVerified(input.PQId);
-                        isVerified = true;// Set Verified to true to push the lead into AB for un-verified leads as well
 
                         objBookingPageDetailsEntity = _objDealerPriceQuote.FetchBookingPageDetails(Convert.ToUInt32(pqInput.CityId), Convert.ToUInt32(pqInput.VersionId), pqInput.DealerId);
                         //  objBookingPageDetailsDTO = BookingPageDetailsEntityMapper.Convert(objBookingPageDetailsEntity);
@@ -209,7 +207,7 @@ namespace Bikewale.BAL.Lead
                 string bikeName = String.Empty;
                 string imagePath = String.Empty;
                 string versionName = string.Empty;
-                bool isVerified = true;
+                bool isVerified = true;// Set Verified to true to push the lead into AB for un-verified leads as well
 
 
                 PQParameterEntity objParam = new PQParameterEntity();
