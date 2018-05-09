@@ -70,7 +70,6 @@ namespace Bikewale.BAL.Lead
             PriceQuoteParametersEntity pqParam = null;
             DPQ_SaveEntity entity = null;
             BookingPageDetailsEntity objBookingPageDetailsEntity = null;
-            BookingPageDetailsDTO objBookingPageDetailsDTO = null;
             PQCustomerDetail pqCustomer = null;
             PQCustomerDetailOutputEntity pqCustomerDetailEntity = null;
             bool isSuccess = false;
@@ -91,11 +90,7 @@ namespace Bikewale.BAL.Lead
 
                     if (numberList != null && !numberList.Contains(pqInput.CustomerMobile))
                     {
-                        //Don't mark mobile verified for pq
-                        //isVerified = _objDealerPriceQuote.UpdateIsMobileVerified(input.PQId);
-
                         objBookingPageDetailsEntity = _objDealerPriceQuote.FetchBookingPageDetails(Convert.ToUInt32(pqInput.CityId), Convert.ToUInt32(pqInput.VersionId), pqInput.DealerId);
-                        //  objBookingPageDetailsDTO = BookingPageDetailsEntityMapper.Convert(objBookingPageDetailsEntity);
 
                         pqCustomer = _objDealerPriceQuote.GetCustomerDetails(pqInput.PQId);
                         objCust = pqCustomer.objCustomerBase;
