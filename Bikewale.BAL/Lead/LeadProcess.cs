@@ -128,8 +128,7 @@ namespace Bikewale.BAL.Lead
             PriceQuoteParametersEntity objPQEntity = null;
             DPQ_SaveEntity entity = null;
             PQCustomerDetailOutputEntity pqCustomerDetailEntity = null;
-            bool isSuccess = false;
-            string password = string.Empty, salt = string.Empty, hash = string.Empty;
+            bool isSuccess;
             string bikeName = String.Empty;
             string imagePath = String.Empty;
             string versionName = string.Empty;
@@ -189,7 +188,7 @@ namespace Bikewale.BAL.Lead
 
         /// <summary>
         /// Modified by : Sanskar Gupta on 09 May 2018
-        /// Description : Optimized the code using object caching and added null checks wherever required.
+        /// Description : Optimized the code using object caching (`objDPQSmsEntity` , `dealerDetailEntity.objDealer`, `dealerDetailEntity.objQuotation`), changed `var` to specific object (Eg. (var => string) platformId), added null checks wherever required and other minor code optimizations.
         /// </summary>
         /// <param name="pqInput"></param>
         /// <param name="requestHeaders"></param>
@@ -220,6 +219,7 @@ namespace Bikewale.BAL.Lead
 
                 if (dealerDetailEntity != null && dealerDetailEntity.objQuotation != null)
                 {
+                    PQ_QuotationEntity quotation = dealerDetailEntity.objQuotation;
                     if (dealerDetailEntity.objBookingAmt != null)
                     {
                         bookingAmount = dealerDetailEntity.objBookingAmt.Amount;
@@ -227,7 +227,7 @@ namespace Bikewale.BAL.Lead
 
                     bool isShowroomPriceAvail = false, isBasicAvail = false;
 
-                    foreach (var item in dealerDetailEntity.objQuotation.PriceList)
+                    foreach (var item in quotation.PriceList)
                     {
                         //Check if Ex showroom price for a bike is available CategoryId = 3 (exshowrrom)
                         if (item.CategoryId == 3)
@@ -252,44 +252,46 @@ namespace Bikewale.BAL.Lead
                     if (isBasicAvail && isShowroomPriceAvail)
                         TotalPrice = TotalPrice - exShowroomCost;
 
-                    imagePath = Bikewale.Utility.Image.GetPathToShowImages(dealerDetailEntity.objQuotation.OriginalImagePath, dealerDetailEntity.objQuotation.HostUrl, Bikewale.Utility.ImageSize._210x118);
-                    bikeName = dealerDetailEntity.objQuotation.objMake.MakeName + " " + dealerDetailEntity.objQuotation.objModel.ModelName + " " + dealerDetailEntity.objQuotation.objVersion.VersionName;
-                    versionName = dealerDetailEntity.objQuotation.objVersion.VersionName;
-                    var platformId = "";
+                    imagePath = Bikewale.Utility.Image.GetPathToShowImages(quotation.OriginalImagePath, quotation.HostUrl, Bikewale.Utility.ImageSize._210x118);
+                    bikeName = quotation.objMake.MakeName + " " + quotation.objModel.ModelName + " " + quotation.objVersion.VersionName;
+                    versionName = quotation.objVersion.VersionName;
+                    string platformId = string.Empty;
                     if (requestHeaders != null)
                     {
                         platformId = requestHeaders["platformId"];
                     }
 
-                    apiValue = (IsPQCustomerDetailWithPQ ? "api/PQCustomerDetail" : "api/v2/PQCustomerDetail");
+                    apiValue = IsPQCustomerDetailWithPQ ? "api/PQCustomerDetail" : "api/v2/PQCustomerDetail";
 
                     NewBikeDealers dealer = dealerDetailEntity.objDealer;
 
-                    DPQSmsEntity objDPQSmsEntity = new DPQSmsEntity();
-                    objDPQSmsEntity.CustomerMobile = objCust.CustomerMobile;
-                    objDPQSmsEntity.CustomerName = objCust.CustomerName;
-                    objDPQSmsEntity.DealerMobile = dealer != null ? dealer.PhoneNo : string.Empty;
-                    objDPQSmsEntity.DealerName = dealer != null ? dealer.Organization : string.Empty;
-                    objDPQSmsEntity.Locality = dealer != null ? dealer.Address : string.Empty;
-                    objDPQSmsEntity.BookingAmount = bookingAmount;
-                    objDPQSmsEntity.BikeName = String.Format("{0} {1} {2}", dealerDetailEntity.objQuotation.objMake.MakeName, dealerDetailEntity.objQuotation.objModel.ModelName, dealerDetailEntity.objQuotation.objVersion.VersionName);
-                    objDPQSmsEntity.DealerArea = dealer != null && dealer.objArea != null ? dealer.objArea.AreaName : string.Empty;
-                    objDPQSmsEntity.DealerAdd = dealer != null ? dealer.Address : string.Empty;
-                    objDPQSmsEntity.DealerCity = dealer != null ? dealer.objCity.CityName : string.Empty;
-                    objDPQSmsEntity.OrganisationName = dealer != null ? dealer.Organization : string.Empty;
+                    DPQSmsEntity objDPQSmsEntity = new DPQSmsEntity
+                    {
+                        CustomerMobile = objCust.CustomerMobile,
+                        CustomerName = objCust.CustomerName,
+                        DealerMobile = dealer != null ? dealer.PhoneNo : string.Empty,
+                        DealerName = dealer != null ? dealer.Organization : string.Empty,
+                        Locality = dealer != null ? dealer.Address : string.Empty,
+                        BookingAmount = bookingAmount,
+                        BikeName = String.Format("{0} {1} {2}", quotation.objMake.MakeName, quotation.objModel.ModelName, quotation.objVersion.VersionName),
+                        DealerArea = dealer != null && dealer.objArea != null ? dealer.objArea.AreaName : string.Empty,
+                        DealerAdd = dealer != null ? dealer.Address : string.Empty,
+                        DealerCity = dealer != null ? dealer.objCity.CityName : string.Empty,
+                        OrganisationName = (dealer != null ? dealer.Organization : string.Empty)
+                    };
 
                     if (dealer != null)
                     {
                         _objLeadNofitication.NotifyCustomer(pqInput.PQId, bikeName, imagePath, dealer.Name,
                            dealer.EmailId, dealer.PhoneNo, dealer.Organization,
                            dealer.Address, objCust.CustomerName, objCust.CustomerEmail,
-                           dealerDetailEntity.objQuotation.PriceList, dealerDetailEntity.objOffers, dealer.objArea.PinCode,
+                           quotation.PriceList, dealerDetailEntity.objOffers, dealer.objArea.PinCode,
                            dealer.objState.StateName, dealer.objCity.CityName, TotalPrice, objDPQSmsEntity,
                            apiValue, pqInput.LeadSourceId, versionName, dealer.objArea.Latitude, dealer.objArea.Longitude,
                            dealer.WorkingTime, platformId);
 
-                        _objLeadNofitication.NotifyDealer(pqInput.PQId, dealerDetailEntity.objQuotation.objMake.MakeName, dealerDetailEntity.objQuotation.objModel.ModelName, dealerDetailEntity.objQuotation.objVersion.VersionName,
-                            dealer.Name, dealer.EmailId, objCust.CustomerName, objCust.CustomerEmail, objCust.CustomerMobile, objCust.AreaDetails.AreaName, objCust.cityDetails.CityName, dealerDetailEntity.objQuotation.PriceList, Convert.ToInt32(TotalPrice), dealerDetailEntity.objOffers, imagePath, dealer.PhoneNo, bikeName, objDPQSmsEntity.DealerArea);
+                        _objLeadNofitication.NotifyDealer(pqInput.PQId, quotation.objMake.MakeName, quotation.objModel.ModelName, quotation.objVersion.VersionName,
+                            dealer.Name, dealer.EmailId, objCust.CustomerName, objCust.CustomerEmail, objCust.CustomerMobile, objCust.AreaDetails.AreaName, objCust.cityDetails.CityName, quotation.PriceList, Convert.ToInt32(TotalPrice), dealerDetailEntity.objOffers, imagePath, dealer.PhoneNo, bikeName, objDPQSmsEntity.DealerArea);
                     }
                     
                     if (isVerified)
