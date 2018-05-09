@@ -364,33 +364,6 @@ namespace Bikewale.Models
             try
             {
                 objDealerDetails = _objDealer.GetDealerDetailsAndBikesByDealerAndMake(dealerId, (int)makeId);
-                if (objDealerDetails != null && objDealerDetails.Models != null)
-                {
-                    GetVersionSpecsSummaryByItemIdAdapter adapt1 = new GetVersionSpecsSummaryByItemIdAdapter();
-                    VersionsDataByItemIds_Input specItemInput = new VersionsDataByItemIds_Input
-                    {
-                        Versions = objDealerDetails.Models.Select(m => m.objVersion.VersionId),
-                        Items = new List<EnumSpecsFeaturesItems>
-                        {
-                            EnumSpecsFeaturesItems.Displacement,
-                            EnumSpecsFeaturesItems.FuelEfficiencyOverall,
-                            EnumSpecsFeaturesItems.MaxPowerBhp,
-                            EnumSpecsFeaturesItems.KerbWeight
-                        }
-                    };
-                    adapt1.AddApiGatewayCall(_apiGatewayCaller, specItemInput);
-                    _apiGatewayCaller.Call();
-                    var specsList = adapt1.Output;
-                    if (specsList != null)
-                    {
-                        var specsEnumerator = specsList.GetEnumerator();
-                        var bikesEnumerator = objDealerDetails.Models.GetEnumerator();
-                        while (bikesEnumerator.MoveNext() && specsEnumerator.MoveNext())
-                        {
-                            bikesEnumerator.Current.MinSpecsList = specsEnumerator.Current.MinSpecsList;
-                        }
-                    }
-                }
             }
             catch (System.Exception ex)
             {
@@ -398,7 +371,6 @@ namespace Bikewale.Models
                 ErrorClass.LogError(ex, "DealerShowroomDealerDetail.BindDealersData()");
             }
             return objDealerDetails;
-
         }
 
         /// <summary>
