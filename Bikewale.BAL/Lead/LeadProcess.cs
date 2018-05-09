@@ -65,6 +65,10 @@ namespace Bikewale.BAL.Lead
         }
 
 
+        /// <summary>
+        /// Modified by : Sanskar Gupta on 09 May 2018
+        /// Description : Removed unused variables such as `isVerified` and the DTO
+        /// </summary>
         public PQCustomerDetailOutputEntity ProcessPQCustomerDetailInput(Entities.PriceQuote.PQCustomerDetailInput pqInput, System.Collections.Specialized.NameValueCollection requestHeaders)
         {
             PriceQuoteParametersEntity pqParam = null;
@@ -112,14 +116,19 @@ namespace Bikewale.BAL.Lead
         }
 
      
+        /// <summary>
+        /// Modified by : Sanskar Gupta on 09 May 2018
+        /// Description : Removed unused variables such as `isVerified` and the DTO
+        /// </summary>
+        /// <param name="pqInput"></param>
+        /// <param name="requestHeaders"></param>
+        /// <returns></returns>
        public PQCustomerDetailOutputEntity ProcessPQCustomerDetailInputV1(PQCustomerDetailInput pqInput, System.Collections.Specialized.NameValueCollection requestHeaders)
         {
             PriceQuoteParametersEntity objPQEntity = null;
             DPQ_SaveEntity entity = null;
-            Bikewale.DTO.PriceQuote.v2.PQCustomerDetailOutput output = null;
             PQCustomerDetailOutputEntity pqCustomerDetailEntity = null;
             bool isSuccess = false;
-            bool isVerified = false;
             string password = string.Empty, salt = string.Empty, hash = string.Empty;
             string bikeName = String.Empty;
             string imagePath = String.Empty;
@@ -160,9 +169,6 @@ namespace Bikewale.BAL.Lead
 
                     if (numberList != null && !numberList.Contains(pqInput.CustomerMobile))
                     {
-                        //Don't mark mobile verified for pq
-                        //isVerified = _objDealerPriceQuote.UpdateIsMobileVerified(input.PQId);
-                        isVerified = true;// Set Verified to true to push the lead into AB for un-verified leads as well
                         pqCustomer = _objDealerPriceQuote.GetCustomerDetails(Convert.ToUInt32(pqId));
                         objCust = pqCustomer.objCustomerBase;
 
