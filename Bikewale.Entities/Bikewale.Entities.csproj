@@ -373,6 +373,7 @@
     <Compile Include="Location\GlobalCityAreaEntity.cs" />
     <Compile Include="Location\StateEntityBase.cs" />
     <Compile Include="Location\StateMaskingResponse.cs" />
+    <Compile Include="MakeABTestCookie.cs" />
     <Compile Include="manufacturecampaign\ManufactureCampaignInput.cs" />
     <Compile Include="manufacturecampaign\ManufactureDealer.cs" />
     <Compile Include="MobileAppAlert\AppFCMInput.cs" />

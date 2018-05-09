@@ -595,11 +595,7 @@ namespace Bikewale.Models
                 ErrorClass.LogError(ex, "Bikewale.Models.NewsDetailPage.GetTaggedBikeListByModel");
             }
         }
-
-        
         #endregion
-
-        /// <summary>
         /// Created By  : Deepak Israni on 11 April 2018
         /// Description : Function to Bind Bike Info Widget. 
         /// </summary>
@@ -610,7 +606,6 @@ namespace Bikewale.Models
             objData.BikeInfo = objBikeInfo.GetData();
             objData.BikeInfo.IsSmallSlug = true;
         }
-
     }
 
 }

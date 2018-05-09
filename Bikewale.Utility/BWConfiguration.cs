@@ -152,7 +152,7 @@ namespace Bikewale.Utility
         private readonly int _pwaRenderedHtmlCacheLimitMins;
         private readonly bool _EnablePwdResetLogging;
         private readonly int _MemcachedDefaultObjDuration;
-        private readonly ushort _MakePageViewShowPercentage;
+        private readonly string _MakePageViewShowPercentage;
 
         // Private constructor, so no outsiders have access.
         private BWConfiguration()
@@ -249,7 +249,7 @@ namespace Bikewale.Utility
             _StaticCSSBTFPWAVersion = ConfigurationManager.AppSettings["StaticCSSBTFPWAVersion"];
             _UserReviewIndexName = ConfigurationManager.AppSettings["UserReviewIndexName"];
             _CapitalFirstPincodeIndex = ConfigurationManager.AppSettings["CapitalFirstPincodeIndex"];
-            _AMPDomainForSW = ConfigurationManager.AppSettings["AMPDomainForSW"];           
+            _AMPDomainForSW = ConfigurationManager.AppSettings["AMPDomainForSW"];
             _capitalFirstConsumerQueue = Convert.ToString(ConfigurationManager.AppSettings["CapitalFirstConsumerQueue"]);
             _IsIPSecurityEnabled = string.IsNullOrEmpty(ConfigurationManager.AppSettings["IsIPSecurityEnabled"]) ? false : Convert.ToBoolean(ConfigurationManager.AppSettings["IsIPSecurityEnabled"]);
             _OtherBikesInMakeId = ConfigurationManager.AppSettings["OtherBikesInMakeId"];
@@ -273,7 +273,7 @@ namespace Bikewale.Utility
             _MemcachedDefaultObjDuration = String.IsNullOrEmpty(ConfigurationManager.AppSettings["MemcachedDefaultObjDuration"]) ? 1 : Convert.ToInt32(ConfigurationManager.AppSettings["MemcachedDefaultObjDuration"]);
             _MakePageOnRoadPriceBtnPct = string.IsNullOrEmpty(ConfigurationManager.AppSettings["MakePageOnRoadPriceBtnPct"]) ? (ushort)0 : Convert.ToUInt16(ConfigurationManager.AppSettings["MakePageOnRoadPriceBtnPct"]);
             _ContestPriceMoney = Convert.ToString(ConfigurationManager.AppSettings["ContestPriceMoney"]);
-            _MakePageViewShowPercentage = string.IsNullOrEmpty(ConfigurationManager.AppSettings["MakePageViewShowPercentage"]) ? (ushort)0 : Convert.ToUInt16(ConfigurationManager.AppSettings["MakePageViewShowPercentage"]);
+            _MakePageViewShowPercentage = string.IsNullOrEmpty(ConfigurationManager.AppSettings["MakePageViewShowPercentage"]) ? string.Empty : (ConfigurationManager.AppSettings["MakePageViewShowPercentage"]);
             _bikeModelIndex = Convert.ToString(ConfigurationManager.AppSettings["BikeIndex"]);
             _bikeModelPriceIndex = Convert.ToString(ConfigurationManager.AppSettings["BikePriceIndex"]);
             _SpecsFeaturesServiceModuleName = Convert.ToString(ConfigurationManager.AppSettings["SpecsFeaturesServiceModuleName"]);
@@ -451,7 +451,7 @@ namespace Bikewale.Utility
         public int MemcachedDefaultObjDuration { get { return _MemcachedDefaultObjDuration; } }
         public ushort MakePageOnRoadPriceBtnPct { get { return _MakePageOnRoadPriceBtnPct; } }
         public string ContestPriceMoney { get { return _ContestPriceMoney; } }
-        public ushort MakePageViewShowPercentage { get { return _MakePageViewShowPercentage; } }
+        public string MakePageViewShowPercentage { get { return _MakePageViewShowPercentage; } }
         public string BikeModelIndex { get { return _bikeModelIndex; } }
         public string BikeModelPriceIndex { get { return _bikeModelPriceIndex; } }
         public string SpecsFeaturesServiceModuleName { get { return _SpecsFeaturesServiceModuleName; } }
