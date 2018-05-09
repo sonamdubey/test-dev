@@ -8,6 +8,7 @@ using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Pager;
 using Bikewale.Notifications;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -24,6 +25,7 @@ namespace Bikewale.Cache.BikeData
         private readonly ICacheManager _cache;
         private readonly IBikeModelsRepository<T, U> _modelRepository;
         private readonly IPager _objPager;
+        private readonly IBikeModelsCacheHelper _bikeModelCacheHelper;
         private static readonly string _modelIdsWithBodyStyleKey = "BW_ModelIdsWithBodyStyle";
 
         /// <summary>
@@ -31,11 +33,12 @@ namespace Bikewale.Cache.BikeData
         /// </summary>
         /// <param name="cache"></param>
         /// <param name="objModels"></param>
-        public BikeModelsCacheRepository(ICacheManager cache, IBikeModelsRepository<T, U> modelRepository, IPager objPager)
+        public BikeModelsCacheRepository(ICacheManager cache, IBikeModelsRepository<T, U> modelRepository, IPager objPager, IBikeModelsCacheHelper bikeModelCacheHelper)
         {
             _cache = cache;
             _modelRepository = modelRepository;
             _objPager = objPager;
+            _bikeModelCacheHelper = bikeModelCacheHelper;
         }
 
         /// <summary>
@@ -1628,5 +1631,26 @@ namespace Bikewale.Cache.BikeData
             return mostPopularBikes;
         }
 
+		/// <summary>
+		/// Created by  : Pratibha Verma on 9 May 2018
+		/// Description : get make model list
+		/// </summary>
+		/// <param name="requestType"></param>
+		/// <returns></returns>
+        public IEnumerable<MakeModelListEntity> GetMakeModelList(EnumBikeType requestType)
+        {
+            IEnumerable<MakeModelListEntity> makeModelList = null;
+            string key = string.Empty;
+            try
+            {
+                key = string.Format("BW_MakeModelList_RequestType_{0}", requestType);
+                makeModelList = _cache.GetFromCache<IEnumerable< MakeModelListEntity >>(key,new TimeSpan(1,0,0), () => _bikeModelCacheHelper.GetMakeModelList(requestType));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.Equals(ex, string.Format("Bikewale.Cache.BikeData.GetMakeModelList()"));
+            }
+            return makeModelList;
+        }
     }
 }

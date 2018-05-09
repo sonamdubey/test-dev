@@ -138,6 +138,7 @@
     <Compile Include="BikeData\IBikeMakesCacheRepository.cs" />
     <Compile Include="BikeData\IBikeModelMaskingCacheRepository.cs" />
     <Compile Include="BikeData\IBikeModels.cs" />
+    <Compile Include="BikeData\IBikeModelsCacheHelper.cs" />
     <Compile Include="BikeData\IBikeModelsCacheRepository.cs" />
     <Compile Include="BikeData\IBikeModelsRepository.cs" />
     <Compile Include="BikeData\IBikeSeries.cs" />

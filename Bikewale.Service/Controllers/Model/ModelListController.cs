@@ -1,12 +1,20 @@
-﻿using Bikewale.DTO.BikeData;
+﻿using Bikewale.BAL.BikeData;
+using Bikewale.DTO.BikeData;
 using Bikewale.DTO.Model;
 using Bikewale.DTO.Widgets;
 using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
+using Bikewale.Interfaces.CMS;
+using Bikewale.Interfaces.EditCMS;
+using Bikewale.Interfaces.Pager;
+using Bikewale.Interfaces.UserReviews;
+using Bikewale.Interfaces.UserReviews.Search;
+using Bikewale.Interfaces.Videos;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.BikeData;
 using Bikewale.Service.AutoMappers.Model;
 using Bikewale.Service.Utilities;
+using log4net;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
@@ -30,18 +38,26 @@ namespace Bikewale.Service.Controllers.Model
 
         private readonly IBikeModelsRepository<BikeModelEntity, int> _modelRepository = null;
         private readonly IBikeModelsCacheRepository<int> _modelCacheRepository = null;
+		private readonly IBikeModels<BikeModelEntity, int> _bikeModel;
+		private readonly IBikeModelsCacheHelper _bikeModelCacheHelper;		
+		private readonly ILog _logger = LogManager.GetLogger(typeof(BikeModels<BikeModelEntity, int>));
 
-        /// <summary>
-        /// Modified by :   Sumit Kate on 01 Jul 2016
-        /// Description :   Added IBikeModelsCacheRepository
-        /// </summary>
-        /// <param name="modelRepository"></param>
-        /// <param name="modelCacheRepository"></param>
-        public ModelListController(IBikeModelsRepository<BikeModelEntity, int> modelRepository, IBikeModelsCacheRepository<int> modelCacheRepository)
+		/// <summary>
+		/// Modified by :   Sumit Kate on 01 Jul 2016
+		/// Description :   Added IBikeModelsCacheRepository
+		/// </summary>
+		/// <param name="modelRepository"></param>
+		/// <param name="modelCacheRepository"></param>
+		/// <param name="bikeModel"></param>
+		/// <param name="bikeModelCacheHelper"></param>
+		public ModelListController(IBikeModelsRepository<BikeModelEntity, int> modelRepository, IBikeModelsCacheRepository<int> modelCacheRepository, 
+			IBikeModels<BikeModelEntity, int> bikeModel, IBikeModelsCacheHelper bikeModelCacheHelper)
         {
             _modelRepository = modelRepository;
             _modelCacheRepository = modelCacheRepository;
-        }
+            _bikeModel = bikeModel;
+			_bikeModelCacheHelper = bikeModelCacheHelper;
+		}
 
         #region Minimum Model Details
         /// <summary>
@@ -182,6 +198,41 @@ namespace Bikewale.Service.Controllers.Model
             {
                 ErrorClass.LogError(ex, "Exception : Bikewale.Service.Model.AllModels");
                
+                return InternalServerError();
+            }
+            return NotFound();
+        }
+
+		/// <summary>
+		/// Created by  : Pratibha Verma on 9 May 2018
+		/// Description : to get make with model list
+		/// </summary>
+		/// <param name="requestType"></param>
+		/// <returns></returns>
+        [ResponseType(typeof(List<MakeModelListEntity>)), Route("api/model/all/v2/{requestType}/")]
+        public IHttpActionResult GetMakeModelList(EnumBikeType requestType)
+        {
+            IEnumerable<MakeModelListEntity> objList = null;
+            List<MakeModelList> objModelList = null;
+            try
+            {
+                objList = _bikeModel.GetMakeModelList(requestType);
+
+                if (objList != null && objList.Any())
+                {
+                    objModelList = new List<MakeModelList>();
+
+                    objModelList = MakeModelEntityMapper.Convert(objList.ToList());
+
+                    objList = null;
+
+                    return Ok(objModelList);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.Model.GetMakeModelList");
+
                 return InternalServerError();
             }
             return NotFound();

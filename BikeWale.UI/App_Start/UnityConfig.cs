@@ -33,6 +33,7 @@ using Bikewale.Cache.Used;
 using Bikewale.Cache.UsedBikes;
 using Bikewale.Cache.UserReviews;
 using Bikewale.Cache.Videos;
+using Bikewale.CacheHelper.BikeData;
 using Bikewale.Comparison.BAL;
 using Bikewale.Comparison.Cache;
 using Bikewale.Comparison.DAL;
@@ -185,6 +186,7 @@ namespace Bikewale
             container.RegisterType<IPageFilters, PageFilters>();
             container.RegisterType<IPQByCityArea, PQByCityArea>();
             container.RegisterType<Bikewale.Interfaces.AutoBiz.IDealerPriceQuote, Bikewale.DAL.AutoBiz.DealerPriceQuoteRepository>();
+            container.RegisterType<IBikeModelsCacheHelper, BikeModelsCacheHelper>();
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }
     }

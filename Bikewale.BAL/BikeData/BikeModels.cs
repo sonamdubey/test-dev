@@ -5,6 +5,7 @@ using Bikewale.BAL.UserReviews.Search;
 using Bikewale.Cache.BikeData;
 using Bikewale.Cache.CMS;
 using Bikewale.Cache.Core;
+using Bikewale.CacheHelper.BikeData;
 using Bikewale.DAL.BikeData;
 using Bikewale.DAL.Customer;
 using Bikewale.DAL.UserReviews;
@@ -62,6 +63,7 @@ namespace Bikewale.BAL.BikeData
         private readonly uint _applicationid = Convert.ToUInt32(BWConfiguration.Instance.ApplicationId);
         private static readonly IEnumerable<EnumBikeBodyStyles> _bodyStyles = new List<EnumBikeBodyStyles> { EnumBikeBodyStyles.Scooter, EnumBikeBodyStyles.Street, EnumBikeBodyStyles.Cruiser, EnumBikeBodyStyles.Sports };
         private string _newsContentType;
+		private readonly IBikeModelsCacheHelper _bikeModelCacheHelper = null;
         /// <summary>
         /// Modified by :   Sumit Kate on 26 Apr 2017
         /// Description :   Register the User Reviews BAL and resolve it
@@ -85,6 +87,7 @@ namespace Bikewale.BAL.BikeData
                 container.RegisterType<ICustomer<CustomerEntity, UInt32>, Customer<CustomerEntity, UInt32>>();
                 container.RegisterType<ICustomerRepository<CustomerEntity, UInt32>, CustomerRepository<CustomerEntity, UInt32>>();
                 container.RegisterType<IUserReviews, Bikewale.BAL.UserReviews.UserReviews>();
+				container.RegisterType<IBikeModelsCacheHelper,BikeModelsCacheHelper>();
 
                 modelRepository = container.Resolve<IBikeModelsRepository<T, U>>();
                 _objPager = container.Resolve<IPager>();
@@ -96,7 +99,9 @@ namespace Bikewale.BAL.BikeData
                 _userReviews = container.Resolve<IUserReviews>();
                 _userReviewsSearch = container.Resolve<IUserReviewsSearch>();
                 _modelMaskingCache = container.Resolve<IBikeMaskingCacheRepository<BikeModelEntity, int>>();
-            }
+				_bikeModelCacheHelper = container.Resolve<IBikeModelsCacheHelper>();
+
+			}
         }
 
         public List<BikeModelEntityBase> GetModelsByType(EnumBikeType requestType, int makeId)
@@ -1417,6 +1422,27 @@ namespace Bikewale.BAL.BikeData
             }
             return LookupArray;
         }
+
+		/// <summary>
+		/// Created by  : Pratibha Verma on 9 May 2018
+		/// Description : get make model list
+		/// </summary>
+		/// <param name="requestType"></param>
+		/// <returns></returns>
+        public IEnumerable<MakeModelListEntity> GetMakeModelList(EnumBikeType requestType)
+        {
+            IEnumerable<MakeModelListEntity> makeModelList = null;
+            try
+            {
+                makeModelList = _modelCacheRepository.GetMakeModelList(requestType);
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "Bikewale.BAL.BikeData.BikeModels.GetMakeModelList");
+            }
+            return makeModelList;
+        }
+
         private class MostPopularBikesBaseComparer : IEqualityComparer<MostPopularBikesBase>
         {
 
@@ -1446,9 +1472,10 @@ namespace Bikewale.BAL.BikeData
                 int hashProductCode = product.objModel.ModelId.GetHashCode();
                 return hashProductName ^ hashProductCode;
             }
+            
+            
 
         }
-
-
+        
     }   // Class
 }   // namespace

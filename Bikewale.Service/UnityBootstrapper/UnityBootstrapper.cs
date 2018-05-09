@@ -35,6 +35,7 @@ using Bikewale.Cache.Used;
 using Bikewale.Cache.UsedBikes;
 using Bikewale.Cache.UserReviews;
 using Bikewale.Cache.Videos;
+using Bikewale.CacheHelper.BikeData;
 using Bikewale.DAL.App;
 using Bikewale.DAL.BikeBooking;
 using Bikewale.DAL.BikeData;
@@ -233,7 +234,8 @@ namespace Bikewale.Service.UnityConfiguration
             container.RegisterType<IBikeSeriesRepository, BikeSeriesRepository>();
             container.RegisterType<IPQByCityArea, PQByCityArea>();
             container.RegisterType<Bikewale.Interfaces.AutoBiz.IDealerPriceQuote, Bikewale.DAL.AutoBiz.DealerPriceQuoteRepository>();
-            return container;
+			container.RegisterType<IBikeModelsCacheHelper, BikeModelsCacheHelper>();
+			return container;
 
         }
     }

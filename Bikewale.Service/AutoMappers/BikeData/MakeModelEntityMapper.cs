@@ -19,6 +19,13 @@ namespace Bikewale.Service.AutoMappers.BikeData
             return Mapper.Map<List<BikeMakeModelEntity>, List<BikeMakeModel>>(entity);
         }
 
+        public static List<MakeModelList> Convert(List<MakeModelListEntity> entity)
+        {
+            Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
+            Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
+            Mapper.CreateMap<MakeModelListEntity, MakeModelList>();
+            return Mapper.Map<List<MakeModelListEntity>, List<MakeModelList>>(entity);
+        }
         internal static IEnumerable<MakeModelBase> Convert(IEnumerable<BikeMakeModelBase> enumerable)
         {
             if (enumerable != null)
