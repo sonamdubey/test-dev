@@ -69,7 +69,7 @@ namespace Bikewale.BAL.Lead
         /// Modified by : Sanskar Gupta on 09 May 2018
         /// Description : Removed unused variables such as `isVerified` and the DTO
         /// </summary>
-        public PQCustomerDetailOutputEntity ProcessPQCustomerDetailInput(Entities.PriceQuote.PQCustomerDetailInput pqInput, System.Collections.Specialized.NameValueCollection requestHeaders)
+        public PQCustomerDetailOutputEntity ProcessPQCustomerDetailInputWithPQ(Entities.PriceQuote.PQCustomerDetailInput pqInput, System.Collections.Specialized.NameValueCollection requestHeaders)
         {
             PriceQuoteParametersEntity pqParam = null;
             DPQ_SaveEntity entity = null;
@@ -80,7 +80,7 @@ namespace Bikewale.BAL.Lead
             sbyte noOfAttempts = 0;
             try
             {
-                if (pqInput != null && (pqInput.PQId > 0) && (Convert.ToUInt32(pqInput.VersionId) > 0))
+                if (pqInput != null && (pqInput.PQId > 0))
                 {
                     pqParam = new PriceQuoteParametersEntity();
                     pqParam.VersionId = Convert.ToUInt32(pqInput.VersionId);
@@ -118,12 +118,12 @@ namespace Bikewale.BAL.Lead
      
         /// <summary>
         /// Modified by : Sanskar Gupta on 09 May 2018
-        /// Description : Removed unused variables such as `isVerified` and the DTO
+        /// Description : Removed unused variables such as `isVerified` and the DTO, Added the check `pqInput.PQId`
         /// </summary>
         /// <param name="pqInput"></param>
         /// <param name="requestHeaders"></param>
         /// <returns></returns>
-       public PQCustomerDetailOutputEntity ProcessPQCustomerDetailInputV1(PQCustomerDetailInput pqInput, System.Collections.Specialized.NameValueCollection requestHeaders)
+       public PQCustomerDetailOutputEntity ProcessPQCustomerDetailInputWithoutPQ(PQCustomerDetailInput pqInput, System.Collections.Specialized.NameValueCollection requestHeaders)
         {
             PriceQuoteParametersEntity objPQEntity = null;
             DPQ_SaveEntity entity = null;
@@ -140,7 +140,7 @@ namespace Bikewale.BAL.Lead
 
             try
             {
-                if (pqInput != null && !String.IsNullOrEmpty(pqInput.CustomerEmail) && !String.IsNullOrEmpty(pqInput.CustomerMobile))
+                if (pqInput != null)
                 {
                     objPQEntity = new PriceQuoteParametersEntity();
                     objPQEntity.CityId = Convert.ToUInt32(pqInput.CityId);
@@ -159,7 +159,12 @@ namespace Bikewale.BAL.Lead
                     objPQEntity.PQLeadId = pqInput.LeadSourceId;
                     objPQEntity.VersionId = Convert.ToUInt32(pqInput.VersionId);
                     objPQEntity.DealerId = pqInput.DealerId;
-                    pqId = _objPriceQuote.RegisterPriceQuote(objPQEntity);
+
+                    if (pqInput.PQId <= 0)
+                    {
+                        pqId = _objPriceQuote.RegisterPriceQuote(objPQEntity);
+                    }
+
                     entity = CheckRegisteredUser(pqInput, requestHeaders);
 
                     isSuccess = _objDealerPriceQuote.SaveCustomerDetail(entity);

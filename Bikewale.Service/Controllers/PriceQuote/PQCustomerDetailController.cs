@@ -130,11 +130,17 @@ namespace Bikewale.Service.Controllers.PriceQuote
             {
                 PQCustomerDetailOutputEntity outEntity = null;
                 Bikewale.Entities.PriceQuote.PQCustomerDetailInput pqInput = null;
-                if (input != null && !String.IsNullOrEmpty(input.CustomerMobile) && input.PQId > 0 && input.DealerId > 0)
+                if (input != null
+                    && !String.IsNullOrEmpty(input.CustomerEmail)
+                    && !String.IsNullOrEmpty(input.CustomerMobile) 
+                    && input.PQId > 0 
+                    && input.DealerId > 0 
+                    && Convert.ToInt32(input.VersionId) > 0
+                    && Convert.ToInt32(input.CityId) > 0)
                 {
                     pqInput = PQCustomerMapper.Convert(input);
                     NameValueCollection requestHeaders = SetRequestHeaders(Request.Headers);
-                    outEntity = _objLeadProcess.ProcessPQCustomerDetailInput(pqInput, requestHeaders);
+                    outEntity = _objLeadProcess.ProcessPQCustomerDetailInputWithPQ(pqInput, requestHeaders);
                     output = PQCustomerMapper.Convert(outEntity);
                     if (output != null)
                     {
@@ -177,13 +183,17 @@ namespace Bikewale.Service.Controllers.PriceQuote
 
             try
             {
-                if (input != null && !String.IsNullOrEmpty(input.CustomerEmail) && !String.IsNullOrEmpty(input.CustomerMobile))
+                if (input != null 
+                    && !String.IsNullOrEmpty(input.CustomerEmail) 
+                    && !String.IsNullOrEmpty(input.CustomerMobile)
+                    && Convert.ToInt32(input.VersionId) > 0
+                    && Convert.ToInt32(input.CityId) > 0)
                 {
                     Bikewale.Entities.PriceQuote.PQCustomerDetailInput pqInput = null;
                     PQCustomerDetailOutputEntity outEntity = null;
                     pqInput = PQCustomerMapper.Convert(input);
                     NameValueCollection requestHeaders = SetRequestHeaders(Request.Headers);
-                    outEntity = _objLeadProcess.ProcessPQCustomerDetailInputV1(pqInput, requestHeaders);
+                    outEntity = _objLeadProcess.ProcessPQCustomerDetailInputWithoutPQ(pqInput, requestHeaders);
                     output = PQCustomerMapper.Convertv2(outEntity);//mapper
                     if (output != null)
                     {
