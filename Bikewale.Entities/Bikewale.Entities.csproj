@@ -207,6 +207,7 @@
     <Compile Include="BikeData\Features.cs" />
     <Compile Include="BikeData\MakeFooterCategory.cs" />
     <Compile Include="BikeData\MakeMaskingResponse.cs" />
+    <Compile Include="BikeData\MakeModelListEntity.cs" />
     <Compile Include="BikeData\MakeSubFooterEntity.cs" />
     <Compile Include="BikeData\MileageInfoByBodyStyle.cs" />
     <Compile Include="BikeData\MinSpecs.cs" />

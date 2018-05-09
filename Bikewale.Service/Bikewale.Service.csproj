@@ -440,6 +440,10 @@
       <Project>{038bc901-9d7f-4a95-8ca6-117db3aa48cc}</Project>
       <Name>Bikewale.Cache.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Bikewale.CacheHelper\Bikewale.CacheHelper.csproj">
+      <Project>{A2232B60-DF4E-4464-91D9-F587CCE00738}</Project>
+      <Name>Bikewale.CacheHelper</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Bikewale.Cache\Bikewale.Cache.csproj">
       <Project>{c5f8b7d6-4b62-4169-a73b-87215314d8cb}</Project>
       <Name>Bikewale.Cache</Name>

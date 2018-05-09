@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.40629.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Bikewale.DAL", "Bikewale.DAL", "{42FF1FB7-AC82-4750-8DF6-2BF39E69950E}"
 EndProject
@@ -166,6 +166,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bikewale.ElasticSearch.DocumentBuilderConsumer", "Bikewale.ElasticSearch.DocumentBuilderConsumer\Bikewale.ElasticSearch.DocumentBuilderConsumer.csproj", "{EBB5EABD-FC2E-4734-AD92-2B938BA2B6A8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bikewale.ManufacturerCampaign.Cache", "Bikewale.ManufacturerCampaign.Cache\Bikewale.ManufacturerCampaign.Cache.csproj", "{A00B0A07-EB13-4B08-8089-6ED33B9896FE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bikewale.CacheHelper", "Bikewale.CacheHelper\Bikewale.CacheHelper.csproj", "{A2232B60-DF4E-4464-91D9-F587CCE00738}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -1750,6 +1752,30 @@ Global
 		{A00B0A07-EB13-4B08-8089-6ED33B9896FE}.Testing|Any CPU.Build.0 = Release|Any CPU
 		{A00B0A07-EB13-4B08-8089-6ED33B9896FE}.Testing|x64.ActiveCfg = Release|Any CPU
 		{A00B0A07-EB13-4B08-8089-6ED33B9896FE}.Testing|x86.ActiveCfg = Release|Any CPU
+		{A2232B60-DF4E-4464-91D9-F587CCE00738}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2232B60-DF4E-4464-91D9-F587CCE00738}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A2232B60-DF4E-4464-91D9-F587CCE00738}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{A2232B60-DF4E-4464-91D9-F587CCE00738}.Debug|x64.Build.0 = Debug|Any CPU
+		{A2232B60-DF4E-4464-91D9-F587CCE00738}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{A2232B60-DF4E-4464-91D9-F587CCE00738}.Debug|x86.Build.0 = Debug|Any CPU
+		{A2232B60-DF4E-4464-91D9-F587CCE00738}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A2232B60-DF4E-4464-91D9-F587CCE00738}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A2232B60-DF4E-4464-91D9-F587CCE00738}.Release|x64.ActiveCfg = Release|Any CPU
+		{A2232B60-DF4E-4464-91D9-F587CCE00738}.Release|x64.Build.0 = Release|Any CPU
+		{A2232B60-DF4E-4464-91D9-F587CCE00738}.Release|x86.ActiveCfg = Release|Any CPU
+		{A2232B60-DF4E-4464-91D9-F587CCE00738}.Release|x86.Build.0 = Release|Any CPU
+		{A2232B60-DF4E-4464-91D9-F587CCE00738}.Staging|Any CPU.ActiveCfg = Release|Any CPU
+		{A2232B60-DF4E-4464-91D9-F587CCE00738}.Staging|Any CPU.Build.0 = Release|Any CPU
+		{A2232B60-DF4E-4464-91D9-F587CCE00738}.Staging|x64.ActiveCfg = Release|Any CPU
+		{A2232B60-DF4E-4464-91D9-F587CCE00738}.Staging|x64.Build.0 = Release|Any CPU
+		{A2232B60-DF4E-4464-91D9-F587CCE00738}.Staging|x86.ActiveCfg = Release|Any CPU
+		{A2232B60-DF4E-4464-91D9-F587CCE00738}.Staging|x86.Build.0 = Release|Any CPU
+		{A2232B60-DF4E-4464-91D9-F587CCE00738}.Testing|Any CPU.ActiveCfg = Release|Any CPU
+		{A2232B60-DF4E-4464-91D9-F587CCE00738}.Testing|Any CPU.Build.0 = Release|Any CPU
+		{A2232B60-DF4E-4464-91D9-F587CCE00738}.Testing|x64.ActiveCfg = Release|Any CPU
+		{A2232B60-DF4E-4464-91D9-F587CCE00738}.Testing|x64.Build.0 = Release|Any CPU
+		{A2232B60-DF4E-4464-91D9-F587CCE00738}.Testing|x86.ActiveCfg = Release|Any CPU
+		{A2232B60-DF4E-4464-91D9-F587CCE00738}.Testing|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1825,5 +1851,6 @@ Global
 		{EB619D5C-78BB-4236-BE23-630995E3DCC2} = {5E11D1E6-8D14-438B-AA77-883DAA63F4F2}
 		{EBB5EABD-FC2E-4734-AD92-2B938BA2B6A8} = {5E11D1E6-8D14-438B-AA77-883DAA63F4F2}
 		{A00B0A07-EB13-4B08-8089-6ED33B9896FE} = {7960339E-0DDB-4B69-BA53-B20F63897143}
+		{A2232B60-DF4E-4464-91D9-F587CCE00738} = {E68522E8-0DD4-4E00-A60F-CAEBAB2236F6}
 	EndGlobalSection
 EndGlobal
