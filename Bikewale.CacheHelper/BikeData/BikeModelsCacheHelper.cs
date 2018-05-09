@@ -9,7 +9,7 @@ namespace Bikewale.CacheHelper.BikeData
 {
 	public class BikeModelsCacheHelper : IBikeModelsCacheHelper
 	{
-		private readonly IBikeModelsRepository<BikeModelEntity, int> _modelRepository = null;
+		private readonly IBikeModelsRepository<BikeModelEntity, int> _modelRepository;
 
 		public BikeModelsCacheHelper(IBikeModelsRepository<BikeModelEntity, int> modelRepository)
 		{

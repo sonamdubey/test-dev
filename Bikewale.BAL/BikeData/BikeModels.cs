@@ -63,7 +63,7 @@ namespace Bikewale.BAL.BikeData
         private readonly uint _applicationid = Convert.ToUInt32(BWConfiguration.Instance.ApplicationId);
         private static readonly IEnumerable<EnumBikeBodyStyles> _bodyStyles = new List<EnumBikeBodyStyles> { EnumBikeBodyStyles.Scooter, EnumBikeBodyStyles.Street, EnumBikeBodyStyles.Cruiser, EnumBikeBodyStyles.Sports };
         private string _newsContentType;
-		private readonly IBikeModelsCacheHelper _bikeModelCacheHelper = null;
+		private readonly IBikeModelsCacheHelper _bikeModelCacheHelper;
         /// <summary>
         /// Modified by :   Sumit Kate on 26 Apr 2017
         /// Description :   Register the User Reviews BAL and resolve it

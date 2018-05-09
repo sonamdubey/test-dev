@@ -1,4 +1,4 @@
-﻿using Bikewale.BAL.BikeData;
+﻿
 using Bikewale.DTO.BikeData;
 using Bikewale.DTO.Model;
 using Bikewale.DTO.Widgets;
@@ -8,7 +8,6 @@ using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.BikeData;
 using Bikewale.Service.AutoMappers.Model;
 using Bikewale.Service.Utilities;
-using log4net;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
@@ -145,9 +144,6 @@ namespace Bikewale.Service.Controllers.Model
                     objDTOModelList = new ModelList();
                     objDTOModelList.Model = ModelMapper.Convert(objModelList);
 
-                    objModelList.Clear();
-                    objModelList = null;
-
                     return Ok(objDTOModelList);
                 }
             }
@@ -182,8 +178,6 @@ namespace Bikewale.Service.Controllers.Model
 
                     objModelList = MakeModelEntityMapper.Convert(objList.ToList());
 
-                    objList = null;
-
                     return Ok(objModelList);
                 }
             }
@@ -216,8 +210,6 @@ namespace Bikewale.Service.Controllers.Model
                     objModelList = new List<MakeModelList>();
 
                     objModelList = MakeModelEntityMapper.Convert(objList);
-
-                    objList = null;
 
                     return Ok(objModelList);
                 }

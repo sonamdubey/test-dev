@@ -1647,7 +1647,7 @@ namespace Bikewale.Cache.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass.Equals(ex, string.Format("Bikewale.Cache.BikeData.GetMakeModelList()"));
+                ErrorClass.LogError(ex, "Bikewale.Cache.BikeData.GetMakeModelList()");
             }
             return makeModelList;
         }
