@@ -27,22 +27,25 @@ class PieBreakUp  extends React.Component {
 		const loanAmount = parseFloat(this.props.sliderDp.max - this.props.sliderDp.values[0])
 		let pricipalLoan = formatToINR(loanAmount);
 		const pieInterestAmt = formatToINR(this.props.emiCalculationParam.interestPayable)
-		let colors = ['#f45944', '#fed1cd'];
 		return (
 				<div>          
 					<div className="pie-breakup-data">
 							<div className="pie-breakup_unit">
 									<div className="pie-breakup_title">
-										<span className="pie-breakup_bullet" style={{ backgroundColor: colors[0]}}></span> Total Interest Payable</div>
+										<span className="pie-breakup_bullet pie-breakup_bullet-interest"></span> Total Interest Payable</div>
 									<div className="pie-breakup_amount">{pieInterestAmt}</div>
 							</div>
 							<div className="pie-breakup_unit">
 									<div className="pie-breakup_title">
-										<span className="pie-breakup_bullet" style={{ backgroundColor: colors[1]}}></span> Principle Loan Amount</div>
+										<span className="pie-breakup_bullet pie-breakup_bullet-loan"></span> Principle Loan Amount</div>
 									<div className="pie-breakup_amount">{pricipalLoan}</div>
 							</div>
 							<div className="pie-breakup_unit">
-									<div className="pie-breakup_title">Tenure {this.props.sliderTenure.values[0]}</div>
+									<div className="pie-breakup_title">
+										<span className="pie-breakup_bullet-tenure"></span> Tenure
+										<div className="pie-breakup_tenure">{this.props.sliderTenure.values[0]} Months</div>
+									</div>	
+									
 							</div>
 					</div>
 					<div className="pie-breakup-graph">

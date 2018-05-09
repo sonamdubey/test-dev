@@ -39,6 +39,13 @@
 .pie-center-amount
   font-size: 18px
 
+.pie-breakup_tenure
+  font-size: 12px
+  color: color('light-grey')
+  font-weight: $font-semibold
+  display: inline-block
+  margin-left: 5px
+
 .pie-breakup_bullet
   @include vendor-prefix("border-radius", 30px)
   width: 8px
@@ -48,6 +55,17 @@
   margin-right: 10px
   margin-top: 3px
   position: relative
+  &.pie-breakup_bullet-interest
+    background-color: #f45944
+  &.pie-breakup_bullet-loan
+    background-color: #fed1cd
 
+.pie-breakup_bullet-tenure
+  @include calendar-7f8186-icon
+  padding-left: 23px
+  padding-bottom: 2px
+  width: 15px
+  height: 15px
+  vertical-align: text-bottom
 
 

@@ -63,7 +63,6 @@ class Pie extends React.Component{
 			diameter = radius * 2,
 			self = this,
 			sum, startAngle, d = null;
-			console.log(this.props.data)
 		sum = this.props.data.reduce(function (carry, current) { return carry + current }, 0);
 		startAngle = 150;
 		return (
