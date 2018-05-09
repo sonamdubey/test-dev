@@ -13,6 +13,7 @@ using Bikewale.BAL.Customer;
 using Bikewale.BAL.Dealer;
 using Bikewale.BAL.EditCMS;
 using Bikewale.BAL.Images;
+using Bikewale.BAL.Lead;
 using Bikewale.BAL.Notifications;
 using Bikewale.BAL.Pager;
 using Bikewale.BAL.PriceQuote;
@@ -70,6 +71,7 @@ using Bikewale.Interfaces.Dealer;
 using Bikewale.Interfaces.EditCMS;
 using Bikewale.Interfaces.Feedback;
 using Bikewale.Interfaces.Images;
+using Bikewale.Interfaces.Lead;
 using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.MobileAppAlert;
 using Bikewale.Interfaces.MobileVerification;
@@ -239,6 +241,7 @@ namespace Bikewale.Service.UnityConfiguration
             container.RegisterType<IPQByCityArea, PQByCityArea>();
             container.RegisterType<Bikewale.Interfaces.AutoBiz.IDealerPriceQuote, Bikewale.DAL.AutoBiz.DealerPriceQuoteRepository>();
             container.RegisterType<IBikeSearchResult, BikeSearchResult>();
+            container.RegisterType<ILead, LeadProcess>();
             container.RegisterType<IApiGatewayCaller, ApiGatewayCaller>();
             return container;
 

@@ -41,11 +41,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config">
-      <SubType>Designer</SubType>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Bikewale.BAL.ApiGateway\Bikewale.BAL.ApiGateway.csproj">
       <Project>{281d4c7b-6329-4307-a1a3-de25135659f6}</Project>
       <Name>Bikewale.BAL.ApiGateway</Name>
@@ -92,6 +87,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\Mysql6.10.6.0\MySql.Data.dll</HintPath>
     </Reference>
+    <Reference Include="MySql.Data, Version=6.10.5.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\Mysql6.10.6.0\MySql.Data.dll</HintPath>
+    </Reference>
     <Reference Include="MySqlDatabaseLibrary, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\MySqlDatabaseDLL\MySqlDatabaseLibrary.dll</HintPath>
@@ -113,7 +112,9 @@
     <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
     <Compile Include="DocumentBuilders\ModelPriceDocumentBuilder.cs" />
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

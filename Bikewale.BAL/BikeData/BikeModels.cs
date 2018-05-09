@@ -361,6 +361,7 @@ namespace Bikewale.BAL.BikeData
             if (objList != null)
             {
                 objList = objList.Where(x => x.StartDate < DateTime.Now && x.EndDate > DateTime.Now);
+            
 
                 var specsItemList = new List<EnumSpecsFeaturesItems>
                 {
