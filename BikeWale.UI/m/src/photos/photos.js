@@ -24,6 +24,7 @@ var vmLoadPhotos = function () {
 
 
 docReady(function () {
+    logbhrighu = true;
     var photosLimit = 30;
     bindPhotos(photosLimit);
     var vmPhotosMore = new vmLoadPhotos();
@@ -33,7 +34,7 @@ docReady(function () {
         try {
             if (returnUrl && returnUrl.length > 0) {
                 popupGallery.bindGallery(imageIndex);
-                if (typeof (logBhrighuForImage) != "undefined" && imageIndex <= 0) {
+                if (typeof (logBhrighuForImage) != "undefined" && imageIndex <= 0 && logbhrighu) {
                     logBhrighuForImage($('#main-photo-swiper .swiper-slide-active'));
                 }
             }
@@ -52,10 +53,6 @@ docReady(function () {
                         imageIndex = gridOneLength + imageIndex; // (grid type 1's length + grid type remainder's index)
                     }
 
-                    if (typeof (logBhrighuForImage) != "undefined" && imageIndex <= 0) {
-                        //included in gallery js
-                        logBhrighuForImage($(this));
-                    }
                     if (photosLimit == imageIndex+1) {
                         $('.photos-grid-list').find("span").remove();
                         if (vmModelGallery.photoList().length >= imageIndex + 12) {
@@ -84,7 +81,12 @@ docReady(function () {
                         popupGallery.bindGallery(imageIndex);
                         galleryRoot.find('.gallery-loader-placeholder').hide();
                     }
-               
+                    if (logbhrighu) {
+                        //included in gallery js
+                        logBhrighuForImage($(this));
+                    }
+                    logbhrighu = true;
+
                 }
             });
 
