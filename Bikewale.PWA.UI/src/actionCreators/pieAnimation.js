@@ -13,9 +13,7 @@ const stopPieAnimation = () => {
 }
 
 export const startAnimation = () => (dispatch) => {
-  dispatch(startPieAnimation())
-}
-
-export const stopAnimation = () => (dispatch) => {
-  dispatch(stopPieAnimation())
+  dispatch(startPieAnimation(setTimeout(function(){
+    dispatch(stopPieAnimation())
+  },500)))
 }

@@ -11,7 +11,7 @@ import {createNewSnapPoints} from '../../utils/rheostat/function/DiffSnapPoints'
 
 import { emiCalculatorAction } from '../../actionCreators/emiInterestSlider'
 import { updateInterestSlider } from '../../actionCreators/emiInterestSlider'
-import { startAnimation, stopAnimation } from '../../actionCreators/pieAnimation'
+import { startAnimation } from '../../actionCreators/pieAnimation'
 
 class EMIInterest  extends React.Component {
 	constructor(props) {
@@ -36,12 +36,9 @@ class EMIInterest  extends React.Component {
 	}
 	handleSliderDragEnd = () => {
 		const {
-			startAnimation,
-			stopAnimation
+			startAnimation
 		} = this.props
-		startAnimation(setTimeout(function(){
-			stopAnimation()
-		}, 500))
+		startAnimation()
 	}
 	render() {
 		let {
@@ -86,8 +83,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch, getState) => {
 	return {
 		updateInterestSlider: bindActionCreators(updateInterestSlider, dispatch),
-		startAnimation: bindActionCreators(startAnimation, dispatch),
-		stopAnimation: bindActionCreators(stopAnimation, dispatch)
+		startAnimation: bindActionCreators(startAnimation, dispatch)
 	}
 }
 

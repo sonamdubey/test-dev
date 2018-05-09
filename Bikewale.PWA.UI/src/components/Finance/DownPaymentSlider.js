@@ -9,7 +9,7 @@ import sliderAlgorithm from '../../utils/rheostat/algorithms/linear'
 
 import { emiCalculatorAction } from '../../actionCreators/emiDownPaymentSlider'
 import { updateDownPaymentSlider } from '../../actionCreators/emiDownPaymentSlider'
-import { startAnimation, stopAnimation } from '../../actionCreators/pieAnimation'
+import { startAnimation } from '../../actionCreators/pieAnimation'
 
 import { formatToINR, formatToCurrency } from '../../utils/formatAmount'
 
@@ -36,12 +36,9 @@ class EMIDownPayment  extends React.Component {
   }
   handleSliderDragEnd = () => {
     const {
-      startAnimation,
-      stopAnimation
+      startAnimation
     } = this.props
-    startAnimation(setTimeout(function(){
-      stopAnimation()
-    }, 500))
+    startAnimation()
   }
 updateLoanText() {
     let loanAmountUpdated = this.props.slider.max - this.props.slider.values[0];
@@ -96,8 +93,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch, getState) => {
   return {
     updateDownPaymentSlider: bindActionCreators(updateDownPaymentSlider, dispatch),
-    startAnimation: bindActionCreators(startAnimation, dispatch),
-    stopAnimation: bindActionCreators(stopAnimation, dispatch)
+    startAnimation: bindActionCreators(startAnimation, dispatch)
   }
 }
 

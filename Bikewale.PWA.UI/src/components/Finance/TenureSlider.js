@@ -11,7 +11,7 @@ import {createNewSnapPoints} from '../../utils/rheostat/function/DiffSnapPoints'
 
 import { emiCalculatorAction } from '../../actionCreators/emiTenureSlider'
 import { updateTenureSlider } from '../../actionCreators/emiTenureSlider'
-import { startAnimation, stopAnimation } from '../../actionCreators/pieAnimation'
+import { startAnimation } from '../../actionCreators/pieAnimation'
 
 import { formatToRound } from '../../utils/formatAmount'
 
@@ -38,12 +38,9 @@ class EMITenure  extends React.Component {
   }
   handleSliderDragEnd = () => {
     const {
-      startAnimation,
-      stopAnimation
+      startAnimation
     } = this.props
-    startAnimation(setTimeout(function(){
-      stopAnimation()
-    }, 500))
+    startAnimation()
   }
   render() {
     let {
@@ -89,8 +86,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch, getState) => {
   return {
     updateTenureSlider: bindActionCreators(updateTenureSlider, dispatch),
-    startAnimation: bindActionCreators(startAnimation, dispatch),
-    stopAnimation: bindActionCreators(stopAnimation, dispatch)
+    startAnimation: bindActionCreators(startAnimation, dispatch)
   }
 }
 
