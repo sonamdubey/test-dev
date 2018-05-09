@@ -43,7 +43,7 @@ class PieBreakUp  extends React.Component {
 							<div className="pie-breakup_unit">
 									<div className="pie-breakup_title">
 										<span className="pie-breakup_bullet-tenure"></span> Tenure
-										<div className="pie-breakup_tenure">{this.props.sliderTenure.values[0]} Months</div>
+										<div className="pie-breakup_tenure">{parseInt(this.props.sliderTenure.values[0])} Months</div>
 									</div>	
 									
 							</div>
