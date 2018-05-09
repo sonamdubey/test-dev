@@ -34,7 +34,7 @@ namespace Bikewale.CacheHelper.BikeData
 								 group obj by obj.MakeBase.MakeId into g
 								 select new MakeModelListEntity
 								 {
-									 MakeBase = g.FirstOrDefault().MakeBase,
+									 MakeBase =  g.FirstOrDefault().MakeBase,
 									 ModelBase = g.Select(x => x.ModelBase).ToList()
 								 }
 								 );
