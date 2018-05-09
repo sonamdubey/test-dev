@@ -1633,17 +1633,16 @@ namespace Bikewale.Cache.BikeData
 
 		/// <summary>
 		/// Created by  : Pratibha Verma on 9 May 2018
-		/// Description : get make model list
+		/// Description : returns make model list
 		/// </summary>
 		/// <param name="requestType"></param>
 		/// <returns></returns>
         public IEnumerable<MakeModelListEntity> GetMakeModelList(EnumBikeType requestType)
         {
             IEnumerable<MakeModelListEntity> makeModelList = null;
-            string key = string.Empty;
             try
             {
-                key = string.Format("BW_MakeModelList_RequestType_{0}", requestType);
+                string key = string.Format("BW_MakeModelList_RequestType_{0}", (int)requestType);
                 makeModelList = _cache.GetFromCache<IEnumerable< MakeModelListEntity >>(key,new TimeSpan(1,0,0), () => _bikeModelCacheHelper.GetMakeModelList(requestType));
             }
             catch (Exception ex)

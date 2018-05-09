@@ -4,12 +4,6 @@ using Bikewale.DTO.Model;
 using Bikewale.DTO.Widgets;
 using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
-using Bikewale.Interfaces.CMS;
-using Bikewale.Interfaces.EditCMS;
-using Bikewale.Interfaces.Pager;
-using Bikewale.Interfaces.UserReviews;
-using Bikewale.Interfaces.UserReviews.Search;
-using Bikewale.Interfaces.Videos;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.BikeData;
 using Bikewale.Service.AutoMappers.Model;
@@ -39,8 +33,7 @@ namespace Bikewale.Service.Controllers.Model
         private readonly IBikeModelsRepository<BikeModelEntity, int> _modelRepository = null;
         private readonly IBikeModelsCacheRepository<int> _modelCacheRepository = null;
 		private readonly IBikeModels<BikeModelEntity, int> _bikeModel;
-		private readonly IBikeModelsCacheHelper _bikeModelCacheHelper;		
-		private readonly ILog _logger = LogManager.GetLogger(typeof(BikeModels<BikeModelEntity, int>));
+		private readonly IBikeModelsCacheHelper _bikeModelCacheHelper;
 
 		/// <summary>
 		/// Modified by :   Sumit Kate on 01 Jul 2016
@@ -205,7 +198,7 @@ namespace Bikewale.Service.Controllers.Model
 
 		/// <summary>
 		/// Created by  : Pratibha Verma on 9 May 2018
-		/// Description : to get make with model list
+		/// Description : returns make with model list
 		/// </summary>
 		/// <param name="requestType"></param>
 		/// <returns></returns>
@@ -213,7 +206,7 @@ namespace Bikewale.Service.Controllers.Model
         public IHttpActionResult GetMakeModelList(EnumBikeType requestType)
         {
             IEnumerable<MakeModelListEntity> objList = null;
-            List<MakeModelList> objModelList = null;
+            IEnumerable<MakeModelList> objModelList = null;
             try
             {
                 objList = _bikeModel.GetMakeModelList(requestType);
@@ -222,7 +215,7 @@ namespace Bikewale.Service.Controllers.Model
                 {
                     objModelList = new List<MakeModelList>();
 
-                    objModelList = MakeModelEntityMapper.Convert(objList.ToList());
+                    objModelList = MakeModelEntityMapper.Convert(objList);
 
                     objList = null;
 

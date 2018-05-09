@@ -1,12 +1,15 @@
 ﻿
 using Bikewale.Entities.BikeData;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 
 namespace Bikewale.DTO.BikeData
 {
     public class MakeModelList
     {
-        public BikeMakeEntityBase MakeBase { get; set; }
-        public IEnumerable<BikeModelEntityBase> ModelBase { get; set; }
+		[JsonProperty("makeBase")]
+		public BikeMakeEntityBase MakeBase { get; set; }
+		[JsonProperty("modelBase")]
+		public IEnumerable<BikeModelEntityBase> ModelBase { get; set; }
     }
 }

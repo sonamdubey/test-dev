@@ -512,10 +512,6 @@
       <Project>{ea0864e7-7715-4d93-80be-3300bb542e42}</Project>
       <Name>Bikewale.Utility</Name>
     </ProjectReference>
-    <ProjectReference Include="..\BikewaleOpr.BAL\BikewaleOpr.BAL.csproj">
-      <Project>{16F4A3EB-AB13-44C2-99CD-A942C05F3222}</Project>
-      <Name>BikewaleOpr.BAL</Name>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

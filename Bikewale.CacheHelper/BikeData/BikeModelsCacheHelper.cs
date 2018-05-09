@@ -18,7 +18,7 @@ namespace Bikewale.CacheHelper.BikeData
 
 		/// <summary>
 		/// Created by  : Pratibha Verma on 9 May 2018
-		/// Description : to get make model list
+		/// Description : returns make model list
 		/// </summary>
 		/// <param name="requestType"></param>
 		/// <returns></returns>
@@ -31,11 +31,11 @@ namespace Bikewale.CacheHelper.BikeData
 				if (objModels != null && objModels.Any())
 				{
 					makeModel = (from obj in objModels
-								 group obj.ModelBase by new { obj.MakeBase.MakeId, obj.MakeBase.MakeName, obj.MakeBase.MaskingName } into g
+								 group obj by obj.MakeBase.MakeId into g
 								 select new MakeModelListEntity
 								 {
-									 MakeBase = new BikeMakeEntityBase { MakeId = g.Key.MakeId, MakeName = g.Key.MakeName, MaskingName = g.Key.MaskingName },
-									 ModelBase = g.ToList()
+									 MakeBase = g.FirstOrDefault().MakeBase,
+									 ModelBase = g.Select(x => x.ModelBase).ToList()
 								 }
 								 );
 				}
