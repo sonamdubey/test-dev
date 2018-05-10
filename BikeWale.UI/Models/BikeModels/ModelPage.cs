@@ -233,9 +233,9 @@ namespace Bikewale.Models.BikeModels
                     ShowInnovationBanner(_modelId);
                     BindAdSlotTags();
 
-                    if (_objData != null && _objData.SelectedVersion != null)
+                    if (_objData != null && _objData.SelectedVersion != null && !string.IsNullOrEmpty(_objData.SelectedVersion.FuelType))
                     {
-                        _objData.IsElectricBike = _objData.SelectedVersion.FuelType.Equals("Electric");
+                        _objData.IsElectricBike = _objData.SelectedVersion.FuelType.Equals("Electric",StringComparison.InvariantCultureIgnoreCase);
                     }
                     if (_objData.AdTags != null)
                     {
