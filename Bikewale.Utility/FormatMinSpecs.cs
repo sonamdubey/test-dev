@@ -27,11 +27,7 @@ namespace Bikewale.Utility
                     minSpec.Value = minSpec.Value != "0" ? minSpec.Value : String.Empty;
                 }
             }
-            else
-            {
-                minSpec = new SpecsItem();
-            }
-            return minSpec;
+            return minSpec != null ? minSpec : new SpecsItem { Value = string.Empty };
         }
 
         public static string GetMinSpecsAsLiElement(string displacement, string fuelEffecient, string maxpower, string weight)
