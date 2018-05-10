@@ -15,16 +15,18 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
     internal class HondaManufacturerLeadHandler : ManufacturerLeadHandler
     {
         private readonly IHondaManufacturerCache _hondaModels;
-        /// <summary>
-        /// Type initializer
-        /// </summary>
-        /// <param name="manufacturerId"></param>
-        /// <param name="urlAPI"></param>
-        /// <param name="isAPIEnabled"></param>
-        public HondaManufacturerLeadHandler(uint manufacturerId, string urlAPI, bool isAPIEnabled) : base(manufacturerId, urlAPI, isAPIEnabled)
+		private Hashtable hondaModels;
+		/// <summary>
+		/// Type initializer
+		/// </summary>
+		/// <param name="manufacturerId"></param>
+		/// <param name="urlAPI"></param>
+		/// <param name="isAPIEnabled"></param>
+		public HondaManufacturerLeadHandler(uint manufacturerId, string urlAPI, bool isAPIEnabled) : base(manufacturerId, urlAPI, isAPIEnabled)
         {
             _hondaModels = new HondaModelCacheRepository();
-        }
+			hondaModels = _hondaModels.GetHondaModelMapping();
+		}
 
         /// <summary>
         /// Created by  :   Sumit Kate on 05 Jul 2017
@@ -55,7 +57,6 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
             {
 
                 BikeQuotationEntity quotation = base.LeadRepostiory.GetPriceQuoteById(leadEntity.PQId);
-                Hashtable hondaModels = _hondaModels.GetHondaModelMapping();
                 if (quotation != null)
                 {
                     if (hondaModels != null && hondaModels.ContainsKey((int)quotation.ModelId))
