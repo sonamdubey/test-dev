@@ -9,21 +9,21 @@ export default class PieChart extends React.Component {
 	constructor(props){
 		super(props)
 		this.state = {
-			data: [this.props.pieChartObjc.intStatePay, this.props.pieChartObjc.pieLoanAmt]
+			data: [this.props.pieChartData.intStatePay, this.props.pieChartData.pieLoanAmt]
 		}
 	}
 	componentWillReceiveProps(){
 		this.setState({
-			data: [this.props.pieChartObjc.intStatePay, this.props.pieChartObjc.pieLoanAmt]
+			data: [this.props.pieChartData.intStatePay, this.props.pieChartData.pieLoanAmt]
 		})
 	}
 	render(){
 		let colors = ['#f45944', '#fed1cd'];
-		let finalAmountPay = formatToINR(this.props.pieChartObjc.pieTotalPay)
+		let finalAmountPay = formatToINR(this.props.pieChartData.pieTotalPay)
 		return(
 			<div className="pie-graph-container">
-			<div className="totalpayment">
-				<div className="pie-breakup_title">Total Payment</div>
+			<div className="pie-graph__total-payment">
+				<div className="pie-breakup__title">Total Payment</div>
 				<div className="pie-center-amount">{(finalAmountPay)}</div>
 			</div>
 			<Pie

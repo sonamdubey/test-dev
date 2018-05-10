@@ -36,7 +36,7 @@ class EMICalculator extends React.Component {
 		let pieTotalAmtPay = this.state.totalPrincipalAmt  
 		let finalIntPayable = formatToINR(parseInt(this.state.InterestPayable))
 		let finalTotalPrincipalAmt = formatToINR(this.state.totalPrincipalAmt)
-		let pieChartObj = {
+		let pieChartData = {
 			intStatePay: pieInterestAmt,
 			pieLoanAmt: pieLoanAmt,
 			pieTotalPay: pieTotalAmtPay,
@@ -48,10 +48,15 @@ class EMICalculator extends React.Component {
 			interestPayable: this.state.interestPayable,
 			totalPrincipalAmt: this.state.totalPrincipalAmt
 		}
+		let sliderData = {
+			sliderDpData: this.props.sliderDp,
+			sliderTenureData: this.props.sliderTenure,
+			sliderInterestData: this.props.sliderInt,
+		}
 		return (
 			<div className="emi-outer-container">
 				<div className="emi-calci-container">
-					 <EMICalculatorHeader emiCalculationParam={emiCalculationParam} />
+					 <EMICalculatorHeader sliderData={sliderData} emiCalculationParam={emiCalculationParam} />
 					 <div className="emi-slider-container">
 							<DownPaymentSlider/>
 							<div className="tenure-interest-slider">
@@ -66,7 +71,7 @@ class EMICalculator extends React.Component {
 						
 				</div>
 				<div className="view-breakup-container">
-						<PieBreakUp ref="piebreakup" isAnimation={this.props.pieAnimate} emiCalculationParam={emiCalculationParam} pieChartObjc={pieChartObj}/>
+						<PieBreakUp ref="piebreakup" sliderData={sliderData} isAnimation={this.props.pieAnimate} emiCalculationParam={emiCalculationParam} pieChartData={pieChartData}/>
 				</div>
 			</div>
 		);
