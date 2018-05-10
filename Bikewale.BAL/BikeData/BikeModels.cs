@@ -451,26 +451,9 @@ namespace Bikewale.BAL.BikeData
                     dt1 = DateTime.Now;
                     if (objModelPage.ModelVersions != null && objModelPage.ModelVersions.Any())
                     {
-                        BindMinSpecs(objModelPage.ModelVersions,
-                        new List<EnumSpecsFeaturesItems>{
-                            EnumSpecsFeaturesItems.RearBrakeType,
-                            EnumSpecsFeaturesItems.WheelType,
-                            EnumSpecsFeaturesItems.Displacement,
-                            EnumSpecsFeaturesItems.MaxPowerBhp,
-                            EnumSpecsFeaturesItems.FuelEfficiencyOverall,
-                            EnumSpecsFeaturesItems.KerbWeight,
-                            EnumSpecsFeaturesItems.TopSpeed
-                        });
                         var modelVersion = objModelPage.ModelVersions.FirstOrDefault();
                         int versionId = modelVersion.VersionId;
-                        if (modelVersion != null && modelVersion.MinSpecsList != null)
-                        {
-                            objModelPage.ModelVersionMinSpecs = new BikeVersionMinSpecs()
-                            {
-                                VersionId = versionId,
-                                MinSpecsList = modelVersion.MinSpecsList.Skip(2)
-                            };
-                        }
+                        
                         BikeVersionMinSpecs objOverview = new BikeVersionMinSpecs() { VersionId = versionId };
 
                         GetVersionSpecsSummaryByItemIdAdapter adapt1 = new GetVersionSpecsSummaryByItemIdAdapter();
@@ -515,7 +498,15 @@ namespace Bikewale.BAL.BikeData
                         JoinBikeListWithMinSpecs(new List<BikeVersionMinSpecs> { objOverview }, adapt1.Output);
                         objModelPage.SpecsSummaryList = objOverview.MinSpecsList;
 
-                        JoinBikeListWithMinSpecs(objModelPage.ModelVersions, adapt2.Output);
+			JoinBikeListWithMinSpecs(objModelPage.ModelVersions, adapt2.Output);
+			if (modelVersion != null && modelVersion.MinSpecsList != null)
+			{
+				objModelPage.ModelVersionMinSpecs = new BikeVersionMinSpecs()
+				{
+					VersionId = versionId,
+					MinSpecsList = modelVersion.MinSpecsList.Skip(2)
+				};
+			}
                     }
                     CreateAllPhotoList(modelId, objModelPage);
                     dt2 = DateTime.Now;
