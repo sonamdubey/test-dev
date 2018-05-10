@@ -8,9 +8,9 @@ namespace Bikewale.DTO.BikeData
 {
     public class MakeModelList
     {
-		[JsonProperty("makeBase")]
+		[JsonProperty("make")]
 		public MakeBase MakeBase { get; set; }
-		[JsonProperty("modelBase")]
+		[JsonProperty("models")]
 		public IEnumerable<ModelBase> ModelBase { get; set; }
     }
 }

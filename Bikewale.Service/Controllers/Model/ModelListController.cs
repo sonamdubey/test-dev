@@ -196,7 +196,7 @@ namespace Bikewale.Service.Controllers.Model
 		/// </summary>
 		/// <param name="requestType"></param>
 		/// <returns></returns>
-        [ResponseType(typeof(List<MakeModelListEntity>)), Route("api/pwa/model/all/v2/{requestType}/")]
+        [ResponseType(typeof(List<MakeModelList>)), Route("api/pwa/model/all/v2/{requestType}/")]
         public IHttpActionResult GetMakeModelList(EnumBikeType requestType)
         {
             IEnumerable<MakeModelListEntity> objList = null;

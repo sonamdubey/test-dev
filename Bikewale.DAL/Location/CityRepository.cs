@@ -17,20 +17,22 @@ namespace Bikewale.DAL.Location
 {
     public class CityRepository : ICity
     {
-        /// <summary>
-        /// Written By : Ashish G. Kamble on 3/8/2012
-        /// Function returns city id and city names by providing state id and request type
-        /// </summary>
-        /// <param name="stateId"></param>
-        /// <param name="RequestType">Pass value All or PriceQuote</param>
-        /// <returns></returns>
-        public List<CityEntityBase> GetAllCities(EnumBikeType requestType)
+		/// <summary>
+		/// Written By : Ashish G. Kamble on 3/8/2012
+		/// Function returns city id and city names by providing state id and request type
+		/// Modeified by : Pratibha Verma on 10 May 2018
+		/// Description  : changed sp 'getcities' to 'getcities_10052018'
+		/// </summary>
+		/// <param name="stateId"></param>
+		/// <param name="RequestType">Pass value All or PriceQuote</param>
+		/// <returns></returns>
+		public List<CityEntityBase> GetAllCities(EnumBikeType requestType)
         {
 
             List<CityEntityBase> objCityList = null;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getcities"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getcities_10052018"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_requesttype", DbType.Int32, requestType));
