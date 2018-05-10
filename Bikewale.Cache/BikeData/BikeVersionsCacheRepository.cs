@@ -212,7 +212,6 @@ namespace Bikewale.Cache.BikeData
         }
 
         /// <summary>
-        [Obsolete("Use Specification and Features Micro Service to get all specs.", true)]
         /// Gets the dealer versions by model.
         /// </summary>
         /// <param name="dealerId">The dealer identifier.</param>

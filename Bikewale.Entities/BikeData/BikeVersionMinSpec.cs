@@ -1,5 +1,8 @@
 ﻿
+using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
+
 namespace Bikewale.Entities.BikeData
 {
     /// <summary>
@@ -8,10 +11,14 @@ namespace Bikewale.Entities.BikeData
     /// Modified by : Rajan Chauhan on 10 Apr 2018
     /// Description : Removed explicit specs with minSpecsList
     /// </summary>
+    [Serializable, DataContract]
     public class BikeVersionWithMinSpec
     {
+        [DataMember]
         public uint VersionId { get; set; }
+        [DataMember]
         public string VersionName { get; set; }
+        [DataMember]
         public long OnRoadPrice { get; set; }
         public IEnumerable<SpecsItem> MinSpecsList { get; set; }
     }

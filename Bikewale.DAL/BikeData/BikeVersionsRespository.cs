@@ -797,7 +797,7 @@ namespace Bikewale.DAL.BikeData
 
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getdealerversionsbymodel"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getdealerversionsbymodel_11042018"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.UInt32, dealerId));
