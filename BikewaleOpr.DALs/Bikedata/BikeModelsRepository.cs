@@ -497,7 +497,7 @@ namespace BikewaleOpr.DALs.Bikedata
                     param.Add("par_requesttype", requestType);
                     param.Add("par_cityid", 0);
 
-                    objBikeVersionEntityBaseList = connection.Query<BikeVersionEntityBase>("getbikeversions_new", param: param, commandType: CommandType.StoredProcedure);
+                    objBikeVersionEntityBaseList = connection.Query<BikeVersionEntityBase>("getbikeversions_new_12042018", param: param, commandType: CommandType.StoredProcedure);
                 }
             }
             catch (Exception ex)
