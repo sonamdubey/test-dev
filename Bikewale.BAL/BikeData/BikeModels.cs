@@ -459,7 +459,7 @@ namespace Bikewale.BAL.BikeData
                         GetVersionSpecsSummaryByItemIdAdapter adapt1 = new GetVersionSpecsSummaryByItemIdAdapter();
                         VersionsDataByItemIds_Input specItemInput = new VersionsDataByItemIds_Input
                         {
-                            Versions = new List<int> { objOverview.VersionId },
+                            Versions = new List<int> { versionId },
                             Items = new List<EnumSpecsFeaturesItems>
                             {
                                 EnumSpecsFeaturesItems.Displacement,
@@ -499,12 +499,11 @@ namespace Bikewale.BAL.BikeData
                         objModelPage.SpecsSummaryList = objOverview.MinSpecsList;
 
 			JoinBikeListWithMinSpecs(objModelPage.ModelVersions, adapt2.Output);
-			if (modelVersion != null && modelVersion.MinSpecsList != null)
+			if (modelVersion.MinSpecsList.Any(s => !string.IsNullOrEmpty(s.Value)))
 			{
 				objModelPage.ModelVersionMinSpecs = new BikeVersionMinSpecs()
 				{
-					VersionId = versionId,
-					MinSpecsList = modelVersion.MinSpecsList.Skip(2)
+					VersionId = versionId
 				};
 			}
                     }
