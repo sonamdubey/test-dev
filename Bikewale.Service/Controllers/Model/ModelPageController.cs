@@ -284,7 +284,6 @@ namespace Bikewale.Service.Controllers.Model
         /// Description :   For App, review count is fetched from old user reviews
         /// </summary>
         /// <returns></returns>
-		[Obsolete("V3 version is obsolete. Check current version V5")]
         [ResponseType(typeof(Bikewale.DTO.Model.v3.ModelPage)), Route("api/v3/model/details/")]
         public IHttpActionResult GetV3(uint modelId, int? cityId, int? areaId, string deviceId = null)
         {
