@@ -391,22 +391,22 @@
                             }
                           
                         </div>
-                    }
-                    
-                    <script defer type="text/javascript" src="@String.Format("{0}/m/src/lazyloadyoutube.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, Bikewale.Utility.BWConfiguration.Instance.StaticPluginFileVersion)"></script>
-                    <script>
-                        var videoTab = document.getElementById("videoTabLink");
-                        videoTab.addEventListener("click", function (event) {
-                            lazyloadYoutube.loadYoutubeVideos({ scope: "videoTab", enableYTAPI: false });
-                        });
+                        
+                        <script defer type="text/javascript" src="@String.Format("{0}/m/src/lazyloadyoutube.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, Bikewale.Utility.BWConfiguration.Instance.StaticPluginFileVersion)"></script>
+                        <script>
+                            var videoTab = document.getElementById("videoTabLink");
+                            videoTab.addEventListener("click", function (event) {
+                                lazyloadYoutube.loadYoutubeVideos({ scope: "videoTab", enableYTAPI: false });
+                            });
 
-                        var videoPopup = document.getElementById("popupLoadMore");
-                        videoPopup.addEventListener("click", function(event) {
-                            lazyloadYoutube.loadYoutubeVideos({ scope: "videoGalleryPopup", enableYTAPI: true });
-                            SwiperYT.populateVideoIframes();
-                            vmModelGallery.videoPopup().handleSwiperResize();
-                        });
-                    </script>
+                            var videoPopup = document.getElementById("popupLoadMore");
+                            videoPopup.addEventListener("click", function(event) {
+                                lazyloadYoutube.loadYoutubeVideos({ scope: "videoGalleryPopup", enableYTAPI: true });
+                                SwiperYT.populateVideoIframes();
+                                vmModelGallery.videoPopup().handleSwiperResize();
+                            });
+                        </script>
+                    }
                   
                 </div>
             </section>
