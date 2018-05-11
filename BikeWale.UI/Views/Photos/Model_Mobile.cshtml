@@ -28,7 +28,7 @@
                 <div class="model-gallery-section fullscreen--anchestor" data-bind="css: {'gallery-color-slug--active': colorSlug().activeSlug(), 'gallery-video-slug--active': videoSlug().activeSlug()}">
                     <div class="model-gallery__container" data-bind="css: activePopup() ? 'gallery-popup--active' : ''">
                         <div id="mainPhotoSwiper" class="swiper-container swiper__image noSwiper model-gallery">
-                            <div class="swiper-wrapper" data-bind="foreach: photoList">
+                            <div class="swiper-wrapper" data-bind="foreach: limitedPhotoList">
                                 <div class="swiper-slide" data-bind="attr: { 'data-imgid': ImageId,'data-imgcat': ImageCategory,'data-imgtype': ImageType}">
                                     <img class="swiper-lazy gallery-swiper-image" data-bind="attr: { 'data-index': $index, alt: MODEL_NAME + ' ' + ImageCategory, title: MODEL_NAME + ' ' + ImageCategory, 'data-src': $parent.renderImage(HostUrl,OriginalImgPath,'642x361') }" src="https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif" alt="" title="" border="0" />
                                 </div>
@@ -89,7 +89,7 @@
                                 <div class="gallery-image__footer" data-visible="color">
                                     <div class="gallery-image__left-section">
                                         <span class="gallery-image__count">
-                                            <span data-bind="text: activeIndex()"></span>&nbsp;/&nbsp;<span data-bind="text : photoList().length"></span>
+                                            <span data-bind="text: activeIndex()"></span>&nbsp;/&nbsp;<span data-bind="text : MODEL_IMAGES.length"></span>
                                         </span>
                                         <h2 class="model-gallery__image-title" data-bind="text: activeTitle(), visible: activeSwiperTitle()"></h2>
                                     </div>
@@ -267,7 +267,7 @@
                             @for (i = 0; i < Math.Min(Model.TotalPhotos, 7); i++)
                             {
                                 <li class="image-grid-list__item" data-imgcat="@objImages[i].ImageCategory" data-imgtype="@((int)objImages[i].ImageType)" data-imgid="@objImages[i].ImageId">
-                                    <img src="@Bikewale.Utility.Image.GetPathToShowImages(objImages[i].OriginalImgPath, objImages[i].HostUrl, Bikewale.Utility.ImageSize._476x268)" alt="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" title="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" class="" />
+                                    <img src="@Bikewale.Utility.Image.GetPathToShowImages(objImages[i].OriginalImgPath, objImages[i].HostUrl, Bikewale.Utility.ImageSize._476x268, "80")" alt="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" title="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" class="" />
                                 </li>
                             }
                         </ul>
@@ -287,7 +287,7 @@
                             @while (i < Math.Min(Model.TotalPhotos, 19))
                             {
                                 <li class="image-grid-list__item" data-imgcat="@objImages[i].ImageCategory" data-imgtype="@((int)objImages[i].ImageType)" data-imgid="@objImages[i].ImageId">
-                                    <img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(objImages[i].OriginalImgPath, objImages[i].HostUrl, Bikewale.Utility.ImageSize._476x268)" src="" alt="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" title="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" />
+                                    <img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(objImages[i].OriginalImgPath, objImages[i].HostUrl, Bikewale.Utility.ImageSize._476x268, "80")" src="" alt="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" title="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" />
                                 </li>
                                 i++;
                             }

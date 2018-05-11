@@ -437,7 +437,8 @@ var GalleryState = (function() {
 // main gallery swiper
 var MainGallerySwiper = (function() {
     function init() {
-		var swiper = new Swiper("#mainPhotoSwiper", {
+        var swiper = new Swiper("#mainPhotoSwiper", {
+            observer: true,
 			initialSlide: vmModelGallery.activeIndex(),
 			spaceBetween: 0,
 			preloadImages: false,
@@ -484,6 +485,7 @@ var MainGallerySwiper = (function() {
 
 				}
 				lastSlide = vmModelGallery.activeIndex();
+				
 			},
 
 			onSlideChangeEnd: function (swiper) {
@@ -497,6 +499,14 @@ var MainGallerySwiper = (function() {
 				}
                 
 				vmModelGallery.setColorOption();
+
+				if (vmModelGallery.slideLimit - lastSlide <= 5) {
+				    var startIndex = vmModelGallery.slideLimit < MODEL_IMAGES.length ? vmModelGallery.slideLimit : MODEL_IMAGES.length;
+				    var lastIndex = vmModelGallery.slideLimit + 10 < MODEL_IMAGES.length ? vmModelGallery.slideLimit + 10 : MODEL_IMAGES.length;
+				    ko.utils.arrayPushAll(vmModelGallery.limitedPhotoList(), MODEL_IMAGES.slice(startIndex, lastIndex));
+				    vmModelGallery.slideLimit = lastIndex;
+				    vmModelGallery.limitedPhotoList.valueHasMutated();
+				}
 
 				SwiperEvents.setDetails(swiper, vmModelGallery);
 
