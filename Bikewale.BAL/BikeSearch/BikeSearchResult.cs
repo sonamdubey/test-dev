@@ -1,6 +1,9 @@
-﻿using Bikewale.DTO.NewBikeSearch;
+﻿using Bikewale.DTO.Make;
+using Bikewale.DTO.Model;
+using Bikewale.DTO.NewBikeSearch;
 using Bikewale.Entities.NewBikeSearch;
 using Bikewale.Interfaces.NewBikeSearch;
+using Bikewale.Notifications;
 using Bikewale.Utility;
 using System;
 using System.Collections.Generic;
@@ -17,10 +20,17 @@ namespace Bikewale.BAL.BikeSearch
         private readonly IBikeSearchCacheRepository _searchCacheRepo;
         private readonly BudgetFilterRanges _budgetFilterRanges;
         private const string zero = "0", _60LPlus = "6000000+";
-        public BikeSearchResult(ISearchResult searchResult, IBikeSearchCacheRepository searchCacheRepo)
+        private readonly IBikeSearch _bikeSearch = null;
+
+        private static readonly IList<RangeEntity> mileageRange = new List<RangeEntity>() { new RangeEntity { Min = 70, Max = 0 }, new RangeEntity { Min = 50, Max = 70 }, new RangeEntity { Min = 30, Max = 50 }, new RangeEntity { Min = 0, Max = 30 } };
+
+        private static readonly IList<RangeEntity> displacementRange = new List<RangeEntity>() { new RangeEntity { Min = 0, Max = 110 }, new RangeEntity { Min = 110, Max = 150 }, new RangeEntity { Min = 150, Max = 200 }, new RangeEntity { Min = 200, Max = 250 }, new RangeEntity { Min = 250, Max = 500 }, new RangeEntity { Min = 500, Max = 0 }, new RangeEntity { Min = 110, Max = 125 }, new RangeEntity { Min = 125, Max = 150 } };
+
+        public BikeSearchResult(ISearchResult searchResult, IBikeSearchCacheRepository searchCacheRepo, IBikeSearch bikeSearch)
         {
             _searchResult = searchResult;
             _searchCacheRepo = searchCacheRepo;
+            _bikeSearch = bikeSearch;
             if (_searchCacheRepo != null)
             {
                 _budgetFilterRanges = _searchCacheRepo.GetBudgetRanges();
@@ -28,37 +38,361 @@ namespace Bikewale.BAL.BikeSearch
         }
 
         /// <summary>
+        /// Created by : Snehal Dange on 13th April 2018
+        /// Desc: Method created to map filters to elastic input
+        /// </summary>
+        /// <param name="filterInputs"></param>
+        /// <returns></returns>
+        private SearchFilters MapFiltersInputToES(FilterInput filterInputs)
+        {
+            SearchFilters filtersOutput = null;
+            try
+            {
+                if (filterInputs != null)
+                {
+                    filtersOutput = new SearchFilters();
+                    if (filterInputs.Make != null)
+                    {
+                        filtersOutput.Make = Array.ConvertAll(filterInputs.Make, uint.Parse);
+                    }
+                    if (filterInputs.Model != null)
+                    {
+                        filtersOutput.Model = Array.ConvertAll(filterInputs.Model, uint.Parse);
+                    }
+
+                    if (filterInputs.MinBudget != null || filterInputs.MaxBudget != null)
+                    {
+                        PriceRangeEntity priceRange = new PriceRangeEntity();
+                        priceRange.Min = Convert.ToInt32(filterInputs.MinBudget);
+                        priceRange.Max = Convert.ToInt32(filterInputs.MaxBudget);
+                        IList<PriceRangeEntity> priceList = new List<PriceRangeEntity>() { priceRange };
+                        filtersOutput.Price = priceList;
+
+                    }
+
+                    if (filterInputs.Displacement != null)
+                    {
+                        filtersOutput.Displacement = GetRangeValues(filterInputs.Displacement, displacementRange);
+                    }
+
+                    if (filterInputs.Mileage != null)
+                    {
+                        filtersOutput.Mileage = GetRangeValues(filterInputs.Mileage, mileageRange);
+                    }
+
+                    if (filterInputs.RideStyle != null)
+                    {
+                        filtersOutput.BodyStyle = filterInputs.RideStyle;
+                    }
+                    if (filterInputs.Brakes != null)
+                    {
+                        filtersOutput.Brakes = Array.ConvertAll(filterInputs.Brakes, uint.Parse);
+                    }
+                    if (filterInputs.Wheels != null)
+                    {
+                        filtersOutput.Wheels = Array.ConvertAll(filterInputs.Wheels, uint.Parse);
+                    }
+                    if (filterInputs.StartType != null)
+                    {
+                        filtersOutput.StartType = Array.ConvertAll(filterInputs.StartType, uint.Parse);
+                    }
+
+                    if (filterInputs.ABSAvailable || filterInputs.ABSNotAvailable)
+                    {
+                        filtersOutput.ABS = filterInputs.ABSAvailable;
+                    }
+                    if (filterInputs.PageNo != null && filterInputs.PageSize != null)
+                    {
+                        filtersOutput.PageNumber = Convert.ToUInt16(filterInputs.PageNo);
+                        filtersOutput.PageSize = Convert.ToUInt16(filterInputs.PageSize);
+                    }
+                    if (filterInputs.sc != null)
+                    {
+                        filtersOutput.SortCriteria = filterInputs.sc;
+                    }
+                    if (filterInputs.so != null)
+                    {
+                        filtersOutput.SortOrder = filterInputs.so;
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass.LogError(ex, "Bikewale.BAL.BikeSearchResult.MapFiltersInputToES");
+            }
+            return filtersOutput;
+        }
+
+        /// <summary>
+        /// Created by : Snehal Dange on 13th April 2018
+        /// Description: Get range values from selected ids in UI.
+        /// </summary>
+        /// <param name="filterInput"></param>
+        /// <param name="range"></param>
+        /// <returns></returns>
+        private IEnumerable<RangeEntity> GetRangeValues(string[] filterInput, IList<RangeEntity> range)
+        {
+            IList<RangeEntity> rangeList = null;
+            try
+            {
+                if (filterInput != null && filterInput.Any())
+                {
+                    rangeList = new List<RangeEntity>();
+                    RangeEntity rangeObj = null;
+                    var parsedArray = Array.ConvertAll(filterInput, int.Parse);
+                    var rangeLen = range.Count();
+                    if (parsedArray != null)
+                    {
+                        foreach (var filterIndex in parsedArray)
+                        {
+                            if (filterIndex <= rangeLen)
+                            {
+                                rangeObj = range[(filterIndex - 1)];
+                                if (rangeObj != null)
+                                {
+                                    rangeList.Add(rangeObj);
+                                }
+                            }
+                        }
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass.LogError(ex, "Bikewale.BAL.BikeSearchResult.GetRangeValues");
+            }
+            return rangeList;
+        }
+
+
+
+
+        /// <summary>
+        /// Created by : Snehal Dange on 11th April 2018
+        /// Description: Map ES output to bike search api output
+        /// </summary>
+        /// <param name="objEsOutput"></param>
+        /// <returns></returns>
+        private SearchOutput MapEsOutputToBikeSearchOutput(BikeSearchOutputEntity objEsOutput)
+        {
+            SearchOutput objSearchOutput = null;
+            try
+            {
+                if (objEsOutput != null)
+                {
+                    objSearchOutput = new SearchOutput();
+                    List<SearchOutputBase> searchOutputList = new List<SearchOutputBase>();
+                    IEnumerable<BikeModelDocumentEntity> bikesList = objEsOutput.Bikes;
+
+
+                    if (bikesList != null)
+                    {
+                        foreach (var bike in bikesList)
+                        {
+                            SearchOutputBase bikesOutput = new SearchOutputBase();
+
+                            ModelDetail bikemodel = new ModelDetail();
+                            MakeBase bikeMakebase = null;
+
+                            if (bike.BikeMake != null)
+                            {
+                                var bikeMakeObj = bike.BikeMake;
+                                bikeMakebase = new MakeBase();
+                                bikeMakebase.MakeId = Convert.ToInt32(bikeMakeObj.MakeId);
+                                bikeMakebase.MakeName = bikeMakeObj.MakeName;
+                                bikeMakebase.MaskingName = bikeMakeObj.MakeMaskingName;
+                                bikemodel.MakeBase = bikeMakebase;
+                            }
+
+                            if (bike.BikeModel != null)
+                            {
+                                var bikeModelObj = bike.BikeModel;
+                                bikemodel.ModelId = Convert.ToInt32(bikeModelObj.ModelId);
+                                bikemodel.ModelName = bikeModelObj.ModelName;
+                                bikemodel.MaskingName = bikeModelObj.ModelMaskingName;
+                            }
+
+                            if (bike.BikeImage != null)
+                            {
+                                var bikeImageObj = bike.BikeImage;
+                                bikemodel.HostUrl = bikeImageObj.HostURL;
+                                bikemodel.OriginalImagePath = bikeImageObj.ImageURL;
+                            }
+
+                            if (bike.TopVersion != null)
+                            {
+                                var topversionDetails = bike.TopVersion;
+
+                                var exshowroomPrice = topversionDetails.PriceList.FirstOrDefault(m => m.PriceType == "Exshowroom");
+                                if (exshowroomPrice != null)
+                                {
+                                    bikemodel.MinPrice = exshowroomPrice.PriceValue;
+                                }
+                                bikesOutput.Displacement = Convert.ToSingle(topversionDetails.Displacement);
+                                bikesOutput.FuelEfficiency = Convert.ToUInt16(topversionDetails.Mileage);
+                                bikesOutput.KerbWeight = Convert.ToUInt16(topversionDetails.KerbWeight);
+                                bikesOutput.Power = Convert.ToString(topversionDetails.Power);
+                                bikesOutput.FinalPrice = Format.FormatPrice(Convert.ToString(topversionDetails.Exshowroom));
+                            }
+
+                            bikemodel.RatingCount = Convert.ToInt32(bike.RatingsCount);
+                            bikemodel.ReviewCount = Convert.ToInt32(bike.UserReviewsCount);
+                            bikemodel.ReviewRate = Convert.ToDouble(bike.ReviewRatings.ToString("0.0"));
+                            bikemodel.ReviewRateStar = (byte)Math.Round(bike.ReviewRatings);
+
+
+                            bikesOutput.BikeModel = bikemodel;
+                            bikesOutput.BikeName = string.Format("{0} {1}", bikeMakebase.MakeName, bikemodel.ModelName);
+                            bikesOutput.AvailableSpecs = FormatMinSpecs.GetMinSpecs(Convert.ToString(bikesOutput.Displacement), Convert.ToString(bikesOutput.FuelEfficiency), Convert.ToString(bikesOutput.Power), Convert.ToString(bikesOutput.KerbWeight));
+
+
+
+                            searchOutputList.Add(bikesOutput);
+                        }
+                    }
+                    objSearchOutput.SearchResult = searchOutputList;
+                }
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass.LogError(ex, "Bikewale.BAL.BikeSearchResult.MapEsOutputToBikeSearchOutput");
+            }
+            return objSearchOutput;
+        }
+
+
+        private string GetApiUrl(InputBaseEntity filterInputs)
+        {
+            string apiUrlstr = string.Empty;
+            try
+            {
+                if (!String.IsNullOrEmpty(filterInputs.Bike))
+                    apiUrlstr += "&Bike=" + filterInputs.Bike.Replace(" ", "+");
+                if (!String.IsNullOrEmpty(filterInputs.BrakeType))
+                    apiUrlstr += "&BrakeType=" + filterInputs.BrakeType.Replace(" ", "+");
+                if (!String.IsNullOrEmpty(filterInputs.Budget))
+                    apiUrlstr += "&Budget=" + filterInputs.Budget.Replace(" ", "+");
+                if (!String.IsNullOrEmpty(filterInputs.Displacement))
+                    apiUrlstr += "&Displacement=" + filterInputs.Displacement.Replace(" ", "+");
+                if (!String.IsNullOrEmpty(filterInputs.Mileage))
+                    apiUrlstr += "&Mileage=" + filterInputs.Mileage.Replace(" ", "+");
+                if (!String.IsNullOrEmpty(filterInputs.PageSize))
+                    apiUrlstr += "&PageSize=" + filterInputs.PageSize;
+                if (!String.IsNullOrEmpty(filterInputs.RideStyle))
+                    apiUrlstr += "&RideStyle=" + filterInputs.RideStyle.Replace(" ", "+");
+                if (!String.IsNullOrEmpty(filterInputs.sc))
+                    apiUrlstr += "&sc=" + filterInputs.sc;
+                if (!String.IsNullOrEmpty(filterInputs.so))
+                    apiUrlstr += "&so=" + filterInputs.so;
+                if (!String.IsNullOrEmpty(filterInputs.StartType))
+                    apiUrlstr += "&StartType=" + filterInputs.StartType.Replace(" ", "+");
+                if (!String.IsNullOrEmpty(filterInputs.AlloyWheel))
+                    apiUrlstr += "&AlloyWheel=" + filterInputs.AlloyWheel.Replace(" ", "+");
+                if (!String.IsNullOrEmpty(filterInputs.ABS))
+                    apiUrlstr += "&ABS=" + filterInputs.ABS.Replace(" ", "+");
+                if (!String.IsNullOrEmpty(filterInputs.AntiBreakingSystem))
+                    apiUrlstr += "&AntiBreakingSystem=" + filterInputs.AntiBreakingSystem.Replace(" ", "+");
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "Bikewale.BAL.BikeSearchResult.GetApiUrl");
+
+            }
+            return apiUrlstr;
+        }
+
+        private Bikewale.DTO.NewBikeSearch.Pager GetPrevNextUrl(FilterInput filterInputs, InputBaseEntity input, int totalRecordCount)
+        {
+            Bikewale.DTO.NewBikeSearch.Pager objPager = null;
+            int totalPageCount = 0;
+            try
+            {
+                objPager = new Bikewale.DTO.NewBikeSearch.Pager();
+                string apiUrlStr = GetApiUrl(input);
+                totalPageCount = Paging.GetTotalPages(totalRecordCount, Convert.ToInt32(filterInputs.PageSize));
+
+                if (totalPageCount > 0)
+                {
+                    string controllerurl = "/api/NewBikeSearch/?";
+
+                    if (filterInputs.PageNo == totalPageCount.ToString())
+                        objPager.NextPageUrl = string.Empty;
+                    else
+                        objPager.NextPageUrl = controllerurl + "PageNo=" + (Convert.ToInt32(filterInputs.PageNo) + 1) + apiUrlStr;
+
+                    if (filterInputs.PageNo == "1")
+                        objPager.PrevPageUrl = string.Empty;
+                    else
+                        objPager.PrevPageUrl = controllerurl + "PageNo=" + (Convert.ToInt32(filterInputs.PageNo) - 1) + apiUrlStr;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "Bikewale.BAL.BikeSearchResult.GetPrevNextUrl");
+
+            }
+            return objPager;
+        }
+
+
+        /// <summary>
         /// Created by : Vivek Singh Tomar on 16th Nov 2017
         /// Summary : Fetch bikes for given input query
+        /// Modified by : Snehal Dange on 11th April 2018
+        /// Description: Modified Data fetch from DB TO ES
         /// </summary>
         /// <param name="filterInputs"></param>
         /// <param name="input"></param>
         /// <returns></returns>
         public SearchOutput GetSearchResult(FilterInput filterInputs, InputBaseEntity input)
         {
-            SearchOutput searchResult = null;
+            SearchOutput objSearchOutput = null;
+            SearchFilters filtersInputES = null;
+            BikeSearchOutputEntity objEsOutput = null;
+            List<DTO.NewBikeSearch.SearchBudgetLink> searchBudgetLinks = null;
             try
             {
-                SearchOutputEntity objSearchEntity = _searchResult.GetSearchResult(filterInputs, input);
-
-                var links = SearchBudgetLinksBetween(filterInputs.MinBudget, filterInputs.MaxBudget);
-
-                if (links != null && links.Any())
+                if (filterInputs != null)
                 {
-                    objSearchEntity.BudgetLinks = new List<Entities.NewBikeSearch.SearchBudgetLink>();
-                    foreach (var item in links)
+                    filtersInputES = MapFiltersInputToES(filterInputs);
+                    if (filtersInputES != null)
                     {
-                        objSearchEntity.BudgetLinks.Add(new Entities.NewBikeSearch.SearchBudgetLink() { Link = item });
+                        objEsOutput = _bikeSearch.GetBikeSearch(filtersInputES);
+                        if (objEsOutput != null)
+                        {
+                            objSearchOutput = MapEsOutputToBikeSearchOutput(objEsOutput);
+
+                            var links = SearchBudgetLinksBetween(filterInputs.MinBudget, filterInputs.MaxBudget);
+
+                            if (links != null && links.Any())
+                            {
+                                searchBudgetLinks = new List<DTO.NewBikeSearch.SearchBudgetLink>();
+                                foreach (var item in links)
+                                {
+                                    searchBudgetLinks.Add(new DTO.NewBikeSearch.SearchBudgetLink() { Link = item });
+                                }
+                            }
+                            if (objSearchOutput != null)
+                            {
+                                objSearchOutput.PageUrl = GetPrevNextUrl(filterInputs, input, objEsOutput.TotalCount);
+                                objSearchOutput.TotalCount = objEsOutput.TotalCount;
+                                objSearchOutput.CurrentPageNo = Convert.ToInt32(filterInputs.PageNo);
+                                if (searchBudgetLinks != null && searchBudgetLinks.Any())
+                                {
+                                    objSearchOutput.BudgetLinks = searchBudgetLinks;
+                                }
+                            }
+                        }
                     }
                 }
-                searchResult = SearchOutputMapper.Convert(objSearchEntity);
-
             }
             catch (Exception ex)
             {
                 Bikewale.Notifications.ErrorClass.LogError(ex, "Bikewale.BAL.BikeSearchResult.GetSearchResult");
             }
-            return searchResult;
+            return objSearchOutput;
         }
 
         /// <summary>

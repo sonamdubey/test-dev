@@ -37,6 +37,8 @@ namespace Bikewale.Models
     /// Modified by : Snehal Dange on 24 August,2017
     /// Description : Added _bikeMakesCacheRepository,_objBikeVersionsCache.
     ///               Added PopularScooterBrandsWidget
+    /// Modified by : Rajan Chauhan on 11 Apr 2018
+    /// Description : Changed IBikeVersionCacheRepository to IBikeVersions
     /// </summary>
     [System.Runtime.InteropServices.Guid("3C5A3C0F-8084-46E7-BE75-F7FDFA9BBB60")]
     public class NewsDetailPage : EditorialBasePage
@@ -51,7 +53,7 @@ namespace Bikewale.Models
         private string _basicId;
         private readonly IPWACMSCacheRepository _renderedArticles = null;
         private readonly IBikeMakesCacheRepository _bikeMakesCacheRepository = null;
-        private readonly IBikeVersionCacheRepository<BikeVersionEntity, uint> _objBikeVersionsCache = null;
+        private readonly IBikeVersions<BikeVersionEntity, uint> _objBikeVersions;
         private readonly IBikeSeriesCacheRepository _seriesCache = null;
         private readonly IBikeSeries _series;
 
@@ -93,7 +95,7 @@ namespace Bikewale.Models
         #endregion
         
         #region Constructor
-        public NewsDetailPage(ICMSCacheContent cmsCache, IBikeMakesCacheRepository bikeMakesCacheRepository, IBikeModelsCacheRepository<int> models, IBikeModels<BikeModelEntity, int> bikeModels, IUpcoming upcoming, IBikeInfo bikeInfo, ICityCacheRepository cityCacheRepo, string basicId, IPWACMSCacheRepository renderedArticles, IBikeVersionCacheRepository<BikeVersionEntity, uint> objBikeVersionsCache,
+        public NewsDetailPage(ICMSCacheContent cmsCache, IBikeMakesCacheRepository bikeMakesCacheRepository, IBikeModelsCacheRepository<int> models, IBikeModels<BikeModelEntity, int> bikeModels, IUpcoming upcoming, IBikeInfo bikeInfo, ICityCacheRepository cityCacheRepo, string basicId, IPWACMSCacheRepository renderedArticles, IBikeVersions<BikeVersionEntity, uint> objBikeVersions,
             IBikeSeriesCacheRepository seriesCache, IBikeSeries series):base(bikeMakesCacheRepository, models, bikeModels, upcoming, series)
         {
             _cmsCache = cmsCache;
@@ -105,7 +107,7 @@ namespace Bikewale.Models
             _basicId = basicId;
             _renderedArticles = renderedArticles;
             _bikeMakesCacheRepository = bikeMakesCacheRepository;
-            _objBikeVersionsCache = objBikeVersionsCache;
+            _objBikeVersions = objBikeVersions;
             _seriesCache = seriesCache;
             _series = series;
             ProcessCityArea();
@@ -278,9 +280,11 @@ namespace Bikewale.Models
 
                 if (ModelId > 0)
                 {
-                    List<BikeVersionMinSpecs> objVersionsList = _objBikeVersionsCache.GetVersionMinSpecs(ModelId, false);
-                    if (objVersionsList != null && objVersionsList.Count > 0)
+                    IEnumerable<BikeVersionMinSpecs> objVersionsList = _objBikeVersions.GetVersionMinSpecs(ModelId, false);
+                    if (objVersionsList != null && objVersionsList.Any())
+                    {
                         bodyStyle = objVersionsList.FirstOrDefault().BodyStyle;
+                    }
                     objData.BodyStyle = bodyStyle;
                 }
 
@@ -399,7 +403,7 @@ namespace Bikewale.Models
             {
                 if (objData.Model != null && objData.Model.ModelId > 0)
                 {
-                    var objSimilarBikes = new SimilarBikesWidget(_objBikeVersionsCache, (uint)objData.Model.ModelId, true, PQSourceEnum.Desktop_NewsDetailsPage);
+                    var objSimilarBikes = new SimilarBikesWidget(_objBikeVersions, (uint)objData.Model.ModelId, true, PQSourceEnum.Desktop_NewsDetailsPage);
 
                     objSimilarBikes.TopCount = 9;
                     objSimilarBikes.CityId = CityId;
@@ -591,11 +595,7 @@ namespace Bikewale.Models
                 ErrorClass.LogError(ex, "Bikewale.Models.NewsDetailPage.GetTaggedBikeListByModel");
             }
         }
-
-        
         #endregion
-
-        /// <summary>
         /// Created By  : Deepak Israni on 11 April 2018
         /// Description : Function to Bind Bike Info Widget. 
         /// </summary>
@@ -606,7 +606,6 @@ namespace Bikewale.Models
             objData.BikeInfo = objBikeInfo.GetData();
             objData.BikeInfo.IsSmallSlug = true;
         }
-
     }
 
 }

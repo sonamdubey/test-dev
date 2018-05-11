@@ -11,5 +11,6 @@ namespace Bikewale.Entities.BikeData.NewLaunched
         public IEnumerable<NewLaunchedBikeEntityBase> Bikes { get; set; }
         public InputFilter Filter { get; set; }
         public uint TotalCount { get; set; }
+        public uint MinSpecsCount { get; set; }
     }
 }

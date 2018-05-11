@@ -1,4 +1,5 @@
-﻿using Bikewale.Common;
+﻿using Bikewale.BAL.ApiGateway.ApiGatewayHelper;
+using Bikewale.Common;
 using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Compare;
@@ -40,6 +41,7 @@ namespace Bikewale.Models
         private readonly ICMSCacheContent _expertReviews = null;
         private readonly IUserReviewsCache _userReviewsCache = null;
         private readonly IUpcoming _upcoming = null;
+        private readonly IApiGatewayCaller _apiGatewayCaller;
         #endregion
 
         #region Page level variables
@@ -53,7 +55,7 @@ namespace Bikewale.Models
 
         #endregion
 
-        public NewPageModel(ushort topCount, ushort launchedRcordCount, ushort upcomingRecordCount, IBikeMakesCacheRepository bikeMakes, INewBikeLaunchesBL newLaunches, IBikeModels<BikeModelEntity, int> bikeModels, IBikeModelsCacheRepository<int> cachedModels, IBikeCompare objCompare, IVideos videos, ICMSCacheContent articles, ICMSCacheContent expertReviews, IUpcoming upcoming, IUserReviewsCache userReviewsCache)
+        public NewPageModel(ushort topCount, ushort launchedRcordCount, ushort upcomingRecordCount, IBikeMakesCacheRepository bikeMakes, INewBikeLaunchesBL newLaunches, IBikeModels<BikeModelEntity, int> bikeModels, IBikeModelsCacheRepository<int> cachedModels, IBikeCompare objCompare, IVideos videos, ICMSCacheContent articles, ICMSCacheContent expertReviews, IUpcoming upcoming, IUserReviewsCache userReviewsCache, IApiGatewayCaller apiGatewayCaller)
         {
             TopCount = topCount;
             LaunchedRecordCount = launchedRcordCount;
@@ -68,6 +70,7 @@ namespace Bikewale.Models
             _expertReviews = expertReviews;
             _userReviewsCache = userReviewsCache;
             _upcoming = upcoming;
+            _apiGatewayCaller = apiGatewayCaller;
         }
 
 
@@ -133,7 +136,7 @@ namespace Bikewale.Models
 
             BindCompareBikes(objVM, CompareSource, cityId);
 
-            BestBikeByBodyStyle objBestBike = new BestBikeByBodyStyle(_cachedModels);
+            BestBikeByBodyStyle objBestBike = new BestBikeByBodyStyle(_cachedModels, _apiGatewayCaller);
             objBestBike.topCount = 8;
             objVM.BestBikes = objBestBike.GetData();
 

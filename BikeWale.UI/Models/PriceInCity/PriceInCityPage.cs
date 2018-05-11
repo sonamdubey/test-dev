@@ -25,6 +25,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
+using System.Text;
 using System.Web;
 
 namespace Bikewale.Models
@@ -43,7 +44,7 @@ namespace Bikewale.Models
         private readonly IPriceQuoteCache _objPQCache = null;
         private readonly IDealerCacheRepository _objDealerCache = null;
         private readonly IServiceCenter _objServiceCenter = null;
-        private readonly IBikeVersionCacheRepository<BikeVersionEntity, uint> _versionCache = null;
+        private readonly IBikeVersions<BikeVersionEntity, uint> _version;
         private readonly PQSourceEnum pqSource;
         private readonly IBikeInfo _bikeInfo = null;
         private readonly IBikeModelsCacheRepository<int> _modelCache = null;
@@ -102,7 +103,7 @@ namespace Bikewale.Models
         /// <param name="pqSource"></param>
         /// <param name="modelMaskingName"></param>
         /// <param name="cityMaskingName"></param>
-        public PriceInCityPage(ICityMaskingCacheRepository cityMaskingCache, IBikeMaskingCacheRepository<Entities.BikeData.BikeModelEntity, int> modelMaskingCache, IPriceQuote objPQ, IPriceQuoteCache objPQCache, IDealerCacheRepository objDealerCache, IServiceCenter objServiceCenter, IBikeVersionCacheRepository<BikeVersionEntity, uint> versionCache, IBikeInfo bikeInfo, IBikeModelsCacheRepository<int> modelCache, IDealerPriceQuoteDetail objDealerDetails, IDealerPriceQuote objDealerPQ, ICityCacheRepository objCityCache, IAreaCacheRepository objAreaCache, IManufacturerCampaign objManufacturerCampaign, PQSourceEnum pqSource, string modelMaskingName, string cityMaskingName, IBikeModels<Entities.BikeData.BikeModelEntity, int> modelEntity, string makeMaskingName)
+        public PriceInCityPage(ICityMaskingCacheRepository cityMaskingCache, IBikeMaskingCacheRepository<Entities.BikeData.BikeModelEntity, int> modelMaskingCache, IPriceQuote objPQ, IPriceQuoteCache objPQCache, IDealerCacheRepository objDealerCache, IServiceCenter objServiceCenter, IBikeVersions<BikeVersionEntity, uint> version, IBikeInfo bikeInfo, IBikeModelsCacheRepository<int> modelCache, IDealerPriceQuoteDetail objDealerDetails, IDealerPriceQuote objDealerPQ, ICityCacheRepository objCityCache, IAreaCacheRepository objAreaCache, IManufacturerCampaign objManufacturerCampaign, PQSourceEnum pqSource, string modelMaskingName, string cityMaskingName, IBikeModels<Entities.BikeData.BikeModelEntity, int> modelEntity, string makeMaskingName)
         {
             _cityMaskingCache = cityMaskingCache;
             _modelMaskingCache = modelMaskingCache;
@@ -110,7 +111,7 @@ namespace Bikewale.Models
             _objPQCache = objPQCache;
             _objDealerCache = objDealerCache;
             _objServiceCenter = objServiceCenter;
-            _versionCache = versionCache;
+            _version = version;
             _bikeInfo = bikeInfo;
             _modelCache = modelCache;
             _objDealerDetails = objDealerDetails;
@@ -150,7 +151,7 @@ namespace Bikewale.Models
         /// <param name="modelMaskingName"></param>
         /// <param name="cityMaskingName"></param>
         /// <param name="modelEntity"></param>
-        public PriceInCityPage(ICityMaskingCacheRepository cityMaskingCache, IBikeMaskingCacheRepository<Entities.BikeData.BikeModelEntity, int> modelMaskingCache, IPriceQuote objPQ, IPriceQuoteCache objPQCache, IDealerCacheRepository objDealerCache, IServiceCenter objServiceCenter, IBikeVersionCacheRepository<BikeVersionEntity, uint> versionCache, IBikeInfo bikeInfo, IBikeModelsCacheRepository<int> modelCache, IDealerPriceQuoteDetail objDealerDetails, IDealerPriceQuote objDealerPQ, ICityCacheRepository objCityCache, IAreaCacheRepository objAreaCache, IManufacturerCampaign objManufacturerCampaign, PQSourceEnum pqSource, string modelMaskingName, string cityMaskingName, IBikeModels<Entities.BikeData.BikeModelEntity, int> modelEntity, IAdSlot adSlot, string makeMaskingName)
+        public PriceInCityPage(ICityMaskingCacheRepository cityMaskingCache, IBikeMaskingCacheRepository<Entities.BikeData.BikeModelEntity, int> modelMaskingCache, IPriceQuote objPQ, IPriceQuoteCache objPQCache, IDealerCacheRepository objDealerCache, IServiceCenter objServiceCenter, IBikeVersions<BikeVersionEntity, uint> version, IBikeInfo bikeInfo, IBikeModelsCacheRepository<int> modelCache, IDealerPriceQuoteDetail objDealerDetails, IDealerPriceQuote objDealerPQ, ICityCacheRepository objCityCache, IAreaCacheRepository objAreaCache, IManufacturerCampaign objManufacturerCampaign, PQSourceEnum pqSource, string modelMaskingName, string cityMaskingName, IBikeModels<Entities.BikeData.BikeModelEntity, int> modelEntity, IAdSlot adSlot, string makeMaskingName)
         {
             _cityMaskingCache = cityMaskingCache;
             _modelMaskingCache = modelMaskingCache;
@@ -158,7 +159,7 @@ namespace Bikewale.Models
             _objPQCache = objPQCache;
             _objDealerCache = objDealerCache;
             _objServiceCenter = objServiceCenter;
-            _versionCache = versionCache;
+            _version = version;
             _bikeInfo = bikeInfo;
             _modelCache = modelCache;
             _objDealerDetails = objDealerDetails;
@@ -361,7 +362,7 @@ namespace Bikewale.Models
                     objVM.BikeVersionPrices = _objPQ.GetVersionPricesByModelId(modelId, cityId, out hasAreaAvailable);
                     if (objVM.BikeVersionPrices != null && objVM.BikeVersionPrices.Any())
                     {
-                        firstVersion = objVM.BikeVersionPrices.OrderByDescending(m => m.IsVersionNew).OrderBy(v => v.ExShowroomPrice).First();
+                        firstVersion = objVM.BikeVersionPrices.OrderByDescending(m => m.IsVersionNew).OrderBy(v => v.ExShowroomPrice).FirstOrDefault();
                         objVM.IsNew = isNew = firstVersion.IsModelNew;
                         var newVersions = objVM.BikeVersionPrices.Where(x => x.IsVersionNew);
                         if (objVM.IsNew && newVersions != null && newVersions.Any())
@@ -369,14 +370,13 @@ namespace Bikewale.Models
                             objVM.BikeVersionPrices = newVersions;
                         }
                         versionCount = (uint)objVM.BikeVersionPrices.Count();
-                        objVM.VersionSpecs = _versionCache.GetVersionMinSpecs(modelId, objVM.IsNew);
+                        objVM.VersionSpecs = _version.GetVersionMinSpecs(modelId, objVM.IsNew);
                         if (objVM.VersionSpecs != null)
                         {
                             var objMin = objVM.VersionSpecs.FirstOrDefault(x => x.VersionId == firstVersion.VersionId);
                             if (objMin != null)
                             {
-                                objVM.MinSpecsHtml = FormatVarientMinSpec(objMin);
-
+                                objVM.MinSpecsList = objMin.MinSpecsList;
                                 // Set body style
                                 objVM.BodyStyle = objMin.BodyStyle;
                             }
@@ -652,7 +652,7 @@ namespace Bikewale.Models
                             objVM.BikeVersionPrices = objVM.BikeVersionPrices.Where(x => x.IsVersionNew);
                         }
                         versionCount = (uint)objVM.FormatedBikeVersionPrices.Count();
-                        objVM.VersionSpecs = _versionCache.GetVersionMinSpecs(modelId, objVM.IsNew);
+                        objVM.VersionSpecs = _version.GetVersionMinSpecs(modelId, objVM.IsNew);
 
                         ICollection<KeyValuePair<uint, BikeQuotationAMPEntity>> values = new Dictionary<uint, BikeQuotationAMPEntity>();
                         foreach (var item in objVM.FormatedBikeVersionPrices)
@@ -665,18 +665,17 @@ namespace Bikewale.Models
                             var objMin = objVM.VersionSpecs.FirstOrDefault(x => x.VersionId == firstVersion.VersionId);
                             if (objMin != null)
                             {
-                                objVM.MinSpecsHtml = FormatVarientMinSpec(objMin);
+                                objVM.MinSpecsList = objMin.MinSpecsList;
 
                                 // Set body style
                                 objVM.BodyStyle = objMin.BodyStyle;
                             }
                             else
                             {
-                                var firstVersionTemp = objVM.VersionSpecs.FirstOrDefault();
-                                if (firstVersionTemp != null)
+                                var firstVersionSpec = objVM.VersionSpecs.FirstOrDefault();
+                                if (firstVersionSpec != null)
                                 {
-                                    objVM.BodyStyle = firstVersionTemp.BodyStyle;
-
+                                    objVM.BodyStyle = objVM.VersionSpecs.FirstOrDefault().BodyStyle;
                                 }
                             }
 
@@ -688,7 +687,6 @@ namespace Bikewale.Models
                                     version.Price = Convert.ToUInt64(versionPrice.BikeQuotationEntity.OnRoadPrice);
                                 }
                             }
-
                             objVM.BodyStyleText = objVM.BodyStyle == EnumBikeBodyStyles.Scooter ? "Scooters" : "Bikes";
                         }
 
@@ -1017,7 +1015,7 @@ namespace Bikewale.Models
         {
             try
             {
-                var similarBikes = new SimilarBikesWidget(_versionCache, firstVersion.VersionId, pqSource, false, true);
+                var similarBikes = new SimilarBikesWidget(_version, firstVersion.VersionId, pqSource, false, true);
                 similarBikes.CityId = cityId;
                 similarBikes.TopCount = 9;
                 similarBikes.IsNew = objVM.IsNew;
@@ -1055,7 +1053,7 @@ namespace Bikewale.Models
             {
                 if (modelId > 0)
                 {
-                    var modelPopularBikesByBodyStyle = new PopularBikesByBodyStyle(_modelCache);
+                    var modelPopularBikesByBodyStyle = new PopularBikesByBodyStyle(_objModelEntity);
                     modelPopularBikesByBodyStyle.CityId = cityId;
                     modelPopularBikesByBodyStyle.ModelId = modelId;
                     modelPopularBikesByBodyStyle.TopCount = 9;
@@ -1134,44 +1132,6 @@ namespace Bikewale.Models
             {
                 ErrorClass.LogError(ex, String.Format("BindPriceInNearestCities({0},{1})", modelMaskingName, cityMaskingName));
             }
-        }
-
-        /// <summary>
-        /// Created by : Aditi Srivastava on 12 Apr 2017
-        /// Summary    : Format min specs
-        /// </summary>
-        private string FormatVarientMinSpec(BikeVersionMinSpecs objVersion)
-        {
-            string minSpecsStr = string.Empty;
-
-            try
-            {
-                minSpecsStr = string.Format("{0}<li>{1} Wheels</li>", minSpecsStr, objVersion.AlloyWheels ? "Alloy" : "Spoke");
-                minSpecsStr = string.Format("{0}<li>{1} Start</li>", minSpecsStr, objVersion.ElectricStart ? "Electric" : "Kick");
-
-                if (objVersion.AntilockBrakingSystem)
-                {
-                    minSpecsStr = string.Format("{0}<li>ABS</li>", minSpecsStr);
-                }
-
-                if (!String.IsNullOrEmpty(objVersion.BrakeType))
-                {
-                    minSpecsStr = string.Format("{0}<li>{1} Brake</li>", minSpecsStr, objVersion.BrakeType);
-                }
-
-
-                if (!string.IsNullOrEmpty(minSpecsStr))
-                {
-                    minSpecsStr = string.Format("<ul id='version-specs-list'>{0}</ul>", minSpecsStr);
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorClass.LogError(ex, string.Format("Bikewale.Models.PriceInCityPAge.FormatVarientMinSpec(): versionId {0}", objVersion.VersionId));
-            }
-
-            return minSpecsStr;
-
         }
 
         /// <summary>
@@ -1531,7 +1491,7 @@ namespace Bikewale.Models
         {
             try
             {
-                MoreAboutScootersWidget obj = new MoreAboutScootersWidget(_modelCache, _objCityCache, _versionCache, _bikeInfo, Entities.GenericBikes.BikeInfoTabType.PriceInCity);
+                MoreAboutScootersWidget obj = new MoreAboutScootersWidget(_modelCache, _objCityCache, _version, _bikeInfo, Entities.GenericBikes.BikeInfoTabType.PriceInCity);
                 obj.modelId = modelId;
                 objData.objMoreAboutScooter = obj.GetData();
             }

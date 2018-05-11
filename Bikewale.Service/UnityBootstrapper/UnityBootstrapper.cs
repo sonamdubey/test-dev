@@ -1,4 +1,5 @@
-﻿using Bikewale.BAL.App;
+﻿using Bikewale.BAL.ApiGateway.ApiGatewayHelper;
+using Bikewale.BAL.App;
 using Bikewale.BAL.AppDeepLinking;
 using Bikewale.BAL.AutoComplete;
 using Bikewale.BAL.BikeBooking;
@@ -112,7 +113,7 @@ namespace Bikewale.Service.UnityConfiguration
         /// Description :   Register Road Test/Feature/Article BAL classes for CMS Controller constructor resolution
         /// Modified By :   Sajal Gupta on 10-10-2016
         /// Description :   Register usedBikeDetailsRepository, usedBikeDetails
-        ///  /// Modified By : Subodh Jain on 08 Nov 2016
+        /// Modified By :   Subodh Jain on 08 Nov 2016
         /// Description :   Register Service Center
         /// Modified by :   Sumit Kate on 15 Nov 2016
         /// Description :   Register IImage, ISecurity and IImageRepository interfaces
@@ -122,9 +123,10 @@ namespace Bikewale.Service.UnityConfiguration
         /// Description :   Register INewBikeLaunchesBL interface
         /// Modified by :   Sumit Kate on 05 Jan 2018
         /// Description :   Register IBikeSearchCacheRepository
-        /// Modified by: Dhruv Joshi
-        /// Dated: 8th Feb 2018
-        /// Description: Register INotification and INotificationRepository
+        /// Modified by :   Dhruv Joshi on 8th Feb 2018
+        /// Description :   Register INotification and INotificationRepository
+        /// Modified by :   Rajan Chauhan on 11 Apr 2018
+        /// Description :   Registered IBikeVersionRepository, IApiGatewayCaller
         /// </summary>
         /// <returns></returns>
         public static IUnityContainer Initialize()
@@ -179,6 +181,9 @@ namespace Bikewale.Service.UnityConfiguration
             container.RegisterType<ILeadNofitication, LeadNotificationBL>();
             container.RegisterType<IBikeMakesCacheRepository, BikeMakesCacheRepository>();
             container.RegisterType<IBikeVersionCacheRepository<BikeVersionEntity, uint>, BikeVersionsCacheRepository<BikeVersionEntity, uint>>();
+            container.RegisterType<IBikeVersionCacheRepository<BikeVersionEntity, int>, BikeVersionsCacheRepository<BikeVersionEntity, int>>();
+            container.RegisterType<IBikeVersionsRepository<BikeVersionEntity, uint>, BikeVersionsRepository<BikeVersionEntity, uint>>();
+            container.RegisterType<IBikeVersionsRepository<BikeVersionEntity, int>, BikeVersionsRepository<BikeVersionEntity, int>>();
             container.RegisterType<ICMSCacheContent, CMSCacheRepository>();
             container.RegisterType<IArticles, Articles>();
             container.RegisterType<ISearch, SearchBikes>();
@@ -235,7 +240,9 @@ namespace Bikewale.Service.UnityConfiguration
             container.RegisterType<IBikeSeriesRepository, BikeSeriesRepository>();
             container.RegisterType<IPQByCityArea, PQByCityArea>();
             container.RegisterType<Bikewale.Interfaces.AutoBiz.IDealerPriceQuote, Bikewale.DAL.AutoBiz.DealerPriceQuoteRepository>();
+            container.RegisterType<IBikeSearchResult, BikeSearchResult>();
             container.RegisterType<ILead, LeadProcess>();
+            container.RegisterType<IApiGatewayCaller, ApiGatewayCaller>();
             return container;
 
         }

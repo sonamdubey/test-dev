@@ -258,7 +258,7 @@ namespace BikeWaleOpr.Content
                 BwMemCache.ClearSeriesCache(Convert.ToUInt32(series), !String.IsNullOrEmpty(ddlMakes.SelectedValue) ? Convert.ToUInt32(ddlMakes.SelectedValue) : 0);
             }
             //To clear new launched bikes cache
-            MemCachedUtil.Remove("BW_NewLaunchedBikes");
+            MemCachedUtil.Remove("BW_NewLaunchedBikes_V1");
             BwMemCache.ClearPopularBikesByMakes(!String.IsNullOrEmpty(ddlMakes.SelectedValue) ? Convert.ToUInt32(ddlMakes.SelectedValue) : 0);
         }
 

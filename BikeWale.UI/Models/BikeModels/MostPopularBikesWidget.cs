@@ -99,6 +99,8 @@ namespace Bikewale.Models
         /// <summary>
         /// <para />Created by  :   Sumit Kate on 24 Mar 2017
         /// <para />Description :   Returns MostPopularBikeWidgetVM
+        /// Modified by : Ashutosh Sharma on 29 Mar 2018
+        /// Description: Fetching specs and features from specs features service.
         /// </summary>
         /// <returns></returns>
         public MostPopularBikeWidgetVM GetData()
@@ -112,10 +114,6 @@ namespace Bikewale.Models
                 objVM.ShowCheckOnRoadCTA = _showCheckOnRoadCTA;
                 objVM.ShowPriceInCityCTA = _showPriceInCityCTA;
                 objVM.Bikes = _bikeModels.GetMostPopularBikes(_bikeType, TotalWidgetItems, _makeId, CityId);
-                if (objVM.Bikes != null && objVM.Bikes.Any())
-                {
-                    objVM.Bikes = objVM.Bikes.Take(TopCount);
-                }
             }
             catch (Exception ex)
             {

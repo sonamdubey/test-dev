@@ -35,7 +35,7 @@ namespace Bikewale.Controllers
         private readonly IAuthors _authors = null;
         private readonly IBikeModels<BikeModelEntity, int> _models;
         private readonly IBikeModelsCacheRepository<int> _objModelCache = null;
-        private readonly IBikeVersionCacheRepository<BikeVersionEntity, uint> _objVersionCache = null;
+        private readonly IBikeVersions<BikeVersionEntity, uint> _objVersion;
 
         /// <summary>
         /// Created By : Sushil Kumar on 7th May 2017
@@ -57,7 +57,8 @@ namespace Bikewale.Controllers
         /// <param name="userReviewCache"></param>
         public UserReviewController(ICMSCacheContent objArticles, ICityCacheRepository cityCache, IBikeInfo bikeInfo,
             IUserReviewsCache userReviewsCacheRepo, IUserReviews userReviews, IBikeMaskingCacheRepository<BikeModelEntity, int> objModel,
-                IUserReviewsRepository userReviewsRepo, IUserReviewsSearch userReviewsSearch, IBikeMakesCacheRepository makesRepository, IUserReviewsCache userReviewCache, IAuthors authors, IBikeModels<BikeModelEntity, int> models, IBikeModelsCacheRepository<int> objModelCache, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionCache)
+            IUserReviewsRepository userReviewsRepo, IUserReviewsSearch userReviewsSearch, IBikeMakesCacheRepository makesRepository, IUserReviewsCache userReviewCache,
+            IAuthors authors, IBikeModels<BikeModelEntity, int> models, IBikeModelsCacheRepository<int> objModelCache, IBikeVersions<BikeVersionEntity, uint> objVersion)
         {
 
             _userReviews = userReviews;
@@ -73,7 +74,7 @@ namespace Bikewale.Controllers
             _authors = authors;
             _models = models;
             _objModelCache = objModelCache;
-            _objVersionCache = objVersionCache;
+            _objVersion = objVersion;
         }
 
 
@@ -85,7 +86,7 @@ namespace Bikewale.Controllers
         [Route("{makeMasking}-bikes/{modelMasking}/reviews/")]
         public ActionResult ListReviews(string makeMasking, string modelMasking, uint? pageNo)
         {
-            UserReviewListingPage objData = new UserReviewListingPage(makeMasking, modelMasking, _objModel, _userReviewsCacheRepo, _userReviewsSearch, _objArticles, _userReviewsSearch, _models, _objModelCache, _objVersionCache, _cityCache, _bikeInfo);
+            UserReviewListingPage objData = new UserReviewListingPage(makeMasking, modelMasking, _objModel, _userReviewsCacheRepo, _userReviewsSearch, _objArticles, _userReviewsSearch, _models, _objModelCache, _objVersion, _cityCache, _bikeInfo);
             if (objData.Status.Equals(StatusCodes.ContentFound))
             {
                 objData.PageNumber = pageNo;
@@ -124,7 +125,7 @@ namespace Bikewale.Controllers
         [Route("m/{makeMasking}-bikes/{modelMasking}/reviews/")]
         public ActionResult ListReviews_Mobile(string makeMasking, string modelMasking, uint? pageNo)
         {
-            UserReviewListingPage objData = new UserReviewListingPage(makeMasking, modelMasking, _objModel, _userReviewsCacheRepo, _userReviewsSearch, _objArticles, _userReviewsSearch, _models, _objModelCache, _objVersionCache, _cityCache, _bikeInfo);
+            UserReviewListingPage objData = new UserReviewListingPage(makeMasking, modelMasking, _objModel, _userReviewsCacheRepo, _userReviewsSearch, _objArticles, _userReviewsSearch, _models, _objModelCache, _objVersion, _cityCache, _bikeInfo);
             if (objData.Status.Equals(StatusCodes.ContentFound))
             {
                 objData.IsMobile = true;

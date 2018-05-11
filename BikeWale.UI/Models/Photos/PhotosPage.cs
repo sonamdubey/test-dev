@@ -28,7 +28,7 @@ namespace Bikewale.Models.Photos
         private readonly IBikeModels<BikeModelEntity, int> _objModelEntity = null;
         private readonly ICityCacheRepository _objCityCache = null;
         private readonly IBikeInfo _objGenericBike = null;
-        private readonly IBikeVersionCacheRepository<BikeVersionEntity, uint> _objVersionCache = null;
+        private readonly IBikeVersions<BikeVersionEntity, uint> _objVersion;
         private readonly IVideos _objVideos = null;
 
         private uint _modelId, _cityId;
@@ -55,14 +55,16 @@ namespace Bikewale.Models.Photos
         /// <param name="objGenericBike"></param>
         /// <param name="objVersionCache"></param>
         /// <param name="objVideos"></param>
-        public PhotosPage(string makeMaskingName, string modelMaskingName, IBikeModelsCacheRepository<int> objModelCache, IBikeMaskingCacheRepository<BikeModelEntity, int> objModelMaskingCache, IBikeModels<BikeModelEntity, int> objModelEntity, ICityCacheRepository objCityCache, IBikeInfo objGenericBike, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionCache, IVideos objVideos)
+        public PhotosPage(string makeMaskingName, string modelMaskingName, IBikeModelsCacheRepository<int> objModelCache,
+            IBikeMaskingCacheRepository<BikeModelEntity, int> objModelMaskingCache, IBikeModels<BikeModelEntity, int> objModelEntity, ICityCacheRepository objCityCache,
+            IBikeInfo objGenericBike, IBikeVersions<BikeVersionEntity, uint> objVersion, IVideos objVideos)
         {
             _objModelCache = objModelCache;
             _objModelMaskingCache = objModelMaskingCache;
             _objModelEntity = objModelEntity;
             _objCityCache = objCityCache;
             _objGenericBike = objGenericBike;
-            _objVersionCache = objVersionCache;
+            _objVersion = objVersion;
             _objVideos = objVideos;
             ParseQueryString(makeMaskingName, modelMaskingName);
         }
@@ -489,7 +491,7 @@ namespace Bikewale.Models.Photos
         {
             try
             {
-                MoreAboutScootersWidget obj = new MoreAboutScootersWidget(_objModelCache, _objCityCache, _objVersionCache, _objGenericBike, Entities.GenericBikes.BikeInfoTabType.Image);
+                MoreAboutScootersWidget obj = new MoreAboutScootersWidget(_objModelCache, _objCityCache, _objVersion, _objGenericBike, Entities.GenericBikes.BikeInfoTabType.Image);
                 obj.modelId = _modelId;
                 _objData.objMoreAboutScooter = obj.GetData();
             }

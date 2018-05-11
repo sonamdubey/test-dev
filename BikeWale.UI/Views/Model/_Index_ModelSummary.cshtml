@@ -1,9 +1,14 @@
 ﻿@model Bikewale.Models.BikeModels.ModelPageVM
+@using Bikewale.Entities.BikeData
 @using System.Linq
 
 @if (!Model.IsUpcomingBike)
 {
-
+	var minSpecAvailable = false;
+	if (Model.ModelPageEntity.ModelVersionMinSpecs != null && Model.ModelPageEntity.ModelVersionMinSpecs.MinSpecsList != null)
+	{
+		minSpecAvailable = true;
+	}
     <div data-id="modelSummaryContent" class="bw-model-tabs-data content-box-shadow content-inner-block-20 card-bottom-margin">
         <h2 class="h2-heading padding-bottom10">@Model.BikeName Summary</h2>
         
@@ -26,20 +31,25 @@
                             </td>
                         </tr>
                         }
-                        @if (Model.ModelPageEntity != null && Model.ModelPageEntity.ModelVersionSpecs != null && Model.ModelPageEntity.ModelVersionSpecs.TopSpeed > 0)
-                        {
-                        <tr>
-                            <td>Top speed</td>
-                            <td class="text-bold"> @Model.ModelPageEntity.ModelVersionSpecs.TopSpeed kmph</td>
-                        </tr>
-                        }
-                        @if (Model.ModelPageEntity != null && Model.ModelPageEntity.ModelVersionSpecs != null && Model.ModelPageEntity.ModelVersionSpecs.FuelEfficiencyOverall > 0)
-                        {
-                        <tr>
-                            <td>Mileage</td>
-                            <td class="text-bold"> @Model.ModelPageEntity.ModelVersionSpecs.FuelEfficiencyOverall kmpl</td>
-                        </tr>
-                        }
+			@if (minSpecAvailable)
+			{
+				var topSpeed = Bikewale.Utility.FormatMinSpecs.SanitizeNumericMinSpec(Model.ModelPageEntity.ModelVersionMinSpecs.MinSpecsList, EnumSpecsFeaturesItems.TopSpeed);
+				if (topSpeed != null && !string.IsNullOrEmpty(topSpeed.Value))
+				{
+					<tr>
+						<td>Top speed</td>
+						<td class="text-bold">@Bikewale.Utility.FormatMinSpecs.ShowAvailable(topSpeed.Value, topSpeed.UnitType, topSpeed.DataType, topSpeed.Id)</td>
+					</tr>
+				}
+				var fuelEfficiency = Bikewale.Utility.FormatMinSpecs.SanitizeNumericMinSpec(Model.ModelPageEntity.ModelVersionMinSpecs.MinSpecsList, EnumSpecsFeaturesItems.FuelEfficiencyOverall);
+				if (fuelEfficiency != null && !string.IsNullOrEmpty(fuelEfficiency.Value))
+				{
+					<tr>
+						<td>Mileage</td>
+						<td class="text-bold">@Bikewale.Utility.FormatMinSpecs.ShowAvailable(fuelEfficiency.Value, fuelEfficiency.UnitType, fuelEfficiency.DataType, fuelEfficiency.Id)</td>
+					</tr>
+				}
+			}
                         @if (Model.IsModelColorsAvailable)
                         {
                         <tr>
