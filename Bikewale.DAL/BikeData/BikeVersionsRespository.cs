@@ -57,6 +57,7 @@ namespace Bikewale.DAL.BikeData
 									VersionId = Convert.ToInt32(dr["VersionId"]),
 									VersionName = dr["VersionName"].ToString(),
 									Price = Convert.ToUInt64(dr["Price"]),
+									HostUrl = Convert.ToString(dr["hosturl"]),
 									OriginalImagePath = Convert.ToString(dr["imageurl"])
                                 });
                             }
