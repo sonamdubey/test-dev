@@ -11,17 +11,18 @@ import {createNewSnapPoints} from '../../utils/rheostat/function/DiffSnapPoints'
 
 import { emiCalculatorAction } from '../../actionCreators/emiInterestSlider'
 import { updateInterestSlider } from '../../actionCreators/emiInterestSlider'
+import { startAnimation } from '../../actionCreators/pieAnimation'
 
 class EMIInterest  extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-  componentDidMount(){
-    const {
+	constructor(props) {
+		super(props);
+	}
+	componentDidMount(){
+		const {
 			slider
 		} = this.props
-  }
-  handleSliderChange = ({ values }) => {
+	}
+	handleSliderChange = ({ values }) => {
 		const {
 			updateInterestSlider,
 		} = this.props
@@ -33,12 +34,18 @@ class EMIInterest  extends React.Component {
 			this.refs.interestSlider.querySelectorAll('.rheostat-handle')[0].focus()
 		}
 	}
-  render() {
-    let {
-      slider
-    } = this.props
+	handleSliderDragEnd = () => {
+		const {
+			startAnimation
+		} = this.props
+		startAnimation()
+	}
+	render() {
+		let {
+			slider
+		} = this.props
 		let handleSnapPoints = createNewSnapPoints(algoObj);
-    slider = {
+		slider = {
 			...slider,
 			algorithm: {getPosition: algorithm.getPosition.bind(null, handleSnapPoints), getValue: algorithm.getValue.bind(null,handleSnapPoints)},
 			className: 'slider-rheostat',
@@ -49,18 +56,20 @@ class EMIInterest  extends React.Component {
 			snapOnDragMove: true,
 			disableSnapOnClick: false,
 			onChange: this.handleSliderChange,
+			onSliderDragStart: this.handleSliderDragStart,
+			onSliderDragEnd: this.handleSliderDragEnd,
 		}
-    return (
-        <div className="emi-calci-header slider-input-container">
+		return (
+				<div className="emi-calci-header slider-input-container">
 					<span className="slider__unit-title">Interest <span className="slider__unit-text">(%)</span></span>
-           <div className="slider-section" ref="interesttSlider">
-              <Rheostat
-                  {...slider}
-              />
+					 <div className="slider-section" ref="interestSlider">
+							<Rheostat
+									{...slider}
+							/>
 					</div>
-        </div>
-    );
-  }
+				</div>
+		);
+	}
 }
 
 const mapStateToProps = (state) => {
@@ -73,7 +82,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch, getState) => {
 	return {
-		updateInterestSlider: bindActionCreators(updateInterestSlider, dispatch)
+		updateInterestSlider: bindActionCreators(updateInterestSlider, dispatch),
+		startAnimation: bindActionCreators(startAnimation, dispatch)
 	}
 }
 

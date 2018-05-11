@@ -1,12 +1,10 @@
 import { emiCalculatorAction } from '../actionTypes/emiActionTypes'
 
-const updateInterestSliderValue = function(values, min, max, userChange) {
+const updateInterestSliderValue = function(values, userChange) {
     return function(dispatch) {
        dispatch({
         type: emiCalculatorAction.UPDATE_INTEREST_SLIDER_VALUE,
         values,
-        min,
-        max,
         userChange
       })
     }
@@ -22,14 +20,9 @@ const shouldInterestSliderUpdate = (values, slider) => {
 	return update
 }
 
-export const updateInterestSlider = ({values, min, max, userChange}) => (dispatch, getState) => {
+export const updateInterestSlider = ({values,userChange}) => (dispatch, getState) => {
     let interestSliderMap = getState(['Emi', 'VehicleInterest', 'slider']);
 	if (shouldInterestSliderUpdate(values, interestSliderMap)) {
-		dispatch(updateInterestSliderValue(values, min, max, userChange))
+		dispatch(updateInterestSliderValue(values, userChange))
 	}
 }
-
-
-module.exports = {
-    updateInterestSlider : updateInterestSlider
-};

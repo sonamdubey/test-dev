@@ -9,6 +9,7 @@ import sliderAlgorithm from '../../utils/rheostat/algorithms/linear'
 
 import { emiCalculatorAction } from '../../actionCreators/emiDownPaymentSlider'
 import { updateDownPaymentSlider } from '../../actionCreators/emiDownPaymentSlider'
+import { startAnimation } from '../../actionCreators/pieAnimation'
 
 import { formatToINR, formatToCurrency } from '../../utils/formatAmount'
 
@@ -33,6 +34,12 @@ class EMIDownPayment  extends React.Component {
       this.refs.downPaymentSlider.querySelectorAll('.rheostat-handle')[0].focus()
     }
   }
+  handleSliderDragEnd = () => {
+    const {
+      startAnimation
+    } = this.props
+    startAnimation()
+  }
 updateLoanText() {
     let loanAmountUpdated = this.props.slider.max - this.props.slider.values[0];
     return loanAmountUpdated
@@ -51,7 +58,9 @@ updateLoanText() {
       snapOnDragMove: true,
       disableSnapOnClick: true,
       onChange: this.handleSliderChange,
-      handleTooltipLabel: formatToINR
+      handleTooltipLabel: formatToINR,
+      onSliderDragStart: this.handleSliderDragStart,
+      onSliderDragEnd: this.handleSliderDragEnd,
     }
     let vehicleLoanAmount = formatToINR(this.updateLoanText());
     return (
@@ -83,7 +92,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch, getState) => {
   return {
-    updateDownPaymentSlider: bindActionCreators(updateDownPaymentSlider, dispatch)
+    updateDownPaymentSlider: bindActionCreators(updateDownPaymentSlider, dispatch),
+    startAnimation: bindActionCreators(startAnimation, dispatch)
   }
 }
 
