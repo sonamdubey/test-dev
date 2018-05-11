@@ -1,4 +1,5 @@
-﻿using Bikewale.Entities.BikeData;
+﻿using Bikewale.BAL.ApiGateway.ApiGatewayHelper;
+using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.NewLaunched;
 using Bikewale.Interfaces.BikeData.UpComing;
@@ -27,8 +28,10 @@ namespace Bikewale.Controllers
         private readonly IServiceCenter _objSC = null;
         private readonly INewBikeLaunchesBL _newLaunches = null;
         private readonly IBikeModelsCacheRepository<int> _objBestBikes = null;
+        private readonly IDealer _objDealer;
+        private readonly IApiGatewayCaller _apiGatewayCaller;
         //Constructor for dealer locator
-        public DealerShowroomController(IBikeModelsCacheRepository<int> objBestBikes, IBikeMakes<BikeMakeEntity, int> bikeMakes, INewBikeLaunchesBL newLaunches, IServiceCenter objSC, IDealerCacheRepository objDealerCache, IBikeMakesCacheRepository bikeMakesCache, IUpcoming upcoming, IBikeModels<BikeModelEntity, int> bikeModels, IUsedBikeDetailsCacheRepository objUsedCache, IStateCacheRepository objStateCache)
+        public DealerShowroomController(IBikeModelsCacheRepository<int> objBestBikes, IBikeMakes<BikeMakeEntity, int> bikeMakes, INewBikeLaunchesBL newLaunches, IServiceCenter objSC, IDealerCacheRepository objDealerCache, IBikeMakesCacheRepository bikeMakesCache, IUpcoming upcoming, IBikeModels<BikeModelEntity, int> bikeModels, IUsedBikeDetailsCacheRepository objUsedCache, IStateCacheRepository objStateCache, IDealer objDealer, IApiGatewayCaller apiGatewayCaller)
         {
             _objDealerCache = objDealerCache;
             _bikeMakesCache = bikeMakesCache;
@@ -39,7 +42,8 @@ namespace Bikewale.Controllers
             _newLaunches = newLaunches;
             _objSC = objSC;
             _objBestBikes = objBestBikes;
-
+            _objDealer = objDealer;
+            _apiGatewayCaller = apiGatewayCaller;
         }
 
 
@@ -222,7 +226,7 @@ namespace Bikewale.Controllers
         public ActionResult DealerDetail(string makeMaskingName, string cityMaskingName, uint dealerId)
         {
 
-            DealerShowroomDealerDetail objDealerDetails = new DealerShowroomDealerDetail(_objSC, _objDealerCache, _bikeMakesCache, _bikeModels, makeMaskingName, cityMaskingName, dealerId, 3, false);
+            DealerShowroomDealerDetail objDealerDetails = new DealerShowroomDealerDetail(_objSC, _objDealerCache, _bikeMakesCache, _bikeModels, makeMaskingName, cityMaskingName, dealerId, 3, false, _apiGatewayCaller, _objDealer);
 
             if (dealerId > 0)
             {
@@ -263,7 +267,7 @@ namespace Bikewale.Controllers
         {
 
 
-            DealerShowroomDealerDetail objDealerDetails = new DealerShowroomDealerDetail(_objSC, _objDealerCache, _bikeMakesCache, _bikeModels, makeMaskingName, cityMaskingName, dealerId, 9, true);
+            DealerShowroomDealerDetail objDealerDetails = new DealerShowroomDealerDetail(_objSC, _objDealerCache, _bikeMakesCache, _bikeModels, makeMaskingName, cityMaskingName, dealerId, 9, true, _apiGatewayCaller, _objDealer);
             if (dealerId > 0)
             {
                 DealerShowroomDealerDetailsVM objDealerDetailsVM = null;

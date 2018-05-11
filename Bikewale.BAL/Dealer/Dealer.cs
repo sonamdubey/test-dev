@@ -1,4 +1,7 @@
-﻿using Bikewale.DTO.MobileVerification;
+﻿using Bikewale.BAL.ApiGateway.Adapters.BikeData;
+using Bikewale.BAL.ApiGateway.ApiGatewayHelper;
+using Bikewale.BAL.ApiGateway.Entities.BikeData;
+using Bikewale.DTO.MobileVerification;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Dealer;
 using Bikewale.Entities.DealerLocator;
@@ -9,6 +12,7 @@ using Bikewale.Notifications;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Bikewale.BAL.Dealer
 {
@@ -17,11 +21,15 @@ namespace Bikewale.BAL.Dealer
     /// </summary>
     public class Dealer : IDealer
     {
-        private readonly IDealerRepository _dealerRepository = null;
+        private readonly IDealerRepository _dealerRepository;
+        private readonly IDealerCacheRepository _dealerCacheRepository;
+        private readonly IApiGatewayCaller _apiGatewayCaller;
 
-        public Dealer(IDealerRepository dealerRepository)
+        public Dealer(IDealerRepository dealerRepository, IDealerCacheRepository dealerCacheRepository, IApiGatewayCaller apiGatewayCaller)
         {
             _dealerRepository = dealerRepository;
+            _dealerCacheRepository = dealerCacheRepository;
+            _apiGatewayCaller = apiGatewayCaller;
         }
 
         /// <summary>
@@ -216,19 +224,49 @@ namespace Bikewale.BAL.Dealer
         /// <summary>
         /// Created By : Sajal Gupta on 26/09/2016
         /// Description : Calls DAL method to get dealer's bikes and details on the basis of dealerId and makeId.
+        /// Modified By : Rajan Chauhan on 16 Apr 2018
+        /// Description : Added method to add minSpecs to dealerBikes
         /// </summary>
         public DealerBikesEntity GetDealerDetailsAndBikesByDealerAndMake(uint dealerId, int makeId)
         {
+            DealerBikesEntity dealerBikes = null;
             try
             {
-                return _dealerRepository.GetDealerDetailsAndBikesByDealerAndMake(dealerId, makeId);
+                dealerBikes = _dealerCacheRepository.GetDealerDetailsAndBikesByDealerAndMake(dealerId, makeId);
+                IEnumerable<MostPopularBikesBase> bikesList = dealerBikes != null ? dealerBikes.Models : null;
+                if (bikesList != null && bikesList.Any())
+                {
+                    var specItemList = new List<EnumSpecsFeaturesItems>{
+                        EnumSpecsFeaturesItems.Displacement,
+                        EnumSpecsFeaturesItems.FuelEfficiencyOverall,
+                        EnumSpecsFeaturesItems.MaxPowerBhp,
+                        EnumSpecsFeaturesItems.KerbWeight
+                    };
+                    GetVersionSpecsSummaryByItemIdAdapter adapt = new GetVersionSpecsSummaryByItemIdAdapter();
+                    VersionsDataByItemIds_Input specItemInput = new VersionsDataByItemIds_Input
+                    {
+                        Versions = bikesList.Select(m => m.objVersion.VersionId),
+                        Items = specItemList
+                    };
+                    adapt.AddApiGatewayCall(_apiGatewayCaller, specItemInput);
+                    _apiGatewayCaller.Call();
+                    IEnumerable<VersionMinSpecsEntity> specsResponseList = adapt.Output;
+                    if (specsResponseList != null)
+                    {
+                        var specsEnumerator = specsResponseList.GetEnumerator();
+                        var bikesEnumerator = bikesList.GetEnumerator();
+                        while (bikesEnumerator.MoveNext() && specsEnumerator.MoveNext())
+                        {
+                            bikesEnumerator.Current.MinSpecsList = specsEnumerator.Current.MinSpecsList;
+                        }
+                    }
+                }
             }
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "GetDealerDetailsAndBikes");
-
-                return null;
             }
+            return dealerBikes;
         }
         /// <summary>
         /// Craeted by  :   Sumit Kate on 21 Jun 2016

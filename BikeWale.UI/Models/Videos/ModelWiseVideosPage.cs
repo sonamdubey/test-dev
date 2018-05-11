@@ -30,7 +30,7 @@ namespace Bikewale.Models.Videos
         private readonly IBikeSeries _series = null;
         private readonly IBikeModels<BikeModelEntity, int> _models;
         private string _makeMaskingName = string.Empty, _modelMaskingName = string.Empty;
-        private readonly IBikeVersionCacheRepository<BikeVersionEntity, uint> _objBikeVersionsCache = null;
+        private readonly IBikeVersions<BikeVersionEntity, uint> _objVersion;
         private readonly IBikeModelsCacheRepository<int> _objModelCache = null;
 
         private ushort _maxVideoCount = 50, _pageNo = 1;
@@ -50,7 +50,9 @@ namespace Bikewale.Models.Videos
         public BikeSeriesEntityBase objSeries;
         public string newMakeMasking = string.Empty, newModelMasking = string.Empty;
 
-        public ModelWiseVideosPage(string makeMaskingName, string modelMaskingName, ICityCacheRepository cityCacheRepo, IBikeInfo bikeInfo, IVideosCacheRepository objVideosCache, IBikeMakesCacheRepository bikeMakesCache, IBikeMaskingCacheRepository<BikeModelEntity, int> bikeModelsCache, IBikeSeriesCacheRepository seriesCache, IBikeSeries series, IBikeModels<BikeModelEntity, int> models, IBikeVersionCacheRepository<BikeVersionEntity, uint> objBikeVersionsCache, IBikeModelsCacheRepository<int> objModelCache)
+        public ModelWiseVideosPage(string makeMaskingName, string modelMaskingName, ICityCacheRepository cityCacheRepo, IBikeInfo bikeInfo, IVideosCacheRepository objVideosCache,
+            IBikeMakesCacheRepository bikeMakesCache, IBikeMaskingCacheRepository<BikeModelEntity, int> bikeModelsCache, IBikeSeriesCacheRepository seriesCache, IBikeSeries series,
+            IBikeModels<BikeModelEntity, int> models, IBikeVersions<BikeVersionEntity, uint> objBikeVersions, IBikeModelsCacheRepository<int> objModelCache)
         {
             _makeMaskingName = makeMaskingName;
             _modelMaskingName = modelMaskingName;
@@ -62,7 +64,7 @@ namespace Bikewale.Models.Videos
             _seriesCache = seriesCache;
             _series = series;
             _models = models;
-            _objBikeVersionsCache = objBikeVersionsCache;
+            _objVersion = objBikeVersions;
             _objModelCache = objModelCache;
             ProcessQuery(_makeMaskingName, _modelMaskingName);
         }
@@ -411,9 +413,9 @@ namespace Bikewale.Models.Videos
                 {
                     EnumBikeBodyStyles bodyStyle = EnumBikeBodyStyles.AllBikes;
 
-                    List<BikeVersionMinSpecs> objVersionsList = _objBikeVersionsCache.GetVersionMinSpecs(_modelId, false);
+                    IEnumerable<BikeVersionMinSpecs> objVersionsList = _objVersion.GetVersionMinSpecs(_modelId, false);
 
-                    if (objVersionsList != null && objVersionsList.Count > 0)
+                    if (objVersionsList != null && objVersionsList.Any())
                     {
                         bodyStyle = objVersionsList.FirstOrDefault().BodyStyle;
                     }
@@ -438,7 +440,7 @@ namespace Bikewale.Models.Videos
         {
             try
             {
-                MoreAboutScootersWidget obj = new MoreAboutScootersWidget(_objModelCache, _cityCacheRepo, _objBikeVersionsCache, _bikeInfo, Entities.GenericBikes.BikeInfoTabType.Videos);
+                MoreAboutScootersWidget obj = new MoreAboutScootersWidget(_objModelCache, _cityCacheRepo, _objVersion, _bikeInfo, Entities.GenericBikes.BikeInfoTabType.Videos);
                 obj.modelId = _modelId;
                 objData.ObjMoreAboutScooter = obj.GetData();
             }

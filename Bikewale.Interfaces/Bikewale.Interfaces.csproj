@@ -148,6 +148,7 @@
     <Compile Include="BikeData\IBikeVersionCacheRepository.cs" />
     <Compile Include="BikeData\IBikeVersions.cs" />
     <Compile Include="BikeBooking\IFeedBacks.cs" />
+    <Compile Include="BikeData\IBikeVersionsRepository.cs" />
     <Compile Include="BikeData\IModelsCache.cs" />
     <Compile Include="BikeData\IModelsRepository.cs" />
     <Compile Include="BikeData\NewLaunched\INewBikeLaunchesBL.cs" />
@@ -267,6 +268,9 @@
       <Project>{891EE3D8-F296-4EFC-A136-A278F0F06F61}</Project>
       <Name>Bikewale.PWA.Entities</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

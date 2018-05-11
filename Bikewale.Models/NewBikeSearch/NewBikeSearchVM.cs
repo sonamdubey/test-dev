@@ -25,5 +25,8 @@ namespace Bikewale.Models.NewBikeSearch
         public bool IsExpertReviewActive { get; set; }
         public bool IsVideoActive { get; set; }
         public string MinMaxBudget { get; set; }
+        public IEnumerable<SpecsCustomDataType> BrakeTypes { get; set; }
+        public IEnumerable<SpecsCustomDataType> WheelTypes { get; set; }
+        public IEnumerable<SpecsCustomDataType> StartTypes { get; set; }
     }
 }

@@ -1,5 +1,8 @@
-﻿using Consumer;
+﻿using Bikewale.ElasticSearch.Entities;
+using Bikewale.Sitemap.Entities;
+using Consumer;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
@@ -54,8 +57,10 @@ namespace Bikewale.Sitemap.MainSitemap
             {
                 SiteMapRepository repo = new SiteMapRepository(sitemapSP);
 
-                var data = repo.GetData();
-
+                IDictionary<UrlType, IDictionary<int, ICollection<KeyValuePair<int, string>>>> data = repo.GetData();
+                SiteMapElasticSearch siteMapobj = new SiteMapElasticSearch();
+                IDictionary<int, ICollection<KeyValuePair<int, string>>> siteMapESResult =  siteMapobj.GetSiteMapResult();
+                data.Add(UrlType.ModelSpec,siteMapESResult);
                 if (data != null && data.Any())
                 {
                     foreach (var item in data)

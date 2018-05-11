@@ -24,7 +24,7 @@ else if (Model.IsPopularBodyStyleAvailable)
 {
     <span class="bw-ga navtab" data-cat="Model_Page" data-act="Floating_Navigation_Clicked" data-lab="@bikeName&#95;Mileage" data-href="#modelMileageContent">Mileage</span>
 }
-@if (Model.IsVersionSpecsAvailable)
+@if (Model.BikeSpecsFeatures != null &&  Model.BikeSpecsFeatures.IsVersionSpecsAvailable)
 {
     <span class="bw-ga navtab" data-cat="Model_Page" data-act="Floating_Navigation_Clicked" data-lab="@bikeName&#95;Specs"  data-href="#modelSpecsFeaturesAboutContent">Specs</span>
 }

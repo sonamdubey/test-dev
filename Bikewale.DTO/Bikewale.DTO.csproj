@@ -162,6 +162,7 @@
     <Compile Include="BikeData\BikeColorsbyVersionDTO.cs" />
     <Compile Include="BikeData\BikeVersionWithMinSpecDTO.cs" />
     <Compile Include="BikeData\ModelSpecificationsDTO.cs" />
+    <Compile Include="BikeData\v2\VersionMinSpecs.cs" />
     <Compile Include="BikeData\VersionSegmentDTO.cs" />
     <Compile Include="BikeData\MakeModelBase.cs" />
     <Compile Include="BikeData\NewLaunched\BikesCountByMakeDTO.cs" />
@@ -478,7 +479,9 @@
       <Name>Bikewale.Utility</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="app.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
