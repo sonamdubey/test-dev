@@ -12,7 +12,6 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
     /// </summary>
     internal class HondaManufacturerLeadHandler : ManufacturerLeadHandler
     {
-		private readonly LeadProcessingRepository _leadRepository;
 		private Hashtable hondaModels;
 		/// <summary>
 		/// Type initializer
@@ -22,8 +21,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
 		/// <param name="isAPIEnabled"></param>
 		public HondaManufacturerLeadHandler(uint manufacturerId, string urlAPI, bool isAPIEnabled) : base(manufacturerId, urlAPI, isAPIEnabled)
         {
-			_leadRepository = new LeadProcessingRepository();
-			hondaModels = _leadRepository.GetHondaModelApiMapping();
+			hondaModels = base.LeadRepostiory.GetHondaModelApiMapping();
 		}
 
         /// <summary>
