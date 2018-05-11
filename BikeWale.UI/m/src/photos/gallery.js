@@ -99,6 +99,9 @@ function filterColorImagesArray(responseArray) {
 }
 
 function getImageDownloadUrl() {
+    if (!MODEL_IMAGES || MODEL_IMAGES.length <= 0) {
+        return;
+    }
 	var activeImageIndex = vmModelGallery.activeIndex() - 1;
 	if (activeImageIndex == -1)
 		activeImageIndex++;
@@ -107,6 +110,9 @@ function getImageDownloadUrl() {
 }
 
 function getColorImageDownloadUrl() {
+    if (!MODEL_COLOR_IMAGES || MODEL_COLOR_IMAGES.length <= 0) {
+        return;
+    }
 	var activeImageIndex = vmModelGallery.colorPopup().colorSwiper().activeIndex() - 1;
 	if (activeImageIndex == -1)
 		activeImageIndex++;

@@ -92,13 +92,21 @@ var ImageGrid = (function () {
 			$("#imageGridBottom").append($("#photoTemplateWrapper ul li"));
 			ImageGrid.alignRemainderImage();
 
-			var newImageCount = vmModelGallery.photoList().length - $('.image-grid__list .image-grid-list__item').length;
+			var currGridLength = $('.image-grid__list .image-grid-list__item').length;
+			var currCarouselLength = vmModelGallery.limitedPhotoList().length;
+			var newImageCount = vmModelGallery.photoList().length - currGridLength;
 
 			if (newImageCount > 0) {
 				$('#moreImageCount').html(newImageCount);
 			}
 			else {
 				$('#moreImageCount').closest('.image-grid__list-more').hide();
+			}
+
+			if (currGridLength > currCarouselLength) {
+			    ko.utils.arrayPushAll(vmModelGallery.limitedPhotoList(), MODEL_IMAGES.slice(currCarouselLength, currCarouselLength + 20));
+			    vmModelGallery.slideLimit = currCarouselLength + 20;
+			    vmModelGallery.limitedPhotoList.valueHasMutated();
 			}
 		});
 
