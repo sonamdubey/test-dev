@@ -13,6 +13,11 @@
         return document.querySelectorAll(".bw-youtube");
     },
 
+    getVideoSlotsInScope: function(scope) {
+        selectedScope = document.getElementById(scope);
+        return selectedScope.querySelectorAll(".bw-youtube");
+    },
+
     getPageHeight: function() {
         var bodyEle = lazyloadYoutube.body;
         var htmlEle = lazyloadYoutube.html;
@@ -44,36 +49,55 @@
         return (scrollTop / lazyloadYoutube.getPageHeight());
     },
 
-    generateIFrame: function (videoId) {
+    generateIFrame: function (videoId, ytParams) {
         var iframe = document.createElement("iframe");
         iframe.setAttribute("frameborder", "0");
         iframe.setAttribute("allowfullscreen", "");
-        iframe.setAttribute("src", lazyloadYoutube.videoSource + videoId + "?rel=0&showinfo=0&autoplay=0");
+        iframe.setAttribute("src", lazyloadYoutube.videoSource + videoId + ytParams);
         return iframe;
     },
 
-    loadYoutubeVideos: function () {
+    loadYoutubeVideos: function (ytParams) {
 
         var youtubeVideos = lazyloadYoutube.getAllVideoSlots();
+        var noOfVideos = youtubeVideos.length;
 
-        for (var i = 0; i < youtubeVideos.length; i++) {
+        for (var i = 0; i < noOfVideos; i++) {
             var ytVideo = youtubeVideos[i];
-            var ytVideoId = ytVideo.dataset.embed;
-            var iframe = lazyloadYoutube.generateIFrame(ytVideoId);
-            ytVideo.innerHTML = "";
-            ytVideo.appendChild(iframe);
+            var videoLoaded = Boolean(ytVideo.dataset.videoloaded);
+
+            if (!videoLoaded) {
+                var ytVideoId = ytVideo.dataset.embed;
+                var iframe = lazyloadYoutube.generateIFrame(ytVideoId, ytParams);
+                ytVideo.innerHTML = "";
+                ytVideo.appendChild(iframe);
+                ytVideo.setAttribute("data-videoloaded", "true");
+            }
         }
 
         lazyloadYoutube._videosLoaded = true;
+    },
+
+    loadYoutubeVideosInScope: function (scope, ytParams) {
+        var youtubeVideos = lazyloadYoutube.getVideoSlotsInScope(scope);
+        var noOfVideos = youtubeVideos.length;
+
+        for (var i = 0; i < noOfVideos; i++) {
+            var ytVideo = youtubeVideos[i];
+            var videoLoaded = Boolean(ytVideo.dataset.videoloaded);
+
+            if (!videoLoaded) {
+                var ytVideoId = ytVideo.dataset.embed;
+                var iframe = lazyloadYoutube.generateIFrame(ytVideoId, ytParams);
+                ytVideo.innerHTML = "";
+                ytVideo.appendChild(iframe);
+                ytVideo.setAttribute("data-videoloaded", "true");
+            }
+        }
+    },
+
+    setEventListener: function(eventname, callback) {
+        window.addEventListener(eventname, callback);
     }
 }
 
-docReady(lazyloadYoutube.setVideoPreviews);
-
-window.addEventListener("scroll", function (event) {
-    if (!lazyloadYoutube._videosLoaded) {
-        if (lazyloadYoutube.getScrollPercent() > lazyloadYoutube.loadVideosAt) {
-            lazyloadYoutube.loadYoutubeVideos();
-        }
-    }
-});

@@ -251,7 +251,8 @@ docReady(function () {
             var videoTab = $('#videoTab');
 
 	    if (videoTab.length) {
-		        vmModelVideo = new ModelVideoViewModel();
+	        vmModelVideo = new ModelVideoViewModel();
+	        vmModelVideo.defaultVideoCount(3);
 		        vmModelVideo.getVideos(); // get initial videos
 		        ko.applyBindings(vmModelVideo, videoTab[0]);
 

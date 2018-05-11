@@ -103,6 +103,13 @@
 
 		historyObj.addToHistory('imagesPopup');
 		GalleryState.subscribeAction(self.closeGalleryPopup);
+
+        //Lazy load single video in popup
+		var singleVideo = document.getElementById("singleVideoSlug");
+		if (singleVideo) {
+		    lazyloadYoutube.loadYoutubeVideosInScope("singleVideoSlug", "?rel=0&amp;showinfo=0&amp;enablejsapi=1");
+		    SwiperYT.populateVideoIframes();
+		}
 	};
 
 	self.closeGalleryPopup = function () {
