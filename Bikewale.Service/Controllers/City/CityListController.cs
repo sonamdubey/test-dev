@@ -25,10 +25,10 @@ namespace Bikewale.Service.Controllers.City
     {
 
 
-        private readonly ICity _city = null;
-        public CityListController(ICity city)
+        private readonly ICityCacheRepository _cityCache = null;
+        public CityListController(ICityCacheRepository cityCache)
         {
-            _city = city;
+			_cityCache = cityCache;
         }
 
         #region All Cities
@@ -39,20 +39,17 @@ namespace Bikewale.Service.Controllers.City
         /// <returns>Cities List</returns>
         [ResponseType(typeof(CityList))]
         public IHttpActionResult Get(EnumBikeType requestType)
-        {
-            List<CityEntityBase> objCityList = null;
-            CityList objDTOCityList = null;
+        {  
             try
             {
-                objCityList = _city.GetAllCities(requestType);
+				IEnumerable<CityEntityBase> objCityList = null;
+				CityList objDTOCityList = null;
+				objCityList = _cityCache.GetAllCities(requestType);
 
-                if (objCityList != null && objCityList.Count > 0)
+                if (objCityList != null)
                 {
                     objDTOCityList = new CityList();
                     objDTOCityList.City = CityListMapper.Convert(objCityList);
-
-                    objCityList.Clear();
-                    objCityList = null;
 
                     return Ok(objDTOCityList);
                 }

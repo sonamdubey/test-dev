@@ -26,10 +26,10 @@ namespace Bikewale.DAL.Location
 		/// <param name="stateId"></param>
 		/// <param name="RequestType">Pass value All or PriceQuote</param>
 		/// <returns></returns>
-		public List<CityEntityBase> GetAllCities(EnumBikeType requestType)
+		public IEnumerable<CityEntityBase> GetAllCities(EnumBikeType requestType)
         {
 
-            List<CityEntityBase> objCityList = null;
+            IList<CityEntityBase> objCityList = null;
             try
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand("getcities_10052018"))
