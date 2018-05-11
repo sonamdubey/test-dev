@@ -1,3 +1,6 @@
+﻿using Bikewale.BAL.ApiGateway.ApiGatewayHelper;
+using Bikewale.Entities.BikeData;
+using Bikewale.Interfaces.BikeData;
 ﻿using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
 using Bikewale.BAL.ApiGateway.Adapters.BikeData;
@@ -331,5 +334,22 @@ namespace Bikewale.BAL.BikeData
 				ErrorClass.LogError(ex, string.Format("Bikewale.BAL.BikeData.BikeVersions.BindMinSpecs_bikesList_{0}_specItemList_{1}", bikesList, specItemList));
 			}
 		}
+
+        /// <summary>
+        /// Author  : Kartik Rathod on 11 May 2018
+        /// Desc    : Get similar bikes based on road price for emi page in finance
+        /// </summary>
+        /// <param name="versionId"></param>
+        /// <param name="topcount"></param>
+        /// <param name="cityId"></param>
+        /// <returns>SimilarBikesForEMIEntityList</returns>
+        public IEnumerable<SimilarBikesForEMIEntity> GetSimilarBikesForEMI(int versionId, short topcount, int cityId)
+        {
+            topcount = topcount > 0 ? topcount : (short)9;
+            return _versionCacheRepository.GetSimilarBikesForEMI(versionId, topcount, cityId);
+        }
+
+
 	}   // Class
 }   // namespace
+

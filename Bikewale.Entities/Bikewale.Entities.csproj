@@ -235,6 +235,7 @@
     <Compile Include="BikeData\BikeSeriesModels.cs" />
     <Compile Include="BikeData\SimilarBikeList.cs" />
     <Compile Include="BikeData\SimilarBikesByMileage.cs" />
+    <Compile Include="BikeData\SimilarBikesForEMI.cs" />
     <Compile Include="BikeData\SimilarBikesWithPhotos.cs" />
     <Compile Include="BikeData\SimilarBikeUserReview.cs" />
     <Compile Include="BikeData\SimilarBikeWithVideo.cs" />

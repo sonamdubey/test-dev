@@ -829,5 +829,55 @@ namespace Bikewale.DAL.BikeData
             return objBikeVersions;
         }
 
+
+        /// <summary>
+        /// Author  : Kartik Rathod on 11 May 2018
+        /// Desc    : Get similar bikes based on road price for emi page in finance  
+        /// </summary>
+        /// <param name="versionId"></param>
+        /// <param name="topcount"></param>
+        /// <param name="cityId"></param>
+        /// <returns>SimilarBikesForEMIEntityList</returns>
+        public IEnumerable<SimilarBikesForEMIEntity> GetSimilarBikesForEMI(int versionId, short topcount, int cityId)
+        {
+            ICollection<SimilarBikesForEMIEntity> objBikes = null;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("getsimilarbikesforemi"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.UInt16, topcount));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_bikeversionid", DbType.UInt32, versionId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.UInt32, cityId));
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            objBikes = new Collection<SimilarBikesForEMIEntity>();
+                            while (dr.Read())
+                            {
+                                SimilarBikesForEMIEntity objSimilarBikes = new SimilarBikesForEMIEntity();
+                                objSimilarBikes.MakeId = SqlReaderConvertor.ToInt32(dr["MakeId"]);
+                                objSimilarBikes.MakeName = Convert.ToString(dr["MakeName"]);
+                                objSimilarBikes.ModelId = SqlReaderConvertor.ToInt32(dr["ModelId"]);
+                                objSimilarBikes.ModelName = Convert.ToString(dr["ModelName"]);
+                                objSimilarBikes.VersionId = SqlReaderConvertor.ToInt32(dr["VersionId"]);
+                                objSimilarBikes.OnRoadPrice = SqlReaderConvertor.ToUInt64(dr["OnRoadPrice"]);
+                                objSimilarBikes.Hosturl = Convert.ToString(dr["hosturl"]);
+                                objSimilarBikes.OriginalImagePath = Convert.ToString(dr["originalimagepath"]);
+                                objBikes.Add(objSimilarBikes);
+                            }
+                            dr.Close();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "BikeVersionsRepository.GetSimilarBikesForEMI: modelId - " + versionId);
+            }
+            return objBikes;
+        }
+
     }   // class
 }   // namespace

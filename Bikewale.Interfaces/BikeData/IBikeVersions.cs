@@ -9,6 +9,7 @@ namespace Bikewale.Interfaces.BikeData
     /// Summary : Interface for bike versions data
     /// Modified By : Rajan Chauhan on 17 Apr 2018
     /// Description : Changed signature of GetSimilarBikesList to include maxTorqueRequired
+    /// Modifier    : Kartik Rathod on 11 May 2018, added GetSimilarBikesForEMI
     /// </summary>
     /// <typeparam name="T">Generic type (need to specify type while implementing this interface)</typeparam>
     /// <typeparam name="U">Generic type (need to specify type while implementing this interface)</typeparam>
@@ -34,6 +35,7 @@ namespace Bikewale.Interfaces.BikeData
         IEnumerable<BikeVersionsSegment> GetModelVersionsDAL(); // Added by sajal gupta
         IEnumerable<BikeModelVersionsDetails> GetModelVersions(); // Added by sajal gupta
         IEnumerable<BikeVersionWithMinSpec> GetDealerVersionsByModel(uint dealerId, uint modelId);
+        IEnumerable<SimilarBikesForEMIEntity> GetSimilarBikesForEMI(int versionId, short topcount, int cityId);
 
     }
 }
