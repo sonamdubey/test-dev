@@ -1807,6 +1807,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AboutUs.aspx" />
+    <Content Include="ads.txt" />
     <Content Include="ads\Ad300x250_mobile.aspx" />
     <Content Include="ads\Ad300x250.aspx" />
     <Content Include="ads\Ad300x250BTF.aspx" />
@@ -2285,6 +2286,7 @@
     <Content Include="fonts\WebRupee.V2.0.svg" />
     <Content Include="fonts\WebRupee.V2.0.ttf" />
     <Content Include="fonts\WebRupee.V2.0.woff" />
+    <Content Include="m\ads.txt" />
     <Content Include="m\css\campaign\hero-campaign.css" />
     <Content Include="m\css\electricbikes\landing.css" />
     <Content Include="m\css\finance\capital-first.css" />
