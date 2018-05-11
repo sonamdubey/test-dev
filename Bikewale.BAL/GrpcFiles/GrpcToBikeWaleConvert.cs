@@ -640,7 +640,7 @@ namespace Bikewale.BAL.GrpcFiles
 
         public static BikeVideosListEntity ConvertFromGrpcToBikeWale(GrpcVideoListEntity inp)
         {
-            if (inp != null)
+            if (inp != null && inp.Videos != null)
             {
                 BikeVideosListEntity retVal = new BikeVideosListEntity();
                 retVal.NextPageUrl = inp.NextPageUrl;

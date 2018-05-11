@@ -110,6 +110,21 @@ namespace Bikewale.DAL.BikeData
             throw new NotImplementedException();
         }
 
+        public ICollection<MostPopularBikesBase> GetMostPopularBikesByModelBodyStyle(int modelId, int topCount, uint cityId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<MostPopularBikesBase> GetMostPopularBikesbyMakeCity(uint topCount, uint makeId, uint cityId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<MostPopularBikesBase> GetMostPopularBikes(int? topCount = null, int? makeId = null)
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// Summary : Function to get the make details by make id.
         /// </summary>

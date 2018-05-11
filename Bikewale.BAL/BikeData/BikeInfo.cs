@@ -1,7 +1,14 @@
-﻿using Bikewale.Entities.GenericBikes;
+﻿using Bikewale.BAL.ApiGateway.Adapters.BikeData;
+using Bikewale.BAL.ApiGateway.ApiGatewayHelper;
+using Bikewale.BAL.ApiGateway.Entities.BikeData;
+using Bikewale.Entities.BikeData;
+using Bikewale.Entities.GenericBikes;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Notifications;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+
 namespace Bikewale.BAL.BikeData
 {
     /// <summary>
@@ -11,14 +18,16 @@ namespace Bikewale.BAL.BikeData
     public class BikeInfo : IBikeInfo
     {
         private readonly IBikeModelsCacheRepository<int> _modelCache = null;
+        private readonly IApiGatewayCaller _apiGatewayCaller;
         /// <summary>
         /// Constructor to initialize all the dependencies
         /// </summary>
         /// <param name="_cache"></param>
         /// <param name="_genericBike"></param>
-        public BikeInfo(IBikeModelsCacheRepository<int> modelCache)
+        public BikeInfo(IBikeModelsCacheRepository<int> modelCache, IApiGatewayCaller apiGatewayCaller)
         {
             _modelCache = modelCache;
+            _apiGatewayCaller = apiGatewayCaller;
         }
 
         /// <summary>
@@ -63,6 +72,10 @@ namespace Bikewale.BAL.BikeData
         /// <summary>
         /// Created By :- subodh Jain 10 Feb 2017
         /// Summary :- BikeInfo Slug details
+        /// Modified By : Rajan Chauhan on 9 Apr 2018
+        /// Description : Added MinSpecsBinding to Generic BikeInfo
+        /// Modified By : Rajan Chauhan on 23 Apr 2018
+        /// Description : Added null check on genericBike
         /// </summary>
         public GenericBikeInfo GetBikeInfo(uint modelId, uint cityId)
         {
@@ -78,6 +91,31 @@ namespace Bikewale.BAL.BikeData
                     else
                     {
                         genericBike = _modelCache.GetBikeInfo(modelId);
+                    }
+                    if (genericBike != null)
+                    {
+                        GetVersionSpecsSummaryByItemIdAdapter adapt1 = new GetVersionSpecsSummaryByItemIdAdapter();
+                        VersionsDataByItemIds_Input specItemInput = new VersionsDataByItemIds_Input
+                        {
+                            Versions = new List<int> { genericBike.VersionId },
+                            Items = new List<EnumSpecsFeaturesItems>() {
+                            EnumSpecsFeaturesItems.Displacement,
+                            EnumSpecsFeaturesItems.FuelEfficiencyOverall,
+                            EnumSpecsFeaturesItems.MaxPowerBhp,
+                            EnumSpecsFeaturesItems.KerbWeight
+                        }
+                        };
+                        adapt1.AddApiGatewayCall(_apiGatewayCaller, specItemInput);
+                        _apiGatewayCaller.Call();
+                        var bikeVersionMinSpecList = adapt1.Output;
+                        if (bikeVersionMinSpecList != null && bikeVersionMinSpecList.Any())
+                        {
+                            genericBike.MinSpecsList = bikeVersionMinSpecList.FirstOrDefault().MinSpecsList;
+                            if (genericBike.MinSpecsList.Any(spec => !string.IsNullOrEmpty(spec.Value)))
+                            {
+                                genericBike.IsSpecsAvailable = true;
+                            }
+                        }
                     }
                 }
             }

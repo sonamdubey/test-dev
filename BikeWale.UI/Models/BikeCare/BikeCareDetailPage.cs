@@ -19,6 +19,8 @@ namespace Bikewale.Models
     /// <summary>
     /// Created by : Aditi Srivastava on 1 Apr 2017
     /// Summary    : Model to fetch data for bike care details page
+    /// Modified by : Rajan Chauhan on 17 Apr 2018
+    /// Description : Removed IBikeModelsCacheRepository dependencyssss
     /// </summary>
     public class BikeCareDetailPage : EditorialBasePage
     {
@@ -26,7 +28,6 @@ namespace Bikewale.Models
         private readonly ICMSCacheContent _cmsCache = null;
         private readonly IUpcoming _upcoming = null;
         private readonly IBikeModels<BikeModelEntity, int> _bikeModels = null;
-        private readonly IBikeModelsCacheRepository<int> _models = null;
         private readonly IBikeMakesCacheRepository _bikeMakesCacheRepository = null;
         private readonly IBikeSeriesCacheRepository _seriesCache = null;
         private readonly IBikeSeries _series;
@@ -57,7 +58,6 @@ namespace Bikewale.Models
             _cmsCache = cmsCache;
             _upcoming = upcoming;
             _bikeModels = bikeModels;
-            _models = models;
             _basicId = basicId;
             _bikeMakesCacheRepository = bikeMakesCacheRepository;
             _series = series;
@@ -223,7 +223,7 @@ namespace Bikewale.Models
                     objData.Model = _modelMaskingCacheRepo.GetById((int)ModelId);
                     CheckModelSeriesData();
 
-                    List<BikeVersionMinSpecs> objVersionsList = _objBikeVersionsCache.GetVersionMinSpecs(ModelId, false);
+                    IEnumerable<BikeVersionMinSpecs> objVersionsList = _objBikeVersionsCache.GetVersionMinSpecs(ModelId, false);
 
                     if (objVersionsList != null && objVersionsList.Any())
                         bodyStyle = objVersionsList.First().BodyStyle;
@@ -343,7 +343,7 @@ namespace Bikewale.Models
         {
             try
             {
-                bikeSeriesEntityBase = _models.GetSeriesByModelId(ModelId);
+                bikeSeriesEntityBase = _bikeModels.GetSeriesByModelId(ModelId);
                 isSeriesAvailable = null != bikeSeriesEntityBase && bikeSeriesEntityBase.IsSeriesPageUrl;
             }
             catch (Exception ex)

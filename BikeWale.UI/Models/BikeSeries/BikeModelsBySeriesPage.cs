@@ -1,7 +1,10 @@
-﻿using Bikewale.Entities.Pages;
+﻿using Bikewale.Entities.BikeData;
+using Bikewale.Entities.Pages;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Notifications;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Bikewale.Models.BikeSeries
 {
@@ -26,6 +29,7 @@ namespace Bikewale.Models.BikeSeries
             try
             {
                 objModelsVM.SeriesModels = _bikeSeries.GetModelsListBySeriesId(modelId, seriesId);
+                
             }
             catch (Exception ex)
             {

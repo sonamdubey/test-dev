@@ -70,6 +70,7 @@ namespace Bikewale.Service.Controllers.Model
         /// </summary>
         /// <param name="modelId"></param>
         /// <returns>Complete Model Page</returns>
+		[Obsolete("model detail API verison obsolete. Check current version V5")]
         [ResponseType(typeof(Bikewale.DTO.Model.ModelPage)), Route("api/model/details/")]
         public IHttpActionResult Get(int modelId)
         {
@@ -92,7 +93,7 @@ namespace Bikewale.Service.Controllers.Model
 
                     if (!string.IsNullOrEmpty(platformId) && (platformId == "3" || platformId == "4"))
                     {
-                        objModelPage.ModelVersionSpecs = null;
+                        objModelPage.ModelVersionMinSpecs = null;
                         objModelPage.ModelDetails.ReviewCount = (int)_userReviews.GetUserReviews(0, 0, (uint)modelId, 0, Entities.UserReviews.FilterBy.MostHelpful).TotalReviews;
                     }
                     else
@@ -177,6 +178,7 @@ namespace Bikewale.Service.Controllers.Model
         /// </summary>
         /// <param name="modelId"></param>
         /// <returns>Complete Model Page</returns>
+		[Obsolete("V2 version is obsolete. Check current version V5")]
         [ResponseType(typeof(Bikewale.DTO.Model.v2.ModelPage)), Route("api/v2/model/details/")]
         public IHttpActionResult GetV2(int modelId)
         {
@@ -200,7 +202,7 @@ namespace Bikewale.Service.Controllers.Model
 
                     if (!string.IsNullOrEmpty(platformId) && (platformId == "3" || platformId == "4"))
                     {
-                        objModelPage.ModelVersionSpecs = null;
+                        objModelPage.ModelVersionMinSpecs = null;
                         objModelPage.ModelDetails.ReviewCount = (int)_userReviews.GetUserReviews(0, 0, (uint)modelId, 0, Entities.UserReviews.FilterBy.MostHelpful).TotalReviews;
                     }
                     else

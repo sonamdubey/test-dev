@@ -27,18 +27,17 @@ namespace Bikewale.Service.Controllers.BikeData
         }
         /// <summary>
         /// Created By : Sadhana Upadhyay on 25 Aug 2015
-        /// Summary : To get Alternative/Similar bikes Lisr
+        /// Summary : To get Alternative/Similar bikes List
         /// </summary>
         /// <param name="versionId">Version Id</param>
         /// <param name="topCount">Top Count (Optional)</param>
-        /// <param name="deviation">cityid (Optional)</param>
         /// <returns></returns>
         public IHttpActionResult Get(int versionId, uint topCount)
         {
-            SimilarBikeList objSimilar = new SimilarBikeList();
+            Bikewale.DTO.BikeData.SimilarBikeList objSimilar = new Bikewale.DTO.BikeData.SimilarBikeList();
             try
             {
-                IEnumerable<SimilarBikeEntity> objSimilarBikes = _objVersion.GetSimilarBikesList(versionId, topCount, 1);
+                IEnumerable<SimilarBikeEntity> objSimilarBikes = _objVersion.GetSimilarBikesList(versionId, topCount, 1, true);
 
                 objSimilar.SimilarBike = SimilarBikeListMapper.Convert(objSimilarBikes);
 

@@ -24,24 +24,20 @@ namespace Bikewale.Service.Controllers.BikeData
     /// </summary>
     public class NewLaunchedBikeController : CompressionApiController//ApiController
     {
-        private readonly IBikeModelsRepository<BikeModelEntity, int> _modelRepository = null;
         private readonly IPager _objPager = null;
-        private readonly IBikeModelsCacheRepository<int> _modelCacheRepository = null;
         private readonly INewBikeLaunchesBL _newBikeLaunchBL = null;
 
         /// <summary>
         /// Modified by :   Sumit Kate on 13 Feb 2017
         /// Description :   Assign INewBikeLaunchesBL object
+        /// Modified by :   Rajan Chauhan on 17 Apr 2018
+        /// Description :   Removed IBikeModelsRepository and IBikeModelsCacheRepository dependency
         /// </summary>
-        /// <param name="modelRepository"></param>
         /// <param name="objPager"></param>
-        /// <param name="modelCacheRepository"></param>
         /// <param name="newBikeLaunchBL"></param>
-        public NewLaunchedBikeController(IBikeModelsRepository<BikeModelEntity, int> modelRepository, IPager objPager, IBikeModelsCacheRepository<int> modelCacheRepository, INewBikeLaunchesBL newBikeLaunchBL)
+        public NewLaunchedBikeController(IPager objPager, INewBikeLaunchesBL newBikeLaunchBL)
         {
-            _modelRepository = modelRepository;
             _objPager = objPager;
-            _modelCacheRepository = modelCacheRepository;
             _newBikeLaunchBL = newBikeLaunchBL;
         }
         /// <summary>
@@ -56,20 +52,19 @@ namespace Bikewale.Service.Controllers.BikeData
         {
             try
             {
-                LaunchedBikeList objLaunched = new LaunchedBikeList();
                 int startIndex = 0, endIndex = 0, currentPageNo = 1;
                 currentPageNo = curPageNo.HasValue ? curPageNo.Value : 1;
 
                 _objPager.GetStartEndIndex(pageSize, currentPageNo, out startIndex, out endIndex);
-
-                IEnumerable<NewLaunchedBikeEntity> objRecent = _modelCacheRepository.GetNewLaunchedBikesList(startIndex, endIndex).Models;
-
-                objLaunched.LaunchedBike = LaunchedBikeListMapper.Convert(objRecent);
-
-                if (objLaunched != null && objLaunched.LaunchedBike != null && objLaunched.LaunchedBike.Any())
-                    return Ok(objLaunched);
-                else
-                    return NotFound();
+                NewLaunchedBikesBase objNewLaunched = _newBikeLaunchBL.GetNewLaunchedBikesList(startIndex, endIndex);
+                if (objNewLaunched != null)
+                {
+                    IEnumerable<NewLaunchedBikeEntity> objRecent = objNewLaunched.Models;
+                    LaunchedBikeList objLaunched = new LaunchedBikeList();
+                    objLaunched.LaunchedBike = LaunchedBikeListMapper.Convert(objRecent);
+                    if (objLaunched.LaunchedBike != null && objLaunched.LaunchedBike.Any())
+                        return Ok(objLaunched);
+                }
             }
             catch (Exception ex)
             {
@@ -77,6 +72,7 @@ namespace Bikewale.Service.Controllers.BikeData
                
                 return InternalServerError();
             }
+            return NotFound();
         }
 
 

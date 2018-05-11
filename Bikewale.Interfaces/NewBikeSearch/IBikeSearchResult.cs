@@ -13,9 +13,9 @@ namespace Bikewale.Interfaces.NewBikeSearch
     /// </summary>
     public interface IBikeSearchResult
     {
-        SearchOutput GetSearchResult(FilterInput filterInputs, InputBaseEntity input);
         IEnumerable<Tuple<string, string, string, uint>> SearchBudgetLinksBetween(string minBudget, string maxBudget);
         IEnumerable<Tuple<string, string, string, uint>> SearchBudgetLinksAbove(string minBudget);
         IEnumerable<Tuple<string, string, string, uint>> SearchBudgetLinksUnder(string maxBudget);
+        SearchOutput GetSearchResult(FilterInput filterInputs, InputBaseEntity input);
     }
 }

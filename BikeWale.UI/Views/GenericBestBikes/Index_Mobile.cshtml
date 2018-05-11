@@ -70,23 +70,9 @@
                                 <div class="bike-details-block vertical-top">
                                     <h3 class="margin-bottom5"><a href="@string.Format("/m/{0}-bikes/{1}/",bike.Make.MaskingName,bike.Model.MaskingName) " title="@bike.BikeName " class="target-link">@bike.BikeName </a></h3>
                                     <ul class="key-specs-list font12 text-xx-light">
-                                        @if (bike.MinSpecs.Displacement != 0)
+                                        @if (bike.MinSpecsList != null)
                                         {
-                                            <li>
-                                                <span>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(bike.MinSpecs.Displacement.ToString(), "cc") </span>
-                                            </li>
-                                        }
-                                        @if (bike.MinSpecs.FuelEfficiencyOverall != 0)
-                                        {
-                                            <li>
-                                                <span>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(bike.MinSpecs.FuelEfficiencyOverall.ToString(), "kmpl") </span>
-                                            </li>
-                                        }
-                                        @if (bike.MinSpecs.MaxPower != 0)
-                                        {
-                                            <li>
-                                                <span>@Bikewale.Utility.FormatMinSpecs.ShowAvailable(bike.MinSpecs.MaxPower.ToString(), "bhp") </span>
-                                            </li>
+                                            @Html.Raw(Bikewale.Utility.FormatMinSpecs.GetMinSpecsLiElements(bike.MinSpecsList))
                                         }
                                     </ul>
                                 </div>
@@ -172,7 +158,7 @@
                                         </a>
                                     </li>
                                 }
-                                @if (bike.MinSpecs != null)
+                                @if (bike.MinSpecsList != null)
                                 {
                                     <li>
                                         <a href="@string.Format("/m{0}",Bikewale.Utility.UrlFormatter.ViewAllFeatureSpecs(bike.Make.MaskingName,bike.Model.MaskingName) )" title="@bike.BikeName  Specs">

@@ -17,6 +17,6 @@ namespace Bikewale.DTO.Model.v2
             public string DisplayName { get; set; }
 
             [JsonProperty("specs")]
-            public List<Specs> Specs { get; set; }
+            public IEnumerable<Specs> Specs { get; set; }
         }
 }

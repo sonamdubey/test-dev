@@ -81,7 +81,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\AjaxPro.2.dll</HintPath>
     </Reference>
-    <Reference Include="ApiGatewayLibrary">
+    <Reference Include="ApiGatewayLibrary, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\APIGateway\ApiGatewayLibrary.dll</HintPath>
     </Reference>
     <Reference Include="AutoMapper, Version=4.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
@@ -119,6 +120,12 @@
     <Reference Include="ClearScript">
       <HintPath>..\Libs\PWA\ClearScript.dll</HintPath>
     </Reference>
+    <Reference Include="Crc32C.NET">
+      <HintPath>..\Libs\zipkin\Crc32C.NET.dll</HintPath>
+    </Reference>
+    <Reference Include="Criteo.Profiling.Tracing">
+      <HintPath>..\Libs\zipkin\Criteo.Profiling.Tracing.dll</HintPath>
+    </Reference>
     <Reference Include="Dapper">
       <HintPath>..\Libs\Dapper.dll</HintPath>
     </Reference>
@@ -137,9 +144,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\Gelf4Net.UdpAppender.dll</HintPath>
     </Reference>
-    <Reference Include="Google.Protobuf, Version=3.0.0.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
+    <Reference Include="Google.Protobuf, Version=3.5.1.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\Google.Protobuf.dll</HintPath>
+      <HintPath>..\Libs\APIGateway\Google.Protobuf.dll</HintPath>
     </Reference>
     <Reference Include="Grpc.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=d754f35622e28bad, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -167,14 +174,20 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\PWA\JSPool.dll</HintPath>
     </Reference>
+    <Reference Include="Kafka">
+      <HintPath>..\Libs\zipkin\Kafka.dll</HintPath>
+    </Reference>
     <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\log4net.dll</HintPath>
     </Reference>
+    <Reference Include="LZ4">
+      <HintPath>..\Libs\zipkin\LZ4.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Practices.Unity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\mvc 5\unity 4.0.1\Microsoft.Practices.Unity.dll</HintPath>
+      <HintPath>..\Libs\Microsoft.Practices.Unity.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Practices.Unity.Configuration, Version=4.0.0.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -231,6 +244,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\PWA\React.Web.Mvc4.dll</HintPath>
     </Reference>
+    <Reference Include="Snappy.NET">
+      <HintPath>..\Libs\zipkin\Snappy.NET.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -247,8 +263,20 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
+    <Reference Include="System.Reactive.Core">
+      <HintPath>..\Libs\zipkin\System.Reactive.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.Interfaces">
+      <HintPath>..\Libs\zipkin\System.Reactive.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.Linq">
+      <HintPath>..\Libs\zipkin\System.Reactive.Linq.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Threading.Tasks.Dataflow">
+      <HintPath>..\Libs\zipkin\System.Threading.Tasks.Dataflow.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -984,7 +1012,6 @@
     <Compile Include="Models\ExpertReviews\ExpertReviewsIndexPage.cs" />
     <Compile Include="Models\ExpertReviews\RecentExpertReviews.cs" />
     <Compile Include="Models\NewBikeSearch\NewBikeSearchModel.cs" />
-    <Compile Include="Models\NewBikeSearch\NewBikeSearchPopupModel.cs" />
     <Compile Include="Models\NewPage\NewPageModel.cs" />
     <Compile Include="Models\News\NewsDetailPage.cs" />
     <Compile Include="Models\NewLaunches\NewLaunchedIndexModel.cs" />
@@ -1781,6 +1808,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AboutUs.aspx" />
+    <Content Include="ads.txt" />
     <Content Include="ads\Ad300x250_mobile.aspx" />
     <Content Include="ads\Ad300x250.aspx" />
     <Content Include="ads\Ad300x250BTF.aspx" />
@@ -2259,6 +2287,7 @@
     <Content Include="fonts\WebRupee.V2.0.svg" />
     <Content Include="fonts\WebRupee.V2.0.ttf" />
     <Content Include="fonts\WebRupee.V2.0.woff" />
+    <Content Include="m\ads.txt" />
     <Content Include="m\css\campaign\hero-campaign.css" />
     <Content Include="m\css\electricbikes\landing.css" />
     <Content Include="m\css\finance\capital-first.css" />
@@ -3358,6 +3387,8 @@
     <Content Include="Views\Make\_DealerServiceCentersWidget_Mobile.cshtml">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="Views\Model\_Index_MileageDetails.cshtml" />
+    <Content Include="Views\Model\_Index_MileageDetails_Mobile.cshtml" />
     <Content Include="Views\News\_RecentNews_v1.cshtml" />
     <Content Include="Views\Photos\_ModelsImageList.cshtml" />
     <Content Include="Views\Photos\_ModelsImageListBase_Mobile.cshtml">
@@ -4106,6 +4137,8 @@
     <Content Include="Views\Make\_OtherBrandsWidgetBase_Mobile_AMP.cshtml" />
     <Content Include="Views\Model\_Index_MileageDetails.cshtml" />
     <Content Include="Views\Model\_Index_MileageDetails_Mobile.cshtml" />
+    <Content Include="Views\Make\Index_Mobile_New_v1.cshtml" />
+    <Content Include="Views\Make\_Index_Tabs_Mobile_New_V1.cshtml" />
     <None Include="Views\Shared\_Sidebar-section.cshtml" />
     <Content Include="Views\BikeModels\_MultiTabsWidget.cshtml" />
     <Content Include="Views\Shared\_ReviewPopup.cshtml" />
@@ -4168,6 +4201,10 @@
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Bikewale.BAL.ApiGateway\Bikewale.BAL.ApiGateway.csproj">
+      <Project>{281d4c7b-6329-4307-a1a3-de25135659f6}</Project>
+      <Name>Bikewale.BAL.ApiGateway</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Bikewale.BAL\Bikewale.BAL.csproj">
       <Project>{3ca0d7b6-7e09-449c-a34d-c08ca8118876}</Project>
       <Name>Bikewale.BAL</Name>

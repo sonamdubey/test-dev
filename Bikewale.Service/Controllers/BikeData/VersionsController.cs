@@ -14,7 +14,7 @@ namespace Bikewale.Service.Controllers.BikeData
         /// <summary>
         /// Constructor to Initialize cache layer
         /// </summary>
-        /// <param name="makesRepository"></param>
+        /// <param name="versionsRepository"></param>
         public VersionsController(IBikeVersions<BikeVersionEntity, uint> versionsRepository)
         {
             _versionsRepository = versionsRepository;

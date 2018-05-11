@@ -149,6 +149,7 @@
     <Compile Include="BikeData\IBikeVersionCacheRepository.cs" />
     <Compile Include="BikeData\IBikeVersions.cs" />
     <Compile Include="BikeBooking\IFeedBacks.cs" />
+    <Compile Include="BikeData\IBikeVersionsRepository.cs" />
     <Compile Include="BikeData\IModelsCache.cs" />
     <Compile Include="BikeData\IModelsRepository.cs" />
     <Compile Include="BikeData\NewLaunched\INewBikeLaunchesBL.cs" />
@@ -179,6 +180,7 @@
     <Compile Include="Insurance\IInsuranceDetail.cs" />
     <Compile Include="Insurance\IInsuranceRepository.cs" />
     <Compile Include="IRepository.cs" />
+    <Compile Include="Lead\ILead.cs" />
     <Compile Include="Location\DealersInIndia.cs" />
     <Compile Include="Location\IArea.cs" />
     <Compile Include="Location\IAreaCacheRepository.cs" />

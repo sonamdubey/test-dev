@@ -10,6 +10,8 @@ namespace Bikewale.DTO.Model.v4
     /// <summary>
     /// Created By Lucky Rathore on 16 June 2016.
     /// Description : Property PrimatyDealer, PrimatyDealerOffer, SecondaryDealerCount and AltPrimarySectionText.
+    /// Modified By : Rajan Chauhan on 2 April 2018
+    /// Description : Changed ModelVersions from List to IEnumerable
     /// </summary>
     public class ModelPage
     {
@@ -54,7 +56,7 @@ namespace Bikewale.DTO.Model.v4
         public List<CMSModelImageBase> Photos { get; set; }
 
         [JsonProperty("versionList")]
-        public List<VersionDetail> ModelVersions { get; set; }
+        public IEnumerable<VersionDetail> ModelVersions { get; set; }
 
         [JsonProperty("capacity")]
         public string Capacity { get; set; }

@@ -100,7 +100,13 @@ namespace Bikewale.Controllers
 
         }
 
-        // GET: Makes
+
+        /// <summary>
+        /// Modified by : SnehaL Dange on 30th April 2018
+        /// Desc : Added MakeABTestCookie to get abTest results
+        /// </summary>
+        /// <param name="makeMaskingName"></param>
+        /// <returns></returns>
         [Route("m/makepage/{makeMaskingName}/")]
         public ActionResult Index_Mobile_New(string makeMaskingName)
         {
@@ -109,21 +115,16 @@ namespace Bikewale.Controllers
             obj.TopCountExpertReviews = 6;
             obj.CompareSource = CompareSources.Mobile_Featured_Compare_Widget;
             MakePageVM objData = null;
+            MakeABTestCookie abtestResults = null;
 
             if (obj.Status == StatusCodes.ContentFound)
             {
                 obj.IsMobile = true;
+                abtestResults = BWCookies.GetAbTestCookieFlag(BWConfiguration.Instance.MakePageViewShowPercentage);
+                objData = obj.GetData(abtestResults);
+                string viewName = string.Format("~/views/make/{0}", abtestResults.ViewName);
+                return View(viewName, objData);
 
-                if (BWCookies.GetAbTestCookieFlag(BWConfiguration.Instance.MakePageViewShowPercentage))
-                {
-                    objData = obj.GetData(true);
-                    return View("~/views/make/Index_Mobile_New.cshtml", objData);
-                }
-                else
-                {
-                    objData = obj.GetData(false);
-                    return View("~/views/make/Index_Mobile.cshtml", objData);
-                }
             }
             else if (obj.Status == StatusCodes.RedirectPermanent)
             {

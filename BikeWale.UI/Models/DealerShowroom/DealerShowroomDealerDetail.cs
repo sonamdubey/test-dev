@@ -1,4 +1,7 @@
 ﻿
+using Bikewale.BAL.ApiGateway.Adapters.BikeData;
+using Bikewale.BAL.ApiGateway.ApiGatewayHelper;
+using Bikewale.BAL.ApiGateway.Entities.BikeData;
 using Bikewale.Common;
 using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
@@ -31,12 +34,14 @@ namespace Bikewale.Models
         private readonly IBikeMakesCacheRepository _bikeMakesCache = null;
         private readonly IBikeModels<BikeModelEntity, int> _bikeModels = null;
         private readonly IServiceCenter _objSC = null;
+        private readonly IApiGatewayCaller _apiGatewayCaller;
         private uint cityId, makeId, dealerId, TopCount;
         public StatusCodes status;
         public MakeMaskingResponse objResponse;
         public BikeMakeEntityBase objMake;
         public CityEntityBase CityDetails;
         public DealerShowroomDealerDetailsVM objDealerDetails = null;
+        private readonly IDealer _objDealer;
 
         public bool IsMobile { get; internal set; }
 
@@ -49,7 +54,9 @@ namespace Bikewale.Models
         /// <param name="bikeModels"></param>
         /// <param name="makeMaskingName"></param>
         /// <param name="dealerId"></param>
-        public DealerShowroomDealerDetail(IServiceCenter objSC, IDealerCacheRepository objDealerCache, IBikeMakesCacheRepository bikeMakesCache, IBikeModels<BikeModelEntity, int> bikeModels, string makeMaskingName, string cityMaskingName, uint dealerId, uint topCount, bool isMobile)
+        public DealerShowroomDealerDetail(IServiceCenter objSC, IDealerCacheRepository objDealerCache, IBikeMakesCacheRepository bikeMakesCache,
+            IBikeModels<BikeModelEntity, int> bikeModels, string makeMaskingName, string cityMaskingName, uint dealerId, uint topCount, bool isMobile,
+            IApiGatewayCaller apiGatewayCaller, IDealer objDealer)
         {
             _objDealerCache = objDealerCache;
             _bikeMakesCache = bikeMakesCache;
@@ -58,6 +65,8 @@ namespace Bikewale.Models
             TopCount = topCount;
             IsMobile = isMobile;
             objDealerDetails = new DealerShowroomDealerDetailsVM();
+            _apiGatewayCaller = apiGatewayCaller;
+            _objDealer = objDealer;
             ProcessQuery(makeMaskingName, cityMaskingName, dealerId);
         }
 
@@ -345,6 +354,8 @@ namespace Bikewale.Models
         /// <summary>
         /// Created By :- Subodh Jain 27 March 2017
         /// Summary :- To fetch data for Dealers details 
+        /// Modified by : Ashutosh Sharma on 03 Apr 2018.
+        /// Description : Calling Specs Features service to fetch min specs for bike models available with dealer.
         /// </summary>
         /// <returns></returns>
         private DealerBikesEntity BindDealersData()
@@ -352,7 +363,7 @@ namespace Bikewale.Models
             DealerBikesEntity objDealerDetails = null;
             try
             {
-                objDealerDetails = _objDealerCache.GetDealerDetailsAndBikesByDealerAndMake(dealerId, (int)makeId);
+                objDealerDetails = _objDealer.GetDealerDetailsAndBikesByDealerAndMake(dealerId, (int)makeId);
             }
             catch (System.Exception ex)
             {
@@ -360,7 +371,6 @@ namespace Bikewale.Models
                 ErrorClass.LogError(ex, "DealerShowroomDealerDetail.BindDealersData()");
             }
             return objDealerDetails;
-
         }
 
         /// <summary>

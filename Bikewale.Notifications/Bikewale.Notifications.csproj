@@ -137,6 +137,7 @@
     <Compile Include="MailTemplates\BookingCancellationTemplate.cs" />
     <Compile Include="MailTemplates\CancellationFeedbackTemplate.cs" />
     <Compile Include="MailTemplates\CapitalFirstSuccessEmailTemplate.cs" />
+    <Compile Include="MailTemplates\MakeModelNameChangeMailTemplate.cs" />
     <Compile Include="MailTemplates\CustomerRegistrationMailTemplate.cs" />
     <Compile Include="MailTemplates\ErrorMailTemplate.cs" />
     <Compile Include="MailTemplates\FeedbackMailer.cs" />
@@ -176,6 +177,7 @@
     <Compile Include="NotificationDAL\SavePQNotification.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PwaErrorClass.cs" />
+    <Compile Include="SendInternalEmail.cs" />
     <Compile Include="SendEmailSMSToDealerCustomer.cs" />
     <Compile Include="SendMails.cs" />
     <Compile Include="SMS\SMSCommon.cs" />
@@ -203,6 +205,9 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

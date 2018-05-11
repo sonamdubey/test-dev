@@ -20,7 +20,7 @@ namespace Bikewale.BindViewModels.Controls
     public class BindMakePage
     {
         public int totalCount { get; set; }
-        public int makeId { get; set; }
+        public uint makeId { get; set; }
         public int FetchedRecordsCount { get; set; }
         public BikeMakeEntityBase Make { get; set; }
         public BikeDescriptionEntity BikeDesc { get; set; }
@@ -53,7 +53,7 @@ namespace Bikewale.BindViewModels.Controls
                     var _objMakeCache = container.Resolve<IBikeMakesCacheRepository>();
                     var _objModelCache = container.Resolve<IBikeModelsCacheRepository<int>>();
 
-                    description = _objMakeCache.GetMakeDescription((uint)makeId);
+                    description = _objMakeCache.GetMakeDescription(makeId);
                     Make = _objMakeCache.GetMakeDetails(Convert.ToUInt32(makeId));
                     objModelList = _objModelCache.GetMostPopularBikesByMake(makeId);
 
@@ -104,7 +104,7 @@ namespace Bikewale.BindViewModels.Controls
                     var _objMakeCache = container.Resolve<IBikeMakesCacheRepository>();
                     var _objModelCache = container.Resolve<IBikeModelsCacheRepository<int>>();
 
-                    description = _objMakeCache.GetMakeDescription((uint)makeId);
+                    description = _objMakeCache.GetMakeDescription(makeId);
                     Make = _objMakeCache.GetMakeDetails(Convert.ToUInt32(makeId));
                     objModelList = _objModelCache.GetMostPopularBikesByMake(makeId);
 

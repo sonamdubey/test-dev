@@ -124,7 +124,7 @@
       <HintPath>..\Libs\Gelf4Net.UdpAppender.dll</HintPath>
     </Reference>
     <Reference Include="Google.Protobuf">
-      <HintPath>..\Libs\Google.Protobuf.dll</HintPath>
+      <HintPath>..\Libs\APIGateway\Google.Protobuf.dll</HintPath>
     </Reference>
     <Reference Include="Grpc.Core">
       <HintPath>..\Libs\Grpc.Core.dll</HintPath>
@@ -229,6 +229,7 @@
     <Compile Include="GrpcFiles\GrpcMethods.cs" />
     <Compile Include="GrpcFiles\GrpcToBikeWaleConvert.cs" />
     <Compile Include="Images\ImageBL.cs" />
+    <Compile Include="Lead\LeadProcess.cs" />
     <Compile Include="Location\Cities.cs" />
     <Compile Include="Location\States.cs" />
     <Compile Include="MobileAppAlert\MobileFCMNotifications.cs" />
@@ -263,6 +264,10 @@
     <ProjectReference Include="..\Bikewale.Automappers\Bikewale.Automappers.csproj">
       <Project>{de038fa1-6471-43ba-8877-659bba7416dd}</Project>
       <Name>Bikewale.Automappers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bikewale.BAL.ApiGateway\Bikewale.BAL.ApiGateway.csproj">
+      <Project>{281d4c7b-6329-4307-a1a3-de25135659f6}</Project>
+      <Name>Bikewale.BAL.ApiGateway</Name>
     </ProjectReference>
     <ProjectReference Include="..\Bikewale.Cache.Core\Bikewale.Cache.Core.csproj">
       <Project>{038bc901-9d7f-4a95-8ca6-117db3aa48cc}</Project>

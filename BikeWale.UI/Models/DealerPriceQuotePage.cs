@@ -1,4 +1,6 @@
-﻿using Bikewale.Common;
+﻿using Bikewale.BAL.ApiGateway.Adapters.BikeData;
+using Bikewale.BAL.ApiGateway.Entities.BikeData;
+using Bikewale.Common;
 using Bikewale.DTO.PriceQuote;
 using Bikewale.Entities;
 using Bikewale.Entities.BikeBooking;
@@ -18,6 +20,7 @@ using Bikewale.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web;
 
 namespace Bikewale.Models
@@ -31,7 +34,7 @@ namespace Bikewale.Models
 
         private readonly IDealerPriceQuoteDetail _objDealerPQDetails = null;
         private readonly IDealerPriceQuote _objDealerPQ = null;
-        private readonly IBikeVersionCacheRepository<BikeVersionEntity, uint> _objVersionCache = null;
+        private readonly IBikeVersions<BikeVersionEntity, uint> _objVersion;
         private readonly IAreaCacheRepository _objAreaCache = null;
         private readonly ICityCacheRepository _objCityCache = null;
         private readonly IDealerCacheRepository _objDealerCache = null;
@@ -55,11 +58,11 @@ namespace Bikewale.Models
         /// Modified by : Ashutosh Sharma on 31 Oct 2017
         /// Description : Added IAdSlot.
         /// </summary>
-        public DealerPriceQuotePage(IDealerPriceQuoteDetail objDealerPQDetails, IDealerPriceQuote objDealerPQ, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionCache, IAreaCacheRepository objAreaCache, ICityCacheRepository objCityCache, IPriceQuote objPQ, IDealerCacheRepository objDealerCache, IManufacturerCampaign objManufacturerCampaign, IAdSlot adSlot)
+        public DealerPriceQuotePage(IDealerPriceQuoteDetail objDealerPQDetails, IDealerPriceQuote objDealerPQ, IBikeVersions<BikeVersionEntity, uint> objVersion, IAreaCacheRepository objAreaCache, ICityCacheRepository objCityCache, IPriceQuote objPQ, IDealerCacheRepository objDealerCache, IManufacturerCampaign objManufacturerCampaign, IAdSlot adSlot)
         {
             _objDealerPQDetails = objDealerPQDetails;
             _objDealerPQ = objDealerPQ;
-            _objVersionCache = objVersionCache;
+            _objVersion = objVersion;
             _objAreaCache = objAreaCache;
             _objCityCache = objCityCache;
             _objPQ = objPQ;
@@ -261,7 +264,7 @@ namespace Bikewale.Models
 
         private void BindSimilarBikes(DealerPriceQuotePageVM objData)
         {
-            var objSimilarBikes = new SimilarBikesWidget(_objVersionCache, _versionId, PQSourceEnum.Desktop_DPQ_Alternative);
+            var objSimilarBikes = new SimilarBikesWidget(_objVersion, _versionId, PQSourceEnum.Desktop_DPQ_Alternative);
             objSimilarBikes.TopCount = 9;
             objSimilarBikes.CityId = _cityId;
             objData.SimilarBikesVM = objSimilarBikes.GetData();
@@ -432,31 +435,28 @@ namespace Bikewale.Models
         /// Summary : To Fill version dropdownlist
         /// Created By : Sangram Nandkhile on 16 Dec 2016
         /// Summary : Fetch minspecs and show on DPQ
+        /// Modified By : Rajan Chauhan on 28 Mar 2018
+        /// Description : Bind data via Specs Service
         /// </summary>
         private void GetBikeVersions(DealerPriceQuotePageVM objData)
         {
-            IEnumerable<BikeVersionMinSpecs> minSpecs = null;
+            IEnumerable<BikeVersionMinSpecs> bikeVersionList = null;
             try
             {
-
-                objData.SelectedVersion = _objVersionCache.GetById(_versionId);
+                objData.SelectedVersion = _objVersion.GetById(_versionId);
                 if (objData.SelectedVersion != null && objData.SelectedVersion.MakeBase != null && objData.SelectedVersion.ModelBase != null)
                 {
                     objData.BikeName = String.Format("{0} {1}", objData.SelectedVersion.MakeBase.MakeName, objData.SelectedVersion.ModelBase.ModelName);
                     _modelId = (uint)objData.SelectedVersion.ModelBase.ModelId;
                     _makeId = (uint)objData.SelectedVersion.MakeBase.MakeId;
 
-                    objData.VersionsList = _objVersionCache.GetVersionsByType(EnumBikeType.PriceQuote, objData.SelectedVersion.ModelBase.ModelId, (int)_cityId);
-
-                    if (objData.VersionsList != null)
+                    objData.VersionsList = _objVersion.GetVersionsByType(EnumBikeType.PriceQuote, objData.SelectedVersion.ModelBase.ModelId, (int)_cityId);
+                    bikeVersionList = _objVersion.GetVersionMinSpecs(_modelId, true);
+                    BikeVersionMinSpecs selectedBikeVersion = bikeVersionList.FirstOrDefault(x => x.VersionId == _versionId);
+                    if (selectedBikeVersion != null)
                     {
-                        minSpecs = _objVersionCache.GetVersionMinSpecs(_modelId, true);
-                        var objMin = minSpecs.FirstOrDefault(x => x.VersionId == _versionId);
-                        if (objMin != null)
-                        {
-                            objData.MinSpecsHtml = FormatVarientMinSpec(objMin);
-                            objData.BodyStyle = objMin.BodyStyle;
-                        }
+                        objData.BodyStyle = selectedBikeVersion.BodyStyle;
+                        objData.SelectedVersionMinSpecs = selectedBikeVersion.MinSpecsList;
                     }
                 }
             }
@@ -489,45 +489,6 @@ namespace Bikewale.Models
                 ErrorClass.LogError(ex, string.Format("Bikewale.Models.DealerPriceQuotePage.SetEMIDetails(): versionId {0}", _versionId));
             }
             return _objEMI;
-        }
-
-        /// <summary>
-        /// Createdby: Sangram Nandkhile on 15 Dec 2016
-        /// Summary: Format Minspecs for each version
-        /// </summary>
-        /// <returns></returns>
-        private string FormatVarientMinSpec(BikeVersionMinSpecs objVersion)
-        {
-            string minSpecsStr = string.Empty;
-
-            try
-            {
-                minSpecsStr = string.Format("{0}<li>{1} Wheels</li>", minSpecsStr, objVersion.AlloyWheels ? "Alloy" : "Spoke");
-                minSpecsStr = string.Format("{0}<li>{1} Start</li>", minSpecsStr, objVersion.ElectricStart ? "Electric" : "Kick");
-
-                if (objVersion.AntilockBrakingSystem)
-                {
-                    minSpecsStr = string.Format("{0}<li>ABS</li>", minSpecsStr);
-                }
-
-                if (!String.IsNullOrEmpty(objVersion.BrakeType))
-                {
-                    minSpecsStr = string.Format("{0}<li>{1} Brake</li>", minSpecsStr, objVersion.BrakeType);
-                }
-
-
-                if (!string.IsNullOrEmpty(minSpecsStr))
-                {
-                    minSpecsStr = string.Format("<ul id='version-specs-list'>{0}</ul>", minSpecsStr);
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorClass.LogError(ex, string.Format("Bikewale.Models.DealerPriceQuotePage.FormatVarientMinSpec(): versionId {0}", _versionId));
-            }
-
-            return minSpecsStr;
-
         }
 
         /// <summary>
