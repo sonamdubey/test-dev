@@ -28,7 +28,7 @@ namespace Bikewale.BAL.Location
         }
 
         public List<CityEntityBase> GetPriceQuoteCities(uint modelId) { throw new NotImplementedException(); }
-        public List<CityEntityBase> GetAllCities(EnumBikeType requestType) { throw new NotImplementedException(); }
+        public IEnumerable<CityEntityBase> GetAllCities(EnumBikeType requestType) { throw new NotImplementedException(); }
         public List<CityEntityBase> GetCities(string stateId, EnumBikeType requestType) { throw new NotImplementedException(); }
         public Hashtable GetMaskingNames() { throw new NotImplementedException(); }
         public Hashtable GetOldMaskingNames() { throw new NotImplementedException(); }

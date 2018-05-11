@@ -17,7 +17,7 @@ namespace Bikewale.Interfaces.Location
     public interface ICity
     {
         List<CityEntityBase> GetPriceQuoteCities(uint modelId);
-        List<CityEntityBase> GetAllCities(EnumBikeType requestType);
+        IEnumerable<CityEntityBase> GetAllCities(EnumBikeType requestType);
         List<CityEntityBase> GetCities(string stateId, EnumBikeType requestType);
         Hashtable GetMaskingNames();
         Hashtable GetOldMaskingNames();

@@ -31,7 +31,8 @@ namespace Bikewale.CacheHelper.BikeData
 				if (objModels != null && objModels.Any())
 				{
 					makeModel = (from obj in objModels
-								 group obj by obj.MakeBase.MakeId into g
+								 group obj by obj.MakeBase.MakeName into g
+								 orderby g.Key
 								 select new MakeModelListEntity
 								 {
 									 MakeBase =  g.FirstOrDefault().MakeBase,
