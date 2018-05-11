@@ -471,10 +471,10 @@ namespace BikeWaleOpr.Content
 
                 //Refresh memcache object for bikeModelDetails
                 MemCachedUtility.Remove(string.Format("BW_ModelDetails_{0}", strModelID));
-                MemCachedUtility.Remove(string.Format("BW_ModelDetail_{0}", strModelID));
-                MemCachedUtility.Remove(string.Format("BW_GenericBikeInfo_MO_{0}_V1", strModelID));
+                MemCachedUtility.Remove(string.Format("BW_ModelDetail_V1_{0}", strModelID));
+                MemCachedUtility.Remove(string.Format("BW_GenericBikeInfo_MO_{0}", strModelID));
                 //Refresh memcache object for popularBikes change
-                MemCachedUtility.Remove(string.Format("BW_PopularBikesByMake_{0}", lblMakeId.Text));
+                MemCachedUtility.Remove(string.Format("BW_PopularBikesByMake_V1_{0}", lblMakeId.Text));
                 if (ddlUpdateSeries != null)
                 {
                     uint seriesItem;
@@ -771,7 +771,7 @@ namespace BikeWaleOpr.Content
                     MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
                 }
 
-                MemCachedUtility.Remove(String.Format("BW_PopularBikesByMake_{0}", makeId));
+                MemCachedUtility.Remove(String.Format("BW_PopularBikesByMake_V1_{0}", makeId));
                 //CLear popularBikes key
 
                 BikewaleOpr.Cache.BwMemCache.ClearPopularBikesCacheKey(null, makeId);

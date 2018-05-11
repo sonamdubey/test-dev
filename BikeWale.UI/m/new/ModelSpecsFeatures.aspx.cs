@@ -1,4 +1,6 @@
-﻿using Bikewale.BAL.BikeData;
+﻿using Bikewale.BAL.ApiGateway.Adapters.BikeData;
+using Bikewale.BAL.ApiGateway.ApiGatewayHelper;
+using Bikewale.BAL.BikeData;
 using Bikewale.BAL.Pager;
 using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
@@ -35,6 +37,7 @@ namespace Bikewale.Mobile
         protected string cityName = "Mumbai", areaName, makeName, modelName, bikeName, versionName, makeMaskingName, modelMaskingName, modelImage, pgTitle;
         protected bool isDiscontinued, IsExShowroomPrice = true;
         protected BikeSpecificationEntity specs;
+        protected SpecsFeaturesEntity versionSpecsFeatures;
         protected BikeModelPageEntity modelDetail;
         protected GenericBikeInfoControl ctrlGenericBikeInfo;
         protected bool IsScooter = false;
@@ -61,18 +64,33 @@ namespace Bikewale.Mobile
         {
             ProcessQueryString();
             modelDetail = FetchModelPageDetails(modelId);
-            if(modelDetail != null && modelDetail.ModelDetails != null)
+            if (modelDetail != null && modelDetail.ModelDetails != null)
             {
                 IsScooterOnly = modelDetail.ModelDetails.MakeBase.IsScooterOnly;
                 if (versionId > 0)
                 {
-                    specs = FetchVariantDetails(versionId);
+                    BindFullSpecsFeatures();
+                    
                 }
                 BindWidget();
                 BindSimilarBikes();
                 BindSeriesBreadCrum();
             }
         }
+
+        private void BindFullSpecsFeatures()
+        {
+            using (IUnityContainer container = new UnityContainer())
+            {
+                container.RegisterType<IApiGatewayCaller, ApiGatewayCaller>();
+                var _apiGatewayCaller = container.Resolve<IApiGatewayCaller>();
+                GetVersionSpecsByIdAdapter adapter = new GetVersionSpecsByIdAdapter();
+                adapter.AddApiGatewayCall(_apiGatewayCaller, new List<int> { (int)versionId });
+                _apiGatewayCaller.Call();
+                versionSpecsFeatures = adapter.Output;
+            }
+        }
+
         /// Created  By :- subodh Jain 10 Feb 2017
         /// Summary :- BikeInfo Slug details
         /// </summary>
@@ -124,12 +142,12 @@ namespace Bikewale.Mobile
                             IsScooter = (modelPg.ModelVersions.FirstOrDefault().BodyStyle.Equals(EnumBikeBodyStyles.Scooter));
                             bikeName = string.Format("{0} {1}", makeName, modelName);
 
-                            if (!modelPg.ModelDetails.Futuristic && modelPg.ModelVersionSpecs != null)
+                            if (!modelPg.ModelDetails.Futuristic && modelPg.ModelVersionMinSpecs != null)
                             {
                                 // Check it versionId passed through url exists in current model's versions
                                 if (this.versionId == 0)
                                 {
-                                    this.versionId = modelPg.ModelVersionSpecs.BikeVersionId;
+                                    this.versionId = (uint)modelPg.ModelVersionMinSpecs.VersionId;
                                 }
                                 modelImage = Bikewale.Utility.Image.GetPathToShowImages(modelPg.ModelDetails.OriginalImagePath, modelPg.ModelDetails.HostUrl, Bikewale.Utility.ImageSize._272x153);
                                 var selectedVersion = modelPg.ModelVersions.FirstOrDefault(p => p.VersionId == this.versionId);
@@ -178,34 +196,6 @@ namespace Bikewale.Mobile
 
             }
             return modelPg;
-        }
-
-        /// <summary>
-        /// Author          :   Sangram Nandkhile
-        /// Created Date    :   18 Nov 2015
-        /// Description     :   Sends the notification to Customer and Dealer
-        /// </summary>
-        private BikeSpecificationEntity FetchVariantDetails(uint versionId)
-        {
-            BikeSpecificationEntity specsFeature = null;
-            try
-            {
-                using (IUnityContainer container = new UnityContainer())
-                {
-                    container.RegisterType<IBikeMaskingCacheRepository<BikeModelEntity, int>, BikeModelMaskingCache<BikeModelEntity, int>>()
-                             .RegisterType<ICacheManager, MemcacheManager>()
-                             .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
-                            ;
-                    var objCache = container.Resolve<IBikeMaskingCacheRepository<BikeModelEntity, int>>();
-                    specsFeature = objCache.MVSpecsFeatures((int)versionId);
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorClass.LogError(ex, Request.ServerVariables["URL"] + "FetchVariantDetails");
-
-            }
-            return specsFeature;
         }
 
         /// <summary>
@@ -269,7 +259,7 @@ namespace Bikewale.Mobile
             }
             finally
             {
-                if(objResponse != null && (isRedirect || isMakeRedirection))
+                if (objResponse != null && (isRedirect || isMakeRedirection))
                 {
                     redirectUrl = Request.RawUrl.Replace(makeMaskingName, newMakeMasking).Replace(modelMaskingName, objResponse.MaskingName);
                     CommonOpn.RedirectPermanent(redirectUrl);
@@ -325,11 +315,13 @@ namespace Bikewale.Mobile
                 {
                     using (IUnityContainer container = new UnityContainer())
                     {
-                        container.RegisterType<IBikeVersionCacheRepository<BikeVersionEntity, uint>, BikeVersionsCacheRepository<BikeVersionEntity, uint>>()
-                                .RegisterType<ICacheManager, MemcacheManager>()
-                                .RegisterType<IBikeVersions<BikeVersionEntity, uint>, BikeVersions<BikeVersionEntity, uint>>();
-                        var objVersionCache = container.Resolve<IBikeVersionCacheRepository<BikeVersionEntity, uint>>();
-                        var objSimilarBikes = new SimilarBikesWidget(objVersionCache, versionId, PQSourceEnum.Desktop_DPQ_Alternative);
+                        container.RegisterType<IBikeVersions<BikeVersionEntity, uint>, BikeVersions<BikeVersionEntity, uint>>()
+                                .RegisterType<IApiGatewayCaller, ApiGatewayCaller>()
+                                .RegisterType<IBikeVersionsRepository<BikeVersionEntity, uint>, BikeVersionsRepository<BikeVersionEntity, uint>>()
+                                .RegisterType<IBikeVersionCacheRepository<BikeVersionEntity, uint>, BikeVersionsCacheRepository<BikeVersionEntity, uint>>()
+								.RegisterType<ICacheManager, MemcacheManager>();
+                        var objVersion = container.Resolve<IBikeVersions<BikeVersionEntity, uint>>();
+                        var objSimilarBikes = new SimilarBikesWidget(objVersion, versionId, PQSourceEnum.Desktop_DPQ_Alternative);
 
                         objSimilarBikes.TopCount = 9;
                         objSimilarBikes.CityId = cityId;
@@ -373,12 +365,9 @@ namespace Bikewale.Mobile
                 {
                     using (IUnityContainer container = new UnityContainer())
                     {
-                        container.RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>()
-                                .RegisterType<ICacheManager, MemcacheManager>()
-                                .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
-                                .RegisterType<IPager, Pager>();
-                        var objBestBikes = container.Resolve<IBikeModelsCacheRepository<int>>();
-                        var modelPopularBikesByBodyStyle = new Models.BestBikes.PopularBikesByBodyStyle(objBestBikes);
+                        container.RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>();
+                        var bikeModel = container.Resolve<IBikeModels<BikeModelEntity, int>>();
+                        var modelPopularBikesByBodyStyle = new Models.BestBikes.PopularBikesByBodyStyle(bikeModel);
                         modelPopularBikesByBodyStyle.CityId = cityId;
                         modelPopularBikesByBodyStyle.ModelId = modelId;
                         modelPopularBikesByBodyStyle.TopCount = 9;

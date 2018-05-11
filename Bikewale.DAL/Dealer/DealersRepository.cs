@@ -488,6 +488,8 @@ namespace Bikewale.DAL.Dealer
         /// Created By : Lucky Rathore
         /// Created on : 22 march 2016
         /// Description : for getting dealer detail and bike detail w.r.t dealer.
+        /// Modified by : Ashutosh Sharma on 07 Apr 2018.
+        /// Description : Changed sp from 'getdealerbikedetails' to 'getdealerbikedetails_07042018' to remove min specs.
         /// </summary>
         /// <param name="dealerId">e.g. 4</param>
         /// <returns>DealerBikesEntity Entity object.</returns>
@@ -497,8 +499,7 @@ namespace Bikewale.DAL.Dealer
 
             try
             {
-
-                using (DbCommand cmd = DbFactory.GetDBCommand("getdealerbikedetails"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getdealerbikedetails_07042018"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, dealerId));
@@ -535,7 +536,6 @@ namespace Bikewale.DAL.Dealer
                                 BikeMakeEntityBase objMake;
                                 BikeModelEntityBase objModel;
                                 BikeVersionsListEntity objVersion;
-                                MinSpecsEntity specs;
                                 while (dr.Read())
                                 {
                                     bikes = new MostPopularBikesBase();
@@ -547,7 +547,6 @@ namespace Bikewale.DAL.Dealer
                                     objMake = new BikeMakeEntityBase();
                                     objModel = new BikeModelEntityBase();
                                     objVersion = new BikeVersionsListEntity();
-                                    specs = new MinSpecsEntity();
 
                                     objMake.MakeId = !Convert.IsDBNull(dr["MakeId"]) ? Convert.ToUInt16(dr["MakeId"]) : default(int);
                                     objMake.MakeName = Convert.ToString(dr["Make"]);
@@ -559,17 +558,9 @@ namespace Bikewale.DAL.Dealer
 
                                     objVersion.VersionId = !Convert.IsDBNull(dr["VersionId"]) ? Convert.ToUInt16(dr["VersionId"]) : default(int);
                                     objVersion.VersionName = Convert.ToString(dr["Version"]);
-
-                                    specs.Displacement = SqlReaderConvertor.ToNullableFloat(dr["Displacement"]);
-                                    specs.FuelEfficiencyOverall = SqlReaderConvertor.ToNullableUInt16(dr["FuelEfficiencyOverall"]);
-                                    specs.MaxPower = SqlReaderConvertor.ToNullableFloat(dr["MaxPower"]);
-                                    specs.MaximumTorque = SqlReaderConvertor.ToNullableFloat(dr["MaxPowerRPM"]);
-
                                     bikes.objMake = objMake;
                                     bikes.objModel = objModel;
                                     bikes.objVersion = objVersion;
-                                    bikes.Specs = specs;
-
                                     models.Add(bikes);
                                 }
                                 dealers.Models = models;
@@ -595,6 +586,8 @@ namespace Bikewale.DAL.Dealer
         /// Description : Added DisplayTextLarge, DisplayTextSmall
         /// Modified by :   Sumit Kate on 19 Jan 2017
         /// Description :   Populate AreaId
+        /// Modified by :   Rajan Chauhan on 16 Apr 2018
+        /// Description :   Changed sp getdealerdetails_04082017 to getdealerdetails_16042018
         /// </summary>
         public DealerBikesEntity GetDealerDetailsAndBikesByDealerAndMake(uint dealerId, int makeId)
         {
@@ -603,7 +596,7 @@ namespace Bikewale.DAL.Dealer
             try
             {
 
-                using (DbCommand cmd = DbFactory.GetDBCommand("getdealerdetails_04082017"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getdealerdetails_16042018"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, dealerId));
@@ -650,7 +643,6 @@ namespace Bikewale.DAL.Dealer
                                 BikeMakeEntityBase objMake;
                                 BikeModelEntityBase objModel;
                                 BikeVersionsListEntity objVersion;
-                                MinSpecsEntity specs;
                                 while (dr.Read())
                                 {
                                     bikes = new MostPopularBikesBase();
@@ -662,7 +654,6 @@ namespace Bikewale.DAL.Dealer
                                     objMake = new BikeMakeEntityBase();
                                     objModel = new BikeModelEntityBase();
                                     objVersion = new BikeVersionsListEntity();
-                                    specs = new MinSpecsEntity();
 
                                     objMake.MakeId = !Convert.IsDBNull(dr["MakeId"]) ? Convert.ToUInt16(dr["MakeId"]) : default(int);
                                     objMake.MakeName = Convert.ToString(dr["Make"]);
@@ -675,16 +666,11 @@ namespace Bikewale.DAL.Dealer
                                     objVersion.VersionId = !Convert.IsDBNull(dr["VersionId"]) ? Convert.ToUInt16(dr["VersionId"]) : default(int);
                                     objVersion.VersionName = Convert.ToString(dr["Version"]);
 
-                                    specs.Displacement = SqlReaderConvertor.ToNullableFloat(dr["Displacement"]);
-                                    specs.FuelEfficiencyOverall = SqlReaderConvertor.ToNullableUInt16(dr["FuelEfficiencyOverall"]);
-                                    specs.MaxPower = SqlReaderConvertor.ToNullableFloat(dr["MaxPower"]);
-                                    specs.MaximumTorque = SqlReaderConvertor.ToNullableFloat(dr["MaxPowerRPM"]);
-                                    specs.KerbWeight = SqlReaderConvertor.ToNullableUInt16(dr["KerbWeight"]);
+                                    
 
                                     bikes.objMake = objMake;
                                     bikes.objModel = objModel;
                                     bikes.objVersion = objVersion;
-                                    bikes.Specs = specs;
                                     bikes.MakeId = !Convert.IsDBNull(dr["MakeId"]) ? Convert.ToUInt16(dr["MakeId"]) : default(int);
                                     bikes.MakeMaskingName = Convert.ToString(dr["MakeMaskingName"]);
                                     bikes.MakeName = Convert.ToString(dr["make"]);
@@ -719,7 +705,7 @@ namespace Bikewale.DAL.Dealer
             try
             {
 
-                using (DbCommand cmd = DbFactory.GetDBCommand("modelsavailablefordealer_21122017"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("modelsavailablefordealer_08042018"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, dealerId));
@@ -734,7 +720,6 @@ namespace Bikewale.DAL.Dealer
                             BikeMakeEntityBase objMake;
                             BikeModelEntityBase objModel;
                             BikeVersionsListEntity objVersion;
-                            MinSpecsEntity specs;
 
                             while (dr.Read())
                             {
@@ -748,7 +733,6 @@ namespace Bikewale.DAL.Dealer
                                 objMake = new BikeMakeEntityBase();
                                 objModel = new BikeModelEntityBase();
                                 objVersion = new BikeVersionsListEntity();
-                                specs = new MinSpecsEntity();
 
                                 objMake.MakeId = SqlReaderConvertor.ToUInt16(dr["MakeId"]);
                                 objMake.MakeName = Convert.ToString(dr["Make"]);
@@ -760,17 +744,9 @@ namespace Bikewale.DAL.Dealer
 
                                 objVersion.VersionId = SqlReaderConvertor.ToUInt16(dr["VersionId"]);
                                 objVersion.VersionName = Convert.ToString(dr["Version"]);
-
-                                specs.Displacement = SqlReaderConvertor.ToNullableFloat(dr["Displacement"]);
-                                specs.FuelEfficiencyOverall = SqlReaderConvertor.ToNullableUInt16(dr["FuelEfficiencyOverall"]);
-                                specs.MaxPower = SqlReaderConvertor.ToNullableFloat(dr["MaxPower"]);
-                                specs.MaximumTorque = SqlReaderConvertor.ToNullableFloat(dr["MaxPowerRPM"]);
-                                specs.KerbWeight = SqlReaderConvertor.ToNullableUInt16(dr["KerbWeight"]);
-
                                 bikes.objMake = objMake;
                                 bikes.objModel = objModel;
                                 bikes.objVersion = objVersion;
-                                bikes.Specs = specs;
                                 bikes.MakeId = SqlReaderConvertor.ToUInt16(dr["MakeId"]);
                                 bikes.MakeMaskingName = Convert.ToString(dr["MakeMaskingName"]);
                                 bikes.MakeName = Convert.ToString(dr["make"]);

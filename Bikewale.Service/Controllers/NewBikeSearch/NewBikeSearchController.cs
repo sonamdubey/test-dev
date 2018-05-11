@@ -14,11 +14,11 @@ namespace Bikewale.Service.Controllers.NewBikeSearch
     /// </summary>
     public class NewBikeSearchController : CompressionApiController//ApiController
     {
-        private readonly ISearchResult _searchResult = null;
+        private readonly IBikeSearchResult _searchResult = null;
         private readonly IProcessFilter _processFilter = null;
         private readonly IBikeSearch _bikeSearch = null;
 
-        public NewBikeSearchController(ISearchResult searchResult, IProcessFilter processFilter, IBikeSearch bikeSearch)
+        public NewBikeSearchController(IBikeSearchResult searchResult, IProcessFilter processFilter, IBikeSearch bikeSearch)
         {
             _searchResult = searchResult;
             _processFilter = processFilter;
@@ -36,11 +36,8 @@ namespace Bikewale.Service.Controllers.NewBikeSearch
             {
                 SearchOutput searchResult;
                 FilterInput filterInputs = _processFilter.ProcessFilters(input);
-
-                SearchOutputEntity objSearchList = _searchResult.GetSearchResult(filterInputs, input);
-
-                searchResult = SearchOutputMapper.Convert(objSearchList);
-                if (objSearchList != null && objSearchList.SearchResult != null && objSearchList.SearchResult.Count > 0)
+                searchResult = _searchResult.GetSearchResult(filterInputs, input);
+                if (searchResult != null && searchResult.SearchResult != null && searchResult.SearchResult.Count > 0)
                 {
                     return Ok(searchResult);
                 }

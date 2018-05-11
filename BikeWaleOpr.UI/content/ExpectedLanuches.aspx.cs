@@ -139,12 +139,12 @@ namespace BikeWaleOpr.Content
                         {
                             selModelId.Append(modelId).Append(",");
                             MemCachedUtility.Remove(String.Format("BW_ModelDetails_{0}", modelId));
-                            MemCachedUtility.Remove(String.Format("BW_ModelDetail_{0}", modelId));
-                            MemCachedUtility.Remove(String.Format("BW_GenericBikeInfo_MO_{0}_V1", modelId));
+                            MemCachedUtility.Remove(String.Format("BW_ModelDetail_V1_{0}", modelId));
+                            MemCachedUtility.Remove(String.Format("BW_GenericBikeInfo_MO_{0}", modelId));
                         }
                         if (makeId > 0)
                         {
-                            MemCachedUtility.Remove(String.Format("BW_PopularBikesByMake_{0}", makeId));
+                            MemCachedUtility.Remove(String.Format("BW_PopularBikesByMake_V1_{0}", makeId));
                             //CLear popularBikes key
 
                             BwMemCache.ClearPopularBikesCacheKey(null, makeId);
@@ -181,9 +181,9 @@ namespace BikeWaleOpr.Content
                     BindGrid(false);
                 }
                 //Refresh memcache object for newbikelaunches
-                MemCachedUtility.Remove("BW_NewLaunchedBikes_SI_1_EI_10");
+                MemCachedUtility.Remove("BW_NewLaunchedBikes_V1_SI_1_EI_10");
                 MemCachedUtility.Remove("BW_NewBikeLaunches");
-                MemCachedUtility.Remove("BW_NewLaunchedBikes");
+                MemCachedUtility.Remove("BW_NewLaunchedBikes_V1");
 
                 if (idList != null && idList.Any())
                 {

@@ -132,9 +132,9 @@
                                                     <div class="margin-bottom5 font14 text-light-grey">Ex-showroom, @BWConfiguration.Instance.DefaultName</div>
                                                     <div>
                                                         <span class="bwmsprite inr-sm-icon"></span>
-                                                        <span class="text-bold font18" data-bind="text: models()[@i].price">@bike.FinalPrice</span><span class="font14 padding-left5 @(bike.FinalPrice.Equals("N/A") ? "hide" : "")" data-bind="visible : models()[@i].price != 'N/A'">onwards</span>
+                                                        <span class="text-bold font18" data-bind="text: models()[@i].price">@bike.FinalPrice</span><span class="font14 padding-left5" @(bike.FinalPrice.Equals("N/A") ? "style=display:none" : "") data-bind="visible : models()[@i].price != 'N/A'">onwards</span>
                                                     </div>
-                                                    <div class="margin-bottom10 @(bike.FinalPrice.Equals("N/A") ? "hide" : "")" data-bind="visible : models()[@i].price != 'N/A'">
+                                                    <div class="margin-bottom10" @(bike.FinalPrice.Equals("N/A") ? "style=display:none" : "") data-bind="visible : models()[@i].price != 'N/A'">
                                                         <a href="javascript:void(0)" data-pqsourceid="@Model.BikeSearch.PqSource" data-bind="attr: { 'data-modelid' : models()[@i].bikemodel.modelId}" data-modelid="@bike.BikeModel.ModelId" class="btn btn-sm btn-white font14 margin-top20 getquotation">Check on-road price</a>
                                                     </div>
                                                 </div>
@@ -375,6 +375,76 @@
             </div>
             <!--ride section starts here-->
 
+            <!--Brakes section ends here-->
+            @if (Model.BrakeTypes != null)
+            {
+                <div class="dropdown form-control-box margin-bottom20">
+                    <h3 class="text-black margin-bottom10">Brakes</h3>
+                    <div class="form-control">
+                        <span class="hide">Brakes</span>
+                        <span class="hida">Brakes</span>
+                        <div class="multiSel"></div>
+                    </div>
+
+                    <div name="braketype" class="multiSelect">
+                        <ul>
+                            @foreach (var item in Model.BrakeTypes)
+                            {
+                            <li class="unchecked" filterid="@item.Id"><span>@item.Value</span></li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            }
+            <!--Brakes section ends here-->
+
+            <!--Wheels section ends here-->
+            @if (Model.WheelTypes != null)
+            {
+                <div class="dropdown form-control-box margin-bottom20">
+                    <h3 class="text-black margin-bottom10">Wheels</h3>
+                    <div class="form-control">
+                        <span class="hide">Wheels</span>
+                        <span class="hida">Wheels</span>
+                        <div class="multiSel"></div>
+                    </div>
+
+                    <div name="alloywheel" class="multiSelect">
+                        <ul>
+                            @foreach (var item in Model.WheelTypes)
+                            {
+                            <li class="unchecked" filterid="@item.Id"><span>@item.Value</span></li>
+                            }
+                        </ul>                        
+                    </div>
+                </div>
+            }
+            <!--Wheels section ends here-->
+
+            <!--Start type section ends here-->
+            @if (Model.StartTypes != null)
+            {
+                <div class="dropdown form-control-box margin-bottom20">
+                    <h3 class="text-black margin-bottom10">Start type</h3>
+                    <div class="form-control">
+                        <span class="hide">Start type</span>
+                        <span class="hida">Start type</span>
+                        <div class="multiSel"></div>
+                    </div>
+
+                    <div name="starttype" class="multiSelect">
+                        <ul>
+                        @foreach (var item in Model.StartTypes)
+                        {
+                            <li class="unchecked" filterid="@item.Id"><span>@item.Value</span></li>
+                        }
+                        </ul>
+                    
+                    </div>
+                </div>
+            }
+            <!--Start type section ends here-->
+
             <div class="grid-12 alpha omega margin-bottom20 clear">
                 <div class="grid-5 alpha">
                     <h3>ABS</h3>
@@ -382,36 +452,6 @@
                 <div name="ABS" class="grid-7 omega">
                     <span filterid="1" class="form-control grid-6 checkOption">Yes</span>
                     <span filterid="2" class="form-control grid-6 checkOption">No</span>
-                </div>
-            </div>
-
-            <div class="grid-12 alpha omega margin-bottom20 clear">
-                <div class="grid-5 alpha">
-                    <h3>Brakes</h3>
-                </div>
-                <div name="braketype" class="grid-7 omega">
-                    <span filterid="2" class="form-control grid-6 checkOption">Disc</span>
-                    <span filterid="1" class="form-control grid-6 checkOption">Drum</span>
-                </div>
-            </div>
-
-            <div class="grid-12 alpha omega margin-bottom20 clear">
-                <div class="grid-5 alpha">
-                    <h3>Wheels</h3>
-                </div>
-                <div name="alloywheel" class="grid-7 omega">
-                    <span filterid="2" class="form-control grid-6 checkOption">Alloy</span>
-                    <span filterid="1" class="form-control grid-6 checkOption">Spoke</span>
-                </div>
-            </div>
-
-            <div class="grid-12 alpha omega margin-bottom20 clear">
-                <div class="grid-5 alpha">
-                    <h3>Start type</h3>
-                </div>
-                <div name="starttype" class="grid-7 omega">
-                    <span filterid="1" class="form-control grid-6 checkOption">Electric</span>
-                    <span filterid="2" class="form-control grid-6 checkOption">Kick</span>
                 </div>
             </div>
 

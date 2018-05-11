@@ -24,6 +24,7 @@ namespace Bikewale.Service.Controllers.Make
         /// Constructor
         /// </summary>
         /// <param name="objDealer"></param>
+        /// <param name="objDealerCache"></param>
         public DealerMakesController(IDealer objDealer, IDealerCacheRepository objDealerCache)
         {
             _objDealer = objDealer;

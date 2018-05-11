@@ -10,22 +10,10 @@ namespace Bikewale.DTO.BikeBooking
     {
         [JsonProperty("makeIds")]
         public string MakeIds { get; set; }
-        [JsonProperty("displacement")]
-        public string Displacement { get; set; }
         [JsonProperty("budget")]
         public string Budget { get; set; }
-        [JsonProperty("mileage")]
-        public string Mileage { get; set; }
         [JsonProperty("rideStyle")]
         public string RideStyle { get; set; }
-        [JsonProperty("ABS")]
-        public string ABS { get; set; }
-        [JsonProperty("brakeType")]
-        public string BrakeType { get; set; }
-        [JsonProperty("alloyWheel")]
-        public string AlloyWheel { get; set; }
-        [JsonProperty("startType")]
-        public string StartType { get; set; }
         [JsonProperty("pageNo")]
         public int PageNo { get; set; }
         [JsonProperty("pageSize")]

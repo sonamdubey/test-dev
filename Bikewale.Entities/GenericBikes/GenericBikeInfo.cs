@@ -19,6 +19,8 @@ namespace Bikewale.Entities.GenericBikes
     /// Summary     :   Added BodyStyleId property
     /// Modified by : Snehal Dange on 24th Jan 2018
     /// Desc:       Added IsElectricBike flag
+    /// Modified by : Pratibha Verma on 2 April 2018
+    /// Description : Added SpecsItem List, VersionId and Removed MinSpecs
     /// </summary>
     [Serializable]
     public class GenericBikeInfo //: BasicBikeEntityBase
@@ -30,7 +32,6 @@ namespace Bikewale.Entities.GenericBikes
         public uint FeaturesCount { get; set; }
         public uint UserReview { get; set; }
         public bool IsSpecsAvailable { get; set; }
-        public MinSpecsEntity MinSpecs { get; set; }
         public uint BikePrice { get; set; }
         public uint EstimatedPriceMin { get; set; }
         public uint EstimatedPriceMax { get; set; }
@@ -55,6 +56,8 @@ namespace Bikewale.Entities.GenericBikes
         public UInt16 UserReviewCount { get; set; }
         public Int16 BodyStyleId { get; set; }
         public uint FuelType { get; set; }
+        public int VersionId { get; set; }
+        public IEnumerable<SpecsItem> MinSpecsList { get; set; }
     }
     /// Created  By :- subodh Jain 10 Feb 2017
     /// Summary :- BikeInfo Slug details GetBikeInfo

@@ -1,4 +1,7 @@
-﻿using Bikewale.Entities.BikeData;
+﻿using Bikewale.BAL.ApiGateway.Adapters.BikeData;
+using Bikewale.BAL.ApiGateway.ApiGatewayHelper;
+using Bikewale.BAL.ApiGateway.Entities.BikeData;
+using Bikewale.Entities.BikeData;
 using Bikewale.Entities.BikeSeries;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Notifications;
@@ -11,10 +14,11 @@ namespace Bikewale.BAL.BikeData
     public class BikeSeries : IBikeSeries
     {
         private readonly IBikeSeriesCacheRepository _bikeSeriesCacheRepository = null;
-
-        public BikeSeries(IBikeSeriesCacheRepository bikeSeriesCacheRepository)
+        private readonly IApiGatewayCaller _apiGatewayCaller;
+        public BikeSeries(IBikeSeriesCacheRepository bikeSeriesCacheRepository, IApiGatewayCaller apiGatewayCaller)
         {
             _bikeSeriesCacheRepository = bikeSeriesCacheRepository;
+            _apiGatewayCaller = apiGatewayCaller;
         }
 
         /// <summary>
@@ -30,6 +34,14 @@ namespace Bikewale.BAL.BikeData
             try
             {
                 objModels = _bikeSeriesCacheRepository.GetNewModels(seriesId, cityId);
+                var specItemList = new List<EnumSpecsFeaturesItems>
+                {
+                    EnumSpecsFeaturesItems.Displacement,
+                    EnumSpecsFeaturesItems.FuelEfficiencyOverall,
+                    EnumSpecsFeaturesItems.MaxPowerBhp,
+                    EnumSpecsFeaturesItems.KerbWeight
+                };
+                BindMinSpecs(objModels, specItemList);
             }
             catch (Exception ex)
             {
@@ -78,6 +90,17 @@ namespace Bikewale.BAL.BikeData
                         if (objModels.NewBikes != null)
                         {
                             objModels.NewBikes = objModels.NewBikes.Where(bike => bike.BikeModel.ModelId != modelId);
+                            IEnumerable<NewBikeEntityBase> newBikeList = objModels.NewBikes;
+                            if (newBikeList != null && newBikeList.Any())
+                            {
+                                var specItemList = new List<EnumSpecsFeaturesItems>
+                                {
+                                    EnumSpecsFeaturesItems.Displacement,
+                                    EnumSpecsFeaturesItems.FuelEfficiencyOverall,
+                                    EnumSpecsFeaturesItems.MaxPowerBhp
+                                };
+                                BindMinSpecs(newBikeList, specItemList);
+                            }
                         }
 
                         if (objModels.UpcomingBikes != null)
@@ -145,6 +168,7 @@ namespace Bikewale.BAL.BikeData
             try
             {
                 bikeSeriesCompareBikes = _bikeSeriesCacheRepository.GetBikesToCompare(seriesId);
+                BindSeriesModelsCompareSpecs(bikeSeriesCompareBikes);
             }
             catch (Exception ex)
             {
@@ -174,6 +198,128 @@ namespace Bikewale.BAL.BikeData
                 ErrorClass.LogError(ex, string.Format("Bikewale.BAL.BikeData.BikeSeries.GetMaskingNames seriesId {0}", seriesId));
             }
             return modelIds;
+        }
+
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 11 Apr 2018.
+        /// Description : Method to call specs features service and bind specs features data in bikeList object.
+        /// </summary>
+        /// <param name="bikesList">List of bikes object in which specs binding has to be done.</param>
+        /// <param name="specItemList">List of specs ids for which specs data has to be done.</param>
+        private void BindMinSpecs(IEnumerable<NewBikeEntityBase> bikesList, IEnumerable<EnumSpecsFeaturesItems> specItemList)
+        {
+            try
+            {
+                if (bikesList != null && bikesList.Any())
+                {
+                    GetVersionSpecsSummaryByItemIdAdapter adapt1 = new GetVersionSpecsSummaryByItemIdAdapter();
+                    VersionsDataByItemIds_Input specItemInput = new VersionsDataByItemIds_Input
+                    {
+                        Versions = bikesList.Select(m => m.objVersion.VersionId),
+                        Items = specItemList
+                    };
+                    adapt1.AddApiGatewayCall(_apiGatewayCaller, specItemInput);
+                    _apiGatewayCaller.Call();
+
+                    IEnumerable<VersionMinSpecsEntity> specsResponseList = adapt1.Output;
+                    if (specsResponseList != null)
+                    {
+                        var specsEnumerator = specsResponseList.GetEnumerator();
+                        var bikesEnumerator = bikesList.GetEnumerator();
+                        while (bikesEnumerator.MoveNext() && specsEnumerator.MoveNext())
+                        {
+                            bikesEnumerator.Current.MinSpecsList = specsEnumerator.Current.MinSpecsList;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("Bikewale.BAL.BikeData.BikeSeries.BindMinSpecs_bikesList_{0}_specItemList_{1}", bikesList, specItemList));
+            }
+        }
+
+        private void BindSeriesModelsCompareSpecs(IEnumerable<BikeSeriesCompareBikes> seriesCompareBikesWithSpecs)
+        {
+            if (seriesCompareBikesWithSpecs != null && seriesCompareBikesWithSpecs.Any())
+            {
+                GetVersionSpecsSummaryByItemIdAdapter adapt1 = new GetVersionSpecsSummaryByItemIdAdapter();
+                VersionsDataByItemIds_Input specItemInput = new VersionsDataByItemIds_Input
+                {
+                    Versions = seriesCompareBikesWithSpecs.Select(m => m.VersionId),
+                    Items = new List<EnumSpecsFeaturesItems>
+                    {
+                        EnumSpecsFeaturesItems.Displacement,
+                        EnumSpecsFeaturesItems.KerbWeight,
+                        EnumSpecsFeaturesItems.FuelTankCapacity,
+                        EnumSpecsFeaturesItems.FuelEfficiencyOverall,
+                        EnumSpecsFeaturesItems.SeatHeight,
+                        EnumSpecsFeaturesItems.RearBrakeType,
+                        EnumSpecsFeaturesItems.NoOfGears,
+                        EnumSpecsFeaturesItems.MaxPowerBhp,
+                        EnumSpecsFeaturesItems.MaxPowerRpm
+                    }
+                };
+                adapt1.AddApiGatewayCall(_apiGatewayCaller, specItemInput);
+                _apiGatewayCaller.Call();
+
+                IEnumerable<VersionMinSpecsEntity> versionMinSpecs = adapt1.Output;
+                if (versionMinSpecs != null)
+                {
+                    var minSpecs = versionMinSpecs.GetEnumerator();
+                    foreach (var seriesBike in seriesCompareBikesWithSpecs)
+                    {
+                        if (minSpecs.MoveNext())
+                        {
+                            float value;
+                            ushort gears;
+                            foreach (var spec in minSpecs.Current.MinSpecsList)
+                            {
+                                switch ((EnumSpecsFeaturesItems)spec.Id)
+                                {
+                                    case EnumSpecsFeaturesItems.Displacement:
+                                        if (float.TryParse(spec.Value, out value))
+                                            seriesBike.Displacement = value;
+                                        break;
+                                    case EnumSpecsFeaturesItems.KerbWeight:
+                                        if (float.TryParse(spec.Value, out value))
+                                            seriesBike.Weight = value;
+                                        break;
+                                    case EnumSpecsFeaturesItems.FuelEfficiencyOverall:
+                                        if (float.TryParse(spec.Value, out value))
+                                            seriesBike.Mileage = value;
+                                        break;
+                                    case EnumSpecsFeaturesItems.FuelTankCapacity:
+                                        if (float.TryParse(spec.Value, out value))
+                                            seriesBike.FuelCapacity = value;
+                                        break;
+                                    case EnumSpecsFeaturesItems.SeatHeight:
+                                        if (float.TryParse(spec.Value, out value))
+                                            seriesBike.SeatHeight = value;
+                                        break;
+                                    case EnumSpecsFeaturesItems.RearBrakeType:
+                                        seriesBike.BrakeType = spec.Value;
+                                        break;
+                                    case EnumSpecsFeaturesItems.NoOfGears:
+                                        if (ushort.TryParse(spec.Value, out gears))
+                                            seriesBike.Gears = gears;
+                                        break;
+                                    case EnumSpecsFeaturesItems.MaxPowerRpm:
+                                        if (float.TryParse(spec.Value, out value))
+                                            seriesBike.MaxPowerRpm = value;
+                                        break;
+                                    case EnumSpecsFeaturesItems.MaxPowerBhp:
+                                        if (float.TryParse(spec.Value, out value))
+                                            seriesBike.MaxPower = value;
+                                        break;
+                                }
+                            }
+                        }
+                    }
+                }
+                
+
+            }
         }
 
 

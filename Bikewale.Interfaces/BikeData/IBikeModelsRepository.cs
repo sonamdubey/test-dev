@@ -70,7 +70,6 @@ namespace Bikewale.Interfaces.BikeData
         NewLaunchedBikesBase GetNewLaunchedBikesListByMake(int startIndex, int endIndex, int? makeid = null);
         BikeModelPageEntity GetModelPage(U modelId, int versionId);
         IEnumerable<NewBikeModelColor> GetModelColor(U modelId);
-        BikeSpecificationEntity MVSpecsFeatures(int versionId);
         IEnumerable<BikeSpecificationEntity> GetModelSpecifications(U modelId);
         IEnumerable<MostPopularBikesBase> GetMostPopularBikesbyMakeCity(uint topCount, uint makeId, uint cityId);
         IEnumerable<BikeUserReviewRating> GetUserReviewSimilarBike(uint modelId, uint topCount);
@@ -80,13 +79,13 @@ namespace Bikewale.Interfaces.BikeData
         /// <param name="topCount"></param>
         /// <param name="makeId"></param>
         /// <returns></returns>
-        List<MostPopularBikesBase> GetMostPopularBikes(int? topCount = null, int? makeId = null);
+        IEnumerable<MostPopularBikesBase> GetMostPopularBikes(int? topCount = null, int? makeId = null);
         /// <summary>
         /// To get Most popular Bikes based on MakeId
         /// </summary>
         /// <param name="makeId"></param>
         /// <returns></returns>
-        List<MostPopularBikesBase> GetMostPopularBikesByMake(int makeId);
+        IEnumerable<MostPopularBikesBase> GetMostPopularBikesByMake(int makeId);
         IEnumerable<MostPopularBikesBase> GetMostPopularBikesByMakeWithCityPrice(int makeId, uint cityId);
 
         Hashtable GetMaskingNames();
@@ -94,8 +93,8 @@ namespace Bikewale.Interfaces.BikeData
 
         List<FeaturedBikeEntity> GetFeaturedBikes(uint topRecords);
         IEnumerable<BikeMakeModelEntity> GetAllModels(EnumBikeType requestType);
-        List<BikeVersionMinSpecs> GetVersionMinSpecs(U modelId, bool isNew);
-        IEnumerable<BikeVersionMinSpecs> GetFuturisticVersionMinSpecs(U modelId);
+        List<BikeVersionMinSpecs> GetVersions(U modelId, bool isNew);
+        IEnumerable<BikeVersionMinSpecs> GetFuturisticVersions(U modelId);
         BikeModelContent GetRecentModelArticles(U modelId);
         ModelHostImagePath GetModelPhotoInfo(U modelId);
 
@@ -113,7 +112,7 @@ namespace Bikewale.Interfaces.BikeData
         IEnumerable<BikeMakeEntityBase> GetMakeIfVideo();
         IEnumerable<SimilarBikeWithVideo> GetSimilarBikesVideos(uint modelId, uint totalRecords, uint cityid);
         ICollection<BestBikeEntityBase> GetBestBikesByCategory(EnumBikeBodyStyles bodyStyle, uint? cityId = null);
-        ICollection<BestBikeEntityBase> GetBestBikesByModelInMake(uint modelId);
+        IEnumerable<BestBikeEntityBase> GetBestBikesByModelInMake(uint modelId);
         ICollection<BestBikeEntityBase> GetBestBikesByModelInMake(uint modelId, uint cityId);
         IEnumerable<NewLaunchedBikeEntityBase> GetNewLaunchedBikesList();
         IEnumerable<NewLaunchedBikeEntityBase> GetNewLaunchedBikesList(uint cityId);
