@@ -215,6 +215,7 @@ var vmPhotosMore;
 var colorTabSwiper, colorTabThumbnailSwiper;
 
 docReady(function () {
+    $('#galleryLoader').hide();
 	vmPhotosMore = new LoadPhotosViewModel();
 	ko.applyBindings(vmPhotosMore, $("#photoTemplateWrapper")[0]);
 
@@ -231,7 +232,6 @@ docReady(function () {
 			console.warn(e.message);
 		}
 	}
-	$('#galleryLoader').hide();
 });
 
 docReady(function () {
