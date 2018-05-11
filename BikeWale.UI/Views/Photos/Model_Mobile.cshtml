@@ -67,7 +67,7 @@
                                     <div id="singleVideoSlug" class="swiper-youtube video-slug__iframe-container">
                                         <div class="youtube-iframe-preview video-card__video-preview">
                                             <div class="bw-youtube" data-bind="attr: { 'data-embed': videoList[0].VideoId }">
-                                                <img class="lazy" src="https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif" title="loader">
+                                                <img class="lazy" src="https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif" alt="loader">
                                             </div>
                                             <img class="video-slug__thumbnail" data-bind="attr: {'src': 'https://img.youtube.com/vi/' + videoList[0].VideoId + '/mqdefault.jpg'}" src="" />
                                         </div>
@@ -204,7 +204,7 @@
                                     <div class="model-card__list__video-card">
                                         <div class="youtube-iframe-preview video-card__video-preview">
                                             <div class="bw-youtube" data-bind="attr: { 'data-embed': VideoId,  'id': VideoId}">
-                                                <img class="lazy" src="https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif" title="loader">
+                                                <img class="lazy" src="https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif" alt="loader">
                                             </div>
                                         </div>
                                         <div class="video-card__desc clearfix">
@@ -335,7 +335,7 @@
                     @if (Model.IsVideosAvailable)
                     {
                         <script>
-                            var totalVideoCount = @Model.ModelVideos.Count()
+                            var totalVideoCount = @Model.ModelVideos.Count();
                         </script>
                         <div id="videoTab" data-id="videos" class="hide">
                             <div class="swiper-youtube swiper__videos">
@@ -355,7 +355,7 @@
                                             <div class="youtube-iframe-preview video-card__video-preview">
                                                 <div class="bw-youtube" data-bind="attr: { 'data-embed': VideoId }">
                                                     <a data-bind="attr: { 'href': 'https://www.youtube.com/watch?v=' + VideoId, 'title': VideoTitle}"><p data-bind=" text: VideoTitle"></p></a>
-                                                    <img class="lazy" src="https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif" title="loader">
+                                                    <img class="lazy" src="https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif" alt="loader">
                                                 </div>
                                             </div>
                                           <!-- /ko -->
@@ -397,12 +397,12 @@
                     <script>
                         var videoTab = document.getElementById("videoTabLink");
                         videoTab.addEventListener("click", function (event) {
-                            lazyloadYoutube.loadYoutubeVideosInScope("videoTab", "?rel=0&showinfo=0&autoplay=0");
+                            lazyloadYoutube.loadYoutubeVideos({ scope: "videoTab", enableYTAPI: false });
                         });
 
                         var videoPopup = document.getElementById("popupLoadMore");
                         videoPopup.addEventListener("click", function(event) {
-                            lazyloadYoutube.loadYoutubeVideosInScope("videoGalleryPopup", "?rel=0&amp;showinfo=0&amp;enablejsapi=1");
+                            lazyloadYoutube.loadYoutubeVideos({ scope: "videoGalleryPopup", enableYTAPI: true });
                             SwiperYT.populateVideoIframes();
                             vmModelGallery.videoPopup().handleSwiperResize();
                         });

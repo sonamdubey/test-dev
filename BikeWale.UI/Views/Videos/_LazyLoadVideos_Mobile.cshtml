@@ -68,7 +68,7 @@
         lazyloadYoutube.setEventListener("scroll", function (event) {
             if (!lazyloadYoutube._videosLoaded) {
                 if (lazyloadYoutube.getScrollPercent() > lazyloadYoutube.loadVideosAt) {
-                    lazyloadYoutube.loadYoutubeVideos("?rel=0&showinfo=0&autoplay=0");
+                    lazyloadYoutube.loadYoutubeVideos({enableYTAPI: false});
                 }
             }
         });

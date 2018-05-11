@@ -60,7 +60,7 @@
 			if ((swiper.activeIndex + 1) % 2 === 0) {
 			    var videosAdded = self.videoData().getVideos();
 			    if (videosAdded) {
-			        lazyloadYoutube.loadYoutubeVideosInScope("videoGalleryPopup", "?rel=0&amp;showinfo=0&amp;enablejsapi=1");
+			        lazyloadYoutube.loadYoutubeVideos({ scope: "videoGalleryPopup", enableYTAPI: true });
 			        SwiperYT.populateVideoIframes();
 			        self.videoSwiper.update(true);
 			        self.setSlidesDimension();
