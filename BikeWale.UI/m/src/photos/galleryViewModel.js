@@ -63,7 +63,7 @@
 
 	self.renderImage = function (hostUrl, originalImagePath, imageSize) {
 		if (originalImagePath && originalImagePath != null) {
-		    return (hostUrl + '/' + imageSize + '/' + (originalImagePath.indexOf("?") > -1 ? (originalImagePath + "&q=" + QUALITY_FACTOR) : (originalImagePath + "?q=" + QUALITY_FACTOR)));
+		    return hostUrl + '/' + imageSize + '/' + (originalImagePath.indexOf("?") > -1 ? (originalImagePath + "&q=" + QUALITY_FACTOR) : (originalImagePath + "?q=" + QUALITY_FACTOR));
 		}
 		else {
 		    return ('https://imgd.aeplcdn.com/' + imageSize + '/bikewaleimg/images/noimage.png?q=' + QUALITY_FACTOR);

@@ -485,7 +485,6 @@ var MainGallerySwiper = (function() {
 
 				}
 				lastSlide = vmModelGallery.activeIndex();
-				
 			},
 
 			onSlideChangeEnd: function (swiper) {
