@@ -1,6 +1,6 @@
 ﻿var ModelGalleryViewModel = function () {
     var self = this;
-    var QUALITY_FACTOR = 85;
+    var QUALITY_FACTOR = 80;
 
 	// model image gallery
 	self.activeTitle = ko.observable('');
@@ -32,7 +32,8 @@
 
 	self.modelName = MODEL_NAME;
 	self.photoList = ko.observableArray(MODEL_IMAGES);
-	self.slideLimit = 20 < MODEL_IMAGES.length ? 20 : MODEL_IMAGES.length;
+	var imageListLength = MODEL_IMAGES.length;
+	self.slideLimit = 20 < imageListLength ? 20 : imageListLength;
 	self.limitedPhotoList = ko.observableArray(MODEL_IMAGES.slice(0, self.slideLimit));
 
 	// share

@@ -501,8 +501,9 @@ var MainGallerySwiper = (function() {
 				vmModelGallery.setColorOption();
 
 				if (vmModelGallery.slideLimit - lastSlide <= 5) {
-				    var startIndex = vmModelGallery.slideLimit < MODEL_IMAGES.length ? vmModelGallery.slideLimit : MODEL_IMAGES.length;
-				    var lastIndex = vmModelGallery.slideLimit + 10 < MODEL_IMAGES.length ? vmModelGallery.slideLimit + 10 : MODEL_IMAGES.length;
+				    var imageListLength = MODEL_IMAGES.length;
+				    var startIndex = vmModelGallery.slideLimit < imageListLength ? vmModelGallery.slideLimit : imageListLength;
+				    var lastIndex = vmModelGallery.slideLimit + 10 < imageListLength ? vmModelGallery.slideLimit + 10 : imageListLength;
 				    ko.utils.arrayPushAll(vmModelGallery.limitedPhotoList(), MODEL_IMAGES.slice(startIndex, lastIndex));
 				    vmModelGallery.slideLimit = lastIndex;
 				    vmModelGallery.limitedPhotoList.valueHasMutated();
