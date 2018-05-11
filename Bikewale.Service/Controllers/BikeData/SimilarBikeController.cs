@@ -62,9 +62,9 @@ namespace Bikewale.Service.Controllers.BikeData
         /// <param name="versionId"></param>
         /// <param name="topcount"></param>
         /// <param name="cityId"></param>
-        /// <returns></returns>
+        /// <returns>SimilarBikesForEMIEntityList</returns>
         [HttpGet,Route("api/similarbikes/model/{versionId}/finance/")]
-        public IHttpActionResult GetSimilarBikesForEMI(int versionId, short topcount, int cityId)
+        public IHttpActionResult GetSimilarBikesForEMI(int versionId, byte topcount, int cityId)
         {
             try
             {

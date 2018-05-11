@@ -24,8 +24,8 @@ namespace Bikewale.Entities.BikeData
         public int ModelId { get; set; }
         [JsonProperty("onRoadPrice")]
         public ulong OnRoadPrice { get; set; }
-        [JsonProperty("hosturl")]
-        public string Hosturl { get; set; }
+        [JsonProperty("hostUrl")]
+        public string HostUrl { get; set; }
         [JsonProperty("originalImagePath")]
         public string OriginalImagePath { get; set; }
         [JsonProperty("versionId")]

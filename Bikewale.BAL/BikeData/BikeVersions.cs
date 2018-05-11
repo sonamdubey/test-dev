@@ -343,9 +343,12 @@ namespace Bikewale.BAL.BikeData
         /// <param name="topcount"></param>
         /// <param name="cityId"></param>
         /// <returns>SimilarBikesForEMIEntityList</returns>
-        public IEnumerable<SimilarBikesForEMIEntity> GetSimilarBikesForEMI(int versionId, short topcount, int cityId)
+        public IEnumerable<SimilarBikesForEMIEntity> GetSimilarBikesForEMI(int versionId, byte topcount, int cityId)
         {
-            topcount = topcount > 0 ? topcount : (short)9;
+            if(topcount <= 0)
+            {
+                topcount = (byte)9;
+            }
             return _versionCacheRepository.GetSimilarBikesForEMI(versionId, topcount, cityId);
         }
 

@@ -838,7 +838,7 @@ namespace Bikewale.DAL.BikeData
         /// <param name="topcount"></param>
         /// <param name="cityId"></param>
         /// <returns>SimilarBikesForEMIEntityList</returns>
-        public IEnumerable<SimilarBikesForEMIEntity> GetSimilarBikesForEMI(int versionId, short topcount, int cityId)
+        public IEnumerable<SimilarBikesForEMIEntity> GetSimilarBikesForEMI(int versionId, byte topcount, int cityId)
         {
             ICollection<SimilarBikesForEMIEntity> objBikes = null;
             try
@@ -863,7 +863,7 @@ namespace Bikewale.DAL.BikeData
                                 objSimilarBikes.ModelName = Convert.ToString(dr["ModelName"]);
                                 objSimilarBikes.VersionId = SqlReaderConvertor.ToInt32(dr["VersionId"]);
                                 objSimilarBikes.OnRoadPrice = SqlReaderConvertor.ToUInt64(dr["OnRoadPrice"]);
-                                objSimilarBikes.Hosturl = Convert.ToString(dr["hosturl"]);
+                                objSimilarBikes.HostUrl = Convert.ToString(dr["hosturl"]);
                                 objSimilarBikes.OriginalImagePath = Convert.ToString(dr["originalimagepath"]);
                                 objBikes.Add(objSimilarBikes);
                             }
