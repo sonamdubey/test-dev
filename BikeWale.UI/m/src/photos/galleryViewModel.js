@@ -107,6 +107,13 @@
 
 		historyObj.addToHistory('imagesPopup');
 		GalleryState.subscribeAction(self.closeGalleryPopup);
+
+        //Lazy load single video in popup
+		var singleVideo = document.getElementById("singleVideoSlug");
+		if (singleVideo) {
+		    lazyloadYoutube.loadYoutubeVideos({ scope: "singleVideoSlug", enableYTAPI: true });
+		    SwiperYT.populateVideoIframes();
+		}
 	};
 
 	self.closeGalleryPopup = function () {
