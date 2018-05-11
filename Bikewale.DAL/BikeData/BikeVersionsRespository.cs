@@ -53,11 +53,13 @@ namespace Bikewale.DAL.BikeData
 
                             while (dr.Read())
                             {
-                                objVersionsList.Add(new BikeVersionsListEntity()
-                                {
-                                    VersionId = Convert.ToInt32(dr["VersionId"]),
-                                    VersionName = dr["VersionName"].ToString(),
-                                    Price = Convert.ToUInt64(dr["Price"])
+								objVersionsList.Add(new BikeVersionsListEntity()
+								{
+									VersionId = Convert.ToInt32(dr["VersionId"]),
+									VersionName = dr["VersionName"].ToString(),
+									Price = Convert.ToUInt64(dr["Price"]),
+									HostUrl = Convert.ToString(dr["hosturl"]),
+									OriginalImagePath = Convert.ToString(dr["imageurl"])
                                 });
                             }
                             dr.Close();

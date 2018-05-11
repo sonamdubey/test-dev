@@ -7,10 +7,10 @@ namespace Bikewale.Service.AutoMappers.PriceQuote.Version
 {
     public class PQVersionListMapper
     {
-        internal static List<PQVersionBase> Convert(List<Entities.BikeData.BikeVersionsListEntity> objVersionList)
+        internal static IEnumerable<PQVersionBase> Convert(IEnumerable<Entities.BikeData.BikeVersionsListEntity> objVersionList)
         {
             Mapper.CreateMap<BikeVersionsListEntity, PQVersionBase>();
-            return Mapper.Map<List<BikeVersionsListEntity>, List<PQVersionBase>>(objVersionList);
+            return Mapper.Map<IEnumerable<BikeVersionsListEntity>, IEnumerable<PQVersionBase>>(objVersionList);
         }
     }
 }
