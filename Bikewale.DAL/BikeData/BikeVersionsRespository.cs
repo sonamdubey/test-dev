@@ -36,7 +36,7 @@ namespace Bikewale.DAL.BikeData
 
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getbikeversions_new"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getbikeversions_new_12042018"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_requesttype", DbType.Int32, (int)requestType));
@@ -52,11 +52,12 @@ namespace Bikewale.DAL.BikeData
 
                             while (dr.Read())
                             {
-                                objVersionsList.Add(new BikeVersionsListEntity()
-                                {
-                                    VersionId = Convert.ToInt32(dr["VersionId"]),
-                                    VersionName = dr["VersionName"].ToString(),
-                                    Price = Convert.ToUInt64(dr["Price"])
+								objVersionsList.Add(new BikeVersionsListEntity()
+								{
+									VersionId = Convert.ToInt32(dr["VersionId"]),
+									VersionName = dr["VersionName"].ToString(),
+									Price = Convert.ToUInt64(dr["Price"]),
+									OriginalImagePath = Convert.ToString(dr["imageurl"])
                                 });
                             }
                             dr.Close();

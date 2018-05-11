@@ -20,5 +20,8 @@ namespace Bikewale.DTO.PriceQuote.Version
         public UInt64 Price { get; set; }
         [JsonProperty("maskingName")]
         public string MaskingName { get; set; }
-    }
+		[JsonProperty("originalImagePath")]
+		public string OriginalImagePath { get; set; }
+
+	}
 }
