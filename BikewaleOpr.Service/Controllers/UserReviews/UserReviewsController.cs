@@ -87,7 +87,7 @@ namespace BikewaleOpr.Service.Controllers.UserReviews
                         MemCachedUtil.Remove(string.Format("BW_UserReviews_MO_V1_{0}_CAT_7_PN_1_PS_24", inputs.ModelId));
                         MemCachedUtil.Remove(string.Format("BW_BikeReviewsInfo_MO_{0}", inputs.ModelId));
                         MemCachedUtil.Remove(string.Format("BW_BikeRatingsReviewsInfo_MO_V1_{0}", inputs.ModelId));
-                        MemCachedUtil.Remove(string.Format("BW_ModelDetail_{0}", inputs.ModelId));
+                        MemCachedUtil.Remove(string.Format("BW_ModelDetail_V1_{0}", inputs.ModelId));
                         MemCachedUtil.Remove(string.Format("BW_ReviewIdList_V1_{0}", inputs.ModelId));
                         MemCachedUtil.Remove(string.Format("BW_ReviewQuestionsValue_MO_", inputs.ModelId));
                         MemCachedUtil.Remove("BW_RecentReviews");
@@ -188,7 +188,7 @@ namespace BikewaleOpr.Service.Controllers.UserReviews
                     {                                                
                         MemCachedUtil.Remove(string.Format("BW_BikeReviewsInfo_MO_{0}", obj.ModelId));
                         MemCachedUtil.Remove(string.Format("BW_BikeRatingsReviewsInfo_MO_V1_{0}", obj.ModelId));
-                        MemCachedUtil.Remove(string.Format("BW_ModelDetail_{0}", obj.ModelId));
+                        MemCachedUtil.Remove(string.Format("BW_ModelDetail_V1_{0}", obj.ModelId));
                         MemCachedUtil.Remove(string.Format("BW_ReviewIdList_V1_{0}", obj.ModelId));
                         MemCachedUtil.Remove(string.Format("BW_ReviewQuestionsValue_MO_{0}", obj.ModelId));
                     }

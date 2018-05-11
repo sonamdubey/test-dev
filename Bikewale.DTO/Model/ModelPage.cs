@@ -17,7 +17,7 @@ namespace Bikewale.DTO.Model
         public ModelDetails ModelDetails { get; set; }
 
         [JsonProperty("versionList")]
-        public List<Bikewale.DTO.Version.VersionMinSpecs> ModelVersions { get; set; }
+        public IEnumerable<Bikewale.DTO.Version.VersionMinSpecs> ModelVersions { get; set; }
 
         [JsonProperty("modelVersionSpecs")]
         public Version.VersionSpecifications ModelVersionSpecs { get; set; }

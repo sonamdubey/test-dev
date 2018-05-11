@@ -1,5 +1,6 @@
 ﻿using Bikewale.Entities.GenericBikes;
 using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 namespace Bikewale.Entities.BikeData
@@ -10,18 +11,13 @@ namespace Bikewale.Entities.BikeData
     /// Description : Added provision to get version colors
     /// Modified by: Vivek Singh Tomar on 23 Aug 2017
     /// Summary: Added body style
+    /// Modified by : Rajan Chauhan on 23 Mar 2018
+    /// Description : Replaced hardcoded minspecs with MinSpecsList
     /// </summary>
     [Serializable, DataContract]
     public class BikeVersionMinSpecs : BikeVersionsListEntity
     {
-        [DataMember]
-        public string BrakeType { get; set; }
-        [DataMember]
-        public bool AlloyWheels { get; set; }
-        [DataMember]
-        public bool ElectricStart { get; set; }
-        [DataMember]
-        public bool AntilockBrakingSystem { get; set; }
+        public IEnumerable<SpecsItem> MinSpecsList { get; set; }
         [DataMember]
         public EnumBikeBodyStyles BodyStyle { get; set; }
     }

@@ -119,13 +119,13 @@ docReady(function () {
                 for (var param in self.Filters()) {
                     if (param) {
                         var node = $('div[name=' + param + ']');
-                        if (param == 'bike' || param == 'displacement' || param == 'ridestyle') {
+                        if (param == 'bike' || param == 'displacement' || param == 'ridestyle' || param == 'braketype' || param == 'alloywheel' || param == 'starttype') {
                             node.prev().find('.hida').removeClass('hide');
                             node.prev().find('.multiSel').html('');
                             node.find('li').each(function () {
                                 $(this).removeClass('checked');
                             });
-                        } else if (param == 'ABS' || param == 'braketype' || param == 'alloywheel' || param == 'starttype') {
+                        } else if (param == 'ABS') {
                             node.children().each(function () {
                                 $(this).removeClass('optionSelected');
                             });
@@ -227,7 +227,7 @@ docReady(function () {
                 for (var param in self.Filters()) {
                     if (param.length > 0) {
                         var node = $('div[name=' + param + ']');
-                        if ((param == 'bike' || param == 'displacement' || param == 'ridestyle') && self.Filters()[param]) {
+                        if ((param == 'bike' || param == 'displacement' || param == 'ridestyle' || param == 'braketype' || param == 'alloywheel' || param == 'starttype') && self.Filters()[param]) {
                             var values = self.Filters()[param].split('+');
                             var html = '';
                             for (var j = 0; j < values.length; j++) {
@@ -239,7 +239,7 @@ docReady(function () {
                             node.prev().find('.hida').addClass('hide');
                             node.prev().find('.multiSel').html(html);
 
-                        } else if ((param == 'ABS' || param == 'braketype' || param == 'alloywheel' || param == 'starttype') && self.Filters()[param]) {
+                        } else if ((param == 'ABS') && self.Filters()[param]) {
 
                             node.find('span[filterid=' + self.Filters()[param] + ']').addClass('optionSelected');
 

@@ -24,7 +24,7 @@
                 </tr>
                 @foreach (var m in Model)
                 {
-                    <tr data-makeid="@m.MakeId" data-makename="@m.MakeName" data-maskingname="@m.MaskingName" data-new="@(m.New)" data-used="@(m.Used)" data-futuristic="@(m.Futuristic)" data-oldmakemasking="@m.MaskingName">
+                    <tr data-makeid="@m.MakeId" data-makename="@m.MakeName" data-oldmakename="@m.MakeName" data-maskingname="@m.MaskingName" data-new="@(m.New)" data-used="@(m.Used)" data-futuristic="@(m.Futuristic)" data-oldmakemasking="@m.MaskingName">
                         <td>@m.MakeId</td>
                         <td class="@(m.New && m.Used ? "teal lighten-4" : (m.Futuristic) ? "lime lighten-4" : "red lighten-4")"> @m.MakeName</td>
                         <td>@m.MaskingName</td>
@@ -105,6 +105,7 @@
                     </div>
                     <input type="hidden" id="hdnUpdateMakeId" name="MakeId" data-bind="textInput: selectedMake() ? selectedMake().makeId : 0" />
                     <input type="hidden" id="hdnOldMakeMasking" name="OldMakeMasking" data-bind="textInput: selectedMake() ? selectedMake().oldMakeMasking :''" />
+                    <input type="hidden" id="hdnOldMakeName" name="OldMakeName" data-bind="textInput: selectedMake() ? selectedMake().oldMakeName : ''" />
                 </div>
             </div>
             <div class="modal-footer">

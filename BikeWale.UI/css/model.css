@@ -1,5 +1,5 @@
 ﻿@charset "utf-8";
-.header-not-fixed { background: rgba(51, 51, 51, 0.8); background: #333\9; padding: 10px 20px; z-index: 3; }
+.header-not-fixed { background: #595959; padding: 10px 20px; z-index: 3; }
 #modelDetailsContainer .model-details-wrapper { width:522px; margin-left:20px; }
 #expectedPriceContainer { border-bottom:1px solid #ecedee; }
 #variantDetailsContainer .variantText { float:left; font-size:14px; line-height:28px; }

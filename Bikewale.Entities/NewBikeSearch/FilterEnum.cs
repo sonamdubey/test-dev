@@ -8,22 +8,4 @@
         ABSAvailable = 1,
         ABSNotAvailable = 2
     }
-
-    public enum Brake
-    {
-        Drum = 1,
-        Disc = 2
-    }
-
-    public enum StartType
-    {
-        Electric = 1,
-        Manual = 2
-    }
-
-    public enum WheelType
-    {
-        Alloy = 1,
-        Spoke = 2
-    }
 }

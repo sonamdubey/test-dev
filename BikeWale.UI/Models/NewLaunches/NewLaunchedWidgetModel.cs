@@ -1,6 +1,8 @@
-﻿using Bikewale.Entities.BikeData.NewLaunched;
+﻿using Bikewale.Entities.BikeData;
+using Bikewale.Entities.BikeData.NewLaunched;
 using Bikewale.Interfaces.BikeData.NewLaunched;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Bikewale.Models
 {

@@ -63,6 +63,12 @@ namespace Bikewale.BAL.UserReviews.Search
             return objResult;
         }
 
+        /// <summary>
+        /// Modified By : Deepak Israni on 2 May 2018
+        /// Description : Sanitized description and added to sanitized description field when it turns up null.
+        /// </summary>
+        /// <param name="filter"></param>
+        /// <returns></returns>
         public SearchResult GetUserReviewsList(ReviewDataCombinedFilter filter)
         {
             SearchResult objResult = null;
@@ -96,6 +102,11 @@ namespace Bikewale.BAL.UserReviews.Search
                             review.HostUrl = null;
                         }
 
+                        if (string.IsNullOrEmpty(review.SanitizedDescription) && !string.IsNullOrEmpty(review.Description))
+                        {
+                            review.SanitizedDescription = System.StringHtmlHelpers.RemoveHtmlWithSpaces(review.Description);
+                        }
+
                         if (filter.ReviewFilter.SantizeHtml)
                         {
                             review.SanitizedDescription = (review.SanitizedDescription != null) && (review.SanitizedDescription.Length > filter.ReviewFilter.SanitizedReviewLength) ? review.SanitizedDescription.Substring(0, (int)filter.ReviewFilter.SanitizedReviewLength) : review.SanitizedDescription;
@@ -116,6 +127,12 @@ namespace Bikewale.BAL.UserReviews.Search
             return objResult;
         }
 
+        /// <summary>
+        /// Modified By : Deepak Israni on 2 May 2018
+        /// Description : Sanitized description and added to sanitized description field when it turns up null.
+        /// </summary>
+        /// <param name="inputFilters"></param>
+        /// <returns></returns>
         public SearchResult GetUserReviewsList(InputFilters inputFilters)
         {
             SearchResult objResult = null;
@@ -206,6 +223,11 @@ namespace Bikewale.BAL.UserReviews.Search
                                     if (ques.Type == UserReviewQuestionType.Rating)
                                         review.RatingQuestionsCount++;
                                 }
+                            }
+
+                            if (string.IsNullOrEmpty(review.SanitizedDescription) && !string.IsNullOrEmpty(review.Description))
+                            {
+                                review.SanitizedDescription = System.StringHtmlHelpers.RemoveHtmlWithSpaces(review.Description);
                             }
 
                         }

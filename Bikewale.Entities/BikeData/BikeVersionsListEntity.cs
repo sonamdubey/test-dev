@@ -30,6 +30,7 @@ namespace Bikewale.Entities.BikeData
         public string HostUrl { get; set; }
 
         public string OriginalImagePath { get; set; }
+        public string FuelType { get; set; }
         //  public string MaskingName { get; set; }
 
     }

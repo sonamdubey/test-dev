@@ -1,4 +1,8 @@
-﻿using Bikewale.Entities.GenericBikes;
+﻿using Bikewale.BAL.ApiGateway.Adapters.BikeData;
+using Bikewale.BAL.ApiGateway.ApiGatewayHelper;
+using Bikewale.BAL.ApiGateway.Entities.BikeData;
+using Bikewale.Entities.BikeData;
+using Bikewale.Entities.GenericBikes;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Notifications;
 using System;
@@ -10,19 +14,22 @@ namespace Bikewale.Models
     public class BestBikeByBodyStyle
     {
         private readonly IBikeModelsCacheRepository<int> _objBestBikes = null;
+        private readonly IApiGatewayCaller _apiGatewayCaller;
 
         public EnumBikeBodyStyles BodyStyleType;
 
         public uint topCount { get; set; }
-        public BestBikeByBodyStyle(IBikeModelsCacheRepository<int> objBestBikes)
+        public BestBikeByBodyStyle(IBikeModelsCacheRepository<int> objBestBikes, IApiGatewayCaller apiGatewayCaller)
         {
-
             _objBestBikes = objBestBikes;
+            _apiGatewayCaller = apiGatewayCaller;
         }
 
         /// <summary>
         /// Modified By : Snehal Dange on 24th Nov 2017
         /// Description: Added EnumBikeBodyStyles  for each category
+        /// Modified by : Pratibha Verma on 27 Mar 2018
+        /// Description : Added method call to get MinSpecs data from grpc
         /// </summary>
         /// <returns></returns>
         public BestBikeByCategoryVM GetData()
@@ -44,7 +51,48 @@ namespace Bikewale.Models
             return objData;
         }
 
-
+        /// <summary>
+        /// Created By : Pratibha Verma on 27 Mar 2018
+        /// Summary : Bind MinSpecs to Generic Bike List
+        /// Modified by : Ashutosh Sharma on 09 Apr 2017
+        /// </summary>
+        private void BindMinSpecs(IEnumerable<BestBikeEntityBase> genericBikeList)
+        {
+            try
+            {
+                if (genericBikeList != null && genericBikeList.Any())
+                {
+                    GetVersionSpecsSummaryByItemIdAdapter adapt1 = new GetVersionSpecsSummaryByItemIdAdapter();
+                    VersionsDataByItemIds_Input specItemInput = new VersionsDataByItemIds_Input
+                    {
+                        Versions = genericBikeList.Select(m => m.VersionId),
+                        Items = new List<EnumSpecsFeaturesItems>
+                        {
+                            EnumSpecsFeaturesItems.Displacement,
+                            EnumSpecsFeaturesItems.FuelEfficiencyOverall,
+                            EnumSpecsFeaturesItems.MaxPowerBhp,
+                            EnumSpecsFeaturesItems.KerbWeight
+                        }
+                    };
+                    adapt1.AddApiGatewayCall(_apiGatewayCaller, specItemInput);
+                    _apiGatewayCaller.Call();
+                    var specsList = adapt1.Output;
+                    if (specsList != null)
+                    {
+                        var specsEnumerator = specsList.GetEnumerator();
+                        var bikesEnumerator = genericBikeList.GetEnumerator();
+                        while (bikesEnumerator.MoveNext() && specsEnumerator.MoveNext())
+                        {
+                            bikesEnumerator.Current.MinSpecsList = specsEnumerator.Current.MinSpecsList;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("Bikewale.Models.BestBikeByBodyStyle.BindMinSpecs({0})", genericBikeList));
+            }
+        }
         /// <summary>
         /// Created By :- Subodh Jain 18 May 2017
         /// Summary :- Generic Bike Model FetchBestBikesList;
@@ -66,9 +114,8 @@ namespace Bikewale.Models
                     {
                         objBikesList.First().CurrentPage = BodyStyleType;
                     }
+                    BindMinSpecs(objBikesList);
                 }
-
-
             }
             catch (Exception ex)
             {

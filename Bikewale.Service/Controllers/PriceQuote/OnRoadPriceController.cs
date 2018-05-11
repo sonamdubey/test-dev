@@ -43,6 +43,9 @@ namespace Bikewale.Service.Controllers.PriceQuote
         /// <param name="objIPQ"></param>
         /// <param name="objPriceQuote"></param>
         /// <param name="modelsRepository"></param>
+        /// <param name="objDPQ"></param>
+        /// <param name="objManufacturerCampaign"></param>
+        /// <param name="objPriceQuoteCache"></param>
         public OnRoadPriceController(IDealerPriceQuote objIPQ, IPriceQuote objPriceQuote, IBikeModels<BikeModelEntity, int> modelsRepository, IDealerPriceQuoteDetail objDPQ, IManufacturerCampaign objManufacturerCampaign, IPriceQuoteCache objPriceQuoteCache)
         {
             _objIPQ = objIPQ;

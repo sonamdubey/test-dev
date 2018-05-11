@@ -137,6 +137,7 @@
     <Compile Include="MailTemplates\BookingCancellationTemplate.cs" />
     <Compile Include="MailTemplates\CancellationFeedbackTemplate.cs" />
     <Compile Include="MailTemplates\CapitalFirstSuccessEmailTemplate.cs" />
+    <Compile Include="MailTemplates\MakeModelNameChangeMailTemplate.cs" />
     <Compile Include="MailTemplates\CustomerRegistrationMailTemplate.cs" />
     <Compile Include="MailTemplates\ErrorMailTemplate.cs" />
     <Compile Include="MailTemplates\FeedbackMailer.cs" />
@@ -176,6 +177,7 @@
     <Compile Include="NotificationDAL\SavePQNotification.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PwaErrorClass.cs" />
+    <Compile Include="SendInternalEmail.cs" />
     <Compile Include="SendEmailSMSToDealerCustomer.cs" />
     <Compile Include="SendMails.cs" />
     <Compile Include="SMS\SMSCommon.cs" />
@@ -184,6 +186,10 @@
     <Compile Include="UserReviewsEmails.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Bikewale.DTO\Bikewale.DTO.csproj">
+      <Project>{a6404f19-b267-4e37-b186-d8fc010ad2ce}</Project>
+      <Name>Bikewale.DTO</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Bikewale.Entities\Bikewale.Entities.csproj">
       <Project>{8223a4b8-db14-4658-9897-257d872ae8d9}</Project>
       <Name>Bikewale.Entities</Name>
@@ -199,6 +205,9 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

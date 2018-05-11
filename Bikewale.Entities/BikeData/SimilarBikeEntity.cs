@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 namespace Bikewale.Entities.BikeData
@@ -7,9 +8,11 @@ namespace Bikewale.Entities.BikeData
     /// Created By : Sadhana Upadhyay on 5th Aug 2014
     /// Modified by : Ashutosh Sharma on 03 Oct 2017
     /// Description : Added AvgExShowroomPrice.
+    /// Modified by : Pratibha Verma on 26 Mar 2018
+    /// Description : Added SpecsItem and Removed MisSpecsEntity Base class.
     /// </summary>
     [Serializable, DataContract]
-    public class SimilarBikeEntity : MinSpecsEntity
+    public class SimilarBikeEntity
     {
         [DataMember]
         public int MinPrice { get; set; }
@@ -45,6 +48,6 @@ namespace Bikewale.Entities.BikeData
         private BikeVersionEntityBase objDesc = new BikeVersionEntityBase();
         [DataMember]
         public BikeVersionEntityBase VersionBase { get { return objDesc; } set { objDesc = value; } }
-
+        public IEnumerable<SpecsItem> MinSpecsList { get; set; }
     }
 }

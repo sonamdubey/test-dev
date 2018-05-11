@@ -70,6 +70,7 @@ namespace Bikewale.Service.Controllers.Model
         /// </summary>
         /// <param name="modelId"></param>
         /// <returns>Complete Model Page</returns>
+		[Obsolete("model detail API verison obsolete. Check current version V5")]
         [ResponseType(typeof(Bikewale.DTO.Model.ModelPage)), Route("api/model/details/")]
         public IHttpActionResult Get(int modelId)
         {
@@ -92,7 +93,7 @@ namespace Bikewale.Service.Controllers.Model
 
                     if (!string.IsNullOrEmpty(platformId) && (platformId == "3" || platformId == "4"))
                     {
-                        objModelPage.ModelVersionSpecs = null;
+                        objModelPage.ModelVersionMinSpecs = null;
                         objModelPage.ModelDetails.ReviewCount = (int)_userReviews.GetUserReviews(0, 0, (uint)modelId, 0, Entities.UserReviews.FilterBy.MostHelpful).TotalReviews;
                     }
                     else
@@ -177,6 +178,7 @@ namespace Bikewale.Service.Controllers.Model
         /// </summary>
         /// <param name="modelId"></param>
         /// <returns>Complete Model Page</returns>
+		[Obsolete("V2 version is obsolete. Check current version V5")]
         [ResponseType(typeof(Bikewale.DTO.Model.v2.ModelPage)), Route("api/v2/model/details/")]
         public IHttpActionResult GetV2(int modelId)
         {
@@ -200,7 +202,7 @@ namespace Bikewale.Service.Controllers.Model
 
                     if (!string.IsNullOrEmpty(platformId) && (platformId == "3" || platformId == "4"))
                     {
-                        objModelPage.ModelVersionSpecs = null;
+                        objModelPage.ModelVersionMinSpecs = null;
                         objModelPage.ModelDetails.ReviewCount = (int)_userReviews.GetUserReviews(0, 0, (uint)modelId, 0, Entities.UserReviews.FilterBy.MostHelpful).TotalReviews;
                     }
                     else
@@ -431,13 +433,10 @@ namespace Bikewale.Service.Controllers.Model
             DTO.Model.v5.ModelPage objDTOModelPage = null;
             try
             {
-                if (modelId <= 0)
+                if (modelId <= 0 || !Request.Headers.Contains("platformId"))
                 {
                     return BadRequest();
                 }
-
-
-
 
                 BikeModelPageEntity objModelPage = null;
                 objModelPage = _modelBL.GetModelPageDetails((int)modelId);
@@ -445,56 +444,48 @@ namespace Bikewale.Service.Controllers.Model
 
                 if (objModelPage != null)
                 {
-                    if (Request.Headers.Contains("platformId"))
+
+                    PQByCityAreaEntity pqEntity = null;
+                    ushort platformId;
+
+                    if (!objModelPage.ModelDetails.Futuristic)
                     {
-                        PQByCityAreaEntity pqEntity = null;
-                        ushort platformId;
+                        pqEntity = _objPQByCityArea.GetVersionListV2((int)modelId, objModelPage.ModelVersions, (int)(cityId.HasValue ? cityId.Value : 0), areaId, Convert.ToUInt16(Bikewale.DTO.PriceQuote.PQSources.Android), null, null, deviceId);
+                    }
 
-                        if (!objModelPage.ModelDetails.Futuristic)
+                    if (ushort.TryParse(Request.Headers.GetValues("platformId").First().ToString(), out platformId) && platformId == 3 && cityId.HasValue && cityId.Value > 0)
+                    {
+                        #region On road pricing for versions
+                        if (cityId != null && cityId.Value > 0 && !objModelPage.ModelDetails.Futuristic)
                         {
-                            pqEntity = _objPQByCityArea.GetVersionListV2((int)modelId, objModelPage.ModelVersions, (int)(cityId.HasValue ? cityId.Value : 0), areaId, Convert.ToUInt16(Bikewale.DTO.PriceQuote.PQSources.Android), null, null, deviceId);
-                        }
-
-                        if (ushort.TryParse(Request.Headers.GetValues("platformId").First().ToString(), out platformId) && platformId == 3 && cityId.HasValue && cityId.Value > 0)
-                        {
-                            #region On road pricing for versions
-                            if (cityId != null && cityId.Value > 0 && !objModelPage.ModelDetails.Futuristic)
+                            int versionId = 0;
+                            if (pqEntity != null && pqEntity.VersionList != null && pqEntity.VersionList.Any())
                             {
-                                int versionId = 0;
-                                if (pqEntity != null && pqEntity.VersionList != null && pqEntity.VersionList.Any())
+                                var deafultVersion = pqEntity.VersionList.FirstOrDefault(i => i.IsDealerPriceQuote);
+                                if (deafultVersion != null)
                                 {
-                                    var deafultVersion = pqEntity.VersionList.FirstOrDefault(i => i.IsDealerPriceQuote);
-                                    if (deafultVersion != null)
-                                    {
-                                        versionId = deafultVersion.VersionId;
-                                    }
+                                    versionId = deafultVersion.VersionId;
                                 }
-
-                                if (pqEntity != null && pqEntity.IsExShowroomPrice)
-                                    objDTOModelPage = ModelMapper.ConvertV5(_objPqCache, objModelPage, pqEntity, null, platformId);
-                                else
-
-                                    objDTOModelPage = ModelMapper.ConvertV5(_objPqCache, objModelPage, pqEntity,
-                                    pqEntity.DealerEntity, platformId);
-
                             }
-                            else
-                            {
+
+                            if (pqEntity != null && pqEntity.IsExShowroomPrice)
                                 objDTOModelPage = ModelMapper.ConvertV5(_objPqCache, objModelPage, pqEntity, null, platformId);
-                            }
-                            #endregion
+                            else
+
+                                objDTOModelPage = ModelMapper.ConvertV5(_objPqCache, objModelPage, pqEntity,
+                                pqEntity.DealerEntity, platformId);
+
                         }
                         else
                         {
                             objDTOModelPage = ModelMapper.ConvertV5(_objPqCache, objModelPage, pqEntity, null, platformId);
                         }
+                        #endregion
                     }
                     else
                     {
-                        objDTOModelPage = ModelMapper.ConvertV5(_objPqCache, objModelPage, null, null);
+                        objDTOModelPage = ModelMapper.ConvertV5(_objPqCache, objModelPage, pqEntity, null, platformId);
                     }
-
-
                     return Ok(objDTOModelPage);
                 }
                 else

@@ -1,4 +1,5 @@
 ﻿
+using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.Schema;
 using Bikewale.Interfaces.BikeData;
@@ -19,19 +20,18 @@ namespace Bikewale.Models
         private readonly IVideos _videos = null;
         private readonly IBikeMakesCacheRepository _bikeMakes = null;
         private readonly IBikeModelsCacheRepository<int> _modelCacheRepository = null;
+        private readonly IBikeModels<BikeModelEntity, int> _bikeModels;
 
         public ushort TopCountBrand { get; set; }
         public bool IsMobile { get; set; }
-        public ElectricBikesPage(IBikeModelsCacheRepository<int> modelCacheRepository, IBikeMakesCacheRepository objMakeCache, ICMSCacheContent articles, IVideos videos, IBikeMakesCacheRepository bikeMakes)
+        public ElectricBikesPage(IBikeModelsCacheRepository<int> modelCacheRepository, IBikeMakesCacheRepository objMakeCache, ICMSCacheContent articles, IVideos videos, IBikeMakesCacheRepository bikeMakes, IBikeModels<BikeModelEntity, int> bikeModels)
         {
             _objMakeCache = objMakeCache;
             _articles = articles;
             _videos = videos;
             _bikeMakes = bikeMakes;
             _modelCacheRepository = modelCacheRepository;
-
-
-
+            _bikeModels = bikeModels;
         }
 
         public uint EditorialTopCount { get; set; }
@@ -49,9 +49,9 @@ namespace Bikewale.Models
                 GlobalCityAreaEntity location = GlobalCityArea.GetGlobalCityArea();
                 uint customerCityId = location.CityId;
                 if (customerCityId > 0)
-                    objData.ElectricBikes = _modelCacheRepository.GetElectricBikes(customerCityId);
+                    objData.ElectricBikes = _bikeModels.GetElectricBikes(customerCityId);
                 else
-                    objData.ElectricBikes = _modelCacheRepository.GetElectricBikes();
+                    objData.ElectricBikes = _bikeModels.GetElectricBikes();
                 BindEditorialWidget();
                 objData.Brands = new BrandWidgetModel(TopCountBrand, _bikeMakes).GetData(Entities.BikeData.EnumBikeType.New);
                 BindPageMetas();

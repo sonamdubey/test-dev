@@ -74,11 +74,14 @@
             @{Html.RenderPartial("/Views/Shared/Ads/Desktop/AdSlotGeneric.cshtml", Model.AdSlots[String.Format("{0}-12", Model.AdTags.AdId)]);}
         </div>
     }
-             @if (Model.ModelPageEntity.ModelVersionSpecs != null || (Model.ModelPageEntity.ModelDesc != null && !string.IsNullOrEmpty(Model.ModelPageEntity.ModelDesc.SmallDescription))) { <div id="modelSpecsFeaturesAboutContent" data-id="modelSpecsFeaturesAboutContent" class="bw-model-tabs-data">
-            @if (Model.ModelPageEntity.ModelVersionSpecs != null)
+             @if (Model.BikeSpecsFeatures != null || (Model.ModelPageEntity.ModelDesc != null && !string.IsNullOrEmpty(Model.ModelPageEntity.ModelDesc.SmallDescription)))
+             {
+                 <div id="modelSpecsFeaturesAboutContent" data-id="modelSpecsFeaturesAboutContent" class="bw-model-tabs-data">
+    
+            @if (Model.BikeSpecsFeatures != null)
             {
                 <div id="modelSpecsFeaturesContent" class="content-box-shadow card-bottom-margin font14">
-                    @Html.Partial("~/Views/Model/_Index_ModelSpecsAndFeatures.cshtml", Model)
+                    @Html.Partial("~/Views/Model/_Index_ModelSpecsAndFeatures.cshtml", Model.BikeSpecsFeatures)
                 </div>
             }
 			@if (Model.ModelPageEntity.ModelDesc != null && !string.IsNullOrEmpty(Model.ModelPageEntity.ModelDesc.FullDescription) && Model.ModelPageEntity.ModelDetails != null && Model.IsUpcomingBike)

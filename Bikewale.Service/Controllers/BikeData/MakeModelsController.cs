@@ -7,6 +7,8 @@ using Bikewale.Interfaces.BikeData;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.BikeData;
 using Bikewale.Service.Utilities;
+using Bikewale.BAL.BikeData;
+using Microsoft.Practices.Unity;
 
 namespace Bikewale.Service.Controllers.BikeData
 {
@@ -16,16 +18,19 @@ namespace Bikewale.Service.Controllers.BikeData
     /// </summary>
     public class MakeModelsController : CompressionApiController
     {
-        private readonly IBikeMakesCacheRepository _makesRepository;        
-        private readonly IBikeModelsCacheRepository<int> _bikeMakeCache = null;
+        private readonly IBikeMakesCacheRepository _makesCacheRepository;
+        private readonly IBikeModels<BikeModelEntity, int> _bikeModels;
+        
         /// <summary>
         /// Constructor to Initialize cache layer
         /// </summary>
-        /// <param name="makesRepository"></param>
-        public MakeModelsController(IBikeMakesCacheRepository makesRepository, IBikeModelsCacheRepository<int> bikeMakeCache)
+        /// <param name="makesCacheRepository"></param>
+        /// <param name="bikeModels"></param>
+        public MakeModelsController(IBikeMakesCacheRepository makesCacheRepository, IBikeModels<BikeModelEntity, int> bikeModels)
         {
-            _makesRepository = makesRepository;
-            _bikeMakeCache = bikeMakeCache;
+            _makesCacheRepository = makesCacheRepository;
+            _bikeModels = bikeModels;
+            
         }
 
         /// <summary>
@@ -39,7 +44,7 @@ namespace Bikewale.Service.Controllers.BikeData
             IEnumerable<MakeModelBase> makeModels = null;
             try
             {
-                makeModels = MakeModelEntityMapper.Convert(_makesRepository.GetAllMakeModels());
+                makeModels = MakeModelEntityMapper.Convert(_makesCacheRepository.GetAllMakeModels());
             }
             catch (System.Exception ex)
             {
@@ -56,8 +61,8 @@ namespace Bikewale.Service.Controllers.BikeData
             IEnumerable<MostPopularBikes> makeModels = null;
             try
             {
-                ICollection<MostPopularBikesBase> bikeModelEntity = _bikeMakeCache.GetMostPopularBikesByModelBodyStyle((int)modelId, (int)topCount, cityId);
-                makeModels = MakeModelEntityMapper.Convert(bikeModelEntity);
+                IEnumerable<MostPopularBikesBase> bikeModelEntity = _bikeModels.GetMostPopularBikesByModelBodyStyle((int)modelId, (int)topCount, cityId, false);
+                makeModels = MakeModelEntityMapper.ConvertWithoutMinSpec(bikeModelEntity);
             }
             catch (System.Exception ex)
             {
@@ -74,7 +79,7 @@ namespace Bikewale.Service.Controllers.BikeData
             IEnumerable<MostPopularBikes> makeModels = null;
             try
             {
-                IEnumerable<MostPopularBikesBase> bikeModelEntity = _bikeMakeCache.GetMostPopularBikesbyMakeCity(topCount, makeId, cityId);
+                IEnumerable<MostPopularBikesBase> bikeModelEntity = _bikeModels.GetMostPopularBikesbyMakeCity(topCount, makeId, cityId);
                 makeModels = MakeModelEntityMapper.Convert(bikeModelEntity);
             }
             catch (System.Exception ex)
@@ -96,7 +101,7 @@ namespace Bikewale.Service.Controllers.BikeData
             IEnumerable<MostPopularBikes> makeModels = null;
             try
             {
-                IEnumerable<MostPopularBikesBase> bikeModelEntity = _bikeMakeCache.GetMostPopularBikes(topCount);
+                IEnumerable<MostPopularBikesBase> bikeModelEntity = _bikeModels.GetMostPopularBikes(topCount);
                 makeModels = MakeModelEntityMapper.Convert(bikeModelEntity);
             }
             catch (System.Exception ex)

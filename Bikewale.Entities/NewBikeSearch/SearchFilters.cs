@@ -1,5 +1,4 @@
 ﻿
-using System;
 using System.Collections.Generic;
 namespace Bikewale.Entities.NewBikeSearch
 {
@@ -8,12 +7,14 @@ namespace Bikewale.Entities.NewBikeSearch
     /// Modified by: Dhruv Joshi
     /// Dated: 8th March 2018
     /// Description: BodyStyle changed to IEnumerable of strings
+    /// Modified by : Snehal Dange on 11th April 2018
+    /// Description: Added Brakes,Wheels,StartType
     /// </summary>
     public class SearchFilters
     {
         public IEnumerable<string> BodyStyle { get; set; }
         public uint MakeId { get; set; }
-        public bool ABS { get; set; }
+        public bool? ABS { get; set; }
         public bool DiscBrake { get; set; }
         public bool DrumBrake { get; set; }
         public bool AlloyWheel { get; set; }
@@ -34,6 +35,17 @@ namespace Bikewale.Entities.NewBikeSearch
 
         public IEnumerable<RangeEntity> Power { get; set; }
 
+        public IEnumerable<uint> Brakes { get; set; }
+        public IEnumerable<uint> Wheels { get; set; }
+        public IEnumerable<uint> StartType { get; set; }
+
+        public IEnumerable<uint> Make { get; set; }
+        public IEnumerable<uint> Model { get; set; }
+
+
+        public string SortOrder { get; set; }
+
+        public string SortCriteria { get; set; }
     }
 
     public class RangeEntity
@@ -43,7 +55,7 @@ namespace Bikewale.Entities.NewBikeSearch
     }
     public class PriceRangeEntity
     {
-       public int Min { get; set; }
+        public int Min { get; set; }
         public int Max { get; set; }
     }
 }

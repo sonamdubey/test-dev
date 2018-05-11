@@ -16,6 +16,7 @@ namespace Bikewale.ElasticSearch.Entities
     /// Modified by: Dhruv Joshi
     /// Dated: 21st Feb 2018
     /// Description: Added minspecs as individual properties instead of an entity
+    /// Modified by : Kartik rathod on 11 apr 2018 added abs,braketype,starttype,wheels
     /// </summary>
     public class VersionEntity
     {
@@ -39,7 +40,14 @@ namespace Bikewale.ElasticSearch.Entities
         public uint Exshowroom { get; set; }
         [JsonProperty("onroad")]
         public uint Onroad { get; set; }
-
+        [JsonProperty("abs")]
+        public bool ABS { get; set; }
+        [JsonProperty("rearBrakeType")]
+        public short RearBrakeType { get; set; }
+        [JsonProperty("wheels")]
+        public short Wheels { get; set; }
+        [JsonProperty("startType")]
+        public short StartType { get; set; }
     }
  
 }

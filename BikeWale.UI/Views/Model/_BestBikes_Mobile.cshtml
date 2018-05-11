@@ -14,7 +14,7 @@
                 <div class="item-details-block inline-block">
                     <p class="font14 text-bold text-default text-truncate">@Bike.Make.MakeName @Bike.Model.ModelName</p>
                     <div class="key-specs-list font12 text-xx-light margin-bottom5">
-                        @Html.Raw(Bikewale.Utility.FormatMinSpecs.GetMinSpecs(Convert.ToString(Bike.MinSpecs.Displacement), Convert.ToString(Bike.MinSpecs.FuelEfficiencyOverall), Convert.ToString(Bike.MinSpecs.MaxPower), Convert.ToString(Bike.MinSpecs.KerbWeight)))
+                        @Html.Raw(Bikewale.Utility.FormatMinSpecs.GetMinSpecsSpanElements(Bike.MinSpecsList))
                     </div>
                     <p class="font11 text-grey text-truncate">@(Bike.Price > 0 ? string.Format("Ex-showroom, {0}", Bike.PriceInCity) : "Avg. Ex-showroom price")</p>
                     <span class='font16 text-default'> &#x20B9;</span>

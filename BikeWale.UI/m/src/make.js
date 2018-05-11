@@ -52,7 +52,6 @@
 
 
 })();
-
 var Accordion = (function () {
     function registerEvents() {
         $('.accordion__list').on('click', '.accordion__head', function () {
@@ -130,7 +129,7 @@ docReady(function () {
         else {
             modelCard.removeClass('card--active');
         }
-    });
+    });    
 
     $('.carousel__popular-bikes').on('webkitTransitionEnd transitionend', '.model-card__detail', function () {
         var modelCard = $(this).closest('.model__card');
@@ -168,8 +167,9 @@ docReady(function () {
     $('.emicalculator_link_event').on('click', function () {
         var data = $(this);
 
-        var emiDetails = JSON.parse(atob(data.data('emidetails')));
-        var bikePrice = data.data('bikeprice');
+	    var emiDetails = JSON.parse(atob(data.data('emidetails')));
+	    var bikePrice = data.data('bikeprice');
+	    var bikeExshowroomPrice = data.data('bikeexshowroomprice');
 
         EMIviewModel.processingFees(emiDetails.processingFee);
         EMIviewModel.exshowroomprice(bikePrice);

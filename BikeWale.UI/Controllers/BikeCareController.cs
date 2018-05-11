@@ -24,13 +24,18 @@ namespace Bikewale.Controllers
         #endregion
 
         #region Constructor
-        public BikeCareController(ICMSCacheContent cmsCache, IPager objPager, IUpcoming upcoming, IBikeModels<BikeModelEntity, int> bikeModels, IBikeModelsCacheRepository<int> models)
+        public BikeCareController(ICMSCacheContent cmsCache, IPager objPager, IUpcoming upcoming, IBikeModels<BikeModelEntity, int> bikeModels, IBikeModelsCacheRepository<int> models, IBikeMakesCacheRepository bikeMakesCacheRepository, IBikeSeriesCacheRepository seriesCache, IBikeSeries series, IBikeMaskingCacheRepository<BikeModelEntity, int> modelMaskingCacheRepo, IBikeVersionCacheRepository<BikeVersionEntity, uint> objBikeVersionsCache)
         {
             _cmsCache = cmsCache;
             _objPager = objPager;
             _upcoming = upcoming;
             _bikeModels = bikeModels;
             _models = models;
+            _bikeMakesCacheRepository = bikeMakesCacheRepository;
+            _seriesCache = seriesCache;
+            _series = series;
+            _modelMaskingCacheRepo = modelMaskingCacheRepo;
+            _objBikeVersionsCache = objBikeVersionsCache;
         }
         #endregion
 
