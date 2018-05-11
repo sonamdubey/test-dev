@@ -1,6 +1,4 @@
 ﻿
-using Bikewale.RabbitMq.LeadProcessingConsumer.Cache;
-using Bikewale.RabbitMq.LeadProcessingConsumer.Interface;
 using Consumer;
 using System;
 using System.Collections;
@@ -14,17 +12,17 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
     /// </summary>
     internal class HondaManufacturerLeadHandler : ManufacturerLeadHandler
     {
-        private readonly IHondaManufacturerCache _hondaModels;
-        /// <summary>
-        /// Type initializer
-        /// </summary>
-        /// <param name="manufacturerId"></param>
-        /// <param name="urlAPI"></param>
-        /// <param name="isAPIEnabled"></param>
-        public HondaManufacturerLeadHandler(uint manufacturerId, string urlAPI, bool isAPIEnabled) : base(manufacturerId, urlAPI, isAPIEnabled)
+		private Hashtable hondaModels;
+		/// <summary>
+		/// Type initializer
+		/// </summary>
+		/// <param name="manufacturerId"></param>
+		/// <param name="urlAPI"></param>
+		/// <param name="isAPIEnabled"></param>
+		public HondaManufacturerLeadHandler(uint manufacturerId, string urlAPI, bool isAPIEnabled) : base(manufacturerId, urlAPI, isAPIEnabled)
         {
-            _hondaModels = new HondaModelCacheRepository();
-        }
+			hondaModels = base.LeadRepostiory.GetHondaModelApiMapping();
+		}
 
         /// <summary>
         /// Created by  :   Sumit Kate on 05 Jul 2017
@@ -49,16 +47,15 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
         {
             string leadURL = string.Empty;
             string response = string.Empty;
-            string apiModelName = string.Empty;
             GaadiLeadEntity gaadiLead = null;
             try
             {
 
                 BikeQuotationEntity quotation = base.LeadRepostiory.GetPriceQuoteById(leadEntity.PQId);
-                Hashtable hondaModels = _hondaModels.GetHondaModelMapping();
                 if (quotation != null)
                 {
-                    if (hondaModels != null && hondaModels.ContainsKey((int)quotation.ModelId))
+					string apiModelName = string.Empty;
+					if (hondaModels != null && hondaModels.ContainsKey((int)quotation.ModelId))
                     {
                         apiModelName = Convert.ToString(hondaModels[(int)quotation.ModelId]);
                     }
