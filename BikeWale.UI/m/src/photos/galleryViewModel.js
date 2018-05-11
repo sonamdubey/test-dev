@@ -1,5 +1,6 @@
 ﻿var ModelGalleryViewModel = function () {
-	var self = this;
+    var self = this;
+    var QUALITY_FACTOR = 80;
 
 	// model image gallery
 	self.activeTitle = ko.observable('');
@@ -31,6 +32,9 @@
 
 	self.modelName = MODEL_NAME;
 	self.photoList = ko.observableArray(MODEL_IMAGES);
+	var imageListLength = MODEL_IMAGES.length;
+	self.slideLimit = 20 < imageListLength ? 20 : imageListLength;
+	self.limitedPhotoList = ko.observableArray(MODEL_IMAGES.slice(0, self.slideLimit));
 
 	// share
 	self.activeSharePopup = ko.observable(false);
@@ -59,10 +63,10 @@
 
 	self.renderImage = function (hostUrl, originalImagePath, imageSize) {
 		if (originalImagePath && originalImagePath != null) {
-		    return (hostUrl + '/' + imageSize + '/' + (originalImagePath.indexOf("?") > -1 ? (originalImagePath + "&q=70") : (originalImagePath + "?q=70")));
+		    return hostUrl + '/' + imageSize + '/' + (originalImagePath.indexOf("?") > -1 ? (originalImagePath + "&q=" + QUALITY_FACTOR) : (originalImagePath + "?q=" + QUALITY_FACTOR));
 		}
 		else {
-			return ('https://imgd.aeplcdn.com/' + imageSize + '/bikewaleimg/images/noimage.png?q=70');
+		    return ('https://imgd.aeplcdn.com/' + imageSize + '/bikewaleimg/images/noimage.png?q=' + QUALITY_FACTOR);
 		}
 	}
 
@@ -309,6 +313,7 @@
 	self.handleGalleryContinueClick = function () {
 		$('.model-gallery__container .gallery__next').trigger('click');
 	}
+
 };
 
 var ColorSlugViewModel = function (colorPhotoList) {
