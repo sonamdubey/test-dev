@@ -1,6 +1,4 @@
 ﻿
-using Bikewale.RabbitMq.LeadProcessingConsumer.Cache;
-using Bikewale.RabbitMq.LeadProcessingConsumer.Interface;
 using Consumer;
 using System;
 using System.Collections;
@@ -14,7 +12,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
     /// </summary>
     internal class HondaManufacturerLeadHandler : ManufacturerLeadHandler
     {
-        private readonly IHondaManufacturerCache _hondaModels;
+		private readonly LeadProcessingRepository _leadRepository;
 		private Hashtable hondaModels;
 		/// <summary>
 		/// Type initializer
@@ -24,8 +22,8 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
 		/// <param name="isAPIEnabled"></param>
 		public HondaManufacturerLeadHandler(uint manufacturerId, string urlAPI, bool isAPIEnabled) : base(manufacturerId, urlAPI, isAPIEnabled)
         {
-            _hondaModels = new HondaModelCacheRepository();
-			hondaModels = _hondaModels.GetHondaModelMapping();
+			_leadRepository = new LeadProcessingRepository();
+			hondaModels = _leadRepository.GetHondaModelApiMapping();
 		}
 
         /// <summary>
@@ -51,7 +49,6 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
         {
             string leadURL = string.Empty;
             string response = string.Empty;
-            string apiModelName = string.Empty;
             GaadiLeadEntity gaadiLead = null;
             try
             {
@@ -59,7 +56,8 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                 BikeQuotationEntity quotation = base.LeadRepostiory.GetPriceQuoteById(leadEntity.PQId);
                 if (quotation != null)
                 {
-                    if (hondaModels != null && hondaModels.ContainsKey((int)quotation.ModelId))
+					string apiModelName = string.Empty;
+					if (hondaModels != null && hondaModels.ContainsKey((int)quotation.ModelId))
                     {
                         apiModelName = Convert.ToString(hondaModels[(int)quotation.ModelId]);
                     }
