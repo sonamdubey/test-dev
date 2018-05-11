@@ -13,6 +13,7 @@ namespace Bikewale.Interfaces.BikeData
     /// Description : Added GetSpecifications.
     /// Modified by :   Rajan Chauhan on 11 Apr 2017
     /// Description :   Removed GetSpecifications.
+    /// Modifier    : Kartik Rathod on 11 May 2018, added GetSimilarBikesForEMI
     /// </summary>
     public interface IBikeVersionCacheRepository<T, U>
     {
@@ -25,5 +26,6 @@ namespace Bikewale.Interfaces.BikeData
         IEnumerable<BikeVersionMinSpecs> GetVersionMinSpecs(uint modelId, bool isNew);
         IEnumerable<BikeColorsbyVersion> GetColorsbyVersionId(uint versionId);
         IEnumerable<BikeVersionWithMinSpec> GetDealerVersionsByModel(uint dealerId, uint modelId);
+        IEnumerable<SimilarBikesForEMIEntity> GetSimilarBikesForEMI(int versionId, byte topcount, int cityId);
     }
 }
