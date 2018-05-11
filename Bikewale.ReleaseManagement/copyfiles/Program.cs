@@ -22,6 +22,9 @@ namespace CopyFiles
 
         static bool buildSolution = Convert.ToBoolean(ConfigurationManager.AppSettings["buildSolution"].ToString());
 
+        //Allowed files array used to include the resource files into release folder
+        static string[] allowFiles = ConfigurationManager.AppSettings["AllowFiles"].ToString().Split(',');
+
         static void Main(string[] args)
         {
             bool isMinify = false;
@@ -142,8 +145,11 @@ namespace CopyFiles
                 //date when file was last written to check how many days older file need to copy
                 DateTime lastModifiedDate = File.GetLastWriteTime(fileName);
 
+
+                string filePathName = Path.GetFileName(fileName);
+
                 //required checks
-                if (!string.IsNullOrEmpty(fileExtension) && Convert.ToInt32(Array.IndexOf(ignoreFiles, fileExtension)) < 0 /*&& lastModifiedDate >= fromDateTime*/)
+                if ((!string.IsNullOrEmpty(fileExtension) && Convert.ToInt32(Array.IndexOf(ignoreFiles, fileExtension)) < 0) || Convert.ToInt32(Array.IndexOf(allowFiles, filePathName)) >= 0)
                 {
                     //if folder does not exist, it wil create new one
                     if (!Directory.Exists(targetPath))
@@ -151,7 +157,7 @@ namespace CopyFiles
                         Directory.CreateDirectory(targetPath);
                     }
 
-                    string filePathName = Path.GetFileName(fileName);
+
 
                     //copy files to the respective folders, it will even overwrite files if already exists
                     if ((!fileExtension.Equals(".config") && !fileExtension.Equals(".xml")) || filePathName.Equals("Web.config") || filePathName.Equals("rewriterules.config") || filePathName.Equals("web_browsers_patch.xml") || filePathName.Equals("wurfl.xml") || filePathName.Equals("BingSiteAuth.xml"))
