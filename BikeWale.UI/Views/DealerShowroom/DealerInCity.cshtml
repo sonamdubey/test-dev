@@ -95,7 +95,7 @@
                                 @if (Details.IsFeatured)
                                 {
                                     <div class="dealer__get-offers">
-                                        <a id="dealerLead" data-clientip="@Bikewale.Common.CommonOpn.GetClientIP()" data-item-id="@Details.DealerId" href="Javascript:void(0)" data-leadsourceid="14" data-item-name="@Details.Name" data-item-area="@Details.objArea.AreaName" data-areaname="@Details.objArea.AreaName" data-cityname="@Model.CityDetails.CityName" data-campid="@Details.CampaignId" data-pqsourceid="(int)@Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_DealerLocator_GetOfferButton" data-eventcategory="Dealer_Locator" class="btn btn-white btn-full-width font14 leadcapturebtn bw-ga" data-cat="Dealer_Locator" data-act="Get_Offers_Clicked" data-lab="@Details.GetOffersGALabel">@Details.DisplayTextLarge</a>
+                                        <a id="dealerLead" data-clientip="@Bikewale.Common.CommonOpn.GetClientIP()" data-item-id="@Details.DealerId" href="Javascript:void(0)" data-leadsourceid="14" data-item-name="@Details.Name" data-item-area="@Details.objArea.AreaName" data-areaname="@Details.objArea.AreaName" data-cityname="@Model.CityDetails.CityName" data-campid="@Details.CampaignId" data-pqsourceid="@((int)Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_DealerLocator_GetOfferButton)" data-eventcategory="Dealer_Locator" class="btn btn-white btn-full-width font14 leadcapturebtn bw-ga" data-cat="Dealer_Locator" data-act="Get_Offers_Clicked" data-lab="@Details.GetOffersGALabel">@Details.DisplayTextLarge</a>
                                     </div>
                                 }
                                 else
