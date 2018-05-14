@@ -288,7 +288,7 @@
 
 
                         <ul id="imageGridBottom" class="image-grid__list image-grid--bottom" data-grid="6">
-                            @{ numberOfPhotos = Math.Min(Model.TotalPhotos, 7);}
+                            @{ numberOfPhotos = Math.Min(Model.TotalPhotos, 19);}
                             @while (i < numberOfPhotos)
                             {
                                 <li class="image-grid-list__item" data-imgcat="@objImages[i].ImageCategory" data-imgtype="@((int)objImages[i].ImageType)" data-imgid="@objImages[i].ImageId">
