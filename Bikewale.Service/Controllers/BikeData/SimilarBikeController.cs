@@ -59,18 +59,18 @@ namespace Bikewale.Service.Controllers.BikeData
         /// Author  : Kartik Rathod on 11 May 2018
         /// Desc    : Get similar bikes based on road price for emi page in finance
         /// </summary>
-        /// <param name="versionId"></param>
+        /// <param name="modelId"></param>
         /// <param name="topcount"></param>
         /// <param name="cityId"></param>
         /// <returns>SimilarBikesForEMIEntityList</returns>
-        [HttpGet,Route("api/similarbikes/model/{versionId}/finance/")]
-        public IHttpActionResult GetSimilarBikesForEMI(int versionId, byte topcount, int cityId)
+        [HttpGet,Route("api/similarbikes/model/{modelId}/finance/")]
+        public IHttpActionResult GetSimilarBikesForEMI(int modelId, byte topcount, int cityId)
         {
             try
             {
-                if (versionId > 0)
+                if (modelId > 0)
                 {
-                    IEnumerable<SimilarBikesForEMIEntity> objBikeList = _objVersion.GetSimilarBikesForEMI(versionId, topcount, cityId);
+                    IEnumerable<SimilarBikesForEMIEntity> objBikeList = _objVersion.GetSimilarBikesForEMI(modelId, topcount, cityId);
                     if (objBikeList != null && objBikeList.Any())
                     {
                         return Ok(objBikeList);

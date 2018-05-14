@@ -836,11 +836,11 @@ namespace Bikewale.DAL.BikeData
         /// Author  : Kartik Rathod on 11 May 2018
         /// Desc    : Get similar bikes based on road price for emi page in finance  
         /// </summary>
-        /// <param name="versionId"></param>
+        /// <param name="modelId"></param>
         /// <param name="topcount"></param>
         /// <param name="cityId"></param>
         /// <returns>SimilarBikesForEMIEntityList</returns>
-        public IEnumerable<SimilarBikesForEMIEntity> GetSimilarBikesForEMI(int versionId, byte topcount, int cityId)
+        public IEnumerable<SimilarBikesForEMIEntity> GetSimilarBikesForEMI(int modelId, byte topcount, int cityId)
         {
             ICollection<SimilarBikesForEMIEntity> objBikes = null;
             try
@@ -849,7 +849,7 @@ namespace Bikewale.DAL.BikeData
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.UInt16, topcount));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_bikeversionid", DbType.UInt32, versionId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.UInt32, modelId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.UInt32, cityId));
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
@@ -876,7 +876,7 @@ namespace Bikewale.DAL.BikeData
             }
             catch (Exception ex)
             {
-                ErrorClass.LogError(ex, "BikeVersionsRepository.GetSimilarBikesForEMI: modelId - " + versionId);
+                ErrorClass.LogError(ex, "BikeVersionsRepository.GetSimilarBikesForEMI: modelId - " + modelId);
             }
             return objBikes;
         }

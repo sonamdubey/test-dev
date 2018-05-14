@@ -35,7 +35,7 @@ namespace Bikewale.Interfaces.BikeData
         IEnumerable<BikeVersionsSegment> GetModelVersionsDAL(); // Added by sajal gupta
         IEnumerable<BikeModelVersionsDetails> GetModelVersions(); // Added by sajal gupta
         IEnumerable<BikeVersionWithMinSpec> GetDealerVersionsByModel(uint dealerId, uint modelId);
-        IEnumerable<SimilarBikesForEMIEntity> GetSimilarBikesForEMI(int versionId, byte topcount, int cityId);
+        IEnumerable<SimilarBikesForEMIEntity> GetSimilarBikesForEMI(int modelId, byte topcount, int cityId);
 
     }
 }
