@@ -36,6 +36,8 @@ namespace Bikewale.Interfaces.BikeData
     /// Modified By : Rajan Chauhan on 29 Jan 2018
     /// Description : overload function GetModelIdsForImages to get all models 
     ///               Added method GetModelsWithBodyStyleLookupArray for getting Dictionary mapping bodyStyle with modelIds
+    /// Modified By : Rajan Chauhan on 17 Apr 2018
+    /// Description : Added method GetBestBikesByCategory and  GetBestBikesByModelInMake         
     /// <typeparam name="T">Generic type (need to specify type while implementing this interface)</typeparam>
     /// <typeparam name="U">Generic type (need to specify type while implementing this interface)</typeparam>
     public interface IBikeModels<T, U> : IRepository<T, U>
@@ -61,8 +63,11 @@ namespace Bikewale.Interfaces.BikeData
         BikeModelPageEntity GetModelPageDetails(U modelId, int versionId);
         IEnumerable<MostPopularBikesBase> GetMostPopularScooters(uint makeId);
         IEnumerable<MostPopularBikesBase> GetMostPopularScooters(uint topCount, uint? cityId);
-
+        IEnumerable<MostPopularBikesBase> GetMostPopularBikesByMake(uint makeId, bool specs);
+        IEnumerable<MostPopularBikesBase> GetMostPopularBikesByModelBodyStyle(int modelId, int topCount, uint cityId, bool specs);
         IEnumerable<MostPopularBikesBase> GetMostPopularBikes(EnumBikeType requestType, uint topCount, uint makeId, uint cityId);
+        IEnumerable<MostPopularBikesBase> GetMostPopularBikes(int topCount);
+
         IEnumerable<ModelColorImage> GetModelColorPhotos(U modelId);
         BikeMileageEntity GetMileageDetails(uint modelId);
         BikeSeriesEntityBase GetSeriesByModelId(uint modelId);
@@ -76,5 +81,12 @@ namespace Bikewale.Interfaces.BikeData
         IEnumerable<ModelImages> GetBikeModelsPhotos(string modelIds, string categoryIds, int requiredImageCount);
         ModelImageWrapper GetBikeModelsPhotos(string modelIds, string categoryIds, int requiredImageCount, ImagePager pager);
         IDictionary<EnumBikeBodyStyles, IEnumerable<uint>> GetModelsWithBodyStyleLookupArray(uint makeId);
+        IEnumerable<MakeModelListEntity> GetMakeModelList(EnumBikeType requestType);
+        IEnumerable<MostPopularBikesBase> GetMostPopularBikesByMakeWithCityPrice(int makeId, uint cityId);
+        IEnumerable<MostPopularBikesBase> GetElectricBikes();
+        IEnumerable<MostPopularBikesBase> GetElectricBikes(uint cityId);
+        SpecsFeaturesEntity GetFullSpecsFeatures(int versionId);
+        IEnumerable<BestBikeEntityBase> GetBestBikesByCategory(EnumBikeBodyStyles bodyStyle, uint? cityId = null);
+        IEnumerable<BestBikeEntityBase> GetBestBikesByModelInMake(uint modelId, uint? cityId = null);
     }
 }

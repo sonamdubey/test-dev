@@ -1,0 +1,52 @@
+@include popup
+
+.select-bike-popup__content
+  @include vendor-prefix('transition', translate .2s linear)
+  position: relative
+  height: 100%
+  padding-top: 145px
+  padding-bottom: 50px
+  overflow-x: hidden
+  overflow-y: scroll
+
+@import './autocomplete-box'
+
+.select-bike__body
+  padding-top: 25px
+
+/* accordion */
+.panel-bike-list__item
+  padding: 20px 20px 20px 40px
+  font-size: 14px
+  color: color('default')
+  cursor: pointer
+  border-top: 1px solid color('gainsboro')
+
+.bike-list-item__label
+  position: relative
+  padding-right: 30px
+  display: inline-block
+
+.bike-list-item--active
+  .bike-list-item__label
+    &:after
+      @include tick
+
+.select-bike__accordion
+  @include collapsible
+  @include collapsible-handle
+
+// no bike found
+@import './no-result'
+
+.select-bike__no-bike-content
+  margin-top: 50px
+  text-align: center
+
+.select-bike__no-bike
+  @include no-bike-icon
+  width: 260px
+  height: 135px
+  background-size: 260px
+  display: inline-block
+  margin-bottom: 10px

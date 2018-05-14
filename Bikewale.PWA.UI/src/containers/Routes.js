@@ -75,6 +75,18 @@ var NewsDetailUC = universal(props => universalImport({
 }), universalComponentOptions);
 
 
+var FinanceUC = universal(props => universalImport({
+	chunkName: 'financeBundle',
+	resolve: () => require.resolveWeak('../components/Finance/FinanceContainer'),
+	load: (props) => Promise.all([
+		System.import( /* webpackChunkName : 'financeBundle' */ `../components/Finance/FinanceContainer`),
+		importCss('financeBundle')
+	]).then(function (props, proms) {
+		return proms[0];
+	}.bind(null, props)).catch(function () {
+	})
+}), universalComponentOptions);
+
 module.exports = () => {
 	var path = window.location.pathname;
 	return <Switch>
@@ -86,6 +98,10 @@ module.exports = () => {
 		<Route exact path='/m/bike-videos/category/*-:categoryId(\d+)/' render={(props) => (<VideoCategoryUC path={path} />)} />
 		<Route exact path='/m/bike-videos/:title-:basicId(\d+)/' render={(props) => (<VideoDetailUC path={path} />)} />
 
+		<Route exact path='/m/finance/' render={(props) => (<FinanceUC path={path} />)} />
+
 	</Switch>
 }
+
+
 

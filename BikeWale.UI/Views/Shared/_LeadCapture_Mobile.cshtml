@@ -497,7 +497,7 @@
                         "areaId": self.areaId(),
                         "clientIP": self.clientIP,
                         "pageUrl": self.pageUrl,
-                        "sourceType": @Model.PlatformId,
+                        "sourceType": @(Model.PlatformId != 0 ? Model.PlatformId : 2),
                         "pQLeadId": self.pqSourceId(),
                         "deviceId": getCookie('BWC')
                     };
@@ -611,17 +611,11 @@
                         isValidDetails = self.validateUserInfo(fullName, emailid, mobile);
                         if (self.dealerId() && isValidDetails) {
                             self.verifyCustomer();
+                            $("#contactDetailsPopup").hide();
+                            $("#personalInfo").hide();
+                            $("#notify-response").fadeIn();
                             if (self.IsVerified()) {
-
-                                $("#contactDetailsPopup").hide();
-                                $("#personalInfo").hide();
-                                $("#notify-response").fadeIn();
                                 triggerGA(self.eventCategory(), eventAction, gaLabel);
-                            }
-                            else {
-                                $("#leadCapturePopup").show();
-                                $('body').addClass('lock-browser-scroll');
-                                $(".blackOut-window").show();
                             }
                             setPQUserCookie();
                             self.triggerABTestGA(gaLabel);

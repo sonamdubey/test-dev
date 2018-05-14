@@ -1,4 +1,6 @@
 ﻿@model Bikewale.Models.MakePageVM
+@using Bikewale.Entities.BikeData
+@using Bikewale.BAL.ApiGateway.Entities.BikeData
 @{
 	Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
 	Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/bwm-brand.css' inline /> <link rel='stylesheet' type='text/css' href='/css/components/m-brand-logo.css' inline /> <link rel='stylesheet' type='text/css' href='/sass/partials/bw-youtube.css' inline /> <link rel='stylesheet' type='text/css' href='/sass/partials/explore-bikes-carousel.css' inline />";
@@ -63,7 +65,7 @@
                                     var modelUrl = Bikewale.Utility.UrlFormatter.BikePageUrl(bike.objMake.MaskingName, bike.objModel.MaskingName);
                                     var bikeName = string.Format("{0} {1}", bike.objMake.MakeName, bike.objModel.ModelName);
 
-                                    <li class="front" data-price="@bike.VersionPrice" data-mileage="@bike.Specs.FuelEfficiencyOverall" data-popularity="@bike.BikePopularityIndex" data-bike="@bikeName">
+                                    <li class="front" data-price="@bike.VersionPrice" data-mileage="@bike.MinSpecsList.FirstOrDefault(s => s.Id == (int)EnumSpecsFeaturesItems.FuelEfficiencyOverall)?.Value" data-popularity="@bike.BikePopularityIndex" data-bike="@bikeName">
                                         <div class="border-top1 margin-left20 margin-right20 padding-top20"></div>
                                         <div class="contentWrapper">
                                             <div class="imageWrapper">
@@ -78,7 +80,7 @@
                                                     </h3>
                                                 </div>
                                                 <div class="font14 text-x-light margin-bottom10">
-                                                    @Html.Raw(Bikewale.Utility.FormatMinSpecs.GetMinSpecs(Convert.ToString(bike.Specs.Displacement), Convert.ToString(bike.Specs.FuelEfficiencyOverall), Convert.ToString(bike.Specs.MaxPower), Convert.ToString(bike.Specs.KerbWeight)))
+                                                    @Html.Raw(Bikewale.Utility.FormatMinSpecs.GetMinSpecsSpanElements(bike.MinSpecsList))
                                                 </div>
                                                 @if (bike.ExShowroomPrice > 0)
                                                 {
@@ -379,11 +381,11 @@
     </section>
 }
 
-@if (Model.AdTags.Ad_300x250)
+@if (Model.AdTags.Ad300x250_Bottom)
 { 
     <section>
         <div style="margin-bottom: 15px">
-            @{Html.RenderPartial("/Views/Shared/Ads/Mobile/AdSlotGeneric.cshtml", Model.AdSlots[String.Format("{0}-2", Model.AdTags.AdId)]);}
+            @{Html.RenderPartial("/Views/Shared/Ads/Mobile/AdSlotGeneric.cshtml", Model.AdSlots[String.Format("{0}-16", Model.AdTags.AdId)]);}
         </div>
     </section>
 }

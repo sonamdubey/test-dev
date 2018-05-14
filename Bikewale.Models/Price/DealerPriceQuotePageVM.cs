@@ -20,7 +20,7 @@ namespace Bikewale.Models.Price
         public BikeQuotationEntity Quotation { get; set; }
         public LeadCaptureEntity LeadCapture { get; set; }
         public DealerPackageTypes DealerType { get; set; }
-        public string MinSpecsHtml { get; set; }
+        public IEnumerable<SpecsItem> SelectedVersionMinSpecs { get; set; }
         public string Location { get; set; }
         public string BikeName { get; set; }
         public string MPQQueryString { get; set; }

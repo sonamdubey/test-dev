@@ -6,6 +6,8 @@ namespace Bikewale.DTO.Compare
     /// <summary>
     /// Created By  :   Sumit Kate on 22 Jan 2016
     /// Description :   Compare Sub-Main Category DTO
+    /// Modified By :   Rajan Chauhan on 04 Apr 2018
+    /// Description :   Changed SpecCategory to IList from List
     /// </summary>
     public class CompareSubMainCategoryDTO
     {
@@ -14,6 +16,6 @@ namespace Bikewale.DTO.Compare
         [JsonProperty("value")]
         public string Value { get; set; }
         [JsonProperty("specCategory")]
-        public List<CompareSubCategoryDTO> SpecCategory { get; set; }
+        public IList<CompareSubCategoryDTO> SpecCategory { get; set; }
     }
 }

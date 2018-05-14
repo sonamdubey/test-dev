@@ -67,6 +67,12 @@ namespace Bikewale.Utility
             try
             {
                 int breakPoint = 3, noOfCommas = 3;
+                string [] tokens = numberToFormat.Split('.');
+                if(tokens.Length > 1)
+                {
+                    formatted += "." + tokens[1];
+                }
+                numberToFormat = tokens[0];
                 for (int i = numberToFormat.Length - 1; i >= 0; i--)
                 {
                     formatted = numberToFormat[i].ToString() + formatted;
@@ -85,7 +91,42 @@ namespace Bikewale.Utility
             return formatted;
         }
 
-
+        /// <summary>
+        /// Created by  : Pratibha Verma on 10 April 2018
+        /// Description : Format string containing numbers
+        /// </summary>
+        /// <param name="numberToFormat"></param>
+        /// <returns></returns>
+        public static string FormatNumericWithRpm(string numberToFormat)
+        {
+            string formatted = string.Empty;
+            try
+            {
+                if (!string.IsNullOrEmpty(numberToFormat))
+                {
+                    string[] tokens = numberToFormat.Split(' ');
+                    float num;
+                    for (int i = 0; i < tokens.Length; i++)
+                    {
+                        if (float.TryParse(tokens[i], out num))
+                        {
+                            tokens[i] = FormatNumeric(tokens[i]);
+                        }
+                        formatted += tokens[i] + " ";
+                    }
+                    if (formatted.Length > 1)
+                    {
+                        formatted.Remove(formatted.Length - 2, 1);
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                return numberToFormat;
+            }
+            return formatted;
+        }
+        
         /// <summary>
         /// Created by  : Sushil Kumar on 30th Aug 2016 
         /// Description : Represent number in ordinals i.e 1st,2nd,3rd,11th 

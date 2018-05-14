@@ -45,57 +45,50 @@
 	<amp-analytics type="googleanalytics">
 		<script type="application/json">
 			{
-			"vars": {
-			"account": "UA-34771801-1"
-			},
-			"extraUrlParams": {
-			"pageSourceType": "AMP"
-			},
-			"triggers": {
-			"trackPageview": {
-			"on": "visible",
-			"request": "pageview",
-			"vars": {
-			"title": "@Html.Raw(Model.PageMetaTags.Title)"
-			}
-			},
-			"trackEvent": {
-			"selector": ".bw-price-in-city-ga",
-			"on": "click",
-			"request": "event",
-			"vars": {
-			"eventCategory": "Price_in_City_Page_AMP",
-			"eventAction": "Floating_Navigation_Clicked"
-			}
-			},
-			"trackEvent1": {
-			"selector": "#exploreMoreCard",
-			"on": "click",
-			"request": "event",
-			"vars": {
-			"eventCategory": "Price_in_City_Page_AMP",
-			"eventAction": "Clicked_ExploreMore_Card"
-			}
-			},
-			"trackEvent2": {
-			"selector": ".coverfox-link-clicked",
-			"on": "click",
-			"request": "event",
-			"vars": {
-			"eventCategory": "Price_in_City_Page_AMP",
-			"eventAction": "ICICIBank_Link_Clicked"
-			}
-			},
-			"trackEvent3": {
-			"selector": ".view-dealer-details-clicked",
-			"on": "click",
-			"request": "event",
-			"vars": {
-			"eventCategory": "Price_in_City_Page_AMP",
-			"eventAction": "View_dealer_details_Clicked"
-			}
-			}
-			}
+			    "vars": {
+			        "account": "UA-34771801-1"
+			    },
+			    "extraUrlParams": {
+			        "pageSourceType": "AMP"
+			    },
+			    "triggers": {			        
+			        "trackEvent": {
+			            "selector": ".bw-price-in-city-ga",
+			            "on": "click",
+			            "request": "event",
+			            "vars": {
+			                "eventCategory": "Price_in_City_Page_AMP",
+			                "eventAction": "Floating_Navigation_Clicked"
+			            }
+			        },
+			        "trackEvent1": {
+			            "selector": "#exploreMoreCard",
+			            "on": "click",
+			            "request": "event",
+			            "vars": {
+			                "eventCategory": "Price_in_City_Page_AMP",
+			                "eventAction": "Clicked_ExploreMore_Card"
+			            }
+			        },
+			    "trackEvent2": {
+			    "selector": ".coverfox-link-clicked",
+			    "on": "click",
+			    "request": "event",
+			    "vars": {
+			    "eventCategory": "Price_in_City_Page_AMP",
+			    "eventAction": "ICICIBank_Link_Clicked"
+			    }
+			    },
+			    "trackEvent3": {
+			    "selector": ".view-dealer-details-clicked",
+			    "on": "click",
+			    "request": "event",
+			    "vars": {
+			    "eventCategory": "Price_in_City_Page_AMP",
+			    "eventAction": "View_dealer_details_Clicked"
+			    }
+			    }
+			    }
 			}
 		</script>
 	</amp-analytics>
@@ -626,7 +619,7 @@
 												<tr>
 													<td valign="top">@string.Format("{0} {1}", version.ModelName, version.VersionName)</td>
 													<td valign="top" class="text-default">&#x20b9;<span class="text-bold">&nbsp;@Format.FormatPrice(Convert.ToString(version.Price))</span></td>
-													<td valign="top">@string.Format(@"{0} Brake, {1} Wheels", version.BrakeType, (version.AlloyWheels) ? "Alloy" : "Spoke")</td>
+													<td valign="top">@FormatMinSpecs.GetCommaSepratedGeneralSpecs(version.MinSpecsList)</td>
 												</tr>
 											}
 										</tbody>

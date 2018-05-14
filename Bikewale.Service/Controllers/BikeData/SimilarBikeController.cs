@@ -27,18 +27,17 @@ namespace Bikewale.Service.Controllers.BikeData
         }
         /// <summary>
         /// Created By : Sadhana Upadhyay on 25 Aug 2015
-        /// Summary : To get Alternative/Similar bikes Lisr
+        /// Summary : To get Alternative/Similar bikes List
         /// </summary>
         /// <param name="versionId">Version Id</param>
         /// <param name="topCount">Top Count (Optional)</param>
-        /// <param name="deviation">cityid (Optional)</param>
         /// <returns></returns>
         public IHttpActionResult Get(int versionId, uint topCount)
         {
-            SimilarBikeList objSimilar = new SimilarBikeList();
+            Bikewale.DTO.BikeData.SimilarBikeList objSimilar = new Bikewale.DTO.BikeData.SimilarBikeList();
             try
             {
-                IEnumerable<SimilarBikeEntity> objSimilarBikes = _objVersion.GetSimilarBikesList(versionId, topCount, 1);
+                IEnumerable<SimilarBikeEntity> objSimilarBikes = _objVersion.GetSimilarBikesList(versionId, topCount, 1, true);
 
                 objSimilar.SimilarBike = SimilarBikeListMapper.Convert(objSimilarBikes);
 
@@ -55,5 +54,43 @@ namespace Bikewale.Service.Controllers.BikeData
                 return InternalServerError();
             }
         }
+
+        /// <summary>
+        /// Author  : Kartik Rathod on 11 May 2018
+        /// Desc    : Get similar bikes based on road price for emi page in finance
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <param name="topcount"></param>
+        /// <param name="cityId"></param>
+        /// <returns>SimilarBikesForEMIEntityList</returns>
+        [HttpGet,Route("api/similarbikes/model/{modelId}/finance/")]
+        public IHttpActionResult GetSimilarBikesForEMI(int modelId, byte topcount, int cityId)
+        {
+            try
+            {
+                if (modelId > 0)
+                {
+                    IEnumerable<SimilarBikesForEMIEntity> objBikeList = _objVersion.GetSimilarBikesForEMI(modelId, topcount, cityId);
+                    if (objBikeList != null && objBikeList.Any())
+                    {
+                        return Ok(objBikeList);
+                    }   
+                    else
+                    {
+                        return NotFound();
+                    }   
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.SimilarBikeController.GetSimilarBikesForEMI");
+                return InternalServerError();
+            }
+        }
+
     }
 }

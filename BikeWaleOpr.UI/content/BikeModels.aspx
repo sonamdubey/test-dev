@@ -232,6 +232,7 @@
                 </itemtemplate>
 				<edititemtemplate>
 					<asp:TextBox ID="txtModelName" MaxLength="50" Columns="15" Text='<%# DataBinder.Eval( Container.DataItem, "Name" ) %>' runat="server" />
+					<asp:Label Visible="false" ID="lblModelName" Text='<%# DataBinder.Eval( Container.DataItem, "Name" ) %>' runat="server" />
 					<asp:Label Visible="false" ID="lblMakeId" Text='<%# DataBinder.Eval( Container.DataItem, "BikeMakeId" ) %>' runat="server"></asp:Label>
 				</edititemtemplate>
 			</asp:TemplateColumn>

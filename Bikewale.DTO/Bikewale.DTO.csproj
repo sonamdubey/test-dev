@@ -161,7 +161,9 @@
     <Compile Include="BikeData\BikeColorsbyVersion.cs" />
     <Compile Include="BikeData\BikeColorsbyVersionDTO.cs" />
     <Compile Include="BikeData\BikeVersionWithMinSpecDTO.cs" />
+    <Compile Include="BikeData\MakeModelList.cs" />
     <Compile Include="BikeData\ModelSpecificationsDTO.cs" />
+    <Compile Include="BikeData\v2\VersionMinSpecs.cs" />
     <Compile Include="BikeData\VersionSegmentDTO.cs" />
     <Compile Include="BikeData\MakeModelBase.cs" />
     <Compile Include="BikeData\NewLaunched\BikesCountByMakeDTO.cs" />
@@ -469,6 +471,10 @@
     <Compile Include="Widgets\v2\MostPopularBikes.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Bikewale.Entities\Bikewale.Entities.csproj">
+      <Project>{8223A4B8-DB14-4658-9897-257D872AE8D9}</Project>
+      <Name>Bikewale.Entities</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Bikewale.ManufacturerCampaign.Entities\Bikewale.ManufacturerCampaign.Entities.csproj">
       <Project>{EA73DDA4-317E-4B79-BB03-F48125C2501B}</Project>
       <Name>Bikewale.ManufacturerCampaign.Entities</Name>
@@ -478,7 +484,9 @@
       <Name>Bikewale.Utility</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="app.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

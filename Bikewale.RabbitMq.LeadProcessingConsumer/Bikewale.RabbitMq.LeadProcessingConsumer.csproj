@@ -192,7 +192,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bikewale.Utility\Bikewale.Utility.csproj">
-      <Project>{ea0864e7-7715-4d93-80be-3300bb542e42}</Project>
+      <Project>{EA0864E7-7715-4D93-80BE-3300BB542E42}</Project>
       <Name>Bikewale.Utility</Name>
     </ProjectReference>
   </ItemGroup>

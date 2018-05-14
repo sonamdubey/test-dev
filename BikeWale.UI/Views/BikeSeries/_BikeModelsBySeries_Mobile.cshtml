@@ -15,10 +15,10 @@
                             <div class="swiper-card horizontal-swiper__card">
                                 <a href="@string.Format("{0}/m{1}", BWConfiguration.Instance.BwHostUrl, UrlFormatter.BikePageUrl(bike.BikeMake.MakeMaskingName, bike.BikeModel.MaskingName))" title="@string.Format("{0} {1}", bike.BikeMake.MakeName, bike.BikeModel.ModelName)" class="horizontal-swiper__target bw-ga" data-cat="@Model.Page" data-act="Series_WidgetClicked" data-lab="@string.Format("{0} {1}", bike.BikeMake.MakeName, Model.SeriesBase.SeriesName)">
                                     @if (bike.BikeImage != null)
-                                    { 
+                                    {
                                         <div class="horizontal-swiper__image inline-block">
                                             <img class="swiper-lazy" data-src=@(Image.GetPathToShowImages(bike.BikeImage.OriginalImagePath, bike.BikeImage.HostUrl, ImageSize._110x61, QualityFactor._70)) alt="@string.Format("{0} {1}", bike.BikeMake.MakeName, bike.BikeModel.ModelName)" title="@string.Format("{0} {1}", bike.BikeMake.MakeName, bike.BikeModel.ModelName)" src="">
-                                        </div> 
+                                        </div>
                                     }
                                     else
                                     {
@@ -26,20 +26,11 @@
                                             <img class="swiper-lazy" data-src=@(Image.GetPathToShowImages(string.Empty, string.Empty, ImageSize._110x61)) alt="@string.Format("{0} {1}", bike.BikeMake.MakeName, bike.BikeModel.ModelName)" title="@string.Format("{0} {1}", bike.BikeMake.MakeName, bike.BikeModel.ModelName)" src="">
                                         </div>
                                     }
-                                    @if (bike.MinSpecs != null)
-                                    {
-                                        <div class="horizontal-swiper__details inline-block">
-                                            <h3 class="horizontal-swiper__card-title text-truncate">@bike.BikeModel.ModelName</h3>
-                                            <p class="horizontal-swiper__card-subtitle text-truncate">@FormatMinSpecs.GetMinSpecsAsText(Convert.ToString(bike.MinSpecs.Displacement), Convert.ToString(bike.MinSpecs.FuelEfficiencyOverall), Convert.ToString(bike.MinSpecs.MaxPower), string.Empty)</p>
-                                        </div>
-                                    }
-                                    else
-                                    {
-                                        <div class="horizontal-swiper__details inline-block">
-                                            <h3 class="horizontal-swiper__card-title text-truncate">@bike.BikeModel.ModelName</h3>
-                                            <p class="horizontal-swiper__card-subtitle text-truncate">@FormatMinSpecs.GetMinSpecsAsText(string.Empty, string.Empty, string.Empty, string.Empty)</p>
-                                        </div>
-                                    }
+                                    <div class="horizontal-swiper__details inline-block">
+                                        <h3 class="horizontal-swiper__card-title text-truncate">@bike.BikeModel.ModelName</h3>
+                                        <p class="horizontal-swiper__card-subtitle text-truncate">@FormatMinSpecs.GetMinSpecsAsText(bike.MinSpecsList)</p>
+                                    </div>
+
                                 </a>
                             </div>
                         </li>

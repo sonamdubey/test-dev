@@ -55,6 +55,8 @@ namespace Bikewale.PWA.Utils
         ///  Converts ArticleDetails to PwaArticleDetails
         /// Modified By : Ashish G. Kamble on 5 Jan 2018
         /// Modified : Assigend Tags property value in PwaArticleDetails response object
+        /// Modified by : Pratibha Verma on 30 April 2018
+        /// Description : Added mapping for makeName and modelName
         /// </summary>
         /// <param name="inpDet"></param>
         /// <returns></returns>
@@ -81,6 +83,8 @@ namespace Bikewale.PWA.Utils
                 outDetails.ArticleApi = string.Format("api/pwa/cms/id/{0}/page/", inpDet.BasicId);
                 outDetails.Tags = (inpDet.TagsList != null && inpDet.TagsList.Count() > 0) ? String.Join(",", inpDet.TagsList) : string.Empty;
                 outDetails.ShareUrl = PwaCmsHelper.ReturnShareUrl(inpDet);
+                outDetails.MakeName = inpDet.MakeName;
+                outDetails.ModelName = inpDet.ModelName;
             }
             return outDetails;
         }
@@ -112,6 +116,8 @@ namespace Bikewale.PWA.Utils
                 outDetails.ArticleApi = string.Format("api/pwa/cms/id/{0}/pages/", inpDet.BasicId);
                 outDetails.Tags = (inpDet.TagsList != null && inpDet.TagsList.Count() > 0) ? String.Join(",", inpDet.TagsList) : string.Empty;
                 outDetails.ShareUrl = PwaCmsHelper.ReturnSharePageUrl(inpDet);
+                outDetails.MakeName = inpDet.MakeName;
+                outDetails.ModelName = inpDet.ModelName;
             }
             return outDetails;
         }

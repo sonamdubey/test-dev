@@ -26,7 +26,7 @@ namespace Bikewale.Controllers
         private readonly IPriceQuoteCache _objPQCache = null;
         private readonly IDealerCacheRepository _objDealerCache = null;
         private readonly IServiceCenter _objServiceCenterCache = null;
-        private readonly IBikeVersionCacheRepository<BikeVersionEntity, uint> _versionCache = null;
+        private readonly IBikeVersions<BikeVersionEntity, uint> _objVersion = null;
         private readonly IBikeInfo _bikeInfo = null;
         private readonly IBikeModelsCacheRepository<int> _modelCache = null;
         private readonly IDealerPriceQuoteDetail _objDealerDetails = null;
@@ -54,7 +54,7 @@ namespace Bikewale.Controllers
 		/// <param name="bikeInfo"></param>
 		/// <param name="cityCache"></param>
 		/// <param name="modelCache"></param>
-		public PriceInCityController(ICityMaskingCacheRepository cityMaskingCache, IBikeMaskingCacheRepository<BikeModelEntity, int> modelMaskingCache, IPriceQuote objPQ, IPriceQuoteCache objPQCache, IDealerCacheRepository objDealerCache, IServiceCenter objServiceCenterCache, IBikeVersionCacheRepository<BikeVersionEntity, uint> versionCache, IBikeInfo bikeInfo,IBikeModelsCacheRepository<int> modelCache, IDealerPriceQuoteDetail objDealerDetails, IDealerPriceQuote objDealerPQ, ICityCacheRepository objCityCache, IAreaCacheRepository objAreaCache, IManufacturerCampaign objManufacturerCampaign, IBikeModels<Entities.BikeData.BikeModelEntity, int> modelEntity, IAdSlot adSlot)
+		public PriceInCityController(ICityMaskingCacheRepository cityMaskingCache, IBikeMaskingCacheRepository<BikeModelEntity, int> modelMaskingCache, IPriceQuote objPQ, IPriceQuoteCache objPQCache, IDealerCacheRepository objDealerCache, IServiceCenter objServiceCenterCache, IBikeVersions<BikeVersionEntity, uint> objVersion, IBikeInfo bikeInfo,IBikeModelsCacheRepository<int> modelCache, IDealerPriceQuoteDetail objDealerDetails, IDealerPriceQuote objDealerPQ, ICityCacheRepository objCityCache, IAreaCacheRepository objAreaCache, IManufacturerCampaign objManufacturerCampaign, IBikeModels<Entities.BikeData.BikeModelEntity, int> modelEntity, IAdSlot adSlot)
         {
             _cityMaskingCache = cityMaskingCache;
             _modelMaskingCache = modelMaskingCache;
@@ -62,7 +62,7 @@ namespace Bikewale.Controllers
             _objPQCache = objPQCache;
             _objDealerCache = objDealerCache;
             _objServiceCenterCache = objServiceCenterCache;
-            _versionCache = versionCache;
+            _objVersion = objVersion;
             _bikeInfo = bikeInfo;
             _modelCache = modelCache;
             _objDealerDetails = objDealerDetails;
@@ -93,7 +93,7 @@ namespace Bikewale.Controllers
         public ActionResult Index(string makeName, string modelName, string cityName)
         {
             PriceInCityPageVM objVM = null;
-            PriceInCityPage model = new PriceInCityPage(_cityMaskingCache, _modelMaskingCache, _objPQ, _objPQCache, _objDealerCache, _objServiceCenterCache, _versionCache, _bikeInfo, _modelCache, _objDealerDetails, _objDealerPQ, _objCityCache, _objAreaCache, _objManufacturerCampaign, PQSourceEnum.Desktop_PriceInCity_Alternative, modelName, cityName, _objModelEntity, _adSlot, makeName);
+            PriceInCityPage model = new PriceInCityPage(_cityMaskingCache, _modelMaskingCache, _objPQ, _objPQCache, _objDealerCache, _objServiceCenterCache, _objVersion, _bikeInfo, _modelCache, _objDealerDetails, _objDealerPQ, _objCityCache, _objAreaCache, _objManufacturerCampaign, PQSourceEnum.Desktop_PriceInCity_Alternative, modelName, cityName, _objModelEntity, _adSlot, makeName);
             if (model.Status == Entities.StatusCodes.ContentFound)
             {
                 model.BikeInfoTabCount = 4;
@@ -140,7 +140,7 @@ namespace Bikewale.Controllers
         public ActionResult Index_Mobile(string makeName, string modelName, string cityName)
         {
             PriceInCityPageVM objVM = null;
-            PriceInCityPage model = new PriceInCityPage(_cityMaskingCache, _modelMaskingCache, _objPQ, _objPQCache, _objDealerCache, _objServiceCenterCache, _versionCache, _bikeInfo, _modelCache, _objDealerDetails, _objDealerPQ, _objCityCache, _objAreaCache, _objManufacturerCampaign, PQSourceEnum.Mobile_PriceInCity_AlternateBikes, modelName, cityName, _objModelEntity, _adSlot, makeName);
+            PriceInCityPage model = new PriceInCityPage(_cityMaskingCache, _modelMaskingCache, _objPQ, _objPQCache, _objDealerCache, _objServiceCenterCache, _objVersion, _bikeInfo, _modelCache, _objDealerDetails, _objDealerPQ, _objCityCache, _objAreaCache, _objManufacturerCampaign, PQSourceEnum.Mobile_PriceInCity_AlternateBikes, modelName, cityName, _objModelEntity, _adSlot, makeName);
             if (model.Status == Entities.StatusCodes.ContentFound)
             {
                 model.BikeInfoTabCount = 3;
@@ -185,7 +185,7 @@ namespace Bikewale.Controllers
         public ActionResult Index_Mobile_Amp(string makeName, string modelName, string cityName)
         {
             PriceInCityPageAMPVM objVM = null;
-            PriceInCityPage model = new PriceInCityPage(_cityMaskingCache, _modelMaskingCache, _objPQ, _objPQCache, _objDealerCache, _objServiceCenterCache, _versionCache, _bikeInfo,  _modelCache, _objDealerDetails, _objDealerPQ, _objCityCache, _objAreaCache, _objManufacturerCampaign, PQSourceEnum.Mobile_PriceInCity_AlternateBikes, modelName, cityName, _objModelEntity, makeName);
+            PriceInCityPage model = new PriceInCityPage(_cityMaskingCache, _modelMaskingCache, _objPQ, _objPQCache, _objDealerCache, _objServiceCenterCache, _objVersion, _bikeInfo,  _modelCache, _objDealerDetails, _objDealerPQ, _objCityCache, _objAreaCache, _objManufacturerCampaign, PQSourceEnum.Mobile_PriceInCity_AlternateBikes, modelName, cityName, _objModelEntity, makeName);
             if (model.Status == Entities.StatusCodes.ContentFound)
             {
 				model.IsMobile = true;

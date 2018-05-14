@@ -28,6 +28,7 @@ namespace Bikewale.Entities.BikeData
         Scooters = 14,
         NewLaunched = 15,
         Videos = 16,
-        Photos = 17
+        Photos = 17,
+		finance = 18
     }
 }

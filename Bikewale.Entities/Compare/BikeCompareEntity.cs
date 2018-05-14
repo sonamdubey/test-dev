@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Bikewale.Entities.BikeData;
+using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 
@@ -19,14 +20,12 @@ namespace Bikewale.Entities.Compare
         public IEnumerable<BikeSpecification> Specifications { get; set; }
         [DataMember]
         public IEnumerable<BikeFeature> Features { get; set; }
+
+        public SpecsFeaturesEntity VersionSpecsFeatures { get; set; }
         [DataMember]
         public IEnumerable<BikeColor> Color { get; set; }
         [DataMember]
-        public IEnumerable<BikeReview> Reviews { get; set; }        
-        [DataMember]
-        public CompareMainCategory CompareSpecifications { get; set; }
-        [DataMember]
-        public CompareMainCategory CompareFeatures { get; set; }
+        public IEnumerable<BikeReview> Reviews { get; set; }
         [DataMember]
         public CompareBikeColorCategory CompareColors { get; set; }        
         [DataMember]

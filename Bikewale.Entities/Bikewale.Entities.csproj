@@ -201,12 +201,15 @@
     <Compile Include="BikeData\CompareMakeModelEntity.cs" />
     <Compile Include="BikeData\EditorialWidgetHelper.cs" />
     <Compile Include="BikeData\EnumBikeData.cs" />
+    <Compile Include="BikeData\EnumSpecDataType.cs" />
+    <Compile Include="BikeData\EnumSpecsFeaturesItems.cs" />
     <Compile Include="BikeData\EnumUpcomingBikesFilter.cs" />
     <Compile Include="BikeData\ExpertReviewCountEntity.cs" />
     <Compile Include="BikeData\FeaturedBikeEntity.cs" />
     <Compile Include="BikeData\Features.cs" />
     <Compile Include="BikeData\MakeFooterCategory.cs" />
     <Compile Include="BikeData\MakeMaskingResponse.cs" />
+    <Compile Include="BikeData\MakeModelListEntity.cs" />
     <Compile Include="BikeData\MakeSubFooterEntity.cs" />
     <Compile Include="BikeData\MileageInfoByBodyStyle.cs" />
     <Compile Include="BikeData\MinSpecs.cs" />
@@ -230,7 +233,9 @@
     <Compile Include="BikeData\SimilarBikeComparisions .cs" />
     <Compile Include="BikeData\SimilarBikeEntity.cs" />
     <Compile Include="BikeData\BikeSeriesModels.cs" />
+    <Compile Include="BikeData\SimilarBikeList.cs" />
     <Compile Include="BikeData\SimilarBikesByMileage.cs" />
+    <Compile Include="BikeData\SimilarBikesForEMIEntity.cs" />
     <Compile Include="BikeData\SimilarBikesWithPhotos.cs" />
     <Compile Include="BikeData\SimilarBikeUserReview.cs" />
     <Compile Include="BikeData\SimilarBikeWithVideo.cs" />
@@ -238,6 +243,11 @@
     <Compile Include="BikeData\Specifications.cs" />
     <Compile Include="BikeData\Specs.cs" />
     <Compile Include="BikeData\SpecsCategory.cs" />
+    <Compile Include="BikeData\SpecsCustomDataType.cs" />
+    <Compile Include="BikeData\SpecsFeaturesCategory.cs" />
+    <Compile Include="BikeData\SpecsFeaturesEntity.cs" />
+    <Compile Include="BikeData\SpecsFeaturesItem.cs" />
+    <Compile Include="BikeData\SpecsItem.cs" />
     <Compile Include="BikeData\TransposeModelSpecEntity.cs" />
     <Compile Include="BikeData\UpcomingBikeEntity.cs" />
     <Compile Include="BikeData\UpcomingBikeEntityBase.cs" />
@@ -247,6 +257,7 @@
     <Compile Include="BikeData\v2\BikeModelContent.cs" />
     <Compile Include="BikeData\VersionColor.cs" />
     <Compile Include="BikeBooking\FeedBackEntity.cs" />
+    <Compile Include="BikeData\VersionMinSpecsEntity.cs" />
     <Compile Include="BikewalePages.cs" />
     <Compile Include="CMS\Articles\ArticleBase.cs" />
     <Compile Include="CMS\Articles\ArticleDetails.cs" />
@@ -365,6 +376,7 @@
     <Compile Include="Location\GlobalCityAreaEntity.cs" />
     <Compile Include="Location\StateEntityBase.cs" />
     <Compile Include="Location\StateMaskingResponse.cs" />
+    <Compile Include="MakeABTestCookie.cs" />
     <Compile Include="manufacturecampaign\ManufactureCampaignInput.cs" />
     <Compile Include="manufacturecampaign\ManufactureDealer.cs" />
     <Compile Include="MobileAppAlert\AppFCMInput.cs" />

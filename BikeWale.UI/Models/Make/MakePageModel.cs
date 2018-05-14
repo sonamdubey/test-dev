@@ -1,4 +1,5 @@
-﻿using Bikewale.Common;
+﻿using Bikewale.BAL.ApiGateway.Entities.BikeData;
+using Bikewale.Common;
 using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.BikeData.NewLaunched;
@@ -20,6 +21,7 @@ using Bikewale.Interfaces.ServiceCenter;
 using Bikewale.Interfaces.Used;
 using Bikewale.Interfaces.UserReviews;
 using Bikewale.Interfaces.Videos;
+using Bikewale.Models.BikeSeries;
 using Bikewale.Models.CompareBikes;
 using Bikewale.Models.Images;
 using Bikewale.Models.Make;
@@ -68,6 +70,7 @@ namespace Bikewale.Models
         private readonly IPageFilters _pageFilters;
         private readonly IBikeSeries _bikeSeries;
         private uint _makeCategoryId;
+        private bool _newMakePageV1Status;
         public StatusCodes Status { get; set; }
         public MakeMaskingResponse objResponse { get; set; }
         public string RedirectUrl { get; set; }
@@ -84,7 +87,7 @@ namespace Bikewale.Models
         private readonly String _adId_Mobile_New = "1519729632700";
         private readonly String _adPath_Desktop = "/1017752/Bikewale_Make";
         private readonly String _adId_Desktop = "1516179232964";
-        
+
 
         public MakePageModel(string makeMaskingName, IBikeModels<BikeModelEntity, int> objModelEntity, IBikeModelsCacheRepository<int> bikeModelsCache, IBikeMakesCacheRepository bikeMakesCache, ICMSCacheContent articles, ICMSCacheContent expertReviews, IVideos videos, IUsedBikeDetailsCacheRepository cachedBikeDetails, IDealerCacheRepository cacheDealers, IUpcoming upcoming, IBikeCompare compareBikes, IServiceCenter objSC, IUserReviewsCache cacheUserReviews, INewBikeLaunchesBL newLaunchesBL, IPageFilters pageFilters, IBikeSeries bikeSeries)
         {
@@ -177,7 +180,7 @@ namespace Bikewale.Models
 
                 #endregion
 
-                objData.Bikes = _bikeModelsCache.GetMostPopularBikesByMakeWithCityPrice((int)_makeId, cityId);
+                objData.Bikes = _objModelEntity.GetMostPopularBikesByMakeWithCityPrice((int)_makeId, cityId);
 
                 if (objData.Bikes != null && objData.Bikes.Count() > 5)
                 {
@@ -202,6 +205,7 @@ namespace Bikewale.Models
                     objData.SelectedSortingId = 1;
                     objData.SelectedSortingText = "Popular";
                 }
+                
                 BindUpcomingBikes(objData);
                 BindPageMetaTags(objData, objData.Bikes, makeBase);
                 BindCompareBikes(objData, CompareSource, cityId);
@@ -515,15 +519,15 @@ namespace Bikewale.Models
             RecentExpertReviews objExpertReviews = new RecentExpertReviews(TopCountExpertReviews, _makeId, objData.MakeName, _makeMaskingName, _expertReviews, string.Format("{0} Reviews", objData.MakeName));
 
             List<EnumCMSContentType> categoryList = new List<EnumCMSContentType>
-					{
-						EnumCMSContentType.RoadTest
-					};
+                    {
+                        EnumCMSContentType.RoadTest
+                    };
             List<EnumCMSContentSubCategoryType> subCategoryList = new List<EnumCMSContentSubCategoryType>
-					{
-						EnumCMSContentSubCategoryType.Road_Test,
-						EnumCMSContentSubCategoryType.First_Drive,
-						EnumCMSContentSubCategoryType.Long_Term_Report
-					};
+                    {
+                        EnumCMSContentSubCategoryType.Road_Test,
+                        EnumCMSContentSubCategoryType.First_Drive,
+                        EnumCMSContentSubCategoryType.Long_Term_Report
+                    };
             objData.ExpertReviews = objExpertReviews.GetData(categoryList, subCategoryList);
         }
 
@@ -958,6 +962,8 @@ namespace Bikewale.Models
         /// <summary>
         /// Created by : Snehal Dange on 20th Feb 2018
         /// Description: Method created to get relevant filters for a particular make (according to min values of budget,                           displacements and mileage)
+        /// Modified by : Ashutosh Sharma on 29 Mar 2018
+        /// Description: Made changes due to change in Specs features entites.
         /// </summary>
         /// <param name="objData"></param>
         private void BindPageFilters(MakePageVM objData)
@@ -965,29 +971,34 @@ namespace Bikewale.Models
             try
             {
                 CustomInputFilters objInputFilters = null;
-
-                if (objData != null)
+                objData.PageFilters = new FilterPageEntity();
+                objInputFilters = new CustomInputFilters();
+                if (objData.Bikes != null)
                 {
-                    objData.PageFilters = new FilterPageEntity();
-                    objInputFilters = new CustomInputFilters();
-                    if (objData.Bikes != null)
+                    float minDisplacement = Single.MaxValue, tempMinDisplacement,displacementValue;
+                    ushort minMileage = UInt16.MaxValue, tempMinMileage,mileageValue;
+                    long minExShowroomPrice = Int64.MaxValue, tempExShowroomPrice;
+                    IEnumerable<SpecsItem> minSpecList;
+                    foreach (var bike in objData.Bikes)
                     {
-                        var bikes = objData.Bikes;
-                        var nonZeroExshowroom = bikes.Where(x => x.ExShowroomPrice > 0);
-                        var nonZeroDisplacement = bikes.Where(x => x.Specs.Displacement > 0);
-                        var nonZeroMileage = bikes.Where(x => x.Specs.FuelEfficiencyOverall > 0);
-                        objInputFilters.MinPrice = nonZeroExshowroom != null && nonZeroExshowroom.Any() ? nonZeroExshowroom.Min(x => x.ExShowroomPrice) : 0;
-                        objInputFilters.MinDisplacement = nonZeroDisplacement != null && nonZeroDisplacement.Any() ? nonZeroDisplacement.Min(x => x.Specs.Displacement).Value : 0;
-                        objInputFilters.MinMileage = (ushort)(nonZeroMileage != null && nonZeroMileage.Any() ? nonZeroMileage.Min(x => x.Specs.FuelEfficiencyOverall).Value : 0);
-
-
-                        if (_makeCategoryId > 0)
+                        minSpecList = bike.MinSpecsList;
+                        if (minSpecList != null)
                         {
-                            objInputFilters.MakeCategoryId = _makeCategoryId;
+                            tempMinDisplacement = Single.TryParse(minSpecList.SingleOrDefault(s => s.Id == (int)EnumSpecsFeaturesItems.Displacement).Value, out displacementValue) ? displacementValue : 0;
+                            minDisplacement = tempMinDisplacement > 0 && minDisplacement > tempMinDisplacement ? tempMinDisplacement : minDisplacement;
+                            tempMinMileage = (UInt16.TryParse(minSpecList.SingleOrDefault(s => s.Id == (int)EnumSpecsFeaturesItems.FuelEfficiencyOverall).Value, out mileageValue)) ? mileageValue : Convert.ToUInt16(0);
+                            minMileage = tempMinMileage > 0 && minMileage > tempMinMileage ? tempMinMileage : minMileage;
                         }
-                        objData.PageFilters.FilterResults = _pageFilters.GetRelevantPageFilters(objInputFilters).ToList();
+                        tempExShowroomPrice = bike.ExShowroomPrice;
+                        minExShowroomPrice = tempExShowroomPrice > 0 && minExShowroomPrice > tempExShowroomPrice ? tempExShowroomPrice : minExShowroomPrice;
                     }
+                    objInputFilters.MinMileage = minMileage != UInt16.MaxValue ? minMileage : (ushort)0;
+                    objInputFilters.MinPrice = minExShowroomPrice != Int64.MaxValue ? minExShowroomPrice : 0;
+                    objInputFilters.MinDisplacement = minDisplacement <= Single.MaxValue && minDisplacement >= Single.MaxValue ? 0 : minDisplacement;
+                    objInputFilters.MakeCategoryId = _makeCategoryId;
+                    objData.PageFilters.FilterResults = _pageFilters.GetRelevantPageFilters(objInputFilters).ToList();
                 }
+
             }
             catch (Exception ex)
             {
@@ -1022,14 +1033,21 @@ namespace Bikewale.Models
         /// <summary>
         /// Created By : Deepak Israni on 20 March 2018
         /// Description: Overload of GetData function to Bind different ad slots with old and new Make page.
+        /// Modified by : Snehal Dange on 30th April 2018
+        /// Description: Added MakeABTestCookie to get abTestValues
         /// </summary>
         /// <param name="isNew"></param>
         /// <returns></returns>
-        public MakePageVM GetData(bool isNew)
+        public MakePageVM GetData(MakeABTestCookie abTestValues)
         {
+            bool isNew = false;
+            if (abTestValues != null)
+            {
+                isNew = abTestValues.IsNewPage;
+                _newMakePageV1Status = abTestValues.NewMakePageV1Status;
+            }
             MakePageVM objData = GetData();
             BindAdSlots(objData, isNew);
-            
             return objData;
         }
 
@@ -1048,7 +1066,7 @@ namespace Bikewale.Models
                     adTagsObj.AdPath = _adPath_Mobile_Old;
                     adTagsObj.AdId = _adId_Mobile_Old;
                     adTagsObj.Ad_320x50 = true;
-                    adTagsObj.Ad_300x250 = true;
+                    adTagsObj.Ad300x250_Bottom = true;
 
 
                     IDictionary<string, AdSlotModel> ads = new Dictionary<string, AdSlotModel>();
@@ -1059,11 +1077,11 @@ namespace Bikewale.Models
 
                     if (adTagsObj.Ad_320x50)
                     {
-                        ads.Add(String.Format("{0}-0", _adId_Mobile_Old), GoogleAdsHelper.SetAdSlotProperties(adInfo, ViewSlotSize.ViewSlotSizes[AdSlotSize._320x50], 0, 320, AdSlotSize._320x50, "Top", true)); 
+                        ads.Add(String.Format("{0}-0", _adId_Mobile_Old), GoogleAdsHelper.SetAdSlotProperties(adInfo, ViewSlotSize.ViewSlotSizes[AdSlotSize._320x50], 0, 320, AdSlotSize._320x50, "Top", true));
                     }
-                    if (adTagsObj.Ad_300x250)
+                    if (adTagsObj.Ad300x250_Bottom)
                     {
-                        ads.Add(String.Format("{0}-2", _adId_Mobile_Old), GoogleAdsHelper.SetAdSlotProperties(adInfo, ViewSlotSize.ViewSlotSizes[AdSlotSize._300x250], 2, 300, AdSlotSize._300x250)); 
+                        ads.Add(String.Format("{0}-16", _adId_Mobile_Old), GoogleAdsHelper.SetAdSlotProperties(adInfo, ViewSlotSize.ViewSlotSizes[AdSlotSize._300x250], 16, 300, AdSlotSize._300x250, "Bottom"));
                     }
 
                     objData.AdSlots = ads;
@@ -1073,7 +1091,11 @@ namespace Bikewale.Models
                     AdTags adTagsObj = objData.AdTags;
                     adTagsObj.AdId = _adId_Mobile_New;
                     adTagsObj.AdPath = _adPath_Mobile_New;
-                    adTagsObj.Ad_320x100_Top = true;
+                    if (!_newMakePageV1Status)
+                    {
+                        adTagsObj.Ad_320x100_Top = true;
+                    }
+
                     adTagsObj.Ad_300x250_Top = true;
                     adTagsObj.Ad_300x250_Middle = true;
                     adTagsObj.Ad_300x250_Bottom = true;
@@ -1087,26 +1109,26 @@ namespace Bikewale.Models
                     adInfo["adPath"] = _adPath_Mobile_New;
 
 
-                    if (adTagsObj.Ad_320x100_Top)
+                    if (!_newMakePageV1Status && adTagsObj.Ad_320x100_Top)
                     {
-                        ads.Add(String.Format("{0}-3", _adId_Mobile_New), GoogleAdsHelper.SetAdSlotProperties(adInfo, ViewSlotSize.ViewSlotSizes[AdSlotSize._320x100], 3, 320, AdSlotSize._320x100, "Top", true)); 
+                        ads.Add(String.Format("{0}-3", _adId_Mobile_New), GoogleAdsHelper.SetAdSlotProperties(adInfo, ViewSlotSize.ViewSlotSizes[AdSlotSize._320x100], 3, 320, AdSlotSize._320x100, "Top", true));
                     }
                     if (adTagsObj.Ad_300x250_Top)
                     {
-                        ads.Add(String.Format("{0}-1", _adId_Mobile_New), GoogleAdsHelper.SetAdSlotProperties(adInfo, ViewSlotSize.ViewSlotSizes[AdSlotSize._300x250], 1, 300, AdSlotSize._300x250, "Top")); 
+                        ads.Add(String.Format("{0}-1", _adId_Mobile_New), GoogleAdsHelper.SetAdSlotProperties(adInfo, ViewSlotSize.ViewSlotSizes[AdSlotSize._300x250], 1, 300, AdSlotSize._300x250, "Top"));
                     }
                     if (adTagsObj.Ad_300x250_Middle)
                     {
-                        ads.Add(String.Format("{0}-2", _adId_Mobile_New), GoogleAdsHelper.SetAdSlotProperties(adInfo, ViewSlotSize.ViewSlotSizes[AdSlotSize._300x250], 2, 300, AdSlotSize._300x250, "Middle")); 
+                        ads.Add(String.Format("{0}-2", _adId_Mobile_New), GoogleAdsHelper.SetAdSlotProperties(adInfo, ViewSlotSize.ViewSlotSizes[AdSlotSize._300x250], 2, 300, AdSlotSize._300x250, "Middle"));
                     }
 
                     if (adTagsObj.Ad_300x250_Bottom)
                     {
-                        ads.Add(String.Format("{0}-0", _adId_Mobile_New), GoogleAdsHelper.SetAdSlotProperties(adInfo, ViewSlotSize.ViewSlotSizes[AdSlotSize._300x250], 0, 300, AdSlotSize._300x250, "Bottom")); 
+                        ads.Add(String.Format("{0}-0", _adId_Mobile_New), GoogleAdsHelper.SetAdSlotProperties(adInfo, ViewSlotSize.ViewSlotSizes[AdSlotSize._300x250], 0, 300, AdSlotSize._300x250, "Bottom"));
                     }
 
                     objData.AdSlots = ads;
-                } 
+                }
             }
         }
 
@@ -1124,7 +1146,7 @@ namespace Bikewale.Models
             adTagsObj.Ad_Model_BTF_300x250 = true;
             adTagsObj.Ad_Top_300x250 = true;
             adTagsObj.Ad_970x90Bottom = true;
-            adTagsObj.Ad_970x90 = true;
+            adTagsObj.Ad_970x90Top = true;
 
             IDictionary<string, AdSlotModel> ads = new Dictionary<string, AdSlotModel>();
 
@@ -1148,9 +1170,9 @@ namespace Bikewale.Models
             {
                 ads.Add(String.Format("{0}-5", _adId_Desktop), GoogleAdsHelper.SetAdSlotProperties(adInfo, ViewSlotSize.ViewSlotSizes[AdSlotSize._970x90 + "_C"], 5, 970, AdSlotSize._970x90, "Bottom"));
             }
-            if (adTagsObj.Ad_970x90)
+            if (adTagsObj.Ad_970x90Top)
             {
-                ads.Add(String.Format("{0}-3", _adId_Desktop), GoogleAdsHelper.SetAdSlotProperties(adInfo, ViewSlotSize.ViewSlotSizes[AdSlotSize._970x90 + "_C"], 3, 970, AdSlotSize._970x90, true));
+                ads.Add(String.Format("{0}-19", _adId_Desktop), GoogleAdsHelper.SetAdSlotProperties(adInfo, ViewSlotSize.ViewSlotSizes[AdSlotSize._970x90 + "_C"], 19, 970, AdSlotSize._970x90, "Top", true));
             }
 
             objData.AdSlots = ads;

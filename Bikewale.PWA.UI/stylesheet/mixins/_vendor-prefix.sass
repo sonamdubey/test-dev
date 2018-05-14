@@ -1,0 +1,7 @@
+$webkit-property: ('animation', 'transform', 'transition'); //## Property list that requirs webkit vendor prefix
+
+@mixin vendor-prefix($property, $value)
+	@if contains($webkit-property, $property)
+		-webkit-#{$property}: #{$value}
+
+	#{$property}: #{$value}

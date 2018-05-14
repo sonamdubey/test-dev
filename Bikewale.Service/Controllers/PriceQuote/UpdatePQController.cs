@@ -175,7 +175,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
             }
             catch (Exception ex)
             {
-                ErrorClass.LogError(ex, "Exception : Bikewale.Service.Controllers.PriceQuote.UpdatePQController.Put");
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.Controllers.PriceQuote.UpdatePQController.Post");
                
                 return InternalServerError();
             }
@@ -394,7 +394,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
             }
             catch (Exception ex)
             {
-                ErrorClass.LogError(ex, "Exception : Bikewale.Service.Controllers.PriceQuote.UpdatePQController.Put");
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.Controllers.PriceQuote.UpdatePQController.Post");
                
                 return InternalServerError();
             }

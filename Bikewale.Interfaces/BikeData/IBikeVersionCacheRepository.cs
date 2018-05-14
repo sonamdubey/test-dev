@@ -11,6 +11,9 @@ namespace Bikewale.Interfaces.BikeData
     /// Description :   Added method to get versions colors by version id
     /// Modified by : Ashutosh Sharma on 26 Dec 2017
     /// Description : Added GetSpecifications.
+    /// Modified by :   Rajan Chauhan on 11 Apr 2017
+    /// Description :   Removed GetSpecifications.
+    /// Modifier    : Kartik Rathod on 11 May 2018, added GetSimilarBikesForEMI
     /// </summary>
     public interface IBikeVersionCacheRepository<T, U>
     {
@@ -20,9 +23,9 @@ namespace Bikewale.Interfaces.BikeData
         IEnumerable<SimilarBikeEntity> GetSimilarBikesByMinPriceDiff(U modelId, uint topCount, uint cityid);
         List<BikeVersionsListEntity> GetVersionsByType(EnumBikeType requestType, int modelId, int? cityId = null);
         T GetById(U versionId);
-        List<BikeVersionMinSpecs> GetVersionMinSpecs(uint modelId, bool isNew);
+        IEnumerable<BikeVersionMinSpecs> GetVersionMinSpecs(uint modelId, bool isNew);
         IEnumerable<BikeColorsbyVersion> GetColorsbyVersionId(uint versionId);
-        TransposeModelSpecEntity GetSpecifications(U versionId);
         IEnumerable<BikeVersionWithMinSpec> GetDealerVersionsByModel(uint dealerId, uint modelId);
+        IEnumerable<SimilarBikesForEMIEntity> GetSimilarBikesForEMI(int modelId, byte topcount, int cityId);
     }
 }

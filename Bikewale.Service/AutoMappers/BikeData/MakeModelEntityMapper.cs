@@ -19,6 +19,13 @@ namespace Bikewale.Service.AutoMappers.BikeData
             return Mapper.Map<List<BikeMakeModelEntity>, List<BikeMakeModel>>(entity);
         }
 
+        public static IEnumerable<MakeModelList> Convert(IEnumerable<MakeModelListEntity> entity)
+        {
+            Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
+            Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
+            Mapper.CreateMap<MakeModelListEntity, MakeModelList>();
+            return Mapper.Map<IEnumerable<MakeModelListEntity>, IEnumerable<MakeModelList>>(entity);
+        }
         internal static IEnumerable<MakeModelBase> Convert(IEnumerable<BikeMakeModelBase> enumerable)
         {
             if (enumerable != null)
@@ -40,12 +47,33 @@ namespace Bikewale.Service.AutoMappers.BikeData
 
         public static IEnumerable<MostPopularBikes> Convert(IEnumerable<MostPopularBikesBase> objModelList)
         {
-            Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
-            Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
-            Mapper.CreateMap<BikeVersionsListEntity, VersionBase>();
-            Mapper.CreateMap<MinSpecsEntity, MinSpecs>();
-            Mapper.CreateMap<MostPopularBikesBase, MostPopularBikes>();
-            return Mapper.Map<IEnumerable<MostPopularBikesBase>, IEnumerable<MostPopularBikes>>(objModelList);
+            if (objModelList != null)
+            {
+                Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
+                Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
+                Mapper.CreateMap<BikeVersionsListEntity, VersionBase>();
+                Mapper.CreateMap<MostPopularBikesBase, MostPopularBikes>();
+                IEnumerable<MostPopularBikes> objModelListDto = Mapper.Map<IEnumerable<MostPopularBikesBase>, IEnumerable<MostPopularBikes>>(objModelList);
+                if (objModelListDto != null)
+                {
+                    SpecsFeaturesMapper.ConvertToMostPopularBikes(objModelListDto, objModelList);
+                }
+                return objModelListDto;
+            }
+            return null;
+        }
+
+        public static IEnumerable<MostPopularBikes> ConvertWithoutMinSpec(IEnumerable<MostPopularBikesBase> objModelList)
+        {
+            if (objModelList != null)
+            {
+                Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
+                Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
+                Mapper.CreateMap<BikeVersionsListEntity, VersionBase>();
+                Mapper.CreateMap<MostPopularBikesBase, MostPopularBikes>();
+                return Mapper.Map<IEnumerable<MostPopularBikesBase>, IEnumerable<MostPopularBikes>>(objModelList);
+            }
+            return null;
         }
     }
 }

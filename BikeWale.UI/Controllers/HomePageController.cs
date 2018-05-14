@@ -1,4 +1,5 @@
-﻿using Bikewale.Entities.BikeData;
+﻿using Bikewale.BAL.ApiGateway.ApiGatewayHelper;
+using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Compare;
 using Bikewale.Filters;
 using Bikewale.Interfaces.AdSlot;
@@ -42,12 +43,13 @@ namespace Bikewale.Controllers
         private readonly IUserReviewsCache _userReviewsCache = null;
         private readonly IUpcoming _upcoming = null;
         private readonly IAdSlot _adSlot = null;
+        private readonly IApiGatewayCaller _apiGatewayCaller;
 
         /// <summary>
         /// Modified by : Ashutosh Sharma on 31 Oct 2017
         /// Description : Added IAdSlot.
         /// </summary>
-        public HomePageController(IBikeMakesCacheRepository bikeMakes, INewBikeLaunchesBL newLaunches, IBikeModels<BikeModelEntity, int> bikeModels, ICityCacheRepository usedBikeCities, IHomePageBannerCacheRepository cachedBanner, IBikeModelsCacheRepository<int> cachedModels, IBikeCompare compare, IUsedBikeDetailsCacheRepository cachedBikeDetails, IVideos videos, ICMSCacheContent articles, IUpcoming upcoming, IUserReviewsCache userReviewsCache, IAdSlot adSlot)
+        public HomePageController(IBikeMakesCacheRepository bikeMakes, INewBikeLaunchesBL newLaunches, IBikeModels<BikeModelEntity, int> bikeModels, ICityCacheRepository usedBikeCities, IHomePageBannerCacheRepository cachedBanner, IBikeModelsCacheRepository<int> cachedModels, IBikeCompare compare, IUsedBikeDetailsCacheRepository cachedBikeDetails, IVideos videos, ICMSCacheContent articles, IUpcoming upcoming, IUserReviewsCache userReviewsCache, IAdSlot adSlot, IApiGatewayCaller apiGatewayCaller)
         {
             _bikeMakes = bikeMakes;
             _bikeModels = bikeModels;
@@ -62,6 +64,7 @@ namespace Bikewale.Controllers
             _userReviewsCache = userReviewsCache;
             _upcoming = upcoming;
             _adSlot = adSlot;
+            _apiGatewayCaller = apiGatewayCaller;
         }
         // GET: HomePage
         //[Route("homepage/")]
@@ -75,7 +78,7 @@ namespace Bikewale.Controllers
         public ActionResult Index()
         {
             HomePageVM objData = null;
-            HomePageModel obj = new HomePageModel(10, 9, 9, _bikeMakes, _newLaunches, _bikeModels, _usedBikeCities, _cachedBanner, _cachedModels, _compare, _cachedBikeDetails, _videos, _articles, _upcoming, _userReviewsCache, _adSlot);
+            HomePageModel obj = new HomePageModel(10, 9, 9, _bikeMakes, _newLaunches, _bikeModels, _usedBikeCities, _cachedBanner, _cachedModels, _compare, _cachedBikeDetails, _videos, _articles, _upcoming, _userReviewsCache, _adSlot, _apiGatewayCaller);
             obj.CompareSource = CompareSources.Desktop_Featured_Compare_Widget;
             objData = obj.GetData();
             return View(objData);
@@ -91,7 +94,7 @@ namespace Bikewale.Controllers
         [Route("m/homepage/")]
         public ActionResult Index_Mobile()
         {
-            HomePageVM objData = null; HomePageModel obj = new HomePageModel(6, 9, 9, _bikeMakes, _newLaunches, _bikeModels, _usedBikeCities, _cachedBanner, _cachedModels, _compare, _cachedBikeDetails, _videos, _articles, _upcoming, _userReviewsCache, _adSlot);
+            HomePageVM objData = null; HomePageModel obj = new HomePageModel(6, 9, 9, _bikeMakes, _newLaunches, _bikeModels, _usedBikeCities, _cachedBanner, _cachedModels, _compare, _cachedBikeDetails, _videos, _articles, _upcoming, _userReviewsCache, _adSlot, _apiGatewayCaller);
             obj.IsMobile = true;
             obj.CompareSource = CompareSources.Mobile_Featured_Compare_Widget;
             objData = obj.GetData();

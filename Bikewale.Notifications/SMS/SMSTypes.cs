@@ -5,6 +5,7 @@ using Bikewale.Notifications.NotificationDAL;
 using Bikewale.Utility;
 using System;
 using System.Configuration;
+using System.Text;
 using System.Web;
 
 namespace Bikewale.Notifications
@@ -654,8 +655,33 @@ namespace Bikewale.Notifications
 
                 var shortUrlObj = objUrlShortner.GetShortUrl(string.Format("https://maps.google.com/?saddr=&daddr={0},{1}", objSMSData.Latitude, objSMSData.Longitude));
                 string shortUrl = shortUrlObj != null ? shortUrlObj.ShortUrl : "";
-                string message = String.Format("{1}{0}{2},{0}+91-{3}{0}{4}Thanks for visiting BikeWale.", Environment.NewLine, objSMSData.Name,
-                    objSMSData.Address, objSMSData.Phone, (!string.IsNullOrEmpty(shortUrl) ? string.Format("Get Directions-{1}{0}", Environment.NewLine, shortUrl) : ""));
+                StringBuilder messageBuilder = new StringBuilder();
+                if (!String.IsNullOrEmpty(objSMSData.Name))
+                {
+                    messageBuilder.Append(objSMSData.Name);
+                    messageBuilder.Append(",");
+                    messageBuilder.Append(Environment.NewLine);
+                }
+                if (!String.IsNullOrEmpty(objSMSData.Address))
+                {
+                    messageBuilder.Append(objSMSData.Address);
+                    messageBuilder.Append(",");
+                    messageBuilder.Append(Environment.NewLine);
+                }
+                if (!String.IsNullOrEmpty(objSMSData.Phone))
+                {
+                    messageBuilder.Append("+91-");
+                    messageBuilder.Append(objSMSData.Phone);
+                    messageBuilder.Append(Environment.NewLine);
+                }
+                if (!string.IsNullOrEmpty(shortUrl))
+                {
+                    messageBuilder.Append("Get Directions-");
+                    messageBuilder.Append(shortUrl);
+                    messageBuilder.Append(Environment.NewLine);
+                }
+                messageBuilder.Append("Thanks for visiting BikeWale.");
+                string message = messageBuilder.ToString();
 
                 EnumSMSServiceType esms = EnumSMSServiceType.ServiceCenterDetailsSMSToCustomer;
                 SMSCommon sc = new SMSCommon();
@@ -725,11 +751,47 @@ namespace Bikewale.Notifications
 
                 var shortUrlObj = objUrlShortner.GetShortUrl(string.Format("https://maps.google.com/?saddr=&daddr={0},{1}", objSMSData.Latitude, objSMSData.Longitude));
                 string shortUrl = shortUrlObj != null ? shortUrlObj.ShortUrl : "";
-                
-                string message = String.Format("{1},{0}{2},{3},{4}-{5}{0}+91-{6}{0}{7}Thanks for visiting BikeWale.", Environment.NewLine,
-                    objSMSData.Name,objSMSData.Address,objSMSData.Area,objSMSData.CityName,objSMSData.PinCode,objSMSData.Phone,
-                    (!string.IsNullOrEmpty(shortUrl) ? string.Format("Get Directions-{1}{0}", Environment.NewLine, shortUrl) : ""));
-                    
+                StringBuilder messageBuilder = new StringBuilder();
+                if (!String.IsNullOrEmpty(objSMSData.Name))
+                {
+                    messageBuilder.Append(objSMSData.Name);
+                    messageBuilder.Append(",");
+                    messageBuilder.Append(Environment.NewLine);
+                }
+                if (!String.IsNullOrEmpty(objSMSData.Address))
+                {
+                    messageBuilder.Append(objSMSData.Address);
+                    messageBuilder.Append(",");
+                }
+                if (!String.IsNullOrEmpty(objSMSData.Area))
+                {
+                    messageBuilder.Append(objSMSData.Area);
+                    messageBuilder.Append(",");
+                }
+                if (!String.IsNullOrEmpty(objSMSData.CityName))
+                {
+                    messageBuilder.Append(objSMSData.CityName);
+                    messageBuilder.Append("-");
+                }
+                if (!String.IsNullOrEmpty(objSMSData.PinCode))
+                {
+                    messageBuilder.Append(objSMSData.PinCode);
+                    messageBuilder.Append(Environment.NewLine);
+                }
+                if (!String.IsNullOrEmpty(objSMSData.Phone))
+                {
+                    messageBuilder.Append("+91-");
+                    messageBuilder.Append(objSMSData.Phone);
+                    messageBuilder.Append(Environment.NewLine);
+                }
+                if (!string.IsNullOrEmpty(shortUrl))
+                {
+                    messageBuilder.Append("Get Directions-");
+                    messageBuilder.Append(shortUrl);
+                    messageBuilder.Append(Environment.NewLine);
+                }
+                messageBuilder.Append("Thanks for visiting BikeWale.");
+                string message = messageBuilder.ToString();                    
 
                 EnumSMSServiceType esms = EnumSMSServiceType.DealerShowroomDetailsSMSToCustomer;
                 SMSCommon sc = new SMSCommon();
