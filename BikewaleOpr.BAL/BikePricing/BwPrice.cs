@@ -95,9 +95,9 @@ namespace BikewaleOpr.BAL.BikePricing
         {
             string versions = ParseInput(versionIds, new string[] { "#c0l#", "|r0w|" }, 4);
             string cities = ParseInput(cityIds, new string[] { "|r0w|" }, 1);
-            string models = _bikeModelsRepository.GetModelsByVersions(versions);
+            string models = _bikeModelsRepository.GetModelsByVersions(versions);            
 
-            IList<ModelPriceDocument> indexDocs = _showroomPricesRepository.GetModelPriceDocument(models, cities);
+            #region Update Bike Index
 
             NameValueCollection packet = new NameValueCollection();
             packet["ids"] = models;
@@ -107,17 +107,20 @@ namespace BikewaleOpr.BAL.BikePricing
 
             BWESDocumentBuilder.PushToQueue(packet);
 
-            foreach (ModelPriceDocument doc in indexDocs)
-            {
-                NameValueCollection nvc = new NameValueCollection();
-                nvc["indexName"] = BWOprConfiguration.Instance.BikeModelPriceIndex;
-                nvc["documentType"] = "modelpricedocument";
-                nvc["documentId"] = doc.Id;
-                nvc["operationType"] = "update";
-                nvc["documentJson"] = JsonConvert.SerializeObject(doc);
+            #endregion
 
-                BWESIndexUpdater.PushToQueue(nvc);
-            }
+            #region Update Pricing Index
+
+            NameValueCollection nvc = new NameValueCollection();
+            nvc["indexName"] = BWOprConfiguration.Instance.BikeModelPriceIndex;
+            nvc["modelIds"] = models;
+            nvc["cityIds"] = cities;
+            nvc["documentType"] = "modelpricedocument";
+            nvc["operationType"] = "update";
+
+            BWESDocumentBuilder.PushToQueue(nvc);
+
+            #endregion
 
             var modelIds = models.Split(',').Distinct();
             var cityIdList = cities.Split(',').Distinct();
@@ -136,27 +139,29 @@ namespace BikewaleOpr.BAL.BikePricing
         /// <param name="cityIds"></param>
         public void CreateModelPriceDocument(string modelIds, string cityIds)
         {
-            IList<ModelPriceDocument> indexDocs = _showroomPricesRepository.GetModelPriceDocument(modelIds, cityIds);
 
+            #region Update BikeIndex
             NameValueCollection packet = new NameValueCollection();
             packet["ids"] = modelIds;
             packet["indexName"] = BWOprConfiguration.Instance.BikeModelIndex;
             packet["documentType"] = "bikemodeldocument";
             packet["operationType"] = "update";
+            BWESDocumentBuilder.PushToQueue(packet); 
+            #endregion
 
-            BWESDocumentBuilder.PushToQueue(packet);
 
-            foreach (ModelPriceDocument doc in indexDocs)
-            {
-                NameValueCollection nvc = new NameValueCollection();
-                nvc["indexName"] = BWOprConfiguration.Instance.BikeModelPriceIndex;
-                nvc["documentType"] = "modelpricedocument";
-                nvc["documentId"] = doc.Id;
-                nvc["operationType"] = "insert";
-                nvc["documentJson"] = JsonConvert.SerializeObject(doc);
+            #region Update BikePriceIndex
+            NameValueCollection packetBikeModelPriceIndex = new NameValueCollection();
+            packetBikeModelPriceIndex["modelIds"] = modelIds;
+            packetBikeModelPriceIndex["cityIds"] = cityIds;
+            packetBikeModelPriceIndex["indexName"] = BWOprConfiguration.Instance.BikeModelPriceIndex;
+            packetBikeModelPriceIndex["documentType"] = "modelpricedocument";
+            packetBikeModelPriceIndex["operationType"] = "insert";
 
-                BWESIndexUpdater.PushToQueue(nvc);
-            }
+            BWESDocumentBuilder.PushToQueue(packetBikeModelPriceIndex); 
+            #endregion
+
+            
         }
 
 

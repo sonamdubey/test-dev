@@ -1,10 +1,15 @@
-﻿using Bikewale.BAL.Dealer;
+﻿using Bikewale.BAL.ApiGateway.ApiGatewayHelper;
+using Bikewale.BAL.Dealer;
+using Bikewale.Cache.Core;
+using Bikewale.Cache.DealersLocator;
 using Bikewale.Common;
 using Bikewale.DAL.Dealer;
 using Bikewale.DAL.Location;
 using Bikewale.Entities.Location;
+using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Interfaces.Location;
+using Carwale.DAL.Dealers;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
@@ -64,7 +69,10 @@ namespace Bikewale.BikeBooking
                 using (IUnityContainer container = new UnityContainer())
                 {
                     container.RegisterType<IDealer, Dealer>()
-                        .RegisterType<IDealerRepository, DealersRepository>();
+                        .RegisterType<IDealerRepository, DealersRepository>()
+                        .RegisterType<IDealerCacheRepository, DealerCacheRepository>()
+                        .RegisterType<IApiGatewayCaller, ApiGatewayCaller>()
+                        .RegisterType<ICacheManager, MemcacheManager>();
                     IDealer _objDealerPricequote = container.Resolve<IDealer>();
 
                     bookingCities = _objDealerPricequote.GetDealersBookingCitiesList();

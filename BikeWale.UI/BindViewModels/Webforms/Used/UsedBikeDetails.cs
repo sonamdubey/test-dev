@@ -1,12 +1,17 @@
-﻿using Bikewale.Cache.Core;
+﻿using Bikewale.BAL.ApiGateway.Adapters.BikeData;
+using Bikewale.BAL.ApiGateway.ApiGatewayHelper;
+using Bikewale.BAL.ApiGateway.Entities.BikeData;
+using Bikewale.Cache.Core;
 using Bikewale.Cache.Used;
 using Bikewale.DAL.Used;
+using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Used;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Used;
 using Bikewale.Notifications;
 using Microsoft.Practices.Unity;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
@@ -35,6 +40,7 @@ namespace Bikewale.BindViewModels.Webforms.Used
         public bool IsAdUserLoggedIn { get; set; }
         public string ProfileId { get; set; }
         private string _customerId = string.Empty;
+        private IApiGatewayCaller _apiGatewayCaller;
 
         /// <summary>
         /// Created By : Sushil Kumar on 17th August 2016
@@ -68,6 +74,7 @@ namespace Bikewale.BindViewModels.Webforms.Used
         /// Description : Bind profile details for the used bike
         /// Modified By : Sushil Kumar on 17th August 2016
         /// Description : Redirect to pageNOt found if listing is not approved and not sold and not an ad user (IsPageNotFoundRedirection = (InquiryDetails.AdStatus != 1 && !IsBikeSold) && !IsAdUserLoggedIn)
+        /// Modified By : Rajan Chauhan added TyreType in place of BrakeType (removed field)
         /// </summary>
         private void GetProfileDetails()
         {
@@ -78,10 +85,48 @@ namespace Bikewale.BindViewModels.Webforms.Used
                     container.RegisterType<IUsedBikeDetailsCacheRepository, UsedBikeDetailsCache>()
                              .RegisterType<ICacheManager, MemcacheManager>()
                              .RegisterType<IUsedBikeDetails, UsedBikeDetailsRepository>()
+                             .RegisterType<IApiGatewayCaller, ApiGatewayCaller>()
                             ;
                     var objCache = container.Resolve<IUsedBikeDetailsCacheRepository>();
+                    _apiGatewayCaller = container.Resolve<IApiGatewayCaller>();
 
                     InquiryDetails = objCache.GetProfileDetails(InquiryId);
+                    if (InquiryDetails != null)
+                    {
+                        GetVersionSpecsSummaryByItemIdAdapter adapt = new GetVersionSpecsSummaryByItemIdAdapter();
+                        VersionsDataByItemIds_Input specItemInput = new VersionsDataByItemIds_Input
+                        {
+                            Versions = new List<int>() { InquiryDetails.Version.VersionId },
+                            Items = new List<EnumSpecsFeaturesItems> {
+                                EnumSpecsFeaturesItems.Displacement,
+                                EnumSpecsFeaturesItems.MaxPower,
+                                EnumSpecsFeaturesItems.MaximumTorque,
+                                EnumSpecsFeaturesItems.NoOfGears,
+                                EnumSpecsFeaturesItems.FuelEfficiencyOverall,
+                                EnumSpecsFeaturesItems.TyreType,
+                                EnumSpecsFeaturesItems.FrontBrakeType,
+                                EnumSpecsFeaturesItems.RearBrakeType,
+                                EnumSpecsFeaturesItems.WheelType,
+                                EnumSpecsFeaturesItems.KerbWeight,
+                                EnumSpecsFeaturesItems.TopSpeed,
+                                EnumSpecsFeaturesItems.FuelTankCapacity,
+                                EnumSpecsFeaturesItems.Speedometer,
+                                EnumSpecsFeaturesItems.FuelGuage,
+                                EnumSpecsFeaturesItems.Tachometer,
+                                EnumSpecsFeaturesItems.DigitalFuelGuage,
+                                EnumSpecsFeaturesItems.TripmeterType,
+                                EnumSpecsFeaturesItems.StartType,
+                            }
+                        };
+                        adapt.AddApiGatewayCall(_apiGatewayCaller, specItemInput);
+                        _apiGatewayCaller.Call();
+                        IEnumerable<VersionMinSpecsEntity> minSpecs = adapt.Output;
+                        if (minSpecs != null && minSpecs.FirstOrDefault() != null && minSpecs.FirstOrDefault().MinSpecsList != null)
+                        {
+                            IEnumerable<SpecsItem> minSpecsList = minSpecs.FirstOrDefault().MinSpecsList;
+                            InquiryDetails.VersionMinSpecs = minSpecsList.ToList();
+                        }
+                    }
                     if (InquiryDetails != null && InquiryDetails.MinDetails != null)
                     {
 

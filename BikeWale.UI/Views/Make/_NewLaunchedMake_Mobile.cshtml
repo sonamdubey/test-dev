@@ -29,7 +29,7 @@
                                                     <h3 class="card-detail__name" title="@bikeName">@bike.Model.ModelName</h3>
                                                     <p class="card-detail__launch-date">Launch Date: @string.Format("{0}", FormatDate.GetFormatDate(bike.LaunchedOn.ToString(), "dd MMM yyyy"))</p>
                                                     <ul class="card-detail__specs-list">
-                                                        @Html.Raw(Bikewale.Utility.FormatMinSpecs.GetMinSpecsAsLiElement(Convert.ToString(bike.MinSpecs.Displacement), Convert.ToString(bike.MinSpecs.FuelEfficiencyOverall), Convert.ToString(bike.MinSpecs.MaxPower), Convert.ToString(bike.MinSpecs.KerbWeight)))
+                                                        @Html.Raw(Bikewale.Utility.FormatMinSpecs.GetMinSpecsLiElements(bike.MinSpecsList))
                                                     </ul>
                                             </div>
                                         </a>
@@ -107,7 +107,7 @@
                                                         <h3 class="card-detail__name" title="@bikeName">@bike.Model.ModelName</h3>
                                                         <p class="card-detail__launch-date">Launch Date: @string.Format("{0}", FormatDate.GetFormatDate(bike.LaunchedOn.ToString(), "dd MMM yyyy"))</p>
                                                         <ul class="card-detail__specs-list">
-                                                            @Html.Raw(Bikewale.Utility.FormatMinSpecs.GetMinSpecsAsLiElement(Convert.ToString(bike.MinSpecs.Displacement), Convert.ToString(bike.MinSpecs.FuelEfficiencyOverall), Convert.ToString(bike.MinSpecs.MaxPower), Convert.ToString(bike.MinSpecs.KerbWeight)))
+                                                            @Html.Raw(Bikewale.Utility.FormatMinSpecs.GetMinSpecsLiElements(bike.MinSpecsList))
                                                         </ul>
                                                     </div>
                                                 </a>

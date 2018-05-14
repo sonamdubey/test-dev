@@ -7,6 +7,10 @@ using System.Linq;
 
 namespace Bikewale.DAL.CoreDAL
 {
+    /// <summary>
+    /// Created by  :   Pratibha Verma on 9 April 2018
+    /// Description :   client for ES created
+    /// </summary>
     public sealed class ElasticSearchInstance
     {
         private static readonly ElasticSearchInstance _clientInstance = new ElasticSearchInstance();

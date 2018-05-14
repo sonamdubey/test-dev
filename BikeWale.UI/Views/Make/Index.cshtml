@@ -1,7 +1,10 @@
 ﻿@model Bikewale.Models.MakePageVM
+@using Bikewale.Entities.BikeData
+@using Bikewale.BAL.ApiGateway.Entities.BikeData
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/brand.css' inline /> <link rel='stylesheet' type='text/css' href='/css/components/m-brand-logo.css' inline /> <link rel='stylesheet' type='text/css' href='/sass/partials/photo-grid-carousel.css' inline />";
+	Model.Page_BTF_CSS_Path = "/sass/partials/explore-bikes-carousel.css";
     Model.Page_JS_Paths = new string[] { "/src/new/bikemake.js", "/src/review-popup.js" };
 
 }
@@ -35,6 +38,7 @@
                     <div class="clear"></div>
                 </div>
             }
+
             @if (Model.Bikes != null && Model.Bikes.Count() > 0)
             {
                 <section id="bikeMakeList" class="bw-model-tabs-data">
@@ -68,61 +72,93 @@
                     </div>
                     <div class="content-box-shadow padding-top25 padding-left20 rounded-corner2 inner-content-card section-bottom-margin">
 
-                        @if (Model.Bikes != null && Model.Bikes.Count() > 0)
-                        {
+			@if (Model.Bikes != null && Model.Bikes.Count() > 0)
+			{
+			<ul id="listitems" class="listitems">
+				@foreach (var bike in Model.Bikes)
+				{
+					var modelUrl = Bikewale.Utility.UrlFormatter.BikePageUrl(bike.objMake.MaskingName, bike.objModel.MaskingName);
+					var bikeName = string.Format("{0} {1}", bike.objMake.MakeName, bike.objModel.ModelName);
+					var mileage = "0";
+					if (bike.MinSpecsList != null)
+					{
+						SpecsItem specItem = bike.MinSpecsList.FirstOrDefault(s => s.Id == (int)EnumSpecsFeaturesItems.FuelEfficiencyOverall);
+						if (specItem != null)
+						{
+							mileage = specItem.Value;
+						}
+					}
+					<li class="front" data-price="@bike.VersionPrice" data-mileage="@mileage" data-popularity="@bike.BikePopularityIndex" data-bike="@bikeName">
+						<div class="contentWrapper">
+							<div class="imageWrapper">
+								<a class="modelurl" href='@modelUrl'>
+									<img src="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath, bike.HostURL, Bikewale.Utility.ImageSize._310x174, Bikewale.Utility.QualityFactor._75)" title="@bikeName" alt="@bike.objModel.ModelName" />
+								</a>
+							</div>
+							<div class="bikeDescWrapper">
+								<h3 class="bikeTitle margin-bottom10"><a class="modelurl" href='@modelUrl'>@bikeName</a></h3>
+								<div class="text-xt-light-grey font14 margin-bottom15">
+									@Html.Raw(Bikewale.Utility.FormatMinSpecs.GetMinSpecsSpanElements(bike.MinSpecsList))
+								</div>
+								@if (bike.ExShowroomPrice > 0)
+								{
+									<div class="font14 text-light-grey margin-bottom5">@string.Format("Ex-showroom, {0}", Model.City.CityId == 0 ? Bikewale.Utility.BWConfiguration.Instance.DefaultName : Model.City.City)</div>
+								}
+								else
+								{
+									<div class="font14 text-light-grey margin-bottom5">
+										<span class="margin-right5">Avg. Ex-showroom price</span>
+										<span class="bwsprite info-icon tooltip-icon-target tooltip-top">
+											<span class="bw-tooltip info-tooltip">
+												<span class="bw-tooltip-text">Price is not available in @Model.City.City</span>
+											</span>
+										</span>
+									</div>
+								}
+								<div class="text-bold">
+									@if (bike.AvgPrice == 0)
+									{ @Html.Raw("<span class='font16'>Price Unavailable</span>");
+									}
+									else
+									{ @Html.Raw(String.Format(" <span class='font18'>&#x20B9;</span>&nbsp;<span class='font18'>{0}</span><span class='font14'> onwards</span>", Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.ExShowroomPrice > 0 ? bike.ExShowroomPrice : bike.AvgPrice))));
+									}
+								</div>
+								@if (bike.VersionPrice > 0)
+								{
+									<a rel="nofollow" href="Javascript:void(0)" data-pagecatid="1" data-pqsourceid="@((int)Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_MakePage)" data-makename="@bike.objMake.MakeName" data-modelname="@bike.objModel.ModelName" data-modelid="@bike.objModel.ModelId" class="btn btn-grey btn-sm margin-top15 font14 getquotation">Check on-road price</a>
+								}
+							</div>
+						</div>
+					</li>
+				}
+			</ul>
+			}
+			</div>
 
-                            <ul id="listitems" class="listitems">
-                                @foreach (var bike in Model.Bikes)
-                                {
-                                    var modelUrl = Bikewale.Utility.UrlFormatter.BikePageUrl(bike.objMake.MaskingName, bike.objModel.MaskingName);
-                                    var bikeName = string.Format("{0} {1}", bike.objMake.MakeName, bike.objModel.ModelName);
-                                    <li class="front" data-price="@bike.VersionPrice" data-mileage="@bike.Specs.FuelEfficiencyOverall" data-popularity="@bike.BikePopularityIndex" data-bike="@bikeName">
-                                        <div class="contentWrapper">
-                                            <div class="imageWrapper">
-                                                <a class="modelurl" href='@modelUrl'>
-                                                    <img src="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath, bike.HostURL, Bikewale.Utility.ImageSize._310x174, Bikewale.Utility.QualityFactor._75)" title="@bikeName" alt="@bike.objModel.ModelName" />
-                                                </a>
-                                            </div>
-                                            <div class="bikeDescWrapper">
-                                                <h3 class="bikeTitle margin-bottom10"><a class="modelurl" href='@modelUrl'>@bikeName</a></h3>
-                                                <div class="text-xt-light-grey font14 margin-bottom15">
-                                                    @Html.Raw(Bikewale.Utility.FormatMinSpecs.GetMinSpecs(Convert.ToString(bike.Specs.Displacement), Convert.ToString(bike.Specs.FuelEfficiencyOverall), Convert.ToString(bike.Specs.MaxPower), Convert.ToString(bike.Specs.KerbWeight)))
-                                                </div>
-                                                @if (bike.ExShowroomPrice > 0)
-                                                {
-                                                    <div class="font14 text-light-grey margin-bottom5">@string.Format("Ex-showroom, {0}", Model.City.CityId == 0 ? Bikewale.Utility.BWConfiguration.Instance.DefaultName : Model.City.City)</div>
-                                                }
-                                                else
-                                                {
-                                                    <div class="font14 text-light-grey margin-bottom5">
-                                                        <span class="margin-right5">Avg. Ex-showroom price</span>
-                                                        <span class="bwsprite info-icon tooltip-icon-target tooltip-top">
-                                                            <span class="bw-tooltip info-tooltip">
-                                                                <span class="bw-tooltip-text">Price is not available in @Model.City.City</span>
-                                                            </span>
-                                                        </span>
-                                                    </div>
-                                                }
-                                                <div class="text-bold">
-                                                    @if (bike.AvgPrice == 0)
-                                                    { @Html.Raw("<span class='font16'>Price Unavailable</span>");
-                                                    }
-                                                    else
-                                                    { @Html.Raw(String.Format(" <span class='font18'>&#x20B9;</span>&nbsp;<span class='font18'>{0}</span><span class='font14'> onwards</span>", Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.ExShowroomPrice > 0 ? bike.ExShowroomPrice : bike.AvgPrice))));
-                                                    }
-                                                </div>
-                                                @if (bike.VersionPrice > 0)
-                                                {
-                                                    <a rel="nofollow" href="Javascript:void(0)" data-pagecatid="1" data-pqsourceid="@((int)Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_MakePage)" data-makename="@bike.objMake.MakeName" data-modelname="@bike.objModel.ModelName" data-modelid="@bike.objModel.ModelId" class="btn btn-grey btn-sm margin-top15 font14 getquotation">Check on-road price</a>
-                                                }
-                                            </div>
-                                        </div>
-                                    </li>
-                                }
-                            </ul>
-                        }
+                </section>
+            }
+
+            @if (Model.SeriesLinkages.MakeSeriesList != null && Model.SeriesLinkages.MakeSeriesList.Any())
+            {
+                <section class="explore-bikes-carousel--default">
+                    <div class="content-box-shadow bg-white section-bottom-margin">
+                        <div class="carousel__title">
+                            <h2 class="page__heading-h2">Explore @Model.MakeName Bike Series</h2>
+                        </div>
+                        @Html.Partial("~/Views/BikeSeries/_MakeSeriesSlug.cshtml", Model.SeriesLinkages)
                     </div>
+                </section>
+            }
 
+            @if (Model.SeriesLinkages.MakeSeriesList != null && Model.SeriesLinkages.MakeSeriesList.Any())
+            {
+                <section class="explore-bikes-carousel--default">
+                    <div class="content-box-shadow bg-white section-bottom-margin">
+                        <div class="carousel__title">
+                            <h2 class="page__heading-h2">Explore @Model.MakeName Bike Series</h2>
+                        </div>
+                        @Html.Partial("~/Views/BikeSeries/_MakeSeriesSlug.cshtml", Model.SeriesLinkages)
+                    </div>
                 </section>
             }
 

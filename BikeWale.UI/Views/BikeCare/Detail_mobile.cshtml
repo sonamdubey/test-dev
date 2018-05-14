@@ -98,65 +98,21 @@
             </div>
         </section>
     }
-            if (Model.MostPopularBikes != null && Model.MostPopularBikes.Bikes != null && Model.MostPopularBikes.Bikes.Count() > 0)
+    if (Model.PageWidgets != null)
+    {
+        foreach (KeyValuePair<Bikewale.Entities.BikeData.EditorialPageWidgetPosition, Bikewale.Models.Shared.EditorialWidgetVM> widgetItem in Model.PageWidgets)
+        {
+            var widget = widgetItem.Value;
+            if (widget != null)
             {
-                <section>
-                    <div class="container box-shadow bg-white section-bottom-margin padding-bottom20 padding-top15">
-                        <div class="carousel-heading-content">
-                            <div class="swiper-heading-left-grid inline-block">
-                                <h2>@Model.MostPopularBikes.WidgetHeading</h2>
-                            </div>
-                            <div class="swiper-heading-right-grid inline-block text-right">
-                                <a href="@string.Format("/m{0}",Model.MostPopularBikes.WidgetHref)" title="@Model.MostPopularBikes.WidgetLinkTitle" class="btn view-all-target-btn">View all</a>
-                            </div>
-                            <div class="clear"></div>
-                        </div>
-                        @Html.Partial("~/Views/BikeModels/_MostPopularBikes_Mobile.cshtml", Model.MostPopularBikes)
-                    </div>
-                </section>
+                @Html.Partial("~/Views/Shared/_EditorialWidgetBase_Mobile.cshtml", widget)
+                <div class="clear"></div>
             }
-            if (Model.Model != null && Model.Model.ModelId > 0)
-            {
-                if (Model.PopularBodyStyle != null && Model.PopularBodyStyle.PopularBikes != null && Model.PopularBodyStyle.PopularBikes.Count() > 0)
-                {
-                    <section>
-                        <div class="container box-shadow bg-white section-bottom-margin padding-bottom20">
-                            <div class="carousel-heading-content padding-top15">
-                                <div class="swiper-heading-left-grid inline-block">
-                                    <h2>@Model.PopularBodyStyle.WidgetHeading</h2>
-                                </div>
-                                <div class="swiper-heading-right-grid inline-block text-right">
-                                    <a href="@string.Format("/m{0}",Model.PopularBodyStyle.WidgetHref)" title="@Model.PopularBodyStyle.WidgetLinkTitle" class="btn view-all-target-btn">View all</a>
-                                </div>
-                                <div class="clear"></div>
-                            </div>
-                            @Html.Partial("~/Views/BestBikes/_PopularBodyStyleCarousel_Mobile.cshtml", Model.PopularBodyStyle)
-                        </div>
-                    </section>
-                }
-            }
-            else
-            {
-                if (Model.UpcomingBikes != null && Model.UpcomingBikes.UpcomingBikes != null && Model.UpcomingBikes.UpcomingBikes.Count() > 0)
-                {
-                    <section>
-                        <div class="container box-shadow bg-white section-bottom-margin padding-bottom20 padding-top15">
-                            <div class="carousel-heading-content">
-                                <div class="swiper-heading-left-grid inline-block">
-                                    <h2>@Model.UpcomingBikes.WidgetHeading</h2>
-                                </div>
-                                <div class="swiper-heading-right-grid inline-block text-right">
-                                    <a href="@string.Format("/m{0}",Model.UpcomingBikes.WidgetHref)" title="@Model.UpcomingBikes.WidgetLinkTitle" class="btn view-all-target-btn">View all</a>
-                                </div>
-                                <div class="clear"></div>
-                            </div>
-                            @Html.Partial("~/Views/Upcoming/_UpcomingBikes_Editorial_Mobile.cshtml", Model.UpcomingBikes)
-                        </div>
-                    </section>
-                }
-            }
-            if (Model.PhotoGallery != null && Model.PhotoGallery.Images != null && Model.PhotoGallery.ImageCount > 0)
-            {
+        }
+    }
+
+    if (Model.PhotoGallery != null && Model.PhotoGallery.Images != null && Model.PhotoGallery.ImageCount > 0)
+    {
                 <section>
                     <div class="model-gallery-container relative-gallery-container">
                         <h3 class="font16 text-white">@Model.ArticleDetails.Title</h3>

@@ -699,6 +699,38 @@ namespace Bikewale.Utility
             return string.Format("{0}-bikes/", make);
         }
 
+        /// <summary>
+        /// Created by  : Deepak Israni on 12 April 2018
+        /// Description : Function which returns MAKE url for a scooter brand
+        /// </summary>
+        /// <param name="makeMaskingName"></param>
+        /// <param name="isScooterOnly"></param>
+        /// <returns></returns>
+        public static string ScooterMakeUrl(string makeMaskingName, bool isScooterOnly)
+        {
+            return String.Format("/{0}-{1}/", makeMaskingName, isScooterOnly ? "bikes" : "scooters");
+        }
+
+        /// <summary>
+        /// Created by  : Sanskar Gupta on 12 April 2018
+        /// Description : Function which returns UPCOMING BIKES url        
+        /// </summary>
+        /// <returns></returns>
+        public static string UpcomingBikesUrl()
+        {
+            return string.Format("/upcoming-bikes/");
+        }
+
+        /// <summary>
+        /// Created by  : Sanskar Gupta on 12 April 2018
+        /// Description : Function which returns SCOOTERS url       
+        /// </summary>
+        /// <returns></returns>
+        public static string AllScootersUrl()
+        {
+            return string.Format("/scooters/");
+        }
+
     }
 }
 

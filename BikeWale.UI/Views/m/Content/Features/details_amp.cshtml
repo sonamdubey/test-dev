@@ -94,62 +94,17 @@
         </div>
 
     </article>
-    if (Model.MostPopularBikes != null && Model.MostPopularBikes.Bikes != null && Model.MostPopularBikes.Bikes.Count() > 0)
-    {
-        <section>
-            <div class="container box-shadow bg-white section-bottom-margin padding-bottom20 padding-top15">
-                <div class="carousel-heading-content">
-                    <div class="swiper-heading-left-grid inline-block">
-                        <h2>@Model.MostPopularBikes.WidgetHeading</h2>
-                    </div>
-                    <div class="swiper-heading-right-grid inline-block text-right">
-                        <a href="@string.Format("{0}/m{1}",BWConfiguration.Instance.BwHostUrl, Model.MostPopularBikes.WidgetHref)" title="@Model.MostPopularBikes.WidgetLinkTitle" class="btn view-all-target-btn">View all</a>
-                    </div>
-                    <div class="clear"></div>
-                </div>
-                @Html.Partial("~/Views/BikeModels/_MostPopularBikes_Mobile_Amp.cshtml", Model.MostPopularBikes)
-            </div>
-        </section>
-    }
 
-    if (Model.objModel != null && Model.objModel.ModelId > 0)
+    if (Model.PageWidgets != null)
     {
-        if (Model.PopularBodyStyle != null && Model.PopularBodyStyle.PopularBikes != null && Model.PopularBodyStyle.PopularBikes.Count() > 0)
+        foreach (KeyValuePair<Bikewale.Entities.BikeData.EditorialPageWidgetPosition, Bikewale.Models.Shared.EditorialWidgetVM> widgetItem in Model.PageWidgets)
         {
-            <section>
-                <div class="container box-shadow bg-white section-bottom-margin padding-bottom20">
-                    <div class="carousel-heading-content padding-top15">
-                        <div class="swiper-heading-left-grid inline-block">
-                            <h2>@Model.PopularBodyStyle.WidgetHeading</h2>
-                        </div>
-                        <div class="swiper-heading-right-grid inline-block text-right">
-                            <a href="@string.Format("{0}/m{1}", BWConfiguration.Instance.BwHostUrl, Model.PopularBodyStyle.WidgetHref)" title="@Model.PopularBodyStyle.WidgetLinkTitle" class="btn view-all-target-btn">View all</a>
-                        </div>
-                        <div class="clear"></div>
-                    </div>
-                    @Html.Partial("~/Views/BestBikes/_PopularBodyStyleCarousel_Mobile_Amp.cshtml", Model.PopularBodyStyle)
-                </div>
-            </section>
-        }
-    }
-    else
-    {
-        if (Model.UpcomingBikes != null && Model.UpcomingBikes.UpcomingBikes != null && Model.UpcomingBikes.UpcomingBikes.Count() > 0)
-        {
-            <section>
-                <div class="container box-shadow bg-white section-bottom-margin padding-bottom20 padding-top15">
-                    <div class="carousel-heading-content">
-                        <div class="swiper-heading-left-grid inline-block">
-                            <h2>@Model.UpcomingBikes.WidgetHeading</h2>
-                        </div>
-                        <div class="swiper-heading-right-grid inline-block text-right">
-                            <a href="@string.Format("{0}/m{1}",BWConfiguration.Instance.BwHostUrl, Model.UpcomingBikes.WidgetHref)" title="@Model.UpcomingBikes.WidgetLinkTitle" class="btn view-all-target-btn">View all</a>
-                        </div>
-                        <div class="clear"></div>
-                    </div>
-                    @Html.Partial("~/Views/Upcoming/_UpcomingBikes_Editorial_Mobile_Amp.cshtml", Model.UpcomingBikes)
-                </div>
-            </section>
+            var widget = widgetItem.Value;
+            if (widget != null)
+            {
+                Html.RenderPartial("~/Views/Shared/_EditorialWidgetBase_Mobile_AMP.cshtml", widget);
+                <div class="clear"></div>
+            }
         }
     }
 
@@ -178,29 +133,30 @@ else
 
     <script type="application/json">
         {
-        "vars": {
-        "eventCategory": "Editorial_Details_Page_AMP",
-        "eventLabel": "Feature_Detail"
-        },
-        "triggers": {
-        "pageLoad": {
-        "on": "ini-load",
-        "request": "event",
-        "vars": {
-        "eventAction": "Page_Load"
-        }
-        },
-        "scrollPings": {
-        "on": "scroll",
-        "scrollSpec": {
-        "verticalBoundaries": [10, 25, 50, 75, 100]
-        },
-        "request": "event",
-        "vars": {
-        "eventAction": "${verticalScrollBoundary}_Page_Viewed"
-        }
-        }
-        }
+            "vars": {
+                "account": "UA-34771801-1",
+                "eventCategory": "Editorial_Details_Page_AMP",
+                "eventLabel": "Feature_Detail"
+                },
+            "triggers": {
+                "pageLoad": {
+                    "on": "ini-load",
+                    "request": "event",
+                    "vars": {
+                        "eventAction": "Page_Load"
+                        }
+                    },
+                "scrollPings": {
+                    "on": "scroll",
+                    "scrollSpec": {
+                        "verticalBoundaries": [10, 25, 50, 75, 100]
+                    },
+                "request": "event",
+                    "vars": {
+                    "eventAction": "${verticalScrollBoundary}_Page_Viewed"
+                    }
+                }
+            }
         }
     </script>
 

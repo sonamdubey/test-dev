@@ -1,13 +1,15 @@
 ﻿@model Bikewale.Models.DetailFeatureVM
 @using Bikewale.Utility
 @{
-    Model.AdTags.AdId = "1395986297721";
-	Model.AdTags.AdPath = "/1017752/BikeWale_New_";
-	Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/content/details.css' inline /> <link rel='stylesheet' type='text/css' href='/css/components/m-brand-logo.css' inline />";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/content/details.css' inline /> <link rel='stylesheet' type='text/css' href='/css/components/m-brand-logo.css' inline />";
     Model.Page_BTF_CSS_Path = "/css/jquery.floating-social-share.min.css";
     Model.Page_JS_Paths = new string[] { "/src/content/details.js", "/src/bw-contenttracking.js" };
     Layout = "~/Views/Shared/_Layout.cshtml";
+    Model.AdTags.AdId = "1395995626568";
+    Model.AdTags.AdPath = "/1017752/BikeWale_News_";
     Model.AdTags.Ad_300x250 = true;
+    Model.AdTags.Ad_970x90 = true;
+    Model.AdTags.Ad_970x90Bottom = true;
     if (Model != null && Model.objFeature != null) { Model.AdTags.TargetedTags = String.Join(",", Model.objFeature.TagsList); };
  }
 
@@ -80,15 +82,18 @@
                         </div>
                     }
                     <div class="grid-4 omega">
-                        @if (Model.PopularBikesAndPopularScootersWidget != null)
-                        {
-                            @Html.Partial("~/Views/BikeModels/_MultiTabsWidget.cshtml", Model.PopularBikesAndPopularScootersWidget)
-                        }
-                        @if (Model.UpcomingBikesAndUpcomingScootersWidget != null)
-                        {
-                            @Html.Partial("~/Views/BikeModels/_MultiTabsWidget.cshtml", Model.UpcomingBikesAndUpcomingScootersWidget)
-                        }
+                        @{
+                            var pageWidgets = Model.PageWidgets;
+                            if (pageWidgets != null)
+                            {
+                                @Html.Partial("~/Views/Shared/_EditorialWidgetBase.cshtml", Model.PageWidgets[Bikewale.Entities.BikeData.EditorialPageWidgetPosition.First])
+                                    <div class="clear"></div>
 
+
+                                    @Html.Partial("~/Views/Shared/_EditorialWidgetBase.cshtml", Model.PageWidgets[Bikewale.Entities.BikeData.EditorialPageWidgetPosition.Second])
+                                    <div class="clear"></div>
+                            }
+                        }
                         <div class="margin-bottom20">
                             @Html.Partial("~/Views/Shared/Ads/Desktop/Ad300x250.cshtml", Model.AdTags)
                         </div>

@@ -379,10 +379,6 @@
       <DependentUpon>NewBikeModelColors_New.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="content\NewBikeSpecification.aspx.cs">
-      <DependentUpon>NewBikeSpecification.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="content\NewBikeStandardFeaturesStep2.aspx.cs">
       <DependentUpon>NewBikeStandardFeaturesStep2.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1396,7 +1392,6 @@
     <Content Include="content\NewBikeFeatureItems.aspx" />
     <Content Include="content\NewBikeFeatures.aspx" />
     <Content Include="content\NewBikeModelColors_New.aspx" />
-    <Content Include="content\NewBikeSpecification.aspx" />
     <Content Include="content\NewBikeStandardFeaturesStep2.aspx" />
     <Content Include="content\NewBikeVersionColors.aspx" />
     <Content Include="content\PriceMonitoring.aspx" />

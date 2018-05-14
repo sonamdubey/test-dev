@@ -1,4 +1,5 @@
-﻿using Bikewale.Interfaces.BikeData;
+﻿using Bikewale.Entities.BikeData;
+using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.Videos;
 using Bikewale.Models;
@@ -19,17 +20,16 @@ namespace Bikewale.Controllers
         private readonly IVideos _videos = null;
         private readonly IBikeMakesCacheRepository _bikeMakes = null;
         private readonly IBikeModelsCacheRepository<int> _modelCacheRepository = null;
+        private readonly IBikeModels<BikeModelEntity, int> _bikeModels;
 
-        public ElectricBikesController(IBikeModelsCacheRepository<int> modelCacheRepository, IBikeMakesCacheRepository objMakeCache, ICMSCacheContent articles, IVideos videos, IBikeMakesCacheRepository bikeMakes)
+        public ElectricBikesController(IBikeModelsCacheRepository<int> modelCacheRepository, IBikeMakesCacheRepository objMakeCache, ICMSCacheContent articles, IVideos videos, IBikeMakesCacheRepository bikeMakes, IBikeModels<BikeModelEntity, int> bikeModels)
         {
             _objMakeCache = objMakeCache;
             _articles = articles;
             _videos = videos;
             _bikeMakes = bikeMakes;
             _modelCacheRepository = modelCacheRepository;
-
-
-
+            _bikeModels = bikeModels;
         }
         // GET: ElectricBikes
         /// <summary>
@@ -41,7 +41,7 @@ namespace Bikewale.Controllers
         public ActionResult Index()
         {
             ElectricBikesPageVM objData = null;
-            ElectricBikesPage objElectricBike = new ElectricBikesPage(_modelCacheRepository, _objMakeCache, _articles, _videos, _bikeMakes);
+            ElectricBikesPage objElectricBike = new ElectricBikesPage(_modelCacheRepository, _objMakeCache, _articles, _videos, _bikeMakes, _bikeModels);
 
             objElectricBike.TopCountBrand = 10;
             objElectricBike.EditorialTopCount = 3;
@@ -59,8 +59,7 @@ namespace Bikewale.Controllers
         public ActionResult Index_Mobile()
         {
             ElectricBikesPageVM objData = null;
-            ElectricBikesPage objElectricBike = new ElectricBikesPage(_modelCacheRepository, _objMakeCache, _articles, _videos, _bikeMakes);
-
+            ElectricBikesPage objElectricBike = new ElectricBikesPage(_modelCacheRepository, _objMakeCache, _articles, _videos, _bikeMakes, _bikeModels);
             objElectricBike.TopCountBrand = 6;
             objElectricBike.IsMobile = true;
             objElectricBike.EditorialTopCount = 3;

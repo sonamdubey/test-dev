@@ -1,5 +1,9 @@
 ﻿
+using Bikewale.BAL.ApiGateway.Adapters.BikeData;
+using Bikewale.BAL.ApiGateway.ApiGatewayHelper;
+using Bikewale.BAL.ApiGateway.Entities.BikeData;
 using Bikewale.Entities;
+using Bikewale.Entities.BikeData;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
@@ -10,6 +14,7 @@ using Bikewale.Notifications;
 using Bikewale.Utility;
 using Bikewale.Utility.GenericBikes;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -25,6 +30,7 @@ namespace Bikewale.Models
         private readonly IBikeModelsCacheRepository<int> _objBestBikes = null;
         private readonly IBikeMakesCacheRepository _bikeMakes = null;
         private readonly ICMSCacheContent _objArticles = null;
+        private readonly IApiGatewayCaller _apiGatewayCaller;
 
         public ushort makeTopCount { get; set; }
         public bool IsMobile { get; set; }
@@ -39,11 +45,12 @@ namespace Bikewale.Models
         /// <param name="objBestBikes"></param>
         /// <param name="bikeMakes"></param>
         /// <param name="objArticles"></param>
-        public IndexGenericBestBikes(IBikeModelsCacheRepository<int> objBestBikes, IBikeMakesCacheRepository bikeMakes, ICMSCacheContent objArticles)
+        public IndexGenericBestBikes(IBikeModelsCacheRepository<int> objBestBikes, IBikeMakesCacheRepository bikeMakes, ICMSCacheContent objArticles, IApiGatewayCaller apiGatewayCaller)
         {
             _objBestBikes = objBestBikes;
             _bikeMakes = bikeMakes;
             _objArticles = objArticles;
+            _apiGatewayCaller = apiGatewayCaller;
             ParseQueryString();
         }
 
@@ -247,6 +254,32 @@ namespace Bikewale.Models
                 if (obj.objBestBikesList != null)
                     obj.objBestBikesList = obj.objBestBikesList.Take(topCount);
 
+                IEnumerable<BestBikeEntityBase> bestBikesList = obj.objBestBikesList;
+                if (bestBikesList != null && bestBikesList.Any())
+                {
+                    GetVersionSpecsSummaryByItemIdAdapter adapt1 = new GetVersionSpecsSummaryByItemIdAdapter();
+                    VersionsDataByItemIds_Input specItemInput = new VersionsDataByItemIds_Input
+                    {
+                        Versions = bestBikesList.Select(m => m.VersionId),
+                        Items = new List<EnumSpecsFeaturesItems> {
+                            EnumSpecsFeaturesItems.Displacement,
+                            EnumSpecsFeaturesItems.FuelEfficiencyOverall,
+                            EnumSpecsFeaturesItems.MaxPowerBhp,
+                        }
+                    };
+                    adapt1.AddApiGatewayCall(_apiGatewayCaller, specItemInput);
+                    _apiGatewayCaller.Call();
+                    IEnumerable<VersionMinSpecsEntity> versionMinSpecs = adapt1.Output;
+                    if (versionMinSpecs != null)
+                    {
+                        var specsEnumerator = versionMinSpecs.GetEnumerator();
+                        var bikesEnumerator = bestBikesList.GetEnumerator();
+                        while (bikesEnumerator.MoveNext() && specsEnumerator.MoveNext())
+                        {
+                            bikesEnumerator.Current.MinSpecsList = specsEnumerator.Current.MinSpecsList;
+                        }
+                    }
+                }
             }
             catch (Exception ex)
             {

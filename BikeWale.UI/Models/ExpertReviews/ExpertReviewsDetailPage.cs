@@ -1,6 +1,7 @@
-﻿using Bikewale.Entities;
+using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS.Articles;
+using Bikewale.Entities.EditorialWidgets;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.Pages;
@@ -13,9 +14,7 @@ using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.PWA.CMS;
 using Bikewale.Memcache;
-using Bikewale.Models.BestBikes;
-using Bikewale.Models.BikeModels;
-using Bikewale.Models.Scooters;
+using Bikewale.Models.EditorialPages;
 using Bikewale.Notifications;
 using Bikewale.PWA.Utils;
 using Bikewale.Utility;
@@ -34,8 +33,11 @@ namespace Bikewale.Models
     /// Summary    : Model to populate view model for expert review detail page
     /// Modified by : Rajan Chauhan on 26 Feb 2017
     /// Description : Added private variable CityName and IPWACMSCacheRepository _renderedArticles
+    /// Modified by: Dhruv Joshi
+    /// Dated: 19th April 2018
+    /// Description: Added variables to be set before calling parent class's GetEditorialWidgetData() function
     /// </summary>
-    public class ExpertReviewsDetailPage
+    public class ExpertReviewsDetailPage : EditorialBasePage
     {
         #region Variables for dependency injection
         private readonly ICMSCacheContent _cmsCache = null;
@@ -47,7 +49,7 @@ namespace Bikewale.Models
         private readonly string _basicId;
         private readonly IPWACMSCacheRepository _renderedArticles = null;
         private readonly IBikeMakesCacheRepository _bikeMakesCacheRepository = null;
-        private readonly IBikeVersionCacheRepository<BikeVersionEntity, uint> _objBikeVersionsCache = null;
+        private readonly IBikeVersions<BikeVersionEntity, uint> _objBikeVersions;
         private readonly IBikeMaskingCacheRepository<BikeModelEntity, int> _bikeMasking = null;
         private readonly IBikeSeriesCacheRepository _seriesCache = null;
         private readonly IBikeSeries _series;
@@ -66,6 +68,14 @@ namespace Bikewale.Models
         private uint basicId;
         private PQSourceEnum pqSource = 0;
         public BikeSeriesEntityBase bikeSeriesEntityBase;
+        private static string pageName = "Editorial Details";
+
+        private bool isModelTagged;
+        private bool isMakeTagged;
+        private bool isMakeLive;
+        private EnumBikeBodyStyles bodyStyle;
+        private bool isSeriesAvailable;
+        private bool isScooterOnlyMake;
         #endregion
 
         #region Public properties
@@ -76,8 +86,9 @@ namespace Bikewale.Models
 
         #region Constructor
         public ExpertReviewsDetailPage(ICMSCacheContent cmsCache, IBikeModelsCacheRepository<int> models, IBikeModels<BikeModelEntity, int> bikeModels, IUpcoming upcoming, IBikeInfo bikeInfo, ICityCacheRepository cityCacheRepo,
-            IBikeMakesCacheRepository bikeMakesCacheRepository, IBikeVersionCacheRepository<BikeVersionEntity, uint> objBikeVersionsCache, IBikeMaskingCacheRepository<BikeModelEntity, int> bikeMasking, string basicId,
+            IBikeMakesCacheRepository bikeMakesCacheRepository, IBikeVersions<BikeVersionEntity, uint> objBikeVersions, IBikeMaskingCacheRepository<BikeModelEntity, int> bikeMasking, string basicId,
             IPWACMSCacheRepository renderedArticles, IBikeSeriesCacheRepository seriesCache, IBikeSeries series)
+            : base(bikeMakesCacheRepository, models, bikeModels, upcoming, series)
         {
             _cmsCache = cmsCache;
             _models = models;
@@ -88,7 +99,7 @@ namespace Bikewale.Models
             _basicId = basicId;
             _renderedArticles = renderedArticles;
             _bikeMakesCacheRepository = bikeMakesCacheRepository;
-            _objBikeVersionsCache = objBikeVersionsCache;
+            _objBikeVersions = objBikeVersions;
             _bikeMasking = bikeMasking;
             _seriesCache = seriesCache;
             _series = series;
@@ -171,6 +182,9 @@ namespace Bikewale.Models
         /// Description : Added call to BindAmpJsTags.
         /// Modified by : snehal Dange on 28th Nov 2017
         /// Descritpion : Added ga for page
+        /// Modified by: Dhruv Joshi
+        /// Dated: 19th April 2018
+        /// Description: GetWidgetData called if mobile or amp otherwise base.GetEditorialWidgetData()
         /// </summary>
         public ExpertReviewsDetailPageVM GetData(int widgetTopCount)
         {
@@ -186,7 +200,14 @@ namespace Bikewale.Models
                     GetTaggedBikeListByModel(objData);
                     SetPageMetas(objData);
                     CheckSeriesData(objData);
-                    GetWidgetData(objData, widgetTopCount);
+
+                    PopulateBikeInfo(objData);
+
+                    #region Maintain the order of the following two lines
+                    SetAdditionalVariables(objData);
+                    objData.PageWidgets = base.GetEditorialWidgetData(EnumEditorialPageType.Detail);
+                    #endregion
+
                     PopulatePhotoGallery(objData);
                     BindSimilarBikes(objData);
                     SetBikeTested(objData);
@@ -208,10 +229,54 @@ namespace Bikewale.Models
         }
 
         /// <summary>
+        /// Created by: Dhruv Joshi
+        /// Dated: 19th April 2018
+        /// Description: Setting variables before calling base class function
+        /// </summary>
+        /// <param name="objData"></param>
+        private void SetAdditionalVariables(ExpertReviewsDetailPageVM objData)
+        {
+            objData.PageName = pageName;
+            isMakeLive = !(objData.BikeInfo != null && (objData.BikeInfo.IsUpcoming || objData.BikeInfo.IsDiscontinued));
+
+            bodyStyle = EnumBikeBodyStyles.AllBikes;
+
+            IEnumerable<BikeVersionMinSpecs> objVersionsList = _objBikeVersions.GetVersionMinSpecs(ModelId, false);
+
+            if (objVersionsList != null && objVersionsList.Any())
+            {
+                bodyStyle = objVersionsList.FirstOrDefault().BodyStyle;
+            }
+
+            objData.BodyStyle = bodyStyle;
+
+            isSeriesAvailable = objData.IsSeriesAvailable;
+            if (objData.Make != null)
+            {
+                isScooterOnlyMake = objData.Make.IsScooterOnly;
+            }
+            EditorialWidgetEntity editorialWidgetData = new EditorialWidgetEntity
+            {
+                IsMobile = IsMobile,
+                IsMakeLive = isMakeLive,
+                IsModelTagged = isModelTagged,
+                IsSeriesAvailable = isSeriesAvailable,
+                IsScooterOnlyMake = isScooterOnlyMake,
+                BodyStyle = bodyStyle,
+                CityId = CityId,
+                Make = objData.Make,
+                Series = bikeSeriesEntityBase
+            };
+            base.SetAdditionalData(editorialWidgetData);
+        }
+
+        /// <summary>
         /// Created by  : Rajan Chauhan on 26 Feb 2018
         /// Description : Function to get PWA data for expert reviews
         /// Modified by : Ashutosh Sharma on 01 Mar 2018.
         /// Description : Added logic to split article html content into two parts to insert bikeinfo card at 25% height of article content.
+        /// Modified by : Sanskar Gupta on 21 April 2018
+        /// Description : Added call for `SetAddtionalVariables()`, populate `objData.PageWidgets` and changed method call to populate `newsDetailReducer.NewBikesListData.NewBikesList` and `newsDetailReducer.NewBikesListData.BikeMakeList`
         /// </summary>
         /// <param name="widgetTopCount"></param>
         /// <returns></returns>
@@ -228,7 +293,11 @@ namespace Bikewale.Models
                     GetTaggedBikeListByModel(objData);
                     SetPageMetas(objData);
                     CheckSeriesData(objData);
-                    GetWidgetData(objData, widgetTopCount);
+
+
+                    SetAdditionalVariables(objData);
+                    objData.PageWidgets = base.GetEditorialWidgetData(EnumEditorialPageType.Detail);
+
                     PopulatePhotoGallery(objData);
                     BindSimilarBikes(objData);
                     SetBikeTested(objData);
@@ -238,8 +307,12 @@ namespace Bikewale.Models
                     newsDetailReducer.ArticleDetailData.ArticleDetail = ConverterUtility.MapArticleDetailsToPwaExpertReviewDetails(objData.ArticleDetails, matchedPage);
                     newsDetailReducer.ArticleDetailData.ArticleDetail.ImageGallery = ConverterUtility.MapPhotoGalleryToPwaImageList(objData.PhotoGallery);
                     newsDetailReducer.RelatedModelObject.ModelObject = ConverterUtility.MapGenericBikeInfoToPwaBikeInfo(objData.BikeInfo);
-                    newsDetailReducer.NewBikesListData.NewBikesList = ConverterUtility.MapNewBikeListToPwaNewBikeList(objData, CityName);
-                    newsDetailReducer.NewBikesListData.BikeMakeList = ConverterUtility.MapBikeMakeEntityBaseListToPwaMakeBikeBaseList(objData);
+
+                    if (objData.PageWidgets != null)
+                    {
+                        newsDetailReducer.NewBikesListData.NewBikesList = ConverterUtility.MapPopularAndUpcomingWidgetDataToPwa(objData.PageWidgets);
+                        newsDetailReducer.NewBikesListData.BikeMakeList = ConverterUtility.MapOtherBrandsWidgetDataToPWA(objData.PageWidgets);
+                    }
                     var storeJson = JsonConvert.SerializeObject(objData.ReduxStore);
                     objData.ServerRouterWrapper = _renderedArticles.GetNewsDetails(PwaCmsHelper.GetSha256Hash(storeJson), objData.ReduxStore.News.NewsDetailReducer,
                                 newsDetailReducer.ArticleDetailData.ArticleDetail.ArticleUrl, "root", "ServerRouterWrapper", "Expert Reviews");
@@ -277,7 +350,7 @@ namespace Bikewale.Models
             {
                 if (objData.Model != null && objData.Model.ModelId > 0)
                 {
-                    var objSimilarBikes = new SimilarBikesWidget(_objBikeVersionsCache, (uint)objData.Model.ModelId, true, PQSourceEnum.Desktop_NewsDetailsPage);
+                    var objSimilarBikes = new SimilarBikesWidget(_objBikeVersions, (uint)objData.Model.ModelId, true, PQSourceEnum.Desktop_NewsDetailsPage);
 
                     objSimilarBikes.TopCount = 9;
                     objSimilarBikes.CityId = CityId;
@@ -392,6 +465,9 @@ namespace Bikewale.Models
         /// <summary>
         /// Created by : Aditi Srivastava on 31 Mar 2017
         /// Summary    : Get tagged make in article
+        /// Modified by: Dhruv Joshi
+        /// Dated: 19th April 2018
+        /// Description: Setting Value for isMakeTagged
         /// </summary>
         private void GetTaggedBikeListByMake(ExpertReviewsDetailPageVM objData)
         {
@@ -412,6 +488,7 @@ namespace Bikewale.Models
                             objData.Make = new Bikewale.Common.MakeHelper().GetMakeNameByMakeId((uint)objData.Make.MakeId);
                     }
                     MakeId = (uint)objData.Make.MakeId;
+                    isMakeTagged = MakeId > 0;
                 }
             }
             catch (Exception ex)
@@ -424,6 +501,9 @@ namespace Bikewale.Models
         /// <summary>
         /// Created by : Aditi Srivastava on 31 Mar 2017
         /// Summary    : Get tagged model in article
+        /// Modified by: Dhruv Joshi
+        /// Dated: 19th April 2018
+        /// Description: Setting Value for isModelTagged
         /// </summary>
         private void GetTaggedBikeListByModel(ExpertReviewsDetailPageVM objData)
         {
@@ -445,756 +525,13 @@ namespace Bikewale.Models
                             objData.Model = new Bikewale.Common.ModelHelper().GetModelDataById((uint)objData.Model.ModelId);
                     }
                     ModelId = (uint)objData.Model.ModelId;
+                    isModelTagged = ModelId > 0;
+
                 }
             }
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "Bikewale.Models.ExpertReviewsDetailPage.GetTaggedBikeListByModel - BasicId : " + _basicId);
-            }
-        }
-        /// <summary>
-        /// Created by : Aditi Srivastava on 31 Mar 2017
-        /// Summary    : Get data for the page widgets
-        ///  Modified By Sajal Gupta on 25-04-20187
-        /// Descrition : Call most popular bike widget by body type
-        /// Modified by Sajal Gupta on 24-08-2017
-        /// description : Added Popular Scooter Brands widget
-        /// </summary>
-        private void GetWidgetData(ExpertReviewsDetailPageVM objData, int topCount)
-        {
-            try
-            {
-                currentCityArea = GlobalCityArea.GetGlobalCityArea();
-                if (currentCityArea != null)
-                    CityId = currentCityArea.CityId;
-
-                objData.BodyStyle = EnumBikeBodyStyles.AllBikes;
-
-                List<BikeVersionMinSpecs> objVersionsList = _objBikeVersionsCache.GetVersionMinSpecs(ModelId, false);
-
-                if (objVersionsList != null && objVersionsList.Count > 0 && objVersionsList.FirstOrDefault() != null)
-                {
-                    objData.BodyStyle = objVersionsList.FirstOrDefault().BodyStyle;
-                }
-
-
-                objData.IsScooter = objData.BodyStyle.Equals(EnumBikeBodyStyles.Scooter);
-
-                MostPopularBikesWidget objPopularBikes = new MostPopularBikesWidget(_bikeModels, objData.IsScooter ? EnumBikeType.Scooters : EnumBikeType.All, showCheckOnRoadCTA, false, pqSource, pageCatId, MakeId);
-                objPopularBikes.TopCount = topCount;
-                objPopularBikes.CityId = CityId;
-                objData.MostPopularBikes = objPopularBikes.GetData();
-
-
-
-
-                if (objData.MostPopularBikes != null && objData.ArticleDetails != null)
-                {
-                    objData.MostPopularBikes.CityId = CityId;
-                    objData.MostPopularBikes.ReturnUrlForAmpPages = string.Format("{0}/m/expert-reviews/{1}-{2}.html", BWConfiguration.Instance.BwHostUrl, objData.ArticleDetails.ArticleUrl, objData.ArticleDetails.BasicId);
-                }
-                MostPopularBikeWidgetVM PopularBikesWidget = objData.MostPopularBikes;
-
-                if (ModelId > 0)
-                {
-                    #region If Model is tagged
-
-                    MostPopularBikeWidgetVM MostPopularBikes = null;
-                    MostPopularBikeWidgetVM MostPopularMakeBikes = null;
-                    MostPopularBikeWidgetVM MostPopularScooters = null;
-                    MostPopularBikeWidgetVM MostPopularMakeScooters = null;
-                    UpcomingBikesWidgetVM UpcomingBikes = null;
-                    UpcomingBikesWidgetVM UpcomingScooters = null;
-                    IEnumerable<BikeMakeEntityBase> PopularScooterMakes = null;
-                    PopularBodyStyleVM BodyStyleVM = null;
-
-                    BikeInfoWidget objBikeInfo = new BikeInfoWidget(_bikeInfo, _cityCacheRepo, ModelId, CityId, _totalTabCount, BikeInfoTabType.ExpertReview);
-                    objData.BikeInfo = objBikeInfo.GetData();
-                    objData.BikeInfo.IsSmallSlug = true;
-                    if (objData.IsSeriesAvailable && objData.Make != null)
-                    {
-                        objData.SeriesBikes = new MostPopularBikeWidgetVM()
-                        {
-                            Bikes = FetchPopularSeriesBikes(bikeSeriesEntityBase.SeriesId),
-                            CityId = CityId,
-                            WidgetHeading = string.Format("Popular {0} {1}", bikeSeriesEntityBase.SeriesName, objData.IsScooter ? "Scooters" : "Bikes"),
-                            WidgetLinkTitle = string.Format("View all {0} {1}", bikeSeriesEntityBase.SeriesName, objData.IsScooter ? "Scooters" : "Bikes"),
-                            WidgetHref = string.Format("/{0}{1}-bikes/{2}/", IsMobile ? "m/" : "",objData.Make.MaskingName, bikeSeriesEntityBase.MaskingName)
-
-                        };
-                    }
-
-
-                    if (IsMobile)
-                    {
-                        if (objData.BodyStyle.Equals(EnumBikeBodyStyles.Scooter))
-                        {
-                            PopularScooterBrandsWidget objPopularScooterBrands = new PopularScooterBrandsWidget(_bikeMakesCacheRepository);
-                            objPopularScooterBrands.TopCount = 6;
-                            objData.PopularScooterMakesWidget = objPopularScooterBrands.GetData();
-                            bikeType = EnumBikeType.Scooters;
-                        }
-                        else
-                        {
-                            SetPopularBikeByBodyStyleId(objData, topCount);
-                        }
-
-                        if (bikeSeriesEntityBase != null)
-                        {
-                            FetchPopularBikes(objData, bikeSeriesEntityBase.SeriesId);
-                            if (objData.IsSeriesAvailable && objData.SeriesWidget != null && objData.Make != null)
-                            {
-                                objData.MostPopularBikes = new MostPopularBikeWidgetVM()
-                                                            {
-                                                                Bikes = objData.SeriesWidget.PopularSeriesBikes,
-                                                                WidgetHeading = string.Format("Popular {0} {1}", bikeSeriesEntityBase.SeriesName, objData.IsScooter ? "Scooters" : "Bikes"),
-                                                                WidgetHref = "/m" + UrlFormatter.BikeSeriesUrl(objData.Make.MaskingName, bikeSeriesEntityBase.MaskingName),
-                                                                WidgetLinkTitle = string.Format("View all {0} {1}", bikeSeriesEntityBase.MaskingName, objData.IsScooter ? "Scooters" : "Bikes")
-                                                            };
-                            }
-
-                        }
-                        else if (objData.BodyStyle.Equals(EnumBikeBodyStyles.Scooter) && objData.Make != null)
-                        {
-                            objData.MostPopularBikes = MostPopularMakeScooters;
-                            objData.MostPopularBikes.WidgetHeading = string.Format("Popular {0} Scooters", objData.Make.MakeName);
-                            objData.MostPopularBikes.WidgetHref = string.Format("/m/{0}-scooters/", objData.Make.MaskingName);
-                            objData.MostPopularBikes.WidgetLinkTitle = string.Format("{0} Scooters", objData.Make.MakeName);
-                        }
-                    }
-                    else
-                    {
-
-                        objPopularBikes = new MostPopularBikesWidget(_bikeModels, EnumBikeType.All, showCheckOnRoadCTA, false, pqSource, pageCatId, MakeId);
-                        objPopularBikes.TopCount = 9;
-                        objPopularBikes.CityId = CityId;
-
-                        MostPopularMakeBikes = objPopularBikes.GetData();
-
-                        objPopularBikes = new MostPopularBikesWidget(_bikeModels, EnumBikeType.All, showCheckOnRoadCTA, false, pqSource, pageCatId);
-                        objPopularBikes.TopCount = 9;
-                        objPopularBikes.CityId = CityId;
-                        MostPopularBikes = objPopularBikes.GetData();
-
-                        if (MostPopularMakeBikes != null && objData.Make != null)
-                        {
-                            objData.MostPopularMakeBikes = new MostPopularBikeWidgetVM() { Bikes = MostPopularMakeBikes.Bikes.Take(6), WidgetHref = string.Format("/{0}-bikes/", objData.Make.MaskingName), WidgetLinkTitle = "View all Bikes" };
-                        }
-
-
-                        MostPopularBikesWidget objPopularScooters = new MostPopularBikesWidget(_bikeModels, EnumBikeType.Scooters, showCheckOnRoadCTA, false, pqSource, pageCatId, MakeId);
-                        objPopularScooters.TopCount = 9;
-                        objPopularScooters.CityId = CityId;
-
-                        MostPopularMakeScooters = objPopularScooters.GetData();
-
-                        objPopularScooters = new MostPopularBikesWidget(_bikeModels, EnumBikeType.Scooters, showCheckOnRoadCTA, false, pqSource, pageCatId);
-                        objPopularScooters.TopCount = 9;
-                        objPopularScooters.CityId = CityId;
-                        MostPopularScooters = objPopularScooters.GetData();
-
-                        UpcomingBikesWidget objUpcomingBikes = new UpcomingBikesWidget(_upcoming);
-                        objUpcomingBikes.Filters = new UpcomingBikesListInputEntity();
-                        objUpcomingBikes.Filters.PageNo = 1;
-                        objUpcomingBikes.Filters.PageSize = 6;
-
-                        objUpcomingBikes.SortBy = EnumUpcomingBikesFilter.Default;
-                        UpcomingBikes = objUpcomingBikes.GetData();
-
-                        if (UpcomingBikes != null)
-                        {
-                            objData.UpcomingBikes = new UpcomingBikesWidgetVM
-                            {
-                                UpcomingBikes = UpcomingBikes.UpcomingBikes.Take(topCount)
-                            };
-                            objUpcomingBikes.Filters.BodyStyleId = (uint)EnumBikeBodyStyles.Scooter;
-
-                        }
-
-                        UpcomingScooters = objUpcomingBikes.GetData();
-
-                        if (objData.BodyStyle.Equals(EnumBikeBodyStyles.Scooter))
-                        {
-                            PopularScooterBrandsWidget objPopularScooterBrands = new PopularScooterBrandsWidget(_bikeMakesCacheRepository);
-                            objPopularScooterBrands.TopCount = 6;
-                            PopularScooterMakes = objPopularScooterBrands.GetData();
-                            if (PopularScooterMakes != null)
-                            {
-                                objData.PopularScooterMakesWidget = PopularScooterMakes.Take(6);
-                            }
-                            bikeType = EnumBikeType.Scooters;
-                        }
-                        else
-                        {
-                            PopularBikesByBodyStyle BodyStyleBikes = new PopularBikesByBodyStyle(_models);
-                            BodyStyleBikes.ModelId = ModelId;
-                            BodyStyleBikes.CityId = CityId;
-                            BodyStyleBikes.TopCount = topCount > 6 ? topCount : 6;
-                            BodyStyleVM = BodyStyleBikes.GetData();
-
-                            objData.PopularBodyStyle = BodyStyleVM;
-
-                            if (objData.PopularBodyStyle != null)
-                            {
-                                objData.PopularBodyStyle.WidgetHeading = string.Format("Popular {0}", objData.PopularBodyStyle.BodyStyleText);
-                                objData.PopularBodyStyle.WidgetLinkTitle = string.Format("Best {0} in India", objData.PopularBodyStyle.BodyStyleLinkTitle);
-                                objData.PopularBodyStyle.WidgetHref = UrlFormatter.FormatGenericPageUrl(objData.PopularBodyStyle.BodyStyle);
-                            }
-                        }
-
-                        if (objData.IsScooter)
-                        {
-                            objData.PopularMakeScootersAndOtherBrandsWidget = new MultiTabsWidgetVM();
-                            if (objData.IsSeriesAvailable)
-                            {
-                                BindSeriesBikesAndOtherBrands(objData, bikeSeriesEntityBase, PopularScooterMakes);
-                            }
-                            else
-                            {
-                                BindPopularMakeScootersAndOtherBrandsWidget(objData, MostPopularMakeScooters, PopularScooterMakes, MostPopularScooters, UpcomingScooters);
-                            }
-                            BindPopularAndUpcomingScooters(objData, MostPopularScooters, UpcomingScooters);
-                        }
-                        else
-                        {
-
-                            BindSportsAndCruisers(objData, MostPopularMakeBikes, objData.BodyStyle);
-                            BindPopularAndUpcomingBikes(objData, MostPopularBikes, UpcomingBikes);
-
-                        }
-
-                    }
-
-                    #endregion
-                }
-                else
-                {
-                    string urlPrefix = IsMobile ? "m/" : "";
-                    UpcomingBikesWidget objUpcomingBikes = new UpcomingBikesWidget(_upcoming);
-                    objUpcomingBikes.Filters = new UpcomingBikesListInputEntity();
-                    objUpcomingBikes.Filters.PageNo = 1;
-                    objUpcomingBikes.Filters.PageSize = topCount;
-                    if (MakeId > 0)
-                    {
-                        objUpcomingBikes.Filters.MakeId = (int)MakeId;
-                    }
-                    objUpcomingBikes.SortBy = EnumUpcomingBikesFilter.Default;
-                    objData.UpcomingBikes = objUpcomingBikes.GetData();
-
-                    if (objData.Make != null)
-                    {
-                        objData.UpcomingBikes.WidgetHeading = string.Format("Upcoming {0} Bikes", objData.Make.MakeName);
-                        objData.UpcomingBikes.WidgetHref = string.Format("/{0}{1}-bikes/upcoming/", urlPrefix, objData.Make.MaskingName);
-                    }
-                    else
-                    {
-                        objData.UpcomingBikes.WidgetHeading = "Upcoming Bikes";
-                        objData.UpcomingBikes.WidgetHref = string.Format("/{0}upcoming-bikes/", urlPrefix);
-                    }
-                    objData.UpcomingBikes.WidgetLinkTitle = "Upcoming Bikes in India";
-                }
-
-
-
-                if (MakeId > 0 && objData.Make != null)
-                {
-                    BindPopularBikesOrScooters(objData, PopularBikesWidget, objData.BodyStyle);
-                }
-                else
-                {
-                    PopularBikesWidget.WidgetHeading = "Popular Bikes";
-                    PopularBikesWidget.WidgetHref = string.Format("/{0}best-bikes-in-india/", IsMobile ? "m/" : "");
-                    PopularBikesWidget.WidgetLinkTitle = "Best Bikes in India";
-                    PopularBikesWidget.CtaText = "View all bikes";
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorClass.LogError(ex, "Bikewale.Models.ExpertReviewsDetailPage.GetWidgetData");
-            }
-        }
-
-        /// <summary>
-        /// Binds the series bikes and other brands.
-        /// </summary>
-        /// <param name="objData">The object data.</param>
-        /// <param name="bikeSeriesEntityBase">The bike series entity base.</param>
-        /// <param name="popularScooterMakes">The popular scooter makes.</param>
-        private void BindSeriesBikesAndOtherBrands(ExpertReviewsDetailPageVM objData, BikeSeriesEntityBase bikeSeriesEntityBase, IEnumerable<BikeMakeEntityBase> popularScooterMakes)
-        {
-            try
-            {
-                objData.SeriesBikesAndOtherBrands = new MultiTabsWidgetVM();
-
-                objData.SeriesBikesAndOtherBrands.TabHeading1 = string.Format("{0} Scooters", bikeSeriesEntityBase.SeriesName);
-                objData.SeriesBikesAndOtherBrands.TabHeading2 = "Other Brands";
-                objData.SeriesBikesAndOtherBrands.ViewPath1 = "~/Views/Shared/_EditorialSeriesBikesWidget.cshtml";
-                objData.SeriesBikesAndOtherBrands.ViewPath2 = "~/Views/Scooters/_PopularScooterBrandsVerticalWidget.cshtml";
-                objData.SeriesBikesAndOtherBrands.TabId1 = "SeriesScooters";
-                objData.SeriesBikesAndOtherBrands.TabId2 = "OtherBrands";
-                objData.SeriesBikesAndOtherBrands.PopularSeriesBikes = FetchPopularSeriesBikes(bikeSeriesEntityBase.SeriesId);
-                if (popularScooterMakes != null)
-                    objData.SeriesBikesAndOtherBrands.PopularScooterMakes = popularScooterMakes.Take(6);
-
-
-                objData.SeriesBikesAndOtherBrands.ViewAllHref1 = UrlFormatter.BikeSeriesUrl(objData.Make.MaskingName, bikeSeriesEntityBase.MaskingName);
-                objData.SeriesBikesAndOtherBrands.ViewAllHref2 = "/scooters/";
-                objData.SeriesBikesAndOtherBrands.ViewAllTitle1 = string.Format("View all {0} scooters", bikeSeriesEntityBase.SeriesName);
-                objData.SeriesBikesAndOtherBrands.ViewAllTitle2 = "View other brands";
-                objData.SeriesBikesAndOtherBrands.ViewAllText1 = string.Format("View all {0} scooters", bikeSeriesEntityBase.SeriesName);
-                objData.SeriesBikesAndOtherBrands.ViewAllText2 = "View other brands";
-                objData.SeriesBikesAndOtherBrands.ShowViewAllLink1 = true;
-                objData.SeriesBikesAndOtherBrands.ShowViewAllLink2 = true;
-                objData.SeriesBikesAndOtherBrands.Pages = MultiTabWidgetPagesEnum.SeriesBikesAndOtherBrands;
-                objData.SeriesBikesAndOtherBrands.PageName = "News";
-            }
-            catch (Exception ex)
-            {
-                ErrorClass.LogError(ex, "Bikewale.Models.ExpertReviewsDetailPage.BindSeriesBikesAndOtherBrands - BasicId : " + _basicId);
-            }
-        }
-
-        /// <summary>
-        /// Binds the popular bikes or scooters.
-        /// </summary>
-        /// <param name="objData">The object data.</param>
-        /// <param name="PopularBikesWidget">The popular bikes widget.</param>
-        /// <param name="bodyStyle">The body style.</param>
-        private void BindPopularBikesOrScooters(ExpertReviewsDetailPageVM objData, MostPopularBikeWidgetVM PopularBikesWidget, EnumBikeBodyStyles bodyStyle)
-        {
-            try
-            {
-                if (objData.Make != null)
-                {
-                    string urlPrefix = IsMobile ? "m/" : "";
-                    if (bodyStyle.Equals(EnumBikeBodyStyles.Scooter))
-                    {
-                        PopularBikesWidget.WidgetHeading = string.Format("Popular {0} Scooters", objData.Make.MakeName);
-                        if (objData.Make.IsScooterOnly)
-                            PopularBikesWidget.WidgetHref = string.Format("/{0}{1}-bikes/", urlPrefix, objData.Make.MaskingName);
-                        else
-                            PopularBikesWidget.WidgetHref = string.Format("/{0}{1}-scooters/", urlPrefix, objData.Make.MaskingName);
-                        PopularBikesWidget.WidgetLinkTitle = string.Format("{0} Scooters", objData.Make.MakeName);
-                        PopularBikesWidget.CtaText = "View all scooters";
-                    }
-                    else
-                    {
-                        PopularBikesWidget.WidgetHeading = string.Format("Popular {0} Bikes", objData.Make.MakeName);
-                        PopularBikesWidget.WidgetHref = string.Format("/{0}{1}-bikes/", urlPrefix, objData.Make.MaskingName);
-                        PopularBikesWidget.WidgetLinkTitle = string.Format("{0} Bikes", objData.Make.MakeName);
-                        PopularBikesWidget.CtaText = "View all bikes";
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorClass.LogError(ex, "Bikewale.Models.ExpertReviewsDetailPage.BindPopularBikesOrScooters - BasicId : " + _basicId);
-            }
-        }
-
-        /// <summary>
-        /// Populars the make bikes and body style bikes widget.
-        /// </summary>
-        /// <param name="objData">The object data.</param>
-        /// <param name="MostPopularMakeBikes">The most popular make bikes.</param>
-        /// <param name="MostPopularBikes">The most popular bikes.</param>
-        /// <param name="UpcomingBikes">The upcoming bikes.</param>
-        private void PopularMakeBikesAndBodyStyleBikesWidget(ExpertReviewsDetailPageVM objData, MostPopularBikeWidgetVM MostPopularMakeBikes, MostPopularBikeWidgetVM MostPopularBikes, UpcomingBikesWidgetVM UpcomingBikes, EnumBikeBodyStyles bodyStyle)
-        {
-            try
-            {
-                objData.PopularMakeBikesAndBodyStyleBikesWidget.TabHeading1 = string.Format("{0} bikes", objData.Make.MakeName);
-                objData.PopularMakeBikesAndBodyStyleBikesWidget.TabHeading2 = bodyStyle.Equals(EnumBikeBodyStyles.Sports) ? "Sports bikes" : "Cruisers";
-                objData.PopularMakeBikesAndBodyStyleBikesWidget.ViewPath1 = "~/Views/BikeModels/_MostPopularBikesSideBar.cshtml";
-                objData.PopularMakeBikesAndBodyStyleBikesWidget.ViewPath2 = "~/Views/BestBikes/_PopularBodyStyle_Vertical.cshtml";
-                objData.PopularMakeBikesAndBodyStyleBikesWidget.TabId1 = "PopularMakeBikes";
-                objData.PopularMakeBikesAndBodyStyleBikesWidget.TabId2 = bodyStyle.Equals(EnumBikeBodyStyles.Sports) ? "PopularSportsBikes" : "PopularCruisers";
-                objData.PopularMakeBikesAndBodyStyleBikesWidget.MostPopularMakeBikes = MostPopularMakeBikes;
-
-                if (MostPopularMakeBikes != null)
-                    objData.PopularMakeBikesAndBodyStyleBikesWidget.MostPopularMakeBikes.Bikes = objData.PopularMakeBikesAndBodyStyleBikesWidget.MostPopularMakeBikes.Bikes.Take(6);
-
-                objData.PopularMakeBikesAndBodyStyleBikesWidget.PopularBodyStyle = new PopularBodyStyleVM() { PopularBikes = objData.PopularBodyStyle.PopularBikes.Take(6) };
-                objData.PopularMakeBikesAndBodyStyleBikesWidget.ViewAllHref1 = string.Format("/{0}-bikes/", objData.Make.MaskingName);
-                objData.PopularMakeBikesAndBodyStyleBikesWidget.ViewAllHref2 = !bodyStyle.Equals(EnumBikeBodyStyles.Sports) ? "/best-cruiser-bikes-in-india/" : "/best-sports-bikes-in-india/";
-                objData.PopularMakeBikesAndBodyStyleBikesWidget.ViewAllTitle1 = "View all bikes";
-                objData.PopularMakeBikesAndBodyStyleBikesWidget.ViewAllTitle2 = bodyStyle.Equals(EnumBikeBodyStyles.Sports) ? "View all Sports bikes" : "View all Cruisers";
-                objData.PopularMakeBikesAndBodyStyleBikesWidget.ViewAllText1 = "View all bikes";
-                objData.PopularMakeBikesAndBodyStyleBikesWidget.ViewAllText2 = bodyStyle.Equals(EnumBikeBodyStyles.Sports) ? "View all Sports bikes" : "View all Cruisers";
-                objData.PopularMakeBikesAndBodyStyleBikesWidget.ShowViewAllLink1 = true;
-                objData.PopularMakeBikesAndBodyStyleBikesWidget.ShowViewAllLink2 = true;
-                objData.PopularMakeBikesAndBodyStyleBikesWidget.Pages = MultiTabWidgetPagesEnum.PopularMakeBikesAndBodyStyleWidget;
-                objData.PopularMakeBikesAndBodyStyleBikesWidget.PageName = "ExpertReviews";
-
-                objData.PopularBikesAndUpcomingBikesWidget = new MultiTabsWidgetVM();
-
-                objData.PopularBikesAndUpcomingBikesWidget.TabHeading1 = "Popular bikes";
-                objData.PopularBikesAndUpcomingBikesWidget.TabHeading2 = "Upcoming bikes";
-                objData.PopularBikesAndUpcomingBikesWidget.ViewPath1 = "~/Views/BikeModels/_MostPopularBikesSideBar.cshtml";
-                objData.PopularBikesAndUpcomingBikesWidget.ViewPath2 = "~/Views/Upcoming/_UpcomingBikes_Vertical.cshtml";
-                objData.PopularBikesAndUpcomingBikesWidget.TabId1 = "PopularBikes";
-                objData.PopularBikesAndUpcomingBikesWidget.TabId2 = "UpcomingBikes";
-                objData.PopularBikesAndUpcomingBikesWidget.MostPopularBikes = MostPopularBikes;
-
-                if (MostPopularBikes != null)
-                    objData.PopularBikesAndUpcomingBikesWidget.MostPopularBikes.Bikes = objData.PopularBikesAndUpcomingBikesWidget.MostPopularBikes.Bikes.Take(6);
-
-                objData.PopularBikesAndUpcomingBikesWidget.UpcomingBikes = UpcomingBikes;
-
-                if (UpcomingBikes != null)
-                    objData.PopularBikesAndUpcomingBikesWidget.UpcomingBikes.UpcomingBikes = objData.PopularBikesAndUpcomingBikesWidget.UpcomingBikes.UpcomingBikes.Take(6);
-
-                objData.PopularBikesAndUpcomingBikesWidget.ViewAllHref1 = "/best-bikes-in-india/";
-                objData.PopularBikesAndUpcomingBikesWidget.ViewAllHref2 = "/upcoming-bikes/";
-                objData.PopularBikesAndUpcomingBikesWidget.ViewAllTitle1 = "View all bikes";
-                objData.PopularBikesAndUpcomingBikesWidget.ViewAllTitle2 = "View all upcoming bikes";
-                objData.PopularBikesAndUpcomingBikesWidget.ViewAllText1 = "View all bikes";
-                objData.PopularBikesAndUpcomingBikesWidget.ViewAllText2 = "View all upcoming bikes";
-                objData.PopularBikesAndUpcomingBikesWidget.ShowViewAllLink1 = true;
-                objData.PopularBikesAndUpcomingBikesWidget.ShowViewAllLink2 = true;
-                objData.PopularBikesAndUpcomingBikesWidget.Pages = MultiTabWidgetPagesEnum.PopularBikesAndUpcomingBikes;
-                objData.PopularBikesAndUpcomingBikesWidget.PageName = "ExpertReviews";
-            }
-            catch (Exception ex)
-            {
-                ErrorClass.LogError(ex, "Bikewale.Models.ExpertReviewsDetailPage.PopularMakeBikesAndBodyStyleBikesWidget - BasicId : " + _basicId);
-            }
-        }
-
-        /// <summary>
-        /// Binds the popular make scooters and other brands widget.
-        /// </summary>
-        /// <param name="objData">The object data.</param>
-        /// <param name="MostPopularMakeScooters">The most popular make scooters.</param>
-        /// <param name="PopularScooterMakes">The popular scooter makes.</param>
-        /// <param name="MostPopularScooters">The most popular scooters.</param>
-        /// <param name="UpcomingScooters">The upcoming scooters.</param>
-        private void BindPopularMakeScootersAndOtherBrandsWidget(ExpertReviewsDetailPageVM objData, MostPopularBikeWidgetVM MostPopularMakeScooters, IEnumerable<BikeMakeEntityBase> PopularScooterMakes, MostPopularBikeWidgetVM MostPopularScooters, UpcomingBikesWidgetVM UpcomingScooters)
-        {
-            try
-            {
-                objData.PopularMakeScootersAndOtherBrandsWidget.TabHeading1 = string.Format("{0} Scooters", objData.Make.MakeName);
-                objData.PopularMakeScootersAndOtherBrandsWidget.TabHeading2 = "Other Brands";
-                objData.PopularMakeScootersAndOtherBrandsWidget.ViewPath1 = "~/Views/BikeModels/_MostPopularBikesSideBar.cshtml";
-                objData.PopularMakeScootersAndOtherBrandsWidget.ViewPath2 = "~/Views/Scooters/_PopularScooterBrandsVerticalWidget.cshtml";
-                objData.PopularMakeScootersAndOtherBrandsWidget.TabId1 = "PopularMakeScooters";
-                objData.PopularMakeScootersAndOtherBrandsWidget.TabId2 = "OtherBrands";
-                objData.PopularMakeScootersAndOtherBrandsWidget.MostPopularMakeScooters = MostPopularMakeScooters;
-
-                if (MostPopularMakeScooters != null)
-                    objData.PopularMakeScootersAndOtherBrandsWidget.MostPopularMakeScooters.Bikes = objData.PopularMakeScootersAndOtherBrandsWidget.MostPopularMakeScooters.Bikes.Take(6);
-
-                if (PopularScooterMakes != null)
-                    objData.PopularMakeScootersAndOtherBrandsWidget.PopularScooterMakes = PopularScooterMakes.Take(6);
-
-                objData.PopularMakeScootersAndOtherBrandsWidget.ViewAllHref1 = string.Format("/{0}-scooters/", objData.Make.MaskingName);
-                objData.PopularMakeScootersAndOtherBrandsWidget.ViewAllHref2 = "/scooters/";
-                objData.PopularMakeScootersAndOtherBrandsWidget.ViewAllTitle1 = "View all scooters";
-                objData.PopularMakeScootersAndOtherBrandsWidget.ViewAllTitle2 = "View other brands";
-                objData.PopularMakeScootersAndOtherBrandsWidget.ViewAllText1 = "View all scooters";
-                objData.PopularMakeScootersAndOtherBrandsWidget.ViewAllText2 = "View other brands";
-                objData.PopularMakeScootersAndOtherBrandsWidget.ShowViewAllLink1 = true;
-                objData.PopularMakeScootersAndOtherBrandsWidget.ShowViewAllLink2 = true;
-                objData.PopularMakeScootersAndOtherBrandsWidget.Pages = MultiTabWidgetPagesEnum.PopularMakeScootersAndOtherBrands;
-                objData.PopularMakeScootersAndOtherBrandsWidget.PageName = "ExpertReviews";
-
-                objData.PopularScootersAndUpcomingScootersWidget = new MultiTabsWidgetVM();
-
-                objData.PopularScootersAndUpcomingScootersWidget.TabHeading1 = "Popular scooters";
-                objData.PopularScootersAndUpcomingScootersWidget.TabHeading2 = "Upcoming Scooters";
-                objData.PopularScootersAndUpcomingScootersWidget.ViewPath1 = "~/Views/BikeModels/_MostPopularBikesSideBar.cshtml";
-                objData.PopularScootersAndUpcomingScootersWidget.ViewPath2 = "~/Views/Upcoming/_UpcomingBikes_Vertical.cshtml";
-                objData.PopularScootersAndUpcomingScootersWidget.TabId1 = "PopularScooters";
-                objData.PopularScootersAndUpcomingScootersWidget.TabId2 = "UpcomingScooters";
-                objData.PopularScootersAndUpcomingScootersWidget.MostPopularScooters = MostPopularScooters;
-
-                if (MostPopularScooters != null)
-                    objData.PopularScootersAndUpcomingScootersWidget.MostPopularScooters.Bikes = objData.PopularScootersAndUpcomingScootersWidget.MostPopularScooters.Bikes.Take(6);
-
-                objData.PopularScootersAndUpcomingScootersWidget.UpcomingScooters = UpcomingScooters;
-
-                if (UpcomingScooters != null)
-                    objData.PopularScootersAndUpcomingScootersWidget.UpcomingScooters.UpcomingBikes = objData.PopularScootersAndUpcomingScootersWidget.UpcomingScooters.UpcomingBikes.Take(6);
-                objData.PopularScootersAndUpcomingScootersWidget.ViewAllHref1 = "/best-scooters-in-india/";
-                objData.PopularScootersAndUpcomingScootersWidget.ViewAllTitle1 = "View all scooters";
-                objData.PopularScootersAndUpcomingScootersWidget.ViewAllText1 = "View all scooters";
-                objData.PopularScootersAndUpcomingScootersWidget.ShowViewAllLink1 = true;
-                objData.PopularScootersAndUpcomingScootersWidget.ShowViewAllLink2 = false;
-                objData.PopularScootersAndUpcomingScootersWidget.Pages = MultiTabWidgetPagesEnum.PopularScootersAndUpcomingScooters;
-                objData.PopularScootersAndUpcomingScootersWidget.PageName = "ExpertReviews";
-            }
-            catch (Exception ex)
-            {
-                ErrorClass.LogError(ex, "Bikewale.Models.ExpertReviewsDetailPage.BindPopularMakeScootersAndOtherBrandsWidget - BasicId : " + _basicId);
-            }
-        }
-
-        /// <summary>
-        /// Binds the popular and upcoming scooters.
-        /// </summary>
-        /// <param name="objData">The object data.</param>
-        /// <param name="MostPopularScooters">The most popular scooters.</param>
-        /// <param name="UpcomingScooters">The upcoming scooters.</param>
-        private void BindPopularAndUpcomingScooters(ExpertReviewsDetailPageVM objData, MostPopularBikeWidgetVM MostPopularScooters, UpcomingBikesWidgetVM UpcomingScooters)
-        {
-            objData.PopularScootersAndUpcomingScootersWidget = new MultiTabsWidgetVM();
-
-            objData.PopularScootersAndUpcomingScootersWidget.TabHeading1 = "Popular scooters";
-            objData.PopularScootersAndUpcomingScootersWidget.TabHeading2 = "Upcoming Scooters";
-            objData.PopularScootersAndUpcomingScootersWidget.ViewPath1 = "~/Views/BikeModels/_MostPopularBikesSideBar.cshtml";
-            objData.PopularScootersAndUpcomingScootersWidget.ViewPath2 = "~/Views/Upcoming/_UpcomingBikes_Vertical.cshtml"; ;
-            objData.PopularScootersAndUpcomingScootersWidget.TabId1 = "PopularScooters";
-            objData.PopularScootersAndUpcomingScootersWidget.TabId2 = "UpcomingScooters";
-            objData.PopularScootersAndUpcomingScootersWidget.MostPopularScooters = MostPopularScooters;
-
-            if (MostPopularScooters != null)
-                objData.PopularScootersAndUpcomingScootersWidget.MostPopularScooters.Bikes = objData.PopularScootersAndUpcomingScootersWidget.MostPopularScooters.Bikes.Take(6);
-
-            objData.PopularScootersAndUpcomingScootersWidget.UpcomingScooters = UpcomingScooters;
-
-            if (UpcomingScooters != null)
-                objData.PopularScootersAndUpcomingScootersWidget.UpcomingScooters.UpcomingBikes = objData.PopularScootersAndUpcomingScootersWidget.UpcomingScooters.UpcomingBikes.Take(6);
-            objData.PopularScootersAndUpcomingScootersWidget.ViewAllHref1 = "/best-scooters-in-india/";
-            objData.PopularScootersAndUpcomingScootersWidget.ViewAllTitle1 = "View all scooters";
-            objData.PopularScootersAndUpcomingScootersWidget.ViewAllText1 = "View all scooters";
-            objData.PopularScootersAndUpcomingScootersWidget.ShowViewAllLink1 = true;
-            objData.PopularScootersAndUpcomingScootersWidget.ShowViewAllLink2 = false;
-            objData.PopularScootersAndUpcomingScootersWidget.Pages = MultiTabWidgetPagesEnum.PopularScootersAndUpcomingScooters;
-            objData.PopularScootersAndUpcomingScootersWidget.PageName = "News";
-        }
-
-
-        /// <summary>
-        /// Binds the series bikes and model body style bikes.
-        /// </summary>
-        /// <param name="objData">The object data.</param>
-        /// <param name="bikeSeriesEntityBase">The bike series entity base.</param>
-        /// <param name="bodyStyles">The body styles.</param>
-        private void BindSeriesBikesAndModelBodyStyleBikes(ExpertReviewsDetailPageVM objData, BikeSeriesEntityBase bikeSeriesEntityBase, EnumBikeBodyStyles bodyStyles)
-        {
-            try
-            {
-                if (objData.SeriesWidget != null && objData.Make != null && objData.Make.MaskingName != null && bikeSeriesEntityBase != null)
-                {
-                    objData.SeriesBikesAndModelBodyStyleBikes = new MultiTabsWidgetVM()
-                    {
-                        TabHeading1 = string.Format("{0} {1}", bikeSeriesEntityBase.SeriesName, bodyStyles == EnumBikeBodyStyles.Scooter ? "Scooters" : "Bikes"),
-                        ViewPath1 = "~/Views/Shared/_EditorialSeriesBikesWidget.cshtml",
-                        TabId1 = "SeriesBikes",
-                        ViewAllHref1 = string.Format("/{0}-bikes/{1}/", objData.Make.MaskingName, bikeSeriesEntityBase.MaskingName),
-                        ViewAllTitle1 = string.Format("View all {0} {1}", bikeSeriesEntityBase.SeriesName, bodyStyles == EnumBikeBodyStyles.Scooter ? "scooters" : "bikes"),
-                        ViewAllText1 = string.Format("View all {0} {1}", bikeSeriesEntityBase.SeriesName, bodyStyles == EnumBikeBodyStyles.Scooter ? "scooters" : "bikes"),
-                        ShowViewAllLink1 = objData.SeriesWidget.PopularSeriesBikes != null && objData.SeriesWidget.PopularSeriesBikes.Any(),
-                        PopularSeriesBikes = objData.SeriesWidget.PopularSeriesBikes,
-
-
-                        TabHeading2 = string.Format("{0}", Bikewale.Utility.BodyStyleLinks.BodyStyleText(bodyStyles)),
-                        ViewPath2 = "~/Views/BestBikes/_PopularBodyStyle_Vertical.cshtml",
-                        TabId2 = "PopularBodyStyle",
-                        ViewAllHref2 = bodyStyles == EnumBikeBodyStyles.Scooter ? "/best-scooters-in-india/" : (bodyStyles == EnumBikeBodyStyles.Sports ? "/best-sports-bikes-in-india/" : (bodyStyles == EnumBikeBodyStyles.Cruiser ? "/best-cruiser-bikes-in-india/" : "/best-bikes-in-india/")),
-                        ViewAllTitle2 = string.Format("View all popular {0}", Bikewale.Utility.BodyStyleLinks.BodyStyleText(bodyStyles).ToLower()),
-                        ViewAllText2 = string.Format("View all popular {0}", Bikewale.Utility.BodyStyleLinks.BodyStyleText(bodyStyles).ToLower()),
-                        ShowViewAllLink2 = true,
-                        PopularBodyStyle = new PopularBodyStyleVM() { PopularBikes = objData.PopularBodyStyle.PopularBikes.Take(6) },
-                        Pages = MultiTabWidgetPagesEnum.SeriesBikesAndModelBodyStyleBike,
-                        PageName = "News"
-                    };
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorClass.LogError(ex, "Bikewale.Models.ExpertReviews.ExpertReviewsDetailPage.BindSeriesBikesAndModelBodyStyleBikes - BasicId : " + _basicId);
-            }
-        }
-
-        /// <summary>
-        /// Binds the sports and cruisers.
-        /// </summary>
-        /// <param name="objData">The object data.</param>
-        /// <param name="MostPopularMakeBikes">The most popular make bikes.</param>
-        /// <param name="bodyStyle">The body style.</param>
-        private void BindSportsAndCruisers(ExpertReviewsDetailPageVM objData, MostPopularBikeWidgetVM MostPopularMakeBikes, EnumBikeBodyStyles bodyStyle)
-        {
-            try
-            {
-                if (objData.IsSeriesAvailable)
-                {
-                    FetchBikesByBodyStyle(objData, bodyStyle);
-                    BindSeriesBikesAndModelBodyStyleBikes(objData, bikeSeriesEntityBase, bodyStyle);
-                }
-                else
-                {
-                    objData.PopularMakeBikesAndBodyStyleBikesWidget = new MultiTabsWidgetVM();
-
-                    objData.PopularMakeBikesAndBodyStyleBikesWidget.TabHeading1 = string.Format("{0} bikes", objData.Make.MakeName);
-
-                    objData.PopularMakeBikesAndBodyStyleBikesWidget.ViewPath1 = "~/Views/BikeModels/_MostPopularBikesSideBar.cshtml";
-                    objData.PopularMakeBikesAndBodyStyleBikesWidget.ViewAllTitle1 = "View all bikes";
-                    objData.PopularMakeBikesAndBodyStyleBikesWidget.TabId1 = "PopularMakeBikes";
-                    objData.PopularMakeBikesAndBodyStyleBikesWidget.ViewAllText1 = "View all bikes";
-                    objData.PopularMakeBikesAndBodyStyleBikesWidget.ViewAllHref1 = string.Format("/{0}-bikes/", objData.Make.MaskingName);
-                    objData.PopularMakeBikesAndBodyStyleBikesWidget.ShowViewAllLink1 = true;
-                    objData.PopularMakeBikesAndBodyStyleBikesWidget.MostPopularMakeBikes = MostPopularMakeBikes;
-
-                    if (MostPopularMakeBikes != null)
-                        objData.PopularMakeBikesAndBodyStyleBikesWidget.MostPopularMakeBikes.Bikes = objData.PopularMakeBikesAndBodyStyleBikesWidget.MostPopularMakeBikes.Bikes.Take(6);
-
-                    if (bodyStyle == EnumBikeBodyStyles.Cruiser || bodyStyle == EnumBikeBodyStyles.Sports)
-                    {
-                        objData.PopularMakeBikesAndBodyStyleBikesWidget.PopularBodyStyle = new PopularBodyStyleVM() { PopularBikes = objData.PopularBodyStyle.PopularBikes.Take(6) };
-
-                        objData.PopularMakeBikesAndBodyStyleBikesWidget.ViewAllHref2 = !bodyStyle.Equals(EnumBikeBodyStyles.Sports) ? "/best-cruiser-bikes-in-india/" : "/best-sports-bikes-in-india/";
-
-                        objData.PopularMakeBikesAndBodyStyleBikesWidget.ViewAllTitle2 = bodyStyle.Equals(EnumBikeBodyStyles.Sports) ? "View all Sports bikes" : "View all Cruisers";
-
-                        objData.PopularMakeBikesAndBodyStyleBikesWidget.ViewAllText2 = bodyStyle.Equals(EnumBikeBodyStyles.Sports) ? "View all Sports bikes" : "View all Cruisers";
-
-                        objData.PopularMakeBikesAndBodyStyleBikesWidget.ShowViewAllLink2 = true;
-
-
-                        objData.PopularMakeBikesAndBodyStyleBikesWidget.TabHeading2 = bodyStyle.Equals(EnumBikeBodyStyles.Sports) ? "Sports bikes" : "Cruisers";
-                        objData.PopularMakeBikesAndBodyStyleBikesWidget.ViewPath2 = "~/Views/BestBikes/_PopularBodyStyle_Vertical.cshtml";
-                        objData.PopularMakeBikesAndBodyStyleBikesWidget.TabId2 = bodyStyle.Equals(EnumBikeBodyStyles.Sports) ? "PopularSportsBikes" : "PopularCruisers";
-                    }
-                    objData.PopularMakeBikesAndBodyStyleBikesWidget.Pages = MultiTabWidgetPagesEnum.PopularMakeBikesAndBodyStyleWidget;
-                    objData.PopularMakeBikesAndBodyStyleBikesWidget.PageName = "News";
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorClass.LogError(ex, "Bikewale.Models.ExpertReviews.ExpertReviewsDetailPage.BindSportsAndCruisers - BasicId : " + _basicId);
-            }
-        }
-
-        /// <summary>
-        /// Binds the popular and upcoming bikes.
-        /// 
-        /// Modified by : Sanskar Gupta on 22 Jan 2018
-        /// Description : Added Newly Launched feature
-        /// </summary>
-        /// <param name="objData">The object data.</param>
-        /// <param name="MostPopularBikes">The most popular bikes.</param>
-        /// <param name="UpcomingBikes">The upcoming bikes.</param>
-        private void BindPopularAndUpcomingBikes(ExpertReviewsDetailPageVM objData, MostPopularBikeWidgetVM MostPopularBikes, UpcomingBikesWidgetVM UpcomingBikes)
-        {
-            try
-            {
-                objData.PopularBikesAndUpcomingBikesWidget = new MultiTabsWidgetVM();
-
-                objData.PopularBikesAndUpcomingBikesWidget.TabHeading1 = "Popular bikes";
-                objData.PopularBikesAndUpcomingBikesWidget.TabHeading2 = "Upcoming bikes";
-                objData.PopularBikesAndUpcomingBikesWidget.ViewPath1 = "~/Views/BikeModels/_MostPopularBikesSideBar.cshtml";
-                objData.PopularBikesAndUpcomingBikesWidget.ViewPath2 = "~/Views/Upcoming/_UpcomingBikes_Vertical.cshtml";
-                objData.PopularBikesAndUpcomingBikesWidget.TabId1 = "PopularBikes";
-                objData.PopularBikesAndUpcomingBikesWidget.TabId2 = "UpcomingBikes";
-                objData.PopularBikesAndUpcomingBikesWidget.MostPopularBikes = MostPopularBikes;
-
-                if (MostPopularBikes != null)
-                    objData.PopularBikesAndUpcomingBikesWidget.MostPopularBikes.Bikes = objData.PopularBikesAndUpcomingBikesWidget.MostPopularBikes.Bikes.Take(6);
-
-                BikeFilters obj = new BikeFilters();
-                obj.CityId = CityId;
-                IEnumerable<MostPopularBikesBase> promotedBikes = _bikeModels.GetAdPromotedBike(obj, true);
-                objData.PopularBikesAndUpcomingBikesWidget.MostPopularBikes.Bikes = _bikeModels.GetAdPromoteBikeFilters(promotedBikes, objData.PopularBikesAndUpcomingBikesWidget.MostPopularBikes.Bikes);
-
-                objData.PopularBikesAndUpcomingBikesWidget.UpcomingBikes = UpcomingBikes;
-
-                if (UpcomingBikes != null)
-                    objData.PopularBikesAndUpcomingBikesWidget.UpcomingBikes.UpcomingBikes = objData.PopularBikesAndUpcomingBikesWidget.UpcomingBikes.UpcomingBikes.Take(6);
-
-                objData.PopularBikesAndUpcomingBikesWidget.ViewAllHref1 = "/best-bikes-in-india/";
-                objData.PopularBikesAndUpcomingBikesWidget.ViewAllHref2 = "/upcoming-bikes/";
-                objData.PopularBikesAndUpcomingBikesWidget.ViewAllTitle1 = "View all bikes";
-                objData.PopularBikesAndUpcomingBikesWidget.ViewAllTitle2 = "View all upcoming bikes";
-                objData.PopularBikesAndUpcomingBikesWidget.ViewAllText1 = "View all bikes";
-                objData.PopularBikesAndUpcomingBikesWidget.ViewAllText2 = "View all upcoming bikes";
-                objData.PopularBikesAndUpcomingBikesWidget.ShowViewAllLink1 = true;
-                objData.PopularBikesAndUpcomingBikesWidget.ShowViewAllLink2 = true;
-                objData.PopularBikesAndUpcomingBikesWidget.Pages = MultiTabWidgetPagesEnum.PopularBikesAndUpcomingBikes;
-                objData.PopularBikesAndUpcomingBikesWidget.PageName = "News";
-            }
-            catch (Exception ex)
-            {
-                ErrorClass.LogError(ex, "Bikewale.Models.ExpertReviews.ExpertReviewsDetailPage.BindPopularAndUpcomingBikes - BasicId : " + _basicId);
-            }
-        }
-
-        private void SetPopularBikeByBodyStyleId(ExpertReviewsDetailPageVM objData, int topCount)
-        {
-            try
-            {
-                if (objData != null && topCount > 0)
-                {
-                    PopularBikesByBodyStyle objPopularStyle = new PopularBikesByBodyStyle(_models);
-                    objPopularStyle.ModelId = ModelId;
-                    objPopularStyle.CityId = CityId;
-                    objPopularStyle.TopCount = topCount;
-                    objData.PopularBodyStyle = objPopularStyle.GetData();
-
-                    if (objData.PopularBodyStyle != null && objData.ArticleDetails != null)
-                    {
-                        objData.PopularBodyStyle.WidgetHeading = string.Format("Popular {0}", objData.PopularBodyStyle.BodyStyleText);
-                        objData.PopularBodyStyle.WidgetLinkTitle = string.Format("Best {0} in India", objData.PopularBodyStyle.BodyStyleLinkTitle);
-                        objData.PopularBodyStyle.WidgetHref = string.Format("{0}{1}",IsMobile ? "/m" : "", UrlFormatter.FormatGenericPageUrl(objData.PopularBodyStyle.BodyStyle));
-                        objData.PopularBodyStyle.CityId = CityId;
-                        objData.PopularBodyStyle.ReturnUrlForAmpPages = string.Format("{0}/m/expert-reviews/{1}-{2}.html", BWConfiguration.Instance.BwHostUrl, objData.ArticleDetails.ArticleUrl, objData.ArticleDetails.BasicId);
-                        bikeType = objData.PopularBodyStyle.BodyStyle == EnumBikeBodyStyles.Scooter ? EnumBikeType.Scooters : EnumBikeType.All;
-
-                        if (bikeType == EnumBikeType.All && string.Compare(objData.PopularBodyStyle.WidgetHeading, "Popular bikes") == 0)
-                        {
-                            BikeFilters obj = new BikeFilters();
-                            obj.CityId = CityId;
-                            IEnumerable<MostPopularBikesBase> promotedBikes = _bikeModels.GetAdPromotedBike(obj, true);
-                            objData.PopularBodyStyle.PopularBikes = _bikeModels.GetAdPromoteBikeFilters(promotedBikes, objData.PopularBodyStyle.PopularBikes);
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorClass.LogError(ex, "Bikewale.Models.ExpertReviews.ExpertReviewsDetailPage.SetPopularBikeByBodyStyleId - BasicId : " + _basicId);
-            }
-        }
-
-        /// <summary>
-        /// Fetches the bikes by body style.
-        /// Modified by : Ashutosh Sharma on 27 Dec 2017
-        /// Description : Added cityId to fetch bikes with city price.
-        /// </summary>
-        /// <param name="objData">The object data.</param>
-        /// <param name="bodyStyle">The body style.</param>
-        private void FetchBikesByBodyStyle(ExpertReviewsDetailPageVM objData, EnumBikeBodyStyles bodyStyle)
-        {
-            objData.SeriesWidget = new EditorialSeriesWidgetVM();
-            try
-            {
-                if (!IsMobile)
-                {
-                    // Fetch Upcoming bikes
-                    UpcomingBikesListInputEntity filters = new UpcomingBikesListInputEntity()
-                    {
-                        PageNo = 1,
-                        PageSize = 6,
-                        BodyStyleId = (uint)bodyStyle
-                    };
-                    objData.SeriesWidget.UpcomingBikesByBodyStyle = _upcoming.GetModels(filters, EnumUpcomingBikesFilter.Default);
-                }
-
-                // Popular BodyStyles
-                IEnumerable<BestBikeEntityBase> bestBikesByBodyStyle = _models.GetBestBikesByCategory(bodyStyle, CityId);
-                if (bestBikesByBodyStyle != null && bestBikesByBodyStyle.Any())
-                {
-                    objData.SeriesWidget.PopularBikesByBodyStyle = bestBikesByBodyStyle.Take(6);
-
-                }
-                objData.SeriesWidget.PopularSeriesBikes = FetchPopularSeriesBikes(bikeSeriesEntityBase.SeriesId);
-                objData.SeriesWidget.SeriesName = bikeSeriesEntityBase.SeriesName;
-                objData.SeriesWidget.WidgetLink = string.Format("/{0}-bikes/{1}/", objData.Make.MaskingName, bikeSeriesEntityBase.MaskingName);
-                objData.SeriesWidget.WidgetLinkTitle = string.Format("View all {0} {1}", bikeSeriesEntityBase.SeriesName, "bikes");
-            }
-            catch (Exception ex)
-            {
-                ErrorClass.LogError(ex, "Exception : Bikewale.Models.ExpertReviews.ExpertReviewsDetailPage.FetchBikesByBodyStyle - BasicId : " + _basicId);
             }
         }
 
@@ -1258,14 +595,19 @@ namespace Bikewale.Models
             }
         }
 
-
+        /// <summary>
+        /// Modified by : Rajan Chauhan on 24 Apr 2018
+        /// Desciption  : Corrected the condition for setting trucatingIndex on matched page 
+        /// </summary>
+        /// <param name="objData"></param>
         private void InsertBikeInfoWidgetIntoContent(ExpertReviewsDetailPageVM objData)
         {
             try
             {
                 if (objData.ArticleDetails != null && objData.ArticleDetails.PageList != null && objData.BikeInfo != null)
                 {
-                    int totalStrippedHTMLLength = 0, matchedPage = 0, currentPageLength = 0, requiredLength = 0, totalPages = objData.ArticleDetails.PageList.Count; string inputString = null, viewName = null;
+                    int totalStrippedHTMLLength = 0, matchedPage = 0, currentPageLength = 0, requiredLength = 0, totalPages = objData.ArticleDetails.PageList.Count;
+                    string inputString = null, viewName = null;
                     IList<Tuple<int, int>> objPagesInfo = new List<Tuple<int, int>>();
                     Bikewale.Models.Shared.BikeInfo ampBikeInfo = null;
 
@@ -1296,17 +638,18 @@ namespace Bikewale.Models
 
 
                     requiredLength = Convert.ToInt32(totalStrippedHTMLLength * 0.25);
-
                     foreach (var item in objPagesInfo)
                     {
-                        currentPageLength += item.Item2;
-                        if (currentPageLength >= requiredLength)
+                        currentPageLength = item.Item2;
+                        if (currentPageLength < requiredLength)
+                        {
+                            requiredLength = requiredLength - currentPageLength;
+                        }
+                        else
                         {
                             matchedPage = item.Item1;
-                            requiredLength = currentPageLength - requiredLength;
                             break;
                         }
-
                     }
 
                     if (RefControllerContext != null)
@@ -1338,6 +681,8 @@ namespace Bikewale.Models
         /// Created by : Ashutosh Sharma on 01 Mar 2018.
         /// Description : Method to split article html content into two parts to insert bikeinfo card at 25% height of article content, if there
         ///                 is only one page in article pagelist, than one more page is added if bottomContent is not empty.
+        /// Modified by : Rajan Chauhan on 24 Apr 2018
+        /// Desciption  : Corrected the condition for setting trucatingIndex on matched page 
         /// </summary>
         /// <param name="articleDetails"></param>
         /// <returns></returns>
@@ -1348,9 +693,8 @@ namespace Bikewale.Models
             {
                 if (articleDetails != null && articleDetails.PageList != null)
                 {
-                    int totalStrippedHTMLLength = 0, currentPageLength = 0, requiredLength = 0, totalPages = articleDetails.PageList.Count; string inputString = null, viewName = null;
+                    int totalStrippedHTMLLength = 0, currentPageLength = 0, requiredLength = 0, totalPages = articleDetails.PageList.Count;
                     IList<Tuple<int, int>> objPagesInfo = new List<Tuple<int, int>>();
-                    Shared.BikeInfo ampBikeInfo = null;
 
 
 
@@ -1367,14 +711,16 @@ namespace Bikewale.Models
 
                     foreach (var item in objPagesInfo)
                     {
-                        currentPageLength += item.Item2;
-                        if (currentPageLength >= requiredLength)
+                        currentPageLength = item.Item2;
+                        if (currentPageLength < requiredLength)
+                        {
+                            requiredLength = requiredLength - currentPageLength;
+                        }
+                        else
                         {
                             matchedPage = item.Item1;
-                            requiredLength = currentPageLength - requiredLength;
                             break;
                         }
-
                     }
 
 
@@ -1386,14 +732,20 @@ namespace Bikewale.Models
                     articleDetails.PageList[matchedPage].Content = topContentInPage;
                     if (matchedPage != articleDetails.PageList.Count - 1)
                     {
-                        articleDetails.PageList[matchedPage + 1].Content = bottomContentInPage + articleDetails.PageList[matchedPage + 1].Content;
+                        articleDetails.PageList.Insert(matchedPage + 1, new Page()
+                        {
+                            Content = bottomContentInPage,
+                            PageName = string.Empty,
+                            pageId = articleDetails.PageList[matchedPage + 1].pageId,
+                            Priority = articleDetails.PageList[matchedPage + 1].Priority
+                        });
                     }
                     else
                     {
                         articleDetails.PageList.Add(new Page()
                         {
                             Content = bottomContentInPage,
-                            PageName = "",
+                            PageName = string.Empty,
                             pageId = articleDetails.PageList[matchedPage].pageId + 1,
                             Priority = articleDetails.PageList.Max(p => p.Priority)
                         });
@@ -1443,65 +795,23 @@ namespace Bikewale.Models
         }
 
         /// <summary>
-        /// Fetches the popular series bikes.
+        /// Created by: Dhruv Joshi
+        /// Dated: 20th April 2018
+        /// Description: Populate BikeInfo object of objData
         /// </summary>
-        /// <param name="seriesId">The series identifier.</param>
-        /// <returns></returns>
-        private IEnumerable<MostPopularBikesBase> FetchPopularSeriesBikes(uint seriesId)
-        {
-            IEnumerable<MostPopularBikesBase> popularSeriesBikes = null;
-            try
-            {
-                popularSeriesBikes = _models.GetMostPopularBikesByMakeWithCityPrice((int)MakeId, CityId);
-                string modelIds = string.Empty;
-                if (seriesId > 0)
-                    modelIds = _series.GetModelIdsBySeries(seriesId);
-                string[] modelArray = modelIds.Split(',');
-                if (modelArray.Length > 0 && popularSeriesBikes != null)
-                {
-                    popularSeriesBikes = (from bike in popularSeriesBikes
-                                          where modelArray.Contains(bike.objModel.ModelId.ToString())
-                                          select bike
-                                         );
-                }
-
-            }
-            catch (Exception ex)
-            {
-                ErrorClass.LogError(ex, "Exception : Bikewale.Models.News.NewsIndexPage.FetchPopularBikes - BasicId : " + _basicId);
-            }
-            return popularSeriesBikes;
-        }
-
-        /// <summary>
-        /// Fetches the popular bikes.
-        /// Modified by : Rajan Chauhan on 28 Dec 2017
-        /// Description : Removed the PopularMakeSeriesBikes from objData SeriesWidget
-        /// </summary>
-        private void FetchPopularBikes(ExpertReviewsDetailPageVM objData, uint seriesId = 0)
+        /// <param name="objData"></param>
+        private void PopulateBikeInfo(ExpertReviewsDetailPageVM objData)
         {
             try
             {
-                objData.SeriesWidget = new EditorialSeriesWidgetVM();
-                IEnumerable<MostPopularBikesBase> makePopularBikes = _models.GetMostPopularBikesByMake((int)MakeId);
-                string modelIds = string.Empty;
-                modelIds = _series.GetModelIdsBySeries(seriesId);
-                string[] modelArray = modelIds.Split(',');
-                if (modelArray.Length > 0)
-                {
-                    var popularSeries = (from bike in makePopularBikes
-                                         where modelArray.Contains(bike.objModel.ModelId.ToString())
-                                         select bike
-                                         ).ToList<MostPopularBikesBase>();
-                    if (popularSeries != null && popularSeries.Any())
-                        objData.SeriesWidget.PopularSeriesBikes = popularSeries.Take(6);
-                }
+                BikeInfoWidget objBikeInfo = new BikeInfoWidget(_bikeInfo, _cityCacheRepo, ModelId, CityId, _totalTabCount, BikeInfoTabType.ExpertReview);
+                objData.BikeInfo = objBikeInfo.GetData();
+                objData.BikeInfo.IsSmallSlug = true;
             }
             catch (Exception ex)
             {
-                ErrorClass.LogError(ex, "Exception : Bikewale.Models.News.NewsIndexPage.FetchPopularBikes - BasicId : " + _basicId);
+                ErrorClass.LogError(ex, "Exception: Bikewale.Models.News.NewsIndexPage.PopulateBikeInfo");
             }
-
         }
         #endregion
     }

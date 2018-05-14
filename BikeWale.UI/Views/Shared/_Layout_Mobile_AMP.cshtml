@@ -123,7 +123,6 @@
             }
 
             .footer-top{
-              border-top: 1px solid rgba(183,183,183,.2);
               padding-top: 15px;
               padding-bottom: 10px;
             }
@@ -569,6 +568,13 @@
             "pageSourceType": "AMP"
             },
             "triggers": {
+            "trackPageview": {
+                "on": "visible",
+                "request": "pageview",
+                "vars": {
+                    "title": "@Html.Raw(Model.PageMetaTags.Title)"
+                }
+            },
             "trackEvent": {
             "selector": ".track-day-nav-ga",
             "on": "click",
@@ -636,16 +642,16 @@
         </div>
     }
 
-    <footer>
-        <div class="footer-popular-brands text-center padding-top10">
-            <p class="font13 text-white margin-bottom10">Popular Brands</p>
-            <ul>
-                <li><a href="@string.Format("{0}/m/honda-bikes/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl)" title="Honda Bikes">Honda Bikes</a></li>
-                <li><a href="@string.Format("{0}/m/hero-bikes/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl)" title="Hero Bikes">Hero Bikes</a></li>
-                <li><a href="@string.Format("{0}/m/suzuki-bikes/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl)" title="Suzuki Bikes">Suzuki Bikes</a></li>
-            </ul>
+
+    @if (Model.AdTags != null && Model.AdTags.Ad300x250_Bottom)
+    {
+        <div class="margin-bottom10 margin-top15">
+            <amp-ad width=300 height=250 type="doubleclick" layout="responsive" data-slot=@string.Format("{0}_Bottom_300x250", Model.AdTags.AdPath)></amp-ad>
         </div>
-        <div class="footer-top">
+    }
+
+    <footer>
+        <div class="footer-top padding-bottom15">
             <ul>
                 <li>
                     <a href="https://www.bikewale.com/m/" target="_top" title="BikeWale" class="bwmsprite bw-footer-icon"></a>

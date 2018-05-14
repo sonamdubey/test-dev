@@ -10,8 +10,12 @@ using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Notifications;
 using Microsoft.Practices.Unity;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Configuration;
+using Bikewale.BAL.ApiGateway.Adapters.BikeData;
+using Bikewale.BAL.ApiGateway.ApiGatewayHelper;
+using Bikewale.BAL.ApiGateway.Entities.BikeData;
 
 namespace Bikewale.BAL.BikeBooking
 {
@@ -22,6 +26,7 @@ namespace Bikewale.BAL.BikeBooking
     {
         private readonly Bikewale.Interfaces.BikeBooking.IDealerPriceQuote dealerPQRepository = null;
         private readonly IPriceQuoteCache _pqCache = null;
+        private readonly IApiGatewayCaller _apiGatewayCaller;
         public DealerPriceQuote()
         {
             using (IUnityContainer container = new UnityContainer())
@@ -32,7 +37,9 @@ namespace Bikewale.BAL.BikeBooking
                 container.RegisterType<IPriceQuoteCache, PriceQuoteCache>();
                 container.RegisterType<Bikewale.Interfaces.AutoBiz.IDealerPriceQuote, Bikewale.DAL.AutoBiz.DealerPriceQuoteRepository>();
                 dealerPQRepository = container.Resolve<Bikewale.Interfaces.BikeBooking.IDealerPriceQuote>();
+                container.RegisterType<IApiGatewayCaller, ApiGatewayCaller>();
                 _pqCache = container.Resolve<IPriceQuoteCache>();
+                _apiGatewayCaller = container.Resolve<IApiGatewayCaller>();
             }
         }
 
@@ -414,12 +421,49 @@ namespace Bikewale.BAL.BikeBooking
             return objPQOutput;
         }   //End of ProcessPQV2
 
+        /// <summary>
+        /// Modified By  : Rajan Chauhan on 26 Mar 2018
+        /// Description  : Added MinSpec to pageDetail.Varients
+        /// </summary>
+        /// <param name="cityId"></param>
+        /// <param name="versionId"></param>
+        /// <param name="dealerId"></param>
+        /// <returns></returns>
         public BookingPageDetailsEntity FetchBookingPageDetails(uint cityId, uint versionId, uint dealerId)
         {
             BookingPageDetailsEntity pageDetail = null;
             try
             {
                 pageDetail = dealerPQRepository.FetchBookingPageDetails(cityId, versionId, dealerId);
+                if (pageDetail != null && pageDetail.Varients != null)
+                {
+                    GetVersionSpecsSummaryByItemIdAdapter adapt1 = new GetVersionSpecsSummaryByItemIdAdapter();
+                    VersionsDataByItemIds_Input specItemInput = new VersionsDataByItemIds_Input {
+                        Versions = new List<int> { (int)versionId },
+                        Items = new List<EnumSpecsFeaturesItems> {
+                            EnumSpecsFeaturesItems.RearBrakeType,
+                            EnumSpecsFeaturesItems.WheelType
+                        }
+                    };
+                    adapt1.AddApiGatewayCall(_apiGatewayCaller, specItemInput);
+                    _apiGatewayCaller.Call();
+                    IEnumerable<VersionMinSpecsEntity> versionMinSpecsEntityList = adapt1.Output;
+                    if (versionMinSpecsEntityList != null)
+                    {
+                        VersionMinSpecsEntity objVersionMinSpec = null;
+                        foreach (BikeDealerPriceDetail objVersion in pageDetail.Varients)
+                        {
+                            if (objVersion.MinSpec.VersionId == versionId)
+                            {
+                                objVersionMinSpec = versionMinSpecsEntityList.FirstOrDefault(versionSpecEntity => versionSpecEntity.VersionId.Equals(objVersion.MinSpec.VersionId));
+                                if (objVersionMinSpec != null)
+                                {
+                                    objVersion.MinSpec.MinSpecsList = objVersionMinSpec.MinSpecsList;
+                                }
+                            }
+                        }
+                    }
+                }
             }
             catch (Exception ex)
             {

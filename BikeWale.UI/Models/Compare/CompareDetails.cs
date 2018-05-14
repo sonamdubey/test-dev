@@ -1,4 +1,7 @@
 ﻿
+using Bikewale.BAL.ApiGateway.Adapters.BikeData;
+using Bikewale.BAL.ApiGateway.ApiGatewayHelper;
+using Bikewale.BAL.ApiGateway.Entities.BikeData;
 using Bikewale.Comparison.Interface;
 using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
@@ -37,17 +40,19 @@ namespace Bikewale.Models
         private readonly ISponsoredComparison _objSponsored = null;
         private readonly IArticles _objArticles = null;
         private string modelIdList;
-        private readonly IBikeVersionCacheRepository<BikeVersionEntity, uint> _objVersionCache = null;
+        private readonly IBikeVersions<BikeVersionEntity, uint> _objVersion;
+        private readonly IApiGatewayCaller _apiGatewayCaller;
         public bool IsMobile { get; set; }
         public StatusCodes status { get; set; }
         public string redirectionUrl { get; set; }
         private string _originalUrl, _compareUrl, _modelNameList;
         private readonly uint _maxComparisons;
         private string _bikeQueryString = string.Empty, _versionsList = string.Empty;
+        private IList<uint> _versionIdsList;
         private uint _sponsoredBikeVersionId, _cityId;
         private ushort bikeComparisions;
 
-        public CompareDetails(ICMSCacheContent compareTest, IBikeMaskingCacheRepository<BikeModelEntity, int> objModelMaskingCache, IBikeCompareCacheRepository objCompareCache, IBikeCompare objCompare, IBikeMakesCacheRepository objMakeCache, ISponsoredComparison objSponsored, IArticles objArticles, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionCache, uint maxComparisons)
+        public CompareDetails(ICMSCacheContent compareTest, IBikeMaskingCacheRepository<BikeModelEntity, int> objModelMaskingCache, IBikeCompareCacheRepository objCompareCache, IBikeCompare objCompare, IBikeMakesCacheRepository objMakeCache, ISponsoredComparison objSponsored, IArticles objArticles, IBikeVersions<BikeVersionEntity, uint> objVersion, uint maxComparisons, IApiGatewayCaller apiGatewayCaller)
         {
             _objModelMaskingCache = objModelMaskingCache;
             _objCompareCache = objCompareCache;
@@ -57,7 +62,8 @@ namespace Bikewale.Models
             _objSponsored = objSponsored;
             _maxComparisons = maxComparisons;
             _objArticles = objArticles;
-            _objVersionCache = objVersionCache;
+            _objVersion = objVersion;
+            _apiGatewayCaller = apiGatewayCaller;
             ProcessQueryString();
         }
         /// <summary>
@@ -143,13 +149,39 @@ namespace Bikewale.Models
                         if (obj.sponsoredVersionId > 0)
                         {
                             _versionsList = string.Format("{0},{1}", _versionsList, obj.sponsoredVersionId);
+                            _versionIdsList.Add(obj.sponsoredVersionId);
                         }
                     }
 
                     obj.Compare = _objCompareCache.DoCompare(_versionsList, _cityId);
 
+                    GetVersionSpecsByIdAdapter adapt1 = new GetVersionSpecsByIdAdapter();
+                    adapt1.AddApiGatewayCall(_apiGatewayCaller, _versionIdsList.Select(versionId => Convert.ToInt32(versionId)));
+                    _apiGatewayCaller.Call();
+
+                    obj.Compare.VersionSpecsFeatures = adapt1.Output;
+                    
                     if (obj.Compare != null && obj.Compare.BasicInfo != null)
                     {
+                        if (obj.Compare.VersionSpecsFeatures != null && obj.Compare.VersionSpecsFeatures.Specs != null)
+                        {
+                            SpecsFeaturesCategory specCategory = obj.Compare.VersionSpecsFeatures.Specs.ElementAtOrDefault(3);
+                            if (specCategory != null && specCategory.SpecsItemList != null)
+                            {
+                                SpecsFeaturesItem specItem = specCategory.SpecsItemList.FirstOrDefault(spec => spec.Id == (int)EnumSpecsFeaturesItems.FuelEfficiencyOverall);
+                                if (specItem != null)
+                                {
+                                    IEnumerator<string> specItemEnumerator = specItem.ItemValues.GetEnumerator();
+                                    IEnumerator<BikeEntityBase> basicInfoEnumerator = obj.Compare.BasicInfo.GetEnumerator();
+                                    ushort mileage;
+                                    while(specItemEnumerator.MoveNext() && basicInfoEnumerator.MoveNext())
+                                    {
+                                        basicInfoEnumerator.Current.Mileage = ushort.TryParse(specItemEnumerator.Current, out mileage) ? mileage : ushort.MinValue;
+                                    }
+                                }
+                            }
+                        }
+
                         CreateCanonicalUrlAndCheckRedirection(obj);
                         CreateDisclaimerText(obj);
                         if (status != StatusCodes.RedirectPermanent)
@@ -216,7 +248,7 @@ namespace Bikewale.Models
         {
             try
             {
-                var objSimilarBikes = new SimilarBikesWidget(_objVersionCache, !string.IsNullOrEmpty(_versionsList) ? Convert.ToUInt32(_versionsList.Split(',')[0]) : 0, PQSourceEnum.Desktop_CompareBike);
+                var objSimilarBikes = new SimilarBikesWidget(_objVersion, !string.IsNullOrEmpty(_versionsList) ? Convert.ToUInt32(_versionsList.Split(',')[0]) : 0, PQSourceEnum.Desktop_CompareBike);
 
                 objSimilarBikes.TopCount = 9;
                 objSimilarBikes.CityId = _cityId;
@@ -365,6 +397,8 @@ namespace Bikewale.Models
         /// <summary>
         /// Created By :- Subodh Jain 09 May 2017
         /// Summary :- Function for CreateCompareSummary
+        /// Modified By : Rajan Chauhan on 17 Apr 2017
+        /// Description : Corrected text typos
         /// </summary>
         /// <returns></returns>
         private void CreateCompareSummary(IEnumerable<BikeEntityBase> basicInfo, CompareBikeColorCategory colors, CompareDetailsVM obj)
@@ -391,7 +425,7 @@ namespace Bikewale.Models
                 bikeNames = bikeNames.Remove(bikeNames.Length - 5);
                 bikePrice = bikePrice.Remove(bikePrice.Length - 6);
                 variants = variants.Remove(variants.Length - 5);
-                obj.compareSummaryText = string.Format("BikeWale brings you comparison of {0}. The ex-showroom price of{1}.{2}. Apart from prices, you can also find comparison of these bikes based on displacement, mileage, performance, and many more parameter  &#x20B9; Comparison between these bikes have been carried out to help users make correct buying decison between {0}.", bikeNames, bikePrice, variants);
+                obj.compareSummaryText = string.Format("BikeWale brings you comparison of {0}. The ex-showroom price of{1}.{2}. Apart from prices, you can also find comparison of these bikes based on displacement, mileage, performance, and many more parameters. Comparison between these bikes have been carried out to help users make correct buying decision between {0}.", bikeNames, bikePrice, variants);
 
             }
             catch (Exception ex)
@@ -460,7 +494,7 @@ namespace Bikewale.Models
                         _sponsoredBikeVersionId = vId;
                     }
                 }
-
+                _versionIdsList = new List<uint>();
                 if (_bikeQueryString.Contains("bike"))
                 {
                     for (ushort i = 1; i <= _maxComparisons; i++)
@@ -469,6 +503,7 @@ namespace Bikewale.Models
                         if (uint.TryParse(request["bike" + i], out vId) && vId > 0)
                         {
                             _versionsList = string.Format("{0},{1}", _versionsList, vId);
+                            _versionIdsList.Add(vId);
                             bikeComparisions = i;
                         }
                     }
@@ -498,6 +533,7 @@ namespace Bikewale.Models
                         if (objResponse != null && objResponse.StatusCode == 200 && topVersionId > 0)
                         {
                             _versionsList = string.Format("{0},{1}", _versionsList, topVersionId);
+                            _versionIdsList.Add((uint)topVersionId);
                             status = StatusCodes.ContentFound;
                             bikeComparisions = (ushort)(iTmp + 1);
                             compareUrl.Enqueue(string.Format("{0}-{1}", makeMaskingName, modelMaskingName));

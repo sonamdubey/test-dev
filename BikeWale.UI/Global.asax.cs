@@ -51,6 +51,10 @@ namespace Bikewale
             {
                 CurrentUser.SetBikewaleABTestingUser();
             }
+            if (HttpContext.Current.Request.Cookies.Get("_bwutmz") == null)
+            {
+                BWCookies.SetBWUtmz();
+            }
         }
 
         /// <summary>

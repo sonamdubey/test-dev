@@ -37,10 +37,10 @@ namespace Bikewale.Cache.Used
         public ClassifiedInquiryDetails GetProfileDetails(uint inquiryId)
         {
             ClassifiedInquiryDetails objUsedBikes = null;
-            string key = String.Format("BW_ProfileDetails_{0}", inquiryId);
             try
             {
-                objUsedBikes = _cache.GetFromCache<ClassifiedInquiryDetails>(key, new TimeSpan(0, 30, 0), () => _objUsedBikes.GetProfileDetails(inquiryId));
+                string key = String.Format("BW_ProfileDetails_V1_{0}", inquiryId);
+                objUsedBikes = _cache.GetFromCache(key, new TimeSpan(0, 30, 0), () => _objUsedBikes.GetProfileDetails(inquiryId));
             }
             catch (Exception ex)
             {

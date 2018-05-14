@@ -134,11 +134,10 @@
                     </div>
                             }
 
-                @if (Model.ModelPageEntity != null && ((Model.ModelPageEntity.ModelVersions != null && Model.ModelPageEntity.ModelVersions.Count > 0 || Model.IsPriceInTopCitiesAvailable)
-|| (Model.ModelPageEntity.ModelVersionSpecs != null)))
+                @if (Model.ModelPageEntity != null && ((Model.ModelPageEntity.ModelVersions != null && Model.ModelPageEntity.ModelVersions.Count > 0 || Model.IsPriceInTopCitiesAvailable) || (Model.ModelPageEntity.ModelVersionMinSpecs != null)))
                 {
                     <div>
-                        @if (Model.ModelPageEntity.ModelVersionSpecs != null)
+                        @if (Model.ModelPageEntity.ModelVersionMinSpecs != null)
                         {
                             @Html.Partial("~/Views/Model/_Index_ModelSummary_Mobile.cshtml", Model)
                         }

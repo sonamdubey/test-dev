@@ -25,7 +25,7 @@ namespace Bikewale.Service.Controllers.Insurance
         /// <summary>
         /// Description : Send Client Models detail on specified Make ID.
         /// </summary>
-        /// <param name="modelId"></param>
+        /// <param name="makeId"></param>
         /// <returns></returns>
         [ResponseType(typeof(IEnumerable<ModelDetail>))]
         public IHttpActionResult Get(int makeId)

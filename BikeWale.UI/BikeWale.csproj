@@ -81,7 +81,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\AjaxPro.2.dll</HintPath>
     </Reference>
-    <Reference Include="ApiGatewayLibrary">
+    <Reference Include="ApiGatewayLibrary, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\APIGateway\ApiGatewayLibrary.dll</HintPath>
     </Reference>
     <Reference Include="AutoMapper, Version=4.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
@@ -119,6 +120,12 @@
     <Reference Include="ClearScript">
       <HintPath>..\Libs\PWA\ClearScript.dll</HintPath>
     </Reference>
+    <Reference Include="Crc32C.NET">
+      <HintPath>..\Libs\zipkin\Crc32C.NET.dll</HintPath>
+    </Reference>
+    <Reference Include="Criteo.Profiling.Tracing">
+      <HintPath>..\Libs\zipkin\Criteo.Profiling.Tracing.dll</HintPath>
+    </Reference>
     <Reference Include="Dapper">
       <HintPath>..\Libs\Dapper.dll</HintPath>
     </Reference>
@@ -137,9 +144,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\Gelf4Net.UdpAppender.dll</HintPath>
     </Reference>
-    <Reference Include="Google.Protobuf, Version=3.0.0.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
+    <Reference Include="Google.Protobuf, Version=3.5.1.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\Google.Protobuf.dll</HintPath>
+      <HintPath>..\Libs\APIGateway\Google.Protobuf.dll</HintPath>
     </Reference>
     <Reference Include="Grpc.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=d754f35622e28bad, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -167,9 +174,15 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\PWA\JSPool.dll</HintPath>
     </Reference>
+    <Reference Include="Kafka">
+      <HintPath>..\Libs\zipkin\Kafka.dll</HintPath>
+    </Reference>
     <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="LZ4">
+      <HintPath>..\Libs\zipkin\LZ4.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Practices.Unity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
@@ -231,6 +244,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\PWA\React.Web.Mvc4.dll</HintPath>
     </Reference>
+    <Reference Include="Snappy.NET">
+      <HintPath>..\Libs\zipkin\Snappy.NET.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -247,8 +263,20 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
+    <Reference Include="System.Reactive.Core">
+      <HintPath>..\Libs\zipkin\System.Reactive.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.Interfaces">
+      <HintPath>..\Libs\zipkin\System.Reactive.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.Linq">
+      <HintPath>..\Libs\zipkin\System.Reactive.Linq.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Threading.Tasks.Dataflow">
+      <HintPath>..\Libs\zipkin\System.Threading.Tasks.Dataflow.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -954,6 +982,7 @@
     <Compile Include="Models\ComparisonTest\ComparisonTestWidget.cs" />
     <Compile Include="Models\ComparisonTests\ComparisonTestsIndexPage.cs" />
     <Compile Include="Models\DealerShowroom\DealerCardWidget.cs" />
+    <Compile Include="Models\EditorialPages\EditorialBasePage.cs" />
     <Compile Include="Models\ElectricBike\ElectricBikesPage.cs" />
     <Compile Include="Models\ExpertReviews\ScooterExpertReviewsPage.cs" />
     <Compile Include="Models\Features\DetailPage.cs" />
@@ -982,7 +1011,6 @@
     <Compile Include="Models\ExpertReviews\ExpertReviewsIndexPage.cs" />
     <Compile Include="Models\ExpertReviews\RecentExpertReviews.cs" />
     <Compile Include="Models\NewBikeSearch\NewBikeSearchModel.cs" />
-    <Compile Include="Models\NewBikeSearch\NewBikeSearchPopupModel.cs" />
     <Compile Include="Models\NewPage\NewPageModel.cs" />
     <Compile Include="Models\News\NewsDetailPage.cs" />
     <Compile Include="Models\NewLaunches\NewLaunchedIndexModel.cs" />
@@ -1779,6 +1807,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AboutUs.aspx" />
+    <Content Include="ads.txt" />
     <Content Include="ads\Ad300x250_mobile.aspx" />
     <Content Include="ads\Ad300x250.aspx" />
     <Content Include="ads\Ad300x250BTF.aspx" />
@@ -2087,6 +2116,7 @@
     <Content Include="bikewaleimg\used\S93\93_20120913123500720_300x225.jpg" />
     <Content Include="bikewaleimg\used\S93\93_20120913123500720_640x428.jpg" />
     <Content Include="bikewaleimg\used\S93\93_20120913123500720_80x60.jpg" />
+    <Content Include="BingSiteAuth.xml" />
     <Content Include="bin\Bikewale.dll" />
     <!--     <Content Include="bin\DotNetOpenAuth.AspNet.dll" />
     <Content Include="bin\DotNetOpenAuth.AspNet.xml" />
@@ -2256,6 +2286,7 @@
     <Content Include="fonts\WebRupee.V2.0.svg" />
     <Content Include="fonts\WebRupee.V2.0.ttf" />
     <Content Include="fonts\WebRupee.V2.0.woff" />
+    <Content Include="m\ads.txt" />
     <Content Include="m\css\campaign\hero-campaign.css" />
     <Content Include="m\css\electricbikes\landing.css" />
     <Content Include="m\css\finance\capital-first.css" />
@@ -3196,8 +3227,10 @@
     <Content Include="src\dealersbylocation.js" />
     <Content Include="src\dealer\details.js" />
     <Content Include="src\dealer\landing.js" />
+    <Content Include="src\editorialwidgetga.js" />
     <Content Include="src\electricbikes\electricbikeindex.js" />
     <Content Include="src\lazyloadad.js" />
+    <Content Include="m\src\lazyloadyoutube.js" />
     <Content Include="src\lazyloadyoutube.js" />
     <Content Include="src\model-series\series.js" />
     <Content Include="src\emi-calculator.js" />
@@ -3344,6 +3377,7 @@
     <Content Include="Videos\video.aspx" />
     <Content Include="Videos\VideoCategories.aspx" />
     <Content Include="Videos\VideoMakeModel.aspx" />
+    <Content Include="Views\BikeModels\_UpcomingBikesWidgetBase_Mobile_AMP.cshtml" />
     <Content Include="Views\BikeSeries\_Index_Tabs_Mobile.cshtml" />
     <Content Include="Views\ExpertReviews\_ExpertReview_Mobile.cshtml" />
     <Content Include="Views\Make\_DealerServiceCentersWidget.cshtml">
@@ -3352,6 +3386,8 @@
     <Content Include="Views\Make\_DealerServiceCentersWidget_Mobile.cshtml">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="Views\Model\_Index_MileageDetails.cshtml" />
+    <Content Include="Views\Model\_Index_MileageDetails_Mobile.cshtml" />
     <Content Include="Views\News\_RecentNews_v1.cshtml" />
     <Content Include="Views\Photos\_ModelsImageList.cshtml" />
     <Content Include="Views\Photos\_ModelsImageListBase_Mobile.cshtml">
@@ -4076,8 +4112,30 @@
     <Content Include="Views\Shared\fontcss\Oxygen\_Latin700.cshtml" />
     <Content Include="Views\Shared\Ads\Mobile\Ad320x50.cshtml" />
     <Content Include="Views\Shared\Ads\Mobile\Ad320x50Bottom.cshtml" />
+    <Content Include="Views\BikeModels\_PopularBikesWidgetBase.cshtml" />
+    <Content Include="Views\BikeModels\_UpcomingBikesWidgetBase.cshtml" />
     <Content Include="Views\Shared\Ads\Desktop\AdSlotGeneric.cshtml" />
     <Content Include="sass\partials\bw-youtube.sass" />
+    <Content Include="Views\GenericBikeInfo\_GenericBikeInfoWidget.cshtml" />
+    <Content Include="Views\GenericBikeInfo\_GenericBikeInfoWidget_Mobile.cshtml" />
+    <Content Include="Views\Make\_OtherBrandsWidgetBase.cshtml" />
+    <Content Include="sass\partials\explore-bikes-carousel.sass" />
+    <Content Include="Views\Shared\_EditorialWidgetBase.cshtml" />
+    <Content Include="Views\BikeSeries\_MakeSeriesSlug.cshtml" />
+    <Content Include="Views\BikeSeries\_MakeSeriesSlug_Mobile.cshtml" />
+    <Content Include="Views\BikeSeries\_MakeSeriesSlug_Mobile_New.cshtml" />
+    <Content Include="Views\BikeSeries\_MakeSeriesSlug_Mobile_AMP.cshtml" />
+    <Content Include="Views\Shared\_EditorialWidgetBase_Mobile.cshtml" />
+    <Content Include="Views\BikeModels\_PopularBikesWidgetBase_Mobile.cshtml" />
+    <Content Include="Views\Make\_OtherBrandsWidgetBase_Mobile.cshtml" />
+    <Content Include="Views\BikeModels\_UpcomingBikesWidgetBase_Mobile.cshtml" />
+    <Content Include="Views\Shared\_EditorialWidgetBase_Mobile_AMP.cshtml" />
+    <Content Include="Views\BikeModels\_PopularBikesWidgetBase_Mobile_AMP.cshtml" />
+    <Content Include="Views\Make\_OtherBrandsWidgetBase_Mobile_AMP.cshtml" />
+    <Content Include="Views\Model\_Index_MileageDetails.cshtml" />
+    <Content Include="Views\Model\_Index_MileageDetails_Mobile.cshtml" />
+    <Content Include="Views\Make\Index_Mobile_New_v1.cshtml" />
+    <Content Include="Views\Make\_Index_Tabs_Mobile_New_V1.cshtml" />
     <None Include="Views\Shared\_Sidebar-section.cshtml" />
     <Content Include="Views\BikeModels\_MultiTabsWidget.cshtml" />
     <Content Include="Views\Shared\_ReviewPopup.cshtml" />
@@ -4103,6 +4161,7 @@
     <Content Include="Views\BestBikes\_PopularBodyStyleBestBikesCarousel_Mobile.cshtml" />
     <Content Include="Views\UserReview\BikesWithReviewsByMake_Mobile_New.cshtml" />
     <Content Include="Views\Upcoming\_UpcomingBikesWithNotify_Mobile.cshtml" />
+    <Content Include="Views\Videos\_LazyLoadVideos_Mobile.cshtml" />
     <Content Include="Views\Videos\_LazyLoadVideos.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -4133,13 +4192,16 @@
     <Folder Include="obj\Release\TempPE\" />
     <Folder Include="Views\BikeInfo\" />
     <Folder Include="Views\Content\News\Amp\" />
-    <Folder Include="Views\GenericBikeInfo\" />
     <Folder Include="Views\Privacy\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Bikewale.BAL.ApiGateway\Bikewale.BAL.ApiGateway.csproj">
+      <Project>{281d4c7b-6329-4307-a1a3-de25135659f6}</Project>
+      <Name>Bikewale.BAL.ApiGateway</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Bikewale.BAL\Bikewale.BAL.csproj">
       <Project>{3ca0d7b6-7e09-449c-a34d-c08ca8118876}</Project>
       <Name>Bikewale.BAL</Name>
@@ -4359,9 +4421,9 @@
   <Target Name="BeforeBuild">
     <Message Text="Bikewale Build Initialized..." Importance="high" />
   </Target>
-  <Target Name="CheckNPMInstall" AfterTargets="BeforeBuild" Condition="'$(Configuration)' != 'Debug'">	
-    <Message Text="Checking and installing NPM on machine.." Importance="high" />	
-    <Exec Command="npm install  --quiet" WorkingDirectory="$(ProjectDir)" />	
+  <Target Name="CheckNPMInstall" AfterTargets="BeforeBuild" Condition="'$(Configuration)' != 'Debug'">
+    <Message Text="Checking and installing NPM on machine.." Importance="high" />
+    <Exec Command="npm install  --quiet" WorkingDirectory="$(ProjectDir)" />
   </Target>
   <Target Name="ExecuteGulpEvent" AfterTargets="AfterBuild" DependsOnTargets="CheckNPMInstall" Condition="'$(Configuration)' != 'Debug'">
     <Message Text="Running gulp task $(Configuration)" Importance="high" />
