@@ -18,6 +18,9 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using Bikewale.ManufacturerCampaign.Entities;
+using Bikewale.BAL.ApiGateway.Entities.SpamFilter;
+using Bikewale.BAL.ApiGateway.ApiGatewayHelper;
+using Bikewale.BAL.ApiGateway.Adapters.SpamFilter;
 
 namespace Bikewale.BAL.Lead
 {
@@ -27,6 +30,7 @@ namespace Bikewale.BAL.Lead
     /// </summary>
     public class LeadProcess : ILead
     {
+        #region Class Level Variables
         private readonly ICustomerAuthentication<CustomerEntity, UInt32> _objAuthCustomer = null;
         private readonly ICustomer<CustomerEntity, UInt32> _objCustomer = null;
         private readonly IDealerPriceQuote _objDealerPriceQuote = null;
@@ -38,10 +42,13 @@ namespace Bikewale.BAL.Lead
         private readonly ILeadNofitication _objLeadNofitication = null;
         private readonly Bikewale.Interfaces.AutoBiz.IDealers _objAutobizDealer = null;
         private readonly IManufacturerCampaignRepository _manufacturerCampaignRepo = null;
+        private readonly IApiGatewayCaller _apiGatewayCaller;
         public bool IsPQCustomerDetailWithPQ { get; set; }
-        CustomerEntity objCust = null;
+        CustomerEntity objCust = null; 
+        #endregion
 
 
+        #region Constructor
         public LeadProcess(
             ICustomerAuthentication<CustomerEntity, UInt32> objAuthCustomer,
             ICustomer<CustomerEntity, UInt32> objCustomer,
@@ -49,7 +56,8 @@ namespace Bikewale.BAL.Lead
             IMobileVerificationRepository mobileVerRespo,
             IMobileVerification mobileVerificetion,
             IDealer objDealer,
-            IPriceQuote objPriceQuote, ILeadNofitication objLeadNofitication, IMobileVerificationCache mobileVerCacheRepo, Bikewale.Interfaces.AutoBiz.IDealers objAutobizDealer, IManufacturerCampaignRepository manufacturerCampaignRepo)
+            IPriceQuote objPriceQuote, ILeadNofitication objLeadNofitication, IMobileVerificationCache mobileVerCacheRepo, Bikewale.Interfaces.AutoBiz.IDealers objAutobizDealer, IManufacturerCampaignRepository manufacturerCampaignRepo,
+            IApiGatewayCaller apiGatewayCaller)
         {
             _objAuthCustomer = objAuthCustomer;
             _objCustomer = objCustomer;
@@ -62,7 +70,9 @@ namespace Bikewale.BAL.Lead
             _mobileVerCacheRepo = mobileVerCacheRepo;
             _objAutobizDealer = objAutobizDealer;
             _manufacturerCampaignRepo = manufacturerCampaignRepo;
-        }
+            _apiGatewayCaller = apiGatewayCaller;
+        } 
+        #endregion
 
 
         /// <summary>
@@ -317,6 +327,55 @@ namespace Bikewale.BAL.Lead
             return output;
         }
 
+
+        private DPQ_SaveEntity CheckRegisteredUser(Entities.PriceQuote.PQCustomerDetailInput input, System.Collections.Specialized.NameValueCollection requestHeaders)
+        {
+            DPQ_SaveEntity entity = null;
+            try
+            {
+                if (input != null)
+                {
+
+                    if (!_objAuthCustomer.IsRegisteredUser(input.CustomerEmail, input.CustomerMobile))
+                    {
+                        objCust = new CustomerEntity() { CustomerName = input.CustomerName, CustomerEmail = input.CustomerEmail, CustomerMobile = input.CustomerMobile, ClientIP = input.ClientIP };
+                        UInt32 CustomerId = _objCustomer.Add(objCust);
+                    }
+                    else
+                    {
+                        var objCustomer = _objCustomer.GetByEmailMobile(input.CustomerEmail, input.CustomerMobile);
+                        objCust = new CustomerEntity()
+                        {
+                            CustomerId = objCustomer.CustomerId,
+                            CustomerName = input.CustomerName,
+                            CustomerEmail = input.CustomerEmail = !String.IsNullOrEmpty(input.CustomerEmail) ? input.CustomerEmail : objCustomer.CustomerEmail,
+                            CustomerMobile = input.CustomerMobile
+                        };
+                        _objCustomer.Update(objCust);
+                    }
+                    entity = new DPQ_SaveEntity()
+                    {
+                        DealerId = input.DealerId,
+                        PQId = input.PQId,
+                        CustomerName = input.CustomerName,
+                        CustomerEmail = input.CustomerEmail,
+                        CustomerMobile = input.CustomerMobile,
+                        ColorId = null,
+                        UTMA = requestHeaders["utma"],
+                        UTMZ = requestHeaders["utmz"],
+                        DeviceId = input.DeviceId,
+                        LeadSourceId = input.LeadSourceId
+                    };
+
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("Bikewale.BAL.Lead.LeadProcess.CheckRegisteredUser"));
+            }
+            return entity;
+        }
+
         
         /// <summary>
         /// Created By : Deepak Israni on 4 May 2018
@@ -445,53 +504,20 @@ namespace Bikewale.BAL.Lead
             SendEmailSMSToDealerCustomer.SendSMSToCustomer(objLead.PQId, string.Empty, objDPQSmsEntity, DPQTypes.KawasakiCampaign);
         }
 
-
-        private DPQ_SaveEntity CheckRegisteredUser(Entities.PriceQuote.PQCustomerDetailInput input, System.Collections.Specialized.NameValueCollection requestHeaders)
+        /// <summary>
+        /// Created By : Deepak Israni on 14 May 2018
+        /// Description: Function to call microservice to check whether inputs by customer are valid or invalid.
+        /// </summary>
+        /// <param name="customerDetails"></param>
+        /// <returns></returns>
+        private SpamScore CheckSpamScore(CustomerEntityBase customerDetails)
         {
-            DPQ_SaveEntity entity = null;
-            try
-            {
-                if (input != null)
-                {
-
-                    if (!_objAuthCustomer.IsRegisteredUser(input.CustomerEmail, input.CustomerMobile))
-                    {
-                        objCust = new CustomerEntity() { CustomerName = input.CustomerName, CustomerEmail = input.CustomerEmail, CustomerMobile = input.CustomerMobile, ClientIP = input.ClientIP };
-                        UInt32 CustomerId = _objCustomer.Add(objCust);
-                    }
-                    else
-                    {
-                        var objCustomer = _objCustomer.GetByEmailMobile(input.CustomerEmail, input.CustomerMobile);
-                        objCust = new CustomerEntity()
-                        {
-                            CustomerId = objCustomer.CustomerId,
-                            CustomerName = input.CustomerName,
-                            CustomerEmail = input.CustomerEmail = !String.IsNullOrEmpty(input.CustomerEmail) ? input.CustomerEmail : objCustomer.CustomerEmail,
-                            CustomerMobile = input.CustomerMobile
-                        };
-                        _objCustomer.Update(objCust);
-                    }
-                    entity = new DPQ_SaveEntity()
-                    {
-                        DealerId = input.DealerId,
-                        PQId = input.PQId,
-                        CustomerName = input.CustomerName,
-                        CustomerEmail = input.CustomerEmail,
-                        CustomerMobile = input.CustomerMobile,
-                        ColorId = null,
-                        UTMA = requestHeaders["utma"],
-                        UTMZ = requestHeaders["utmz"],
-                        DeviceId = input.DeviceId,
-                        LeadSourceId = input.LeadSourceId
-                    };
-
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorClass.LogError(ex, string.Format("Bikewale.BAL.Lead.LeadProcess.CheckRegisteredUser"));
-            }
-            return entity;
+            GetScoreAdapter spamFilter = new BAL.ApiGateway.Adapters.SpamFilter.GetScoreAdapter();
+            spamFilter.AddApiGatewayCall(_apiGatewayCaller, customerDetails);
+            _apiGatewayCaller.Call();
+            SpamScore output = spamFilter.Output;
+            return output;
         }
+
     }
 }
