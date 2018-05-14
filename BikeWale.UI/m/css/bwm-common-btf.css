@@ -387,12 +387,13 @@ button.swiper-pagination-bullet { border: none; margin: 0; padding: 0; box-shado
 
 .fa-spinner { width:16px; height:16px; background:#fff url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif) no-repeat; }
 /* nav classes */
-.home-icon, .newBikes-icon, .scooter-icon, .usedBikes-icon, .sellBikes-icon, .reviews-icon, .news-icon, .cancellation-icon, .myBikeWale-icon, .logout-icon, .password-icon, .inquiry-icon, .newsletter-icon { width: 24px; height: 22px; margin-right: 10px; top:5px; position: relative; }
+.home-icon, .newBikes-icon, .scooter-icon, .usedBikes-icon, .sellBikes-icon, .forum-icon, .reviews-icon, .news-icon, .cancellation-icon, .myBikeWale-icon, .logout-icon, .password-icon, .inquiry-icon, .newsletter-icon { width: 24px; height: 22px; margin-right: 10px; top:5px; position: relative; }
 .home-icon { background-position: 0 -40px; }
 .newBikes-icon { background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/4d5057/bike-22x13.png') no-repeat center; display: inline-block; }
 .scooter-icon { background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/4d5057/scooter-22x15.png') no-repeat center; display: inline-block; }
 .usedBikes-icon { background-position: 0 -178px; }
 .sellBikes-icon { background-position: 0 -155px; }
+.forum-icon { background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/bwsprite-v3.png?05July20171499235738247) no-repeat center; background-position: 0 -282px }
 .reviews-icon { background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/4d5057/review-24x16.png') no-repeat center; display: inline-block; }
 .news-icon { background-position: 0 -132px; }
 .myBikeWale-icon { background-position: 0 -86px; }

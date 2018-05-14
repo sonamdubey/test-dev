@@ -37,7 +37,7 @@ var initialState = fromJS({
 
 export function SelectBikePopup(state, action) {
   try {
-    if (!state.size) {
+    if ( state == undefined || !state.size) {
       return initialState;
     }
 

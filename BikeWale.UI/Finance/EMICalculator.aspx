@@ -7,6 +7,7 @@
     AdId = "1395991249804";
     AdPath = "/1017752/BikeWale_EMICalculator_";
     isAd300x250Shown = false;
+	alternateUrl = "https://www.bikewale.com/m/bike-loan-emi-calculator/"; 
 %>
 <!-- #include file="/includes/headTools.aspx" -->
 <script type="text/javascript" src="/src/calculateemi.js?v=1.0"></script>

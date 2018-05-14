@@ -9,6 +9,17 @@ class Breadcrumb extends React.Component {
             </li>)
 
     }
+	
+    samePageScroll() {
+    	if(this.isSamePage) {
+    		window.scrollTo(0,0);
+    		return true;
+    	}
+    	else {
+    		return true;
+    	}
+    }
+
     renderLinkableItem(item) {
     	if(!item) {
     		return null;
@@ -16,7 +27,7 @@ class Breadcrumb extends React.Component {
 
         if(item.isReactLink) {
         	return (<li>
-				<Link to={item.Href} title={item.Title} className="breadcrumb-link">
+				<Link to={item.Href} title={item.Title} className="breadcrumb-link" onClick={this.samePageScroll.bind(item)}>
 					<span className="breadcrumb-link__label">{item.Title}</span>
 				</Link>
 			</li>)

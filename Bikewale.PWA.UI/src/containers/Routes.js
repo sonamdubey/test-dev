@@ -98,7 +98,7 @@ module.exports = () => {
 		<Route exact path='/m/bike-videos/category/*-:categoryId(\d+)/' render={(props) => (<VideoCategoryUC path={path} />)} />
 		<Route exact path='/m/bike-videos/:title-:basicId(\d+)/' render={(props) => (<VideoDetailUC path={path} />)} />
 
-		<Route exact path='/m/finance/' render={(props) => (<FinanceUC path={path} />)} />
+		<Route exact path='/m/bike-loan-emi-calculator/' render={(props) => (<FinanceUC path={path} />)} />
 
 	</Switch>
 }

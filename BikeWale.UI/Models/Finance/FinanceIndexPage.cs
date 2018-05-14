@@ -1,31 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using Bikewale.Common;
 using Bikewale.Entities;
-using Bikewale.Entities.BikeData;
-using Bikewale.Entities.CMS;
-using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.Pager;
-using Bikewale.Entities.PriceQuote;
 using Bikewale.Entities.PWA.Articles;
 using Bikewale.Entities.Schema;
-using Bikewale.Interfaces.BikeData;
-using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.EditCMS;
-using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.Pager;
 using Bikewale.Interfaces.PWA.CMS;
-using Bikewale.Models.BestBikes;
-using Bikewale.Models.BikeModels;
-using Bikewale.Models.Scooters;
 using Bikewale.PWA.Utils;
 using Bikewale.Utility;
 using Newtonsoft.Json;
 using Bikewale.Models.Shared;
+using Bikewale.Models.Finance;
 
 namespace Bikewale.Models
 {
@@ -81,15 +70,14 @@ namespace Bikewale.Models
             }
         }
 
-        public PwaBaseVM GetPwaData()
+		public FinanceIndexPageVM GetPwaData()
         {
-            PwaBaseVM objData = new PwaBaseVM();
+			FinanceIndexPageVM objData = new FinanceIndexPageVM();
             try
             {
-
+				BindPageMetas(objData.PageMetaTags);
                 objData.ReduxStore = new PwaReduxStore();
                 var storeJson = JsonConvert.SerializeObject(objData.ReduxStore);
-
                 objData.ServerRouterWrapper = _renderedArticles.GetNewsListDetails(PwaCmsHelper.GetSha256Hash(storeJson), objData.ReduxStore.News.NewsArticleListReducer,
                     "/m/finance/", "root", "ServerRouterWrapper");
                 objData.WindowState = storeJson;
@@ -101,6 +89,22 @@ namespace Bikewale.Models
             }
             return objData;
         }
+
+		private void BindPageMetas(PageMetaTags objPage)
+		{
+			try
+			{
+				objPage.Title = "EMI Calculator | Calculate Bike Loan EMI - BikeWale";
+				objPage.Keywords = "calculate emi, emi calculator, calculate loan, loan calculator, indian emi calculator, used bike emi, new bike emi, new bike emi calculator, used bike emi calculator";
+				objPage.Description = "EMI Calculator for new and used Bike loans. Calculate accurate Bike loan emi in advanced and arrears finance modes.";
+				objPage.CanonicalUrl = "https://www.bikewale.com/bike-loan-emi-calculator/";
+				objPage.AlternateUrl = "https://www.bikewale.com/m/bike-loan-emi-calculator/";
+			}
+			catch (Exception ex)
+			{
+				ErrorClass.LogError(ex, "FinanceIndexPage.BindMetas()");
+			}
+		}
         #endregion
 
     }
