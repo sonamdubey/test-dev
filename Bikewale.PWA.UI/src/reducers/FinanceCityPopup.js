@@ -10,8 +10,8 @@ var initialState = fromJS({
     cityName: "Mumbai",
     userChange: false
   },
-  Popular: [
-    {
+  Popular: []
+    /*{
       cityId: 1,
       cityName: "Mumbai",
       maskingName: "mumbai",
@@ -47,9 +47,9 @@ var initialState = fromJS({
       maskingName: "pune",
       icon: "http://imgd.aeplcdn.com/0x0/bw/static/icons/city/pune.svg"
     }
-  ],
-  Other: [
-    {
+  ]*/,
+  Other: []
+   /* {
       cityId: 333,
       cityName: "Abohar",
       maskingName: "abohar"
@@ -84,17 +84,22 @@ var initialState = fromJS({
       cityName: "Agartala",
       maskingName: "agartala"
     }
-  ]
+  ]*/
 })
 
-export function FinanceCityPopup(state, action) {
+export function FinanceCityPopup(state = initialState, action) {
+    console.log(state)
   try {
-    if (!state)
+      if (!state)
       return initialState;
 
     switch (action.type) {
-      case financeCityPopup.FETCH_CITY_SUCCESS:
-        return initialState;
+        case financeCityPopup.FETCH_CITY_SUCCESS:
+            return state.setIn(['Popular'], fromJS(action.payload.City.slice(0,6))).setIn(['Other'], fromJS(action.payload.City.slice(6))).setIn(['Selection'],fromJS({
+                cityId: 1,
+                cityName: "Mumbai",
+                userChange: false
+            }));
 
       case financeCityPopup.OPEN_CITY_POPUP:
         return state.setIn(['isActive'], true);

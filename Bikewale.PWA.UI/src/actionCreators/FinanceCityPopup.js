@@ -1,13 +1,27 @@
 import { financeCityPopup } from '../actionTypes/FinanceCityPopup'
 
 const fetchCityData = () => {
-  return {
-    type: financeCityPopup.FETCH_CITY_SUCCESS
+    return (dispatch) => {
+        var method = 'GET';
+        var url = '/api/pwa/cities/?requestType=18';
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if(xhr.readyState == 4 && xhr.status == 200) {
+                if(xhr.status == 200)
+                    dispatch({type:financeCityPopup.FETCH_CITY_SUCCESS,payload:JSON.parse(xhr.responseText)})
+                else
+                    dispatch({type:financeCityPopup.FETCH_CITY_FAILURE})
+            }
+
+        }
+        xhr.open('GET',url)
+        xhr.send();
+        dispatch({type:financeCityPopup.FETCH_CITY});
   }
 }
 
 const openCityPopup = () => {
-  return {
+    return {
     type: financeCityPopup.OPEN_CITY_POPUP
   }
 }
