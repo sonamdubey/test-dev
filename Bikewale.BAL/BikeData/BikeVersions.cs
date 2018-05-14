@@ -339,17 +339,17 @@ namespace Bikewale.BAL.BikeData
         /// Author  : Kartik Rathod on 11 May 2018
         /// Desc    : Get similar bikes based on road price for emi page in finance
         /// </summary>
-        /// <param name="versionId"></param>
+        /// <param name="modelId"></param>
         /// <param name="topcount"></param>
         /// <param name="cityId"></param>
         /// <returns>SimilarBikesForEMIEntityList</returns>
-        public IEnumerable<SimilarBikesForEMIEntity> GetSimilarBikesForEMI(int versionId, byte topcount, int cityId)
+        public IEnumerable<SimilarBikesForEMIEntity> GetSimilarBikesForEMI(int modelId, byte topcount, int cityId)
         {
             if(topcount <= 0)
             {
                 topcount = (byte)9;
             }
-            return _versionCacheRepository.GetSimilarBikesForEMI(versionId, topcount, cityId);
+            return _versionCacheRepository.GetSimilarBikesForEMI(modelId, topcount, cityId);
         }
 
 
