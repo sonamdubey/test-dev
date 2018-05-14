@@ -1,26 +1,25 @@
 ﻿
-using Bikewale.DTO.PriceQuote.BikeBooking;
+using Bikewale.BAL.ApiGateway.Adapters.SpamFilter;
+using Bikewale.BAL.ApiGateway.ApiGatewayHelper;
+using Bikewale.BAL.ApiGateway.Entities.SpamFilter;
 using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.Customer;
-using Bikewale.Entities.PriceQuote;
 using Bikewale.Entities.Dealer;
+using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.Customer;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Interfaces.Lead;
 using Bikewale.Interfaces.MobileVerification;
 using Bikewale.Interfaces.PriceQuote;
-using Bikewale.Notifications;
+using Bikewale.ManufacturerCampaign.Entities;
 using Bikewale.ManufacturerCampaign.Interface;
+using Bikewale.Notifications;
 using RabbitMqPublishing;
 using System;
-using System.Linq;
 using System.Collections.Generic;
 using System.Collections.Specialized;
-using Bikewale.ManufacturerCampaign.Entities;
-using Bikewale.BAL.ApiGateway.Entities.SpamFilter;
-using Bikewale.BAL.ApiGateway.ApiGatewayHelper;
-using Bikewale.BAL.ApiGateway.Adapters.SpamFilter;
+using System.Linq;
 
 namespace Bikewale.BAL.Lead
 {
@@ -44,7 +43,7 @@ namespace Bikewale.BAL.Lead
         private readonly IManufacturerCampaignRepository _manufacturerCampaignRepo = null;
         private readonly IApiGatewayCaller _apiGatewayCaller;
         public bool IsPQCustomerDetailWithPQ { get; set; }
-        CustomerEntity objCust = null; 
+        CustomerEntity objCust = null;
         #endregion
 
 
@@ -71,7 +70,7 @@ namespace Bikewale.BAL.Lead
             _objAutobizDealer = objAutobizDealer;
             _manufacturerCampaignRepo = manufacturerCampaignRepo;
             _apiGatewayCaller = apiGatewayCaller;
-        } 
+        }
         #endregion
 
 
@@ -125,7 +124,7 @@ namespace Bikewale.BAL.Lead
             return pqCustomerDetailEntity;
         }
 
-     
+
         /// <summary>
         /// Modified by : Sanskar Gupta on 09 May 2018
         /// Description : Removed unused variables such as `isVerified` and the DTO, Added the check `pqInput.PQId`
@@ -133,7 +132,7 @@ namespace Bikewale.BAL.Lead
         /// <param name="pqInput"></param>
         /// <param name="requestHeaders"></param>
         /// <returns></returns>
-       public PQCustomerDetailOutputEntity ProcessPQCustomerDetailInputWithoutPQ(PQCustomerDetailInput pqInput, System.Collections.Specialized.NameValueCollection requestHeaders)
+        public PQCustomerDetailOutputEntity ProcessPQCustomerDetailInputWithoutPQ(PQCustomerDetailInput pqInput, System.Collections.Specialized.NameValueCollection requestHeaders)
         {
             PriceQuoteParametersEntity objPQEntity = null;
             DPQ_SaveEntity entity = null;
@@ -308,7 +307,7 @@ namespace Bikewale.BAL.Lead
                         _objLeadNofitication.NotifyDealer(pqInput.PQId, quotation.objMake.MakeName, quotation.objModel.ModelName, quotation.objVersion.VersionName,
                             dealer.Name, dealer.EmailId, objCust.CustomerName, objCust.CustomerEmail, objCust.CustomerMobile, objCust.AreaDetails.AreaName, objCust.cityDetails.CityName, quotation.PriceList, Convert.ToInt32(TotalPrice), dealerDetailEntity.objOffers, imagePath, dealer.PhoneNo, bikeName, objDPQSmsEntity.DealerArea);
                     }
-                    
+
                     if (isVerified)
                     {
                         _objPriceQuote.SaveBookingState(pqInput.PQId, PriceQuoteStates.LeadSubmitted);
@@ -331,6 +330,8 @@ namespace Bikewale.BAL.Lead
         private DPQ_SaveEntity CheckRegisteredUser(Entities.PriceQuote.PQCustomerDetailInput input, System.Collections.Specialized.NameValueCollection requestHeaders)
         {
             DPQ_SaveEntity entity = null;
+            SpamScore spamScore = null;
+            float spamThreshold = 0;
             try
             {
                 if (input != null)
@@ -353,6 +354,7 @@ namespace Bikewale.BAL.Lead
                         };
                         _objCustomer.Update(objCust);
                     }
+                    spamScore = CheckSpamScore(objCust);
                     entity = new DPQ_SaveEntity()
                     {
                         DealerId = input.DealerId,
@@ -366,6 +368,12 @@ namespace Bikewale.BAL.Lead
                         DeviceId = input.DeviceId,
                         LeadSourceId = input.LeadSourceId
                     };
+                    if(spamScore!=null)
+                    {
+                        entity.SpamScore = spamScore.Score;
+                        entity.OverallSpamScore = ;
+                        entity.IsAccepted = ( spamScore.Score < spamThreshold);
+                    }
 
                 }
             }
@@ -376,7 +384,7 @@ namespace Bikewale.BAL.Lead
             return entity;
         }
 
-        
+
         /// <summary>
         /// Created By : Deepak Israni on 4 May 2018
         /// Description: BAL function to process manufacturer leads.
@@ -469,7 +477,7 @@ namespace Bikewale.BAL.Lead
 
             return objCust;
         }
-        
+
         /// <summary>
         /// Created By : Deepak Israni on 4 May 2018
         /// Description: Pushes lead to Lead Processing Consumer.

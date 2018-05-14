@@ -29,6 +29,9 @@ namespace Bikewale.DAL.BikeBooking
         /// Summary : To save utmz, utma, LeadSourceId, deviceId
         /// Modified By : Sushil Kumar on 29th Nov 2016
         /// Description : Removed unused function UpdateAppointmentDate
+        /// Modified by : Snehal Dange on 14th May 2018
+        /// Descripton : Changed sp name from 'savebikedealerquotations_07062017' to 'savebikedealerquotations_14052018' .Added par_spamscore,par_isaccepted,par_overallspamscore to store overall score
+        /// Description :  
         /// </summary>
         /// <param name="dealerId"></param>
         /// <param name="pqId"></param>
@@ -45,7 +48,7 @@ namespace Bikewale.DAL.BikeBooking
 
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.CommandText = "savebikedealerquotations_07062017";
+                    cmd.CommandText = "savebikedealerquotations_14052018";
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, entity.DealerId));
@@ -60,6 +63,13 @@ namespace Bikewale.DAL.BikeBooking
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_utma", DbType.String, 500, (!String.IsNullOrEmpty(entity.UTMA)) ? entity.UTMA : Convert.DBNull));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_utmz", DbType.String, 500, (!String.IsNullOrEmpty(entity.UTMZ)) ? entity.UTMZ : Convert.DBNull));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_deviceid", DbType.String, 25, (!String.IsNullOrEmpty(entity.DeviceId)) ? entity.DeviceId : Convert.DBNull));
+
+
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_spamscore", DbType.Double, entity.SpamScore));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isaccepted", DbType.Boolean, entity.IsAccepted));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_overallspamscore", DbType.Byte, entity.OverallSpamScore));
+
+
                     // LogLiveSps.LogSpInGrayLog(cmd);
                     if (Convert.ToBoolean(MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase)))
                         isSuccess = true;
@@ -103,7 +113,7 @@ namespace Bikewale.DAL.BikeBooking
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "UpdateIsMobileVerified ex : " + ex.Message);
-                
+
                 isSuccess = false;
             }
 
@@ -137,7 +147,7 @@ namespace Bikewale.DAL.BikeBooking
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "UpdateMobileNumber ex : " + ex.Message);
-                
+
                 isSuccess = false;
             }
 
@@ -171,7 +181,7 @@ namespace Bikewale.DAL.BikeBooking
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "PushedToAB ex : " + ex.Message);
-                
+
                 isSuccess = false;
             }
 
@@ -235,7 +245,7 @@ namespace Bikewale.DAL.BikeBooking
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "GetCustomerDetails ex : " + ex.Message);
-                
+
                 // isSuccess = false;
             }
             return objCustomer;
@@ -273,7 +283,7 @@ namespace Bikewale.DAL.BikeBooking
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "IsNewBikePQExists ex : " + ex.Message);
-                
+
                 // isSuccess = false;
             }
             return isVerified;
@@ -317,7 +327,7 @@ namespace Bikewale.DAL.BikeBooking
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "GetVersionList ex : " + ex.Message);
-                
+
             }
 
             return objVersions;
@@ -356,7 +366,7 @@ namespace Bikewale.DAL.BikeBooking
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "SaveRSAOfferClaim ex : " + ex.Message);
-                
+
             }
 
             return isSuccess;
@@ -390,7 +400,7 @@ namespace Bikewale.DAL.BikeBooking
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "UpdatePQBikeColor ex : " + ex.Message);
-                
+
                 isSuccess = false;
             }
 
@@ -427,7 +437,7 @@ namespace Bikewale.DAL.BikeBooking
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "UpdatePQTransactionalDetail ex : " + ex.Message);
-                
+
                 isSuccess = false;
             }
 
@@ -467,7 +477,7 @@ namespace Bikewale.DAL.BikeBooking
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "IsDealerNotified ex : " + ex.Message);
-                
+
                 isNotified = false;
             }
             return isNotified;
@@ -503,7 +513,7 @@ namespace Bikewale.DAL.BikeBooking
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "IsDealerPriceAvailable ex : " + ex.Message);
-                
+
                 isDealerAreaAvailable = false;
             }
 
@@ -546,7 +556,7 @@ namespace Bikewale.DAL.BikeBooking
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "GetDefaultPriceQuoteVersion ex : " + ex.Message);
-                
+
             }
 
             return versionId;
@@ -590,7 +600,7 @@ namespace Bikewale.DAL.BikeBooking
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, string.Format("GetDefaultPriceQuoteVersion({0},{1},{2}) : Exception : {3}", modelId, cityId, areaId, ex.Message));
-                
+
             }
             return versionId;
         }
@@ -641,7 +651,7 @@ namespace Bikewale.DAL.BikeBooking
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "GetAreaList ex : " + ex.Message);
-                
+
             }
             return objArea;
         }   //End of GetAreaList
@@ -876,13 +886,13 @@ namespace Bikewale.DAL.BikeBooking
             {
                 HttpContext.Current.Trace.Warn("FetchBookingPageDetails sqlex : " + sqEx.Message + sqEx.Source);
                 ErrorClass.LogError(sqEx, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn("FetchBookingPageDetails ex : " + ex.Message + ex.Source);
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
 
             return entity;
@@ -927,7 +937,7 @@ namespace Bikewale.DAL.BikeBooking
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
 
             return colors;
@@ -975,7 +985,7 @@ namespace Bikewale.DAL.BikeBooking
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
 
             return colors;
@@ -1023,7 +1033,7 @@ namespace Bikewale.DAL.BikeBooking
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"] + " DealerPriceQuoteRepository.UpdateDealerDailyLeadCount");
-                
+
             }
             return isUpdateDealerCount;
         }
@@ -1058,7 +1068,7 @@ namespace Bikewale.DAL.BikeBooking
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"] + " DealerPriceQuoteRepository.IsDealerDailyLeadLimitExceeds");
-                
+
             }
 
             return islimitexceeds;
