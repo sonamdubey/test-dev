@@ -519,5 +519,34 @@ namespace Bikewale.BAL.Lead
             return output;
         }
 
+        /// <summary>
+        /// Created By : Deepak Israni on 14 May 2018
+        /// Description: Function to calculate  overall spam score (to get exact reason for rejection of lead).
+        /// </summary>
+        /// <param name="spamScore"></param>
+        /// <returns></returns>
+        private short GetSpamOverallScore(SpamScore spamScore)
+        {
+            float threshold = 0.0f;
+            short ovrScore = 0;
+
+            if (spamScore.Name.Score > threshold)
+            {
+                ovrScore += (short)SpamDetailsEnum.Name;
+            }
+
+            if (spamScore.Email.Score > threshold)
+            {
+                ovrScore += (short)SpamDetailsEnum.Email;
+            }
+
+            if (spamScore.Number.Score > threshold)
+            {
+                ovrScore += (short)SpamDetailsEnum.Number;
+            }
+
+            return ovrScore;
+        }
+
     }
 }
