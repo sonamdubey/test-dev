@@ -437,6 +437,7 @@
     <Compile Include="PriceQuote\PriceQuoteOfTopCities.cs" />
     <Compile Include="PriceQuote\PriceQuoteParametersEntity.cs" />
     <Compile Include="PriceQuote\PriceQuoteStates.cs" />
+    <Compile Include="PriceQuote\SpamDetailsEnum.cs" />
     <Compile Include="PriceQuote\v2\DetailedDealerQuotationEntity.cs" />
     <Compile Include="PriceQuote\v2\NewBikeDealerBase.cs" />
     <Compile Include="PriceQuote\v2\PQByCityAreaEntity.cs" />
