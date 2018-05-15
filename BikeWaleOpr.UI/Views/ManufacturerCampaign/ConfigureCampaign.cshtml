@@ -152,6 +152,12 @@
                     <label for="chkShowCampaign">Show Campaign On Exshoroom Price</label>
                 </div>
             </div>
+            <div class="row">
+                <div class="col offset-s3">
+                    <input type="checkbox" class="filled-in" id="chkSendLeadSMSCustomer" name="SendLeadSMSCustomer" data-abc="@(Model.CampaignInformation.DealerDetails.SendLeadSMSCustomer)" @(Model.CampaignInformation.DealerDetails.SendLeadSMSCustomer ? "checked value=true " : "") />
+                    <label for="chkSendLeadSMSCustomer">Send SMS to the Customer on lead submission</label>
+                </div>
+            </div>
 
             <input type="hidden" name="CampaignId" id="inputCampaignId" value="@Model.CampaignId" />
             <input type="hidden" name="DealerId" id="inputDealerId" value="@Model.CampaignInformation.DealerDetails.Id" />

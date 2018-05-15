@@ -400,6 +400,9 @@ namespace Bikewale.BAL.Finance
                     objNVC.Add("leadType", "2");
                     objNVC.Add("manufacturerDealerId", Convert.ToString(objDetails.objLead.ManufacturerDealerId));
                     objNVC.Add("manufacturerLeadId", objDetails.LeadId.ToString());
+                    objNVC.Add("dealerName", objDetails.objLead.DealerName);
+                    objNVC.Add("bikeName", objDetails.objLead.BikeName);
+
                     RabbitMqPublish objRMQPublish = new RabbitMqPublish();
                     objRMQPublish.PublishToQueue(Bikewale.Utility.BWConfiguration.Instance.LeadConsumerQueue, objNVC);
                 }

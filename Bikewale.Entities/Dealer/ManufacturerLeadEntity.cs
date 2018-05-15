@@ -7,6 +7,7 @@ namespace Bikewale.Entities.Dealer
     /// Created On : 21th October 2015
     /// Modified By :   Sumit Kate on 18 Aug 2016
     /// Description :   Removed the private variable and kept only public properties
+    /// Modifier    : Kartik rathod on 15 may 2018 , added dealername and bikename
     /// </summary>
     public class ManufacturerLeadEntity
     {
@@ -57,6 +58,12 @@ namespace Bikewale.Entities.Dealer
 
         [JsonProperty("leadId")]
         public uint LeadId { get; set; }
+
+        [JsonProperty("dealerName")]
+        public string DealerName { get; set; }
+
+        [JsonProperty("bikeName")]
+        public string BikeName { get; set; }
     }
 
     /// <summary>

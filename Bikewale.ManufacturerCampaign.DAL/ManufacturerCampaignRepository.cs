@@ -306,6 +306,7 @@ namespace Bikewale.ManufacturerCampaign.DAL
         /// Description : Replaced sp from 'savemanufacturercampaign_21062017' to 'savemanufacturercampaign_25012018' to also save daily campaign start and end time.
         /// Modified by : Pratibha Verma on 8 Mar, 2018
         /// Description : Replace sp from 'savemanufacturercampaign_25012018' to 'savemanufacturercampaign_08032018' to save campain days
+        /// Modifier    : Kartik Rathod on 14 may 2018, added par_sendleadsmscustomer in savemanufacturercampaign_14052018 to send or not send sms to customer on lead submmision es only
         /// </summary>
         /// <param name="objCampaign"></param>
         /// <returns></returns>
@@ -337,7 +338,9 @@ namespace Bikewale.ManufacturerCampaign.DAL
                     param.Add("par_campaignDays", objCampaign.CampaignDays);
                     param.Add("par_showonexshowroomprice", objCampaign.ShowOnExShowroomPrice);
                     param.Add("par_campaignid", objCampaign.CampaignId, dbType: DbType.Int32, direction: ParameterDirection.InputOutput);
-                    connection.Query<dynamic>("savemanufacturercampaign_08032018", param: param, commandType: CommandType.StoredProcedure);
+                    param.Add("par_sendleadsmscustomer", objCampaign.SendLeadSMSCustomer);
+
+                    connection.Query<dynamic>("savemanufacturercampaign_14052018", param: param, commandType: CommandType.StoredProcedure);
                     campaignId = (uint)param.Get<int>("par_campaignid");
 
                 }

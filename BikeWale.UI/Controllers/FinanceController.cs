@@ -71,6 +71,8 @@ namespace Bikewale.Controllers
             viewModel.BikeName = queryCollection["bike"];
             viewModel.LoanAmount = Convert.ToUInt32(queryCollection["loanamount"]);
             viewModel.PlatformId = ushort.TryParse(queryCollection["platformid"], out platformId) ? platformId :(ushort)DTO.PriceQuote.PQSources.Mobile;
+            viewModel.ObjLead.BikeName = queryCollection["bike"];
+            viewModel.ObjLead.DealerName = queryCollection["dealerName"];
             GlobalCityAreaEntity location = GlobalCityArea.GetGlobalCityArea();
             if (location != null)
                 viewModel.ObjLead.CityId = location.CityId;
@@ -103,6 +105,9 @@ namespace Bikewale.Controllers
             viewModel.BikeName = queryCollection["bike"];
             viewModel.PlatformId = (ushort)DTO.PriceQuote.PQSources.Desktop;
             viewModel.LoanAmount = Convert.ToUInt32(queryCollection["loanamount"]);
+            viewModel.ObjLead.BikeName = queryCollection["bike"];
+            viewModel.ObjLead.DealerName = queryCollection["dealerName"];
+
             GlobalCityAreaEntity location = GlobalCityArea.GetGlobalCityArea();
             if (location != null)
                 viewModel.ObjLead.CityId = location.CityId;

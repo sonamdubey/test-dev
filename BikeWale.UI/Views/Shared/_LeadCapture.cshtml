@@ -538,8 +538,11 @@
                     "campaignId": self.mfgCampaignId(),
                     "deviceId": getCookie('BWC'),
                     "manufacturerDealerId": $('#ddlMfgDealers :selected').data('id'),
-                    "manufacturerDealer":self.ko_DealerName()
+                    "manufacturerDealer": self.ko_DealerName(),
+                    "bikeName": leadBikeName,
+                    "dealerName": self.dealerName()
                 };
+                debugger;
                 $.ajax({
                     type: "POST",
                     url: "/api/ManufacturerLead/",

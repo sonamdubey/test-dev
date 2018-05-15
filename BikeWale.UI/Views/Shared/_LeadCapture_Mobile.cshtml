@@ -832,7 +832,9 @@
                         "deviceId": getCookie('BWC'),
                         "campaignId": self.mfgCampaignId(),
                         "manufacturerDealerId": $('#ddlMfgDealers :selected').data('id'),
-                        "manufacturerDealer": self.ko_DealerName()
+                        "manufacturerDealer": self.ko_DealerName(),
+                        "bikeName": leadBikeName,
+                        "dealerName": self.dealerName()
                     };
                     $.ajax({
                         type: "POST",
