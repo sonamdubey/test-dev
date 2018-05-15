@@ -7,10 +7,16 @@ import ListGroupItem from './ListGroupItem';
 
 import { unlockScroll } from '../../utils/scrollLock';
 import { addPopupEvents, removePopupEvents } from '../../utils/popupScroll';
+import {getGlobalCity} from '../../utils/popUpUtils';
 
 class SelectCityPopup extends React.Component {
   constructor(props) {
-    super(props);
+      super(props);
+      var globalCity = getGlobalCity();
+      var globalCityName = ( globalCity && globalCity.name.length>0 ) ? globalCity.name : '';
+      this.state = {
+          cityValue: globalCityName
+      }
   }
 
   componentDidMount() {
@@ -24,7 +30,10 @@ class SelectCityPopup extends React.Component {
 
   handleCityClick = (item) => {
     if (this.props.onCityClick) {
-      this.props.onCityClick(item);
+        this.props.onCityClick(item);
+        this.setState({
+            cityValue: item.cityName
+        });
     }
   }
 
@@ -34,6 +43,12 @@ class SelectCityPopup extends React.Component {
     }
     
     unlockScroll();
+  }
+
+  handleClearClick = () => {
+      this.setState({
+        cityValue:''
+      });
   }
 
   getOtherCityList = () => {
@@ -53,75 +68,78 @@ class SelectCityPopup extends React.Component {
           onClick={this.handleCityClick.bind(this, item)}
         />
       )
-    })
+          })
+
 
     return (
       <ListGroup type="other-city__list">
-        {listItems}
+    {listItems}
       </ListGroup>
     )
-  }
+    }
   
-  setContentRef = (ref) => {
-    this.popupContent = ref
-  }
+        setContentRef = (ref) => {
+            this.popupContent = ref
+        }
 
-  render() {
-    const {
-      isActive,
-      data
-    } = this.props
+        render() {
+            const {
+                isActive,
+                data
+            } = this.props
 
-    const popupActiveClassName = isActive ? 'popup--active' : ''
-    const popupClasses = `select-city-popup popup-content ${popupActiveClassName}`
+            const popupActiveClassName = isActive ? 'popup--active' : ''
+            const popupClasses = `select-city-popup popup-content ${popupActiveClassName}`
 
-    return (
-      <div className={popupClasses}>
-        <div ref={this.setContentRef} className="select-city-popup__content">
-          <div className="popup__head">
-            <div className="popup-head__content">
-              <span onClick={this.handleCloseClick} className="popup__close"></span>
-              <div className="popup__search-box">
-                <p className="popup-search__title">Select City</p>
-                <div className="autocomplete-box">
-                  <div className="autocomplete-field">
-                    <Autocomplete
-                      value={data.Selection ? data.Selection.cityName : ''}
-                      inputProps={{
-                        className: "form-control",
-                        placeholder: "Type to select city"
-                      }}
-                    />
-                    {
-                      data.Selection && data.Selection.cityId > 0
-                        ? <span className="autocomplete-box__clear">Clear</span>
-                        : <span className="select-city__locate-me"></span> 
-                    }
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          {
-            data.Popular && data.Other && (
-              <div className="select-city__body">
-                <div className="city-list-content">
-                  <p className="city-list__heading">Popular cities</p>
-                  <PopularCityList
-                    data={data.Popular}
-                    selection={data.Selection}
-                    onClick={this.handleCityClick}
-                  />
-                </div>
-                <div className="city-list-content">
-                  <p className="city-list__heading">Other cities</p>
-                  {this.getOtherCityList()}
-                </div>
-              </div>
-            )
+            return (
+              <div className={popupClasses} id="selectcity-popup">
+                <div ref={this.setContentRef} className="select-city-popup__content">
+                  <div className="popup__head">
+                    <div className="popup-head__content">
+                      <span onClick={this.handleCloseClick} className="popup__close"></span>
+                      <div className="popup__search-box">
+                        <p className="popup-search__title">Select City</p>
+                        <div className="autocomplete-box">
+                          <div className="autocomplete-field">
+                            <Autocomplete
+                              value={this.state.cityValue}
+                              inputProps={{
+                                className: "form-control",
+                                placeholder: "Type to select city",
+                                id:"selectcity-popup"
+
+                                }}
+                            />
+    {
+      data.Selection && data.Selection.cityId > 0
+        ? <span onClick={this.handleClearClick} className="autocomplete-box__clear">Clear</span>
+        : <span className="select-city__locate-me"></span> 
+    }
+  </div>
+</div>
+</div>
+</div>
+</div>
+    {
+data.Popular && data.Other && (
+<div className="select-city__body">
+<div className="city-list-content">
+  <p className="city-list__heading">Popular cities</p>
+  <PopularCityList
+    data={data.Popular}
+    selection={data.Selection}
+    onClick={this.handleCityClick}
+  />
+</div>
+<div className="city-list-content">
+  <p className="city-list__heading">Other cities</p>
+    {this.getOtherCityList()}
+</div>
+        </div>
+)
           }
           <div className="popup__footer">
-            <span className="popup-footer__next">Next</span>
+            <span onClick={this.handleNextClick} className="popup-footer__next">Next</span>
           </div>
         </div>
       </div>

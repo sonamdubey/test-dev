@@ -16,7 +16,6 @@ const fetchCityData = () => {
         }
         xhr.open('GET',url)
         xhr.send();
-        dispatch({type:financeCityPopup.FETCH_CITY});
   }
 }
 
@@ -26,9 +25,10 @@ const openCityPopup = () => {
   }
 }
 
-const closeCityPopup = () => {
+const closeCityPopup = (payload) => {
   return {
-    type: financeCityPopup.CLOSE_CITY_POPUP
+      type: financeCityPopup.CLOSE_CITY_POPUP,
+      payload
   }
 }
 

@@ -1,6 +1,6 @@
 import React from 'react'
 import Autocomplete from '../components/Autocomplete'
-import {closeGlobalCityPopUpByButtonClick , SetCookieInDays,showElement, autocomplete , showHideMatchError , globalCityCache, getStrippedTerm, getGlobalCity ,highlightText} from '../utils/popUpUtils'
+import {closeGlobalCityPopUpByButtonClick , SetCookieInDays,showElement, autocomplete , showHideMatchError , globalCityCache, getStrippedTerm, getGlobalCity ,highlightText, setGlobalCity} from '../utils/popUpUtils'
 import {isServer} from '../utils/commonUtils'
 import {GetCatForNav} from '../utils/analyticsUtils'
 class GlobalCityPopup extends React.Component {
@@ -35,14 +35,12 @@ class GlobalCityPopup extends React.Component {
         return false;
 	}
 	onSelect(state) {
-		var city = new Object();
-        city.cityId = state.payload.cityId;
-        city.maskingName = state.payload.cityMaskingName;
-        var cityName = state.label.split(',')[0];
-        if (city.cityId != this.state.globalCityId) {
-            SetCookieInDays("location", city.cityId + "_" + cityName, 365);
-            bwcache.set("userchangedlocation", window.location.href, true);
-        }
+	    var globalCityId = this.state.globalCityId;
+	    var city = new Object();
+	    city.cityId = state.payload.cityId;
+	    city.maskingName = state.payload.cityMaskingName;
+	    var cityName = state.label.split(',')[0];
+	    setGlobalCity(city.cityId, cityName, globalCityId);
         closeGlobalCityPopUpByButtonClick();
         dataLayer.push({ 'event': 'Bikewale_all', 'cat': GetCatForNav(), 'act': 'City_Popup_Default', 'lab': cityName });
         if (city.cityId) {

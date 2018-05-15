@@ -91,6 +91,13 @@ function getGlobalCity() {
     return null;
 }
 
+function setGlobalCity(cityId, cityName, globalCityId) {
+    if (cityId != globalCityId) {
+        SetCookieInDays("location", cityId + "_" + cityName, 365);
+        bwcache.set("userchangedlocation", window.location.href, true);
+    }
+}
+
 
 function getCookie(key) {
     var keyValue = document.cookie.match('(^|;) ?' + key + '=([^;]*)(;|$)');
@@ -143,16 +150,20 @@ function showHideMatchError(element, error) {
 if(!isServer()) {
     try {
         docReady(function() {
-            document.getElementsByClassName('blackOut-window')[0].addEventListener('mouseup',function(e) {  
-                var globalSearchPopup = document.getElementById('global-search-popup');
+            var ele = document.getElementsByClassName('blackOut-window');
+            if(ele.length>0)
+            {
+                ele[0].addEventListener('mouseup',function(e) {  
+                    var globalSearchPopup = document.getElementById('global-search-popup');
                 
-                if(e.target.id !== globalSearchPopup.getAttribute('id')) // TODO && !globalSearchPopup.has(e.target).length)
-                {
-                    hideElement(globalSearchPopup);
-                    unlockPopup();
-                }
+                    if(e.target.id !== globalSearchPopup.getAttribute('id')) // TODO && !globalSearchPopup.has(e.target).length)
+                    {
+                        hideElement(globalSearchPopup);
+                        unlockPopup();
+                    }
 
-            })
+                }) 
+            }
 
             window.addEventListener('hashchange' ,function(e) {
                 var oldUrl, oldHash;
@@ -558,5 +569,6 @@ module.exports = {
     popupState,
     resetOnRoadPricePopup,
     closeCityAreaSelectionPopup,
-    openCityAreaSelectionPopup
+    openCityAreaSelectionPopup,
+    setGlobalCity
 }
