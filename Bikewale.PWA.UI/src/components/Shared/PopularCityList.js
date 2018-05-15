@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import ListItem from './ListItem';
+import { HOST_URL } from '../../utils/constants'
 
 const propTypes = {
   // list type
@@ -32,10 +33,10 @@ class PopularCityList extends React.Component {
     let listItems = data.map((item, index) => {
       let element = {
         name: item.cityName,
-        icon: item.icon
+        icon: HOST_URL + '0x0/bw/static/icons/city/' + item.cityId + '.svg'
       }
 
-      let activeClass
+      let activeClass = ''
       if (selection.cityId === item.cityId) {
         activeClass = `city--active ${selection.userChange ? "city--select" : "city--global"}`
       }
