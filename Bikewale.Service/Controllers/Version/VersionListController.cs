@@ -5,6 +5,7 @@ using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.Version;
 using Bikewale.Service.Utilities;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Web.Http;
 using System.Web.Http.Description;
@@ -38,18 +39,15 @@ namespace Bikewale.Service.Controllers.Version
         [ResponseType(typeof(IEnumerable<VersionMinSpecs>))]
         public IHttpActionResult Get(uint modelId, bool isNew)
         {
-            List<BikeVersionMinSpecs> objMVSpecsList = null;
-            List<VersionMinSpecs> objDTOMVSpecsList = null;
+            IEnumerable<VersionMinSpecs> objDTOMVSpecsList = null;
             try
             {
-                objMVSpecsList = _versionCacheRepo.GetVersionMinSpecs(modelId, isNew);
+                IEnumerable<BikeVersionMinSpecs> objMVSpecsList = _versionCacheRepo.GetVersionMinSpecs(modelId, isNew);
 
-                if (objMVSpecsList != null && objMVSpecsList.Count > 0)
+                if (objMVSpecsList != null && objMVSpecsList.Any())
                 {
-                    objDTOMVSpecsList = new List<VersionMinSpecs>();
                     objDTOMVSpecsList = VersionListMapper.Convert(objMVSpecsList);
 
-                    objMVSpecsList.Clear();
                     objMVSpecsList = null;
 
                     return Ok(objDTOMVSpecsList);

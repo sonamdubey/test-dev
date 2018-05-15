@@ -32,39 +32,38 @@
             <!-- ko if : models() && models().length > 0 -->
             <ul class="new-launches-list" data-bind="visible : (!noBikes() && TotalBikes() !== 0), css: IsLoading() ? 'loader-active' : '' ">
                 @foreach (var bike in Model.Bikes.Bikes)
-            {
+                {
                 <!-- ko if : models()[@i] -->
-                string bikeName = string.Format("{0} {1}", bike.Make.MakeName, bike.Model.ModelName);
+                    string bikeName = string.Format("{0} {1}", bike.Make.MakeName, bike.Model.ModelName);
                 <li class="list-item">
                     <a href="@Bikewale.Utility.UrlFormatter.BikePageUrl(bike.Make.MaskingName, bike.Model.MaskingName)" title="@bikeName" class="block" data-bind="attr : {'href' : '/' + models()[@i].make.maskingName + '-bikes/' + models()[@i].model.maskingName + '/',title : models()[@i].bikeName  }">
                         <div class="model-jcarousel-image-preview">
                             @if (i > 9)
                             {
-                                <img class="lazy" data-bind="attr : {  'src':'' , 'data-original' : (models()[@i].hostUrl!='' ? models()[@i].hostUrl : 'https://imgd.aeplcdn.com/' ) +  '/310x174/' + (models()[@i].originalImagePath!='' ? models()[@i].originalImagePath : '/bikewaleimg/images/noimage.png' ) ,'lazyload' : (models()[@i].hostUrl!='' ? models()[@i].hostUrl : 'https://imgd.aeplcdn.com/' ) +  '/310x174/' + (models()[@i].originalImagePath!='' ? models()[@i].originalImagePath : '/bikewaleimg/images/noimage.png' ),'alt' : models()[@i].bikeName,'title' : models()[@i].bikeName  }" data-original="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath,bike.HostUrl,Bikewale.Utility.ImageSize._310x174)" alt="@bikeName" src="" />
+                                <img class="lazy" data-bind="attr : {  'src':'' , 'data-original' : (models()[@i].hostUrl!='' ? models()[@i].hostUrl : 'https://imgd.aeplcdn.com/' ) +  '/310x174/' + (models()[@i].originalImagePath!='' ? models()[@i].originalImagePath : '/bikewaleimg/images/noimage.png' ) ,'lazyload' : (models()[@i].hostUrl!='' ? models()[@i].hostUrl : 'https://imgd.aeplcdn.com/' ) +  '/310x174/' + (models()[@i].originalImagePath!='' ? models()[@i].originalImagePath : '/bikewaleimg/images/noimage.png' ),'alt' : models()[@i].bikeName,'title' : models()[@i].bikeName  }" data-original="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath, bike.HostUrl, Bikewale.Utility.ImageSize._310x174)" alt="@bikeName" src="" />
                             }
                             else
                             {
-                                <img data-bind="attr : { 'src' : (models()[@i].hostUrl!='' ? models()[@i].hostUrl : 'https://imgd.aeplcdn.com/' ) +  '/310x174/' + (models()[@i].originalImagePath!='' ? models()[@i].originalImagePath : '/bikewaleimg/images/noimage.png' )},'alt' : models()[@i].bikeName,'title' : models()[@i].bikeName" src="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath,bike.HostUrl,Bikewale.Utility.ImageSize._310x174)" alt="@bikeName" />
+                                <img data-bind="attr : { 'src' : (models()[@i].hostUrl!='' ? models()[@i].hostUrl : 'https://imgd.aeplcdn.com/' ) +  '/310x174/' + (models()[@i].originalImagePath!='' ? models()[@i].originalImagePath : '/bikewaleimg/images/noimage.png' )},'alt' : models()[@i].bikeName,'title' : models()[@i].bikeName" src="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath, bike.HostUrl, Bikewale.Utility.ImageSize._310x174)" alt="@bikeName" />
                             }
                         </div>
                         <div class="card-desc-block">
                             <h3 class="bikeTitle" data-bind="text : models()[@i].bikeName ">@bikeName</h3>
                             <ul class="key-specs-list margin-bottom10 font12">
-                                <li data-bind="visible : models()[@i].minSpec.displacement != 0,text:models()[@i].minSpec.displacement + ' cc'" style="display:@(bike.MinSpecs.Displacement > 0 ? "inline-block" : "none")">
-                                    @Bikewale.Utility.FormatMinSpecs.ShowAvailable(bike.MinSpecs.Displacement.ToString(), "cc")
+                                @{ var specItem = bike.MinSpecsList.GetEnumerator();}
+                                @for (ushort j = 0; j < Model.Bikes.MinSpecsCount; j++)
+                                {
+                                  specItem.MoveNext();
+                                  var currentSpec = specItem.Current;
+                                <!-- ko if : models()[@i].minSpec[@j] -->
+                                <li data-bind="visible : models()[@i].minSpec[@j].value != '',text:models()[@i].minSpec[@j].value +' ' + models()[@i].minSpec[@j].unitType" style="display:@(!String.IsNullOrEmpty(currentSpec.Value) ? "inline-block" : "none")">
+                                    @if (!String.IsNullOrEmpty(currentSpec.Value))
+                                    {
+                                        @Bikewale.Utility.FormatMinSpecs.ShowAvailable(currentSpec.Value, currentSpec.UnitType, currentSpec.DataType, currentSpec.Id)
+                                    }
                                 </li>
-
-                                <li data-bind="visible : models()[@i].minSpec.fuelEffeciency != 0,text:models()[@i].minSpec.fuelEffeciency + ' kmpl'" style="display:@(bike.MinSpecs.FuelEfficiencyOverall > 0 ? "inline-block" : "none")">
-                                    @Bikewale.Utility.FormatMinSpecs.ShowAvailable(bike.MinSpecs.FuelEfficiencyOverall.ToString(), "kmpl")
-                                </li>
-
-                                <li data-bind="visible : models()[@i].minSpec.maxPower != 0,text:models()[@i].minSpec.maxPower + ' bhp'" style="display:@(bike.MinSpecs.MaxPower > 0 ? "inline-block" : "none")">
-                                    @Bikewale.Utility.FormatMinSpecs.ShowAvailable(bike.MinSpecs.MaxPower.ToString(), "bhp")
-                                </li>
-
-                                <li data-bind="visible : models()[@i].minSpec.kerbWeight != 0,text:models()[@i].minSpec.kerbWeight + ' kgs'" style="display:@(bike.MinSpecs.KerbWeight > 0 ? "inline-block" : "none")">
-                                    @Bikewale.Utility.FormatMinSpecs.ShowAvailable(Convert.ToString(bike.MinSpecs.KerbWeight), "kgs")
-                                </li>
+                                <!-- /ko -->
+                                }
                             </ul>
                             <div class="grid-6 alpha padding-right20">
                                 <p class="key-size-13 text-truncate margin-bottom5">Ex-showroom,<span data-bind="text : selectedCityId() > 0 ? selectedCityName() : 'Mumbai'">@( bike.City != null && !string.IsNullOrEmpty(bike.City.CityName) ? bike.City.CityName : "Mumbai")</span></p>

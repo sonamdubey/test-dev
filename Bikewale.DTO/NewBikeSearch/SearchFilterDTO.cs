@@ -9,7 +9,7 @@ namespace Bikewale.DTO.NewBikeSearch
     /// </summary>
     public class SearchFilterDTO
     {
-       
+
         [JsonProperty("bodyStyle")]
         public IEnumerable<string> BodyStyle { get; set; }
 
@@ -17,7 +17,7 @@ namespace Bikewale.DTO.NewBikeSearch
         [JsonProperty("makeId")]
         public uint MakeId { get; set; }
         [JsonProperty("abs")]
-        public bool ABS { get; set; }
+        public bool? ABS { get; set; }
         [JsonProperty("discBrake")]
         public bool DiscBrake { get; set; }
         [JsonProperty("drumBrake")]
@@ -41,9 +41,9 @@ namespace Bikewale.DTO.NewBikeSearch
         [JsonProperty("modelStatus")]
         public byte ModelStatus { get; set; }
 
-     
 
-   
+
+
 
         [JsonProperty("price")]
         public IEnumerable<PriceRangeDTO> Price { get; set; }
@@ -67,8 +67,8 @@ namespace Bikewale.DTO.NewBikeSearch
     public class PriceRangeDTO
     {
         [JsonProperty("min")]
-      public  int Min { get; set; }
+        public int Min { get; set; }
         [JsonProperty("max")]
-       public int Max { get; set; }
+        public int Max { get; set; }
     }
 }

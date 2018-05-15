@@ -7,14 +7,8 @@
     public class BookingListingFilterEntity
     {
         public string MakeIds { get; set; }
-        public string Displacement { get; set; }
         public string Budget { get; set; }
-        public string Mileage { get; set; }
         public string RideStyle { get; set; }
-        public string ABS { get; set; }
-        public string BrakeType { get; set; }
-        public string AlloyWheel { get; set; }
-        public string StartType { get; set; }
         public int PageNo { get; set; }
         public int PageSize { get; set; }
         public string so { get; set; }

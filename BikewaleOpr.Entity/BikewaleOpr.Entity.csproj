@@ -132,8 +132,10 @@
     <Compile Include="BikeData\BikeSeriesEntityBase.cs" />
     <Compile Include="BikeData\BikeVersionEntityBase.cs" />
     <Compile Include="BikeData\EnumBikeData.cs" />
+    <Compile Include="BikeData\EnumSpecsFeaturesItem.cs" />
     <Compile Include="BikeData\OprNotificationType.cs" />
     <Compile Include="BikeData\SoldUnitData.cs" />
+    <Compile Include="BikeData\SpecsItem.cs" />
     <Compile Include="BikeData\SynopsisData.cs" />
     <Compile Include="BikeData\UsedBikeImagesByMakeNotificationData.cs" />
     <Compile Include="BikeData\UsedBikeImagesModel.cs" />

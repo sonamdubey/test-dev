@@ -1,5 +1,6 @@
 ﻿using Bikewale.Common;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.BikeSeries;
 using Bikewale.Entities.Compare;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
@@ -16,6 +17,7 @@ using Bikewale.Utility;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 namespace Bikewale.Models.BikeSeries
@@ -85,7 +87,8 @@ namespace Bikewale.Models.BikeSeries
 
                 objSeriesPage.SeriesModels = new BikeSeriesModels();
                 objSeriesPage.SeriesModels.NewBikes = _bikeSeries.GetNewModels(seriesId, objSeriesPage.City.CityId);
-                if (objSeriesPage.SeriesModels.NewBikes != null && objSeriesPage.SeriesModels.NewBikes.Any())
+                IEnumerable<NewBikeEntityBase> newBikeList = objSeriesPage.SeriesModels.NewBikes;
+                if (newBikeList != null && newBikeList.Any())
                 {
                     var firstNewBike = objSeriesPage.SeriesModels.NewBikes.FirstOrDefault();
                     if (firstNewBike != null)
@@ -376,54 +379,65 @@ namespace Bikewale.Models.BikeSeries
         /// <summary>
         /// Created By :- Subodh Jain 17-11-2017
         /// Summary :- GetCompareBikes Details
+        /// Modified by : Pratibha Verma on 3 April 2018
+        /// Description : Added grpc call to fetch min specs data
         /// </summary>
         /// <param name="objSeriesPage"></param>
         private void GetBikesToCompare(SeriesPageVM objSeriesPage)
         {
-
+            Stopwatch stopWatch = new Stopwatch();
             try
             {
                 if (objSeriesPage.SeriesBase != null && objSeriesPage.SeriesBase.SeriesId > 0)
                 {
-
+                    stopWatch.Start();
                     objSeriesPage.ObjModel = new BikeSeriesCompareVM();
-                    objSeriesPage.ObjModel.BikeSeriesCompareBikeWithSpecs = _seriesCache.GetBikesToCompare(objSeriesPage.SeriesBase.SeriesId);
-
-                    for (int i = 0; i < objSeriesPage.ObjModel.BikeSeriesCompareBikeWithSpecs.Count(); i++)
+                    objSeriesPage.ObjModel.BikeSeriesCompareBikeWithSpecs = _bikeSeries.GetBikesToCompare(objSeriesPage.SeriesBase.SeriesId);
+                    IEnumerable<BikeSeriesCompareBikes> seriesCompareBikesWithSpecs = objSeriesPage.ObjModel.BikeSeriesCompareBikeWithSpecs;
+                    if (objSeriesPage.SeriesModels != null && objSeriesPage.SeriesModels.NewBikes != null && seriesCompareBikesWithSpecs != null)
                     {
-                        objSeriesPage.ObjModel.BikeSeriesCompareBikeWithSpecs.ElementAt(i).Price = objSeriesPage.SeriesModels.NewBikes.ElementAt(i).Price.ExShowroomPrice > 0 ? objSeriesPage.SeriesModels.NewBikes.ElementAt(i).Price.ExShowroomPrice : objSeriesPage.SeriesModels.NewBikes.ElementAt(i).Price.AvgPrice;
+                        var seriesCompareBikesIterator = objSeriesPage.ObjModel.BikeSeriesCompareBikeWithSpecs.GetEnumerator();
+                        var newBikesIterator = objSeriesPage.SeriesModels.NewBikes.GetEnumerator();
+                        while (seriesCompareBikesIterator.MoveNext() && newBikesIterator.MoveNext())
+                        {
+                            seriesCompareBikesIterator.Current.Price = newBikesIterator.Current.Price.ExShowroomPrice > 0 ? newBikesIterator.Current.Price.ExShowroomPrice : newBikesIterator.Current.Price.AvgPrice;
+                        }
                     }
 
-
-                    IList<string> objList = new List<string>();
-                    objList.Add("Price");
-                    objList.Add("Displacement");
-                    objList.Add("Weight");
-                    objList.Add("Fuel Tank Capacity");
-                    objList.Add("Mileage");
-                    objList.Add("Seat Height");
-                    objList.Add("Brake Type");
-                    objList.Add("Gears");
-                    objList.Add("Max Power");
+                    IList<string> objList = new List<string>
+                    {
+                        "Price",
+                        "Displacement",
+                        "Weight",
+                        "Fuel Tank Capacity",
+                        "Mileage",
+                        "Seat Height",
+                        "Brake Type",
+                        "Gears",
+                        "Max Power"
+                    };
 
 
                     objSeriesPage.ObjModel.ObjBikeSpecs = new BikeSpecs();
-                    objSeriesPage.ObjModel.ObjBikeSpecs.Price = (ushort)(objSeriesPage.ObjModel.BikeSeriesCompareBikeWithSpecs.TakeWhile(x => x.Price != objSeriesPage.ObjModel.BikeSeriesCompareBikeWithSpecs.Min(m => m.Price)).Count() + 1);
-                    objSeriesPage.ObjModel.ObjBikeSpecs.MaxPower = (ushort)(objSeriesPage.ObjModel.BikeSeriesCompareBikeWithSpecs.TakeWhile(x => x.MaxPower != objSeriesPage.ObjModel.BikeSeriesCompareBikeWithSpecs.Max(m => m.MaxPower)).Count() + 1);
-                    objSeriesPage.ObjModel.ObjBikeSpecs.Mileage = (ushort)(objSeriesPage.ObjModel.BikeSeriesCompareBikeWithSpecs.TakeWhile(x => x.Mileage != objSeriesPage.ObjModel.BikeSeriesCompareBikeWithSpecs.Max(m => m.Mileage)).Count() + 1);
-                    objSeriesPage.ObjModel.ObjBikeSpecs.Weight = (ushort)(objSeriesPage.ObjModel.BikeSeriesCompareBikeWithSpecs.TakeWhile(x => x.Weight != objSeriesPage.ObjModel.BikeSeriesCompareBikeWithSpecs.Min(m => m.Weight)).Count() + 1);
-                    objSeriesPage.ObjModel.ObjBikeSpecs.FuelCapacity = (ushort)(objSeriesPage.ObjModel.BikeSeriesCompareBikeWithSpecs.TakeWhile(x => x.FuelCapacity != objSeriesPage.ObjModel.BikeSeriesCompareBikeWithSpecs.Max(m => m.FuelCapacity)).Count() + 1);
-                    objSeriesPage.ObjModel.ObjBikeSpecs.Displacement = (ushort)(objSeriesPage.ObjModel.BikeSeriesCompareBikeWithSpecs.TakeWhile(x => x.Displacement != objSeriesPage.ObjModel.BikeSeriesCompareBikeWithSpecs.Max(m => m.Displacement)).Count() + 1);
+                    BikeSpecs objBikeSpecs = objSeriesPage.ObjModel.ObjBikeSpecs;
+                    objBikeSpecs.Price = (ushort)(seriesCompareBikesWithSpecs.TakeWhile(x => x.Price != seriesCompareBikesWithSpecs.Min(m => m.Price)).Count() + 1);
+                    objBikeSpecs.MaxPower = (ushort)(seriesCompareBikesWithSpecs.TakeWhile(x => x.MaxPower != seriesCompareBikesWithSpecs.Max(m => m.MaxPower)).Count() + 1);
+                    objBikeSpecs.Mileage = (ushort)(seriesCompareBikesWithSpecs.TakeWhile(x => x.Mileage != seriesCompareBikesWithSpecs.Max(m => m.Mileage)).Count() + 1);
+                    objBikeSpecs.Weight = (ushort)(seriesCompareBikesWithSpecs.TakeWhile(x => x.Weight != seriesCompareBikesWithSpecs.Min(m => m.Weight)).Count() + 1);
+                    objBikeSpecs.FuelCapacity = (ushort)(seriesCompareBikesWithSpecs.TakeWhile(x => x.FuelCapacity != seriesCompareBikesWithSpecs.Max(m => m.FuelCapacity)).Count() + 1);
+                    objBikeSpecs.Displacement = (ushort)(seriesCompareBikesWithSpecs.TakeWhile(x => x.Displacement != seriesCompareBikesWithSpecs.Max(m => m.Displacement)).Count() + 1);
+                    
 
                     objSeriesPage.ObjModel.BikeCompareSegments = objList;
                     objSeriesPage.ObjModel.BikeMake = objSeriesPage.BikeMake;
                     objSeriesPage.ObjModel.SeriesBase = objSeriesPage.SeriesBase;
+                    stopWatch.Stop();
                 }
             }
             catch (Exception ex)
             {
 
-                Bikewale.Notifications.ErrorClass.LogError(ex, "Bikewale.Models.BikeSeries.SeriesPage.GetBikesToCompare");
+                Bikewale.Notifications.ErrorClass.LogError(ex,string.Format("Bikewale.Models.BikeSeries.SeriesPage.GetBikesToCompare Elapsed = {0}", stopWatch.Elapsed));
             }
         }
 

@@ -1,5 +1,7 @@
 ﻿@model Bikewale.Models.MakePageVM
 @using Bikewale.Utility
+@using Bikewale.Entities.BikeData
+@using Bikewale.BAL.ApiGateway.Entities.BikeData
 @if (Model != null)
 {
     {
@@ -29,14 +31,7 @@
             "extraUrlParams": {
             "pageSourceType": "AMP"
             },
-            "triggers": {
-            "trackPageview": {
-            "on": "visible",
-            "request": "pageview",
-            "vars": {
-            "title": "@Html.Raw(Model.PageMetaTags.Title)"
-            }
-            },
+            "triggers": {           
             "trackEvent": {
             "selector": ".bw-makepage-tabs-ga",
             "on": "click",
@@ -85,9 +80,6 @@
                 </div>
             </div>
         }
-		
-		
-
         @if (Model.Bikes != null && Model.Bikes.Any())
         {
             <div id="bikeByMakesListing" class="container bg-white margin-bottom20">
@@ -97,57 +89,57 @@
                         <ul id="listitems" class="listitems">
                             @foreach (var bike in Model.Bikes)
                             {
-                                var modelUrl = Bikewale.Utility.UrlFormatter.BikePageUrl(bike.objMake.MaskingName, bike.objModel.MaskingName);
-                                var bikeName = string.Format("{0} {1}", bike.objMake.MakeName, bike.objModel.ModelName);
-                                <li class="front" data-price="@bike.VersionPrice" data-mileage="@bike.Specs.FuelEfficiencyOverall" data-popularity="@bike.BikePopularityIndex">
-                                    <div class="border-top1 margin-left20 margin-right20 padding-top20"></div>
-                                    <div class="contentWrapper">
-                                        <div class="imageWrapper">
-                                            <a class="modelurl" href="@string.Format("{0}/m{1}", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, modelUrl)">
-                                                <amp-img width="292" height="163" src="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath, bike.HostURL, Bikewale.Utility.ImageSize._310x174, Bikewale.Utility.QualityFactor._75)" title="@bikeName" alt="@bike.objModel.ModelName"></amp-img>
-                                            </a>
-                                        </div>
-                                        <div class="bikeDescWrapper">
-                                            <div class="bikeTitle margin-bottom10">
-                                                <h3>
-                                                    <a class="modelurl text-bold" title="@bike.BikeName" href="@string.Format("/m{0}", modelUrl)">@bikeName</a>
-                                                </h3>
-                                            </div>
-                                            <div class="font14 text-x-light margin-bottom10">
-                                                @Html.Raw(Bikewale.Utility.FormatMinSpecs.GetMinSpecs(Convert.ToString(bike.Specs.Displacement), Convert.ToString(bike.Specs.FuelEfficiencyOverall), Convert.ToString(bike.Specs.MaxPower), Convert.ToString(bike.Specs.KerbWeight)))
-                                            </div>
-                                            @if (bike.ExShowroomPrice > 0)
-                                            {
-                                                <div class="margin-bottom5 font14 text-light-grey">Ex-showroom, @(Model.City.CityId == 0 ? Bikewale.Utility.BWConfiguration.Instance.DefaultName : Model.City.City)</div>
-                                            }
-                                            else
-                                            {
-                                                <div class="margin-bottom5 font14 text-light-grey">
-                                                    <span>Avg. Ex-showroom price</span><span class="info-icon tooltip-icon-target tooltip-top">
-                                                        <span class="bw-tooltip info-tooltip">
-                                                            <span class="bw-tooltip-text">@string.Format("Price is not available in {0}", Model.City.City)</span>
-                                                        </span>
-                                                    </span>
-                                                </div>
-                                            }
-                                            <div class="margin-bottom5">
-                                                @if (bike.AvgPrice > 0)
-                                                {
-                                                    <span class="font18"> ₹</span>
-                                                    <span class="text-bold font18">@(bike.ExShowroomPrice == 0 ? Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.AvgPrice)) : Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.ExShowroomPrice)))</span>
-                                                }
-                                                else
-                                                {
-                                                    <span class="text-bold font18">Price unavailable</span>
-                                                }
-                                            </div>
-                                            @if (bike.VersionPrice > 0)
-                                            {
-                                                <a href="@string.Format(" {0}/m/popup/?queryString={1}", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, Utils.Utils.EncryptTripleDES(string.Format("pqsourceid={0}&preselcity={1}&modelid={2}&Url={3}{4}", (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_PriceInCity_SelectArea, Model.City.CityId, bike.objModel.ModelId, Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, Model.ReturlUrl)))" class="btn btn-sm btn-white font14 margin-top10 getquotation" rel="nofollow">Check on-road price</a>
-                                            }
-                                        </div>
-                                    </div>
-                                </li>
+                            	var modelUrl = Bikewale.Utility.UrlFormatter.BikePageUrl(bike.objMake.MaskingName, bike.objModel.MaskingName);
+                            	var bikeName = string.Format("{0} {1}", bike.objMake.MakeName, bike.objModel.ModelName);
+                            	<li class="front" data-price="@bike.VersionPrice" data-mileage="@bike.MinSpecsList.FirstOrDefault(s => s.Id == (int)EnumSpecsFeaturesItems.FuelEfficiencyOverall)?.Value" data-popularity="@bike.BikePopularityIndex">
+                            		<div class="border-top1 margin-left20 margin-right20 padding-top20"></div>
+                            		<div class="contentWrapper">
+                            			<div class="imageWrapper">
+                            				<a class="modelurl" href="@string.Format("{0}/m{1}", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, modelUrl)">
+                            					<amp-img width="292" height="163" src="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath, bike.HostURL, Bikewale.Utility.ImageSize._310x174, Bikewale.Utility.QualityFactor._75)" title="@bikeName" alt="@bike.objModel.ModelName"></amp-img>
+                            				</a>
+                            			</div>
+                            			<div class="bikeDescWrapper">
+                            				<div class="bikeTitle margin-bottom10">
+                            					<h3>
+                            						<a class="modelurl text-bold" title="@bike.BikeName" href="@string.Format("/m{0}", modelUrl)">@bikeName</a>
+                            					</h3>
+                            				</div>
+                            				<div class="font14 text-x-light margin-bottom10">
+                            					@Html.Raw(Bikewale.Utility.FormatMinSpecs.GetMinSpecsSpanElements(bike.MinSpecsList))
+                            				</div>
+                            				@if (bike.ExShowroomPrice > 0)
+                            				{
+                            					<div class="margin-bottom5 font14 text-light-grey">Ex-showroom, @(Model.City.CityId == 0 ? Bikewale.Utility.BWConfiguration.Instance.DefaultName : Model.City.City)</div>
+                            				}
+                            				else
+                            				{
+                            					<div class="margin-bottom5 font14 text-light-grey">
+                            						<span>Avg. Ex-showroom price</span><span class="info-icon tooltip-icon-target tooltip-top">
+                            							<span class="bw-tooltip info-tooltip">
+                            								<span class="bw-tooltip-text">@string.Format("Price is not available in {0}", Model.City.City)</span>
+                            							</span>
+                            						</span>
+                            					</div>
+                            				}
+                            				<div class="margin-bottom5">
+                            					@if (bike.AvgPrice > 0)
+                            					{
+                            						<span class="font18"> ₹</span>
+                            						<span class="text-bold font18">@(bike.ExShowroomPrice == 0 ? Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.AvgPrice)) : Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.ExShowroomPrice)))</span>
+                            					}
+                            					else
+                            					{
+                            						<span class="text-bold font18">Price unavailable</span>
+                            					}
+                            				</div>
+                            				@if (bike.VersionPrice > 0)
+                            				{
+                            					<a href="@string.Format(" {0}/m/popup/?queryString={1}", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, Utils.Utils.EncryptTripleDES(string.Format("pqsourceid={0}&preselcity={1}&modelid={2}&Url={3}{4}", (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_PriceInCity_SelectArea, Model.City.CityId, bike.objModel.ModelId, Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, Model.ReturlUrl)))" class="btn btn-sm btn-white font14 margin-top10 getquotation" rel="nofollow">Check on-road price</a>
+                            				}
+                            			</div>
+                            		</div>
+                            	</li>
                             }
                         </ul>
                         <div id="listItemsFooter"></div>

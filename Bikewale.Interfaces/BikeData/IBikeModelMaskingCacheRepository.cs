@@ -26,7 +26,6 @@ namespace Bikewale.Interfaces.BikeData
     public interface IBikeMaskingCacheRepository<T, U>
     {
         ModelMaskingResponse GetModelMaskingResponse(string maskingName);
-        BikeSpecificationEntity MVSpecsFeatures(int versionId);
         IEnumerable<SimilarBikesWithPhotos> GetSimilarBikeWithPhotos(U modelId, ushort totalRecords, uint cityId);
         ReviewDetailsEntity GetDetailsByModel(U modelId, uint cityId);
         ReviewDetailsEntity GetDetailsByVersion(U versionId, uint cityId);

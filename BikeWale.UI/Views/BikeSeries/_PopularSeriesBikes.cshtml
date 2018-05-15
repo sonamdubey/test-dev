@@ -17,7 +17,7 @@
 							<div class="card-desc-block">
 								<p class="bikeTitle">@bikeName</p>
 								<p class="text-xt-light-grey margin-bottom10">
-									@Html.Raw(FormatMinSpecs.GetMinSpecs(Convert.ToString(bike.MinSpecs.Displacement), Convert.ToString(bike.MinSpecs.FuelEfficiencyOverall), Convert.ToString(bike.MinSpecs.MaxPower), Convert.ToString(bike.MinSpecs.KerbWeight)))
+									@Html.Raw(FormatMinSpecs.GetMinSpecsSpanElements(bike.MinSpecsList))
 								</p>
 
 								@if (bike.Price.ExShowroomPrice > 0)

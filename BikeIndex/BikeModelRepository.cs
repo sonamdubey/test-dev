@@ -10,6 +10,11 @@ using System.Text;
 using System.Threading.Tasks;
 using Consumer;
 using Bikewale.Utility;
+using Bikewale.BAL.ApiGateway.Entities.BikeData;
+using Bikewale.BAL.ApiGateway.Adapters.BikeData;
+using Bikewale.Entities.BikeData;
+using Microsoft.Practices.Unity;
+using Bikewale.BAL.ApiGateway.ApiGatewayHelper;
 
 
 namespace BikeIndex
@@ -23,6 +28,26 @@ namespace BikeIndex
     {
         
         private string[] _pricestypes = { "RTO", "Insurance", "Exshowroom" };
+        private IApiGatewayCaller _apiGatewayCaller;
+        IUnityContainer container = null;
+        private static IEnumerable<EnumSpecsFeaturesItems> requiredSpec = new List<EnumSpecsFeaturesItems>{
+                                        EnumSpecsFeaturesItems.Displacement,
+                                        EnumSpecsFeaturesItems.FuelEfficiencyOverall,
+                                        EnumSpecsFeaturesItems.MaxPowerBhp,
+                                        EnumSpecsFeaturesItems.KerbWeight,
+                                        EnumSpecsFeaturesItems.RearBrakeType,
+                                        EnumSpecsFeaturesItems.WheelType,
+                                        EnumSpecsFeaturesItems.AntilockBrakingSystem,
+                                        EnumSpecsFeaturesItems.StartType
+                                    };
+
+        public BikeModelRepository()
+        {
+            using (container = new UnityContainer())
+            {
+                container.RegisterType<IApiGatewayCaller, ApiGatewayCaller>();
+            }
+        }
 
         /// <summary>
         /// Created by: Dhruv Joshi
@@ -66,6 +91,7 @@ namespace BikeIndex
         /// Created by: Dhruv Joshi
         /// Dated: 20th Feb 2018
         /// Description: Fetching data for bikeindex from db
+        /// Modified by : Kartik Rathod on 12 apr 2018 fetched minspecs from microservice
         /// </summary>
         /// <returns></returns>
         public IEnumerable<BikeModelDocument> GetBikeModelList()
@@ -127,10 +153,6 @@ namespace BikeIndex
                                         {
                                             VersionId = SqlReaderConvertor.ToUInt32(dr["TopVersionId"]),
                                             VersionName = Convert.ToString(dr["VersionName"]),
-                                            Mileage = SqlReaderConvertor.ToUInt32(dr["Mileage"]),
-                                            KerbWeight = SqlReaderConvertor.ToUInt32(dr["KerbWeight"]),
-                                            Displacement = SqlReaderConvertor.ParseToDouble(dr["Displacement"]),
-                                            Power = SqlReaderConvertor.ParseToDouble(dr["Power"]),
                                             PriceList = objPrices,
                                             Exshowroom = SqlReaderConvertor.ToUInt32(dr["Exshowroom"]),
                                             Onroad = SqlReaderConvertor.ToUInt32(dr["RTO"]) + Bikewale.Utility.SqlReaderConvertor.ToUInt32(dr["Insurance"]) + Bikewale.Utility.SqlReaderConvertor.ToUInt32(dr["Exshowroom"]),
@@ -159,6 +181,9 @@ namespace BikeIndex
                         }
                     }
                 }
+
+                
+                objList = GetMinSpecs(objList); // get min specs for version
             }
             catch (Exception ex)
             {
@@ -166,6 +191,121 @@ namespace BikeIndex
                 Console.WriteLine("Exception Message  : " + ex.Message);
             }
             return objList;
+        }
+
+
+        /// <summary>
+        /// Author  : Kartik Rathod on 11 Apr 2018 
+        /// Desc    : fetch minspecs for topversion from microservice 
+        /// </summary>
+        /// <param name="objList">BikeModelDocument document </param>
+        /// <returns> IList of BikeModelDocument document </returns>
+        private IList<BikeModelDocument> GetMinSpecs(IList<BikeModelDocument> objList)
+        {
+            try
+            {
+                if (objList != null && objList.Count > 0)
+                {
+                    _apiGatewayCaller = container.Resolve<IApiGatewayCaller>();
+
+
+                    List<VersionMinSpecsEntity> minSpec = new List<VersionMinSpecsEntity>();
+                    int chunkSize = 20; //devides list into chunks of 20 versionid for each adapter
+
+
+                    // This list discards all items which have TopVersion.VersionId as 0(zero) eg. contains only valid versionid list
+                    List<BikeModelDocument> validVersionList = objList.Where(d => d.TopVersion.VersionId != 0).ToList();
+                    GetVersionSpecsSummaryByItemIdAdapter[] adapter = new GetVersionSpecsSummaryByItemIdAdapter[(validVersionList.Count / chunkSize) + 1];
+
+
+                    for (int i = 0, j = 0; i < validVersionList.Count; i+=chunkSize, j++)
+                    {
+                        //devides list into chunks of 20 versionid for each adapter
+                        IEnumerable<int> versionIds = validVersionList.GetRange(i, Math.Min(chunkSize, validVersionList.Count - i)).Select(r => Convert.ToInt32(r.TopVersion.VersionId));
+
+                        VersionsDataByItemIds_Input input = new VersionsDataByItemIds_Input()
+                        {
+                            Versions = versionIds,
+                            Items = requiredSpec
+                        };
+
+                        adapter[j] = new GetVersionSpecsSummaryByItemIdAdapter();
+                        adapter[j].AddApiGatewayCall(_apiGatewayCaller, input);
+                    }
+                    
+
+                    _apiGatewayCaller.Call();
+
+                    foreach(GetVersionSpecsSummaryByItemIdAdapter adapt in adapter)    // get output of each chunks from adapter
+                    {
+                        if (adapt != null)
+                        {
+                            minSpec.AddRange(adapt.Output);
+                        }
+                    }
+                    
+
+                    if (minSpec != null)
+                    {
+                        var objEnumerator = objList.GetEnumerator();
+                        var versionEnumerator = minSpec.GetEnumerator();
+                        
+                        while (objEnumerator.MoveNext())
+                        {
+                            // sets value of only those TopVersions whose versionid is not 0. As versionEnumerator is filtered for same.
+                            //So if only versionEnumerator goes to next object if TopVersion.vesrionid is non zero
+
+                            if(objEnumerator.Current.TopVersion.VersionId != 0  && versionEnumerator.MoveNext())
+                            {
+                                objEnumerator.Current.TopVersion.Power = Convert.ToDouble(GetSpecsValue(versionEnumerator.Current.MinSpecsList, (int)EnumSpecsFeaturesItems.MaxPowerBhp));
+                                objEnumerator.Current.TopVersion.Mileage = Convert.ToUInt16(GetSpecsValue(versionEnumerator.Current.MinSpecsList, (int)EnumSpecsFeaturesItems.FuelEfficiencyOverall));
+                                objEnumerator.Current.TopVersion.KerbWeight = Convert.ToUInt16(GetSpecsValue(versionEnumerator.Current.MinSpecsList, (int)EnumSpecsFeaturesItems.KerbWeight));
+                                objEnumerator.Current.TopVersion.Displacement = Convert.ToDouble(GetSpecsValue(versionEnumerator.Current.MinSpecsList, (int)EnumSpecsFeaturesItems.Displacement));
+
+                                objEnumerator.Current.TopVersion.ABS = GetSpecsValue(versionEnumerator.Current.MinSpecsList, (int)EnumSpecsFeaturesItems.AntilockBrakingSystem) == "1";
+                                objEnumerator.Current.TopVersion.RearBrakeType = Convert.ToInt16(GetSpecsValue(versionEnumerator.Current.MinSpecsList, (int)EnumSpecsFeaturesItems.RearBrakeType));
+                                objEnumerator.Current.TopVersion.Wheels = Convert.ToInt16(GetSpecsValue(versionEnumerator.Current.MinSpecsList, (int)EnumSpecsFeaturesItems.WheelType));
+                                objEnumerator.Current.TopVersion.StartType = Convert.ToInt16(GetSpecsValue(versionEnumerator.Current.MinSpecsList, (int)EnumSpecsFeaturesItems.StartType));
+                            }
+                        }
+
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Logs.WriteErrorLog("Exception at Bikewale.ElasticSearch.DocumentBuilderConsumer.DocumentBuilders: GetMinSpecs() ", ex);
+            }
+            return objList;
+        }
+
+        /// <summary>
+        /// Author  : Kartik Rathod on 11 Apr 2018 
+        ///  Desc    : gets value of passed specsId
+        /// </summary>
+        /// <param name="objSpec">list of SpecsItem</param>
+        /// <param name="propertyId">specsId for which value is needed</param>
+        /// <returns></returns>
+        private string GetSpecsValue(IEnumerable<SpecsItem> objSpec, int propertyId)
+        {
+            try
+            {
+                string value = string.Empty;
+
+                if (objSpec != null)
+                {
+                    value = (from data in objSpec
+                             where data.Id == propertyId
+                             select (data.DataType == EnumSpecDataType.Custom) ? Convert.ToString(data.CustomTypeId) : data.Value).FirstOrDefault();
+                }
+                return !string.IsNullOrEmpty(value) ? value : null;
+            }
+            catch (Exception ex)
+            {
+                Logs.WriteErrorLog("Exception at Bikewale.ElasticSearch.DocumentBuilderConsumer.DocumentBuilders: GetSpecsValue() ", ex);
+                return null;
+            }
         }
 
     }
