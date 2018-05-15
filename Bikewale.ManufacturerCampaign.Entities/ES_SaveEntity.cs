@@ -23,5 +23,6 @@ namespace Bikewale.ManufacturerCampaign.Entities
         public float SpamScore { get; set; }
         public String Reason { get; set; }
         public bool IsAccepted { get; set; }
+        public short OverallSpamScore { get; set; }
     }
 }

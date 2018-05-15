@@ -397,29 +397,33 @@ namespace Bikewale.BAL.Lead
                 {
                     CustomerEntity objCust = GetCustomerEntity(input.Name, input.Mobile, input.Email);
 
-                    ES_SaveEntity leadInfo = new ES_SaveEntity
+                    SpamScore spamScore = CheckSpamScore(objCust);
+
+                    if (spamScore != null)
                     {
-                        DealerId = input.DealerId,
-                        PQId = input.PQId,
-                        CustomerId = objCust.CustomerId,
-                        CustomerName = input.Name,
-                        CustomerEmail = input.Email,
-                        CustomerMobile = input.Mobile,
-                        LeadSourceId = input.LeadSourceId,
-                        UTMA = utma,
-                        UTMZ = utmz,
-                        DeviceId = input.DeviceId,
-                        CampaignId = input.CampaignId,
-                        LeadId = input.LeadId
-                    };
+                        ES_SaveEntity leadInfo = new ES_SaveEntity()
+                        {
+                            DealerId = input.DealerId,
+                            PQId = input.PQId,
+                            CustomerId = objCust.CustomerId,
+                            CustomerName = input.Name,
+                            CustomerEmail = input.Email,
+                            CustomerMobile = input.Mobile,
+                            LeadSourceId = input.LeadSourceId,
+                            UTMA = utma,
+                            UTMZ = utmz,
+                            DeviceId = input.DeviceId,
+                            CampaignId = input.CampaignId,
+                            LeadId = input.LeadId,
+                            SpamScore = spamScore.Score,
+                            Reason = "",
+                            IsAccepted = spamScore.Score > 0,
+                            OverallSpamScore = GetSpamOverallScore(spamScore)
+                        };
 
-                    input.LeadId = leadId = _manufacturerCampaignRepo.SaveManufacturerCampaignLead(leadInfo);
+                        input.LeadId = leadId = _manufacturerCampaignRepo.SaveManufacturerCampaignLead(leadInfo);
 
-                    if (leadId > 0)
-                    {
-                        IEnumerable<String> numberList = _mobileVerCacheRepo.GetBlockedNumbers();
-
-                        if (numberList != null && !numberList.Contains(input.Mobile))
+                        if (leadId > 0 && spamScore.Score == 0)
                         {
                             PushToLeadConsumer(input);
 
@@ -427,7 +431,7 @@ namespace Bikewale.BAL.Lead
                             {
                                 SMSKawasaki(input);
                             }
-                        }
+                        } 
                     }
                 }
             }

@@ -615,7 +615,7 @@ namespace Bikewale.ManufacturerCampaign.DAL
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "savemanufacturerpqlead";
+                    cmd.CommandText = "savemanufacturerpqlead_14052018";
 
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.UInt32, campaignDetails.DealerId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_pqid", DbType.UInt32, campaignDetails.PQId));
@@ -629,7 +629,10 @@ namespace Bikewale.ManufacturerCampaign.DAL
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_deviceid", DbType.String, campaignDetails.DeviceId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_campaignId", DbType.UInt32, campaignDetails.CampaignId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_leadId", DbType.UInt32,ParameterDirection.Output));
-
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_spamscore", DbType.Double, campaignDetails.SpamScore));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_rejectionreason", DbType.String, campaignDetails.Reason));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isaccepted", DbType.Boolean, campaignDetails.IsAccepted));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_overallscore", DbType.Int16, campaignDetails.OverallSpamScore));
                     MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);                    
                     leadId = Convert.ToUInt32(cmd.Parameters["par_leadId"].Value);
                 }
