@@ -368,11 +368,11 @@ namespace Bikewale.BAL.Lead
                         DeviceId = input.DeviceId,
                         LeadSourceId = input.LeadSourceId
                     };
-                    if(spamScore!=null)
+                    if (spamScore != null)
                     {
                         entity.SpamScore = spamScore.Score;
-                        entity.OverallSpamScore = ;
-                        entity.IsAccepted = ( spamScore.Score < spamThreshold);
+                        entity.OverallSpamScore = GetSpamOverallScore(spamScore);
+                        entity.IsAccepted = (spamScore.Score < spamThreshold);
                     }
 
                 }
@@ -533,26 +533,35 @@ namespace Bikewale.BAL.Lead
         /// </summary>
         /// <param name="spamScore"></param>
         /// <returns></returns>
-        private short GetSpamOverallScore(SpamScore spamScore)
+        private ushort GetSpamOverallScore(SpamScore spamScore)
         {
             float threshold = 0.0f;
-            short ovrScore = 0;
-
-            if (spamScore.Name.Score > threshold)
+            ushort ovrScore = 0;
+            try
             {
-                ovrScore += (short)SpamDetailsEnum.Name;
-            }
+                if (spamScore != null)
+                {
+                    if (spamScore.Name != null && spamScore.Name.Score > threshold)
+                    {
+                        ovrScore += (ushort)SpamDetailsEnum.Name;
+                    }
 
-            if (spamScore.Email.Score > threshold)
+                    if (spamScore.Email != null && spamScore.Email.Score > threshold)
+                    {
+                        ovrScore += (ushort)SpamDetailsEnum.Email;
+                    }
+
+                    if (spamScore.Number != null && spamScore.Number.Score > threshold)
+                    {
+                        ovrScore += (ushort)SpamDetailsEnum.Number;
+                    }
+                }
+
+            }
+            catch (Exception ex)
             {
-                ovrScore += (short)SpamDetailsEnum.Email;
+                ErrorClass.LogError(ex, "Exception : Bikewale.BAL.Lead.GetSpamOverallScore");
             }
-
-            if (spamScore.Number.Score > threshold)
-            {
-                ovrScore += (short)SpamDetailsEnum.Number;
-            }
-
             return ovrScore;
         }
 
