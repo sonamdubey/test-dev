@@ -74,6 +74,8 @@
     <Content Include="src\components\Finance\EMICalculations.js" />
     <Content Include="src\components\Finance\EMICalculator.js" />
     <Content Include="src\components\Finance\EMICalculatorHeader.js" />
+    <Content Include="src\components\Finance\EmiPieBreakup.js" />
+    <Content Include="src\components\Finance\EmiPieChart.js" />
     <Content Include="src\components\Finance\EMISteps.js" />
     <Content Include="src\components\Finance\EMITab.js" />
     <Content Include="src\components\Finance\FAQ.js" />
@@ -163,6 +165,8 @@
     <Content Include="src\immutableWrapperContainer.js" />
     <Content Include="src\reducers\emiDownPayment.js" />
     <Content Include="src\reducers\emiInterest.js" />
+    <Content Include="src\reducers\emiPieAnimation.js" />
+    <Content Include="src\reducers\emiPieData.js" />
     <Content Include="src\reducers\emiReducer.js" />
     <Content Include="src\reducers\emiTenure.js" />
     <Content Include="src\reducers\FinanceCityPopup.js" />
