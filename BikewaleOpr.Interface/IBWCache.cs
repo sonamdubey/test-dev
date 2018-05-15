@@ -1,5 +1,6 @@
 ﻿
 using BikewaleOpr.Entity;
+using System.Collections.Generic;
 namespace BikewaleOpr.Interface
 {
     /// <summary>
@@ -8,7 +9,6 @@ namespace BikewaleOpr.Interface
     /// </summary>
     public interface IBWCache
     {
-        void Clear(CacheContents cacheContent);
-        void Clear(System.Collections.Generic.IEnumerable<CacheContents> cacheContents);
+        void Clear(CacheContents cacheContent, IDictionary<string, string> keyValues);
     }
 }

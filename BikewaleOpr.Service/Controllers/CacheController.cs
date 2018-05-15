@@ -1,5 +1,6 @@
 ﻿using BikewaleOpr.Entity;
 using BikewaleOpr.Interface;
+using System.Collections.Generic;
 using System.Web.Http;
 
 namespace BikewaleOpr.Service.Controllers
@@ -24,9 +25,9 @@ namespace BikewaleOpr.Service.Controllers
         /// <param name="content">Type of cache</param>
         /// <returns></returns>
         [HttpPost, Route("api/cache/{content}/clear/")]
-        public IHttpActionResult Clear(CacheContents content)
+        public IHttpActionResult Clear(CacheContents content, [FromBody] IDictionary<string, string> values)
         {
-            _cache.Clear(content);
+            _cache.Clear(content, values);
             return Ok();
         }
     }

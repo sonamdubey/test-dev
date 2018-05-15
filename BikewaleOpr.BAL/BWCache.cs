@@ -1,7 +1,10 @@
 ﻿using Bikewale.Cache.Core;
 using Bikewale.Interfaces.Cache.Core;
+using BikewaleOpr.Entity.Dealers;
 using BikewaleOpr.Interface;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 namespace BikewaleOpr.BAL
 {
     /// <summary>
@@ -11,11 +14,20 @@ namespace BikewaleOpr.BAL
     public class BWCache : IBWCache
     {
         private readonly ICacheManager _cache;
-        public BWCache(ICacheManager cache)
+        public readonly IDealers _dealerRepo;
+        public BWCache(ICacheManager cache, IDealers dealerRepo)
         {
             _cache = cache;
+            _dealerRepo = dealerRepo;
         }
-        public void Clear(Entity.CacheContents cacheContent)
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 15 May 2018
+        /// Description :   Clears memcache
+        /// </summary>
+        /// <param name="cacheContent"></param>
+        /// <param name="keyValues"></param>
+        public void Clear(Entity.CacheContents cacheContent, IDictionary<string, string> keyValues)
         {
             switch (cacheContent)
             {
@@ -26,10 +38,21 @@ namespace BikewaleOpr.BAL
                 case BikewaleOpr.Entity.CacheContents.Version:
                     break;
                 case BikewaleOpr.Entity.CacheContents.Dealer:
+                    uint cityId = 0, dealerid = 0;
+                    if (keyValues != null && keyValues.Any())
+                    {
+
+                        if ((UInt32.TryParse(keyValues["cityId"], out cityId) && cityId > 0) && (UInt32.TryParse(keyValues["dealerId"], out dealerid) && dealerid > 0))
+                        {
+                            IEnumerable<string> keys = GetDealerListInCityCacheKey(dealerid, cityId);
+                            if (keys != null && keys.Any())
+                            {
+                                _cache.RefreshCache(keys);
+                            }
+                        }
+                    }
                     break;
                 case BikewaleOpr.Entity.CacheContents.DealerCampaign:
-                    IEnumerable<string> keys = GetDealerListMakeCityCacheKey();
-                    _cache.RefreshCache(keys);
                     break;
                 case BikewaleOpr.Entity.CacheContents.ESCampaign:
                     break;
@@ -38,22 +61,28 @@ namespace BikewaleOpr.BAL
             }
         }
 
-        private IEnumerable<string> GetDealerListMakeCityCacheKey()
+        /// <summary>
+        /// Created by  :   Sumit Kate on 15 May 2018
+        /// Description :   Returns dealer in city cache key for refresh
+        /// </summary>
+        /// <param name="dealerId"></param>
+        /// <param name="cityId"></param>
+        /// <returns></returns>
+        private IEnumerable<string> GetDealerListInCityCacheKey(uint dealerId, uint cityId)
         {
-            List<string> keys = new List<string>();
-            for (int i = 1; i < 100; i++)
+            IEnumerable<DealerMakeEntity> dealerMakes = _dealerRepo.GetDealersByCity(cityId);
+            IEnumerable<uint> makeIds = dealerMakes != null && dealerMakes.Any(m => m.DealerId == dealerId) ? dealerMakes.Select(m => m.MakeId).Distinct().ToList() : null;
+            if (makeIds != null && makeIds.Any())
             {
-                for (int j = 1; j < 1500; j++)
+                ICollection<string> keys = new List<string>();
+                foreach (var makeId in makeIds)
                 {
-                    keys.Add(string.Format("BW_DealerList_Make_{0}_City_{1}_v1", i, j));
+                    keys.Add(String.Format("BW_DealerList_Make_{0}_City_{1}_v1", makeId, cityId));
                 }
+
+                return keys;
             }
-            return keys;
-        }
-
-        public void Clear(System.Collections.Generic.IEnumerable<Entity.CacheContents> cacheContents)
-        {
-
+            return null;
         }
     }
 }
