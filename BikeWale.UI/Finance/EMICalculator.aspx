@@ -59,12 +59,6 @@
                 </a>
             </li>
             <li class="fwd-arrow">&rsaquo;</li>
-            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-                <a href="/finance/emicalculator.aspx" itemprop="url">
-                    <span itemprop="title">Tools</span>
-                </a>
-            </li>
-            <li class="fwd-arrow">&rsaquo;</li>
             <li class="current"><strong>EMI Calculator</strong></li>
         </ul>
         <div class="clear"></div>

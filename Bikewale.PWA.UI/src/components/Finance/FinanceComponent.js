@@ -17,7 +17,7 @@ class FinanceComponent extends React.Component {
 				</div>
 				<Tabs />
 				<Disclaimer />
-				<Breadcrumb breadcrumb={[{Href : '/m/',Title : 'Home'}, {Href : '/m/bike-loan-emi-calculator/',Title : 'Tools', isReactLink : true, isSamePage : true}, {Href : '',Title : 'EMI Calculator'}]}/>
+				<Breadcrumb breadcrumb={[{Href : '/m/',Title : 'Home'}, {Href : '',Title : 'EMI Calculator'}]}/>
 			</div>
 			</div>
 		);

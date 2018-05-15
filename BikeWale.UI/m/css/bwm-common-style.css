@@ -544,7 +544,7 @@ header.fixed {    position: fixed;    left: 0;    right: 0;    top: 0;    z-inde
 .scooter-icon { background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/4d5057/scooter-22x15.png') no-repeat center; display: inline-block; }
 .usedBikes-icon { background-position: 0 -178px; }
 .sellBikes-icon { background-position: 0 -155px; }
-.forum-icon { background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/bwsprite-v3.png?05July20171499235738247) no-repeat center; background-position: 0 -282px }
+.forum-icon { background: url(https://imgd.aeplcdn.com/0x0/bw/static/icons/4d5057/calculator.png) no-repeat center; display: inline-block; }
 .reviews-icon { background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/4d5057/review-24x16.png') no-repeat center; display: inline-block; }
 .news-icon { background-position: 0 -132px; }
 .myBikeWale-icon { background-position: 0 -86px; }
