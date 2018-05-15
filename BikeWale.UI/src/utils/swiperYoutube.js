@@ -60,13 +60,19 @@
     }
 	},
 
-	populateVideoIframes: function () {
+	populateVideoIframes: function (input) {
 	    $('.swiper-youtube iframe:not([data-video])').each(function () {
 	        var ytApi = SwiperYT.YouTubeApi;
 	        var ytIndex = ytApi.index;
 	        var selectedElement = $(this);
 	        selectedElement.attr('data-video', ytIndex);
-	        var videoId = "video_" + ytIndex;
+
+	        if (input != null && input.idkey) {
+	            var videoId = "video_" + ytIndex + "_" + input.idkey;
+	        }
+	        else {
+	            var videoId = "video_" + ytIndex;
+	        }
 
 	        selectedElement.attr('id', videoId);
 	        ytApi.videoPos = selectedElement.position();

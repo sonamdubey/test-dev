@@ -398,7 +398,8 @@
                         <script>
                             var videoTab = document.getElementById("videoTabLink");
                             videoTab.addEventListener("click", function (event) {
-                                lazyloadYoutube.loadYoutubeVideos({ scope: "videoTab", enableYTAPI: false });
+                                lazyloadYoutube.loadYoutubeVideos({ scope: "videoTab", enableYTAPI: true });
+                                SwiperYT.populateVideoIframes({idkey: "videotab"});
                             });
 
                             var videoPopup = document.getElementById("popupLoadMore");
