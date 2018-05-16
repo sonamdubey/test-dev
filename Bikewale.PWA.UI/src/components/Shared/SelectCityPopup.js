@@ -15,25 +15,55 @@ class SelectCityPopup extends React.Component {
       var globalCity = getGlobalCity();
       var globalCityName = ( globalCity && globalCity.name.length>0 ) ? globalCity.name : '';
       this.state = {
+          Popular:[],
+          Other:[],
           cityValue: globalCityName
       }
   }
 
+    componentWillReceiveProps(){
+        if( this.props.data.Popular != this.state.Popular || this.props.data.Other != this.state.Other){
+            this.setState(...this.state, {
+                Selection:this.props.data.Selection,
+                Popular:this.props.data.Popular,
+                Other:this.props.data.Other
+            });
+        }
+    }
+
   componentDidMount() {
-    this.props.fetchCity();
-    addPopupEvents(this.popupContent)
+        this.props.fetchCity();
+        addPopupEvents(this.popupContent)
   }
   
   componentWillUnmount() {
     removePopupEvents(this.popupContent)
   }
-
+  
+  filterCityList = (event) => {
+    var updatedPopular = this.props.data.Popular;
+    var updatedOther = this.props.data.Other;
+    updatedPopular = updatedPopular.filter(function(item){
+      return item.cityName.toLowerCase().search(
+        event.target.value.toLowerCase()) !== -1;
+    });
+    updatedOther = updatedOther.filter(function(item){
+      return item.cityName.toLowerCase().search(
+        event.target.value.toLowerCase()) !== -1;
+    });
+    this.setState({
+    cityValue:event.currentTarget.value,
+     Popular: updatedPopular,
+     Other: updatedOther
+    });
+  }
+  
   handleCityClick = (item) => {
     if (this.props.onCityClick) {
         this.props.onCityClick(item);
-        this.setState({
-            cityValue: item.cityName
-        });
+        this.setState( ...this.state, {
+            cityValue: item.cityName}
+        );
     }
   }
 
@@ -46,8 +76,10 @@ class SelectCityPopup extends React.Component {
   }
 
   handleClearClick = () => {
-      this.setState({
-        cityValue:''
+      this.setState(...this.state, {
+        cityValue:'',
+        Popular:this.props.data.Popular,
+        Other:this.props.data.Other
       });
   }
 
@@ -63,7 +95,7 @@ class SelectCityPopup extends React.Component {
       onClick
     } = this.props
 
-    let listItems = data.Other.map((item, index) => {
+    let listItems = this.state.Other.map((item, index) => {
       let active = data.Selection.cityId === item.cityId ? true : false;
 
       return (
@@ -107,41 +139,33 @@ class SelectCityPopup extends React.Component {
                         <p className="popup-search__title">Select City</p>
                         <div className="autocomplete-box">
                           <div className="autocomplete-field">
-                            <Autocomplete
-                              value={this.state.cityValue}
-                              inputProps={{
-                                className: "form-control",
-                                placeholder: "Type to select city",
-                                id:"selectcity-popup"
-
-                                }}
-                            />
-    {
+                            <input type="text"  value = {this.state.cityValue} className = "form-control" placeholder = "Type to select city" id = "selectcity-popup" onChange={this.filterCityList}/>
+                            {
       data.Selection && data.Selection.cityId > 0
         ? <span onClick={this.handleClearClick} className="autocomplete-box__clear">Clear</span>
         : <span className="select-city__locate-me"></span> 
-    }
+                            }
   </div>
 </div>
 </div>
 </div>
 </div>
-    {
+                            {
 data.Popular && data.Other && (
 <div className="select-city__body">
 <div className="city-list-content">
   <p className="city-list__heading">Popular cities</p>
   <PopularCityList
-    data={data.Popular}
+    data={this.state.Popular}
     selection={data.Selection}
     onClick={this.handleCityClick}
   />
 </div>
 <div className="city-list-content">
   <p className="city-list__heading">Other cities</p>
-    {this.getOtherCityList()}
+        {this.getOtherCityList()}
 </div>
-        </div>
+                                </div>
 )
           }
           <div className="popup__footer">
