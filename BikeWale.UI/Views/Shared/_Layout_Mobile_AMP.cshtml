@@ -561,31 +561,31 @@
     <amp-analytics type="googleanalytics">
         <script type="application/json">
             {
-            "vars": {
-            "account": "UA-34771801-1"
-            },
-            "extraUrlParams": {
-            "pageSourceType": "AMP"
-            },
-            "triggers": {
-            "trackPageview": {
-                "on": "visible",
-                "request": "pageview",
                 "vars": {
-                    "title": "@Html.Raw(Model.PageMetaTags.Title)"
+                    "account": "UA-34771801-1"
+                },
+                "extraUrlParams": {
+                    "pageSourceType": "AMP"
+                },
+                "triggers": {
+                    "trackPageview": {
+                        "on": "visible",
+                        "request": "pageview",
+                        "vars": {
+                            "title": "@Html.Raw(Model.PageMetaTags.Title)"
+                        }
+                    },
+                    "trackEvent": {
+                        "selector": ".track-day-nav-ga",
+                        "on": "click",
+                        "request": "event",
+                        "vars": {
+                            "eventCategory": "@(Model.Page)_AMP",
+                            "eventAction": "Hamburger_Menu_Item_Click",
+                            "eventLabel":"Track Day 2018"
+                        }
+                    }
                 }
-            },
-            "trackEvent": {
-            "selector": ".track-day-nav-ga",
-            "on": "click",
-            "request": "event",
-            "vars": {
-            "eventCategory": "@(Model.Page)_AMP",
-            "eventAction": "Hamburger_Menu_Item_Click",
-            "eventLabel":"Track Day 2018"
-            }
-            }
-            }
             }
         </script>
     </amp-analytics>
