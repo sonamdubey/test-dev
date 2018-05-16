@@ -99,9 +99,7 @@ namespace Bikewale.BAL.Lead
 
                     isSuccess = _objDealerPriceQuote.SaveCustomerDetail(entity);
 
-                    var numberList = _mobileVerCacheRepo.GetBlockedNumbers();
-
-                    if (numberList != null && !numberList.Contains(pqInput.CustomerMobile))
+                    if (entity.IsAccepted) //if the details are not abusive 
                     {
                         objBookingPageDetailsEntity = _objDealerPriceQuote.FetchBookingPageDetails(Convert.ToUInt32(pqInput.CityId), Convert.ToUInt32(pqInput.VersionId), pqInput.DealerId);
 
@@ -113,8 +111,6 @@ namespace Bikewale.BAL.Lead
                         pqCustomerDetailEntity.NoOfAttempts = noOfAttempts;
 
                     }
-
-
                 }
             }
             catch (Exception ex)
@@ -172,15 +168,14 @@ namespace Bikewale.BAL.Lead
                     if (pqInput.PQId <= 0)
                     {
                         pqId = _objPriceQuote.RegisterPriceQuote(objPQEntity);
+                        pqInput.PQId = Convert.ToUInt32(pqId);
                     }
 
                     entity = CheckRegisteredUser(pqInput, requestHeaders);
 
                     isSuccess = _objDealerPriceQuote.SaveCustomerDetail(entity);
 
-                    var numberList = _mobileVerCacheRepo.GetBlockedNumbers();
-
-                    if (numberList != null && !numberList.Contains(pqInput.CustomerMobile))
+                    if (entity.IsAccepted) //if the details are not abusive 
                     {
                         pqCustomer = _objDealerPriceQuote.GetCustomerDetails(Convert.ToUInt32(pqId));
                         objCust = pqCustomer.objCustomerBase;
@@ -188,7 +183,6 @@ namespace Bikewale.BAL.Lead
                         pqCustomerDetailEntity = NotifyCustomerAndDealer(pqInput, requestHeaders);
                         pqCustomerDetailEntity.NoOfAttempts = noOfAttempts;
                         pqCustomerDetailEntity.PQId = pqId;
-
                     }
                 }
             }
@@ -372,7 +366,7 @@ namespace Bikewale.BAL.Lead
                     {
                         entity.SpamScore = spamScore.Score;
                         entity.OverallSpamScore = GetSpamOverallScore(spamScore);
-                        entity.IsAccepted = (spamScore.Score < spamThreshold);
+                        entity.IsAccepted = (spamScore.Score == spamThreshold);
                     }
 
                 }
