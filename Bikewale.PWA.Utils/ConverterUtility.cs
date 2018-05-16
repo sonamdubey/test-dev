@@ -170,6 +170,9 @@ namespace Bikewale.PWA.Utils
 
         /// <summary>
         /// Converts MostPopularBikes to PwaBikeDetails for the specified City
+        /// Modified by: Dhruv Joshi
+        /// Dated: 16th May 2018
+        /// Description: Mapping for the added properties of PwaBikeDetails
         /// </summary>
         /// <param name="inpList"></param>
         /// <param name="cityName"></param>

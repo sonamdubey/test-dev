@@ -5,6 +5,9 @@ namespace Bikewale.Entities.PWA.Articles
 {
     /// <summary>
     ///  Created By: Prasad Gawde
+    ///  Modified by: Dhruv Joshi  
+    ///  Dated: 16th May 2018
+    ///  Description: Added ModelName, ModelId, MakeName and IsNew properties
     /// </summary>
     [Serializable, DataContract]
     public class PwaBikeDetails
