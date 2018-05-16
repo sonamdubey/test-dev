@@ -1069,7 +1069,7 @@ namespace Bikewale.Models
                     adTagsObj.AdId = _adId_Mobile_Old;
                     adTagsObj.Ad_320x50 = true;
                     adTagsObj.Ad300x250_Bottom = true;
-                    adTagsObj.Ad_300x250BTF = _oldMakePageV1Status && objData.Bikes.Count() > 2;
+                    adTagsObj.Ad_300x250BTF = _oldMakePageV1Status && objData.Bikes.Count() > 5;
 
 
                     IDictionary<string, AdSlotModel> ads = new Dictionary<string, AdSlotModel>();

@@ -9,7 +9,8 @@
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
     ViewBag.TotalPrice = Model.TotalPrice; // to pass price component on dealer campaign if dealerprice not available
     Model.AdTags.Ad_320x50 = true;
-    Model.AdTags.Ad_Bot_320x50 = true;
+    bool primaryDealerShown = Model.DetailedDealer.PrimaryDealer != null && Model.DetailedDealer.PrimaryDealer.DealerDetails != null && Model.DetailedDealer.PrimaryDealer.DealerDetails.objArea != null;
+    Model.AdTags.Ad_300x250BTF = !(primaryDealerShown || Model.IsManufacturerLeadAdShown || Model.IsManufacturerEMIAdShown);
 }
 
 <div class="bg-white padding-10-5 bottom-shadow margin-bottom10">
@@ -282,6 +283,12 @@
         </div>
 
     </section>
+    
+}
+
+@if (Model.AdTags.Ad_300x250BTF)
+{
+    Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad300x250BTF.cshtml", Model.AdTags);
 }
 
 @if (Model.ShowOtherDealers && Model.AreOtherDealersAvailable)
