@@ -22,21 +22,23 @@ namespace Bikewale.DAL.BikeData
     /// <typeparam name="U"></typeparam>
     public class BikeVersionsRepository<T, U> : IBikeVersions<T, U> where T : BikeVersionEntity, new()
     {
-        /// <summary>
-        /// Summary : Function to get all versions basic data in list.
-        /// Modified By : Sadhana Upadhyay on 25 Aug 2014
-        /// Summary : Changed return type to get price
-        /// </summary>
-        /// <param name="requestType"></param>
-        /// <param name="modelId">model id whose versions are required. ModelId should be a positive number.</param>
-        /// <returns>Returns list containing objects of the versions.</returns>
-        public List<BikeVersionsListEntity> GetVersionsByType(EnumBikeType requestType, int modelId, int? cityId = null)
+		/// <summary>
+		/// Summary : Function to get all versions basic data in list.
+		/// Modified By : Sadhana Upadhyay on 25 Aug 2014
+		/// Summary : Changed return type to get price
+		/// Modified by : Pratibha Verma on 16 May 2018
+		/// Description : change sp 'getbikeversions_new_12042018' to 'getbikeversions_new_16052018'
+		/// </summary>
+		/// <param name="requestType"></param>
+		/// <param name="modelId">model id whose versions are required. ModelId should be a positive number.</param>
+		/// <returns>Returns list containing objects of the versions.</returns>
+		public List<BikeVersionsListEntity> GetVersionsByType(EnumBikeType requestType, int modelId, int? cityId = null)
         {
             List<BikeVersionsListEntity> objVersionsList = null;
 
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getbikeversions_new_12042018"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getbikeversions_new_16052018"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_requesttype", DbType.Int32, (int)requestType));
