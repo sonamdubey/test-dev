@@ -578,7 +578,6 @@ module.exports = {
 	showHideMatchError,
 	globalCityCache,
 	globalSearchCache,
-	pqSourceId,
 	getGlobalCity,
 	highlightText,
 	getStrippedTerm,
