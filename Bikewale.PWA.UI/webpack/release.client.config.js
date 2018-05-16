@@ -8,7 +8,7 @@ var extractVideoSass = new ExtractCssChunks( {filename : "css/videos/videosBundl
 var extractAppSass = new ExtractCssChunks( {filename : "css/app.[chunkhash].css" , publicPath : cssChunksPublicPath } );
 var extractNewsSass = new ExtractCssChunks( {filename : "css/news/newsBundle.[chunkhash].css" , publicPath : cssChunksPublicPath } );
 
-var extractFinanceSass = new ExtractCssChunks({ filename: "css/finance/financeBundle.css", publicPath: cssChunksPublicPath });
+var extractFinanceSass = new ExtractCssChunks({ filename: "css/finance/financeBundle.[chunkhash].css", publicPath: cssChunksPublicPath });
 
 const config = merge(commonConfig, {
 	output : {

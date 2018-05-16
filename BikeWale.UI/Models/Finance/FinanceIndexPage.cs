@@ -76,7 +76,6 @@ namespace Bikewale.Models
 			FinanceIndexPageVM objData = new FinanceIndexPageVM();
             try
             {
-				objData.JsUrls = new List<string> { "/pwa/js/financeBundle.bundle.js" };
 				BindPageMetas(objData.PageMetaTags);
                 objData.ReduxStore = new PwaReduxStore();
                 var storeJson = JsonConvert.SerializeObject(objData.ReduxStore);
