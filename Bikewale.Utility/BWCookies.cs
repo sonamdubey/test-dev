@@ -302,6 +302,7 @@ namespace Bikewale.Utility
                 string[] percentageString = percentage.Split(',');
                 ushort newMakePagePercent = Convert.ToUInt16(percentageString[0]); //first make page experiment
                 ushort newMakePageV1Percent = Convert.ToUInt16(percentageString[1]);
+                ushort oldMakePageV1Percent = Convert.ToUInt16(percentageString[2]);
                 var cookie = HttpContext.Current.Request.Cookies["_bwtest"];
 
                 if (cookie != null && !string.IsNullOrEmpty(Convert.ToString(cookie.Value)) && ushort.TryParse(cookie.Value, out cookieValue) && cookieValue > 0)
@@ -316,6 +317,11 @@ namespace Bikewale.Utility
                         abTestResults.ViewName = "Index_Mobile_New_v1.cshtml";
                         abTestResults.IsNewPage = true;
                         abTestResults.NewMakePageV1Status = true;
+                    }
+                    else if (cookieValue <= (oldMakePageV1Percent + newMakePageV1Percent + newMakePagePercent))
+                    {
+                        abTestResults.ViewName = "Index_Mobile.cshtml";
+                        abTestResults.OldMakePageV1Status = true;
                     }
                     else
                     {
