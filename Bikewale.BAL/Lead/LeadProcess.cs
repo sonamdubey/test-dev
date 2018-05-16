@@ -44,7 +44,8 @@ namespace Bikewale.BAL.Lead
         private readonly IManufacturerCampaignRepository _manufacturerCampaignRepo = null;
         private readonly IApiGatewayCaller _apiGatewayCaller;
         public bool IsPQCustomerDetailWithPQ { get; set; }
-        CustomerEntity objCust = null; 
+        CustomerEntity objCust = null;
+        float _spamScoreThreshold = 0.0f;
         #endregion
 
 
@@ -417,7 +418,7 @@ namespace Bikewale.BAL.Lead
                             LeadId = input.LeadId,
                             SpamScore = spamScore.Score,
                             Reason = "",
-                            IsAccepted = spamScore.Score > 0,
+                            IsAccepted = !(spamScore.Score > _spamScoreThreshold),
                             OverallSpamScore = GetSpamOverallScore(spamScore)
                         };
 
