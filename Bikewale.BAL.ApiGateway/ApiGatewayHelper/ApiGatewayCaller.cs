@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Runtime.Serialization;
-using System.Threading.Tasks;
-using ApiGatewayLibrary;
+﻿using ApiGatewayLibrary;
+using Bikewale.Notifications;
 using GatewayWebservice;
 using Google.Protobuf;
-using Bikewale.Notifications;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Bikewale.BAL.ApiGateway.ApiGatewayHelper
 {
@@ -130,6 +129,7 @@ namespace Bikewale.BAL.ApiGateway.ApiGatewayHelper
                 if (_outRequest == null || _outRequest.OutputMessages == null || _outRequest.OutputMessages.Count <= 0)
                 {
                     ErrorClass.LogError(new Exception("API Gateway output is null."), "Bikewale.BAL.ApiGatewayHelper.ApiGatewayCaller.Call");
+                    return;
                 }
                 InvokeCallbackFunctions();
             }
@@ -139,7 +139,7 @@ namespace Bikewale.BAL.ApiGateway.ApiGatewayHelper
             }
             finally
             {
-                if (_outRequest == null && _outRequest.OutputMessages != null && _outRequest.OutputMessages.Count > 0)
+                if (_outRequest != null && _outRequest.OutputMessages != null && _outRequest.OutputMessages.Count > 0)
                 {
                     _outRequest.OutputMessages.Clear();
                 }

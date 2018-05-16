@@ -611,17 +611,11 @@
                         isValidDetails = self.validateUserInfo(fullName, emailid, mobile);
                         if (self.dealerId() && isValidDetails) {
                             self.verifyCustomer();
+                            $("#contactDetailsPopup").hide();
+                            $("#personalInfo").hide();
+                            $("#notify-response").fadeIn();
                             if (self.IsVerified()) {
-
-                                $("#contactDetailsPopup").hide();
-                                $("#personalInfo").hide();
-                                $("#notify-response").fadeIn();
                                 triggerGA(self.eventCategory(), eventAction, gaLabel);
-                            }
-                            else {
-                                $("#leadCapturePopup").show();
-                                $('body').addClass('lock-browser-scroll');
-                                $(".blackOut-window").show();
                             }
                             setPQUserCookie();
                             self.triggerABTestGA(gaLabel);
@@ -1063,24 +1057,24 @@
             $("#brandSearchBar").addClass('open').animate({ 'left': '100%' }, 500);
         };
 
-		var agreementPolicyPopup = (function () {
-			var policyPopup, closebtn, leadCapturePopup, container;
+        var agreementPolicyPopup = (function () {
+            var policyPopup, closebtn, leadCapturePopup, container;
 
-			function _setSelectors() {
-				policyPopup = $('#policyPopup');
-				closebtn = $('.policy-close-btn');
-				leadCapturePopup = $('#leadCapturePopup');
-				container = $('.policy-container');
-			}
+            function _setSelectors() {
+                policyPopup = $('#policyPopup');
+                closebtn = $('.policy-close-btn');
+                leadCapturePopup = $('#leadCapturePopup');
+                container = $('.policy-container');
+            }
 
-			function registerEvents() {
-				_setSelectors();
+            function registerEvents() {
+                _setSelectors();
 
-				$('#visitor-agreement-link, #privacy-policy-link').on('click', function (e) {
+                $('#visitor-agreement-link, #privacy-policy-link').on('click', function (e) {
                     e.preventDefault();
                     var containerId = $("#policyPopupContainer");
-					if ($(this).data('link') === 1) {
-                       $.ajax({
+                    if ($(this).data('link') === 1) {
+                        $.ajax({
                             type: "GET",
                             url: "/Privacy/PrivacyPolicy/",
                             contentType: "application/json",
@@ -1090,10 +1084,10 @@
                             },
                             error: function () {
                                 containerId.html("Page Not Found");
-                          }
+                            }
                         });
-					}
-					else if ($(this).data('link') === 2) {
+                    }
+                    else if ($(this).data('link') === 2) {
                         $.ajax({
                             type: "GET",
                             url: "/Privacy/VisitorAgreement/",
@@ -1106,50 +1100,50 @@
                                 containerId.html("Page Not Found");
                             }
                         });
-					}
-					agreementPolicyPopup.open();
-				});
+                    }
+                    agreementPolicyPopup.open();
+                });
 
-				$('.policy-close-btn').on('click', function () {
-					if (policyPopup.is(':visible')) {
-						window.history.back();
-					}
-				});
+                $('.policy-close-btn').on('click', function () {
+                    if (policyPopup.is(':visible')) {
+                        window.history.back();
+                    }
+                });
 
-				container.on('scroll', function () {
-					if (container.scrollTop() == 0) {
-						$('.policy-container').removeClass('box-shadow-top');
-					}
-					else {
-						$('.policy-container').addClass('box-shadow-top');
-					}
-				});
+                container.on('scroll', function () {
+                    if (container.scrollTop() == 0) {
+                        $('.policy-container').removeClass('box-shadow-top');
+                    }
+                    else {
+                        $('.policy-container').addClass('box-shadow-top');
+                    }
+                });
 
-				$(window).on('popstate', function () {
-					if (policyPopup.is(':visible')) {
-						close();
-					}
-				});
-			}
+                $(window).on('popstate', function () {
+                    if (policyPopup.is(':visible')) {
+                        close();
+                    }
+                });
+            }
 
-			function open() {
-				popup.lock();
-				policyPopup.fadeIn(200);
-				$('#policyPopupContainer').scrollTop(0);
-				history.pushState('agreementpopup', '', '');
-			}
+            function open() {
+                popup.lock();
+                policyPopup.fadeIn(200);
+                $('#policyPopupContainer').scrollTop(0);
+                history.pushState('agreementpopup', '', '');
+            }
 
-			function close() {
-				policyPopup.fadeOut(200);
-				popup.unlock();
-			}
+            function close() {
+                policyPopup.fadeOut(200);
+                popup.unlock();
+            }
 
-			return {
-				registerEvents: registerEvents,
-				open: open,
-				close: close
-			}
-		})();
+            return {
+                registerEvents: registerEvents,
+                open: open,
+                close: close
+            }
+        })();
 
         docReady(function () {
 
@@ -1385,8 +1379,8 @@
 
             brandSearchBar = $("#brandSearchBar"), dealerSearchBrand = $(".dealer-search-brand"), dealerSearchBrandForm = $(".dealer-search-brand-form");
 
-			// register agreement and privacy policy popup events
-			agreementPolicyPopup.registerEvents();
+            // register agreement and privacy policy popup events
+            agreementPolicyPopup.registerEvents();
 
         });
 

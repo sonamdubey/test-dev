@@ -1,6 +1,5 @@
 ﻿using Bikewale.BAL.ApiGateway.ApiGatewayHelper;
 using Bikewale.DTO.PriceQuote;
-using Bikewale.DTO.PriceQuote.BikeBooking;
 using Bikewale.DTO.PriceQuote.CustomerDetails;
 using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.Customer;
@@ -12,11 +11,8 @@ using Bikewale.Interfaces.Lead;
 using Bikewale.Interfaces.MobileVerification;
 using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Notifications;
-using Bikewale.Service.AutoMappers.Bikebooking;
 using Bikewale.Service.AutoMappers.PriceQuote;
 using Bikewale.Service.Utilities;
-using Bikewale.Utility;
-using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Specialized;
 using System.Linq;
@@ -131,10 +127,9 @@ namespace Bikewale.Service.Controllers.PriceQuote
                 PQCustomerDetailOutputEntity outEntity = null;
                 Bikewale.Entities.PriceQuote.PQCustomerDetailInput pqInput = null;
                 if (input != null
-                    && !String.IsNullOrEmpty(input.CustomerEmail)
-                    && !String.IsNullOrEmpty(input.CustomerMobile) 
-                    && input.PQId > 0 
-                    && input.DealerId > 0 
+                    && !String.IsNullOrEmpty(input.CustomerMobile)
+                    && input.PQId > 0
+                    && input.DealerId > 0
                     && Convert.ToInt32(input.VersionId) > 0
                     && Convert.ToInt32(input.CityId) > 0)
                 {
@@ -183,8 +178,8 @@ namespace Bikewale.Service.Controllers.PriceQuote
 
             try
             {
-                if (input != null 
-                    && !String.IsNullOrEmpty(input.CustomerEmail) 
+                if (input != null
+                    && !String.IsNullOrEmpty(input.CustomerEmail)
                     && !String.IsNullOrEmpty(input.CustomerMobile)
                     && Convert.ToInt32(input.VersionId) > 0
                     && Convert.ToInt32(input.CityId) > 0)
