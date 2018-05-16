@@ -1,6 +1,6 @@
 import React from 'react'
 import LazyLoad from 'react-lazy-load'
-import {setDataforPopularBikesWidget, setPriceQuoteFlag, pqSourceId} from '../utils/popUpUtils'
+import {setDataforPopularBikesWidget, setPriceQuoteFlag, setPQSourceId} from '../utils/popUpUtils'
 import {triggerGA} from '../utils/analyticsUtils'
 class NewBikes extends React.Component {
     constructor(props) {
@@ -33,7 +33,9 @@ class NewBikes extends React.Component {
                             </div>
                         )
         }
-         if(item.IsNew) {
+        if(item.IsNew) {
+            var pqSourceId = setPQSourceId();
+            console.log(pqSourceId);
               button = (
                   <div class="card-btn-block">
                       <a data-pagecatid={gaObj.id} data-pqsourceid={pqSourceId} data-makename={item.MakeName} data-modelname={item.ModelName} data-modelid={item.ModelId} className="btn btn-card btn-full-width btn-white getquotation" onClick={this.checkOnRoadLinkClick.bind(this,item)}>Check on-road price</a>

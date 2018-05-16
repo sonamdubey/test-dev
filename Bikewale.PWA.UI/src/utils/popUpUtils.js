@@ -1,4 +1,4 @@
-
+import {extractPageCategoryFromURL} from '../components/News/NewsCommon'
 import {isServer} from './commonUtils'
 var topCount = "5";
 function closeGlobalSearchPopUp() {
@@ -544,11 +544,17 @@ function MakeModelRedirection(item ) {
     }
     
 }
+function setPQSourceId() {
+    var pageCategory = extractPageCategoryFromURL();
+    var pageName = (gaObj != null) ? gaObj.name : 0;
+    var isDetail =  pageName.indexOf("List") == -1;
+    return pageCategory == "news" ? (isDetail ? "115" : "84") : (isDetail ? "116" : "109"); 
+}
+
 
 
 var globalCityCache = new Object(); // variable for global city autocomplete
 var globalSearchCache = new Object(); // variable for global search autocomplete
-var pqSourceId = "38";
 var globalSearchStatus = {
 	RESET : 0,
 	ERROR : 1,
@@ -589,5 +595,6 @@ module.exports = {
     resetOnRoadPricePopup,
     closeCityAreaSelectionPopup,
     openCityAreaSelectionPopup,
-    setDataforPopularBikesWidget
+    setDataforPopularBikesWidget,
+    setPQSourceId
 }
