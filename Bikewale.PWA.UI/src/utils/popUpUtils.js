@@ -357,6 +357,36 @@ function checkCookies() {
     }
 }
 
+function setDataforPopularBikesWidget(event, item) {
+    checkCookies();
+    onRoadPricePopupDataObject.SelectedModelId = (item.ModelId != null && item.ModelId != undefined) ? item.ModelId : 0;
+    onRoadPricePopupDataObject.SelectedCity = (onCookieObj.PQCitySelectedId > 0)?{ 'id': onCookieObj.PQCitySelectedId, 'name': onCookieObj.PQCitySelectedName }:null;
+    onRoadPricePopupDataObject.SelectedArea = (onCookieObj.PQAreaSelectedId > 0)?{ 'id': onCookieObj.PQAreaSelectedId, 'name': onCookieObj.PQAreaSelectedName }:null;
+    onRoadPricePopupDataObject.SelectedCityId = onCookieObj.PQCitySelectedId || 0;
+    onRoadPricePopupDataObject.SelectedAreaId = onCookieObj.PQAreaSelectedId || 0;
+    onRoadPricePopupDataObject.BookingCities = [],
+    onRoadPricePopupDataObject.BookingAreas = [],
+    onRoadPricePopupDataObject.ModelName = item.ModelName != null && item.ModelName!=null ? item.ModelName : "";
+    onRoadPricePopupDataObject.MakeName = item.MakeName != null && item.MakeName!=null ? item.MakeName : "";
+    onRoadPricePopupDataObject.PageCatId = (gaObj != null) ? gaObj.id : 0;
+    onRoadPricePopupDataObject.IsPersistence = false;
+    onRoadPricePopupDataObject.IsReload = false;
+    if(onRoadPricePopupDataObject.SelectedCityId == 0 )
+        onRoadPricePopupDataObject.LoadingText = 'Fetching Cities...';
+    if(onRoadPricePopupDataObject.IsPersistence )
+        onRoadPricePopupDataObject.LoadingText = 'Loading locations...';
+   
+    showElement(document.getElementById('popupWrapper'));
+    showElement(document.getElementById('popupContent'));
+    document.getElementById('popupWrapper').classList.add('loader-active');
+    
+    if(window.location.hash != '') {
+        window.location.hash ='';
+    }
+    appendHash("onRoadPrice");
+   
+}
+
 function setDataForPriceQuotePopup(event,bikeObj) {
     checkCookies();
     var item = bikeObj;
@@ -558,5 +588,6 @@ module.exports = {
     popupState,
     resetOnRoadPricePopup,
     closeCityAreaSelectionPopup,
-    openCityAreaSelectionPopup
+    openCityAreaSelectionPopup,
+    setDataforPopularBikesWidget
 }
