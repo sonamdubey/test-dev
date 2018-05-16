@@ -32,6 +32,13 @@ const closeCityPopup = (payload) => {
   }
 }
 
+const cityNext = (payload) => {
+    return{
+        type: financeCityPopup.CITY_NEXT,
+        payload
+    }
+}
+
 const setCity = (payload) => {
   return {
     type: financeCityPopup.SET_CITY,
@@ -49,6 +56,10 @@ export const openSelectCityPopup = () => (dispatch) => {
 
 export const closeSelectCityPopup = () => (dispatch) => {
   dispatch(closeCityPopup())
+}
+
+export const selectCityNext = () => (dispatch) => {
+   dispatch(cityNext())
 }
 
 export const selectCity = (payload) => (dispatch) => {

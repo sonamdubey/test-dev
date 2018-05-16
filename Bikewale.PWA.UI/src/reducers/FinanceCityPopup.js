@@ -19,7 +19,6 @@ var initialState = fromJS({
 })
 
 export function FinanceCityPopup(state = initialState, action) {
-    console.log(state)
   try {
       if (!state || window._SERVER_RENDERED_DATA)
       return initialState;
@@ -40,6 +39,9 @@ export function FinanceCityPopup(state = initialState, action) {
           }));
 
         case financeCityPopup.CLOSE_CITY_POPUP:
+            return state.setIn(['isActive'], false);
+
+        case financeCityPopup.CITY_NEXT:
             return state.setIn(['isActive'], false);
 
       case financeCityPopup.SET_CITY:

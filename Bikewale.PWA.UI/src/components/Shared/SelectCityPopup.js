@@ -51,6 +51,12 @@ class SelectCityPopup extends React.Component {
       });
   }
 
+  handleNextClick = () => {
+      if(this.props.onNextClick){
+          this.props.onNextClick();
+      }
+  }
+
   getOtherCityList = () => {
     const {
       data,
