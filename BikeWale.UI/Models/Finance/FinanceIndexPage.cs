@@ -15,6 +15,7 @@ using Bikewale.Utility;
 using Newtonsoft.Json;
 using Bikewale.Models.Shared;
 using Bikewale.Models.Finance;
+using System.Collections.Generic;
 
 namespace Bikewale.Models
 {
@@ -75,6 +76,7 @@ namespace Bikewale.Models
 			FinanceIndexPageVM objData = new FinanceIndexPageVM();
             try
             {
+				objData.JsUrls = new List<string> { "/pwa/js/financeBundle.bundle.js" };
 				BindPageMetas(objData.PageMetaTags);
                 objData.ReduxStore = new PwaReduxStore();
                 var storeJson = JsonConvert.SerializeObject(objData.ReduxStore);
