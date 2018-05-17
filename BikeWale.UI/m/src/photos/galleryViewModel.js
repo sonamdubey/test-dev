@@ -132,6 +132,7 @@
 
 			self.resetSlug();
 			self.activeContinueSlug(false);
+			SwiperYT.YouTubeApi.videoPause();
 
 			Scroll.unlock();
 			setTimeout(function () {
