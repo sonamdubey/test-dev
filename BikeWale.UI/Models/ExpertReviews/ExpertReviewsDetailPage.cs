@@ -271,13 +271,16 @@ namespace Bikewale.Models
                 Make = objData.Make,
                 Series = bikeSeriesEntityBase,
                 ShowOnRoadPriceButton = true,
-                ReturnUrlForAmpPages = string.Format("{0}/m/expert-reviews/{1}-{2}.html", BWConfiguration.Instance.BwHostUrl, objData.ArticleDetails.ArticleUrl, objData.ArticleDetails.BasicId),
                 GAInfo = new EditorialGAEntity
                 {
                     CategoryId = EditorialGACategories.Editorial_Details_Page,
                     PQSourceId = PQSourceEnum.Mobile_ExpertReviews_Details_Page
                 }
             };
+            if (IsAMPPage)
+            {
+                editorialWidgetData.ReturnUrlForAmpPages = string.Format("{0}/m/expert-reviews/{1}-{2}.html", BWConfiguration.Instance.BwHostUrl, objData.ArticleDetails.ArticleUrl, objData.ArticleDetails.BasicId);
+            }
             base.SetAdditionalData(editorialWidgetData);
         }
 

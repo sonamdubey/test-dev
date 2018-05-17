@@ -304,7 +304,6 @@ namespace Bikewale.Models
                     Make = make,
                     Series = bikeSeriesEntityBase,
                     ShowOnRoadPriceButton = true,
-                    ReturnUrlForAmpPages = string.Format("{0}/m/news/{1}-{2}.html", BWConfiguration.Instance.BwHostUrl, objData.ArticleDetails.ArticleUrl, objData.ArticleDetails.BasicId),
                     GAInfo = new EditorialGAEntity
                     {
                         CategoryId = EditorialGACategories.Editorial_Details_Page,
@@ -312,6 +311,10 @@ namespace Bikewale.Models
                     }
                     
                 };
+                if (IsAMPPage)
+                {
+                    editorialWidgetData.ReturnUrlForAmpPages = string.Format("{0}/m/news/{1}-{2}.html", BWConfiguration.Instance.BwHostUrl, objData.ArticleDetails.ArticleUrl, objData.ArticleDetails.BasicId);
+                }
                 base.SetAdditionalData(editorialWidgetData);
             }
             catch (Exception ex)
