@@ -1,7 +1,7 @@
 import React from 'react'
 import Autocomplete from '../components/Autocomplete'
 import GlobalSearchList from '../components/GlobalSearchList'
-import {setDataForPriceQuotePopup , closeGlobalSearchPopUp, recentSearches,autocomplete,showElement, hideElement,getStrippedTerm ,highlightText, globalSearchCache,MakeModelRedirection, setPriceQuoteFlag , globalSearchStatus, setPQSourceId} from '../utils/popUpUtils'
+import {setDataForPriceQuotePopup , closeGlobalSearchPopUp, recentSearches,autocomplete,showElement, hideElement,getStrippedTerm ,highlightText, globalSearchCache,MakeModelRedirection, setPriceQuoteFlag , globalSearchStatus} from '../utils/popUpUtils'
 import { isServer } from '../utils/commonUtils'
 import { triggerGA, GetCatForNav } from '../utils/analyticsUtils'
 class GlobalSearchPopup extends React.Component {

@@ -371,6 +371,7 @@ function setDataforPopularBikesWidget(event, item) {
     onRoadPricePopupDataObject.PageCatId = (gaObj != null) ? gaObj.id : 0;
     onRoadPricePopupDataObject.IsPersistence = false;
     onRoadPricePopupDataObject.IsReload = false;
+    onRoadPricePopupDataObject.PageSourceId = setPQSourceId(); 
     if(onRoadPricePopupDataObject.SelectedCityId == 0 )
         onRoadPricePopupDataObject.LoadingText = 'Fetching Cities...';
     if(onRoadPricePopupDataObject.IsPersistence )
@@ -595,5 +596,4 @@ module.exports = {
     closeCityAreaSelectionPopup,
     openCityAreaSelectionPopup,
     setDataforPopularBikesWidget,
-    setPQSourceId
 }
