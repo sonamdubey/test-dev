@@ -439,7 +439,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bikewale.BAL.ApiGateway\Bikewale.BAL.ApiGateway.csproj">
-      <Project>{281D4C7B-6329-4307-A1A3-DE25135659F6}</Project>
+      <Project>{281d4c7b-6329-4307-a1a3-de25135659f6}</Project>
       <Name>Bikewale.BAL.ApiGateway</Name>
     </ProjectReference>
     <ProjectReference Include="..\Bikewale.BAL\Bikewale.BAL.csproj">

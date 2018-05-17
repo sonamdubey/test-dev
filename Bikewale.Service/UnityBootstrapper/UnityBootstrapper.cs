@@ -242,6 +242,7 @@ namespace Bikewale.Service.UnityConfiguration
             container.RegisterType<Bikewale.Interfaces.AutoBiz.IDealerPriceQuote, Bikewale.DAL.AutoBiz.DealerPriceQuoteRepository>();
             container.RegisterType<IBikeSearchResult, BikeSearchResult>();
             container.RegisterType<ILead, LeadProcess>();
+            container.RegisterType<Bikewale.Interfaces.AutoBiz.IDealers, Bikewale.DAL.AutoBiz.DealersRepository>();
             container.RegisterType<IApiGatewayCaller, ApiGatewayCaller>();
             return container;
 

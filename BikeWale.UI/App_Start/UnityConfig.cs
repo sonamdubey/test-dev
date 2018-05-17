@@ -194,6 +194,7 @@ namespace Bikewale
             container.RegisterType<Bikewale.Interfaces.AutoBiz.IDealerPriceQuote, Bikewale.DAL.AutoBiz.DealerPriceQuoteRepository>();
             container.RegisterType<ILead, LeadProcess>();
             container.RegisterType<IApiGatewayCaller, ApiGatewayCaller>();
+            container.RegisterType<Bikewale.Interfaces.AutoBiz.IDealers, Bikewale.DAL.AutoBiz.DealersRepository>();
             container.RegisterType<IBikeSearch, BikeSearch>();
             container.RegisterType<IDealer, Dealer>();
 

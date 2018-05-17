@@ -437,12 +437,15 @@
     <Compile Include="PriceQuote\OfferHtmlEntity.cs" />
     <Compile Include="PriceQuote\OtherVersionInfoEntity.cs" />
     <Compile Include="PriceQuote\PQByCityAreaEntity.cs" />
+    <Compile Include="PriceQuote\PQCustomerDetailInput.cs" />
+    <Compile Include="PriceQuote\PQCustomerDetailOutputEntity.cs" />
     <Compile Include="PriceQuote\PQOnRoadPrice.cs" />
     <Compile Include="PriceQuote\PQSourceEnum.cs" />
     <Compile Include="PriceQuote\PQVersionList.cs" />
     <Compile Include="PriceQuote\PriceQuoteOfTopCities.cs" />
     <Compile Include="PriceQuote\PriceQuoteParametersEntity.cs" />
     <Compile Include="PriceQuote\PriceQuoteStates.cs" />
+    <Compile Include="PriceQuote\SpamDetailsEnum.cs" />
     <Compile Include="PriceQuote\v2\DetailedDealerQuotationEntity.cs" />
     <Compile Include="PriceQuote\v2\NewBikeDealerBase.cs" />
     <Compile Include="PriceQuote\v2\PQByCityAreaEntity.cs" />
