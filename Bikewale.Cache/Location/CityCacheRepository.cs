@@ -163,5 +163,27 @@ namespace Bikewale.Cache.Location
             }
             return objUsedBikesCity;
         }
-    }
+
+		/// <summary>
+		/// Created by  : Pratibha Verma on 17 May 2018
+		/// Description : returns all cities where model price is available
+		/// </summary>
+		/// <param name="modelId"></param>
+		/// <returns></returns>
+		public IEnumerable<CityEntityBase> GetModelPriceCities(uint modelId, uint popularCityCount)
+		{
+			IEnumerable<CityEntityBase> objCityList = null;
+			try
+			{
+				string key = string.Format("BW_AllCities_{0}", modelId);
+				objCityList = _cache.GetFromCache<IEnumerable<CityEntityBase>>(key, new TimeSpan(12, 0, 0), () => _objCity.GetModelPriceCities(modelId, popularCityCount));
+			}
+			catch (Exception ex)
+			{
+				ErrorClass.LogError(ex, "Bikewale.Cache.Location.CityCacheRepository.GetModelPriceCities");
+			}
+			return objCityList;
+		}
+
+	}
 }
