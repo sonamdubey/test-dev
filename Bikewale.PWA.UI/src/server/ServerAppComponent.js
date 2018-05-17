@@ -28,7 +28,7 @@ class ServerAppComponent extends React.Component {
                             <Route exact path='/m/bike-videos/' component={() => (<VideoLandingComponent_Server {...this.props.childComponentProps}/>)}/>
 						    <Route exact path='/m/bike-videos/category/*-:categoryId(\d+)/' component={() => (<VideosByCategoryComponent {...this.props.childComponentProps}/>)}/>
 						    <Route exact path='/m/bike-videos/:title-:basicId(\d+)/' component={() => (<VideoDetailComponent {...this.props.childComponentProps}/>)}/>
-							<Route exact path='/m/finance/' component={() => (<FinanceComponent {...this.props.childComponentProps}/>)} />
+							<Route exact path='/m/bike-loan-emi-calculator/' component={() => (<FinanceComponent {...this.props.childComponentProps}/>)} />
 	                    </Switch>
 					</div>
 					<NavigationDrawer/>

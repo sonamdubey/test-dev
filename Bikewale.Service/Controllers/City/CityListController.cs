@@ -90,6 +90,44 @@ namespace Bikewale.Service.Controllers.City
 		}   // Get Cities 
 		#endregion
 
+		/// <summary>
+		/// Created By  : Pratibha Verma on 17 May 2018
+		/// Description : return all cities where model price is available
+		/// </summary>
+		/// <param name="modelId"></param>
+		/// <returns></returns>
+		[ResponseType(typeof(IEnumerable<CityFinance>)), Route("api/pwa/cities/model/{modelId:int}/")]
+		public IHttpActionResult GetModelCities(uint modelId)
+		{	
+			try
+			{
+				byte popularCityCount = 6;
+				IEnumerable<CityFinance> objDTOCityList = null;
+				if (modelId > 0)
+				{
+					IEnumerable<CityEntityBase> objCityList = _cityCache.GetModelPriceCities(modelId, popularCityCount);
+					if (objCityList != null)
+					{
+						objDTOCityList = CityListMapper.MapCity(objCityList);
+						return Ok(objDTOCityList);
+					}
+					else
+					{
+						return NotFound();
+					}
+				}
+				else
+				{
+					return BadRequest();
+				}
+			}
+			catch (Exception ex)
+			{
+				ErrorClass.LogError(ex, "Exception : Bikewale.Service.City.CityListController.GetModelCities");
+				return InternalServerError();
+			}
+		}
+
 		#region State's Cities
 		/// <summary>
 		/// To get Cities Based on state and request Type

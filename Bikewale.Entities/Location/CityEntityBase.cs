@@ -9,6 +9,8 @@ namespace Bikewale.Entities.Location
     /// Summary : added serializable attribute and json properties
     /// Modified By :   Sumit Kate on 12 Jan 2016
     /// Summary     :   Added new property HasAreas
+	/// Modified By : Pratibha Verma on 17 May 2018
+	/// Description : Added new property cityOrder
     /// </summary>
     [Serializable, DataContract]
     public class CityEntityBase
@@ -30,5 +32,8 @@ namespace Bikewale.Entities.Location
 
         [JsonProperty("googleMapImg"), DataMember]
         public String GoogleMapImg { get; set; }
+
+		[JsonProperty("popularityOrder"), DataMember]
+		public uint PopularityOrder { get; set; }
     }
 }
