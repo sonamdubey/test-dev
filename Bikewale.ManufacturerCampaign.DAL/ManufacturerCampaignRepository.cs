@@ -74,6 +74,7 @@ namespace Bikewale.ManufacturerCampaign.DAL
         /// Description : Replaced sp from 'getmanufacturercampaign' to 'getmanufacturercampaign_25012018', added check for daily campaign start and end time.
         /// Modified by : Pratibha Verma on 8 Mar, 2018
         /// Description : Replace sp from 'getmanufacturercampaign_25012018' to 'getmanufacturercampaign_07032018', added campaign days
+        /// Modifier    : Kartik on 17 may 2018, replace getmanufacturercampaign_07032018 with getmanufacturercampaign_17052018  fetched SendLeadSMSCustomer
         /// </summary>
         /// <param name="dealerId"></param>
         /// <param name="campaignId"></param>
@@ -89,7 +90,7 @@ namespace Bikewale.ManufacturerCampaign.DAL
                     param.Add("par_campaignId", campaignId);
                     param.Add("par_dealerId", dealerId);
                     objEntity = new ConfigureCampaignEntity();
-                    using (var results = connection.QueryMultiple("getmanufacturercampaign_07032018", param: param, commandType: CommandType.StoredProcedure))
+                    using (var results = connection.QueryMultiple("getmanufacturercampaign_17052018", param: param, commandType: CommandType.StoredProcedure))
                     {
                         objEntity.DealerDetails = results.Read<ManufacturerCampaignDetails>().SingleOrDefault();
                         objEntity.CampaignPages = results.Read<ManufacturerCampaignPages>();
@@ -445,6 +446,7 @@ namespace Bikewale.ManufacturerCampaign.DAL
         /// Description : Replaced sp from 'getmanufacturercampaignbymodelcity_28092017' to 'getmanufacturercampaignbymodelcity_25012018' to get daily campaign start and end time.
         /// Modified by : Pratibha Verma on 8 Mar, 2018
         /// Description : Replace sp 'getmanufacturercampaignbymodelcity_25012018' with 'getmanufacturercampaignbymodelcity_07032018' to add check for campaign days
+        /// Modifier    : Kartik on 17 may 2018, replace getmanufacturercampaignbymodelcity_07032018 with getmanufacturercampaignbymodelcity_17052018  fetched SendLeadSMSCustomer
         /// </summary>
         /// <param name="modelId"></param>
         /// <param name="cityId"></param>
@@ -458,7 +460,7 @@ namespace Bikewale.ManufacturerCampaign.DAL
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "getmanufacturercampaignbymodelcity_07032018";
+                    cmd.CommandText = "getmanufacturercampaignbymodelcity_17052018";
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelId", DbType.Int32, modelId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_cityId", DbType.Int32, cityId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_pageId", DbType.Int32, pageId));
