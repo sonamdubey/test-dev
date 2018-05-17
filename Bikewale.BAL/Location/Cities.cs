@@ -70,9 +70,9 @@ namespace Bikewale.BAL.Location
 		/// </summary>
 		/// <param name="modelId"></param>
 		/// <returns></returns>
-		public IEnumerable<CityEntityBase> GetModelPriceCities(uint modelId, uint popularCityCount)
+		public IEnumerable<CityEntityBase> GetModelPriceCities(uint modelId, byte popularCityCount)
 		{
-			return objCities.GetModelPriceCities(modelId, popularCityCount);
+			throw new NotImplementedException();
 		}
 	}
 }

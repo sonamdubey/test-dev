@@ -33,7 +33,7 @@ namespace Bikewale.Entities.Location
         [JsonProperty("googleMapImg"), DataMember]
         public String GoogleMapImg { get; set; }
 
-		[JsonProperty("cityOrder"), DataMember]
-		public uint CityOrder { get; set; }
+		[JsonProperty("popularityOrder"), DataMember]
+		public uint PopularityOrder { get; set; }
     }
 }

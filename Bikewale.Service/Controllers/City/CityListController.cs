@@ -96,25 +96,30 @@ namespace Bikewale.Service.Controllers.City
 		/// </summary>
 		/// <param name="modelId"></param>
 		/// <returns></returns>
-		[ResponseType(typeof(IEnumerable<CityFinance>)), Route("api/pwa/cities/model/{modelId}")]
+		[ResponseType(typeof(IEnumerable<CityFinance>)), Route("api/pwa/cities/model/{modelId:int}/")]
 		public IHttpActionResult GetModelCities(uint modelId)
 		{	
 			try
 			{
-				uint popularCityCount = 6;
+				byte popularCityCount = 6;
 				IEnumerable<CityFinance> objDTOCityList = null;
-				IEnumerable<CityEntityBase> objCityList = _cityCache.GetModelPriceCities(modelId, popularCityCount);
-				if (objCityList != null)
+				if (modelId > 0)
 				{
-					objDTOCityList = new List<CityFinance>();
-					objDTOCityList = CityListMapper.MapCity(objCityList);
-					return Ok(objDTOCityList);
+					IEnumerable<CityEntityBase> objCityList = _cityCache.GetModelPriceCities(modelId, popularCityCount);
+					if (objCityList != null)
+					{
+						objDTOCityList = CityListMapper.MapCity(objCityList);
+						return Ok(objDTOCityList);
+					}
+					else
+					{
+						return NotFound();
+					}
 				}
 				else
 				{
-					return NotFound();
+					return BadRequest();
 				}
-
 			}
 			catch (Exception ex)
 			{

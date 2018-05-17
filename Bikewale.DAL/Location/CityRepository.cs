@@ -8,6 +8,7 @@ using MySql.CoreDAL;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
@@ -430,29 +431,29 @@ namespace Bikewale.DAL.Location
 		/// </summary>
 		/// <param name="modelId"></param>
 		/// <returns></returns>
-		public IEnumerable<CityEntityBase> GetModelPriceCities(uint modelId, uint popularCityCount)
+		public IEnumerable<CityEntityBase> GetModelPriceCities(uint modelId, byte popularCityCount)
 		{
-			IList<CityEntityBase> objCityList = null;
+			ICollection<CityEntityBase> objCityList = null;
 			try
 			{
 				using (DbCommand cmd = DbFactory.GetDBCommand("getfinancecities"))
 				{
 					cmd.CommandType = CommandType.StoredProcedure;
 					cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
-					cmd.Parameters.Add(DbFactory.GetDbParam("par_popularcitycount", DbType.Int32, popularCityCount));
-					using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
+					cmd.Parameters.Add(DbFactory.GetDbParam("par_popularcitycount", DbType.Byte, popularCityCount));
+					using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
 					{
 						if (dr != null)
 						{
-							objCityList = new List<CityEntityBase>();
+							objCityList = new Collection<CityEntityBase>();
 							while (dr.Read())
 							{
 								objCityList.Add(new CityEntityBase
 								{
-									CityId = Convert.ToUInt32(dr["CityId"]),
+									CityId = SqlReaderConvertor.ToUInt32(dr["CityId"]),
 									CityName = Convert.ToString(dr["CityName"]),
 									CityMaskingName = Convert.ToString(dr["CityMaskingName"]),
-									CityOrder = Convert.ToUInt32(dr["CityOrder"])
+									PopularityOrder = SqlReaderConvertor.ToUInt32(dr["PopularityOrder"])
 								});
 							}
 						}

@@ -8,7 +8,7 @@ namespace Bikewale.DTO.City
 	/// </summary>
 	public class CityFinance : CityBase
 	{
-		[JsonProperty("cityOrder")]
-		public uint CityOrder { get; set; }
+		[JsonProperty("popularityOrder")]
+		public uint PopularityOrder { get; set; }
 	}
 }

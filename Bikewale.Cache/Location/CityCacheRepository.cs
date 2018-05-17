@@ -170,12 +170,12 @@ namespace Bikewale.Cache.Location
 		/// </summary>
 		/// <param name="modelId"></param>
 		/// <returns></returns>
-		public IEnumerable<CityEntityBase> GetModelPriceCities(uint modelId, uint popularCityCount)
+		public IEnumerable<CityEntityBase> GetModelPriceCities(uint modelId, byte popularCityCount)
 		{
 			IEnumerable<CityEntityBase> objCityList = null;
 			try
 			{
-				string key = string.Format("BW_AllCities_{0}", modelId);
+				string key = string.Format("BW_AllCities_{0}_{1}", modelId, popularCityCount);
 				objCityList = _cache.GetFromCache<IEnumerable<CityEntityBase>>(key, new TimeSpan(12, 0, 0), () => _objCity.GetModelPriceCities(modelId, popularCityCount));
 			}
 			catch (Exception ex)
