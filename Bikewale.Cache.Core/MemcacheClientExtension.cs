@@ -1,4 +1,5 @@
-﻿using Bikewale.Notifications;
+﻿using Bikewale.Interfaces.Cache.Core;
+using Bikewale.Notifications;
 using Enyim.Caching;
 using System;
 
@@ -17,6 +18,21 @@ namespace Bikewale.Cache.Core
                 foreach (var key in keys)
                 {
                     mc.Remove(key);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "Bikewale.Cache.Core.MemcachedClientExn.Remove");
+            }
+        }
+
+        public static void RefreshCache(this ICacheManager cache, System.Collections.Generic.IEnumerable<String> keys)
+        {
+            try
+            {
+                foreach (var key in keys)
+                {
+                    cache.RefreshCache(key);
                 }
             }
             catch (Exception ex)

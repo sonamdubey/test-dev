@@ -149,6 +149,7 @@
     <Compile Include="Controllers\AdSlotController.cs" />
     <Compile Include="Controllers\Banner\BannerController.cs" />
     <Compile Include="Controllers\BikeColorImages\ColorImagesBikesController.cs" />
+    <Compile Include="Controllers\CacheController.cs" />
     <Compile Include="Controllers\Comparison\SponsoredComparisonController.cs" />
     <Compile Include="Controllers\Content\MakesController.cs" />
     <Compile Include="Controllers\Content\ModelsController.cs" />
