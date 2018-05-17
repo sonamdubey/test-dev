@@ -39,7 +39,9 @@ function FormatHtml(strHtml) {
             attr('data-dealersrequired', '@Model.DealerRequired').
             attr('data-item-name', '@Model.MakeName').
             attr('data-isemailrequired', '@Model.EmailRequired').
-            attr('data-Organization', '@Model.Organization');
+            attr('data-Organization', '@Model.Organization').
+            attr('data-issendleadsmscustomer', '@Model.SendLeadSMSCustomer');
+            
     }
     catch(e){}
     return el.html();

@@ -384,7 +384,7 @@
                                     <div class="margin-top10">
                                             @if (Model.EMICampaign.DealerId == Bikewale.Utility.BWConfiguration.Instance.CapitalFirstDealerId)
                                         {
-                                                <a class="btn btn-orange btn-160-32 margin-right10 bw-ga" href="/finance/capitalfirst/?campaingid=@Model.EMICampaign.CampaignId&amp;dealerid=@Model.EMICampaign.DealerId&amp;pqid=@Model.PQId&amp;leadsourceid=@Model.EMICampaign.LeadSourceId&amp;versionid=@Model.EMICampaign.VersionId&amp;url=@Model.EMICampaign.CurrentPageUrl&amp;platformid=@Model.EMICampaign.PlatformId&amp;bike=@Model.BikeName&amp;loanamount=@Model.EMICampaign.LoanAmount&amp;dealerName=@Model.EMICampaign.Organization&amp;sendLeadSMSCustomer=@Model.EMICampaign.SendLeadSMSCustomer" rel="nofollow">@Model.EMICampaign.EMIButtonTextDesktop</a>
+                                                <a class="btn btn-orange btn-160-32 margin-right10 bw-ga" href="/finance/capitalfirst/?campaingid=@Model.EMICampaign.CampaignId&amp;dealerid=@Model.EMICampaign.DealerId&amp;pqid=@Model.PQId&amp;leadsourceid=@Model.EMICampaign.LeadSourceId&amp;versionid=@Model.EMICampaign.VersionId&amp;url=@Model.EMICampaign.CurrentPageUrl&amp;platformid=@Model.EMICampaign.PlatformId&amp;bike=@Model.BikeName&amp;loanamount=@Model.EMICampaign.LoanAmount&amp;dealerName=@Model.EMICampaign.Organization&amp;sendLeadSMSCustomer=@Convert.ToString(Model.EMICampaign.SendLeadSMSCustomer)" rel="nofollow">@Model.EMICampaign.EMIButtonTextDesktop</a>
                                         }
                                             else
                                             {
