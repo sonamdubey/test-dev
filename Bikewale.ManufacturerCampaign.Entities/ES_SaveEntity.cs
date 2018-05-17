@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bikewale.ManufacturerCampaign.Entities
 {
@@ -23,5 +19,6 @@ namespace Bikewale.ManufacturerCampaign.Entities
         public float SpamScore { get; set; }
         public String Reason { get; set; }
         public bool IsAccepted { get; set; }
+        public ushort OverallSpamScore { get; set; }
     }
 }
