@@ -139,7 +139,7 @@ class OnRoadPricePopup extends React.Component {
             var abuser = getCookie("_bwtest"),
                 bikeandcity = obj.MakeName + "_" + obj.ModelName + "_" + (obj.SelectedCity ? obj.SelectedCity.name : ""),               
             bikeandcity = bikeandcity.replace("/\s+/gi", "_");
-            triggerGA("PQ_PopUP", "PQSuccess", abuser + "_" + gaObj.id + "_" + bikeandcity);
+            triggerGA("PQ_Popup", "PQSuccess", abuser + "_" + gaObj.id + "_" + bikeandcity);
         }
         catch (e) {
             console.log(e.message)
@@ -222,7 +222,7 @@ class OnRoadPricePopup extends React.Component {
 							var gaLabel = GetGlobalCityArea() + ', ';
 							
 							if(this.state.MakeName || this.state.ModelName) {
-								gaLabel += this.state.MakeName + ',' + this.state.ModelName + ',';
+								gaLabel += this.state.MakeName + ',' + this.state.ModelName ;
 							}
 							if(this.state.SelectedCityId > 0) {
 								if(this.state.SelectedCity && this.state.SelectedCity.id > 0) {
@@ -241,8 +241,8 @@ class OnRoadPricePopup extends React.Component {
 							}
                             
 							if(jsonObj.dealerId > 0)
-                                gtmCodeAppender(this.state.PageCatId, 'Dealer_PriceQuote_Success_Submit', gaLabel);
-                            else gtmCodeAppender(this.state.PageCatId, 'BW_PriceQuote_Success_Submit', gaLabel);
+                                triggerGA(gaObj.name, 'Dealer_PriceQuote_Success_Submit', gaLabel);
+                            else triggerGA(gaObj.name, 'BW_PriceQuote_Success_Submit', gaLabel);
 							this.triggerABTestGA();
                             if (this.state.DealerId > 0 && responseData.qStr.length) {// TODO where is dealer id being set
                                 responseData.qStr = this.createMPQ(responseData.priceQuote.quoteId);

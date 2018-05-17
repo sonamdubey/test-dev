@@ -1,5 +1,6 @@
 import {extractPageCategoryFromURL} from '../components/News/NewsCommon'
 import {isServer} from './commonUtils'
+import {setPQSourceId} from './analyticsUtils'
 var topCount = "5";
 function closeGlobalSearchPopUp() {
     hideElement(document.getElementById('global-search-popup'));
@@ -359,6 +360,11 @@ function checkCookies() {
 
 function setDataforPopularBikesWidget(event, item) {
     checkCookies();
+    
+    var pageCategory = extractPageCategoryFromURL();
+    var pageName = (gaObj != null) ? gaObj.name : "";
+    var isDetail =  pageName.indexOf("List") == -1;
+    var pqSourcePage =  pageCategory == "news" ? (isDetail ? "Mobile_News_Details_Page" : "Mobile_News_Listing_page") : (isDetail ? "Mobile_ExpertReviews_Details_Page" : "Mobile_ExpertReviews_Listing_Page");
     onRoadPricePopupDataObject.SelectedModelId = (item.ModelId != null && item.ModelId != undefined) ? item.ModelId : 0;
     onRoadPricePopupDataObject.SelectedCity = (onCookieObj.PQCitySelectedId > 0)?{ 'id': onCookieObj.PQCitySelectedId, 'name': onCookieObj.PQCitySelectedName }:null;
     onRoadPricePopupDataObject.SelectedArea = (onCookieObj.PQAreaSelectedId > 0)?{ 'id': onCookieObj.PQAreaSelectedId, 'name': onCookieObj.PQAreaSelectedName }:null;
@@ -371,7 +377,7 @@ function setDataforPopularBikesWidget(event, item) {
     onRoadPricePopupDataObject.PageCatId = (gaObj != null) ? gaObj.id : 0;
     onRoadPricePopupDataObject.IsPersistence = false;
     onRoadPricePopupDataObject.IsReload = false;
-    onRoadPricePopupDataObject.PageSourceId = setPQSourceId(); 
+    onRoadPricePopupDataObject.PageSourceId = setPQSourceId(pqSourcePage); 
     if(onRoadPricePopupDataObject.SelectedCityId == 0 )
         onRoadPricePopupDataObject.LoadingText = 'Fetching Cities...';
     if(onRoadPricePopupDataObject.IsPersistence )
@@ -544,12 +550,6 @@ function MakeModelRedirection(item ) {
         IsPriceQuoteLinkClicked = false;
     }
     
-}
-function setPQSourceId() {
-    var pageCategory = extractPageCategoryFromURL();
-    var pageName = (gaObj != null) ? gaObj.name : 0;
-    var isDetail =  pageName.indexOf("List") == -1;
-    return pageCategory == "news" ? (isDetail ? "115" : "84") : (isDetail ? "116" : "109"); 
 }
 
 

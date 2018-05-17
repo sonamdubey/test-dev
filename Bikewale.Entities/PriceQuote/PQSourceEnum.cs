@@ -27,10 +27,6 @@ namespace Bikewale.Entities.PriceQuote
     /// Description : Added `Mobile_News_Details_Page`
     /// Modified by : Sanskar Gupta on 15 May 2018
     /// Description : Added `Mobile_ExpertReviews_Details_Page`
-    /// Modified by: Dhruv Joshi
-    /// Dated: 16th May 2018
-    /// Description: Added Mobile_News_Details_Page and Mobile_ExpertReviews_Details_Page
-
     /// Modified by : Sanskar Gupta on 17 May 2018
     /// Description : Added `Desktop_ExpertReviews_Details_Page`
     /// </summary>
