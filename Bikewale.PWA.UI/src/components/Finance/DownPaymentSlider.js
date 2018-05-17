@@ -13,11 +13,11 @@ import { startAnimation } from '../../actionCreators/pieAnimation'
 
 import { formatToINR, formatToCurrency } from '../../utils/formatAmount'
 
-class EMIDownPayment  extends React.Component {
+class EMIDownPayment extends React.Component {
   constructor(props) {
     super(props);
   }
-  componentDidMount(){
+  componentDidMount() {
     const {
       slider
     } = this.props
@@ -30,7 +30,7 @@ class EMIDownPayment  extends React.Component {
     updateDownPaymentSlider({ values, userChange: true })
   }
   handleSliderDragStart = () => {
-    if((this.refs.downPaymentSlider.getElementsByClassName('rheostat-handle')) != document.activeElement){
+    if ((this.refs.downPaymentSlider.getElementsByClassName('rheostat-handle')) != document.activeElement) {
       this.refs.downPaymentSlider.querySelectorAll('.rheostat-handle')[0].focus()
     }
   }
@@ -40,8 +40,8 @@ class EMIDownPayment  extends React.Component {
     } = this.props
     startAnimation()
   }
-updateLoanText() {
-    let loanAmountUpdated = this.props.slider.max - this.props.slider.values[0];
+  updateLoanText() {
+    let loanAmountUpdated = this.props.slider.onRoadPrice - this.props.slider.values[0];
     return loanAmountUpdated
   }
   render() {
@@ -64,20 +64,20 @@ updateLoanText() {
     }
     let vehicleLoanAmount = formatToINR(this.updateLoanText());
     return (
-        <div className="slider-input-container downpayment-unit">
-          <span className="slider__unit-title">Down Payment</span>
-           <div className="slider-section" ref="downPaymentSlider">
-              <Rheostat
-                  {...slider}
-              />
-              <div className="slider__label">
-                <span className="slider-label__left">Min. Down Payment </span>
-              </div>
-              <div className="vehicle-loan-text">
-                Your loan amount will be <span className="vehicle-loan__amount">{vehicleLoanAmount}</span>
-              </div>
+      <div className="slider-input-container downpayment-unit">
+        <span className="slider__unit-title">Down Payment</span>
+        <div className="slider-section" ref="downPaymentSlider">
+          <Rheostat
+            {...slider}
+          />
+          <div className="slider__label">
+            <span className="slider-label__left">Min. Down Payment </span>
+          </div>
+          <div className="vehicle-loan-text">
+            Your loan amount will be <span className="vehicle-loan__amount">{vehicleLoanAmount}</span>
           </div>
         </div>
+      </div>
     );
   }
 }
