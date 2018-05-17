@@ -274,7 +274,7 @@ namespace Bikewale.Models
                 GAInfo = new EditorialGAEntity
                 {
                     CategoryId = EditorialGACategories.Editorial_Details_Page,
-                    PQSourceId = PQSourceEnum.Mobile_ExpertReviews_Details_Page
+                    PQSourceId = IsMobile ? PQSourceEnum.Mobile_ExpertReviews_Details_Page : PQSourceEnum.Desktop_ExpertReviews_Details_Page
                 }
             };
             if (IsAMPPage)
