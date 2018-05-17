@@ -298,7 +298,7 @@ docReady(function () {
 		},
 		onTap: function (swiper, event) {
 			if (!$(event.target).hasClass('color-tab__arrow-btn')) {
-				var activeIndex = swiper.activeIndex;
+			    var activeIndex = swiper.activeIndex;
 				vmModelGallery.activePopup(true);
 				vmModelGallery.colorPopup().openPopup();
 				resizeHandler();
@@ -306,6 +306,7 @@ docReady(function () {
 				Scroll.lock();
 				$('body').addClass('scroll-lock--color');
 				ColorGallerySwiper.handleThumbnailSwiper(colorThumbnailGallerySwiper);
+				$('#galleryRoot').addClass('color-tab-popup--active');
 			}
 		},
 		onSlideChangeStart: function (swiper) {

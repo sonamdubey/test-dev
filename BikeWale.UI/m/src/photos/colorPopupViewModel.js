@@ -33,6 +33,7 @@
 				$('body').removeClass('scroll-lock--color');
 				resetFullScreenMode();
 			}
+			$('#galleryRoot').removeClass('color-tab-popup--active');
 		}
 	}
 
