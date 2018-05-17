@@ -262,6 +262,10 @@ namespace Bikewale.Models
         /// Description : Function to set additional Page level variables.
         /// Modified By : Sanskar Gupta on 26 April 2018
         /// Description : Code optimization and addition of a better error handling.
+        /// Modified by : Sanskar Gupta on 14 May 2018
+        /// Description : Set additional variables for `CheckOnRoadPriceButton`
+        /// Modified by : Sanskar Gupta on 15 May 2018
+        /// Description : Set additional variables for `ReturnUrlForAmpPages`
         /// </summary>
         /// <param name="objData">VM of the page.</param>
         private void SetAdditionalVariables(NewsDetailPageVM objData)
@@ -298,8 +302,19 @@ namespace Bikewale.Models
                     BodyStyle = bodyStyle,
                     CityId = CityId,
                     Make = make,
-                    Series = bikeSeriesEntityBase
+                    Series = bikeSeriesEntityBase,
+                    ShowOnRoadPriceButton = true,
+                    GAInfo = new EditorialGAEntity
+                    {
+                        CategoryId = EditorialGACategories.Editorial_Details_Page,
+                        PQSourceId = IsMobile ? PQSourceEnum.Mobile_News_Details_Page : PQSourceEnum.Desktop_NewsDetailsPage
+                    }
+                    
                 };
+                if (IsAMPPage)
+                {
+                    editorialWidgetData.ReturnUrlForAmpPages = string.Format("{0}/m/news/{1}-{2}.html", BWConfiguration.Instance.BwHostUrl, objData.ArticleDetails.ArticleUrl, objData.ArticleDetails.BasicId);
+                }
                 base.SetAdditionalData(editorialWidgetData);
             }
             catch (Exception ex)
