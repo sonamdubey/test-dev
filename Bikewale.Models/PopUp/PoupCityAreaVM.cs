@@ -1,5 +1,9 @@
 ﻿namespace Bikewale.Models
 {
+    /// <summary>
+    /// Modified by : Sanskar Gupta on 16 May 2018
+    /// Description : Added property `MakeId`
+    /// </summary>
     public class PoupCityAreaVM : ModelBase
     {
         public uint ModelId { get; set; }
@@ -19,6 +23,8 @@
         public bool IsReload { get; set; }
 
         public string Url { get; set; }
+
+        public uint MakeId { get; set;}
 
 
     }
