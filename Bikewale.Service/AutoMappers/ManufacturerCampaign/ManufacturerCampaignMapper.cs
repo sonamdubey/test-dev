@@ -16,6 +16,7 @@ namespace Bikewale.Service.AutoMappers.ManufacturerCampaign
     {
         /// <summary>
         /// Converts the specified platform identifier.
+        /// Modifier    : Kartik Rathod on 16 may 2018, Pageurl for capitalfirst dealer added dealername and sendLeadSMSCustomer
         /// </summary>
         /// <param name="platformId">The platform identifier.</param>
         /// <param name="pqId">The pq identifier.</param>
@@ -112,7 +113,7 @@ namespace Bikewale.Service.AutoMappers.ManufacturerCampaign
                 {
                     LeadCampaign.LoanAmount = (uint)(System.Convert.ToUInt32(price) * 0.8);
 
-                    LeadCampaign.PageUrl = string.Format("{8}/m/finance/capitalfirst/?campaingid={0}&amp;dealerid={1}&amp;pqid={2}&amp;leadsourceid={3}&amp;versionid={4}&amp;url=&amp;platformid={5}&amp;bike={6}&amp;loanamount={7}", LeadCampaign.CampaignId, LeadCampaign.DealerId, pqId, LeadCampaign.LeadSourceId, versionId, 3, LeadCampaign.BikeName, LeadCampaign.LoanAmount, BWConfiguration.Instance.BwHostUrl);
+                    LeadCampaign.PageUrl = string.Format("{8}/m/finance/capitalfirst/?campaingid={0}&amp;dealerid={1}&amp;pqid={2}&amp;leadsourceid={3}&amp;versionid={4}&amp;url=&amp;platformid={5}&amp;bike={6}&amp;loanamount={7}&amp;dealerName={8}&amp;sendLeadSMSCustomer={9}", LeadCampaign.CampaignId, LeadCampaign.DealerId, pqId, LeadCampaign.LeadSourceId, versionId, 3, LeadCampaign.BikeName, LeadCampaign.LoanAmount, BWConfiguration.Instance.BwHostUrl,LeadCampaign.Organization,LeadCampaign.SendLeadSMSCustomer);
                 }
                 else
                 {

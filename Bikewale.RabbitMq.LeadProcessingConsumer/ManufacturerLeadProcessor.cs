@@ -1,4 +1,5 @@
-﻿using Bikewale.RabbitMq.LeadProcessingConsumer.AutoBizServiceRef;
+﻿using Bikewale.Notifications;
+using Bikewale.RabbitMq.LeadProcessingConsumer.AutoBizServiceRef;
 using Consumer;
 using System;
 
@@ -56,6 +57,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
         /// <summary>
         /// Created by  :   Sumit Kate on 05 Jul 2017
         /// Description :   Lead processing functionality. This functional can be overridden by the child classes
+        /// Modified BY : Kartik Rathod on 16 may 2018, send sms to customer on successfully pushing es campaign lead to AB system
         /// </summary>
         /// <param name="leadEntity"></param>
         /// <returns></returns>
@@ -72,6 +74,12 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                     abInqId = PushLeadToAutoBiz(leadEntity.RetryAttempt, leadEntity.DealerId, leadEntity.InquiryJSON);
                     if (abInqId > 0)
                     {
+                        // Send SMS to Customer for ES Manufacturer campaign if SendLeadSMSCustomer flag from manufacturercampaign table is true
+                        if (leadEntity.SendLeadSMSCustomer)
+                        {
+                            SMSTypes.ESCampaignLeadSMSToCustomer(leadEntity.CustomerName, leadEntity.CustomerMobile, leadEntity.DealerName, leadEntity.BikeName);
+                        }
+
                         //Update campaign daily lead count
                         isSuccess = _repository.UpdateManufacturerDailyLeadCount(leadEntity.CampaignId, abInqId);
                         //Update ABInquiry Id 

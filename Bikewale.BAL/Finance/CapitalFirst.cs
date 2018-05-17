@@ -377,6 +377,7 @@ namespace Bikewale.BAL.Finance
         /// <summary>
         /// Created by  :   Sumit Kate on 25 Jan 2018
         /// Description :   Push To Lead ConsumerQueue
+        /// Modifier    : Kartik Rathod on 16 may 2018, added dealerName,bikename and sendLeadSMSCustomer  to ManufacturerLead consumer 
         /// </summary>
         /// <param name="objDetails"></param>
         private void PushToLeadConsumerQueue(PersonalDetails objDetails)
@@ -402,6 +403,7 @@ namespace Bikewale.BAL.Finance
                     objNVC.Add("manufacturerLeadId", objDetails.LeadId.ToString());
                     objNVC.Add("dealerName", objDetails.objLead.DealerName);
                     objNVC.Add("bikeName", objDetails.objLead.BikeName);
+                    objNVC.Add("sendLeadSMSCustomer", Convert.ToString(objDetails.objLead.SendLeadSMSCustomer));
 
                     RabbitMqPublish objRMQPublish = new RabbitMqPublish();
                     objRMQPublish.PublishToQueue(Bikewale.Utility.BWConfiguration.Instance.LeadConsumerQueue, objNVC);

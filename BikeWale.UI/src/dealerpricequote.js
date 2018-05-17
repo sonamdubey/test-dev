@@ -148,7 +148,8 @@ docReady(function () {
                 cat: ele.attr("data-cat"),
                 act: ele.attr("data-act"),
                 lab: bikeVerLocation
-            }          
+            },
+            "sendLeadSMSCustomer": ele.attr('data-issendleadsmscustomer')
         };
 
         dleadvm.setOptions(leadOptions);

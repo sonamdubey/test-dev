@@ -492,6 +492,7 @@ namespace Bikewale.ManufacturerCampaign.DAL
                                 config.LeadCampaign.PriceBreakUpLinkTextDesktop = Convert.ToString(dr["PriceBreakUpLinkTextDesktop"]);
                                 config.LeadCampaign.PriceBreakUpLinkTextMobile = Convert.ToString(dr["PriceBreakUpLinkTextMobile"]);
                                 config.LeadCampaign.ShowOnExshowroom = Utility.SqlReaderConvertor.ToBoolean(dr["ShowOnExshowroom"]);
+                                config.LeadCampaign.SendLeadSMSCustomer = Utility.SqlReaderConvertor.ToBoolean(dr["SendLeadSMSCustomer"]);
                             }
 
 
@@ -513,6 +514,7 @@ namespace Bikewale.ManufacturerCampaign.DAL
                                 config.EMICampaign.PopupHeading = Convert.ToString(dr["PopupHeading"]);
                                 config.EMICampaign.PopupSuccessMessage = Convert.ToString(dr["PopupSuccessMessage"]);
                                 config.EMICampaign.ShowOnExshowroom = Utility.SqlReaderConvertor.ToBoolean(dr["ShowOnExshowroom"]);
+                                config.EMICampaign.SendLeadSMSCustomer = Utility.SqlReaderConvertor.ToBoolean(dr["SendLeadSMSCustomer"]);
                             }
 
                         }

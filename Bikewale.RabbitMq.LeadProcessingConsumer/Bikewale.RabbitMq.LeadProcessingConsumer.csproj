@@ -191,6 +191,10 @@
     <None Include="Web References\RoyalEnfieldWebAPI\Service.wsdl" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Bikewale.Notifications\Bikewale.Notifications.csproj">
+      <Project>{db695e13-ed0e-4349-a32e-a6d03d06c597}</Project>
+      <Name>Bikewale.Notifications</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Bikewale.Utility\Bikewale.Utility.csproj">
       <Project>{EA0864E7-7715-4D93-80BE-3300BB542E42}</Project>
       <Name>Bikewale.Utility</Name>

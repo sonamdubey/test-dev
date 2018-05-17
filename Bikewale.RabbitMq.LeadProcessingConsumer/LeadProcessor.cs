@@ -100,6 +100,9 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                     {
                         nvc = ByteArrayToObject(arg.Body);
                         uint pqId, dealerId, pincodeId, leadSourceId, versionId, cityId, manufacturerDealerId, manufacturerLeadId;
+                        bool isSendSMSToCustomer = false;
+                        string bikeName = string.Empty, dealerName = string.Empty;
+
                         LeadTypes leadType = default(LeadTypes);
                         if (nvc != null
                             && nvc.HasKeys()
@@ -116,6 +119,9 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                             uint.TryParse(nvc["LeadSourceId"], out leadSourceId);
                             uint.TryParse(nvc["manufacturerDealerId"], out manufacturerDealerId);
                             uint.TryParse(nvc["manufacturerLeadId"], out manufacturerLeadId);
+                            bool.TryParse(nvc["sendLeadSMSCustomer"], out isSendSMSToCustomer);
+                            bikeName = Convert.ToString(nvc["bikeName"]);
+                            dealerName = Convert.ToString(nvc["dealerName"]);
                             var priceQuote = _leadProcessor.GetPriceQuoteDetails(pqId);
 
 
@@ -138,7 +144,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                                         break;
                                     case LeadTypes.Manufacturer:
                                         priceQuote.CityId = priceQuote.CityId > 0 ? priceQuote.CityId : cityId;
-                                        success = PushManufacturerLead(priceQuote, pqId, pincodeId, leadSourceId, iteration, manufacturerDealerId, manufacturerLeadId);
+                                        success = PushManufacturerLead(priceQuote, pqId, pincodeId, leadSourceId, iteration, manufacturerDealerId, manufacturerLeadId,bikeName,dealerName,isSendSMSToCustomer);
                                         break;
                                     default:
                                         success = PushDealerLead(priceQuote, pqId, iteration);
@@ -186,6 +192,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
         /// <summary>
         /// Created by  :   Sumit Kate on 05 Jul 2017
         /// Description :   Process Manufacturer Lead
+        /// Modifier    : Kartik Rathod on 16 may 2018 addded bikeName dealerName isSendSMSCustomer
         /// </summary>
         /// <param name="priceQuote"></param>
         /// <param name="pqId"></param>
@@ -194,8 +201,12 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
         /// <param name="iteration"></param>
         /// <param name="manufacturerDealerId"></param>
         /// <param name="manufacturerLeadId"></param>
+        ///<param name="bikeName"></param>
+        ///<param name="dealerName"></param>
+        ///<param name="isSendSMSCustomer">Send Manufacturer Lead SMS to Customer</param>
         /// <returns></returns>
-        private bool PushManufacturerLead(PriceQuoteParametersEntity priceQuote, uint pqId, uint pincodeId, uint leadSourceId, ushort iteration, uint manufacturerDealerId, uint manufacturerLeadId)
+        private bool PushManufacturerLead(PriceQuoteParametersEntity priceQuote, uint pqId, uint pincodeId, uint leadSourceId, ushort iteration, 
+                            uint manufacturerDealerId, uint manufacturerLeadId, string bikeName, string dealerName, bool isSendSMSCustomer)
         {
             bool isSuccess = false;
             try
@@ -234,7 +245,10 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                             PQId = pqId,
                             RetryAttempt = iteration,
                             VersionId = priceQuote.VersionId,
-                            ManufacturerDealerId = manufacturerDealerId
+                            ManufacturerDealerId = manufacturerDealerId,
+                            BikeName = bikeName,
+                            DealerName = dealerName,
+                            SendLeadSMSCustomer = isSendSMSCustomer
                         };
 
                         isSuccess = _leadProcessor.ProcessManufacturerLead(lead);

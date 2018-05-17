@@ -57,6 +57,7 @@ namespace Bikewale.Controllers
         {
 
             string q = Request.Url.Query;
+            bool sendSMStoCustomer = false;
             ushort platformId = 0;            
             CapitalFirstVM viewModel = new CapitalFirstVM();
             viewModel.ObjLead = new ManufacturerLeadEntity();
@@ -73,6 +74,8 @@ namespace Bikewale.Controllers
             viewModel.PlatformId = ushort.TryParse(queryCollection["platformid"], out platformId) ? platformId :(ushort)DTO.PriceQuote.PQSources.Mobile;
             viewModel.ObjLead.BikeName = queryCollection["bike"];
             viewModel.ObjLead.DealerName = queryCollection["dealerName"];
+            viewModel.ObjLead.SendLeadSMSCustomer = Boolean.TryParse(queryCollection["sendLeadSMSCustomer"], out sendSMStoCustomer);
+
             GlobalCityAreaEntity location = GlobalCityArea.GetGlobalCityArea();
             if (location != null)
                 viewModel.ObjLead.CityId = location.CityId;
@@ -93,6 +96,7 @@ namespace Bikewale.Controllers
         {
 
             string q = Request.Url.Query;
+            bool sendSMStoCustomer = false;
             CapitalFirstVM viewModel = new CapitalFirstVM();
             viewModel.ObjLead = new ManufacturerLeadEntity();
             NameValueCollection queryCollection = HttpUtility.ParseQueryString(q);
@@ -107,6 +111,7 @@ namespace Bikewale.Controllers
             viewModel.LoanAmount = Convert.ToUInt32(queryCollection["loanamount"]);
             viewModel.ObjLead.BikeName = queryCollection["bike"];
             viewModel.ObjLead.DealerName = queryCollection["dealerName"];
+            viewModel.ObjLead.SendLeadSMSCustomer = Boolean.TryParse(queryCollection["sendLeadSMSCustomer"], out sendSMStoCustomer);
 
             GlobalCityAreaEntity location = GlobalCityArea.GetGlobalCityArea();
             if (location != null)

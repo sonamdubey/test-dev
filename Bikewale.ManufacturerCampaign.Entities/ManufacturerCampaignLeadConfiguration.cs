@@ -4,6 +4,7 @@ namespace Bikewale.ManufacturerCampaign.Entities
     /// <summary>
     /// Created by  :   Sumit Kate on 29 Jun 2017
     /// Description :   Manufacturer Campaign Lead Configuration
+    /// Modifier    : Kartik Rathod on 16 may 2018,added SendLeadSMSCustomer 
     /// </summary>
     [Serializable]
     public class ManufacturerCampaignLeadConfiguration
@@ -32,5 +33,6 @@ namespace Bikewale.ManufacturerCampaign.Entities
         public bool PincodeRequired { get; set; }
         public bool DealerRequired { get; set; }
         public bool EmailRequired { get; set; }
+        public bool SendLeadSMSCustomer { get; set; }
     }
 }

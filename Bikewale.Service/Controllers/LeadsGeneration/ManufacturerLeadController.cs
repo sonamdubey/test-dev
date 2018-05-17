@@ -52,6 +52,7 @@ namespace Bikewale.Service.Controllers.LeadsGeneration
         /// Summary : added utmz, utma, device Id etc
         /// Modified by :   Sumit Kate on 18 Aug 2016
         /// Description :   rearranged the data validation checks and return BadRequest if data is invalid
+        /// Modifier    : Kartik Rathod on 16 may 2018, added dealerName,bikename and sendLeadSMSCustomer to ManufacturerLead consumer 
         /// </summary>
         /// <param name="objLead"></param>
         /// <returns></returns>
@@ -119,6 +120,7 @@ namespace Bikewale.Service.Controllers.LeadsGeneration
                                 objNVC.Add("manufacturerLeadId", Convert.ToString(objLead.LeadId));
                                 objNVC.Add("dealerName", objLead.DealerName);
                                 objNVC.Add("bikeName", objLead.BikeName);
+                                objNVC.Add("sendLeadSMSCustomer", Convert.ToString(objLead.SendLeadSMSCustomer));
 
                                 RabbitMqPublish objRMQPublish = new RabbitMqPublish();
                                 objRMQPublish.PublishToQueue(Bikewale.Utility.BWConfiguration.Instance.LeadConsumerQueue, objNVC);
