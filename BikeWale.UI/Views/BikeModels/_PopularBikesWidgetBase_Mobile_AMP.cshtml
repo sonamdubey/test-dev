@@ -32,7 +32,7 @@
                 @if (bike.VersionPrice > 0 && Model.ShowOnRoadPriceButton)
                 {
                     <div class="swiper-btn-block">
-                        <a href="@string.Format("{0}/m/popup/?queryString={1}", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, Utils.Utils.EncryptTripleDES(string.Format("pqsourceid={0}&preselcity={1}&modelid={2}&Url={3}", (int)Model.GAInfo.PQSourceId, cityId, bike.objModel.ModelId, Model.ReturnUrlForAmpPages)))" data-pagecatid="@((int)Model.GAInfo.CategoryId)" data-pqsourceid="@((int)Model.GAInfo.PQSourceId)" data-makename="@bike.objMake.MakeName" data-modelname="@bike.objModel.ModelName" data-modelid="@bike.objModel.ModelId" class="btn btn-card btn-full-width btn-white getquotation">Check on-road price</a>
+                        <a href="@string.Format("{0}/m/popup/?queryString={1}", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, Utils.Utils.EncryptTripleDES(string.Format("pqsourceid={0}&pagecatid={1}&preselcity={2}&makeid={3}&makename={4}&modelid={5}&modelname={6}&Url={7}", (int)Model.GAInfo.PQSourceId, (int)Model.GAInfo.CategoryId, cityId, bike.objMake.MakeId, bike.objMake.MakeName, bike.objModel.ModelId, bike.objModel.ModelName, Model.ReturnUrlForAmpPages)))" data-pagecatid="@((int)Model.GAInfo.CategoryId)" data-pqsourceid="@((int)Model.GAInfo.PQSourceId)" class="btn btn-card btn-full-width btn-white getquotation">Check on-road price</a>
                     </div>
                 }
             </div>
