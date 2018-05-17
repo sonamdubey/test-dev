@@ -7,7 +7,7 @@
         foreach (var bike in Model.MostPopularBikeList)
         {
             var bikeName = String.Format("{0} {1}", bike.objMake.MakeName, bike.objModel.ModelName);
-            <div class="swiper-card" style="min-height:226px">
+            <div class="swiper-card">
                 <a href="@string.Format("{0}/m{1}", BWConfiguration.Instance.BwHostUrl,UrlFormatter.BikePageUrl(bike.objMake.MaskingName,bike.objModel.MaskingName))" title="@bikeName" class="block">
                     <div class="swiper-image-preview">
                         <amp-img class="swiper-lazy" width="160" height="90" src="@Image.GetPathToShowImages(bike.OriginalImagePath, bike.HostURL, ImageSize._174x98, QualityFactor._70)" title="@bikeName" alt="@bikeName" />

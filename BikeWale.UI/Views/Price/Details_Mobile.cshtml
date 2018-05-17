@@ -288,7 +288,9 @@
 
 @if (Model.AdTags.Ad_300x250BTF)
 {
-    Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad300x250BTF.cshtml", Model.AdTags);
+    <div class="padding-bottom20 padding-top10">
+        @{ Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad300x250BTF.cshtml", Model.AdTags); }
+    </div>
 }
 
 @if (Model.ShowOtherDealers && Model.AreOtherDealersAvailable)
