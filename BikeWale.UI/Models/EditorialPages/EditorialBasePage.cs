@@ -353,6 +353,8 @@ namespace Bikewale.Models.EditorialPages
         /// Description : Function to Bind Editorial Widget. Pass the `category` of the bike data to be bound and the VM object.
         /// Modified By : Deepak Israni on 8 May 2018
         /// Description : Added flag for show on road price button and added GA related information on widgets with Popular Bikes.
+        /// Modified by : Sanskar Gupta on 15 May 2018
+        /// Description : Populated `widget.ReturnUrlForAmpPages` with `widgetData.ReturnUrlForAmpPages` and `widget.CityId` with `CityId`
         /// </summary>
         /// <param name="category">The category Enum of the bike list to be bound.</param>
         /// <returns></returns>
@@ -364,6 +366,9 @@ namespace Bikewale.Models.EditorialPages
             {
                 int editorialWidgetTopCount = IsMobile ? 9 : 6;
                 widget = InitializeWidgetCategory(category);
+                widget.ReturnUrlForAmpPages = widgetData.ReturnUrlForAmpPages;
+                widget.CityId = CityId;
+
                 string tabHeading = string.Empty;
                 string viewAllTitle = string.Empty;
 

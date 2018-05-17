@@ -35,7 +35,6 @@ namespace Bikewale.Models.BikeModels
 
 
         public IEnumerable<MostPopularBikesBase> MostPopularBikeList { get; set; }
-        public string ReturnUrlForAmpPages { get; set; }
         public bool ShowOnRoadPriceButton { get; set; }
         public EditorialGAEntity GAInfo { get; set; }
     }

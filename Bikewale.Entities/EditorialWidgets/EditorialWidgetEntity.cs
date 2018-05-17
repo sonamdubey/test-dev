@@ -15,6 +15,8 @@ namespace Bikewale.Entities.EditorialWidgets
     /// Description : Entity to hold the variables to be passed from `EditorialPage` to `EditorialBasePage.SetAdditionalData()`
     /// Modified By : Deepak Israni on 8 May 2018
     /// Description : Added flag for show on road price button and added GA Entity for related information.
+    /// Modified by : Sanskar Gupta on 15 May 2018
+    /// Description : Added property `ReturnUrlForAmpPages`
     /// </summary>
     public class EditorialWidgetEntity
     {
@@ -29,6 +31,7 @@ namespace Bikewale.Entities.EditorialWidgets
         public BikeSeriesEntityBase Series { get; set; }
         public bool ShowOnRoadPriceButton { get; set; }
         public EditorialGAEntity GAInfo { get; set; }
+        public String ReturnUrlForAmpPages { get; set; }
     }
 
     /// <summary>
