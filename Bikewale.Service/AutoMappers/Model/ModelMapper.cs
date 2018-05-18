@@ -872,7 +872,8 @@ namespace Bikewale.Service.AutoMappers.Model
                         VersionId = (uint)objModelPage.ModelVersionMinSpecs.VersionId,
                         PlatformId = platformId,
                         IsAmp = !isApp,
-                        BikeName = string.Format("{0} {1}", modelDetails.MakeBase.MakeName, modelDetails.ModelName)
+                        BikeName = string.Format("{0} {1}", modelDetails.MakeBase.MakeName, modelDetails.ModelName),
+                        SendLeadSMSCustomer = leadCampaign.SendLeadSMSCustomer
                     };
                     #region Render the partial view
                     //This hash code is being used as memcache key. Do not assign pqid and LoadAmount in "LeadCampaign" before generating hash code.
