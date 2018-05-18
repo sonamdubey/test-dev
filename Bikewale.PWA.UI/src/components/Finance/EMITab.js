@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { toJS } from '../../immutableWrapperContainer'
 
 import { openSelectBikePopup, closeSelectBikePopup } from '../../actionCreators/SelectBikePopup'
-import { fetchCity, openSelectCityPopup, closeSelectCityPopup, selectCity } from '../../actionCreators/FinanceCityPopup'
+import { fetchCity, openSelectCityPopup, closeSelectCityPopup, selectCity, selectCityNext } from '../../actionCreators/FinanceCityPopup'
 import { fetchSimilarBikes } from '../../actionCreators/SimilarBikesEMI'
 
 import SelectBikePopup from '../Shared/SelectBikePopup'
@@ -53,6 +53,7 @@ class EMITab extends React.Component {
       fetchCity,
       closeSelectBikePopup,
       closeSelectCityPopup,
+      selectCityNext,
       SimilarBikesEMI
     } = this.props
 
@@ -83,7 +84,7 @@ class EMITab extends React.Component {
         }
 
         <SelectBikePopup isActive={selectBikePopup.isActive} onCloseClick={closeSelectBikePopup} />
-        <SelectCityPopup isActive={FinanceCityPopup.isActive} data={FinanceCityPopup} fetchCity={fetchCity} onCityClick={this.handleCityClick} onCloseClick={closeSelectCityPopup} />
+        <SelectCityPopup isActive={FinanceCityPopup.isActive} data={FinanceCityPopup} fetchCity={fetchCity} onCityClick={this.handleCityClick} onCloseClick={closeSelectCityPopup} onNextClick={selectCityNext}/>
 
       </div>
     );
@@ -104,6 +105,7 @@ var mapDispatchToProps = (dispatch) => {
     closeSelectBikePopup: bindActionCreators(closeSelectBikePopup, dispatch),
     openSelectCityPopup: bindActionCreators(openSelectCityPopup, dispatch),
     closeSelectCityPopup: bindActionCreators(closeSelectCityPopup, dispatch),
+    selectCityNext: bindActionCreators(selectCityNext, dispatch),
     fetchCity: bindActionCreators(fetchCity, dispatch),
     selectCity: bindActionCreators(selectCity, dispatch),
     fetchSimilarBikes: bindActionCreators(fetchSimilarBikes, dispatch)
