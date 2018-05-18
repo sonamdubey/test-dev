@@ -52,64 +52,73 @@ namespace Bikewale.Controllers
 		/// <summary>
 		/// index mobile for capital first
 		/// Sangram Nandkhile on 08-Sep-2017
+    /// Modifier : Kartik Rathod on 16 may 2018, added dealerName,sendLeadSMSCustomer
 		/// </summary>
 		/// <returns></returns>
 		[Route("m/finance/capitalfirst/")]
 		public ActionResult CapitalFirst_Index_Mobile()
 		{
+        string q = Request.Url.Query;
+        bool sendSMStoCustomer = false;
+        ushort platformId = 0;            
+        CapitalFirstVM viewModel = new CapitalFirstVM();
+        viewModel.ObjLead = new ManufacturerLeadEntity();
+        NameValueCollection queryCollection = HttpUtility.ParseQueryString(q);
 
-			string q = Request.Url.Query;
-			ushort platformId = 0;
-			CapitalFirstVM viewModel = new CapitalFirstVM();
-			viewModel.ObjLead = new ManufacturerLeadEntity();
-			NameValueCollection queryCollection = HttpUtility.ParseQueryString(q);
+        viewModel.ObjLead.CampaignId = Convert.ToUInt16(queryCollection["campaingid"]);
+        viewModel.ObjLead.DealerId = Convert.ToUInt16(queryCollection["dealerid"]);
+        viewModel.ObjLead.LeadSourceId = Convert.ToUInt16(queryCollection["leadsourceid"]);
+        viewModel.ObjLead.VersionId = Convert.ToUInt16(queryCollection["versionid"]);
+        viewModel.ObjLead.PQId = Convert.ToUInt32(queryCollection["pqid"]);
+        viewModel.PageUrl = queryCollection["url"];
+        viewModel.BikeName = queryCollection["bike"];
+        viewModel.LoanAmount = Convert.ToUInt32(queryCollection["loanamount"]);
+        viewModel.PlatformId = ushort.TryParse(queryCollection["platformid"], out platformId) ? platformId :(ushort)DTO.PriceQuote.PQSources.Mobile;
+        viewModel.ObjLead.BikeName = queryCollection["bike"];
+        viewModel.ObjLead.DealerName = queryCollection["dealerName"];
+        viewModel.ObjLead.SendLeadSMSCustomer = Boolean.TryParse(queryCollection["sendLeadSMSCustomer"], out sendSMStoCustomer);
 
-			viewModel.ObjLead.CampaignId = Convert.ToUInt16(queryCollection["campaingid"]);
-			viewModel.ObjLead.DealerId = Convert.ToUInt16(queryCollection["dealerid"]);
-			viewModel.ObjLead.LeadSourceId = Convert.ToUInt16(queryCollection["leadsourceid"]);
-			viewModel.ObjLead.VersionId = Convert.ToUInt16(queryCollection["versionid"]);
-			viewModel.ObjLead.PQId = Convert.ToUInt32(queryCollection["pqid"]);
-			viewModel.PageUrl = queryCollection["url"];
-			viewModel.BikeName = queryCollection["bike"];
-			viewModel.LoanAmount = Convert.ToUInt32(queryCollection["loanamount"]);
-			viewModel.PlatformId = ushort.TryParse(queryCollection["platformid"], out platformId) ? platformId : (ushort)DTO.PriceQuote.PQSources.Mobile;
-			GlobalCityAreaEntity location = GlobalCityArea.GetGlobalCityArea();
-			if (location != null)
-				viewModel.ObjLead.CityId = location.CityId;
-			viewModel.objLeadJson = JsonConvert.SerializeObject(viewModel.ObjLead);
-			return View(viewModel);
+        GlobalCityAreaEntity location = GlobalCityArea.GetGlobalCityArea();
+        if (location != null)
+            viewModel.ObjLead.CityId = location.CityId;
+        viewModel.objLeadJson = JsonConvert.SerializeObject(viewModel.ObjLead);
+        return View(viewModel);
+        
 		}
-
-
 
 		/// <summary>
 		/// index desktop for capital first
 		/// Sangram Nandkhile on 08-Sep-2017
+    /// Modifier : Kartik Rathod on 16 may 2018, added dealerName,sendLeadSMSCustomer
 		/// </summary>
 		/// <returns></returns>
 		[Bikewale.Filters.DeviceDetection]
 		[Route("finance/capitalfirst/")]
 		public ActionResult CapitalFirst_Index()
 		{
-
 			string q = Request.Url.Query;
-			CapitalFirstVM viewModel = new CapitalFirstVM();
-			viewModel.ObjLead = new ManufacturerLeadEntity();
-			NameValueCollection queryCollection = HttpUtility.ParseQueryString(q);
-			viewModel.ObjLead.CampaignId = Convert.ToUInt16(queryCollection["campaingid"]);
-			viewModel.ObjLead.DealerId = Convert.ToUInt16(queryCollection["dealerid"]);
-			viewModel.ObjLead.LeadSourceId = Convert.ToUInt16(queryCollection["leadsourceid"]);
-			viewModel.ObjLead.VersionId = Convert.ToUInt16(queryCollection["versionid"]);
-			viewModel.ObjLead.PQId = Convert.ToUInt32(queryCollection["pqid"]);
-			viewModel.PageUrl = queryCollection["url"];
-			viewModel.BikeName = queryCollection["bike"];
-			viewModel.PlatformId = (ushort)DTO.PriceQuote.PQSources.Desktop;
-			viewModel.LoanAmount = Convert.ToUInt32(queryCollection["loanamount"]);
-			GlobalCityAreaEntity location = GlobalCityArea.GetGlobalCityArea();
-			if (location != null)
-				viewModel.ObjLead.CityId = location.CityId;
-			viewModel.objLeadJson = JsonConvert.SerializeObject(viewModel.ObjLead);
-			return View(viewModel);
+      bool sendSMStoCustomer = false;
+      CapitalFirstVM viewModel = new CapitalFirstVM();
+      viewModel.ObjLead = new ManufacturerLeadEntity();
+      NameValueCollection queryCollection = HttpUtility.ParseQueryString(q);
+      viewModel.ObjLead.CampaignId = Convert.ToUInt16(queryCollection["campaingid"]);
+      viewModel.ObjLead.DealerId = Convert.ToUInt16(queryCollection["dealerid"]);
+      viewModel.ObjLead.LeadSourceId = Convert.ToUInt16(queryCollection["leadsourceid"]);
+      viewModel.ObjLead.VersionId = Convert.ToUInt16(queryCollection["versionid"]);
+      viewModel.ObjLead.PQId = Convert.ToUInt32(queryCollection["pqid"]);
+      viewModel.PageUrl = queryCollection["url"];
+      viewModel.BikeName = queryCollection["bike"];
+      viewModel.PlatformId = (ushort)DTO.PriceQuote.PQSources.Desktop;
+      viewModel.LoanAmount = Convert.ToUInt32(queryCollection["loanamount"]);
+      viewModel.ObjLead.BikeName = queryCollection["bike"];
+      viewModel.ObjLead.DealerName = queryCollection["dealerName"];
+      viewModel.ObjLead.SendLeadSMSCustomer = Boolean.TryParse(queryCollection["sendLeadSMSCustomer"], out sendSMStoCustomer);
+
+      GlobalCityAreaEntity location = GlobalCityArea.GetGlobalCityArea();
+      if (location != null)
+          viewModel.ObjLead.CityId = location.CityId;
+      viewModel.objLeadJson = JsonConvert.SerializeObject(viewModel.ObjLead);
+      return View(viewModel);
 		}
 
 		#endregion

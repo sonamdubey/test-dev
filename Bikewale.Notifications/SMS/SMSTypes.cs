@@ -805,7 +805,34 @@ namespace Bikewale.Notifications
 
         }
 
+        /// <summary>
+        /// Author  : Kartik Rathod on 16 may 2018 , 
+        /// Desc    : send sms to customer on pushed es campaign lead in system    
+        /// </summary>
+        /// <param name="CustomerName"></param>
+        /// <param name="CustomerMobile"></param>
+        /// <param name="dealerName"></param>
+        /// <param name="bikeName"></param>
+        public static void ESCampaignLeadSMSToCustomer(string CustomerName,string CustomerMobile,string dealerName,string bikeName)
+        {
+            try
+            {
+                if (!string.IsNullOrEmpty(CustomerMobile))
+                {
+                    string msg = string.Empty;
+                    msg = String.Format("Thank you {0} for showing interest in {1}. {2} dealer will get in touch with you for further assistance.", CustomerName, bikeName, dealerName);
 
+                    EnumSMSServiceType esms = EnumSMSServiceType.ESCampaignLeadSMSToCustomer;
+                    SMSCommon sc = new SMSCommon();
+                    sc.ProcessSMS(CustomerMobile, msg, esms, "");
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, String.Format("Notifications.ESCampaignLeadSMSToCustomer(CustomerName-{0},{1},{2},{3})", CustomerName,
+                    CustomerMobile, dealerName, bikeName));
+            }
+        }
 
     }   //End of class
 }   //End of namespace

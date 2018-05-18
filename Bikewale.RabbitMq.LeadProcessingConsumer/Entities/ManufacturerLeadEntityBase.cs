@@ -19,5 +19,8 @@
         public uint CityId { get; set; }
         public uint PinCodeId { get; set; }
         public uint ManufacturerDealerId { get; set; }
+        public string BikeName { get; set; }
+        public string DealerName { get; set; }
+        public bool SendLeadSMSCustomer { get; set; }
     }
 }

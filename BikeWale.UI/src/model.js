@@ -229,7 +229,9 @@ docReady(function () {
                 cat: ele.attr("data-cat"),
                 act: ele.attr("data-act"),
                 lab: bikeVersionLocation
-            }
+            },
+            "sendLeadSMSCustomer": ele.attr('data-issendleadsmscustomer'),
+            "organizationName": ele.attr('data-item-organization')
         };
         gaLabel = getBikeVersionLocation();
         dleadvm.setOptions(leadOptions);

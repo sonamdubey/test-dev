@@ -1802,7 +1802,8 @@ namespace Bikewale.Models.BikeModels
                             CurrentPageUrl = CurrentPageUrl,
                             PlatformId = Convert.ToUInt16(IsMobile ? 2 : 1),
                             BikeName = _objData.BikeName,
-                            LoanAmount = Convert.ToUInt32((_objData.BikePrice) * 0.8)
+                            LoanAmount = Convert.ToUInt32((_objData.BikePrice) * 0.8),
+                            SendLeadSMSCustomer = campaigns.LeadCampaign.SendLeadSMSCustomer
                         };
 
                         _objData.IsManufacturerTopLeadAdShown = !_objData.ShowOnRoadButton;
@@ -1859,7 +1860,8 @@ namespace Bikewale.Models.BikeModels
                             CurrentPageUrl = CurrentPageUrl,
                             PlatformId = Convert.ToUInt16(IsMobile ? 2 : 1),
                             LoanAmount = Convert.ToUInt32((_objData.BikePrice) * 0.8),
-                            ShowOnExshowroom = campaigns.EMICampaign.ShowOnExshowroom
+                            ShowOnExshowroom = campaigns.EMICampaign.ShowOnExshowroom,
+                            SendLeadSMSCustomer = campaigns.EMICampaign.SendLeadSMSCustomer
                         };
 
                         _objData.IsManufacturerEMIAdShown = true;

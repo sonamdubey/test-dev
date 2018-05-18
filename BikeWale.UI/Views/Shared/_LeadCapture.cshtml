@@ -171,6 +171,9 @@
         self.cities = ko.observableArray();
         self.selectedCity = ko.observable();
         self.ko_DealerName = ko.observable();
+        self.sendLeadSMSCustomer = ko.observable(false);
+        self.organizationName = ko.observable();
+
         self.setOptions = function (options) {
             if (options != null) {
                 if (options.eventcategory != null)
@@ -256,6 +259,14 @@
 
                 if (options.clientip != null)
                     self.clientIP = options.clientip;
+
+                if (options.sendLeadSMSCustomer != null) {
+                    self.sendLeadSMSCustomer(options.sendLeadSMSCustomer)
+                }
+
+                if (options.organizationName != null) {
+                    self.organizationName(options.organizationName)
+                }
             }
         };
 
@@ -538,7 +549,10 @@
                     "campaignId": self.mfgCampaignId(),
                     "deviceId": getCookie('BWC'),
                     "manufacturerDealerId": $('#ddlMfgDealers :selected').data('id'),
-                    "manufacturerDealer":self.ko_DealerName()
+                    "manufacturerDealer": self.ko_DealerName(),
+                    "bikeName": leadBikeName,
+                    "dealerName": self.organizationName() ? self.organizationName() : self.dealerName(),
+                    "sendLeadSMSCustomer": self.sendLeadSMSCustomer()
                 };
                 $.ajax({
                     type: "POST",

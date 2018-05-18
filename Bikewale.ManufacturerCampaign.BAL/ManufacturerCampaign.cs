@@ -61,7 +61,7 @@ namespace Bikewale.ManufacturerCampaign.BAL
         {
             try
             {
-                string keyFormat = "BW_ES_Campaign_M_{0}_C_{1}_P_";
+                string keyFormat = "BW_ES_Campaign_V1_M_{0}_C_{1}_P_";
                 var rules = _repo.GetManufacturerCampaignRules(campaignId);
                 if (rules != null && rules.ManufacturerCampaignRules != null && rules.ManufacturerCampaignRules.Any())
                 {
@@ -96,7 +96,7 @@ namespace Bikewale.ManufacturerCampaign.BAL
                 {
                     foreach (var cityId in cityIds)
                     {
-                        keys.Add(String.Format("BW_ES_Campaign_M_{0}_C_{1}_P_{2}", modelId, cityId, Convert.ToUInt16(page)));
+                        keys.Add(String.Format("BW_ES_Campaign_V1_M_{0}_C_{1}_P_{2}", modelId, cityId, Convert.ToUInt16(page)));
                     }
                 }
             }

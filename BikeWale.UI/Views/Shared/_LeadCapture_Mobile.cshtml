@@ -222,6 +222,9 @@
             self.cities = ko.observableArray();
             self.selectedCity = ko.observable();
             self.ko_DealerName = ko.observable();
+            self.sendLeadSMSCustomer = ko.observable(false);
+            self.organizationName = ko.observable();
+
             @if (Model.CityId <= 0)
             {
                         <text>
@@ -383,6 +386,14 @@
 
                     if (options.gaobject != null)
                         self.GAObject(options.gaobject);
+
+                    if (options.sendLeadSMSCustomer != null) {
+                        self.sendLeadSMSCustomer(options.sendLeadSMSCustomer)
+                    }
+
+                    if (options.organizationName != null) {
+                        self.organizationName(options.organizationName)
+                    }
                 }
             };
 
@@ -832,7 +843,10 @@
                         "deviceId": getCookie('BWC'),
                         "campaignId": self.mfgCampaignId(),
                         "manufacturerDealerId": $('#ddlMfgDealers :selected').data('id'),
-                        "manufacturerDealer": self.ko_DealerName()
+                        "manufacturerDealer": self.ko_DealerName(),
+                        "bikeName": leadBikeName,
+                        "dealerName": self.organizationName() ? self.organizationName() : self.dealerName(),
+                        "sendLeadSMSCustomer": self.sendLeadSMSCustomer()
                     };
                     $.ajax({
                         type: "POST",

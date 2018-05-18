@@ -677,6 +677,7 @@ namespace Bikewale.Service.AutoMappers.Model
         /// Descritpion : Mapping for V4 version of ModelpageEntity.
         /// Modified by : Ashutosh Sharma on 14 May 2018.
         /// Description : Calculating hashCode to cache campaign template before setting PageUrl of LeadCampaign.
+        /// Modifier    : Kartik Rathod on 16 may 2018, Pageurl for capitalfirst dealer added dealername and sendLeadSMSCustomer
         /// </summary>
         /// <param name="objModelPage"></param>
         /// <returns></returns>
@@ -880,7 +881,7 @@ namespace Bikewale.Service.AutoMappers.Model
                     LeadCampaign.PQId = (uint)pqEntity.PqId;
                     if (LeadCampaign.DealerId == Bikewale.Utility.BWConfiguration.Instance.CapitalFirstDealerId)
                     {
-                        LeadCampaign.PageUrl = String.Format("{8}/m/finance/capitalfirst/?campaingid={0}&amp;dealerid={1}&amp;pqid={2}&amp;leadsourceid={3}&amp;versionid={4}&amp;url=&amp;platformid={5}&amp;bike={6}&amp;loanamount={7}", LeadCampaign.CampaignId, LeadCampaign.DealerId, LeadCampaign.PQId, LeadCampaign.LeadSourceId, pqEntity.VersionList.FirstOrDefault().VersionId, platformId, LeadCampaign.BikeName, LeadCampaign.LoanAmount, BWConfiguration.Instance.BwHostUrl);
+                        LeadCampaign.PageUrl = String.Format("{8}/m/finance/capitalfirst/?campaingid={0}&amp;dealerid={1}&amp;pqid={2}&amp;leadsourceid={3}&amp;versionid={4}&amp;url=&amp;platformid={5}&amp;bike={6}&amp;loanamount={7}&amp;dealerName={8}&amp;sendLeadSMSCustomer={9}", LeadCampaign.CampaignId, LeadCampaign.DealerId, LeadCampaign.PQId, LeadCampaign.LeadSourceId, pqEntity.VersionList.FirstOrDefault().VersionId, platformId, LeadCampaign.BikeName, LeadCampaign.LoanAmount, BWConfiguration.Instance.BwHostUrl,LeadCampaign.Organization,LeadCampaign.SendLeadSMSCustomer.ToString());
                     }
                     else
                     {
