@@ -13,7 +13,7 @@ class PieBreakUp  extends React.Component {
 		super(props)
 	}
 	render() {
-		const loanAmount = parseFloat(this.props.sliderData.sliderDpData.max - this.props.sliderData.sliderDpData.values[0])
+		const loanAmount = parseFloat(this.props.sliderData.sliderDpData.onRoadPrice - this.props.sliderData.sliderDpData.values[0])
 		let pricipalLoan = formatToINR(loanAmount);
 		const pieInterestAmt = formatToINR(this.props.emiCalculationParam.interestPayable)
 		return (

@@ -1,6 +1,7 @@
 import { emiCalculatorAction } from '../actionTypes/emiActionTypes'
 
 const updateInterestSliderValue = function(values, userChange) {
+    values = values.map(x=>parseFloat(x))
     return function(dispatch) {
        dispatch({
         type: emiCalculatorAction.UPDATE_INTEREST_SLIDER_VALUE,

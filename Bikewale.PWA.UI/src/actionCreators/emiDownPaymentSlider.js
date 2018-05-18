@@ -1,6 +1,7 @@
 import { emiCalculatorAction } from '../actionTypes/emiActionTypes'
 
 const updateDownpaymentSliderValue = function(values, userChange) {
+    values = values.map(x=>parseInt(x))
     return function(dispatch) {
        dispatch({
         type: emiCalculatorAction.UPDATE_DOWNPAYMENT_SLIDER_VALUE,
@@ -25,4 +26,17 @@ export const updateDownPaymentSlider = ({values, userChange}) => (dispatch, getS
 	if (shouldDownpaymentSliderUpdate(values, downpaymentSliderMap)) {
 		dispatch(updateDownpaymentSliderValue(values, userChange))
 	}
+}
+
+export const openEmiCalculator = (onRoadPrice) => (dispatch) =>{
+    let minDnPay = .1 * onRoadPrice;
+    let maxDnPay = .4 * onRoadPrice;
+    let defaultDnPay = .3 * onRoadPrice;
+    dispatch({
+        type: emiCalculatorAction.OPEN_EMICALCULATOR,
+        min: parseInt(minDnPay),
+        max : parseInt(maxDnPay),
+        values : [parseInt(defaultDnPay)],
+        onRoadPrice: onRoadPrice
+    });
 }

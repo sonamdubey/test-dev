@@ -3,24 +3,23 @@ import { fromJS } from 'immutable'
 
 import { emiCalculatorAction } from '../actionTypes/emiActionTypes'
 
+const minTenure = 12, maxTenure = 48;
 const initialSliderState = {
-	min: 6,
-	max: 72,
-	values: [8],
+	min: minTenure,
+	max: maxTenure,
+	values: [(maxTenure-minTenure)/2+minTenure],
 	userChange: false
 }
 
 export const slider = (state = initialSliderState, action) => {
 	if (!state)
-	return initialState; 
+		return state; 
 
 	switch (action.type) {
 		case emiCalculatorAction.UPDATE_TENURE_SLIDER_VALUE:
 			return {
 				...state,
 				values: action.values,
-				min: action.min || state.min,
-				max: action.max || state.max,
 				userChange: action.userChange,
 			}
 

@@ -110,4 +110,4 @@ var mapDispatchToProps = (dispatch) => {
   }
 }
 
-module.exports = connect(mapStateToProps, mapDispatchToProps)(toJS(EMITab));
+export default connect(mapStateToProps, mapDispatchToProps)(toJS(EMITab));

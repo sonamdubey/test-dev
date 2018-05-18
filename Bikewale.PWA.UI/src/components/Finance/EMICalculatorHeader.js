@@ -20,7 +20,7 @@ class EMICalculatorHeader extends React.Component {
 	render() {
 				let finalEmi = formatToINR(this.props.emiCalculationParam.emiCalculation)
 				let tenureText = (this.state.monthsToYears)
-				let orpAmount = formatToINR(this.props.sliderData.sliderDpData.max)
+				let orpAmount = formatToINR(this.props.sliderData.sliderDpData.onRoadPrice)
 		return (
 				<div className="emi-calci-header">
 					 <div className="emi-calci-top-header">

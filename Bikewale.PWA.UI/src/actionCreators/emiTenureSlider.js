@@ -2,6 +2,7 @@ import { emiCalculatorAction } from '../actionTypes/emiActionTypes'
 import { fromJS } from 'immutable'
 
 const updateTenureSliderValue = function(values, userChange) {
+    values = values.map(x=>parseInt(x))
     return function(dispatch) {
        dispatch({
         type: emiCalculatorAction.UPDATE_TENURE_SLIDER_VALUE,

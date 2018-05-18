@@ -1,27 +1,14 @@
-export function EmiCalculation(loanAmount, tenure, interest) {
-    const finalLoanAmout = parseFloat(loanAmount.max - loanAmount.values[0])
-    const numberOfMonths = parseFloat(tenure.values)
-    const rateOfInterest = (interest.values)
-    const monthlyInterestRatio = (rateOfInterest/100)/12
-    const emiDividend = Math.pow((1+monthlyInterestRatio),numberOfMonths)
-    const emiDivisor = emiDividend - 1;
-    const emiDivision = emiDividend / emiDivisor
-    const emi = parseInt((finalLoanAmout * monthlyInterestRatio) * emiDivision)
-    return emi
+
+export function EmiCalculation(loanAmount, tenure, rateOfInterest) {
+  const monthlyInterestRatio = (rateOfInterest/1200);
+  return parseInt((loanAmount * monthlyInterestRatio) / (1 - Math.pow((1 + monthlyInterestRatio), -1 * tenure)));
 }
 
 export function InterestPayable(loanAmount, tenure, interest) {
-  let emiValue = EmiCalculation(loanAmount, tenure, interest)
-  let numberOfMonths = parseFloat(tenure.values)
-  let emiWithmonth = parseFloat(emiValue * numberOfMonths)
-  const finalLoanAmout = parseFloat(loanAmount.max - loanAmount.values)
-  const totalInterestPayable = parseFloat(emiWithmonth - finalLoanAmout)
-  return totalInterestPayable
+  return parseFloat(EmiCalculation(loanAmount, tenure, interest) * tenure) - loanAmount;
 }
 
-export function TotalPrincipalAmt(loanAmount, tenure, interest) {
-  const finalLoanAmout = parseFloat(loanAmount.max - loanAmount.values[0])
+export function TotalPrincipalAmt(downPayment, loanAmount, tenure, interest) {
   let intPayable = InterestPayable(loanAmount, tenure, interest)
-  let totalPrincipalAmt = parseInt(finalLoanAmout + intPayable)
-  return totalPrincipalAmt
+  return parseInt(downPayment + loanAmount + intPayable);
 }
