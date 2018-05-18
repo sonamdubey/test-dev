@@ -1,7 +1,7 @@
 import React from 'react'
 import Autocomplete from '../components/Autocomplete'
 import GlobalSearchList from '../components/GlobalSearchList'
-import {setDataForPriceQuotePopup , closeGlobalSearchPopUp, recentSearches,autocomplete,showElement, hideElement,getStrippedTerm ,highlightText, globalSearchCache,MakeModelRedirection, setPriceQuoteFlag , pqSourceId , globalSearchStatus} from '../utils/popUpUtils'
+import {setDataForPriceQuotePopup , closeGlobalSearchPopUp, recentSearches,autocomplete,showElement, hideElement,getStrippedTerm ,highlightText, globalSearchCache,MakeModelRedirection, setPriceQuoteFlag , globalSearchStatus} from '../utils/popUpUtils'
 import { isServer } from '../utils/commonUtils'
 import { triggerGA, GetCatForNav } from '../utils/analyticsUtils'
 class GlobalSearchPopup extends React.Component {
@@ -196,8 +196,8 @@ class GlobalSearchPopup extends React.Component {
                 if (item.futuristic == 'True') {
                     rightItem  = <span className="menu--right-align-label">coming soon</span>;
                 } else {
-                    if (item.isNew == 'True') {
-                        rightItem = <a data-pqSourceId={pqSourceId} data-modelId={item.modelId} className="getquotation menu--right-align-label text-blue" onClick={this.checkOnRoadLinkClick.bind(this,item)}>Check On-Road Price</a>;
+                    if (item.isNew == 'True') {                       
+                        rightItem = <a data-pqSourceId="38" data-modelId={item.modelId} className="getquotation menu--right-align-label text-blue" onClick={this.checkOnRoadLinkClick.bind(this,item)}>Check On-Road Price</a>;
 
                     } else {
                        	rightItem = <span className="menu--right-align-label">discontinued</span>;
@@ -222,8 +222,8 @@ class GlobalSearchPopup extends React.Component {
 	            if (item.payload.futuristic == 'True') {
 	                rightItem = <span className="menu--right-align-label">coming soon</span>;
 	            } else {
-	                if (item.payload.isNew == 'True') {
-	                	rightItem = <a href="javascript:void(0)" data-pqSourceId={pqSourceId} data-modelId={item.payload.modelId} className="getquotation menu--right-align-label text-blue" onClick={this.checkOnRoadLinkClick.bind(this,item)}>Check On-Road Price</a>;
+	                if (item.payload.isNew == 'True') {	                    
+	                	rightItem = <a href="javascript:void(0)" data-pqSourceId="38" data-modelId={item.payload.modelId} className="getquotation menu--right-align-label text-blue" onClick={this.checkOnRoadLinkClick.bind(this,item)}>Check On-Road Price</a>;
 	                }
 	                else {
 	                    rightItem = <span className="menu--right-align-label">discontinued</span>;
