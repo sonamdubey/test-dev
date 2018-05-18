@@ -6,10 +6,11 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="keywords" content="<%= keywords %>" />
     <meta name="description" content="<%= description %>" />
+	<link rel="alternate" type="text/html" media="handheld" href="<%= alternateUrl %>" title="Mobile/PDA">
     <title><%= title %></title>
     <!-- #include file="globalStaticFiles.aspx"-->
-    <script language="c#" runat="server">	    
-	    private string title = "", description = "", keywords = "", AdId = "", AdPath = "";
+    <script language="c#" runat="server">
+	    private string title = "", description = "", keywords = "", AdId = "", AdPath = "", alternateUrl = "";
         private bool isHeaderFix = true, isAd970x90Shown = true, isAd970x90BottomShown = true, isAd300x250Shown=true;	    
         private string staticUrl = System.Configuration.ConfigurationManager.AppSettings["staticUrl"];
         private string staticFileVersion = System.Configuration.ConfigurationManager.AppSettings["staticFileVersion"];

@@ -582,8 +582,8 @@ namespace Bikewale.BAL.BikeData
                             MinSpecsList = modelVersion.MinSpecsList.Skip(2)
                         };
                     }
-                    CreateAllPhotoList(modelId, objModelPage);
                 }
+				CreateAllPhotoList(modelId, objModelPage);
             }
             catch (Exception ex)
             {

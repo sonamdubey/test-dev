@@ -141,6 +141,7 @@
     <Compile Include="Features\IndexFeatureVM.cs" />
     <Compile Include="ExpertReviews\ExpertReviewsDetailPageVM.cs" />
     <Compile Include="Finance\CapitalFirstVM.cs" />
+    <Compile Include="Finance\FinanceIndexPageVM.cs" />
     <Compile Include="Gallery\ModelGalleryVM.cs" />
     <Compile Include="GenericBestBikes\IndexBestBikesVM.cs" />
     <Compile Include="Images\ImageWidgetVM.cs" />
