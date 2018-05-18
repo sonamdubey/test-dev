@@ -40,7 +40,8 @@ function FormatHtml(strHtml) {
             attr('data-item-name', '@Model.MakeName').
             attr('data-isemailrequired', '@Model.EmailRequired').
             attr('data-Organization', '@Model.Organization').
-            attr('data-issendleadsmscustomer', '@Model.SendLeadSMSCustomer');
+            attr('data-issendleadsmscustomer', '@Model.SendLeadSMSCustomer').
+            attr('data-item-organization', '@Model.Organization');
             
     }
     catch(e){}

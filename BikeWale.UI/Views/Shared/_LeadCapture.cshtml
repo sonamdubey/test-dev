@@ -172,6 +172,7 @@
         self.selectedCity = ko.observable();
         self.ko_DealerName = ko.observable();
         self.sendLeadSMSCustomer = ko.observable(false);
+        self.organizationName = ko.observable();
 
         self.setOptions = function (options) {
             if (options != null) {
@@ -261,6 +262,10 @@
 
                 if (options.sendLeadSMSCustomer != null) {
                     self.sendLeadSMSCustomer(options.sendLeadSMSCustomer)
+                }
+
+                if (options.organizationName != null) {
+                    self.organizationName(options.organizationName)
                 }
             }
         };
@@ -546,7 +551,7 @@
                     "manufacturerDealerId": $('#ddlMfgDealers :selected').data('id'),
                     "manufacturerDealer": self.ko_DealerName(),
                     "bikeName": leadBikeName,
-                    "dealerName": self.dealerName(),
+                    "dealerName": self.organizationName() ? self.organizationName() : self.dealerName(),
                     "sendLeadSMSCustomer": self.sendLeadSMSCustomer()
                 };
                 $.ajax({

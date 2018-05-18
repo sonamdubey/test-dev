@@ -149,7 +149,8 @@ docReady(function () {
                 act: ele.attr("data-act"),
                 lab: bikeVerLocation
             },
-            "sendLeadSMSCustomer": ele.attr('data-issendleadsmscustomer')
+            "sendLeadSMSCustomer": ele.attr('data-issendleadsmscustomer'),
+            "organizationName": ele.attr('data-item-organization')
         };
 
         dleadvm.setOptions(leadOptions);

@@ -230,7 +230,8 @@ docReady(function () {
                 act: ele.attr("data-act"),
                 lab: bikeVersionLocation
             },
-            "sendLeadSMSCustomer": ele.attr('data-issendleadsmscustomer')
+            "sendLeadSMSCustomer": ele.attr('data-issendleadsmscustomer'),
+            "organizationName": ele.attr('data-item-organization')
         };
         gaLabel = getBikeVersionLocation();
         dleadvm.setOptions(leadOptions);

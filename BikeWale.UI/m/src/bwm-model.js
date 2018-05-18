@@ -169,7 +169,8 @@ docReady(function () {
                     act: ele.attr("data-act"),
                     lab: ele.attr("data-var")
                 },
-                "sendLeadSMSCustomer": ele.attr('data-issendleadsmscustomer')
+                "sendLeadSMSCustomer": ele.attr('data-issendleadsmscustomer'),
+                "organizationName": ele.attr('data-item-organization')
             };
 
             gaLabel = myBikeName + '_' + getCityArea;

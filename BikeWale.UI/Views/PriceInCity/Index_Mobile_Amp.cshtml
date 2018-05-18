@@ -196,20 +196,20 @@
 								<div class="right-float">
 									@if (!string.IsNullOrEmpty(Model.LeadCampaign.PriceBreakUpLinkMobile))
 									{
-										<a class="get-offer-link font14" href="@string.Format("{0}?campaingid={1}&dealerid={2}&pqid={3}&leadsourceid={4}&versionid={5}&url={6}&platformid={7}&bike={8}&loanamount={9} ",Model.LeadCampaign.PriceBreakUpLinkMobile,Model.LeadCampaign.CampaignId,Model.LeadCampaign.DealerId,Model.LeadCampaign.PQId,Model.LeadCampaign.LeadSourceId,Model.LeadCampaign.VersionId, Model.LeadCampaign.CurrentPageUrl, Model.LeadCampaign.PlatformId, Model.LeadCampaign.BikeName, Model.LeadCampaign.LoanAmount)" rel="nofollow">
+										<a class="get-offer-link font14" href="@string.Format("{0}?campaingid={1}&dealerid={2}&pqid={3}&leadsourceid={4}&versionid={5}&url={6}&platformid={7}&bike={8}&loanamount={9}&sendLeadSMSCustomer={10}", Model.LeadCampaign.PriceBreakUpLinkMobile, Model.LeadCampaign.CampaignId, Model.LeadCampaign.DealerId, Model.LeadCampaign.PQId, Model.LeadCampaign.LeadSourceId, Model.LeadCampaign.VersionId, Model.LeadCampaign.CurrentPageUrl, Model.LeadCampaign.PlatformId, Model.LeadCampaign.BikeName, Model.LeadCampaign.LoanAmount, Model.LeadCampaign.SendLeadSMSCustomer)" rel="nofollow">
 											@Model.LeadCampaign.PriceBreakUpLinkTextMobile
 										</a>
 									}
 									else
 									{
-										<a class="get-offer-link font14" href="/m/popup/leadcapture/?q=@Utils.Utils.EncryptTripleDES(string.Format(@"modelid={0}&cityid={1}&areaid={2}&bikename={3}&location={4}&city={5}&area={6}&ismanufacturer={7}&dealerid={8}&dealername={9}&dealerarea={10}&versionid={11}&leadsourceid={12}&pqsourceid={13}&mfgcampid={14}&pqid={15}&pageurl={16}&clientip={17}&dealerheading={18}&dealermessage={19}&dealerdescription={20}&pincoderequired={21}&emailrequired={22}&dealersrequired={23}&url={24}",
+										<a class="get-offer-link font14" href="/m/popup/leadcapture/?q=@Utils.Utils.EncryptTripleDES(string.Format(@"modelid={0}&cityid={1}&areaid={2}&bikename={3}&location={4}&city={5}&area={6}&ismanufacturer={7}&dealerid={8}&dealername={9}&dealerarea={10}&versionid={11}&leadsourceid={12}&pqsourceid={13}&mfgcampid={14}&pqid={15}&pageurl={16}&clientip={17}&dealerheading={18}&dealermessage={19}&dealerdescription={20}&pincoderequired={21}&emailrequired={22}&dealersrequired={23}&url={24}&sendLeadSMSCustomer={25}&organizationName={26}",
                                                    Model.BikeModel.ModelId, Model.CityEntity.CityId, string.Empty, string.Format(Model.BikeName), string.Empty, string.Empty, string.Empty,
                                                    Model.IsManufacturerLeadAdShown, Model.LeadCampaign.DealerId, String.Format(Model.LeadCampaign.LeadsPropertyTextMobile,
                                                    Model.LeadCampaign.Organization), Model.LeadCampaign.Area, Model.VersionId, Model.LeadCampaign.LeadSourceId, Model.LeadCampaign.PqSourceId,
                                                    Model.LeadCampaign.CampaignId, Model.PQId, string.Empty, Bikewale.Common.CommonOpn.GetClientIP(), Model.LeadCampaign.PopupHeading,
                                                    String.Format(Model.LeadCampaign.PopupSuccessMessage, Model.LeadCampaign.Organization), Model.LeadCampaign.PopupDescription,
                                                    Model.LeadCampaign.PincodeRequired, Model.LeadCampaign.EmailRequired, Model.LeadCampaign.DealerRequired,
-                                                   Model.PageMetaTags.AlternateUrl))" rel="nofollow">
+                                                   Model.PageMetaTags.AlternateUrl, Model.LeadCampaign.SendLeadSMSCustomer, Model.LeadCampaign.Organization))" rel="nofollow">
 											@Model.LeadCampaign.PriceBreakUpLinkTextMobile
 										</a>
 									}
@@ -255,14 +255,14 @@
 								}
 								else
 								{
-									<a href="/m/popup/leadcapture/?q=@Utils.Utils.EncryptTripleDES(string.Format(@"modelid={0}&cityid={1}&areaid={2}&bikename={3}&location={4}&city={5}&area={6}&ismanufacturer={7}&dealerid={8}&dealername={9}&dealerarea={10}&versionid={11}&leadsourceid={12}&pqsourceid={13}&mfgcampid={14}&pqid={15}&pageurl={16}&clientip={17}&dealerheading={18}&dealermessage={19}&dealerdescription={20}&pincoderequired={21}&emailrequired={22}&dealersrequired={23}&url={24}",
+									<a href="/m/popup/leadcapture/?q=@Utils.Utils.EncryptTripleDES(string.Format(@"modelid={0}&cityid={1}&areaid={2}&bikename={3}&location={4}&city={5}&area={6}&ismanufacturer={7}&dealerid={8}&dealername={9}&dealerarea={10}&versionid={11}&leadsourceid={12}&pqsourceid={13}&mfgcampid={14}&pqid={15}&pageurl={16}&clientip={17}&dealerheading={18}&dealermessage={19}&dealerdescription={20}&pincoderequired={21}&emailrequired={22}&dealersrequired={23}&url={24}&sendLeadSMSCustomer={25}&organizationName={26}",
                                    Model.BikeModel.ModelId, Model.CityEntity.CityId, string.Empty, string.Format(Model.BikeName), string.Empty, string.Empty, string.Empty,
                                    Model.IsManufacturerLeadAdShown, Model.LeadCampaign.DealerId, String.Format(Model.LeadCampaign.LeadsPropertyTextMobile,
                                    Model.LeadCampaign.Organization), Model.LeadCampaign.Area, Model.VersionId, Model.LeadCampaign.LeadSourceId, Model.LeadCampaign.PqSourceId,
                                    Model.LeadCampaign.CampaignId, Model.PQId, string.Empty, Bikewale.Common.CommonOpn.GetClientIP(), Model.LeadCampaign.PopupHeading,
                                    String.Format(Model.LeadCampaign.PopupSuccessMessage, Model.LeadCampaign.Organization), Model.LeadCampaign.PopupDescription,
                                    Model.LeadCampaign.PincodeRequired, Model.LeadCampaign.EmailRequired, Model.LeadCampaign.DealerRequired,
-                                   Model.PageMetaTags.AlternateUrl))" class="btn btn-orange btn-full-32" rel="nofollow">
+                                   Model.PageMetaTags.AlternateUrl, Model.LeadCampaign.SendLeadSMSCustomer, Model.LeadCampaign.Organization))" class="btn btn-orange btn-full-32" rel="nofollow">
 										@Model.LeadCampaign.LeadsButtonTextMobile
 									</a>
 
@@ -576,7 +576,13 @@
 									}
 									else
 									{
-										<a href="/m/popup/leadcapture/?q=@Utils.Utils.EncryptTripleDES(string.Format("modelid={0}&cityid={1}&areaid={2}&bikename={3}&location={4}&city={5}&area={6}&ismanufacturer={7}&dealerid={8}&dealername={9}&dealerarea={10}&versionid={11}&leadsourceid={12}&pqsourceid={13}&mfgcampid={14}&pqid={15}&pageurl={16}&clientip={17}&dealerheading={18}&dealermessage={19}&dealerdescription={20}&pincoderequired={21}&emailrequired={22}&dealersrequired={23}&url={24}", Model.BikeModel.ModelId, Model.CityEntity.CityId, string.Empty, string.Format(Model.BikeName), string.Empty, string.Empty, string.Empty, Model.IsManufacturerLeadAdShown, Model.EMICampaign.DealerId, String.Format(Model.EMICampaign.EMIPropertyTextMobile, Model.EMICampaign.Organization), Model.EMICampaign.Area, Model.VersionId, Model.EMICampaign.LeadSourceId, Model.EMICampaign.PqSourceId, Model.EMICampaign.CampaignId, Model.PQId, string.Empty, Bikewale.Common.CommonOpn.GetClientIP(), Model.EMICampaign.PopupHeading, String.Format(Model.EMICampaign.PopupSuccessMessage, Model.EMICampaign.Organization), Model.EMICampaign.PopupDescription, Model.EMICampaign.PincodeRequired, Model.EMICampaign.EmailRequired, Model.EMICampaign.DealerRequired,Model.PageMetaTags.AlternateUrl))" class="btn btn-teal btn-160-32 font14 margin-right10">
+										<a href="/m/popup/leadcapture/?q=@Utils.Utils.EncryptTripleDES(string.Format("modelid={0}&cityid={1}&areaid={2}&bikename={3}&location={4}&city={5}&area={6}&ismanufacturer={7}&dealerid={8}&dealername={9}&dealerarea={10}&versionid={11}&leadsourceid={12}&pqsourceid={13}&mfgcampid={14}&pqid={15}&pageurl={16}&clientip={17}&dealerheading={18}&dealermessage={19}&dealerdescription={20}&pincoderequired={21}&emailrequired={22}&dealersrequired={23}&url={24}&sendLeadSMSCustomer={25}&organizationName={26}", 
+                                        Model.BikeModel.ModelId, Model.CityEntity.CityId, string.Empty, string.Format(Model.BikeName), string.Empty, string.Empty, string.Empty, 
+                                        Model.IsManufacturerLeadAdShown, Model.EMICampaign.DealerId, String.Format(Model.EMICampaign.EMIPropertyTextMobile, Model.EMICampaign.Organization), 
+                                        Model.EMICampaign.Area, Model.VersionId, Model.EMICampaign.LeadSourceId, Model.EMICampaign.PqSourceId, Model.EMICampaign.CampaignId, Model.PQId, 
+                                        string.Empty, Bikewale.Common.CommonOpn.GetClientIP(), Model.EMICampaign.PopupHeading, String.Format(Model.EMICampaign.PopupSuccessMessage, 
+                                        Model.EMICampaign.Organization), Model.EMICampaign.PopupDescription, Model.EMICampaign.PincodeRequired, Model.EMICampaign.EmailRequired,
+                                        Model.EMICampaign.DealerRequired, Model.PageMetaTags.AlternateUrl, Model.EMICampaign.SendLeadSMSCustomer, Model.EMICampaign.Organization))" class="btn btn-teal btn-160-32 font14 margin-right10">
 											@Model.EMICampaign.EMIButtonTextMobile
 										</a>
 									}
