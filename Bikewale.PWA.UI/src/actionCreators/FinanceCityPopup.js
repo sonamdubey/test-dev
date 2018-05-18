@@ -1,6 +1,6 @@
 import { financeCityPopup } from '../actionTypes/FinanceCityPopup'
 
-const getCityData = (modelId) => {
+const getCity = (modelId) => {
     return (dispatch) => {
         var method = 'GET';
         var url = '/api/pwa/cities/model/'+ modelId + '/';
@@ -45,7 +45,7 @@ const setCity = (payload) => {
 }
 
 export const fetchCity = (modelId) => (dispatch) => {
-  dispatch(getCityData(modelId))
+  dispatch(getCity(modelId))
 }
 
 export const openSelectCityPopup = () => (dispatch) => {

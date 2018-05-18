@@ -41,14 +41,13 @@ export function FinanceCityPopup(state = initialState, action) {
           return state.setIn(['isActive'], true);
 
         case financeCityPopup.CLOSE_CITY_POPUP:
-            return state.setIn(['isActive'], false);
+        return state.setIn(['isActive'], false);
 
-        case financeCityPopup.CITY_NEXT:
-            return state.setIn(['isActive'], false);
+      case financeCityPopup.CITY_NEXT:
+        return state.setIn(['isActive'], false);
 
       case financeCityPopup.SET_CITY:
         const actionPayload = action.payload;
-
         const cityId = actionPayload && actionPayload.cityId ? actionPayload.cityId : -1;
         const cityName = actionPayload && actionPayload.cityName ? actionPayload.cityName : "";
         const userChange = actionPayload && actionPayload.userChange ? actionPayload.userChange : false;
@@ -59,6 +58,9 @@ export function FinanceCityPopup(state = initialState, action) {
           cityName: cityName,
           userChange: userChange
         }));
+
+      case financeCityPopup.FETCH_CITY_FAILURE:
+        return initialState;
 
       default:
         return state

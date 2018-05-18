@@ -7,13 +7,12 @@ import ListGroupItem from './ListGroupItem';
 
 import { unlockScroll } from '../../utils/scrollLock';
 import { addPopupEvents, removePopupEvents } from '../../utils/popupScroll';
-import {getGlobalCity} from '../../utils/popUpUtils';
 
 class SelectCityPopup extends React.Component {
   constructor(props) {
       super(props);
-      var globalCity = getGlobalCity();
-      var globalCityName = ( globalCity && globalCity.name.length>0 ) ? globalCity.name : '';
+      this.handleCloseClick = this.handleCloseClick.bind(this);
+      var globalCityName = this.props.selection ? this.props.Selection.cityName : '';
       this.state = {
           Popular:this.props.data.Popular,
           Other:this.props.data.Other,
@@ -71,12 +70,11 @@ class SelectCityPopup extends React.Component {
     if (this.props.onCloseClick) {
       this.props.onCloseClick();
     }
-    
     unlockScroll();
   }
 
   handleClearClick = () => {
-      this.setState(...this.state, {
+      this.setState({
         cityValue:'',
         Popular:this.props.data.Popular,
         Other:this.props.data.Other
