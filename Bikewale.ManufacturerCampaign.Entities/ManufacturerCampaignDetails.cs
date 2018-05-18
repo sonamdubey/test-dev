@@ -29,6 +29,6 @@ namespace Bikewale.ManufacturerCampaign.Entities
         public DateTime DailyStartTime { get; set; }
         public DateTime DailyEndTime { get; set; }
         public ushort? CampaignDays { get; set; }
-        public bool SendLeadSMSCustomer { get; set; }
+        public bool? SendLeadSMSCustomer { get; set; }
     }
 }

@@ -78,6 +78,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                         if (leadEntity.SendLeadSMSCustomer)
                         {
                             SMSTypes.ESCampaignLeadSMSToCustomer(leadEntity.CustomerName, leadEntity.CustomerMobile, leadEntity.DealerName, leadEntity.BikeName);
+                            Logs.WriteInfoLog(String.Format("EsCmapaign message successfully sent to customer on number - {0}", leadEntity.CustomerMobile));
                         }
 
                         //Update campaign daily lead count

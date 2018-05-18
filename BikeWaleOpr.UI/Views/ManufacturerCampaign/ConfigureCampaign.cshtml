@@ -154,7 +154,7 @@
             </div>
             <div class="row">
                 <div class="col offset-s3">
-                    <input type="checkbox" class="filled-in" id="chkSendLeadSMSCustomer" name="SendLeadSMSCustomer"  @(Model.CampaignInformation.DealerDetails.SendLeadSMSCustomer ? "checked value=true " : "") />
+                    <input type="checkbox" class="filled-in" id="chkSendLeadSMSCustomer" name="SendLeadSMSCustomer"  @(Model.CampaignInformation.DealerDetails.SendLeadSMSCustomer == null || Model.CampaignInformation.DealerDetails.SendLeadSMSCustomer == true ? "checked value=true " : "") />
                     <label for="chkSendLeadSMSCustomer">Send SMS to the Customer on lead submission</label>
                 </div>
             </div>
