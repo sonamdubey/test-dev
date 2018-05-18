@@ -1,9 +1,9 @@
 import { financeCityPopup } from '../actionTypes/FinanceCityPopup'
 
-const fetchCityData = () => {
+const getCityData = (modelId) => {
     return (dispatch) => {
         var method = 'GET';
-        var url = '/api/pwa/cities/?requestType=18';
+        var url = '/api/pwa/cities/model/'+ modelId + '/';
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function() {
             if(xhr.readyState == 4 && xhr.status == 200) {
@@ -25,17 +25,15 @@ const openCityPopup = () => {
   }
 }
 
-const closeCityPopup = (payload) => {
+const closeCityPopup = () => {
   return {
-      type: financeCityPopup.CLOSE_CITY_POPUP,
-      payload
+      type: financeCityPopup.CLOSE_CITY_POPUP
   }
 }
 
-const cityNext = (payload) => {
+const cityNext = () => {
     return{
-        type: financeCityPopup.CITY_NEXT,
-        payload
+        type: financeCityPopup.CITY_NEXT
     }
 }
 
@@ -46,8 +44,8 @@ const setCity = (payload) => {
   }
 }
 
-export const fetchCity = () => (dispatch) => {
-  dispatch(fetchCityData())
+export const fetchCity = (modelId) => (dispatch) => {
+  dispatch(getCityData(modelId))
 }
 
 export const openSelectCityPopup = () => (dispatch) => {

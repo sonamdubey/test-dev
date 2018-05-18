@@ -15,24 +15,24 @@ class SelectCityPopup extends React.Component {
       var globalCity = getGlobalCity();
       var globalCityName = ( globalCity && globalCity.name.length>0 ) ? globalCity.name : '';
       this.state = {
-          Popular:[],
-          Other:[],
+          Popular:this.props.data.Popular,
+          Other:this.props.data.Other,
           cityValue: globalCityName
       }
   }
 
-    componentWillReceiveProps(){
-        if( this.props.data.Popular != this.state.Popular || this.props.data.Other != this.state.Other){
+    componentWillReceiveProps(nextProps){
+        if( nextProps.data.Popular != this.state.Popular || nextProps.data.Other != this.state.Other){
             this.setState(...this.state, {
-                Selection:this.props.data.Selection,
-                Popular:this.props.data.Popular,
-                Other:this.props.data.Other
+                Selection:nextProps.data.Selection,
+                Popular:nextProps.data.Popular,
+                Other:nextProps.data.Other
             });
         }
     }
 
   componentDidMount() {
-        this.props.fetchCity();
+        this.props.fetchCity(699);
         addPopupEvents(this.popupContent)
   }
   
@@ -96,7 +96,7 @@ class SelectCityPopup extends React.Component {
     } = this.props
 
     let listItems = this.state.Other.map((item, index) => {
-      let active = data.Selection.cityId === item.cityId ? true : false;
+    let active = data.Selection.cityId === item.cityId;
 
       return (
         <ListGroupItem

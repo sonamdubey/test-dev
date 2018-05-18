@@ -2,10 +2,10 @@ import { combineReducers } from 'redux-immutable'
 import { fromJS } from 'immutable'
 
 import { financeCityPopup } from '../actionTypes/FinanceCityPopup'
-import { getGlobalCity, setGlobalCity } from '../utils/popUpUtils'
+import { getGlobalCity, setGlobalCity, IsGlobalCityPresent } from '../utils/popUpUtils'
 
 var globalCity = getGlobalCity();
-var globalCityName = ( globalCity && globalCity.name.length>0 ) ? globalCity.name : '';
+var globalCityName = ( globalCity && globalCity.name && globalCity.name.length>0 ) ? globalCity.name : '';
 var globalCityId = ( globalCity && globalCity.id>0 ) ? globalCity.id : '';
 var initialState = fromJS({
   isActive: false,
@@ -16,7 +16,7 @@ var initialState = fromJS({
   },
   Popular: [],
   Other: []
-})
+});
 
 export function FinanceCityPopup(state = initialState, action) {
   try {
@@ -25,18 +25,20 @@ export function FinanceCityPopup(state = initialState, action) {
 
     switch (action.type) {
         case financeCityPopup.FETCH_CITY_SUCCESS:
-            return state.setIn(['Popular'], fromJS(action.payload.City.slice(0,6))).setIn(['Other'], fromJS(action.payload.City.slice(6))).setIn(['Selection'],fromJS({
-                cityId: globalCityId,
-                cityName: globalCityName,
-                userChange: false
-            }));
+        let Selection = IsGlobalCityPresent(action.payload, globalCityId)?
+        state.get('Selection')
+        :
+        fromJS({
+          cityId: -1,
+          cityName: "",
+          userChange: false
+        });
+            return state.setIn(['Popular'], fromJS(action.payload.filter(item => item.popularityOrder < 7)))
+            .setIn(['Other'], fromJS(action.payload.filter(item => item.popularityOrder > 6)))
+            .setIn(['Selection'], Selection);
 
       case financeCityPopup.OPEN_CITY_POPUP:
-          return state.setIn(['isActive'], true).setIn(['Selection'],fromJS({
-              cityId: globalCityId,
-              cityName: globalCityName,
-              userChange: false
-          }));
+          return state.setIn(['isActive'], true);
 
         case financeCityPopup.CLOSE_CITY_POPUP:
             return state.setIn(['isActive'], false);
@@ -56,7 +58,7 @@ export function FinanceCityPopup(state = initialState, action) {
           cityId: cityId,
           cityName: cityName,
           userChange: userChange
-        }))
+        }));
 
       default:
         return state

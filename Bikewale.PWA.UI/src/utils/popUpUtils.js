@@ -98,6 +98,11 @@ function setGlobalCity(cityId, cityName, globalCityId) {
     }
 }
 
+function IsGlobalCityPresent(cityList, globalCityId) {
+    if (cityList.some(item => item.cityId === globalCityId)) {
+        return true;
+    }
+}
 
 function getCookie(key) {
     var keyValue = document.cookie.match('(^|;) ?' + key + '=([^;]*)(;|$)');
@@ -570,5 +575,6 @@ module.exports = {
     resetOnRoadPricePopup,
     closeCityAreaSelectionPopup,
     openCityAreaSelectionPopup,
-    setGlobalCity
+    setGlobalCity,
+    IsGlobalCityPresent
 }
