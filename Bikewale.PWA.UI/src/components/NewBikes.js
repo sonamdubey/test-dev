@@ -6,11 +6,11 @@ class NewBikes extends React.Component {
     constructor(props) {
         super(props);
         this.checkOnRoadLinkClick = this.checkOnRoadLinkClick.bind(this);
-
     }
     propTypes : {
         newBikesData : React.PropTypes.object
     };
+    
     checkOnRoadLinkClick (item,event) {
         var category = gaObj.name;
         triggerGA(category, "Get_On_Road_Price_Click", item.ModelName);
@@ -36,7 +36,7 @@ class NewBikes extends React.Component {
         if(item.IsNew) {
               button = (
                   <div class="card-btn-block">
-                      <a data-pagecatid={gaObj.id} data-makename={item.MakeName} data-modelname={item.ModelName} data-modelid={item.ModelId} className="btn btn-card btn-full-width btn-white getquotation" onClick={this.checkOnRoadLinkClick.bind(this,item)}>Check on-road price</a>
+                      <a data-makename={item.MakeName} data-modelname={item.ModelName} data-modelid={item.ModelId} className="btn btn-card btn-full-width btn-white getquotation" onClick={this.checkOnRoadLinkClick.bind(this,item)}>Check on-road price</a>
                   </div>
               )
          }
