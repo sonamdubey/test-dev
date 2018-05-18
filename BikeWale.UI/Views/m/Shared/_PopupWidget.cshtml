@@ -256,12 +256,7 @@
 
                             var jsonObj = _responseData.priceQuote;
 
-                            gaLabel = GetGlobalCityArea() + ', ';
-
-                            if (self.MakeName || self.ModelName )
-                                gaLabel += self.MakeName + ',' + self.ModelName + ',';
-
-
+                            
                             if (self.SelectedCityId() > 0 ) {
                                 if (self.SelectedCity() && self.SelectedCity().id > 0) {
                                     lbtext = "Fetching on-road price for " + self.SelectedCity().name;
@@ -277,6 +272,12 @@
                                 }
 
                             }
+
+                            gaLabel = GetGlobalCityArea() + ', ';
+
+                            if (self.MakeName || self.ModelName )
+                                gaLabel += self.MakeName + ',' + self.ModelName + ',';
+
 
                             if(jsonObj.dealerId > 0)
                                 gtmCodeAppender(self.PageCatId, 'Dealer_PriceQuote_Success_Submit', gaLabel);
