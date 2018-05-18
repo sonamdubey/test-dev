@@ -101,7 +101,8 @@ namespace Bikewale.Models
         /// Description : Added call to BindAdSlotTags.
         /// Modified By: Snehal Dange on 24th Nov 2017
         /// Description: Changed popularBikes.TopCount from 9 to 8
-        /// 
+        /// Modified by : Sanskar Gupta on 18 May 2018
+        /// Description : Set Targeting for city.
         /// </returns>
         public HomePageVM GetData()
         {
@@ -127,6 +128,7 @@ namespace Bikewale.Models
                     CityMaskingName = cityMaskingName,
                     CityName = cityName
                 };
+                objVM.AdTags.TargetedCity = cityName;
             }
             else
             {
