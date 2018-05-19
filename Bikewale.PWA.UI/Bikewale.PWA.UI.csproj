@@ -78,6 +78,7 @@
     <Content Include="src\components\Finance\EmiPieChart.js" />
     <Content Include="src\components\Finance\EMISteps.js" />
     <Content Include="src\components\Finance\EMITab.js" />
+    <Content Include="src\components\Finance\EMITabContainer.js" />
     <Content Include="src\components\Finance\FAQ.js" />
     <Content Include="src\components\Finance\FinanceComponent.js" />
     <Content Include="src\components\Finance\FinanceContainer.js" />

@@ -1,6 +1,6 @@
 import React from 'react';
 import Dropdown from 'react-dropdown';
-
+import {createImageUrl} from '../Widgets/WidgetsCommon'
 class ModelInfo extends React.Component {
   constructor(props) {
     super(props);
@@ -20,12 +20,11 @@ class ModelInfo extends React.Component {
     if(!model) {
       return null;
     }
-
     return (
       <div className="model-info-card">
         <div className="model-info-card__head">
           <div className="model-info-card__image">
-            <img src={model.modelImage} alt={model.modelName}/>
+            <img src={createImageUrl( model.hostUrl, model.originalImagePath, '310x174')} alt={model.modelName}/>
           </div>
           <div className="model-info-card__detail">
             <h3>
@@ -39,8 +38,8 @@ class ModelInfo extends React.Component {
           <div className="model-info__col model-info-col--dropdown">
             <p className="model-info-col__label">Version</p>
             <Dropdown
-              options={model.version}
-              value={model.version[0]}
+              options={model.versionList}
+              value={model.versionList[model.selectedVersionIndex]}
               placeholder="Version"
               placeholderClassName="model-info-col__value"
               arrowClassName="dropdown-version__arrow"
