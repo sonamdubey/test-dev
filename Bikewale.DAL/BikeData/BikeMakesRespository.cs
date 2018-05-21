@@ -654,58 +654,49 @@ namespace Bikewale.DAL.BikeData
                                 footerContent = new MakeSubFooterEntity();
                                 IList<MakeFooterCategory> makeSummary = new List<MakeFooterCategory>();
                                 IList<BikeVersionPriceEntity> priceList = null;
-                                if (makeSummary != null)
+                                while (dr.Read())
                                 {
-                                    while (dr.Read())
-                                    {
-                                        makeSummary.Add(new MakeFooterCategory()
-                                            {
+                                    makeSummary.Add(new MakeFooterCategory
+                                        {
 
-                                                CategoryId = SqlReaderConvertor.ToUInt32(dr["CategoryId"]),
-                                                CategoryName = Convert.ToString(dr["CategoryName"]),
-                                                CategoryDescription = Convert.ToString(dr["CategoryDescription"])
-                                            }
-                                            );
-                                    }
+                                            CategoryId = SqlReaderConvertor.ToUInt32(dr["CategoryId"]),
+                                            CategoryName = Convert.ToString(dr["CategoryName"]),
+                                            CategoryDescription = Convert.ToString(dr["CategoryDescription"])
+                                        }
+                                        );
                                 }
 
                                 if (dr.NextResult())
                                 {
                                     priceList = new List<BikeVersionPriceEntity>();
-                                    if (priceList != null)
+
+                                    while (dr.Read())
                                     {
-                                        while (dr.Read())
+                                        priceList.Add(new BikeVersionPriceEntity()
                                         {
-                                            priceList.Add(new BikeVersionPriceEntity()
+                                            Make = new BikeMakeBase
                                             {
-                                                Make = new BikeMakeBase()
-                                                {
-                                                    MakeId = SqlReaderConvertor.ToInt32(dr["MakeId"]),
-                                                    MakeName = Convert.ToString(dr["Make"]),
-                                                    MakeMaskingName = Convert.ToString(dr["MakeMaskingName"])
+                                                MakeId = SqlReaderConvertor.ToInt32(dr["MakeId"]),
+                                                MakeName = Convert.ToString(dr["Make"]),
+                                                MakeMaskingName = Convert.ToString(dr["MakeMaskingName"])
 
-                                                },
-                                                Model = new BikeModelEntityBase()
-                                                {
-                                                    ModelId = SqlReaderConvertor.ToInt32(dr["ModelId"]),
-                                                    ModelName = Convert.ToString(dr["Model"]),
-                                                    MaskingName = Convert.ToString(dr["ModelMaskingName"])
-                                                },
-                                                VersionPrice = SqlReaderConvertor.ToInt32(dr["VersionPrice"])
-
-                                            }
-                                                );
+                                            },
+                                            Model = new BikeModelEntityBase
+                                            {
+                                                ModelId = SqlReaderConvertor.ToInt32(dr["ModelId"]),
+                                                ModelName = Convert.ToString(dr["Model"]),
+                                                MaskingName = Convert.ToString(dr["ModelMaskingName"])
+                                            },
+                                            VersionPrice = SqlReaderConvertor.ToInt32(dr["VersionPrice"])
 
                                         }
-                                    }
+                                            );
 
+                                    }
                                 }
                                 dr.Close();
-                                if (footerContent != null)
-                                {
-                                    footerContent.FooterDescription = makeSummary;
-                                    footerContent.ModelPriceList = priceList;
-                                }
+                                footerContent.FooterDescription = makeSummary;
+                                footerContent.ModelPriceList = priceList;
 
                             }
                         }
@@ -852,47 +843,42 @@ namespace Bikewale.DAL.BikeData
                             if (dr != null && dr.Read())
                             {
                                 obj = new ResearchMoreAboutMake();
-                                if (obj != null)
+                                obj.Make = new BikeMakeEntityBase
                                 {
-                                    obj.Make = new BikeMakeEntityBase()
-                                    {
-                                        MakeId = SqlReaderConvertor.ToInt32(dr["MakeId"]),
-                                        MakeName = Convert.ToString(dr["MakeName"]),
-                                        MaskingName = Convert.ToString(dr["MakeMaskingName"])
-                                    };
-                                    obj.ScootersCount = SqlReaderConvertor.ToInt32(dr["totalscooterscount"]);
-                                    obj.IsScooterOnlyMake = SqlReaderConvertor.ToBoolean(dr["isscooteronly"]);
-                                    if (cityId > 0)
-                                    {
-                                        obj.DealerShowroomCount = SqlReaderConvertor.ToUInt16(dr["dealerscount"]);
-                                        obj.ServiceCentersCount = SqlReaderConvertor.ToUInt16(dr["servicecenterscount"]);
-                                        obj.UsedBikesCount = SqlReaderConvertor.ToUInt16(dr["usedbikescount"]);
-                                    }
-
-                                    obj.TotalDealerShowroomCount = SqlReaderConvertor.ToUInt16(dr["totaldealerscount"]);
-                                    obj.TotalServiceCentersCount = SqlReaderConvertor.ToUInt16(dr["totalservicecenterscount"]);
-                                    obj.TotalUsedBikesCount = SqlReaderConvertor.ToUInt16(dr["totalusedbikescount"]);
-                                    if (dr.NextResult())
-                                    {
-                                        objSeriesList = new List<BikeSeriesEntity>();
-                                        if (objSeriesList != null)
-                                        {
-                                            while (dr.Read())
-                                            {
-                                                objSeriesList.Add(new BikeSeriesEntity()
-                                                {
-                                                    SeriesId = SqlReaderConvertor.ToUInt16(dr["seriesid"]),
-                                                    SeriesName = Convert.ToString(dr["seriesname"]),
-                                                    MaskingName = Convert.ToString(dr["seriesmaskingname"])
-                                                }
-                                                    );
-                                            }
-                                        }
-
-                                    }
-                                    obj.SeriesList = objSeriesList;
+                                    MakeId = SqlReaderConvertor.ToInt32(dr["MakeId"]),
+                                    MakeName = Convert.ToString(dr["MakeName"]),
+                                    MaskingName = Convert.ToString(dr["MakeMaskingName"])
+                                };
+                                obj.ScootersCount = SqlReaderConvertor.ToInt32(dr["totalscooterscount"]);
+                                obj.IsScooterOnlyMake = SqlReaderConvertor.ToBoolean(dr["isscooteronly"]);
+                                if (cityId > 0)
+                                {
+                                    obj.DealerShowroomCount = SqlReaderConvertor.ToUInt16(dr["dealerscount"]);
+                                    obj.ServiceCentersCount = SqlReaderConvertor.ToUInt16(dr["servicecenterscount"]);
+                                    obj.UsedBikesCount = SqlReaderConvertor.ToUInt16(dr["usedbikescount"]);
                                 }
 
+                                obj.TotalDealerShowroomCount = SqlReaderConvertor.ToUInt16(dr["totaldealerscount"]);
+                                obj.TotalServiceCentersCount = SqlReaderConvertor.ToUInt16(dr["totalservicecenterscount"]);
+                                obj.TotalUsedBikesCount = SqlReaderConvertor.ToUInt16(dr["totalusedbikescount"]);
+                                if (dr.NextResult())
+                                {
+                                    objSeriesList = new List<BikeSeriesEntity>();
+
+                                    while (dr.Read())
+                                    {
+                                        objSeriesList.Add(new BikeSeriesEntity
+                                        {
+                                            SeriesId = SqlReaderConvertor.ToUInt16(dr["seriesid"]),
+                                            SeriesName = Convert.ToString(dr["seriesname"]),
+                                            MaskingName = Convert.ToString(dr["seriesmaskingname"])
+                                        }
+                                            );
+                                    }
+
+
+                                }
+                                obj.SeriesList = objSeriesList;
                                 dr.Close();
                             }
                         }
