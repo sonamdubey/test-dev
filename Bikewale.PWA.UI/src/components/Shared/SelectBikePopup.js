@@ -25,7 +25,6 @@ class SelectBikePopup extends React.Component {
     if (!this.props.data.MakeModelList || !this.props.data.MakeModelList.length) {
       this.props.fetchMakeModelList();
     }
-    }
   }
 
   componentDidMount() {
