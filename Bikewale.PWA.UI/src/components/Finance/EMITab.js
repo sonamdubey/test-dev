@@ -13,14 +13,16 @@ import { scrollTop } from '../../utils/scrollTo';
 
 import { lockScroll, unlockScroll } from '../../utils/scrollLock';
 import { slider } from '../../reducers/emiInterest';
-
+import { getGlobalCity } from '../../utils/popUpUtils'
 class EMITab extends React.Component {
   constructor(props) {
     super(props);
     this.scrollToNextPopup = this.scrollToNextPopup.bind(this);
     this.getSelectedBikeId = this.getSelectedBikeId.bind(this);
     this.getSelectedCityId = this.getSelectedCityId.bind(this);
-    this.state = { shouldscroll: false };
+    this.state = {
+      shouldscroll: false
+    };
   }
 
   handleSelectBikeClick = () => {
@@ -51,45 +53,37 @@ class EMITab extends React.Component {
   }
 
   handleSimilarEMISwiperCardClick = (modelId, onRoadPrice) => {
+    const currentCityId = this.getSelectedCityId(this.props);
     const {
       sliderTenure,
       sliderInt,
       fetchSimilarBikes,
-      openEmiCalculator
+      openEmiCalculator,
+      selectBikePopup
     } = this.props
-    fetchSimilarBikes({
-      modelId: modelId,
-      downPayment: onRoadPrice * .3,
-      tenure: sliderTenure.values[0],
-      rateOfInt: sliderInt.values[0]
-    })
-    openEmiCalculator(onRoadPrice)
-    scrollTop(window, this.refs.emiTabsContainer.getBoundingClientRect().top + (window.pageYOffset || document.documentElement.scrollTop))
-  }
+    if (currentCityId > 0 && selectBikePopup.Selection.modelId > 0) {
+      fetchSimilarBikes({
+        modelId: modelId,
+        cityId: currentCityId,
+        downPayment: onRoadPrice * .3,
+        tenure: sliderTenure.values[0],
+        rateOfInt: sliderInt.values[0]
+      })
+      openEmiCalculator(onRoadPrice)
+      scrollTop(window, this.refs.emiTabsContainer.getBoundingClientRect().top + (window.pageYOffset || document.documentElement.scrollTop))
+    }
 
-  componentDidMount() {
-    const {
-      selectBikePopup,
-      sliderDp,
-      sliderTenure,
-      sliderInt,
-      fetchSimilarBikes,
-      openEmiCalculator
-    } = this.props;
-    fetchSimilarBikes({
-      modelId: selectBikePopup.Selection.modelId,
-      downPayment: sliderDp.values[0],
-      tenure: sliderTenure.values[0],
-      rateOfInt: sliderInt.values[0]
-    });
-    openEmiCalculator(168021);
   }
 
   componentDidUpdate(prevProps) {
     const {
+      selectBikePopup,
       SimilarBikesEMI,
       updateSimilarBikesEmi,
+      fetchSimilarBikes,
+      openEmiCalculator,
       FinanceCityPopup,
+      sliderDp,
       sliderTenure,
       sliderInt
     } = this.props;
@@ -118,8 +112,34 @@ class EMITab extends React.Component {
       }
     }
     // For any change in bike or city we fetch new bike version list
-    if ((currentBikeId != this.getSelectedBikeId(prevProps) || currentCityId != this.getSelectedCityId(prevProps)) && currentCityId > 0 && currentBikeId > 0) {
+    if (currentCityId > 0 && currentBikeId > 0 && (currentBikeId != this.getSelectedBikeId(prevProps) || currentCityId != this.getSelectedCityId(prevProps))) {
       this.props.fetchBikeVersionList(currentBikeId, currentCityId);
+
+      if (sliderDp.values[0] > 0 && sliderInt.values[0] && sliderTenure.values[0] > 0) {
+        fetchSimilarBikes({
+          modelId: currentBikeId,
+          cityId: currentCityId,
+          downPayment: sliderDp.values[0],
+          tenure: sliderTenure.values[0],
+          rateOfInt: sliderInt.values[0]
+        })
+      }
+
+    }
+    if ((currentBikeId != this.getSelectedBikeId(prevProps) || (currentBikeId == this.getSelectedBikeId(prevProps) && prevProps.selectBikePopup.Selection.selectedVersionIndex != selectBikePopup.Selection.selectedVersionIndex))
+      && selectBikePopup.Selection.versionList.length > 0 && selectBikePopup.Selection.selectedVersionIndex > -1) {
+      openEmiCalculator(selectBikePopup.Selection.versionList[selectBikePopup.Selection.selectedVersionIndex].price);
+    }
+    if (currentCityId > 0 && currentBikeId > 0 && sliderDp.values[0] > 0 && sliderInt.values[0] && sliderTenure.values[0] > 0
+      && (sliderDp.values[0] != prevProps.sliderDp.values[0] || sliderInt.values[0] != prevProps.sliderInt.values[0]
+        || sliderTenure.values[0] != prevProps.sliderTenure.values[0])) {
+      fetchSimilarBikes({
+        modelId: currentBikeId,
+        cityId: currentCityId,
+        downPayment: sliderDp.values[0],
+        tenure: sliderTenure.values[0],
+        rateOfInt: sliderInt.values[0]
+      })
     }
   }
 
@@ -165,7 +185,7 @@ class EMITab extends React.Component {
         <EMICalculator />
 
         {
-          SimilarBikesEMI != null && SimilarBikesEMI.data != null && (
+          SimilarBikesEMI != null && SimilarBikesEMI.data != null && SimilarBikesEMI.data.length > 0 && (
             <SwiperContainer
               type="carousel__similar-emi"
               heading="Other Bikes in similar range"

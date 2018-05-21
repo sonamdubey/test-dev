@@ -59,12 +59,6 @@ class Tabs extends React.Component {
           </div>
         </div>
 
-        <div className="tabs-panel__item" data-tab-panel="loanEligibilityTab">
-          <div className="loan-eligibility__content">
-            Loan Eligibility Predictor
-          </div>
-        </div>
-
         <div className="tabs-panel__item" data-tab-panel="documentationTab">
           <div className="finance-documentation">
             <Documentation />

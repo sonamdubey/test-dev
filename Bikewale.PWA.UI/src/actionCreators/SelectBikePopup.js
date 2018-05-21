@@ -32,10 +32,12 @@ const getBikeVersionList = (dispatch, modelId, cityId) => {
   var xhr = new XMLHttpRequest();
   xhr.onreadystatechange = function () {
     if (xhr.readyState == 4) {
-      if (xhr.status == 200)
+      if (xhr.status == 200){
         dispatch({ type: selectBikePopup.FETCH_VERSIONLIST_SUCCESS, payload: JSON.parse(xhr.responseText) });
-      else
+      }
+      else{
         dispatch({ type: selectBikePopup.FETCH_VERSIONLIST_FAILURE });
+      }
     }
   }
   xhr.open('GET', '/api/pwa/PQVersionList/?modelid=' + modelId + '&cityId=' + cityId);
@@ -96,4 +98,5 @@ export const fetchMakeModelList = () => (dispatch) => {
 export const fetchBikeVersionList = (modelId, cityId) => (dispatch) => {
   return getBikeVersionList(dispatch, modelId, cityId);
 }
+
 
