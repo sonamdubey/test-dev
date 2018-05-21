@@ -15,6 +15,7 @@ using Bikewale.Utility;
 using Newtonsoft.Json;
 using Bikewale.Models.Shared;
 using Bikewale.Models.Finance;
+using System.Collections.Generic;
 
 namespace Bikewale.Models
 {
@@ -76,6 +77,8 @@ namespace Bikewale.Models
             try
             {
 				BindPageMetas(objData.PageMetaTags);
+				SetBreadcrumList(objData);
+				SetPageJSONLDSchema(objData);
                 objData.ReduxStore = new PwaReduxStore();
                 var storeJson = JsonConvert.SerializeObject(objData.ReduxStore);
                 objData.ServerRouterWrapper = _renderedArticles.GetNewsListDetails(PwaCmsHelper.GetSha256Hash(storeJson), objData.ReduxStore.News.NewsArticleListReducer,
@@ -89,6 +92,31 @@ namespace Bikewale.Models
             }
             return objData;
         }
+
+		private void SetBreadcrumList(FinanceIndexPageVM objData)
+		{
+			try
+			{
+				IList<BreadcrumbListItem> BreadCrumbs = new List<BreadcrumbListItem>();
+				string bikeUrl;
+				bikeUrl = string.Format("{0}/", Utility.BWConfiguration.Instance.BwHostUrl);
+				bikeUrl += "m/";
+				BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(1, bikeUrl, "Home"));
+
+				objData.BreadcrumbList.BreadcrumListItem = BreadCrumbs;
+			}
+			catch (Exception ex)
+			{
+				Bikewale.Notifications.ErrorClass.LogError(ex, "Bikewale.Models.Finance.FinanceIndexPage.SetBreadcrumList");
+			}
+
+		}
+
+		private void SetPageJSONLDSchema(FinanceIndexPageVM objData)
+		{
+			WebPage webpage = SchemaHelper.GetWebpageSchema(objData.PageMetaTags, objData.BreadcrumbList);
+			objData.PageMetaTags.PageSchemaJSON = SchemaHelper.JsonSerialize(webpage);
+		}
 
 		private void BindPageMetas(PageMetaTags objPage)
 		{

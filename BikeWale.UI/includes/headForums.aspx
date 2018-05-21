@@ -77,7 +77,7 @@
                         <li><a href="/used/sell/">Sell Bike</a></li>
                         <li class="pri-nav-sept"></li>
                         <%--<li class="active"><a href="/forums/">Forum</a></li>--%>
-                        <li class="active"><a href="/finance/emicalculator.aspx">Tools</a></li>
+                        <li class="active"><a href="/finance/emicalculator.aspx">EMI Calculator</a></li>
                         <li class="pri-nav-sept"></li>
                         <li><a href="/news/">News</a></li>
                         <li class="pri-nav-sept"></li>
