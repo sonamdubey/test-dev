@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types'
+import { fetchSimilarBikes } from '../../actionCreators/SimilarBikesEMI'
 
 const propTypes = {
   // list type
@@ -24,6 +25,11 @@ class SwiperContainer extends React.Component {
     super(props);
   }
 
+  handleCardClick = (item) => {
+    if(item.modelId > 0 && item.onRoadPriceAmount > 0){
+      this.props.onCarouselCardClick(item.modelId, item.onRoadPriceAmount);
+    }
+  }
   getCarouselList = () => {
     const {
       type,
@@ -35,8 +41,8 @@ class SwiperContainer extends React.Component {
 
     let list = data.map((item, index) => {
       return (
-        <li className="carousel__slide" key={index}>
-          <CarouselCard item={item} />
+        <li onClick={this.handleCardClick.bind(this, item)} className="carousel__slide" key={index} >
+          <CarouselCard item={item}/>
         </li>
       )
     })

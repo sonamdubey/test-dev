@@ -63,7 +63,7 @@ namespace Bikewale.Service.Controllers.BikeData
         /// <param name="topcount"></param>
         /// <param name="cityId"></param>
         /// <returns>SimilarBikesForEMIEntityList</returns>
-        [HttpGet,Route("api/pwa/similarbikes/model/{modelId}/finance/")]
+        [HttpGet,Route("api/pwa/similarbikes/model/{modelId:int}/finance/")]
         public IHttpActionResult GetSimilarBikesForEMI(int modelId, byte topcount, int cityId)
         {
             try

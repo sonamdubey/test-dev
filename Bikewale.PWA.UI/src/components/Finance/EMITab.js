@@ -1,13 +1,18 @@
 import React from 'react'
+import { fetchSimilarBikes, updateSimilarBikesEmi } from '../../actionCreators/SimilarBikesEMI'
+
 import SelectBikePopup from '../Shared/SelectBikePopup'
 import EMISteps from './EMISteps'
 import EMICalculator from './EMICalculator'
 import SelectCityPopup from '../Shared/SelectCityPopup'
 import ModelInfo from './ModelInfoContainer'
-import SwiperContainer from '../Shared/SwiperContainer';
-import SwiperSimilarBikesEMI from '../Shared/SwiperSimilarBikesEMI';
+import SwiperContainer from '../Shared/SwiperContainer'
+import SwiperSimilarBikesEMI from '../Shared/SwiperSimilarBikesEMI'
 import { IsGlobalCityPresent } from '../../utils/popUpUtils'
+import { scrollTop } from '../../utils/scrollTo';
+
 import { lockScroll, unlockScroll } from '../../utils/scrollLock';
+import { slider } from '../../reducers/emiInterest';
 
 class EMITab extends React.Component {
   constructor(props) {
@@ -40,7 +45,70 @@ class EMITab extends React.Component {
       cityName: item.cityName,
       userChange: true
     }
+
     this.props.selectCity(payload);
+  }
+
+  handleSimilarEMISwiperCardClick = (modelId, onRoadPrice) => {
+    const {
+      selectBikePopup,
+      sliderDp,
+      sliderTenure,
+      sliderInt,
+      fetchSimilarBikes,
+      openEmiCalculator
+    } = this.props
+    fetchSimilarBikes({
+      modelId: modelId,
+      downPayment: onRoadPrice * .3,
+      tenure: sliderTenure.values[0],
+      rateOfInt: sliderInt.values[0]
+    })
+    openEmiCalculator(onRoadPrice)
+    scrollTop(window, this.refs.emiTabsContainer.getBoundingClientRect().top + (window.pageYOffset || document.documentElement.scrollTop))
+  }
+
+  componentDidMount() {
+    const {
+      selectBikePopup,
+      sliderDp,
+      sliderTenure,
+      sliderInt,
+      fetchSimilarBikes,
+      openEmiCalculator
+    } = this.props;
+    fetchSimilarBikes({
+      modelId: selectBikePopup.Selection.modelId,
+      downPayment: sliderDp.values[0],
+      tenure: sliderTenure.values[0],
+      rateOfInt: sliderInt.values[0]
+    });
+    openEmiCalculator(168021);
+  }
+
+  componentDidUpdate(prevProps) {
+    const {
+      SimilarBikesEMI,
+      updateSimilarBikesEmi,
+      sliderTenure,
+      sliderInt
+    } = this.props;
+    if (prevProps.sliderInt.values[0] !== sliderInt.values[0]
+      || prevProps.sliderTenure.values[0] !== sliderTenure.values[0]) {
+      updateSimilarBikesEmi(SimilarBikesEMI, {
+        tenure: sliderTenure.values[0],
+        rateOfInt: sliderInt.values[0]
+      });
+    }
+    if (this.state.shouldscroll) {
+      if (this.refs.emiSteps != null) {
+        this.refs.emiSteps.scrollCityToView();
+      }
+      if (this.props.FinanceCityPopup && ((this.props.FinanceCityPopup.Popular.length > 0 || this.props.FinanceCityPopup.Other.length > 0) && !(IsGlobalCityPresent(this.props.FinanceCityPopup.Popular, this.getSelectedCityId()) || IsGlobalCityPresent(this.props.FinanceCityPopup.Other, this.getSelectedCityId())))) {
+        this.props.openSelectCityPopup();
+        this.setState({ ...this.state, shouldscroll: false });
+      }
+    }
   }
 
   setBikeChange = (value) => {
@@ -65,19 +133,6 @@ class EMITab extends React.Component {
       this.props.FinanceCityPopup.Selection.cityId : -1;
   }
 
-  componentDidUpdate = () => {
-    if (this.state.shouldscroll) {
-      if( this.refs.emiSteps != null) {
-        this.refs.emiSteps.scrollCityToView();
-      }
-      if(this.props.FinanceCityPopup && ((this.props.FinanceCityPopup.Popular.length > 0 || this.props.FinanceCityPopup.Other.length > 0)  && !(IsGlobalCityPresent(this.props.FinanceCityPopup.Popular, this.getSelectedCityId()) || IsGlobalCityPresent(this.props.FinanceCityPopup.Other, this.getSelectedCityId()))))
-      {
-        this.props.openSelectCityPopup();
-        this.setState({ ...this.state, shouldscroll: false });
-      }
-    }
-  }
-
   render() {
     const {
       selectBikePopup,
@@ -97,7 +152,7 @@ class EMITab extends React.Component {
     } = this.props
     const currentCityId = FinanceCityPopup.Selection != null && FinanceCityPopup.Selection.cityId != null ? FinanceCityPopup.Selection.cityId : -1;
     return (
-      <div>
+      <div ref="emiTabsContainer">
         <div className="emi-calculator__head">
           <h2 className="emi-calculator__title">EMI Calculator</h2>
           <p className="emi-calculator__head-description">
@@ -111,6 +166,7 @@ class EMITab extends React.Component {
           <ModelInfo />}
 
         <EMICalculator />
+
         {
           SimilarBikesEMI != null && SimilarBikesEMI.data != null && (
             <SwiperContainer
@@ -118,21 +174,20 @@ class EMITab extends React.Component {
               heading="Other Bikes in similar range"
               data={SimilarBikesEMI.data}
               carouselCard={SwiperSimilarBikesEMI}
+              onCarouselCardClick={this.handleSimilarEMISwiperCardClick}
             />
           )
         }
 
         {
           selectBikePopup != null &&
-          <SelectBikePopup isActive={selectBikePopup.isActive} data={selectBikePopup} onCloseClick={closeSelectBikePopup} selectBike={selectModel} fetchMakeModelList={fetchMakeModelList} scrollToNextPopup={this.scrollToNextPopup} getSelectedCityId={this.getSelectedCityId} setBikeChange={this.setBikeChange} fetchBikeVersionList={fetchBikeVersionList}/>
+          <SelectBikePopup isActive={selectBikePopup.isActive} data={selectBikePopup} onCloseClick={closeSelectBikePopup} selectBike={selectModel} fetchMakeModelList={fetchMakeModelList} scrollToNextPopup={this.scrollToNextPopup} getSelectedCityId={this.getSelectedCityId} setBikeChange={this.setBikeChange} fetchBikeVersionList={fetchBikeVersionList} />
         }
         {
           FinanceCityPopup != null &&
-          <SelectCityPopup isActive={FinanceCityPopup.isActive} data={FinanceCityPopup} fetchCity={fetchCity} onCityClick={this.handleCityClick} onCloseClick={closeSelectCityPopup} openSelectCityPopup={openSelectCityPopup} getSelectedBikeId={this.getSelectedBikeId} checkBikeChange={this.checkBikeChange} setBikeChange={this.setBikeChange} fetchBikeVersionList={fetchBikeVersionList}/>
+          <SelectCityPopup isActive={FinanceCityPopup.isActive} data={FinanceCityPopup} fetchCity={fetchCity} onCityClick={this.handleCityClick} onCloseClick={closeSelectCityPopup} openSelectCityPopup={openSelectCityPopup} getSelectedBikeId={this.getSelectedBikeId} checkBikeChange={this.checkBikeChange} setBikeChange={this.setBikeChange} fetchBikeVersionList={fetchBikeVersionList} />
         }
-      </div>
-    );
+      </div>);
   }
 }
 export default EMITab;
-

@@ -12,7 +12,7 @@ const initialSliderState = fromJS({
 	sliderTitleRight: 'On-Road Price'
 })
 
-export const slider = (state = initialSliderState, action) => {
+const slider = (state = initialSliderState, action) => {
 	if (!state)
 		return initialSliderState;
 

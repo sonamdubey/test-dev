@@ -14,7 +14,6 @@ import {
 } from './EmiCalculations'
 import PieBreakUp from './EmiPieBreakup'
 import { formatToINR } from '../../utils/formatAmount'
-import {openEmiCalculator } from '../../actionCreators/emiDownPaymentSlider'
 export class EMICalculator extends React.Component {
 	constructor(props) {
 		super(props);
@@ -34,10 +33,6 @@ export class EMICalculator extends React.Component {
 		})
 	}
 
-	componentWillMount() {
-		const {openEmiCalculator} = this.props;
-		openEmiCalculator(168021);
-	}
 	render() {
 		if (this.props.sliderDp.onRoadPrice === 0) {
 			return null;
@@ -103,9 +98,4 @@ const mapStateToProps = (state) => {
 	}
 }
 
-const mapDispatchToProps = (dispatch) => {
-	return ({
-		openEmiCalculator : bindActionCreators(openEmiCalculator, dispatch)
-	})
-}
-module.exports = connect(mapStateToProps, mapDispatchToProps)(toJS(EMICalculator));
+export default connect(mapStateToProps, null)(toJS(EMICalculator));

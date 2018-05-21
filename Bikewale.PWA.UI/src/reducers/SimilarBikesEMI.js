@@ -1,66 +1,50 @@
 import { combineReducers } from 'redux-immutable'
 import { fromJS } from 'immutable'
-
 import { similarBikesEMI } from '../actionTypes/SimilarBikesEMI'
-
+import { EmiCalculation } from '../components/Finance/EMICalculations'
+const onRoadPriceLabel = "On-Road Price";
+const emiLabel = "EMI";
 var initialState = fromJS({
   data: [
     {
-      makeId: 7,
-      makeName: "Honda",
-      modelId: 100,
-      modelName: "CBR500R",
-      modelImage: "https://imgd.aeplcdn.com//310x174//bw/upcoming/honda-cb500x-421.jpg",
-      onRoadPriceLabel: "On-Road Price",
-      onRoadPriceAmount: 235000,
-      emiLabel: "EMI",
-      emiStart: 16734
-    },
-    {
-      makeId: 7,
-      makeName: "Honda",
-      modelId: 1142,
-      modelName: "Activa",
-      modelImage: "https://imgd.aeplcdn.com//310x174//bw/models/honda-activa-5g.jpg",
-      onRoadPriceLabel: "On-Road Price",
-      onRoadPriceAmount: 75000,
-      emiLabel: "EMI",
-      emiStart: 12000
-    },
-    {
-      makeId: 7,
-      makeName: "Honda",
-      modelId: 59,
-      modelName: "CB Shine",
-      modelImage: "https://imgd.aeplcdn.com//310x174//bw/models/honda-shine.jpg",
-      onRoadPriceLabel: "On-Road Price",
-      onRoadPriceAmount: 123000,
-      emiLabel: "EMI",
-      emiStart: 14534
-    },
-    {
-      makeId: 7,
-      makeName: "Honda",
-      modelId: 693,
-      modelName: "CB Unicorn 150",
-      modelImage: "https://imgd.aeplcdn.com//310x174//bw/models/honda-cb-unicorn-150.jpg",
-      onRoadPriceLabel: "On-Road Price",
-      onRoadPriceAmount: 112000,
-      emiLabel: "EMI",
-      emiStart: 10205
+      makeId: 0,
+      makeName: "",
+      modelId: 0,
+      modelName: "",
+      modelImage: "",
+      onRoadPriceLabel: "",
+      onRoadPriceAmount: 0,
+      emiLabel: "",
+      emiStart: 0
     }
   ]
 })
 
-export function SimilarBikesEMI(state, action) {
+export function SimilarBikesEMI(state , action) {
   try {
-    if (!state) {
+    if (state.size == 0) {
       return initialState;
     }
 
     switch (action.type) {
       case similarBikesEMI.FETCH_SIMILAR_BIKES_EMI:
-        return initialState;
+        let modelEmiObj = action.payload.modelEmiObj
+        return fromJS({
+          data: action.payload.data.map(x => ({
+            ...x,
+            emiStart: EmiCalculation(x.onRoadPriceAmount - (x.onRoadPriceAmount * .3), modelEmiObj.tenure, modelEmiObj.rateOfInt),
+            onRoadPriceLabel: onRoadPriceLabel,
+            emiLabel: emiLabel
+          }))
+        })
+      case similarBikesEMI.UPDATE_EMI:
+        modelEmiObj = action.payload.modelEmiObj
+        return fromJS({
+          data: action.payload.similarBikesList.data.map(x => ({
+            ...x,
+            emiStart: EmiCalculation(x.onRoadPriceAmount - (x.onRoadPriceAmount * .3), modelEmiObj.tenure, modelEmiObj.rateOfInt) 
+          }))
+        })
 
       default:
         return state
