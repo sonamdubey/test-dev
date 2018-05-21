@@ -109,9 +109,14 @@ namespace Bikewale.BAL.Lead
 
                         pqCustomerDetailEntity = NotifyCustomerAndDealer(pqInput, requestHeaders);
                         pqCustomerDetailEntity.Dealer = objBookingPageDetailsEntity.Dealer;
-                        pqCustomerDetailEntity.NoOfAttempts = noOfAttempts;
-
                     }
+                    else
+                    {
+                        pqCustomerDetailEntity = new PQCustomerDetailOutputEntity();
+                        pqCustomerDetailEntity.Dealer = null;
+                    }
+                    pqCustomerDetailEntity.NoOfAttempts = noOfAttempts;
+                    pqCustomerDetailEntity.IsSuccess = true;
                 }
             }
             catch (Exception ex)
@@ -180,11 +185,15 @@ namespace Bikewale.BAL.Lead
                     {
                         pqCustomer = _objDealerPriceQuote.GetCustomerDetails(Convert.ToUInt32(pqId));
                         objCust = pqCustomer.objCustomerBase;
-
                         pqCustomerDetailEntity = NotifyCustomerAndDealer(pqInput, requestHeaders);
-                        pqCustomerDetailEntity.NoOfAttempts = noOfAttempts;
-                        pqCustomerDetailEntity.PQId = pqId;
                     }
+                    else
+                    {
+                        pqCustomerDetailEntity = new PQCustomerDetailOutputEntity();
+                    }
+                    pqCustomerDetailEntity.NoOfAttempts = noOfAttempts;
+                    pqCustomerDetailEntity.PQId = pqId;
+                    pqCustomerDetailEntity.IsSuccess = true;
                 }
             }
             catch (Exception ex)

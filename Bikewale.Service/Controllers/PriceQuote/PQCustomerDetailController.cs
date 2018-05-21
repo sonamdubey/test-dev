@@ -139,14 +139,8 @@ namespace Bikewale.Service.Controllers.PriceQuote
                     NameValueCollection requestHeaders = SetRequestHeaders(Request.Headers);
                     outEntity = _objLeadProcess.ProcessPQCustomerDetailInputWithPQ(pqInput, requestHeaders);
                     output = PQCustomerMapper.Convert(outEntity);
-                    if (output != null)
-                    {
-                        return Ok(output);
-                    }
-                    else
-                    {
-                        return NotFound();
-                    }
+                    
+                    return Ok(output);
                 }
                 else
                 {
@@ -192,15 +186,8 @@ namespace Bikewale.Service.Controllers.PriceQuote
                     NameValueCollection requestHeaders = SetRequestHeaders(Request.Headers);
                     outEntity = _objLeadProcess.ProcessPQCustomerDetailInputWithoutPQ(pqInput, requestHeaders);
                     output = PQCustomerMapper.Convertv2(outEntity);//mapper
-                    if (output != null)
-                    {
-                        return Ok(output);
-                    }
-                    else
-                    {
-                        return NotFound();
-                    }
-
+                    
+                    return Ok(output);
                 }
                 else
                 {
