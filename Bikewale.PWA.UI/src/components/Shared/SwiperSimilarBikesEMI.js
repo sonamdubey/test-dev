@@ -16,7 +16,7 @@ class SwiperSimilarBikesEMI extends React.Component {
 
     return (
       <div className="carousel-slide__card">
-        <Link to="" title={item.makeName + ' ' + item.modelName} className="similar-emi-card__target">
+        <div className="similar-emi-card__target">
           <div className="similar-emi-card__image">
             <LazyLoad>
               <img src={item.modelImage} alt={item.makeName + ' ' + item.modelName}  />
@@ -27,7 +27,7 @@ class SwiperSimilarBikesEMI extends React.Component {
             <p className="carousel-card-detail__subtitle">{item.onRoadPriceLabel}</p>
             <p className="carousel-card-detail__amount">&#x20b9; <span className="carousel-text--semibold">{formatToINR(item.onRoadPriceAmount, false)}</span></p>
           </div>
-        </Link>
+        </div>
         <div className="similar-emi-card__footer">
           <p className="similar-emi-card-footer__title">
             <span className="carousel-text--semibold">{item.emiLabel}:&nbsp;</span>&#x20b9;&nbsp;<span class="carousel-text--bold">{formatToINR(item.emiStart, false)}</span>&nbsp;Onwards</p>

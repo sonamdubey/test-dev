@@ -16,7 +16,10 @@ function monthsToYears(months) {
 	else{
 		yearText = "Years"
 	}
-	if(months > 11){
+	if(monthCal == 0){
+		return yearCal + " " + yearText
+	}
+	else if(months > 11){
 		return yearCal + " " + yearText + " and " + monthCal + " " + monthText
 	}
 	else{

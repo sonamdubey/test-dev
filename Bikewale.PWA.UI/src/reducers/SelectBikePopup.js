@@ -9,7 +9,9 @@ var initialState = fromJS({
     makeName: "Honda",
     modelName: "CB Hornet 160R",
     modelImage: "https://imgd.aeplcdn.com//310x174//bw/models/honda-cb-hornet-160r.jpg",
+    modelId: 693,
     rating: 4.5,
+    selectedVersionIndex: 0,
     version: [
       {
         value: 4792,
