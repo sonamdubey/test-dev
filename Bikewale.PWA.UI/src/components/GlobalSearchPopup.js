@@ -111,7 +111,6 @@ class GlobalSearchPopup extends React.Component {
 	        trendingSearchList = trendingSearchList.filter((item) => { return (item != null && typeof item != "undefined")}).map(function (item) {
                 return { label: item.BikeName, payload: {'expertReviewsCount':"0", 'modelId': item.objModel.modelId.toString(), 'modelMaskingName': item.objModel.maskingName, 'makeId': item.objMake.makeId.toString(), 'makeMaskingName' : item.objMake.maskingName, 'isNew' : "True", 'name' : item.BikeName} }
 	        });
-	        trendingSearchList.unshift({ label: "Track Day 2018", payload: {'expertReviewsCount':"0", 'modelId': "0", 'modelMaskingName': "", 'makeId': "0", 'makeMaskingName' : "", 'isNew' : "False", 'name' : "Track Day 2018", "href" : "featured/trackday-2018/"} })
 	       }
 	    if(recentSearchList === null || recentSearchList.length === 0) {
 	        recentSearchList = [];
