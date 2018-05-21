@@ -67,6 +67,8 @@ class SelectBikePopup extends React.Component {
   filterMakeModelList = (event) => {
     let inputName = event.target.value;
     let modelList = event && !event.data ? this.props.data.MakeModelList : this.state.makeModelList;
+    let searchMode = event && inputName != null && inputName.length > 0 ? true : false;
+    console.log(searchMode); 
     let makeModelList = [];
     if (modelList != null) {
       makeModelList = modelList.map(function (item) {
@@ -84,7 +86,7 @@ class SelectBikePopup extends React.Component {
         }
       }).filter(n => n);
     }
-    this.setState({ ...this.state, makeModelList: makeModelList, modelValue: inputName });
+    this.setState({ ...this.state, makeModelList: makeModelList, modelValue: inputName, searchMode: searchMode });
   }
 
   getList = (makeModelList) => {
@@ -150,7 +152,7 @@ class SelectBikePopup extends React.Component {
           </div>
           <div className="select-bike__body select-bike__accordion">
             {
-              MakeModelList && MakeModelList.length > 0 ? <Accordion closeable={true} items={this.getList(MakeModelList)}>
+              MakeModelList && MakeModelList.length > 0 ? <Accordion closeable={true} allOpen={this.state.searchMode} items={this.getList(MakeModelList)}>
               </Accordion> :
                 <NoResult
                   type="select-bike__no-bike-content"
