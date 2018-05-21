@@ -18,7 +18,6 @@ class SelectBikePopup extends React.Component {
   }
 
   componentWillReceiveProps() {
-    this.refs.bikeInput.focus();
     this.setState({ currentModelId: this.props.data.Selection.modelId, modelValue: this.props.data.Selection.modelName, makeModelList: this.props.data.MakeModelList });
   }
 
@@ -141,7 +140,7 @@ class SelectBikePopup extends React.Component {
                 <p className="popup-search__title">Select Make and Model</p>
                 <div className="autocomplete-box">
                   <div className="autocomplete-field">
-                    <input ref="bikeInput" type="text" value={this.state.modelValue} className="form-control"
+                    <input type="text" value={this.state.modelValue} className="form-control"
                       placeholder="Type to select Make and Model" onChange={this.filterMakeModelList} onFocus={this.filterMakeModelList} />
                     <span className="autocomplete-box__clear" onClick={this.handleClear} >Clear</span>
                   </div>

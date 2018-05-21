@@ -16,11 +16,7 @@ class EMIInterest  extends React.Component {
 	constructor(props) {
 		super(props);
 	}
-	componentDidMount(){
-		const {
-			slider
-		} = this.props
-	}
+
 	handleSliderChange = ({ values }) => {
 		const {
 			updateInterestSlider,
@@ -28,17 +24,15 @@ class EMIInterest  extends React.Component {
 
 		updateInterestSlider({ values, userChange: true })
 	}
-	handleSliderDragStart = () => {
-		if((this.refs.interestSlider.getElementsByClassName('rheostat-handle')) != document.activeElement){
-			this.refs.interestSlider.querySelectorAll('.rheostat-handle')[0].focus()
-		}
-	}
-	handleSliderDragEnd = () => {
+
+	handlePieChartAnimation = () => {
 		const {
 			startAnimation
 		} = this.props
+
 		startAnimation()
 	}
+
 	render() {
 		let {
 			slider
@@ -59,8 +53,8 @@ class EMIInterest  extends React.Component {
 			snapOnDragMove: true,
 			disableSnapOnClick: false,
 			onChange: this.handleSliderChange,
-			onSliderDragStart: this.handleSliderDragStart,
-			onSliderDragEnd: this.handleSliderDragEnd,
+			onClick: this.handlePieChartAnimation,
+			onSliderDragEnd: this.handlePieChartAnimation
 		}
 		return (
 				<div className="emi-calci-header slider-input-container">

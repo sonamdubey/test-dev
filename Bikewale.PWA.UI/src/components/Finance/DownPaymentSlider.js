@@ -17,11 +17,7 @@ class EMIDownPayment extends React.Component {
   constructor(props) {
     super(props);
   }
-  componentDidMount() {
-    const {
-      slider
-    } = this.props
-  }
+
   handleSliderChange = ({ values }) => {
     const {
       updateDownPaymentSlider,
@@ -29,21 +25,20 @@ class EMIDownPayment extends React.Component {
 
     updateDownPaymentSlider({ values, userChange: true })
   }
-  handleSliderDragStart = () => {
-    if ((this.refs.downPaymentSlider.getElementsByClassName('rheostat-handle')) != document.activeElement) {
-      this.refs.downPaymentSlider.querySelectorAll('.rheostat-handle')[0].focus()
-    }
-  }
-  handleSliderDragEnd = () => {
+
+  handlePieChartAnimation = () => {
     const {
       startAnimation
     } = this.props
+
     startAnimation()
   }
+
   updateLoanText() {
     let loanAmountUpdated = this.props.slider.onRoadPrice - this.props.slider.values[0];
     return loanAmountUpdated
   }
+
   render() {
     let {
       slider
@@ -58,9 +53,9 @@ class EMIDownPayment extends React.Component {
       snapOnDragMove: true,
       disableSnapOnClick: true,
       onChange: this.handleSliderChange,
-      handleTooltipLabel: formatToINR,
-      onSliderDragStart: this.handleSliderDragStart,
-      onSliderDragEnd: this.handleSliderDragEnd,
+      onClick: this.handlePieChartAnimation,
+      onSliderDragEnd: this.handlePieChartAnimation,
+      handleTooltipLabel: formatToINR
     }
     let vehicleLoanAmount = formatToINR(this.updateLoanText());
     return (
