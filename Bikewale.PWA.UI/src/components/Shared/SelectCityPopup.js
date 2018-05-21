@@ -4,6 +4,7 @@ import Autocomplete from '../Autocomplete';
 import PopularCityList from './PopularCityList';
 import ListGroup from './ListGroup';
 import ListGroupItem from './ListGroupItem';
+import NoResult from './NoResult';
 
 import { unlockScroll } from '../../utils/scrollLock';
 import { addPopupEvents, removePopupEvents } from '../../utils/popupScroll';
@@ -22,10 +23,6 @@ class SelectCityPopup extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.checkBikeChange()) {
-      this.props.fetchCity(this.props.getSelectedBikeId());
-      this.props.setBikeChange(false);
-    }
     if (nextProps.data.Popular != this.state.Popular || nextProps.data.Other != this.state.Other) {
       this.setState(...this.state, {
         Popular: nextProps.data.Popular,
@@ -63,10 +60,6 @@ class SelectCityPopup extends React.Component {
   handleCityClick = (item) => {
     if (this.props.onCityClick) {
       this.props.onCityClick(item);
-      var currentBikeId = this.props.getSelectedBikeId();
-      if (item.cityName != this.state.cityValue && currentBikeId > 0) {
-        this.props.fetchBikeVersionList(currentBikeId, item.cityId);
-      }
       this.setState(...this.state, {
         cityValue: item.cityName
       });
@@ -147,7 +140,7 @@ class SelectCityPopup extends React.Component {
                     {
                       data.Selection && data.Selection.cityId > 0
                         ? <span onClick={this.handleClearClick} className="autocomplete-box__clear">Clear</span>
-                        : <span className="select-city__locate-me"></span>
+                        : null // <span className="select-city__locate-me"></span> Future implementation
                     }
                   </div>
                 </div>
@@ -155,23 +148,28 @@ class SelectCityPopup extends React.Component {
             </div>
           </div>
           {
-            data.Popular && data.Other && (
+            this.state.Popular.length > 0 || this.state.Other.length > 0 ? (
               <div className="select-city__body">
-                <div className="city-list-content">
-                  <p className="city-list__heading">Popular cities</p>
-                  <PopularCityList
-                    data={this.state.Popular}
-                    selection={data.Selection}
-                    onClick={this.handleCityClick}
-                  />
-                </div>
-                <div className="city-list-content">
-                  <p className="city-list__heading">Other cities</p>
-                  {this.getOtherCityList()}
-                </div>
-              </div>
-            )
-
+                {this.state.Popular.length > 0 &&
+                  <div className="city-list-content">
+                    <p className="city-list__heading">Popular cities</p>
+                    <PopularCityList
+                      data={this.state.Popular}
+                      selection={data.Selection}
+                      onClick={this.handleCityClick}
+                    />
+                  </div>}
+                {this.state.Other.length > 0 &&
+                  <div className="city-list-content">
+                    <p className="city-list__heading">Other cities</p>
+                    {this.getOtherCityList()}
+                  </div>}
+              </div>)
+              : <NoResult
+                type="select-bike__no-bike-content"
+                imageClass="select-city__no-city"
+                title="No Matching Cities Found"
+              />
           }
         </div>
       </div>

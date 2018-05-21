@@ -13,7 +13,6 @@ class SelectBikePopup extends React.Component {
     this.handleClear = this.handleClear.bind(this);
     this.handleCloseClick = this.handleCloseClick.bind(this);
     this.handleNextClick = this.handleNextClick.bind(this);
-    this.setSelectedBike = this.setSelectedBike.bind(this);
     this.closePopup = this.closePopup.bind(this);
     this.state = { currentModelId: this.props.data.Selection.modelId, modelValue: this.props.data.Selection.modelName, makeModelList: this.props.data.MakeModelList };
   }
@@ -37,10 +36,6 @@ class SelectBikePopup extends React.Component {
     removePopupEvents(this.popupContent)
   }
 
-  setSelectedBike() {
-    this.props.selectBike(this.state.currentModelId);
-  }
-
   closePopup = () => {
     if (this.props.onCloseClick) {
       this.props.onCloseClick();
@@ -49,22 +44,13 @@ class SelectBikePopup extends React.Component {
 
   handleCloseClick = () => {
     this.closePopup();
-    this.setSelectedBike();
-    if (this.state.currentModelId != -1)
-      this.props.scrollToNextPopup();
     unlockScroll()
   }
 
   handleBikeSelection = (chosenModel) => {
     if (this.state.currentModelId != chosenModel.modelId) {
+      this.props.onBikeClick(chosenModel);
       this.setState({ ...this.state, currentModelId: chosenModel.modelId, modelValue: chosenModel.modelName });
-      this.props.setBikeChange(true);
-      var currentCityId = this.props.getSelectedCityId();
-      if (currentCityId > 0) {
-        this.props.fetchBikeVersionList(chosenModel.modelId, currentCityId);
-      }
-      this.props.scrollToNextPopup();
-      this.setSelectedBike();
     }
     this.closePopup();
     unlockScroll();
@@ -76,9 +62,6 @@ class SelectBikePopup extends React.Component {
 
   handleNextClick = () => {
     this.closePopup();
-    this.setSelectedBike();
-    if (this.state.currentModelId != -1)
-      this.props.scrollToNextPopup();
     unlockScroll()
   }
 

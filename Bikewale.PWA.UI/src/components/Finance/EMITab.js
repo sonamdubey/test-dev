@@ -20,18 +20,19 @@ class EMITab extends React.Component {
     this.scrollToNextPopup = this.scrollToNextPopup.bind(this);
     this.getSelectedBikeId = this.getSelectedBikeId.bind(this);
     this.getSelectedCityId = this.getSelectedCityId.bind(this);
-    this.setBikeChange = this.setBikeChange.bind(this);
-    this.checkBikeChange = this.checkBikeChange.bind(this);
-    this.state = { shouldscroll: false, isBikeChanged: false };
-  }
-
-  componentDidMount() {
-    this.props.fetchSimilarBikes();
+    this.state = { shouldscroll: false };
   }
 
   handleSelectBikeClick = () => {
     this.props.openSelectBikePopup();
     lockScroll();
+  }
+
+  handleBikeClick = (item) => {
+    this.props.selectModel(item.modelId);
+    this.props.fetchCity(item.modelId);
+    this.props.fetchSelectedBikeDetail(item.modelId);
+    this.scrollToNextPopup();
   }
 
   handleSelectCityClick = () => {
@@ -51,8 +52,6 @@ class EMITab extends React.Component {
 
   handleSimilarEMISwiperCardClick = (modelId, onRoadPrice) => {
     const {
-      selectBikePopup,
-      sliderDp,
       sliderTenure,
       sliderInt,
       fetchSimilarBikes,
@@ -90,47 +89,47 @@ class EMITab extends React.Component {
     const {
       SimilarBikesEMI,
       updateSimilarBikesEmi,
+      FinanceCityPopup,
       sliderTenure,
       sliderInt
     } = this.props;
-    if (prevProps.sliderInt.values[0] !== sliderInt.values[0]
-      || prevProps.sliderTenure.values[0] !== sliderTenure.values[0]) {
+    if (prevProps.sliderInt.values[0] !== sliderInt.values[0] || prevProps.sliderTenure.values[0] !== sliderTenure.values[0]) {
       updateSimilarBikesEmi(SimilarBikesEMI, {
         tenure: sliderTenure.values[0],
         rateOfInt: sliderInt.values[0]
       });
     }
+
+    const currentCityId = this.getSelectedCityId(this.props);
+    const currentBikeId = this.getSelectedBikeId(this.props);
     if (this.state.shouldscroll) {
       if (this.refs.emiSteps != null) {
         this.refs.emiSteps.scrollCityToView();
       }
-      if (this.props.FinanceCityPopup && ((this.props.FinanceCityPopup.Popular.length > 0 || this.props.FinanceCityPopup.Other.length > 0) && !(IsGlobalCityPresent(this.props.FinanceCityPopup.Popular, this.getSelectedCityId()) || IsGlobalCityPresent(this.props.FinanceCityPopup.Other, this.getSelectedCityId())))) {
+      // Open city popup if current city not in fetched city list
+      if (FinanceCityPopup != null && ((FinanceCityPopup.Popular.length > 0 || FinanceCityPopup.Other.length > 0) && !(IsGlobalCityPresent(FinanceCityPopup.Popular, currentCityId) || IsGlobalCityPresent(FinanceCityPopup.Other, currentCityId)))) {
         this.props.openSelectCityPopup();
-        this.setState({ ...this.state, shouldscroll: false });
+        this.setState({ shouldscroll: false });
       }
+    }
+    // For any change in bike or city we fetch new bike version list
+    if ((currentBikeId != this.getSelectedBikeId(prevProps) || currentCityId != this.getSelectedCityId(prevProps)) && currentCityId > 0 && currentBikeId > 0) {
+      this.props.fetchBikeVersionList(currentBikeId, currentCityId);
     }
   }
 
-  setBikeChange = (value) => {
-    this.setState({ ...this.state, isBikeChanged: value });
-  }
-
-  checkBikeChange = () => {
-    return this.state.isBikeChanged;
-  }
-
   scrollToNextPopup = () => {
-    this.setState({ ...this.state, shouldscroll: true });
+    this.setState({ shouldscroll: true });
   }
 
-  getSelectedBikeId = () => {
-    return this.props != null && this.props.selectBikePopup != null && this.props.selectBikePopup.Selection != null && this.props.selectBikePopup.Selection.modelId > 0 ?
-      this.props.selectBikePopup.Selection.modelId : -1;
+  getSelectedBikeId = (props) => {
+    return props != null && props.selectBikePopup != null && props.selectBikePopup.Selection != null && props.selectBikePopup.Selection.modelId > 0 ?
+      props.selectBikePopup.Selection.modelId : -1;
   }
 
-  getSelectedCityId = () => {
-    return this.props != null && this.props.FinanceCityPopup != null && this.props.FinanceCityPopup.Selection != null && this.props.FinanceCityPopup.Selection.cityId > 0 ?
-      this.props.FinanceCityPopup.Selection.cityId : -1;
+  getSelectedCityId = (props) => {
+    return props != null && props.FinanceCityPopup != null && props.FinanceCityPopup.Selection != null && props.FinanceCityPopup.Selection.cityId > 0 ?
+      props.FinanceCityPopup.Selection.cityId : -1;
   }
 
   render() {
@@ -141,16 +140,9 @@ class EMITab extends React.Component {
       openSelectBikePopup,
       closeSelectBikePopup,
       fetchMakeModelList,
-      fetchBikeVersionList,
       openSelectCityPopup,
-      closeSelectCityPopup,
-      selectCityNext,
-      fetchCity,
-      selectCity,
-      selectModel,
-      fetchSelectedBikeDetail
+      closeSelectCityPopup
     } = this.props
-    const currentCityId = FinanceCityPopup.Selection != null && FinanceCityPopup.Selection.cityId != null ? FinanceCityPopup.Selection.cityId : -1;
     return (
       <div ref="emiTabsContainer">
         <div className="emi-calculator__head">
@@ -160,9 +152,9 @@ class EMITab extends React.Component {
           </p>
         </div>
 
-        {((this.getSelectedBikeId() === -1) || (this.getSelectedCityId() === -1)) &&
+        {((this.getSelectedBikeId(this.props) === -1) || (this.getSelectedCityId(this.props) === -1)) &&
           <EMISteps ref="emiSteps" onSelectBikeClick={this.handleSelectBikeClick} onSelectCityClick={this.handleSelectCityClick} model={selectBikePopup.Selection} />}
-        {((this.getSelectedBikeId() !== -1) && (this.getSelectedCityId() !== -1)) &&
+        {((this.getSelectedBikeId(this.props) !== -1) && (this.getSelectedCityId(this.props) !== -1)) &&
           <ModelInfo />}
 
         <EMICalculator />
@@ -181,11 +173,11 @@ class EMITab extends React.Component {
 
         {
           selectBikePopup != null &&
-          <SelectBikePopup isActive={selectBikePopup.isActive} data={selectBikePopup} onCloseClick={closeSelectBikePopup} selectBike={selectModel} fetchMakeModelList={fetchMakeModelList} scrollToNextPopup={this.scrollToNextPopup} getSelectedCityId={this.getSelectedCityId} setBikeChange={this.setBikeChange} fetchBikeVersionList={fetchBikeVersionList} />
+          <SelectBikePopup isActive={selectBikePopup.isActive} data={selectBikePopup} onCloseClick={closeSelectBikePopup} onBikeClick={this.handleBikeClick} fetchMakeModelList={fetchMakeModelList} scrollToNextPopup={this.scrollToNextPopup} />
         }
         {
           FinanceCityPopup != null &&
-          <SelectCityPopup isActive={FinanceCityPopup.isActive} data={FinanceCityPopup} fetchCity={fetchCity} onCityClick={this.handleCityClick} onCloseClick={closeSelectCityPopup} openSelectCityPopup={openSelectCityPopup} getSelectedBikeId={this.getSelectedBikeId} checkBikeChange={this.checkBikeChange} setBikeChange={this.setBikeChange} fetchBikeVersionList={fetchBikeVersionList} />
+          <SelectCityPopup isActive={FinanceCityPopup.isActive} data={FinanceCityPopup} onCloseClick={closeSelectCityPopup} onCityClick={this.handleCityClick} openSelectCityPopup={openSelectCityPopup} />
         }
       </div>);
   }

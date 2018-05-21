@@ -76,8 +76,7 @@ export const fetchSelectedBikeDetail = (modelId) => (dispatch) => {
 }
 
 export const selectModel = (modelId) => (dispatch) => {
-  dispatch(setModel(modelId))
-  return getSelectedBikeDetail(dispatch, modelId);
+  dispatch(setModel(modelId));
 }
 
 export const fetchMakeModelList = () => (dispatch) => {
