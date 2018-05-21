@@ -3,7 +3,7 @@ import ExpandCollapse from 'react-expand-collapse';
 
 import { addTabEvents, removeTabEvents } from '../../utils/scrollSpyTabs';
 
-import EMITab from './EMITab'
+import EMITab from './EMITabContainer'
 import Documentation from './Documentation'
 import FAQ from './FAQ'
 
@@ -56,12 +56,6 @@ class Tabs extends React.Component {
         <div className="tabs-panel__item" data-tab-panel="emiTab">
           <div className="emi-calculator">
             <EMITab />
-          </div>
-        </div>
-
-        <div className="tabs-panel__item" data-tab-panel="loanEligibilityTab">
-          <div className="loan-eligibility__content">
-            Loan Eligibility Predictor
           </div>
         </div>
 

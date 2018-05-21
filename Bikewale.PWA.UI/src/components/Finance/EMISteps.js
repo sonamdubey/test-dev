@@ -10,7 +10,7 @@ import {
    inView
   } from '../../utils/ScrollTo'
 import {debounce} from '../../utils/debounce'
-
+import {createImageUrl} from '../Widgets/WidgetsCommon'
 import { progressBarStatus } from '../../utils/progressBarConstants'
 
 const propTypes = {
@@ -28,7 +28,11 @@ const defaultProps = {
 class EMISteps extends React.Component {
   constructor(props) {
     super(props);
+    this.handleMakeSelect = this.handleMakeSelect.bind(this);
+    this.setCitySelectRef = this.setCitySelectRef.bind(this);
+    this.scrollCityToView = this.scrollCityToView.bind(this);
     this.state = {
+      shouldScroll: false,
       bike: progressBarStatus.DISABLE,
       city: progressBarStatus.DISABLE,
       activeStep: 1   //current active step
@@ -73,9 +77,12 @@ class EMISteps extends React.Component {
   setCitySelectRef = (element) => {
     this.citySelect = element;
   };
-  handleMakeSelect = () => {
+  scrollCityToView = () => {
+    this.setState({ ...state, shouldScroll: true});
+  }
+
+  handleMakeSelect = (event) => {
     this.props.onSelectBikeClick();
-    scrollIntoView(this.StepSelectionContainer, this.citySelect);
   }
   handleScroll = (event) => {
     debounce(() => {
@@ -96,14 +103,19 @@ class EMISteps extends React.Component {
   componentWillUnmount = () => {
     this.StepSelectionContainer.removeEventListener('scroll', this.handleScroll);
   }
+  componentDidUpdate = () => {
+    if(this.state.shouldScroll)
+    scrollIntoView(this.StepSelectionContainer, this.citySelect);
+  }
   render() {
+    const model = this.props.model;
     const modelData = {
-      makeName: "Royal Enfield",
-      modelName: "Thunderbird 350",
-      modelImage: "https://imgd.aeplcdn.com//310x174//bw/models/honda-cb-hornet-160r.jpg",
-      rating: 4.2
+      makeName: model != null && model.makeName != null ? model.makeName : "",
+      modelName: model != null && model.modelName != null ?  model.modelName : "",
+      modelImage: model != null && model.originalImagePath != null ? createImageUrl( model.hostUrl, model.originalImagePath, '310x174'):"",
+      rating: model != null && model.rating != null ? model.rating: 0
     }
-    const isOverflow = modelData.makeName !== '' ? 'selection-step--overflow': '';
+    const isOverflow = model.modelId > 0 ? 'selection-step--overflow' : '';
     return (
       <div className="emi-calculator__progress-container">
         <ProgressBar>

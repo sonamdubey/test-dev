@@ -1,46 +1,27 @@
 import { combineReducers } from 'redux-immutable'
-import { fromJS } from 'immutable'
+import { fromJS, toJS } from 'immutable'
 
 import { selectBikePopup } from '../actionTypes/SelectBikePopup'
 
-var initialState = fromJS({
+var initialState = {
   isActive: false,
   Selection: {
-    makeName: "Honda",
-    modelName: "CB Hornet 160R",
-    modelImage: "https://imgd.aeplcdn.com//310x174//bw/models/honda-cb-hornet-160r.jpg",
-    modelId: 693,
-    rating: 4.5,
-    selectedVersionIndex: 0,
-    version: [
-      {
-        value: 4792,
-        label: "STD"
-      },
-      {
-        value: 4481,
-        label: "Special Edition - CBS [2017]"
-      },
-      {
-        value: 4793,
-        label: "CBS"
-      },
-      {
-        value: 4782,
-        label: "ABS - Std"
-      },
-      {
-        value: 4783,
-        label: "ABS - Dlx"
-      }
-    ]
-  }
-})
+    makeName: "",
+    modelName: "",
+    hostUrl: "",
+    originalImagePath: "",
+    modelId: -1,
+    rating: 0,
+    selectedVersionIndex: -1,
+    versionList: []
+  },
+  MakeModelList: []
+};
 
 export function SelectBikePopup(state, action) {
   try {
-    if ( state == undefined || !state.size) {
-      return initialState;
+    if (state == undefined || !state.size) {
+      return fromJS(initialState);
     }
 
     switch (action.type) {
@@ -51,7 +32,46 @@ export function SelectBikePopup(state, action) {
         return state.setIn(['isActive'], false);
 
       case selectBikePopup.SELECT_MODEL:
-        return initialState
+        if (action.payload != null) {
+          return state.setIn(['Selection'], fromJS({ ...(state.get('Selection').toJS()), ...action.payload}))
+        }
+        else {
+          return state;
+        }
+
+      case selectBikePopup.FETCH_BIKELIST_SUCCESS:
+        if (action.payload != null) {
+          return state.setIn(['MakeModelList'], fromJS(action.payload));
+        }
+        else {
+          return state;
+        }
+
+      case selectBikePopup.FETCH_BIKELIST_FAILURE:
+        return state.setIn(['MakeModelList'], []);
+
+      case selectBikePopup.FETCH_VERSIONLIST_SUCCESS:
+        if (action.payload != null && action.payload.versions.length > 0) {
+          return state.setIn(['Selection'], fromJS({ ...(state.get('Selection').toJS()), versionList: action.payload.versions, selectedVersionIndex: 0}));
+        }
+        else {
+          return state;
+        }
+
+      case selectBikePopup.FETCH_VERSIONLIST_FAILURE:
+        return state.setIn(['Selection'], fromJS({ ...(state.get('Selection').toJS()), versionList: []}));
+
+      case selectBikePopup.FETCH_MODEL_DETAIL_SUCCESS:
+        if (action.payload) {
+          return state.setIn(['Selection'], fromJS({ ...(state.get('Selection').toJS()), makeName: action.payload.makeDetails.makeName,
+            modelName: action.payload.modelName, hostUrl: action.payload.hostUrl, originalImagePath: action.payload.originalImagePath,
+          rating: action.payload.reviewRate, modelId: action.payload.modelId}))
+        }
+        else {
+          return state;
+        }
+      case selectBikePopup.FETCH_MODEL_DETAIL_FAILURE:
+        return state.setIn(['Selection'], fromJS(initialState));
 
       default:
         return state

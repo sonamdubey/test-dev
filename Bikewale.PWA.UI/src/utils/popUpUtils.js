@@ -99,9 +99,10 @@ function setGlobalCity(cityId, cityName, globalCityId) {
 }
 
 function IsGlobalCityPresent(cityList, globalCityId) {
-    if (cityList.some(item => item.cityId === globalCityId)) {
+    if (cityList != null && cityList.some(item => item.cityId === globalCityId)) {
         return true;
     }
+    return false;
 }
 
 function getCookie(key) {

@@ -1,6 +1,5 @@
 import React from 'react';
 
-import Autocomplete from '../Autocomplete';
 import Accordion from '../Shared/Accordion';
 import NoResult from './NoResult';
 
@@ -10,92 +9,109 @@ import { addPopupEvents, removePopupEvents } from '../../utils/popupScroll';
 class SelectBikePopup extends React.Component {
   constructor(props) {
     super(props);
+    this.filterMakeModelList = this.filterMakeModelList.bind(this);
+    this.handleClear = this.handleClear.bind(this);
+    this.handleCloseClick = this.handleCloseClick.bind(this);
+    this.handleNextClick = this.handleNextClick.bind(this);
+    this.closePopup = this.closePopup.bind(this);
+    this.state = { currentModelId: this.props.data.Selection.modelId, modelValue: this.props.data.Selection.modelName, makeModelList: this.props.data.MakeModelList };
+  }
+
+  componentWillReceiveProps() {
+    this.refs.bikeInput.focus();
+    this.setState({ currentModelId: this.props.data.Selection.modelId, modelValue: this.props.data.Selection.modelName, makeModelList: this.props.data.MakeModelList });
+  }
+
+  componentWillMount() {
+    if (!this.props.data.MakeModelList || !this.props.data.MakeModelList.length) {
+      this.props.fetchMakeModelList();
+    }
   }
 
   componentDidMount() {
-   addPopupEvents(this.popupContent)
+    addPopupEvents(this.popupContent)
   }
 
   componentWillUnmount() {
     removePopupEvents(this.popupContent)
   }
 
-  handleCloseClick = () => {
+  closePopup = () => {
     if (this.props.onCloseClick) {
       this.props.onCloseClick();
     }
+  }
 
+  handleCloseClick = () => {
+    this.closePopup();
     unlockScroll()
   }
 
-  getList = () => {
-    let data = [
-      {
-        makeId: 1,
-        makeName: "Honda"
-      },
-      {
-        makeId: 2,
-        makeName: "Royal Enfield"
-      },
-      {
-        makeId: 3,
-        makeName: "TVS"
-      },
-      {
-        makeId: 4,
-        makeName: "Bajaj"
-      },
-      {
-        makeId: 5,
-        makeName: "Hero"
-      },
-      {
-        makeId: 6,
-        makeName: "Yamaha"
-      },
-      {
-        makeId: 7,
-        makeName: "Suzuki"
-      },
-      {
-        makeId: 8,
-        makeName: "KTM"
-      },
-      {
-        makeId: 9,
-        makeName: "Yamaha"
-      },
-      {
-        makeId: 10,
-        makeName: "Suzuki"
-      },
-      {
-        makeId: 11,
-        makeName: "KTM"
-      }
-    ];
+  handleBikeSelection = (chosenModel) => {
+    if (this.state.currentModelId != chosenModel.modelId) {
+      this.props.onBikeClick(chosenModel);
+      this.setState({ ...this.state, currentModelId: chosenModel.modelId, modelValue: chosenModel.modelName });
+    }
+    this.closePopup();
+    unlockScroll();
+  }
 
-    let list = data.map(function(item) {
+  handleClear = () => {
+    this.setState({ ...this.state, modelValue: '', makeModelList: this.props.data.MakeModelList });
+  }
+
+  handleNextClick = () => {
+    this.closePopup();
+    unlockScroll()
+  }
+
+  filterMakeModelList = (event) => {
+    let inputName = event.target.value;
+    let modelList = event && !event.data ? this.props.data.MakeModelList : this.state.makeModelList;
+    let makeModelList = [];
+    if (modelList != null) {
+      makeModelList = modelList.map(function (item) {
+        let modelList = item.models.filter(function (bike) {
+          return bike.modelName.toLowerCase().search(
+            inputName.toLowerCase()) !== -1;
+        });
+        if (modelList && modelList.length > 0) {
+          return {
+            ...item, models: modelList
+          };
+        }
+        else {
+          return null;
+        }
+      }).filter(n => n);
+    }
+    this.setState({ ...this.state, makeModelList: makeModelList, modelValue: inputName });
+  }
+
+  getList = (makeModelList) => {
+    if (!makeModelList || !makeModelList.length) {
+      return [];
+    }
+    let list = makeModelList.map(function (item) {
+      if (!item) {
+        return null;
+      }
+      let objMake = item;
       return (
-        <div data-trigger={item.makeName}>
+        <div data-trigger={item.make.makeName}>
           <ul className="panel-body__list">
-            <li className="panel-bike-list__item bike-list-item--active">
-              <p className="bike-list-item__label">Discover 135</p>
-            </li>
-            <li className="panel-bike-list__item">
-              <p className="bike-list-item__label">Pulsar</p>
-            </li>
-            <li className="panel-bike-list__item">
-              <p className="bike-list-item__label">Platina</p>
-            </li>
-            <li className="panel-bike-list__item">
-              <p className="bike-list-item__label">Discover 125</p>
-            </li>
+            {item.models.map(function (bike) {
+              let eleClassName = `panel-bike-list__item ${(bike.modelId == this.state.currentModelId ? " bike-list-item--active" : "")}`;
+              return (
+                <li className={eleClassName} onClick={this.handleBikeSelection.bind(this, bike)}>
+                  <p className="bike-list-item__label">{bike.modelName}</p>
+                </li>
+              );
+            }, this)}
           </ul>
         </div>
-      )
-    });
+      );
+    }, this);
 
     return (
       list
@@ -108,9 +124,10 @@ class SelectBikePopup extends React.Component {
 
   render() {
     const {
-      isActive
+      isActive,
+      data
     } = this.props
-
+    const MakeModelList = this.state.makeModelList;
     const popupActiveClassName = isActive ? 'popup--active' : ''
     const popupClasses = `select-bike-popup popup-content ${popupActiveClassName}`
 
@@ -124,33 +141,29 @@ class SelectBikePopup extends React.Component {
                 <p className="popup-search__title">Select Make and Model</p>
                 <div className="autocomplete-box">
                   <div className="autocomplete-field">
-                    <Autocomplete
-                      inputProps={{
-                        className: "form-control",
-                        placeholder: "Type to select Make and Model"
-                      }}
-                    />
-                    {/*<span className="autocomplete-box__clear">Clear</span>*/}
+                    <input ref="bikeInput" type="text" value={this.state.modelValue} className="form-control"
+                      placeholder="Type to select Make and Model" onChange={this.filterMakeModelList} onFocus={this.filterMakeModelList} />
+                    <span className="autocomplete-box__clear" onClick={this.handleClear} >Clear</span>
                   </div>
                 </div>
               </div>
             </div>
           </div>
           <div className="select-bike__body select-bike__accordion">
-            <Accordion closeable={true}>
-              {this.getList()}
-            </Accordion>
-            {/*
-              TODO: Render this when no bike is found
-              <NoResult
-                type="select-bike__no-bike-content"
-                imageClass="select-bike__no-bike"
-                title="No Matching Bikes Found"
-              />
-            */}
+            {
+              MakeModelList && MakeModelList.length > 0 ? <Accordion closeable={true} items={this.getList(MakeModelList)}>
+              </Accordion> :
+                <NoResult
+                  type="select-bike__no-bike-content"
+                  imageClass="select-bike__no-bike"
+                  title="No Matching Bikes Found"
+                />
+            }
+
+
           </div>
           <div className="popup__footer">
-            <span className="popup-footer__next">Next</span>
+            <span className="popup-footer__next" onClick={this.handleNextClick}>Next</span>
           </div>
         </div>
       </div>

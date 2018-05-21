@@ -101,7 +101,8 @@ namespace Bikewale.Service.AutoMappers.ManufacturerCampaign
                     VersionId = versionId,
                     PlatformId = 3,
                     BikeName = string.Format("{0} {1}", makeName, modelName),
-                    IsAmp = true
+                    IsAmp = true,
+                    SendLeadSMSCustomer = manufacturerCampaign.LeadCampaign.SendLeadSMSCustomer
                 };
 
                 if (platformId == 3)

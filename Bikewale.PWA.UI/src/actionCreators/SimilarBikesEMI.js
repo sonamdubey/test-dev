@@ -1,5 +1,5 @@
 import { similarBikesEMI } from '../actionTypes/SimilarBikesEMI'
-import { getGlobalCity } from '../utils/popUpUtils'
+
 
 import { fromJS } from 'immutable'
 const getSimilarBikesData = (dispatch, modelEmiObj) => {
@@ -29,7 +29,7 @@ const getSimilarBikesData = (dispatch, modelEmiObj) => {
       }
     }
   }
-  let url = '/api/pwa/similarbikes/model/' + modelEmiObj.modelId + '/finance/?topCount=9&cityId='+getGlobalCity().id;
+  let url = '/api/pwa/similarbikes/model/' + modelEmiObj.modelId + '/finance/?topCount=9&cityId='+modelEmiObj.cityId;
   xhr.open('GET', url);
   xhr.send();
 
