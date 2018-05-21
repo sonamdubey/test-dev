@@ -80,6 +80,7 @@
     <Content Include="src\components\Finance\EMITab.js" />
     <Content Include="src\components\Finance\EMITabContainer.js" />
     <Content Include="src\components\Finance\FAQ.js" />
+    <Content Include="src\components\Finance\FinanceCommon.js" />
     <Content Include="src\components\Finance\FinanceComponent.js" />
     <Content Include="src\components\Finance\FinanceContainer.js" />
     <Content Include="src\components\Finance\index.js" />

@@ -107,8 +107,13 @@ class EMITab extends React.Component {
         this.refs.emiSteps.scrollCityToView();
       }
       // Open city popup if current city not in fetched city list
-      if (FinanceCityPopup != null && ((FinanceCityPopup.Popular.length > 0 || FinanceCityPopup.Other.length > 0) && !(IsGlobalCityPresent(FinanceCityPopup.Popular, currentCityId) || IsGlobalCityPresent(FinanceCityPopup.Other, currentCityId)))) {
+      if (FinanceCityPopup != null && !(IsGlobalCityPresent(FinanceCityPopup.Popular, currentCityId) || IsGlobalCityPresent(FinanceCityPopup.Other, currentCityId))) {
         this.props.openSelectCityPopup();
+        this.props.selectCity({
+          cityId: -1,
+          cityName: "",
+          userChange: false
+        });
         this.setState({ shouldscroll: false });
       }
     }
