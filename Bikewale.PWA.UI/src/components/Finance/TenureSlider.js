@@ -18,11 +18,7 @@ class EMITenure  extends React.Component {
   constructor(props) {
     super(props);
   }
-  componentDidMount(){
-    const {
-      slider
-    } = this.props
-  }
+
   handleSliderChange = ({ values }) => {
     const {
       updateTenureSlider,
@@ -30,17 +26,15 @@ class EMITenure  extends React.Component {
 
     updateTenureSlider({ values, userChange: true })
   }
-  handleSliderDragStart = () => {
-    if((this.refs.tenureSlider.getElementsByClassName('rheostat-handle')) != document.activeElement){
-      this.refs.tenureSlider.querySelectorAll('.rheostat-handle')[0].focus()
-    }
-  }
-  handleSliderDragEnd = () => {
+
+  handlePieChartAnimation = () => {
     const {
       startAnimation
     } = this.props
+
     startAnimation()
   }
+
   render() {
     let {
       slider
@@ -62,8 +56,8 @@ class EMITenure  extends React.Component {
       disableSnapOnClick: false,
       handleTooltipLabel: formatToRound,
       onChange: this.handleSliderChange,
-      onSliderDragStart: this.handleSliderDragStart,
-      onSliderDragEnd: this.handleSliderDragEnd,
+      onClick: this.handlePieChartAnimation,
+      onSliderDragEnd: this.handlePieChartAnimation
     }
     return (
         <div className="emi-calci-header slider-input-container">

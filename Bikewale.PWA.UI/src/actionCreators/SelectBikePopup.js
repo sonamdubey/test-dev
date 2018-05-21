@@ -47,7 +47,14 @@ const getBikeVersionList = (dispatch, modelId, cityId) => {
 const setModel = (modelId) => {
   return {
     type: selectBikePopup.SELECT_MODEL,
-    payload:{ modelId : modelId} 
+    payload: { modelId: modelId }
+  }
+}
+
+const setBikeVersion = (versionId) => {
+  return {
+    type: selectBikePopup.SET_BIKE_VERSION,
+    payload: {versionId: versionId}
   }
 }
 
@@ -81,6 +88,9 @@ export const selectModel = (modelId) => (dispatch) => {
   dispatch(setModel(modelId));
 }
 
+export const selectBikeVersion = (versionId) => (dispatch) => {
+  dispatch(setBikeVersion(versionId))
+}
 export const fetchMakeModelList = () => (dispatch) => {
   return getMakeModelList(dispatch);
 }
@@ -88,4 +98,5 @@ export const fetchMakeModelList = () => (dispatch) => {
 export const fetchBikeVersionList = (modelId, cityId) => (dispatch) => {
   return getBikeVersionList(dispatch, modelId, cityId);
 }
+
 

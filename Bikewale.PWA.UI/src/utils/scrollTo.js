@@ -111,19 +111,22 @@ export const scrollLeft = (element, to, duration = 500) => {
 }
 
 export const scrollIntoView = (element, event) => {
+  if (event == null) {
+    return null;
+  }
   let elementRect = null;
-  if(event.currentTarget ) {
-    elementRect=event.currentTarget.getBoundingClientRect();
+  if (event.currentTarget != null) {
+    elementRect = event.currentTarget.getBoundingClientRect();
   }
   else {
-    elementRect=event.getBoundingClientRect();
+    elementRect = event.getBoundingClientRect();
   }
 
-	if(elementRect.left < 0 || elementRect.right > window.innerWidth) {
-		let leftPosition = element.scrollLeft + elementRect.left - 20
+  if (elementRect.left < 0 || elementRect.right > window.innerWidth) {
+    let leftPosition = element.scrollLeft + elementRect.left - 20
 
-		scrollLeft(element, leftPosition)
-	}
+    scrollLeft(element, leftPosition)
+  }
 }
 
 //t = current time
