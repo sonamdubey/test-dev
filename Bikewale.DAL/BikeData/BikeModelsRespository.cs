@@ -137,7 +137,7 @@ namespace Bikewale.DAL.BikeData
                 }
                 modelPage.ModelColors = GetModelColor(modelId);
                 modelPage.colorPhotos = GetModelColorPhotos(modelId);
-                
+
             }
             catch (Exception ex)
             {
@@ -3049,15 +3049,15 @@ namespace Bikewale.DAL.BikeData
                             while (dr.Read())
                             {
                                 bikes.Add(
-                               new BikeWithMileageInfo()
+                               new BikeWithMileageInfo
                                {
-                                   Make = new BikeMakeEntityBase()
+                                   Make = new BikeMakeEntityBase
                                    {
                                        MakeId = Convert.ToInt32(dr["makeid"]),
                                        MakeName = Convert.ToString(dr["make"]),
                                        MaskingName = Convert.ToString(dr["MakeMaskingName"]),
                                    },
-                                   Model = new BikeModelEntityBase()
+                                   Model = new BikeModelEntityBase
                                    {
                                        ModelId = Convert.ToInt32(dr["ModelId"]),
                                        ModelName = Convert.ToString(dr["Model"]),
@@ -3380,7 +3380,7 @@ namespace Bikewale.DAL.BikeData
             }
             return images;
         }
-        
+
 
     }   // class
 }   // namespace
