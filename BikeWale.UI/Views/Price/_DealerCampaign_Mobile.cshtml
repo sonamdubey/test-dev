@@ -4,10 +4,13 @@
 {
     var PrimaryDealerDetails = Model.PrimaryDealer.DealerDetails;
 
-    <div id="pq-dealer-details" class="font14">
-        <div class="dealer-title-card margin-bottom15">
-            <h2 class="font18 text-white">@PrimaryDealerDetails.Organization</h2>
-            <p>@((!PrimaryDealerDetails.IsDSA) ? "Authorized Dealer in " : "Multi-brand Dealer in ")@PrimaryDealerDetails.objArea.AreaName</p>
+    <div id="pq-dealer-details" class="dealer-details__content">
+        <div class="dealer__name-content margin-bottom15">
+            <span class="dealer-details__icon"></span>
+            <div>
+                <h2 class="dealer-details__name">@PrimaryDealerDetails.Organization</h2>
+                <p class="dealer-details__description">@((!PrimaryDealerDetails.IsDSA) ? "Authorized Dealer in " : "Multi-brand Dealer in ")@PrimaryDealerDetails.objArea.AreaName</p>
+            </div>
         </div>
         @if(PrimaryDealerDetails.IsDSA){
             <div class="bw-tooltip multi-brand-tooltip tooltip-bottom slideUp-tooltip">
@@ -15,62 +18,65 @@
                 <span class="position-abt pos-top10 pos-right10 bwmsprite cross-sm-dark-grey cur-pointer close-bw-tooltip"></span>
             </div>
         }
-        <div class="padding-left15 padding-right15 margin-bottom15">
-            <p class="text-light-grey">On-road price</p>
-            <p>
-                <span class="bwmsprite inr-md-icon"></span>&nbsp;<span class="font22 text-bold">@Bikewale.Utility.Format.FormatPrice(ViewBag.TotalPrice.ToString())</span>
-            </p>
-            @if (Model.PrimaryDealer.EMIDetails != null && !Model.PrimaryDealer.IsStandardDealer)
-            {
-                <p class="text-light-grey margin-top5">
-                    EMI&nbsp;
-                    <span class="bwmsprite inr-xxsm-icon"></span>
-                    <span id="spnEMIAmount" class="text-default"></span>&nbsp;onwards.&nbsp;
-                    <a href="javascript:void(0)" class="calculate-emi-target">Calculate Now</a>
-                </p>
-            }
+        <div class="dealer__price-content">
+			<span class="dealer-price__on-road-price">&#x20b9;&nbsp;<span class="text-bold">@Bikewale.Utility.Format.FormatPrice(ViewBag.TotalPrice.ToString())</span>
+			</span>
+			<span class="dealer-price__on-road-price-label">On-road price</span>
+			@if (Model.PrimaryDealer.EMIDetails != null && !Model.PrimaryDealer.IsStandardDealer)
+			{
+			<p class="dealer-price__emi">
+				EMI&nbsp;
+				<span class="text-default">&#x20b9;</span>
+				<span id="spnEMIAmount" class="text-default"></span>&nbsp;onwards&nbsp;
+				<a href="javascript:void(0)" class="calculate-emi-target" rel="nofollow">Calculate Now</a>
+			</p>
+			}
         </div>
 
-        @if (Model.PrimaryDealer.HasOffers && !Model.PrimaryDealer.IsStandardDealer)
+        @if ((Model.PrimaryDealer.HasOffers && !Model.PrimaryDealer.IsStandardDealer) || Model.PrimaryDealer.IsBookingAvailable)
         {
-            <div class="margin-right10 margin-bottom15 margin-left10 break-line"></div>
-            <div class="padding-left15 padding-right15 margin-bottom10">
-                <p class="text-bold margin-bottom15">Offers from this dealer:</p>
-                <ul class="pricequote-benefits-list">
-                    @foreach (var offer in Model.PrimaryDealer.OfferList)
-                    {
-                        <li>
-                            <span class="offers-sprite @(string.Format(" offerIcon_{0}", offer.OfferCategoryId))"></span>
-                            <span class="pq-benefits-title padding-left10">
-                                @offer.OfferText
-                            @if (offer.IsOfferTerms)
-                                    {
-                                <span class="margin-left10 tnc font9" id="@offer.OfferId">View terms</span>
-                                    }
-                    </li>
-                    }
-                </ul>
-            </div>
-            }
-
-        @if (Model.PrimaryDealer.IsBookingAvailable)
-        {
-            <div class="padding-right5 padding-left5 margin-bottom20">
-                <div class="vertical-top">
-                    <a href="#" onclick="return this.href='/m/pricequote/bookingsummary_new.aspx' + window.location.search" class="btn btn-teal btn-sm-0">Book Now</a>
-                </div>
-                <p class="booknow-label font11 line-height-1-5 text-xx-light padding-left10 vertical-top">
-                    Pay <span class="bwmsprite inr-grey-xxxsm-icon"></span>@Bikewale.Utility.Format.FormatPrice(Model.PrimaryDealer.BookingAmount.ToString()) to book online and<br />
-                    balance amount of <span class="bwmsprite inr-grey-xxxsm-icon"></span>@Bikewale.Utility.Format.FormatPrice((Model.PrimaryDealer.TotalPrice - Model.PrimaryDealer.BookingAmount).ToString()) at dealership
-                </p>
+            <div class="dealer__offers-content">
+				@if (Model.PrimaryDealer.HasOffers && !Model.PrimaryDealer.IsStandardDealer)
+				{
+					<div class="dealer-offer__container">
+						<div class="dealer-offer__badge">
+							<span class="offer-badge__star"></span>
+							<span>4 Offers</span>
+						</div>
+						<ul class="benefit__list">
+							@foreach (var offer in Model.PrimaryDealer.OfferList)
+							{
+								<li class="benefit-list__item">
+									<span class="benefit-item__icon @(string.Format(" offer-{0}-icon", offer.OfferCategoryId))"></span>
+									<span class="benefit-item__label">
+										@offer.OfferText
+										@if (offer.IsOfferTerms)
+										{
+											<span class="margin-left10 tnc font9" id="@offer.OfferId">View terms</span>
+										}
+									</span>
+								</li>
+							}
+						</ul>
+					</div>
+				}
+				@if (Model.PrimaryDealer.IsBookingAvailable)
+				{
+				<div class="dealer__booking-content">
+					<a href="#" onclick="return this.href='/m/pricequote/bookingsummary_new.aspx' + window.location.search" class="btn btn-teal book-now__btn">Book Now</a>
+					<p class="book-now__label">(Pay &#x20b9; @Bikewale.Utility.Format.FormatPrice(Model.PrimaryDealer.BookingAmount.ToString()) to book online and rest at dealership.)
+					</p>
+				</div>
+				}
             </div>
         }
-        <div class="border-solid margin-right5 margin-left5 margin-bottom15">
+
+        <div class="dealer-details__card">
 
             @if (Model.PrimaryDealer.IsPremiumDealer)
             {
                 <script src="https://maps.googleapis.com/maps/api/js?key=@Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey&callback=initializeDealerMap" async defer></script>
-                <div id="dealerMap" style="height: 94px; position: relative; text-align: center">
+                <div id="dealerMap" class="dealer-details-card__map" style="height: 94px; position: relative; text-align: center">
                     <img src="https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif" />
                 </div>
                 <script type="text/javascript">
@@ -117,23 +123,23 @@
                 @if (!string.IsNullOrEmpty(PrimaryDealerDetails.Address))
                 {
                     <p class="margin-bottom10">
-                        <span class="bwmsprite dealership-loc-icon inline-block margin-right15"></span>
-                        <span class="inline-block dealership-address">@PrimaryDealerDetails.Address</span>
+                        <span class="bwmsprite dealership-loc-icon vertical-top margin-right15"></span>
+                        <span class="vertical-top dealership-address">@PrimaryDealerDetails.Address</span>
                     </p>
 }
 
                 @if (!string.IsNullOrEmpty(PrimaryDealerDetails.MaskingNumber))
                 {
                     <p class="margin-bottom10">
-                        <span class="bwmsprite tel-grey-sm-icon inline-block margin-right15"></span>
-                        <a id="aDealerNumber" href="tel:@PrimaryDealerDetails.MaskingNumber" class="inline-block text-default">@PrimaryDealerDetails.MaskingNumber</a>
+                        <span class="bwmsprite tel-grey-sm-icon vertical-top margin-right15"></span>
+                        <a id="aDealerNumber" href="tel:@PrimaryDealerDetails.MaskingNumber" class="vertical-top text-default">@PrimaryDealerDetails.MaskingNumber</a>
                     </p>
                 }
                 @if (!string.IsNullOrEmpty(PrimaryDealerDetails.WorkingTime))
                 {
                     <div>
                         <span class="bwmsprite clock-icon vertical-top margin-right15"></span>
-                        <span class="inline-block">@PrimaryDealerDetails.WorkingTime</span>
+                        <span class="vertical-top">@PrimaryDealerDetails.WorkingTime</span>
                         </div>
                 }
             </div>
@@ -142,15 +148,15 @@
 
         @if (Model.PrimaryDealer.HasBenefits && Model.PrimaryDealer.IsPremiumDealer)
         {
-            <div class="padding-right15 padding-left15">
-                <p class="text-bold margin-bottom15">Benefits from this dealer:</p>
-                <ul class="pricequote-benefits-list">
+            <div class="dealer__benefit-content">
+                <p class="dealer-benefit__title">Benefits from this dealer</p>
+                <ul class="benefit__list">
                     @foreach (var benefit in Model.PrimaryDealer.Benefits)
-                            {
-                            <li>
-                                <span class="offers-sprite @(string.Format(" benifitIcon_{0}", benefit.CatId))"></span>
-                                <span class="pq-benefits-title padding-left15">@benefit.BenefitText</span>
-                            </li>
+					{
+						<li class="benefit-list__item">
+							<span class="benefit-item__icon @(string.Format(" benifitIcon_{0}", benefit.CatId))"></span>
+							<span class="benefit-item__label">@benefit.BenefitText</span>
+						</li>
                     }
                 </ul>
             </div>

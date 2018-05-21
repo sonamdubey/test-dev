@@ -1,0 +1,358 @@
+// dealer - name
+@mixin dealer-name-content($desktop: false)
+  .dealer__name-content
+    @include flexbox
+    @include align-items(center)
+    width: 100%
+    text-align: left
+    padding-top: 15px
+    padding-bottom: 15px
+    border-bottom: 1px solid color('gainsboro')
+
+  .dealer-details__icon
+    @include dealer-4d5957-icon
+    @include flex-shrink
+    width: 24px
+    height: 22px
+    display: inline-block
+    margin-right: 15px
+
+  .dealer-details__name
+    color: color('dark-black')
+    font-size: 16px
+    font-weight: $font-semibold
+    margin-bottom: 5px
+
+  .dealer-details__description
+    font-size: 12px
+    color: color('aluminium')
+
+  @if $desktop
+    @media (min-width: 800px)
+      .dealer__name-content
+        padding-top: 20px
+        padding-bottom: 20px
+
+      .dealer-details__name
+        font-size: 18px
+        font-weight: $font-bold
+
+      .dealer-details__description
+        font-size: 13px
+
+
+@mixin dealer-contact
+  .dealer-details__contact
+    font-size: 16px
+    font-weight: $font-bold
+    margin-left: 20px
+    padding: 10px 20px
+    border-left: 1px solid color('gainsboro')
+
+
+// dealer - on road price and emi
+@mixin dealer-price-content
+  .dealer__price-content
+    margin-bottom: 30px
+
+  .dealer-price__on-road-price
+    font-size: 18px
+
+  .dealer-price__on-road-price-label
+    font-size: 11px
+    margin-left: 5px
+    color: color('aluminium')
+
+  .dealer-price__emi
+    font-size: 12px
+    color: color('aluminium')
+    margin-top: 5px
+
+  .calculate-emi-target
+    font-size: 13px
+    font-weight: $font-semibold
+    margin-left: 15px
+
+
+// dealer - details
+@mixin dealer-details-content($box-shadow: true)
+  .dealer-details__card
+    @if $box-shadow
+      @include vendor-prefix('box-shadow', 0 2px 6px 0 rgba(0, 0, 0, .1))
+      @include vendor-prefix('border-radius', 2px)
+
+    margin-bottom: 15px
+    background-color: color('white')
+
+
+// dealer - details -- modifier
+@mixin dealer-details-content-card-none
+  .dealer-details-card--shadow-none
+    &.dealer-details__card
+      @include vendor-prefix('box-shadow', none)
+
+
+// dealer - offers
+@mixin dealer-offers-content($box-shadow: true, $desktop: false)
+  .dealer__offers-content
+    @if $box-shadow
+      @include vendor-prefix('box-shadow', 0 2px 6px 0 rgba(0, 0, 0, .1))
+      @include vendor-prefix('border-radius', 2px)
+
+    padding: 15px
+    margin-top: 9px
+    margin-bottom: 15px
+    background-color: color('white')
+    position: relative
+
+  .dealer-offer__container
+    padding-top: 20px
+
+  @if $desktop
+    @media (min-width: 800px)
+      .dealer__offers-content
+        padding-bottom: 10px
+        margin-bottom: 0
+
+
+// dealer - offers -- modifier
+@mixin dealer-offers-content-card-none($border-color: 'gainsboro')
+  .offers-content--card-none
+    &.dealer__offers-content
+      @include vendor-prefix('box-shadow', none)
+      padding-right: 0
+      padding-left: 0
+      border-top: 1px solid color($border-color)
+
+    .dealer-offer__badge
+      left: 0
+
+
+// dealer - book now
+@mixin dealer-booking-content
+  .dealer__booking-content
+    @include flexbox
+    @include align-items(center)
+
+  .book-now__btn
+    @include flex-shrink
+    @include text-truncate(100px)
+    max-width: 100px
+    padding: 5px
+    text-align: center
+    font-size: 14px
+    text-transform: capitalize
+
+  .book-now__label
+    padding-left: 10px
+    color: color('aluminium')
+    font-size: 10px
+    font-style: italic
+
+  .dealer__offers-content
+    .dealer__booking-content
+      margin-top: 15px
+      padding-top: 15px
+      border-top: 1px solid color('gainsboro')
+
+      &:only-child
+        margin-top: 0
+        padding-top: 0
+        border-top: 0
+
+
+// dealer - benefit content
+@mixin dealer-benefits-content
+  .dealer-benefit__title
+    font-size: 14px
+    font-weight: $font-semibold
+    margin-bottom: 15px
+
+
+// dealer - benefits list
+@mixin benefits-list($desktop: false)
+  .benefit-list__item
+    @include flexbox
+    @include align-items(flex-start)
+    margin-top: 10px
+
+    &:first-child
+      margin-top: 0
+
+  .benefit-item__icon
+    @include flex-shrink
+    width: 20px
+    height: 20px
+    display: inline-block
+    background-size: 15px
+    position: relative
+    top: 2px
+
+  .benefit-item__label
+    padding-left: 10px
+    color: color('tuna')
+    font-size: 12px
+
+  @if $desktop
+    @media (min-width: 800px)
+      .benefit__list
+        @include flexbox
+        @include flex-wrap(wrap)
+
+      .benefit-list__item
+        @include align-items(center)
+        width: 50%
+        margin-top: 0
+        margin-bottom: 15px
+        padding-right: 20px
+
+        &:only-child
+          width: 100%
+          padding-right: 0
+
+      .benefit-item__icon
+        width: 38px
+        height: 38px
+        background-size: 22px
+
+      .benefit-item__label
+        font-size: 14px
+
+
+@mixin benefit-list-more-target
+  .benefit-list__more-target
+    color: color('pacific-blue')
+    font-size: 13px
+    font-weight: $font-semibold
+    display: inline-block
+    cursor: pointer
+
+
+// dealer - benefits list -- preview items
+@mixin benefits-list-preview($count: 2)
+  .benefit__list
+    &[data-count='#{$count}']
+      .benefit-list__item
+        display: none
+
+        @for $i from 1 through $count
+          &:nth-child(#{$i})
+            @include flexbox
+
+  .benefit-list--expand
+    .benefit__list
+      &[data-count='#{$count}']
+        .benefit-list__item
+          @include flexbox
+
+    .benefit-list__more-target
+      display: none
+
+
+// dealer - request callback
+@mixin dealer-request-callback-content
+  .dealer__request-callback-content
+    @include flexbox
+    @include align-items(center)
+
+  .request-callback__btn
+    @include flex-shrink
+    @include text-truncate(136px)
+    max-width: 136px
+    padding: 5px
+    text-align: center
+    font-size: 14px
+    text-transform: capitalize
+
+  .request-callback__label
+    padding-left: 10px
+    color: color('aluminium')
+    font-size: 10px
+    font-style: italic
+
+
+@mixin dealer-get-offers-content($desktop: false)
+  @if $desktop
+    @media (min-width: 800px)
+      .dealer__get-offers-content
+        @include flex-grow(1)
+        text-align: right 
+        padding-right: 20px
+        padding-left: 20px
+
+
+// dealer - offers summary
+@mixin dealer-offers-summary
+  .dealer__offers-summary-content
+    font-size: 12px
+    padding: 7px 10px
+    border: 1px solid color('gainsboro')
+    display: inline-block
+    margin-top: 20px
+    margin-bottom: 10px
+
+  .dealer-offers__icon
+    @include offer-star-percent-82888b-icon
+    background-size: 16px
+    width: 16px
+    height: 16px
+    display: inline-block
+    vertical-align: middle
+    margin-right: 8px
+
+  .dealer-offers__icon-label
+    color: color('aluminium')
+    margin-right: 15px
+    display: inline-block
+    vertical-align: middle
+
+  .dealer-offers__target
+    color: color('pacific-blue')
+    font-weight: $font-semibold
+    cursor: pointer
+    display: inline-block
+    vertical-align: middle
+    text-transform: capitalize
+
+
+@mixin dealer-toolbar-offers-summary($height: 33px)
+  .offers-summary-toolbar
+    height: $height
+
+    .dealer__offers-summary-content
+      position: fixed
+      width: 100%
+      top: 0
+      left: 0
+      right: 0
+      margin-top: 0
+      margin-bottom: 0
+      background-color: color('white-smoke-3')
+      z-index: 5
+
+  .dealer-offers__icon-label
+    max-width: 60%
+
+  .dealer-offers-toolbar__close
+    @include cross-aaa-icon
+    background-size: 10px
+    width: 30px
+    height: 30px
+    cursor: pointer
+    position: absolute
+    top: 0
+    right: 5px
+
+
+// offer icons
+$dealer-offerId-list: 1, 2, 3, 4, 5, 6
+
+@mixin dealer-offer-icons
+  @each $item in $dealer-offerId-list
+    $className: 'offer-#{$item}-icon'
+
+    .#{$className}
+      background-image: url('#{$img-cdn-path}/0x0/bw/static/icons/offers/#{$item}.svg')
+      background-repeat: no-repeat
+      background-position: center
+

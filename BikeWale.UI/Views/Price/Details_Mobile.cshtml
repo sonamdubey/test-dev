@@ -1,7 +1,7 @@
 ﻿@model Bikewale.Models.Price.DealerPriceQuotePageVM
 @using Bikewale.Common;
 @{
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/dealerpricequote.css' inline />";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/m/dealer-pricequote.css' inline /> <link rel='stylesheet' type='text/css' href='/sass/partials/dealer-offers.css' inline />";
     Model.Page_BTF_CSS_Path = "";
     Model.Page_JS_Path = "/m/src/dealerpricequote.js";
     Model.AdTags.AdPath = "/1017752/BikeWale_Mobile_PQ";
@@ -12,7 +12,16 @@
     Model.AdTags.Ad_Bot_320x50 = true;
 }
 
-<div class="bg-white padding-10-5 bottom-shadow margin-bottom10">
+<div id="offersSummaryToolbar" class="offers-summary-toolbar pq__offers-summary-toolbar">
+    <div class="dealer__offers-summary-content">
+        <span class="dealer-offers__icon"></span>
+        <span class="dealer-offers__icon-label">4 Dealer Offers available</span>
+        <span id="viewDealerOffers" class="dealer-offers__target">See offers</span>
+        <span id="closeDealerOffersToolbar" class="dealer-offers-toolbar__close"></span>
+    </div>
+</div>
+
+<div class="model__details-content">
     <div class="bike-details margin-bottom15">
         <h1>@Model.BikeName</h1>
         <p class="font12 text-light-grey padding-left15 padding-right5">Version:</p>
@@ -145,10 +154,13 @@
         }
     </div>
     <!-- Price Breakup ends here -->
-    @if (Model.DetailedDealer.PrimaryDealer != null && Model.DetailedDealer.PrimaryDealer.DealerDetails != null && Model.DetailedDealer.PrimaryDealer.DealerDetails.objArea != null)
+</div>
+
+<div class="model__dealer-details-content">
+	@if (Model.DetailedDealer.PrimaryDealer != null && Model.DetailedDealer.PrimaryDealer.DealerDetails != null && Model.DetailedDealer.PrimaryDealer.DealerDetails.objArea != null)
     {
-        @Html.Partial("~/Views/Price/_DealerCampaign_Mobile.cshtml", Model.DetailedDealer)
-    }    
+      @Html.Partial("~/Views/Price/_DealerCampaign_Mobile.cshtml", Model.DetailedDealer)
+    }
     <div class="clear"></div>
 </div>
 

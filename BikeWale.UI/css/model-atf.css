@@ -897,20 +897,6 @@
 	display: inline-block;
 }
 
-.benifitIcon_1 , .benifitIcon_2 , .benifitIcon_3 , .benifitIcon_4 , .benifitIcon_5 , .offerIcon_1 , .offerIcon_2 , .offerIcon_3 , .offerIcon_4 , .offerIcon_5, .offerIcon_6, .offerIcon_7 { width: 38px; height: 38px; vertical-align: middle; margin-right: 10px; }
-.benifitIcon_1 { background-position: -129px -154px; }
-.benifitIcon_2 { background-position: 0 -196px; }
-.benifitIcon_3 { background-position: -43px -196px; }
-.benifitIcon_4 { background-position: -86px -196px; }
-.benifitIcon_5 { background-position: -129px -196px; }
-.offerIcon_1 { background-position: 0 -111px; }
-.offerIcon_2 { background-position: -43px -111px; }
-.offerIcon_3 { background-position: -86px -111px; }
-.offerIcon_4 { background-position: -129px -111px; }
-.offerIcon_5 { background-position: 0 -154px; }
-.offerIcon_6 { background-position: -43px -154px; }
-.offerIcon_7 { background-position: -86px -154px; }
-
 .margin-top35 { margin-top:35px; }
 .text-darker-black { color:#1a1a1a; }
 .text-blue { color:#0288d1; }
