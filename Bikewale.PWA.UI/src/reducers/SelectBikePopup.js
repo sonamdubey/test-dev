@@ -52,7 +52,7 @@ export function SelectBikePopup(state, action) {
 
       case selectBikePopup.FETCH_VERSIONLIST_SUCCESS:
         if (action.payload != null && action.payload.versions.length > 0) {
-          return state.setIn(['Selection'], fromJS({ ...(state.get('Selection').toJS()), versionList: action.payload.versions, selectedVersionIndex: 0}));
+          return state.setIn(['Selection'], fromJS({ ...(state.get('Selection').toJS()), versionList: mapVersionsDataToDropdownList(action.payload.versions), selectedVersionIndex: 0}));
         }
         else {
           return state;
