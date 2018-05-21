@@ -3,7 +3,7 @@ import ExpandCollapse from 'react-expand-collapse';
 
 import { addTabEvents, removeTabEvents } from '../../utils/scrollSpyTabs';
 
-import EMITab from './EMITab'
+import EMITab from './EMITabContainer'
 import Documentation from './Documentation'
 import FAQ from './FAQ'
 

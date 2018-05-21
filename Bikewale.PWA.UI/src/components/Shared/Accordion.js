@@ -14,7 +14,7 @@ const propTypes = {
   classParentString: PropTypes.string,
   onTriggerClick: PropTypes.func,
   closeable: PropTypes.bool,
-  children: PropTypes.arrayOf(PropTypes.shape({
+  items: PropTypes.arrayOf(PropTypes.shape({
     props: PropTypes.shape({
       'data-trigger': PropTypes.oneOfType([
         PropTypes.string,
@@ -67,7 +67,10 @@ class Accordion extends React.Component {
   }
 
   render() {
-    var nodes = this.props.children.map((node, index) => {
+    if (!this.props.items) {
+      return null;
+    }
+    var nodes = this.props.items.map((node, index) => {
 
       var triggerWhenOpen = (node.props['data-trigger-when-open']) ? node.props['data-trigger-when-open'] : node.props['data-trigger'];
       var triggerDisabled = (node.props['data-trigger-disabled']) || false;
