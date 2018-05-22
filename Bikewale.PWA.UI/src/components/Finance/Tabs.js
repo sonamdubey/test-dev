@@ -38,7 +38,6 @@ class Tabs extends React.Component {
             <ul className="tabs__list">
               <li className="tabs-list__item" data-tab="overviewTab">Overview</li>
               <li className="tabs-list__item" data-tab="emiTab">EMI Calculator</li>
-              <li className="tabs-list__item" data-tab="loanEligibilityTab">Loan Eligibility Predictor</li>
               <li className="tabs-list__item" data-tab="documentationTab">Documentation</li>
               <li className="tabs-list__item" data-tab="faqTab">FAQ</li>
             </ul>
