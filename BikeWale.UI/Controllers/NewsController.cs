@@ -84,7 +84,7 @@ namespace Bikewale.Controllers
             NewsIndexPage obj = new NewsIndexPage(_cacheContent, _pager, _makes, _models, _bikeModels, _upcoming, _renderedArticles, _objVersion, _articles, _seriesCache, _series, _cityCache, _bikeInfo, _modelMaskingCache);
             if (obj.Status == Entities.StatusCodes.ContentNotFound)
             {
-                return Redirect("/pagenotfound.aspx");
+                return HttpNotFound();
             }
             else if (obj.Status == Entities.StatusCodes.RedirectPermanent)
             {
@@ -94,7 +94,7 @@ namespace Bikewale.Controllers
             {
                 NewsIndexPageVM objData = obj.GetData(4);
                 if (obj.Status == Entities.StatusCodes.ContentNotFound)
-                    return Redirect("/pagenotfound.aspx");
+                    return HttpNotFound();
                 else
                     return View(objData);
             }
@@ -112,7 +112,7 @@ namespace Bikewale.Controllers
             obj.IsMobile = true;
             if (obj.Status == Entities.StatusCodes.ContentNotFound)
             {
-                return Redirect("/m/pagenotfound.aspx");
+                return HttpNotFound();
             }
             else if (obj.Status == Entities.StatusCodes.RedirectPermanent)
             {
@@ -122,7 +122,7 @@ namespace Bikewale.Controllers
             {
                 NewsIndexPageVM objData = obj.GetData(9);
                 if (obj.Status == Entities.StatusCodes.ContentNotFound)
-                    return Redirect("/m/pagenotfound.aspx");
+                    return HttpNotFound();
                 else
                     return View(objData);
             }
@@ -139,7 +139,7 @@ namespace Bikewale.Controllers
             obj.IsMobile = true;
             if (obj.Status == Entities.StatusCodes.ContentNotFound)
             {
-                return Redirect("/m/pagenotfound.aspx");
+                return HttpNotFound();
             }
             else if (obj.Status == Entities.StatusCodes.RedirectPermanent)
             {
@@ -161,7 +161,7 @@ namespace Bikewale.Controllers
                     _logger.Error(sw.ElapsedMilliseconds);
                 }
                 if (obj.Status == Entities.StatusCodes.ContentNotFound)
-                    return Redirect("/m/pagenotfound.aspx");
+                    return HttpNotFound();
                 else
                 {
                     if (_enablePWA)
@@ -188,7 +188,7 @@ namespace Bikewale.Controllers
             NewsDetailPage obj = new NewsDetailPage(_cacheContent, _makes, _models, _bikeModels, _upcoming, _bikeInfo, _cityCache, basicid, _renderedArticles, _objVersion, _seriesCache, _series);
             if (obj.status == Entities.StatusCodes.ContentNotFound)
             {
-                return Redirect("/pagenotfound.aspx");
+                return HttpNotFound();
             }
             else if (obj.status == Entities.StatusCodes.RedirectPermanent)
             {
@@ -198,7 +198,7 @@ namespace Bikewale.Controllers
             {
                 NewsDetailPageVM objData = obj.GetData(3);
                 if (obj.status == Entities.StatusCodes.ContentNotFound)
-                    return Redirect("/pagenotfound.aspx");
+                    return HttpNotFound();
                 else
                     return View(objData);
             }
@@ -215,7 +215,7 @@ namespace Bikewale.Controllers
             obj.IsMobile = true;
             if (obj.status == Entities.StatusCodes.ContentNotFound)
             {
-                return Redirect("/m/pagenotfound.aspx");
+                return HttpNotFound();
             }
             else if (obj.status == Entities.StatusCodes.RedirectPermanent)
             {
@@ -239,7 +239,7 @@ namespace Bikewale.Controllers
                 }
 
                 if (obj.status == Entities.StatusCodes.ContentNotFound)
-                    return Redirect("/m/pagenotfound.aspx");
+                    return HttpNotFound();
                 else
                 {
                     if (_enablePWA)
@@ -272,7 +272,7 @@ namespace Bikewale.Controllers
                 obj.IsAMPPage = true;
                 if (obj.status == Entities.StatusCodes.ContentNotFound)
                 {
-                    return Redirect("/m/pagenotfound.aspx");
+                    return HttpNotFound();
                 }
                 else if (obj.status == Entities.StatusCodes.RedirectPermanent)
                 {
@@ -282,7 +282,7 @@ namespace Bikewale.Controllers
                 {
                     objData = obj.GetData(9);
                     if (obj.status == Entities.StatusCodes.ContentNotFound)
-                        return Redirect("/m/pagenotfound.aspx");
+                        return HttpNotFound();
                     else
                         return View("~/views/m/content/news/details_amp.cshtml", objData);
                 }
@@ -290,7 +290,7 @@ namespace Bikewale.Controllers
             catch (Exception err)
             {
                 ErrorClass.LogError(err, "m/news/details/{basicid}/amp/" + basicid);
-                return Redirect("/m/pagenotfound.aspx");
+                return HttpNotFound();
             }
         }
 
@@ -311,7 +311,7 @@ namespace Bikewale.Controllers
                 ScooterNewsPage obj = new ScooterNewsPage(_cacheContent, _pager, _models, _makes, _bikeModels, _upcoming, _renderedArticles);
                 if (obj.Status == Entities.StatusCodes.ContentNotFound)
                 {
-                    return Redirect("/pagenotfound.aspx");
+                    return HttpNotFound();
                 }
                 else if (obj.Status == Entities.StatusCodes.RedirectPermanent)
                 {
@@ -322,7 +322,7 @@ namespace Bikewale.Controllers
                     obj.WidgetTopCount = 4;
                     objData = obj.GetData();
                     if (obj.Status == Entities.StatusCodes.ContentNotFound)
-                        return Redirect("/pagenotfound.aspx");
+                        return HttpNotFound();
 
 
                 }
@@ -350,7 +350,7 @@ namespace Bikewale.Controllers
                 obj.IsMobile = true;
                 if (obj.Status == Entities.StatusCodes.ContentNotFound)
                 {
-                    return Redirect("/m/pagenotfound.aspx");
+                    return HttpNotFound();
                 }
                 else if (obj.Status == Entities.StatusCodes.RedirectPermanent)
                 {
@@ -361,7 +361,7 @@ namespace Bikewale.Controllers
                     obj.WidgetTopCount = 9;
                     objData = obj.GetData();
                     if (obj.Status == Entities.StatusCodes.ContentNotFound)
-                        return Redirect("/m/pagenotfound.aspx");
+                        return HttpNotFound();
 
                 }
             }

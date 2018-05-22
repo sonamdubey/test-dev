@@ -116,7 +116,7 @@ namespace Bikewale.Controllers
             }
             else
             {
-                return Redirect("/pagenotfound.aspx");
+                return HttpNotFound();
             }
 
         }
@@ -152,7 +152,7 @@ namespace Bikewale.Controllers
             }
             else
             {
-                return Redirect("/m/pagenotfound.aspx");
+                return HttpNotFound();
             }
 
         }
@@ -181,7 +181,7 @@ namespace Bikewale.Controllers
             }
             else
             {
-                return Redirect("/pageNotFound.aspx");
+                return HttpNotFound();
             }
 
 
@@ -211,7 +211,7 @@ namespace Bikewale.Controllers
             }
             else
             {
-                return Redirect("/m/pageNotFound.aspx");
+                return HttpNotFound();
             }
 
         }
@@ -239,7 +239,7 @@ namespace Bikewale.Controllers
                     if (objDealerDetailsVM != null && objDealerDetailsVM.DealerDetails != null && objDealerDetailsVM.DealerDetails.DealerDetails != null)
                         return View(objDealerDetailsVM);
                     else
-                        return Redirect("/pageNotFound.aspx");
+                        return HttpNotFound();
                 }
 
                 else if (objDealerDetails.status == Entities.StatusCodes.RedirectPermanent)
@@ -248,12 +248,12 @@ namespace Bikewale.Controllers
                 }
                 else
                 {
-                    return Redirect("/pageNotFound.aspx");
+                    return HttpNotFound();
                 }
             }
             else
             {
-                return Redirect("/pageNotFound.aspx");
+                return HttpNotFound();
             }
 
         }
@@ -278,7 +278,7 @@ namespace Bikewale.Controllers
                     if (objDealerDetailsVM != null && objDealerDetailsVM.DealerDetails != null && objDealerDetailsVM.DealerDetails.DealerDetails != null)
                         return View(objDealerDetailsVM);
                     else
-                        return Redirect("/m/pageNotFound.aspx");
+                        return HttpNotFound();
                 }
 
                 else if (objDealerDetails.status == Entities.StatusCodes.RedirectPermanent)
@@ -287,13 +287,13 @@ namespace Bikewale.Controllers
                 }
                 else
                 {
-                    return Redirect("/m/pageNotFound.aspx");
+                    return HttpNotFound();
                 }
 
             }
             else
             {
-                return Redirect("/m/pageNotFound.aspx");
+                return HttpNotFound();
             }
 
 

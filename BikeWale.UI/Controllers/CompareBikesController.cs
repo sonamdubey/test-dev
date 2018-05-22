@@ -120,7 +120,7 @@ namespace Bikewale.Controllers
             }
             else
             {
-                return Redirect("/pageNotFound.aspx");
+                return HttpNotFound();
             }
 
         }
@@ -145,7 +145,7 @@ namespace Bikewale.Controllers
                 }
                 else if (objDetails.status == Entities.StatusCodes.ContentNotFound)
                 {
-                    return Redirect("/m/pageNotFound.aspx");
+                    return HttpNotFound();
                 }
                 else
                 {
@@ -155,7 +155,7 @@ namespace Bikewale.Controllers
                     }
                     else
                     {
-                        return Redirect("/m/pageNotFound.aspx");
+                        return HttpNotFound();
                     }
                 }
 
@@ -171,7 +171,7 @@ namespace Bikewale.Controllers
             }
             else
             {
-                return Redirect("/m/pageNotFound.aspx");
+                return HttpNotFound();
             }
 
         }

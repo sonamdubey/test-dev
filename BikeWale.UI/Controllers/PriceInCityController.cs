@@ -1,5 +1,4 @@
-﻿using System.Web.Mvc;
-using Bikewale.Entities.BikeData;
+﻿using Bikewale.Entities.BikeData;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.AdSlot;
 using Bikewale.Interfaces.BikeBooking;
@@ -11,6 +10,7 @@ using Bikewale.Interfaces.ServiceCenter;
 using Bikewale.ManufacturerCampaign.Interface;
 using Bikewale.Models;
 using Bikewale.Models.PriceInCity;
+using System.Web.Mvc;
 
 namespace Bikewale.Controllers
 {
@@ -35,26 +35,26 @@ namespace Bikewale.Controllers
         private readonly IAreaCacheRepository _objAreaCache = null;
         private readonly IManufacturerCampaign _objManufacturerCampaign = null;
         private readonly IBikeModels<Entities.BikeData.BikeModelEntity, int> _objModelEntity = null;
-		private readonly IAdSlot _adSlot = null;
-		/// <summary>
-		/// Created by  :   Sumit Kate on 28 Mar 2017
-		/// Description :   Constructor to intialize the member variables
-		/// Modified by : Ashutosh Sharma on 11 Oct 2017
-		/// Description : Added IBikeModels<Entities.BikeData.BikeModelEntity, int> instance in constructor for image gallery.
-		/// Modifed by : Ashutosh Sharma on 13 Nov 2017
-		/// Description : Added IAdSlot.
-		/// </summary>
-		/// <param name="cityMaskingCache"></param>
-		/// <param name="modelMaskingCache"></param>
-		/// <param name="objPQ"></param>
-		/// <param name="objPQCache"></param>
-		/// <param name="objDealerCache"></param>
-		/// <param name="objServiceCenterCache"></param>
-		/// <param name="versionCache"></param>
-		/// <param name="bikeInfo"></param>
-		/// <param name="cityCache"></param>
-		/// <param name="modelCache"></param>
-		public PriceInCityController(ICityMaskingCacheRepository cityMaskingCache, IBikeMaskingCacheRepository<BikeModelEntity, int> modelMaskingCache, IPriceQuote objPQ, IPriceQuoteCache objPQCache, IDealerCacheRepository objDealerCache, IServiceCenter objServiceCenterCache, IBikeVersions<BikeVersionEntity, uint> objVersion, IBikeInfo bikeInfo,IBikeModelsCacheRepository<int> modelCache, IDealerPriceQuoteDetail objDealerDetails, IDealerPriceQuote objDealerPQ, ICityCacheRepository objCityCache, IAreaCacheRepository objAreaCache, IManufacturerCampaign objManufacturerCampaign, IBikeModels<Entities.BikeData.BikeModelEntity, int> modelEntity, IAdSlot adSlot)
+        private readonly IAdSlot _adSlot = null;
+        /// <summary>
+        /// Created by  :   Sumit Kate on 28 Mar 2017
+        /// Description :   Constructor to intialize the member variables
+        /// Modified by : Ashutosh Sharma on 11 Oct 2017
+        /// Description : Added IBikeModels<Entities.BikeData.BikeModelEntity, int> instance in constructor for image gallery.
+        /// Modifed by : Ashutosh Sharma on 13 Nov 2017
+        /// Description : Added IAdSlot.
+        /// </summary>
+        /// <param name="cityMaskingCache"></param>
+        /// <param name="modelMaskingCache"></param>
+        /// <param name="objPQ"></param>
+        /// <param name="objPQCache"></param>
+        /// <param name="objDealerCache"></param>
+        /// <param name="objServiceCenterCache"></param>
+        /// <param name="versionCache"></param>
+        /// <param name="bikeInfo"></param>
+        /// <param name="cityCache"></param>
+        /// <param name="modelCache"></param>
+        public PriceInCityController(ICityMaskingCacheRepository cityMaskingCache, IBikeMaskingCacheRepository<BikeModelEntity, int> modelMaskingCache, IPriceQuote objPQ, IPriceQuoteCache objPQCache, IDealerCacheRepository objDealerCache, IServiceCenter objServiceCenterCache, IBikeVersions<BikeVersionEntity, uint> objVersion, IBikeInfo bikeInfo, IBikeModelsCacheRepository<int> modelCache, IDealerPriceQuoteDetail objDealerDetails, IDealerPriceQuote objDealerPQ, ICityCacheRepository objCityCache, IAreaCacheRepository objAreaCache, IManufacturerCampaign objManufacturerCampaign, IBikeModels<Entities.BikeData.BikeModelEntity, int> modelEntity, IAdSlot adSlot)
         {
             _cityMaskingCache = cityMaskingCache;
             _modelMaskingCache = modelMaskingCache;
@@ -71,24 +71,24 @@ namespace Bikewale.Controllers
             _objAreaCache = objAreaCache;
             _objManufacturerCampaign = objManufacturerCampaign;
             _objModelEntity = modelEntity;
-			_adSlot = adSlot;
+            _adSlot = adSlot;
 
-		}
+        }
 
-		/// <summary>
-		/// Created by  :   Sumit Kate on 28 Mar 2017
-		/// Description :   Model Price in city dekstop view action method
-		/// Modified by : Ashutosh Sharma on 11 Oct 2017
-		/// Description : Added _objModelEntity parameter in PriceInCityPage object creation.
-		/// Modifed by : Ashutosh Sharma on 13 Nov 2017
-		/// Description : Added _adSlot parameter in PriceInCityPage object creation.
+        /// <summary>
+        /// Created by  :   Sumit Kate on 28 Mar 2017
+        /// Description :   Model Price in city dekstop view action method
+        /// Modified by : Ashutosh Sharma on 11 Oct 2017
+        /// Description : Added _objModelEntity parameter in PriceInCityPage object creation.
+        /// Modifed by : Ashutosh Sharma on 13 Nov 2017
+        /// Description : Added _adSlot parameter in PriceInCityPage object creation.
         /// Modified by : Rajan Chauhan on 09 Feb 2017
         /// Description : Changed NearestCityCount to 9
-		/// </summary>
-		/// <param name="modelName"></param>
-		/// <param name="cityName"></param>
-		/// <returns></returns>
-		[Filters.DeviceDetection()]
+        /// </summary>
+        /// <param name="modelName"></param>
+        /// <param name="cityName"></param>
+        /// <returns></returns>
+        [Filters.DeviceDetection()]
         [Route("make/{makeName}/model/{modelName}/pricein/{cityName}/")]
         public ActionResult Index(string makeName, string modelName, string cityName)
         {
@@ -107,7 +107,7 @@ namespace Bikewale.Controllers
                 objVM = model.GetData();
                 if (model.Status == Entities.StatusCodes.ContentNotFound)
                 {
-                    return Redirect("/pagenotfound.aspx");
+                    return HttpNotFound();
                 }
                 else
                 {
@@ -120,23 +120,23 @@ namespace Bikewale.Controllers
             }
             else
             {
-                return Redirect("/pagenotfound.aspx");
+                return HttpNotFound();
             }
 
         }
 
-		/// <summary>
-		/// Created by  :   Sumit Kate on 28 Mar 2017
-		/// Description :   Model Price in city mobile view action method
-		/// Modified by : Ashutosh Sharma on 11 Oct 2017
-		/// Description : Added _objModelEntity parameter in PriceInCityPage object creation.
-		/// Modifed by : Ashutosh Sharma on 13 Nov 2017
-		/// Description : Added _adSlot parameter in PriceInCityPage object creation.
-		/// </summary>
-		/// <param name="modelName"></param>
-		/// <param name="cityName"></param>
-		/// <returns></returns>
-		[Route("m/make/{makeName}/model/{modelName}/pricein/{cityName}/")]
+        /// <summary>
+        /// Created by  :   Sumit Kate on 28 Mar 2017
+        /// Description :   Model Price in city mobile view action method
+        /// Modified by : Ashutosh Sharma on 11 Oct 2017
+        /// Description : Added _objModelEntity parameter in PriceInCityPage object creation.
+        /// Modifed by : Ashutosh Sharma on 13 Nov 2017
+        /// Description : Added _adSlot parameter in PriceInCityPage object creation.
+        /// </summary>
+        /// <param name="modelName"></param>
+        /// <param name="cityName"></param>
+        /// <returns></returns>
+        [Route("m/make/{makeName}/model/{modelName}/pricein/{cityName}/")]
         public ActionResult Index_Mobile(string makeName, string modelName, string cityName)
         {
             PriceInCityPageVM objVM = null;
@@ -155,7 +155,7 @@ namespace Bikewale.Controllers
                 objVM = model.GetData();
                 if (model.Status == Entities.StatusCodes.ContentNotFound)
                 {
-                    return Redirect("/pagenotfound.aspx");
+                    return HttpNotFound();
                 }
                 else
                 {
@@ -164,7 +164,7 @@ namespace Bikewale.Controllers
             }
             else if (model.Status == Entities.StatusCodes.ContentNotFound)
             {
-                return Redirect("/pagenotfound.aspx");
+                return HttpNotFound();
             }
             else if (model.Status == Entities.StatusCodes.RedirectPermanent)
             {
@@ -172,7 +172,7 @@ namespace Bikewale.Controllers
             }
             else
             {
-                return Redirect("/pagenotfound.aspx");
+                return HttpNotFound();
             }
         }
 
@@ -185,10 +185,10 @@ namespace Bikewale.Controllers
         public ActionResult Index_Mobile_Amp(string makeName, string modelName, string cityName)
         {
             PriceInCityPageAMPVM objVM = null;
-            PriceInCityPage model = new PriceInCityPage(_cityMaskingCache, _modelMaskingCache, _objPQ, _objPQCache, _objDealerCache, _objServiceCenterCache, _objVersion, _bikeInfo,  _modelCache, _objDealerDetails, _objDealerPQ, _objCityCache, _objAreaCache, _objManufacturerCampaign, PQSourceEnum.Mobile_PriceInCity_AlternateBikes, modelName, cityName, _objModelEntity, makeName);
+            PriceInCityPage model = new PriceInCityPage(_cityMaskingCache, _modelMaskingCache, _objPQ, _objPQCache, _objDealerCache, _objServiceCenterCache, _objVersion, _bikeInfo, _modelCache, _objDealerDetails, _objDealerPQ, _objCityCache, _objAreaCache, _objManufacturerCampaign, PQSourceEnum.Mobile_PriceInCity_AlternateBikes, modelName, cityName, _objModelEntity, makeName);
             if (model.Status == Entities.StatusCodes.ContentFound)
             {
-				model.IsMobile = true;
+                model.IsMobile = true;
                 model.BikeInfoTabCount = 3;
                 model.NearestCityCount = 8;
                 model.TopCount = 9;
@@ -202,7 +202,7 @@ namespace Bikewale.Controllers
 
                 if (model.Status == Entities.StatusCodes.ContentNotFound)
                 {
-                    return Redirect("/pagenotfound.aspx");
+                    return HttpNotFound();
                 }
                 else
                 {
@@ -211,7 +211,7 @@ namespace Bikewale.Controllers
             }
             else if (model.Status == Entities.StatusCodes.ContentNotFound)
             {
-                return Redirect("/pagenotfound.aspx");
+                return HttpNotFound();
             }
             else if (model.Status == Entities.StatusCodes.RedirectPermanent)
             {
@@ -219,7 +219,7 @@ namespace Bikewale.Controllers
             }
             else
             {
-                return Redirect("/pagenotfound.aspx");
+                return HttpNotFound();
             }
         }
     }
