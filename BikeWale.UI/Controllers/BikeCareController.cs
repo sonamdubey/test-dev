@@ -51,7 +51,7 @@ namespace Bikewale.Controllers
             BikeCareIndexPage obj = new BikeCareIndexPage(_cmsCache, _objPager, _upcoming, _bikeModels, _bikeMakesCacheRepository, _models, _series);
             if (obj.status == Entities.StatusCodes.ContentNotFound)
             {
-                return Redirect("/pagenotfound.aspx");
+                return HttpNotFound();
             }
             else
             {
@@ -60,7 +60,7 @@ namespace Bikewale.Controllers
                 if (obj.status == Entities.StatusCodes.ContentFound)
                     return View(objData);
                 else
-                    return Redirect("/pageNotFound.aspx");
+                    return HttpNotFound();
             }
         }
 
@@ -75,7 +75,7 @@ namespace Bikewale.Controllers
             obj.IsMobile = true;
             if (obj.status == Entities.StatusCodes.ContentNotFound)
             {
-                return Redirect("/m/pagenotfound.aspx");
+                return HttpNotFound();
             }
             else
             {
@@ -84,7 +84,7 @@ namespace Bikewale.Controllers
                 if (obj.status == Entities.StatusCodes.ContentFound)
                     return View(objData);
                 else
-                    return Redirect("/m/pageNotFound.aspx");
+                    return HttpNotFound();
             }
         }
 

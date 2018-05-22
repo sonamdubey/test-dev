@@ -63,7 +63,7 @@ namespace Bikewale.Controllers
             if (objDealerIndexVM != null)
                 return View(objDealerIndexVM);
             else
-                return Redirect("/pagenotfound.aspx");
+                return HttpNotFound();
 
 
         }
@@ -82,7 +82,7 @@ namespace Bikewale.Controllers
             if (objDealerIndexVM != null)
                 return View(objDealerIndexVM);
             else
-                return Redirect("/m/pagenotfound.aspx");
+                return HttpNotFound();
 
 
         }

@@ -105,7 +105,7 @@ namespace Bikewale.BikeBooking
             {
                 Trace.Warn(err.Message);
                 ErrorClass.LogError(err, Request.ServerVariables["URL"]);
-                
+
             }
             finally
             {
@@ -145,7 +145,7 @@ namespace Bikewale.BikeBooking
             {
                 Trace.Warn(err.Message);
                 ErrorClass.LogError(err, Request.ServerVariables["URL"]);
-                
+
             }
 
         }
@@ -273,7 +273,7 @@ namespace Bikewale.BikeBooking
             {
                 Trace.Warn(err.Message);
                 ErrorClass.LogError(err, Request.ServerVariables["URL"]);
-                
+
             }
         }
         #endregion
