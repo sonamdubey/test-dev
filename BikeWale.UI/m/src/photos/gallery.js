@@ -499,7 +499,7 @@ var MainGallerySwiper = (function() {
 					vmModelGallery.setLandscapeIcon();
 				}
 
-				if (swiper.activeIndex % 3 == 0) {
+				if (!vmModelGallery.activePopup() && swiper.activeIndex % 3 == 0) {
 				    refreshAd();
 				}
                 
