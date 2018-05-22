@@ -35,10 +35,10 @@ class EMITab extends React.Component {
   }
 
   handleBikeClick = (item) => {
-    this.props.selectModel(item.modelId);
     this.props.fetchCity(item.modelId);
-    this.props.fetchSelectedBikeDetail(item.modelId);
     this.scrollToNextPopup();
+    this.props.selectModel(item.modelId);
+    this.props.fetchSelectedBikeDetail(item.modelId);
   }
 
   handleSelectCityClick = () => {

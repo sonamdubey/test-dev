@@ -15,7 +15,8 @@ var initialState = fromJS({
     userChange: false
   },
   Popular: [],
-  Other: []
+  Other: [],
+  IsFetching: false
 });
 
 export function FinanceCityPopup(state = initialState, action) {
@@ -36,7 +37,7 @@ export function FinanceCityPopup(state = initialState, action) {
         });
             return state.setIn(['Popular'], fromJS(action.payload.filter(item => item.popularityOrder < 7)))
             .setIn(['Other'], fromJS(action.payload.filter(item => item.popularityOrder > 6)))
-            .setIn(['Selection'], selection);
+            .setIn(['Selection'], selection).setIn(['IsFetching'], false);
 
       case financeCityPopup.OPEN_CITY_POPUP:
           return state.setIn(['isActive'], true);
@@ -60,8 +61,10 @@ export function FinanceCityPopup(state = initialState, action) {
         }));
 
       case financeCityPopup.FETCH_CITY_FAILURE:
-        return initialState;
-
+        return initialState.setIn(['IsFetching'], false);
+      
+      case financeCityPopup.FETCH_CITY:
+        return state.setIn(['IsFetching'], true);
       default:
         return state
     }
