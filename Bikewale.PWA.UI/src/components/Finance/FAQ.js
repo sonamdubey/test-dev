@@ -80,7 +80,7 @@ const FAQ = () => {
 			<div data-trigger="9. What are the documents required in the entire process?">
               <div className="faq-list-item__content">You would be required to produce the following documents at the time of loan application:<br/>
 				  <ul className="faq-content__list">
-					<li><b>ID Proof -</b> Driving Licence, Passport, Aadhar Card, PAN Card and Voter's ID Card are the options available in this category.</li>
+					<li><b>ID Proof -</b> Driving Licence, Passport, Aadhar Card, PAN Card and Voter{"'"}s ID Card are the options available in this category.</li>
 					<li><b>Address Proof -</b> Two kinds of residential proofs have to be submitted, one is the proof of current address and the other is the proof of permanent address.</li>
 					<li><b>Proof of employment -</b> Salary payslip, Offer Letter/Employment Letter, Form 16, Bank Account Statements etc. are some of the proofs required for salaried individuals. For self-employed individuals, proof of business identity, ITR filed by the business, Bank Account Statements of the business account etc. are some of the documents that would be required.</li>
 					<li><b>Recent coloured passport-sized photographs</b> are also required.</li>
