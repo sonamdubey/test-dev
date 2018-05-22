@@ -14,6 +14,7 @@ import { scrollTop } from '../../utils/scrollTo';
 import { lockScroll, unlockScroll } from '../../utils/scrollLock';
 import { slider } from '../../reducers/emiInterest';
 import { getGlobalCity } from '../../utils/popUpUtils'
+import AdUnit from '../AdUnit'
 class EMITab extends React.Component {
   constructor(props) {
     super(props);
@@ -115,7 +116,7 @@ class EMITab extends React.Component {
     if (currentCityId > 0 && currentBikeId > 0 && (currentBikeId != this.getSelectedBikeId(prevProps) || currentCityId != this.getSelectedCityId(prevProps))) {
       this.props.fetchBikeVersionList(currentBikeId, currentCityId);
 
-      if (sliderDp.values[0] > 0 && sliderInt.values[0] && sliderTenure.values[0] > 0) {
+      if (sliderDp.values[0] > 0 && sliderInt.values[0] > 0 && sliderTenure.values[0] > 0) {
         fetchSimilarBikes({
           modelId: currentBikeId,
           cityId: currentCityId,
@@ -183,7 +184,7 @@ class EMITab extends React.Component {
           <ModelInfo />}
 
         <EMICalculator />
-
+        <AdUnit uniqueKey={'finance-page'} tags={null} adSlot={'/1017752/BikeWale_Finance_Bottom_320x50'} adDimension={[320, 50]} adContainerId={'div-gpt-ad-1525945337139-1'} />
         {
           SimilarBikesEMI != null && SimilarBikesEMI.data != null && SimilarBikesEMI.data.length > 0 && (
             <SwiperContainer
