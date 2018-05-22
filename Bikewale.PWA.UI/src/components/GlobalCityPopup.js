@@ -48,7 +48,10 @@ class GlobalCityPopup extends React.Component {
 	    var cityName = state.label.split(',')[0];
 	    setGlobalCity(city.cityId, cityName, globalCityId);
         closeGlobalCityPopUpByButtonClick();
-        dataLayer.push({ 'event': 'Bikewale_all', 'cat': GetCatForNav(), 'act': 'City_Popup_Default', 'lab': cityName });
+		dataLayer.push({ 'event': 'Bikewale_all', 'cat': GetCatForNav(), 'act': 'City_Popup_Default', 'lab': cityName });
+		if (city.cityId) {
+			location.reload();
+		}
 	}
 
 	onChange() {
