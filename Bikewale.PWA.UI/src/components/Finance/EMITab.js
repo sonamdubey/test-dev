@@ -21,8 +21,10 @@ class EMITab extends React.Component {
     this.scrollToNextPopup = this.scrollToNextPopup.bind(this);
     this.getSelectedBikeId = this.getSelectedBikeId.bind(this);
     this.getSelectedCityId = this.getSelectedCityId.bind(this);
+    this.handleCityClick = this.handleCityClick.bind(this);
     this.state = {
       shouldscroll: false,
+      isGlobalCityInList: true,
       shouldFetchSimilarBikes: true
     };
   }
@@ -50,8 +52,8 @@ class EMITab extends React.Component {
       cityName: item.cityName,
       userChange: true
     }
-
     this.props.selectCity(payload);
+    this.setState({ ...this.state, isGlobalCityInList: true });
     this.state.shouldFetchSimilarBikes = true;
   }
 
@@ -89,12 +91,10 @@ class EMITab extends React.Component {
       // Open city popup if current city not in fetched city list
       if (FinanceCityPopup != null && (FinanceCityPopup.Popular.length > 0 || FinanceCityPopup.Other.length > 0) && !(IsGlobalCityPresent(FinanceCityPopup.Popular, currentCityId) || IsGlobalCityPresent(FinanceCityPopup.Other, currentCityId))) {
         this.props.openSelectCityPopup();
-        this.props.selectCity({
-          cityId: -1,
-          cityName: "",
-          userChange: false
-        });
-        this.setState({ shouldscroll: false });
+        this.setState({ shouldscroll: false, isGlobalCityInList: false });
+      }
+      else if (!this.state.isGlobalCityInList) {
+        this.setState({ ...this.state, isGlobalCityInList: true });
       }
     }
     // For any change in bike or city we fetch new bike version list
@@ -178,7 +178,7 @@ class EMITab extends React.Component {
         }
         {
           FinanceCityPopup != null &&
-          <SelectCityPopup isActive={FinanceCityPopup.isActive} data={FinanceCityPopup} onCloseClick={closeSelectCityPopup} onCityClick={this.handleCityClick} openSelectCityPopup={openSelectCityPopup} />
+          <SelectCityPopup isActive={FinanceCityPopup.isActive} data={{ ...FinanceCityPopup, isGlobalCityInList: this.state.isGlobalCityInList }} onCloseClick={closeSelectCityPopup} onCityClick={this.handleCityClick} openSelectCityPopup={openSelectCityPopup} />
         }
       </div>);
   }

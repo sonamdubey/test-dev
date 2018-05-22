@@ -56,7 +56,7 @@ class SelectBikePopup extends React.Component {
   }
 
   handleClear = () => {
-    this.setState({ ...this.state, modelValue: '', makeModelList: this.props.data.MakeModelList });
+    this.setState({ ...this.state, modelValue: '', makeModelList: this.props.data.MakeModelList, searchMode: false });
   }
 
   handleNextClick = () => {
