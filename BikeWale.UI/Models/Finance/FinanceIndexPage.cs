@@ -97,13 +97,11 @@ namespace Bikewale.Models
 		{
 			try
 			{
-				IList<BreadcrumbListItem> BreadCrumbs = new List<BreadcrumbListItem>();
-				string bikeUrl;
-				bikeUrl = string.Format("{0}/", Utility.BWConfiguration.Instance.BwHostUrl);
-				bikeUrl += "m/";
-				BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(1, bikeUrl, "Home"));
+				IList<BreadcrumbListItem> breadCrumbs = new List<BreadcrumbListItem>();
+				string bikeUrl = string.Format("{0}/m/", Utility.BWConfiguration.Instance.BwHostUrl);
+				breadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(1, bikeUrl, "Home"));
 
-				objData.BreadcrumbList.BreadcrumListItem = BreadCrumbs;
+				objData.BreadcrumbList.BreadcrumListItem = breadCrumbs;
 			}
 			catch (Exception ex)
 			{
