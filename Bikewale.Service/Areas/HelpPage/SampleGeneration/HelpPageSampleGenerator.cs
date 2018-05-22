@@ -410,6 +410,8 @@ namespace Bikewale.Service.Areas.HelpPage
                     return formatter.CanReadType(type);
                 case SampleDirection.Response:
                     return formatter.CanWriteType(type);
+                default:
+                    break;
             }
             return false;
         }

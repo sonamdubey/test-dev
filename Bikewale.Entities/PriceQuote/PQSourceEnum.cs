@@ -21,6 +21,14 @@ namespace Bikewale.Entities.PriceQuote
     /// Description : Added Mobile_News_Listing_page
     /// Modified By:- Subodh jain 09 march 2017 
     /// Summary :- Added Desktop_Scooters_Landing_Check_on_road_price  Mobile_Scooters_Landing_Check_on_road_price                      
+    /// Modified By : Deepak Israni on 8 May 2018
+    /// Description : Added Mobile_ExpertReviews_Listing_Page, Mobile_BikeCare_Listing_Page, Mobile_BikeCare_Details_Page, Mobile_Features_Listing_Page, Mobile_Features_Details_Page, Mobile_ComparisionTest_Listing_Page
+    /// Modified by : Sanskar Gupta on 14 May 2018
+    /// Description : Added `Mobile_News_Details_Page`
+    /// Modified by : Sanskar Gupta on 15 May 2018
+    /// Description : Added `Mobile_ExpertReviews_Details_Page`
+    /// Modified by : Sanskar Gupta on 17 May 2018
+    /// Description : Added `Desktop_ExpertReviews_Details_Page`
     /// </summary>
     public enum PQSourceEnum
     {
@@ -131,7 +139,16 @@ namespace Bikewale.Entities.PriceQuote
         Mobile_ElectricBikes = 105,
         Desktop_Videos_Page_PopularSeries = 106,
         Mobile_Videos_Page_PopularSeries = 107,
-        Desktop_NewsDetailsPage = 108
+        Desktop_NewsDetailsPage = 108,
+        Mobile_ExpertReviews_Listing_Page = 109,
+        Mobile_BikeCare_Listing_Page = 110,
+        Mobile_BikeCare_Details_Page = 111,
+        Mobile_Features_Listing_Page = 112,
+        Mobile_Features_Details_Page = 113,
+        Mobile_ComparisionTest_Listing_Page = 114,
+        Mobile_News_Details_Page = 115,
+        Mobile_ExpertReviews_Details_Page = 116,
+        Desktop_ExpertReviews_Details_Page = 117
     }
 
 }

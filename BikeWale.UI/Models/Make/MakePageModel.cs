@@ -71,6 +71,7 @@ namespace Bikewale.Models
         private readonly IBikeSeries _bikeSeries;
         private uint _makeCategoryId;
         private bool _newMakePageV1Status;
+        private bool _oldMakePageV1Status;
         public StatusCodes Status { get; set; }
         public MakeMaskingResponse objResponse { get; set; }
         public string RedirectUrl { get; set; }
@@ -1045,6 +1046,7 @@ namespace Bikewale.Models
             {
                 isNew = abTestValues.IsNewPage;
                 _newMakePageV1Status = abTestValues.NewMakePageV1Status;
+                _oldMakePageV1Status = abTestValues.OldMakePageV1Status;
             }
             MakePageVM objData = GetData();
             BindAdSlots(objData, isNew);
@@ -1067,6 +1069,7 @@ namespace Bikewale.Models
                     adTagsObj.AdId = _adId_Mobile_Old;
                     adTagsObj.Ad_320x50 = true;
                     adTagsObj.Ad300x250_Bottom = true;
+                    adTagsObj.Ad_300x250BTF = _oldMakePageV1Status && objData.Bikes.Count() > 5;
 
 
                     IDictionary<string, AdSlotModel> ads = new Dictionary<string, AdSlotModel>();
@@ -1082,6 +1085,10 @@ namespace Bikewale.Models
                     if (adTagsObj.Ad300x250_Bottom)
                     {
                         ads.Add(String.Format("{0}-16", _adId_Mobile_Old), GoogleAdsHelper.SetAdSlotProperties(adInfo, ViewSlotSize.ViewSlotSizes[AdSlotSize._300x250], 16, 300, AdSlotSize._300x250, "Bottom"));
+                    }
+                    if (adTagsObj.Ad_300x250BTF)
+                    {
+                        ads.Add(String.Format("{0}-1", _adId_Mobile_Old), GoogleAdsHelper.SetAdSlotProperties(adInfo, ViewSlotSize.ViewSlotSizes[AdSlotSize._300x250], 1, 300, AdSlotSize._300x250, "BTF"));
                     }
 
                     objData.AdSlots = ads;

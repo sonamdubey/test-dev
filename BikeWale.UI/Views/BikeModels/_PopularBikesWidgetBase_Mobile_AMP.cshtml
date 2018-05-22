@@ -1,8 +1,9 @@
 ﻿@model Bikewale.Models.BikeModels.EditorialPopularBikesWidget
 @using Bikewale.Utility;
-<amp-carousel class="swiper-small" height="185" layout="fixed-height" typeof="carousel">
+<amp-carousel class="swiper-small" height="233" layout="fixed-height" typeof="carousel">
     @if (Model != null && Model.MostPopularBikeList != null)
     {
+        uint cityId = Model.CityId;
         foreach (var bike in Model.MostPopularBikeList)
         {
             var bikeName = String.Format("{0} {1}", bike.objMake.MakeName, bike.objModel.ModelName);
@@ -28,6 +29,12 @@
                         }
                     </div>
                 </a>
+                @if (bike.VersionPrice > 0 && Model.ShowOnRoadPriceButton)
+                {
+                    <div class="swiper-btn-block">
+                        <a href="@string.Format("{0}/m/popup/?queryString={1}", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, Utils.Utils.EncryptTripleDES(string.Format("pqsourceid={0}&pagecatid={1}&preselcity={2}&makeid={3}&makename={4}&modelid={5}&modelname={6}&Url={7}", (int)Model.GAInfo.PQSourceId, (int)Model.GAInfo.CategoryId, cityId, bike.objMake.MakeId, bike.objMake.MakeName, bike.objModel.ModelId, bike.objModel.ModelName, Model.ReturnUrlForAmpPages)))" data-pagecatid="@((int)Model.GAInfo.CategoryId)" data-pqsourceid="@((int)Model.GAInfo.PQSourceId)" class="btn btn-card btn-full-width btn-white getquotation" rel="nofollow">Check on-road price</a>
+                    </div>
+                }
             </div>
         }
     }
