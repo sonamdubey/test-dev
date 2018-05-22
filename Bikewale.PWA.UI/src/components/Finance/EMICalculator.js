@@ -58,6 +58,7 @@ export class EMICalculator extends React.Component {
 			sliderDpData: this.props.sliderDp,
 			sliderTenureData: this.props.sliderTenure,
 			sliderInterestData: this.props.sliderInt,
+			cityData : this.props.financeCitySelection
 		}
 		return (
 			<div className="emi-outer-container">
@@ -89,12 +90,13 @@ const mapStateToProps = (state) => {
 	const sliderTenure = state.getIn(['Emi', 'VehicleTenure', 'slider'])
 	const sliderInt = state.getIn(['Emi', 'VehicleInterest', 'slider'])
 	const pieAnimate = state.getIn(['Emi', 'PieAnimation', 'isAnimate'])
-
+	const financeCitySelection = state.getIn(['Finance', 'FinanceCityPopup', 'Selection'])
 	return {
 		sliderDp,
 		sliderTenure,
 		sliderInt,
-		pieAnimate
+		pieAnimate,
+		financeCitySelection
 	}
 }
 
