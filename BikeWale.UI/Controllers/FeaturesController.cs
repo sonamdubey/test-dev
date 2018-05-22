@@ -49,7 +49,7 @@ namespace Bikewale.Controllers
             IndexPage obj = new IndexPage(_Cache, _objPager, _upcoming, _bikeModels, _bikeMakesCacheRepository, _models, _series);
             if (obj.status == Entities.StatusCodes.ContentNotFound)
             {
-                return Redirect("/pagenotfound.aspx");
+                return HttpNotFound();
             }
             else
             {
@@ -58,7 +58,7 @@ namespace Bikewale.Controllers
                 if (obj.status == Entities.StatusCodes.ContentFound)
                     return View(objData);
                 else
-                    return Redirect("/pageNotFound.aspx");
+                    return HttpNotFound();
             }
         }
         /// <summary>
@@ -73,7 +73,7 @@ namespace Bikewale.Controllers
             obj.IsMobile = true;
             if (obj.status == Entities.StatusCodes.ContentNotFound)
             {
-                return Redirect("/m/pagenotfound.aspx");
+                return HttpNotFound();
             }
             else
             {
@@ -82,7 +82,7 @@ namespace Bikewale.Controllers
                 if (obj.status == Entities.StatusCodes.ContentFound)
                     return View(objData);
                 else
-                    return Redirect("/m/pageNotFound.aspx");
+                    return HttpNotFound();
             }
         }
 
@@ -98,7 +98,7 @@ namespace Bikewale.Controllers
             DetailPage objDetail = new DetailPage(_Cache, _upcoming, _bikeModels, _models, basicId, _objBikeVersionsCache, _bikeInfo, _cityCacheRepo, _bikeMakesCacheRepository, _series);
             if (objDetail.status == Entities.StatusCodes.ContentNotFound)
             {
-                return Redirect("/pagenotfound.aspx");
+                return HttpNotFound();
             }
             else if (objDetail.status == Entities.StatusCodes.RedirectPermanent)
             {
@@ -108,7 +108,7 @@ namespace Bikewale.Controllers
             {
                 DetailFeatureVM objData = objDetail.GetData(4);
                 if (objDetail.status == Entities.StatusCodes.ContentNotFound)
-                    return Redirect("/pagenotfound.aspx");
+                    return HttpNotFound();
                 else
                     return View(objData);
             }
@@ -126,7 +126,7 @@ namespace Bikewale.Controllers
             objDetail.IsMobile = true;
             if (objDetail.status == Entities.StatusCodes.ContentNotFound)
             {
-                return Redirect("/pagenotfound.aspx");
+                return HttpNotFound();
             }
             else if (objDetail.status == Entities.StatusCodes.RedirectPermanent)
             {
@@ -136,7 +136,7 @@ namespace Bikewale.Controllers
             {
                 DetailFeatureVM objData = objDetail.GetData(9);
                 if (objDetail.status == Entities.StatusCodes.ContentNotFound)
-                    return Redirect("/m/pageNotFound.aspx");
+                    return HttpNotFound();
                 else
                     return View(objData);
             }
@@ -157,7 +157,7 @@ namespace Bikewale.Controllers
             DetailPage objDetail = new DetailPage(_Cache, _upcoming, _bikeModels, _models, basicid, _objBikeVersionsCache, _bikeInfo, _cityCacheRepo, _bikeMakesCacheRepository, _series);
             if (objDetail.status == Entities.StatusCodes.ContentNotFound)
             {
-                return Redirect("/pagenotfound.aspx");
+                return HttpNotFound();
             }
             else if (objDetail.status == Entities.StatusCodes.RedirectPermanent)
             {
@@ -169,7 +169,7 @@ namespace Bikewale.Controllers
                 objDetail.IsMobile = true;
                 DetailFeatureVM objData = objDetail.GetData(9);
                 if (objDetail.status == Entities.StatusCodes.ContentNotFound)
-                    return Redirect("/m/pageNotFound.aspx");
+                    return HttpNotFound();
                 else
                     return View("~/views/m/content/features/details_amp.cshtml", objData);
             }

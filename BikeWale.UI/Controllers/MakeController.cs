@@ -95,7 +95,8 @@ namespace Bikewale.Controllers
             }
             else
             {
-                return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+                //return HttpNotFound();
+                return HttpNotFound();
             }
 
         }
@@ -136,7 +137,7 @@ namespace Bikewale.Controllers
             }
             else
             {
-                return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+                return HttpNotFound();
             }
         }
 
@@ -175,7 +176,7 @@ namespace Bikewale.Controllers
             }
             else
             {
-                return Redirect("/pageNotFound.aspx");
+                return HttpNotFound();
             }
         }
 

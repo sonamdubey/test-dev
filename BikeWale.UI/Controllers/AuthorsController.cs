@@ -1,11 +1,7 @@
-﻿using Bikewale.BAL.GrpcFiles;
-using Bikewale.Entities;
-using Bikewale.Entities.Authors;
+﻿using Bikewale.Entities;
 using Bikewale.Interfaces.Authors;
 using Bikewale.Interfaces.EditCMS;
 using Bikewale.Models.Authors;
-using Bikewale.Models.BikeModels;
-using Grpc.CMS;
 using System.Web.Mvc;
 
 namespace Bikewale.Controllers
@@ -59,13 +55,13 @@ namespace Bikewale.Controllers
         {
             AuthorDetailsPageVM objAuthorDetailsVM = null;
             AuthorsDetailsPageModel objAuthorModel = new AuthorsDetailsPageModel(_authors, _articles, _authorsCacheRepository, author);
-            if(objAuthorModel.status.Equals(StatusCodes.ContentFound))
+            if (objAuthorModel.status.Equals(StatusCodes.ContentFound))
             {
                 objAuthorDetailsVM = objAuthorModel.GetData();
             }
             else
             {
-                return Redirect("/pagenotfound.aspx");
+                return HttpNotFound();
             }
             return View(objAuthorDetailsVM);
         }
@@ -87,9 +83,9 @@ namespace Bikewale.Controllers
             }
             else
             {
-                return Redirect("/m/pagenotfound.aspx");
+                return HttpNotFound();
             }
             return View(objAuthorDetailsVM);
         }
-    }        
+    }
 }

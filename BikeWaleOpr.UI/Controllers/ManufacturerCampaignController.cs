@@ -46,7 +46,7 @@ namespace BikewaleOpr.Controllers
             }
             else
             {
-                return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+                return HttpNotFound();
             }
         }
 
