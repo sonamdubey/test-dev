@@ -14,6 +14,7 @@ import { scrollTop } from '../../utils/scrollTo';
 import { lockScroll, unlockScroll } from '../../utils/scrollLock';
 import { slider } from '../../reducers/emiInterest';
 import { getGlobalCity } from '../../utils/popUpUtils'
+import AdUnit from '../AdUnit'
 class EMITab extends React.Component {
   constructor(props) {
     super(props);
@@ -23,7 +24,8 @@ class EMITab extends React.Component {
     this.handleCityClick = this.handleCityClick.bind(this);
     this.state = {
       shouldscroll: false,
-      isGlobalCityInList: true
+      isGlobalCityInList: true,
+      shouldFetchSimilarBikes: true
     };
   }
 
@@ -52,29 +54,13 @@ class EMITab extends React.Component {
     }
     this.props.selectCity(payload);
     this.setState({ ...this.state, isGlobalCityInList: true });
+    this.state.shouldFetchSimilarBikes = true;
   }
 
-  handleSimilarEMISwiperCardClick = (modelId, onRoadPrice) => {
-    const currentCityId = this.getSelectedCityId(this.props);
-    const {
-      sliderTenure,
-      sliderInt,
-      fetchSimilarBikes,
-      openEmiCalculator,
-      selectBikePopup
-    } = this.props
-    if (currentCityId > 0 && selectBikePopup.Selection.modelId > 0) {
-      fetchSimilarBikes({
-        modelId: modelId,
-        cityId: currentCityId,
-        downPayment: onRoadPrice * .3,
-        tenure: sliderTenure.values[0],
-        rateOfInt: sliderInt.values[0]
-      })
-      openEmiCalculator(onRoadPrice)
-      scrollTop(window, this.refs.emiTabsContainer.getBoundingClientRect().top + (window.pageYOffset || document.documentElement.scrollTop))
-    }
-
+  handleSimilarEMISwiperCardClick = (modelId) => {
+    this.props.fetchSelectedBikeDetail(modelId)
+    this.state.shouldFetchSimilarBikes = true;
+    scrollTop(window, this.refs.emiTabsContainer.getBoundingClientRect().top + (window.pageYOffset || document.documentElement.scrollTop))
   }
 
   componentDidUpdate(prevProps) {
@@ -114,25 +100,14 @@ class EMITab extends React.Component {
     // For any change in bike or city we fetch new bike version list
     if (currentCityId > 0 && currentBikeId > 0 && (currentBikeId != this.getSelectedBikeId(prevProps) || currentCityId != this.getSelectedCityId(prevProps))) {
       this.props.fetchBikeVersionList(currentBikeId, currentCityId);
-
-      if (sliderDp.values[0] > 0 && sliderInt.values[0] && sliderTenure.values[0] > 0) {
-        fetchSimilarBikes({
-          modelId: currentBikeId,
-          cityId: currentCityId,
-          downPayment: sliderDp.values[0],
-          tenure: sliderTenure.values[0],
-          rateOfInt: sliderInt.values[0]
-        })
-      }
-
     }
     if ((currentBikeId != this.getSelectedBikeId(prevProps) || (currentBikeId == this.getSelectedBikeId(prevProps) && prevProps.selectBikePopup.Selection.selectedVersionIndex != selectBikePopup.Selection.selectedVersionIndex))
       && selectBikePopup.Selection.versionList.length > 0 && selectBikePopup.Selection.selectedVersionIndex > -1) {
       openEmiCalculator(selectBikePopup.Selection.versionList[selectBikePopup.Selection.selectedVersionIndex].price);
-    }
-    if (currentCityId > 0 && currentBikeId > 0 && sliderDp.values[0] > 0 && sliderInt.values[0] && sliderTenure.values[0] > 0
-      && (sliderDp.values[0] != prevProps.sliderDp.values[0] || sliderInt.values[0] != prevProps.sliderInt.values[0]
-        || sliderTenure.values[0] != prevProps.sliderTenure.values[0])) {
+      }
+
+    if (currentCityId > 0 && currentBikeId > 0
+      && this.state.shouldFetchSimilarBikes) {
       fetchSimilarBikes({
         modelId: currentBikeId,
         cityId: currentCityId,
@@ -140,6 +115,7 @@ class EMITab extends React.Component {
         tenure: sliderTenure.values[0],
         rateOfInt: sliderInt.values[0]
       })
+      this.state.shouldFetchSimilarBikes = false;
     }
   }
 
@@ -183,7 +159,7 @@ class EMITab extends React.Component {
           <ModelInfo />}
 
         <EMICalculator />
-
+        <AdUnit uniqueKey={'finance-page'} tags={null} adSlot={'/1017752/BikeWale_Finance_Bottom_320x50'} adDimension={[320, 50]} adContainerId={'div-gpt-ad-1525945337139-1'} />
         {
           SimilarBikesEMI != null && SimilarBikesEMI.data != null && SimilarBikesEMI.data.length > 0 && (
             <SwiperContainer

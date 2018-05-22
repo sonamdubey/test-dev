@@ -24,7 +24,7 @@ class EMICalculatorHeader extends React.Component {
 		return (
 				<div className="emi-calci-header">
 					 <div className="emi-calci-top-header">
-						 <div className="emi-calci__orp-text">On-road price, Navi Mumbai</div>
+						 <div className="emi-calci__orp-text">On-road price, {this.props.sliderData.cityData.cityName}</div>
 						 <div className="emi-calci__orp-data">
 							 <span>{orpAmount}</span>
 							 <a href="" className="price-link" title="View detailed price">View detailed price</a>
@@ -42,4 +42,4 @@ class EMICalculatorHeader extends React.Component {
 	}
 }
 
-module.exports = (EMICalculatorHeader);
+export default (EMICalculatorHeader);
