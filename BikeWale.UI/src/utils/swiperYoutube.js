@@ -126,7 +126,7 @@
 						SwiperYT.YouTubeApi.handleVideoPause();
 					}
 					else {
-						SwiperYT.YouTubeApi.handleOrientationType();
+						SwiperYT.handleOrientationType();
 					}
 				} catch (e) {
 					console.log(e);
