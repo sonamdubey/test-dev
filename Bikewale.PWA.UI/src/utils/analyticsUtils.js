@@ -1,5 +1,4 @@
-
-
+import {PQ_SOURCE_ID} from './constants'
 function triggerPageView(url,title) {
     if(typeof dataLayer == "undefined") {
       return;
@@ -148,6 +147,11 @@ function triggerGA(cat, act, lab) {
     catch (e) {// log error   
     }
 }
+
+function setPQSourceId(pqPageSource) {
+    return PQ_SOURCE_ID[pqPageSource];
+}
+
 function pushNavMenuAnalytics(menuItem) {
   try {
     var categ = GetCatForNav();
@@ -246,6 +250,7 @@ module.exports = {
     GetCatForNav,
     triggerDataToBhrigu,
     triggerNonInteractiveGA,
-	pushNavMenuAnalytics
+    pushNavMenuAnalytics,
+    setPQSourceId
   
 }

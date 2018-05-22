@@ -1,6 +1,7 @@
 import React from 'react'
 import {withRouter} from 'react-router-dom'
 import { hideElement , onRoadPricePopupDataObject , popupState , getCookie , openCityAreaSelectionPopup , closeCityAreaSelectionPopup , GetGlobalCityArea , showElement, resetOnRoadPricePopup, SetCookieInDays , gtmCodeAppender , onCookieObj} from '../utils/popUpUtils'
+import {triggerGA} from '../utils/analyticsUtils'
 import CityAreaAutocomplete from '../components/CityAreaAutocomplete'
 import SpinnerRelative from './Shared/SpinnerRelative'
 var OnRoadPricePopupInitialized = false;
@@ -23,6 +24,7 @@ class OnRoadPricePopup extends React.Component {
 		this.areaSelect = this.areaSelect.bind(this);
 		this.formPostDataString = this.formPostDataString.bind(this);
 		this.resetPopup = this.resetPopup.bind(this);
+		this.triggerABTestGA = this.triggerABTestGA.bind(this);
 	}
 	citySelect(selectedCity) {
 		var selectedCityId = selectedCity.id;
@@ -131,6 +133,18 @@ class OnRoadPricePopup extends React.Component {
     resetPopup() {
     	resetOnRoadPricePopup();
     }
+    triggerABTestGA() {
+        try {
+            var obj = this.state; 
+            var abuser = getCookie("_bwtest"),
+                bikeandcity = obj.MakeName + "_" + obj.ModelName + "_" + (obj.SelectedCity ? obj.SelectedCity.name : ""),               
+            bikeandcity = bikeandcity.replace("/\s+/gi", "_");
+            triggerGA("PQ_Popup", "PQSuccess", abuser + "_" + gaObj.id + "_" + bikeandcity);
+        }
+        catch (e) {
+            console.log(e.message)
+        }
+    }
 	initializePQ(isLocChanged) {
 		var obj = this.state; 
 		if(obj.SelectedModelId != null && obj.SelectedModelId > 0) {
@@ -208,7 +222,7 @@ class OnRoadPricePopup extends React.Component {
 							var gaLabel = GetGlobalCityArea() + ', ';
 							
 							if(this.state.MakeName || this.state.ModelName) {
-								gaLabel += this.state.MakeName + ',' + this.state.ModelName + ',';
+								gaLabel += this.state.MakeName + ',' + this.state.ModelName ;
 							}
 							if(this.state.SelectedCityId > 0) {
 								if(this.state.SelectedCity && this.state.SelectedCity.id > 0) {
@@ -225,11 +239,11 @@ class OnRoadPricePopup extends React.Component {
 									
 								}
 							}
-
+                            
 							if(jsonObj.dealerId > 0)
-                                gtmCodeAppender(this.state.PageCatId, 'Dealer_PriceQuote_Success_Submit', gaLabel);
-                            else gtmCodeAppender(this.state.PageCatId, 'BW_PriceQuote_Success_Submit', gaLabel);
-
+                                triggerGA(gaObj.name, 'Dealer_PriceQuote_Success_Submit', gaLabel);
+                            else triggerGA(gaObj.name, 'BW_PriceQuote_Success_Submit', gaLabel);
+							this.triggerABTestGA();
                             if (this.state.DealerId > 0 && responseData.qStr.length) {// TODO where is dealer id being set
                                 responseData.qStr = this.createMPQ(responseData.priceQuote.quoteId);
                             }

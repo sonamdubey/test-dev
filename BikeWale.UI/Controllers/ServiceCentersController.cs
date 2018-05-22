@@ -61,21 +61,15 @@ namespace Bikewale.Controllers
             try
             {
                 ServiceCenterLandingPage modelObj = new ServiceCenterLandingPage(_ICityCache, _objUsedCache, _upcoming, _newLaunches, _bikeModels, _articles, _bikeMakes);
-                if (modelObj != null)
-                {
-                    modelObj.BrandWidgetTopCount = 10;
-                    modelObj.BikeCareRecordsCount = 3;
-                    modelObj.PopularBikeWidgetTopCount = 9;
-                    modelObj.NewLaunchedBikesWidgtData = 9;
-                    modelObj.UpcomingBikesWidgetData = 9;
-                    modelObj.UsedBikeModelWidgetTopCount = 9;
-                    ServiceCenterLandingPageVM pageVM = modelObj.GetData();
-                    return View(pageVM);
-                }
-                else
-                {
-                    return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
-                }
+                
+                modelObj.BrandWidgetTopCount = 10;
+                modelObj.BikeCareRecordsCount = 3;
+                modelObj.PopularBikeWidgetTopCount = 9;
+                modelObj.NewLaunchedBikesWidgtData = 9;
+                modelObj.UpcomingBikesWidgetData = 9;
+                modelObj.UsedBikeModelWidgetTopCount = 9;
+                ServiceCenterLandingPageVM pageVM = modelObj.GetData();
+                return View(pageVM);
             }
             catch (System.Exception ex)
             {
@@ -95,22 +89,16 @@ namespace Bikewale.Controllers
             try
             {
                 ServiceCenterLandingPage modelObj = new ServiceCenterLandingPage(_ICityCache, _objUsedCache, _upcoming, _newLaunches, _bikeModels, _articles, _bikeMakes);
-                if (modelObj != null)
-                {
-                    modelObj.BrandWidgetTopCount = 6;
-                    modelObj.BikeCareRecordsCount = 3;
-                    modelObj.PopularBikeWidgetTopCount = 9;
-                    modelObj.NewLaunchedBikesWidgtData = 9;
-                    modelObj.UpcomingBikesWidgetData = 9;
-                    modelObj.UsedBikeModelWidgetTopCount = 9;
-                    modelObj.IsMobile = true;
-                    ServiceCenterLandingPageVM pageVM = modelObj.GetData();
-                    return View(pageVM);
-                }
-                else
-                {
-                    return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
-                }
+                
+                modelObj.BrandWidgetTopCount = 6;
+                modelObj.BikeCareRecordsCount = 3;
+                modelObj.PopularBikeWidgetTopCount = 9;
+                modelObj.NewLaunchedBikesWidgtData = 9;
+                modelObj.UpcomingBikesWidgetData = 9;
+                modelObj.UsedBikeModelWidgetTopCount = 9;
+                modelObj.IsMobile = true;
+                ServiceCenterLandingPageVM pageVM = modelObj.GetData();
+                return View(pageVM);
             }
             catch (System.Exception ex)
             {
@@ -133,25 +121,18 @@ namespace Bikewale.Controllers
             {
                 ServiceCenterIndiaPage modelObj = new ServiceCenterIndiaPage(_articles, _objUsedCache, _bikeMakes, _objSCCache, makeMaskingName);
 
-                if (modelObj != null)
+                if (modelObj.status == Entities.StatusCodes.ContentFound)
                 {
-                    if (modelObj.status == Entities.StatusCodes.ContentFound)
-                    {
-                        ServiceCenterIndiaPageVM objVM = modelObj.GetData();
-                        return View(objVM);
-                    }
-                    else if (modelObj.status == Entities.StatusCodes.RedirectTemporary)
-                    {
-                        return Redirect(modelObj.redirectUrl);
-                    }
-                    else if (modelObj.status == Entities.StatusCodes.RedirectPermanent)
-                    {
-                        return RedirectPermanent(Request.RawUrl.Replace(makeMaskingName, modelObj.objResponse.MaskingName));
-                    }
-                    else
-                    {
-                        return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
-                    }
+                    ServiceCenterIndiaPageVM objVM = modelObj.GetData();
+                    return View(objVM);
+                }
+                else if (modelObj.status == Entities.StatusCodes.RedirectTemporary)
+                {
+                    return Redirect(modelObj.redirectUrl);
+                }
+                else if (modelObj.status == Entities.StatusCodes.RedirectPermanent)
+                {
+                    return RedirectPermanent(Request.RawUrl.Replace(makeMaskingName, modelObj.objResponse.MaskingName));
                 }
                 else
                 {
@@ -179,26 +160,19 @@ namespace Bikewale.Controllers
             {
                 ServiceCenterIndiaPage modelObj = new ServiceCenterIndiaPage(_articles, _objUsedCache, _bikeMakes, _objSCCache, makeMaskingName);
 
-                if (modelObj != null)
+                if (modelObj.status == Entities.StatusCodes.ContentFound)
                 {
-                    if (modelObj.status == Entities.StatusCodes.ContentFound)
-                    {
-                        modelObj.isMobile = true;
-                        ServiceCenterIndiaPageVM objVM = modelObj.GetData();
-                        return View(objVM);
-                    }
-                    else if (modelObj.status == Entities.StatusCodes.RedirectTemporary)
-                    {
-                        return Redirect(string.Format("/m{0}", modelObj.redirectUrl));
-                    }
-                    else if (modelObj.status == Entities.StatusCodes.RedirectPermanent)
-                    {
-                        return RedirectPermanent(Request.RawUrl.Replace(makeMaskingName, modelObj.objResponse.MaskingName));
-                    }
-                    else
-                    {
-                        return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
-                    }
+                    modelObj.isMobile = true;
+                    ServiceCenterIndiaPageVM objVM = modelObj.GetData();
+                    return View(objVM);
+                }
+                else if (modelObj.status == Entities.StatusCodes.RedirectTemporary)
+                {
+                    return Redirect(string.Format("/m{0}", modelObj.redirectUrl));
+                }
+                else if (modelObj.status == Entities.StatusCodes.RedirectPermanent)
+                {
+                    return RedirectPermanent(Request.RawUrl.Replace(makeMaskingName, modelObj.objResponse.MaskingName));
                 }
                 else
                 {
@@ -227,24 +201,17 @@ namespace Bikewale.Controllers
             {
                 ServiceCenterCityPage modelObj = new ServiceCenterCityPage(_objDealerCache, _objUsedCache, _bikeModels, _objSCCache, _objSC, _bikeMakes, cityMaskingName, makeMaskingName);
 
-                if (modelObj != null)
+                if (modelObj.status == Entities.StatusCodes.ContentFound)
                 {
-                    if (modelObj.status == Entities.StatusCodes.ContentFound)
-                    {
-                        modelObj.NearByCitiesWidgetTopCount = 6;
-                        modelObj.UsedBikeWidgetTopCount = 9;
-                        modelObj.BikeShowroomWidgetTopCount = 3;
-                        ServiceCenterCityPageVM objPage = modelObj.GetData();
-                        return View(objPage);
-                    }
-                    else if (modelObj.status == Entities.StatusCodes.RedirectPermanent)
-                    {
-                        return RedirectPermanent(Request.RawUrl.Replace(makeMaskingName, modelObj.objResponse.MaskingName));
-                    }
-                    else
-                    {
-                        return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
-                    }
+                    modelObj.NearByCitiesWidgetTopCount = 6;
+                    modelObj.UsedBikeWidgetTopCount = 9;
+                    modelObj.BikeShowroomWidgetTopCount = 3;
+                    ServiceCenterCityPageVM objPage = modelObj.GetData();
+                    return View(objPage);
+                }
+                else if (modelObj.status == Entities.StatusCodes.RedirectPermanent)
+                {
+                    return RedirectPermanent(Request.RawUrl.Replace(makeMaskingName, modelObj.objResponse.MaskingName));
                 }
                 else
                 {
@@ -271,25 +238,18 @@ namespace Bikewale.Controllers
             {
                 ServiceCenterCityPage modelObj = new ServiceCenterCityPage(_objDealerCache, _objUsedCache, _bikeModels, _objSCCache, _objSC, _bikeMakes, cityMaskingName, makeMaskingName);
 
-                if (modelObj != null)
+                if (modelObj.status == Entities.StatusCodes.ContentFound)
                 {
-                    if (modelObj.status == Entities.StatusCodes.ContentFound)
-                    {
-                        modelObj.NearByCitiesWidgetTopCount = 9;
-                        modelObj.UsedBikeWidgetTopCount = 9;
-                        modelObj.BikeShowroomWidgetTopCount = 9;
-                        modelObj.IsMobile = true;
-                        ServiceCenterCityPageVM objPage = modelObj.GetData();
-                        return View(objPage);
-                    }
-                    else if (modelObj.status == Entities.StatusCodes.RedirectPermanent)
-                    {
-                        return RedirectPermanent(Request.RawUrl.Replace(makeMaskingName, modelObj.objResponse.MaskingName));
-                    }
-                    else
-                    {
-                        return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
-                    }
+                    modelObj.NearByCitiesWidgetTopCount = 9;
+                    modelObj.UsedBikeWidgetTopCount = 9;
+                    modelObj.BikeShowroomWidgetTopCount = 9;
+                    modelObj.IsMobile = true;
+                    ServiceCenterCityPageVM objPage = modelObj.GetData();
+                    return View(objPage);
+                }
+                else if (modelObj.status == Entities.StatusCodes.RedirectPermanent)
+                {
+                    return RedirectPermanent(Request.RawUrl.Replace(makeMaskingName, modelObj.objResponse.MaskingName));
                 }
                 else
                 {
@@ -317,25 +277,18 @@ namespace Bikewale.Controllers
             {
                 ServiceCenterDetailsPage modelObj = new ServiceCenterDetailsPage(_bikeModels, _objUsedCache, _objDealerCache, _objSC, _bikeMakes, makeMaskingName, serviceCenterId);
 
-                if (modelObj != null)
+                if (modelObj.status == Entities.StatusCodes.ContentFound)
                 {
-                    if (modelObj.status == Entities.StatusCodes.ContentFound)
-                    {
-                        modelObj.PopularBikeWidgetTopCount = 9;
-                        modelObj.UsedBikeWidgetTopCount = 9;
-                        modelObj.BikeShowroomWidgetTopCount = 3;
-                        modelObj.OtherServiceCenterWidgetTopCount = 3;
-                        ServiceCenterDetailsPageVM objPage = modelObj.GetData();
-                        return View(objPage);
-                    }
-                    else if (modelObj.status == Entities.StatusCodes.RedirectPermanent)
-                    {
-                        return RedirectPermanent(Request.RawUrl.Replace(makeMaskingName, modelObj.objResponse.MaskingName));
-                    }
-                    else
-                    {
-                        return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
-                    }
+                    modelObj.PopularBikeWidgetTopCount = 9;
+                    modelObj.UsedBikeWidgetTopCount = 9;
+                    modelObj.BikeShowroomWidgetTopCount = 3;
+                    modelObj.OtherServiceCenterWidgetTopCount = 3;
+                    ServiceCenterDetailsPageVM objPage = modelObj.GetData();
+                    return View(objPage);
+                }
+                else if (modelObj.status == Entities.StatusCodes.RedirectPermanent)
+                {
+                    return RedirectPermanent(Request.RawUrl.Replace(makeMaskingName, modelObj.objResponse.MaskingName));
                 }
                 else
                 {
@@ -363,25 +316,18 @@ namespace Bikewale.Controllers
             {
                 ServiceCenterDetailsPage modelObj = new ServiceCenterDetailsPage(_bikeModels, _objUsedCache, _objDealerCache, _objSC, _bikeMakes, makeMaskingName, serviceCenterId);
 
-                if (modelObj != null)
+                if (modelObj.status == Entities.StatusCodes.ContentFound)
                 {
-                    if (modelObj.status == Entities.StatusCodes.ContentFound)
-                    {
-                        modelObj.PopularBikeWidgetTopCount = 9;
-                        modelObj.UsedBikeWidgetTopCount = 9;
-                        modelObj.BikeShowroomWidgetTopCount = 6;
-                        modelObj.OtherServiceCenterWidgetTopCount = 6;
-                        ServiceCenterDetailsPageVM objPage = modelObj.GetData();
-                        return View(objPage);
-                    }
-                    else if (modelObj.status == Entities.StatusCodes.RedirectPermanent)
-                    {
-                        return RedirectPermanent(Request.RawUrl.Replace(makeMaskingName, modelObj.objResponse.MaskingName));
-                    }
-                    else
-                    {
-                        return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
-                    }
+                    modelObj.PopularBikeWidgetTopCount = 9;
+                    modelObj.UsedBikeWidgetTopCount = 9;
+                    modelObj.BikeShowroomWidgetTopCount = 6;
+                    modelObj.OtherServiceCenterWidgetTopCount = 6;
+                    ServiceCenterDetailsPageVM objPage = modelObj.GetData();
+                    return View(objPage);
+                }
+                else if (modelObj.status == Entities.StatusCodes.RedirectPermanent)
+                {
+                    return RedirectPermanent(Request.RawUrl.Replace(makeMaskingName, modelObj.objResponse.MaskingName));
                 }
                 else
                 {

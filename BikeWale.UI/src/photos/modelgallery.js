@@ -6,7 +6,7 @@
 var pageNo = 1,pageSize = 4,eleGallery, vmModelGallery,colorIndex = 0,isIEBrowser;
 var photoCount, videoCount, modelName, imageIndex, colorImageId, returnUrl, bikeModelId;
 var thumbnailSwiperEvents, gallerySwiper, colorGallerySwiper, thumbnailSwiper, colorThumbnailSwiper, videoThumbnailSwiper;
-var imageTypes = ["Other", "ModelImage", "ModelGallaryImage", "ModelColorImage"];
+var imageTypes = ["Other", "ModelImage", "ModelGallaryImage", "ModelColorImage"], logbhrighu;
 
 var popupGallery = {
     open: function () {
@@ -29,6 +29,7 @@ var popupGallery = {
             vmModelGallery.resetGallery();
             unlockPopup();
         }
+        logbhrighu = true;
     },
 
     bindGallery: function (imageIndex) {
@@ -380,9 +381,8 @@ docReady(function () {
             thumbnailSwiperEvents.setPhotoDetails(swiper);
             thumbnailSwiperEvents.focusThumbnail(thumbnailSwiper, vmModelGallery.activePhotoIndex(), true);
             triggerGA('Gallery_Page', 'Image_Carousel_Clicked', null);
-        },
-        onSlideChangeEnd: function (swiper) {
             logBhrighuForImage($('.gallery-type-swiper .swiper-slide-active').first());
+            logbhrighu = false;
         }
     });
 

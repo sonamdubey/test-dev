@@ -62,4 +62,15 @@
     </ul>
 }
 
-
+<script>
+    window.onload = function () {
+        lazyloadYoutube.setVideoPreviews();
+        lazyloadYoutube.setEventListener("scroll", function (event) {
+            if (!lazyloadYoutube._videosLoaded) {
+                if (lazyloadYoutube.getScrollPercent() > lazyloadYoutube.loadVideosAt) {
+                    lazyloadYoutube.loadYoutubeVideos({enableYTAPI: false});
+                }
+            }
+        });
+    };
+</script>
