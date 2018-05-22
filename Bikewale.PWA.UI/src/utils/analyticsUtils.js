@@ -15,115 +15,195 @@ function triggerPageView(url,title) {
 import {isServer} from './commonUtils'
 if(!isServer()) {
     var cwTracking = {
-      hostPath: location.host,
-      type: {
-          impression: "imp",
-          click: "click"
-      },
-      getSource: function() {
-          var t = document.referrer,
-              e = location.host;
-          return e.indexOf(cwTracking.hostPath) >= 0 ? "" : "src=" + t
-      },
-      getPageUrl: function() {
-          var t = document.location.href;
-          return t.indexOf("?") > 0 ? "pi=" + t.split("?")[0] : t.indexOf("#") > 0 ? "pi=" + t.split("#")[0] : "pi=" + t
-      },
-      getQSFromUrl: function() {
-          var t = document.location.href,
-              e = "";
-          return t.indexOf("?") > 0 ? e = t.split("?")[1] : t.indexOf("#") > 0 && (e = t.split("#")[1]), e.length > 0 ? (e = e.replace(/&+/g, "|"), "qs=" + e) : ""
-      },
-      getReferrer: function() {
-          var t = document.referrer,
-              e = location.host;
-          return e.indexOf(cwTracking.hostPath) >= 0 && t.length > 0 ? "ref=" + t.split(cwTracking.hostPath)[1] : ""
-      },
-      addToQS: function(t, e) {
-          return t.length > 0 ? t += "&" + e : t = e, t
-      },
-      getAttributeValue: function(t) {
-          switch (t) {
-              case "imp":
-                  return "cwti";
-              case "click":
-                  return "cwtc";
-              default:
-                  return "cwcti"
-          }
-      }
-      ,
-      getCompleteQS: function(t, e) {
-          var i, c, n, r = "",
-              a = cwTracking.getAttributeValue(e),
-              o = !1;
-          return t.is("[qs]") && (o = !0), i = t.data(a + "cat"), c = t.data(a + "lbl"), n = t.data(a + "act"), r = cwTracking.getFinalQS(i, n, c, o)
-      },
-      getFinalQS: function(t, e, i, c) {
-          var n, r, a, o, g = "";
-          return n = cwTracking.getSource(), r = cwTracking.getPageUrl(), o = cwTracking.getReferrer(), void 0 != t && t.length > 0 && (g = cwTracking.addToQS(g, "cat=" + t)), void 0 != e && e.length > 0 && (g = cwTracking.addToQS(g, "act=" + e)), void 0 != i && i.length > 0 && (g = cwTracking.addToQS(g, "lbl=" + i)), void 0 != n && n.length > 0 && (g = cwTracking.addToQS(g, n)), void 0 != r && r.length > 0 && (g = cwTracking.addToQS(g, r)), void 0 != o && o.length > 0 && (g = cwTracking.addToQS(g, o)), c && (a = cwTracking.getQSFromUrl(), void 0 != a && a.length > 0 && (g = cwTracking.addToQS(g, a))), g
-      },
-      trackCustomData: function(t, e, i, c) {
-          var n = cwTracking.getFinalQS(t, e, i, c);
-          cwTracking.sendRequest(n)
-      },
-      trackDataFromNode: function(t, e) {
-          var i = cwTracking.getCompleteQS(t, e);
-          cwTracking.sendRequest(i)
-      },
-      sendRequest: function(t) {
-          t.length > 0 && (t = "&" + t);
-          var e = new Image;
-          e.src = cwTracking.getHandlerUrl() + Date.now() + t
-      },
-      getHandlerUrl: function() {
-          switch (cwTracking.hostPath) {
-              case "www.bikewale.com":
-                  return "https://bhrigu.bikewale.com/pixel.gif?t=";
-              case "bikewale.com":
-                  return "https://bhrigu.bikewale.com/pixel.gif?t=";
-              case "localhost":
-                  return "https://bhrigustg.bikewale.com/pixel.gif?t=";
-              case "webserver":
-                  return "https://bhrigustg.bikewale.com/pixel.gif?t=";
-              case "staging.bikewale.com":
-                  return "https://bhrigustg.bikewale.com/pixel.gif?t=";
-              default:
-                  return "https://bhrigustg.bikewale.com/pixel.gif?t="
-          }
-      },
-      // ,
-      // trackImpression: function() {
-      //     $("[cwt]").bind("inview", function(t, e) {
-      //         if (1 == e) cwTracking.trackDataFromNode($(this), cwTracking.type.impression);
-      //         else {
-      //             var i = $(this);
-      //             i.unbind("inview"), i.removeAttr("cwt")
-      //         }
-      //     })
-      // },
-      trackPerformace: function(type) {
-          var t, e = 0,
-              i = "",
-              c = "";
-          if (void 0 != window.performance && void 0 != window.performance.timing) {
-              t = JSON.stringify(window.performance.timing), t = JSON.parse(t);
-              for (var n in t) c += n + "=" + t[n] + "|";
-              e = c.length, e > 0 && (c = c.substr(0, e - 1)), i = type, cwTracking.trackCustomData("BWPerformance", i, c, !1)
-          }
-      }
-      // ,
-      // uiEvents: function() {
-      //     var t = "undefined" != typeof bwTrackingCat ? bwTrackingCat : "BWPageViews",
-      //         e = "undefined" != typeof bwTrackingAct ? bwTrackingAct : "",
-      //         i = "undefined" != typeof bwTrackingLab ? bwTrackingLab : "NA";
-      //     cwTracking.trackCustomData(t, e, i, !0), $(document).on("click", "[data-cwtccat]", function() {
-      //         cwTracking.trackDataFromNode($(this), cwTracking.type.click)
-      //     }), cwTracking.trackImpression(), $(document).ajaxComplete(function() {
-      //         cwTracking.trackImpression()
-      //     })
-      // }
-  };
+        hostPath: location.host,
+        isMobileSite: function () {
+            var url = document.location.href;
+            if (url.indexOf('/m/') > 0)
+                return true;
+            else
+                return false;
+        },
+        type: {
+            impression: 'imp',
+            click: 'click'
+        },
+
+        getSource: function () {
+            var url = document.referrer;
+            if (url.length == 0)
+                return 'src=direct';
+            else if (url.indexOf(cwTracking.hostPath) < 0)
+                return 'src=' + url;
+
+            return '';
+        },
+
+        getPageUrl: function () {
+            var url = document.location.href;
+            if (url.indexOf('?') > 0)
+                return 'pi=' + url.split('?')[0];
+            else if (url.indexOf('#') > 0)
+                return 'pi=' + url.split('#')[0];
+            else
+                return 'pi=' + url;
+        },
+
+        getQSFromUrl: function () {
+            var url = document.location.href;
+            var qs = '';
+            if (url.indexOf('?') > 0) {
+                qs = url.split('?')[1];
+            }
+            else if (url.indexOf('#') > 0) {
+                qs = url.split('#')[1];
+            }
+            if (qs.length > 0) {
+                qs = qs.replace(/&+/g, '|');
+                return 'qs=' + qs;
+            }
+            else
+                return '';
+        },
+
+        getReferrer: function () {
+            var url = document.referrer;
+            var host = location.host;
+            if (url.length > 0 && url.indexOf(host) >= 0) {
+                var relativePath = url.split(cwTracking.hostPath)[1];
+                return 'ref=' + (relativePath == undefined || relativePath == null ? '' : relativePath.replace(/&+/g, '|'));
+            }
+            return '';
+        },
+
+        addToQS: function (qs, value) {
+            if (qs.length > 0)
+                qs += '&' + value;
+            else
+                qs = value;
+            return qs;
+        },
+
+        getAttributeValue: function (type) {
+            switch (type) {
+                case 'imp': return 'cwti'; break;
+                case 'click': return 'cwtc'; break;
+                default: return 'cwcti';
+            }
+        },
+
+        getCompleteQS: function (node, type) {
+            var cat, lbl, act, qs = '', attrValue = cwTracking.getAttributeValue(type), sendQS = false;
+            if (node.is('[qs]'))
+                sendQS = true;
+            cat = node.data(attrValue + 'cat'), lbl = node.data(attrValue + 'lbl'), act = node.data(attrValue + 'act');
+            qs = cwTracking.getFinalQS(cat, act, lbl, sendQS);
+            return qs;
+        },
+
+        getFinalQS: function (cat, act, lbl, sendQS) {
+            var src, pageUrl, urlQs, ref, qs = '';
+            src = cwTracking.getSource(), pageUrl = cwTracking.getPageUrl(), ref = cwTracking.getReferrer();
+            if (cat != undefined && cat.length > 0)
+                qs = cwTracking.addToQS(qs, 'cat=' + cat);
+            if (act != undefined && act.length > 0)
+                qs = cwTracking.addToQS(qs, 'act=' + act);
+            if (lbl != undefined && lbl.length > 0)
+                qs = cwTracking.addToQS(qs, 'lbl=' + lbl);
+            if (src != undefined && src.length > 0)
+                qs = cwTracking.addToQS(qs, src);
+            if (pageUrl != undefined && pageUrl.length > 0)
+                qs = cwTracking.addToQS(qs, pageUrl);
+
+            if (ref != undefined && ref.length > 0)
+                qs = cwTracking.addToQS(qs, ref);
+
+            if (sendQS) {
+                urlQs = cwTracking.getQSFromUrl();
+                if (urlQs != undefined && urlQs.length > 0)
+                    qs = cwTracking.addToQS(qs, urlQs);
+            }
+
+            return qs;
+        },
+
+        trackCustomData: function (cat, act, lbl, sendQS) {
+            var qs = cwTracking.getFinalQS(cat, act, lbl, sendQS);
+            cwTracking.sendRequest(qs);
+        },
+
+        trackDataFromNode: function (node, type) {
+            var qs = cwTracking.getCompleteQS(node, type);
+            cwTracking.sendRequest(qs);
+        },
+
+        sendRequest: function (qs) {
+            if (qs.length > 0)
+                qs = '&' + qs;
+            var img = new Image();
+            img.src = cwTracking.getHandlerUrl() + Date.now() + qs;
+        },
+
+        getHandlerUrl: function () {
+            return "/bhrigu/pixel.gif?t=";
+        },
+
+        
+        trackPerformace: function () {
+            var len = 0, action = '', performanceQS = '', performanceTimings;
+            if (window.performance != undefined && window.performance.timing != undefined) {
+                performanceTimings = JSON.stringify(window.performance.timing);
+                performanceTimings = JSON.parse(performanceTimings);
+                for (var prop in performanceTimings) {
+                    performanceQS += prop + "=" + performanceTimings[prop] + "|";
+                }
+                len = performanceQS.length;
+                if (len > 0)
+                    performanceQS = performanceQS.substr(0, len - 1);
+                if (cwTracking.isMobileSite())
+                    action = 'Msite';
+                else
+                    action = 'DesktopSite'
+                cwTracking.trackCustomData('Performance', action, performanceQS, false);
+            }
+        },
+
+        trackInviewGA: function (node) {
+            var cat, lbl, act, role;
+            cat = node.data('cat'), lbl = node.data('label'), act = node.data('action'), role = node.data('role');
+            if (role.indexOf('click') >= 0 && act.indexOf('shown') === -1) {
+                act = act + '_shown'
+            }
+            Common.utils.trackAction('CWNonInteractive', cat, act, lbl);
+        },
+
+        prepareLabel: function (trackingparam) {
+            var label = '';
+            if (trackingparam && typeof (trackingparam) == 'object') {
+                for (var property in trackingparam) {
+                    label = label + property + '=' + trackingparam[property] + '|';
+                }
+            }
+            return label.substring(0, label.length - 1);
+        },
+
+        callImpressionTracking: function (node) {
+            var role = node.data('role');
+            if (role.indexOf('inview-imp') >= 0) {
+                node.unbind('inview');
+                node.data('role', role.replace('inview-imp', ''));
+                cwTracking.trackInviewGA(node);
+                return true;
+            }
+            return false;
+        },
+        trackUserReview: function (eventName, label) {
+            cwTracking.trackCustomData("BWUserReviews", eventName, label, !1)
+        },
+        trackImagesInteraction: function (category, action, label) {
+            cwTracking.trackCustomData(category, action, label, !1)
+        },
+    };
+
   window.onload = function() {
     setTimeout(function() {
           if(window.state !== undefined && window.state !== null) {

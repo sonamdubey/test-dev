@@ -3228,6 +3228,7 @@
     <Content Include="src\compare\landing.js" />
     <Content Include="src\bw-contenttracking.js" />
     <Content Include="src\content\details.js" />
+    <Content Include="src\cwTracking.js" />
     <Content Include="src\dealerlisting.js" />
     <Content Include="src\dealerpricequote.js" />
     <Content Include="src\dealersbylocation.js" />
