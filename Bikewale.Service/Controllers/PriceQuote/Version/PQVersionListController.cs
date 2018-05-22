@@ -90,8 +90,7 @@ namespace Bikewale.Service.Controllers.PriceQuote.Version
 			PQVersionList objDTOVersionList = null;
 			try
 			{
-				IEnumerable<BikeVersionsListEntity> objVersionList = null;
-				objVersionList = _objVersion.GetVersionsByType(EnumBikeType.PriceQuote, Convert.ToInt32(modelId), cityId);
+				IEnumerable<BikeVersionsListEntity> objVersionList = _objVersion.GetVersionsByType(EnumBikeType.PriceQuote, Convert.ToInt32(modelId), cityId);
 				if (objVersionList != null)
 				{
 					objDTOVersionList = new PQVersionList();
