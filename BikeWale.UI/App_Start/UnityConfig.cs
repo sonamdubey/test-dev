@@ -146,7 +146,6 @@ namespace Bikewale
             container.RegisterType<IStateCacheRepository, StateCacheRepository>();
             container.RegisterType<IState, StateRepository>();
             container.RegisterType<IAreaCacheRepository, AreaCacheRepository>();
-            container.RegisterType<IPriceQuote, BAL.PriceQuote.PriceQuote>();
             container.RegisterType<IBikeModelsCacheRepository<int>>();
             container.RegisterType<IBikeVersions<BikeVersionEntity, uint>, BikeVersions<BikeVersionEntity, uint>>();
             container.RegisterType<IBikeVersionCacheRepository<BikeVersionEntity, uint>, BikeVersionsCacheRepository<BikeVersionEntity, uint>>();

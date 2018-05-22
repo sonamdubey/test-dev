@@ -38,6 +38,10 @@ module.exports = {
     "VideoCategoryPage": {
       "id": "45",
       "name": "Videos_Category_Page"
+    },
+    "FinancePage": {
+      "id": "46",
+      "name": "Finance_Page"
     }
   },
   AD_DIMENSION_300_250: [300, 250]

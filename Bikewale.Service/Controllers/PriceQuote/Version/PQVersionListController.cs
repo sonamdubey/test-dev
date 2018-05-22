@@ -1,6 +1,7 @@
 ﻿using Bikewale.DTO.PriceQuote.Version;
 using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
+using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.PriceQuote.Version;
 using System;
@@ -18,14 +19,15 @@ namespace Bikewale.Service.Controllers.PriceQuote.Version
     public class PQVersionListController : ApiController
     {
         private readonly IBikeVersionCacheRepository<BikeVersionEntity,uint> _objVersion = null;
+        private readonly IPriceQuoteCache _priceQuoteCache;
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="objVersion"></param>
-        public PQVersionListController(IBikeVersionCacheRepository<BikeVersionEntity,uint> objVersion)
+        public PQVersionListController(IBikeVersionCacheRepository<BikeVersionEntity,uint> objVersion, IPriceQuoteCache priceQuoteCache)
         {
             _objVersion = objVersion;
+            _priceQuoteCache = priceQuoteCache;
         }
         /// <summary>
         /// Gets the Version list for given model and city
@@ -64,20 +66,31 @@ namespace Bikewale.Service.Controllers.PriceQuote.Version
 		/// <param name="cityId"></param>
 		/// <returns></returns>
 		[ResponseType(typeof(PQVersionList)), Route("api/pwa/PQVersionList/")]
-		public IHttpActionResult GetPQVersionList(uint modelId, int? cityId = null)
+		public IHttpActionResult GetPQVersionList(uint modelId, uint cityId )
 		{
 			try
 			{
-				PQVersionList objDTOVersionList = GetVersionList(modelId, cityId);
-				if (objDTOVersionList != null)
-				{
-					return Ok(objDTOVersionList);
-				}
-				else
-				{
-					return NotFound();
-				}
-			}
+                if (modelId > 0 && cityId > 0)
+                {
+
+                    IEnumerable<Entities.PriceQuote.OtherVersionInfoEntity> otherVersionInfoEntity = _priceQuoteCache.GetOtherVersionsPrices(modelId, cityId);
+                    PQVersionList objDTOVersionList = new PQVersionList();
+                    objDTOVersionList.Versions = PQVersionListMapper.Convert(otherVersionInfoEntity);
+
+                    if (objDTOVersionList != null)
+                    {
+                        return Ok(objDTOVersionList);
+                    }
+                    else
+                    {
+                        return NotFound();
+                    } 
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
 			catch (Exception ex)
 			{
 				ErrorClass.LogError(ex, "Exception : Bikewale.Service.Controllers.PriceQuote.Version.PQVersionListController.Get");

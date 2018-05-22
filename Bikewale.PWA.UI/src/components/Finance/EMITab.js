@@ -14,7 +14,7 @@ import { scrollTop } from '../../utils/scrollTo';
 import { lockScroll, unlockScroll } from '../../utils/scrollLock';
 import { slider } from '../../reducers/emiInterest';
 import { getGlobalCity } from '../../utils/popUpUtils'
-import AdUnit from '../AdUnit'
+import { GetCatForNav, triggerGA } from '../../utils/analyticsUtils'
 class EMITab extends React.Component {
   constructor(props) {
     super(props);
@@ -57,10 +57,15 @@ class EMITab extends React.Component {
     this.state.shouldFetchSimilarBikes = true;
   }
 
-  handleSimilarEMISwiperCardClick = (modelId) => {
-    this.props.fetchSelectedBikeDetail(modelId)
+  handleSimilarEMISwiperCardClick = (modelObj, event) => {
+    this.props.fetchSelectedBikeDetail(modelObj.Id)
     this.state.shouldFetchSimilarBikes = true;
-    scrollTop(window, this.refs.emiTabsContainer.getBoundingClientRect().top + (window.pageYOffset || document.documentElement.scrollTop))
+    let quickLinksTabElement = document.getElementById("quickLinksTab");
+    scrollTop(window, this.refs.modelInfoComponent.base.getBoundingClientRect().top + (window.pageYOffset || document.documentElement.scrollTop) - quickLinksTabElement.offsetHeight)
+    event.currentTarget.parentElement.scrollLeft = 0
+    if(typeof(gaObj)!= 'undefined'){
+      triggerGA(gaObj.name, 'Similar_EMI_Widget_Clicked',this.props.selectBikePopup.Selection.modelName + modelObj.modelName); 
+    }
   }
 
   componentDidUpdate(prevProps) {
@@ -145,7 +150,7 @@ class EMITab extends React.Component {
       closeSelectCityPopup
     } = this.props
     return (
-      <div ref="emiTabsContainer">
+      <div>
         <div className="emi-calculator__head">
           <h2 className="emi-calculator__title">EMI Calculator</h2>
           <p className="emi-calculator__head-description">
@@ -156,10 +161,10 @@ class EMITab extends React.Component {
         {((this.getSelectedBikeId(this.props) === -1) || (this.getSelectedCityId(this.props) === -1)) &&
           <EMISteps ref="emiSteps" onSelectBikeClick={this.handleSelectBikeClick} onSelectCityClick={this.handleSelectCityClick} model={selectBikePopup.Selection} />}
         {((this.getSelectedBikeId(this.props) !== -1) && (this.getSelectedCityId(this.props) !== -1)) &&
-          <ModelInfo />}
+          <ModelInfo ref="modelInfoComponent"/>}
 
         <EMICalculator />
-        <AdUnit uniqueKey={'finance-page'} tags={null} adSlot={'/1017752/BikeWale_Finance_Bottom_320x50'} adDimension={[320, 50]} adContainerId={'div-gpt-ad-1525945337139-1'} />
+        
         {
           SimilarBikesEMI != null && SimilarBikesEMI.data != null && SimilarBikesEMI.data.length > 0 && (
             <SwiperContainer
