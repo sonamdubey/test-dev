@@ -6,15 +6,12 @@ import {GetCatForNav} from '../utils/analyticsUtils'
 class GlobalCityPopup extends React.Component {
 	constructor(props) {
 		super(props);
-		var globalCity = getGlobalCity();
-		var globalCityId = ( globalCity && globalCity.id>0 ) ? globalCity.id : null;
-		var globalCityName = ( globalCity && globalCity.name.length>0 ) ? globalCity.name : '';
-		
+		let globalCity = this.getGlobalCity();
 		this.state = {
-			value : globalCityName ,
-			cityList : [] ,
-			globalCityId : globalCityId, 
-			strippedValue : getStrippedTerm(globalCityName)
+			value: globalCity.name,
+			cityList: [],
+			globalCityId: globalCity.id,
+			strippedValue: getStrippedTerm(globalCity.name)
 		}
 		this.onChange = this.onChange.bind(this);
 		this.onSelect = this.onSelect.bind(this);
@@ -23,6 +20,14 @@ class GlobalCityPopup extends React.Component {
 		this.renderMenu = this.renderMenu.bind(this);
 		this.renderMenuItem = this.renderMenuItem.bind(this);
 	}
+
+	getGlobalCity() {
+		let globalCity = getGlobalCity();
+		let globalCityId = (globalCity && globalCity.id > 0) ? globalCity.id : null;
+		let globalCityName = (globalCity && globalCity.name.length > 0) ? globalCity.name : '';
+		return { id: globalCityId, name: globalCityName };
+	}
+
 	submitCity() {
 		var ele = document.getElementById('globalCityPopUp');
         if ((this.state.globalCityId > 0) && (this.state.value != "")) {
@@ -34,6 +39,7 @@ class GlobalCityPopup extends React.Component {
         }
         return false;
 	}
+
 	onSelect(state) {
 	    var globalCityId = this.state.globalCityId;
 	    var city = new Object();
@@ -42,12 +48,12 @@ class GlobalCityPopup extends React.Component {
 	    var cityName = state.label.split(',')[0];
 	    setGlobalCity(city.cityId, cityName, globalCityId);
         closeGlobalCityPopUpByButtonClick();
-        dataLayer.push({ 'event': 'Bikewale_all', 'cat': GetCatForNav(), 'act': 'City_Popup_Default', 'lab': cityName });
-        if (city.cityId) {
-            location.reload();
-        }
-
+		dataLayer.push({ 'event': 'Bikewale_all', 'cat': GetCatForNav(), 'act': 'City_Popup_Default', 'lab': cityName });
+		if (city.cityId) {
+			location.reload();
+		}
 	}
+
 	onChange() {
 		try {
 			var value = document.getElementById('globalCityPopUp').value;
@@ -92,18 +98,30 @@ class GlobalCityPopup extends React.Component {
 
 
 	}
+
 	closeGlobalCityPopUpByButtonClick() {
 		closeGlobalCityPopUpByButtonClick();
-		var globalCity = getGlobalCity();
-		var globalCityId = ( globalCity && globalCity.id>0 ) ? globalCity.id : null;
-		var globalCityName = ( globalCity && globalCity.name.length>0 ) ? globalCity.name : '';
+		var globalCity = this.getGlobalCity();
 		this.setState({
-			value : globalCityName ,
-			cityList : [] ,
-			globalCityId : globalCityId, 
-			strippedValue : getStrippedTerm(globalCityName)
-		})
+			value: globalCity.name,
+			cityList: [],
+			globalCityId: globalCity.id,
+			strippedValue: getStrippedTerm(globalCity.name)
+		});
 	}
+
+	componentWillReceiveProps() {
+		let globalCity = this.getGlobalCity();
+		if (this.state.globalCityId != globalCity.id) {
+			this.setState({
+				value: globalCity.name,
+				cityList: [],
+				globalCityId: globalCity.id,
+				strippedValue: getStrippedTerm(globalCity.name)
+			});
+		}
+	}
+
 	shouldComponentUpdate(nextProps, nextState) {
 		var popupElement = document.getElementById('globalcity-popup');
 		if(popupElement.style.display == 'none') {
@@ -143,6 +161,7 @@ class GlobalCityPopup extends React.Component {
 					</ul>);
 		}
 	}
+
 	render() {
 
 		return (
