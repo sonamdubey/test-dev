@@ -5,7 +5,7 @@ import PopularCityList from './PopularCityList';
 import ListGroup from './ListGroup';
 import ListGroupItem from './ListGroupItem';
 import NoResult from './NoResult';
-
+import SpinnerRelative from '../Shared/SpinnerRelative'
 import { unlockScroll } from '../../utils/scrollLock';
 import { addPopupEvents, removePopupEvents } from '../../utils/popupScroll';
 
@@ -131,7 +131,38 @@ class SelectCityPopup extends React.Component {
 
     const popupActiveClassName = isActive ? 'popup--active' : ''
     const popupClasses = `select-city-popup popup-content ${popupActiveClassName}`
-
+    let result;
+    if (!data.IsFetching) {
+      if (this.state.Popular.length > 0 || this.state.Other.length > 0) {
+        result = (
+          <div className="select-city__body">
+            {this.state.Popular.length > 0 &&
+              <div className="city-list-content">
+                <p className="city-list__heading">Popular cities</p>
+                <PopularCityList
+                  data={this.state.Popular}
+                  selection={data.Selection}
+                  onClick={this.handleCityClick}
+                />
+              </div>}
+            {this.state.Other.length > 0 &&
+              <div className="city-list-content">
+                <p className="city-list__heading">Other cities</p>
+                {this.getOtherCityList()}
+              </div>}
+          </div>)
+      }
+      else {
+        result = <NoResult
+          type="select-bike__no-bike-content"
+          imageClass="select-city__no-city"
+          title="No Matching Cities Found"
+        />
+      }
+    }
+    else {
+      result = <SpinnerRelative />;
+    }
     return (
       <div className={popupClasses} id="selectcity-popup">
         <div ref={this.setContentRef} className="select-city-popup__content">
@@ -153,30 +184,7 @@ class SelectCityPopup extends React.Component {
               </div>
             </div>
           </div>
-          {
-            this.state.Popular.length > 0 || this.state.Other.length > 0 ? (
-              <div className="select-city__body">
-                {this.state.Popular.length > 0 &&
-                  <div className="city-list-content">
-                    <p className="city-list__heading">Popular cities</p>
-                    <PopularCityList
-                      data={this.state.Popular}
-                      selection={data.Selection}
-                      onClick={this.handleCityClick}
-                    />
-                  </div>}
-                {this.state.Other.length > 0 &&
-                  <div className="city-list-content">
-                    <p className="city-list__heading">Other cities</p>
-                    {this.getOtherCityList()}
-                  </div>}
-              </div>)
-              : <NoResult
-                type="select-bike__no-bike-content"
-                imageClass="select-city__no-city"
-                title="No Matching Cities Found"
-              />
-          }
+          {result}
         </div>
       </div>
     );
