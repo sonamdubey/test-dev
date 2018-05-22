@@ -6,6 +6,7 @@ import { addTabEvents, removeTabEvents } from '../../utils/scrollSpyTabs';
 import EMITab from './EMITabContainer'
 import Documentation from './Documentation'
 import FAQ from './FAQ'
+import AdUnit from '../AdUnit'
 
 class Tabs extends React.Component {
   constructor(props) {
@@ -33,12 +34,11 @@ class Tabs extends React.Component {
   render() {
     return (
       <div ref={this.setRef} className="tabs__container">
-        <div className="tabs__placeholder">
+        <div id ="quickLinksTab" className="tabs__placeholder">
           <div className="tabs__content">
             <ul className="tabs__list">
               <li className="tabs-list__item" data-tab="overviewTab">Overview</li>
               <li className="tabs-list__item" data-tab="emiTab">EMI Calculator</li>
-              <li className="tabs-list__item" data-tab="loanEligibilityTab">Loan Eligibility Predictor</li>
               <li className="tabs-list__item" data-tab="documentationTab">Documentation</li>
               <li className="tabs-list__item" data-tab="faqTab">FAQ</li>
             </ul>
@@ -64,7 +64,7 @@ class Tabs extends React.Component {
             <Documentation />
           </div>
         </div>
-
+        <AdUnit uniqueKey={'finance-page'} tags={null} adSlot={'/1017752/BikeWale_Finance_Bottom_320x50'} adDimension={[320, 50]} adContainerId={'div-gpt-ad-1525945337139-1'} />
         <div className="tabs-panel__item" data-tab-panel="faqTab">
           <div className="finance-faq">
             <FAQ />
