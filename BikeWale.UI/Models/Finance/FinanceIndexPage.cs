@@ -77,6 +77,8 @@ namespace Bikewale.Models
             try
             {
 				BindPageMetas(objData.PageMetaTags);
+				SetBreadcrumList(objData);
+				SetPageJSONLDSchema(objData);
                 objData.ReduxStore = new PwaReduxStore();
                 var storeJson = JsonConvert.SerializeObject(objData.ReduxStore);
                 objData.ServerRouterWrapper = _renderedArticles.GetNewsListDetails(PwaCmsHelper.GetSha256Hash(storeJson), objData.ReduxStore.News.NewsArticleListReducer,
@@ -90,6 +92,29 @@ namespace Bikewale.Models
             }
             return objData;
         }
+
+		private void SetBreadcrumList(FinanceIndexPageVM objData)
+		{
+			try
+			{
+				IList<BreadcrumbListItem> breadCrumbs = new List<BreadcrumbListItem>();
+				string bikeUrl = string.Format("{0}/m/", Utility.BWConfiguration.Instance.BwHostUrl);
+				breadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(1, bikeUrl, "Home"));
+
+				objData.BreadcrumbList.BreadcrumListItem = breadCrumbs;
+			}
+			catch (Exception ex)
+			{
+				Bikewale.Notifications.ErrorClass.LogError(ex, "Bikewale.Models.Finance.FinanceIndexPage.SetBreadcrumList");
+			}
+
+		}
+
+		private void SetPageJSONLDSchema(FinanceIndexPageVM objData)
+		{
+			WebPage webpage = SchemaHelper.GetWebpageSchema(objData.PageMetaTags, objData.BreadcrumbList);
+			objData.PageMetaTags.PageSchemaJSON = SchemaHelper.JsonSerialize(webpage);
+		}
 
 		private void BindPageMetas(PageMetaTags objPage)
 		{
