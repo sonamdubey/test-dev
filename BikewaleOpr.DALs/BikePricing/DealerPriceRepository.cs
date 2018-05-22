@@ -98,7 +98,6 @@ namespace BikewaleOpr.DALs.BikePricing
             {
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
-                    connection.Open();
 
                     var param = new DynamicParameters();
                     param.Add("par_MakeId", makeId);
@@ -111,9 +110,6 @@ namespace BikewaleOpr.DALs.BikePricing
                         priceSheetBase.DealerVersions = results.Read<DealerVersionEntity>();
                         priceSheetBase.VersionPrices = results.Read<VersionPriceEntity>();
                     }
-
-                    if (connection.State == ConnectionState.Open)
-                        connection.Close();
                 }
             }
             catch (Exception ex)
@@ -140,7 +136,6 @@ namespace BikewaleOpr.DALs.BikePricing
             {
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
-                    connection.Open();
 
                     var param = new DynamicParameters();
                     param.Add("par_DealerId", dealerId);
@@ -150,8 +145,6 @@ namespace BikewaleOpr.DALs.BikePricing
                     connection.Execute("bw_removedealerprices", param: param, commandType: CommandType.StoredProcedure);
                     isSuccess = true;
 
-                    if (connection.State == ConnectionState.Open)
-                        connection.Close();
                 }
             }
             catch (Exception ex)
@@ -184,8 +177,6 @@ namespace BikewaleOpr.DALs.BikePricing
             {
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
-                    connection.Open();
-
                     var param = new DynamicParameters();
                     param.Add("par_dealerid", dealerIdList);
                     param.Add("par_cityid", cityIdList);
@@ -197,8 +188,6 @@ namespace BikewaleOpr.DALs.BikePricing
                     connection.Execute("bw_savedealerprices_30082017", param: param, commandType: CommandType.StoredProcedure);
                     isPriceSaved = true;
 
-                    if (connection.State == ConnectionState.Open)
-                        connection.Close();
                 }
             }
             catch (Exception ex)

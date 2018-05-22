@@ -5,24 +5,7 @@ import {withRouter} from 'react-router-dom'
 import { fetchTopVideosData } from '../../actionCreators/videosLandingActionCreators'
 import  {fetchVideoDetail , fetchModelSlug} from '../../actionCreators/videosDetailActionCreators'
 import {fetchVideosByCategory} from '../../actionCreators/videosByCategoryActionCreator'
-import {toJS} from '../../immutableWrapperContainer'
-var mapStateToProps = function(store) {
-	return {
-		OtherVideos	: store.getIn(['Videos','VideosLanding','OtherVideos']),
-		Status	: store.getIn(['Videos','VideosLanding','OtherVideosStatus'])
-
-	}
-}
-var mapDispatchToProps = function(dispatch) {
-	return {
-		fetchOtherVideosData : bindActionCreators(fetchOtherVideosData,dispatch),
-		fetchVideoDetail : bindActionCreators(fetchVideoDetail,dispatch),
-		fetchVideosByCategory : bindActionCreators(fetchVideosByCategory,dispatch)
-
-	}
-}
-
-
+import { toJS } from '../../immutableWrapperContainer'
 
 var mapStateToProps = function(store) {
 	return {

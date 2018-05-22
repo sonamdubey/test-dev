@@ -73,9 +73,9 @@
             </ul>
         </li>
         <li>
-            <a href="/trackday2016/">
+            <a href="/featured/trackday-2018/" class ="bw-ga" data-lab ="Track Day 2018" data-cat ="" data-act ="Hamburger_Menu_Item_Click">
                 <span class="bwsprite track-day"></span>
-                <span class="navbarTitle">Track Day 2016</span>
+                <span class="navbarTitle">Track Day 2018</span>
             </a>
         </li>
         <li>

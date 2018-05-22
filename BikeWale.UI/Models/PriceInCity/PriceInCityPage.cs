@@ -23,7 +23,9 @@ using Bikewale.Utility;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
+using System.Text;
 using System.Web;
 
 namespace Bikewale.Models
@@ -31,6 +33,8 @@ namespace Bikewale.Models
     /// <summary>
     /// Created by  :   Sumit Kate on 28 Mar 2017
     /// Description :   PriceInCityPage model
+    /// Modified by :   Sanskar Gupta on 21 Mar 2018
+    /// Description :   Added `AdPath_Mobile` and `AdId_Mobile`
     /// </summary>
     public class PriceInCityPage
     {
@@ -40,7 +44,7 @@ namespace Bikewale.Models
         private readonly IPriceQuoteCache _objPQCache = null;
         private readonly IDealerCacheRepository _objDealerCache = null;
         private readonly IServiceCenter _objServiceCenter = null;
-        private readonly IBikeVersionCacheRepository<BikeVersionEntity, uint> _versionCache = null;
+        private readonly IBikeVersions<BikeVersionEntity, uint> _version;
         private readonly PQSourceEnum pqSource;
         private readonly IBikeInfo _bikeInfo = null;
         private readonly IBikeModelsCacheRepository<int> _modelCache = null;
@@ -71,6 +75,17 @@ namespace Bikewale.Models
         private readonly IAdSlot _adSlot = null;
         private BikeSeriesEntityBase Series;
 
+        private readonly String _adPath_Mobile = "/1017752/Bikewale_CityPrice_Mobile";
+        private readonly String _adId_Mobile = "1516080888816";
+
+
+        private readonly String _adPath_Desktop = "/1017752/Bikewale_CityPrice";
+        private readonly String _adId_Desktop = "1517407919554";
+
+        private readonly String _adId_SimilarBikes = "1505919734321";
+        private readonly String _adPath_SimilarBikes_Desktop = "/1017752/SimilarBikes_Desktop";
+        private readonly String _adPath_SimilarBikes_Mobile = "/1017752/SimilarBikes_Mobile";
+
         /// <summary>
         /// Created by  :   Sumit Kate on 28 Mar 2017
         /// Description :   Constructor to initialize the member variables
@@ -88,7 +103,7 @@ namespace Bikewale.Models
         /// <param name="pqSource"></param>
         /// <param name="modelMaskingName"></param>
         /// <param name="cityMaskingName"></param>
-        public PriceInCityPage(ICityMaskingCacheRepository cityMaskingCache, IBikeMaskingCacheRepository<Entities.BikeData.BikeModelEntity, int> modelMaskingCache, IPriceQuote objPQ, IPriceQuoteCache objPQCache, IDealerCacheRepository objDealerCache, IServiceCenter objServiceCenter, IBikeVersionCacheRepository<BikeVersionEntity, uint> versionCache, IBikeInfo bikeInfo, IBikeModelsCacheRepository<int> modelCache, IDealerPriceQuoteDetail objDealerDetails, IDealerPriceQuote objDealerPQ, ICityCacheRepository objCityCache, IAreaCacheRepository objAreaCache, IManufacturerCampaign objManufacturerCampaign, PQSourceEnum pqSource, string modelMaskingName, string cityMaskingName, IBikeModels<Entities.BikeData.BikeModelEntity, int> modelEntity, string makeMaskingName)
+        public PriceInCityPage(ICityMaskingCacheRepository cityMaskingCache, IBikeMaskingCacheRepository<Entities.BikeData.BikeModelEntity, int> modelMaskingCache, IPriceQuote objPQ, IPriceQuoteCache objPQCache, IDealerCacheRepository objDealerCache, IServiceCenter objServiceCenter, IBikeVersions<BikeVersionEntity, uint> version, IBikeInfo bikeInfo, IBikeModelsCacheRepository<int> modelCache, IDealerPriceQuoteDetail objDealerDetails, IDealerPriceQuote objDealerPQ, ICityCacheRepository objCityCache, IAreaCacheRepository objAreaCache, IManufacturerCampaign objManufacturerCampaign, PQSourceEnum pqSource, string modelMaskingName, string cityMaskingName, IBikeModels<Entities.BikeData.BikeModelEntity, int> modelEntity, string makeMaskingName)
         {
             _cityMaskingCache = cityMaskingCache;
             _modelMaskingCache = modelMaskingCache;
@@ -96,7 +111,7 @@ namespace Bikewale.Models
             _objPQCache = objPQCache;
             _objDealerCache = objDealerCache;
             _objServiceCenter = objServiceCenter;
-            _versionCache = versionCache;
+            _version = version;
             _bikeInfo = bikeInfo;
             _modelCache = modelCache;
             _objDealerDetails = objDealerDetails;
@@ -136,7 +151,7 @@ namespace Bikewale.Models
         /// <param name="modelMaskingName"></param>
         /// <param name="cityMaskingName"></param>
         /// <param name="modelEntity"></param>
-        public PriceInCityPage(ICityMaskingCacheRepository cityMaskingCache, IBikeMaskingCacheRepository<Entities.BikeData.BikeModelEntity, int> modelMaskingCache, IPriceQuote objPQ, IPriceQuoteCache objPQCache, IDealerCacheRepository objDealerCache, IServiceCenter objServiceCenter, IBikeVersionCacheRepository<BikeVersionEntity, uint> versionCache, IBikeInfo bikeInfo, IBikeModelsCacheRepository<int> modelCache, IDealerPriceQuoteDetail objDealerDetails, IDealerPriceQuote objDealerPQ, ICityCacheRepository objCityCache, IAreaCacheRepository objAreaCache, IManufacturerCampaign objManufacturerCampaign, PQSourceEnum pqSource, string modelMaskingName, string cityMaskingName, IBikeModels<Entities.BikeData.BikeModelEntity, int> modelEntity, IAdSlot adSlot, string makeMaskingName)
+        public PriceInCityPage(ICityMaskingCacheRepository cityMaskingCache, IBikeMaskingCacheRepository<Entities.BikeData.BikeModelEntity, int> modelMaskingCache, IPriceQuote objPQ, IPriceQuoteCache objPQCache, IDealerCacheRepository objDealerCache, IServiceCenter objServiceCenter, IBikeVersions<BikeVersionEntity, uint> version, IBikeInfo bikeInfo, IBikeModelsCacheRepository<int> modelCache, IDealerPriceQuoteDetail objDealerDetails, IDealerPriceQuote objDealerPQ, ICityCacheRepository objCityCache, IAreaCacheRepository objAreaCache, IManufacturerCampaign objManufacturerCampaign, PQSourceEnum pqSource, string modelMaskingName, string cityMaskingName, IBikeModels<Entities.BikeData.BikeModelEntity, int> modelEntity, IAdSlot adSlot, string makeMaskingName)
         {
             _cityMaskingCache = cityMaskingCache;
             _modelMaskingCache = modelMaskingCache;
@@ -144,7 +159,7 @@ namespace Bikewale.Models
             _objPQCache = objPQCache;
             _objDealerCache = objDealerCache;
             _objServiceCenter = objServiceCenter;
-            _versionCache = versionCache;
+            _version = version;
             _bikeInfo = bikeInfo;
             _modelCache = modelCache;
             _objDealerDetails = objDealerDetails;
@@ -330,6 +345,8 @@ namespace Bikewale.Models
         /// Description : Added call to BindAdSlotTags.
         /// Modified by : Ashutosh Sharma on 08 Dec 2017
         /// Description : Removed Images load with Ajax for honda and hero.
+        /// Modified By : Deepak Israni on 19 Feb 2018
+        /// Description : Sending isNew flag with GetVersionMinSpecs instead of the hardcoded true value.
         /// </summary>
         /// <returns></returns>
         public PriceInCityPageVM GetData()
@@ -345,7 +362,7 @@ namespace Bikewale.Models
                     objVM.BikeVersionPrices = _objPQ.GetVersionPricesByModelId(modelId, cityId, out hasAreaAvailable);
                     if (objVM.BikeVersionPrices != null && objVM.BikeVersionPrices.Any())
                     {
-                        firstVersion = objVM.BikeVersionPrices.OrderByDescending(m => m.IsVersionNew).OrderBy(v => v.ExShowroomPrice).First();
+                        firstVersion = objVM.BikeVersionPrices.OrderByDescending(m => m.IsVersionNew).OrderBy(v => v.ExShowroomPrice).FirstOrDefault();
                         objVM.IsNew = isNew = firstVersion.IsModelNew;
                         var newVersions = objVM.BikeVersionPrices.Where(x => x.IsVersionNew);
                         if (objVM.IsNew && newVersions != null && newVersions.Any())
@@ -353,14 +370,13 @@ namespace Bikewale.Models
                             objVM.BikeVersionPrices = newVersions;
                         }
                         versionCount = (uint)objVM.BikeVersionPrices.Count();
-                        objVM.VersionSpecs = _versionCache.GetVersionMinSpecs(modelId, true);
+                        objVM.VersionSpecs = _version.GetVersionMinSpecs(modelId, objVM.IsNew);
                         if (objVM.VersionSpecs != null)
                         {
                             var objMin = objVM.VersionSpecs.FirstOrDefault(x => x.VersionId == firstVersion.VersionId);
                             if (objMin != null)
                             {
-                                objVM.MinSpecsHtml = FormatVarientMinSpec(objMin);
-
+                                objVM.MinSpecsList = objMin.MinSpecsList;
                                 // Set body style
                                 objVM.BodyStyle = objMin.BodyStyle;
                             }
@@ -471,6 +487,8 @@ namespace Bikewale.Models
         /// <summary>
         /// Created by : Ashutosh Sharma on 13 Nov 2017
         /// Description : Bind ad slot to adtags.
+        /// Modified by : Sanskar Gupta on 21 Mar 2018
+        /// Description : Added New way of loading the Ads for Mobile.
         /// </summary>
         private void BindAdSlotTags(PriceInCityPageVM objVM)
         {
@@ -478,9 +496,84 @@ namespace Bikewale.Models
             {
                 if (objVM.AdTags != null)
                 {
-                    objVM.AdTags.Ad_292x399 = _adSlot.CheckAdSlotStatus("Ad_292x399"); //For similar bikes widget desktop
-                    objVM.AdTags.Ad_200x253 = _adSlot.CheckAdSlotStatus("Ad_200x253");  //For similar bikes widget mobile
+                    IDictionary<string, AdSlotModel> ads = new Dictionary<string, AdSlotModel>();
+                    var adTag = objVM.AdTags;
+
+                    if (IsMobile)
+                    {
+                        adTag.AdPath = _adPath_Mobile;
+                        adTag.AdId = _adId_Mobile;
+                        adTag.Ad_320x50 = !objVM.AdTags.ShowInnovationBannerMobile;
+                        adTag.Ad_300x250 = true;
+                        adTag.Ad_Bot_320x50 = true;
+                        adTag.Ad_200x253 = _adSlot.CheckAdSlotStatus("Ad_200x253");  //For similar bikes widget mobile
+
+                        NameValueCollection adInfo = new NameValueCollection();
+                        adInfo["adId"] = _adId_Mobile;
+                        adInfo["adPath"] = _adPath_Mobile;
+
+                        if (objVM.AdTags.Ad_320x50)
+                            ads.Add(String.Format("{0}-0", _adId_Mobile), GoogleAdsHelper.SetAdSlotProperties(adInfo, ViewSlotSize.ViewSlotSizes[AdSlotSize._320x50], 0, 320, AdSlotSize._320x50, "Top", true));
+
+                        if (objVM.AdTags.Ad_300x250)
+                            ads.Add(String.Format("{0}-2", _adId_Mobile), GoogleAdsHelper.SetAdSlotProperties(adInfo, ViewSlotSize.ViewSlotSizes[AdSlotSize._300x250], 2, 300, AdSlotSize._300x250));
+
+                        if (objVM.AdTags.Ad_Bot_320x50)
+                            ads.Add(String.Format("{0}-1", _adId_Mobile), GoogleAdsHelper.SetAdSlotProperties(adInfo, ViewSlotSize.ViewSlotSizes[AdSlotSize._320x50], 1, 320, AdSlotSize._320x50, "Bottom"));
+
+                        if (objVM.AdTags.Ad_200x253)
+                        {
+                            NameValueCollection adInfo_OldAd = new NameValueCollection();
+                            adInfo_OldAd["adId"] = _adId_SimilarBikes;
+                            adInfo_OldAd["adPath"] = _adPath_SimilarBikes_Mobile;
+                            ads.Add(String.Format("{0}-11", adInfo_OldAd["adId"]), GoogleAdsHelper.SetAdSlotProperties(adInfo_OldAd, ViewSlotSize.ViewSlotSizes[AdSlotSize._200x253], 11, 200, AdSlotSize._200x253));
+                        }
+                    }
+                    else
+                    {
+                        adTag.AdPath = _adPath_Desktop;
+                        adTag.AdId = _adId_Desktop;
+                        adTag.Ad_300x250 = objVM.IsNew;
+                        adTag.Ad_Model_BTF_300x250 = (objVM.NearestPriceCities != null && objVM.NearestPriceCities.PriceQuoteList != null && objVM.NearestPriceCities.PriceQuoteList.Count() > 8) ? true : false;
+                        adTag.Ad_970x90 = !objVM.AdTags.ShowInnovationBannerDesktop;
+                        adTag.Ad_970x90Bottom = true;
+                        adTag.Ad_292x399 = _adSlot.CheckAdSlotStatus("Ad_292x399");  //For similar bikes widget desktop
+
+                        NameValueCollection adInfo = new NameValueCollection();
+                        adInfo["adId"] = _adId_Desktop;
+                        adInfo["adPath"] = _adPath_Desktop;
+
+                        if (objVM.AdTags.Ad_300x250)
+                        {
+                            ads.Add(String.Format("{0}-1", _adId_Desktop), GoogleAdsHelper.SetAdSlotProperties(adInfo, ViewSlotSize.ViewSlotSizes[AdSlotSize._300x250], 1, 300, AdSlotSize._300x250, true));
+                        }
+                        if (objVM.AdTags.Ad_Model_BTF_300x250)
+                        {
+                            ads.Add(String.Format("{0}-11", _adId_Desktop), GoogleAdsHelper.SetAdSlotProperties(adInfo, ViewSlotSize.ViewSlotSizes[AdSlotSize._300x250], 11, 300, AdSlotSize._300x250, "BTF"));
+
+                        }
+                        if (objVM.AdTags.Ad_970x90)
+                        {
+                            ads.Add(String.Format("{0}-3", _adId_Desktop), GoogleAdsHelper.SetAdSlotProperties(adInfo, ViewSlotSize.ViewSlotSizes[AdSlotSize._970x90 + "_C"], 3, 970, AdSlotSize._970x90, true));
+                        }
+                        if (objVM.AdTags.Ad_970x90Bottom)
+                        {
+                            ads.Add(String.Format("{0}-5", _adId_Desktop), GoogleAdsHelper.SetAdSlotProperties(adInfo, ViewSlotSize.ViewSlotSizes[AdSlotSize._970x90 + "_C"], 5, 970, AdSlotSize._970x90, "Bottom"));
+
+                        }
+                        if (objVM.AdTags.Ad_292x399)
+                        {
+                            NameValueCollection adInfo_OldAd = new NameValueCollection();
+                            adInfo_OldAd["adId"] = _adId_SimilarBikes;
+                            adInfo_OldAd["adPath"] = _adPath_SimilarBikes_Desktop;
+                            ads.Add(String.Format("{0}-14", adInfo_OldAd["adId"]), GoogleAdsHelper.SetAdSlotProperties(adInfo_OldAd, ViewSlotSize.ViewSlotSizes[AdSlotSize._292x399], 14, 292, AdSlotSize._292x399));
+                        }
+                    }
+
+                    objVM.AdSlots = ads;
+
                 }
+
             }
             catch (Exception ex)
             {
@@ -519,6 +612,8 @@ namespace Bikewale.Models
         /// Description : Added call to BindAmpJsTags.
         /// Modified by : Ashutosh Sharma on 11 Dec 2017
         /// Description : Added IsNew check for GetManufacturerCampaign and BindManufacturerLeadAdAMP
+        /// Modified by : Deepak Israni on 20 Dec 2018
+        /// Description : Fixed call to GetVersionMinSpecs.
         /// </summary>
         /// <returns></returns>
         public PriceInCityPageAMPVM GetDataAMP()
@@ -557,7 +652,7 @@ namespace Bikewale.Models
                             objVM.BikeVersionPrices = objVM.BikeVersionPrices.Where(x => x.IsVersionNew);
                         }
                         versionCount = (uint)objVM.FormatedBikeVersionPrices.Count();
-                        objVM.VersionSpecs = _versionCache.GetVersionMinSpecs(modelId, true);
+                        objVM.VersionSpecs = _version.GetVersionMinSpecs(modelId, objVM.IsNew);
 
                         ICollection<KeyValuePair<uint, BikeQuotationAMPEntity>> values = new Dictionary<uint, BikeQuotationAMPEntity>();
                         foreach (var item in objVM.FormatedBikeVersionPrices)
@@ -570,18 +665,17 @@ namespace Bikewale.Models
                             var objMin = objVM.VersionSpecs.FirstOrDefault(x => x.VersionId == firstVersion.VersionId);
                             if (objMin != null)
                             {
-                                objVM.MinSpecsHtml = FormatVarientMinSpec(objMin);
+                                objVM.MinSpecsList = objMin.MinSpecsList;
 
                                 // Set body style
                                 objVM.BodyStyle = objMin.BodyStyle;
                             }
                             else
                             {
-                                var firstVersionTemp = objVM.VersionSpecs.FirstOrDefault();
-                                if (firstVersionTemp != null)
+                                var firstVersionSpec = objVM.VersionSpecs.FirstOrDefault();
+                                if (firstVersionSpec != null)
                                 {
-                                    objVM.BodyStyle = firstVersionTemp.BodyStyle;
-
+                                    objVM.BodyStyle = objVM.VersionSpecs.FirstOrDefault().BodyStyle;
                                 }
                             }
 
@@ -593,15 +687,18 @@ namespace Bikewale.Models
                                     version.Price = Convert.ToUInt64(versionPrice.BikeQuotationEntity.OnRoadPrice);
                                 }
                             }
-
                             objVM.BodyStyleText = objVM.BodyStyle == EnumBikeBodyStyles.Scooter ? "Scooters" : "Bikes";
                         }
 
-                        if (firstVersion != null && firstVersion.OnRoadPrice > 0)
+                        if (firstVersion != null)
                         {
-                            BindEMISlider(objVM);
                             BindBikeBasicDetails(objVM);
-                            BindSimilarBikes(objVM);
+
+                            if (firstVersion.OnRoadPrice > 0)
+                            {
+                                BindEMISlider(objVM);
+                                BindSimilarBikes(objVM);
+                            }
                         }
 
 
@@ -918,7 +1015,7 @@ namespace Bikewale.Models
         {
             try
             {
-                var similarBikes = new SimilarBikesWidget(_versionCache, firstVersion.VersionId, pqSource, false, true);
+                var similarBikes = new SimilarBikesWidget(_version, firstVersion.VersionId, pqSource, false, true);
                 similarBikes.CityId = cityId;
                 similarBikes.TopCount = 9;
                 similarBikes.IsNew = objVM.IsNew;
@@ -956,7 +1053,7 @@ namespace Bikewale.Models
             {
                 if (modelId > 0)
                 {
-                    var modelPopularBikesByBodyStyle = new PopularBikesByBodyStyle(_modelCache);
+                    var modelPopularBikesByBodyStyle = new PopularBikesByBodyStyle(_objModelEntity);
                     modelPopularBikesByBodyStyle.CityId = cityId;
                     modelPopularBikesByBodyStyle.ModelId = modelId;
                     modelPopularBikesByBodyStyle.TopCount = 9;
@@ -1035,44 +1132,6 @@ namespace Bikewale.Models
             {
                 ErrorClass.LogError(ex, String.Format("BindPriceInNearestCities({0},{1})", modelMaskingName, cityMaskingName));
             }
-        }
-
-        /// <summary>
-        /// Created by : Aditi Srivastava on 12 Apr 2017
-        /// Summary    : Format min specs
-        /// </summary>
-        private string FormatVarientMinSpec(BikeVersionMinSpecs objVersion)
-        {
-            string minSpecsStr = string.Empty;
-
-            try
-            {
-                minSpecsStr = string.Format("{0}<li>{1} Wheels</li>", minSpecsStr, objVersion.AlloyWheels ? "Alloy" : "Spoke");
-                minSpecsStr = string.Format("{0}<li>{1} Start</li>", minSpecsStr, objVersion.ElectricStart ? "Electric" : "Kick");
-
-                if (objVersion.AntilockBrakingSystem)
-                {
-                    minSpecsStr = string.Format("{0}<li>ABS</li>", minSpecsStr);
-                }
-
-                if (!String.IsNullOrEmpty(objVersion.BrakeType))
-                {
-                    minSpecsStr = string.Format("{0}<li>{1} Brake</li>", minSpecsStr, objVersion.BrakeType);
-                }
-
-
-                if (!string.IsNullOrEmpty(minSpecsStr))
-                {
-                    minSpecsStr = string.Format("<ul id='version-specs-list'>{0}</ul>", minSpecsStr);
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorClass.LogError(ex, string.Format("Bikewale.Models.PriceInCityPAge.FormatVarientMinSpec(): versionId {0}", objVersion.VersionId));
-            }
-
-            return minSpecsStr;
-
         }
 
         /// <summary>
@@ -1301,6 +1360,8 @@ namespace Bikewale.Models
         /// Description :   Fetches Manufacturer Campaigns
         /// Modified by  :  Sushil Kumar on 11th Aug 2017
         /// Description :   Store dealerid for manufacturer campaigns for impressions tracking
+        /// Modified by : Ashutosh Sharma on 13 Mar 2018
+        /// Description : Registering price quote before binding lead and emi campaign.
         /// </summary>
         private void GetManufacturerCampaign(PriceInCityPageVM objData)
         {
@@ -1308,6 +1369,22 @@ namespace Bikewale.Models
             {
                 if (_objManufacturerCampaign != null && !(objData.HasCampaignDealer))
                 {
+                    if (objData.PQId == 0)
+                    {
+                        PriceQuoteParametersEntity objPQEntity = new PriceQuoteParametersEntity();
+                        objPQEntity.CityId = Convert.ToUInt16(cityId);
+                        objPQEntity.AreaId = Convert.ToUInt32(areaId);
+                        objPQEntity.ClientIP = "";
+                        objPQEntity.SourceId = Convert.ToUInt16(Platform);
+                        objPQEntity.ModelId = modelId;
+                        objPQEntity.VersionId = objData.VersionId;
+                        objPQEntity.PQLeadId = Convert.ToUInt16(PQSource);
+                        objPQEntity.UTMA = HttpContext.Current.Request.Cookies["__utma"] != null ? HttpContext.Current.Request.Cookies["__utma"].Value : "";
+                        objPQEntity.UTMZ = HttpContext.Current.Request.Cookies["_bwutmz"] != null ? HttpContext.Current.Request.Cookies["_bwutmz"].Value : "";
+                        objPQEntity.DeviceId = HttpContext.Current.Request.Cookies["BWC"] != null ? HttpContext.Current.Request.Cookies["BWC"].Value : "";
+                        objData.PQId = (uint)_objPQ.RegisterPriceQuote(objPQEntity);
+                    }
+
                     ManufacturerCampaignEntity campaigns = _objManufacturerCampaign.GetCampaigns(modelId, cityId, ManufacturerCampaignPageId);
                     if (campaigns.LeadCampaign != null)
                     {
@@ -1386,21 +1463,7 @@ namespace Bikewale.Models
                         objData.IsManufacturerEMIAdShown = true;
                     }
 
-                    if (objData.PQId == 0)
-                    {
-                        PriceQuoteParametersEntity objPQEntity = new PriceQuoteParametersEntity();
-                        objPQEntity.CityId = Convert.ToUInt16(cityId);
-                        objPQEntity.AreaId = Convert.ToUInt32(areaId);
-                        objPQEntity.ClientIP = "";
-                        objPQEntity.SourceId = Convert.ToUInt16(Platform);
-                        objPQEntity.ModelId = modelId;
-                        objPQEntity.VersionId = objData.VersionId;
-                        objPQEntity.PQLeadId = Convert.ToUInt16(PQSource);
-                        objPQEntity.UTMA = HttpContext.Current.Request.Cookies["__utma"] != null ? HttpContext.Current.Request.Cookies["__utma"].Value : "";
-                        objPQEntity.UTMZ = HttpContext.Current.Request.Cookies["_bwutmz"] != null ? HttpContext.Current.Request.Cookies["_bwutmz"].Value : "";
-                        objPQEntity.DeviceId = HttpContext.Current.Request.Cookies["BWC"] != null ? HttpContext.Current.Request.Cookies["BWC"].Value : "";
-                        objData.PQId = (uint)_objPQ.RegisterPriceQuote(objPQEntity);
-                    }
+
 
                     if (objData.IsManufacturerLeadAdShown)
                     {
@@ -1428,7 +1491,7 @@ namespace Bikewale.Models
         {
             try
             {
-                MoreAboutScootersWidget obj = new MoreAboutScootersWidget(_modelCache, _objCityCache, _versionCache, _bikeInfo, Entities.GenericBikes.BikeInfoTabType.PriceInCity);
+                MoreAboutScootersWidget obj = new MoreAboutScootersWidget(_modelCache, _objCityCache, _version, _bikeInfo, Entities.GenericBikes.BikeInfoTabType.PriceInCity);
                 obj.modelId = modelId;
                 objData.objMoreAboutScooter = obj.GetData();
             }

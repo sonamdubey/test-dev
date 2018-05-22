@@ -8,7 +8,7 @@
     Model.AdTags.AdId = "1493795506249";
     Model.AdTags.Ad_320x50 = true;
     Model.AdTags.Ad_Bot_320x50 = true;
-    Model.AdTags.Ad_300x100 = true;
+    Model.AdTags.Ad_300x250BTF = true;
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
 }
 
@@ -122,7 +122,7 @@
                                 {
                                     <li>
                                         <div class="rating-circle circle-rate-@Math.Floor(ques.AverageRatingValue)">
-							<p class="circle-label">@Math.Floor(ques.AverageRatingValue)</p>
+                                            <p class="circle-label">@Math.Floor(ques.AverageRatingValue)</p>
                                             <span class="rating-progress"></span>
                                         </div>
                                         <p class="list-item-label">@ques.QuestionHeading</p>
@@ -139,7 +139,7 @@
                     <div class="border-solid-bottom padding-bottom15 margin-bottom15">
                         <div class="trophy-icon-wrapper">
                             <span class="trophy-white-26"></span>
-                        </div><p class="contest-slug__label">Write a review and stand a chance to win Amazon vouchers worth &#x20B9;@BWConfiguration.Instance.ContestPriceMoney</p>
+                        </div><p class="contest-slug__label">Write a review and stand a chance to win Amazon vouchers worth &#x20B9;@Format.FormatPrice(BWConfiguration.Instance.ContestPriceMoney)</p>
                     </div>
                     <p class="font14 text-black inline-block line-height25">Rate this bike now</p>
                     <div class="answer-star-list inline-block text-right">
@@ -161,11 +161,11 @@
             {
                 @Html.Partial("~/Views/UserReview/_UserReviewsSearch_Mobile.cshtml", Model.UserReviews)
             }
-
+            @if(Model.AdTags.Ad_300x250BTF){
             <div class="margin-bottom20 text-center">
-                @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad300x100_Middle.cshtml", new { AdId = Model.AdTags.AdId });}
+                @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad300x250BTF.cshtml", new { AdId = Model.AdTags.AdId });}
             </div>
-
+            }
             @if (Model.ExpertReviews != null && Model.ExpertReviews.FetchedCount > 0)
             {
                 <section>
@@ -237,16 +237,16 @@
                 </div>
             </div>
         </div>
-       
+
         @if (Model.objMoreAboutScooter != null)
         {
-        <div id="moreAboutScooter" class="content-box-shadow padding-top20 padding-bottom20 card-bottom-margin font14">
-            <div class="swiper-container card-container model-related-swiper swiper-container-horizontal">
-                <div class="swiper-wrapper">
-                    @Html.Partial("~/Views/Scooters/_ModelRelatedCard_Mobile.cshtml", Model.objMoreAboutScooter)
+            <div id="moreAboutScooter" class="content-box-shadow padding-top20 padding-bottom20 card-bottom-margin font14">
+                <div class="swiper-container card-container model-related-swiper swiper-container-horizontal">
+                    <div class="swiper-wrapper">
+                        @Html.Partial("~/Views/Scooters/_ModelRelatedCard_Mobile.cshtml", Model.objMoreAboutScooter)
+                    </div>
                 </div>
             </div>
-        </div>
         }
     </div>
 </section>

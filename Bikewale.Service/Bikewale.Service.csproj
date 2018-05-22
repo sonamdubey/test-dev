@@ -13,7 +13,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Bikewale.Service</RootNamespace>
     <AssemblyName>Bikewale.Service</AssemblyName>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <UseIISExpress>false</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
@@ -21,6 +21,7 @@
     <IISExpressUseClassicPipelineMode />
     <TargetFrameworkProfile />
     <UseGlobalApplicationHostFile />
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -50,6 +51,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\AutoMapper.dll</HintPath>
     </Reference>
+    <Reference Include="Bikewale.BAL.ApiGateway, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\BikeWale.UI\bin\Bikewale.BAL.ApiGateway.dll</HintPath>
+    </Reference>
     <Reference Include="Carwale.DAL">
       <HintPath>..\Libs\Carwale.DAL.dll</HintPath>
     </Reference>
@@ -69,8 +74,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\Gelf4Net.UdpAppender.dll</HintPath>
     </Reference>
-    <Reference Include="Google.Protobuf">
-      <HintPath>..\Libs\Google.Protobuf.dll</HintPath>
+    <Reference Include="Google.Protobuf, Version=3.5.1.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\APIGateway\Google.Protobuf.dll</HintPath>
     </Reference>
     <Reference Include="Grpc.Core">
       <HintPath>..\Libs\Grpc.Core.dll</HintPath>
@@ -242,6 +248,7 @@
     <Compile Include="AutoMappers\BikeData\LaunchedBikeListMapper.cs" />
     <Compile Include="AutoMappers\BikeData\MakeModelEntityMapper.cs" />
     <Compile Include="AutoMappers\BikeData\SimilarBikeListMapper.cs" />
+    <Compile Include="AutoMappers\BikeData\SpecsFeaturesMapper.cs" />
     <Compile Include="AutoMappers\BikeData\UpcomingBikeListMapper.cs" />
     <Compile Include="AutoMappers\BookingSummary\BookingSummaryMapper.cs" />
     <Compile Include="AutoMappers\BookingSummary\DDQDealerDetailBaseMapper.cs" />
@@ -270,6 +277,7 @@
     <Compile Include="AutoMappers\PriceQuote\PriceQuoteMapper.cs" />
     <Compile Include="AutoMappers\PriceQuote\Version\PQVersionListMapper.cs" />
     <Compile Include="AutoMappers\ServiceCenter\ServiceCenterMapper.cs" />
+    <Compile Include="AutoMappers\UpcomingNotification\NotificationMapper.cs" />
     <Compile Include="AutoMappers\UsedBikes\PopularUsedBikesMapper.cs" />
     <Compile Include="AutoMappers\Used\UsedBikeSearchResult.cs" />
     <Compile Include="AutoMappers\UsedBikes\UsedBikeBuyerMapper.cs" />
@@ -323,6 +331,8 @@
     <Compile Include="Controllers\Model\ModelSpecsController.cs" />
     <Compile Include="Controllers\NewBikeSearch\NewBikeSearchController.cs" />
     <Compile Include="Controllers\Customer\AuthenticateController.cs" />
+    <Compile Include="Controllers\Photos\PwaPhotosController.cs" />
+    <Compile Include="Controllers\Notifications\UpcomingController.cs" />
     <Compile Include="Controllers\PriceQuote\Area\PQAreaListController.cs" />
     <Compile Include="Controllers\PriceQuote\BikePQController.cs" />
     <Compile Include="Controllers\PriceQuote\City\PQCityListController.cs" />
@@ -428,6 +438,10 @@
     <Folder Include="Views\SplashScreen\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Bikewale.BAL.ApiGateway\Bikewale.BAL.ApiGateway.csproj">
+      <Project>{281D4C7B-6329-4307-A1A3-DE25135659F6}</Project>
+      <Name>Bikewale.BAL.ApiGateway</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Bikewale.BAL\Bikewale.BAL.csproj">
       <Project>{3ca0d7b6-7e09-449c-a34d-c08ca8118876}</Project>
       <Name>Bikewale.BAL</Name>
@@ -448,6 +462,10 @@
       <Project>{a6404f19-b267-4e37-b186-d8fc010ad2ce}</Project>
       <Name>Bikewale.DTO</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Bikewale.ElasticSearch.Entities\Bikewale.ElasticSearch.Entities.csproj">
+      <Project>{51f0aa77-2bed-4b2c-aaa9-e9b8be811019}</Project>
+      <Name>Bikewale.ElasticSearch.Entities</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Bikewale.Entities\Bikewale.Entities.csproj">
       <Project>{8223a4b8-db14-4658-9897-257d872ae8d9}</Project>
       <Name>Bikewale.Entities</Name>
@@ -459,6 +477,10 @@
     <ProjectReference Include="..\Bikewale.ManufacturerCampaign.BAL\Bikewale.ManufacturerCampaign.BAL.csproj">
       <Project>{5d58150b-55aa-4220-be98-5aca515ced8c}</Project>
       <Name>Bikewale.ManufacturerCampaign.BAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bikewale.ManufacturerCampaign.Cache\Bikewale.ManufacturerCampaign.Cache.csproj">
+      <Project>{a00b0a07-eb13-4b08-8089-6ed33b9896fe}</Project>
+      <Name>Bikewale.ManufacturerCampaign.Cache</Name>
     </ProjectReference>
     <ProjectReference Include="..\Bikewale.ManufacturerCampaign.DAL\Bikewale.ManufacturerCampaign.DAL.csproj">
       <Project>{f3148a79-9fec-4a19-9977-0fa6163c9e77}</Project>

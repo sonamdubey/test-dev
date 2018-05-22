@@ -81,7 +81,7 @@ namespace Bikewale.Used.Sell
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "Exception : Bikewale.used.sell.default.BindUserId()");
-                
+
             }
         }
 
@@ -106,7 +106,7 @@ namespace Bikewale.Used.Sell
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "Exception : Bikewale.used.sell.default.BindMakes()");
-                
+
             }
         }
 
@@ -130,7 +130,7 @@ namespace Bikewale.Used.Sell
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "Exception : Bikewale.used.sell.default.BindCities()");
-                
+
             }
         }
 
@@ -147,7 +147,8 @@ namespace Bikewale.Used.Sell
                 {
                     if (userId == "-1") //user not logged-in
                     {
-                        Response.Redirect(String.Format("/users/login.aspx?ReturnUrl={0}", HttpContext.Current.Request.RawUrl));
+                        Response.Redirect(String.Format("/users/login.aspx?ReturnUrl={0}", HttpContext.Current.Request.RawUrl), false);
+                        HttpContext.Current.ApplicationInstance.CompleteRequest();
                     }
 
                     isEdit = true;
@@ -157,7 +158,7 @@ namespace Bikewale.Used.Sell
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "Exception : Bikewale.used.sell.default.CheckIsEdit()");
-                
+
             }
         }
 
@@ -188,21 +189,29 @@ namespace Bikewale.Used.Sell
                     obj = container.Resolve<ISellBikes>();
                     if (obj != null)
                     {
-                        SellBikeAd inquiryDetailsObject = obj.GetById(inquiryId, Convert.ToUInt64(userId));
-                        if (inquiryDetailsObject != null)
+                        if (userId == "-1") //user not logged-in
                         {
-                            inquiryDTO = ConvertToDto(inquiryDetailsObject);
-                            if (inquiryDTO != null)
-                                inquiryDTO.ManufacturingYear = (DateTime)inquiryDTO.ManufacturingYear;
+                            Response.Redirect(String.Format("/users/login.aspx?ReturnUrl={0}", HttpContext.Current.Request.RawUrl), false);
+                            HttpContext.Current.ApplicationInstance.CompleteRequest();
                         }
-                        isAuthorized = inquiryDetailsObject == null ? false : true;
+                        else
+                        {
+                            SellBikeAd inquiryDetailsObject = obj.GetById(inquiryId, Convert.ToUInt64(userId));
+                            if (inquiryDetailsObject != null)
+                            {
+                                inquiryDTO = ConvertToDto(inquiryDetailsObject);
+                                if (inquiryDTO != null)
+                                    inquiryDTO.ManufacturingYear = (DateTime)inquiryDTO.ManufacturingYear;
+                            }
+                            isAuthorized = inquiryDetailsObject == null ? false : true; 
+                        }
                     }
                 }
             }
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "Exception : Bikewale.used.sell.default.GetInquiryDetails()");
-                
+
             }
 
         }

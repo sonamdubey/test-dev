@@ -551,17 +551,17 @@ namespace Bikewale.DAL.UserReviews
         /// Summary : To retrieve new and used flag for bike model
         /// Modified By:- Subodh Jain 19 Jan 2017
         /// Summary :- modified Sp for specs
+        /// Modified by : Ashutosh Sharma on 07 Apr 2018.
+        /// Description : Changed sp from 'getcustomerreviewinfo_16012017' to 'getcustomerreviewinfo_07042018' to remove min specs.
         /// </summary>
         /// <param name="reviewId"></param>
         /// <returns></returns>
         public ReviewDetailsEntity GetReviewDetails(uint reviewId)
         {
             ReviewDetailsEntity objReview = null;
-
-
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("getcustomerreviewinfo_16012017"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("getcustomerreviewinfo_07042018"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_reviewid", DbType.Int32, reviewId));
@@ -583,7 +583,6 @@ namespace Bikewale.DAL.UserReviews
                             objReview.ReviewEntity.ReviewTitle = Convert.ToString(dr["Title"]);
                             objReview.ReviewEntity.WrittenBy = Convert.ToString(dr["CustomerName"]);
                             objReview.ReviewEntity.Viewed = Convert.ToUInt32(dr["viewed"]);
-                            objReview.ModelSpecs = new MinSpecsEntity();
                             objReview.BikeEntity.MakeEntity.MakeId = SqlReaderConvertor.ToInt32(dr["makeid"]);
                             objReview.BikeEntity.MakeEntity.MakeName = Convert.ToString(dr["Make"]);
                             objReview.BikeEntity.ModelEntity.ModelName = Convert.ToString(dr["Model"]);
@@ -603,11 +602,6 @@ namespace Bikewale.DAL.UserReviews
                             objReview.New = Convert.ToBoolean(dr["new"]);
                             objReview.Used = Convert.ToBoolean(dr["used"]);
                             objReview.HostUrl = Convert.ToString(dr["HostURL"]);
-                            objReview.ModelSpecs.FuelEfficiencyOverall = SqlReaderConvertor.ToUInt16(dr["fuelefficiencyoverall"]);
-                            objReview.ModelSpecs.KerbWeight = SqlReaderConvertor.ToUInt16(dr["kerbweight"]);
-                            objReview.ModelSpecs.MaxPower = SqlReaderConvertor.ToFloat(dr["maxpower"]);
-                            objReview.ModelSpecs.Displacement = SqlReaderConvertor.ToFloat(dr["displacement"]);
-
                             dr.Close();
                         }
                     }
@@ -1667,14 +1661,9 @@ namespace Bikewale.DAL.UserReviews
             {
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
-                    connection.Open();
-
                     var param = new DynamicParameters();
 
                     objReviewsList = connection.Query<RecentReviewsWidget>("getrecentuserreview", param: param, commandType: CommandType.StoredProcedure);
-
-                    if (connection.State == ConnectionState.Open)
-                        connection.Close();
                 }
             }
             catch (Exception ex)
@@ -1697,12 +1686,7 @@ namespace Bikewale.DAL.UserReviews
             {
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
-                    connection.Open();
                     objReviewsWinnersList = connection.Query<RecentReviewsWidget>("getuserreviewswinners", commandType: CommandType.StoredProcedure);
-                    if (connection.State == ConnectionState.Open)
-                    {
-                        connection.Close();
-                    }
                 }
             }
             catch (Exception ex)

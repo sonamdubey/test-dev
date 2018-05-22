@@ -19,6 +19,8 @@ namespace Bikewale.BAL.GrpcFiles
     /// <summary>
     /// Author: Prasad Gawde
     /// Summary: This class is responsible for converting the GRPC Object into the Format Bikewale needs it to be in for further processing
+    /// Modified By : Deepak Israni on 9th Feb 2018
+    /// Description : Added extraction of MakeName and ModelName
     /// </summary>
     public static class GrpcToBikeWaleConvert
     {
@@ -56,6 +58,8 @@ namespace Bikewale.BAL.GrpcFiles
                     curArt.Views = item.Views;
                     curArt.SubCategory = item.SubCategory;
                     curArt.SubCategoryId = item.SubCategoryId;
+                    curArt.MakeName = item.MakeName;
+                    curArt.ModelName = item.ModelName;
                     dataNew.Articles.Add(curArt);
                 }
                 return dataNew;
@@ -591,7 +595,7 @@ namespace Bikewale.BAL.GrpcFiles
 
         public static BikeVideosListEntity ConvertFromGrpcToBikeWale(GrpcVideoListEntity inp)
         {
-            if (inp != null)
+            if (inp != null && inp.Videos != null)
             {
                 BikeVideosListEntity retVal = new BikeVideosListEntity();
                 retVal.NextPageUrl = inp.NextPageUrl;
@@ -762,7 +766,7 @@ namespace Bikewale.BAL.GrpcFiles
                 outDetails.DisplayDate = dateObj.ToString("MMM dd, yyyy");
                 outDetails.DisplayDateTime = dateObj.ToString("MMM dd, yyyy hh:mm tt");
                 outDetails.HostUrl = artSummary.HostUrl;
-                outDetails.Content = inpDet.Content;
+                outDetails.TopContent = inpDet.Content;
                 outDetails.PrevArticle = ConvertFromGrpcToBikeWalePwa(inpDet.PrevArticle);
                 outDetails.NextArticle = ConvertFromGrpcToBikeWalePwa(inpDet.NextArticle);
                 outDetails.CategoryId = (ushort)catId;
@@ -775,6 +779,12 @@ namespace Bikewale.BAL.GrpcFiles
             return outDetails;
         }
 
+        /// <summary>
+        /// Modified by : Rajan Chauhan on 05 Mar 2018
+        /// Description : Added condition on ArticleApi for categoryId 8 and 2 (if RoadTest category articles are requested than BAL method also returns ComparisonTests articles)
+        /// </summary>
+        /// <param name="inpSum"></param>
+        /// <returns></returns>
         public static PwaArticleSummary ConvertFromGrpcToBikeWalePwa(GrpcArticleSummary inpSum)
         {
             PwaArticleSummary outSummary = null;
@@ -788,7 +798,7 @@ namespace Bikewale.BAL.GrpcFiles
                     outSummary = new PwaArticleSummary();
                     string catName = GetContentCategory((int)inpSum.CategoryId);
                     outSummary.ArticleUrl = GetArticleUrl((int)inpSum.CategoryId, artBase.ArticleUrl, (int)basicId);
-                    outSummary.ArticleApi = string.Format("api/pwa/cms/id/{0}/page/", basicId);
+                    outSummary.ArticleApi = string.Format("api/pwa/cms/id/{0}/{1}/", basicId,(inpSum.CategoryId==8 || inpSum.CategoryId == 2?"pages":"page"));
                     outSummary.AuthorName = inpSum.AuthorName;
                     outSummary.Description = inpSum.Description;
                     outSummary.BasicId = basicId;

@@ -3,7 +3,7 @@
 	Layout = "~/Views/Shared/_Layout.cshtml";
 	Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/newbikes.css' inline /> <link rel='stylesheet' type='text/css' href='/css/components/brand-logo.css' inline />";
     Model.Page_JS_Path = "/src/bw-new.js";
-    Model.AdTags.AdPath = "1017752/BikeWale_NewBikesHome_";
+    Model.AdTags.AdPath = "/1017752/BikeWale_NewBikesHome_";
     Model.AdTags.AdId = "1395986297721";
     Model.AdTags.Ad_976x400First = true;
     Model.AdTags.Ad_976x400Second = true;
@@ -427,7 +427,7 @@
                 <span class="contest-banner__icon"></span>
                 <div class="contest-banner__left-grid inline-block">
                     <p class="contest-banner__title">Bike Review Contest</p>
-                    <p class="contest-banner__subtitle">Write a detailed review &amp; stand a chance to win Amazon vouchers worth &#x20b9;&nbsp;@Bikewale.Utility.BWConfiguration.Instance.ContestPriceMoney.</p>
+                    <p class="contest-banner__subtitle">Write a detailed review &amp; stand a chance to win Amazon vouchers worth &#x20b9;&nbsp;@Bikewale.Utility.Format.FormatPrice(Bikewale.Utility.BWConfiguration.Instance.ContestPriceMoney).</p>
                 </div>
                 <a href="@Bikewale.Utility.UrlFormatter.FormatUserReviewContestUrl(Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Desktop_NewBikePage)" class="btn btn-orange btn-180-40">Participate &amp; win<span class="bwsprite btn-white-arrow"></span></a>
             </div>

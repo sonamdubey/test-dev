@@ -13,7 +13,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>BikewaleOpr</RootNamespace>
     <AssemblyName>BikewaleOpr</AssemblyName>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <UseIISExpress>false</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
@@ -87,11 +87,11 @@
     <Reference Include="Microsoft.Practices.Unity.RegistrationByConvention">
       <HintPath>..\Libs\mvc 5\unity 4.0.1\Microsoft.Practices.Unity.RegistrationByConvention.dll</HintPath>
     </Reference>
-    <Reference Include="MySql.Data, Version=6.9.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+    <Reference Include="MySql.Data, Version=6.10.6.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\MySqlDatabaseDLL\MySql.Data.dll</HintPath>
+      <HintPath>..\Libs\Mysql6.10.6.0\MySql.Data.dll</HintPath>
     </Reference>
-    <Reference Include="MySqlDatabaseLibrary, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="MySqlDatabaseLibrary, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\MySqlDatabaseDLL\MySqlDatabaseLibrary.dll</HintPath>
     </Reference>
@@ -123,9 +123,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\mvc 5\mvc 5.2.3\System.Web.Cors.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\mvc 5\mvc 5.2.3\System.Web.Helpers.dll</HintPath>
@@ -377,10 +377,6 @@
     </Compile>
     <Compile Include="content\NewBikeModelColors_New.aspx.cs">
       <DependentUpon>NewBikeModelColors_New.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="content\NewBikeSpecification.aspx.cs">
-      <DependentUpon>NewBikeSpecification.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="content\NewBikeStandardFeaturesStep2.aspx.cs">
@@ -1396,7 +1392,6 @@
     <Content Include="content\NewBikeFeatureItems.aspx" />
     <Content Include="content\NewBikeFeatures.aspx" />
     <Content Include="content\NewBikeModelColors_New.aspx" />
-    <Content Include="content\NewBikeSpecification.aspx" />
     <Content Include="content\NewBikeStandardFeaturesStep2.aspx" />
     <Content Include="content\NewBikeVersionColors.aspx" />
     <Content Include="content\PriceMonitoring.aspx" />
@@ -1414,6 +1409,7 @@
     <Content Include="css\chosen.min.css" />
     <Content Include="css\common-new.css" />
     <Content Include="css\Common.css" />
+    <Content Include="css\login.css" />
     <Content Include="css\materialize-stepper.css" />
     <Content Include="css\materialize.css" />
     <Content Include="css\userreviews.css" />
@@ -1949,6 +1945,7 @@
     <Content Include="research\urlmapping\map_models.txt" />
     <Content Include="src\AdOperations\AdOperation.js" />
     <Content Include="src\AjaxFunctions.js" />
+    <Content Include="src\googleApiClient.js" />
     <Content Include="src\Banner.js" />
     <Content Include="src\BannerList.js" />
     <Content Include="src\BikeSeries\BikeSeries.js" />
@@ -1987,6 +1984,7 @@
     <Content Include="src\ServiceCenter\ServiceCenterOperations.js" />
     <Content Include="src\userreviews\manageuserratings.js" />
     <Content Include="src\userreviews\manageuserreviews.js" />
+    <Content Include="src\users\login.js" />
     <Content Include="users\Login.aspx" />
   </ItemGroup>
   <ItemGroup>
@@ -2056,6 +2054,8 @@
     <Content Include="Views\Makes\AddFooterData.cshtml" />
     <Content Include="App_Data\private-key.pem" />
     <Content Include="Views\AdOperation\Index.cshtml" />
+    <Content Include="classified\web.config" />
+    <Content Include="MobileApp\web.config" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
@@ -2091,9 +2091,21 @@
       <Project>{18c44359-a725-4093-9c32-75898d3dd088}</Project>
       <Name>Bikewale.Comparison.Interface</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Bikewale.ElasticSearch.Entities\Bikewale.ElasticSearch.Entities.csproj">
+      <Project>{51f0aa77-2bed-4b2c-aaa9-e9b8be811019}</Project>
+      <Name>Bikewale.ElasticSearch.Entities</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Bikewale.Entities\Bikewale.Entities.csproj">
       <Project>{8223a4b8-db14-4658-9897-257d872ae8d9}</Project>
       <Name>Bikewale.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bikewale.ManufacturerCampaign.BAL\Bikewale.ManufacturerCampaign.BAL.csproj">
+      <Project>{5d58150b-55aa-4220-be98-5aca515ced8c}</Project>
+      <Name>Bikewale.ManufacturerCampaign.BAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bikewale.ManufacturerCampaign.Cache\Bikewale.ManufacturerCampaign.Cache.csproj">
+      <Project>{a00b0a07-eb13-4b08-8089-6ed33b9896fe}</Project>
+      <Name>Bikewale.ManufacturerCampaign.Cache</Name>
     </ProjectReference>
     <ProjectReference Include="..\Bikewale.ManufacturerCampaign.DAL\Bikewale.ManufacturerCampaign.DAL.csproj">
       <Project>{f3148a79-9fec-4a19-9977-0fa6163c9e77}</Project>
@@ -2230,7 +2242,7 @@
           <AutoAssignPort>False</AutoAssignPort>
           <DevelopmentServerPort>51984</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:9010</IISUrl>
+          <IISUrl>http://localhost:9010/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

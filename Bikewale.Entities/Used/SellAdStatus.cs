@@ -11,7 +11,7 @@ namespace Bikewale.Entities.Used
         Fake = 2,
         Sold = 3,
         MobileUnverified = 4,
-        MobileVerified = 5 // Mobile is verified but listing is yet to be approved
+        MobileVerified = 5// Mobile is verified but listing is yet to be approved
     }
 
     public enum SellerType

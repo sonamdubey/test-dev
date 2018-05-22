@@ -1,14 +1,15 @@
 var readMoreTarget, dealerMoreContent;
 var clientip;
 
+
 var attemptCount = 1,
     successMessage = 'Dealer details successfully<br />sent on your phone.<br />Not Received? <span class="service-center-resend-btn">Resend</span>',
     threeAttemptsMessage = 'Sorry! You have reached the limit of sending details of this service center. Look for a different service center.',
     failureMessage = "Sorry!, Something went wrong. Please try again.",
     tenAttemptsMessage = 'Sorry! You have reached the daily limit of sending details.<br />Please try again after a day.';
 
-
 docReady(function () {
+   
     clientip = $("#dealerLead").attr("data-clientip");
 
     // read more-collapse
@@ -262,4 +263,14 @@ docReady(function () {
     	captureLeadMobile.inputBox.set(listItem);
     });
 
+   
 });
+
+
+
+function getLocationUrl(lat, long) {
+
+    var url = "https://maps.google.com/?saddr=&daddr=" + lat + "," + long;
+  
+    window.open(url);
+};

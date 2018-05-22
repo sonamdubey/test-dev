@@ -20,7 +20,7 @@
          %>
 	<a href="<%= hrefStr %>" class="contest-slug-sm slug-teal-target">
 		<span class="trophy-white"></span>
-		<p class="contest-slug__label">Write a review and win Amazon vouchers worth &#x20B9;<%= Bikewale.Utility.BWConfiguration.Instance.ContestPriceMoney%></p>
+		<p class="contest-slug__label">Write a review and win Amazon vouchers worth &#x20B9;<%= Bikewale.Utility.Format.FormatPrice(Bikewale.Utility.BWConfiguration.Instance.ContestPriceMoney)%></p>
 		<span class="bwmsprite arrow-white-right"></span>
 	</a>
 </section>

@@ -46,8 +46,6 @@ namespace Bikewale.Interfaces.BikeData
     /// Description: Added GetMileageDetails to get mileage info for model
     /// Modified by : Sanskar Gupta on 12 Jan 2018
     /// Description : Added IEnumerable<MostPopularBikesBase> GetAdPromotedBike(BikeFilters bikeFilters)
-    /// Modified by : Sanskar Gupta on 31st Jan 2018
-    /// Description : Added IEnumerable<NewLaunchedBikeEntityBase> GetNewLaunchedBikesListByMake();
     /// <typeparam name="U"></typeparam>
     /// </summary>
     public interface IBikeModelsCacheRepository<U>
@@ -55,7 +53,7 @@ namespace Bikewale.Interfaces.BikeData
         BikeModelPageEntity GetModelPageDetails(U modelId);
         BikeModelPageEntity GetModelPageDetails(U modelId, int versionId);
         IEnumerable<UpcomingBikeEntity> GetUpcomingBikesList(EnumUpcomingBikesFilter sortBy, int pageSize, int? makeId = null, int? modelId = null, int? curPageNo = null);
-        IEnumerable<MostPopularBikesBase> GetMostPopularBikesByMake(int makeId);
+        IEnumerable<MostPopularBikesBase> GetMostPopularBikesByMake(uint makeId);
         IEnumerable<MostPopularBikesBase> GetMostPopularBikesByMakeWithCityPrice(int makeId, uint cityId);
         IEnumerable<MostPopularBikesBase> GetMostPopularBikes(int? topCount = null, int? makeId = null);
         NewLaunchedBikesBase GetNewLaunchedBikesList(int startIndex, int endIndex, int? makeId = null);
@@ -71,7 +69,7 @@ namespace Bikewale.Interfaces.BikeData
         GenericBikeInfo GetBikeInfo(uint modelId);
         BikeRankingEntity GetBikeRankingByCategory(uint modelId);
         ICollection<BestBikeEntityBase> GetBestBikesByCategory(EnumBikeBodyStyles bodyStyle, uint? cityId = null);
-        ICollection<BestBikeEntityBase> GetBestBikesByModelInMake(uint modelId, uint? cityId = null);
+        IEnumerable<BestBikeEntityBase> GetBestBikesByModelInMake(uint modelId, uint? cityId = null);
         IEnumerable<NewLaunchedBikeEntityBase> GetNewLaunchedBikesList();
         IEnumerable<NewLaunchedBikeEntityBase> GetNewLaunchedBikesList(uint cityId);
         IEnumerable<ModelColorImage> GetModelColorPhotos(U modelId);
@@ -87,9 +85,5 @@ namespace Bikewale.Interfaces.BikeData
         ICollection<Entities.BikeData.BikeModelColorImageEntity> GetModelImages(string modelIds);
         IEnumerable<MostPopularBikesBase> GetAdPromotedBike(BikeFilters bikeFilters);
         IEnumerable<MostPopularBikesBase> GetAdPromotedBikeWithOutCity(BikeFilters bikeFilters);
-
-        IEnumerable<NewLaunchedBikeEntityBase> GetNewLaunchedBikesListByMake(InputFilter inputFilter);
-
-
     }
 }

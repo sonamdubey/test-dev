@@ -1,6 +1,6 @@
 ﻿@model Bikewale.Models.ElectricBikesPageVM
 @{
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/electric-bikes/landing.css' inline />";
+	Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/electric-bikes/landing.css' inline /> <link rel='stylesheet' type='text/css' href='/css/components/brand-logo.css' inline />";
     Layout = "~/Views/Shared/_Layout.cshtml";
     Model.Page_JS_Path = "/src/electricbikes/electricbikeindex.js";
 }
@@ -43,11 +43,11 @@
                                 </div>
                                 <div class="card-desc-block">
                                     <h2 class="bikeTitle">@bikedetails.BikeName</h2>
-                                    @if (bikedetails.Specs != null)
+                                    @if (bikedetails.MinSpecsList != null)
                                     { <div class="text-xt-light-grey font14 margin-bottom15">
 
 
-                                        @Html.Raw(Bikewale.Utility.FormatMinSpecs.GetMinSpecs(Convert.ToString(bikedetails.Specs.Displacement), Convert.ToString(bikedetails.Specs.FuelEfficiencyOverall), Convert.ToString(bikedetails.Specs.MaxPower), Convert.ToString(bikedetails.Specs.KerbWeight)))
+                                        @Html.Raw(Bikewale.Utility.FormatMinSpecs.GetMinSpecsSpanElements(bikedetails.MinSpecsList))
                                     </div>}
                                     @if (!string.IsNullOrEmpty(bikedetails.CityName))
                                     {

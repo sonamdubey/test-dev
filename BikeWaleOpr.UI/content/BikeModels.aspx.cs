@@ -1,16 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Configuration;
-using System.Data;
-using System.Data.Common;
-using System.Data.SqlClient;
-using System.IO;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
-using AmpCacheRefreshLibrary;
+﻿using AmpCacheRefreshLibrary;
 using Bikewale.Notifications;
 using Bikewale.Utility;
 using BikewaleOpr.common;
@@ -22,6 +10,18 @@ using BikeWaleOpr.Common;
 using Enyim.Caching;
 using Microsoft.Practices.Unity;
 using MySql.CoreDAL;
+using System;
+using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Configuration;
+using System.Data;
+using System.Data.Common;
+using System.Data.SqlClient;
+using System.IO;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
 
 namespace BikeWaleOpr.Content
 {
@@ -39,6 +39,7 @@ namespace BikeWaleOpr.Content
         private readonly IBikeMakes _makes = null;
         private readonly IBikeESRepository _bikeESRepository;
         private readonly string _indexName;
+        private readonly IBikeModels _bikeModels;
 
         private string SortCriteria
         {
@@ -89,10 +90,12 @@ namespace BikeWaleOpr.Content
                 .RegisterType<IBikeModelsRepository, BikeModelsRepository>()
                 .RegisterType<IBikeSeries, BikewaleOpr.BAL.BikeSeries>()
                 .RegisterType<IBikeBodyStylesRepository, BikeBodyStyleRepository>()
-                .RegisterType<IBikeESRepository, BikeESRepository>();
+                .RegisterType<IBikeESRepository, BikeESRepository>()
+                .RegisterType<IBikeModels, BikewaleOpr.BAL.BikeModels>();
                 _series = container.Resolve<IBikeSeries>();
                 _indexName = ConfigurationManager.AppSettings["MMIndexName"];
                 _bikeESRepository = container.Resolve<IBikeESRepository>();
+                _bikeModels = container.Resolve<IBikeModels>();
             }
 
             using (IUnityContainer container = new UnityContainer())
@@ -159,6 +162,8 @@ namespace BikeWaleOpr.Content
         /// Description : Added call to ClearModelsBySeriesId
         /// Modified by : Ashutosh Sharma on 23 Oct 2017
         /// Description : Replaced sp from 'insertbikemodel14092017' to 'insertbikemodel_23102017'.
+        /// Modified By : Deepak Israni on 8 March 2018
+        /// Description : Added method call to push to BWEsDocumentBuilder consumer.
         /// </summary>
         /// <param name="Sender"></param>
         /// <param name="e"></param>
@@ -202,6 +207,9 @@ namespace BikeWaleOpr.Content
 
                             //CLear popularBikes key                       
                             ClearPopularBikesCache();
+
+                            //Send update message to BWEsDocumentBuilder
+                            _bikeModels.UpdateModelESIndex(Convert.ToString(_modelId), "insert");
                         }
 
                         if (_mc != null)
@@ -332,6 +340,12 @@ namespace BikeWaleOpr.Content
         /// Summary : Changed version of cache key
         /// Modified by : Ashutosh Sharma on 29 Sep 2017 
         /// Description : Changed cache key from 'BW_ModelDetail_' to 'BW_ModelDetail_V1_'.
+        /// Modified by : Rajan Chauhan on 06 Feb 2018.
+        /// Description : Changed version of key from 'BW_ModelDetail_V1_' to 'BW_ModelDetail_'.
+        /// Modified By : Deepak Israni on 8 March 2018
+        /// Description : Added method call to push to BWEsDocumentBuilder consumer.
+        /// Modified by : Sanskar Gupta on 03 May 2018
+        /// Description : Added logic to Send an Internal Email on change of Model Name.
         /// <param name="sender"></param>
         /// <param name="e"></param>
         void dtgrdMembers_Update(object sender, DataGridCommandEventArgs e)
@@ -340,7 +354,11 @@ namespace BikeWaleOpr.Content
             if (!Page.IsValid) return;
             try
             {
+                string strModelID = dtgrdMembers.DataKeys[e.Item.ItemIndex].ToString();
+                uint modelId = 0;
+                uint.TryParse(strModelID, out modelId);
                 string sql = string.Empty;
+                string oldModelName = ((Label)e.Item.FindControl("lblModelName")).Text;
                 TextBox txt = (TextBox)e.Item.FindControl("txtModelName");
                 CheckBox chkUsed1 = (CheckBox)e.Item.FindControl("chkUsed");
                 CheckBox chkNew1 = (CheckBox)e.Item.FindControl("chkNew");
@@ -351,10 +369,16 @@ namespace BikeWaleOpr.Content
                 CheckBox chkFuturistic1 = (CheckBox)e.Item.FindControl("chkFuturistic");
                 Label lblMakeId = (Label)e.Item.FindControl("lblMakeId");
 
+                string modelName = string.Empty;
+                if(txt != null)
+                {
+                    modelName = txt.Text.Trim();
+                }
+
                 using (DbCommand cmd = DbFactory.GetDBCommand("Updatebikemodel"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelname", DbType.String, 30, txt.Text.Trim().Replace("'", "''")));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelname", DbType.String, 30, modelName.Replace("'", "''")));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_indian", DbType.Boolean, chkIndian1.Checked));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_Imported", DbType.Boolean, chkImported1.Checked));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_classic", DbType.Boolean, chkClassic1.Checked));
@@ -363,51 +387,60 @@ namespace BikeWaleOpr.Content
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_new", DbType.Boolean, chkNew1.Checked));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_used", DbType.Boolean, chkUsed1.Checked));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_moupdatedby", DbType.Int64, BikeWaleAuthentication.GetOprUserId()));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_key", DbType.Int32, dtgrdMembers.DataKeys[e.Item.ItemIndex]));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_key", DbType.Int32, modelId));
 
                     var isModelUpdate = MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
 
                     if (isModelUpdate)
                     {
-                        uint makeId, modelId;
+                        uint makeId;
                         uint.TryParse(lblMakeId.Text, out makeId);
-                        uint.TryParse(dtgrdMembers.DataKeys[e.Item.ItemIndex].ToString(), out modelId);
-                        UpdateModelESIndex(txt.Text.Trim().Replace("'", "''"), makeId, modelId, chkNew1.Checked, chkFuturistic1.Checked);
+                        UpdateModelESIndex(modelName.Replace("'", "''"), makeId, modelId, chkNew1.Checked, chkFuturistic1.Checked);
+
+                        // Trigger a mail on change of Model Name.
+                        if (string.Compare(oldModelName, modelName) != 0)
+                        {
+                            IEnumerable<string> emails = Bikewale.Utility.GetEmailList.FetchMailList(BWOprConfiguration.Instance.EmailsForMakeModelNameChange);
+                            if (emails != null)
+                            {
+                                SendInternalEmail.OnFieldChanged(emails, "Name", oldModelName, modelName);
+                            }
+                        }
                     }
 
                     NameValueCollection nvc = new NameValueCollection();
-                    nvc.Add("v_ModelName", txt.Text.Trim().Replace("'", "''"));
+                    nvc.Add("v_ModelName", modelName.Replace("'", "''"));
                     nvc.Add("v_IsUsed", Convert.ToInt16(chkUsed1.Checked).ToString());
                     nvc.Add("v_IsNew", Convert.ToInt16(chkNew1.Checked).ToString());
                     nvc.Add("v_IsFuturistic", Convert.ToInt16(chkFuturistic1.Checked).ToString());
-                    nvc.Add("v_ModelId", dtgrdMembers.DataKeys[e.Item.ItemIndex].ToString());
+                    nvc.Add("v_ModelId", strModelID);
                     nvc.Add("v_MakeId", null);
                     nvc.Add("v_ModelMaskingName", null);
                     nvc.Add("v_HostUrl", null);
                     nvc.Add("v_OriginalImagePath", null);
                     nvc.Add("v_IsDeleted", null);
                     SyncBWData.PushToQueue("BW_UpdateBikeModels", DataBaseName.CW, nvc);
+
+                    _bikeModels.UpdateModelESIndex(strModelID, "update");
                 }
 
                 // Bike is discontinued
                 if (!chkNew1.Checked)
                 {
-                    uint makeId, modelId;
+                    uint makeId;
                     uint.TryParse(lblMakeId.Text, out makeId);
-                    uint.TryParse(dtgrdMembers.DataKeys[e.Item.ItemIndex].ToString(), out modelId);
                     deleteModelMostPopularBikes(modelId, makeId);
                     RefreshAmpContent(makeId);
                 }
 
                 //Update Upcoming Bike
                 if (chkFuturistic1.Checked)
-                    MakeUpcomingBike(dtgrdMembers.DataKeys[e.Item.ItemIndex].ToString(), lblMakeId.Text);
+                    MakeUpcomingBike(strModelID, lblMakeId.Text);
 
                 //Write URL
-                if (dtgrdMembers.DataKeys[e.Item.ItemIndex].ToString() != "-1")
+                if (modelId > 0)
                 {
-                    Trace.Warn("Writing File" + dtgrdMembers.DataKeys[e.Item.ItemIndex]);
-                    WriteFileModel(dtgrdMembers.DataKeys[e.Item.ItemIndex].ToString(), txt.Text.Trim().Replace("'", "''"));
+                    WriteFileModel(strModelID, txt.Text.Trim().Replace("'", "''"));
                 }
                 //trigger mail to notify that a model has been discontinued
                 if (chkUsed1.Checked && !chkFuturistic1.Checked && !chkNew1.Checked)
@@ -415,7 +448,7 @@ namespace BikeWaleOpr.Content
                     try
                     {
                         MakeModelVersion mmv = new MakeModelVersion();
-                        mmv.DiscontinueBikeModel(dtgrdMembers.DataKeys[e.Item.ItemIndex].ToString());
+                        mmv.DiscontinueBikeModel(strModelID);
                         mmv.Make = cmbMakes.SelectedItem.Text;
                         mmv.Model = txt.Text;
                         IEnumerable<string> emails = Bikewale.Utility.GetEmailList.FetchMailList();
@@ -432,15 +465,16 @@ namespace BikeWaleOpr.Content
                 }
 
 
+
                 //Refresh memcache object for discontinuedbikes
                 MemCachedUtility.Remove(string.Format("BW_DiscontinuedBikes_Make_{0}", lblMakeId.Text));
 
                 //Refresh memcache object for bikeModelDetails
-                MemCachedUtility.Remove(string.Format("BW_ModelDetails_{0}", dtgrdMembers.DataKeys[e.Item.ItemIndex].ToString()));
-                MemCachedUtility.Remove(string.Format("BW_ModelDetail_V1_{0}", dtgrdMembers.DataKeys[e.Item.ItemIndex].ToString()));
-                MemCachedUtility.Remove(string.Format("BW_GenericBikeInfo_MO_{0}_V1", dtgrdMembers.DataKeys[e.Item.ItemIndex].ToString()));
+                MemCachedUtility.Remove(string.Format("BW_ModelDetails_{0}", strModelID));
+                MemCachedUtility.Remove(string.Format("BW_ModelDetail_V1_{0}", strModelID));
+                MemCachedUtility.Remove(string.Format("BW_GenericBikeInfo_MO_{0}", strModelID));
                 //Refresh memcache object for popularBikes change
-                MemCachedUtility.Remove(string.Format("BW_PopularBikesByMake_{0}", lblMakeId.Text));
+                MemCachedUtility.Remove(string.Format("BW_PopularBikesByMake_V1_{0}", lblMakeId.Text));
                 if (ddlUpdateSeries != null)
                 {
                     uint seriesItem;
@@ -451,6 +485,8 @@ namespace BikeWaleOpr.Content
                 }
                 //Refresh memcache object for upcoming bikes
                 BikewaleOpr.Cache.BwMemCache.ClearUpcomingBikes();
+                //Refresh memcache object for Default PQ Version
+                BikewaleOpr.Cache.BwMemCache.ClearDefaultPQVersion(modelId);
 
             }
             catch (SqlException ex)
@@ -479,6 +515,8 @@ namespace BikeWaleOpr.Content
         /// <summary>
         /// Modified by : Sajal Gupta on 9-1-2017
         /// Desc : Refresh popular bikes memcache keys.
+        /// Modified By : Deepak Israni on 8 March 2018
+        /// Description : Added method call to push to BWEsDocumentBuilder consumer.
         /// </summary>
         void dtgrdMembers_Delete(object sender, DataGridCommandEventArgs e)
         {
@@ -491,6 +529,8 @@ namespace BikeWaleOpr.Content
             uint modelId;
             uint.TryParse(dtgrdMembers.DataKeys[e.Item.ItemIndex].ToString(), out modelId);
             deleteModelMostPopularBikes(modelId, makeId);
+
+            _bikeModels.UpdateModelESIndex(Convert.ToString(modelId), "delete");
 
             BindGrid();
         }
@@ -528,11 +568,14 @@ namespace BikeWaleOpr.Content
 
             try
             {
-                using (IDataReader dr = MySqlDatabase.SelectQuery(sql, ConnectionType.ReadOnly))
+                using (DbCommand cmd = DbFactory.GetDBCommand(sql))
                 {
-                    if (!(dr != null && dr.Read()))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
-                        MySqlDatabase.InsertQuery(sqlSave, ConnectionType.MasterDatabase);
+                        if (!(dr != null && dr.Read()))
+                        {
+                            MySqlDatabase.InsertQuery(sqlSave, ConnectionType.MasterDatabase);
+                        }
                     }
                 }
 
@@ -728,7 +771,7 @@ namespace BikeWaleOpr.Content
                     MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
                 }
 
-                MemCachedUtility.Remove(String.Format("BW_PopularBikesByMake_{0}", makeId));
+                MemCachedUtility.Remove(String.Format("BW_PopularBikesByMake_V1_{0}", makeId));
                 //CLear popularBikes key
 
                 BikewaleOpr.Cache.BwMemCache.ClearPopularBikesCacheKey(null, makeId);

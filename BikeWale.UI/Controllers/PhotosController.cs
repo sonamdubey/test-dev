@@ -1,12 +1,10 @@
-﻿using System.Web.Mvc;
-using Bikewale.Entities;
+﻿using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.Videos;
-using Bikewale.Models;
-using Bikewale.BAL.Images;
 using Bikewale.Models.Photos;
+using System.Web.Mvc;
 
 namespace Bikewale.Controllers
 {
@@ -21,11 +19,13 @@ namespace Bikewale.Controllers
         private readonly IBikeModels<BikeModelEntity, int> _objModelEntity = null;
         private readonly ICityCacheRepository _objCityCache = null;
         private readonly IBikeInfo _objGenericBike = null;
-        private readonly IBikeVersionCacheRepository<BikeVersionEntity, uint> _objVersionCache = null;
+        private readonly IBikeVersions<BikeVersionEntity, uint> _objVersion;
         private readonly IVideos _objVideos = null;
         private readonly IBikeMakesCacheRepository _objMakeCache = null;
 
-        public PhotosController(IBikeModelsCacheRepository<int> objModelCache, IBikeMaskingCacheRepository<BikeModelEntity, int> objModelMaskingCache, IBikeModels<BikeModelEntity, int> objModelEntity, ICityCacheRepository objCityCache, IBikeInfo objGenericBike, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionCache, IVideos objVideos, IBikeMakesCacheRepository objMakeCache)
+        public PhotosController(IBikeModelsCacheRepository<int> objModelCache, IBikeMaskingCacheRepository<BikeModelEntity, int> objModelMaskingCache,
+            IBikeModels<BikeModelEntity, int> objModelEntity, ICityCacheRepository objCityCache, IBikeInfo objGenericBike, IBikeVersions<BikeVersionEntity, uint> objVersion,
+            IVideos objVideos, IBikeMakesCacheRepository objMakeCache)
         {
 
             _objModelCache = objModelCache;
@@ -33,7 +33,7 @@ namespace Bikewale.Controllers
             _objModelEntity = objModelEntity;
             _objCityCache = objCityCache;
             _objGenericBike = objGenericBike;
-            _objVersionCache = objVersionCache;
+            _objVersion = objVersion;
             _objVideos = objVideos;
             _objMakeCache = objMakeCache;
         }
@@ -46,8 +46,9 @@ namespace Bikewale.Controllers
         [Route("photos/"), Filters.DeviceDetection]
         public ActionResult Index(uint? pageNo)
         {
-            Models.Photos.v1.PhotosPage objModel = new Models.Photos.v1.PhotosPage(false, _objModelEntity, _objMakeCache, pageNo);
+            Models.Photos.v1.PhotosPage objModel = new Models.Photos.v1.PhotosPage(false, _objModelEntity, _objMakeCache, _objVideos, pageNo);
             objModel.PageSize = 30;
+            objModel.VideosCount = 4;
             Models.Photos.v1.PhotosPageVM objData = objModel.GetData();
             return View(objData);
         }
@@ -60,8 +61,9 @@ namespace Bikewale.Controllers
         [Route("m/photos/")]
         public ActionResult Index_Mobile(uint? pageNo)
         {
-            Models.Photos.v1.PhotosPage objModel = new Models.Photos.v1.PhotosPage(true, _objModelEntity, _objMakeCache, pageNo);
+            Models.Photos.v1.PhotosPage objModel = new Models.Photos.v1.PhotosPage(true, _objModelEntity, _objMakeCache, _objVideos, pageNo);
             objModel.PageSize = 30;
+            objModel.VideosCount = 2;
             Models.Photos.v1.PhotosPageVM objData = objModel.GetData();
             return View(objData);
         }
@@ -74,9 +76,10 @@ namespace Bikewale.Controllers
         [Route("photos/{makeMasking}-bikes/"), Filters.DeviceDetection]
         public ActionResult Make(string makeMasking)
         {
-            MakePhotosPage obj = new MakePhotosPage(false, makeMasking, _objModelEntity, _objMakeCache);
+            MakePhotosPage obj = new MakePhotosPage(false, makeMasking, _objModelEntity, _objMakeCache, _objVideos);
             if (obj.Status.Equals(StatusCodes.ContentFound))
             {
+                obj.VideosCount = 4;
                 MakePhotosPageVM objData = obj.GetData();
                 return View(objData);
             }
@@ -98,9 +101,10 @@ namespace Bikewale.Controllers
         [Route("m/photos/{makeMasking}-bikes/")]
         public ActionResult Make_Mobile(string makeMasking)
         {
-            MakePhotosPage obj = new MakePhotosPage(true, makeMasking, _objModelEntity, _objMakeCache);
+            MakePhotosPage obj = new MakePhotosPage(true, makeMasking, _objModelEntity, _objMakeCache, _objVideos);
             if (obj.Status.Equals(StatusCodes.ContentFound))
             {
+                obj.VideosCount = 2;
                 MakePhotosPageVM objData = obj.GetData();
                 return View(objData);
             }
@@ -110,7 +114,7 @@ namespace Bikewale.Controllers
             }
             else
             {
-                return Redirect("/pagenotfound.aspx");
+                return Redirect("/m/pagenotfound.aspx");
             }
         }
 
@@ -123,9 +127,9 @@ namespace Bikewale.Controllers
         /// <param name="q"></param>
         /// <returns></returns>
         [Route("photos/{makeMasking}-bikes/{modelMasking}/"), Filters.DeviceDetection]
-		public ActionResult Model(string makeMasking, string modelMasking, string q)
+        public ActionResult Model(string makeMasking, string modelMasking, string q)
         {
-            PhotosPage obj = new PhotosPage(makeMasking, modelMasking, _objModelCache, _objModelMaskingCache, _objModelEntity, _objCityCache, _objGenericBike, _objVersionCache, _objVideos);
+            PhotosPage obj = new PhotosPage(makeMasking, modelMasking, _objModelCache, _objModelMaskingCache, _objModelEntity, _objCityCache, _objGenericBike, _objVersion, _objVideos);
 
             if (obj.Status.Equals(StatusCodes.ContentFound))
             {
@@ -144,8 +148,9 @@ namespace Bikewale.Controllers
         }
 
         /// <summary>
-        /// Created by  : Sushil Kumar on 30th Sep 2017
-        /// Description :  Photos page for mobile
+        /// Modified by: Dhruv Joshi
+        /// Dated: 28th March 2018
+        /// Description: New Images Page not rendered if no images are present for a model, instead redirected to pagenotfound.aspx
         /// </summary>
         /// <param name="makeMasking"></param>
         /// <param name="modelMasking"></param>
@@ -154,13 +159,20 @@ namespace Bikewale.Controllers
         [Route("m/photos/{makeMasking}-bikes/{modelMasking}/")]
         public ActionResult Model_Mobile(string makeMasking, string modelMasking, string q)
         {
-            PhotosPage obj = new PhotosPage(makeMasking, modelMasking, _objModelCache, _objModelMaskingCache, _objModelEntity, _objCityCache, _objGenericBike, _objVersionCache, _objVideos);
+            PhotosPage obj = new PhotosPage(makeMasking, modelMasking, _objModelCache, _objModelMaskingCache, _objModelEntity, _objCityCache, _objGenericBike, _objVersion, _objVideos);
 
             if (obj.Status.Equals(StatusCodes.ContentFound))
             {
                 obj.IsMobile = true;
                 PhotosPageVM objData = obj.GetData(30, 6, q);
-                return View(objData);
+                if (objData != null && objData.TotalPhotos > 0)
+                {
+                    return View(objData);
+                }
+                else
+                {
+                    return Redirect("/m/pagenotfound.aspx");
+                }
 
             }
             else if (obj.Status.Equals(StatusCodes.RedirectPermanent))
@@ -169,7 +181,7 @@ namespace Bikewale.Controllers
             }
             else
             {
-                return Redirect("/pagenotfound.aspx");
+                return Redirect("/m/pagenotfound.aspx");
             }
         }
     }

@@ -1,7 +1,11 @@
-﻿using BikewaleOpr.Entity.BikeData;
+﻿using Bikewale.Notifications;
+using Bikewale.Utility;
+using BikewaleOpr.Entity.BikeData;
 using BikewaleOpr.Interface.BikeData;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 
 namespace BikewaleOpr.BAL
@@ -12,11 +16,11 @@ namespace BikewaleOpr.BAL
     /// </summary>
     public class BikeModels : IBikeModels
     {
-        private readonly IBikeModelsRepository _IBikeModel;
+        private readonly IBikeModelsRepository _IBikeModelRepository;
 
-        public BikeModels(IBikeModelsRepository bikeModel)
+        public BikeModels(IBikeModelsRepository bikeModelRepository)
         {
-            _IBikeModel = bikeModel;
+            _IBikeModelRepository = bikeModelRepository;
         }
 
         /// <summary>
@@ -30,7 +34,7 @@ namespace BikewaleOpr.BAL
             IEnumerable<UsedModelsByMake> objBikesByMake = null;
             try
             {
-                UsedBikeImagesNotificationData usedBikeNotificationDataList = _IBikeModel.GetPendingUsedBikesWithoutModelImage();
+                UsedBikeImagesNotificationData usedBikeNotificationDataList = _IBikeModelRepository.GetPendingUsedBikesWithoutModelImage();
                 objBikesByMake = new List<UsedModelsByMake>();
                 if (usedBikeNotificationDataList != null && usedBikeNotificationDataList.Bikes != null)
                 {
@@ -54,7 +58,7 @@ namespace BikewaleOpr.BAL
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass.LogError(ex, "BikewaleOpr.BAL.BikeModels.GetPendingUsedBikesWithoutModelImage");
+                ErrorClass.LogError(ex, "BikewaleOpr.BAL.BikeModels.GetPendingUsedBikesWithoutModelImage");
             }
             return objBikeByMakeNotificationData;
         }
@@ -71,7 +75,7 @@ namespace BikewaleOpr.BAL
 
             try
             {
-                objBikeDataList = _IBikeModel.GetModelsWithMissingColorImage();
+                objBikeDataList = _IBikeModelRepository.GetModelsWithMissingColorImage();
 
                 if(objBikeDataList != null)
                 {
@@ -87,9 +91,46 @@ namespace BikewaleOpr.BAL
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass.LogError(ex, "BikewaleOpr.BAL.BikeModels.GetModelsWithMissingColorImage");
+                ErrorClass.LogError(ex, "BikewaleOpr.BAL.BikeModels.GetModelsWithMissingColorImage");
             }
             return objBikeModelsByMakeList;
+        }
+
+        /// <summary>
+        /// Created By : Deepak Israni on 8 March 2018
+        /// Description: To create a NVC and push it to BWEsDocumentBuilder queue for further processing.
+        /// </summary>
+        /// <param name="ids"></param>
+        /// <param name="operation"></param>
+        public void UpdateModelESIndex(string ids, string operation)
+        {
+            NameValueCollection nvc = new NameValueCollection();
+            nvc["ids"] = ids;
+            nvc["indexName"] = BWOprConfiguration.Instance.BikeModelIndex;
+            nvc["documentType"] = "bikemodeldocument";
+            nvc["operationType"] = operation;
+
+            BWESDocumentBuilder.PushToQueue(nvc);
+        }
+
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 01 Apr 2018
+        /// Description : Method to fetch model id of input version id to check if version is Top version among other versions of a bike model.
+        /// </summary>
+        /// <param name="versionId">VersionId of bike version.</param>
+        /// <returns>ModelId if top version, otherwise 0.</returns>
+        public int GetModelIdIfTopVersion(int versionId)
+        {
+            int modelId = 0;
+            try
+            {
+                modelId = _IBikeModelRepository.GetModelIdIfTopVersion(versionId);
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("BikewaleOpr.BAL.BikeModels.GetModelIdIfTopVersion_versionId_{0}", versionId));
+            }
+            return modelId;
         }
     }
 }

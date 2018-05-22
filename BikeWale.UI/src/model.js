@@ -68,29 +68,23 @@ function openLeadCaptureForm(dealerID) {
     event.stopPropagation();
 }
 
-function logBhrighuForImage(item) {
-    if (item)
-    {
-        var imageid = item.attr("data-imgid"), imgcat = item.attr("data-imgcat"), imgtype = item.attr("data-imgtype");
-        if (imageid)
-        {
+function logBhrighuForImage(imgId, imgCat, imgType) {
+  
+        if (imgId) {
             var lb = "";
-            if (imgcat)
-            {
-                lb += "|category=" + imgcat;
+            if (imgCat) {
+                lb += "|category=" + imgCat;
             }
 
-            if (imgtype)
-            {
-                lb += "|type=" + imgtype;
+            if (imgType) {
+                lb += "|type=" + imgType;
             }
 
-            label = 'modelId=' + bikeModelId + '|imageid=' + imageid + lb + '|pageid=' + (gaObj ? gaObj.id : 0);
+            label = 'modelId=' + bikeModelId + '|imageid=' + imgId + lb + '|pageid=' + (gaObj ? gaObj.id : 0);
             cwTracking.trackImagesInteraction("BWImages", "ImageViewed", label);
-        }        
+        }
     }
-    
-}
+
 
 function bindInsuranceText() {
     icityArea = GetGlobalCityArea();
@@ -182,6 +176,9 @@ docReady(function () {
             var image = $("#imageCarousel img[data-colorid=" + colorId + "]");
             if (image) {
                 var imageUrl = image.attr("data-original") || image.attr("src");
+                var imageCat = image.attr("data-imgcat");
+                var imageType = image.attr("data-imgtype");
+                var imageId = image.attr("data-imgid");
                 if (imageUrl == "") {
                     imageUrl = "https://imgd.aeplcdn.com/393x221/bikewaleimg/images/noimage.png?q=85";
                 }
@@ -189,6 +186,11 @@ docReady(function () {
                 $('#colourCarousel span').attr("href", imagePageUrl + '?q=' + Base64.encode('colorimageid=' + colorId + '&retUrl=' + canonical));
             }
         }
+        if (imageId)
+        {
+            logBhrighuForImage(imageId,imageCat, imageType);
+        }
+        
         colorElements.removeClass('active');
         colorElements.eq([$(this).index()]).addClass('active');
     });
@@ -305,23 +307,30 @@ docReady(function () {
         $(function () {
             var carouselStage = $('.carousel-stage').jcarousel();
             var carouselNavigation = $('.carousel-navigation').jcarousel();
-
+            var prev = -1;
             carouselNavigation.jcarousel('items').each(function () {
                 var item = $(this);
                 var target = connector(item, carouselStage);
-                item
-                    .on('jcarouselcontrol:active', function () {
-                        carouselNavigation.jcarousel('scrollIntoView', this);
-                        logBhrighuForImage(item);
-                        item.addClass('active');
-                    })
-                    .on('jcarouselcontrol:inactive', function () {
-                        item.removeClass('active');
-                    })
-                    .jcarouselControl({
-                        target: target,
-                        carousel: carouselStage
-                    });
+                if (item) {
+                    item
+                        .on('jcarouselcontrol:active', function () {
+                            carouselNavigation.jcarousel('scrollIntoView', this);
+
+                            if (prev != -1) {
+                                logBhrighuForImage(item.attr("data-imgid"), item.attr("data-imgcat"), item.attr("data-imgtype"));                               
+                            }
+                            prev = item.index();
+                            item.addClass('active');
+
+                        })
+                        .on('jcarouselcontrol:inactive', function () {
+                            item.removeClass('active');
+                        })
+                        .jcarouselControl({
+                            target: target,
+                            carousel: carouselStage
+                        });
+                }
             });
 
             $('.prev-stage')

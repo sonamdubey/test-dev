@@ -89,8 +89,11 @@ namespace BikewaleOpr.Service.UnityConfiguration
             container.RegisterType<ICacheManager, MemcacheManager>();
             container.RegisterType<ISponsoredComparisonCacheRepository, SponsoredComparisonCacheRepository>();
             container.RegisterType<ISponsoredComparison, SponsoredComparison>();
+            container.RegisterType<IBikeModels, BikeModels>();
 
             container.RegisterType<Bikewale.ManufacturerCampaign.Interface.IManufacturerCampaignRepository, Bikewale.ManufacturerCampaign.DAL.ManufacturerCampaignRepository>();
+            container.RegisterType<Bikewale.ManufacturerCampaign.Interface.IManufacturerCampaign, Bikewale.ManufacturerCampaign.BAL.ManufacturerCampaign>();
+            container.RegisterType<Bikewale.ManufacturerCampaign.Interface.IManufacturerCampaignCache, Bikewale.ManufacturerCampaign.Cache.ManufacturerCampaignCache>();
             container.RegisterType<IDealerPriceRepository, DealerPriceRepository>();
             container.RegisterType<IDealerPriceQuote, DealerPriceQuoteRepository>();
             container.RegisterType<IDealerPrice, DealerPrice>();
@@ -112,7 +115,7 @@ namespace BikewaleOpr.Service.UnityConfiguration
             container.RegisterType<IBikeBodyStylesRepository, BikeBodyStyleRepository>();
             container.RegisterType<IBikeBodyStyles, BikeBodyStyles>();
             container.RegisterType<IAdOperation, AdOperation>();
-
+            container.RegisterType<IBWCache, BWCache>();
             return container;
         }
     }

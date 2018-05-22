@@ -6,9 +6,9 @@
     @{
         string q = Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(string.Format("csrc={0}", (int)Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Mobile_ModelPage_Topslug));
     }
-    <a href="@string.Format("/m/bike-review-contest/?q={0}", q)" class="contest-slug-sm slug-teal-target">
+    <a href="javascript:void(0)" ref="nofollow" data-href="@string.Format("/m/bike-review-contest/?q={0}", q)" class="contest-slug-sm slug-teal-target bw-anchor-link">
         <span class="trophy-white"></span>
-        <p class="contest-slug__label">Write a review and win Amazon vouchers worth &#x20B9;@BWConfiguration.Instance.ContestPriceMoney</p>
+        <p class="contest-slug__label">Write a review and win Amazon vouchers worth &#x20B9;@Format.FormatPrice(BWConfiguration.Instance.ContestPriceMoney)</p>
         <span class="bwmsprite arrow-white-right"></span>
     </a>
 </section>
@@ -130,15 +130,14 @@
                 @if (Model.AdTags.Ad320x100ATF)
                 {
                     <div class="margin-bottom20 text-center">
-                        @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad320x100ATF.cshtml", new { AdId = Model.AdTags.AdId });}
+                        @{Html.RenderPartial("/Views/Shared/Ads/Mobile/AdSlotGeneric.cshtml", Model.AdSlots[String.Format("{0}-6", Model.AdTags.AdId)]);}
                     </div>
-                }
+                            }
 
-                @if (Model.ModelPageEntity != null && ((Model.ModelPageEntity.ModelVersions != null && Model.ModelPageEntity.ModelVersions.Count > 0 || Model.IsPriceInTopCitiesAvailable)
-|| (Model.ModelPageEntity.ModelVersionSpecs != null)))
+                @if (Model.ModelPageEntity != null && ((Model.ModelPageEntity.ModelVersions != null && Model.ModelPageEntity.ModelVersions.Count > 0 || Model.IsPriceInTopCitiesAvailable) || (Model.ModelPageEntity.ModelVersionMinSpecs != null)))
                 {
                     <div>
-                        @if (Model.ModelPageEntity.ModelVersionSpecs != null)
+                        @if (Model.ModelPageEntity.ModelVersionMinSpecs != null)
                         {
                             @Html.Partial("~/Views/Model/_Index_ModelSummary_Mobile.cshtml", Model)
                         }
@@ -200,7 +199,7 @@
             <div class="view-all-btn-container">
                 @if (!Model.OtherBestBikes.IsMakePresentInConfig)
                 {
-                    <a href="@string.Format("/m{0}",Bikewale.Utility.UrlFormatter.FormatGenericPageUrl(Model.BikeRanking.BodyStyle))" title="Best @Model.BikeRanking.StyleName in India" class="btn view-all-target-btn">View complete list<span class="bwmsprite teal-right"></span></a>
+                    <a href="@string.Format("/m{0}", Bikewale.Utility.UrlFormatter.FormatGenericPageUrl(Model.BikeRanking.BodyStyle))" title="Best @Model.BikeRanking.StyleName in India" class="btn view-all-target-btn">View complete list<span class="bwmsprite teal-right"></span></a>
                 }
                 else
                 {
@@ -211,14 +210,14 @@
     </section>
 }
 
-@if (Model.AdTags.Ad320x100BTF)
+@if (Model.AdTags.Ad300x250_Bottom)
 {
     <div class="margin-bottom20 text-center">
-        @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad320x100BTF.cshtml", new { AdId = Model.AdTags.AdId });}
+        @{Html.RenderPartial("/Views/Shared/Ads/Mobile/AdSlotGeneric.cshtml", Model.AdSlots[String.Format("{0}-16", Model.AdTags.AdId)]);}
     </div>
 }
 
-@if (Model.LeadCapture != null && (Model.IsLocationSelected || Model.IsManufacturerLeadAdShown))
+@if (Model.LeadCapture != null && (Model.IsLocationSelected || Model.IsManufacturerLeadAdShown || Model.IsManufacturerEMIAdShown))
 {
     @Html.Partial("~/Views/Shared/_LeadCapture_Mobile.cshtml", Model.LeadCapture)
 }

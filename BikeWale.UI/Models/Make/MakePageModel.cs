@@ -1,9 +1,11 @@
-﻿using Bikewale.Common;
+﻿using Bikewale.BAL.ApiGateway.Entities.BikeData;
+using Bikewale.Common;
 using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.BikeData.NewLaunched;
 using Bikewale.Entities.CMS;
 using Bikewale.Entities.Compare;
+using Bikewale.Entities.Filters;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.Pages;
@@ -14,16 +16,21 @@ using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.Compare;
 using Bikewale.Interfaces.Dealer;
+using Bikewale.Interfaces.Filters;
 using Bikewale.Interfaces.ServiceCenter;
 using Bikewale.Interfaces.Used;
 using Bikewale.Interfaces.UserReviews;
 using Bikewale.Interfaces.Videos;
+using Bikewale.Models.BikeSeries;
 using Bikewale.Models.CompareBikes;
+using Bikewale.Models.Images;
 using Bikewale.Models.Make;
+using Bikewale.Models.BikeSeries;
 using Bikewale.Models.UserReviews;
 using Bikewale.Utility;
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Web;
 
@@ -60,6 +67,11 @@ namespace Bikewale.Models
         private readonly IServiceCenter _objSC;
         private readonly IUserReviewsCache _cacheUserReviews;
         private readonly INewBikeLaunchesBL _newLaunchesBL;
+        private readonly IPageFilters _pageFilters;
+        private readonly IBikeSeries _bikeSeries;
+        private uint _makeCategoryId;
+        private bool _newMakePageV1Status;
+        private bool _oldMakePageV1Status;
         public StatusCodes Status { get; set; }
         public MakeMaskingResponse objResponse { get; set; }
         public string RedirectUrl { get; set; }
@@ -68,8 +80,17 @@ namespace Bikewale.Models
         public bool IsAmpPage { get; set; }
         private CityEntityBase cityBase = null;
         public uint TopCountNews { get; set; }
+        public uint TopCountExpertReviews { get; set; }
 
-        public MakePageModel(string makeMaskingName, IBikeModels<BikeModelEntity, int> objModelEntity, IBikeModelsCacheRepository<int> bikeModelsCache, IBikeMakesCacheRepository bikeMakesCache, ICMSCacheContent articles, ICMSCacheContent expertReviews, IVideos videos, IUsedBikeDetailsCacheRepository cachedBikeDetails, IDealerCacheRepository cacheDealers, IUpcoming upcoming, IBikeCompare compareBikes, IServiceCenter objSC, IUserReviewsCache cacheUserReviews, INewBikeLaunchesBL newLaunchesBL)
+        private readonly String _adPath_Mobile_Old = "/1017752/Bikewale_Mobile_Make";
+        private readonly String _adId_Mobile_Old = "1444028878952";
+        private readonly String _adPath_Mobile_New = "/1017752/Bikewale_Mobile_Make";
+        private readonly String _adId_Mobile_New = "1519729632700";
+        private readonly String _adPath_Desktop = "/1017752/Bikewale_Make";
+        private readonly String _adId_Desktop = "1516179232964";
+
+
+        public MakePageModel(string makeMaskingName, IBikeModels<BikeModelEntity, int> objModelEntity, IBikeModelsCacheRepository<int> bikeModelsCache, IBikeMakesCacheRepository bikeMakesCache, ICMSCacheContent articles, ICMSCacheContent expertReviews, IVideos videos, IUsedBikeDetailsCacheRepository cachedBikeDetails, IDealerCacheRepository cacheDealers, IUpcoming upcoming, IBikeCompare compareBikes, IServiceCenter objSC, IUserReviewsCache cacheUserReviews, INewBikeLaunchesBL newLaunchesBL, IPageFilters pageFilters, IBikeSeries bikeSeries)
         {
             this._makeMaskingName = makeMaskingName;
             this._bikeModelsCache = bikeModelsCache;
@@ -85,7 +106,9 @@ namespace Bikewale.Models
             this._cacheUserReviews = cacheUserReviews;
             this._newLaunchesBL = newLaunchesBL;
             _objModelEntity = objModelEntity;
+            this._pageFilters = pageFilters;
             ProcessQuery(this._makeMaskingName);
+            this._bikeSeries = bikeSeries;
         }
 
         /// <summary>
@@ -117,6 +140,10 @@ namespace Bikewale.Models
         /// Description : Bind MakeId to objData
         /// Modified by : Sanskar Gupta on 07 Feb 2018
         /// Descritpion : Added logic to fetch Newly Launched Bikes (within a period of 10 days) for Mobile Make page.
+        /// Modified by : Snehal Dange on 20th Feb 2018
+        /// Description : Added BindPageFilters();
+        /// Modified by : Sanskar Gupta on 12 March 2018
+        /// Description : Added `BindEMICalculator()`
         /// </returns>
         public MakePageVM GetData()
         {
@@ -154,7 +181,7 @@ namespace Bikewale.Models
 
                 #endregion
 
-                objData.Bikes = _bikeModelsCache.GetMostPopularBikesByMakeWithCityPrice((int)_makeId, cityId);
+                objData.Bikes = _objModelEntity.GetMostPopularBikesByMakeWithCityPrice((int)_makeId, cityId);
 
                 if (objData.Bikes != null && objData.Bikes.Count() > 5)
                 {
@@ -179,6 +206,7 @@ namespace Bikewale.Models
                     objData.SelectedSortingId = 1;
                     objData.SelectedSortingText = "Popular";
                 }
+                
                 BindUpcomingBikes(objData);
                 BindPageMetaTags(objData, objData.Bikes, makeBase);
                 BindCompareBikes(objData, CompareSource, cityId);
@@ -189,6 +217,7 @@ namespace Bikewale.Models
                 BindOtherMakes(objData);
                 BindUserReviews(objData);
                 BindMakeFooterCategoriesandPriceWidget(objData);
+                BindEMICalculator(objData);
                 objData.Page = GAPages.Make_Page;
                 objData.BikeCityPopup = new PopUp.BikeCityPopup()
                 {
@@ -203,6 +232,19 @@ namespace Bikewale.Models
                 BindShowroomPopularCityWidget(objData);
                 BindResearchMoreMakeWidget(objData);
                 GetEMIDetails(objData);
+                BindExpertReviewCount(objData.ExpertReviews);
+                BindSeriesLinkages(objData, cityId);
+
+                if (!IsMobile)
+                {
+                    BindAdSlots(objData);
+                }
+
+                if (objData.Bikes != null && objData.Bikes.Count() > 6)
+                {
+                    BindPageFilters(objData);
+                }
+                BindNewBikeSearchPopupData(objData);
                 #region Set Visible flags
 
                 if (objData != null)
@@ -227,18 +269,10 @@ namespace Bikewale.Models
 
                 }
 
+
                 if (IsMobile)
                 {
-
-                    InputFilter inputFilter = new InputFilter();
-                    inputFilter.Days = 10;
-                    inputFilter.Make = _makeId;
-
-                    IEnumerable<NewLaunchedBikeEntityBase> NewLaunchedMakeBikesNDays = _newLaunchesBL.GetNewLaunchedBikesListByMakeAndDays(inputFilter);
-                    if (NewLaunchedMakeBikesNDays != null)
-                    {
-                        objData.NewLaunchedMakeBikesNDays = NewLaunchedMakeBikesNDays;
-                    }
+                    BindNewLaunchedWidget(objData);
                 }
 
                 if (IsAmpPage)
@@ -255,24 +289,17 @@ namespace Bikewale.Models
             return objData;
         }
 
+        /// <summary>
+        /// Modified by : Rajan Chauhan on 19 Feb 2018
+        /// Description : Changed BikeModelPhotos to accept ImageWidgetVM
+        /// </summary>
+        /// <param name="objData"></param>
         private void BindModelPhotos(MakePageVM objData)
         {
             try
             {
-                IEnumerable<ModelIdWithBodyStyle> objModelIds = _objModelEntity.GetModelIdsForImages(_makeId, EnumBikeBodyStyles.AllBikes);
-                if (objModelIds != null && objModelIds.Any())
-                {
-                    string modelIds = string.Join(",", objModelIds.Select(m => m.ModelId));
-                    int requiredImageCount = 9;
-                    string categoryIds = CommonApiOpn.GetContentTypesString(
-                        new List<EnumCMSContentType>()
-                    {
-                        EnumCMSContentType.PhotoGalleries,
-                        EnumCMSContentType.RoadTest
-                    }
-                    );
-                    objData.BikeModelsPhotos = _objModelEntity.GetBikeModelsPhotos(modelIds, categoryIds, requiredImageCount);
-                }
+                ImageCarausel imageCarausel = new ImageCarausel(_makeId, 6, 7, EnumBikeBodyStyles.AllBikes, _objModelEntity);
+                objData.BikeModelsPhotos = imageCarausel.GetData();
             }
             catch (Exception ex)
             {
@@ -367,6 +394,14 @@ namespace Bikewale.Models
 
 
                 }
+                if (makes != null && _makeId > 0)
+                {
+                    BikeMakeEntityBase makeObj = makes.FirstOrDefault(x => x.MakeId == _makeId);
+                    if (makeObj != null)
+                    {
+                        _makeCategoryId = makeObj.MakeCategoryId;
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -453,16 +488,17 @@ namespace Bikewale.Models
         }
 
         /// <summary>
-        /// Modified By: Deepak Israni on 5th Feb 2018
-        /// Description: Bind more news articles on mobile page.
+        /// Modified By : Deepak Israni on 8th Feb 2018
+        /// Description : Moved binding of Recent Expert Reviews to another function
         /// </summary>
         /// <param name="objData"></param>
         private void BindCMSContent(MakePageVM objData)
         {
 
             objData.News = new RecentNews(TopCountNews, _makeId, objData.MakeName, _makeMaskingName, string.Format("{0} News", objData.MakeName), _articles).GetData();
-            
-            objData.ExpertReviews = new RecentExpertReviews(2, _makeId, objData.MakeName, _makeMaskingName, _expertReviews, string.Format("{0} Reviews", objData.MakeName)).GetData();
+
+            BindRecentExpertReviews(objData);
+
             if (IsMobile)
             {
                 objData.Videos = new RecentVideos(1, 2, _makeId, objData.MakeName, _makeMaskingName, _videos).GetData();
@@ -473,6 +509,29 @@ namespace Bikewale.Models
             }
 
         }
+
+        /// <summary>
+        /// Created By : Deepak Israni on 8th Feb 2018
+        /// Description : To bind the Recent Expert Reviews along with the type of reviews.
+        /// </summary>
+        /// <param name="objData"></param>
+        private void BindRecentExpertReviews(MakePageVM objData)
+        {
+            RecentExpertReviews objExpertReviews = new RecentExpertReviews(TopCountExpertReviews, _makeId, objData.MakeName, _makeMaskingName, _expertReviews, string.Format("{0} Reviews", objData.MakeName));
+
+            List<EnumCMSContentType> categoryList = new List<EnumCMSContentType>
+                    {
+                        EnumCMSContentType.RoadTest
+                    };
+            List<EnumCMSContentSubCategoryType> subCategoryList = new List<EnumCMSContentSubCategoryType>
+                    {
+                        EnumCMSContentSubCategoryType.Road_Test,
+                        EnumCMSContentSubCategoryType.First_Drive,
+                        EnumCMSContentSubCategoryType.Long_Term_Report
+                    };
+            objData.ExpertReviews = objExpertReviews.GetData(categoryList, subCategoryList);
+        }
+
 
         private void BindDiscontinuedBikes(MakePageVM objData)
         {
@@ -506,7 +565,7 @@ namespace Bikewale.Models
             try
             {
                 topBikeList = new List<string>();
-                if (objModelList != null)
+                if (objModelList != null && objModelList.Any())
                 {
                     if (objModelList.Any())
                     {
@@ -810,7 +869,7 @@ namespace Bikewale.Models
 
             try
             {
-                if (objData != null)
+                if (objData != null && objData.Bikes != null && objData.Bikes.Any())
                 {
                     foreach (var bike in objData.Bikes)
                     {
@@ -835,6 +894,319 @@ namespace Bikewale.Models
                 ErrorClass.LogError(ex, string.Format("MakePageModel.GetEMIDetails: Make : {0} , City : {1}", _makeId, cityBase.CityId));
             }
 
+        }
+        /// <summary>
+        /// Created by : Sanskar Gupta on 09 Feb 2018
+        /// Description : Method to bind NewLaunchedWidget
+        /// </summary>
+        /// <param name="objData"></param>
+        private void BindNewLaunchedWidget(MakePageVM objData)
+        {
+            try
+            {
+                if (objData != null)
+                {
+                    InputFilter inputFilter = new InputFilter();
+                    inputFilter.Days = 10;
+                    inputFilter.Make = _makeId;
+
+                    if (cityBase != null)
+                    {
+                        inputFilter.CityId = cityBase.CityId;
+                    }
+
+                    NewLaunchedWidgetVM NewLaunchedWidget = new NewLaunchedWidgetVM();
+                    NewLaunchedWidget.Bikes = _newLaunchesBL.GetNewLaunchedBikesListByMakeAndDays(inputFilter);
+
+                    objData.NewLaunchedWidget = NewLaunchedWidget;
+
+                    if (objData.NewLaunchedWidget != null)
+                    {
+                        objData.NewLaunchedWidget.City = cityBase;
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, String.Format("BindNewLaunchedWidget_MakeId_{0}_CityId_{1}", _makeId, cityBase.CityId));
+            }
+        }
+
+        /// <summary>
+        /// Created By : Deepak Israni on 9th Feb 2018
+        /// Description : To bind the number of models with expert reviews and total number of expert reviews on VM
+        /// </summary>
+        /// <param name="objData"></param>
+        private void BindExpertReviewCount(RecentExpertReviewsVM expertReviews)
+        {
+            try
+            {
+                ExpertReviewCountEntity ercEntity = _bikeMakesCache.GetExpertReviewCountByMake(_makeId);
+                expertReviews.ModelCount = ercEntity.ModelCount;
+                expertReviews.ExpertReviewCount = ercEntity.ExpertReviewCount;
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, String.Format("BindExpertReviewCount_MakeId_{0}", _makeId));
+            }
+        }
+        /// <summary>
+        /// Created by  : Sanskar Gupta on 12 March 2018
+        /// Description : Function to initialize EMICalculator
+        /// </summary>
+        /// <param name="objMakePage"></param>
+        private void BindEMICalculator(MakePageVM objMakePage)
+        {
+            objMakePage.EMICalculator = new EMICalculatorVM();
+        }
+        /// <summary>
+        /// Created by : Snehal Dange on 20th Feb 2018
+        /// Description: Method created to get relevant filters for a particular make (according to min values of budget,                           displacements and mileage)
+        /// Modified by : Ashutosh Sharma on 29 Mar 2018
+        /// Description: Made changes due to change in Specs features entites.
+        /// </summary>
+        /// <param name="objData"></param>
+        private void BindPageFilters(MakePageVM objData)
+        {
+            try
+            {
+                CustomInputFilters objInputFilters = null;
+                objData.PageFilters = new FilterPageEntity();
+                objInputFilters = new CustomInputFilters();
+                if (objData.Bikes != null)
+                {
+                    float minDisplacement = Single.MaxValue, tempMinDisplacement,displacementValue;
+                    ushort minMileage = UInt16.MaxValue, tempMinMileage,mileageValue;
+                    long minExShowroomPrice = Int64.MaxValue, tempExShowroomPrice;
+                    IEnumerable<SpecsItem> minSpecList;
+                    foreach (var bike in objData.Bikes)
+                    {
+                        minSpecList = bike.MinSpecsList;
+                        if (minSpecList != null)
+                        {
+                            tempMinDisplacement = Single.TryParse(minSpecList.SingleOrDefault(s => s.Id == (int)EnumSpecsFeaturesItems.Displacement).Value, out displacementValue) ? displacementValue : 0;
+                            minDisplacement = tempMinDisplacement > 0 && minDisplacement > tempMinDisplacement ? tempMinDisplacement : minDisplacement;
+                            tempMinMileage = (UInt16.TryParse(minSpecList.SingleOrDefault(s => s.Id == (int)EnumSpecsFeaturesItems.FuelEfficiencyOverall).Value, out mileageValue)) ? mileageValue : Convert.ToUInt16(0);
+                            minMileage = tempMinMileage > 0 && minMileage > tempMinMileage ? tempMinMileage : minMileage;
+                        }
+                        tempExShowroomPrice = bike.ExShowroomPrice;
+                        minExShowroomPrice = tempExShowroomPrice > 0 && minExShowroomPrice > tempExShowroomPrice ? tempExShowroomPrice : minExShowroomPrice;
+                    }
+                    objInputFilters.MinMileage = minMileage != UInt16.MaxValue ? minMileage : (ushort)0;
+                    objInputFilters.MinPrice = minExShowroomPrice != Int64.MaxValue ? minExShowroomPrice : 0;
+                    objInputFilters.MinDisplacement = minDisplacement <= Single.MaxValue && minDisplacement >= Single.MaxValue ? 0 : minDisplacement;
+                    objInputFilters.MakeCategoryId = _makeCategoryId;
+                    objData.PageFilters.FilterResults = _pageFilters.GetRelevantPageFilters(objInputFilters).ToList();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, String.Format("MakePageModel.BindPageFilters_MakeId_{0}", _makeId));
+            }
+        }
+
+        private void BindNewBikeSearchPopupData(MakePageVM objData)
+        {
+            try
+            {
+                if (objData != null)
+                {
+                    objData.NewBikeSearchPopup = new NewBikeSearch.NewBikeSearchPopupVM();
+                    objData.NewBikeSearchPopup.HasFilteredBikes = true;
+                    objData.NewBikeSearchPopup.HasOtherRecommendedBikes = true;
+                    objData.NewBikeSearchPopup.MakeId = _makeId;
+                    objData.NewBikeSearchPopup.MakeName = objData.MakeName;
+                    if (cityBase != null)
+                    {
+                        objData.NewBikeSearchPopup.CityId = cityBase.CityId;
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, String.Format("MakePageModel.BindNewBikeSearchPopupData_MakeId_{0}", _makeId));
+            }
+        }
+
+        /// <summary>
+        /// Created By : Deepak Israni on 20 March 2018
+        /// Description: Overload of GetData function to Bind different ad slots with old and new Make page.
+        /// Modified by : Snehal Dange on 30th April 2018
+        /// Description: Added MakeABTestCookie to get abTestValues
+        /// </summary>
+        /// <param name="isNew"></param>
+        /// <returns></returns>
+        public MakePageVM GetData(MakeABTestCookie abTestValues)
+        {
+            bool isNew = false;
+            if (abTestValues != null)
+            {
+                isNew = abTestValues.IsNewPage;
+                _newMakePageV1Status = abTestValues.NewMakePageV1Status;
+                _oldMakePageV1Status = abTestValues.OldMakePageV1Status;
+            }
+            MakePageVM objData = GetData();
+            BindAdSlots(objData, isNew);
+            return objData;
+        }
+
+        /// <summary>
+        /// Created By : Deepak Israni on 20 March 2018
+        /// Description: Method to bind ad slots to mobile make page.
+        /// </summary>
+        /// <param name="objData"></param>
+        private void BindAdSlots(MakePageVM objData, bool isNewPage)
+        {
+            if (IsMobile)
+            {
+                if (!isNewPage)
+                {
+                    AdTags adTagsObj = objData.AdTags;
+                    adTagsObj.AdPath = _adPath_Mobile_Old;
+                    adTagsObj.AdId = _adId_Mobile_Old;
+                    adTagsObj.Ad_320x50 = true;
+                    adTagsObj.Ad300x250_Bottom = true;
+                    adTagsObj.Ad_300x250BTF = _oldMakePageV1Status && objData.Bikes.Count() > 5;
+
+
+                    IDictionary<string, AdSlotModel> ads = new Dictionary<string, AdSlotModel>();
+
+                    NameValueCollection adInfo = new NameValueCollection();
+                    adInfo["adId"] = _adId_Mobile_Old;
+                    adInfo["adPath"] = _adPath_Mobile_Old;
+
+                    if (adTagsObj.Ad_320x50)
+                    {
+                        ads.Add(String.Format("{0}-0", _adId_Mobile_Old), GoogleAdsHelper.SetAdSlotProperties(adInfo, ViewSlotSize.ViewSlotSizes[AdSlotSize._320x50], 0, 320, AdSlotSize._320x50, "Top", true));
+                    }
+                    if (adTagsObj.Ad300x250_Bottom)
+                    {
+                        ads.Add(String.Format("{0}-16", _adId_Mobile_Old), GoogleAdsHelper.SetAdSlotProperties(adInfo, ViewSlotSize.ViewSlotSizes[AdSlotSize._300x250], 16, 300, AdSlotSize._300x250, "Bottom"));
+                    }
+                    if (adTagsObj.Ad_300x250BTF)
+                    {
+                        ads.Add(String.Format("{0}-1", _adId_Mobile_Old), GoogleAdsHelper.SetAdSlotProperties(adInfo, ViewSlotSize.ViewSlotSizes[AdSlotSize._300x250], 1, 300, AdSlotSize._300x250, "BTF"));
+                    }
+
+                    objData.AdSlots = ads;
+                }
+                else
+                {
+                    AdTags adTagsObj = objData.AdTags;
+                    adTagsObj.AdId = _adId_Mobile_New;
+                    adTagsObj.AdPath = _adPath_Mobile_New;
+                    if (!_newMakePageV1Status)
+                    {
+                        adTagsObj.Ad_320x100_Top = true;
+                    }
+
+                    adTagsObj.Ad_300x250_Top = true;
+                    adTagsObj.Ad_300x250_Middle = true;
+                    adTagsObj.Ad_300x250_Bottom = true;
+
+                    objData.AdTags = adTagsObj;
+
+                    IDictionary<string, AdSlotModel> ads = new Dictionary<string, AdSlotModel>();
+
+                    NameValueCollection adInfo = new NameValueCollection();
+                    adInfo["adId"] = _adId_Mobile_New;
+                    adInfo["adPath"] = _adPath_Mobile_New;
+
+
+                    if (!_newMakePageV1Status && adTagsObj.Ad_320x100_Top)
+                    {
+                        ads.Add(String.Format("{0}-3", _adId_Mobile_New), GoogleAdsHelper.SetAdSlotProperties(adInfo, ViewSlotSize.ViewSlotSizes[AdSlotSize._320x100], 3, 320, AdSlotSize._320x100, "Top", true));
+                    }
+                    if (adTagsObj.Ad_300x250_Top)
+                    {
+                        ads.Add(String.Format("{0}-1", _adId_Mobile_New), GoogleAdsHelper.SetAdSlotProperties(adInfo, ViewSlotSize.ViewSlotSizes[AdSlotSize._300x250], 1, 300, AdSlotSize._300x250, "Top"));
+                    }
+                    if (adTagsObj.Ad_300x250_Middle)
+                    {
+                        ads.Add(String.Format("{0}-2", _adId_Mobile_New), GoogleAdsHelper.SetAdSlotProperties(adInfo, ViewSlotSize.ViewSlotSizes[AdSlotSize._300x250], 2, 300, AdSlotSize._300x250, "Middle"));
+                    }
+
+                    if (adTagsObj.Ad_300x250_Bottom)
+                    {
+                        ads.Add(String.Format("{0}-0", _adId_Mobile_New), GoogleAdsHelper.SetAdSlotProperties(adInfo, ViewSlotSize.ViewSlotSizes[AdSlotSize._300x250], 0, 300, AdSlotSize._300x250, "Bottom"));
+                    }
+
+                    objData.AdSlots = ads;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Created By : Deepak Israni on 26 March 2018
+        /// Description: Method to bind ad slots to desktop make page.
+        /// </summary>
+        /// <param name="objData"></param>
+        private void BindAdSlots(MakePageVM objData)
+        {
+            AdTags adTagsObj = objData.AdTags;
+            adTagsObj.AdPath = _adPath_Desktop;
+            adTagsObj.AdId = _adId_Desktop;
+            adTagsObj.Ad_Model_ATF_300x250 = true;
+            adTagsObj.Ad_Model_BTF_300x250 = true;
+            adTagsObj.Ad_Top_300x250 = true;
+            adTagsObj.Ad_970x90Bottom = true;
+            adTagsObj.Ad_970x90Top = true;
+
+            IDictionary<string, AdSlotModel> ads = new Dictionary<string, AdSlotModel>();
+
+            NameValueCollection adInfo = new NameValueCollection();
+            adInfo["adId"] = _adId_Desktop;
+            adInfo["adPath"] = _adPath_Desktop;
+
+            if (adTagsObj.Ad_Model_ATF_300x250)
+            {
+                ads.Add(String.Format("{0}-9", _adId_Desktop), GoogleAdsHelper.SetAdSlotProperties(adInfo, ViewSlotSize.ViewSlotSizes[AdSlotSize._300x250], 9, 300, AdSlotSize._300x250, "ATF", true));
+            }
+            if (adTagsObj.Ad_Model_BTF_300x250)
+            {
+                ads.Add(String.Format("{0}-11", _adId_Desktop), GoogleAdsHelper.SetAdSlotProperties(adInfo, ViewSlotSize.ViewSlotSizes[AdSlotSize._300x250], 11, 300, AdSlotSize._300x250, "BTF"));
+            }
+            if (adTagsObj.Ad_Top_300x250)
+            {
+                ads.Add(String.Format("{0}-17", _adId_Desktop), GoogleAdsHelper.SetAdSlotProperties(adInfo, ViewSlotSize.ViewSlotSizes[AdSlotSize._300x250], 17, 300, AdSlotSize._300x250, "Top", true));
+            }
+            if (adTagsObj.Ad_970x90Bottom)
+            {
+                ads.Add(String.Format("{0}-5", _adId_Desktop), GoogleAdsHelper.SetAdSlotProperties(adInfo, ViewSlotSize.ViewSlotSizes[AdSlotSize._970x90 + "_C"], 5, 970, AdSlotSize._970x90, "Bottom"));
+            }
+            if (adTagsObj.Ad_970x90Top)
+            {
+                ads.Add(String.Format("{0}-19", _adId_Desktop), GoogleAdsHelper.SetAdSlotProperties(adInfo, ViewSlotSize.ViewSlotSizes[AdSlotSize._970x90 + "_C"], 19, 970, AdSlotSize._970x90, "Top", true));
+            }
+
+            objData.AdSlots = ads;
+        }
+
+
+        /// <summary>
+        /// Created By : Deepak Israni on 16 April 2018
+        /// Description: To bind the series linkage widget on the page.
+        /// </summary>
+        /// <param name="objData"></param>
+        /// <param name="cityId"></param>
+        private void BindSeriesLinkages(MakePageVM objData, uint cityId)
+        {
+            try
+            {
+                objData.SeriesLinkages = new MakeSeriesSlugVM
+                {
+                    MakeName = objData.MakeName,
+                    MakeMaskingName = objData.MakeMaskingName
+                };
+                objData.SeriesLinkages.MakeSeriesList = _bikeSeries.GetMakeSeries(Convert.ToInt32(_makeId), Convert.ToInt32(cityId));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, String.Format("MakePageModel.BindSeriesLinkages_MakeId_{0}_CityId_{1}", _makeId, cityId));
+            }
         }
     }
 }

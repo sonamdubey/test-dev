@@ -21,6 +21,8 @@ namespace Bikewale.DAL.BikeBooking
         /// <summary>
         /// Created by  :   Sumit Kate on 05 Feb 2016
         /// Description :   
+        /// Modified by : Ashutosh Sharma on 13 Apr 2018
+        /// Description : Changed sp from 'getbookinglisting' to 'getbookinglisting_13042018' to remove filters based on specs.
         /// </summary>
         /// <param name="cityId"></param>
         /// <param name="areaId"></param>
@@ -45,20 +47,14 @@ namespace Bikewale.DAL.BikeBooking
                     using (DbCommand cmd = DbFactory.GetDBCommand())
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.CommandText = "getbookinglisting";
+                        cmd.CommandText = "getbookinglisting_13042018";
 
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_areaid", DbType.Int32, Convert.ToInt32(areaId)));
 
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_parammakeids", DbType.String, 50, (!String.IsNullOrEmpty(filter.MakeIds)) ? filter.MakeIds.Replace(' ', ',') : Convert.DBNull));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_paramminvalbudget", DbType.String, 50, (!String.IsNullOrEmpty(filter.Budget)) ? filter.Budget.Split('-')[0] : Convert.DBNull));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_parammaxvalbudget", DbType.String, 50, (!String.IsNullOrEmpty(filter.Budget)) ? filter.Budget.Split('-')[1] : Convert.DBNull));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_parammileagecategoryids", DbType.String, 50, (!String.IsNullOrEmpty(filter.Mileage)) ? filter.Mileage.Replace(' ', ',') : Convert.DBNull));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_paramdisplacementfilterids", DbType.String, 50, (!String.IsNullOrEmpty(filter.Displacement)) ? filter.Displacement.Replace(' ', ',') : Convert.DBNull));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_paramridestyleid", DbType.String, 50, (!String.IsNullOrEmpty(filter.RideStyle)) ? filter.RideStyle.Replace(' ', ',') : Convert.DBNull));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_paramhasabs", DbType.Boolean, (!String.IsNullOrEmpty(filter.ABS)) ? Convert.ToBoolean(Convert.ToInt16(filter.ABS)) : Convert.DBNull));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_paramdrumdisc", DbType.Boolean, (!String.IsNullOrEmpty(filter.BrakeType)) ? Convert.ToBoolean(Convert.ToInt16(filter.BrakeType)) : Convert.DBNull));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_paramspokealloy", DbType.Boolean, (!String.IsNullOrEmpty(filter.AlloyWheel)) ? Convert.ToBoolean(Convert.ToInt16(filter.AlloyWheel)) : Convert.DBNull));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_paramhaselectric", DbType.Boolean, (!String.IsNullOrEmpty(filter.StartType)) ? Convert.ToBoolean(Convert.ToInt16(filter.StartType)) : Convert.DBNull));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_paramsortcategoryid", DbType.String, 50, (!String.IsNullOrEmpty(filter.sc)) ? filter.sc : Convert.DBNull));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_paramsortorder", DbType.String, 50, (!String.IsNullOrEmpty(filter.so)) ? filter.so : Convert.DBNull));
 
@@ -93,12 +89,6 @@ namespace Bikewale.DAL.BikeBooking
                                     objBikeBookingListingEntity.HostUrl = Convert.ToString(dr["HostUrl"]);
                                     objBikeBookingListingEntity.OriginalImagePath = Convert.ToString(dr["ImgPath"]);
                                     objBikeBookingListingEntity.DealerId = Convert.ToUInt32(dr["DealerId"]);
-                                    objBikeBookingListingEntity.Displacement = Convert.ToSingle(dr["Displacement"]);
-                                    objBikeBookingListingEntity.Mileage = Convert.ToUInt16(dr["Mileage"]);
-                                    objBikeBookingListingEntity.HasABS = Convert.ToBoolean(dr["hasABS"]);
-                                    objBikeBookingListingEntity.HasDisc = Convert.ToBoolean(dr["discDrum"]);
-                                    objBikeBookingListingEntity.HasAlloyWheels = Convert.ToBoolean(dr["hasAlloyWheels"]);
-                                    objBikeBookingListingEntity.HasElectricStart = Convert.ToBoolean(dr["hasElectricStart"]);
                                     objBikeBookingListingEntity.BookingAmount = Convert.ToUInt32(dr["BookingAmount"]);
                                     objBikeBookingListingEntity.PopularityIndex = Convert.ToUInt32(dr["PopularityIndex"]);
 
@@ -190,7 +180,6 @@ namespace Bikewale.DAL.BikeBooking
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "BookingListingRepository.FetchBookingList");
-                
             }
             return lstSearchResult;
         }
@@ -290,6 +279,12 @@ namespace Bikewale.DAL.BikeBooking
             return objPager;
         }
 
+        /// <summary>
+        /// Modified by : Ashutosh Sharma on 13 Apr 2018
+        /// Description : Removed specs from filters.
+        /// </summary>
+        /// <param name="filterInputs"></param>
+        /// <returns></returns>
         private string GetApiUrl(BookingListingFilterEntity filterInputs)
         {
             string apiUrlstr = string.Empty;
@@ -297,14 +292,9 @@ namespace Bikewale.DAL.BikeBooking
             {
                 if (!String.IsNullOrEmpty(filterInputs.MakeIds))
                     apiUrlstr += "&makeIds=" + filterInputs.MakeIds.Replace(" ", "+");
-                if (!String.IsNullOrEmpty(filterInputs.BrakeType))
-                    apiUrlstr += "&brakeType=" + filterInputs.BrakeType.Replace(" ", "+");
+                
                 if (!String.IsNullOrEmpty(filterInputs.Budget))
                     apiUrlstr += "&budget=" + filterInputs.Budget.Replace(" ", "+");
-                if (!String.IsNullOrEmpty(filterInputs.Displacement))
-                    apiUrlstr += "&displacement=" + filterInputs.Displacement.Replace(" ", "+");
-                if (!String.IsNullOrEmpty(filterInputs.Mileage))
-                    apiUrlstr += "&mileage=" + filterInputs.Mileage.Replace(" ", "+");
                 if (filterInputs.PageSize > 0)
                     apiUrlstr += "&pageSize=" + filterInputs.PageSize;
                 if (!String.IsNullOrEmpty(filterInputs.RideStyle))
@@ -313,12 +303,6 @@ namespace Bikewale.DAL.BikeBooking
                     apiUrlstr += "&sc=" + filterInputs.sc;
                 if (!String.IsNullOrEmpty(filterInputs.so))
                     apiUrlstr += "&so=" + filterInputs.so;
-                if (!String.IsNullOrEmpty(filterInputs.StartType))
-                    apiUrlstr += "&startType=" + filterInputs.StartType.Replace(" ", "+");
-                if (!String.IsNullOrEmpty(filterInputs.AlloyWheel))
-                    apiUrlstr += "&alloyWheel=" + filterInputs.AlloyWheel.Replace(" ", "+");
-                if (!String.IsNullOrEmpty(filterInputs.ABS))
-                    apiUrlstr += "&ABS=" + filterInputs.ABS.Replace(" ", "+");
             }
             catch (Exception ex)
             {

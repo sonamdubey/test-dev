@@ -1,4 +1,5 @@
 ﻿@model Bikewale.Models.BikeModels.ModelPageVM
+@{var adIdSimilarBikes = "1505919734321";}
 @if (Model.ExpertReviews != null && Model.ExpertReviews.FetchedCount > 0)
 {
     <div id="expertReviewsContent" data-id="expertReviewsContent" class="bw-model-tabs-data padding-top15 padding-bottom20 content-box-shadow card-bottom-margin content-details-wrapper font14">
@@ -19,7 +20,7 @@
 @if (Model.AdTags.Ad_320x400_Middle)
 {
     <div class="margin-bottom20 text-center">
-        @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad320x400_Middle.cshtml", new { AdId = Model.AdTags.AdId });}
+        @{Html.RenderPartial("/Views/Shared/Ads/Mobile/AdSlotGeneric.cshtml", Model.AdSlots[String.Format("{0}-10", Model.AdTags.AdId)]);}
     </div>
 }
 
@@ -31,10 +32,10 @@
         <div class="swiper-container card-container swiper-type-similar">
             <div class="swiper-wrapper">
                 @if (Model.AdTags.Ad_200x253)
-                    {
-                        { Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad200x253.cshtml", new { AdId = "1505919734321" }); }
+                {
+                    {Html.RenderPartial("/Views/Shared/Ads/Mobile/AdSlotGeneric.cshtml", Model.AdSlots[String.Format("{0}-11", adIdSimilarBikes)]);}
 
-                    }
+                }
                 @Html.Partial("~/Views/BikeModels/_SimilarBikes_Mobile.cshtml", Model.SimilarBikes)
             </div>
         </div>
@@ -57,7 +58,7 @@ else if (Model.IsPopularBodyStyleAvailable && (Model.IsNewBike || Model.IsUpcomi
 
 @if (Model.AdTags.Ad_300x250)
 {
-    Html.RenderPartial("~/Views/Shared/Ads/Mobile/Ad300x250.cshtml", Model.AdTags);
+    Html.RenderPartial("/Views/Shared/Ads/Mobile/AdSlotGeneric.cshtml", Model.AdSlots[String.Format("{0}-2", Model.AdTags.AdId)]);
 }
 @if (Model.IsNewBike && Model.IsMileageByUsersAvailable)
 {
@@ -68,9 +69,9 @@ else if (Model.IsPopularBodyStyleAvailable && (Model.IsNewBike || Model.IsUpcomi
         @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad300x250.cshtml", new { AdId = Model.AdTags.AdId });}
     </div>*@
 <div id="specsFeaturesAndAboutContent" data-id="specsFeaturesAndAboutContent" class="bw-model-tabs-data">
-    @if (Model.ModelPageEntity.ModelVersionSpecs != null)
+    @if (Model.BikeSpecsFeatures != null)
     {
-        @Html.Partial("~/Views/Model/_Index_ModelSpecsAndFeatures_Mobile.cshtml", Model)
+        @Html.Partial("~/Views/Model/_Index_ModelSpecsAndFeatures_Mobile.cshtml", Model.BikeSpecsFeatures)
     }
     @if (Model.ModelPageEntity.ModelDesc != null && !string.IsNullOrEmpty(Model.ModelPageEntity.ModelDesc.FullDescription)
                 && Model.ModelPageEntity.ModelDetails != null && Model.IsUpcomingBike)
@@ -104,7 +105,7 @@ else if (Model.IsPopularBodyStyleAvailable && (Model.IsNewBike || Model.IsUpcomi
 @if (Model.AdTags.Ad_300x250BTF)
 {
     <div class="margin-bottom20 text-center">
-        @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad300x250BTF.cshtml", new { AdId = Model.AdTags.AdId });}
+      @{Html.RenderPartial("/Views/Shared/Ads/Mobile/AdSlotGeneric.cshtml", Model.AdSlots[String.Format("{0}-14", Model.AdTags.AdId)]);}
     </div>
 }
 @if ((Model.IsUserReviewsAvailable && !Model.IsUpcomingBike) || (Model.ComparisionTestExpertReviews != null && Model.ComparisionTestExpertReviews.FetchedCount > 0))
@@ -205,6 +206,24 @@ else if (Model.IsPopularBodyStyleAvailable && (Model.IsNewBike || Model.IsUpcomi
                     @Html.Partial("~/Views/DealerShowroom/_DealersServiceCentersInIndia_Mobile.cshtml", Model.DealersServiceCenter)
                 }
             }
+        </div>
+    }
+    @if ((Model.IsNewBike || Model.IsDiscontinuedBike) && Model.objUpcomingBikes != null && Model.objUpcomingBikes.UpcomingBikes != null && Model.objUpcomingBikes.UpcomingBikes.Any())
+     {
+        <div class="container bg-white box-shadow padding-top10 padding-bottom20 card-bottom-margin">
+            @if (Model.ModelPageEntity != null && Model.ModelPageEntity.ModelDetails != null && Model.ModelPageEntity.ModelDetails.MakeBase != null)
+            {
+                <div class="carousel-heading-content padding-top15">
+                    <div class="swiper-heading-left-grid inline-block">
+                        <h2>@string.Format("Upcoming {0} bikes", Model.ModelPageEntity.ModelDetails.MakeBase.MakeName)</h2>
+                    </div>
+                    <div class="swiper-heading-right-grid inline-block text-right">
+                        <a href="@string.Format("/m/{0}-bikes/upcoming/", Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName)" title="@string.Format("Upcoming {0} bikes in India", Model.ModelPageEntity.ModelDetails.MakeBase.MakeName)" class="btn view-all-target-btn">View all</a>
+                    </div>
+                </div>
+            }
+            @Html.Partial("~/Views/Upcoming/_UpcomingBikes_Mobile.cshtml", Model.objUpcomingBikes)
+            <div class="clear"></div>
         </div>
     }
 </div>

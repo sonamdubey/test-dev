@@ -1,10 +1,11 @@
-﻿﻿@model Bikewale.Models.Photos.PhotosPageVM
+﻿    @model Bikewale.Models.Photos.PhotosPageVM
 @{
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/photos.css' inline />";
-    Model.Page_JS_Paths = new string[] { "/m/src/photos/modelgallery.js", "/m/src/photos/photos.js" };
+	Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/m/photos/listing.css' inline /> <link rel='stylesheet' type='text/css' href='/sass/m/photos/gallery-popup.css' inline />";
+	Model.Page_BTF_CSS_Paths = new string[] { "/sass/m/photos/listing-btf.css", "/sass/m/photos/colours-popup.css", "/sass/m/photos/videos-popup.css" };
+	Model.Page_JS_Paths = new string[] { "/src/utils/swiperYoutube.js", "/src/utils/scroll.js", "/src/utils/navigationTabs.js", "/src/utils/viewport.js", "/src/plugins/screenfull.js", "/m/src/photos/videoPopupViewModel.js", "/m/src/photos/colorPopupViewModel.js", "/m/src/photos/galleryViewModel.js", "/m/src/photos/gallery.js", "/m/src/photos/model.js" };
+    Model.AdTags.Ad_320x50Top = true;
     Model.AdTags.Ad_300x250BTF = true;
-    Model.AdTags.Ad_320x50 = true;
     Model.AdTags.Ad_320x50BTF = true;
     Model.AdTags.AdId = "1516082576550";
     Model.AdTags.AdPath = "/1017752/Bikewale_Mobile_Image";
@@ -17,99 +18,447 @@
     {
         objImages = Model.ModelImages.ToList();
     }
+    <section class="margin-bottom20">
+        <div class="container box-shadow section-bottom-margin">
 
-    <section>
-        <div class="container box-shadow section-bottom-margin padding-bottom2">
-            <h1 class="section-header bg-white">@Model.Page_H1</h1>
-            @if (!Model.IsPopupOpen && Model.TotalPhotos > 0)
+			<div class="bg-white">
+            <div id="galleryRoot" class="margin-bottom60" data-bind="css: { 'orientation--landscape': fullScreenModeActive(), 'gallery-popup--active': activePopup() }">
+                <h1 class="page-header fullscreen--anchestor">@Model.Page_H1</h1>
+                <div class="model-gallery-section fullscreen--anchestor" data-bind="css: {'gallery-color-slug--active': colorSlug().activeSlug(), 'gallery-video-slug--active': videoSlug().activeSlug()}">
+                    <div class="model-gallery__container" data-bind="css: activePopup() ? 'gallery-popup--active' : ''">
+                        <div id="mainPhotoSwiper" class="swiper-container swiper__image noSwiper model-gallery">
+                            <div class="swiper-wrapper" data-bind="foreach: limitedPhotoList">
+                                <div class="swiper-slide" data-bind="attr: { 'data-imgid': ImageId,'data-imgcat': ImageCategory,'data-imgtype': ImageType}">
+                                    <img class="swiper-lazy gallery-swiper-image" data-bind="attr: { 'data-index': $index, alt: MODEL_NAME + ' ' + ImageCategory, title: MODEL_NAME + ' ' + ImageCategory, 'data-src': $parent.renderImage(HostUrl,OriginalImgPath,'642x361') }" src="https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif" alt="" title="" border="0" />
+                                </div>
+                            </div>
+                            <div class="swiper--next gallery__next gallery__arrow-btn"></div>
+                            <div class="swiper--prev gallery__prev gallery__arrow-btn"></div>
+
+                            <div data-bind="with: colorSlug">
+								<!-- ko if : colorCount -->
+                                <div class="model-gallery__color-slide gallery__slide-slug" data-bind="if: $parent.isColorSlugEligible, visible: activeSlug()">
+                                    <p class="gallery-slide-slug__title" data-bind="text: modelName + ' Colours'"></p>
+                                    <ul class="color-slide__list" data-bind="foreach: colorList">
+                                        <li class="color-slide-list__item">
+                                            <div class="color-box" data-bind="foreach: Colors, attr: { 'data-color-count': Colors.length }">
+                                                <span class="color-box__item" data-bind="style: { 'background-color': '#' + $data }"></span>
+                                            </div>
+                                        </li>
+                                    </ul>
+									<!-- ko if : remainingCount > 0 -->
+                                    <p class="color-slide__more-count" data-bind="text: '+' + remainingCount + ' More Colour' + (remainingCount > 1 ? 's' : '') "></p>
+									<!-- /ko -->
+                                    <div class="slide__more-btn-content">
+                                        <button type="button" class="btn btn-inv-blue slide__more-btn" data-bind="click: $parent.colorPopup().openPopup">Show All Colour Images</button>
+                                    </div>
+                                </div>
+                                <p class="gallery__single-color-title" data-bind="visible: activeSingleColorMessage(), text: modelName + ' is available in ' + colorList[0].ImageTitle + ' color only.'"></p>
+								<!-- /ko -->
+                            </div>
+
+                            <div data-bind="with: videoSlug">
+								<!-- ko if : videoCount && slugSupport() -->
+                                <div class="model-gallery__video-slide gallery__slide-slug" data-bind="if: videoCount, visible: activeSlug(), css: {'video-slug--single-video': videoCount === 1, 'video-slug--video-playing': isPlaying()}">
+                                    <p class="gallery-slide-slug__title" data-bind="text: modelName + ' Video' + (videoCount > 1 ? 's' : '')"></p>
+                                    <!-- ko if : videoCount === 1 -->
+                                    <span class="video-slug__play" data-bind="click: function(data, event) { playVideo(event) }"></span>
+                                    <p class="video-slug__description" data-bind="text: videoList[0].VideoTitle"></p>
+                                    <div id="singleVideoSlug" class="swiper-youtube video-slug__iframe-container">
+                                        <div class="youtube-iframe-preview video-card__video-preview">
+                                            <div class="bw-youtube" data-bind="attr: { 'data-embed': videoList[0].VideoId }">
+                                                <img class="lazy" src="https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif" alt="loader">
+                                            </div>
+                                            <img class="video-slug__thumbnail" data-bind="attr: {'src': 'https://img.youtube.com/vi/' + videoList[0].VideoId + '/mqdefault.jpg'}" src="" />
+                                        </div>
+                                    </div>
+                                    <!-- /ko -->
+                                    <!-- ko if : videoCount > 1 -->
+                                    <p class="video-slug__description" data-bind="text: description"></p>
+                                    <div class="slide__more-btn-content">
+                                        <button id="popupLoadMore" type="button" class="btn btn-inv-blue slide__more-btn" data-bind="click: $parent.videoPopup().openPopup">Show All Videos</button>
+                                    </div>
+
+                                    <!-- /ko -->
+                                </div>
+								<!-- /ko -->
+                            </div>
+
+                        </div>
+                        <div class="gallery-footer" data-bind="visible: galleryFooterActive()">
+                            <div class="gallery-footer__content">
+                                <div class="gallery-image__footer" data-visible="color">
+                                    <div class="gallery-image__left-section">
+                                        <span class="gallery-image__count">
+                                            <span data-bind="text: activeIndex()"></span>&nbsp;/&nbsp;<span data-bind="text : MODEL_IMAGES.length"></span>
+                                        </span>
+                                        <h2 class="model-gallery__image-title" data-bind="text: activeTitle(), visible: activeSwiperTitle()"></h2>
+                                    </div>
+                                    <span class="gallery-image__color" data-bind="visible: activeFooterColorOption(), click: colorPopup().openPopup" style="display: none">Colours</span>
+                                    <div class="gallery-image__feature">
+                                        <a data-bind="attr: { href: getImageDownloadUrl() }" download title="Download Image" class="gallery__download-icon"></a>
+                                        
+                                        <span class="gallery__zoom-icon" data-bind="click: openGalleryPopup"></span>
+                                        <span class="landscape-icon__container" data-bind="attr: { 'data-visible': activeLandscapeIcon() && activePopup() && fullScreenSupport() ? 'true': 'false' }, click: toggleFullScreen">
+                                            <span class="gallery__landscape-icon" data-bind="visible: !rotateScreenOption()"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <div class="gallery__landscape-slug" data-bind="visible: rotateScreenOption() && fullScreenSupport(), css: {'landscape-slug--inactive': fullScreenModeActive() }, click: toggleFullScreen" style="display: none">
+                        <span class="landscape-text">Switch to Landscape for better Experience</span>
+                        <span class="screen--rotate-slug__landscape-container">
+                            <span class="screen--rotate-slug__landscape-icon"></span>
+                        </span>
+                    </div>
+                    <div class="gallery__color-floating-slug" style="display: none" data-bind="visible: activeFloatingColorSlug(), click: colorPopup().openPopup">See colour images</div>
+                    <div class="gallery__continue-swipe-info" style="display: none" data-bind="visible: activeContinueSlug(), click: handleGalleryContinueClick">
+                        <span class="continue-info__label">Swipe to Continue Images</span>
+                        <span class="continue-info__arrow"></span>
+                    </div>
+                </div>
+
+                <span id="galleryCloseBtn" class="gallery__close-btn fullscreen--anchestor" data-bind="visible: activePopup()" onclick="history.back()" style="display: none">
+					<span class="gallery-close-btn__icon"></span>
+				</span>
+                <div id="galleryBgWindow" class="black-window fullscreen--anchestor"></div>
+
+                <div id="colorGalleryPopup" class="color-popup__content" data-bind="with: colorPopup, css: { 'color-popup--active': colorPopup().activePopup(), 'color-popup--landscape': fullScreenModeActive() }">
+                    <div class="color-popup__head">
+                        <span class="color-popup-head__back" data-bind="click: closePopup(true)"></span>
+                        <p class="color-popup-head__title" data-bind="text: modelName + ' Colours'"></p>
+                    </div>
+                    <div class="color-popup__body">
+                        <div id="mainColorSwiper" class="swiper-container swiper__colors model-gallery noSwiper">
+                            <div class="swiper-wrapper" data-bind="foreach: colorSwiper().colorList">
+                                <div class="swiper-slide" data-bind="attr: { 'data-imgid': ImageId,'data-imgcat': ImageCategory,'data-imgtype': ImageType}">
+                                    <img class="swiper-lazy gallery-swiper-image" data-bind="attr: { 'data-index': $index, alt: MODEL_NAME + ' ' + ImageTitle, title: MODEL_NAME + ' ' + ImageTitle, 'data-src': $root.renderImage(HostUrl, OriginalImgPath,'642x361') }" src="https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif" alt="" title="" border="0" />
+                                </div>
+                            </div>
+                            <div class="swiper--next color-type-next color__arrow-btn"></div>
+                            <div class="swiper--prev color-type-prev color__arrow-btn"></div>
+                        </div>
+                        <div class="gallery-footer__content">
+                            <div class="gallery-image__footer">
+                                <div class="gallery-image__left-section">
+                                    <span class="gallery-image__count">
+                                        <span data-bind="text: colorSwiper().activeIndex()"></span> / <span data-bind="text: colorSwiper().colorList().length"></span>
+                                    </span>
+                                </div>
+                                <div class="gallery-image__feature">
+                                    <a data-bind="attr: { href: getColorImageDownloadUrl() }" download title="Download Image" class="gallery__download-icon"></a>
+                                    
+                                    <span class="landscape-icon__container" data-bind="click: $root.toggleFullScreen, visible: $root.fullScreenSupport()">
+                                        <span class="gallery__landscape-icon"></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="color-popup__thumbnail-content" data-bind="css: { 'color-footer--inactive': !activeLandscapeFooter() }">
+                            <p class="color-list__heading">Colours</p>
+                            <div id="thumbnailColorSwiper" class="swiper-container noSwiper swiper__color-thumbnail" data-bind="css: { 'color-list--scrollable': !$root.fullScreenModeActive() }">
+                                <div class="model-color__list swiper-wrapper " data-bind="foreach: colorSwiper().colorList, css: colorSwiper().colorList().length == 3 ? 'list-column--3' : ''">
+                                    <div class="swiper-slide">
+                                        <div class="color-box--border">
+                                            <div class="color-box__content">
+                                                <div class="color-box" data-bind="foreach: Colors, attr: { 'data-color-count': Colors.length }">
+                                                    <span class="color-box__item" data-bind="style: { 'background-color': '#' + $data }"></span>
+                                                </div>
+                                                <p class="color-box-label" data-bind="text: ImageTitle"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <span class="color-list__back-btn" onclick="history.back()">Back</span>
+
+							<div class="color-popup-body__footer">
+								<div class="color-popup__landscape-slug-content">
+									<div class="gallery__landscape-slug" data-bind="click: $root.toggleFullScreen, visible: $root.fullScreenSupport()">
+										<span class="landscape-text">Switch to Landscape for better Experience</span>
+										<span class="screen--rotate-slug__landscape-container">
+											<span class="screen--rotate-slug__landscape-icon"></span>
+										</span>
+									</div>
+								</div>
+							</div>
+                        </div>
+                    </div>
+
+                </div>
+
+								<!-- ko if: !videoPopup().browserCustomPlayer() -->
+                <div id="videoGalleryPopup" class="video-popup__content" data-bind="with: videoPopup, css: { 'video-popup--active': videoPopup().activePopup(), 'video-popup--landscape': fullScreenModeActive() }">
+                    <div class="video-popup__head fullscreen--anchestor">
+                        <span class="video-popup-head__back" data-bind="click: closePopup(true)"></span>
+						<p class="video-popup-head__title" data-bind="text: modelName + ' Videos'"></p>
+                    </div>
+                    <div class="video-popup__body">
+                        <div id="mainVideoSwiper" class="swiper-container swiper-youtube swiper__videos noSwiper">
+                            <div class="swiper-wrapper video-list" data-bind="foreach: videoData().videoList">
+                                <div class="swiper-slide video-card-container">
+                                    <h4 class="swiper-card__label" data-bind="text: VideoTitle"></h4>
+                                    <div class="model-card__list__video-card">
+                                        <div class="youtube-iframe-preview video-card__video-preview">
+                                            <div class="bw-youtube" data-bind="attr: { 'data-embed': VideoId,  'id': VideoId}">
+                                                <img class="lazy" src="https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif" alt="loader">
+                                            </div>
+                                        </div>
+                                        <div class="video-card__desc clearfix">
+                                            <div class="grid-4">
+                                                <p class="font11 text-light-grey text-truncate" data-bind="text: formatDate(DisplayDate)"></p>
+                                            </div>
+                                            <div class="grid-8 text-right font11">
+                                                <span class="model-card__sub-title"><span data-bind="text: formatNumeric(Views) + ' ' + ((Views > 1) ? 'Views' : 'View')"></span> </span>
+                                                <span class="model-card__sub-title margin-left20">
+                                                    <span class="thumbsup-icon"></span>
+                                                    <span data-bind="text: formatNumeric(Likes)"></span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <span class="video-list__back-btn" onclick="history.back()">Back</span>
+                    </div>
+                </div>
+								<!-- /ko -->
+
+                <div id="galleryLoader" class="gallery__loader black-window hide">
+                    <span class="loader__spin loader--fixed"></span>
+                </div>
+            </div>
+						<div class="gallery-placeholder"></div>
+            @if (Model.AdTags.Ad_320x50Top)
             {
-                <ul id="grid-images-noremainder" class="photos-grid-list" data-modelid="@(Model.objModel!=null ? Model.objModel.ModelId : 0)">
-                    @for (; i < Model.GridPhotoCount && i < 6; i++)
-                    {
-                        <li data-imgcat="@objImages[i].ImageCategory" data-imgtype="@((int)objImages[i].ImageType)" data-imgid="@objImages[i].ImageId">
-                            <img src="@Bikewale.Utility.Image.GetPathToShowImages(objImages[i].OriginalImgPath, objImages[i].HostUrl, Bikewale.Utility.ImageSize._476x268)" alt="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" title="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" />
-                        </li>
-                    }
-                    @for (; i < Model.GridPhotoCount && i < Model.GridSize; i++)
-                    {
-                        <li data-imgcat="@objImages[i].ImageCategory" data-imgtype="@((int)objImages[i].ImageType)" data-imgid="@objImages[i].ImageId">
-                            <img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(objImages[i].OriginalImgPath, objImages[i].HostUrl, Bikewale.Utility.ImageSize._476x268)" src="" alt="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" title="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" />
-                        </li>
-                    }
-                </ul>
-
-
-                <ul class="photos-grid-list photos-remainder-@Model.NonGridPhotoCount remainder-grid-list model-grid-images">
-                    @if (Model.TotalPhotos < Model.GridSize && Model.NonGridPhotoCount > 1)
-                    {
-                        for (; i < Model.TotalPhotos && i < Model.GridSize; i++)
-                        {
-                            <li data-imgcat="@objImages[i].ImageCategory" data-imgtype="@((int)objImages[i].ImageType)" data-imgid="@objImages[i].ImageId">
-                                <img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(objImages[i].OriginalImgPath, objImages[i].HostUrl, Bikewale.Utility.ImageSize._476x268)" src="" alt="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" title="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" />
-                            </li>
-                        }
-                    }
-                    else if (Model.TotalPhotos == 1)
-                    {
-                        <li data-imgcat="@objImages[i].ImageCategory" data-imgtype="@((int)objImages[i].ImageType)" data-imgid="@objImages[i].ImageId">
-                            <img src="@Bikewale.Utility.Image.GetPathToShowImages(objImages[i].OriginalImgPath, objImages[i].HostUrl, Bikewale.Utility.ImageSize._476x268)" alt="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" title="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" />
-                        </li>
-                    }
-                </ul>
-
-
+                <div class="bg-white text-center gallery__sponsored-top-slot">
+                    @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad320x50_Generic.cshtml", new { AdId = Model.AdTags.AdId, DivId = 0 });}
+                </div>
             }
+			</div>
+            <section>
+                <div id="overallContainer" class="overall-tabs__panel" data-panel-type="toggle">
+                    <div class="overall-tabs__placeholder">
+                        <div class="overall-tabs__content">
+                            <ul class="overall-tabs__list">
+                                @{
+                                        if (objImages != null && objImages.Any())
+                                        {
+                                            <li class="overall-tabs-list__item tab--active" data-tabs="allImages">@Html.Raw(string.Format("All Images ({0})", Model.TotalPhotos))</li>
+                                        }
+                                        if (Model.IsColorAvailable)
+                                        {
+                                            <li class="overall-tabs-list__item" data-tabs="colours">@Html.Raw(string.Format("Colours ({0})", Model.ColorImagesCount))</li>
+                                        }
+
+                                        if (Model.ModelVideos != null && Model.IsVideosAvailable)
+                                        {
+                                            <li class="overall-tabs-list__item" id="videoTabLink" data-tabs="videos">@Html.Raw(string.Format("Videos ({0})", Model.ModelVideos.Count()))</li>
+                                        }
+
+}
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div data-id="allImages">
+                        <ul id="imageGridTop" class="image-grid__list" data-grid="7">
+                            @{ var numberOfPhotos = Math.Min(Model.TotalPhotos, 7);}
+                            @for (i = 0; i < numberOfPhotos; i++)
+                            {
+                                <li class="image-grid-list__item" data-imgcat="@objImages[i].ImageCategory" data-imgtype="@((int)objImages[i].ImageType)" data-imgid="@objImages[i].ImageId">
+                                    <img src="@Bikewale.Utility.Image.GetPathToShowImages(objImages[i].OriginalImgPath, objImages[i].HostUrl, Bikewale.Utility.ImageSize._476x268, "80")" alt="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" title="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" class="" />
+                                </li>
+                            }
+                        </ul>
+
+                        @if (Model.BikeInfo != null)
+                        { <section>
+                            <div class="image-list__model-widget">
+                                @Html.Partial("~/views/Bikemodels/_BikeInfoCard_New_Mobile.cshtml", Model.BikeInfo)
+                            </div>
+                        </section>
+                        }
+
+
+
+
+                        <ul id="imageGridBottom" class="image-grid__list image-grid--bottom" data-grid="6">
+                            @{ numberOfPhotos = Math.Min(Model.TotalPhotos, 19);}
+                            @while (i < numberOfPhotos)
+                            {
+                                <li class="image-grid-list__item" data-imgcat="@objImages[i].ImageCategory" data-imgtype="@((int)objImages[i].ImageType)" data-imgid="@objImages[i].ImageId">
+                                    <img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(objImages[i].OriginalImgPath, objImages[i].HostUrl, Bikewale.Utility.ImageSize._476x268, "80")" src="" alt="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" title="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" />
+                                </li>
+                                i++;
+                            }
+                        </ul>
+                        @if (i < Model.TotalPhotos)
+                        {
+                            <div class="image-grid__list-more">
+                                <button id="viewMoreImageBtn" type="button" class="btn btn-inv-blue image-grid__more-btn">View More (<span id="moreImageCount">@( Model.TotalPhotos - i)</span>)</button>
+                            </div>
+                        }
+                       
+                    </div>
+
+                    
+                    @if (Model.IsColorAvailable)
+                    {
+                        <div id="colorTab" data-id="colours">
+                            <div id="colorTabSwiper" class="swiper-container swiper__colors model-gallery noSwiper">
+                                <div class="swiper-wrapper" data-bind="foreach: colorList">
+                                    <div class="swiper-slide" data-bind="attr: { 'data-imgid': ImageId,'data-imgcat': ImageCategory,'data-imgtype': ImageType}">
+                                        <img class="swiper-lazy gallery-swiper-image" data-bind="attr: { 'data-index': $index, alt: MODEL_NAME + ' ' + ImageTitle, title: MODEL_NAME + ' ' + ImageTitle, 'data-src': $parent.renderImage(HostUrl,OriginalImgPath,'642x361') }" src="https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif" alt="" title="" border="0" />
+                                    </div>
+                                </div>
+                                <div class="swiper--next color-type-next color-tab__arrow-btn"></div>
+								<div class="swiper--prev color-type-prev color-tab__arrow-btn"></div>
+                            </div>
+                            <div class="swiper-colors__footer">
+                                <p class="colors-footer__title">Colour: <span class="text--bold" data-bind="text: activeTitle"></span></p>
+                                <div id="colorTabThumbnailSwiper" class="swiper-container noSwiper swiper__color-thumbnail color-list--thumbnail">
+                                    <div class="model-color__list swiper-wrapper" data-bind="foreach: colorList">
+                                        <div class="swiper-slide">
+                                            <div class="color-box" data-bind="foreach: Colors, attr: { 'data-color-count': Colors.length }">
+                                                <span class="color-box__item" data-bind="style: { 'background-color': '#' + $data }"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                  
+                    @if (Model.IsVideosAvailable)
+                    {
+                        <script>
+                            var totalVideoCount = @Model.ModelVideos.Count();
+                        </script>
+                        <div id="videoTab" data-id="videos" class="hide">
+                            <div class="swiper-youtube swiper__videos">
+                                <div class="video-list" data-bind="foreach: videoList">
+                                    <div class="video-card-container">
+                                      <!-- ko if: $parent.listTypeIFrame -->
+                                      <h4 class="swiper-card__label" data-bind="text: VideoTitle"></h4>
+                                      <!-- /ko -->
+
+                                      <!-- ko ifnot: $parent.listTypeIFrame -->
+                                      <a data-bind="attr: {title: VideoTitle, href: '/m/bike-videos/' + VideoTitleUrl + '-' + BasicId + '/' }" class="text-default">
+                                        <h4 class="swiper-card__label" data-bind="text: VideoTitle"></h4>
+                                      </a>
+                                      <!-- /ko -->
+                                        <div class="model-card__list__video-card">
+                                          <!-- ko if: $parent.listTypeIFrame -->
+                                            <div class="youtube-iframe-preview video-card__video-preview">
+                                                <div class="bw-youtube" data-bind="attr: { 'data-embed': VideoId }">
+                                                    <a data-bind="attr: { 'href': 'https://www.youtube.com/watch?v=' + VideoId, 'title': VideoTitle}"><p data-bind=" text: VideoTitle"></p></a>
+                                                    <img class="lazy" src="https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif" alt="loader">
+                                                </div>
+                                            </div>
+                                          <!-- /ko -->
+                                          <!-- ko ifnot: $parent.listTypeIFrame -->
+                                          <a data-bind="attr: {title: VideoTitle, href: '/m/bike-videos/' + VideoTitleUrl + '-' + BasicId + '/' }" class="video-card__video-preview">
+                                            <img class="video-card__iframe-image lazy" src="" data-bind="attr: {alt: VideoTitle, 'data-original': 'https://img.youtube.com/vi/' + VideoId + '/mqdefault.jpg' }" class="video-card__iframe" />
+                                            <span class="video-card__play-container">
+                                              <span class="video-card-play__icon"></span>
+                                            </span>
+                                          </a>
+                                          <!-- /ko -->
+                                            <div class="video-card__desc clearfix">
+                                                <div class="grid-4">
+                                                    <p class="font11 text-light-grey" data-bind="text: formatDate(DisplayDate)"></p>
+                                                </div>
+                                                <div class="grid-8 text-right">
+                                                    <span class="model-card__sub-title"><span data-bind="text: formatNumeric(Views) + ' ' + ((Views > 1) ? 'Views' : 'View')"></span> </span>
+                                                    <span class="model-card__sub-title margin-left20">
+                                                        <span class="thumbsup-icon"></span>
+                                                        <span data-bind="text: formatNumeric(Likes)"></span>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            @if (Model.ModelVideos != null && (Model.ModelVideos.Count() > 0))
+                            {
+                                <div class="image-grid__list-more" data-bind="visible: totalVideoCount > 3">
+                                    <a href="@string.Format("/m/{0}-bikes/{1}/videos/",Model.Make.MaskingName,Model.Model.MaskingName)" title="@string.Format("{0} {1} Videos", Model.Make.MakeName, Model.Model.ModelName)" class="btn btn-inv-blue image-grid__more-btn">View More Videos</a>
+                                </div>
+                            }
+                          
+                        </div>
+                        
+                        <script defer type="text/javascript" src="@String.Format("{0}/m/src/lazyloadyoutube.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, Bikewale.Utility.BWConfiguration.Instance.StaticPluginFileVersion)"></script>
+                        <script>
+                            var videoTab = document.getElementById("videoTabLink");
+                            videoTab.addEventListener("click", function (event) {
+                                lazyloadYoutube.loadYoutubeVideos({ scope: "videoTab", enableYTAPI: true });
+                                SwiperYT.populateVideoIframes({idkey: "videotab"});
+                            });
+
+                            var videoPopup = document.getElementById("popupLoadMore");
+                            videoPopup.addEventListener("click", function(event) {
+                                lazyloadYoutube.loadYoutubeVideos({ scope: "videoGalleryPopup", enableYTAPI: true });
+                                SwiperYT.populateVideoIframes();
+                                vmModelGallery.videoPopup().handleSwiperResize();
+                            });
+                        </script>
+                    }
+                  
+                </div>
+            </section>
+
+            <div id="videoSlug" class="hide">
+                <div class="video-slug__content">
+                    <p class="video-slug__title">Videos</p>
+                    <ul class="video-slug__list">
+                        <li>First Drive</li>
+                        <li>Comparison test</li>
+                    </ul>
+                    <a href="@string.Format("/m/{0}-bikes/{1}/videos/",Model.Make.MaskingName,Model.Model.MaskingName)" title="@string.Format("{0} {1} Videos", Model.Make.MakeName, Model.Model.ModelName)" class="btn btn-inv-blue video-slug__more-btn">View All Videos</a>
+                </div>
+            </div>
             <div class="clear"></div>
         </div>
     </section>
+
     if (Model.AdTags.Ad_300x250BTF)
     {
         <div class="margin-bottom20 text-center">
             @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad300x250BTF.cshtml", new { AdId = Model.AdTags.AdId });}
         </div>
+     }
+
+    if (Model.SimilarBikes != null && Model.SimilarBikes.Bikes != null)
+    {
+        <section>
+            @Html.Partial("~/views/Photos/_SimilarBikeWithPhotos_New_Mobile.cshtml", Model.SimilarBikes)
+        </section>
     }
+
     <div id="photoTemplateWrapper" class="hide">
         <!-- ko if : Loadedphotos() && Loadedphotos().length > 0 -->
         <ul data-bind="foreach : Loadedphotos">
-            <li data-bind="attr:{'data-imgcat' : ImageCategory , 'data-imgtype' : ImageType,'data-imgid' : ImageId}">
-                <img class="lazy" data-bind="attr:{'src' : HostUrl + '/476x268/' + OriginalImgPath }" @*alt="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" title="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)"*@ />
+            <li class="image-grid-list__item" data-bind="attr:{'data-imgcat' : ImageCategory , 'data-imgtype' : ImageType,'data-imgid' : ImageId}">
+                <img class="lazy" data-bind="attr:{'src' : HostUrl + '/476x268/' + OriginalImgPath }" />
             </li>
         </ul>
         <!-- /ko -->
     </div>
-    if (Model.BikeInfo != null)
-    { <section>
-            <div class="container bg-white box-shadow section-bottom-margin">
-                @Html.Partial("~/views/Bikemodels/_BikeInfoCard_Mobile.cshtml", Model.BikeInfo)
-            </div>
-        </section>
-    }
-
-    if (Model.ModelVideos != null && Model.Videos != null)
-    {
-        <div class="container bg-white box-shadow padding-15-20 section-bottom-margin">
-
-            <h2 class="margin-bottom15">@Model.BikeName Videos</h2>
-            @Html.Partial("~/Views/Videos/_RecentVideos_v1_Mobile.cshtml", Model.Videos)
-            <div class="margin-top10">
-                <a title="@Model.Videos.LinkTitle" href="@string.Format("/m{0}",Model.Videos.MoreVideoUrl)" class="btn view-all-target-btn">
-                    View all videos <span class="bwmsprite teal-right"></span>
-                </a>
-            </div>
-        </div>
-
-
-    }
-
-    if (Model.SimilarBikes != null && Model.SimilarBikes.Bikes != null)
-    {
-        @Html.Partial("~/views/Photos/_SimilarBikeWithPhotos_Mobile.cshtml", Model.SimilarBikes)
-    }
 
     if (Model.ModelGallery != null)
     {
-        @Html.Partial("~/views/Gallery/_ModelGallery_Mobile.cshtml", Model.ModelGallery)
+        <section class="margin-bottom20">
+            @Html.Partial("~/views/Gallery/_ModelGallery_Mobile.cshtml", Model.ModelGallery)
+        </section>
     }
+
 
     if (Model.objMoreAboutScooter != null)
     {
@@ -121,11 +470,13 @@
             </div>
         </div>
     }
+}
+@if (Model.AdTags.Ad_320x50BTF)
+{
+
+    <div class="margin-bottom20 text-center">
+        @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad320x50BTF.cshtml", new { AdId = Model.AdTags.AdId });}
+    </div>
 
 }
- @if (Model.AdTags.Ad_320x50BTF)
-    {
-<div class="margin-bottom20 text-center">
-    @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad320x50BTF.cshtml", new { AdId = Model.AdTags.AdId });}
-</div>
-    }
+

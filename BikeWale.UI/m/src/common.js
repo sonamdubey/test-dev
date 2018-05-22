@@ -43,11 +43,12 @@ function triggerGA(cat, act, lab) {
     }
 }
 
-function triggerVirtualPageView(url, title) {
+function triggerVirtualPageView(host, path, title) {
     try {
         dataLayer.push({
             'event': 'VirtualPageview',
-            'virtualPageURL': url,
+            'virtualPageHost': host,
+            'virtualPagePath': path,
             'virtualPageTitle': title
         })
     } catch (e) {
@@ -855,6 +856,9 @@ var appendState = function (state) {
 };
 
 docReady(function () {
+    $(".bw-anchor-link").click(function () {
+        window.location = $(this).data("href");
+    });
 
     trendingBikes = JSON.parse(localStorage.getItem("bwc_trendingbikes", trendingBikes) || null);
     if (!trendingBikes) {
@@ -1833,8 +1837,7 @@ docReady(function () {
 
             if (!this.options.trendingSearchesLoaded) {
                 if (trendingBikes) {
-                    html = '<li data-makeid="0" data-modelid="0" class="ui-menu-item bw-ga" data-cat="' + pageName + '" data-act="AutoExpo_2018_Link Clicked" data-lab="Trending_Searches_Autosuggest_Clicked">\
-                            <span class="trending-searches"></span><a href="https://www.bikewale.com/autoexpo2018/" data-href="https://www.bikewale.com/autoexpo2018/">Auto Expo 2018</a>';
+                    var html = "";
                     for (var index in trendingBikes) {
                         item = trendingBikes[index];
                         html += '<li data-makeid="' + item.objMake.makeId + '" data-modelid="' + item.objModel.modelId + '" class="ui-menu-item bw-ga" data-cat="' + pageName + '" data-act="Trending_Searches_Search_Bar_Clicked" data-lab="' + item.BikeName
@@ -1897,7 +1900,7 @@ docReady(function () {
                 if (objSearches.searches != null && eleIndex > -1) objSearches.searches.splice(eleIndex, 1);
                 objSearches.searches.unshift(obj);
                 bwcache.set(recentSearches.searchKey, objSearches);
-                triggerGA(pageName, ' Recently_View_Search_Bar_Clicked', this.textContent);
+                triggerGA(pageName, 'Recently_View_Search_Bar_Clicked', this.textContent);
                 window.location.href = $(this).find('a').first().attr('data-href');
             }
 
@@ -1980,14 +1983,18 @@ docReady(function () {
 
         window.onerror = function (message, filename, lineno, colno, err) {
             error = {};
+            var log_source = new RegExp(["aeplcdn", "bikewale"].join('|'));
             try {
-                error.Message = err.message || message || "";
-                error.SourceFile = err.fileName || filename || "";
-                error.ErrorType = err.name || "Uncatched Exception";
-                error.LineNo = lineno || "Unable to trace";
-                error.Trace = (err.stack.toString() || '-');
-                // errorLog(error);
-            } catch (e) {
+                if (filename && filename.match(log_source)) {
+                    error.Details = err.message || message || "";
+                    error.SourceFile = err.fileName || filename || "";
+                    error.ErrorType = err.name || "Uncatched Exception";
+                    error.LineNo = lineno || "Unable to trace";
+                    error.Trace = (err.stack.toString() || '-');
+                    errorLog(error);
+                }
+            }
+            catch (e) {
                 return false;
             }
         };
@@ -2004,7 +2011,7 @@ docReady(function () {
     $(document).on("click", ".bw-ga", function () {
         try {
             var obj = $(this);
-            var category = obj.attr("data-cat") || obj.attr("c") || $('body').data('page-name');
+            var category = obj.attr("data-cat") || obj.attr("c") || $('body').data('page-name') || pageName;
             var action = obj.attr("data-act") || obj.attr("a");
             var label = obj.attr("data-lab") || obj.attr("l");
             var variable = obj.attr("data-var") || obj.attr("v");

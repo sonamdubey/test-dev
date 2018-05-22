@@ -23,6 +23,8 @@ namespace Bikewale.Interfaces.BikeData
     /// Descritpion: Method to get list of  makes in which service center is present for city
     /// Modified by : Snehal Dange on 16th Jan 2017
     /// Description: Method to get ResearchMoreAboutMake widget data (with and without city)
+    /// Modified By : Deepak Israni on 9th Feb 2018
+    /// Summary     : Method GetExpertReviewCountByMake to get expert review count for make and number of models with expert reviews
     /// </summary>
     /// <typeparam name="T">Generic type (need to specify type while implementing this interface)</typeparam>
     /// <typeparam name="U">Generic type (need to specify type while implementing this interface)</typeparam>
@@ -42,5 +44,6 @@ namespace Bikewale.Interfaces.BikeData
         IEnumerable<BikeMakeEntityBase> GetServiceCenterBrandsInCity(uint cityId);
         ResearchMoreAboutMake ResearchMoreAboutMake(uint makeId);
         ResearchMoreAboutMake ResearchMoreAboutMakeByCity(uint makeId, uint cityId);
+        ExpertReviewCountEntity GetExpertReviewCountByMake(uint makeId);
     }
 }

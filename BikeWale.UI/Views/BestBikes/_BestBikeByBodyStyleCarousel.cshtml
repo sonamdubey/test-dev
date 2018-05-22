@@ -4,7 +4,7 @@
 
 @if (Model != null && Model.Any())
 {
-    string imageSrc, bikeList, url, cardTitle;
+    string imageSrc, url, cardTitle;
 
     switch (Model.First().CurrentPage)
     {
@@ -39,7 +39,7 @@
                cardTitle = "Top 10 bikes in India";
                break;
     }
-    bikeList = String.Join(", ", Model.Select(x => x.Model.ModelName));
+
 
     foreach (var bike in Model)
     {
@@ -54,7 +54,10 @@
                 <div class="card-desc-block">
                     <h3 class="bikeTitle">@bikeName</h3>
                     <p class="text-xt-light-grey font14 margin-bottom10">
-                        @Html.Raw(FormatMinSpecs.GetMinSpecs(Convert.ToString(bike.MinSpecs.Displacement), Convert.ToString(bike.MinSpecs.FuelEfficiencyOverall), Convert.ToString(bike.MinSpecs.MaxPower), Convert.ToString(bike.MinSpecs.KerbWeight)))
+                        @if (bike.MinSpecsList != null)
+                        {
+                            @Html.Raw(FormatMinSpecs.GetMinSpecsSpanElements(bike.MinSpecsList));    
+                        }
                     </p>
                     @if (bike.Price > 0)
                     {

@@ -1,9 +1,12 @@
 ﻿using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS.Articles;
 using Bikewale.Entities.GenericBikes;
+using Bikewale.Entities.PWA.Articles;
 using Bikewale.Models.BikeModels;
+using Bikewale.Models.Shared;
 using System.Collections.Generic;
 using System.Text;
+using System.Web;
 
 namespace Bikewale.Models
 {
@@ -12,34 +15,17 @@ namespace Bikewale.Models
     /// Summary    : View model for expert reviews detail page
     /// Modified by sajal Gupta on 24-08-2017
     /// description : added PopularScooterMakesWidget
+    /// Modified by : Rajan Chauhan on 26 Feb 2018
+    /// description : Added base class CMSArticleDetailPageVM
+    /// Modified by: Dhruv Joshi
+    /// Dated: 19th April 2018
+    /// Description: Moved PageWidgets Dictionary to parent class
     /// </summary>
-    public class ExpertReviewsDetailPageVM : ModelBase
+    public class ExpertReviewsDetailPageVM : CMSArticleDetailPageVM
     {
         public ArticlePageDetails ArticleDetails { get; set; }
         public EditCMSPhotoGalleryVM PhotoGallery { get; set; }
-        public PopularBodyStyleVM PopularBodyStyle { get; set; }
-        public MostPopularBikeWidgetVM SeriesBikes { get; set; }
-        public MostPopularBikeWidgetVM MostPopularBikes { get; set; }
-        public UpcomingBikesWidgetVM UpcomingBikes { get; set; }
-        public BikeInfoVM BikeInfo { get; set; }
-        public BikeMakeEntityBase Make { get; set; }
-        public BikeModelEntityBase Model { get; set; }
         public StringBuilder BikeTested { get; set; }
-        public IEnumerable<BikeMakeEntityBase> PopularScooterMakesWidget { get; set; }
         public IEnumerable<VehicleTag> TaggedBikes { get; set; }
-        public MultiTabsWidgetVM PopularBikesAndPopularScootersWidget { get; set; }
-        public MultiTabsWidgetVM UpcomingBikesAndUpcomingScootersWidget { get; set; }
-        public MultiTabsWidgetVM PopularBikesAndUpcomingBikesWidget { get; set; }
-        public MultiTabsWidgetVM PopularMakeBikesAndBodyStyleBikesWidget { get; set; }
-        public MultiTabsWidgetVM PopularMakeScootersAndOtherBrandsWidget { get; set; }
-        public MultiTabsWidgetVM PopularScootersAndUpcomingScootersWidget { get; set; }
-        public MostPopularBikeWidgetVM MostPopularMakeBikes { get; set; }
-        public SimilarBikesWidgetVM SimilarBikes { get; set; }
-        public bool IsSeriesAvailable { get; set; }
-        public bool IsScooter { get; set; }
-        public EnumBikeBodyStyles BodyStyle { get; set; }
-        public MultiTabsWidgetVM SeriesBikesAndOtherBrands { get; set; }
-        public MultiTabsWidgetVM SeriesBikesAndModelBodyStyleBikes { get; set; }
-        public EditorialSeriesWidgetVM SeriesWidget { get; set; }
     }
 }

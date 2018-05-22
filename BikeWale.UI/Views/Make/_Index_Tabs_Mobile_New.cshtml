@@ -1,0 +1,58 @@
+﻿@model Bikewale.Models.MakePageVM
+
+<div class="overall-tabs__placeholder">
+    <div class="overall-tabs__content">
+        <ul class="overall-tabs__list" data-make-name="@Model.MakeName">
+            @if (Model.NewLaunchedWidget != null && Model.NewLaunchedWidget.Bikes != null && Model.NewLaunchedWidget.Bikes.Count() > 0)
+            {
+                <li class="overall-tabs-list__item tab--active" data-tabs="newlyLaunched" data-lab="NewlyLaunched">Newly Launched</li>
+            }
+            @if (Model.TopPopularBikes != null && Model.TopPopularBikes.Any())
+            {
+                <li class="overall-tabs-list__item" data-tabs="popularModel" data-lab="PopularModels">Popular Models</li>
+            }
+
+            @if (Model.Bikes != null && Model.Bikes.Any())
+            {
+                <li class="overall-tabs-list__item" data-tabs="bikeModel" data-lab="BikeModels">Bike Models</li>
+            }
+            @if (Model.IsUpComingBikesAvailable)
+            {
+                <li class="overall-tabs-list__item" data-tabs="upcomingBikes" data-lab="UpcomingBikes">Upcoming Bikes</li>
+            }
+
+            @if (Model.IsCompareBikesAvailable)
+            {
+                <li class="overall-tabs-list__item" data-tabs="compareBikes" data-lab="TopComparisons">Top Comparisons</li>
+            }
+
+            @if (Model.IsDealerServiceDataAvailable || (Model.DealersServiceCenterPopularCities != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalDealerCount > 0))
+            {
+                <li class="overall-tabs-list__item" data-tabs="dealer" data-lab="Dealer">Dealer / Stores</li>
+            }
+
+            @if (Model.IsNewsAvailable)
+            {
+                <li class="overall-tabs-list__item" data-tabs="news" data-lab="News">News</li>
+            }
+
+            @if (Model.IsExpertReviewsAvailable || Model.IsUserReviewsAvailable)
+            {
+                <li class="overall-tabs-list__item" data-tabs="reviews" data-lab="Reviews">Reviews</li>
+            }
+
+            @if (Model.BikeModelsPhotos != null && Model.BikeModelsPhotos.ModelList != null && Model.BikeModelsPhotos.ModelList.Any())
+            {
+                <li class="overall-tabs-list__item" data-tabs="images" data-lab="Images">Images</li>
+            }
+
+            @if (Model.IsVideosAvailable)
+            {
+                <li class="overall-tabs-list__item" data-tabs="videos" data-lab="Videos">Videos</li>
+            }
+
+        </ul>
+    </div>
+</div>
+
+

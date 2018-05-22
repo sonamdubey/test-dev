@@ -32,7 +32,7 @@ namespace Bikewale.Cache.BikeData
             IEnumerable<NewBikeEntityBase> objModels = null;
             try
             {
-                string key = string.Format("BW_NewModelsBySeriesId_seriesId_{0}_cityId_{1}", seriesId, cityId);
+                string key = string.Format("BW_NewModelsBySeriesId_V1_seriesId_{0}_cityId_{1}", seriesId, cityId);
                 objModels = _cache.GetFromCache(key, new TimeSpan(6, 0, 0), () => _bikeSeriesRepository.GetNewModels(seriesId, cityId));
             }
             catch (Exception ex)
@@ -90,18 +90,18 @@ namespace Bikewale.Cache.BikeData
         }
         public IEnumerable<BikeSeriesCompareBikes> GetBikesToCompare(uint seriesId)
         {
-            IEnumerable<BikeSeriesCompareBikes> Obj = null;
-            string key = string.Format("BW_BikeSeriesComparision_{0}", seriesId);
+            IEnumerable<BikeSeriesCompareBikes> obj = null;
             try
             {
-                Obj = _cache.GetFromCache(key, new TimeSpan(1, 0, 0), () => _bikeSeriesRepository.GetBikesToCompare(seriesId));
+                string key = string.Format("BW_BikeSeriesComparision_V1_{0}", seriesId);
+                obj = _cache.GetFromCache(key, new TimeSpan(1, 0, 0), () => _bikeSeriesRepository.GetBikesToCompare(seriesId));
             }
             catch (Exception ex)
             {
                 Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("Cache.BikeData.BikeSeries.GetBikesToCompare_SeriesId_{0}", seriesId));
             }
 
-            return Obj;
+            return obj;
         }
 
         /// <summary>
@@ -191,6 +191,29 @@ namespace Bikewale.Cache.BikeData
                 ErrorClass.LogError(ex, string.Format("Bikewale.Cache.BikeData.BikeSeriesCacheRepository.GetMaskingNames seriesId {0}", seriesId));
             }
             return modelIds;
+        }
+
+
+        /// <summary>
+        /// Created By : Deepak Israni on 16 April 2018
+        /// Description: To get the list of series by make with minimum price by city.
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <param name="cityId"></param>
+        /// <returns></returns>
+        public IEnumerable<BikeSeriesEntity> GetMakeSeries(int makeId, int cityId)
+        {
+            IEnumerable<BikeSeriesEntity> makeSeriesEntityList = null;
+            try
+            {
+                string key = (cityId == 0 ? string.Format("BW_MakeSeries_M_{0}", makeId) : string.Format("BW_MakeSeries_M_{0}_C_{1}", makeId, cityId));
+                makeSeriesEntityList = _cache.GetFromCache(key, new TimeSpan(24, 0, 0), () => _bikeSeriesRepository.GetMakeSeries(makeId, cityId));
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("Cache.BikeData.BikeSeries.GetMakeSeries_makeId_{0}_cityId_{1}", makeId, cityId));
+            }
+            return makeSeriesEntityList;
         }
     }
 }

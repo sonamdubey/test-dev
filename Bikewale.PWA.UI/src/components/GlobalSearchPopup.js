@@ -1,17 +1,20 @@
 import React from 'react'
 import Autocomplete from '../components/Autocomplete'
-import {setDataForPriceQuotePopup , closeGlobalSearchPopUp, recentSearches,autocomplete,showElement, hideElement,getStrippedTerm ,highlightText, globalSearchCache,MakeModelRedirection, setPriceQuoteFlag , pqSourceId , globalSearchStatus} from '../utils/popUpUtils'
+import GlobalSearchList from '../components/GlobalSearchList'
+import {setDataForPriceQuotePopup , closeGlobalSearchPopUp, recentSearches,autocomplete,showElement, hideElement,getStrippedTerm ,highlightText, globalSearchCache,MakeModelRedirection, setPriceQuoteFlag , globalSearchStatus} from '../utils/popUpUtils'
 import { isServer } from '../utils/commonUtils'
-import {GetCatForNav} from '../utils/analyticsUtils'
+import { triggerGA, GetCatForNav } from '../utils/analyticsUtils'
 class GlobalSearchPopup extends React.Component {
 
 	constructor(props) {
 		super(props);
 		this.state = {
-			status : globalSearchStatus.RESET,
+		    status : globalSearchStatus.RESET,
+            globalDisplay : 'none',
 			value : '' ,
 			autocompleteList : [] ,
-			recentSearchList : [] ,
+            recentSearchesLoaded: false,
+			globalSearchList: { recentSearchList : [] , trendingSearchList : [] },
 			strippedValue :  '' 
 		}
 		this.renderRecentSearchItems = this.renderRecentSearchItems.bind(this);
@@ -29,19 +32,32 @@ class GlobalSearchPopup extends React.Component {
 		this.onChange = this.onChange.bind(this);
 		this.onSelect = this.onSelect.bind(this);
 		this.focusInput = this.focusInput.bind(this);
+		this.afterTrending = this.afterTrending.bind(this);
+		this.onSearchIconClick = this.onSearchIconClick.bind(this);
+	}
+	componentWillMount() {
+	    try{
+	        this.resetListOnEmptyInput();
+	    }
+        catch(err){}
 	}
 	componentDidMount() {
 		try{
-			this.focusInput();
-			
+		    this.focusInput();
 		}catch(err){}
 	}
 	focusInput() {
-		document.getElementById('globalSearch').focus();	
-		var value = this.state.value;
-		if(value.trim() == '') {
-			this.resetListOnEmptyInput();
-		}	
+		document.getElementById('globalSearch').focus();
+	}
+
+	onSearchIconClick() {
+	    var value = this.state.value;
+	    var category = GetCatForNav();
+	    var label = "Recently_Viewed_Bikes_" + (this.state.recentSearchesLoaded ? "Present" : "Not_Present");
+	    if(value.trim() == '') {
+	        this.resetListOnEmptyInput();
+	        triggerGA(category, "Search_Bar_Clicked", label);
+	    }
 	}
 	
 	showAutocompleteList(autocompleteList) {
@@ -83,21 +99,36 @@ class GlobalSearchPopup extends React.Component {
 		}catch(err){}
 	}
 	resetListOnEmptyInput() {
-		var recentSearchList = recentSearches.getRecentSearches();
-		if(recentSearchList != null && recentSearchList.length > 0) {
+	    var recentSearchList = recentSearches.getRecentSearches();
+	    if(recentSearchList !=null) {
+	        recentSearchList = recentSearchList.filter((item) => { return (item != null && typeof item != "undefined")}).map(function (item) {
+                return { label: item.name, payload: item }
+            });
+            this.setState({ recentSearchesLoaded: true, value: ""});
+	    }
+	    var trendingSearchList = recentSearches.getTrendingSearches(this.afterTrending);
+	    if(trendingSearchList !=null) {
+	        trendingSearchList = trendingSearchList.filter((item) => { return (item != null && typeof item != "undefined")}).map(function (item) {
+                return { label: item.BikeName, payload: {'expertReviewsCount':"0", 'modelId': item.objModel.modelId.toString(), 'modelMaskingName': item.objModel.maskingName, 'makeId': item.objMake.makeId.toString(), 'makeMaskingName' : item.objMake.maskingName, 'isNew' : "True", 'name' : item.BikeName} }
+	        });
+	       }
+	    if(recentSearchList === null || recentSearchList.length === 0) {
+	        recentSearchList = [];
+	    }
+	    if(trendingSearchList === null || trendingSearchList.length === 0) {
+	        trendingSearchList = [];
+	    }
+        if(trendingSearchList.length !== 0 || recentSearchList.length !== 0) {
 			this.setState({
-				value : '',
-				strippedValue : '', 
 				status: globalSearchStatus.RECENTSEARCH ,
-				recentSearchList : recentSearchList
+                globalSearchList: { recentSearchList: recentSearchList, trendingSearchList: trendingSearchList },
+                value: ""
 			});
 			
 		}
 		else {
-			this.setState({
-				value : '',
-				strippedValue : '',
-				status: globalSearchStatus.RESET
+            this.setState({
+                status: globalSearchStatus.RESET, value: ""
 			});
 			
 		}
@@ -112,6 +143,7 @@ class GlobalSearchPopup extends React.Component {
         }
 	}
 	clickClearButton() {
+	    this.setState({ value : ''});
 		this.resetListOnEmptyInput();
 		hideElement(document.getElementById('gs-text-clear'));
 		this.focusInput();
@@ -120,12 +152,12 @@ class GlobalSearchPopup extends React.Component {
 	onSelect(state) {
 		var keywrd = state.label + '_' + this.state.value;
 		var category = GetCatForNav();
-        dataLayer.push({ 'event': 'Bikewale_all', 'cat': category, 'act': 'Search_Keyword_Present_in_Autosuggest', 'lab': keywrd });
+        triggerGA(category, 'Search_Keyword_Present_in_Autosuggest', keywrd);
       	this.setState({
       		value : state.label,
 			strippedValue : getStrippedTerm(state.label)
 		})
-        MakeModelRedirection(this.state.value,state); 
+        MakeModelRedirection(state); 
 	}
 
 	afterfetch(result,searchtext) {
@@ -142,9 +174,14 @@ class GlobalSearchPopup extends React.Component {
             }
             var keywrd = this.state.value;
             var category = GetCatForNav();
-            dataLayer.push({ 'event': 'Bikewale_all', 'cat': category, 'act': 'Search_Keyword_Not_Present_in_Autosuggest', 'lab': keywrd });
+            triggerGA( category, 'Search_Keyword_Not_Present_in_Autosuggest', keywrd);
         }
 	}
+
+	afterTrending() {
+	    this.resetListOnEmptyInput();
+	}
+
 	checkOnRoadLinkClick (item,event) {
 		event.preventDefault();
 		setDataForPriceQuotePopup(event,item);
@@ -158,8 +195,8 @@ class GlobalSearchPopup extends React.Component {
                 if (item.futuristic == 'True') {
                     rightItem  = <span className="menu--right-align-label">coming soon</span>;
                 } else {
-                    if (item.isNew == 'True') {
-                        rightItem = <a data-pqSourceId={pqSourceId} data-modelId={item.modelId} className="getquotation menu--right-align-label text-blue" onClick={this.checkOnRoadLinkClick.bind(this,item)}>Check On-Road Price</a>;
+                    if (item.isNew == 'True') {                       
+                        rightItem = <a data-pqSourceId="38" data-modelId={item.modelId} className="getquotation menu--right-align-label text-blue" onClick={this.checkOnRoadLinkClick.bind(this,item)}>Check On-Road Price</a>;
 
                     } else {
                        	rightItem = <span className="menu--right-align-label">discontinued</span>;
@@ -184,8 +221,8 @@ class GlobalSearchPopup extends React.Component {
 	            if (item.payload.futuristic == 'True') {
 	                rightItem = <span className="menu--right-align-label">coming soon</span>;
 	            } else {
-	                if (item.payload.isNew == 'True') {
-	                	rightItem = <a href="javascript:void(0)" data-pqSourceId={pqSourceId} data-modelId={item.payload.modelId} className="getquotation menu--right-align-label text-blue" onClick={this.checkOnRoadLinkClick.bind(this,item)}>Check On-Road Price</a>;
+	                if (item.payload.isNew == 'True') {	                    
+	                	rightItem = <a href="javascript:void(0)" data-pqSourceId="38" data-modelId={item.payload.modelId} className="getquotation menu--right-align-label text-blue" onClick={this.checkOnRoadLinkClick.bind(this,item)}>Check On-Road Price</a>;
 	                }
 	                else {
 	                    rightItem = <span className="menu--right-align-label">discontinued</span>;
@@ -208,8 +245,6 @@ class GlobalSearchPopup extends React.Component {
 			return [];
 		else  if(this.state.status == globalSearchStatus.AUTOCOMPLETE) 
 			return this.state.autocompleteList;
-		else if(this.state.status == globalSearchStatus.RECENTSEARCH) 
-			return this.state.recentSearchList;
 		else return [];
 	}
 	shouldComponentUpdate(nextProps, nextState) {
@@ -277,6 +312,7 @@ class GlobalSearchPopup extends React.Component {
 			        			id:'globalSearch' ,
 			        			className:'form-control padding-right30'
 			        		}}
+					  onClick = {this.onSearchIconClick}
 			          onChange = {this.onChange}
 					  renderMenu = {this.renderMenu}
 						wrapperStyle = {{
@@ -284,7 +320,7 @@ class GlobalSearchPopup extends React.Component {
 						}}
 					/>
 					<span id="loaderGlobalSearch" className="fa fa-spinner fa-spin position-abt pos-right10 pos-top15 text-black" style={{'display':'none','right':'35px','top':'13px'}}></span>
-		            <ul id="global-recent-searches" style={{'position': 'relative','margin':'0','textAlign': 'left','height':'auto !important','background':'#fff'}} className="hide"></ul>
+		            <GlobalSearchList searchProps = {{ className:'global-search-section bg-white' }} styleProps={{display:this.state.status === globalSearchStatus.RECENTSEARCH?'block':'none' }} searchItems = { this.state.globalSearchList }/>
 		        	
 		        </div>
 		    </div>

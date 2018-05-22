@@ -1,4 +1,5 @@
-﻿using RazorEngine;
+﻿using log4net;
+using RazorEngine;
 using System;
 using System.IO;
 using System.Web;
@@ -29,6 +30,28 @@ namespace Bikewale.Utility
                 throw ex;
             }
         }
+
+        public static string Render<T>(string templateName, T model, string template)
+        {
+
+            // loading a template might be expensive, so be careful to cache content
+            try
+            {
+                if (Razor.Resolve(templateName) == null)
+                {
+                    // we've never seen this template before, so compile it and stick it in cache.                
+                    Razor.Compile(template, typeof(T), templateName);
+                }
+
+                // by now, we know we've got a the template cached and ready to run; this is fast
+                return Razor.Run(templateName, model);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
 
         /// <summary>
         /// Creates an instance of an MVC controller from scratch 

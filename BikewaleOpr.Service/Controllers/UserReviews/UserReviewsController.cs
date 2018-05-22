@@ -5,11 +5,13 @@ using BikewaleOpr.BAL;
 using BikewaleOpr.DTO.UserReviews;
 using BikewaleOpr.Entities.UserReviews;
 using BikewaleOpr.Entity.UserReviews;
+using BikewaleOpr.Interface.BikeData;
 using BikewaleOpr.Interface.UserReviews;
 using BikewaleOpr.Service.AutoMappers.UserReviews;
 using System;
 using System.Collections.Generic;
 using System.Web.Http;
+using System.Linq;
 
 namespace BikewaleOpr.Service.Controllers.UserReviews
 {
@@ -20,14 +22,16 @@ namespace BikewaleOpr.Service.Controllers.UserReviews
     public class UserReviewsController : ApiController
     {
         private readonly IUserReviewsRepository _userReviewsRepo = null;
+        private readonly IBikeModels _bikeModels = null;
 
         /// <summary>
         /// Constructor to initialize dependencies
         /// </summary>
         /// <param name="userReviewsRepo"></param>
-        public UserReviewsController(IUserReviewsRepository userReviewsRepo)
+        public UserReviewsController(IUserReviewsRepository userReviewsRepo, IBikeModels bikeModels)
         {
             _userReviewsRepo = userReviewsRepo;
+            _bikeModels = bikeModels;
         }
 
         /// <summary>
@@ -42,6 +46,8 @@ namespace BikewaleOpr.Service.Controllers.UserReviews
         /// Description: Added logic for refreshing cache key "BW_BikesByMileage";
         /// Modified :Snehal Dange on 21st Nov 2017
         /// Description: Added logic for refreshing cache key "BW_PopularBikesWithRecentAndHelpfulReviews_Make_";
+        /// Modified by : Rajan Chauhan on 06 Feb 2018.
+        /// Description : Changed version of key from 'BW_ModelDetail_V1_' to 'BW_ModelDetail_'.
         /// </summary>
         /// <param name="reviewId">User review id for which updation will happen</param>
         /// <param name="reviewStatus">Pass 2 for Approved or 3 for Discarded</param>
@@ -90,6 +96,11 @@ namespace BikewaleOpr.Service.Controllers.UserReviews
                         if(inputs.MakeId > 0)
                         {
                             MemCachedUtil.Remove(string.Format("BW_PopularBikesWithRecentAndHelpfulReviews_Make_{0}", inputs.MakeId));
+                        }
+
+                        if (inputs.ReviewStatus.Equals(ReviewsStatus.Approved))
+                        {
+                            _bikeModels.UpdateModelESIndex(Convert.ToString(inputs.ModelId), "update");
                         }
                     }
 
@@ -153,6 +164,8 @@ namespace BikewaleOpr.Service.Controllers.UserReviews
         /// Description : Changed cacke key from 'BW_ModelDetail_' to 'BW_ModelDetail_V1'.
         /// Modified by:Snehal Dange on 6th Nov 2017
         /// Description: Added logic for refreshing cache key "BW_BikesByMileage";
+        /// Modified by : Rajan Chauhan on 06 Feb 2018.
+        /// Description : Changed version of key from 'BW_ModelDetail_V1_' to 'BW_ModelDetail_'.
         /// </summary>
         /// <param name="reviewIds"></param>
         /// <returns></returns>
@@ -169,6 +182,8 @@ namespace BikewaleOpr.Service.Controllers.UserReviews
                 {
                     IEnumerable<BikeRatingApproveEntity> objReviewDetails = _userReviewsRepo.GetUserReviewDetails(reviewIds);
 
+                    String updatedIds = String.Join(",", objReviewDetails.Select(obj => Convert.ToString(obj.ModelId)));
+
                     foreach(var obj in objReviewDetails)
                     {                                                
                         MemCachedUtil.Remove(string.Format("BW_BikeReviewsInfo_MO_{0}", obj.ModelId));
@@ -176,10 +191,12 @@ namespace BikewaleOpr.Service.Controllers.UserReviews
                         MemCachedUtil.Remove(string.Format("BW_ModelDetail_V1_{0}", obj.ModelId));
                         MemCachedUtil.Remove(string.Format("BW_ReviewIdList_V1_{0}", obj.ModelId));
                         MemCachedUtil.Remove(string.Format("BW_ReviewQuestionsValue_MO_{0}", obj.ModelId));
-
                     }
                     MemCachedUtil.Remove("BW_UserReviewIdMapping");
                     MemCachedUtil.Remove("BW_BikesByMileage");
+
+
+                    _bikeModels.UpdateModelESIndex(updatedIds, "update");
                 }
             }
             catch(Exception ex)

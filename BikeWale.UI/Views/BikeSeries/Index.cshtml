@@ -4,11 +4,7 @@
 @if (Model != null)
 {
     {
-        Model.AdTags.AdPath = "/1017752/Bikewale_Model_";
-        Model.AdTags.AdId = "1442913773076";
-        Model.AdTags.Ad_970x90 = true;
-        Model.AdTags.Ad_970x90Bottom = true;
-        Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/model-series/series.css' inline>";
+        Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/model-series/series.css' inline> <link rel='stylesheet' type='text/css' href='/sass/partials/bw-youtube.css' inline />";
         Model.Page_JS_Path = "/src/model-series/series.js";
         Layout = "~/Views/Shared/_Layout.cshtml";
     }
@@ -69,7 +65,7 @@
         
             <section>
                 <div id="popularComparison" data-id="#popularComparison" class="bw-model-tabs-data container margin-bottom20 active">
-                    @if (Model.SimilarCompareScooters != null && Model.SimilarCompareScooters.CompareBikes != null && Model.SimilarCompareScooters.CompareBikes.Any())
+                    @if (Model.TopComparisons != null && Model.TopComparisons.CompareBikes != null && Model.TopComparisons.CompareBikes.Any())
                     {
 
                         <div class="grid-12">
@@ -87,7 +83,7 @@
                                     </div>
                                     <div class="clear"></div>
                                 </div>
-                                @Html.Partial("~/Views/CompareBikes/_SimilarComparisons_V1.cshtml", Model.SimilarCompareScooters)
+                                @Html.Partial("~/Views/CompareBikes/_SimilarComparisons_V1.cshtml", Model.TopComparisons)
 
                             </div>
 
@@ -160,13 +156,14 @@
                                     <h2 class="font22">@string.Format("{0} {1} Videos", Model.BikeMake.MakeName, Model.SeriesBase.SeriesName)</h2>
                                 </div>
                             }
-                            @Html.Partial("~/Views/Videos/_RecentVideos_v1.cshtml", Model.Videos)
-							@if (Model.BikeMake != null && Model.SeriesBase != null)
-							{
-								<div class="margin-top10 padding-left20">
-									<a href="@UrlFormatter.FormatVideoPageUrl(Model.BikeMake.MakeMaskingName, Model.SeriesBase.MaskingName)" title="@string.Format("{0} {1} Videos", Model.BikeMake.MakeName, Model.SeriesBase.SeriesName)" class="btn btn-inv-blue">View All Videos
-									</a>
-								</div>}
+                            @Html.Partial("~/Views/Videos/_LazyLoadVideos.cshtml", Model.Videos)
+                            @if (Model.BikeMake != null && Model.SeriesBase != null)
+                            {
+                                <div class="margin-top10 padding-left20">
+                                    <a href="@UrlFormatter.FormatVideoPageUrl(Model.BikeMake.MakeMaskingName, Model.SeriesBase.MaskingName)" title="@string.Format("{0} {1} Videos", Model.BikeMake.MakeName, Model.SeriesBase.SeriesName)" class="btn btn-inv-blue">
+                                        View All Videos
+                                    </a>
+                                </div>}
                         </div>
                     </div>
                     <div class="clear"></div>

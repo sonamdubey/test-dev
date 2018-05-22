@@ -153,6 +153,8 @@ namespace Bikewale.Service.Controllers.CMS
         /// <summary>
         /// Created By  : Rajan Chauhan on 13 Jan 2018
         /// Description : API for images landing page
+        /// Modified By : Rajan Chauhan on 13 Mar 2018
+        /// Description : Added ComparisonTests in categoryIds
         /// </summary>
         /// <param name="pageNo"></param>
         /// <param name="pageSize"></param>
@@ -179,7 +181,8 @@ namespace Bikewale.Service.Controllers.CMS
                     new List<EnumCMSContentType>()
                     {
                         EnumCMSContentType.PhotoGalleries,
-                        EnumCMSContentType.RoadTest
+                        EnumCMSContentType.RoadTest,
+                        EnumCMSContentType.ComparisonTests
                     }
                 );
 
@@ -332,7 +335,7 @@ namespace Bikewale.Service.Controllers.CMS
             }
             catch (Exception ex)
             {
-                ErrorClass.LogError(ex, "Exception : Bikewale.Service.CMS.CMSController");
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.CMS.CMSController.GetArticlePhotos");
 
                 return InternalServerError();
             }

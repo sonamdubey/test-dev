@@ -9,9 +9,10 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Bikewale.Sitemap.MainSitemap</RootNamespace>
     <AssemblyName>Bikewale.Sitemap.MainSitemap</AssemblyName>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -32,20 +33,43 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Staging|AnyCPU'">
+    <OutputPath>bin\Staging\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=2.2.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="Consumer">
       <HintPath>..\Libs\BookingSMS\Consumer.dll</HintPath>
+    </Reference>
+    <Reference Include="ElasticClientManager">
+      <HintPath>..\Libs\ElasticSearch\ElasticClientManager.dll</HintPath>
+    </Reference>
+    <Reference Include="Elasticsearch.Net">
+      <HintPath>..\Libs\ElasticSearch\Elasticsearch.Net.dll</HintPath>
     </Reference>
     <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\MySqlDatabaseDLL\log4net.dll</HintPath>
     </Reference>
-    <Reference Include="MySql.Data, Version=6.9.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+    <Reference Include="MySql.Data, Version=6.10.6.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\MySqlDatabaseDLL\MySql.Data.dll</HintPath>
+      <HintPath>..\Libs\Mysql6.10.6.0\MySql.Data.dll</HintPath>
     </Reference>
     <Reference Include="MySqlDatabaseLibrary">
       <HintPath>..\Libs\MySqlDatabaseDLL\MySqlDatabaseLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="Nest">
+      <HintPath>..\Libs\ElasticSearch\Nest.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\Libs\Newtonsoft.Json.dll</HintPath>
@@ -62,7 +86,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ArticleEntity.cs" />
+    <Compile Include="ElasticSearchInstance.cs" />
     <Compile Include="Sitemap.cs" />
+    <Compile Include="SiteMapElasticSearch.cs" />
     <Compile Include="UrlType.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -73,6 +99,20 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Bikewale.ElasticSearch.Entities\Bikewale.ElasticSearch.Entities.csproj">
+      <Project>{51f0aa77-2bed-4b2c-aaa9-e9b8be811019}</Project>
+      <Name>Bikewale.ElasticSearch.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bikewale.Interfaces\Bikewale.Interfaces.csproj">
+      <Project>{12B0EDCD-AA9E-41BB-BDC9-CEF75952FD49}</Project>
+      <Name>Bikewale.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bikewale.Sitemap.Entities\Bikewale.Sitemap.Entities.csproj">
+      <Project>{22506474-0ef7-4d3d-b79d-a7f2ddf4b3ca}</Project>
+      <Name>Bikewale.Sitemap.Entities</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

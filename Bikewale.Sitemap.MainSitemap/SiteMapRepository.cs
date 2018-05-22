@@ -36,7 +36,7 @@ namespace Bikewale.Sitemap.MainSitemap
                 if (!String.IsNullOrEmpty(_sitemapSP))
                 {
                     UrlType[] urls = { UrlType.Make, UrlType.Model, UrlType.ModelImage, UrlType.ScooterMake,
-                                 UrlType.ModelSpec, UrlType.ModelComparison,UrlType.MakeExpertReviews,
+                                 UrlType.ModelComparison,UrlType.MakeExpertReviews,
                                  UrlType.ModelExpertReviews,UrlType.MakeNews, UrlType.ModelNews,UrlType.MakeUpcoming
                                 , UrlType.MakeNewLaunches,UrlType.MakeUserReviews,UrlType.ModelUserReviews,UrlType.MakeVideos,UrlType.ModelVideos
                                     ,UrlType.SeriesPage, UrlType.SeriesNews,UrlType.SeriesExpertReview,UrlType.SeriesVideos };

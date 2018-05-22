@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>BikewaleOpr.DALs</RootNamespace>
     <AssemblyName>BikewaleOpr.DALs</AssemblyName>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -104,7 +104,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\ElasticSearch\Elasticsearch.Net.dll</HintPath>
     </Reference>
-    <Reference Include="MySqlDatabaseLibrary">
+    <Reference Include="MySqlDatabaseLibrary, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\MySqlDatabaseDLL\MySqlDatabaseLibrary.dll</HintPath>
     </Reference>
     <Reference Include="Nest, Version=5.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
@@ -133,6 +134,7 @@
     <Compile Include="Bikedata\BikeVersionsRepository.cs" />
     <Compile Include="BikePricing\BikeShowroomPrices.cs" />
     <Compile Include="BikePricing\DealerPriceRepository.cs" />
+    <Compile Include="ElasticSearch\ESIndexRepository.cs" />
     <Compile Include="PageMetas\PageMetasRepository.cs" />
     <Compile Include="ContractCampaign\DealerCampaignRepository.cs" />
     <Compile Include="DealerPriceQuoteRepository.cs" />
@@ -150,6 +152,10 @@
     <ProjectReference Include="..\Bikewale.DAL.CoreDAL\Bikewale.DAL.CoreDAL.csproj">
       <Project>{d5229109-3b85-48e7-9ff8-5385bdb54c87}</Project>
       <Name>Bikewale.DAL.CoreDAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bikewale.ElasticSearch.Entities\Bikewale.ElasticSearch.Entities.csproj">
+      <Project>{51f0aa77-2bed-4b2c-aaa9-e9b8be811019}</Project>
+      <Name>Bikewale.ElasticSearch.Entities</Name>
     </ProjectReference>
     <ProjectReference Include="..\Bikewale.Entities\Bikewale.Entities.csproj">
       <Project>{8223a4b8-db14-4658-9897-257d872ae8d9}</Project>
@@ -186,6 +192,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Dealers\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

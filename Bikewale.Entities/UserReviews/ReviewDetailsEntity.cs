@@ -45,9 +45,5 @@ namespace Bikewale.Entities.UserReviews
         public string ModelBasePrice { get; set; }
         [DataMember]
         public string ModelHighendPrice { get; set; }
-
-        [DataMember]
-        public MinSpecsEntity ModelSpecs { get; set; }
-
     }
 }

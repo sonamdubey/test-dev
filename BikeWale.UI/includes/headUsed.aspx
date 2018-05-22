@@ -5,7 +5,8 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="keywords" content="<%= keywords %>" />
-    <meta name="description" content="<%= description %>" />    <% if( alternate != "" ) { %><link rel="alternate" type="text/html" media="handheld" href="<%= alternate %>" title="Mobile/PDA" /><% } %>
+    <meta name="description" content="<%= description %>" />
+    <% if( alternate != "" ) { %><link rel="alternate" type="text/html" media="handheld" href="<%= alternate %>" title="Mobile/PDA" /><% } %>
     <title><%= title %></title>
     <% if( canonical != "" ) { %><link rel="canonical" href="<%=canonical%>" /><% } %>
     <% if( prevPageUrl != "" ) { %><link rel="prev" href="<%= prevPageUrl %>" /><% } %>
@@ -23,14 +24,6 @@
         private string staticFileVersion = System.Configuration.ConfigurationManager.AppSettings["staticFileVersion"];
     </script>
     <!-- #include file="/includes/gacode.aspx" --> 
-    <script type="text/javascript">
-        setTimeout(function () {
-            var a = document.createElement("script");
-            var b = document.getElementsByTagName("script")[0];
-            a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0012/9477.js?" + Math.floor(new Date().getTime() / 3600000);
-            a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
-        }, 1);
-    </script>
     <script type='text/javascript'>
         var ga_pg_id = '0';
         var googletag = googletag || {};
@@ -99,7 +92,7 @@
 
     <script type="text/javascript">!function (a, b) { "use strict"; function f() { if (!d) { d = !0; for (var a = 0; a < c.length; a++) c[a].fn.call(window, c[a].ctx); c = [] } } function g() { "complete" === document.readyState && f() } a = a || "docReady", b = b || window; var c = [], d = !1, e = !1; b[a] = function (a, b) { if ("function" != typeof a) throw new TypeError("callback for docReady(fn) must be a function"); return d ? void setTimeout(function () { a(b) }, 1) : (c.push({ fn: a, ctx: b }), void ("complete" === document.readyState || !document.attachEvent && "interactive" === document.readyState ? setTimeout(f, 1) : e || (document.addEventListener ? (document.addEventListener("DOMContentLoaded", f, !1), window.addEventListener("load", f, !1)) : (document.attachEvent("onreadystatechange", g), window.attachEvent("onload", f)), e = !0))) } }("docReady", window);</script>
 
-    <% Bikewale.Utility.BWCookies.SetBWUtmz(); %>
+
 </head>
 <body class="header-fixed-inner">
     <form runat="server">    

@@ -14,15 +14,15 @@ namespace Bikewale.Service.Controllers.NewBikeSearch
     /// </summary>
     public class NewBikeSearchController : CompressionApiController//ApiController
     {
-        //private readonly ISearchQuery _searchQuery = null;
-        private readonly ISearchResult _searchResult = null;
+        private readonly IBikeSearchResult _searchResult = null;
         private readonly IProcessFilter _processFilter = null;
+        private readonly IBikeSearch _bikeSearch = null;
 
-        public NewBikeSearchController(ISearchResult searchResult, IProcessFilter processFilter)
+        public NewBikeSearchController(IBikeSearchResult searchResult, IProcessFilter processFilter, IBikeSearch bikeSearch)
         {
-            //_searchQuery = searchQuery;
             _searchResult = searchResult;
             _processFilter = processFilter;
+            _bikeSearch = bikeSearch;
         }
         /// <summary>
         /// Modified By :- Subodh Jain 29 March 2017
@@ -36,11 +36,8 @@ namespace Bikewale.Service.Controllers.NewBikeSearch
             {
                 SearchOutput searchResult;
                 FilterInput filterInputs = _processFilter.ProcessFilters(input);
-
-                SearchOutputEntity objSearchList = _searchResult.GetSearchResult(filterInputs, input);
-
-                searchResult = SearchOutputMapper.Convert(objSearchList);
-                if (objSearchList != null && objSearchList.SearchResult != null && objSearchList.SearchResult.Count > 0)
+                searchResult = _searchResult.GetSearchResult(filterInputs, input);
+                if (searchResult != null && searchResult.SearchResult != null && searchResult.SearchResult.Count > 0)
                 {
                     return Ok(searchResult);
                 }
@@ -50,10 +47,48 @@ namespace Bikewale.Service.Controllers.NewBikeSearch
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "Exception : Bikewale.Service.Controllers.NewBikeSearch.NewBikeSearchController");
-               
                 return InternalServerError();
             }
         }
 
+        [Route("api/v2/bikesearch/")]
+        public IHttpActionResult BikeList([FromBody]SearchFilterDTO input)
+        {
+            try
+            {
+                BikeSearchOutputEntity objBikeList = null;
+                if (input != null)
+                {
+                    SearchFilters Filters = SearchOutputMapper.Convert(input);
+
+                    if (Filters != null)
+                    {
+                        objBikeList = _bikeSearch.GetBikeSearch(Filters);
+                    }
+
+
+                    if (objBikeList != null)
+                    {
+                        return Ok(objBikeList);
+                    }
+                    else
+                    {
+                        return NotFound();
+                    }
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+
+            catch (Exception ex)
+            {
+
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.Controllers.NewBikeSearch.BikeList");
+
+                return InternalServerError();
+            }
+        }
     }
 }

@@ -1,4 +1,6 @@
 ﻿using Newtonsoft.Json;
+using System;
+using System.Runtime.Serialization;
 
 namespace Bikewale.Entities.PriceQuote
 {
@@ -7,15 +9,16 @@ namespace Bikewale.Entities.PriceQuote
     /// Created On  : 17th June 2016
     /// Description : Version price for secondary dealers with version prices
     /// </summary>
+    [Serializable, DataContract]
     public class VersionPriceEntity
     {
-        [JsonProperty("dealerId")]
+        [JsonProperty("dealerId"), DataMember]
         public uint DealerId { get; set; }
 
-        [JsonProperty("versionId")]
+        [JsonProperty("versionId"), DataMember]
         public uint VersionId { get; set; }
 
-        [JsonProperty("versionPrice")]
+        [JsonProperty("versionPrice"), DataMember]
         public uint VersionPrice { get; set; }
     }
 }

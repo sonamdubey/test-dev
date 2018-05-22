@@ -1,7 +1,4 @@
-﻿$_count-color: #ff5500
-$_article-section__count: #d5d5d5
-
-.review-card
+﻿.review-card
 	@include card
 	width: 100%
 	height: auto
@@ -28,14 +25,14 @@ $_article-section__count: #d5d5d5
 		left: 0
 		margin-right: 16px
 		margin-left: 16px
-		border: 1px solid $_article-section__count
+		border: 1px solid color('bright-grey')
 		opacity: .5
 		width: 91%
 
 .article-count__number
 	font-size: 20px
 	font-weight: $font-semibold
-	color: $_count-color
+	color: color('orange')
 	opacity: .8
 
 .review-card__title
@@ -83,6 +80,8 @@ $_article-section__count: #d5d5d5
 
 	.expert-review-section
 		.carousel-title__label
+			@include text-truncate(78%)
+			padding-right: 10px
 			font-size: 16px
 			text-transform: capitalize
 
@@ -97,11 +96,15 @@ $_article-section__count: #d5d5d5
 
 		.carousel-slide
 			width: 282px
-			min-height: 268px
+			height: 270px
 			padding-left: 10px
 
 			&:first-child
-				margin-left: 6px	
+				margin-left: 6px
+
+		.review-card
+			height: 270px
+			overflow: hidden
 
 	.card-category__tag
 		font-size: 12px
@@ -111,6 +114,8 @@ $_article-section__count: #d5d5d5
 		color: color('light-grey')
 		font-size: 13px
 		margin-top: 7px
+		height: 42px
+		overflow: hidden
 		line-height: 1.69
 
 	.review-card__about
@@ -141,11 +146,11 @@ $_article-section__count: #d5d5d5
 
 		.review-author_defult-img
 			@include vendor-prefix('border-radius', 50%)
+			@include review-default-icon
 			display: block
 			width: 40px
 			height: 40px
 			margin: 0 auto
-			@include review-default-icon
 
 
 @mixin review-card__image($height: 96px)
@@ -178,6 +183,8 @@ $_article-section__count: #d5d5d5
 				
 	.user-review-section
 		.carousel-title__label
+			@include text-truncate(78%)
+			padding-right: 10px
 			font-size: 16px
 			text-transform: capitalize
 			

@@ -1,6 +1,9 @@
 ﻿using Bikewale.Utility;
 using BikewaleOpr.Cache;
+using BikewaleOpr.DALs.Bikedata;
+using BikewaleOpr.Interface.BikeData;
 using BikeWaleOpr.Common;
+using Microsoft.Practices.Unity;
 using MySql.CoreDAL;
 using System;
 using System.Collections.Specialized;
@@ -35,6 +38,8 @@ namespace BikeWaleOpr.Content
             set { ViewState["SortDirection"] = value; }
         } // SortDirection
 
+        private IBikeModels _bikeModels;
+
         protected override void OnInit(EventArgs e)
         {
             InitializeComponent();
@@ -51,6 +56,13 @@ namespace BikeWaleOpr.Content
             dtgrdMembers.CancelCommand += new DataGridCommandEventHandler(dtgrdMembers_Cancel);
             dtgrdMembers.DeleteCommand += new DataGridCommandEventHandler(dtgrdMembers_Delete);
             btnShow.Click += new EventHandler(btnShow_Click);
+
+            using (IUnityContainer container = new UnityContainer())
+            {
+                container.RegisterType<IBikeModelsRepository, BikeModelsRepository>();
+                container.RegisterType<IBikeModels, BikewaleOpr.BAL.BikeModels>();
+                _bikeModels = container.Resolve<IBikeModels>();
+            }
         }
 
         void Page_Load(object Sender, EventArgs e)
@@ -83,7 +95,7 @@ namespace BikeWaleOpr.Content
                 {
                     Trace.Warn(ex.Message + ex.Source);
                     ErrorClass.LogError(ex, Request.ServerVariables["URL"]);
-                    
+
                 }
 
                 SortDirection = "";
@@ -123,6 +135,8 @@ namespace BikeWaleOpr.Content
         /// Description : Clear Memcache when new version added
         /// Modified by : Ashutosh Sharma on 23 Oct 2017
         /// Description : Replaced sp from 'con_savebikeversion14092017' to 'con_savebikeversion_23102017'.
+        /// Modified By : Deepak Israni on 8 March 2018
+        /// Description : Added method call to push to BWEsDocumentBuilder consumer.
         /// <param name="id"></param>
         /// <returns></returns>
         string SaveData(string id)
@@ -166,6 +180,8 @@ namespace BikeWaleOpr.Content
                         nvc.Add("v_Isfuturistic", Convert.ToInt16(chkFuturistic.Checked).ToString());
                         nvc.Add("v_bodystyleid", Convert.ToInt16(cmbBodyStyles.SelectedValue).ToString());
                         SyncBWData.PushToQueue("BW_AddBikeVersions", DataBaseName.CW, nvc);
+
+                        _bikeModels.UpdateModelESIndex(Request["cmbmodels"].ToString(), "update");
                     }
                 }
                 UInt32 modelId = Convert.ToUInt32(Request["cmbModels"]);
@@ -173,19 +189,19 @@ namespace BikeWaleOpr.Content
                 BwMemCache.ClearVersionDetails(modelId);
                 //Refresh memcache object for versions by type
                 BwMemCache.ClearVersionByType(modelId);
-                
+
                 BwMemCache.ClearPopularBikesByBodyStyle(Convert.ToUInt16(cmbBodyStyles.SelectedValue));
             }
             catch (SqlException err)
             {
                 //catch the sql exception. if it is equal to 2627, then say that it is for duplicate entry 
                 ErrorClass.LogError(err, Request.ServerVariables["URL"]);
-                
+
             } // catch SqlException
             catch (Exception err)
             {
                 ErrorClass.LogError(err, Request.ServerVariables["URL"]);
-                
+
             } // catch Exception
             return currentId;
         }
@@ -225,7 +241,7 @@ namespace BikeWaleOpr.Content
             {
                 Trace.Warn(err.Message + err.Source);
                 ErrorClass.LogError(err, Request.ServerVariables["URL"]);
-                
+
             }
 
         }
@@ -243,6 +259,8 @@ namespace BikeWaleOpr.Content
         /// </summary>
         /// Modified By : Vivek Singh Tomar on 31st July 2017
         /// Description : Refresh cache when any of the version is updated
+        /// Modified By : Deepak Israni on 8 March 2018
+        /// Description : Added method call to push to BWEsDocumentBuilder consumer.
         /// <param name="sender"></param>
         /// <param name="e"></param>
         void dtgrdMembers_Update(object sender, DataGridCommandEventArgs e)
@@ -331,12 +349,16 @@ namespace BikeWaleOpr.Content
                 BwMemCache.ClearVersionDetails(modelId);
                 //Refresh memcache object for versions by type
                 BwMemCache.ClearVersionByType(modelId);
+                //Push to BWEsDocumentBuilder
+                _bikeModels.UpdateModelESIndex(Convert.ToString(modelId), "update");
+                //Refresh memcache object for Default PQ Version
+                BwMemCache.ClearDefaultPQVersion(modelId);
             }
             catch (SqlException ex)
             {
                 Trace.Warn(ex.Message + ex.Source);
                 ErrorClass.LogError(ex, Request.ServerVariables["URL"]);
-                
+
             }
             dtgrdMembers.EditItemIndex = -1;
 
@@ -358,6 +380,8 @@ namespace BikeWaleOpr.Content
         /// </summary>
         /// Modified By : Vivek Singh Tomar on 31st July 2017
         /// Description : Clear Memcache when any version is deleted
+        /// Modified By : Deepak Israni on 8 March 2018
+        /// Description : Added method call to push to BWEsDocumentBuilder consumer.
         /// <param name="sender"></param>
         /// <param name="e"></param>
         void dtgrdMembers_Delete(object sender, DataGridCommandEventArgs e)
@@ -394,12 +418,17 @@ namespace BikeWaleOpr.Content
                 BwMemCache.ClearVersionDetails(modelId);
                 //Refresh memcache object for versions by type
                 BwMemCache.ClearVersionByType(modelId);
+                //Push to BWEsDocumentBuilder
+                _bikeModels.UpdateModelESIndex(Convert.ToString(modelId), "update");
+                //Refresh memcache object for Default PQ Version
+                BwMemCache.ClearDefaultPQVersion(modelId);
+
             }
             catch (SqlException ex)
             {
                 Trace.Warn(ex.Message + ex.Source);
                 ErrorClass.LogError(ex, Request.ServerVariables["URL"]);
-                
+
             }
             BindGrid();
         }

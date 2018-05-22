@@ -15,7 +15,9 @@ using System.Web;
 namespace Bikewale.DAL.AutoBiz
 {
     /// <summary>
-    /// Written By : Ashwini Todkar on 29 Oct 2014
+    /// Written By  : Ashwini Todkar on 29 Oct 2014
+    /// Modified by : Pratibha Verma on 27 April 2018
+    /// Description : changed sp 'bw_getdealerdetails_08012016' to 'bw_getdealerdetails_27042018'
     /// </summary>
     public class DealersRepository : IDealers
     {
@@ -32,7 +34,7 @@ namespace Bikewale.DAL.AutoBiz
             IList<PQ_VersionPrice> priceSplits = null;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("bw_getdealerdetails_08012016"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("bw_getdealerdetails_27042018"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerId", DbType.Int64, Convert.ToInt64(objParams.DealerId)));
@@ -167,11 +169,11 @@ namespace Bikewale.DAL.AutoBiz
 
                             objDetailPQ.objDealer.DealerId = objParams.DealerId;
                             objDetailPQ.objDealer.Name = (dr["FirstName"] != null) ? dr["FirstName"].ToString() : "";
-                            objDetailPQ.objDealer.Address = dr["Address"].ToString();
-                            objDetailPQ.objDealer.EmailId = dr["EmailId"].ToString();
+                            objDetailPQ.objDealer.Address = (dr["Address"] != null) ? dr["Address"].ToString() : "";
+                            objDetailPQ.objDealer.EmailId = (dr["EmailId"] != null) ? dr["EmailId"].ToString() : "";
 
                             objDetailPQ.objDealer.MobileNo = (dr["MobileNo"] != null) ? dr["MobileNo"].ToString() : "";
-                            objDetailPQ.objDealer.PhoneNo = dr["PhoneNo"].ToString();
+                            objDetailPQ.objDealer.PhoneNo = (dr["PhoneNo"] != null) ? dr["PhoneNo"].ToString() : "";
 
                             objDetailPQ.objDealer.objArea = new Bikewale.Entities.BikeBooking.AreaEntityBase() { Latitude = Convert.ToDouble(dr["Lattitude"]), Longitude = Convert.ToDouble(dr["Longitude"]), AreaName = dr["AreaName"].ToString(), PinCode = dr["Pincode"].ToString() };
 
@@ -181,6 +183,8 @@ namespace Bikewale.DAL.AutoBiz
                             objDetailPQ.objDealer.Website = (dr["WebsiteUrl"] != null) ? dr["WebsiteUrl"].ToString() : "";
                             objDetailPQ.objDealer.Organization = (dr["Organization"] != null) ? dr["Organization"].ToString() : "";
                             objDetailPQ.objDealer.WorkingTime = (dr["ContactHours"] != null) ? dr["ContactHours"].ToString() : "";
+                            objDetailPQ.objDealer.AdditionalNumbers = (dr["AdditionalNumbers"] != null) ? dr["AdditionalNumbers"].ToString() : "";
+                            objDetailPQ.objDealer.AdditionalEmails = (dr["AdditionalEmails"] != null) ? dr["AdditionalEmails"].ToString() : "";
                         }
 
                         //Get facilities list provided by dealer

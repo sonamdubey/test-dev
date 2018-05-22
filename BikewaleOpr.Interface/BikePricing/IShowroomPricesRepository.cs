@@ -1,4 +1,5 @@
-﻿using BikewaleOpr.Entities.BikePricing;
+﻿using Bikewale.ElasticSearch.Entities;
+using BikewaleOpr.Entities.BikePricing;
 using BikewaleOpr.Entity.BikePricing;
 using System.Collections.Generic;
 

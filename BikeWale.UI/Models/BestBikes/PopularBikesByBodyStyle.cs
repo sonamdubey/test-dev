@@ -3,6 +3,11 @@ using System.Linq;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Notifications;
 using Bikewale.Utility;
+using Bikewale.BAL.ApiGateway.Adapters.BikeData;
+using Bikewale.BAL.ApiGateway.Entities.BikeData;
+using System.Collections.Generic;
+using Bikewale.BAL.ApiGateway.ApiGatewayHelper;
+using Bikewale.Entities.BikeData;
 
 namespace Bikewale.Models.BestBikes
 {
@@ -13,7 +18,8 @@ namespace Bikewale.Models.BestBikes
     public class PopularBikesByBodyStyle
     {
         #region Private variables
-        private readonly IBikeModelsCacheRepository<int> _models = null;
+        private readonly IBikeModels<BikeModelEntity, int> _models = null;
+        private readonly IApiGatewayCaller _apiGatewayCaller;
         private int TotalWidgetItems = 9;
         #endregion
         
@@ -24,9 +30,10 @@ namespace Bikewale.Models.BestBikes
         #endregion
 
         #region Constructor
-        public PopularBikesByBodyStyle(IBikeModelsCacheRepository<int> models)
+        public PopularBikesByBodyStyle(IBikeModels<BikeModelEntity, int> models)
         {
             _models = models;
+            _apiGatewayCaller = new ApiGatewayCaller();
         }
         #endregion
 
@@ -40,7 +47,7 @@ namespace Bikewale.Models.BestBikes
             PopularBodyStyleVM objPopular = new PopularBodyStyleVM();
             try
             {
-                objPopular.PopularBikes = _models.GetMostPopularBikesByModelBodyStyle((int)ModelId, TotalWidgetItems, CityId);
+                objPopular.PopularBikes = _models.GetMostPopularBikesByModelBodyStyle((int)ModelId, TotalWidgetItems, CityId, true);
                 if (objPopular.PopularBikes != null && objPopular.PopularBikes.Any())
                 {
                     objPopular.PopularBikes = objPopular.PopularBikes.Take(TopCount);

@@ -20,6 +20,7 @@ using BikewaleOpr.Interface.BikeData;
 using BikeWaleOpr.Common;
 using Microsoft.Practices.Unity;
 using MySql.CoreDAL;
+using System.Text;
 
 namespace BikeWaleOpr.Content
 {
@@ -29,11 +30,12 @@ namespace BikeWaleOpr.Content
         protected DataGrid dtgrdLaunches;
         protected int serialNo = 0;
         protected Button btnSave;
-        string selModelId = "";
+
 
         private readonly IBikeMakes _makes = null;
         private readonly string _indexName;
         private readonly IBikeESRepository _bikeESRepository;
+        private readonly IBikeModels _bikeModels;
 
         public ExpectedLaunches()
         {
@@ -41,10 +43,14 @@ namespace BikeWaleOpr.Content
             {
                 container.RegisterType<IBikeMakesRepository, BikeMakesRepository>()
                     .RegisterType<IBikeMakes, BikewaleOpr.BAL.BikeMakes>()
-                    .RegisterType<IBikeESRepository, BikeESRepository>();
+                    .RegisterType<IBikeESRepository, BikeESRepository>()
+                    .RegisterType<IBikeModelsRepository, BikeModelsRepository>()
+                    .RegisterType<IBikeModels, BikewaleOpr.BAL.BikeModels>();
+
                 _makes = container.Resolve<IBikeMakes>();
                 _indexName = ConfigurationManager.AppSettings["MMIndexName"];
                 _bikeESRepository = container.Resolve<IBikeESRepository>();
+                _bikeModels = container.Resolve<IBikeModels>();
             }
         }
 
@@ -94,15 +100,20 @@ namespace BikeWaleOpr.Content
         /// Description : Changed cache key from 'BW_ModelDetail_' to 'BW_ModelDetail_V1_'.
         /// Modified by : Ashutosh Sharma on 28 Nov 2017
         /// Description : Added call to ClearSeriesCache.
+        /// Modified by : Rajan Chauhan on 06 Feb 2018.
+        /// Description : Changed version of key from 'BW_ModelDetail_V1_' to 'BW_ModelDetail_'.
+        /// Modified By : Deepak Israni on 8 March 2018
+        /// Description : Added method call to push to BWEsDocumentBuilder consumer.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         void btnSave_Click(object sender, EventArgs e)
         {
+            StringBuilder selModelId = new StringBuilder();
             try
             {
-                string selId = string.Empty;
-                string makeIdList = string.Empty;
+                StringBuilder selId = new StringBuilder();
+                StringBuilder updatedModels = new StringBuilder();                
                 List<string> idList = new List<string>();
                 for (int i = 0; i < dtgrdLaunches.Items.Count; i++)
                 {
@@ -115,24 +126,25 @@ namespace BikeWaleOpr.Content
                         Label lblSeriesId = (Label)dtgrdLaunches.Items[i].FindControl("lblSeriesId");
 
                         if (lblId != null)
-                            selId += lblId.Text + ",";
-                        if (lblMakeId != null)
-                            selModelId += lblMakeId.Text + ",";
+                            selId.Append(lblId.Text).Append(",");
 
                         UInt32 makeId, modelId;
                         UInt32.TryParse(lblModelId.Text, out modelId);
                         UInt32.TryParse(lblMakeId.Text, out makeId);
+                        
+                        updatedModels.Append(modelId).Append(",");
+
                         //Refresh memcache object for newbikelaunches
                         if (modelId > 0)
                         {
-                            selModelId += modelId + ",";
+                            selModelId.Append(modelId).Append(",");
                             MemCachedUtility.Remove(String.Format("BW_ModelDetails_{0}", modelId));
                             MemCachedUtility.Remove(String.Format("BW_ModelDetail_V1_{0}", modelId));
-                            MemCachedUtility.Remove(String.Format("BW_GenericBikeInfo_MO_{0}_V1", modelId));
+                            MemCachedUtility.Remove(String.Format("BW_GenericBikeInfo_MO_{0}", modelId));
                         }
                         if (makeId > 0)
                         {
-                            MemCachedUtility.Remove(String.Format("BW_PopularBikesByMake_{0}", lblMakeId.Text));
+                            MemCachedUtility.Remove(String.Format("BW_PopularBikesByMake_V1_{0}", makeId));
                             //CLear popularBikes key
 
                             BwMemCache.ClearPopularBikesCacheKey(null, makeId);
@@ -157,32 +169,32 @@ namespace BikeWaleOpr.Content
 
                             idList.Add(string.Format("{0}_{1}", makeId, modelId));
                         }
-						if (lblMakeId != null && lblSeriesId != null && !string.IsNullOrEmpty(lblSeriesId.Text) && !string.IsNullOrEmpty(lblMakeId.Text))
+                        if (makeId > 0 && lblSeriesId != null && !string.IsNullOrEmpty(lblSeriesId.Text))
                         {
-                            BwMemCache.ClearSeriesCache(Convert.ToUInt32(lblSeriesId.Text), Convert.ToUInt32(lblMakeId.Text));
+                            BwMemCache.ClearSeriesCache(Convert.ToUInt32(lblSeriesId.Text), makeId);
                         }
                     }
                 }
                 if (selId.Length > 0 && selModelId.Length > 0)
                 {
-                    selId = selId.Substring(0, selId.Length - 1);
-                    selModelId = selModelId.Substring(0, selModelId.Length - 1);
-                    UpdateBikeIsLaunched(selId, selModelId);
+                    UpdateBikeIsLaunched(selId.ToString().TrimEnd(','), selModelId.ToString().TrimEnd(','));
                     BindGrid(false);
                 }
                 //Refresh memcache object for newbikelaunches
-                MemCachedUtility.Remove("BW_NewLaunchedBikes_SI_1_EI_10");
+                MemCachedUtility.Remove("BW_NewLaunchedBikes_V1_SI_1_EI_10");
                 MemCachedUtility.Remove("BW_NewBikeLaunches");
-                MemCachedUtility.Remove("BW_NewLaunchedBikes");
+                MemCachedUtility.Remove("BW_NewLaunchedBikes_V1");
 
                 if (idList != null && idList.Any())
                 {
                     UpdateBikeESIndex(idList);
                 }
+
+                _bikeModels.UpdateModelESIndex(updatedModels.ToString(), "update");
             }
             catch (Exception err)
             {
-                ErrorClass.LogError(err, string.Format("Error at ExpectedLaunches.btnSave_Click() ==> {0}", selModelId));
+                ErrorClass.LogError(err, string.Format("Error at ExpectedLaunches.btnSave_Click() ==> {0}", selModelId.ToString()));
             }
 
         }   // End btn_Save_click function

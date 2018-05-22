@@ -1,4 +1,5 @@
-﻿using Bikewale.Common;
+﻿using Bikewale.BAL.ApiGateway.ApiGatewayHelper;
+using Bikewale.Common;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Compare;
 using Bikewale.Entities.Location;
@@ -46,6 +47,7 @@ namespace Bikewale.Models
         private readonly IUpcoming _upcoming = null;
         private readonly IAdSlot _adSlot = null;
         private readonly IBikeMakesCacheRepository _bikeMakes = null;
+        private readonly IApiGatewayCaller _apiGatewayCaller;
         #endregion
 
         #region Page level variables
@@ -62,7 +64,7 @@ namespace Bikewale.Models
         /// Modified by : Ashutosh Sharma on 31 Oct 2017
         /// Description : Added IAdSlot.
         /// </summary>
-        public HomePageModel(ushort topCount, ushort launchedRcordCount, ushort upcomingRecordCount, IBikeMakesCacheRepository bikeMakes, INewBikeLaunchesBL newLaunches, IBikeModels<BikeModelEntity, int> bikeModels, ICityCacheRepository usedBikeCache, IHomePageBannerCacheRepository cachedBanner, IBikeModelsCacheRepository<int> cachedModels, IBikeCompare objCompare, IUsedBikeDetailsCacheRepository cachedBikeDetails, IVideos videos, ICMSCacheContent articles, IUpcoming upcoming, IUserReviewsCache userReviewsCache, IAdSlot adSlot)
+        public HomePageModel(ushort topCount, ushort launchedRcordCount, ushort upcomingRecordCount, IBikeMakesCacheRepository bikeMakes, INewBikeLaunchesBL newLaunches, IBikeModels<BikeModelEntity, int> bikeModels, ICityCacheRepository usedBikeCache, IHomePageBannerCacheRepository cachedBanner, IBikeModelsCacheRepository<int> cachedModels, IBikeCompare objCompare, IUsedBikeDetailsCacheRepository cachedBikeDetails, IVideos videos, ICMSCacheContent articles, IUpcoming upcoming, IUserReviewsCache userReviewsCache, IAdSlot adSlot, IApiGatewayCaller apiGatewayCaller)
         {
             TopCount = topCount;
             LaunchedRecordCount = launchedRcordCount;
@@ -80,6 +82,7 @@ namespace Bikewale.Models
             _userReviewsCache = userReviewsCache;
             _upcoming = upcoming;
             _adSlot = adSlot;
+            _apiGatewayCaller = apiGatewayCaller;
         }
 
 
@@ -98,7 +101,8 @@ namespace Bikewale.Models
         /// Description : Added call to BindAdSlotTags.
         /// Modified By: Snehal Dange on 24th Nov 2017
         /// Description: Changed popularBikes.TopCount from 9 to 8
-        /// 
+        /// Modified by : Sanskar Gupta on 18 May 2018
+        /// Description : Set Targeting for city.
         /// </returns>
         public HomePageVM GetData()
         {
@@ -124,6 +128,7 @@ namespace Bikewale.Models
                     CityMaskingName = cityMaskingName,
                     CityName = cityName
                 };
+                objVM.AdTags.TargetedCity = cityName;
             }
             else
             {
@@ -165,7 +170,7 @@ namespace Bikewale.Models
 
             BindCompareBikes(objVM, CompareSource, cityId);
 
-            BestBikeByBodyStyle objBestBike = new BestBikeByBodyStyle(_cachedModels);
+            BestBikeByBodyStyle objBestBike = new BestBikeByBodyStyle(_cachedModels, _apiGatewayCaller);
             objBestBike.topCount = 8;
             objVM.BestBikes = objBestBike.GetData();
 

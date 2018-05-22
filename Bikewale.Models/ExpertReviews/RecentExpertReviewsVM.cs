@@ -20,5 +20,7 @@ namespace Bikewale.Models
         public string BikeName { get; set; }
         public int FetchedCount { get; set; }
         public bool IsViewAllLink { get; set; }
+        public uint ModelCount { get; set; }
+        public uint ExpertReviewCount { get; set; }
     }
 }

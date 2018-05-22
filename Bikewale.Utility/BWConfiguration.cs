@@ -24,6 +24,12 @@ namespace Bikewale.Utility
     /// Description : Removed SynopsisSummaryMergedMakeIds
     /// Modified by : Snehal Dange on 22nd dec 2017
     /// Desc:         Added ContestPriceMoney
+    /// Modified by : Pratibha Verma on 24 Feb 2018
+    /// Description : Removed logNewsUrl for News(PWA) page API
+    /// Modified by : Ashutosh Sharma on 20 Mar 2018
+    /// Description : Added SpecsFeaturesServiceModuleName for specs & features service module name.
+    /// Modifier    : Kartik Rathod on 30 march
+    /// Desc        : Added GoogleAPIHostUrl and CWOPRHostURL
     /// </summary>
     public sealed class BWConfiguration
     {
@@ -117,7 +123,9 @@ namespace Bikewale.Utility
             _PopularityOrderForMake = string.Empty,
             _AmpProjectUrl = string.Empty,
             _MetasMakeId = string.Empty,
-            _ContestPriceMoney = string.Empty;
+            _ContestPriceMoney = string.Empty,
+            _bikeModelIndex = String.Empty,
+            _bikeModelPriceIndex = String.Empty;
 
         private readonly bool _IsAppTrackDayVisible = false, _UseAPIGateway = false;
         private readonly int _SecurityHashLength = 0;
@@ -133,18 +141,18 @@ namespace Bikewale.Utility
         private readonly string _StaticCSSBTFPWAVersion;
         private readonly bool _EnablePWA;
         private readonly string _AMPDomainForSW;
-        private readonly bool _logNewsUrl;
         private readonly string _capitalFirstConsumerQueue;
         private readonly bool _IsIPSecurityEnabled;
         private readonly uint _CapitalFirstDealerId;
         private readonly ushort _MakePageOnRoadPriceBtnPct;
         private readonly string _CarTradeLeadUrl, _CarTradeLeadApiAction, _CarTradeLeadApiCode;
-        private readonly string _EditCMSModuleName;
+        private readonly string _EditCMSModuleName, _SpecsFeaturesServiceModuleName = String.Empty;
         private readonly int _minEnginePoolSize, _maxEnginePoolSize;
         private readonly bool _useV8Engine;
         private readonly int _pwaRenderedHtmlCacheLimitMins;
         private readonly bool _EnablePwdResetLogging;
         private readonly int _MemcachedDefaultObjDuration;
+        private readonly string _MakePageViewShowPercentage;
 
         // Private constructor, so no outsiders have access.
         private BWConfiguration()
@@ -242,7 +250,6 @@ namespace Bikewale.Utility
             _UserReviewIndexName = ConfigurationManager.AppSettings["UserReviewIndexName"];
             _CapitalFirstPincodeIndex = ConfigurationManager.AppSettings["CapitalFirstPincodeIndex"];
             _AMPDomainForSW = ConfigurationManager.AppSettings["AMPDomainForSW"];
-            _logNewsUrl = string.IsNullOrEmpty(ConfigurationManager.AppSettings["LogNewsUrl"]) ? false : Convert.ToBoolean(ConfigurationManager.AppSettings["LogNewsUrl"]);
             _capitalFirstConsumerQueue = Convert.ToString(ConfigurationManager.AppSettings["CapitalFirstConsumerQueue"]);
             _IsIPSecurityEnabled = string.IsNullOrEmpty(ConfigurationManager.AppSettings["IsIPSecurityEnabled"]) ? false : Convert.ToBoolean(ConfigurationManager.AppSettings["IsIPSecurityEnabled"]);
             _OtherBikesInMakeId = ConfigurationManager.AppSettings["OtherBikesInMakeId"];
@@ -266,6 +273,10 @@ namespace Bikewale.Utility
             _MemcachedDefaultObjDuration = String.IsNullOrEmpty(ConfigurationManager.AppSettings["MemcachedDefaultObjDuration"]) ? 1 : Convert.ToInt32(ConfigurationManager.AppSettings["MemcachedDefaultObjDuration"]);
             _MakePageOnRoadPriceBtnPct = string.IsNullOrEmpty(ConfigurationManager.AppSettings["MakePageOnRoadPriceBtnPct"]) ? (ushort)0 : Convert.ToUInt16(ConfigurationManager.AppSettings["MakePageOnRoadPriceBtnPct"]);
             _ContestPriceMoney = Convert.ToString(ConfigurationManager.AppSettings["ContestPriceMoney"]);
+            _MakePageViewShowPercentage = string.IsNullOrEmpty(ConfigurationManager.AppSettings["MakePageViewShowPercentage"]) ? string.Empty : (ConfigurationManager.AppSettings["MakePageViewShowPercentage"]);
+            _bikeModelIndex = Convert.ToString(ConfigurationManager.AppSettings["BikeIndex"]);
+            _bikeModelPriceIndex = Convert.ToString(ConfigurationManager.AppSettings["BikePriceIndex"]);
+            _SpecsFeaturesServiceModuleName = Convert.ToString(ConfigurationManager.AppSettings["SpecsFeaturesServiceModuleName"]);
         }
 
         // Static method to provide access to instance
@@ -415,8 +426,6 @@ namespace Bikewale.Utility
 
         public string UserReviewIndexName { get { return _UserReviewIndexName; } }
 
-        public bool LogNewsUrl { get { return _logNewsUrl; } }
-
         public string OtherBikesInMakeId { get { return _OtherBikesInMakeId; } }
         public string CapitalFirstConsumerQueue { get { return _capitalFirstConsumerQueue; } }
         public bool IsIPSecurityEnabled { get { return _IsIPSecurityEnabled; } }
@@ -442,5 +451,9 @@ namespace Bikewale.Utility
         public int MemcachedDefaultObjDuration { get { return _MemcachedDefaultObjDuration; } }
         public ushort MakePageOnRoadPriceBtnPct { get { return _MakePageOnRoadPriceBtnPct; } }
         public string ContestPriceMoney { get { return _ContestPriceMoney; } }
+        public string MakePageViewShowPercentage { get { return _MakePageViewShowPercentage; } }
+        public string BikeModelIndex { get { return _bikeModelIndex; } }
+        public string BikeModelPriceIndex { get { return _bikeModelPriceIndex; } }
+        public string SpecsFeaturesServiceModuleName { get { return _SpecsFeaturesServiceModuleName; } }
     }   // class
 }   // namespace

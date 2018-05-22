@@ -1,16 +1,16 @@
-﻿@model IEnumerable<Bikewale.Entities.CMS.Photos.ModelImages>
+﻿@model Bikewale.Models.Images.ImageWidgetVM
 @using Bikewale.Utility;
 
-@if (Model != null && Model.Count() > 0)
+@if (Model != null && Model.ModelList.Count()>0)
 {
     <div class="jcarousel-wrapper carousel--full-width carousel__recently-added">
         <div class="jcarousel">
             <ul>
-                @foreach (var bike in Model)
+                @foreach (var bike in Model.ModelList)
                 {
                     <li class="carousel-slide">
 
-                        <a href="@string.Format("{0}/{1}-bikes/{2}/images/", BWConfiguration.Instance.BwHostUrl, bike.MakeBase.MaskingName, bike.ModelBase.MaskingName)" title="@string.Format("{0} Images", bike.BikeName)" class="model-image__card">
+                        <a href="@string.Format("/{0}-bikes/{1}/images/",bike.MakeBase.MaskingName, bike.ModelBase.MaskingName)" title="@string.Format("{0} Images", bike.BikeName)" class="model-image__card">
                             @if (bike.RecordCount >= 7)
                             {
                                 <ul class="image-grid__list" data-grid="7">

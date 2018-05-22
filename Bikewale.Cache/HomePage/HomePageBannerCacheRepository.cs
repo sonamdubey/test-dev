@@ -26,15 +26,18 @@ namespace Bikewale.Cache.HomePage
         /// Description :   Gets Home Page Banner from Cache
         /// Modified By:-Subodh Jain 26 july 2017
         /// Summary :- changed cache key and modified according to platform id
+        /// Modified By : Rajan Chauhan on 26 Apr 2018
+        /// Description : Changed cache key version from BW_HomePageBanner_PlatformId_ 
+        ///               to BW_HomePageBanner_V1_PlatformId_
         /// </summary>
         /// <returns></returns>
         public HomePageBannerEntity GetHomePageBanner(uint platformId)
         {
-            string key = string.Format("BW_HomePageBanner_PlatformId_{0}", platformId);
+            string key = string.Format("BW_HomePageBanner_V1_PlatformId_{0}", platformId);
             HomePageBannerEntity homePageBanner = null;
             try
             {
-                homePageBanner = _cache.GetFromCache<HomePageBannerEntity>(key, new TimeSpan(0, 30, 0), () => _homePageRepository.GetHomePageBanner(platformId));
+                homePageBanner = _cache.GetFromCache<HomePageBannerEntity>(key, () => _homePageRepository.GetHomePageBannerWithCacheTime(platformId));
 
             }
             catch (Exception ex)

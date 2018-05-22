@@ -3,8 +3,11 @@ using Bikewale.Entities.CMS;
 using Bikewale.Entities.CMS.Articles;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Pager;
+using Bikewale.Entities.PWA.Articles;
 using Bikewale.Models.BikeModels;
+using Bikewale.Models.Shared;
 using System.Collections.Generic;
+using System.Web;
 
 namespace Bikewale.Models
 {
@@ -18,45 +21,16 @@ namespace Bikewale.Models
     /// Modified by sajal Gupta on 01-12-2017
     /// Summary : Added PopularBikesAndPopularScootersWidget and UpcomingBikesAndUpcomingScootersWidget and MostPopularMakeBikes
     /// Modified by: Snehal Dange on 21th dec 2017
-    /// Summary : added MoreAboutScootersWidgetVM
+    /// Summary : Added MoreAboutScootersWidgetVM
     /// Modified by : Rajan Chauhanon 27 Dec 2017
     /// Description : Changed PopularSeriesAndMakeBikeSeriesWidget to PopularSeriesAndBodyStyleWidget
     ///               Changed name of PopularUpcomingBodyStyleWidgetWidget to PopularUpcomingBodyStyleWidget
+    /// Modified by : Ashutosh Sharma on 24 Feb 2018
+    /// Description : All common properties moved to CmsArticlesListIndexPageVM.
     /// </summary>
-    public class ExpertReviewsIndexPageVM : ModelBase
+    public class ExpertReviewsIndexPageVM : CmsArticlesListIndexPageVM
     {
-        public CMSContent Articles { get; set; }
-        public BikeMakeEntityBase Make { get; set; }
-        public BikeModelEntityBase Model { get; set; }
-        public BikeSeriesEntityBase Series { get; set; }
-        public int StartIndex { get; set; }
-        public int EndIndex { get; set; }
-        public PagerEntity PagerEntity { get; set; }
-        public string PageH1 { get; set; }
-        public string PageH2 { get; set; }
-        public PopularBodyStyleVM PopularBodyStyle { get; set; }
-        public MostPopularBikeWidgetVM MostPopularBikes { get; set; }
-        public UpcomingBikesWidgetVM UpcomingBikes { get; set; }
-        public UpcomingBikesWidgetVM UpcomingBikesByBodyStyleWidget { get; set; }
-        public IEnumerable<BikeMakeEntityBase> PopularScooterMakesWidget { get; set; }
-        public EnumBikeBodyStyles BodyStyle { get; set; }
-        public EditorialPageType EditorialPageType { get; set; }
-        public MostPopularBikeWidgetVM MostPopularMakeBikes { get; set; }
-        public MultiTabsWidgetVM PopularBikesAndPopularScootersWidget { get; set; }
-        public MultiTabsWidgetVM UpcomingBikesAndUpcomingScootersWidget { get; set; }
-        public MultiTabsWidgetVM PopularBikesAndUpcomingBikesWidget { get; set; }
-        public MultiTabsWidgetVM PopularMakeBikesAndBodyStyleBikesWidget { get; set; }
-        public MultiTabsWidgetVM PopularMakeScootersAndOtherBrandsWidget { get; set; }
-        public MultiTabsWidgetVM PopularScootersAndUpcomingScootersWidget { get; set; }
-        public MoreAboutScootersWidgetVM ObjMoreAboutScooter { get; set; }
-
-        public MultiTabsWidgetVM PopularSeriesAndBodyStyleWidget { get; set; }
-        public MultiTabsWidgetVM PopularUpcomingBodyStyleWidget { get; set; }
-
-        public EditorialSeriesWidgetVM SeriesWidget { get; set; }
-        public EditorialSeriesMobileWidgetVM SeriesMobileWidget { get; set; }
-        public MultiTabsWidgetVM SeriesBikesAndModelBodyStyleBikes { get; set; }
-        public MultiTabsWidgetVM SeriesBikesAndOtherBrands { get; set; }
+        public IDictionary<EditorialPageWidgetPosition, EditorialWidgetVM> PageWidgets { get; set; }
     }
 
 }

@@ -36,7 +36,7 @@
                         }
                         else
                         {
-                            <span class="vertical-top dealership-details text-light-grey">@string.Format("{0}, {1}, {2}", Model.DealerDetails.DealerDetails.Address, Model.DealerDetails.DealerDetails.Pincode, Model.CityDetails.CityName)</span>
+                            <span class="vertical-top dealership-details text-light-grey">@string.Format("{0}, {1} - {2}", Model.DealerDetails.DealerDetails.Address, Model.CityDetails.CityName, Model.DealerDetails.DealerDetails.Pincode)</span>
                         }
 
                     </p>
@@ -145,7 +145,7 @@
                             <div class="details-block">
                                 <h3 class="font16 margin-bottom10 text-black text-truncate">@bikeName</h3>
                                 <div class="font14 text-x-light margin-bottom5">
-                                    @Html.Raw(Bikewale.Utility.FormatMinSpecs.GetMinSpecs(Convert.ToString(bike.Specs.Displacement), Convert.ToString(bike.Specs.FuelEfficiencyOverall), Convert.ToString(bike.Specs.MaxPower), Convert.ToString(bike.Specs.KerbWeight)))
+                                    @Html.Raw(Bikewale.Utility.FormatMinSpecs.GetMinSpecsSpanElements(bike.MinSpecsList))
                                 </div>
                                 <div class="text-default">
                                     <span class="font14 text-light-grey"> On-road Price,@Model.CityDetails.CityName</span>
@@ -235,3 +235,10 @@
 </section>
 
 <script defer src="https://maps.googleapis.com/maps/api/js?key=@Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey&libraries=places"></script>
+<script>
+    docReady(function () {
+        if (FbPixelEvent) {
+            fbq('track', FbPixelEvent.viewContent);
+        }
+    });
+</script>

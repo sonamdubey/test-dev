@@ -342,39 +342,7 @@ namespace Bikewale.Ajax
             ErrorClass.LogError(new Exception("Method not used/commented"), "AjaxUserReviews.UpdateReviewRateCount");
             
 
-            //SqlConnection con;
-            //SqlCommand cmd;
-            //SqlParameter prm;
-            //Database db = new Database();
-            //CommonOpn op = new CommonOpn();
-
-            //string conStr = db.GetConString();
-            //con = new SqlConnection(conStr);
-            //try
-            //{
-            //    cmd = new SqlCommand("ReviewRateCountUpdate", con);
-            //    cmd.CommandType = CommandType.StoredProcedure;
-            //    prm = cmd.Parameters.Add("@ID", SqlDbType.BigInt);
-            //    prm.Value = reviewId;
-
-            //    con.Open();
-            //    //run the command
-            //    cmd.ExecuteNonQuery();
-            //}
-            //catch (Exception err)
-            //{
-            //    HttpContext.Current.Trace.Warn("Ajaxfunctions : UpdateReviewRateCount : " + err.Message);
-            //    ErrorClass.LogError(err, "Ajaxfunctions.UpdateReviewRateCount");
-            //    
-            //} // catch Exception
-            //finally
-            //{
-            //    //close the connection	
-            //    if (con.State == ConnectionState.Open)
-            //    {
-            //        con.Close();
-            //    }
-            //}
+        
         }
 
         //this function updates the liked and the disliked Budget of the customer reviews table

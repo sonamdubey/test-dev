@@ -170,6 +170,7 @@
         var brandSearchBar, dealerSearchBrand, dealerSearchBrandForm, windowScreen;
         var dropdown;
         var isBindingApplied = false;
+        var fbPixelLeadEvent = "";
 
 
         function leadModel() {
@@ -610,20 +611,18 @@
                         isValidDetails = self.validateUserInfo(fullName, emailid, mobile);
                         if (self.dealerId() && isValidDetails) {
                             self.verifyCustomer();
+                            $("#contactDetailsPopup").hide();
+                            $("#personalInfo").hide();
+                            $("#notify-response").fadeIn();
                             if (self.IsVerified()) {
-
-                                $("#contactDetailsPopup").hide();
-                                $("#personalInfo").hide();
-                                $("#notify-response").fadeIn();
                                 triggerGA(self.eventCategory(), eventAction, gaLabel);
-                            }
-                            else {
-                                $("#leadCapturePopup").show();
-                                $('body').addClass('lock-browser-scroll');
-                                $(".blackOut-window").show();
                             }
                             setPQUserCookie();
                             self.triggerABTestGA(gaLabel);
+                            if(fbPixelLeadEvent)
+                            {
+                                fbq('track', fbPixelLeadEvent);
+                            }
                         }
                     }
 
@@ -856,6 +855,10 @@
                             $('#notify-response').show();
                             if (self.cityRequired() && self.selectedCity()) {
                                 SetCookieInDays("location", self.selectedCity().cityId + "_" + self.selectedCity().cityName, 365);
+                            }
+                            if(fbPixelLeadEvent)
+                            {
+                                fbq('track', fbPixelLeadEvent);
                             }
                         },
                         error: function (xhr, ajaxOptions, thrownError) {
@@ -1147,7 +1150,10 @@
 
             leadBtnBookNow = $(".leadcapturebtn"), leadCapturePopup = $("#leadCapturePopup"), leadBike = $("#getLeadBike");
             fullName = $("#getFullName"), emailid = $("#getEmailID"), mobile = $("#getMobile"), detailsSubmitBtn = $("#user-details-submit-btn");
-
+            if(FbPixelEvent)
+            {
+                fbPixelLeadEvent = FbPixelEvent.lead;
+            }
             leadBtnBookNow.on('click', function () {
                 $('#selectedbike').html('Select a bike<sup>*</sup>');
                 dleadvm.selectedBike(null);

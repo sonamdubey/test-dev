@@ -3,6 +3,8 @@ using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Notifications;
+using Bikewale.Utility;
+using log4net;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,11 +16,16 @@ namespace Bikewale.Cache.PriceQuote
     {
         private readonly ICacheManager _cache = null;
         private readonly IPriceQuote _obPriceQuote = null;
+        private readonly Bikewale.Interfaces.BikeBooking.IDealerPriceQuote _dealerPQRepository = null;
+        private readonly Bikewale.Interfaces.AutoBiz.IDealerPriceQuote _objDealerPriceQuote = null;
 
-        public PriceQuoteCache(ICacheManager cache, IPriceQuote obPriceQuote)
+        private static readonly ILog _logger = LogManager.GetLogger(typeof(PriceQuoteCache));
+        public PriceQuoteCache(ICacheManager cache, IPriceQuote obPriceQuote, Bikewale.Interfaces.BikeBooking.IDealerPriceQuote dealerPQRepository, Bikewale.Interfaces.AutoBiz.IDealerPriceQuote objDealerPriceQuote)
         {
             _cache = cache;
             _obPriceQuote = obPriceQuote;
+            _dealerPQRepository = dealerPQRepository;
+            _objDealerPriceQuote = objDealerPriceQuote;
         }
 
         /// <summary>
@@ -39,7 +46,7 @@ namespace Bikewale.Cache.PriceQuote
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "PriceQuoteCache.FetchPriceQuoteOfTopCitiesCache");
-                
+
             }
             return prices;
         }
@@ -111,6 +118,91 @@ namespace Bikewale.Cache.PriceQuote
                 ErrorClass.LogError(ex, "PriceQuoteCache.GetManufacturerDealers");
             }
             return dealers;
+        }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 16 Mar 2018
+        /// Description :   Get GetDefaultPriceQuoteVersion by calling DAL
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <param name="cityId"></param>
+        /// <returns></returns>
+        public uint GetDefaultPriceQuoteVersion(uint modelId, uint cityId)
+        {
+            uint versionId = 0;
+            string key = String.Format("BW_DefaultPQVersion_{0}_{1}", modelId, cityId);
+            try
+            {
+                versionId = _cache.GetFromCache<uint>(key, new TimeSpan(24, 0, 0), () => _dealerPQRepository.GetDefaultPriceQuoteVersion(modelId, cityId));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, String.Format("PriceQuoteCache.GetDefaultPriceQuoteVersion({0},{1})", modelId, cityId));
+            }
+            return versionId;
+        }
+
+
+        public Entities.PriceQuote.v2.DetailedDealerQuotationEntity GetDealerPriceQuoteByPackageV2(Entities.BikeBooking.PQParameterEntity objParams)
+        {
+            try
+            {
+                if (objParams != null)
+                {
+                    string key = String.Format("BW_DPQ_{0}_{1}_{2}_{3}", objParams.CityId, objParams.VersionId, objParams.DealerId, objParams.AreaId);
+                    Entities.PriceQuote.v2.DetailedDealerQuotationEntity dealerQuotation = _cache.GetFromCache<Entities.PriceQuote.v2.DetailedDealerQuotationEntity>(key, new TimeSpan(0, 30, 0), () => _objDealerPriceQuote.GetDealerPriceQuoteByPackageV2(objParams));
+
+                    return dealerQuotation;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, String.Format("PriceQuoteCache.GetDealerPriceQuoteByPackageV2({0},{1},{2},{3})", objParams.DealerId, objParams.VersionId, objParams.CityId, objParams.AreaId));
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 29 Mar 2018
+        /// Description :   Get Manufacturer Campaign Mobile Rendered Template from memcache
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="leadCampaign"></param>
+        /// <returns></returns>
+        public string GetManufacturerCampaignMobileRenderedTemplate(string key, Entities.manufacturecampaign.ManufactureCampaignLeadEntity leadCampaign)
+        {
+            try
+            {
+                string htmlTemplate = _cache.GetFromCache<string>(key + "_v1", new TimeSpan(24, 0, 0), () => GetRenderMobileTemplate(leadCampaign));
+                return htmlTemplate;
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, String.Format("GetManufacturerCampaignMobileRenderedTemplate()", leadCampaign.CampaignId));
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 29 Mar 2018
+        /// Description :   GetRenderMobileTemplate using MvcHelper class
+        /// Modified by :   Sumit Kate on 30 Mar 2018
+        /// Description :   Changed the template name
+        /// </summary>
+        /// <param name="leadCampaign"></param>
+        /// <returns></returns>
+        private string GetRenderMobileTemplate(Entities.manufacturecampaign.ManufactureCampaignLeadEntity leadCampaign)
+        {
+            try
+            {
+                string template = MvcHelper.Render(string.Format("LeadCampaign_Android_{0}", leadCampaign.CampaignId), leadCampaign, leadCampaign.LeadsHtmlMobile);
+                return template;
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, String.Format("GetManufacturerCampaignMobileRenderedTemplate()", leadCampaign.CampaignId));
+            }
+            return null;
         }
     }
 }

@@ -23,7 +23,33 @@
  <%if(!String.IsNullOrEmpty(relNextPageUrl)){ %>
 <link rel="next" href="<%= relNextPageUrl %>" /><% }%>
 <link rel="SHORTCUT ICON" href="https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/favicon.png"  type="image/png"/>
-<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css' />
+<%
+            string fontFile = "/css/fonts/OpenSans/open-sans-v15-latin-regular.woff",
+            fontUrl = String.Format("{0}{1}?{2}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, fontFile, Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion);
+        %>
+        <style>
+            @font-face { 
+                font-family: 'Open Sans';
+                font-style: normal;
+                font-weight: 400;
+                src: local('Open Sans Regular'), local('OpenSans-Regular'), url('<%= fontUrl%>') format('woff');
+             }
+        </style>
+        
+        <%  
+            fontFile = "/css/fonts/OpenSans/open-sans-v15-latin-700.woff";
+            fontUrl  = String.Format("{0}{1}?{2}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, fontFile, Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion); 
+        %>
+        <style>
+             @font-face { 
+	            font-family: 'Open Sans';
+	            font-style: normal;
+	            font-weight: 700;
+	            src: local('Open Sans Bold'), local('OpenSans-Bold'), url('<% =fontUrl %>') format('woff');
+             }
+        </style>
+
+
 <link href="/m/css/bwm-common-style.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
 
 <%if (EnableOG)
@@ -41,14 +67,6 @@
    var ga_pg_id = '0';    
 </script>
 <!-- #include file="\includes\gacode.aspx" -->
-<script type="text/javascript">
-    setTimeout(function () {
-        var a = document.createElement("script");
-        var b = document.getElementsByTagName("script")[0];
-        a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0012/9477.js?" + Math.floor(new Date().getTime() / 3600000);
-        a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
-    }, 1);
-</script>
 <script type='text/javascript'>
     var googletag = googletag || {};
     googletag.cmd = googletag.cmd || [];
@@ -87,7 +105,7 @@
 
 <script type="text/javascript">!function (a, b) { "use strict"; function f() { if (!d) { d = !0; for (var a = 0; a < c.length; a++) c[a].fn.call(window, c[a].ctx); c = [] } } function g() { "complete" === document.readyState && f() } a = a || "docReady", b = b || window; var c = [], d = !1, e = !1; b[a] = function (a, b) { if ("function" != typeof a) throw new TypeError("callback for docReady(fn) must be a function"); return d ? void setTimeout(function () { a(b) }, 1) : (c.push({ fn: a, ctx: b }), void ("complete" === document.readyState || !document.attachEvent && "interactive" === document.readyState ? setTimeout(f, 1) : e || (document.addEventListener ? (document.addEventListener("DOMContentLoaded", f, !1), window.addEventListener("load", f, !1)) : (document.attachEvent("onreadystatechange", g), window.attachEvent("onload", f)), e = !0))) } }("docReady", window);</script>
 
-<% Bikewale.Utility.BWCookies.SetBWUtmz(); %>
+
 <!-- for IE to understand the new elements of HTML5 like header, footer, section and so on -->
 <!--[if lt IE 9]>
     <script src="/m/src/html5.js"></script>

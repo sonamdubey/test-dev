@@ -945,7 +945,6 @@
 
 #prices-top-cities li {
     display: inline-block;
-    width: 25%;
     padding-bottom: 20px;
 }
 
@@ -958,10 +957,6 @@
 .city-name.right {
     text-align: center;
     font-size: 13px;
-}
-
-#prices-top-cities li:nth-of-type(4n) .city-name.right{
-  text-align: right;
 }
 
 .version-price-table td {
@@ -1029,6 +1024,13 @@
 	color: #787878;
 }
 /* horizontal bikes swiper end */
+.ul-grid-3 li {
+    width: 33.33%;
+}
+
+.ul-grid-4 li {
+    width: 25%;
+}
 
 
 

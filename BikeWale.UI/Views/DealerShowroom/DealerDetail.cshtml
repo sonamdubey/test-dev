@@ -50,7 +50,7 @@
                                     }
                                     else
                                     {
-                                        <span class="vertical-top text-light-grey dealership-card-details">@string.Format("{0}, {1}, {2}", Model.DealerDetails.DealerDetails.Address, Model.DealerDetails.DealerDetails.Pincode, Model.CityDetails.CityName)</span>
+                                        <span class="vertical-top text-light-grey dealership-card-details">@string.Format("{0}, {1} - {2}", Model.DealerDetails.DealerDetails.Address, Model.CityDetails.CityName, Model.DealerDetails.DealerDetails.Pincode)</span>
                                     }
 
 
@@ -197,7 +197,7 @@
                                         <div class="card-desc-block">
                                             <h3 class="bikeTitle" title="@bikeName">@bikeName</h3>
                                             <div class="text-xt-light-grey margin-bottom10">
-                                                @Html.Raw(Bikewale.Utility.FormatMinSpecs.GetMinSpecs(Convert.ToString(bike.Specs.Displacement), Convert.ToString(bike.Specs.FuelEfficiencyOverall), Convert.ToString(bike.Specs.MaxPower), Convert.ToString(bike.Specs.KerbWeight)))
+                                                @Html.Raw(Bikewale.Utility.FormatMinSpecs.GetMinSpecsSpanElements(bike.MinSpecsList))
                                             </div>
                                             <p class="text-light-grey margin-bottom5">On-road price, @Model.CityDetails.CityName</p>
                                             <div>
@@ -309,4 +309,9 @@
 <script defer src="https://maps.googleapis.com/maps/api/js?key=@Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey&libraries=places"></script>
 <script type="text/javascript">
     cityArea = "@Model.CityDetails.CityName" + "@(Model.DealerDetails.DealerDetails.objArea!=null ? ("_"+Model.DealerDetails.DealerDetails.objArea.AreaName) : "")";
+    docReady(function () {
+        if (FbPixelEvent) {
+            fbq('track', FbPixelEvent.viewContent);
+        }
+    });
 </script>

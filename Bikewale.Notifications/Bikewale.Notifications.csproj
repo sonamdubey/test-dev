@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Bikewale.Notifications</RootNamespace>
     <AssemblyName>Bikewale.Notifications</AssemblyName>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -103,11 +103,12 @@
     <Reference Include="log4net">
       <HintPath>..\Libs\log4net.dll</HintPath>
     </Reference>
-    <Reference Include="MySql.Data, Version=6.9.8.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+    <Reference Include="MySql.Data, Version=6.10.6.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\MySql.Data.dll</HintPath>
+      <HintPath>..\Libs\Mysql6.10.6.0\MySql.Data.dll</HintPath>
     </Reference>
-    <Reference Include="MySqlDatabaseLibrary">
+    <Reference Include="MySqlDatabaseLibrary, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\MySqlDatabaseDLL\MySqlDatabaseLibrary.dll</HintPath>
     </Reference>
     <Reference Include="RabbitMQ.Client, Version=3.0.0.0, Culture=neutral, PublicKeyToken=89e7d7c5feba84ce, processorArchitecture=MSIL">
@@ -133,10 +134,10 @@
     <Compile Include="Configuration\ErrorMailConfiguration.cs" />
     <Compile Include="Configuration\MailConfiguration.cs" />
     <Compile Include="ErrorClass.cs" />
-    <Compile Include="JSExceptionTemplate.cs" />
     <Compile Include="MailTemplates\BookingCancellationTemplate.cs" />
     <Compile Include="MailTemplates\CancellationFeedbackTemplate.cs" />
     <Compile Include="MailTemplates\CapitalFirstSuccessEmailTemplate.cs" />
+    <Compile Include="MailTemplates\MakeModelNameChangeMailTemplate.cs" />
     <Compile Include="MailTemplates\CustomerRegistrationMailTemplate.cs" />
     <Compile Include="MailTemplates\ErrorMailTemplate.cs" />
     <Compile Include="MailTemplates\FeedbackMailer.cs" />
@@ -153,6 +154,7 @@
     <Compile Include="MailTemplates\PreBookingConfirmationMailToDealer.cs" />
     <Compile Include="MailTemplates\PreBookingConfirmationMailToDealer_old.cs" />
     <Compile Include="MailTemplates\PreBookingConfirmationToCustomer.cs" />
+    <Compile Include="MailTemplates\UpcomingBikesSubscription.cs" />
     <Compile Include="MailTemplates\UsedBikesModelImagesMailTemplate.cs" />
     <Compile Include="MailTemplates\UsedBikes\EditedListingApprovalEmailToSeller.cs" />
     <Compile Include="MailTemplates\UsedBikes\EditedListingRejectionEmailToSeller.cs" />
@@ -175,6 +177,7 @@
     <Compile Include="NotificationDAL\SavePQNotification.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PwaErrorClass.cs" />
+    <Compile Include="SendInternalEmail.cs" />
     <Compile Include="SendEmailSMSToDealerCustomer.cs" />
     <Compile Include="SendMails.cs" />
     <Compile Include="SMS\SMSCommon.cs" />
@@ -183,6 +186,10 @@
     <Compile Include="UserReviewsEmails.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Bikewale.DTO\Bikewale.DTO.csproj">
+      <Project>{a6404f19-b267-4e37-b186-d8fc010ad2ce}</Project>
+      <Name>Bikewale.DTO</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Bikewale.Entities\Bikewale.Entities.csproj">
       <Project>{8223a4b8-db14-4658-9897-257d872ae8d9}</Project>
       <Name>Bikewale.Entities</Name>
@@ -198,6 +205,9 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

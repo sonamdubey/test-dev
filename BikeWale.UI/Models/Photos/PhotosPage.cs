@@ -1,5 +1,6 @@
 ﻿using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.CMS.Photos;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
@@ -28,10 +29,11 @@ namespace Bikewale.Models.Photos
         private readonly IBikeModels<BikeModelEntity, int> _objModelEntity = null;
         private readonly ICityCacheRepository _objCityCache = null;
         private readonly IBikeInfo _objGenericBike = null;
-        private readonly IBikeVersionCacheRepository<BikeVersionEntity, uint> _objVersionCache = null;
+        private readonly IBikeVersions<BikeVersionEntity, uint> _objVersion;
         private readonly IVideos _objVideos = null;
 
         private uint _modelId, _cityId;
+        private string _cityName;
         private PhotosPageVM _objData = null;
         private string _returnUrl;
         private uint _selectedColorImageId;
@@ -54,14 +56,16 @@ namespace Bikewale.Models.Photos
         /// <param name="objGenericBike"></param>
         /// <param name="objVersionCache"></param>
         /// <param name="objVideos"></param>
-        public PhotosPage(string makeMaskingName, string modelMaskingName, IBikeModelsCacheRepository<int> objModelCache, IBikeMaskingCacheRepository<BikeModelEntity, int> objModelMaskingCache, IBikeModels<BikeModelEntity, int> objModelEntity, ICityCacheRepository objCityCache, IBikeInfo objGenericBike, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionCache, IVideos objVideos)
+        public PhotosPage(string makeMaskingName, string modelMaskingName, IBikeModelsCacheRepository<int> objModelCache,
+            IBikeMaskingCacheRepository<BikeModelEntity, int> objModelMaskingCache, IBikeModels<BikeModelEntity, int> objModelEntity, ICityCacheRepository objCityCache,
+            IBikeInfo objGenericBike, IBikeVersions<BikeVersionEntity, uint> objVersion, IVideos objVideos)
         {
             _objModelCache = objModelCache;
             _objModelMaskingCache = objModelMaskingCache;
             _objModelEntity = objModelEntity;
             _objCityCache = objCityCache;
             _objGenericBike = objGenericBike;
-            _objVersionCache = objVersionCache;
+            _objVersion = objVersion;
             _objVideos = objVideos;
             ParseQueryString(makeMaskingName, modelMaskingName);
         }
@@ -75,6 +79,8 @@ namespace Bikewale.Models.Photos
         /// Description: Added BindMoreAboutScootersWidget
         /// Modified by : Snehal Dange on 29th Nov 2017
         /// Descritpion : Added ga for page
+        /// Modified by : Snehal Dange on 20th March 2018
+        /// Description: Added BindVideosAndColourImages()
         /// </summary>
         /// <param name="gridSize"></param>
         /// <param name="noOfGrid"></param>
@@ -92,11 +98,13 @@ namespace Bikewale.Models.Photos
                 _objData.BodyStyle = 0;
                 GlobalCityAreaEntity currentCityArea = GlobalCityArea.GetGlobalCityArea();
                 _cityId = currentCityArea.CityId;
+                _cityName = currentCityArea.City;
                 ProcessQueryStringVariables(qstr);
                 _objData.Series = _objModelEntity.GetSeriesByModelId(_modelId);
                 BindPhotos();
                 BindPageWidgets();
                 SetPageMetas();
+                BindVideosAndColourImages(_objData);
                 if (_objData.BodyStyle.Equals((sbyte)EnumBikeBodyStyles.Scooter))
                 {
                     BindMoreAboutScootersWidget(_objData);
@@ -151,6 +159,7 @@ namespace Bikewale.Models.Photos
 
                         if (!IsMobile)
                         {
+                            // Skipped first image to remove modelImage from ImagesList
                             _objData.ModelImages = _objData.ModelImages.Skip(1);
                         }
 
@@ -286,6 +295,14 @@ namespace Bikewale.Models.Photos
 
                     SetBreadcrumList();
                     SetPageJSONLDSchema(_objData.PageMetaTags);
+
+                    _objData.AdTags.TargetedModel = _objData.Model.ModelName;
+                    _objData.AdTags.TargetedMakes = _objData.Make.MakeName;
+
+                    if (!String.IsNullOrEmpty(_cityName))
+                    {
+                        _objData.AdTags.TargetedCity = _cityName;
+                    }
 
                 }
             }
@@ -478,7 +495,7 @@ namespace Bikewale.Models.Photos
         {
             try
             {
-                MoreAboutScootersWidget obj = new MoreAboutScootersWidget(_objModelCache, _objCityCache, _objVersionCache, _objGenericBike, Entities.GenericBikes.BikeInfoTabType.Image);
+                MoreAboutScootersWidget obj = new MoreAboutScootersWidget(_objModelCache, _objCityCache, _objVersion, _objGenericBike, Entities.GenericBikes.BikeInfoTabType.Image);
                 obj.modelId = _modelId;
                 _objData.objMoreAboutScooter = obj.GetData();
             }
@@ -522,6 +539,33 @@ namespace Bikewale.Models.Photos
             }
 
             return "";
+        }
+
+        /// <summary>
+        /// Created by : Snehal Dange on 19th March 2018
+        /// Description: Bind Videos and Colour tabs data
+        /// </summary>
+        /// <param name="objData"></param>
+        private void BindVideosAndColourImages(PhotosPageVM objData)
+        {
+            try
+            {
+                if (objData != null && objData.ModelImages != null && objData.ModelImages.Any())
+                {
+                    IEnumerable<ColorImageBaseEntity> colorImages = null;
+                    colorImages = objData.ModelImages.Where(m => m.ImageType.Equals(ImageBaseType.ModelColorImage));
+                    if (colorImages != null && colorImages.Any())
+                    {
+                        objData.ColorImagesCount = colorImages.Count();
+                    }
+                    objData.IsColorAvailable = (objData.ColorImagesCount > 0);
+                    objData.IsVideosAvailable = (objData.ModelVideos != null && objData.ModelVideos.Any());
+                }
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("Bikewale.Models.Photos.PhotosPage.BindVideosAndColourImages : ModelId {0}", _modelId));
+            }
         }
 
     }

@@ -74,7 +74,7 @@
                 <div class="padding-top15 padding-right20 padding-bottom50 padding-left20">
                     <div id="floating-btn" class="floating-btn">
                         <div class="grid-12 alpha omega">
-                            <a class="btn btn-orange btn-full-width" href="@string.Format("/m{0}", Model.Summary.ReturnUrl)">Done</a>
+                            <a class="btn btn-orange btn-full-width" href="@Model.Summary.ReturnUrl">Done</a>
                         </div>
                         <div class="clear"></div>
                     </div>
@@ -171,7 +171,7 @@
                                     </div>
                                     <div class="margin-bottom20 border-solid-bottom"></div>
                                     <h3 class="font15 text-black margin-bottom15">Tell us more about your experience!</h3>
-                                    <p class="padding-bottom20 text-light-grey">Help fellow bikers make the right choice. Write a review and stand a chance to win Amazon vouchers worth Rs. @BWConfiguration.Instance.ContestPriceMoney.</p>
+                                    <p class="padding-bottom20 text-light-grey">Help fellow bikers make the right choice. Write a review and stand a chance to win Amazon vouchers worth Rs. @Format.FormatPrice(BWConfiguration.Instance.ContestPriceMoney).</p>
                                 </div>
                             </div>
                         </section>

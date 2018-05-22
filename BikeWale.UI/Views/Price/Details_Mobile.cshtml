@@ -9,7 +9,8 @@
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
     ViewBag.TotalPrice = Model.TotalPrice; // to pass price component on dealer campaign if dealerprice not available
     Model.AdTags.Ad_320x50 = true;
-    Model.AdTags.Ad_Bot_320x50 = true;
+    bool primaryDealerShown = Model.DetailedDealer.PrimaryDealer != null && Model.DetailedDealer.PrimaryDealer.DealerDetails != null && Model.DetailedDealer.PrimaryDealer.DealerDetails.objArea != null;
+    Model.AdTags.Ad_300x250BTF = !(primaryDealerShown || Model.IsManufacturerLeadAdShown || Model.IsManufacturerEMIAdShown);
 }
 
 <div class="bg-white padding-10-5 bottom-shadow margin-bottom10">
@@ -93,8 +94,8 @@
                 </tr>
                 <tr>
                     <td class="text-light-grey padding-bottom15" align="left">
-                        Insurance @if (!Model.IsPrimaryDealerAvailable && !string.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink))
-                        {<br><p class='position-rel'><a target="_blank" rel="noopener" href="@Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink" class="font12 bw-ga text-bold" data-cat="Dealer_PQ" data-act="CoverFox_Link_Clicked" data-lab="@string.Format("{0}_{1}",Model.BikeName,Model.CiyName);" rel="nofollow">Buy Policy Now</a><span class='position-abt pos-left35 pos-top0'>Ad</span></p>}
+                        Insurance @*@if (!Model.IsPrimaryDealerAvailable && !string.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink) && !Model.IsManufacturerEMIAdShown)
+                        {<br><p class='position-rel'><a target="_blank" rel="noopener" href="@Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink" class="font12 bw-ga text-bold" data-cat="Dealer_PQ" data-act="ICICIBank_Link_Clicked" data-lab="@string.Format("{0}_{1}",Model.BikeName,Model.CiyName);" rel="nofollow">Get Personal Loan Offers</a><span class="position-abt pos-top0 text-light-grey font10 text-unbold">&nbsp;Ad</span></p>}*@
                     </td>
                     <td class="padding-bottom10 text-bold" align="right"><span class="bwmsprite inr-xxsm-icon"></span>@CommonOpn.FormatPrice(Model.Quotation.Insurance.ToString())</td>
                 </tr>
@@ -105,7 +106,7 @@
                 <tr>
                     <td class="font16 position-rel" align="left">On-road price</td>
                     <td valign="top" class="font18 text-bold" align="right">
-                        @Html.Raw("<span> &#x20B9;</span>")&nbsp;@CommonOpn.FormatPrice(Model.Quotation.OnRoadPrice.ToString())
+                        @Html.Raw("<span> &#x20B9;</span>")&nbsp;@CommonOpn.FormatPrice(Model.Quotation.OnRoadPrice.ToString())						
                     </td>
                 </tr>
                 @if (Model.LeadCampaign != null && !string.IsNullOrEmpty(Model.LeadCampaign.PriceBreakUpLinkTextMobile))
@@ -131,8 +132,11 @@
                         </td>
                     </tr>
                 }
-            </table>if (Model.IsPrimaryDealerAvailable)
-            {
+            </table>
+			if (!Model.IsPrimaryDealerAvailable && !string.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink) && !Model.IsManufacturerLeadAdShown)
+            {<p class='position-rel text-right margin-right15'><a target="_blank" rel="noopener" href="@Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink" class="font12 bw-ga text-bold" data-cat="Dealer_PQ" data-act="ICICIBank_Link_Clicked" data-lab="@string.Format("{0}_{1}",Model.BikeName,Model.CiyName);" rel="nofollow">Get Personal Loan Offers</a><span class="position-abt pos-top0 text-light-grey font10 text-unbold">&nbsp;Ad</span></p>}
+			if (Model.IsPrimaryDealerAvailable)
+			{
                 <div class="padding-bottom10"></div>}
         <!-- Bikewale PQ ends -->
         }
@@ -279,6 +283,14 @@
         </div>
 
     </section>
+    
+}
+
+@if (Model.AdTags.Ad_300x250BTF)
+{
+    <div class="padding-bottom20 padding-top10">
+        @{ Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad300x250BTF.cshtml", Model.AdTags); }
+    </div>
 }
 
 @if (Model.ShowOtherDealers && Model.AreOtherDealersAvailable)
@@ -359,9 +371,9 @@
              <text>triggerNonInteractiveGA('Dealer_PQ', 'Secondary_Dealer_Card_Shown', bikeVerLocation);</text>
          }
 
-            @if (Model.Quotation != null && Model.Quotation.ExShowroomPrice > 0)
+        @if (!Model.IsPrimaryDealerAvailable && !string.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink) && !Model.IsManufacturerLeadAdShown)
         {
-            <text>triggerNonInteractiveGA('Dealer_PQ', 'CoverFox_Link_Shown', bikeVerLocation);</text>
+            <text>triggerNonInteractiveGA('Dealer_PQ', 'ICICIBank_Link_Shown', bikeVerLocation);</text>
         }
 
             if (dealerName != "") {
@@ -371,11 +383,13 @@
                 $("#headerText").removeClass("font12").addClass("font20 margin-top5");
             }
 
+            if (FbPixelEvent) {
+                fbq('track', FbPixelEvent.viewContent);
+            }
         }
         catch (e) {
             console.log(e.message);
         }
-
+       
     });
-
 </script>

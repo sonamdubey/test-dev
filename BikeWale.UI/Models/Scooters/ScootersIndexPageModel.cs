@@ -1,5 +1,6 @@
 ﻿using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Compare;
+using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.NewLaunched;
@@ -75,6 +76,9 @@ namespace Bikewale.Models
             try
             {
                 objVM = new ScootersIndexPageVM();
+
+                objVM.City = GlobalCityArea.GetGlobalCityArea();
+
                 BindPageMetas(objVM);
                 objVM.Brands = (new BrandWidgetModel(BrandTopCount, _bikeMakes)).GetData(EnumBikeType.Scooters);
                 BindPopularBikes(objVM);
@@ -94,6 +98,11 @@ namespace Bikewale.Models
         /// <summary>
         /// Created by  :   Sumit Kate on 30 Mar 2017
         /// Description :   Binds Page Metas
+        /// Modified by: Dhruv Joshi
+        /// Dated: 28th March 2018
+        /// Description: Scooters Landing Page Title change
+        /// Modified by : Sanskar Gupta on 18 May 2018
+        /// Description : Added targeting for city.
         /// </summary>
         /// <param name="objVM"></param>
         private static void BindPageMetas(ScootersIndexPageVM objVM)
@@ -104,7 +113,13 @@ namespace Bikewale.Models
                 objVM.PageMetaTags.AlternateUrl = "https://www.bikewale.com/m/scooters/";
                 objVM.PageMetaTags.Keywords = "Scooters, Scooty, New scooter, New Scooty, Scooter in India, scooty, Scooter comparison, compare scooter, scooter price, scooty price";
                 objVM.PageMetaTags.Description = "Find scooters of Honda, Hero, TVS, Vespa and many more brands. Know about prices, images, colours, specs and reviews of scooters in India";
-                objVM.PageMetaTags.Title = "New Scooters - Scooters Prices, Reviews, Images, Colours - BikeWale";
+                objVM.PageMetaTags.Title = "Scooters in India - Scooty Prices, Reviews, Images, Colours - BikeWale";
+
+                GlobalCityAreaEntity city = objVM.City;
+                if (city != null && city.CityId > 0)
+                {
+                    objVM.AdTags.TargetedCity = city.City;
+                }
             }
             catch (Exception ex)
             {

@@ -4,6 +4,8 @@ using Bikewale.Entities.CMS.Photos;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Schema;
 using Bikewale.Interfaces.BikeData;
+using Bikewale.Models.Images;
+using Bikewale.Interfaces.Videos;
 using Bikewale.Notifications;
 using Bikewale.Utility;
 using System;
@@ -20,20 +22,26 @@ namespace Bikewale.Models.Photos.v1
     {
         private readonly IBikeMakesCacheRepository _objMakeCache = null;
         private readonly IBikeModels<BikeModelEntity, int> _objModelEntity = null;
+        private readonly IVideos _videos = null;
         public bool IsMobile { get; set; }
         private uint _pageNo;
         public uint PageSize;
+        /// <summary>
+        /// Number of videos to be fetched for videos widget.
+        /// </summary>
+        public ushort VideosCount { get; set; }
 
 
         /// <summary>
         /// Created by  :  Rajan Chauhan on 11 jan 2017
         /// Description :  To resolve depedencies for photo page
         /// </summary>
-        public PhotosPage(bool isMobile, IBikeModels<BikeModelEntity, int> objModelEntity, IBikeMakesCacheRepository objMakeCache, uint? pageNo)
+        public PhotosPage(bool isMobile, IBikeModels<BikeModelEntity, int> objModelEntity, IBikeMakesCacheRepository objMakeCache, IVideos videos , uint? pageNo)
         {
             IsMobile = isMobile;
             _objModelEntity = objModelEntity;
             _objMakeCache = objMakeCache;
+            _videos = videos;
             _pageNo = (pageNo == null) ? 1 : (uint)pageNo;
         }
 
@@ -44,24 +52,43 @@ namespace Bikewale.Models.Photos.v1
         /// <returns></returns>
         public PhotosPageVM GetData()
         {
-            PhotosPageVM _objData = null;
+            PhotosPageVM objData = null;
             try
             {
-                _objData = new PhotosPageVM();
-                _objData.PopularSportsModelsImages = BindPopularSportsBikeWidget();
-                BindBikeModelsPhotos(_objData);
-                BindMakesWidget(_objData);
-                SetBreadcrumList(ref _objData);
-                SetPageMetas(_objData);
-                _objData.ImagesSynopsis = "BikeWale brings you high quality images of 250+ bike models and 50+ scooters in India. Be it your dream bike, or the one you are planning to buy next month, we have got good quality bike images for all your needs. Bike images are of paramount importance while one is planning to buy a bike. View images of your favorite motorcycle in multiple colors and different angles.";
-                SetPageJSONLDSchema(_objData);
+                objData = new PhotosPageVM();
+                objData.PopularSportsBikesWidget = GetPopularSportsBikeWidget();
+                BindBikeModelsPhotos(objData);
+                BindMakesWidget(objData);
+                BindVideosWidget(objData);
+                SetBreadcrumList(ref objData);
+                SetPageMetas(objData);
+                objData.ImagesSynopsis = "BikeWale brings you high quality images of 250+ bike models and 50+ scooters in India. Be it your dream bike, or the one you are planning to buy next month, we have got good quality bike images for all your needs. Bike images are of paramount importance while one is planning to buy a bike. View images of your favorite motorcycle in multiple colors and different angles.";
+                SetPageJSONLDSchema(objData);
             }
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "Bikewale.Models.Photos.v1.PhotosPage : GetData");
             }
 
-            return _objData;
+            return objData;
+        }
+
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 06 Feb 2017
+        /// Description :  Method to bind recent videos.
+        /// </summary>
+        /// <param name="objData"></param>
+        private void BindVideosWidget(PhotosPageVM objData)
+        {
+            try
+            {
+                objData.Videos = new RecentVideos(1, VideosCount, _videos).GetData();
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "Bikewale.Models.Photos.v1.PhotosPage : BindVideosWidget");
+
+            }
         }
 
         private void CreatePager(PhotosPageVM objData)
@@ -93,7 +120,9 @@ namespace Bikewale.Models.Photos.v1
 
         /// <summary>
         /// Created by : Ashutosh Sharma on 13 Jan 2018
-        /// Description : Method to get photos of bike models, method retrieves model ids based on current page no. and bind photos of those models. 
+        /// Description : Method to get photos of bike models, method retrieves model ids based on current page no. and bind photos of those models.
+        /// Modified by : Rajan Chauhan on 12 Mar 2018
+        /// Description : Added ComparisonTests in categoryIds
         /// </summary>
         /// <param name="objData">View Model of photos page.</param>
         private void BindBikeModelsPhotos(PhotosPageVM objData)
@@ -117,7 +146,8 @@ namespace Bikewale.Models.Photos.v1
                     new List<EnumCMSContentType>()
                     {
                         EnumCMSContentType.PhotoGalleries,
-                        EnumCMSContentType.RoadTest
+                        EnumCMSContentType.RoadTest,
+                        EnumCMSContentType.ComparisonTests
                     }
                 );
                 objData.BikeModelsPhotos = _objModelEntity.GetBikeModelsPhotos(modelIds, categoryIds, requiredImageCount);
@@ -207,25 +237,23 @@ namespace Bikewale.Models.Photos.v1
         /// <summary>
         /// Created by  : Vivek Singh Tomar on 12th Jan 2018
         /// Description : Bind sports bike image widget
+        /// Modified by : Pratibha Verma on 8 Feb 2018
+        /// Description : Get data from imageCarausel class
         /// </summary>
         /// <returns></returns>
-        private IEnumerable<ModelImages> BindPopularSportsBikeWidget()
+        private ImageWidgetVM GetPopularSportsBikeWidget()
         {
-            IEnumerable<ModelImages> modelsImages = null;
+            ImageWidgetVM imageWidget = null;
             try
             {
-                IEnumerable<ModelIdWithBodyStyle> modelIdsWithBodyStyle = _objModelEntity.GetModelIdsForImages(0, EnumBikeBodyStyles.Sports, 1, 9);
-                var modelIds = string.Join(",", modelIdsWithBodyStyle.Select(m => m.ModelId.ToString()));
-                if (!string.IsNullOrEmpty(modelIds))
-                {
-                    modelsImages = _objModelEntity.GetBikeModelsPhotoGallery(modelIds, 7);
-                }
+                ImageCarausel imageCarausel = new ImageCarausel(0,9,7, EnumBikeBodyStyles.Sports, _objModelEntity);
+                imageWidget = imageCarausel.GetData();               
             }
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "Bikewale.Models.Photos.v1.PhotosPage");
             }
-            return modelsImages;
+            return imageWidget;
         }
         private void SetPageJSONLDSchema(PhotosPageVM objData)
         {

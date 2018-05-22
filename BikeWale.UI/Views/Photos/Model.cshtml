@@ -1,4 +1,4 @@
-﻿﻿@model Bikewale.Models.Photos.PhotosPageVM
+﻿@model Bikewale.Models.Photos.PhotosPageVM
 
 @if (Model != null)
 {
@@ -24,48 +24,57 @@
                 <div class="content-box-shadow bg-listing">
                     <h1 class="content-box-shadow padding-14-20">@Model.Page_H1</h1>
                     <ul class="photos-grid-list model-main-image">
-                        <li data-imgcat="@Model.ModelImage.ImageCategory" data-imgtype="@((int)Model.ModelImage.ImageType)" data-imgid="@Model.ModelImage.ImageId">
-                            @if (Model.ModelImage != null)
-                            {
+                        @if(Model.ModelImage != null)
+                        {
+                            <li data-imgcat="@Model.ModelImage.ImageCategory" data-imgtype="@((int)Model.ModelImage.ImageType)" data-imgid="@Model.ModelImage.ImageId">
                                 <div class="main-image-container">
                                     <img src="@Bikewale.Utility.Image.GetPathToShowImages(Model.ModelImage.OriginalImgPath, Model.ModelImage.HostUrl, Bikewale.Utility.ImageSize._640x348)" alt="@string.Format(" {0} {1} Image", Model.BikeName, Model.ModelImage.ImageCategory)" title="@string.Format(" {0} {1} Image", Model.BikeName, Model.ModelImage.ImageCategory)" />
                                 </div>
-                            }
-                        </li>
+                            </li>
+                        }
+                        
                     </ul>
-                    @if (!Model.IsPopupOpen)
+                    @if (!Model.IsPopupOpen && Model.TotalPhotos > 0)
                     {
-
-                        if (Model.TotalPhotos > 1)
-                        {
-                            <ul id="grid-images-noremainder" class="photos-grid-list model-grid-images">
-                                @for (; i < Model.GridPhotoCount && i < 9; i++)
-                                {
-                                    <li data-imgcat="@objImages[i].ImageCategory" data-imgtype="@((int)objImages[i].ImageType)" data-imgid="@objImages[i].ImageId">
-                                        <img src="@Bikewale.Utility.Image.GetPathToShowImages(objImages[i].OriginalImgPath, objImages[i].HostUrl, Bikewale.Utility.ImageSize._476x268)" alt="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" title="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" />
-                                    </li>
+                        <ul id="grid-images-noremainder" class="photos-grid-list model-grid-images">
+                            @for (; i < Model.GridPhotoCount && i < 9; i++)
+                            {
+                                    if(objImages != null && objImages[i] != null)
+                                    {
+                                        <li data-imgcat="@objImages[i].ImageCategory" data-imgtype="@((int)objImages[i].ImageType)" data-imgid="@objImages[i].ImageId">
+                                            <img src="@Bikewale.Utility.Image.GetPathToShowImages(objImages[i].OriginalImgPath, objImages[i].HostUrl, Bikewale.Utility.ImageSize._476x268)" alt="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" title="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" />
+                                        </li>   
+                                    }
+                                    
                                 }
-                                @for (; i < Model.GridPhotoCount && i < Model.GridSize; i++)
-                                {
-                                    <li data-imgcat="@objImages[i].ImageCategory" data-imgtype="@((int)objImages[i].ImageType)" data-imgid="@objImages[i].ImageId">
-                                        <img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(objImages[i].OriginalImgPath, objImages[i].HostUrl, Bikewale.Utility.ImageSize._476x268)" src="" alt="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" title="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" />
-                                    </li>
-                                }
-
-                            </ul>
-
-                            <ul class="photos-grid-list photos-remainder-@Model.NonGridPhotoCount remainder-grid-list model-grid-images @Model.TotalPhotos @Model.GridSize">
-                                @if (Model.TotalPhotos < Model.GridSize && Model.NonGridPhotoCount > 0)
-                                {
-                                    for (; i < Model.TotalPhotos && i < Model.GridSize; i++)
+                            @for (; i < Model.GridPhotoCount && i < Model.GridSize; i++)
+                            {
+                                    if(objImages != null && objImages[i] != null)
                                     {
                                         <li data-imgcat="@objImages[i].ImageCategory" data-imgtype="@((int)objImages[i].ImageType)" data-imgid="@objImages[i].ImageId">
                                             <img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(objImages[i].OriginalImgPath, objImages[i].HostUrl, Bikewale.Utility.ImageSize._476x268)" src="" alt="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" title="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" />
                                         </li>
                                     }
+                                    
                                 }
-                            </ul>
-                        }
+
+                        </ul>
+
+                        <ul class="photos-grid-list photos-remainder-@Model.NonGridPhotoCount remainder-grid-list model-grid-images @Model.TotalPhotos @Model.GridSize">
+                            @if (Model.TotalPhotos < Model.GridSize && Model.NonGridPhotoCount > 0)
+                            {
+                                for (; i < Model.TotalPhotos && i < Model.GridSize; i++)
+                                {
+                                        if(objImages != null && objImages[i] != null)
+                                        {
+                                            <li data-imgcat="@objImages[i].ImageCategory" data-imgtype="@((int)objImages[i].ImageType)" data-imgid="@objImages[i].ImageId">
+                                                <img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(objImages[i].OriginalImgPath, objImages[i].HostUrl, Bikewale.Utility.ImageSize._476x268)" src="" alt="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" title="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" />
+                                            </li>    
+                                        }
+                                        
+                                }
+                            }
+                        </ul>
                     }
                 </div>
             </div>

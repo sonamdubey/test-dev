@@ -1,4 +1,5 @@
-﻿using Bikewale.Common;
+﻿using Bikewale.BAL.ApiGateway.ApiGatewayHelper;
+using Bikewale.Common;
 using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Compare;
@@ -40,6 +41,7 @@ namespace Bikewale.Models
         private readonly ICMSCacheContent _expertReviews = null;
         private readonly IUserReviewsCache _userReviewsCache = null;
         private readonly IUpcoming _upcoming = null;
+        private readonly IApiGatewayCaller _apiGatewayCaller;
         #endregion
 
         #region Page level variables
@@ -53,7 +55,7 @@ namespace Bikewale.Models
 
         #endregion
 
-        public NewPageModel(ushort topCount, ushort launchedRcordCount, ushort upcomingRecordCount, IBikeMakesCacheRepository bikeMakes, INewBikeLaunchesBL newLaunches, IBikeModels<BikeModelEntity, int> bikeModels, IBikeModelsCacheRepository<int> cachedModels, IBikeCompare objCompare, IVideos videos, ICMSCacheContent articles, ICMSCacheContent expertReviews, IUpcoming upcoming, IUserReviewsCache userReviewsCache)
+        public NewPageModel(ushort topCount, ushort launchedRcordCount, ushort upcomingRecordCount, IBikeMakesCacheRepository bikeMakes, INewBikeLaunchesBL newLaunches, IBikeModels<BikeModelEntity, int> bikeModels, IBikeModelsCacheRepository<int> cachedModels, IBikeCompare objCompare, IVideos videos, ICMSCacheContent articles, ICMSCacheContent expertReviews, IUpcoming upcoming, IUserReviewsCache userReviewsCache, IApiGatewayCaller apiGatewayCaller)
         {
             TopCount = topCount;
             LaunchedRecordCount = launchedRcordCount;
@@ -68,6 +70,7 @@ namespace Bikewale.Models
             _expertReviews = expertReviews;
             _userReviewsCache = userReviewsCache;
             _upcoming = upcoming;
+            _apiGatewayCaller = apiGatewayCaller;
         }
 
 
@@ -78,6 +81,8 @@ namespace Bikewale.Models
         /// Created by : Sangram Nandkhile on 25-Mar-2017 
         /// Modified by: Vivek Singh Tomar on 31st July 2017
         /// Summary    : Replaced logic of fetching upcoming bike list.
+        /// Modified by : Sanskar Gupta on 18 May 2018
+        /// Description : Set Targeting for city.
         /// </returns>
         public NewPageVM GetData()
         {
@@ -94,6 +99,7 @@ namespace Bikewale.Models
                 cityMaskingName = cityEntity != null ? cityEntity.CityMaskingName : string.Empty;
                 objVM.Location = cityName;
                 objVM.LocationMasking = cityMaskingName;
+                objVM.AdTags.TargetedCity = cityName;
             }
             else
             {
@@ -133,7 +139,7 @@ namespace Bikewale.Models
 
             BindCompareBikes(objVM, CompareSource, cityId);
 
-            BestBikeByBodyStyle objBestBike = new BestBikeByBodyStyle(_cachedModels);
+            BestBikeByBodyStyle objBestBike = new BestBikeByBodyStyle(_cachedModels, _apiGatewayCaller);
             objBestBike.topCount = 8;
             objVM.BestBikes = objBestBike.GetData();
 

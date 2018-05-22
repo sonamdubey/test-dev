@@ -307,7 +307,6 @@ namespace BikewaleOpr.DALs.Bikedata
             {
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
-                    connection.Open();
 
                     var param = new DynamicParameters();
 
@@ -316,8 +315,6 @@ namespace BikewaleOpr.DALs.Bikedata
 
                     objModels = connection.Query<BikeModelEntityBase>("getbikemodels_new_1704442017", param: param, commandType: CommandType.StoredProcedure);
 
-                    if (connection.State == ConnectionState.Open)
-                        connection.Close();
                 }
             }
             catch (Exception ex)
@@ -326,6 +323,48 @@ namespace BikewaleOpr.DALs.Bikedata
             }
 
             return objModels;
+        }
+
+        /// <summary>
+        /// Created By : Deepak Israni on 14 March 2018
+        /// Description: Returns all the models of a sepecific make.
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <returns></returns>
+        public IEnumerable<BikeModelEntityBase> GetModelsByMake(uint makeId)
+        {
+            IList<BikeModelEntityBase> models = null;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("getmodelsbymake"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.UInt32, makeId));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            models = new List<BikeModelEntityBase>();
+                            BikeModelEntityBase obj;
+                            while (dr.Read())
+                            {
+                                obj = new BikeModelEntityBase();
+                                obj.ModelId = SqlReaderConvertor.ToInt32(dr["ModelId"]);
+                                obj.ModelName = Convert.ToString(dr["ModelName"]);
+                                obj.MaskingName = Convert.ToString(dr["ModelMasking"]);
+                                models.Add(obj);
+                            }
+                            dr.Close();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("BikewaleOpr.DALs.GetModelsByMake : makeId {0}", makeId));
+            }
+            return models;
         }
 
         /// <summary>
@@ -387,7 +426,6 @@ namespace BikewaleOpr.DALs.Bikedata
             {
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
-                    connection.Open();
 
                     objBikeDataList = connection.Query<BikeModelEntityBase, BikeMakeEntityBase, BikeMakeModelData>
                         (
@@ -403,10 +441,6 @@ namespace BikewaleOpr.DALs.Bikedata
                             }, splitOn: "MakeId", commandType: CommandType.StoredProcedure
                         );
 
-                    if (connection != null && connection.State == ConnectionState.Open)
-                    {
-                        connection.Close();
-                    }
                 }
             }
             catch (Exception ex)
@@ -462,12 +496,8 @@ namespace BikewaleOpr.DALs.Bikedata
                     param.Add("par_modelid", modelId);
                     param.Add("par_requesttype", requestType);
                     param.Add("par_cityid", 0);
-                    connection.Open();
-                    objBikeVersionEntityBaseList = connection.Query<BikeVersionEntityBase>("getbikeversions_new", param: param, commandType: CommandType.StoredProcedure);
-                    if (connection != null && connection.State == ConnectionState.Open)
-                    {
-                        connection.Close();
-                    }
+
+                    objBikeVersionEntityBaseList = connection.Query<BikeVersionEntityBase>("getbikeversions_new_12042018", param: param, commandType: CommandType.StoredProcedure);
                 }
             }
             catch (Exception ex)
@@ -568,7 +598,6 @@ namespace BikewaleOpr.DALs.Bikedata
 				{
 					var param = new DynamicParameters();
 					param.Add("par_modelsList", modelsList);
-
 					connection.Execute("savemodelpageviews", param: param, commandType: CommandType.StoredProcedure);
 					isSuccess = true;
 				}
@@ -582,7 +611,73 @@ namespace BikewaleOpr.DALs.Bikedata
 		} 
 		#endregion
 
-	}
+
+        /// <summary>
+        /// Created By : Deepak Israni on 22 Feb 2018
+        /// Description: To get the model id list respective to the version ids.
+        /// </summary>
+        /// <param name="versions"></param>
+        /// <returns></returns>
+        public string GetModelsByVersions(string versions)
+        {
+            String spName = "getmodelfromversion";
+
+            string models = "";
+
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand(spName))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_versionids", DbType.String, versions));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
+                    {
+                        if (dr != null)
+                        {
+                            while (dr.Read())
+                            {
+                                models += string.Format("{0},", SqlReaderConvertor.ToUInt32(dr["ModelId"]));
+                            }
+
+                            dr.Close();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("BikewaleOpr.DAL.GetModelsByVersions: Versions- {0}", versions));
+            }
+
+            return models;
+        }
+
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 01 Apr 2018
+        /// Description : DAL method to fetch model id of input version id to check if version is Top version among other versions of a bike model.
+        /// </summary>
+        /// <param name="versionId">VersionId of bike version.</param>
+        /// <returns>ModelId if top version, otherwise 0.</returns>
+        public int GetModelIdIfTopVersion(int versionId)
+        {
+            int modelId = 0;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("getmodelidiftopversion"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_versionid", DbType.Int16, versionId));
+                    modelId = SqlReaderConvertor.ToInt32(MySqlDatabase.ExecuteScalar(cmd, ConnectionType.ReadOnly));
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("BikewaleOpr.DALs.Bikedata.CheckIfTopVersion_versionId_{0}", versionId));
+            }
+            return modelId;
+        }
+    }
 }
 
 

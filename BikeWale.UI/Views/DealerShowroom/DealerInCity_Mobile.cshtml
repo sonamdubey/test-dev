@@ -56,7 +56,7 @@
                             }
                             else
                             {
-                                <span class="vertical-top dealership-details text-light-grey">@string.Format("{0}, {1}, {2}", Details.Address, Details.objArea.PinCode, Model.CityDetails.CityName)</span>
+                                <span class="vertical-top dealership-details text-light-grey">@string.Format("{0}, {1} - {2}", Details.Address, Model.CityDetails.CityName, Details.objArea.PinCode)</span>
                             }
                         </p>
                         <div class="@string.Format("{0}",String.IsNullOrEmpty(Details.MaskingNumber)?"hide":"")">
@@ -233,3 +233,10 @@
 </section>
 @Html.Partial("~/Views/Make/_BrandCityPopup_Mobile.cshtml", Model.BrandCityPopupWidget)
 @{Html.RenderAction("ChangeLocation_Mobile", "Location", new { cityId = Model.CityDetails.CityId, cityName = Model.CityDetails.CityName });}
+<script>
+    docReady(function () {
+        if (FbPixelEvent) {
+            fbq('track', FbPixelEvent.viewContent);
+        }
+    });
+</script>

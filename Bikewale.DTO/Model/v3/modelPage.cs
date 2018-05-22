@@ -10,6 +10,8 @@ namespace Bikewale.DTO.Model.v3
     /// Descritption :  IsUpcoming, ExpectedLaunchDate and ExpectedPrice added.
     /// Modified By:    Sangram Nandkhile on 05 May 2016
     /// Description:    Added ExpectedMinPrice, ExpectedMaxPrice
+    /// Modified By :   Rajan Chauhan on 10 Apr 2018
+    /// Description :   Changed ModelVersions from List to IEnumerable
     /// </summary>
     public class ModelPage
     {
@@ -55,7 +57,7 @@ namespace Bikewale.DTO.Model.v3
         public List<CMSModelImageBase> Photos { get; set; }
 
         [JsonProperty("versionList")]
-        public List<VersionDetail> ModelVersions { get; set; }
+        public IEnumerable<VersionDetail> ModelVersions { get; set; }
 
         [JsonProperty("capacity")]
         public string Capacity { get; set; }

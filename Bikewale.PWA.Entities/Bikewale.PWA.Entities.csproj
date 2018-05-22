@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Bikewale.PWA.Entities</RootNamespace>
     <AssemblyName>Bikewale.PWA.Entities</AssemblyName>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -114,6 +114,8 @@
     <Compile Include="EditCms\Articles\PwaArticleBase.cs" />
     <Compile Include="EditCms\Articles\PwaBikeInfoUsedBikeDetails.cs" />
     <Compile Include="EditCms\Articles\PwaBikeRating.cs" />
+    <Compile Include="EditCms\Articles\PwaMakeBikeBase.cs" />
+    <Compile Include="EditCms\Articles\PwaMakeBikeEntity.cs" />
     <Compile Include="EditCms\Articles\PwaNewsReducer.cs" />
     <Compile Include="EditCms\Articles\PwaBikeCms.cs" />
     <Compile Include="EditCms\Articles\PwaBikeDetails.cs" />
@@ -130,6 +132,12 @@
     <Compile Include="EditCms\Articles\PwaAllVideos.cs" />
     <Compile Include="EditCms\Articles\PwaAllVideosWrapper.cs" />
     <Compile Include="EditCms\Articles\PwaVideosReducer.cs" />
+    <Compile Include="Images\PwaBikeImagesCarouselReducer.cs" />
+    <Compile Include="Images\PwaPopularBikeImagesListData.cs" />
+    <Compile Include="Images\PwaWidgetsReducer.cs" />
+    <Compile Include="Photos\PwaImageBase.cs" />
+    <Compile Include="Photos\PwaImageList.cs" />
+    <Compile Include="Photos\PwaModelImages.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="EditCms\Articles\PwaArticleSummary.cs" />
     <Compile Include="EditCms\Articles\PwaContentBase.cs" />

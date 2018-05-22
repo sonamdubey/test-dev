@@ -6,8 +6,7 @@
         <div class="leftfloat">
             <span class="navbarBtn bwsprite nav-icon margin-right25"></span>
             <a href="/" id="bwheader-logo" class="bwsprite bw-logo" title="Bikewale" alt="Bikewale"></a>
-			<a href="https://www.bikewale.com/autoexpo2018/" title="AutoExpo 2018 - BikeWale" class="auto-expo-nav__logo bw-ga" data-cat="Other" data-act="AutoExpo_2018_Link Clicked" data-lab="Header_Link"></a>
-        </div>
+			</div>
         <div class="rightfloat">
             <div class="global-search" >
                 <span class="bwsprite search-icon-grey" id="btnGlobalSearch" style="z-index:2"></span>

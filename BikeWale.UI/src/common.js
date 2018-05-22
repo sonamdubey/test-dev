@@ -1,7 +1,7 @@
 // JavaScript Document
 var focusedMakeModel = null, focusedCity = null, isMakeModelRedirected = false;
 var objBikes = new Object(), objCity = new Object(), globalCityId = 0, _makeName = '', ga_pg_id = '0', pqSourceId = "37";
-var IsPriceQuoteLinkClicked = false, _target = 3, popup, recentSearches;
+var IsPriceQuoteLinkClicked = false, _target = 2, popup, recentSearches;
 var monthNames = ["January", "February", "March", "April", "May", "June",
         "July", "August", "September", "October", "November", "December"];
 var bw_ObjContest;
@@ -393,11 +393,12 @@ function CloseCityPopUp() {
     unlockPopup();
 }
 
-function triggerVirtualPageView(url, title) {
+function triggerVirtualPageView(host, path, title) {
     try {
         dataLayer.push({
             'event': 'VirtualPageview',
-            'virtualPageURL': url,
+            'virtualPageHost': host,
+            'virtualPagePath': path,
             'virtualPageTitle': title
         })
     } catch (e) {
@@ -853,6 +854,10 @@ docReady(function () {
 });
 
 docReady(function () {
+    $(".bw-anchor-link").click(function () {
+        window.location = $(this).data("href");
+    });
+
     trendingBikes = JSON.parse(localStorage.getItem("bwc_trendingbikes", trendingBikes) || null);
     if (!trendingBikes) {
         $.ajax({
@@ -1225,7 +1230,7 @@ docReady(function () {
 
             if (!this.options.trendingSearchesLoaded) {
                 if (trendingBikes) {
-                    html = '<li class="bw-ga" data-cat="' + pageName + '" data-act="AutoExpo_2018_Link Clicked" data-lab="Trending_Searches_Autosuggest_Clicked">\<span class="trending-searches"></span><a href="https://www.bikewale.com/autoexpo2018/" data-href="https://www.bikewale.com/autoexpo2018/">Auto Expo 2018</a>';
+                    var html = "";
                     for (var index in trendingBikes) {
                         item = trendingBikes[index];
                         html += '<li data-makeid="' + item.objMake.makeId + '" data-modelid="' + item.objModel.modelId + '" class="bw-ga" data-cat="' + pageName + '" data-act="Trending_Searches_Search_Bar_Clicked" data-lab="' + item.BikeName + '"><span class="trending-searches"></span><a href="javascript:void(0)" data-href="/'
@@ -1421,7 +1426,7 @@ docReady(function () {
     $(document).on("click", ".bw-ga", function () {
         try {
             var obj = $(this);
-            var category = obj.attr("data-cat") || obj.attr("c") || $('body').data('page-name');
+            var category = obj.attr("data-cat") || obj.attr("c") || $('body').data('page-name') || pageName;
             var action = obj.attr("data-act") || obj.attr("a");
             var label = obj.attr("data-lab") || obj.attr("l");
             var variable = obj.attr("data-var") || obj.attr("v");
@@ -1794,7 +1799,6 @@ docReady(function () {
 
     //log javascript errors
     (function () {
-
         $(document).ajaxError(function (event, request, settings) {
             try {
                 error = {};
@@ -1832,14 +1836,19 @@ docReady(function () {
 
         window.onerror = function (message, filename, lineno, colno, err) {
             error = {};
+            var log_source = new RegExp(["aeplcdn", "bikewale"].join('|'));
             try {
-                error.Message = err.message || message || "";
-                error.SourceFile = err.fileName || filename || "";
-                error.ErrorType = err.name || "Uncatched Exception";
-                error.LineNo = lineno || "Unable to trace";
-                error.Trace = (err.stack.toString() || '-');
-                //errorLog(error);
-            } catch (e) {
+                if (filename && filename.match(log_source)) {
+                    error.Message = err.message || message || "";
+                    error.SourceFile = err.fileName || filename || "";
+                    error.ErrorType = err.name || "Uncaught Exception";
+                    error.LineNo = lineno || "Unable to trace";
+                    error.Trace = (err.stack.toString() || '-');
+                    errorLog(error);
+                }
+
+            }
+            catch (e) {
                 return false;
             }
         };

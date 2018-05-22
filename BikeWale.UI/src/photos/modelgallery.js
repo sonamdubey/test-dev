@@ -6,7 +6,7 @@
 var pageNo = 1,pageSize = 4,eleGallery, vmModelGallery,colorIndex = 0,isIEBrowser;
 var photoCount, videoCount, modelName, imageIndex, colorImageId, returnUrl, bikeModelId;
 var thumbnailSwiperEvents, gallerySwiper, colorGallerySwiper, thumbnailSwiper, colorThumbnailSwiper, videoThumbnailSwiper;
-var imageTypes = ["Other", "ModelImage", "ModelGallaryImage", "ModelColorImage"];
+var imageTypes = ["Other", "ModelImage", "ModelGallaryImage", "ModelColorImage"], logbhrighu;
 
 var popupGallery = {
     open: function () {
@@ -29,6 +29,7 @@ var popupGallery = {
             vmModelGallery.resetGallery();
             unlockPopup();
         }
+        logbhrighu = true;
     },
 
     bindGallery: function (imageIndex) {
@@ -273,7 +274,7 @@ function getImageDownloadUrl() {
     if (activeImageIndex == -1)
         activeImageIndex++;
     var currImage = modelImages[activeImageIndex];
-    return currImage.HostUrl + "0x0" + currImage.OriginalImgPath;
+    return currImage.HostUrl + "1056x594" + currImage.OriginalImgPath;
 }
 
 function logBhrighuForImage(item) {
@@ -291,7 +292,7 @@ function logBhrighuForImage(item) {
 
             label = 'modelId=' + bikeModelId + '|imageid=' + imageid + lb + '|pageid=' + (gaObj ? gaObj.id : 0);
             cwTracking.trackImagesInteraction("BWImages", "ImageViewed", label);
-            triggerVirtualPageView(window.location.host + window.location.pathname, lb);
+            triggerVirtualPageView(window.location.host, window.location.pathname, lb);
         }
     }
 
@@ -380,9 +381,8 @@ docReady(function () {
             thumbnailSwiperEvents.setPhotoDetails(swiper);
             thumbnailSwiperEvents.focusThumbnail(thumbnailSwiper, vmModelGallery.activePhotoIndex(), true);
             triggerGA('Gallery_Page', 'Image_Carousel_Clicked', null);
-        },
-        onSlideChangeEnd: function (swiper) {
             logBhrighuForImage($('.gallery-type-swiper .swiper-slide-active').first());
+            logbhrighu = false;
         }
     });
 

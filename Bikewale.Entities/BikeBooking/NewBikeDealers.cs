@@ -1,69 +1,80 @@
-﻿using System;
-using Bikewale.Entities.Location;
+﻿using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
 using Newtonsoft.Json;
+using System;
+using System.Runtime.Serialization;
 
 namespace Bikewale.Entities.BikeBooking
 {
     /// <summary>
     /// Modified By :Sangram Nandkhile on 29 Dec 2016
     /// Description : Added DisplayTextLarge, DisplayTextSmall
+    /// Modified by : Pratibha Verma on 27 April 2018
+    /// Description : Added AdditionalNumbers, AdditionalEmails
     /// </summary>
+    [Serializable, DataContract]
     public class NewBikeDealers
     {
-        [JsonProperty("dealerId")]
+        [JsonProperty("dealerId"), DataMember]
         public UInt32 DealerId { get; set; }
 
-        [JsonProperty("areaId")]
+        [JsonProperty("areaId"), DataMember]
         public UInt32 AreaId { get; set; }
 
-        [JsonProperty("dealerName")]
+        [JsonProperty("dealerName"), DataMember]
         public string Name { get; set; }
 
-        [JsonProperty("emailId")]
+        [JsonProperty("emailId"), DataMember]
         public string EmailId { get; set; }
 
-        [JsonProperty("mobileNo")]
+        [JsonProperty("mobileNo"), DataMember]
         public string MobileNo { get; set; }
 
-        [JsonProperty("phoneNo")]
+        [JsonProperty("phoneNo"), DataMember]
         public string PhoneNo { get; set; }
 
-        [JsonProperty("organization")]
+        [JsonProperty("organization"), DataMember]
         public string Organization { get; set; }
 
-        [JsonProperty("website")]
+        [JsonProperty("website"), DataMember]
         public string Website { get; set; }
 
-        [JsonProperty("workingTime")]
+        [JsonProperty("workingTime"), DataMember]
         public string WorkingTime { get; set; }
 
-        [JsonProperty("address")]
+        [JsonProperty("address"), DataMember]
         public string Address { get; set; }
 
-        [JsonProperty("distance")]
+        [JsonProperty("distance"), DataMember]
         public string Distance { get; set; }
 
-        [JsonProperty("maskingNumber")]
+        [JsonProperty("maskingNumber"), DataMember]
         public string MaskingNumber { get; set; }
 
+        [DataMember]
         public StateEntityBase objState { get; set; }
-
+        [DataMember]
         public CityEntityBase objCity { get; set; }
-
+        [DataMember]
         public AreaEntityBase objArea { get; set; }
 
-        [JsonProperty("dealerPackageType")]
+        [JsonProperty("dealerPackageType"), DataMember]
         public DealerPackageTypes DealerPackageType { get; set; }
 
-        [JsonProperty("displayTextLarge")]
+        [JsonProperty("displayTextLarge"), DataMember]
         public string DisplayTextLarge { get; set; }
 
-        [JsonProperty("displayTextSmall")]
+        [JsonProperty("displayTextSmall"), DataMember]
         public string DisplayTextSmall { get; set; }
 
-        [JsonProperty("isDSA")]
+        [JsonProperty("isDSA"), DataMember]
         public bool IsDSA { get; set; }
+
+        [JsonProperty("additionalNumbers"), DataMember]
+        public string AdditionalNumbers { get; set; }
+
+        [JsonProperty("additionalEmails"), DataMember]
+        public string AdditionalEmails { get; set; }
 
     }   //End of Class
 }   //End of namespace

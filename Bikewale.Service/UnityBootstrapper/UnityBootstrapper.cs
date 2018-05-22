@@ -1,16 +1,20 @@
-﻿using Bikewale.BAL.App;
+﻿using Bikewale.BAL.ApiGateway.ApiGatewayHelper;
+using Bikewale.BAL.App;
 using Bikewale.BAL.AppDeepLinking;
 using Bikewale.BAL.AutoComplete;
 using Bikewale.BAL.BikeBooking;
 using Bikewale.BAL.BikeData;
 using Bikewale.BAL.BikeData.NewLaunched;
 using Bikewale.BAL.BikeData.UpComingBike;
+using Bikewale.BAL.BikeSearch;
 using Bikewale.BAL.CMS;
 using Bikewale.BAL.Compare;
 using Bikewale.BAL.Customer;
 using Bikewale.BAL.Dealer;
 using Bikewale.BAL.EditCMS;
 using Bikewale.BAL.Images;
+using Bikewale.BAL.Lead;
+using Bikewale.BAL.Notifications;
 using Bikewale.BAL.Pager;
 using Bikewale.BAL.PriceQuote;
 using Bikewale.BAL.Security;
@@ -42,6 +46,7 @@ using Bikewale.DAL.Feedback;
 using Bikewale.DAL.Images;
 using Bikewale.DAL.Location;
 using Bikewale.DAL.NewBikeSearch;
+using Bikewale.DAL.Notifications;
 using Bikewale.DAL.ServiceCenter;
 using Bikewale.DAL.Used;
 using Bikewale.DAL.UsedBikes;
@@ -66,10 +71,12 @@ using Bikewale.Interfaces.Dealer;
 using Bikewale.Interfaces.EditCMS;
 using Bikewale.Interfaces.Feedback;
 using Bikewale.Interfaces.Images;
+using Bikewale.Interfaces.Lead;
 using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.MobileAppAlert;
 using Bikewale.Interfaces.MobileVerification;
 using Bikewale.Interfaces.NewBikeSearch;
+using Bikewale.Interfaces.Notifications;
 using Bikewale.Interfaces.Pager;
 using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Interfaces.Security;
@@ -106,7 +113,7 @@ namespace Bikewale.Service.UnityConfiguration
         /// Description :   Register Road Test/Feature/Article BAL classes for CMS Controller constructor resolution
         /// Modified By :   Sajal Gupta on 10-10-2016
         /// Description :   Register usedBikeDetailsRepository, usedBikeDetails
-        ///  /// Modified By : Subodh Jain on 08 Nov 2016
+        /// Modified By :   Subodh Jain on 08 Nov 2016
         /// Description :   Register Service Center
         /// Modified by :   Sumit Kate on 15 Nov 2016
         /// Description :   Register IImage, ISecurity and IImageRepository interfaces
@@ -116,6 +123,10 @@ namespace Bikewale.Service.UnityConfiguration
         /// Description :   Register INewBikeLaunchesBL interface
         /// Modified by :   Sumit Kate on 05 Jan 2018
         /// Description :   Register IBikeSearchCacheRepository
+        /// Modified by :   Dhruv Joshi on 8th Feb 2018
+        /// Description :   Register INotification and INotificationRepository
+        /// Modified by :   Rajan Chauhan on 11 Apr 2018
+        /// Description :   Registered IBikeVersionRepository, IApiGatewayCaller
         /// </summary>
         /// <returns></returns>
         public static IUnityContainer Initialize()
@@ -170,6 +181,9 @@ namespace Bikewale.Service.UnityConfiguration
             container.RegisterType<ILeadNofitication, LeadNotificationBL>();
             container.RegisterType<IBikeMakesCacheRepository, BikeMakesCacheRepository>();
             container.RegisterType<IBikeVersionCacheRepository<BikeVersionEntity, uint>, BikeVersionsCacheRepository<BikeVersionEntity, uint>>();
+            container.RegisterType<IBikeVersionCacheRepository<BikeVersionEntity, int>, BikeVersionsCacheRepository<BikeVersionEntity, int>>();
+            container.RegisterType<IBikeVersionsRepository<BikeVersionEntity, uint>, BikeVersionsRepository<BikeVersionEntity, uint>>();
+            container.RegisterType<IBikeVersionsRepository<BikeVersionEntity, int>, BikeVersionsRepository<BikeVersionEntity, int>>();
             container.RegisterType<ICMSCacheContent, CMSCacheRepository>();
             container.RegisterType<IArticles, Articles>();
             container.RegisterType<ISearch, SearchBikes>();
@@ -210,13 +224,25 @@ namespace Bikewale.Service.UnityConfiguration
             container.RegisterType<ICMS, CMS>();
             container.RegisterType<Bikewale.ManufacturerCampaign.Interface.IManufacturerCampaignRepository, Bikewale.ManufacturerCampaign.DAL.ManufacturerCampaignRepository>();
             container.RegisterType<IManufacturerCampaign, Bikewale.ManufacturerCampaign.BAL.ManufacturerCampaign>();
+            container.RegisterType<IManufacturerCampaignCache, Bikewale.ManufacturerCampaign.Cache.ManufacturerCampaignCache>();
             container.RegisterType<Bikewale.Interfaces.Finance.CapitalFirst.IFinanceRepository, Bikewale.DAL.Finance.CapitalFirst.FinanceRepository>();
             container.RegisterType<Bikewale.Interfaces.Finance.ICapitalFirst,
                 Bikewale.BAL.Finance.CapitalFirst>();
+            container.RegisterType<IBikeSeries, BikeSeries>();
             container.RegisterType<IVideosCacheRepository, VideosCacheRepository>();
             container.RegisterType<IVideos, Bikewale.BAL.Videos.Videos>();
             container.RegisterType<IVideoRepository, ModelVideoRepository>();
             container.RegisterType<IBikeSearchCacheRepository, BikeSearchCacheRepository>();
+            container.RegisterType<INotifications, NotificationsBL>();
+            container.RegisterType<INotificationsRepository, NotificationsRepository>();
+            container.RegisterType<IBikeSearch, BikeSearch>();
+            container.RegisterType<IBikeSeriesCacheRepository, BikeSeriesCacheRepository>();
+            container.RegisterType<IBikeSeriesRepository, BikeSeriesRepository>();
+            container.RegisterType<IPQByCityArea, PQByCityArea>();
+            container.RegisterType<Bikewale.Interfaces.AutoBiz.IDealerPriceQuote, Bikewale.DAL.AutoBiz.DealerPriceQuoteRepository>();
+            container.RegisterType<IBikeSearchResult, BikeSearchResult>();
+            container.RegisterType<ILead, LeadProcess>();
+            container.RegisterType<IApiGatewayCaller, ApiGatewayCaller>();
             return container;
 
         }

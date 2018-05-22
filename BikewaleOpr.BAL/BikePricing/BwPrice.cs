@@ -1,8 +1,14 @@
-﻿using Bikewale.Notifications;
+﻿using Bikewale.ElasticSearch.Entities;
+using Bikewale.Utility;
 using BikewaleOpr.Cache;
+using BikewaleOpr.Interface.BikeData;
 using BikewaleOpr.Interface.BikePricing;
 using BikewaleOpr.Interface.Dealers;
+using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Linq;
 namespace BikewaleOpr.BAL.BikePricing
 {
     /// <summary>
@@ -12,9 +18,12 @@ namespace BikewaleOpr.BAL.BikePricing
     public class BwPrice : IBwPrice
     {
         private readonly IShowroomPricesRepository _showroomPricesRepository;
-        public BwPrice(IShowroomPricesRepository showroomPricesRepository)
+        private readonly IBikeModelsRepository _bikeModelsRepository;
+
+        public BwPrice(IShowroomPricesRepository showroomPricesRepository, IBikeModelsRepository bikeModelsRepository)
         {
             _showroomPricesRepository = showroomPricesRepository;
+            _bikeModelsRepository = bikeModelsRepository;
         }
         /// <summary>
         /// Created by : Ashutosh Sharma on 10 Nov 2017
@@ -50,8 +59,10 @@ namespace BikewaleOpr.BAL.BikePricing
                             {
                                 BwMemCache.ClearModelPriceInNearestCities(Convert.ToUInt32(modelId), Convert.ToUInt32(cityId), 8);
                                 BwMemCache.ClearMostPopularBikesByModelBodyStyle(Convert.ToUInt32(modelId), Convert.ToUInt32(cityId), 8);
+
                             }
                         }
+
                         foreach (var versionPrice in versionPriceList)
                         {
                             string versionId = versionPrice.Substring(0, versionPrice.IndexOf('#'));
@@ -60,8 +71,8 @@ namespace BikewaleOpr.BAL.BikePricing
                                 BwMemCache.ClearSimilarBikesList(Convert.ToUInt32(versionId), 9, Convert.ToUInt32(cityId));
                             }
                         }
-                        
-
+                        BwMemCache.ClearDefaultPQVersionList(modelIdList, cityIdList);
+                        BwMemCache.ClearVersionPrice(modelIdList, cityIdList);
                     }
                 }
             }
@@ -70,6 +81,109 @@ namespace BikewaleOpr.BAL.BikePricing
                 Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("BAL.BwPrice.SaveBikePrices:_{0}_{1}_{2}_{3}_{4}", versionAndPriceList, citiesList, makeId, modelIds, updatedBy));
             }
             return IsSaved;
+        }
+
+        /// <summary>
+        /// Created By : Deepak Israni on 22 Feb 2018
+        /// Description: BAL function to push recently updated price documents to RabbitMq.
+        /// Modified By: Deepak Israni on 12 March 2018
+        /// Description: Updated function to push to BWEsDocumentBuilder for updating bikeindex
+        /// </summary>
+        /// <param name="versionIds"></param>
+        /// <param name="cityIds"></param>
+        public void UpdateModelPriceDocument(string versionIds, string cityIds)
+        {
+            string versions = ParseInput(versionIds, new string[] { "#c0l#", "|r0w|" }, 4);
+            string cities = ParseInput(cityIds, new string[] { "|r0w|" }, 1);
+            string models = _bikeModelsRepository.GetModelsByVersions(versions);            
+
+            #region Update Bike Index
+
+            NameValueCollection packet = new NameValueCollection();
+            packet["ids"] = models;
+            packet["indexName"] = BWOprConfiguration.Instance.BikeModelIndex;
+            packet["documentType"] = "bikemodeldocument";
+            packet["operationType"] = "udpate";
+
+            BWESDocumentBuilder.PushToQueue(packet);
+
+            #endregion
+
+            #region Update Pricing Index
+
+            NameValueCollection nvc = new NameValueCollection();
+            nvc["indexName"] = BWOprConfiguration.Instance.BikeModelPriceIndex;
+            nvc["modelIds"] = models;
+            nvc["cityIds"] = cities;
+            nvc["documentType"] = "modelpricedocument";
+            nvc["operationType"] = "update";
+
+            BWESDocumentBuilder.PushToQueue(nvc);
+
+            #endregion
+
+            var modelIds = models.Split(',').Distinct();
+            var cityIdList = cities.Split(',').Distinct();
+            BwMemCache.ClearDefaultPQVersionList(modelIds, cityIdList);
+            BwMemCache.ClearVersionPrice(modelIds, cityIdList);
+        }
+
+
+        /// <summary>
+        /// Created By : Deepak Israni on 22 Feb 2018
+        /// Description: BAL function to push newly created price documents to RabbitMq.
+        /// Modified By: Deepak Israni on 12 March 2018
+        /// Description: Updated function to push to BWEsDocumentBuilder for updating bikeindex
+        /// </summary>
+        /// <param name="modelIds"></param>
+        /// <param name="cityIds"></param>
+        public void CreateModelPriceDocument(string modelIds, string cityIds)
+        {
+
+            #region Update BikeIndex
+            NameValueCollection packet = new NameValueCollection();
+            packet["ids"] = modelIds;
+            packet["indexName"] = BWOprConfiguration.Instance.BikeModelIndex;
+            packet["documentType"] = "bikemodeldocument";
+            packet["operationType"] = "update";
+            BWESDocumentBuilder.PushToQueue(packet); 
+            #endregion
+
+
+            #region Update BikePriceIndex
+            NameValueCollection packetBikeModelPriceIndex = new NameValueCollection();
+            packetBikeModelPriceIndex["modelIds"] = modelIds;
+            packetBikeModelPriceIndex["cityIds"] = cityIds;
+            packetBikeModelPriceIndex["indexName"] = BWOprConfiguration.Instance.BikeModelPriceIndex;
+            packetBikeModelPriceIndex["documentType"] = "modelpricedocument";
+            packetBikeModelPriceIndex["operationType"] = "insert";
+
+            BWESDocumentBuilder.PushToQueue(packetBikeModelPriceIndex); 
+            #endregion
+
+            
+        }
+
+
+        /// <summary>
+        /// Created By : Deepak Israni on 22 Feb 2018
+        /// Description: Helper function to parse input and returning it as a comma seperated string.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="seperators"></param>
+        /// <param name="step"></param>
+        /// <returns></returns>
+        public string ParseInput(string value, string[] separators, int step)
+        {
+            string[] words = value.Split(separators, StringSplitOptions.RemoveEmptyEntries);
+            string ids = "";
+            var len = words.Length;
+            for (int i = 0; i < len; i += step)
+            {
+                ids += string.Format("{0},", words[i]);
+            }
+            ids = ids.Remove(ids.Length - 1);
+            return ids;
         }
     }
 }

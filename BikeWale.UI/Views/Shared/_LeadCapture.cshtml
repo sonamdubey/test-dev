@@ -108,7 +108,8 @@
 </div>
 <!-- scripts goes here -->
 
-<script type="text/javascript">    
+<script type="text/javascript">
+
     var gaLabel = "";
     var eventAction = "Lead_Submitted";
     var leadBtnBookNow, leadCapturePopup, leadBike;
@@ -119,6 +120,7 @@
     var leadBikeName = '@Model.BikeName', leadLocation = '@Model.Location';
     var objPinCodes = new Object(), dleadvm, validate;
     var isBindingApplied = false;
+    var fbPixelLeadEvent = "";
     function leadModel() {
         var arr = setuserDetails();
         var self = this;
@@ -311,7 +313,7 @@
             if (!isNaN(self.dealerId()) && self.dealerId() > 0 && self.campaignId() > 0) {
                 var dealerKey = "dealerDetails_" + self.dealerId() + "_camp_" + self.campaignId();
                 var dealerInfo = lscache.get(dealerKey);
-                
+
                 if (!dealerInfo) {
 
                     startLoading(leadBike.parent());
@@ -557,6 +559,9 @@
                         if (self.cityRequired() && self.selectedCity()) {
                             SetCookieInDays("location", self.selectedCity().cityId + "_" + self.selectedCity().cityName, 365);
                         }
+                        if (fbPixelLeadEvent) {
+                            fbq('track', fbPixelLeadEvent);
+                        }
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
                         $("#leadCapturePopup").show();
@@ -605,7 +610,6 @@
 
                     if (self.dealerId() && isValidDetails) {
                         self.verifyCustomer();
-                        if (self.IsVerified()) {
 
                             if (self.IsLeadPopup()) {
                                 $("#contactDetailsPopup").hide();
@@ -617,16 +621,14 @@
                                 $("#dealer-assist-msg").fadeIn();
                             }
                             triggerGA(self.eventCategory(), eventAction, gaLabel);
-                        }
-                        else {
-                            if (self.IsLeadPopup()) {
-                                $("#leadCapturePopup").show();
-                                popup.lock();
-                            }
-                        }
                         setPQUserCookie();
                         self.triggerABTestGA(gaLabel);
+                        if (fbPixelLeadEvent)
+                        {
+                            fbq('track', fbPixelLeadEvent);
+                        }
                     }
+                    
                 }
 
 
@@ -1011,7 +1013,10 @@
         fullName = $("#getFullName"), emailid = $("#getEmailID"), mobile = $("#getMobile");
         assistanceGetName = $('#assistanceGetName'), assistanceGetEmail = $('#assistanceGetEmail'), assistanceGetMobile = $('#assistanceGetMobile');
         detailsSubmitBtn = $("#user-details-submit-btn");
-       
+        if (FbPixelEvent)
+        {
+            fbPixelLeadEvent = FbPixelEvent.lead;
+        }
         /* form validation */
         validate = {
             setError: function (element, message) {

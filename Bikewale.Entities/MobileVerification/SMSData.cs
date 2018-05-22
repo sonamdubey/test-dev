@@ -7,6 +7,7 @@ namespace Bikewale.Entities.MobileVerification
     /// Created By :  Sajal Gupta
     /// Created On  : 16 Nov 2016
     /// Description : Sms data.
+    /// Modifier    : Kartik Rathod  on 30 apl 2018 added Pincode
     /// </summary>
 
     [Serializable, DataContract]
@@ -41,5 +42,8 @@ namespace Bikewale.Entities.MobileVerification
 
         [DataMember]
         public string MakeName { get; set; }
+
+        [DataMember]
+        public string PinCode { get; set; }
     }
 }

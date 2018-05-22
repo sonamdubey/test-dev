@@ -3,8 +3,9 @@
 @{
     Model.AdTags.Ad_320x50 = true;
     Model.AdTags.Ad_Bot_320x50 = true;
-    ViewBag.AdPath = "/1017752/Bikewale_Mobile_Make";
-    ViewBag.AdId = "1444028878952";
+    Model.AdTags.Ad_300x250BTF = true;
+    Model.AdTags.AdPath = "/1017752/Bikewale_Mobile_MakeScooter";
+    Model.AdTags.AdId = "1517581118761";
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/sass/scooters/listing.css' inline />";
     Model.Page_JS_Path = "/m/src/scooters-by-make.js";
@@ -33,7 +34,7 @@
             <div class="margin-right20 margin-left20 border-solid-bottom"></div>
         }
         @if (Model.IsScooterDataAvailable)
-        { 
+        {
             <div id="bikeMakeList" class="content-box-shadow bw-model-tabs-data padding-top15 padding-bottom20 card-bottom-margin">
                 <h2 class="text-bold padding-left20">@string.Format("{0} Scooters Prices in  India", Model.Make.MakeName)</h2>
                 <ul class="bike-listing">
@@ -45,10 +46,10 @@
                                     <img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(bikedetails.OriginalImagePath, bikedetails.HostURL, Bikewale.Utility.ImageSize._310x174)" alt="@bikedetails.BikeName" src="" />
                                 </div>
                                 <h2 class="margin-bottom10">@bikedetails.BikeName</h2>
-                                @if (bikedetails.Specs != null)
-                                { <div class="font14 text-x-light margin-bottom10">
-                                @Html.Raw(Bikewale.Utility.FormatMinSpecs.GetMinSpecs(Convert.ToString(bikedetails.Specs.Displacement), Convert.ToString(bikedetails.Specs.FuelEfficiencyOverall), Convert.ToString(bikedetails.Specs.MaxPower), Convert.ToString(bikedetails.Specs.KerbWeight)))
-                            </div>
+                                @if (bikedetails.MinSpecsList != null)
+                                {<div class="font14 text-x-light margin-bottom10">
+                                        @Html.Raw(Bikewale.Utility.FormatMinSpecs.GetMinSpecsSpanElements(bikedetails.MinSpecsList))
+                                    </div>
                                 }
                                 <p class="key-size-14 margin-bottom5">Ex-showroom price, @Bikewale.Utility.BWConfiguration.Instance.DefaultName</p>
                                 @Html.Raw("<span class='value-size-18'> &#x20B9;</span>")
@@ -63,8 +64,14 @@
                 </ul>
             </div>
         }
-       
+
     </section>
+    @if (Model.AdTags.Ad_300x250BTF)
+    {
+        <div class="margin-bottom20 text-center">
+        @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad300x250BTF.cshtml",Model.AdTags);}
+        </div>
+    }
     @if (Model.IsCompareDataAvailable)
     {
         <section id="popularComparisions" class="bw-model-tabs-data">
@@ -145,7 +152,7 @@
             {
                 <div id="dealerAndServiceContent" class="bw-model-tabs-data">
                     @if (Model.IsDealerAvailable)
-                {
+                    {
                         <div class="padding-bottom20 padding-top15 font14">
                             <div class="carousel-heading-content">
                                 <div class="swiper-heading-left-grid inline-block">

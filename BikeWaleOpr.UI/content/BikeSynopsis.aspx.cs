@@ -79,6 +79,8 @@ namespace BikeWaleOpr.Content
         /// Summary : Changed version of cache key
         /// Modified by : Ashutosh Sharma on 29 Sep 2017 
         /// Description : Changed cache key from 'BW_ModelDetail_' to 'BW_ModelDetail_V1_'.
+        /// Modified by : Rajan Chauhan on 06 Feb 2018.
+        /// Description : Changed version of key from 'BW_ModelDetail_V1_' to 'BW_ModelDetail_'.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -137,25 +139,28 @@ namespace BikeWaleOpr.Content
             {
                 if (!string.IsNullOrEmpty(sql))
                 {
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(sql, ConnectionType.ReadOnly))
+                    using (DbCommand cmd = DbFactory.GetDBCommand(sql))
                     {
-                        if (dr != null && dr.Read())
+                        using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                         {
-                            ftbDescription.Text = dr["FullDescription"].ToString();
-                            txtSmallDesc.Text = dr["SmallDescription"].ToString();
-                            txtPros.Text = dr["Pros"].ToString();
-                            txtCons.Text = dr["Cons"].ToString();
-                            drpLooks.SelectedValue = dr["Looks"].ToString();
-                            drpPerformance.SelectedValue = dr["Performance"].ToString();
-                            drpFuel.SelectedValue = dr["FuelEfficiency"].ToString();
-                            drpComfort.SelectedValue = dr["Comfort"].ToString();
-                            drpSafety.SelectedValue = dr["Safety"].ToString();
-                            drpInteriors.SelectedValue = dr["Interiors"].ToString();
-                            drpRide.SelectedValue = dr["RideQuality"].ToString();
-                            drpHandling.SelectedValue = dr["Handling"].ToString();
-                            drpBraking.SelectedValue = dr["Braking"].ToString();
-                            drpOverall.SelectedValue = dr["Overall"].ToString();
-                            lblMessage.Text = dr["Id"].ToString();
+                            if (dr != null && dr.Read())
+                            {
+                                ftbDescription.Text = dr["FullDescription"].ToString();
+                                txtSmallDesc.Text = dr["SmallDescription"].ToString();
+                                txtPros.Text = dr["Pros"].ToString();
+                                txtCons.Text = dr["Cons"].ToString();
+                                drpLooks.SelectedValue = dr["Looks"].ToString();
+                                drpPerformance.SelectedValue = dr["Performance"].ToString();
+                                drpFuel.SelectedValue = dr["FuelEfficiency"].ToString();
+                                drpComfort.SelectedValue = dr["Comfort"].ToString();
+                                drpSafety.SelectedValue = dr["Safety"].ToString();
+                                drpInteriors.SelectedValue = dr["Interiors"].ToString();
+                                drpRide.SelectedValue = dr["RideQuality"].ToString();
+                                drpHandling.SelectedValue = dr["Handling"].ToString();
+                                drpBraking.SelectedValue = dr["Braking"].ToString();
+                                drpOverall.SelectedValue = dr["Overall"].ToString();
+                                lblMessage.Text = dr["Id"].ToString();
+                            }
                         }
                     }
                 }
@@ -190,11 +195,14 @@ namespace BikeWaleOpr.Content
             {
                 if (!string.IsNullOrEmpty(sql))
                 {
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(sql, ConnectionType.ReadOnly))
+                    using (DbCommand cmd = DbFactory.GetDBCommand(sql))
                     {
-                        if (dr != null && dr.Read())
+                        using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                         {
-                            bikeName = dr["BikeName"].ToString();
+                            if (dr != null && dr.Read())
+                            {
+                                bikeName = dr["BikeName"].ToString();
+                            }
                         }
                     }
                 }

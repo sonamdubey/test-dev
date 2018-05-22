@@ -1,4 +1,5 @@
-﻿using Bikewale.BAL.BikeData;
+﻿using Bikewale.BAL.ApiGateway.ApiGatewayHelper;
+using Bikewale.BAL.BikeData;
 using Bikewale.BAL.Pager;
 using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
@@ -18,6 +19,8 @@ namespace Bikewale.BindViewModels.Controls
     /// <summary>
     /// Created By : Sushil Kumar on 2nd Jan 2016
     /// Generic Bike Functions
+	/// Modified By : Rajan Chauhan on 16 Apr 2018
+	/// Description : Registered API Gateway in UnityContainer 
     /// </summary>
     public class BindBikeInfo
     {
@@ -45,7 +48,8 @@ namespace Bikewale.BindViewModels.Controls
                         .RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>()
                         .RegisterType<IPager, Pager>()
                         .RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>()
-                    .RegisterType<IBikeInfo, BikeInfo>();
+						.RegisterType<IApiGatewayCaller, ApiGatewayCaller>()
+						.RegisterType<IBikeInfo, BikeInfo>();
 
 
                     _objGenericBike = container.Resolve<IBikeInfo>();

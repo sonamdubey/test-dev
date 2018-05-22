@@ -17,7 +17,8 @@ export function NewsDetailReducer(state,action) {
 				},
 			NewBikesListData : {
 					Status : Status.Reset,
-					NewBikesList : null
+					NewBikesList : null,
+			        BikeMakeList : null
 				},
 			RelatedModelObject : {
 					Status : Status.Reset,
@@ -27,8 +28,9 @@ export function NewsDetailReducer(state,action) {
 
 		if(state && window._SERVER_RENDERED_DATA == true) {
 
-			var articleDetail = state.getIn(['ArticleDetailData','ArticleDetail']);
+		    var articleDetail = state.getIn(['ArticleDetailData','ArticleDetail']);
 			var newBikesList = state.getIn(['NewBikesListData','NewBikesList']);
+			var newbikeMakeList = state.getIn(['NewBikesListData','BikeMakeList']);
 			var modelObject = state.getIn(['RelatedModelObject','ModelObject']);
 			
 
@@ -45,7 +47,8 @@ export function NewsDetailReducer(state,action) {
 						},
 					NewBikesListData : {
 							Status : Status.Fetched,
-							NewBikesList : newBikesList
+							NewBikesList : newBikesList,
+							BikeMakeList : newbikeMakeList
 						},
 					RelatedModelObject : {
 							Status : Status.Fetched,
@@ -67,7 +70,7 @@ export function NewsDetailReducer(state,action) {
 		switch(action.type) {
 			case newsDetailAction.FETCH_NEWSDETAIL : 
 				
-				startTimer(1,2); // 1 api (set of 3) + 2 ads
+				startTimer(1,0); // 1 api (set of 3) + 2 ads
 				var initialDataDict = state.getIn(['ArticleDetailData','InitialDataDict'])
 				return state.setIn(['ArticleDetailData'] , fromJS({
 						Status : Status.IsFetching,
@@ -76,10 +79,10 @@ export function NewsDetailReducer(state,action) {
 				}))
 				
 			case newsDetailAction.FETCH_NEWSDETAIL_WITH_INITIAL_DATA : 
-				startTimer(1,2); // 1 api (set of 3) + 2 ads
+				startTimer(1,0); // 1 api (set of 3) + 2 ads
 				var initialDataDict = state.getIn(['ArticleDetailData','InitialDataDict']);
 				if(action.payload) {
-					document.title = action.payload.Title ? action.payload.Title + " - BikeWale News": "BikeWale News";
+					document.title = action.payload.Title ? action.payload.Title + " - BikeWale": "BikeWale";
 					var initialDataDictModified = initialDataDict.setIn([action.payload.ArticleUrl],action.payload);
 					initialDataDict = initialDataDictModified;
 				} 
@@ -94,7 +97,7 @@ export function NewsDetailReducer(state,action) {
 				var initialDataDict = state.getIn(['ArticleDetailData','InitialDataDict']);
 				var docTitle = "";
 				if(action.payload) {
-					docTitle = action.payload.Title ? action.payload.Title + " - BikeWale News": "BikeWale News";
+					docTitle = action.payload.Title ? action.payload.Title + " - BikeWale": "BikeWale";
 					var articleInitialData =  initialDataDict.getIn([action.payload.ArticleUrl]);	
 					if(!articleInitialData) {
 						articleInitialData = mapNewsArticleDataToInitialData(action.payload);
@@ -131,13 +134,15 @@ export function NewsDetailReducer(state,action) {
 			case newBikesListAction.FETCH_NEW_BIKES_LIST_FOR_NEWS_DETAIL:
 				return state.setIn(['NewBikesListData'] , fromJS({
 						Status : Status.IsFetching,
-						NewBikesList : null
+						NewBikesList : null,
+				        BikeMakeList : null
 				}))
 
 			case newBikesListAction.FETCH_NEW_BIKES_LIST_SUCCESS_FOR_NEWS_DETAIL:
 				return state.setIn(['NewBikesListData'] , fromJS({
 						Status : Status.Fetched,
-						NewBikesList : action.payload
+						NewBikesList : action.payload.NewBikesList,
+						BikeMakeList : action.payload.BikeMakeList
 				}))
 				
 			case newBikesListAction.FETCH_NEW_BIKES_LIST_FAILURE_FOR_NEWS_DETAIL:
@@ -149,10 +154,10 @@ export function NewsDetailReducer(state,action) {
 			case newBikesListAction.NEW_BIKES_LIST_RESET_FOR_NEWS_DETAIL: 
 				return state.setIn(['NewBikesListData'] , fromJS({
 						Status : Status.Reset,
-						NewBikesList : null
+						NewBikesList : null,
+						BikeMakeList : null
 				}))
 				
-				//TODO handle reset case
 
 			case modelObjectAction.FETCH_MODEL_OBJECT_FOR_NEWS_DETAIL :
 				return state.setIn(['RelatedModelObject'] , fromJS({
@@ -177,7 +182,6 @@ export function NewsDetailReducer(state,action) {
 						Status : Status.Reset,
 						ModelObject : null
 				}))
-				//TODO handle reset 
 				
 		}
 

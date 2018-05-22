@@ -31,9 +31,11 @@ class TopVideosComponent extends React.Component {
 			this.props.fetchTopVideosData();
 		}
 	}
+
 	componentDidUpdate(prevProps, prevState) {
 		this.callParentLogAndScrollHandler();
 	}
+
 	callParentLogAndScrollHandler() {
 		if(this.props.Status == Status.Fetched) {
 			if(typeof this.props.logAndScrollHandler == 'function') {

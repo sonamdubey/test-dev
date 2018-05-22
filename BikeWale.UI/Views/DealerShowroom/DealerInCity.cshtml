@@ -7,7 +7,7 @@
     Model.PageMetaTags.AlternateUrl = String.Format("https://www.bikewale.com/m/dealer-showrooms/{0}/{1}/", Model.Make.MaskingName, Model.CityDetails.CityMaskingName);
     Model.AdTags.AdId = "1516179171948";
     Model.AdTags.AdPath = "/1017752/Bikewale_Dealer_Showrooms_";
-    Model.AdTags.Ad_970x90 = true;
+    Model.AdTags.Ad_970x90Top = true;
     Model.AdTags.Ad_970x90Bottom = true;
     Model.AdTags.Ad_Model_ATF_300x250 = true;
     Model.AdTags.Ad_Model_BTF_300x250 = true;
@@ -78,7 +78,7 @@
                                         }
                                         else
                                         {
-                                            <span>@string.Format("{0}, {1}, {2}", Details.Address, Details.objArea.PinCode, Model.CityDetails.CityName)</span>
+                                            <span>@string.Format("{0}, {1} - {2}", Details.Address, Model.CityDetails.CityName, Details.objArea.PinCode)</span>
                                         }
                                     </p>
                                 </a>
@@ -86,9 +86,9 @@
                                     <p class="@string.Format("{0}",String.IsNullOrEmpty(Details.MaskingNumber)?"hide":"dealer-details__number")">
                                         <span>@Details.MaskingNumber</span>
                                     </p>
-                                    @if (Details.objArea != null && (Details.objArea.Latitude > 0 || Details.objArea.Longitude>0))
+                                    @if (Details.objArea != null && (Details.objArea.Latitude > 0 || Details.objArea.Longitude > 0))
                                     {
-                                        <a href="https://maps.google.com/?saddr=&amp;daddr=@Details.objArea.Latitude,@Details.objArea.Longitude" class="dealer-details__direction" target="_blank" rel="noopener">Get Directions</a>
+                                        <a href="javascript:void(0)" class="dealer-details__direction" rel="noopener" onclick="getLocationUrl(@Details.objArea.Latitude,@Details.objArea.Longitude)">Get Directions</a>
                                     }
                                 </div>
 
@@ -262,4 +262,10 @@
 
 <script type="text/javascript">
     eventCategory = "Dealer_Locator";
+    docReady(function () {
+        if(FbPixelEvent)
+        {
+            fbq('track',FbPixelEvent.viewContent);
+        }
+    });
 </script>

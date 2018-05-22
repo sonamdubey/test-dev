@@ -6,15 +6,16 @@
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/new/bwm-search.css' inline />";
     Model.Page_BTF_CSS_Path = "/css/chosen.min.css";
     Model.Page_JS_Path = "/m/src/new/search_new.js";
-    Model.AdTags.AdId = "1398766000399";
-    Model.AdTags.AdPath = "/1017752/Bikewale_Mobile_Homepage";
-    Model.AdTags.Ad_320x50 = true;
+    Model.AdTags.AdId = "1517810637194";
+    Model.AdTags.AdPath = "/1017752/Bikewale_NewBikeSearch";
+    Model.AdTags.Ad_Body_Top_320x50 = true;
     Model.AdTags.Ad_Bot_320x50 = true;
+    Model.AdTags.Ad_300x250BTF = true;
     Model.IsHeaderRequired = false;
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
 
     <div class="blackOut-window"></div>
-	<!-- global-search-popup code starts here -->
+    <!-- global-search-popup code starts here -->
 
     <div id="global-search-popup" class="global-search-popup" style="display: none">
         <div class="form-control-box">
@@ -34,7 +35,7 @@
             </ul>
         </div>
     </div>
-	<!-- global-search-popup code ends here -->
+    <!-- global-search-popup code ends here -->
     <header>
         <div class="header-fixed">
             <!-- Fixed Header code starts here -->
@@ -60,10 +61,15 @@
         <div class="clear"></div>
 
     </header>
-
+    if (Model.AdTags.Ad_Body_Top_320x50)
+    {
+        <div class="margin-bottom20 text-center">
+            @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad320x50_Top.cshtml", Model.AdTags);}
+        </div>
+    }
     <section>
         <!--  Used Search code starts here -->
-        <div class="container">
+        <div class="container margin-bottom15">
             <div>
                 <!--  class="grid-12"-->
 
@@ -95,7 +101,7 @@
                             <ul>
                                 @foreach (var bike in Model.BikeSearch.SearchResult)
                                 {
-							        <!-- ko if: models()[@i]-->
+                                    <!-- ko if: models()[@i]-->
                                     <li class="search-bike-item">
                                         <div class="front">
                                             <div class="contentWrapper">
@@ -126,9 +132,9 @@
                                                     <div class="margin-bottom5 font14 text-light-grey">Ex-showroom, @BWConfiguration.Instance.DefaultName</div>
                                                     <div>
                                                         <span class="bwmsprite inr-sm-icon"></span>
-                                                        <span class="text-bold font18" data-bind="text: models()[@i].price">@bike.FinalPrice</span><span class="font14 padding-left5 @(bike.FinalPrice.Equals("N/A") ? "hide" : "")" data-bind="visible : models()[@i].price != 'N/A'">onwards</span>
+                                                        <span class="text-bold font18" data-bind="text: models()[@i].price">@bike.FinalPrice</span><span class="font14 padding-left5" @(bike.FinalPrice.Equals("N/A") ? "style=display:none" : "") data-bind="visible : models()[@i].price != 'N/A'">onwards</span>
                                                     </div>
-                                                    <div class="margin-bottom10 @(bike.FinalPrice.Equals("N/A") ? "hide" : "")" data-bind="visible : models()[@i].price != 'N/A'">
+                                                    <div class="margin-bottom10" @(bike.FinalPrice.Equals("N/A") ? "style=display:none" : "") data-bind="visible : models()[@i].price != 'N/A'">
                                                         <a href="javascript:void(0)" data-pqsourceid="@Model.BikeSearch.PqSource" data-bind="attr: { 'data-modelid' : models()[@i].bikemodel.modelId}" data-modelid="@bike.BikeModel.ModelId" class="btn btn-sm btn-white font14 margin-top20 getquotation">Check on-road price</a>
                                                     </div>
                                                 </div>
@@ -136,13 +142,13 @@
                                         </div>
                                     </li>
 
-							        <!-- /ko -->
+                                    <!-- /ko -->
                                     i++;
                                 }
                                 @while (i < 30)
                                 {
-								<!-- ko if: models()[@i] && models()[@i].bikemodel -->
-                                     <li class="search-bike-item" style="display:none" data-bind="
+                                    <!-- ko if: models()[@i] && models()[@i].bikemodel -->
+                                    <li class="search-bike-item" style="display:none" data-bind="
                                     <li class="search-bike-item" style="display:none" data-bind="visible: models()[@i]">
                                         <div class="front">
                                             <div class="contentWrapper">
@@ -182,7 +188,7 @@
                                             </div>
                                         </div>
                                     </li>
-								    <!-- /ko -->
+                                    <!-- /ko -->
                                     i++;
                                 }
                             </ul>
@@ -260,8 +266,8 @@
         </div>
 
     </section>
-	<!-- Used Search code  Ends here -->
-	<!--Filters starts here-->
+    <!-- Used Search code  Ends here -->
+    <!--Filters starts here-->
     <div id="filter-div" class="popup_layer hide">
         <div data-role="header" data-theme="b" class="ui-corner-top" data-icon="delete">
             <div id="hidePopup" class="filterBackArrow" popupname="filterpopup" @*onclick="CloseWindow(this)"*@>
@@ -369,6 +375,76 @@
             </div>
             <!--ride section starts here-->
 
+            <!--Brakes section ends here-->
+            @if (Model.BrakeTypes != null)
+            {
+                <div class="dropdown form-control-box margin-bottom20">
+                    <h3 class="text-black margin-bottom10">Brakes</h3>
+                    <div class="form-control">
+                        <span class="hide">Brakes</span>
+                        <span class="hida">Brakes</span>
+                        <div class="multiSel"></div>
+                    </div>
+
+                    <div name="braketype" class="multiSelect">
+                        <ul>
+                            @foreach (var item in Model.BrakeTypes)
+                            {
+                            <li class="unchecked" filterid="@item.Id"><span>@item.Value</span></li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            }
+            <!--Brakes section ends here-->
+
+            <!--Wheels section ends here-->
+            @if (Model.WheelTypes != null)
+            {
+                <div class="dropdown form-control-box margin-bottom20">
+                    <h3 class="text-black margin-bottom10">Wheels</h3>
+                    <div class="form-control">
+                        <span class="hide">Wheels</span>
+                        <span class="hida">Wheels</span>
+                        <div class="multiSel"></div>
+                    </div>
+
+                    <div name="alloywheel" class="multiSelect">
+                        <ul>
+                            @foreach (var item in Model.WheelTypes)
+                            {
+                            <li class="unchecked" filterid="@item.Id"><span>@item.Value</span></li>
+                            }
+                        </ul>                        
+                    </div>
+                </div>
+            }
+            <!--Wheels section ends here-->
+
+            <!--Start type section ends here-->
+            @if (Model.StartTypes != null)
+            {
+                <div class="dropdown form-control-box margin-bottom20">
+                    <h3 class="text-black margin-bottom10">Start type</h3>
+                    <div class="form-control">
+                        <span class="hide">Start type</span>
+                        <span class="hida">Start type</span>
+                        <div class="multiSel"></div>
+                    </div>
+
+                    <div name="starttype" class="multiSelect">
+                        <ul>
+                        @foreach (var item in Model.StartTypes)
+                        {
+                            <li class="unchecked" filterid="@item.Id"><span>@item.Value</span></li>
+                        }
+                        </ul>
+                    
+                    </div>
+                </div>
+            }
+            <!--Start type section ends here-->
+
             <div class="grid-12 alpha omega margin-bottom20 clear">
                 <div class="grid-5 alpha">
                     <h3>ABS</h3>
@@ -376,36 +452,6 @@
                 <div name="ABS" class="grid-7 omega">
                     <span filterid="1" class="form-control grid-6 checkOption">Yes</span>
                     <span filterid="2" class="form-control grid-6 checkOption">No</span>
-                </div>
-            </div>
-
-            <div class="grid-12 alpha omega margin-bottom20 clear">
-                <div class="grid-5 alpha">
-                    <h3>Brakes</h3>
-                </div>
-                <div name="braketype" class="grid-7 omega">
-                    <span filterid="2" class="form-control grid-6 checkOption">Disc</span>
-                    <span filterid="1" class="form-control grid-6 checkOption">Drum</span>
-                </div>
-            </div>
-
-            <div class="grid-12 alpha omega margin-bottom20 clear">
-                <div class="grid-5 alpha">
-                    <h3>Wheels</h3>
-                </div>
-                <div name="alloywheel" class="grid-7 omega">
-                    <span filterid="2" class="form-control grid-6 checkOption">Alloy</span>
-                    <span filterid="1" class="form-control grid-6 checkOption">Spoke</span>
-                </div>
-            </div>
-
-            <div class="grid-12 alpha omega margin-bottom20 clear">
-                <div class="grid-5 alpha">
-                    <h3>Start type</h3>
-                </div>
-                <div name="starttype" class="grid-7 omega">
-                    <span filterid="1" class="form-control grid-6 checkOption">Electric</span>
-                    <span filterid="2" class="form-control grid-6 checkOption">Kick</span>
                 </div>
             </div>
 
@@ -421,7 +467,10 @@
         <!--Filters ends here-->
         <div class="clear"></div>
     </div>
-    
+    if (Model.AdTags.Ad_300x250BTF)
+    {
+        Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad300x250BTF.cshtml", Model.AdTags);
+    }
     if (Model.TabCount > 0)
     {
         <section>
@@ -436,38 +485,38 @@
                                     <div id="reviewCount" class="@string.Format("bw-tabs text-center {0}", Model.TabCount > 2 ? "bw-tabs-flex" : Model.TabCount > 1 ? "home-tabs" : "hide")">
                                         <ul>
                                             @if (Model.News.FetchedCount > 0)
-											{
-                                                        <li data-tabs="ctrlNews" class="@string.Format("{0}", Model.IsNewsActive ? "active" : "hide")">News</li>
-											}
+                                            {
+                                                <li data-tabs="ctrlNews" class="@string.Format("{0}", Model.IsNewsActive ? "active" : "hide")">News</li>
+                                            }
                                             @if (Model.ExpertReviews.FetchedCount > 0)
-											{
-                                                        <li data-tabs="ctrlExpertReviews" class="@string.Format("{0}", Model.IsExpertReviewActive ? "active" : "hide")">Expert Reviews</li>
-											}
+                                            {
+                                                <li data-tabs="ctrlExpertReviews" class="@string.Format("{0}", Model.IsExpertReviewActive ? "active" : "hide")">Expert Reviews</li>
+                                            }
                                             @if (Model.Videos.FetchedCount > 0)
-											{
-                                                        <li data-tabs="ctrlVideos" class="@string.Format("{0}", Model.IsVideoActive ? "active" : "hide")">Videos</li>
-											}
+                                            {
+                                                <li data-tabs="ctrlVideos" class="@string.Format("{0}", Model.IsVideoActive ? "active" : "hide")">Videos</li>
+                                            }
                                         </ul>
                                     </div>
                                 </div>
                             </div>
                             <div class="bw-tabs-data margin-right20 margin-left20" id="ctrlNews">
                                 @if (Model.News.FetchedCount > 0)
-								{
-                                            @Html.Partial("~/Views/News/_RecentNews_Mobile.cshtml", Model.News)
-								}
+                                {
+                                    @Html.Partial("~/Views/News/_RecentNews_Mobile.cshtml", Model.News)
+                                }
                             </div>
                             <div class="bw-tabs-data hide margin-right20 margin-left20" id="ctrlExpertReviews">
                                 @if (Model.ExpertReviews.FetchedCount > 0)
-								{
-                                            @Html.Partial("~/Views/ExpertReviews/_RecentExpertReviews_Mobile.cshtml", Model.ExpertReviews)
-								}
+                                {
+                                    @Html.Partial("~/Views/ExpertReviews/_RecentExpertReviews_Mobile.cshtml", Model.ExpertReviews)
+                                }
                             </div>
                             <div class="bw-tabs-data hide margin-right20 margin-left20" id="ctrlVideos">
                                 @if (Model.Videos.FetchedCount > 0)
-								{
-                                            @Html.Partial("~/Views/Videos/_RecentVideos_Mobile.cshtml", Model.Videos)
-								}
+                                {
+                                    @Html.Partial("~/Views/Videos/_RecentVideos_Mobile.cshtml", Model.Videos)
+                                }
                             </div>
                         </div>
                     </div>

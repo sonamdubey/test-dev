@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Bikewale.Entities</RootNamespace>
     <AssemblyName>Bikewale.Entities</AssemblyName>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -99,6 +99,7 @@
       <HintPath>..\Libs\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
@@ -161,6 +162,7 @@
     <Compile Include="BikeData\BikeFilters.cs" />
     <Compile Include="BikeData\BikeInfoPageSource.cs" />
     <Compile Include="BikeData\BikeMakeBase.cs" />
+    <Compile Include="BikeData\BikeMakeCategoriesEnum.cs" />
     <Compile Include="BikeData\BikeMakeModelBase.cs" />
     <Compile Include="BikeData\BikeMakeModelEntity.cs" />
     <Compile Include="BikeData\BikeMakeEntityBase.cs" />
@@ -197,8 +199,12 @@
     <Compile Include="BikeData\BikeVersionsSegment.cs" />
     <Compile Include="BikeData\BikeWithMileageInfo.cs" />
     <Compile Include="BikeData\CompareMakeModelEntity.cs" />
+    <Compile Include="BikeData\EditorialWidgetHelper.cs" />
     <Compile Include="BikeData\EnumBikeData.cs" />
+    <Compile Include="BikeData\EnumSpecDataType.cs" />
+    <Compile Include="BikeData\EnumSpecsFeaturesItems.cs" />
     <Compile Include="BikeData\EnumUpcomingBikesFilter.cs" />
+    <Compile Include="BikeData\ExpertReviewCountEntity.cs" />
     <Compile Include="BikeData\FeaturedBikeEntity.cs" />
     <Compile Include="BikeData\Features.cs" />
     <Compile Include="BikeData\MakeFooterCategory.cs" />
@@ -234,6 +240,11 @@
     <Compile Include="BikeData\Specifications.cs" />
     <Compile Include="BikeData\Specs.cs" />
     <Compile Include="BikeData\SpecsCategory.cs" />
+    <Compile Include="BikeData\SpecsCustomDataType.cs" />
+    <Compile Include="BikeData\SpecsFeaturesEntity.cs" />
+    <Compile Include="BikeData\SpecsFeaturesCategory.cs" />
+    <Compile Include="BikeData\SpecsFeaturesItem.cs" />
+    <Compile Include="BikeData\SpecsItem.cs" />
     <Compile Include="BikeData\TransposeModelSpecEntity.cs" />
     <Compile Include="BikeData\UpcomingBikeEntity.cs" />
     <Compile Include="BikeData\UpcomingBikeEntityBase.cs" />
@@ -243,6 +254,7 @@
     <Compile Include="BikeData\v2\BikeModelContent.cs" />
     <Compile Include="BikeData\VersionColor.cs" />
     <Compile Include="BikeBooking\FeedBackEntity.cs" />
+    <Compile Include="BikeData\VersionMinSpecsEntity.cs" />
     <Compile Include="BikewalePages.cs" />
     <Compile Include="CMS\Articles\ArticleBase.cs" />
     <Compile Include="CMS\Articles\ArticleDetails.cs" />
@@ -329,8 +341,13 @@
     <Compile Include="EditCMS\Photos\BikeModelEntityBase.cs" />
     <Compile Include="EditCMS\Photos\CMSImage.cs" />
     <Compile Include="EditCMS\Photos\ModelImage.cs" />
+    <Compile Include="EditorialWidgets\EditorialWidgetEntity.cs" />
     <Compile Include="EMISliderAMP.cs" />
     <Compile Include="Feedback\FeedbackTypeEnum.cs" />
+    <Compile Include="Filters\CustomInputFilters.cs" />
+    <Compile Include="Filters\FilterBase.cs" />
+    <Compile Include="Filters\FilterPageEntity.cs" />
+    <Compile Include="Filters\InPageFilterEnum.cs" />
     <Compile Include="Finance\CapitalFirst\CapitalFirstEmailDetailsEntity.cs" />
     <Compile Include="Finance\CapitalFirst\CapitalFirstMakeEntityBase.cs" />
     <Compile Include="Finance\CapitalFirst\CapitalFirstVoucherEntityBase.cs" />
@@ -356,6 +373,7 @@
     <Compile Include="Location\GlobalCityAreaEntity.cs" />
     <Compile Include="Location\StateEntityBase.cs" />
     <Compile Include="Location\StateMaskingResponse.cs" />
+    <Compile Include="MakeABTestCookie.cs" />
     <Compile Include="manufacturecampaign\ManufactureCampaignInput.cs" />
     <Compile Include="manufacturecampaign\ManufactureDealer.cs" />
     <Compile Include="MobileAppAlert\AppFCMInput.cs" />
@@ -367,20 +385,31 @@
     <Compile Include="MobileVerification\MobileVerificationEntity.cs" />
     <Compile Include="MobileVerification\SMSData.cs" />
     <Compile Include="Models\AdSlotEntity.cs" />
+    <Compile Include="Models\AdSlotModel.cs" />
     <Compile Include="Models\AdTags.cs" />
     <Compile Include="Models\AmpJsTags.cs" />
     <Compile Include="Models\BreadCrumb.cs" />
     <Compile Include="Models\BreadCrumbsList.cs" />
     <Compile Include="Models\ModelBase.cs" />
     <Compile Include="Models\PageMetaTags.cs" />
+    <Compile Include="NewBikeSearch\BikeModelDocumentEntity.cs" />
+    <Compile Include="NewBikeSearch\BikeSearchEnum.cs" />
+    <Compile Include="NewBikeSearch\BikeSearchOutputEntity.cs" />
+    <Compile Include="NewBikeSearch\BikeStatus.cs" />
     <Compile Include="NewBikeSearch\BudgetFilterRanges.cs" />
     <Compile Include="NewBikeSearch\FilterEnum.cs" />
     <Compile Include="NewBikeSearch\FilterInput.cs" />
+    <Compile Include="NewBikeSearch\ImageEntity.cs" />
     <Compile Include="NewBikeSearch\InputBaseEntity.cs" />
+    <Compile Include="NewBikeSearch\MakeEntity.cs" />
+    <Compile Include="NewBikeSearch\ModelEntity.cs" />
     <Compile Include="NewBikeSearch\PagingUrl.cs" />
+    <Compile Include="NewBikeSearch\PriceEntity.cs" />
     <Compile Include="NewBikeSearch\RideStyleEnum.cs" />
+    <Compile Include="NewBikeSearch\SearchFilters.cs" />
     <Compile Include="NewBikeSearch\SearchOutputEntity.cs" />
     <Compile Include="NewBikeSearch\SearchOutputEntityBase.cs" />
+    <Compile Include="NewBikeSearch\VersionEntity.cs" />
     <Compile Include="OfferEntityBase.cs" />
     <Compile Include="Pager\PagerEntity.cs" />
     <Compile Include="Pager\PagerOutputEntity.cs" />
@@ -461,6 +490,8 @@
     <Compile Include="service\ServiceCityEntity.cs" />
     <Compile Include="App\SplashScreenEntity.cs" />
     <Compile Include="StatusCodes.cs" />
+    <Compile Include="UpcomingNotification\EnumNotifTypeId.cs" />
+    <Compile Include="UpcomingNotification\UpcomingNotificationEntity.cs" />
     <Compile Include="UrlShortner\UrlShortnerResponse.cs" />
     <Compile Include="Used\BikeDetails.cs" />
     <Compile Include="Used\BikeDetailsMin.cs" />
@@ -539,6 +570,10 @@
     <Compile Include="Videos\VideosSortOrder.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Bikewale.ElasticSearch.Entities\Bikewale.ElasticSearch.Entities.csproj">
+      <Project>{51f0aa77-2bed-4b2c-aaa9-e9b8be811019}</Project>
+      <Name>Bikewale.ElasticSearch.Entities</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Bikewale.ManufacturerCampaign.Entities\Bikewale.ManufacturerCampaign.Entities.csproj">
       <Project>{EA73DDA4-317E-4B79-BB03-F48125C2501B}</Project>
       <Name>Bikewale.ManufacturerCampaign.Entities</Name>

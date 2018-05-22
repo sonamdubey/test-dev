@@ -4,9 +4,9 @@
     @{
         string q = Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(string.Format("csrc={0}", (int)Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Mobile_ModelPage_Topslug));
     }
-    <a href="@string.Format("/m/bike-review-contest/?q={0}",q)" class="contest-slug-sm slug-teal-target">
+    <a href="javascript:void(0)" ref="nofollow" data-href="@string.Format("/m/bike-review-contest/?q={0}", q)" class="contest-slug-sm slug-teal-target bw-anchor-link">
         <span class="trophy-white"></span>
-        <p class="contest-slug__label">Write a review and win Amazon vouchers worth &#x20B9;@Bikewale.Utility.BWConfiguration.Instance.ContestPriceMoney</p>
+        <p class="contest-slug__label">Write a review and win Amazon vouchers worth &#x20B9;@Bikewale.Utility.Format.FormatPrice(Bikewale.Utility.BWConfiguration.Instance.ContestPriceMoney)</p>
         <span class="bwmsprite arrow-white-right"></span>
     </a>
 </section>
@@ -59,7 +59,7 @@
                     @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad320x100ATF.cshtml", new { AdId = Model.AdTags.AdId });}
                 </div>
              }
-            @if (Model.ModelPageEntity.ModelVersionSpecs != null)
+            @if (Model.ModelPageEntity.ModelVersionMinSpecs != null)
             {
                 <div>
                     @Html.Partial("~/Views/Model/_Index_ModelSummary_Mobile.cshtml", Model)
@@ -98,9 +98,9 @@
         </div>
     </section>
 }
-@if (Model.AdTags.Ad320x100BTF)
+@if (Model.AdTags.Ad300x250_Bottom)
 {
     <div class="margin-bottom20 text-center">
-        @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad320x100BTF.cshtml", new { AdId = Model.AdTags.AdId });}
+        @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad300x250_Bottom.cshtml", Model.AdTags);}
     </div>
 }

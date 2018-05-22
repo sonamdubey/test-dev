@@ -436,11 +436,14 @@ namespace BikeWaleOpr.Content
 
             try
             {
-                using (IDataReader dr = MySqlDatabase.SelectQuery(sql, ConnectionType.ReadOnly))
+                using (DbCommand cmd = DbFactory.GetDBCommand(sql))
                 {
-                    if (dr.Read())
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
-                        count = dr["TCount"].ToString();
+                        if (dr.Read())
+                        {
+                            count = dr["TCount"].ToString();
+                        }
                     }
                 }
             }
@@ -554,63 +557,66 @@ namespace BikeWaleOpr.Content
 
                 try
                 {
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(sql, ConnectionType.ReadOnly))
+                    using (DbCommand cmd = DbFactory.GetDBCommand(sql))
                     {
-                        if (dr != null && dr.Read())
+                        using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                         {
-                            txtDescription.Text = dr["Description"].ToString();
-                            drpMake.SelectedValue = dr["MakeId"].ToString();
-
-                            if (Convert.ToBoolean(dr["IsActive"]) == false)
+                            if (dr != null && dr.Read())
                             {
-                                chkIsActive.Checked = false;
+                                txtDescription.Text = dr["Description"].ToString();
+                                drpMake.SelectedValue = dr["MakeId"].ToString();
+
+                                if (Convert.ToBoolean(dr["IsActive"]) == false)
+                                {
+                                    chkIsActive.Checked = false;
+                                }
+                                if (Convert.ToBoolean(dr["IsModel"]) == false)
+                                {
+                                    chkIsModel.Checked = false;
+
+                                    drpModel.DataSource = aj.GetModels(dr["MakeId"].ToString());
+                                    drpModel.DataTextField = "Text";
+                                    drpModel.DataValueField = "Value";
+                                    drpModel.DataBind();
+                                    drpModel.Items.Insert(0, new ListItem("Any", "0"));
+                                    drpModel.SelectedIndex = drpModel.Items.IndexOf(drpModel.Items.FindByValue(dr["ModelId"].ToString()));
+
+                                    drpVersion.DataSource = aj.GetVersions(dr["ModelId"].ToString());
+                                    drpVersion.DataTextField = "Text";
+                                    drpVersion.DataValueField = "Value";
+                                    drpVersion.DataBind();
+                                    drpVersion.Items.Insert(0, new ListItem("Any", "0"));
+                                    drpVersion.SelectedIndex = drpVersion.Items.IndexOf(drpVersion.Items.FindByValue(dr["BikeId"].ToString()));
+
+                                    drpModel.Enabled = true;
+                                    drpVersion.Enabled = true;
+                                }
+                                else
+                                {
+                                    drpModel.DataSource = aj.GetModels(dr["MakeId"].ToString());
+                                    drpModel.DataTextField = "Text";
+                                    drpModel.DataValueField = "Value";
+                                    drpModel.DataBind();
+                                    drpModel.Items.Insert(0, new ListItem("Any", "0"));
+                                    drpModel.SelectedIndex = drpModel.Items.IndexOf(drpModel.Items.FindByValue(dr["ModelId"].ToString()));
+
+                                    drpVersion.DataSource = aj.GetVersions(dr["ModelId"].ToString());
+                                    drpVersion.DataTextField = "Text";
+                                    drpVersion.DataValueField = "Value";
+                                    drpVersion.DataBind();
+                                    drpVersion.Items.Insert(0, new ListItem("Any", "0"));
+
+                                    drpModel.Enabled = true;
+                                    drpVersion.Enabled = true;
+                                }
+
+                                if (Convert.ToBoolean(dr["IsVisible"]) == false)
+                                {
+                                    chkIsVisible.Checked = false;
+                                }
+                                originalImgPath = dr["OriginalImagePath"].ToString();
+                                hostURL = dr["hostUrl"].ToString();
                             }
-                            if (Convert.ToBoolean(dr["IsModel"]) == false)
-                            {
-                                chkIsModel.Checked = false;
-
-                                drpModel.DataSource = aj.GetModels(dr["MakeId"].ToString());
-                                drpModel.DataTextField = "Text";
-                                drpModel.DataValueField = "Value";
-                                drpModel.DataBind();
-                                drpModel.Items.Insert(0, new ListItem("Any", "0"));
-                                drpModel.SelectedIndex = drpModel.Items.IndexOf(drpModel.Items.FindByValue(dr["ModelId"].ToString()));
-
-                                drpVersion.DataSource = aj.GetVersions(dr["ModelId"].ToString());
-                                drpVersion.DataTextField = "Text";
-                                drpVersion.DataValueField = "Value";
-                                drpVersion.DataBind();
-                                drpVersion.Items.Insert(0, new ListItem("Any", "0"));
-                                drpVersion.SelectedIndex = drpVersion.Items.IndexOf(drpVersion.Items.FindByValue(dr["BikeId"].ToString()));
-
-                                drpModel.Enabled = true;
-                                drpVersion.Enabled = true;
-                            }
-                            else
-                            {
-                                drpModel.DataSource = aj.GetModels(dr["MakeId"].ToString());
-                                drpModel.DataTextField = "Text";
-                                drpModel.DataValueField = "Value";
-                                drpModel.DataBind();
-                                drpModel.Items.Insert(0, new ListItem("Any", "0"));
-                                drpModel.SelectedIndex = drpModel.Items.IndexOf(drpModel.Items.FindByValue(dr["ModelId"].ToString()));
-
-                                drpVersion.DataSource = aj.GetVersions(dr["ModelId"].ToString());
-                                drpVersion.DataTextField = "Text";
-                                drpVersion.DataValueField = "Value";
-                                drpVersion.DataBind();
-                                drpVersion.Items.Insert(0, new ListItem("Any", "0"));
-
-                                drpModel.Enabled = true;
-                                drpVersion.Enabled = true;
-                            }
-
-                            if (Convert.ToBoolean(dr["IsVisible"]) == false)
-                            {
-                                chkIsVisible.Checked = false;
-                            }
-                            originalImgPath = dr["OriginalImagePath"].ToString();
-                            hostURL = dr["hostUrl"].ToString();
                         }
                     }
                 }
@@ -646,7 +652,7 @@ namespace BikeWaleOpr.Content
                     cmd.CommandText = sql;
                     cmd.CommandType = CommandType.Text;
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(sql, ConnectionType.ReadOnly))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null)
                         {

@@ -150,33 +150,35 @@ namespace BikeWaleOpr.Content
                                 dl.id = '" + URLData + "' and ct.id = dl.cityid";
                 try
                 {
-
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(sql, ConnectionType.ReadOnly))
+                    using (DbCommand cmd = DbFactory.GetDBCommand(sql))
                     {
-                        if (dr != null)
+                        using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                         {
-                            while (dr.Read())
+                            if (dr != null)
                             {
-                                drpMake.SelectedValue = dr["MakeId"].ToString();
-                                drpState.SelectedValue = dr["StateId"].ToString();
-                                drpCity.Enabled = true;
-                                FillCities(dr["StateId"].ToString());
-                                drpCity.SelectedValue = dr["CityId"].ToString();
-                                txtName.Text = dr["Name"].ToString();
-                                txtAddress.Text = dr["Address"].ToString();
-                                txtPincode.Text = dr["Pincode"].ToString();
-                                txtContact.Text = dr["ContactNo"].ToString();
-                                txtFax.Text = dr["FaxNo"].ToString();
-                                txtEmail.Text = dr["EmailId"].ToString();
-                                txtWebsite.Text = dr["WebSite"].ToString();
-                                txtWorkingHours.Text = dr["WorkingHours"].ToString();
-                                if (dr["IsNCD"].ToString() == "1")
+                                while (dr.Read())
                                 {
-                                    cbxIsNcd.Checked = true;
-                                }
-                                if (dr["IsActive"].ToString() == "1")
-                                {
-                                    cbxIsActive.Checked = true;
+                                    drpMake.SelectedValue = dr["MakeId"].ToString();
+                                    drpState.SelectedValue = dr["StateId"].ToString();
+                                    drpCity.Enabled = true;
+                                    FillCities(dr["StateId"].ToString());
+                                    drpCity.SelectedValue = dr["CityId"].ToString();
+                                    txtName.Text = dr["Name"].ToString();
+                                    txtAddress.Text = dr["Address"].ToString();
+                                    txtPincode.Text = dr["Pincode"].ToString();
+                                    txtContact.Text = dr["ContactNo"].ToString();
+                                    txtFax.Text = dr["FaxNo"].ToString();
+                                    txtEmail.Text = dr["EmailId"].ToString();
+                                    txtWebsite.Text = dr["WebSite"].ToString();
+                                    txtWorkingHours.Text = dr["WorkingHours"].ToString();
+                                    if (dr["IsNCD"].ToString() == "1")
+                                    {
+                                        cbxIsNcd.Checked = true;
+                                    }
+                                    if (dr["IsActive"].ToString() == "1")
+                                    {
+                                        cbxIsActive.Checked = true;
+                                    }
                                 }
                             }
                         }

@@ -32,7 +32,7 @@
                             }
 
                         </td>
-                        <td class="font12">@string.Format(@"{0} Brake, {1} Wheels", version.BrakeType, (version.AlloyWheels) ? "Alloy" : "Spoke")</td>
+			<td class="font12">@((version.MinSpecsList != null) ? Bikewale.Utility.FormatMinSpecs.GetCommaSepratedGeneralSpecs(version.MinSpecsList.Take(2)) : "")</td>
                     </tr>
                 }
             </tbody>
@@ -41,7 +41,7 @@
 
     @if (Model.IsPriceInTopCitiesAvailable)
     {
-        <div id="nearby-prices-grid" class="grid-12 omega alpha padding-top20">
+        <div id="nearby-prices-grid" class="grid-@(Model.AdTags.Ad_Model_BTF_300x250?"8":"12") omega alpha padding-top20">
 
             @if (Model.LocationCookie != null && Model.LocationCookie.City != null)
             {
@@ -52,13 +52,21 @@
                 <h3 class="margin-bottom20">Price by cities&nbsp;<span class="text-light-grey text-unbold">(@(Model.IsDiscontinuedBike ? "Last known " : "")@(Model.IsLocationSelected && !Model.ShowOnRoadButton ? "On-road price" : "Ex-showroom price"))</span></h3>
             }
 
-            <ul id="prices-top-cities">
+            <ul id="prices-top-cities" class="@(Model.AdTags.Ad_Model_BTF_300x250?"ul-grid-3":"ul-grid-4")">
                 @Html.Partial("~/Views/PriceInCity/_PriceInTopCities.cshtml", Model.PriceInTopCities)
             </ul>
+            <div class="clear"></div>
+            <div class="font12 text-slate-grey line-height17 margin-top10">
+                @Html.Raw(Model.VersionPriceListSummary)
+            </div>
         </div>
+        if (Model.AdTags.Ad_Model_BTF_300x250)
+        {
+            <div class="grid-4 omega alpha padding-top20">
+                @{Html.RenderPartial("/Views/Shared/Ads/Desktop/AdSlotGeneric.cshtml", Model.AdSlots[String.Format("{0}-11", Model.AdTags.AdId)]);}
+            </div>
+        
+        }
     }
     <div class="clear"></div>
-    <div class="font12 text-slate-grey line-height17 margin-top10">
-        @Html.Raw(Model.VersionPriceListSummary)
-    </div>
 </div>

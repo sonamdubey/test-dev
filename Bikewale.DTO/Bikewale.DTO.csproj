@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Bikewale.DTO</RootNamespace>
     <AssemblyName>Bikewale.DTO</AssemblyName>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -162,6 +162,7 @@
     <Compile Include="BikeData\BikeColorsbyVersionDTO.cs" />
     <Compile Include="BikeData\BikeVersionWithMinSpecDTO.cs" />
     <Compile Include="BikeData\ModelSpecificationsDTO.cs" />
+    <Compile Include="BikeData\v2\VersionMinSpecs.cs" />
     <Compile Include="BikeData\VersionSegmentDTO.cs" />
     <Compile Include="BikeData\MakeModelBase.cs" />
     <Compile Include="BikeData\NewLaunched\BikesCountByMakeDTO.cs" />
@@ -294,6 +295,7 @@
     <Compile Include="Model\v5\ModelPage.cs" />
     <Compile Include="Model\v5\Review.cs" />
     <Compile Include="NewBikeSearch\Pager.cs" />
+    <Compile Include="NewBikeSearch\SearchFilterDTO.cs" />
     <Compile Include="NewBikeSearch\SearchOutput.cs" />
     <Compile Include="NewBikeSearch\SearchOutputBase.cs" />
     <Compile Include="PriceQuote\Area\PQAreaBase.cs" />
@@ -346,6 +348,7 @@
     <Compile Include="PriceQuote\Version\v2\PQByCityAreaV2.cs" />
     <Compile Include="App\SplashScreen.cs" />
     <Compile Include="PriceQuote\Version\v3\PQByCityAreaDTO.cs" />
+    <Compile Include="Upcoming\UpcomingNotificationDTO.cs" />
     <Compile Include="UsedBikes\BikeInterestDetailsDTO.cs" />
     <Compile Include="UsedBikes\PhotoRequestDTO.cs" />
     <Compile Include="UsedBikes\PopularUsedBikesBase.cs" />
@@ -476,7 +479,9 @@
       <Name>Bikewale.Utility</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="app.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

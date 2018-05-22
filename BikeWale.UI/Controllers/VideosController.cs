@@ -8,6 +8,7 @@ using Bikewale.Interfaces.PWA.CMS;
 using Bikewale.Interfaces.Videos;
 using Bikewale.Models;
 using Bikewale.Models.Videos;
+using Bikewale.PWA.Entities.Images;
 using Bikewale.PWA.Utils;
 using Bikewale.Utility;
 using log4net;
@@ -36,14 +37,14 @@ namespace Bikewale.Controllers.Desktop.Videos
         private readonly IBikeModelsCacheRepository<int> _modelCache = null;
         private readonly IBikeSeries _series = null;
         private readonly IBikeModels<BikeModelEntity, int> _models;
-        private readonly IBikeVersionCacheRepository<BikeVersionEntity, uint> _objBikeVersionsCache;
+        private readonly IBikeVersions<BikeVersionEntity, uint> _objVersion;
 
 
         static ILog _logger = LogManager.GetLogger("Pwa-Logger-VideoController");
 
-        public VideosController(ICityCacheRepository cityCacheRepo, IBikeInfo bikeInfo, IBikeMakesCacheRepository bikeMakesCache, IVideosCacheRepository videos, IVideos video, IBikeMaskingCacheRepository<BikeModelEntity, int> objModelCache,
-            IPWACMSCacheRepository renderedArticles,
-             IBikeModelsCacheRepository<int> modelCache, IBikeSeriesCacheRepository seriesCache, IBikeSeries series, IBikeModels<BikeModelEntity, int> models, IBikeVersionCacheRepository<BikeVersionEntity, uint> objBikeVersionsCache)
+        public VideosController(ICityCacheRepository cityCacheRepo, IBikeInfo bikeInfo, IBikeMakesCacheRepository bikeMakesCache, IVideosCacheRepository videos, IVideos video,
+            IBikeMaskingCacheRepository<BikeModelEntity, int> objModelCache, IPWACMSCacheRepository renderedArticles, IBikeModelsCacheRepository<int> modelCache,
+            IBikeSeriesCacheRepository seriesCache, IBikeSeries series, IBikeModels<BikeModelEntity, int> models, IBikeVersions<BikeVersionEntity, uint> objBikeVersions)
         {
             _videos = videos;
             _video = video;
@@ -56,7 +57,7 @@ namespace Bikewale.Controllers.Desktop.Videos
             _seriesCache = seriesCache;
             _models = models;
             _series = series;
-            _objBikeVersionsCache = objBikeVersionsCache;
+            _objVersion = objBikeVersions;
         }
 
         /// <summary>
@@ -70,7 +71,7 @@ namespace Bikewale.Controllers.Desktop.Videos
         {
             try
             {
-                VideosLandingPage modelObj = new VideosLandingPage(_video, _videos, _bikeMakesCache, _objModelCache);
+                VideosLandingPage modelObj = new VideosLandingPage(_video, _videos, _bikeMakesCache, _objModelCache,_models);
                 modelObj.LandingVideosTopCount = 5;
                 modelObj.ExpertReviewsTopCount = 2;
                 modelObj.FirstRideWidgetTopCount = 6;
@@ -89,7 +90,7 @@ namespace Bikewale.Controllers.Desktop.Videos
             }
             catch (System.Exception ex)
             {
-                ErrorClass.LogError(ex, "ServiceCentersController.Index");
+                ErrorClass.LogError(ex, "VideosController.Index");
                 return Redirect("/pagenotfound.aspx");
             }
         }
@@ -104,7 +105,7 @@ namespace Bikewale.Controllers.Desktop.Videos
         {
             try
             {
-                VideosLandingPage modelObj = new VideosLandingPage(_video, _videos, _bikeMakesCache, _objModelCache);
+                VideosLandingPage modelObj = new VideosLandingPage(_video, _videos, _bikeMakesCache, _objModelCache,_models);
                 modelObj.LandingVideosTopCount = 5;
                 modelObj.ExpertReviewsTopCount = 2;
                 modelObj.FirstRideWidgetTopCount = 6;
@@ -272,7 +273,7 @@ namespace Bikewale.Controllers.Desktop.Videos
         [Route("videos/make/{makeMaskingName}/model/{modelMaskingName}")]
         public ActionResult Models(string makeMaskingName, string modelMaskingName)
         {
-            ModelWiseVideosPage objModel = new ModelWiseVideosPage(makeMaskingName, modelMaskingName, _cityCacheRepo, _bikeInfo, _videos, _bikeMakesCache, _objModelCache, _seriesCache, _series, _models, _objBikeVersionsCache, _modelCache);
+            ModelWiseVideosPage objModel = new ModelWiseVideosPage(makeMaskingName, modelMaskingName, _cityCacheRepo, _bikeInfo, _videos, _bikeMakesCache, _objModelCache, _seriesCache, _series, _models, _objVersion, _modelCache);
 
             if (objModel.makeStatus == Entities.StatusCodes.RedirectPermanent || objModel.modelStatus == Entities.StatusCodes.RedirectPermanent)
             {
@@ -323,7 +324,7 @@ namespace Bikewale.Controllers.Desktop.Videos
         [Route("m/videos/make/{makeMaskingName}/model/{modelMaskingName}")]
         public ActionResult Models_Mobile(string makeMaskingName, string modelMaskingName)
         {
-            ModelWiseVideosPage objModel = new ModelWiseVideosPage(makeMaskingName, modelMaskingName, _cityCacheRepo, _bikeInfo, _videos, _bikeMakesCache, _objModelCache, _seriesCache, _series, _models, _objBikeVersionsCache, _modelCache);
+            ModelWiseVideosPage objModel = new ModelWiseVideosPage(makeMaskingName, modelMaskingName, _cityCacheRepo, _bikeInfo, _videos, _bikeMakesCache, _objModelCache, _seriesCache, _series, _models, _objVersion, _modelCache);
 
             objModel.IsMobile = true;
             if (objModel.makeStatus == Entities.StatusCodes.RedirectPermanent || objModel.modelStatus == Entities.StatusCodes.RedirectPermanent)
@@ -368,12 +369,14 @@ namespace Bikewale.Controllers.Desktop.Videos
         /// Summary     :   Fetch videos page by masking name
         /// Modified by :   Sumit Kate on 29 Mar 2017
         /// Description :   Make wise video page desktop action method
+        /// Modified by :   Pratibha Verma on 8 Feb 2018
+        /// Description :   Added parameter in MakeVideosPage constructor for Linkage of Image Page from Video
         /// </summary>
         [Filters.DeviceDetection()]
         [Route("videos/make/{makeMaskingName}/")]
         public ActionResult Makes(string makeMaskingName)
         {
-            MakeVideosPage objModel = new MakeVideosPage(makeMaskingName, _videos);
+            MakeVideosPage objModel = new MakeVideosPage(makeMaskingName, _videos, _models);
             if (objModel.Status == Entities.StatusCodes.ContentFound)
             {
                 return View(objModel.GetData());
@@ -393,13 +396,15 @@ namespace Bikewale.Controllers.Desktop.Videos
         /// Summary    : ActionResult method for make wise videos page
         /// Modified by :   Sumit Kate on 29 Mar 2017
         /// Description :   Make wise video page mobile action method
+        /// Modified by :   Pratibha Verma on 8 Feb 2018
+        /// Description :   Added parameter in MakeVideosPage constructor for Linkage of Image Page from Video
         /// </summary>
         /// <param name="makeMaskingName"></param>
         /// <returns></returns>
         [Route("m/videos/make/{makeMaskingname}/")]
         public ActionResult Makes_Mobile(string makeMaskingName)
         {
-            MakeVideosPage objModel = new MakeVideosPage(makeMaskingName, _videos);
+            MakeVideosPage objModel = new MakeVideosPage(makeMaskingName, _videos, _models);
 
             if (objModel.Status == Entities.StatusCodes.ContentFound)
             {
@@ -494,6 +499,12 @@ namespace Bikewale.Controllers.Desktop.Videos
         }
 
         #region Construct PWA Redux Store
+        /// <summary>
+        /// Modified by : Ashutosh Sharma on 14 Feb 2018
+        /// Description : Added code to bind popular bike models images to redux store.
+        /// </summary>
+        /// <param name="objVM"></param>
+        /// <returns></returns>
         private PwaReduxStore ConstructStoreForListPage(VideosLandingPageVM objVM)
         {
             //construct the store for PWA
@@ -502,6 +513,7 @@ namespace Bikewale.Controllers.Desktop.Videos
             var allVideos = store.Videos.VideosLanding;
             var topVideos = new PwaVideosLandingPageTopVideos(); ;
             var otherVideos = new PwaVideosLandingPageOtherVideos();
+            var popularBikeImages = new PwaPopularBikeImagesListData();
 
             //set top Videos
             var pwaLandingVideos = new List<PwaBikeVideoEntity>();
@@ -543,8 +555,14 @@ namespace Bikewale.Controllers.Desktop.Videos
             pwaBrands.OtherBrands = ConverterUtility.PwaConvert(objVM.Brands.OtherBrands);
             otherVideos.Brands = pwaBrands;
 
+            if (objVM.PopularSportsBikesWidget != null)
+            {
+                popularBikeImages.BikeImagesList = ConverterUtility.PwaConvert(objVM.PopularSportsBikesWidget.ModelList);
+            }
+
             allVideos.TopVideos = topVideos;
             allVideos.OtherVideos = otherVideos;
+            store.Widgets.BikeImagesCarouselReducer.PopularBikeImagesListData = popularBikeImages;
 
             return store;
         }
@@ -607,7 +625,7 @@ namespace Bikewale.Controllers.Desktop.Videos
             IEnumerable<MostPopularBikesBase> objPopularBodyStyle = _modelCache.GetMostPopularBikesByModelBodyStyle((int)taggedModel, 9, objVM.CityId);
             PwaBikeNews outBikeData = new PwaBikeNews();
             if (objPopularBodyStyle != null)
-                outBikeData.BikesList = ConverterUtility.MapMostPopularBikesBaseToPwaBikeDetails(objPopularBodyStyle, cityArea.City);
+                outBikeData.BikesList = ConverterUtility.MapMostPopularBikesBaseToPwaBikeDetails(objPopularBodyStyle);
             outBikeData.Heading = "Popular bikes";
             outBikeData.CompleteListUrl = "/m/best-bikes-in-india/";
             outBikeData.CompleteListUrlAlternateLabel = "Best Bikes in India";

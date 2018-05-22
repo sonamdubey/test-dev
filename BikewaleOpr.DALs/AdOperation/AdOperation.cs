@@ -80,8 +80,6 @@ namespace BikewaleOpr.DALs.AdOperation
             {
                 using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
                 {
-                    connection.Open();
-
                     var param = new DynamicParameters();
                     param.Add("par_adoperationid", objPromotedBike.AdOperationType);
                     param.Add("par_makeid", objPromotedBike.Make.MakeId);
@@ -110,28 +108,31 @@ namespace BikewaleOpr.DALs.AdOperation
         public bool UpdatePromotedBike(PromotedBike objPromotedBike)
         {
             bool status = false;
-            try
+            if (objPromotedBike != null)
             {
-                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
+                try
                 {
-                    connection.Open();
+                    using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
+                    {
+                        var param = new DynamicParameters();
+                        param.Add("par_adpromotedbikeid", objPromotedBike.PromotedBikeId);
+                        param.Add("par_startdatetime", objPromotedBike.StartTime ?? null);
+                        param.Add("par_enddatetime", objPromotedBike.EndTime ?? null);
+                        param.Add("par_opruserid", objPromotedBike.UserId);
+                        param.Add("par_status", objPromotedBike.ContractStatus);
+                        param.Add("par_adoperationid", objPromotedBike.AdOperationType);
 
-                    var param = new DynamicParameters();
-                    param.Add("par_adpromotedbikeid", objPromotedBike.PromotedBikeId);
-                    param.Add("par_startdatetime", objPromotedBike.StartTime??null);
-                    param.Add("par_enddatetime", objPromotedBike.EndTime??null);
-                    param.Add("par_opruserid", objPromotedBike.UserId);
-                    param.Add("par_status", objPromotedBike.ContractStatus);
-                    param.Add("par_adoperationid", objPromotedBike.AdOperationType);
+
+                        status = connection.Execute("updateadpromotedbike", param: param, commandType: CommandType.StoredProcedure) > 0;
+                    }
 
 
-                    status = connection.Execute("updateadpromotedbike", param: param, commandType: CommandType.StoredProcedure) > 0;
                 }
-            }
-            catch (Exception ex)
-            {
-                ErrorClass.LogError(ex, string.Format("BikewaleOpr.DALs.AdOperation.UpdatePromotedBike():Id:{0}"
-                    , objPromotedBike.PromotedBikeId));
+                catch (Exception ex)
+                {
+                    ErrorClass.LogError(ex, string.Format("BikewaleOpr.DALs.AdOperation.UpdatePromotedBike():Id:{0}"
+                        , objPromotedBike.PromotedBikeId));
+                }
             }
             return status;
         }

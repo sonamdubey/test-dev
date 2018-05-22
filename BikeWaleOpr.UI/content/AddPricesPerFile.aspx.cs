@@ -1,4 +1,12 @@
+using BikewaleOpr.BAL.BikePricing;
+using BikewaleOpr.DALs.Bikedata;
+using BikewaleOpr.DALs.BikePricing;
+using BikewaleOpr.Interface.BikeData;
+using BikewaleOpr.Interface.BikePricing;
+using BikewaleOpr.Interface.Dealers;
 using BikeWaleOpr.Common;
+using log4net;
+using Microsoft.Practices.Unity;
 using MySql.CoreDAL;
 using System;
 using System.Data;
@@ -12,6 +20,15 @@ namespace BikeWaleOpr.Content
     public class AddPricesPerFile : Page
     {
         public bool finished = false;
+        static readonly ILog _logger = LogManager.GetLogger(typeof(AddPricesPerFile));
+        static IUnityContainer _container = new UnityContainer();
+
+        static AddPricesPerFile()
+        {
+            _container.RegisterType<IBwPrice, BwPrice>();
+            _container.RegisterType<IShowroomPricesRepository, BikeShowroomPrices>();
+            _container.RegisterType<IBikeModelsRepository, BikeModelsRepository>();
+        }
 
         protected override void OnInit(EventArgs e)
         {
@@ -96,6 +113,8 @@ namespace BikeWaleOpr.Content
         /// <summary>
         /// Modified by : Ashutosh Sharma on 30 Aug 2017 
         /// Description : Changed SP from 'insertshowroomprices_28062017' to 'insertshowroomprices_30082017', removed catch(SqlException)
+        /// Modified By : Deepak Israni on 22 Feb 2018
+        /// Description : Added call to create a new document for the bikewalepricingindex (ES Index)
         /// </summary>
         /// <param name="cityId"></param>
         /// <param name="bikeId"></param>
@@ -106,16 +125,19 @@ namespace BikeWaleOpr.Content
             //get the new insurance and the new RTO
             double insurance = CommonOpn.GetInsurancePremium(bikeId, cityId, Convert.ToDouble(price));
             double rto = CommonOpn.GetRegistrationCharges(bikeId, cityId, Convert.ToDouble(price));
-
+            DateTime dt1 = DateTime.Now, dt2 = DateTime.Now, dt3 = DateTime.Now;
             try
             {
+                dt1 = DateTime.Now;
                 using (DbCommand cmd = DbFactory.GetDBCommand("insertshowroomprices_30082017"))
                 {
+
+
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_bikeversionid", DbType.Int64, bikeId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_mumbaiprice", DbType.Int64, price));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_mumbaiinsurance", DbType.Int64, insurance));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_mumbairto", DbType.Int64, rto));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_mumbaiinsurance", DbType.Int64, Convert.ToUInt64(insurance)));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_mumbairto", DbType.Int64, Convert.ToUInt64(rto)));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_mumbaicorporaterto", DbType.Int64, Convert.DBNull));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_mumbaimetprice", DbType.Int64, Convert.DBNull));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_mumbaimetinsurance", DbType.Int64, Convert.DBNull));
@@ -127,16 +149,25 @@ namespace BikeWaleOpr.Content
                     //run the command
                     MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
                 }
-
+                dt2 = DateTime.Now;                                   
+                IBwPrice bwPrice = _container.Resolve<IBwPrice>();
+                bwPrice.UpdateModelPriceDocument(bikeId, cityId);                
+                dt3 = DateTime.Now;
             }
             catch (Exception err)
             {
                 Trace.Warn(err.Message);
-                Exception ex = new Exception(err.Message + " : " + cityId + " : " + bikeId + " : " + price + " : " + insurance.ToString() + " : " + rto.ToString());
+                Exception ex = new Exception(err.Message + "city: " + cityId + " bike : " + bikeId + " price: " + price + " insurance: " + insurance.ToString() + " rto: " + rto.ToString());
 
                 ErrorClass.LogError(ex, Request.ServerVariables["URL"]);
                 
             } // catch Exception
+            finally
+            {
+                ThreadContext.Properties["insertshowroomprices_30082017"] = (dt2 - dt1).Milliseconds;
+                ThreadContext.Properties["UpdateModelPriceDocument"] = (dt3 - dt2).Milliseconds;
+                _logger.Error("SaveDataTiming");
+            }
         }
     }//Class
 }// Namespace

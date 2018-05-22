@@ -13,7 +13,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>BikewaleOpr.Service</RootNamespace>
     <AssemblyName>BikewaleOpr.Service</AssemblyName>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
@@ -149,6 +149,7 @@
     <Compile Include="Controllers\AdSlotController.cs" />
     <Compile Include="Controllers\Banner\BannerController.cs" />
     <Compile Include="Controllers\BikeColorImages\ColorImagesBikesController.cs" />
+    <Compile Include="Controllers\CacheController.cs" />
     <Compile Include="Controllers\Comparison\SponsoredComparisonController.cs" />
     <Compile Include="Controllers\Content\MakesController.cs" />
     <Compile Include="Controllers\Content\ModelsController.cs" />
@@ -160,6 +161,7 @@
     <Compile Include="Controllers\ImageController.cs" />
     <Compile Include="Controllers\Location\CitiesController.cs" />
     <Compile Include="Controllers\ManufacturerCampaign\ManufacturerCampaignController.cs" />
+    <Compile Include="Controllers\NewBikeSpecificationController.cs" />
     <Compile Include="Controllers\PageMetas\PageMetasController.cs" />
     <Compile Include="Controllers\ServiceCenter\ServiceCenterController.cs" />
     <Compile Include="Controllers\ShowroomPricesController.cs" />
@@ -223,6 +225,14 @@
     <ProjectReference Include="..\Bikewale.Entities\Bikewale.Entities.csproj">
       <Project>{8223a4b8-db14-4658-9897-257d872ae8d9}</Project>
       <Name>Bikewale.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bikewale.ManufacturerCampaign.BAL\Bikewale.ManufacturerCampaign.BAL.csproj">
+      <Project>{5d58150b-55aa-4220-be98-5aca515ced8c}</Project>
+      <Name>Bikewale.ManufacturerCampaign.BAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bikewale.ManufacturerCampaign.Cache\Bikewale.ManufacturerCampaign.Cache.csproj">
+      <Project>{a00b0a07-eb13-4b08-8089-6ed33b9896fe}</Project>
+      <Name>Bikewale.ManufacturerCampaign.Cache</Name>
     </ProjectReference>
     <ProjectReference Include="..\Bikewale.ManufacturerCampaign.DAL\Bikewale.ManufacturerCampaign.DAL.csproj">
       <Project>{f3148a79-9fec-4a19-9977-0fa6163c9e77}</Project>

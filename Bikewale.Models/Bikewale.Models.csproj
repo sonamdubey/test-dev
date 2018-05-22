@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Bikewale.Models</RootNamespace>
     <AssemblyName>Bikewale.Models</AssemblyName>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -110,6 +111,10 @@
     <Compile Include="Authors\AuthorsListVM.cs" />
     <Compile Include="BestBikes\BestBikeByCategoryVM.cs" />
     <Compile Include="BikeCare\BikeCareDetailPageVM.cs" />
+    <Compile Include="BikeModels\BikeSpecsFeaturesVM.cs" />
+    <Compile Include="BikeMakes\EditorialOtherBrandsWidget.cs" />
+    <Compile Include="BikeModels\EditorialPopularBikesWidget.cs" />
+    <Compile Include="BikeModels\EditorialUpcomingBikesWidget.cs" />
     <Compile Include="BikeModels\ModelMileageWidgetVM.cs" />
     <Compile Include="BikeModels\ModelPageVM.cs" />
     <Compile Include="BikeCare\BikeCareIndexPageVM.cs" />
@@ -117,6 +122,7 @@
     <Compile Include="BikeModels\OtherBestBikesVM.cs" />
     <Compile Include="BikeSeries\BikeSeriesCompareVM.cs" />
     <Compile Include="BikeSeries\BikeSeriesModelsVM.cs" />
+    <Compile Include="BikeSeries\MakeSeriesSlugVM.cs" />
     <Compile Include="BikeSeries\OtherSeriesVM.cs" />
     <Compile Include="BikeSeries\PopularSeriesBikesVM.cs" />
     <Compile Include="BikeSeries\SeriesPageVM.cs" />
@@ -137,6 +143,7 @@
     <Compile Include="Finance\CapitalFirstVM.cs" />
     <Compile Include="Gallery\ModelGalleryVM.cs" />
     <Compile Include="GenericBestBikes\IndexBestBikesVM.cs" />
+    <Compile Include="Images\ImageWidgetVM.cs" />
     <Compile Include="Make\BrandCityPopupVM.cs" />
     <Compile Include="Make\DealerServiceCenterWidgetVM.cs" />
     <Compile Include="Make\MakeFooterCategoriesandPriceVM.cs" />
@@ -162,6 +169,7 @@
     <Compile Include="Make\ResearchMoreAboutMakeVM.cs" />
     <Compile Include="Mobile\NewLaunches\NewLaunchedBikes.cs" />
     <Compile Include="Mobile\Videos\VideoDetails.cs" />
+    <Compile Include="NewBikeSearch\NewBikeSearchPopupVM.cs" />
     <Compile Include="NewBikeSearch\NewBikeSearchVM.cs" />
     <Compile Include="NewPage\NewPageVM.cs" />
     <Compile Include="News\NewsDetailPageVM.cs" />
@@ -196,7 +204,11 @@
     <Compile Include="ServiceCenters\ServiceCentersNearByCityWidgetVM.cs" />
     <Compile Include="Shared\BikeInfo.cs" />
     <Compile Include="Shared\Brands.cs" />
+    <Compile Include="Shared\CMSArticleDetailPageVM.cs" />
+    <Compile Include="Shared\CMSArticlesListIndexPageVM.cs" />
     <Compile Include="Shared\EditCMSPhotoGalleryVM.cs" />
+    <Compile Include="Shared\EditorialWidgetInfo.cs" />
+    <Compile Include="Shared\EditorialWidgetVM.cs" />
     <Compile Include="Shared\EMICalculatorVM.cs" />
     <Compile Include="Shared\Pager.cs" />
     <Compile Include="Shared\PopularScootersList.cs" />
@@ -256,9 +268,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="BikeMakes\" />
     <Folder Include="ComparisonTest\" />
     <Folder Include="Desktop\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Bikewale.Interfaces</RootNamespace>
     <AssemblyName>Bikewale.Interfaces</AssemblyName>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -148,6 +148,7 @@
     <Compile Include="BikeData\IBikeVersionCacheRepository.cs" />
     <Compile Include="BikeData\IBikeVersions.cs" />
     <Compile Include="BikeBooking\IFeedBacks.cs" />
+    <Compile Include="BikeData\IBikeVersionsRepository.cs" />
     <Compile Include="BikeData\IModelsCache.cs" />
     <Compile Include="BikeData\IModelsRepository.cs" />
     <Compile Include="BikeData\NewLaunched\INewBikeLaunchesBL.cs" />
@@ -167,6 +168,7 @@
     <Compile Include="Dealer\IOffer.cs" />
     <Compile Include="EditCMS\IArticles.cs" />
     <Compile Include="Feedback\IFeedback.cs" />
+    <Compile Include="Filters\IPageFilters.cs" />
     <Compile Include="Finance\ICapitalFirst.cs" />
     <Compile Include="Finance\IFinanceRepository.cs" />
     <Compile Include="GenericBikes\IBestBikesCacheRepository.cs" />
@@ -177,6 +179,7 @@
     <Compile Include="Insurance\IInsuranceDetail.cs" />
     <Compile Include="Insurance\IInsuranceRepository.cs" />
     <Compile Include="IRepository.cs" />
+    <Compile Include="Lead\ILead.cs" />
     <Compile Include="Location\DealersInIndia.cs" />
     <Compile Include="Location\IArea.cs" />
     <Compile Include="Location\IAreaCacheRepository.cs" />
@@ -190,14 +193,18 @@
     <Compile Include="MobileVerification\IMobileVerification.cs" />
     <Compile Include="MobileVerification\IMobileVerificationCache.cs" />
     <Compile Include="MobileVerification\IMobileVerificationRepository.cs" />
+    <Compile Include="NewBikeSearch\IBikeSearch.cs" />
     <Compile Include="NewBikeSearch\IBikeSearchCacheRepository.cs" />
     <Compile Include="NewBikeSearch\IBikeSearchResult.cs" />
     <Compile Include="NewBikeSearch\IProcessFilter.cs" />
     <Compile Include="NewBikeSearch\ISearchQuery.cs" />
     <Compile Include="NewBikeSearch\ISearchResult.cs" />
+    <Compile Include="Notifications\INotifications.cs" />
+    <Compile Include="Notifications\INotificationsRepository.cs" />
     <Compile Include="Pager\IPager.cs" />
     <Compile Include="PriceQuote\IDealerPriceQuoteDetail.cs" />
     <Compile Include="PriceQuote\ILeadNofitication.cs" />
+    <Compile Include="PriceQuote\IPQByCityArea.cs" />
     <Compile Include="PriceQuote\IPriceQuote.cs" />
     <Compile Include="PriceQuote\IPriceQuoteCache.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -241,6 +248,10 @@
       <Project>{a6404f19-b267-4e37-b186-d8fc010ad2ce}</Project>
       <Name>Bikewale.DTO</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Bikewale.ElasticSearch.Entities\Bikewale.ElasticSearch.Entities.csproj">
+      <Project>{51f0aa77-2bed-4b2c-aaa9-e9b8be811019}</Project>
+      <Name>Bikewale.ElasticSearch.Entities</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Bikewale.Entities\Bikewale.Entities.csproj">
       <Project>{8223a4b8-db14-4658-9897-257d872ae8d9}</Project>
       <Name>Bikewale.Entities</Name>
@@ -257,6 +268,9 @@
       <Project>{891EE3D8-F296-4EFC-A136-A278F0F06F61}</Project>
       <Name>Bikewale.PWA.Entities</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

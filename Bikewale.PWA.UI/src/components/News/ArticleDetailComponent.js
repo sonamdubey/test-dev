@@ -11,14 +11,17 @@ import NewBikes from '../NewBikes'
 import ModelSlug from './ModelSlug'
 import Footer from '../Shared/Footer'
 import { isServer } from '../../utils/commonUtils'
-import {mapNewsArticleDataToInitialData} from './NewsCommon'
+import {ContentTracking} from '../../utils/contentTrackingUtils'
+import {mapNewsArticleDataToInitialData, extractPageCategoryFromURL} from './NewsCommon'
 import {addAdSlot , removeAdSlot} from '../../utils/googleAdUtils'
 import { scrollPosition , resetScrollPosition , isBrowserWithoutScrollSupport } from '../../utils/scrollUtils'
+import { getGlobalCity } from '../../utils/popUpUtils'
 
 import {endTimer} from '../../utils/timing'
-import AdUnit320x50 from '../AdUnit320x50'
-import { Status ,GA_PAGE_MAPPING,AD_PATH_NEWS_MOBILE_BOTTOM_320_50 , AD_DIV_REVIEWS_BOTTOM_320_50 , AD_PATH_NEWS_MOBILE_TOP_320_50 , AD_DIV_REVIEWS_TOP_320_50} from '../../utils/constants'
-
+import AdUnit from '../AdUnit'
+import { Status, GA_PAGE_MAPPING,AD_PATH_NEWS_MOBILE_BOTTOM_320_50, AD_DIV_REVIEWS_BOTTOM_320_50, AD_PATH_NEWS_MOBILE_TOP_320_50, AD_DIV_REVIEWS_TOP_320_50, AD_DIMENSION_320_50} from '../../utils/constants'
+import ArticleDetailImageCarousel from './ArticleDetailImageCarousel'
+import CarouselBrand from '../Shared/CarouselBrand'
 
 class ArticleDetail extends React.Component {
     propTypes : {
@@ -42,21 +45,24 @@ class ArticleDetail extends React.Component {
             }
         }
 
+        var globalCity = getGlobalCity();
+        this.globalCityName = (globalCity && globalCity.name.length > 0) ? globalCity.name : '';
+        this.pageCategory = extractPageCategoryFromURL();
         this.extractBasicIdFromArticleUrl = this.extractBasicIdFromArticleUrl.bind(this);
         if(typeof(gaObj)!="undefined")
         {
             gaObj = GA_PAGE_MAPPING["DetailsPage"];
-        }  
-    }
+				}
+		}		
     componentDidUpdate() {
         var basicIdFromData = this.props.ArticleDetailData && this.props.ArticleDetailData.ArticleDetail ? this.props.ArticleDetailData.ArticleDetail.BasicId : null;
         var basicIdFromUrl = this.props.match.params["basicId"] ? this.props.match.params["basicId"] : -1  ;
         if(basicIdFromData == basicIdFromUrl) {
             this.logger();
             this.scrollToPosition();
-        }
-        
-    }
+				}
+		}
+		
     componentDidMount() {    
 
         this.logger();
@@ -65,7 +71,8 @@ class ArticleDetail extends React.Component {
         if(!basicId) {
             return;
         }
-
+        ContentTracking.tracking.setUpTracking(1, 'content-details');
+        ContentTracking.page.registerEvent();
         
         if(this.props.ArticleDetailData && this.props.ArticleDetailData.Status == Status.Fetched) { // data to be further rendered after server render
             if(this.props.RelatedModelObject && this.props.RelatedModelObject.Status !== Status.Fetched) {
@@ -89,16 +96,17 @@ class ArticleDetail extends React.Component {
         if(isBrowserWithoutScrollSupport()) {
             window.scrollTo(0, 0); 
         }
-        
+		}
 
-    }
     componentWillReceiveProps (nextProps) {
         try {
             var prevUrlParam = this.props.match.params;
             var nextUrlParam = nextProps.match.params;
             //componentWillRecieveProps is called on first load in UC Browser and iOS Chrome, not in other browsers
             if(prevUrlParam["basicId"] === nextUrlParam["basicId"]) { // condition 1 : new url has been pushed
-                return;
+            	if(nextProps.ArticleDetailData && nextProps.ArticleDetailData.ArticleDetail)
+            		nextProps.ArticleDetailData.InitialDataDict[window.location.pathname] = nextProps.ArticleDetailData.ArticleDetail;
+            	return;
             }
             var newHashValue = this.props.location.hash;
             var oldHashValue = nextProps.location.hash;
@@ -156,13 +164,17 @@ class ArticleDetail extends React.Component {
         }
     }
     extractBasicIdFromArticleUrl() {
-        var basicId ; 
+        var basicId, regexp ; 
         var url = window.location.pathname;
-        var regexp = /\/m\/news\/(\d+)-.*\.html/;
+        if (this.pageCategory === "news") {
+            regexp = /\/m\/news\/(\d+)-.*\.html/;
+        }
+        else {
+            regexp = /\/m\/expert-reviews\/.*-(\d+)\.html/;
+        }
         var matches = url.match(regexp);
         if(matches) {
             return matches[1];
-            
         }
     }
     
@@ -176,39 +188,38 @@ class ArticleDetail extends React.Component {
         } 
     }
     renderImage(title,src) {
-        return (<img alt={title} title={title} src={src}/>)
+        return (<div className="article-content-image-wrapper">
+             <img alt={title} title={title} src={src} />
+           </div>)
     }
     renderArticleContent(articleDetail,initialData) { 
         if(articleDetail) 
         {   
             var imageUrl = (!articleDetail.HostUrl || !articleDetail.LargePicUrl) ? 'https://imgd.aeplcdn.com/640x348/bikewaleimg/images/noimage.png?q=70' : articleDetail.HostUrl + articleDetail.LargePicUrl;
-            var imageTag = this.renderImage(articleDetail.Title , imageUrl);
+            var imageTag = (this.pageCategory === "news") ? this.renderImage(articleDetail.Title, imageUrl) : null;
+            var bottomContent, imageCarousel;
+            var eventLable =  (this.pageCategory === "news" ? "News_Detail" : "Expert_Review_Detail") ; 
+
+            if (articleDetail.BottomContent) {
+                bottomContent = <ArticleDetailContent htmlContent={articleDetail.BottomContent}/>;
+            }
+            if (articleDetail.ImageGallery) {
+            	imageCarousel = <ArticleDetailImageCarousel imageGallery={articleDetail.ImageGallery} title={articleDetail.Title}/>;
+            }
             return (
                 <div>
+                 <div className="content-details related-details" data-id={initialData.BasicId} data-category-id={initialData.CategoryId}  data-event-label={eventLable}>
                     <div className="article-content">
-                        <div className="article-content-image-wrapper">
                             {imageTag}
-                        </div>
-                        <ArticleDetailContent htmlContent={articleDetail.Content}/>
-
+                        <ArticleDetailContent htmlContent={articleDetail.TopContent}/>
+                        {this.renderModelSlug()}
+                        {bottomContent}
                     </div>
-                    {this.renderModelSlug()}
+                    </div>
                     <SocialMediaSlug/>
+                    {imageCarousel} 
                     <ArticleDetailPagination prevArticle={articleDetail.PrevArticle} nextArticle={articleDetail.NextArticle} onArticlePaginationClickEvent={this.onArticlePaginationClickEvent.bind(this)}/>
                 </div>                        
-            )
-        }
-        else if(initialData) {
-            var imageUrl = (!initialData.HostUrl || !initialData.LargePicUrl) ? 'https://imgd.aeplcdn.com/640x348/bikewaleimg/images/noimage.png?q=70' : initialData.HostUrl + initialData.LargePicUrl;
-            
-            var imageTag = this.renderImage(initialData.Title , imageUrl);
-            return(
-                <div>
-                    <div className="article-content">
-                        {imageTag}
-                        <SpinnerRelative/>
-                    </div>
-                </div>
             )
         }
         else {
@@ -217,7 +228,7 @@ class ArticleDetail extends React.Component {
         }
     }
     renderNewBikesList() {
-        if(!this.props.NewBikesListData || this.props.NewBikesListData.Status !== Status.Fetched ) {
+    	if(!this.props.NewBikesListData || this.props.NewBikesListData.Status !== Status.Fetched || !this.props.NewBikesListData.NewBikesList || this.props.NewBikesListData.NewBikesList.length === 0) {
             return false;
         }
         return (
@@ -236,7 +247,13 @@ class ArticleDetail extends React.Component {
     renderBreadcrumb(title) {
         if(this.props.ArticleDetailData && this.props.ArticleDetailData.Status == Status.Fetched) 
         {
-            return (<Breadcrumb breadcrumb={[{Href : '/m/',Title : 'Home'},{Href : '/m/news/',Title : 'News'},{Href : '',Title : title}]}/>);
+            var pageCategory = extractPageCategoryFromURL();
+            if(pageCategory === "news") {
+                return (<Breadcrumb breadcrumb={[{Href : '/m/',Title : 'Home'},{Href : '/m/news/',Title : 'News', isReactLink : true},{Href : '',Title : title}]}/>);
+            }
+            else {
+            	return (<Breadcrumb breadcrumb={[{Href : '/m/',Title : 'Home'},{Href : '/m/expert-reviews/',Title : 'Expert Reviews', isReactLink : true},{Href : '',Title : title}]}/>);
+            }
         }
         else {
             return false;
@@ -250,7 +267,15 @@ class ArticleDetail extends React.Component {
         else {
             return false;
         }
-    }
+		}
+    renderPopularBrandList() {
+        if(!this.props.NewBikesListData || this.props.NewBikesListData.Status !== Status.Fetched || !this.props.NewBikesListData.BikeMakeList || this.props.NewBikesListData.BikeMakeList.length === 0) {
+            return false;
+        }
+        return (
+            <CarouselBrand brandList={this.props.NewBikesListData.BikeMakeList[0]}/>
+			)
+		}
     render() {
          
         var componentData = this.props.ArticleDetailData;
@@ -292,16 +317,25 @@ class ArticleDetail extends React.Component {
         var adSlotBottom = null;
         
         if(articleDetail) {
-            adSlotTop = <AdUnit320x50 uniqueKey={articleDetail.Title} tags={articleDetail.Tags} adSlot={AD_PATH_NEWS_MOBILE_TOP_320_50} adContainerId={AD_DIV_REVIEWS_TOP_320_50}/> ;
-            adSlotBottom = <AdUnit320x50 uniqueKey={articleDetail.Title} tags={articleDetail.Tags} adSlot={AD_PATH_NEWS_MOBILE_BOTTOM_320_50} adContainerId={AD_DIV_REVIEWS_BOTTOM_320_50}/> ;
+        	let targetTags = {
+        		City: this.globalCityName,
+        		Tags: articleDetail.Tags
+        	}
+
+        	adSlotTop = <AdUnit uniqueKey={articleDetail.Title} tags={targetTags} adSlot={AD_PATH_NEWS_MOBILE_TOP_320_50} adDimension={AD_DIMENSION_320_50} adContainerId={AD_DIV_REVIEWS_TOP_320_50} />;
+
+        	adSlotBottom = <AdUnit uniqueKey={articleDetail.Title} tags={targetTags} adSlot={AD_PATH_NEWS_MOBILE_BOTTOM_320_50} adDimension={AD_DIMENSION_320_50} adContainerId={AD_DIV_REVIEWS_BOTTOM_320_50} />;
         }
 
-        var documentTitle = (articleInitialData.Title == "") ?"BikeWale News" : (articleInitialData.Title + " - BikeWale News");
-       
+        var documentTitle = (articleInitialData.Title == "") ?"BikeWale" : (articleInitialData.Title + " - BikeWale");
+     
+        //To be changed
+			 
         return (
             <div>
 
                 {adSlotTop}
+           
                 <div className="container bg-white box-shadow section-bottom-margin article-details-container">
                     <ArticleDetailTitle title={articleInitialData.Title} authorName={articleInitialData.AuthorName} authorMaskingName={articleInitialData.AuthorMaskingName} displayDate={articleInitialData.DisplayDateTime} />
                     
@@ -309,7 +343,9 @@ class ArticleDetail extends React.Component {
                         {this.renderArticleContent(articleDetail,articleInitialData)}
                     </div>
                 </div>
+           
                 {this.renderNewBikesList()}
+                {this.renderPopularBrandList()}
                 <div className="margin-bottom15">
                     {adSlotBottom}
                 </div>

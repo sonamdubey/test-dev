@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>BikewaleOpr.Interface</RootNamespace>
     <AssemblyName>BikewaleOpr.Interface</AssemblyName>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -125,6 +125,8 @@
     <Compile Include="ConfigurePageMetas\IConfigurePageMetasRepository.cs" />
     <Compile Include="ContractCampaign\IContractCampaign.cs" />
     <Compile Include="ContractCampaign\IDealerCampaignRepository.cs" />
+    <Compile Include="ElasticSearch\IESIndexRepository.cs" />
+    <Compile Include="IBWCache.cs" />
     <Compile Include="ICommuteDistance.cs" />
     <Compile Include="Dealers\IDealerPrice.cs" />
     <Compile Include="IDealerPriceQuote.cs" />
@@ -152,11 +154,16 @@
     <Compile Include="Used\ISellBikes.cs" />
     <Compile Include="Used\ISellerRepository.cs" />
     <Compile Include="Used\IUsedBikes.cs" />
+    <Compile Include="Users\IUsers.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bikewale.Comparison.Entities\Bikewale.Comparison.Entities.csproj">
       <Project>{1cdaf20b-89e5-4f96-b8f4-7835e0291a80}</Project>
       <Name>Bikewale.Comparison.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bikewale.ElasticSearch.Entities\Bikewale.ElasticSearch.Entities.csproj">
+      <Project>{51f0aa77-2bed-4b2c-aaa9-e9b8be811019}</Project>
+      <Name>Bikewale.ElasticSearch.Entities</Name>
     </ProjectReference>
     <ProjectReference Include="..\Bikewale.Entities\Bikewale.Entities.csproj">
       <Project>{8223a4b8-db14-4658-9897-257d872ae8d9}</Project>

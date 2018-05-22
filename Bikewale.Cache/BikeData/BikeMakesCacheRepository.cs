@@ -100,16 +100,18 @@ namespace Bikewale.Cache.BikeData
         /// <summary>
         /// Created by  : Sushil Kumar on 28th June 2016
         /// Summary     : Gets the bike details for make
+        /// Modified By : Deepak Israni on 20 April 2018
+        /// Description : Versioned the cache key and increased cache duration to 24 hours.
         /// </summary>
         /// <param name="makeId"></param>
         /// <returns></returns>
         public BikeMakeEntityBase GetMakeDetails(uint makeId)
         {
             BikeMakeEntityBase objMakeDetails = null;
-            string key = String.Format("BW_MakeDetails_{0}", makeId);
+            string key = String.Format("BW_MakeDetails_{0}_V1", makeId);
             try
             {
-                objMakeDetails = _cache.GetFromCache<BikeMakeEntityBase>(key, new TimeSpan(1, 0, 0), () => _objMakes.GetMakeDetails(makeId));
+                objMakeDetails = _cache.GetFromCache<BikeMakeEntityBase>(key, new TimeSpan(24, 0, 0), () => _objMakes.GetMakeDetails(makeId));
             }
             catch (Exception ex)
             {
@@ -353,6 +355,31 @@ namespace Bikewale.Cache.BikeData
             return widgetObj;
         }
 
+
+        /// <summary>
+        /// Created By : Deepak Israni
+        /// Description : Cache method to Get Expert Review count by Make
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <returns></returns>
+        public ExpertReviewCountEntity GetExpertReviewCountByMake(uint makeId)
+        {
+            ExpertReviewCountEntity obj = null;
+            try
+            {
+                if (makeId > 0)
+                {
+                    string key = string.Format("BW_ExpertReviewCountByMake_MK_{0}", makeId);
+                    obj = _cache.GetFromCache<ExpertReviewCountEntity>(key, new TimeSpan(24, 0, 0), () => _objMakes.GetExpertReviewCountByMake(makeId));
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("BikeMakesCacheRepository.GetExpertReviewCountByMake :Make_{0}", makeId));
+            }
+            return obj;
+        }
 
     }
 }

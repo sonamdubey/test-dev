@@ -1,5 +1,7 @@
 ﻿using Bikewale.DAL.CoreDAL;
+using Bikewale.ElasticSearch.Entities;
 using Bikewale.Notifications;
+using Bikewale.Utility;
 using BikewaleOpr.Entities.BikeData;
 using BikewaleOpr.Entities.BikePricing;
 using BikewaleOpr.Entity.BikePricing;
@@ -10,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
+using System.Linq;
 
 namespace BikewaleOpr.DALs.BikePricing
 {
@@ -180,5 +183,6 @@ namespace BikewaleOpr.DALs.BikePricing
 
             return priceMonitoring;
         }
+
     }
 }

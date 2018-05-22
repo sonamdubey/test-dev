@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Bikewale.Cache.Core</RootNamespace>
     <AssemblyName>Bikewale.Cache.Core</AssemblyName>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -123,6 +123,7 @@
     <Compile Include="LocalcacheManager.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="MemcacheClientExtension.cs" />
     <Compile Include="MemcacheLog.cs" />
     <Compile Include="MemcacheLogFactory.cs" />
     <Compile Include="MemcacheManager.cs">
@@ -135,6 +136,9 @@
       <Project>{db695e13-ed0e-4349-a32e-a6d03d06c597}</Project>
       <Name>Bikewale.Notifications</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -42,16 +42,16 @@ namespace Bikewale.Utility
             switch (bodyStyle)
             {
                 case EnumBikeBodyStyles.Mileage:
-                    return "Mileage bikes";
+                    return "Mileage Bikes";
                 case EnumBikeBodyStyles.Sports:
-                    return "Sports bikes";
+                    return "Sports Bikes";
                 case EnumBikeBodyStyles.Cruiser:
-                    return "Cruiser bikes";
+                    return "Cruiser Bikes";
                 case EnumBikeBodyStyles.Scooter:
                     return "Scooters";
                 case EnumBikeBodyStyles.AllBikes:
                 default:
-                    return "bikes";
+                    return "Bikes";
             }
         }
 		/// <summary>

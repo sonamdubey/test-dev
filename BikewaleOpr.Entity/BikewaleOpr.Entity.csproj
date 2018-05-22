@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>BikewaleOpr.Entity</RootNamespace>
     <AssemblyName>BikewaleOpr.Entity</AssemblyName>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -132,8 +132,10 @@
     <Compile Include="BikeData\BikeSeriesEntityBase.cs" />
     <Compile Include="BikeData\BikeVersionEntityBase.cs" />
     <Compile Include="BikeData\EnumBikeData.cs" />
+    <Compile Include="BikeData\EnumSpecsFeaturesItem.cs" />
     <Compile Include="BikeData\OprNotificationType.cs" />
     <Compile Include="BikeData\SoldUnitData.cs" />
+    <Compile Include="BikeData\SpecsItem.cs" />
     <Compile Include="BikeData\SynopsisData.cs" />
     <Compile Include="BikeData\UsedBikeImagesByMakeNotificationData.cs" />
     <Compile Include="BikeData\UsedBikeImagesModel.cs" />
@@ -150,6 +152,7 @@
     <Compile Include="BikeVersionEntityBase.cs" />
     <Compile Include="BookingAmountEntity.cs" />
     <Compile Include="BookingAmountEntityBase.cs" />
+    <Compile Include="CacheContents.cs" />
     <Compile Include="CallToActionEntityBase.cs" />
     <Compile Include="CityNameEntity.cs" />
     <Compile Include="ColorCodeBase.cs" />
@@ -231,6 +234,7 @@
     <Compile Include="UserReviews\UserReviewOverallRating.cs" />
     <Compile Include="UserReviews\UserReviews.cs" />
     <Compile Include="UserReviews\UserReviewSummary.cs" />
+    <Compile Include="Users\UserDetailsEntity.cs" />
     <Compile Include="VersionColorBase.cs" />
     <Compile Include="VersionColorWithAvailability.cs" />
     <Compile Include="VersionEntityBase.cs" />

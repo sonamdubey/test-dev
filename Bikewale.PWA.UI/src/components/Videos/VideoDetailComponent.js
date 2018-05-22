@@ -214,7 +214,7 @@ class VideoDetailComponent extends React.Component {
 						: null}				
 				{isServer() || this.props.VideoInfoStatus === Status.Fetched ? 
 					<div>
-						<Breadcrumb breadcrumb={[{Href : '/m/',Title : 'Home'},{Href : '/m/bike-videos/',Title : 'Videos'},{Href : '/m/bike-videos/category'+video.SectionUrl , Title : video.SectionTitle},{Href : '' , Title : videoTitle}]}/>
+						<Breadcrumb breadcrumb={[{Href : '/m/',Title : 'Home'},{Href : '/m/bike-videos/',Title : 'Videos', isReactLink : true},{Href : '/m/bike-videos/category'+video.SectionUrl , Title : video.SectionTitle, isReactLink : true},{Href : '' , Title : videoTitle}]}/>
 						<Footer/>
 					</div>
 					: null}

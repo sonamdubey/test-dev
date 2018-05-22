@@ -3,6 +3,7 @@ using BikewaleOpr.BAL;
 using BikewaleOpr.DTO.PageMeta;
 using BikewaleOpr.Interface;
 using System;
+using System.Linq;
 using System.Web.Http;
 
 namespace BikewaleOpr.Service.Controllers.PageMetas
@@ -30,6 +31,8 @@ namespace BikewaleOpr.Service.Controllers.PageMetas
         /// Description : Changed cacke key from 'BW_ModelDetail_' to 'BW_ModelDetail_V1'.
         /// Modified by : Snehal Dange on 30th Jan 2018
         /// Description: Changed datatype of 'pageMetaId' from uint to string to facilitate multiple delete functionalty
+        /// Modified By : Deepak Israni on 20 April 2018
+        /// Description : Versioned MakeDetails cache.
         /// </summary>
         /// <param name="dealerId"></param>
         /// <param name="activecontract"></param>
@@ -39,19 +42,35 @@ namespace BikewaleOpr.Service.Controllers.PageMetas
         {
             try
             {
+                int[] makeIdList = null;
+                int[] modelIdList = null;
+
                 bool result = _pageMetas.UpdatePageMetaStatus(dtoObj.PageMetaId, dtoObj.Status, dtoObj.UpdatedBy);
+
+                if (!String.IsNullOrEmpty(dtoObj.MakeIdList))
+                {
+                    makeIdList = Array.ConvertAll(dtoObj.MakeIdList.TrimEnd(',').Split(','), int.Parse);
+                }
+                if (!String.IsNullOrEmpty(dtoObj.ModelIdList))
+                {
+                    modelIdList = Array.ConvertAll(dtoObj.ModelIdList.TrimEnd(',').Split(','), int.Parse);
+                }
                 if (result)
                 {
-                    if (dtoObj.ModelId > 0)
+                    if (makeIdList != null && makeIdList.Any())
                     {
-                        MemCachedUtil.Remove(string.Format("BW_ModelDetail_V1_{0}", dtoObj.ModelId));
+                        foreach (var make in makeIdList.Distinct())
+                        {
+                            MemCachedUtil.Remove(string.Format("BW_MakeDetails_{0}_V1", make));
+                        }
                     }
-                    if (dtoObj.MakeId > 0)
+                    if (modelIdList != null && modelIdList.Any())
                     {
-                        MemCachedUtil.Remove("BW_MakeDetails_" + dtoObj.MakeId);
+                        foreach (var model in modelIdList.Distinct())
+                        {
+                            MemCachedUtil.Remove(string.Format("BW_ModelDetail_V1_{0}", model));
+                        }
                     }
-
-
                     return Ok(true);
                 }
                 else

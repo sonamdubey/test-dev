@@ -1,0 +1,190 @@
+.video-popup__content
+	@include vendor-prefix('transform', translate(240%, 0))
+	@include vendor-prefix('transition', transform .8s ease)
+	position: fixed
+	top: 0
+	left: 0
+	right: 0
+	width: 100%
+	height: 100%
+	padding-top: 53px
+	background: color('white')
+	z-index: 11
+	will-change: transform
+
+	&.video-popup--active
+		@include vendor-prefix('transform', translate(0, 0))
+
+		&.video-popup--landscape
+			@include vendor-prefix('animation', fadeInTranslate .4s forwards)
+			transition-duration: 0s
+
+.video-popup__head
+	position: fixed
+	top: 0
+	right: 0
+	left: 0
+	width: 100%
+	text-align: center
+	border-bottom: 1px solid #f6f6f6
+
+.video-popup-head__back
+	@include arrow-back-1a1a1a-icon
+	background-color: color('white')
+	background-size: 17px
+	width: 17px
+	height: 13px
+	display: block
+	padding: 26px
+	position: absolute
+	left: 0
+	top: 0
+	cursor: pointer
+
+.video-popup-head__title
+	@include text-truncate
+	text-align: center
+	color: color('black')
+	font-size: 16px
+	font-weight: 700
+	max-width: 70%
+	margin: 0 auto
+	line-height: 52px
+
+.video-popup__body
+	height: 500px
+	padding-right: 20px
+	padding-left: 20px
+	overflow-y: scroll
+
+@import video-card-container
+
+.video-popup__body
+	position: relative
+
+	.video-list >
+		.video-card-container
+			margin-right: 0
+			margin-left: 0
+
+	.swiper-card__label
+		font-size: 12px
+
+@include fadeInTranslate
+
+.swiper__videos
+	&.swiper-container
+		width: 100%
+		height: 100%
+
+	.swiper-wrapper
+		display: block
+
+	.swiper-slide
+		width: 100%
+		height: auto
+		min-height: 250px
+
+		&:first-child
+			margin-left: 0
+
+.youtube-iframe-preview
+	.iframe-overlay
+		position: absolute
+		left: 0
+		right: 0
+		top: 0
+		bottom: 0
+		z-index: 8
+		cursor: pointer
+
+.video-list__back-btn
+	@include arrow-right
+	background-size: 5px
+	background-position: right 10px center
+	background-color: color('white')
+	display: none
+	position: fixed
+	right: 15px
+	bottom: 0
+	padding-right: 20px
+	padding-left: 20px
+	font-size: 10px
+	font-weight: 600
+	line-height: 46px
+	cursor: pointer
+	z-index: 1
+
+// landscape mode
+.video-popup--landscape
+	.swiper__videos
+		padding-right: 50vw
+
+		.swiper-wrapper
+			display: flex
+
+		.swiper-slide
+			@include vendor-prefix('transform', scale(.77))
+			@include vendor-prefix('transition', all .4s ease)
+			width: 350px
+			padding-top: 0
+			padding-bottom: 0
+			padding-left: 20px
+			border: 0
+			opacity: .5
+
+			&.swiper-slide-active
+				@include vendor-prefix('transform', scale(1))
+				left: auto
+				opacity: 1
+
+	.model-card__list__video-card
+		width: 95%
+
+	.video-popup-head__back
+		display: none
+
+	.video-popup__head
+		border-bottom: 0
+
+	.video-popup-head__title
+		text-align: left
+		max-width: 100%
+		padding-right: 20px
+		padding-left: 20px
+
+	.video-popup__body
+		padding-right: 0
+		padding-left: 0
+
+	.video-list__back-btn
+		display: block
+
+	.video-list
+		padding-top: 0
+
+		.swiper-card__label
+			height: 34px
+			overflow: hidden
+
+.video-card__desc
+	.video-list
+		.grid-4
+			top: 0
+
+@media screen and (orientation: landscape) and (min-width: 720px)
+	.video-popup--landscape
+		.swiper__videos
+			padding-right: 55vw
+
+.fullscreen-mode--iframe
+	header,
+	.fullscreen--anchestor,
+	.fixed-tab-nav
+		display: none
+
+.model--single-video
+	&.fullscreen-mode--iframe
+		.model-gallery-section
+			&.fullscreen--anchestor
+				display: block

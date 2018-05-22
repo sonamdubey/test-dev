@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Bikewale.Utility</RootNamespace>
     <AssemblyName>Bikewale.Utility</AssemblyName>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -94,11 +94,22 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ApiGatewayLibrary">
+      <HintPath>..\Libs\APIGateway\ApiGatewayLibrary.dll</HintPath>
+    </Reference>
     <Reference Include="BouncyCastle.Crypto">
       <HintPath>..\Libs\BouncyCastle.1.8.1\lib\BouncyCastle.Crypto.dll</HintPath>
     </Reference>
+    <Reference Include="Google.Protobuf, Version=3.5.1.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\APIGateway\Google.Protobuf.dll</HintPath>
+    </Reference>
     <Reference Include="HtmlAgilityPack">
       <HintPath>..\Libs\HtmlAgilityPack.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.IdentityModel.Logging">
       <HintPath>..\Libs\Microsoft.IdentityModel.Logging.1.1.5\lib\net45\Microsoft.IdentityModel.Logging.dll</HintPath>
@@ -141,8 +152,12 @@
     <Reference Include="Utils">
       <HintPath>..\Libs\Utils.dll</HintPath>
     </Reference>
-    <Reference Include="WURFL">
-      <HintPath>..\Libs\WURFL.dll</HintPath>
+    <Reference Include="Wurfl, Version=1.9.3.0, Culture=neutral, PublicKeyToken=816aeec277aa13b9, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\WURFL\Wurfl.dll</HintPath>
+    </Reference>
+    <Reference Include="Wurfl.Aspnet.Extensions">
+      <HintPath>..\Libs\WURFL\Wurfl.Aspnet.Extensions.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -156,6 +171,8 @@
     <Compile Include="BikewaleSecurity.cs" />
     <Compile Include="BodyStyleLinks.cs" />
     <Compile Include="BWConstants.cs" />
+    <Compile Include="BWESDocumentBuilder.cs" />
+    <Compile Include="BWESIndexUpdater.cs" />
     <Compile Include="BWOprConfiguration.cs" />
     <Compile Include="BWConfiguration.cs" />
     <Compile Include="BWCookies.cs" />
@@ -173,6 +190,7 @@
     <Compile Include="Distance.cs" />
     <Compile Include="EMICalculation.cs" />
     <Compile Include="EncodingDecodingHelper.cs" />
+    <Compile Include="FilterRange.cs" />
     <Compile Include="Format.cs" />
     <Compile Include="FormatDate.cs" />
     <Compile Include="FormatMinSpecs.cs" />
@@ -180,6 +198,7 @@
     <Compile Include="GenericBikes\GenericBikesCategoriesMapping.cs" />
     <Compile Include="GetEmailList.cs" />
     <Compile Include="GlobalCityArea.cs" />
+    <Compile Include="GoogleAdsHelper.cs" />
     <Compile Include="LinqHelpers\LinqExtensions.cs" />
     <Compile Include="EditorialsFormatter.cs" />
     <Compile Include="MVCHelper.cs" />
@@ -187,6 +206,8 @@
     <Compile Include="LinqHelpers\PredicateBuilder.cs" />
     <Compile Include="SanitizeHTML.cs" />
     <Compile Include="SchemaHelper.cs" />
+    <Compile Include="SingletonCWOPRHttpClient.cs" />
+    <Compile Include="SingletonGoogleAPIHttpClient.cs" />
     <Compile Include="StrinHtmlHelpers.cs" />
     <Compile Include="TermsHtmlFormatting.cs" />
     <Compile Include="Image.cs" />
@@ -223,6 +244,10 @@
       <Name>Bikewale.ManufacturerCampaign.Entities</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

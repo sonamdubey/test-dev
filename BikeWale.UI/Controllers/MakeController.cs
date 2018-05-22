@@ -8,11 +8,13 @@ using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.Compare;
 using Bikewale.Interfaces.Dealer;
+using Bikewale.Interfaces.Filters;
 using Bikewale.Interfaces.ServiceCenter;
 using Bikewale.Interfaces.Used;
 using Bikewale.Interfaces.UserReviews;
 using Bikewale.Interfaces.Videos;
 using Bikewale.Models;
+using Bikewale.Utility;
 using System.Web.Mvc;
 
 namespace Bikewale.Controllers
@@ -45,8 +47,10 @@ namespace Bikewale.Controllers
         private readonly IServiceCenter _objService;
         private readonly IUserReviewsCache _cacheUserReviews;
         private readonly INewBikeLaunchesBL _newBikeLaunches;
+        private readonly IPageFilters _pageFilters;
+        private readonly IBikeSeries _bikeSeries;
 
-        public MakeController(IBikeModelsCacheRepository<int> bikeModelsCache, IBikeModels<BikeModelEntity, int> objModelEntity, IBikeMakesCacheRepository bikeMakesCache, ICMSCacheContent articles, ICMSCacheContent expertReviews, IVideos videos, IUsedBikeDetailsCacheRepository cachedBikeDetails, IDealerCacheRepository cacheDealers, IUpcoming upcoming, IBikeCompare compareBikes, IServiceCenter objService, IUserReviewsCache cacheUserReviews, INewBikeLaunchesBL newBikeLaunches)
+        public MakeController(IBikeModelsCacheRepository<int> bikeModelsCache, IBikeModels<BikeModelEntity, int> objModelEntity, IBikeMakesCacheRepository bikeMakesCache, ICMSCacheContent articles, ICMSCacheContent expertReviews, IVideos videos, IUsedBikeDetailsCacheRepository cachedBikeDetails, IDealerCacheRepository cacheDealers, IUpcoming upcoming, IBikeCompare compareBikes, IServiceCenter objService, IUserReviewsCache cacheUserReviews, INewBikeLaunchesBL newBikeLaunches, IPageFilters pageFilters, IBikeSeries bikeSeries)
         {
             _bikeModelsCache = bikeModelsCache;
             _bikeMakesCache = bikeMakesCache;
@@ -61,6 +65,8 @@ namespace Bikewale.Controllers
             _cacheUserReviews = cacheUserReviews;
             _objModelEntity = objModelEntity;
             _newBikeLaunches = newBikeLaunches;
+            _pageFilters = pageFilters;
+            _bikeSeries = bikeSeries;
         }
         // GET: Makes
 
@@ -68,8 +74,9 @@ namespace Bikewale.Controllers
         [Bikewale.Filters.DeviceDetection]
         public ActionResult Index(string makeMaskingName)
         {
-            MakePageModel obj = new MakePageModel(makeMaskingName, _objModelEntity, _bikeModelsCache, _bikeMakesCache, _articles, _expertReviews, _videos, _cachedBikeDetails, _cacheDealers, _upcoming, _compareBikes, _objService, _cacheUserReviews, _newBikeLaunches);
+            MakePageModel obj = new MakePageModel(makeMaskingName, _objModelEntity, _bikeModelsCache, _bikeMakesCache, _articles, _expertReviews, _videos, _cachedBikeDetails, _cacheDealers, _upcoming, _compareBikes, _objService, _cacheUserReviews, _newBikeLaunches, _pageFilters, _bikeSeries);
             obj.TopCountNews = 2;
+            obj.TopCountExpertReviews = 2;
             obj.CompareSource = CompareSources.Desktop_Featured_Compare_Widget;
             MakePageVM objData = null;
 
@@ -93,49 +100,31 @@ namespace Bikewale.Controllers
 
         }
 
-        //// GET: Makes
-        //[Route("m/makepage/{makeMaskingName}/")]
-        //public ActionResult Index_Mobile(string makeMaskingName)
-        //{
-        //    MakePageModel obj = new MakePageModel(makeMaskingName, _bikeModelsCache, _bikeMakesCache, _articles, _expertReviews, _videos, _cachedBikeDetails, _cacheDealers, _upcoming, _compareBikes, _objService, _cacheUserReviews);
-        //    obj.CompareSource = CompareSources.Mobile_Featured_Compare_Widget;
-        //    MakePageVM objData = null;
 
-        //    if (obj.Status == StatusCodes.ContentFound)
-        //    {
-        //        obj.IsMobile = true;
-        //        objData = obj.GetData();
-        //        return View(objData);
-        //    }
-        //    else if (obj.Status == StatusCodes.RedirectPermanent)
-        //    {
-        //        return RedirectPermanent(obj.RedirectUrl);
-        //    }
-        //    else if (obj.Status == StatusCodes.RedirectTemporary)
-        //    {
-        //        return Redirect(obj.RedirectUrl);
-        //    }
-        //    else
-        //    {
-        //        return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
-        //    }
-
-        //}
-
-        // GET: Makes
+        /// <summary>
+        /// Modified by : SnehaL Dange on 30th April 2018
+        /// Desc : Added MakeABTestCookie to get abTest results
+        /// </summary>
+        /// <param name="makeMaskingName"></param>
+        /// <returns></returns>
         [Route("m/makepage/{makeMaskingName}/")]
         public ActionResult Index_Mobile_New(string makeMaskingName)
         {
-            MakePageModel obj = new MakePageModel(makeMaskingName, _objModelEntity, _bikeModelsCache, _bikeMakesCache, _articles, _expertReviews, _videos, _cachedBikeDetails, _cacheDealers, _upcoming, _compareBikes, _objService, _cacheUserReviews, _newBikeLaunches);
+            MakePageModel obj = new MakePageModel(makeMaskingName, _objModelEntity, _bikeModelsCache, _bikeMakesCache, _articles, _expertReviews, _videos, _cachedBikeDetails, _cacheDealers, _upcoming, _compareBikes, _objService, _cacheUserReviews, _newBikeLaunches, _pageFilters, _bikeSeries);
             obj.TopCountNews = 6;
+            obj.TopCountExpertReviews = 6;
             obj.CompareSource = CompareSources.Mobile_Featured_Compare_Widget;
             MakePageVM objData = null;
+            MakeABTestCookie abtestResults = null;
 
             if (obj.Status == StatusCodes.ContentFound)
             {
                 obj.IsMobile = true;
-                objData = obj.GetData();
-                return View(objData);
+                abtestResults = BWCookies.GetAbTestCookieFlag(BWConfiguration.Instance.MakePageViewShowPercentage);
+                objData = obj.GetData(abtestResults);
+                string viewName = string.Format("~/views/make/{0}", abtestResults.ViewName);
+                return View(viewName, objData);
+
             }
             else if (obj.Status == StatusCodes.RedirectPermanent)
             {
@@ -163,8 +152,9 @@ namespace Bikewale.Controllers
         [Route("m/makepage/{makeMaskingName}/amp/")]
         public ActionResult Index_Mobile_AMP(string makeMaskingName)
         {
-            MakePageModel obj = new MakePageModel(makeMaskingName, _objModelEntity, _bikeModelsCache, _bikeMakesCache, _articles, _expertReviews, _videos, _cachedBikeDetails, _cacheDealers, _upcoming, _compareBikes, _objService, _cacheUserReviews, _newBikeLaunches);
+            MakePageModel obj = new MakePageModel(makeMaskingName, _objModelEntity, _bikeModelsCache, _bikeMakesCache, _articles, _expertReviews, _videos, _cachedBikeDetails, _cacheDealers, _upcoming, _compareBikes, _objService, _cacheUserReviews, _newBikeLaunches, _pageFilters, _bikeSeries);
             obj.TopCountNews = 2;
+            obj.TopCountExpertReviews = 2;
             obj.CompareSource = CompareSources.Mobile_Featured_Compare_Widget;
             MakePageVM objData = null;
 

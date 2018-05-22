@@ -29,8 +29,8 @@ function bindPhotos(photoLimitCount)
 docReady(function () {
 
 
-    
-   var photoLimitCount = 24;
+    logbhrighu = true;
+    var photoLimitCount = 24;
     var vmPhotosMore = new vmLoadPhotos();
     ko.applyBindings(vmPhotosMore, $("#photoTemplateWrapper")[0]);
 
@@ -61,7 +61,7 @@ docReady(function () {
                 else {
                     fallbackGallery.open();
                 }
-                if (typeof (logBhrighuForImage) != "undefined" && imageIndex <= 0) {
+                if (typeof (logBhrighuForImage) != "undefined" && imageIndex <= 0 && logbhrighu) {
                     if (colorIndex > 0)
                     {
                         logBhrighuForImage($('.gallery-color-type-swiper .swiper-slide-active').first());
@@ -82,10 +82,11 @@ docReady(function () {
                         else {
                             fallbackGallery.open(0);
                         }
-                        if (typeof (logBhrighuForImage) != "undefined" ) {
+                        if (logbhrighu) {
                             //included in gallery js
                             logBhrighuForImage($(this));
-                        } 
+                        }
+                        logbhrighu = true;
                     }
                 } catch (e) {
                     console.warn(e.message);
@@ -134,6 +135,11 @@ docReady(function () {
                         else {
                             fallbackGallery.open(imageIndex);
                         }
+                        if(logbhrighu)
+                        {
+                            logBhrighuForImage($(this));
+                        }
+                        logbhrighu = true;
                     }
 
                     

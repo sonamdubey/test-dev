@@ -1,6 +1,7 @@
-
+import {extractPageCategoryFromURL} from '../components/News/NewsCommon'
 import {isServer} from './commonUtils'
-
+import {setPQSourceId} from './analyticsUtils'
+var topCount = "5";
 function closeGlobalSearchPopUp() {
     hideElement(document.getElementById('global-search-popup'));
 	unlockPopup();
@@ -173,6 +174,7 @@ if(!isServer()) {
 var recentSearches =
 {
     searchKey: "recentsearches",
+    trendingKey: "trendingbikes",
     options: {
         bikeSearchEle: isServer() ? null :  document.getElementById('globalSearch'),
         recentSearchesEle: isServer() ? null : ((document.getElementById("new-global-recent-searches") && document.getElementById("new-global-recent-searches").length) ? document.getElementById("new-global-recent-searches") : document.getElementById("global-recent-searches")),
@@ -188,7 +190,7 @@ var recentSearches =
             objSearches.searches.unshift(opt.payload);
 
             objSearches["lastModified"] = new Date().getTime();
-            if (objSearches.searches.length > 5)
+            if (objSearches.searches.length > 3)
                 objSearches.searches.pop();
             objSearches["noOfSearches"] = objSearches.searches.length;
             bwcache.set(this.searchKey, objSearches);
@@ -206,6 +208,34 @@ var recentSearches =
                 return objSearches.searches;
             }
             else return null;
+    },
+    showTrendingSearches: function(showTrendingSearchList) {
+        var objSearches = bwcache.get(this.trendingKey);
+        if (objSearches) {
+            showTrendingSearchList(objSearches);
+        }
+    },
+    getTrendingSearches: function (showTrendingSearchList) {
+        var trendingSearches = bwcache.get(this.trendingKey);
+        if (!trendingSearches) {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', "/api/popularbikes/?topCount=" + topCount);
+            xhr.setRequestHeader("Content-Type","application/json; charset=utf-8");
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+                    if (xhr.status == 200) {
+                        var response = JSON.parse(xhr.responseText);
+                        if (response != null) {
+                            trendingSearches = response;
+                            localStorage.setItem("bwc_trendingbikes", JSON.stringify(trendingSearches));
+                            showTrendingSearchList()
+                        }
+                    }
+                }
+            }
+            xhr.send();
+        }
+        return trendingSearches;
     },
     objectIndexOf: function (arr, opt) {
         var makeId = opt.makeId, modelId = opt.modelId;
@@ -326,6 +356,42 @@ function checkCookies() {
             onCookieObj.PQAreaSelectedName = cData[3] ? cData[3].replace(/-/g, ' ') : "";
         }
     }
+}
+
+function setDataforPopularBikesWidget(event, item) {
+    checkCookies();
+    
+    var pageCategory = extractPageCategoryFromURL();
+    var pageName = (gaObj != null) ? gaObj.name : "";
+    var isDetail =  pageName.indexOf("List") == -1;
+    var pqSourcePage =  pageCategory == "news" ? (isDetail ? "Mobile_News_Details_Page" : "Mobile_News_Listing_page") : (isDetail ? "Mobile_ExpertReviews_Details_Page" : "Mobile_ExpertReviews_Listing_Page");
+    onRoadPricePopupDataObject.SelectedModelId = (item.ModelId != null && item.ModelId != undefined) ? item.ModelId : 0;
+    onRoadPricePopupDataObject.SelectedCity = (onCookieObj.PQCitySelectedId > 0)?{ 'id': onCookieObj.PQCitySelectedId, 'name': onCookieObj.PQCitySelectedName }:null;
+    onRoadPricePopupDataObject.SelectedArea = (onCookieObj.PQAreaSelectedId > 0)?{ 'id': onCookieObj.PQAreaSelectedId, 'name': onCookieObj.PQAreaSelectedName }:null;
+    onRoadPricePopupDataObject.SelectedCityId = onCookieObj.PQCitySelectedId || 0;
+    onRoadPricePopupDataObject.SelectedAreaId = onCookieObj.PQAreaSelectedId || 0;
+    onRoadPricePopupDataObject.BookingCities = [],
+    onRoadPricePopupDataObject.BookingAreas = [],
+    onRoadPricePopupDataObject.ModelName = item.ModelName != null && item.ModelName!=null ? item.ModelName : "";
+    onRoadPricePopupDataObject.MakeName = item.MakeName != null && item.MakeName!=null ? item.MakeName : "";
+    onRoadPricePopupDataObject.PageCatId = (gaObj != null) ? gaObj.id : 0;
+    onRoadPricePopupDataObject.IsPersistence = false;
+    onRoadPricePopupDataObject.IsReload = false;
+    onRoadPricePopupDataObject.PageSourceId = setPQSourceId(pqSourcePage); 
+    if(onRoadPricePopupDataObject.SelectedCityId == 0 )
+        onRoadPricePopupDataObject.LoadingText = 'Fetching Cities...';
+    if(onRoadPricePopupDataObject.IsPersistence )
+        onRoadPricePopupDataObject.LoadingText = 'Loading locations...';
+   
+    showElement(document.getElementById('popupWrapper'));
+    showElement(document.getElementById('popupContent'));
+    document.getElementById('popupWrapper').classList.add('loader-active');
+    
+    if(window.location.hash != '') {
+        window.location.hash ='';
+    }
+    appendHash("onRoadPrice");
+   
 }
 
 function setDataForPriceQuotePopup(event,bikeObj) {
@@ -458,45 +524,27 @@ function gtmCodeAppender(pageId, action, label) {
 
 }
 
-function MakeModelRedirection(searchText , item ) {
-	if(searchText == undefined || searchText == null || searchText.trim() == '') {
-		if (!IsPriceQuoteLinkClicked) {
-
-                var objSearches = bwcache.get(recentSearches.searchKey) || {}, 
-                	mkId = item.makeId, 
-                	moId = item.modelId,
-                    eleIndex = recentSearches.objectIndexOf(objSearches.searches, { makeId: mkId, modelId: moId }),
-                    obj = objSearches.searches[eleIndex];
-                if (objSearches.searches != null && eleIndex > -1) objSearches.searches.splice(eleIndex, 1);
-                objSearches.searches.unshift(obj);
-                bwcache.set(recentSearches.searchKey, objSearches);
-                closeGlobalSearchPopUp();
-                window.location.href = '/m/'+item.makeMaskingName+'-bikes/'+item.modelMaskingName;
+function MakeModelRedirection(item ) {
+    if (!IsPriceQuoteLinkClicked) {
+        if(item.payload != null) {
+            var make = new Object();
+            make.maskingName = item.payload.makeMaskingName;
+            make.id = item.payload.makeId;
+            var model = null;
+            if (item.payload.modelId > 0) {
+                model = new Object();
+                model.maskingName = item.payload.modelMaskingName;
             }
-	}
-	else {
-		if (!IsPriceQuoteLinkClicked) { 
-	    	var make = new Object();
-	        make.maskingName = item.payload.makeMaskingName;
-	        make.id = item.payload.makeId;
-	        var model = null;
-	        if (item.payload.modelId > 0) {
-	            model = new Object();
-	            model.maskingName = item.payload.modelMaskingName;
-	            model.id = item.payload.modelId;
-	            model.futuristic = item.payload.futuristic;
-	        }
-
-	        recentSearches.saveRecentSearches(item);
+            recentSearches.saveRecentSearches(item);
             closeGlobalSearchPopUp();
-	        if (model != null && model != undefined) {
-	            window.location.href = "/m/" + make.maskingName + "-bikes/" + model.maskingName + "/";
-	            return true;
-	        } else if (make != null && make != undefined) {
-	            window.location.href = "/m/" + make.maskingName + "-bikes/";
-	            return true;
-	        }
-	    }	
+            if (model != null && model != undefined) {
+                window.location.href = "/m/" + make.maskingName + "-bikes/" + model.maskingName + "/";
+                return true;
+            } else if (make != null && make != undefined) {
+                window.location.href = "/m/" + make.maskingName + "-bikes/";
+                return true;
+            }
+        }
 	}
     if(IsPriceQuoteLinkClicked) {
         IsPriceQuoteLinkClicked = false;
@@ -505,9 +553,9 @@ function MakeModelRedirection(searchText , item ) {
 }
 
 
+
 var globalCityCache = new Object(); // variable for global city autocomplete
 var globalSearchCache = new Object(); // variable for global search autocomplete
-var pqSourceId = "38";
 var globalSearchStatus = {
 	RESET : 0,
 	ERROR : 1,
@@ -531,7 +579,6 @@ module.exports = {
 	showHideMatchError,
 	globalCityCache,
 	globalSearchCache,
-	pqSourceId,
 	getGlobalCity,
 	highlightText,
 	getStrippedTerm,
@@ -547,5 +594,6 @@ module.exports = {
     popupState,
     resetOnRoadPricePopup,
     closeCityAreaSelectionPopup,
-    openCityAreaSelectionPopup
+    openCityAreaSelectionPopup,
+    setDataforPopularBikesWidget,
 }

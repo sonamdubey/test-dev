@@ -1,4 +1,5 @@
-﻿using Bikewale.Entities.Customer;
+﻿using Bikewale.Entities;
+using Bikewale.Entities.Customer;
 using System;
 using System.Text.RegularExpressions;
 using System.Web;
@@ -232,17 +233,13 @@ namespace Bikewale.Utility
         {
             try
             {
-                HttpCookie cookie = HttpContext.Current.Request.Cookies.Get(name);
-                if (cookie == null)
-                {
-                    cookie = new HttpCookie(name);
-                }
+                Cookie bwCookie = new Cookie(name);
                 if (value != null)
                 {
-                    cookie.Value = value;
+                    bwCookie.Value = value;
                 }
-                cookie.Expires = DateTime.Now.AddDays(lifeTime);
-                HttpContext.Current.Response.Cookies.Add(cookie);
+                bwCookie.Expires = DateTime.Now.AddDays(lifeTime);
+                CookieManager.Add(bwCookie);
             }
             catch (Exception)
             {
@@ -291,24 +288,53 @@ namespace Bikewale.Utility
         /// <summary>
         /// Created By : Sushil Kumar on 19th December 2017
         /// Description : To get abtest user cookie and check for valid test case
+        /// Modified by : Snehal Dange on 30th April 2018
+        /// Description: Modified the logic to handle 3 make pages in abtest
         /// </summary>
-        public static bool GetAbTestCookieFlag(ushort percentage)
+        public static MakeABTestCookie GetAbTestCookieFlag(string percentage)
         {
+            MakeABTestCookie abTestResults = null;
             try
             {
                 ushort cookieValue;
+                abTestResults = new MakeABTestCookie();
+                abTestResults.NewMakePageV1Status = false;
+                string[] percentageString = percentage.Split(',');
+                ushort newMakePagePercent = Convert.ToUInt16(percentageString[0]); //first make page experiment
+                ushort newMakePageV1Percent = Convert.ToUInt16(percentageString[1]);
+                ushort oldMakePageV1Percent = Convert.ToUInt16(percentageString[2]);
                 var cookie = HttpContext.Current.Request.Cookies["_bwtest"];
+
                 if (cookie != null && !string.IsNullOrEmpty(Convert.ToString(cookie.Value)) && ushort.TryParse(cookie.Value, out cookieValue) && cookieValue > 0)
                 {
-                    return cookieValue <= percentage;
-
+                    if (cookieValue <= newMakePagePercent)
+                    {
+                        abTestResults.ViewName = "Index_Mobile_New.cshtml";
+                        abTestResults.IsNewPage = true;
+                    }
+                    else if (cookieValue <= (newMakePageV1Percent + newMakePagePercent))
+                    {
+                        abTestResults.ViewName = "Index_Mobile_New_v1.cshtml";
+                        abTestResults.IsNewPage = true;
+                        abTestResults.NewMakePageV1Status = true;
+                    }
+                    else if (cookieValue <= (oldMakePageV1Percent + newMakePageV1Percent + newMakePagePercent))
+                    {
+                        abTestResults.ViewName = "Index_Mobile.cshtml";
+                        abTestResults.OldMakePageV1Status = true;
+                    }
+                    else
+                    {
+                        abTestResults.ViewName = "Index_Mobile.cshtml";
+                        abTestResults.IsNewPage = false;
+                    }
                 }
             }
             catch (Exception ex)
             {
-                return false;
+                throw ex;
             }
-            return false;
+            return abTestResults;
         }
 
         /// <summary>
