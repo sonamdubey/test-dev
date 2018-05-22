@@ -53,7 +53,7 @@ class EMISteps extends React.Component {
       </div>
       )
     :
-      <ModelCard model={modelData} />
+      <ModelCard model={modelData} onClick={this.handleMakeSelect}/>
   }
 
   renderCityCard =() => {
