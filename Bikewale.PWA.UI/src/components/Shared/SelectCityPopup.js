@@ -14,19 +14,25 @@ class SelectCityPopup extends React.Component {
     super(props);
     this.handleCloseClick = this.handleCloseClick.bind(this);
     this.handleCityClick = this.handleCityClick.bind(this);
-    var globalCityName = this.props.data.Selection ? this.props.data.Selection.cityName : '';
+    let cityName = this.getCityName(this.props);
     this.state = {
       Popular: this.props.data.Popular,
       Other: this.props.data.Other,
-      cityValue: globalCityName
+      cityValue: cityName
     }
+  }
+
+  getCityName = (props) => {
+    return props != null && props.data != null && props.data.Selection && props.data.isGlobalCityInList ? props.data.Selection.cityName : '';
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.data.Popular != this.state.Popular || nextProps.data.Other != this.state.Other) {
-      this.setState(...this.state, {
+      let cityName = this.getCityName(nextProps);
+      this.setState({
         Popular: nextProps.data.Popular,
-        Other: nextProps.data.Other
+        Other: nextProps.data.Other,
+        cityValue: cityName
       });
     }
   }

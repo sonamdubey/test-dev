@@ -32,10 +32,12 @@ const getBikeVersionList = (dispatch, modelId, cityId) => {
   var xhr = new XMLHttpRequest();
   xhr.onreadystatechange = function () {
     if (xhr.readyState == 4) {
-      if (xhr.status == 200)
+      if (xhr.status == 200){
         dispatch({ type: selectBikePopup.FETCH_VERSIONLIST_SUCCESS, payload: JSON.parse(xhr.responseText) });
-      else
+      }
+      else{
         dispatch({ type: selectBikePopup.FETCH_VERSIONLIST_FAILURE });
+      }
     }
   }
   xhr.open('GET', '/api/pwa/PQVersionList/?modelid=' + modelId + '&cityId=' + cityId);
@@ -45,7 +47,14 @@ const getBikeVersionList = (dispatch, modelId, cityId) => {
 const setModel = (modelId) => {
   return {
     type: selectBikePopup.SELECT_MODEL,
-    payload:{ modelId : modelId} 
+    payload: { modelId: modelId }
+  }
+}
+
+const setBikeVersion = (versionId) => {
+  return {
+    type: selectBikePopup.SET_BIKE_VERSION,
+    payload: {versionId: versionId}
   }
 }
 
@@ -79,6 +88,9 @@ export const selectModel = (modelId) => (dispatch) => {
   dispatch(setModel(modelId));
 }
 
+export const selectBikeVersion = (versionId) => (dispatch) => {
+  dispatch(setBikeVersion(versionId))
+}
 export const fetchMakeModelList = () => (dispatch) => {
   return getMakeModelList(dispatch);
 }
@@ -86,4 +98,5 @@ export const fetchMakeModelList = () => (dispatch) => {
 export const fetchBikeVersionList = (modelId, cityId) => (dispatch) => {
   return getBikeVersionList(dispatch, modelId, cityId);
 }
+
 

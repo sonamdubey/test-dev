@@ -14,6 +14,7 @@ const propTypes = {
   classParentString: PropTypes.string,
   onTriggerClick: PropTypes.func,
   closeable: PropTypes.bool,
+  allOpen: PropTypes.bool,
   items: PropTypes.arrayOf(PropTypes.shape({
     props: PropTypes.shape({
       'data-trigger': PropTypes.oneOfType([
@@ -35,7 +36,8 @@ const defaultProps = {
   startPosition: -1,
   classParentString: 'collapsible',
   onTriggerClick: null,
-  closeable: false
+  closeable: false,
+  allOpen: false
 }
 
 class Accordion extends React.Component {
@@ -79,7 +81,7 @@ class Accordion extends React.Component {
         <Collapsible
           key={"collapsible" + index}
           handleTriggerClick={this.handleTriggerClick}
-          open={(!this.state.closeAll && this.state.openPosition === index)}
+          open={(!this.state.closeAll && this.state.openPosition === index) || this.props.allOpen}
           trigger={node.props['data-trigger']}
           triggerWhenOpen={triggerWhenOpen}
           triggerDisabled={triggerDisabled}

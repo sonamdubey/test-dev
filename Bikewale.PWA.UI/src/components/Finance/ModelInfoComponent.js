@@ -4,27 +4,31 @@ import {createImageUrl} from '../Widgets/WidgetsCommon'
 class ModelInfo extends React.Component {
   constructor(props) {
     super(props);
+    this.handleVersionChange = this.handleVersionChange.bind(this);
   }
   
   handleVersionChange = (option) => {
-    // handle version change
+    this.props.selectBikeVersion(option.value);
   }
 
   render() {
     const {
       model,
-      openSelectBikePopup,
-      openSelectCityPopup
+      city,
+      openSelectCityPopup,
+      openSelectBikePopup
     } = this.props
 
     if(!model) {
       return null;
     }
+    const imageHostUrl = model.versionList != null && model.versionList.length > 0 && model.selectedVersionIndex > -1 ? model.versionList[model.selectedVersionIndex].hostUrl: model.hostUrl;
+    const originalImagePath = model.versionList != null && model.versionList.length > 0 && model.selectedVersionIndex > -1 ? model.versionList[model.selectedVersionIndex].originalImagePath: model.originalImagePath; 
     return (
       <div className="model-info-card">
         <div className="model-info-card__head">
           <div className="model-info-card__image">
-            <img src={createImageUrl( model.hostUrl, model.originalImagePath, '310x174')} alt={model.modelName}/>
+            <img src={createImageUrl( imageHostUrl, originalImagePath, '310x174')} alt={model.modelName}/>
           </div>
           <div className="model-info-card__detail">
             <h3>
@@ -39,7 +43,7 @@ class ModelInfo extends React.Component {
             <p className="model-info-col__label">Version</p>
             <Dropdown
               options={model.versionList}
-              value={model.versionList[model.selectedVersionIndex]}
+              value={model.versionList != null && model.versionList.length > 0 && model.selectedVersionIndex > -1 ? model.versionList[model.selectedVersionIndex].label : ""}
               placeholder="Version"
               placeholderClassName="model-info-col__value"
               arrowClassName="dropdown-version__arrow"
@@ -48,7 +52,7 @@ class ModelInfo extends React.Component {
           </div>
           <div className="model-info__col">
             <p className="model-info-col__label">City</p>
-            <p onClick={openSelectCityPopup} className="model-info-col__value model-info-col__city">Mumbai</p>
+            <p onClick={openSelectCityPopup} className="model-info-col__value model-info-col__city">{city.cityName}</p>
           </div>
         </div>
       </div>

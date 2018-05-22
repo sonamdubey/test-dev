@@ -6,17 +6,17 @@ const onRoadPriceLabel = "On-Road Price";
 const emiLabel = "EMI";
 var initialState = fromJS({
   data: [
-    {
-      makeId: 0,
-      makeName: "",
-      modelId: 0,
-      modelName: "",
-      modelImage: "",
-      onRoadPriceLabel: "",
-      onRoadPriceAmount: 0,
-      emiLabel: "",
-      emiStart: 0
-    }
+    // {
+    //   makeId: 0,
+    //   makeName: "",
+    //   modelId: 0,
+    //   modelName: "",
+    //   modelImage: "",
+    //   onRoadPriceLabel: "",
+    //   onRoadPriceAmount: 0,
+    //   emiLabel: "",
+    //   emiStart: 0
+    // }
   ]
 })
 
