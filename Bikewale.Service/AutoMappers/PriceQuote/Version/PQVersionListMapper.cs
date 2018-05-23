@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using Bikewale.Entities.PriceQuote;
 using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace Bikewale.Service.AutoMappers.PriceQuote.Version
 {
@@ -21,6 +22,7 @@ namespace Bikewale.Service.AutoMappers.PriceQuote.Version
             ICollection<PQVersionBase> versionList = null;
             if (otherVersionInfoEntity != null)
             {
+                otherVersionInfoEntity = otherVersionInfoEntity.OrderBy(v => v.OnRoadPrice);
                 versionList = new Collection<PQVersionBase>();
                 foreach (var version in otherVersionInfoEntity)
                 {

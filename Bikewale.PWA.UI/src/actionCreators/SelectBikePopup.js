@@ -42,6 +42,7 @@ const getBikeVersionList = (dispatch, modelId, cityId) => {
   }
   xhr.open('GET', '/api/pwa/PQVersionList/?modelid=' + modelId + '&cityId=' + cityId);
   xhr.send();
+  dispatch({ type: selectBikePopup.FETCHING_VERSIONLIST });
 }
 
 const setModel = (modelId) => {

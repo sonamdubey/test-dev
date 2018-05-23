@@ -25,7 +25,8 @@ class EMITab extends React.Component {
     this.state = {
       shouldscroll: false,
       isGlobalCityInList: true,
-      shouldFetchSimilarBikes: true
+      shouldFetchSimilarBikes: true,
+      shouldOpenEmiCalculator: false
     };
   }
 
@@ -39,6 +40,8 @@ class EMITab extends React.Component {
     this.scrollToNextPopup();
     this.props.selectModel(item.modelId);
     this.props.fetchSelectedBikeDetail(item.modelId);
+    const currentCityId = this.getSelectedCityId(this.props);
+    this.props.fetchBikeVersionList(item.modelId, currentCityId);
   }
 
   handleSelectCityClick = () => {
@@ -53,12 +56,15 @@ class EMITab extends React.Component {
       userChange: true
     }
     this.props.selectCity(payload);
-    this.setState({ ...this.state, isGlobalCityInList: true });
-    this.state.shouldFetchSimilarBikes = true;
+    this.setState({ ...this.state, isGlobalCityInList: true, shouldFetchSimilarBikes: true });
+    const currentBikeId = this.getSelectedBikeId(this.props);
+    this.props.fetchBikeVersionList(currentBikeId, item.cityId);
   }
 
   handleSimilarEMISwiperCardClick = (modelObj, event) => {
-    this.props.fetchSelectedBikeDetail(modelObj.Id)
+    this.props.fetchSelectedBikeDetail(modelObj.modelId)
+    const currentCityId = this.getSelectedCityId(this.props);
+    this.props.fetchBikeVersionList(modelObj.modelId, currentCityId)
     this.state.shouldFetchSimilarBikes = true;
     let quickLinksTabElement = document.getElementById("quickLinksTab");
     scrollTop(window, this.refs.modelInfoComponent.base.getBoundingClientRect().top + (window.pageYOffset || document.documentElement.scrollTop) - quickLinksTabElement.offsetHeight)
@@ -103,15 +109,14 @@ class EMITab extends React.Component {
       }
     }
     // For any change in bike or city we fetch new bike version list
-    if (currentCityId > 0 && currentBikeId > 0 && (currentBikeId != this.getSelectedBikeId(prevProps) || currentCityId != this.getSelectedCityId(prevProps))) {
-      this.props.fetchBikeVersionList(currentBikeId, currentCityId);
-    }
-    if ((currentBikeId != this.getSelectedBikeId(prevProps) || (currentBikeId == this.getSelectedBikeId(prevProps) && prevProps.selectBikePopup.Selection.selectedVersionIndex != selectBikePopup.Selection.selectedVersionIndex))
-      && selectBikePopup.Selection.versionList.length > 0 && selectBikePopup.Selection.selectedVersionIndex > -1) {
-      openEmiCalculator(selectBikePopup.Selection.versionList[selectBikePopup.Selection.selectedVersionIndex].price);
-      }
+    // if (currentCityId > 0 && currentBikeId > 0 && (currentBikeId != this.getSelectedBikeId(prevProps) || currentCityId != this.getSelectedCityId(prevProps))) {
+    //   this.props.fetchBikeVersionList(currentBikeId, currentCityId);
+    // }
+    // if (!selectBikePopup.IsVersionFetching && selectBikePopup.Selection.versionList.length > 0 && selectBikePopup.Selection.selectedVersionIndex > -1 && (currentBikeId != this.getSelectedBikeId(prevProps) || prevProps.selectBikePopup.Selection.selectedVersionIndex != selectBikePopup.Selection.selectedVersionIndex || currentCityId != this.getSelectedCityId(prevProps))) {
+    //   openEmiCalculator(selectBikePopup.Selection.versionList[selectBikePopup.Selection.selectedVersionIndex].price);
+    // }
 
-    if (currentCityId > 0 && currentBikeId > 0
+    if (currentCityId > 0 && currentBikeId > 0 && currentBikeId != this.getSelectedBikeId(prevProps)
       && this.state.shouldFetchSimilarBikes) {
       fetchSimilarBikes({
         modelId: currentBikeId,
@@ -160,8 +165,10 @@ class EMITab extends React.Component {
           <EMISteps ref="emiSteps" onSelectBikeClick={this.handleSelectBikeClick} onSelectCityClick={this.handleSelectCityClick} model={selectBikePopup.Selection} onSelectBikeClose={closeSelectBikePopup} onSelectCityClose={closeSelectCityPopup}/>}
         {((this.getSelectedBikeId(this.props) !== -1) && (this.getSelectedCityId(this.props) !== -1)) &&
           <ModelInfo ref="modelInfoComponent"/>}
-
-        <EMICalculator />
+        {
+          selectBikePopup.Selection.versionList.length > 0 && selectBikePopup.Selection.selectedVersionIndex > -1 &&
+          <EMICalculator />
+        }
         
         {
           SimilarBikesEMI != null && SimilarBikesEMI.data != null && SimilarBikesEMI.data.length > 0 && (

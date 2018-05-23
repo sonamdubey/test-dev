@@ -14,6 +14,7 @@ import {
 } from './EmiCalculations'
 import PieBreakUp from './EmiPieBreakup'
 import { formatToINR } from '../../utils/formatAmount'
+import { openEmiCalculator } from '../../actionCreators/emiDownPaymentSlider'
 export class EMICalculator extends React.Component {
 	constructor(props) {
 		super(props);
@@ -31,8 +32,53 @@ export class EMICalculator extends React.Component {
 			interestPayable: InterestPayable(loanAmount, nextProps.sliderTenure.values[0], nextProps.sliderInt.values[0]),
 			totalBikeCost: TotalPrincipalAmt(nextProps.sliderDp.values[0], loanAmount, nextProps.sliderTenure.values[0], nextProps.sliderInt.values[0])
 		})
+		const {
+			selectBikePopup,
+			openEmiCalculator
+		} = this.props
+		if(nextProps.selectBikePopup.versionList.length > 0 && nextProps.selectBikePopup.selectedVersionIndex > -1
+			&& nextProps.sliderDp.onRoadPrice > 0
+			&& (this.props.sliderDp.onRoadPrice != nextProps.sliderDp.onRoadPrice
+				|| selectBikePopup.selectedVersionIndex != nextProps.selectBikePopup.selectedVersionIndex)){
+					openEmiCalculator(nextProps.selectBikePopup.versionList[nextProps.selectBikePopup.selectedVersionIndex].price)
+				}
 	}
+	// shouldComponentUpdate(nextProps, nextState) {
+	// 	const {
+	// 		selectBikePopup,
+	// 		sliderDp,
+	// 		sliderTenure,
+	// 		sliderInt
+	// 	} = this.props
+	// 	if (nextProps.sliderInt.values[0] !== sliderInt.values[0] || nextProps.sliderTenure.values[0] !== sliderTenure.values[0]
+	// 		|| nextProps.sliderDp.values[0] !== sliderDp.values[0]) {
+	// 		return true
+	// 	}
+	// 	else {
+	// 		return selectBikePopup.versionList.length > 0 && selectBikePopup.selectedVersionIndex > -1
+	// 			&& nextProps.sliderDp.onRoadPrice > 0
+	// 			&& (this.props.sliderDp.onRoadPrice != nextProps.sliderDp.onRoadPrice
+	// 				|| selectBikePopup.selectedVersionIndex != nextProps.selectBikePopup.selectedVersionIndex)
 
+	// 	}
+
+	// }
+	componentWillMount() {
+		const {
+			selectBikePopup,
+			openEmiCalculator
+		} = this.props
+		if (selectBikePopup.versionList.length > 0 && selectBikePopup.selectedVersionIndex > -1) {
+			openEmiCalculator(selectBikePopup.versionList[selectBikePopup.selectedVersionIndex].price)
+		}
+	}
+	// componentDidUpdate() {
+	// 	const {
+	// 		selectBikePopup,
+	// 		openEmiCalculator
+	// 	} = this.props
+	// 	openEmiCalculator(selectBikePopup.versionList[selectBikePopup.selectedVersionIndex].price)
+	// }
 	render() {
 		if (this.props.sliderDp.onRoadPrice === 0) {
 			return null;
@@ -58,7 +104,7 @@ export class EMICalculator extends React.Component {
 			sliderDpData: this.props.sliderDp,
 			sliderTenureData: this.props.sliderTenure,
 			sliderInterestData: this.props.sliderInt,
-			cityData : this.props.financeCitySelection
+			cityData: this.props.financeCitySelection
 		}
 		return (
 			<div className="emi-outer-container">
@@ -91,13 +137,20 @@ const mapStateToProps = (state) => {
 	const sliderInt = state.getIn(['Emi', 'VehicleInterest', 'slider'])
 	const pieAnimate = state.getIn(['Emi', 'PieAnimation', 'isAnimate'])
 	const financeCitySelection = state.getIn(['Finance', 'FinanceCityPopup', 'Selection'])
+	const selectBikePopup = state.getIn(['Finance', 'SelectBikePopup', 'Selection'])
 	return {
 		sliderDp,
 		sliderTenure,
 		sliderInt,
 		pieAnimate,
-		financeCitySelection
+		financeCitySelection,
+		selectBikePopup
+	}
+}
+const mapDispatchToProps = (dispatch) => {
+	return {
+		openEmiCalculator: bindActionCreators(openEmiCalculator, dispatch)
 	}
 }
 
-export default connect(mapStateToProps, null)(toJS(EMICalculator));
+export default connect(mapStateToProps, mapDispatchToProps)(toJS(EMICalculator));
