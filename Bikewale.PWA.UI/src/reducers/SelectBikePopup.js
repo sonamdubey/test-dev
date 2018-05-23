@@ -15,7 +15,8 @@ var initialState = fromJS({
     selectedVersionIndex: -1,
     versionList: []
   },
-  MakeModelList: []
+  MakeModelList: [],
+  IsFetchingModelDetail: false
 });
 
 export function SelectBikePopup(state = initialState, action) {
@@ -65,14 +66,17 @@ export function SelectBikePopup(state = initialState, action) {
         if (action.payload) {
           return state.setIn(['Selection'], fromJS({ ...(state.get('Selection').toJS()), makeName: action.payload.makeDetails.makeName,
             modelName: action.payload.modelName, hostUrl: action.payload.hostUrl, originalImagePath: action.payload.originalImagePath,
-          rating: action.payload.reviewRate, modelId: action.payload.modelId}))
+          rating: action.payload.reviewRate, modelId: action.payload.modelId})).setIn(['IsFetchingModelDetail'],false);
         }
         else {
           return state;
         }
       case selectBikePopup.FETCH_MODEL_DETAIL_FAILURE:
-        return state.setIn(['Selection'], initialState);
+        return state.setIn(['IsFetchingModelDetail'], false);
       
+      case selectBikePopup.FETCH_MODEL_DETAIL:
+        return state.setIn(['IsFetchingModelDetail'], true);
+
       case selectBikePopup.SET_BIKE_VERSION:
         return state.setIn(['Selection'], fromJS({ ...(state.get('Selection').toJS()), selectedVersionIndex: action.payload.versionId }))
 

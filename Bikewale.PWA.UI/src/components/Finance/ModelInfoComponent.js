@@ -1,5 +1,6 @@
 import React from 'react';
 import Dropdown from 'react-dropdown';
+import SpinnerRelative from '../Shared/SpinnerRelative';
 import { openPopupWithHash } from '../../utils/popUpUtils'
 import {createImageUrl} from '../Widgets/WidgetsCommon'
 class ModelInfo extends React.Component {
@@ -19,11 +20,15 @@ class ModelInfo extends React.Component {
       openSelectCityPopup,
       openSelectBikePopup,
       closeSelectCityPopup,
-      closeSelectBikePopup
+      closeSelectBikePopup,
+      isLoaderShown
     } = this.props
 
     if(!model) {
       return null;
+    }
+    if(isLoaderShown) {
+      return <SpinnerRelative />;
     }
     const imageHostUrl = model.versionList != null && model.versionList.length > 0 && model.selectedVersionIndex > -1 ? model.versionList[model.selectedVersionIndex].hostUrl: model.hostUrl;
     const originalImagePath = model.versionList != null && model.versionList.length > 0 && model.selectedVersionIndex > -1 ? model.versionList[model.selectedVersionIndex].originalImagePath: model.originalImagePath; 
