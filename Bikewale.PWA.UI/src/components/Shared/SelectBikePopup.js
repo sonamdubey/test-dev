@@ -4,6 +4,7 @@ import Accordion from '../Shared/Accordion';
 import NoResult from './NoResult';
 
 import { unlockScroll } from '../../utils/scrollLock';
+import { closePopupWithHash } from '../../utils/popUpUtils'
 import { addPopupEvents, removePopupEvents } from '../../utils/popupScroll';
 
 class SelectBikePopup extends React.Component {
@@ -36,7 +37,7 @@ class SelectBikePopup extends React.Component {
 
   closePopup = () => {
     if (this.props.onCloseClick) {
-      this.props.onCloseClick();
+      closePopupWithHash(this.props.onCloseClick);
     }
   }
 

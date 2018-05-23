@@ -3,7 +3,7 @@ import { fromJS, toJS } from 'immutable'
 import {mapVersionsDataToDropdownList} from '../components/Finance/FinanceCommon'
 import { selectBikePopup } from '../actionTypes/SelectBikePopup'
 
-var initialState = {
+var initialState = fromJS({
   isActive: false,
   Selection: {
     makeName: "",
@@ -16,12 +16,12 @@ var initialState = {
     versionList: []
   },
   MakeModelList: []
-};
+});
 
-export function SelectBikePopup(state, action) {
+export function SelectBikePopup(state = initialState, action) {
   try {
-    if (state == undefined || !state.size) {
-      return fromJS(initialState);
+    if (state == undefined || (state != undefined && state.size == 0)) {
+      return initialState;
     }
 
     switch (action.type) {
@@ -71,7 +71,7 @@ export function SelectBikePopup(state, action) {
           return state;
         }
       case selectBikePopup.FETCH_MODEL_DETAIL_FAILURE:
-        return state.setIn(['Selection'], fromJS(initialState));
+        return state.setIn(['Selection'], initialState);
       
       case selectBikePopup.SET_BIKE_VERSION:
         return state.setIn(['Selection'], fromJS({ ...(state.get('Selection').toJS()), selectedVersionIndex: action.payload.versionId }))

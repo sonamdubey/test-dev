@@ -7,6 +7,7 @@ import ListGroupItem from './ListGroupItem';
 import NoResult from './NoResult';
 import SpinnerRelative from '../Shared/SpinnerRelative'
 import { unlockScroll } from '../../utils/scrollLock';
+import { closePopupWithHash } from '../../utils/popUpUtils'
 import { addPopupEvents, removePopupEvents } from '../../utils/popupScroll';
 
 class SelectCityPopup extends React.Component {
@@ -14,6 +15,7 @@ class SelectCityPopup extends React.Component {
     super(props);
     this.handleCloseClick = this.handleCloseClick.bind(this);
     this.handleCityClick = this.handleCityClick.bind(this);
+    this.closePopup = this.closePopup.bind(this);
     let cityName = this.getCityName(this.props);
     this.state = {
       Popular: this.props.data.Popular,
@@ -63,6 +65,12 @@ class SelectCityPopup extends React.Component {
     });
   }
 
+  closePopup = () => {
+    if (this.props.onCloseClick) {
+      closePopupWithHash(this.props.onCloseClick)
+    }
+  }
+
   handleCityClick = (item) => {
     if (this.props.onCityClick) {
       this.props.onCityClick(item);
@@ -70,15 +78,12 @@ class SelectCityPopup extends React.Component {
         cityValue: item.cityName
       });
     }
-    if (this.props.onCloseClick) {
-      this.props.onCloseClick();
-    }
+    this.closePopup();
+    unlockScroll();
   }
 
   handleCloseClick = () => {
-    if (this.props.onCloseClick) {
-      this.props.onCloseClick();
-    }
+    this.closePopup();
     unlockScroll();
   }
 

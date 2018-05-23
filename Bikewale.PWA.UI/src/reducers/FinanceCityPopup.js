@@ -21,7 +21,7 @@ var initialState = fromJS({
 
 export function FinanceCityPopup(state = initialState, action) {
   try {
-      if (!state || window._SERVER_RENDERED_DATA)
+    if (state == undefined || (state != undefined && state.size == 0))
       return initialState;
     const selectionObj = state.get('Selection').toJS();
     const currentCityId = selectionObj != null && selectionObj.cityId > 0 ? selectionObj.cityId : -1;
