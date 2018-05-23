@@ -99,14 +99,14 @@
       @include vendor-prefix('box-shadow', 0 2px 6px 0 rgba(0, 0, 0, .1))
       @include vendor-prefix('border-radius', 2px)
 
-    padding: 15px
+    padding: 15px 15px 20px
     margin-top: 9px
     margin-bottom: 15px
     background-color: color('white')
     position: relative
 
   .dealer-offer__container
-    padding-top: 20px
+    padding-top: 15px
 
   @if $desktop
     @media (min-width: 800px)
@@ -173,20 +173,18 @@
 @mixin benefits-list($desktop: false)
   .benefit-list__item
     @include flexbox
-    @include align-items(flex-start)
-    margin-top: 10px
+    @include align-items(center)
+    margin-top: 15px
 
     &:first-child
       margin-top: 0
 
   .benefit-item__icon
     @include flex-shrink
-    width: 20px
-    height: 20px
+    width: 30px
+    height: 34px
     display: inline-block
-    background-size: 15px
-    position: relative
-    top: 2px
+    background-size: 22px
 
   .benefit-item__label
     padding-left: 10px
