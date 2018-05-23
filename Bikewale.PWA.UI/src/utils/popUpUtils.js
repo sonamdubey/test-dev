@@ -271,6 +271,8 @@ function closePopUp(state) {
             closeOnRoadPricePopUp();
             break;
         default:
+            if(window.popupCallback != undefined && window.popupCallback[state] != undefined)
+                return window.popupCallback[state]();
             return true;
     }
 };
@@ -532,6 +534,41 @@ function MakeModelRedirection(item ) {
     
 }
 
+function openPopupWithHash(openingFunction, closingFunction, hash) {
+    try {
+        if (openingFunction) {
+            if (window.popupCallback == undefined) {
+                window.popupCallback = { hash: closingFunction };
+            }
+            else {
+                window.popupCallback[hash] = closingFunction;
+            }
+            openingFunction();
+            window.location.hash = hash;
+        }
+    }
+    catch (e) {
+        console.log(e);
+    }
+}
+
+function closePopupWithHash(closingFunction) {
+    try {
+        if (closingFunction) {
+            if (window.popupCallback != undefined) {
+                let hash = (window.location.hash || "#").slice(1);
+                window.popupCallback[hash] = undefined;
+            }
+            closingFunction();
+            unlockPopup();
+            window.history.back();
+        }
+    }
+    catch (e) {
+        console.log(e);
+    }
+}
+
 
 var globalCityCache = new Object(); // variable for global city autocomplete
 var globalSearchCache = new Object(); // variable for global search autocomplete
@@ -577,5 +614,7 @@ module.exports = {
     closeCityAreaSelectionPopup,
     openCityAreaSelectionPopup,
     setGlobalCity,
-    IsGlobalCityPresent
+    IsGlobalCityPresent,
+    openPopupWithHash,
+    closePopupWithHash
 }

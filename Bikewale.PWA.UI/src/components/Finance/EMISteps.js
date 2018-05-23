@@ -12,6 +12,7 @@ import {
 import {debounce} from '../../utils/debounce'
 import {createImageUrl} from '../Widgets/WidgetsCommon'
 import { progressBarStatus } from '../../utils/progressBarConstants'
+import { IsGlobalCityPresent, openPopupWithHash} from '../../utils/popUpUtils'
 
 const propTypes = {
   // handle select bike text click function
@@ -58,7 +59,7 @@ class EMISteps extends React.Component {
 
   renderCityCard =() => {
     return(
-      <div ref={this.setCitySelectRef} className="select-step-card__placeholder select-card__city-selection" onClick={this.props.onSelectCityClick}>
+      <div ref={this.setCitySelectRef} className="select-step-card__placeholder select-card__city-selection" onClick={openPopupWithHash.bind(null, this.props.onSelectCityClick, this.props.onSelectCityClose, "SelectCity")}>
         <div className="select-step-card__link">
           <span className="selection-step__text">
             Select your City
@@ -82,7 +83,7 @@ class EMISteps extends React.Component {
   }
 
   handleMakeSelect = (event) => {
-    this.props.onSelectBikeClick();
+    openPopupWithHash(this.props.onSelectBikeClick, this.props.onSelectBikeClose, "SelectBike");
   }
   handleScroll = (event) => {
     debounce(() => {
