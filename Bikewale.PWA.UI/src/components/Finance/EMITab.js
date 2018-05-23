@@ -63,8 +63,8 @@ class EMITab extends React.Component {
     let quickLinksTabElement = document.getElementById("quickLinksTab");
     scrollTop(window, this.refs.modelInfoComponent.base.getBoundingClientRect().top + (window.pageYOffset || document.documentElement.scrollTop) - quickLinksTabElement.offsetHeight)
     event.currentTarget.parentElement.scrollLeft = 0
-    if(typeof(gaObj)!= 'undefined'){
-      triggerGA(gaObj.name, 'Similar_EMI_Widget_Clicked',this.props.selectBikePopup.Selection.modelName + modelObj.modelName); 
+    if (typeof (gaObj) != 'undefined') {
+      triggerGA(gaObj.name, 'Similar_EMI_Widget_Clicked', this.props.selectBikePopup.Selection.modelName + '_' + modelObj.modelName); 
     }
   }
 
