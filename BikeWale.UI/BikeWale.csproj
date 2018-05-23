@@ -4136,7 +4136,7 @@
     <Content Include="Views\Model\_Index_MileageDetails_Mobile.cshtml" />
     <Content Include="Views\Make\Index_Mobile_New_v1.cshtml" />
     <Content Include="Views\Make\_Index_Tabs_Mobile_New_V1.cshtml" />
-    <Content Include="sass\modules\find-product-offers.sass" />
+    <Content Include="sass\partials\find-product-offers.sass" />
     <None Include="Views\Shared\_Sidebar-section.cshtml" />
     <Content Include="Views\BikeModels\_MultiTabsWidget.cshtml" />
     <Content Include="Views\Shared\_ReviewPopup.cshtml" />
