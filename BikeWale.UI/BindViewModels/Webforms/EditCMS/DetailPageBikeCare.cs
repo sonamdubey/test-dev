@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using Bikewale.BAL.EditCMS;
+﻿using Bikewale.BAL.EditCMS;
 using Bikewale.Cache.CMS;
 using Bikewale.Cache.Core;
 using Bikewale.Common;
@@ -12,6 +11,7 @@ using Bikewale.Interfaces.EditCMS;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Web;
 namespace Bikewale.BindViewModels.Webforms.EditCMS
@@ -116,14 +116,13 @@ namespace Bikewale.BindViewModels.Webforms.EditCMS
             {
 
                 ErrorClass.LogError(ex, "DetailPageBikeCare.GetTipsAndAdviceDetails");
-                
+
             }
             finally
             {
                 if (!isContentFound)
                 {
-                    page.Response.Redirect("/pagenotfound.aspx", false);
-                    HttpContext.Current.ApplicationInstance.CompleteRequest();
+                    UrlRewrite.Return404();
                 }
             }
         }

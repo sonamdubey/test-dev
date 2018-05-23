@@ -153,9 +153,8 @@ namespace Bikewale.Mobile.New.Photos
                 }
                 else if (vmModelPhotos.isPageNotFound)  //page not found
                 {
-                    Response.Redirect("/m/pagenotfound.aspx", false);
-                    HttpContext.Current.ApplicationInstance.CompleteRequest();
-                    this.Page.Visible = false;
+                    UrlRewrite.Return404();
+
                 }
             }
         }
