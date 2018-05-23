@@ -105,10 +105,34 @@
                     </div>
                 </div>
 
+
+                
+
+
+
+
                 @if (Model.IsManufacturerLeadAdShown)
                 {
                     @Html.Partial("~/Views/Price/_ManufacturerCampaign_Mobile.cshtml", Model.LeadCampaign)
                 }
+                
+                <div class="find-series-section card-bottom-margin content-box-shadow">
+                    <div class="find-series-section__icon">
+                        <img src="https://imgd.aeplcdn.com/0x0/bw/static/icons/41b4c4/bike-series.svg">
+                    </div>
+                    <div class="find-series-section__content">
+
+                        <h2 class="find-series-section__head">Find The Right Apache</h2>
+                        <p class="find-series-section__desc">
+                            TVS Offers 5 more Apache models
+                            starting from ₹ 87,890
+                        </p>
+                        <a href="#" class="find-series-section__view-link">View all</a>
+                    </div>
+                </div>
+
+
+
                 @if (Model.IsManufacturerTopLeadAdShown)
                 {
                     <div class="campaign__floating-btn floating-btn clearfix">
