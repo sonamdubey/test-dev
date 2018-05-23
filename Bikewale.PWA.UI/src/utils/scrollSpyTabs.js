@@ -1,4 +1,4 @@
-import './closestPolyfill';
+import closest from './closestPolyfill';
 import { scrollTop } from './scrollTo';
 
 function centerTabLink(targetLink) {
@@ -16,7 +16,7 @@ function centerTabLink(targetLink) {
   }
 
   let scrollXPosition = Math.max(0, offsetLeft - (listWidth - targetLinkWidth) / 2);
-  tabList.closest('.tabs__content').scrollTo(scrollXPosition, 0);
+  tabList.closest('.tabs__content').scrollLeft = scrollXPosition
 }
 
 function handleTabLinkClick(targetLink) {
