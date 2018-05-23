@@ -1,3 +1,5 @@
+google.com, pub-3789167702619381, DIRECT, f08c47fec0942fa0
+google.com, pub-0998018783233582, DIRECT, f08c47fec0942fa0 
 increaserev.com 234233, DIRECT
 google.com, pub-5918552270747313, RESELLER, f08c47fec0942fa0
 google.com, pub-1937576406332709, RESELLER, f08c47fec0942fa0
