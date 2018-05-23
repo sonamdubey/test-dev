@@ -27,7 +27,6 @@ class EMICalculatorHeader extends React.Component {
 						 <div className="emi-calci__orp-text">On-road price, {this.props.sliderData.cityData.cityName}</div>
 						 <div className="emi-calci__orp-data">
 							 <span>{orpAmount}</span>
-							 <a href="" className="price-link" title="View detailed price">View detailed price</a>
 						 </div>
 					 </div>
 					<div className="emi-cost-container">
