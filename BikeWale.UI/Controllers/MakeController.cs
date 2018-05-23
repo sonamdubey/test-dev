@@ -1,5 +1,4 @@
-﻿using Bikewale.Common;
-using Bikewale.Entities;
+﻿using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Compare;
 using Bikewale.Interfaces.BikeData;
@@ -95,7 +94,6 @@ namespace Bikewale.Controllers
             }
             else
             {
-                //return HttpNotFound();
                 return HttpNotFound();
             }
 

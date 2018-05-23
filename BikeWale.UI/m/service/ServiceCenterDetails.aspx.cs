@@ -1,6 +1,7 @@
 ﻿using Bikewale.BAL.ServiceCenter;
 using Bikewale.Cache.Core;
 using Bikewale.Cache.ServiceCenter;
+using Bikewale.Common;
 using Bikewale.DAL.BikeData;
 using Bikewale.DAL.ServiceCenter;
 using Bikewale.Entities.BikeData;
@@ -35,7 +36,7 @@ namespace Bikewale.Mobile.Service
         protected int objServicemakeId, dealerBikesCount = 0;
         protected bool isDealerDetail;
         protected string makeName = string.Empty, maskingNumber = string.Empty, makeMaskingName = string.Empty, cityMaskingName = string.Empty,
-            serviceCenteName = string.Empty, serviceCity = string.Empty, clientIP = CurrentUser.GetClientIP();
+            serviceCenteName = string.Empty, serviceCity = string.Empty, clientIP = Bikewale.Utility.CurrentUser.GetClientIP();
         protected double serviceLat, serviceLong;
         protected DealersCard ctrlDealerCard;
         protected ServiceCenterCard ctrlServiceCenterCard;
@@ -92,7 +93,7 @@ namespace Bikewale.Mobile.Service
             }
             catch (Exception ex)
             {
-                ErrorClass.LogError(ex, string.Format("BindServiceCenterData for serviceCenterId : {0} ", serviceCenterId));
+                Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("BindServiceCenterData for serviceCenterId : {0} ", serviceCenterId));
             }
         }
         /// <summary>
@@ -156,7 +157,7 @@ namespace Bikewale.Mobile.Service
             }
             catch (Exception ex)
             {
-                ErrorClass.LogError(ex, "BindControls");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "BindControls");
             }
 
         }
@@ -184,7 +185,7 @@ namespace Bikewale.Mobile.Service
             }
             catch (Exception ex)
             {
-                ErrorClass.LogError(ex, "ServiceCenterDetails.GetMakeNameByMakeId");
+                Bikewale.Notifications.ErrorClass.LogError(ex, "ServiceCenterDetails.GetMakeNameByMakeId");
                 
             }
         }
@@ -208,15 +209,13 @@ namespace Bikewale.Mobile.Service
                 }
                 else
                 {
-                    Response.Redirect("/pagenotfound.aspx", false);
-                    HttpContext.Current.ApplicationInstance.CompleteRequest();
-                    this.Page.Visible = false;
+                    UrlRewrite.Return404();
                     isSucess = false;
                 }
             }
             catch (Exception ex)
             {
-                ErrorClass.LogError(ex, currentReq.ServerVariables["URL"]);
+                Bikewale.Notifications.ErrorClass.LogError(ex, currentReq.ServerVariables["URL"]);
                 
                 isSucess = false;
             }
