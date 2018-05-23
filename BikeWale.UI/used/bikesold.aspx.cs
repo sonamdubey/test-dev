@@ -1,10 +1,9 @@
-﻿using Bikewale.Controls;
-using System;
-using System.Web;
-using System.Data.Common;
-using Bikewale.Common;
-using System.Data;
+﻿using Bikewale.Common;
+using Bikewale.Controls;
 using MySql.CoreDAL;
+using System;
+using System.Data;
+using System.Data.Common;
 
 namespace Bikewale.Used
 {
@@ -40,9 +39,7 @@ namespace Bikewale.Used
             }
             else
             {
-                Response.Redirect("/pagenotfound.aspx", false);
-                HttpContext.Current.ApplicationInstance.CompleteRequest();
-                this.Page.Visible = false;
+                UrlRewrite.Return404();
             }
         }
         void GetSoldBikeDetails()
@@ -64,9 +61,9 @@ namespace Bikewale.Used
             {
                 DbParameter[] param = new[] { DbFactory.GetDbParam("@id", DbType.Int32, CommonOpn.GetProfileNo(profileNo)) };
 
-                using (IDataReader dr = MySqlDatabase.SelectQuery(sql, param,ConnectionType.ReadOnly))
+                using (IDataReader dr = MySqlDatabase.SelectQuery(sql, param, ConnectionType.ReadOnly))
                 {
-                    if (dr!=null && dr.Read())
+                    if (dr != null && dr.Read())
                     {
                         //set the city id as the current city id
                         CommonOpn.SetCityId(dr["BikeCityId"].ToString());
@@ -75,7 +72,7 @@ namespace Bikewale.Used
                         soldPrice = Convert.ToInt32(dr["Price"]);
                         soldCity = dr["BikeCityId"].ToString();
                         dr.Close();
-                    } 
+                    }
                 }
 
             }
@@ -83,7 +80,7 @@ namespace Bikewale.Used
             {
                 Trace.Warn(err.Message);
                 ErrorClass.LogError(err, Request.ServerVariables["URL"]);
-                
+
             }
         }
 
