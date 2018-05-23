@@ -409,41 +409,42 @@ namespace Bikewale.BAL.Lead
                 {
                     CustomerEntity objCust = GetCustomerEntity(input.Name, input.Mobile, input.Email);
 
+                    ES_SaveEntity leadInfo = new ES_SaveEntity()
+                    {
+                        DealerId = input.DealerId,
+                        PQId = input.PQId,
+                        CustomerId = objCust.CustomerId,
+                        CustomerName = input.Name,
+                        CustomerEmail = input.Email,
+                        CustomerMobile = input.Mobile,
+                        LeadSourceId = input.LeadSourceId,
+                        UTMA = utma,
+                        UTMZ = utmz,
+                        DeviceId = input.DeviceId,
+                        CampaignId = input.CampaignId,
+                        LeadId = input.LeadId,
+                    };
+
                     SpamScore spamScore = CheckSpamScore(objCust);
 
                     if (spamScore != null)
                     {
-                        ES_SaveEntity leadInfo = new ES_SaveEntity()
+                        leadInfo.SpamScore = spamScore.Score;
+                        leadInfo.Reason = "";
+                        leadInfo.IsAccepted = !(spamScore.Score > _spamScoreThreshold);
+                        leadInfo.OverallSpamScore = GetSpamOverallScore(spamScore); 
+                    }
+
+                    input.LeadId = leadId = _manufacturerCampaignRepo.SaveManufacturerCampaignLead(leadInfo);
+
+                    if (leadId > 0 && leadInfo.IsAccepted)
+                    {
+                        PushToLeadConsumer(input);
+
+                        if (input.CampaignId == Utility.BWConfiguration.Instance.KawasakiCampaignId)
                         {
-                            DealerId = input.DealerId,
-                            PQId = input.PQId,
-                            CustomerId = objCust.CustomerId,
-                            CustomerName = input.Name,
-                            CustomerEmail = input.Email,
-                            CustomerMobile = input.Mobile,
-                            LeadSourceId = input.LeadSourceId,
-                            UTMA = utma,
-                            UTMZ = utmz,
-                            DeviceId = input.DeviceId,
-                            CampaignId = input.CampaignId,
-                            LeadId = input.LeadId,
-                            SpamScore = spamScore.Score,
-                            Reason = "",
-                            IsAccepted = !(spamScore.Score > _spamScoreThreshold),
-                            OverallSpamScore = GetSpamOverallScore(spamScore)
-                        };
-
-                        input.LeadId = leadId = _manufacturerCampaignRepo.SaveManufacturerCampaignLead(leadInfo);
-
-                        if (leadId > 0 && spamScore.Score == 0)
-                        {
-                            PushToLeadConsumer(input);
-
-                            if (input.CampaignId == Utility.BWConfiguration.Instance.KawasakiCampaignId)
-                            {
-                                SMSKawasaki(input);
-                            }
-                        } 
+                            SMSKawasaki(input);
+                        }
                     }
                 }
             }
