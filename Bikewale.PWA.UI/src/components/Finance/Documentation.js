@@ -5,6 +5,7 @@ const Documentation = () => {
     <div className="finance-documentation-container">
       <div className="finance-documentation__head">
         <h2 className="finance-documentation__title">Documentation for Loans</h2>
+        {/*<a href="" className="finance-documentation__save">Save</a>*/}
       </div>
       <ul className="finance-documentation__list">
         <li className="documentation-list__item photo-identity">

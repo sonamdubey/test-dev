@@ -8,6 +8,8 @@ import PropTypes from 'prop-types';
 
 const propTypes = {
   transitionTime: PropTypes.number,
+  transitionCloseTime: PropTypes.number,
+  triggerTagName: PropTypes.string,
   easing: PropTypes.string,
   open: PropTypes.bool,
   classParentString: PropTypes.string,
@@ -50,6 +52,8 @@ const propTypes = {
 
 const defaultProps = {
   transitionTime: 200,
+  transitionCloseTime: null,
+  triggerTagName: 'span',
   easing: 'linear',
   open: false,
   classParentString: 'collapsible',
@@ -140,7 +144,8 @@ class Collapsible extends Component {
     this.setState({
       shouldSwitchAutoOnNextCycle: true,
       height: this.collapsibleInner.offsetHeight,
-      transition: `height ${this.props.transitionTime}ms ${this.props.easing}`,
+      transition: `height ${this.props.transitionCloseTime ?
+        this.props.transitionCloseTime : this.props.transitionTime}ms ${this.props.easing}`,
       inTransition: true
     });
   }
@@ -171,7 +176,7 @@ class Collapsible extends Component {
     }
 
     if (this.props.handleTriggerClick) {
-      this.props.handleTriggerClick(this.props.accordionPosition);
+      this.props.handleTriggerClick(this.props.accordionPosition, event);
     }
     else {
       if (this.state.isClosed === true) {
@@ -206,11 +211,11 @@ class Collapsible extends Component {
     else if (TriggerSibling) {
       return <TriggerSibling />
     }
-
+    
     return null;
   }
 
-  handleTransitionEnd() {
+  handleTransitionEnd(event) {
     // Switch to height auto to make the container responsive
     if (!this.state.isClosed) {
       this.setState({
@@ -220,7 +225,7 @@ class Collapsible extends Component {
       });
 
       if (this.props.onOpen) {
-        this.props.onOpen();
+        this.props.onOpen(event);
       }
     }
     else {
@@ -229,7 +234,7 @@ class Collapsible extends Component {
       });
 
       if (this.props.onClose) {
-        this.props.onClose();
+        this.props.onClose(event);
       }
     }
   }
@@ -260,6 +265,9 @@ class Collapsible extends Component {
     var trigger = (isClosed === false) && (this.props.triggerWhenOpen !== undefined)
       ? this.props.triggerWhenOpen
       : this.props.trigger;
+      
+    // If user wants a trigger wrapping element different than 'span'
+    const TriggerElement = this.props.triggerTagName;
 
     // Don't render children until the first opening of the Collapsible if lazy rendering is enabled
     var children = this.props.lazyRender
