@@ -95,5 +95,6 @@
         public static readonly string MaintenanceCost = "Maintenance Cost";
         public static readonly string ValueForMoney = "Value for money";
         public static readonly string ExtraFeatures = "Extra Features";
+        public static readonly byte FinancePopularCityCount = 6;
     }
 }
