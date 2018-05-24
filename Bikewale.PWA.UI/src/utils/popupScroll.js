@@ -38,6 +38,16 @@ const handlePopupTransitionEnd = (popupContent, popup, event) => {
   }
 }
 
+// scroll popup to the clicked collapsible element
+const focusCollapsible = (popupContent, event) => {
+  const eventRect = event.currentTarget.getBoundingClientRect();
+  const collapsibleTriggerHeight = event.currentTarget.closest('.collapsible').querySelector('.collapsible__trigger').offsetHeight;
+  const searchBoxHeight = popupContent.querySelector('.popup__search-box').offsetHeight;
+  const autocompleteBoxHeight = popupContent.querySelector('.autocomplete-box').offsetHeight;
+
+  popupContent.scrollTop = eventRect.top + popupContent.scrollTop - (searchBoxHeight + collapsibleTriggerHeight + (autocompleteBoxHeight / 1.8))
+}
+
 const addPopupEvents = (popupContent) => {
   const popup = new Popup(popupContent)
 
@@ -54,5 +64,6 @@ const removePopupEvents = (popupContent) => {
 
 module.exports = {
   addPopupEvents,
-  removePopupEvents
+  removePopupEvents,
+  focusCollapsible
 }

@@ -4,7 +4,7 @@ import Accordion from '../Shared/Accordion';
 import NoResult from './NoResult';
 
 import { unlockScroll } from '../../utils/scrollLock';
-import { addPopupEvents, removePopupEvents } from '../../utils/popupScroll';
+import { addPopupEvents, removePopupEvents, focusCollapsible } from '../../utils/popupScroll';
 
 class SelectBikePopup extends React.Component {
   constructor(props) {
@@ -88,6 +88,10 @@ class SelectBikePopup extends React.Component {
     }
     this.setState({ ...this.state, makeModelList: makeModelList, modelValue: inputName, searchMode: searchMode });
   }
+  
+  handleAccordionClick = (event) => {
+    focusCollapsible(this.popupContent, event)
+  }
 
   getList = (makeModelList) => {
     if (!makeModelList || !makeModelList.length) {
@@ -99,7 +103,7 @@ class SelectBikePopup extends React.Component {
       }
       let objMake = item;
       return (
-        <div data-trigger={item.make.makeName}>
+        <div data-trigger={item.make.makeName} data-onOpen={this.handleAccordionClick.bind(this)}>
           <ul className="panel-body__list">
             {item.models.map(function (bike) {
               let eleClassName = `panel-bike-list__item ${(bike.modelId == this.state.currentModelId ? " bike-list-item--active" : "")}`;
@@ -152,8 +156,15 @@ class SelectBikePopup extends React.Component {
           </div>
           <div className="select-bike__body select-bike__accordion">
             {
-              MakeModelList && MakeModelList.length > 0 ? <Accordion closeable={true} allOpen={this.state.searchMode} items={this.getList(MakeModelList)}>
-              </Accordion> :
+              MakeModelList && MakeModelList.length > 0
+              ?
+                <Accordion
+                  closeable={true}
+                  allOpen={this.state.searchMode}
+                  transitionCloseTime={1}
+                  items={this.getList(MakeModelList)}
+                />
+              :
                 <NoResult
                   type="select-bike__no-bike-content"
                   imageClass="select-bike__no-bike"

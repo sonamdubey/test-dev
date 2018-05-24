@@ -51,7 +51,7 @@ class Accordion extends React.Component {
     this.handleTriggerClick = this.handleTriggerClick.bind(this);
   }
 
-  handleTriggerClick(position) {
+  handleTriggerClick(position, event) {
     let closeAll = false;
 
     if (this.props.closeable) {
@@ -64,7 +64,7 @@ class Accordion extends React.Component {
     });
 
     if (this.props.onTriggerClick) {
-      this.props.onTriggerClick(position);
+      this.props.onTriggerClick(position, event);
     }
   }
 
@@ -76,16 +76,19 @@ class Accordion extends React.Component {
 
       var triggerWhenOpen = (node.props['data-trigger-when-open']) ? node.props['data-trigger-when-open'] : node.props['data-trigger'];
       var triggerDisabled = (node.props['data-trigger-disabled']) || false;
+      var triggerOnOpen = (node.props['data-onOpen']) ? node.props['data-onOpen'] : null;
 
       return (
         <Collapsible
           key={"collapsible" + index}
           handleTriggerClick={this.handleTriggerClick}
           open={(!this.state.closeAll && this.state.openPosition === index) || this.props.allOpen}
+          onOpen={triggerOnOpen}
           trigger={node.props['data-trigger']}
           triggerWhenOpen={triggerWhenOpen}
           triggerDisabled={triggerDisabled}
           transitionTime={this.props.transitionTime}
+          transitionCloseTime={this.props.transitionCloseTime}
           easing={this.props.easing}
           classParentString={this.props.classParentString}
           accordionPosition={index}
