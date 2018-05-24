@@ -6,7 +6,6 @@ import { toJS } from '../../immutableWrapperContainer'
 import Rheostat from '../Shared/Rheostat'
 import PitComponent from '../Shared/RheostatPit'
 import algorithm from '../../utils/rheostat/algorithms/fixPoints'
-import {createNewSnapPoints} from '../../utils/rheostat/function/DiffSnapPoints'
 
 import { emiCalculatorAction } from '../../actionCreators/emiTenureSlider'
 import { updateTenureSlider } from '../../actionCreators/emiTenureSlider'
@@ -39,21 +38,12 @@ class EMITenure  extends React.Component {
     let {
       slider
     } = this.props
-    let handleSnapPoints = createNewSnapPoints({
-      startPoint: slider.min,
-      endPoint: slider.max,
-      difference: 1
-    });
+    
     slider = {
       ...slider,
-      algorithm: {getPosition: algorithm.getPosition.bind(null, handleSnapPoints), getValue: algorithm.getValue.bind(null,handleSnapPoints)},
       className: 'slider-rheostat',
       pitComponent: PitComponent,
       pitPoints: [slider.min, slider.max],
-      snap: true,
-      snapPoints: handleSnapPoints,
-      snapOnDragMove: true,
-      disableSnapOnClick: false,
       handleTooltipLabel: formatToRound,
       onChange: this.handleSliderChange,
       onClick: this.handlePieChartAnimation,

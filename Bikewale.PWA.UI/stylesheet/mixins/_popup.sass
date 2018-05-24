@@ -44,7 +44,7 @@
 
     &:after
       @if $background == 'skyline'
-        @include skyline-bg
+        @include skyline-bg-opacity-01
         @include vendor-prefix('animation', animateSkyline 30s linear 10)
 
       background-position: center bottom
@@ -55,7 +55,6 @@
       width: 2048px
       height: 90px
       display: block
-      opacity: .1
       will-change: transform
       z-index: -1
 

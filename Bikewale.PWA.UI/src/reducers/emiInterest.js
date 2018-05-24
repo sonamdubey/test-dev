@@ -2,12 +2,21 @@ import { combineReducers } from 'redux-immutable'
 import { fromJS, toJS } from 'immutable'
 
 import { emiCalculatorAction } from '../actionTypes/emiActionTypes'
+import { createNewSnapPoints } from '../utils/rheostat/function/DiffSnapPoints'
+
+const minInterest = 10, maxInterest = 15;
+const snapPoints = createNewSnapPoints({
+	startPoint: minInterest,
+	endPoint: maxInterest,
+	difference: .1
+})
 
 const initialSliderState = fromJS({
-	min: 10,
-	max: 15,
+	min: minInterest,
+	max: maxInterest,
 	values: [12.5],
-	userChange: false
+	userChange: false,
+	snapPoints: snapPoints
 })
 
 export const slider = (state = initialSliderState, action) => {
