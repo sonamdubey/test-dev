@@ -25,7 +25,10 @@ const getSimilarBikesData = (dispatch, modelEmiObj) => {
           , payload})
       }
       else {
-        return null;
+        dispatch(
+          {
+            type: similarBikesEMI.FETCH_SIMILAR_BIKES_FAILED
+          })
       }
     }
   }

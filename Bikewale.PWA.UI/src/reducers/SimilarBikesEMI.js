@@ -45,7 +45,8 @@ export function SimilarBikesEMI(state, action) {
             emiStart: EmiCalculation(x.onRoadPriceAmount - (x.onRoadPriceAmount * .3), modelEmiObj.tenure, modelEmiObj.rateOfInt) 
           }))
         })
-
+      case similarBikesEMI.FETCH_SIMILAR_BIKES_FAILED:
+        return initialState
       default:
         return state
     }
