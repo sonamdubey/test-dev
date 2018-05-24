@@ -144,7 +144,7 @@ class NavigationDrawer extends React.Component {
                         </li>
                         <li>
                             <div className="nav-item" onClick={this.toggleNestedNav}>
-                                <div onClick={this.pushAnalytics.bind(this, "Buy & Sell Used Bikes")}>
+                                <div onClick={this.pushAnalytics.bind(this, "News, Videos & Tips")}>
                                     <span className="bwmsprite news-icon"></span>
                                     <span>News, Videos & Tips</span>
                                     <span className="bwmsprite fa-angle-down"></span>
@@ -173,7 +173,7 @@ class NavigationDrawer extends React.Component {
 							</Link>
                         </li>
                         <li>
-                            <a href="/m/users/login.aspx" className="nav-item" onClick={this.pushAnalyticsAndCloseDrawer.bind(this,"EMI Calculator")}>
+                            <a href="/m/users/login.aspx" className="nav-item" onClick={this.pushAnalyticsAndCloseDrawer.bind(this,"Login")}>
                                 <span className="bwmsprite myBikeWale-icon"></span>
                                 <span>Login</span>
                             </a>
