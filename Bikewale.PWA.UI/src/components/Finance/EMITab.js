@@ -32,7 +32,6 @@ class EMITab extends React.Component {
 
   handleSelectBikeClick = () => {
     openPopupWithHash(this.props.openSelectBikePopup, this.props.closeSelectBikePopup, "SelectBike");
-    lockScroll();
   }
 
   handleBikeClick = (item) => {
@@ -46,7 +45,6 @@ class EMITab extends React.Component {
 
   handleSelectCityClick = () => {
     openPopupWithHash(this.props.openSelectCityPopup, this.props.closeSelectCityPopup, "SelectCity");
-    lockScroll();
   }
 
   handleCityClick = (item) => {

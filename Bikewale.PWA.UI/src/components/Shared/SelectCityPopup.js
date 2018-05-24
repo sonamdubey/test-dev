@@ -79,12 +79,10 @@ class SelectCityPopup extends React.Component {
       });
     }
     this.closePopup();
-    unlockScroll();
   }
 
   handleCloseClick = () => {
     this.closePopup();
-    unlockScroll();
   }
 
   handleClearClick = () => {

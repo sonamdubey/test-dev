@@ -1,5 +1,6 @@
 
 import {isServer} from './commonUtils'
+import { unlockScroll, lockScroll } from './scrollLock';
 var topCount = "5";
 function closeGlobalSearchPopUp() {
     hideElement(document.getElementById('global-search-popup'));
@@ -271,8 +272,10 @@ function closePopUp(state) {
             closeOnRoadPricePopUp();
             break;
         default:
-            if(window.popupCallback != undefined && window.popupCallback[state] != undefined)
-                return window.popupCallback[state]();
+            if (window.popupCallback != undefined && window.popupCallback[state] != undefined) {
+                window.popupCallback[state]();
+                unlockScroll();
+            }
             return true;
     }
 };
@@ -536,15 +539,16 @@ function MakeModelRedirection(item ) {
 
 function openPopupWithHash(openingFunction, closingFunction, hash) {
     try {
-        if (openingFunction) {
+        if (typeof openingFunction === "function" && typeof closingFunction === "function") {
+            openingFunction();
+            window.location.hash = hash;
             if (window.popupCallback == undefined) {
                 window.popupCallback = { hash: closingFunction };
             }
             else {
                 window.popupCallback[hash] = closingFunction;
             }
-            openingFunction();
-            window.location.hash = hash;
+            lockScroll();
         }
     }
     catch (e) {
@@ -554,14 +558,16 @@ function openPopupWithHash(openingFunction, closingFunction, hash) {
 
 function closePopupWithHash(closingFunction) {
     try {
-        if (closingFunction) {
+        if (typeof closingFunction === "function") {
+            unlockScroll();
+            closingFunction();
             if (window.popupCallback != undefined) {
                 let hash = (window.location.hash || "#").slice(1);
-                window.popupCallback[hash] = undefined;
+                if (hash.length > 0) {
+                    window.popupCallback[hash] = undefined;
+                    window.history.back();
+                }
             }
-            closingFunction();
-            unlockPopup();
-            window.history.back();
         }
     }
     catch (e) {
