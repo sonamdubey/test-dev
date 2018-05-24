@@ -38,21 +38,16 @@ class EMIInterest  extends React.Component {
 		let {
 			slider
 		} = this.props
-		let handleSnapPoints = createNewSnapPoints({
-			startPoint: slider.min,
-			endPoint: slider.max,
-			difference: 0.1
-		});
+
 		slider = {
 			...slider,
-			algorithm: {getPosition: algorithm.getPosition.bind(null, handleSnapPoints), getValue: algorithm.getValue.bind(null,handleSnapPoints)},
+			algorithm: {
+			  getPosition: algorithm.getPosition.bind(null, slider.snapPoints),
+			  getValue: algorithm.getValue.bind(null, slider.snapPoints)
+			},
 			className: 'slider-rheostat',
 			pitComponent: PitComponent,
 			pitPoints: [slider.min, slider.max],
-			snap: true,
-			snapPoints: handleSnapPoints,
-			snapOnDragMove: true,
-			disableSnapOnClick: false,
 			onChange: this.handleSliderChange,
 			onClick: this.handlePieChartAnimation,
 			onSliderDragEnd: this.handlePieChartAnimation
