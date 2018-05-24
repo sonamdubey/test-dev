@@ -145,21 +145,17 @@
 				</div>
 				<div class="clear"></div>
 			}
-		</div>
-        <div class="grid-12">
-            <div class="find-series-section card-bottom-margin content-box-shadow">
-                <div class="find-series-section__icon"></div>
-                <div class="find-series-section__content">
-                    <h2 class="find-series-section__head">Find The Right Apache</h2>
-                    <p class="find-series-section__desc">
-                        TVS Offers 5 more Apache models
-                        starting from ₹ 87,890
-                    </p>
-                    <a href="#" class="find-series-section__view-link">View all</a>
-                </div>
-            </div>
-         </div>
-
+            @if (Model.ModelsBySeries != null && (Model.ModelsBySeries.IsNewAvailable || Model.ModelsBySeries.IsUpcomingAvailable))
+            {
+                    if (Model.ModelsBySeries.SeriesBase != null && Model.ModelPageEntity.ModelDetails.MakeBase != null && !string.IsNullOrEmpty(Model.ModelsBySeries.SeriesBase.MaskingName))
+                    {
+                        if (Model.ModelsBySeries.SeriesBase.IsSeriesPageUrl)
+                        {
+                            @Html.Partial("~/Views/BikeSeries/_ModelSeriesSlug.cshtml", Model);
+                        }
+                    }
+            }
+                            
             @if ((Model.ModelPageEntity != null && Model.ModelPageEntity.ModelVersions != null && Model.ModelPageEntity.ModelVersions.Count > 0)
                                     || (Model.IsModelDescriptionAvailable))
             {
@@ -174,26 +170,15 @@
                         <div id="modelsBySeriesWidget" data-id="modelSummaryContent" class="card-bottom-margin bw-ga bw-model-tabs-data" data-cat="@Model.ModelsBySeries.Page" data-act="Series_WidgetShown" data-lab="@string.Format("{0} {1}", Model.ModelPageEntity.ModelDetails.MakeBase.MakeName, Model.ModelPageEntity.ModelDetails.ModelSeries.SeriesName)">
                             @if (Model.ModelsBySeries.SeriesBase != null && Model.ModelPageEntity.ModelDetails.MakeBase != null && !string.IsNullOrEmpty(Model.ModelsBySeries.SeriesBase.MaskingName))
                             {
-                                if (Model.ModelsBySeries.SeriesBase.IsSeriesPageUrl)
-                                {
-                                    <div class="margin-bottom5 margin-right10">
-                                        <div class="swiper-heading-left-grid inline-block">
-                                            <h2 class="horizontal-swiper__title">Explore other @Model.ModelsBySeries.SeriesBase.SeriesName @(Model.BodyStyle.Equals(Bikewale.Entities.GenericBikes.EnumBikeBodyStyles.Scooter) ? "scooters:" : "bikes:")</h2>
-                                        </div>
-                                        <div class="swiper-heading-right-grid inline-block text-right">
-                                            <a href="@string.Format("/{0}-bikes/{1}/", Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelsBySeries.SeriesBase.MaskingName)" title="@string.Format("{0} {1} bikes", Model.ModelPageEntity.ModelDetails.MakeBase.MakeName, Model.ModelsBySeries.SeriesBase.SeriesName)" class="btn view-all-target-btn">View all</a>
-                                        </div>
-                                        <div class="clear"></div>
-                                    </div>
-                                }
-                                else
-                                {
+                                if (!Model.ModelsBySeries.SeriesBase.IsSeriesPageUrl)
+                                {                                
                                     <div class="margin-bottom5">
                                         <h2 class="horizontal-swiper__title">Explore other @Model.ModelsBySeries.SeriesBase.SeriesName @(Model.BodyStyle.Equals(Bikewale.Entities.GenericBikes.EnumBikeBodyStyles.Scooter) ? "scooters:" : "bikes:")</h2>
                                     </div>
+                                    @Html.Partial("~/Views/BikeSeries/_BikeModelsBySeries.cshtml", Model.ModelsBySeries)
                                 }
                             }
-                            @Html.Partial("~/Views/BikeSeries/_BikeModelsBySeries.cshtml", Model.ModelsBySeries)
+                            
                         </div>
 
                     }

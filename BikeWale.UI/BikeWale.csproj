@@ -3197,6 +3197,11 @@
     <Content Include="sass\mixins\_check-box.sass" />
     <Content Include="sass\partials\_filter-screen.sass" />
     <Content Include="Scripts\app.bundle.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\server.bundle.js" />
     <Content Include="Scripts\sw-toolbox.js" />
     <Content Include="Scripts\vendor.bundle.js" />
@@ -4165,6 +4170,8 @@
     <Content Include="Views\Make\Index_Mobile_New_v1.cshtml" />
     <Content Include="Views\Make\_Index_Tabs_Mobile_New_V1.cshtml" />
     <Content Include="sass\partials\find-product-offers.sass" />
+    <Content Include="Views\BikeSeries\_ModelSeriesSlug.cshtml" />
+    <Content Include="Views\BikeSeries\_ModelSeriesSlug_Mobile.cshtml" />
     <None Include="Views\Shared\_Sidebar-section.cshtml" />
     <Content Include="Views\BikeModels\_MultiTabsWidget.cshtml" />
     <Content Include="Views\Shared\_ReviewPopup.cshtml" />
