@@ -288,6 +288,23 @@ namespace BikewaleOpr.Cache
                 ErrorClass.LogError(ex, "BikewalwOpr.Cache.BwMemCache.ClearPriceQuoteCity");
             }
         }
+        /// <summary>
+        /// Created by  : Pratibha Verma on 23 May 2018
+        /// Description : cache clear method for model price cities
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <param name="popularCityCount"></param>
+        public static void ClearModelPriceCities(uint modelId, byte popularCityCount)
+        {
+            try
+            {
+                MemCachedUtil.Remove(string.Format("BW_AllCities_{0}_{1}", modelId, popularCityCount));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "BikewalwOpr.Cache.BwMemCache.ClearModelPriceCities");
+            }
+        }
 
         /// <summary>
         /// Created by : Vivek Singh Tomar on 3rd Aug 2017

@@ -6,6 +6,7 @@ using Bikewale.Entities.Location;
 using Bikewale.Interfaces.Location;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.City;
+using Bikewale.Utility;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
@@ -101,11 +102,10 @@ namespace Bikewale.Service.Controllers.City
 		{	
 			try
 			{
-				byte popularCityCount = 6;
 				IEnumerable<CityFinance> objDTOCityList = null;
 				if (modelId > 0)
 				{
-					IEnumerable<CityEntityBase> objCityList = _cityCache.GetModelPriceCities(modelId, popularCityCount);
+					IEnumerable<CityEntityBase> objCityList = _cityCache.GetModelPriceCities(modelId, BWConstants.FinancePopularCityCount);
 					if (objCityList != null)
 					{
 						objDTOCityList = CityListMapper.MapCity(objCityList);
