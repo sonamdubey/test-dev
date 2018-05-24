@@ -44,7 +44,6 @@ class SelectBikePopup extends React.Component {
 
   handleCloseClick = () => {
     this.closePopup();
-    unlockScroll()
   }
 
   handleBikeSelection = (chosenModel) => {
@@ -53,7 +52,6 @@ class SelectBikePopup extends React.Component {
       this.setState({ ...this.state, currentModelId: chosenModel.modelId, modelValue: chosenModel.modelName });
     }
     this.closePopup();
-    unlockScroll();
   }
 
   handleClear = () => {
