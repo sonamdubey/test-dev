@@ -27,9 +27,9 @@ class FinanceComponent extends React.Component {
 					</div>
 					<Tabs />
 					<Disclaimer />
+					<AdUnit uniqueKey={'finance-page'} tags={null} adSlot={'/1017752/BikeWale_Finance_Bottom_320x50'} adDimension={[[320, 50], [320, 100]]} adContainerId={'div-gpt-ad-1525945337139-2'} />
 					<Breadcrumb breadcrumb={[{ Href: '/m/', Title: 'Home' }, { Href: '', Title: 'EMI Calculator' }]} />
 				</div>
-				<AdUnit uniqueKey={'finance-page'} tags={null} adSlot={'/1017752/BikeWale_Finance_Bottom_320x50'} adDimension={[[320, 50], [320, 100]]} adContainerId={'div-gpt-ad-1525945337139-2'} />
 				<Footer/>
 			</div>
 		);
