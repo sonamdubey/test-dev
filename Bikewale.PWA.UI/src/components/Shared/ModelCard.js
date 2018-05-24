@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const ModelCard = (props) => {
-  const { model } = props
+  const { model, onClick } = props
 
   return (
-    <div className="model-card__placeholder">
+    <div className="model-card__placeholder" onClick={onClick}>
       <div className="model-card__content">
         <div className="model-card__image">
           <img src={model.modelImage} alt={model.modelName} />
@@ -35,7 +35,8 @@ ModelCard.propTypes = {
     modelName: PropTypes.string,
     modelImage: PropTypes.string,
     rating: PropTypes.number
-  })
+  }),
+  onClick: PropTypes.func
 }
 
 ModelCard.defaultProps = {

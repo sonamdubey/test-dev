@@ -71,7 +71,8 @@
         Used_Bike_Listing = 42,
         Used_Bike_Details = 43,
         Sell_Page = 44,
-        Videos_Category_Page = 45
+        Videos_Category_Page = 45,
+        Finance_Page = 46
 
     }
 }

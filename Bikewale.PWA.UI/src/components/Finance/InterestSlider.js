@@ -5,6 +5,7 @@ import { toJS } from '../../immutableWrapperContainer'
 
 import Rheostat from '../Shared/Rheostat'
 import PitComponent from '../Shared/RheostatPit'
+import Tooltip from '../Shared/Tooltip'
 import algorithm from '../../utils/rheostat/algorithms/fixPoints'
 import {createNewSnapPoints} from '../../utils/rheostat/function/DiffSnapPoints'
 
@@ -59,6 +60,9 @@ class EMIInterest  extends React.Component {
 		return (
 				<div className="emi-calci-header slider-input-container">
 					<span className="slider__unit-title">Interest <span className="slider__unit-text">(%)</span></span>
+                    <Tooltip placement="top-right" message="It is a flat interest rate - the interest rate is calculated on the full loan amount throughout the tenure without considering that monthly EMIs gradually reduce the principal amount">
+                        <span className="slider__info-icon"></span>
+                    </Tooltip>
 					 <div className="slider-section" ref="interestSlider">
 							<Rheostat
 									{...slider}

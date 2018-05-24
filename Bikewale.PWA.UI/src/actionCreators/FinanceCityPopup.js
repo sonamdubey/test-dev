@@ -16,6 +16,7 @@ const getCity = (modelId) => {
         }
         xhr.open('GET',url)
         xhr.send();
+        dispatch({type:financeCityPopup.FETCH_CITY})
   }
 }
 

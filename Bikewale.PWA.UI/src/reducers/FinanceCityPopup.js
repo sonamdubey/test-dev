@@ -5,8 +5,8 @@ import { financeCityPopup } from '../actionTypes/FinanceCityPopup'
 import { getGlobalCity, setGlobalCity, IsGlobalCityPresent } from '../utils/popUpUtils'
 
 var globalCity = getGlobalCity();
-var globalCityName = ( globalCity && globalCity.name && globalCity.name.length>0 ) ? globalCity.name : '';
-var globalCityId = ( globalCity && globalCity.id>0 ) ? globalCity.id : '';
+var globalCityName = (globalCity && globalCity.name && globalCity.name.length > 0) ? globalCity.name : '';
+var globalCityId = (globalCity && globalCity.id > 0) ? globalCity.id : '';
 var initialState = fromJS({
   isActive: false,
   Selection: {
@@ -15,17 +15,19 @@ var initialState = fromJS({
     userChange: false
   },
   Popular: [],
-  Other: []
+  Other: [],
+  IsFetching: false
 });
 
 export function FinanceCityPopup(state = initialState, action) {
   try {
-      if (!state || window._SERVER_RENDERED_DATA)
+    if (state == undefined || (state != undefined && state.size == 0))
       return initialState;
-
+    const selectionObj = state.get('Selection').toJS();
+    const currentCityId = selectionObj != null && selectionObj.cityId > 0 ? selectionObj.cityId : -1;
     switch (action.type) {
         case financeCityPopup.FETCH_CITY_SUCCESS:
-        let Selection = IsGlobalCityPresent(action.payload, globalCityId)?
+        let selection = IsGlobalCityPresent(action.payload, currentCityId)?
         state.get('Selection')
         :
         fromJS({
@@ -35,7 +37,7 @@ export function FinanceCityPopup(state = initialState, action) {
         });
             return state.setIn(['Popular'], fromJS(action.payload.filter(item => item.popularityOrder < 7)))
             .setIn(['Other'], fromJS(action.payload.filter(item => item.popularityOrder > 6)))
-            .setIn(['Selection'], Selection);
+            .setIn(['Selection'], selection).setIn(['IsFetching'], false);
 
       case financeCityPopup.OPEN_CITY_POPUP:
           return state.setIn(['isActive'], true);
@@ -51,8 +53,7 @@ export function FinanceCityPopup(state = initialState, action) {
         const cityId = actionPayload != null && actionPayload.cityId != null ? actionPayload.cityId : -1;
         const cityName = actionPayload != null && actionPayload.cityName != null ? actionPayload.cityName : "";
         const userChange = actionPayload != null && actionPayload.userChange != null ? actionPayload.userChange : false;
-        setGlobalCity(cityId, cityName, globalCityId);
-
+        setGlobalCity(cityId, cityName, currentCityId);
         return state.setIn(['Selection'], fromJS({
           cityId: cityId,
           cityName: cityName,
@@ -60,8 +61,10 @@ export function FinanceCityPopup(state = initialState, action) {
         }));
 
       case financeCityPopup.FETCH_CITY_FAILURE:
-        return initialState;
-
+        return initialState.setIn(['IsFetching'], false);
+      
+      case financeCityPopup.FETCH_CITY:
+        return state.setIn(['IsFetching'], true);
       default:
         return state
     }

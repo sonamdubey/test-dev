@@ -75,7 +75,7 @@ class NavigationDrawer extends React.Component {
                         <li>
                             <div className="nav-item" onClick={this.toggleNestedNav}>
                                 <span className="bwmsprite newBikes-icon"></span>
-                                <span onClick={this.pushAnalyticsAndCloseDrawer}>New Bikes</span>
+                                <span onClick={this.pushAnalytics}>New Bikes</span>
                                 <span className="bwmsprite fa-angle-down"></span>
                             </div>
                             <ul className="nested-nav-list">
@@ -94,7 +94,7 @@ class NavigationDrawer extends React.Component {
                         <li>
                             <div className="nav-item" onClick={this.toggleNestedNav}>
                                 <span className="bwmsprite scooter-icon"></span>
-                                <span onClick={this.pushAnalyticsAndCloseDrawer}>New Scooters</span>
+                                <span onClick={this.pushAnalytics}>New Scooters</span>
                                 <span className="bwmsprite fa-angle-down"></span>
                             </div>
                             <ul className="nested-nav-list">
@@ -108,7 +108,7 @@ class NavigationDrawer extends React.Component {
                         <li>
                             <div className="nav-item" onClick={this.toggleNestedNav}>
                                 <span className="bwmsprite usedBikes-icon"></span>
-                                <span onClick={this.pushAnalyticsAndCloseDrawer}>Buy & Sell Used Bikes</span>
+                                <span onClick={this.pushAnalytics}>Buy & Sell Used Bikes</span>
                                 <span className="bwmsprite fa-angle-down"></span>
                             </div>
                             <ul className="nested-nav-list">
@@ -126,7 +126,7 @@ class NavigationDrawer extends React.Component {
                         <li>
                             <div className="nav-item" onClick={this.toggleNestedNav}>
                                 <span className="bwmsprite news-icon"></span>
-                                <span onClick={this.pushAnalyticsAndCloseDrawer}>News, Videos & Tips</span>
+                                <span onClick={this.pushAnalytics}>News, Videos & Tips</span>
                                 <span className="bwmsprite fa-angle-down"></span>
                             </div>
                             <ul className="nested-nav-list">

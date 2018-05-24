@@ -20,9 +20,9 @@ var initialState = fromJS({
   ]
 })
 
-export function SimilarBikesEMI(state , action) {
+export function SimilarBikesEMI(state, action) {
   try {
-    if (state.size == 0) {
+    if (state == undefined || (state != undefined && state.size == 0)) {
       return initialState;
     }
 

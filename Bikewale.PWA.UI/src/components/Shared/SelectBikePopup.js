@@ -2,9 +2,11 @@ import React from 'react';
 
 import Accordion from '../Shared/Accordion';
 import NoResult from './NoResult';
-
 import { unlockScroll } from '../../utils/scrollLock';
 import { addPopupEvents, removePopupEvents, focusCollapsible } from '../../utils/popupScroll';
+import { closePopupWithHash } from '../../utils/popUpUtils'
+
+
 
 class SelectBikePopup extends React.Component {
   constructor(props) {
@@ -12,7 +14,6 @@ class SelectBikePopup extends React.Component {
     this.filterMakeModelList = this.filterMakeModelList.bind(this);
     this.handleClear = this.handleClear.bind(this);
     this.handleCloseClick = this.handleCloseClick.bind(this);
-    this.handleNextClick = this.handleNextClick.bind(this);
     this.closePopup = this.closePopup.bind(this);
     this.state = { currentModelId: this.props.data.Selection.modelId, modelValue: this.props.data.Selection.modelName, makeModelList: this.props.data.MakeModelList };
   }
@@ -37,7 +38,7 @@ class SelectBikePopup extends React.Component {
 
   closePopup = () => {
     if (this.props.onCloseClick) {
-      this.props.onCloseClick();
+      closePopupWithHash(this.props.onCloseClick);
     }
   }
 
@@ -57,11 +58,6 @@ class SelectBikePopup extends React.Component {
 
   handleClear = () => {
     this.setState({ ...this.state, modelValue: '', makeModelList: this.props.data.MakeModelList, searchMode: false });
-  }
-
-  handleNextClick = () => {
-    this.closePopup();
-    unlockScroll()
   }
 
   filterMakeModelList = (event) => {
@@ -173,9 +169,6 @@ class SelectBikePopup extends React.Component {
             }
 
 
-          </div>
-          <div className="popup__footer">
-            <span className="popup-footer__next" onClick={this.handleNextClick}>Next</span>
           </div>
         </div>
       </div>

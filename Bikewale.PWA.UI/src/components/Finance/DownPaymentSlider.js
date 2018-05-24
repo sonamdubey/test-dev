@@ -5,6 +5,7 @@ import { toJS } from '../../immutableWrapperContainer'
 
 import Rheostat from '../Shared/Rheostat'
 import PitComponent from '../Shared/RheostatPit'
+import Tooltip from '../Shared/Tooltip'
 import sliderAlgorithm from '../../utils/rheostat/algorithms/linear'
 
 import { emiCalculatorAction } from '../../actionCreators/emiDownPaymentSlider'
@@ -67,6 +68,9 @@ class EMIDownPayment extends React.Component {
           />
           <div className="slider__label">
             <span className="slider-label__left">Min. Down Payment </span>
+            <Tooltip message="Banks expect a min. down payment of 10% of on-road price even if you have the best credit profile.">
+              <span className="slider__info-icon"></span>
+            </Tooltip>
           </div>
           <div className="vehicle-loan-text">
             Your loan amount will be <span className="vehicle-loan__amount">{vehicleLoanAmount}</span>

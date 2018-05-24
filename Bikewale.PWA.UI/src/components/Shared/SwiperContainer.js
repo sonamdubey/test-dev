@@ -25,9 +25,9 @@ class SwiperContainer extends React.Component {
     super(props);
   }
 
-  handleCardClick = (item) => {
+  handleCardClick = (item, e) => {
     if(item.modelId > 0){
-      this.props.onCarouselCardClick(item.modelId);
+      this.props.onCarouselCardClick(item, e);
     }
   }
   getCarouselList = () => {
