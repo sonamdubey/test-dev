@@ -78,6 +78,7 @@
                             </div>
                        
                     </div>
+                   
                 </div>
             </div>           
         </div> 
@@ -155,6 +156,7 @@
 <input type="hidden" id="pageUrl" value="@Model.PageUrl" />
 <input type="hidden" id="hdnPlatform" value="@((ushort)Model.PlatformId)" />
 <input type="hidden" id="loanAmount" value="@Model.LoanAmount"/>
+<input type="hidden" id="panStatus" value="@Model.PanStatus" />
 @Html.Partial("~/Views/Shared/_otpScreen.cshtml")
 <div class="otp-black-window"></div>
 

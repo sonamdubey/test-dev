@@ -336,13 +336,17 @@ function scrollTopError() {
 }
 
 function validateContactInfo() {
+    var panStatus = $("#panStatus").val();
     $('#screenLoader').show();
     var isValid = validateUserName($("#cfFName"));
     isValid &= validateUserName($("#cfLName"));
     isValid &= validatePhoneNumber($("#cfNum"));
     isValid &= validateEmailId($("#cfEmail"));
     isValid &= validatePinCode($("#cfPincode"));
-    isValid &= validatePanNumber($("#cfPan"));
+    if (panStatus)
+    {
+        isValid &= validatePanNumber($("#cfPan"));
+    }
 
     if (isValid) {
 
