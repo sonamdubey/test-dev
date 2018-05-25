@@ -164,7 +164,6 @@ namespace Bikewale.BAL.Finance
                         CustomerEmail = objDetails.EmailId = !String.IsNullOrEmpty(objDetails.EmailId) ? objDetails.EmailId : objCustomer.CustomerEmail,
                         CustomerMobile = MobileNumber
                     };
-                    objCust.IsVerified = objCustomer.IsVerified;
                     _objCustomer.Update(objCust);
                 }
             }
@@ -184,13 +183,12 @@ namespace Bikewale.BAL.Finance
         /// <param name="Utma"></param>
         /// <param name="isMobileVerified"></param>
         /// <returns></returns>
-        private uint SubmitLead(PersonalDetails objDetails, string Utmz, string Utma, out bool isMobileVerified)
+        private uint SubmitLead(PersonalDetails objDetails, string Utmz, string Utma)
         {
             uint id = 0;
             try
             {
                 CustomerEntity objCust = GetCustomerId(objDetails, objDetails.MobileNumber);
-                isMobileVerified = objCust.IsVerified;
                 id = _manufacturerCampaignRepo.SaveManufacturerCampaignLead(
                       objDetails.objLead.DealerId,
                       objDetails.objLead.PQId,
@@ -209,7 +207,6 @@ namespace Bikewale.BAL.Finance
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, String.Format("CapitalFirst.SubmitLead({0})", Newtonsoft.Json.JsonConvert.SerializeObject(objDetails)));
-                isMobileVerified = false;
             }
             return id;
         }
@@ -270,8 +267,9 @@ namespace Bikewale.BAL.Finance
                 if (objDetails.LeadId == 0)
                 {
                     //Save Lead data to pq_newbikepricequote table
-                    objDetails.LeadId = SubmitLead(objDetails, utmz, utma, out isMobileVerified);
+                    objDetails.LeadId = SubmitLead(objDetails, utmz, utma);
                 }
+                isMobileVerified = _mobileVerRespo.IsMobileVerified(objDetails.MobileNumber, objDetails.EmailId);
                 //Push lead to consumer where data is saved to manufaturerlead table and lead is further pushed to AutoBiz
                 PushToLeadConsumerQueue(objDetails);
                 //Save Lead Details to Bikewale Capital First Lead Table with 
