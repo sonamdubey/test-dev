@@ -17,13 +17,13 @@ class ModelInfo extends React.Component {
     this.props.selectBikeVersion(option.value);
   }
   handleModelPopupClick = () => {
-    if (typeof (gaObj) != 'undefined') {
+    if (gaObj != undefined) {
       triggerGA(gaObj.name, 'Model_Change_Initiated', 'Existing Model - ' + this.props.model.modelName); 
     }
     openPopupWithHash(this.props.openSelectBikePopup, this.props.closeSelectBikePopup, "SelectBike");
   }
   handelCityPopupClick = () => {
-    if (typeof (gaObj) != 'undefined') {
+    if (gaObj != undefined) {
       triggerGA(gaObj.name, 'City_Change_Initiated', 'Existing City - ' + this.props.city.cityName); 
     }
     openPopupWithHash(this.props.openSelectCityPopup, this.props.closeSelectCityPopup, "SelectCity");

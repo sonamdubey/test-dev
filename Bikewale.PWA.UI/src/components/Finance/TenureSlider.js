@@ -22,7 +22,7 @@ class EMITenure  extends React.Component {
     const {
       updateTenureSlider,
     } = this.props
-    if (typeof (gaObj) != 'undefined') {
+    if (gaObj != undefined) {
       triggerGA(gaObj.name, 'Interacted_With_EMI_Calculator', 'Tenure Slider'); 
     }
     updateTenureSlider({ values, userChange: true })

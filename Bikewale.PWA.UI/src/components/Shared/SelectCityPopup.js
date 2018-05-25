@@ -75,14 +75,14 @@ class SelectCityPopup extends React.Component {
   handleCityClick = (item) => {
     if (this.props.onCityClick) {
       this.props.onCityClick(item);
-      if (typeof (gaObj) != 'undefined') {
+      if (gaObj != undefined) {
         triggerGA(gaObj.name, 'City_Selected', item.cityName + '_' + this.state.cityValue); 
       }
       this.setState(...this.state, {
         cityValue: item.cityName
       });
-      if(item.cityName != this.props.data.Selection.cityName){
-      if (typeof (gaObj) != 'undefined') {
+      if(this.props.data.Selection.cityId > 0){
+      if (gaObj != undefined) {
         triggerGA(gaObj.name, 'City_Selected_On_Edit_Flow', 'Existing City - ' + this.props.data.Selection.cityName); 
       }
     }
@@ -91,7 +91,7 @@ class SelectCityPopup extends React.Component {
   }
 
   handleCloseClick = () => {
-    if (typeof (gaObj) != 'undefined') {
+    if (gaObj != undefined) {
       triggerGA(gaObj.name, 'City_Popup_Cross_Clicked', this.state.cityValue); 
     }
     this.closePopup();

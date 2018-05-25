@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { triggerGA } from '../../utils/analyticsUtils'
 
 const propTypes = {
   // a custom class
@@ -31,8 +30,7 @@ const defaultProps = {
   },
   arrow: true,
   onOpen: null,
-  onClose: null,
-  gaLabel: ''
+  onClose: null
 }
 
 class Tooltip extends React.Component {
@@ -61,9 +59,6 @@ class Tooltip extends React.Component {
     if (this.props.onOpen) {
       this.props.onOpen();
     }
-    if (typeof (gaObj) != 'undefined') {
-      triggerGA(gaObj.name, 'ToolTip_Clicked', this.props.gaLabel); 
-    }
   }
 
   handleClose() {
@@ -87,8 +82,7 @@ class Tooltip extends React.Component {
       style,
       arrow,
       message,
-      children,
-      gaLabel
+      children
     } = this.props
 
     const tooltipPlacement = "tooltip--" + placement

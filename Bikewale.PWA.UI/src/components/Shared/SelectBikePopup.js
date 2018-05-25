@@ -44,20 +44,22 @@ class SelectBikePopup extends React.Component {
   }
 
   handleCloseClick = () => {
-    if (typeof (gaObj) != 'undefined') {
+    if (gaObj != undefined) {
       triggerGA(gaObj.name, 'Model_Popup_Cross_Clicked', this.state.modelValue); 
     }
     this.closePopup();
   }
 
   handleBikeSelection = (chosenModel) => {
-    if (typeof (gaObj) != 'undefined') {
+    if (gaObj != undefined) {
       triggerGA(gaObj.name, 'Model_Selected', chosenModel.modelName + '_' + this.state.modelValue); 
     }
-    if (this.state.currentModelId != chosenModel.modelId) {
-      if (typeof (gaObj) != 'undefined') {
+    if(this.state.currentModelId > 0){
+      if (gaObj != undefined) {
         triggerGA(gaObj.name, 'Model_Selected_On_Edit_Flow', 'Existing Model - '+ this.props.data.Selection.modelName); 
       }
+    }
+    if (this.state.currentModelId != chosenModel.modelId) {
       this.props.onBikeClick(chosenModel);
       this.setState({ ...this.state, currentModelId: chosenModel.modelId, modelValue: chosenModel.modelName });
     }
