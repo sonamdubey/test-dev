@@ -1,6 +1,5 @@
 ﻿using Bikewale.Entities.Dealer;
 using Newtonsoft.Json;
-using System;
 
 namespace Bikewale.Entities.Finance.CapitalFirst
 {
@@ -24,21 +23,6 @@ namespace Bikewale.Entities.Finance.CapitalFirst
         [JsonProperty("emailId")]
         public string EmailId { get; set; }
 
-        [JsonProperty("dateOfBirth")]
-        public DateTime DateOfBirth { get; set; }
-
-        [JsonProperty("gender")]
-        public ushort Gender { get; set; }
-
-        [JsonProperty("maritalStatus")]
-        public ushort MaritalStatus { get; set; }
-
-        [JsonProperty("addressLine1")]
-        public string AddressLine1 { get; set; }
-
-        [JsonProperty("addressLine2")]
-        public string AddressLine2 { get; set; }
-
         [JsonProperty("pincode")]
         public string Pincode { get; set; }
 
@@ -48,25 +32,6 @@ namespace Bikewale.Entities.Finance.CapitalFirst
 
         [JsonProperty("status")]
         public ushort Status { get; set; }
-
-        [JsonProperty("companyName")]
-        public string CompanyName { get; set; }
-
-        [JsonProperty("officialAddressLine1")]
-        public string OfficialAddressLine1 { get; set; }
-
-        [JsonProperty("officialAddressLine2")]
-        public string OfficialAddressLine2 { get; set; }
-
-        [JsonProperty("pincodeOffice")]
-        public string PincodeOffice { get; set; }
-
-        [JsonProperty("annualIncome")]
-        public uint AnnualIncome { get; set; }
-
-        [JsonProperty("loanAmount")]
-        public uint LoanAmount { get; set; }
-
         /// <summary>
         /// capital first table id
         /// </summary>
