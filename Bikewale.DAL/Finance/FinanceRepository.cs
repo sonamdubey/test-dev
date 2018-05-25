@@ -105,7 +105,7 @@ namespace Bikewale.DAL.Finance.CapitalFirst
         /// </summary>
         /// <param name="ctLeadId"></param>
         /// <returns></returns>
-        public CapitalFirstLeadEntity GetLeadDetails(string ctLeadId)
+        public CapitalFirstLeadEntity GetLeadDetails(uint ctLeadId)
         {
             CapitalFirstLeadEntity lead = null;
             try
@@ -125,7 +125,7 @@ namespace Bikewale.DAL.Finance.CapitalFirst
                                 lead.AgentName = Convert.ToString(dr["AgentName"]);
                                 lead.AgentNumber = Convert.ToString(dr["AgentNumber"]);
                                 lead.BikeName = Convert.ToString(dr["BikeName"]);
-                                lead.CtLeadId = ctLeadId;
+                                lead.CtLeadId = ctLeadId.ToString();
                                 lead.EmailId = Convert.ToString(dr["EmailId"]);
                                 lead.Exshowroom = SqlReaderConvertor.ToUInt32(dr["Exshowroom"]);
                                 lead.Rto = SqlReaderConvertor.ToUInt32(dr["RTO"]);
