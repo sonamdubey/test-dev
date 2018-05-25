@@ -33,6 +33,9 @@ class EMITab extends React.Component {
   handleSelectBikeClick = () => {
     openPopupWithHash(this.props.openSelectBikePopup, this.props.closeSelectBikePopup, "SelectBike");
     lockScroll();
+    if (gaObj != undefined) {
+      triggerGA(gaObj.name, 'Select_Bike_Clicked', ''); 
+    }
   }
 
   handleBikeClick = (item) => {
@@ -92,7 +95,7 @@ class EMITab extends React.Component {
     let quickLinksTabElement = document.getElementById("quickLinksTab");
     scrollTop(window, this.refs.modelInfoComponent.base.getBoundingClientRect().top + (window.pageYOffset || document.documentElement.scrollTop) - quickLinksTabElement.offsetHeight)
     event.currentTarget.parentElement.scrollLeft = 0
-    if (typeof (gaObj) != 'undefined') {
+    if (gaObj != undefined) {
       triggerGA(gaObj.name, 'Similar_EMI_Widget_Clicked', this.props.selectBikePopup.Selection.modelName + '_' + modelObj.modelName); 
     }
   }

@@ -4,7 +4,8 @@ import Accordion from '../Shared/Accordion';
 import NoResult from './NoResult';
 import { unlockScroll } from '../../utils/scrollLock';
 import { addPopupEvents, removePopupEvents, focusCollapsible } from '../../utils/popupScroll';
-import { closePopupWithHash } from '../../utils/popUpUtils'
+import { closePopupWithHash } from '../../utils/popUpUtils';
+import { triggerGA } from '../../utils/analyticsUtils';
 
 
 
@@ -43,10 +44,21 @@ class SelectBikePopup extends React.Component {
   }
 
   handleCloseClick = () => {
+    if (gaObj != undefined) {
+      triggerGA(gaObj.name, 'Model_Popup_Cross_Clicked', this.state.modelValue); 
+    }
     this.closePopup();
   }
 
   handleBikeSelection = (chosenModel) => {
+    if (gaObj != undefined) {
+      triggerGA(gaObj.name, 'Model_Selected', chosenModel.modelName + '_' + this.state.modelValue); 
+    }
+    if(this.state.currentModelId > 0){
+      if (gaObj != undefined) {
+        triggerGA(gaObj.name, 'Model_Selected_On_Edit_Flow', 'Existing Model - '+ this.props.data.Selection.modelName); 
+      }
+    }
     if (this.state.currentModelId != chosenModel.modelId) {
       this.props.onBikeClick(chosenModel);
       this.setState({ ...this.state, currentModelId: chosenModel.modelId, modelValue: chosenModel.modelName });

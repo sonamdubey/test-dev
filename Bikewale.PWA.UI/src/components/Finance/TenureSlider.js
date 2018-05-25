@@ -11,6 +11,7 @@ import { emiCalculatorAction } from '../../actionCreators/emiTenureSlider'
 import { updateTenureSlider } from '../../actionCreators/emiTenureSlider'
 
 import { formatToRound } from '../../utils/formatAmount'
+import { triggerGA } from '../../utils/analyticsUtils'
 
 class EMITenure  extends React.Component {
   constructor(props) {
@@ -21,7 +22,9 @@ class EMITenure  extends React.Component {
     const {
       updateTenureSlider,
     } = this.props
-
+    if (gaObj != undefined) {
+      triggerGA(gaObj.name, 'Interacted_With_EMI_Calculator', 'Tenure Slider'); 
+    }
     updateTenureSlider({ values, userChange: true })
   }
 

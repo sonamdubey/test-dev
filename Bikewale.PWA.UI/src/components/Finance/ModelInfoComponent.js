@@ -3,14 +3,30 @@ import Dropdown from 'react-dropdown';
 import SpinnerRelative from '../Shared/SpinnerRelative';
 import { openPopupWithHash } from '../../utils/popUpUtils'
 import {createImageUrl} from '../Widgets/WidgetsCommon'
+import { triggerGA } from '../../utils/analyticsUtils'
+
 class ModelInfo extends React.Component {
   constructor(props) {
     super(props);
     this.handleVersionChange = this.handleVersionChange.bind(this);
+    this.handleModelPopupClick = this.handleModelPopupClick.bind(this);
+    this.handelCityPopupClick = this.handelCityPopupClick.bind(this);
   }
   
   handleVersionChange = (option) => {
     this.props.selectBikeVersion(option.value);
+  }
+  handleModelPopupClick = () => {
+    if (gaObj != undefined) {
+      triggerGA(gaObj.name, 'Model_Change_Initiated', 'Existing Model - ' + this.props.model.modelName); 
+    }
+    openPopupWithHash(this.props.openSelectBikePopup, this.props.closeSelectBikePopup, "SelectBike");
+  }
+  handelCityPopupClick = () => {
+    if (gaObj != undefined) {
+      triggerGA(gaObj.name, 'City_Change_Initiated', 'Existing City - ' + this.props.city.cityName); 
+    }
+    openPopupWithHash(this.props.openSelectCityPopup, this.props.closeSelectCityPopup, "SelectCity");
   }
 
   render() {
@@ -44,7 +60,7 @@ class ModelInfo extends React.Component {
               <span className="model-info-card__model">{model.modelName}</span>
             </h3>
           </div>
-          <span onClick={openPopupWithHash.bind(null, openSelectBikePopup, closeSelectBikePopup, "SelectBike")} className="model-info-card__edit"></span>
+          <span onClick={this.handleModelPopupClick} className="model-info-card__edit"></span>
         </div>
         <div className="model-info-card__body">
           <div className="model-info__col model-info-col--dropdown">
@@ -60,7 +76,7 @@ class ModelInfo extends React.Component {
           </div>
           <div className="model-info__col">
             <p className="model-info-col__label">City</p>
-            <p onClick={openPopupWithHash.bind(null, openSelectCityPopup, closeSelectCityPopup, "SelectCity")} className="model-info-col__value model-info-col__city">{city.cityName}</p>
+            <p onClick={this.handelCityPopupClick} className="model-info-col__value model-info-col__city">{city.cityName}</p>
           </div>
         </div>
       </div>

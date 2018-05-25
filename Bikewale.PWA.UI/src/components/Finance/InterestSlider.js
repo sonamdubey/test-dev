@@ -11,6 +11,7 @@ import {createNewSnapPoints} from '../../utils/rheostat/function/DiffSnapPoints'
 
 import { emiCalculatorAction } from '../../actionCreators/emiInterestSlider'
 import { updateInterestSlider } from '../../actionCreators/emiInterestSlider'
+import { triggerGA } from '../../utils/analyticsUtils'
 
 class EMIInterest  extends React.Component {
 	constructor(props) {
@@ -21,10 +22,17 @@ class EMIInterest  extends React.Component {
 		const {
 			updateInterestSlider,
 		} = this.props
-
+        if (gaObj != undefined) {
+			triggerGA(gaObj.name, 'Interacted_With_EMI_Calculator', 'Interest Slider'); 
+		  }
 		updateInterestSlider({ values, userChange: true })
 	}
-
+	
+	handleOpen = () => {
+		if (gaObj != undefined) {
+			triggerGA(gaObj.name, 'ToolTip_Clicked', 'Interest'); 
+		}
+	}
 	render() {
 		let {
 			slider
@@ -44,7 +52,7 @@ class EMIInterest  extends React.Component {
 		return (
 				<div className="emi-calci-header slider-input-container">
 					<span className="slider__unit-title">Interest <span className="slider__unit-text">(%)</span></span>
-                    <Tooltip placement="top-right" message="It is a flat interest rate - the interest rate is calculated on the full loan amount throughout the tenure without considering that monthly EMIs gradually reduce the principal amount">
+                    <Tooltip onOpen = {this.handleOpen} placement="top-right" message="It is a flat interest rate - the interest rate is calculated on the full loan amount throughout the tenure without considering that monthly EMIs gradually reduce the principal amount">
                         <span className="slider__info-icon"></span>
                     </Tooltip>
 					 <div className="slider-section" ref="interestSlider">
