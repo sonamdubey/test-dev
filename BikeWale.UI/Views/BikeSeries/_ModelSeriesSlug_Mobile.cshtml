@@ -1,21 +1,14 @@
-﻿@model Bikewale.Models.BikeModels.ModelPageVM
-@if (Model != null && Model.ModelsBySeries != null && Model.ModelsBySeries.SeriesBase != null && Model.ModelsBySeries.IsNewAvailable)
+﻿@model Bikewale.Models.BikeSeries.ModelSeriesSlugVM
+@if (Model != null)
 {
     <div class="find-series-section card-bottom-margin content-box-shadow">
         <div class="find-series-section__icon"></div>
         <div class="find-series-section__content">
-            <h2 class="find-series-section__head">Find The Right @Model.ModelsBySeries.SeriesBase.SeriesName </h2>            
-            @if (Model.ModelPageEntity != null != null && Model.ModelPageEntity.ModelDetails != null && Model.ModelPageEntity.ModelDetails.MakeBase != null)
-            {
-                if (Model.ModelsBySeries.SeriesModels != null)
-                {
-                    <p class="find-series-section__desc">
-                        @Model.ModelPageEntity.ModelDetails.MakeBase.MakeName Offers @(Model.ModelsBySeries.SeriesModels.NewBikes.Count() - 1) more @Model.ModelsBySeries.SeriesBase.SeriesName models starting from ₹ @Model.ModelPageEntity.ModelDetails.MinPrice
-                    </p>
-                        
-                }
-                <a href="@string.Format("/{0}-bikes/{1}/", Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelsBySeries.SeriesBase.MaskingName)" class="find-series-section__view-link">View all</a>    
-            }                
+            <h2 class="find-series-section__head">Find The Right @Model.SeriesName </h2>            
+            <p class="find-series-section__desc">
+                @Model.MakeName Offers @(Model.SeriesBikesCount - 1) more @Model.SeriesName model@(Model.SeriesBikesCount > 2 ? "s" : "") starting from ₹ @Bikewale.Utility.Format.FormatPrice(Convert.ToString(Model.MinimumPrice))
+            </p>
+            <a href="@string.Format("/{0}-bikes/{1}/", Model.MakeMaskingName, Model.SeriesMaskingName)" class="find-series-section__view-link">View all</a>                   
         </div>
     </div>
 }

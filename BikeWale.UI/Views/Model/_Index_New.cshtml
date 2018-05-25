@@ -145,15 +145,9 @@
 				</div>
 				<div class="clear"></div>
 			}
-            @if (Model.ModelsBySeries != null && (Model.ModelsBySeries.IsNewAvailable || Model.ModelsBySeries.IsUpcomingAvailable))
+            @if (Model.ShowSeriesSlug)
             {
-                    if (Model.ModelsBySeries.SeriesBase != null && Model.ModelPageEntity.ModelDetails.MakeBase != null && !string.IsNullOrEmpty(Model.ModelsBySeries.SeriesBase.MaskingName))
-                    {
-                        if (Model.ModelsBySeries.SeriesBase.IsSeriesPageUrl)
-                        {
-                            @Html.Partial("~/Views/BikeSeries/_ModelSeriesSlug.cshtml", Model);
-                        }
-                    }
+                @Html.Partial("~/Views/BikeSeries/_ModelSeriesSlug.cshtml", Model.SeriesSlug);
             }
                             
             @if ((Model.ModelPageEntity != null && Model.ModelPageEntity.ModelVersions != null && Model.ModelPageEntity.ModelVersions.Count > 0)
