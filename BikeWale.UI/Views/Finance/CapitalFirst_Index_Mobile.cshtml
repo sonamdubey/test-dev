@@ -15,28 +15,6 @@
     <div class="card-inner-padding font14 text-light-grey collapsible-content padding-15-20">
         <p class="main-content"> Get upto 80% of vehicle’s value as loan! Fill in your personal and employment details and get an instant loan approval from one of our finance partners.</p>
     </div>
-    <div id="form-tabs-content" class="page-tabs">
-        <ul class="padding-left10 padding-right10">
-            <li class="page-tabs__li active" data-id="contact-detail-tab">
-                <div class="page-tabs__li-container">
-                    <span class="contact-image-unit round-border contact-icon"></span>
-                    <h3 class="personal__title">Contact details</h3>
-                </div>
-            </li>
-            <li class="page-tabs__li inactive" data-id="personal-detail-tab">
-                <div class="page-tabs__li-container">
-                    <span class="personal-image-unit gray-personal-icon round-border"></span>
-                    <h3 class="personal__title">Personal details</h3>
-                </div>
-            </li>
-            <li class="page-tabs__li inactive" data-id="employment-detail-tab">
-                <div class="page-tabs__li-container">
-                    <span class="employment-image-unit gray-bag-icon round-border"></span>
-                    <h3 class="employment__title">Employment details</h3>
-                </div>
-            </li>
-        </ul>
-    </div>
     <div class="page-tabs-data padding-15-20">
         <div id="contact-detail-tab" class="contact-details__form">
             <div class="margin-bottom5">
@@ -87,67 +65,10 @@
                     </li>
                 </ul>
             </div>
-            <input type="button" id="contact-detail-submit" class="btn btn-orange btn-primary-big bw-ga" value="Save &amp; Continue">
-        </div>
-        <div id="personal-detail-tab" class="personal-details__form hide">
-
-            <div class="margin-bottom5">
-                <div class="input-box form-control-box">
-                    <input id="cfDOB" type="text" autocomplete="off">
-                    <label for="cfDOB">DOB<sup>*</sup></label>
-                    <span class="boundary"></span>
-                    <span class="error-text"></span>
-                </div>
-            </div>
-            <div class="margin-bottom5">
-                <div class="form-control-box gender-box radio-box">
-                    <p class="inline-block">Gender</p>
-                    <ul>
-                        <li>
-                            <input id="cfGenderM" type="radio" name="gender" value="Male">
-                            <label for="cfGenderM">Male</label>
-                        </li>
-                        <li>
-                            <input id="cfGenderF" type="radio" name="gender" value="Female">
-                            <label for="cfGenderF">Female</label>
-                        </li>
-                    </ul>
-                    <p class="error-text"></p>
-                </div>
-            </div>
-            <div class="margin-bottom5">
-                <div class="form-control-box marital-box radio-box">
-                    <p class="inline-block">Marital Status</p>
-                    <ul>
-                        <li>
-                            <input id="cfMaritalS" type="radio" name="marital" value="Single">
-                            <label for="cfMaritalS">Single</label>
-                        </li>
-                        <li>
-                            <input id="cfMaritalM" type="radio" name="marital" value="Married">
-                            <label for="cfMaritalM">Married</label>
-                        </li>
-                    </ul>
-                    <p class="error-text"></p>
-                </div>
-            </div>
-            <div class="margin-bottom5">
-                <div class="input-box form-control-box">
-                    <input id="cfAddress1" type="text"  min="3" maxlength="40" autocomplete="off">
-                    <label for="cfAddress1">Address Line1<sup>*</sup></label>
-                    <span class="boundary"></span>
-                    <span class="error-text"></span>
-                </div>
-            </div>
-            <div class="margin-bottom5">
-                <div class="input-box form-control-box">
-                    <input id="cfAddress2" type="text"  min="3" maxlength="41" autocomplete="off">
-                    <label for="cfAddress2">Address Line2<sup>*</sup></label>
-                    <span class="boundary"></span>
-                    <span class="error-text"></span>
-                </div>
-            </div>
-            <div class="margin-bottom5">
+            @{
+                var panShow = (Model.PanStatus ? "initial" : "none");
+            }
+            <div class="margin-bottom5" style="display: @panShow">
                 <div class="input-box form-control-box">
                     <input id="cfPan" type="text" min="1" maxlength="10" autocomplete="off">
                     <label for="cfPan">Pan Number<sup>*</sup></label>
@@ -156,75 +77,7 @@
                     <span class="text-note">Credit score check will be conducted based on PAN</span>
                 </div>
             </div>
-            <input type="button" id="personal-detail-submit" class="btn btn-orange btn-primary-big bw-ga" value="Save &amp; Continue">
-        </div>
-        <div id="employment-detail-tab" class="hide">
-            <p class="font11 padding-bottom20"><sup>*</sup>All fields are mandatory</p>
-            <div class="margin-top20">
-                <div class="form-control-box status-box radio-box">
-                    <p class="inline-block">Status</p>
-                    <ul>
-                        <li>
-                            <input id="cfStatusS" type="radio" name="status" value="1">
-                            <label for="cfStatusS">Salaried</label>
-                        </li>
-                        <li>
-                            <input id="cfStatusE" type="radio" name="status" value="2">
-                            <label for="cfStatusE">Self-employed</label>
-                        </li>
-                    </ul>
-                    <p class="error-text"></p>
-                </div>
-            </div>
-            <div class="margin-bottom5">
-                <div class="input-box form-control-box">
-                    <input id="cfCompName" type="text" min="1" maxlength="255" autocomplete="off">
-                    <label for="cfCompName">Company Name<sup>*</sup></label>
-                    <span class="boundary"></span>
-                    <span class="error-text"></span>
-                </div>
-            </div>
-            <div class="margin-bottom5">
-                <div class="input-box form-control-box">
-                    <input id="cfCompAddress1" type="text" min="1" maxlength="40" autocomplete="off">
-                    <label for="cfCompAddress1">Official Address Line1<sup>*</sup></label>
-                    <span class="boundary"></span>
-                    <span class="error-text"></span>
-                </div>
-            </div>
-            <div class="margin-bottom5">
-                <div class="input-box form-control-box">
-                    <input id="cfCompAddress2" type="text" min="1" maxlength="40" autocomplete="off">
-                    <label for="cfCompAddress2">Official Address Line2<sup>*</sup></label>
-                    <span class="boundary"></span>
-                    <span class="error-text"></span>
-                </div>
-            </div>
-            <div class="margin-bottom5 position-rel">
-                <div class="input-box form-control-box">
-                    <input id="cfCompPincode" type="tel" min="1" maxlength="6" autocomplete="off">
-                    <label for="cfCompPincode">Pincode<sup>*</sup></label>
-                    <span class="boundary"></span>
-                    <span class="error-text"></span>
-                </div>
-                <ul id="errPinCodeSearch_office" class="ui-autocomplete ui-front ui-menu ui-widget hide no-suggestion-item">
-                    <li class="ui-menu-item" tabindex="-1">
-                        <span class="text-bold">Oops! No suggestions found</span><br>
-                        <span class="text-light-grey font12">Search by pincode or area e.g: 400708 or airoli</span>
-                    </li>
-                </ul>
-
-            </div>
-            <div class="margin-bottom5">
-                <div class="input-box form-control-box">
-                    <input id="cfCompIncome" type="number" max="999999999999" autocomplete="off">
-                    <label for="cfCompIncome">Annual Income<sup>*</sup></label>
-                    <span class="input-number-prefix">&#x20B9;</span>
-                    <span class="boundary"></span>
-                    <span class="error-text"></span>
-                </div>
-            </div>
-            <input type="button" id="employment-detail-submit" class="btn btn-orange btn-primary-big bw-ga" value="Submit Application">
+            <input type="button" id="contact-detail-submit" class="btn btn-orange btn-primary-big bw-ga" value="Submit">
         </div>
     </div>
 </div>

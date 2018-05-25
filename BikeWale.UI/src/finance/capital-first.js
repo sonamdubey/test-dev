@@ -121,9 +121,11 @@ docReady(function () {
 		direction: ['1900-01-01', pickerEndDate]
 	});
 	
-	var dateOfBirthPicker = $('#cfDOB').data('Zebra_DatePicker');
-	dateOfBirthPicker.datepicker.find('.dp_heading').text('Date of Birth');
-
+    var dateOfBirthPicker = $('#cfDOB').data('Zebra_DatePicker');
+    if (dateOfBirthPicker != null)
+    {
+        dateOfBirthPicker.datepicker.find('.dp_heading').text('Date of Birth');
+    }
     $(".page-tabs-data input, .otp-container input[type!=button]").on('blur', function () {
         validate.onBlur($(this));
     });
@@ -340,6 +342,7 @@ function validateContactInfo() {
     isValid &= validatePhoneNumber($("#cfNum"));
     isValid &= validateEmailId($("#cfEmail"));
     isValid &= validatePinCode($("#cfPincode"));
+    isValid &= validatePanNumber($("#cfPan"));
 
     if (isValid) {
 
