@@ -6,6 +6,7 @@ using Bikewale.Interfaces.Finance.CapitalFirst;
 using Bikewale.Interfaces.MobileVerification;
 using Bikewale.ManufacturerCampaign.Interface;
 using Bikewale.Notifications;
+using Bikewale.Notifications.MailTemplates;
 using RabbitMqPublishing;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,6 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
-
 namespace Bikewale.BAL.Finance
 {
     /// <summary>
@@ -37,7 +37,9 @@ namespace Bikewale.BAL.Finance
         private readonly String CTApiCode = Bikewale.Utility.BWConfiguration.Instance.CarTradeLeadApiCode;
         private readonly IDictionary<ushort, String> _leadStatusCollection = null;
         private const ushort SUCCESS_STATUS = 6;
-        private readonly string _mediaContentType = "application/x-www-form-urlencoded";
+        private static readonly string _mediaContentType = "application/x-www-form-urlencoded";
+        private static readonly string _CustomerSMSTemplate = "Hi {0}, we have shared your details with Capital First. For further steps, you can reach out to Capital First officer {1} - {2}";
+        private static readonly string _CustomerEmailSubject = "Loan application for {0}";
         /// <summary>
         /// Created by  :   Sumit Kate on 11 Sep 2017
         /// Description :   Type Initializer
@@ -302,7 +304,6 @@ namespace Bikewale.BAL.Finance
             }
             catch (Exception ex)
             {
-
                 ErrorClass.LogError(ex, String.Format("CapitalFirst.SavePersonalDetails({0})", Newtonsoft.Json.JsonConvert.SerializeObject(objDetails)));
             }
             return objId;
@@ -316,7 +317,26 @@ namespace Bikewale.BAL.Finance
         /// <param name="ctResponse"></param>
         private void NotifyCustomer(PersonalDetails objDetails, CTFormResponse ctResponse)
         {
+            try
+            {
+                CapitalFirstLeadEntity leadEntity = _objIFinanceRepository.GetLeadDetails(objDetails.CtLeadId);
 
+                if (leadEntity != null)
+                {
+                    SMSTypes sms = new SMSTypes();
+                    string smsTemplate = String.Format(_CustomerSMSTemplate, leadEntity.FirstName, ctResponse.SalesOfficer, ctResponse.SalaesOfficerMobile);
+                    sms.CapitalFirstSMS(objDetails.MobileNumber, "CapitalFirst", EnumSMSServiceType.CapitalFirstSMSToCustomer, smsTemplate);
+
+
+
+                    CapitalFirstSuccessEmailTemplate emailToCustomer = new CapitalFirstSuccessEmailTemplate(leadEntity.BikeName, ctResponse.SalesOfficer, ctResponse.SalaesOfficerMobile);
+                    emailToCustomer.Send(leadEntity.EmailId, String.Format(_CustomerEmailSubject, leadEntity.BikeName));
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, String.Format("CapitalFirst.NotifyCustomer({0})", Newtonsoft.Json.JsonConvert.SerializeObject(objDetails)));
+            }
         }
     }
 }

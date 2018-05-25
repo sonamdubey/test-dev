@@ -8,6 +8,6 @@ namespace Bikewale.Interfaces.Finance.CapitalFirst
     {
         CapitalFirstBikeEntity GetCapitalFirstBikeMapping(uint versionId);
         uint SaveCapitalFirstLeadData(PersonalDetails objDetails, CTFormResponse formResponse);
-        CapitalFirstLeadEntity GetLeadDetails(string ctLeadId);
+        CapitalFirstLeadEntity GetLeadDetails(uint ctLeadId);
     }
 }
