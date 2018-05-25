@@ -50,7 +50,7 @@
                                     <span class="boundary"></span>
                                     <span class="error-text"></span>
                                 </div>
-                                <div class="input-box form-control-box block">
+                                <div class="input-box form-control-box">
                                     <input id="cfPincode" type="tel" min="1"  maxlength="6" autocomplete="off">
                                     <label for="cfPincode">Pincode<sup>*</sup></label>
                                     <span class="boundary"></span>
@@ -64,136 +64,21 @@
                                         </li>
                                     </ul>
                                 </div>
-                                <input type="button" id="contact-detail-submit" class="btn btn-orange btn-primary-big bw-ga margin-top20" value="Save & continue">
-                            </div>
-                       
-                    </div>
-                    <div class="personal-details-container">
-                        <div>
-                            <span class="personal-image-unit gray-personal-icon bg-gray round-border"></span>
-                            <h3 class="personal__title inactive">Personal details</h3>
-                        </div>
-                        <div id="personal-detail-tab" class="personal-details__form hide">
-                         
-                            <div class="input-box form-control-box">
-                                <input id="cfDOB" type="text" autocomplete="off">
-                                <label for="cfDOB">DOB<sup>*</sup></label>
-                                <span class="boundary"></span>
-                                <span class="error-text"></span>
-                            </div>
-                            <div class="form-control-box gender-box radio-box">
-                                <span class="gender-label">Gender</span>
-                                <ul class="position-rel pos-top10 inline-block v-align-none">
-                                    <li>
-                                        <input id="cfGenderM" type="radio" name="gender" value="1">
-                                        <label for="cfGenderM">Male</label>
-                                    </li>
-                                    <li>
-                                        <input id="cfGenderF" type="radio" name="gender" value="2">
-                                        <label for="cfGenderF">Female</label>
-                                    </li>
-                                </ul>
-                                <span class="error-text"></span>
-                            </div>
-                            <div class="form-control-box marital-box block radio-box">
-                                <span class="marital-label">Marital Status</span>
-                                <ul class="position-rel pos-top10 inline-block v-align-none">
-                                    <li>
-                                        <input id="cfMaritalM" type="radio" name="marital" value="1">
-                                        <label for="cfMaritalM">Married</label>
-                                    </li>
-                                    <li>
-                                        <input id="cfMaritalS" type="radio" name="marital" value="2" >
-                                        <label for="cfMaritalS">Unmarried</label>
-                                    </li>
-                                </ul>
-                                <span class="error-text"></span>
-                            </div>
-                            <div class="input-box form-control-box width-91-percent">
-                                <input id="cfAddress1" type="text" min="3" maxlength="40" autocomplete="off">
-                                <label for="cfAddress1">Address Line1<sup>*</sup></label>
-                                <span class="boundary"></span>
-                                <span class="error-text"></span>
-                            </div>
-                            <div class="input-box form-control-box width-91-percent">
-                                <input id="cfAddress2" type="text" min="3" maxlength="41" autocomplete="off">
-                                <label for="cfAddress2">Address Line2<sup>*</sup></label>
-                                <span class="boundary"></span>
-                                <span class="error-text"></span>
-                            </div>
-                       
-                            <div class="input-box form-control-box block">
+                           @{
+                               var panShow = (Model.PanStatus ? "visible" : "hidden");
+                            }
+                            <div class="input-box form-control-box" id="cdPanBox" style="visibility: @panShow">
                                 <input id="cfPan" type="text" min="1" minlength="10" maxlength="10" autocomplete="off">
                                 <label for="cfPan">Pan Number<sup>*</sup></label>
                                 <span class="boundary"></span>
                                 <span class="error-text"></span>
                                 <span class="text-note">Credit score check will be conducted based on PAN</span>
                             </div>
-                            <input type="button" id="personal-detail-submit" class="btn btn-orange btn-primary-big bw-ga margin-top20" value="Save & continue">
-                        </div>
+                                <input type="button" id="contact-detail-submit" class="btn btn-orange btn-primary-big bw-ga margin-top20" value="Submit">
+                            </div>
+                       
                     </div>
-                    <div class="employment-details-container">
-                        <div>
-                            <span class="employment-image-unit gray-bag-icon bg-gray round-border"></span>
-                            <h3 class="employment__title inactive">Employment details</h3>
-                        </div>
-                        <div id="employment-detail-tab" class="employment-details-form hide">
-                            <div>
-                                <div class="form-control-box status-box radio-box">
-                                    <span class="employment-label">Employment Status</span>
-                                    <ul class="inline-block v-align-none position-rel pos-top10">
-                                        <li class="margin-right5"> 
-                                            <input id="cfStatusS" type="radio" name="status" value="1">
-                                            <label for="cfStatusS">Salaried</label>
-                                        </li>
-                                        <li>
-                                            <input id="cfStatusE" type="radio" name="status" value="2">
-                                            <label for="cfStatusE">Self-employed</label>
-                                        </li>
-                                    </ul>
-                                    <span class="error-text"></span>
-                                </div>
-                            </div>
-                            <div class="input-box form-control-box">
-                                <input id="cfCompName" type="text" min="1" maxlength="255" autocomplete="off">
-                                <label for="cfCompName">Company Name<sup>*</sup></label>
-                                <span class="boundary"></span>
-                                <span class="error-text"></span>
-                            </div>
-                            <div class="input-box form-control-box width-91-percent">
-                                <input id="cfCompAddress1" type="text" min="1" autocomplete="off">
-                                <label for="cfCompAddress1">Official Address Line1<sup>*</sup></label>
-                                <span class="boundary"></span>
-                                <span class="error-text"></span>
-                            </div>
-                            <div class="input-box form-control-box width-91-percent">
-                                <input id="cfCompAddress2" type="text" min="1" autocomplete="off">
-                                <label for="cfCompAddress2">Official Address Line2<sup>*</sup></label>
-                                <span class="boundary"></span>
-                                <span class="error-text"></span>
-                            </div>
-                            <div class="input-box form-control-box block">
-                                <input id="cfCompPincode" type="tel" min="1" autocomplete="off">
-                                <label for="cfCompPincode">Pincode<sup>*</sup></label>
-                                <span class="boundary"></span>
-                                <span class="error-text"></span>
-
-                                <ul id="errPinCodeSearch_office" class="ui-autocomplete ui-front ui-menu ui-widget hide no-suggestion-item">
-                                    <li class="ui-menu-item" tabindex="-1">
-                                        <span class="text-bold">Oops! No suggestions found</span><br>
-                                        <span class="text-light-grey font12">Search by pincode or area e.g: 400708 or airoli</span>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="input-box form-control-box block">
-                                <input id="cfCompIncome" type="number" maxlength="9" autocomplete="off">
-                                <label for="cfCompIncome">Annual Income<sup>*</sup></label>
-                                <span class="boundary"></span>
-                                <span class="error-text"></span>
-                            </div>
-                            <input type="button" id="employment-detail-submit" class="btn btn-orange btn-primary-big bw-ga margin-top20" value="Submit Application">
-                        </div>
-                    </div>                  
+                   
                 </div>
             </div>           
         </div> 
@@ -271,6 +156,7 @@
 <input type="hidden" id="pageUrl" value="@Model.PageUrl" />
 <input type="hidden" id="hdnPlatform" value="@((ushort)Model.PlatformId)" />
 <input type="hidden" id="loanAmount" value="@Model.LoanAmount"/>
+<input type="hidden" id="panStatus" value="@Model.PanStatus" />
 @Html.Partial("~/Views/Shared/_otpScreen.cshtml")
 <div class="otp-black-window"></div>
 

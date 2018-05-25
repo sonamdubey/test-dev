@@ -5,8 +5,10 @@ using Bikewale.Utility;
 using MySql.CoreDAL;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
+
 
 namespace Bikewale.DAL.Finance.CapitalFirst
 {
@@ -149,5 +151,47 @@ namespace Bikewale.DAL.Finance.CapitalFirst
             }
             return lead;
         }
+
+        /// <summary>
+        /// Created by : Snehal Dange on 24th May 2018
+        /// Desc : Database call to get CapitalFirstPanCityMapping
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<CityPanMapping> GetCapitalFirstPanCityMapping()
+        {
+            IList<CityPanMapping> cityPanMappingList = null;
+            try
+            {
+
+                using (DbCommand cmd = DbFactory.GetDBCommand())
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "getcapitalfirstcitypanmapping";
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            cityPanMappingList = new List<CityPanMapping>();
+                            while (dr.Read())
+                            {
+                                cityPanMappingList.Add(new CityPanMapping()
+                                    {
+                                        CityId = SqlReaderConvertor.ToUInt32(dr["cityid"]),
+                                        PanStatus = SqlReaderConvertor.ToBoolean(dr["enablePAN"])
+                                    });
+                            }
+                            dr.Close();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "FinanceRepository.GetCapitalFirstPanCityMapping()");
+            }
+            return cityPanMappingList;
+        }
+
     }
 }

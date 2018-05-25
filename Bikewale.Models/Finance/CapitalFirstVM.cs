@@ -22,6 +22,7 @@ namespace Bikewale.Models.Finance
         public string BikeName { get; set; }
 
         public uint LoanAmount { get; set; }
+        public bool PanStatus { get; set; }
     }
 
 }

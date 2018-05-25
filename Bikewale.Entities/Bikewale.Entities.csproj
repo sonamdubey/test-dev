@@ -351,6 +351,7 @@
     <Compile Include="Finance\CapitalFirst\CapitalFirstEmailDetailsEntity.cs" />
     <Compile Include="Finance\CapitalFirst\CapitalFirstMakeEntityBase.cs" />
     <Compile Include="Finance\CapitalFirst\CapitalFirstVoucherEntityBase.cs" />
+    <Compile Include="Finance\CapitalFirst\CityPanMapping.cs" />
     <Compile Include="Finance\CapitalFirst\EmployeDetails.cs" />
     <Compile Include="Finance\CapitalFirst\PersonalDetails.cs" />
     <Compile Include="GenericBikes\BestBikesList.cs" />

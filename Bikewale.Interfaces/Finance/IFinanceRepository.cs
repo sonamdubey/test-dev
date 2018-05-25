@@ -1,6 +1,7 @@
 ﻿
 
 using Bikewale.Entities.Finance.CapitalFirst;
+using System.Collections.Generic;
 
 namespace Bikewale.Interfaces.Finance.CapitalFirst
 {
@@ -9,5 +10,7 @@ namespace Bikewale.Interfaces.Finance.CapitalFirst
         CapitalFirstBikeEntity GetCapitalFirstBikeMapping(uint versionId);
         uint SaveCapitalFirstLeadData(PersonalDetails objDetails, CTFormResponse formResponse);
         CapitalFirstLeadEntity GetLeadDetails(uint ctLeadId);
+
+        IEnumerable<CityPanMapping> GetCapitalFirstPanCityMapping();
     }
 }
