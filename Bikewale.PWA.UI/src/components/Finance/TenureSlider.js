@@ -9,7 +9,6 @@ import algorithm from '../../utils/rheostat/algorithms/fixPoints'
 
 import { emiCalculatorAction } from '../../actionCreators/emiTenureSlider'
 import { updateTenureSlider } from '../../actionCreators/emiTenureSlider'
-import { startAnimation } from '../../actionCreators/pieAnimation'
 
 import { formatToRound } from '../../utils/formatAmount'
 import { triggerGA } from '../../utils/analyticsUtils'
@@ -29,14 +28,6 @@ class EMITenure  extends React.Component {
     updateTenureSlider({ values, userChange: true })
   }
 
-  handlePieChartAnimation = () => {
-    const {
-      startAnimation
-    } = this.props
-
-    startAnimation()
-  }
-
   render() {
     let {
       slider
@@ -48,9 +39,7 @@ class EMITenure  extends React.Component {
       pitComponent: PitComponent,
       pitPoints: [slider.min, slider.max],
       handleTooltipLabel: formatToRound,
-      onChange: this.handleSliderChange,
-      onClick: this.handlePieChartAnimation,
-      onSliderDragEnd: this.handlePieChartAnimation
+      onChange: this.handleSliderChange
     }
     return (
         <div className="emi-calci-header slider-input-container">
@@ -75,8 +64,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch, getState) => {
   return {
-    updateTenureSlider: bindActionCreators(updateTenureSlider, dispatch),
-    startAnimation: bindActionCreators(startAnimation, dispatch)
+    updateTenureSlider: bindActionCreators(updateTenureSlider, dispatch)
   }
 }
 

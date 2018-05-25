@@ -11,7 +11,6 @@ import {createNewSnapPoints} from '../../utils/rheostat/function/DiffSnapPoints'
 
 import { emiCalculatorAction } from '../../actionCreators/emiInterestSlider'
 import { updateInterestSlider } from '../../actionCreators/emiInterestSlider'
-import { startAnimation } from '../../actionCreators/pieAnimation'
 import { triggerGA } from '../../utils/analyticsUtils'
 
 class EMIInterest  extends React.Component {
@@ -29,14 +28,6 @@ class EMIInterest  extends React.Component {
 		updateInterestSlider({ values, userChange: true })
 	}
 
-	handlePieChartAnimation = () => {
-		const {
-			startAnimation
-		} = this.props
-
-		startAnimation()
-	}
-
 	render() {
 		let {
 			slider
@@ -51,9 +42,7 @@ class EMIInterest  extends React.Component {
 			className: 'slider-rheostat',
 			pitComponent: PitComponent,
 			pitPoints: [slider.min, slider.max],
-			onChange: this.handleSliderChange,
-			onClick: this.handlePieChartAnimation,
-			onSliderDragEnd: this.handlePieChartAnimation
+			onChange: this.handleSliderChange
 		}
 		return (
 				<div className="emi-calci-header slider-input-container">
@@ -81,8 +70,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch, getState) => {
 	return {
-		updateInterestSlider: bindActionCreators(updateInterestSlider, dispatch),
-		startAnimation: bindActionCreators(startAnimation, dispatch)
+		updateInterestSlider: bindActionCreators(updateInterestSlider, dispatch)
 	}
 }
 
