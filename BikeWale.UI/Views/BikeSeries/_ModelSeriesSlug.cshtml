@@ -9,7 +9,7 @@
             <p class="find-series-section__desc">
                 @Model.MakeName offers @(Model.SeriesBikesCount - 1) more @Model.SeriesName model@(Model.SeriesBikesCount>2 ? "s" : "") starting from ₹ @Bikewale.Utility.Format.FormatPrice(Convert.ToString(Model.MinimumPrice))
             </p>
-            <a href="@string.Format("/{0}-bikes/{1}/", Model.MakeMaskingName, Model.SeriesMaskingName)" class="find-series-section__view-link">View all</a>
+                <a href="@string.Format("/{0}-bikes/{1}/", Model.MakeMaskingName, Model.SeriesMaskingName)" class="find-series-section__view-link" title="@string.Format("{0} {1}",Model.MakeName,Model.SeriesName)">View all</a>
             </div>
         </div>
     </div>  
