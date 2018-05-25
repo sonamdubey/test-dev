@@ -123,7 +123,7 @@
         self.changeMobileNumber = function () {
             var mobileNumber = $('#otpNewNumber').val();
             if (validatePhoneNumber('#otpNewNumber')) {
-                self.submitDetails();
+                self.submitDetails(mobileNumber);
             }
 
 
@@ -150,7 +150,7 @@
                 success: function (response) {
                     if (response == true) {
                         $('.otp-container__info').hide();
-                        self.submitDetails();
+                        self.submitDetails($('#cfNum').val());
                     }
                     else {
                         validate.setError($('#otpNumber'), "Invalid otp");
@@ -162,13 +162,12 @@
             });
         };
 
-        self.submitDetails = function () {
-            debugger;
+        self.submitDetails = function (mobileNumber) {
             var contactDetails = {
                 "objLeadJson": $("#objLead").val(),
                 "firstName": $('#cfFName').val(),
                 "lastName": $('#cfLName').val(),
-                "mobileNumber": $('#cfNum').val(),
+                "mobileNumber": mobileNumber,
                 "emailId": $('#cfEmail').val(),
                 "pincode": ($("#cfPincode").val() != null ? $("#cfPincode").val().substring(0, 6) : ""),
                 "pancard": $("#cfPan").val()
@@ -187,13 +186,11 @@
                     $("#ctLeadId").val(response.ctLeadId);
                     $("#leadId").val(response.leadId);
 
-                    if (response.status == 6) {
-                        $('#thankyouScreen').removeClass("hide");
-                        if (bikeName != null) {
-                            triggerGA('Loan_Application', 'OTP_Success', bikeName + '_' + $('#cfNum').val());
-                        }
-                    } else if (response && response.status == 1) {
-                        otpScreen.openOtp();
+                    if (response.status == 6) {                        
+                        triggerGA('Loan_Application', 'Success', bikeName + '_' + $('#cfNum').val());
+                        $('.otp-container__info').hide();
+                        $('#thankyouScreen').removeClass("hide");                        
+                    } else if (response && response.status == 1) {                        
                         var objData = {
                             "userName": $('#cfFName').val() + " " + $('#cfLName').val(),
                             "mobileNumber": contactDetails.mobileNumber
@@ -202,11 +199,11 @@
                         $('#otpNumber').val("");
                     }
                     else {
-                        otpScreen.openOtp();
                         $('.otp-container__info').hide();
                         $('#thankyouScreen').removeClass("hide");
 
                     }
+                    otpScreen.openOtp();
 
                 },
                 complete: function () {

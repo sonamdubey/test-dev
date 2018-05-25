@@ -317,6 +317,12 @@ function saveContactDetails()
                             }
                             otpvm.setParameters(objData);
                             break;
+                        case 6:                            
+                            triggerGA('Loan_Application', 'OTP_Success', bikeName + '_' + $('#cfNum').val());
+                            $('.otp-container__info').hide();
+                            $('#thankyouScreen').removeClass("hide");
+                            otpScreen.openOtp();
+                            break;
                         default:
                             var obj = {
                                 message: response.message,
