@@ -105,10 +105,24 @@
                     </div>
                 </div>
 
+
+                
+
+
+
+
                 @if (Model.IsManufacturerLeadAdShown)
                 {
                     @Html.Partial("~/Views/Price/_ManufacturerCampaign_Mobile.cshtml", Model.LeadCampaign)
                 }
+                
+
+                @if (Model.ShowSeriesSlug)
+                {
+                    @Html.Partial("~/Views/BikeSeries/_ModelSeriesSlug_Mobile.cshtml", Model.SeriesSlug);
+                }
+
+
                 @if (Model.IsManufacturerTopLeadAdShown)
                 {
                     <div class="campaign__floating-btn floating-btn clearfix">
@@ -146,27 +160,15 @@
                             <div id="modelsBySeriesWidget" data-id="overviewContent" class="margin-bottom15 bw-ga" data-cat="@Model.ModelsBySeries.Page" data-act="Series_WidgetShown" data-lab="@string.Format("{0} {1}", Model.ModelPageEntity.ModelDetails.MakeBase.MakeName, Model.ModelPageEntity.ModelDetails.ModelSeries.SeriesName)">
                                 @if (Model.ModelsBySeries.SeriesBase != null && Model.ModelPageEntity.ModelDetails.MakeBase != null && !string.IsNullOrEmpty(Model.ModelsBySeries.SeriesBase.MaskingName))
                                 {
-                                    if (Model.ModelsBySeries.SeriesBase.IsSeriesPageUrl)
-                                    {
-                                        <div class="carousel-heading-content">
-                                            <div class="swiper-heading-left-grid inline-block">
-                                                <h2>Explore other @Model.ModelsBySeries.SeriesBase.SeriesName @(Model.BodyStyle.Equals(Bikewale.Entities.GenericBikes.EnumBikeBodyStyles.Scooter) ? "scooters:" : "bikes:")</h2>
-                                            </div>
-                                            <div class="swiper-heading-right-grid inline-block text-right">
-                                                <a href="@string.Format("/m/{0}-bikes/{1}/", Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelsBySeries.SeriesBase.MaskingName)" title="@string.Format("{0} {1} bikes", Model.ModelPageEntity.ModelDetails.MakeBase.MakeName, Model.ModelsBySeries.SeriesBase.SeriesName)" class="btn view-all-target-btn">View all</a>
-                                            </div>
-                                            <div class="clear"></div>
-                                        </div>
-                                    }
-                                    else
+                                    if (!Model.ModelsBySeries.SeriesBase.IsSeriesPageUrl)
                                     {
                                         <div class="carousel-heading-content">
                                             <h2>Explore other @Model.ModelsBySeries.SeriesBase.SeriesName @(Model.BodyStyle.Equals(Bikewale.Entities.GenericBikes.EnumBikeBodyStyles.Scooter) ? "scooters:" : "bikes:")</h2>
                                         </div>
+                                        @Html.Partial("~/Views/BikeSeries/_BikeModelsBySeries_Mobile.cshtml", Model.ModelsBySeries)
                                     }
                                 }
-
-                                @Html.Partial("~/Views/BikeSeries/_BikeModelsBySeries_Mobile.cshtml", Model.ModelsBySeries)
+                              
 
                             </div>
 

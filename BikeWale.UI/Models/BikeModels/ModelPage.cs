@@ -155,6 +155,8 @@ namespace Bikewale.Models.BikeModels
         /// Description : Added call to BindAdSlotTags.
         /// Modified by : Snehal Dange on 21st March 2018
         /// Description: Added BindAdSlots.
+        /// Modified vy : Sanskar Gupta on 25 May 2018
+        /// Description : Added code to BindSeriesSlug.
         /// </summary>
         /// <param name="versionId"></param>
         /// <returns></returns>
@@ -241,6 +243,24 @@ namespace Bikewale.Models.BikeModels
                     {
                         BindAdSlots(_objData);
                     }
+
+                    _objData.ShowSeriesSlug =
+                                (_objData.ModelsBySeries != null
+                                && (_objData.ModelsBySeries.IsNewAvailable || _objData.ModelsBySeries.IsUpcomingAvailable)
+                                && _objData.ModelsBySeries.SeriesBase != null
+                                && _objData.ModelsBySeries.SeriesBase.IsSeriesPageUrl
+                                && !string.IsNullOrEmpty(_objData.ModelsBySeries.SeriesBase.MaskingName)
+                                && _objData.ModelsBySeries.SeriesModels.NewBikes != null
+                                && _objData.ModelsBySeries.SeriesModels.NewBikes.Count() > 1
+                                && _objData.ModelPageEntity != null
+                                && _objData.ModelPageEntity.ModelDetails != null
+                                && _objData.ModelPageEntity.ModelDetails.MakeBase != null);
+
+                    if (_objData.ShowSeriesSlug) {
+                        BindSeriesSlug(_objData);
+                    }
+
+
                     #endregion Do Not change the sequence
                 }
             }
@@ -250,6 +270,24 @@ namespace Bikewale.Models.BikeModels
             }
 
             return _objData;
+        }
+
+        /// <summary>
+        /// Created by  : Sanskar Gupta on 25 May 2018
+        /// Description : Function to Bind Series Slug on Model Page
+        /// </summary>
+        /// <param name="_objData"></param>
+        private void BindSeriesSlug(ModelPageVM _objData)
+        {
+            _objData.SeriesSlug = new ModelSeriesSlugVM
+            {
+                SeriesName = _objData.ModelsBySeries.SeriesBase.SeriesName,
+                MakeName = _objData.ModelPageEntity.ModelDetails.MakeBase.MakeName,
+                SeriesBikesCount = _objData.ModelsBySeries.SeriesModels.NewBikes.Count(),
+                MinimumPrice = _objData.ModelPageEntity.ModelDetails.MinPrice,
+                MakeMaskingName = _objData.ModelPageEntity.ModelDetails.MakeBase.MaskingName,
+                SeriesMaskingName = _objData.ModelsBySeries.SeriesBase.MaskingName
+            };
         }
 
         private void ImageAccordingToVersion()
