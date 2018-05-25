@@ -9,6 +9,7 @@ import SpinnerRelative from '../Shared/SpinnerRelative'
 import { unlockScroll } from '../../utils/scrollLock';
 import { closePopupWithHash } from '../../utils/popUpUtils'
 import { addPopupEvents, removePopupEvents } from '../../utils/popupScroll';
+import { triggerGA } from '../../utils/analyticsUtils';
 
 class SelectCityPopup extends React.Component {
   constructor(props) {
@@ -74,14 +75,25 @@ class SelectCityPopup extends React.Component {
   handleCityClick = (item) => {
     if (this.props.onCityClick) {
       this.props.onCityClick(item);
+      if (typeof (gaObj) != 'undefined') {
+        triggerGA(gaObj.name, 'City_Selected', item.cityName + '_' + this.state.cityValue); 
+      }
       this.setState(...this.state, {
         cityValue: item.cityName
       });
+      if(item.cityName != this.props.data.Selection.cityName){
+      if (typeof (gaObj) != 'undefined') {
+        triggerGA(gaObj.name, 'City_Selected_On_Edit_Flow', 'Existing City - ' + this.props.data.Selection.cityName); 
+      }
+    }
     }
     this.closePopup();
   }
 
   handleCloseClick = () => {
+    if (typeof (gaObj) != 'undefined') {
+      triggerGA(gaObj.name, 'City_Popup_Cross_Clicked', this.state.cityValue); 
+    }
     this.closePopup();
   }
 

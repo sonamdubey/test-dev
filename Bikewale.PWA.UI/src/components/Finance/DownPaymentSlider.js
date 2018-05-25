@@ -13,6 +13,7 @@ import { updateDownPaymentSlider } from '../../actionCreators/emiDownPaymentSlid
 import { startAnimation } from '../../actionCreators/pieAnimation'
 
 import { formatToINR, formatToCurrency } from '../../utils/formatAmount'
+import { triggerGA } from '../../utils/analyticsUtils'
 
 class EMIDownPayment extends React.Component {
   constructor(props) {
@@ -23,7 +24,9 @@ class EMIDownPayment extends React.Component {
     const {
       updateDownPaymentSlider,
     } = this.props
-
+    if (typeof (gaObj) != 'undefined') {
+      triggerGA(gaObj.name, 'Interacted_With_EMI_Calculator', 'Down Payment Slider'); 
+    }
     updateDownPaymentSlider({ values, userChange: true })
   }
 
@@ -65,7 +68,7 @@ class EMIDownPayment extends React.Component {
           />
           <div className="slider__label">
             <span className="slider-label__left">Min. Down Payment </span>
-            <Tooltip message="Banks expect a min. down payment of 10% of on-road price even if you have the best credit profile.">
+            <Tooltip gaLabel = "Down Payment" message="Banks expect a min. down payment of 10% of on-road price even if you have the best credit profile.">
               <span className="slider__info-icon"></span>
             </Tooltip>
           </div>

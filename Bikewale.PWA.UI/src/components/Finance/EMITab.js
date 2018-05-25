@@ -33,6 +33,9 @@ class EMITab extends React.Component {
   handleSelectBikeClick = () => {
     openPopupWithHash(this.props.openSelectBikePopup, this.props.closeSelectBikePopup, "SelectBike");
     lockScroll();
+    if (typeof (gaObj) != 'undefined') {
+      triggerGA(gaObj.name, 'Select_Bike_Clicked', ''); 
+    }
   }
 
   handleBikeClick = (item) => {
