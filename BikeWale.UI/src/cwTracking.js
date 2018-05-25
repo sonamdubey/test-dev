@@ -187,7 +187,7 @@
                 action = 'Msite';
             else
                 action = 'DesktopSite'
-            cwTracking.trackCustomData('Performance', action, performanceQS, false);
+            cwTracking.trackCustomData('BWPerformance', action, performanceQS, false);
         }
     },
 
@@ -201,7 +201,12 @@
     },
 
     uiEvents: function () {
-        cwTracking.trackCustomData('PageViews', '', 'NA', true);
+
+        var cat = (typeof bwTrackingCat === "undefined" || bwTrackingCat === null) ? "BWPageViews" : bwTrackingCat;
+        var act = (typeof bwTrackingAct === "undefined" || bwTrackingAct === null) ? "" : bwTrackingAct;
+        var lab = (typeof bwTrackingLab === "undefined" || bwTrackingLab === null) ? "NA" : bwTrackingLab;
+
+        cwTracking.trackCustomData(cat, act, lab, true);
         $(document).on('click', '[data-cwtccat]', function () {
             cwTracking.trackDataFromNode($(this), cwTracking.type.click);
         });
