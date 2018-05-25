@@ -163,7 +163,7 @@ if(!isServer()) {
                     action = 'Msite';
                 else
                     action = 'DesktopSite'
-                cwTracking.trackCustomData('Performance', action, performanceQS, false);
+                cwTracking.trackCustomData('BWPerformance', action, performanceQS, false);
             }
         },
 
