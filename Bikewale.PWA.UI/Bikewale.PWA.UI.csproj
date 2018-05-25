@@ -55,13 +55,23 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="src\actionCreators\emiDownPaymentSlider.js" />
+    <Content Include="src\actionCreators\emiInterestSlider.js" />
+    <Content Include="src\actionCreators\emiTenureSlider.js" />
+    <Content Include="src\actionCreators\FinanceCityPopup.js" />
     <Content Include="src\actionCreators\imageCarouselActionCreator.js" />
     <Content Include="src\actionCreators\newsArticleDetailActionCreators.js" />
     <Content Include="src\actionCreators\newsArticleListActionCreators.js" />
+    <Content Include="src\actionCreators\SelectBikePopup.js" />
+    <Content Include="src\actionCreators\SimilarBikesEMI.js" />
     <Content Include="src\actionCreators\videosByCategoryActionCreator.js" />
     <Content Include="src\actionCreators\videosDetailActionCreators.js" />
     <Content Include="src\actionCreators\videosLandingActionCreators.js" />
     <Content Include="src\actionTypes\actionTypes.js" />
+    <Content Include="src\actionTypes\emiActionTypes.js" />
+    <Content Include="src\actionTypes\FinanceCityPopup.js" />
+    <Content Include="src\actionTypes\SelectBikePopup.js" />
+    <Content Include="src\actionTypes\SimilarBikesEMI.js" />
     <Content Include="src\client.js" />
     <Content Include="src\commonFunc.js" />
     <Content Include="src\components\AdUnit.js" />
@@ -195,11 +205,13 @@
     <Content Include="src\utils\constants.js" />
     <Content Include="src\utils\contentTrackingUtils.js" />
     <Content Include="src\utils\debounce.js" />
+    <Content Include="src\utils\emiCalculatorConstants.js" />
     <Content Include="src\utils\formatAmount.js" />
     <Content Include="src\utils\formatMonthsYears.js" />
     <Content Include="src\utils\googleAdUtils.js" />
     <Content Include="src\utils\popupScroll.js" />
     <Content Include="src\utils\popUpUtils.js" />
+    <Content Include="src\utils\progressBarConstants.js" />
     <Content Include="src\utils\rheostat\algorithms\fixPoints.js" />
     <Content Include="src\utils\rheostat\algorithms\linear.js" />
     <Content Include="src\utils\rheostat\constants\interestSnapPoints.js" />
@@ -255,6 +267,7 @@
     <None Include="stylesheet\components\_contest-slug.sass" />
     <None Include="stylesheet\components\_disclaimer.sass" />
     <None Include="stylesheet\components\_emi-calculator.sass" />
+    <None Include="stylesheet\components\_emi-pie-chart.sass" />
     <None Include="stylesheet\components\_finance-documentation.sass" />
     <None Include="stylesheet\components\_finance-faq.sass" />
     <None Include="stylesheet\components\_fixed-header.sass" />
@@ -315,6 +328,7 @@
     <None Include="stylesheet\mixins\_scrollbar.sass" />
     <None Include="stylesheet\mixins\_selection.sass" />
     <None Include="stylesheet\mixins\_text.sass" />
+    <None Include="stylesheet\mixins\_tooltip.sass" />
     <None Include="stylesheet\mixins\_vendor-prefix.sass" />
     <None Include="stylesheet\news.sass" />
     <None Include="stylesheet\placeholder\_border.sass" />
