@@ -243,24 +243,23 @@ namespace Bikewale.Models.BikeModels
                     {
                         BindAdSlots(_objData);
                     }
-                    if (_objData.ModelsBySeries != null
-                        && (_objData.ModelsBySeries.IsNewAvailable || _objData.ModelsBySeries.IsUpcomingAvailable)
-                        && _objData.ModelsBySeries.SeriesBase != null
-                        && _objData.ModelsBySeries.SeriesBase.IsSeriesPageUrl
-                        && !string.IsNullOrEmpty(_objData.ModelsBySeries.SeriesBase.MaskingName)
-                        && _objData.ModelsBySeries.SeriesModels.NewBikes != null
-                        && _objData.ModelsBySeries.SeriesModels.NewBikes.Count() > 1
-                        && _objData.ModelPageEntity != null 
-                        && _objData.ModelPageEntity.ModelDetails != null 
-                        && _objData.ModelPageEntity.ModelDetails.MakeBase != null)
-                    {
-                        _objData.ShowSeriesSlug = true;
-                        BindSeriesSlug(_objData); 
+
+                    _objData.ShowSeriesSlug =
+                                (_objData.ModelsBySeries != null
+                                && (_objData.ModelsBySeries.IsNewAvailable || _objData.ModelsBySeries.IsUpcomingAvailable)
+                                && _objData.ModelsBySeries.SeriesBase != null
+                                && _objData.ModelsBySeries.SeriesBase.IsSeriesPageUrl
+                                && !string.IsNullOrEmpty(_objData.ModelsBySeries.SeriesBase.MaskingName)
+                                && _objData.ModelsBySeries.SeriesModels.NewBikes != null
+                                && _objData.ModelsBySeries.SeriesModels.NewBikes.Count() > 1
+                                && _objData.ModelPageEntity != null
+                                && _objData.ModelPageEntity.ModelDetails != null
+                                && _objData.ModelPageEntity.ModelDetails.MakeBase != null);
+
+                    if (_objData.ShowSeriesSlug) {
+                        BindSeriesSlug(_objData);
                     }
-                    else
-                    {
-                        _objData.ShowSeriesSlug = false;
-                    }
+
 
                     #endregion Do Not change the sequence
                 }
