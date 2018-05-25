@@ -23,7 +23,6 @@ function getHandleFor(ev) {
 
 function killEvent(ev) {
 	ev.stopPropagation()
-	ev.preventDefault()
 }
 
 function Button(props) {

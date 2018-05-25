@@ -2,6 +2,8 @@
   display: table
   width: 100%
   padding-top: 25px
+  text-align: center
+  font-size: 0
 
   svg
     @include vendor-prefix("transform-origin", 50% 50%)
@@ -9,7 +11,10 @@
     vertical-align: middle
 
 .pie-breakup-data
-  float: left
+  text-align: left
+  display: inline-block
+  vertical-align: middle
+  padding-right: 15px
 
 .pie-breakup_unit
   padding-bottom: 15px
@@ -17,7 +22,6 @@
 .pie-breakup__title
   font-size: 12px
   color: color('light-grey')
-  font-weight: $font-semibold
 
 .pie-breakup__amount
   font-size: 18px
@@ -25,8 +29,11 @@
   margin-left: 25px
 
 .pie-breakup-graph
-  float: right
+  display: inline-block
+  vertical-align: middle
   position: relative
+  width: 140px
+  text-align: center
 
 .pie-graph__total-payment
   position: absolute
@@ -68,3 +75,10 @@
   vertical-align: text-bottom
 
 
+@media (max-width: 320px)
+  .view-breakup-container
+    padding-right: 10px
+    padding-left: 10px
+
+  .pie-breakup-data
+    padding-right: 10px
