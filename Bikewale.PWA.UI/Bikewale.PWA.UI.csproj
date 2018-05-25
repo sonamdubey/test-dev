@@ -167,7 +167,6 @@
     <Content Include="src\immutableWrapperContainer.js" />
     <Content Include="src\reducers\emiDownPayment.js" />
     <Content Include="src\reducers\emiInterest.js" />
-    <Content Include="src\reducers\emiPieAnimation.js" />
     <Content Include="src\reducers\emiPieData.js" />
     <Content Include="src\reducers\emiReducer.js" />
     <Content Include="src\reducers\emiTenure.js" />

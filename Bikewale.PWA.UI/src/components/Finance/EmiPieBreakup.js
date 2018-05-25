@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux';
 import { toJS } from '../../immutableWrapperContainer'
 
-import PieChart from './EmiPieChart'
+import EmiPieChart from './EmiPieChart'
 import { formatToINR } from '../../utils/formatAmount'
 
 import EMICalculatorHeader from './EMICalculatorHeader'
@@ -29,7 +29,7 @@ class PieBreakUp  extends React.Component {
 										<span className="pie-breakup_bullet pie-breakup_bullet-loan"></span> Principle Loan Amount</div>
 									<div className="pie-breakup__amount">{pricipalLoan}</div>
 							</div>
-							<div className="pie-breakup_unit">
+							<div>
 									<div className="pie-breakup__title">
 										<span className="pie-breakup__bullet-tenure"></span> Tenure
 										<span className="pie-breakup_tenure">{parseInt(this.props.sliderData.sliderTenureData.values[0])} Months</span>
@@ -38,7 +38,7 @@ class PieBreakUp  extends React.Component {
 							</div>
 					</div>
 					<div className="pie-breakup-graph">
-							<PieChart ref="pieChart" isAnimation={this.props.isAnimation} pieChartData={this.props.pieChartData} />
+							<EmiPieChart pieChartData={this.props.pieChartData} />
 					</div>
 			</div>
 		)

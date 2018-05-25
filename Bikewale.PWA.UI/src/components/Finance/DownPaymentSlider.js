@@ -10,7 +10,6 @@ import sliderAlgorithm from '../../utils/rheostat/algorithms/linear'
 
 import { emiCalculatorAction } from '../../actionCreators/emiDownPaymentSlider'
 import { updateDownPaymentSlider } from '../../actionCreators/emiDownPaymentSlider'
-import { startAnimation } from '../../actionCreators/pieAnimation'
 
 import { formatToINR, formatToCurrency } from '../../utils/formatAmount'
 
@@ -25,14 +24,6 @@ class EMIDownPayment extends React.Component {
     } = this.props
 
     updateDownPaymentSlider({ values, userChange: true })
-  }
-
-  handlePieChartAnimation = () => {
-    const {
-      startAnimation
-    } = this.props
-
-    startAnimation()
   }
 
   updateLoanText() {
@@ -51,8 +42,6 @@ class EMIDownPayment extends React.Component {
       pitComponent: PitComponent,
       pitPoints: [slider.min, slider.max],
       onChange: this.handleSliderChange,
-      onClick: this.handlePieChartAnimation,
-      onSliderDragEnd: this.handlePieChartAnimation,
       handleTooltipLabel: formatToINR
     }
     let vehicleLoanAmount = formatToINR(this.updateLoanText());
@@ -88,8 +77,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch, getState) => {
   return {
-    updateDownPaymentSlider: bindActionCreators(updateDownPaymentSlider, dispatch),
-    startAnimation: bindActionCreators(startAnimation, dispatch)
+    updateDownPaymentSlider: bindActionCreators(updateDownPaymentSlider, dispatch)
   }
 }
 
