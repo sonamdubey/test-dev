@@ -272,6 +272,14 @@ namespace Bikewale.BAL.Finance
                     objDetails.LeadId = SubmitLead(objDetails, utmz, utma);
                 }
                 isMobileVerified = _mobileVerRespo.IsMobileVerified(objDetails.MobileNumber, objDetails.EmailId);
+
+                if (!isMobileVerified)
+                {
+                    var mobileVer = _mobileVerification.ProcessMobileVerification(objDetails.EmailId, Convert.ToString(objDetails.MobileNumber));
+                    SMSTypes st = new SMSTypes();
+                    st.SMSMobileVerification(Convert.ToString(objDetails.MobileNumber), string.Empty, mobileVer.CWICode, "PageUrl");
+                }
+
                 //Push lead to consumer where data is saved to manufaturerlead table and lead is further pushed to AutoBiz
                 PushToLeadConsumerQueue(objDetails);
                 //Save Lead Details to Bikewale Capital First Lead Table with 

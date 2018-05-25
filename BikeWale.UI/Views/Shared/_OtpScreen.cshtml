@@ -123,65 +123,7 @@
         self.changeMobileNumber = function () {
             var mobileNumber = $('#otpNewNumber').val();
             if (validatePhoneNumber('#otpNewNumber')) {
-                var employeDetails = {
-
-                    "status": $('#cfStatusS').is(':checked') ? 1 : 2,
-                    "companyName": $('#cfCompName').val(),
-                    "OfficialAddressLine1": $('#cfCompAddress1').val(),
-                    "OfficialAddressLine2": $('#cfCompAddress2').val(),
-                    "pincodeOffice":($('#cfCompPincode').val() !=null ? $('#cfCompPincode').val().substring(0, 6) : ""),
-                    "annualIncome": $('#cfCompIncome').val(),
-                    "mobileNumber": mobileNumber,
-                    "emailId": $('#cfEmail').val(),
-                    "objLeadJson": $("#objLead").val(),
-                    "firstName": $('#cfFName').val(),
-                    "lastName": $('#cfLName').val(),
-                    "dateOfBirth": $('#cfDOB').val(),
-                    "gender": $('#cfGenderM').is(':checked') ? 1 : 2,
-                    "maritalStatus": $('#cfMaritalS').is(':checked') ? 1 : 2,
-                    "addressLine1": $("#cfAddress1").val(),
-                    "addressLine2": $('#cfAddress2').val(),
-                    "pincode": $("#cfPincode").val().substring(0, 6),
-                    "pancard": $("#cfPan").val(),
-                    "objLeadJson": $("#objLead").val(),
-                    "loanAmount": $('#loanAmount').val()
-
-
-                };
-                $.ajax({
-                    type: "POST",
-                    url: "/api/finance/saveemployedetails/?source=2",
-                    contentType: "application/json",
-                    data: ko.toJSON(employeDetails),
-                    beforeSend: function () {
-                        $('#otpLoader').show();
-                    },
-                    success: function (response) {
-                        $("#cpId").val(response.cpId);
-                        $("#ctLeadId").val(response.ctLeadId);
-                        $("#leadId").val(response.leadId);
-                        if (response && response.status == 13) {
-                            otpScreen.openOtp();
-                            var objData = {
-                                "userName": $('#cfFName').val() + " " + $('#cfLName').val(),
-                                "mobileNumber": mobileNumber
-                            };
-                            otpvm.setParameters(objData);
-                            $('#otpNumber').val("");
-                        }
-                        else{
-                            otpScreen.openOtp();
-                            $('.otp-container__info').hide();
-                            $('#thankyouScreen').removeClass("hide");
-
-                        }
-
-                    },
-                    complete: function () {
-                        $('#otpLoader').hide();
-                    }
-                });
-
+                self.submitDetails();
             }
 
 
@@ -198,47 +140,17 @@
 
         self.Done = function () {
             var otp = $('#otpNumber').val();
-            var employeDetails = {
-                "status": $('#cfStatusS').is(':checked') ? 1 : 2,
-                "companyName": $('#cfCompName').val(),
-                "OfficialAddressLine1": $('#cfCompAddress1').val(),
-                "OfficialAddressLine2": $('#cfCompAddress2').val(),
-                "pincodeOffice":( $('#cfCompPincode').val()!=null ? $('#cfCompPincode').val().substring(0,6) : ""),
-                "annualIncome": $('#cfCompIncome').val(),
-                "mobileNumber": otpvm.mobileNumber,
-                "emailId": $('#cfEmail').val(),
-                "objLeadJson": $("#objLead").val(),
-                "firstName": $('#cfFName').val(),
-                "lastName": $('#cfLName').val(),
-                "dateOfBirth": $('#cfDOB').val(),
-                "gender": $('#cfGenderM').is(':checked') ? 1 : 2,
-                "maritalStatus": $('#cfMaritalS').is(':checked') ? 1 : 2,
-                "addressLine1": $("#cfAddress1").val(),
-                "addressLine2": $('#cfAddress2').val(),
-                "pancard": $("#cfPan").val(),
-                "pincode": $("#cfPincode").val().substring(0, 6),
-                "id": $("#cpId").val(),
-                "ctLeadId": $("#ctLeadId").val(),
-                "leadId": $("#leadId").val(),
-                "loanAmount": $('#loanAmount').val()
-
-            };
             $.ajax({
                 type: "POST",
-                url: "/api/finance/verifymobile/otp/" + otp + "/?source=2",
+                url: "/api/mobileverification/validateotp/?mobile=" + $('#cfNum').val() + "&otp=" + otp,
                 contentType: "application/json",
-                dataType: 'json',
-                data: ko.toJSON(employeDetails),
                 beforeSend: function () {
                     $('#otpLoader').show();
                 },
                 success: function (response) {
                     if (response == true) {
                         $('.otp-container__info').hide();
-                        $('#thankyouScreen').removeClass("hide");
-                        if (bikeName != null) {
-                            triggerGA('Loan_Application', 'OTP_Success', bikeName + '_' + $('#cfNum').val());
-                        }
+                        self.submitDetails();
                     }
                     else {
                         validate.setError($('#otpNumber'), "Invalid otp");
@@ -250,6 +162,58 @@
             });
         };
 
+        self.submitDetails = function () {
+            debugger;
+            var contactDetails = {
+                "objLeadJson": $("#objLead").val(),
+                "firstName": $('#cfFName').val(),
+                "lastName": $('#cfLName').val(),
+                "mobileNumber": $('#cfNum').val(),
+                "emailId": $('#cfEmail').val(),
+                "pincode": ($("#cfPincode").val() != null ? $("#cfPincode").val().substring(0, 6) : ""),
+                "pancard": $("#cfPan").val()
+            };
+
+            $.ajax({
+                type: "POST",
+                url: "/api/finance/savepersonaldetails/?source=" + $("#hdnPlatform").val(),
+                contentType: "application/json",
+                data: ko.toJSON(contactDetails),
+                beforeSend: function () {
+                    $('#otpLoader').show();
+                },
+                success: function (response) {
+                    $("#cpId").val(response.cpId);
+                    $("#ctLeadId").val(response.ctLeadId);
+                    $("#leadId").val(response.leadId);
+
+                    if (response.status == 6) {
+                        $('#thankyouScreen').removeClass("hide");
+                        if (bikeName != null) {
+                            triggerGA('Loan_Application', 'OTP_Success', bikeName + '_' + $('#cfNum').val());
+                        }
+                    } else if (response && response.status == 1) {
+                        otpScreen.openOtp();
+                        var objData = {
+                            "userName": $('#cfFName').val() + " " + $('#cfLName').val(),
+                            "mobileNumber": contactDetails.mobileNumber
+                        };
+                        otpvm.setParameters(objData);
+                        $('#otpNumber').val("");
+                    }
+                    else {
+                        otpScreen.openOtp();
+                        $('.otp-container__info').hide();
+                        $('#thankyouScreen').removeClass("hide");
+
+                    }
+
+                },
+                complete: function () {
+                    $('#otpLoader').hide();
+                }
+            });
+        };
     }
 
     docReady(function () {

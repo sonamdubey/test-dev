@@ -121,36 +121,20 @@
         self.changeMobileNumber = function () {
             var mobileNumber = $('#otpNewNumber').val();
             if (validatePhoneNumber('#otpNewNumber')) {
-                var employeDetails = {
-
-                    "status": $('#cfStatusS').is(':checked') ? 1 : 2,
-                    "companyName": $('#cfCompName').val(),
-                    "OfficialAddressLine1": $('#cfCompAddress1').val(),
-                    "OfficialAddressLine2": $('#cfCompAddress2').val(),
-                    "pincodeOffice": $('#cfCompPincode').val().substring(0, 6),
-                    "annualIncome": $('#cfCompIncome').val(),
-                    "mobileNumber": mobileNumber,
-                    "emailId": $('#cfEmail').val(),
+                var contactDetails = {
                     "objLeadJson": $("#objLead").val(),
                     "firstName": $('#cfFName').val(),
                     "lastName": $('#cfLName').val(),
-                    "dateOfBirth": $('#cfDOB').val(),
-                    "gender": $('#cfGenderM').is(':checked') ? 1 : 2,
-                    "maritalStatus": $('#cfMaritalS').is(':checked') ? 1 : 2,
-                    "addressLine1": $("#cfAddress1").val(),
-                    "addressLine2": $('#cfAddress2').val(),
-                    "pincode": $("#cfPincode").val().substring(0, 6),
-                    "pancard": $("#cfPan").val(),
-                    "objLeadJson": $("#objLead").val(),
-                    "loanAmount": $('#loanAmount').val()
-
-
+                    "mobileNumber": $('#cfNum').val(),
+                    "emailId": $('#cfEmail').val(),
+                    "pincode": ($("#cfPincode").val() != null ? $("#cfPincode").val().substring(0, 6) : ""),
+                    "pancard": $("#cfPan").val()
                 };
                 $.ajax({
                     type: "POST",
-                    url: "/api/finance/saveemployedetails/?source=2",
+                    url: "/api/finance/savepersonaldetails/?source=" + $("#hdnPlatform").val(),
                     contentType: "application/json",
-                    data: ko.toJSON(employeDetails),
+                    data: ko.toJSON(contactDetails),
                     beforeSend: function () {
                         $('#otpLoader').show();
                     },
@@ -195,37 +179,20 @@
 
         self.Done = function () {
             var otp = $('#otpNumber').val();
-            var employeDetails = {
-                "status": $('#cfStatusS').is(':checked') ? 1 : 2,
-                "companyName": $('#cfCompName').val(),
-                "OfficialAddressLine1": $('#cfCompAddress1').val(),
-                "OfficialAddressLine2": $('#cfCompAddress2').val(),
-                "pincodeOffice": $('#cfCompPincode').val().substring(0,6),
-                "annualIncome": $('#cfCompIncome').val(),
-                "mobileNumber": otpvm.mobileNumber,
-                "emailId": $('#cfEmail').val(),
+            var contactDetails = {
                 "objLeadJson": $("#objLead").val(),
                 "firstName": $('#cfFName').val(),
                 "lastName": $('#cfLName').val(),
-                "dateOfBirth": $('#cfDOB').val(),
-                "gender": $('#cfGenderM').is(':checked') ? 1 : 2,
-                "maritalStatus": $('#cfMaritalS').is(':checked') ? 1 : 2,
-                "addressLine1": $("#cfAddress1").val(),
-                "addressLine2": $('#cfAddress2').val(),
-                "pancard": $("#cfPan").val(),
-                "pincode": $("#cfPincode").val().substring(0, 6),
-                "id": $("#cpId").val(),
-                "ctLeadId": $("#ctLeadId").val(),
-                "leadId": $("#leadId").val(),
-                "loanAmount": $('#loanAmount').val()
-
+                "mobileNumber": $('#cfNum').val(),
+                "emailId": $('#cfEmail').val(),
+                "pincode": ($("#cfPincode").val() != null ? $("#cfPincode").val().substring(0, 6) : ""),
+                "pancard": $("#cfPan").val()
             };
             $.ajax({
                 type: "POST",
-                url: "/api/finance/verifymobile/otp/" + otp + "/?source=2",
+                url: "/api/finance/verifymobile/otp/" + otp + "/?source=" + $("#hdnPlatform").val(),
                 contentType: "application/json",
-                dataType: 'json',
-                data: ko.toJSON(employeDetails),
+                data: ko.toJSON(contactDetails),
                 beforeSend: function () {
                     $('#otpLoader').show();
                 },

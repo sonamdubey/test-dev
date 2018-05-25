@@ -66,8 +66,9 @@ namespace Bikewale.Service.Controllers
                 if (mobileVerified)
                 {
                     objDetails.objLead = Newtonsoft.Json.JsonConvert.DeserializeObject<ManufacturerLeadEntity>(objDetails.objLeadJson);
-                    _objICapitalFirst.SaveLead(objDetails, utmz, utma, (ushort)source);
-
+                    var leadResponse = _objICapitalFirst.SaveLead(objDetails, utmz, utma, (ushort)source);
+                    var dto = FinanceMapper.Convert(leadResponse);
+                    return Ok(dto);
 
                 }
 
