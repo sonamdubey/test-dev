@@ -371,7 +371,8 @@ function saveContactDetails()
         "mobileNumber": $('#cfNum').val(),
         "emailId": $('#cfEmail').val(),
         "pincode": $("#cfPincode").val().substring(0, 6),
-        "loanAmount": $('#loanAmount').val()
+        "loanAmount": $('#loanAmount').val(),
+        "pancard": $("#cfPan").val()
     };
     $.ajax({
         type: "POST",
@@ -388,26 +389,21 @@ function saveContactDetails()
                     switch (response.status) {
 
                         case 1:
-                        case 2:
-                            $("#contact-detail-tab").addClass("hide");
-                            $(personalDetailTab).removeClass("hide");
-
-                            $(".contact-image-unit").removeClass('contact-icon').addClass('white-tick-icon');
-                            $(".personal-image-unit").removeClass('gray-personal-icon').addClass('white-personal-icon');
-                            if (isDesktop.length) {
-                                scrollTop($(personalDetailTab).offset());
-                                $(".personal__title").removeClass("inactive");
-                                $(".personal-details-container").addClass("visible");
-                            }
-                            else {
-                                scrollTop(formTabsContainer.offset());
-                                formTabsContainer.find('.page-tabs__li.active').removeClass('active');
-                                formTabsContainer.find('.page-tabs__li[data-id=personal-detail-tab]').removeClass("inactive").addClass('active');
-                            }
                             $("#cpId").val(response.cpId);
                             $("#ctLeadId").val(response.ctLeadId);
-                            $("#leadId").val(response.leadId);                                                      
+                            $("#leadId").val(response.leadId);
+                            otpScreen.openOtp();
+                            var objData = {
+                                "userName": $('#cfFName').val() + " " + $('#cfLName').val(),
+                                "mobileNumber": $('#cfNum').val()
+                            }
+                            otpvm.setParameters(objData);
+
                             break;
+                       
+                       
+                          
+                       
                         default:
                             var obj = {
                                 message: response.message,
@@ -415,6 +411,10 @@ function saveContactDetails()
                                 yesButtonText: "Okay",
                                 yesButtonLink: "javascript:void(0)"
                             };
+
+                            $('.otp-container__info').hide();
+                            $('#thankyouScreen').removeClass("hide");
+
                             modalPopup.showModal(templates.modalPopupTemplate(obj));
                     }
                 }
