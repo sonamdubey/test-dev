@@ -17,6 +17,7 @@ import { formatToINR, formatToCurrency } from '../../utils/formatAmount'
 class EMIDownPayment extends React.Component {
   constructor(props) {
     super(props);
+    
   }
 
   handleSliderChange = ({ values }) => {
@@ -31,7 +32,7 @@ class EMIDownPayment extends React.Component {
     const {
       startAnimation
     } = this.props
-
+    
     startAnimation()
   }
 
@@ -50,9 +51,9 @@ class EMIDownPayment extends React.Component {
       className: 'rheostat-downpayment',
       pitComponent: PitComponent,
       pitPoints: [slider.min, slider.max],
-      onChange: this.handleSliderChange,
-      onClick: this.handlePieChartAnimation,
-      onSliderDragEnd: this.handlePieChartAnimation,
+      onChange: this.handleSliderChange.bind(this),
+      onClick: this.handlePieChartAnimation.bind(this),
+      onSliderDragEnd: this.handlePieChartAnimation.bind(this),
       handleTooltipLabel: formatToINR
     }
     let vehicleLoanAmount = formatToINR(this.updateLoanText());

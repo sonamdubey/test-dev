@@ -33,7 +33,7 @@ const getBikeVersionList = (dispatch, modelId, cityId) => {
   xhr.onreadystatechange = function () {
     if (xhr.readyState == 4) {
       if (xhr.status == 200){
-        dispatch({ type: selectBikePopup.FETCH_VERSIONLIST_SUCCESS, payload: JSON.parse(xhr.responseText) });
+        dispatch({ type: selectBikePopup.FETCH_VERSIONLIST_SUCCESS, payload: {versionList:JSON.parse(xhr.responseText), modelId: modelId, cityId: cityId} });
       }
       else{
         dispatch({ type: selectBikePopup.FETCH_VERSIONLIST_FAILURE });
@@ -42,7 +42,7 @@ const getBikeVersionList = (dispatch, modelId, cityId) => {
   }
   xhr.open('GET', '/api/pwa/PQVersionList/?modelid=' + modelId + '&cityId=' + cityId);
   xhr.send();
-  dispatch({ type: selectBikePopup.FETCHING_VERSIONLIST });
+  dispatch({ type: selectBikePopup.FETCHING_VERSIONLIST , payload: modelId});
 }
 
 const setModel = (modelId) => {

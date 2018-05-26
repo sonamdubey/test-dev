@@ -62,7 +62,6 @@ class SelectBikePopup extends React.Component {
     let inputName = event.target.value;
     let modelList = event && !event.data ? this.props.data.MakeModelList : this.state.makeModelList;
     let searchMode = event && inputName != null && inputName.length > 0 ? true : false;
-    console.log(searchMode); 
     let makeModelList = [];
     if (modelList != null) {
       makeModelList = modelList.map(function (item) {

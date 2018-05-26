@@ -24,12 +24,24 @@ const slider = (state = initialSliderState, action) => {
 				userChange: action.userChange,
 			});
 		case emiCalculatorAction.OPEN_EMICALCULATOR:
+			let payload = action.payload
+			let downPayment = null;
+			let currentDp = state.getIn(['values']).toJS()[0]
+			if(currentDp > 0){
+				let minDp = .1 * payload.onRoadPrice
+				let maxDp = .4 * payload.onRoadPrice
+				downPayment = currentDp >= minDp && currentDp <= maxDp ? currentDp : currentDp < minDp ? minDp : maxDp
+			}
+			else{
+				downPayment = payload.values[0]
+			}
+			
 			return fromJS({
 				...state.toJS(),
-				values: action.values,
-				min: action.min,
-				max: action.max,
-				onRoadPrice: action.onRoadPrice,
+				values: [parseInt(downPayment)],
+				min: payload.min,
+				max: payload.max,
+				onRoadPrice: payload.onRoadPrice,
 				userChange: false
 			});
 		default:

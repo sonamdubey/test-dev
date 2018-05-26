@@ -3,6 +3,13 @@ import { fromJS, toJS } from 'immutable'
 import { mapVersionsDataToDropdownList } from '../components/Finance/FinanceCommon'
 import { selectBikePopup } from '../actionTypes/SelectBikePopup'
 
+var initialVersionObj = {
+  selectedVersionIndex: -1,
+  versionList: [],
+  modelId : -1,
+  cityId : -1,
+  IsVersionFetching: false
+}
 var initialState = fromJS({
   isActive: false,
   Selection: {
@@ -12,12 +19,10 @@ var initialState = fromJS({
     originalImagePath: "",
     modelId: -1,
     rating: 0,
-    selectedVersionIndex: -1,
-    versionList: [],
+    version : initialVersionObj
   },
   MakeModelList: [],
   IsFetchingModelDetail: false,
-  IsVersionFetching: false
 });
 
 export function SelectBikePopup(state = initialState, action) {
@@ -55,16 +60,16 @@ export function SelectBikePopup(state = initialState, action) {
         return state.setIn(['MakeModelList'], []);
         
       case selectBikePopup.FETCHING_VERSIONLIST:
-        return state.setIn(['Selection', 'versionList'], []).setIn(['IsVersionFetching'], true)
+        return state.setIn(['Selection', 'version', 'versionList'], fromJS([])).setIn(['Selection', 'version', 'IsVersionFetching'], true)
       case selectBikePopup.FETCH_VERSIONLIST_SUCCESS:
-        if (action.payload != null && action.payload.versions.length > 0) {
-          return state.setIn(['Selection'], fromJS({ ...(state.get('Selection').toJS()), versionList: mapVersionsDataToDropdownList(action.payload.versions), selectedVersionIndex: 0 })).setIn(['IsVersionFetching'], false);
+        if (action.payload != null && action.payload.versionList.versions.length > 0) {
+          return state.setIn(['Selection', 'version'], fromJS({ ...state.get(['Selection', 'version']),modelId: action.payload.modelId, versionList: mapVersionsDataToDropdownList(action.payload.versionList.versions), selectedVersionIndex: 0, cityId:  action.payload.cityId})).setIn(['Selection', 'version','IsVersionFetching'], false);
         }
         else {
           return state;
         }
       case selectBikePopup.FETCH_VERSIONLIST_FAILURE:
-        return state.setIn(['Selection'], fromJS({ ...(state.get('Selection').toJS()), versionList: [] })).setIn(['IsVersionFetching'], false);
+        return state.setIn(['Selection', 'version'], fromJS(initialVersionObj)).setIn(['Selection', 'version', 'IsVersionFetching'], false);
 
       case selectBikePopup.FETCH_MODEL_DETAIL_SUCCESS:
         if (action.payload) {
@@ -83,7 +88,7 @@ export function SelectBikePopup(state = initialState, action) {
         return state.setIn(['IsFetchingModelDetail'], true);
 
       case selectBikePopup.SET_BIKE_VERSION:
-        return state.setIn(['Selection'], fromJS({ ...(state.get('Selection').toJS()), selectedVersionIndex: action.payload.versionId }))
+        return state.setIn(['Selection','version'], fromJS({...state.toJS().Selection.version,selectedVersionIndex: action.payload.versionId} ))
 
       default:
         return state
