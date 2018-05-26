@@ -89,14 +89,12 @@ const mapStateToProps = (state) => {
 	const sliderDp = state.getIn(['Emi', 'VehicleDownPayment', 'slider'])
 	const sliderTenure = state.getIn(['Emi', 'VehicleTenure', 'slider'])
 	const sliderInt = state.getIn(['Emi', 'VehicleInterest', 'slider'])
-	const pieAnimate = state.getIn(['Emi', 'PieAnimation', 'isAnimate'])
 	const financeCitySelection = state.getIn(['Finance', 'FinanceCityPopup', 'Selection'])
 	const selectBikePopup = state.getIn(['Finance', 'SelectBikePopup', 'Selection'])
 	return {
 		sliderDp,
 		sliderTenure,
 		sliderInt,
-		pieAnimate,
 		financeCitySelection,
 		selectBikePopup
 	}

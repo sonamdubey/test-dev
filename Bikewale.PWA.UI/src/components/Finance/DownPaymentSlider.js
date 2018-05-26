@@ -10,9 +10,9 @@ import sliderAlgorithm from '../../utils/rheostat/algorithms/linear'
 
 import { emiCalculatorAction } from '../../actionCreators/emiDownPaymentSlider'
 import { updateDownPaymentSlider } from '../../actionCreators/emiDownPaymentSlider'
-import { startAnimation } from '../../actionCreators/pieAnimation'
 
 import { formatToINR, formatToCurrency } from '../../utils/formatAmount'
+import { triggerGA } from '../../utils/analyticsUtils'
 
 class EMIDownPayment extends React.Component {
   constructor(props) {
@@ -24,16 +24,16 @@ class EMIDownPayment extends React.Component {
     const {
       updateDownPaymentSlider,
     } = this.props
-
+    if (gaObj != undefined) {
+      triggerGA(gaObj.name, 'Interacted_With_EMI_Calculator', 'Down Payment Slider'); 
+    }
     updateDownPaymentSlider({ values, userChange: true })
   }
-
-  handlePieChartAnimation = () => {
-    const {
-      startAnimation
-    } = this.props
-    
-    startAnimation()
+  
+  handleOpen = () => {
+    if (gaObj != undefined) {
+      triggerGA(gaObj.name, 'ToolTip_Clicked', 'Down Payment'); 
+    }
   }
 
   updateLoanText() {
@@ -52,8 +52,6 @@ class EMIDownPayment extends React.Component {
       pitComponent: PitComponent,
       pitPoints: [slider.min, slider.max],
       onChange: this.handleSliderChange.bind(this),
-      onClick: this.handlePieChartAnimation.bind(this),
-      onSliderDragEnd: this.handlePieChartAnimation.bind(this),
       handleTooltipLabel: formatToINR
     }
     let vehicleLoanAmount = formatToINR(this.updateLoanText());
@@ -66,7 +64,7 @@ class EMIDownPayment extends React.Component {
           />
           <div className="slider__label">
             <span className="slider-label__left">Min. Down Payment </span>
-            <Tooltip message="Banks expect a min. down payment of 10% of on-road price even if you have the best credit profile.">
+            <Tooltip onOpen = {this.handleOpen} message="Banks expect a min. down payment of 10% of on-road price even if you have the best credit profile.">
               <span className="slider__info-icon"></span>
             </Tooltip>
           </div>
@@ -89,8 +87,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch, getState) => {
   return {
-    updateDownPaymentSlider: bindActionCreators(updateDownPaymentSlider, dispatch),
-    startAnimation: bindActionCreators(startAnimation, dispatch)
+    updateDownPaymentSlider: bindActionCreators(updateDownPaymentSlider, dispatch)
   }
 }
 
