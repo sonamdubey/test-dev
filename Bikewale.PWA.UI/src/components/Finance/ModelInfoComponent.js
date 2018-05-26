@@ -46,8 +46,8 @@ class ModelInfo extends React.Component {
     if(isLoaderShown) {
       return <SpinnerRelative />;
     }
-    const imageHostUrl = model.versionList != null && model.versionList.length > 0 && model.selectedVersionIndex > -1 ? model.versionList[model.selectedVersionIndex].hostUrl: model.hostUrl;
-    const originalImagePath = model.versionList != null && model.versionList.length > 0 && model.selectedVersionIndex > -1 ? model.versionList[model.selectedVersionIndex].originalImagePath: model.originalImagePath; 
+    const imageHostUrl = model.version.versionList != null && model.version.versionList.length > 0 && model.version.selectedVersionIndex > -1 ? model.version.versionList[model.version.selectedVersionIndex].hostUrl: model.hostUrl;
+    const originalImagePath = model.version.versionList != null && model.version.versionList.length > 0 && model.version.selectedVersionIndex > -1 ? model.version.versionList[model.version.selectedVersionIndex].originalImagePath: model.originalImagePath; 
     return (
       <div className="model-info-card">
         <div className="model-info-card__head">
@@ -66,8 +66,8 @@ class ModelInfo extends React.Component {
           <div className="model-info__col model-info-col--dropdown">
             <p className="model-info-col__label">Version</p>
             <Dropdown
-              options={model.versionList}
-              value={model.versionList != null && model.versionList.length > 0 && model.selectedVersionIndex > -1 ? model.versionList[model.selectedVersionIndex].label : ""}
+              options={model.version.versionList}
+              value={model.version.versionList != null && model.version.versionList.length > 0 && model.version.selectedVersionIndex > -1 ? model.version.versionList[model.version.selectedVersionIndex].label : ""}
               placeholder="Version"
               placeholderClassName="model-info-col__value"
               arrowClassName="dropdown-version__arrow"

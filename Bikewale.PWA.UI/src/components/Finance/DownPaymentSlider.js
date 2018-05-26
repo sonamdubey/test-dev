@@ -17,6 +17,7 @@ import { triggerGA } from '../../utils/analyticsUtils'
 class EMIDownPayment extends React.Component {
   constructor(props) {
     super(props);
+    
   }
 
   handleSliderChange = ({ values }) => {
@@ -50,7 +51,7 @@ class EMIDownPayment extends React.Component {
       className: 'rheostat-downpayment',
       pitComponent: PitComponent,
       pitPoints: [slider.min, slider.max],
-      onChange: this.handleSliderChange,
+      onChange: this.handleSliderChange.bind(this),
       handleTooltipLabel: formatToINR
     }
     let vehicleLoanAmount = formatToINR(this.updateLoanText());

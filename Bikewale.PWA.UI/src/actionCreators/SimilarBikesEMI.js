@@ -50,3 +50,4 @@ export const updateSimilarBikesEmi = (similarBikesList, modelEmiObj) => (dispatc
       } 
      })
 }
+

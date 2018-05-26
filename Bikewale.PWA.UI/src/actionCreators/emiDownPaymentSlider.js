@@ -32,11 +32,14 @@ export const openEmiCalculator = (onRoadPrice) => (dispatch) =>{
     let minDnPay = .1 * onRoadPrice;
     let maxDnPay = .4 * onRoadPrice;
     let defaultDnPay = .3 * onRoadPrice;
-    dispatch({
-        type: emiCalculatorAction.OPEN_EMICALCULATOR,
+    let payload = {
         min: parseInt(minDnPay),
         max : parseInt(maxDnPay),
         values : [parseInt(defaultDnPay)],
         onRoadPrice: onRoadPrice
+    }
+    dispatch({
+        type: emiCalculatorAction.OPEN_EMICALCULATOR,
+        payload
     });
 }
