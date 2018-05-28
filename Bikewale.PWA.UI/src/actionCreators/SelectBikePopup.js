@@ -25,6 +25,7 @@ const getSelectedBikeDetail = (dispatch, modelId) => {
     }
     xhr.open('GET', '/api/model/?modelId=' + modelId);
     xhr.send();
+    dispatch({ type: selectBikePopup.FETCH_MODEL_DETAIL });
   }
 }
 

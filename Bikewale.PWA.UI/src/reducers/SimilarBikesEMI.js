@@ -17,7 +17,13 @@ var initialState = fromJS({
     //   emiLabel: "",
     //   emiStart: 0
     // }
-  ]
+  ],
+  modelId: -1,
+  cityId: -1,
+  downPayment: 0,
+  tenure: 0,
+  rateOfInt: 0,
+  IsFetching: false
 })
 
 export function SimilarBikesEMI(state, action) {
@@ -27,20 +33,21 @@ export function SimilarBikesEMI(state, action) {
     }
 
     switch (action.type) {
+      case similarBikesEMI.FETCHING_SIMILAR_BIKES:
+        return state.setIn(['IsFetching'], true)
       case similarBikesEMI.FETCH_SIMILAR_BIKES_EMI:
         let modelEmiObj = action.payload.modelEmiObj
         return fromJS({
+          ...state.toJS(),
           data: action.payload.data.map(x => {
-            let minDp = .1 * x.onRoadPriceAmount
-            let maxDp = .4 * x.onRoadPriceAmount
-            let currentDp = modelEmiObj.downPayment;
-            let downPayment = currentDp >= minDp && currentDp <= maxDp ? currentDp : currentDp < minDp ? minDp : maxDp
             return {
             ...x,
-            emiStart: EmiCalculation(x.onRoadPriceAmount - downPayment, modelEmiObj.tenure, modelEmiObj.rateOfInt),
             onRoadPriceLabel: onRoadPriceLabel,
             emiLabel: emiLabel
-          }})
+          }}),
+          modelId: modelEmiObj.modelId,
+          cityId: modelEmiObj.cityId,
+          IsFetching: true
         })
       case similarBikesEMI.UPDATE_EMI:
         modelEmiObj = action.payload.modelEmiObj
@@ -53,7 +60,13 @@ export function SimilarBikesEMI(state, action) {
             return {
             ...x,
             emiStart: EmiCalculation(x.onRoadPriceAmount - downPayment, modelEmiObj.tenure, modelEmiObj.rateOfInt) 
-          }})
+          }}),
+          downPayment: modelEmiObj.downPayment,
+          tenure: modelEmiObj.tenure,
+          rateOfInt: modelEmiObj.rateOfInt,
+          modelId: modelEmiObj.modelId,
+          cityId: modelEmiObj.cityId,
+          IsFetching: false,
         })
       case similarBikesEMI.FETCH_SIMILAR_BIKES_FAILED:
         return initialState

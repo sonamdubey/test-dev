@@ -7,6 +7,7 @@ import EMICalculatorHeader from './EMICalculatorHeader'
 import DownPaymentSlider from './DownPaymentSlider'
 import TenureSlider from './TenureSlider'
 import InterestSlider from './InterestSlider'
+import Spinner from '../Shared/SpinnerRelative'
 
 import {
 	EmiCalculation,
@@ -62,6 +63,11 @@ export class EMICalculator extends React.Component {
 			cityData: this.props.financeCitySelection
 		}
 		return (
+			this.props.IsFetching ?
+			<div className="emi-spinner-container">
+				<Spinner />
+			</div>
+			:
 			<div className="emi-outer-container">
 				<div className="emi-calci-container">
 					<EMICalculatorHeader sliderData={sliderData} emiCalculationParam={emiCalculationParam} />

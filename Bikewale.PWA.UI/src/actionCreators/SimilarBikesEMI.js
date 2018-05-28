@@ -35,7 +35,10 @@ const getSimilarBikesData = (dispatch, modelEmiObj) => {
   let url = '/api/pwa/similarbikes/model/' + modelEmiObj.modelId + '/finance/?topCount=9&cityId='+modelEmiObj.cityId;
   xhr.open('GET', url);
   xhr.send();
-
+  dispatch(
+    {
+      type: similarBikesEMI.FETCHING_SIMILAR_BIKES
+    })
 }
 
 export const fetchSimilarBikes = (modelEmiObj) => (dispatch) => {
