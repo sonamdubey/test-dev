@@ -37,7 +37,7 @@ namespace Bikewale.BAL.Finance
         private readonly String CTApiCode = Bikewale.Utility.BWConfiguration.Instance.CarTradeLeadApiCode;
         private readonly IDictionary<ushort, String> _leadStatusCollection = null;
         private const ushort SUCCESS_STATUS = 6;
-        private const ushort SUCESS_UNVERIFIED_MOBILE = 2;
+        private const ushort SUCESS_UNVERIFIED_MOBILE = 1;
         private static readonly string _mediaContentType = "application/x-www-form-urlencoded";
         private static readonly string _CustomerSMSTemplate = "Hi {0}, we have shared your details with Capital First. For further steps, you can reach out to Capital First officer {1} - {2}";
         private static readonly string _CustomerEmailSubject = "Loan application for {0}";
