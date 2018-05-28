@@ -19,14 +19,18 @@ class EMIDownPayment extends React.Component {
     super(props);
     
   }
+  componentWillReceiveProps(nextProps){
+    if(nextProps.slider.userChange){
+      if (gaObj != undefined) {
+        triggerGA(gaObj.name, 'Interacted_With_EMI_Calculator', 'Down Payment Slider'); 
+      }
+    }
+  }
 
   handleSliderChange = ({ values }) => {
     const {
       updateDownPaymentSlider,
     } = this.props
-    if (gaObj != undefined) {
-      triggerGA(gaObj.name, 'Interacted_With_EMI_Calculator', 'Down Payment Slider'); 
-    }
     updateDownPaymentSlider({ values, userChange: true })
   }
   

@@ -22,12 +22,17 @@ class EMIInterest  extends React.Component {
 		const {
 			updateInterestSlider,
 		} = this.props
-        if (gaObj != undefined) {
-			triggerGA(gaObj.name, 'Interacted_With_EMI_Calculator', 'Interest Slider'); 
-		  }
 		updateInterestSlider({ values, userChange: true })
 	}
 	
+	componentWillReceiveProps(nextProps){
+		if(nextProps.slider.userChange){
+		  if (gaObj != undefined) {
+			triggerGA(gaObj.name, 'Interacted_With_EMI_Calculator', 'Interest Slider'); 
+		  }
+		}
+	  }
+
 	handleOpen = () => {
 		if (gaObj != undefined) {
 			triggerGA(gaObj.name, 'ToolTip_Clicked', 'Interest'); 
