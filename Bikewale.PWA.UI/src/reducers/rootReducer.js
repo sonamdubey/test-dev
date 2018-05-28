@@ -4,13 +4,15 @@ import Videos from './videosReducer'
 import Widgets from './widgetReducer'
 import Finance from './financeReducer'
 import Emi from './emiReducer'
+import Toast from './toastReducer'
 
 var RootReducer = combineReducers({
 	  News,
     Videos,
 		Widgets,
 	  Finance,
-		Emi
+		Emi,
+		Toast
 })
 
 module.exports = RootReducer;
