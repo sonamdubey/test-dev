@@ -37,6 +37,7 @@ namespace Bikewale.BAL.Finance
         private readonly String CTApiCode = Bikewale.Utility.BWConfiguration.Instance.CarTradeLeadApiCode;
         private readonly IDictionary<ushort, String> _leadStatusCollection = null;
         private const ushort SUCCESS_STATUS = 6;
+        private const ushort SUCESS_UNVERIFIED_MOBILE = 1;
         private static readonly string _mediaContentType = "application/x-www-form-urlencoded";
         private static readonly string _CustomerSMSTemplate = "Hi {0}, we have shared your details with Capital First. For further steps, you can reach out to Capital First officer {1} - {2}";
         private static readonly string _CustomerEmailSubject = "Loan application for {0}";
@@ -59,9 +60,12 @@ namespace Bikewale.BAL.Finance
             _leadStatusCollection.Add(0, "Some error occured.");
             _leadStatusCollection.Add(1, "Mobile not verified.");
             _leadStatusCollection.Add(2, "Lead already exists.");
+            _leadStatusCollection.Add(3, "Your loan application has already got pre-approved. Please contact your Capital First executive (Details shared in email).");
+            _leadStatusCollection.Add(4, "Your loan application could not be processed online. Thanks for applying.");
+            _leadStatusCollection.Add(5, "Your loan application has already got pre-approved. Please contact your Capital First executive (Details shared in email).");
+            _leadStatusCollection.Add(6, "Your application is submitted successfully.");
             _leadStatusCollection.Add(8, "Some error occured while processing your request. Please try after sometime.");
             _leadStatusCollection.Add(12, "Currently, our finance partner does not provide loan in your area.");
-            _leadStatusCollection.Add(6, "Your application is submitted successfully.");
         }
 
         private CTFormResponse SendCustomerDetailsToCarTrade(PersonalDetails objDetails, ushort leadSource, bool isMobileVerified)
@@ -272,14 +276,6 @@ namespace Bikewale.BAL.Finance
                     objDetails.LeadId = SubmitLead(objDetails, utmz, utma);
                 }
                 isMobileVerified = _mobileVerRespo.IsMobileVerified(objDetails.MobileNumber, objDetails.EmailId);
-
-                if (!isMobileVerified)
-                {
-                    var mobileVer = _mobileVerification.ProcessMobileVerification(objDetails.EmailId, Convert.ToString(objDetails.MobileNumber));
-                    SMSTypes st = new SMSTypes();
-                    st.SMSMobileVerification(Convert.ToString(objDetails.MobileNumber), string.Empty, mobileVer.CWICode, "PageUrl");
-                }
-
                 //Push lead to consumer where data is saved to manufaturerlead table and lead is further pushed to AutoBiz
                 PushToLeadConsumerQueue(objDetails);
                 //Save Lead Details to Bikewale Capital First Lead Table with 
@@ -298,6 +294,14 @@ namespace Bikewale.BAL.Finance
                     {
                         NotifyCustomer(objDetails, ctResponse);
                     }
+
+                    if (!isMobileVerified && ctResponse.Status == SUCESS_UNVERIFIED_MOBILE)
+                    {
+                        var mobileVer = _mobileVerification.ProcessMobileVerification(objDetails.EmailId, Convert.ToString(objDetails.MobileNumber));
+                        SMSTypes st = new SMSTypes();
+                        st.SMSMobileVerification(Convert.ToString(objDetails.MobileNumber), string.Empty, mobileVer.CWICode, "PageUrl");
+                    }
+
                 }
                 else
                 {
@@ -305,6 +309,8 @@ namespace Bikewale.BAL.Finance
                     objId.Status = 0;
                     objId.Message = _leadStatusCollection[0];
                 }
+
+
 
                 objId.CpId = objDetails.Id;
                 objId.LeadId = objDetails.LeadId;

@@ -121,6 +121,7 @@
         self.changeMobileNumber = function () {
             var mobileNumber = $('#otpNewNumber').val();
             if (validatePhoneNumber('#otpNewNumber')) {
+                $('#cfNum').val(mobileNumber);
                 self.submitDetails(mobileNumber);
             }
         };
@@ -164,7 +165,10 @@
                 "mobileNumber": mobileNumber,
                 "emailId": $('#cfEmail').val(),
                 "pincode": ($("#cfPincode").val() != null ? $("#cfPincode").val().substring(0, 6) : ""),
-                "pancard": $("#cfPan").val()
+                "pancard": $("#cfPan").val(),
+                "id": $("#cpId").val(),
+                "ctLeadId": $("#ctLeadId").val(),
+                "leadId": $("#leadId").val()
             };
 
             $.ajax({
