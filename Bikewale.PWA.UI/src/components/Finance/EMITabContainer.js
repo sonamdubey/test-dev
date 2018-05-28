@@ -2,8 +2,11 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { toJS } from '../../immutableWrapperContainer'
 import EMITab from './EMITab'
-import { openSelectBikePopup, closeSelectBikePopup, selectModel, fetchMakeModelList, fetchBikeVersionList, fetchSelectedBikeDetail} from '../../actionCreators/SelectBikePopup'
-import { fetchCity, openSelectCityPopup, closeSelectCityPopup, selectCity } from '../../actionCreators/FinanceCityPopup'
+import {
+  openSelectBikePopup, closeSelectBikePopup, selectModel, fetchMakeModelList, fetchBikeVersionList, fetchSelectedBikeDetail,
+  resetMakeModelListFailure, resetSelectedBikeDetailFailure, resetBikeVersionListFailure
+} from '../../actionCreators/SelectBikePopup'
+import { fetchCity, openSelectCityPopup, closeSelectCityPopup, selectCity, resetCityFailure } from '../../actionCreators/FinanceCityPopup'
 import { fetchSimilarBikes, updateSimilarBikesEmi  } from '../../actionCreators/SimilarBikesEMI'
 import { openEmiCalculator } from '../../actionCreators/emiDownPaymentSlider'
 import { initToast, clearToast } from '../../actionCreators/toast'
@@ -23,11 +26,15 @@ const mapStateToProps = (store) => {
       openSelectBikePopup: bindActionCreators(openSelectBikePopup, dispatch),
       closeSelectBikePopup: bindActionCreators(closeSelectBikePopup, dispatch),
       fetchMakeModelList: bindActionCreators(fetchMakeModelList, dispatch),
+      resetMakeModelListFailure: bindActionCreators(resetMakeModelListFailure, dispatch),
       fetchSelectedBikeDetail: bindActionCreators(fetchSelectedBikeDetail, dispatch),
+      resetSelectedBikeDetailFailure: bindActionCreators(resetSelectedBikeDetailFailure, dispatch),
       fetchBikeVersionList: bindActionCreators(fetchBikeVersionList, dispatch),
+      resetBikeVersionListFailure: bindActionCreators(resetBikeVersionListFailure, dispatch),
       openSelectCityPopup: bindActionCreators(openSelectCityPopup, dispatch),
       closeSelectCityPopup: bindActionCreators(closeSelectCityPopup, dispatch),
       fetchCity: bindActionCreators(fetchCity, dispatch),
+      resetCityFailure: bindActionCreators(resetCityFailure, dispatch),
       selectCity: bindActionCreators(selectCity, dispatch),
       fetchSimilarBikes: bindActionCreators(fetchSimilarBikes, dispatch),
       selectModel: bindActionCreators(selectModel, dispatch),

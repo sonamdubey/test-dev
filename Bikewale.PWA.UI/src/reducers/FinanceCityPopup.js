@@ -17,7 +17,8 @@ var initialState = fromJS({
   Popular: [],
   Other: [],
   IsFetching: false,
-  RelatedModelId: -1
+  RelatedModelId: -1,
+  CityFetchError: false
 });
 
 export function FinanceCityPopup(state = initialState, action) {
@@ -56,10 +57,13 @@ export function FinanceCityPopup(state = initialState, action) {
         }));
 
       case financeCityPopup.FETCH_CITY_FAILURE:
-        return initialState.setIn(['IsFetching'], false).setIn(['RelatedModelId'], -1);
+        return initialState.setIn(['IsFetching'], false).setIn(['RelatedModelId'], action.payload.modelId).setIn(['CityFetchError'], true);
       
       case financeCityPopup.FETCH_CITY:
         return state.setIn(['IsFetching'], true);
+      
+      case financeCityPopup.RESET_CITY_FAILURE:
+        return state.setIn(['CityFetchError'], false);
       default:
         return state
     }

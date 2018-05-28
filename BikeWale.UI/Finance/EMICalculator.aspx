@@ -1,4 +1,5 @@
-﻿<%@ Page Language="C#" %>
+﻿
+<%@ Page Language="C#" %>
 
 <%
     title = "EMI Calculator | Calculate Bike Loan EMI - BikeWale";
@@ -24,6 +25,11 @@
     {
         if (!Page.IsPostBack)
         {
+            string originalUrl = Request.ServerVariables["HTTP_X_ORIGINAL_URL"];
+            if (String.IsNullOrEmpty(originalUrl))
+            	originalUrl = Request.ServerVariables["URL"];
+            Bikewale.Common.DeviceDetection dd = new Bikewale.Common.DeviceDetection(originalUrl);
+            dd.DetectDevice();
             if (Request.QueryString["la"] != null)
             {
                 loanAmount = Request.QueryString["la"];
