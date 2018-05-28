@@ -330,12 +330,12 @@ namespace Bikewale.BAL.BikeData
         /// <param name="makeId"></param>
         /// <param name="cityId"></param>
         /// <returns></returns>
-        public IEnumerable<BikeSeriesEntity> GetMakeSeries(int makeId, int cityId)
+        public IEnumerable<BikeSeriesEntity> GetMakeSeries(uint makeId, uint cityId)
         {
             IEnumerable<BikeSeriesEntity> makeSeriesEntityList = null;
             try
             {
-                makeSeriesEntityList = _bikeSeriesCacheRepository.GetMakeSeries(makeId, cityId);
+                makeSeriesEntityList = _bikeSeriesCacheRepository.GetMakeSeries((int)makeId, (int)cityId);
             }
             catch (Exception ex)
             {

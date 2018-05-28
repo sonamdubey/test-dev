@@ -279,14 +279,21 @@ namespace Bikewale.Models.BikeModels
         /// <param name="_objData"></param>
         private void BindSeriesSlug(ModelPageVM _objData)
         {
+            uint _makeId = Convert.ToUInt32(_objData.ModelPageEntity.ModelDetails.MakeBase.MakeId);
+            uint _seriesId = _objData.ModelPageEntity.ModelDetails.ModelSeries.SeriesId;
+            string _makeName = _objData.ModelPageEntity.ModelDetails.MakeBase.MakeName;
+            string _makeMaskingName = _objData.ModelPageEntity.ModelDetails.MakeBase.MaskingName;
+
+            BikeSeriesEntity taggedSeries = _bikeSeries.GetMakeSeries(_makeId, _cityId).Where(s => s.SeriesId == _seriesId).FirstOrDefault();
+            
             _objData.SeriesSlug = new ModelSeriesSlugVM
             {
-                SeriesName = _objData.ModelsBySeries.SeriesBase.SeriesName,
-                MakeName = _objData.ModelPageEntity.ModelDetails.MakeBase.MakeName,
-                SeriesBikesCount = _objData.ModelsBySeries.SeriesModels.NewBikes.Count(),
-                MinimumPrice = _objData.ModelPageEntity.ModelDetails.MinPrice,
-                MakeMaskingName = _objData.ModelPageEntity.ModelDetails.MakeBase.MaskingName,
-                SeriesMaskingName = _objData.ModelsBySeries.SeriesBase.MaskingName
+                SeriesName = taggedSeries.SeriesName,
+                MakeName = _makeName,
+                SeriesBikesCount = taggedSeries.ModelsCount,
+                MinimumPrice = taggedSeries.MinPrice,
+                MakeMaskingName = _makeMaskingName,
+                SeriesMaskingName = taggedSeries.MaskingName
             };
         }
 

@@ -14,7 +14,7 @@ namespace Bikewale.Models.BikeSeries
     {
         public string SeriesName { get; set; }
         public string MakeName { get; set; }
-        public int SeriesBikesCount { get; set;}
+        public uint SeriesBikesCount { get; set;}
         public long MinimumPrice { get; set; }
         public string MakeMaskingName { get; set; }
         public string SeriesMaskingName { get; set; }

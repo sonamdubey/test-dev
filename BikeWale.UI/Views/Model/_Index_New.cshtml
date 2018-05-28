@@ -145,7 +145,7 @@
 				</div>
 				<div class="clear"></div>
 			}
-            @if (Model.ShowSeriesSlug)
+            @if (Model.SeriesSlug != null && Model.ShowSeriesSlug)
             {
                 @Html.Partial("~/Views/BikeSeries/_ModelSeriesSlug.cshtml", Model.SeriesSlug);
             }
