@@ -244,18 +244,6 @@ namespace Bikewale.Models.BikeModels
                         BindAdSlots(_objData);
                     }
 
-                    _objData.ShowSeriesSlug =
-                                (_objData.ModelsBySeries != null
-                                && (_objData.ModelsBySeries.IsNewAvailable || _objData.ModelsBySeries.IsUpcomingAvailable)
-                                && _objData.ModelsBySeries.SeriesBase != null
-                                && _objData.ModelsBySeries.SeriesBase.IsSeriesPageUrl
-                                && !string.IsNullOrEmpty(_objData.ModelsBySeries.SeriesBase.MaskingName)
-                                && _objData.ModelsBySeries.SeriesModels.NewBikes != null
-                                && _objData.ModelsBySeries.SeriesModels.NewBikes.Count() > 1
-                                && _objData.ModelPageEntity != null
-                                && _objData.ModelPageEntity.ModelDetails != null
-                                && _objData.ModelPageEntity.ModelDetails.MakeBase != null);
-
                     if (_objData.ShowSeriesSlug) {
                         BindSeriesSlug(_objData);
                     }
@@ -2150,11 +2138,27 @@ namespace Bikewale.Models.BikeModels
                 if (_modelId > 0)
                 {
                     BikeModelsBySeriesPage objModelsBySeries = new BikeModelsBySeriesPage(_bikeSeries);
-                    objData.ModelsBySeries = objModelsBySeries.GetData(_modelId, objData.ModelPageEntity.ModelDetails.ModelSeries.SeriesId);
+                    BikeSeriesModelsVM modelsBySeries = objModelsBySeries.GetData(_modelId, objData.ModelPageEntity.ModelDetails.ModelSeries.SeriesId);
+                    objData.ModelsBySeries = modelsBySeries;
+
                     if (objData.ModelsBySeries != null && objData.ModelsBySeries.SeriesModels != null)
                     {
                         objData.ModelsBySeries.Page = GAPages.Model_Page;
                         objData.ModelsBySeries.SeriesBase = objData.ModelPageEntity.ModelDetails.ModelSeries;
+
+                        BikeSeriesEntityBase seriesDetails = modelsBySeries.SeriesBase;
+                        int bikeCount = modelsBySeries.SeriesModels.NewBikes != null ? modelsBySeries.SeriesModels.NewBikes.Count() : 0;
+                        bool seriesValidation = (modelsBySeries.IsNewAvailable || modelsBySeries.IsUpcomingAvailable)
+                            && seriesDetails.IsSeriesPageUrl
+                            && !string.IsNullOrEmpty(seriesDetails.MaskingName)
+                            && bikeCount > 1;
+                        
+                        BikeModelPageEntity bikeDetails = _objData.ModelPageEntity;
+                        bool bikeValidation = bikeDetails != null
+                            && bikeDetails.ModelDetails != null
+                            && bikeDetails.ModelDetails.MakeBase != null;
+
+                        _objData.ShowSeriesSlug = seriesValidation && bikeValidation;
                     }
                 }
             }
