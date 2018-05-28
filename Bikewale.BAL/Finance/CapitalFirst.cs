@@ -291,7 +291,7 @@ namespace Bikewale.BAL.Finance
                 {
                     objId.CTleadId = objDetails.CtLeadId = ctResponse.LeadId;
                     objId.Status = ctResponse.Status;
-                    objId.Message = _leadStatusCollection[ctResponse.Status];
+                    objId.Message = _leadStatusCollection.ContainsKey(ctResponse.Status) ? _leadStatusCollection[ctResponse.Status] : ctResponse.Message;
                     //Update ct api response
                     _objIFinanceRepository.SaveCapitalFirstLeadData(objDetails, ctResponse);
                     if (ctResponse.Status == SUCCESS_STATUS)
