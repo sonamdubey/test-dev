@@ -86,6 +86,10 @@ export const fetchSelectedBikeDetail = (modelId) => (dispatch) => {
   return getSelectedBikeDetail(dispatch, modelId);
 }
 
+export const resetSelectedBikeDetailFailure = () => (dispatch) => {
+  dispatch({type: selectBikePopup.RESET_MODEL_DETAIL_FAILURE})
+}
+
 export const selectModel = (modelId) => (dispatch) => {
   dispatch(setModel(modelId));
 }
@@ -97,8 +101,16 @@ export const fetchMakeModelList = () => (dispatch) => {
   return getMakeModelList(dispatch);
 }
 
+export const resetMakeModelListFailure = () => (dispatch) => {
+  dispatch({type: selectBikePopup.RESET_BIKELIST_FAILURE})
+}
+
 export const fetchBikeVersionList = (modelId, cityId) => (dispatch) => {
   return getBikeVersionList(dispatch, modelId, cityId);
+}
+
+export const resetBikeVersionListFailure = () => (dispatch) => {
+  dispatch({type: selectBikePopup.RESET_VERSIONLIST_FAILURE})
 }
 
 
