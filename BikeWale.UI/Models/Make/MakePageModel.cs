@@ -1201,7 +1201,7 @@ namespace Bikewale.Models
                     MakeName = objData.MakeName,
                     MakeMaskingName = objData.MakeMaskingName
                 };
-                objData.SeriesLinkages.MakeSeriesList = _bikeSeries.GetMakeSeries(Convert.ToInt32(_makeId), Convert.ToInt32(cityId));
+                objData.SeriesLinkages.MakeSeriesList = _bikeSeries.GetMakeSeries(_makeId, cityId);
             }
             catch (Exception ex)
             {
