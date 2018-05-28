@@ -10,10 +10,7 @@ var validate,
     otpNewNum,
     otpContainerContent,
     otpContainerContentHeight,
-    employmentDeatilTab,
-    personalDetailTab,
-        bikeName,
-        formTabsContainer;
+        bikeName;
 var objPinCodes = new Object();
 docReady(function () {
 
@@ -25,10 +22,7 @@ docReady(function () {
     otpContainerElem = $(".otp-container")
     blackWindowElem = $(".otp-black-window"),
     otpContainerContent = $(".otp-container__content"),
-    employmentDeatilTab = $("#employment-detail-tab");
-    personalDetailTab = $("#personal-detail-tab");
     bikeName = $('#hdnBikeName').val();
-    formTabsContainer = $('#form-tabs-content');
     validate = {
         setError: function (element, message) {
             var elementLength = element.val().length,
@@ -92,40 +86,11 @@ docReady(function () {
         }
     };
 
-    $('input:radio[name="gender"]').change(
-    function () {
-            validateRadioButtons("gender");
-    });
-
-    $('input:radio[name="marital"]').change(
-    function () {
-            validateRadioButtons("marital");
-	});
-	
 	// register modal popup events
 	modalPopup.registerDomEvents();
 
 	isDesktop = $(".capital-first-desktop");
 	
-	var startDate = new Date();
-	startDate.setFullYear(startDate.getFullYear() - 21);
-	
-	var startMonth = (startDate.getMonth() + 1) < 10 ? '0' + (startDate.getMonth() + 1) : (startDate.getMonth() + 1);
-
-	var pickerEndDate = startDate.getFullYear() + '-' + startMonth + '-' + startDate.getDate();
-	
-    $("#cfDOB").Zebra_DatePicker({
-        container: $("#cfDOB").closest(".input-box"),
-		view: 'years',
-		start_date: pickerEndDate,
-		direction: ['1900-01-01', pickerEndDate]
-	});
-	
-    var dateOfBirthPicker = $('#cfDOB').data('Zebra_DatePicker');
-    if (dateOfBirthPicker != null)
-    {
-        dateOfBirthPicker.datepicker.find('.dp_heading').text('Date of Birth');
-    }
     $(".page-tabs-data input, .otp-container input[type!=button]").on('blur', function () {
         validate.onBlur($(this));
     });
@@ -256,14 +221,13 @@ function scrollTopError() {
 }
 
 function validateContactInfo() {
-    var panStatus = $("#panStatus").val();
     $('#screenLoader').show();
     var isValid = validateUserName($("#cfFName"));
     isValid &= validateUserName($("#cfLName"));
     isValid &= validatePhoneNumber($("#cfNum"));
     isValid &= validateEmailId($("#cfEmail"));
     isValid &= validatePinCode($("#cfPincode"));
-    if (panStatus)
+    if ($("#cdPanBox").length > 0)
     {
         isValid &= validatePanNumber($("#cfPan"));
     }
@@ -494,53 +458,9 @@ function validatePanNumber(inputPanNum) {
     return isValid;
 }
 
-function validateRadioButtons(groupName) {
-    var isValid = true;
-    if ($('input[name=' + groupName + ']:checked').length <= 0) {
-        validate.setError($('input[name=' + groupName + ']').closest('ul'), 'Please select required field');
-        isValid = false;
-    } else {
-        validate.hideError($('input[name=' + groupName + ']').closest('ul'));
-        isValid = true;
-    }
-    return isValid;
-}
 
-function validateIncome(inputIncome) {
-    var isValid = true;
-    var numRegex = /^[0-9]{0,9}$/;
-    var value = $(inputIncome).val().trim();
-    if ($(inputIncome).val().length <= 0) {
-        validate.setError(inputIncome, 'Please enter Income');
-        isValid = false;
-    }
-    else if (!numRegex.test(value) || value.length > 9) {
-        validate.setError(inputIncome, 'Please enter valid Income');
-        isValid = false;
-    }
-    return isValid;
-}
 
-function validateDOB(inputAge) {
-    var dob = $(inputAge).val().trim();
 
-        var isValid = true,
-            setDate = $(inputAge).val(),
-            date1 = new Date(setDate),
-            date2 = new Date(),
-            timeDiff = Math.abs(date2.getTime() - date1.getTime()),
-            diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)),
-            diffYears = diffDays / 365;
-      if (dob.length == 0) {
-          validate.setError(inputAge, 'Please enter Age');
-          isValid = false;
-        }
-    else if (diffYears < 21) {
-        validate.setError(inputAge, 'Age should be greater than 21');
-        isValid = false;
-    }
-    return isValid;
-}
 
 function scrollTop(offsetElem) {
     var offsetTop = 25;

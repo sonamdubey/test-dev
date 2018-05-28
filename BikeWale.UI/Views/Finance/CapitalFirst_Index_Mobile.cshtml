@@ -65,18 +65,19 @@
                     </li>
                 </ul>
             </div>
-            @{
-                var panShow = (Model.PanStatus ? "initial" : "none");
-            }
-            <div class="margin-bottom5" style="display: @panShow">
-                <div class="input-box form-control-box">
-                    <input id="cfPan" type="text" min="1" maxlength="10" autocomplete="off">
-                    <label for="cfPan">Pan Number<sup>*</sup></label>
-                    <span class="boundary"></span>
-                    <span class="error-text"></span>
-                    <span class="text-note">Credit score check will be conducted based on PAN</span>
+            @if (Model.PanStatus)
+            {
+                <div class="margin-bottom5" id="cdPanBox">
+                    <div class="input-box form-control-box">
+                        <input id="cfPan" type="text" min="1" maxlength="10" autocomplete="off">
+                        <label for="cfPan">Pan Number<sup>*</sup></label>
+                        <span class="boundary"></span>
+                        <span class="error-text"></span>
+                        <span class="text-note">Credit score check will be conducted based on PAN</span>
+                    </div>
                 </div>
-            </div>
+            }
+           
             <input type="button" id="contact-detail-submit" class="btn btn-orange btn-primary-big bw-ga" value="Submit">
         </div>
     </div>
@@ -151,10 +152,9 @@
 <input type="hidden" id="pageUrl" value="@Model.PageUrl" />
 <input type="hidden" id="hdnPlatform" value="@((ushort)Model.PlatformId)" />
 <input type="hidden" id="loanAmount" value="@Model.LoanAmount" />
-<input type="hidden" id="panStatus" value="@Model.PanStatus" />
+
 
 @Html.Partial("~/Views/Shared/_otpScreen_Mobile.cshtml")
-<script defer src="/src/zebra-datepicker.js"></script>
 @if (Model.PlatformId == 3)
 {
     <script type="text/javascript">

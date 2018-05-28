@@ -20,7 +20,6 @@
                 <div class="page-tabs-data">
                     <div class="contact-detail-tab">
                         <div>
-                            <span class="contact-image-unit contact-icon bg-red round-border"></span>
                             <h3 class="personal__title">Contact details</h3>
                         </div>
                         <div id="contact-detail-tab" class="contact-details__form">
@@ -64,17 +63,18 @@
                                         </li>
                                     </ul>
                                 </div>
-                           @{
-                               var panShow = (Model.PanStatus ? "visible" : "hidden");
-                            }
-                            <div class="input-box form-control-box" id="cdPanBox" style="visibility: @panShow">
+
+                           @if (Model.PanStatus)
+                           {
+                            <div class="input-box form-control-box" id="cdPanBox">
                                 <input id="cfPan" type="text" min="1" minlength="10" maxlength="10" autocomplete="off">
                                 <label for="cfPan">Pan Number<sup>*</sup></label>
                                 <span class="boundary"></span>
                                 <span class="error-text"></span>
                                 <span class="text-note">Credit score check will be conducted based on PAN</span>
                             </div>
-                                <input type="button" id="contact-detail-submit" class="btn btn-orange btn-primary-big bw-ga margin-top20" value="Submit">
+                           }
+                          <input type="button" id="contact-detail-submit" class="btn btn-orange btn-primary-big bw-ga margin-top20 block" value="Submit">
                             </div>
                        
                     </div>
@@ -156,7 +156,7 @@
 <input type="hidden" id="pageUrl" value="@Model.PageUrl" />
 <input type="hidden" id="hdnPlatform" value="@((ushort)Model.PlatformId)" />
 <input type="hidden" id="loanAmount" value="@Model.LoanAmount"/>
-<input type="hidden" id="panStatus" value="@Model.PanStatus" />
+
 @Html.Partial("~/Views/Shared/_otpScreen.cshtml")
 <div class="otp-black-window"></div>
 
@@ -171,4 +171,3 @@
 	</div>
 </div>
 
-<script defer src="/src/zebra-datepicker.js"></script>

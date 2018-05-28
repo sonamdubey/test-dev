@@ -31,23 +31,32 @@ namespace Bikewale.Models.Finance
         public CapitalFirstVM GetData(NameValueCollection queryCollection)
         {
             ushort platformId = 0;
-            CapitalFirstVM viewModel = new CapitalFirstVM();
+            CapitalFirstVM viewModel = null;
+            ManufacturerLeadEntity leadEntity = null;
             try
             {
-                viewModel.ObjLead = new ManufacturerLeadEntity();
-                viewModel.ObjLead.CampaignId = Convert.ToUInt16(queryCollection["campaingid"]);
-                viewModel.ObjLead.DealerId = Convert.ToUInt16(queryCollection["dealerid"]);
-                viewModel.ObjLead.LeadSourceId = Convert.ToUInt16(queryCollection["leadsourceid"]);
-                viewModel.ObjLead.VersionId = Convert.ToUInt16(queryCollection["versionid"]);
-                viewModel.ObjLead.PQId = Convert.ToUInt32(queryCollection["pqid"]);
+                leadEntity = new ManufacturerLeadEntity();
+
+                leadEntity.CampaignId = Convert.ToUInt16(queryCollection["campaingid"]);
+                leadEntity.DealerId = Convert.ToUInt16(queryCollection["dealerid"]);
+                leadEntity.LeadSourceId = Convert.ToUInt16(queryCollection["leadsourceid"]);
+                leadEntity.VersionId = Convert.ToUInt16(queryCollection["versionid"]);
+                leadEntity.PQId = Convert.ToUInt32(queryCollection["pqid"]);
+
+                GlobalCityAreaEntity location = GlobalCityArea.GetGlobalCityArea();
+                if (location != null)
+                    leadEntity.CityId = location.CityId;
+
+                viewModel = new CapitalFirstVM();
+                viewModel.ObjLead = leadEntity;
                 viewModel.PageUrl = queryCollection["url"];
                 viewModel.BikeName = queryCollection["bike"];
                 viewModel.LoanAmount = Convert.ToUInt32(queryCollection["loanamount"]);
 
-                GlobalCityAreaEntity location = GlobalCityArea.GetGlobalCityArea();
-                if (location != null)
-                    viewModel.ObjLead.CityId = location.CityId;
-                viewModel.objLeadJson = Newtonsoft.Json.JsonConvert.SerializeObject(viewModel.ObjLead);
+                if (viewModel.ObjLead != null)
+                {
+                    viewModel.objLeadJson = Newtonsoft.Json.JsonConvert.SerializeObject(viewModel.ObjLead);
+                }
 
                 if (IsMobile)
                 {
