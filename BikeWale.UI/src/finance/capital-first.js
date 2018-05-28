@@ -291,7 +291,10 @@ function saveContactDetails()
         "mobileNumber": $('#cfNum').val(),
         "emailId": $('#cfEmail').val(),
         "pincode": $("#cfPincode").val().substring(0, 6),
-        "pancard": $("#cfPan").val()
+        "pancard": $("#cfPan").val(),
+        "id": $("#cpId").val(),
+        "ctLeadId": $("#ctLeadId").val(),
+        "leadId": $("#leadId").val()
     };
     $.ajax({
         type: "POST",
