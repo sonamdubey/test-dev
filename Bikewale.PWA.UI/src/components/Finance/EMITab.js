@@ -8,7 +8,7 @@ import SelectCityPopup from '../Shared/SelectCityPopup'
 import ModelInfo from './ModelInfoContainer'
 import SwiperContainer from '../Shared/SwiperContainer'
 import SwiperSimilarBikesEMI from '../Shared/SwiperSimilarBikesEMI'
-import { IsGlobalCityPresent, openPopupWithHash} from '../../utils/popUpUtils'
+import { IsGlobalCityPresent, openPopupWithHash, closePopupWithHash } from '../../utils/popUpUtils'
 import { scrollTop } from '../../utils/scrollTo';
 import Toast from '../Toast'
 import { lockScroll, unlockScroll } from '../../utils/scrollLock';
@@ -25,6 +25,7 @@ class EMITab extends React.Component {
     this.handleSimilarEMISwiperCardClick = this.handleSimilarEMISwiperCardClick.bind(this);
     this.handleSelectBikeClick = this.handleSelectBikeClick.bind(this);
     this.handleSelectCityClick = this.handleSelectCityClick.bind(this);
+    this.setCity = this.setCity.bind(this);
     this.setToast = this.setToast.bind(this);
     this.state = {
       shouldscroll: false,
@@ -74,13 +75,17 @@ class EMITab extends React.Component {
     openPopupWithHash(this.props.openSelectCityPopup, this.props.closeSelectCityPopup, "SelectCity");
   }
 
-  handleCityClick = (item) => {
+  setCity = (item) => {
     let payload = {
       cityId: item.cityId,
       cityName: item.cityName,
       userChange: true
     }
     this.props.selectCity(payload);
+  }
+
+  handleCityClick = (item) => {
+    this.setCity(item);
     this.setState({ ...this.state, isGlobalCityInList: true, shouldFetchSimilarBikes: true });
     const currentBikeId = this.getSelectedBikeId(this.props);
     this.props.fetchBikeVersionList(currentBikeId, item.cityId);
@@ -147,37 +152,45 @@ class EMITab extends React.Component {
     this.props.initToast({
       message: message,
       event: event,
+      duration: 5000,
       style: { bottom: '50px', top: 'auto' }
     })
   }
   
   componentDidUpdate(prevProps) {
     const {
-      FinanceCityPopup
+      FinanceCityPopup,
+      selectBikePopup
     } = this.props;
     const currentCityId = this.getSelectedCityId(this.props);
     if (this.state.shouldscroll) {
+      this.handleSelectCityClick();
       // Open city popup if current city not in fetched city list
       if (FinanceCityPopup != undefined && selectBikePopup != undefined && FinanceCityPopup.RelatedModelId == this.state.currentSelectedBikeId && this.state.currentSelectedBikeId > 0) {
         if (FinanceCityPopup.Popular.length > 0 || FinanceCityPopup.Other.length > 0) {
           // Check if current selected city in new city list
           if (currentCityId > 0 && (IsGlobalCityPresent(FinanceCityPopup.Popular, currentCityId) || IsGlobalCityPresent(FinanceCityPopup.Other, currentCityId))) {
             this.setState({ ...this.state, shouldscroll: false, isGlobalCityInList: true });
+            closePopupWithHash(this.props.closeSelectCityPopup);
           }
           else {
-            this.handleSelectCityClick();
+            this.setCity({
+              cityId: -1,
+              cityName: "",
+              userChange: false
+            });
             if (this.refs.emiSteps != undefined) {
               this.refs.emiSteps.scrollCityToView();
             }
             if (currentCityId > 0) {
-              this.setToast("Current city don't have price availiablity");
+              this.setToast("Price of this bike is not available in " + this.props.FinanceCityPopup.Selection.cityName + ". Please choose another city.");
             }
             this.setState({ ...this.state, shouldscroll: false, isGlobalCityInList: false });
           }
           
         }
         else {
-          this.setToast("Selected bike is not available in any city");
+          this.setToast("Price of this bike is not available. Unfortunately, we won't be able to show EMI for this bike.");
           this.setState({ ...this.state, shouldscroll: false});
         }
       }

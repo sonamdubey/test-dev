@@ -46,7 +46,9 @@ export function FinanceCityPopup(state = initialState, action) {
         const cityId = actionPayload != null && actionPayload.cityId != null ? actionPayload.cityId : -1;
         const cityName = actionPayload != null && actionPayload.cityName != null ? actionPayload.cityName : "";
         const userChange = actionPayload != null && actionPayload.userChange != null ? actionPayload.userChange : false;
-        setGlobalCity(cityId, cityName, currentCityId);
+        if (cityId > -1) {
+          setGlobalCity(cityId, cityName, currentCityId);
+        }
         return state.setIn(['Selection'], fromJS({
           cityId: cityId,
           cityName: cityName,
