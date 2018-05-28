@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types'
 import { fetchSimilarBikes } from '../../actionCreators/SimilarBikesEMI'
+import SpinnerRelative from './SpinnerRelative';
 
 const propTypes = {
   // list type
@@ -8,7 +9,10 @@ const propTypes = {
   // heading to show above carousel
   heading: PropTypes.string,
   // carousel data
-  data: PropTypes.array,
+  data: PropTypes.shape({
+    data: PropTypes.array,
+    IsFetching: PropTypes.bool
+  }),
   // custom carousel card component
   carouselCard: PropTypes.oneOfType([PropTypes.func, PropTypes.string])
 }
@@ -39,7 +43,7 @@ class SwiperContainer extends React.Component {
 
     let CarouselCard = carouselCard
 
-    let list = data.map((item, index) => {
+    let list = data.data.map((item, index) => {
       return (
         <li onClick={this.handleCardClick.bind(this, item)} className="carousel__slide" key={index} >
           <CarouselCard item={item}/>
@@ -55,6 +59,10 @@ class SwiperContainer extends React.Component {
   }
 
   render() {
+    if(this.props.data.IsFetching)
+    {
+      return <SpinnerRelative />
+    }
     return (
       <div className="carousel__container section-bottom-margin">
         <div className="carousel__title">

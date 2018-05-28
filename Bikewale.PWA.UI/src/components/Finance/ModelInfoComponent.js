@@ -33,10 +33,6 @@ class ModelInfo extends React.Component {
     const {
       model,
       city,
-      openSelectCityPopup,
-      openSelectBikePopup,
-      closeSelectCityPopup,
-      closeSelectBikePopup,
       isLoaderShown
     } = this.props
 
