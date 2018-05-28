@@ -121,52 +121,8 @@
         self.changeMobileNumber = function () {
             var mobileNumber = $('#otpNewNumber').val();
             if (validatePhoneNumber('#otpNewNumber')) {
-                var contactDetails = {
-                    "objLeadJson": $("#objLead").val(),
-                    "firstName": $('#cfFName').val(),
-                    "lastName": $('#cfLName').val(),
-                    "mobileNumber": $('#cfNum').val(),
-                    "emailId": $('#cfEmail').val(),
-                    "pincode": ($("#cfPincode").val() != null ? $("#cfPincode").val().substring(0, 6) : ""),
-                    "pancard": $("#cfPan").val()
-                };
-                $.ajax({
-                    type: "POST",
-                    url: "/api/finance/savepersonaldetails/?source=" + $("#hdnPlatform").val(),
-                    contentType: "application/json",
-                    data: ko.toJSON(contactDetails),
-                    beforeSend: function () {
-                        $('#otpLoader').show();
-                    },
-                    success: function (response) {
-                        $("#cpId").val(response.cpId);
-                        $("#ctLeadId").val(response.ctLeadId);
-                        $("#leadId").val(response.leadId);
-                        if (response && response.status == 13) {
-                            otpScreen.openOtp();
-                            var objData = {
-                                "userName": $('#cfFName').val() + " " + $('#cfLName').val(),
-                                "mobileNumber": mobileNumber
-                            };
-                            otpvm.setParameters(objData);
-                            $('#otpNumber').val("");
-                        }
-                        else{
-                            otpScreen.openOtp();
-                            $('.otp-container__info').hide();
-                            $('#thankyouScreen').removeClass("hide");
-
-                        }
-
-                    },
-                    complete: function () {
-                        $('#otpLoader').hide();
-                    }
-                });
-
+                self.submitDetails(mobileNumber);
             }
-
-
         };
         self.redirect = function () {
             if ($("#otpContainerInfo").is(":visible")) {
@@ -179,30 +135,17 @@
 
         self.Done = function () {
             var otp = $('#otpNumber').val();
-            var contactDetails = {
-                "objLeadJson": $("#objLead").val(),
-                "firstName": $('#cfFName').val(),
-                "lastName": $('#cfLName').val(),
-                "mobileNumber": $('#cfNum').val(),
-                "emailId": $('#cfEmail').val(),
-                "pincode": ($("#cfPincode").val() != null ? $("#cfPincode").val().substring(0, 6) : ""),
-                "pancard": $("#cfPan").val()
-            };
             $.ajax({
                 type: "POST",
-                url: "/api/finance/verifymobile/otp/" + otp + "/?source=" + $("#hdnPlatform").val(),
+                url: "/api/mobileverification/validateotp/?mobile=" + $('#cfNum').val() + "&otp=" + otp,
                 contentType: "application/json",
-                data: ko.toJSON(contactDetails),
                 beforeSend: function () {
                     $('#otpLoader').show();
                 },
                 success: function (response) {
                     if (response == true) {
                         $('.otp-container__info').hide();
-                        $('#thankyouScreen').removeClass("hide");
-                        if (bikeName != null) {
-                            triggerGA('Loan_Application', 'OTP_Success', bikeName + '_' + $('#cfNum').val());
-                        }
+                        self.submitDetails($('#cfNum').val());
                     }
                     else {
                         validate.setError($('#otpNumber'), "Invalid otp");
@@ -213,7 +156,55 @@
                 }
             });
         };
+        self.submitDetails = function (mobileNumber) {
+            var contactDetails = {
+                "objLeadJson": $("#objLead").val(),
+                "firstName": $('#cfFName').val(),
+                "lastName": $('#cfLName').val(),
+                "mobileNumber": mobileNumber,
+                "emailId": $('#cfEmail').val(),
+                "pincode": ($("#cfPincode").val() != null ? $("#cfPincode").val().substring(0, 6) : ""),
+                "pancard": $("#cfPan").val()
+            };
 
+            $.ajax({
+                type: "POST",
+                url: "/api/finance/savepersonaldetails/?source=" + $("#hdnPlatform").val(),
+                contentType: "application/json",
+                data: ko.toJSON(contactDetails),
+                beforeSend: function () {
+                    $('#otpLoader').show();
+                },
+                success: function (response) {
+                    $("#cpId").val(response.cpId);
+                    $("#ctLeadId").val(response.ctLeadId);
+                    $("#leadId").val(response.leadId);
+
+                    if (response.status == 6) {
+                        triggerGA('Loan_Application', 'Success', bikeName + '_' + $('#cfNum').val());
+                        $('.otp-container__info').hide();
+                        $('#thankyouScreen').removeClass("hide");
+                    } else if (response && response.status == 1) {
+                        var objData = {
+                            "userName": $('#cfFName').val() + " " + $('#cfLName').val(),
+                            "mobileNumber": contactDetails.mobileNumber
+                        };
+                        otpvm.setParameters(objData);
+                        $('#otpNumber').val("");
+                    }
+                    else {
+                        $('.otp-container__info').hide();
+                        $('#thankyouScreen').removeClass("hide");
+
+                    }
+                    otpScreen.openOtp();
+
+                },
+                complete: function () {
+                    $('#otpLoader').hide();
+                }
+            });
+        };
     }
 
     docReady(function () {
