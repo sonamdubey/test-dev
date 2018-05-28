@@ -37,6 +37,7 @@ namespace Bikewale.BAL.Finance
         private readonly String CTApiCode = Bikewale.Utility.BWConfiguration.Instance.CarTradeLeadApiCode;
         private readonly IDictionary<ushort, String> _leadStatusCollection = null;
         private const ushort SUCCESS_STATUS = 6;
+        private const ushort SUCESS_UNVERIFIED_MOBILE = 2;
         private static readonly string _mediaContentType = "application/x-www-form-urlencoded";
         private static readonly string _CustomerSMSTemplate = "Hi {0}, we have shared your details with Capital First. For further steps, you can reach out to Capital First officer {1} - {2}";
         private static readonly string _CustomerEmailSubject = "Loan application for {0}";
@@ -275,14 +276,6 @@ namespace Bikewale.BAL.Finance
                     objDetails.LeadId = SubmitLead(objDetails, utmz, utma);
                 }
                 isMobileVerified = _mobileVerRespo.IsMobileVerified(objDetails.MobileNumber, objDetails.EmailId);
-
-                if (!isMobileVerified)
-                {
-                    var mobileVer = _mobileVerification.ProcessMobileVerification(objDetails.EmailId, Convert.ToString(objDetails.MobileNumber));
-                    SMSTypes st = new SMSTypes();
-                    st.SMSMobileVerification(Convert.ToString(objDetails.MobileNumber), string.Empty, mobileVer.CWICode, "PageUrl");
-                }
-
                 //Push lead to consumer where data is saved to manufaturerlead table and lead is further pushed to AutoBiz
                 PushToLeadConsumerQueue(objDetails);
                 //Save Lead Details to Bikewale Capital First Lead Table with 
@@ -301,6 +294,14 @@ namespace Bikewale.BAL.Finance
                     {
                         NotifyCustomer(objDetails, ctResponse);
                     }
+
+                    if (!isMobileVerified && ctResponse.Status == SUCESS_UNVERIFIED_MOBILE)
+                    {
+                        var mobileVer = _mobileVerification.ProcessMobileVerification(objDetails.EmailId, Convert.ToString(objDetails.MobileNumber));
+                        SMSTypes st = new SMSTypes();
+                        st.SMSMobileVerification(Convert.ToString(objDetails.MobileNumber), string.Empty, mobileVer.CWICode, "PageUrl");
+                    }
+
                 }
                 else
                 {
@@ -308,6 +309,8 @@ namespace Bikewale.BAL.Finance
                     objId.Status = 0;
                     objId.Message = _leadStatusCollection[0];
                 }
+
+
 
                 objId.CpId = objDetails.Id;
                 objId.LeadId = objDetails.LeadId;
