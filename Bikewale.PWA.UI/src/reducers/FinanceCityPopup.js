@@ -6,7 +6,7 @@ import { getGlobalCity, setGlobalCity, IsGlobalCityPresent } from '../utils/popU
 
 var globalCity = getGlobalCity();
 var globalCityName = (globalCity && globalCity.name && globalCity.name.length > 0) ? globalCity.name : '';
-var globalCityId = (globalCity && globalCity.id > 0) ? globalCity.id : '';
+var globalCityId = (globalCity && globalCity.id > 0) ? globalCity.id : -1;
 var initialState = fromJS({
   isActive: false,
   Selection: {
@@ -16,7 +16,8 @@ var initialState = fromJS({
   },
   Popular: [],
   Other: [],
-  IsFetching: false
+  IsFetching: false,
+  RelatedModelId: -1
 });
 
 export function FinanceCityPopup(state = initialState, action) {
@@ -26,18 +27,10 @@ export function FinanceCityPopup(state = initialState, action) {
     const selectionObj = state.get('Selection').toJS();
     const currentCityId = selectionObj != null && selectionObj.cityId > 0 ? selectionObj.cityId : -1;
     switch (action.type) {
-        case financeCityPopup.FETCH_CITY_SUCCESS:
-        let selection = IsGlobalCityPresent(action.payload, currentCityId)?
-        state.get('Selection')
-        :
-        fromJS({
-          cityId: -1,
-          cityName: "",
-          userChange: false
-        });
-            return state.setIn(['Popular'], fromJS(action.payload.filter(item => item.popularityOrder < 7)))
-            .setIn(['Other'], fromJS(action.payload.filter(item => item.popularityOrder > 6)))
-            .setIn(['Selection'], selection).setIn(['IsFetching'], false);
+      case financeCityPopup.FETCH_CITY_SUCCESS:
+        return state.setIn(['Popular'], fromJS(action.payload.cities.filter(item => item.popularityOrder < 7)))
+          .setIn(['Other'], fromJS(action.payload.cities.filter(item => item.popularityOrder > 6)))
+          .setIn(['IsFetching'], false).setIn(['RelatedModelId'], action.payload.modelId);
 
       case financeCityPopup.OPEN_CITY_POPUP:
           return state.setIn(['isActive'], true);
@@ -61,7 +54,7 @@ export function FinanceCityPopup(state = initialState, action) {
         }));
 
       case financeCityPopup.FETCH_CITY_FAILURE:
-        return initialState.setIn(['IsFetching'], false);
+        return initialState.setIn(['IsFetching'], false).setIn(['RelatedModelId'], -1);
       
       case financeCityPopup.FETCH_CITY:
         return state.setIn(['IsFetching'], true);

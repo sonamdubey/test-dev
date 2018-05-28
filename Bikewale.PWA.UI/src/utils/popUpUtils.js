@@ -179,7 +179,7 @@ if(!isServer()) {
                     oldHash = oldUrl.split('#')[1];
                     closePopUp(oldHash);
                 };
-            })
+            });
 
             
         })    
@@ -274,6 +274,7 @@ function closePopUp(state) {
         default:
             if (window.popupCallback != undefined && window.popupCallback[state] != undefined) {
                 window.popupCallback[state]();
+                window.popupCallback[state] = undefined;
                 unlockScroll();
             }
             return true;
@@ -541,9 +542,10 @@ function openPopupWithHash(openingFunction, closingFunction, hash) {
     try {
         if (typeof openingFunction === "function" && typeof closingFunction === "function") {
             openingFunction();
-            window.location.hash = hash;
+            appendHash(hash);
             if (window.popupCallback == undefined) {
-                window.popupCallback = { hash: closingFunction };
+                window.popupCallback = {};
+                window.popupCallback[hash] = closingFunction;
             }
             else {
                 window.popupCallback[hash] = closingFunction;
@@ -565,7 +567,7 @@ function closePopupWithHash(closingFunction) {
                 let hash = (window.location.hash || "#").slice(1);
                 if (hash.length > 0) {
                     window.popupCallback[hash] = undefined;
-                    window.history.back();
+                    appendHash('');
                 }
             }
         }

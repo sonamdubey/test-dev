@@ -1,22 +1,21 @@
 import { financeCityPopup } from '../actionTypes/FinanceCityPopup'
 
 const getCity = (modelId) => {
-    return (dispatch) => {
-        var method = 'GET';
-        var url = '/api/pwa/cities/model/'+ modelId + '/';
-        var xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = function() {
-            if(xhr.readyState == 4 && xhr.status == 200) {
-                if(xhr.status == 200)
-                    dispatch({type:financeCityPopup.FETCH_CITY_SUCCESS,payload:JSON.parse(xhr.responseText)})
-                else
-                    dispatch({type:financeCityPopup.FETCH_CITY_FAILURE})
-            }
-
-        }
-        xhr.open('GET',url)
-        xhr.send();
-        dispatch({type:financeCityPopup.FETCH_CITY})
+  return (dispatch) => {
+    var method = 'GET';
+    var url = '/api/pwa/cities/model/' + modelId + '/';
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState == 4 && xhr.status == 200) {
+        if (xhr.status == 200)
+          dispatch({ type: financeCityPopup.FETCH_CITY_SUCCESS, payload: { cities: JSON.parse(xhr.responseText), modelId: modelId } })
+        else
+          dispatch({ type: financeCityPopup.FETCH_CITY_FAILURE })
+      }
+    }
+    xhr.open('GET', url)
+    xhr.send();
+    dispatch({ type: financeCityPopup.FETCH_CITY })
   }
 }
 

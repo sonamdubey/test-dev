@@ -6,7 +6,7 @@ import { openSelectBikePopup, closeSelectBikePopup, selectModel, fetchMakeModelL
 import { fetchCity, openSelectCityPopup, closeSelectCityPopup, selectCity } from '../../actionCreators/FinanceCityPopup'
 import { fetchSimilarBikes, updateSimilarBikesEmi  } from '../../actionCreators/SimilarBikesEMI'
 import { openEmiCalculator } from '../../actionCreators/emiDownPaymentSlider'
-
+import { initToast, clearToast } from '../../actionCreators/toast'
 const mapStateToProps = (store) => {
     return {
       selectBikePopup: store.getIn(['Finance', 'SelectBikePopup']),
@@ -32,7 +32,9 @@ const mapStateToProps = (store) => {
       fetchSimilarBikes: bindActionCreators(fetchSimilarBikes, dispatch),
       selectModel: bindActionCreators(selectModel, dispatch),
       updateSimilarBikesEmi: bindActionCreators(updateSimilarBikesEmi, dispatch),
-      openEmiCalculator: bindActionCreators(openEmiCalculator, dispatch)
+      openEmiCalculator: bindActionCreators(openEmiCalculator, dispatch),
+      initToast: bindActionCreators(initToast, dispatch),
+      clearToast: bindActionCreators(clearToast, dispatch)
     }
   }
   
