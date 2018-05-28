@@ -284,7 +284,7 @@ namespace Bikewale.Models.BikeModels
             string _makeName = _objData.ModelPageEntity.ModelDetails.MakeBase.MakeName;
             string _makeMaskingName = _objData.ModelPageEntity.ModelDetails.MakeBase.MaskingName;
 
-            BikeSeriesEntity taggedSeries = _bikeSeries.GetMakeSeries(_makeId, _cityId).Where(s => s.SeriesId == _seriesId).FirstOrDefault();
+            BikeSeriesEntity taggedSeries = _bikeSeries.GetMakeSeries(_makeId, _cityId).FirstOrDefault(s => s.SeriesId == _seriesId);
             
             _objData.SeriesSlug = new ModelSeriesSlugVM
             {
@@ -303,7 +303,8 @@ namespace Bikewale.Models.BikeModels
             {
                 if (_objData.ModelPageEntity != null && _objData.ModelPageEntity.ModelVersions != null && _objData.ModelPageEntity.ModelVersions.Any() && _objData.ModelPageEntity.AllPhotos != null && _objData.ModelPageEntity.AllPhotos.Any())
                 {
-                    string OriginalImagePath = _objData.ModelPageEntity.ModelVersions.FirstOrDefault(m => m.VersionId == _objData.VersionId).OriginalImagePath;
+                    BikeVersionMinSpecs taggedVersion = _objData.ModelPageEntity.ModelVersions.FirstOrDefault(m => m.VersionId == _objData.VersionId);
+                    string OriginalImagePath = taggedVersion != null ? taggedVersion.OriginalImagePath : null;
 
                     if (!String.IsNullOrEmpty(OriginalImagePath))
                     {
