@@ -121,6 +121,7 @@
         self.changeMobileNumber = function () {
             var mobileNumber = $('#otpNewNumber').val();
             if (validatePhoneNumber('#otpNewNumber')) {
+                $('#cfNum').val(mobileNumber);
                 self.submitDetails(mobileNumber);
             }
         };

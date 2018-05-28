@@ -59,9 +59,12 @@ namespace Bikewale.BAL.Finance
             _leadStatusCollection.Add(0, "Some error occured.");
             _leadStatusCollection.Add(1, "Mobile not verified.");
             _leadStatusCollection.Add(2, "Lead already exists.");
+            _leadStatusCollection.Add(3, "Your loan application has already got pre-approved. Please contact your Capital First executive (Details shared in email).");
+            _leadStatusCollection.Add(4, "Your loan application could not be processed online. Thanks for applying.");
+            _leadStatusCollection.Add(5, "Your loan application has already got pre-approved. Please contact your Capital First executive (Details shared in email).");
+            _leadStatusCollection.Add(6, "Your application is submitted successfully.");
             _leadStatusCollection.Add(8, "Some error occured while processing your request. Please try after sometime.");
             _leadStatusCollection.Add(12, "Currently, our finance partner does not provide loan in your area.");
-            _leadStatusCollection.Add(6, "Your application is submitted successfully.");
         }
 
         private CTFormResponse SendCustomerDetailsToCarTrade(PersonalDetails objDetails, ushort leadSource, bool isMobileVerified)
