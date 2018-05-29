@@ -17,53 +17,80 @@ import {
 import PieBreakUp from './EmiPieBreakup'
 import { formatToINR } from '../../utils/formatAmount'
 import { openEmiCalculator } from '../../actionCreators/emiDownPaymentSlider'
+
+function getEMICalulatorData(sliderDp, sliderInt, sliderTenure) {
+	const loanAmount = sliderDp.onRoadPrice - sliderDp.values[0];
+	const emiCalculation = EmiCalculation(loanAmount, sliderTenure.values[0], sliderInt.values[0])
+	const interestPayable = InterestPayable(loanAmount, sliderTenure.values[0], sliderInt.values[0])
+	const totalBikeCost = TotalPrincipalAmt(sliderDp.values[0], loanAmount, sliderTenure.values[0], sliderInt.values[0])
+
+	const downpayment = sliderDp.values[0]
+	const tenure = sliderTenure.values[0]
+
+	return {
+		emiCalculation,
+		interestPayable,
+		totalBikeCost,
+		downpayment,
+		tenure
+	}
+}
+
 export class EMICalculator extends React.Component {
 	constructor(props) {
 		super(props);
-		let loanAmount = this.props.sliderDp.onRoadPrice - this.props.sliderDp.values[0];
-		this.state = {
-			emiCalculation: EmiCalculation(loanAmount, this.props.sliderTenure.values[0], this.props.sliderInt.values[0]),
-			interestPayable: InterestPayable(loanAmount, this.props.sliderTenure.values[0], this.props.sliderInt.values[0]),
-			totalBikeCost: TotalPrincipalAmt(this.props.sliderDp.values[0], loanAmount, this.props.sliderTenure.values[0], this.props.sliderInt.values[0])
-		}
+		this.state = getEMICalulatorData(this.props.sliderDp, this.props.sliderInt, this.props.sliderTenure)
 	}
+
 	componentWillReceiveProps(nextProps) {
-		let loanAmount = nextProps.sliderDp.onRoadPrice - nextProps.sliderDp.values[0];
-		this.setState({
-			emiCalculation: EmiCalculation(loanAmount, nextProps.sliderTenure.values[0], nextProps.sliderInt.values[0]),
-			interestPayable: InterestPayable(loanAmount, nextProps.sliderTenure.values[0], nextProps.sliderInt.values[0]),
-			totalBikeCost: TotalPrincipalAmt(nextProps.sliderDp.values[0], loanAmount, nextProps.sliderTenure.values[0], nextProps.sliderInt.values[0]),
-		})
+		this.setState(getEMICalulatorData(nextProps.sliderDp, nextProps.sliderInt, nextProps.sliderTenure))
 	}
+
+	handleDownPaymentSliderDragMove = (sliderDp) => {
+		this.setState(getEMICalulatorData(sliderDp, this.props.sliderInt, this.props.sliderTenure))
+	}
+
+	handleTenureSliderDragMove = (sliderTenure) => {
+		this.setState(getEMICalulatorData(this.props.sliderDp, this.props.sliderInt, sliderTenure))
+	}
+
+	handleInterestSliderDragMove = (sliderInt) => {
+		this.setState(getEMICalulatorData(this.props.sliderDp, sliderInt, this.props.sliderTenure))
+	}
+
 	render() {
 		if (this.props.sliderDp.onRoadPrice === 0) {
 			return null;
 		}
-		let pieInterestAmt = (this.state.interestPayable);
-		let pieLoanAmt = (this.props.sliderDp.onRoadPrice - this.props.sliderDp.values[0]);
-		let pieTotalAmtPay = this.state.totalBikeCost;
-		let finalIntPayable = formatToINR(parseInt(this.state.InterestPayable));
-		let finalTotalPrincipalAmt = formatToINR(this.state.totalBikeCost);
+
+		const {
+			downpayment,
+			tenure,
+			emiCalculation,
+			interestPayable,
+			totalBikeCost
+		} = this.state
+
+		const {
+			sliderDp,
+			financeCitySelection,
+			IsFetching
+		} = this.props
+
+		let pieLoanAmt = sliderDp.onRoadPrice - sliderDp.values[0];
+		let finalIntPayable = formatToINR(parseInt(interestPayable));
+		let finalTotalPrincipalAmt = formatToINR(totalBikeCost);
+
 		let pieChartData = {
-			intStatePay: pieInterestAmt,
+			intStatePay: interestPayable,
 			pieLoanAmt: pieLoanAmt,
-			pieTotalPay: pieTotalAmtPay,
+			pieTotalPay: totalBikeCost,
 			interestPay: finalIntPayable,
 			TotalPrincipalAmt: finalTotalPrincipalAmt
 		}
-		let emiCalculationParam = {
-			emiCalculation: this.state.emiCalculation,
-			interestPayable: this.state.interestPayable,
-			totalPrincipalAmt: this.state.totalPrincipalAmt
-		}
-		let sliderData = {
-			sliderDpData: this.props.sliderDp,
-			sliderTenureData: this.props.sliderTenure,
-			sliderInterestData: this.props.sliderInt,
-			cityData: this.props.financeCitySelection
-		}
+
 		return (
-			this.props.IsFetching ?
+			IsFetching ?
 			<div className="emi-outer-container">
 			  <div className="emi-spinner-container">
 				<Spinner />
@@ -72,21 +99,32 @@ export class EMICalculator extends React.Component {
 			:
 			<div className="emi-outer-container">
 				<div className="emi-calci-container">
-					<EMICalculatorHeader sliderData={sliderData} emiCalculationParam={emiCalculationParam} />
+					<EMICalculatorHeader
+						emiCalculation={emiCalculation}
+						tenure={tenure}
+						onRoadPrice={sliderDp.onRoadPrice}
+						city={financeCitySelection}
+					/>
 					<div className="emi-slider-container">
-						<DownPaymentSlider />
+						<DownPaymentSlider onSliderDragMove={this.handleDownPaymentSliderDragMove} />
 						<div className="tenure-interest-slider">
 							<div className="slider-input-container tenure-unit">
-								<TenureSlider />
+								<TenureSlider onSliderDragMove={this.handleTenureSliderDragMove} />
 							</div>
 							<div className="slider-input-container interest-unit">
-								<InterestSlider />
+								<InterestSlider onSliderDragMove={this.handleInterestSliderDragMove} />
 							</div>
 						</div>
 					</div>
 				</div>
 				<div className="view-breakup-container">
-					<PieBreakUp ref="piebreakup" sliderData={sliderData} isAnimation={this.props.pieAnimate} emiCalculationParam={emiCalculationParam} pieChartData={pieChartData} />
+					<PieBreakUp
+						onRoadPrice={sliderDp.onRoadPrice}
+						downpayment={downpayment}
+						tenure={tenure}
+						interestPayable={interestPayable}
+						pieChartData={pieChartData}
+					/>
 				</div>
 			</div>
 		);
@@ -98,13 +136,11 @@ const mapStateToProps = (state) => {
 	const sliderTenure = state.getIn(['Emi', 'VehicleTenure', 'slider'])
 	const sliderInt = state.getIn(['Emi', 'VehicleInterest', 'slider'])
 	const financeCitySelection = state.getIn(['Finance', 'FinanceCityPopup', 'Selection'])
-	const selectBikePopup = state.getIn(['Finance', 'SelectBikePopup', 'Selection'])
 	return {
 		sliderDp,
 		sliderTenure,
 		sliderInt,
-		financeCitySelection,
-		selectBikePopup
+		financeCitySelection
 	}
 }
 

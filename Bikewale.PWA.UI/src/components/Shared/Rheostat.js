@@ -473,7 +473,7 @@ class Rheostat extends React.Component {
 		if (this.canMove(idx, positionPercent)) {
 			// update mouse positions
 			this.setState({ x, y })
-			if (this.props.onSliderDragMove) this.props.onSliderDragMove()
+			if (this.props.onSliderDragMove) this.props.onSliderDragMove(this.getPublicState())
 		}
 	}
 

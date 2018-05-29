@@ -25,6 +25,20 @@ class EMITenure  extends React.Component {
     updateTenureSlider({ values, userChange: true })
   }
   
+  handleSliderDragMove = ({ values }) => {
+    const {
+      slider,
+      onSliderDragMove
+    } = this.props
+
+    if(onSliderDragMove) {
+      onSliderDragMove({
+        ...slider,
+        values
+      })
+    }
+  }
+  
   componentWillReceiveProps(nextProps){
     if(nextProps.slider.userChange){
       if (gaObj != undefined) {
@@ -44,7 +58,8 @@ class EMITenure  extends React.Component {
       pitComponent: PitComponent,
       pitPoints: [slider.min, slider.max],
       handleTooltipLabel: formatToRound,
-      onChange: this.handleSliderChange
+      onChange: this.handleSliderChange,
+      onSliderDragMove: this.handleSliderDragMove
     }
     return (
         <div className="emi-calci-header slider-input-container">
