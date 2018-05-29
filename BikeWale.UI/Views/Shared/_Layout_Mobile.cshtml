@@ -234,12 +234,6 @@
                 if(Model.AdTags.Ad_300x250_Top){ @Html.Raw(GetAdSlot(19, Model.AdTags.AdPath, Model.AdTags.AdId))}
                 if(Model.AdTags.Ad_300x250_Middle){ @Html.Raw(GetAdSlot(20, Model.AdTags.AdPath, Model.AdTags.AdId))}
                 if(Model.AdTags.Ad_300x250_Bottom){ @Html.Raw(GetAdSlot(21, Model.AdTags.AdPath, Model.AdTags.AdId))}
-                if (Model.AdTags.Ad_320x50Top)
-                {
-                    // Ad Slot below Image carousel on Model Images page to be refreshed every 3 swipes.
-                    var id = String.Format("div-gpt-ad-{0}-{1}", Model.AdTags.AdId, 0);
-                    <text>adsToRefresh['@id'] = @Html.Raw(GetAdSlot(1, Model.AdTags.AdPath, Model.AdTags.AdId))</text>
-                }
             }
                 
 
@@ -355,6 +349,7 @@ else if (Model.AdTags.ShowInnovationBannerMobile)
             </div>
         </section>
     }
+    
     @if (Model.BreadcrumbList != null && Model.BreadcrumbList.BreadcrumListItem != null && Model.BreadcrumbList.BreadcrumListItem.Any())
     {
         <section>
