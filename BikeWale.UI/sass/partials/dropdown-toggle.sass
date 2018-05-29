@@ -1,0 +1,148 @@
+﻿@import '../mixins/index'
+@import '../base/variables'
+@import '../utils/index'
+@import '../mixins/icons'
+@import '../mixins/text'
+
+@mixin dropdown-toggle($color: 'light-grey')
+  @include dropdown-toggle-tab
+  @include dropdown-toggle-list($list-color:  'aluminium-2', $list-hover-color:  'default', $desktop: true)
+  @include dropdown-toggle-inside-list($list-color:  'aluminium-2', $feature-list-color: 'nobel' )
+  @include dropdown-toggle-feature
+  @include dropdown-toggle-active($active-boxshadow-color: 'border-dark')
+  .dropdown-toggle
+    @include clearfix
+    color: color($color)
+    font-size: 14px
+    line-height: 19px
+    position: relative
+
+@mixin dropdown-toggle-tab
+  .dropdown-toggle__tabs
+    @include vendor-prefix(box-shadow, 1px 1px 1px color('border-dark'))
+    padding-left: 0
+    padding-right: 0
+
+    > *
+      padding: 5px 20px
+
+  .dropdown-toggle__menu-tab
+    @include flexbox
+    @include align-items(flex-start)
+    @include justify-content(center)
+    @include flex-direction(column)
+    cursor: pointer
+    border-right: solid 1px color('border-dark')
+    height: 54px
+    position: relative
+
+    &:after
+      @include dropdown-icon
+      @include vendor-prefix(transition, all .3s)
+      content: ""
+      display: inline-block
+      width: 10px
+      height: 5px
+      position: absolute
+      right: 20px
+      top: 50%
+
+    .dropdown-toggle__title
+      font-size: 12px
+
+    .dropdown-toggle__selected-value
+      @include text-truncate($width: '90%')
+      color: color('default')
+      font-weight: $font-semibold
+
+@mixin dropdown-toggle-list($list-color: 'aluminium-2', $list-hover-color: 'default', $desktop: false)
+  .dropdown-toggle__submenu
+    @include clearfix
+    @include vendor-prefix(box-shadow, 1px 1px 1px color('border-dark'))
+    display: none
+    position: absolute
+    z-index: 9
+    width: 100%
+    top: 104%
+    left: 0
+    list-style: none
+    padding-left: 16px
+    padding-right: 16px
+    background-color: color('white')
+
+    .dropdown-toggle__submenu-list
+      border-bottom: 1px solid color('whisper')
+      vertical-align: middle
+      padding-top: 15px
+      padding-bottom: 15px
+      color: color($list-color)
+      font-weight: $font-semibold
+
+      &:hover
+        color: color($list-hover-color)
+
+      &:last-child
+        border-bottom: 1px solid transparent
+
+  @if $desktop
+    @media screen and (min-width: 1024px)
+      .dropdown-toggle__submenu
+        max-height: 272px
+        overflow-y: scroll
+
+@mixin dropdown-toggle-inside-list($list-color:  'aluminium-2', $feature-list-color: 'nobel' )
+  .dropdown-toggle__detail
+    @include text-truncate($width: '96%')
+
+    .dropdown-toggle__detail-list
+      font-weight: normal
+      border: none
+      font-size: 12px
+      line-height: 17px
+      display: inline-block
+      vertical-align: middle
+      padding: 7px 7px 0 10px
+      color: color($feature-list-color)
+      position: relative
+
+      &:before
+        @include vendor-prefix(border-radius, 50%)
+        content: ''
+        width: 4px
+        height: 4px
+        background-color: color($feature-list-color)
+        position: absolute
+        top: 56%
+        left: 0
+
+      &:hover
+        color: color($list-color)
+
+      &:hover:before
+        background-color: color($list-color)
+
+@mixin dropdown-toggle-feature
+  .dropdown-toggle__featurehead
+    @include clearfix
+    width: 100%
+
+    .dropdown-toggle__feature
+      @include text-truncate($width: '60%')
+      float: left
+      cursor: pointer
+
+    .dropdown-toggle__feature-price
+      float: right
+      text-align: right
+
+@mixin dropdown-toggle-active($active-boxshadow-color: 'border-dark')
+  .dropdown-toggle--active
+    display: block
+
+    .dropdown-toggle__menu-tab
+      @include vendor-prefix(box-shadow, 2px 0px 15px 1px color($active-boxshadow-color))
+
+      &:after
+        @include vendor-prefix(transform, rotate(180deg))
+
+@include dropdown-toggle($color: 'light-grey' )

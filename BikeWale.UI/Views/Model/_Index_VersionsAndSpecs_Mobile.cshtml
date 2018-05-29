@@ -38,12 +38,13 @@
         <div class="clear"></div>
     </div>*@
 
-    <div class="version-dropdown card-bottom-margin content-box-shadow ">
-        <div class="grid-12 version-dropdown__tabs">
-            <div class="grid-6 version-dropdown__version-tab" id="version">
-                <p class="version-dropdown__title">Version</p>
+    <div class="dropdown-toggle card-bottom-margin content-box-shadow ">
+        <div class="grid-12 dropdown-toggle__tabs">
+            <div class="grid-6 dropdown-toggle__menu-tab" id="dropdown-toggle__main-menu">
+                <p class="dropdown-toggle__title">Version</p>
+                <span class="dropdown-toggle__selected-value"></span>
             </div>
-            <div class="grid-6 version-dropdown__locat-tab">
+            <div class="grid-6 padding-left20">
                 <p class="font12 text-light-grey">Location:</p>
                 @if (!Model.IsDiscontinuedBike)
                 {
@@ -62,68 +63,68 @@
         </div>
 
 
-    <ul class="version-dropdown__submenu ">
-        <li class="version-dropdown__list">
-            <div class="version-dropdown__featurehead ">
-                <div class="version-dropdown__feature">
-                    Electric Start Allow
+        <ul class="dropdown-toggle__submenu" >
+            <li class="dropdown-toggle__submenu-list">
+                <div class="dropdown-toggle__featurehead ">
+                    <div class="dropdown-toggle__feature">
+                        Electric Start Allow
+                    </div>
+                    <div class="dropdown-toggle__feature-price">
+                        ₹ 5,580,768
+                    </div>
                 </div>
-                <div class="version-dropdown__feature-price">
-                    ₹ 5,580,768
+                <ul class="dropdown-toggle__detail">
+                    <li class="dropdown-toggle__detail-list">Drum</li>
+                    <li class="dropdown-toggle__detail-list">ABS</li>
+                    <li class="dropdown-toggle__detail-list">Alloy</li>
+                    <li class="dropdown-toggle__detail-list">Disk Breaks</li>
+                </ul>
+            </li>
+            <li class="dropdown-toggle__submenu-list">
+                <div class="dropdown-toggle__featurehead ">
+                    <div class="dropdown-toggle__feature">
+                        Digital dashboard, Self Start, Allow Electric Start
+                    </div>
+                    <div class="dropdown-toggle__feature-price">
+                        ₹ 580,768
+                    </div>
                 </div>
-            </div>
-            <ul class="version-dropdown__detail">
-                <li>Drum</li>
-                <li>ABS</li>
-                <li>Alloy</li>
-                <li>Disk Breaks</li>
-            </ul>
-        </li>
-        <li class="version-dropdown__list">
-            <div class="version-dropdown__featurehead ">
-                <div class="version-dropdown__feature">
-                    Digital dashboard, Self Start, Allow Electric Start
-                </div>
-                <div class="version-dropdown__feature-price">
-                    ₹ 580,768
-                </div>
-            </div>
 
-            <ul class="version-dropdown__detail">
-                <li>Electric Start</li>
-                <li>Drum Breaks</li>
-                <li>Alloy Wheels</li>
-                <li>ABS</li>
-            </ul>
-        </li>
-        <li class="version-dropdown__list">
-            <div class="version-dropdown__featurehead ">
-                <div class="version-dropdown__feature">
-                    Electric Start Allow
+                <ul class="dropdown-toggle__detail">
+                    <li class="dropdown-toggle__detail-list">Electric Start</li>
+                    <li class="dropdown-toggle__detail-list">Drum Breaks</li>
+                    <li class="dropdown-toggle__detail-list">Alloy Wheels</li>
+                    <li class="dropdown-toggle__detail-list">ABS</li>
+                </ul>
+            </li>
+            <li class="dropdown-toggle__submenu-list">
+                <div class="dropdown-toggle__featurehead ">
+                    <div class="dropdown-toggle__feature">
+                        Electric Start Allow
+                    </div>
+                    <div class="dropdown-toggle__feature-price">
+                        ₹ 80,768
+                    </div>
                 </div>
-                <div class="version-dropdown__feature-price">
-                    ₹ 80,768
-                </div>
-            </div>
 
-            <ul class="version-dropdown__detail">
-                <li>Drum</li>
-                <li>ABS</li>
-                <li>Alloy</li>
-                <li>Disk Breaks</li>
-            </ul>
-        </li>
-        <li class="version-dropdown__list">
-            <div class="version-dropdown__featurehead ">
-                <div class="version-dropdown__feature">
-                    Electric Drum Allow Breaks
+                <ul class="dropdown-toggle__detail">
+                    <li class="dropdown-toggle__detail-list">Drum</li>
+                    <li class="dropdown-toggle__detail-list">ABS</li>
+                    <li class="dropdown-toggle__detail-list">Alloy</li>
+                    <li class="dropdown-toggle__detail-list">Disk Breaks</li>
+                </ul>
+            </li>
+            <li class="dropdown-toggle__submenu-list">
+                <div class="dropdown-toggle__featurehead ">
+                    <div class="dropdown-toggle__feature">
+                        Electric Drum Allow Breaks
+                    </div>
+                    <div class="dropdown-toggle__feature-price">
+                        ₹ 5,580,768
+                    </div>
                 </div>
-                <div class="version-dropdown__feature-price">
-                    ₹ 5,580,768
-                </div>
-            </div>
-        </li>
-    </ul>
+            </li>
+        </ul>
 
     </div>
 }
