@@ -13,9 +13,18 @@ class PieBreakUp  extends React.Component {
 		super(props)
 	}
 	render() {
-		const loanAmount = parseFloat(this.props.sliderData.sliderDpData.onRoadPrice - this.props.sliderData.sliderDpData.values[0])
-		let pricipalLoan = formatToINR(loanAmount);
-		const pieInterestAmt = formatToINR(this.props.emiCalculationParam.interestPayable)
+		const {
+			onRoadPrice,
+			downpayment,
+			interestPayable,
+			tenure,
+			pieChartData
+		} = this.props
+
+		const loanAmount = parseFloat(onRoadPrice - downpayment)
+		const pricipalLoan = formatToINR(loanAmount);
+		const pieInterestAmt = formatToINR(interestPayable)
+
 		return (
 				<div>          
 					<div className="pie-breakup-data">
@@ -32,13 +41,13 @@ class PieBreakUp  extends React.Component {
 							<div>
 									<div className="pie-breakup__title">
 										<span className="pie-breakup__bullet-tenure"></span> Tenure
-										<span className="pie-breakup_tenure">{parseInt(this.props.sliderData.sliderTenureData.values[0])} Months</span>
-									</div>	
+										<span className="pie-breakup_tenure">{parseInt(tenure)} Months</span>
+									</div>
 									
 							</div>
 					</div>
 					<div className="pie-breakup-graph">
-							<EmiPieChart pieChartData={this.props.pieChartData} />
+							<EmiPieChart pieChartData={pieChartData} />
 					</div>
 			</div>
 		)

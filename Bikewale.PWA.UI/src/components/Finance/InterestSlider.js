@@ -24,6 +24,20 @@ class EMIInterest  extends React.Component {
 		} = this.props
 		updateInterestSlider({ values, userChange: true })
 	}
+
+	handleSliderDragMove = ({ values }) => {
+		const {
+			slider,
+			onSliderDragMove
+		} = this.props
+
+		if(onSliderDragMove) {
+			onSliderDragMove({
+				...slider,
+				values
+			})
+		}
+	}
 	
 	componentWillReceiveProps(nextProps){
 		if(nextProps.slider.userChange){
@@ -31,7 +45,7 @@ class EMIInterest  extends React.Component {
 			triggerGA(gaObj.name, 'Interacted_With_EMI_Calculator', 'Interest Slider'); 
 		  }
 		}
-	  }
+	}
 
 	handleOpen = () => {
 		if (gaObj != undefined) {
@@ -52,7 +66,8 @@ class EMIInterest  extends React.Component {
 			className: 'slider-rheostat',
 			pitComponent: PitComponent,
 			pitPoints: [slider.min, slider.max],
-			onChange: this.handleSliderChange
+			onChange: this.handleSliderChange,
+			onSliderDragMove: this.handleSliderDragMove
 		}
 		return (
 				<div className="emi-calci-header slider-input-container">

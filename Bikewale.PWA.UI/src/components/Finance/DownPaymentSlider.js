@@ -18,6 +18,9 @@ class EMIDownPayment extends React.Component {
   constructor(props) {
     super(props);
     
+    this.state = {
+      values: this.props.slider.values
+    }    
   }
   componentWillReceiveProps(nextProps){
     if(nextProps.slider.userChange){
@@ -34,6 +37,24 @@ class EMIDownPayment extends React.Component {
     updateDownPaymentSlider({ values, userChange: true })
   }
   
+  handleSliderDragMove = ({ values }) => {
+    const {
+      slider,
+      onSliderDragMove
+    } = this.props
+
+    this.setState({
+      values
+    })
+
+    if(onSliderDragMove) {
+      onSliderDragMove({
+        ...slider,
+        values
+      })
+    }
+  }
+  
   handleOpen = () => {
     if (gaObj != undefined) {
       triggerGA(gaObj.name, 'ToolTip_Clicked', 'Down Payment'); 
@@ -41,7 +62,7 @@ class EMIDownPayment extends React.Component {
   }
 
   updateLoanText() {
-    let loanAmountUpdated = this.props.slider.onRoadPrice - this.props.slider.values[0];
+    let loanAmountUpdated = this.props.slider.onRoadPrice - this.state.values[0];
     return loanAmountUpdated
   }
 
@@ -56,6 +77,7 @@ class EMIDownPayment extends React.Component {
       pitComponent: PitComponent,
       pitPoints: [slider.min, slider.max],
       onChange: this.handleSliderChange.bind(this),
+      onSliderDragMove: this.handleSliderDragMove,
       handleTooltipLabel: formatToINR
     }
     let vehicleLoanAmount = formatToINR(this.updateLoanText());
