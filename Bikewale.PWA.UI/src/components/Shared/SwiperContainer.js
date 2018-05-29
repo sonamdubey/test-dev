@@ -61,7 +61,14 @@ class SwiperContainer extends React.Component {
   render() {
     if(this.props.data.IsFetching)
     {
-      return <SpinnerRelative />
+      return (
+        <div className="carousel__container section-bottom-margin">
+        <div className="carousel__title">
+          <h2 className="carousel-title__label">{this.props.heading}</h2>
+        </div>
+        <SpinnerRelative />
+        </div>
+      )
     }
     return (
       <div className="carousel__container section-bottom-margin">
