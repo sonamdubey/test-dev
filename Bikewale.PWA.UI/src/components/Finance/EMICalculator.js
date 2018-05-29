@@ -64,8 +64,10 @@ export class EMICalculator extends React.Component {
 		}
 		return (
 			this.props.IsFetching ?
-			<div className="emi-spinner-container">
+			<div className="emi-outer-container">
+			  <div className="emi-spinner-container">
 				<Spinner />
+		      </div>
 			</div>
 			:
 			<div className="emi-outer-container">
