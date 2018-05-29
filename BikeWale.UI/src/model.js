@@ -309,7 +309,7 @@ docReady(function () {
         $(function () {
             var carouselStage = $('.carousel-stage').jcarousel();
             var carouselNavigation = $('.carousel-navigation').jcarousel();
-
+            var prev = -1;
             carouselNavigation.jcarousel('items').each(function () {
                 var item = $(this);
                 var target = connector(item, carouselStage);
@@ -318,7 +318,10 @@ docReady(function () {
                         .on('jcarouselcontrol:active', function () {
                             carouselNavigation.jcarousel('scrollIntoView', this);
 
-                            logBhrighuForImage(item.attr("data-imgid"), item.attr("data-imgcat"), item.attr("data-imgtype"));
+                            if (prev != -1) {
+                                logBhrighuForImage(item.attr("data-imgid"), item.attr("data-imgcat"), item.attr("data-imgtype"));                               
+                            }
+                            prev = item.index();
                             item.addClass('active');
 
                         })

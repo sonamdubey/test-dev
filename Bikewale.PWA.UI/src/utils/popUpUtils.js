@@ -1,6 +1,7 @@
-
+import {extractPageCategoryFromURL} from '../components/News/NewsCommon'
 import {isServer} from './commonUtils'
 import { unlockScroll, lockScroll } from './scrollLock';
+import {setPQSourceId} from './analyticsUtils'
 var topCount = "5";
 function closeGlobalSearchPopUp() {
     hideElement(document.getElementById('global-search-popup'));
@@ -380,6 +381,42 @@ function checkCookies() {
     }
 }
 
+function setDataforPopularBikesWidget(event, item) {
+    checkCookies();
+    
+    var pageCategory = extractPageCategoryFromURL();
+    var pageName = (gaObj != null) ? gaObj.name : "";
+    var isDetail =  pageName.indexOf("List") == -1;
+    var pqSourcePage =  pageCategory == "news" ? (isDetail ? "Mobile_News_Details_Page" : "Mobile_News_Listing_page") : (isDetail ? "Mobile_ExpertReviews_Details_Page" : "Mobile_ExpertReviews_Listing_Page");
+    onRoadPricePopupDataObject.SelectedModelId = (item.ModelId != null && item.ModelId != undefined) ? item.ModelId : 0;
+    onRoadPricePopupDataObject.SelectedCity = (onCookieObj.PQCitySelectedId > 0)?{ 'id': onCookieObj.PQCitySelectedId, 'name': onCookieObj.PQCitySelectedName }:null;
+    onRoadPricePopupDataObject.SelectedArea = (onCookieObj.PQAreaSelectedId > 0)?{ 'id': onCookieObj.PQAreaSelectedId, 'name': onCookieObj.PQAreaSelectedName }:null;
+    onRoadPricePopupDataObject.SelectedCityId = onCookieObj.PQCitySelectedId || 0;
+    onRoadPricePopupDataObject.SelectedAreaId = onCookieObj.PQAreaSelectedId || 0;
+    onRoadPricePopupDataObject.BookingCities = [],
+    onRoadPricePopupDataObject.BookingAreas = [],
+    onRoadPricePopupDataObject.ModelName = item.ModelName != null && item.ModelName!=null ? item.ModelName : "";
+    onRoadPricePopupDataObject.MakeName = item.MakeName != null && item.MakeName!=null ? item.MakeName : "";
+    onRoadPricePopupDataObject.PageCatId = (gaObj != null) ? gaObj.id : 0;
+    onRoadPricePopupDataObject.IsPersistence = false;
+    onRoadPricePopupDataObject.IsReload = false;
+    onRoadPricePopupDataObject.PageSourceId = setPQSourceId(pqSourcePage); 
+    if(onRoadPricePopupDataObject.SelectedCityId == 0 )
+        onRoadPricePopupDataObject.LoadingText = 'Fetching Cities...';
+    if(onRoadPricePopupDataObject.IsPersistence )
+        onRoadPricePopupDataObject.LoadingText = 'Loading locations...';
+   
+    showElement(document.getElementById('popupWrapper'));
+    showElement(document.getElementById('popupContent'));
+    document.getElementById('popupWrapper').classList.add('loader-active');
+    
+    if(window.location.hash != '') {
+        window.location.hash ='';
+    }
+    appendHash("onRoadPrice");
+   
+}
+
 function setDataForPriceQuotePopup(event,bikeObj) {
     checkCookies();
     var item = bikeObj;
@@ -578,9 +615,9 @@ function closePopupWithHash(closingFunction) {
 }
 
 
+
 var globalCityCache = new Object(); // variable for global city autocomplete
 var globalSearchCache = new Object(); // variable for global search autocomplete
-var pqSourceId = "38";
 var globalSearchStatus = {
 	RESET : 0,
 	ERROR : 1,
@@ -604,7 +641,6 @@ module.exports = {
 	showHideMatchError,
 	globalCityCache,
 	globalSearchCache,
-	pqSourceId,
 	getGlobalCity,
 	highlightText,
 	getStrippedTerm,
@@ -621,6 +657,7 @@ module.exports = {
     resetOnRoadPricePopup,
     closeCityAreaSelectionPopup,
     openCityAreaSelectionPopup,
+    setDataforPopularBikesWidget,
     setGlobalCity,
     IsGlobalCityPresent,
     openPopupWithHash,

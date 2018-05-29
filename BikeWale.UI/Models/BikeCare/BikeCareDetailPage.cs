@@ -3,6 +3,7 @@ using Bikewale.Entities.BikeData;
 using Bikewale.Entities.EditorialWidgets;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
+using Bikewale.Entities.PriceQuote;
 using Bikewale.Entities.Schema;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.UpComing;
@@ -316,6 +317,8 @@ namespace Bikewale.Models
         /// <summary>
         /// Created by  :   Sumit Kate on 25 Apr 2018
         /// Description :   Set basic flags to get the editorial widgets
+        /// Modified By : Deepak Israni on 8 May 2018
+        /// Description : Added flag for show on road price button and added GA related information.
         /// </summary>
         /// <param name="objData"></param>
         private void SetAdditionalVariables(BikeCareDetailPageVM objData)
@@ -330,7 +333,13 @@ namespace Bikewale.Models
                 BodyStyle = bodyStyle,
                 CityId = CityId,
                 Make = objData.Make,
-                Series = bikeSeriesEntityBase
+                Series = bikeSeriesEntityBase,
+                ShowOnRoadPriceButton = true,
+                GAInfo = new EditorialGAEntity
+                {
+                    CategoryId = EditorialGACategories.Editorial_Details_Page,
+                    PQSourceId = PQSourceEnum.Mobile_BikeCare_Details_Page
+                }
             };
             base.SetAdditionalData(editorialWidgetData);
         }

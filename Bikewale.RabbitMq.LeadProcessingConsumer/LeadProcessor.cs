@@ -8,6 +8,8 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Configuration;
 using System.IO;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Runtime.Serialization.Formatters.Binary;
 
 namespace Bikewale.RabbitMq.LeadProcessingConsumer
@@ -279,7 +281,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                     string jsonInquiryDetails = String.Format("{{ \"CustomerName\": \"{0}\", \"CustomerMobile\":\"{1}\", \"CustomerEmail\":\"{2}\", \"VersionId\":\"{3}\", \"CityId\":\"{4}\", \"CampaignId\":\"{5}\", \"InquirySourceId\":\"39\", \"Eagerness\":\"1\",\"ApplicationId\":\"2\"}}", priceQuote.CustomerName, priceQuote.CustomerMobile, priceQuote.CustomerEmail, priceQuote.VersionId, priceQuote.CityId, priceQuote.CampaignId);
                     Logs.WriteInfoLog(String.Format("Dealer Lead : CampaignId = {0}", priceQuote.CampaignId));
 
-                    return (_leadProcessor.PushLeadToAutoBiz(pqId, priceQuote.DealerId, (uint)priceQuote.CampaignId, jsonInquiryDetails, iteration, LeadTypes.Dealer, 0));
+                    return (_leadProcessor.PushLeadToAutoBiz(pqId, priceQuote.DealerId, (uint)priceQuote.CampaignId, jsonInquiryDetails, iteration, LeadTypes.Dealer, 0, priceQuote));
 
                 }
             }
@@ -359,7 +361,9 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
         private readonly uint _hondaGaddiId, _bajajFinanceId, _RoyalEnfieldId, _TataCapitalId, _TvsId;
         private readonly bool _isTataCapitalAPIStarted = false;
         private readonly IDictionary<uint, IManufacturerLeadHandler> handlers;
-
+        private readonly string _BWOprApiHostUrl;
+        private readonly string _dealerCacheClearAPI = "/api/cache/4/clear/";
+        private readonly string _dealerCacheClearAPIUrl;
         /// <summary>
         /// Created by  :   Sumit Kate on 24 Feb 2017
         /// Description :   Type Initializer
@@ -371,14 +375,17 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
             _bajajFinanceAPIUrl = ConfigurationManager.AppSettings["BajajFinanceAPIUrl"];
             _tataCapitalAPIUrl = ConfigurationManager.AppSettings["TataCapitalAPIUrl"];
             _TvsApiUrl = ConfigurationManager.AppSettings["TvsApiUrl"];
+            _BWOprApiHostUrl = ConfigurationManager.AppSettings["BwOprApiHostUrl"];
 
+            _dealerCacheClearAPIUrl = String.Concat(_BWOprApiHostUrl, _dealerCacheClearAPI);
             uint.TryParse(ConfigurationManager.AppSettings["HondaGaddiId"], out _hondaGaddiId);
             uint.TryParse(ConfigurationManager.AppSettings["BajajFinanceId"], out _bajajFinanceId);
             uint.TryParse(ConfigurationManager.AppSettings["RoyalEnfieldId"], out _RoyalEnfieldId);
             uint.TryParse(ConfigurationManager.AppSettings["TataCapitalId"], out _TataCapitalId);
             uint.TryParse(ConfigurationManager.AppSettings["TvsId"], out _TvsId);
             Boolean.TryParse(ConfigurationManager.AppSettings["IsTataCapitalAPIStarted"], out _isTataCapitalAPIStarted);
-            #region Manufacturer Lead Handlers. Please do not change this 
+
+            #region Manufacturer Lead Handlers. Please do not change this
             handlers = new Dictionary<uint, IManufacturerLeadHandler>();
             //This handler processes all manufacturer lead if no specific handler is defined
             //Please do not remove this handler
@@ -403,7 +410,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
         /// <param name="retryAttempt"></param>
         /// <param name="leadType"></param>
         /// <returns></returns>
-        public bool PushLeadToAutoBiz(uint pqId, uint dealerId, uint campaignId, string inquiryJson, ushort retryAttempt, LeadTypes leadType, uint leadId)
+        public bool PushLeadToAutoBiz(uint pqId, uint dealerId, uint campaignId, string inquiryJson, ushort retryAttempt, LeadTypes leadType, uint leadId, PriceQuoteParametersEntity priceQuote)
         {
             bool isSuccess = false;
             string abInquiryId = string.Empty;
@@ -424,6 +431,10 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                     if (campaignId > 0)
                     {
                         isSuccess = _repository.IsDealerDailyLeadLimitExceeds(campaignId);
+                        if (isSuccess)
+                        {
+                            ClearBikeWaleCache(priceQuote);
+                        }
                         isSuccess = _repository.UpdateDealerDailyLeadCount(campaignId, abInqId);
                         isSuccess = _repository.PushedToAB(pqId, abInqId, retryAttempt);
                     }
@@ -435,6 +446,48 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                 Logs.WriteErrorLog(string.Format("Ex Message : {1}. PushToAb failed Data : {0}, pqId : {2},dealerId : {3}, campaignId : {4}", inquiryJson, ex.Message, pqId, dealerId, campaignId));
             }
             return isSuccess;
+        }
+
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 15 May 2018
+        /// Description :   Clear memcache 
+        /// </summary>
+        /// <param name="priceQuote"></param>
+        private void ClearBikeWaleCache(PriceQuoteParametersEntity priceQuote)
+        {
+            try
+            {
+                bool isCacheCleared = false;
+                using (HttpClient _httpClient = new HttpClient())
+                {
+                    string jsonString = String.Format(@"{{ 'dealerId' : '{0}' , 'cityId' : '{1}' }}", priceQuote.DealerId, priceQuote.CityId);
+                    HttpContent httpContent = new StringContent(jsonString);
+                    httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+                    Logs.WriteInfoLog(String.Format("ClearBikeWaleCache({0})", Newtonsoft.Json.JsonConvert.SerializeObject(priceQuote)));
+
+                    using (HttpResponseMessage _response = _httpClient.PostAsync(_dealerCacheClearAPIUrl, httpContent).Result)
+                    {
+                        if (_response.IsSuccessStatusCode)
+                        {
+                            if (_response.StatusCode == System.Net.HttpStatusCode.OK) //Check 200 OK Status        
+                            {
+                                isCacheCleared = true;
+                                Logs.WriteInfoLog("Cache cleared successfully");
+                            }
+                        }
+                    }
+                    if (!isCacheCleared)
+                    {
+                        Logs.WriteInfoLog("Failed to clear the cache");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logs.WriteErrorLog(String.Format("ClearBikeWaleCache({0})", Newtonsoft.Json.JsonConvert.SerializeObject(priceQuote)));
+            }
         }
 
         /// <summary>

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using Bikewale.Entities.Location;
+using System.Linq;
 namespace Bikewale.Models
 {
     /// <summary>
@@ -8,6 +9,8 @@ namespace Bikewale.Models
     /// Summary     : Replaced ComparisonMinWidgetVM with new PopularComparisonsVM (carousel)
     /// Modified by : Aditi Srivastava on 15 June 2017
     /// Summary     : Added editorial widgets (news, expert reviews, videos)
+    /// Modified by : Sanskar Gupta on 18 May 2018
+    /// Description : Added `GlobalCityAreaEntity City`
     /// </summary>
     public class ScootersIndexPageVM : ModelBase
     {
@@ -27,5 +30,6 @@ namespace Bikewale.Models
         public bool IsNewsActive { get; set; }
         public bool IsExpertReviewActive { get; set; }
         public bool IsVideoActive { get; set; }
+        public GlobalCityAreaEntity City { get; set; }
     }
 }

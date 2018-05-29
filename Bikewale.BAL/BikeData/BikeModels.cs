@@ -354,13 +354,19 @@ namespace Bikewale.BAL.BikeData
             if (isCityLogicPresent)
             {
                 if (ObjData.CityId == 0)
+                {
                     objList = _modelCacheRepository.GetAdPromotedBikeWithOutCity(ObjData);
+                }
                 else
+                {
                     objList = _modelCacheRepository.GetAdPromotedBike(ObjData);
+                }
             }
 
             else
+            { 
                 objList = _modelCacheRepository.GetAdPromotedBikeWithOutCity(ObjData);
+            }
 
             if (objList != null)
             {
@@ -378,17 +384,17 @@ namespace Bikewale.BAL.BikeData
             }
             return objList;
         }
-        public IEnumerable<MostPopularBikesBase> GetAdPromoteBikeFilters(IEnumerable<MostPopularBikesBase> promotedBikes, IEnumerable<MostPopularBikesBase> MostPopularBikes)
+        public IEnumerable<MostPopularBikesBase> GetAdPromoteBikeFilters(IEnumerable<MostPopularBikesBase> promotedBikes, IEnumerable<MostPopularBikesBase> popularBikes)
         {
             try
             {
-                if (MostPopularBikes != null)
+                if (popularBikes != null)
                 {
-                    IEnumerable<MostPopularBikesBase> results = promotedBikes.Except(MostPopularBikes.Take(5), new MostPopularBikesBaseComparer());
+                    IEnumerable<MostPopularBikesBase> results = promotedBikes.Except(popularBikes.Take(5), new MostPopularBikesBaseComparer());
 
                     if (results != null && results.Any())
                     {
-                        var bikes = MostPopularBikes.ToList();
+                        var bikes = popularBikes.ToList();
 
                         var itemToRemove = bikes.SingleOrDefault(r => r.objModel.ModelId == results.ElementAt(0).objModel.ModelId);
                         bikes.Remove(itemToRemove);
@@ -400,7 +406,7 @@ namespace Bikewale.BAL.BikeData
                             bikes.Insert(1, results.ElementAt(1));
                         }
 
-                        MostPopularBikes = bikes;
+                        popularBikes = bikes;
 
                     }
                 }
@@ -409,7 +415,7 @@ namespace Bikewale.BAL.BikeData
             {
                 ErrorClass.LogError(ex, "Exception : Bikewale.BAL.BikeData.GetAdPromoteBikeFilters");
             }
-            return MostPopularBikes;
+            return popularBikes;
         }
 
         public Hashtable GetMaskingNames()
@@ -678,8 +684,10 @@ namespace Bikewale.BAL.BikeData
                     });
                 }
                 var galleryImages = GetBikeModelPhotoGallery(modelId);
-                if (galleryImages != null && galleryImages.Any())
+                if (modelImages != null && galleryImages != null && galleryImages.Any())
+                { 
                     modelImages.AddRange(galleryImages);
+                }
             }
             catch (Exception ex)
             {
@@ -790,7 +798,9 @@ namespace Bikewale.BAL.BikeData
                     imageWrapper.Models = modelsImages;
                     imageWrapper = SetNextPrevUrl(imageWrapper, pager);
                     if (imageWrapper.Models != null)
+                    { 
                         imageWrapper.RecordCount = imageWrapper.Models.Count();
+                    }
                 }
                 return imageWrapper;
             }
@@ -812,7 +822,9 @@ namespace Bikewale.BAL.BikeData
 
             pager.PageNo = (pager.PageNo == 0) ? 1 : pager.PageNo;
             if (pager.PageNo == pager.TotalPages)
+            {
                 imageWrapper.NextPageUrl = string.Empty;
+            }
             else
             {
                 //string apiUrlStrforNext = GetApiUrl(objFilters, 1);
@@ -820,10 +832,11 @@ namespace Bikewale.BAL.BikeData
             }
 
             if (pager.PageNo == 1 || pager.PageNo == 0)
+            {
                 imageWrapper.PrevPageUrl = string.Empty;
+            }
             else
             {
-
                 imageWrapper.PrevPageUrl = string.Format("{0}{1}?pagesize={2}", controllerurl, pager.PageNo - 1, pager.PageSize);
             }
             return imageWrapper;
@@ -1490,7 +1503,7 @@ namespace Bikewale.BAL.BikeData
                 switch (requestType)
                 {
                     case EnumBikeType.Scooters:
-                        if (makeId > 0 & cityId > 0)
+                        if (makeId > 0 && cityId > 0)
                             bikes = _modelCacheRepository.GetMostPopularScooters(topCount, makeId, cityId);
                         else if (makeId > 0)
                             bikes = _modelCacheRepository.GetMostPopularScooters(makeId);

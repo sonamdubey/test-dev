@@ -1,5 +1,6 @@
 ﻿using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.CMS.Photos;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
@@ -42,6 +43,9 @@ namespace Bikewale.Models.Photos
         public string RedirectUrl { get; internal set; }
         public bool IsMobile { get; set; }
 
+        private readonly String _adPath_Mobile = "/1017752/Bikewale_Mobile_Image";
+        private readonly String _adId_Mobile = "1516082576550";
+
         /// <summary>
         /// Created by  : Sushil Kumar on 30th Sep 2017
         /// Description :  To resolve depedencies for photo gallery page
@@ -78,6 +82,8 @@ namespace Bikewale.Models.Photos
         /// Description: Added BindMoreAboutScootersWidget
         /// Modified by : Snehal Dange on 29th Nov 2017
         /// Descritpion : Added ga for page
+        /// Modified by : Snehal Dange on 20th March 2018
+        /// Description: Added BindVideosAndColourImages()
         /// </summary>
         /// <param name="gridSize"></param>
         /// <param name="noOfGrid"></param>
@@ -101,10 +107,15 @@ namespace Bikewale.Models.Photos
                 BindPhotos();
                 BindPageWidgets();
                 SetPageMetas();
+                BindVideosAndColourImages(_objData);
                 if (_objData.BodyStyle.Equals((sbyte)EnumBikeBodyStyles.Scooter))
                 {
                     BindMoreAboutScootersWidget(_objData);
 
+                }
+                if (IsMobile)
+                {
+                    BindAdSlots(_objData);
                 }
                 _objData.Page = Entities.Pages.GAPages.Model_Images_Page;
 
@@ -535,6 +546,64 @@ namespace Bikewale.Models.Photos
             }
 
             return "";
+        }
+
+        /// <summary>
+        /// Created by : Snehal Dange on 19th March 2018
+        /// Description: Bind Videos and Colour tabs data
+        /// </summary>
+        /// <param name="objData"></param>
+        private void BindVideosAndColourImages(PhotosPageVM objData)
+        {
+            try
+            {
+                if (objData != null && objData.ModelImages != null && objData.ModelImages.Any())
+                {
+                    IEnumerable<ColorImageBaseEntity> colorImages = null;
+                    colorImages = objData.ModelImages.Where(m => m.ImageType.Equals(ImageBaseType.ModelColorImage));
+                    if (colorImages != null && colorImages.Any())
+                    {
+                        objData.ColorImagesCount = colorImages.Count();
+                    }
+                    objData.IsColorAvailable = (objData.ColorImagesCount > 0);
+                    objData.IsVideosAvailable = (objData.ModelVideos != null && objData.ModelVideos.Any());
+                }
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("Bikewale.Models.Photos.PhotosPage.BindVideosAndColourImages : ModelId {0}", _modelId));
+            }
+        }
+
+        /// <summary>
+        /// Created By : Deepak Israni on 22 May 2018
+        /// Description: To bind ad slots for lazy loading implementation on page.
+        /// </summary>
+        /// <param name="_objData"></param>
+        private void BindAdSlots(PhotosPageVM _objData)
+        {
+            AdTags adTagsObj = _objData.AdTags;
+            adTagsObj.AdId = _adId_Mobile;
+            adTagsObj.AdPath = _adPath_Mobile;
+            adTagsObj.Ad_320x50Top = true;
+            adTagsObj.Ad_300x250BTF = true;
+
+            IDictionary<string, AdSlotModel> ads = new Dictionary<string, AdSlotModel>();
+
+            NameValueCollection adInfo = new NameValueCollection();
+            adInfo["adId"] = _adId_Mobile;
+            adInfo["adPath"] = _adPath_Mobile;
+
+            if (adTagsObj.Ad_320x50Top)
+            {
+                ads.Add(String.Format("{0}-0", _adId_Mobile), GoogleAdsHelper.SetAdSlotProperties(adInfo, ViewSlotSize.ViewSlotSizes[AdSlotSize._320x50], 0, 320, AdSlotSize._320x50, "Top", true));
+            }
+            if (adTagsObj.Ad_300x250BTF)
+            {
+                ads.Add(String.Format("{0}-14", _adId_Mobile), GoogleAdsHelper.SetAdSlotProperties(adInfo, ViewSlotSize.ViewSlotSizes[AdSlotSize._300x250], 14, 300, AdSlotSize._300x250, "BTF"));
+            }
+
+            _objData.AdSlots = ads;
         }
 
     }

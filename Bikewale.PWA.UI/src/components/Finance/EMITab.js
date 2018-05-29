@@ -42,12 +42,12 @@ class EMITab extends React.Component {
   handleSelectBikeClick = () => {
     openPopupWithHash(this.props.openSelectBikePopup, this.props.closeSelectBikePopup, "SelectBike");
     if (this.state.currentSelectedBikeId <= 0) {
-      if (gaObj != undefined) {
+      if (typeof gaObj != 'undefined') {
         triggerGA(gaObj.name, 'Select_Bike_Clicked', '');
       }
     }
     else {
-      if (gaObj != undefined) {
+      if (typeof gaObj != 'undefined') {
         triggerGA(gaObj.name, 'Model_Change_Initiated', 'Existing Model - ' + this.props.selectBikePopup.Selection.modelName);
       }
     }
@@ -59,15 +59,17 @@ class EMITab extends React.Component {
     this.setState({ ...this.state, shouldscroll: true, currentSelectedBikeId: item.modelId });
     this.props.fetchSelectedBikeDetail(item.modelId);
     const currentCityId = this.getSelectedCityId(this.props);
-    this.props.fetchBikeVersionList(item.modelId, currentCityId);
-    this.props.fetchSimilarBikes({
-      modelId: item.modelId,
-      cityId: currentCityId,
-      downPayment: this.props.sliderDp.values[0],
-      tenure: this.props.sliderTenure.values[0],
-      rateOfInt: this.props.sliderInt.values[0]
-    })
-    this.state.isFetching = true
+    if (currentCityId > 0) {
+      this.props.fetchBikeVersionList(item.modelId, currentCityId);
+      this.props.fetchSimilarBikes({
+        modelId: item.modelId,
+        cityId: currentCityId,
+        downPayment: this.props.sliderDp.values[0],
+        tenure: this.props.sliderTenure.values[0],
+        rateOfInt: this.props.sliderInt.values[0]
+      })
+      this.state.isFetching = true
+    }
   }
 
   handleSelectCityClick = () => {
@@ -100,9 +102,9 @@ class EMITab extends React.Component {
 
   handleSimilarEMISwiperCardClick = (modelObj, event) => {
     let quickLinksTabElement = document.getElementById("quickLinksTab");
-    scrollTop(window, this.refs.modelInfoComponent.base.getBoundingClientRect().top + (window.pageYOffset || document.documentElement.scrollTop) - quickLinksTabElement.offsetHeight)
+    scrollTop(window, this.refs.modelInfoComponent.base.getBoundingClientRect().top + (window.pageYOffset || document.documentElement.scrollTop) - quickLinksTabElement.offsetHeight, 100);
     event.currentTarget.parentElement.scrollLeft = 0
-    if (gaObj != undefined) {
+    if (typeof gaObj != 'undefined') {
       triggerGA(gaObj.name, 'Similar_EMI_Widget_Clicked', this.props.selectBikePopup.Selection.modelName + '_' + modelObj.modelName);
     }
     this.props.fetchSelectedBikeDetail(modelObj.modelId)

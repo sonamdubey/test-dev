@@ -81,6 +81,8 @@ namespace Bikewale.Models
         /// Created by : Sangram Nandkhile on 25-Mar-2017 
         /// Modified by: Vivek Singh Tomar on 31st July 2017
         /// Summary    : Replaced logic of fetching upcoming bike list.
+        /// Modified by : Sanskar Gupta on 18 May 2018
+        /// Description : Set Targeting for city.
         /// </returns>
         public NewPageVM GetData()
         {
@@ -97,6 +99,7 @@ namespace Bikewale.Models
                 cityMaskingName = cityEntity != null ? cityEntity.CityMaskingName : string.Empty;
                 objVM.Location = cityName;
                 objVM.LocationMasking = cityMaskingName;
+                objVM.AdTags.TargetedCity = cityName;
             }
             else
             {

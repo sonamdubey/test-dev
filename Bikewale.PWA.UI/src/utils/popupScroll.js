@@ -26,7 +26,7 @@ const resetPopupHead = (popup) => {
 }
 
 const handlePopupClose = (popupContent, popup) => {
-  popupContent.scrollTo(0,0)
+  popupContent.scrollTop = 0;
   resetPopupHead(popup)
 }
 

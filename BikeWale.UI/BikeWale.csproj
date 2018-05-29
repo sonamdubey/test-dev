@@ -2289,6 +2289,7 @@
     <Content Include="fonts\WebRupee.V2.0.woff" />
     <Content Include="m\ads.txt" />
     <Content Include="m\css\campaign\hero-campaign.css" />
+    <Content Include="m\css\components\model-gallery.css" />
     <Content Include="m\css\electricbikes\landing.css" />
     <Content Include="m\css\finance\capital-first.css" />
     <Content Include="css\survey\bajaj-survey.css" />
@@ -2962,8 +2963,13 @@
     <Content Include="m\src\model-series\series.js" />
     <Content Include="m\src\new-launch.js" />
     <Content Include="m\src\new\search_new.js" />
+    <Content Include="m\src\photos\colorPopupViewModel.js" />
+    <Content Include="m\src\photos\gallery.js" />
+    <Content Include="m\src\photos\galleryViewModel.js" />
+    <Content Include="m\src\photos\model.js" />
     <Content Include="m\src\photos\photos.js" />
     <Content Include="m\src\photos\modelgallery.js" />
+    <Content Include="m\src\photos\videoPopupViewModel.js" />
     <Content Include="m\src\priceincity.js" />
     <Content Include="m\src\review\landing.js" />
     <Content Include="m\src\scooters-by-make.js" />
@@ -3241,6 +3247,7 @@
     <Content Include="src\photos\landing.js" />
     <Content Include="src\photos\photos.js" />
     <Content Include="src\photos\modelgallery.js" />
+    <Content Include="src\plugins\screenfull.js" />
     <Content Include="src\popup\makemodelpopup.js" />
     <Content Include="m\src\popup\newBikeSearchPopup.js" />
     <Content Include="src\priceincity.js" />
@@ -3333,6 +3340,10 @@
     <Content Include="src\user-review\listing.js" />
     <Content Include="src\user-review\review-contest.js" />
     <Content Include="src\user-review\write-review.js" />
+    <Content Include="src\utils\navigationTabs.js" />
+    <Content Include="src\utils\scroll.js" />
+    <Content Include="src\utils\swiperYoutube.js" />
+    <Content Include="src\utils\viewport.js" />
     <Content Include="src\Videos\detail.js" />
     <Content Include="src\Videos\videoByCategory.js" />
     <Content Include="src\zebra-datepicker.js" />
@@ -4099,6 +4110,19 @@
     <Content Include="Views\Filters\InPageFilters\_InPageMinSpecsFilters_Mobile.cshtml" />
     <Content Include="sass\partials\photo-grid-carousel.sass" />
     <Content Include="Views\Filters\InPageFilters\_InPageBudgetFilter_Mobile.cshtml" />
+    <Content Include="sass\m\photos\listing.sass" />
+    <Content Include="sass\partials\_similar-bike-carousel.sass" />
+    <Content Include="sass\partials\_share-popup.sass" />
+    <Content Include="sass\partials\_video-popup.sass" />
+    <Content Include="sass\partials\_color-popup.sass" />
+    <Content Include="sass\partials\_gallery-popup.sass" />
+    <Content Include="sass\m\photos\gallery-popup.sass" />
+    <Content Include="sass\m\photos\colours-popup.sass" />
+    <Content Include="sass\m\photos\videos-popup.sass" />
+    <Content Include="Views\BikeModels\_BikeInfoCard_New_Mobile.cshtml" />
+    <Content Include="Views\Photos\_SimilarBikeWithPhotos_New_Mobile.cshtml" />
+    <Content Include="Views\Shared\Ads\Mobile\Ad320x100_Generic.cshtml" />
+    <Content Include="Views\Shared\Ads\Mobile\Ad300x250_Generic.cshtml" />
     <Content Include="Views\Shared\Ads\Mobile\Ad300x250_Generic.cshtml">
       <SubType>Code</SubType>
     </Content>
@@ -4119,6 +4143,9 @@
     <Content Include="Views\Shared\Index_Mobile_Pwa.cshtml" />
     <Content Include="Views\Shared\Ads\Desktop\AdSlotGeneric.cshtml" />
     <Content Include="sass\partials\bw-youtube.sass" />
+    <Content Include="Views\Shared\Ads\Mobile\Ad320x50_Generic.cshtml" />
+    <Content Include="sass\mixins\_color-box.sass" />
+    <Content Include="sass\m\photos\listing-btf.sass" />
     <Content Include="Views\GenericBikeInfo\_GenericBikeInfoWidget.cshtml" />
     <Content Include="Views\GenericBikeInfo\_GenericBikeInfoWidget_Mobile.cshtml" />
     <Content Include="Views\Make\_OtherBrandsWidgetBase.cshtml" />
