@@ -3,4 +3,14 @@
 	-moz-#{$property}: $value
 	-ms-#{$property}: $value
 	#{$property}: $value
-	
+
+
+@mixin clearfix()
+  clear: both
+  &:before,
+  &:after
+    content: " "
+    display: table
+
+  &:after
+    clear: both

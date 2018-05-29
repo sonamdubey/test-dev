@@ -3,7 +3,7 @@
 @if (!Model.ModelPageEntity.ModelDetails.Futuristic)
 {
 
-    <div class="grid-12 padding-top5 padding-bottom5 border-solid-bottom">
+    @*<div class="grid-12 padding-top5 padding-bottom5 border-solid-bottom">
         <div class="grid-6 alpha border-solid-right">
             <p class="font12 text-light-grey padding-left10">Version:</p>
             <p id="defversion" class="single-version-label font14">@(Model.SelectedVersion != null ? Model.SelectedVersion.VersionName : Model.VersionName)</p>
@@ -36,5 +36,94 @@
             }
         </div>
         <div class="clear"></div>
+    </div>*@
+
+    <div class="version-dropdown card-bottom-margin content-box-shadow ">
+        <div class="grid-12 version-dropdown__tabs">
+            <div class="grid-6 version-dropdown__version-tab" id="version">
+                <p class="version-dropdown__title">Version</p>
+            </div>
+            <div class="grid-6 version-dropdown__locat-tab">
+                <p class="font12 text-light-grey">Location:</p>
+                @if (!Model.IsDiscontinuedBike)
+                {
+                    <div class="font14 text-bold">
+                        <a href="javascript:void(0)" data-reload="true" data-persistent=" true" data-modelid='@Model.ModelId' class="getquotation changeCity" rel="nofollow">
+                            <span class="selected-location-label inline-block text-default text-truncate">@(Model.IsLocationSelected && !Model.ShowOnRoadButton ? Model.Location : (Model.LocationCookie.CityId > 0 ? Model.LocationCookie.City : "Select city"))</span>
+                            <span class="bwmsprite loc-change-blue-icon"></span>
+                        </a>
+                    </div>
+                }
+                else
+                {
+                    <span class="text-bold font14 text-truncate block margin-top5">@Model.Location</span>
+                }
+            </div>
+        </div>
+
+
+    <ul class="version-dropdown__submenu ">
+        <li class="version-dropdown__list">
+            <div class="version-dropdown__featurehead ">
+                <div class="version-dropdown__feature">
+                    Electric Start Allow
+                </div>
+                <div class="version-dropdown__feature-price">
+                    ₹ 5,580,768
+                </div>
+            </div>
+            <ul class="version-dropdown__detail">
+                <li>Drum</li>
+                <li>ABS</li>
+                <li>Alloy</li>
+                <li>Disk Breaks</li>
+            </ul>
+        </li>
+        <li class="version-dropdown__list">
+            <div class="version-dropdown__featurehead ">
+                <div class="version-dropdown__feature">
+                    Digital dashboard, Self Start, Allow Electric Start
+                </div>
+                <div class="version-dropdown__feature-price">
+                    ₹ 580,768
+                </div>
+            </div>
+
+            <ul class="version-dropdown__detail">
+                <li>Electric Start</li>
+                <li>Drum Breaks</li>
+                <li>Alloy Wheels</li>
+                <li>ABS</li>
+            </ul>
+        </li>
+        <li class="version-dropdown__list">
+            <div class="version-dropdown__featurehead ">
+                <div class="version-dropdown__feature">
+                    Electric Start Allow
+                </div>
+                <div class="version-dropdown__feature-price">
+                    ₹ 80,768
+                </div>
+            </div>
+
+            <ul class="version-dropdown__detail">
+                <li>Drum</li>
+                <li>ABS</li>
+                <li>Alloy</li>
+                <li>Disk Breaks</li>
+            </ul>
+        </li>
+        <li class="version-dropdown__list">
+            <div class="version-dropdown__featurehead ">
+                <div class="version-dropdown__feature">
+                    Electric Drum Allow Breaks
+                </div>
+                <div class="version-dropdown__feature-price">
+                    ₹ 5,580,768
+                </div>
+            </div>
+        </li>
+    </ul>
+
     </div>
 }

@@ -1,0 +1,135 @@
+﻿@import '../mixins/index'
+@import '../base/variables'
+@import '../utils/index'
+@import '../mixins/icons'
+
+@mixin version-dropdown($color: color('light-grey') )
+  .version-dropdown
+    color: $color
+    font-size: 14px
+    line-height: 19px
+    @include clearfix
+  @include version-dropdown-tab
+  @include version-dropdown-list($list-color:  color('aluminium-2'), $list-hover-color:  color('default'), $desktop: true)
+  @include version-dropdown-inside-list($list-color:  color('aluminium-2'), $feature-list-color: color('nobel') )
+  @include version-dropdown-feature
+  @include version-dropdown-active($active-bs-color: color('border-dark'))
+
+@mixin version-dropdown-tab
+  .version-dropdown__tabs
+      @include vendor-prefix(box-shadow, 1px 1px 1px color('border-dark'))
+      padding: 0
+
+  .version-dropdown__version-tab
+    padding: 18px 19px
+    cursor: pointer
+    border-right: solid 1px color('border-dark')
+
+    .version-dropdown__title
+      position: relative
+      font-weight: $font-semibold
+
+      &:after
+        content: ""
+        @include dropdown-icon
+        display: inline-block
+        width: 10px
+        height: 5px
+        position: absolute
+        right: 0
+        top: 8px
+        @include vendor-prefix(transition, all .3s)
+
+  .version-dropdown__locat-tab
+    padding: 5px 20px
+
+@mixin version-dropdown-list($list-color:  color('aluminium-2'), $list-hover-color:  color('default'), $desktop: false)
+  .version-dropdown__submenu
+    display: none
+    list-style: none
+    padding: 0 16px
+    @include clearfix
+
+    .version-dropdown__list
+      border-bottom: 1px solid color('whisper')
+      vertical-align: middle
+      padding: 15px 0
+      color: $list-color
+      font-weight: $font-semibold
+
+      &:hover
+        color:  $list-hover-color
+
+      &:last-child
+        border-bottom: 1px solid transparent
+
+  @if $desktop
+    @media screen and (min-width: 1024px)
+      .version-dropdown__submenu
+        max-height: 250px
+        overflow-y: scroll
+
+@mixin version-dropdown-inside-list($list-color:  color('aluminium-2'), $feature-list-color: color('nobel') )
+  .version-dropdown__detail
+    width: 100%
+    text-overflow: ellipsis
+    white-space: nowrap
+    overflow: hidden
+
+    >li
+      font-weight: normal
+      border: none
+      font-size: 12px
+      line-height: 17px
+      display: inline-block
+      vertical-align: middle
+      padding: 7px 5px 0 9px
+      color: $feature-list-color
+      position: relative
+
+      &:before
+        content: ''
+        width: 4px
+        height: 4px
+        background: $feature-list-color
+        position: absolute
+        @include vendor-prefix(border-radius, 50%)
+        top: 56%
+        left: 0
+
+      &:hover
+        color: $list-color
+
+      &:hover:before
+        background: $list-color
+
+@mixin version-dropdown-feature
+  .version-dropdown__featurehead
+    @include clearfix
+    width: 100%
+
+    .version-dropdown__feature
+      float: left
+      width: 60%
+      white-space: nowrap
+      overflow: hidden
+      text-overflow: ellipsis
+      cursor: pointer
+
+    .version-dropdown__feature-price
+      float: right
+      text-align: right
+
+@mixin version-dropdown-active($active-bs-color: color('border-dark'))
+  .version-active
+    display: block
+
+    .version-dropdown__version-tab
+      @include vendor-prefix(box-shadow, 2px 0px 15px 1px $active-bs-color)
+
+      .version-dropdown__title
+        &:after
+          @include vendor-prefix(transform, rotate(180deg))
+
+
+@include version-dropdown($color: color('light-grey') )
