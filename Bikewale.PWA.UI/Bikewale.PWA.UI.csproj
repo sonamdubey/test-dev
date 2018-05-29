@@ -201,6 +201,7 @@
     <Content Include="src\store\configureStore.js" />
     <Content Include="src\utils\analyticsUtils.js" />
     <Content Include="src\utils\closestPolyfill.js" />
+    <Content Include="src\utils\collapsible.js" />
     <Content Include="src\utils\commonUtils.js" />
     <Content Include="src\utils\constants.js" />
     <Content Include="src\utils\contentTrackingUtils.js" />
