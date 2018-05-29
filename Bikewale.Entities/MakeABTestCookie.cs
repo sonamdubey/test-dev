@@ -10,5 +10,6 @@ namespace Bikewale.Entities
         public string ViewName { get; set; }
         public bool IsNewPage { get; set; }
         public bool NewMakePageV1Status { get; set; }
+        public bool OldMakePageV1Status { get; set; }
     }
 }

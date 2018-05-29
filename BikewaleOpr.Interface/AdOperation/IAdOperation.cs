@@ -10,14 +10,8 @@ namespace BikewaleOpr.Interface
     public interface IAdOperation
     {
         IEnumerable<PromotedBike> GetPromotedBikes();
-
-        //PromotedBike AddPromotedBikes();
         bool SavePromotedBike(PromotedBike objPromotedBike);
-
-        //PromotedBike UpdatePromotedBikes() status;
         bool UpdatePromotedBike(PromotedBike objPromotedBike);
-
-
 
     }
 }
