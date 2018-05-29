@@ -64,7 +64,7 @@ class Tabs extends React.Component {
             <Documentation />
           </div>
         </div>
-        <AdUnit uniqueKey={'finance-page'} tags={null} adSlot={'/1017752/BikeWale_Finance_Middle_320x50'} adDimension={[320, 50]} adContainerId={'div-gpt-ad-1525945337139-1'} />
+        <AdUnit uniqueKey={'finance-page'} tags={null} adSlot={'/1017752/BikeWale_Finance_BTF_300x250'} adDimension={[300, 250]} adContainerId={'div-gpt-ad-1525945337139-1'} />
         <div className="tabs-panel__item" data-tab-panel="faqTab">
           <div className="finance-faq">
             <FAQ />
