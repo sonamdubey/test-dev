@@ -4,11 +4,6 @@
 	Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/m/photos/listing.css' inline /> <link rel='stylesheet' type='text/css' href='/sass/m/photos/gallery-popup.css' inline />";
 	Model.Page_BTF_CSS_Paths = new string[] { "/sass/m/photos/listing-btf.css", "/sass/m/photos/colours-popup.css", "/sass/m/photos/videos-popup.css" };
 	Model.Page_JS_Paths = new string[] { "/src/utils/swiperYoutube.js", "/src/utils/scroll.js", "/src/utils/navigationTabs.js", "/src/utils/viewport.js", "/src/plugins/screenfull.js", "/m/src/photos/videoPopupViewModel.js", "/m/src/photos/colorPopupViewModel.js", "/m/src/photos/galleryViewModel.js", "/m/src/photos/gallery.js", "/m/src/photos/model.js" };
-    Model.AdTags.Ad_320x50Top = true;
-    Model.AdTags.Ad_300x250BTF = true;
-    Model.AdTags.Ad_320x50BTF = true;
-    Model.AdTags.AdId = "1516082576550";
-    Model.AdTags.AdPath = "/1017752/Bikewale_Mobile_Image";
 }
 @if (Model != null)
 {
@@ -233,12 +228,13 @@
                 </div>
             </div>
 						<div class="gallery-placeholder"></div>
-            @if (Model.AdTags.Ad_320x50Top)
-            {
-                <div class="bg-white text-center gallery__sponsored-top-slot">
-                    @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad320x50_Generic.cshtml", new { AdId = Model.AdTags.AdId, DivId = 0 });}
-                </div>
-            }
+            
+                @if (Model.AdTags.Ad_320x50Top)
+                {
+                    <div class="bg-white text-center gallery__sponsored-top-slot">
+                        @{Html.RenderPartial("/Views/Shared/Ads/Mobile/AdSlotGeneric.cshtml", Model.AdSlots[String.Format("{0}-0", Model.AdTags.AdId)]);}
+                    </div>
+                }
 			</div>
             <section>
                 <div id="overallContainer" class="overall-tabs__panel" data-panel-type="toggle">
@@ -428,12 +424,7 @@
         </div>
     </section>
 
-    if (Model.AdTags.Ad_300x250BTF)
-    {
-        <div class="margin-bottom20 text-center">
-            @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad300x250BTF.cshtml", new { AdId = Model.AdTags.AdId });}
-        </div>
-     }
+    
 
     if (Model.SimilarBikes != null && Model.SimilarBikes.Bikes != null)
     {
@@ -471,12 +462,12 @@
         </div>
     }
 }
-@if (Model.AdTags.Ad_320x50BTF)
+
+@if (Model.AdTags.Ad_300x250BTF)
 {
-
+    
     <div class="margin-bottom20 text-center">
-        @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad320x50BTF.cshtml", new { AdId = Model.AdTags.AdId });}
+        @{Html.RenderPartial("/Views/Shared/Ads/Mobile/AdSlotGeneric.cshtml", Model.AdSlots[String.Format("{0}-14", Model.AdTags.AdId)]);}
     </div>
-
 }
 
