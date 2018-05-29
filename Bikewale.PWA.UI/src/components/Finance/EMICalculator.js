@@ -62,21 +62,35 @@ export class EMICalculator extends React.Component {
 		if (this.props.sliderDp.onRoadPrice === 0) {
 			return null;
 		}
-		let pieInterestAmt = (this.state.interestPayable);
-		let pieLoanAmt = (this.props.sliderDp.onRoadPrice - this.props.sliderDp.values[0]);
-		let pieTotalAmtPay = this.state.totalBikeCost;
-		let finalIntPayable = formatToINR(parseInt(this.state.InterestPayable));
-		let finalTotalPrincipalAmt = formatToINR(this.state.totalBikeCost);
+
+		const {
+			downpayment,
+			tenure,
+			emiCalculation,
+			interestPayable,
+			totalBikeCost
+		} = this.state
+
+		const {
+			sliderDp,
+			financeCitySelection,
+			IsFetching
+		} = this.props
+
+		let pieLoanAmt = sliderDp.onRoadPrice - sliderDp.values[0];
+		let finalIntPayable = formatToINR(parseInt(interestPayable));
+		let finalTotalPrincipalAmt = formatToINR(totalBikeCost);
+
 		let pieChartData = {
-			intStatePay: pieInterestAmt,
+			intStatePay: interestPayable,
 			pieLoanAmt: pieLoanAmt,
-			pieTotalPay: pieTotalAmtPay,
+			pieTotalPay: totalBikeCost,
 			interestPay: finalIntPayable,
 			TotalPrincipalAmt: finalTotalPrincipalAmt
 		}
 
 		return (
-			this.props.IsFetching ?
+			IsFetching ?
 			<div className="emi-spinner-container">
 				<Spinner />
 			</div>
@@ -84,10 +98,10 @@ export class EMICalculator extends React.Component {
 			<div className="emi-outer-container">
 				<div className="emi-calci-container">
 					<EMICalculatorHeader
-						emiCalculation={this.state.emiCalculation}
-						tenure={this.state.tenure}
-						onRoadPrice={this.props.sliderDp.onRoadPrice}
-						city={this.props.financeCitySelection}
+						emiCalculation={emiCalculation}
+						tenure={tenure}
+						onRoadPrice={sliderDp.onRoadPrice}
+						city={financeCitySelection}
 					/>
 					<div className="emi-slider-container">
 						<DownPaymentSlider onSliderDragMove={this.handleDownPaymentSliderDragMove} />
@@ -103,10 +117,10 @@ export class EMICalculator extends React.Component {
 				</div>
 				<div className="view-breakup-container">
 					<PieBreakUp
-						onRoadPrice={this.props.sliderDp.onRoadPrice}
-						downpayment={this.state.downpayment}
-						tenure={this.state.tenure}
-						interestPayable={this.state.interestPayable}
+						onRoadPrice={sliderDp.onRoadPrice}
+						downpayment={downpayment}
+						tenure={tenure}
+						interestPayable={interestPayable}
 						pieChartData={pieChartData}
 					/>
 				</div>
@@ -120,13 +134,11 @@ const mapStateToProps = (state) => {
 	const sliderTenure = state.getIn(['Emi', 'VehicleTenure', 'slider'])
 	const sliderInt = state.getIn(['Emi', 'VehicleInterest', 'slider'])
 	const financeCitySelection = state.getIn(['Finance', 'FinanceCityPopup', 'Selection'])
-	const selectBikePopup = state.getIn(['Finance', 'SelectBikePopup', 'Selection'])
 	return {
 		sliderDp,
 		sliderTenure,
 		sliderInt,
-		financeCitySelection,
-		selectBikePopup
+		financeCitySelection
 	}
 }
 

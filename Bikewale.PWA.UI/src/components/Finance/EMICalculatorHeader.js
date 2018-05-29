@@ -39,7 +39,7 @@ class EMICalculatorHeader extends React.Component {
     return (
       <div className="emi-calci-header">
         <div className="emi-calci-top-header">
-          <div className="emi-calci__orp-text">On-road price, {city}</div>
+          <div className="emi-calci__orp-text">On-road price, {city.cityName}</div>
           <div className="emi-calci__orp-data">
             <span>{orpAmount}</span>
           </div>
