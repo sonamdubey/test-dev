@@ -63,11 +63,11 @@
                             <h2 class="text-bold padding-left20">@string.Format("{0} Bikes Prices in  India", Model.MakeName)</h2>
                             <div class="search-bike-item">
                                 <ul id="listitems" class="listitems">
-                                    @{ int bikeCount = 0; string mileage; SpecsItem specItem = null; }
+                                    @{ int bikeCount = 0; string modelUrl, bikeName, mileage; SpecsItem specItem = null; }
                                     @foreach (var bike in Model.Bikes)
                                     {
-                                    	var modelUrl = Bikewale.Utility.UrlFormatter.BikePageUrl(bike.objMake.MaskingName, bike.objModel.MaskingName);
-                                    	var bikeName = string.Format("{0} {1}", bike.objMake.MakeName, bike.objModel.ModelName);
+                                    	modelUrl = Bikewale.Utility.UrlFormatter.BikePageUrl(bike.objMake.MaskingName, bike.objModel.MaskingName);
+                                    	bikeName = string.Format("{0} {1}", bike.objMake.MakeName, bike.objModel.ModelName);
                                     	bikeCount++;
                                     	specItem = Bikewale.Utility.FormatMinSpecs.SanitizeNumericMinSpec(bike.MinSpecsList, EnumSpecsFeaturesItems.FuelEfficiencyOverall);
                                     	mileage = string.IsNullOrEmpty(specItem.Value) ? "0" : specItem.Value;
