@@ -79,6 +79,9 @@ export const initToast = (data) => (dispatch, getState) => {
 }
 
 export const clearToast = () => (dispatch, getState) => {
-	clearTimeout(getState().toast.toastTimerId)
-	dispatch(removeToast())
+	let toast = getState().get('Toast').toJS()['Toast'];
+	if (toast != undefined) {
+		clearTimeout(toast.toastTimerId)
+		dispatch(removeToast())
+	}
 }
