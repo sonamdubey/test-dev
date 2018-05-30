@@ -63,14 +63,15 @@
                             <h2 class="text-bold padding-left20">@string.Format("{0} Bikes Prices in  India", Model.MakeName)</h2>
                             <div class="search-bike-item">
                                 <ul id="listitems" class="listitems">
-                                @{ int bikeCount = 0; }
+                                    @{ int bikeCount = 0; string mileage; SpecsItem specItem = null; }
                                     @foreach (var bike in Model.Bikes)
                                     {
-                                        var modelUrl = Bikewale.Utility.UrlFormatter.BikePageUrl(bike.objMake.MaskingName, bike.objModel.MaskingName);
-                                        var bikeName = string.Format("{0} {1}", bike.objMake.MakeName, bike.objModel.ModelName);
-                                    bikeCount++;
-
-                                    <li class="front" data-price="@bike.VersionPrice" data-mileage="@bike.MinSpecsList.FirstOrDefault(s => s.Id == (int)EnumSpecsFeaturesItems.FuelEfficiencyOverall)?.Value" data-popularity="@bike.BikePopularityIndex" data-bike="@bikeName">
+                                    	var modelUrl = Bikewale.Utility.UrlFormatter.BikePageUrl(bike.objMake.MaskingName, bike.objModel.MaskingName);
+                                    	var bikeName = string.Format("{0} {1}", bike.objMake.MakeName, bike.objModel.ModelName);
+                                    	bikeCount++;
+                                    	specItem = Bikewale.Utility.FormatMinSpecs.SanitizeNumericMinSpec(bike.MinSpecsList, EnumSpecsFeaturesItems.FuelEfficiencyOverall);
+                                    	mileage = string.IsNullOrEmpty(specItem.Value) ? "0" : specItem.Value;
+                                    <li class="front" data-price="@bike.VersionPrice" data-mileage="@mileage" data-popularity="@bike.BikePopularityIndex" data-bike="@bikeName">
                                             <div class="border-top1 margin-left20 margin-right20 padding-top20"></div>
                                             <div class="contentWrapper">
                                                 <div class="imageWrapper">
