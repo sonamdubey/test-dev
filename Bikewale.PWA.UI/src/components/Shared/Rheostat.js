@@ -137,7 +137,7 @@ const defaultProps = {
 class Rheostat extends React.Component {
 	constructor(props) {
 		super(props);
-		if (typeof window.isBrowserUC != 'undefined') {
+		if (typeof window.isBrowserUC === 'undefined') {
 			detectBrowser();
 		}
 		const { algorithm, max, min, values } = this.props
