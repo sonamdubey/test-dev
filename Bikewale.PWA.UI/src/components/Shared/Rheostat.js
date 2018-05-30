@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-
+import { detectBrowser } from '../../utils/commonUtils'
 import * as SliderConstants from '../../utils/rheostat/constants/sliderConstants'
 import sliderAlgorithm from '../../utils/rheostat/algorithms/linear'
 
@@ -23,6 +23,9 @@ function getHandleFor(ev) {
 
 function killEvent(ev) {
 	ev.stopPropagation()
+	if (window.isBrowserUC) {
+		ev.preventDefault();
+	}
 }
 
 function Button(props) {
@@ -134,7 +137,9 @@ const defaultProps = {
 class Rheostat extends React.Component {
 	constructor(props) {
 		super(props);
-
+		if (typeof window.isBrowserUC != 'undefined') {
+			detectBrowser();
+		}
 		const { algorithm, max, min, values } = this.props
 
 		this.state = {
@@ -426,7 +431,6 @@ class Rheostat extends React.Component {
 		document.addEventListener('touchend', this.endSlide, false)
 
 		if (this.props.onSliderDragStart) this.props.onSliderDragStart()
-
 		killEvent(ev)
 	}
 

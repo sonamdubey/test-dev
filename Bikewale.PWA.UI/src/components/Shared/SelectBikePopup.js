@@ -79,8 +79,8 @@ class SelectBikePopup extends React.Component {
     if (modelList != null) {
       makeModelList = modelList.map(function (item) {
         let modelList = item.models.filter(function (bike) {
-          return bike.modelName.toLowerCase().search(
-            inputName.toLowerCase()) !== -1;
+          return bike.modelName.toLowerCase().indexOf(
+            inputName.toLowerCase())!== -1; 
         });
         if (modelList && modelList.length > 0) {
           return {
