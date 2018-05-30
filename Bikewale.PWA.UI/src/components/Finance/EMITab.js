@@ -33,7 +33,7 @@ class EMITab extends React.Component {
       isGlobalCityInList: true,
       shouldFetchSimilarBikes: true,
       shouldOpenEmiCalculator: true,
-      isFetching: true,
+      isFetching: false,
       currentSelectedBikeId: -1
 
     };
@@ -102,8 +102,7 @@ class EMITab extends React.Component {
 
   handleSimilarEMISwiperCardClick = (modelObj, event) => {
     let quickLinksTabElement = document.getElementById("quickLinksTab");
-    scrollTop(window, this.refs.modelInfoComponent.base.getBoundingClientRect().top + (window.pageYOffset || document.documentElement.scrollTop) - quickLinksTabElement.offsetHeight, 100);
-    event.currentTarget.parentElement.scrollLeft = 0
+    window.scrollTo(0, this.refs.modelInfoComponent.base.getBoundingClientRect().top + (window.pageYOffset || document.documentElement.scrollTop) - quickLinksTabElement.offsetHeight);
     if (typeof gaObj != 'undefined') {
       triggerGA(gaObj.name, 'Similar_EMI_Widget_Clicked', this.props.selectBikePopup.Selection.modelName + '_' + modelObj.modelName);
     }
