@@ -4,22 +4,17 @@
 @import '../mixins/icons'
 @import '../mixins/text'
 
-@mixin dropdown-toggle($color: 'light-grey')
-  @include dropdown-toggle-tab
-  @include dropdown-toggle-list($list-color:  'aluminium-2', $list-hover-color:  'default', $desktop: true)
-  @include dropdown-toggle-inside-list($list-color:  'aluminium-2', $feature-list-color: 'nobel' )
-  @include dropdown-toggle-feature
-  @include dropdown-toggle-active($active-boxshadow-color: 'border-dark')
-  .dropdown-toggle
+@mixin select-box-tab($color: 'light-grey', $select-truncate-width: '90%',$desktop: false)
+  .select-box
     @include clearfix
     color: color($color)
     font-size: 14px
     line-height: 19px
     position: relative
 
-@mixin dropdown-toggle-tab
-  .dropdown-toggle__tabs
-    @include vendor-prefix(box-shadow, 1px 1px 1px color('border-dark'))
+  .select-box__tabs
+    border-bottom: solid 1px color('border-dark')
+    border-top: solid 1px color('border-dark')
     padding-left: 0
     padding-right: 0
 
@@ -27,7 +22,7 @@
       padding: 6px 20px
       min-height: 55px
 
-  .dropdown-toggle__menu-tab
+  .select-box__menu-tab
     @include flexbox
     @include align-items(flex-start)
     @include justify-content(center)
@@ -47,30 +42,35 @@
       right: 20px
       top: 50%
 
-    .dropdown-toggle__title
+    .select-box__title
       font-size: 12px
 
-    .dropdown-toggle__selected-value
-      @include text-truncate($width: '90%')
+    .select-box__selected-value
+      @include text-truncate($width: $select-truncate-width)
       color: color('default')
       font-weight: $font-semibold
 
-@mixin dropdown-toggle-list($list-color: 'aluminium-2', $list-hover-color: 'default', $desktop: false)
-  .dropdown-toggle__submenu
+  @if $desktop
+    @media screen and (min-width: 1024px)
+      .select-box__tabs
+        border: solid 1px color('border-dark')
+
+@mixin select-box-list($list-color: 'aluminium-2', $list-hover-color: 'default', $desktop: false)
+  .select-box__submenu
     @include clearfix
-    @include vendor-prefix(box-shadow, 1px 1px 1px color('border-dark'))
+    @include vendor-prefix(box-shadow, 1px 2px 10px 2px color('border-dark'))
     display: none
     position: absolute
     z-index: 9
     width: 100%
-    top: 104%
+    top: 100%
     left: 0
     list-style: none
     padding-left: 16px
     padding-right: 16px
     background-color: color('white')
 
-    .dropdown-toggle__submenu-list
+    .select-box__submenu-list
       border-bottom: 1px solid color('whisper')
       vertical-align: middle
       padding-top: 15px
@@ -86,15 +86,15 @@
 
   @if $desktop
     @media screen and (min-width: 1024px)
-      .dropdown-toggle__submenu
+      .select-box__submenu
         max-height: 272px
         overflow-y: scroll
 
-@mixin dropdown-toggle-inside-list($list-color:  'aluminium-2', $feature-list-color: 'nobel' )
-  .dropdown-toggle__detail
-    @include text-truncate($width: '96%')
+@mixin select-box-inside-list($list-color:  'aluminium-2', $detail-list-color: 'nobel', $detail-truncate-width: '96%' )
+  .select-box__detail
+    @include text-truncate($width: $detail-truncate-width)
 
-    .dropdown-toggle__detail-list
+    .select-box__detail-list
       font-weight: normal
       border: none
       font-size: 12px
@@ -102,7 +102,7 @@
       display: inline-block
       vertical-align: middle
       padding: 7px 7px 0 10px
-      color: color($feature-list-color)
+      color: color($detail-list-color)
       position: relative
 
       &:before
@@ -110,7 +110,7 @@
         content: ''
         width: 4px
         height: 4px
-        background-color: color($feature-list-color)
+        background-color: color($detail-list-color)
         position: absolute
         top: 56%
         left: 0
@@ -121,28 +121,35 @@
       &:hover:before
         background-color: color($list-color)
 
-@mixin dropdown-toggle-feature
-  .dropdown-toggle__featurehead
+@mixin select-box-sub-title($title-truncate-width: '60%')
+  .select-box__sub-title
     @include clearfix
     width: 100%
 
-    .dropdown-toggle__feature
-      @include text-truncate($width: '60%')
+    .select-box__title-line
+      @include text-truncate($width: $title-truncate-width)
       float: left
       cursor: pointer
 
-    .dropdown-toggle__feature-price
+    .select-box__title-price
       float: right
       text-align: right
 
-@mixin dropdown-toggle-active($active-boxshadow-color: 'border-dark')
-  .dropdown-toggle--active
+@mixin select-box-active($active-boxshadow-color: 'border-dark')
+  .select-box--active
     display: block
 
-    .dropdown-toggle__menu-tab
+    .select-box__menu-tab
       @include vendor-prefix(box-shadow, 2px 0px 15px 1px color($active-boxshadow-color))
 
       &:after
         @include vendor-prefix(transform, rotate(180deg))
 
-@include dropdown-toggle($color: 'light-grey' )
+@mixin select-box
+  @include select-box-tab($desktop: true)
+  @include select-box-list($desktop: true)
+  @include select-box-inside-list( )
+  @include select-box-sub-title()
+  @include select-box-active()
+
+@include select-box
