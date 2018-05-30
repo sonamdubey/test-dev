@@ -115,12 +115,6 @@
                 {
                     @Html.Partial("~/Views/Price/_ManufacturerCampaign_Mobile.cshtml", Model.LeadCampaign)
                 }
-                
-
-                @if (Model.ShowSeriesSlug)
-                {
-                    @Html.Partial("~/Views/BikeSeries/_ModelSeriesSlug_Mobile.cshtml", Model.SeriesSlug);
-                }
 
 
                 @if (Model.IsManufacturerTopLeadAdShown)
@@ -146,7 +140,12 @@
                     <div class="margin-bottom20 text-center">
                         @{Html.RenderPartial("/Views/Shared/Ads/Mobile/AdSlotGeneric.cshtml", Model.AdSlots[String.Format("{0}-6", Model.AdTags.AdId)]);}
                     </div>
-                            }
+                }
+                
+                @if (Model.ShowSeriesSlug)
+                {
+                    @Html.Partial("~/Views/BikeSeries/_ModelSeriesSlug_Mobile.cshtml", Model.SeriesSlug);
+                }
 
                 @if (Model.ModelPageEntity != null && ((Model.ModelPageEntity.ModelVersions != null && Model.ModelPageEntity.ModelVersions.Count > 0 || Model.IsPriceInTopCitiesAvailable) || (Model.ModelPageEntity.ModelVersionMinSpecs != null)))
                 {
