@@ -3,7 +3,7 @@ import React from 'react';
 import Accordion from '../Shared/Accordion';
 import NoResult from './NoResult';
 import { unlockScroll } from '../../utils/scrollLock';
-import { addPopupEvents, removePopupEvents, focusCollapsible } from '../../utils/popupScroll';
+import { addPopupEvents,removePopupEvents, focusCollapsible, focusPopupContent } from '../../utils/popupScroll';
 import { closePopupWithHash } from '../../utils/popUpUtils';
 import { triggerGA } from '../../utils/analyticsUtils';
 
@@ -91,7 +91,14 @@ class SelectBikePopup extends React.Component {
         }
       }).filter(n => n);
     }
-    this.setState({ ...this.state, makeModelList: makeModelList, modelValue: inputName, searchMode: searchMode });
+    this.setState({
+      ...this.state,
+      makeModelList: makeModelList,
+      modelValue: inputName,
+      searchMode: searchMode
+    }, () => {
+      focusPopupContent(this.popupContent);
+    });
   }
   
   handleAccordionClick = (event) => {

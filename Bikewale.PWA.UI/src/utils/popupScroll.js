@@ -48,6 +48,17 @@ const focusCollapsible = (popupContent, event) => {
   popupContent.scrollTop = eventRect.top + popupContent.scrollTop - (searchBoxHeight + collapsibleTriggerHeight + (autocompleteBoxHeight / 1.8))
 }
 
+// scroll popup content on autocomplete search
+const focusPopupContent = (popupContent) => {
+  const popupHead = popupContent.querySelector('.popup__head');
+  const autocompleteBox = popupHead.querySelector('.autocomplete-box');
+  const autocompleteBoxHeight = autocompleteBox ? autocompleteBox.offsetHeight : 0;
+
+  if (popupContent.scrollTop > popupHead.offsetHeight) {
+    popupContent.scrollTop = popupHead.offsetHeight - autocompleteBoxHeight;
+  }
+}
+
 const addPopupEvents = (popupContent) => {
   const popup = new Popup(popupContent)
 
@@ -65,5 +76,6 @@ const removePopupEvents = (popupContent) => {
 module.exports = {
   addPopupEvents,
   removePopupEvents,
-  focusCollapsible
+  focusCollapsible,
+  focusPopupContent
 }

@@ -8,7 +8,7 @@ import NoResult from './NoResult';
 import SpinnerRelative from '../Shared/SpinnerRelative'
 import { unlockScroll } from '../../utils/scrollLock';
 import { closePopupWithHash } from '../../utils/popUpUtils'
-import { addPopupEvents, removePopupEvents } from '../../utils/popupScroll';
+import { addPopupEvents, removePopupEvents, focusPopupContent } from '../../utils/popupScroll';
 import { triggerGA } from '../../utils/analyticsUtils';
 
 class SelectCityPopup extends React.Component {
@@ -63,6 +63,8 @@ class SelectCityPopup extends React.Component {
       cityValue: event.currentTarget.value,
       Popular: updatedPopular,
       Other: updatedOther
+    }, () => {
+      focusPopupContent(this.popupContent);
     });
   }
 
