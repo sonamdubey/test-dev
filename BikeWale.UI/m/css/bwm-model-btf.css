@@ -806,23 +806,11 @@ h2.text-bold { font-weight: bold; }
 }
 
 @media only screen and (max-width: 320px) {
-    .dealer-details .dealership-title {
-        width: 85%;
-    }
-
     .selected-location-label.text-truncate { width: 82%; }
-
-    .booknow-label, .callback-label { width: 100%; padding-left: 0; margin-top: 5px; top: 0; }
 
     .nearby-partner-left-col { width: 100%; margin-bottom: 10px; }
 
     .nearby-partner-label { width: 85%; }
-
-    #model-dealer-card .offers-content-label { vertical-align: top; top: 0; }
-
-    #dealer-offers-list { width: 75%; vertical-align: top; }
-    
-    #dealer-offers-list li { margin-left: 0; margin-right: 10px; }
 
     #more-dealers-popup.bwm-fullscreen-popup { padding-right: 0; padding-left: 0; }
 
