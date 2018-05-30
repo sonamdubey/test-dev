@@ -15,10 +15,13 @@ namespace Bikewale.Models
                 string decodedQueryString = Utils.Utils.DecryptTripleDES(encodedQueryString);
 
                 NameValueCollection queryCollection = HttpUtility.ParseQueryString(decodedQueryString);
-
-                objPopupCityAreaVM.ModelId = SqlReaderConvertor.ToUInt16(queryCollection["modelid"]);
                 objPopupCityAreaVM.PQSourceId = SqlReaderConvertor.ToUInt16(queryCollection["pqsourceid"]);
+                objPopupCityAreaVM.PageCategoryId = SqlReaderConvertor.ToUInt16(queryCollection["pagecatid"]);
                 objPopupCityAreaVM.PreSelectedCity = SqlReaderConvertor.ToUInt16(queryCollection["preselcity"]);
+                objPopupCityAreaVM.MakeId = SqlReaderConvertor.ToUInt16(queryCollection["makeid"]);
+                objPopupCityAreaVM.MakeName = Convert.ToString(queryCollection["makename"]);
+                objPopupCityAreaVM.ModelId = SqlReaderConvertor.ToUInt16(queryCollection["modelid"]);
+                objPopupCityAreaVM.ModelName = Convert.ToString(queryCollection["modelname"]);
                 objPopupCityAreaVM.Url = Convert.ToString(queryCollection["Url"]);
 
                 BindPageMetaTags(objPopupCityAreaVM.PageMetaTags);

@@ -13,6 +13,11 @@
         return document.querySelectorAll(".bw-youtube");
     },
 
+    getVideoSlotsInScope: function(scope) {
+        selectedScope = document.getElementById(scope);
+        return selectedScope.querySelectorAll(".bw-youtube");
+    },
+
     getPageHeight: function() {
         var bodyEle = lazyloadYoutube.body;
         var htmlEle = lazyloadYoutube.html;
@@ -44,36 +49,49 @@
         return (scrollTop / lazyloadYoutube.getPageHeight());
     },
 
-    generateIFrame: function (videoId) {
+    generateIFrame: function (videoId, ytParams) {
         var iframe = document.createElement("iframe");
         iframe.setAttribute("frameborder", "0");
         iframe.setAttribute("allowfullscreen", "");
-        iframe.setAttribute("src", lazyloadYoutube.videoSource + videoId + "?rel=0&showinfo=0&autoplay=0");
+        iframe.setAttribute("src", lazyloadYoutube.videoSource + videoId + ytParams);
         return iframe;
     },
 
-    loadYoutubeVideos: function () {
+    loadYoutubeVideos: function (input) {
 
-        var youtubeVideos = lazyloadYoutube.getAllVideoSlots();
+        if (!input.scope) {
+            var youtubeVideos = lazyloadYoutube.getAllVideoSlots();
+        }
+        else {
+            var youtubeVideos = lazyloadYoutube.getVideoSlotsInScope(input.scope);
+        }
 
-        for (var i = 0; i < youtubeVideos.length; i++) {
+        var ytParams = "?rel=0&amp;showinfo=0";
+
+        if (input.enableYTAPI) {
+            ytParams = ytParams + "&amp;enablejsapi=1";
+        }
+
+        var noOfVideos = youtubeVideos.length;
+
+        for (var i = 0; i < noOfVideos; i++) {
             var ytVideo = youtubeVideos[i];
-            var ytVideoId = ytVideo.dataset.embed;
-            var iframe = lazyloadYoutube.generateIFrame(ytVideoId);
-            ytVideo.innerHTML = "";
-            ytVideo.appendChild(iframe);
+            var videoLoaded = Boolean(ytVideo.dataset.videoloaded);
+
+            if (!videoLoaded) {
+                var ytVideoId = ytVideo.dataset.embed;
+                var iframe = lazyloadYoutube.generateIFrame(ytVideoId, ytParams);
+                ytVideo.innerHTML = "";
+                ytVideo.appendChild(iframe);
+                ytVideo.setAttribute("data-videoloaded", "true");
+            }
         }
 
         lazyloadYoutube._videosLoaded = true;
+    },
+
+    setEventListener: function(eventname, callback) {
+        window.addEventListener(eventname, callback);
     }
 }
 
-docReady(lazyloadYoutube.setVideoPreviews);
-
-window.addEventListener("scroll", function (event) {
-    if (!lazyloadYoutube._videosLoaded) {
-        if (lazyloadYoutube.getScrollPercent() > lazyloadYoutube.loadVideosAt) {
-            lazyloadYoutube.loadYoutubeVideos();
-        }
-    }
-});

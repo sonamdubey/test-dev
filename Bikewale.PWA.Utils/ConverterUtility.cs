@@ -170,6 +170,9 @@ namespace Bikewale.PWA.Utils
 
         /// <summary>
         /// Converts MostPopularBikes to PwaBikeDetails for the specified City
+        /// Modified by: Dhruv Joshi
+        /// Dated: 16th May 2018
+        /// Description: Mapping for the added properties of PwaBikeDetails
         /// </summary>
         /// <param name="inpList"></param>
         /// <param name="cityName"></param>
@@ -181,22 +184,29 @@ namespace Bikewale.PWA.Utils
             {
 
                 outList = new List<PwaBikeDetails>();
-                string makeName;
+                string makeName, modelName;
+                int modelId;
                 string makeMaskingName;
                 if (inpList != null)
                 {
                     foreach (var item in inpList)
                     {
                         makeName = item.objMake == null ? (item.MakeName ?? string.Empty) : item.objMake.MakeName;
+                        modelName = item.objModel == null ? "" : item.objModel.ModelName;
+                        modelId = item.objModel == null ? 0 : item.objModel.ModelId;
                         makeMaskingName = item.objMake == null ? (item.MakeMaskingName ?? string.Empty) : item.objMake.MaskingName;
                         outList.Add(new PwaBikeDetails()
                         {
-                            Name = String.Format("{0} {1}", makeName, item.objModel.ModelName),
+                            Name = String.Format("{0} {1}", makeName, modelName),
                             DetailPageUrl = "/m" + UrlFormatter.BikePageUrl(makeMaskingName, item.objModel.MaskingName),
                             ImgUrl = Image.GetPathToShowImages(item.OriginalImagePath, item.HostURL, ImageSize._174x98, QualityFactor._70),
                             Price = item.VersionPrice > 0 ? Format.FormatPrice(item.VersionPrice.ToString()) : string.Empty,
                             PriceDescription = "Ex-showroom, " + (!string.IsNullOrEmpty(item.CityName) ? item.CityName : _defaultCityName),
-                            PriceSuffix = item.VersionPrice > 0 ? "onwards" : "Price not available"
+                            PriceSuffix = item.VersionPrice > 0 ? "onwards" : "Price not available",
+                            ModelId = modelId,
+                            MakeName = makeName,
+                            ModelName = modelName,
+                            IsNew = true
                         }
                         );
                     }
@@ -259,7 +269,8 @@ namespace Bikewale.PWA.Utils
                             ImgUrl = Image.GetPathToShowImages(item.OriginalImagePath, item.HostUrl, ImageSize._174x98, QualityFactor._70),
                             Price = item.EstimatedPriceMin > 0 ? Format.FormatPrice(item.EstimatedPriceMin.ToString()) : string.Empty,
                             PriceDescription = item.EstimatedPriceMin > 0 ? "Expected price" : string.Empty,
-                            PriceSuffix = item.EstimatedPriceMin > 0 ? "onwards" : "Price not available"
+                            PriceSuffix = item.EstimatedPriceMin > 0 ? "onwards" : "Price not available",
+
                         }
                         );
                     }

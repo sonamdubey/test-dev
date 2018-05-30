@@ -416,10 +416,7 @@ docReady(function () {
         prevButton: '.gallery-type-prev',
         preloadImages: false,
         lazyLoading: true,
-        lazyLoadingInPrevNext: true,
-        onInit: function (swiper) {
-            logBhrighuForImage($('#model-photos-swiper .swiper-slide-active'));
-        },
+        lazyLoadingInPrevNext: true,        
         onSlideChangeEnd: function (swiper) {
             if (userEventSource) {
                 if (swiper.activeIndex < swiper.previousIndex) {
@@ -453,7 +450,7 @@ docReady(function () {
 
     if (photosCount > 0) {
         var overlayCount = '<span class="black-overlay text-white"><span class="font16 text-bold">+' + photosCount + '</span><br><span class="font14">images</span></span>';
-        $("#model-photos-swiper .swiper-slide").last().find("a").append(overlayCount);
+        $("#model-photos-swiper .swiper-slide").last().find(".extraImageOverlay").append(overlayCount);
     }
 
     popupDiv = {

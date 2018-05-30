@@ -179,7 +179,7 @@
                 }
 
 
-                gtmCodeAppender(self.PageCatId, "Get_On_Road_Price_Click", self.MakeName + self.ModelName);
+                gtmCodeAppender(self.PageCatId, "Get_On_Road_Price_Click", self.MakeName + "_" + self.ModelName);
             }
         };
 
@@ -256,12 +256,7 @@
 
                             var jsonObj = _responseData.priceQuote;
 
-                            gaLabel = GetGlobalCityArea() + ', ';
-
-                            if (self.MakeName || self.ModelName )
-                                gaLabel += self.MakeName + ',' + self.ModelName + ',';
-
-
+                            
                             if (self.SelectedCityId() > 0 ) {
                                 if (self.SelectedCity() && self.SelectedCity().id > 0) {
                                     lbtext = "Fetching on-road price for " + self.SelectedCity().name;
@@ -277,6 +272,12 @@
                                 }
 
                             }
+
+                            gaLabel = GetGlobalCityArea() + ', ';
+
+                            if (self.MakeName || self.ModelName )
+                                gaLabel += self.MakeName + ',' + self.ModelName + ',';
+
 
                             if(jsonObj.dealerId > 0)
                                 gtmCodeAppender(self.PageCatId, 'Dealer_PriceQuote_Success_Submit', gaLabel);
@@ -492,6 +493,15 @@
                     break;
                 case '6':
                     category = 'Search_Page';
+                    break;
+                case "7":
+                    category = "Editorial_List_Page";
+                    break;
+                case "8":
+                    category = "Editorial_Details_Page";
+                    break;
+                case "9":
+                    category = "Make_Page_AMP";
                     break;
             }
             if (label) {

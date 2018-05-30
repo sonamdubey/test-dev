@@ -38,6 +38,9 @@ namespace Bikewale.Models.Photos
         public sbyte BodyStyle { get; set; }
         public BikeSeriesEntityBase Series { get; set; }
         public MoreAboutScootersWidgetVM objMoreAboutScooter { get; set; }
+        public int ColorImagesCount { get; set; }
+        public bool IsColorAvailable { get; set; }
+        public bool IsVideosAvailable { get; set; }
 
     }
 }

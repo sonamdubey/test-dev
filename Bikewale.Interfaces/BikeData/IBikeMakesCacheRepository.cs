@@ -38,7 +38,7 @@ namespace Bikewale.Interfaces.BikeData
         IEnumerable<BikeMakeEntityBase> GetScooterMakes();
         BikeDescriptionEntity GetScooterMakeDescription(uint makeId);
         MakeSubFooterEntity GetMakeFooterCategoriesandPrice(uint makeId);
-        IEnumerable<BikeMakeEntityBase> GetDealerBrandsInCity(uint cityid);
+        IEnumerable<BikeMakeEntityBase> GetDealerBrandsInCity(uint cityId);
         IEnumerable<BikeMakeEntityBase> GetServiceCenterBrandsInCity(uint cityId);
         ResearchMoreAboutMake ResearchMoreAboutMake(uint makeId);
         ResearchMoreAboutMake ResearchMoreAboutMakeByCity(uint makeId, uint cityId);

@@ -1,4 +1,5 @@
 ﻿using Bikewale.Entities.BikeData;
+using Bikewale.Entities.EditorialWidgets;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Models.Shared;
 using System;
@@ -9,6 +10,10 @@ using System.Threading.Tasks;
 
 namespace Bikewale.Models.BikeModels
 {
+    /// <summary>
+    /// Modified By : Deepak Israni on 8 May 2018
+    /// Description : Added properties for GAInfo and flag to show on road price button
+    /// </summary>
     public class EditorialPopularBikesWidget : EditorialWidgetInfo
     {
         public EditorialPopularBikesWidget()
@@ -30,6 +35,7 @@ namespace Bikewale.Models.BikeModels
 
 
         public IEnumerable<MostPopularBikesBase> MostPopularBikeList { get; set; }
-        public string ReturnUrlForAmpPages { get; set; }
+        public bool ShowOnRoadPriceButton { get; set; }
+        public EditorialGAEntity GAInfo { get; set; }
     }
 }

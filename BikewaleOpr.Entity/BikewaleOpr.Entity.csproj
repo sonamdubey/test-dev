@@ -152,6 +152,7 @@
     <Compile Include="BikeVersionEntityBase.cs" />
     <Compile Include="BookingAmountEntity.cs" />
     <Compile Include="BookingAmountEntityBase.cs" />
+    <Compile Include="CacheContents.cs" />
     <Compile Include="CallToActionEntityBase.cs" />
     <Compile Include="CityNameEntity.cs" />
     <Compile Include="ColorCodeBase.cs" />
