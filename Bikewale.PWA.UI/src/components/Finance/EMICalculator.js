@@ -95,6 +95,8 @@ export class EMICalculator extends React.Component {
 			  <div className="emi-spinner-container">
 				<Spinner />
 		      </div>
+			  <div className="emi-piechart-spinner">
+			  </div>
 			</div>
 			:
 			<div className="emi-outer-container">
