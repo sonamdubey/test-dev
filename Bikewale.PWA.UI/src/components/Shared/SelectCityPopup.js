@@ -52,11 +52,11 @@ class SelectCityPopup extends React.Component {
     var updatedPopular = this.props.data.Popular;
     var updatedOther = this.props.data.Other;
     updatedPopular = updatedPopular.filter(function (item) {
-      return item.cityName.toLowerCase().search(
+      return item.cityName.toLowerCase().indexOf(
         event.target.value.toLowerCase()) !== -1;
     });
     updatedOther = updatedOther.filter(function (item) {
-      return item.cityName.toLowerCase().search(
+      return item.cityName.toLowerCase().indexOf(
         event.target.value.toLowerCase()) !== -1;
     });
     this.setState({
