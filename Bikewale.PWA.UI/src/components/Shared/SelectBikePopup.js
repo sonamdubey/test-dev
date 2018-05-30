@@ -2,6 +2,7 @@ import React from 'react';
 
 import Accordion from '../Shared/Accordion';
 import NoResult from './NoResult';
+import SpinnerRelative from '../Shared/SpinnerRelative';
 import { unlockScroll } from '../../utils/scrollLock';
 import { addPopupEvents, removePopupEvents, focusCollapsible } from '../../utils/popupScroll';
 import { closePopupWithHash } from '../../utils/popUpUtils';
@@ -19,8 +20,8 @@ class SelectBikePopup extends React.Component {
     this.state = { currentModelId: this.props.data.Selection.modelId, modelValue: this.props.data.Selection.modelName, makeModelList: this.props.data.MakeModelList };
   }
 
-  componentWillReceiveProps() {
-    this.setState({ currentModelId: this.props.data.Selection.modelId, modelValue: this.props.data.Selection.modelName, makeModelList: this.props.data.MakeModelList });
+  componentWillReceiveProps(nextProps) {
+    this.setState({ currentModelId: nextProps.data.Selection.modelId, modelValue: nextProps.data.Selection.modelName, makeModelList: nextProps.data.MakeModelList });
   }
 
   componentWillMount() {
@@ -140,7 +141,25 @@ class SelectBikePopup extends React.Component {
     const MakeModelList = this.state.makeModelList;
     const popupActiveClassName = isActive ? 'popup--active' : ''
     const popupClasses = `select-bike-popup popup-content ${popupActiveClassName}`
-
+    let result = null;
+    if (MakeModelList != undefined && MakeModelList.length != 0) {
+      result = <Accordion
+        closeable={true}
+        allOpen={this.state.searchMode}
+        transitionCloseTime={1}
+        items={this.getList(MakeModelList)}
+      />;
+    }
+    else if (this.props.data.MakeModelList != undefined && this.props.data.MakeModelList.length == 0) {
+      result = <SpinnerRelative />;
+    }
+    else {
+      result = <NoResult
+        type="select-bike__no-bike-content"
+        imageClass="select-bike__no-bike"
+        title="No Matching Bikes Found"
+      />;
+    }
     return (
       <div className={popupClasses}>
         <div ref={this.setContentRef} className="select-bike-popup__content">
@@ -160,24 +179,7 @@ class SelectBikePopup extends React.Component {
             </div>
           </div>
           <div className="select-bike__body select-bike__accordion">
-            {
-              MakeModelList && MakeModelList.length > 0
-              ?
-                <Accordion
-                  closeable={true}
-                  allOpen={this.state.searchMode}
-                  transitionCloseTime={1}
-                  items={this.getList(MakeModelList)}
-                />
-              :
-                <NoResult
-                  type="select-bike__no-bike-content"
-                  imageClass="select-bike__no-bike"
-                  title="No Matching Bikes Found"
-                />
-            }
-
-
+            {result}
           </div>
         </div>
       </div>
