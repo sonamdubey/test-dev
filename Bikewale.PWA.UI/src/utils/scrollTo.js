@@ -67,28 +67,11 @@ export const isElementVisible = (element,  direction, threshold) => {
   
   switch(direction) {
     case 'horizontal':
-      if(elementRect.left + thresholdValue > 0 && elementRect.right - thresholdValue < window.innerWidth) {
-        return true;
-      }
-      else {
-        return false;
-      }
-    
+      return elementRect.left + thresholdValue > 0 && elementRect.right - thresholdValue < window.innerWidth
     case 'vertical':
-      if(elementRect.top + thresholdValue > 0 && elementRect.bottom - thresholdValue < window.innerHeight) {
-        return true;
-      }
-      else {
-        return false;
-      }
-    
+      return elementRect.top + thresholdValue > 0 && elementRect.bottom - thresholdValue < window.innerHeight
     default:
-      if(elementRect.left + thresholdValue > 0 && elementRect.right - thresholdValue < window.innerWidth && elementRect.top + thresholdValue > 0 && elementRect.bottom - thresholdValue < window.innerHeight) {
-        return true;
-      }
-      else {
-        return false;
-      }    
+      return elementRect.left + thresholdValue > 0 && elementRect.right - thresholdValue < window.innerWidth && elementRect.top + thresholdValue > 0 && elementRect.bottom - thresholdValue < window.innerHeight
   }  
 }
 export const scrollLeft = (element, to, duration = 500) => {
