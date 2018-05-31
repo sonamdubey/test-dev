@@ -2,7 +2,6 @@ import { financeCityPopup } from '../actionTypes/FinanceCityPopup'
 
 const getCity = (modelId) => {
   return (dispatch) => {
-    var method = 'GET';
     var url = '/api/pwa/cities/model/' + modelId + '/';
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function () {

@@ -38,7 +38,7 @@ namespace Bikewale.CacheHelper.BikeData
 									 MakeBase =  g.FirstOrDefault().MakeBase,
 									 ModelBase = g.Select(x => x.ModelBase).ToList()
 								 }
-								 );
+								 ).ToList();
 				}
 			}
 			catch (Exception ex)

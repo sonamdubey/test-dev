@@ -1,6 +1,7 @@
 import React from 'react'
+import ReactDOM from 'react-dom'
 import { fetchSimilarBikes, updateSimilarBikesEmi } from '../../actionCreators/SimilarBikesEMI'
-
+ 
 import SelectBikePopup from '../Shared/SelectBikePopup'
 import EMISteps from './EMISteps'
 import EMICalculator from './EMICalculator'
@@ -26,19 +27,25 @@ class EMITab extends React.Component {
     this.handleSelectBikeClick = this.handleSelectBikeClick.bind(this);
     this.handleSelectCityClick = this.handleSelectCityClick.bind(this);
     this.checkNetworkFailure = this.checkNetworkFailure.bind(this);
+    this.scrollToModelInfo = this.scrollToModelInfo.bind(this)
     this.setCity = this.setCity.bind(this);
     this.setToast = this.setToast.bind(this);
     this.state = {
       shouldscroll: false,
       isGlobalCityInList: true,
-      shouldFetchSimilarBikes: true,
-      shouldOpenEmiCalculator: true,
       isFetching: false,
-      currentSelectedBikeId: -1
-
+      currentSelectedBikeId: -1,
+      shouldScrollToModelInfoComponent: false
     };
   }
 
+  scrollToModelInfo = () => {
+    if(this.refs && this.refs.modelInfoComponent){
+      let quickLinksTabElement = document.getElementById("quickLinksTab");
+      let modelInfoComponentNode = ReactDOM.findDOMNode(this.refs.modelInfoComponent)
+      window.scrollTo(0, modelInfoComponentNode.offsetTop - quickLinksTabElement.offsetHeight);
+    } 
+  }
   handleSelectBikeClick = () => {
     openPopupWithHash(this.props.openSelectBikePopup, this.props.closeSelectBikePopup, "SelectBike");
     if (this.state.currentSelectedBikeId <= 0) {
@@ -56,7 +63,11 @@ class EMITab extends React.Component {
   handleBikeClick = (item) => {
     this.props.selectModel(item.modelId);
     this.props.fetchCity(item.modelId);
-    this.setState({ ...this.state, shouldscroll: true, currentSelectedBikeId: item.modelId });
+    this.setState({ 
+      ...this.state,
+      shouldscroll: true,
+      currentSelectedBikeId: item.modelId
+    });
     this.props.fetchSelectedBikeDetail(item.modelId);
     const currentCityId = this.getSelectedCityId(this.props);
     if (currentCityId > 0) {
@@ -87,7 +98,11 @@ class EMITab extends React.Component {
 
   handleCityClick = (item) => {
     this.setCity(item);
-    this.setState({ ...this.state, isGlobalCityInList: true, shouldFetchSimilarBikes: true });
+    this.setState({
+      ...this.state,
+      isGlobalCityInList: true,
+      shouldScrollToModelInfoComponent: true
+    });
     const currentBikeId = this.getSelectedBikeId(this.props);
     this.props.fetchBikeVersionList(currentBikeId, item.cityId);
     this.props.fetchSimilarBikes({
@@ -101,8 +116,7 @@ class EMITab extends React.Component {
   }
 
   handleSimilarEMISwiperCardClick = (modelObj, event) => {
-    let quickLinksTabElement = document.getElementById("quickLinksTab");
-    window.scrollTo(0, this.refs.modelInfoComponent.base.getBoundingClientRect().top + (window.pageYOffset || document.documentElement.scrollTop) - quickLinksTabElement.offsetHeight);
+    this.scrollToModelInfo()
     if (typeof gaObj != 'undefined') {
       triggerGA(gaObj.name, 'Similar_EMI_Widget_Clicked', this.props.selectBikePopup.Selection.modelName + '_' + modelObj.modelName);
     }
@@ -116,7 +130,6 @@ class EMITab extends React.Component {
       tenure: this.props.sliderTenure.values[0],
       rateOfInt: this.props.sliderInt.values[0]
     })
-    this.state.shouldFetchSimilarBikes = true;
     this.state.isFetching = true
 
 
@@ -207,6 +220,10 @@ class EMITab extends React.Component {
           if (currentCityId > 0 && (IsGlobalCityPresent(FinanceCityPopup.Popular, currentCityId) || IsGlobalCityPresent(FinanceCityPopup.Other, currentCityId))) {
             this.setState({ ...this.state, shouldscroll: false, isGlobalCityInList: true });
             closePopupWithHash(this.props.closeSelectCityPopup);
+            this.setState({
+              ...this.state,
+              shouldScrollToModelInfoComponent: true
+            })
           }
           else {
             this.setCity({
@@ -229,6 +246,13 @@ class EMITab extends React.Component {
           this.setState({ ...this.state, shouldscroll: false });
         }
       }
+    }
+    if(this.state.shouldScrollToModelInfoComponent){
+      this.scrollToModelInfo()
+      this.setState({
+        ...this.state,
+        shouldScrollToModelInfoComponent: false
+      })
     }
   }
 

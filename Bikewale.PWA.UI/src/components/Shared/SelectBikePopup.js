@@ -114,7 +114,6 @@ class SelectBikePopup extends React.Component {
       if (!item) {
         return null;
       }
-      let objMake = item;
       return (
         <div data-trigger={item.make.makeName} data-onOpen={this.handleAccordionClick.bind(this)}>
           <ul className="panel-body__list">
@@ -157,7 +156,7 @@ class SelectBikePopup extends React.Component {
         items={this.getList(MakeModelList)}
       />;
     }
-    else if (this.props.data.MakeModelList != undefined && this.props.data.MakeModelList.length == 0) {
+    else if (data.MakeModelList != undefined && data.MakeModelList.length == 0) {
       result = <SpinnerRelative />;
     }
     else {
