@@ -3,23 +3,12 @@
 @if (!Model.ModelPageEntity.ModelDetails.Futuristic)
 {
 
-    @*<div class="grid-12 padding-top5 padding-bottom5 border-solid-bottom">
-        <div class="grid-6 alpha border-solid-right">
-            <p class="font12 text-light-grey padding-left10">Version:</p>
-            <p id="defversion" class="single-version-label font14">@(Model.SelectedVersion != null ? Model.SelectedVersion.VersionName : Model.VersionName)</p>
-            @if (Model.ModelPageEntity.ModelVersions != null && Model.ModelPageEntity.ModelVersions.Count > 1)
-            {
-                <div class="dropdown-select-wrapper">
-                    <select id="ddlNewVersionList" name="ddlNewVersionList" class="dropdown-select" data-title="Version" data-pageurl="@(string.Format("/m{0}",Bikewale.Utility.UrlFormatter.BikePageUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName,Model.ModelPageEntity.ModelDetails.MaskingName)))" data-selected-version="Model.VersionId">
-                        @foreach (var version in Model.ModelPageEntity.ModelVersions)
-                        {
-                            <option value="@version.VersionId" @(version.VersionId == Model.VersionId ? "selected" : "")>@version.VersionName</option>
-                        }
-                    </select>
-                </div>
-            }
+    <div class="grid-12 version-city__content dropdown-box" id="ddlNewVersionList" data-pageurl="@(string.Format("/m{0}",Bikewale.Utility.UrlFormatter.BikePageUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName,Model.ModelPageEntity.ModelDetails.MaskingName)))" data-selected-version="Model.VersionId">
+        <div class="grid-6 version-city-content__tab dropdown-box__menu-tab">
+            <p class="dropdown-box__menu-title">Version</p>
+            <span id="defversion" class="dropdown-box__menu-value">@(Model.SelectedVersion != null ? Model.SelectedVersion.VersionName : Model.VersionName)</span>
         </div>
-        <div class="grid-6 padding-left20">
+        <div class="grid-6 version-city-content__tab">
             <p class="font12 text-light-grey">Location:</p>
             @if (!Model.IsDiscontinuedBike)
             {
@@ -36,95 +25,26 @@
             }
         </div>
         <div class="clear"></div>
-    </div>*@
-
-    <div class="select-box ">
-        <div class="grid-12 select-box__tabs">
-            <div class="grid-6 select-box__menu-tab">
-                <p class="select-box__title">Version</p>
-                <span class="select-box__selected-value"></span>
-            </div>
-            <div class="grid-6 padding-left20">
-                <p class="font12 text-light-grey">Location:</p>
-                @if (!Model.IsDiscontinuedBike)
+        @if (Model.ModelPageEntity.ModelVersions != null && Model.ModelPageEntity.ModelVersions.Count > 1)
+        {
+            <ul class="dropdown-box__submenu-list">
+                @foreach (var version in Model.ModelPageEntity.ModelVersions)
                 {
-                    <div class="font14 text-bold">
-                        <a href="javascript:void(0)" data-reload="true" data-persistent=" true" data-modelid='@Model.ModelId' class="getquotation changeCity" rel="nofollow">
-                            <span class="selected-location-label inline-block text-default text-truncate">@(Model.IsLocationSelected && !Model.ShowOnRoadButton ? Model.Location : (Model.LocationCookie.CityId > 0 ? Model.LocationCookie.City : "Select city"))</span>
-                            <span class="bwmsprite loc-change-blue-icon"></span>
-                        </a>
-                    </div>
+                    <li class="dropdown-box-submenu-list__item @(version.VersionId == Model.VersionId ? "submenu-list-item--active" : "")" data-value="@version.VersionId">
+                        <div class="submenu-list-item__title">
+                            <p class="submenu-list-item-title__left-col">@version.VersionName</p>
+                            <p class="submenu-list-item-title__right-col">&#x20b9; 5,80,768</p>
+                        </div>
+                        <ul class="dropdown-box-submenu__specs-list">
+                            <li class="dropdown-box-specs-list__item">Drum</li>
+                            <li class="dropdown-box-specs-list__item">ABS</li>
+                            <li class="dropdown-box-specs-list__item">Alloy</li>
+                            <li class="dropdown-box-specs-list__item">Disk Breaks</li>
+                        </ul>
+                    </li>
                 }
-                else
-                {
-                    <span class="text-bold font14 text-truncate block margin-top5">@Model.Location</span>
-                }
-            </div>
-        </div>
-
-        <ul class="select-box__submenu" >
-            <li class="select-box__submenu-list">
-                <div class="select-box__sub-title  ">
-                    <div class="select-box__title-line">
-                        Electric Start Allow
-                    </div>
-                    <div class="select-box__title-price">
-                        ₹ 5,580,768
-                    </div>
-                </div>
-                <ul class="select-box__detail">
-                    <li class="select-box__detail-list">Drum</li>
-                    <li class="select-box__detail-list">ABS</li>
-                    <li class="select-box__detail-list">Alloy</li>
-                    <li class="select-box__detail-list">Disk Breaks</li>
-                </ul>
-            </li>
-            <li class="select-box__submenu-list">
-                <div class="select-box__sub-title  ">
-                    <div class="select-box__title-line">
-                        Digital dashboard, Self Start, Allow Electric Start
-                    </div>
-                    <div class="select-box__title-price">
-                        ₹ 580,768
-                    </div>
-                </div>
-
-                <ul class="select-box__detail">
-                    <li class="select-box__detail-list">Electric Start</li>
-                    <li class="select-box__detail-list">Drum Breaks</li>
-                    <li class="select-box__detail-list">Alloy Wheels</li>
-                    <li class="select-box__detail-list">ABS</li>
-                </ul>
-            </li>
-            <li class="select-box__submenu-list">
-                <div class="select-box__sub-title  ">
-                    <div class="select-box__title-line">
-                        Electric Start Allow
-                    </div>
-                    <div class="select-box__title-price">
-                        ₹ 80,768
-                    </div>
-                </div>
-
-                <ul class="select-box__detail">
-                    <li class="select-box__detail-list">Drum</li>
-                    <li class="select-box__detail-list">ABS</li>
-                    <li class="select-box__detail-list">Alloy</li>
-                    <li class="select-box__detail-list">Disk Breaks</li>
-                </ul>
-            </li>
-            <li class="select-box__submenu-list">
-                <div class="select-box__sub-title ">
-                    <div class="select-box__title-line">
-                        Electric Drum Allow Breaks
-                    </div>
-                    <div class="select-box__title-price">
-                        ₹ 5,580,768
-                    </div>
-                </div>
-            </li>
-        </ul>
-
+            </ul>
+        }
     </div>
-
+    <div class="clear"></div>
 }

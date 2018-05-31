@@ -1,9 +1,9 @@
 ﻿@model Bikewale.Models.Price.DealerPriceQuotePageVM
 @using Bikewale.Common;
 @{
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/dealerpricequote.css' inline />";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/dealerpricequote.css' inline /> <link rel='stylesheet' type='text/css' href='/sass/partials/version-dropdown.css' inline/>";
     Model.Page_BTF_CSS_Path = "";
-    Model.Page_JS_Path = "/m/src/dealerpricequote.js";
+    Model.Page_JS_Paths = new string[] {"/src/utils/dropdown.js", "/m/src/dealerpricequote.js"};
     Model.AdTags.AdPath = "/1017752/BikeWale_Mobile_PQ";
     Model.AdTags.AdId = "1516082135812";
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
@@ -16,24 +16,71 @@
 <div class="bg-white padding-10-5 bottom-shadow margin-bottom10">
     <div class="bike-details margin-bottom15">
         <h1>@Model.BikeName</h1>
-        <p class="font12 text-light-grey padding-left15 padding-right5">Version:</p>
-        @if (Model.VersionsList.Count() > 1)
-        {
-            <div class="dropdown-select-wrapper margin-left15">
-                <select id="ddlVersion" class="dropdown-select" data-title="Version">
-                    @foreach (var version in Model.VersionsList)
-                    {
-                        <option value="@version.VersionId" @(version.VersionId == Model.VersionId ? "selected" : "")>@version.VersionName</option>
-                    }
-                </select>
+        @*<p class="font12 text-light-grey padding-left15 padding-right5">Version:</p>
+    @if (Model.VersionsList.Count() > 1)
+    {
+        <div class="dropdown-select-wrapper margin-left15">
+            <select id="ddlVersion" class="dropdown-select" data-title="Version">
+                @foreach (var version in Model.VersionsList)
+                {
+                    <option value="@version.VersionId" @(version.VersionId == Model.VersionId ? "selected" : "")>@version.VersionName</option>
+                }
+            </select>
+        </div>
+    }
+    else
+    {
+        <div class="single-version-content font14 margin-left15">
+            <p class="dropdown-effect-light">@(Model.SelectedVersion != null ? Model.SelectedVersion.VersionName : "")</p>
+        </div>
+    }
+*@
+        <div id="versionDropdown" class="version__dropdown-box dropdown-box">
+            <div class="grid-6 dropdown-box__menu-tab">
+                <p class="dropdown-box__menu-title">Version</p>
+                <span class="dropdown-box__menu-value">Standard</span>
             </div>
-        }
-        else
-        {
-            <div class="single-version-content font14 margin-left15">
-                <p class="dropdown-effect-light">@(Model.SelectedVersion != null ? Model.SelectedVersion.VersionName : "")</p>
-            </div>
-        }
+            <div class="clear"></div>
+            <ul class="dropdown-box__submenu-list">
+                <li class="dropdown-box-submenu-list__item submenu-list-item--active" data-value="100">
+                    <div class="submenu-list-item__title">
+                        <p class="submenu-list-item-title__left-col">Standard</p>
+                        <p class="submenu-list-item-title__right-col">&#x20b9; 5,80,768</p>
+                    </div>
+                    <ul class="dropdown-box-submenu__specs-list">
+                        <li class="dropdown-box-specs-list__item">Drum</li>
+                        <li class="dropdown-box-specs-list__item">ABS</li>
+                        <li class="dropdown-box-specs-list__item">Alloy</li>
+                        <li class="dropdown-box-specs-list__item">Disk Breaks</li>
+                    </ul>
+                </li>
+                <li class="dropdown-box-submenu-list__item" data-value="101">
+                    <div class="submenu-list-item__title">
+                        <p class="submenu-list-item-title__left-col">Standard</p>
+                        <p class="submenu-list-item-title__right-col">&#x20b9; 5,80,768</p>
+                    </div>
+                    <ul class="dropdown-box-submenu__specs-list">
+                        <li class="dropdown-box-specs-list__item">Drum</li>
+                        <li class="dropdown-box-specs-list__item">ABS</li>
+                        <li class="dropdown-box-specs-list__item">Alloy</li>
+                        <li class="dropdown-box-specs-list__item">Disk Breaks</li>
+                    </ul>
+                </li>
+                <li class="dropdown-box-submenu-list__item" data-value="102">
+                    <div class="submenu-list-item__title">
+                        <p class="submenu-list-item-title__left-col">Standard</p>
+                        <p class="submenu-list-item-title__right-col">&#x20b9; 5,80,768</p>
+                    </div>
+                    <ul class="dropdown-box-submenu__specs-list">
+                        <li class="dropdown-box-specs-list__item">Drum</li>
+                        <li class="dropdown-box-specs-list__item">ABS</li>
+                        <li class="dropdown-box-specs-list__item">Alloy</li>
+                        <li class="dropdown-box-specs-list__item">Disk Breaks</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
         <div class="text-center">
             <img src="@Bikewale.Utility.Image.GetPathToShowImages(Model.SelectedVersion.OriginalImagePath, Model.SelectedVersion.HostUrl, Bikewale.Utility.ImageSize._210x118)" title="@Model.BikeName Images" alt="@Model.BikeName Images" border="0" />
         </div>
