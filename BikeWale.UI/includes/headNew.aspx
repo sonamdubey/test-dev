@@ -1,4 +1,5 @@
-﻿<%@ Register TagPrefix="BikeWale" TagName="LoginStatus" src="/Controls/loginstatus.ascx" %>
+﻿<%@ Import namespace ="Bikewale.Utility" %>
+<%@ Register TagPrefix="BikeWale" TagName="LoginStatus" src="/Controls/loginstatus.ascx" %>
 <%@ Register TagPrefix="BM" TagName="BikeMakes" Src="/controls/BrowseBikeManufacturerMin.ascx" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml" lang="en"> 
@@ -62,10 +63,10 @@
             <% if(isAd970x90BottomShown){ %>
                 googletag.defineSlot('/1017752/Bikewale_NewBike_Bottom_970x90', [[970, 60], [960, 90], [970, 66], [960, 66], [728, 90], [970, 90], [950, 90], [960, 60]], 'div-gpt-ad-<%= AdId%>-5').addService(googletag.pubads());
             <% } %>
-            <% if(!String.IsNullOrEmpty(ShowTargeting)) { %>googletag.pubads().setTargeting("Model", "<%= TargetedModel %>");
-            googletag.pubads().setTargeting("Series", "<%= TargetedSeries %>");
-            googletag.pubads().setTargeting("Make", "<%= TargetedMake %>");
-            googletag.pubads().setTargeting("CompareBike-D", [<%= TargetedModels %>]);
+            <% if(!String.IsNullOrEmpty(ShowTargeting)) { %>googletag.pubads().setTargeting("Model", "<%= TargetedModel.RemoveSpecialCharacters() %>");
+            googletag.pubads().setTargeting("Series", "<%= TargetedSeries.RemoveSpecialCharacters() %>");
+            googletag.pubads().setTargeting("Make", "<%= TargetedMake.RemoveSpecialCharacters() %>");
+            googletag.pubads().setTargeting("CompareBike-D", [<%= TargetedModels.RemoveSpecialCharacters() %>]);
             <% } %>
             googletag.pubads().collapseEmptyDivs();
             googletag.pubads().enableSingleRequest();

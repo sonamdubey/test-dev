@@ -1,4 +1,5 @@
-﻿bwHostUrl = '<%= ConfigurationManager.AppSettings["bwHostUrlForJs"] %>';
+﻿<%@ Import namespace ="Bikewale.Utility" %>
+bwHostUrl = '<%= ConfigurationManager.AppSettings["bwHostUrlForJs"] %>';
 var ga_pg_id = '0';
 
 (function (w, d, s, l, i) {
@@ -50,10 +51,10 @@ googletag.cmd.push(function () {
     <% } %>
         
     googletag.pubads().enableSingleRequest();
-    <% if(!String.IsNullOrEmpty(TargetedModel)){%>googletag.pubads().setTargeting("Model", "<%= TargetedModel %>");<%}%>             
-    <% if(!String.IsNullOrEmpty(TargetedMake)){%>googletag.pubads().setTargeting("Make", "<%= TargetedMake %>");<%}%>
-    <% if(!String.IsNullOrEmpty(TargetedModels)){%>googletag.pubads().setTargeting("CompareBike-D", "<%= TargetedModels %>");<%}%>
-    <% if (!String.IsNullOrEmpty(TargetedCity)){%>googletag.pubads().setTargeting("City", "<%= TargetedCity %>");<%}%>
+    <% if(!String.IsNullOrEmpty(TargetedModel)){%>googletag.pubads().setTargeting("Model", "<%= TargetedModel.RemoveSpecialCharacters() %>");<%}%>             
+    <% if(!String.IsNullOrEmpty(TargetedMake)){%>googletag.pubads().setTargeting("Make", "<%= TargetedMake.RemoveSpecialCharacters() %>");<%}%>
+    <% if(!String.IsNullOrEmpty(TargetedModels)){%>googletag.pubads().setTargeting("CompareBike-D", "<%= TargetedModels.RemoveSpecialCharacters() %>");<%}%>
+    <% if (!String.IsNullOrEmpty(TargetedCity)){%>googletag.pubads().setTargeting("City", "<%= TargetedCity.RemoveSpecialCharacters() %>");<%}%>
         
     googletag.pubads().collapseEmptyDivs();
     googletag.pubads().enableSingleRequest();

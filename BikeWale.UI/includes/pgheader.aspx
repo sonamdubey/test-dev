@@ -1,4 +1,5 @@
-﻿<%@ Register TagPrefix="BikeWale" TagName="LoginStatus" src="/Controls/loginstatus.ascx" %>
+﻿<%@ Import namespace ="Bikewale.Utility" %>
+<%@ Register TagPrefix="BikeWale" TagName="LoginStatus" src="/Controls/loginstatus.ascx" %>
 <%@ Register TagPrefix="BM" TagName="BikeMakes" Src="/controls/BrowseBikeManufacturerMin.ascx" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <head>
@@ -47,9 +48,9 @@
                 { %>
             googletag.defineSlot('<%= AdPath%>300x250_BTF', [300, 250], 'div-gpt-ad-<%= AdId%>-2').addService(googletag.pubads());
               <% } %>
-            <% if(!String.IsNullOrEmpty(ShowTargeting)) { %>googletag.pubads().setTargeting("Model", "<%= TargetedModel %>");
-            googletag.pubads().setTargeting("Series", "<%= TargetedSeries %>");
-            googletag.pubads().setTargeting("Make", "<%= TargetedMake %>");
+            <% if(!String.IsNullOrEmpty(ShowTargeting)) { %>googletag.pubads().setTargeting("Model", "<%= TargetedModel.RemoveSpecialCharacters() %>");
+            googletag.pubads().setTargeting("Series", "<%= TargetedSeries.RemoveSpecialCharacters() %>");
+            googletag.pubads().setTargeting("Make", "<%= TargetedMake.RemoveSpecialCharacters() %>");
             <% } %>
             googletag.pubads().collapseEmptyDivs();
             googletag.pubads().enableSingleRequest();

@@ -1,4 +1,5 @@
-﻿<script language="c#" runat="server">	
+﻿<%@ Import namespace ="Bikewale.Utility" %>
+<script language="c#" runat="server">	
     private string staticUrl = Bikewale.Utility.BWConfiguration.Instance.StaticUrl;
     private string staticFileVersion = Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion;
     private string title = "", description = "", keywords = "", AdId = "", AdPath = "", alternate = "", ShowTargeting = "", TargetedModel = "", TargetedSeries = "", TargetedMake = "", TargetedModels = "", canonical = "", TargetedCity = ""
@@ -117,10 +118,10 @@
         <% } %>
         
         googletag.pubads().enableSingleRequest();
-        <% if(!String.IsNullOrEmpty(TargetedModel)){%>googletag.pubads().setTargeting("Model", "<%= TargetedModel %>");<%}%>             
-        <% if(!String.IsNullOrEmpty(TargetedMake)){%>googletag.pubads().setTargeting("Make", "<%= TargetedMake %>");<%}%>
-        <% if(!String.IsNullOrEmpty(TargetedModels)){%>googletag.pubads().setTargeting("CompareBike-D", "<%= TargetedModels %>");<%}%>
-        <% if (!String.IsNullOrEmpty(TargetedCity)){%>googletag.pubads().setTargeting("City", "<%= TargetedCity %>");<%}%>
+        <% if(!String.IsNullOrEmpty(TargetedModel)){%>googletag.pubads().setTargeting("Model", "<%= TargetedModel.RemoveSpecialCharacters() %>");<%}%>             
+        <% if(!String.IsNullOrEmpty(TargetedMake)){%>googletag.pubads().setTargeting("Make", "<%= TargetedMake.RemoveSpecialCharacters() %>");<%}%>
+        <% if(!String.IsNullOrEmpty(TargetedModels)){%>googletag.pubads().setTargeting("CompareBike-D", "<%= TargetedModels.RemoveSpecialCharacters() %>");<%}%>
+        <% if (!String.IsNullOrEmpty(TargetedCity)){%>googletag.pubads().setTargeting("City", "<%= TargetedCity.RemoveSpecialCharacters() %>");<%}%>
         
         googletag.pubads().collapseEmptyDivs();
         googletag.pubads().enableSingleRequest();
