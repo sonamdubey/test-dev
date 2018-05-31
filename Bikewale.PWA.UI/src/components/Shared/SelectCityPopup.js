@@ -110,8 +110,7 @@ class SelectCityPopup extends React.Component {
 
   getOtherCityList = () => {
     const {
-      data,
-      onClick
+      data
     } = this.props
 
     let listItems = this.state.Other.map((item, index) => {

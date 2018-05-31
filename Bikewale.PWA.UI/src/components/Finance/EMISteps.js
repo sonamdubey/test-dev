@@ -116,7 +116,7 @@ class EMISteps extends React.Component {
       modelImage: model != null && model.originalImagePath != null ? createImageUrl( model.hostUrl, model.originalImagePath, '310x174'):"",
       rating: model != null && model.rating != null ? model.rating: 0
     }
-    const isOverflow = model.modelId > 0 ? 'selection-step--overflow' : '';
+    const isOverflow = model && model.modelId > 0 ? 'selection-step--overflow' : '';
     return (
       <div className="emi-calculator__progress-container">
         <ProgressBar>
