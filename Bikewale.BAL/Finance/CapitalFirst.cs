@@ -37,7 +37,8 @@ namespace Bikewale.BAL.Finance
         private readonly String CTApiCode = Bikewale.Utility.BWConfiguration.Instance.CarTradeLeadApiCode;
         private readonly IDictionary<ushort, String> _leadStatusCollection = null;
         private const ushort SUCCESS_STATUS = 6;
-        private const ushort SUCESS_UNVERIFIED_MOBILE = 1;
+        private const ushort SUCCESS_UNVERIFIED_MOBILE = 1;
+        private const ushort SUCCESS_AREA_NOT_SERVING = 12;
         private static readonly string _mediaContentType = "application/x-www-form-urlencoded";
         private static readonly string _CustomerSMSTemplate = "Hi {0}, we have shared your details with Capital First. For further steps, you can reach out to Capital First officer {1} - {2}";
         private static readonly string _CustomerEmailSubject = "Loan application for {0}";
@@ -58,14 +59,14 @@ namespace Bikewale.BAL.Finance
 
             _leadStatusCollection = new Dictionary<ushort, String>();
             _leadStatusCollection.Add(0, "Some error occured.");
-            _leadStatusCollection.Add(1, "Mobile not verified.");
+            _leadStatusCollection.Add(SUCCESS_UNVERIFIED_MOBILE, "Mobile not verified.");
             _leadStatusCollection.Add(2, "Lead already exists.");
             _leadStatusCollection.Add(3, "Your loan application has already got pre-approved. Please contact your Capital First executive (Details shared in email).");
             _leadStatusCollection.Add(4, "Your loan application could not be processed online. Thanks for applying.");
             _leadStatusCollection.Add(5, "Your loan application has already got pre-approved. Please contact your Capital First executive (Details shared in email).");
-            _leadStatusCollection.Add(6, "Your application is submitted successfully.");
+            _leadStatusCollection.Add(SUCCESS_STATUS, "Your application is submitted successfully.");
             _leadStatusCollection.Add(8, "Some error occured while processing your request. Please try after sometime.");
-            _leadStatusCollection.Add(12, "Currently, our finance partner does not provide loan in your area.");
+            _leadStatusCollection.Add(SUCCESS_AREA_NOT_SERVING, "Currently, our finance partner does not provide loan in your area.");
         }
 
         private CTFormResponse SendCustomerDetailsToCarTrade(PersonalDetails objDetails, ushort leadSource, bool isMobileVerified)
@@ -295,7 +296,7 @@ namespace Bikewale.BAL.Finance
                         NotifyCustomer(objDetails, ctResponse);
                     }
 
-                    if (!isMobileVerified && ctResponse.Status == SUCESS_UNVERIFIED_MOBILE)
+                    if (!isMobileVerified && ctResponse.Status == SUCCESS_UNVERIFIED_MOBILE)
                     {
                         var mobileVer = _mobileVerification.ProcessMobileVerification(objDetails.EmailId, Convert.ToString(objDetails.MobileNumber));
                         SMSTypes st = new SMSTypes();
