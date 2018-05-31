@@ -3,6 +3,7 @@ import {isServer} from './commonUtils'
 import { unlockScroll, lockScroll } from './scrollLock';
 import {setPQSourceId} from './analyticsUtils'
 var topCount = "5";
+var popUpHistory = [];
 function closeGlobalSearchPopUp() {
     hideElement(document.getElementById('global-search-popup'));
 	unlockPopup();
@@ -603,7 +604,7 @@ function closePopupWithHash(closingFunction) {
                 let hash = (window.location.hash || "#").slice(1);
                 if (hash.length > 0) {
                     window.popupCallback[hash] = undefined;
-                    appendHash('');
+                    window.history.back()
                 }
             }
         }
