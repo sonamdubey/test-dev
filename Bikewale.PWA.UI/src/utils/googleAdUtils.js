@@ -1,8 +1,10 @@
+import {RemoveSpecialCharacters} from './commonUtils'
+
 function addAdToGTcmd(adUnitPath, adDimension, adDivId, adTarget) {
 	googletag.cmd.push(function () {
 		for (var tagKey in adTarget) {
 			if (adTarget[tagKey]) {
-				googletag.pubads().setTargeting(tagKey, adTarget[tagKey]);
+				googletag.pubads().setTargeting(tagKey, RemoveSpecialCharacters(adTarget[tagKey]));
 			}
 			else {
 				googletag.pubads().clearTargeting(tagKey);

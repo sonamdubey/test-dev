@@ -369,6 +369,27 @@ namespace Bikewale.Utility
             }
             return RankText;
         }
+        /// <summary>
+        /// Created by  : Pratibha Verma on 31 May
+        /// Description : Removes special characters from input string
+        /// </summary>
+        /// <param name="inputString"></param>
+        /// <returns></returns>
+        public static string RemoveSpecialCharacters(this string inputString)
+        {
+            try
+            {
+                if (!string.IsNullOrEmpty(inputString))
+                {
+                    return Regex.Replace(inputString, "[)\'\",=!+#\\[*\\]~;^<(>]+", " ");
+                }
+            }
+            catch (Exception)
+            {
+                
+            }
+            return inputString;
+        }
 
     }
 }
