@@ -377,19 +377,18 @@ namespace Bikewale.Utility
         /// <returns></returns>
         public static string RemoveSpecialCharacters(this string inputString)
         {
-            string outputString = string.Empty;
             try
             {
                 if (!string.IsNullOrEmpty(inputString))
                 {
-                    outputString = Regex.Replace(inputString, "[)\'\",=!+#\\[*\\]~;^<(>]+", " ");
+                    return Regex.Replace(inputString, "[)\'\",=!+#\\[*\\]~;^<(>]+", " ");
                 }
-                return outputString;
             }
             catch (Exception)
             {
-                return inputString;
+                throw;
             }
+            return inputString;
         }
 
     }

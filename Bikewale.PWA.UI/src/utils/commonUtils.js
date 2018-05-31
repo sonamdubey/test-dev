@@ -46,16 +46,15 @@ var updateData = function(state,updateDict) {
 function RemoveSpecialCharacters(inpString){
   var regex = /[\)'",=!+#\[*\]~;^<\(>]+/g;
     try{
-      if(inpString != null && inpString != undefined)
+      if(inpString != undefined)
       {
-        var outString = inpString.replace(regex, ' ');
-        return outString;
+        return inpString.replace(regex, ' ');
       }
     }
     catch(err){
       console.log(err);
-      return inpString;
     }
+    return inpString;
 }
 
 module.exports = {
