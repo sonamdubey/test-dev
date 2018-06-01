@@ -103,7 +103,7 @@ docReady(function () {
     function callFallBackWriteReview() {
         $('#adBlocker').show();
         $('.sponsored-card').hide();
-    };
+		};
     dealersPopupDiv = $('#more-dealers-popup'),
     dealerOffersDiv = $('#dealer-offers-popup'),
     termsConditions = $('#termsPopUpContainer');
@@ -510,12 +510,12 @@ docReady(function () {
         popupDiv.close(dealersPopupDiv);
         window.history.back();
     });
-
-    $('#dealer-offers-list').on('click', 'li', function () {
-        popupDiv.open(dealerOffersDiv);
-        appendHash("dealerOffers");
-        $('body, html').addClass('lock-browser-scroll');
+		
+    $('.benefit-list__more-target').on('click', function () {
+    	$(this).closest('.dealer__offers-content').addClass('benefit-list--expand');
     });
+		
+
 
     $('.offers-popup-close-btn').on("click", function () {
         popupDiv.close(dealerOffersDiv);

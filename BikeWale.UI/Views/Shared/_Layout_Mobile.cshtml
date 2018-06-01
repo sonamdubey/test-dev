@@ -1,5 +1,6 @@
 ﻿@model Bikewale.Models.ModelBase
 @using System.Linq;
+@using Bikewale.Utility;
 <!doctype html>
 <html lang="en">
 <head @(Model != null && Model.PageMetaTags != null ? "prefix=og:http://ogp.me/ns#":"")>
@@ -166,17 +167,17 @@
             switch (targetId)
             {
                 case 1:
-                    return String.Format("googletag.pubads().setTargeting(\"Model\", \"{0}\");", target);
+                    return String.Format("googletag.pubads().setTargeting(\"Model\", \"{0}\");", target.RemoveSpecialCharacters());
                 case 2:
-                    return String.Format("googletag.pubads().setTargeting(\"Make\", \"{0}\");", target);
+                    return String.Format("googletag.pubads().setTargeting(\"Make\", \"{0}\");", target.RemoveSpecialCharacters());
                 case 3:
-                    return String.Format("googletag.pubads().setTargeting(\"CompareBike-M\", \"{0}\");", target);
+                    return String.Format("googletag.pubads().setTargeting(\"CompareBike-M\", \"{0}\");", target.RemoveSpecialCharacters());
                 case 4:
-                    return String.Format("googletag.pubads().setTargeting(\"City\", \"{0}\");", target);
+                    return String.Format("googletag.pubads().setTargeting(\"City\", \"{0}\");", target.RemoveSpecialCharacters());
                 case 5:
-                    return string.Format("googletag.pubads().setTargeting(\"Series\", \"{0}\");", target);
+                    return string.Format("googletag.pubads().setTargeting(\"Series\", \"{0}\");", target.RemoveSpecialCharacters());
                 case 6:
-                    return string.Format("googletag.pubads().setTargeting(\"Tags\", \"{0}\");", target);
+                    return string.Format("googletag.pubads().setTargeting(\"Tags\", \"{0}\");", target.RemoveSpecialCharacters());
                 default:
                     return "";
             }

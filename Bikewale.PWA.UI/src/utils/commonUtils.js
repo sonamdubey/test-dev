@@ -43,11 +43,25 @@ var updateData = function(state,updateDict) {
   
 }
 
+function RemoveSpecialCharacters(inpString){
+  var regex = /[\)'",=!+#\[*\]~;^<\(>]+/g;
+    try{
+      if(inpString != undefined)
+      {
+        return inpString.replace(regex, '');
+      }
+    }
+    catch(err){
+      console.log(err);
+    }
+    return inpString;
+}
 
 module.exports = {
 	isServer,
 	isInt,
 	isCMSUserReviewSlugClosed,
     CMSUserReviewSlugPosition,
-    updateData
+    updateData,
+    RemoveSpecialCharacters
 }

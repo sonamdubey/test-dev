@@ -4,38 +4,29 @@
 {
     var PrimaryDealerDetails = Model.PrimaryDealer.DealerDetails;
 
-    <div class="inner-card-shadow margin-top20">
-        <div class="content-inner-block-20 position-rel">
-            <div id="pq-dealer-name" class="inline-block">
-                <div class="inline-block margin-right10">
-                    <span class="pq-sprite partner-dealer"></span>
-                </div>
+    <div class="inner-card-shadow margin-top20 dealer-details--pq">
+        <div class="padding-right20 padding-left20 position-rel">
+            <div id="pq-dealer-name" class="dealer__name-content">
+                <span class="dealer-details__icon"></span>
                 <div class="inline-block dealer-name-content">
-                    <h3 class="font18 text-black margin-bottom5 inline-block">@PrimaryDealerDetails.Organization</h3>
-                    @if (!string.IsNullOrEmpty(PrimaryDealerDetails.MaskingNumber))
-                    {
-                        <div class="margin-left10 inline-block">
-                            <span class="bwsprite phone-black-icon vertical-top"></span>
-                            <span class="font15 vertical-top text-bold ">@PrimaryDealerDetails.MaskingNumber</span>
-                        </div>
-                    }
-                    <p class="font12 text-light-grey">@(!PrimaryDealerDetails.IsDSA ? "Authorized Dealer in " : "Multi-brand Dealer in ")@PrimaryDealerDetails.objArea.AreaName</p>
+                    <h3 class="dealer-details__name">@PrimaryDealerDetails.Organization</h3>
+                    <p class="dealer-details__description">@(!PrimaryDealerDetails.IsDSA ? "Authorized Dealer in " : "Multi-brand Dealer in ")@PrimaryDealerDetails.objArea.AreaName</p>
+                </div>
+                @if (!string.IsNullOrEmpty(PrimaryDealerDetails.MaskingNumber))
+                {
+                    <div class="dealer-details__contact">
+                        <span class="bwsprite phone-black-icon vertical-top"></span>
+                        <span class="font15 vertical-top text-bold ">@PrimaryDealerDetails.MaskingNumber</span>
+                    </div>
+                }
+
+                <div id="get-offers-btn-content" class="dealer__get-offers-content">
+                    <a href=" javascript:void(0)" id="leadBtn" data-leadsourceid="9" data-item-id="@PrimaryDealerDetails.DealerId" data-item-name="@PrimaryDealerDetails.Organization" data-item-area="@PrimaryDealerDetails.objArea.AreaName" class="btn btn-orange pq-get-dealer-offers bw-ga leadcapturebtn" data-cat="DealerPriceQoute_Page" data-act="Get_Offers_Clicked" data-var="bikeVerLocation" rel="nofollow">
+                        @PrimaryDealerDetails.DisplayTextLarge
+                    </a>
                 </div>
             </div>
-            <div id="dealer-offers-label" class="inline-block">
-                <p class="font14">Get in touch with this dealer for:</p>
-                <ul id="offers-label-list">
-                    <li>Best offers</li>
-                    <li>Test rides</li>
-                    <li>EMI options</li>
-                </ul>
-            </div>
-            <div id="get-offers-btn-content" class="inline-block @(PrimaryDealerDetails.IsDSA ? " rightfloat " :"" )">
-                <a href=" javascript:void(0)" id="leadBtn" data-leadsourceid="9" data-item-id="@PrimaryDealerDetails.DealerId" data-item-name="@PrimaryDealerDetails.Organization" data-item-area="@PrimaryDealerDetails.objArea.AreaName" class="btn btn-orange pq-get-dealer-offers bw-ga leadcapturebtn" data-cat="DealerPriceQoute_Page" data-act="Get_Offers_Clicked" data-var="bikeVerLocation" rel="nofollow">
-                    @PrimaryDealerDetails.DisplayTextLarge
-                </a>
-            </div>
-            <div class="clear"></div>
+            
             @if (PrimaryDealerDetails.IsDSA)
             {
                 <div class="bw-tooltip pq-multi-brand-tooltip tooltip-bottom slideUp-tooltip">
@@ -43,9 +34,47 @@
                     <span class="position-abt pos-top15 pos-right15 bwsprite cross-sm-dark-grey cur-pointer close-bw-tooltip"></span>
                 </div>
             }
-            <div class="margin-top20 border-solid-bottom"></div>
+    
         </div>
-        <div id="dealer-contact-details" class="padding-right20 padding-bottom20 padding-left20 @(Model.PrimaryDealer.IsPremiumDealer ? " " : " map-absent") ">
+
+        @if (!Model.PrimaryDealer.IsStandardDealer && Model.PrimaryDealer.HasOffers)
+        {
+            <!-- offers starts here -->
+            <div class="dealer__offers-content offers-content--card-none">
+                @{
+            int offersCount = Model.PrimaryDealer.OfferList.Count();
+                }
+                @if (!Model.PrimaryDealer.IsStandardDealer && Model.PrimaryDealer.HasOffers)
+                {
+                    <div class="dealer-offer__container">
+                        <div class="dealer-offer__badge">
+                            <span class="offer-badge__star"></span>
+                            <span>@offersCount Offers</span>
+                        </div>
+                        <ul class="benefit__list">
+
+                            @foreach (var offer in Model.PrimaryDealer.OfferList)
+                            {
+                                <li class="benefit-list__item">
+                                    <span class="benefit-item__icon @(string.Format(" offer-{0}-icon", offer.OfferCategoryId))">
+                                    </span>
+                                    <p class="benefit-item__label">
+                                        @offer.OfferText
+                                        @if (offer.IsOfferTerms)
+                                        {
+                                            <span class="tnc font9 margin-left5" id="@offer.OfferId">View terms</span>
+                                        }
+                                    </p>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                }
+            </div>
+            <!-- offers ends here -->
+        }
+
+        <div id="dealer-contact-details" class="dealer-details__card dealer-details-card--shadow-none @(Model.PrimaryDealer.IsPremiumDealer ? " " : " map-absent") ">
             <!-- if no map, add 'map-absent' class -->
             <div class="alpha font14 @(Model.PrimaryDealer.IsPremiumDealer ? " grid-6" : "grid-12 omega")">
                 <!-- if no map, replace grid-6 with grid-12 -->
@@ -61,7 +90,7 @@
                 {
                     <div class="dealer-details-item">
                         <span class="bwsprite phone-black-icon vertical-top"></span>
-                        <span class="font15 vertical-top text-bold details-column">@PrimaryDealerDetails.MaskingNumber</span>
+                        <span class="font16 text-bold">@PrimaryDealerDetails.MaskingNumber</span>
                     </div>
                 }
                 @if (!string.IsNullOrEmpty(PrimaryDealerDetails.EmailId))
@@ -226,58 +255,24 @@
             <!-- EMI calculator ends -->
         }
 
-        @if ((!Model.PrimaryDealer.IsStandardDealer && Model.PrimaryDealer.HasOffers) || (Model.PrimaryDealer.IsPremiumDealer && Model.PrimaryDealer.HasBenefits))
+        @if (Model.PrimaryDealer.IsPremiumDealer && Model.PrimaryDealer.HasBenefits)
         {
-            <!-- offers and benefits starts here -->
+            <!-- benefits starts here -->
             <div class="margin-right20 margin-left20 border-solid-bottom"></div>
-            <div class="content-inner-block-20 font14">
-                @if (!Model.PrimaryDealer.IsStandardDealer && Model.PrimaryDealer.HasOffers)
-                {
-                    bool isSingleOffer = Model.PrimaryDealer.OfferList.Count() == 1;
-                    <!-- offers -->
-                    <div class="alpha @(Model.PrimaryDealer.IsPremiumDealer && Model.PrimaryDealer.HasBenefits ? " grid-6 border-light-right"  :"grid-12 omega offers-or-benefits")">
-                        <p class=" text-bold margin-bottom5">
-                            Offers from this dealer:
-                        </p>
-                        <ul class="dealership-benefit-list">
-
-                            @foreach (var offer in Model.PrimaryDealer.OfferList)
-                            {
-
-                                <li class="@( isSingleOffer ? " single-offer" : "")">
-                                    <span class="inline-block benefit-list-image pq-sprite @(string.Format(" offerIcon_{0}", offer.OfferCategoryId))">
-                                    </span>
-                                    <span class="inline-block benefit-list-title">
-                                        @offer.OfferText
-                                        @if (offer.IsOfferTerms)
-                                        {
-                                            <span class="tnc font9 margin-left5" id="@offer.OfferId">View terms</span>
-                                        }
-                                    </span>
-                                </li>
-                            }
-                        </ul>
-                        <div class="clear"></div>
-                    </div>
-                }
+            <div class="dealer__benefit-content content-inner-block-20">
                 @if (Model.PrimaryDealer.IsPremiumDealer && Model.PrimaryDealer.HasBenefits)
                 {
-                                    <!-- benefits -->
-                    <div class="omega @(!Model.PrimaryDealer.IsStandardDealer && Model.PrimaryDealer.HasOffers ? " grid-6 padding-left30" : "grid-12 alpha offers-or-benefits")">
-                        <p class="text-bold margin-bottom5">Benefits offered by this dealer</p>
-                        <ul class="dealership-benefit-list">
-                            @foreach (var benefit in Model.PrimaryDealer.Benefits)
-                            {
-                                <li>
-                                    <span class="inline-block benefit-list-image pq-sprite @(string.Format(" benifitIcon_{0}", benefit.CatId))"></span>
-                                    <span class="inline-block benefit-list-title">@benefit.BenefitText</span>
-                                </li>
-                            }
-                        </ul>
-                        <div class="clear"></div>
-                    </div>
+                    <p class="dealer-benefit__title">Benefits offered by this dealer</p>
+                    <ul class="benefit__list">
+                        @foreach (var benefit in Model.PrimaryDealer.Benefits)
+                        {
+                            <li class="benefit-list__item">
+                                <span class="benefit-item__icon @(string.Format(" benifitIcon_{0}", benefit.CatId))"></span>
+                                <span class="benefit-item__label">@benefit.BenefitText</span>
+                            </li>
+                        }
+                    </ul>
                 }
-                <div class="clear"></div>
             </div>
             <!-- offers and benefits ends here -->
         }

@@ -2,22 +2,13 @@
 
 <div id="dealerDetailsWrapper" class="border-solid-top">
 
-    <div class="padding-top20">
-        <div class="inline-block margin-right10 vertical-top">
-            <span class="model-sprite partner-dealer"></span>
-        </div>
-        <div class="inline-block position-rel margin-bottom10">
-            <div class="vertical-top">
-                <h3 class="font18 text-black inline-block">@Model.DealerDetails.Organization</h3>
-                @if (!string.IsNullOrEmpty(Model.DealerDetails.MaskingNumber))
-                {
-                    <div class="partner-dealer-contact position-rel pos-top2 vertical-top margin-left10 inline-block padding-right10">
-                        <span class="bwsprite phone-md margin-right5"></span>
-                        <span class="font16 text-bold">@Model.DealerDetails.MaskingNumber</span>
-                    </div>
-                }
-                <p class="font12 text-x-light">@(!Model.DealerDetails.IsDSA ? "Authorized Dealer in " : "Multi-brand Dealer in ")@Model.DealerArea</p>
-            </div>
+    <div class="dealer__name-content">
+        <span class="dealer-details__icon"></span>
+        <div>
+            <h3 class="dealer-details__name">@Model.DealerDetails.Organization</h3>
+
+            <p class="dealer-details__description">@(!Model.DealerDetails.IsDSA ? "Authorized Dealer in " : "Multi-brand Dealer in ")@Model.DealerArea</p>
+
             @if (Model.DealerDetails.IsDSA)
             {
                 <div class="bw-tooltip multi-brand-tooltip tooltip-left">
@@ -27,28 +18,43 @@
 
             }
         </div>
+        @if (!string.IsNullOrEmpty(Model.DealerDetails.MaskingNumber))
+        {
+            <div class="dealer-details__contact">
+                <span class="bwsprite phone-md margin-right5"></span>
+                <span class="font16 text-bold">@Model.DealerDetails.MaskingNumber</span>
+            </div>
+        }
     </div>
 
     @if (Model.DetailedDealer.PrimaryDealer.HasOffers)
     {
-        <div class="padding-top20 border-light-top">
-            <p class="font14 text-bold margin-bottom15">Offers from this dealer</p>
-            <ul class="dealership-benefit-list">
-                @foreach (var offer in Model.DetailedDealer.PrimaryDealer.OfferList)
-                {
-                    <li class="inline-block">
-                        <span class="benefit-list-image model-sprite  @(string.Format(" offerIcon_{0}", offer.OfferCategoryId))"></span>
-                        <span class="font14 benefit-list-title inline-block">
-                            @offer.OfferText
-                            @if (offer.IsOfferTerms)
-                            {
-                                <span class="tnc font9 margin-left5" id="@offer.OfferId">View terms</span>
-                            }
-                        </span>
-                    </li>
-                }
-            </ul>
-            <div class="clear"></div>
+        <div class="dealer__offers-content offers-content--card-none">
+            @{
+                int offersCount = Model.DetailedDealer.PrimaryDealer.OfferList.Count();
+            }
+            <div class="dealer-offer__container">
+                <div class="dealer-offer__badge">
+                    <span class="offer-badge__star"></span>
+                    <span>@offersCount Offers</span>
+                </div>
+                <ul class="benefit__list">
+                    @foreach (var offer in Model.DetailedDealer.PrimaryDealer.OfferList)
+                    {
+                        <li class="benefit-list__item">
+                            <span class="benefit-item__icon @(string.Format(" offer-{0}-icon", offer.OfferCategoryId))"></span>
+                            <p class="benefit-item__label">
+                                @offer.OfferText
+                                @if (offer.IsOfferTerms)
+                                {
+                                    <span class="tnc font9 margin-left5" id="@offer.OfferId">View terms</span>
+                                }
+                            </p>
+                        </li>
+                    }
+                </ul>
+                <div class="clear"></div>
+            </div>
         </div>
 
         <!-- Terms and condition Popup start -->

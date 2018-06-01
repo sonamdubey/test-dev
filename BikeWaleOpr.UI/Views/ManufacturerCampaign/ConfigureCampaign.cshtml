@@ -75,7 +75,7 @@
                         <option value="" disabled selected>Campaign Pages *</option>
                         @foreach (var page in Model.CampaignInformation.CampaignPages)
                         {
-                            <option value="@page.PageId" @(page.IsSelected ? "selected" : "")>@page.PageName</option>
+                            <option value="@page.PageId" @(Model.CampaignId == 0 || page.IsSelected ? "selected" : "")>@page.PageName</option>
                         }
                     </select>
                 </div>

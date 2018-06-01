@@ -74,8 +74,7 @@ namespace CityAutoSuggest
 
                 Hashtable htd = new Hashtable();                                                //For Removing Text After Bracket
                 htd.Add("Aurangabad (Bihar)", "Aurangabad"); htd.Add("Dindori - MH", "Dindori"); htd.Add("Mewat", "Nuh");
-                htd.Add("Una (Gujarat)", "Una"); htd.Add("Una (HP)", "Una"); htd.Add("Gurgaon", "Gurugram");
-                htd.Add("Bangalore", "Bengaluru");
+                htd.Add("Una (Gujarat)", "Una"); htd.Add("Una (HP)", "Una");
                 Hashtable htf = new Hashtable();                                                //HashTable for Duplicate       
 
                 Dictionary<string, decimal> City_Count = new Dictionary<string, decimal>();     //Create Dictionary
@@ -112,7 +111,7 @@ namespace CityAutoSuggest
 
                     ObjTemp.payload = new Payload()                                  //Payload
                     {
-                        CityId = cityItem.CityId,                                               //Add CityId in Payload
+                        CityId = cityItem.CityId,
                         CityMaskingName = cityItem.MaskingName.Trim(),                          //Add masking name in payload
                     };
 

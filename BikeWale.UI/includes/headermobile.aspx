@@ -1,4 +1,5 @@
-﻿<%@ Register Src="/m/controls/BookBikeSlug.ascx" TagPrefix="BikeBooking" TagName="BookBikeSlug" %>
+﻿<%@ Import namespace ="Bikewale.Utility" %>
+<%@ Register Src="/m/controls/BookBikeSlug.ascx" TagPrefix="BikeBooking" TagName="BookBikeSlug" %>
 <html xmlns="http://www.w3.org/1999/xhtml"  xmlns:fb="http://www.facebook.com/2008/fbml" lang="en">
     <script language="c#" runat="server">	    
 	    private string title = "", description = "", keywords = "", AdId = "", AdPath = "",ShowTargeting="",TargetedModel="", TargetedSeries="", TargetedMakes="",TargetedModels="", AdModel_300x250=""
@@ -47,9 +48,9 @@
         <% if (Ad_300x250) { %> googletag.defineSlot('<%= AdPath%>300x250', [300, 250], 'div-gpt-ad-<%= AdId%>-2').addService(googletag.pubads());<% } %>  
         
         <% if(!String.IsNullOrEmpty(ShowTargeting)) { %>
-        googletag.pubads().setTargeting("Model", "<%= TargetedModel %>");        
-        googletag.pubads().setTargeting("Make", "<%= TargetedMakes %>");
-        googletag.pubads().setTargeting("CompareBike-M", [<%= TargetedModels %>]);
+        googletag.pubads().setTargeting("Model", "<%= TargetedModel.RemoveSpecialCharacters() %>");        
+        googletag.pubads().setTargeting("Make", "<%= TargetedMakes.RemoveSpecialCharacters() %>");
+        googletag.pubads().setTargeting("CompareBike-M", [<%= TargetedModels.RemoveSpecialCharacters() %>]);
         <% } %>        
         googletag.pubads().collapseEmptyDivs();
         googletag.pubads().enableSingleRequest();

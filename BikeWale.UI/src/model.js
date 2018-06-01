@@ -163,6 +163,15 @@ docReady(function () {
         $('.sponsored-card').hide();
     };
 
+    // focus dealer offers
+    $('#viewDealerOffers').on('click', function () {
+        var offsetTop = $('#dealerDetailsWrapper').offset().top - $('#overallSpecsTab').height()
+
+        $('html, body').animate({
+            scrollTop: offsetTop
+        }, 1000);
+    });
+
     colourCarousel = $('#colourCarousel');
     carouselColorList = $('#model-color-list');
     var colorElements = carouselColorList.find('li');

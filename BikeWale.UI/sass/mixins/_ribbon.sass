@@ -1,0 +1,41 @@
+$badge-triangle-map: ('aluminium': 'tuna')
+  
+@mixin badge($font-size: 11px, $color: 'white', $background-color: 'aluminium', $triangle-width: 9px)
+  position: absolute
+  top: -$triangle-width
+  left: 15px
+  font-size: $font-size
+  font-weight: $font-bold
+  color: color($color)
+  padding: 6px 10px
+  background-color: color($background-color)
+  text-align: center
+  text-transform: uppercase
+  letter-spacing: 1px
+  border-radius: 2px 0 2px 2px
+
+  &:after
+    content: ''
+    position: absolute
+    top: 0
+    right: -$triangle-width
+    border-right: $triangle-width solid transparent
+    border-bottom: $triangle-width solid color(map-get($badge-triangle-map, $background-color))
+
+
+@mixin ribbon($direction: 'right', $font-size: 10px, $color: 'white', $background-color: 'iris-blue')
+  position: relative
+  padding: 5px 10px
+  color: color($color)
+  font-size: $font-size
+  background-color: color($background-color)
+
+  &:before
+    content: ''
+    position: absolute
+    top: 0
+    left: -10px
+    border-top: 10px solid color($background-color)
+    border-left: 10px solid transparent
+    border-bottom: 10px solid color($background-color)
+    display: block

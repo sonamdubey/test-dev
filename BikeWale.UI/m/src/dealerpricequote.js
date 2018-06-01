@@ -89,7 +89,21 @@ docReady(function () {
     function callFallBackWriteReview() {
         $('#adBlocker').show();
         $('.sponsored-card').hide();
-    };
+	};
+
+	// focus dealer offers
+	$('#viewDealerOffers').on('click', function () {
+		var offsetTop = $('#pq-dealer-details').offset().top - ($('#bw-header').height() + $('#offersSummaryToolbar').height())
+
+		$('html, body').animate({
+			scrollTop: offsetTop
+		}, 1000);
+	});
+
+	$('#closeDealerOffersToolbar').on('click', function() {
+		$('#offersSummaryToolbar').remove();
+	});
+
     emiPopupDiv = $("#emiPopup");
     offersPopupDiv = $("#offersPopup");
     $('#bw-header').addClass('fixed');
