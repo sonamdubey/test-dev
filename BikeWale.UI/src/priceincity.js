@@ -12,7 +12,7 @@ docReady(function () {
     }
 
     $('.overall-specs-tabs-wrapper span').first().addClass('active');
-   
+
     // ad blocker active than fallback method
     if (window.canRunAds === undefined) {
         callFallBackWriteReview();
@@ -22,7 +22,7 @@ docReady(function () {
         $('.sponsored-card').hide();
     };
 
-    
+
     // version dropdown
     $('.chosen-select').chosen();
 
@@ -141,6 +141,9 @@ docReady(function () {
         return false;
     });
 
+    // version dropdown
+    var versionDropdown = new DropdownMenu('#model-version-dropdown');
+
     // emi calculator
     ko.bindingHandlers.slider = {
         init: function (element, valueAccessor, allBindingsAccessor, bindingContext) {
@@ -217,7 +220,7 @@ docReady(function () {
             },
             owner: this
         });
-    };          
+    };
 
 
     $.calculateEMI = function (loanAmount, tenure, rateOfInterest,proFees) {
@@ -235,7 +238,7 @@ docReady(function () {
         try {
             switch(sliderType)
             {
-                case 1: 
+                case 1:
                     svar =  $.valueFormatter(Math.round(min + (index * (max - min)/breaks)));
                     break;
                 case 2:
@@ -244,9 +247,9 @@ docReady(function () {
                 default:
                     svar =  (min + (index * (max - min)/breaks)).toFixed(2);
                     break;
-            } 
+            }
         } catch (e) {
-    
+
         }
         return svar;
     };
@@ -272,7 +275,7 @@ docReady(function () {
                 return (num / 1000).toFixed(1).replace(/\.0$/, '') + 'K';
             }
         }
-              
+
         return num;
     };
 
@@ -349,14 +352,14 @@ docReady(function () {
                     lab: ele.attr("data-var")
                 }
             };
-            
+
             dleadvm.setOptions(leadOptions);
         } catch (e) {
             console.warn("Unable to get submit details : " + e.message);
         }
 
     });
-   
+
 });
 
 function showTab(version) {

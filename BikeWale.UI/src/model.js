@@ -69,7 +69,7 @@ function openLeadCaptureForm(dealerID) {
 }
 
 function logBhrighuForImage(imgId, imgCat, imgType) {
-  
+
         if (imgId) {
             var lb = "";
             if (imgCat) {
@@ -190,18 +190,18 @@ docReady(function () {
         {
             logBhrighuForImage(imageId,imageCat, imageType);
         }
-        
+
         colorElements.removeClass('active');
         colorElements.eq([$(this).index()]).addClass('active');
     });
-   
+
     $("span.carousel-img-container").click(function () {
-      
+
         location.href = $(this).attr("href");
 
 
     });
-  
+
     getCityArea = GetGlobalCityArea();
 
     $(".leadcapturebtn").click(function (e) {
@@ -317,7 +317,7 @@ docReady(function () {
                             carouselNavigation.jcarousel('scrollIntoView', this);
 
                             if (prev != -1) {
-                                logBhrighuForImage(item.attr("data-imgid"), item.attr("data-imgcat"), item.attr("data-imgtype"));                               
+                                logBhrighuForImage(item.attr("data-imgid"), item.attr("data-imgcat"), item.attr("data-imgtype"));
                             }
                             prev = item.index();
                             item.addClass('active');
@@ -537,6 +537,9 @@ docReady(function () {
         $(this).hide();
         $("ul.moreOffersList").slideToggle()
     });
+
+    // version dropdown
+    var versionDropdown = new DropdownMenu('#model-version-dropdown');
 
     $('#ddlVersion').on("change", function () {
         $('#hdnVariant').val($(this).val());
