@@ -2,9 +2,9 @@
 @using Bikewale.Utility;
 @using Bikewale.Common;
 @{
-	Layout = "~/Views/Shared/_Layout.cshtml";
-	Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/new/modelprice-in-city.css' inline /> <link href='/css/campaign/hero-campaign.css' rel='stylesheet' type='text/css' inline /> <link rel='stylesheet' type='text/css' href='/css/threesixty-slider.css' inline />";
-	Model.Page_JS_Paths = new string[] { "/src/swiper-3.1.7.js", "/src/priceincity.js" };
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/new/modelprice-in-city.css' inline /> <link href='/css/campaign/hero-campaign.css' rel='stylesheet' type='text/css' inline /> <link rel='stylesheet' type='text/css' href='/css/threesixty-slider.css' inline /><link rel='stylesheet' type='text/css' href='/sass/partials/version-dropdown.css' inline/>";
+    Model.Page_JS_Paths = new string[] { "/src/utils/dropdown.js", "/src/swiper-3.1.7.js", "/src/priceincity.js" };
 	Model.IsPageTypeLanding = false;
 	Model.IsHeaderFix = false;
 	var gaBikeName = String.Format("{0}_{1}_{2}", Model.Make.MakeName, Model.BikeModel.ModelName, Model.CityEntity.CityName);
@@ -45,7 +45,7 @@
 									@Html.Raw(string.Format("<ul id=\"version-specs-list\">{0}</ul>",FormatMinSpecs.GetMinSpecsAsLiElement(Model.MinSpecsList)))
 								</div>
 								<div class="orp-right-grid leftfloat">
-									@if (Model.BikeVersionPrices.Count() > 1)
+									@*@if (Model.BikeVersionPrices.Count() > 1)
 									{
 										<div id="model-version-dropdown" class="margin-right20 vertical-top">
 											<p class="font12 text-light-grey">Version</p>
@@ -65,7 +65,34 @@
 											<p class="font12 text-light-grey">Version</p>
 											<p class="text-bold dropdown-effect-light text-truncate">@Model.FirstVersion.VersionName</p>
 										</div>
-									}
+									}*@
+                                    <div id="model-version-dropdown" class="dropdown-box dropdown-box--desktop vertical-top">
+                                        <div class="dropdown-box__menu-tab version-tab__content">
+                                            <p class="dropdown-box__menu-title">Version</p>
+                                            <p id="defversion" class="dropdown-box__menu-value  ">@Model.FirstVersion.VersionName</p>
+                                        </div>
+                                        @*@if (Model.BikeVersionPrices.Count() > 1)
+                                        {*@
+                                            <ul class="dropdown-box__submenu-list">
+                                                @foreach (var version in Model.BikeVersionPrices)
+                                                {
+                                                    <li class="dropdown-box-submenu-list__item">
+                                                        <div class="submenu-list-item__title">
+                                                            <p class="submenu-list-item-title__left-col">@version.VersionName</p>
+                                                            <p class="submenu-list-item-title__right-col">&#x20b9; 5,80,768</p>
+                                                        </div>
+                                                        <ul class="dropdown-box-submenu__specs-list">
+                                                            <li class="dropdown-box-specs-list__item">Drum</li>
+                                                            <li class="dropdown-box-specs-list__item">ABS</li>
+                                                            <li class="dropdown-box-specs-list__item">Alloy</li>
+                                                            <li class="dropdown-box-specs-list__item">Disk Breaks</li>
+                                                        </ul>
+                                                    </li>
+                                                }
+                                            </ul>
+                                        @*}*@
+                                    </div>
+
 									@if (Model.IsNew)
 									{
 										<div class="location-selection vertical-top cur-pointer">
@@ -109,11 +136,11 @@
 												<!-- /ko -->
 												<tr>
 													<td align="left" valign="top" width="70%" class="padding-top15 border-solid-top">@Model.BikeModel.ModelName  on-road price in @Model.CityEntity.CityName</td>
-													<td align="right" valign="top" width="30%" class="padding-top15 border-solid-top font16">@Html.Raw("<span>&#x20B9;</span>")&nbsp;<span class='text-bold' data-bind="text: onRoadPrice()"></span>													
+													<td align="right" valign="top" width="30%" class="padding-top15 border-solid-top font16">@Html.Raw("<span>&#x20B9;</span>")&nbsp;<span class='text-bold' data-bind="text: onRoadPrice()"></span>
 													</td>
 												</tr>
-												
-												
+
+
 											</tbody>
 										</table>
 										<div class="text-right margin-right15">@if (!string.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink) && !Model.IsManufacturerLeadAdShown && !Model.HasCampaignDealer)

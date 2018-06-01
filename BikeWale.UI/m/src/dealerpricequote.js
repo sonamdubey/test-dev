@@ -275,7 +275,24 @@ docReady(function () {
 
     });
 
+    // version dropdown
+    function handleVersionMenuClick(dropdown) {
+        var offsetTop = $(dropdown.container).offset().top - $('#bw-header').height();
 
+        $('html, body').animate({ scrollTop: offsetTop }, 500);
+    }
+
+    function handleVersionChange(dropdown) {
+        registerPQAndReload(dealerId, dropdown.activeOption.value);
+        dataLayer.push({ "event": "Bikewale_all", "cat": "Dealer_PQ", "act": "Version_Changed", "lab": bikeName + "_" + dropdown.activeOption.name + "_" + getCityArea });
+    }
+
+    var versionDropdown = new DropdownMenu('#versionDropdown', {
+        onMenuClick: handleVersionMenuClick,
+        onChange: handleVersionChange
+    });
+
+    // old version dropdown change event
     $("#ddlVersion").on("change", function () {
         versionName = $(this).children(":selected").text();
         registerPQAndReload(dealerId,$(this).val());

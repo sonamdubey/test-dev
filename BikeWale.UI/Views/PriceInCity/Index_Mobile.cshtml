@@ -3,8 +3,8 @@
 @using Bikewale.Utility;
 @{
     Model.PageMetaTags.AlternateUrl = "";
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/new/bwm-modelprice-in-city.css' inline /> <link rel='stylesheet' type='text/css' href='/m/css/campaign/hero-campaign.css' inline /> <link rel='stylesheet' type='text/css' href='/css/threesixty-slider.css' inline />";
-    Model.Page_JS_Paths = new string[] { "/m/src/priceincity.js" };
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/new/bwm-modelprice-in-city.css' inline /> <link rel='stylesheet' type='text/css' href='/m/css/campaign/hero-campaign.css' inline /> <link rel='stylesheet' type='text/css' href='/css/threesixty-slider.css' inline /> <link rel='stylesheet' type='text/css' href='/sass/partials/version-dropdown.css' inline/>";
+    Model.Page_JS_Paths = new string[] { "/src/utils/dropdown.js", "/m/src/priceincity.js" };
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
     var gaBikeName = String.Format("{0}_{1}_{2}", Model.Make.MakeName, Model.BikeModel.ModelName, Model.CityEntity.CityName);
     String AdId_Ad_200x253 = "1505919734321";
@@ -26,7 +26,7 @@
 				<!-- model orp start -->
 				<div id="orpContent" class="bw-model-tabs-data">
 					<div class="content-box-shadow card-bottom-margin content-inner-block-20 @(Model.IsDiscontinued ? " padding-top40" : "") ">
-						<div class="margin-bottom15">
+						<div id="versionDropdown" class="margin-bottom15 pic-version-dropdown-box version__dropdown-box dropdown-box">
 							<div class="model-image inline-block position-rel">
 								@if (Model.IsDiscontinued)
 								{
@@ -40,8 +40,8 @@
 
 
 							</div>
-							<div class="model-version-block inline-block padding-left15">
-								<p class="font12 text-light-grey">Version:</p>
+							<div class="model-version-block inline-block">
+								@*<p class="font12 text-light-grey">Version:</p>
 								@if (Model.BikeVersionPrices.Count() > 1)
 								{
 									<div class="dropdown-select-wrapper">
@@ -58,8 +58,53 @@
 									<div class="single-version-content font14">
 										<p class="dropdown-effect-light">@Model.FirstVersion.VersionName</p>
 									</div>
-								}
-							</div>
+								}*@
+
+                                <div class="dropdown-box__menu-tab">
+                                    <p class="dropdown-box__menu-title">Version</p>
+                                    <span class="dropdown-box__menu-value">Standard</span>
+                                </div>
+                            
+                            </div>
+
+                            <ul class="dropdown-box__submenu-list">
+                                <li class="dropdown-box-submenu-list__item submenu-list-item--active" data-value="100">
+                                    <div class="submenu-list-item__title">
+                                        <p class="submenu-list-item-title__left-col">Standard</p>
+                                        <p class="submenu-list-item-title__right-col">&#x20b9; 5,80,768</p>
+                                    </div>
+                                    <ul class="dropdown-box-submenu__specs-list">
+                                        <li class="dropdown-box-specs-list__item">Drum</li>
+                                        <li class="dropdown-box-specs-list__item">ABS</li>
+                                        <li class="dropdown-box-specs-list__item">Alloy</li>
+                                        <li class="dropdown-box-specs-list__item">Disk Breaks</li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown-box-submenu-list__item" data-value="101">
+                                    <div class="submenu-list-item__title">
+                                        <p class="submenu-list-item-title__left-col">Standard</p>
+                                        <p class="submenu-list-item-title__right-col">&#x20b9; 5,80,768</p>
+                                    </div>
+                                    <ul class="dropdown-box-submenu__specs-list">
+                                        <li class="dropdown-box-specs-list__item">Drum</li>
+                                        <li class="dropdown-box-specs-list__item">ABS</li>
+                                        <li class="dropdown-box-specs-list__item">Alloy</li>
+                                        <li class="dropdown-box-specs-list__item">Disk Breaks</li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown-box-submenu-list__item" data-value="102">
+                                    <div class="submenu-list-item__title">
+                                        <p class="submenu-list-item-title__left-col">Standard</p>
+                                        <p class="submenu-list-item-title__right-col">&#x20b9; 5,80,768</p>
+                                    </div>
+                                    <ul class="dropdown-box-submenu__specs-list">
+                                        <li class="dropdown-box-specs-list__item">Drum</li>
+                                        <li class="dropdown-box-specs-list__item">ABS</li>
+                                        <li class="dropdown-box-specs-list__item">Alloy</li>
+                                        <li class="dropdown-box-specs-list__item">Disk Breaks</li>
+                                    </ul>
+                                </li>
+                            </ul>
 						</div>
 						@if (Model.IsNew)
 						{

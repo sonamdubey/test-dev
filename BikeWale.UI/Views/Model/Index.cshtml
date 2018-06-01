@@ -2,11 +2,11 @@
 @{
 
 
-	Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/model-atf.css' inline /> <link href='/css/campaign/hero-campaign.css' rel='stylesheet' type='text/css' inline /> <link rel='stylesheet' type='text/css' href='/css/threesixty-slider.css' inline /><link rel='stylesheet' type='text/css' href='/css/emicalculator.css' inline /> <link rel='stylesheet' type='text/css' href='/sass/modules/review-article.css' inline/> <link rel='stylesheet' type='text/css' href='/sass/partials/dealer-offers.css' inline />";
+	Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/model-atf.css' inline /> <link href='/css/campaign/hero-campaign.css' rel='stylesheet' type='text/css' inline /> <link rel='stylesheet' type='text/css' href='/css/threesixty-slider.css' inline /><link rel='stylesheet' type='text/css' href='/css/emicalculator.css' inline /> <link rel='stylesheet' type='text/css' href='/sass/modules/review-article.css' inline/> <link rel='stylesheet' type='text/css' href='/sass/partials/dealer-offers.css' inline /> <link rel='stylesheet' type='text/css' href='/sass/partials/version-dropdown.css' inline/>";
 	Model.Page_BTF_CSS_Path = "/css/model-btf.css";
-	Model.Page_JS_Paths = new string[] {"/src/model.js" ,"/src/emi-calculator.js"};
+	Model.Page_JS_Paths = new string[] {"/src/utils/dropdown.js", "/src/model.js" ,"/src/emi-calculator.js"};
 	Layout = "~/Views/Shared/_Layout.cshtml";
-}   
+}
 	@if (Model.IsNewBike)
 	{
 		@Html.Partial("~/Views/Model/_Index_New.cshtml", Model)
@@ -19,7 +19,7 @@
 	{
 		@Html.Partial("~/Views/Model/_Index_Upcoming.cshtml", Model)
 	}
-	
+
 
 	<script type="text/javascript">
 	ga_pg_id = '2';
@@ -62,5 +62,5 @@
         }
     });
 	</script>
-	
+
 	<script defer src="@String.Format("{0}/src/ads.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl,Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion)"></script>

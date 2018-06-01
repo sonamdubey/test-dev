@@ -96,6 +96,9 @@ docReady(function () {
     // version dropdown
     $('.chosen-select').chosen();
 
+    // version dropdown
+    var versionDropdown = new DropdownMenu('#model-version-dropdown');
+
       // ad blocker active than fallback method
     if (window.canRunAds === undefined) {
         callFallBackWriteReview();
@@ -148,12 +151,12 @@ docReady(function () {
                 cat: ele.attr("data-cat"),
                 act: ele.attr("data-act"),
                 lab: bikeVerLocation
-            }          
+            }
         };
 
         dleadvm.setOptions(leadOptions);
     });
-    
+
 
     $('.chosen-select').on('change', function () {
         var selectField = $(this);
@@ -346,6 +349,6 @@ docReady(function () {
     } catch (e) {
         console.log(e.message);
     }
-    
+
 
 });
