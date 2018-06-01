@@ -110,7 +110,7 @@ namespace Bikewale.PWA.Utils
                 outDetails.LargePicUrl = inpDet.LargePicUrl;
                 outDetails.SmallPicUrl = inpDet.SmallPicUrl;
                 outDetails.ArticleApi = string.Format("api/pwa/cms/id/{0}/pages/", inpDet.BasicId);
-                outDetails.Tags = (inpDet.TagsList != null && inpDet.TagsList.Count() > 0) ? String.Join(",", inpDet.TagsList) : string.Empty;
+                outDetails.Tags = (inpDet.TagsList != null && inpDet.TagsList.Count() > 0) ? String.Join(", ", inpDet.TagsList) : string.Empty;
                 outDetails.ShareUrl = PwaCmsHelper.ReturnSharePageUrl(inpDet);
             }
             return outDetails;
