@@ -386,7 +386,7 @@ namespace Bikewale.Utility
             }
             catch (Exception)
             {
-                throw;
+                
             }
             return inputString;
         }
