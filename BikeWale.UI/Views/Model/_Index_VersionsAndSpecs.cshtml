@@ -43,16 +43,13 @@
 
 
 
-    <div class="dropdown-box margin-bottom20 " id="model-version-dropdown" data-pageurl="@Bikewale.Utility.UrlFormatter.BikePageUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName,Model.ModelPageEntity.ModelDetails.MaskingName)" data-selected-version="@Model.VersionId">
+    <div class=" dropdown-box margin-bottom20 " id="model-version-dropdown" data-pageurl="@Bikewale.Utility.UrlFormatter.BikePageUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName,Model.ModelPageEntity.ModelDetails.MaskingName)" data-selected-version="@Model.VersionId">
 
-        <div class="grid-4 dropdown-box__menu-tab version-city-content--desk-tab ">
+        <div class="grid-4 dropdown-box__menu-tab version-city-content--desk-tab no-padding version-city-content--icon">
 
             <p class="dropdown-box__menu-title version-city-content--desk-menu">Version</p>
             <p id="defversion" class="dropdown-box__menu-value  ">@(Model.SelectedVersion != null ? Model.SelectedVersion.VersionName : Model.VersionName)</p>
         </div>
-
-
-
         @if (Model.IsNewBike)
         {
             <div class=" location-selection vertical-top">
@@ -63,11 +60,9 @@
                 </p>
             </div>
         }
-
-
         <div class=" clear"></div>
-        @if (Model.ModelPageEntity.ModelVersions != null && Model.ModelPageEntity.ModelVersions.Count > 1)
-        {
+        @*@if (Model.ModelPageEntity.ModelVersions != null && Model.ModelPageEntity.ModelVersions.Count > 1)
+        {*@
             <ul class="dropdown-box__submenu-list version-city-content--desk-submenu">
                 @foreach (var version in Model.ModelPageEntity.ModelVersions)
                 {
@@ -85,8 +80,10 @@
                     </li>
                 }
             </ul>
-        }
+        @*}*@
     </div>
+
+
 
     <div class="clear"></div>
 }

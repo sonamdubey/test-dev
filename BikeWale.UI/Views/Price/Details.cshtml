@@ -5,9 +5,9 @@
 @{
 
 
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/dealerpricequote.css' inline />  <link href='/css/campaign/hero-campaign.css' rel='stylesheet' type='text/css' inline /> <link rel='stylesheet' type='text/css' href='/css/threesixty-slider.css' inline />";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/dealerpricequote.css' inline />  <link href='/css/campaign/hero-campaign.css' rel='stylesheet' type='text/css' inline /> <link rel='stylesheet' type='text/css' href='/css/threesixty-slider.css' inline /><link rel='stylesheet' type='text/css' href='/sass/partials/version-dropdown.css' inline/>";
     Model.Page_BTF_CSS_Path = "";
-    Model.Page_JS_Path = "/src/dealerpricequote.js";
+    Model.Page_JS_Paths = new string[] { "/src/utils/dropdown.js", "/src/dealerpricequote.js" };
     Model.AdTags.AdPath = "/1017752/BikeWale_PQ_";
     Model.AdTags.AdId = "1516081799439";
     Model.AdTags.Ad_970x90 = false;
@@ -71,7 +71,7 @@
                         @Html.Raw(string.Format("<ul id=\"version-specs-list\">{0}</ul>", FormatMinSpecs.GetMinSpecsAsLiElement(Model.SelectedVersionMinSpecs)))
                     </div>
                     <div id="pq-table-column" class="grid-7 alpha omega">
-                        @if (Model.VersionsList.Count() > 1)
+                        @*@if (Model.VersionsList.Count() > 1)
                         {
                             <div id="model-version-dropdown" class="margin-right20 vertical-top">
                                 <p class="font12 text-light-grey">Version</p>
@@ -91,7 +91,36 @@
                                 <p class="font12 text-light-grey">Version</p>
                                 <p class="text-bold dropdown-effect-light text-truncate">@(Model.SelectedVersion != null ? Model.SelectedVersion.VersionName : "")</p>
                             </div>
-                        }
+                        }*@
+
+                            <div id="model-version-dropdown" class="dropdown-box vertical-top">
+                                <div class="dropdown-box__menu-tab  version-city-content--desk-tab version-city-content--icon">
+                                    <p class="dropdown-box__menu-title version-city-content--desk-menu ">Version</p>
+                                    <p id="defversion" class="dropdown-box__menu-value  ">
+                                        @(Model.SelectedVersion != null ? Model.SelectedVersion.VersionName : "")
+                                    </p>
+                                </div>
+                            @*@if (Model.VersionsList.Count() > 1)
+                                {*@
+                                    <ul class="dropdown-box__submenu-list version-city-content--desk-submenu">
+                                        @foreach (var version in Model.VersionsList)
+                                        {
+                                            <li class="dropdown-box-submenu-list__item">
+                                                <div class="submenu-list-item__title">
+                                                    <p class="submenu-list-item-title__left-col">@version.VersionName</p>
+                                                    <p class="submenu-list-item-title__right-col">&#x20b9; 5,80,768</p>
+                                                </div>
+                                                <ul class="dropdown-box-submenu__specs-list">
+                                                    <li class="dropdown-box-specs-list__item">Drum</li>
+                                                    <li class="dropdown-box-specs-list__item">ABS</li>
+                                                    <li class="dropdown-box-specs-list__item">Alloy</li>
+                                                    <li class="dropdown-box-specs-list__item">Disk Breaks</li>
+                                                </ul>
+                                            </li>
+                                        }
+                                    </ul>
+                                @*}*@
+                            </div>
                         <input type="hidden" value="@Model.VersionId" />
 
                         <div class="location-selection vertical-top getquotation" data-persistent="true" data-modelid="@Model.ModelId">
@@ -507,6 +536,6 @@
         catch (e) {
             console.log(e.message);
         }
-       
+
     });
 </script>
