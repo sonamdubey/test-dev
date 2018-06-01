@@ -43,27 +43,38 @@
 .pic-version-dropdown-box
     .dropdown-box__submenu-list
         top: 92%
+        left: -5px
 
 // Desktop classes
-.version-city-content--desk-tab
-  height: 45px
-  width: 126px
-  margin-right: 20px
-  border-bottom: 1px solid color('aluminium');
+.dropdown-box--desktop
+    .version-tab__content
+        height: 45px
+        width: 126px
+        margin-right: 20px
+        border-bottom: 1px solid color('aluminium')
 
-.version-city-content--desk-submenu
-  width: 360px
+    .dropdown-box__submenu-list
+        width: 360px
+        max-height: 230px
+        margin-top: -1px
+        overflow-y: auto
 
-.version-city-content--desk-menu
-    padding-bottom: 3px
+    .dropdown-box-submenu-list__item
+        padding-top: 16px
+        padding-bottom: 16px
+
+    .dropdown-box__menu-title
+        padding-bottom: 3px
+
+    .dropdown-box__menu-tab
+        &:after
+            right: 10px
 
 .dropdown-box--active
-  .version-city-content--desk-menu
-    padding-left: 20px
-
-.version-city-content--icon
-  &:after
-    right: 10px
+    &.dropdown-box--desktop
+        .dropdown-box__menu-title
+            padding-left: 20px
+            padding-bottom: 0
 
 .no-padding
   padding: 0

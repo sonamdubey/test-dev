@@ -93,16 +93,16 @@
                             </div>
                         }*@
 
-                            <div id="model-version-dropdown" class="dropdown-box vertical-top">
-                                <div class="dropdown-box__menu-tab  version-city-content--desk-tab version-city-content--icon">
-                                    <p class="dropdown-box__menu-title version-city-content--desk-menu ">Version</p>
+                            <div id="model-version-dropdown" class="dropdown-box dropdown-box--desktop vertical-top">
+                                <div class="dropdown-box__menu-tab version-tab__content">
+                                    <p class="dropdown-box__menu-title">Version</p>
                                     <p id="defversion" class="dropdown-box__menu-value  ">
                                         @(Model.SelectedVersion != null ? Model.SelectedVersion.VersionName : "")
                                     </p>
                                 </div>
                             @*@if (Model.VersionsList.Count() > 1)
                                 {*@
-                                    <ul class="dropdown-box__submenu-list version-city-content--desk-submenu">
+                                    <ul class="dropdown-box__submenu-list">
                                         @foreach (var version in Model.VersionsList)
                                         {
                                             <li class="dropdown-box-submenu-list__item">

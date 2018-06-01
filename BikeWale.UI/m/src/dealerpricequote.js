@@ -265,7 +265,7 @@ docReady(function () {
     function handleVersionMenuClick(dropdown) {
         var offsetTop = $(dropdown.container).offset().top - $('#bw-header').height();
 
-        $('html, body').animate({ scrollTop: offsetTop });
+        $('html, body').animate({ scrollTop: offsetTop }, 500);
     }
 
     function handleVersionChange(dropdown) {
