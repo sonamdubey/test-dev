@@ -92,29 +92,29 @@
 
 
 @mixin dropdown-box-specs-list($color: 'nobel')
-  .dropdown-box-submenu__specs-list
-    @include text-truncate(100%)
+    .dropdown-box-submenu__specs-list
+        @include text-truncate(100%)
 
     .dropdown-box-specs-list__item
-      font-weight: normal
-      border: none
-      font-size: 12px
-      line-height: 17px
-      display: inline-block
-      vertical-align: middle
-      padding: 7px 7px 0 10px
-      color: color($color)
-      position: relative
+        font-weight: normal
+        border: none
+        font-size: 12px
+        line-height: 17px
+        display: inline-block
+        vertical-align: middle
+        padding: 7px 7px 0 10px
+        color: color($color)
+        position: relative
 
-      &:before
-        @include vendor-prefix(border-radius, 50%)
-        content: ''
-        width: 4px
-        height: 4px
-        background-color: color($color)
-        position: absolute
-        top: 56%
-        left: 0
+        &:before
+            @include vendor-prefix(border-radius, 50%)
+            content: ''
+            width: 4px
+            height: 4px
+            background-color: color($color)
+            position: absolute
+            top: 56%
+            left: 0
 
 
 @mixin dropdown-box-submenu-item-columns($title-truncate-width: '70%')

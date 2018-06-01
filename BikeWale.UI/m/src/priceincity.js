@@ -274,6 +274,16 @@ docReady(function () {
             $(this).closest('div').hide();
         });
 
+        function handleVersionMenuClick(dropdown) {
+            var offsetTop = $(dropdown.container).offset().top - $('.overall-specs-tabs-container').height();
+
+            $('html, body').animate({ scrollTop: offsetTop });
+        }
+
+        var versionDropdown = new DropdownMenu('#versionDropdown', {
+            onMenuClick: handleVersionMenuClick
+        });
+
         // dropdown events
         $('.dropdown-select-wrapper').on('click', '.dropdown-label', function () {
             dropdown.active($(this));
