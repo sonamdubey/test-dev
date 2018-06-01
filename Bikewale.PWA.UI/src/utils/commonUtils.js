@@ -48,7 +48,7 @@ function RemoveSpecialCharacters(inpString){
     try{
       if(inpString != undefined)
       {
-        return inpString.replace(regex, ' ');
+        return inpString.replace(regex, '');
       }
     }
     catch(err){

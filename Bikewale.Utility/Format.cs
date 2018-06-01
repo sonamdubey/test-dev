@@ -381,7 +381,7 @@ namespace Bikewale.Utility
             {
                 if (!string.IsNullOrEmpty(inputString))
                 {
-                    return Regex.Replace(inputString, "[)\'\",=!+#\\[*\\]~;^<(>]+", " ");
+                    return Regex.Replace(inputString, "[)\'\",=!+#\\[*\\]~;^<(>]+", "");
                 }
             }
             catch (Exception)
