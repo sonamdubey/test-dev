@@ -8,7 +8,7 @@
     Model.AdTags.AdPath = "/1017752/Bikewale_Reviews";
     Model.AdTags.Ad_320x50 = true;
     Model.AdTags.Ad_Bot_320x50 = true;
-    if (Model != null && Model.objFeature != null) { Model.AdTags.TargetedTags = String.Join(",", Model.objFeature.TagsList); };
+    if (Model != null && Model.objFeature != null) { Model.AdTags.TargetedTags = String.Join(", ", Model.objFeature.TagsList); };
 }
 @if(Model != null)
 {
