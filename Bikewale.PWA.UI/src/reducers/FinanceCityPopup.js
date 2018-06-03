@@ -14,6 +14,8 @@ var initialState = fromJS({
     cityName: globalCityName,
     userChange: false
   },
+  currentGlobalCityName: globalCityName,
+  currentGlobalCityId: globalCityId,
   Popular: [],
   Other: [],
   IsFetching: false,
@@ -47,6 +49,8 @@ export function FinanceCityPopup(state = initialState, action) {
         const cityId = actionPayload != null && actionPayload.cityId != null ? actionPayload.cityId : -1;
         const cityName = actionPayload != null && actionPayload.cityName != null ? actionPayload.cityName : "";
         const userChange = actionPayload != null && actionPayload.userChange != null ? actionPayload.userChange : false;
+        const currentGlobalCityName = cityId > -1 ? cityName : state.get('currentGlobalCityName');
+        const currentGlobalCityId = cityId > -1 ? cityId : state.get('currentGlobalCityId');  
         if (cityId > -1) {
           setGlobalCity(cityId, cityName, currentCityId);
         }
@@ -54,7 +58,7 @@ export function FinanceCityPopup(state = initialState, action) {
           cityId: cityId,
           cityName: cityName,
           userChange: userChange
-        }));
+        })).setIn(['currentGlobalCityId'], currentGlobalCityId).setIn(['currentGlobalCityName'], currentGlobalCityName);
 
       case financeCityPopup.FETCH_CITY_FAILURE:
         return initialState.setIn(['IsFetching'], false).setIn(['RelatedModelId'], action.payload.modelId).setIn(['CityFetchError'], true);

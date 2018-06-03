@@ -579,14 +579,11 @@ function openPopupWithHash(openingFunction, closingFunction, hash) {
     try {
         if (typeof openingFunction === "function" && typeof closingFunction === "function") {
             openingFunction();
-            appendHash(hash);
             if (window.popupCallback == undefined) {
                 window.popupCallback = {};
-                window.popupCallback[hash] = closingFunction;
             }
-            else {
-                window.popupCallback[hash] = closingFunction;
-            }
+            window.popupCallback[hash] = closingFunction;
+            window.history.pushState(undefined, undefined, window.location.pathname + '#' + hash);
             lockScroll();
         }
     }
@@ -601,10 +598,10 @@ function closePopupWithHash(closingFunction) {
             unlockScroll();
             closingFunction();
             if (window.popupCallback != undefined) {
-                let hash = (window.location.hash || "#").slice(1);
+                var hash = (window.location.hash || "#").slice(1);
                 if (hash.length > 0) {
+                    window.history.replaceState(undefined, undefined, window.location.pathname);
                     window.popupCallback[hash] = undefined;
-                    window.history.back()
                 }
             }
         }

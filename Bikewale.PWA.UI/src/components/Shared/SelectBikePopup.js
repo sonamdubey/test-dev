@@ -17,6 +17,7 @@ class SelectBikePopup extends React.Component {
     this.handleClear = this.handleClear.bind(this);
     this.handleCloseClick = this.handleCloseClick.bind(this);
     this.closePopup = this.closePopup.bind(this);
+    this.resetSearchMode = this.resetSearchMode.bind(this);
     this.state = { currentModelId: this.props.data.Selection.modelId, modelValue: this.props.data.Selection.modelName, makeModelList: this.props.data.MakeModelList };
   }
 
@@ -44,6 +45,10 @@ class SelectBikePopup extends React.Component {
     }
   }
 
+  resetSearchMode = () => {
+    this.setState({ ...this.state, searchMode: false });
+  }
+
   handleCloseClick = () => {
     if (gaObj != undefined) {
       triggerGA(gaObj.name, 'Model_Popup_Cross_Clicked', this.state.modelValue); 
@@ -52,10 +57,11 @@ class SelectBikePopup extends React.Component {
   }
 
   handleBikeSelection = (chosenModel) => {
+    this.closePopup();
     if (gaObj != undefined) {
       triggerGA(gaObj.name, 'Model_Selected', chosenModel.modelName + '_' + this.state.modelValue); 
     }
-    if(this.state.currentModelId > 0){
+    if(this.state.currentModelId > 0) {
       if (gaObj != undefined) {
         triggerGA(gaObj.name, 'Model_Selected_On_Edit_Flow', 'Existing Model - '+ this.props.data.Selection.modelName); 
       }
@@ -64,7 +70,6 @@ class SelectBikePopup extends React.Component {
       this.props.onBikeClick(chosenModel);
       this.setState({ ...this.state, currentModelId: chosenModel.modelId, modelValue: chosenModel.modelName });
     }
-    this.closePopup();
   }
 
   handleClear = () => {
@@ -139,6 +144,7 @@ class SelectBikePopup extends React.Component {
     this.popupContent = ref
   }
 
+
   render() {
     const {
       isActive,
@@ -177,7 +183,7 @@ class SelectBikePopup extends React.Component {
                 <div className="autocomplete-box">
                   <div className="autocomplete-field">
                     <input type="text" value={this.state.modelValue} className="form-control"
-                      placeholder="Type to select Make and Model" onChange={this.filterMakeModelList} onFocus={this.filterMakeModelList} />
+                      placeholder="Type to select Make and Model" onChange={this.filterMakeModelList} onFocus={this.filterMakeModelList} onBlur={this.resetSearchMode}/>
                     <span className="autocomplete-box__clear" onClick={this.handleClear} >Clear</span>
                   </div>
                 </div>

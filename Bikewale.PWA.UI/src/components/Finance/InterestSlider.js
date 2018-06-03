@@ -52,6 +52,7 @@ class EMIInterest  extends React.Component {
 			triggerGA(gaObj.name, 'ToolTip_Clicked', 'Interest'); 
 		}
 	}
+	
 	render() {
 		let {
 			slider

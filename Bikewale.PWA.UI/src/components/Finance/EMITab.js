@@ -1,7 +1,6 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
 import { fetchSimilarBikes, updateSimilarBikesEmi } from '../../actionCreators/SimilarBikesEMI'
- 
+
 import SelectBikePopup from '../Shared/SelectBikePopup'
 import EMISteps from './EMISteps'
 import EMICalculator from './EMICalculator'
@@ -27,25 +26,19 @@ class EMITab extends React.Component {
     this.handleSelectBikeClick = this.handleSelectBikeClick.bind(this);
     this.handleSelectCityClick = this.handleSelectCityClick.bind(this);
     this.checkNetworkFailure = this.checkNetworkFailure.bind(this);
-    this.scrollToModelInfo = this.scrollToModelInfo.bind(this)
     this.setCity = this.setCity.bind(this);
     this.setToast = this.setToast.bind(this);
     this.state = {
       shouldscroll: false,
       isGlobalCityInList: true,
+      shouldFetchSimilarBikes: true,
+      shouldOpenEmiCalculator: true,
       isFetching: false,
-      currentSelectedBikeId: -1,
-      shouldScrollToModelInfoComponent: false
+      currentSelectedBikeId: -1
+
     };
   }
 
-  scrollToModelInfo = () => {
-    if(this.refs && this.refs.modelInfoComponent){
-      let quickLinksTabElement = document.getElementById("quickLinksTab");
-      let modelInfoComponentNode = ReactDOM.findDOMNode(this.refs.modelInfoComponent)
-      window.scrollTo(0, modelInfoComponentNode.offsetTop - quickLinksTabElement.offsetHeight);
-    } 
-  }
   handleSelectBikeClick = () => {
     openPopupWithHash(this.props.openSelectBikePopup, this.props.closeSelectBikePopup, "SelectBike");
     if (this.state.currentSelectedBikeId <= 0) {
@@ -63,11 +56,7 @@ class EMITab extends React.Component {
   handleBikeClick = (item) => {
     this.props.selectModel(item.modelId);
     this.props.fetchCity(item.modelId);
-    this.setState({ 
-      ...this.state,
-      shouldscroll: true,
-      currentSelectedBikeId: item.modelId
-    });
+    this.setState({ ...this.state, shouldscroll: true, currentSelectedBikeId: item.modelId });
     this.props.fetchSelectedBikeDetail(item.modelId);
     const currentCityId = this.getSelectedCityId(this.props);
     if (currentCityId > 0) {
@@ -98,11 +87,7 @@ class EMITab extends React.Component {
 
   handleCityClick = (item) => {
     this.setCity(item);
-    this.setState({
-      ...this.state,
-      isGlobalCityInList: true,
-      shouldScrollToModelInfoComponent: true
-    });
+    this.setState({ ...this.state, isGlobalCityInList: true, shouldFetchSimilarBikes: true });
     const currentBikeId = this.getSelectedBikeId(this.props);
     this.props.fetchBikeVersionList(currentBikeId, item.cityId);
     this.props.fetchSimilarBikes({
@@ -116,7 +101,8 @@ class EMITab extends React.Component {
   }
 
   handleSimilarEMISwiperCardClick = (modelObj, event) => {
-    this.scrollToModelInfo()
+    let quickLinksTabElement = document.getElementById("quickLinksTab");
+    window.scrollTo(0, this.refs.modelInfoComponent.base.getBoundingClientRect().top + (window.pageYOffset || document.documentElement.scrollTop) - quickLinksTabElement.offsetHeight);
     if (typeof gaObj != 'undefined') {
       triggerGA(gaObj.name, 'Similar_EMI_Widget_Clicked', this.props.selectBikePopup.Selection.modelName + '_' + modelObj.modelName);
     }
@@ -130,6 +116,7 @@ class EMITab extends React.Component {
       tenure: this.props.sliderTenure.values[0],
       rateOfInt: this.props.sliderInt.values[0]
     })
+    this.state.shouldFetchSimilarBikes = true;
     this.state.isFetching = true
 
 
@@ -207,8 +194,14 @@ class EMITab extends React.Component {
       selectBikePopup
     } = this.props;
     const currentCityId = this.getSelectedCityId(this.props);
+    const currentGlobalCityId = FinanceCityPopup.currentGlobalCityId;
     if (this.state.shouldscroll) {
-      this.handleSelectCityClick();
+      if(!this.props.FinanceCityPopup.isActive){
+        this.handleSelectCityClick();
+        if (this.refs.emiSteps != undefined) {
+          this.refs.emiSteps.scrollCityToView();
+        }
+      }
       // Open city popup if current city not in fetched city list
       if (FinanceCityPopup != undefined && selectBikePopup != undefined && FinanceCityPopup.RelatedModelId == this.state.currentSelectedBikeId && this.state.currentSelectedBikeId > 0) {
         if (FinanceCityPopup.CityFetchError) {
@@ -216,26 +209,26 @@ class EMITab extends React.Component {
           closePopupWithHash(this.props.closeSelectCityPopup);
         }
         else if (FinanceCityPopup.Popular.length > 0 || FinanceCityPopup.Other.length > 0) {
-          // Check if current selected city in new city list
-          if (currentCityId > 0 && (IsGlobalCityPresent(FinanceCityPopup.Popular, currentCityId) || IsGlobalCityPresent(FinanceCityPopup.Other, currentCityId))) {
+          // Check if current global city in new city list
+          if (currentGlobalCityId > 0 && (IsGlobalCityPresent(FinanceCityPopup.Popular, currentGlobalCityId) || IsGlobalCityPresent(FinanceCityPopup.Other, currentGlobalCityId))) {
             this.setState({ ...this.state, shouldscroll: false, isGlobalCityInList: true });
+            if (currentCityId != currentGlobalCityId)
+              this.setCity({
+                cityId: currentGlobalCityId,
+                cityName: FinanceCityPopup.currentGlobalCityName,
+                userChange: false
+              });
             closePopupWithHash(this.props.closeSelectCityPopup);
-            this.setState({
-              ...this.state,
-              shouldScrollToModelInfoComponent: true
-            })
           }
           else {
-            this.setCity({
-              cityId: -1,
-              cityName: "",
-              userChange: false
-            });
-            if (this.refs.emiSteps != undefined) {
-              this.refs.emiSteps.scrollCityToView();
-            }
-            if (currentCityId > 0) {
-              this.setToast("Price of this bike is not available in " + this.props.FinanceCityPopup.Selection.cityName + ". Please choose another city.");
+            if(currentCityId != -1)
+              this.setCity({
+                cityId: -1,
+                cityName: "",
+                userChange: false
+              });
+            if (FinanceCityPopup.currentGlobalCityName != undefined) {
+              this.setToast("Price of this bike is not available in " + FinanceCityPopup.currentGlobalCityName + ". Please choose another city.");
             }
             this.setState({ ...this.state, shouldscroll: false, isGlobalCityInList: false });
           }
@@ -246,13 +239,6 @@ class EMITab extends React.Component {
           this.setState({ ...this.state, shouldscroll: false });
         }
       }
-    }
-    if(this.state.shouldScrollToModelInfoComponent){
-      this.scrollToModelInfo()
-      this.setState({
-        ...this.state,
-        shouldScrollToModelInfoComponent: false
-      })
     }
   }
 
@@ -279,6 +265,7 @@ class EMITab extends React.Component {
       fetchMakeModelList,
       closeSelectCityPopup
     } = this.props
+    const isBikeAndCitySelected = ((this.getSelectedBikeId(this.props) !== -1) && (this.getSelectedCityId(this.props) !== -1));
     return (
       <div>
         <div className="emi-calculator__head">
@@ -288,9 +275,8 @@ class EMITab extends React.Component {
           </p>
         </div>
 
-        {((this.getSelectedBikeId(this.props) === -1) || (this.getSelectedCityId(this.props) === -1)) ?
-          <EMISteps ref="emiSteps" onSelectBikeClick={this.handleSelectBikeClick} onSelectCityClick={this.handleSelectCityClick} model={selectBikePopup.Selection} onSelectBikeClose={closeSelectBikePopup} onSelectCityClose={closeSelectCityPopup} />
-          :
+        <EMISteps ref="emiSteps" onSelectBikeClick={this.handleSelectBikeClick} onSelectCityClick={this.handleSelectCityClick} model={selectBikePopup.Selection} onSelectBikeClose={closeSelectBikePopup} onSelectCityClose={closeSelectCityPopup} isShown={!isBikeAndCitySelected}/>
+        { isBikeAndCitySelected == true &&
           <div>
             <ModelInfo ref="modelInfoComponent" />
             <EMICalculator IsFetching={this.state.isFetching} />
