@@ -155,11 +155,11 @@ namespace Bikewale.Models
 
                     obj.Compare = _objCompareCache.DoCompare(_versionsList, _cityId);
 
-                    GetVersionSpecsByIdAdapter adapt1 = new GetVersionSpecsByIdAdapter();
-                    adapt1.AddApiGatewayCall(_apiGatewayCaller, _versionIdsList.Select(versionId => Convert.ToInt32(versionId)));
+                    GetVersionSpecsByIdAdapter adapt = new GetVersionSpecsByIdAdapter();
+                    adapt.AddApiGatewayCall(_apiGatewayCaller, _versionIdsList.Where(versionId => versionId > 0).Select(versionId => Convert.ToInt32(versionId)));
                     _apiGatewayCaller.Call();
 
-                    obj.Compare.VersionSpecsFeatures = adapt1.Output;
+                    obj.Compare.VersionSpecsFeatures = adapt.Output;
                     
                     if (obj.Compare != null && obj.Compare.BasicInfo != null)
                     {
@@ -174,9 +174,12 @@ namespace Bikewale.Models
                                     IEnumerator<string> specItemEnumerator = specItem.ItemValues.GetEnumerator();
                                     IEnumerator<BikeEntityBase> basicInfoEnumerator = obj.Compare.BasicInfo.GetEnumerator();
                                     ushort mileage;
-                                    while(specItemEnumerator.MoveNext() && basicInfoEnumerator.MoveNext())
+                                    while( basicInfoEnumerator.MoveNext())
                                     {
-                                        basicInfoEnumerator.Current.Mileage = ushort.TryParse(specItemEnumerator.Current, out mileage) ? mileage : ushort.MinValue;
+                                        if (basicInfoEnumerator.Current.VersionId > 0 && specItemEnumerator.MoveNext())
+                                        {
+                                            basicInfoEnumerator.Current.Mileage = ushort.TryParse(specItemEnumerator.Current, out mileage) ? mileage : ushort.MinValue;
+                                        }
                                     }
                                 }
                             }

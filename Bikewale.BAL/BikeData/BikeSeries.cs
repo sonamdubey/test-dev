@@ -212,23 +212,26 @@ namespace Bikewale.BAL.BikeData
             {
                 if (bikesList != null && bikesList.Any())
                 {
-                    GetVersionSpecsSummaryByItemIdAdapter adapt1 = new GetVersionSpecsSummaryByItemIdAdapter();
+                    GetVersionSpecsSummaryByItemIdAdapter adapt = new GetVersionSpecsSummaryByItemIdAdapter();
                     VersionsDataByItemIds_Input specItemInput = new VersionsDataByItemIds_Input
                     {
-                        Versions = bikesList.Select(m => m.objVersion.VersionId),
+                        Versions = bikesList.Where(m => !m.objVersion.VersionId.Equals(0)).Select(m => m.objVersion.VersionId),
                         Items = specItemList
                     };
-                    adapt1.AddApiGatewayCall(_apiGatewayCaller, specItemInput);
+                    adapt.AddApiGatewayCall(_apiGatewayCaller, specItemInput);
                     _apiGatewayCaller.Call();
 
-                    IEnumerable<VersionMinSpecsEntity> specsResponseList = adapt1.Output;
+                    IEnumerable<VersionMinSpecsEntity> specsResponseList = adapt.Output;
                     if (specsResponseList != null)
                     {
                         var specsEnumerator = specsResponseList.GetEnumerator();
                         var bikesEnumerator = bikesList.GetEnumerator();
-                        while (bikesEnumerator.MoveNext() && specsEnumerator.MoveNext())
+                        while (bikesEnumerator.MoveNext())
                         {
-                            bikesEnumerator.Current.MinSpecsList = specsEnumerator.Current.MinSpecsList;
+                            if (!bikesEnumerator.Current.objVersion.VersionId.Equals(0) && specsEnumerator.MoveNext())
+                            {
+                                 bikesEnumerator.Current.MinSpecsList = specsEnumerator.Current.MinSpecsList;
+                            }
                         }
                     }
                 }
@@ -243,10 +246,10 @@ namespace Bikewale.BAL.BikeData
         {
             if (seriesCompareBikesWithSpecs != null && seriesCompareBikesWithSpecs.Any())
             {
-                GetVersionSpecsSummaryByItemIdAdapter adapt1 = new GetVersionSpecsSummaryByItemIdAdapter();
+                GetVersionSpecsSummaryByItemIdAdapter adapt = new GetVersionSpecsSummaryByItemIdAdapter();
                 VersionsDataByItemIds_Input specItemInput = new VersionsDataByItemIds_Input
                 {
-                    Versions = seriesCompareBikesWithSpecs.Select(m => m.VersionId),
+                    Versions = seriesCompareBikesWithSpecs.Where(m => !m.VersionId.Equals(0)).Select(m => m.VersionId),
                     Items = new List<EnumSpecsFeaturesItems>
                     {
                         EnumSpecsFeaturesItems.Displacement,
@@ -260,16 +263,16 @@ namespace Bikewale.BAL.BikeData
                         EnumSpecsFeaturesItems.MaxPowerRpm
                     }
                 };
-                adapt1.AddApiGatewayCall(_apiGatewayCaller, specItemInput);
+                adapt.AddApiGatewayCall(_apiGatewayCaller, specItemInput);
                 _apiGatewayCaller.Call();
 
-                IEnumerable<VersionMinSpecsEntity> versionMinSpecs = adapt1.Output;
+                IEnumerable<VersionMinSpecsEntity> versionMinSpecs = adapt.Output;
                 if (versionMinSpecs != null)
                 {
                     var minSpecs = versionMinSpecs.GetEnumerator();
                     foreach (var seriesBike in seriesCompareBikesWithSpecs)
                     {
-                        if (minSpecs.MoveNext())
+                        if (!seriesBike.VersionId.Equals(0) && minSpecs.MoveNext())
                         {
                             float value;
                             ushort gears;

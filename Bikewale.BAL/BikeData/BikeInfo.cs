@@ -92,9 +92,9 @@ namespace Bikewale.BAL.BikeData
                     {
                         genericBike = _modelCache.GetBikeInfo(modelId);
                     }
-                    if (genericBike != null)
+                    if (genericBike != null && genericBike.VersionId > 0)
                     {
-                        GetVersionSpecsSummaryByItemIdAdapter adapt1 = new GetVersionSpecsSummaryByItemIdAdapter();
+                        GetVersionSpecsSummaryByItemIdAdapter adapt = new GetVersionSpecsSummaryByItemIdAdapter();
                         VersionsDataByItemIds_Input specItemInput = new VersionsDataByItemIds_Input
                         {
                             Versions = new List<int> { genericBike.VersionId },
@@ -105,9 +105,9 @@ namespace Bikewale.BAL.BikeData
                             EnumSpecsFeaturesItems.KerbWeight
                         }
                         };
-                        adapt1.AddApiGatewayCall(_apiGatewayCaller, specItemInput);
+                        adapt.AddApiGatewayCall(_apiGatewayCaller, specItemInput);
                         _apiGatewayCaller.Call();
-                        var bikeVersionMinSpecList = adapt1.Output;
+                        var bikeVersionMinSpecList = adapt.Output;
                         if (bikeVersionMinSpecList != null && bikeVersionMinSpecList.Any())
                         {
                             genericBike.MinSpecsList = bikeVersionMinSpecList.FirstOrDefault().MinSpecsList;

@@ -245,7 +245,7 @@ namespace Bikewale.BAL.Dealer
                     GetVersionSpecsSummaryByItemIdAdapter adapt = new GetVersionSpecsSummaryByItemIdAdapter();
                     VersionsDataByItemIds_Input specItemInput = new VersionsDataByItemIds_Input
                     {
-                        Versions = bikesList.Select(m => m.objVersion.VersionId),
+                        Versions = bikesList.Where(m => !m.objVersion.VersionId.Equals(0)).Select(m => m.objVersion.VersionId),
                         Items = specItemList
                     };
                     adapt.AddApiGatewayCall(_apiGatewayCaller, specItemInput);
@@ -255,9 +255,12 @@ namespace Bikewale.BAL.Dealer
                     {
                         var specsEnumerator = specsResponseList.GetEnumerator();
                         var bikesEnumerator = bikesList.GetEnumerator();
-                        while (bikesEnumerator.MoveNext() && specsEnumerator.MoveNext())
+                        while (bikesEnumerator.MoveNext())
                         {
-                            bikesEnumerator.Current.MinSpecsList = specsEnumerator.Current.MinSpecsList;
+                            if (!bikesEnumerator.Current.objVersion.VersionId.Equals(0) && specsEnumerator.MoveNext())
+                            {
+                                bikesEnumerator.Current.MinSpecsList = specsEnumerator.Current.MinSpecsList;
+                            }
                         }
                     }
                 }

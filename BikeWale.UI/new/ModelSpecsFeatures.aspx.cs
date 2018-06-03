@@ -295,15 +295,19 @@ namespace Bikewale.New
         /// <returns></returns>
         private void BindFullSpecsFeatures()
         {
-            using (IUnityContainer container = new UnityContainer())
+            if (versionId > 0)
             {
-                container.RegisterType<IApiGatewayCaller, ApiGatewayCaller>();
-                var _apiGatewayCaller = container.Resolve<IApiGatewayCaller>();
-                GetVersionSpecsByIdAdapter adapter = new GetVersionSpecsByIdAdapter();
-                adapter.AddApiGatewayCall(_apiGatewayCaller, new List<int> { (int)versionId });
-                _apiGatewayCaller.Call();
-                versionSpecsFeatures = adapter.Output;
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    container.RegisterType<IApiGatewayCaller, ApiGatewayCaller>();
+                    var _apiGatewayCaller = container.Resolve<IApiGatewayCaller>();
+                    GetVersionSpecsByIdAdapter adapter = new GetVersionSpecsByIdAdapter();
+                    adapter.AddApiGatewayCall(_apiGatewayCaller, new List<int> { (int)versionId });
+                    _apiGatewayCaller.Call();
+                    versionSpecsFeatures = adapter.Output;
+                }
             }
+            
         }
 
         /// Created  By :- Sajal Gupta on 13-02-2017
