@@ -548,12 +548,6 @@ docReady(function () {
     });
 
     // version dropdown
-    function handleVersionMenuClick(dropdown) {
-        var offsetTop = $(dropdown.container).offset().top - $('.overall-specs-tabs-container').height();
-
-        $('html, body').animate({ scrollTop: offsetTop }, 500);
-    }
-
     function handleVersionChange(dropdown) {
         var optionValue = dropdown.activeOption.value;
 
@@ -563,7 +557,6 @@ docReady(function () {
     }
 
     var versionDropdown = new DropdownMenu('#ddlNewVersionList', {
-        onMenuClick: handleVersionMenuClick,
         onChange: handleVersionChange
     });
 
