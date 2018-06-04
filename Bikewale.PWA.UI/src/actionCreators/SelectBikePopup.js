@@ -112,5 +112,8 @@ export const fetchBikeVersionList = (modelId, cityId) => (dispatch) => {
 export const resetBikeVersionListFailure = () => (dispatch) => {
   dispatch({type: selectBikePopup.RESET_VERSIONLIST_FAILURE})
 }
+export const resetVersionSelection = () => (dispatch) => {
+  dispatch({type: selectBikePopup.RESET_VERSION_SELECTION})
+}
 
 

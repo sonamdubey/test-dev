@@ -315,8 +315,9 @@ function autocomplete(options,term) {
         var xhr = new XMLHttpRequest();
         xhr.open('GET',path);
         xhr.setRequestHeader("Content-Type","application/json; charset=utf-8");
-    	if (options.loaderStatus != null && typeof (options.loaderStatus) == "function") 
+    	if (options.loaderStatus != null && typeof (options.loaderStatus) == "function"){
 			options.loaderStatus(false);
+        }
         	
 		xhr.onreadystatechange = function() {
 			

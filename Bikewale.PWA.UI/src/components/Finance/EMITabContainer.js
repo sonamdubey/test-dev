@@ -1,15 +1,17 @@
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { toJS } from '../../immutableWrapperContainer'
-import EMITab from './EMITab'
 import {
   openSelectBikePopup, closeSelectBikePopup, selectModel, fetchMakeModelList, fetchBikeVersionList, fetchSelectedBikeDetail,
-  resetMakeModelListFailure, resetSelectedBikeDetailFailure, resetBikeVersionListFailure
+  resetMakeModelListFailure, resetSelectedBikeDetailFailure, resetBikeVersionListFailure, resetVersionSelection
 } from '../../actionCreators/SelectBikePopup'
 import { fetchCity, openSelectCityPopup, closeSelectCityPopup, selectCity, resetCityFailure } from '../../actionCreators/FinanceCityPopup'
 import { fetchSimilarBikes, updateSimilarBikesEmi  } from '../../actionCreators/SimilarBikesEMI'
 import { openEmiCalculator } from '../../actionCreators/emiDownPaymentSlider'
 import { initToast, clearToast } from '../../actionCreators/toast'
+import EMITab from './EMITab'
+
+
 const mapStateToProps = (store) => {
     return {
       selectBikePopup: store.getIn(['Finance', 'SelectBikePopup']),
@@ -41,7 +43,8 @@ const mapStateToProps = (store) => {
       updateSimilarBikesEmi: bindActionCreators(updateSimilarBikesEmi, dispatch),
       openEmiCalculator: bindActionCreators(openEmiCalculator, dispatch),
       initToast: bindActionCreators(initToast, dispatch),
-      clearToast: bindActionCreators(clearToast, dispatch)
+      clearToast: bindActionCreators(clearToast, dispatch),
+      resetVersionSelection: bindActionCreators(resetVersionSelection, dispatch)
     }
   }
   

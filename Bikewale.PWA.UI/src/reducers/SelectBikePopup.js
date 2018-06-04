@@ -1,5 +1,4 @@
-import { combineReducers } from 'redux-immutable'
-import { fromJS, toJS } from 'immutable'
+import { fromJS } from 'immutable'
 import { mapVersionsDataToDropdownList } from '../components/Finance/FinanceCommon'
 import { selectBikePopup } from '../actionTypes/SelectBikePopup'
 
@@ -101,9 +100,9 @@ export function SelectBikePopup(state = initialState, action) {
 
       case selectBikePopup.SET_BIKE_VERSION:
         return state.setIn(['Selection','version'], fromJS({...state.toJS().Selection.version,selectedVersionIndex: action.payload.versionId} ))
-      
+      case selectBikePopup.RESET_VERSION_SELECTION:
+        return state.setIn(['Selection', 'version'], initialVersionObj)
 
-      
       default:
         return state
     }
