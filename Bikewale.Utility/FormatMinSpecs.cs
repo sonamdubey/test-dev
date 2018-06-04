@@ -403,7 +403,7 @@ namespace Bikewale.Utility
                     case EnumSpecsFeaturesItems.AntilockBrakingSystem:
                         return specItem.Value.Equals("1") ? "ABS" : String.Empty;
                     case EnumSpecsFeaturesItems.RearBrakeType:
-                        return string.Format("{0} Brake", specItem.Value);
+                        return string.Format("{0} Brakes", specItem.Value);
                     default:
                         return String.Empty;
                 }
@@ -414,10 +414,12 @@ namespace Bikewale.Utility
         /// <summary>
         /// Created By  : Rajan Chauhan on 28 Mar 2018
         /// Description : Method to return Unordered list 
+        /// Modified by : Pratibha Verma on 4 June 2018
+        /// Description : Added default parameter className
         /// </summary>
         /// <param name="specItemList"></param>
         /// <returns></returns>
-        public static string GetMinSpecsAsLiElement(IEnumerable<SpecsItem> specItemList)
+        public static string GetMinSpecsAsLiElement(IEnumerable<SpecsItem> specItemList, string className = "")
         {
             StringBuilder minSpecsStr = new StringBuilder();
             if (specItemList != null)
@@ -427,20 +429,44 @@ namespace Bikewale.Utility
                     string generalSpecName = FormatMinSpecs.GetSpecGeneralName(specItem);
                     if (!String.IsNullOrEmpty(generalSpecName))
                     {
-                        minSpecsStr.Append(String.Format("<li>{0}</li>", generalSpecName));
+                        minSpecsStr.Append(String.Format("<li class=\"{0}\">{1}</li>", className, generalSpecName));
                     }
                 }
             }
             return minSpecsStr.ToString();
         }
 
+        /// <summary>
+        /// Modified by : Pratibha Verma on 4 June 2018
+        /// Description : uses GetSpecGeneralName method to get general spec name
+        /// </summary>
+        /// <param name="specItemList"></param>
+        /// <returns></returns>
         public static string GetCommaSepratedGeneralSpecs(IEnumerable<SpecsItem> specItemList)
         {
-            if (specItemList != null)
+            try
             {
-                string brakeTypeName = GetSpecGeneralName(specItemList.FirstOrDefault(item => item.Id.Equals((int)EnumSpecsFeaturesItems.RearBrakeType)));
-                string alloyWheelName = GetSpecGeneralName(specItemList.FirstOrDefault(item => item.Id.Equals((int)EnumSpecsFeaturesItems.WheelType)));
-                return String.Format("{0}{1}{2}", brakeTypeName, String.IsNullOrEmpty(brakeTypeName) ? "" : ", ", alloyWheelName);
+                StringBuilder output = new StringBuilder();
+                if (specItemList != null)
+                {
+                    foreach (var specItem in specItemList)
+                    {
+                        if (!string.IsNullOrEmpty(specItem.Value))
+                        {
+                            string specGeneralName = GetSpecGeneralName(specItem);
+                            output.AppendFormat("{0}",string.IsNullOrEmpty(specGeneralName) ? "" : specGeneralName + ", ");
+                        }
+                    }
+                    if (output.Length > 1)
+                    {
+                        output.Remove(output.Length - 2, 2);
+                        return output.ToString();
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                
             }
             return string.Empty;
         }

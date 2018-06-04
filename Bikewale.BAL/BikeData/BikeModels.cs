@@ -552,6 +552,8 @@ namespace Bikewale.BAL.BikeData
                         new List<EnumSpecsFeaturesItems>{
                             EnumSpecsFeaturesItems.RearBrakeType,
                             EnumSpecsFeaturesItems.WheelType,
+                            EnumSpecsFeaturesItems.StartType,
+                            EnumSpecsFeaturesItems.AntilockBrakingSystem,
                             EnumSpecsFeaturesItems.Displacement,
                             EnumSpecsFeaturesItems.MaxPowerBhp,
                             EnumSpecsFeaturesItems.FuelEfficiencyOverall,
@@ -581,7 +583,7 @@ namespace Bikewale.BAL.BikeData
                         objModelPage.ModelVersionMinSpecs = new BikeVersionMinSpecs()
                         {
                             VersionId = modelVersion.VersionId,
-                            MinSpecsList = modelVersion.MinSpecsList.Skip(2)
+                            MinSpecsList = modelVersion.MinSpecsList.Skip(4)
                         };
                     }
                     CreateAllPhotoList(modelId, objModelPage);
