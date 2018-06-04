@@ -18,12 +18,14 @@ const propTypes = {
   // handle select bike text click function
   handleSelectBikeClick: PropTypes.func,
   // handle select city text click function
-  handleSelectCityClick: PropTypes.func
+  handleSelectCityClick: PropTypes.func,
+  isShown: PropTypes.bool
 }
 
 const defaultProps = {
   handleSelectBikeClick: null,
-  handleSelectCityClick: null
+  handleSelectCityClick: null,
+  isShown: false
 }
 
 class EMISteps extends React.Component {
@@ -117,8 +119,9 @@ class EMISteps extends React.Component {
       rating: model != null && model.rating != null ? model.rating: 0
     }
     const isOverflow = model && model.modelId > 0 ? 'selection-step--overflow' : '';
+    const displayStyle = { 'display': this.props.isShown ? 'block' : 'none' };
     return (
-      <div className="emi-calculator__progress-container">
+      <div className="emi-calculator__progress-container" style={displayStyle}>
         <ProgressBar>
           <ProgressBarItem stepNumber={1} status={this.state.bike} isActive={this.state.activeStep == 1? true: false}>
               Select bike
