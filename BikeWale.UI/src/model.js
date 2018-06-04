@@ -548,7 +548,24 @@ docReady(function () {
     });
 
     // version dropdown
-    var versionDropdown = new DropdownMenu('#model-version-dropdown');
+    function handleVersionMenuClick(dropdown) {
+        var offsetTop = $(dropdown.container).offset().top - $('.overall-specs-tabs-container').height();
+
+        $('html, body').animate({ scrollTop: offsetTop }, 500);
+    }
+
+    function handleVersionChange(dropdown) {
+        var optionValue = dropdown.activeOption.value;
+
+        $('#hdnVariant').val(optionValue);
+        dataLayer.push({ "event": "Bikewale_all", "cat": "Model_Page", "act": "Version_Change", "lab": "" });
+        window.location.href = $(dropdown.container).data("pageurl") + "?versionId=" + optionValue;
+    }
+
+    var versionDropdown = new DropdownMenu('#ddlNewVersionList', {
+        onMenuClick: handleVersionMenuClick,
+        onChange: handleVersionChange
+    });
 
     $('#ddlVersion').on("change", function () {
         $('#hdnVariant').val($(this).val());

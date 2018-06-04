@@ -1,5 +1,6 @@
 ﻿@model Bikewale.Models.BikeModels.ModelPageVM
 @using Bikewale.Entities.BikeData;
+@using Bikewale.Utility;
 @if (Model.ModelPageEntity != null)
 {
 	if (Model.ModelPageEntity.ModelVersionMinSpecs != null && Model.ModelPageEntity.ModelVersionMinSpecs.MinSpecsList != null)
@@ -43,7 +44,7 @@
 
 
 
-    <div class="dropdown-box dropdown-box--desktop margin-bottom20 " id="model-version-dropdown" data-pageurl="@Bikewale.Utility.UrlFormatter.BikePageUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName,Model.ModelPageEntity.ModelDetails.MaskingName)" data-selected-version="@Model.VersionId">
+    <div class="dropdown-box dropdown-box--desktop margin-bottom20 " id="ddlNewVersionList" data-pageurl="@Bikewale.Utility.UrlFormatter.BikePageUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName,Model.ModelPageEntity.ModelDetails.MaskingName)" data-selected-version="@Model.VersionId">
 
         <div class="grid-4 dropdown-box__menu-tab version-tab__content no-padding version-city-content--icon">
 
@@ -61,26 +62,23 @@
             </div>
         }
         <div class=" clear"></div>
-        @*@if (Model.ModelPageEntity.ModelVersions != null && Model.ModelPageEntity.ModelVersions.Count > 1)
-        {*@
+        @if (Model.ModelPageEntity.ModelVersions != null && Model.ModelPageEntity.ModelVersions.Count > 1)
+        {
             <ul class="dropdown-box__submenu-list">
                 @foreach (var version in Model.ModelPageEntity.ModelVersions)
                 {
                     <li class="dropdown-box-submenu-list__item @(version.VersionId == Model.VersionId ? "submenu-list-item--active" : "")" data-value="@version.VersionId">
                         <div class="submenu-list-item__title">
                             <p class="submenu-list-item-title__left-col">@version.VersionName</p>
-                            <p class="submenu-list-item-title__right-col">&#x20b9; 5,80,768</p>
+                            <p class="submenu-list-item-title__right-col">&#x20b9;  @Format.FormatPrice(Convert.ToString(version.Price))</p>
                         </div>
                         <ul class="dropdown-box-submenu__specs-list">
-                            <li class="dropdown-box-specs-list__item">Drum</li>
-                            <li class="dropdown-box-specs-list__item">ABS</li>
-                            <li class="dropdown-box-specs-list__item">Alloy</li>
-                            <li class="dropdown-box-specs-list__item">Disk Breaks</li>
+                            @Html.Raw(FormatMinSpecs.GetMinSpecsAsLiElement(version.MinSpecsList.Take(4), "dropdown-box-specs-list__item"))
                         </ul>
                     </li>
                 }
             </ul>
-        @*}*@
+        }
     </div>
 
 
