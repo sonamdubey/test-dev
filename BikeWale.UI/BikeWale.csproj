@@ -989,6 +989,7 @@
     <Compile Include="Models\Features\IndexPage.cs" />
     <Compile Include="Models\DealerShowroom\DealersServiceCentersIndiaWidgetModel.cs" />
     <Compile Include="Models\ExpertReviews\ExpertReviewsDetailPage.cs" />
+    <Compile Include="Models\Finance\CapitalFirstModel.cs" />
     <Compile Include="Models\Gallery\ModelGalleryWidget.cs" />
     <Compile Include="Models\GenericBestBikes\IndexGenericBestBikes.cs" />
     <Compile Include="Models\Images\ImageCarausel.cs" />

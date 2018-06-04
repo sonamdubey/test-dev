@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 
 namespace Bikewale.Entities.Finance.CapitalFirst
 {
@@ -21,5 +22,23 @@ namespace Bikewale.Entities.Finance.CapitalFirst
         Pre_Approved = 3,
         Rejected = 4,
         Credit_Refer = 5
+    }
+
+    public class CTFormResponse
+    {
+        [JsonProperty("status")]
+        public ushort Status { get; set; }
+        [JsonProperty("details")]
+        public String Details { get; set; }
+        [JsonProperty("message")]
+        public String Message { get; set; }
+        [JsonProperty("lead_id")]
+        public uint LeadId { get; set; }
+        [JsonProperty("lead_status")]
+        public ushort LeadStatus { get; set; }
+        [JsonProperty("sales_officer")]
+        public string SalesOfficer { get; set; }
+        [JsonProperty("sales_officer_mobile")]
+        public string SalaesOfficerMobile { get; set; }
     }
 }

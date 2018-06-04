@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Bikewale.BAL.ApiGateway.Entities.BikeData;
 using Bikewale.DTO.BikeData;
 using Bikewale.DTO.Campaign;
 using Bikewale.DTO.CMS.Articles;
@@ -866,16 +865,16 @@ namespace Bikewale.Service.AutoMappers.Model
                         PopupHeading = leadCampaign.PopupHeading,
                         PopupSuccessMessage = leadCampaign.PopupSuccessMessage,
                         ShowOnExshowroom = leadCampaign.ShowOnExshowroom,
-                        VersionId = (uint)objModelPage.ModelVersionMinSpecs.VersionId,
+                        VersionId = (objModelPage.ModelVersionMinSpecs != null ? (uint)objModelPage.ModelVersionMinSpecs.VersionId : 0),
                         PlatformId = platformId,
                         IsAmp = !isApp,
                         BikeName = string.Format("{0} {1}", modelDetails.MakeBase.MakeName, modelDetails.ModelName),
-                        LoanAmount = (uint)System.Convert.ToUInt32((pqEntity.VersionList.FirstOrDefault(m => m.VersionId == objModelPage.ModelVersionMinSpecs.VersionId).Price) * 0.8)
+                        LoanAmount = (objModelPage.ModelVersionMinSpecs != null ? (uint)System.Convert.ToUInt32((pqEntity.VersionList.FirstOrDefault(m => m.VersionId == objModelPage.ModelVersionMinSpecs.VersionId).Price) * 0.8) : 0)
                     };
 
                     if (LeadCampaign.DealerId == Bikewale.Utility.BWConfiguration.Instance.CapitalFirstDealerId)
                     {
-                        LeadCampaign.PageUrl = String.Format("{8}/m/finance/capitalfirst/?campaingid={0}&amp;dealerid={1}&amp;pqid={2}&amp;leadsourceid={3}&amp;versionid={4}&amp;url=&amp;platformid={5}&amp;bike={6}&amp;loanamount={7}", LeadCampaign.CampaignId, LeadCampaign.DealerId, 0, LeadCampaign.LeadSourceId, pqEntity.VersionList.FirstOrDefault().VersionId, platformId, LeadCampaign.BikeName, LeadCampaign.LoanAmount, BWConfiguration.Instance.BwHostUrl);
+                        LeadCampaign.PageUrl = String.Format("{8}/m/finance/capitalfirst/?campaingid={0}&amp;dealerid={1}&amp;pqid={2}&amp;leadsourceid={3}&amp;versionid={4}&amp;url=&amp;platformid={5}&amp;bike={6}&amp;loanamount={7}&amp;cityid={9}", LeadCampaign.CampaignId, LeadCampaign.DealerId, 0, LeadCampaign.LeadSourceId, pqEntity.VersionList.FirstOrDefault().VersionId, platformId, LeadCampaign.BikeName, LeadCampaign.LoanAmount, BWConfiguration.Instance.BwHostUrl, pqEntity.City.CityId);
                     }
                     else
                     {
@@ -1036,7 +1035,7 @@ namespace Bikewale.Service.AutoMappers.Model
         /// <returns></returns>
         private static string GetCategoryDisplayName(int currentIndex)
         {
-            if(currentIndex >=0 && currentIndex <_categoryDisplayNameList.Count )
+            if (currentIndex >= 0 && currentIndex < _categoryDisplayNameList.Count)
                 return _categoryDisplayNameList[currentIndex];
             else
                 return "";

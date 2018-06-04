@@ -134,6 +134,7 @@
     <Compile Include="CMS\CMSCacheRepository.cs" />
     <Compile Include="Compare\BikeCompareCacheRepository.cs" />
     <Compile Include="DealersLocator\DealerCacheRepository.cs" />
+    <Compile Include="Finance\FinanceCacheRepository.cs" />
     <Compile Include="HomePage\HomePageBannerCacheRepository.cs" />
     <Compile Include="Location\AreaCacheRepository.cs" />
     <Compile Include="Location\CityCacheRepository.cs" />
