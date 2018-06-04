@@ -26,7 +26,7 @@
             }
         </div>
         <div class="clear"></div>
-        @if (Model.ModelPageEntity.ModelVersions != null && Model.ModelPageEntity.ModelVersions.Count > 1)
+        @if (Model.ModelPageEntity.ModelVersions != null && Model.ModelPageEntity.ModelVersions.Any())
         {
             <ul class="dropdown-box__submenu-list">
                 @foreach (var version in Model.ModelPageEntity.ModelVersions)
