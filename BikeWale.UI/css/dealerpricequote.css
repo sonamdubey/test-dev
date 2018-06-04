@@ -509,6 +509,11 @@
 .text-x-black { color:#1a1a1a; }
 .dealer-details-item a:hover { text-decoration:none; }
 .phone-black-icon { width:11px; height:15px; position:relative; top:5px; margin-right:3px; background-position:-73px -444px; }
+.phone-md {
+    width: 13px;
+    height: 12px;
+    background-position: -216px -263px;
+}
 .mail-grey-icon { width:12px; height:10px; margin-right:3px; background-position:-92px -446px; position:relative;top:6px; }
 #modelPriceInNearbyCities li { width:210px; display:inline-block; vertical-align:top; margin-right:20px; margin-bottom:10px; }
 #modelPriceInNearbyCities li a { width:115px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; padding-right:5px; display:inline-block; vertical-align:top; }
