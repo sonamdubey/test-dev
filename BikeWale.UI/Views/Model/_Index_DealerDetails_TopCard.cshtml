@@ -22,7 +22,7 @@
         {
             <div class="dealer-details__contact">
                 <span class="bwsprite phone-md margin-right5"></span>
-                <span class="font16 text-bold">@Model.DealerDetails.MaskingNumber</span>
+                <span class="font16 text-bold"><span class="text-grey">+91 </span>@Model.DealerDetails.MaskingNumber</span>
             </div>
         }
     </div>
@@ -36,7 +36,7 @@
             <div class="dealer-offer__container">
                 <div class="dealer-offer__badge">
                     <span class="offer-badge__star"></span>
-                    <span>@offersCount Offers</span>
+                    <span>@string.Format("{0} {1}", offersCount, offersCount > 1 ? "Offers" : "Offer")</span>
                 </div>
                 <ul class="benefit__list">
                     @foreach (var offer in Model.DetailedDealer.PrimaryDealer.OfferList)
