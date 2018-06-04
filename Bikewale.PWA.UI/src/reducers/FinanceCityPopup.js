@@ -1,8 +1,7 @@
-import { combineReducers } from 'redux-immutable'
 import { fromJS } from 'immutable'
 
 import { financeCityPopup } from '../actionTypes/FinanceCityPopup'
-import { getGlobalCity, setGlobalCity, IsGlobalCityPresent } from '../utils/popUpUtils'
+import { getGlobalCity, setGlobalCity } from '../utils/popUpUtils'
 
 var globalCity = getGlobalCity();
 var globalCityName = (globalCity && globalCity.name && globalCity.name.length > 0) ? globalCity.name : '';
