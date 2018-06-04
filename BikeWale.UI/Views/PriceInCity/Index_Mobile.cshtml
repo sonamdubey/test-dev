@@ -3,7 +3,7 @@
 @using Bikewale.Utility;
 @{
     Model.PageMetaTags.AlternateUrl = "";
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/new/bwm-modelprice-in-city.css' inline /> <link rel='stylesheet' type='text/css' href='/m/css/campaign/hero-campaign.css' inline /> <link rel='stylesheet' type='text/css' href='/css/threesixty-slider.css' inline /> <link rel='stylesheet' type='text/css' href='/sass/partials/version-dropdown.css' inline/>";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/new/bwm-modelprice-in-city.css' inline /> <link rel='stylesheet' type='text/css' href='/sass/partials/version-dropdown.css' inline/>";
     Model.Page_JS_Paths = new string[] { "/src/utils/dropdown.js", "/m/src/priceincity.js" };
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
     var gaBikeName = String.Format("{0}_{1}_{2}", Model.Make.MakeName, Model.BikeModel.ModelName, Model.CityEntity.CityName);
