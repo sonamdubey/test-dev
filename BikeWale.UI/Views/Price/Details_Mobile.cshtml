@@ -13,14 +13,19 @@
     Model.AdTags.Ad_300x250BTF = !(primaryDealerShown || Model.IsManufacturerLeadAdShown || Model.IsManufacturerEMIAdShown);
 }
 
-<div id="offersSummaryToolbar" class="offers-summary-toolbar pq__offers-summary-toolbar">
-    <div class="dealer__offers-summary-content">
-        <span class="dealer-offers__icon"></span>
-        <span class="dealer-offers__icon-label">4 Dealer Offers available</span>
-        <span id="viewDealerOffers" class="dealer-offers__target">See offers</span>
-        <span id="closeDealerOffersToolbar" class="dealer-offers-toolbar__close"></span>
+
+@if (Model.DetailedDealer != null && Model.DetailedDealer.PrimaryDealer != null && Model.DetailedDealer.PrimaryDealer.HasOffers)
+{
+    int offersCount = Model.DetailedDealer.PrimaryDealer.OfferList.Count();
+    <div id="offersSummaryToolbar" class="offers-summary-toolbar pq__offers-summary-toolbar">
+        <div class="dealer__offers-summary-content">
+            <span class="dealer-offers__icon"></span>
+            <span class="dealer-offers__icon-label">@string.Format("{0} Dealer {1} available", offersCount, offersCount > 1 ? "Offers" : "Offer")</span>
+            <span id="viewDealerOffers" class="dealer-offers__target">See offers</span>
+            <span id="closeDealerOffersToolbar" class="dealer-offers-toolbar__close"></span>
+        </div>
     </div>
-</div>
+}
 
 <div class="model__details-content">
     <div class="bike-details margin-bottom15">
@@ -162,7 +167,7 @@
                 <tr>
                     <td class="font16 position-rel" align="left">On-road price</td>
                     <td valign="top" class="font18 text-bold" align="right">
-                        @Html.Raw("<span> &#x20B9;</span>")&nbsp;@CommonOpn.FormatPrice(Model.Quotation.OnRoadPrice.ToString())						
+                        @Html.Raw("<span> &#x20B9;</span>")&nbsp;@CommonOpn.FormatPrice(Model.Quotation.OnRoadPrice.ToString())
                     </td>
                 </tr>
                 @if (Model.LeadCampaign != null && !string.IsNullOrEmpty(Model.LeadCampaign.PriceBreakUpLinkTextMobile))

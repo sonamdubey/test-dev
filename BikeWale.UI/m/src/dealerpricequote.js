@@ -329,6 +329,10 @@ docReady(function () {
         appendHash("offersPopup");
     });
 
+    $('.benefit-list__more-target').on('click', function () {
+        $(this).closest('.dealer__offers-content').addClass('benefit-list--expand');
+    });
+
     $('.tnc').on('click', function (e) {
         LoadTerms($(this).attr("id"));
     });
