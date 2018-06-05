@@ -23,19 +23,22 @@ $badge-triangle-map: ('aluminium': 'tuna')
     border-bottom: $triangle-width solid color(map-get($badge-triangle-map, $background-color))
 
 
-@mixin ribbon($direction: 'right', $font-size: 10px, $color: 'white', $background-color: 'iris-blue')
+@mixin ribbon-tag($direction: 'right', $font-size: 11px, $color: 'white', $background-color: 'iris-blue')
   position: relative
-  padding: 5px 10px
+  padding: 3px 7px 4px
   color: color($color)
   font-size: $font-size
   background-color: color($background-color)
+  z-index: 2
+  transition: all .5s
+  cursor: pointer
 
   &:before
     content: ''
     position: absolute
     top: 0
-    left: -10px
-    border-top: 10px solid color($background-color)
-    border-left: 10px solid transparent
-    border-bottom: 10px solid color($background-color)
+    left: -11px
+    border-top: 11px solid color($background-color)
+    border-left: 11px solid transparent
+    border-bottom: 11px solid color($background-color)
     display: block

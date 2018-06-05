@@ -273,7 +273,7 @@
                         @foreach (var benefit in Model.PrimaryDealer.Benefits)
                         {
                             <li class="benefit-list__item">
-                                <span class="benefit-item__icon @(string.Format("benifitIcon_{0}", benefit.CatId))"></span>
+                                <span class="benefit-item__icon @(string.Format(" benefit-{0}-icon", benefit.CatId))"></span>
                                 <span class="benefit-item__label">@benefit.BenefitText</span>
                             </li>
                         }

@@ -776,7 +776,12 @@ docReady(function () {
         } catch (e) {
 
         }
-    }
+		}
+		
+		// offers ribbon
+		if ($(".offers-ribbon").length) {
+			Ribbon.registerEvents();
+		}
 
     $("#expertReviewsContent").on('click', function () {
         triggerGA('Model_Page', 'Expert_Review_CardClicked', myBikeName);

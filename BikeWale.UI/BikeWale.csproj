@@ -3341,6 +3341,7 @@
     <Content Include="src\user-review\write-review.js" />
     <Content Include="src\utils\dropdown.js" />
     <Content Include="src\utils\navigationTabs.js" />
+    <Content Include="src\utils\ribbon.js" />
     <Content Include="src\utils\scroll.js" />
     <Content Include="src\utils\swiperYoutube.js" />
     <Content Include="src\utils\viewport.js" />
@@ -4166,6 +4167,9 @@
     <Content Include="Views\Make\_Index_Tabs_Mobile_New_V1.cshtml" />
     <Content Include="sass\mixins\_dropdown.sass" />
     <Content Include="sass\partials\version-dropdown.sass" />
+    <Content Include="sass\mixins\_dealer.sass" />
+    <Content Include="sass\mixins\_ribbon.sass" />
+    <Content Include="sass\partials\dealer-offers.sass" />
     <None Include="Views\Shared\_Sidebar-section.cshtml" />
     <Content Include="Views\BikeModels\_MultiTabsWidget.cshtml" />
     <Content Include="Views\Shared\_ReviewPopup.cshtml" />
