@@ -343,14 +343,23 @@
 
 
 // offer icons
-$dealer-offerId-list: 1, 2, 3, 4, 5, 6
-
 @mixin dealer-offer-icons
-  @each $item in $dealer-offerId-list
-    $className: 'offer-#{$item}-icon'
+    @for $item from 7 through 14
+        $className: 'offer-#{$item}-icon'
 
-    .#{$className}
-      background-image: url('#{$img-cdn-path}/0x0/bw/static/icons/offers/#{$item}.svg')
-      background-repeat: no-repeat
-      background-position: center
+        .#{$className}
+            background-image: url('#{$img-cdn-path}/0x0/bw/static/icons/offers/#{$item}.svg')
+            background-repeat: no-repeat
+            background-position: center
+
+
+// benefit icons
+@mixin dealer-benefit-icons
+	@for $item from 1 through 5
+		$className: 'benefit-#{$item}-icon'
+
+		.#{$className}
+			background-image: url('#{$img-cdn-path}/0x0/bw/static/icons/benefits/#{$item}.svg')
+			background-repeat: no-repeat
+			background-position: center
 

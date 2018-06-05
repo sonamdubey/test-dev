@@ -24,15 +24,25 @@
         }
         @if (Model.IsPrimaryDealer && Model.DetailedDealer.PrimaryDealer.HasOffers)
         {
-            <div class="dealer__offers-content offers-content--card-none">
+            <div class="dealer__offers-content offers-content--card-none ribbon-container">
                 @{
                     int offersPreviewCount = 2;
                     int offersCount = Model.DetailedDealer.PrimaryDealer.OfferList.Count();
                 }
+
+                <div class="offers-ribbon ribbon-content" data-position="195">
+                    <div class="ribbon-icon-wrapper">
+                        <span class="ribbon-icon__background"></span>
+                        <span class="ribbon-icon__percent"></span>
+                    </div>
+                    <span>@offersCount</span>
+                    <span class="ribbon-content__data">&nbsp;Offer@(offersCount > 1 ? "s" : "") Available</span>
+                </div>
+
                 <div class="dealer-offer__container">
                     <div class="dealer-offer__badge">
                         <span class="offer-badge__star"></span>
-                        <span>@offersCount Offers</span>
+                        <span>@offersCount Offer@(offersCount > 1 ? "s" : "")</span>
                     </div>
                     <ul id="dealer-offers-list" class="benefit__list" data-count="@offersPreviewCount">
                         @foreach (var offer in Model.DetailedDealer.PrimaryDealer.OfferList)
