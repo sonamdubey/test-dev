@@ -35,39 +35,47 @@
 
         @if ((Model.PrimaryDealer.HasOffers && !Model.PrimaryDealer.IsStandardDealer) || Model.PrimaryDealer.IsBookingAvailable)
         {
-            <div class="dealer__offers-content">
-				@if (Model.PrimaryDealer.HasOffers && !Model.PrimaryDealer.IsStandardDealer)
-				{
-					<div class="dealer-offer__container">
-						<div class="dealer-offer__badge">
-							<span class="offer-badge__star"></span>
-							<span>4 Offers</span>
-						</div>
-						<ul class="benefit__list">
-							@foreach (var offer in Model.PrimaryDealer.OfferList)
-							{
-								<li class="benefit-list__item">
-									<span class="benefit-item__icon @(string.Format(" offer-{0}-icon", offer.OfferCategoryId))"></span>
-									<span class="benefit-item__label">
-										@offer.OfferText
-										@if (offer.IsOfferTerms)
-										{
-											<span class="margin-left10 tnc font9" id="@offer.OfferId">View terms</span>
-										}
-									</span>
-								</li>
-							}
-						</ul>
-					</div>
-				}
-				@if (Model.PrimaryDealer.IsBookingAvailable)
-				{
-				<div class="dealer__booking-content">
-					<a href="#" onclick="return this.href='/m/pricequote/bookingsummary_new.aspx' + window.location.search" class="btn btn-teal book-now__btn">Book Now</a>
-					<p class="book-now__label">(Pay &#x20b9; @Bikewale.Utility.Format.FormatPrice(Model.PrimaryDealer.BookingAmount.ToString()) to book online and rest at dealership.)
-					</p>
-				</div>
-				}
+            <div class="dealer__offers-content dealer-details--model">
+                @if (Model.PrimaryDealer.HasOffers && !Model.PrimaryDealer.IsStandardDealer)
+                {
+                    int offersPreviewCount = 2;
+                    int offersCount = Model.PrimaryDealer.OfferList.Count();
+
+                    <div class="dealer-offer__container">
+                        <div class="dealer-offer__badge">
+                            <span class="offer-badge__star"></span>
+                            <span>@string.Format("{0} {1}", offersCount, offersCount > 1 ? "OFFERS" : "OFFER")</span>
+                        </div>
+                        <ul class="benefit__list" data-count="@offersPreviewCount">
+                            @foreach (var offer in Model.PrimaryDealer.OfferList)
+                            {
+                                <li class="benefit-list__item">
+                                    <span class="benefit-item__icon @(string.Format(" offer-{0}-icon", offer.OfferCategoryId))"></span>
+                                    <span class="benefit-item__label">
+                                        @offer.OfferText
+                                        @if (offer.IsOfferTerms)
+                                        {
+                                            <span class="margin-left10 tnc font9" id="@offer.OfferId">View terms</span>
+                                        }
+                                    </span>
+                                </li>
+                            }
+                        </ul>
+                        @if (offersCount > offersPreviewCount)
+                        {
+                            <span class="benefit-list__more-target">+@(offersCount - offersPreviewCount) more</span>
+                        }
+                    </div>
+                }
+                @if (Model.PrimaryDealer.IsBookingAvailable)
+                {
+                    <div class="dealer__booking-content">
+                        <a href="#" onclick="return this.href='/m/pricequote/bookingsummary_new.aspx' + window.location.search" class="btn btn-teal book-now__btn">Book Now</a>
+                        <p class="book-now__label">
+                            (Pay &#x20b9; @Bikewale.Utility.Format.FormatPrice(Model.PrimaryDealer.BookingAmount.ToString()) to book online and rest at dealership.)
+                        </p>
+                    </div>
+                }
             </div>
         }
 
