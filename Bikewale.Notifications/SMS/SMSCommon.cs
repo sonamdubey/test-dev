@@ -57,7 +57,8 @@ namespace Bikewale.Notifications
         SMSForPhotoUploadTwoDays = 38,
         SMSforCapitalFirstSuccess = 39,
         SMSforCapitalFirstFailure = 40,
-        DealerShowroomDetailsSMSToCustomer = 41
+        DealerShowroomDetailsSMSToCustomer = 41,
+        CapitalFirstSMSToCustomer = 42
     }
 
     public class SMSCommon

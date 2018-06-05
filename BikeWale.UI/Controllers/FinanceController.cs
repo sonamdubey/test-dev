@@ -1,8 +1,5 @@
-﻿using Bikewale.Entities.Dealer;
-using Bikewale.Entities.Location;
+﻿using Bikewale.Interfaces.Finance;
 using Bikewale.Models.Finance;
-using Bikewale.Utility;
-using System;
 using System.Collections.Specialized;
 using System.Web;
 using System.Web.Mvc;
@@ -18,36 +15,37 @@ namespace Bikewale.Controllers
     /// </author>
     public class FinanceController : Controller
     {
+        private readonly IFinanceCacheRepository _financeCache;
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="financeCache"></param>
+        public FinanceController(IFinanceCacheRepository financeCache)
+        {
+            _financeCache = financeCache;
+        }
+
+
         #region Capital finance
 
         /// <summary>
         /// index mobile for capital first
         /// Sangram Nandkhile on 08-Sep-2017
+        /// Modified by : Snehal Dange on 25th May 2018
+        /// Description: Moved logic to financeModel
         /// </summary>
         /// <returns></returns>
         [Route("m/finance/capitalfirst/")]
         public ActionResult CapitalFirst_Index_Mobile()
         {
 
+            CapitalFirstModel obj = new CapitalFirstModel(_financeCache);
+            obj.IsMobile = true;
             string q = Request.Url.Query;
-            ushort platformId = 0;            
-            CapitalFirstVM viewModel = new CapitalFirstVM();
-            viewModel.ObjLead = new ManufacturerLeadEntity();
+
             NameValueCollection queryCollection = HttpUtility.ParseQueryString(q);
-                        
-            viewModel.ObjLead.CampaignId = Convert.ToUInt16(queryCollection["campaingid"]);
-            viewModel.ObjLead.DealerId = Convert.ToUInt16(queryCollection["dealerid"]);
-            viewModel.ObjLead.LeadSourceId = Convert.ToUInt16(queryCollection["leadsourceid"]);
-            viewModel.ObjLead.VersionId = Convert.ToUInt16(queryCollection["versionid"]);
-            viewModel.ObjLead.PQId = Convert.ToUInt32(queryCollection["pqid"]);
-            viewModel.PageUrl = queryCollection["url"];
-            viewModel.BikeName = queryCollection["bike"];
-            viewModel.LoanAmount = Convert.ToUInt32(queryCollection["loanamount"]);
-            viewModel.PlatformId = ushort.TryParse(queryCollection["platformid"], out platformId) ? platformId :(ushort)DTO.PriceQuote.PQSources.Mobile;
-            GlobalCityAreaEntity location = GlobalCityArea.GetGlobalCityArea();
-            if (location != null)
-                viewModel.ObjLead.CityId = location.CityId;
-            viewModel.objLeadJson = Newtonsoft.Json.JsonConvert.SerializeObject(viewModel.ObjLead);
+            CapitalFirstVM viewModel = obj.GetData(queryCollection);
             return View(viewModel);
         }
 
@@ -56,30 +54,19 @@ namespace Bikewale.Controllers
         /// <summary>
         /// index desktop for capital first
         /// Sangram Nandkhile on 08-Sep-2017
+        /// Modified by : Snehal Dange on 25th May 2018
+        /// Description: Moved logic to financeModel
         /// </summary>
         /// <returns></returns>
         [Bikewale.Filters.DeviceDetection]
         [Route("finance/capitalfirst/")]
         public ActionResult CapitalFirst_Index()
         {
-
+            CapitalFirstModel obj = new CapitalFirstModel(_financeCache);
             string q = Request.Url.Query;
-            CapitalFirstVM viewModel = new CapitalFirstVM();
-            viewModel.ObjLead = new ManufacturerLeadEntity();
+
             NameValueCollection queryCollection = HttpUtility.ParseQueryString(q);
-            viewModel.ObjLead.CampaignId = Convert.ToUInt16(queryCollection["campaingid"]);
-            viewModel.ObjLead.DealerId = Convert.ToUInt16(queryCollection["dealerid"]);
-            viewModel.ObjLead.LeadSourceId = Convert.ToUInt16(queryCollection["leadsourceid"]);
-            viewModel.ObjLead.VersionId = Convert.ToUInt16(queryCollection["versionid"]);
-            viewModel.ObjLead.PQId = Convert.ToUInt32(queryCollection["pqid"]);
-            viewModel.PageUrl = queryCollection["url"];
-            viewModel.BikeName = queryCollection["bike"];
-            viewModel.PlatformId = (ushort)DTO.PriceQuote.PQSources.Desktop;
-            viewModel.LoanAmount = Convert.ToUInt32(queryCollection["loanamount"]);
-            GlobalCityAreaEntity location = GlobalCityArea.GetGlobalCityArea();
-            if (location != null)
-                viewModel.ObjLead.CityId = location.CityId;
-            viewModel.objLeadJson = Newtonsoft.Json.JsonConvert.SerializeObject(viewModel.ObjLead);
+            CapitalFirstVM viewModel = obj.GetData(queryCollection);
             return View(viewModel);
         }
 

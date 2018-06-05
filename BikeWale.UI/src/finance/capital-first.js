@@ -10,10 +10,7 @@ var validate,
     otpNewNum,
     otpContainerContent,
     otpContainerContentHeight,
-    employmentDeatilTab,
-    personalDetailTab,
-        bikeName,
-        formTabsContainer;
+        bikeName;
 var objPinCodes = new Object();
 docReady(function () {
 
@@ -25,10 +22,7 @@ docReady(function () {
     otpContainerElem = $(".otp-container")
     blackWindowElem = $(".otp-black-window"),
     otpContainerContent = $(".otp-container__content"),
-    employmentDeatilTab = $("#employment-detail-tab");
-    personalDetailTab = $("#personal-detail-tab");
     bikeName = $('#hdnBikeName').val();
-    formTabsContainer = $('#form-tabs-content');
     validate = {
         setError: function (element, message) {
             var elementLength = element.val().length,
@@ -92,38 +86,11 @@ docReady(function () {
         }
     };
 
-    $('input:radio[name="gender"]').change(
-    function () {
-            validateRadioButtons("gender");
-    });
-
-    $('input:radio[name="marital"]').change(
-    function () {
-            validateRadioButtons("marital");
-	});
-	
 	// register modal popup events
 	modalPopup.registerDomEvents();
 
 	isDesktop = $(".capital-first-desktop");
 	
-	var startDate = new Date();
-	startDate.setFullYear(startDate.getFullYear() - 21);
-	
-	var startMonth = (startDate.getMonth() + 1) < 10 ? '0' + (startDate.getMonth() + 1) : (startDate.getMonth() + 1);
-
-	var pickerEndDate = startDate.getFullYear() + '-' + startMonth + '-' + startDate.getDate();
-	
-    $("#cfDOB").Zebra_DatePicker({
-        container: $("#cfDOB").closest(".input-box"),
-		view: 'years',
-		start_date: pickerEndDate,
-		direction: ['1900-01-01', pickerEndDate]
-	});
-	
-	var dateOfBirthPicker = $('#cfDOB').data('Zebra_DatePicker');
-	dateOfBirthPicker.datepicker.find('.dp_heading').text('Date of Birth');
-
     $(".page-tabs-data input, .otp-container input[type!=button]").on('blur', function () {
         validate.onBlur($(this));
     });
@@ -137,14 +104,6 @@ docReady(function () {
     });
     $("#contact-detail-submit").on('click', function () {
         validateContactInfo();
-    });
-
-    $("#personal-detail-submit").on('click', function () {
-		validatePersonalInfo();
-    });
-
-    $("#employment-detail-submit").on('click', function () {
-        validateEmploymentInfo();
     });
 
     $(".otp-container__edit-icon").on('click', function () {
@@ -177,78 +136,6 @@ docReady(function () {
         $(otpContainerElem).animate({
             scrollTop: otpContainerContentHeight + 30
         });
-    });
-
-    $("#cfCompPincode").on('focus', function () {
-        $.fn.hint = bwHint;
-        $.fn.bw_autocomplete = bwAutoComplete;
-        $("#cfCompPincode").bw_autocomplete({
-            source: 6,
-            recordCount: 3,
-            minLength: 2,
-            onClear: function () {
-                objPinCodes = new Object();
-            },
-            click: function (event, ui, orgTxt) {                
-                if (ui && ui.item) {
-                    $('#cfCompPincode').closest('.input-box').addClass('not-empty');
-                    $('#cfCompPincode').val(ui.item.payload.pinCode);
-                }
-                else {
-                    $('#cfCompPincode').val();
-                }
-
-            },
-            open: function (result) {
-                objPinCodes.result = result;
-            },
-            focusout: function () {
-                if ($('#cfCompPincode').find('li.ui-state-focus a:visible').text() != "") {
-                    $('#errPinCodeSearch,#errPinCodeSearch_office').hide();
-                    focusedMakeModel = new Object();
-                    focusedMakeModel = objPinCodes.result ? objPinCodes.result[$('li.ui-state-focus').index()] : null;
-                }
-                else {
-                    $('#errPinCodeSearch,#errPinCodeSearch_office').hide();
-                }
-            },
-            afterfetch: function (result, searchtext) {
-                if (result != undefined && result.length > 0 && searchtext.trim() != "") {
-                    $('#errPinCodeSearch,#errPinCodeSearch_office').hide();
-                }
-                else {
-                    focusedMakeModel = null;
-                    if (searchtext.trim() != "") {
-                        $('#errPinCodeSearch,#errPinCodeSearch_office').show();
-                       
-                    }
-                }
-            },
-            keyup: function () {
-                if ($(event.target).val().trim() != '' && $('li.ui-state-focus a:visible').text() != "") {
-                    focusedMakeModel = new Object();
-                    focusedMakeModel = objPinCodes.result ? objPinCodes.result[$('li.ui-state-focus').index()] : null;
-                    $('#errPinCodeSearch,#errPinCodeSearch_office').hide();
-                } else {
-                    if ($(event.target).val().trim() == '') {
-                        $('#errPinCodeSearch,#errPinCodeSearch_office').hide();
-                    }
-                }
-
-                if ($(event.target).val().trim() == '' || e.keyCode == 27 || e.keyCode == 13) {
-                    if (focusedMakeModel == null || focusedMakeModel == undefined) {
-                        if ($(event.target).val().trim() != '') {
-                            $('#errPinCodeSearch,#errPinCodeSearch_office').show();
-                            $('#cfCompPincode').val();
-                        }
-                    }
-                    else {
-                        $('#errPinCodeSearch,#errPinCodeSearch_office').hide();
-                    }
-
-                }
-            }
-        }).autocomplete({ appendTo: $(event.target).closest(".input-box") }).autocomplete("widget").addClass("pincode-autocomplete");
     });
 
     $("#cfPincode").on('focus', function () {
@@ -340,6 +227,10 @@ function validateContactInfo() {
     isValid &= validatePhoneNumber($("#cfNum"));
     isValid &= validateEmailId($("#cfEmail"));
     isValid &= validatePinCode($("#cfPincode"));
+    if ($("#cdPanBox").length > 0)
+    {
+        isValid &= validatePanNumber($("#cfPan"));
+    }
 
     if (isValid) {
 
@@ -364,7 +255,10 @@ function saveContactDetails()
         "mobileNumber": $('#cfNum').val(),
         "emailId": $('#cfEmail').val(),
         "pincode": $("#cfPincode").val().substring(0, 6),
-        "loanAmount": $('#loanAmount').val()
+        "pancard": $("#cfPan").val(),
+        "id": $("#cpId").val(),
+        "ctLeadId": $("#ctLeadId").val(),
+        "leadId": $("#leadId").val()
     };
     $.ajax({
         type: "POST",
@@ -379,27 +273,22 @@ function saveContactDetails()
                 if (response != null) {
                     triggerGA('Loan_Application', 'Step_1_Filled', bikeName + '_' + $('#cfNum').val());
                     switch (response.status) {
-
                         case 1:
-                        case 2:
-                            $("#contact-detail-tab").addClass("hide");
-                            $(personalDetailTab).removeClass("hide");
-
-                            $(".contact-image-unit").removeClass('contact-icon').addClass('white-tick-icon');
-                            $(".personal-image-unit").removeClass('gray-personal-icon').addClass('white-personal-icon');
-                            if (isDesktop.length) {
-                                scrollTop($(personalDetailTab).offset());
-                                $(".personal__title").removeClass("inactive");
-                                $(".personal-details-container").addClass("visible");
-                            }
-                            else {
-                                scrollTop(formTabsContainer.offset());
-                                formTabsContainer.find('.page-tabs__li.active').removeClass('active');
-                                formTabsContainer.find('.page-tabs__li[data-id=personal-detail-tab]').removeClass("inactive").addClass('active');
-                            }
                             $("#cpId").val(response.cpId);
                             $("#ctLeadId").val(response.ctLeadId);
-                            $("#leadId").val(response.leadId);                                                      
+                            $("#leadId").val(response.leadId);
+                            otpScreen.openOtp();
+                            var objData = {
+                                "userName": $('#cfFName').val() + " " + $('#cfLName').val(),
+                                "mobileNumber": $('#cfNum').val()
+                            }
+                            otpvm.setParameters(objData);
+                            break;
+                        case 6:                            
+                            triggerGA('Loan_Application', 'OTP_Success', bikeName + '_' + $('#cfNum').val());
+                            $('.otp-container__info').hide();
+                            $('#thankyouScreen').removeClass("hide");
+                            otpScreen.openOtp();
                             break;
                         default:
                             var obj = {
@@ -408,6 +297,10 @@ function saveContactDetails()
                                 yesButtonText: "Okay",
                                 yesButtonLink: "javascript:void(0)"
                             };
+
+                            $('.otp-container__info').hide();
+                            $('#thankyouScreen').removeClass("hide");
+
                             modalPopup.showModal(templates.modalPopupTemplate(obj));
                     }
                 }
@@ -430,208 +323,6 @@ function saveContactDetails()
 
 }
 
-
-function validatePersonalInfo() {
-	$('#screenLoader').show();
-
-    
-  var  isValid = validateAddress($("#cfAddress1"));
-    isValid &= validateAddress($("#cfAddress2"));
-    isValid &= validatePanNumber($("#cfPan"));
-    isValid &= validateRadioButtons("gender");
-    isValid &= validateRadioButtons("marital");
-    isValid &= validateDOB($("#cfDOB"));
-
-    if (isValid) {
-        savePersonalDetails();
-
-       
-	}
-	else {
-		scrollTopError();
-	}
-	
-	$('#screenLoader').hide();
-}
-
-
-function savePersonalDetails() {
-    var personDetails = {
-        "id": $("#cpId").val(),
-        "ctLeadId": $("#ctLeadId").val(),
-        "leadId": $("#leadId").val(),
-        "objLeadJson": $("#objLead").val(),
-        "firstName": $('#cfFName').val(),
-        "lastName": $('#cfLName').val(),
-        "mobileNumber": $('#cfNum').val(),
-        "emailId": $('#cfEmail').val(),
-        "pincode": $("#cfPincode").val().substring(0, 6),
-        "dateOfBirth": $('#cfDOB').val(),
-        "gender": $('#cfGenderM').is(':checked') ? 1 : 2,
-        "maritalStatus": $('#cfMaritalS').is(':checked') ? 1 : 2,
-        "addressLine1": $("#cfAddress1").val(),
-        "addressLine2": $('#cfAddress2').val(),
-        "pancard": $("#cfPan").val(),
-        "loanAmount": $('#loanAmount').val()
-
-    }
-
-    $.ajax({
-        type: "POST",
-        url: "/api/finance/savepersonaldetails/?source=" + $("#hdnPlatform").val(),
-        contentType: "application/json",
-        data: ko.toJSON(personDetails),
-        beforeSend: function () {
-            $('#otpLoader').show();
-        },
-        success: function (response) {
-            if (response) {
-                if (response != null) {
-                    triggerGA('Loan_Application', 'Step_2_Filled', bikeName + '_' + $('#cfNum').val());
-                    switch (response.status) {
-
-                        case 1:
-                        case 2:
-                            $("#personal-detail-tab").addClass("hide");
-                            $(employmentDeatilTab).removeClass("hide");
-
-                            $(".personal-image-unit").removeClass('personal-icon').addClass('white-tick-icon');
-                            $(".personal-image-unit").removeClass('bg-gray').addClass('bg-red');
-                            $(".employment-image-unit").removeClass('gray-bag-icon').addClass('white-bag-icon');
-                            if (isDesktop.length) {
-                                scrollTop($(employmentDeatilTab).offset());
-                                $(".employment__title").removeClass("inactive");
-                                $(".employment-details-container").addClass("visible");
-                            }
-                            else {
-                                scrollTop(formTabsContainer.offset());
-                                formTabsContainer.find('.page-tabs__li.active').removeClass('active');
-                                formTabsContainer.find('.page-tabs__li[data-id=employment-detail-tab]').removeClass('inactive').addClass('active');
-                            }
-                            $("#cpId").val(response.cpId);
-                            $("#ctLeadId").val(response.ctLeadId);
-                            $("#leadId").val(response.leadId);
-                           
-                            $('#cfCompPincode').val("");
-                            break;
-                        default:
-                            var obj = {
-                                message: response.message,
-                                isYesButtonActive: true,
-                                yesButtonText: "Okay",
-                                yesButtonLink:"javascript:void(0)"
-                            };
-                            modalPopup.showModal(templates.modalPopupTemplate(obj));
-                    }
-                }
-            }
-        },
-        complete: function(){
-        $('#otpLoader').hide();
-        }
-        ,
-        error: function () {
-            var obj = {
-                message: navigator.onLine ? "Some error has occured." : "You're offline. Please check your internet connection.",
-                isYesButtonActive: true,
-                yesButtonText: "Okay",
-                yesButtonLink: "javascript:void(0)"
-            };
-            modalPopup.showModal(templates.modalPopupTemplate(obj));
-        }
-    });
-
-
-}
-
-
-function validateEmploymentInfo() {
-    var isValid = false;
-
-    isValid = validateAddress($("#cfCompName"));
-    isValid &= validateIncome($("#cfCompIncome"));
-    isValid &= validateAddress($("#cfCompAddress1"));
-    isValid &= validateAddress($("#cfCompAddress2"));
-    isValid &= validatePinCode($("#cfCompPincode"));
-    isValid &= validateRadioButtons("status");
-
-    if (isValid) {
-        saveEmployeDetails();
-	}
-	else {
-		scrollTopError();
-	}
-}
-
-function saveEmployeDetails() {
-
-    var employeDetails = {
-        "status": $('#cfStatusS').is(':checked') ? 1 : 2,
-        "companyName": $('#cfCompName').val(),
-        "OfficialAddressLine1": $('#cfCompAddress1').val(),
-        "OfficialAddressLine2": $('#cfCompAddress2').val(),
-        "pincodeOffice": $('#cfCompPincode').val().substring(0, 6),
-        "annualIncome": $('#cfCompIncome').val(),
-        "mobileNumber": $('#cfNum').val(),
-        "emailId": $('#cfEmail').val(),
-        "objLeadJson": $("#objLead").val(),
-        "firstName": $('#cfFName').val(),
-        "lastName": $('#cfLName').val(),
-        "dateOfBirth": $('#cfDOB').val(),
-        "gender": $('#cfGenderM').is(':checked') ? 1 : 2,
-        "maritalStatus": $('#cfMaritalS').is(':checked') ? 1 : 2,
-        "addressLine1": $("#cfAddress1").val(),
-        "addressLine2": $('#cfAddress2').val(),
-        "pincode": $("#cfPincode").val().substring(0, 6),
-        "pancard": $("#cfPan").val(),
-        "id": $("#cpId").val(),
-        "ctLeadId": $("#ctLeadId").val(),
-        "leadId": $("#leadId").val(),
-        "loanAmount": $('#loanAmount').val()
-
-    }
-
-    $.ajax({
-        type: "POST",
-        url: "/api/finance/saveemployedetails/?source=" + $("#hdnPlatform").val(),
-        contentType: "application/json",
-		data: ko.toJSON(employeDetails),
-		beforeSend: function() {
-			$('#otpLoader').show();
-		},
-        success: function (response) {
-			triggerGA('Loan_Application', 'Step_3_Filled', bikeName + '_' + $('#cfNum').val());
-			
-			if (response) {
-                otpScreen.openOtp();
-                var objData = {
-                    "userName": $('#cfFName').val() + " " + $('#cfLName').val(),
-                    "mobileNumber": $('#cfNum').val()
-                }
-                otpvm.setParameters(objData);
-                if (response.status != 13) {
-                    $('.otp-container__info').hide();
-                    $('#thankyouScreen').removeClass("hide");
-
-                }
-            }
-        },
-        complete: function(){
-            $('#otpLoader').hide();
-        },
-        error: function () {
-            var obj = {
-                message: navigator.onLine ? "Some error has occured." : "You're offline. Please check your internet connection.",
-                isYesButtonActive: true,
-                yesButtonText: "Okay",
-                yesButtonLink: "javascript:void(0)"
-            };
-            modalPopup.showModal(templates.modalPopupTemplate(obj));
-        }
-    });
-
-
-}
 
 function validateUserName(elem) {
     var isValid;
@@ -767,53 +458,9 @@ function validatePanNumber(inputPanNum) {
     return isValid;
 }
 
-function validateRadioButtons(groupName) {
-    var isValid = true;
-    if ($('input[name=' + groupName + ']:checked').length <= 0) {
-        validate.setError($('input[name=' + groupName + ']').closest('ul'), 'Please select required field');
-        isValid = false;
-    } else {
-        validate.hideError($('input[name=' + groupName + ']').closest('ul'));
-        isValid = true;
-    }
-    return isValid;
-}
 
-function validateIncome(inputIncome) {
-    var isValid = true;
-    var numRegex = /^[0-9]{0,9}$/;
-    var value = $(inputIncome).val().trim();
-    if ($(inputIncome).val().length <= 0) {
-        validate.setError(inputIncome, 'Please enter Income');
-        isValid = false;
-    }
-    else if (!numRegex.test(value) || value.length > 9) {
-        validate.setError(inputIncome, 'Please enter valid Income');
-        isValid = false;
-    }
-    return isValid;
-}
 
-function validateDOB(inputAge) {
-    var dob = $(inputAge).val().trim();
 
-        var isValid = true,
-            setDate = $(inputAge).val(),
-            date1 = new Date(setDate),
-            date2 = new Date(),
-            timeDiff = Math.abs(date2.getTime() - date1.getTime()),
-            diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)),
-            diffYears = diffDays / 365;
-      if (dob.length == 0) {
-          validate.setError(inputAge, 'Please enter Age');
-          isValid = false;
-        }
-    else if (diffYears < 21) {
-        validate.setError(inputAge, 'Age should be greater than 21');
-        isValid = false;
-    }
-    return isValid;
-}
 
 function scrollTop(offsetElem) {
     var offsetTop = 25;
