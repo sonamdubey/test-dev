@@ -1405,7 +1405,7 @@ namespace Bikewale.Models.BikeModels
                                     version.Price = !_objData.ShowOnRoadButton ? selected.OnRoadPrice : selected.Price;
                                     if (modelPg.ModelVersions.Any() && version.Price == 0 && !isSelectedUpdated)
                                     {
-                                        _objData.SelectedVersion = modelPg.ModelVersions.FirstOrDefault(m => m.AverageExShowroom > 0 && m.VersionId == version.VersionId);
+                                        _objData.SelectedVersion = modelPg.ModelVersions.FirstOrDefault(m => m.AverageExShowroom > 0 && m.VersionId == _objData.VersionId);
                                         isSelectedUpdated = true;
                                     }
                                 }
