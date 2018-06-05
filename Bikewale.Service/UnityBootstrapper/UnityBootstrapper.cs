@@ -29,6 +29,7 @@ using Bikewale.Cache.BikeSearch;
 using Bikewale.Cache.CMS;
 using Bikewale.Cache.Compare;
 using Bikewale.Cache.Core;
+using Bikewale.Cache.Finance;
 using Bikewale.Cache.Location;
 using Bikewale.Cache.MobileVerification;
 using Bikewale.Cache.PriceQuote;
@@ -70,6 +71,7 @@ using Bikewale.Interfaces.Customer;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Interfaces.EditCMS;
 using Bikewale.Interfaces.Feedback;
+using Bikewale.Interfaces.Finance;
 using Bikewale.Interfaces.Images;
 using Bikewale.Interfaces.Lead;
 using Bikewale.Interfaces.Location;
@@ -243,6 +245,7 @@ namespace Bikewale.Service.UnityConfiguration
             container.RegisterType<IBikeSearchResult, BikeSearchResult>();
             container.RegisterType<ILead, LeadProcess>();
             container.RegisterType<IApiGatewayCaller, ApiGatewayCaller>();
+            container.RegisterType<IFinanceCacheRepository, FinanceCacheRepository>();
             return container;
 
         }

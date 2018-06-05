@@ -19,6 +19,11 @@
     Model.ExcludeContestSlug = true;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@{
+    var cityArea = Bikewale.Utility.GlobalCityArea.GetGlobalCityArea();
+    uint cityId = cityArea.CityId;
+}
+
 <section>
     <div class="container padding-top10">
         <div class="grid-12">
@@ -383,8 +388,8 @@
                                 {
                                     <div class="margin-top10">
                                             @if (Model.EMICampaign.DealerId == Bikewale.Utility.BWConfiguration.Instance.CapitalFirstDealerId)
-                                        {
-                                                <a class="btn btn-orange btn-160-32 margin-right10 bw-ga" href="/finance/capitalfirst/?campaingid=@Model.EMICampaign.CampaignId&amp;dealerid=@Model.EMICampaign.DealerId&amp;pqid=@Model.PQId&amp;leadsourceid=@Model.EMICampaign.LeadSourceId&amp;versionid=@Model.EMICampaign.VersionId&amp;url=@Model.EMICampaign.CurrentPageUrl&amp;platformid=@Model.EMICampaign.PlatformId&amp;bike=@Model.BikeName&amp;loanamount=@Model.EMICampaign.LoanAmount" rel="nofollow">@Model.EMICampaign.EMIButtonTextDesktop</a>
+                                            {
+                                                <a class="btn btn-orange btn-160-32 margin-right10 bw-ga" href="/finance/capitalfirst/?campaingid=@Model.EMICampaign.CampaignId&amp;dealerid=@Model.EMICampaign.DealerId&amp;pqid=@Model.PQId&amp;leadsourceid=@Model.EMICampaign.LeadSourceId&amp;versionid=@Model.EMICampaign.VersionId&amp;url=@Model.EMICampaign.CurrentPageUrl&amp;platformid=@Model.EMICampaign.PlatformId&amp;bike=@Model.BikeName&amp;loanamount=@Model.EMICampaign.LoanAmount&amp;cityid=@cityId" rel="nofollow">@Model.EMICampaign.EMIButtonTextDesktop</a>
                                             }
                                             else
                                             {

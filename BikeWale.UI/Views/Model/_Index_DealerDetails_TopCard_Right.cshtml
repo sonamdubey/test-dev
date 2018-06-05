@@ -1,4 +1,8 @@
 ﻿@model Bikewale.Models.BikeModels.ModelPageVM
+@{
+    var cityArea = Bikewale.Utility.GlobalCityArea.GetGlobalCityArea();
+    uint cityId = cityArea.CityId;            
+}
 @if (Model.IsPremiumDealer)
 {
     <div class="margin-top10">
@@ -15,7 +19,7 @@ else if (Model.IsManufacturerTopLeadAdShown)
     <div class="margin-top10">
         @if (Model.LeadCampaign.DealerId == Bikewale.Utility.BWConfiguration.Instance.CapitalFirstDealerId)
         {
-            <a class="btn btn-grey margin-right15 leftfloat bw-ga" rel="nofollow" href="/finance/capitalfirst/?campaingid=@Model.LeadCampaign.CampaignId&amp;dealerid=@Model.LeadCampaign.DealerId&amp;pqid=@Model.PQId&amp;leadsourceid=@Model.LeadCampaign.LeadSourceId&amp;versionid=@Model.LeadCampaign.VersionId&amp;url=@Model.LeadCampaign.CurrentPageUrl&amp;platformid=@Model.LeadCampaign.PlatformId&amp;bike=@Model.BikeName&amp;loanamount=@Model.LeadCampaign.LoanAmount">@Model.LeadCampaign.LeadsButtonTextDesktop</a>
+            <a class="btn btn-grey margin-right15 leftfloat bw-ga" rel="nofollow" href="/finance/capitalfirst/?campaingid=@Model.LeadCampaign.CampaignId&amp;dealerid=@Model.LeadCampaign.DealerId&amp;pqid=@Model.PQId&amp;leadsourceid=@Model.LeadCampaign.LeadSourceId&amp;versionid=@Model.LeadCampaign.VersionId&amp;url=@Model.LeadCampaign.CurrentPageUrl&amp;platformid=@Model.LeadCampaign.PlatformId&amp;bike=@Model.BikeName&amp;loanamount=@Model.LeadCampaign.LoanAmount&amp;cityid=@cityId">@Model.LeadCampaign.LeadsButtonTextDesktop</a>
         }
         else
         {
