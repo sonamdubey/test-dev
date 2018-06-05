@@ -9,6 +9,7 @@ namespace Bikewale.Entities.Models
     /// <summary>
     /// Created By : Ashutosh Sharma on 27 Oct 2017
     /// Description : Provide properties to include only required JS on AMP page.
+    /// Modifier    : Kartik Rathod on 1 jun 2018 added IsYoutube 
     /// </summary>
     public class AmpJsTags
     {
@@ -21,6 +22,6 @@ namespace Bikewale.Entities.Models
         public bool IsCarousel { get; set; }
         public bool IsSelector { get; set; }
         public bool IsBind{ get; set; }
-
+        public bool IsYoutube { get; set; }
     }
 }

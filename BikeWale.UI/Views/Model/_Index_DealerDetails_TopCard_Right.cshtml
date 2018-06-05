@@ -1,9 +1,16 @@
 ﻿@model Bikewale.Models.BikeModels.ModelPageVM
-<div class="dealer__offers-summary-content">
-    <span class="dealer-offers__icon"></span>
-    <span class="dealer-offers__icon-label">4 Dealer Offers available</span>
-    <span id="viewDealerOffers" class="dealer-offers__target">See offers</span>
-</div>
+
+
+@if (Model.IsPrimaryDealer && Model.DetailedDealer.PrimaryDealer.HasOffers)
+{
+    int offersCount = Model.DetailedDealer.PrimaryDealer.OfferList.Count();
+    <div class="dealer__offers-summary-content">
+        <span class="dealer-offers__icon"></span>
+        <span class="dealer-offers__icon-label">@string.Format("{0} Dealer {1} available", offersCount, offersCount > 1 ? "Offers" : "Offer")</span>
+        <span id="viewDealerOffers" class="dealer-offers__target">See offers</span>
+    </div>
+}
+
 @if (Model.IsPremiumDealer)
 {
     <div class="margin-top10">

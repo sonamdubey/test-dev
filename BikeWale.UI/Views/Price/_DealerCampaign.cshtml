@@ -15,11 +15,21 @@
                 @if (!string.IsNullOrEmpty(PrimaryDealerDetails.MaskingNumber))
                 {
                     <div class="dealer-details__contact">
-                        <span class="bwsprite phone-black-icon vertical-top"></span>
-                        <span class="font15 vertical-top text-bold ">@PrimaryDealerDetails.MaskingNumber</span>
+                        <span class="bwsprite phone-md"></span>
+                        <span class="font15 vertical-top text-bold "><span class="text-grey">+91 </span>@PrimaryDealerDetails.MaskingNumber</span>
                     </div>
                 }
-
+                else
+                {
+                    <div id="dealer-offers-label">
+                        <p class="font14">Get in touch with this dealer for:</p>
+                        <ul id="offers-label-list">
+                            <li>Best offers</li>
+                            <li>Test rides</li>
+                            <li>EMI options</li>
+                        </ul>
+                    </div>
+                }
                 <div id="get-offers-btn-content" class="dealer__get-offers-content">
                     <a href=" javascript:void(0)" id="leadBtn" data-leadsourceid="9" data-item-id="@PrimaryDealerDetails.DealerId" data-item-name="@PrimaryDealerDetails.Organization" data-item-area="@PrimaryDealerDetails.objArea.AreaName" class="btn btn-orange pq-get-dealer-offers bw-ga leadcapturebtn" data-cat="DealerPriceQoute_Page" data-act="Get_Offers_Clicked" data-var="bikeVerLocation" rel="nofollow">
                         @PrimaryDealerDetails.DisplayTextLarge
@@ -42,37 +52,33 @@
             <!-- offers starts here -->
             <div class="dealer__offers-content offers-content--card-none">
                 @{
-            int offersCount = Model.PrimaryDealer.OfferList.Count();
+                    int offersCount = Model.PrimaryDealer.OfferList.Count();
                 }
-                @if (!Model.PrimaryDealer.IsStandardDealer && Model.PrimaryDealer.HasOffers)
-                {
-                    <div class="dealer-offer__container">
-                        <div class="dealer-offer__badge">
-                            <span class="offer-badge__star"></span>
-                            <span>@offersCount Offers</span>
-                        </div>
-                        <ul class="benefit__list">
-
-                            @foreach (var offer in Model.PrimaryDealer.OfferList)
-                            {
-                                <li class="benefit-list__item">
-                                    <span class="benefit-item__icon @(string.Format(" offer-{0}-icon", offer.OfferCategoryId))">
-                                    </span>
-                                    <p class="benefit-item__label">
-                                        @offer.OfferText
-                                        @if (offer.IsOfferTerms)
-                                        {
-                                            <span class="tnc font9 margin-left5" id="@offer.OfferId">View terms</span>
-                                        }
-                                    </p>
-                                </li>
-                            }
-                        </ul>
+                <div class="dealer-offer__container">
+                    <div class="dealer-offer__badge">
+                        <span class="offer-badge__star"></span>
+                        <span>@string.Format("{0} {1}", offersCount, offersCount > 1 ? "Offers" : "Offer")</span>
                     </div>
-                }
+                    <ul class="benefit__list">
+                        @foreach (var offer in Model.PrimaryDealer.OfferList)
+                        {
+                            <li class="benefit-list__item">
+                                <span class="benefit-item__icon @(string.Format(" offer-{0}-icon", offer.OfferCategoryId))">
+                                </span>
+                                <p class="benefit-item__label">
+                                    @offer.OfferText
+                                    @if (offer.IsOfferTerms)
+                                    {
+                                        <span class="tnc font9 margin-left5" id="@offer.OfferId">View terms</span>
+                                    }
+                                </p>
+                            </li>
+                        }
+                    </ul>
+                </div>
             </div>
             <!-- offers ends here -->
-        }
+         }
 
         <div id="dealer-contact-details" class="dealer-details__card dealer-details-card--shadow-none @(Model.PrimaryDealer.IsPremiumDealer ? " " : " map-absent") ">
             <!-- if no map, add 'map-absent' class -->
