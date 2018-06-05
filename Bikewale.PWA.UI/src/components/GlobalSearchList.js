@@ -41,7 +41,7 @@ class GlobalSearchList extends React.Component {
                 rightItem  = <span className="menu--right-align-label">coming soon</span>;
             } else {
                 if (item.payload.isNew == 'True') {
-                    rightItem = <a data-modelId={item.modelId} className="getquotation menu--right-align-label text-blue upcoming-link" onClick={this.checkOnRoadLinkClick.bind(this,item)}>Check On-Road Price</a>;
+                    rightItem = <a data-modelid={item.modelId} className="getquotation menu--right-align-label text-blue upcoming-link" onClick={this.checkOnRoadLinkClick.bind(this,item)}>Check On-Road Price</a>;
 
                 } else {
                     rightItem = <span className="menu--right-align-label">discontinued</span>;
@@ -51,7 +51,7 @@ class GlobalSearchList extends React.Component {
         }
         if(item.payload.modelId === "0" && item.payload.makeId === "0") {
             return (
-                <li data-makeid={item.payload.makeId} data-modelid={item.payload.modelId} className="autocomplete-menu--item" onClick={function(){this.onSelect(item, 3)}.bind(this)}>
+                <li key={index} data-makeid={item.payload.makeId} data-modelid={item.payload.modelId} className="autocomplete-menu--item" onClick={function(){this.onSelect(item, 3)}.bind(this)}>
                     {icon}
                     <a className="menu--item-label" href={'https://www.bikewale.com/'+item.payload.href} data-href={'/'+item.payload.href} rel="nofollow"> 
                         {bikename}
@@ -61,7 +61,7 @@ class GlobalSearchList extends React.Component {
         }
         else {
             return(
-                <li data-makeid={item.payload.makeId} data-modelid={item.payload.modelId} className="autocomplete-menu--item" onClick={function(){this.onSelect(item,value)}.bind(this)}>
+                <li key={index} data-makeid={item.payload.makeId} data-modelid={item.payload.modelId} className="autocomplete-menu--item" onClick={function(){this.onSelect(item,value)}.bind(this)}>
                     {icon}
                     <a className="menu--item-label" href="javascript:void(0)" data-href={'/m/'+item.payload.makeMaskingName+'-bikes/'+item.payload.modelMaskingName} rel="nofollow"> 
                         {bikename}

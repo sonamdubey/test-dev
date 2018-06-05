@@ -118,6 +118,7 @@ class SelectCityPopup extends React.Component {
 
       return (
         <ListGroupItem
+					key={index}
           id={item.cityId}
           name={item.cityName}
           active={active}

@@ -294,11 +294,11 @@ class EMITab extends React.Component {
         }
 
         {
-          selectBikePopup != null &&
+          selectBikePopup != null && selectBikePopup.isActive &&
           <SelectBikePopup isActive={selectBikePopup.isActive} data={selectBikePopup} onCloseClick={closeSelectBikePopup} onBikeClick={this.handleBikeClick} fetchMakeModelList={fetchMakeModelList} />
         }
         {
-          FinanceCityPopup != null &&
+          FinanceCityPopup != null && FinanceCityPopup.isActive &&
           <SelectCityPopup isActive={FinanceCityPopup.isActive} data={{ ...FinanceCityPopup, isGlobalCityInList: this.state.isGlobalCityInList }} onCloseClick={closeSelectCityPopup} onCityClick={this.handleCityClick} />
         }
       </div>);

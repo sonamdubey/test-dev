@@ -17,8 +17,7 @@ class ServerAppComponent extends React.Component {
 	render() {
 		return (
 				<div>
-					<Navigation/>
-                    <AdUnit adSlot={AD_PATH_REVIEWS_TOP_320_50} adDimension={AD_DIMENSION_320_50} adContainerId={AD_DIV_REVIEWS_TOP_320_50}/>        
+					<Navigation/>      
 					<div className="body-content">
 						<Switch>
 	                        <Route exact path='/m/(news|expert-reviews)/' component={() => (<ArticleListComponent {...this.props.childComponentProps}/>)}/>

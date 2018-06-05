@@ -22,7 +22,7 @@ class ListItem extends React.PureComponent {
         {
           item.icon
             ? <div className="item__icon-content">
-                <div class="item-icon__image-content">
+                <div className="item-icon__image-content">
                   <img
                     className="item-icon-image"
                     src={item.icon}
