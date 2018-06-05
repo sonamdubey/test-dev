@@ -30,7 +30,7 @@ class SwiperSimilarBikesEMI extends React.Component {
         </div>
         <div className="similar-emi-card__footer">
           <p className="similar-emi-card-footer__title">
-            <span className="carousel-text--semibold">{item.emiLabel}:&nbsp;</span>&#x20b9;&nbsp;<span class="carousel-text--bold">{formatToINR(item.emiStart, false)}</span>&nbsp;Onwards</p>
+            <span className="carousel-text--semibold">{item.emiLabel}:&nbsp;</span>&#x20b9;&nbsp;<span className="carousel-text--bold">{formatToINR(item.emiStart, false)}</span>&nbsp;Onwards</p>
         </div>
       </div>
     );

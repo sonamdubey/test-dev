@@ -122,10 +122,10 @@ class SelectBikePopup extends React.Component {
       return (
         <div data-trigger={item.make.makeName} data-onOpen={this.handleAccordionClick.bind(this)}>
           <ul className="panel-body__list">
-            {item.models.map(function (bike) {
+            {item.models.map(function (bike, index) {
               let eleClassName = `panel-bike-list__item ${(bike.modelId == this.state.currentModelId ? " bike-list-item--active" : "")}`;
               return (
-                <li className={eleClassName} onClick={this.handleBikeSelection.bind(this, bike)}>
+                <li key={index} className={eleClassName} onClick={this.handleBikeSelection.bind(this, bike)}>
                   <p className="bike-list-item__label">{bike.modelName}</p>
                 </li>
               );

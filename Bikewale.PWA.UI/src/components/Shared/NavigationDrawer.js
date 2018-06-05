@@ -163,7 +163,7 @@ class NavigationDrawer extends React.Component {
                             <a href="/featured/trackday-2018/" className="nav-item"  onClick={this.pushAnalyticsAndCloseDrawer.bind(this,"Track Day 2018")}>
                                 <span className="bwmsprite track-day"></span>
                                 <span>Track Day 2018</span>
-								<span class="new-flag"></span>
+								<span className="new-flag"></span>
                             </a>
                         </li>
 						<li>

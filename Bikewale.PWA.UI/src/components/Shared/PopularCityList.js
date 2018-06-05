@@ -43,7 +43,7 @@ class PopularCityList extends React.Component {
 
       return (
         <li
-          key={item.id}
+          key={item.cityId}
           className={"city-popular-list__item " + activeClass}
           onClick={this.handleCityClick.bind(this, item)}
         >

@@ -13,8 +13,8 @@ const ModelCard = (props) => {
         <div className="model-card__detail">
           {
             model.rating > 0 && (
-              <span class="rating-badge-sm" data-rate-bg={Math.floor(model.rating)}>
-                <span class="rating-badge__star"></span>
+              <span className="rating-badge-sm" data-rate-bg={Math.floor(model.rating)}>
+                <span className="rating-badge__star"></span>
                 <span>{model.rating.toFixed(1)}</span>
               </span>
             )

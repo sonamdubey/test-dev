@@ -2,26 +2,26 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 
 class Breadcrumb extends React.Component {
-    renderLastItem(item) { 
+    renderLastItem(item, index) { 
         if(!item) return null;
-        return(<li>
+        return(<li key={index}>
                 <span className="breadcrumb-link__label">{item.Title}</span>
             </li>)
 
     }
-    renderLinkableItem(item) {
+    renderLinkableItem(item, index) {
     	if(!item) {
     		return null;
     	}
 
         if(item.isReactLink) {
-        	return (<li>
+        	return (<li key={index}>
 				<Link to={item.Href} title={item.Title} className="breadcrumb-link">
 					<span className="breadcrumb-link__label">{item.Title}</span>
 				</Link>
 			</li>)
 		}
-		return (<li>
+		return (<li key={index}>
 				<a className="breadcrumb-link" href={item.Href} title={item.Title}>
 					<span className="breadcrumb-link__label">{item.Title}</span>
 				</a>
@@ -39,10 +39,10 @@ class Breadcrumb extends React.Component {
                         {
                             this.props.breadcrumb.map(function(item,index){
                                 if(index == length-1) {
-                                    return this.renderLastItem(item);
+                                    return this.renderLastItem(item, index);
                                 }
                                 else {
-                                	return this.renderLinkableItem(item);
+                                	return this.renderLinkableItem(item, index);
                                 }
                             }.bind(this))
                         }
