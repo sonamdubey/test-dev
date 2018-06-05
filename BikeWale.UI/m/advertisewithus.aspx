@@ -9,16 +9,10 @@
         <div class="new-line5 lightgray f-12">
             We ensure that your advertisement is linked to the relevant pages and reach your customers in the right way. Please contact for any advertisement related queries:
         </div>
-        <h2 class="new-line10">West and South Zone</h2>
+        <h2 class="new-line10">Contact Details</h2>
         <div class="box1 new-line5">
             <span class="bold">Vijay Menon</span><br />
             <span class="bFontCol">Email: <a href="mailto:vijay@bikewale.com" class="viewDetails">vijay@bikewale.com</a></span>
-        </div>
-        <div class="border-solid-top margin-top25"></div>
-        <h2 class="new-line10">North and East Zone</h2>
-        <div class="box1 new-line5">
-            <span class="bold">Nikhil Pillai</span><br />
-            <span class="bFontCol">Email: <a href="mailto:nikhil.pillai@bikewale.com" class="viewDetails">nikhil.pillai@bikewale.com</a></span>
-        </div>             
+        </div>           
     </div>
 <!-- #include file="/includes/footermobile.aspx" -->
