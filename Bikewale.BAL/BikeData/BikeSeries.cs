@@ -215,7 +215,7 @@ namespace Bikewale.BAL.BikeData
                     GetVersionSpecsSummaryByItemIdAdapter adapt = new GetVersionSpecsSummaryByItemIdAdapter();
                     VersionsDataByItemIds_Input specItemInput = new VersionsDataByItemIds_Input
                     {
-                        Versions = bikesList.Where(m => !m.objVersion.VersionId.Equals(0)).Select(m => m.objVersion.VersionId),
+                        Versions = bikesList.Select(m => m.objVersion.VersionId),
                         Items = specItemList
                     };
                     adapt.AddApiGatewayCall(_apiGatewayCaller, specItemInput);
@@ -249,7 +249,7 @@ namespace Bikewale.BAL.BikeData
                 GetVersionSpecsSummaryByItemIdAdapter adapt = new GetVersionSpecsSummaryByItemIdAdapter();
                 VersionsDataByItemIds_Input specItemInput = new VersionsDataByItemIds_Input
                 {
-                    Versions = seriesCompareBikesWithSpecs.Where(m => !m.VersionId.Equals(0)).Select(m => m.VersionId),
+                    Versions = seriesCompareBikesWithSpecs.Select(m => m.VersionId),
                     Items = new List<EnumSpecsFeaturesItems>
                     {
                         EnumSpecsFeaturesItems.Displacement,

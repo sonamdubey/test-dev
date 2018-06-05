@@ -156,7 +156,7 @@ namespace Bikewale.Models
                     obj.Compare = _objCompareCache.DoCompare(_versionsList, _cityId);
 
                     GetVersionSpecsByIdAdapter adapt = new GetVersionSpecsByIdAdapter();
-                    adapt.AddApiGatewayCall(_apiGatewayCaller, _versionIdsList.Where(versionId => versionId > 0).Select(versionId => Convert.ToInt32(versionId)));
+                    adapt.AddApiGatewayCall(_apiGatewayCaller, _versionIdsList.Select(versionId => Convert.ToInt32(versionId)));
                     _apiGatewayCaller.Call();
 
                     obj.Compare.VersionSpecsFeatures = adapt.Output;

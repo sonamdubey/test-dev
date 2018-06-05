@@ -61,7 +61,7 @@ namespace Bikewale.BAL.BikeData
 					GetVersionSpecsSummaryByItemIdAdapter adapt = new GetVersionSpecsSummaryByItemIdAdapter();
 					VersionsDataByItemIds_Input specItemInput = new VersionsDataByItemIds_Input
 					{
-						Versions = versionsList.Where(v => !v.VersionId.Equals(0)).Select(v => v.VersionId),
+						Versions = versionsList.Select(v => v.VersionId),
 						Items = new List<EnumSpecsFeaturesItems>
                     {
                         EnumSpecsFeaturesItems.RearBrakeType,
@@ -314,7 +314,7 @@ namespace Bikewale.BAL.BikeData
 					GetVersionSpecsSummaryByItemIdAdapter adapt = new GetVersionSpecsSummaryByItemIdAdapter();
 					VersionsDataByItemIds_Input specItemInput = new VersionsDataByItemIds_Input
 					{
-						Versions = bikesList.Where(m => !m.VersionBase.VersionId.Equals(0)).Select(m => m.VersionBase.VersionId),
+						Versions = bikesList.Select(m => m.VersionBase.VersionId),
 						Items = specItemList
 					};
 					adapt.AddApiGatewayCall(_apiGatewayCaller, specItemInput);

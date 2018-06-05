@@ -65,7 +65,7 @@ namespace Bikewale.Models
                     GetVersionSpecsSummaryByItemIdAdapter adapt = new GetVersionSpecsSummaryByItemIdAdapter();
                     VersionsDataByItemIds_Input specItemInput = new VersionsDataByItemIds_Input
                     {
-                        Versions = genericBikeList.Where(m => !m.VersionId.Equals(0)).Select(m => m.VersionId),
+                        Versions = genericBikeList.Select(m => m.VersionId),
                         Items = new List<EnumSpecsFeaturesItems>
                         {
                             EnumSpecsFeaturesItems.Displacement,

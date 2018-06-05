@@ -291,7 +291,7 @@ namespace Bikewale.ElasticSearch.DocumentBuilderConsumer.DocumentBuilders
                 {
                     _apiGatewayCaller = container.Resolve<IApiGatewayCaller>();
 
-                    IEnumerable<int> versionIds = objList.Where(r => r.TopVersion.VersionId > 0 ).Select(r => Convert.ToInt32(r.TopVersion.VersionId));
+                    IEnumerable<int> versionIds = objList.Select(r => Convert.ToInt32(r.TopVersion.VersionId));
 
                     VersionsDataByItemIds_Input input = new VersionsDataByItemIds_Input()
                     {

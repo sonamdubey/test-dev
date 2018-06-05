@@ -113,18 +113,21 @@ namespace Bikewale.BAL.BikeData
         /// <returns></returns>
         public SpecsFeaturesEntity GetFullSpecsFeatures(int versionId)
         {
-            GetVersionSpecsByIdAdapter adapter = null;
             try
             {
-                adapter = new GetVersionSpecsByIdAdapter();
-                adapter.AddApiGatewayCall(_apiGatewayCaller, new List<int> { (int)versionId });
-                _apiGatewayCaller.Call();
+				if (versionId > 0)
+				{
+					GetVersionSpecsByIdAdapter adapter = new GetVersionSpecsByIdAdapter();
+					adapter.AddApiGatewayCall(_apiGatewayCaller, new List<int> { versionId });
+					_apiGatewayCaller.Call();
+					return adapter.Output;
+				}
             }
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, string.Format("Bikewale.BAL.BikeData.BikeModels.GetFullSpecsFeatures({0})",versionId));
             }
-            return adapter.Output;
+            return null;
         }
         public List<BikeModelEntityBase> GetModelsByType(EnumBikeType requestType, int makeId)
         {
@@ -493,7 +496,7 @@ namespace Bikewale.BAL.BikeData
                         GetVersionSpecsSummaryByItemIdAdapter adapt2 = new GetVersionSpecsSummaryByItemIdAdapter();
                         specItemInput = new VersionsDataByItemIds_Input
                         {
-                            Versions = objModelPage.ModelVersions.Where(m => !m.VersionId.Equals(0)).Select(v => v.VersionId),
+                            Versions = objModelPage.ModelVersions.Select(v => v.VersionId),
                             Items = new List<EnumSpecsFeaturesItems>{
                                 EnumSpecsFeaturesItems.RearBrakeType,
                                 EnumSpecsFeaturesItems.WheelType,
@@ -615,7 +618,7 @@ namespace Bikewale.BAL.BikeData
                     GetVersionSpecsSummaryByItemIdAdapter adapt = new GetVersionSpecsSummaryByItemIdAdapter();
                     VersionsDataByItemIds_Input specItemInput = new VersionsDataByItemIds_Input
                     {
-                        Versions = bikeVersionList.Where(m => !m.VersionId.Equals(0)).Select(m => m.VersionId),
+                        Versions = bikeVersionList.Select(m => m.VersionId),
                         Items = itemIds
                     };
                     adapt.AddApiGatewayCall(_apiGatewayCaller, specItemInput);
@@ -1890,7 +1893,7 @@ namespace Bikewale.BAL.BikeData
                     GetVersionSpecsSummaryByItemIdAdapter adapt = new GetVersionSpecsSummaryByItemIdAdapter();
                     VersionsDataByItemIds_Input specItemInput = new VersionsDataByItemIds_Input
                     {
-                        Versions = bikesList.Where(m => !m.VersionId.Equals(0)).Select(m => m.VersionId),
+                        Versions = bikesList.Select(m => m.VersionId),
                         Items = specItemList
                     };
                     adapt.AddApiGatewayCall(_apiGatewayCaller, specItemInput);
@@ -1964,7 +1967,7 @@ namespace Bikewale.BAL.BikeData
                     GetVersionSpecsSummaryByItemIdAdapter adapt = new GetVersionSpecsSummaryByItemIdAdapter();
                     VersionsDataByItemIds_Input specItemInput = new VersionsDataByItemIds_Input
                     {
-                        Versions = bikesList.Where(m => !m.objVersion.VersionId.Equals(0)).Select(m => m.objVersion.VersionId),
+                        Versions = bikesList.Select(m => m.objVersion.VersionId),
                         Items = specItemList
                     };
                     adapt.AddApiGatewayCall(_apiGatewayCaller, specItemInput);

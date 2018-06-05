@@ -245,7 +245,7 @@ namespace Bikewale.BAL.Dealer
                     GetVersionSpecsSummaryByItemIdAdapter adapt = new GetVersionSpecsSummaryByItemIdAdapter();
                     VersionsDataByItemIds_Input specItemInput = new VersionsDataByItemIds_Input
                     {
-                        Versions = bikesList.Where(m => !m.objVersion.VersionId.Equals(0)).Select(m => m.objVersion.VersionId),
+                        Versions = bikesList.Select(m => m.objVersion.VersionId),
                         Items = specItemList
                     };
                     adapt.AddApiGatewayCall(_apiGatewayCaller, specItemInput);
