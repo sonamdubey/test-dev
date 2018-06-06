@@ -274,14 +274,21 @@ docReady(function () {
             $(this).closest('div').hide();
         });
 
+        // version dropdown
         function handleVersionMenuClick(dropdown) {
             var offsetTop = $(dropdown.container).offset().top - $('.overall-specs-tabs-container').height();
 
             $('html, body').animate({ scrollTop: offsetTop }, 500);
         }
 
+        function handleVersionChange(dropdown) {
+            var optionValue = dropdown.activeOption.value;
+            vmVersionTable.getVersionObject(optionValue);
+        }
+
         var versionDropdown = new DropdownMenu('#versionDropdown', {
-            onMenuClick: handleVersionMenuClick
+            onMenuClick: handleVersionMenuClick,
+            onChange: handleVersionChange
         });
 
         // dropdown events
