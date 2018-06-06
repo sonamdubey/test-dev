@@ -284,7 +284,7 @@ docReady(function () {
 
     function handleVersionChange(dropdown) {
         registerPQAndReload(dealerId, dropdown.activeOption.value);
-        dataLayer.push({ "event": "Bikewale_all", "cat": "Dealer_PQ", "act": "Version_Changed", "lab": bikeName + "_" + dropdown.activeOption.name + "_" + getCityArea });
+        triggerGA('Dealer_PQ', 'Version_Changed', bikeVerLocation);
     }
 
     var versionDropdown = new DropdownMenu('#versionDropdown', {
