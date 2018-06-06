@@ -225,7 +225,7 @@ class EMITab extends React.Component {
                 userChange: false
               });
             this.props.resetVersionSelection()
-            if (FinanceCityPopup.currentGlobalCityName != undefined) {
+            if (FinanceCityPopup.currentGlobalCityName != undefined && FinanceCityPopup.currentGlobalCityName != "") {
               this.setToast("Price of this bike is not available in " + FinanceCityPopup.currentGlobalCityName + ". Please choose another city.");
             }
             this.setState({ ...this.state, shouldscroll: false, isGlobalCityInList: false, isFetching: false });
