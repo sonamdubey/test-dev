@@ -11,11 +11,14 @@ namespace Bikewale.Models.Price
     /// <summary>
     /// Modified by Sajal Gupta on 07-07-2017
     /// Description : Added BhriguTrackingLabel
+    /// modified by : Pratibha Verma on 6 June 2018
+    /// Description : Added BikeVersionMinSpecs for version dropdown
     /// </summary>
     public class DealerPriceQuotePageVM : ModelBase
     {
         public BikeVersionEntity SelectedVersion { get; set; }
         public IEnumerable<BikeVersionsListEntity> VersionsList { get; set; }
+        public IEnumerable<BikeVersionMinSpecs> VersionSpecs { get; set; }
         public Bikewale.Entities.PriceQuote.v2.DetailedDealerQuotationEntity DetailedDealer { get; set; }
         public BikeQuotationEntity Quotation { get; set; }
         public LeadCaptureEntity LeadCapture { get; set; }

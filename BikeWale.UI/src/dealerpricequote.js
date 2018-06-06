@@ -97,7 +97,14 @@ docReady(function () {
     $('.chosen-select').chosen();
 
     // version dropdown
-    var versionDropdown = new DropdownMenu('#model-version-dropdown');
+    function handleVersionChange(dropdown) {
+        registerPQAndReload(dealerId, dropdown.activeOption.value);
+        dataLayer.push({ "event": "Bikewale_all", "cat": "Dealer_PQ", "act": "Version_Changed", "lab": bikeName + "_" + dropdown.activeOption.name + "_" + getCityArea });
+    }
+
+    var versionDropdown = new DropdownMenu('#versionDropdown', {
+        onChange: handleVersionChange
+    });
 
       // ad blocker active than fallback method
     if (window.canRunAds === undefined) {
@@ -112,6 +119,7 @@ docReady(function () {
         $('.pricequote-benefits-list').addClass("pricequote-two-benefits");
     }
 
+    // old version dropdown change event
     $('#ddlVersion').on("change", function () {
         registerPQAndReload(dealerId, $(this).val());
         triggerGA('Dealer_PQ', 'Version_Changed', bikeVerLocation);
