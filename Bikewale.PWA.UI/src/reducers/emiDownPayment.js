@@ -2,6 +2,7 @@ import { combineReducers } from 'redux-immutable'
 import { fromJS, toJS } from 'immutable'
 
 import { emiCalculatorAction } from '../actionTypes/emiActionTypes'
+import {createSnapPointsWithBoundaryValues} from '../utils/rheostat/function/DiffSnapPoints'
 
 const initialSliderState = fromJS({
 	min: 0,
@@ -18,11 +19,7 @@ const slider = (state = initialSliderState, action) => {
 
 	switch (action.type) {
 		case emiCalculatorAction.UPDATE_DOWNPAYMENT_SLIDER_VALUE:
-			return fromJS({
-				...state.toJS(),
-				values: action.values,
-				userChange: action.userChange,
-			});
+			return state.setIn(['values'], fromJS(action.values)).setIn(['userChange'], action.userChange);
 		case emiCalculatorAction.OPEN_EMICALCULATOR:
 			let payload = action.payload
 			let downPayment = null;
@@ -35,9 +32,9 @@ const slider = (state = initialSliderState, action) => {
 			else{
 				downPayment = payload.values[0]
 			}
-			
 			return fromJS({
 				...state.toJS(),
+				snapPoints: createSnapPointsWithBoundaryValues({ startPoint: payload.min, endPoint: payload.max, divisions: 100 }),
 				values: [parseInt(downPayment)],
 				min: payload.min,
 				max: payload.max,

@@ -13,7 +13,6 @@ import { updateDownPaymentSlider } from '../../actionCreators/emiDownPaymentSlid
 
 import { formatToINR, formatToCurrency } from '../../utils/formatAmount'
 import { triggerGA } from '../../utils/analyticsUtils'
-
 class EMIDownPayment extends React.Component {
   constructor(props) {
     super(props);
@@ -22,19 +21,20 @@ class EMIDownPayment extends React.Component {
       values: this.props.slider.values
     }    
   }
-  componentWillReceiveProps(nextProps){
-    if(nextProps.slider.userChange){
-      if (gaObj != undefined) {
-        triggerGA(gaObj.name, 'Interacted_With_EMI_Calculator', 'Down Payment Slider'); 
-      }
-    }
-  }
 
   handleSliderChange = ({ values }) => {
     const {
+      slider,
+      onSliderDragMove,
       updateDownPaymentSlider,
     } = this.props
     updateDownPaymentSlider({ values, userChange: true })
+    if(onSliderDragMove) {
+      onSliderDragMove({
+        ...slider,
+        values
+      })
+    }
   }
   
   handleSliderDragMove = ({ values }) => {
@@ -66,12 +66,27 @@ class EMIDownPayment extends React.Component {
     return loanAmountUpdated
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.slider.userChange) {
+      if (gaObj != undefined) {
+        triggerGA(gaObj.name, 'Interacted_With_EMI_Calculator', 'Down Payment Slider');
+      }
+    }
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return nextProps.slider.onRoadPrice != this.props.slider.onRoadPrice || nextProps.slider.values[0] != this.props.slider.values[0] ||
+    nextState.values[0] != this.state.values[0]; 
+  }
+
   render() {
     let {
       slider
     } = this.props
     slider = {
       ...slider,
+      snap: true,
+      snapOnDragMove: true,
       algorithm: sliderAlgorithm,
       className: 'rheostat-downpayment',
       pitComponent: PitComponent,
