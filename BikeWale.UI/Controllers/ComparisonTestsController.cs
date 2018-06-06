@@ -48,7 +48,7 @@ namespace Bikewale.Controllers
             ComparisonTestsIndexPage obj = new ComparisonTestsIndexPage(_cmsCache, _pager, _bikeModels, _upcoming, _objMakeCache, _models, _series);
             if (obj.status == Entities.StatusCodes.ContentNotFound)
             {
-                return Redirect("/pagenotfound.aspx");
+                return HttpNotFound();
             }
             else if (obj.status == Entities.StatusCodes.RedirectPermanent)
             {
@@ -58,7 +58,7 @@ namespace Bikewale.Controllers
             {
                 ComparisonTestsIndexPageVM objData = obj.GetData(4);
                 if (obj.status == StatusCodes.ContentNotFound)
-                    return Redirect("/pagenotfound.aspx");
+                    return HttpNotFound();
                 else
                     return View(objData);
             }
@@ -75,7 +75,7 @@ namespace Bikewale.Controllers
             obj.IsMobile = true;
             if (obj.status == Entities.StatusCodes.ContentNotFound)
             {
-                return Redirect("/m/pagenotfound.aspx");
+                return HttpNotFound();
             }
             else if (obj.status == Entities.StatusCodes.RedirectPermanent)
             {
@@ -85,7 +85,7 @@ namespace Bikewale.Controllers
             {
                 ComparisonTestsIndexPageVM objData = obj.GetData(9);
                 if (obj.status == StatusCodes.ContentNotFound)
-                    return Redirect("/m/pagenotfound.aspx");
+                    return HttpNotFound();
                 else
                     return View(objData);
             }

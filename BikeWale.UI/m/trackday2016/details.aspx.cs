@@ -43,9 +43,7 @@ namespace Bikewale.Mobile.TrackDay
             }
             else
             {
-                Response.Redirect("/m/pagenotfound.aspx", true);
-                HttpContext.Current.ApplicationInstance.CompleteRequest();
-                this.Page.Visible = false;
+                UrlRewrite.Return404();
             }
 
         }

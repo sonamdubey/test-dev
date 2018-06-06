@@ -85,7 +85,7 @@ namespace Bikewale.Controllers
                     }
                     else
                     {
-                        objResult = Redirect("/pagenotfound.aspx");
+                        objResult = HttpNotFound();
                     }
                 }
                 else if (objResponse.StatusCode == 301 || isMakePermanantRedirect)
@@ -107,7 +107,7 @@ namespace Bikewale.Controllers
             }
             else
             {
-                objResult = Redirect("/pagenotfound.aspx");
+                objResult = HttpNotFound();
             }
             return objResult;
         }
@@ -142,7 +142,7 @@ namespace Bikewale.Controllers
                     }
                     else
                     {
-                        objResult = Redirect("/m/pagenotfound.aspx");
+                        objResult = HttpNotFound();
                     }
                 }
                 else if (objResponse.StatusCode == 301 || isMakePermanantRedirect)
@@ -164,7 +164,7 @@ namespace Bikewale.Controllers
             }
             else
             {
-                objResult = Redirect("/m/pagenotfound.aspx");
+                objResult = HttpNotFound();
             }
 
             return objResult;

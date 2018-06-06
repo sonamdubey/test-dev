@@ -7,7 +7,6 @@ using Bikewale.Entities.Location;
 using Bikewale.Utility;
 using System;
 using System.Collections.Generic;
-using System.Web;
 
 namespace Bikewale.News
 {
@@ -81,13 +80,11 @@ namespace Bikewale.News
             {
                 if (objNews != null && objNews.IsPageNotFound)
                 {
-                    Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
-                    HttpContext.Current.ApplicationInstance.CompleteRequest();
-                    this.Page.Visible = false;
+                    UrlRewrite.Return404();
                 }
             }
         }
-        
+
         /// <summary>
         /// Created By : Sushil Kumar on 10th Nov 2016
         /// Description : Get category name by id

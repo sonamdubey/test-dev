@@ -102,9 +102,7 @@ namespace Bikewale.Mobile.Content
             {
                 if (objFeatures.IsPageNotFound || !objFeatures.isContentFound)
                 {
-                    Response.Redirect("/m/pagenotfound.aspx", false);
-                    HttpContext.Current.ApplicationInstance.CompleteRequest();
-                    this.Page.Visible = false;
+                    UrlRewrite.Return404();
                 }
             }
         }

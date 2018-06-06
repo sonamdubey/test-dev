@@ -46,18 +46,18 @@ namespace Bikewale.Controllers
                     if (obj != null)
                         return View(obj);
                     else
-                        return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+                        return HttpNotFound();
 
                 }
                 else
                 {
-                    return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+                    return HttpNotFound();
                 }
 
             }
             else
             {
-                return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+                return HttpNotFound();
 
             }
 
@@ -84,17 +84,17 @@ namespace Bikewale.Controllers
                     if (obj != null)
                         return View(obj);
                     else
-                        return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+                        return HttpNotFound();
                 }
                 else
                 {
-                    return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+                    return HttpNotFound();
                 }
 
             }
             else
             {
-                return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+                return HttpNotFound();
 
             }
 

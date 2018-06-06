@@ -9,6 +9,7 @@ using Bikewale.Interfaces.Used;
 using Bikewale.Notifications;
 using Bikewale.Utility;
 using Microsoft.Practices.Unity;
+using Bikewale.Common;
 
 namespace Bikewale.Used
 {
@@ -88,9 +89,7 @@ namespace Bikewale.Used
             }
             else
             {
-                Response.Redirect("/pageNotFound.aspx", false);
-                HttpContext.Current.ApplicationInstance.CompleteRequest();
-                this.Page.Visible = false;
+                UrlRewrite.Return404();
             }
         }
 
@@ -142,8 +141,8 @@ namespace Bikewale.Used
             }
             catch (Exception ex)
             {
-                ErrorClass.LogError(ex, Request.ServerVariables["URL"] + " BindUserControls");
-                
+                Bikewale.Notifications.ErrorClass.LogError(ex, Request.ServerVariables["URL"] + " BindUserControls");
+
             }
         }
 
@@ -183,8 +182,8 @@ namespace Bikewale.Used
             }
             catch (Exception ex)
             {
-                ErrorClass.LogError(ex, "Exception : Bikewale.Used.BikeDetails.BindProfileDetails");
-                
+                Bikewale.Notifications.ErrorClass.LogError(ex, "Exception : Bikewale.Used.BikeDetails.BindProfileDetails");
+
             }
         }
     }

@@ -6,7 +6,6 @@ using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.Compare;
 using Bikewale.Interfaces.EditCMS;
 using Bikewale.Models;
-using System.Collections.Generic;
 using System.Web.Mvc;
 
 namespace Bikewale.Controllers
@@ -58,7 +57,7 @@ namespace Bikewale.Controllers
             }
             else
             {
-                return Redirect("/pageNotFound.aspx");
+                return HttpNotFound();
             }
         }
         // GET: CompareBikes
@@ -75,7 +74,7 @@ namespace Bikewale.Controllers
             }
             else
             {
-                return Redirect("/m/pageNotFound.aspx");
+                return HttpNotFound();
             }
 
         }
@@ -96,7 +95,7 @@ namespace Bikewale.Controllers
                 }
                 else if (objDetails.status == Entities.StatusCodes.ContentNotFound)
                 {
-                    return Redirect("/pageNotFound.aspx");
+                    return HttpNotFound();
                 }
                 else
                 {
@@ -106,7 +105,7 @@ namespace Bikewale.Controllers
                     }
                     else
                     {
-                        return Redirect("/pageNotFound.aspx");
+                        return HttpNotFound();
                     }
                 }
             }
@@ -121,7 +120,7 @@ namespace Bikewale.Controllers
             }
             else
             {
-                return Redirect("/pageNotFound.aspx");
+                return HttpNotFound();
             }
 
         }
@@ -146,7 +145,7 @@ namespace Bikewale.Controllers
                 }
                 else if (objDetails.status == Entities.StatusCodes.ContentNotFound)
                 {
-                    return Redirect("/m/pageNotFound.aspx");
+                    return HttpNotFound();
                 }
                 else
                 {
@@ -156,7 +155,7 @@ namespace Bikewale.Controllers
                     }
                     else
                     {
-                        return Redirect("/m/pageNotFound.aspx");
+                        return HttpNotFound();
                     }
                 }
 
@@ -172,7 +171,7 @@ namespace Bikewale.Controllers
             }
             else
             {
-                return Redirect("/m/pageNotFound.aspx");
+                return HttpNotFound();
             }
 
         }

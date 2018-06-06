@@ -105,15 +105,13 @@ namespace Bikewale.BikeBooking
             {
                 Trace.Warn(err.Message);
                 ErrorClass.LogError(err, Request.ServerVariables["URL"]);
-                
+
             }
             finally
             {
                 if (!_isContentFound)
                 {
-                    Response.Redirect("/pagenotfound.aspx", false);
-                    HttpContext.Current.ApplicationInstance.CompleteRequest();
-                    this.Page.Visible = false;
+                    UrlRewrite.Return404();
                 }
             }
         }
@@ -145,7 +143,7 @@ namespace Bikewale.BikeBooking
             {
                 Trace.Warn(err.Message);
                 ErrorClass.LogError(err, Request.ServerVariables["URL"]);
-                
+
             }
 
         }
@@ -273,7 +271,7 @@ namespace Bikewale.BikeBooking
             {
                 Trace.Warn(err.Message);
                 ErrorClass.LogError(err, Request.ServerVariables["URL"]);
-                
+
             }
         }
         #endregion
@@ -305,9 +303,7 @@ namespace Bikewale.BikeBooking
             }
             else
             {
-                Response.Redirect("/pagenotfound.aspx", false);
-                HttpContext.Current.ApplicationInstance.CompleteRequest();
-                this.Page.Visible = false;
+                UrlRewrite.Return404();
             }
         }
         #endregion

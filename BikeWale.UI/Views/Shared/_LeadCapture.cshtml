@@ -521,8 +521,8 @@
 
                 if (!(self.pqId() && self.pqId() != "0"))
                     self.generatePQ(data, event);
-                }
-            self.ko_DealerName($('#ddlMfgDealers option:selected').text());
+
+                self.ko_DealerName($('#ddlMfgDealers option:selected').text());
 
                 $('#processing').show();
                 var objCust = {
@@ -538,7 +538,7 @@
                     "campaignId": self.mfgCampaignId(),
                     "deviceId": getCookie('BWC'),
                     "manufacturerDealerId": $('#ddlMfgDealers :selected').data('id'),
-                    "manufacturerDealer":self.ko_DealerName()
+                    "manufacturerDealer": self.ko_DealerName()
                 };
                 $.ajax({
                     type: "POST",
@@ -576,7 +576,8 @@
                     }
                 });
                 setPQUserCookie();
-            //triggerGA(eventCategory, eventAction, gaLabel)
+                //triggerGA(eventCategory, eventAction, gaLabel)
+            }
         };
 
         self.submitLead = function (data, event) {
