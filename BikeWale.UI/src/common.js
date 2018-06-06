@@ -1270,7 +1270,7 @@ docReady(function () {
         hideRecentSearches: function () {
             this.options.globalSearchSection.addClass('hide');
         },
-        handleKeyEvents: function () {
+        handleKeyEvents: function (event) {
             var rsele = this.options.recentSearchesEle.find("li.focus-state");
             if (event.keyCode == 40) {
                 rsele.next().addClass("focus-state").siblings().removeClass("focus-state");
@@ -1296,7 +1296,7 @@ docReady(function () {
         }
     };
 
-    recentSearches.options.recentSearchesEle.on('click', 'li', function () {
+    recentSearches.options.recentSearchesEle.on('click', 'li', function (event) {
         try {
             if (!$(event.target).hasClass('getquotation')) {
 
@@ -1317,7 +1317,7 @@ docReady(function () {
         }
     });
 
-    recentSearches.options.trendingSearchesEle.on('click', 'li', function () {
+    recentSearches.options.trendingSearchesEle.on('click', 'li', function (event) {
         try {
             if (!$(event.target).hasClass('getquotation')) {
                 window.location.href = $(this).find('a').first().attr('data-href');

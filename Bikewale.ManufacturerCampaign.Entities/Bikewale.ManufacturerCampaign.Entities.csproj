@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConfigureCampaignEntity.cs" />
+    <Compile Include="ES_SaveEntity.cs" />
     <Compile Include="ManufacturerCampaignDetails.cs" />
     <Compile Include="ManufacturerCampaignEMIConfiguration.cs" />
     <Compile Include="ManufacturerCampaignEntity.cs" />

@@ -1801,7 +1801,7 @@ docReady(function () {
                 bwcache.set(this.searchKey, objSearches);
             }
         },
-        showRecentSearches: function () {
+        showRecentSearches: function (event) {
             var html = "";
             if (!this.options.recentSearchesLoaded) {
                 objSearches = bwcache.get(this.searchKey);
@@ -1890,7 +1890,7 @@ docReady(function () {
         }
     };
 
-    recentSearches.options.recentSearchesEle.on('click', 'li', function () {
+    recentSearches.options.recentSearchesEle.on('click', 'li', function (event) {
         try {
             if (!$(event.target).hasClass('getquotation')) {
 
@@ -1912,7 +1912,7 @@ docReady(function () {
 
     });
 
-    recentSearches.options.trendingSearchesEle.on('click', 'li', function () {
+    recentSearches.options.trendingSearchesEle.on('click', 'li', function (event) {
         try {
             if (!$(event.target).hasClass('getquotation')) {
                 window.location.href = $(this).find('a').first().attr('data-href');
