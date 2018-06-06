@@ -45,52 +45,29 @@
 									@Html.Raw(string.Format("<ul id=\"version-specs-list\">{0}</ul>",FormatMinSpecs.GetMinSpecsAsLiElement(Model.MinSpecsList)))
 								</div>
 								<div class="orp-right-grid leftfloat">
-									@*@if (Model.BikeVersionPrices.Count() > 1)
-									{
-										<div id="model-version-dropdown" class="margin-right20 vertical-top">
-											<p class="font12 text-light-grey">Version</p>
-											<div class="select-box select-box-no-input">
-												<select id="version-dropdown" class="chosen-select bw-ga" data-title="Version" data-cat="Price_in_City_Page" data-act="Version_Changed" data-lab="@gaBikeName">
-													@foreach (var version in Model.BikeVersionPrices)
-													{
-														<option value="@version.VersionId">@version.VersionName</option>
-													}
-												</select>
-											</div>
-										</div>
-									}
-									else
-									{
-										<div class="single-version-content margin-right20 vertical-top">
-											<p class="font12 text-light-grey">Version</p>
-											<p class="text-bold dropdown-effect-light text-truncate">@Model.FirstVersion.VersionName</p>
-										</div>
-									}*@
                                     <div id="model-version-dropdown" class="dropdown-box dropdown-box--desktop vertical-top">
                                         <div class="dropdown-box__menu-tab version-tab__content">
                                             <p class="dropdown-box__menu-title">Version</p>
                                             <p id="defversion" class="dropdown-box__menu-value  ">@Model.FirstVersion.VersionName</p>
                                         </div>
-                                        @*@if (Model.BikeVersionPrices.Count() > 1)
-                                        {*@
+                                        @if (Model.VersionSpecs.Any())
+                                        {
                                             <ul class="dropdown-box__submenu-list">
-                                                @foreach (var version in Model.BikeVersionPrices)
+                                                @foreach (var version in Model.VersionSpecs)
                                                 {
-                                                    <li class="dropdown-box-submenu-list__item">
+                                                    <li class="dropdown-box-submenu-list__item @(version.VersionId == Model.VersionId ? "submenu-list-item--active" : "")" data-value="@version.VersionId">
                                                         <div class="submenu-list-item__title">
                                                             <p class="submenu-list-item-title__left-col">@version.VersionName</p>
-                                                            <p class="submenu-list-item-title__right-col">&#x20b9; 5,80,768</p>
+                                                            <p class="submenu-list-item-title__right-col">@Html.Raw(version.Price != 0 ? string.Format("&#x20b9; {0}", Format.FormatPrice(Convert.ToString(version.Price))) : (version.AverageExShowroom != 0 ? string.Format("&#x20b9; {0}", 
+                                                                                                         Format.FormatPrice(Convert.ToString(version.AverageExShowroom))) : string.Empty))</p>
                                                         </div>
                                                         <ul class="dropdown-box-submenu__specs-list">
-                                                            <li class="dropdown-box-specs-list__item">Drum</li>
-                                                            <li class="dropdown-box-specs-list__item">ABS</li>
-                                                            <li class="dropdown-box-specs-list__item">Alloy</li>
-                                                            <li class="dropdown-box-specs-list__item">Disk Breaks</li>
+                                                            @Html.Raw(FormatMinSpecs.GetMinSpecsAsLiElement(version.MinSpecsList, "dropdown-box-specs-list__item"))
                                                         </ul>
                                                     </li>
                                                 }
                                             </ul>
-                                        @*}*@
+                                        }
                                     </div>
 
 									@if (Model.IsNew)

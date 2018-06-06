@@ -142,7 +142,13 @@ docReady(function () {
     });
 
     // version dropdown
-    var versionDropdown = new DropdownMenu('#model-version-dropdown');
+    function handleVersionChange(dropdown) {
+        var optionValue = dropdown.activeOption.value;
+        vmVersionTable.getVersionObject(optionValue);
+    }
+    var versionDropdown = new DropdownMenu('#model-version-dropdown', {
+        onChange: handleVersionChange
+    });
 
     // emi calculator
     ko.bindingHandlers.slider = {

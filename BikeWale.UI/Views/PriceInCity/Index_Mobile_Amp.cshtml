@@ -125,75 +125,30 @@
                                 </a>
                             </div>
                             <div class="model-version-block version__dropdown-box">
-                                <div id="select-box" role="option" tabindex="1" class="dropdown-box__menu-tab" on="tap:AMP.setState({EmiSlider:{formatedExShowroomPrice : versions[currentVersion.versionId].ExShowroomPrice + '.'}, versionDropdown: {isActive: !versionDropdown.isActive}})">
+                                <div id="select-box" role="option" tabindex="1" class="dropdown-box__menu-tab" on="tap:select-option.show,AMP.setState({EmiSlider:{formatedExShowroomPrice : versions[currentVersion.versionId].ExShowroomPrice + '.'}, versionDropdown: {isActive: !versionDropdown.isActive}}), orpContent.scrollTo(duration=0)">
                                     <p class="dropdown-box__menu-title">Version</p>
                                     <span class="dropdown-box__menu-value" [text]="versions[currentVersion.versionId].BikeQuotationEntity.VersionName">@Model.FirstVersion.VersionName</span>
                                 </div>
-                                @if (Model.FormatedBikeVersionPrices != null && Model.FormatedBikeVersionPrices.Count() > 1)
+                                @if (Model.VersionSpecs != null && Model.VersionSpecs.Any())
                                 {
                                     <amp-selector class="dropdown-box__submenu-wrapper" layout="container">
                                         <ul id="select-option" class="dropdown-box__submenu-list">
-                                            <li role="option" class="dropdown-box-submenu-list__item submenu-list-item--active" data-value="100" tabindex="0" on="tap:AMP.setState({versionDropdown: {isActive: false}})">
-                                                <div class="submenu-list-item__title">
-                                                    <p class="submenu-list-item-title__left-col">Standard</p>
-                                                    <p class="submenu-list-item-title__right-col">&#x20b9; 5,80,768</p>
-                                                </div>
-                                                <ul class="dropdown-box-submenu__specs-list">
-                                                    <li class="dropdown-box-specs-list__item">Drum</li>
-                                                    <li class="dropdown-box-specs-list__item">ABS</li>
-                                                    <li class="dropdown-box-specs-list__item">Alloy</li>
-                                                    <li class="dropdown-box-specs-list__item">Disk Breaks</li>
-                                                </ul>
-                                            </li>
-                                            <li role="option" class="dropdown-box-submenu-list__item" data-value="101" tabindex="0" on="tap:AMP.setState({versionDropdown: {isActive: false}})">
-                                                <div class="submenu-list-item__title">
-                                                    <p class="submenu-list-item-title__left-col">Standard</p>
-                                                    <p class="submenu-list-item-title__right-col">&#x20b9; 5,80,768</p>
-                                                </div>
-                                                <ul class="dropdown-box-submenu__specs-list">
-                                                    <li class="dropdown-box-specs-list__item">Drum</li>
-                                                    <li class="dropdown-box-specs-list__item">ABS</li>
-                                                    <li class="dropdown-box-specs-list__item">Alloy</li>
-                                                    <li class="dropdown-box-specs-list__item">Disk Breaks</li>
-                                                </ul>
-                                            </li>
-                                            <li role="option" class="dropdown-box-submenu-list__item" data-value="102" tabindex="0" on="tap:AMP.setState({versionDropdown: {isActive: false}})">
-                                                <div class="submenu-list-item__title">
-                                                    <p class="submenu-list-item-title__left-col">Standard</p>
-                                                    <p class="submenu-list-item-title__right-col">&#x20b9; 5,80,768</p>
-                                                </div>
-                                                <ul class="dropdown-box-submenu__specs-list">
-                                                    <li class="dropdown-box-specs-list__item">Drum</li>
-                                                    <li class="dropdown-box-specs-list__item">ABS</li>
-                                                    <li class="dropdown-box-specs-list__item">Alloy</li>
-                                                    <li class="dropdown-box-specs-list__item">Disk Breaks</li>
-                                                </ul>
-                                            </li>
+                                            @foreach (var version in Model.VersionSpecs)
+                                            {
+                                                <li role="option" class="dropdown-box-submenu-list__item" [class]="currentVersion.versionId == '@version.VersionId' ? 'dropdown-box-submenu-list__item submenu-list-item--active':'dropdown-box-submenu-list__item'" tabindex="0" option="@version.VersionId" on="tap:select-option.hide,AMP.setState({currentVersion: {versionId : '@version.VersionId'}, versionDropdown: {isActive: !versionDropdown.isActive}})">
+                                                    <div class="submenu-list-item__title">
+                                                        <p class="submenu-list-item-title__left-col">@version.VersionName</p>
+                                                        <p class="submenu-list-item-title__right-col">@Html.Raw(version.Price != 0 ? string.Format("&#x20b9; {0}", Format.FormatPrice(Convert.ToString(version.Price))) : (version.AverageExShowroom != 0 ? string.Format("&#x20b9; {0}",
+                                                                                                         Format.FormatPrice(Convert.ToString(version.AverageExShowroom))) : string.Empty))</p>
+                                                    </div>
+                                                    <ul class="dropdown-box-submenu__specs-list">
+                                                        @Html.Raw(FormatMinSpecs.GetMinSpecsAsLiElement(version.MinSpecsList, "dropdown-box-specs-list__item"))
+                                                    </ul>
+                                                </li>
+                                            }
                                         </ul>
                                     </amp-selector>
                                 }
-                                    @*<div class="dropdown-select-wrapper">
-                                        <p id="select-box" role="option" tabindex="1" [text]="versions[currentVersion.versionId].BikeQuotationEntity.VersionName" class="select-box" on="tap:select-option.show, AMP.setState({EmiSlider:{formatedExShowroomPrice : versions[currentVersion.versionId].ExShowroomPrice + '.'}})">@Model.FirstVersion.VersionName</p>
-                                        <amp-selector class="select-wrapper__list" layout="container">
-                                            <div id="select-option">
-                                                <div role="option" class="text-bold" [class]="versions[currentVersion.versionId].BikeQuotationEntity.VersionName == '@Model.FirstVersion.VersionName' ? 'text-bold':'show'" tabindex="0" option="@Model.FirstVersion.VersionId" on="tap:select-option.hide,AMP.setState({currentVersion: {versionId : '@Model.FirstVersion.VersionId'}})">@Model.FirstVersion.VersionName</div>
-                                                @foreach (var item in Model.FormatedBikeVersionPrices)
-                                                {
-                                                    if (Model.FirstVersion.VersionId != item.BikeQuotationEntity.VersionId)
-                                                    {
-                                                        <div role="option" class="show" [class]="versions[currentVersion.versionId].BikeQuotationEntity.VersionName == '@item.BikeQuotationEntity.VersionName' ? 'text-bold':'show'" tabindex="0" option="@item.BikeQuotationEntity.VersionId" on="tap:select-option.hide,AMP.setState({currentVersion: {versionId : '@item.BikeQuotationEntity.VersionId'}})">@item.BikeQuotationEntity.VersionName</div>
-                                                    }
-                                                }
-                                            </div>
-                                        </amp-selector>
-                                    </div>
-                                }
-                                else
-                                {
-                                    <div class="single-version-content font14">
-                                        <p class="dropdown-effect-light">@Model.FirstVersion.VersionName</p>
-                                    </div>
-                                }*@
                             </div>
                         </div>
 						@if (Model.IsNew)
