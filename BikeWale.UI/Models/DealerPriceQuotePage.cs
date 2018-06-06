@@ -440,7 +440,6 @@ namespace Bikewale.Models
         /// </summary>
         private void GetBikeVersions(DealerPriceQuotePageVM objData)
         {
-            IEnumerable<BikeVersionMinSpecs> bikeVersionList = null;
             try
             {
                 objData.SelectedVersion = _objVersion.GetById(_versionId);
@@ -451,8 +450,8 @@ namespace Bikewale.Models
                     _makeId = (uint)objData.SelectedVersion.MakeBase.MakeId;
 
                     objData.VersionsList = _objVersion.GetVersionsByType(EnumBikeType.PriceQuote, objData.SelectedVersion.ModelBase.ModelId, (int)_cityId);
-                    bikeVersionList = _objVersion.GetVersionMinSpecs(_modelId, true);
-                    BikeVersionMinSpecs selectedBikeVersion = bikeVersionList.FirstOrDefault(x => x.VersionId == _versionId);
+                    objData.VersionSpecs = _objVersion.GetVersionMinSpecs(_modelId, true);
+                    BikeVersionMinSpecs selectedBikeVersion = objData.VersionSpecs.FirstOrDefault(x => x.VersionId == _versionId);
                     if (selectedBikeVersion != null)
                     {
                         objData.BodyStyle = selectedBikeVersion.BodyStyle;
