@@ -91,7 +91,7 @@ namespace Bikewale.BindViewModels.Webforms.Used
                     _apiGatewayCaller = container.Resolve<IApiGatewayCaller>();
 
                     InquiryDetails = objCache.GetProfileDetails(InquiryId);
-                    if (InquiryDetails != null)
+                    if (InquiryDetails != null && InquiryDetails.Version.VersionId > 0)
                     {
                         GetVersionSpecsSummaryByItemIdAdapter adapt = new GetVersionSpecsSummaryByItemIdAdapter();
                         VersionsDataByItemIds_Input specItemInput = new VersionsDataByItemIds_Input

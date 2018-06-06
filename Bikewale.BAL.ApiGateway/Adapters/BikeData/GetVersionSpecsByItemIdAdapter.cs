@@ -35,12 +35,16 @@ namespace Bikewale.BAL.ApiGateway.Adapters.BikeData
 			{
 				if (input != null && input.Versions != null && input.Versions.Any() && input.Items != null)
 				{
-					requestInput = new VersionsDataByItemIdsRequest
+					IEnumerable<int> validVersionIdList = input.Versions.Where(v => !v.Equals(0));
+					if (validVersionIdList.Any())
 					{
-						ItemIds = { input.Items.Select(specId => (int)specId) },
-						VersionIds = { input.Versions },
-						ApplicationId = 2
-					};
+						requestInput = new VersionsDataByItemIdsRequest
+						{
+							ItemIds = { input.Items.Select(specId => (int)specId) },
+							VersionIds = { validVersionIdList },
+							ApplicationId = 2
+						};
+					}
 				}
 			}
 			catch (Exception ex)

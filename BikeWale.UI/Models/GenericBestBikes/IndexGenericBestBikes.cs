@@ -257,7 +257,7 @@ namespace Bikewale.Models
                 IEnumerable<BestBikeEntityBase> bestBikesList = obj.objBestBikesList;
                 if (bestBikesList != null && bestBikesList.Any())
                 {
-                    GetVersionSpecsSummaryByItemIdAdapter adapt1 = new GetVersionSpecsSummaryByItemIdAdapter();
+                    GetVersionSpecsSummaryByItemIdAdapter adapt = new GetVersionSpecsSummaryByItemIdAdapter();
                     VersionsDataByItemIds_Input specItemInput = new VersionsDataByItemIds_Input
                     {
                         Versions = bestBikesList.Select(m => m.VersionId),
@@ -267,16 +267,19 @@ namespace Bikewale.Models
                             EnumSpecsFeaturesItems.MaxPowerBhp,
                         }
                     };
-                    adapt1.AddApiGatewayCall(_apiGatewayCaller, specItemInput);
+                    adapt.AddApiGatewayCall(_apiGatewayCaller, specItemInput);
                     _apiGatewayCaller.Call();
-                    IEnumerable<VersionMinSpecsEntity> versionMinSpecs = adapt1.Output;
+                    IEnumerable<VersionMinSpecsEntity> versionMinSpecs = adapt.Output;
                     if (versionMinSpecs != null)
                     {
                         var specsEnumerator = versionMinSpecs.GetEnumerator();
                         var bikesEnumerator = bestBikesList.GetEnumerator();
-                        while (bikesEnumerator.MoveNext() && specsEnumerator.MoveNext())
+                        while (bikesEnumerator.MoveNext())
                         {
-                            bikesEnumerator.Current.MinSpecsList = specsEnumerator.Current.MinSpecsList;
+                            if (!bikesEnumerator.Current.VersionId.Equals(0) && specsEnumerator.MoveNext())
+                            {
+                                bikesEnumerator.Current.MinSpecsList = specsEnumerator.Current.MinSpecsList;
+                            }
                         }
                     }
                 }

@@ -255,7 +255,7 @@ namespace BikeIndex
                             // sets value of only those TopVersions whose versionid is not 0. As versionEnumerator is filtered for same.
                             //So if only versionEnumerator goes to next object if TopVersion.vesrionid is non zero
 
-                            if(objEnumerator.Current.TopVersion.VersionId != 0  && versionEnumerator.MoveNext())
+                            if(objEnumerator.Current.TopVersion.VersionId > 0  && versionEnumerator.MoveNext())
                             {
                                 objEnumerator.Current.TopVersion.Power = Convert.ToDouble(GetSpecsValue(versionEnumerator.Current.MinSpecsList, (int)EnumSpecsFeaturesItems.MaxPowerBhp));
                                 objEnumerator.Current.TopVersion.Mileage = Convert.ToUInt16(GetSpecsValue(versionEnumerator.Current.MinSpecsList, (int)EnumSpecsFeaturesItems.FuelEfficiencyOverall));

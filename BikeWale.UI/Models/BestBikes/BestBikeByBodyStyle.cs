@@ -62,7 +62,7 @@ namespace Bikewale.Models
             {
                 if (genericBikeList != null && genericBikeList.Any())
                 {
-                    GetVersionSpecsSummaryByItemIdAdapter adapt1 = new GetVersionSpecsSummaryByItemIdAdapter();
+                    GetVersionSpecsSummaryByItemIdAdapter adapt = new GetVersionSpecsSummaryByItemIdAdapter();
                     VersionsDataByItemIds_Input specItemInput = new VersionsDataByItemIds_Input
                     {
                         Versions = genericBikeList.Select(m => m.VersionId),
@@ -74,16 +74,19 @@ namespace Bikewale.Models
                             EnumSpecsFeaturesItems.KerbWeight
                         }
                     };
-                    adapt1.AddApiGatewayCall(_apiGatewayCaller, specItemInput);
+                    adapt.AddApiGatewayCall(_apiGatewayCaller, specItemInput);
                     _apiGatewayCaller.Call();
-                    var specsList = adapt1.Output;
+                    var specsList = adapt.Output;
                     if (specsList != null)
                     {
                         var specsEnumerator = specsList.GetEnumerator();
                         var bikesEnumerator = genericBikeList.GetEnumerator();
-                        while (bikesEnumerator.MoveNext() && specsEnumerator.MoveNext())
+                        while (bikesEnumerator.MoveNext())
                         {
-                            bikesEnumerator.Current.MinSpecsList = specsEnumerator.Current.MinSpecsList;
+                            if (!bikesEnumerator.Current.VersionId.Equals(0) && specsEnumerator.MoveNext())
+                            {
+                                bikesEnumerator.Current.MinSpecsList = specsEnumerator.Current.MinSpecsList;
+                            }
                         }
                     }
                 }
