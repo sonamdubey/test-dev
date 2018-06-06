@@ -424,12 +424,13 @@ namespace Bikewale.Utility
             StringBuilder minSpecsStr = new StringBuilder();
             if (specItemList != null)
             {
+                bool isClassNameEmpty = string.IsNullOrEmpty(className);
                 foreach (var specItem in specItemList)
                 {
                     string generalSpecName = FormatMinSpecs.GetSpecGeneralName(specItem);
                     if (!String.IsNullOrEmpty(generalSpecName))
                     {
-                        minSpecsStr.Append(String.Format("<li class=\"{0}\">{1}</li>", className, generalSpecName));
+                        minSpecsStr.Append(String.Format("<li {0}>{1}</li>", isClassNameEmpty ? "": "class=\"" + className + "\"", generalSpecName));
                     }
                 }
             }

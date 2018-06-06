@@ -42,7 +42,7 @@
 										</a>
 
 									</div>
-									@Html.Raw(string.Format("<ul id=\"version-specs-list\">{0}</ul>",FormatMinSpecs.GetMinSpecsAsLiElement(Model.MinSpecsList)))
+									@Html.Raw(string.Format("<ul id=\"version-specs-list\" data-bind=\"html: specsLiHtml\">{0}</ul>", FormatMinSpecs.GetMinSpecsAsLiElement(Model.MinSpecsList)))
 								</div>
 								<div class="orp-right-grid leftfloat">
                                     <div id="model-version-dropdown" class="dropdown-box dropdown-box--desktop vertical-top">
@@ -55,7 +55,7 @@
                                             <ul class="dropdown-box__submenu-list">
                                                 @foreach (var version in Model.VersionSpecs)
                                                 {
-                                                    <li class="dropdown-box-submenu-list__item @(version.VersionId == Model.VersionId ? "submenu-list-item--active" : "")" data-value="@version.VersionId">
+                                                    <li class="dropdown-box-submenu-list__item @(version.VersionId == Model.VersionId ? "submenu-list-item--active" : "")" data-value="@version.VersionId" data-cat="Price_in_City_Page" data-act="Version_Changed" data-lab="@gaBikeName">
                                                         <div class="submenu-list-item__title">
                                                             <p class="submenu-list-item-title__left-col">@version.VersionName</p>
                                                             <p class="submenu-list-item-title__right-col">@Html.Raw(version.Price != 0 ? string.Format("&#x20b9; {0}", Format.FormatPrice(Convert.ToString(version.Price))) : (version.AverageExShowroom != 0 ? string.Format("&#x20b9; {0}", 
@@ -634,6 +634,7 @@
 	<div class="hide" id="dvVersionPrice" data-isdiscontinued="@Model.IsDiscontinued">@EncodingDecodingHelper.EncodeTo64(Newtonsoft.Json.JsonConvert.SerializeObject(Model.BikeVersionPrices))</div>
 	<div class="hide" id="versionPrice">@EncodingDecodingHelper.EncodeTo64(Newtonsoft.Json.JsonConvert.SerializeObject(Model.FirstVersion.OnRoadPrice))</div>
 	<div class="hide" id="versionCount">@EncodingDecodingHelper.EncodeTo64(Newtonsoft.Json.JsonConvert.SerializeObject(Model.BikeVersionPrices.Count()))</div>
+       <div class="hide" id="hdnVersionSpecsList">@Newtonsoft.Json.JsonConvert.SerializeObject(Model.VersionSpecs.Select(v => FormatMinSpecs.GetMinSpecsAsLiElement(v.MinSpecsList)))</div>
 	if (Model.IsNew && (Model.HasCampaignDealer || Model.IsManufacturerLeadAdShown || Model.IsManufacturerEMIAdShown))
 	{
 		@Html.Partial("~/Views/Shared/_LeadCapture.cshtml", Model.LeadCapture)

@@ -20,7 +20,7 @@ docReady(function () {
     function callFallBackWriteReview() {
         $('#adBlocker').show();
         $('.sponsored-card').hide();
-    };
+    }
 
 
     // version dropdown
@@ -43,6 +43,7 @@ docReady(function () {
         var self = this;
 
         self.defaultVersion = bikeVersions[0];
+        self.versionSpecsList = JSON.parse($("#hdnVersionSpecsList").text());
         self.exshowroomPrice = ko.observable();
         self.rtoPrice = ko.observable();
         self.insurancePrice = ko.observable();
@@ -50,13 +51,18 @@ docReady(function () {
         self.selectedVersion = ko.observable(self.defaultVersion);
         self.bikeVersions = ko.observableArray(bikeVersions);
         self.isDiscontinued = ko.observable(isDiscontinued.toLowerCase() == "true");
-        self.setVersionDetails = function (version) {
+        self.specsLiHtml = ko.observable();
+        self.setVersionDetails = function (version, index) {
+            index = index || 0;
             $("#priceincity").attr("data-versionid", version.VersionId);
             self.exshowroomPrice(formatPrice(version.ExShowroomPrice));
             self.rtoPrice(formatPrice(version.RTO));
             self.insurancePrice(formatPrice(version.Insurance));
             self.onRoadPrice(formatPrice(version.OnRoadPrice));
             $(".version-price").text(formatPrice(!self.isDiscontinued() ? version.OnRoadPrice : version.ExShowroomPrice));
+            if (self.versionSpecsList.length > 0) {
+                self.specsLiHtml(self.versionSpecsList[index])
+            }
         };
 
         self.getVersionObject = function (verId) {
@@ -64,12 +70,12 @@ docReady(function () {
             for (var i = 0; i < bikeVersions.length; i++) {
                 var versionObj = bikeVersions[i];
                 if (versionObj.VersionId == verId) {
-                    self.setVersionDetails(versionObj);
+                    self.setVersionDetails(versionObj, i);
                     break;
                 }
             }
         }
-         self.setVersionDetails(self.defaultVersion);
+         self.setVersionDetails(self.defaultVersion, 0);
       };
 
     var vmVersionTable = new versionTable();
@@ -82,15 +88,16 @@ docReady(function () {
         }
     });
 
-    $('#version-dropdown').chosen().change(function () {
+    $('#model-version-dropdown li.dropdown-box-submenu-list__item').click(function () {
         var obj = $(this);
-        vmVersionTable.getVersionObject(obj.val());
-        triggerGA(obj.attr("data-cat"), obj.attr("data-act"), obj.attr("data-lab"));
+        let versionId = obj.data('value');
+        vmVersionTable.getVersionObject(versionId);
+        triggerGA(obj.data('cat'), obj.data('act'), obj.data('lab'));
     });
 
-    $window = $(window),
-    overallSpecsTabsContainer = $('.overall-specs-tabs-container'),
-    modelSpecsTabsContentWrapper = $('#modelSpecsTabsContentWrapper'),
+    $window = $(window);
+    overallSpecsTabsContainer = $('.overall-specs-tabs-container');
+    modelSpecsTabsContentWrapper = $('#modelSpecsTabsContentWrapper');
     modelSpecsFooter = $('#modelSpecsFooter');
 
     $('#modelAlternateBikeContent')
@@ -304,7 +311,6 @@ docReady(function () {
 
     $("#dealerDetails").click(function (e) {
         try {
-            ele = $(this);
             vmquotation.CheckCookies();
             vmquotation.IsLoading(true);
             $('#priceQuoteWidget,#popupContent,.blackOut-window').show();
@@ -332,7 +338,7 @@ docReady(function () {
 	if (isCoverfoxShown) { triggerNonInteractiveGA('Price_in_City_Page', 'ICICIBank_Link_Shown', bikeName + '_' + cityName); }
 
     $(".leadcapturebtn").click(function (e) {
-        ele = $(this);
+        let ele = $(this);
         try {
             var leadOptions = {
                 "dealerid": ele.attr('data-item-id'),
