@@ -26,6 +26,8 @@ namespace Bikewale.BAL.ApiGateway.Adapters.BikeData
 
 		/// <summary>
 		/// Function have implementation to convert bikewale entity to GRPC Message which will be passed to the APIGateway
+		/// Modified By	: Rajan Chauhan on 5 June 2018
+		/// Description	: Filtering of versionIds on input
 		/// </summary>
 		/// <param name="input">Bikewale Entity.</param>
 		/// <returns>Returns GRPC message</returns>
@@ -37,12 +39,16 @@ namespace Bikewale.BAL.ApiGateway.Adapters.BikeData
 			{
 				if (input != null && input.Versions != null && input.Versions.Any() && input.Items != null)
 				{
-					requestInput = new SpecsSummaryRequest
+					IEnumerable<int> validVersionIdList = input.Versions.Where(v => !v.Equals(0));
+					if (validVersionIdList.Any())
 					{
-						ItemIds = { input.Items.Select(specId => (int)specId) },
-						VersionIds = { input.Versions },
-						ApplicationId = 2
-					};
+						requestInput = new SpecsSummaryRequest
+						{
+							ItemIds = { input.Items.Select(specId => (int)specId) },
+							VersionIds = { validVersionIdList },
+							ApplicationId = 2
+						};
+					} 
 				}
 			}
 			catch (Exception ex)

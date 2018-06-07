@@ -192,13 +192,15 @@ namespace Bikewale.Models.BikeModels
 						var specs = new BikeSpecsFeaturesVM();
 						specs.BikeName = _objData.BikeName;
 						specs.ModelName = _objData.ModelPageEntity.ModelDetails.ModelName;
+						if (_objData.VersionId > 0)
+						{
+							GetVersionSpecsByIdAdapter adapt = new GetVersionSpecsByIdAdapter();
+							adapt.AddApiGatewayCall(_apiGatewayCaller, new List<int> { (int)_objData.VersionId });
 
-						GetVersionSpecsByIdAdapter adapt1 = new GetVersionSpecsByIdAdapter();
-						adapt1.AddApiGatewayCall(_apiGatewayCaller, new List<int> { (int)_objData.VersionId });
-						
-						_apiGatewayCaller.Call();
+							_apiGatewayCaller.Call();
 
-						specs.VersionSpecsFeatures = adapt1.Output;
+							specs.VersionSpecsFeatures = adapt.Output;
+						}
 						
 						_objData.BikeSpecsFeatures = specs;
 					}
