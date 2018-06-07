@@ -2,8 +2,10 @@
 using Bikewale.Notifications;
 using GatewayWebservice;
 using Google.Protobuf;
+using log4net;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Bikewale.BAL.ApiGateway.ApiGatewayHelper
 {
@@ -27,6 +29,8 @@ namespace Bikewale.BAL.ApiGateway.ApiGatewayHelper
         /// Property holds list of callback functions which will be called after response is returned from APIGateway.
         /// </summary>
         private readonly ICollection<Action<IApiGatewayCaller>> _callbackActionList;
+
+        static ILog _logger = LogManager.GetLogger("ApiGatewayCaller-WOTask");
 
         /// <summary>
         /// Constructor to initialize all the properties and dependencies.
@@ -152,8 +156,10 @@ namespace Bikewale.BAL.ApiGateway.ApiGatewayHelper
         /// </summary>
         private void InvokeCallbackFunctions()
         {
+            DateTime dt1 = DateTime.Now, dt2 = DateTime.Now;
             try
             {
+
                 if (_callbackActionList.Count <= 0)
                     return;
                 foreach (var actionItem in _callbackActionList)
@@ -165,6 +171,12 @@ namespace Bikewale.BAL.ApiGateway.ApiGatewayHelper
             catch (Exception ex)
             {
                 throw new Exception("Bikewale.BAL.ApiGatewayHelper.ApiGatewayCaller.InvokeCallbackFunctions", ex);
+            }
+            finally
+            {
+                ThreadContext.Properties["TotalTaskProcesstime"] = (dt2 - dt1).TotalMilliseconds;
+                _logger.Error("InvokeCallBackfunction-RunWOTask");
+                ThreadContext.Properties.Remove("TotalTaskProcesstime");
             }
         }
 
