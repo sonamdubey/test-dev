@@ -138,9 +138,7 @@ namespace Bikewale.Mobile.Videos
                     }
                     else
                     {
-                        Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
-                        HttpContext.Current.ApplicationInstance.CompleteRequest();
-                        this.Page.Visible = false;
+                        UrlRewrite.Return404();
                     }
                     #endregion
                 }

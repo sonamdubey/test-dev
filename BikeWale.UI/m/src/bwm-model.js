@@ -788,7 +788,14 @@ docReady(function () {
     });
     // For saving page in recently viewed models/make
     if (typeof pageData != "undefined" && pageData != null)
-				recentSearches.saveRecentSearches(pageData); 
+        recentSearches.saveRecentSearches(pageData);
+
+
+    $("#modelPageSeriesSlug").click(function () {
+        window.location = '/m/' + $('#makeMaskingName').val() + '-bikes/' + $('#seriesMaskingName').val() + '/';
+        return false;
+    });
+
 
 });
 
@@ -1046,6 +1053,4 @@ function updateView(reviewId) {
         console.log(e);
     }
 }
-
-
 

@@ -30,7 +30,7 @@ namespace Bikewale.BAL.ApiGateway.ApiGatewayHelper
         /// </summary>
         private readonly ICollection<Action<IApiGatewayCaller>> _callbackActionList;
 
-        static ILog _logger = LogManager.GetLogger("ApiGatewayCaller");
+        static ILog _logger = LogManager.GetLogger("ApiGatewayCaller-WOTask");
 
         /// <summary>
         /// Constructor to initialize all the properties and dependencies.
@@ -132,7 +132,9 @@ namespace Bikewale.BAL.ApiGateway.ApiGatewayHelper
                 if (_outRequest == null || _outRequest.OutputMessages == null || _outRequest.OutputMessages.Count <= 0)
                 {
                     ErrorClass.LogError(new Exception("API Gateway output is null."), "Bikewale.BAL.ApiGatewayHelper.ApiGatewayCaller.Call");
+                    return;
                 }
+
                 InvokeCallbackFunctions();
             }
             catch (Exception ex)
@@ -141,7 +143,7 @@ namespace Bikewale.BAL.ApiGateway.ApiGatewayHelper
             }
             finally
             {
-                if (_outRequest == null && _outRequest.OutputMessages != null && _outRequest.OutputMessages.Count > 0)
+                if (_outRequest != null && _outRequest.OutputMessages != null && _outRequest.OutputMessages.Count > 0)
                 {
                     _outRequest.OutputMessages.Clear();
                 }
@@ -160,27 +162,11 @@ namespace Bikewale.BAL.ApiGateway.ApiGatewayHelper
 
                 if (_callbackActionList.Count <= 0)
                     return;
-
                 foreach (var actionItem in _callbackActionList)
                 {
                     actionItem.Invoke(this);
                 }
 
-                //TaskFactory factory = Task.Factory;
-
-                //var mainTask = factory.StartNew(() =>
-                //{
-                //    foreach (var actionItem in _callbackActionList)
-                //    {
-                //        factory.StartNew(() =>
-                //        {
-                //            actionItem.Invoke(this);
-                //        }, TaskCreationOptions.AttachedToParent);
-                //    }
-                //});
-
-                //mainTask.Wait();
-                dt2 = DateTime.Now;
             }
             catch (Exception ex)
             {

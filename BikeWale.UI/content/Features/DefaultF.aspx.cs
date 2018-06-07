@@ -95,9 +95,7 @@ namespace Bikewale.Content
             {
                 if (objFeatures.IsPageNotFound || !objFeatures.isContentFound)
                 {
-                    Response.Redirect("/pagenotfound.aspx", false);
-                    HttpContext.Current.ApplicationInstance.CompleteRequest();
-                    this.Page.Visible = false;
+                    UrlRewrite.Return404();
                 }
             }
         }

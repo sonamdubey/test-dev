@@ -74,7 +74,7 @@ namespace Bikewale.Controllers
             catch (System.Exception ex)
             {
                 ErrorClass.LogError(ex, "ServiceCentersController.Index");
-                return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+                return HttpNotFound();
             }
         }
 
@@ -103,7 +103,7 @@ namespace Bikewale.Controllers
             catch (System.Exception ex)
             {
                 ErrorClass.LogError(ex, "ServiceCentersController.Index_Mobile");
-                return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+                return HttpNotFound();
             }
         }
 
@@ -136,14 +136,14 @@ namespace Bikewale.Controllers
                 }
                 else
                 {
-                    return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+                    return HttpNotFound();
                 }
             }
             catch (System.Exception ex)
             {
 
                 ErrorClass.LogError(ex, "ServiceCentersController.ServiceCentersInIndia");
-                return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+                return HttpNotFound();
             }
         }
 
@@ -176,14 +176,14 @@ namespace Bikewale.Controllers
                 }
                 else
                 {
-                    return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+                    return HttpNotFound();
                 }
             }
             catch (System.Exception ex)
             {
 
                 ErrorClass.LogError(ex, "ServiceCentersController.ServiceCentersInIndia_Mobile");
-                return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+                return HttpNotFound();
             }
         }
 
@@ -215,14 +215,14 @@ namespace Bikewale.Controllers
                 }
                 else
                 {
-                    return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+                    return HttpNotFound();
                 }
             }
             catch (System.Exception ex)
             {
 
                 ErrorClass.LogError(ex, "ServiceCentersController.ServiceCentersInCity");
-                return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+                return HttpNotFound();
             }
         }
 
@@ -253,14 +253,14 @@ namespace Bikewale.Controllers
                 }
                 else
                 {
-                    return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+                    return HttpNotFound();
                 }
             }
             catch (System.Exception ex)
             {
 
                 ErrorClass.LogError(ex, "ServiceCentersController.ServiceCentersInCity_Mobile");
-                return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+                return HttpNotFound();
             }
         }
 
@@ -292,14 +292,14 @@ namespace Bikewale.Controllers
                 }
                 else
                 {
-                    return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+                    return HttpNotFound();
                 }
             }
             catch (System.Exception ex)
             {
 
                 ErrorClass.LogError(ex, "ServiceCentersController.ServiceCenterDetail");
-                return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+                return HttpNotFound();
             }
 
         }
@@ -331,14 +331,14 @@ namespace Bikewale.Controllers
                 }
                 else
                 {
-                    return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+                    return HttpNotFound();
                 }
             }
             catch (System.Exception ex)
             {
 
                 ErrorClass.LogError(ex, "ServiceCentersController.ServiceCenterDetail_Mobile");
-                return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+                return HttpNotFound();
             }
 
         }

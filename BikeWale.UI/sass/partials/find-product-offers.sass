@@ -1,0 +1,99 @@
+﻿@import '../mixins/index'
+@import '../base/variables'
+@import '../utils/index'
+@import '../mixins/icons'
+
+// find product offers common mixin for icon
+@mixin find-series-section-icon($icon-box-width: 111px, $icon-box-height :111px, $bgcolor: color('oyster-bay'), $desktop: false)
+  .find-series-section__icon
+    @include flexbox
+    @include align-items(center)
+    @include justify-content(center)
+    @include bike-series-41b4c4-icon
+    background-size: 73px
+    min-width: $icon-box-width - 13
+    min-height: $icon-box-height + 11
+    background-color: $bgcolor
+
+  @if $desktop
+    @media screen and (min-width: 1024px)
+      .find-series-section__icon
+        min-width: $icon-box-width
+        min-height: $icon-box-height
+
+// find product offers mixin for find series content
+@mixin find-series-section-content($head-font-size: 15px, $desc-font-size: 12px, $head-color: color('black'),  $link-btn-color: color('viking'), $link-btn-hover-color: color('white'), $desktop: false )
+  .find-series-section__content
+    @include flexbox
+    @include align-items(flex-start)
+    @include justify-content(center)
+    @include flex-direction(column)
+    padding: 12px 34px 12px 20px
+    width: 100%
+    position: relative
+
+  .find-series-section__head
+    font-size: $head-font-size - 3
+    font-weight: $font-semibold
+    line-height: $head-font-size  + 2
+    color: $head-color
+    margin-bottom: 7px
+
+  .find-series-section__desc
+    font-size: $desc-font-size - 4
+    line-height: $desc-font-size + 1
+    margin-bottom: 6px
+
+  .find-series-section__view-link
+    font-size: 13px
+    font-weight: $font-semibold
+    color: $link-btn-color
+    line-height: 18px
+    text-decoration: none
+    position: relative
+
+    &:hover
+        text-decoration: underline
+
+  @if $desktop
+    @media screen and (min-width: 1024px)
+      .find-series-section__content
+          padding: 12px 140px 12px 20px
+
+      .find-series-section__head
+          font-size: $head-font-size
+          line-height: $head-font-size + 6
+
+      .find-series-section__desc
+          font-size: $desc-font-size
+          line-height: $desc-font-size  + 5
+
+      .find-series-section__view-link
+          font-size: 14px
+          line-height: 19px
+          padding: 6px 30px 5px 15px
+          border: 1px solid $link-btn-color
+          position: absolute
+          right: 29px
+
+          &:after
+            content: ""
+            @include right-arrow-0288d1-icon
+            width: 6px
+            height: 10px
+            position: absolute
+            margin: 5px 10px
+
+          &:hover
+            color: $link-btn-hover-color
+            background-color: $link-btn-color
+            text-decoration: none
+
+          &:hover:after
+            @include right-arrow-fff-icon
+
+.find-series-section
+  @include flexbox
+  @include find-series-section-icon($icon-box-width: 124px, $icon-box-height: 100px, $bgcolor: color('oyster-bay'), $desktop: true)
+  @include find-series-section-content($head-font-size: 18px, $desc-font-size: 16px,  $head-color: color('black'), $link-btn-color: color('viking'), $link-btn-hover-color: color('white'), $desktop: true)
+

@@ -54,9 +54,7 @@ namespace Bikewale.TrackDay
             }
             else
             {
-                Response.Redirect("/pagenotfound.aspx", true);
-                HttpContext.Current.ApplicationInstance.CompleteRequest();
-                this.Page.Visible = false;
+                UrlRewrite.Return404();
             }
         }
 
@@ -87,7 +85,7 @@ namespace Bikewale.TrackDay
             catch (Exception err)
             {
                 ErrorClass.LogError(err, string.Format("Url : {0}-GetTrackDayDetails , BasicId : {1}", Request.ServerVariables["URL"], _basicId));
-                
+
             }
             finally
             {

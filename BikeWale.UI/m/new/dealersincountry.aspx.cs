@@ -148,9 +148,7 @@ namespace Bikewale.Mobile.New
                 {
                     ErrorClass.LogError(ex, Request.ServerVariables["URL"] + "ParseQueryString");
 
-                    Response.Redirect("pageNotFound.aspx", false);
-                    HttpContext.Current.ApplicationInstance.CompleteRequest();
-                    this.Page.Visible = false;
+                    UrlRewrite.Return404();
                 }
                 finally
                 {
@@ -166,16 +164,12 @@ namespace Bikewale.Mobile.New
                         }
                         else
                         {
-                            Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
-                            HttpContext.Current.ApplicationInstance.CompleteRequest();
-                            this.Page.Visible = false;
+                            UrlRewrite.Return404();
                         }
                     }
                     else
                     {
-                        Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
-                        HttpContext.Current.ApplicationInstance.CompleteRequest();
-                        this.Page.Visible = false;
+                        UrlRewrite.Return404();
                     }
                 }
 
@@ -183,9 +177,7 @@ namespace Bikewale.Mobile.New
                 //verify the id as passed in the url
                 if (CommonOpn.CheckId(_makeId) == false)
                 {
-                    Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
-                    HttpContext.Current.ApplicationInstance.CompleteRequest();
-                    this.Page.Visible = false;
+                    UrlRewrite.Return404();
                     isSuccess = false;
                 }
 

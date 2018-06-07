@@ -44,6 +44,9 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Web;
+using Bikewale.BAL.ApiGateway.ApiGatewayHelper;
+using Bikewale.BAL.ApiGateway.Adapters.BikeData;
+using Bikewale.BAL.ApiGateway.Entities.BikeData;
 
 namespace Bikewale.Models.BikeModels
 {
@@ -101,7 +104,7 @@ namespace Bikewale.Models.BikeModels
         private readonly String _adId_SimilarBikes = "1505919734321";
         private readonly String _adPath_SimilarBikes_Desktop = "/1017752/SimilarBikes_Desktop";
         private readonly String _adPath_SimilarBikes_Mobile = "/1017752/SimilarBikes_Mobile";
-        static ILog _logger = LogManager.GetLogger("ModelPage");
+        static ILog _logger = LogManager.GetLogger("ModelPage-New");
 
         public string RedirectUrl { get; set; }
         public StatusCodes Status { get; set; }
@@ -155,6 +158,8 @@ namespace Bikewale.Models.BikeModels
         /// Description : Added call to BindAdSlotTags.
         /// Modified by : Snehal Dange on 21st March 2018
         /// Description: Added BindAdSlots.
+        /// Modified vy : Sanskar Gupta on 25 May 2018
+        /// Description : Added code to BindSeriesSlug.
         /// </summary>
         /// <param name="versionId"></param>
         /// <returns></returns>
@@ -192,13 +197,15 @@ namespace Bikewale.Models.BikeModels
                         var specs = new BikeSpecsFeaturesVM();
                         specs.BikeName = _objData.BikeName;
                         specs.ModelName = _objData.ModelPageEntity.ModelDetails.ModelName;
+						if (_objData.VersionId > 0)
+						{
+							GetVersionSpecsByIdAdapter adapt = new GetVersionSpecsByIdAdapter();
+							adapt.AddApiGatewayCall(_apiGatewayCaller, new List<int> { (int)_objData.VersionId });
 
-                        GetVersionSpecsByIdAdapter adapt1 = new GetVersionSpecsByIdAdapter();
-                        adapt1.AddApiGatewayCall(_apiGatewayCaller, new List<int> { (int)_objData.VersionId });
+							_apiGatewayCaller.Call();
 
-                        _apiGatewayCaller.Call();
-
-                        specs.VersionSpecsFeatures = adapt1.Output;
+							specs.VersionSpecsFeatures = adapt.Output;
+						}
 
                         _objData.BikeSpecsFeatures = specs;
                     }
@@ -243,7 +250,13 @@ namespace Bikewale.Models.BikeModels
                     {
                         BindAdSlots(_objData);
                     }
-                    dt7 = DateTime.Now;
+                    
+
+                    if (_objData.ShowSeriesSlug) {
+                        BindSeriesSlug(_objData);
+                    }
+		    dt7 = DateTime.Now;
+
                     #endregion Do Not change the sequence
                 }
             }
@@ -271,13 +284,39 @@ namespace Bikewale.Models.BikeModels
             return _objData;
         }
 
+        /// <summary>
+        /// Created by  : Sanskar Gupta on 25 May 2018
+        /// Description : Function to Bind Series Slug on Model Page
+        /// </summary>
+        /// <param name="_objData"></param>
+        private void BindSeriesSlug(ModelPageVM _objData)
+        {
+            uint _makeId = Convert.ToUInt32(_objData.ModelPageEntity.ModelDetails.MakeBase.MakeId);
+            uint _seriesId = _objData.ModelPageEntity.ModelDetails.ModelSeries.SeriesId;
+            string _makeName = _objData.ModelPageEntity.ModelDetails.MakeBase.MakeName;
+            string _makeMaskingName = _objData.ModelPageEntity.ModelDetails.MakeBase.MaskingName;
+
+            BikeSeriesEntity taggedSeries = _bikeSeries.GetMakeSeries(_makeId, _cityId).FirstOrDefault(s => s.SeriesId == _seriesId);
+            
+            _objData.SeriesSlug = new ModelSeriesSlugVM
+            {
+                SeriesName = taggedSeries.SeriesName,
+                MakeName = _makeName,
+                SeriesBikesCount = taggedSeries.ModelsCount,
+                MinimumPrice = taggedSeries.MinPrice,
+                MakeMaskingName = _makeMaskingName,
+                SeriesMaskingName = taggedSeries.MaskingName
+            };
+        }
+
         private void ImageAccordingToVersion()
         {
             try
             {
                 if (_objData.ModelPageEntity != null && _objData.ModelPageEntity.ModelVersions != null && _objData.ModelPageEntity.ModelVersions.Any() && _objData.ModelPageEntity.AllPhotos != null && _objData.ModelPageEntity.AllPhotos.Any())
                 {
-                    string OriginalImagePath = _objData.ModelPageEntity.ModelVersions.FirstOrDefault(m => m.VersionId == _objData.VersionId).OriginalImagePath;
+                    BikeVersionMinSpecs taggedVersion = _objData.ModelPageEntity.ModelVersions.FirstOrDefault(m => m.VersionId == _objData.VersionId);
+                    string OriginalImagePath = taggedVersion != null ? taggedVersion.OriginalImagePath : null;
 
                     if (!String.IsNullOrEmpty(OriginalImagePath))
                     {
@@ -2170,11 +2209,27 @@ namespace Bikewale.Models.BikeModels
                 if (_modelId > 0)
                 {
                     BikeModelsBySeriesPage objModelsBySeries = new BikeModelsBySeriesPage(_bikeSeries);
-                    objData.ModelsBySeries = objModelsBySeries.GetData(_modelId, objData.ModelPageEntity.ModelDetails.ModelSeries.SeriesId);
+                    BikeSeriesModelsVM modelsBySeries = objModelsBySeries.GetData(_modelId, objData.ModelPageEntity.ModelDetails.ModelSeries.SeriesId);
+                    objData.ModelsBySeries = modelsBySeries;
+
                     if (objData.ModelsBySeries != null && objData.ModelsBySeries.SeriesModels != null)
                     {
                         objData.ModelsBySeries.Page = GAPages.Model_Page;
                         objData.ModelsBySeries.SeriesBase = objData.ModelPageEntity.ModelDetails.ModelSeries;
+
+                        BikeSeriesEntityBase seriesDetails = modelsBySeries.SeriesBase;
+                        int bikeCount = modelsBySeries.SeriesModels.NewBikes != null ? modelsBySeries.SeriesModels.NewBikes.Count() : 0;
+                        bool seriesValidation = (modelsBySeries.IsNewAvailable || modelsBySeries.IsUpcomingAvailable)
+                            && seriesDetails.IsSeriesPageUrl
+                            && !string.IsNullOrEmpty(seriesDetails.MaskingName)
+                            && bikeCount > 1;
+                        
+                        BikeModelPageEntity bikeDetails = _objData.ModelPageEntity;
+                        bool bikeValidation = bikeDetails != null
+                            && bikeDetails.ModelDetails != null
+                            && bikeDetails.ModelDetails.MakeBase != null;
+
+                        _objData.ShowSeriesSlug = seriesValidation && bikeValidation;
                     }
                 }
             }

@@ -544,41 +544,44 @@ namespace Bikewale.PWA.Utils
                     EditorialWidgetInfo widget = widgets[populatedKey];
 
                     PwaBikeNews bikes = new PwaBikeNews();
-
-                    switch (widget.WidgetType)
-                    {
-                        case EditorialWidgetType.Popular:
-                            {
-                                var widgetData = widget as EditorialPopularBikesWidget;
-                                if (widgetData != null)
-                                {
-                                    bikes.CompleteListUrl = widgetData.ViewAllUrl;
-                                    bikes.CompleteListUrlAlternateLabel = widgetData.ViewAllTitle;
-                                    bikes.CompleteListUrlLabel = "View all";
-                                    bikes.Heading = widgetData.Title;
-                                    bikes.BikesList = MapMostPopularBikesBaseToPwaBikeDetails(widgetData.MostPopularBikeList);
-                                }
-                            }
-                            break;
-                        case EditorialWidgetType.Upcoming:
-                            {
-                                var widgetData = widget as EditorialUpcomingBikesWidget;
-                                if (widgetData != null)
-                                {
-                                    bikes.CompleteListUrl = widgetData.ViewAllUrl;
-                                    bikes.CompleteListUrlAlternateLabel = widgetData.ViewAllTitle;
-                                    bikes.CompleteListUrlLabel = "View all";
-                                    bikes.Heading = widgetData.Title;
-                                    bikes.BikesList = MapUpcomingBikeEntityToPwaBikeDetails(widgetData.UpcomingBikeList, ""); 
-                                }
-                            }
-                            break;
-                        case EditorialWidgetType.OtherBrands:
-                            break;
-                        default:
-                            break;
-                    }
-                    widgetList.Add(bikes);
+					if (widget != null)
+					{
+						switch (widget.WidgetType)
+						{
+							case EditorialWidgetType.Popular:
+								{
+									var widgetData = widget as EditorialPopularBikesWidget;
+									if (widgetData != null)
+									{
+										bikes.CompleteListUrl = widgetData.ViewAllUrl;
+										bikes.CompleteListUrlAlternateLabel = widgetData.ViewAllTitle;
+										bikes.CompleteListUrlLabel = "View all";
+										bikes.Heading = widgetData.Title;
+										bikes.BikesList = MapMostPopularBikesBaseToPwaBikeDetails(widgetData.MostPopularBikeList);
+									}
+								}
+								break;
+							case EditorialWidgetType.Upcoming:
+								{
+									var widgetData = widget as EditorialUpcomingBikesWidget;
+									if (widgetData != null)
+									{
+										bikes.CompleteListUrl = widgetData.ViewAllUrl;
+										bikes.CompleteListUrlAlternateLabel = widgetData.ViewAllTitle;
+										bikes.CompleteListUrlLabel = "View all";
+										bikes.Heading = widgetData.Title;
+										bikes.BikesList = MapUpcomingBikeEntityToPwaBikeDetails(widgetData.UpcomingBikeList, "");
+									}
+								}
+								break;
+							case EditorialWidgetType.OtherBrands:
+								break;
+							default:
+								break;
+						}
+						widgetList.Add(bikes);
+					}
+                    
                 }
 
             }

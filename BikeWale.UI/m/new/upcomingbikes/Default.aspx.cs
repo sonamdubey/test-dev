@@ -133,9 +133,8 @@ namespace Bikewale.Mobile.New
                     //if current page number exceeded the total pages count i.e. the page is not available
                     if (curPageNo > totalPages)
                     {
-                        Response.Redirect("/m/pagenotfound.aspx", false);
-                        HttpContext.Current.ApplicationInstance.CompleteRequest();
-                        this.Page.Visible = false;
+                        UrlRewrite.Return404();
+
                     }
                     else
                     {
@@ -191,16 +190,14 @@ namespace Bikewale.Mobile.New
                 }
                 else
                 {
-                    Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
-                    HttpContext.Current.ApplicationInstance.CompleteRequest();
-                    this.Page.Visible = false;
+                    UrlRewrite.Return404();
+
                 }
             }
             else
             {
-                Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
-                HttpContext.Current.ApplicationInstance.CompleteRequest();
-                this.Page.Visible = false;
+                UrlRewrite.Return404();
+
             }
             return makeID;
         }
