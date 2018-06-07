@@ -161,20 +161,25 @@ namespace Bikewale.BAL.ApiGateway.ApiGatewayHelper
                 if (_callbackActionList.Count <= 0)
                     return;
 
-                TaskFactory factory = Task.Factory;
-
-                var mainTask = factory.StartNew(() =>
+                foreach (var actionItem in _callbackActionList)
                 {
-                    foreach (var actionItem in _callbackActionList)
-                    {
-                        factory.StartNew(() =>
-                        {
-                            actionItem.Invoke(this);
-                        }, TaskCreationOptions.AttachedToParent);
-                    }
-                });
+                    actionItem.Invoke(this);
+                }
 
-                mainTask.Wait();
+                //TaskFactory factory = Task.Factory;
+
+                //var mainTask = factory.StartNew(() =>
+                //{
+                //    foreach (var actionItem in _callbackActionList)
+                //    {
+                //        factory.StartNew(() =>
+                //        {
+                //            actionItem.Invoke(this);
+                //        }, TaskCreationOptions.AttachedToParent);
+                //    }
+                //});
+
+                //mainTask.Wait();
                 dt2 = DateTime.Now;
             }
             catch (Exception ex)
@@ -184,8 +189,8 @@ namespace Bikewale.BAL.ApiGateway.ApiGatewayHelper
             finally
             {
                 ThreadContext.Properties["TotalTaskProcesstime"] = (dt2 - dt1).TotalMilliseconds;
-                _logger.Error("InvokeCallBackfunction");
-                ThreadContext.Properties["TotalTaskProcesstime"] = 0;
+                _logger.Error("InvokeCallBackfunction-RunWOTask");
+                ThreadContext.Properties.Remove("TotalTaskProcesstime");
             }
         }
 

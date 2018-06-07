@@ -260,12 +260,12 @@ namespace Bikewale.Models.BikeModels
                 ThreadContext.Properties["Model_5_TillImageAccordingToVersion"] = (dt6 - dt5).TotalMilliseconds;
                 ThreadContext.Properties["Model_6_OtherTillEnd"] = (dt7 - dt6).TotalMilliseconds;
                 _logger.Error("ModelPage.GetData");
-                ThreadContext.Properties["Model_1_TillLoadVarients"] = 0;
-                ThreadContext.Properties["Model_2_Spec_Features"] = 0;
-                ThreadContext.Properties["Model_3_GetManufacturerCampaign"] = 0;
-                ThreadContext.Properties["Model_4_BindControls"] = 0;
-                ThreadContext.Properties["Model_5_TillImageAccordingToVersion"] = 0;
-                ThreadContext.Properties["Model_6_OtherTillEnd"] = 0;
+                ThreadContext.Properties.Remove("Model_1_TillLoadVarients");
+                ThreadContext.Properties.Remove("Model_2_Spec_Features");
+                ThreadContext.Properties.Remove("Model_3_GetManufacturerCampaign");
+                ThreadContext.Properties.Remove("Model_4_BindControls");
+                ThreadContext.Properties.Remove("Model_5_TillImageAccordingToVersion");
+                ThreadContext.Properties.Remove("Model_6_OtherTillEnd");
             }
 
             return _objData;
@@ -708,6 +708,8 @@ namespace Bikewale.Models.BikeModels
         /// </summary>
         private void BindControls()
         {
+            DateTime dt1, dt2, dt3, dt4, dt5, dt6, dt7,dt8,dt9;
+            dt1 = dt2 = dt3 = dt4 = dt5 = dt6 = dt7=dt8=dt9 = DateTime.Now;
             try
             {
                 if (_objData != null && _objData.IsModelDetails)
@@ -717,8 +719,9 @@ namespace Bikewale.Models.BikeModels
                     _objData.News = new RecentNews(3, (uint)objMake.MakeId, _objData.ModelId, objMake.MakeName, objMake.MaskingName, _objData.ModelPageEntity.ModelDetails.ModelName, _objData.ModelPageEntity.ModelDetails.MaskingName, "News", _objArticles).GetData();
 
                     BindExpertReviews();
+                    dt2 = DateTime.Now;
                     BindComparisionReviews();
-
+                    dt3 = DateTime.Now;
                     _objData.Videos = new RecentVideos(1, 3, (uint)objMake.MakeId, objMake.MakeName, objMake.MaskingName, _objData.ModelId, _objData.ModelPageEntity.ModelDetails.ModelName, _objData.ModelPageEntity.ModelDetails.MaskingName, _objVideos).GetData();
                     _objData.ReturnUrl = Utils.Utils.EncryptTripleDES(string.Format("returnUrl=/{0}-bikes/{1}/&sourceid={2}", objMake.MaskingName, _objData.ModelPageEntity.ModelDetails.MaskingName, (int)(IsMobile ? UserReviewPageSourceEnum.Mobile_ModelPage : UserReviewPageSourceEnum.Desktop_ModelPage)));
 
@@ -740,7 +743,7 @@ namespace Bikewale.Models.BikeModels
                         }
 
                         _objData.UsedModels = BindUsedBikeByModel((uint)objMake.MakeId, _cityId);
-
+                        dt4 = DateTime.Now;
                         if (_cityId > 0)
                             _objData.PriceInTopCities = new ModelPriceInNearestCities(_objPQCache, _modelId, _cityId, 9).GetData();
                         else
@@ -754,12 +757,12 @@ namespace Bikewale.Models.BikeModels
                         GetBikeRankingCategory();
 
                         BindUserReviewsWidget(_objData);
-
+                        dt5 = DateTime.Now;
                         if (_objData.BikeRanking != null)
                         {
                             BindBestBikeWidget(_objData.BikeRanking.BodyStyle, _cityId);
                         }
-
+                        dt6 = DateTime.Now;
                         if (_objData.IsNewBike)
                         {
                             _objData.LeadCapture = new LeadCaptureEntity()
@@ -808,7 +811,7 @@ namespace Bikewale.Models.BikeModels
 
                         }
                     }
-
+                    dt7 = DateTime.Now;
                     // Set body style
                     if (_objData.VersionId > 0 && _objData.ModelPageEntity.ModelVersions != null && _objData.ModelPageEntity.ModelVersions.Count > 0)
                     {
@@ -822,12 +825,34 @@ namespace Bikewale.Models.BikeModels
                     }
                     _objData.objUpcomingBikes = BindUpCompingBikesWidget();
                     BindSimilarBikes(_objData);
+                    dt8 = DateTime.Now;
                     BindModelsBySeriesId(_objData);
+                    dt9 = DateTime.Now;
                 }
             }
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "Bikewale.Models.ModelPage.BindControls");
+            }
+            finally
+            {
+                ThreadContext.Properties["Model_3_BindControls_1"] = (dt2 - dt1).TotalMilliseconds;
+                ThreadContext.Properties["Model_3_BindControls_2"] = (dt3 - dt2).TotalMilliseconds;
+                ThreadContext.Properties["Model_3_BindControls_3"] = (dt4 - dt3).TotalMilliseconds;
+                ThreadContext.Properties["Model_3_BindControls_4"] = (dt5 - dt4).TotalMilliseconds;
+                ThreadContext.Properties["Model_3_BindControls_5"] = (dt6 - dt5).TotalMilliseconds;
+                ThreadContext.Properties["Model_3_BindControls_6"] = (dt7 - dt6).TotalMilliseconds;
+                ThreadContext.Properties["Model_3_BindControls_7"] = (dt8 - dt7).TotalMilliseconds;
+                ThreadContext.Properties["Model_3_BindControls_8"] = (dt9 - dt8).TotalMilliseconds;
+                _logger.Error("Model_3_BindControls");
+                ThreadContext.Properties.Remove("Model_3_BindControls_1");
+                ThreadContext.Properties.Remove("Model_3_BindControls_2");
+                ThreadContext.Properties.Remove("Model_3_BindControls_3");
+                ThreadContext.Properties.Remove("Model_3_BindControls_4");
+                ThreadContext.Properties.Remove("Model_3_BindControls_5");
+                ThreadContext.Properties.Remove("Model_3_BindControls_6");
+                ThreadContext.Properties.Remove("Model_3_BindControls_7");
+                ThreadContext.Properties.Remove("Model_3_BindControls_8");
             }
         }
 
@@ -1388,6 +1413,9 @@ namespace Bikewale.Models.BikeModels
         /// </summary>
         private void LoadVariants(BikeModelPageEntity modelPg)
         {
+            DateTime dt1, dt2, dt3, dt4, dt5, dt6, dt7, dt8, dt9;
+            dt1 = dt2 = dt3 = dt4 = dt5 = dt6 = dt7 = dt8 = dt9 = DateTime.Now;  
+            
             try
             {
                 if (modelPg != null && modelPg.ModelDetails != null && modelPg.ModelVersions != null && !modelPg.ModelDetails.Futuristic)
@@ -1412,6 +1440,7 @@ namespace Bikewale.Models.BikeModels
                                 _objData.VersionId = (uint)_pqOnRoad.DPQOutput.Varients.OrderBy(m => m.OnRoadPrice).FirstOrDefault().objVersion.VersionId;
                             }
                             IsDealerPriceAvailble = true;
+                            dt2 = DateTime.Now;
                         }//Bikewale Pricing
                         else if (_pqOnRoad.BPQOutput != null && _pqOnRoad.BPQOutput.Varients != null)
                         {
@@ -1434,7 +1463,7 @@ namespace Bikewale.Models.BikeModels
                             {
                                 _objData.VersionId = (uint)_pqOnRoad.BPQOutput.Varients.OrderBy(m => m.OnRoadPrice).FirstOrDefault().VersionId;
                             }
-
+                            dt3 = DateTime.Now;
                         }//Version Pricing
                         else
                         {
@@ -1458,6 +1487,7 @@ namespace Bikewale.Models.BikeModels
                                     _objData.BikePrice = _objData.CityId == 0 ? (uint)_objData.SelectedVersion.Price : 0;
                                 }
                             }
+                            dt4 = DateTime.Now;
                         }
                     }
                     else
@@ -1497,6 +1527,7 @@ namespace Bikewale.Models.BikeModels
                                 version.Price = 0;
                             }
                         }
+                        dt5 = DateTime.Now;
                     }
 
                     if (modelPg.ModelVersions.Count > 0)
@@ -1517,11 +1548,27 @@ namespace Bikewale.Models.BikeModels
                         }
                         _objData.VersionId = Convert.ToUInt32(objBikeVersionMinSpecs.VersionId);
                     }
+                    dt6 = DateTime.Now;
                 }
             }
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, string.Format("Bikewale.Models.BikeModels.ModelPage --> LoadVariants() ModelId: {0}, MaskingName: {1}", _modelId, ""));
+            }
+            finally
+            {
+                ThreadContext.Properties["Model_1_LoadVariants_1"] = (dt2 - dt1).TotalMilliseconds;
+                ThreadContext.Properties["Model_1_LoadVariants_2"] = (dt3 - dt2).TotalMilliseconds;
+                ThreadContext.Properties["Model_1_LoadVariants_3"] = (dt4 - dt3).TotalMilliseconds;
+                ThreadContext.Properties["Model_1_LoadVariants_4"] = (dt5 - dt4).TotalMilliseconds;
+                ThreadContext.Properties["Model_1_LoadVariants_5"] = (dt6 - dt5).TotalMilliseconds;                
+                _logger.Error("Model_1_LoadVariants");
+                ThreadContext.Properties.Remove("Model_1_LoadVariants_1");
+                ThreadContext.Properties.Remove("Model_1_LoadVariants_2");
+                ThreadContext.Properties.Remove("Model_1_LoadVariants_3");
+                ThreadContext.Properties.Remove("Model_1_LoadVariants_4");
+                ThreadContext.Properties.Remove("Model_1_LoadVariants_5");
+                
             }
         }
 
