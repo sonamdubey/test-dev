@@ -1872,7 +1872,7 @@ docReady(function () {
             this.options.trendingSearchesEle.find("li:first-child").addClass("ui-state-focus").siblings().removeClass("ui-state-focus");
             if (this.options.recentSearchesEle.is(":visible")) {
                 var rsele = this.options.recentSearchesEle.find("li.ui-state-focus");
-                if (event.keyCode == 27) {
+                if (typeof event !== "undefined" && event.keyCode == 27) {
                     this.hideRecentSearches();
                 }
             }
