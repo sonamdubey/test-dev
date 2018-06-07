@@ -1,4 +1,6 @@
-﻿using Bikewale.BindViewModels.Controls;
+﻿using Bikewale.BAL.ApiGateway.Adapters.BikeData;
+using Bikewale.BAL.ApiGateway.ApiGatewayHelper;
+using Bikewale.BindViewModels.Controls;
 using Bikewale.BindViewModels.Webforms;
 using Bikewale.common;
 using Bikewale.DTO.PriceQuote;
@@ -35,15 +37,13 @@ using Bikewale.Models.Used;
 using Bikewale.Models.UserReviews;
 using Bikewale.Notifications;
 using Bikewale.Utility;
+using log4net;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Web;
-using Bikewale.BAL.ApiGateway.ApiGatewayHelper;
-using Bikewale.BAL.ApiGateway.Adapters.BikeData;
-using Bikewale.BAL.ApiGateway.Entities.BikeData;
 
 namespace Bikewale.Models.BikeModels
 {
@@ -80,10 +80,10 @@ namespace Bikewale.Models.BikeModels
         private readonly IAdSlot _adSlot = null;
         private readonly IBikeInfo _bikeInfo = null;
         private readonly IBikeMakesCacheRepository _bikeMakesCacheRepository;
-		private readonly IApiGatewayCaller _apiGatewayCaller;
+        private readonly IApiGatewayCaller _apiGatewayCaller;
 
 
-		private uint _modelId, _cityId, _areaId;
+        private uint _modelId, _cityId, _areaId;
 
         private readonly IManufacturerCampaign _objManufacturerCampaign = null;
 
@@ -101,7 +101,7 @@ namespace Bikewale.Models.BikeModels
         private readonly String _adId_SimilarBikes = "1505919734321";
         private readonly String _adPath_SimilarBikes_Desktop = "/1017752/SimilarBikes_Desktop";
         private readonly String _adPath_SimilarBikes_Mobile = "/1017752/SimilarBikes_Mobile";
-
+        static ILog _logger = LogManager.GetLogger("ModelPage");
 
         public string RedirectUrl { get; set; }
         public StatusCodes Status { get; set; }
@@ -142,9 +142,9 @@ namespace Bikewale.Models.BikeModels
             _adSlot = adSlot;
             _bikeInfo = bikeInfo;
             _bikeMakesCacheRepository = bikeMakesCacheRepository;
-			_apiGatewayCaller = apiGatewayCaller;
+            _apiGatewayCaller = apiGatewayCaller;
 
-			ParseQueryString(makeMasking, modelMasking);
+            ParseQueryString(makeMasking, modelMasking);
         }
 
         #endregion Global Variables
@@ -160,66 +160,68 @@ namespace Bikewale.Models.BikeModels
         /// <returns></returns>
         public ModelPageVM GetData(uint? versionId)
         {
+            DateTime dt1, dt2, dt3, dt4, dt5, dt6, dt7;
+            dt1 = dt2 = dt3 = dt4 = dt5 = dt6 = dt7 = DateTime.Now;
             try
             {
                 _objData = new ModelPageVM();
 
-				if (_modelId > 0)
-				{
-					_objData.ModelId = _modelId;
+                if (_modelId > 0)
+                {
+                    _objData.ModelId = _modelId;
 
-					#region Do Not change the sequence
+                    #region Do Not change the sequence
 
-					CheckCityCookie();
-					_objData.CityId = _cityId;
-					_objData.AreaId = _areaId;
-					_objData.VersionId = versionId.HasValue ? versionId.Value : 0;
+                    CheckCityCookie();
+                    _objData.CityId = _cityId;
+                    _objData.AreaId = _areaId;
+                    _objData.VersionId = versionId.HasValue ? versionId.Value : 0;
 
-					_objData.ModelPageEntity = FetchModelPageDetails(_modelId);
+                    _objData.ModelPageEntity = FetchModelPageDetails(_modelId);
 
-					if (_objData.IsModelDetails && _objData.ModelPageEntity.ModelDetails.New)
-					{
-						FetchOnRoadPrice(_objData.ModelPageEntity);
-					}
+                    if (_objData.IsModelDetails && _objData.ModelPageEntity.ModelDetails.New)
+                    {
+                        FetchOnRoadPrice(_objData.ModelPageEntity);
+                    }
 
-					LoadVariants(_objData.ModelPageEntity);
+                    LoadVariants(_objData.ModelPageEntity);
+                    dt2 = DateTime.Now;
+                    #region Code to get the specs and features data from microservice
+                    if (!_objData.IsUpcomingBike && _objData.VersionId > 0)
+                    {
+                        var specs = new BikeSpecsFeaturesVM();
+                        specs.BikeName = _objData.BikeName;
+                        specs.ModelName = _objData.ModelPageEntity.ModelDetails.ModelName;
 
-					#region Code to get the specs and features data from microservice
-					if (!_objData.IsUpcomingBike && _objData.VersionId > 0)
-					{
-						var specs = new BikeSpecsFeaturesVM();
-						specs.BikeName = _objData.BikeName;
-						specs.ModelName = _objData.ModelPageEntity.ModelDetails.ModelName;
+                        GetVersionSpecsByIdAdapter adapt1 = new GetVersionSpecsByIdAdapter();
+                        adapt1.AddApiGatewayCall(_apiGatewayCaller, new List<int> { (int)_objData.VersionId });
 
-						GetVersionSpecsByIdAdapter adapt1 = new GetVersionSpecsByIdAdapter();
-						adapt1.AddApiGatewayCall(_apiGatewayCaller, new List<int> { (int)_objData.VersionId });
-						
-						_apiGatewayCaller.Call();
+                        _apiGatewayCaller.Call();
 
-						specs.VersionSpecsFeatures = adapt1.Output;
-						
-						_objData.BikeSpecsFeatures = specs;
-					}
-					#endregion
+                        specs.VersionSpecsFeatures = adapt1.Output;
 
-					if (_objData.IsModelDetails && _objData.ModelPageEntity.ModelDetails.New)
+                        _objData.BikeSpecsFeatures = specs;
+                    }
+                    #endregion
+                    dt3 = DateTime.Now;
+                    if (_objData.IsModelDetails && _objData.ModelPageEntity.ModelDetails.New)
                     {
                         GetManufacturerCampaign();
                     }
-
+                    dt4 = DateTime.Now;
                     BindControls();
-
+                    dt5 = DateTime.Now;
                     BindColorString();
 
                     if (_modelId > 0)
                     {
                         BindMileageWidget(_objData);
                     }
-					
+
                     CreateMetas();
 
                     ImageAccordingToVersion();
-
+                    dt6 = DateTime.Now;
                     BindVersionPriceListSummary();
 
                     if (_objData.SimilarBikes != null)
@@ -235,18 +237,35 @@ namespace Bikewale.Models.BikeModels
 
                     if (_objData != null && _objData.SelectedVersion != null && !string.IsNullOrEmpty(_objData.SelectedVersion.FuelType))
                     {
-                        _objData.IsElectricBike = _objData.SelectedVersion.FuelType.Equals("Electric",StringComparison.InvariantCultureIgnoreCase);
+                        _objData.IsElectricBike = _objData.SelectedVersion.FuelType.Equals("Electric", StringComparison.InvariantCultureIgnoreCase);
                     }
                     if (_objData.AdTags != null)
                     {
                         BindAdSlots(_objData);
                     }
+                    dt7 = DateTime.Now;
                     #endregion Do Not change the sequence
                 }
             }
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, String.Format("GetData({0})", _modelId));
+            }
+            finally
+            {
+                ThreadContext.Properties["Model_1_TillLoadVarients"] = (dt2 - dt1).TotalMilliseconds;
+                ThreadContext.Properties["Model_2_Spec_Features"] = (dt3 - dt2).TotalMilliseconds;
+                ThreadContext.Properties["Model_3_GetManufacturerCampaign"] = (dt4 - dt3).TotalMilliseconds;
+                ThreadContext.Properties["Model_4_BindControls"] = (dt5 - dt4).TotalMilliseconds;
+                ThreadContext.Properties["Model_5_TillImageAccordingToVersion"] = (dt6 - dt5).TotalMilliseconds;
+                ThreadContext.Properties["Model_6_OtherTillEnd"] = (dt7 - dt6).TotalMilliseconds;
+                _logger.Error("ModelPage.GetData");
+                ThreadContext.Properties["Model_1_TillLoadVarients"] = 0;
+                ThreadContext.Properties["Model_2_Spec_Features"] = 0;
+                ThreadContext.Properties["Model_3_GetManufacturerCampaign"] = 0;
+                ThreadContext.Properties["Model_4_BindControls"] = 0;
+                ThreadContext.Properties["Model_5_TillImageAccordingToVersion"] = 0;
+                ThreadContext.Properties["Model_6_OtherTillEnd"] = 0;
             }
 
             return _objData;
@@ -880,7 +899,7 @@ namespace Bikewale.Models.BikeModels
                         _objData.SimilarBikes.VersionId = _objData.VersionId;
                         _objData.SimilarBikes.Page = GAPages.Model_Page;
                     }
-                    else if(_objData.IsNewBike || _objData.IsUpcomingBike)
+                    else if (_objData.IsNewBike || _objData.IsUpcomingBike)
                     {
                         BindPopularBodyStyle(_objData);
                     }
