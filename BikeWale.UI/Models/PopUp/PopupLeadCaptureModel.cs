@@ -1,4 +1,5 @@
-﻿using Bikewale.Entities.PriceQuote;
+﻿using Bikewale.Entities.Location;
+using Bikewale.Entities.PriceQuote;
 using Bikewale.Notifications;
 using System;
 using System.Collections.Specialized;
@@ -66,6 +67,14 @@ namespace Bikewale.Models.PopUp
 
                 bool.TryParse(queryCollection["isManufacturer"], out _isManufacturerCampaign);
                 viewModel.Url = queryCollection["url"];
+
+                if (_cityId == 0)
+                {
+                    GlobalCityAreaEntity location = Utility.GlobalCityArea.GetGlobalCityArea();
+                    _cityId = location.CityId;
+                    _city = location.City;
+                }
+
                 viewModel.LeadCapture = new LeadCaptureEntity
                 {
                     ModelId = _modelId,

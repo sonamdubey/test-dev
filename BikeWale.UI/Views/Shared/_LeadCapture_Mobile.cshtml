@@ -438,6 +438,14 @@
                     url: "/api/ManufacturerCampaign/city/" + self.cityId() + "/dealer/" + self.dealerId() + "/",
                     contentType: "application/json",
                     dataType: 'json',
+                    complete: function (xhr, ajaxOptions, thrownError) {
+                        if (xhr.status != 200){
+                            $("#ddlMfgDealers").html('');
+                            $("#ddlMfgDealers").append("<option value selected>No dealer present</option>");
+                            $("#getDealer-select-box").find(".dropdown-menu").remove();
+                            dropdown.setMenu($("#ddlMfgDealers"));
+                        }
+                    },
                     success: function (response) {
                         $("#dealerDropdownLabel").hide();
 
