@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Runtime.Serialization;
-using System.Threading.Tasks;
-using ApiGatewayLibrary;
+﻿using ApiGatewayLibrary;
+using Bikewale.Notifications;
 using GatewayWebservice;
 using Google.Protobuf;
-using Bikewale.Notifications;
+using System;
+using System.Collections.Generic;
 
 namespace Bikewale.BAL.ApiGateway.ApiGatewayHelper
 {
@@ -158,21 +156,11 @@ namespace Bikewale.BAL.ApiGateway.ApiGatewayHelper
             {
                 if (_callbackActionList.Count <= 0)
                     return;
-
-                TaskFactory factory = Task.Factory;
-
-                var mainTask = factory.StartNew(() =>
+                foreach (var actionItem in _callbackActionList)
                 {
-                    foreach (var actionItem in _callbackActionList)
-                    {
-                        factory.StartNew(() =>
-                        {
-                            actionItem.Invoke(this);
-                        }, TaskCreationOptions.AttachedToParent);
-                    }
-                });
+                    actionItem.Invoke(this);
+                }
 
-                mainTask.Wait();
             }
             catch (Exception ex)
             {
