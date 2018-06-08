@@ -199,8 +199,7 @@ namespace Bikewale.DAL.AutoBiz
             }
             catch (Exception ex)
             {
-                HttpContext.Current.Trace.Warn("GetDealerPriceQuoteByModelCity ex : " + ex.Message + ex.Source);
-                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                ErrorClass.LogError(ex, "Bikewale.DAL.AutoBiz.DealerPriceQuoteRepository.GetDealerPriceQuotesByModelCity");
             }
             return dealerPriceObj;
         }
