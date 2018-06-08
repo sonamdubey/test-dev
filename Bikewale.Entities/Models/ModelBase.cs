@@ -24,6 +24,8 @@ namespace Bikewale.Models
     /// Description : Changed type of `AdSlots` to dictionary
     /// Modified by : Sanskar Gupta on 18 April 2018
     /// Description : Added property named `PageName`
+    /// Modified by : Ashutosh Sharma on 08 Jun 2018
+    /// Description : Added CssClassed.
     /// </summary>
     public class ModelBase
     {
@@ -56,6 +58,7 @@ namespace Bikewale.Models
             this.PageMetaTags = new PageMetaTags();
             this.AdTags = new AdTags();
             this.BreadcrumbList = new BreadcrumbList();
+            CssClasses = new Dictionary<string, string>();
         }
 
         public bool ExcludeContestSlug { get; set; }
@@ -66,5 +69,10 @@ namespace Bikewale.Models
         public IDictionary<string, AdSlotModel> AdSlots { get; set; }
 
         public string PageName { get; set; }
+        /// <summary>
+        /// Dictionary will hold conditional css classed that need to be used in common Layout.cshtml file.
+        /// (string, string) => (key, className), if key exist then apply class name.
+        /// </summary>
+        public IDictionary<string, string> CssClasses { get; set; }
     }
 }

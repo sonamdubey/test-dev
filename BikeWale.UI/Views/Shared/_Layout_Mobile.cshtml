@@ -290,7 +290,10 @@
     </noscript>
     <!-- End Facebook Pixel Code -->
 </head>
-<body class="@(@Model.IsTransparentHeader ? " page-type-landing " : "") bg-light-grey @(@Model.IsHeaderFix ? "header-fixed-inner" : "")" data-page-id="@((int)Model.Page)" data-page-name="@Model.Page">
+@{
+    string bodyTagClass = null;
+}
+<body class="@(@Model.IsTransparentHeader ? " page-type-landing " : "") bg-light-grey @(@Model.IsHeaderFix ? "header-fixed-inner" : "") @(Model.CssClasses.TryGetValue("bodyTagClass",out bodyTagClass) && bodyTagClass != null ? bodyTagClass:"")" data-page-id="@((int)Model.Page)" data-page-name="@Model.Page">
     @if (Model.IsHeaderRequired)
     {
         <header>
