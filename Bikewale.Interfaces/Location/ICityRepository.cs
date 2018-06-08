@@ -1,5 +1,5 @@
 ﻿using Bikewale.Entities.Location;
-using System.Collections.ObjectModel;
+using System.Collections.Generic;
 
 namespace Bikewale.Interfaces.Location
 {
@@ -8,6 +8,6 @@ namespace Bikewale.Interfaces.Location
     /// </summary>
     public interface ICityRepository
     {
-        Collection<CityEntityBase> GetCitiesByStateName(string stateName);
+        ICollection<CityEntityBase> GetCitiesByStateName(string stateName);
     }
 }

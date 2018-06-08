@@ -9,7 +9,6 @@ using Bikewale.Service.AutoMappers.City;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
@@ -131,7 +130,7 @@ namespace Bikewale.Service.Controllers.City
         [ResponseType(typeof(CityList)),Route("api/citylist/getcities/")]
         public IHttpActionResult GetCitiesByStateName(string stateName)
         {
-            Collection<CityEntityBase> objCityEntityList = null;
+            ICollection<CityEntityBase> objCityEntityList = null;
             ICityRepository _citysRepository;
             try
             {
@@ -149,7 +148,7 @@ namespace Bikewale.Service.Controllers.City
                             CityList objCityList = new CityList();
 
                             Mapper.CreateMap<CityEntityBase, CityBase>();
-                            objCityList.City = Mapper.Map<Collection<CityEntityBase>, List<CityBase>>(objCityEntityList);
+                            objCityList.City = Mapper.Map<ICollection<CityEntityBase>, List<CityBase>>(objCityEntityList);
 
                             objCityEntityList.Clear();
                             objCityEntityList = null;

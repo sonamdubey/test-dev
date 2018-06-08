@@ -1,5 +1,4 @@
-﻿using Bikewale.DTO.City;
-using Bikewale.Entities.BikeData;
+﻿using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.Used;
 using Bikewale.Interfaces.Location;
@@ -430,9 +429,9 @@ namespace Bikewale.DAL.Location
         /// </summary>
         /// <param name="stateName"></param>
         /// <returns>List of CityEntityBase</returns>
-        public Collection<CityEntityBase> GetCitiesByStateName(string stateName)
+        public ICollection<CityEntityBase> GetCitiesByStateName(string stateName)
         {
-            Collection<CityEntityBase> objCityList = null;
+            ICollection<CityEntityBase> objCityList = null;
             try
             {
                 string strQuery = "select id as CityId,Name,CityMaskingName from cities where soundex(StateMaskingName) = soundex(@stateName);";
