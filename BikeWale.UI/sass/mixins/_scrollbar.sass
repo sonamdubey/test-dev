@@ -1,5 +1,18 @@
 @mixin scrollbar-hide
-	&::-webkit-scrollbar
-		width: 0
-		height: 0
-		display: none
+  &::-webkit-scrollbar
+    width: 0
+    height: 0
+    display: none
+
+@mixin scrollbar-custom($width: 5px, $trackColor: 'whisper-2', $thumbColor: 'nobel-2', $thumbHoverColor: 'grey')
+  &::-webkit-scrollbar
+    width: $width
+
+  &::-webkit-scrollbar-track
+    background-color: color($trackColor)
+
+  &::-webkit-scrollbar-thumb
+    background-color: color($thumbColor)
+
+    &:hover
+      background-color: color($thumbHoverColor)
