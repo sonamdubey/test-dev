@@ -142,6 +142,7 @@
     <Compile Include="Memcache\BWMemcache.cs" />
     <Compile Include="Memcache\MakeMapping.cs" />
     <Compile Include="MobileVerification\MobileVerificationCache.cs" />
+    <Compile Include="PriceQuote\DealerPriceQuoteCache.cs" />
     <Compile Include="PriceQuote\PriceQuoteCache.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PWA\CMS\PWACMSCacheRepository.cs" />
