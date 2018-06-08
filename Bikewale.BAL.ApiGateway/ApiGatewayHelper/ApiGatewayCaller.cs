@@ -5,7 +5,6 @@ using Google.Protobuf;
 using log4net;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace Bikewale.BAL.ApiGateway.ApiGatewayHelper
 {
@@ -174,6 +173,7 @@ namespace Bikewale.BAL.ApiGateway.ApiGatewayHelper
             }
             finally
             {
+                dt2 = DateTime.Now;
                 ThreadContext.Properties["TotalTaskProcesstime"] = (dt2 - dt1).TotalMilliseconds;
                 _logger.Error("InvokeCallBackfunction-RunWOTask");
                 ThreadContext.Properties.Remove("TotalTaskProcesstime");

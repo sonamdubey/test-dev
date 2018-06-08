@@ -17,9 +17,7 @@ using Bikewale.ManufacturerCampaign.Interface;
 using Bikewale.Notifications;
 using RabbitMqPublishing;
 using System;
-using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.Linq;
 
 namespace Bikewale.BAL.Lead
 {
@@ -42,9 +40,9 @@ namespace Bikewale.BAL.Lead
         private readonly Bikewale.Interfaces.AutoBiz.IDealers _objAutobizDealer = null;
         private readonly IManufacturerCampaignRepository _manufacturerCampaignRepo = null;
         private readonly IApiGatewayCaller _apiGatewayCaller;
-        public bool IsPQCustomerDetailWithPQ { get; set; }
-        CustomerEntity objCust = null;
-        float _spamScoreThreshold = 0.0f;
+
+
+        private const float SPAM_SCORE_THRESHOLD = 0.0f;
         #endregion
 
 
@@ -88,6 +86,7 @@ namespace Bikewale.BAL.Lead
             PQCustomerDetailOutputEntity pqCustomerDetailEntity = null;
             bool isSuccess = false;
             sbyte noOfAttempts = 0;
+            CustomerEntity objCust = null;
             try
             {
                 if (pqInput != null && (pqInput.PQId > 0))
@@ -96,7 +95,7 @@ namespace Bikewale.BAL.Lead
                     pqParam.VersionId = Convert.ToUInt32(pqInput.VersionId);
 
                     _objPriceQuote.UpdatePriceQuote(pqInput.PQId, pqParam);
-                    entity = CheckRegisteredUser(pqInput, requestHeaders);
+                    entity = CheckRegisteredUser(pqInput, requestHeaders, ref objCust);
 
                     isSuccess = _objDealerPriceQuote.SaveCustomerDetail(entity);
 
@@ -107,7 +106,7 @@ namespace Bikewale.BAL.Lead
                         pqCustomer = _objDealerPriceQuote.GetCustomerDetails(pqInput.PQId);
                         objCust = pqCustomer.objCustomerBase;
 
-                        pqCustomerDetailEntity = NotifyCustomerAndDealer(pqInput, requestHeaders);
+                        pqCustomerDetailEntity = NotifyCustomerAndDealer(pqInput, requestHeaders, objCust, false);
                         pqCustomerDetailEntity.Dealer = objBookingPageDetailsEntity.Dealer;
                     }
                     else
@@ -177,7 +176,7 @@ namespace Bikewale.BAL.Lead
                         pqInput.PQId = Convert.ToUInt32(pqId);
                     }
 
-                    entity = CheckRegisteredUser(pqInput, requestHeaders);
+                    entity = CheckRegisteredUser(pqInput, requestHeaders, ref objCust);
 
                     isSuccess = _objDealerPriceQuote.SaveCustomerDetail(entity);
 
@@ -185,7 +184,7 @@ namespace Bikewale.BAL.Lead
                     {
                         pqCustomer = _objDealerPriceQuote.GetCustomerDetails(Convert.ToUInt32(pqId));
                         objCust = pqCustomer.objCustomerBase;
-                        pqCustomerDetailEntity = NotifyCustomerAndDealer(pqInput, requestHeaders);
+                        pqCustomerDetailEntity = NotifyCustomerAndDealer(pqInput, requestHeaders, objCust, true);
                     }
                     else
                     {
@@ -211,7 +210,7 @@ namespace Bikewale.BAL.Lead
         /// <param name="pqInput"></param>
         /// <param name="requestHeaders"></param>
         /// <returns></returns>
-        private PQCustomerDetailOutputEntity NotifyCustomerAndDealer(Bikewale.Entities.PriceQuote.PQCustomerDetailInput pqInput, System.Collections.Specialized.NameValueCollection requestHeaders)
+        private PQCustomerDetailOutputEntity NotifyCustomerAndDealer(Bikewale.Entities.PriceQuote.PQCustomerDetailInput pqInput, System.Collections.Specialized.NameValueCollection requestHeaders, CustomerEntity objCust, bool IsPQCustomerDetailWithPQ)
         {
             PQCustomerDetailOutputEntity output = null;
             try
@@ -331,11 +330,12 @@ namespace Bikewale.BAL.Lead
         }
 
 
-        private DPQ_SaveEntity CheckRegisteredUser(Entities.PriceQuote.PQCustomerDetailInput input, System.Collections.Specialized.NameValueCollection requestHeaders)
+        private DPQ_SaveEntity CheckRegisteredUser(Entities.PriceQuote.PQCustomerDetailInput input, System.Collections.Specialized.NameValueCollection requestHeaders, ref CustomerEntity objCust)
         {
             DPQ_SaveEntity entity = null;
             SpamScore spamScore = null;
             float spamThreshold = 0;
+
             try
             {
                 if (input != null)
@@ -431,8 +431,8 @@ namespace Bikewale.BAL.Lead
                     {
                         leadInfo.SpamScore = spamScore.Score;
                         leadInfo.Reason = "";
-                        leadInfo.IsAccepted = !(spamScore.Score > _spamScoreThreshold);
-                        leadInfo.OverallSpamScore = GetSpamOverallScore(spamScore); 
+                        leadInfo.IsAccepted = !(spamScore.Score > SPAM_SCORE_THRESHOLD);
+                        leadInfo.OverallSpamScore = GetSpamOverallScore(spamScore);
                     }
 
                     input.LeadId = leadId = _manufacturerCampaignRepo.SaveManufacturerCampaignLead(leadInfo);
