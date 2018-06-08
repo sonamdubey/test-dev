@@ -17,7 +17,7 @@ using System.Web;
 
 namespace Bikewale.DAL.Location
 {
-    public class CityRepository : ICity
+    public class CityRepository : ICity,ICityRepository
     {
         /// <summary>
         /// Written By : Ashish G. Kamble on 3/8/2012
@@ -429,10 +429,10 @@ namespace Bikewale.DAL.Location
         /// Desc    :   Get cities based on state name 
         /// </summary>
         /// <param name="stateName"></param>
-        /// <returns>List of CityBase</returns>
-        public IEnumerable<CityBase> GetCitiesByStateName(string stateName)
+        /// <returns>List of CityEntityBase</returns>
+        public Collection<CityEntityBase> GetCitiesByStateName(string stateName)
         {
-            ICollection<CityBase> objCityList = null;
+            Collection<CityEntityBase> objCityList = null;
             try
             {
                 string strQuery = "select id as CityId,Name,CityMaskingName from cities where soundex(StateMaskingName) = soundex(@stateName);";
@@ -444,10 +444,10 @@ namespace Bikewale.DAL.Location
                     {
                         if (dr != null)
                         {
-                            objCityList = new Collection<CityBase>();
+                            objCityList = new Collection<CityEntityBase>();
                             while (dr.Read())
                             {
-                                objCityList.Add(new CityBase
+                                objCityList.Add(new CityEntityBase
                                 {
                                     CityId = SqlReaderConvertor.ToUInt32(dr["CityId"]),
                                     CityName = Convert.ToString(dr["Name"]),

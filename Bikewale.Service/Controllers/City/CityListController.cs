@@ -9,6 +9,7 @@ using Bikewale.Service.AutoMappers.City;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
@@ -126,25 +127,33 @@ namespace Bikewale.Service.Controllers.City
         /// Desc    :   Get cities based on state name 
         /// </summary>
         /// <param name="stateName"></param>
-        /// <returns>CityBase List</returns>
-        [Route("api/citylist/getcities/")]
+        /// <returns>CityList</returns>
+        [ResponseType(typeof(CityList)),Route("api/citylist/getcities/")]
         public IHttpActionResult GetCitiesByStateName(string stateName)
         {
-            IEnumerable<CityBase> objCityList = null;
-            ICity _citysRepository;
+            Collection<CityEntityBase> objCityEntityList = null;
+            ICityRepository _citysRepository;
             try
             {
                 if (!string.IsNullOrEmpty(stateName))
                 {
                     using (IUnityContainer container = new UnityContainer())
                     {
-                        container.RegisterType<ICity, CityRepository>();
-                        _citysRepository = container.Resolve<ICity>();
+                        container.RegisterType<ICityRepository, CityRepository>();
+                        _citysRepository = container.Resolve<ICityRepository>();
 
-                        objCityList = _citysRepository.GetCitiesByStateName(stateName);
+                        objCityEntityList = _citysRepository.GetCitiesByStateName(stateName);
 
-                        if (objCityList != null)
+                        if (objCityEntityList != null && objCityEntityList.Count > 0)
                         {
+                            CityList objCityList = new CityList();
+
+                            Mapper.CreateMap<CityEntityBase, CityBase>();
+                            objCityList.City = Mapper.Map<Collection<CityEntityBase>, List<CityBase>>(objCityEntityList);
+
+                            objCityEntityList.Clear();
+                            objCityEntityList = null;
+
                             return Ok(objCityList);
                         }
                         else
