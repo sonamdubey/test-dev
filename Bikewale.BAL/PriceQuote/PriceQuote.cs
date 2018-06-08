@@ -1,9 +1,13 @@
-﻿using Bikewale.DAL.AutoBiz;
+﻿
+using Bikewale.BAL.BikeBooking;
+using Bikewale.Cache.Core;
+using Bikewale.Cache.PriceQuote;
 using Bikewale.DAL.PriceQuote;
 using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.AutoBiz;
+using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Notifications;
 using BikeWale.Entities.AutoBiz;
@@ -23,18 +27,21 @@ namespace Bikewale.BAL.PriceQuote
     /// </summary>
     public class PriceQuote : IPriceQuote
     {
-        private readonly IPriceQuote objPQ = null;
-        private readonly IDealerPriceQuote objDealerPQ = null;
+        private readonly IPriceQuote objPQ;
+        private readonly IDealerPriceQuoteCache _dealerPQCache;
 
         public PriceQuote()
         {
             using (IUnityContainer objPQCont = new UnityContainer())
             {
                 objPQCont.RegisterType<IPriceQuote, PriceQuoteRepository>();
-                objPQCont.RegisterType<IDealerPriceQuote, DealerPriceQuoteRepository>();
+                objPQCont.RegisterType<IDealerPriceQuoteCache, DealerPriceQuoteCache>();
+                objPQCont.RegisterType<ICacheManager, MemcacheManager>();
+                objPQCont.RegisterType<IDealerPriceQuote, Bikewale.DAL.AutoBiz.DealerPriceQuoteRepository>();
                 objPQ = objPQCont.Resolve<IPriceQuote>();
-                objDealerPQ = objPQCont.Resolve<IDealerPriceQuote>();
+                _dealerPQCache = objPQCont.Resolve<IDealerPriceQuoteCache>();
             }
+            
         }
 
         /// <summary>
@@ -203,7 +210,7 @@ namespace Bikewale.BAL.PriceQuote
         /// <param name="cityId"></param>
         /// <param name="modelId"></param>
         /// <param name="dealerId"></param>
-        public void GetDealerVersionsPriceByModelCity(IEnumerable<BikeVersionMinSpecs> versionSpecs, uint cityId, uint modelId, uint dealerId = 0)
+        public void GetDealerVersionsPriceByModelCity(IEnumerable<BikeVersionMinSpecs> versionList, uint cityId, uint modelId, uint dealerId = 0)
         {
             IEnumerable<PQ_VersionPrice> objDealerPrice = null;
             IEnumerable<OtherVersionInfoEntity> objBWPrice = null;
@@ -211,12 +218,12 @@ namespace Bikewale.BAL.PriceQuote
             {
                 if (dealerId > 0)
                 {
-                    objDealerPrice = objDealerPQ.GetDealerPriceQuoteByModelCity(cityId, modelId, dealerId);
+                    objDealerPrice = _dealerPQCache.GetDealerPriceQuotesByModelCity(cityId, modelId, dealerId);
                 }
                 objBWPrice = objPQ.GetOtherVersionsPrices(modelId, cityId);
-                if (versionSpecs != null && versionSpecs.Any())
+                if (versionList != null && versionList.Any())
                 {
-                    foreach (var version in versionSpecs)
+                    foreach (var version in versionList)
                     {
                         var dealerPrice = objDealerPrice != null && objDealerPrice.FirstOrDefault(x => x.VersionId == version.VersionId) != null ? objDealerPrice.FirstOrDefault(x => x.VersionId == version.VersionId).Price : 0;
                         if (dealerPrice > 0)

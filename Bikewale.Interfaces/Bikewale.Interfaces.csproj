@@ -202,6 +202,7 @@
     <Compile Include="Notifications\INotifications.cs" />
     <Compile Include="Notifications\INotificationsRepository.cs" />
     <Compile Include="Pager\IPager.cs" />
+    <Compile Include="PriceQuote\IDealerPriceQuoteCache.cs" />
     <Compile Include="PriceQuote\IDealerPriceQuoteDetail.cs" />
     <Compile Include="PriceQuote\ILeadNofitication.cs" />
     <Compile Include="PriceQuote\IPQByCityArea.cs" />

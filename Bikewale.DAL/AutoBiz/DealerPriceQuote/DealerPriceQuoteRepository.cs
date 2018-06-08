@@ -162,13 +162,13 @@ namespace Bikewale.DAL.AutoBiz
 
         /// <summary>
         /// Created By  : Pratibha Verma on 8 June 2018
-        /// Description : return dealer price for all versions
+        /// Description : returns dealer price for all versions
         /// </summary>
         /// <param name="cityId"></param>
         /// <param name="modelId"></param>
         /// <param name="dealerId"></param>
         /// <returns></returns>
-        public IEnumerable<PQ_VersionPrice> GetDealerPriceQuoteByModelCity(uint cityId, uint modelId, uint dealerId)
+        public IEnumerable<PQ_VersionPrice> GetDealerPriceQuotesByModelCity(uint cityId, uint modelId, uint dealerId)
         {
             IList<PQ_VersionPrice> dealerPriceObj = null;
             try
