@@ -127,7 +127,7 @@ namespace Bikewale.Service.Controllers.City
         /// </summary>
         /// <param name="stateName"></param>
         /// <returns>CityList</returns>
-        [ResponseType(typeof(CityList)),Route("api/citylist/getcities/")]
+        [ResponseType(typeof(CityList)),Route("api/cities/")]
         public IHttpActionResult GetCitiesByStateName(string stateName)
         {
             ICollection<CityEntityBase> objCityEntityList = null;
