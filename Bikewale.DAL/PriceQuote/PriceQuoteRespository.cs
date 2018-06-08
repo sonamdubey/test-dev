@@ -1,5 +1,6 @@
 ﻿using Bikewale.Entities;
 using Bikewale.Entities.BikeBooking;
+using Bikewale.Entities.BikeData;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Notifications;
@@ -686,6 +687,11 @@ namespace Bikewale.DAL.PriceQuote
                 ErrorClass.LogError(ex, String.Format("PriceQuoteRepository.GetManufacturerDealers()"));
             }
             return dealers;
+        }
+
+        public void GetDealerVersionsPriceByModelCity(IEnumerable<BikeVersionMinSpecs> versionList, uint cityId, uint modelId, uint dealerId = 0)
+        {
+            throw new NotImplementedException();
         }
 
     }   // Class

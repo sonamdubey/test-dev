@@ -88,6 +88,7 @@ namespace Bikewale.Models
                 if (_versionId > 0)
                 {
                     GetBikeVersions(objData);
+                    _objPQ.GetDealerVersionsPriceByModelCity(objData.VersionSpecs ,_cityId, _modelId, _dealerId);
                     SetDealerPriceQuoteDetail(objData);
                     SetModelVariables(objData);
                     BindPageWidgets(objData);

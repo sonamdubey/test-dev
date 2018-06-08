@@ -1,10 +1,16 @@
-﻿using Bikewale.DAL.PriceQuote;
+﻿using Bikewale.DAL.AutoBiz;
+using Bikewale.DAL.PriceQuote;
 using Bikewale.Entities.BikeBooking;
+using Bikewale.Entities.BikeData;
 using Bikewale.Entities.PriceQuote;
+using Bikewale.Interfaces.AutoBiz;
 using Bikewale.Interfaces.PriceQuote;
+using Bikewale.Notifications;
+using BikeWale.Entities.AutoBiz;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Bikewale.BAL.PriceQuote
 {
@@ -18,13 +24,16 @@ namespace Bikewale.BAL.PriceQuote
     public class PriceQuote : IPriceQuote
     {
         private readonly IPriceQuote objPQ = null;
+        private readonly IDealerPriceQuote objDealerPQ = null;
 
         public PriceQuote()
         {
             using (IUnityContainer objPQCont = new UnityContainer())
             {
                 objPQCont.RegisterType<IPriceQuote, PriceQuoteRepository>();
+                objPQCont.RegisterType<IDealerPriceQuote, DealerPriceQuoteRepository>();
                 objPQ = objPQCont.Resolve<IPriceQuote>();
+                objDealerPQ = objPQCont.Resolve<IDealerPriceQuote>();
             }
         }
 
@@ -185,6 +194,46 @@ namespace Bikewale.BAL.PriceQuote
         public IEnumerable<Entities.ManufacturerDealer> GetManufacturerDealers()
         {
             return objPQ.GetManufacturerDealers();
+        }
+
+        /// <summary>
+        /// Created by  : Pratibha Verma on 8 June 2018
+        /// Description : returns version price
+        /// </summary>
+        /// <param name="cityId"></param>
+        /// <param name="modelId"></param>
+        /// <param name="dealerId"></param>
+        public void GetDealerVersionsPriceByModelCity(IEnumerable<BikeVersionMinSpecs> versionSpecs, uint cityId, uint modelId, uint dealerId = 0)
+        {
+            IEnumerable<PQ_VersionPrice> objDealerPrice = null;
+            IEnumerable<OtherVersionInfoEntity> objBWPrice = null;
+            try
+            {
+                if (dealerId > 0)
+                {
+                    objDealerPrice = objDealerPQ.GetDealerPriceQuoteByModelCity(cityId, modelId, dealerId);
+                }
+                objBWPrice = objPQ.GetOtherVersionsPrices(modelId, cityId);
+                if (versionSpecs != null && versionSpecs.Any())
+                {
+                    foreach (var version in versionSpecs)
+                    {
+                        var dealerPrice = objDealerPrice != null && objDealerPrice.FirstOrDefault(x => x.VersionId == version.VersionId) != null ? objDealerPrice.FirstOrDefault(x => x.VersionId == version.VersionId).Price : 0;
+                        if (dealerPrice > 0)
+                        {
+                            version.Price = dealerPrice;
+                        }
+                        else
+                        {
+                            version.Price = objBWPrice != null && objBWPrice.FirstOrDefault(x => x.VersionId == version.VersionId) != null ? objBWPrice.FirstOrDefault(x => x.VersionId == version.VersionId).OnRoadPrice : 0;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "Bikewale.BAL.PriceQuote.GetDealerVersionPriceByModelCity");
+            }
         }
     }   // class
 }   // namespace

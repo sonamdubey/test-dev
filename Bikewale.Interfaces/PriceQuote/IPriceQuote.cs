@@ -1,4 +1,5 @@
 ﻿using Bikewale.Entities;
+using Bikewale.Entities.BikeData;
 using Bikewale.Entities.PriceQuote;
 using System;
 using System.Collections.Generic;
@@ -29,5 +30,6 @@ namespace Bikewale.Interfaces.PriceQuote
         IEnumerable<BikeQuotationEntity> GetVersionPricesByModelId(uint modelId, uint cityId, out bool HasArea);
         BikeQuotationEntity GetPriceQuoteById(ulong p, Entities.BikeBooking.LeadSourceEnum leadSourceEnum);
         IEnumerable<ManufacturerDealer> GetManufacturerDealers();
+        void GetDealerVersionsPriceByModelCity(IEnumerable<BikeVersionMinSpecs> versionList, uint cityId, uint modelId, uint dealerId = 0);
     }
 }
