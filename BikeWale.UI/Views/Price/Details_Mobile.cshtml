@@ -18,6 +18,7 @@
 @if (Model.DetailedDealer != null && Model.DetailedDealer.PrimaryDealer != null && Model.DetailedDealer.PrimaryDealer.HasOffers)
 {
     int offersCount = Model.DetailedDealer.PrimaryDealer.OfferList.Count();
+    Model.CssClasses.Add("bodyTagClass", "offer-summary-toolbar--active");
     <div id="offersSummaryToolbar" class="offers-summary-toolbar pq__offers-summary-toolbar">
         <div class="dealer__offers-summary-content">
             <span class="dealer-offers__icon"></span>

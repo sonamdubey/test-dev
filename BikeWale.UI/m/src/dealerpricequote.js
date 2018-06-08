@@ -101,7 +101,8 @@ docReady(function () {
 	});
 
 	$('#closeDealerOffersToolbar').on('click', function() {
-		$('#offersSummaryToolbar').remove();
+	    $('#offersSummaryToolbar').remove();
+	    $('body').removeClass('offer-summary-toolbar--active');
 	});
 
     emiPopupDiv = $("#emiPopup");
@@ -278,6 +279,10 @@ docReady(function () {
     // version dropdown
     function handleVersionMenuClick(dropdown) {
         var offsetTop = $(dropdown.container).offset().top - $('#bw-header').height();
+        var offersToolbar = $('#offersSummaryToolbar').find('.dealer__offers-summary-content');
+        if (offersToolbar.length) {
+            offsetTop = offsetTop - offersToolbar.outerHeight();
+        }
 
         $('html, body').animate({ scrollTop: offsetTop }, 500);
     }
