@@ -1,5 +1,4 @@
-﻿using Bikewale.Common;
-using Bikewale.Entities;
+﻿using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Compare;
 using Bikewale.Interfaces.BikeData;
@@ -95,7 +94,7 @@ namespace Bikewale.Controllers
             }
             else
             {
-                return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+                return HttpNotFound();
             }
 
         }
@@ -136,7 +135,7 @@ namespace Bikewale.Controllers
             }
             else
             {
-                return Redirect(CommonOpn.AppPath + "pageNotFound.aspx");
+                return HttpNotFound();
             }
         }
 
@@ -175,7 +174,7 @@ namespace Bikewale.Controllers
             }
             else
             {
-                return Redirect("/pageNotFound.aspx");
+                return HttpNotFound();
             }
         }
 

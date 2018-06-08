@@ -25,6 +25,8 @@ namespace Bikewale.Models.BikeModels
     /// Description :   Added EMICalculator
     /// Modified by : Ashutosh Sharma on 19 Mar 2018.
     /// Description : Added BikeSpecsFeatures for VM for bike specs & features, moved IsVersionSpecsAvailable to BikeSpecsFeatures VM.
+    /// Modified by : Sanskar Gupta on 25 May 2018
+    /// Description : Added `bool ShowSeriesSlug` and `ModelSeriesSlugVM SeriesSlug` objects
     /// </summary>
     public class ModelPageVM : ModelBase
     {
@@ -142,6 +144,9 @@ namespace Bikewale.Models.BikeModels
         public EMICalculatorVM EMICalculator { get; set; }
         public bool IsElectricBike { get; set; }
         public BikeSpecsFeaturesVM BikeSpecsFeatures { get; set; }
+
+        public bool ShowSeriesSlug { get; set; }
+        public ModelSeriesSlugVM SeriesSlug { get; set; }
     }
 
 }

@@ -68,7 +68,7 @@ else if (Model.IsPopularBodyStyleAvailable && (Model.IsNewBike || Model.IsUpcomi
 @*<div class="margin-bottom20 text-center">
         @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad300x250.cshtml", new { AdId = Model.AdTags.AdId });}
     </div>*@
-<div id="specsFeaturesAndAboutContent" data-id="specsFeaturesAndAboutContent" class="bw-model-tabs-data">
+<div id="specsFeaturesAndAboutContent" data-id="specsFeaturesAndAboutContent" class="bw-model-tabs-data padding-top15">
     @if (Model.BikeSpecsFeatures != null)
     {
         @Html.Partial("~/Views/Model/_Index_ModelSpecsAndFeatures_Mobile.cshtml", Model.BikeSpecsFeatures)

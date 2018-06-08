@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using Bikewale.BAL.ApiGateway.Adapters.BikeData;
+using Bikewale.BAL.ApiGateway.ApiGatewayHelper;
 using Bikewale.BAL.BikeData;
 using Bikewale.BAL.Pager;
 using Bikewale.Cache.BikeData;
@@ -20,9 +18,10 @@ using Bikewale.Interfaces.Pager;
 using Bikewale.Models;
 using Bikewale.Utility;
 using Microsoft.Practices.Unity;
-
-using Bikewale.BAL.ApiGateway.ApiGatewayHelper;
-using Bikewale.BAL.ApiGateway.Adapters.BikeData;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
 
 namespace Bikewale.New
 {
@@ -224,9 +223,7 @@ namespace Bikewale.New
                             }
                             else
                             {
-                                Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
-                                HttpContext.Current.ApplicationInstance.CompleteRequest();
-                                this.Page.Visible = false;
+                                UrlRewrite.Return404();
                             }
                         }
                     }
@@ -295,15 +292,19 @@ namespace Bikewale.New
         /// <returns></returns>
         private void BindFullSpecsFeatures()
         {
-            using (IUnityContainer container = new UnityContainer())
+            if (versionId > 0)
             {
-                container.RegisterType<IApiGatewayCaller, ApiGatewayCaller>();
-                var _apiGatewayCaller = container.Resolve<IApiGatewayCaller>();
-                GetVersionSpecsByIdAdapter adapter = new GetVersionSpecsByIdAdapter();
-                adapter.AddApiGatewayCall(_apiGatewayCaller, new List<int> { (int)versionId });
-                _apiGatewayCaller.Call();
-                versionSpecsFeatures = adapter.Output;
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    container.RegisterType<IApiGatewayCaller, ApiGatewayCaller>();
+                    var _apiGatewayCaller = container.Resolve<IApiGatewayCaller>();
+                    GetVersionSpecsByIdAdapter adapter = new GetVersionSpecsByIdAdapter();
+                    adapter.AddApiGatewayCall(_apiGatewayCaller, new List<int> { (int)versionId });
+                    _apiGatewayCaller.Call();
+                    versionSpecsFeatures = adapter.Output;
+                }
             }
+            
         }
 
         /// Created  By :- Sajal Gupta on 13-02-2017
@@ -336,7 +337,7 @@ namespace Bikewale.New
                                 .RegisterType<IApiGatewayCaller, ApiGatewayCaller>()
                                 .RegisterType<IBikeVersionsRepository<BikeVersionEntity, uint>, BikeVersionsRepository<BikeVersionEntity, uint>>()
                                 .RegisterType<IBikeVersionCacheRepository<BikeVersionEntity, uint>, BikeVersionsCacheRepository<BikeVersionEntity, uint>>()
-								.RegisterType<ICacheManager, MemcacheManager>();
+                                .RegisterType<ICacheManager, MemcacheManager>();
                         var objVersion = container.Resolve<IBikeVersions<BikeVersionEntity, uint>>();
                         var objSimilarBikes = new SimilarBikesWidget(objVersion, (uint)versionId, PQSourceEnum.Desktop_DPQ_Alternative);
 
@@ -409,7 +410,7 @@ namespace Bikewale.New
         {
             try
             {
-                if(modelId > 0)
+                if (modelId > 0)
                 {
                     using (IUnityContainer container = new UnityContainer())
                     {
@@ -420,7 +421,7 @@ namespace Bikewale.New
                                     .RegisterType<IPager, Pager>();
                         var models = container.Resolve<IBikeModels<BikeModelEntity, int>>();
                         Series = models.GetSeriesByModelId(modelId);
-                        if(Series != null && Series.IsSeriesPageUrl)
+                        if (Series != null && Series.IsSeriesPageUrl)
                         {
                             seriesUrl = string.Format("{0}-bikes/{1}/", makeMaskingName, Series.MaskingName);
                         }

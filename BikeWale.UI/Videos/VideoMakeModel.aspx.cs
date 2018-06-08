@@ -222,9 +222,7 @@ namespace Bikewale.Videos
                 }
                 else if (isPageNotFound)
                 {
-                    Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
-                    HttpContext.Current.ApplicationInstance.CompleteRequest();
-                    this.Page.Visible = false;
+                    UrlRewrite.Return404();
                 }
             }
         }
@@ -277,9 +275,7 @@ namespace Bikewale.Videos
                         {
                             // As no videos are found, please redirect to 404 error
 
-                            Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
-                            HttpContext.Current.ApplicationInstance.CompleteRequest();
-                            this.Page.Visible = false;
+                            UrlRewrite.Return404();
                         }
                     }
                 }

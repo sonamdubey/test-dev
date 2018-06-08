@@ -41,9 +41,7 @@ namespace Bikewale.Used
 		{
 			if(Request["profileNo"] == null || Request.QueryString["profileNo"] == "")
 			{
-				Response.Redirect( CommonOpn.AppPath + "pageNotFound.aspx",false);
-                HttpContext.Current.ApplicationInstance.CompleteRequest();
-                this.Page.Visible = false;
+                UrlRewrite.Return404();
 			}
 			else
 			{
@@ -53,9 +51,7 @@ namespace Bikewale.Used
 				//verify the id as passed in the url
                 if (CommonOpn.CheckId(inquiryId) == false)
                 {
-                    Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx",false);
-                    HttpContext.Current.ApplicationInstance.CompleteRequest();
-                    this.Page.Visible = false;
+                    UrlRewrite.Return404();
                 }
 			}
 						

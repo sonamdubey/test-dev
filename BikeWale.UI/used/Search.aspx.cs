@@ -196,7 +196,7 @@ namespace Bikewale.Used
                 }
                 else if (objUsedBikesPage.IsPageNotFound)
                 {
-                    Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
+                    UrlRewrite.Return404();
                 }
 
             }

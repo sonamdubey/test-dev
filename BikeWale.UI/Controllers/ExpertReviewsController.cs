@@ -82,7 +82,7 @@ namespace Bikewale.Controllers
             ExpertReviewsIndexPage obj = new ExpertReviewsIndexPage(_cmsCache, _pager, _models, _bikeModels, _upcoming, _bikeMakesCacheRepository, _objVersion, _seriesCache, _series, _cityCache, _bikeInfo, _modelMaskingCache);
             if (obj.status == Entities.StatusCodes.ContentNotFound)
             {
-                return Redirect("/pagenotfound.aspx");
+                return HttpNotFound();
             }
             else if (obj.status == Entities.StatusCodes.RedirectPermanent)
             {
@@ -92,7 +92,7 @@ namespace Bikewale.Controllers
             {
                 ExpertReviewsIndexPageVM objData = obj.GetData(4);
                 if (obj.status == StatusCodes.ContentNotFound)
-                    return Redirect("/pagenotfound.aspx");
+                    return HttpNotFound();
                 else
                     return View(objData);
             }
@@ -109,7 +109,7 @@ namespace Bikewale.Controllers
             obj.IsMobile = true;
             if (obj.status == Entities.StatusCodes.ContentNotFound)
             {
-                return Redirect("/m/pagenotfound.aspx");
+                return HttpNotFound();
             }
             else if (obj.status == Entities.StatusCodes.RedirectPermanent)
             {
@@ -119,7 +119,7 @@ namespace Bikewale.Controllers
             {
                 ExpertReviewsIndexPageVM objData = obj.GetData(9);
                 if (obj.status == StatusCodes.ContentNotFound)
-                    return Redirect("/m/pagenotfound.aspx");
+                    return HttpNotFound();
                 else
                     return View(objData);
             }
@@ -133,7 +133,7 @@ namespace Bikewale.Controllers
             obj.IsMobile = true;
             if (obj.status == StatusCodes.ContentNotFound)
             {
-                return Redirect("/m/pagenotfound.aspx");
+                return HttpNotFound();
             }
             else if (obj.status == StatusCodes.RedirectPermanent)
             {
@@ -156,7 +156,7 @@ namespace Bikewale.Controllers
                     _logger.Error(sw.ElapsedMilliseconds);
                 }
                 if (obj.status == StatusCodes.ContentNotFound)
-                    return Redirect("/m/pagenotfound.aspx");
+                    return HttpNotFound();
                 else
                 {
                     return View(objData);
@@ -174,7 +174,7 @@ namespace Bikewale.Controllers
             ExpertReviewsDetailPage obj = new ExpertReviewsDetailPage(_cmsCache, _models, _bikeModels, _upcoming, _bikeInfo, _cityCache, _bikeMakesCacheRepository, _objVersion, _bikeMasking, basicid, _renderedArticles, _seriesCache, _series);
             if (obj.status == Entities.StatusCodes.ContentNotFound)
             {
-                return Redirect("/m/pagenotfound.aspx");
+                return HttpNotFound();
             }
             else if (obj.status == Entities.StatusCodes.RedirectPermanent)
             {
@@ -186,7 +186,7 @@ namespace Bikewale.Controllers
                 obj.RefControllerContext = ControllerContext;
                 ExpertReviewsDetailPageVM objData = obj.GetData(9);
                 if (obj.status == Entities.StatusCodes.ContentNotFound)
-                    return Redirect("/m/pagenotfound.aspx");
+                    return HttpNotFound();
                 else
                     return View(objData);
             }
@@ -205,7 +205,7 @@ namespace Bikewale.Controllers
             obj.IsMobile = true;
             if (obj.status == Entities.StatusCodes.ContentNotFound)
             {
-                return Redirect("/m/pagenotfound.aspx");
+                return HttpNotFound();
             }
             else if (obj.status == Entities.StatusCodes.RedirectPermanent)
             {
@@ -228,7 +228,7 @@ namespace Bikewale.Controllers
                 }
 
                 if (obj.status == Entities.StatusCodes.ContentNotFound)
-                    return Redirect("/m/pagenotfound.aspx");
+                    return HttpNotFound();
                 else
                 {
                     return View(objData);
@@ -247,7 +247,7 @@ namespace Bikewale.Controllers
             ExpertReviewsDetailPage obj = new ExpertReviewsDetailPage(_cmsCache, _models, _bikeModels, _upcoming, _bikeInfo, _cityCache, _bikeMakesCacheRepository, _objVersion, _bikeMasking, basicid, _renderedArticles, _seriesCache, _series);
             if (obj.status == Entities.StatusCodes.ContentNotFound)
             {
-                return Redirect("/pagenotfound.aspx");
+                return HttpNotFound();
             }
             else if (obj.status == Entities.StatusCodes.RedirectPermanent)
             {
@@ -258,7 +258,7 @@ namespace Bikewale.Controllers
                 obj.RefControllerContext = ControllerContext;
                 ExpertReviewsDetailPageVM objData = obj.GetData(3);
                 if (obj.status == Entities.StatusCodes.ContentNotFound)
-                    return Redirect("/pagenotfound.aspx");
+                    return HttpNotFound();
                 else
                     return View(objData);
             }
@@ -279,7 +279,7 @@ namespace Bikewale.Controllers
             ExpertReviewsDetailPage obj = new ExpertReviewsDetailPage(_cmsCache, _models, _bikeModels, _upcoming, _bikeInfo, _cityCache, _bikeMakesCacheRepository, _objVersion, _bikeMasking, basicid, _renderedArticles, _seriesCache, _series);
             if (obj.status == StatusCodes.ContentNotFound)
             {
-                return Redirect("/pagenotfound.aspx");
+                return HttpNotFound();
             }
             else if (obj.status == StatusCodes.RedirectPermanent)
             {
@@ -292,7 +292,7 @@ namespace Bikewale.Controllers
                 obj.RefControllerContext = ControllerContext;
                 objData = obj.GetData(9);
                 if (obj.status == StatusCodes.ContentNotFound)
-                    return Redirect("/pagenotfound.aspx");
+                    return HttpNotFound();
                 else
                     return View("~/views/m/content/expertreviews/details_amp.cshtml", objData);
             }
@@ -337,7 +337,7 @@ namespace Bikewale.Controllers
                 ScooterExpertReviewsPage obj = new ScooterExpertReviewsPage(_cmsCache, _pager, _models, _bikeModels, _bikeMakesCacheRepository);
                 if (obj.status == StatusCodes.ContentNotFound)
                 {
-                    return Redirect("/pagenotfound.aspx");
+                    return HttpNotFound();
                 }
                 else if (obj.status == StatusCodes.RedirectPermanent)
                 {
@@ -347,7 +347,7 @@ namespace Bikewale.Controllers
                 {
                     ScooterExpertReviewsPageVM objData = obj.GetData();
                     if (obj.status == StatusCodes.ContentNotFound)
-                        return Redirect("/pagenotfound.aspx");
+                        return HttpNotFound();
                     else
                         return View(objData);
                 }
@@ -355,7 +355,7 @@ namespace Bikewale.Controllers
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "Bikewale.Controllers.ExpertReviewsController.Scooters");
-                return Redirect("/pagenotfound.aspx");
+                return HttpNotFound();
             }
         }
 
@@ -373,7 +373,7 @@ namespace Bikewale.Controllers
                 obj.IsMobile = true;
                 if (obj.status == StatusCodes.ContentNotFound)
                 {
-                    return Redirect("/m/pagenotfound.aspx");
+                    return HttpNotFound();
                 }
                 else if (obj.status == StatusCodes.RedirectPermanent)
                 {
@@ -383,7 +383,7 @@ namespace Bikewale.Controllers
                 {
                     ScooterExpertReviewsPageVM objData = obj.GetData();
                     if (obj.status == StatusCodes.ContentNotFound)
-                        return Redirect("/m/pagenotfound.aspx");
+                        return HttpNotFound();
                     else
                         return View(objData);
                 }
@@ -392,7 +392,7 @@ namespace Bikewale.Controllers
             {
 
                 ErrorClass.LogError(ex, "Bikewale.Controllers.ExpertReviewsController.Scooters_Mobile");
-                return Redirect("/m/pagenotfound.aspx");
+                return HttpNotFound();
             }
         }
         #endregion

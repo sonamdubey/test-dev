@@ -113,18 +113,21 @@ namespace Bikewale.BAL.BikeData
         /// <returns></returns>
         public SpecsFeaturesEntity GetFullSpecsFeatures(int versionId)
         {
-            GetVersionSpecsByIdAdapter adapter = null;
             try
             {
-                adapter = new GetVersionSpecsByIdAdapter();
-                adapter.AddApiGatewayCall(_apiGatewayCaller, new List<int> { (int)versionId });
-                _apiGatewayCaller.Call();
+				if (versionId > 0)
+				{
+					GetVersionSpecsByIdAdapter adapter = new GetVersionSpecsByIdAdapter();
+					adapter.AddApiGatewayCall(_apiGatewayCaller, new List<int> { versionId });
+					_apiGatewayCaller.Call();
+					return adapter.Output;
+				}
             }
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, string.Format("Bikewale.BAL.BikeData.BikeModels.GetFullSpecsFeatures({0})",versionId));
             }
-            return adapter.Output;
+            return null;
         }
         public List<BikeModelEntityBase> GetModelsByType(EnumBikeType requestType, int makeId)
         {
@@ -460,14 +463,16 @@ namespace Bikewale.BAL.BikeData
                     {
                         var modelVersion = objModelPage.ModelVersions.FirstOrDefault();
                         int versionId = modelVersion.VersionId;
-                        
+                        VersionsDataByItemIds_Input specItemInput;
                         BikeVersionMinSpecs objOverview = new BikeVersionMinSpecs() { VersionId = versionId };
 
                         GetVersionSpecsSummaryByItemIdAdapter adapt1 = new GetVersionSpecsSummaryByItemIdAdapter();
-                        VersionsDataByItemIds_Input specItemInput = new VersionsDataByItemIds_Input
+                        if (versionId > 0)
                         {
-                            Versions = new List<int> { versionId },
-                            Items = new List<EnumSpecsFeaturesItems>
+                            specItemInput = new VersionsDataByItemIds_Input
+                            {
+                                Versions = new List<int> { versionId },
+                                Items = new List<EnumSpecsFeaturesItems>
                             {
                                 EnumSpecsFeaturesItems.Displacement,
                                 EnumSpecsFeaturesItems.MaxPower,
@@ -484,8 +489,9 @@ namespace Bikewale.BAL.BikeData
                                 EnumSpecsFeaturesItems.FuelTankCapacity,
                                 EnumSpecsFeaturesItems.MaxPowerBhp
                             }
-                        };
-                        adapt1.AddApiGatewayCall(_apiGatewayCaller, specItemInput);
+                            };
+                            adapt1.AddApiGatewayCall(_apiGatewayCaller, specItemInput);
+                        }
 
                         GetVersionSpecsSummaryByItemIdAdapter adapt2 = new GetVersionSpecsSummaryByItemIdAdapter();
                         specItemInput = new VersionsDataByItemIds_Input
@@ -501,18 +507,21 @@ namespace Bikewale.BAL.BikeData
                         adapt2.AddApiGatewayCall(_apiGatewayCaller, specItemInput);
 
                         _apiGatewayCaller.Call();
+                        if (versionId > 0)
+                        {
+                            JoinBikeListWithMinSpecs(new List<BikeVersionMinSpecs> { objOverview }, adapt1.Output);
+                            objModelPage.SpecsSummaryList = objOverview.MinSpecsList;
+                        }
 
-                        JoinBikeListWithMinSpecs(new List<BikeVersionMinSpecs> { objOverview }, adapt1.Output);
-                        objModelPage.SpecsSummaryList = objOverview.MinSpecsList;
 
-			JoinBikeListWithMinSpecs(objModelPage.ModelVersions, adapt2.Output);
-			if (modelVersion.MinSpecsList.Any(s => !string.IsNullOrEmpty(s.Value)))
-			{
-				objModelPage.ModelVersionMinSpecs = new BikeVersionMinSpecs()
-				{
-					VersionId = versionId
-				};
-			}
+                        JoinBikeListWithMinSpecs(objModelPage.ModelVersions, adapt2.Output);
+                        if (modelVersion.MinSpecsList.Any(s => !string.IsNullOrEmpty(s.Value)))
+                        {
+                            objModelPage.ModelVersionMinSpecs = new BikeVersionMinSpecs()
+                            {
+                                VersionId = versionId
+                            };
+                        }
                     }
                     CreateAllPhotoList(modelId, objModelPage);
                     dt2 = DateTime.Now;
@@ -606,15 +615,15 @@ namespace Bikewale.BAL.BikeData
             {
                 if (bikeVersionList != null && bikeVersionList.Any())
                 {
-                    GetVersionSpecsSummaryByItemIdAdapter adapt1 = new GetVersionSpecsSummaryByItemIdAdapter();
+                    GetVersionSpecsSummaryByItemIdAdapter adapt = new GetVersionSpecsSummaryByItemIdAdapter();
                     VersionsDataByItemIds_Input specItemInput = new VersionsDataByItemIds_Input
                     {
                         Versions = bikeVersionList.Select(m => m.VersionId),
                         Items = itemIds
                     };
-                    adapt1.AddApiGatewayCall(_apiGatewayCaller, specItemInput);
+                    adapt.AddApiGatewayCall(_apiGatewayCaller, specItemInput);
                     _apiGatewayCaller.Call();
-                    JoinBikeListWithMinSpecs(bikeVersionList, adapt1.Output);
+                    JoinBikeListWithMinSpecs(bikeVersionList, adapt.Output);
                 }
             }
             catch (Exception ex)
@@ -1881,23 +1890,26 @@ namespace Bikewale.BAL.BikeData
                 };
                 if (bikesList != null && bikesList.Any())
                 {
-                    GetVersionSpecsSummaryByItemIdAdapter adapt1 = new GetVersionSpecsSummaryByItemIdAdapter();
+                    GetVersionSpecsSummaryByItemIdAdapter adapt = new GetVersionSpecsSummaryByItemIdAdapter();
                     VersionsDataByItemIds_Input specItemInput = new VersionsDataByItemIds_Input
                     {
                         Versions = bikesList.Select(m => m.VersionId),
                         Items = specItemList
                     };
-                    adapt1.AddApiGatewayCall(_apiGatewayCaller, specItemInput);
+                    adapt.AddApiGatewayCall(_apiGatewayCaller, specItemInput);
                     _apiGatewayCaller.Call();
 
-                    IEnumerable<VersionMinSpecsEntity> specsResponseList = adapt1.Output;
+                    IEnumerable<VersionMinSpecsEntity> specsResponseList = adapt.Output;
                     if (specsResponseList != null)
                     {
                         var specsEnumerator = specsResponseList.GetEnumerator();
                         var bikesEnumerator = bikesList.GetEnumerator();
-                        while (bikesEnumerator.MoveNext() && specsEnumerator.MoveNext())
+                        while (bikesEnumerator.MoveNext())
                         {
-                            bikesEnumerator.Current.MinSpecsList = specsEnumerator.Current.MinSpecsList;
+                            if (!bikesEnumerator.Current.VersionId.Equals(0) && specsEnumerator.MoveNext())
+                            {
+                                bikesEnumerator.Current.MinSpecsList = specsEnumerator.Current.MinSpecsList;
+                            }
                         }
                     }
                 }
@@ -1952,23 +1964,26 @@ namespace Bikewale.BAL.BikeData
             {
                 if (bikesList != null && bikesList.Any())
                 {
-                    GetVersionSpecsSummaryByItemIdAdapter adapt1 = new GetVersionSpecsSummaryByItemIdAdapter();
+                    GetVersionSpecsSummaryByItemIdAdapter adapt = new GetVersionSpecsSummaryByItemIdAdapter();
                     VersionsDataByItemIds_Input specItemInput = new VersionsDataByItemIds_Input
                     {
                         Versions = bikesList.Select(m => m.objVersion.VersionId),
                         Items = specItemList
                     };
-                    adapt1.AddApiGatewayCall(_apiGatewayCaller, specItemInput);
+                    adapt.AddApiGatewayCall(_apiGatewayCaller, specItemInput);
                     _apiGatewayCaller.Call();
 
-                    IEnumerable<VersionMinSpecsEntity> specsResponseList = adapt1.Output;
+                    IEnumerable<VersionMinSpecsEntity> specsResponseList = adapt.Output;
                     if (specsResponseList != null)
                     {
                         var specsEnumerator = specsResponseList.GetEnumerator();
                         var bikesEnumerator = bikesList.GetEnumerator();
-                        while (bikesEnumerator.MoveNext() && specsEnumerator.MoveNext())
+                        while (bikesEnumerator.MoveNext())
                         {
-                            bikesEnumerator.Current.MinSpecsList = specsEnumerator.Current.MinSpecsList;
+                            if (!bikesEnumerator.Current.objVersion.VersionId.Equals(0) && specsEnumerator.MoveNext())
+                            {
+                                bikesEnumerator.Current.MinSpecsList = specsEnumerator.Current.MinSpecsList;
+                            }
                         }
                     }
                 }
@@ -1990,9 +2005,12 @@ namespace Bikewale.BAL.BikeData
                 {
                     var specsEnumerator = specItemList.GetEnumerator();
                     var bikesEnumerator = versionList.GetEnumerator();
-                    while (bikesEnumerator.MoveNext() && specsEnumerator.MoveNext())
-                    {
-                        bikesEnumerator.Current.MinSpecsList = specsEnumerator.Current.MinSpecsList;
+                    while (bikesEnumerator.MoveNext())
+                    { 
+                        if(!bikesEnumerator.Current.VersionId.Equals(0) && specsEnumerator.MoveNext())
+                        {
+                            bikesEnumerator.Current.MinSpecsList = specsEnumerator.Current.MinSpecsList;
+                        }
                     }
                 }
             }

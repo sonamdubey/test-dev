@@ -180,9 +180,8 @@ namespace Bikewale.Mobile.PriceQuote
             {
                 if (!_isContentFound)
                 {
-                    Response.Redirect("/m/pagenotfound.aspx", false);
-                    HttpContext.Current.ApplicationInstance.CompleteRequest();
-                    this.Page.Visible = false;
+                    UrlRewrite.Return404();
+
                 }
             }
         }

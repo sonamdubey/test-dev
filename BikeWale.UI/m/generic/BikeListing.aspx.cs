@@ -1,4 +1,5 @@
 ﻿using Bikewale.BindViewModels.Webforms.GenericBikes;
+using Bikewale.Common;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
@@ -82,9 +83,7 @@ namespace Bikewale.Mobile.Generic
                 }
                 else
                 {
-                    Response.Redirect("/pagenotfound.aspx", false);
-                    HttpContext.Current.ApplicationInstance.CompleteRequest();
-                    this.Page.Visible = false;
+                    UrlRewrite.Return404();
                 }
 
 

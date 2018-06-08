@@ -59,6 +59,10 @@
     <Reference Include="Kafka">
       <HintPath>..\Libs\zipkin\Kafka.dll</HintPath>
     </Reference>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="LZ4">
       <HintPath>..\Libs\zipkin\LZ4.dll</HintPath>
     </Reference>
@@ -88,6 +92,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+  <Compile Include="Adapters\SpamFilter\GetScoreAdapter.cs" />
     <Compile Include="Adapters\BikeData\GetCustomDataTypesByItemIdAdapter.cs" />
     <Compile Include="Adapters\BikeData\GetVersionSpecsByIdAdapter.cs" />
     <Compile Include="Adapters\BikeData\GetVersionSpecsByItemIdAdapter.cs" />
@@ -104,6 +109,8 @@
     <Compile Include="GRPCFiles\BikeData\Item.cs" />
     <Compile Include="GRPCFiles\BikeData\Unittype.cs" />
     <Compile Include="GRPCFiles\BikeData\VehicleData.cs" />
+    <Compile Include="Entities\SpamFilter\SpamScore.cs" />
+    <Compile Include="GRPCFiles\SpamFilter\SpamFilter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -120,5 +127,6 @@
       <Name>Bikewale.Utility</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
