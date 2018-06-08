@@ -5,7 +5,6 @@ using Google.Protobuf;
 using log4net;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace Bikewale.BAL.ApiGateway.ApiGatewayHelper
 {
@@ -156,7 +155,6 @@ namespace Bikewale.BAL.ApiGateway.ApiGatewayHelper
         /// </summary>
         private void InvokeCallbackFunctions()
         {
-            DateTime dt1 = DateTime.Now, dt2 = DateTime.Now;
             try
             {
 
@@ -171,12 +169,6 @@ namespace Bikewale.BAL.ApiGateway.ApiGatewayHelper
             catch (Exception ex)
             {
                 throw new Exception("Bikewale.BAL.ApiGatewayHelper.ApiGatewayCaller.InvokeCallbackFunctions", ex);
-            }
-            finally
-            {
-                ThreadContext.Properties["TotalTaskProcesstime"] = (dt2 - dt1).TotalMilliseconds;
-                _logger.Error("InvokeCallBackfunction-RunWOTask");
-                ThreadContext.Properties.Remove("TotalTaskProcesstime");
             }
         }
 
