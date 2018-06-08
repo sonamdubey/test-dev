@@ -120,6 +120,60 @@ namespace Bikewale.Service.Controllers.City
         }   // Get  
         #endregion
 
+        #region Cities based on state Name
+        /// <summary>
+        /// Author  :   Kartik Rathod on 8 jun 2018
+        /// Desc    :   Get cities based on state name 
+        /// </summary>
+        /// <param name="stateName"></param>
+        /// <returns>CityList</returns>
+        [ResponseType(typeof(CityList)),Route("api/citylist/getcities/")]
+        public IHttpActionResult GetCitiesByStateName(string stateName)
+        {
+            ICollection<CityEntityBase> objCityEntityList = null;
+            ICityRepository _citysRepository;
+            try
+            {
+                if (!string.IsNullOrEmpty(stateName))
+                {
+                    using (IUnityContainer container = new UnityContainer())
+                    {
+                        container.RegisterType<ICityRepository, CityRepository>();
+                        _citysRepository = container.Resolve<ICityRepository>();
+
+                        objCityEntityList = _citysRepository.GetCitiesByStateName(stateName);
+
+                        if (objCityEntityList != null && objCityEntityList.Count > 0)
+                        {
+                            CityList objCityList = new CityList();
+
+                            Mapper.CreateMap<CityEntityBase, CityBase>();
+                            objCityList.City = Mapper.Map<ICollection<CityEntityBase>, List<CityBase>>(objCityEntityList);
+
+                            objCityEntityList.Clear();
+                            objCityEntityList = null;
+
+                            return Ok(objCityList);
+                        }
+                        else
+                        {
+                            return NotFound();
+                        }
+                    }
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.City.GetCitiesByStateName");
+                return InternalServerError();
+            }
+        }   // Get  
+        #endregion
+
     }
 
 }

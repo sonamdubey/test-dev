@@ -186,6 +186,7 @@
     <Compile Include="Location\ICity.cs" />
     <Compile Include="Location\ICityCacheRepository.cs" />
     <Compile Include="Location\ICityMaskingCacheRepository.cs" />
+    <Compile Include="Location\ICityRepository.cs" />
     <Compile Include="Location\IState.cs" />
     <Compile Include="Location\IStateCacheRepository.cs" />
     <Compile Include="MobileAppAlert\IMobileAppAlert.cs" />

@@ -8,6 +8,7 @@ using MySql.CoreDAL;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
@@ -15,7 +16,7 @@ using System.Web;
 
 namespace Bikewale.DAL.Location
 {
-    public class CityRepository : ICity
+    public class CityRepository : ICity,ICityRepository
     {
         /// <summary>
         /// Written By : Ashish G. Kamble on 3/8/2012
@@ -420,6 +421,49 @@ namespace Bikewale.DAL.Location
             }
 
             return usedBikeCities;
+        }
+
+        /// <summary>
+        /// Author  :   Kartik Rathod on 8 jun 2018
+        /// Desc    :   Get cities based on state name 
+        /// </summary>
+        /// <param name="stateName"></param>
+        /// <returns>List of CityEntityBase</returns>
+        public ICollection<CityEntityBase> GetCitiesByStateName(string stateName)
+        {
+            ICollection<CityEntityBase> objCityList = null;
+            try
+            {
+                string strQuery = "select id as CityId,Name,CityMaskingName from cities where soundex(StateMaskingName) = soundex(@stateName);";
+                using (DbCommand cmd = DbFactory.GetDBCommand(strQuery))
+                {
+                    cmd.CommandType = CommandType.Text;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("@stateName", DbType.String, stateName));
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            objCityList = new Collection<CityEntityBase>();
+                            while (dr.Read())
+                            {
+                                objCityList.Add(new CityEntityBase
+                                {
+                                    CityId = SqlReaderConvertor.ToUInt32(dr["CityId"]),
+                                    CityName = Convert.ToString(dr["Name"]),
+                                    CityMaskingName = Convert.ToString(dr["CityMaskingName"])
+                                });
+                            }
+                            dr.Close();
+                        }
+                        
+                    }
+                }
+            }
+            catch (Exception err)
+            {
+                ErrorClass.LogError(err, string.Format("CityRepository.GetCitiesByStateName_{0}", stateName));
+            }
+            return objCityList;
         }
     }
 }
