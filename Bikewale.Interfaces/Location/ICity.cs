@@ -1,4 +1,5 @@
-﻿using Bikewale.Entities.BikeData;
+﻿using Bikewale.DTO.City;
+using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.Used;
 using System.Collections;
@@ -13,6 +14,7 @@ namespace Bikewale.Interfaces.Location
     /// Desc : added description for GetDealerStateCities
     /// Modified By:-Subodh Jain 29 dec 2016
     /// Summary :- Get Used Bike By Make City With Count
+    /// Modified By: Kartik Rathod on 8 jun 2018 added GetCitiesByStateName
     /// </summary>
     public interface ICity
     {
@@ -24,5 +26,6 @@ namespace Bikewale.Interfaces.Location
         DealerStateCities GetDealerStateCities(uint makeId, uint stateId);
         IEnumerable<UsedBikeCities> GetUsedBikeByCityWithCount();
         IEnumerable<UsedBikeCities> GetUsedBikeByMakeCityWithCount(uint makeid);
+        IEnumerable<CityBase> GetCitiesByStateName(string stateName);
     }
 }

@@ -120,6 +120,52 @@ namespace Bikewale.Service.Controllers.City
         }   // Get  
         #endregion
 
+        #region Cities based on state Name
+        /// <summary>
+        /// Author  :   Kartik Rathod on 8 jun 2018
+        /// Desc    :   Get cities based on state name 
+        /// </summary>
+        /// <param name="stateName"></param>
+        /// <returns>CityBase List</returns>
+        [Route("api/citylist/getcities/")]
+        public IHttpActionResult GetCitiesByStateName(string stateName)
+        {
+            IEnumerable<CityBase> objCityList = null;
+            ICity _citysRepository;
+            try
+            {
+                if (!string.IsNullOrEmpty(stateName))
+                {
+                    using (IUnityContainer container = new UnityContainer())
+                    {
+                        container.RegisterType<ICity, CityRepository>();
+                        _citysRepository = container.Resolve<ICity>();
+
+                        objCityList = _citysRepository.GetCitiesByStateName(stateName);
+
+                        if (objCityList != null)
+                        {
+                            return Ok(objCityList);
+                        }
+                        else
+                        {
+                            return NotFound();
+                        }
+                    }
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.City.GetCitiesByStateName");
+                return InternalServerError();
+            }
+        }   // Get  
+        #endregion
+
     }
 
 }

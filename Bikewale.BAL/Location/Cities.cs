@@ -1,6 +1,7 @@
 ﻿using Bikewale.Cache.Core;
 using Bikewale.Cache.Location;
 using Bikewale.DAL.Location;
+using Bikewale.DTO.City;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Location;
 using Bikewale.Interfaces.Cache.Core;
@@ -63,5 +64,7 @@ namespace Bikewale.BAL.Location
         {
             return objCities.GetUsedBikeByMakeCityWithCount(makeid);
         }
+
+        public IEnumerable<CityBase> GetCitiesByStateName(string stateName) { throw new NotImplementedException(); }
     }
 }
