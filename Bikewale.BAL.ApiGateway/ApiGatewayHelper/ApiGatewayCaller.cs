@@ -155,7 +155,6 @@ namespace Bikewale.BAL.ApiGateway.ApiGatewayHelper
         /// </summary>
         private void InvokeCallbackFunctions()
         {
-            DateTime dt1 = DateTime.Now, dt2 = DateTime.Now;
             try
             {
 
@@ -170,13 +169,6 @@ namespace Bikewale.BAL.ApiGateway.ApiGatewayHelper
             catch (Exception ex)
             {
                 throw new Exception("Bikewale.BAL.ApiGatewayHelper.ApiGatewayCaller.InvokeCallbackFunctions", ex);
-            }
-            finally
-            {
-                dt2 = DateTime.Now;
-                ThreadContext.Properties["TotalTaskProcesstime"] = (dt2 - dt1).TotalMilliseconds;
-                _logger.Error("InvokeCallBackfunction-RunWOTask");
-                ThreadContext.Properties.Remove("TotalTaskProcesstime");
             }
         }
 
