@@ -98,8 +98,7 @@
                 </tr>
                 <tr>
                     <td class="text-light-grey padding-bottom15" align="left">
-                        Insurance @*@if (!Model.IsPrimaryDealerAvailable && !string.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink) && !Model.IsManufacturerEMIAdShown)
-                        {<br><p class='position-rel'><a target="_blank" rel="noopener" href="@Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink" class="font12 bw-ga text-bold" data-cat="Dealer_PQ" data-act="ICICIBank_Link_Clicked" data-lab="@string.Format("{0}_{1}",Model.BikeName,Model.CiyName);" rel="nofollow">Get Personal Loan Offers</a><span class="position-abt pos-top0 text-light-grey font10 text-unbold">&nbsp;Ad</span></p>}*@
+                        Insurance
                     </td>
                     <td class="padding-bottom10 text-bold" align="right"><span class="bwmsprite inr-xxsm-icon"></span>@CommonOpn.FormatPrice(Model.Quotation.Insurance.ToString())</td>
                 </tr>
@@ -138,7 +137,7 @@
                 }
             </table>
 			if (!Model.IsPrimaryDealerAvailable && !string.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink) && !Model.IsManufacturerLeadAdShown)
-            {<p class='position-rel text-right margin-right15'><a target="_blank" rel="noopener" href="@Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink" class="font12 bw-ga text-bold" data-cat="Dealer_PQ" data-act="ICICIBank_Link_Clicked" data-lab="@string.Format("{0}_{1}",Model.BikeName,Model.CiyName);" rel="nofollow">Get Personal Loan Offers</a><span class="position-abt pos-top0 text-light-grey font10 text-unbold">&nbsp;Ad</span></p>}
+            {<p class='position-rel text-right margin-right15'><a target="_blank" rel="noopener" href="@Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink" class="font12 bw-ga text-bold" data-cat="Dealer_PQ" data-act="BankbazaarLink_Clicked" data-lab="@string.Format("{0}_{1}",Model.BikeName,Model.CiyName);" rel="nofollow">Get Personal Loan Offers</a><span class="position-abt pos-top0 text-light-grey font10 text-unbold">&nbsp;Ad</span></p>}
 			if (Model.IsPrimaryDealerAvailable)
 			{
                 <div class="padding-bottom10"></div>}
@@ -377,7 +376,7 @@
 
         @if (!Model.IsPrimaryDealerAvailable && !string.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink) && !Model.IsManufacturerLeadAdShown)
         {
-            <text>triggerNonInteractiveGA('Dealer_PQ', 'ICICIBank_Link_Shown', bikeVerLocation);</text>
+            <text>triggerNonInteractiveGA('Dealer_PQ', 'BankbazaarLink_Shown', bikeVerLocation);</text>
         }
 
             if (dealerName != "") {
