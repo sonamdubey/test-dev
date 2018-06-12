@@ -47,6 +47,18 @@ class SelectCityPopup extends React.Component {
   componentWillUnmount() {
     removePopupEvents(this.popupContent);
   }
+  
+  shouldComponentUpdate(nextProps) {
+    if (nextProps.isActive === this.props.isActive) {
+      return false;
+    }
+
+    if (nextProps.isActive) {
+      this.popupContent.scrollTop = this.popupScrollPosition
+    }
+
+    return true;
+  }
 
   filterCityList = (event) => {
     var updatedPopular = this.props.data.Popular;
@@ -69,6 +81,8 @@ class SelectCityPopup extends React.Component {
   }
 
   closePopup = () => {
+    this.popupScrollPosition = this.popupContent.scrollTop;
+
     if (this.props.onCloseClick) {
       closePopupWithHash(this.props.onCloseClick)
     }
@@ -118,7 +132,7 @@ class SelectCityPopup extends React.Component {
 
       return (
         <ListGroupItem
-					key={index}
+          key={item.cityId}
           id={item.cityId}
           name={item.cityName}
           active={active}
