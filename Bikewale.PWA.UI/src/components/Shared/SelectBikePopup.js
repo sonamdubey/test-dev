@@ -38,8 +38,22 @@ class SelectBikePopup extends React.Component {
   componentWillUnmount() {
     removePopupEvents(this.popupContent)
   }
+  
+  shouldComponentUpdate(nextProps) {
+    if (nextProps.isActive === this.props.isActive) {
+      return false;
+    }
+
+    if (nextProps.isActive) {
+      this.popupContent.scrollTop = this.popupScrollPosition
+    }
+
+    return true;
+  }
 
   closePopup = () => {
+    this.popupScrollPosition = this.popupContent.scrollTop;
+
     if (this.props.onCloseClick) {
       closePopupWithHash(this.props.onCloseClick);
     }
@@ -122,10 +136,10 @@ class SelectBikePopup extends React.Component {
       return (
         <div data-trigger={item.make.makeName} data-onOpen={this.handleAccordionClick.bind(this)}>
           <ul className="panel-body__list">
-            {item.models.map(function (bike, index) {
+            {item.models.map(function (bike) {
               let eleClassName = `panel-bike-list__item ${(bike.modelId == this.state.currentModelId ? " bike-list-item--active" : "")}`;
               return (
-                <li key={index} className={eleClassName} onClick={this.handleBikeSelection.bind(this, bike)}>
+                <li key={bike.modelId} className={eleClassName} onClick={this.handleBikeSelection.bind(this, bike)}>
                   <p className="bike-list-item__label">{bike.modelName}</p>
                 </li>
               );
