@@ -177,12 +177,16 @@ namespace Bikewale.Models.BikeModels
 
 					_objData.ModelPageEntity = FetchModelPageDetails(_modelId);
 
-					if (_objData.IsModelDetails && _objData.ModelPageEntity.ModelDetails.New)
+                    if (_objData.IsModelDetails && _objData.ModelPageEntity.ModelDetails.New)
 					{
 						FetchOnRoadPrice(_objData.ModelPageEntity);
 					}
+                    if(_objData.ModelPageEntity.ModelVersions != null && _objData.CityId > 0 && _objData.ModelId > 0)
+                    {
+                        _objPQ.GetDealerVersionsPriceByModelCity(_objData.ModelPageEntity.ModelVersions, _objData.CityId, _objData.ModelId, _objData.DealerId);
+                    }
 
-					LoadVariants(_objData.ModelPageEntity);
+                    LoadVariants(_objData.ModelPageEntity);
 
 					#region Code to get the specs and features data from microservice
 					if (!_objData.IsUpcomingBike && _objData.VersionId > 0)
@@ -1734,6 +1738,17 @@ namespace Bikewale.Models.BikeModels
                         else
                         {
                             SetBikeWalePQ(_pqOnRoad);
+                        }
+                    }
+                }
+                else
+                {
+                    if (_cityId > 0 && _objData.City != null)
+                    {
+                        IEnumerable<OtherVersionInfoEntity> objBWPrice =  _objPQ.GetOtherVersionsPrices(_objData.ModelId, _objData.CityId);
+                        if (objBWPrice != null && _objData.SelectedVersion != null && objBWPrice.FirstOrDefault(x => x.VersionId == _objData.SelectedVersion.VersionId) != null)
+                        {
+                            _objData.BikePrice = objBWPrice.FirstOrDefault(x => x.VersionId == _objData.SelectedVersion.VersionId).Price;
                         }
                     }
                 }
