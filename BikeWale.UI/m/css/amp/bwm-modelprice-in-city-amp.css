@@ -1599,6 +1599,7 @@ div::-webkit-scrollbar {
 	flex-direction: column;
 	cursor: pointer;
 	position: relative;
+	background-color: #fff;
 }
 .dropdown-box__menu-tab:after {
 	background: url('https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/dropdown-icon.png') no-repeat center;
@@ -1635,10 +1636,12 @@ div::-webkit-scrollbar {
 	display: none;
 }
 .dropdown-box--active .dropdown-box__menu-tab {
-	-webkit-box-shadow: 2px 0 15px 1px #e2e2e2;
-	-moz-box-shadow: 2px 0 15px 1px #e2e2e2;
-	-ms-box-shadow: 2px 0 15px 1px #e2e2e2;
-	box-shadow: 2px 0 15px 1px #e2e2e2;
+	-webkit-box-shadow: 0 -2px 10px 0 #e2e2e2;
+	-moz-box-shadow: 0 -2px 10px 0 #e2e2e2;
+	-ms-box-shadow: 0 -2px 10px 0 #e2e2e2;
+	box-shadow: 0 -2px 10px 0 #e2e2e2;
+	border-bottom: 1px solid #e6e6e6;
+	z-index: 4
 }
 .dropdown-box--active .dropdown-box__menu-tab:after {
 	-webkit-transform: rotate(180deg);

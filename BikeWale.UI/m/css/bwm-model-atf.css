@@ -76,7 +76,7 @@
 /* floating tabs */
 #modelOverallSpecsTopContent { height:44px; }
 
-.overall-specs-tabs-container { width:100%; display:block; background:#fff; overflow-x:auto; z-index:2;-webkit-overflow-scrolling: touch; position: absolute; top: 0px; -moz-box-shadow: 0 4px 5px -2px #d5d5d5; -webkit-box-shadow: 0 4px 5px -2px #d5d5d5; -o-box-shadow: 0 4px 5px -2px #d5d5d5; -ms-box-shadow: 0 4px 5px -2px #d5d5d5; box-shadow: 0 4px 5px -2px #d5d5d5; }
+.overall-specs-tabs-container { width:100%; display:block; background:#fff; overflow-x:auto; z-index:5;-webkit-overflow-scrolling: touch; position: absolute; top: 0px; -moz-box-shadow: 0 4px 5px -2px #d5d5d5; -webkit-box-shadow: 0 4px 5px -2px #d5d5d5; -o-box-shadow: 0 4px 5px -2px #d5d5d5; -ms-box-shadow: 0 4px 5px -2px #d5d5d5; box-shadow: 0 4px 5px -2px #d5d5d5; }
 .overall-specs-tabs-container.fixed-tab-nav { position:fixed; top:0; left:0; }
 .overall-specs-tabs-wrapper { width:100%; display:table; }
 .overall-specs-tabs-wrapper li { display:table-cell; width:1%; padding:10px 15px; text-align:center; white-space:nowrap; font-size:14px; color:#82888b;cursor:pointer;}
