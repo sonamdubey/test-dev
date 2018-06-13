@@ -28,7 +28,7 @@
     display: block;
     background: #fff;
     overflow-x: auto;
-    z-index: 3;
+    z-index: 5;
     -webkit-overflow-scrolling: touch;
     position: absolute;
     top: 0;
