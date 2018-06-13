@@ -1,14 +1,11 @@
 ﻿using Bikewale.Entities.Customer;
 using Bikewale.Entities.Dealer;
-using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.Customer;
 using Bikewale.Interfaces.Lead;
 using Bikewale.Interfaces.MobileVerification;
 using Bikewale.ManufacturerCampaign.Interface;
-using Bikewale.Notifications;
 using Bikewale.Service.Utilities;
-using RabbitMqPublishing;
 using System;
 using System.Collections.Specialized;
 using System.Linq;
@@ -85,6 +82,5 @@ namespace Bikewale.Service.Controllers.LeadsGeneration
                 return BadRequest();
             }
         }
-       
     }
 }
