@@ -181,10 +181,6 @@ namespace Bikewale.Models.BikeModels
 					{
 						FetchOnRoadPrice(_objData.ModelPageEntity);
 					}
-                    if(_objData.ModelPageEntity.ModelVersions != null && _objData.CityId > 0 && _objData.ModelId > 0)
-                    {
-                        _objPQ.GetDealerVersionsPriceByModelCity(_objData.ModelPageEntity.ModelVersions, _objData.CityId, _objData.ModelId, _objData.DealerId);
-                    }
 
                     LoadVariants(_objData.ModelPageEntity);
 
@@ -1740,15 +1736,30 @@ namespace Bikewale.Models.BikeModels
                             SetBikeWalePQ(_pqOnRoad);
                         }
                     }
+                    if (_objData.ModelPageEntity.ModelVersions != null && _objData.CityId > 0 && _objData.ModelId > 0)
+                    {
+                        _objPQ.GetDealerVersionsPriceByModelCity(_objData.ModelPageEntity.ModelVersions, _objData.CityId, _objData.ModelId, _objData.DealerId);
+                    }
                 }
                 else
                 {
                     if (_cityId > 0 && _objData.City != null)
                     {
                         IEnumerable<OtherVersionInfoEntity> objBWPrice =  _objPQ.GetOtherVersionsPrices(_objData.ModelId, _objData.CityId);
-                        if (objBWPrice != null && _objData.SelectedVersion != null && objBWPrice.FirstOrDefault(x => x.VersionId == _objData.SelectedVersion.VersionId) != null)
+                        if (_objData.ModelPageEntity.ModelVersions != null && objBWPrice != null)
                         {
-                            _objData.BikePrice = objBWPrice.FirstOrDefault(x => x.VersionId == _objData.SelectedVersion.VersionId).Price;
+                            foreach (var version in _objData.ModelPageEntity.ModelVersions)
+                            {
+                                var bwPriceObj = objBWPrice.FirstOrDefault(x => x.VersionId == version.VersionId);
+                                if (bwPriceObj != null)
+                                {
+                                    version.Price = bwPriceObj.Price;
+                                }
+                                if (bwPriceObj.VersionId == _objData.SelectedVersion.VersionId)
+                                {
+                                    _objData.BikePrice = bwPriceObj.Price;
+                                }
+                            }
                         }
                     }
                 }
