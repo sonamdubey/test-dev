@@ -2000,9 +2000,9 @@ namespace Bikewale.Models.BikeModels
                                             else
                                             {
                                                 var objBWVarient = bpqOutput.Varients.FirstOrDefault(x => x.VersionId == version.VersionId);
-                                                if (objBWVarient != null && objBWVarient.Price > 0)
+                                                if (objBWVarient != null && objBWVarient.OnRoadPrice > 0)
                                                 {
-                                                    version.Price = objBWVarient.Price;
+                                                    version.Price = objBWVarient.OnRoadPrice;
                                                 }
                                             }
                                         }
