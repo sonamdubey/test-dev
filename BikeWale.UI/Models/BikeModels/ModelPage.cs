@@ -1750,7 +1750,7 @@ namespace Bikewale.Models.BikeModels
                                 if (bwPriceObj != null)
                                 {
                                     version.Price = bwPriceObj.Price;
-                                    if (bwPriceObj.VersionId == _objData.SelectedVersion.VersionId)
+                                    if (_objData.SelectedVersion != null && bwPriceObj.VersionId == _objData.SelectedVersion.VersionId)
                                     {
                                         _objData.BikePrice = bwPriceObj.Price;
                                     }
