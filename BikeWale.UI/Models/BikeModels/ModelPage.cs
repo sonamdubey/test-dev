@@ -177,12 +177,12 @@ namespace Bikewale.Models.BikeModels
 
 					_objData.ModelPageEntity = FetchModelPageDetails(_modelId);
 
-					if (_objData.IsModelDetails && _objData.ModelPageEntity.ModelDetails.New)
+                    if (_objData.IsModelDetails && _objData.ModelPageEntity.ModelDetails.New)
 					{
 						FetchOnRoadPrice(_objData.ModelPageEntity);
 					}
 
-					LoadVariants(_objData.ModelPageEntity);
+                    LoadVariants(_objData.ModelPageEntity);
 
 					#region Code to get the specs and features data from microservice
 					if (!_objData.IsUpcomingBike && _objData.VersionId > 0)
@@ -1737,6 +1737,28 @@ namespace Bikewale.Models.BikeModels
                         }
                     }
                 }
+                else
+                {
+                    if (_cityId > 0 && _objData.City != null)
+                    {
+                        IEnumerable<OtherVersionInfoEntity> objBWPrice =  _objPQ.GetOtherVersionsPrices(_objData.ModelId, _objData.CityId);
+                        if (_objData.ModelPageEntity.ModelVersions != null && objBWPrice != null)
+                        {
+                            foreach (var version in _objData.ModelPageEntity.ModelVersions)
+                            {
+                                var bwPriceObj = objBWPrice.FirstOrDefault(x => x.VersionId == version.VersionId);
+                                if (bwPriceObj != null)
+                                {
+                                    version.Price = bwPriceObj.Price;
+                                    if (_objData.SelectedVersion != null && bwPriceObj.VersionId == _objData.SelectedVersion.VersionId)
+                                    {
+                                        _objData.BikePrice = bwPriceObj.Price;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -1965,6 +1987,25 @@ namespace Bikewale.Models.BikeModels
                                     {
                                         _pqOnRoad.IsDiscount = true;
                                         _pqOnRoad.discountedPriceList = oblDealerPQ.discountedPriceList;
+                                    }
+                                    if (_objData.ModelPageEntity.ModelVersions != null && oblDealerPQ.Varients != null && bpqOutput != null && bpqOutput.Varients != null)
+                                    {
+                                        foreach (var version in _objData.ModelPageEntity.ModelVersions)
+                                        {
+                                            var objDealerVarient = oblDealerPQ.Varients.FirstOrDefault(x => x.objVersion.VersionId == version.VersionId);
+                                            if (objDealerVarient != null && objDealerVarient.OnRoadPrice > 0)
+                                            {
+                                                version.Price = objDealerVarient.OnRoadPrice;
+                                            }
+                                            else
+                                            {
+                                                var objBWVarient = bpqOutput.Varients.FirstOrDefault(x => x.VersionId == version.VersionId);
+                                                if (objBWVarient != null && objBWVarient.Price > 0)
+                                                {
+                                                    version.Price = objBWVarient.Price;
+                                                }
+                                            }
+                                        }
                                     }
                                 }
                             }
