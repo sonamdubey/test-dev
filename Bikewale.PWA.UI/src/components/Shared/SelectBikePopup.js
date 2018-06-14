@@ -18,11 +18,18 @@ class SelectBikePopup extends React.Component {
     this.handleCloseClick = this.handleCloseClick.bind(this);
     this.closePopup = this.closePopup.bind(this);
     this.resetSearchMode = this.resetSearchMode.bind(this);
-    this.state = { currentModelId: this.props.data.Selection.modelId, modelValue: this.props.data.Selection.modelName, makeModelList: this.props.data.MakeModelList };
+    this.state = { currentModelId: this.props.data.Selection.modelId, modelValue: this.props.data.Selection.modelName, makeModelList: this.props.data.MakeModelList, isProcessing: false};
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({ currentModelId: nextProps.data.Selection.modelId, modelValue: nextProps.data.Selection.modelName, makeModelList: nextProps.data.MakeModelList });
+    this.setState({ ...this.state, currentModelId: nextProps.data.Selection.modelId, makeModelList: nextProps.data.MakeModelList });
+  }
+
+  componentDidUpdate() {
+    let isProcessing = this.state.isProcessing;
+    if (this.props.isActive == false && this.state.isProcessing)
+      isProcessing = !this.state.isProcessing;
+    this.setState({ ...this.state, isProcessing: isProcessing }); 
   }
 
   componentWillMount() {
@@ -31,7 +38,7 @@ class SelectBikePopup extends React.Component {
     }
   }
 
-  componentDidMount() {
+  componentDidMount() { 
     addPopupEvents(this.popupContent)
   }
 
@@ -39,8 +46,8 @@ class SelectBikePopup extends React.Component {
     removePopupEvents(this.popupContent)
   }
   
-  shouldComponentUpdate(nextProps) {
-    if (nextProps.isActive === this.props.isActive) {
+  shouldComponentUpdate(nextProps, nextState) {
+    if (nextProps.isActive === this.props.isActive && nextState.isProcessing == this.state.isProcessing && nextState.modelValue == this.state.modelValue) {
       return false;
     }
 
@@ -52,8 +59,6 @@ class SelectBikePopup extends React.Component {
   }
 
   closePopup = () => {
-    this.popupScrollPosition = this.popupContent.scrollTop;
-
     if (this.props.onCloseClick) {
       closePopupWithHash(this.props.onCloseClick);
     }
@@ -64,6 +69,7 @@ class SelectBikePopup extends React.Component {
   }
 
   handleCloseClick = () => {
+    this.popupScrollPosition = this.popupContent.scrollTop;
     if (gaObj != undefined) {
       triggerGA(gaObj.name, 'Model_Popup_Cross_Clicked', this.state.modelValue); 
     }
@@ -71,7 +77,7 @@ class SelectBikePopup extends React.Component {
   }
 
   handleBikeSelection = (chosenModel) => {
-    this.closePopup();
+    this.popupScrollPosition = this.popupContent.scrollTop;
     if (gaObj != undefined) {
       triggerGA(gaObj.name, 'Model_Selected', chosenModel.modelName + '_' + this.state.modelValue); 
     }
@@ -81,8 +87,8 @@ class SelectBikePopup extends React.Component {
       }
     }
     if (this.state.currentModelId != chosenModel.modelId) {
+      this.setState({ ...this.state, currentModelId: chosenModel.modelId, modelValue: chosenModel.modelName,  isProcessing: true });
       this.props.onBikeClick(chosenModel);
-      this.setState({ ...this.state, currentModelId: chosenModel.modelId, modelValue: chosenModel.modelName });
     }
   }
 
@@ -176,9 +182,6 @@ class SelectBikePopup extends React.Component {
         items={this.getList(MakeModelList)}
       />;
     }
-    else if (data.MakeModelList != undefined && data.MakeModelList.length == 0) {
-      result = <SpinnerRelative />;
-    }
     else {
       result = <NoResult
         type="select-bike__no-bike-content"
@@ -205,7 +208,8 @@ class SelectBikePopup extends React.Component {
             </div>
           </div>
           <div className="select-bike__body select-bike__accordion">
-            {result}
+            <div className={this.state.isProcessing ? "hide" : "show"}>{result}</div>
+            <div className={!this.state.isProcessing ? "hide" : "show"}><SpinnerRelative /></div>
           </div>
         </div>
       </div>

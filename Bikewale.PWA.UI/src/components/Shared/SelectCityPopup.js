@@ -16,6 +16,9 @@ class SelectCityPopup extends React.Component {
     super(props);
     this.handleCloseClick = this.handleCloseClick.bind(this);
     this.handleCityClick = this.handleCityClick.bind(this);
+    this.handleClearClick = this.handleClearClick.bind(this);
+    this.getOtherCityList = this.getOtherCityList.bind(this);
+    this.filterCityList = this.filterCityList.bind(this);
     this.closePopup = this.closePopup.bind(this);
     let cityName = this.getCityName(this.props);
     this.state = {
@@ -48,8 +51,8 @@ class SelectCityPopup extends React.Component {
     removePopupEvents(this.popupContent);
   }
   
-  shouldComponentUpdate(nextProps) {
-    if (nextProps.isActive === this.props.isActive) {
+  shouldComponentUpdate(nextProps, nextState) {
+    if (nextProps.isActive === this.props.isActive && nextProps.data.RelatedModelId == this.props.data.RelatedModelId && nextState.cityValue == this.state.cityValue) {
       return false;
     }
 
