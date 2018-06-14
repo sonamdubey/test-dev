@@ -8,7 +8,7 @@
                     <div class="position-rel">
                         <a class="bw-ga block" data-lab="@Bike.BikeName" data-cat="Model_Page" data-act="Clicked_SameBrandBikes_widget" href="@string.Format("/m{0}",Bikewale.Utility.UrlFormatter.BikePageUrl(Bike.Make.MaskingName,Bike.Model.MaskingName))" title="@Bike.Make.MakeName @Bike.Model.ModelName">
                             <div class="swiper-image-preview">
-                                <img class="lazy" src="@Bikewale.Utility.Image.GetPathToShowImages(Bike.OriginalImagePath, Bike.HostUrl, Bikewale.Utility.ImageSize._110x61,Bikewale.Utility.QualityFactor._70)" alt="@Bike.Make.MakeName @Bike.Model.ModelName" title="@Bike.Make.MakeName @Bike.Model.ModelName" />
+                                <img class="swiper-lazy" data-src="@Bikewale.Utility.Image.GetPathToShowImages(Bike.OriginalImagePath, Bike.HostUrl, Bikewale.Utility.ImageSize._210x118,Bikewale.Utility.QualityFactor._70)" src="" alt="@Bike.Make.MakeName @Bike.Model.ModelName" title="@Bike.Make.MakeName @Bike.Model.ModelName" />
                             </div>
                             <div class="swiper-details-block">
                                 <h3 class="target-link font12 text-truncate margin-bottom5">@Bike.Make.MakeName @Bike.Model.ModelName</h3>
