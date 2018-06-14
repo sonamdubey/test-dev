@@ -193,8 +193,7 @@ class EMITab extends React.Component {
     const currentCityId = this.getSelectedCityId(this.props);
     const currentGlobalCityId = FinanceCityPopup.currentGlobalCityId;
     if (this.state.shouldscroll) {
-      if(!this.props.FinanceCityPopup.isActive){
-        this.handleSelectCityClick();
+      if(!this.props.FinanceCityPopup.isActive) {
         if (this.refs.emiSteps != undefined) {
           this.refs.emiSteps.scrollCityToView();
         }
@@ -203,7 +202,7 @@ class EMITab extends React.Component {
       if (selectBikePopup != undefined && FinanceCityPopup.RelatedModelId == this.state.currentSelectedBikeId && this.state.currentSelectedBikeId > 0) {
         if (FinanceCityPopup.CityFetchError) {
           this.setState({ ...this.state, shouldscroll: false });
-          closePopupWithHash(this.props.closeSelectCityPopup);
+          this.refs.selectBikePopup.closePopup(); // Close bike popup when fetching error occurs
         }
         else if (FinanceCityPopup.Popular.length > 0 || FinanceCityPopup.Other.length > 0) {
           // Check if current global city in new city list
@@ -215,9 +214,11 @@ class EMITab extends React.Component {
                 cityName: FinanceCityPopup.currentGlobalCityName,
                 userChange: false
               });
-            closePopupWithHash(this.props.closeSelectCityPopup);
+              this.refs.selectBikePopup.closePopup(); // close bike popup on when fetched cities have current city
           }
           else {
+            this.refs.selectBikePopup.closePopup(); // close bike popup on when fetched cities don't have current city
+            this.handleSelectCityClick(); // open select city popup
             if(currentCityId != -1)
               this.setCity({
                 cityId: -1,
@@ -292,15 +293,15 @@ class EMITab extends React.Component {
             />
           )
         }
-
-        {
-          selectBikePopup != null &&
-					<SelectBikePopup isActive={selectBikePopup.isActive} data={selectBikePopup} onCloseClick={closeSelectBikePopup} onBikeClick={this.handleBikeClick} fetchMakeModelList={fetchMakeModelList} />
-        }
         {
           FinanceCityPopup != null &&
 					<SelectCityPopup isActive={FinanceCityPopup.isActive} data={{ ...FinanceCityPopup, isGlobalCityInList: this.state.isGlobalCityInList }} onCloseClick={closeSelectCityPopup} onCityClick={this.handleCityClick} />
         }
+        {
+          selectBikePopup != null &&
+					<SelectBikePopup ref="selectBikePopup" isActive={selectBikePopup.isActive} data={selectBikePopup} onCloseClick={closeSelectBikePopup} onBikeClick={this.handleBikeClick} fetchMakeModelList={fetchMakeModelList} />
+        }
+        
       </div>);
   }
 }
