@@ -1736,10 +1736,6 @@ namespace Bikewale.Models.BikeModels
                             SetBikeWalePQ(_pqOnRoad);
                         }
                     }
-                    if (_objData.ModelPageEntity.ModelVersions != null && _objData.CityId > 0 && _objData.ModelId > 0)
-                    {
-                        _objPQ.GetDealerVersionsPriceByModelCity(_objData.ModelPageEntity.ModelVersions, _objData.CityId, _objData.ModelId, _objData.DealerId);
-                    }
                 }
                 else
                 {
@@ -1754,10 +1750,10 @@ namespace Bikewale.Models.BikeModels
                                 if (bwPriceObj != null)
                                 {
                                     version.Price = bwPriceObj.Price;
-                                }
-                                if (bwPriceObj.VersionId == _objData.SelectedVersion.VersionId)
-                                {
-                                    _objData.BikePrice = bwPriceObj.Price;
+                                    if (bwPriceObj.VersionId == _objData.SelectedVersion.VersionId)
+                                    {
+                                        _objData.BikePrice = bwPriceObj.Price;
+                                    }
                                 }
                             }
                         }
@@ -1991,6 +1987,25 @@ namespace Bikewale.Models.BikeModels
                                     {
                                         _pqOnRoad.IsDiscount = true;
                                         _pqOnRoad.discountedPriceList = oblDealerPQ.discountedPriceList;
+                                    }
+                                    if (_objData.ModelPageEntity.ModelVersions != null && oblDealerPQ.Varients != null && bpqOutput != null && bpqOutput.Varients != null)
+                                    {
+                                        foreach (var version in _objData.ModelPageEntity.ModelVersions)
+                                        {
+                                            var objDealerVarient = oblDealerPQ.Varients.FirstOrDefault(x => x.objVersion.VersionId == version.VersionId);
+                                            if (objDealerVarient != null && objDealerVarient.OnRoadPrice > 0)
+                                            {
+                                                version.Price = objDealerVarient.OnRoadPrice;
+                                            }
+                                            else
+                                            {
+                                                var objBWVarient = bpqOutput.Varients.FirstOrDefault(x => x.VersionId == version.VersionId);
+                                                if (objBWVarient != null && objBWVarient.Price > 0)
+                                                {
+                                                    version.Price = objBWVarient.Price;
+                                                }
+                                            }
+                                        }
                                     }
                                 }
                             }
