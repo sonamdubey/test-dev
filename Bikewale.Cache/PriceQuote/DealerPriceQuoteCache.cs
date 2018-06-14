@@ -26,7 +26,7 @@ namespace Bikewale.Cache.PriceQuote
             string key = string.Format("BW_DealerPriceQuotes_{0}_{1}_{2}", cityId, modelId, dealerId);
             try
             {
-                objDealerPrice = _cache.GetFromCache<IEnumerable<PQ_VersionPrice>>(key, new TimeSpan(24, 0, 0), () => _objDealerPQ.GetDealerPriceQuotesByModelCity(cityId, modelId, dealerId));
+                objDealerPrice = _cache.GetFromCache<IEnumerable<PQ_VersionPrice>>(key, new TimeSpan(1, 0, 0), () => _objDealerPQ.GetDealerPriceQuotesByModelCity(cityId, modelId, dealerId));
             }
             catch (Exception ex)
             {
