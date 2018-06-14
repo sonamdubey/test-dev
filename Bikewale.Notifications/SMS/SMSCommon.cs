@@ -59,7 +59,8 @@ namespace Bikewale.Notifications
         SMSforCapitalFirstSuccess = 39,
         SMSforCapitalFirstFailure = 40,
         DealerShowroomDetailsSMSToCustomer = 41,
-        ESCampaignLeadSMSToCustomer = 42
+        CapitalFirstSMSToCustomer = 42,
+        ESCampaignLeadSMSToCustomer = 43
     }
 
     public class SMSCommon

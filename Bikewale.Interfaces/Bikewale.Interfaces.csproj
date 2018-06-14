@@ -171,6 +171,7 @@
     <Compile Include="Feedback\IFeedback.cs" />
     <Compile Include="Filters\IPageFilters.cs" />
     <Compile Include="Finance\ICapitalFirst.cs" />
+    <Compile Include="Finance\IFinanceCacheRepository.cs" />
     <Compile Include="Finance\IFinanceRepository.cs" />
     <Compile Include="GenericBikes\IBestBikesCacheRepository.cs" />
     <Compile Include="HomePage\IHomePageBannerCacheRepository.cs" />

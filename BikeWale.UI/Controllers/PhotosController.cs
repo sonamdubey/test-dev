@@ -89,7 +89,7 @@ namespace Bikewale.Controllers
             }
             else
             {
-                return Redirect("/pagenotfound.aspx");
+                return HttpNotFound();
             }
         }
 
@@ -114,7 +114,7 @@ namespace Bikewale.Controllers
             }
             else
             {
-                return Redirect("/m/pagenotfound.aspx");
+                return HttpNotFound();
             }
         }
 
@@ -143,7 +143,7 @@ namespace Bikewale.Controllers
             }
             else
             {
-                return Redirect("/pagenotfound.aspx");
+                return HttpNotFound();
             }
         }
 
@@ -171,7 +171,7 @@ namespace Bikewale.Controllers
                 }
                 else
                 {
-                    return Redirect("/m/pagenotfound.aspx");
+                    return HttpNotFound();
                 }
 
             }
@@ -181,7 +181,7 @@ namespace Bikewale.Controllers
             }
             else
             {
-                return Redirect("/m/pagenotfound.aspx");
+                return HttpNotFound();
             }
         }
     }

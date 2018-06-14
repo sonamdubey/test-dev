@@ -97,16 +97,14 @@ namespace Bikewale.News
                     }
                     else
                     {
-                        Response.Redirect("/pagenotfound.aspx", false);
-                        HttpContext.Current.ApplicationInstance.CompleteRequest();
-                        this.Page.Visible = false;
+                        UrlRewrite.Return404();
                     }
                 }
             }
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "Bikewale.News.BindNewsDetails");
-                
+
             }
             finally
             {

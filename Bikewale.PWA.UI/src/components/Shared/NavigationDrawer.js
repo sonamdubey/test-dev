@@ -163,17 +163,16 @@ class NavigationDrawer extends React.Component {
                             <a href="/featured/trackday-2018/" className="nav-item"  onClick={this.pushAnalyticsAndCloseDrawer.bind(this,"Track Day 2018")}>
                                 <span className="bwmsprite track-day"></span>
                                 <span>Track Day 2018</span>
-								<span className="new-flag"></span>
                             </a>
                         </li>
-						<li>
+                        <li>
                             <Link to="/m/bike-loan-emi-calculator/" className="nav-item" onClick={this.pushAnalyticsAndCloseDrawer.bind(this,"EMI Calculator")}>
 								<span className="bwmsprite forum-icon"></span>
 								<span>EMI Calculator</span>
 							</Link>
                         </li>
                         <li>
-                            <a href="/m/users/login.aspx" className="nav-item" onClick={this.pushAnalyticsAndCloseDrawer.bind(this,"Login")}>
+                            <a href="/m/users/login.aspx" className="nav-item" onClick={this.pushAnalytics.bind()}>
                                 <span className="bwmsprite myBikeWale-icon"></span>
                                 <span>Login</span>
                             </a>

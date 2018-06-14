@@ -322,5 +322,55 @@ namespace BikewaleOpr.Service.Controllers.ManufacturerCamapaigns
             return Ok(isSuccess);
         }
 
+        [ResponseType(typeof(String)), Route("api/campaigns/generateleadcaptureformlink/"), HttpPost]
+        public IHttpActionResult GenerateLeadCaptureFormLink(LeadPopupRequest[] reqs)
+        {
+            if (true)
+            {
+
+                return Ok(GenerateLeadCaptureFormLinks(reqs));
+            }
+        }
+
+        private IEnumerable<KeyValuePair<string, string>> GenerateLeadCaptureFormLinks(IEnumerable<LeadPopupRequest> reqs)
+        {
+            ICollection<KeyValuePair<string, string>> urls = new List<KeyValuePair<string, string>>();
+            foreach (var req in reqs)
+            {
+                string url = String.Format("{0}/m/popup/leadcapture/?q={1}&platformId={2}", req.hostUrl, Utils.Utils.EncryptTripleDES(string.Format(@"modelid={0}&cityid={1}&areaid={2}&bikename={3}&location={4}&city={5}&area={6}&ismanufacturer={7}&dealerid={8}&dealername={9}&dealerarea={10}&versionid={11}&leadsourceid={12}&pqsourceid={13}&mfgcampid={14}&pqid={15}&pageurl={16}&clientip={17}&dealerheading={18}&dealermessage={19}&dealerdescription={20}&pincoderequired={21}&emailrequired={22}&dealersrequired={23}&url={24}",
+                                                                req.modelId, req.cityId, string.Empty, req.bikeName, string.Empty, string.Empty, string.Empty,
+                                                                req.isManufacturer, req.dealerId, req.dealerName, req.area, req.versionId, req.leadSourceId, req.pqSourceId, req.campaignId, req.pqId, string.Empty, "", req.popupHeading, req.popupSuccessMessage, req.popupDescription, req.pincodeRequired, req.emailRequired, req.dealerRequired,
+                                                                req.returnPageUrl)), req.platformId > 0 ? req.platformId : 2);
+                urls.Add(new KeyValuePair<string, string>(req.bikeName, url));
+            }
+            return urls;
+        }
+
+        public class LeadPopupRequest
+        {
+            public string modelId;
+            public string cityId;
+            public string bikeName;
+            public bool isManufacturer;
+            public uint dealerId;
+            public string dealerName;
+            public string area;
+            public uint versionId;
+            public uint leadSourceId;
+            public string pqSourceId;
+            public string campaignId;
+            public uint pqId;
+            public string popupHeading;
+            public string popupSuccessMessage;
+            public string popupDescription;
+            public bool pincodeRequired;
+            public bool emailRequired;
+            public bool dealerRequired;
+            public string returnPageUrl;
+            public string hostUrl;
+            public ushort platformId;
+
+        }
+
     }
 }

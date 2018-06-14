@@ -743,7 +743,7 @@ namespace Bikewale.Notifications
         /// <param name="phone"></param>
         /// <param name="city"></param>
         /// <param name="pageUrl"></param>
-        public static void DealerShowroomDetailsSMS(SMSData objSMSData,MobileSmsVerification objMobileVerification)
+        public static void DealerShowroomDetailsSMS(SMSData objSMSData, MobileSmsVerification objMobileVerification)
         {
             try
             {
@@ -791,7 +791,7 @@ namespace Bikewale.Notifications
                     messageBuilder.Append(Environment.NewLine);
                 }
                 messageBuilder.Append("Thanks for visiting BikeWale.");
-                string message = messageBuilder.ToString();                    
+                string message = messageBuilder.ToString();
 
                 EnumSMSServiceType esms = EnumSMSServiceType.DealerShowroomDetailsSMSToCustomer;
                 SMSCommon sc = new SMSCommon();
@@ -799,12 +799,32 @@ namespace Bikewale.Notifications
             }
             catch (Exception ex)
             {
-                ErrorClass.LogError(ex, String.Format("Notifications.DealerShowroomDetailsSMS({0},{1},{2},{3})", objMobileVerification.MobileNumber, 
+                ErrorClass.LogError(ex, String.Format("Notifications.DealerShowroomDetailsSMS({0},{1},{2},{3})", objMobileVerification.MobileNumber,
                     objMobileVerification.PageUrl, objSMSData.CityName, objSMSData.Phone));
             }
 
         }
 
+        /// <summary>
+        /// Created by  :   Sumit Kate on 25 May 2018
+        /// Description :   Capital First SMS
+        /// </summary>
+        /// <param name="number"></param>
+        /// <param name="pageUrl"></param>
+        /// <param name="smsType"></param>
+        /// <param name="message"></param>
+        public void CapitalFirstSMS(string number, string pageUrl, EnumSMSServiceType smsType, string message)
+        {
+            try
+            {
+                SMSCommon sc = new SMSCommon();
+                sc.ProcessSMS(number, message, smsType, pageUrl);
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, String.Format("Notifications.CapitalFirstSMS({0},{1},{2},{3})", number, pageUrl, smsType, message));
+            }
+        }
         /// <summary>
         /// Author  : Kartik Rathod on 16 may 2018 , 
         /// Desc    : send sms to customer on pushed es campaign lead in system    
@@ -833,6 +853,5 @@ namespace Bikewale.Notifications
                     CustomerMobile, dealerName, bikeName));
             }
         }
-
     }   //End of class
 }   //End of namespace

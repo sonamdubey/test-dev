@@ -12,6 +12,10 @@
     bool primaryDealerShown = Model.DetailedDealer.PrimaryDealer != null && Model.DetailedDealer.PrimaryDealer.DealerDetails != null && Model.DetailedDealer.PrimaryDealer.DealerDetails.objArea != null;
     Model.AdTags.Ad_300x250BTF = !(primaryDealerShown || Model.IsManufacturerLeadAdShown || Model.IsManufacturerEMIAdShown);
 }
+@{
+    var cityArea = Bikewale.Utility.GlobalCityArea.GetGlobalCityArea();
+    uint cityId = cityArea.CityId;
+}
 
 <div class="bg-white padding-10-5 bottom-shadow margin-bottom10">
     <div class="bike-details margin-bottom15">
@@ -94,8 +98,7 @@
                 </tr>
                 <tr>
                     <td class="text-light-grey padding-bottom15" align="left">
-                        Insurance @*@if (!Model.IsPrimaryDealerAvailable && !string.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink) && !Model.IsManufacturerEMIAdShown)
-                        {<br><p class='position-rel'><a target="_blank" rel="noopener" href="@Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink" class="font12 bw-ga text-bold" data-cat="Dealer_PQ" data-act="ICICIBank_Link_Clicked" data-lab="@string.Format("{0}_{1}",Model.BikeName,Model.CiyName);" rel="nofollow">Get Personal Loan Offers</a><span class="position-abt pos-top0 text-light-grey font10 text-unbold">&nbsp;Ad</span></p>}*@
+                        Insurance
                     </td>
                     <td class="padding-bottom10 text-bold" align="right"><span class="bwmsprite inr-xxsm-icon"></span>@CommonOpn.FormatPrice(Model.Quotation.Insurance.ToString())</td>
                 </tr>
@@ -134,7 +137,7 @@
                 }
             </table>
 			if (!Model.IsPrimaryDealerAvailable && !string.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink) && !Model.IsManufacturerLeadAdShown)
-            {<p class='position-rel text-right margin-right15'><a target="_blank" rel="noopener" href="@Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink" class="font12 bw-ga text-bold" data-cat="Dealer_PQ" data-act="ICICIBank_Link_Clicked" data-lab="@string.Format("{0}_{1}",Model.BikeName,Model.CiyName);" rel="nofollow">Get Personal Loan Offers</a><span class="position-abt pos-top0 text-light-grey font10 text-unbold">&nbsp;Ad</span></p>}
+            {<p class='position-rel text-right margin-right15'><a target="_blank" rel="noopener" href="@Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink" class="font12 bw-ga text-bold" data-cat="Dealer_PQ" data-act="BankbazaarLink_Clicked" data-lab="@string.Format("{0}_{1}",Model.BikeName,Model.CiyName);" rel="nofollow">Get Personal Loan Offers</a><span class="position-abt pos-top0 text-light-grey font10 text-unbold">&nbsp;Ad</span></p>}
 			if (Model.IsPrimaryDealerAvailable)
 			{
                 <div class="padding-bottom10"></div>}
@@ -170,7 +173,7 @@
         <div class="grid-5 alpha omega">
             @if (Model.LeadCampaign.DealerId == Bikewale.Utility.BWConfiguration.Instance.CapitalFirstDealerId)
 {
-    <a class="btn btn-orange btn-full-32" href="/m/finance/capitalfirst/?campaingid=@Model.LeadCampaign.CampaignId&amp;dealerid=@Model.LeadCampaign.DealerId&amp;pqid=@Model.PQId&amp;leadsourceid=@Model.LeadCampaign.LeadSourceId&amp;versionid=@Model.LeadCampaign.VersionId&amp;url=@Model.LeadCampaign.CurrentPageUrl&amp;platformid=@Model.LeadCampaign.PlatformId&amp;bike=@Model.BikeName&amp;loanamount=@Model.LeadCampaign.LoanAmount&amp;dealerName=@Model.LeadCampaign.Organization&amp;sendLeadSMSCustomer=@Convert.ToString(Model.LeadCampaign.SendLeadSMSCustomer)" rel="nofollow">@Model.LeadCampaign.LeadsButtonTextMobile</a>
+    <a class="btn btn-orange btn-full-32" href="/m/finance/capitalfirst/?campaingid=@Model.LeadCampaign.CampaignId&amp;dealerid=@Model.LeadCampaign.DealerId&amp;pqid=@Model.PQId&amp;leadsourceid=@Model.LeadCampaign.LeadSourceId&amp;versionid=@Model.LeadCampaign.VersionId&amp;url=@Model.LeadCampaign.CurrentPageUrl&amp;platformid=@Model.LeadCampaign.PlatformId&amp;bike=@Model.BikeName&amp;loanamount=@Model.LeadCampaign.LoanAmount&amp;cityid=@cityId&amp;dealerName=@Model.LeadCampaign.Organization&amp;sendLeadSMSCustomer=@Convert.ToString(Model.LeadCampaign.SendLeadSMSCustomer)" rel="nofollow">@Model.LeadCampaign.LeadsButtonTextMobile</a>
 }
             else
             {
@@ -267,7 +270,7 @@
                     <div class="margin-top15">
                         @if (Model.EMICampaign.DealerId == Bikewale.Utility.BWConfiguration.Instance.CapitalFirstDealerId)
                         {
-                            <a class="btn btn-teal btn-160-32 font14 margin-right10" href="/m/finance/capitalfirst/?campaingid=@Model.EMICampaign.CampaignId&amp;dealerid=@Model.EMICampaign.DealerId&amp;pqid=@Model.PQId&amp;leadsourceid=@Model.EMICampaign.LeadSourceId&amp;versionid=@Model.EMICampaign.VersionId&amp;platformid=@Model.EMICampaign.PlatformId&amp;bike=@Model.BikeName&amp;loanamount=@Model.EMICampaign.LoanAmount&amp;url=@Model.EMICampaign.CurrentPageUrl&amp;dealerName=@Model.EMICampaign.Organization&amp;sendLeadSMSCustomer=@Convert.ToString(Model.EMICampaign.SendLeadSMSCustomer)" rel="nofollow">@Model.EMICampaign.EMIButtonTextMobile</a>
+                            <a class="btn btn-teal btn-160-32 font14 margin-right10" href="/m/finance/capitalfirst/?campaingid=@Model.EMICampaign.CampaignId&amp;dealerid=@Model.EMICampaign.DealerId&amp;pqid=@Model.PQId&amp;leadsourceid=@Model.EMICampaign.LeadSourceId&amp;versionid=@Model.EMICampaign.VersionId&amp;platformid=@Model.EMICampaign.PlatformId&amp;bike=@Model.BikeName&amp;loanamount=@Model.EMICampaign.LoanAmount&amp;url=@Model.EMICampaign.CurrentPageUrl&amp;cityid=@cityId&amp;dealerName=@Model.EMICampaign.Organization&amp;sendLeadSMSCustomer=@Convert.ToString(Model.EMICampaign.SendLeadSMSCustomer)" rel="nofollow">@Model.EMICampaign.EMIButtonTextMobile</a>
                         }
                         else
                         {
@@ -373,7 +376,7 @@
 
         @if (!Model.IsPrimaryDealerAvailable && !string.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink) && !Model.IsManufacturerLeadAdShown)
         {
-            <text>triggerNonInteractiveGA('Dealer_PQ', 'ICICIBank_Link_Shown', bikeVerLocation);</text>
+            <text>triggerNonInteractiveGA('Dealer_PQ', 'BankbazaarLink_Shown', bikeVerLocation);</text>
         }
 
             if (dealerName != "") {

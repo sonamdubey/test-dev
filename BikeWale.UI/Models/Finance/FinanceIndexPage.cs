@@ -82,8 +82,8 @@ namespace Bikewale.Models
                 objData.ReduxStore = new PwaReduxStore();
                 var storeJson = JsonConvert.SerializeObject(objData.ReduxStore);
                 objData.ServerRouterWrapper = _renderedArticles.GetNewsListDetails(PwaCmsHelper.GetSha256Hash(storeJson), objData.ReduxStore.News.NewsArticleListReducer,
-                    "/m/finance/", "root", "ServerRouterWrapper");
-                objData.WindowState = storeJson;
+					"/m/finance/", "root", "ServerRouterWrapper");
+				objData.WindowState = storeJson != null ? storeJson : "";
                 objData.Page = Entities.Pages.GAPages.Other;
             }
             catch (Exception ex)

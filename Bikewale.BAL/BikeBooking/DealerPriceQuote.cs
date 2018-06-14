@@ -434,32 +434,31 @@ namespace Bikewale.BAL.BikeBooking
             BookingPageDetailsEntity pageDetail = null;
             try
             {
+                int iVersionId = (int)versionId;
                 pageDetail = dealerPQRepository.FetchBookingPageDetails(cityId, versionId, dealerId);
-                if (pageDetail != null && pageDetail.Varients != null)
+                if (pageDetail != null && pageDetail.Varients != null && iVersionId > 0)
                 {
-                    GetVersionSpecsSummaryByItemIdAdapter adapt1 = new GetVersionSpecsSummaryByItemIdAdapter();
-                    VersionsDataByItemIds_Input specItemInput = new VersionsDataByItemIds_Input {
-                        Versions = new List<int> { (int)versionId },
+                    GetVersionSpecsSummaryByItemIdAdapter adapt = new GetVersionSpecsSummaryByItemIdAdapter();
+                    VersionsDataByItemIds_Input specItemInput = new VersionsDataByItemIds_Input
+                    {
+                        Versions = new List<int> { iVersionId },
                         Items = new List<EnumSpecsFeaturesItems> {
                             EnumSpecsFeaturesItems.RearBrakeType,
                             EnumSpecsFeaturesItems.WheelType
                         }
                     };
-                    adapt1.AddApiGatewayCall(_apiGatewayCaller, specItemInput);
+                    adapt.AddApiGatewayCall(_apiGatewayCaller, specItemInput);
                     _apiGatewayCaller.Call();
-                    IEnumerable<VersionMinSpecsEntity> versionMinSpecsEntityList = adapt1.Output;
+                    IEnumerable<VersionMinSpecsEntity> versionMinSpecsEntityList = adapt.Output;
                     if (versionMinSpecsEntityList != null)
                     {
-                        VersionMinSpecsEntity objVersionMinSpec = null;
-                        foreach (BikeDealerPriceDetail objVersion in pageDetail.Varients)
+                        BikeDealerPriceDetail objVersion = pageDetail.Varients.First(varient => varient.MinSpec.VersionId == iVersionId);
+                        if (objVersion != null)
                         {
-                            if (objVersion.MinSpec.VersionId == versionId)
+                            VersionMinSpecsEntity objVersionMinSpec = versionMinSpecsEntityList.FirstOrDefault(versionSpecEntity => versionSpecEntity.VersionId.Equals(iVersionId));
+                            if (objVersionMinSpec != null)
                             {
-                                objVersionMinSpec = versionMinSpecsEntityList.FirstOrDefault(versionSpecEntity => versionSpecEntity.VersionId.Equals(objVersion.MinSpec.VersionId));
-                                if (objVersionMinSpec != null)
-                                {
-                                    objVersion.MinSpec.MinSpecsList = objVersionMinSpec.MinSpecsList;
-                                }
+                                objVersion.MinSpec.MinSpecsList = objVersionMinSpec.MinSpecsList;
                             }
                         }
                     }

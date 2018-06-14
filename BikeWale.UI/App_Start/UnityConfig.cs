@@ -27,6 +27,7 @@ using Bikewale.Cache.CMS;
 using Bikewale.Cache.Compare;
 using Bikewale.Cache.Core;
 using Bikewale.Cache.DealersLocator;
+using Bikewale.Cache.Finance;
 using Bikewale.Cache.HomePage;
 using Bikewale.Cache.Location;
 using Bikewale.Cache.PriceQuote;
@@ -46,6 +47,7 @@ using Bikewale.DAL.BikeData;
 using Bikewale.DAL.Compare;
 using Bikewale.DAL.Customer;
 using Bikewale.DAL.Dealer;
+using Bikewale.DAL.Finance.CapitalFirst;
 using Bikewale.DAL.HomePage;
 using Bikewale.DAL.Location;
 using Bikewale.DAL.ServiceCenter;
@@ -70,6 +72,8 @@ using Bikewale.Interfaces.Customer;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Interfaces.EditCMS;
 using Bikewale.Interfaces.Filters;
+using Bikewale.Interfaces.Finance;
+using Bikewale.Interfaces.Finance.CapitalFirst;
 using Bikewale.Interfaces.HomePage;
 using Bikewale.Interfaces.Lead;
 using Bikewale.Interfaces.Location;
@@ -195,8 +199,11 @@ namespace Bikewale
             container.RegisterType<IBikeModelsCacheHelper, BikeModelsCacheHelper>();
             container.RegisterType<ILead, LeadProcess>();
             container.RegisterType<IApiGatewayCaller, ApiGatewayCaller>();
+            container.RegisterType<Bikewale.Interfaces.AutoBiz.IDealers, Bikewale.DAL.AutoBiz.DealersRepository>();
             container.RegisterType<IBikeSearch, BikeSearch>();
             container.RegisterType<IDealer, Dealer>();
+            container.RegisterType<IFinanceCacheRepository, FinanceCacheRepository>();
+            container.RegisterType<IFinanceRepository, FinanceRepository>();
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }
     }

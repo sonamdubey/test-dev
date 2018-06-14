@@ -8,6 +8,7 @@ using BikewaleOpr.Entity.ManufacturerCampaign;
 using BikewaleOpr.Models.ManufacturerCampaign;
 using Dapper;
 using MySql.CoreDAL;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -608,6 +609,50 @@ namespace Bikewale.ManufacturerCampaign.DAL
         }
 
         /// <summary>
+        /// Created By : Deepak Israni on 3 May 2018
+        /// Description: Save manufacturer lead to PQ table.
+        /// </summary>
+        /// <param name="campaignDetails"></param>
+        /// <returns></returns>
+        public uint SaveManufacturerCampaignLead(ES_SaveEntity campaignDetails)
+        {
+            uint leadId = 0;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand())
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "savemanufacturerpqlead_14052018";
+
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.UInt32, campaignDetails.DealerId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_pqid", DbType.UInt32, campaignDetails.PQId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbType.UInt32, campaignDetails.CustomerId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customername", DbType.String, campaignDetails.CustomerName));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customeremail", DbType.String, campaignDetails.CustomerEmail));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customermobile", DbType.String, campaignDetails.CustomerMobile));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_leadsourceid", DbType.UInt32, campaignDetails.LeadSourceId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_utma", DbType.String, campaignDetails.UTMA));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_utmz", DbType.String, campaignDetails.UTMZ));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_deviceid", DbType.String, campaignDetails.DeviceId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_campaignId", DbType.UInt32, campaignDetails.CampaignId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_leadId", DbType.UInt32,ParameterDirection.Output));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_spamscore", DbType.Double, campaignDetails.SpamScore));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_rejectionreason", DbType.String, campaignDetails.Reason));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isaccepted", DbType.Boolean, campaignDetails.IsAccepted));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_overallscore", DbType.Int16, campaignDetails.OverallSpamScore));
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);                    
+                    leadId = Convert.ToUInt32(cmd.Parameters["par_leadId"].Value);
+                }
+
+            }
+            catch (Exception ex)
+            {  
+                ErrorClass.LogError(ex, string.Format("ManufacturerCampaignRepository.SaveManufacturerCampaignLead: ({0})", JsonConvert.SerializeObject(campaignDetails)));
+            }
+            return leadId;
+        }
+        
+        /// <summary>
         /// Created By  : Rajan Chauhan on 4 May 2018
         /// Description : Return UnmappedHondaModels if dealerId belong to honda dealer 
         /// </summary>
@@ -623,7 +668,6 @@ namespace Bikewale.ManufacturerCampaign.DAL
                     var param = new DynamicParameters();
                     param.Add("par_dealerid", dealerId);
                     unmappedModels = connection.Query<BikeModelEntity>("getmissinghondamodelmapping", param: param, commandType: CommandType.StoredProcedure);
-
                 }
             }
             catch (Exception ex)

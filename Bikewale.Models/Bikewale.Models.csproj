@@ -123,6 +123,7 @@
     <Compile Include="BikeSeries\BikeSeriesCompareVM.cs" />
     <Compile Include="BikeSeries\BikeSeriesModelsVM.cs" />
     <Compile Include="BikeSeries\MakeSeriesSlugVM.cs" />
+    <Compile Include="BikeSeries\ModelSeriesSlugVM.cs" />
     <Compile Include="BikeSeries\OtherSeriesVM.cs" />
     <Compile Include="BikeSeries\PopularSeriesBikesVM.cs" />
     <Compile Include="BikeSeries\SeriesPageVM.cs" />

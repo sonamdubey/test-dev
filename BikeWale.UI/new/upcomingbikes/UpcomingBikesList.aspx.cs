@@ -13,7 +13,6 @@ using MySql.CoreDAL;
 using System;
 using System.Data;
 using System.Data.Common;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
@@ -95,10 +94,8 @@ namespace Bikewale.New
                     catch (Exception ex)
                     {
                         ErrorClass.LogError(ex, Request.ServerVariables["URL"] + "ParseQueryString");
-                        
-                        Response.Redirect("pageNotFound.aspx", false);
-                        HttpContext.Current.ApplicationInstance.CompleteRequest();
-                        this.Page.Visible = false;
+
+                        UrlRewrite.Return404();
                     }
                     finally
                     {
@@ -120,16 +117,12 @@ namespace Bikewale.New
                             }
                             else
                             {
-                                Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
-                                HttpContext.Current.ApplicationInstance.CompleteRequest();
-                                this.Page.Visible = false;
+                                UrlRewrite.Return404();
                             }
                         }
                         else
                         {
-                            Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
-                            HttpContext.Current.ApplicationInstance.CompleteRequest();
-                            this.Page.Visible = false;
+                            UrlRewrite.Return404();
                         }
                     }
 
@@ -140,9 +133,7 @@ namespace Bikewale.New
                     }
                     else
                     {
-                        Response.Redirect("/pagenotfound.aspx", false);
-                        HttpContext.Current.ApplicationInstance.CompleteRequest();
-                        this.Page.Visible = false;
+                        UrlRewrite.Return404();
                     }
                 }
                 else
@@ -268,7 +259,7 @@ namespace Bikewale.New
             catch (Exception err)
             {
                 ErrorClass.LogError(err, Request.ServerVariables["URL"]);
-                
+
             } // catch Exception
         }
         #endregion
@@ -314,7 +305,7 @@ namespace Bikewale.New
             catch (Exception err)
             {
                 ErrorClass.LogError(err, Request.ServerVariables["URL"]);
-                
+
             }
         }
         #endregion

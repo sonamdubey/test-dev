@@ -320,7 +320,7 @@ docReady(function () {
 
     $('.model-versions-tabs-wrapper a').first().trigger("click");
 
-	if (isCoverfoxShown) { triggerNonInteractiveGA('Price_in_City_Page', 'ICICIBank_Link_Shown', bikeName + '_' + cityName); }
+    if (isCoverfoxShown) { triggerNonInteractiveGA('Price_in_City_Page', 'BankbazaarLink_Shown', bikeName + '_' + cityName); }
 
     $(".leadcapturebtn").click(function (e) {
         ele = $(this);

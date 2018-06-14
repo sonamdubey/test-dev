@@ -550,9 +550,10 @@ namespace Bikewale.PWA.Utils
                     IDictionary<EditorialWidgetColumnPosition, EditorialWidgetInfo> widgets = widgetItem.Value.WidgetColumns;
                     EditorialWidgetColumnPosition populatedKey = widgets.ContainsKey(EditorialWidgetColumnPosition.Left) ? EditorialWidgetColumnPosition.Left : EditorialWidgetColumnPosition.Right;
                     EditorialWidgetInfo widget = widgets[populatedKey];
+
+                    PwaBikeNews bikes = new PwaBikeNews();
 					if (widget != null)
 					{
-						PwaBikeNews bikes = new PwaBikeNews();
 						switch (widget.WidgetType)
 						{
 							case EditorialWidgetType.Popular:
@@ -588,6 +589,7 @@ namespace Bikewale.PWA.Utils
 						}
 						widgetList.Add(bikes);
 					}
+                    
                 }
 
             }

@@ -79,16 +79,20 @@ namespace Bikewale.Mobile
         }
 
         private void BindFullSpecsFeatures()
-        {
-            using (IUnityContainer container = new UnityContainer())
-            {
-                container.RegisterType<IApiGatewayCaller, ApiGatewayCaller>();
-                var _apiGatewayCaller = container.Resolve<IApiGatewayCaller>();
-                GetVersionSpecsByIdAdapter adapter = new GetVersionSpecsByIdAdapter();
-                adapter.AddApiGatewayCall(_apiGatewayCaller, new List<int> { (int)versionId });
-                _apiGatewayCaller.Call();
-                versionSpecsFeatures = adapter.Output;
-            }
+		{
+			if (versionId > 0)
+			{
+				using (IUnityContainer container = new UnityContainer())
+				{
+					container.RegisterType<IApiGatewayCaller, ApiGatewayCaller>();
+					var _apiGatewayCaller = container.Resolve<IApiGatewayCaller>();
+					GetVersionSpecsByIdAdapter adapter = new GetVersionSpecsByIdAdapter();
+					adapter.AddApiGatewayCall(_apiGatewayCaller, new List<int> { (int)versionId });
+					_apiGatewayCaller.Call();
+					versionSpecsFeatures = adapter.Output;
+				}
+
+			}
         }
 
         /// Created  By :- subodh Jain 10 Feb 2017
@@ -242,9 +246,7 @@ namespace Bikewale.Mobile
                             }
                             else
                             {
-                                Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
-                                HttpContext.Current.ApplicationInstance.CompleteRequest();
-                                this.Page.Visible = false;
+                                UrlRewrite.Return404();
                             }
                         }
                     }

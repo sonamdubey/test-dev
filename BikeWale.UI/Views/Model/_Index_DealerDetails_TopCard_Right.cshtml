@@ -1,4 +1,8 @@
 ﻿@model Bikewale.Models.BikeModels.ModelPageVM
+@{
+    var cityArea = Bikewale.Utility.GlobalCityArea.GetGlobalCityArea();
+    uint cityId = cityArea.CityId;            
+}
 @if (Model.IsPremiumDealer)
 {
     <div class="margin-top10">

@@ -989,6 +989,7 @@
     <Compile Include="Models\Features\IndexPage.cs" />
     <Compile Include="Models\DealerShowroom\DealersServiceCentersIndiaWidgetModel.cs" />
     <Compile Include="Models\ExpertReviews\ExpertReviewsDetailPage.cs" />
+    <Compile Include="Models\Finance\CapitalFirstModel.cs" />
     <Compile Include="Models\Finance\FinanceIndexPage.cs" />
     <Compile Include="Models\Gallery\ModelGalleryWidget.cs" />
     <Compile Include="Models\GenericBestBikes\IndexGenericBestBikes.cs" />
@@ -3229,6 +3230,7 @@
     <Content Include="src\compare\landing.js" />
     <Content Include="src\bw-contenttracking.js" />
     <Content Include="src\content\details.js" />
+    <Content Include="src\cwTracking.js" />
     <Content Include="src\dealerlisting.js" />
     <Content Include="src\dealerpricequote.js" />
     <Content Include="src\dealersbylocation.js" />
@@ -4166,6 +4168,9 @@
     <Content Include="Views\Model\_Index_MileageDetails_Mobile.cshtml" />
     <Content Include="Views\Make\Index_Mobile_New_v1.cshtml" />
     <Content Include="Views\Make\_Index_Tabs_Mobile_New_V1.cshtml" />
+    <Content Include="sass\partials\find-product-offers.sass" />
+    <Content Include="Views\BikeSeries\_ModelSeriesSlug.cshtml" />
+    <Content Include="Views\BikeSeries\_ModelSeriesSlug_Mobile.cshtml" />
     <None Include="Views\Shared\_Sidebar-section.cshtml" />
     <Content Include="Views\BikeModels\_MultiTabsWidget.cshtml" />
     <Content Include="Views\Shared\_ReviewPopup.cshtml" />

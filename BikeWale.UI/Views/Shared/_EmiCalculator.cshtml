@@ -1,4 +1,10 @@
 ﻿@model Bikewale.Models.EMICalculatorVM
+@{
+    var cityArea = Bikewale.Utility.GlobalCityArea.GetGlobalCityArea();
+    uint cityId = cityArea.CityId;
+}
+
+
 <div id="emiPopup" data-bikeversionprice="@Model.BikePrice" data-bind="visible: true" style="display: none;" class="@((Model.ESEMICampaign != null || Model.IsPremiumDealer) ? "emi-popup__premium-dealer" : "") emi-popup hide">
     <input type="hidden" id="emiWidgetInitialValues" value="@Model.EMIJsonBase64" />
     <div class="emi-popup-close-btn"></div>
@@ -107,7 +113,7 @@
             <div class="emi-quote__btn-block">
                 @if (Model.ESEMICampaign.DealerId == Bikewale.Utility.BWConfiguration.Instance.CapitalFirstDealerId)
                 {
-                    <a id="btnEmiQuote" class="btn btn-white emi-quote-btn bw-ga" data-cat="Model_Page" data-act="Get_EMI_Quote_Clicked" data-lab="@Model.BikeName.Replace(" ", "_")" rel="nofollow" href="@(Model.IsMobile?"/m":"")/finance/capitalfirst/?campaingid=@Model.ESEMICampaign.CampaignId&amp;dealerid=@Model.ESEMICampaign.DealerId&amp;pqid=@Model.PQId&amp;leadsourceid=@Model.ESEMICampaign.LeadSourceId&amp;versionid=@Model.ESEMICampaign.VersionId&amp;url=@Model.ESEMICampaign.CurrentPageUrl&amp;platformid=@Model.ESEMICampaign.PlatformId&amp;bike=@Model.BikeName&amp;loanamount=@Model.ESEMICampaign.LoanAmount&amp;dealerName=@Model.ESEMICampaign.Organization&amp;sendLeadSMSCustomer=@Convert.ToString(Model.ESEMICampaign.SendLeadSMSCustomer)">@(Model.IsMobile ? Model.ESEMICampaign.EMIButtonTextMobile : Model.ESEMICampaign.EMIButtonTextDesktop)</a>
+                    <a id="btnEmiQuote" class="btn btn-white emi-quote-btn bw-ga" data-cat="Model_Page" data-act="Get_EMI_Quote_Clicked" data-lab="@Model.BikeName.Replace(" ", "_")" rel="nofollow" href="@(Model.IsMobile?"/m":"")/finance/capitalfirst/?campaingid=@Model.ESEMICampaign.CampaignId&amp;dealerid=@Model.ESEMICampaign.DealerId&amp;pqid=@Model.PQId&amp;leadsourceid=@Model.ESEMICampaign.LeadSourceId&amp;versionid=@Model.ESEMICampaign.VersionId&amp;url=@Model.ESEMICampaign.CurrentPageUrl&amp;platformid=@Model.ESEMICampaign.PlatformId&amp;bike=@Model.BikeName&amp;loanamount=@Model.ESEMICampaign.LoanAmount&amp;dealerName=@Model.ESEMICampaign.Organization&amp;sendLeadSMSCustomer=@Convert.ToString(Model.ESEMICampaign.SendLeadSMSCustomer)&amp;cityid=@cityId">@(Model.IsMobile ? Model.ESEMICampaign.EMIButtonTextMobile : Model.ESEMICampaign.EMIButtonTextDesktop)</a>
                 }
                 else
                 {

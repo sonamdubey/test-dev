@@ -1,0 +1,80 @@
+syntax = "proto3";
+package SpamFilter;
+option csharp_namespace = "SpamFilter.Service.ProtoClass";
+
+service SpamFilterService
+{
+    // Get Spam score
+    rpc GetScore(UserInfo) returns(SpamScore){};
+
+    // Create elastic index for abusive words
+    rpc CreateElasticIndex(NoInput) returns (GrpcBool){};
+
+    //Spam Number CRUD
+    rpc AddSpamNumber(SpamEntity) returns(GrpcId){};
+    rpc DeleteSpamNumber(SpamEntity) returns(GrpcBool){};
+    rpc GetAllSpamNumber(Page) returns(SpamEntityList){};
+
+    //Spam Cookie CRUD
+    rpc AddSpamCookie(SpamEntity) returns(GrpcId){};
+    rpc DeleteSpamCookie(SpamEntity) returns(GrpcBool){};
+    rpc GetAllSpamCookie(Page) returns(SpamEntityList){};
+
+    //Spam Keyword CRUD
+    rpc AddSpamKeyword(SpamEntity) returns(GrpcId){};
+    rpc DeleteSpamKeyword(SpamEntity) returns(GrpcBool){};
+    rpc GetAllSpamKeywords(Page) returns(SpamEntityList){};
+}
+
+message UserInfo
+{
+  string Name = 1;
+  string Cookie = 2;
+  string Number = 3;
+  string Email = 4;
+}
+
+message GrpcBool
+{
+    bool Value=1;
+}
+message GrpcId
+{
+    int32 Value=1;
+}
+
+message ItemScore
+{
+    float Score =1;
+    string Description =2;
+}
+
+message SpamScore
+{
+    float Score=1;
+    ItemScore Name =2;
+    ItemScore Cookie =3;
+    ItemScore Number =4;
+    ItemScore Email =5;
+}
+
+message SpamEntity
+{
+    int32 id = 1;
+    string Item = 2;
+    string AddedBy =3;
+    string Description = 4;
+}
+
+message SpamEntityList
+{
+    repeated SpamEntity List = 1;
+}
+
+message Page
+{
+    int32 PageNo = 1;
+    int32 PageSize = 2;
+}
+
+message NoInput{}

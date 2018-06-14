@@ -71,7 +71,7 @@ namespace Bikewale.Controllers.Desktop.Videos
         {
             try
             {
-                VideosLandingPage modelObj = new VideosLandingPage(_video, _videos, _bikeMakesCache, _objModelCache,_models);
+                VideosLandingPage modelObj = new VideosLandingPage(_video, _videos, _bikeMakesCache, _objModelCache, _models);
                 modelObj.LandingVideosTopCount = 5;
                 modelObj.ExpertReviewsTopCount = 2;
                 modelObj.FirstRideWidgetTopCount = 6;
@@ -91,7 +91,7 @@ namespace Bikewale.Controllers.Desktop.Videos
             catch (System.Exception ex)
             {
                 ErrorClass.LogError(ex, "VideosController.Index");
-                return Redirect("/pagenotfound.aspx");
+                return HttpNotFound();
             }
         }
         /// <summary>
@@ -105,7 +105,7 @@ namespace Bikewale.Controllers.Desktop.Videos
         {
             try
             {
-                VideosLandingPage modelObj = new VideosLandingPage(_video, _videos, _bikeMakesCache, _objModelCache,_models);
+                VideosLandingPage modelObj = new VideosLandingPage(_video, _videos, _bikeMakesCache, _objModelCache, _models);
                 modelObj.LandingVideosTopCount = 5;
                 modelObj.ExpertReviewsTopCount = 2;
                 modelObj.FirstRideWidgetTopCount = 6;
@@ -141,7 +141,7 @@ namespace Bikewale.Controllers.Desktop.Videos
             catch (System.Exception ex)
             {
                 ErrorClass.LogError(ex, "ServiceCentersController.Index_Mobile");
-                return Redirect("/pagenotfound.aspx");
+                return HttpNotFound();
             }
         }
         /// <summary>
@@ -209,11 +209,11 @@ namespace Bikewale.Controllers.Desktop.Videos
             }
             else if (objModel.Status == Entities.StatusCodes.ContentNotFound)
             {
-                return Redirect("/pagenotfound.aspx");
+                return HttpNotFound();
             }
             else
             {
-                return Redirect("/pagenotfound.aspx");
+                return HttpNotFound();
             }
         }
         /// <summary>
@@ -252,11 +252,11 @@ namespace Bikewale.Controllers.Desktop.Videos
             }
             else if (objModel.Status == Entities.StatusCodes.ContentNotFound)
             {
-                return Redirect("/pagenotfound.aspx");
+                return HttpNotFound();
             }
             else
             {
-                return Redirect("/pagenotfound.aspx");
+                return HttpNotFound();
             }
         }
 
@@ -292,7 +292,7 @@ namespace Bikewale.Controllers.Desktop.Videos
             }
             else if (objModel.makeStatus == Entities.StatusCodes.ContentNotFound || objModel.modelStatus == Entities.StatusCodes.ContentNotFound)
             {
-                return Redirect("/pagenotfound.aspx");
+                return HttpNotFound();
             }
             else
             {
@@ -344,7 +344,7 @@ namespace Bikewale.Controllers.Desktop.Videos
             }
             else if (objModel.makeStatus == Entities.StatusCodes.ContentNotFound || objModel.modelStatus == Entities.StatusCodes.ContentNotFound)
             {
-                return Redirect("/pagenotfound.aspx");
+                return HttpNotFound();
             }
             else
             {
@@ -387,7 +387,7 @@ namespace Bikewale.Controllers.Desktop.Videos
             }
             else
             {
-                return Redirect("pageNotFound.aspx");
+                return HttpNotFound();
             }
         }
 
@@ -417,7 +417,7 @@ namespace Bikewale.Controllers.Desktop.Videos
             }
             else
             {
-                return Redirect("pageNotFound.aspx");
+                return HttpNotFound();
             }
         }
 

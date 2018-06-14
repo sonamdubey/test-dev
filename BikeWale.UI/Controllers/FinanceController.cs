@@ -1,13 +1,9 @@
-﻿using Bikewale.Entities.Dealer;
-using Bikewale.Entities.Location;
+﻿using Bikewale.Interfaces.Finance;
 using Bikewale.Entities.PWA.Articles;
 using Bikewale.Interfaces.PWA.CMS;
 using Bikewale.Models;
 using Bikewale.Models.Finance;
 using Bikewale.Models.Shared;
-using Bikewale.Utility;
-using Newtonsoft.Json;
-using System;
 using System.Collections.Specialized;
 using System.Web;
 using System.Web.Mvc;
@@ -23,18 +19,21 @@ namespace Bikewale.Controllers
 	/// </author>
 	public class FinanceController : Controller
 	{
+        private readonly IFinanceCacheRepository _financeCache;
 		private readonly IPWACMSCacheRepository _renderedArticles;
 
-		#region Constructor
-		public FinanceController(IPWACMSCacheRepository articles)
-		{
-			_renderedArticles = articles;
-		}
-		#endregion
 
-		/// <summary>
-		/// Created by  : Rajan Chauhan on 28 Mar 2018
-		/// Modified by : Rajan Chauhan on 11 May 2018
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="financeCache"></param>
+        public FinanceController(IFinanceCacheRepository financeCache, IPWACMSCacheRepository renderedArticles)
+        {
+			_renderedArticles = renderedArticles;
+            _financeCache = financeCache;
+        }
+
+
 		/// Description : Changed route to bike-loan-emi-calculator
 		/// </summary>
 		/// <returns></returns>
@@ -52,75 +51,42 @@ namespace Bikewale.Controllers
 		/// <summary>
 		/// index mobile for capital first
 		/// Sangram Nandkhile on 08-Sep-2017
-    /// Modifier : Kartik Rathod on 16 may 2018, added dealerName,sendLeadSMSCustomer
+        /// Modified by : Snehal Dange on 25th May 2018
+        /// Description: Moved logic to financeModel
 		/// </summary>
 		/// <returns></returns>
 		[Route("m/finance/capitalfirst/")]
 		public ActionResult CapitalFirst_Index_Mobile()
 		{
-        string q = Request.Url.Query;
-        bool sendSMStoCustomer = false;
-        ushort platformId = 0;            
-        CapitalFirstVM viewModel = new CapitalFirstVM();
-        viewModel.ObjLead = new ManufacturerLeadEntity();
-        NameValueCollection queryCollection = HttpUtility.ParseQueryString(q);
+            CapitalFirstModel obj = new CapitalFirstModel(_financeCache);
+            obj.IsMobile = true;
+            string q = Request.Url.Query;
 
-        viewModel.ObjLead.CampaignId = Convert.ToUInt16(queryCollection["campaingid"]);
-        viewModel.ObjLead.DealerId = Convert.ToUInt16(queryCollection["dealerid"]);
-        viewModel.ObjLead.LeadSourceId = Convert.ToUInt16(queryCollection["leadsourceid"]);
-        viewModel.ObjLead.VersionId = Convert.ToUInt16(queryCollection["versionid"]);
-        viewModel.ObjLead.PQId = Convert.ToUInt32(queryCollection["pqid"]);
-        viewModel.PageUrl = queryCollection["url"];
-        viewModel.BikeName = queryCollection["bike"];
-        viewModel.LoanAmount = Convert.ToUInt32(queryCollection["loanamount"]);
-        viewModel.PlatformId = ushort.TryParse(queryCollection["platformid"], out platformId) ? platformId :(ushort)DTO.PriceQuote.PQSources.Mobile;
-        viewModel.ObjLead.BikeName = queryCollection["bike"];
-        viewModel.ObjLead.DealerName = queryCollection["dealerName"];
-        viewModel.ObjLead.SendLeadSMSCustomer = Boolean.TryParse(queryCollection["sendLeadSMSCustomer"], out sendSMStoCustomer);
-
-        GlobalCityAreaEntity location = GlobalCityArea.GetGlobalCityArea();
-        if (location != null)
-            viewModel.ObjLead.CityId = location.CityId;
-        viewModel.objLeadJson = JsonConvert.SerializeObject(viewModel.ObjLead);
+            NameValueCollection queryCollection = HttpUtility.ParseQueryString(q);
+            CapitalFirstVM viewModel = obj.GetData(queryCollection);
         return View(viewModel);
         
 		}
 
-		/// <summary>
-		/// index desktop for capital first
-		/// Sangram Nandkhile on 08-Sep-2017
-    /// Modifier : Kartik Rathod on 16 may 2018, added dealerName,sendLeadSMSCustomer
-		/// </summary>
-		/// <returns></returns>
-		[Bikewale.Filters.DeviceDetection]
-		[Route("finance/capitalfirst/")]
-		public ActionResult CapitalFirst_Index()
-		{
-			string q = Request.Url.Query;
-      bool sendSMStoCustomer = false;
-      CapitalFirstVM viewModel = new CapitalFirstVM();
-      viewModel.ObjLead = new ManufacturerLeadEntity();
-      NameValueCollection queryCollection = HttpUtility.ParseQueryString(q);
-      viewModel.ObjLead.CampaignId = Convert.ToUInt16(queryCollection["campaingid"]);
-      viewModel.ObjLead.DealerId = Convert.ToUInt16(queryCollection["dealerid"]);
-      viewModel.ObjLead.LeadSourceId = Convert.ToUInt16(queryCollection["leadsourceid"]);
-      viewModel.ObjLead.VersionId = Convert.ToUInt16(queryCollection["versionid"]);
-      viewModel.ObjLead.PQId = Convert.ToUInt32(queryCollection["pqid"]);
-      viewModel.PageUrl = queryCollection["url"];
-      viewModel.BikeName = queryCollection["bike"];
-      viewModel.PlatformId = (ushort)DTO.PriceQuote.PQSources.Desktop;
-      viewModel.LoanAmount = Convert.ToUInt32(queryCollection["loanamount"]);
-      viewModel.ObjLead.BikeName = queryCollection["bike"];
-      viewModel.ObjLead.DealerName = queryCollection["dealerName"];
-      viewModel.ObjLead.SendLeadSMSCustomer = Boolean.TryParse(queryCollection["sendLeadSMSCustomer"], out sendSMStoCustomer);
+        /// <summary>
+        /// index desktop for capital first
+        /// Sangram Nandkhile on 08-Sep-2017
+        /// Modified by : Snehal Dange on 25th May 2018
+        /// Description: Moved logic to financeModel
+        /// </summary>
+        /// <returns></returns>
+        [Bikewale.Filters.DeviceDetection]
+        [Route("finance/capitalfirst/")]
+        public ActionResult CapitalFirst_Index()
+        {
+            CapitalFirstModel obj = new CapitalFirstModel(_financeCache);
+            string q = Request.Url.Query;
 
-      GlobalCityAreaEntity location = GlobalCityArea.GetGlobalCityArea();
-      if (location != null)
-          viewModel.ObjLead.CityId = location.CityId;
-      viewModel.objLeadJson = JsonConvert.SerializeObject(viewModel.ObjLead);
-      return View(viewModel);
-		}
+            NameValueCollection queryCollection = HttpUtility.ParseQueryString(q);
+            CapitalFirstVM viewModel = obj.GetData(queryCollection);
+            return View(viewModel);
+        }
 
-		#endregion
-	}
+        #endregion
+    }
 }

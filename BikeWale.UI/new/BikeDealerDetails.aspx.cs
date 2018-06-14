@@ -3,8 +3,8 @@ using Bikewale.BAL.Dealer;
 using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
 using Bikewale.Cache.DealersLocator;
+using Bikewale.Common;
 using Bikewale.Controls;
-using Bikewale.CoreDAL;
 using Bikewale.DAL.BikeData;
 using Bikewale.DAL.Dealer;
 using Bikewale.Entities.BikeData;
@@ -14,7 +14,6 @@ using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.Dealer;
-using Bikewale.Notifications;
 using Bikewale.Utility;
 using Microsoft.Practices.Unity;
 using System;
@@ -88,9 +87,7 @@ namespace Bikewale.New
                 }
                 else
                 {
-                    Response.Redirect(Bikewale.Common.CommonOpn.AppPath + "pageNotFound.aspx", false);
-                    HttpContext.Current.ApplicationInstance.CompleteRequest();
-                    this.Page.Visible = false;
+                    UrlRewrite.Return404();
                 }
             }
 
@@ -148,8 +145,8 @@ namespace Bikewale.New
             }
             catch (Exception ex)
             {
-                ErrorClass.LogError(ex, "BikeDealerDetails.BindUserControl");
-                
+                Bikewale.Notifications.ErrorClass.LogError(ex, "BikeDealerDetails.BindUserControl");
+
             }
 
         }
@@ -206,17 +203,15 @@ namespace Bikewale.New
                     }
                     else
                     {
-                        Response.Redirect(Bikewale.Common.CommonOpn.AppPath + "pageNotFound.aspx", false);
-                        HttpContext.Current.ApplicationInstance.CompleteRequest();
-                        this.Page.Visible = false;
+                        UrlRewrite.Return404();
                     }
                 }
             }
             catch (Exception ex)
             {
                 Trace.Warn(ex.Message);
-                ErrorClass.LogError(ex, "GetDealerDetails");
-                
+                Bikewale.Notifications.ErrorClass.LogError(ex, "GetDealerDetails");
+
             }
         }
 
@@ -254,25 +249,21 @@ namespace Bikewale.New
                     }
                     else
                     {
-                        Response.Redirect(Bikewale.Common.CommonOpn.AppPath + "pageNotFound.aspx", false);
-                        HttpContext.Current.ApplicationInstance.CompleteRequest();
-                        this.Page.Visible = false;
+                        UrlRewrite.Return404();
                     }
                     clientIP = Bikewale.Common.CommonOpn.GetClientIP();
                     pageUrl = currentReq.ServerVariables["URL"];
                 }
                 else
                 {
-                    Response.Redirect(Bikewale.Common.CommonOpn.AppPath + "pageNotFound.aspx", false);
-                    HttpContext.Current.ApplicationInstance.CompleteRequest();
-                    this.Page.Visible = false;
+                    UrlRewrite.Return404();
                 }
             }
             catch (Exception ex)
             {
                 Trace.Warn("ProcessQueryString Ex: ", ex.Message);
-                ErrorClass.LogError(ex, currentReq.ServerVariables["URL"]);
-                
+                Bikewale.Notifications.ErrorClass.LogError(ex, currentReq.ServerVariables["URL"]);
+
             }
             finally
             {
@@ -285,22 +276,18 @@ namespace Bikewale.New
                     }
                     else if (objResponse.StatusCode == 301)
                     {
-                        CommonOpn.RedirectPermanent(Request.RawUrl.Replace(makeMaskingName, objResponse.MaskingName));
+                        Bikewale.Common.CommonOpn.RedirectPermanent(Request.RawUrl.Replace(makeMaskingName, objResponse.MaskingName));
                         isValidQueryString = false;
                     }
                     else
                     {
-                        Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
-                        HttpContext.Current.ApplicationInstance.CompleteRequest();
-                        this.Page.Visible = false;
+                        UrlRewrite.Return404();
                         isValidQueryString = false;
                     }
                 }
                 else
                 {
-                    Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
-                    HttpContext.Current.ApplicationInstance.CompleteRequest();
-                    this.Page.Visible = false;
+                    UrlRewrite.Return404();
                     isValidQueryString = false;
                 }
             }

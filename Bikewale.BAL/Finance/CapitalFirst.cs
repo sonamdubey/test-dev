@@ -1,12 +1,12 @@
 ﻿using Bikewale.Entities.Customer;
 using Bikewale.Entities.Finance.CapitalFirst;
-using Bikewale.Entities.MobileVerification;
 using Bikewale.Interfaces.Customer;
 using Bikewale.Interfaces.Finance;
 using Bikewale.Interfaces.Finance.CapitalFirst;
 using Bikewale.Interfaces.MobileVerification;
 using Bikewale.ManufacturerCampaign.Interface;
 using Bikewale.Notifications;
+using Bikewale.Notifications.MailTemplates;
 using Newtonsoft.Json;
 using RabbitMqPublishing;
 using System;
@@ -37,13 +37,13 @@ namespace Bikewale.BAL.Finance
         private readonly String CTApiUrl = Bikewale.Utility.BWConfiguration.Instance.CarTradeLeadUrl;
         private readonly String CTApiAction = Bikewale.Utility.BWConfiguration.Instance.CarTradeLeadApiAction;
         private readonly String CTApiCode = Bikewale.Utility.BWConfiguration.Instance.CarTradeLeadApiCode;
-
-        private const string CF_MESSAGE_SUCCESS = "Data saved successfully";
-        private const string CF_MESSAGE_SAVE_FAILURE = "Error occured while saving data";
-        private const string CF_MESSAGE_INVALID = "Invalid lead id or request body is empty";
-
         private readonly IDictionary<ushort, String> _leadStatusCollection = null;
-
+        private const ushort SUCCESS_STATUS = 6;
+        private const ushort SUCCESS_UNVERIFIED_MOBILE = 1;
+        private const ushort SUCCESS_AREA_NOT_SERVING = 12;
+        private static readonly string _mediaContentType = "application/x-www-form-urlencoded";
+        private static readonly string _CustomerSMSTemplate = "Hi {0}, we have shared your details with Capital First. For further steps, you can reach out to Capital First officer {1} - {2}";
+        private static readonly string _CustomerEmailSubject = "Loan application for {0}";
         /// <summary>
         /// Created by  :   Sumit Kate on 11 Sep 2017
         /// Description :   Type Initializer
@@ -61,147 +61,17 @@ namespace Bikewale.BAL.Finance
 
             _leadStatusCollection = new Dictionary<ushort, String>();
             _leadStatusCollection.Add(0, "Some error occured.");
-            _leadStatusCollection.Add(1, "Proceed to step 2");
-            _leadStatusCollection.Add(2, "Proceed to step 2");
+            _leadStatusCollection.Add(SUCCESS_UNVERIFIED_MOBILE, "Mobile not verified.");
+            _leadStatusCollection.Add(2, "Lead already exists.");
             _leadStatusCollection.Add(3, "Your loan application has already got pre-approved. Please contact your Capital First executive (Details shared in email).");
             _leadStatusCollection.Add(4, "Your loan application could not be processed online. Thanks for applying.");
-            _leadStatusCollection.Add(5, "Your loan application could not be processed online. Thanks for applying.");
-            _leadStatusCollection.Add(6, "Your loan application is in process. We will share the status of your application over email / SMS.");
+            _leadStatusCollection.Add(5, "Your loan application has already got pre-approved. Please contact your Capital First executive (Details shared in email).");
+            _leadStatusCollection.Add(SUCCESS_STATUS, "Your application is submitted successfully.");
             _leadStatusCollection.Add(8, "Some error occured while processing your request. Please try after sometime.");
-            _leadStatusCollection.Add(12, "Currently, our finance partner does not provide loan in your area.");
-            _leadStatusCollection.Add(13, "Mobile not verified.");
+            _leadStatusCollection.Add(SUCCESS_AREA_NOT_SERVING, "Currently, our finance partner does not provide loan in your area.");
         }
 
-        /// <summary>
-        /// Created by  :   Sumit Kate on 11 Sep 2017
-        /// Description :   To save Capital First voucher details sent by CarTrade
-        /// </summary>
-        /// <param name="ctLeadId"></param>
-        /// <param name="jsonData"></param>
-        /// <returns></returns>
-        public string SaveVoucherDetails(string ctLeadId, CapitalFirstVoucherEntityBase entity)
-        {
-            string message = "";
-            try
-            {
-                bool isSuccess = _objIFinanceRepository.IsValidLead(ctLeadId);
-                if (isSuccess && entity != null)
-                {
-                    isSuccess = _objIFinanceRepository.SaveVoucherDetails(ctLeadId, entity);
-
-                    if (isSuccess)
-                    {
-                        NameValueCollection objNVC = new NameValueCollection();
-                        objNVC.Add("ctLeadId", ctLeadId);
-                        objNVC.Add("agentContactNumber", entity.AgentContactNumber);
-                        objNVC.Add("agentName", entity.AgentName);
-                        objNVC.Add("expiryDate", entity.ExpiryDate.ToShortDateString());
-                        objNVC.Add("voucherCode", entity.VoucherCode);
-                        objNVC.Add("status", ((int)entity.Status).ToString());
-                        RabbitMqPublish objRMQPublish = new RabbitMqPublish();
-                        objRMQPublish.PublishToQueue(Bikewale.Utility.BWConfiguration.Instance.CapitalFirstConsumerQueue, objNVC);
-                        message = CF_MESSAGE_SUCCESS;
-                    }
-                    else
-                    {
-                        message = CF_MESSAGE_SAVE_FAILURE;
-                    }
-                }
-                else
-                {
-                    message = CF_MESSAGE_INVALID;
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorClass.LogError(ex, String.Format("CapitalFirst.SaveVoucherDetails({0},{1})", ctLeadId, Newtonsoft.Json.JsonConvert.SerializeObject(entity)));
-                message = CF_MESSAGE_SAVE_FAILURE;
-            }
-            return message;
-        }
-
-        public LeadResponseMessage SaveEmployeDetails(PersonalDetails objDetails, string Utmz, string Utma, ushort leadSource)
-        {
-            LeadResponseMessage response = null;
-            try
-            {
-                response = new LeadResponseMessage();
-                if (objDetails.LeadId == 0)
-                {
-
-                    objDetails.LeadId = SubmitLead(objDetails, Utmz, Utma);
-                    response.CpId = 0;
-                    response.CTleadId = 0;
-                }
-                PushToLeadConsumerQueue(objDetails);
-                response.LeadId = objDetails.LeadId;
-                if (_mobileVerRespo.IsMobileVerified(Convert.ToString(objDetails.MobileNumber), objDetails.EmailId))
-                {
-                    response = PushLeadinCTandAutoBiz(objDetails, leadSource);
-                }
-                else
-                {
-                    response.Message = _leadStatusCollection[13];
-                    response.Status = 13;
-                    response.CpId = objDetails.Id;
-                    response.CTleadId = objDetails.CtLeadId;
-                    MobileVerificationEntity mobileVer = null;
-                    mobileVer = _mobileVerification.ProcessMobileVerification(objDetails.EmailId, Convert.ToString(objDetails.MobileNumber));
-                    SMSTypes st = new SMSTypes();
-                    st.SMSMobileVerification(Convert.ToString(objDetails.MobileNumber), string.Empty, mobileVer.CWICode, "PageUrl");
-
-                }
-            }
-            catch (Exception ex)
-            {
-
-                ErrorClass.LogError(ex, String.Format("CapitalFirst.SaveEmployeDetails({0})", Newtonsoft.Json.JsonConvert.SerializeObject(objDetails)));
-            }
-            return response;
-
-        }
-        public LeadResponseMessage SavePersonalDetails(PersonalDetails objDetails, string Utmz, string Utma, ushort leadSource)
-        {
-            LeadResponseMessage objId = null;
-
-            try
-            {
-                if (objDetails.LeadId == 0)
-                {
-                    objDetails.LeadId = SubmitLead(objDetails, Utmz, Utma);
-                }
-                PushToLeadConsumerQueue(objDetails);
-
-                #region Do not change the sequence
-                //Save Lead Details to Bikewale Capital First Lead Table
-                objDetails.Id = _objIFinanceRepository.SavePersonalDetails(objDetails);
-                //Sent Details to CT API
-                var ctResponse = SendCustomerDetailsToCarTrade(objDetails, leadSource);
-                objId = new LeadResponseMessage();
-                if (ctResponse != null)
-                {
-                    objId.CTleadId = objDetails.CtLeadId = ctResponse.LeadId;
-                    objId.Status = ctResponse.Status;
-                    objId.Message = _leadStatusCollection[ctResponse.Status];
-                    //Update ct api response
-                    _objIFinanceRepository.SaveCTApiResponse(objDetails.LeadId, ctResponse.LeadId, ctResponse.Status, ctResponse.Message);
-                }
-                objId.CpId = objDetails.Id;
-                objId.LeadId = objDetails.LeadId;
-                #endregion
-
-
-            }
-            catch (Exception ex)
-            {
-
-                ErrorClass.LogError(ex, String.Format("CapitalFirst.SavePersonalDetails({0})", Newtonsoft.Json.JsonConvert.SerializeObject(objDetails)));
-            }
-            return objId;
-
-        }
-
-        private CTFormResponse SendCustomerDetailsToCarTrade(PersonalDetails objDetails, ushort leadSource)
+        private CTFormResponse SendCustomerDetailsToCarTrade(PersonalDetails objDetails, ushort leadSource, bool isMobileVerified)
         {
             CTFormResponse ctResp = null;
             string response = string.Empty;
@@ -218,42 +88,41 @@ namespace Bikewale.BAL.Finance
                         formData.Add(new KeyValuePair<string, string>("action", CTApiAction));
                         formData.Add(new KeyValuePair<string, string>("api_code", CTApiCode));
                         formData.Add(new KeyValuePair<string, string>("bw_lead_id", objDetails.LeadId.ToString()));
-                        formData.Add(new KeyValuePair<string, string>("company", objDetails.CompanyName));
-                        formData.Add(new KeyValuePair<string, string>("date_of_birth", objDetails.DateOfBirth.ToString("yyyy/MM/dd")));
-                        formData.Add(new KeyValuePair<string, string>("email", objDetails.EmailId));
-                        formData.Add(new KeyValuePair<string, string>("emp_address1", objDetails.OfficialAddressLine1));
-                        formData.Add(new KeyValuePair<string, string>("emp_address2", objDetails.OfficialAddressLine2));
-                        formData.Add(new KeyValuePair<string, string>("emp_pincode", objDetails.PincodeOffice));
-                        formData.Add(new KeyValuePair<string, string>("emp_type", objDetails.Status == 1 ? "Salaried" : "Self Employed"));
-                        formData.Add(new KeyValuePair<string, string>("fname", objDetails.FirstName));
                         formData.Add(new KeyValuePair<string, string>("from_source", leadSource.ToString())); // 1 - Desktop, 2 - Mobile
-                        formData.Add(new KeyValuePair<string, string>("gender", objDetails.Gender == 1 ? "Male" : "Female"));
-                        formData.Add(new KeyValuePair<string, string>("gross_income", objDetails.AnnualIncome.ToString()));
-                        formData.Add(new KeyValuePair<string, string>("amount_needed", objDetails.LoanAmount.ToString()));
-                        formData.Add(new KeyValuePair<string, string>("lead_id", objDetails.CtLeadId.ToString()));
+                        if (objDetails.CtLeadId > 0)
+                        {
+                            formData.Add(new KeyValuePair<string, string>("lead_id", objDetails.CtLeadId.ToString()));
+                        }
+                        if (isMobileVerified)
+                        {
+                            formData.Add(new KeyValuePair<string, string>("otp_verified", "y"));
+                        }
+                        formData.Add(new KeyValuePair<string, string>("fname", objDetails.FirstName));
                         formData.Add(new KeyValuePair<string, string>("lname", objDetails.LastName));
+                        formData.Add(new KeyValuePair<string, string>("email", objDetails.EmailId));
                         formData.Add(new KeyValuePair<string, string>("make", bikemapping.MakeBase.Make));
                         formData.Add(new KeyValuePair<string, string>("model", bikemapping.ModelBase.ModelNo));
                         formData.Add(new KeyValuePair<string, string>("mobile", objDetails.MobileNumber));
-                        formData.Add(new KeyValuePair<string, string>("m_status", objDetails.MaritalStatus == 1 ? "Married" : "Single"));
-                        formData.Add(new KeyValuePair<string, string>("pan_number", objDetails.Pancard));
-                        formData.Add(new KeyValuePair<string, string>("res_address1", objDetails.AddressLine1));
-                        formData.Add(new KeyValuePair<string, string>("res_address2", objDetails.AddressLine2));
+
+                        if (!String.IsNullOrEmpty(objDetails.Pancard))
+                        {
+                            formData.Add(new KeyValuePair<string, string>("pan_number", objDetails.Pancard));
+                        }
+
                         formData.Add(new KeyValuePair<string, string>("res_pincode", objDetails.Pincode));
 
-
-                        HttpContent httpContent = new FormUrlEncodedContent(formData);
-                        httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/x-www-form-urlencoded");
-
-
-                        _httpClient = new HttpClient();
-                        using (HttpResponseMessage _response = _httpClient.PostAsync(CTApiUrl, httpContent).Result)
+                        using (HttpContent httpContent = new FormUrlEncodedContent(formData))
                         {
-                            if (_response.IsSuccessStatusCode && _response.StatusCode == System.Net.HttpStatusCode.OK)
+                            httpContent.Headers.ContentType = new MediaTypeHeaderValue(_mediaContentType);
+                            _httpClient = new HttpClient();
+                            using (HttpResponseMessage _response = _httpClient.PostAsync(CTApiUrl, httpContent).Result)
                             {
-                                response = _response.Content.ReadAsStringAsync().Result;
-                                _response.Content.Dispose();
-                                _response.Content = null;
+                                if (_response.IsSuccessStatusCode && _response.StatusCode == System.Net.HttpStatusCode.OK)
+                                {
+                                    response = _response.Content.ReadAsStringAsync().Result;
+                                    _response.Content.Dispose();
+                                    _response.Content = null;
+                                }
                             }
                         }
                         if (!String.IsNullOrEmpty(response))
@@ -277,18 +146,22 @@ namespace Bikewale.BAL.Finance
             return ctResp;
         }
 
+        /// <summary>
+        /// Checks for customer validation and registration
+        /// </summary>
+        /// <param name="objDetails"></param>
+        /// <param name="MobileNumber"></param>
+        /// <returns></returns>
         private CustomerEntity GetCustomerId(PersonalDetails objDetails, string MobileNumber)
         {
-
             CustomerEntity objCust = null;
             try
             {
-
+                //Check if customer already exists
                 if (!_objAuthCustomer.IsRegisteredUser(objDetails.EmailId, MobileNumber))
                 {
-                    objCust = new CustomerEntity() { CustomerName = string.Format("{0} {1}", objDetails.FirstName, objDetails.LastName), CustomerEmail = objDetails.EmailId, CustomerMobile = MobileNumber, ClientIP = "" };
+                    objCust = new CustomerEntity() { CustomerName = string.Format("{0} {1}", objDetails.FirstName, objDetails.LastName), CustomerEmail = objDetails.EmailId, CustomerMobile = MobileNumber };
                     objCust.CustomerId = _objCustomer.Add(objCust);
-
                 }
                 else
                 {
@@ -311,13 +184,20 @@ namespace Bikewale.BAL.Finance
             return objCust;
         }
 
+        /// <summary>
+        /// Saves the lead data to pq_newbikepricequote table
+        /// </summary>
+        /// <param name="objDetails"></param>
+        /// <param name="Utmz"></param>
+        /// <param name="Utma"></param>
+        /// <param name="isMobileVerified"></param>
+        /// <returns></returns>
         private uint SubmitLead(PersonalDetails objDetails, string Utmz, string Utma)
         {
             uint id = 0;
             try
             {
                 CustomerEntity objCust = GetCustomerId(objDetails, objDetails.MobileNumber);
-
                 id = _manufacturerCampaignRepo.SaveManufacturerCampaignLead(
                       objDetails.objLead.DealerId,
                       objDetails.objLead.PQId,
@@ -335,48 +215,15 @@ namespace Bikewale.BAL.Finance
             }
             catch (Exception ex)
             {
-
                 ErrorClass.LogError(ex, String.Format("CapitalFirst.SubmitLead({0})", Newtonsoft.Json.JsonConvert.SerializeObject(objDetails)));
             }
             return id;
         }
 
-        public LeadResponseMessage PushLeadinCTandAutoBiz(PersonalDetails objDetails, ushort leadSource)
-        {
-            LeadResponseMessage response = null;
-            try
-            {
-
-                #region Do not change sequence
-                var ctResponse = SendCustomerDetailsToCarTrade(objDetails, leadSource);
-
-                objDetails.Id = _objIFinanceRepository.SavePersonalDetails(objDetails);
-
-                response = new LeadResponseMessage();
-                response.CpId = objDetails.Id;
-                response.LeadId = objDetails.LeadId;
-
-                if (ctResponse != null)
-                {
-                    response.CTleadId = objDetails.CtLeadId = ctResponse.LeadId;
-                    response.Status = ctResponse.Status;
-                    response.Message = _leadStatusCollection[ctResponse.Status];
-                    _objIFinanceRepository.SaveCTApiResponse(objDetails.LeadId, ctResponse.LeadId, ctResponse.Status, ctResponse.Message);
-                }
-                #endregion
-                objDetails.Id = _objIFinanceRepository.SavePersonalDetails(objDetails);
-            }
-            catch (Exception ex)
-            {
-
-                ErrorClass.LogError(ex, String.Format("CapitalFirst.PushLeadinCTandAutoBiz({0})", Newtonsoft.Json.JsonConvert.SerializeObject(objDetails)));
-            }
-            return response;
-        }
-
         /// <summary>
         /// Created by  :   Sumit Kate on 25 Jan 2018
         /// Description :   Push To Lead ConsumerQueue
+        /// Saves the data to manufacturer lead table via lead push to Lead Consumer
         /// Modifier    : Kartik Rathod on 16 may 2018, added dealerName,bikename and sendLeadSMSCustomer  to ManufacturerLead consumer 
         /// </summary>
         /// <param name="objDetails"></param>
@@ -414,20 +261,105 @@ namespace Bikewale.BAL.Finance
                 ErrorClass.LogError(ex, String.Format("PushToLeadConsumerQueue({0})", (objDetails != null && objDetails.objLead != null) ? objDetails.objLead.PQId : 0));
             }
         }
+       
+	    /// <summary>
+        /// Created by  :   Sumit Kate on 24 May 2018
+        /// Description :   Business Layer for Capital First lead
+        /// </summary>
+        /// <param name="objDetails"></param>
+        /// <param name="utmz"></param>
+        /// <param name="utma"></param>
+        /// <param name="leadSource"></param>
+        /// <returns></returns>
+        public LeadResponseMessage SaveLead(PersonalDetails objDetails, string utmz, string utma, ushort leadSource)
+        {
+            LeadResponseMessage objId = null;
+            bool isMobileVerified = false;
+            try
+            {
+                #region Do not change the sequence
+                if (objDetails.LeadId == 0)
+                {
+                    //Save Lead data to pq_newbikepricequote table
+                    objDetails.LeadId = SubmitLead(objDetails, utmz, utma);
+                }
+                isMobileVerified = _mobileVerRespo.IsMobileVerified(objDetails.MobileNumber, objDetails.EmailId);
+                //Push lead to consumer where data is saved to manufaturerlead table and lead is further pushed to AutoBiz
+                PushToLeadConsumerQueue(objDetails);
+                //Save Lead Details to Bikewale Capital First Lead Table with 
+                objDetails.Id = _objIFinanceRepository.SaveCapitalFirstLeadData(objDetails, null);
+                //Sent Details to CT API
+                var ctResponse = SendCustomerDetailsToCarTrade(objDetails, leadSource, isMobileVerified);
+                objId = new LeadResponseMessage();
+                if (ctResponse != null)
+                {
+                    objId.CTleadId = objDetails.CtLeadId = ctResponse.LeadId;
+                    objId.Status = ctResponse.Status;
+                    objId.Message = _leadStatusCollection.ContainsKey(ctResponse.Status) ? _leadStatusCollection[ctResponse.Status] : ctResponse.Message;
+                    //Update ct api response
+                    _objIFinanceRepository.SaveCapitalFirstLeadData(objDetails, ctResponse);
+                    if (ctResponse.Status == SUCCESS_STATUS)
+                    {
+                        NotifyCustomer(objDetails, ctResponse);
+                    }
 
-    }
+                    if (!isMobileVerified && ctResponse.Status == SUCCESS_UNVERIFIED_MOBILE)
+                    {
+                        var mobileVer = _mobileVerification.ProcessMobileVerification(objDetails.EmailId, Convert.ToString(objDetails.MobileNumber));
+                        SMSTypes st = new SMSTypes();
+                        st.SMSMobileVerification(Convert.ToString(objDetails.MobileNumber), string.Empty, mobileVer.CWICode, "PageUrl");
+                    }
 
-    internal class CTFormResponse
-    {
-        [JsonProperty("status")]
-        public ushort Status { get; set; }
-        [JsonProperty("details")]
-        public String Details { get; set; }
-        [JsonProperty("message")]
-        public String Message { get; set; }
-        [JsonProperty("lead_id")]
-        public uint LeadId { get; set; }
-        [JsonProperty("lead_status")]
-        public ushort LeadStatus { get; set; }
-    }
+                }
+                else
+                {
+                    //API call fails sent error code
+                    objId.Status = 0;
+                    objId.Message = _leadStatusCollection[0];
+                }
+
+
+
+                objId.CpId = objDetails.Id;
+                objId.LeadId = objDetails.LeadId;
+                #endregion
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, String.Format("CapitalFirst.SavePersonalDetails({0})", Newtonsoft.Json.JsonConvert.SerializeObject(objDetails)));
+            }
+            return objId;
+        }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 24 May 2018
+        /// Description :   Send Email and SMS to customer
+        /// </summary>
+        /// <param name="objDetails"></param>
+        /// <param name="ctResponse"></param>
+        private void NotifyCustomer(PersonalDetails objDetails, CTFormResponse ctResponse)
+        {
+            try
+            {
+                CapitalFirstLeadEntity leadEntity = _objIFinanceRepository.GetLeadDetails(objDetails.CtLeadId);
+
+                if (leadEntity != null)
+                {
+                    SMSTypes sms = new SMSTypes();
+                    string smsTemplate = String.Format(_CustomerSMSTemplate, leadEntity.FirstName, ctResponse.SalesOfficer, ctResponse.SalaesOfficerMobile);
+                    sms.CapitalFirstSMS(objDetails.MobileNumber, "CapitalFirst", EnumSMSServiceType.CapitalFirstSMSToCustomer, smsTemplate);
+
+
+
+                    CapitalFirstSuccessEmailTemplate emailToCustomer = new CapitalFirstSuccessEmailTemplate(leadEntity.BikeName, ctResponse.SalesOfficer, ctResponse.SalaesOfficerMobile);
+                    emailToCustomer.Send(leadEntity.EmailId, String.Format(_CustomerEmailSubject, leadEntity.BikeName));
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, String.Format("CapitalFirst.NotifyCustomer({0})", Newtonsoft.Json.JsonConvert.SerializeObject(objDetails)));
+            }
+        }
+		
+	}
 }

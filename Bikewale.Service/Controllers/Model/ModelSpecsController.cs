@@ -93,10 +93,13 @@ namespace Bikewale.Service.Controllers.Model
 					return BadRequest();
 				}
 				objModelPage = _bikeModelEntity.GetModelPageDetails(modelId);
-				int versionId = objModelPage.ModelVersionMinSpecs.VersionId;
-				if (versionId > 0)
+				if (objModelPage.ModelVersionMinSpecs != null)
 				{
-					objModelPage.VersionSpecsFeatures = _bikeModelEntity.GetFullSpecsFeatures(versionId);
+					int versionId = objModelPage.ModelVersionMinSpecs.VersionId;
+					if (versionId > 0)
+					{
+						objModelPage.VersionSpecsFeatures = _bikeModelEntity.GetFullSpecsFeatures(versionId);
+					}
 				}
 				if (objModelPage != null)
 				{

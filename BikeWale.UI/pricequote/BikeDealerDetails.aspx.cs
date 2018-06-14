@@ -98,15 +98,13 @@ namespace Bikewale.Pricequote
             {
                 Trace.Warn(err.Message);
                 ErrorClass.LogError(err, Request.ServerVariables["URL"]);
-                
+
             }
             finally
             {
                 if (!_isContentFound)
                 {
-                    Response.Redirect("/pagenotfound.aspx", false);
-                    HttpContext.Current.ApplicationInstance.CompleteRequest();
-                    this.Page.Visible = false;
+                    UrlRewrite.Return404();
                 }
             }
         }
@@ -152,7 +150,7 @@ namespace Bikewale.Pricequote
             {
                 Trace.Warn(err.Message);
                 ErrorClass.LogError(err, Request.ServerVariables["URL"]);
-                
+
             }
 
         }
@@ -264,7 +262,7 @@ namespace Bikewale.Pricequote
             {
                 Trace.Warn(err.Message);
                 ErrorClass.LogError(err, Request.ServerVariables["URL"]);
-                
+
             }
         }
         #endregion
@@ -296,9 +294,7 @@ namespace Bikewale.Pricequote
             }
             else
             {
-                Response.Redirect("/pagenotfound.aspx", false);
-                HttpContext.Current.ApplicationInstance.CompleteRequest();
-                this.Page.Visible = false;
+                UrlRewrite.Return404();
             }
         }
         #endregion
@@ -376,7 +372,7 @@ namespace Bikewale.Pricequote
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, String.Format("{0} {1}", Request.ServerVariables["URL"], "CheckCityCookie"));
-                
+
             }
         }
         #endregion

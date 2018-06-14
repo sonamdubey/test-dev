@@ -6,7 +6,6 @@ using Bikewale.Controls;
 using Bikewale.Entities.Location;
 using Bikewale.Utility;
 using System;
-using System.Web;
 namespace Bikewale.Used
 {
     /// <summary>
@@ -54,9 +53,7 @@ namespace Bikewale.Used
 
         private void RedirectToPageNotFound()
         {
-            Response.Redirect("/pageNotFound.aspx", false);
-            HttpContext.Current.ApplicationInstance.CompleteRequest();
-            this.Page.Visible = false;
+            UrlRewrite.Return404();
         }
         /// Modified By :-Subodh Jain on 15 March 2017
         /// Summary :-Made count for other used bike 9

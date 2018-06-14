@@ -12,15 +12,15 @@ namespace BikewaleOpr.Controllers
     /// </summary>
     [Authorize]
     public class DealerCampaignController : Controller
-    {        
-        private readonly CampaignServingAreasModel objModel = null;        
+    {
+        private readonly CampaignServingAreasModel objModel = null;
 
         /// <summary>
         /// Constuctor to initialize the dependencies
         /// </summary>
         /// <param name="campaignRepo"></param>
         public DealerCampaignController(IDealerCampaignRepository campaignRepo, ICommuteDistance distance, ILocation location)
-        {            
+        {
             objModel = new CampaignServingAreasModel(campaignRepo, distance, location);
         }
 
@@ -41,17 +41,17 @@ namespace BikewaleOpr.Controllers
         /// <param name="dealerId">mandatory field</param>
         /// <returns></returns>
         [Route("dealercampaign/servingareas/dealerid/{dealerId}/campaignid/{campaignid}/")]
-        public ActionResult CampaignServingAreas(uint dealerId,uint campaignid)
+        public ActionResult CampaignServingAreas(uint dealerId, uint campaignid)
         {
             CampaignServingAreasVM objVM = null;
 
             if (dealerId > 0 && campaignid > 0)
             {
-                objVM = objModel.GetPageData(dealerId,campaignid);                
+                objVM = objModel.GetPageData(dealerId, campaignid);
             }
             else
             {
-                Redirect("/pagenotfound.aspx");
+                return HttpNotFound();
             }
 
             return View(objVM);
@@ -76,10 +76,12 @@ namespace BikewaleOpr.Controllers
             {
                 objModel.MapCampaignAreas(dealerId, campaignid, campaignServingStatus, servingRadius, cityIdList, stateIdList);
                 TempData["msg"] = "Campaign areas mapped successfully";
-            } else {
+            }
+            else
+            {
                 TempData["msg"] = "Please provide valid inputs";
             }
-            
+
             return RedirectToAction("CampaignServingAreas", routeValues: new { dealerId = dealerId, campaignId = campaignid });
         }
         #endregion
@@ -100,7 +102,9 @@ namespace BikewaleOpr.Controllers
             {
                 objModel.MapAdditionalAreas(dealerId, areaIdList);
                 TempData["msg"] = "Mapped additional areas with dealer location successfully!!!";
-            } else {
+            }
+            else
+            {
                 TempData["msg"] = "Please provide valid inputs";
             }
 
@@ -124,7 +128,9 @@ namespace BikewaleOpr.Controllers
             {
                 objModel.RemmoveAdditionallyMappedAreas(dealerId, removeAreaIdList);
                 TempData["msg"] = "Removed additional mapped areas with dealer location successfully!!!";
-            } else {
+            }
+            else
+            {
                 TempData["msg"] = "Please provide valid inputs";
             }
 
