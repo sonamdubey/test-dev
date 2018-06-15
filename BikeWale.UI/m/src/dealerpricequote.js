@@ -93,7 +93,7 @@ docReady(function () {
 
 	// focus dealer offers
 	$('#viewDealerOffers').on('click', function () {
-		var offsetTop = $('#pq-dealer-details').offset().top - ($('#bw-header').height() + $('#offersSummaryToolbar').height())
+	    var offsetTop = $('#pq-dealer-details').offset().top - ($('#bw-header').height() + $('#offersSummaryToolbar .dealer__offers-summary-content').outerHeight())
 
 		$('html, body').animate({
 			scrollTop: offsetTop
