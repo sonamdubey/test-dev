@@ -60,14 +60,8 @@
 		});
 	}
 
-	function _setRibbonPosition() {
-		var ribbonPos = ($(".ribbon-content").attr("data-position")) + "px";
-		$(".ribbon-content").css("top", ribbonPos);
-	}
-
 	function registerEvents() {
 		_setSelectors();
-		_setRibbonPosition();
 		_handleWindowScroll();
 		_handleRibbonClick();
 	}

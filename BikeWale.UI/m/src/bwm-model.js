@@ -779,7 +779,8 @@ docReady(function () {
 		}
 		
 		// offers ribbon
-		if ($(".offers-ribbon").length) {
+		var dealerOffersRibbon = $('#dealerOffersRibbon');
+		if (typeof dealerOffersRibbon !== 'undefined' && dealerOffersRibbon.length) {
 			Ribbon.registerEvents();
 		}
 

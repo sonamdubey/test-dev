@@ -71,28 +71,6 @@
                         @Html.Raw(string.Format("<ul id=\"version-specs-list\">{0}</ul>", FormatMinSpecs.GetMinSpecsAsLiElement(Model.SelectedVersionMinSpecs)))
                     </div>
                     <div id="pq-table-column" class="grid-7 alpha omega">
-                        @*@if (Model.VersionsList.Count() > 1)
-                        {
-                            <div id="model-version-dropdown" class="margin-right20 vertical-top">
-                                <p class="font12 text-light-grey">Version</p>
-                                <div class="select-box select-box-no-input">
-                                    <select id="ddlVersion" class="chosen-select" data-title="Version">
-                                        @foreach (var version in Model.VersionsList)
-                                        {
-                                            <option value="@version.VersionId" @(version.VersionId == Model.VersionId ? "selected" : "")>@version.VersionName</option>
-                                        }
-                                    </select>
-                                </div>
-                            </div>
-                        }
-                        else
-                        {
-                            <div class="single-version-content margin-right20 vertical-top">
-                                <p class="font12 text-light-grey">Version</p>
-                                <p class="text-bold dropdown-effect-light text-truncate">@(Model.SelectedVersion != null ? Model.SelectedVersion.VersionName : "")</p>
-                            </div>
-                        }*@
-
                             <div id="versionDropdown" class="dropdown-box dropdown-box--desktop vertical-top">
                                 <div class="dropdown-box__menu-tab version-tab__content">
                                     <p class="dropdown-box__menu-title">Version</p>

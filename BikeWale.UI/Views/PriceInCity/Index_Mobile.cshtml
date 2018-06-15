@@ -41,28 +41,9 @@
 
 							</div>
 							<div class="model-version-block inline-block">
-								@*<p class="font12 text-light-grey">Version:</p>
-								@if (Model.BikeVersionPrices.Count() > 1)
-								{
-									<div class="dropdown-select-wrapper">
-										<select class="dropdown-select bw-ga" data-title="Version" data-cat="Price_in_City_Page" data-act="Version_Changed" data-lab="@gaBikeName">
-											@foreach (var version in Model.BikeVersionPrices)
-											{
-												<option value="@version.VersionId">@version.VersionName</option>
-											}
-										</select>
-									</div>
-								}
-								else
-								{
-									<div class="single-version-content font14">
-										<p class="dropdown-effect-light">@Model.FirstVersion.VersionName</p>
-									</div>
-								}*@
-
                                 <div class="dropdown-box__menu-tab">
                                     <p class="dropdown-box__menu-title">Version</p>
-                                    <span class="dropdown-box__menu-value">Standard</span>
+                                    <span class="dropdown-box__menu-value">@Model.FirstVersion.VersionName</span>
                                 </div>
                             
                             </div>

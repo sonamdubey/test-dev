@@ -100,16 +100,24 @@
 
 .ribbon-content
   @include ribbon-tag
+  z-index: 6
   position: fixed
   top: 34%
   right: 0
+
+@media (max-width: 320px)
+  .ribbon-content
+    top: 39%
+
+.ribbon-content__data
+  margin-left: 2px
 
 .ribbon-icon-wrapper
   width: 14px
   height: 14px
   display: inline-block
   vertical-align: bottom
-  margin-right: 2px
+  margin-right: 4px
   position: relative
 
 .ribbon-icon__background
@@ -130,3 +138,9 @@
     top: 0
     left: 0
     z-index: 1
+
+
+//
+.body--dropdown-active
+  .offers-ribbon
+    z-index: 2

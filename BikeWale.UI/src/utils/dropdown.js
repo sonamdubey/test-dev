@@ -19,10 +19,12 @@
         $(dropdown.container).on('click', '.dropdown-box__menu-tab', function (event) {
             if ($(dropdown.container).hasClass(dropdown.options.activeSelectBoxClass)) {
                 $(dropdown.container).removeClass(dropdown.options.activeSelectBoxClass);
+                $('body').removeClass('body--dropdown-active');
             }
             else {
                 $(document).find('.dropdown-box.' + dropdown.options.activeSelectBoxClass).removeClass(dropdown.options.activeSelectBoxClass);
                 $(dropdown.container).addClass(dropdown.options.activeSelectBoxClass);
+                $('body').addClass('body--dropdown-active');
             }
 
             if (dropdown.options.onMenuClick) {
