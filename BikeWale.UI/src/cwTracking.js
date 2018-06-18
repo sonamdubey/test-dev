@@ -146,7 +146,7 @@
     },
 
     trackInviewJcarouselImpression: function () {
-        $('.jcarousel').off('jcarousel:visiblein').on('jcarousel:visiblein', 'li', function () {
+        $('.jcarousel').on('jcarousel:visiblein', 'li', function () {
             var node = $(this).find("[data-role*='inview-imp']");
 
             if (node.length > 0) {
