@@ -11,7 +11,7 @@ namespace Bikewale.Controllers
         // GET: Error
         public ActionResult Index()
         {
-            return Redirect("/pagenotfound.aspx"); 
+            return HttpNotFound(); 
         }
     }
 }

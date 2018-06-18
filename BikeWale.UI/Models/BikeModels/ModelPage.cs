@@ -1,4 +1,6 @@
-﻿using Bikewale.BindViewModels.Controls;
+﻿using Bikewale.BAL.ApiGateway.Adapters.BikeData;
+using Bikewale.BAL.ApiGateway.ApiGatewayHelper;
+using Bikewale.BindViewModels.Controls;
 using Bikewale.BindViewModels.Webforms;
 using Bikewale.common;
 using Bikewale.DTO.PriceQuote;
@@ -35,15 +37,13 @@ using Bikewale.Models.Used;
 using Bikewale.Models.UserReviews;
 using Bikewale.Notifications;
 using Bikewale.Utility;
+using log4net;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Web;
-using Bikewale.BAL.ApiGateway.ApiGatewayHelper;
-using Bikewale.BAL.ApiGateway.Adapters.BikeData;
-using Bikewale.BAL.ApiGateway.Entities.BikeData;
 
 namespace Bikewale.Models.BikeModels
 {
@@ -80,10 +80,10 @@ namespace Bikewale.Models.BikeModels
         private readonly IAdSlot _adSlot = null;
         private readonly IBikeInfo _bikeInfo = null;
         private readonly IBikeMakesCacheRepository _bikeMakesCacheRepository;
-		private readonly IApiGatewayCaller _apiGatewayCaller;
+        private readonly IApiGatewayCaller _apiGatewayCaller;
 
 
-		private uint _modelId, _cityId, _areaId;
+        private uint _modelId, _cityId, _areaId;
 
         private readonly IManufacturerCampaign _objManufacturerCampaign = null;
 
@@ -101,7 +101,7 @@ namespace Bikewale.Models.BikeModels
         private readonly String _adId_SimilarBikes = "1505919734321";
         private readonly String _adPath_SimilarBikes_Desktop = "/1017752/SimilarBikes_Desktop";
         private readonly String _adPath_SimilarBikes_Mobile = "/1017752/SimilarBikes_Mobile";
-
+        static ILog _logger = LogManager.GetLogger("ModelPage-New");
 
         public string RedirectUrl { get; set; }
         public StatusCodes Status { get; set; }
@@ -142,9 +142,9 @@ namespace Bikewale.Models.BikeModels
             _adSlot = adSlot;
             _bikeInfo = bikeInfo;
             _bikeMakesCacheRepository = bikeMakesCacheRepository;
-			_apiGatewayCaller = apiGatewayCaller;
+            _apiGatewayCaller = apiGatewayCaller;
 
-			ParseQueryString(makeMasking, modelMasking);
+            ParseQueryString(makeMasking, modelMasking);
         }
 
         #endregion Global Variables
@@ -155,71 +155,77 @@ namespace Bikewale.Models.BikeModels
         /// Description : Added call to BindAdSlotTags.
         /// Modified by : Snehal Dange on 21st March 2018
         /// Description: Added BindAdSlots.
+        /// Modified vy : Sanskar Gupta on 25 May 2018
+        /// Description : Added code to BindSeriesSlug.
         /// </summary>
         /// <param name="versionId"></param>
         /// <returns></returns>
         public ModelPageVM GetData(uint? versionId)
         {
+            DateTime dt1, dt2, dt3, dt4, dt5, dt6, dt7;
+            dt1 = dt2 = dt3 = dt4 = dt5 = dt6 = dt7 = DateTime.Now;
             try
             {
                 _objData = new ModelPageVM();
 
-				if (_modelId > 0)
-				{
-					_objData.ModelId = _modelId;
+                if (_modelId > 0)
+                {
+                    _objData.ModelId = _modelId;
 
-					#region Do Not change the sequence
+                    #region Do Not change the sequence
 
-					CheckCityCookie();
-					_objData.CityId = _cityId;
-					_objData.AreaId = _areaId;
-					_objData.VersionId = versionId.HasValue ? versionId.Value : 0;
+                    CheckCityCookie();
+                    _objData.CityId = _cityId;
+                    _objData.AreaId = _areaId;
+                    _objData.VersionId = versionId.HasValue ? versionId.Value : 0;
 
-					_objData.ModelPageEntity = FetchModelPageDetails(_modelId);
+                    _objData.ModelPageEntity = FetchModelPageDetails(_modelId);
 
                     if (_objData.IsModelDetails && _objData.ModelPageEntity.ModelDetails.New)
-					{
-						FetchOnRoadPrice(_objData.ModelPageEntity);
-					}
+                    {
+                        FetchOnRoadPrice(_objData.ModelPageEntity);
+                    }
 
                     LoadVariants(_objData.ModelPageEntity);
+                    dt2 = DateTime.Now;
+                    #region Code to get the specs and features data from microservice
+                    if (!_objData.IsUpcomingBike && _objData.VersionId > 0)
+                    {
+                        var specs = new BikeSpecsFeaturesVM();
+                        specs.BikeName = _objData.BikeName;
+                        specs.ModelName = _objData.ModelPageEntity.ModelDetails.ModelName;
+                        if (_objData.VersionId > 0)
+                        {
+                            GetVersionSpecsByIdAdapter adapt = new GetVersionSpecsByIdAdapter();
+                            adapt.AddApiGatewayCall(_apiGatewayCaller, new List<int> { (int)_objData.VersionId });
 
-					#region Code to get the specs and features data from microservice
-					if (!_objData.IsUpcomingBike && _objData.VersionId > 0)
-					{
-						var specs = new BikeSpecsFeaturesVM();
-						specs.BikeName = _objData.BikeName;
-						specs.ModelName = _objData.ModelPageEntity.ModelDetails.ModelName;
+                            _apiGatewayCaller.Call();
 
-						GetVersionSpecsByIdAdapter adapt1 = new GetVersionSpecsByIdAdapter();
-						adapt1.AddApiGatewayCall(_apiGatewayCaller, new List<int> { (int)_objData.VersionId });
-						
-						_apiGatewayCaller.Call();
+                            specs.VersionSpecsFeatures = adapt.Output;
+                        }
 
-						specs.VersionSpecsFeatures = adapt1.Output;
-						
-						_objData.BikeSpecsFeatures = specs;
-					}
-					#endregion
-
-					if (_objData.IsModelDetails && _objData.ModelPageEntity.ModelDetails.New)
+                        _objData.BikeSpecsFeatures = specs;
+                    }
+                    #endregion
+                    dt3 = DateTime.Now;
+                    if (_objData.IsModelDetails && _objData.ModelPageEntity.ModelDetails.New)
                     {
                         GetManufacturerCampaign();
                     }
-
+                    dt4 = DateTime.Now;
                     BindControls();
-
+                    dt5 = DateTime.Now;
                     BindColorString();
 
                     if (_modelId > 0)
                     {
                         BindMileageWidget(_objData);
                     }
-					
+
                     CreateMetas();
 
                     ImageAccordingToVersion();
-
+                    dt6 = DateTime.Now;
                     BindVersionPriceListSummary();
 
                     if (_objData.SimilarBikes != null)
@@ -235,12 +241,20 @@ namespace Bikewale.Models.BikeModels
 
                     if (_objData != null && _objData.SelectedVersion != null && !string.IsNullOrEmpty(_objData.SelectedVersion.FuelType))
                     {
-                        _objData.IsElectricBike = _objData.SelectedVersion.FuelType.Equals("Electric",StringComparison.InvariantCultureIgnoreCase);
+                        _objData.IsElectricBike = _objData.SelectedVersion.FuelType.Equals("Electric", StringComparison.InvariantCultureIgnoreCase);
                     }
                     if (_objData.AdTags != null)
                     {
                         BindAdSlots(_objData);
                     }
+
+
+                    if (_objData.ShowSeriesSlug)
+                    {
+                        BindSeriesSlug(_objData);
+                    }
+                    dt7 = DateTime.Now;
+
                     #endregion Do Not change the sequence
                 }
             }
@@ -248,8 +262,59 @@ namespace Bikewale.Models.BikeModels
             {
                 ErrorClass.LogError(ex, String.Format("GetData({0})", _modelId));
             }
+            finally
+            {
+                ThreadContext.Properties["Model_1_TillLoadVarients"] = (dt2 - dt1).TotalMilliseconds;
+                ThreadContext.Properties["Model_2_Spec_Features"] = (dt3 - dt2).TotalMilliseconds;
+                ThreadContext.Properties["Model_3_GetManufacturerCampaign"] = (dt4 - dt3).TotalMilliseconds;
+                ThreadContext.Properties["Model_4_BindControls"] = (dt5 - dt4).TotalMilliseconds;
+                ThreadContext.Properties["Model_5_TillImageAccordingToVersion"] = (dt6 - dt5).TotalMilliseconds;
+                ThreadContext.Properties["Model_6_OtherTillEnd"] = (dt7 - dt6).TotalMilliseconds;
+                _logger.Info("ModelPage.GetData");
+                ThreadContext.Properties.Remove("Model_1_TillLoadVarients");
+                ThreadContext.Properties.Remove("Model_2_Spec_Features");
+                ThreadContext.Properties.Remove("Model_3_GetManufacturerCampaign");
+                ThreadContext.Properties.Remove("Model_4_BindControls");
+                ThreadContext.Properties.Remove("Model_5_TillImageAccordingToVersion");
+                ThreadContext.Properties.Remove("Model_6_OtherTillEnd");
+            }
 
             return _objData;
+        }
+
+        /// <summary>
+        /// Created by  : Sanskar Gupta on 25 May 2018
+        /// Description : Function to Bind Series Slug on Model Page
+        /// </summary>
+        /// <param name="_objData"></param>
+        private void BindSeriesSlug(ModelPageVM _objData)
+        {
+            try
+            {
+                uint _makeId = Convert.ToUInt32(_objData.ModelPageEntity.ModelDetails.MakeBase.MakeId);
+                uint _seriesId = _objData.ModelPageEntity.ModelDetails.ModelSeries.SeriesId;
+                string _makeName = _objData.ModelPageEntity.ModelDetails.MakeBase.MakeName;
+                string _makeMaskingName = _objData.ModelPageEntity.ModelDetails.MakeBase.MaskingName;
+
+                BikeSeriesEntity taggedSeries = _bikeSeries.GetMakeSeries(_makeId, _cityId).FirstOrDefault(s => s.SeriesId == _seriesId);
+
+                if (taggedSeries != null)
+                {
+                    _objData.SeriesSlug = new ModelSeriesSlugVM
+                        {
+                            SeriesName = taggedSeries.SeriesName,
+                            MakeName = _makeName,
+                            SeriesBikesCount = taggedSeries.ModelsCount,
+                            MinimumPrice = taggedSeries.MinPrice,
+                            MakeMaskingName = _makeMaskingName,
+                            SeriesMaskingName = taggedSeries.MaskingName
+                        };
+                }
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass.LogError(ex, "BindSeriesSlug()");
+            }
         }
 
         private void ImageAccordingToVersion()
@@ -258,7 +323,8 @@ namespace Bikewale.Models.BikeModels
             {
                 if (_objData.ModelPageEntity != null && _objData.ModelPageEntity.ModelVersions != null && _objData.ModelPageEntity.ModelVersions.Any() && _objData.ModelPageEntity.AllPhotos != null && _objData.ModelPageEntity.AllPhotos.Any())
                 {
-                    string OriginalImagePath = _objData.ModelPageEntity.ModelVersions.FirstOrDefault(m => m.VersionId == _objData.VersionId).OriginalImagePath;
+                    BikeVersionMinSpecs taggedVersion = _objData.ModelPageEntity.ModelVersions.FirstOrDefault(m => m.VersionId == _objData.VersionId);
+                    string OriginalImagePath = taggedVersion != null ? taggedVersion.OriginalImagePath : null;
 
                     if (!String.IsNullOrEmpty(OriginalImagePath))
                     {
@@ -699,7 +765,6 @@ namespace Bikewale.Models.BikeModels
 
                     BindExpertReviews();
                     BindComparisionReviews();
-
                     _objData.Videos = new RecentVideos(1, 3, (uint)objMake.MakeId, objMake.MakeName, objMake.MaskingName, _objData.ModelId, _objData.ModelPageEntity.ModelDetails.ModelName, _objData.ModelPageEntity.ModelDetails.MaskingName, _objVideos).GetData();
                     _objData.ReturnUrl = Utils.Utils.EncryptTripleDES(string.Format("returnUrl=/{0}-bikes/{1}/&sourceid={2}", objMake.MaskingName, _objData.ModelPageEntity.ModelDetails.MaskingName, (int)(IsMobile ? UserReviewPageSourceEnum.Mobile_ModelPage : UserReviewPageSourceEnum.Desktop_ModelPage)));
 
@@ -721,7 +786,6 @@ namespace Bikewale.Models.BikeModels
                         }
 
                         _objData.UsedModels = BindUsedBikeByModel((uint)objMake.MakeId, _cityId);
-
                         if (_cityId > 0)
                             _objData.PriceInTopCities = new ModelPriceInNearestCities(_objPQCache, _modelId, _cityId, 9).GetData();
                         else
@@ -735,12 +799,10 @@ namespace Bikewale.Models.BikeModels
                         GetBikeRankingCategory();
 
                         BindUserReviewsWidget(_objData);
-
                         if (_objData.BikeRanking != null)
                         {
                             BindBestBikeWidget(_objData.BikeRanking.BodyStyle, _cityId);
                         }
-
                         if (_objData.IsNewBike)
                         {
                             _objData.LeadCapture = new LeadCaptureEntity()
@@ -789,7 +851,6 @@ namespace Bikewale.Models.BikeModels
 
                         }
                     }
-
                     // Set body style
                     if (_objData.VersionId > 0 && _objData.ModelPageEntity.ModelVersions != null && _objData.ModelPageEntity.ModelVersions.Count > 0)
                     {
@@ -880,7 +941,7 @@ namespace Bikewale.Models.BikeModels
                         _objData.SimilarBikes.VersionId = _objData.VersionId;
                         _objData.SimilarBikes.Page = GAPages.Model_Page;
                     }
-                    else if(_objData.IsNewBike || _objData.IsUpcomingBike)
+                    else if (_objData.IsNewBike || _objData.IsUpcomingBike)
                     {
                         BindPopularBodyStyle(_objData);
                     }
@@ -1415,7 +1476,6 @@ namespace Bikewale.Models.BikeModels
                             {
                                 _objData.VersionId = (uint)_pqOnRoad.BPQOutput.Varients.OrderBy(m => m.OnRoadPrice).FirstOrDefault().VersionId;
                             }
-
                         }//Version Pricing
                         else
                         {
@@ -1504,6 +1564,7 @@ namespace Bikewale.Models.BikeModels
             {
                 ErrorClass.LogError(ex, string.Format("Bikewale.Models.BikeModels.ModelPage --> LoadVariants() ModelId: {0}, MaskingName: {1}", _modelId, ""));
             }
+
         }
 
         /// <summary>
@@ -1824,7 +1885,8 @@ namespace Bikewale.Models.BikeModels
                             CurrentPageUrl = CurrentPageUrl,
                             PlatformId = Convert.ToUInt16(IsMobile ? 2 : 1),
                             BikeName = _objData.BikeName,
-                            LoanAmount = Convert.ToUInt32((_objData.BikePrice) * 0.8)
+                            LoanAmount = Convert.ToUInt32((_objData.BikePrice) * 0.8),
+                            SendLeadSMSCustomer = campaigns.LeadCampaign.SendLeadSMSCustomer
                         };
 
                         _objData.IsManufacturerTopLeadAdShown = !_objData.ShowOnRoadButton;
@@ -1881,7 +1943,8 @@ namespace Bikewale.Models.BikeModels
                             CurrentPageUrl = CurrentPageUrl,
                             PlatformId = Convert.ToUInt16(IsMobile ? 2 : 1),
                             LoanAmount = Convert.ToUInt32((_objData.BikePrice) * 0.8),
-                            ShowOnExshowroom = campaigns.EMICampaign.ShowOnExshowroom
+                            ShowOnExshowroom = campaigns.EMICampaign.ShowOnExshowroom,
+                            SendLeadSMSCustomer = campaigns.EMICampaign.SendLeadSMSCustomer
                         };
 
                         _objData.IsManufacturerEMIAdShown = true;
@@ -2145,11 +2208,27 @@ namespace Bikewale.Models.BikeModels
                 if (_modelId > 0)
                 {
                     BikeModelsBySeriesPage objModelsBySeries = new BikeModelsBySeriesPage(_bikeSeries);
-                    objData.ModelsBySeries = objModelsBySeries.GetData(_modelId, objData.ModelPageEntity.ModelDetails.ModelSeries.SeriesId);
+                    BikeSeriesModelsVM modelsBySeries = objModelsBySeries.GetData(_modelId, objData.ModelPageEntity.ModelDetails.ModelSeries.SeriesId);
+                    objData.ModelsBySeries = modelsBySeries;
+
                     if (objData.ModelsBySeries != null && objData.ModelsBySeries.SeriesModels != null)
                     {
                         objData.ModelsBySeries.Page = GAPages.Model_Page;
                         objData.ModelsBySeries.SeriesBase = objData.ModelPageEntity.ModelDetails.ModelSeries;
+
+                        BikeSeriesEntityBase seriesDetails = modelsBySeries.SeriesBase;
+                        int bikeCount = modelsBySeries.SeriesModels.NewBikes != null ? modelsBySeries.SeriesModels.NewBikes.Count() : 0;
+                        bool seriesValidation = (modelsBySeries.IsNewAvailable || modelsBySeries.IsUpcomingAvailable)
+                            && seriesDetails.IsSeriesPageUrl
+                            && !string.IsNullOrEmpty(seriesDetails.MaskingName)
+                            && bikeCount > 1;
+
+                        BikeModelPageEntity bikeDetails = _objData.ModelPageEntity;
+                        bool bikeValidation = bikeDetails != null
+                            && bikeDetails.ModelDetails != null
+                            && bikeDetails.ModelDetails.MakeBase != null;
+
+                        _objData.ShowSeriesSlug = seriesValidation && bikeValidation;
                     }
                 }
             }

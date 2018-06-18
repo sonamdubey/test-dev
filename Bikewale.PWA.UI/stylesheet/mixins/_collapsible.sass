@@ -1,0 +1,75 @@
+// A mixin to get collapsible
+@mixin collapsible($background: 'white', $fullwidth: true)
+  .collapsible
+    background-color: color('bg-light-grey')
+    border-bottom: 1px solid color('gainsboro')
+
+  .collapsible__trigger
+    position: relative
+    @if $fullwidth == false
+      padding: 20px 30px 20px 0
+    @else
+      padding: 20px 50px 20px 20px
+    color: color('default')
+    font-size: 14px
+    font-weight: $font-semibold
+    background-color: color($background)
+    cursor: pointer
+
+
+// A list of icons supported by collapsible
+$collapsible-handle-type: ('arrow', 'plus')
+
+// A mixin to get icon for collapsible handle
+@mixin get-handle-icon($type: 'arrow')
+  @if $type == 'plus'
+    @include plus-4d5057-icon
+
+  @else
+    @include arrow-down-4d5057-icon
+
+
+// A mixin to get icon for collapsible handle in open/active state
+@mixin get-handle-open-icon($type: 'arrow')
+  @if $type == 'plus'
+    @include minus-4d5057-icon
+
+  @else
+    @include vendor-prefix('transform', rotateZ(180deg))
+
+
+// A mixin to get collapsible handle
+@mixin collapsible-handle($type: 'arrow', $dimension: 15, $fullwidth: true)
+  @if contains($collapsible-handle-type, $type)
+    @if unitless($dimension)
+      $dimensionWithUnit: $dimension * 1px
+
+      .collapsible__trigger
+        &:after
+          @include vendor-prefix('transition', transform 300ms)
+          @include get-handle-icon($type)
+          background-size: $dimensionWithUnit
+          content: ''
+          position: absolute
+          @if $fullwidth == false
+            right: 0
+          @else
+            right: 20px
+          top: 0
+          width: $dimensionWithUnit
+          height: 100%
+          display: block
+          will-change: transform
+
+        &.collapsible--open
+          &:after
+            @include get-handle-open-icon($type)
+
+        &.collapsible--disabled
+          opacity: .5
+
+    @else
+      @warn 'Please provide unitless value for collapsible-plus `$dimension` parameter'
+
+  @else
+    @warn 'Required `$type` parameter was not found in $collapsible-handle-types list'

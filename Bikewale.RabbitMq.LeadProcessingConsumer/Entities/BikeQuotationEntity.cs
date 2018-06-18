@@ -15,6 +15,8 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
     /// Description : added property ManufacturerAd
     /// Modifide By :- Subodh jain on 02 March 2017
     /// Summary:- added manufacturer campaign leadpopup changes
+    /// Modified by : Pratibha Verma on 4 April 2018
+    /// Description : Added ModelId
     /// </summary>
     public class BikeQuotationEntity
     {
@@ -60,6 +62,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
         public string LeadCapturePopupDescription { get; set; }
         public string LeadCapturePopupMessage { get; set; }
         public bool PinCodeRequired { get; set; }
+        public uint ModelId { get; set; }
     }
 }
 

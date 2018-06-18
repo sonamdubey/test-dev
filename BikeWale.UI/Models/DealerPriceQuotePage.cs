@@ -574,7 +574,8 @@ namespace Bikewale.Models
                             CurrentPageUrl = CurrentPageUrl,
                             PlatformId = (ushort)Platform,
                             BikeName = objData.BikeName,
-                            LoanAmount = Convert.ToUInt32((objData.TotalPrice) * 0.8)
+                            LoanAmount = Convert.ToUInt32((objData.TotalPrice) * 0.8),
+                            SendLeadSMSCustomer = campaigns.LeadCampaign.SendLeadSMSCustomer
                         };
                         objData.IsManufacturerLeadAdShown = true;
                     }
@@ -603,7 +604,8 @@ namespace Bikewale.Models
                             VersionId = objData.VersionId,
                             CurrentPageUrl = CurrentPageUrl,
                             PlatformId = (ushort)Platform,
-                            LoanAmount = Convert.ToUInt32((objData.TotalPrice) * 0.8)
+                            LoanAmount = Convert.ToUInt32((objData.TotalPrice) * 0.8),
+                            SendLeadSMSCustomer = campaigns.EMICampaign.SendLeadSMSCustomer
                         };
                         objData.IsManufacturerEMIAdShown = true;
                     }

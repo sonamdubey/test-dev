@@ -184,6 +184,21 @@
             <button id="btnAddRules" class="btn waves-effect waves-light" type="submit" name="action" formaction="/manufacturercampaign/rules/campaignid/@Model.CampaignId/add/?dealerId=@Model.DealerId">
                 Add Rules
             </button>
+			@if (Model.UnmappedModels != null && Model.UnmappedModels.Any())
+			{				
+				<div class="row">
+					<div class="card-panel yellow darken-4">
+						<h3 class="card-title white-text text-bold">Unmapped Honda Models List</h3>
+						<ul class="yellow darken-4">
+							@foreach (var bike in Model.UnmappedModels)
+							{
+								<li class="unmapped-model collection-item yellow darken-4 white-text" data-modelid="@bike.ModelId">@bike.ModelName</li>
+							}
+						</ul>
+					</div>
+				</div>
+			}
+
         </form>
     </div>
 </div>

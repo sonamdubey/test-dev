@@ -318,7 +318,9 @@ class ArticleDetail extends React.Component {
         
         if(articleDetail) {
         	let targetTags = {
-        		City: this.globalCityName,
+        	    City: this.globalCityName,
+        	    Make: articleDetail.MakeName,
+        	    Model: articleDetail.ModelName,
         		Tags: articleDetail.Tags
         	}
 

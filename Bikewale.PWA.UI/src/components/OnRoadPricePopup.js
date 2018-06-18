@@ -219,11 +219,7 @@ class OnRoadPricePopup extends React.Component {
 						else if(responseData.priceQuote != null) {
 							var jsonObj = responseData.priceQuote;
 
-							var gaLabel = GetGlobalCityArea() + ', ';
 							
-							if(this.state.MakeName || this.state.ModelName) {
-								gaLabel += this.state.MakeName + ',' + this.state.ModelName ;
-							}
 							if(this.state.SelectedCityId > 0) {
 								if(this.state.SelectedCity && this.state.SelectedCity.id > 0) {
 									var lbText = "Fetching on-road price for " + this.state.SelectedCity.name;
@@ -238,6 +234,11 @@ class OnRoadPricePopup extends React.Component {
 									
 									
 								}
+							}
+							var gaLabel = GetGlobalCityArea() + ', ';
+							
+							if(this.state.MakeName || this.state.ModelName) {
+							    gaLabel += this.state.MakeName + ',' + this.state.ModelName ;
 							}
                             
 							if(jsonObj.dealerId > 0)

@@ -91,9 +91,8 @@ namespace Bikewale.Mobile.Pricequote
             {
                 if (!_isContentFound)
                 {
-                    Response.Redirect("/pagenotfound.aspx", false);
-                    HttpContext.Current.ApplicationInstance.CompleteRequest();
-                    this.Page.Visible = false;
+                    UrlRewrite.Return404();
+
                 }
             }
         }
@@ -284,9 +283,8 @@ namespace Bikewale.Mobile.Pricequote
             }
             else
             {
-                Response.Redirect("/pagenotfound.aspx", false);
-                HttpContext.Current.ApplicationInstance.CompleteRequest();
-                this.Page.Visible = false;
+                UrlRewrite.Return404();
+
             }
         }
         #endregion

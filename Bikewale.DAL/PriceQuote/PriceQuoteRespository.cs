@@ -609,7 +609,7 @@ namespace Bikewale.DAL.PriceQuote
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "getpricequoteversionsbymodelcity";
+                    cmd.CommandText = "getpricequoteversionsbymodelcity_22052018";
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId));
                     objVersionInfo = new List<OtherVersionInfoEntity>();
@@ -629,7 +629,9 @@ namespace Bikewale.DAL.PriceQuote
                                     OnRoadPrice = SqlReaderConvertor.ToUInt64(dr["OnRoadPrice"]),
                                     Price = SqlReaderConvertor.ToUInt32(dr["Price"]),
                                     RTO = SqlReaderConvertor.ToUInt32(dr["RTO"]),
-                                    Insurance = SqlReaderConvertor.ToUInt32(dr["Insurance"])
+                                    Insurance = SqlReaderConvertor.ToUInt32(dr["Insurance"]),
+                                    HostUrl = Convert.ToString(dr["hosturl"]),
+                                    OriginalImagePath = Convert.ToString(dr["originalimagepath"])
                                 });
                             }
                             dr.Close();

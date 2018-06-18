@@ -1,0 +1,102 @@
+.model-info-card
+  background-color: color('white')
+  box-shadow: 0 2px 4px 0 rgba(213, 213, 213, .5)
+  margin-bottom: 4px
+
+.model-info-card__head
+  @include flexbox
+  @include flex-wrap
+  @include align-items(center)
+  min-width: 0
+  padding: 12px 20px
+
+.model-info-card__image
+  width: 112px
+  height: 63px
+  background-color: color('white-smoke')
+
+  img
+    height: 63px
+
+.model-info-card__detail
+  @include flex-grow
+  width: 50%
+  padding-right: 5px
+  padding-left: 5px
+
+  .model-info-card__make
+    @include text-truncate
+    color: color('aluminium')
+    font-size: 13px
+    font-weight: $font-normal
+    margin-bottom: 3px
+    display: block
+
+  .model-info-card__model
+    @include text-truncate
+    color: color('tuna')
+    font-size: 16px
+    font-weight: $font-semibold
+    display: block
+
+.model-info-card__edit
+  @include edit-4990e2-icon
+  background-size: 37px
+  background-color: color('bg-light-grey')
+  width: 37px
+  height: 37px
+  border-radius: 50%
+  display: inline-block
+  cursor: pointer
+
+.model-info-card__body
+  border-top: 1px solid color('whisper')
+
+  &:after
+    content: ''
+    display: block
+    clear: both
+
+.model-info__col
+  width: 50%
+  float: left
+  padding: 12px 20px
+  border-left: 1px solid color('white-smoke-2')
+
+  &:first-child
+    border-left: 0
+
+.model-info-col__label
+  color: color('gull-grey')
+  font-size: 13px
+
+.model-info-col__value
+  color: color('default')
+  font-size: 13px
+  font-weight: $font-semibold
+  display: inline-block
+
+.model-info-col__city
+  @include text-truncate
+  @include location-82888b-icon
+  background-size: 10px
+  background-position: right center
+  max-width: 100%
+  padding-right: 30px
+  cursor: pointer
+
+@import './react-dropdown'
+
+.model-info-col--dropdown
+  &.model-info__col
+    padding: 12px 10px 0
+
+  .model-info-col__label
+    padding-left: 10px
+    padding-right: 10px
+
+  .model-info-col__value
+    padding-top: 0
+
+  .dropdown-version__arrow
+    top: 5px

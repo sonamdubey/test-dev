@@ -4,7 +4,7 @@ import { BrowserRouter } from 'react-router-dom'
 import Navigation from '../components/Shared/Navigation'
 import NavigationDrawer from '../components/Shared/NavigationDrawer'
 import AdUnit from '../components/AdUnit'
-
+import Toast from '../components/Toast'
 import {isServer} from '../utils/commonUtils'
 import {addAdSlot , removeAdSlot} from '../utils/googleAdUtils'
 
@@ -53,6 +53,7 @@ class App extends React.Component {
                 <div id="peripheralComponents">
                     {this.state.PeripheralComponents}
                 </div>
+                <Toast/>
                 <div className="blackOut-window"></div>
                
             </div>

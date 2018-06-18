@@ -85,7 +85,5 @@ module.exports = {
 	videosByCategoryAction : videosByCategoryAction,
 	videosDetailAction : videosDetailAction,
 	bikeImageCarouselAction : bikeImageCarouselAction
-
-
 }
 

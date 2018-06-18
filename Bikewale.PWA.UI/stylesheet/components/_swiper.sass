@@ -1,0 +1,96 @@
+@mixin carousel-card-target
+  @include flexbox
+  @include flex-wrap
+  @include align-items(center)
+  text-decoration: none
+
+  &:hover
+    text-decoration: none
+
+@mixin carousel-card-image($width: 122)
+  @if unitless($width)
+    $_height: ceil(($width * 9) / 16)
+
+    width: $width * 1px
+    height: $_height * 1px
+    background-color: color('white-smoke')
+
+    img
+      height: $_height * 1px
+
+  @else
+    @warn 'Please provide unitless value for `$width` parameter of `carousel-image` mixin'
+
+@mixin carousel-card-detail
+  @include flex-grow(1)
+  width: 50%
+  padding-left: 5px
+
+
+.carousel__container
+  background-color: color('white')
+
+.carousel__title
+  @include flexbox()
+  @include flex-wrap()
+  @include align-items(center)
+  padding: 25px 20px 10px
+    
+.carousel-title__label
+  @include flex-grow
+  color: color('tuna')
+
+.carousel__wrapper
+  @include scrollbar-hide
+  position: relative
+  width: 100%
+  padding-top: 5px
+  padding-bottom: 5px
+  overflow-x: auto
+  white-space: nowrap
+
+  .carousel__slide
+    width: 210px
+    padding-left: 10px
+    position: relative
+    display: inline-block
+    vertical-align: top
+
+    &:first-child
+      margin-left: 10px
+
+    &:last-child
+      margin-right: 20px
+
+  .carousel-slide__card
+    @include vendor-prefix('box-shadow', 0 2px 4px 0 color('bright-grey', .5))
+    @include vendor-prefix('border-radius', 3px)
+    width: 100%
+    min-height: 140px
+    background-color: color('white')
+    border: 1px solid color('whisper')
+    overflow: hidden
+
+.carousel-card-detail__title
+  @include text-truncate
+  color: color('tuna')
+  font-size: 16px
+  font-weight: $font-semibold
+  margin-bottom: 10px
+
+.carousel-card-detail__subtitle
+  @include text-truncate
+  color: color('aluminium')
+  font-size: 12px
+  margin-bottom: 4px
+
+.carousel-card-detail__amount
+  @include text-truncate
+  color: color('tuna')
+  font-size: 14px
+
+.carousel-text--bold
+  font-weight: $font-bold
+
+.carousel-text--semibold
+  font-weight: $font-semibold

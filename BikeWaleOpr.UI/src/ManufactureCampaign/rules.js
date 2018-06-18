@@ -2,6 +2,7 @@
 var ddlModels = $('#ddlModels');
 var ddlCities = $('#ddlCities');
 var cityIds = "", stateIds = "", modelIds = "";
+var unmappedHondaModelIds = $(".unmapped-model").map(function () { return $(this).attr("data-modelId"); }, []).toArray();
 var getCitiesFromDropDown, setRulesData, validateInput, showAllIndiaAlert, showDeleteAlert;
 var manufacturerRulesViewModel = function () {
     var self = this;
@@ -200,14 +201,27 @@ $(document).ready(function () {
             stateIds = mfgVM.selectedState();
     };
 
+    function isMappedModel(modelId) {
+    	return unmappedHondaModelIds.indexOf(modelId) === -1;
+    };
+
     validateInput = function () {
         var isValid = true;
         var rdoModel = $("[name=rdoModel]:checked").val();
         switch (rdoModel) {
             case "1":
-                $("#ddlModels :selected").each(function () {
-                    if ($(this).val())
-                        modelIds = modelIds + $(this).val() + ',';
+            	$("#ddlModels :selected").each(function () {
+            		var currentModelid = $(this).val();
+            		if (currentModelid) {
+            			if (isMappedModel(currentModelid))
+            				modelIds = modelIds + currentModelid + ',';
+                		else {
+                			isValid = false;
+                			Materialize.toast("Mapping for One or more of honda models is missing. Please add it through admin.", 6000);
+                			return false;
+                		}
+                	}
+                        
                 });
                 break;
             case "2":
@@ -216,6 +230,16 @@ $(document).ready(function () {
                 if (!pat.test(modelIds)) {
                     validate.inputField.showError($("#txtModels"));
                     isValid = false;
+                }
+                else {
+                	let modelIdList = modelIds.split(',');
+                	if (modelIdList.some(function (modelId) {
+                		return !isMappedModel(modelId);
+                	})){
+                		isvalid = false;
+                		Materialize.toast("Mapping for One or more of honda models is missing. Please add it through admin.", 6000);
+                		return false;
+                	};
                 }
                 break;
         }

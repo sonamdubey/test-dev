@@ -41,9 +41,7 @@ namespace Bikewale.Mobile.Used
 
         private void RedirectToPageNotFound()
         {
-            Response.Redirect("/pageNotFound.aspx", false);
-            HttpContext.Current.ApplicationInstance.CompleteRequest();
-            this.Page.Visible = false;
+            UrlRewrite.Return404();
         }
         /// <summary>
         /// Modified by :- Subodh Jain 17 March 2017

@@ -6,6 +6,7 @@ namespace Bikewale.ManufacturerCampaign.Entities
     /// Description :   Manufacturer Campaign EMI Configuration
     /// Modified by : Pratibha Verma
     /// Description : Added property ShowOnExshowroom 
+    /// Modifier    : Kartik Rathod on 16 may 2018,added SendLeadSMSCustomer 
     /// </summary>
     [Serializable]
     public class ManufacturerCampaignEMIConfiguration
@@ -27,5 +28,7 @@ namespace Bikewale.ManufacturerCampaign.Entities
         public bool DealerRequired { get; set; }
         public bool EmailRequired { get; set; }
         public bool ShowOnExshowroom { get; set; }
+        public bool SendLeadSMSCustomer { get; set; }
+
     }
 }

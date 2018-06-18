@@ -90,7 +90,7 @@ docReady(function () {
 
     $('#model-version-dropdown li.dropdown-box-submenu-list__item').click(function () {
         var obj = $(this);
-        let versionId = obj.data('value');
+        var versionId = obj.data('value');
         vmVersionTable.getVersionObject(versionId);
         triggerGA(obj.data('cat'), obj.data('act'), obj.data('lab'));
     });
@@ -335,10 +335,10 @@ docReady(function () {
 
     $('.model-versions-tabs-wrapper a').first().trigger("click");
 
-	if (isCoverfoxShown) { triggerNonInteractiveGA('Price_in_City_Page', 'ICICIBank_Link_Shown', bikeName + '_' + cityName); }
+    if (isCoverfoxShown) { triggerNonInteractiveGA('Price_in_City_Page', 'BankbazaarLink_Shown', bikeName + '_' + cityName); }
 
     $(".leadcapturebtn").click(function (e) {
-        let ele = $(this);
+        var ele = $(this);
         try {
             var leadOptions = {
                 "dealerid": ele.attr('data-item-id'),
@@ -362,7 +362,9 @@ docReady(function () {
                     cat: ele.attr("data-cat"),
                     act: ele.attr("data-act"),
                     lab: ele.attr("data-var")
-                }
+                },
+                "sendLeadSMSCustomer": ele.attr('data-issendleadsmscustomer'),
+                "organizationName": ele.attr('data-item-organization')
             };
 
             dleadvm.setOptions(leadOptions);

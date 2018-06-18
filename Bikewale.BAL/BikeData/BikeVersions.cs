@@ -1,3 +1,6 @@
+﻿using Bikewale.BAL.ApiGateway.ApiGatewayHelper;
+using Bikewale.Entities.BikeData;
+using Bikewale.Interfaces.BikeData;
 ﻿using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
 using Bikewale.BAL.ApiGateway.Adapters.BikeData;
@@ -58,7 +61,7 @@ namespace Bikewale.BAL.BikeData
 				versionsList = _versionCacheRepository.GetVersionMinSpecs(modelId, isNew);
 				if (versionsList != null && versionsList.Any())
 				{
-					GetVersionSpecsSummaryByItemIdAdapter adapt1 = new GetVersionSpecsSummaryByItemIdAdapter();
+					GetVersionSpecsSummaryByItemIdAdapter adapt = new GetVersionSpecsSummaryByItemIdAdapter();
 					VersionsDataByItemIds_Input specItemInput = new VersionsDataByItemIds_Input
 					{
 						Versions = versionsList.Select(v => v.VersionId),
@@ -70,17 +73,20 @@ namespace Bikewale.BAL.BikeData
                         EnumSpecsFeaturesItems.AntilockBrakingSystem
                     }
 					};
-					adapt1.AddApiGatewayCall(_apiGatewayCaller, specItemInput);
+					adapt.AddApiGatewayCall(_apiGatewayCaller, specItemInput);
 					_apiGatewayCaller.Call();
-					var specsResponseList = adapt1.Output;
+					var specsResponseList = adapt.Output;
 					if (specsResponseList != null)
 					{
 						var specsEnumerator = specsResponseList.GetEnumerator();
 						var bikesEnumerator = versionsList.GetEnumerator();
-						while (bikesEnumerator.MoveNext() && specsEnumerator.MoveNext())
-						{
-							bikesEnumerator.Current.MinSpecsList = specsEnumerator.Current.MinSpecsList;
-						}
+                        while (bikesEnumerator.MoveNext())
+                        {
+                            if (!bikesEnumerator.Current.VersionId.Equals(0) && specsEnumerator.MoveNext())
+                            {
+                                bikesEnumerator.Current.MinSpecsList = specsEnumerator.Current.MinSpecsList;
+                            }
+                        }
 					}
 				}
 			}
@@ -278,9 +284,12 @@ namespace Bikewale.BAL.BikeData
 					{
 						IEnumerator<BikeVersionWithMinSpec> bikeVersionEnumerator = versionList.GetEnumerator();
 						IEnumerator<VersionMinSpecsEntity> versionMinSpecEnumertor = adapt.Output.GetEnumerator();
-						while (bikeVersionEnumerator.MoveNext() && versionMinSpecEnumertor.MoveNext())
+						while (bikeVersionEnumerator.MoveNext())
 						{
-							bikeVersionEnumerator.Current.MinSpecsList = versionMinSpecEnumertor.Current.MinSpecsList;
+                            if(bikeVersionEnumerator.Current.VersionId > 0 && versionMinSpecEnumertor.MoveNext())
+                            {
+                                bikeVersionEnumerator.Current.MinSpecsList = versionMinSpecEnumertor.Current.MinSpecsList;
+                            }
 						}
 					}
 				}
@@ -305,24 +314,27 @@ namespace Bikewale.BAL.BikeData
 			{
 				if (bikesList != null && bikesList.Any())
 				{
-					GetVersionSpecsSummaryByItemIdAdapter adapt1 = new GetVersionSpecsSummaryByItemIdAdapter();
+					GetVersionSpecsSummaryByItemIdAdapter adapt = new GetVersionSpecsSummaryByItemIdAdapter();
 					VersionsDataByItemIds_Input specItemInput = new VersionsDataByItemIds_Input
 					{
 						Versions = bikesList.Select(m => m.VersionBase.VersionId),
 						Items = specItemList
 					};
-					adapt1.AddApiGatewayCall(_apiGatewayCaller, specItemInput);
+					adapt.AddApiGatewayCall(_apiGatewayCaller, specItemInput);
 					_apiGatewayCaller.Call();
 
-					IEnumerable<VersionMinSpecsEntity> specsResponseList = adapt1.Output;
+					IEnumerable<VersionMinSpecsEntity> specsResponseList = adapt.Output;
 					if (specsResponseList != null)
 					{
 						var specsEnumerator = specsResponseList.GetEnumerator();
 						var bikesEnumerator = bikesList.GetEnumerator();
-						while (bikesEnumerator.MoveNext() && specsEnumerator.MoveNext())
-						{
-							bikesEnumerator.Current.MinSpecsList = specsEnumerator.Current.MinSpecsList;
-						}
+                        while (bikesEnumerator.MoveNext())
+                        {
+                            if (!bikesEnumerator.Current.VersionBase.VersionId.Equals(0) && specsEnumerator.MoveNext())
+                            {
+                                bikesEnumerator.Current.MinSpecsList = specsEnumerator.Current.MinSpecsList;
+                            }
+                        }
 					}
 				}
 			}
@@ -331,5 +343,25 @@ namespace Bikewale.BAL.BikeData
 				ErrorClass.LogError(ex, string.Format("Bikewale.BAL.BikeData.BikeVersions.BindMinSpecs_bikesList_{0}_specItemList_{1}", bikesList, specItemList));
 			}
 		}
+
+        /// <summary>
+        /// Author  : Kartik Rathod on 11 May 2018
+        /// Desc    : Get similar bikes based on road price for emi page in finance
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <param name="topcount"></param>
+        /// <param name="cityId"></param>
+        /// <returns>SimilarBikesForEMIEntityList</returns>
+        public IEnumerable<SimilarBikesForEMIEntity> GetSimilarBikesForEMI(int modelId, byte topcount, int cityId)
+        {
+            if(topcount <= 0)
+            {
+                topcount = (byte)9;
+            }
+            return _versionCacheRepository.GetSimilarBikesForEMI(modelId, topcount, cityId);
+        }
+
+
 	}   // Class
 }   // namespace
+

@@ -23,15 +23,16 @@ namespace Bikewale.DAL.BikeData
     /// <typeparam name="U"></typeparam>
     public class BikeVersionsRepository<T, U> : IBikeVersionsRepository<T, U> where T : BikeVersionEntity, new()
     {
-        /// <summary>
-        /// Summary : Function to get all versions basic data in list.
-        /// Modified By : Sadhana Upadhyay on 25 Aug 2014
-        /// Summary : Changed return type to get price
-        /// </summary>
-        /// <param name="requestType"></param>
-        /// <param name="modelId">model id whose versions are required. ModelId should be a positive number.</param>
-        /// <returns>Returns list containing objects of the versions.</returns>
-        public List<BikeVersionsListEntity> GetVersionsByType(EnumBikeType requestType, int modelId, int? cityId = null)
+		/// <summary>
+		/// Summary : Function to get all versions basic data in list.
+		/// Modified By : Sadhana Upadhyay on 25 Aug 2014
+		/// Summary : Changed return type to get price
+		
+		/// </summary>
+		/// <param name="requestType"></param>
+		/// <param name="modelId">model id whose versions are required. ModelId should be a positive number.</param>
+		/// <returns>Returns list containing objects of the versions.</returns>
+		public List<BikeVersionsListEntity> GetVersionsByType(EnumBikeType requestType, int modelId, int? cityId = null)
         {
             List<BikeVersionsListEntity> objVersionsList = null;
 
@@ -53,11 +54,11 @@ namespace Bikewale.DAL.BikeData
 
                             while (dr.Read())
                             {
-                                objVersionsList.Add(new BikeVersionsListEntity()
-                                {
-                                    VersionId = Convert.ToInt32(dr["VersionId"]),
-                                    VersionName = dr["VersionName"].ToString(),
-                                    Price = Convert.ToUInt64(dr["Price"])
+								objVersionsList.Add(new BikeVersionsListEntity()
+								{
+									VersionId = Convert.ToInt32(dr["VersionId"]),
+									VersionName = dr["VersionName"].ToString(),
+									Price = Convert.ToUInt64(dr["Price"])
                                 });
                             }
                             dr.Close();
@@ -827,6 +828,56 @@ namespace Bikewale.DAL.BikeData
                 ErrorClass.LogError(ex, "BikeVersionsRepository.GetModelVersions: {0}");
             }
             return objBikeVersions;
+        }
+
+
+        /// <summary>
+        /// Author  : Kartik Rathod on 11 May 2018
+        /// Desc    : Get similar bikes based on road price for emi page in finance  
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <param name="topcount"></param>
+        /// <param name="cityId"></param>
+        /// <returns>SimilarBikesForEMIEntityList</returns>
+        public IEnumerable<SimilarBikesForEMIEntity> GetSimilarBikesForEMI(int modelId, byte topcount, int cityId)
+        {
+            ICollection<SimilarBikesForEMIEntity> objBikes = null;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("getsimilarbikesforemi"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.UInt16, topcount));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.UInt32, modelId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.UInt32, cityId));
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            objBikes = new Collection<SimilarBikesForEMIEntity>();
+                            while (dr.Read())
+                            {
+                                SimilarBikesForEMIEntity objSimilarBikes = new SimilarBikesForEMIEntity();
+                                objSimilarBikes.MakeId = SqlReaderConvertor.ToInt32(dr["MakeId"]);
+                                objSimilarBikes.MakeName = Convert.ToString(dr["MakeName"]);
+                                objSimilarBikes.ModelId = SqlReaderConvertor.ToInt32(dr["ModelId"]);
+                                objSimilarBikes.ModelName = Convert.ToString(dr["ModelName"]);
+                                objSimilarBikes.VersionId = SqlReaderConvertor.ToInt32(dr["VersionId"]);
+                                objSimilarBikes.OnRoadPrice = SqlReaderConvertor.ToUInt64(dr["OnRoadPrice"]);
+                                objSimilarBikes.HostUrl = Convert.ToString(dr["hosturl"]);
+                                objSimilarBikes.OriginalImagePath = Convert.ToString(dr["originalimagepath"]);
+                                objBikes.Add(objSimilarBikes);
+                            }
+                            dr.Close();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "BikeVersionsRepository.GetSimilarBikesForEMI: modelId - " + modelId);
+            }
+            return objBikes;
         }
 
     }   // class

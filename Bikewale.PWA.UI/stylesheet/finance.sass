@@ -1,0 +1,97 @@
+// Core variables and mixins
+@import 'base/variables'
+@import 'base/typography'
+@import 'base/mixin'
+
+
+@import 'mixins/index'
+
+// Components
+@import 'components/common'
+@import 'components/icons'
+@import 'components/text-color'
+
+@import 'components/header'
+@import 'components/loader'
+@import "components/nav-drawer"
+@import 'components/visibility'
+@import "components/border"
+
+@import 'utils/index'
+@import 'components/rheostat'
+
+@import "components/button"
+@import "components/global-search"
+@import "components/globalcity-popup"
+@import "components/autocomplete"
+@import "components/form"
+@import "components/fullscreen-popup"
+@import "components/footer"
+@include margin-top(10)
+@include margin-bottom(10)
+
+html
+	-webkit-tap-highlight-color: transparent
+
+.section-bottom-margin
+  margin-bottom: 20px
+
+.finance-content__head
+  padding: 15px 20px
+  background: color('white')
+
+.finance-head__title
+  font-size: 20px
+
+// overview
+.overview__content
+  font-size: 13px
+  line-height: 22px
+  color: color('aluminium')
+  padding: 20px
+  background-color: color('white')
+
+@import 'components/react-expand-collapse'
+
+// tabs
+@include scroll-spy-tabs
+
+// select bikes
+@import 'components/select-bike-popup'
+
+// emi calculator
+@import 'components/emi-calculator'
+@import 'components/emi-pie-chart'
+@import 'components/progress-bar'
+@include progress-bar
+
+@import 'components/select-city-popup'
+
+/* select bike model card */
+
+@import 'components/model-card'
+
+@import 'components/selection-city'
+@include selection-step__card-content
+
+@import 'components/model-info-card'
+
+@import 'components/carousel-emi-similar-bikes'
+
+.loan-eligibility__content
+  padding: 20px
+  margin-bottom: 20px
+  background-color: color('white')
+
+// documentation
+@import 'components/finance-documentation'
+
+// faq
+@import 'components/finance-faq'
+
+@import 'components/disclaimer'
+
+// loader
+@include speedometer-loader
+
+@include tooltip

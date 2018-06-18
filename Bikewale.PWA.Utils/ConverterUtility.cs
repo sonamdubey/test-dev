@@ -55,6 +55,8 @@ namespace Bikewale.PWA.Utils
         ///  Converts ArticleDetails to PwaArticleDetails
         /// Modified By : Ashish G. Kamble on 5 Jan 2018
         /// Modified : Assigend Tags property value in PwaArticleDetails response object
+        /// Modified by : Pratibha Verma on 30 April 2018
+        /// Description : Added mapping for makeName and modelName
         /// </summary>
         /// <param name="inpDet"></param>
         /// <returns></returns>
@@ -81,6 +83,8 @@ namespace Bikewale.PWA.Utils
                 outDetails.ArticleApi = string.Format("api/pwa/cms/id/{0}/page/", inpDet.BasicId);
                 outDetails.Tags = (inpDet.TagsList != null && inpDet.TagsList.Count() > 0) ? String.Join(", ", inpDet.TagsList) : string.Empty;
                 outDetails.ShareUrl = PwaCmsHelper.ReturnShareUrl(inpDet);
+                outDetails.MakeName = inpDet.MakeName;
+                outDetails.ModelName = inpDet.ModelName;
             }
             return outDetails;
         }
@@ -112,6 +116,8 @@ namespace Bikewale.PWA.Utils
                 outDetails.ArticleApi = string.Format("api/pwa/cms/id/{0}/pages/", inpDet.BasicId);
                 outDetails.Tags = (inpDet.TagsList != null && inpDet.TagsList.Count() > 0) ? String.Join(", ", inpDet.TagsList) : string.Empty;
                 outDetails.ShareUrl = PwaCmsHelper.ReturnSharePageUrl(inpDet);
+                outDetails.MakeName = inpDet.MakeName;
+                outDetails.ModelName = inpDet.ModelName;
             }
             return outDetails;
         }
@@ -475,37 +481,39 @@ namespace Bikewale.PWA.Utils
                     IDictionary<EditorialWidgetColumnPosition, EditorialWidgetInfo> widgets = widgetItem.Value.WidgetColumns;
                     EditorialWidgetColumnPosition populatedKey = widgets.ContainsKey(EditorialWidgetColumnPosition.Left) ? EditorialWidgetColumnPosition.Left : EditorialWidgetColumnPosition.Right;
                     EditorialWidgetInfo widget = widgets[populatedKey];
+					if (widget != null)
+					{
+						switch (widget.WidgetType)
+						{
+							case EditorialWidgetType.Popular:
+								break;
+							case EditorialWidgetType.Upcoming:
+								break;
+							case EditorialWidgetType.OtherBrands:
+								EditorialOtherBrandsWidget otherBrandsWidget = widget as EditorialOtherBrandsWidget;
+								IEnumerable<BikeMakeEntityBase> otherBrandsList = null;
+								if (otherBrandsWidget != null)
+								{
+									otherBrandsList = otherBrandsWidget.OtherBrandsList;
+								}
 
-                    switch (widget.WidgetType)
-                    {
-                        case EditorialWidgetType.Popular:
-                            break;
-                        case EditorialWidgetType.Upcoming:
-                            break;
-                        case EditorialWidgetType.OtherBrands:
-                            EditorialOtherBrandsWidget otherBrandsWidget = widget as EditorialOtherBrandsWidget;
-                            IEnumerable<BikeMakeEntityBase> otherBrandsList = null;
-                            if(otherBrandsWidget != null)
-                            {
-                                otherBrandsList = otherBrandsWidget.OtherBrandsList;
-                            }
-
-                            if (otherBrandsList != null && otherBrandsList.Any())
-                            {
-                                PwaMakeBikeBase makeListBase = new PwaMakeBikeBase()
-                                {
-                                    MakeList = MapBikeMakeEntityBaseListToPwaMakeBikeEntityList(otherBrandsList),
-                                    Heading = string.Format("Popular {0} Brands", BodyStyleLinks.BodyStyleHeadingText(EnumBikeBodyStyles.Scooter)),
-                                    CompleteListUrlAlternateLabel = string.Format("{0} Brands", BodyStyleLinks.BodyStyleHeadingText(EnumBikeBodyStyles.Scooter)),
-                                    CompleteListUrl = "/m/scooters/",
-                                    CompleteListUrlLabel = "View all"
-                                };
-                                widgetList.Add(makeListBase);
-                            }
-                            break;
-                        default:
-                            break;
-                    }
+								if (otherBrandsList != null && otherBrandsList.Any())
+								{
+									PwaMakeBikeBase makeListBase = new PwaMakeBikeBase()
+									{
+										MakeList = MapBikeMakeEntityBaseListToPwaMakeBikeEntityList(otherBrandsList),
+										Heading = string.Format("Popular {0} Brands", BodyStyleLinks.BodyStyleHeadingText(EnumBikeBodyStyles.Scooter)),
+										CompleteListUrlAlternateLabel = string.Format("{0} Brands", BodyStyleLinks.BodyStyleHeadingText(EnumBikeBodyStyles.Scooter)),
+										CompleteListUrl = "/m/scooters/",
+										CompleteListUrlLabel = "View all"
+									};
+									widgetList.Add(makeListBase);
+								}
+								break;
+							default:
+								break;
+						}
+					}
                 }
 
             }
@@ -544,41 +552,44 @@ namespace Bikewale.PWA.Utils
                     EditorialWidgetInfo widget = widgets[populatedKey];
 
                     PwaBikeNews bikes = new PwaBikeNews();
-
-                    switch (widget.WidgetType)
-                    {
-                        case EditorialWidgetType.Popular:
-                            {
-                                var widgetData = widget as EditorialPopularBikesWidget;
-                                if (widgetData != null)
-                                {
-                                    bikes.CompleteListUrl = widgetData.ViewAllUrl;
-                                    bikes.CompleteListUrlAlternateLabel = widgetData.ViewAllTitle;
-                                    bikes.CompleteListUrlLabel = "View all";
-                                    bikes.Heading = widgetData.Title;
-                                    bikes.BikesList = MapMostPopularBikesBaseToPwaBikeDetails(widgetData.MostPopularBikeList);
-                                }
-                            }
-                            break;
-                        case EditorialWidgetType.Upcoming:
-                            {
-                                var widgetData = widget as EditorialUpcomingBikesWidget;
-                                if (widgetData != null)
-                                {
-                                    bikes.CompleteListUrl = widgetData.ViewAllUrl;
-                                    bikes.CompleteListUrlAlternateLabel = widgetData.ViewAllTitle;
-                                    bikes.CompleteListUrlLabel = "View all";
-                                    bikes.Heading = widgetData.Title;
-                                    bikes.BikesList = MapUpcomingBikeEntityToPwaBikeDetails(widgetData.UpcomingBikeList, ""); 
-                                }
-                            }
-                            break;
-                        case EditorialWidgetType.OtherBrands:
-                            break;
-                        default:
-                            break;
-                    }
-                    widgetList.Add(bikes);
+					if (widget != null)
+					{
+						switch (widget.WidgetType)
+						{
+							case EditorialWidgetType.Popular:
+								{
+									var widgetData = widget as EditorialPopularBikesWidget;
+									if (widgetData != null)
+									{
+										bikes.CompleteListUrl = widgetData.ViewAllUrl;
+										bikes.CompleteListUrlAlternateLabel = widgetData.ViewAllTitle;
+										bikes.CompleteListUrlLabel = "View all";
+										bikes.Heading = widgetData.Title;
+										bikes.BikesList = MapMostPopularBikesBaseToPwaBikeDetails(widgetData.MostPopularBikeList);
+									}
+								}
+								break;
+							case EditorialWidgetType.Upcoming:
+								{
+									var widgetData = widget as EditorialUpcomingBikesWidget;
+									if (widgetData != null)
+									{
+										bikes.CompleteListUrl = widgetData.ViewAllUrl;
+										bikes.CompleteListUrlAlternateLabel = widgetData.ViewAllTitle;
+										bikes.CompleteListUrlLabel = "View all";
+										bikes.Heading = widgetData.Title;
+										bikes.BikesList = MapUpcomingBikeEntityToPwaBikeDetails(widgetData.UpcomingBikeList, "");
+									}
+								}
+								break;
+							case EditorialWidgetType.OtherBrands:
+								break;
+							default:
+								break;
+						}
+						widgetList.Add(bikes);
+					}
+                    
                 }
 
             }

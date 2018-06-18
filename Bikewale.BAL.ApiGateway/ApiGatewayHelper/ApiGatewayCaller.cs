@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Runtime.Serialization;
-using System.Threading.Tasks;
-using ApiGatewayLibrary;
+﻿using ApiGatewayLibrary;
+using Bikewale.Notifications;
 using GatewayWebservice;
 using Google.Protobuf;
-using Bikewale.Notifications;
+using log4net;
+using System;
+using System.Collections.Generic;
 
 namespace Bikewale.BAL.ApiGateway.ApiGatewayHelper
 {
@@ -29,6 +28,8 @@ namespace Bikewale.BAL.ApiGateway.ApiGatewayHelper
         /// Property holds list of callback functions which will be called after response is returned from APIGateway.
         /// </summary>
         private readonly ICollection<Action<IApiGatewayCaller>> _callbackActionList;
+
+        static ILog _logger = LogManager.GetLogger("ApiGatewayCaller-WOTask");
 
         /// <summary>
         /// Constructor to initialize all the properties and dependencies.
@@ -130,7 +131,9 @@ namespace Bikewale.BAL.ApiGateway.ApiGatewayHelper
                 if (_outRequest == null || _outRequest.OutputMessages == null || _outRequest.OutputMessages.Count <= 0)
                 {
                     ErrorClass.LogError(new Exception("API Gateway output is null."), "Bikewale.BAL.ApiGatewayHelper.ApiGatewayCaller.Call");
+                    return;
                 }
+
                 InvokeCallbackFunctions();
             }
             catch (Exception ex)
@@ -139,7 +142,7 @@ namespace Bikewale.BAL.ApiGateway.ApiGatewayHelper
             }
             finally
             {
-                if (_outRequest == null && _outRequest.OutputMessages != null && _outRequest.OutputMessages.Count > 0)
+                if (_outRequest != null && _outRequest.OutputMessages != null && _outRequest.OutputMessages.Count > 0)
                 {
                     _outRequest.OutputMessages.Clear();
                 }
@@ -154,23 +157,14 @@ namespace Bikewale.BAL.ApiGateway.ApiGatewayHelper
         {
             try
             {
+
                 if (_callbackActionList.Count <= 0)
                     return;
-
-                TaskFactory factory = Task.Factory;
-
-                var mainTask = factory.StartNew(() =>
+                foreach (var actionItem in _callbackActionList)
                 {
-                    foreach (var actionItem in _callbackActionList)
-                    {
-                        factory.StartNew(() =>
-                        {
-                            actionItem.Invoke(this);
-                        }, TaskCreationOptions.AttachedToParent);
-                    }
-                });
+                    actionItem.Invoke(this);
+                }
 
-                mainTask.Wait();
             }
             catch (Exception ex)
             {

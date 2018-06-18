@@ -232,5 +232,30 @@ namespace Bikewale.Cache.BikeData
             }
             return versions;
         }
+
+        /// <summary>
+        /// Author  : Kartik Rathod on 11 May 2018
+        /// Desc    : Get similar bikes based on road price for emi page in finance 
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <param name="topcount"></param>
+        /// <param name="cityId"></param>
+        /// <returns>SimilarBikesForEMIEntityList</returns>
+        public IEnumerable<SimilarBikesForEMIEntity> GetSimilarBikesForEMI(int modelId, byte topcount, int cityId)
+        {
+            IEnumerable<SimilarBikesForEMIEntity> objBikes = null;
+            
+            try
+            {
+                string key = String.Format("BW_SimilarBikesForEMI_{0}_{1}_cnt_{2}", modelId, cityId, topcount);
+                objBikes = _cache.GetFromCache<IEnumerable<SimilarBikesForEMIEntity>>(key, new TimeSpan(1, 0, 0, 0), () => _objVersionsRepository.GetSimilarBikesForEMI(modelId, topcount, cityId));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("BikeMakesCacheRepository.GetSimilarBikesForEMI: modelId: {0}, cityId: {1}", modelId, cityId));
+
+            }
+            return objBikes;
+        }
     }
 }

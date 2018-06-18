@@ -1,0 +1,104 @@
+@mixin progress-bar($size: 23, $min-height: 67px)
+  @if unitless($size) == false
+    @error 'Please provide unitless for `$size` paramter in progress-bar mixin'
+
+  $size: $size * 1px
+  $containerSize: $size + 5
+
+  .progress-bar
+    @include flexbox
+    @include justify-content(justify)
+    align-content: space-between
+    padding: 18px 7px 11px
+    min-height: $min-height
+
+  .progress-bar__item
+    @include flex-grow(1)
+    padding: 5px
+    position: relative
+    text-align: right
+
+    &:before
+      content: ''
+      display: block
+      height: 1px
+      width: 100%
+      background-color: color('border-dark')
+      position: absolute
+      top: 50%
+      left: -5px
+
+    &:first-child
+      @include flex-grow(0)
+
+      &:before
+        display: none
+
+  .progress-bar-item__content
+    @include vendor-prefix ('transition', all .2s ease)
+    padding-left: 8px
+    padding-right: 8px
+    font-size: 12px
+    line-height: 22px
+    font-weight: $font-semibold
+    display: inline-block
+    vertical-align: middle
+    background-color: color('white')
+    color: color('light-grey')
+    position: relative
+    z-index: 1
+    text-transform: capitalize
+    
+    &.disabled
+      color: color('dark-black', .3)
+
+    &.done
+      .progress-step-count__label
+        &:after
+          @include vendor-prefix('border-radius', $containerSize)
+          @include tick-fff-icon
+          content: ''
+          display: block
+          height: 100%
+          width: 100%
+          background-color: color('mona-lisa')
+          position: absolute
+          top: 0
+          left: 0
+          bottom: 0
+          right: 0
+
+    &.focused
+      color: color('light-grey')
+
+      .progress-step-count__label
+        @include vendor-prefix ('transition', all .1s ease)
+        height: $containerSize
+        width: $containerSize
+        margin-top: 0
+        line-height: $containerSize
+
+
+  .progress-bar-item__step-count
+    display: inline-block
+    vertical-align: middle
+    height: $containerSize
+    width: $containerSize
+    font-size: 12px
+    text-align: center
+
+  .progress-step-count__label
+    @include vendor-prefix('border-radius', $size)
+    width: $size
+    height: $size
+    line-height: $size
+    display: inline-block
+    margin-top: floor(($containerSize - $size) / 2)
+    background-color: color('border-light')
+    position: relative
+
+  .progress-bar-item__step-title
+    display: inline-block
+    vertical-align: middle
+    margin-left: 10px
+    line-height: $containerSize

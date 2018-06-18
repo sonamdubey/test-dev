@@ -28,5 +28,11 @@ namespace Bikewale.Service.AutoMappers.City
             Mapper.CreateMap<CityEntityBase, CityBase>();
             return Mapper.Map<IEnumerable<CityEntityBase>, IEnumerable<CityBase>>(objCityList);
         }
+
+		internal static IEnumerable<CityFinance> MapCity(IEnumerable<CityEntityBase> objCityList)
+		{
+			Mapper.CreateMap<CityEntityBase, CityFinance>();
+			return Mapper.Map<IEnumerable<CityEntityBase>, IEnumerable<CityFinance>>(objCityList);
+		}
     }
 }

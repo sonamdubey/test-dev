@@ -28,7 +28,7 @@ namespace Bikewale.BAL.Location
         }
 
         public List<CityEntityBase> GetPriceQuoteCities(uint modelId) { throw new NotImplementedException(); }
-        public List<CityEntityBase> GetAllCities(EnumBikeType requestType) { throw new NotImplementedException(); }
+        public IEnumerable<CityEntityBase> GetAllCities(EnumBikeType requestType) { throw new NotImplementedException(); }
         public List<CityEntityBase> GetCities(string stateId, EnumBikeType requestType) { throw new NotImplementedException(); }
         public Hashtable GetMaskingNames() { throw new NotImplementedException(); }
         public Hashtable GetOldMaskingNames() { throw new NotImplementedException(); }
@@ -63,5 +63,16 @@ namespace Bikewale.BAL.Location
         {
             return objCities.GetUsedBikeByMakeCityWithCount(makeid);
         }
-    }
+
+		/// <summary>
+		/// Created By  : Pratibha Verma on 17 May 2018
+		/// Description : returns all cities where model price is available 
+		/// </summary>
+		/// <param name="modelId"></param>
+		/// <returns></returns>
+		public IEnumerable<CityEntityBase> GetModelPriceCities(uint modelId, byte popularCityCount)
+		{
+			throw new NotImplementedException();
+		}
+	}
 }

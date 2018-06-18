@@ -126,7 +126,7 @@ namespace Bikewale.Models.DealerShowroom
         {
             objDealerDetails.LeadCapture = new LeadCaptureEntity()
             {
-
+                PlatformId = (ushort)(IsMobile ? 2: 1),
                 CityId = cityId,
             };
         }

@@ -983,7 +983,7 @@ docReady(function () {
         });
     }
 
-    $('#newBikeList').val('').focus();
+    //$('#newBikeList').val('').focus();
     $('#globalCityPopUp').val('');
 
     $(".fa-spinner").hide();
@@ -1025,6 +1025,11 @@ docReady(function () {
         $(this).hide();
     });
 
+    $('#newBikeList').on('click', function () {
+    	$('#global-search').trigger('click');
+    });
+
+	/*
     $("#newBikeList").bw_autocomplete({
         recordCount: 5,
         source: 1,
@@ -1115,8 +1120,9 @@ docReady(function () {
             }
         }
     }).css({ 'width': '100%' });
+	*/
 
-
+	/*
     $('#newBikeList').on('keypress', function (e) {
         var id = $('#newBikeList');
         var searchVal = id.val();
@@ -1146,6 +1152,7 @@ docReady(function () {
             }
         }
     });
+	*/
 
     // global city popup autocomplete
     $("#globalCityPopUp").bw_autocomplete({
@@ -1794,7 +1801,7 @@ docReady(function () {
                 bwcache.set(this.searchKey, objSearches);
             }
         },
-        showRecentSearches: function () {
+        showRecentSearches: function (event) {
             var html = "";
             if (!this.options.recentSearchesLoaded) {
                 objSearches = bwcache.get(this.searchKey);
@@ -1805,7 +1812,7 @@ docReady(function () {
                         item = objSearches.searches[item];
                         bikename = item.name || '';
                         if (bikename != '' && $("#global-recent-searches li[data-modelid='" + item.modelId + "']").length == 0 && i < 3) {
-                            html += '<li data-makeid="' + item.makeId + '" data-modelid="' + item.modelId + '" class="ui-menu-item" tabindex="' + i++ + '"><span class="bwmsprite history-icon"></span><a href="javascript:void(0)" data-href="/m/' + item.makeMaskingName + '-bikes/' + item.modelMaskingName + '" optionname="' + bikename.toLowerCase().replace(' ', '') + '">' + bikename + '</a>';
+                            html += '<li data-makeid="' + item.makeId + '" data-modelid="' + item.modelId + '" class="ui-menu-item" tabindex="' + i++ + '"><span class="recent-clock"></span><a href="javascript:void(0)" data-href="/m/' + item.makeMaskingName + '-bikes/' + item.modelMaskingName + '" optionname="' + bikename.toLowerCase().replace(' ', '') + '">' + bikename + '</a>';
                             if (item.modelId > 0) {
                                 if (item.futuristic == 'True') {
                                     html += '<span class="upcoming-link">coming soon</span>';
@@ -1830,8 +1837,7 @@ docReady(function () {
 
             if (!this.options.trendingSearchesLoaded) {
                 if (trendingBikes) {
-                    html = '<li data-makeid="0" data-modelid="0" class="bw-ga" data-cat="' + pageName + '" data-act="Trending_Searches_Search_Bar_Clicked" data-lab="Track Day 2018">\
-                            <span class="trending-searches"></span><a href="/featured/trackday-2018/" data-href="/featured/trackday-2018/">Track Day 2018</a>';
+                    var html = "";
                     for (var index in trendingBikes) {
                         item = trendingBikes[index];
                         html += '<li data-makeid="' + item.objMake.makeId + '" data-modelid="' + item.objModel.modelId + '" class="ui-menu-item bw-ga" data-cat="' + pageName + '" data-act="Trending_Searches_Search_Bar_Clicked" data-lab="' + item.BikeName
@@ -1866,7 +1872,7 @@ docReady(function () {
             this.options.trendingSearchesEle.find("li:first-child").addClass("ui-state-focus").siblings().removeClass("ui-state-focus");
             if (this.options.recentSearchesEle.is(":visible")) {
                 var rsele = this.options.recentSearchesEle.find("li.ui-state-focus");
-                if (event.keyCode == 27) {
+                if (typeof event !== "undefined" && event.keyCode == 27) {
                     this.hideRecentSearches();
                 }
             }
@@ -1884,7 +1890,7 @@ docReady(function () {
         }
     };
 
-    recentSearches.options.recentSearchesEle.on('click', 'li', function () {
+    recentSearches.options.recentSearchesEle.on('click', 'li', function (event) {
         try {
             if (!$(event.target).hasClass('getquotation')) {
 
@@ -1906,7 +1912,7 @@ docReady(function () {
 
     });
 
-    recentSearches.options.trendingSearchesEle.on('click', 'li', function () {
+    recentSearches.options.trendingSearchesEle.on('click', 'li', function (event) {
         try {
             if (!$(event.target).hasClass('getquotation')) {
                 window.location.href = $(this).find('a').first().attr('data-href');

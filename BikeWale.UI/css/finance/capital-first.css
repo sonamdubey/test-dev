@@ -27,8 +27,7 @@
 .contact-details__form,
 .personal-details__form {
     margin: 10px 0 10px 20px;
-    border-left: 2px solid #e2e2e2;
-    padding: 10px 50px;
+    padding: 10px 10px;
 }
 
 .employment-details-form {

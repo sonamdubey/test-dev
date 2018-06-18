@@ -3,6 +3,11 @@ function isServer() {
 	return !(typeof window !== 'undefined' && window.document) //TODO 
 }
 
+function detectBrowser() {
+  window.isBrowserUC = navigator.userAgent.toLowerCase().indexOf("ucbrowser") !== -1;
+  window.isBrowserSafari = navigator.userAgent.toLowerCase().indexOf("safari") !== -1;
+  window.isBrowserChrome = navigator.userAgent.toLowerCase().indexOf("chrome") !== -1;
+}
 
 function isInt(value) {
 
@@ -60,8 +65,9 @@ function RemoveSpecialCharacters(inpString){
 module.exports = {
 	isServer,
 	isInt,
-	isCMSUserReviewSlugClosed,
-    CMSUserReviewSlugPosition,
-    updateData,
-    RemoveSpecialCharacters
+  	isCMSUserReviewSlugClosed,
+  	CMSUserReviewSlugPosition,
+  	updateData,
+	RemoveSpecialCharacters,
+	detectBrowser
 }

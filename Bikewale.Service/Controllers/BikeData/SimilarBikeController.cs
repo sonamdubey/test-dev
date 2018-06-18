@@ -34,7 +34,7 @@ namespace Bikewale.Service.Controllers.BikeData
         /// <returns></returns>
         public IHttpActionResult Get(int versionId, uint topCount)
         {
-            SimilarBikeList objSimilar = new SimilarBikeList();
+            Bikewale.DTO.BikeData.SimilarBikeList objSimilar = new Bikewale.DTO.BikeData.SimilarBikeList();
             try
             {
                 IEnumerable<SimilarBikeEntity> objSimilarBikes = _objVersion.GetSimilarBikesList(versionId, topCount, 1, true);
@@ -54,5 +54,43 @@ namespace Bikewale.Service.Controllers.BikeData
                 return InternalServerError();
             }
         }
+
+        /// <summary>
+        /// Author  : Kartik Rathod on 11 May 2018
+        /// Desc    : Get similar bikes based on road price for emi page in finance
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <param name="topcount"></param>
+        /// <param name="cityId"></param>
+        /// <returns>SimilarBikesForEMIEntityList</returns>
+        [HttpGet,Route("api/pwa/similarbikes/model/{modelId:int}/finance/")]
+        public IHttpActionResult GetSimilarBikesForEMI(int modelId, byte topcount, int cityId)
+        {
+            try
+            {
+                if (modelId > 0)
+                {
+                    IEnumerable<SimilarBikesForEMIEntity> objBikeList = _objVersion.GetSimilarBikesForEMI(modelId, topcount, cityId);
+                    if (objBikeList != null && objBikeList.Any())
+                    {
+                        return Ok(objBikeList);
+                    }   
+                    else
+                    {
+                        return NotFound();
+                    }   
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.SimilarBikeController.GetSimilarBikesForEMI");
+                return InternalServerError();
+            }
+        }
+
     }
 }

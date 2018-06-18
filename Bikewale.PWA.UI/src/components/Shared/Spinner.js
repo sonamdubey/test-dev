@@ -2,7 +2,7 @@ import React from 'react'
 
 const Spinner = () => (
 
-    <div className="loader-content loader-fixed">
+    <div className="speedometer__container loader-content loader-fixed">
         <span className="loader"></span>
     </div>
 )

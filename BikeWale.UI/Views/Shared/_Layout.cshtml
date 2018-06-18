@@ -499,13 +499,12 @@
                 <a href="/featured/trackday-2018/" class ="bw-ga" data-lab ="Track Day 2018" data-cat ="" data-act ="Hamburger_Menu_Item_Click">
                     <span class="bwsprite track-day"></span>
                     <span class="navbarTitle">Track Day 2018</span>
-					<span class="new-flag"></span>
                 </a>
             </li>
             <li>
                 <a href="/bike-loan-emi-calculator/">
                     <span class="bwsprite forum-icon"></span>
-                    <span class="navbarTitle">Tools</span>
+                    <span class="navbarTitle">EMI Calculator</span>
                 </a>
             </li>
             <li>
@@ -615,6 +614,7 @@
         var loadAsyncCss = function () { var a = document.getElementById("asynced-css"); if (a) { var b = document.createElement("div"); b.style.display = 'none', b.innerHTML = a.textContent, document.body.appendChild(b), a.parentElement.removeChild(a) } }, raf = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame; raf ? raf(function () { window.setTimeout(loadAsyncCss, 0) }) : window.addEventListener("load", loadAsyncCss);
     </script>
     <script defer type="text/javascript" src="@String.Format("{0}/src/Plugins.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, Bikewale.Utility.BWConfiguration.Instance.StaticPluginFileVersion)"></script>
+    <script defer type="text/javascript" src="@String.Format("{0}/src/cwTracking.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, Bikewale.Utility.BWConfiguration.Instance.StaticPluginFileVersion)"></script>
     <script defer type="text/javascript" src="@String.Format("{0}/src/common.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion)"></script>
     @if (Model.AdSlots != null)
     {

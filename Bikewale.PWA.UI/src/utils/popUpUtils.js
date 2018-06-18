@@ -1,7 +1,9 @@
 import {extractPageCategoryFromURL} from '../components/News/NewsCommon'
 import {isServer} from './commonUtils'
+import { unlockScroll, lockScroll } from './scrollLock';
 import {setPQSourceId} from './analyticsUtils'
 var topCount = "5";
+var popUpHistory = [];
 function closeGlobalSearchPopUp() {
     hideElement(document.getElementById('global-search-popup'));
 	unlockPopup();
@@ -92,6 +94,19 @@ function getGlobalCity() {
     return null;
 }
 
+function setGlobalCity(cityId, cityName, globalCityId) {
+    if (cityId != globalCityId) {
+        SetCookieInDays("location", cityId + "_" + cityName, 365);
+        bwcache.set("userchangedlocation", window.location.href, true);
+    }
+}
+
+function IsGlobalCityPresent(cityList, globalCityId) {
+    if (cityList != null && cityList.some(item => item.cityId === globalCityId)) {
+        return true;
+    }
+    return false;
+}
 
 function getCookie(key) {
     var keyValue = document.cookie.match('(^|;) ?' + key + '=([^;]*)(;|$)');
@@ -144,16 +159,20 @@ function showHideMatchError(element, error) {
 if(!isServer()) {
     try {
         docReady(function() {
-            document.getElementsByClassName('blackOut-window')[0].addEventListener('mouseup',function(e) {  
-                var globalSearchPopup = document.getElementById('global-search-popup');
+            var ele = document.getElementsByClassName('blackOut-window');
+            if(ele.length>0)
+            {
+                ele[0].addEventListener('mouseup',function(e) {  
+                    var globalSearchPopup = document.getElementById('global-search-popup');
                 
-                if(e.target.id !== globalSearchPopup.getAttribute('id')) // TODO && !globalSearchPopup.has(e.target).length)
-                {
-                    hideElement(globalSearchPopup);
-                    unlockPopup();
-                }
+                    if(e.target.id !== globalSearchPopup.getAttribute('id')) // TODO && !globalSearchPopup.has(e.target).length)
+                    {
+                        hideElement(globalSearchPopup);
+                        unlockPopup();
+                    }
 
-            })
+                }) 
+            }
 
             window.addEventListener('hashchange' ,function(e) {
                 var oldUrl, oldHash;
@@ -161,8 +180,8 @@ if(!isServer()) {
                 if (oldUrl && (oldUrl.indexOf('#') > 0)) {
                     oldHash = oldUrl.split('#')[1];
                     closePopUp(oldHash);
-                };
-            })
+                }
+            });
 
             
         })    
@@ -238,7 +257,6 @@ var recentSearches =
         return trendingSearches;
     },
     objectIndexOf: function (arr, opt) {
-        var makeId = opt.makeId, modelId = opt.modelId;
         for (var i = 0, len = arr.length; i < len; i++)
             if (arr[i]["makeId"] === opt.makeId && arr[i]["modelId"] === opt.modelId) return i;
         return -1;
@@ -255,9 +273,14 @@ function closePopUp(state) {
             closeOnRoadPricePopUp();
             break;
         default:
+            if (window.popupCallback != undefined && window.popupCallback[state] != undefined) {
+                window.popupCallback[state]();
+                window.popupCallback[state] = undefined;
+                unlockScroll();
+            }
             return true;
     }
-};
+}
 
 
 function getStrippedTerm(term) {
@@ -292,8 +315,9 @@ function autocomplete(options,term) {
         var xhr = new XMLHttpRequest();
         xhr.open('GET',path);
         xhr.setRequestHeader("Content-Type","application/json; charset=utf-8");
-    	if (options.loaderStatus != null && typeof (options.loaderStatus) == "function") 
+    	if (options.loaderStatus != null && typeof (options.loaderStatus) == "function"){
 			options.loaderStatus(false);
+        }
         	
 		xhr.onreadystatechange = function() {
 			
@@ -370,10 +394,10 @@ function setDataforPopularBikesWidget(event, item) {
     onRoadPricePopupDataObject.SelectedArea = (onCookieObj.PQAreaSelectedId > 0)?{ 'id': onCookieObj.PQAreaSelectedId, 'name': onCookieObj.PQAreaSelectedName }:null;
     onRoadPricePopupDataObject.SelectedCityId = onCookieObj.PQCitySelectedId || 0;
     onRoadPricePopupDataObject.SelectedAreaId = onCookieObj.PQAreaSelectedId || 0;
-    onRoadPricePopupDataObject.BookingCities = [],
-    onRoadPricePopupDataObject.BookingAreas = [],
-    onRoadPricePopupDataObject.ModelName = item.ModelName != null && item.ModelName!=null ? item.ModelName : "";
-    onRoadPricePopupDataObject.MakeName = item.MakeName != null && item.MakeName!=null ? item.MakeName : "";
+    onRoadPricePopupDataObject.BookingCities = []
+    onRoadPricePopupDataObject.BookingAreas = []
+    onRoadPricePopupDataObject.ModelName = item.ModelName != null ? item.ModelName : "";
+    onRoadPricePopupDataObject.MakeName = item.MakeName != null ? item.MakeName : "";
     onRoadPricePopupDataObject.PageCatId = (gaObj != null) ? gaObj.id : 0;
     onRoadPricePopupDataObject.IsPersistence = false;
     onRoadPricePopupDataObject.IsReload = false;
@@ -405,11 +429,11 @@ function setDataForPriceQuotePopup(event,bikeObj) {
     onRoadPricePopupDataObject.SelectedArea = (onCookieObj.PQAreaSelectedId > 0)?{ 'id': onCookieObj.PQAreaSelectedId, 'name': onCookieObj.PQAreaSelectedName }:null;
     onRoadPricePopupDataObject.SelectedCityId = (item.preselcity !=null && item.preselcity != undefined ? item.preselcity : 0) || onCookieObj.PQCitySelectedId || 0;
     onRoadPricePopupDataObject.SelectedAreaId = onCookieObj.PQAreaSelectedId || 0;
-    onRoadPricePopupDataObject.BookingCities = [],
-    onRoadPricePopupDataObject.BookingAreas = [],
-    onRoadPricePopupDataObject.ModelName = item.modelName != null && item.modelName!=null ? item.modelName : "";
-    onRoadPricePopupDataObject.MakeName = item.makeName != null && item.makeName!=null ? item.makeName : "";
-    onRoadPricePopupDataObject.PageCatId = item.pagecatId != null && item.pagecatId!=null ? item.makeName : "";
+    onRoadPricePopupDataObject.BookingCities = []
+    onRoadPricePopupDataObject.BookingAreas = []
+    onRoadPricePopupDataObject.ModelName = item.modelName != null ? item.modelName : "";
+    onRoadPricePopupDataObject.MakeName = item.makeName != null ? item.makeName : "";
+    onRoadPricePopupDataObject.PageCatId = item.pagecatId != null ? item.makeName : "";
     onRoadPricePopupDataObject.IsPersistence = item.persistent != undefined && item.persistent != null ? item.persistent : false;
     onRoadPricePopupDataObject.IsReload = item.reload != undefined && item.reload != null ? item.reload : false;
     if(onRoadPricePopupDataObject.SelectedCityId == 0 )
@@ -435,23 +459,23 @@ var popupState = {
 }
 function resetOnRoadPricePopup() {
 
-    onRoadPricePopupDataObject.SelectedModelId = 0,
-    onRoadPricePopupDataObject.SelectedCity = null , 
-    onRoadPricePopupDataObject.SelectedArea = null , 
-    onRoadPricePopupDataObject.HasAreas = false,
-    onRoadPricePopupDataObject.SelectedCityId = 0 , 
-    onRoadPricePopupDataObject.SelectedAreaId = 0,
-    onRoadPricePopupDataObject.BookingCities = [],
-    onRoadPricePopupDataObject.BookingAreas = [],
-    onRoadPricePopupDataObject.MakeName = "",
-    onRoadPricePopupDataObject.ModelName = "",
-    onRoadPricePopupDataObject.PageCatId = "",
-    onRoadPricePopupDataObject.DealerId = "",
-    onRoadPricePopupDataObject.VersionId = "",
-    onRoadPricePopupDataObject.IsPersistence = false,
-    onRoadPricePopupDataObject.IsReload = false,
-    onRoadPricePopupDataObject.LoadingText = "",
-    onRoadPricePopupDataObject.state = popupState.cityPopupOpen
+    onRoadPricePopupDataObject.SelectedModelId = 0
+    onRoadPricePopupDataObject.SelectedCity = null
+    onRoadPricePopupDataObject.SelectedArea = null
+    onRoadPricePopupDataObject.HasAreas = false
+    onRoadPricePopupDataObject.SelectedCityId = 0
+    onRoadPricePopupDataObject.SelectedAreaId = 0
+    onRoadPricePopupDataObject.BookingCities = []
+    onRoadPricePopupDataObject.BookingAreas = []
+    onRoadPricePopupDataObject.MakeName = ""
+    onRoadPricePopupDataObject.ModelName = ""
+    onRoadPricePopupDataObject.PageCatId = ""
+    onRoadPricePopupDataObject.DealerId = ""
+    onRoadPricePopupDataObject.VersionId = ""
+    onRoadPricePopupDataObject.IsPersistence = false
+    onRoadPricePopupDataObject.IsReload = false
+    onRoadPricePopupDataObject.LoadingText = ""
+    onRoadPricePopupDataObject.state = popupState.cityPopupOpe
 
     
 }
@@ -537,10 +561,10 @@ function MakeModelRedirection(item ) {
             }
             recentSearches.saveRecentSearches(item);
             closeGlobalSearchPopUp();
-            if (model != null && model != undefined) {
+            if (model) {
                 window.location.href = "/m/" + make.maskingName + "-bikes/" + model.maskingName + "/";
                 return true;
-            } else if (make != null && make != undefined) {
+            } else {
                 window.location.href = "/m/" + make.maskingName + "-bikes/";
                 return true;
             }
@@ -550,6 +574,42 @@ function MakeModelRedirection(item ) {
         IsPriceQuoteLinkClicked = false;
     }
     
+}
+
+function openPopupWithHash(openingFunction, closingFunction, hash) {
+    try {
+        if (typeof openingFunction === "function" && typeof closingFunction === "function") {
+            openingFunction();
+            if (window.popupCallback == undefined) {
+                window.popupCallback = {};
+            }
+            window.popupCallback[hash] = closingFunction;
+            window.history.pushState(undefined, undefined, window.location.pathname + '#' + hash);
+            lockScroll();
+        }
+    }
+    catch (e) {
+        console.log(e);
+    }
+}
+
+function closePopupWithHash(closingFunction) {
+    try {
+        if (typeof closingFunction === "function") {
+            unlockScroll();
+            closingFunction();
+            if (window.popupCallback != undefined) {
+                var hash = (window.location.hash || "#").slice(1);
+                if (hash.length > 0) {
+                    window.history.replaceState(undefined, undefined, window.location.pathname);
+                    window.popupCallback[hash] = undefined;
+                }
+            }
+        }
+    }
+    catch (e) {
+        console.log(e);
+    }
 }
 
 
@@ -596,4 +656,8 @@ module.exports = {
     closeCityAreaSelectionPopup,
     openCityAreaSelectionPopup,
     setDataforPopularBikesWidget,
+    setGlobalCity,
+    IsGlobalCityPresent,
+    openPopupWithHash,
+    closePopupWithHash
 }

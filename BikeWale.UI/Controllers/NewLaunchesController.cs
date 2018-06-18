@@ -17,7 +17,6 @@ namespace Bikewale.Controllers
         private readonly IBikeMakesCacheRepository _objMakeCache = null;
         private readonly IUpcoming _upcoming = null;
 
-        private const string URL_404 = "/pagenotfound.aspx";
         private readonly ICMSCacheContent _objArticles;
 
         public NewLaunchesController(INewBikeLaunchesBL newLaunches, IBikeMakesCacheRepository objMakeCache, IUpcoming upcoming, ICMSCacheContent objArticles)
@@ -99,7 +98,7 @@ namespace Bikewale.Controllers
                 var vmPage = model.GetData();
                 if (model.Status == Entities.StatusCodes.ContentNotFound)
                 {
-                    return Redirect(URL_404);
+                    return HttpNotFound();
                 }
                 else
                 {
@@ -112,7 +111,7 @@ namespace Bikewale.Controllers
             }
             else
             {
-                return Redirect(URL_404);
+                return HttpNotFound();
             }
         }
 
@@ -155,7 +154,7 @@ namespace Bikewale.Controllers
                 var vmPage = model.GetData();
                 if (model.Status == Entities.StatusCodes.ContentNotFound)
                 {
-                    return Redirect(URL_404);
+                    return HttpNotFound();
                 }
                 else
                 {
@@ -168,7 +167,7 @@ namespace Bikewale.Controllers
             }
             else
             {
-                return Redirect(URL_404);
+                return HttpNotFound();
             }
         }
 

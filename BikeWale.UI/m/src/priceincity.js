@@ -474,7 +474,7 @@ docReady(function () {
     bikeName = $dvPgVar.data("bikename");
   
     var cityName = $dvPgVar.data("cityarea");
-	if (isCoverfoxShown) { triggerNonInteractiveGA('Price_in_City_Page', 'ICICIBank_Link_Shown', bikeName + '_' + cityName); }
+    if (isCoverfoxShown) { triggerNonInteractiveGA('Price_in_City_Page', 'BankbazaarLink_Shown', bikeName + '_' + cityName); }
 
     $(".leadcapturebtn").click(function (e) {
         ele = $(this);
@@ -501,7 +501,9 @@ docReady(function () {
                     cat: ele.attr("data-cat"),
                     act: ele.attr("data-act"),
                     lab: ele.attr("data-var")
-                }
+                },
+                "sendLeadSMSCustomer": ele.attr('data-issendleadsmscustomer'),
+                "organizationName": ele.attr('data-item-organization')
             };
             dleadvm.setOptions(leadOptions);
         } catch (e) {

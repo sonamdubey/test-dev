@@ -209,6 +209,7 @@
     <Compile Include="BikeData\Features.cs" />
     <Compile Include="BikeData\MakeFooterCategory.cs" />
     <Compile Include="BikeData\MakeMaskingResponse.cs" />
+    <Compile Include="BikeData\MakeModelListEntity.cs" />
     <Compile Include="BikeData\MakeSubFooterEntity.cs" />
     <Compile Include="BikeData\MileageInfoByBodyStyle.cs" />
     <Compile Include="BikeData\MinSpecs.cs" />
@@ -232,7 +233,9 @@
     <Compile Include="BikeData\SimilarBikeComparisions .cs" />
     <Compile Include="BikeData\SimilarBikeEntity.cs" />
     <Compile Include="BikeData\BikeSeriesModels.cs" />
+    <Compile Include="BikeData\SimilarBikeList.cs" />
     <Compile Include="BikeData\SimilarBikesByMileage.cs" />
+    <Compile Include="BikeData\SimilarBikesForEMIEntity.cs" />
     <Compile Include="BikeData\SimilarBikesWithPhotos.cs" />
     <Compile Include="BikeData\SimilarBikeUserReview.cs" />
     <Compile Include="BikeData\SimilarBikeWithVideo.cs" />
@@ -241,8 +244,8 @@
     <Compile Include="BikeData\Specs.cs" />
     <Compile Include="BikeData\SpecsCategory.cs" />
     <Compile Include="BikeData\SpecsCustomDataType.cs" />
-    <Compile Include="BikeData\SpecsFeaturesEntity.cs" />
     <Compile Include="BikeData\SpecsFeaturesCategory.cs" />
+    <Compile Include="BikeData\SpecsFeaturesEntity.cs" />
     <Compile Include="BikeData\SpecsFeaturesItem.cs" />
     <Compile Include="BikeData\SpecsItem.cs" />
     <Compile Include="BikeData\TransposeModelSpecEntity.cs" />
@@ -351,7 +354,10 @@
     <Compile Include="Finance\CapitalFirst\CapitalFirstEmailDetailsEntity.cs" />
     <Compile Include="Finance\CapitalFirst\CapitalFirstMakeEntityBase.cs" />
     <Compile Include="Finance\CapitalFirst\CapitalFirstVoucherEntityBase.cs" />
-    <Compile Include="Finance\CapitalFirst\EmployeDetails.cs" />
+    <Compile Include="Finance\CapitalFirst\CityPanMapping.cs" />
+    <Compile Include="Finance\CapitalFirst\EmployeDetails.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Finance\CapitalFirst\PersonalDetails.cs" />
     <Compile Include="GenericBikes\BestBikesList.cs" />
     <Compile Include="GenericBikes\BikeRankingEntity.cs" />
@@ -437,12 +443,15 @@
     <Compile Include="PriceQuote\OfferHtmlEntity.cs" />
     <Compile Include="PriceQuote\OtherVersionInfoEntity.cs" />
     <Compile Include="PriceQuote\PQByCityAreaEntity.cs" />
+    <Compile Include="PriceQuote\PQCustomerDetailInput.cs" />
+    <Compile Include="PriceQuote\PQCustomerDetailOutputEntity.cs" />
     <Compile Include="PriceQuote\PQOnRoadPrice.cs" />
     <Compile Include="PriceQuote\PQSourceEnum.cs" />
     <Compile Include="PriceQuote\PQVersionList.cs" />
     <Compile Include="PriceQuote\PriceQuoteOfTopCities.cs" />
     <Compile Include="PriceQuote\PriceQuoteParametersEntity.cs" />
     <Compile Include="PriceQuote\PriceQuoteStates.cs" />
+    <Compile Include="PriceQuote\SpamDetailsEnum.cs" />
     <Compile Include="PriceQuote\v2\DetailedDealerQuotationEntity.cs" />
     <Compile Include="PriceQuote\v2\NewBikeDealerBase.cs" />
     <Compile Include="PriceQuote\v2\PQByCityAreaEntity.cs" />

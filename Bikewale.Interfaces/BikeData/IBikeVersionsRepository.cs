@@ -6,6 +6,7 @@ namespace Bikewale.Interfaces.BikeData
     /// <summary>
     /// Created By : Rajan Chauhan on 11 Apr 2018
     /// Summary    : Interface for bike versions DAL
+    /// Modifier    : Kartik Rathod on 11 May 2018, added GetSimilarBikesForEMI
     /// </summary>
     /// <typeparam name="T">Generic type (need to specify type while implementing this interface)</typeparam>
     /// <typeparam name="U">Generic type (need to specify type while implementing this interface)</typeparam>
@@ -22,7 +23,7 @@ namespace Bikewale.Interfaces.BikeData
         IEnumerable<BikeColorsbyVersion> GetColorsbyVersionId(uint versionId);
         IEnumerable<BikeVersionsSegment> GetModelVersionsDAL();
         IEnumerable<BikeVersionWithMinSpec> GetDealerVersionsByModel(uint dealerId, uint modelId);
-
+        IEnumerable<SimilarBikesForEMIEntity> GetSimilarBikesForEMI(int modelId, byte topcount, int cityId);
     }
 }
 

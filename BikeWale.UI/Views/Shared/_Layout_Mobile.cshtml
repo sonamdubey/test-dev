@@ -235,12 +235,6 @@
                 if(Model.AdTags.Ad_300x250_Top){ @Html.Raw(GetAdSlot(19, Model.AdTags.AdPath, Model.AdTags.AdId))}
                 if(Model.AdTags.Ad_300x250_Middle){ @Html.Raw(GetAdSlot(20, Model.AdTags.AdPath, Model.AdTags.AdId))}
                 if(Model.AdTags.Ad_300x250_Bottom){ @Html.Raw(GetAdSlot(21, Model.AdTags.AdPath, Model.AdTags.AdId))}
-                if (Model.AdTags.Ad_320x50Top)
-                {
-                    // Ad Slot below Image carousel on Model Images page to be refreshed every 3 swipes.
-                    var id = String.Format("div-gpt-ad-{0}-{1}", Model.AdTags.AdId, 0);
-                    <text>adsToRefresh['@id'] = @Html.Raw(GetAdSlot(1, Model.AdTags.AdPath, Model.AdTags.AdId))</text>
-                }
             }
                 
 
@@ -359,6 +353,7 @@ else if (Model.AdTags.ShowInnovationBannerMobile)
             </div>
         </section>
     }
+    
     @if (Model.BreadcrumbList != null && Model.BreadcrumbList.BreadcrumListItem != null && Model.BreadcrumbList.BreadcrumListItem.Any())
     {
         <section>
@@ -467,9 +462,14 @@ else if (Model.AdTags.ShowInnovationBannerMobile)
                 <a href="/featured/trackday-2018/" class ="bw-ga" data-lab ="Track Day 2018" data-cat ="" data-act ="Hamburger_Menu_Item_Click">
                     <span class="bwmsprite track-day"></span>
                     <span class="navbarTitle">Track Day 2018</span>
-					<span class="new-flag"></span>
                 </a>
             </li>
+			<li>
+				<a href="/m/bike-loan-emi-calculator/" class="bw-ga" data-lab="EMI Calculator" data-cat="" data-act="Hamburger_Menu_Item_Click">
+					<span class="bwmsprite forum-icon"></span>
+					<span class="navbarTitle">EMI Calculator</span>
+				</a>
+			</li>
             @** Render login control here *@
             @Html.Partial("~/Views/m/Shared/_LoginControl.cshtml")
         </ul>
@@ -503,7 +503,7 @@ else if (Model.AdTags.ShowInnovationBannerMobile)
     <div id="global-search-popup" class="global-search-popup" style="display:none">
         <div class="form-control-box">
             <span class="back-arrow-box" id="gs-close">
-                <span class="bwmsprite back-long-arrow-left"></span>
+                <span class="back-arrow-left"></span>
             </span>
             <span class="cross-box hide" id="gs-text-clear">
                 <span class="bwmsprite cross-md-dark-grey"></span>
@@ -515,9 +515,9 @@ else if (Model.AdTags.ShowInnovationBannerMobile)
                     <span class="text-bold">Oops! No suggestions found</span><br /> <span class="text-light-grey font12">Search by bike name e.g: Honda Activa</span>
                 </li>
             </ul>
-            <div id="global-search-section" class="bg-white padding-bottom10 hide">
+            <div id="global-search-section" class="bg-white padding-bottom20 hide">
                 <div id="history-search">
-                    <div class="search-title">Recently Viewed</div>
+                    <div class="search-title margin-top10">Recently Viewed</div>
                     <ul id="global-recent-searches" class="recent-searches-dropdown bw-ui-menu"></ul>
                 </div>
                 <div id="trending-search">
@@ -595,6 +595,7 @@ else if (Model.AdTags.ShowInnovationBannerMobile)
         var loadAsyncCss = function () { var a = document.getElementById("asynced-css"); if (a) { var b = document.createElement("div"); b.style.display = 'none', b.innerHTML = a.textContent, document.body.appendChild(b), a.parentElement.removeChild(a) } }, raf = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame; raf ? raf(function () { window.setTimeout(loadAsyncCss, 0) }) : window.addEventListener("load", loadAsyncCss);
     </script>
     <script defer type="text/javascript" src="@String.Format("{0}/m/src/Plugins.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, Bikewale.Utility.BWConfiguration.Instance.StaticPluginFileVersion)"></script>
+    <script defer type="text/javascript" src="@String.Format("{0}/src/cwTracking.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, Bikewale.Utility.BWConfiguration.Instance.StaticPluginFileVersion)"></script>
     <script defer type="text/javascript" src="@String.Format("{0}/m/src/common.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion)"></script>
     @if (Model.AdSlots != null)
     { 
