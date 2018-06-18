@@ -130,6 +130,7 @@
     <Compile Include="BikeData\BikeModelsByMake.cs" />
     <Compile Include="BikeData\BikeSeriesEntity.cs" />
     <Compile Include="BikeData\BikeSeriesEntityBase.cs" />
+    <Compile Include="BikeData\BikeVersionEntity.cs" />
     <Compile Include="BikeData\BikeVersionEntityBase.cs" />
     <Compile Include="BikeData\EnumBikeData.cs" />
     <Compile Include="BikeData\EnumSpecsFeaturesItem.cs" />
