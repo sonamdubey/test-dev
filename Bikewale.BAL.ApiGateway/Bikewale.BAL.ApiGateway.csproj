@@ -49,8 +49,7 @@
     <Reference Include="Criteo.Profiling.Tracing">
       <HintPath>..\Libs\zipkin\Criteo.Profiling.Tracing.dll</HintPath>
     </Reference>
-    <Reference Include="Google.Protobuf, Version=3.5.1.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="Google.Protobuf">
       <HintPath>..\Libs\APIGateway\Google.Protobuf.dll</HintPath>
     </Reference>
     <Reference Include="Grpc.Core">

@@ -75,6 +75,7 @@ namespace Bikewale.ManufacturerCampaign.DAL
         /// Description : Replaced sp from 'getmanufacturercampaign' to 'getmanufacturercampaign_25012018', added check for daily campaign start and end time.
         /// Modified by : Pratibha Verma on 8 Mar, 2018
         /// Description : Replace sp from 'getmanufacturercampaign_25012018' to 'getmanufacturercampaign_07032018', added campaign days
+        /// Modifier    : Kartik on 17 may 2018, replace getmanufacturercampaign_07032018 with getmanufacturercampaign_17052018  fetched SendLeadSMSCustomer
         /// </summary>
         /// <param name="dealerId"></param>
         /// <param name="campaignId"></param>
@@ -90,7 +91,7 @@ namespace Bikewale.ManufacturerCampaign.DAL
                     param.Add("par_campaignId", campaignId);
                     param.Add("par_dealerId", dealerId);
                     objEntity = new ConfigureCampaignEntity();
-                    using (var results = connection.QueryMultiple("getmanufacturercampaign_07032018", param: param, commandType: CommandType.StoredProcedure))
+                    using (var results = connection.QueryMultiple("getmanufacturercampaign_17052018", param: param, commandType: CommandType.StoredProcedure))
                     {
                         objEntity.DealerDetails = results.Read<ManufacturerCampaignDetails>().SingleOrDefault();
                         objEntity.CampaignPages = results.Read<ManufacturerCampaignPages>();
@@ -307,6 +308,7 @@ namespace Bikewale.ManufacturerCampaign.DAL
         /// Description : Replaced sp from 'savemanufacturercampaign_21062017' to 'savemanufacturercampaign_25012018' to also save daily campaign start and end time.
         /// Modified by : Pratibha Verma on 8 Mar, 2018
         /// Description : Replace sp from 'savemanufacturercampaign_25012018' to 'savemanufacturercampaign_08032018' to save campain days
+        /// Modifier    : Kartik Rathod on 14 may 2018, added par_sendleadsmscustomer in savemanufacturercampaign_14052018 to send or not send sms to customer on lead submmision es only
         /// </summary>
         /// <param name="objCampaign"></param>
         /// <returns></returns>
@@ -338,7 +340,9 @@ namespace Bikewale.ManufacturerCampaign.DAL
                     param.Add("par_campaignDays", objCampaign.CampaignDays);
                     param.Add("par_showonexshowroomprice", objCampaign.ShowOnExShowroomPrice);
                     param.Add("par_campaignid", objCampaign.CampaignId, dbType: DbType.Int32, direction: ParameterDirection.InputOutput);
-                    connection.Query<dynamic>("savemanufacturercampaign_08032018", param: param, commandType: CommandType.StoredProcedure);
+                    param.Add("par_sendleadsmscustomer", objCampaign.SendLeadSMSCustomer);
+
+                    connection.Query<dynamic>("savemanufacturercampaign_14052018", param: param, commandType: CommandType.StoredProcedure);
                     campaignId = (uint)param.Get<int>("par_campaignid");
 
                 }
@@ -443,6 +447,7 @@ namespace Bikewale.ManufacturerCampaign.DAL
         /// Description : Replaced sp from 'getmanufacturercampaignbymodelcity_28092017' to 'getmanufacturercampaignbymodelcity_25012018' to get daily campaign start and end time.
         /// Modified by : Pratibha Verma on 8 Mar, 2018
         /// Description : Replace sp 'getmanufacturercampaignbymodelcity_25012018' with 'getmanufacturercampaignbymodelcity_07032018' to add check for campaign days
+        /// Modifier    : Kartik on 17 may 2018, replace getmanufacturercampaignbymodelcity_07032018 with getmanufacturercampaignbymodelcity_17052018  fetched SendLeadSMSCustomer
         /// </summary>
         /// <param name="modelId"></param>
         /// <param name="cityId"></param>
@@ -456,7 +461,7 @@ namespace Bikewale.ManufacturerCampaign.DAL
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "getmanufacturercampaignbymodelcity_07032018";
+                    cmd.CommandText = "getmanufacturercampaignbymodelcity_17052018";
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelId", DbType.Int32, modelId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_cityId", DbType.Int32, cityId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_pageId", DbType.Int32, pageId));
@@ -490,6 +495,7 @@ namespace Bikewale.ManufacturerCampaign.DAL
                                 config.LeadCampaign.PriceBreakUpLinkTextDesktop = Convert.ToString(dr["PriceBreakUpLinkTextDesktop"]);
                                 config.LeadCampaign.PriceBreakUpLinkTextMobile = Convert.ToString(dr["PriceBreakUpLinkTextMobile"]);
                                 config.LeadCampaign.ShowOnExshowroom = Utility.SqlReaderConvertor.ToBoolean(dr["ShowOnExshowroom"]);
+                                config.LeadCampaign.SendLeadSMSCustomer = Utility.SqlReaderConvertor.ToBoolean(dr["SendLeadSMSCustomer"]);
                             }
 
 
@@ -511,6 +517,7 @@ namespace Bikewale.ManufacturerCampaign.DAL
                                 config.EMICampaign.PopupHeading = Convert.ToString(dr["PopupHeading"]);
                                 config.EMICampaign.PopupSuccessMessage = Convert.ToString(dr["PopupSuccessMessage"]);
                                 config.EMICampaign.ShowOnExshowroom = Utility.SqlReaderConvertor.ToBoolean(dr["ShowOnExshowroom"]);
+                                config.EMICampaign.SendLeadSMSCustomer = Utility.SqlReaderConvertor.ToBoolean(dr["SendLeadSMSCustomer"]);
                             }
 
                         }
@@ -643,6 +650,31 @@ namespace Bikewale.ManufacturerCampaign.DAL
                 ErrorClass.LogError(ex, string.Format("ManufacturerCampaignRepository.SaveManufacturerCampaignLead: ({0})", JsonConvert.SerializeObject(campaignDetails)));
             }
             return leadId;
+        }
+        
+        /// <summary>
+        /// Created By  : Rajan Chauhan on 4 May 2018
+        /// Description : Return UnmappedHondaModels if dealerId belong to honda dealer 
+        /// </summary>
+        /// <param name="dealerId"></param>
+        /// <returns></returns>
+        public IEnumerable<BikeModelEntity> GetUnmappedHondaModels(uint dealerId)
+        {
+            IEnumerable<BikeModelEntity> unmappedModels = null;
+            try
+            {
+                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
+                {
+                    var param = new DynamicParameters();
+                    param.Add("par_dealerid", dealerId);
+                    unmappedModels = connection.Query<BikeModelEntity>("getmissinghondamodelmapping", param: param, commandType: CommandType.StoredProcedure);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("ManufacturerCampaignRepository.GetUnmappedHondaModels({0})", dealerId));
+            }
+            return unmappedModels;
         }
     }
 }

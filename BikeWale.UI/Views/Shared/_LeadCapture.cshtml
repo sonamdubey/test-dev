@@ -171,6 +171,9 @@
         self.cities = ko.observableArray();
         self.selectedCity = ko.observable();
         self.ko_DealerName = ko.observable();
+        self.sendLeadSMSCustomer = ko.observable(false);
+        self.organizationName = ko.observable();
+
         self.setOptions = function (options) {
             if (options != null) {
                 if (options.eventcategory != null)
@@ -256,6 +259,14 @@
 
                 if (options.clientip != null)
                     self.clientIP = options.clientip;
+
+                if (options.sendLeadSMSCustomer != null) {
+                    self.sendLeadSMSCustomer(options.sendLeadSMSCustomer)
+                }
+
+                if (options.organizationName != null) {
+                    self.organizationName(options.organizationName)
+                }
             }
         };
 
@@ -519,64 +530,67 @@
 
             if (isValidCustomer && self.mfgCampaignId() > 0) {
 
-                if (!(self.pqId() && self.pqId() != "0"))
-                    self.generatePQ(data, event);
+            	if (!(self.pqId() && self.pqId() != "0"))
+            		self.generatePQ(data, event);
 
-                self.ko_DealerName($('#ddlMfgDealers option:selected').text());
+            	self.ko_DealerName($('#ddlMfgDealers option:selected').text());
 
-            $('#processing').show();
-            var objCust = {
-                "dealerId": self.dealerId(),
-                "pqId": self.pqId(),
-                "name": self.fullName(),
-                "mobile": self.mobileNo(),
-                "email": self.emailId(),
-                "versionId": self.versionId(),
-                "cityId": self.cityId(),
-                "leadSourceId": self.leadSourceId(),
-                "pinCode": self.pincode() || 0,
-                "campaignId": self.mfgCampaignId(),
-                "deviceId": getCookie('BWC'),
-                "manufacturerDealerId": $('#ddlMfgDealers :selected').data('id'),
-                "manufacturerDealer": self.ko_DealerName()
-            };
-            $.ajax({
-                type: "POST",
-                url: "/api/ManufacturerLead/",
-                data: ko.toJSON(objCust),
-                beforeSend: function (xhr) {
-                    self.showLoader();
-                    xhr.setRequestHeader('utma', getCookie('__utma'));
-                    xhr.setRequestHeader('utmz', getCookie('_bwutmz'));
-                },
-                async: false,
-                contentType: "application/json",
-                dataType: 'json',
-                success: function (response) {
-                    $("#contactDetailsPopup").hide();
-                    $("#personalInfo").hide();
-                    $("#dealer-lead-msg").fadeIn();
-                    if (self.cityRequired() && self.selectedCity()) {
-                        SetCookieInDays("location", self.selectedCity().cityId + "_" + self.selectedCity().cityName, 365);
-                    }
-                    if (fbPixelLeadEvent) {
-                        fbq('track', fbPixelLeadEvent);
-                    }
-                },
-                error: function (xhr, ajaxOptions, thrownError) {
-                    $("#leadCapturePopup").show();
-                    popup.lock();
-                },
-                complete: function (xhr, ajaxOptions, thrownError) {
-                    self.hideLoader();
-                    if (self.dealerMessage && !isBindingApplied) {
-                        ko.applyBindings(self, $('#ko_thankyoumessage div.html_ko')[0]);
-                        isBindingApplied = true;
-                    }
-                }
-            });
-            setPQUserCookie();
-                //triggerGA(eventCategory, eventAction, gaLabel)
+            	$('#processing').show();
+            	var objCust = {
+            		"dealerId": self.dealerId(),
+            		"pqId": self.pqId(),
+            		"name": self.fullName(),
+            		"mobile": self.mobileNo(),
+            		"email": self.emailId(),
+            		"versionId": self.versionId(),
+            		"cityId": self.cityId(),
+            		"leadSourceId": self.leadSourceId(),
+            		"pinCode": self.pincode() || 0,
+            		"campaignId": self.mfgCampaignId(),
+            		"deviceId": getCookie('BWC'),
+            		"manufacturerDealerId": $('#ddlMfgDealers :selected').data('id'),
+            		"manufacturerDealer": self.ko_DealerName(),
+            		"bikeName": leadBikeName,
+            		"dealerName": self.organizationName() ? self.organizationName() : self.dealerName(),
+            		"sendLeadSMSCustomer": self.sendLeadSMSCustomer()
+            	};
+            	$.ajax({
+            		type: "POST",
+            		url: "/api/ManufacturerLead/",
+            		data: ko.toJSON(objCust),
+            		beforeSend: function (xhr) {
+            			self.showLoader();
+            			xhr.setRequestHeader('utma', getCookie('__utma'));
+            			xhr.setRequestHeader('utmz', getCookie('_bwutmz'));
+            		},
+            		async: false,
+            		contentType: "application/json",
+            		dataType: 'json',
+            		success: function (response) {
+            			$("#contactDetailsPopup").hide();
+            			$("#personalInfo").hide();
+            			$("#dealer-lead-msg").fadeIn();
+            			if (self.cityRequired() && self.selectedCity()) {
+            				SetCookieInDays("location", self.selectedCity().cityId + "_" + self.selectedCity().cityName, 365);
+            			}
+            			if (fbPixelLeadEvent) {
+            				fbq('track', fbPixelLeadEvent);
+            			}
+            		},
+            		error: function (xhr, ajaxOptions, thrownError) {
+            			$("#leadCapturePopup").show();
+            			popup.lock();
+            		},
+            		complete: function (xhr, ajaxOptions, thrownError) {
+            			self.hideLoader();
+            			if (self.dealerMessage && !isBindingApplied) {
+            				ko.applyBindings(self, $('#ko_thankyoumessage div.html_ko')[0]);
+            				isBindingApplied = true;
+            			}
+            		}
+            	});
+            	setPQUserCookie();
+            	//triggerGA(eventCategory, eventAction, gaLabel)
             }
         };
 
@@ -599,8 +613,8 @@
                         case 'user-details-submit-btn':
                             isValidDetails = self.validateUserInfo('#getFullName', '#getEmailID', '#getMobile');
                             break;
-                            // model 'get dealer assistance'
-                            // dealer details 'get assistance'
+                        // model 'get dealer assistance'
+                        // dealer details 'get assistance'
                         case 'dealer-assist-btn':
                         case 'assistFormSubmit':
                             isValidDetails = self.validateUserInfo('#assistGetName', '#assistGetEmail', '#assistGetMobile');
@@ -668,7 +682,8 @@
                     "dealercityname": ele.attr('data-cityname')
                 };
 
-                if (!isNaN(leadOptions.versionid) && leadOptions.versionid != "0") {
+                if (!isNaN(leadOptions.versionid) && leadOptions.versionid != "0")
+                {
                     if (!self.modelId() && ele.attr('data-modelId')) {
                         self.modelId(ele.attr('data-modelId'));
                     }
@@ -1012,7 +1027,8 @@
         fullName = $("#getFullName"), emailid = $("#getEmailID"), mobile = $("#getMobile");
         assistanceGetName = $('#assistanceGetName'), assistanceGetEmail = $('#assistanceGetEmail'), assistanceGetMobile = $('#assistanceGetMobile');
         detailsSubmitBtn = $("#user-details-submit-btn");
-        if (FbPixelEvent) {
+        if (FbPixelEvent)
+        {
             fbPixelLeadEvent = FbPixelEvent.lead;
         }
         /* form validation */

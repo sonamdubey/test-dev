@@ -1,0 +1,146 @@
+// Core variables and mixins
+@import ../base/variables
+@import ../components/typography
+
+@import ../mixins/index
+@import ../utils/index
+@import ../components/mixins
+
+
+.dealer-details__content
+  padding: 0 20px 10px
+  border-top: 1px solid color('gainsboro')
+
+@include dealer-name-content($desktop: true)
+@include dealer-contact
+
+@include dealer-details-content
+@include dealer-details-content-card-none
+
+@include dealer-price-content
+
+@include dealer-offers-content($desktop: true)
+@include dealer-offers-content-card-none
+
+.dealer-offer__badge
+  @include badge
+
+.offer-badge__star
+  @include offer-star-percent-fff-icon
+  background-size: 16px
+  width: 16px
+  height: 16px
+  display: inline-block
+  vertical-align: middle
+  margin-right: 5px
+
+@include benefits-list($desktop: true)
+@include benefit-list-more-target
+@include benefits-list-preview(2)
+
+@include dealer-booking-content
+
+@include dealer-request-callback-content
+
+@include dealer-offers-summary
+
+@include dealer-toolbar-offers-summary
+
+.pq__offers-summary-toolbar
+  &.offers-summary-toolbar
+    .dealer__offers-summary-content
+      top: 50px
+
+  .dealer__offers-summary-content
+    font-size: 11px
+    padding-right: 30px
+
+.offer-summary-toolbar--active
+    header
+        margin-bottom: 40px
+
+// model page
+.dealer-details--model
+  .dealer__name-content
+    border-bottom: 0
+
+  .dealer__offers-content
+    margin-bottom: 0
+
+  .benefit-list__more-target
+    margin-left: 40px
+    margin-top: 5px
+
+// desktop dealer price quote
+@include dealer-get-offers-content($desktop: true)
+
+@include dealer-benefits-content
+
+@media (min-width: 800px)
+  .dealer__name-content
+    border-bottom: 0
+
+  .dealer-offer__badge
+    left: 0
+
+  .dealer__booking-content
+    margin-bottom: 15px
+
+  .dealer-details--pq
+    .dealer__offers-content
+      margin-right: 20px
+      margin-left: 20px
+
+    .dealer-name-content
+      width: 285px
+      padding-right: 10px
+// icons
+@include dealer-offer-icons
+@include dealer-benefit-icons
+
+.ribbon-content
+  @include ribbon-tag
+  z-index: 6
+  position: fixed
+  top: 34%
+  right: 0
+
+@media (max-width: 320px)
+  .ribbon-content
+    top: 39%
+
+.ribbon-content__data
+  margin-left: 2px
+
+.ribbon-icon-wrapper
+  width: 14px
+  height: 14px
+  display: inline-block
+  vertical-align: bottom
+  margin-right: 4px
+  position: relative
+
+.ribbon-icon__background
+  @include offer-star-fff-icon
+  background-size: 14px
+  width: 14px
+  height: 14px
+  position: absolute
+  top: 0
+  left: 0
+
+.ribbon-icon__percent
+    @include percent-04b4c4-icon
+    background-size: 6px
+    width: 14px
+    height: 14px
+    position: absolute
+    top: 0
+    left: 0
+    z-index: 1
+
+
+//
+.body--dropdown-active
+  .offers-ribbon
+    z-index: 2

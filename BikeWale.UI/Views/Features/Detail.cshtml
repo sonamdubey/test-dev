@@ -10,7 +10,7 @@
     Model.AdTags.Ad_300x250 = true;
     Model.AdTags.Ad_970x90 = true;
     Model.AdTags.Ad_970x90Bottom = true;
-    if (Model != null && Model.objFeature != null) { Model.AdTags.TargetedTags = String.Join(",", Model.objFeature.TagsList); };
+    if (Model != null && Model.objFeature != null) { Model.AdTags.TargetedTags = String.Join(", ", Model.objFeature.TagsList); };
  }
 
 @if (Model != null)

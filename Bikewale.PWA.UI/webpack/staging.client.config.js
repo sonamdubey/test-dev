@@ -9,6 +9,7 @@ var extractVideoSass = new ExtractCssChunks({ filename: "css/videos/videosBundle
 var extractAppSass = new ExtractCssChunks({ filename: "css/app.[chunkhash].css", publicPath: cssChunksPublicPath });
 var extractNewsSass = new ExtractCssChunks({ filename: "css/news/newsBundle.[chunkhash].css", publicPath: cssChunksPublicPath });
 
+var extractFinanceSass = new ExtractCssChunks({ filename: "css/finance/financeBundle.[chunkhash].css", publicPath: cssChunksPublicPath });
 
 const config = merge(commonConfig, {
 	output : {
@@ -38,8 +39,14 @@ const config = merge(commonConfig, {
                 use : ['css-loader','sass-loader'],
                 fallback : 'style-loader'
               })
-            }
-            
+						},
+						{
+              test: /(finance\.sass)/,
+							loader: extractFinanceSass.extract({
+                use: ['css-loader','sass-loader'],
+                fallback : 'style-loader'
+              })
+            }            
         ]
     },
 	plugins : [
@@ -51,7 +58,8 @@ const config = merge(commonConfig, {
         }),
         extractAppSass,
         extractNewsSass,
-        extractVideoSass,
+				extractVideoSass,
+				extractFinanceSass,
         new webpack.optimize.UglifyJsPlugin({
             sourceMap: true
         }),

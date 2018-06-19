@@ -1,4 +1,5 @@
 ﻿using Bikewale.ElasticSearch.Entities;
+using Bikewale.Notifications;
 using Bikewale.Utility;
 using BikewaleOpr.Cache;
 using BikewaleOpr.Interface.BikeData;
@@ -28,6 +29,8 @@ namespace BikewaleOpr.BAL.BikePricing
         /// <summary>
         /// Created by : Ashutosh Sharma on 10 Nov 2017
         /// Description : Method to save bikewale prices in cities.
+        /// Modified by : Pratibha Verma on 23 May 2018 
+        /// Description : added call to update index methods and model price cache clear
         /// </summary>
         /// <param name="versionAndPriceList">Bike version id list and price list in format "versionId#c0l#ex-showroom#c0l#insurance#c0l#rto|r0w|"</param>
         /// <param name="citiesList">City id list in format "cityid|r0w|"</param>
@@ -73,6 +76,10 @@ namespace BikewaleOpr.BAL.BikePricing
                         }
                         BwMemCache.ClearDefaultPQVersionList(modelIdList, cityIdList);
                         BwMemCache.ClearVersionPrice(modelIdList, cityIdList);
+                        ClearModelPriceCache(modelIdList);
+                        UpdateBikeIndex(modelIds);
+                        string cities = citiesList.Replace("|r0w|", ",");
+                        UpdatePricingIndex(modelIds, cities);
                     }
                 }
             }
@@ -95,37 +102,16 @@ namespace BikewaleOpr.BAL.BikePricing
         {
             string versions = ParseInput(versionIds, new string[] { "#c0l#", "|r0w|" }, 4);
             string cities = ParseInput(cityIds, new string[] { "|r0w|" }, 1);
-            string models = _bikeModelsRepository.GetModelsByVersions(versions);            
+            string models = _bikeModelsRepository.GetModelsByVersions(versions);
 
-            #region Update Bike Index
-
-            NameValueCollection packet = new NameValueCollection();
-            packet["ids"] = models;
-            packet["indexName"] = BWOprConfiguration.Instance.BikeModelIndex;
-            packet["documentType"] = "bikemodeldocument";
-            packet["operationType"] = "udpate";
-
-            BWESDocumentBuilder.PushToQueue(packet);
-
-            #endregion
-
-            #region Update Pricing Index
-
-            NameValueCollection nvc = new NameValueCollection();
-            nvc["indexName"] = BWOprConfiguration.Instance.BikeModelPriceIndex;
-            nvc["modelIds"] = models;
-            nvc["cityIds"] = cities;
-            nvc["documentType"] = "modelpricedocument";
-            nvc["operationType"] = "update";
-
-            BWESDocumentBuilder.PushToQueue(nvc);
-
-            #endregion
+            UpdateBikeIndex(models);
+            UpdatePricingIndex(models, cities);
 
             var modelIds = models.Split(',').Distinct();
             var cityIdList = cities.Split(',').Distinct();
             BwMemCache.ClearDefaultPQVersionList(modelIds, cityIdList);
             BwMemCache.ClearVersionPrice(modelIds, cityIdList);
+            ClearModelPriceCache(modelIds);
         }
 
 
@@ -146,7 +132,7 @@ namespace BikewaleOpr.BAL.BikePricing
             packet["indexName"] = BWOprConfiguration.Instance.BikeModelIndex;
             packet["documentType"] = "bikemodeldocument";
             packet["operationType"] = "update";
-            BWESDocumentBuilder.PushToQueue(packet); 
+            BWESDocumentBuilder.PushToQueue(packet);
             #endregion
 
 
@@ -158,10 +144,10 @@ namespace BikewaleOpr.BAL.BikePricing
             packetBikeModelPriceIndex["documentType"] = "modelpricedocument";
             packetBikeModelPriceIndex["operationType"] = "insert";
 
-            BWESDocumentBuilder.PushToQueue(packetBikeModelPriceIndex); 
+            BWESDocumentBuilder.PushToQueue(packetBikeModelPriceIndex);
             #endregion
 
-            
+
         }
 
 
@@ -184,6 +170,71 @@ namespace BikewaleOpr.BAL.BikePricing
             }
             ids = ids.Remove(ids.Length - 1);
             return ids;
+        }
+
+        /// <summary>
+        /// Created by  : Pratibha Verma on 23 May 2018
+        /// Description : method to update bike index
+        /// </summary>
+        /// <param name="models"></param>
+        private void UpdateBikeIndex(string models)
+        {
+            try
+            {
+                NameValueCollection packet = new NameValueCollection();
+                packet["ids"] = models;
+                packet["indexName"] = BWOprConfiguration.Instance.BikeModelIndex;
+                packet["documentType"] = "bikemodeldocument";
+                packet["operationType"] = "udpate";
+
+                BWESDocumentBuilder.PushToQueue(packet);
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "BikewaleOpr.BAL.BikePricing.UpdateBikeIndex");
+            }
+        }
+
+        /// <summary>
+        /// Created by  : Pratibha Verma on 23 May 2018
+        /// Description : method to update pricing index
+        /// </summary>
+        /// <param name="models"></param>
+        /// <param name="cities"></param>
+        private void UpdatePricingIndex(string models, string cities)
+        {
+            try
+            {
+                NameValueCollection nvc = new NameValueCollection();
+                nvc["indexName"] = BWOprConfiguration.Instance.BikeModelPriceIndex;
+                nvc["modelIds"] = models;
+                nvc["cityIds"] = cities;
+                nvc["documentType"] = "modelpricedocument";
+                nvc["operationType"] = "update";
+
+                BWESDocumentBuilder.PushToQueue(nvc);
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "BikewaleOpr.BAL.BikePricing.UpdatePricingIndex");
+            }
+        }
+
+        /// <summary>
+        /// Created by  : Pratibha Verma on 23 May 2018
+        /// Description : cache clear for model price cities
+        /// </summary>
+        /// <param name="modelIds"></param>
+        private void ClearModelPriceCache(IEnumerable<string> modelIds)
+        {
+            foreach (var modelId in modelIds)
+            {
+                uint model;
+                if (uint.TryParse(modelId, out model))
+                {
+                    BwMemCache.ClearModelPriceCities(model, BWConstants.FinancePopularCityCount);
+                }
+            }
         }
     }
 }

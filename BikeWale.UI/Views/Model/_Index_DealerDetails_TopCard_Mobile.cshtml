@@ -1,16 +1,14 @@
 ﻿@model Bikewale.Models.BikeModels.ModelPageVM
 @if (Model.IsDealerDetailsExists)
 {
-    <div id="model-dealer-card">
+    <div id="model-dealer-card" class="dealer-details__content dealer-details--model">
         @if (Model.IsPremiumDealer)
         {
-            <div class="dealer-details margin-bottom10">
-                <div class="dealership-icon-wrapper inline-block margin-right5">
-                    <span class="offers-sprite dealership-icon"></span>
-                </div>
-                <div class="dealership-title inline-block">
-                    <h2 id="dealername" class="text-default">@Model.DealerDetails.Organization</h2>
-                    <p class="font14 text-light-grey">@(!Model.DealerDetails.IsDSA ? "Authorized Dealer in " : "Multi-brand Dealer in ")@Model.DealerArea</p>
+            <div class="dealer__name-content margin-bottom10">
+                <span class="dealer-details__icon"></span>
+                <div>
+                    <h2 id="dealername" class="dealer-details__name">@Model.DealerDetails.Organization</h2>
+                    <p class="dealer-details__description">@(!Model.DealerDetails.IsDSA ? "Authorized Dealer in " : "Multi-brand Dealer in ")@Model.DealerArea</p>
                 </div>
                 @if (Model.DealerDetails.IsDSA)
                 {
@@ -26,51 +24,61 @@
         }
         @if (Model.IsPrimaryDealer && Model.DetailedDealer.PrimaryDealer.HasOffers)
         {
-            <div class="dealer-offers-content margin-bottom10">
-                <p class="offers-content-label">Offers available:</p>
-                <ul id="dealer-offers-list">
-                    @{ var offersToShow = Model.DetailedDealer.PrimaryDealer.OfferList.Take(2); int offersCount = (Model.DetailedDealer.PrimaryDealer.OfferList.Count() - 2); }
-                    @foreach (var offer in offersToShow)
-                    {
-                        <li>
-                            <p class="margin-bottom5">
-                                <span class="offers-sprite @(string.Format(" offerIcon_{0}", offer.OfferCategoryId))_sm"></span>
-                            </p>
-                            <p class="offertext">
-                                @offer.OfferText
-                            </p>
-                        </li>
-                    }
-                    @if (offersCount > 3)
-                    {
-                        <li class="more-offers-card">
-                            <p class="font18 text-bold text-light-grey margin-top5 margin-bottom7">+@offersCount </p>
-                            <p>more offers</p>
-                        </li>
-                    }
-                </ul>
-            </div>
+            <div class="dealer__offers-content offers-content--card-none ribbon-container">
+                @{
+                    int offersPreviewCount = 2;
+                    int offersCount = Model.DetailedDealer.PrimaryDealer.OfferList.Count();
+                }
+
+                <div id="dealerOffersRibbon" class="offers-ribbon ribbon-content">
+                    <div class="ribbon-icon-wrapper">
+                        <span class="ribbon-icon__background"></span>
+                        <span class="ribbon-icon__percent"></span>
+                    </div>
+                    <span>@offersCount</span>
+                    <span class="ribbon-content__data">&nbsp;Offer@(offersCount > 1 ? "s" : "") Available</span>
+                </div>
+
+                <div class="dealer-offer__container">
+                    <div class="dealer-offer__badge">
+                        <span class="offer-badge__star"></span>
+                        <span>@offersCount Offer@(offersCount > 1 ? "s" : "")</span>
+                    </div>
+                    <ul id="dealer-offers-list" class="benefit__list" data-count="@offersPreviewCount">
+                        @foreach (var offer in Model.DetailedDealer.PrimaryDealer.OfferList)
+                        {
+                            <li class="benefit-list__item">
+                                <span class="benefit-item__icon @(string.Format(" offer-{0}-icon", offer.OfferCategoryId))"></span>
+                                <p class="benefit-item__label">
+                                    @offer.OfferText
+                                </p>
+                            </li>
                         }
+                    </ul>
+                    @if (offersCount > offersPreviewCount)
+                    {
+                        <span class="benefit-list__more-target">+@(offersCount - offersPreviewCount) more</span>
+                    }
+                </div>
+            </div>
+        }
+
         @if (Model.IsPremiumDealer)
         {
             if (Model.DetailedDealer.PrimaryDealer.IsBookingAvailable)
             {
-                <div class="margin-bottom20">
-                    <div class="vertical-top">
-                        <a rel="nofollow" href="/m/pricequote/bookingsummary_new.aspx?MPQ=@Model.MPQString" class="btn btn-teal btn-sm-0">Book now</a>
-                    </div>
-                    <p class="booknow-label font11 line-height-1-7 text-xx-light vertical-top">
-                        Pay <span class="bwmsprite inr-grey-xxxsm-icon"></span>@Bikewale.Utility.Format.FormatPrice(Model.DetailedDealer.PrimaryDealer.BookingAmount.ToString()) to book online and <br />balance of <span class="bwmsprite inr-grey-xxxsm-icon"></span>@Bikewale.Utility.Format.FormatPrice((Model.BikePrice - Model.DetailedDealer.PrimaryDealer.BookingAmount).ToString()) at dealership.
+                <div class="dealer__booking-content">
+                    <a rel="nofollow" href="/m/pricequote/bookingsummary_new.aspx?MPQ=@Model.MPQString" class="btn btn-teal book-now__btn">Book now</a>
+                    <p class="book-now__label">
+                        (Pay &#x20b9; @Bikewale.Utility.Format.FormatPrice(Model.DetailedDealer.PrimaryDealer.BookingAmount.ToString()) to book online and rest at dealership.)
                     </p>
                 </div>
             }
             else
             {
-                <div class="padding-bottom20">
-                    <div class="vertical-top">
-                        <a id="requestcallback" data-cat="Model_Page" data-act="Request_Callback_Details_Clicked" data-var="bikeVersionLocation" data-leadsourceid="30" data-item-id="@Model.DealerDetails.DealerId" data-item-name="@Model.DealerDetails.Organization" data-item-area="@Model.DealerArea" href="javascript:void(0)" class="btn btn-white callback-btn btn-sm-0 bw-ga leadcapturebtn">Request callback</a>
-                    </div>
-                    <p class="callback-label font11 line-height-1-7 text-xx-light vertical-top">Get EMI options, test rides other services from dealer</p>
+                <div class="dealer__request-callback-content padding-bottom10">
+                    <a id="requestcallback" data-cat="Model_Page" data-act="Request_Callback_Details_Clicked" data-var="bikeVersionLocation" data-leadsourceid="30" data-item-id="@Model.DealerDetails.DealerId" data-item-name="@Model.DealerDetails.Organization" data-item-area="@Model.DealerArea" href="javascript:void(0)" class="btn btn-white request-callback__btn bw-ga leadcapturebtn">Request callback</a>
+                    <p class="request-callback__label">(Get EMI options, test rides other services from dealer.)</p>
                 </div>
             }
         }

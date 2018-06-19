@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Bikewale.Notifications;
+using Bikewale.Utility;
 using BikewaleOpr.Cache;
 using BikewaleOpr.Entity.Dealers;
 using BikewaleOpr.Interface;

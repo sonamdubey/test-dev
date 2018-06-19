@@ -1,0 +1,14 @@
+/**
+ * A function that checks if css property requires browser specific vendor prefix
+ *
+ * @parameters:
+ * $list: SASS list variable
+ * $property: CSS property
+ */
+@function contains($list, $property)
+	$contains: false
+
+	@if index($list, $property)
+		$contains: true
+
+	@return $contains

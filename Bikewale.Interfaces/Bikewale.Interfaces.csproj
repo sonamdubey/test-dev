@@ -138,6 +138,7 @@
     <Compile Include="BikeData\IBikeMakesCacheRepository.cs" />
     <Compile Include="BikeData\IBikeModelMaskingCacheRepository.cs" />
     <Compile Include="BikeData\IBikeModels.cs" />
+    <Compile Include="BikeData\IBikeModelsCacheHelper.cs" />
     <Compile Include="BikeData\IBikeModelsCacheRepository.cs" />
     <Compile Include="BikeData\IBikeModelsRepository.cs" />
     <Compile Include="BikeData\IBikeSeries.cs" />
@@ -187,6 +188,7 @@
     <Compile Include="Location\ICity.cs" />
     <Compile Include="Location\ICityCacheRepository.cs" />
     <Compile Include="Location\ICityMaskingCacheRepository.cs" />
+    <Compile Include="Location\ICityRepository.cs" />
     <Compile Include="Location\IState.cs" />
     <Compile Include="Location\IStateCacheRepository.cs" />
     <Compile Include="MobileAppAlert\IMobileAppAlert.cs" />
@@ -203,6 +205,7 @@
     <Compile Include="Notifications\INotifications.cs" />
     <Compile Include="Notifications\INotificationsRepository.cs" />
     <Compile Include="Pager\IPager.cs" />
+    <Compile Include="PriceQuote\IDealerPriceQuoteCache.cs" />
     <Compile Include="PriceQuote\IDealerPriceQuoteDetail.cs" />
     <Compile Include="PriceQuote\ILeadNofitication.cs" />
     <Compile Include="PriceQuote\IPQByCityArea.cs" />
@@ -269,9 +272,6 @@
       <Project>{891EE3D8-F296-4EFC-A136-A278F0F06F61}</Project>
       <Name>Bikewale.PWA.Entities</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

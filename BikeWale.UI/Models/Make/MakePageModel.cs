@@ -309,6 +309,7 @@ namespace Bikewale.Models
         /// <summary>
         /// Created by : Ashutosh Sharma on 27 Oct 2017
         /// Description : Method to bind required JS for AMP page.
+        /// Modifier    : Kartik Rathod on 1 jun 2018, set isyoutube if videos are availabele eg. IsVideosAvailable
         /// </summary>
         /// <param name="objData"></param>
         private void BindAmpJsTags(MakePageVM objData)
@@ -322,7 +323,7 @@ namespace Bikewale.Models
                 objData.AmpJsTags.IsBind = true;
                 objData.AmpJsTags.IsCarousel = true;
                 objData.AmpJsTags.IsSidebar = true;
-
+                objData.AmpJsTags.IsYoutube = objData.IsVideosAvailable;
             }
             catch (Exception ex)
             {

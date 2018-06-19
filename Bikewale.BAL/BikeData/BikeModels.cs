@@ -8,6 +8,7 @@ using Bikewale.BAL.UserReviews.Search;
 using Bikewale.Cache.BikeData;
 using Bikewale.Cache.CMS;
 using Bikewale.Cache.Core;
+using Bikewale.CacheHelper.BikeData;
 using Bikewale.DAL.BikeData;
 using Bikewale.DAL.Customer;
 using Bikewale.DAL.UserReviews;
@@ -66,6 +67,7 @@ namespace Bikewale.BAL.BikeData
         private static readonly IEnumerable<EnumBikeBodyStyles> _bodyStyles = new List<EnumBikeBodyStyles> { EnumBikeBodyStyles.Scooter, EnumBikeBodyStyles.Street, EnumBikeBodyStyles.Cruiser, EnumBikeBodyStyles.Sports };
         private readonly IApiGatewayCaller _apiGatewayCaller;
         private string _newsContentType;
+		private readonly IBikeModelsCacheHelper _bikeModelCacheHelper;
         /// <summary>
         /// Modified by :   Sumit Kate on 26 Apr 2017
         /// Description :   Register the User Reviews BAL and resolve it
@@ -89,6 +91,7 @@ namespace Bikewale.BAL.BikeData
                 container.RegisterType<ICustomer<CustomerEntity, UInt32>, Customer<CustomerEntity, UInt32>>();
                 container.RegisterType<ICustomerRepository<CustomerEntity, UInt32>, CustomerRepository<CustomerEntity, UInt32>>();
                 container.RegisterType<IUserReviews, Bikewale.BAL.UserReviews.UserReviews>();
+				container.RegisterType<IBikeModelsCacheHelper,BikeModelsCacheHelper>();
                 container.RegisterType<IApiGatewayCaller, ApiGatewayCaller>();
 
                 modelRepository = container.Resolve<IBikeModelsRepository<T, U>>();
@@ -101,6 +104,7 @@ namespace Bikewale.BAL.BikeData
                 _userReviews = container.Resolve<IUserReviews>();
                 _userReviewsSearch = container.Resolve<IUserReviewsSearch>();
                 _modelMaskingCache = container.Resolve<IBikeMaskingCacheRepository<BikeModelEntity, int>>();
+				_bikeModelCacheHelper = container.Resolve<IBikeModelsCacheHelper>();
                 _apiGatewayCaller = container.Resolve<IApiGatewayCaller>();
             }
         }
@@ -561,6 +565,8 @@ namespace Bikewale.BAL.BikeData
                         new List<EnumSpecsFeaturesItems>{
                             EnumSpecsFeaturesItems.RearBrakeType,
                             EnumSpecsFeaturesItems.WheelType,
+                            EnumSpecsFeaturesItems.StartType,
+                            EnumSpecsFeaturesItems.AntilockBrakingSystem,
                             EnumSpecsFeaturesItems.Displacement,
                             EnumSpecsFeaturesItems.MaxPowerBhp,
                             EnumSpecsFeaturesItems.FuelEfficiencyOverall,
@@ -590,11 +596,11 @@ namespace Bikewale.BAL.BikeData
                         objModelPage.ModelVersionMinSpecs = new BikeVersionMinSpecs()
                         {
                             VersionId = modelVersion.VersionId,
-                            MinSpecsList = modelVersion.MinSpecsList.Skip(2)
+                            MinSpecsList = modelVersion.MinSpecsList.Skip(4)
                         };
                     }
-                    CreateAllPhotoList(modelId, objModelPage);
                 }
+				CreateAllPhotoList(modelId, objModelPage);
             }
             catch (Exception ex)
             {
@@ -1759,6 +1765,28 @@ namespace Bikewale.BAL.BikeData
             }
             return LookupArray;
         }
+
+
+		/// <summary>
+		/// Created by  : Pratibha Verma on 9 May 2018
+		/// Description : get make model list
+		/// </summary>
+		/// <param name="requestType"></param>
+		/// <returns></returns>
+        public IEnumerable<MakeModelListEntity> GetMakeModelList(EnumBikeType requestType)
+        {
+            IEnumerable<MakeModelListEntity> makeModelList = null;
+            try
+            {
+                makeModelList = _modelCacheRepository.GetMakeModelList(requestType);
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "Bikewale.BAL.BikeData.BikeModels.GetMakeModelList");
+            }
+            return makeModelList;
+        }
+
         /// <summary>
         /// Created by : Ashutosh Sharma on 09 Apr 2017.
         /// Descrition : Method to fetch most popular bikes by make with city price if city is selected.
@@ -1918,6 +1946,7 @@ namespace Bikewale.BAL.BikeData
             {
                 ErrorClass.LogError(ex, string.Format("Bikewale.BAL.BikeData.BikeModels.BindMinSpecs({0})", bikesList));
             }
+
         }
 
         private class MostPopularBikesBaseComparer : IEqualityComparer<MostPopularBikesBase>
@@ -1949,8 +1978,11 @@ namespace Bikewale.BAL.BikeData
                 int hashProductCode = product.objModel.ModelId.GetHashCode();
                 return hashProductName ^ hashProductCode;
             }
+            
+            
 
         }
+
 
         /// <summary>
         /// Created by : Ashutosh Sharma on 11 Apr 2018.
@@ -2019,6 +2051,7 @@ namespace Bikewale.BAL.BikeData
                 ErrorClass.LogError(ex, string.Format("Bikewale.BAL.BikeData.BikeModels.JoinBikeListWithMinSpecs_versionList_{0}_specItemList_{1}", versionList, specItemList));
             }
         }
+
         
     }   // Class
 }   // namespace

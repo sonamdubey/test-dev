@@ -990,6 +990,7 @@
     <Compile Include="Models\DealerShowroom\DealersServiceCentersIndiaWidgetModel.cs" />
     <Compile Include="Models\ExpertReviews\ExpertReviewsDetailPage.cs" />
     <Compile Include="Models\Finance\CapitalFirstModel.cs" />
+    <Compile Include="Models\Finance\FinanceIndexPage.cs" />
     <Compile Include="Models\Gallery\ModelGalleryWidget.cs" />
     <Compile Include="Models\GenericBestBikes\IndexGenericBestBikes.cs" />
     <Compile Include="Models\Images\ImageCarausel.cs" />
@@ -3341,7 +3342,9 @@
     <Content Include="src\user-review\listing.js" />
     <Content Include="src\user-review\review-contest.js" />
     <Content Include="src\user-review\write-review.js" />
+    <Content Include="src\utils\dropdown.js" />
     <Content Include="src\utils\navigationTabs.js" />
+    <Content Include="src\utils\ribbon.js" />
     <Content Include="src\utils\scroll.js" />
     <Content Include="src\utils\swiperYoutube.js" />
     <Content Include="src\utils\viewport.js" />
@@ -4140,6 +4143,8 @@
     <Content Include="Views\Shared\Ads\Mobile\Ad320x50Bottom.cshtml" />
     <Content Include="Views\BikeModels\_PopularBikesWidgetBase.cshtml" />
     <Content Include="Views\BikeModels\_UpcomingBikesWidgetBase.cshtml" />
+    <Content Include="Views\Finance\Index_Mobile_Pwa.cshtml" />
+    <Content Include="Views\Shared\Index_Mobile_Pwa.cshtml" />
     <Content Include="Views\Shared\Ads\Desktop\AdSlotGeneric.cshtml" />
     <Content Include="sass\partials\bw-youtube.sass" />
     <Content Include="Views\Shared\Ads\Mobile\Ad320x50_Generic.cshtml" />
@@ -4168,6 +4173,11 @@
     <Content Include="sass\partials\find-product-offers.sass" />
     <Content Include="Views\BikeSeries\_ModelSeriesSlug.cshtml" />
     <Content Include="Views\BikeSeries\_ModelSeriesSlug_Mobile.cshtml" />
+    <Content Include="sass\mixins\_dropdown.sass" />
+    <Content Include="sass\partials\version-dropdown.sass" />
+    <Content Include="sass\mixins\_dealer.sass" />
+    <Content Include="sass\mixins\_ribbon.sass" />
+    <Content Include="sass\partials\dealer-offers.sass" />
     <None Include="Views\Shared\_Sidebar-section.cshtml" />
     <Content Include="Views\BikeModels\_MultiTabsWidget.cshtml" />
     <Content Include="Views\Shared\_ReviewPopup.cshtml" />
@@ -4241,6 +4251,10 @@
     <ProjectReference Include="..\Bikewale.Cache.Core\Bikewale.Cache.Core.csproj">
       <Project>{038bc901-9d7f-4a95-8ca6-117db3aa48cc}</Project>
       <Name>Bikewale.Cache.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bikewale.CacheHelper\Bikewale.CacheHelper.csproj">
+      <Project>{A2232B60-DF4E-4464-91D9-F587CCE00738}</Project>
+      <Name>Bikewale.CacheHelper</Name>
     </ProjectReference>
     <ProjectReference Include="..\Bikewale.Cache\Bikewale.Cache.csproj">
       <Project>{c5f8b7d6-4b62-4169-a73b-87215314d8cb}</Project>

@@ -37,6 +37,7 @@ using Bikewale.Cache.Used;
 using Bikewale.Cache.UsedBikes;
 using Bikewale.Cache.UserReviews;
 using Bikewale.Cache.Videos;
+using Bikewale.CacheHelper.BikeData;
 using Bikewale.Comparison.BAL;
 using Bikewale.Comparison.Cache;
 using Bikewale.Comparison.DAL;
@@ -149,7 +150,6 @@ namespace Bikewale
             container.RegisterType<IStateCacheRepository, StateCacheRepository>();
             container.RegisterType<IState, StateRepository>();
             container.RegisterType<IAreaCacheRepository, AreaCacheRepository>();
-            container.RegisterType<IPriceQuote, BAL.PriceQuote.PriceQuote>();
             container.RegisterType<IBikeModelsCacheRepository<int>>();
             container.RegisterType<IBikeVersions<BikeVersionEntity, uint>, BikeVersions<BikeVersionEntity, uint>>();
             container.RegisterType<IBikeVersionCacheRepository<BikeVersionEntity, uint>, BikeVersionsCacheRepository<BikeVersionEntity, uint>>();
@@ -196,14 +196,15 @@ namespace Bikewale
             container.RegisterType<IPageFilters, PageFilters>();
             container.RegisterType<IPQByCityArea, PQByCityArea>();
             container.RegisterType<Bikewale.Interfaces.AutoBiz.IDealerPriceQuote, Bikewale.DAL.AutoBiz.DealerPriceQuoteRepository>();
+            container.RegisterType<IBikeModelsCacheHelper, BikeModelsCacheHelper>();
             container.RegisterType<ILead, LeadProcess>();
             container.RegisterType<IApiGatewayCaller, ApiGatewayCaller>();
             container.RegisterType<Bikewale.Interfaces.AutoBiz.IDealers, Bikewale.DAL.AutoBiz.DealersRepository>();
             container.RegisterType<IBikeSearch, BikeSearch>();
             container.RegisterType<IDealer, Dealer>();
+            container.RegisterType<IDealerPriceQuoteCache, DealerPriceQuoteCache>();
             container.RegisterType<IFinanceCacheRepository, FinanceCacheRepository>();
             container.RegisterType<IFinanceRepository, FinanceRepository>();
-
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }
     }

@@ -69,7 +69,7 @@ function openLeadCaptureForm(dealerID) {
 }
 
 function logBhrighuForImage(imgId, imgCat, imgType) {
-  
+
         if (imgId) {
             var lb = "";
             if (imgCat) {
@@ -163,6 +163,15 @@ docReady(function () {
         $('.sponsored-card').hide();
     };
 
+    // focus dealer offers
+    $('#viewDealerOffers').on('click', function () {
+        var offsetTop = $('#dealerDetailsWrapper').offset().top - $('#overallSpecsTab').height()
+
+        $('html, body').animate({
+            scrollTop: offsetTop
+        }, 1000);
+    });
+
     colourCarousel = $('#colourCarousel');
     carouselColorList = $('#model-color-list');
     var colorElements = carouselColorList.find('li');
@@ -190,18 +199,18 @@ docReady(function () {
         {
             logBhrighuForImage(imageId,imageCat, imageType);
         }
-        
+
         colorElements.removeClass('active');
         colorElements.eq([$(this).index()]).addClass('active');
     });
-   
+
     $("span.carousel-img-container").click(function () {
-      
+
         location.href = $(this).attr("href");
 
 
     });
-  
+
     getCityArea = GetGlobalCityArea();
 
     $(".leadcapturebtn").click(function (e) {
@@ -229,7 +238,9 @@ docReady(function () {
                 cat: ele.attr("data-cat"),
                 act: ele.attr("data-act"),
                 lab: bikeVersionLocation
-            }
+            },
+            "sendLeadSMSCustomer": ele.attr('data-issendleadsmscustomer'),
+            "organizationName": ele.attr('data-item-organization')
         };
         gaLabel = getBikeVersionLocation();
         dleadvm.setOptions(leadOptions);
@@ -317,7 +328,7 @@ docReady(function () {
                             carouselNavigation.jcarousel('scrollIntoView', this);
 
                             if (prev != -1) {
-                                logBhrighuForImage(item.attr("data-imgid"), item.attr("data-imgcat"), item.attr("data-imgtype"));                               
+                                logBhrighuForImage(item.attr("data-imgid"), item.attr("data-imgcat"), item.attr("data-imgtype"));
                             }
                             prev = item.index();
                             item.addClass('active');
@@ -536,6 +547,19 @@ docReady(function () {
     $(".viewMoreOffersBtn").on("click", function () {
         $(this).hide();
         $("ul.moreOffersList").slideToggle()
+    });
+
+    // version dropdown
+    function handleVersionChange(dropdown) {
+        var optionValue = dropdown.activeOption.value;
+
+        $('#hdnVariant').val(optionValue);
+        dataLayer.push({ "event": "Bikewale_all", "cat": "Model_Page", "act": "Version_Change", "lab": "" });
+        window.location.href = $(dropdown.container).data("pageurl") + "?versionId=" + optionValue;
+    }
+
+    var versionDropdown = new DropdownMenu('#ddlNewVersionList', {
+        onChange: handleVersionChange
     });
 
     $('#ddlVersion').on("change", function () {

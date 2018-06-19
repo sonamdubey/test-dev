@@ -3,6 +3,7 @@ using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
 using BikeWale.Entities.AutoBiz;
+using System;
 using System.Collections.Generic;
 
 namespace Bikewale.Interfaces.AutoBiz
@@ -24,5 +25,6 @@ namespace Bikewale.Interfaces.AutoBiz
         Bikewale.Entities.PriceQuote.v2.DetailedDealerQuotationEntity GetDealerPriceQuoteByPackageV2(PQParameterEntity objParams);
         DealerInfo GetNearestDealer(uint modelId, uint cityId);
         DealerInfo GetNearestDealer(uint modelId, uint cityId, uint areaId);
+        IEnumerable<PQ_VersionPrice> GetDealerPriceQuotesByModelCity(uint cityId, uint modelId, uint dealerId);
     }
 }

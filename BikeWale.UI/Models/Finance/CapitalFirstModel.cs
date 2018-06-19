@@ -28,6 +28,11 @@ namespace Bikewale.Models.Finance
         }
 
 
+		/// <summary>
+		/// Modifier : Kartik Rathod on 16 may 2018, added dealerName,sendLeadSMSCustomer
+		/// </summary>
+		/// <param name="queryCollection"></param>
+		/// <returns></returns>
         public CapitalFirstVM GetData(NameValueCollection queryCollection)
         {
             ushort platformId = 0;
@@ -37,6 +42,8 @@ namespace Bikewale.Models.Finance
             {
                 if (queryCollection != null)
                 {
+					bool sendSMStoCustomer = false;
+					
                     leadEntity = new ManufacturerLeadEntity();
 
                     leadEntity.CampaignId = Convert.ToUInt16(queryCollection["campaingid"]);
@@ -45,6 +52,9 @@ namespace Bikewale.Models.Finance
                     leadEntity.VersionId = Convert.ToUInt16(queryCollection["versionid"]);
                     leadEntity.PQId = Convert.ToUInt32(queryCollection["pqid"]);
                     leadEntity.CityId = Convert.ToUInt32(queryCollection["cityid"]);
+					leadEntity.BikeName = queryCollection["bike"];
+					leadEntity.DealerName = queryCollection["dealerName"];
+					leadEntity.SendLeadSMSCustomer = Boolean.TryParse(queryCollection["sendLeadSMSCustomer"], out sendSMStoCustomer) ? sendSMStoCustomer : false;
 
                     if (leadEntity.CityId == 0)
                     {

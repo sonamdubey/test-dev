@@ -490,6 +490,7 @@ namespace Bikewale.BAL.Lead
         /// <summary>
         /// Created By : Deepak Israni on 4 May 2018
         /// Description: Pushes lead to Lead Processing Consumer.
+		/// Modifier    : Kartik Rathod on 16 may 2018, added dealerName,bikename and sendLeadSMSCustomer to ManufacturerLead consumer 
         /// </summary>
         /// <param name="input"></param>
         private static void PushToLeadConsumer(ManufacturerLeadEntity input)
@@ -507,6 +508,9 @@ namespace Bikewale.BAL.Lead
             objNVC.Add("leadType", "2");
             objNVC.Add("manufacturerDealerId", input.ManufacturerDealerId.ToString());
             objNVC.Add("manufacturerLeadId", input.LeadId.ToString());
+			objNVC.Add("dealerName", input.DealerName);
+			objNVC.Add("bikeName", input.BikeName);
+			objNVC.Add("sendLeadSMSCustomer", Convert.ToString(input.SendLeadSMSCustomer));
 
             RabbitMqPublish objRMQPublish = new RabbitMqPublish();
             objRMQPublish.PublishToQueue(Bikewale.Utility.BWConfiguration.Instance.LeadConsumerQueue, objNVC);

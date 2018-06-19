@@ -159,6 +159,50 @@ namespace Bikewale.DAL.AutoBiz
 
             return objPriceQuote;
         }
+
+        /// <summary>
+        /// Created By  : Pratibha Verma on 8 June 2018
+        /// Description : returns dealer price for all versions
+        /// </summary>
+        /// <param name="cityId"></param>
+        /// <param name="modelId"></param>
+        /// <param name="dealerId"></param>
+        /// <returns></returns>
+        public IEnumerable<PQ_VersionPrice> GetDealerPriceQuotesByModelCity(uint cityId, uint modelId, uint dealerId)
+        {
+            IList<PQ_VersionPrice> dealerPriceObj = null;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("bw_getdealerpricebymodelcity"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelId", DbType.Int64, modelId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, dealerId));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            dealerPriceObj = new List<PQ_VersionPrice>();
+                            while (dr.Read())
+                            {
+                                dealerPriceObj.Add(new PQ_VersionPrice
+                                {
+                                    VersionId = SqlReaderConvertor.ToUInt32(dr["versionid"]),
+                                    Price = SqlReaderConvertor.ToUInt32(dr["onroadprice"])
+                                });
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "Bikewale.DAL.AutoBiz.DealerPriceQuoteRepository.GetDealerPriceQuotesByModelCity");
+            }
+            return dealerPriceObj;
+        }
         /// <summary>
         /// Written By : Ashish G. Kamble on 10 May 2015
         /// Summary : Function to get the list of cities where bike booking is available.

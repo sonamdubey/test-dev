@@ -30,19 +30,12 @@
         <h1>Advertise with Us</h1>
         <div class="margin-top10">We ensure that your advertisement is linked to the relevant pages and reach your customers in the right way. Please contact for any advertisement related queries:</div>
         <div class="grid_3 alpha margin-top15 min-height">
-            <h2>West and South Zone</h2>
+            <h2>Contact Details</h2>
             <div class="margin-top15">
                 <span class="bold">Vijay Menon</span><br />
                 <span class="bFontCol">Email: <a href="mailto:vijay@bikewale.com" class="viewDetails">vijay@bikewale.com</a></span>
             </div>
-        </div>
-        <div class="grid_3 alpha margin-top15">
-            <h2>North and East Zone</h2>
-            <div class="margin-top15">
-                <span class="bold">Nikhil Pillai</span><br />
-                <span class="bFontCol">Email: <a href="mailto:nikhil.pillai@bikewale.com" class="viewDetails">nikhil.pillai@bikewale.com</a></span>
-            </div> 
-        </div>            
+        </div>        
     </div>    
 </div>
 <style type="text/css">

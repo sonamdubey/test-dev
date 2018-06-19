@@ -76,7 +76,7 @@
 /* floating tabs */
 #modelOverallSpecsTopContent { height:44px; }
 
-.overall-specs-tabs-container { width:100%; display:block; background:#fff; overflow-x:auto; z-index:2;-webkit-overflow-scrolling: touch; position: absolute; top: 0px; -moz-box-shadow: 0 4px 5px -2px #d5d5d5; -webkit-box-shadow: 0 4px 5px -2px #d5d5d5; -o-box-shadow: 0 4px 5px -2px #d5d5d5; -ms-box-shadow: 0 4px 5px -2px #d5d5d5; box-shadow: 0 4px 5px -2px #d5d5d5; }
+.overall-specs-tabs-container { width:100%; display:block; background:#fff; overflow-x:auto; z-index:5;-webkit-overflow-scrolling: touch; position: absolute; top: 0px; -moz-box-shadow: 0 4px 5px -2px #d5d5d5; -webkit-box-shadow: 0 4px 5px -2px #d5d5d5; -o-box-shadow: 0 4px 5px -2px #d5d5d5; -ms-box-shadow: 0 4px 5px -2px #d5d5d5; box-shadow: 0 4px 5px -2px #d5d5d5; }
 .overall-specs-tabs-container.fixed-tab-nav { position:fixed; top:0; left:0; }
 .overall-specs-tabs-wrapper { width:100%; display:table; }
 .overall-specs-tabs-wrapper li { display:table-cell; width:1%; padding:10px 15px; text-align:center; white-space:nowrap; font-size:14px; color:#82888b;cursor:pointer;}
@@ -382,7 +382,6 @@ h1 {font-weight: 700;}
 .padding-top30 {
     padding-top: 30px;
 }
-.offertext{ width:100%; text-align:center; text-overflow:ellipsis; white-space:nowrap; overflow:hidden;}
 
 .contact-icon, .offers-icon, .disclaimer-icon, .call-icon { width:14px; height:16px; }
 .disclaimer-icon { background-position: -135px -308px; }
@@ -521,64 +520,11 @@ h1 {font-weight: 700;}
 }
 
 /* dealer card */
-#model-dealer-card {
-    padding-top: 15px;
-    margin-right: 20px;
-    margin-left: 20px;
-    border-top: 1px solid #eee;
-}
 
-#model-dealer-card .offers-content-label {
-    width: 64px;
-    font-size: 14px;
-    display: inline-block;
-    vertical-align: middle;
-    position:relative;
-    top:-5px;
-}
 
 #dealername {
     margin-bottom: 5px;
 } 
-
-#dealer-offers-list {
-    width: 78%;
-    display: inline-block;
-    vertical-align: middle;
-}
-
-#dealer-offers-list li {
-    width: 76px;
-    height: 70px;
-    text-align:center;
-    margin-bottom: 10px;
-    margin-left: 10px;
-    padding-top: 7px;
-    padding-bottom: 7px;
-    float: left;
-    cursor: pointer;
-    font-size: 11px;
-    border: 1px solid #f5f5f5;
-    -webkit-border-radius: 2px;
-	-moz-border-radius: 2px;
-	-o-border-radius: 2px;
-	-ms-border-radius: 2px;
-	border-radius: 2px;
-	border: 1px solid #e2e2e2\9;
-    -webkit-box-shadow: 1px 1px 1px #ddd;
-	-moz-box-shadow: 1px 1px 1px #ddd;
-	-ms-box-shadow: 1px 1px 1px #ddd;
-	-o-box-shadow: 1px 1px 1px #ddd;
-	box-shadow: 1px 1px 1px #ddd;
-}
-
-#dealer-offers-list li:first-child {
-    margin-left: 0;
-}
-
-#dealer-offers-list .more-offers-card {
-    background-color: #f9f9f9;
-}
 
 .inr-grey-xxxsm-icon {
     width: 7px;
@@ -601,24 +547,6 @@ a.btn:hover {
 
 .line-height-1-7 {
     line-height: 1.7;
-}
-
-.booknow-label {
-    width: 64%;
-    padding-left: 10px;
-    position:relative;
-    top:-3px;
-}
-
-.callback-btn.btn-sm-0 {
-    padding: 5px 28px;
-}
-
-.callback-label {
-    width: 46%;
-    padding-left: 10px;
-    position:relative;
-    top:-3px;
 }
 
 .nearby-partner-left-col {
@@ -668,14 +596,10 @@ a.btn:hover {
     background-position: 0 -47px;
 }
 
-.dealership-icon-wrapper {
-    height: 22px;
-}
-
 .dealership-icon {
-    width:29px;
-    height:22px;
-    background-position:0 -356px;
+    width: 29px;
+    height: 22px;
+    background-position: 0 -356px;
 }
 
 .margin-bottom7 {

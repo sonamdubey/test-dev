@@ -89,7 +89,22 @@ docReady(function () {
     function callFallBackWriteReview() {
         $('#adBlocker').show();
         $('.sponsored-card').hide();
-    };
+	};
+
+	// focus dealer offers
+	$('#viewDealerOffers').on('click', function () {
+	    var offsetTop = $('#pq-dealer-details').offset().top - ($('#bw-header').height() + $('#offersSummaryToolbar .dealer__offers-summary-content').outerHeight())
+
+		$('html, body').animate({
+			scrollTop: offsetTop
+		}, 1000);
+	});
+
+	$('#closeDealerOffersToolbar').on('click', function() {
+	    $('#offersSummaryToolbar').remove();
+	    $('body').removeClass('offer-summary-toolbar--active');
+	});
+
     emiPopupDiv = $("#emiPopup");
     offersPopupDiv = $("#offersPopup");
     $('#bw-header').addClass('fixed');
@@ -251,7 +266,9 @@ docReady(function () {
                     cat: ele.attr("data-cat"),
                     act: ele.attr("data-act"),
                     lab: ele.attr("data-var")
-                }
+                },
+                "sendLeadSMSCustomer": ele.attr('data-issendleadsmscustomer'),
+                "organizationName": ele.attr('data-item-organization')
             };
 
             dleadvm.setOptions(leadOptions);
@@ -261,7 +278,28 @@ docReady(function () {
 
     });
 
+    // version dropdown
+    function handleVersionMenuClick(dropdown) {
+        var offsetTop = $(dropdown.container).offset().top - $('#bw-header').height();
+        var offersToolbar = $('#offersSummaryToolbar').find('.dealer__offers-summary-content');
+        if (offersToolbar.length) {
+            offsetTop = offsetTop - offersToolbar.outerHeight();
+        }
 
+        $('html, body').animate({ scrollTop: offsetTop }, 500);
+    }
+
+    function handleVersionChange(dropdown) {
+        registerPQAndReload(dealerId, dropdown.activeOption.value);
+        triggerGA('Dealer_PQ', 'Version_Changed', bikeVerLocation);
+    }
+
+    var versionDropdown = new DropdownMenu('#versionDropdown', {
+        onMenuClick: handleVersionMenuClick,
+        onChange: handleVersionChange
+    });
+
+    // old version dropdown change event
     $("#ddlVersion").on("change", function () {
         versionName = $(this).children(":selected").text();
         registerPQAndReload(dealerId,$(this).val());
@@ -296,6 +334,10 @@ docReady(function () {
     $(".view-offers-target").on("click", function () {
         offersPopupOpen(offersPopupDiv);
         appendHash("offersPopup");
+    });
+
+    $('.benefit-list__more-target').on('click', function () {
+        $(this).closest('.dealer__offers-content').addClass('benefit-list--expand');
     });
 
     $('.tnc').on('click', function (e) {

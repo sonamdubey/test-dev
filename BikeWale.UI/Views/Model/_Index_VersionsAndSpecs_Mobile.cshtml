@@ -1,25 +1,15 @@
 ﻿@model Bikewale.Models.BikeModels.ModelPageVM
+@using Bikewale.Utility;
 
 @if (!Model.ModelPageEntity.ModelDetails.Futuristic)
 {
 
-    <div class="grid-12 padding-top5 padding-bottom5 border-solid-bottom">
-        <div class="grid-6 alpha border-solid-right">
-            <p class="font12 text-light-grey padding-left10">Version:</p>
-            <p id="defversion" class="single-version-label font14">@(Model.SelectedVersion != null ? Model.SelectedVersion.VersionName : Model.VersionName)</p>
-            @if (Model.ModelPageEntity.ModelVersions != null && Model.ModelPageEntity.ModelVersions.Count > 1)
-            {
-                <div class="dropdown-select-wrapper">
-                    <select id="ddlNewVersionList" name="ddlNewVersionList" class="dropdown-select" data-title="Version" data-pageurl="@(string.Format("/m{0}",Bikewale.Utility.UrlFormatter.BikePageUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName,Model.ModelPageEntity.ModelDetails.MaskingName)))" data-selected-version="Model.VersionId">
-                        @foreach (var version in Model.ModelPageEntity.ModelVersions)
-                        {
-                            <option value="@version.VersionId" @(version.VersionId == Model.VersionId ? "selected" : "")>@version.VersionName</option>
-                        }
-                    </select>
-                </div>
-            }
+    <div class="grid-12 version-city__content dropdown-box" id="ddlNewVersionList" data-pageurl="@(string.Format("/m{0}",Bikewale.Utility.UrlFormatter.BikePageUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName,Model.ModelPageEntity.ModelDetails.MaskingName)))" data-selected-version="Model.VersionId">
+        <div class="grid-6 version-city-content__tab dropdown-box__menu-tab">
+            <p class="dropdown-box__menu-title">Version</p>
+            <span id="defversion" class="dropdown-box__menu-value">@(Model.SelectedVersion != null ? Model.SelectedVersion.VersionName : Model.VersionName)</span>
         </div>
-        <div class="grid-6 padding-left20">
+        <div class="grid-6 version-city-content__tab">
             <p class="font12 text-light-grey">Location:</p>
             @if (!Model.IsDiscontinuedBike)
             {
@@ -36,5 +26,23 @@
             }
         </div>
         <div class="clear"></div>
+        @if (Model.ModelPageEntity.ModelVersions != null && Model.ModelPageEntity.ModelVersions.Any())
+        {
+            <ul class="dropdown-box__submenu-list">
+                @foreach (var version in Model.ModelPageEntity.ModelVersions)
+                {
+                    <li class="dropdown-box-submenu-list__item @(version.VersionId == Model.VersionId ? "submenu-list-item--active" : "")" data-value="@version.VersionId">
+                        <div class="submenu-list-item__title">
+                            <p class="submenu-list-item-title__left-col">@version.VersionName</p>
+                            <p class="submenu-list-item-title__right-col">@Html.Raw(version.Price != 0 ? string.Format("{0} {1}", "&#x20b9;", Format.FormatPrice(Convert.ToString(version.Price))) : (version.AverageExShowroom != 0 ? string.Format("{0} {1}", "&#x20b9;", Format.FormatPrice(Convert.ToString(version.AverageExShowroom))) : string.Empty))</p>
+                        </div>
+                        <ul class="dropdown-box-submenu__specs-list">
+                            @Html.Raw(FormatMinSpecs.GetMinSpecsAsLiElement(version.MinSpecsList.Take(4), "dropdown-box-specs-list__item"))
+                        </ul>
+                    </li>
+                }
+            </ul>
+        }
     </div>
+    <div class="clear"></div>
 }

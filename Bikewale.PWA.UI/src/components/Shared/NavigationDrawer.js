@@ -9,6 +9,9 @@ class NavigationDrawer extends React.Component {
         this.pushAnalytics = this.pushAnalytics.bind(this);
         this.toggleNestedNav = this.toggleNestedNav.bind(this);
         this.pushAnalytics = this.pushAnalytics.bind(this);
+        this.pushAnalyticsAndCloseDrawer = this.pushAnalyticsAndCloseDrawer.bind(this);
+        this.renderNestedListItem = this.renderNestedListItem.bind(this);
+        this.renderNestedListItemWithLinkTag = this.renderNestedListItemWithLinkTag.bind(this);
       
     }
     removeActiveItemClassName(element) {
@@ -34,26 +37,39 @@ class NavigationDrawer extends React.Component {
         }
     }
 
-    pushAnalytics(event) {
-        pushNavMenuAnalytics(event.currentTarget.innerHTML);
-        if(event.target.nodeName && event.target.nodeName == 'A') {
-            this.closeNestedNavigation(); 
+    pushAnalytics(label) {
+        if (typeof label === "string") {
+            pushNavMenuAnalytics(label);
+        }
+        else {
+            pushNavMenuAnalytics(event.currentTarget.innerHTML);
+        }
+    }
+
+    pushAnalyticsAndCloseDrawer(label) {
+        if (typeof label === "string") {
+            pushNavMenuAnalytics(label);
+        }
+        else {
+            pushNavMenuAnalytics(event.currentTarget.innerHTML);
+        }
+        if (event.target.nodeName) {
+            this.closeNestedNavigation();
             this.closeNavDrawer();
         }
-        
     }
 
     renderNestedListItemWithLinkTag(link,text) {
         return(
             <li>
-                <Link to={link} onClick={this.pushAnalytics.bind()}>{text}</Link>
+                <Link to={link} onClick={this.pushAnalyticsAndCloseDrawer}>{text}</Link>
             </li>
         )
     }
     renderNestedListItem(link,text) {
         return(
             <li>
-                <a href={link} onClick={this.pushAnalytics.bind()}>{text}</a>
+                <a href={link} onClick={this.pushAnalyticsAndCloseDrawer}>{text}</a>
             </li>
         )
     }
@@ -64,16 +80,18 @@ class NavigationDrawer extends React.Component {
                 <nav id="nav-drawer" className="transition-ease">
                     <ul className="nav-drawer-list padding-top10">
                         <li>
-                            <a href="/m/" className="nav-item" onClick={this.pushAnalytics.bind()}>
+                            <a href="/m/" className="nav-item" onClick={this.pushAnalyticsAndCloseDrawer.bind(this,"Home")}>
                                 <span className="bwmsprite home-icon"></span>
                                 <span>Home</span>
                             </a>
                         </li>
                         <li>
                             <div className="nav-item" onClick={this.toggleNestedNav}>
-                                <span className="bwmsprite newBikes-icon"></span>
-                                <span onClick={this.pushAnalytics}>New Bikes</span>
-                                <span className="bwmsprite fa-angle-down"></span>
+                                <div onClick={this.pushAnalytics.bind(this, "New Bikes")}>
+                                    <span className="bwmsprite newBikes-icon"></span>
+                                    <span>New Bikes</span>
+                                    <span className="bwmsprite fa-angle-down"></span>
+                                </div>
                             </div>
                             <ul className="nested-nav-list">
                                 {this.renderNestedListItem("/m/new-bikes-in-india/","Find New Bikes")}
@@ -90,9 +108,11 @@ class NavigationDrawer extends React.Component {
                         </li>
                         <li>
                             <div className="nav-item" onClick={this.toggleNestedNav}>
-                                <span className="bwmsprite scooter-icon"></span>
-                                <span onClick={this.pushAnalytics}>New Scooters</span>
-                                <span className="bwmsprite fa-angle-down"></span>
+                                <div onClick={this.pushAnalytics.bind(this, "New Scooters")}> 
+                                    <span className="bwmsprite scooter-icon"></span>
+                                    <span>New Scooters</span>
+                                    <span className="bwmsprite fa-angle-down"></span>
+                                </div>
                             </div>
                             <ul className="nested-nav-list">
                                 {this.renderNestedListItem("/m/honda-scooters/","Honda Scooters")}
@@ -104,9 +124,11 @@ class NavigationDrawer extends React.Component {
                         </li>
                         <li>
                             <div className="nav-item" onClick={this.toggleNestedNav}>
-                                <span className="bwmsprite usedBikes-icon"></span>
-                                <span onClick={this.pushAnalytics.bind()}>Buy & Sell Used Bikes</span>
-                                <span className="bwmsprite fa-angle-down"></span>
+                                <div onClick={this.pushAnalytics.bind(this, "Buy & Sell Used Bikes")}>
+                                    <span className="bwmsprite usedBikes-icon"></span>
+                                    <span>Buy & Sell Used Bikes</span>
+                                    <span className="bwmsprite fa-angle-down"></span>
+                                </div>
                             </div>
                             <ul className="nested-nav-list">
                                 {this.renderNestedListItem("/m/used/","Find Used Bikes")}
@@ -115,16 +137,18 @@ class NavigationDrawer extends React.Component {
                             </ul>
                         </li>
                         <li>
-                            <a href="/m/reviews/" className="nav-item">
+                            <a href="/m/reviews/" className="nav-item"  onClick={this.pushAnalyticsAndCloseDrawer.bind(this, "Reviews")}>
                                 <span className="bwmsprite reviews-icon"></span>
-                                <span onClick={this.pushAnalytics}>Reviews</span>
+                                <span>Reviews</span>
                             </a>
                         </li>
                         <li>
                             <div className="nav-item" onClick={this.toggleNestedNav}>
-                                <span className="bwmsprite news-icon"></span>
-                                <span onClick={this.pushAnalytics.bind()}>News, Videos & Tips</span>
-                                <span className="bwmsprite fa-angle-down"></span>
+                                <div onClick={this.pushAnalytics.bind(this, "News, Videos & Tips")}>
+                                    <span className="bwmsprite news-icon"></span>
+                                    <span>News, Videos & Tips</span>
+                                    <span className="bwmsprite fa-angle-down"></span>
+                                </div>
                             </div>
                             <ul className="nested-nav-list">
                                 {this.renderNestedListItemWithLinkTag("/m/news/","News")}
@@ -136,18 +160,23 @@ class NavigationDrawer extends React.Component {
                             </ul>
                         </li>
                         <li>
-                            <a href="/featured/trackday-2018/" className="nav-item" onClick={this.pushAnalytics.bind()}>
+                            <a href="/featured/trackday-2018/" className="nav-item"  onClick={this.pushAnalyticsAndCloseDrawer.bind(this,"Track Day 2018")}>
                                 <span className="bwmsprite track-day"></span>
-                                <span onClick={this.pushAnalytics}>Track Day 2018</span>
+                                <span>Track Day 2018</span>
                             </a>
+                        </li>
+                        <li>
+                            <Link to="/m/bike-loan-emi-calculator/" className="nav-item" onClick={this.pushAnalyticsAndCloseDrawer.bind(this,"EMI Calculator")}>
+								<span className="bwmsprite forum-icon"></span>
+								<span>EMI Calculator</span>
+							</Link>
                         </li>
                         <li>
                             <a href="/m/users/login.aspx" className="nav-item" onClick={this.pushAnalytics.bind()}>
                                 <span className="bwmsprite myBikeWale-icon"></span>
-                                <span onClick={this.pushAnalytics}>Login</span>
+                                <span>Login</span>
                             </a>
                         </li>
-                        
                     </ul>
                     <div id="nav-app-content" className="transition-ease">
                         <p className="font12 text-bold inline-block">India’s #1 Bike Research Destination</p>

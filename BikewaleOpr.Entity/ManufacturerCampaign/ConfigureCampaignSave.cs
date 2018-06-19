@@ -5,6 +5,7 @@ namespace BikewaleOpr.Entity.ManufacturerCampaign
     /// <summary>
     /// Modified by : Ashutosh Sharma on 25 Jan 2017
     /// Description : Added 'DailyStartTime' and 'DailyEndTime'.
+    /// Modifier    : Kartik Rathod on 14 may 2018 added SendLeadSMSCustomer, flag used for send sms to customer on lead submission
     /// </summary>
     public class ConfigureCampaignSave
     {
@@ -24,5 +25,6 @@ namespace BikewaleOpr.Entity.ManufacturerCampaign
         public DateTime? DailyStartTime { get; set; }
         public DateTime? DailyEndTime { get; set; }
         public ushort CampaignDays { get; set; }
+        public bool SendLeadSMSCustomer { get; set; }
     }
 }

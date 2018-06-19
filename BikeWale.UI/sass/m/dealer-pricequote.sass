@@ -1,0 +1,780 @@
+﻿// Core variables and mixins
+@import ../base/variables
+@import ../components/typography
+
+@import ../mixins/index
+@import ../utils/index
+@import ../components/mixins
+
+
+header
+  height: 50px
+
+#bw-header
+  &.fixed
+    position: fixed
+    left: 0
+    right: 0
+    top: 0
+    z-index: 5
+
+.header-fixed
+  padding: 7px 5px 10px 15px
+
+#bwheader-logo,
+.navbarBtn,
+.global-location,
+.sort-btn
+  display: none
+
+.global-search
+  top: 10px
+
+.bike-details
+  h1
+    padding: 5px 15px 10px
+
+.padding-10-5
+  padding: 10px 5px
+
+.padding-15-20
+  padding: 15px 20px
+
+.bottom-shadow
+  @include vendor-prefix('box-shadow', 0 2px 2px color('very-light-grey'))
+
+// model - details
+.model__details-content
+  padding: 10px 5px
+  background-color: color('white')
+
+
+// dropdown menu
+.dropdown-select-wrapper
+  display: inline-block
+
+.dropdown-select
+  display: none
+
+.dropdown-menu
+  min-width: 125px
+  font-size: 14px
+  position: relative
+  display: inline-block
+  vertical-align: middle
+  color: $base-color
+
+  .dropdown-label,
+  .dropdown-selected-item
+    @include dropdown-arrow-757575-icon
+    background-size: 10px
+    background-position: center right
+    width: 100%
+    max-width: 260px
+    padding: 5px 30px 5px 5px
+    font-weight: $font-bold
+    white-space: nowrap
+    overflow: hidden
+    text-overflow: ellipsis
+    border-bottom: 1px solid color('aluminium')
+
+  .dropdown-label
+    cursor: pointer
+    display: inline-block
+    z-index: 0
+
+  .dropdown-list-wrapper
+    @include vendor-prefix('border-radius', 2px)
+    @include vendor-prefix('box-shadow', -3px 3px 15px 1px color('gainsboro-2'))
+    display: none
+    min-width: 170px
+    overflow: hidden
+    position: absolute
+    top: 0
+    left: 0
+    background: color('white')
+    z-index: 1
+
+  &.dropdown-active
+    .dropdown-list-wrapper
+      display: inline-block
+
+  .dropdown-menu-list
+    padding-top: 10px
+    padding-bottom: 10px
+
+    li
+      padding: 5px 10px
+      cursor: pointer
+
+  .dropdown-with-select
+    li
+      &:hover
+        background: color('whisper')
+
+// single version
+.single-version-content
+  min-width: 125px
+  padding-top: 5px
+  padding-bottom: 5px
+  font-weight: bold
+  border-bottom: 1px solid color('gainsboro-2')
+  display: inline-block
+  position: relative
+
+.dropdown-effect-light
+  @include dropdown-arrow-757575-icon
+  background-size: 10px
+  background-position: center right
+  padding-right: 25px
+
+  &:after
+    content: ''
+    position: absolute
+    right: 0
+    top: 0
+    width: 25px
+    height: 100%
+    background: color('white')
+    opacity: .7
+
+
+// location change
+.loc-change-blue-icon
+  width: 12px
+  height: 16px
+  background-position: -197px -395px
+  position: relative
+  top: 1px
+  cursor: pointer
+
+  &:hover
+    background-position: -86px -278px
+
+.break-line
+  border-top: 1px solid color('gainsboro')
+
+
+// model - dealer details
+.model__dealer-details-content
+  background-color: color('white-smoke-3')
+
+// dealer floating button
+.pricequote-floating-button
+  .grid-7
+    width: 66%
+
+  .grid-5
+    width: 44%
+
+.btn-green
+  background: color('forest-green')
+  color: color('white')
+  border: 1px solid color('forest-green')
+
+  &:focus
+    background: color('green')
+    border: 1px solid color('green')
+
+.btn-sm-0
+  padding: 5px 20px
+  font-size: 14px
+
+.btn-sm-1
+  padding: 5px 16px
+  font-size: 14px
+
+// dealer details
+.dealer-details-card__map
+  position: relative
+
+  &:after
+    content: ''
+    position: absolute
+    bottom: 0
+    right: 0
+    left: 0
+    width: 100%
+    height: 40px
+    background: linear-gradient(transparent, color('white'))
+
+.line-height-1-5
+  line-height: 1.5
+
+.dealership-details-wrapper
+  .dealership-address
+    width: 85%
+
+.tel-sm-icon
+  width: 15px
+  height: 12px
+  background-position: -88px -324px
+  position: relative
+  top: 2px
+
+.tel-grey-sm-icon
+  width: 14px
+  height: 12px
+  background-position: 1px -436px
+
+.dropdown-icon
+  width: 10px
+  height: 5px
+  background-position: -66px -147px
+
+.inr-grey-xxxsm-icon
+  width: 7px
+  height: 10px
+  background-position: -94px -136px
+
+.clock-icon
+  width: 14px
+  height: 14px
+  background-position: -159px -461px
+  position: relative
+  top: 3px
+
+.offers-sm-box-icon
+  width: 15px
+  height: 16px
+  background-position: -183px -460px
+  position: relative
+  top: 1px
+
+
+// offers and benefits icons
+.offers-sprite
+  background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/offers-sprite.png?v16may2017) no-repeat
+  display: inline-block
+
+.offers-box-icon
+  width: 34px
+  height: 37px
+  background-position: 0 0
+
+.emi-calc-icon
+  width: 34px
+  height: 35px
+  background-position: 0 -47px
+
+.text-green
+  color: color('fruit-salad')
+
+.info-grey-14
+  width: 14px
+  height: 14px
+  background-position: -173px -613px
+  position: relative
+  top: 2px
+  margin-right: 2px
+  cursor: pointer
+
+.padding-bottom40
+  padding-bottom: 40px
+
+.price--label-position
+  position: absolute
+  bottom: -18px
+  font-size: 13px
+  height: 36px
+
+.pos-bottom-40
+  bottom: -40px
+
+
+// secondary dealers
+.secondary-dealer-card
+  @include vendor-prefix('box-shadow', 0 1px 4px rgba(0, 0, 0, .2))
+  @include vendor-prefix('border-radius', 2px)
+  width: 308px
+  min-height: 102px
+  padding: 10px 10px 20px
+  border: 1px solid color('very-light-grey')
+  margin-right: 10px
+
+  a:hover
+    text-decoration: none
+  
+  &.swiper-slide-active
+    &:first-child
+      margin-left: 10px
+
+
+// floating button
+#pricequote-floating-button-wrapper
+  min-height: 1px
+  height: auto
+
+.floating-btn-inactive
+  .float-button
+    overflow: hidden
+    background-color: color('white-smoke-3')
+
+.float-button
+  &.float-fixed
+    background: rgba(245, 245, 245, .9)
+
+  .btn
+    padding: 8px 0
+    font-size: 18px
+
+
+// common
+.text-truncate
+  width: 100%
+  white-space: nowrap
+  text-overflow: ellipsis
+  overflow: hidden
+  text-align: left
+
+
+// emi
+#emiPopup.bwm-fullscreen-popup
+  display: none
+  padding: 20px 5px
+
+.booknow-label
+  width: 65%
+
+#emiPopup .inr-xxsm-icon
+  width: 8px
+
+.cal-emi-icon
+  width: 34px
+  height: 35px
+  background-position: 0 -47px
+
+#calldealer.btn-sm
+  padding: 8px 10px
+
+.emi-slider-box
+  padding: 10px 15px 20px
+  &:first-child
+    border-top: none
+    padding-top: 10px
+
+.finance-emi-left-box
+  width: 100%
+  overflow: hidden
+
+.finance-emi-right-box
+  width: 100%
+
+.emi-slider-box-left-section
+  width: 100%
+  float: left
+
+.ui-widget-content
+  background: #bababa
+  height: 4px
+  margin: 20px 0 3px
+  width: 100%
+  border-radius: 0px
+
+.ui-slider .ui-slider-range
+  border: none
+  display: block
+  font-size: 0.7em
+  position: absolute
+  z-index: 1
+  border-radius: 0px
+
+.ui-widget-header
+  background: #ef3030
+  height: 4px
+
+.ui-slider
+  position: relative
+  text-align: left
+
+  .ui-slider-handle
+    @include slider-handle-icon
+    background-position: 3px 3px
+    cursor: pointer
+    height: 28px
+    width: 28px
+    display: block
+    margin-left: -9px
+    position: absolute
+    outline: none
+    top: -12px
+    z-index: 2
+
+.emi-slider-box-right-section
+  text-align: right
+
+.pos-top2
+  top: 2px
+
+.btn
+  &.emi-quote-btn
+    padding: 8px 19px
+
+
+.inner-section
+  background: color('white')
+  clear: both
+  overflow: hidden
+
+.alternatives-carousel
+  .jcarousel
+    li
+      &.front
+        border: none
+
+.discover-bike-carousel
+  .jcarousel li,
+  .front
+    height: auto
+
+
+// lead capture
+#leadCapturePopup
+  .leadCapture-close-btn
+    z-index: 2
+
+  .error-icon,
+  .bw-blackbg-tooltip
+    display: none
+
+.btn-grey
+  background: color('white')
+  color: color('aluminium')
+  border: 1px solid color('aluminium')
+
+  &:hover
+    background: color('aluminium')
+    color: color('white')
+    text-decoration: none
+    border: 1px solid color('aluminium')
+
+#notifyAvailabilityContainer
+  min-height: 320px
+  background: color('white')
+  margin: 0 auto
+  padding: 10px
+  position: fixed
+  top: 10%
+  right: 5%
+  left: 5%
+  z-index: 10
+
+#notify-form
+  .grid-12
+    padding: 10px 20px
+
+.personal-info-notify-container input
+  margin: 0 auto
+
+.notify-offers-list
+  list-style: disc
+  margin-left: 10px
+
+#notifyAvailabilityContainer
+  .notify-close-btn
+    z-index: 2
+
+#leadCapturePopup
+  .error-icon,
+  .bw-blackbg-tooltip
+    display: none
+
+#otpPopup
+  display: none
+
+.bwm-fullscreen-popup
+  .icon-outer-container
+    width: 72px
+    height: 72px
+
+  .icon-inner-container
+    width: 64px
+    height: 64px
+    margin: 3px auto
+
+.user-contact-details-icon
+  width: 29px
+  height: 30px
+  background-position: -109px -216px
+
+.otp-icon
+  width: 29px
+  height: 29px
+  background-position: -109px -177px
+
+.edit-blue-icon
+  width: 20px
+  height: 20px
+  background-position: -114px -122px
+
+#getMobile
+  padding: 9px 40px
+
+.mobile-prefix
+  position: absolute
+  padding: 10px 13px 13px
+  color: #999
+  z-index: 2
+
+#otpPopup
+  .errorIcon,
+  .errorText
+    display: none
+
+  .otp-box
+    p
+      &.resend-otp-btn
+        color: color('pacific-blue')
+        cursor: pointer
+        font-size: 14px
+
+  .update-mobile-box
+    display: none
+
+  .edit-mobile-btn
+    cursor: pointer
+
+.btn-grey-state
+  background: color('white')
+  color: color('aluminium')
+  border: 1px solid color('aluminium')
+
+.button-clicked-state
+  background: color('aluminium')
+  color: color('white')
+  text-decoration: none
+  border: 1px solid color('aluminium')
+
+#calldealer
+  &:hover
+    text-decoration: none
+
+
+//
+.get-offer-link
+  color: color('pacific-blue') !important
+  font-weight: bold
+
+.city-unveil-offer-container
+  margin-top: 20px
+  border: 1px dashed color('aluminium')
+  width: 100%
+  min-height: 115px
+  padding: 10px
+
+  ul
+    margin-left: 20px
+    list-style-type: disc
+
+    li
+      margin-top: 5px
+      padding-bottom: 5px
+      font-size: 14px
+
+
+@media only screen and (min-width: 360px)
+  .header-dealername
+    max-width: 260px
+
+@media only screen and (max-width: 350px)
+  .float-button
+    .btn
+      font-size: 16px
+
+
+// alternate bikes
+#modelAlternateBikeContent
+  &.margin-bottom20
+    margin-bottom: 0
+
+  .swiper-slide
+    width: 200px
+    min-height: 210px
+
+    &:first-child
+      margin-left: 10px
+
+  h2
+    &.margin-bottom20
+    margin-bottom: 10px
+
+  .swiper-slide
+    h3
+      margin-bottom: 7px
+
+.model-swiper-image-preview
+  width: 100%
+  height: 101px
+
+  a
+    width: 180px
+    height: 103px
+    display: block
+    position: relative
+
+.model-swiper-details
+  padding: 10px 18px 20px
+
+.btn-x-sm
+  padding: 8px 14px
+  color: $base-color
+
+.border-divider
+  border-top: 1px solid color('gainsboro')
+
+
+// tooltip
+.bw-tooltip
+  padding: 10px 20px 10px 10px
+  position: relative
+  border: 1px solid color('gainsboro')
+  background: color('white-smoke-3')
+  z-index: 1
+
+.multi-brand-tooltip
+  width: 99.5%
+  margin-top: 15px
+  margin-bottom: 15px
+
+.tooltip-bottom
+  .bw-tooltip-text
+    &:before,
+    &:after
+      content: ''
+      width: 9px
+      height: 18px
+      display: block
+      position: absolute
+      left: 50px
+
+    &:before
+      top: -29px
+      border-right: 10px solid transparent
+      border-bottom: 10px solid color('gainsboro')
+      border-left: 10px solid transparent
+
+    &:after
+      top: -28px
+      border-right: 10px solid transparent
+      border-bottom: 10px solid color('white-smoke-3')
+      border-left: 10px solid transparent
+
+
+//
+.position-abt
+  font-size: 8px
+
+.bottomlink
+  margin: 5px
+
+.pos-right35
+  right: -15px
+
+.pos-left35
+  right: 88px
+
+
+// full width select
+.full-width-select
+  .dropdown-select-wrapper
+    width: 100%
+    max-width: 100%
+
+  .dropdown-menu
+    width: 100%
+    max-width: 100%
+
+    .dropdown-label,
+    .dropdown-selected-item,
+    .dropdown-list-wrapper,
+    .dropdown-menu-title
+      width: 100%
+      max-width: 100%
+
+  .dropdown-menu-list
+    max-height: 165px
+    overflow-y: scroll
+
+
+// campaign offer loans
+.campaign__powered-key
+  font-size: 12px
+  color: color('nobel')
+
+.campaign__powered-value
+  font-size: 13px
+  color: color('aluminium')
+
+.btn-160-32
+  min-width: 160px
+  padding: 5px
+  font-size: 14px
+
+
+// explore more card
+.exploremore__imagebackground
+  padding-top: 15px
+  padding-bottom: 10px
+  background: rgba(65, 180, 196, .3)
+
+.exploremore__icon-background
+  @include bike-41b4c4-36x22-icon
+  @include vendor-prefix('border-radius', 50%)
+  background-color: color('white')
+  height: 64px
+  width: 64px
+  margin: 0 auto
+
+.exploremore-detailblock
+  margin: 0 auto
+  padding-top: 10px
+  min-height: 115px
+  text-align: center
+
+.detailblock__title
+  font-size: 14px
+  color: $base-color
+  font-weight: 600
+  line-height: 25px
+  margin-bottom: 10px
+
+.detailblock__description
+  font-size: 12px
+  color: color('nobel')
+
+
+// similar bikes
+.swiper-type-similar
+  .swiper-btn-block
+    padding-bottom: 15px
+
+  .right-arrow
+    @include vendor-prefix('transform', scale(.8))
+    right: 18px
+    top: 13px
+
+
+// compare
+.compare-with-target
+  display: block
+  padding: 10px 35px 10px 15px
+  position: relative
+  font-size: 12px
+  color: $base-color
+
+  &:before
+    content: ''
+    position: absolute
+    left: 8%
+    top: 0
+    width: 168px
+    height: 1px
+    border-top: 1px solid color('gainsboro')
+
+.compare-sm
+  width: 17px
+  height: 12px
+  background-position: -173px -596px
+  position: relative
+  top: 1px
+  margin-right: 5px

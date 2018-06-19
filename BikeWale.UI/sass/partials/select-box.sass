@@ -1,0 +1,155 @@
+﻿@import '../mixins/index'
+@import '../base/variables'
+@import '../utils/index'
+@import '../mixins/icons'
+@import '../mixins/text'
+
+@mixin select-box-tab($color: 'light-grey', $select-truncate-width: '90%',$desktop: false)
+  .select-box
+    @include clearfix
+    color: color($color)
+    font-size: 14px
+    line-height: 19px
+    position: relative
+
+  .select-box__tabs
+    border-bottom: solid 1px color('border-dark')
+    border-top: solid 1px color('border-dark')
+    padding-left: 0
+    padding-right: 0
+
+    > *
+      padding: 6px 20px
+      min-height: 55px
+
+  .select-box__menu-tab
+    @include flexbox
+    @include align-items(flex-start)
+    @include justify-content(center)
+    @include flex-direction(column)
+    cursor: pointer
+    border-right: solid 1px color('border-dark')
+    position: relative
+
+    &:after
+      @include dropdown-icon
+      @include vendor-prefix(transition, all .3s)
+      content: ""
+      display: inline-block
+      width: 10px
+      height: 5px
+      position: absolute
+      right: 20px
+      top: 50%
+
+    .select-box__title
+      font-size: 12px
+
+    .select-box__selected-value
+      @include text-truncate($width: $select-truncate-width)
+      color: color('default')
+      font-weight: $font-semibold
+
+  @if $desktop
+    @media screen and (min-width: 1024px)
+      .select-box__tabs
+        border: solid 1px color('border-dark')
+
+@mixin select-box-list($list-color: 'aluminium-2', $list-hover-color: 'default', $desktop: false)
+  .select-box__submenu
+    @include clearfix
+    @include vendor-prefix(box-shadow, 1px 2px 10px 2px color('border-dark'))
+    display: none
+    position: absolute
+    z-index: 9
+    width: 100%
+    top: 100%
+    left: 0
+    list-style: none
+    padding-left: 16px
+    padding-right: 16px
+    background-color: color('white')
+
+    .select-box__submenu-list
+      border-bottom: 1px solid color('whisper')
+      vertical-align: middle
+      padding-top: 15px
+      padding-bottom: 15px
+      color: color($list-color)
+      font-weight: $font-semibold
+
+      &:hover
+        color: color($list-hover-color)
+
+      &:last-child
+        border-bottom: 1px solid transparent
+
+  @if $desktop
+    @media screen and (min-width: 1024px)
+      .select-box__submenu
+        max-height: 272px
+        overflow-y: scroll
+
+@mixin select-box-inside-list($list-color:  'aluminium-2', $detail-list-color: 'nobel', $detail-truncate-width: '96%' )
+  .select-box__detail
+    @include text-truncate($width: $detail-truncate-width)
+
+    .select-box__detail-list
+      font-weight: normal
+      border: none
+      font-size: 12px
+      line-height: 17px
+      display: inline-block
+      vertical-align: middle
+      padding: 7px 7px 0 10px
+      color: color($detail-list-color)
+      position: relative
+
+      &:before
+        @include vendor-prefix(border-radius, 50%)
+        content: ''
+        width: 4px
+        height: 4px
+        background-color: color($detail-list-color)
+        position: absolute
+        top: 56%
+        left: 0
+
+      &:hover
+        color: color($list-color)
+
+      &:hover:before
+        background-color: color($list-color)
+
+@mixin select-box-sub-title($title-truncate-width: '60%')
+  .select-box__sub-title
+    @include clearfix
+    width: 100%
+
+    .select-box__title-line
+      @include text-truncate($width: $title-truncate-width)
+      float: left
+      cursor: pointer
+
+    .select-box__title-price
+      float: right
+      text-align: right
+
+@mixin select-box-active($active-boxshadow-color: 'border-dark')
+  .select-box--active
+    display: block
+
+    .select-box__menu-tab
+      @include vendor-prefix(box-shadow, 2px 0px 15px 1px color($active-boxshadow-color))
+
+      &:after
+        @include vendor-prefix(transform, rotate(180deg))
+
+@mixin select-box
+  @include select-box-tab($desktop: true)
+  @include select-box-list($desktop: true)
+  @include select-box-inside-list( )
+  @include select-box-sub-title()
+  @include select-box-active()
+
+@include select-box

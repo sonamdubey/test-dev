@@ -202,6 +202,10 @@
       <Project>{038BC901-9D7F-4A95-8CA6-117DB3AA48CC}</Project>
       <Name>Bikewale.Cache.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Bikewale.CacheHelper\Bikewale.CacheHelper.csproj">
+      <Project>{A2232B60-DF4E-4464-91D9-F587CCE00738}</Project>
+      <Name>Bikewale.CacheHelper</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Bikewale.Comparison.BAL\Bikewale.Comparison.BAL.csproj">
       <Project>{5adf0084-bf88-47b9-a414-6e49a6b71383}</Project>
       <Name>Bikewale.Comparison.BAL</Name>
@@ -229,6 +233,10 @@
     <ProjectReference Include="..\Bikewale.Entities\Bikewale.Entities.csproj">
       <Project>{8223a4b8-db14-4658-9897-257d872ae8d9}</Project>
       <Name>Bikewale.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bikewale.Interfaces\Bikewale.Interfaces.csproj">
+      <Project>{12B0EDCD-AA9E-41BB-BDC9-CEF75952FD49}</Project>
+      <Name>Bikewale.Interfaces</Name>
     </ProjectReference>
     <ProjectReference Include="..\Bikewale.ManufacturerCampaign.BAL\Bikewale.ManufacturerCampaign.BAL.csproj">
       <Project>{5d58150b-55aa-4220-be98-5aca515ced8c}</Project>

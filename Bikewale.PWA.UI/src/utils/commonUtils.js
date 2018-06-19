@@ -3,6 +3,11 @@ function isServer() {
 	return !(typeof window !== 'undefined' && window.document) //TODO 
 }
 
+function detectBrowser() {
+  window.isBrowserUC = navigator.userAgent.toLowerCase().indexOf("ucbrowser") !== -1;
+  window.isBrowserSafari = navigator.userAgent.toLowerCase().indexOf("safari") !== -1;
+  window.isBrowserChrome = navigator.userAgent.toLowerCase().indexOf("chrome") !== -1;
+}
 
 function isInt(value) {
 
@@ -43,11 +48,26 @@ var updateData = function(state,updateDict) {
   
 }
 
+function RemoveSpecialCharacters(inpString){
+  var regex = /[\)'",=!+#\[*\]~;^<\(>]+/g;
+    try{
+      if(inpString != undefined)
+      {
+        return inpString.replace(regex, '');
+      }
+    }
+    catch(err){
+      console.log(err);
+    }
+    return inpString;
+}
 
 module.exports = {
 	isServer,
 	isInt,
-	isCMSUserReviewSlugClosed,
-    CMSUserReviewSlugPosition,
-    updateData
+  	isCMSUserReviewSlugClosed,
+  	CMSUserReviewSlugPosition,
+  	updateData,
+	RemoveSpecialCharacters,
+	detectBrowser
 }

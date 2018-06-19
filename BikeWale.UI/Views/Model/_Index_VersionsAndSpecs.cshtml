@@ -1,9 +1,10 @@
 ﻿@model Bikewale.Models.BikeModels.ModelPageVM
 @using Bikewale.Entities.BikeData;
+@using Bikewale.Utility;
 @if (Model.ModelPageEntity != null)
 {
 	if (Model.ModelPageEntity.ModelVersionMinSpecs != null && Model.ModelPageEntity.ModelVersionMinSpecs.MinSpecsList != null)
-    {   
+    {
         <div class="font12 text-light-grey margin-bottom20">
             <span class="inline-block margin-right15">Key specs</span>
             <ul id="key-specs-list" class="inline-block">
@@ -19,39 +20,44 @@
         </div>
     }
 
-    if (Model.ModelPageEntity.ModelVersions != null && Model.ModelPageEntity.ModelVersions.Count > 1)
-    {
-        <div id="model-version-dropdown" class="margin-right20 padding-top20 vertical-top">
-            <div class="select-box select-box-no-input done">
-                <p class="select-label">Version</p>
-                <select id="ddlVersion" class="chosen-select" data-title="Version" data-selected-version="@Model.VersionId" data-pageurl="@Bikewale.Utility.UrlFormatter.BikePageUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName,Model.ModelPageEntity.ModelDetails.MaskingName)">
-                    @foreach (var version in Model.ModelPageEntity.ModelVersions)
-                    {
-                        <option value="@version.VersionId" @(version.VersionId == Model.VersionId ? "selected" : "")>@version.VersionName</option>
-                    }
-                </select>
+    <div class="dropdown-box dropdown-box--desktop margin-bottom20 " id="ddlNewVersionList" data-pageurl="@Bikewale.Utility.UrlFormatter.BikePageUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName,Model.ModelPageEntity.ModelDetails.MaskingName)" data-selected-version="@Model.VersionId">
+
+        <div class="grid-4 dropdown-box__menu-tab version-tab__content no-padding version-city-content--icon">
+
+            <p class="dropdown-box__menu-title">Version</p>
+            <p id="defversion" class="dropdown-box__menu-value">@(Model.SelectedVersion != null ? Model.SelectedVersion.VersionName : Model.VersionName)</p>
+        </div>
+        @if (Model.IsNewBike)
+        {
+            <div class=" location-selection vertical-top">
+                <p class="font12 text-light-grey">Location</p>
+                <p class="bw-ga text-bold selected-city changecity text-truncate position-rel cur-pointer getquotation" data-persistent="true" data-reload="true" data-modelid="@Model.ModelId" data-lab="@(string.Format("{0}_{1}_{2}", Model.ModelPageEntity.ModelDetails.MakeBase.MakeName, Model.ModelPageEntity.ModelDetails.ModelName, (Model.LocationCookie.AreaId > 0 ? string.Format("{0}_{1}", Model.LocationCookie.City, Model.LocationCookie.Area) : Model.LocationCookie.City)))" data-act="Location_Icon_Clicked" data-cat="Model_Page">
+                    <span>@(Model.IsLocationSelected && !Model.ShowOnRoadButton ? Model.Location : (Model.LocationCookie.CityId > 0 ? Model.LocationCookie.City : "Select city"))</span>
+                    <span class="bwsprite loc-change-blue"></span>
+                </p>
             </div>
-        </div>
-    }
-    else
-    {
-        <div class="single-version-content vertical-top margin-right20">
-            <p class="font12 text-light-grey">Version</p>
-            <p class="text-bold dropdown-effect-light text-truncate">@(Model.SelectedVersion != null ? Model.SelectedVersion.VersionName : Model.VersionName)</p>
-        </div>
-    }
+        }
+        <div class=" clear"></div>
+        @if (Model.ModelPageEntity.ModelVersions != null && Model.ModelPageEntity.ModelVersions.Any())
+        {
+            <ul class="dropdown-box__submenu-list">
+                @foreach (var version in Model.ModelPageEntity.ModelVersions)
+                {
+                    <li class="dropdown-box-submenu-list__item @(version.VersionId == Model.VersionId ? "submenu-list-item--active" : "")" data-value="@version.VersionId">
+                        <div class="submenu-list-item__title">
+                            <p class="submenu-list-item-title__left-col">@version.VersionName</p>
+                            <p class="submenu-list-item-title__right-col">@Html.Raw(version.Price != 0 ? string.Format("{0} {1}", "&#x20b9;", Format.FormatPrice(Convert.ToString(version.Price))) : (version.AverageExShowroom != 0 ? string.Format("{0} {1}", "&#x20b9;", Format.FormatPrice(Convert.ToString(version.AverageExShowroom))) : string.Empty))</p>
+                        </div>
+                        <ul class="dropdown-box-submenu__specs-list">
+                            @Html.Raw(FormatMinSpecs.GetMinSpecsAsLiElement(version.MinSpecsList.Take(4), "dropdown-box-specs-list__item"))
+                        </ul>
+                    </li>
+                }
+            </ul>
+        }
+    </div>
 
-    if (Model.IsNewBike)
-    {
-        <div class="location-selection vertical-top">
-            <p class="font12 text-light-grey">Location</p>
-            <p class="bw-ga text-bold selected-city changecity text-truncate position-rel cur-pointer getquotation" data-persistent="true" data-reload="true" data-modelid="@Model.ModelId" data-lab="@(string.Format("{0}_{1}_{2}", Model.ModelPageEntity.ModelDetails.MakeBase.MakeName, Model.ModelPageEntity.ModelDetails.ModelName, (Model.LocationCookie.AreaId > 0 ? string.Format("{0}_{1}", Model.LocationCookie.City, Model.LocationCookie.Area) : Model.LocationCookie.City)))" data-act="Location_Icon_Clicked" data-cat="Model_Page">
-                <span>@(Model.IsLocationSelected && !Model.ShowOnRoadButton ? Model.Location : (Model.LocationCookie.CityId > 0 ? Model.LocationCookie.City : "Select city"))</span>
-                <span class="bwsprite loc-change-blue"></span>
-            </p>
-        </div>
-    }
 
 
-    <div class="margin-bottom15"></div>
+    <div class="clear"></div>
 }

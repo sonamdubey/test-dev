@@ -82,7 +82,7 @@ namespace Bikewale.Cache.PriceQuote
         {
             IEnumerable<OtherVersionInfoEntity> versions = null;
 
-            string key = String.Format("BW_VersionPrices_{0}_C_{1}", modelId, cityId);
+            string key = String.Format("BW_VersionPrices_M_{0}_C_{1}", modelId, cityId);
             try
             {
                 versions = _cache.GetFromCache<IEnumerable<OtherVersionInfoEntity>>(key, new TimeSpan(6, 0, 0), () => _obPriceQuote.GetOtherVersionsPrices(modelId, cityId));

@@ -1,0 +1,66 @@
+@mixin tooltip
+  .tooltip__content
+    display: inline-block
+    position: relative
+
+  .tooltip-box
+    position: absolute
+    font-size: 0
+    line-height: 0
+    font-weight: normal
+    width: 100px
+    z-index: 2
+    will-change: transform
+
+    &.tooltip--top
+      @include vendor-prefix('transform', translate(-50%, -100%))
+      top: 0
+      left: 50%
+
+    &.tooltip--top-right
+      @include vendor-prefix('transform', translate(5%, -100%))
+      top: 0
+      left: auto
+      right: 0
+
+  .tooltip-box__content
+    @include vendor-prefix('border-radius', 3px)
+    @include vendor-prefix('box-shadow', 0 2px 4px 0 rgba(213, 213, 213, .5))
+    position: relative
+    width: 100%
+    display: block
+    padding: 12px 15px
+    font-size: 13px
+    line-height: 16px
+    color: color('white')
+    background-color: color('tuna')
+
+  .tooltip-box__close
+    @include vendor-prefix('transform', translate(50%, -50%))
+    @include vendor-prefix('border-radius', 50%)
+    @include cross-fff-icon
+    background-size: 8px
+    width: 24px
+    height: 24px
+    position: absolute
+    top: 0
+    right: 0
+    background-color: color('tuna')
+    border: 2px solid color('white')
+    cursor: pointer
+
+  .tooltip-box__arrow
+    @include vendor-prefix('transform', translateX(-50%))
+    width: 10px
+    display: inline-block
+    position: relative
+    top: 100%
+    left: 50%
+    border-width: 10px 10px 0px 10px
+    border-color: color('tuna') transparent transparent transparent
+    border-style: solid
+
+  .tooltip--top-right
+    .tooltip-box__arrow
+      @include vendor-prefix('transform', translateX(-100%))
+      left: 95%

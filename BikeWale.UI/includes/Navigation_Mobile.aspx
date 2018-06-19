@@ -79,6 +79,12 @@
                 <span class="navbarTitle">Track Day 2018</span>
             </a>
         </li>
+		<li>
+            <a href="/m/bike-loan-emi-calculator/" class ="bw-ga" data-lab ="EMI Calculator" data-cat ="" data-act ="Hamburger_Menu_Item_Click">
+                <span class="bwmsprite forum-icon"></span>
+                <span class="navbarTitle">EMI Calculator</span>
+            </a>
+        </li>
         <BW:Login ID="ctrlLogin" runat="server" />
     </ul>
 

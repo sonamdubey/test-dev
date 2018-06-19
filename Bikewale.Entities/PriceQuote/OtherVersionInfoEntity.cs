@@ -24,5 +24,9 @@ namespace Bikewale.Entities.PriceQuote
         public UInt32 RTO { get; set; }
         [DataMember]
         public UInt32 Insurance { get; set; }
+        [DataMember]
+        public string HostUrl { get; set; }
+        [DataMember]
+        public string OriginalImagePath { get; set; }
     }
 }

@@ -13,7 +13,7 @@
     Model.AdTags.Ad_970x90Bottom = true;
     Model.IsHeaderFix = true;
     Layout = "~/Views/Shared/_Layout.cshtml";
-    if (Model != null && Model.ArticleDetails != null) { Model.AdTags.TargetedTags = String.Join(",", Model.ArticleDetails.TagsList); };
+    if (Model != null && Model.ArticleDetails != null) { Model.AdTags.TargetedTags = String.Join(", ", Model.ArticleDetails.TagsList); };
 }
 @if(Model != null)
 {

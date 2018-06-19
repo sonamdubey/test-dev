@@ -1,5 +1,6 @@
 ﻿@model Bikewale.Models.ModelBase
 @using System.Linq;
+@using Bikewale.Utility;
 <!doctype html>
 <html lang="en">
 <head @(Model != null && Model.PageMetaTags != null ? "prefix=og:http://ogp.me/ns#":"")>
@@ -166,17 +167,17 @@
             switch (targetId)
             {
                 case 1:
-                    return String.Format("googletag.pubads().setTargeting(\"Model\", \"{0}\");", target);
+                    return String.Format("googletag.pubads().setTargeting(\"Model\", \"{0}\");", target.RemoveSpecialCharacters());
                 case 2:
-                    return String.Format("googletag.pubads().setTargeting(\"Make\", \"{0}\");", target);
+                    return String.Format("googletag.pubads().setTargeting(\"Make\", \"{0}\");", target.RemoveSpecialCharacters());
                 case 3:
-                    return String.Format("googletag.pubads().setTargeting(\"CompareBike-M\", \"{0}\");", target);
+                    return String.Format("googletag.pubads().setTargeting(\"CompareBike-M\", \"{0}\");", target.RemoveSpecialCharacters());
                 case 4:
-                    return String.Format("googletag.pubads().setTargeting(\"City\", \"{0}\");", target);
+                    return String.Format("googletag.pubads().setTargeting(\"City\", \"{0}\");", target.RemoveSpecialCharacters());
                 case 5:
-                    return string.Format("googletag.pubads().setTargeting(\"Series\", \"{0}\");", target);
+                    return string.Format("googletag.pubads().setTargeting(\"Series\", \"{0}\");", target.RemoveSpecialCharacters());
                 case 6:
-                    return string.Format("googletag.pubads().setTargeting(\"Tags\", \"{0}\");", target);
+                    return string.Format("googletag.pubads().setTargeting(\"Tags\", \"{0}\");", target.RemoveSpecialCharacters());
                 default:
                     return "";
             }
@@ -283,7 +284,10 @@
     </noscript>
     <!-- End Facebook Pixel Code -->
 </head>
-<body class="@(@Model.IsTransparentHeader ? " page-type-landing " : "") bg-light-grey @(@Model.IsHeaderFix ? "header-fixed-inner" : "")" data-page-id="@((int)Model.Page)" data-page-name="@Model.Page">
+@{
+    string bodyTagClass = null;
+}
+<body class="@(@Model.IsTransparentHeader ? " page-type-landing " : "") bg-light-grey @(@Model.IsHeaderFix ? "header-fixed-inner" : "") @(Model.CssClasses.TryGetValue("bodyTagClass",out bodyTagClass) && bodyTagClass != null ? bodyTagClass:"")" data-page-id="@((int)Model.Page)" data-page-name="@Model.Page">
     @if (Model.IsHeaderRequired)
     {
         <header>
@@ -460,6 +464,12 @@ else if (Model.AdTags.ShowInnovationBannerMobile)
                     <span class="navbarTitle">Track Day 2018</span>
                 </a>
             </li>
+			<li>
+				<a href="/m/bike-loan-emi-calculator/" class="bw-ga" data-lab="EMI Calculator" data-cat="" data-act="Hamburger_Menu_Item_Click">
+					<span class="bwmsprite forum-icon"></span>
+					<span class="navbarTitle">EMI Calculator</span>
+				</a>
+			</li>
             @** Render login control here *@
             @Html.Partial("~/Views/m/Shared/_LoginControl.cshtml")
         </ul>

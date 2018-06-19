@@ -52,6 +52,7 @@ namespace Bikewale.Service.Controllers.LeadsGeneration
         /// Summary : added utmz, utma, device Id etc
         /// Modified by :   Sumit Kate on 18 Aug 2016
         /// Description :   rearranged the data validation checks and return BadRequest if data is invalid
+        /// Modifier    : Kartik Rathod on 16 may 2018, added dealerName,bikename and sendLeadSMSCustomer to ManufacturerLead consumer 
         /// </summary>
         /// <param name="objLead"></param>
         /// <returns></returns>
@@ -65,7 +66,7 @@ namespace Bikewale.Service.Controllers.LeadsGeneration
                 headers["UTMA"] = Request.Headers.Contains("utma") ? Request.Headers.GetValues("utma").FirstOrDefault() : String.Empty;
                 headers["UTMZ"] = Request.Headers.Contains("utmz") ? Request.Headers.GetValues("utmz").FirstOrDefault() : String.Empty;
                 //headers["PlatformId"] = Request.Headers.Contains("platformid") ? Request.Headers.GetValues("platformid").FirstOrDefault() : String.Empty;
-
+               
                 uint leadId = _leadProcess.ProcessESLead(objLead, headers);
 
                 if (leadId > 0)

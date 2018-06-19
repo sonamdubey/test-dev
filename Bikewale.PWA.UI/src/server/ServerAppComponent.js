@@ -9,6 +9,7 @@ import ArticleDetailComponent from '../components/News/ArticleDetailComponent'
 import VideoLandingComponent_Server from './Videos/VideoLandingComponent_Server'
 import VideosByCategoryComponent from '../components/Videos/VideosByCategoryComponent'
 import VideoDetailComponent from '../components/Videos/VideoDetailComponent'
+import FinanceComponent from '../components/Finance/FinanceComponent'
 
 
 class ServerAppComponent extends React.Component {
@@ -16,8 +17,7 @@ class ServerAppComponent extends React.Component {
 	render() {
 		return (
 				<div>
-					<Navigation/>
-                    <AdUnit adSlot={AD_PATH_REVIEWS_TOP_320_50} adDimension={AD_DIMENSION_320_50} adContainerId={AD_DIV_REVIEWS_TOP_320_50}/>        
+					<Navigation/>      
 					<div className="body-content">
 						<Switch>
 	                        <Route exact path='/m/(news|expert-reviews)/' component={() => (<ArticleListComponent {...this.props.childComponentProps}/>)}/>
@@ -27,6 +27,7 @@ class ServerAppComponent extends React.Component {
                             <Route exact path='/m/bike-videos/' component={() => (<VideoLandingComponent_Server {...this.props.childComponentProps}/>)}/>
 						    <Route exact path='/m/bike-videos/category/*-:categoryId(\d+)/' component={() => (<VideosByCategoryComponent {...this.props.childComponentProps}/>)}/>
 						    <Route exact path='/m/bike-videos/:title-:basicId(\d+)/' component={() => (<VideoDetailComponent {...this.props.childComponentProps}/>)}/>
+							<Route exact path='/m/bike-loan-emi-calculator/' component={() => (<FinanceComponent {...this.props.childComponentProps}/>)} />
 	                    </Switch>
 					</div>
 					<NavigationDrawer/>

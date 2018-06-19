@@ -103,7 +103,7 @@ docReady(function () {
     function callFallBackWriteReview() {
         $('#adBlocker').show();
         $('.sponsored-card').hide();
-    };
+		};
     dealersPopupDiv = $('#more-dealers-popup'),
     dealerOffersDiv = $('#dealer-offers-popup'),
     termsConditions = $('#termsPopUpContainer');
@@ -168,7 +168,9 @@ docReady(function () {
                     cat: ele.attr("data-cat"),
                     act: ele.attr("data-act"),
                     lab: ele.attr("data-var")
-                }
+                },
+                "sendLeadSMSCustomer": ele.attr('data-issendleadsmscustomer'),
+                "organizationName": ele.attr('data-item-organization')
             };
 
             gaLabel = myBikeName + '_' + getCityArea;
@@ -180,14 +182,6 @@ docReady(function () {
     });
 
 
-    $("#templist input").on("click", function () {
-        if ($(this).attr('data-option-value') == $('#hdnVariant').val()) {
-            return false;
-        }
-        $('.dropdown-select-wrapper #defaultVariant').text($(this).val());
-        $('#hdnVariant').val($(this).attr('data-option-value'));
-        dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Version_Change', 'lab': bikeVersionLocation });
-    });
 
     if ($('#getMoreDetailsBtn').length > 0) {
         dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Get_More_Details_Shown', 'lab': myBikeName + '_' + getBikeVersion() + '_' + getCityArea });
@@ -286,10 +280,24 @@ docReady(function () {
 
     });
 
-    $('#ddlNewVersionList').on("change", function () {
-        $('#hdnVariant').val($(this).val());
+    // version dropdown
+    function handleVersionMenuClick(dropdown) {
+        var offsetTop = $(dropdown.container).offset().top - $('.overall-specs-tabs-container').height();
+
+        $('html, body').animate({ scrollTop: offsetTop }, 500);
+    }
+
+    function handleVersionChange(dropdown) {
+        var optionValue = dropdown.activeOption.value;
+
+        $('#hdnVariant').val(optionValue);
         dataLayer.push({ "event": "Bikewale_all", "cat": "Model_Page", "act": "Version_Change", "lab": "" });
-        window.location.href = $(this).data("pageurl") + "?versionId=" + $(this).val();
+        window.location.href = $(dropdown.container).data("pageurl") + "?versionId=" + optionValue;
+    }
+
+    var versionDropdown = new DropdownMenu('#ddlNewVersionList', {
+        onMenuClick: handleVersionMenuClick,
+        onChange: handleVersionChange
     });
 
     $('.overall-specs-tabs-wrapper li').click(function () {
@@ -297,7 +305,6 @@ docReady(function () {
         $('html, body').animate({ scrollTop: $(target).offset().top - topNavBarHeight }, 1000);
         centerItVariableWidth($(this), '.overall-specs-tabs-container');        
     });
-
     // dropdown
     dropdown = {
         setDropdown: function () {
@@ -505,12 +512,12 @@ docReady(function () {
         popupDiv.close(dealersPopupDiv);
         window.history.back();
     });
-
-    $('#dealer-offers-list').on('click', 'li', function () {
-        popupDiv.open(dealerOffersDiv);
-        appendHash("dealerOffers");
-        $('body, html').addClass('lock-browser-scroll');
+		
+    $('.benefit-list__more-target').on('click', function () {
+    	$(this).closest('.dealer__offers-content').addClass('benefit-list--expand');
     });
+		
+
 
     $('.offers-popup-close-btn').on("click", function () {
         popupDiv.close(dealerOffersDiv);
@@ -522,15 +529,7 @@ docReady(function () {
         popupDiv.open(dealerOffersDiv);
         window.history.back();
     });
-
-    $(document).ready(function () {
-        if (versionsCount > 1) {
-            $('#defversion').hide();
-            dropdown.setDropdown();
-            dropdown.dimension();
-        }
-    });
-
+		
     $(window).resize(function () {
         dropdown.dimension();
     });
@@ -546,7 +545,6 @@ docReady(function () {
             dropdown.selectOption($(this));
         }
     });
-
 
     $(window).on('popstate', function (event) {
         if ($('.model-gallery-container').is(':visible')) {
@@ -661,7 +659,6 @@ docReady(function () {
         else
             $('.floating-btn').show();
     });
-
     $(document).on('click', function (event) {
         event.stopPropagation();
         var bodyElement = $('body'),
@@ -781,7 +778,13 @@ docReady(function () {
         } catch (e) {
 
         }
-    }
+		}
+		
+		// offers ribbon
+		var dealerOffersRibbon = $('#dealerOffersRibbon');
+		if (typeof dealerOffersRibbon !== 'undefined' && dealerOffersRibbon.length) {
+			Ribbon.registerEvents();
+		}
 
     $("#expertReviewsContent").on('click', function () {
         triggerGA('Model_Page', 'Expert_Review_CardClicked', myBikeName);

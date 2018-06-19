@@ -1,0 +1,74 @@
+﻿@import '../mixins/index'
+@import '../base/variables'
+@import '../utils/index'
+@import '../mixins/icons'
+@import '../mixins/text'
+
+@include dropdown-box($desktop: true)
+@include dropdown-box-specs-list
+@include dropdown-box-submenu-item-columns
+
+// model page
+.version-city__content
+    border-bottom: 1px solid color('border-dark')
+    border-top: 1px solid color('border-dark')
+    padding-left: 0
+    padding-right: 0
+    min-height: 55px
+
+.version-city-content__tab
+    padding: 6px 20px
+    min-height: 55px
+
+    &:first-of-type
+        border-right: 1px solid color('border-dark')
+
+// pq page
+.version__dropdown-box
+    .dropdown-box__menu-tab
+        padding: 6px 17px
+        min-height: 55px
+
+        &:before
+            content: ''
+            position: absolute
+            top: 100%
+            left: 10%
+            right: 10%
+            display: block
+            width: 80%
+            border-bottom: 1px solid color('border-dark')
+
+// price in city page
+.pic-version-dropdown-box
+    .dropdown-box__submenu-list
+        top: 90%
+        left: -5px
+
+// Desktop classes
+.dropdown-box--desktop
+    .version-tab__content
+        height: 45px
+        width: 126px
+        margin-right: 20px
+        border-bottom: 1px solid color('aluminium')
+
+    .dropdown-box-submenu-list__item
+        padding-top: 16px
+        padding-bottom: 16px
+
+    .dropdown-box__menu-title
+        padding-bottom: 3px
+
+    .dropdown-box__menu-tab
+        &:after
+            right: 10px
+
+.dropdown-box--active
+    &.dropdown-box--desktop
+        .dropdown-box__menu-title
+            padding-left: 20px
+            padding-bottom: 0
+
+.no-padding
+  padding: 0

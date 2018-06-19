@@ -2,9 +2,9 @@
 @using Bikewale.Utility;
 @using Bikewale.Common;
 @{
-	Layout = "~/Views/Shared/_Layout.cshtml";
-	Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/new/modelprice-in-city.css' inline /> <link href='/css/campaign/hero-campaign.css' rel='stylesheet' type='text/css' inline /> <link rel='stylesheet' type='text/css' href='/css/threesixty-slider.css' inline />";
-	Model.Page_JS_Paths = new string[] { "/src/swiper-3.1.7.js", "/src/priceincity.js" };
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/new/modelprice-in-city.css' inline /> <link rel='stylesheet' type='text/css' href='/sass/partials/version-dropdown.css' inline/>";
+    Model.Page_JS_Paths = new string[] { "/src/utils/dropdown.js", "/src/priceincity.js" };
 	Model.IsPageTypeLanding = false;
 	Model.IsHeaderFix = false;
 	var gaBikeName = String.Format("{0}_{1}_{2}", Model.Make.MakeName, Model.BikeModel.ModelName, Model.CityEntity.CityName);
@@ -46,30 +46,34 @@
 										</a>
 
 									</div>
-									@Html.Raw(string.Format("<ul id=\"version-specs-list\">{0}</ul>",FormatMinSpecs.GetMinSpecsAsLiElement(Model.MinSpecsList)))
+									@Html.Raw(string.Format("<ul id=\"version-specs-list\" data-bind=\"html: specsLiHtml\">{0}</ul>", FormatMinSpecs.GetMinSpecsAsLiElement(Model.MinSpecsList)))
 								</div>
 								<div class="orp-right-grid leftfloat">
-									@if (Model.BikeVersionPrices.Count() > 1)
-									{
-										<div id="model-version-dropdown" class="margin-right20 vertical-top">
-											<p class="font12 text-light-grey">Version</p>
-											<div class="select-box select-box-no-input">
-												<select id="version-dropdown" class="chosen-select bw-ga" data-title="Version" data-cat="Price_in_City_Page" data-act="Version_Changed" data-lab="@gaBikeName">
-													@foreach (var version in Model.BikeVersionPrices)
-													{
-														<option value="@version.VersionId">@version.VersionName</option>
-													}
-												</select>
-											</div>
-										</div>
-									}
-									else
-									{
-										<div class="single-version-content margin-right20 vertical-top">
-											<p class="font12 text-light-grey">Version</p>
-											<p class="text-bold dropdown-effect-light text-truncate">@Model.FirstVersion.VersionName</p>
-										</div>
-									}
+                                    <div id="model-version-dropdown" class="dropdown-box dropdown-box--desktop vertical-top">
+                                        <div class="dropdown-box__menu-tab version-tab__content">
+                                            <p class="dropdown-box__menu-title">Version</p>
+                                            <p id="defversion" class="dropdown-box__menu-value  ">@Model.FirstVersion.VersionName</p>
+                                        </div>
+                                        @if (Model.VersionSpecs.Any())
+                                        {
+                                            <ul class="dropdown-box__submenu-list">
+                                                @foreach (var version in Model.VersionSpecs)
+                                                {
+                                                    <li class="dropdown-box-submenu-list__item @(version.VersionId == Model.VersionId ? "submenu-list-item--active" : "")" data-value="@version.VersionId" data-cat="Price_in_City_Page" data-act="Version_Changed" data-lab="@gaBikeName">
+                                                        <div class="submenu-list-item__title">
+                                                            <p class="submenu-list-item-title__left-col">@version.VersionName</p>
+                                                            <p class="submenu-list-item-title__right-col">@Html.Raw(version.Price != 0 ? string.Format("&#x20b9; {0}", Format.FormatPrice(Convert.ToString(version.Price))) : (version.AverageExShowroom != 0 ? string.Format("&#x20b9; {0}", 
+                                                                                                         Format.FormatPrice(Convert.ToString(version.AverageExShowroom))) : string.Empty))</p>
+                                                        </div>
+                                                        <ul class="dropdown-box-submenu__specs-list">
+                                                            @Html.Raw(FormatMinSpecs.GetMinSpecsAsLiElement(version.MinSpecsList, "dropdown-box-specs-list__item"))
+                                                        </ul>
+                                                    </li>
+                                                }
+                                            </ul>
+                                        }
+                                    </div>
+
 									@if (Model.IsNew)
 									{
 										<div class="location-selection vertical-top cur-pointer">
@@ -109,11 +113,11 @@
 												<!-- /ko -->
 												<tr>
 													<td align="left" valign="top" width="70%" class="padding-top15 border-solid-top">@Model.BikeModel.ModelName  on-road price in @Model.CityEntity.CityName</td>
-													<td align="right" valign="top" width="30%" class="padding-top15 border-solid-top font16">@Html.Raw("<span>&#x20B9;</span>")&nbsp;<span class='text-bold' data-bind="text: onRoadPrice()"></span>													
+													<td align="right" valign="top" width="30%" class="padding-top15 border-solid-top font16">@Html.Raw("<span>&#x20B9;</span>")&nbsp;<span class='text-bold' data-bind="text: onRoadPrice()"></span>
 													</td>
 												</tr>
-												
-												
+
+
 											</tbody>
 										</table>
 										<div class="text-right margin-right15">@if (!string.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink) && !Model.IsManufacturerLeadAdShown && !Model.HasCampaignDealer)
@@ -125,12 +129,12 @@
 											<div class="rightfloat">
 												@if (!string.IsNullOrEmpty(Model.LeadCampaign.PriceBreakUpLinkDesktop))
 												{
-													<a class="bw-ga font14" href="@string.Format("{0}?campaingid={1}&dealerid={2}&pqid={3}&leadsourceid={4}&versionid={5}&url={6}&platformid={7}&bike={8}&loanamount={9}",Model.LeadCampaign.PriceBreakUpLinkDesktop,Model.LeadCampaign.CampaignId,Model.LeadCampaign.DealerId,Model.LeadCampaign.PQId,Model.LeadCampaign.LeadSourceId,Model.LeadCampaign.VersionId, Model.LeadCampaign.CurrentPageUrl, Model.LeadCampaign.PlatformId, Model.LeadCampaign.BikeName, Model.LeadCampaign.LoanAmount)" rel="nofollow" data-cat="@Model.LeadCampaign.GACategory" data-act="Get_more_details_below_price_clicked" data-lab="@Model.LeadCampaign.GALabel">@Model.LeadCampaign.PriceBreakUpLinkTextDesktop</a>
-												}
-												else
-												{
-													<a class="leadcapturebtn bw-ga font14" id="pricebreakuplink" href="javascript:void(0)" data-mfgcampid="@Model.LeadCampaign.CampaignId" data-item-id="@Model.LeadCampaign.DealerId" data-item-area="@Model.LeadCampaign.Area" data-leadsourceid="@Model.LeadCampaign.LeadSourceId" data-pqsourceid="@Model.LeadCampaign.PqSourceId" data-item-message="@Model.LeadCampaign.PopupSuccessMessage" data-item-heading="@Model.LeadCampaign.PopupHeading" data-item-description="@Model.LeadCampaign.PopupDescription" data-ispincodrequired="@Model.LeadCampaign.PincodeRequired" data-dealersrequired="@Model.LeadCampaign.DealerRequired" data-item-name="@(String.Format("Authorised {0} Dealer", Model.LeadCampaign.Organization))" data-isemailrequired="@Model.LeadCampaign.EmailRequired" data-cat="@Model.LeadCampaign.GACategory" data-act="Get_more_details_below_price_clicked" data-lab="@Model.LeadCampaign.GALabel" rel="nofollow">@Model.LeadCampaign.PriceBreakUpLinkTextDesktop </a>
-												}
+													<a class="bw-ga font14" href="@string.Format("{0}?campaingid={1}&dealerid={2}&pqid={3}&leadsourceid={4}&versionid={5}&url={6}&platformid={7}&bike={8}&loanamount={9}&sendLeadSMSCustomer={10}&dealerName={11}", Model.LeadCampaign.PriceBreakUpLinkDesktop, Model.LeadCampaign.CampaignId, Model.LeadCampaign.DealerId, Model.LeadCampaign.PQId, Model.LeadCampaign.LeadSourceId, Model.LeadCampaign.VersionId, Model.LeadCampaign.CurrentPageUrl, Model.LeadCampaign.PlatformId, Model.LeadCampaign.BikeName, Model.LeadCampaign.LoanAmount, Model.LeadCampaign.SendLeadSMSCustomer, Model.LeadCampaign.Organization)" rel="nofollow" data-cat="@Model.LeadCampaign.GACategory" data-act="Get_more_details_below_price_clicked" data-lab="@Model.LeadCampaign.GALabel">@Model.LeadCampaign.PriceBreakUpLinkTextDesktop</a>
+                                                }
+                                                else
+                                                {
+                                                    <a class="leadcapturebtn bw-ga font14" id="pricebreakuplink" href="javascript:void(0)" data-mfgcampid="@Model.LeadCampaign.CampaignId" data-item-id="@Model.LeadCampaign.DealerId" data-item-area="@Model.LeadCampaign.Area" data-leadsourceid="@Model.LeadCampaign.LeadSourceId" data-pqsourceid="@Model.LeadCampaign.PqSourceId" data-item-message="@Model.LeadCampaign.PopupSuccessMessage" data-item-heading="@Model.LeadCampaign.PopupHeading" data-item-description="@Model.LeadCampaign.PopupDescription" data-ispincodrequired="@Model.LeadCampaign.PincodeRequired" data-dealersrequired="@Model.LeadCampaign.DealerRequired" data-item-name="@(String.Format("Authorised {0} Dealer", Model.LeadCampaign.Organization))" data-item-organization="@Model.LeadCampaign.Organization" data-isemailrequired="@Model.LeadCampaign.EmailRequired" data-cat="@Model.LeadCampaign.GACategory" data-act="Get_more_details_below_price_clicked" data-lab="@Model.LeadCampaign.GALabel" data-issendleadsmscustomer="@Model.LeadCampaign.SendLeadSMSCustomer" rel="nofollow">@Model.LeadCampaign.PriceBreakUpLinkTextDesktop </a>
+                                                }
 											</div>
 										}
 
@@ -361,14 +365,14 @@
 											@if (Model.IsManufacturerEMIAdShown)
 											{
 												<div class="margin-top10">
-													                                                    @if (Model.EMICampaign.DealerId == Bikewale.Utility.BWConfiguration.Instance.CapitalFirstDealerId)
+													@if (Model.EMICampaign.DealerId == Bikewale.Utility.BWConfiguration.Instance.CapitalFirstDealerId)
 													{
-                                                                                                            <a href="/finance/capitalfirst/?campaingid=@Model.EMICampaign.CampaignId&amp;dealerid=@Model.EMICampaign.DealerId&amp;pqid=@Model.PQId&amp;leadsourceid=@Model.EMICampaign.LeadSourceId&amp;versionid=@Model.EMICampaign.VersionId&amp;url=@Model.EMICampaign.CurrentPageUrl&amp;platformid=@Model.EMICampaign.PlatformId&amp;bike=@Model.BikeName&amp;loanamount=@Model.EMICampaign.LoanAmount&amp;cityid=@cityId" class=" btn btn-orange btn-160-32 margin-right10 bw-ga" rel="nofollow">@Model.EMICampaign.EMIButtonTextDesktop</a>
-													}
-													else
-													{
-														<a href="javascript:void(0)" class="btn btn-orange btn-160-32 margin-right10 leadcapturebtn bw-ga" rel="nofollow" data-mfgcampid="@Model.EMICampaign.CampaignId" data-item-id="@Model.EMICampaign.DealerId" data-item-area="@Model.EMICampaign.Area" data-leadsourceid="@Model.EMICampaign.LeadSourceId" data-pqsourceid="@Model.EMICampaign.PqSourceId" data-item-message="@String.Format(Model.EMICampaign.PopupSuccessMessage,Model.EMICampaign.Organization)" data-item-heading="@Model.EMICampaign.PopupHeading" data-item-description="@Model.EMICampaign.PopupDescription" data-ispincodrequired="@Model.EMICampaign.PincodeRequired" data-dealersrequired="@Model.EMICampaign.DealerRequired" data-item-name="@(String.Format(Model.EMICampaign.EMIPropertyTextDesktop, Model.EMICampaign.Organization))" id="btnManufacturer" data-isemailrequired="@Model.EMICampaign.EmailRequired">@Model.EMICampaign.EMIButtonTextDesktop</a>
-													}
+														<a href="/finance/capitalfirst/?campaingid=@Model.EMICampaign.CampaignId&amp;dealerid=@Model.EMICampaign.DealerId&amp;pqid=@Model.PQId&amp;leadsourceid=@Model.EMICampaign.LeadSourceId&amp;versionid=@Model.EMICampaign.VersionId&amp;url=@Model.EMICampaign.CurrentPageUrl&amp;platformid=@Model.EMICampaign.PlatformId&amp;bike=@Model.BikeName&amp;loanamount=@Model.EMICampaign.LoanAmount&amp;dealerName=@Model.EMICampaign.Organization&amp;sendLeadSMSCustomer=@Convert.ToString(Model.EMICampaign.SendLeadSMSCustomer)&amp;cityid=@cityId" class="btn btn-orange btn-160-32 margin-right10 bw-ga" rel="nofollow">@Model.EMICampaign.EMIButtonTextDesktop</a>
+                                                    }
+                                                    else
+                                                    {
+                                                        <a href="javascript:void(0)" class="btn btn-orange btn-160-32 margin-right10 leadcapturebtn bw-ga" rel="nofollow" data-mfgcampid="@Model.EMICampaign.CampaignId" data-item-id="@Model.EMICampaign.DealerId" data-item-area="@Model.EMICampaign.Area" data-leadsourceid="@Model.EMICampaign.LeadSourceId" data-pqsourceid="@Model.EMICampaign.PqSourceId" data-item-message="@String.Format(Model.EMICampaign.PopupSuccessMessage,Model.EMICampaign.Organization)" data-item-heading="@Model.EMICampaign.PopupHeading" data-item-description="@Model.EMICampaign.PopupDescription" data-ispincodrequired="@Model.EMICampaign.PincodeRequired" data-dealersrequired="@Model.EMICampaign.DealerRequired" data-item-name="@(String.Format(Model.EMICampaign.EMIPropertyTextDesktop, Model.EMICampaign.Organization))" data-item-organization="@Model.EMICampaign.Organization" id="btnManufacturer" data-isemailrequired="@Model.EMICampaign.EmailRequired" data-issendleadsmscustomer="@Model.EMICampaign.SendLeadSMSCustomer">@Model.EMICampaign.EMIButtonTextDesktop</a>
+                                                    }
 													<div class="inline-block">
 														<p class="font12 text-light-grey">Powered by</p>
 														<p class="font13 text-truncate" title="@String.Format(Model.EMICampaign.EMIPropertyTextDesktop, Model.EMICampaign.Organization)">@String.Format(Model.EMICampaign.EMIPropertyTextDesktop, Model.EMICampaign.Organization)</p>
@@ -630,6 +634,7 @@
 	<div class="hide" id="dvVersionPrice" data-isdiscontinued="@Model.IsDiscontinued">@EncodingDecodingHelper.EncodeTo64(Newtonsoft.Json.JsonConvert.SerializeObject(Model.BikeVersionPrices))</div>
 	<div class="hide" id="versionPrice">@EncodingDecodingHelper.EncodeTo64(Newtonsoft.Json.JsonConvert.SerializeObject(Model.FirstVersion.OnRoadPrice))</div>
 	<div class="hide" id="versionCount">@EncodingDecodingHelper.EncodeTo64(Newtonsoft.Json.JsonConvert.SerializeObject(Model.BikeVersionPrices.Count()))</div>
+       <div class="hide" id="hdnVersionSpecsList">@Newtonsoft.Json.JsonConvert.SerializeObject(Model.VersionSpecs.Select(v => FormatMinSpecs.GetMinSpecsAsLiElement(v.MinSpecsList)))</div>
 	if (Model.IsNew && (Model.HasCampaignDealer || Model.IsManufacturerLeadAdShown || Model.IsManufacturerEMIAdShown))
 	{
 		@Html.Partial("~/Views/Shared/_LeadCapture.cshtml", Model.LeadCapture)

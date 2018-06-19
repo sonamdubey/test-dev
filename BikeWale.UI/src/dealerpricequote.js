@@ -96,6 +96,16 @@ docReady(function () {
     // version dropdown
     $('.chosen-select').chosen();
 
+    // version dropdown
+    function handleVersionChange(dropdown) {
+        registerPQAndReload(dealerId, dropdown.activeOption.value);
+        triggerGA('Dealer_PQ', 'Version_Changed', bikeVerLocation);
+    }
+
+    var versionDropdown = new DropdownMenu('#versionDropdown', {
+        onChange: handleVersionChange
+    });
+
       // ad blocker active than fallback method
     if (window.canRunAds === undefined) {
         callFallBackWriteReview();
@@ -109,6 +119,7 @@ docReady(function () {
         $('.pricequote-benefits-list').addClass("pricequote-two-benefits");
     }
 
+    // old version dropdown change event
     $('#ddlVersion').on("change", function () {
         registerPQAndReload(dealerId, $(this).val());
         triggerGA('Dealer_PQ', 'Version_Changed', bikeVerLocation);
@@ -148,12 +159,14 @@ docReady(function () {
                 cat: ele.attr("data-cat"),
                 act: ele.attr("data-act"),
                 lab: bikeVerLocation
-            }          
+            },
+            "sendLeadSMSCustomer": ele.attr('data-issendleadsmscustomer'),
+            "organizationName": ele.attr('data-item-organization')
         };
 
         dleadvm.setOptions(leadOptions);
     });
-    
+
 
     $('.chosen-select').on('change', function () {
         var selectField = $(this);
@@ -346,6 +359,6 @@ docReady(function () {
     } catch (e) {
         console.log(e.message);
     }
-    
+
 
 });

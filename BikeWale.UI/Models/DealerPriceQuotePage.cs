@@ -88,6 +88,7 @@ namespace Bikewale.Models
                 if (_versionId > 0)
                 {
                     GetBikeVersions(objData);
+                    _objPQ.GetDealerVersionsPriceByModelCity(objData.VersionSpecs ,_cityId, _modelId, _dealerId);
                     SetDealerPriceQuoteDetail(objData);
                     SetModelVariables(objData);
                     BindPageWidgets(objData);
@@ -440,7 +441,6 @@ namespace Bikewale.Models
         /// </summary>
         private void GetBikeVersions(DealerPriceQuotePageVM objData)
         {
-            IEnumerable<BikeVersionMinSpecs> bikeVersionList = null;
             try
             {
                 objData.SelectedVersion = _objVersion.GetById(_versionId);
@@ -451,8 +451,8 @@ namespace Bikewale.Models
                     _makeId = (uint)objData.SelectedVersion.MakeBase.MakeId;
 
                     objData.VersionsList = _objVersion.GetVersionsByType(EnumBikeType.PriceQuote, objData.SelectedVersion.ModelBase.ModelId, (int)_cityId);
-                    bikeVersionList = _objVersion.GetVersionMinSpecs(_modelId, true);
-                    BikeVersionMinSpecs selectedBikeVersion = bikeVersionList.FirstOrDefault(x => x.VersionId == _versionId);
+                    objData.VersionSpecs = _objVersion.GetVersionMinSpecs(_modelId, true);
+                    BikeVersionMinSpecs selectedBikeVersion = objData.VersionSpecs.FirstOrDefault(x => x.VersionId == _versionId);
                     if (selectedBikeVersion != null)
                     {
                         objData.BodyStyle = selectedBikeVersion.BodyStyle;
@@ -574,7 +574,8 @@ namespace Bikewale.Models
                             CurrentPageUrl = CurrentPageUrl,
                             PlatformId = (ushort)Platform,
                             BikeName = objData.BikeName,
-                            LoanAmount = Convert.ToUInt32((objData.TotalPrice) * 0.8)
+                            LoanAmount = Convert.ToUInt32((objData.TotalPrice) * 0.8),
+                            SendLeadSMSCustomer = campaigns.LeadCampaign.SendLeadSMSCustomer
                         };
                         objData.IsManufacturerLeadAdShown = true;
                     }
@@ -603,7 +604,8 @@ namespace Bikewale.Models
                             VersionId = objData.VersionId,
                             CurrentPageUrl = CurrentPageUrl,
                             PlatformId = (ushort)Platform,
-                            LoanAmount = Convert.ToUInt32((objData.TotalPrice) * 0.8)
+                            LoanAmount = Convert.ToUInt32((objData.TotalPrice) * 0.8),
+                            SendLeadSMSCustomer = campaigns.EMICampaign.SendLeadSMSCustomer
                         };
                         objData.IsManufacturerEMIAdShown = true;
                     }

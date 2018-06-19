@@ -7,6 +7,7 @@ using Bikewale.Interfaces.MobileVerification;
 using Bikewale.ManufacturerCampaign.Interface;
 using Bikewale.Notifications;
 using Bikewale.Notifications.MailTemplates;
+using Newtonsoft.Json;
 using RabbitMqPublishing;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,7 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
+
 namespace Bikewale.BAL.Finance
 {
     /// <summary>
@@ -222,6 +224,7 @@ namespace Bikewale.BAL.Finance
         /// Created by  :   Sumit Kate on 25 Jan 2018
         /// Description :   Push To Lead ConsumerQueue
         /// Saves the data to manufacturer lead table via lead push to Lead Consumer
+        /// Modifier    : Kartik Rathod on 16 may 2018, added dealerName,bikename and sendLeadSMSCustomer  to ManufacturerLead consumer 
         /// </summary>
         /// <param name="objDetails"></param>
         private void PushToLeadConsumerQueue(PersonalDetails objDetails)
@@ -245,6 +248,10 @@ namespace Bikewale.BAL.Finance
                     objNVC.Add("leadType", "2");
                     objNVC.Add("manufacturerDealerId", Convert.ToString(objDetails.objLead.ManufacturerDealerId));
                     objNVC.Add("manufacturerLeadId", objDetails.LeadId.ToString());
+                    objNVC.Add("dealerName", objDetails.objLead.DealerName);
+                    objNVC.Add("bikeName", objDetails.objLead.BikeName);
+                    objNVC.Add("sendLeadSMSCustomer", Convert.ToString(objDetails.objLead.SendLeadSMSCustomer));
+
                     RabbitMqPublish objRMQPublish = new RabbitMqPublish();
                     objRMQPublish.PublishToQueue(Bikewale.Utility.BWConfiguration.Instance.LeadConsumerQueue, objNVC);
                 }
@@ -254,8 +261,8 @@ namespace Bikewale.BAL.Finance
                 ErrorClass.LogError(ex, String.Format("PushToLeadConsumerQueue({0})", (objDetails != null && objDetails.objLead != null) ? objDetails.objLead.PQId : 0));
             }
         }
-
-        /// <summary>
+       
+	    /// <summary>
         /// Created by  :   Sumit Kate on 24 May 2018
         /// Description :   Business Layer for Capital First lead
         /// </summary>
@@ -353,5 +360,6 @@ namespace Bikewale.BAL.Finance
                 ErrorClass.LogError(ex, String.Format("CapitalFirst.NotifyCustomer({0})", Newtonsoft.Json.JsonConvert.SerializeObject(objDetails)));
             }
         }
-    }
+		
+	}
 }

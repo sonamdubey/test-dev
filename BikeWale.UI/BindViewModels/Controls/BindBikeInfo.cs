@@ -3,6 +3,7 @@ using Bikewale.BAL.BikeData;
 using Bikewale.BAL.Pager;
 using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
+using Bikewale.CacheHelper.BikeData;
 using Bikewale.DAL.BikeData;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.GenericBikes;
@@ -47,6 +48,7 @@ namespace Bikewale.BindViewModels.Controls
                         .RegisterType<ICacheManager, MemcacheManager>()
                         .RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>()
                         .RegisterType<IPager, Pager>()
+						.RegisterType<IBikeModelsCacheHelper, BikeModelsCacheHelper>()
                         .RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>()
 						.RegisterType<IApiGatewayCaller, ApiGatewayCaller>()
 						.RegisterType<IBikeInfo, BikeInfo>();
