@@ -34,7 +34,7 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>mysqlDatabaseLibrary.pfx</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>NewMysqlDatabaseLibraryKey.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Staging|AnyCPU'">
     <OutputPath>bin\Staging\</OutputPath>
@@ -95,7 +95,7 @@
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="mysqlDatabaseLibrary.pfx" />
+    <None Include="NewMysqlDatabaseLibraryKey.snk" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
