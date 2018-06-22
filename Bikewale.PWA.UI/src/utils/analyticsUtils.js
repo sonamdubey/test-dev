@@ -148,8 +148,8 @@ if(!isServer()) {
         },
 
         
-        trackPerformace: function () {
-            var len = 0, action = '', performanceQS = '', performanceTimings;
+        trackPerformace: function (action) {
+            var len = 0, performanceQS = '', performanceTimings;
             if (window.performance != undefined && window.performance.timing != undefined) {
                 performanceTimings = JSON.stringify(window.performance.timing);
                 performanceTimings = JSON.parse(performanceTimings);
@@ -159,10 +159,6 @@ if(!isServer()) {
                 len = performanceQS.length;
                 if (len > 0)
                     performanceQS = performanceQS.substr(0, len - 1);
-                if (cwTracking.isMobileSite())
-                    action = 'Msite';
-                else
-                    action = 'DesktopSite'
                 cwTracking.trackCustomData('BWPerformance', action, performanceQS, false);
             }
         },
