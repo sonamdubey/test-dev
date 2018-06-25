@@ -267,23 +267,23 @@ var bwAutoComplete = function (options) {
         function createAutoSuggestLinkText(ul, item, reqTerm) {
             var ulItem = $("<li>")
                           .data("ui-autocomplete-item", item)
-                          .append('<span class="bwmsprite ui-search-icon"></span><a OptionName=' + item.label.replace(/\s/g, '').toLowerCase() + '>' + __highlight(item.label, reqTerm) + '</a>');
+                          .append('<span class="ui-search-icon"></span><a OptionName=' + item.label.replace(/\s/g, '').toLowerCase() + '>' + __highlight(item.label, reqTerm) + '</a>');
             if (options.source == '5') {
-                ulItem.append(' <span class="rightfloat margin-left10 font14">(' + item.payload.userRatingsCount + ' Ratings)</span>')
+                ulItem.append(' <span class="ui-menu-item-info">(' + item.payload.userRatingsCount + ' Ratings)</span>')
             }
             if (options.source == '7' && $('#nonUpcomingBikes').attr('data-contentTab') == "userReview" && parseInt(item.payload.userRatingsCount) > 0) {
-                ulItem.append(' <span class="rightfloat margin-left10 font14">(' + item.payload.userRatingsCount + ' Ratings)</span>')
+                ulItem.append(' <span class="ui-menu-item-info">(' + item.payload.userRatingsCount + ' Ratings)</span>')
             }
             else if (options.source == '7' && $('#nonUpcomingBikes').attr('data-contentTab') == "expertReview" && parseInt(item.payload.expertReviewsCount) > 0) {
                 ulItem.append(' <a href="javascript:void(0)"  class="target-popup-link" rel="nofollow">Read review</a>')
             }
             else if (options.source == '7') {
                 ulItem.closest('li').addClass('event-none');
-                ulItem.append(' <span class="rightfloat margin-left10 font14 text-grey">Not reviewed yet</span>')
+                ulItem.append(' <span class="ui-menu-item-info text-grey">Not reviewed yet</span>')
             }
             if (options.source == '8') {
                 var suffixText = (parseInt(item.payload.photosCount) > 1) ? ' Photos' : ' Photo';
-                ulItem.append(' <span class="rightfloat margin-left10 font14">(' + item.payload.photosCount.toString() + suffixText + ')</span>')
+                ulItem.append(' <span class="ui-menu-item-info">(' + item.payload.photosCount.toString() + suffixText + ')</span>')
             }
             if (options.source == '1') {
                 if (item.payload.modelId > 0) {

@@ -16,7 +16,7 @@
     <RootNamespace>Bikewale</RootNamespace>
     <AssemblyName>Bikewale</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
     <IISUrl>http://localhost:9011/</IISUrl>
     <TargetFrameworkProfile />
     <UseGlobalApplicationHostFile />
@@ -205,14 +205,6 @@
     <Reference Include="MSMQLibrary, Version=1.0.0.1, Culture=neutral, PublicKeyToken=14ca6d48bbc78a0c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\MSMQLibrary.dll</HintPath>
-    </Reference>
-    <Reference Include="MySql.Data, Version=6.10.6.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\Mysql6.10.6.0\MySql.Data.dll</HintPath>
-    </Reference>
-    <Reference Include="MySqlDatabaseLibrary, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\MySqlDatabaseDLL\MySqlDatabaseLibrary.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -4355,6 +4347,10 @@
     <ProjectReference Include="..\BikewaleOpr.Interface\BikewaleOpr.Interface.csproj">
       <Project>{539FA12C-3799-4E88-A833-F65594EA1934}</Project>
       <Name>BikewaleOpr.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MySqlDatabaseLibrary\MySqlDatabaseLibrary.csproj">
+      <Project>{f01db691-7b3a-493a-9b1d-c9e21d43b30b}</Project>
+      <Name>MySqlDatabaseLibrary</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
