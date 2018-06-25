@@ -4,6 +4,7 @@ using Bikewale.BAL.Pager;
 using Bikewale.BAL.UsedBikes;
 using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
+using Bikewale.CacheHelper.BikeData;
 using Bikewale.Common;
 using Bikewale.DAL.BikeData;
 using Bikewale.DAL.Customer;
@@ -97,7 +98,8 @@ namespace Bikewale.MyBikewale
                     container.RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>();
                     container.RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>();
                     container.RegisterType<IPager, Pager>().RegisterType<ICacheManager, MemcacheManager>(); ;
-                    container.RegisterType<ISellBikes, SellBikes>();
+					container.RegisterType<IBikeModelsCacheHelper, BikeModelsCacheHelper>();
+					container.RegisterType<ISellBikes, SellBikes>();
                     obj = container.Resolve<ISellBikes>();
                     if (obj != null)
                     {
