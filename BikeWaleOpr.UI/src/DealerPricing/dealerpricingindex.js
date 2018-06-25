@@ -69,7 +69,7 @@
                     currentVersionId = parseInt(this.dataset.versionid);
 
                     $(this).find('[data-itemid]').each(function () {
-                        if (this.dataset.value > 0) {
+                        if (this.dataset.value >= 0) {
                             versionIds.push(currentVersionId);
                             itemIds.push(parseInt(this.dataset.itemid));
                             itemValues.push(parseInt(this.dataset.value));
