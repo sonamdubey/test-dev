@@ -18,10 +18,10 @@ h6 { font-size: 10px; }
 
 /* grid properties */
 .container { width: 100%; margin: 0 auto; clear:both; }
-.grid-1, .grid-2, .grid-3, .grid-4, .grid-5, .grid-6, 
+.grid-1, .grid-2, .grid-3, .grid-4, .grid-5, .grid-6,
 .grid-7, .grid-8, .grid-9, .grid-10, .grid-11, .grid-12 { float: left;  position: relative; min-height: 1px; padding-right: 10px; padding-left: 10px; }
 .grid-12 { width: 100%; }
-.grid-11 { width: 91.66666667%; *width: 73.20%; } 
+.grid-11 { width: 91.66666667%; *width: 73.20%; }
 .grid-10 { width: 83.33333333%; *width: 79.6%; }
 .grid-9 { width: 75%; *width: 70.90%; }
 .grid-8 { width: 66.66666667%; *width: 63.20%; }
@@ -162,7 +162,7 @@ header.fixed {    position: fixed;    left: 0;    right: 0;    top: 0;    z-inde
 .search-bold-icon { width:15px; height:15px; background-position:-61px -278px; }
 .map-loc-icon { width:12px; height:16px; background-position:-40px -164px; }
 .tel-grey-icon, .tel-green-icon, .tel-white-icon {
-    width:16px; 
+    width:16px;
     height:16px;
     vertical-align: middle;
 }
@@ -302,20 +302,24 @@ a.bikeTitle { color:#2a2a2a; font-size: 16px; font-weight: bold; display: block;
 .ui-helper-hidden-accessible { position: absolute; left: -9999px; overflow:hidden; height:0; }
 .ui-autocomplete { z-index: 9; margin: -1px 0 0 -3px; padding:0; width:100%; display:inline-block; background: #aaa; border-radius: 0 0 2px 2px; border:1px solid #e2e2e2; border-top: 0; }
 .ui-autocomplete.source:hover { background: #ddd; }
+.ui-menu { background: #fff; border-top: 1px solid #e0e0e0; }
 .ui-menu .ui-menu-item,
 .bw-ui-menu li { padding: 10px; background:#fff; font-size:14px; cursor:pointer; position: relative; }
 .bw-ui-menu li { font-size: 13px; padding-top: 7px; padding-bottom: 8px;}
-.ui-menu .ui-menu-item:hover, .ui-menu .ui-menu-item.ui-state-focus { background:#eee; }
+.ui-menu .ui-menu-item { border-bottom: solid 1px #efefef; font-size: 13px; padding-top: 8px; padding-bottom: 9px; margin-left: 5px; margin-right: 5px }
+.ui-menu .ui-menu-item:last-child { border-bottom: solid 1px transparent; }
+.ui-menu .ui-menu-item:hover, .ui-menu .ui-menu-item.ui-state-focus { background:#fff; }
 .ui-menu .ui-menu-item a,
-.bw-ui-menu a {font-size: 13px; color: #333; width:50%; overflow:hidden; text-overflow: ellipsis; white-space: nowrap; display: inline-block; vertical-align: middle; }
+.bw-ui-menu a {font-size: 13px; color: #333; width:50%; overflow:hidden; text-overflow: ellipsis; white-space: nowrap; display: inline-block; vertical-align: middle; line-height: 1.85; }
 .ui-menu .ui-menu-item a.target-popup-link,
 .ui-menu .ui-menu-item span.upcoming-link,
 .bw-ui-menu .target-popup-link,
-.bw-ui-menu .upcoming-link { width:35%; display:block; float:right; position:absolute; top: 12px; right:10px; color:#0288d1; font-size:12px; text-align: right; }
+.bw-ui-menu .upcoming-link { width:35%; display:block; float:right; position:absolute; top: 11px; right:10px; color:#0288d1; font-size:12px; text-align: right; }
 .bw-ui-menu .target-popup-link,
-.bw-ui-menu .upcoming-link { top: 7px; }
+.bw-ui-menu .upcoming-link { top: 11px; }
 .ui-menu .ui-menu-item span.upcoming-link,
 .bw-ui-menu span.upcoming-link { color: #4d5057; }
+.ui-menu .ui-menu-item-info { font-size: 14px; margin-left: 10px; line-height: 1.85; float: right; }
 
 /* change location popup */
 .globalchangecity-popup { display: none; width:100%; min-height:125px; background: #fff; margin: 0 auto; overflow-y: auto; position: fixed; top: 50px; right: 0; z-index: 10; }
@@ -333,7 +337,7 @@ a.bikeTitle { color:#2a2a2a; font-size: 16px; font-weight: bold; display: block;
     padding-top: 5px;
     padding-bottom: 5px;
 }
-.card-container .swiper-slide { 
+.card-container .swiper-slide {
     width:200px;
 }
 
@@ -398,7 +402,7 @@ a.bikeTitle { color:#2a2a2a; font-size: 16px; font-weight: bold; display: block;
 
 .clearfix {
     clear:both;
-} 
+}
 
 /* tooltip atf content */
 .info-tooltip {
