@@ -113,10 +113,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\mvc 5\unity 4.0.1\Microsoft.Practices.Unity.RegistrationByConvention.dll</HintPath>
     </Reference>
-    <Reference Include="MySqlDatabaseLibrary, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\MySqlDatabaseDLL\MySqlDatabaseLibrary.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\Libs\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -217,6 +213,10 @@
     <ProjectReference Include="..\Bikewale.Utility\Bikewale.Utility.csproj">
       <Project>{ea0864e7-7715-4d93-80be-3300bb542e42}</Project>
       <Name>Bikewale.Utility</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MySqlDatabaseLibrary\MySqlDatabaseLibrary.csproj">
+      <Project>{f01db691-7b3a-493a-9b1d-c9e21d43b30b}</Project>
+      <Name>MySqlDatabaseLibrary</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
