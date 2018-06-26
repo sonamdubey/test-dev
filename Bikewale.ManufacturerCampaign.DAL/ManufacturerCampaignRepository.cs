@@ -2,6 +2,7 @@
 using Bikewale.DAL.CoreDAL;
 using Bikewale.ManufacturerCampaign.Entities;
 using Bikewale.Notifications;
+using Bikewale.Utility;
 using Bikewaleopr.ManufacturerCampaign.Entities;
 using BikewaleOpr.Entities;
 using BikewaleOpr.Entity.ManufacturerCampaign;
@@ -11,6 +12,7 @@ using MySql.CoreDAL;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.Common;
 using System.Linq;
@@ -26,14 +28,30 @@ namespace Bikewale.ManufacturerCampaign.DAL
         /// <returns></returns>
         public IEnumerable<ManufacturerEntity> GetManufacturersList()
         {
-            IEnumerable<ManufacturerEntity> manufacturers = null;
-
+            ICollection<ManufacturerEntity> manufacturers = null;
             try
             {
-                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
+                using (DbCommand cmd = DbFactory.GetDBCommand("getdealerasmanufacturer"))
                 {
-                    var param = new DynamicParameters();
-                    manufacturers = connection.Query<ManufacturerEntity>("getdealerasmanufacturer", param: param, commandType: CommandType.StoredProcedure);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            manufacturers = new Collection<ManufacturerEntity>();
+
+                            while (dr.Read())
+                            {
+                                manufacturers.Add(new ManufacturerEntity()
+                                {
+                                    Id = SqlReaderConvertor.ToInt32(dr["id"]),
+                                    Name = Convert.ToString("name"),
+                                    Organization = Convert.ToString("organization")
+                                });
+                            }
+                            dr.Close();
+                        }
+                    }
                 }
             }
             catch (Exception ex)
@@ -52,14 +70,29 @@ namespace Bikewale.ManufacturerCampaign.DAL
         /// </summary>
         public IEnumerable<BikeMakeEntity> GetBikeMakes()
         {
-            IEnumerable<BikeMakeEntity> bikeMakes = null;
+            ICollection<BikeMakeEntity> bikeMakes = null;
             try
             {
-                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
+                using (DbCommand cmd = DbFactory.GetDBCommand("getmanufacturermakes"))
                 {
-                    var param = new DynamicParameters();
-                    bikeMakes = connection.Query<BikeMakeEntity>("getmanufacturermakes", param: param, commandType: CommandType.StoredProcedure);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            bikeMakes = new Collection<BikeMakeEntity>();
 
+                            while (dr.Read())
+                            {
+                                bikeMakes.Add(new BikeMakeEntity()
+                                {
+                                    MakeId = SqlReaderConvertor.ToUInt32(dr["MakeId"]),
+                                    MakeName = Convert.ToString("MakeName")
+                                });
+                            }
+                            dr.Close();
+                        }
+                    }
                 }
             }
             catch (Exception ex)
@@ -85,19 +118,61 @@ namespace Bikewale.ManufacturerCampaign.DAL
             ConfigureCampaignEntity objEntity = null;
             try
             {
-                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
+                using (DbCommand cmd = DbFactory.GetDBCommand("getmanufacturercampaign_17052018"))
                 {
-                    var param = new DynamicParameters();
-                    param.Add("par_campaignId", campaignId);
-                    param.Add("par_dealerId", dealerId);
-                    objEntity = new ConfigureCampaignEntity();
-                    using (var results = connection.QueryMultiple("getmanufacturercampaign_17052018", param: param, commandType: CommandType.StoredProcedure))
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_campaignId", DbType.Int32, campaignId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerId", DbType.Int32, dealerId));
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
-                        objEntity.DealerDetails = results.Read<ManufacturerCampaignDetails>().SingleOrDefault();
-                        objEntity.CampaignPages = results.Read<ManufacturerCampaignPages>();
-                    }
+                        objEntity = new ConfigureCampaignEntity();
+                        if (dr != null)
+                        {
+                            if (dr.Read())
+                            {
+                                objEntity.DealerDetails = new ManufacturerCampaignDetails()
+                                {
+                                    DealerName = Convert.ToString(dr["DealerName"]),
+                                    MobileNo = Convert.ToString(dr["MobileNo"]),
+                                    Description = Convert.ToString(dr["Description"]),
+                                    MaskingNumber = Convert.ToString(dr["MaskingNumber"]),
+                                    CampaignStartDate = SqlReaderConvertor.ToDateTime(dr["CampaignStartDate"]),
+                                    CampaignEndDate = SqlReaderConvertor.ToDateTime(dr["CampaignEndDate"]),
+                                    DailyLeadLimit = SqlReaderConvertor.ToInt32(dr["DailyLeadLimit"]),
+                                    TotalLeadLimit = SqlReaderConvertor.ToInt32(dr["TotalLeadLimit"]),
+                                    DailyLeadsDelivered = SqlReaderConvertor.ToInt32(dr["DailyLeadsDelivered"]),
+                                    TotalLeadsDelivered = SqlReaderConvertor.ToInt32(dr["TotalLeadsDelivered"]),
+                                    CampaignStatus = Convert.ToString(dr["CampaignStatus"]),
+                                    ShowCampaignOnExshowroom = SqlReaderConvertor.ToBoolean(dr["ShowCampaignOnExshowroom"]),
+                                    DailyStartTime = SqlReaderConvertor.ToDateTime(dr["DailyStartTime"]),
+                                    DailyEndTime = SqlReaderConvertor.ToDateTime(dr["DailyEndTime"]),
+                                    CampaignDays = SqlReaderConvertor.ToUInt16(dr["CampaignDays"]),
+                                    SendLeadSMSCustomer = SqlReaderConvertor.ToBoolean(dr["SendLeadSMSCustomer"])
+                                };
+                            };
 
+                            if (dr.NextResult())
+                            {
+
+                                var lstCampaignPages = new List<ManufacturerCampaignPages>();
+                                while (dr.Read())
+                                {
+                                    lstCampaignPages.Add(new ManufacturerCampaignPages()
+                                    {
+                                        PageId= SqlReaderConvertor.ToInt32(dr["PageId"]),
+                                        PageName= Convert.ToString(dr["PageName"]),
+                                        IsSelected= SqlReaderConvertor.ToBoolean(dr["IsSelected"])
+                                    }
+                                    );
+                                }
+
+                                objEntity.CampaignPages = lstCampaignPages;
+                            }
+                            dr.Close();
+                        }
+                    }
                 }
+                
             }
             catch (Exception ex)
             {
@@ -219,7 +294,7 @@ namespace Bikewale.ManufacturerCampaign.DAL
             IEnumerable<BikeModelEntity> bikeModels = null;
             try
             {
-                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
+                using (IDbConnection connection = DatabaseHelper.GetReadonlyConnection())
                 {
                     var param = new DynamicParameters();
                     param.Add("par_makeid", makeId);
@@ -241,7 +316,7 @@ namespace Bikewale.ManufacturerCampaign.DAL
             IEnumerable<StateEntity> states = null;
             try
             {
-                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
+                using (IDbConnection connection = DatabaseHelper.GetReadonlyConnection())
                 {
                     var param = new DynamicParameters();
                     states = connection.Query<StateEntity>("getstates_20062017", param: param, commandType: CommandType.StoredProcedure);
@@ -262,7 +337,7 @@ namespace Bikewale.ManufacturerCampaign.DAL
             IEnumerable<CityEntity> cities = null;
             try
             {
-                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
+                using (IDbConnection connection = DatabaseHelper.GetReadonlyConnection())
                 {
                     var param = new DynamicParameters();
                     param.Add("par_stateid", stateId);
@@ -284,16 +359,39 @@ namespace Bikewale.ManufacturerCampaign.DAL
             ManufacturerCampaignRulesWrapper mfgRules = null;
             try
             {
-                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
+                using (DbCommand cmd = DbFactory.GetDBCommand("getmanufacturercampaignrules"))
                 {
-                    var param = new DynamicParameters();
-                    param.Add("par_campaignid", campaignId);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_campaignid", DbType.Int32, campaignId));
                     mfgRules = new ManufacturerCampaignRulesWrapper();
-                    using (var results = connection.QueryMultiple("getmanufacturercampaignrules", param: param, commandType: CommandType.StoredProcedure))
+                    ICollection<ManufacturerRuleEntity> campaignRules =  new Collection<ManufacturerRuleEntity>();
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
-                        mfgRules.ManufacturerCampaignRules = results.Read<ManufacturerRuleEntity>();
-                        mfgRules.ShowOnExShowroom = results.Read<bool>().SingleOrDefault();
+                        if (dr != null)
+                        {
+
+                            while (dr.Read())
+                            {
+                                campaignRules.Add(new ManufacturerRuleEntity()
+                                {
+                                    ModelId = SqlReaderConvertor.ToUInt32(dr["ModelId"]),
+                                    MakeId = SqlReaderConvertor.ToUInt32(dr["MakeId"]),
+                                    MakeName = Convert.ToString(dr["MakeName"]),
+                                    ModelName = Convert.ToString(dr["ModelName"]),
+                                    CityId = SqlReaderConvertor.ToUInt32(dr["CityId"]),
+                                    CityName = Convert.ToString(dr["CityName"]),
+                                    StateId = SqlReaderConvertor.ToUInt32(dr["StateId"]),
+                                    StateName = Convert.ToString(dr["StateName"])
+                                });
+                            }
+                            if (dr.NextResult() && dr.Read())
+                            {
+                                mfgRules.ShowOnExShowroom = SqlReaderConvertor.ToBoolean(dr["ShowCampaignOnExshowroom"]);
+                            }
+                            dr.Close();
+                        }
                     }
+                    mfgRules.ManufacturerCampaignRules = campaignRules;
                 }
             }
             catch (Exception ex)
@@ -553,23 +651,26 @@ namespace Bikewale.ManufacturerCampaign.DAL
             uint retLeadId = 0;
             try
             {
-                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
+                
+                using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    var param = new DynamicParameters();
-                    param.Add("par_dealerid", dealerid);
-                    param.Add("par_pqid", pqId);
-                    param.Add("par_customerid", customerId);
-                    param.Add("par_customername", customerName);
-                    param.Add("par_customeremail", customerEmail);
-                    param.Add("par_customermobile", customerMobile);
-                    param.Add("par_leadsourceid", leadSourceId);
-                    param.Add("par_utma", utma);
-                    param.Add("par_utmz", utmz);
-                    param.Add("par_deviceid", deviceId);
-                    param.Add("par_campaignId", campaignId);
-                    param.Add("par_leadId", leadId, direction: ParameterDirection.InputOutput);
-                    connection.Execute("savemanufacturerpqlead", param: param, commandType: CommandType.StoredProcedure);
-                    retLeadId = param.Get<UInt32>("par_leadId");
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "savemanufacturerpqlead";
+
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.UInt32, dealerid));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_pqid", DbType.UInt32, pqId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbType.UInt32, customerId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customername", DbType.String, customerName));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customeremail", DbType.String, customerEmail));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customermobile", DbType.String, customerMobile));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_leadsourceid", DbType.UInt32, leadSourceId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_utma", DbType.String, utma));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_utmz", DbType.String, utmz));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_deviceid", DbType.String, deviceId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_campaignId", DbType.UInt32, campaignId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_leadId", DbType.UInt32, ParameterDirection.Output, leadId));
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
+                    retLeadId = Convert.ToUInt32(cmd.Parameters["par_leadId"].Value);
                 }
             }
             catch (Exception ex)
@@ -663,7 +764,7 @@ namespace Bikewale.ManufacturerCampaign.DAL
             IEnumerable<BikeModelEntity> unmappedModels = null;
             try
             {
-                using (IDbConnection connection = DatabaseHelper.GetMasterConnection())
+                using (IDbConnection connection = DatabaseHelper.GetReadonlyConnection())
                 {
                     var param = new DynamicParameters();
                     param.Add("par_dealerid", dealerId);
