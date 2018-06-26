@@ -19,7 +19,7 @@ namespace Bikewale.ManufacturerCampaign.Cache
             string key = String.Format("BW_ES_Campaign_V1_M_{0}_C_{1}_P_{2}", modelId, cityId, (int)pageId);
             try
             {
-                Entities.ManufacturerCampaignEntity campaign = _cache.GetFromCache(key, new TimeSpan(0, 5, 0), () => _repo.GetCampaigns(modelId, cityId, pageId));
+                Entities.ManufacturerCampaignEntity campaign = _cache.GetFromCache(key, new TimeSpan(0, 30, 0), () => _repo.GetCampaigns(modelId, cityId, pageId));
                 return campaign;
             }
             catch (Exception ex)

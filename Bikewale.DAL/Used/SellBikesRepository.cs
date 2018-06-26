@@ -160,7 +160,7 @@ namespace Bikewale.DAL.Used
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_inquiryid", DbType.Int32, inquiryId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_status", DbType.Int16, status));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_status", DbType.Int32, status));
                     MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
                 }
             }
