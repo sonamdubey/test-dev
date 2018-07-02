@@ -11,6 +11,7 @@ using BikewaleOpr.BAL.Images;
 using BikewaleOpr.BAL.Security;
 using BikewaleOpr.BAL.ServiceCenter;
 using BikewaleOpr.BAL.Used;
+using BikewaleOpr.Cache.BikeData;
 using BikewaleOpr.DAL;
 using BikewaleOpr.DALs;
 using BikewaleOpr.DALs.AdOperation;
@@ -105,8 +106,7 @@ namespace BikewaleOpr.Service.UnityConfiguration
             container.RegisterType<IServiceCenterRepository, ServiceCenterRepository>();
             container.RegisterType<IBikeSeries, BikeSeries>();
             container.RegisterType<IBikeSeriesRepository, BikeSeriesRepository>();
-
-
+            
             container.RegisterType<IPageMetasRepository, PageMetasRepository>();
             container.RegisterType<IPageMetas, PageMetas>();
             container.RegisterType<IAdSlotRepository, AdSlot>();
@@ -116,6 +116,8 @@ namespace BikewaleOpr.Service.UnityConfiguration
             container.RegisterType<IBikeBodyStyles, BikeBodyStyles>();
             container.RegisterType<IAdOperation, AdOperation>();
             container.RegisterType<IBWCache, BWCache>();
+            container.RegisterType<IBikeVersionsCacheRepository, BikeVersionsCacheRepository>();
+            container.RegisterType<IBikeVersions, BikeVersionsRepository>();
             return container;
         }
     }

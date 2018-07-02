@@ -14,14 +14,14 @@ namespace BikeWaleOpr.Common
 			get
 			{
 				string userId = "-1";
-				if(HttpContext.Current.User.Identity.IsAuthenticated == true) 
+				if(HttpContext.Current.User.Identity.IsAuthenticated) 
 				{
 					FormsIdentity fi = (FormsIdentity)HttpContext.Current.User.Identity;
 					FormsAuthenticationTicket ticket = fi.Ticket;
-					userId = ticket.UserData.Split(':')[0].ToString();
+					userId = ticket.UserData.Split(':')[0];
 				}
-			
-				return userId;
+
+                return userId;
 			}
 		}
 		

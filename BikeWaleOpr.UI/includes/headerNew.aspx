@@ -41,8 +41,8 @@
                                         <li><a href="/Models/UsedModelImageUpload">Used Model Image Upload</a></li>
                                         <li class="collapsible-body-title teal lighten-4">Manage Prices</li>
                                         <li><a href="/content/showroomprices.aspx">Pricing</a></li>
-                                        <li><a href="/content/bulkpriceupload.aspx">Bulk Pricing</a></li>
-                                        <li><a href="/pricemonitoring/">Price Monitoring</a></li>
+                                        <li><a href="/prices/bulkupload/">Bulk Pricing</a></li>
+                                        <li><a href="/content/pricemonitoring/">Price Monitoring</a></li>
                                         <li class="collapsible-body-title teal lighten-4">Bikewale Dealers</li>
                                         <li><a href="/content/adddealers.aspx">Add delears</a></li>
                                         <li><a href="/content/editdealers.aspx">Edit delears</a></li>

@@ -431,7 +431,7 @@ namespace BikeWaleOpr.Content
             
 			try
 			{
-				if( flUpload.PostedFile.FileName != "" )
+				if( flUpload.PostedFile.FileName != "")
 				{
 					string fileName = "PriceData.xml";
 					flUpload.PostedFile.SaveAs(filePath + "/" + fileName);

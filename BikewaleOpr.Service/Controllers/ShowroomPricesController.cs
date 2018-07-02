@@ -9,6 +9,8 @@ namespace BikewaleOpr.Service.Controllers
     /// <summary>
     /// Created by : Ashutosh Sharma on 09 Nov 2017
     /// Descripiton : Provide apis for bikewale price.
+    /// Modified by : Prabhu Puredla on 19 june 2018
+    /// Description : Added GetRegistrationCharges api for calculating rto
     /// </summary>
     public class ShowroomPricesController : ApiController
     {
@@ -18,7 +20,7 @@ namespace BikewaleOpr.Service.Controllers
             _bwPrice = bwPrice;
         }
         /// <summary>
-        /// Created by : Ashutosh Sharma on 09 Nov 2017
+        /// Created by : Ashutosh Sharma on 09 Nov 2017.
         /// Descripiton : API to save bikewale price.
         /// </summary>
         /// <param name="versionAndPriceList">Bike version id list and price list in format "versionId#c0l#ex-showroom#c0l#insurance#c0l#rto|r0w|"</param>
@@ -45,6 +47,28 @@ namespace BikewaleOpr.Service.Controllers
                 Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("ShowroomPricesController.SaveBikePrices:_{0}_{1}_{2}_{3}_{4}", bwPrice.VersionAndPriceList, bwPrice.CitiesList, bwPrice.MakeId, bwPrice.ModelIds, bwPrice.UserId));
                 return InternalServerError();
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="versionId"></param>
+        /// <param name="stateId"></param>
+        /// <param name="price"></param>
+        /// <returns></returns>
+        [HttpGet, Route("api/price/getregistrationcharges/")]
+        public IHttpActionResult GetRegistrationCharges(uint versionId, uint stateId, double price)
+        {
+            try
+            {
+                return Ok(_bwPrice.GetRegistrationCharges(versionId, stateId, price));    
+            }
+            catch(Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("ShowroomPricesController.GetRegistrationCharges"));
+                return InternalServerError();
+            }
+            
         }
     }
 }

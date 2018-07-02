@@ -1,0 +1,18 @@
+﻿@model BikewaleOpr.Models.ManagePrices.MakesAndStatesVM
+@{
+    ViewBag.Title = "Index";
+    ViewBag.PageTitle = "Manage Bulk Prices " ;
+}
+
+    <div class="row" style="margin-top:5px;">
+        <div class="col m10">
+        </div>
+        <div class="col m2">
+           @Html.Partial("_SelectOperationCollapsible", Model)  
+        </div>
+
+    </div>
+    <script src="~/src/ManagePrice/bulkprice.js"></script>
+
+
+

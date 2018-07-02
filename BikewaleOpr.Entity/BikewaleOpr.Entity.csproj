@@ -147,6 +147,10 @@
     <Compile Include="BikeMakeEntityBase.cs" />
     <Compile Include="BikeModelEntityBase.cs" />
     <Compile Include="BikePricing\BikePrice.cs" />
+    <Compile Include="BikePricing\CompositeBulkPriceEntity.cs" />
+    <Compile Include="BikePricing\MappedBikesEntity.cs" />
+    <Compile Include="BikePricing\MappedCitiesEntity.cs" />
+    <Compile Include="BikePricing\OemPriceEntity.cs" />
     <Compile Include="BikePricing\PriceCategoryEntity.cs" />
     <Compile Include="BikePricing\PriceLastUpdateEntity.cs" />
     <Compile Include="BikePricing\PriceMonitoringEntity.cs" />

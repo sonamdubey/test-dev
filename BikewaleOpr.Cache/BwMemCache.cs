@@ -256,6 +256,19 @@ namespace BikewaleOpr.Cache
             MemCachedUtil.Remove(keys);
         }
 
+        public static void ClearVersionPrice(IEnumerable<uint> modelIds, IEnumerable<uint> cityIdList)
+        {
+            ICollection<String> keys = new List<String>();
+            foreach (var modelId in modelIds)
+            {
+                foreach (var cityId in cityIdList)
+                {
+                    keys.Add(String.Format("BW_VersionPrices_{0}_C_{1}", modelId, cityId));
+                }
+            }
+            MemCachedUtil.Remove(keys);
+        }
+
         /// <summary>
         /// Created by  :   Sumit Kate on 26 Mar 2017
         /// Description :   Clear User Reviews Cache

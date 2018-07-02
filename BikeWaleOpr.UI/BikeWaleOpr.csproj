@@ -462,6 +462,7 @@
     <Compile Include="Controllers\AdOperationController.cs" />
     <Compile Include="Controllers\AdSlotController.cs" />
     <Compile Include="Controllers\BikeSeriesController.cs" />
+    <Compile Include="Controllers\BulkPriceController.cs" />
     <Compile Include="Controllers\DealerBikePriceController.cs" />
     <Compile Include="Controllers\ComparisonController.cs" />
     <Compile Include="Controllers\BannerController.cs" />
@@ -523,6 +524,7 @@
     <Compile Include="Models\DealerCampaign\CampaignServingAreasModel.cs" />
     <Compile Include="Models\DealerEMI\DealerEMIModel.cs" />
     <Compile Include="Models\DealerFacilities\DealerFacilitiesModel.cs" />
+    <Compile Include="Models\ManagePrices\BulkPriceModel.cs" />
     <Compile Include="Models\ManagePrices\PriceMonitoringModel.cs" />
     <Compile Include="Models\ManufacturerCampaign\CampaignPropertiesModel.cs" />
     <Compile Include="Models\ManufacturerCampaign\ConfigureCampaignPageModel.cs" />
@@ -2020,6 +2022,8 @@
     <Content Include="src\jquery-1.6.min.js" />
     <Content Include="src\knockout.js" />
     <Content Include="src\manageBookingAmount.js" />
+    <Content Include="src\ManagePrice\bulkprice.js" />
+    <Content Include="src\ManagePrice\UnmappedBikes.js" />
     <Content Include="src\ManufactureCampaign\ConfigureCampaign.js" />
     <Content Include="src\ManufactureCampaign\configureCampaignProperties.js" />
     <Content Include="src\ManufactureCampaign\rules.js" />
@@ -2036,6 +2040,7 @@
     <Content Include="users\Login.aspx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Views\BulkPrice\Index.cshtml" />
     <Content Include="web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -2104,6 +2109,14 @@
     <Content Include="Views\AdOperation\Index.cshtml" />
     <Content Include="classified\web.config" />
     <Content Include="MobileApp\web.config" />
+    <Content Include="Views\BulkPrice\UploadPricesFile.cshtml" />
+    <Content Include="Views\BulkPrice\MappedBikes.cshtml" />
+    <Content Include="Views\BulkPrice\MappedCities.cshtml" />
+    <Content Include="Views\BulkPrice\_SelectOperationCollapsible.cshtml" />
+    <Content Include="Views\BulkPrice\_NavigationBreadcrumbs.cshtml" />
+    <Content Include="Views\BulkPrice\UnmappedBikes.cshtml" />
+    <Content Include="Views\BulkPrice\UnmappedCities.cshtml" />
+    <Content Include="Views\BulkPrice\UpdatablePrices.cshtml" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>

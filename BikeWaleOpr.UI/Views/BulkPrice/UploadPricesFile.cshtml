@@ -1,0 +1,114 @@
+﻿@model BikewaleOpr.Models.ManagePrices.UploadPricesVM
+@{
+    ViewBag.Title = "UploadPricesFile";
+    ViewBag.PageTitle = "Bulk Price Upload For " + @Model.MakeName;
+}
+<div class="row" style="margin-top:15px;">
+    <div class="col m10" id="bulkUploadPage">
+       @Html.Partial("_NavigationBreadcrumbs")
+        <div id="menu_section">         
+            <form action="/prices/bulkupload/make/@Model.MakeId/pricefile/save/" method="post" id="xmlform" data-bind="submit: sendXmlData">
+                <div class="row">
+                    <div class="col s5 offset-s3">
+                        <div class="file-field input-field">
+                            <div class="btn">
+                                <span>Select Price File</span>
+                                <input id="fileUpload" type="file" accept="text/xml">
+                            </div>
+                            <div class="file-path-wrapper">
+                                <input id="filePath" class="file-path validate" type="text">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col m2" style="padding-top:18px">
+                        <button class="btn waves-effect waves-light" type="submit">Upload</button>
+                    </div>
+                </div>
+                <input value="@Model.MakeId" id="selected_make" name="makeId" hidden />
+                <input value="@Model.MakeName" id="make_name" name="makeName" hidden />
+            </form>
+        </div>
+     </div>
+    <div class="col m2">
+        @if (Model != null && Model.MakesAndStatesListVM != null)
+        {
+            @Html.Partial("_SelectOperationCollapsible", Model.MakesAndStatesListVM);
+        }       
+    </div>
+    <input value="uploadprices" id="operation" hidden />
+</div>
+
+<script src="~/src/ManagePrice/bulkprice.js"></script>
+<script>
+    $(function () {
+        $('#step_1').addClass("active");
+        ko.applyBindings(viewModel, $('#bulkUploadPage')[0]);
+    });
+    
+    var viewModel = function () {
+        var self = this;
+        var isFileUploaded = false;
+        var makeId = $('#selectMake').val();
+        self.uploadPricesFile = function () {
+            location.reload();
+        }
+        self.getUnmappedBikes = function () {
+            if (isFileUploaded){
+                $.get('/prices/bulkupload/make/' + makeId + '/unmappedbikes/', function (data) {
+                    $('#menu_section').html(data);
+                })
+            }
+            else{
+                Materialize.toast("Upload Prices File First", 3000);
+            }
+        }
+        self.getUnmappedCities = function () {
+            if (isFileUploaded) {
+                $.get(' /prices/bulkupload/make/'+makeId+'/unmappedcities/', function (data) {
+                    $('#menu_section').html(data);
+                })
+            }
+            else {
+                Materialize.toast("Upload Prices File First", 3000);
+            }
+        }
+        self.getUpdatablePrices = function () {
+            if (isFileUploaded) {
+                $.get('/prices/bulkupload/make/'+makeId+'/uploadprices/', function (data) {
+                    $('#menu_section').html(data);
+                })
+            }
+            else {
+                Materialize.toast("Upload Prices File First", 3000);
+            }
+        }
+        self.sendXmlData = function () {
+            if ($('#fileUpload').get(0).files[0] == undefined)
+            {
+                Materialize.toast("select a file", 3000);
+                return false;
+            }
+                
+            var data = new FormData();
+            var file = $('#fileUpload').get(0).files[0];
+
+            data.append('xmlData', file);
+            data.append('makeName', $('#selectMake').find('option:selected').text());
+
+            var postUrl = $('#xmlform').attr('action');
+               
+            $.ajax({
+                url: postUrl,
+                type: "POST",
+                data: data,
+                processData:false,
+                contentType: false,
+                success: function (response) {
+                    isFileUploaded = true;
+                    $("#menu_section").html(response);                   
+                }
+            });
+            return false;
+        }
+    }
+</script>

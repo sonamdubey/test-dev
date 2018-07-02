@@ -116,6 +116,7 @@
       <HintPath>..\Libs\ElasticSearch\Nest.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
@@ -136,6 +137,7 @@
     <Compile Include="Bikedata\BikeSeriesRepository.cs" />
     <Compile Include="Bikedata\BikeVersionsRepository.cs" />
     <Compile Include="BikePricing\BikeShowroomPrices.cs" />
+    <Compile Include="BikePricing\BulkPriceRepository.cs" />
     <Compile Include="BikePricing\DealerPriceRepository.cs" />
     <Compile Include="ElasticSearch\ESIndexRepository.cs" />
     <Compile Include="PageMetas\PageMetasRepository.cs" />

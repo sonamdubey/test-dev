@@ -124,6 +124,10 @@
     <Compile Include="DealerEMI\DealerEMIVM.cs" />
     <Compile Include="DealerPricing\AddCategoryVM.cs" />
     <Compile Include="DealerPricing\CityCopyPricingVM.cs" />
+    <Compile Include="ManagePrices\compositeBulkPriceVM.cs" />
+    <Compile Include="ManagePrices\MakesAndStatesVM.cs" />
+    <Compile Include="ManagePrices\MappedBikesVM.cs" />
+    <Compile Include="ManagePrices\MappedCitiesVM.cs" />
     <Compile Include="ManagePrices\PriceMonitoringVM.cs" />
     <Compile Include="DealerFacility\ManageDealerFacilityVM.cs" />
     <Compile Include="DealerPricing\DealerCopyPricingVM.cs" />
@@ -133,6 +137,7 @@
     <Compile Include="DealerPricing\DealerPricingIndexPageVM.cs" />
     <Compile Include="DealerPricing\DealerPricingSheetPageVM.cs" />
     <Compile Include="DealerPricing\ShowPricingVM.cs" />
+    <Compile Include="ManagePrices\UploadPricesVM.cs" />
     <Compile Include="ManufacturerCampaign\CampaignPropertiesVM.cs" />
     <Compile Include="ManufacturerCampaign\ManufacturerCampaignInformationModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

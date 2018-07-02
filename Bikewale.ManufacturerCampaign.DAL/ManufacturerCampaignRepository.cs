@@ -45,8 +45,8 @@ namespace Bikewale.ManufacturerCampaign.DAL
                                 manufacturers.Add(new ManufacturerEntity()
                                 {
                                     Id = SqlReaderConvertor.ToInt32(dr["id"]),
-                                    Name = Convert.ToString("name"),
-                                    Organization = Convert.ToString("organization")
+                                    Name = Convert.ToString(dr["name"]),
+                                    Organization = Convert.ToString(dr["organization"])
                                 });
                             }
                             dr.Close();
@@ -87,7 +87,7 @@ namespace Bikewale.ManufacturerCampaign.DAL
                                 bikeMakes.Add(new BikeMakeEntity()
                                 {
                                     MakeId = SqlReaderConvertor.ToUInt32(dr["MakeId"]),
-                                    MakeName = Convert.ToString("MakeName")
+                                    MakeName = Convert.ToString(dr["MakeName"])
                                 });
                             }
                             dr.Close();

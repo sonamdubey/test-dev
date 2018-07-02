@@ -233,17 +233,21 @@
     }
 
     function calculateRegistrationCharges(versionId, price, objTxtRTO) {
-        $.ajax({
-            type: "POST",
-            url: "/ajaxpro/BikeWaleOpr.AjaxFunctions,BikewaleOpr.ashx",
-            data: '{"bikeVersionId":"' + versionId + '", "cityId":"' + viewModel.selectedCity() + '", "price":' + price + '}',
-            beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "CalculateRegistrationCharges"); },
-            success: function (response) {
-                var responseJSON = eval('(' + response + ')');
-                var resObj = eval('(' + responseJSON.value + ')');
-                objTxtRTO.val(Math.round(resObj));
-            }
+        var url = "/api/price/getregistrationcharges?versionId=" + versionId + "&stateId=" + $('#ddlStates').val() + "&price=" + price;
+        $.get(url, function (response) {
+            objTxtRTO.val(Math.round(response));
         });
+        //$.ajax({
+        //    type: "POST",
+        //    url: "/ajaxpro/BikeWaleOpr.AjaxFunctions,BikewaleOpr.ashx",
+        //    data: '{"bikeVersionId":"' + versionId + '", "cityId":"' + viewModel.selectedCity() + '", "price":' + price + '}',
+        //    beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "CalculateRegistrationCharges"); },
+        //    success: function (response) {
+        //        var responseJSON = eval('(' + response + ')');
+        //        var resObj = eval('(' + responseJSON.value + ')');
+        //        objTxtRTO.val(Math.round(resObj));
+        //    }
+        //});
     }
 
     $("#btnSearch").click(function () {

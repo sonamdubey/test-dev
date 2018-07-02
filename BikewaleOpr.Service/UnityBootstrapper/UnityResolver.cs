@@ -40,7 +40,7 @@ namespace BikewaleOpr.Service.UnityConfiguration
                     return container.Resolve(serviceType);
 
             }
-            catch (ResolutionFailedException)
+            catch (ResolutionFailedException ex)
             {
                 return null;
             }

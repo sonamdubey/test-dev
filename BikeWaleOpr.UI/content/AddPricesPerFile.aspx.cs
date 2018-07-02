@@ -1,4 +1,7 @@
+using Bikewale.Cache.Core;
+using Bikewale.Interfaces.Cache.Core;
 using BikewaleOpr.BAL.BikePricing;
+using BikewaleOpr.Cache.BikeData;
 using BikewaleOpr.DALs.Bikedata;
 using BikewaleOpr.DALs.BikePricing;
 using BikewaleOpr.Interface.BikeData;
@@ -20,7 +23,7 @@ namespace BikeWaleOpr.Content
     public class AddPricesPerFile : Page
     {
         public bool finished = false;
-        static readonly ILog _logger = LogManager.GetLogger(typeof(AddPricesPerFile));
+        static readonly ILog _logger = LogManager.GetLogger("BulkPriceUpload");
         static IUnityContainer _container = new UnityContainer();
 
         static AddPricesPerFile()
@@ -28,6 +31,9 @@ namespace BikeWaleOpr.Content
             _container.RegisterType<IBwPrice, BwPrice>();
             _container.RegisterType<IShowroomPricesRepository, BikeShowroomPrices>();
             _container.RegisterType<IBikeModelsRepository, BikeModelsRepository>();
+            _container.RegisterType<IBikeVersionsCacheRepository, BikeVersionsCacheRepository>();
+            _container.RegisterType<ICacheManager, MemcacheManager>();
+            _container.RegisterType<IBikeVersions, BikeVersionsRepository>();
         }
 
         protected override void OnInit(EventArgs e)
@@ -48,25 +54,39 @@ namespace BikeWaleOpr.Content
 
         bool ProcessFile()
         {
+            DateTime dt1 = DateTime.Now, dt2;
             bool exist = false;
 
             string dirPath = Server.MapPath("/content/mappingfiles/parsedpricefiles/");
 
-            if (Directory.Exists(dirPath))
+            try
             {
-                string[] files = Directory.GetFiles(dirPath);
-
-                if (files.Length > 0)
+                if (Directory.Exists(dirPath))
                 {
-                    exist = true;
+                    string[] files = Directory.GetFiles(dirPath);
 
-                    Trace.Warn("Parsing file : " + files[0]);
-                    ParseFile(files[0]);
+                    if (files.Length > 0)
+                    {
+                        exist = true;
 
-                    Trace.Warn("Deleting file : " + files[0]);
-                    //delete this file
-                    File.Delete(files[0]);
+                        Trace.Warn("Parsing file : " + files[0]);
+                        ParseFile(files[0]);
+
+                        Trace.Warn("Deleting file : " + files[0]);
+                        //delete this file
+                        File.Delete(files[0]);
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, Request.ServerVariables["URL"]);
+            }
+            finally
+            {
+                dt2 = DateTime.Now;
+                ThreadContext.Properties["Old_BulkPrices_TotalTime"] = (dt2 - dt1).TotalMilliseconds;
+                _logger.Error("Old_BulkPrices_SavePrices");
             }
 
             return !exist;
@@ -79,35 +99,42 @@ namespace BikeWaleOpr.Content
             XmlTextReader xr = new XmlTextReader(fileName);
             xr.WhitespaceHandling = WhitespaceHandling.None;
 
-            while (xr.Read())
+            try
             {
-                switch (xr.NodeType)
+                while (xr.Read())
                 {
-                    case XmlNodeType.Element:
-                        switch (xr.Name)
-                        {
-                            case "bike":
-                                string cityId = xr.GetAttribute("cityId");
-                                string bikeId = xr.GetAttribute("bikeId");
-                                string price = xr.GetAttribute("price");
+                    switch (xr.NodeType)
+                    {
+                        case XmlNodeType.Element:
+                            switch (xr.Name)
+                            {
+                                case "bike":
+                                    string cityId = xr.GetAttribute("cityId");
+                                    string bikeId = xr.GetAttribute("bikeId");
+                                    string price = xr.GetAttribute("price");
 
-                                if (price != "")
-                                {
-                                    SaveData(cityId, bikeId, price);
-                                }
-                                break;
+                                    if (price != "")
+                                    {
+                                        SaveData(cityId, bikeId, price);
+                                    }
+                                    break;
 
-                            default:
-                                break;
-                        }
-                        break;
+                                default:
+                                    break;
+                            }
+                            break;
 
-                    default:
-                        break;
+                        default:
+                            break;
+                    }
                 }
-            }
 
-            xr.Close();
+                xr.Close();
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, Request.ServerVariables["URL"]);
+            }
         }
 
         /// <summary>
@@ -125,10 +152,10 @@ namespace BikeWaleOpr.Content
             //get the new insurance and the new RTO
             double insurance = CommonOpn.GetInsurancePremium(bikeId, cityId, Convert.ToDouble(price));
             double rto = CommonOpn.GetRegistrationCharges(bikeId, cityId, Convert.ToDouble(price));
-            DateTime dt1 = DateTime.Now, dt2 = DateTime.Now, dt3 = DateTime.Now;
+            
             try
             {
-                dt1 = DateTime.Now;
+                
                 using (DbCommand cmd = DbFactory.GetDBCommand("insertshowroomprices_30082017"))
                 {
 
@@ -148,11 +175,9 @@ namespace BikeWaleOpr.Content
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_updatedby", DbType.Int16, -1));
                     //run the command
                     MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
-                }
-                dt2 = DateTime.Now;                                   
+                }                     
                 IBwPrice bwPrice = _container.Resolve<IBwPrice>();
-                bwPrice.UpdateModelPriceDocument(bikeId, cityId);                
-                dt3 = DateTime.Now;
+                bwPrice.UpdateModelPriceDocument(bikeId, cityId);
             }
             catch (Exception err)
             {
@@ -162,12 +187,7 @@ namespace BikeWaleOpr.Content
                 ErrorClass.LogError(ex, Request.ServerVariables["URL"]);
                 
             } // catch Exception
-            finally
-            {
-                ThreadContext.Properties["insertshowroomprices_30082017"] = (dt2 - dt1).Milliseconds;
-                ThreadContext.Properties["UpdateModelPriceDocument"] = (dt3 - dt2).Milliseconds;
-                _logger.Error("SaveDataTiming");
-            }
+            
         }
     }//Class
 }// Namespace

@@ -1,0 +1,141 @@
+﻿@model BikewaleOpr.Models.ManagePrices.CompositeBulkPriceVM
+@{
+    Layout = null;
+}
+<div class="row" id="unmapped_cities">
+    <table class="bordered highlight z-depth-3 overflow-table-body">
+        <thead>
+            <tr class="pushpin">
+                <th colspan="1">OEM City Name</th>
+                <th colspan="3">BikeWale City Name</th>
+                <th colspan="1">
+                    <div class="right">
+                        <button class="btn waves-effect waves-light" data-bind="click: goToNextPage ">Proceed to Next Step</button>
+                    </div>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null)
+            {
+                if (Model.UnmappedCities != null)
+                {
+                    if (Model.UnmappedCities.Any())
+                    {
+                        int i = 1;
+                        foreach (var city in Model.UnmappedCities)
+                        {
+                            <tr>
+                                <td id="cityname_@i">
+                                    @city
+                                </td>
+                                <td>
+                                    <div class="col m12  materialize-select">
+                                        <select class="chosen-select-partial " id="selectState_@i" data-selectid="@i" data-bind="event: {change: getCities}">
+                                            <option value="" disabled selected>Select a State</option>
+                                            @if (Model.States != null)
+                                            {
+                                                foreach (var state in Model.States)
+                                                {
+                                                    <option value="@state.StateId"> @state.StateName </option>
+                                                }
+                                            }
+                                        </select>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="col m12  materialize-select">
+                                        <select class="chosen-select-partial" id="selectCity_@i">
+                                            <option value="" disabled selected>Select a City</option>
+                                        </select>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <button class="btn waves-effect waves-light cyan" type="submit" id="@i" data-bind="click: submitMapping ">
+                                            Map this city
+                                        </button>
+                                    </div>
+                                </td>
+                                <td id="done_@i"></td>
+                            </tr>
+                                            i++;
+                        }
+                    }
+                    else
+                    {
+                        <text> There are no Unmapped Cities</text>
+                    }
+                }
+            }
+        </tbody>
+    </table>
+    <div class="row">
+
+    </div>
+</div>
+<script>
+    var unmappedCitiesViewModel = function () {
+        var makeId = $('#selectMake').val();
+        self.getCities = function (data, event) {
+            var stateId = event.target.value;
+            var citySelect = $('#selectCity_' + event.target.dataset.selectid);
+            var url = "/api/cities/state/" + stateId + "/";
+            citySelect.html('');
+            $.get(url, function (responce) {
+                citySelect.prepend('<option disabled="disabled" selected>Select a City</option>');
+                for (var item in responce) {
+                    citySelect.append($('<option>', {
+                        value: responce[item].cityId,
+                        text: responce[item].cityName,
+                    }));
+                }
+                citySelect.trigger('chosen:updated');
+            }).fail(function () {
+                Materialize.toast("Request Failed", 6000);
+            });
+        }
+        self.submitMapping = function (data, event) {
+            var id = event.target.id;
+            var formdata = {};
+
+            if ($("#selectCity_" + id).val() == null) {
+                Materialize.toast("Select a City", 6000);
+                return false;
+            }
+            formdata.cityId = $("#selectCity_" + id).val();
+            formdata.oemCityName = $('#cityname_' + id).text().trim();
+            $.post("/prices/bulkupload/make/" + makeId + "/unmappedcities/map/", formdata, function (data) {
+                if (data == "True") {
+                    Materialize.toast(formdata.oemCityName + " is Successfully Mapped", 6000);
+                    $('#done_' + id).append('<div class="left"><i class="material-icons icon-green" >done</i></div>');
+                }
+
+                else
+                    Materialize.toast("Mapping failed", 6000);
+            });
+        }
+        var canBePosted = true;
+
+        self.goToNextPage = function () {
+            $.get('/prices/bulkupload/make/' + makeId + '/uploadprices/', function (data) {
+                $("#menu_section").html(data);
+            });
+        }
+    }
+    $(function () {
+        ko.applyBindings(unmappedCitiesViewModel, $('#unmapped_cities')[0]);
+        $('.chosen-select-partial').chosen({
+            no_results_text: "Oops, nothing found!",
+            width: "100%",
+            rtl: true
+        });
+        window.onbeforeunload = function (e) {
+            return '';
+        };
+        $(window).unload(function () {
+            alert('Handler for .unload() called.');
+        });
+        $('#step_3,#step_2').addClass("active");
+    });
+</script>

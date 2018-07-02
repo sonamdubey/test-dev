@@ -1,0 +1,151 @@
+﻿@model BikewaleOpr.Models.ManagePrices.CompositeBulkPriceVM
+@{
+    Layout = null;
+}
+<div class="row" id="unmapped_bikes">
+    <table class="bordered highlight z-depth-3 overflow-table-body">
+        <tbody>
+            <tr>
+                <th colspan="1">OEM Bike Name</th>
+                <th colspan="3">BikeWale Bike Name</th>
+                <th colspan="1">
+                    <div class="right">
+                        <button class="btn waves-effect waves-light " data-bind="click: goToUnmappedCitiesPage ">
+                            Proceed to Next Step
+                        </button>
+                    </div>
+                </th>
+            </tr>
+            @if (Model != null)
+            {
+                if (Model.UnmappedBikes != null)
+                {
+                    int i = 1;
+                    if (Model.UnmappedBikes.Any())
+                    {
+                        foreach (var bike in Model.UnmappedBikes)
+                        {
+                            <tr>
+                                <td id="name_@i">
+                                    @bike
+                                </td>
+                                <td>
+                                    <div class="col m12  materialize-select">
+                                        <select class="chosen-select-partial " id="selectModel_@i" data-selectid="@i" data-bind="event: {change: getVersions}">
+                                            <option value="" disabled selected>Select a Model</option>
+                                            @if (Model.BikeModelList != null)
+                                            {
+                                                foreach (var make in Model.BikeModelList)
+                                                {
+                                                    <option value="@make.ModelId"> @make.ModelName </option>
+                                                }
+                                            }
+                                        </select>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="col m12  materialize-select">
+                                        <select class="chosen-select-partial" id="selectVersion_@i">
+                                            <option value="" disabled selected> Select a Version</option>
+                                        </select>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <button class="btn waves-effect waves-light cyan" type="submit" id="@i" data-bind="click: submitMapping ">
+                                            Map this bike
+                                        </button>
+                                    </div>
+                                </td>
+                                <td id="done_@i"></td>
+                            </tr>
+                                            i++;
+                        }
+
+                    }
+                    else
+                    {
+                        <tr>
+                            <td>There are no Unmapped Bikes</td>
+                        </tr>                    
+                    }
+
+                }
+
+            }
+            else
+            {
+                <text> There are no Unmapped Bikes</text>
+            }
+        </tbody>
+    </table>
+
+</div>
+<script>
+    var unmappedBikesViewModel = function () {
+        var makeId = $('#selectMake').val();
+        self.getVersions = function (data, event) {
+            var modelId = event.target.value;
+            var versionSelect = $('#selectVersion_' + event.target.dataset.selectid);
+            var url = "/api/models/" + modelId + "/versions/NEW/";
+            versionSelect.html('');
+            $.get(url, function (responce) {
+                versionSelect.prepend('<option disabled="disabled" selected>Select a Version</option>');
+                for (var item in responce) {
+                    versionSelect.append($('<option>', {
+                        value: responce[item].versionId,
+                        text: responce[item].versionName
+                    }));
+                }
+                versionSelect.trigger('chosen:updated');
+            }).fail(function () {
+                Materialize.toast("Request Failed", 6000);
+            });
+        }
+        self.submitMapping = function (data, event) {
+
+            var id = event.target.id;
+            var formData = {};
+            if ($("#selectVersion_" + id).val() == null) {
+                Materialize.toast("Select a Version", 6000);
+                return false;
+            }
+            formData.VersionId = $("#selectVersion_" + id).val();
+            formData.OemBikeName = $('#name_' + id).text().trim();
+
+            $.post("/prices/bulkupload/make/" + makeId + "/unmappedbikes/map/", formData, function (data) {
+                if (data == "True") {
+                    Materialize.toast(formData.OemBikeName + " is Successfully Mappped", 6000);
+                    $('#done_' + id).append('<div class="left"><i class="material-icons icon-green" >done</i></div>');
+                }
+
+                else
+                    Materialize.toast("Mapping failed", 6000);
+            });
+        }
+        self.goToUnmappedCitiesPage = function () {
+            $.get('/prices/bulkupload/make/' + makeId + '/unmappedcities/', function (data) {
+                $("#menu_section").html(data);
+            });
+        }
+    }
+
+    $(function () {
+        ko.applyBindings(unmappedBikesViewModel, $('#unmapped_bikes')[0]);
+        $('.chosen-select-partial').chosen({
+            no_results_text: "Oops, nothing found!",
+            width: "100%",
+            rtl: true
+        });
+
+        window.onbeforeunload = function (e) {
+            return '';
+        };
+        $(window).unload(function () {
+            alert('Handler for .unload() called.');
+        });
+
+        $('#step_2').addClass("active");
+
+    });
+</script>

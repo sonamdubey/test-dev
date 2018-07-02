@@ -11,6 +11,7 @@ using BikewaleOpr.BAL.ContractCampaign;
 using BikewaleOpr.BAL.ServiceCenter;
 using BikewaleOpr.BAL.Used;
 using BikewaleOpr.BAL.Users;
+using BikewaleOpr.Cache.BikeData;
 using BikewaleOpr.CommuteDistance;
 using BikewaleOpr.DAL;
 using BikewaleOpr.DALs;
@@ -28,6 +29,7 @@ using BikewaleOpr.Interface;
 using BikewaleOpr.Interface.AdSlot;
 using BikewaleOpr.Interface.Banner;
 using BikewaleOpr.Interface.BikeData;
+using BikewaleOpr.Interface.BikePricing;
 using BikewaleOpr.Interface.ConfigurePageMetas;
 using BikewaleOpr.Interface.ContractCampaign;
 using BikewaleOpr.Interface.Dealers;
@@ -105,7 +107,11 @@ namespace BikewaleOpr
                 .RegisterType<IBikeBodyStylesRepository, BikeBodyStyleRepository>()
                 .RegisterType<IBikeBodyStyles, BikeBodyStyles>()
                 .RegisterType<IAdOperation, AdOperation>()
-                .RegisterType<IUsers, Users>();
+                .RegisterType<IUsers, Users>()
+                .RegisterType<IBulkPriceRepository, BulkPriceRepository>()
+                .RegisterType<IBulkPrice, BulkPrice>()
+                .RegisterType<IBwPrice, BwPrice>()
+                .RegisterType<IBikeVersionsCacheRepository, BikeVersionsCacheRepository>();
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
 
         }

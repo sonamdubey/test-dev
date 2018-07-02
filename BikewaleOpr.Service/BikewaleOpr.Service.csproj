@@ -274,6 +274,10 @@
       <Project>{16f4a3eb-ab13-44c2-99cd-a942c05f3222}</Project>
       <Name>BikewaleOpr.BAL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\BikewaleOpr.Cache\BikewaleOpr.Cache.csproj">
+      <Project>{23d53f9a-3b4e-4c7e-8843-5279d74542af}</Project>
+      <Name>BikewaleOpr.Cache</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BikewaleOpr.DALs\BikewaleOpr.DALs.csproj">
       <Project>{01134f89-c502-492e-a368-0a93d76430ef}</Project>
       <Name>BikewaleOpr.DALs</Name>

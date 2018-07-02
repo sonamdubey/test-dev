@@ -11,7 +11,7 @@
     <fieldset>
         <legend>Bulk Price Upload</legend>
         <div>
-            <span id="spnErr" runat="server"></span>
+            <span id="spnErr" runat="server"></span>s
             <div id="divStep1" runat="server" class="divCont">
 	            <h2>Step 1 : Upload the XML file</h2><br />
 	            Select Make : <asp:DropDownList ID="drpMakes" runat="server" />

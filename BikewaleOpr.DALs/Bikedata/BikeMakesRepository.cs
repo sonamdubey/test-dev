@@ -14,6 +14,7 @@ using BikewaleOpr.Entity.BikeData;
 using BikewaleOpr.Interface.BikeData;
 using Dapper;
 using MySql.CoreDAL;
+using System.Collections.ObjectModel;
 
 namespace BikewaleOpr.DALs.Bikedata
 {
@@ -69,13 +70,37 @@ namespace BikewaleOpr.DALs.Bikedata
         /// <returns></returns>
         public IEnumerable<BikeMakeEntity> GetMakesList()
         {
-            IEnumerable<BikeMakeEntity> objMakes = null;
+            ICollection<BikeMakeEntity> objMakes = null;
 
             try
             {
-                using (IDbConnection connection = DatabaseHelper.GetReadonlyConnection())
+                using (DbCommand cmd = DbFactory.GetDBCommand("GetMakesList"))
                 {
-                    objMakes = connection.Query<BikeMakeEntity>("GetMakesList", CommandType.StoredProcedure);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            objMakes = new Collection<BikeMakeEntity>();
+                            while (dr.Read())
+                            {
+                                BikeMakeEntity _objMake = new BikeMakeEntity()
+                                {
+                                    MakeId = SqlReaderConvertor.ToInt32(dr["makeid"]),
+                                    MakeName = Convert.ToString(dr["makename"]),
+                                    MaskingName = Convert.ToString(dr["maskingname"]),
+                                    MakeFooterAdded = SqlReaderConvertor.ToBoolean(dr["makeFooterAdded"]),
+                                    Futuristic = SqlReaderConvertor.ToBoolean(dr["futuristic"]),
+                                    New = SqlReaderConvertor.ToBoolean(dr["new"]),
+                                    Used = SqlReaderConvertor.ToBoolean(dr["used"]),
+                                    CreatedOn = Convert.ToString(dr["createdon"]),
+                                    UpdatedOn = Convert.ToString(dr["updatedon"]),
+                                    UpdatedBy = Convert.ToString(dr["updatedby"])
+                                };
+                                objMakes.Add(_objMake);
+                            }
+                        }
+                    }
                 }
             }
             catch (Exception ex)

@@ -32,7 +32,7 @@ namespace BikewaleOpr.Controllers
         /// Description: Action method for default view for price monitoring page.
         /// </summary>
         /// <returns></returns>
-        [Route("pricemonitoring/")]
+        [Route("content/pricemonitoring/")]
         public ActionResult Index()
         {
             PriceMonitoringVM priceMonitoringVM = null;
@@ -58,7 +58,7 @@ namespace BikewaleOpr.Controllers
         /// <param name="makeId"></param>
         /// <param name="modelId"></param>
 
-        [Route("pricemonitoring/make/{makeId}/state/{stateId}/")]
+        [Route("content/pricemonitoring/make/{makeId}/state/{stateId}/")]
         public ActionResult IndexWithoutBikeModel(uint makeId, uint stateId)
         {
             PriceMonitoringVM priceMonitoringVM = null;
@@ -85,7 +85,7 @@ namespace BikewaleOpr.Controllers
         /// <param name="modelId"></param>
         /// <param name="stateId"></param>
         /// <returns></returns>
-        [Route("pricemonitoring/make/{makeId}/model/{modelId}/state/{stateId}/")]
+        [Route("content/pricemonitoring/make/{makeId}/model/{modelId}/state/{stateId}/")]
         public ActionResult IndexWithBikeModel(uint makeId, uint modelId, uint stateId)
         {
             PriceMonitoringVM priceMonitoringVM = null;

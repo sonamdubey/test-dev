@@ -1,0 +1,57 @@
+﻿@model BikewaleOpr.Models.ManagePrices.MappedBikesVM
+@if(Model != null){
+    ViewBag.Title = "MappedBikes";
+    ViewBag.PageTitle = "Manage Mapped Bikes for " + Model.MakeName;
+}
+
+<div class="row" style="margin-top:15px;">
+    <div class="col m10">
+        @if(Model!=null  && Model.MappedBikes!=null && Model.MappedBikes.Any())
+        {          
+            <table class="bordered highlight z-depth-3 " id="bikes_table">
+                <tr>
+                    <th>OEM Bike Name</th>
+                    <th>Make Name</th>
+                    <th>Model Name</th>
+                    <th>Version Name</th>
+                    <th>Version Id</th>
+                    <th>Last Updated Date</th>
+                    <th>Last Updated By</th>
+                    <th></th>
+                </tr>
+                @foreach (var bike in Model.MappedBikes)
+                {
+                    <tr>
+                        <td>@bike.OemBikeName</td>
+                        <td>@bike.MakeName</td>
+                        <td>@bike.ModelName</td>
+                        <td>@bike.VersionName</td>
+                        <td>@bike.VersionId</td>
+                        <td>@bike.LastUpdatedDate</td>
+                        <td>@bike.LastUpdatedBy</td>
+                        <td><a class=" tooltipped" data-position="bottom" data-tooltip="Delete Mapping" href="/prices/bulkupload/mappedbikes/make/@bike.MakeId/@bike.Id/delete/?makeName=@Model.MakeName" ><i class="material-icons icon-red" onclick="return confirm('Are you sure to delete Mapping ?')">delete</i></a></td>
+                    </tr>
+                }
+            </table>
+            
+        }
+        else
+        {
+            <div id="showMessage"></div>
+        }    
+    </div>
+
+    <div class="col m2">
+        @if(Model!=null && Model.MakesListVM!=null )
+        {
+            @Html.Partial("_SelectOperationCollapsible", Model.MakesListVM);
+        }
+        
+    </div> 
+    <input value="@Model.MakeId" id="selected_make" hidden />
+    <input value="mappedbikes" id="operation" hidden />
+</div>
+    
+<script src="~/src/ManagePrice/bulkprice.js"></script>
+
+

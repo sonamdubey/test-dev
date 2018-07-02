@@ -117,6 +117,8 @@
     <Compile Include="BikeData\IBikeSeries.cs" />
     <Compile Include="BikeData\IBikeSeriesRepository.cs" />
     <Compile Include="BikeData\IBikeVersions.cs" />
+    <Compile Include="BikePricing\IBulkPrice.cs" />
+    <Compile Include="BikePricing\IBulkPriceRepository.cs" />
     <Compile Include="BikePricing\IBwPrice.cs" />
     <Compile Include="BikeData\IBikeVersionsCacheRepository.cs" />
     <Compile Include="Dealers\IDealerPriceRepository.cs" />
