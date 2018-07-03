@@ -16,6 +16,9 @@ using System.Collections.Generic;
 using System.Data;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using BikewaleOpr.Cache.BikeData;
+using Bikewale.Interfaces.Cache.Core;
+using Bikewale.Cache.Core;
 
 namespace BikeWaleOpr.Content
 {
@@ -215,6 +218,10 @@ namespace BikeWaleOpr.Content
             {
                 container.RegisterType<IShowroomPricesRepository, BikeShowroomPrices>();
                 container.RegisterType<IBikeModelsRepository, BikeModelsRepository>();
+                container.RegisterType<ICacheManager, MemcacheManager>();
+                container.RegisterType<IBikeVersions, BikeVersionsRepository>();
+                container.RegisterType<IBikeVersionsCacheRepository, BikeVersionsCacheRepository>();
+                
                 IShowroomPricesRepository pricesRepo = container.Resolve<IShowroomPricesRepository>();
 
                 container.RegisterType<IBwPrice, BwPrice>();
