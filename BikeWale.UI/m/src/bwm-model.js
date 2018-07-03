@@ -303,8 +303,11 @@ docReady(function () {
     $('.overall-specs-tabs-wrapper li').click(function () {
         var target = $(this).attr('data-tabs');
         $('html, body').animate({ scrollTop: $(target).offset().top - topNavBarHeight }, 1000);
-        centerItVariableWidth($(this), '.overall-specs-tabs-container');        
+        centerItVariableWidth($(this), '.overall-specs-tabs-container');
     });
+    //QnA Read more on model page
+    ToggleReadMore.registerEvents();
+
     // dropdown
     dropdown = {
         setDropdown: function () {
@@ -423,7 +426,7 @@ docReady(function () {
         prevButton: '.gallery-type-prev',
         preloadImages: false,
         lazyLoading: true,
-        lazyLoadingInPrevNext: true,        
+        lazyLoadingInPrevNext: true,
         onSlideChangeEnd: function (swiper) {
             if (userEventSource) {
                 if (swiper.activeIndex < swiper.previousIndex) {
@@ -944,7 +947,7 @@ var modelUserReviews = function () {
                         self.reviewList(response.result);
                         applyLikeDislikes();
                         $('.more-review-li').removeClass('hide');
-                    }                    
+                    }
                 })
                 .always(function () {
                     self.isLoading(false);
@@ -991,9 +994,9 @@ var modelUserReviews = function () {
 
         if (!self.currentReviewList().length && bikeModelId) {
 			var apiUrl = "/api/user-reviews/search/V2/?InputFilter.review=true&InputFilter.SO=1&InputFilter.PN=1&InputFilter.PS=3&ReviewFilter.RatingQuestion=true&ReviewFilter.ReviewQuestion=false&ReviewFilter.BasicDetails=false&InputFilter.Model=" + bikeModelId;
-			
+
 			$('#userReviewSpinner').show();
-			
+
             $.getJSON(apiUrl)
             .done(function (response) {
                 if (response && response.result) {

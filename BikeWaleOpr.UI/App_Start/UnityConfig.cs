@@ -8,10 +8,12 @@ using Bikewale.ManufacturerCampaign.DAL;
 using BikewaleOpr.BAL;
 using BikewaleOpr.BAL.BikePricing;
 using BikewaleOpr.BAL.ContractCampaign;
+using BikewaleOpr.BAL.QuestionsAnswers;
 using BikewaleOpr.BAL.ServiceCenter;
 using BikewaleOpr.BAL.Used;
 using BikewaleOpr.BAL.Users;
 using BikewaleOpr.Cache.BikeData;
+using BikewaleOpr.Cache.QuestionsAnswers;
 using BikewaleOpr.CommuteDistance;
 using BikewaleOpr.DAL;
 using BikewaleOpr.DALs;
@@ -23,6 +25,7 @@ using BikewaleOpr.DALs.BikePricing;
 using BikewaleOpr.DALs.ConfigurePageMetas;
 using BikewaleOpr.DALs.ContractCampaign;
 using BikewaleOpr.DALs.Location;
+using BikewaleOpr.DALs.QuestionsAnswers;
 using BikewaleOpr.DALs.ServiceCenter;
 using BikewaleOpr.DALs.UserReviews;
 using BikewaleOpr.Interface;
@@ -34,11 +37,15 @@ using BikewaleOpr.Interface.ConfigurePageMetas;
 using BikewaleOpr.Interface.ContractCampaign;
 using BikewaleOpr.Interface.Dealers;
 using BikewaleOpr.Interface.Location;
+using BikewaleOpr.Interface.QnA;
+using BikewaleOpr.Interface.QuestionsAnswers;
 using BikewaleOpr.Interface.ServiceCenter;
 using BikewaleOpr.Interface.Used;
 using BikewaleOpr.Interface.UserReviews;
 using BikewaleOpr.Interface.Users;
 using Microsoft.Practices.Unity;
+using QuestionsAnswers.BAL;
+using QuestionsAnswers.DAL;
 using System.Web.Mvc;
 using Unity.Mvc5;
 
@@ -111,7 +118,18 @@ namespace BikewaleOpr
                 .RegisterType<IBulkPriceRepository, BulkPriceRepository>()
                 .RegisterType<IBulkPrice, BulkPrice>()
                 .RegisterType<IBwPrice, BwPrice>()
-                .RegisterType<IBikeVersionsCacheRepository, BikeVersionsCacheRepository>();
+                .RegisterType<IBikeVersionsCacheRepository, BikeVersionsCacheRepository>()
+                .RegisterType<QuestionsAnswers.BAL.IQuestions, QuestionsAnswers.BAL.Questions>()
+                .RegisterType<QuestionsAnswers.DAL.IQuestionsRepository, QuestionsAnswers.DAL.QuestionsRepository>()
+                .RegisterType<QuestionsAnswers.Cache.ICacheManager, QuestionsAnswers.Cache.MemcacheManager>()
+                .RegisterType<QuestionsAnswers.Cache.IQuestionsCacheRepository, QuestionsAnswers.Cache.QuestionsCacheRepository>()
+                .RegisterType<IQuestionsBAL, QuestionsBAL>()
+                .RegisterType<BikewaleOpr.Interface.QuestionsAnswers.IQuestionsRepository, BikewaleOpr.DALs.QuestionsAnswers.QuestionsRepository>()
+                .RegisterType<IUsersRepository, UsersRepository>()
+                .RegisterType<IQuestionsAndAnswersCache, QuestionsAndAnswersCache>()
+                .RegisterType<IAnswersBAL, AnswersBAL>()
+                .RegisterType<IAnswersRepository, AnswersRepository>()
+                .RegisterType<IAnswers, Answers>();
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
 
         }

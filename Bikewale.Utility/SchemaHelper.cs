@@ -10,6 +10,8 @@ namespace Bikewale.Utility
     /// </summary>
     public static class SchemaHelper
     {
+        private static string _WebPage = "WebPage";
+        public const string QAPage = "QAPage";
         public static string JsonSerialize(dynamic objSchema)
         {
             try
@@ -64,12 +66,41 @@ namespace Bikewale.Utility
                 {
                     //set webpage schema for the model page
                     webpage = new WebPage();
+                    webpage.Type = _WebPage;
                     webpage.Description = objPageMeta.Description;
                     webpage.Keywords = objPageMeta.Keywords;
                     webpage.Title = objPageMeta.Title;
                     webpage.Url = objPageMeta.CanonicalUrl;
                     webpage.Breadcrum = breadcrumb;
 
+                }
+                catch
+                {
+                    webpage = null;
+                }
+            }
+
+            return webpage;
+        }
+
+        /// <summary>
+        /// Created By : Sumit Kate on 28 Jun 2018
+        /// Description : Function to return webpage schema json with custom pageType
+        /// </summary>
+        /// <param name="objSchema"></param>
+        /// <param name="pageSchema"></param>
+        /// <param name="pageType"></param>
+        /// <returns></returns>
+        public static WebPage GetWebpageSchema(Models.PageMetaTags objPageMeta, BreadcrumbList breadcrumb, string pageType)
+        {
+            WebPage webpage = null;
+            if (objPageMeta != null && breadcrumb != null)
+            {
+
+                try
+                {
+                    webpage = GetWebpageSchema(objPageMeta, breadcrumb);
+                    webpage.Type = !string.IsNullOrEmpty(pageType) ? pageType : webpage.Type;
                 }
                 catch
                 {

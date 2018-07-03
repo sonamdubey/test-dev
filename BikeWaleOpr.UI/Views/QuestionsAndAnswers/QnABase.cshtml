@@ -1,0 +1,42 @@
+﻿@using BikewaleOpr.Models.QuestionsAndAnswers;
+@using BikewaleOpr.Entity.QnA
+@model QnABaseVM
+@{
+    string viewName = "";
+    var objModel = new QnABaseVM();
+    ViewBag.Title = (Model.PageType).ToString();
+    ViewBag.PageTitle = (Model.PageType).ToString();
+}
+<link href="~/css/questionsandanswers.css" rel="stylesheet" />
+
+@if(Model != null)
+{
+    <div class="row" style="margin-top:5px;">
+
+        <div class="col m10">
+            @switch(Model.PageType)
+            {
+                case EnumQnAPageType.ManageQuestions:
+                    viewName = "~/Views/QuestionsAndAnswers/DataGrid/_DataGrid_Questions.cshtml";
+                    objModel = ((ManageQuestionsVM)Model);
+                    break;
+                    
+                case EnumQnAPageType.AddAnswers:
+                    viewName = "~/Views/QuestionsAndAnswers/DataGrid/_DataGrid_Answers.cshtml";
+                    objModel = ((ManageAnswersVM)Model);
+                    break;
+            }
+            @Html.Partial(viewName, objModel)                                  
+        </div>                
+        @switch (Model.PageType)
+        {
+            case EnumQnAPageType.ManageQuestions:
+            case EnumQnAPageType.AddAnswers:
+                viewName = "~/Views/QuestionsAndAnswers/_Filters.cshtml";
+                objModel = Model;
+                break;
+        }
+        @Html.Partial(viewName, objModel)        
+    </div>
+    
+}

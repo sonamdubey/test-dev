@@ -1,0 +1,78 @@
+﻿@mixin popup($direction: 'none', $z-index: 9)
+	height: 100%
+	width: 100%
+	position: fixed
+	top: 0
+	left: 0
+	right: 0
+	bottom: 0
+	background-color: color('white')
+	display: none
+	z-index: $z-index
+
+	@if $direction == 'none'
+		&.popup--active
+			display: block
+
+	@else if $direction != 'none'
+		@include vendor-prefix('transition', transform .5s linear)
+		display: block
+		will-change: transform
+
+		@if $direction == 'left'
+			@include vendor-prefix('transform', translateX(-100%))
+		@else if $direction == 'right'
+			@include vendor-prefix('transform', translateX(100%))
+		@else if $direction == 'up'
+			@include vendor-prefix('transform', translateY(-100%))
+		@else if $direction == 'bottom'
+			@include vendor-prefix('transform', translateY(100%))
+			
+		&.popup--active
+			@include vendor-prefix('transform', translate(0))
+			
+@mixin popup-header($isCrossIcon: true, $font-size: 16px, $background: 'night-rider', $color: 'white')
+	.popup-header
+		@include flexbox
+		@include align-items(center)
+		padding-left: 20px
+		background-color: color($background)
+		color: color($color)
+
+	.popup-header__title
+		@include text-truncate(100%)
+		text-transform: capitalize
+		padding-top: 10px
+		padding-bottom: 10px
+		padding-right: 20px
+		font-weight: $font-bold	
+		font-size: $font-size	
+
+	@if $isCrossIcon == true
+		.close-icon
+			display: block;
+			height: 43px
+			width: 43px
+			position: relative
+			margin-right: 10px
+
+			&:before,
+			&:after
+				content: ''
+				display: block
+				height: 16px
+				width: 2px
+				background-color: color('white')
+				position: absolute
+				left: 50%
+				top: 30%
+
+			&:before
+				@include vendor-prefix('transform', rotate(45deg))
+
+			&:after
+				@include vendor-prefix('transform', rotate(-45deg))
+
+
+
+		

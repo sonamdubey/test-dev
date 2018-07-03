@@ -7,6 +7,7 @@ using Bikewale.Entities.Location;
 using Bikewale.Entities.manufacturecampaign;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Models.BikeSeries;
+using Bikewale.Models.QuestionAndAnswers;
 using Bikewale.Models.UserReviews;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,6 +28,11 @@ namespace Bikewale.Models.BikeModels
     /// Description : Added BikeSpecsFeatures for VM for bike specs & features, moved IsVersionSpecsAvailable to BikeSpecsFeatures VM.
     /// Modified by : Sanskar Gupta on 25 May 2018
     /// Description : Added `bool ShowSeriesSlug` and `ModelSeriesSlugVM SeriesSlug` objects
+    /// Modified By : Deepak Israni on 14 June 2018
+    /// Description : Added properties -> QuestionAnswerSlugVM QASlug, bool IsQAModel and bool IsQAAvailable
+    /// Modified by: Dhruv Joshi
+    /// Dated: 25th June 2018
+    /// Description: Added AskQuestionPopupVM
     /// </summary>
     public class ModelPageVM : ModelBase
     {
@@ -147,6 +153,13 @@ namespace Bikewale.Models.BikeModels
 
         public bool ShowSeriesSlug { get; set; }
         public ModelSeriesSlugVM SeriesSlug { get; set; }
+        public bool IsQAModel { get; set; }
+        public bool IsQAAvailable { get; set; }
+        public uint QACount { get; set; }
+        public string QAUrl { get; set; }
+        public QuestionAnswerSlugVM QASlug { get; set; }
+        public QuestionAnswerSectionVM QASection { get; set; }
+        public AskQuestionPopupVM AskQuestionPopup { get; set; }
     }
 
 }

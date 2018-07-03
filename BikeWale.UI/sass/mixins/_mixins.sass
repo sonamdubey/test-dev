@@ -1,10 +1,10 @@
 ﻿@mixin vendor-prefix($property, $value)
-	-webkit-#{$property}: $value
-	-moz-#{$property}: $value
-	-ms-#{$property}: $value
-	#{$property}: $value
+  -webkit-#{$property}: $value
+  -moz-#{$property}: $value
+  -ms-#{$property}: $value
+  #{$property}: $value
 
-
+//clearfix mixin
 @mixin clearfix()
   clear: both
   &:before,
@@ -14,3 +14,17 @@
 
   &:after
     clear: both
+
+//icon in after content
+@mixin afterIcon($fromRight: 8%, $fromTop: 34%)
+  &:after
+    @include right-arrow-0288d1-icon
+    content: ""
+    position: absolute
+    right: $fromRight
+    top: $fromTop
+    width: 6px
+    height: 10px
+
+  &:hover:after
+    @include right-arrow-fff-icon

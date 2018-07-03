@@ -98,6 +98,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="QuestionsAnswers, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\QuestionsAndAnswers\QuestionsAnswers.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -125,6 +129,7 @@
     <Compile Include="BikeData\BikeMakeEntity.cs" />
     <Compile Include="BikeData\BikeMakeEntityBase.cs" />
     <Compile Include="BikeData\BikeMakeModelData.cs" />
+    <Compile Include="QuestionsAndAnswers\BikeModelData.cs" />
     <Compile Include="BikeData\BikeModelEntityBase.cs" />
     <Compile Include="BikeData\BikeModelMailEntity.cs" />
     <Compile Include="BikeData\BikeModelsByMake.cs" />
@@ -224,6 +229,22 @@
     <Compile Include="PQ_Price.cs" />
     <Compile Include="PQ_QuotationEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QuestionsAndAnswers\AnswersEntity.cs" />
+    <Compile Include="QuestionsAndAnswers\Answer\Answer.cs" />
+    <Compile Include="QuestionsAndAnswers\Answer\AnswerDetails.cs" />
+    <Compile Include="QuestionsAndAnswers\EnumQnAPageType.cs" />
+    <Compile Include="QuestionsAndAnswers\EnumQuestionStatus.cs" />
+    <Compile Include="QuestionsAndAnswers\QnAFilters.cs" />
+    <Compile Include="QuestionsAndAnswers\Question\ModerateQuestionEntity.cs" />
+    <Compile Include="QuestionsAndAnswers\Question\Question.cs" />
+    <Compile Include="QuestionsAndAnswers\Question\QuestionDetails.cs" />
+    <Compile Include="QuestionsAndAnswers\Question\QuestionModerationResponse.cs" />
+    <Compile Include="QuestionsAndAnswers\Question\UpdateQuestionTagsEntity.cs" />
+    <Compile Include="QuestionsAndAnswers\Question\UpdateQuestionTagsResponse.cs" />
+    <Compile Include="QuestionsAndAnswers\Tag.cs" />
+    <Compile Include="QuestionsAndAnswers\User\BaseUser.cs" />
+    <Compile Include="QuestionsAndAnswers\User\EndUser.cs" />
+    <Compile Include="QuestionsAndAnswers\User\InternalUser.cs" />
     <Compile Include="ServiceCenter\ServiceCenterCompleteData.cs" />
     <Compile Include="ServiceCenter\ServiceCenterData.cs" />
     <Compile Include="ServiceCenter\ServiceCenterDetails.cs" />
@@ -239,6 +260,7 @@
     <Compile Include="UserReviews\UserReviewOverallRating.cs" />
     <Compile Include="UserReviews\UserReviews.cs" />
     <Compile Include="UserReviews\UserReviewSummary.cs" />
+    <Compile Include="Users\User.cs" />
     <Compile Include="Users\UserDetailsEntity.cs" />
     <Compile Include="VersionColorBase.cs" />
     <Compile Include="VersionColorWithAvailability.cs" />

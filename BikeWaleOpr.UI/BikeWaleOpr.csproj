@@ -127,6 +127,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\ElasticSearch\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="QuestionsAnswers, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\QuestionsAndAnswers\QuestionsAnswers.dll</HintPath>
+    </Reference>
     <Reference Include="RabbitMQ.Client, Version=3.0.0.0, Culture=neutral, PublicKeyToken=89e7d7c5feba84ce, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\RabbitMQ.Client.dll</HintPath>
@@ -476,6 +480,7 @@
     <Compile Include="Controllers\PriceMonitoringController.cs" />
     <Compile Include="Controllers\PageMetasConfigureController.cs" />
     <Compile Include="Controllers\NewBikeDealerEMIController.cs" />
+    <Compile Include="Controllers\QuestionsAndAnswersController.cs" />
     <Compile Include="Controllers\SellerDTO.cs" />
     <Compile Include="Controllers\ServiceCenterController.cs" />
     <Compile Include="Controllers\UserReviewsController.cs" />
@@ -533,6 +538,7 @@
     <Compile Include="Models\ManufacturerCampaign\SearchCampaign.cs" />
     <Compile Include="Models\PageMetasConfiguration\ConfigurePageMetas.cs" />
     <Compile Include="Models\PageMetasConfiguration\PageMetasSearch.cs" />
+    <Compile Include="Models\QuestionAndAnswer\QuestionAnswerModel.cs" />
     <Compile Include="Models\ServiceCenter\ServiceCenterPageModel.cs" />
     <Compile Include="Models\UserReviews\ManageUserReviewsPageModel.cs" />
     <Compile Include="Models\UserReviews\ManageUserReviewsRatingsPage.cs" />
@@ -654,6 +660,7 @@
     <Folder Include="Entities\" />
     <Folder Include="obj\Debug\TempPE\" />
     <Folder Include="obj\Release\TempPE\" />
+    <Folder Include="Views\Questions\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="aspnet_client\FreeTextBox\FTB-FreeTextBox.js" />
@@ -1462,6 +1469,7 @@
     <Content Include="css\login.css" />
     <Content Include="css\materialize-stepper.css" />
     <Content Include="css\materialize.css" />
+    <Content Include="css\questionsandanswers.css" />
     <Content Include="css\userreviews.css" />
     <Content Include="Default.aspx" />
     <Content Include="editor\css\content.css" />
@@ -2032,6 +2040,8 @@
     <Content Include="src\pagemetasearch.js" />
     <Content Include="src\PopUpDiv.js" />
     <Content Include="src\ManagePrice\pricemonitoring.js" />
+    <Content Include="src\QuestionsAndAnswers\filters.js" />
+    <Content Include="src\QuestionsAndAnswers\managequestions.js" />
     <Content Include="src\ServiceCenter\ServiceCenter.js" />
     <Content Include="src\ServiceCenter\ServiceCenterOperations.js" />
     <Content Include="src\userreviews\manageuserratings.js" />
@@ -2116,6 +2126,13 @@
     <Content Include="Views\BulkPrice\_NavigationBreadcrumbs.cshtml" />
     <Content Include="Views\BulkPrice\UnmappedBikes.cshtml" />
     <Content Include="Views\BulkPrice\UnmappedCities.cshtml" />
+    <Content Include="Views\QuestionsAndAnswers\QnABase.cshtml" />
+    <Content Include="Views\QuestionsAndAnswers\_Filters.cshtml" />
+    <Content Include="Views\QuestionsAndAnswers\QuestionDetailsPopup\_Question_Details_Approved_Unanswered_Popup.cshtml" />
+    <Content Include="Views\QuestionsAndAnswers\DataGrid\_DataGrid_Questions.cshtml" />
+    <Content Include="Views\QuestionsAndAnswers\QuestionDetailsPopup\_Question_Details_Unapproved_Unanswered_Popup.cshtml" />
+    <Content Include="Views\QuestionsAndAnswers\QuestionDetailsPopup\_Question_Details_Rejected.cshtml" />
+    <Content Include="Views\QuestionsAndAnswers\QuestionDetailsPopup\_Question_Details_Approved_Answered_Popup.cshtml" />
     <Content Include="Views\BulkPrice\UpdatablePrices.cshtml" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
@@ -2303,7 +2320,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>False</AutoAssignPort>
           <DevelopmentServerPort>51984</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

@@ -160,6 +160,9 @@
     <Reference Include="PasswordHashingLib">
       <HintPath>..\Libs\PasswordHashingLib.dll</HintPath>
     </Reference>
+    <Reference Include="QuestionsAnswers">
+      <HintPath>..\Libs\QuestionsAndAnswers\QuestionsAnswers.dll</HintPath>
+    </Reference>
     <Reference Include="RabbitMqPublishing, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\RabbitMqPublishing.dll</HintPath>
@@ -243,6 +246,7 @@
     <Compile Include="PriceQuote\PriceQuote.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PWA\CMS\PWACMSData.cs" />
+    <Compile Include="QuestionAndAnswers\Questions.cs" />
     <Compile Include="Security\SecurityBL.cs" />
     <Compile Include="Survey\Survey.cs" />
     <Compile Include="UsedBikes\SellBikes.cs" />

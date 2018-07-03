@@ -1,0 +1,72 @@
+﻿@using Bikewale.Models.QuestionAndAnswers
+@model AskQuestionPopupVM
+@if(Model != null)
+{
+ 
+    <div id="questionAnswerPopup" class="question-answer-popup" data-makename="@Model.MakeName" data-modelname="@Model.ModelName" data-cat="@Model.GAPageType">
+        <div class="popup-header">
+            <span class="popup-header__title">
+                ask your question
+            </span>
+            <span class="close-icon question-answer__close-icon"></span>
+        </div>
+        <div class="question-answer-container">
+            <div class="question-answer__content">
+                <div class="question-answer__content-info">
+                    <div class="question-answer__tip text-bold">
+                        Quick Tips for writing a good question:
+                    </div>
+                    <ul class="question-answer__tip-list">
+                        <li class="question-answer-tip-list__item">
+                            Ask to the point questions
+                        </li>
+                        <li class="question-answer-tip-list__item">
+                            Start with a “What”, “How”, “When” or “Why”
+                        </li>
+                    </ul>
+                </div>
+
+
+                <label class="form-control-box area-control-box">
+                    <textarea class="form-control__input form-control__text-area" data-validationtype="nonempty" data-maxlength="300" placeholder="Start Typing Question" data-bind="value: text"></textarea>
+                    <span class="text-area__character-count">
+                        Max 300 Characters
+                    </span>
+                </label>
+
+                <label class="form-control-box question-answer__email">
+                    <input type="text" class="form-control__input" data-validationtype="name" placeholder="Your Name Here" data-bind="value: askedBy().name" />
+                    <span class="form-control__error">
+                        *Name is Mandatory
+                    </span>
+                </label>
+                <label class="form-control-box question-answer__email">
+                    <input type="email" class="form-control__input" data-validationtype="email" placeholder="Your Email ID Here" data-bind="value: askedBy().email" />
+                    <span class="form-control__error">
+                        *Email ID is Mandatory
+                    </span>
+                </label>
+
+                <span class="question-answer__description">
+                    We will use this Email to send back the answer
+                </span>
+            </div>
+
+            <div class="question-answer__thank-you">
+                <span class="question-answer-response__title">
+                    Thanks for posting your question.
+                </span>
+                <span class="question-answer-response__description">
+                    We will send you an email notification once your question gets reviewed and answered.
+                </span>
+            </div>
+            <button id="postQuestion" class="btn btn-blue">
+                Post Question
+            </button>
+        </div>
+        <div id="ub-ajax-loader">
+            <div class="cover-popup-loader"></div>
+        </div>
+    </div>
+
+}

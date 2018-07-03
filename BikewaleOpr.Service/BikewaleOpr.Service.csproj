@@ -61,6 +61,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\mvc 5\newtonsoft 6.0.4\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="QuestionsAnswers, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\QuestionsAndAnswers\QuestionsAnswers.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -147,6 +151,7 @@
     <Compile Include="AutoMappers\Images\ImageMapper.cs" />
     <Compile Include="AutoMappers\ManufacturerCampaign\SearchMapper.cs" />
     <Compile Include="AutoMappers\Location\CityMapper.cs" />
+    <Compile Include="AutoMappers\QuestionAnswers\QuestionAnswerMapper.cs" />
     <Compile Include="AutoMappers\ServiceCenter\ServiceCenterMapper.cs" />
     <Compile Include="AutoMappers\UserReviews\UserReviewsMapper.cs" />
     <Compile Include="Controllers\AdOperation\AdOperationController.cs" />
@@ -167,6 +172,8 @@
     <Compile Include="Controllers\ManufacturerCampaign\ManufacturerCampaignController.cs" />
     <Compile Include="Controllers\NewBikeSpecificationController.cs" />
     <Compile Include="Controllers\PageMetas\PageMetasController.cs" />
+    <Compile Include="Controllers\QuestionAndAnswers\AnswersController.cs" />
+    <Compile Include="Controllers\QuestionAndAnswers\QuestionController.cs" />
     <Compile Include="Controllers\ServiceCenter\ServiceCenterController.cs" />
     <Compile Include="Controllers\ShowroomPricesController.cs" />
     <Compile Include="Controllers\Used\UsedBikesController.cs" />

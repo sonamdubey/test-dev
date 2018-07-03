@@ -147,6 +147,7 @@
     <Compile Include="PriceQuote\PriceQuoteCache.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PWA\CMS\PWACMSCacheRepository.cs" />
+    <Compile Include="QuestionAndAnswers\QuestionsCacheRepository.cs" />
     <Compile Include="ServiceCenter\ServiceCenterCacheRepository.cs" />
     <Compile Include="UsedBikes\UsedBikesCache.cs" />
     <Compile Include="UsedBikes\PopularUsedBikesCacheRepository.cs" />

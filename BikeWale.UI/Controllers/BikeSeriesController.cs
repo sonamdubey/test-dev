@@ -4,6 +4,7 @@ using Bikewale.Entities.Compare;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.Compare;
+using Bikewale.Interfaces.QuestionAndAnswers;
 using Bikewale.Interfaces.UsedBikes;
 using Bikewale.Interfaces.Videos;
 using Bikewale.Models.BikeSeries;
@@ -24,6 +25,7 @@ namespace Bikewale.Controllers
         private readonly IVideos _videos = null;
         private readonly IBikeSeriesCacheRepository _seriesCache = null;
         private readonly IBikeCompare _compareScooters = null;
+        private readonly IQuestions _objQuestions;
         private readonly ModelController _modelController = null;
 
         /// <summary>
@@ -36,7 +38,7 @@ namespace Bikewale.Controllers
         /// <param name="articles"></param>
         /// <param name="videos"></param>
         /// <param name="compareScooters"></param>
-        public BikeSeriesController(IBikeSeriesCacheRepository seriesCache, IUsedBikesCache usedBikesCache, IBikeSeries bikeSeries, ICMSCacheContent articles, IVideos videos, IBikeCompare compareScooters)
+        public BikeSeriesController(IBikeSeriesCacheRepository seriesCache, IUsedBikesCache usedBikesCache, IBikeSeries bikeSeries, ICMSCacheContent articles, IVideos videos, IBikeCompare compareScooters, IQuestions objQuestions)
         {
             _bikeSeries = bikeSeries;
             _usedBikesCache = usedBikesCache;
@@ -44,6 +46,7 @@ namespace Bikewale.Controllers
             _videos = videos;
             _seriesCache = seriesCache;
             _compareScooters = compareScooters;
+            _objQuestions = objQuestions;
 
             try
             {

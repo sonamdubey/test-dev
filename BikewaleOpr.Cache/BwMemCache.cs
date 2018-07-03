@@ -501,5 +501,48 @@ namespace BikewaleOpr.Cache
             MemCachedUtil.Remove(keys);
         }
 
+        /// <summary>
+        /// Created by  : Sanskar Gupta on 27 June 2018
+        /// Description : Function to clear QnA Internal Users cache.
+        /// </summary>
+        public static void ClearQnAInternalUsers()
+        {
+            string key = "BW_QnA_InternalUsers";
+            MemCachedUtil.Remove(key);
+            ClearQnAInternalUserIDs();
+        }
+
+        /// <summary>
+        /// Created by  : Sanskar Gupta on 27 June 2018
+        /// Description : Function to clear QnA Internal User IDs cache.
+        /// </summary>
+        private static void ClearQnAInternalUserIDs()
+        {
+            string key = "BW_QnA_InternalUserIDs";
+            MemCachedUtil.Remove(key);
+        }
+
+        /// <summary>
+        /// Created by  : Sanskar Gupta on 27 June 2018
+        /// Description : Clear questions for a particular model Id.
+        /// </summary>
+        /// <param name="modelId"></param>
+        public static void ClearQuestionsForModelId(uint modelId)
+        {
+            string key = String.Format("BW_Questions_Model_{0}", modelId);
+            MemCachedUtil.Remove(key);
+            ClearQuestionCountByModelId(modelId);
+        }
+
+        /// <summary>
+        /// Created by  : Sanskar Gupta on 27 June 2018
+        /// Description : Function to clear count of questions for a particular model id.
+        /// </summary>
+        /// <param name="modelId"></param>
+        private static void ClearQuestionCountByModelId(uint modelId)
+        {
+            string key = String.Format("BW_Model_{0}_QuestionCount", modelId);
+            MemCachedUtil.Remove(key);
+        }
     }
 }

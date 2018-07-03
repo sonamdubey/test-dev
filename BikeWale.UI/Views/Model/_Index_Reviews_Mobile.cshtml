@@ -8,27 +8,26 @@
             <span class="font14 text-bold">@Model.ModelPageEntity.ModelDetails.ReviewUIRating</span>
         </span>
  </div>
-    if (Model.ModelPageEntity.ModelDetails.ReviewCount > 0)
-        {
-            <span class="border-light-left"></span>
-        }
 }
-    <div class="inline-block">
+    <div class="model-top__review-list">
         @if (Model.ModelPageEntity != null && Model.ModelPageEntity.ModelDetails != null && Model.ModelPageEntity.ModelDetails.ReviewRate > 0 && Model.ModelPageEntity.ModelDetails.RatingCount > 0)
         {
-            <span>
-               @if (Model.ModelPageEntity.ModelDetails.ReviewCount > 0)
-               {
-                <a href="@string.Format("/m{0}", Bikewale.Utility.UrlFormatter.FormatShowReviewLink(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName))" title="@string.Format("{0} {1} review{2}", Model.ModelPageEntity.ModelDetails.MakeBase.MakeName, Model.ModelPageEntity.ModelDetails.ModelName, (Model.ModelPageEntity.ModelDetails.ReviewCount > 1 ? "s" : ""))" class="leftfloat margin-right10 padding-left10 font12">
+        <span class="model-top-review-list__item">
+            @if (Model.ModelPageEntity.ModelDetails.ReviewCount > 0)
+            {
+                <a href="@string.Format("/m{0}", Bikewale.Utility.UrlFormatter.FormatShowReviewLink(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName))" title="@string.Format("{0} {1} review{2}", Model.ModelPageEntity.ModelDetails.MakeBase.MakeName, Model.ModelPageEntity.ModelDetails.ModelName, (Model.ModelPageEntity.ModelDetails.ReviewCount > 1 ? "s" : ""))" class="leftfloat font12">
                     <span>@Model.ModelPageEntity.ModelDetails.ReviewCount</span><span>&nbsp;Review@((Model.ModelPageEntity.ModelDetails.ReviewCount) > 1 ? "s" : "")</span>
                 </a>
-               }
-            </span>
+            }
+        </span>
         }
         else
         {
-            <span class="star-span star-zero-icon leftfloat"></span>
-            <span class="font12 text-light-grey leftfloat margin-right10 padding-left5">Not rated yet</span>
+            <span class="model-top-review-list__item">
+                <span class="star-span star-zero-icon leftfloat"></span>
+                <span class="font12 text-light-grey leftfloat">Not rated yet</span>
+            </span>
+          
         }
         @{
             var ModelDetails = Model.ModelPageEntity.ModelDetails;
@@ -37,12 +36,25 @@
 
         }
 
-            <a rel="nofollow" href="javascript:void(0)" data-href="@string.Format("/m/bike-review-contest/?q={0}" , q)" class="bw-ga bw-anchor-link" l='@string.Format("{0}_{1}", Model.ModelPageEntity.ModelDetails.MakeBase.MakeName, Model.ModelPageEntity.ModelDetails.ModelName)' data-act="Clicked_RateThisBike" data-cat="Model_Page">
-                <span class="border-light-left padding-left10"></span>
-                <span>Rate & Win</span>
-            </a>
+        <a class="model-top-review-list__item" rel="nofollow" href="javascript:void(0)" data-href="@string.Format("/m/bike-review-contest/?q={0}" , q)" class="bw-ga bw-anchor-link" l='@string.Format("{0}_{1}", Model.ModelPageEntity.ModelDetails.MakeBase.MakeName, Model.ModelPageEntity.ModelDetails.ModelName)' data-act="Clicked_RateThisBike" data-cat="Model_Page">
+            <span>Rate & Win</span>
+        </a>
+        @if (Model.IsQAModel)
+        {
+            if (Model.IsQAAvailable)
+            {
+                <a href="@(Model.QAUrl)" title="@(Model.BikeName) Questions and Answers">
+                    <span id="qnaReviewListItem" class="model-top-review-list__item qna-redirection-link" data-cat="Model_Page" data-act="Q&A_Link_Clicked" data-lab="@(MakeDetails != null && ModelDetails != null ? String.Format("{0}_{1}", MakeDetails.MakeName, ModelDetails.ModelName) : "")">
+                        Q&amp;A (@(Model.QACount))
+                    </span>
+                </a>
+            }
+            else
+            {
+                <span id ="askQuestionReviewListItem" class="ask-question__link model-top-review-list__item" data-platform="@((int)Model.QASlug.Platform)" data-source="@((int)Bikewale.Entities.QuestionAndAnswers.Sources.ModelPage_Top_Ask_Question_Link)" data-modelid="@Model.ModelId" data-tags="@Model.QASlug.Tags">Ask a Question</span>   
+            }
+        }
        
-      
     </div>
 </div>
 

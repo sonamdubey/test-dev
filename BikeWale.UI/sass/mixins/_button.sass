@@ -1,0 +1,43 @@
+﻿@mixin btn($font-size: 16px, $font-weight: normal)
+  .btn
+    @include vendor-prefix('border-radius', 4px)
+    display: inline-block
+    padding: 8px 42px
+    font-size: $font-size
+    line-height: 1.42857143
+    text-align: center
+    white-space: nowrap
+    border: 1px solid transparent
+    outline: none
+    text-decoration: none
+    vertical-align: middle
+    -ms-touch-action: manipulation
+    touch-action: manipulation
+    cursor: pointer
+    -webkit-user-select: none
+    -moz-user-select: none
+    -ms-user-select: none
+    user-select: none
+    background-image: none
+    -webkit-appearance: none
+    font-weight: $font-weight
+
+@mixin btn-blue
+  .btn-blue
+    display: block
+    width: 100%
+    color: color('white')
+    background-color: color('pacific-blue')
+    text-transform: capitalize
+
+@mixin btn-inv-blue($btn-padding: 5px 31px 5px 15px)
+  .btn-inv-blue
+    background-color: transparent
+    color: color('pacific-blue')
+    border-color: color('pacific-blue')
+    padding: $btn-padding
+    position: relative
+
+    &:hover
+      background-color: color('pacific-blue')
+      color: color('white')

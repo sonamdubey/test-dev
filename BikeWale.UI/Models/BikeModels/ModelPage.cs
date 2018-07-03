@@ -22,6 +22,7 @@ using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.PriceQuote;
+using Bikewale.Interfaces.QuestionAndAnswers;
 using Bikewale.Interfaces.ServiceCenter;
 using Bikewale.Interfaces.Used;
 using Bikewale.Interfaces.UsedBikes;
@@ -33,6 +34,7 @@ using Bikewale.ManufacturerCampaign.Interface;
 using Bikewale.Models.BestBikes;
 using Bikewale.Models.BikeSeries;
 using Bikewale.Models.PriceInCity;
+using Bikewale.Models.QuestionAndAnswers;
 using Bikewale.Models.Used;
 using Bikewale.Models.UserReviews;
 using Bikewale.Notifications;
@@ -81,6 +83,7 @@ namespace Bikewale.Models.BikeModels
         private readonly IBikeInfo _bikeInfo = null;
         private readonly IBikeMakesCacheRepository _bikeMakesCacheRepository;
         private readonly IApiGatewayCaller _apiGatewayCaller;
+        private readonly IQuestions _objQuestions;
 
 
         private uint _modelId, _cityId, _areaId;
@@ -118,7 +121,7 @@ namespace Bikewale.Models.BikeModels
         /// Modified by : Ashutosh Sharma on 31 Oct 2017
         /// Description : Added IAdSlot.
         /// </summary>
-        public ModelPage(string makeMasking, string modelMasking, IUserReviewsSearch userReviewsSearch, IUserReviewsCache userReviewsCache, IBikeModels<Entities.BikeData.BikeModelEntity, int> objModel, IDealerPriceQuote objDealerPQ, IAreaCacheRepository objAreaCache, ICityCacheRepository objCityCache, IPriceQuote objPQ, IDealerCacheRepository objDealerCache, IDealerPriceQuoteDetail objDealerDetails, IBikeVersions<BikeVersionEntity, uint> objVersion, ICMSCacheContent objArticles, IVideos objVideos, IUsedBikeDetailsCacheRepository objUsedBikescache, IServiceCenter objServiceCenter, IPriceQuoteCache objPQCache, IUsedBikesCache usedBikesCache, IUpcoming upcoming, IManufacturerCampaign objManufacturerCampaign, IBikeSeries bikeSeries, IAdSlot adSlot, IBikeInfo bikeInfo, IBikeMakesCacheRepository bikeMakesCacheRepository, IApiGatewayCaller apiGatewayCaller)
+        public ModelPage(string makeMasking, string modelMasking, IUserReviewsSearch userReviewsSearch, IUserReviewsCache userReviewsCache, IBikeModels<Entities.BikeData.BikeModelEntity, int> objModel, IDealerPriceQuote objDealerPQ, IAreaCacheRepository objAreaCache, ICityCacheRepository objCityCache, IPriceQuote objPQ, IDealerCacheRepository objDealerCache, IDealerPriceQuoteDetail objDealerDetails, IBikeVersions<BikeVersionEntity, uint> objVersion, ICMSCacheContent objArticles, IVideos objVideos, IUsedBikeDetailsCacheRepository objUsedBikescache, IServiceCenter objServiceCenter, IPriceQuoteCache objPQCache, IUsedBikesCache usedBikesCache, IUpcoming upcoming, IManufacturerCampaign objManufacturerCampaign, IBikeSeries bikeSeries, IAdSlot adSlot, IBikeInfo bikeInfo, IBikeMakesCacheRepository bikeMakesCacheRepository, IApiGatewayCaller apiGatewayCaller, IQuestions objQuestions)
         {
             _objModel = objModel;
             _objDealerPQ = objDealerPQ;
@@ -143,6 +146,7 @@ namespace Bikewale.Models.BikeModels
             _bikeInfo = bikeInfo;
             _bikeMakesCacheRepository = bikeMakesCacheRepository;
             _apiGatewayCaller = apiGatewayCaller;
+            _objQuestions = objQuestions;
 
             ParseQueryString(makeMasking, modelMasking);
         }
@@ -256,6 +260,11 @@ namespace Bikewale.Models.BikeModels
                     dt7 = DateTime.Now;
 
                     #endregion Do Not change the sequence
+
+                    if (IsMobile)
+                    {
+                        BindQuestionAnswers(_objData);
+                    }
                 }
             }
             catch (Exception ex)
@@ -309,6 +318,10 @@ namespace Bikewale.Models.BikeModels
                             MakeMaskingName = _makeMaskingName,
                             SeriesMaskingName = taggedSeries.MaskingName
                         };
+                }
+                else
+                {
+                    _objData.ShowSeriesSlug = false;
                 }
             }
             catch (Exception ex)
@@ -1518,16 +1531,19 @@ namespace Bikewale.Models.BikeModels
                                     _objData.SelectedVersion = modelPg.ModelVersions.FirstOrDefault();
                                 }
                             }
-
-                            _objData.VersionId = (uint)_objData.SelectedVersion.VersionId;
-
-                            if (_objData.IsDiscontinuedBike)
+                            if (_objData.SelectedVersion != null)
                             {
-                                _objData.BikePrice = (uint)_objData.SelectedVersion.Price;
-                            }
-                            else
-                            {
-                                _objData.BikePrice = _objData.ShowOnRoadButton ? (uint)_objData.SelectedVersion.Price : (_objData.CityId == 0 ? (uint)_objData.SelectedVersion.Price : 0);
+                                _objData.VersionId = (uint)_objData.SelectedVersion.VersionId; 
+
+                                if (_objData.IsDiscontinuedBike)
+                                {
+                                    _objData.BikePrice = (uint)_objData.SelectedVersion.Price;
+                                }
+                                else
+                                {
+                                    _objData.BikePrice = _objData.ShowOnRoadButton ? (uint)_objData.SelectedVersion.Price : (_objData.CityId == 0 ? (uint)_objData.SelectedVersion.Price : 0);
+                                }
+
                             }
                         }
 
@@ -2220,15 +2236,9 @@ namespace Bikewale.Models.BikeModels
                         int bikeCount = modelsBySeries.SeriesModels.NewBikes != null ? modelsBySeries.SeriesModels.NewBikes.Count() : 0;
                         bool seriesValidation = (modelsBySeries.IsNewAvailable || modelsBySeries.IsUpcomingAvailable)
                             && seriesDetails.IsSeriesPageUrl
-                            && !string.IsNullOrEmpty(seriesDetails.MaskingName)
                             && bikeCount > 1;
 
-                        BikeModelPageEntity bikeDetails = _objData.ModelPageEntity;
-                        bool bikeValidation = bikeDetails != null
-                            && bikeDetails.ModelDetails != null
-                            && bikeDetails.ModelDetails.MakeBase != null;
-
-                        _objData.ShowSeriesSlug = seriesValidation && bikeValidation;
+                        _objData.ShowSeriesSlug = seriesValidation;
                     }
                 }
             }
@@ -2429,6 +2439,78 @@ namespace Bikewale.Models.BikeModels
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, string.Format("Bikewale.Models.BikeModels.BindAdSlots Model: {0}", _modelId));
+            }
+
+        }
+
+        /// <summary>
+        /// Created By : Deepak Israni on 14 June 2018
+        /// Description : Method to bind QnA related data on Model page.
+        /// Modified by: Dhruv Joshi
+        /// Dated: 25th June 2018
+        /// Description: Added VM binding for Ask Question Popup
+        /// </summary>
+        /// <param name="objData"></param>
+        private void BindQuestionAnswers(ModelPageVM objData)
+        {
+            objData.IsQAModel = _objModel.CheckQnAStatus(_modelId);
+
+            if (objData.IsQAModel)
+            {
+                objData.QACount = _objQuestions.GetQuestionCountByModelId(_modelId);
+                objData.IsQAAvailable = objData.QACount > 0;
+
+                var objMakeModelDetails = objData.ModelPageEntity.ModelDetails;
+
+                objData.QASlug = new QuestionAnswerSlugVM()
+                {
+                    IsQAAvailable = objData.IsQAAvailable,
+                    Platform = IsMobile ? Platforms.Mobile : Platforms.Desktop,
+                    ModelId = _modelId,
+                    Tags = objMakeModelDetails != null && objMakeModelDetails.MakeBase != null ? String.Format("{0},{1}", objMakeModelDetails.MakeBase.MaskingName, objMakeModelDetails.MaskingName) : "",
+                    MakeName = objMakeModelDetails.MakeBase != null ? objMakeModelDetails.MakeBase.MakeName : "",
+                    BikeName = objData.BikeName,
+                    ModelName = objMakeModelDetails.ModelName,
+                    GAPageType = GAPages.Model_Page
+                };
+
+                if(objMakeModelDetails != null && objMakeModelDetails.MakeBase != null)
+                {
+                    objData.AskQuestionPopup = new AskQuestionPopupVM()
+                    {
+                        MakeName = objMakeModelDetails.MakeBase.MakeName,
+                        ModelName = objMakeModelDetails.ModelName,
+                        GAPageType = GAPages.Model_Page
+                    };
+                }                
+
+                if (objData.IsQAAvailable)
+                {
+                    ushort pageNo = 1;
+                    ushort questionsShown = 3;
+                    string viewAll = String.Format("{0}questions-and-answers/", objData.PageMetaTags.AlternateUrl);
+
+                    objData.QAUrl = viewAll;
+                    objData.QASlug.ViewAllUrl = viewAll;
+
+                    QuestionAnswerSectionVM _qASection = new QuestionAnswerSectionVM()
+                    {
+                        ViewAllURL = viewAll,
+                        Platform = IsMobile ? Platforms.Mobile : Platforms.Desktop,
+                        ModelId = _modelId,
+                        Tags = objMakeModelDetails != null && objMakeModelDetails.MakeBase != null ? String.Format("{0},{1}", objMakeModelDetails.MakeBase.MaskingName, objMakeModelDetails.MaskingName) : "",
+                        BikeName = objData.BikeName,
+                        QACount = objData.QACount,
+                        MakeName = objMakeModelDetails.MakeBase != null ? objMakeModelDetails.MakeBase.MakeName : "",
+                        ModelName = objMakeModelDetails.ModelName,
+                        GAPageType = GAPages.Model_Page
+                    };
+
+                    _qASection.Questions = _objQuestions.GetQuestionAnswerDataByModelId(_modelId, pageNo, questionsShown);
+
+                    objData.QASection = _qASection;
+                    
+                }
             }
 
         }

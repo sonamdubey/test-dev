@@ -2052,6 +2052,32 @@ namespace Bikewale.BAL.BikeData
             }
         }
 
-        
+
+
+        /// <summary>
+        /// Created By : Deepak Israni on 14 June 2018
+        /// Description: Function to check if passed model id has QnA active for it.
+        /// </summary>
+        /// <param name="modelid"></param>
+        /// <returns></returns>
+        public bool CheckQnAStatus(uint modelid)
+        {
+            bool qnaStatus = false;
+            try
+            {
+                Hashtable qnaModels = _modelCacheRepository.GetQuestionAnswerModels();
+
+                if (qnaModels != null)
+                {
+                    qnaStatus = qnaModels.ContainsKey(modelid);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("Bikewale.BAL.BikeData.BikeModels.CheckQnAStatus: ModelId - {0}", modelid));
+            }
+
+            return qnaStatus;
+        }
     }   // Class
 }   // namespace

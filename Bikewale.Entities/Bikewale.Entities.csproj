@@ -424,6 +424,7 @@
     <Compile Include="CMS\Photos\CMSImage.cs" />
     <Compile Include="CMS\Photos\ModelImage.cs" />
     <Compile Include="PhotoGallery\ModelPhotoGalleryEntity.cs" />
+    <Compile Include="Platforms.cs" />
     <Compile Include="PriceQuote\BikeDealerPriceDetail.cs" />
     <Compile Include="PriceQuote\BikeQuotationAMPEntity.cs" />
     <Compile Include="PriceQuote\BikeQuotationEntity.cs" />
@@ -457,6 +458,14 @@
     <Compile Include="PriceQuote\v2\PQByCityAreaEntity.cs" />
     <Compile Include="PriceQuote\VersionPrice.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QuestionAndAnswers\Answer.cs" />
+    <Compile Include="QuestionAndAnswers\Question.cs" />
+    <Compile Include="QuestionAndAnswers\QuestionAnswer.cs" />
+    <Compile Include="QuestionAndAnswers\QuestionAnswerWrapper.cs" />
+    <Compile Include="QuestionAndAnswers\Questions.cs" />
+    <Compile Include="QuestionAndAnswers\QuestionBase.cs" />
+    <Compile Include="QuestionAndAnswers\Sources.cs" />
+    <Compile Include="QuestionAndAnswers\Tag.cs" />
     <Compile Include="Schema\AdditionalProperty.cs" />
     <Compile Include="Schema\Address.cs" />
     <Compile Include="Schema\AggregateOffer.cs" />

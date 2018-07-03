@@ -56,6 +56,8 @@ namespace Bikewale.Interfaces.BikeData
     /// Modified by :   Sumit Kate on 15 Jan 2018
     /// Description :   Added new method to fetch model image + color photos by model ids
     /// 
+    /// Modified By :   Deepak Israni on 14 June 2018
+    /// Description :   Added new method GetQuestionAnswerModels to get model ids for which question and answers is active.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <typeparam name="U"></typeparam>
@@ -132,5 +134,7 @@ namespace Bikewale.Interfaces.BikeData
         ICollection<Entities.BikeData.BikeModelColorImageEntity> GetModelImages(string modelIds);
         IEnumerable<MostPopularBikesBase> GetAdPromotedBike(BikeFilters ObjData);
         IEnumerable<MostPopularBikesBase> GetAdPromotedBikeWithOutCity(BikeFilters ObjData);
+
+        Hashtable GetQuestionAnswerModels();
     }
 }

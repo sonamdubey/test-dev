@@ -112,6 +112,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\ElasticSearch\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="QuestionsAnswers, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\QuestionsAndAnswers\QuestionsAnswers.dll</HintPath>
+    </Reference>
     <Reference Include="RabbitMqPublishing, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\RabbitMqPublishing.dll</HintPath>
@@ -150,6 +154,8 @@
     <Compile Include="MemCachedUtil.cs" />
     <Compile Include="PageMetas\PageMetas.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QuestionsAnswers\AnswersBAL.cs" />
+    <Compile Include="QuestionsAnswers\Questions.cs" />
     <Compile Include="Security\SecurityBL.cs" />
     <Compile Include="ServiceCenter\ServiceCenter.cs" />
     <Compile Include="Used\SellBikes.cs" />

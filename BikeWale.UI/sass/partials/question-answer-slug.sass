@@ -1,0 +1,59 @@
+﻿@import ../base/variables
+@import ../components/typography
+
+@import ../mixins/index
+@import ../utils/index
+
+.question-answer-slug
+	@include vendor-prefix('border-radius', 2px)
+	margin: 9px 18px 17px
+	background-color: color('snow')
+	box-shadow: 0 1px 4px 0 color('bright-grey')
+	border-bottom: 4px solid color('mona-lisa')
+
+.question-answer-slug__link
+	@include flexbox
+	@include justify-content(space-around)
+	@include align-items(center)	
+	padding: 15px
+
+	&:hover
+		text-decoration: none
+
+.question-answer-slug__icon
+	@include faq-4d5057-icon
+	background-position: center top -6px
+	background-size: 152px
+	height: 70px
+	width: 100px
+	display: inline-block
+	vertical-align: middle
+
+.question-answer-slug__detail
+	display: inline-block
+	vertical-align: middle
+	text-align: right
+
+.question-answer-slug__title
+	font-size: 16px
+	letter-spacing: 0
+	color: color('nero')
+	font-weight: 600
+	margin-bottom: 4px
+	display: block
+
+.question-answer-slug__description
+	font-size: 12px
+	letter-spacing: 0
+	color: color('light-grey')
+	font-weight: $font-semibold
+	margin-bottom: 17px
+	display: block
+
+.question-answer-slug__button
+	@include vendor-prefix('border-radius', 4px)
+	padding: 6px 17px 8px
+	color: color('tomato')
+	background-color: color('white')
+	border: 1px solid color('tomato')
+	display: inline-block

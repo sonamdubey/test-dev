@@ -88,5 +88,6 @@ namespace Bikewale.Interfaces.BikeData
         SpecsFeaturesEntity GetFullSpecsFeatures(int versionId);
         IEnumerable<BestBikeEntityBase> GetBestBikesByCategory(EnumBikeBodyStyles bodyStyle, uint? cityId = null);
         IEnumerable<BestBikeEntityBase> GetBestBikesByModelInMake(uint modelId, uint? cityId = null);
+        bool CheckQnAStatus(uint modelid);
     }
 }

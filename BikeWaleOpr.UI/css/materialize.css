@@ -2924,7 +2924,7 @@ thead {
 td, th {
     padding: 15px 5px;
     display: table-cell;
-    text-align: left;
+    text-align: center;
     vertical-align: middle;
     border-radius: 2px;
 }
@@ -4441,7 +4441,7 @@ h3 {
 h4 {
     font-size: 1.125rem;
     line-height: 110%;
-    margin: 0.5625rem 0 0.45rem 0;
+    margin: 0.5625rem 0 2.45rem 0;
 }
 
 h5 {
@@ -5594,6 +5594,11 @@ button.btn-floating {
     margin: 0.5rem 0 1rem 0;
 }
 
+.collapsible-body-title {
+    padding: 0 15px !important;
+    background-color: #b2dfdb !important;
+}
+
 .collapsible-header {
     display: block;
     cursor: pointer;
@@ -6312,6 +6317,7 @@ textarea {
     [type="radio"]:not(:checked) + label,
     [type="radio"]:checked + label {
         position: relative;
+        text-align: left;
         padding-left: 35px;
         cursor: pointer;
         display: inline-block;

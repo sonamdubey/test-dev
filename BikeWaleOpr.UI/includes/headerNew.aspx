@@ -49,6 +49,10 @@
                                         <li class="collapsible-body-title teal lighten-4">User Reviews</li>                                        
                                         <li><a href="/userreviews/">Manage Reviews</a></li>
                                         <li><a href="/userreviews/manageratings/">Manage Ratings</a></li>
+
+                                        <li class="collapsible-body-title teal lighten-4">Questions & Answers</li>                                        
+                                        <li><a href="/questionsandanswers/managequestions/">Manage Questions</a></li>
+
                                         <li class="collapsible-body-title teal lighten-4">Mobile Applications</li>
                                         <li><a href="/MobileApp/AppVersioning.aspx">App Versions</a></li>
                                     </ul>

@@ -115,6 +115,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\ElasticSearch\Nest.dll</HintPath>
     </Reference>
+    <Reference Include="QuestionsAnswers, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\QuestionsAndAnswers\QuestionsAnswers.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
@@ -149,6 +153,8 @@
     <Compile Include="ManufactureCampaign\ManufacturerCampaign.cs" />
     <Compile Include="PopularComparisions\PopularBikeComparisions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QuestionsAnswers\QuestionsRepository.cs" />
+    <Compile Include="QuestionsAnswers\UsersRepository.cs" />
     <Compile Include="ServiceCenter\ServiceCenterRepository.cs" />
     <Compile Include="Used\SellerRepository.cs" />
     <Compile Include="UserReviews\UserReviewsRepository.cs" />
@@ -162,7 +168,7 @@
       <Project>{d5229109-3b85-48e7-9ff8-5385bdb54c87}</Project>
       <Name>Bikewale.DAL.CoreDAL</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Bikewale.ElasticSearch.Entities\Bikewale.ElasticSearch.Entities.csproj">
+	<ProjectReference Include="..\Bikewale.ElasticSearch.Entities\Bikewale.ElasticSearch.Entities.csproj">
       <Project>{51f0aa77-2bed-4b2c-aaa9-e9b8be811019}</Project>
       <Name>Bikewale.ElasticSearch.Entities</Name>
     </ProjectReference>

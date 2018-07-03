@@ -4,14 +4,13 @@
     @if (Model.IsReviewsAvailable)
     {
         <li data-tabs="#expertReviewsContent" class="bw-ga" data-cat="Model_Page" data-act="Floating_Navigation_Clicked" data-lab="@Model.BikeName&#95;ExpertReviews">Expert Reviews</li>
-    }  
-    
+    }
 
     @if (Model.IsModelColorsAvailable)
     {
         <li data-tabs="#coloursContent" class="bw-ga" data-cat="Model_Page" data-act="Floating_Navigation_Clicked" data-lab="@Model.BikeName&#95;Colours">Colours</li>
     }
-   
+
     @if (Model.IsSimilarBikesAvailable)
     {
         <li data-tabs="#similarContent" class="bw-ga" data-cat="Model_Page" data-act="Floating_Navigation_Clicked" data-lab="@Model.BikeName&#95;SimilarBikes">Similar @Model.BodyStyleText</li>
@@ -31,15 +30,19 @@
     else if (Model.ModelPageEntity.ModelDesc != null && !string.IsNullOrEmpty(Model.ModelPageEntity.ModelDesc.SmallDescription))
     {
         <li data-tabs="#specsFeaturesAndAboutContent" class="bw-ga" data-cat="Model_Page" data-act="Floating_Navigation_Clicked" data-lab="@Model.BikeName&#95;About">About</li>
-    }
+    }    
 	@if (Model.IsShowPriceTab)
 	{
 		<li data-tabs="#pricesContent" class="bw-ga" data-cat="Model_Page" data-act="Floating_Navigation_Clicked" data-lab="@Model.BikeName&#95;Price">Price</li>
 	}
+    @if (Model.IsQAModel && Model.IsQAAvailable)
+    {
+        <li data-tabs="#questionAnswerWrapper" class="bw-ga" data-cat="Model_Page" data-act="Floating_Navigation_Clicked" data-lab="@Model.BikeName&#95;Q&A">Q&amp;A</li>
+    }
     @if (Model.IsUserReviewsAvailable)
     {
         <li data-tabs="#reviewsContent" class="bw-ga" data-cat="Model_Page" data-act="Floating_Navigation_Clicked" data-lab="@Model.BikeName&#95;UserReviews">User Reviews</li>
-    }      
+    }
     @if (Model.IsNewsAvailable)
     {
         <li data-tabs="#newsContent" class="bw-ga" data-cat="Model_Page" data-act="Floating_Navigation_Clicked" data-lab="@Model.BikeName&#95;News">News</li>

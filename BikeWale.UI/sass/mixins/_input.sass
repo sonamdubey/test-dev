@@ -1,26 +1,36 @@
-@mixin input-field($fontSize: 13)
+@mixin input-field($fontSize: 13, $color: 'dark-gray', $font-weight: normal, $focus-color: 'default', $placeholder-style: normal, $border-radius: 2px)
 	.form-control__input
+		@include vendor-prefix('border-radius', $border-radius)	
+		font-family: 'Open Sans', sans-serif, Arial	
 		width: 100%
 		font-size: $fontSize * 1px
 		padding: 12px 20px
 		line-height: 1.4
-		color: color('dark-gray')
+		color: color($color)
 		position: relative
 		border: 1px solid color('light-gray')
-		box-shadow: 0 2px 4px 0 rgba(215, 215, 215, .5)
-		border-radius: 2px
+		box-shadow: 0 2px 4px 0 color('border-dark')
 		background-color: color('white')
+		font-weight: $font-weight
+		position: relative
+		z-index: 1
 
 		&:focus
 			color: color('default')
+			border-color: color($focus-color)
 
-	input::-webkit-input-placeholder,
-	input:-moz-placeholder
-		font-size: $fontSize * 1px
-		color: color('dark-gray')
+		&::placeholder,
+		&::-webkit-input-placeholder
+			font-size: $fontSize * 1px
+			color: color('dark-gray')
+			font-style: $placeholder-style
+			font-weight: normal
 
-	input:-moz-placeholder
-		opacity: 1
+		&::-moz-placeholder
+			opacity: 1
+			font-size: $fontSize * 1px
+			color: color('dark-gray')
+			font-style: $placeholder-style
 
 	.form-control__error
 		&.ui-autocomplete
@@ -43,3 +53,60 @@
 		top: 7px
 		right: 13px
 		cursor: pointer
+
+
+@mixin form-control-box()
+	.form-control-box
+		position: relative
+		display: block
+		margin-bottom: 6px
+
+		&.invalid
+			.form-control__input
+				border: 1px solid color('tomato')
+				background-color: color('snow')
+
+			.form-control__error
+				display: block
+				top: 2px
+
+	.form-control__error
+		margin-top: 6px
+		color: color('tomato')
+		position: relative
+		top: -20px
+		display: none
+
+@mixin area-control-box($min-height: 70px, $max-height: '')
+	.area-control-box
+		.form-control__input
+			resize: none
+			overflow-x: auto
+			min-height: $min-height
+			height: $min-height
+				@if $max-height != ''
+					max-height: $max-height
+			padding-bottom: 20px
+
+@mixin text-area__character-count($font-size: 11px, $color: 'dark-gray-2')
+	.text-area__character-count
+		@include vendor-prefix('transform', translateX(-50%))
+		font-size: $font-size
+		color: color($color)
+		z-index: 1
+		display: block
+		position: absolute
+		left: 50%
+		bottom: 5px
+		width: 99%
+		text-align: right
+		padding-right: 10px
+		padding-bottom: 7px
+		background-color: color('white')
+
+	.form-control-box
+		&.invalid
+			> .text-area__character-count
+				background-color: color('snow')
+				color: color('tomato')
+		

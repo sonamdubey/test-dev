@@ -1,0 +1,90 @@
+﻿@using BikewaleOpr.Models.QuestionsAndAnswers;
+@using BikewaleOpr.Entity.QnA;
+@model ManageQuestionsVM
+@{
+    int i = 0;
+}
+@if (Model != null && Model.QuestionsList != null)
+{
+    <script type="text/javascript">
+
+        var jsData = @Html.Raw(Json.Encode(Model.QuestionsList));        
+    </script>
+
+    <table id="tblQnA" class="bordered highlight z-depth-3 centered responsive-table" data-moderatorid="@Model.CurrentUserId">
+        <tr>
+            <th>Question Id</th>
+            <th>Tags</th>
+            <th>Entry Date</th>
+            <th>Status</th>
+            <th>View Details</th>
+        </tr>
+
+        @foreach (var ques in Model.QuestionsList)
+        {
+            if (ques != null)
+            {
+
+                string modalId = @ModalPopupIdByQuestionStatus(ques.Status);
+                <tr class="tr_@ques.Id">
+
+                    <td>@ques.Id</td>
+                    <td>
+                        @if (!String.IsNullOrEmpty(ques.TagsCSV))
+                        {
+                            @ques.TagsCSV
+                        }
+                    </td>
+                    <td>@ques.AskedOn</td>
+                    <td class="question-status">@ques.Status</td>
+                    <td>
+                        <a id="btnViewDetails_@(i)" href="#!" data-bind="click : function(){ openQuestionDetailsModal(@(i++), '@modalId'); }" class="btn waves-effect waves-light cyan question-details" type="button" name="ViewDetails" data-question-id="@ques.Id">View Details</a>                                    
+                    </td>
+                </tr>
+
+            }
+        }
+        <tr>
+            <td>
+                @Html.Partial("~/Views/QuestionsAndAnswers/QuestionDetailsPopup/_Question_Details_Unapproved_Unanswered_Popup.cshtml", Model.DetailsPopups)
+                @Html.Partial("~/Views/QuestionsAndAnswers/QuestionDetailsPopup/_Question_Details_Approved_Unanswered_Popup.cshtml", Model.DetailsPopups)
+                @Html.Partial("~/Views/QuestionsAndAnswers/QuestionDetailsPopup/_Question_Details_Approved_Answered_Popup.cshtml", Model.DetailsPopups)
+                @Html.Partial("~/Views/QuestionsAndAnswers/QuestionDetailsPopup/_Question_Details_Rejected.cshtml", Model.DetailsPopups)
+            </td>
+        </tr>
+    </table>
+    @functions{ private static string ModalPopupIdByQuestionStatus(@BikewaleOpr.Entity.QnA.EnumQuestionStatus status)
+        {
+            string modalId = "";
+            switch (status)
+            {
+                case EnumQuestionStatus.Pending:
+                    modalId = "#questionDetailsUnapprovedUnanswered";
+                    break;
+                case EnumQuestionStatus.Unanswered:
+                    modalId = "#questionDetailsApprovedUnanswered";
+                    break;
+                case EnumQuestionStatus.Answered:
+                    modalId = "#questionDetailsApprovedAnswered";
+                    break;
+                case EnumQuestionStatus.Rejected:
+                    modalId = "#questionDetailsRejected";
+                    break;
+                default:
+                    break;
+            }
+            return modalId;
+        }
+    }
+}
+else
+{
+    <div class="row">
+        <div class="col s12 m4">
+            <div class="card-panel orange lighten-2">
+                <i class="material-icons">info_outline</i><span class="vertical-align-bottom margin-left5">No Questions/Answers available...</span>
+            </div>
+        </div>
+    </div>
+}
+<script src="/src/QuestionsAndAnswers/managequestions.js"></script>

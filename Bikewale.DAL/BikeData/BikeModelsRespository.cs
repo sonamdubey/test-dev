@@ -3382,5 +3382,45 @@ namespace Bikewale.DAL.BikeData
         }
 
 
+
+        /// <summary>
+        /// Created By : Deepak Israni on 14 June 2018
+        /// Description: DAL function to get the model ids for models for which question and answers is active.
+        /// </summary>
+        /// <returns></returns>
+        public Hashtable GetQuestionAnswerModels()
+        {
+            Hashtable ht = null;
+
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("getquestionanswermodels"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            ht = new Hashtable();
+                            uint currEntry;
+
+                            while (dr.Read())
+                            {
+                                currEntry = SqlReaderConvertor.ToUInt32(dr["modelid"]);
+                                ht.Add(currEntry, currEntry);
+                            }
+                            dr.Close();
+                        }
+                    }
+                }
+            }
+
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "Bikewale.DAL.BikeData.BikeModelsRepository.GetQuestionAnswerModels");
+            }
+            return ht;
+        }
     }   // class
 }   // namespace

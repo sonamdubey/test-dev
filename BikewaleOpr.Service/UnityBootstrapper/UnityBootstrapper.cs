@@ -8,10 +8,12 @@ using BikewaleOpr.BAL;
 using BikewaleOpr.BAL.BikePricing;
 using BikewaleOpr.BAL.ContractCampaign;
 using BikewaleOpr.BAL.Images;
+using BikewaleOpr.BAL.QuestionsAnswers;
 using BikewaleOpr.BAL.Security;
 using BikewaleOpr.BAL.ServiceCenter;
 using BikewaleOpr.BAL.Used;
 using BikewaleOpr.Cache.BikeData;
+using BikewaleOpr.Cache.QuestionsAnswers;
 using BikewaleOpr.DAL;
 using BikewaleOpr.DALs;
 using BikewaleOpr.DALs.AdOperation;
@@ -24,6 +26,7 @@ using BikewaleOpr.DALs.ConfigurePageMetas;
 using BikewaleOpr.DALs.ContractCampaign;
 using BikewaleOpr.DALs.Images;
 using BikewaleOpr.DALs.ManufactureCampaign;
+using BikewaleOpr.DALs.QuestionsAnswers;
 using BikewaleOpr.DALs.ServiceCenter;
 using BikewaleOpr.DALs.UserReviews;
 using BikewaleOpr.Interface;
@@ -37,12 +40,16 @@ using BikewaleOpr.Interface.ContractCampaign;
 using BikewaleOpr.Interface.Dealers;
 using BikewaleOpr.Interface.Images;
 using BikewaleOpr.Interface.ManufacturerCampaign;
+using BikewaleOpr.Interface.QnA;
+using BikewaleOpr.Interface.QuestionsAnswers;
 using BikewaleOpr.Interface.Security;
 using BikewaleOpr.Interface.ServiceCenter;
 using BikewaleOpr.Interface.Used;
 using BikewaleOpr.Interface.UserReviews;
 using BikewaleOpr.Used;
 using Microsoft.Practices.Unity;
+using QuestionsAnswers.BAL;
+using QuestionsAnswers.DAL;
 
 namespace BikewaleOpr.Service.UnityConfiguration
 {
@@ -62,6 +69,8 @@ namespace BikewaleOpr.Service.UnityConfiguration
     /// Description : Added registration for IBwPrice and BwPrice.
     /// Modified by : Rajan Chauhan on 13th Dec 2017
     /// Description : Added registration for IBikeBodyStyle and IBikeBodyStyleRepository
+    /// Modified by : Sanskar Gupta on 13 June 2018
+    /// Description : Added registration for `IQuestionsBAL`, `IQuestions`, `IQuestionsRepository`
     /// </summary>
     public static class UnityBootstrapper
     {
@@ -118,6 +127,18 @@ namespace BikewaleOpr.Service.UnityConfiguration
             container.RegisterType<IBWCache, BWCache>();
             container.RegisterType<IBikeVersionsCacheRepository, BikeVersionsCacheRepository>();
             container.RegisterType<IBikeVersions, BikeVersionsRepository>();
+            container.RegisterType<QuestionsAnswers.BAL.IQuestions, QuestionsAnswers.BAL.Questions>();
+            container.RegisterType<QuestionsAnswers.DAL.IQuestionsRepository, QuestionsAnswers.DAL.QuestionsRepository>();
+            container.RegisterType<QuestionsAnswers.Cache.ICacheManager, QuestionsAnswers.Cache.MemcacheManager>();
+            container.RegisterType<QuestionsAnswers.Cache.IQuestionsCacheRepository, QuestionsAnswers.Cache.QuestionsCacheRepository>();
+            container.RegisterType<IQuestionsBAL, QuestionsBAL>();
+            container.RegisterType<BikewaleOpr.Interface.QuestionsAnswers.IQuestionsRepository, BikewaleOpr.DALs.QuestionsAnswers.QuestionsRepository>();
+
+            container.RegisterType<IQuestionsAndAnswersCache, QuestionsAndAnswersCache>();
+            container.RegisterType<IAnswersBAL, AnswersBAL>();
+            container.RegisterType<IAnswersRepository, AnswersRepository>();
+            container.RegisterType<IAnswers, Answers>();
+            container.RegisterType<IUsersRepository, UsersRepository>();
             return container;
         }
     }

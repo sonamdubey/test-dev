@@ -17,6 +17,7 @@ using Bikewale.BAL.Lead;
 using Bikewale.BAL.Notifications;
 using Bikewale.BAL.Pager;
 using Bikewale.BAL.PriceQuote;
+using Bikewale.BAL.QuestionAndAnswers;
 using Bikewale.BAL.Security;
 using Bikewale.BAL.ServiceCenter;
 using Bikewale.BAL.Used.Search;
@@ -33,6 +34,7 @@ using Bikewale.Cache.Finance;
 using Bikewale.Cache.Location;
 using Bikewale.Cache.MobileVerification;
 using Bikewale.Cache.PriceQuote;
+using Bikewale.Cache.QuestionAndAnswers;
 using Bikewale.Cache.ServiceCenter;
 using Bikewale.Cache.Used;
 using Bikewale.Cache.UsedBikes;
@@ -49,6 +51,7 @@ using Bikewale.DAL.Images;
 using Bikewale.DAL.Location;
 using Bikewale.DAL.NewBikeSearch;
 using Bikewale.DAL.Notifications;
+using Bikewale.DAL.QuestionAndAnswers;
 using Bikewale.DAL.ServiceCenter;
 using Bikewale.DAL.Used;
 using Bikewale.DAL.UsedBikes;
@@ -82,6 +85,7 @@ using Bikewale.Interfaces.NewBikeSearch;
 using Bikewale.Interfaces.Notifications;
 using Bikewale.Interfaces.Pager;
 using Bikewale.Interfaces.PriceQuote;
+using Bikewale.Interfaces.QuestionAndAnswers;
 using Bikewale.Interfaces.Security;
 using Bikewale.Interfaces.ServiceCenter;
 using Bikewale.Interfaces.Used;
@@ -130,6 +134,8 @@ namespace Bikewale.Service.UnityConfiguration
         /// Description :   Register INotification and INotificationRepository
         /// Modified by :   Rajan Chauhan on 11 Apr 2018
         /// Description :   Registered IBikeVersionRepository, IApiGatewayCaller
+        /// Modified By :   Deepak Israni on 12 June 2018
+        /// Description :   Register IQuestions, QuestionsAnswers.BAL.IQuestions, QuestionsAnswers.DAL.IQuestionsRepository
         /// </summary>
         /// <returns></returns>
         public static IUnityContainer Initialize()
@@ -249,6 +255,14 @@ namespace Bikewale.Service.UnityConfiguration
             container.RegisterType<Bikewale.Interfaces.AutoBiz.IDealers, Bikewale.DAL.AutoBiz.DealersRepository>();
             container.RegisterType<IApiGatewayCaller, ApiGatewayCaller>();
             container.RegisterType<IFinanceCacheRepository, FinanceCacheRepository>();
+            container.RegisterType<IQuestions, Questions>();
+            container.RegisterType<IQuestionsCacheRepository, QuestionsCacheRepository>();
+            container.RegisterType<IQuestionsRepository, QuestionsRepository>();
+            container.RegisterType<QuestionsAnswers.BAL.IQuestions, QuestionsAnswers.BAL.Questions>();
+            container.RegisterType<QuestionsAnswers.DAL.IQuestionsRepository, QuestionsAnswers.DAL.QuestionsRepository>();
+            container.RegisterType<QuestionsAnswers.Cache.ICacheManager, QuestionsAnswers.Cache.MemcacheManager>();
+            container.RegisterType<QuestionsAnswers.Cache.IQuestionsCacheRepository, QuestionsAnswers.Cache.QuestionsCacheRepository>();
+            container.RegisterType<IQuestionsRepository, QuestionsRepository>();
             return container;
 
         }

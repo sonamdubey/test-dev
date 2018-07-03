@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Bikewale.Utility.StringExtention
 {
@@ -75,6 +76,29 @@ namespace Bikewale.Utility.StringExtention
             }
 
             return formattedString;
+        }
+
+        /// <summary>
+        /// Created By : Deepak Israni on 13 June 2018
+        /// Description: Function to mask input string with Xs.
+        /// </summary>
+        /// <param name="inputEmail"></param>
+        /// <returns></returns>
+        public static string MaskUserName(string inputName, int index, int maskingLength)
+        {
+            var aStringBuilder = new StringBuilder(inputName);
+            aStringBuilder.Remove(index, maskingLength);
+
+            int length = index + maskingLength;
+
+            for (int i = index; i < length; i++)
+            {
+                aStringBuilder.Insert(i, "X");
+            }
+
+            inputName = aStringBuilder.ToString();
+
+            return inputName;
         }
     }
 }

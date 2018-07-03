@@ -148,7 +148,7 @@
                     </div>
                 }
                 
-                @if (Model.ShowSeriesSlug)
+                @if (Model.ShowSeriesSlug && Model.SeriesSlug != null)
                 {
                     @Html.Partial("~/Views/BikeSeries/_ModelSeriesSlug_Mobile.cshtml", Model.SeriesSlug);
                 }
@@ -160,6 +160,21 @@
                         {
                             @Html.Partial("~/Views/Model/_Index_ModelSummary_Mobile.cshtml", Model)
                         }
+                        
+                        @if (Model.IsQAModel)
+                        {
+                            if (Model.QASlug != null)
+                            {
+                                @Html.Partial("~/Views/QuestionAndAnswers/_QuestionAnswerSlug.cshtml", Model.QASlug)                               
+                            }                            
+
+                            if(Model.AskQuestionPopup != null)
+                            {
+                                @Html.Partial("~/Views/m/Shared/_question-answer.cshtml", Model.AskQuestionPopup)                                
+                            }                            
+
+                        }
+
                         @if (Model.ModelsBySeries != null && (Model.ModelsBySeries.IsNewAvailable || Model.ModelsBySeries.IsUpcomingAvailable))
                         {
                             <div id="modelsBySeriesWidget" data-id="overviewContent" class="margin-bottom15 bw-ga" data-cat="@Model.ModelsBySeries.Page" data-act="Series_WidgetShown" data-lab="@string.Format("{0} {1}", Model.ModelPageEntity.ModelDetails.MakeBase.MakeName, Model.ModelPageEntity.ModelDetails.ModelSeries.SeriesName)">

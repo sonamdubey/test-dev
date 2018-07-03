@@ -1,10 +1,6 @@
 ﻿using BikewaleOpr.Entity.Users;
 using BikewaleOpr.Interface.Users;
-using BikeWaleOpr.Models.Users;
-using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Net.Http;
 using System.Web;
 using System.Web.Mvc;
 
@@ -73,12 +69,26 @@ namespace BikeWaleOpr.MVC.UI.Controllers
                 if (!string.IsNullOrEmpty(idtoken))
                 {
                     string loginId = string.Empty;
-                    
-                    loginId = _users.GoogleApiAuthentication(idtoken);
 
+                    loginId = _users.GoogleApiAuthentication(idtoken);
+                    bool isProduction = false;
+                    Boolean.TryParse(Bikewale.Utility.BWOprConfiguration.Instance.IsProduction, out isProduction);
+                    if (!isProduction)
+                    {
+                        loginId = "sumit";
+                    }
                     if (!string.IsNullOrEmpty(loginId))
-                    {                        
+                    {
                         UserDetailsEntity objUserDetailsEntity = _users.GetUserDetails(loginId);
+                        if (!isProduction)
+                        {
+                            objUserDetailsEntity = new UserDetailsEntity()
+                            {
+                                UserId = 1434,
+                                UserName = "Sumit Kate",
+                                TaskIds = ""
+                            };
+                        }
 
                         if (objUserDetailsEntity != null && objUserDetailsEntity.UserId > 0)
                         {

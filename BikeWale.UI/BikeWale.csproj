@@ -16,7 +16,7 @@
     <RootNamespace>Bikewale</RootNamespace>
     <AssemblyName>Bikewale</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <IISUrl>http://localhost:9011/</IISUrl>
     <TargetFrameworkProfile />
     <UseGlobalApplicationHostFile />
@@ -216,6 +216,10 @@
     <Reference Include="PasswordHashingLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\PasswordHashingLib.dll</HintPath>
+    </Reference>
+    <Reference Include="QuestionsAnswers, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\QuestionsAndAnswers\QuestionsAnswers.dll</HintPath>
     </Reference>
     <Reference Include="RabbitMQ.Client">
       <HintPath>..\Libs\RabbitMQ.Client.dll</HintPath>
@@ -548,6 +552,7 @@
     <Compile Include="Controllers\ScootersController.cs" />
     <Compile Include="Controllers\SurveyController.cs" />
     <Compile Include="Controllers\UpcomingController.cs" />
+    <Compile Include="Controllers\QuestionAnswerController.cs" />
     <Compile Include="Controllers\UserReviewController.cs" />
     <Compile Include="Controllers\VideosController.cs" />
     <Compile Include="Controllers\PopularBikesController.cs" />
@@ -1023,6 +1028,7 @@
     <Compile Include="Models\PriceInCity\ModelPriceInNearestCities.cs" />
     <Compile Include="Models\PriceInCity\PriceInCityPage.cs" />
     <Compile Include="Models\PriceInCity\PriceInTopCities.cs" />
+    <Compile Include="Models\QuestionsAnswers\QuestionAnswerModel.cs" />
     <Compile Include="Models\Scooters\MoreAboutScootersWidget.cs" />
     <Compile Include="Models\Scooters\PopularScooterBrandsWidget.cs" />
     <Compile Include="Models\Scooters\ScootersMakePageModel.cs" />
@@ -2964,6 +2970,8 @@
     <Content Include="m\src\photos\modelgallery.js" />
     <Content Include="m\src\photos\videoPopupViewModel.js" />
     <Content Include="m\src\priceincity.js" />
+    <Content Include="m\src\qna\landing.js" />
+    <Content Include="src\utils\readMore.js" />
     <Content Include="m\src\review\landing.js" />
     <Content Include="m\src\scooters-by-make.js" />
     <Content Include="m\src\sell-bike.js" />
@@ -3190,10 +3198,6 @@
     <Content Include="sass\mixins\_blackout-window.sass" />
     <Content Include="sass\mixins\_check-box.sass" />
     <Content Include="sass\partials\_filter-screen.sass" />
-    <Content Include="Scripts\app.bundle.js" />
-    <Content Include="Scripts\server.bundle.js" />
-    <Content Include="Scripts\sw-toolbox.js" />
-    <Content Include="Scripts\vendor.bundle.js" />
     <Content Include="servicecenter\faq.aspx" />
     <Content Include="new\BikeDealerDetails.aspx" />
     <Content Include="new\listnewbikedealersbycity.aspx" />
@@ -3230,6 +3234,7 @@
     <Content Include="src\dealer\landing.js" />
     <Content Include="src\editorialwidgetga.js" />
     <Content Include="src\electricbikes\electricbikeindex.js" />
+    <Content Include="src\question-and-answer.js" />
     <Content Include="src\lazyloadad.js" />
     <Content Include="m\src\lazyloadyoutube.js" />
     <Content Include="src\lazyloadyoutube.js" />
@@ -4170,6 +4175,15 @@
     <Content Include="sass\mixins\_dealer.sass" />
     <Content Include="sass\mixins\_ribbon.sass" />
     <Content Include="sass\partials\dealer-offers.sass" />
+    <Content Include="sass\partials\question-answer-popup.sass" />
+    <Content Include="sass\mixins\_popup.sass" />
+    <Content Include="Views\m\Shared\_question-answer.cshtml" />
+    <Content Include="sass\mixins\_button.sass" />
+    <Content Include="sass\partials\question-answer.sass" />
+    <Content Include="Views\QuestionAndAnswers\Model_Index_Mobile.cshtml" />
+    <Content Include="Views\QuestionAndAnswers\_QuestionAnswerSlug.cshtml" />
+    <Content Include="sass\partials\question-answer-slug.sass" />
+    <Content Include="Views\QuestionAndAnswers\_QuestionAnswerSection_Mobile.cshtml" />
     <None Include="Views\Shared\_Sidebar-section.cshtml" />
     <Content Include="Views\BikeModels\_MultiTabsWidget.cshtml" />
     <Content Include="Views\Shared\_ReviewPopup.cshtml" />

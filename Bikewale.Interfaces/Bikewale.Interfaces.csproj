@@ -214,6 +214,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PWA\CMS\IPWACMSContentRepository.cs" />
     <Compile Include="PWA\CMS\IPWACMSCacheRepository.cs" />
+    <Compile Include="QuestionAndAnswers\IQuestions.cs" />
+    <Compile Include="QuestionAndAnswers\IQuestionsCacheRepository.cs" />
+    <Compile Include="QuestionAndAnswers\IQuestionsRepository.cs" />
     <Compile Include="ServiceCenter\IServiceCenter.cs" />
     <Compile Include="Security\ISecurity.cs" />
     <Compile Include="ServiceCenter\IServiceCenterCacheRepository.cs" />

@@ -1,0 +1,83 @@
+﻿@using BikewaleOpr.Models.QuestionsAndAnswers;
+@using BikewaleOpr.Entity.QnA;
+@model QnABaseVM
+@if (Model != null && Model.Filters != null)
+{
+    <div class="col s2 m2">
+        <div id="addMakeContainer" data-makemaskingname="@Model.Filters.MakeMaskingName" data-modelmaskingname="@Model.Filters.ModelMaskingName" data-questionstatus="@((uint)Model.Filters.ModerationStatus)" data-date="@(Model.Filters.EntryDate != default(DateTime) ? Model.Filters.EntryDate.ToString() : "")" data-email="@Model.Filters.CustomerEmails">
+            <ul class="collapsible" data-collapsible="accordion">
+                <li>
+
+
+                    <div class="collapsible-header"><strong>Filter Questions</strong></div>
+                    <div class="collapsible-body">
+                        <div class="container">
+                            <form action="/questionsandanswers/managequestions/" method="post">
+                                <div class="input-field row s12">
+                                    @if (Model.Makes != null)
+                                    {
+                                        <select name="MakeMaskingName" data-bind="event :  { change : function(d,e){ changeMake(d,e); } }">
+                                            <option value="" selected>Select Make</option>
+                                            @foreach (var make in Model.Makes)
+                                            {
+                                                <option value="@make.MaskingName" data-makeid="@make.MakeId">@make.MakeName</option>
+                                            }
+                                        </select>
+                                    }
+
+                                </div>
+                                <div class="input-field row s12">
+                                    <select name="ModelMaskingName" data-bind="event : { change: function(d, e) { changeModel(d, e); getTags(); } }, options : bikeModels,optionsValue : 'maskingName',optionsText : 'modelName',optionsCaption: 'Select Models'"></select>
+                                </div>
+                                <input type="hidden" name="TagName" data-bind="value: Tags" />
+
+                                @if (Model.PageType.Equals(EnumQnAPageType.ManageQuestions))
+                                {
+                                    <div class="input-field row s12">
+                                        <input type="radio" id="chkPending" name="rdoQuestionStatus" value="@((uint)EnumQuestionStatus.Pending)" class="with-gap" data-bind="event : { change : function(d,e) { changeStatus(d,e); } }" @(Model.Filters.ModerationStatus.Equals(EnumQuestionStatus.Pending) ? "checked" : "") />
+                                        <label for="chkPending">Pending</label>
+                                    </div>
+                                    <div class="input-field row s12">
+                                        <input type="radio" id="chkApproved" name="rdoQuestionStatus" value="@((uint)EnumQuestionStatus.Unanswered)" class="with-gap" data-bind="event : { change : function(d,e) { changeStatus(d,e); } }" @(Model.Filters.ModerationStatus.Equals(EnumQuestionStatus.Unanswered) ? "checked" : "") />
+                                        <label for="chkApproved">Unanswered</label>
+                                    </div>
+                                    <div class="input-field row s12">
+                                        <input type="radio" id="chkAnswered" name="rdoQuestionStatus" value="@((uint)EnumQuestionStatus.Answered)" class="with-gap" data-bind="event : { change : function(d,e) { changeStatus(d,e); } }" @(Model.Filters.ModerationStatus.Equals(EnumQuestionStatus.Answered) ? "checked" : "") />
+                                        <label for="chkAnswered">Answered</label>
+                                    </div>
+                                    <div class="input-field row s12">
+                                        <input type="radio" id="chkRejected" name="rdoQuestionStatus" value="@((uint)EnumQuestionStatus.Rejected)" class="with-gap" data-bind="event : { change : function(d,e) { changeStatus(d,e); } }" @(Model.Filters.ModerationStatus.Equals(EnumQuestionStatus.Rejected) ? "checked" : "") />
+                                        <label for="chkRejected">Rejected</label>
+                                    </div>
+                                }
+                                
+                                <input type="hidden" name="ModerationStatus" data-bind="value: moderationStatus"/> 
+
+                                <div class="input-field row s12">
+                                    <i class="material-icons prefix margin-top15">date_range</i>
+                                    <input type="date" id="questionDateEle" name="EntryDate" class="datepicker margin-left5" value="" />                                    
+                                    <label for="questionDateEle">Question Date</label>
+                                </div>
+                                <div class="input-field row s12">
+                                    <input type="text" id="emailId" name="CustomerEmails" class="margin-left5" data-bind="textInput: searchEmailId" />
+                                    <label for="emailId" data-error="">Email Id</label>
+                                </div>
+                                <div class="input-field row s12">
+                                    <button id="btnShowQuestion" class="btn waves-effect waves-light" type="submit" name="action" >
+                                        Show Question
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+
+
+                </li>
+            </ul>
+
+        </div>
+
+    </div>
+}
+<script src="/src/QuestionsAndAnswers/filters.js"></script>

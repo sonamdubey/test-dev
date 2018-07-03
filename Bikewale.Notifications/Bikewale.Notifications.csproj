@@ -154,6 +154,9 @@
     <Compile Include="MailTemplates\PreBookingConfirmationMailToDealer.cs" />
     <Compile Include="MailTemplates\PreBookingConfirmationMailToDealer_old.cs" />
     <Compile Include="MailTemplates\PreBookingConfirmationToCustomer.cs" />
+    <Compile Include="MailTemplates\QuestionAnsweredMailCustomerTemplate.cs" />
+    <Compile Include="MailTemplates\QuestionRejectionMailCustomerTemplate.cs" />
+    <Compile Include="MailTemplates\QuestionApprovalMailCustomerTemplate.cs" />
     <Compile Include="MailTemplates\UpcomingBikesSubscription.cs" />
     <Compile Include="MailTemplates\UsedBikesModelImagesMailTemplate.cs" />
     <Compile Include="MailTemplates\UsedBikes\EditedListingApprovalEmailToSeller.cs" />
@@ -177,6 +180,7 @@
     <Compile Include="NotificationDAL\SavePQNotification.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PwaErrorClass.cs" />
+    <Compile Include="SendEmailQuestionAnswerCustomer.cs" />
     <Compile Include="SendInternalEmail.cs" />
     <Compile Include="SendEmailSMSToDealerCustomer.cs" />
     <Compile Include="SendMails.cs" />

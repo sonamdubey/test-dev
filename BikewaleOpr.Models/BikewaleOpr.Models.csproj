@@ -142,6 +142,10 @@
     <Compile Include="ManufacturerCampaign\ManufacturerCampaignInformationModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Comparison\ManageSponsoredComparisonRulesVM.cs" />
+    <Compile Include="QuestionsAndAnswers\ManageAnswersVM.cs" />
+    <Compile Include="QuestionsAndAnswers\ManageQuestionsVM.cs" />
+    <Compile Include="QuestionsAndAnswers\QnABaseVM.cs" />
+    <Compile Include="QuestionsAndAnswers\QuestionDetailsBaseVM.cs" />
     <Compile Include="ServiceCenter\ServiceCenterCompleteDataVM.cs" />
     <Compile Include="ServiceCenter\ServiceCenterPageVM.cs" />
     <Compile Include="UserReviews\ManageUserReviewsPageVM.cs" />
@@ -165,6 +169,7 @@
       <Name>BikewaleOpr.Entity</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -23,6 +23,9 @@
     /// Desc : Added Compare_Bikes
     /// Modified by: Snehal Dange on 19th Dec 2017
     /// Description : Added all new list of GA
+    /// Modified by: Dhruv Joshi
+    /// Dated: 26th June 2018
+    /// Description: Added Question Answer 
     /// </summary>
     public enum GAPages
     {
@@ -72,7 +75,8 @@
         Used_Bike_Details = 43,
         Sell_Page = 44,
         Videos_Category_Page = 45,
-        Finance_Page = 46
+        Finance_Page = 46,
+        QnA_Page = 47
 
     }
 }

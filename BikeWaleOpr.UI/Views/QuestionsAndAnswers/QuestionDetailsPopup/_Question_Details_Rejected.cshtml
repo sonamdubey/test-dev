@@ -1,0 +1,54 @@
+﻿@using BikewaleOpr.Models.QuestionsAndAnswers;
+@model QuestionDetailsBaseVM
+@if (Model != null)
+{
+    <div id="questionDetailsRejected" class="modal modal-fixed-footer qna-modal">
+        <div class="modal-content">
+
+            <div id="questionSummaryCard" class="container section-bottom-margin font14">
+                <div class="grid-12">
+                    <div class="content-box-shadow content-inner-block-20">
+                        <div class="grid-8 alpha padding-right20 border-solid-right">
+                            <div class="input-field col s12">
+                                <h3 class="field-title text-left font15 text-black margin-bottom10">Details</h3>
+                                <div class="clear"></div>
+                                <textarea readonly id="questionDescription" class="materialize-textarea readonly" data-bind="text: $root.questionText"></textarea>
+                            </div>                            
+                        </div>
+
+                        <div class="grid-4 padding-left20 omega">
+
+                            <div class="input-field col s12">
+                                <h3 class="field-title text-left font15 text-black margin-bottom10">Tags</h3>
+                                <div class="clear"></div>
+                                <ul class="text-left" data-bind="foreach: questionTags">
+                                    <li class="chip" data-bind="text: Name">
+                                        <i class="material-icons"></i>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="clear"></div>
+                            <div class="input-field col s12">
+                                <h3 class="field-title text-left font15 text-black margin-bottom10">Name</h3>
+                                <textarea readonly id="userName" class="materialize-textarea" name="Name" data-bind="text: $root.userName"></textarea>
+                            </div>
+
+                            <div class="input-field col s12">
+                                <h3 class="field-title text-left font15 text-black margin-bottom10">Email</h3>
+                                <textarea readonly id="userEmail" class="materialize-textarea" name="Email" data-bind="text: $root.userEmail"></textarea>
+                            </div>
+
+                        </div>
+
+                        <div class="clear"></div>
+
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <div class="modal-footer row" style="padding-right:30px">
+            <a href="#!" class="modal-action btn waves-effect waves-light modal-close ">Ok</a>
+        </div>
+    </div>
+}

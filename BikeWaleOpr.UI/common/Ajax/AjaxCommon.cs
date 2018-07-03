@@ -14,6 +14,7 @@ using Enyim.Caching;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Configuration;
 using System.Data;
 using System.Linq;
@@ -254,6 +255,12 @@ namespace BikeWaleOpr.Common
 
                         UpdateBikeESIndex(makeId, modelId, maskingName);
                         _bikeModels.UpdateModelESIndex(Convert.ToString(modelId), "update");
+
+                        // Update the Make Masking Name in CW database
+                        NameValueCollection nvc = new NameValueCollection();
+                        nvc.Add("par_oldname", oldMaskingName);
+                        nvc.Add("par_newname", maskingName);
+                        SyncBWData.PushToQueue("updatetagname", DataBaseName.BW, nvc);
                     }
                     else
                     {

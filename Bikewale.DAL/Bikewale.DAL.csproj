@@ -169,6 +169,7 @@
     <Compile Include="Notifications\NotificationsRepository.cs" />
     <Compile Include="PriceQuote\PriceQuoteRespository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QuestionAndAnswers\QuestionsRepository.cs" />
     <Compile Include="Survey\Surveys.cs" />
     <Compile Include="Used\SellBikesRepository.cs" />
     <Compile Include="ServiceCenter\ServiceCenterRepository.cs" />

@@ -110,6 +110,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\ElasticSearch\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="QuestionsAnswers, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\QuestionsAndAnswers\QuestionsAnswers.dll</HintPath>
+    </Reference>
     <Reference Include="RabbitMQ.Client, Version=3.0.0.0, Culture=neutral, PublicKeyToken=89e7d7c5feba84ce, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\RabbitMQ.Client.dll</HintPath>
@@ -272,6 +276,7 @@
     <Compile Include="AutoMappers\PriceQuote\PQOutputMapper.cs" />
     <Compile Include="AutoMappers\PriceQuote\PriceQuoteMapper.cs" />
     <Compile Include="AutoMappers\PriceQuote\Version\PQVersionListMapper.cs" />
+    <Compile Include="AutoMappers\QuestionAndAnswers\QuestionMapper.cs" />
     <Compile Include="AutoMappers\ServiceCenter\ServiceCenterMapper.cs" />
     <Compile Include="AutoMappers\UpcomingNotification\NotificationMapper.cs" />
     <Compile Include="AutoMappers\UsedBikes\PopularUsedBikesMapper.cs" />
@@ -363,6 +368,7 @@
     <Compile Include="Controllers\Make\MakeListController.cs" />
     <Compile Include="Controllers\Model\ModelController.cs" />
     <Compile Include="Controllers\Model\ModelListController.cs" />
+    <Compile Include="Controllers\QuestionAndAnswers\QuestionsController.cs" />
     <Compile Include="Controllers\ServiceCenter\SeriveCenterController.cs" />
     <Compile Include="Controllers\App\SplashScreenController.cs" />
     <Compile Include="Controllers\State\StateListController.cs" />

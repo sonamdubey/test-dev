@@ -1,0 +1,124 @@
+﻿@import ../base/variables
+@import ../components/typography
+
+@import ../mixins/index
+@import ../utils/index
+
+
+@import ../mixins/popup
+@import ../mixins/button
+
+//popup
+.ask-question__link
+	color: color('pacific-blue')
+	border-left: 1px solid color('whisper-2')
+
+
+.question-answer-popup
+	@include popup('bottom')
+
+@include popup-header
+
+//content
+
+.question-answer-container
+	padding: 12px 20px 40px
+	height: 100%
+	overflow: auto
+
+.question-answer__tip
+	$font-weight: $font-bold
+	font-size: 14px
+	line-height: 20px
+	letter-spacing: 0
+	color: color('default')
+	margin-bottom: 5px
+
+.question-answer__tip-list
+	margin-bottom: 20px
+
+.question-answer-tip-list__item
+	font-size: 14px
+	line-height: 20px
+	letter-spacing: 0
+	color: color('default')
+	position: relative
+	padding-left: 20px
+
+	&:after
+		@include vendor-prefix('border-radius', 50%)
+		content: ''
+		display: block
+		height: 5px
+		width: 5px
+		position: absolute
+		left: 0
+		top: 7px
+		background-color: color('gainsboro-2')
+
+.question-answer-container
+	@include form-control-box
+	@include input-field(16, 'default', $font-semibold, 'deep-sky-blue', italic, 4px)
+	@include area-control-box
+	@include text-area__character-count
+
+	.form-control-box
+		&.invalid
+			margin-bottom: 6px
+
+.area-control-box
+	display: block
+	margin-bottom: 10px
+
+	&.invalid
+		margin-bottom: 10px
+
+.question-answer__description
+	display: block
+	font-size: 13px
+	letter-spacing: 0
+	color: color('dark-gray-2')
+	margin-top: 5px
+	margin-bottom: 40px
+	
+		
+//button
+.question-answer-container
+	@include btn(16px, $font-bold)
+	@include btn-blue
+
+.question-answer-container
+	> .btn-blue
+		margin-top: 20px
+		margin-bottom: 15px
+
+//thank you screen
+.question-answer__content
+	display: block
+
+.question-answer__thank-you
+	display: none
+	padding-top: 8px
+
+.question-answer-response__title
+	font-size: 16px
+	letter-spacing: 0
+	color: color('default')
+	font-weight: $font-bold
+	margin-bottom: 8px
+	display: block
+
+.question-answer-response__description
+	font-size: 14px
+	line-height: 20px
+	color: color('light-grey')
+	margin-bottom: 30px
+	display: block
+
+.question-answer-response__tip
+	display: block
+	font-size: 13px
+	color: color('dark-gray-2')
+	margin-top: 6px
+
+

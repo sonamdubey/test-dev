@@ -1,14 +1,15 @@
 ﻿using Bikewale.Notifications;
 using Bikewale.Utility;
-using BikewaleOpr.DTO.BikeData;
 using BikewaleOpr.common;
+using BikewaleOpr.DTO.BikeData;
 using BikewaleOpr.Entities.BikeData;
 using BikewaleOpr.Entity;
 using BikewaleOpr.Interface.BikeData;
 using System;
 using System.Collections.Generic;
-using System.Web.Mvc;
+using System.Collections.Specialized;
 using System.Linq;
+using System.Web.Mvc;
 
 namespace BikeWaleOpr.MVC.UI.Controllers.Content
 {
@@ -116,6 +117,11 @@ namespace BikeWaleOpr.MVC.UI.Controllers.Content
                     if (string.Compare(oldMakeMaskingName, makeMaskingName) != 0)
                     {
                         models = _modelsRepo.GetModelsByMake((uint)make.MakeId, hostUrl, oldMakeMaskingName, makeMaskingName);
+                        // Update the Make Masking Name in BW database
+                        NameValueCollection nvc = new NameValueCollection();
+                        nvc.Add("par_oldname", oldMakeMaskingName);
+                        nvc.Add("par_newname", makeMaskingName);
+                        SyncBWData.PushToQueue("updatetagname", DataBaseName.BW, nvc);
 
                         if (models != null)
                         {
@@ -126,12 +132,12 @@ namespace BikeWaleOpr.MVC.UI.Controllers.Content
                             foreach (var mail in emails)
                             {
                                 SendEmailOnModelChange.SendMakeMaskingNameChangeMail(mail, makeName, models);
-                            } 
+                            }
                         }
                     }
                     else
                     {
-                        if(string.Compare(oldMakeName, makeName) != 0)
+                        if (string.Compare(oldMakeName, makeName) != 0)
                         {
                             IEnumerable<string> emails = Bikewale.Utility.GetEmailList.FetchMailList(BWOprConfiguration.Instance.EmailsForMakeModelNameChange);
                             if (emails != null)
@@ -144,7 +150,7 @@ namespace BikeWaleOpr.MVC.UI.Controllers.Content
                         if (updatedModels != null)
                         {
                             String updatedIds = String.Join(",", updatedModels.Select(obj => Convert.ToString(obj.ModelId)));
-                            _bikeModels.UpdateModelESIndex(updatedIds, "update"); 
+                            _bikeModels.UpdateModelESIndex(updatedIds, "update");
                         }
                     }
                     TempData["msg"] = makeName + " Make Updated Successfully";

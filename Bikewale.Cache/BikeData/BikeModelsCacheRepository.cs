@@ -1601,5 +1601,25 @@ namespace Bikewale.Cache.BikeData
             }
             return makeModelList;
         }
+        
+        /// <summary>
+        /// Created By : Deepak Israni on 14 June 2018
+        /// Description: Caching layer function for all caching all models for which QnA is available.
+        /// </summary>
+        /// <returns></returns>
+        public Hashtable GetQuestionAnswerModels()
+        {
+            Hashtable ht = null;
+            try
+            {
+                string key = "BW_QuestionAnswerModels";
+                ht = _cache.GetFromCache(key, new TimeSpan(24, 0, 0), () => _modelRepository.GetQuestionAnswerModels());
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "BikeModelsCacheRepository.GetQuestionAnswerModels");
+            }
+            return ht;
+        }
     }
 }

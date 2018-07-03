@@ -2,6 +2,7 @@
 using Bikewale.Entities.BikeData.NewLaunched;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.UserReviews;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace Bikewale.Interfaces.BikeData
@@ -46,6 +47,8 @@ namespace Bikewale.Interfaces.BikeData
     /// Description: Added GetMileageDetails to get mileage info for model
     /// Modified by : Sanskar Gupta on 12 Jan 2018
     /// Description : Added IEnumerable<MostPopularBikesBase> GetAdPromotedBike(BikeFilters bikeFilters)
+    /// Modified By :   Deepak Israni on 14 June 2018
+    /// Description :   Added new method GetQuestionAnswerModels to get model ids for which question and answers is active.
     /// <typeparam name="U"></typeparam>
     /// </summary>
     public interface IBikeModelsCacheRepository<U>
@@ -86,5 +89,6 @@ namespace Bikewale.Interfaces.BikeData
         IEnumerable<MostPopularBikesBase> GetAdPromotedBike(BikeFilters bikeFilters);
         IEnumerable<MostPopularBikesBase> GetAdPromotedBikeWithOutCity(BikeFilters bikeFilters);
         IEnumerable<MakeModelListEntity> GetMakeModelList(EnumBikeType requestType);
+        Hashtable GetQuestionAnswerModels();
     }
 }

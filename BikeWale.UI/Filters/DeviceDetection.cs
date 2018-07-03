@@ -40,14 +40,10 @@ namespace Bikewale.Filters
                 {
                     if (DeviceDetectionManager.PerformDetection(filterContext.HttpContext))
                     {
-                        if (String.IsNullOrEmpty(_mobilePageUrl))
-                        {
-                            // This variable is not getting retrived need to check this value. Otherwise deveice detection won't work
-                            _mobilePageUrl = filterContext.HttpContext.Request.ServerVariables["HTTP_X_ORIGINAL_URL"];
 
-                            if (String.IsNullOrEmpty(_mobilePageUrl))
-                                _mobilePageUrl = filterContext.HttpContext.Request.ServerVariables["URL"];
-                        }
+                        _mobilePageUrl = !String.IsNullOrEmpty(filterContext.HttpContext.Request.ServerVariables["HTTP_X_ORIGINAL_URL"]) ?
+                            filterContext.HttpContext.Request.ServerVariables["HTTP_X_ORIGINAL_URL"] :
+                            filterContext.HttpContext.Request.ServerVariables["URL"];
 
                         filterContext.Result = new RedirectResult(_hostUrl + _mobilePageUrl);
                     }

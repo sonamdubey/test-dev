@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+﻿using System.Text.RegularExpressions;
 
 namespace Bikewale.Utility
 {
@@ -36,6 +31,18 @@ namespace Bikewale.Utility
                 retVal = true;
 
             return retVal;
+        }
+
+        /// <summary>
+        /// Created By : Deepak Israni on 12 June 2018
+        /// Description: Function to validate email addresses.
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        public static bool ValidateEmail(string email)
+        {
+            var reg = new Regex(@"^[A-z0-9._+-]+@[A-z0-9.-]+\.[A-z]{2,6}$");
+            return reg.IsMatch(email);
         }
     }   //End of class
 }   //End of namespace

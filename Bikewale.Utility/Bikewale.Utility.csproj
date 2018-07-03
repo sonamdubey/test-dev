@@ -232,6 +232,7 @@
     <Compile Include="UsedBikeProfileId.cs" />
     <Compile Include="UsedCookie\UsedCookie.cs" />
     <Compile Include="UserReviews.cs" />
+    <Compile Include="Validate.cs" />
     <Compile Include="VideoTitleDescription.cs" />
   </ItemGroup>
   <ItemGroup>

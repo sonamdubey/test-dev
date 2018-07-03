@@ -1,0 +1,132 @@
+﻿@using BikewaleOpr.Models.QuestionsAndAnswers;
+@model QuestionDetailsBaseVM
+@if(Model != null)
+{
+    <div id="questionDetailsUnapprovedUnanswered" class="modal modal-fixed-footer qna-modal">
+        <div class="modal-content">
+
+            <div id="questionSummaryCard" class="container section-bottom-margin font14">
+                <div class="grid-12">
+                    <div class="content-box-shadow content-inner-block-20">
+                        <div class="grid-8 alpha padding-right20 border-solid-right">
+                            <div class="input-field col s12">
+                                <h3 class="field-title text-left font15 text-black margin-bottom10">Details</h3>
+                                <div class="clear"></div>
+                                <textarea readonly id="questionDescription" class="materialize-textarea readonly" data-bind="text: $root.questionText"></textarea>
+                            </div>
+                            <div class="input-field col s12">
+                                <div id ="internalUsersList">
+                                    <select id="ddlInternalUsers" name="InternalUser" data-bind="event :  { change : function(d,e){ changeUser(d,e); } }" style="width: 50%">
+                                        <option value="0" selected >Answer as</option>
+                                        @if (Model.InternalUsers != null)
+                                        {
+                                            foreach (var user in Model.InternalUsers)
+                                            {
+                                                <option value="@user.Id" data-internaluseremail="@user.Email">@user.Name</option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                                <div class="clear"></div>
+                                <textarea id="answerDescription" class="materialize-textarea" data-bind="textInput: $root.answerText"></textarea>
+                            </div>                                                    
+                        </div>
+
+                        <div class="grid-4 padding-left20 omega">
+
+                            <div class="input-field col s12">
+                                <h3 class="field-title text-left font15 text-black margin-bottom10">Tags</h3>
+                                <div class="clear"></div>
+                                <ul class="text-left" data-bind="foreach: questionTags">
+                                    <li class="chip" data-bind="text: Name">
+                                        <i class="material-icons"></i>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="clear"></div>
+                            @if (Model.Makes != null)
+                            {
+                                <div class="input-field col s12" data-bind="visible: questionStatus() == 1">
+                                    <h3 class="field-title text-left font15 text-black margin-bottom10">Edit Tags &nbsp;</h3><h3 class="field-title text-left font15 margin-bottom10" style="font-weight: 350">(Existing Tags would be removed)</h3>
+                                    <div class="clear"></div>
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                <select id="ddlMakes" name="MakeMaskingName" data-bind="event :  { change : function(d,e){ editMakeTag(d,e); } }">
+                                                    <option value="none" selected>Select Make</option>
+                                                    @foreach (var make in Model.Makes)
+                                                    {
+                                                        <option value="@make.MaskingName" data-makeid="@make.MakeId">@make.MakeName</option>
+                                                    }
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <select id="ddlModels" name="ModelMaskingName" data-bind="event :  { change : function(d,e){ setModel(d,e); } }, options : bikeModels,optionsValue : 'maskingName',optionsText : 'modelName',optionsCaption: 'Select Model'"></select>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            }
+
+                            <div class="input-field col s12">
+                                <h3 class="field-title text-left font15 text-black margin-bottom10">Name</h3>
+                                <textarea readonly id="userName" class="materialize-textarea" name="Name" data-bind="text: $root.userName"></textarea>
+                            </div>
+                                                
+                            <div class="input-field col s12">
+                                <h3 class="field-title text-left font15 text-black margin-bottom10">Email</h3>
+                                <textarea readonly id="userEmail" class="materialize-textarea" name="Email" data-bind="text: $root.userEmail"></textarea>
+                            </div>
+
+                            </div>
+
+                        <div class="clear"></div>
+
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <div class="modal-footer row" style="padding-right:30px">
+            <button class="modal-action btn waves-effect waves-light red lighten-2  modal-close" data-target="rejectionReason">Reject</button>
+            <button class="modal-action btn waves-effect waves-light orange modal-close " data-bind="click : function(){ $root.moderateQuestion(0, true); }" style="margin-right : 10px">Answer Later</button>
+            <button class="modal-action btn waves-effect waves-light modal-close " data-bind="click : function(){ $root.answerQuestion(0); }, disable: $root.answerText().length === 0 || $root.internalUserId() == 0" style="margin-right : 10px">Answer Now</button>
+        </div>
+    </div>
+
+    <div id="rejectionReason" class="modal">
+        <div class="modal-content">
+            <h4>Please provide disapproval reason</h4>
+            <div class="list-type-radio">
+                <p>
+                    <input type="radio" name="disapprovalReason" id="reason1" value="1" />
+                    <label for="reason1">Abusive/Foul Language</label>
+                </p>
+                <p>
+                    <input type="radio" name="disapprovalReason" id="reason2" value="2" />
+                    <label for="reason2">Language other than English</label>
+                </p>
+                <p>
+                    <input type="radio" name="disapprovalReason" id="reason3" value="3" />
+                        <label for="reason3">Incomprehensible</label>
+                </p>            
+                <p>
+                    <input type="radio" name="disapprovalReason" id="reason4" value="4" />
+                        <label for="reason4">Irrelevant Content</label>
+                </p>
+                <p>
+                    <input type="radio" name="disapprovalReason" id="reason5" value="5" />
+                    <label for="reason5">Hatred/threat for a dealership</label>
+                </p>
+                <p>
+                    <input type="radio" name="disapprovalReason" id="reason6" value="6" />
+                    <label for="reason6">Promotional/Spam</label>
+                </p>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+                <a href="#!" class="modal-action btn waves-effect waves-light red lighten-2" data-bind="click : function(){ $root.moderateQuestion(1); }">Reject</a>
+        </div>
+    </div>    
+}

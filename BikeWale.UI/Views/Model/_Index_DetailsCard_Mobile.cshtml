@@ -84,6 +84,8 @@ else if (Model.IsPopularBodyStyleAvailable && (Model.IsNewBike || Model.IsUpcomi
         </div>
     }
 </div>
+
+
 @if ((Model.IsNewBike || Model.IsDiscontinuedBike) && Model.ModelPageEntity.ModelVersions != null && Model.ModelPageEntity.ModelVersions.Count > 0 || Model.IsPriceInTopCitiesAvailable)
 {
     @Html.Partial("~/Views/Model/_Index_VersionPrices_Mobile.cshtml", Model)
@@ -102,12 +104,19 @@ else if (Model.IsPopularBodyStyleAvailable && (Model.IsNewBike || Model.IsUpcomi
         <div class="clear"></div>
     </div>
 }
+
 @if (Model.AdTags.Ad_300x250BTF)
 {
     <div class="margin-bottom20 text-center">
       @{Html.RenderPartial("/Views/Shared/Ads/Mobile/AdSlotGeneric.cshtml", Model.AdSlots[String.Format("{0}-14", Model.AdTags.AdId)]);}
     </div>
 }
+
+@if (Model.IsQAModel && Model.IsQAAvailable && Model.QASection != null)
+{
+    @Html.Partial("~/Views/QuestionAndAnswers/_QuestionAnswerSection_Mobile.cshtml", Model.QASection)
+}
+
 @if ((Model.IsUserReviewsAvailable && !Model.IsUpcomingBike) || (Model.ComparisionTestExpertReviews != null && Model.ComparisionTestExpertReviews.FetchedCount > 0))
 {
     <div id="reviewsContent" data-id="reviewsContent" class="bw-model-tabs-data" data-readmore="0">
@@ -241,4 +250,3 @@ else if (Model.IsPopularBodyStyleAvailable && (Model.IsNewBike || Model.IsUpcomi
 }
 
 <div id="modelSpecsFooter"></div>
-

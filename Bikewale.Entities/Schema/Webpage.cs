@@ -5,7 +5,7 @@ namespace Bikewale.Entities.Schema
     public class WebPage
     {
         [JsonProperty("@type")]
-        public string Type { get { return "WebPage"; } }
+        public string Type { get; set; }
 
         [JsonProperty("name", NullValueHandling = NullValueHandling.Ignore)]
         public string Title { get; set; }

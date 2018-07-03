@@ -1,0 +1,11 @@
+# Ignore rules
+*/bin
+*/obj
+*.suo
+*.log
+*.user
+/packages
+*.orig
+.vs
+.vscode
+*.sh
