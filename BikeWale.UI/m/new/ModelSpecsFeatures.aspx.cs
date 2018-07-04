@@ -21,6 +21,21 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Bikewale.CacheHelper.BikeData;
+using Bikewale.Interfaces.UserReviews.Search;
+using Bikewale.BAL.UserReviews.Search;
+using Bikewale.Interfaces.EditCMS;
+using Bikewale.BAL.EditCMS;
+using Bikewale.Cache.CMS;
+using Bikewale.Interfaces.CMS;
+using Bikewale.Interfaces.Videos;
+using Bikewale.Interfaces.UserReviews;
+using Bikewale.Interfaces.Customer;
+using Bikewale.BAL.Customer;
+using Bikewale.DAL.Customer;
+using Bikewale.Entities.Customer;
+using Bikewale.DAL.UserReviews;
+using Bikewale.Cache.UserReviews;
 
 namespace Bikewale.Mobile
 {
@@ -53,6 +68,36 @@ namespace Bikewale.Mobile
             this.Load += new EventHandler(Page_Load);
         }
 
+        private static readonly IUnityContainer _container;
+
+        static ModelSpecsFeatures()
+        {
+            _container = new UnityContainer();
+            _container.RegisterType<IPager, Pager>()
+                    .RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>()
+                    .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
+                    .RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>()
+                    .RegisterType<ICacheManager, MemcacheManager>()
+                    .RegisterType<IApiGatewayCaller, ApiGatewayCaller>()
+                    .RegisterType<IBikeModelsCacheHelper, BikeModelsCacheHelper>()
+                    .RegisterType<IUserReviewsSearch, UserReviewsSearch>()
+                    .RegisterType<IArticles, Articles>()
+                    .RegisterType<ICMSCacheContent, CMSCacheRepository>()
+                    .RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>()
+                    .RegisterType<IVideos, Bikewale.BAL.Videos.Videos>()
+                    .RegisterType<IUserReviews, Bikewale.BAL.UserReviews.UserReviews>()
+                    .RegisterType<IUserReviewsCache, UserReviewsCacheRepository>()
+                    .RegisterType<IUserReviewsRepository, UserReviewsRepository>()
+                    .RegisterType<ICustomer<CustomerEntity, uint>, Customer<CustomerEntity, uint>>()
+                    .RegisterType<ICustomerRepository<CustomerEntity, uint>, CustomerRepository<CustomerEntity, uint>>()
+                    .RegisterType<IBikeMaskingCacheRepository<BikeModelEntity, int>, BikeModelMaskingCache<BikeModelEntity, int>>()
+                    .RegisterType<IBikeVersions<BikeVersionEntity, uint>, BikeVersions<BikeVersionEntity, uint>>()
+                    .RegisterType<IBikeVersionsRepository<BikeVersionEntity, uint>, BikeVersionsRepository<BikeVersionEntity, uint>>()
+                    .RegisterType<IBikeVersionCacheRepository<BikeVersionEntity, uint>, BikeVersionsCacheRepository<BikeVersionEntity, uint>>();
+        }
+
+
+
         /// <summary>
         /// Created By : Lucky Rathore on 03 June 2016
         /// Modified By : Lucky Rathore on 27 June 2016
@@ -80,19 +125,14 @@ namespace Bikewale.Mobile
 
         private void BindFullSpecsFeatures()
 		{
-			if (versionId > 0)
-			{
-				using (IUnityContainer container = new UnityContainer())
-				{
-					container.RegisterType<IApiGatewayCaller, ApiGatewayCaller>();
-					var _apiGatewayCaller = container.Resolve<IApiGatewayCaller>();
-					GetVersionSpecsByIdAdapter adapter = new GetVersionSpecsByIdAdapter();
-					adapter.AddApiGatewayCall(_apiGatewayCaller, new List<int> { (int)versionId });
-					_apiGatewayCaller.Call();
-					versionSpecsFeatures = adapter.Output;
-				}
-
-			}
+            if (versionId > 0)
+            {
+                var apiGatewayCaller = _container.Resolve<IApiGatewayCaller>();
+                GetVersionSpecsByIdAdapter adapter = new GetVersionSpecsByIdAdapter();
+                adapter.AddApiGatewayCall(apiGatewayCaller, new List<int> { (int)versionId });
+                apiGatewayCaller.Call();
+                versionSpecsFeatures = adapter.Output;
+            }
         }
 
         /// Created  By :- subodh Jain 10 Feb 2017
@@ -121,15 +161,8 @@ namespace Bikewale.Mobile
             try
             {
                 if (modelID > 0)
-                {
-                    using (IUnityContainer container = new UnityContainer())
-                    {
-                        container.RegisterType<IPager, Pager>()
-                            .RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>()
-                            .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
-                                 .RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>()
-                                 .RegisterType<ICacheManager, MemcacheManager>();
-                        var objBikeEntity = container.Resolve<IBikeModels<BikeModelEntity, int>>();
+                {                      
+                        var objBikeEntity = _container.Resolve<IBikeModels<BikeModelEntity, int>>();
                         modelPg = objBikeEntity.GetModelPageDetails(Convert.ToInt16(modelID));
                         if (modelPg != null && modelPg.ModelDetails != null)
                         {
@@ -190,7 +223,7 @@ namespace Bikewale.Mobile
                                 }
                             }
                         }
-                    }
+                    
                     pgTitle = Bikewale.Utility.BWConfiguration.Instance.MetasMakeId.Split(',').Contains(_makeId.ToString()) ? string.Format("Specifications of {0} | Features of {1}- BikeWale", bikeName, modelName) : string.Format("{0} Specifications and Features - Check out mileage and other technical specifications - BikeWale", bikeName);
                 }
             }
@@ -227,13 +260,8 @@ namespace Bikewale.Mobile
 
                     if (!string.IsNullOrEmpty(newMakeMasking) && !string.IsNullOrEmpty(makeMaskingName) && !string.IsNullOrEmpty(modelMaskingName))
                     {
-                        using (IUnityContainer container = new UnityContainer())
-                        {
-                            container.RegisterType<IBikeMaskingCacheRepository<BikeModelEntity, int>, BikeModelMaskingCache<BikeModelEntity, int>>()
-                                     .RegisterType<ICacheManager, MemcacheManager>()
-                                     .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
-                                    ;
-                            var objCache = container.Resolve<IBikeMaskingCacheRepository<BikeModelEntity, int>>();
+                        
+                            var objCache = _container.Resolve<IBikeMaskingCacheRepository<BikeModelEntity, int>>();
 
                             objResponse = objCache.GetModelMaskingResponse(string.Format("{0}_{1}", makeMaskingName, modelMaskingName));
                             if (objResponse != null && objResponse.StatusCode == 200)
@@ -248,7 +276,7 @@ namespace Bikewale.Mobile
                             {
                                 UrlRewrite.Return404();
                             }
-                        }
+                        
                     }
                 }
             }
@@ -315,14 +343,8 @@ namespace Bikewale.Mobile
             {
                 if (modelId > 0)
                 {
-                    using (IUnityContainer container = new UnityContainer())
-                    {
-                        container.RegisterType<IBikeVersions<BikeVersionEntity, uint>, BikeVersions<BikeVersionEntity, uint>>()
-                                .RegisterType<IApiGatewayCaller, ApiGatewayCaller>()
-                                .RegisterType<IBikeVersionsRepository<BikeVersionEntity, uint>, BikeVersionsRepository<BikeVersionEntity, uint>>()
-                                .RegisterType<IBikeVersionCacheRepository<BikeVersionEntity, uint>, BikeVersionsCacheRepository<BikeVersionEntity, uint>>()
-								.RegisterType<ICacheManager, MemcacheManager>();
-                        var objVersion = container.Resolve<IBikeVersions<BikeVersionEntity, uint>>();
+                   
+                        var objVersion = _container.Resolve<IBikeVersions<BikeVersionEntity, uint>>();
                         var objSimilarBikes = new SimilarBikesWidget(objVersion, versionId, PQSourceEnum.Desktop_DPQ_Alternative);
 
                         objSimilarBikes.TopCount = 9;
@@ -346,7 +368,7 @@ namespace Bikewale.Mobile
                                 BindPopularBodyStyle();
                             }
                         }
-                    }
+                    
                 }
             }
             catch (Exception ex)
@@ -365,19 +387,14 @@ namespace Bikewale.Mobile
             {
                 if (modelId > 0)
                 {
-                    using (IUnityContainer container = new UnityContainer())
-                    {
-                        container.RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>();
-                        var bikeModel = container.Resolve<IBikeModels<BikeModelEntity, int>>();
-                        var modelPopularBikesByBodyStyle = new Models.BestBikes.PopularBikesByBodyStyle(bikeModel);
-                        modelPopularBikesByBodyStyle.CityId = cityId;
-                        modelPopularBikesByBodyStyle.ModelId = modelId;
-                        modelPopularBikesByBodyStyle.TopCount = 9;
-
-                        popularBodyStyle = modelPopularBikesByBodyStyle.GetData();
-                        popularBodyStyle.PQSourceId = PQSourceEnum.Desktop_ModelPage;
-                        popularBodyStyle.ShowCheckOnRoadCTA = true;
-                    }
+                    var bikeModel = _container.Resolve<IBikeModels<BikeModelEntity, int>>();
+                    var modelPopularBikesByBodyStyle = new Models.BestBikes.PopularBikesByBodyStyle(bikeModel);
+                    modelPopularBikesByBodyStyle.CityId = cityId;
+                    modelPopularBikesByBodyStyle.ModelId = modelId;
+                    modelPopularBikesByBodyStyle.TopCount = 9;
+                    popularBodyStyle = modelPopularBikesByBodyStyle.GetData();
+                    popularBodyStyle.PQSourceId = PQSourceEnum.Desktop_ModelPage;
+                    popularBodyStyle.ShowCheckOnRoadCTA = true;
                 }
             }
             catch (Exception ex)
@@ -396,19 +413,12 @@ namespace Bikewale.Mobile
             {
                 if (modelId > 0)
                 {
-                    using (IUnityContainer container = new UnityContainer())
+
+                    var models = _container.Resolve<IBikeModels<BikeModelEntity, int>>();
+                    Series = models.GetSeriesByModelId(modelId);
+                    if (Series != null && Series.IsSeriesPageUrl)
                     {
-                        container.RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>()
-                                    .RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>()
-                                    .RegisterType<ICacheManager, MemcacheManager>()
-                                    .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
-                                    .RegisterType<IPager, Pager>();
-                        var models = container.Resolve<IBikeModels<BikeModelEntity, int>>();
-                        Series = models.GetSeriesByModelId(modelId);
-                        if (Series != null && Series.IsSeriesPageUrl)
-                        {
-                            seriesUrl = string.Format("{0}-bikes/{1}/", makeMaskingName, Series.MaskingName);
-                        }
+                        seriesUrl = string.Format("{0}-bikes/{1}/", makeMaskingName, Series.MaskingName);
                     }
                 }
             }

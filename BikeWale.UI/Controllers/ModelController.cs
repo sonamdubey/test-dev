@@ -20,6 +20,7 @@ using Bikewale.ManufacturerCampaign.Interface;
 using Bikewale.Models.BikeModels;
 using Bikewale.BAL.ApiGateway.ApiGatewayHelper;
 using Bikewale.Interfaces.QuestionAndAnswers;
+using Bikewale.Interfaces.Cache.Core;
 
 namespace Bikewale.Controllers
 {
@@ -55,13 +56,22 @@ namespace Bikewale.Controllers
 		private readonly IApiGatewayCaller _apiGatewayCaller;
         private readonly IQuestions _objQuestions;
 
+        private readonly ICacheManager _cacheManager;
+        private readonly Bikewale.Interfaces.Pager.IPager _pager;
+        private readonly IBikeModelsCacheHelper _bikeModelsCacheHelper;
+        private readonly IBikeModelsCacheRepository<int> _bikeModelsCacheRepository;
+
 		/// <summary>
 		/// Modified by : Ashutosh Sharma on 31 Oct 2017
 		/// Description : Added IAdSlot.
         /// Modified by : Rajan Chauhan on 17 Apr 2018
         /// Description : Removed IBikeModelsCacheRepository dependency
 		/// </summary>
-        public ModelController(IUserReviewsCache userReviewsCache, IUserReviewsSearch userReviewsSearch, IBikeModels<Entities.BikeData.BikeModelEntity, int> objModel, IDealerPriceQuote objDealerPQ, IAreaCacheRepository objAreaCache, ICityCacheRepository objCityCache, IPriceQuote objPQ, IDealerCacheRepository objDealerCache, IDealerPriceQuoteDetail objDealerDetails, IBikeVersions<BikeVersionEntity, uint> objVersion, ICMSCacheContent objArticles, IVideos objVideos, IUsedBikeDetailsCacheRepository objUsedBikescache, IServiceCenter objServiceCenter, IPriceQuoteCache objPQCache, IUserReviewsCache userReviewCache, IUsedBikesCache usedBikesCache, IBikeModelsCacheRepository<int> objBestBikes, IUpcoming upcoming, IManufacturerCampaign objManufacturerCampaign, IBikeSeries bikeSeries, IAdSlot adSlot, IBikeInfo bikeInfo, IBikeMakesCacheRepository bikeMakesCacheRepository, IApiGatewayCaller apiGatewayCaller, IQuestions objQuestions)
+		public ModelController(IUserReviewsCache userReviewsCache, IUserReviewsSearch userReviewsSearch, IBikeModels<Entities.BikeData.BikeModelEntity, int> objModel, IDealerPriceQuote objDealerPQ, IAreaCacheRepository objAreaCache, ICityCacheRepository objCityCache, IPriceQuote objPQ, IDealerCacheRepository objDealerCache, IDealerPriceQuoteDetail objDealerDetails, IBikeVersions<BikeVersionEntity, uint> objVersion, ICMSCacheContent objArticles, IVideos objVideos, IUsedBikeDetailsCacheRepository objUsedBikescache, IServiceCenter objServiceCenter, IPriceQuoteCache objPQCache, IUserReviewsCache userReviewCache, IUsedBikesCache usedBikesCache, IBikeModelsCacheRepository<int> objBestBikes, IUpcoming upcoming, IManufacturerCampaign objManufacturerCampaign, IBikeSeries bikeSeries, IAdSlot adSlot, IBikeInfo bikeInfo, IBikeMakesCacheRepository bikeMakesCacheRepository, IApiGatewayCaller apiGatewayCaller,
+            ICacheManager cacheManager,
+            Bikewale.Interfaces.Pager.IPager pager,
+            IBikeModelsCacheHelper bikeModelsCacheHelper,
+            IBikeModelsCacheRepository<int> bikeModelsCacheRepository,IQuestions objQuestions)
         {
             _objModel = objModel;
             _objDealerPQ = objDealerPQ;
@@ -87,7 +97,10 @@ namespace Bikewale.Controllers
             _bikeMakesCacheRepository = bikeMakesCacheRepository;
 			_apiGatewayCaller = apiGatewayCaller;
             _objQuestions = objQuestions;
-
+            _cacheManager = cacheManager;
+            _pager = pager;
+            _bikeModelsCacheHelper = bikeModelsCacheHelper;
+            _bikeModelsCacheRepository = bikeModelsCacheRepository;
 		}
         /// <summary>
         /// Modified by :- Subodh Jain on 17 july 2017
@@ -105,7 +118,7 @@ namespace Bikewale.Controllers
         [Route("model/{makeMasking}-bikes/{modelMasking}/"), Filters.DeviceDetection]
         public ActionResult Index(string makeMasking, string modelMasking, uint? versionId)
         {
-            ModelPage obj = new ModelPage(makeMasking, modelMasking, _userReviewsSearch, _userReviewsCache, _objModel, _objDealerPQ, _objAreaCache, _objCityCache, _objPQ, _objDealerCache, _objDealerDetails, _objVersion, _objArticles, _objVideos, _objUsedBikescache, _objServiceCenter, _objPQCache, _usedBikesCache, _upcoming, _objManufacturerCampaign, _bikeSeries, _adSlot, _bikeInfo, _bikeMakesCacheRepository, _apiGatewayCaller, _objQuestions);
+            ModelPage obj = new ModelPage(makeMasking, modelMasking, _userReviewsSearch, _userReviewsCache, _objModel, _objDealerPQ, _objAreaCache, _objCityCache, _objPQ, _objDealerCache, _objDealerDetails, _objVersion, _objArticles, _objVideos, _objUsedBikescache, _objServiceCenter, _objPQCache, _usedBikesCache, _upcoming, _objManufacturerCampaign, _bikeSeries, _adSlot, _bikeInfo, _bikeMakesCacheRepository, _apiGatewayCaller,_cacheManager,_pager,_bikeModelsCacheHelper,_bikeModelsCacheRepository,_objQuestions);
 
             if (obj.Status.Equals(StatusCodes.ContentFound))
             {
@@ -147,7 +160,8 @@ namespace Bikewale.Controllers
         [Route("m/model/{makeMasking}-bikes/{modelMasking}/")]
         public ActionResult Index_Mobile(string makeMasking, string modelMasking, uint? versionId)
         {
-            ModelPage obj = new ModelPage(makeMasking, modelMasking, _userReviewsSearch, _userReviewsCache, _objModel, _objDealerPQ, _objAreaCache, _objCityCache, _objPQ, _objDealerCache, _objDealerDetails, _objVersion, _objArticles, _objVideos, _objUsedBikescache, _objServiceCenter, _objPQCache, _usedBikesCache, _upcoming, _objManufacturerCampaign, _bikeSeries, _adSlot, _bikeInfo, _bikeMakesCacheRepository, _apiGatewayCaller, _objQuestions);
+            ModelPage obj = new ModelPage(makeMasking, modelMasking, _userReviewsSearch, _userReviewsCache, _objModel, _objDealerPQ, _objAreaCache, _objCityCache, _objPQ, _objDealerCache, _objDealerDetails, _objVersion, _objArticles, _objVideos, _objUsedBikescache, _objServiceCenter, _objPQCache, _usedBikesCache, _upcoming, _objManufacturerCampaign, _bikeSeries, _adSlot, _bikeInfo, _bikeMakesCacheRepository, _apiGatewayCaller
+                , _cacheManager, _pager, _bikeModelsCacheHelper, _bikeModelsCacheRepository,_objQuestions);
 
             if (obj.Status.Equals(StatusCodes.ContentFound))
             {

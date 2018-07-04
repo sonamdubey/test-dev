@@ -46,6 +46,8 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Web;
+using Bikewale.Interfaces.Cache.Core;
+using Carwale.Interfaces;
 
 namespace Bikewale.Models.BikeModels
 {
@@ -104,7 +106,7 @@ namespace Bikewale.Models.BikeModels
         private readonly String _adId_SimilarBikes = "1505919734321";
         private readonly String _adPath_SimilarBikes_Desktop = "/1017752/SimilarBikes_Desktop";
         private readonly String _adPath_SimilarBikes_Mobile = "/1017752/SimilarBikes_Mobile";
-        static ILog _logger = LogManager.GetLogger("ModelPage-New");
+        static ILog _logger = LogManager.GetLogger("ModelPageUpdated");
 
         public string RedirectUrl { get; set; }
         public StatusCodes Status { get; set; }
@@ -116,12 +118,19 @@ namespace Bikewale.Models.BikeModels
         public bool IsDealerPriceAvailble { get; set; }
         public ManufacturerCampaignServingPages ManufacturerCampaignPageId { get; set; }
         public string CurrentPageUrl { get; set; }
-
+        private readonly ICacheManager _cacheManager;       
+        private readonly Bikewale.Interfaces.Pager.IPager _pager;
+        private readonly IBikeModelsCacheHelper _bikeModelsCacheHelper;
+        private readonly IBikeModelsCacheRepository<int> _bikeModelsCacheRepository;
         /// <summary>
         /// Modified by : Ashutosh Sharma on 31 Oct 2017
         /// Description : Added IAdSlot.
         /// </summary>
-        public ModelPage(string makeMasking, string modelMasking, IUserReviewsSearch userReviewsSearch, IUserReviewsCache userReviewsCache, IBikeModels<Entities.BikeData.BikeModelEntity, int> objModel, IDealerPriceQuote objDealerPQ, IAreaCacheRepository objAreaCache, ICityCacheRepository objCityCache, IPriceQuote objPQ, IDealerCacheRepository objDealerCache, IDealerPriceQuoteDetail objDealerDetails, IBikeVersions<BikeVersionEntity, uint> objVersion, ICMSCacheContent objArticles, IVideos objVideos, IUsedBikeDetailsCacheRepository objUsedBikescache, IServiceCenter objServiceCenter, IPriceQuoteCache objPQCache, IUsedBikesCache usedBikesCache, IUpcoming upcoming, IManufacturerCampaign objManufacturerCampaign, IBikeSeries bikeSeries, IAdSlot adSlot, IBikeInfo bikeInfo, IBikeMakesCacheRepository bikeMakesCacheRepository, IApiGatewayCaller apiGatewayCaller, IQuestions objQuestions)
+        public ModelPage(string makeMasking, string modelMasking, IUserReviewsSearch userReviewsSearch, IUserReviewsCache userReviewsCache, IBikeModels<Entities.BikeData.BikeModelEntity, int> objModel, IDealerPriceQuote objDealerPQ, IAreaCacheRepository objAreaCache, ICityCacheRepository objCityCache, IPriceQuote objPQ, IDealerCacheRepository objDealerCache, IDealerPriceQuoteDetail objDealerDetails, IBikeVersions<BikeVersionEntity, uint> objVersion, ICMSCacheContent objArticles, IVideos objVideos, IUsedBikeDetailsCacheRepository objUsedBikescache, IServiceCenter objServiceCenter, IPriceQuoteCache objPQCache, IUsedBikesCache usedBikesCache, IUpcoming upcoming, IManufacturerCampaign objManufacturerCampaign, IBikeSeries bikeSeries, IAdSlot adSlot, IBikeInfo bikeInfo, IBikeMakesCacheRepository bikeMakesCacheRepository, IApiGatewayCaller apiGatewayCaller,
+            ICacheManager cacheManager,            
+            Bikewale.Interfaces.Pager.IPager pager,
+            IBikeModelsCacheHelper bikeModelsCacheHelper,
+            IBikeModelsCacheRepository<int> bikeModelsCacheRepository,IQuestions objQuestions)
         {
             _objModel = objModel;
             _objDealerPQ = objDealerPQ;
@@ -147,7 +156,10 @@ namespace Bikewale.Models.BikeModels
             _bikeMakesCacheRepository = bikeMakesCacheRepository;
             _apiGatewayCaller = apiGatewayCaller;
             _objQuestions = objQuestions;
-
+            _cacheManager = cacheManager;
+            _pager = pager;
+            _bikeModelsCacheHelper = bikeModelsCacheHelper;
+            _bikeModelsCacheRepository = bikeModelsCacheRepository;
             ParseQueryString(makeMasking, modelMasking);
         }
 
@@ -165,9 +177,9 @@ namespace Bikewale.Models.BikeModels
         /// <param name="versionId"></param>
         /// <returns></returns>
         public ModelPageVM GetData(uint? versionId)
-        {
-            DateTime dt1, dt2, dt3, dt4, dt5, dt6, dt7;
-            dt1 = dt2 = dt3 = dt4 = dt5 = dt6 = dt7 = DateTime.Now;
+        {            
+            DateTime p1, p2, p3;
+            p1 = p2 = p3 = DateTime.Now;
             try
             {
                 _objData = new ModelPageVM();
@@ -182,16 +194,17 @@ namespace Bikewale.Models.BikeModels
                     _objData.CityId = _cityId;
                     _objData.AreaId = _areaId;
                     _objData.VersionId = versionId.HasValue ? versionId.Value : 0;
-
+                    
+                    p1 = DateTime.Now;
                     _objData.ModelPageEntity = FetchModelPageDetails(_modelId);
-
+                    p2 = DateTime.Now;
                     if (_objData.IsModelDetails && _objData.ModelPageEntity.ModelDetails.New)
                     {
                         FetchOnRoadPrice(_objData.ModelPageEntity);
                     }
+                    p3 = DateTime.Now;
 
                     LoadVariants(_objData.ModelPageEntity);
-                    dt2 = DateTime.Now;
                     #region Code to get the specs and features data from microservice
                     if (!_objData.IsUpcomingBike && _objData.VersionId > 0)
                     {
@@ -211,14 +224,11 @@ namespace Bikewale.Models.BikeModels
                         _objData.BikeSpecsFeatures = specs;
                     }
                     #endregion
-                    dt3 = DateTime.Now;
                     if (_objData.IsModelDetails && _objData.ModelPageEntity.ModelDetails.New)
                     {
                         GetManufacturerCampaign();
                     }
-                    dt4 = DateTime.Now;
                     BindControls();
-                    dt5 = DateTime.Now;
                     BindColorString();
 
                     if (_modelId > 0)
@@ -229,7 +239,6 @@ namespace Bikewale.Models.BikeModels
                     CreateMetas();
 
                     ImageAccordingToVersion();
-                    dt6 = DateTime.Now;
                     BindVersionPriceListSummary();
 
                     if (_objData.SimilarBikes != null)
@@ -257,7 +266,6 @@ namespace Bikewale.Models.BikeModels
                     {
                         BindSeriesSlug(_objData);
                     }
-                    dt7 = DateTime.Now;
 
                     #endregion Do Not change the sequence
 
@@ -272,20 +280,12 @@ namespace Bikewale.Models.BikeModels
                 ErrorClass.LogError(ex, String.Format("GetData({0})", _modelId));
             }
             finally
-            {
-                ThreadContext.Properties["Model_1_TillLoadVarients"] = (dt2 - dt1).TotalMilliseconds;
-                ThreadContext.Properties["Model_2_Spec_Features"] = (dt3 - dt2).TotalMilliseconds;
-                ThreadContext.Properties["Model_3_GetManufacturerCampaign"] = (dt4 - dt3).TotalMilliseconds;
-                ThreadContext.Properties["Model_4_BindControls"] = (dt5 - dt4).TotalMilliseconds;
-                ThreadContext.Properties["Model_5_TillImageAccordingToVersion"] = (dt6 - dt5).TotalMilliseconds;
-                ThreadContext.Properties["Model_6_OtherTillEnd"] = (dt7 - dt6).TotalMilliseconds;
+            {               
+                ThreadContext.Properties["FetchModelPageDetails"] = (p2 - p1).TotalMilliseconds;
+                ThreadContext.Properties["FetchOnRoadPrice"] = (p3 - p2).TotalMilliseconds;                
                 _logger.Info("ModelPage.GetData");
-                ThreadContext.Properties.Remove("Model_1_TillLoadVarients");
-                ThreadContext.Properties.Remove("Model_2_Spec_Features");
-                ThreadContext.Properties.Remove("Model_3_GetManufacturerCampaign");
-                ThreadContext.Properties.Remove("Model_4_BindControls");
-                ThreadContext.Properties.Remove("Model_5_TillImageAccordingToVersion");
-                ThreadContext.Properties.Remove("Model_6_OtherTillEnd");
+                ThreadContext.Properties.Remove("FetchModelPageDetails");
+                ThreadContext.Properties.Remove("FetchOnRoadPrice");               
             }
 
             return _objData;
@@ -1302,7 +1302,8 @@ namespace Bikewale.Models.BikeModels
         /// <param name="modelId"></param>
         private void GetBikeRankingCategory()
         {
-            BindGenericBikeRankingControl bikeRankingSlug = new BindGenericBikeRankingControl();
+            BindGenericBikeRankingControl bikeRankingSlug = new BindGenericBikeRankingControl(_cacheManager, _objModel,
+                _pager, _bikeModelsCacheHelper, _bikeModelsCacheRepository);
             bikeRankingSlug.ModelId = _modelId;
             var objBikeRanking = bikeRankingSlug.GetBikeRankingByModel();
             if (objBikeRanking != null)

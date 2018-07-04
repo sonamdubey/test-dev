@@ -52,7 +52,7 @@ namespace Bikewale.BAL.BikeData
     /// <typeparam name="U"></typeparam>
     public class BikeModels<T, U> : IBikeModels<T, U> where T : BikeModelEntity, new()
     {
-        private readonly IBikeModelsRepository<T, U> modelRepository = null;
+        private readonly IBikeModelsRepository<T, U> _modelRepository = null;
         private readonly IPager _objPager = null;
         private readonly IUserReviewsCache _userReviewCache = null;
         private readonly IArticles _articles = null;
@@ -68,45 +68,37 @@ namespace Bikewale.BAL.BikeData
         private readonly IApiGatewayCaller _apiGatewayCaller;
         private string _newsContentType;
 		private readonly IBikeModelsCacheHelper _bikeModelCacheHelper;
+   
+      
         /// <summary>
         /// Modified by :   Sumit Kate on 26 Apr 2017
         /// Description :   Register the User Reviews BAL and resolve it
         /// </summary>
-        public BikeModels()
+        public BikeModels(IApiGatewayCaller apiGatewayCaller,
+                          IBikeModelsCacheHelper bikeModelsCacheHelper,
+                          IBikeMaskingCacheRepository<BikeModelEntity, int>  modelMaskingCache,
+                          IUserReviewsSearch userReviewsSearch,
+                          IBikeModelsRepository<T, U> modelRepository,
+                          IPager objPager,
+                          IArticles articles,
+                          ICMSCacheContent cacheArticles,
+                          IBikeModelsCacheRepository<U> modelCacheRepository,
+                          IVideos videos,
+                          IUserReviews userReviews,
+                          IUserReviewsCache userReviewCache)
         {
-            using (IUnityContainer container = new UnityContainer())
-            {
-                container.RegisterType<IBikeModelsRepository<T, U>, BikeModelsRepository<T, U>>();
-                container.RegisterType<IPager, BAL.Pager.Pager>();
-                container.RegisterType<IArticles, Articles>();
-                container.RegisterType<IUserReviewsCache, Bikewale.Cache.UserReviews.UserReviewsCacheRepository>();
-                container.RegisterType<ICacheManager, MemcacheManager>();
-                container.RegisterType<IUserReviewsRepository, UserReviewsRepository>();
-                container.RegisterType<ICMSCacheContent, CMSCacheRepository>();
-                container.RegisterType<IUserReviewsSearch, UserReviewsSearch>();
-                container.RegisterType<IBikeMakesCacheRepository, BikeMakesCacheRepository>();
-                container.RegisterType<IBikeMaskingCacheRepository<BikeModelEntity, int>, BikeModelMaskingCache<BikeModelEntity, int>>();
-                container.RegisterType<IBikeModelsCacheRepository<U>, BikeModelsCacheRepository<T, U>>();
-                container.RegisterType<IVideos, Bikewale.BAL.Videos.Videos>();
-                container.RegisterType<ICustomer<CustomerEntity, UInt32>, Customer<CustomerEntity, UInt32>>();
-                container.RegisterType<ICustomerRepository<CustomerEntity, UInt32>, CustomerRepository<CustomerEntity, UInt32>>();
-                container.RegisterType<IUserReviews, Bikewale.BAL.UserReviews.UserReviews>();
-				container.RegisterType<IBikeModelsCacheHelper,BikeModelsCacheHelper>();
-                container.RegisterType<IApiGatewayCaller, ApiGatewayCaller>();
-
-                modelRepository = container.Resolve<IBikeModelsRepository<T, U>>();
-                _objPager = container.Resolve<IPager>();
-                _articles = container.Resolve<IArticles>();
-                _cacheArticles = container.Resolve<ICMSCacheContent>();
-                _modelCacheRepository = container.Resolve<IBikeModelsCacheRepository<U>>();
-                _videos = container.Resolve<IVideos>();
-                _userReviewCache = container.Resolve<IUserReviewsCache>();
-                _userReviews = container.Resolve<IUserReviews>();
-                _userReviewsSearch = container.Resolve<IUserReviewsSearch>();
-                _modelMaskingCache = container.Resolve<IBikeMaskingCacheRepository<BikeModelEntity, int>>();
-				_bikeModelCacheHelper = container.Resolve<IBikeModelsCacheHelper>();
-                _apiGatewayCaller = container.Resolve<IApiGatewayCaller>();
-            }
+            _modelRepository = modelRepository;
+            _objPager = objPager;
+            _articles = articles;
+            _cacheArticles = cacheArticles;
+            _modelCacheRepository = modelCacheRepository;
+            _videos = videos;
+            _userReviewCache = userReviewCache;
+            _userReviews = userReviews;
+            _userReviewsSearch = userReviewsSearch;
+            _modelMaskingCache = modelMaskingCache;
+            _bikeModelCacheHelper = bikeModelsCacheHelper;
+            _apiGatewayCaller = apiGatewayCaller;
         }
 
         /// <summary>
@@ -137,7 +129,7 @@ namespace Bikewale.BAL.BikeData
         {
             List<BikeModelEntityBase> objModelList = null;
 
-            objModelList = modelRepository.GetModelsByType(requestType, makeId);
+            objModelList = _modelRepository.GetModelsByType(requestType, makeId);
             return objModelList;
         }
 
@@ -152,7 +144,7 @@ namespace Bikewale.BAL.BikeData
         {
             List<BikeVersionsListEntity> objVersionList = null;
 
-            objVersionList = modelRepository.GetVersionsList(modelId, isNew);
+            objVersionList = _modelRepository.GetVersionsList(modelId, isNew);
 
             return objVersionList;
         }
@@ -161,7 +153,7 @@ namespace Bikewale.BAL.BikeData
         {
             BikeDescriptionEntity objDesc = null;
 
-            objDesc = modelRepository.GetModelSynopsis(modelId);
+            objDesc = _modelRepository.GetModelSynopsis(modelId);
 
             return objDesc;
         }
@@ -170,7 +162,7 @@ namespace Bikewale.BAL.BikeData
         {
             UpcomingBikeEntity objUpcomingBike = null;
 
-            objUpcomingBike = modelRepository.GetUpcomingBikeDetails(modelId);
+            objUpcomingBike = _modelRepository.GetUpcomingBikeDetails(modelId);
 
             return objUpcomingBike;
         }
@@ -197,7 +189,7 @@ namespace Bikewale.BAL.BikeData
 
         public T GetById(U id)
         {
-            T t = modelRepository.GetById(id);
+            T t = _modelRepository.GetById(id);
 
             return t;
         }
@@ -253,7 +245,7 @@ namespace Bikewale.BAL.BikeData
         {
             List<UpcomingBikeEntity> objUpcomingBikeList = null;
 
-            objUpcomingBikeList = modelRepository.GetUpcomingBikesList(inputParams, sortBy, out recordCount);
+            objUpcomingBikeList = _modelRepository.GetUpcomingBikesList(inputParams, sortBy, out recordCount);
 
             return objUpcomingBikeList;
         }
@@ -268,7 +260,7 @@ namespace Bikewale.BAL.BikeData
         /// <returns></returns>
         public NewLaunchedBikesBase GetNewLaunchedBikesList(int startIndex, int endIndex, int? makeid = null)
         {
-            NewLaunchedBikesBase objNewLaunchedBikeList = modelRepository.GetNewLaunchedBikesList(startIndex, endIndex);
+            NewLaunchedBikesBase objNewLaunchedBikeList = _modelRepository.GetNewLaunchedBikesList(startIndex, endIndex);
             return objNewLaunchedBikeList;
         }
 
@@ -555,9 +547,11 @@ namespace Bikewale.BAL.BikeData
         public BikeModelPageEntity GetModelPageDetails(U modelId, int versionId)
         {
             BikeModelPageEntity objModelPage = null;
+            
             try
             {
                 objModelPage = _modelCacheRepository.GetModelPageDetails(modelId, versionId);
+                
                 if (objModelPage != null && objModelPage.ModelVersions != null && objModelPage.ModelVersions.Any())
                 {
                     // First 2 in versionPrices in city widget
@@ -591,6 +585,7 @@ namespace Bikewale.BAL.BikeData
                             modelVersion = avgExshowroomTaggedVersion != null ? avgExshowroomTaggedVersion : objModelPage.ModelVersions.FirstOrDefault();
                         }
                     }
+                    
                     if (modelVersion != null && modelVersion.MinSpecsList != null)
                     {
                         objModelPage.ModelVersionMinSpecs = new BikeVersionMinSpecs()
@@ -621,6 +616,7 @@ namespace Bikewale.BAL.BikeData
             {
                 if (bikeVersionList != null && bikeVersionList.Any())
                 {
+                    DateTime dt1 = DateTime.Now;
                     GetVersionSpecsSummaryByItemIdAdapter adapt = new GetVersionSpecsSummaryByItemIdAdapter();
                     VersionsDataByItemIds_Input specItemInput = new VersionsDataByItemIds_Input
                     {
@@ -630,6 +626,7 @@ namespace Bikewale.BAL.BikeData
                     adapt.AddApiGatewayCall(_apiGatewayCaller, specItemInput);
                     _apiGatewayCaller.Call();
                     JoinBikeListWithMinSpecs(bikeVersionList, adapt.Output);
+
                 }
             }
             catch (Exception ex)
@@ -648,7 +645,7 @@ namespace Bikewale.BAL.BikeData
         /// <returns></returns>
         public IEnumerable<NewBikeModelColor> GetModelColor(U modelId)
         {
-            return (modelRepository.GetModelColor(modelId));
+            return (_modelRepository.GetModelColor(modelId));
         }
         /// <summary>
         /// Created by Subodh Jain 17 jan 2017
@@ -659,7 +656,7 @@ namespace Bikewale.BAL.BikeData
         /// <returns></returns>
         public IEnumerable<BikeUserReviewRating> GetUserReviewSimilarBike(uint modelId, uint topCount)
         {
-            return modelRepository.GetUserReviewSimilarBike(modelId, topCount);
+            return _modelRepository.GetUserReviewSimilarBike(modelId, topCount);
         }
 
 
@@ -2051,7 +2048,6 @@ namespace Bikewale.BAL.BikeData
                 ErrorClass.LogError(ex, string.Format("Bikewale.BAL.BikeData.BikeModels.JoinBikeListWithMinSpecs_versionList_{0}_specItemList_{1}", versionList, specItemList));
             }
         }
-
 
 
         /// <summary>

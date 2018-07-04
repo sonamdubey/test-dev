@@ -24,6 +24,22 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Bikewale.BAL.ApiGateway.ApiGatewayHelper;
+using Bikewale.Interfaces.UserReviews.Search;
+using Bikewale.Interfaces.EditCMS;
+using Bikewale.Interfaces.CMS;
+using Bikewale.Interfaces.Videos;
+using Bikewale.Interfaces.UserReviews;
+using Bikewale.CacheHelper.BikeData;
+using Bikewale.BAL.UserReviews.Search;
+using Bikewale.BAL.EditCMS;
+using Bikewale.Cache.CMS;
+using Bikewale.Cache.UserReviews;
+using Bikewale.DAL.UserReviews;
+using Bikewale.Entities.Customer;
+using Bikewale.BAL.Customer;
+using Bikewale.Interfaces.Customer;
+using Bikewale.DAL.Customer;
 namespace Bikewale.BindViewModels.Webforms.Used
 {
     public class SearchUsedBikes
@@ -88,7 +104,19 @@ namespace Bikewale.BindViewModels.Webforms.Used
                 .RegisterType<ISearchQuery, SearchQuery>()
                 .RegisterType<ISearchRepository, SearchRepository>()
                 .RegisterType<ISearch, SearchBikes>()
-                .RegisterType<IPager, Pager>();
+                .RegisterType<IPager, Pager>()
+                .RegisterType<IApiGatewayCaller, ApiGatewayCaller>()
+                .RegisterType<IBikeModelsCacheHelper, BikeModelsCacheHelper>()
+                .RegisterType<IUserReviewsSearch, UserReviewsSearch>()
+                .RegisterType<IArticles, Articles>()
+                .RegisterType<ICMSCacheContent, CMSCacheRepository>()
+                .RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>()
+                .RegisterType<IVideos, Bikewale.BAL.Videos.Videos>()
+                .RegisterType<IUserReviews, Bikewale.BAL.UserReviews.UserReviews>()
+                .RegisterType<IUserReviewsCache, UserReviewsCacheRepository>()
+                .RegisterType<IUserReviewsRepository, UserReviewsRepository>()
+                .RegisterType<ICustomer<CustomerEntity, uint>, Customer<CustomerEntity, uint>>()
+                .RegisterType<ICustomerRepository<CustomerEntity, uint>, CustomerRepository<CustomerEntity, uint>>();
 
                 objCityCache = container.Resolve<ICityMaskingCacheRepository>();
                 objMakeCache = container.Resolve<IBikeMakesCacheRepository>();

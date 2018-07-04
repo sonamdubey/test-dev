@@ -27,59 +27,64 @@ namespace Bikewale.BindViewModels.Controls
         public string StyleName { get; set; }
         public string BikeType { get; set; }
         public string RankText { get; set; }
+        private readonly ICacheManager _cacheManager;
+        private readonly IBikeModels<BikeModelEntity, int> _bikeModels;
+        private readonly IPager _pager;
+        private readonly IBikeModelsCacheHelper _bikeModelsCacheHelper;
+        private readonly IBikeModelsCacheRepository<int> _bikeModelsCacheRepository;
+
+
+        public BindGenericBikeRankingControl( ICacheManager cacheManager,
+                                                IBikeModels<BikeModelEntity, int> bikeModels,
+                                                IPager pager,
+                                                IBikeModelsCacheHelper bikeModelsCacheHelper,
+                                                IBikeModelsCacheRepository<int> bikeModelsCacheRepository)
+        {
+            _cacheManager = cacheManager;
+            _bikeModels=bikeModels;
+            _pager=pager;
+            _bikeModelsCacheHelper=bikeModelsCacheHelper;
+            _bikeModelsCacheRepository=bikeModelsCacheRepository;
+        }
 
         public BikeRankingEntity GetBikeRankingByModel()
         {
             BikeRankingEntity bikeRankObj = null;
             try
             {
-                using (IUnityContainer container = new UnityContainer())
+
+                bikeRankObj = _bikeModelsCacheRepository.GetBikeRankingByCategory(ModelId);
+                if (bikeRankObj != null)
                 {
-					container.RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
-						.RegisterType<ICacheManager, MemcacheManager>()
-						.RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>()
-						.RegisterType<IPager, Pager>()
-						.RegisterType<IBikeModelsCacheHelper, BikeModelsCacheHelper>()
-                        .RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>();
-                    ;
-                    var _objGenericBike = container.Resolve<IBikeModelsCacheRepository<int>>();
-
-
-                    bikeRankObj = _objGenericBike.GetBikeRankingByCategory(ModelId);
-                    if (bikeRankObj != null)
+                    switch (bikeRankObj.BodyStyle)
                     {
-                        switch (bikeRankObj.BodyStyle)
-                        {
 
-                            case EnumBikeBodyStyles.Mileage:
-                                StyleName = "Mileage Bikes";
-                                BikeType = "Mileage Bike";
-                                break;
-                            case EnumBikeBodyStyles.Sports:
-                                StyleName = "Sports Bikes";
-                                BikeType = "Sports Bike";
-                                break;
-                            case EnumBikeBodyStyles.Cruiser:
-                                StyleName = "Cruisers";
-                                BikeType = "Cruiser";
-                                break;
-                            case EnumBikeBodyStyles.Scooter:
-                                StyleName = "Scooters";
-                                BikeType = "Scooter";
-                                break;
-                            case EnumBikeBodyStyles.AllBikes:
-                            default:
-                                StyleName = "Bikes";
-                                BikeType = "Bike";
-                                break;
+                        case EnumBikeBodyStyles.Mileage:
+                            StyleName = "Mileage Bikes";
+                            BikeType = "Mileage Bike";
+                            break;
+                        case EnumBikeBodyStyles.Sports:
+                            StyleName = "Sports Bikes";
+                            BikeType = "Sports Bike";
+                            break;
+                        case EnumBikeBodyStyles.Cruiser:
+                            StyleName = "Cruisers";
+                            BikeType = "Cruiser";
+                            break;
+                        case EnumBikeBodyStyles.Scooter:
+                            StyleName = "Scooters";
+                            BikeType = "Scooter";
+                            break;
+                        case EnumBikeBodyStyles.AllBikes:
+                        default:
+                            StyleName = "Bikes";
+                            BikeType = "Bike";
+                            break;
 
-                        }
-                        int rank = bikeRankObj.Rank;
-                        RankText = Bikewale.Utility.Format.FormatRank(rank);
                     }
+                    int rank = bikeRankObj.Rank;
+                    RankText = Bikewale.Utility.Format.FormatRank(rank);
                 }
-
-
             }
             catch (Exception ex)
             {
