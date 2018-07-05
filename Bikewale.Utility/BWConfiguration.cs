@@ -125,7 +125,8 @@ namespace Bikewale.Utility
             _MetasMakeId = string.Empty,
             _ContestPriceMoney = string.Empty,
             _bikeModelIndex = String.Empty,
-            _bikeModelPriceIndex = String.Empty;
+            _bikeModelPriceIndex = String.Empty,
+            _pqConsumerQueue = String.Empty;
 
         private readonly bool _IsAppTrackDayVisible = false, _UseAPIGateway = false;
         private readonly int _SecurityHashLength = 0;
@@ -279,6 +280,7 @@ namespace Bikewale.Utility
             _bikeModelPriceIndex = Convert.ToString(ConfigurationManager.AppSettings["BikePriceIndex"]);
             _SpecsFeaturesServiceModuleName = Convert.ToString(ConfigurationManager.AppSettings["SpecsFeaturesServiceModuleName"]);
             _SpamFilterServiceModuleName = Convert.ToString(ConfigurationManager.AppSettings["SpamFilterServiceModuleName"]);
+            _pqConsumerQueue = Convert.ToString(ConfigurationManager.AppSettings["PQConsumerQueue"]);
         }
 
         // Static method to provide access to instance
@@ -458,5 +460,6 @@ namespace Bikewale.Utility
         public string BikeModelPriceIndex { get { return _bikeModelPriceIndex; } }
         public string SpecsFeaturesServiceModuleName { get { return _SpecsFeaturesServiceModuleName; } }
         public string SpamFilterServiceModuleName { get { return _SpamFilterServiceModuleName; } }
+        public string PQConsumerQueue { get { return _pqConsumerQueue;  } }
     }   // class
 }   // namespace

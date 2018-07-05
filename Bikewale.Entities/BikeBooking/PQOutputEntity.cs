@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Bikewale.ManufacturerCampaign.Entities;
+using Newtonsoft.Json;
 
 namespace Bikewale.Entities.BikeBooking
 {
@@ -22,5 +23,7 @@ namespace Bikewale.Entities.BikeBooking
         public string MakeName { get; set; }
         [JsonProperty("modelName")]
         public string ModelName { get; set; }
+        [JsonIgnore]
+        public ManufacturerCampaignEntity ManufacturerCampaign { get; set; }
     }
 }

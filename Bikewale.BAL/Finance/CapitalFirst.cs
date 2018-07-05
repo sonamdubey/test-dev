@@ -186,6 +186,7 @@ namespace Bikewale.BAL.Finance
 
         /// <summary>
         /// Saves the lead data to pq_newbikepricequote table
+        /// Kartik Rathod on 21 jun 2018 modify SaveManufacturerCampaignLead added cityId,versionId and pqGuId
         /// </summary>
         /// <param name="objDetails"></param>
         /// <param name="Utmz"></param>
@@ -210,7 +211,10 @@ namespace Bikewale.BAL.Finance
                       Utmz,
                       objDetails.objLead.DeviceId,
                       objDetails.objLead.CampaignId,
-                      objDetails.LeadId
+                      objDetails.LeadId,
+                      objDetails.objLead.CityId,
+                      objDetails.objLead.VersionId,
+                      objDetails.objLead.PQGUId
                      );
             }
             catch (Exception ex)
@@ -225,6 +229,8 @@ namespace Bikewale.BAL.Finance
         /// Description :   Push To Lead ConsumerQueue
         /// Saves the data to manufacturer lead table via lead push to Lead Consumer
         /// Modifier    : Kartik Rathod on 16 may 2018, added dealerName,bikename and sendLeadSMSCustomer  to ManufacturerLead consumer 
+        /// Modified By : Kartik Rathod on 22 jun 2018
+        /// Description : price quote changes passed pqGUId in nvc object for LeadConsumerQueue
         /// </summary>
         /// <param name="objDetails"></param>
         private void PushToLeadConsumerQueue(PersonalDetails objDetails)
@@ -251,6 +257,7 @@ namespace Bikewale.BAL.Finance
                     objNVC.Add("dealerName", objDetails.objLead.DealerName);
                     objNVC.Add("bikeName", objDetails.objLead.BikeName);
                     objNVC.Add("sendLeadSMSCustomer", Convert.ToString(objDetails.objLead.SendLeadSMSCustomer));
+                    objNVC.Add("pqGUId", Convert.ToString(objDetails.objLead.PQGUId));
 
                     RabbitMqPublish objRMQPublish = new RabbitMqPublish();
                     objRMQPublish.PublishToQueue(Bikewale.Utility.BWConfiguration.Instance.LeadConsumerQueue, objNVC);
@@ -258,7 +265,7 @@ namespace Bikewale.BAL.Finance
             }
             catch (Exception ex)
             {
-                ErrorClass.LogError(ex, String.Format("PushToLeadConsumerQueue({0})", (objDetails != null && objDetails.objLead != null) ? objDetails.objLead.PQId : 0));
+                ErrorClass.LogError(ex, String.Format("PushToLeadConsumerQueue(pqid - {0} , pqguid -{1} )", (objDetails != null && objDetails.objLead != null) ? objDetails.objLead.PQId : 0, objDetails.objLead.PQGUId));
             }
         }
        

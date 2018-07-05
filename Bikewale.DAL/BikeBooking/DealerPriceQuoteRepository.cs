@@ -31,6 +31,8 @@ namespace Bikewale.DAL.BikeBooking
         /// Description : Removed unused function UpdateAppointmentDate
         /// Modified by : Snehal Dange on 14th May 2018
         /// Descripton : Changed sp name from 'savebikedealerquotations_07062017' to 'savebikedealerquotations_14052018' .Added par_spamscore,par_isaccepted,par_overallspamscore to store overall score
+        /// Modified by : Pratibha Verma on 26 June 2018
+        /// Description : changed sp 'savebikedealerquotations_14052018' to 'savecustomerdetailsbypqid' .Returned leadid from db
         /// Description :  
         /// </summary>
         /// <param name="dealerId"></param>
@@ -39,16 +41,16 @@ namespace Bikewale.DAL.BikeBooking
         /// <param name="customerMobile"></param>
         /// <param name="customerEmail"></param>
         /// <returns></returns>
-        public bool SaveCustomerDetail(DPQ_SaveEntity entity)
+        public uint SaveCustomerDetailByPQId(DPQ_SaveEntity entity)
         {
-            bool isSuccess = false;
+            uint leadId = 0;
 
             try
             {
 
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.CommandText = "savebikedealerquotations_14052018";
+                    cmd.CommandText = "savecustomerdetailsbypqid";
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, entity.DealerId));
@@ -68,21 +70,71 @@ namespace Bikewale.DAL.BikeBooking
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_spamscore", DbType.Double, entity.SpamScore));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_isaccepted", DbType.Boolean, entity.IsAccepted));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_overallspamscore", DbType.Byte, entity.OverallSpamScore));
-
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_leadid", DbType.Int32, ParameterDirection.Output));
 
                     // LogLiveSps.LogSpInGrayLog(cmd);
-                    if (Convert.ToBoolean(MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase)))
-                        isSuccess = true;
-
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
+                    leadId = SqlReaderConvertor.ToUInt32(cmd.Parameters["par_leadid"].Value);
                 }
             }
             catch (Exception ex)
             {
-                ErrorClass.LogError(ex, "SaveCustomerDetail ex : " + ex.Message);
-                isSuccess = false;
+                ErrorClass.LogError(ex, "SaveCustomerDetailByPQId ex : " + ex.Message);
             }
 
-            return isSuccess;
+            return leadId;
+        }
+
+        /// <summary>
+        /// Created by  : Pratibha Verma on 26 june 2018
+        /// Description : passed leadId in param and return leadId
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
+        public uint SaveCustomerDetailByLeadId(Bikewale.Entities.BikeBooking.v2.DPQ_SaveEntity entity)
+        {
+            uint leadId = 0;
+
+            try
+            {
+
+                using (DbCommand cmd = DbFactory.GetDBCommand())
+                {
+                    cmd.CommandText = "savecustomerdetailsbyleadid";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, entity.DealerId));
+
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_pqguid", DbType.String, 40, entity.PQId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customername", DbType.String, 50, entity.CustomerName));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customeremail", DbType.String, 50, entity.CustomerEmail));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customermobile", DbType.String, 50, entity.CustomerMobile));
+
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_colorid", DbType.Int32, (entity.ColorId.HasValue) ? entity.ColorId.Value : Convert.DBNull));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_leadsourceid", DbType.Byte, (entity.LeadSourceId.HasValue) ? entity.LeadSourceId.Value : Convert.DBNull));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_utma", DbType.String, 500, (!String.IsNullOrEmpty(entity.UTMA)) ? entity.UTMA : Convert.DBNull));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_utmz", DbType.String, 500, (!String.IsNullOrEmpty(entity.UTMZ)) ? entity.UTMZ : Convert.DBNull));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_deviceid", DbType.String, 25, (!String.IsNullOrEmpty(entity.DeviceId)) ? entity.DeviceId : Convert.DBNull));
+
+
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_spamscore", DbType.Double, entity.SpamScore));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isaccepted", DbType.Boolean, entity.IsAccepted));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_overallspamscore", DbType.Byte, entity.OverallSpamScore));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_versionid", DbType.Int32, entity.VersionId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, entity.CityId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_areaid", DbType.Int32, entity.AreaId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_leadid", DbType.Int32, ParameterDirection.InputOutput, entity.LeadId));
+
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
+                    leadId = SqlReaderConvertor.ToUInt32(cmd.Parameters["par_leadid"].Value);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "SaveCustomerDetailByLeadId ex : " + ex.Message);
+            }
+
+            return leadId;
         }
 
         /// <summary>
@@ -191,10 +243,12 @@ namespace Bikewale.DAL.BikeBooking
         /// <summary>
         /// Created By : Sadhana Upadhyay on 10 Nov 2014
         /// Summary : To get customer details
+        /// Modified by : Pratibha Verma on 26 June 2018
+        /// Description : replaced sp 'getnewbikepricequotecustomerdetail'  with 'getcustomerdetailsbypqid'
         /// </summary>
         /// <param name="pqId"></param>
         /// <returns></returns>
-        public PQCustomerDetail GetCustomerDetails(uint pqId)
+        public PQCustomerDetail GetCustomerDetailsByPQId(uint pqId)
         {
             PQCustomerDetail objCustomer = null;
 
@@ -202,7 +256,7 @@ namespace Bikewale.DAL.BikeBooking
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.CommandText = "getnewbikepricequotecustomerdetail";
+                    cmd.CommandText = "getcustomerdetailsbypqid";
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_pqid", DbType.Int64, pqId));
@@ -225,6 +279,7 @@ namespace Bikewale.DAL.BikeBooking
                             objCustomer.AbInquiryId = Convert.ToString(dr["AbInquiryId"]);
                             objCustomer.SelectedVersionId = Convert.ToUInt32(dr["SelectedVersionId"]);
                             objCustomer.DealerId = Convert.ToUInt32(dr["DealerId"]);
+                            objCustomer.LeadId = SqlReaderConvertor.ToUInt32(dr["leadid"]);
                         }
 
                         if (dr.NextResult())
@@ -238,15 +293,75 @@ namespace Bikewale.DAL.BikeBooking
                                 };
                             }
                         }
-                        if (dr != null) dr.Close();
+                        dr.Close();
                     }
                 }
             }
             catch (Exception ex)
             {
-                ErrorClass.LogError(ex, "GetCustomerDetails ex : " + ex.Message);
+                ErrorClass.LogError(ex, "GetCustomerDetailsByPQId ex : " + ex.Message);
 
                 // isSuccess = false;
+            }
+            return objCustomer;
+        }
+
+
+        /// <summary>
+        /// Created by  : Pratibha Verma on 26 June 2018
+        /// Description : removed PQId dependency and retrieved customer details based on LeadId
+        /// </summary>
+        /// <param name="leadId"></param>
+        /// <returns></returns>
+        public PQCustomerDetail GetCustomerDetailsByLeadId(uint leadId)
+        {
+            PQCustomerDetail objCustomer = null;
+
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand())
+                {
+                    cmd.CommandText = "getcustomerdetailsbyleadid";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_leadId", DbType.Int32, leadId));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        objCustomer = new PQCustomerDetail();
+                        if (dr.Read())
+                        {
+                            objCustomer.objCustomerBase = new CustomerEntity()
+                            {
+                                CustomerId = SqlReaderConvertor.ToUInt64(dr["CustomerId"]),
+                                CustomerName = dr["CustomerName"].ToString(),
+                                CustomerEmail = dr["CustomerEmail"].ToString(),
+                                CustomerMobile = dr["CustomerMobile"].ToString(),
+                                AreaDetails = new Entities.Location.AreaEntityBase() { AreaName = dr["AreaName"].ToString() },
+                                cityDetails = new Entities.Location.CityEntityBase() { CityName = dr["CityName"].ToString(), CityId = SqlReaderConvertor.ToUInt32(dr["CityId"]) }
+                            };
+                            objCustomer.IsTransactionCompleted = SqlReaderConvertor.ToBoolean(dr["TransactionCompleted"]);
+                            objCustomer.AbInquiryId = Convert.ToString(dr["AbInquiryId"]);
+                            objCustomer.SelectedVersionId = SqlReaderConvertor.ToUInt32(dr["SelectedVersionId"]);
+                            objCustomer.DealerId = SqlReaderConvertor.ToUInt32(dr["DealerId"]);
+                            objCustomer.LeadId = SqlReaderConvertor.ToUInt32(dr["LeadId"]);
+                        }
+
+                        if (dr.NextResult() && dr.Read())
+                        {
+                            objCustomer.objColor = new VersionColor()
+                            {
+                                ColorName = dr["ColorName"].ToString(),
+                                ColorId = SqlReaderConvertor.ToUInt32(dr["ColorID"])
+                            };
+                        }
+                        dr.Close();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "DealerPriceQuoteRepository.GetCustomerDetailsByLeadId ex : " + ex.Message);
             }
             return objCustomer;
         }
@@ -1081,13 +1196,18 @@ namespace Bikewale.DAL.BikeBooking
 
         }
 
-        public PQOutputEntity ProcessPQ(PriceQuoteParametersEntity PQParams)
+        public PQOutputEntity ProcessPQ(PriceQuoteParametersEntity PQParams, bool isManufacturerCampaignRequired = false)
         {
             throw new NotImplementedException();
         }
 
 
-        public PQOutputEntity ProcessPQV2(PriceQuoteParametersEntity PQParams)
+        public Entities.BikeBooking.v2.PQOutputEntity ProcessPQV2(Bikewale.Entities.PriceQuote.v2.PriceQuoteParametersEntity PQParams, bool isDealerSubscriptionRequired = true)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Entities.BikeBooking.v2.PQOutputEntity ProcessPQV3(Entities.PriceQuote.v2.PriceQuoteParametersEntity PQParams)
         {
             throw new NotImplementedException();
         }

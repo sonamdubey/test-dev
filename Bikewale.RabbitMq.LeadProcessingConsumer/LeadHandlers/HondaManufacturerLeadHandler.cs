@@ -1,4 +1,5 @@
 ﻿
+using Bikewale.RabbitMq.LeadProcessingConsumer.Entities;
 using Consumer;
 using System;
 using System.Collections;
@@ -51,28 +52,28 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
             try
             {
 
-                BikeQuotationEntity quotation = base.LeadRepostiory.GetPriceQuoteById(leadEntity.PQId);
-                if (quotation != null)
+                BikeVersionAndCityDetails versionAndCityDetails = base.LeadRepostiory.GetVersionAndCityDetails(leadEntity.VersionId, leadEntity.CityId);
+                if (versionAndCityDetails != null)
                 {
-					string apiModelName = string.Empty;
-					if (hondaModels != null && hondaModels.ContainsKey((int)quotation.ModelId))
+                    string apiModelName = string.Empty;
+                    if (hondaModels != null && hondaModels.ContainsKey((int)versionAndCityDetails.ModelId))
                     {
-                        apiModelName = Convert.ToString(hondaModels[(int)quotation.ModelId]);
+                        apiModelName = Convert.ToString(hondaModels[(int)versionAndCityDetails.ModelId]);
                     }
                     else
                     {
-                        apiModelName = quotation.ModelName;
+                        apiModelName = versionAndCityDetails.ModelName;
                     }
 
                     gaadiLead = new GaadiLeadEntity()
                     {
-                        City = quotation.City,
+                        City = versionAndCityDetails.CityName,
                         Email = leadEntity.CustomerEmail,
-                        Make = quotation.MakeName,
+                        Make = versionAndCityDetails.MakeName,
                         Mobile = leadEntity.CustomerMobile,
                         Model = apiModelName,
                         Name = leadEntity.CustomerName,
-                        State = quotation.State
+                        State = versionAndCityDetails.StateName
                     };
                 }
 

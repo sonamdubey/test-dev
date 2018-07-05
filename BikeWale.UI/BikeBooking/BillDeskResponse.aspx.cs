@@ -349,7 +349,7 @@ namespace Bikewale.BikeBooking
                     container.RegisterType<IDealerPriceQuote, Bikewale.BAL.BikeBooking.DealerPriceQuote>();
                     IDealerPriceQuote objDealer = container.Resolve<IDealerPriceQuote>();
 
-                    objCustomer = objDealer.GetCustomerDetails(pqId);
+                    objCustomer = objDealer.GetCustomerDetailsByPQId(pqId);
 
                     if (objCustomer != null && objCustomer.objColor != null)
                     {

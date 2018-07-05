@@ -20,14 +20,14 @@ namespace Bikewale.Models.Price
         public IEnumerable<BikeVersionsListEntity> VersionsList { get; set; }
         public IEnumerable<BikeVersionMinSpecs> VersionSpecs { get; set; }
         public Bikewale.Entities.PriceQuote.v2.DetailedDealerQuotationEntity DetailedDealer { get; set; }
-        public BikeQuotationEntity Quotation { get; set; }
+        public Bikewale.Entities.PriceQuote.v2.BikeQuotationEntity Quotation { get; set; }
         public LeadCaptureEntity LeadCapture { get; set; }
         public DealerPackageTypes DealerType { get; set; }
         public IEnumerable<SpecsItem> SelectedVersionMinSpecs { get; set; }
         public string Location { get; set; }
         public string BikeName { get; set; }
         public string MPQQueryString { get; set; }
-        public uint PQId { get; set; }
+        public string PQId { get; set; }
         public uint DealerId { get; set; }
         public uint CityId { get; set; }
         public string CiyName { get; set; }
@@ -54,7 +54,7 @@ namespace Bikewale.Models.Price
         public int PQLeadSource { get { return 34; } }
 
         public SimilarBikesWidgetVM SimilarBikesVM { get; set; }
-        public ManufactureCampaignLeadEntity LeadCampaign { get; set; }
+        public Bikewale.Entities.manufacturecampaign.v2.ManufactureCampaignLeadEntity LeadCampaign { get; set; }
         public bool IsManufacturerLeadAdShown { get; set; }
         public ManufactureCampaignEMIEntity EMICampaign { get; set; }
         public bool IsManufacturerEMIAdShown { get; set; }

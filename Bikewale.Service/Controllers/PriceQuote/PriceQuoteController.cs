@@ -34,7 +34,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
         /// </summary>
         /// <param name="input">Entity contains the required details to get the price quote details</param>
         /// <returns></returns>
-        [ResponseType(typeof(PQOutputEntity))]
+        [ResponseType(typeof(PQOutputEntity)), Route("api/PriceQuote/")]
         public IHttpActionResult Post([FromBody]PQInput input)
         {
             string response = string.Empty;
@@ -74,5 +74,51 @@ namespace Bikewale.Service.Controllers.PriceQuote
                 return InternalServerError();
             }
         }
+
+        /// <summary>
+        /// Author    : Kartik on 20 jun 2018 for price quote changes added
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        [ResponseType(typeof(Bikewale.Entities.BikeBooking.v2.PQOutputEntity)), Route("api/v2/PriceQuote/")]
+        public IHttpActionResult PostV2([FromBody]Bikewale.DTO.PriceQuote.v4.PQInput﻿ input)
+        {
+            string response = string.Empty;
+            Bikewale.DTO.PriceQuote.v3.PQOutput objPQ = null;
+            Bikewale.Entities.BikeBooking.v2.PQOutputEntity objPQOutput = null;
+            try
+            {
+                Entities.PriceQuote.v2.PriceQuoteParametersEntity objPQEntity = new Entities.PriceQuote.v2.PriceQuoteParametersEntity();
+                objPQEntity.CityId = input.CityId;
+                objPQEntity.AreaId = input.AreaId > 0 ? input.AreaId : 0;
+                objPQEntity.ClientIP = input.ClientIP;
+                objPQEntity.SourceId = Convert.ToUInt16(input.SourceType);
+                objPQEntity.ModelId = input.ModelId;
+                objPQEntity.VersionId = input.VersionId;
+                objPQEntity.UTMA = Request.Headers.Contains("utma") ? Request.Headers.GetValues("utma").FirstOrDefault() : String.Empty;
+                objPQEntity.UTMZ = Request.Headers.Contains("utmz") ? Request.Headers.GetValues("utmz").FirstOrDefault() : String.Empty;
+                objPQEntity.DeviceId = input.DeviceId;
+                objPQEntity.PQLeadId = input.PQLeadId;
+                objPQEntity.RefPQId = input.RefPQId;
+
+                objPQOutput = _objIPQ.ProcessPQV3(objPQEntity);
+
+                if (objPQOutput != null)
+                {
+                    objPQ = PQOutputMapper.ConvertV3(objPQOutput);
+                    return Ok(objPQ);
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.Controllers.PriceQuote.PriceQuoteController.PostV2 - /api/v2/PriceQuote/");
+                return InternalServerError();
+            }
+        }
+
     }
 }

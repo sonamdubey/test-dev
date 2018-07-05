@@ -1,4 +1,5 @@
-﻿using Consumer;
+﻿using Bikewale.RabbitMq.LeadProcessingConsumer.Entities;
+using Consumer;
 using System;
 using System.Net.Http;
 
@@ -43,8 +44,8 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
             try
             {
 
-                BikeQuotationEntity quotation = base.LeadRepostiory.GetPriceQuoteById(leadEntity.PQId);
-                string cityName = quotation != null ? quotation.City : leadEntity.CityId.ToString();
+                BikeVersionAndCityDetails versionAndCityDetails = base.LeadRepostiory.GetVersionAndCityDetails(leadEntity.VersionId, leadEntity.CityId);
+                string cityName = versionAndCityDetails != null ? versionAndCityDetails.CityName : leadEntity.CityId.ToString();
                 string apiParams = string.Format("?name={0}&mob={1}&email={2}&loc={3}", leadEntity.CustomerName, leadEntity.CustomerMobile, string.IsNullOrEmpty(leadEntity.CustomerEmail) ? "NA": leadEntity.CustomerEmail, cityName);
                 using (HttpClient _httpClient = new HttpClient())
                 {

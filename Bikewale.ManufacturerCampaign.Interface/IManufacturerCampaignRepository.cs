@@ -9,6 +9,9 @@ using System.Collections.Generic;
 
 namespace Bikewale.ManufacturerCampaign.Interface
 {
+    /// <summary>
+    /// Modifier    : Kartik Rathod on 21 jun 2018 modify SaveManufacturerCampaignLead added cityId,versionId and pqGuId
+    /// </summary>
     public interface IManufacturerCampaignRepository
     {
         ConfigureCampaignEntity GetManufacturerCampaign(uint dealerId, uint campaignId);
@@ -26,7 +29,8 @@ namespace Bikewale.ManufacturerCampaign.Interface
         bool DeleteManufacturerCampaignRules(uint campaignId, uint modelId, uint stateId, uint cityId, uint userId, bool isAllIndia);
         bool SaveManufacturerCampaignProperties(CampaignPropertiesVM objCampaign);
         Entities.ManufacturerCampaignEntity GetCampaigns(uint modelId, uint cityId, ManufacturerCampaignServingPages pageId);
-        uint SaveManufacturerCampaignLead(uint dealerid, uint pqId, UInt64 customerId, string customerName, string customerEmail, string customerMobile, uint leadSourceId, string utma, string utmz, string deviceId, uint campaignId, uint leadId);
+        uint SaveManufacturerCampaignLead(uint dealerid, uint pqId, UInt64 customerId, string customerName, string customerEmail, string customerMobile, 
+            uint leadSourceId, string utma, string utmz, string deviceId, uint campaignId, uint leadId,uint cityId, uint versionId, string pqGUId);
         bool ResetTotalLeadDelivered(uint campaignId, uint userId);
         IEnumerable<BikeModelEntity> GetUnmappedHondaModels( uint dealerId);
         uint SaveManufacturerCampaignLead(ES_SaveEntity campaignDetails);

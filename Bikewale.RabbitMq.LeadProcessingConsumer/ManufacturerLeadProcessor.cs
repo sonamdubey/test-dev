@@ -93,7 +93,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                                 string response = PushLeadToManufacturer(leadEntity);
                                 if (!String.IsNullOrEmpty(response))
                                 {
-                                    isSuccess = _repository.UpdateManufacturerLead(leadEntity.PQId, response, leadEntity.LeadId);
+                                    isSuccess = _repository.UpdateManufacturerLead(response, leadEntity.LeadId);
                                 }
                             }
                         }

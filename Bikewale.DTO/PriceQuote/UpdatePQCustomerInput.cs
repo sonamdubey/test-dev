@@ -35,6 +35,8 @@ namespace Bikewale.DTO.PriceQuote
         public ushort? LeadSourceId { get; set; }
         [JsonProperty("deviceId")]
         public string DeviceId { get; set; }
+        [JsonProperty("leadId")]
+        public uint LeadId { get; set; }
     }
 }
 

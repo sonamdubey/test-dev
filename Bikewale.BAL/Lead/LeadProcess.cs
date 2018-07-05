@@ -84,7 +84,6 @@ namespace Bikewale.BAL.Lead
             BookingPageDetailsEntity objBookingPageDetailsEntity = null;
             PQCustomerDetail pqCustomer = null;
             PQCustomerDetailOutputEntity pqCustomerDetailEntity = null;
-            bool isSuccess = false;
             sbyte noOfAttempts = 0;
             CustomerEntity objCust = null;
             try
@@ -94,16 +93,15 @@ namespace Bikewale.BAL.Lead
                     pqParam = new PriceQuoteParametersEntity();
                     pqParam.VersionId = Convert.ToUInt32(pqInput.VersionId);
 
-                    _objPriceQuote.UpdatePriceQuote(pqInput.PQId, pqParam);
                     entity = CheckRegisteredUser(pqInput, requestHeaders, ref objCust);
 
-                    isSuccess = _objDealerPriceQuote.SaveCustomerDetail(entity);
+                    pqInput.LeadId = _objDealerPriceQuote.SaveCustomerDetailByPQId(entity);
 
                     if (entity.IsAccepted) //if the details are not abusive 
                     {
                         objBookingPageDetailsEntity = _objDealerPriceQuote.FetchBookingPageDetails(Convert.ToUInt32(pqInput.CityId), Convert.ToUInt32(pqInput.VersionId), pqInput.DealerId);
 
-                        pqCustomer = _objDealerPriceQuote.GetCustomerDetails(pqInput.PQId);
+                        pqCustomer = _objDealerPriceQuote.GetCustomerDetailsByLeadId(pqInput.LeadId);
                         objCust = pqCustomer.objCustomerBase;
 
                         pqCustomerDetailEntity = NotifyCustomerAndDealer(pqInput, requestHeaders, objCust, false);
@@ -125,6 +123,58 @@ namespace Bikewale.BAL.Lead
             return pqCustomerDetailEntity;
         }
 
+        /// <summary>
+        /// Created by  : Pratibha Verma on 26 June 2018
+        /// Description : changes PQId data type and added leadId in entities
+        /// </summary>
+        /// <param name="pqInput"></param>
+        /// <param name="requestHeaders"></param>
+        /// <returns></returns>
+        public Bikewale.Entities.PriceQuote.v2.PQCustomerDetailOutputEntity ProcessPQCustomerDetailInputWithPQV2(Bikewale.Entities.PriceQuote.v2.PQCustomerDetailInput pqInput, NameValueCollection requestHeaders)
+        {
+            PriceQuoteParametersEntity pqParam = null;
+            Bikewale.Entities.BikeBooking.v2.DPQ_SaveEntity entity = null;
+            BookingPageDetailsEntity objBookingPageDetailsEntity = null;
+            PQCustomerDetail pqCustomer = null;
+            Bikewale.Entities.PriceQuote.v2.PQCustomerDetailOutputEntity pqCustomerDetailEntity = null;
+            sbyte noOfAttempts = 0;
+            CustomerEntity objCust = null;
+            try
+            {
+                if (pqInput != null && !String.IsNullOrEmpty(pqInput.PQId))
+                {
+                    pqParam = new PriceQuoteParametersEntity();
+                    pqParam.VersionId = Convert.ToUInt32(pqInput.VersionId);
+                    
+                    entity = CheckRegisteredUserV2(pqInput, requestHeaders, ref objCust);
+
+                    pqInput.LeadId = _objDealerPriceQuote.SaveCustomerDetailByLeadId(entity);
+
+                    if (entity.IsAccepted) //if the details are not abusive 
+                    {
+                        objBookingPageDetailsEntity = _objDealerPriceQuote.FetchBookingPageDetails(Convert.ToUInt32(pqInput.CityId), Convert.ToUInt32(pqInput.VersionId), pqInput.DealerId);
+
+                        pqCustomer = _objDealerPriceQuote.GetCustomerDetailsByLeadId(pqInput.LeadId);
+                        objCust = pqCustomer.objCustomerBase;
+
+                        pqCustomerDetailEntity = NotifyCustomerAndDealerV2(pqInput, requestHeaders, objCust);
+                        pqCustomerDetailEntity.Dealer = objBookingPageDetailsEntity.Dealer;
+                    }
+                    else
+                    {
+                        pqCustomerDetailEntity = new Bikewale.Entities.PriceQuote.v2.PQCustomerDetailOutputEntity();
+                        pqCustomerDetailEntity.Dealer = null;
+                    }
+                    pqCustomerDetailEntity.NoOfAttempts = noOfAttempts;
+                    pqCustomerDetailEntity.IsSuccess = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("Bikewale.BAL.Lead.LeadProcess.ProcessPQCustomerDetailInput"));
+            }
+            return pqCustomerDetailEntity;
+        }
 
         /// <summary>
         /// Modified by : Sanskar Gupta on 09 May 2018
@@ -138,7 +188,6 @@ namespace Bikewale.BAL.Lead
             PriceQuoteParametersEntity objPQEntity = null;
             DPQ_SaveEntity entity = null;
             PQCustomerDetailOutputEntity pqCustomerDetailEntity = null;
-            bool isSuccess;
             string bikeName = String.Empty;
             string imagePath = String.Empty;
             string versionName = string.Empty;
@@ -178,11 +227,11 @@ namespace Bikewale.BAL.Lead
 
                     entity = CheckRegisteredUser(pqInput, requestHeaders, ref objCust);
 
-                    isSuccess = _objDealerPriceQuote.SaveCustomerDetail(entity);
+                    pqInput.LeadId = _objDealerPriceQuote.SaveCustomerDetailByPQId(entity);
 
                     if (entity.IsAccepted) //if the details are not abusive 
                     {
-                        pqCustomer = _objDealerPriceQuote.GetCustomerDetails(Convert.ToUInt32(pqId));
+                        pqCustomer = _objDealerPriceQuote.GetCustomerDetailsByLeadId(pqInput.LeadId);
                         objCust = pqCustomer.objCustomerBase;
                         pqCustomerDetailEntity = NotifyCustomerAndDealer(pqInput, requestHeaders, objCust, true);
                     }
@@ -313,8 +362,7 @@ namespace Bikewale.BAL.Lead
 
                     if (isVerified)
                     {
-                        _objPriceQuote.SaveBookingState(pqInput.PQId, PriceQuoteStates.LeadSubmitted);
-                        _objLeadNofitication.PushtoAB(pqInput.DealerId.ToString(), pqInput.PQId, objCust.CustomerName, objCust.CustomerMobile, objCust.CustomerEmail, pqInput.VersionId, pqInput.CityId);
+                        _objLeadNofitication.PushtoAB(pqInput.DealerId.ToString(), pqInput.PQId, objCust.CustomerName, objCust.CustomerMobile, objCust.CustomerEmail, pqInput.VersionId, pqInput.CityId, String.Empty, pqInput.LeadId);
                     }
                     output = new Entities.PriceQuote.PQCustomerDetailOutputEntity();
                     output.IsSuccess = isVerified;
@@ -325,6 +373,134 @@ namespace Bikewale.BAL.Lead
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, string.Format("Bikewale.BAL.Lead.LeadProcess.NotifyCustomerAndDealer"));
+            }
+            return output;
+        }
+
+        /// <summary>
+        /// Created by  : Pratibha Verma on 26 June 2018
+        /// Description : changes the input entity
+        /// </summary>
+        /// <param name="pqInput"></param>
+        /// <param name="requestHeaders"></param>
+        /// <param name="objCust"></param>
+        /// <param name="IsPQCustomerDetailWithPQ"></param>
+        /// <returns></returns>
+        private Bikewale.Entities.PriceQuote.v2.PQCustomerDetailOutputEntity NotifyCustomerAndDealerV2(Bikewale.Entities.PriceQuote.v2.PQCustomerDetailInput pqInput, NameValueCollection requestHeaders, CustomerEntity objCust)
+        {
+            Bikewale.Entities.PriceQuote.v2.PQCustomerDetailOutputEntity output = null;
+            try
+            {
+                PQ_DealerDetailEntity dealerDetailEntity = null;
+
+                string apiValue = string.Empty;
+                uint exShowroomCost = 0;
+                UInt32 TotalPrice = 0;
+                uint bookingAmount = 0;
+                string bikeName = String.Empty;
+                string imagePath = String.Empty;
+                string versionName = string.Empty;
+                bool isVerified = true;// Set Verified to true to push the lead into AB for un-verified leads as well
+
+
+                PQParameterEntity objParam = new PQParameterEntity();
+                objParam.CityId = Convert.ToUInt32(pqInput.CityId);
+                objParam.DealerId = Convert.ToUInt32(pqInput.DealerId);
+                objParam.VersionId = Convert.ToUInt32(pqInput.VersionId);
+                dealerDetailEntity = _objAutobizDealer.GetDealerDetailsPQ(objParam);
+
+
+                if (dealerDetailEntity != null && dealerDetailEntity.objQuotation != null)
+                {
+                    PQ_QuotationEntity quotation = dealerDetailEntity.objQuotation;
+                    if (dealerDetailEntity.objBookingAmt != null)
+                    {
+                        bookingAmount = dealerDetailEntity.objBookingAmt.Amount;
+                    }
+
+                    bool isShowroomPriceAvail = false, isBasicAvail = false;
+
+                    foreach (var item in quotation.PriceList)
+                    {
+                        //Check if Ex showroom price for a bike is available CategoryId = 3 (exshowrrom)
+                        if (item.CategoryId == 3)
+                        {
+                            isShowroomPriceAvail = true;
+                            exShowroomCost = item.Price;
+                        }
+
+                        //if Ex showroom price for a bike is not available  then set basic cost for bike price CategoryId = 1 (basic bike cost)
+                        if (!isShowroomPriceAvail && item.CategoryId == 1)
+                        {
+                            exShowroomCost += item.Price;
+                            isBasicAvail = true;
+                        }
+
+                        if (item.CategoryId == 2 && !isShowroomPriceAvail)
+                            exShowroomCost += item.Price;
+
+                        TotalPrice += item.Price;
+                    }
+
+                    if (isBasicAvail && isShowroomPriceAvail)
+                        TotalPrice = TotalPrice - exShowroomCost;
+
+                    imagePath = Bikewale.Utility.Image.GetPathToShowImages(quotation.OriginalImagePath, quotation.HostUrl, Bikewale.Utility.ImageSize._210x118);
+                    bikeName = quotation.objMake.MakeName + " " + quotation.objModel.ModelName + " " + quotation.objVersion.VersionName;
+                    versionName = quotation.objVersion.VersionName;
+                    string platformId = string.Empty;
+                    if (requestHeaders != null)
+                    {
+                        platformId = requestHeaders["platformId"];
+                    }
+
+                    apiValue = "api/v1/PQCustomerDetail";
+
+                    NewBikeDealers dealer = dealerDetailEntity.objDealer;
+
+                    DPQSmsEntity objDPQSmsEntity = new DPQSmsEntity
+                    {
+                        CustomerMobile = objCust.CustomerMobile,
+                        CustomerName = objCust.CustomerName,
+                        DealerMobile = dealer != null ? dealer.PhoneNo : string.Empty,
+                        DealerName = dealer != null ? dealer.Organization : string.Empty,
+                        Locality = dealer != null ? dealer.Address : string.Empty,
+                        BookingAmount = bookingAmount,
+                        BikeName = String.Format("{0} {1} {2}", quotation.objMake.MakeName, quotation.objModel.ModelName, quotation.objVersion.VersionName),
+                        DealerArea = dealer != null && dealer.objArea != null ? dealer.objArea.AreaName : string.Empty,
+                        DealerAdd = dealer != null ? dealer.Address : string.Empty,
+                        DealerCity = dealer != null ? dealer.objCity.CityName : string.Empty,
+                        OrganisationName = (dealer != null ? dealer.Organization : string.Empty)
+                    };
+
+                    if (dealer != null)
+                    {
+                        _objLeadNofitication.NotifyCustomerV2(pqInput.PQId, bikeName, imagePath, dealer.Name,
+                           dealer.EmailId, dealer.PhoneNo, dealer.Organization,
+                           dealer.Address, objCust.CustomerName, objCust.CustomerEmail,
+                           quotation.PriceList, dealerDetailEntity.objOffers, dealer.objArea.PinCode,
+                           dealer.objState.StateName, dealer.objCity.CityName, TotalPrice, objDPQSmsEntity,
+                           apiValue, pqInput.LeadSourceId, versionName, dealer.objArea.Latitude, dealer.objArea.Longitude,
+                           dealer.WorkingTime, platformId);
+
+                        _objLeadNofitication.NotifyDealerV2(pqInput.PQId, quotation.objMake.MakeName, quotation.objModel.ModelName, quotation.objVersion.VersionName,
+                            dealer.Name, dealer.EmailId, objCust.CustomerName, objCust.CustomerEmail, objCust.CustomerMobile, objCust.AreaDetails.AreaName, objCust.cityDetails.CityName, quotation.PriceList, Convert.ToInt32(TotalPrice), dealerDetailEntity.objOffers, imagePath, dealer.PhoneNo, bikeName, objDPQSmsEntity.DealerArea, dealerDetailEntity.objDealer.AdditionalNumbers, dealerDetailEntity.objDealer.AdditionalEmails);
+                    }
+
+                    if (isVerified)
+                    {
+                        _objLeadNofitication.PushtoAB(pqInput.DealerId.ToString(), 0, objCust.CustomerName, objCust.CustomerMobile, objCust.CustomerEmail, Convert.ToString(pqInput.VersionId), Convert.ToString(pqInput.CityId), pqInput.PQId, pqInput.LeadId);
+                    }
+                    output = new Bikewale.Entities.PriceQuote.v2.PQCustomerDetailOutputEntity();
+                    output.IsSuccess = isVerified;
+                    output.LeadId = pqInput.LeadId;
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("Bikewale.BAL.Lead.LeadProcess.NotifyCustomerAndDealerv2"));
             }
             return output;
         }
@@ -388,6 +564,66 @@ namespace Bikewale.BAL.Lead
             return entity;
         }
 
+        private Bikewale.Entities.BikeBooking.v2.DPQ_SaveEntity CheckRegisteredUserV2(Bikewale.Entities.PriceQuote.v2.PQCustomerDetailInput input, NameValueCollection requestHeaders, ref CustomerEntity objCust)
+        {
+            Bikewale.Entities.BikeBooking.v2.DPQ_SaveEntity entity = null;
+            SpamScore spamScore = null;
+            float spamThreshold = 0;
+
+            try
+            {
+                if (input != null)
+                {
+
+                    if (!_objAuthCustomer.IsRegisteredUser(input.CustomerEmail, input.CustomerMobile))
+                    {
+                        objCust = new CustomerEntity() { CustomerName = input.CustomerName, CustomerEmail = input.CustomerEmail, CustomerMobile = input.CustomerMobile, ClientIP = input.ClientIP };
+                        UInt32 CustomerId = _objCustomer.Add(objCust);
+                    }
+                    else
+                    {
+                        var objCustomer = _objCustomer.GetByEmailMobile(input.CustomerEmail, input.CustomerMobile);
+                        objCust = new CustomerEntity()
+                        {
+                            CustomerId = objCustomer.CustomerId,
+                            CustomerName = input.CustomerName,
+                            CustomerEmail = input.CustomerEmail = !String.IsNullOrEmpty(input.CustomerEmail) ? input.CustomerEmail : objCustomer.CustomerEmail,
+                            CustomerMobile = input.CustomerMobile
+                        };
+                        _objCustomer.Update(objCust);
+                    }
+                    spamScore = CheckSpamScore(objCust);
+                    entity = new Bikewale.Entities.BikeBooking.v2.DPQ_SaveEntity()
+                    {
+                        DealerId = input.DealerId,
+                        PQId = input.PQId,
+                        CustomerName = input.CustomerName,
+                        CustomerEmail = input.CustomerEmail,
+                        CustomerMobile = input.CustomerMobile,
+                        ColorId = null,
+                        UTMA = requestHeaders["utma"],
+                        UTMZ = requestHeaders["utmz"],
+                        DeviceId = input.DeviceId,
+                        LeadSourceId = input.LeadSourceId,
+                        CityId = input.CityId,
+                        VersionId = input.VersionId,
+                        LeadId = input.LeadId
+                    };
+                    if (spamScore != null)
+                    {
+                        entity.SpamScore = spamScore.Score;
+                        entity.OverallSpamScore = GetSpamOverallScore(spamScore);
+                        entity.IsAccepted = (spamScore.Score == spamThreshold);
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("Bikewale.BAL.Lead.LeadProcess.CheckRegisteredUserV2"));
+            }
+            return entity;
+        }
 
         /// <summary>
         /// Created By : Deepak Israni on 4 May 2018
@@ -405,7 +641,7 @@ namespace Bikewale.BAL.Lead
                 String utmz = headers["UTMZ"];
                 //String platformId = headers["PlatformId"];
 
-                if (input.CityId > 0 && input.VersionId > 0 && input.PQId > 0 && !String.IsNullOrEmpty(input.Name) && !String.IsNullOrEmpty(input.Mobile) && input.DealerId > 0)
+                if (input.CityId > 0 && input.VersionId > 0 && (input.PQId > 0 || !string.IsNullOrEmpty(input.PQGUId)) && !String.IsNullOrEmpty(input.Name) && !String.IsNullOrEmpty(input.Mobile) && input.DealerId > 0)
                 {
                     CustomerEntity objCust = GetCustomerEntity(input.Name, input.Mobile, input.Email);
 
@@ -423,6 +659,9 @@ namespace Bikewale.BAL.Lead
                         DeviceId = input.DeviceId,
                         CampaignId = input.CampaignId,
                         LeadId = input.LeadId,
+                        CityId = input.CityId,
+                        VersionId = input.VersionId,
+                        PQGUId = input.PQGUId
                     };
 
                     SpamScore spamScore = CheckSpamScore(objCust);
@@ -498,6 +737,7 @@ namespace Bikewale.BAL.Lead
             NameValueCollection objNVC = new NameValueCollection();
 
             objNVC.Add("pqId", input.PQId.ToString());
+            objNVC.Add("pqGUId", input.PQGUId);
             objNVC.Add("dealerId", input.DealerId.ToString());
             objNVC.Add("customerName", input.Name);
             objNVC.Add("customerEmail", input.Email);

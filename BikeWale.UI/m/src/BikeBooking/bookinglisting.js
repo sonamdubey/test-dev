@@ -1144,7 +1144,7 @@ function registerPQ(myData) {
     };
     $.ajax({
         type: 'POST',
-        url: "/api/RegisterPQ/",
+        url: "/api/v1/registerpq/",
         data: obj,
         dataType: 'json',
         beforeSend: function (xhr) {
@@ -1155,7 +1155,7 @@ function registerPQ(myData) {
             var jsonObj = json;
             cookieValue = "CityId=" + selectedCityId + "&AreaId=" + selectedAreaId + "&PQId=" + jsonObj.quoteId + "&VersionId=" + myData.versionEntity.versionId() + "&DealerId=" + myData.dealerId();
             //SetCookie("_MPQ", cookieValue);
-            if (jsonObj != undefined && jsonObj.quoteId > 0 && jsonObj.dealerId > 0) {
+            if (jsonObj != undefined && jsonObj.quoteId != "" && jsonObj.dealerId > 0) {
                 // gtmCodeAppenderWidget(pageId, 'Dealer_PriceQuote_Success_Submit', gaLabel);
 
                 window.location = "/m/pricequote/bookingsummary_new.aspx?MPQ=" + Base64.encode(cookieValue);

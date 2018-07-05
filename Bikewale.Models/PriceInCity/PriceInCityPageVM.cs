@@ -84,8 +84,8 @@ namespace Bikewale.Models
         public IEnumerable<SpecsItem> MinSpecsList { get; set; }
         public string GABikeName { get { return string.Format("{0}_{1}", Make.MakeName, BikeModel.ModelName); } }
         public LeadCaptureEntity LeadCapture { get; set; }
-        public ulong PQId { get; set; }
-        public ManufactureCampaignLeadEntity LeadCampaign { get; set; }
+        public string PQId { get; set; }
+        public Bikewale.Entities.manufacturecampaign.v2.ManufactureCampaignLeadEntity LeadCampaign { get; set; }
         public bool IsManufacturerLeadAdShown { get; set; }
         public ManufactureCampaignEMIEntity EMICampaign { get; set; }
         public bool IsManufacturerEMIAdShown { get; set; }

@@ -1,4 +1,5 @@
-﻿using System.Security.Cryptography;
+﻿using System;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace Bikewale.Utility
@@ -25,6 +26,17 @@ namespace Bikewale.Utility
                 result.Append(chars[b % (chars.Length - 1)]);
             }
             return result.ToString();
+        }
+
+        /// <summary>
+        /// Author  : Kartik Rathod on 19 jun 2018
+        /// Desc    : Generate unique key (GUID) purpose to replace pqId 
+        /// </summary>
+        /// <returns>GUID</returns>
+        public static string GenerateUniqueId()
+        {
+            Guid guId =  Guid.NewGuid();
+            return guId.ToString();
         }
     }
 }

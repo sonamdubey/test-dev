@@ -348,6 +348,7 @@ namespace Bikewale.DAL.Dealer
         /// </summary>
         /// <param name="objLead"></param>
         /// <returns>Lead submission status</returns>
+        [Obsolete("Not being used", true)]
         public bool SaveManufacturerLead(ManufacturerLeadEntity objLead)
         {
             bool status = false;

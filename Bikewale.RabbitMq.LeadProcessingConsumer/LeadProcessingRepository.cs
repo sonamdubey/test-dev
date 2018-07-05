@@ -1,4 +1,5 @@
 ﻿
+using Bikewale.RabbitMq.LeadProcessingConsumer.Entities;
 using Bikewale.Utility;
 using Consumer;
 using MySql.CoreDAL;
@@ -20,7 +21,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
         /// </summary>
         /// <param name="pqId"></param>
         /// <returns></returns>
-        public bool PushedToAB(uint pqId, uint abInquiryId, UInt16 retryCount)
+        public bool PushedToAB(uint leadId, uint abInquiryId, UInt16 retryCount)
         {
             bool isSuccess = false;
 
@@ -28,10 +29,10 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.CommandText = "ispushedtoab_24022017";
+                    cmd.CommandText = "ispushedtoab_29062018";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_pqid", DbType.Int64, pqId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_leadid", DbType.Int64, leadId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_abinquiryid", DbType.Int64, abInquiryId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_leadPushRetries", DbType.Int16, retryCount));
                     if (Convert.ToBoolean(MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase)))
@@ -40,7 +41,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
             }
             catch (Exception ex)
             {
-                Logs.WriteErrorLog(String.Format("Error in PushedToAB({0},{1}) : Msg : {2}", pqId, abInquiryId, ex.Message));
+                Logs.WriteErrorLog(String.Format("Error in PushedToAB({0},{1}) : Msg : {2}", leadId, abInquiryId, ex.Message));
                 isSuccess = false;
             }
 
@@ -91,16 +92,16 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
         /// </summary>
         /// <param name="pqId"></param>
         /// <returns></returns>
-        public PriceQuoteParametersEntity FetchPriceQuoteDetailsById(ulong pqId)
+        public PriceQuoteParametersEntity FetchPriceQuoteDetailsById(uint leadId)
         {
             PriceQuoteParametersEntity objQuotation = null;
             try
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.CommandText = "getpricequoteleaddata";
+                    cmd.CommandText = "getpricequoteleaddata_22062018";
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_quoteid", DbType.Int32, pqId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_leadid", DbType.Int32, leadId));
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
                     {
                         objQuotation = new PriceQuoteParametersEntity();
@@ -124,7 +125,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
             }
             catch (Exception ex)
             {
-                Logs.WriteErrorLog(String.Format("Error in FetchPriceQuoteDetailsById({0}) : Msg : {1}", pqId, ex.Message));
+                Logs.WriteErrorLog(String.Format("Error in FetchPriceQuoteDetailsById({0}) : Msg : {1}", leadId, ex.Message));
             }
 
             return objQuotation;
@@ -139,7 +140,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
         /// <param name="mobile"></param>
         /// <param name="response"></param>
         /// <returns></returns>
-        public bool UpdateManufacturerLead(uint pqId, string response, uint leadId)
+        public bool UpdateManufacturerLead(string response, uint leadId)
         {
             bool status = false;
             try
@@ -159,7 +160,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
             }
             catch (Exception ex)
             {
-                Logs.WriteErrorLog(String.Format("Error in UpdateManufacturerLead({0}) : Msg : {1}", pqId, ex.Message));
+                Logs.WriteErrorLog(String.Format("Error in UpdateManufacturerLead({0}) : Msg : {1}", leadId, ex.Message));
             }
 
             return status;
@@ -269,22 +270,25 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
             bool status = false;
             try
             {
-                if (objLead != null && objLead.PQId > 0 && objLead.DealerId > 0)
+                if (objLead != null && (objLead.PQId > 0 || !string.IsNullOrEmpty(objLead.PQGUId)) && objLead.DealerId > 0)
                 {
                     using (DbCommand cmd = DbFactory.GetDBCommand())
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.CommandText = "savemanufacturerlead_04072017";
+                        cmd.CommandText = "savemanufacturerlead_22062018";
 
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_name", DbType.String, 50, objLead.Name));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_email", DbType.String, 150, objLead.Email));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_mobile", DbType.String, 10, objLead.Mobile));
-                        cmd.Parameters.Add(DbFactory.GetDbParam("par_pqid", DbType.Int64, objLead.PQId));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_pqid", DbType.Int64, objLead.PQId > 0 ? objLead.PQId : Convert.DBNull));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_leadsourceid", DbType.Int16, objLead.LeadSourceId));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_pincode", DbType.String, objLead.PinCodeId));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int64, objLead.DealerId));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_manufacturerdealerid", DbType.String, 20, objLead.ManufacturerDealerId));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_leadId", DbType.Int32, objLead.LeadId));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_pqguid", DbType.String, 40, !string.IsNullOrEmpty(objLead.PQGUId) ? objLead.PQGUId : Convert.DBNull));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int16, objLead.CityId));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_versionid", DbType.Int32, objLead.VersionId));
                         status = SqlReaderConvertor.ToBoolean(MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase));
                     }
                 }
@@ -292,7 +296,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
 
             catch (Exception ex)
             {
-                Logs.WriteErrorLog(String.Format("Error in SaveManufacturerLead -  Message : {0}", ex.Message));
+                Logs.WriteErrorLog(String.Format("Error in SaveManufacturerLead -  Message : {0}, input : {1}", ex.Message, Newtonsoft.Json.JsonConvert.SerializeObject(objLead)));
             }
 
             return status;
@@ -573,6 +577,41 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                 Logs.WriteErrorLog(String.Format("Error in UpdateManufacturerABInquiry({0},{1}) : Msg : {2}", leadId, abInquiryId, ex.Message));
             }
             return isUpdateDealerCount;
+        }
+
+        public BikeVersionAndCityDetails GetVersionAndCityDetails(uint versionId, uint cityId)
+        {
+            BikeVersionAndCityDetails objData = null;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand())
+                {
+                    cmd.CommandText = "getversionandcitydetails";
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_versionid", DbType.Int32, versionId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId));
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        objData = new BikeVersionAndCityDetails();
+                        if (dr != null && dr.Read())
+                        {
+                            objData.MakeName = Convert.ToString(dr["MakeName"]);
+                            objData.ModelId = SqlReaderConvertor.ToUInt32(dr["ModelId"]);
+                            objData.ModelName = Convert.ToString(dr["ModelName"]);
+                        }
+                        if (dr.NextResult() && dr.Read())
+                        {
+                            objData.CityName = Convert.ToString(dr["CityName"]);
+                            objData.StateName = Convert.ToString(dr["StateName"]);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logs.WriteErrorLog(String.Format("Error in LeadProcessingRepository.GetVersionAndCityDetails({0},{1}) : Msg : {2}", versionId, cityId, ex.Message));
+            }
+            return objData;
         }
     }
 }

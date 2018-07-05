@@ -64,7 +64,7 @@ namespace Bikewale.BAL.PriceQuote
         /// <param name="cityId">City id (optional)</param>
         /// <param name="areaId">Area id (optional)</param>
         /// <returns></returns>
-        public PQOnRoadPrice GetOnRoadPrice(int modelId, int? cityId = null, int? areaId = null, int? versionId = null, ushort? sourceId = null, string UTMA = null, string UTMZ = null, string DeviceId = null, string clientIP = null, string PQLeadId = null)
+        public PQOnRoadPrice GetOnRoadPrice(int modelId, int? cityId = null, int? areaId = null, int? versionId = null, ushort? sourceId = null, string UTMA = null, string UTMZ = null, string DeviceId = null, string clientIP = null, string PQLeadId = null, bool isManufacturerCampaignRequired = false)
         {
             PQOnRoadPrice pqOnRoad = null;
             try
@@ -81,7 +81,8 @@ namespace Bikewale.BAL.PriceQuote
                 objPQEntity.UTMA = UTMA;
                 objPQEntity.UTMZ = UTMZ;
                 objPQEntity.DeviceId = DeviceId;
-                PQOutputEntity objPQOutput = objDealer.ProcessPQ(objPQEntity);
+                objPQEntity.ManufacturerCampaignPageId = ManufacturerCampaign.Entities.ManufacturerCampaignServingPages.Mobile_Model_Page;
+                PQOutputEntity objPQOutput = objDealer.ProcessPQ(objPQEntity, isManufacturerCampaignRequired);
                 if (objPQOutput != null)
                 {
                     versionId = Convert.ToInt32(objPQOutput.VersionId);
@@ -91,6 +92,91 @@ namespace Bikewale.BAL.PriceQuote
                     if (objPQOutput != null && objPQOutput.PQId > 0)
                     {
                         bpqOutput = objPq.GetPriceQuoteById(objPQOutput.PQId);
+                        bpqOutput.Varients = _objPQCache.GetOtherVersionsPrices(objPQEntity.ModelId, objPQEntity.CityId);
+                        if (bpqOutput != null)
+                        {
+                            pqOnRoad.BPQOutput = bpqOutput;
+                        }
+                        if (objPQOutput.DealerId > 0 && pqOnRoad.PriceQuote != null && pqOnRoad.PriceQuote.ManufacturerCampaign == null)
+                        {
+                            PQ_QuotationEntity oblDealerPQ = null;
+                            try
+                            {
+                                oblDealerPQ = GetDealePQEntity((uint)cityId, objPQOutput.DealerId, (uint)versionId);
+
+                                if (oblDealerPQ != null)
+                                {
+                                    uint insuranceAmount = 0;
+                                    foreach (var price in oblDealerPQ.PriceList)
+                                    {
+                                        pqOnRoad.IsInsuranceFree = Bikewale.Utility.DealerOfferHelper.HasFreeInsurance(objPQOutput.DealerId.ToString(), "", price.CategoryName, price.Price, ref insuranceAmount);
+                                    }
+                                    pqOnRoad.IsInsuranceFree = true;
+                                    pqOnRoad.DPQOutput = oblDealerPQ;
+                                    pqOnRoad.InsuranceAmount = insuranceAmount;
+                                }
+                            }
+
+                            catch (Exception ex)
+                            {
+                                ErrorClass.LogError(ex, "PQByCityArea: " + "GetOnRoadPrice");
+
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "PQByCityArea: " + "GetOnRoadPrice");
+
+            }
+            return pqOnRoad;
+        }
+
+        /// <summary>
+        /// Created By  : Pratibha Verma on 19 June 2018
+        /// Description : 'GetPriceQuote' method used to remove PQId dependency
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <param name="cityId"></param>
+        /// <param name="areaId"></param>
+        /// <param name="versionId"></param>
+        /// <param name="sourceId"></param>
+        /// <param name="UTMA"></param>
+        /// <param name="UTMZ"></param>
+        /// <param name="DeviceId"></param>
+        /// <param name="clientIP"></param>
+        /// <param name="PQLeadId"></param>
+        /// <returns></returns>
+        public Bikewale.Entities.PriceQuote.v2.PQOnRoadPrice GetOnRoadPriceV2(int modelId, int? cityId = null, int? areaId = null, int? versionId = null, ushort? sourceId = null, string UTMA = null, string UTMZ = null, string DeviceId = null, string clientIP = null, string PQLeadId = null)
+        {
+            Bikewale.Entities.PriceQuote.v2.PQOnRoadPrice pqOnRoad = null;
+            try
+            {
+
+                Bikewale.Entities.PriceQuote.v2.BikeQuotationEntity bpqOutput = null;
+                Entities.PriceQuote.v2.PriceQuoteParametersEntity objPQEntity = new Entities.PriceQuote.v2.PriceQuoteParametersEntity();
+                objPQEntity.CityId = Convert.ToUInt32(cityId);
+                objPQEntity.AreaId = Convert.ToUInt32(areaId);
+                objPQEntity.ClientIP = clientIP;
+                objPQEntity.SourceId = Convert.ToUInt16(sourceId);
+                objPQEntity.ModelId = Convert.ToUInt32(modelId);
+                objPQEntity.VersionId = Convert.ToUInt32(versionId);
+                objPQEntity.UTMA = UTMA;
+                objPQEntity.UTMZ = UTMZ;
+                objPQEntity.DeviceId = DeviceId;
+                Bikewale.Entities.BikeBooking.v2.PQOutputEntity objPQOutput = objDealer.ProcessPQV3(objPQEntity);
+                if (objPQOutput != null)
+                {
+                    versionId = Convert.ToInt32(objPQOutput.VersionId);
+                    pqOnRoad = new Bikewale.Entities.PriceQuote.v2.PQOnRoadPrice();
+                    pqOnRoad.BaseVersion = objPQOutput.VersionId;
+                    pqOnRoad.PriceQuote = objPQOutput;
+                    if (objPQOutput != null && !string.IsNullOrEmpty(objPQOutput.PQId))
+                    {
+                        bpqOutput = objPq.GetPriceQuote(objPQEntity.CityId, objPQOutput.VersionId);
+                        bpqOutput.PriceQuoteId = objPQOutput.PQId;
                         bpqOutput.Varients = _objPQCache.GetOtherVersionsPrices(objPQEntity.ModelId, objPQEntity.CityId);
                         if (bpqOutput != null)
                         {
@@ -214,11 +300,11 @@ namespace Bikewale.BAL.PriceQuote
                         }
                         if (selectedCity.HasAreas && pqEntity.IsAreaSelected)
                         {
-                            pqOnRoad = GetOnRoadPrice(modelID, cityId, areaId, null, sourceId, UTMA, UTMZ, DeviceId, clientIP);
+                            pqOnRoad = GetOnRoadPrice(modelID, cityId, areaId, null, sourceId, UTMA, UTMZ, DeviceId, clientIP, isManufacturerCampaignRequired: false);
                         }
                         else
                         {
-                            pqOnRoad = GetOnRoadPrice(modelID, cityId, areaId, null, sourceId, UTMA, UTMZ, DeviceId, clientIP);
+                            pqOnRoad = GetOnRoadPrice(modelID, cityId, areaId, null, sourceId, UTMA, UTMZ, DeviceId, clientIP, isManufacturerCampaignRequired: false);
                         }
                         if (pqOnRoad != null)
                         {
@@ -295,6 +381,133 @@ namespace Bikewale.BAL.PriceQuote
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "Exception : PQByCityArea GetVersionList");
+            }
+            return pqEntity;
+        }
+
+        /// <summary>
+        /// Created by  : Pratibha Verma on 19 June 2018
+        /// Description : changes return entity type 
+        /// </summary>
+        /// <param name="modelID"></param>
+        /// <param name="modelVersions"></param>
+        /// <param name="cityId"></param>
+        /// <param name="areaId"></param>
+        /// <param name="sourceId"></param>
+        /// <param name="UTMA"></param>
+        /// <param name="UTMZ"></param>
+        /// <param name="DeviceId"></param>
+        /// <param name="clientIP"></param>
+        /// <returns></returns>
+        public Bikewale.Entities.PriceQuote.v3.PQByCityAreaEntity GetVersionListV3(int modelID, IEnumerable<BikeVersionMinSpecs> modelVersions, int? cityId, int? areaId, ushort? sourceId, string UTMA = null, string UTMZ = null, string DeviceId = null, string clientIP = null)
+        {
+            Bikewale.Entities.PriceQuote.v3.PQByCityAreaEntity pqEntity = new Bikewale.Entities.PriceQuote.v3.PQByCityAreaEntity();
+            try
+            {
+                Bikewale.Entities.PriceQuote.v2.PQOnRoadPrice pqOnRoad = null;
+                if (cityId > 0)
+                {
+                    IEnumerable<CityEntityBase> cityList = FetchCityByModelId(modelID);
+                    CityEntityBase selectedCity = null;
+                    if (cityList != null)
+                    {
+                        selectedCity = cityList.FirstOrDefault(p => p.CityId == cityId);
+                    }
+                    pqEntity.IsCityExists = selectedCity != null;
+                    if (pqEntity.IsCityExists && cityList != null)
+                    {
+                        pqEntity.City = selectedCity;
+                        var areaList = GetAreaForCityAndModel(modelID, Convert.ToInt16(cityId));
+                        pqEntity.IsAreaExists = (areaList != null && areaList.Any());
+                        // If area is provided, check if area exists in list
+                        if (areaId > 0 && pqEntity.IsAreaExists)
+                        {
+                            pqEntity.IsAreaSelected = areaList != null && areaList.Any(p => p.AreaId == areaId);
+                            pqEntity.Area = areaList.FirstOrDefault(p => p.AreaId == areaId);
+                        }
+                        if (selectedCity.HasAreas && pqEntity.IsAreaSelected)
+                        {
+                            pqOnRoad = GetOnRoadPriceV2(modelID, cityId, areaId, null, sourceId, UTMA, UTMZ, DeviceId, clientIP);
+                        }
+                        else
+                        {
+                            pqOnRoad = GetOnRoadPriceV2(modelID, cityId, areaId, null, sourceId, UTMA, UTMZ, DeviceId, clientIP);
+                        }
+                        if (pqOnRoad != null)
+                        {
+                            pqEntity.PqId = pqOnRoad.PriceQuote.PQId;
+                            pqEntity.DealerId = pqOnRoad.PriceQuote.DealerId;
+                            pqEntity.IsExShowroomPrice = pqOnRoad.DPQOutput == null && pqOnRoad.BPQOutput == null;
+
+                            // When City has areas and area is not selected then show ex-showrrom price so user can select it
+                            bool isAreaExistAndSelected = ((pqEntity.IsAreaExists && pqEntity.IsAreaSelected) || !selectedCity.HasAreas);
+                            // when DPQ OR Only city level pricing exists
+                            if (isAreaExistAndSelected || (!pqEntity.IsAreaExists))
+                            {
+                                #region  Iterate over version to fetch Dealer PQ or BikeWalePQ
+
+                                foreach (var version in modelVersions)
+                                {
+                                    if (pqOnRoad.DPQOutput != null)
+                                    {
+                                        var selected = pqOnRoad.DPQOutput.Varients.Where(p => p.objVersion.VersionId == version.VersionId).FirstOrDefault();
+                                        if (selected != null)
+                                        {
+                                            version.Price = selected.OnRoadPrice;
+                                            version.IsDealerPriceQuote = true;
+                                        }
+                                        else if (pqOnRoad.BPQOutput != null && pqOnRoad.BPQOutput.Varients != null)
+                                        {
+                                            var selectedBPQ = pqOnRoad.BPQOutput.Varients.Where(p => p.VersionId == version.VersionId).FirstOrDefault();
+                                            if (selectedBPQ != null)
+                                            {
+                                                version.Price = selectedBPQ.OnRoadPrice;
+                                                version.IsDealerPriceQuote = false;
+                                            }
+                                        }
+                                    }
+                                    else if (pqOnRoad.BPQOutput != null && pqOnRoad.BPQOutput.Varients != null)
+                                    {
+                                        var selectedBPQ = pqOnRoad.BPQOutput.Varients.Where(p => p.VersionId == version.VersionId).FirstOrDefault();
+                                        if (selectedBPQ != null)
+                                        {
+                                            version.Price = selectedBPQ.OnRoadPrice;
+                                            version.IsDealerPriceQuote = false;
+                                        }
+                                    }
+                                }
+                                #endregion
+                            }
+                            else
+                            {
+                                pqEntity.IsExShowroomPrice = true;
+                            }
+                        }
+                        else
+                        {
+                            pqEntity.IsExShowroomPrice = true;
+                        }
+                    }
+                    else // Show mumbai Ex showroom price
+                    {
+                        pqEntity.IsExShowroomPrice = true;
+                    }
+
+                }
+                else if (cityId == null)
+                {
+                    pqEntity.IsExShowroomPrice = true;
+                }
+                // Check if bike has more than 1 version and send base version as the first version in VersionList
+                if (modelVersions != null && modelVersions.Count() > 1 && pqOnRoad != null && pqOnRoad.BaseVersion > 0)
+                {
+                    modelVersions = SwapVersionList(modelVersions.ToList(), pqOnRoad.BaseVersion);
+                }
+                pqEntity.VersionList = modelVersions;
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "Exception : PQByCityArea.GetVersionListV3");
             }
             return pqEntity;
         }
@@ -377,6 +590,81 @@ namespace Bikewale.BAL.PriceQuote
 
         }
 
+
+        /// <summary>
+        /// Created By  : Kartik Rathod on 20 jun 2018,
+		/// Description : created new version for price quote changes
+        /// </summary>
+        /// <returns></returns>
+        public Bikewale.Entities.PriceQuote.v4.PQByCityAreaEntity GetPriceQuoteByCityAreaV2(Entities.PriceQuote.v2.PriceQuoteParametersEntity pqInput, bool isReload)
+        {
+            Bikewale.Entities.PriceQuote.v4.PQByCityAreaEntity pqOutput = null;
+            try
+            {
+                pqOutput = new Bikewale.Entities.PriceQuote.v4.PQByCityAreaEntity();
+
+                IEnumerable<CityEntityBase> cityList = FetchCityByModelId(Convert.ToInt32(pqInput.ModelId));
+                if (pqInput.CityId > 0)
+                {
+                    //check if valid city id from the list
+
+                    CityEntityBase selectedCity = null;
+                    if (cityList != null)
+                    {
+                        selectedCity = cityList.FirstOrDefault(p => p.CityId == pqInput.CityId);
+                        if (selectedCity != null)
+                        {
+                            if (selectedCity.HasAreas)
+                            {
+                                IEnumerable<Bikewale.Entities.Location.AreaEntityBase> areaList = null;
+
+                                if (!(pqInput.AreaId > 0))
+                                    areaList = GetAreaForCityAndModel(Convert.ToInt32(pqInput.ModelId), Convert.ToInt32(pqInput.CityId));
+                                if (pqInput.AreaId > 0)
+                                {
+                                    if (!isReload)
+                                    {
+                                        Bikewale.Entities.BikeBooking.v2.PQOutputEntity priceQuote = objDealer.ProcessPQV3(pqInput);
+                                        if (priceQuote != null)
+                                        {
+                                            pqOutput.PriceQuote = priceQuote;
+                                        }
+                                    }
+                                }
+                                else  //selected area is not in the list
+                                {
+                                    pqOutput.PQCitites = cityList;
+                                    pqOutput.PQAreas = areaList;
+                                }
+                            }
+                            else //when city exists and no areas for that city exists show bikewale pricequote (hasareas for that city is false)
+                            {
+                                if (!isReload)
+                                {
+                                    pqOutput.PriceQuote = objDealer.ProcessPQV3(pqInput);
+                                }
+                            }
+
+                        }
+                        else // when selected city is not in the list show cities list 
+                        {
+                            pqOutput.PQCitites = cityList;
+                        }
+                    }
+                }
+                else //if (pqInput.ModelId > 0)  //when city is not selected (default behaviour)
+                {
+                    pqOutput.PQCitites = cityList;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "Exception : PQByCityArea GetPriceQuoteByCityAreaV2");
+
+            }
+            return pqOutput;
+
+        }
 
         /// <summary>
         /// Created by: Sangram Nandkhile on 14 Apr 2016
@@ -468,7 +756,7 @@ namespace Bikewale.BAL.PriceQuote
                             pqEntity.Area = areaList.FirstOrDefault(p => p.AreaId == areaId);
                             pqEntity.IsAreaSelected = pqEntity.Area != null;
                         }
-                        pqOnRoad = GetOnRoadPrice(modelId, cityId, areaId, null, sourceId, UTMA, UTMZ, DeviceId, clientIP);
+                        pqOnRoad = GetOnRoadPrice(modelId, cityId, areaId, null, sourceId, UTMA, UTMZ, DeviceId, clientIP, isManufacturerCampaignRequired: true);
 
                         if (pqOnRoad != null)
                         {
@@ -592,7 +880,7 @@ namespace Bikewale.BAL.PriceQuote
                 // Updated by: Sangram Nandkhile on 13 Oct 2017
                 if (pqEntity.PrimaryDealer == null && _objManufacturerCampaign != null)
                 {
-                    pqEntity.ManufacturerCampaign = _objManufacturerCampaign.GetCampaigns((uint)modelId, (uint)cityId, Bikewale.ManufacturerCampaign.Entities.ManufacturerCampaignServingPages.Mobile_Model_Page);
+                    pqEntity.ManufacturerCampaign = pqOnRoad != null && pqOnRoad.PriceQuote != null ? pqOnRoad.PriceQuote.ManufacturerCampaign : null;
 
                     if ((cityId == null || cityId.Value == 0)
                         && pqEntity.ManufacturerCampaign != null
@@ -618,10 +906,6 @@ namespace Bikewale.BAL.PriceQuote
                         pqEntity.PqId = (uint)objPq.RegisterPriceQuote(objPQEntity);
 
 
-                    }
-                    if (pqEntity.ManufacturerCampaign != null && pqEntity.ManufacturerCampaign.LeadCampaign != null && pqEntity.PqId > 0)
-                    {
-                        _objManufacturerCampaign.SaveManufacturerIdInPricequotes((uint)pqEntity.PqId, pqEntity.ManufacturerCampaign.LeadCampaign.DealerId);
                     }
                 }
                 dt4 = DateTime.Now;

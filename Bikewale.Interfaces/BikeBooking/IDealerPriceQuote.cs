@@ -18,14 +18,16 @@ namespace Bikewale.Interfaces.BikeBooking
     /// Description :   Added GetDefaultPriceQuoteVersion(uint modelId, uint cityId, uint areaId)
     /// Modified by : Sangram Nandkhile on 14 Feb
     /// Summary : Added function ProcessPQV2
+    /// Modified by : Kartik Rathod on 20 jun 2018 added ProcessPQV3 price qoute changes
     /// </summary>
     public interface IDealerPriceQuote
     {
-        bool SaveCustomerDetail(DPQ_SaveEntity entity); // Modified By : Sumit Kate on 29 Dec 2015
+        uint SaveCustomerDetailByPQId(DPQ_SaveEntity entity); // Modified By : Sumit Kate on 29 Dec 2015
+        uint SaveCustomerDetailByLeadId(Bikewale.Entities.BikeBooking.v2.DPQ_SaveEntity entity);
         bool UpdateIsMobileVerified(uint pqId);
         bool UpdateMobileNumber(uint pqId, string mobileNo);
         bool PushedToAB(uint pqId, uint abInquiryId);
-        PQCustomerDetail GetCustomerDetails(uint pqId);
+        PQCustomerDetail GetCustomerDetailsByPQId(uint pqId);
         bool IsNewBikePQExists(uint pqId);
         List<BikeVersionEntityBase> GetVersionList(uint versionId, uint dealerId, uint cityId);
         bool SaveRSAOfferClaim(RSAOfferClaimEntity objOffer, string bikeName);
@@ -37,10 +39,12 @@ namespace Bikewale.Interfaces.BikeBooking
         uint GetDefaultPriceQuoteVersion(uint modelId, uint cityId);
         uint GetDefaultPriceQuoteVersion(uint modelId, uint cityId, uint areaId);
         List<Bikewale.Entities.Location.AreaEntityBase> GetAreaList(uint modelId, uint cityId);
-        PQOutputEntity ProcessPQ(PriceQuoteParametersEntity PQParams);
-        PQOutputEntity ProcessPQV2(PriceQuoteParametersEntity PQParams);
+        PQOutputEntity ProcessPQ(PriceQuoteParametersEntity PQParams, bool isManufacturerCampaignRequired = false);
+        Bikewale.Entities.BikeBooking.v2.PQOutputEntity ProcessPQV2(Entities.PriceQuote.v2.PriceQuoteParametersEntity PQParams, bool isDealerSubscriptionRequired = true);
         BookingPageDetailsEntity FetchBookingPageDetails(uint cityId, uint versionId, uint dealerId);
         bool UpdateDealerDailyLeadCount(uint campaignId, uint abInquiryId);
         bool IsDealerDailyLeadLimitExceeds(uint campaignId);
+        Bikewale.Entities.BikeBooking.v2.PQOutputEntity ProcessPQV3(Entities.PriceQuote.v2.PriceQuoteParametersEntity PQParams);
+        PQCustomerDetail GetCustomerDetailsByLeadId(uint leadId);
     }
 }

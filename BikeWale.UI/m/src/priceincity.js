@@ -488,7 +488,7 @@ docReady(function () {
                 "pqsourceid": ele.attr('data-pqsourceid'),
                 "isleadpopup": ele.attr('data-isleadpopup'),
                 "mfgCampid": ele.attr('data-mfgcampid'),
-                "pqid": $("#priceincity").data("pqid") || 0,
+                "pqguid": $("#priceincity").data("pqguid") || 0,
                 "pageurl": window.location.href,
                 "clientip": '',
                 "dealerHeading": ele.attr('data-item-heading'),

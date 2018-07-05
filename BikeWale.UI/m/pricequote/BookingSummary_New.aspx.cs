@@ -31,8 +31,8 @@ namespace Bikewale.Mobile.PriceQuote
     /// </summary>
     public class BookingSummary_New : System.Web.UI.Page
     {
-        protected uint dealerId = 0, versionId = 0, cityId = 0, pqId = 0, areaId = 0, versionPrice = 0, bookingAmount = 0, insuranceAmount = 0;
-        protected string clientIP = String.Empty, pageUrl = String.Empty, bikeName = String.Empty, location = String.Empty, jsonBikeVarients = String.Empty;
+        protected uint dealerId = 0, versionId = 0, cityId = 0, areaId = 0, versionPrice = 0, bookingAmount = 0, insuranceAmount = 0, leadId = 0;
+		protected string clientIP = String.Empty, pageUrl = String.Empty, bikeName = String.Empty, location = String.Empty, jsonBikeVarients = String.Empty, pqId = String.Empty;
         protected Repeater rptVarients = null, rptVersionColors = null, rptDealerOffers = null, rptPriceBreakup = null, rptDealerFinalOffers = null;
         protected BikeDealerPriceDetailDTO selectedVarient = null;
         protected DDQDealerDetailBase DealerDetails = null;
@@ -133,9 +133,7 @@ namespace Bikewale.Mobile.PriceQuote
 
                     //bookingpagedetails fetch
                     objBooking = _objDealerPricequote.FetchBookingPageDetails(cityId, versionId, dealerId);
-
-                    //customer details
-                    objCustomer = _objDealerPricequote.GetCustomerDetails(pqId);
+                    objCustomer = _objDealerPricequote.GetCustomerDetailsByLeadId(leadId);
 
                 }
             }
@@ -321,7 +319,7 @@ namespace Bikewale.Mobile.PriceQuote
                 container.RegisterType<IDealerPriceQuote, Bikewale.BAL.BikeBooking.DealerPriceQuote>();
                 IDealerPriceQuote objDealer = container.Resolve<IDealerPriceQuote>();
 
-                objCustomer = objDealer.GetCustomerDetails(Convert.ToUInt32(PriceQuoteQueryString.PQId));
+                objCustomer = objDealer.GetCustomerDetailsByLeadId(leadId);
             }
         }
         #endregion
@@ -380,11 +378,6 @@ namespace Bikewale.Mobile.PriceQuote
                     transaction.SourceId = Convert.ToInt16(sourceType);
                 }
 
-                IPriceQuote _objPriceQuote = null;
-                container.RegisterType<IPriceQuote, BAL.PriceQuote.PriceQuote>();
-                _objPriceQuote = container.Resolve<IPriceQuote>();
-                _objPriceQuote.SaveBookingState(Convert.ToUInt32(PriceQuoteQueryString.PQId), Entities.PriceQuote.PriceQuoteStates.InitiatedPayment);
-
                 ITransaction begintrans = container.Resolve<ITransaction>();
                 transresp = begintrans.BeginTransaction(transaction);
                 Trace.Warn("transresp : " + transresp);
@@ -413,8 +406,10 @@ namespace Bikewale.Mobile.PriceQuote
         {
             if (PriceQuoteQueryString.IsPQQueryStringExists())
             {
-                if (UInt32.TryParse(PriceQuoteQueryString.PQId, out pqId) && UInt32.TryParse(PriceQuoteQueryString.DealerId, out dealerId) && UInt32.TryParse(PriceQuoteQueryString.VersionId, out versionId))
+				pqId = PriceQuoteQueryString.PQId;
+                if (!String.IsNullOrEmpty(pqId) && UInt32.TryParse(PriceQuoteQueryString.DealerId, out dealerId) && UInt32.TryParse(PriceQuoteQueryString.VersionId, out versionId))
                 {
+					leadId = Convert.ToUInt32(PriceQuoteQueryString.LeadId);
                     cityId = Convert.ToUInt32(PriceQuoteQueryString.CityId);
                     areaId = Convert.ToUInt32(PriceQuoteQueryString.AreaId);
 

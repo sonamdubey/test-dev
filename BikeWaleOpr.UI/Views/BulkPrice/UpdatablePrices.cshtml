@@ -3,13 +3,13 @@
     Layout = null;
 }
 <div class="row" id="updatablePrices">
-    <div id="pricesdata"class="col m4 offset-m4">
+    <div id="pricesdata" class="col m4 offset-m4">
         <div class="card">
             <div class="card-content ">
-                @if(Model != null)
+                @if (Model != null)
                 {
                     <span class="card-title">@Model Prices can be Updated</span>
-                }                
+                }
             </div>
             <div class="card-action">
                 <button class="btn waves-effect waves-light" data-bind="click: updatePrices">
@@ -30,7 +30,7 @@
                 </div>
             </div>
         </div>
-    </div>    
+    </div>
 </div>
 <script>
     var pricesViewModel = function () {
@@ -39,14 +39,14 @@
         self.updatePrices = function () {
             $('#preloader').fadeIn(1);
             $('#pricesdata').fadeOut(1);
-            $.get("/prices/bulkupload/make/"+makeId+"/uploadprices/save/", function (data) {
+            $.get("/prices/bulkupload/make/" + makeId + "/uploadprices/save/", function (data) {
                 $('#preloader').fadeOut({
                     duration: 1,
                     complete: function () {
                         if (data == "True") {
                             window.onbeforeunload = function (e) { }
                             Materialize.toast("Prices are updated successfully", 5000);
-                            location.href = window.location.hostname + "/prices/bulkupload/";
+                            location.href = "/prices/bulkupload/";
                             setTimeout(location.reload.bind(location), 5000);
                         }
                         else {
@@ -68,8 +68,7 @@
         $(window).unload(function () {
             alert('Handler for .unload() called.');
         });
-        
-    });
-    
-</script>
 
+    });
+
+</script>

@@ -90,6 +90,11 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
             }
         }
 
+        /// <summary>
+        /// Modified by : Ashutosh Sharma on 22 Jun 2018
+        /// Description :  Leads will not be processed on based on autoincremented id of newbikepricequote table in consumer, only autoincreamented PQId is being saved 
+        /// in dealer leads table to support Android app versions, GUID will be saved for msite and desktop.
+        /// </summary>
         public void ProcessMessages()
         {
             try
@@ -103,15 +108,16 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                         nvc = ByteArrayToObject(arg.Body);
                         uint pqId, dealerId, pincodeId, leadSourceId, versionId, cityId, manufacturerDealerId, manufacturerLeadId;
                         bool isSendSMSToCustomer = false;
-                        string bikeName = string.Empty, dealerName = string.Empty;
+                        string bikeName = string.Empty, dealerName = string.Empty, pqGUId;
 
                         LeadTypes leadType = default(LeadTypes);
                         if (nvc != null
                             && nvc.HasKeys()
-                            && uint.TryParse(nvc["pqId"], out pqId) && pqId > 0
+                            && (uint.TryParse(nvc["pqId"], out pqId) && pqId > 0 || !string.IsNullOrEmpty(nvc["pqGUId"]))
                             && uint.TryParse(nvc["dealerId"], out dealerId) && dealerId > 0
                             && uint.TryParse(nvc["versionId"], out versionId) && versionId > 0
                             && uint.TryParse(nvc["cityId"], out cityId) && cityId > 0
+                            && uint.TryParse(nvc["manufacturerLeadId"], out manufacturerLeadId) && manufacturerLeadId > 0
                             )
                         {
                             Logs.WriteInfoLog(String.Format("Pqid :{0}, dealerid : {1} - Message received for processing", pqId, dealerId));
@@ -120,11 +126,11 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                             uint.TryParse(nvc["pincodeId"], out pincodeId);
                             uint.TryParse(nvc["LeadSourceId"], out leadSourceId);
                             uint.TryParse(nvc["manufacturerDealerId"], out manufacturerDealerId);
-                            uint.TryParse(nvc["manufacturerLeadId"], out manufacturerLeadId);
                             bool.TryParse(nvc["sendLeadSMSCustomer"], out isSendSMSToCustomer);
                             bikeName = Convert.ToString(nvc["bikeName"]);
                             dealerName = Convert.ToString(nvc["dealerName"]);
-                            var priceQuote = _leadProcessor.GetPriceQuoteDetails(pqId);
+                            pqGUId = nvc["pqGUId"];
+                            var priceQuote = _leadProcessor.GetPriceQuoteDetails(manufacturerLeadId);
 
 
                             if (priceQuote != null)
@@ -142,14 +148,14 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                                 switch (leadType)
                                 {
                                     case LeadTypes.Dealer:
-                                        success = PushDealerLead(priceQuote, pqId, iteration);
+                                        success = PushDealerLead(priceQuote, manufacturerLeadId, iteration);
                                         break;
                                     case LeadTypes.Manufacturer:
                                         priceQuote.CityId = priceQuote.CityId > 0 ? priceQuote.CityId : cityId;
-                                        success = PushManufacturerLead(priceQuote, pqId, pincodeId, leadSourceId, iteration, manufacturerDealerId, manufacturerLeadId,bikeName,dealerName,isSendSMSToCustomer);
+                                        success = PushManufacturerLead(priceQuote, pqId, pincodeId, leadSourceId, iteration, manufacturerDealerId, manufacturerLeadId,bikeName,dealerName,isSendSMSToCustomer, pqGUId);
                                         break;
                                     default:
-                                        success = PushDealerLead(priceQuote, pqId, iteration);
+                                        success = PushDealerLead(priceQuote, manufacturerLeadId, iteration);
                                         break;
                                 }
 
@@ -168,19 +174,19 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                             else
                             {
                                 _model.BasicReject(arg.DeliveryTag, false);
-                                Logs.WriteInfoLog(String.Format("Pqid :{0}, dealerid : {1} - PriceQuote data is null", pqId, dealerId));
+                                Logs.WriteInfoLog(String.Format("Pqid :{0}, dealerid : {1} , pqguid : {2} - PriceQuote data is null", pqId, dealerId, pqGUId));
                             }
                         }
                         else
                         {
                             _model.BasicReject(arg.DeliveryTag, false);
-                            Logs.WriteInfoLog(String.Format("Pqid :{0}, dealerid : {1} Message is invalid", nvc["pqId"], nvc["dealerId"]));
+                            Logs.WriteInfoLog(String.Format("Pqid :{0}, dealerid : {1}, pqGUId : {2} Message is invalid", nvc["pqId"], nvc["dealerId"], nvc["pqGUId"]));
                         }
                     }
                     catch (Exception ex)
                     {
                         _model.BasicReject(arg.DeliveryTag, false);
-                        Logs.WriteInfoLog(String.Format("Pqid :{0}, dealerid : {1}. Error occured while processing message: Message : {2}", nvc["pqId"], nvc["dealerId"], ex.Message));
+                        Logs.WriteInfoLog(String.Format("Pqid :{0}, dealerid : {1}  - puguid {3}. Error occured while processing message: Message : {2}", nvc["pqId"], nvc["dealerId"], ex.Message, nvc["pqGUId"]));
                     }
                 }
             }
@@ -208,7 +214,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
         ///<param name="isSendSMSCustomer">Send Manufacturer Lead SMS to Customer</param>
         /// <returns></returns>
         private bool PushManufacturerLead(PriceQuoteParametersEntity priceQuote, uint pqId, uint pincodeId, uint leadSourceId, ushort iteration, 
-                            uint manufacturerDealerId, uint manufacturerLeadId, string bikeName, string dealerName, bool isSendSMSCustomer)
+                            uint manufacturerDealerId, uint manufacturerLeadId, string bikeName, string dealerName, bool isSendSMSCustomer, string pqGUId)
         {
             bool isSuccess = false;
             try
@@ -227,7 +233,10 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                         PinCodeId = pincodeId,
                         LeadSourceId = leadSourceId,
                         ManufacturerDealerId = manufacturerDealerId,
-                        LeadId = manufacturerLeadId
+                        LeadId = manufacturerLeadId,
+                        PQGUId = pqGUId,
+                        CityId = priceQuote.CityId,
+                        VersionId = priceQuote.VersionId
 
                     };
 
@@ -244,7 +253,6 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                             InquiryJSON = jsonInquiryDetails,
                             LeadId = manufacturerLeadId,
                             PinCodeId = pincodeId,
-                            PQId = pqId,
                             RetryAttempt = iteration,
                             VersionId = priceQuote.VersionId,
                             ManufacturerDealerId = manufacturerDealerId,
@@ -272,7 +280,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
             return isSuccess;
         }
 
-        private bool PushDealerLead(PriceQuoteParametersEntity priceQuote, uint pqId, ushort iteration)
+        private bool PushDealerLead(PriceQuoteParametersEntity priceQuote, uint leadId, ushort iteration)
         {
             try
             {
@@ -281,13 +289,13 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                     string jsonInquiryDetails = String.Format("{{ \"CustomerName\": \"{0}\", \"CustomerMobile\":\"{1}\", \"CustomerEmail\":\"{2}\", \"VersionId\":\"{3}\", \"CityId\":\"{4}\", \"CampaignId\":\"{5}\", \"InquirySourceId\":\"39\", \"Eagerness\":\"1\",\"ApplicationId\":\"2\"}}", priceQuote.CustomerName, priceQuote.CustomerMobile, priceQuote.CustomerEmail, priceQuote.VersionId, priceQuote.CityId, priceQuote.CampaignId);
                     Logs.WriteInfoLog(String.Format("Dealer Lead : CampaignId = {0}", priceQuote.CampaignId));
 
-                    return (_leadProcessor.PushLeadToAutoBiz(pqId, priceQuote.DealerId, (uint)priceQuote.CampaignId, jsonInquiryDetails, iteration, LeadTypes.Dealer, 0, priceQuote));
+                    return (_leadProcessor.PushLeadToAutoBiz(leadId, priceQuote.DealerId, (uint)priceQuote.CampaignId, jsonInquiryDetails, iteration, LeadTypes.Dealer, priceQuote));
 
                 }
             }
             catch (Exception ex)
             {
-                Logs.WriteInfoLog(String.Format("PushDealerLead(pqId={0}) : {1}", pqId, ex.Message));
+                Logs.WriteInfoLog(String.Format("PushDealerLead(pqId={0}) : {1}", leadId, ex.Message));
             }
 
             return false;
@@ -410,7 +418,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
         /// <param name="retryAttempt"></param>
         /// <param name="leadType"></param>
         /// <returns></returns>
-        public bool PushLeadToAutoBiz(uint pqId, uint dealerId, uint campaignId, string inquiryJson, ushort retryAttempt, LeadTypes leadType, uint leadId, PriceQuoteParametersEntity priceQuote)
+        public bool PushLeadToAutoBiz(uint leadId, uint dealerId, uint campaignId, string inquiryJson, ushort retryAttempt, LeadTypes leadType, PriceQuoteParametersEntity priceQuote)
         {
             bool isSuccess = false;
             string abInquiryId = string.Empty;
@@ -436,14 +444,14 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
                             ClearBikeWaleCache(priceQuote);
                         }
                         isSuccess = _repository.UpdateDealerDailyLeadCount(campaignId, abInqId);
-                        isSuccess = _repository.PushedToAB(pqId, abInqId, retryAttempt);
+                        isSuccess = _repository.PushedToAB(leadId, abInqId, retryAttempt);
                     }
                     Logs.WriteInfoLog("Saved AB InquiryId");
                 }
             }
             catch (Exception ex)
             {
-                Logs.WriteErrorLog(string.Format("Ex Message : {1}. PushToAb failed Data : {0}, pqId : {2},dealerId : {3}, campaignId : {4}", inquiryJson, ex.Message, pqId, dealerId, campaignId));
+                Logs.WriteErrorLog(string.Format("Ex Message : {1}. PushToAb failed Data : {0}, pqId : {2},dealerId : {3}, campaignId : {4}", inquiryJson, ex.Message, leadId, dealerId, campaignId));
             }
             return isSuccess;
         }
@@ -541,9 +549,9 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
             return leadProcessed;
         }
 
-        internal PriceQuoteParametersEntity GetPriceQuoteDetails(uint pqId)
+        internal PriceQuoteParametersEntity GetPriceQuoteDetails(uint leadId)
         {
-            return _repository.FetchPriceQuoteDetailsById(pqId);
+            return _repository.FetchPriceQuoteDetailsById(leadId);
         }
 
         internal bool SaveManufacturerLead(ManufacturerLeadEntity leadEntity)

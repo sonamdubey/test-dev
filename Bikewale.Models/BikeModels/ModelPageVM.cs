@@ -47,7 +47,7 @@ namespace Bikewale.Models.BikeModels
         public EMI EMIDetails { get; set; }
         public uint VersionId { get; set; }
         public uint DealerId { get; set; }
-        public uint PQId { get; set; }
+        public string PQId { get; set; }
         public uint ModelId { get; set; }
         public uint CityId { get; set; }
         public uint AreaId { get; set; }
@@ -128,7 +128,7 @@ namespace Bikewale.Models.BikeModels
         public bool ShowOnRoadButton { get; set; }
         public string ReturnUrl { get; set; }
         public bool HasCityPricing { get; set; }
-        public ManufactureCampaignLeadEntity LeadCampaign { get; set; }
+        public Bikewale.Entities.manufacturecampaign.v2.ManufactureCampaignLeadEntity LeadCampaign { get; set; }
         public bool IsManufacturerLeadAdShown { get; set; }
         public bool IsManufacturerTopLeadAdShown { get; set; }
         public ManufactureCampaignEMIEntity EMICampaign { get; set; }

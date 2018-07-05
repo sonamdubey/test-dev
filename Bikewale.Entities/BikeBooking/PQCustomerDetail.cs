@@ -11,5 +11,6 @@ namespace Bikewale.Entities.BikeBooking
         public string AbInquiryId { get; set; }
         public uint SelectedVersionId { get; set; }
         public uint DealerId { get; set; }
+        public uint LeadId { get; set; }
     }
 }

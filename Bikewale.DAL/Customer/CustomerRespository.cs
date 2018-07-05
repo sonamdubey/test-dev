@@ -287,17 +287,9 @@ namespace Bikewale.DAL.Customer
                     t.IsExist = Convert.ToBoolean(cmd.Parameters["par_isexist"].Value);
                 }
             }
-            catch (SqlException ex)
-            {
-                HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
-                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
-            }
             catch (Exception ex)
             {
-                HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
-                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+                ErrorClass.LogError(ex, string.Format("Bikewale.DAL.Customer.CustomerRepository_emailId_{0}", emailId));
             }
 
             return t;

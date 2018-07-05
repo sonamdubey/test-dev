@@ -10,7 +10,6 @@
         public string CustomerEmail { get; set; }
         public string CustomerMobile { get; set; }
         public ushort RetryAttempt { get; set; }
-        public uint PQId { get; set; }
         public uint DealerId { get; set; }
         public uint LeadId { get; set; }
         public uint CampaignId { get; set; }

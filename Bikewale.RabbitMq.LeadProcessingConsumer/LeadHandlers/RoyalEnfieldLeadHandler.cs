@@ -1,4 +1,5 @@
-﻿using Consumer;
+﻿using Bikewale.RabbitMq.LeadProcessingConsumer.Entities;
+using Consumer;
 using System;
 using System.Configuration;
 
@@ -51,7 +52,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
             else
             {
                 //Save response as duplicate lead
-                base.LeadRepostiory.UpdateManufacturerLead(leadEntity.PQId, "BW Response: Duplicate lead not pushed in API", leadEntity.LeadId);
+                base.LeadRepostiory.UpdateManufacturerLead("BW Response: Duplicate lead not pushed in API", leadEntity.LeadId);
                 return false;
             }
         }
@@ -67,14 +68,14 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
             string response = string.Empty;
             try
             {
-                BikeQuotationEntity quotation = base.LeadRepostiory.GetPriceQuoteById(leadEntity.PQId);
+                BikeVersionAndCityDetails versionAndCityDetails = base.LeadRepostiory.GetVersionAndCityDetails(leadEntity.VersionId, leadEntity.CityId);
                 RoyalEnfieldDealer dealer = base.LeadRepostiory.GetRoyalEnfieldDealerById(leadEntity.ManufacturerDealerId);
                 Logs.WriteInfoLog(String.Format("Royal Enfield Request : {0}", Newtonsoft.Json.JsonConvert.SerializeObject(leadEntity)));
 
                 using (RoyalEnfieldWebAPI.Service service = new RoyalEnfieldWebAPI.Service())
                 {
                     response = service.Organic(leadEntity.CustomerName, leadEntity.CustomerMobile, "India", dealer.DealerState,
-                                dealer.DealerCity, leadEntity.CustomerEmail, quotation.ModelName, dealer.DealerName, "",
+                                dealer.DealerCity, leadEntity.CustomerEmail, versionAndCityDetails.ModelName, dealer.DealerName, "",
                                 "https://www.bikewale.com", _token, "bikewale", dealer.DealerCode);
                 }
 

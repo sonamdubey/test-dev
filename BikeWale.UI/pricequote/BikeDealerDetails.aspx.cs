@@ -128,7 +128,7 @@ namespace Bikewale.Pricequote
                     objBookingPageDetails = _objDealerPricequote.FetchBookingPageDetails(cityId, versionId, dealerId);
 
                     //customer details
-                    objCustomer = _objDealerPricequote.GetCustomerDetails(pqId);
+                    objCustomer = _objDealerPricequote.GetCustomerDetailsByPQId(pqId);
 
                     //set location details
                     if (objCustomer != null && objCustomer.objCustomerBase != null && objCustomer.objCustomerBase.cityDetails != null && !String.IsNullOrEmpty(objCustomer.objCustomerBase.cityDetails.CityName))

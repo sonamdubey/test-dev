@@ -10,8 +10,8 @@
                 <span class="bwsprite user-contact-details-icon margin-top25"></span>
             </div>
         </div>
-        <p class="font20 margin-top10 margin-bottom20" data-bind="text: (dealerHeading() != null && dealerHeading() != '') ? dealerHeading() : 'Provide contact details'"></p>
-        <p class="text-light-grey margin-bottom30" data-bind="text: (dealerDescription() != null && dealerDescription() != '') ? dealerDescription() : 'Dealership will get back to you with offers, EMI quotes, exchange benefits and much more!'"></p>
+        <p class="font20 margin-top10 margin-bottom10" data-bind="text: (dealerHeading() != null && dealerHeading() != '') ? dealerHeading() : 'Provide contact details'"></p>
+        <p class="text-light-grey margin-bottom20" data-bind="text: (dealerDescription() != null && dealerDescription() != '') ? dealerDescription() : 'Dealership will get back to you with offers, EMI quotes, exchange benefits and much more!'"></p>
         <div class="personal-info-form-container">
             @if (Model.CityId <= 0)
             {
@@ -80,7 +80,7 @@
             </div>
             <div class="clear"></div>
             <a class="btn btn-orange bw-ga" id="user-details-submit-btn" data-bind="event: { click: submitLead }" tabindex="5">Submit</a>
-            <p class="margin-top25 text-left">By proceeding ahead, you agree to BikeWale <a title="Visitor agreement" href="/visitoragreement.aspx" target="_blank" rel="noopener">visitor agreement</a> and <a title="Privacy policy" href="/privacypolicy.aspx" target="_blank" rel="noopener">privacy policy</a>.</p>
+            <p class="margin-top15 text-left">By proceeding ahead, you agree to BikeWale <a title="Visitor agreement" href="/visitoragreement.aspx" target="_blank" rel="noopener">visitor agreement</a> and <a title="Privacy policy" href="/privacypolicy.aspx" target="_blank" rel="noopener">privacy policy</a>.</p>
         </div>
     </div>
     <div id="dealer-lead-msg" class="hide">
@@ -137,7 +137,7 @@
         self.msg = "";
         var dummyOption = { id: 0, name: '', isPopular: false, hasAreas: false };
         self.IsVerified = ko.observable(false);
-        self.pqId = ko.observable(0);
+        self.pqGUId = ko.observable();
         self.dealerId = ko.observable();
         self.modelId = ko.observable(leadmodelid);
         self.versionId = ko.observable();
@@ -173,7 +173,7 @@
         self.ko_DealerName = ko.observable();
         self.sendLeadSMSCustomer = ko.observable(false);
         self.organizationName = ko.observable();
-
+        self.leadId = ko.observable(0);
         self.setOptions = function (options) {
             if (options != null) {
                 if (options.eventcategory != null)
@@ -248,8 +248,8 @@
                     self.IsLeadPopup(options.isleadpopup != "false");
                 else self.IsLeadPopup(true);
 
-                if (options.pqid != null)
-                    self.pqId(options.pqid);
+                if (options.pqguid != null && options.pqguid)
+                    self.pqGUId(options.pqguid);
 
                 if (options.gaobject != null) {
                     self.GAObject(options.gaobject);
@@ -443,7 +443,7 @@
         self.registerPQ = function (objPQData) {
             var isSuccess = false;
             if (objPQData) {
-                var url = '/api/RegisterPQ/';
+                var url = '/api/v1/registerpq/';
                 $.ajax({
                     type: "POST",
                     url: url,
@@ -455,7 +455,7 @@
                         self.showLoader();
                     },
                     success: function (response) {
-                        self.pqId(response.quoteId);
+                        self.pqGUId(response.quoteId);
                         isSuccess = true;
                     },
                     complete: function (xhr) {
@@ -484,10 +484,10 @@
             if (self.isRegisterPQ())
                 self.generatePQ(data, event);
 
-            if (self.pqId() && self.dealerId()) {
+            if (self.pqGUId() && self.dealerId()) {
                 var objCust = {
                     "dealerId": self.dealerId(),
-                    "pqId": self.pqId(),
+                    "pqId": self.pqGUId(),
                     "versionId": self.versionId(),
                     "cityId": self.cityId(),
                     "customerName": self.fullName(),
@@ -496,11 +496,12 @@
                     "clientIP": self.clientIP,
                     "PageUrl": self.pageUrl,
                     "leadSourceId": self.leadSourceId(),
-                    "deviceId": getCookie('BWC')
+                    "deviceId": getCookie('BWC'),
+					"leadId": self.leadId()
                 };
                 $.ajax({
                     type: "POST",
-                    url: "/api/PQCustomerDetail/",
+                    url: "/api/v1/PQCustomerDetail/",
                     data: ko.toJSON(objCust),
                     beforeSend: function (xhr) {
                         xhr.setRequestHeader('utma', getCookie('__utma'));
@@ -513,11 +514,13 @@
                     success: function (response) {
                         var obj = ko.toJS(response);
                         self.IsVerified(obj.isSuccess);
+                        self.leadId(obj.leadId);
                     },
                     complete: function (xhr, ajaxOptions, thrownError) {
                         self.hideLoader();
                         if (xhr.status != 200)
-                            self.IsVerified(false);
+                        	self.IsVerified(false);
+							
 
                     }
                 });
@@ -530,7 +533,7 @@
 
             if (isValidCustomer && self.mfgCampaignId() > 0) {
 
-            	if (!(self.pqId() && self.pqId() != "0"))
+                if (!(self.pqGUId() && self.pqGUId() != ""))
             		self.generatePQ(data, event);
 
             	self.ko_DealerName($('#ddlMfgDealers option:selected').text());
@@ -538,7 +541,8 @@
             	$('#processing').show();
             	var objCust = {
             		"dealerId": self.dealerId(),
-            		"pqId": self.pqId(),
+                    "pqId": 0,
+                    "pqguid": self.pqGUId(),
             		"name": self.fullName(),
             		"mobile": self.mobileNo(),
             		"email": self.emailId(),
@@ -552,7 +556,8 @@
             		"manufacturerDealer": self.ko_DealerName(),
             		"bikeName": leadBikeName,
             		"dealerName": self.organizationName() ? self.organizationName() : self.dealerName(),
-            		"sendLeadSMSCustomer": self.sendLeadSMSCustomer()
+            		"sendLeadSMSCustomer": self.sendLeadSMSCustomer(),
+            		"leadId": self.leadId()
             	};
             	$.ajax({
             		type: "POST",
@@ -567,6 +572,7 @@
             		contentType: "application/json",
             		dataType: 'json',
             		success: function (response) {
+            		    self.leadId(response);
             			$("#contactDetailsPopup").hide();
             			$("#personalInfo").hide();
             			$("#dealer-lead-msg").fadeIn();
@@ -674,7 +680,7 @@
                     "pqsourceid": ele.attr('data-pqsourceid'),
                     "isleadpopup": ele.attr('data-isleadpopup'),
                     "mfgCampid": ele.attr('data-mfgcampid'),
-                    "pqid": pqId,
+                    "pqguid": pqId,
                     "isregisterpq": ele.attr('data-isregisterpq'),
                     "pageurl": pageUrl,
                     "clientip": clientIP,

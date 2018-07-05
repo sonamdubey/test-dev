@@ -16,6 +16,10 @@ using System.Configuration;
 using Bikewale.BAL.ApiGateway.Adapters.BikeData;
 using Bikewale.BAL.ApiGateway.ApiGatewayHelper;
 using Bikewale.BAL.ApiGateway.Entities.BikeData;
+using Bikewale.ManufacturerCampaign.Interface;
+using Bikewale.ManufacturerCampaign.Entities;
+using Bikewale.ManufacturerCampaign.DAL;
+using Bikewale.ManufacturerCampaign.Cache;
 
 namespace Bikewale.BAL.BikeBooking
 {
@@ -27,6 +31,7 @@ namespace Bikewale.BAL.BikeBooking
         private readonly Bikewale.Interfaces.BikeBooking.IDealerPriceQuote dealerPQRepository = null;
         private readonly IPriceQuoteCache _pqCache = null;
         private readonly IApiGatewayCaller _apiGatewayCaller;
+        private readonly IManufacturerCampaign _objManufacturerCampaign;
         public DealerPriceQuote()
         {
             using (IUnityContainer container = new UnityContainer())
@@ -36,10 +41,14 @@ namespace Bikewale.BAL.BikeBooking
                 container.RegisterType<IPriceQuote, BAL.PriceQuote.PriceQuote>();
                 container.RegisterType<IPriceQuoteCache, PriceQuoteCache>();
                 container.RegisterType<Bikewale.Interfaces.AutoBiz.IDealerPriceQuote, Bikewale.DAL.AutoBiz.DealerPriceQuoteRepository>();
+                container.RegisterType<IManufacturerCampaignCache, ManufacturerCampaignCache>();
+                container.RegisterType<IManufacturerCampaignRepository, ManufacturerCampaignRepository>();
+                container.RegisterType<IManufacturerCampaign, ManufacturerCampaign.BAL.ManufacturerCampaign>();
                 dealerPQRepository = container.Resolve<Bikewale.Interfaces.BikeBooking.IDealerPriceQuote>();
                 container.RegisterType<IApiGatewayCaller, ApiGatewayCaller>();
                 _pqCache = container.Resolve<IPriceQuoteCache>();
                 _apiGatewayCaller = container.Resolve<IApiGatewayCaller>();
+                _objManufacturerCampaign = container.Resolve<IManufacturerCampaign>();
             }
         }
 
@@ -55,11 +64,22 @@ namespace Bikewale.BAL.BikeBooking
         /// <param name="customerMobile"></param>
         /// <param name="customerEmail"></param>
         /// <returns></returns>
-        public bool SaveCustomerDetail(DPQ_SaveEntity entity)
+        public uint SaveCustomerDetailByPQId(DPQ_SaveEntity entity)
         {
-            bool isSuccess = false;
-            isSuccess = dealerPQRepository.SaveCustomerDetail(entity);
-            return isSuccess;
+            uint leadId = 0;
+            leadId = dealerPQRepository.SaveCustomerDetailByPQId(entity);
+            return leadId;
+        }
+
+        /// <summary>
+        /// Created by  : Pratibha Verma on 26 June 2018
+        /// Description : passes leadId in input and return leadId
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
+        public uint SaveCustomerDetailByLeadId(Bikewale.Entities.BikeBooking.v2.DPQ_SaveEntity entity)
+        {
+            return dealerPQRepository.SaveCustomerDetailByLeadId(entity);
         }
 
         /// <summary>
@@ -108,10 +128,23 @@ namespace Bikewale.BAL.BikeBooking
         /// </summary>
         /// <param name="pqId"></param>
         /// <returns></returns>
-        public PQCustomerDetail GetCustomerDetails(uint pqId)
+        public PQCustomerDetail GetCustomerDetailsByPQId(uint pqId)
         {
             PQCustomerDetail objCustomer = null;
-            objCustomer = dealerPQRepository.GetCustomerDetails(pqId);
+            objCustomer = dealerPQRepository.GetCustomerDetailsByPQId(pqId);
+            return objCustomer;
+        }
+
+        /// <summary>
+        /// Created by  : Pratibha Verma on 26 JUne 2018
+        /// Description : get customer details based on leadId
+        /// </summary>
+        /// <param name="leadId"></param>
+        /// <returns></returns>
+        public PQCustomerDetail GetCustomerDetailsByLeadId(uint leadId)
+        {
+            PQCustomerDetail objCustomer = null;
+            objCustomer = dealerPQRepository.GetCustomerDetailsByLeadId(leadId);
             return objCustomer;
         }
 
@@ -283,15 +316,18 @@ namespace Bikewale.BAL.BikeBooking
         /// Desc : In case of dealerId=0 and isDealerAvailable = true , while redirecting to pricequotes ,don't redirect to BW PQ redirect to dpq
         /// Modified By : Sajal Gupta on 13-01-2017
         /// Desc : Removed code for selecting different version if pqid is 0;
+        /// Modified by : Ashutosh Sharma on 29 Jun 2018
+        /// Description : Fetching manufacturer campaign when Subsciption dealer is not available and isManufacturerCampaignRequired. Using Dealer Id of manufacturer when registering PQ.
         /// </summary>
         /// <param name="PQParams"></param>
         /// <returns></returns>
-        public PQOutputEntity ProcessPQ(PriceQuoteParametersEntity PQParams)
+        public PQOutputEntity ProcessPQ(PriceQuoteParametersEntity PQParams, bool isManufacturerCampaignRequired = false)
         {
             PQOutputEntity objPQOutput = null;
             //uint dealerId = 0;
             ulong quoteId = 0;
             BikeWale.Entities.AutoBiz.DealerInfo objDealerDetail = new BikeWale.Entities.AutoBiz.DealerInfo();
+            ManufacturerCampaignEntity campaigns = null;
             try
             {
                 if (PQParams.VersionId <= 0)
@@ -325,14 +361,20 @@ namespace Bikewale.BAL.BikeBooking
                 objDealerDetail.DealerId = 0;
                 objDealerDetail.IsDealerAvailable = false;
                 ErrorClass.LogError(ex, "ProcessPQ ex : " + ex.Message);
-
             }
             finally
             {
+                bool isManufacturerDealer = false;
                 if (PQParams.VersionId > 0)
                 {
                     if (objDealerDetail != null)
                         PQParams.DealerId = objDealerDetail.DealerId;
+                    if(isManufacturerCampaignRequired && PQParams.DealerId == 0 && PQParams.ManufacturerCampaignPageId > 0)
+                    {
+                        campaigns = _objManufacturerCampaign.GetCampaigns(PQParams.ModelId, PQParams.CityId, PQParams.ManufacturerCampaignPageId);
+                        PQParams.DealerId = campaigns != null && campaigns.LeadCampaign != null ? campaigns.LeadCampaign.DealerId : campaigns.EMICampaign != null ? campaigns.EMICampaign.DealerId : 0;
+                        isManufacturerDealer = true;
+                    }
                     using (IUnityContainer container = new UnityContainer())
                     {
                         container.RegisterType<IPriceQuote, BAL.PriceQuote.PriceQuote>();
@@ -340,50 +382,39 @@ namespace Bikewale.BAL.BikeBooking
                         quoteId = objIPQ.RegisterPriceQuote(PQParams);
                     }
                 }
-                objPQOutput = new PQOutputEntity() { DealerId = PQParams.DealerId, PQId = quoteId, VersionId = PQParams.VersionId, IsDealerAvailable = (objDealerDetail != null) ? objDealerDetail.IsDealerAvailable : false };
+                objPQOutput = new PQOutputEntity()
+                {
+                    DealerId = !isManufacturerDealer ? PQParams.DealerId : 0,
+                    PQId = quoteId,
+                    VersionId = PQParams.VersionId,
+                    IsDealerAvailable = objDealerDetail != null && objDealerDetail.IsDealerAvailable,
+                    ManufacturerCampaign = campaigns
+                };
             }
             return objPQOutput;
         }   //End of ProcessPQ
+
+
+        
+
         /// <summary>
         /// Created by: Sangram Nandkhile on 14 Feb 2017
         /// Summary: Fetch dealer properties for default version, Set priceQuote by specific version Id
+        /// Modified by : Ashutosh Sharma on 29 Jun 2018
+        /// Description : Fetching manufacturer campaign when Subsciption dealer is not available. Using Dealer Id of manufacturer when registering PQ.
         /// </summary>
-        /// <param name="PQParams"></param>
-        /// <returns></returns>
-        public PQOutputEntity ProcessPQV2(PriceQuoteParametersEntity PQParams)
+        public Bikewale.Entities.BikeBooking.v2.PQOutputEntity ProcessPQV2(Entities.PriceQuote.v2.PriceQuoteParametersEntity PQParams,bool isDealerSubscriptionRequired = false)
         {
-
-            PQOutputEntity objPQOutput = null;
+            Bikewale.Entities.BikeBooking.v2.PQOutputEntity objPQOutput = null;
             if (PQParams != null)
             {
-                uint defaultVersionId = 0;
-                bool isVersionPresent = PQParams.VersionId > 0 ? true : false;
-                ulong quoteId = 0;
+                string quoteId = string.Empty;
                 BikeWale.Entities.AutoBiz.DealerInfo objDealerDetail = new BikeWale.Entities.AutoBiz.DealerInfo();
                 try
                 {
-                    if (PQParams.AreaId > 0)
-                        defaultVersionId = dealerPQRepository.GetDefaultPriceQuoteVersion(PQParams.ModelId, PQParams.CityId, PQParams.AreaId);
-                    else
-                        defaultVersionId = _pqCache.GetDefaultPriceQuoteVersion(PQParams.ModelId, PQParams.CityId);
-
-                    if (PQParams.CityId > 0)
-                    {
-                        using (IUnityContainer container = new UnityContainer())
-                        {
-                            container.RegisterType<IDealer, Bikewale.BAL.AutoBiz.Dealers>();
-                            container.RegisterType<Bikewale.Interfaces.AutoBiz.IDealerPriceQuote, DealerPriceQuoteRepository>();
-                            IDealer objDealer = container.Resolve<IDealer>();
-                            objDealerDetail = objDealer.GetSubscriptionDealer(
-                            PQParams.ModelId,
-                            PQParams.CityId,
-                            PQParams.AreaId);
-                        }
-                    }
-                    else
-                    {
-                        objDealerDetail = new BikeWale.Entities.AutoBiz.DealerInfo();
-                    }
+                    uint defaultVersionId = 0;
+                    objDealerDetail = GetDefaultVersionAndSubscriptionDealer(PQParams.ModelId, PQParams.CityId, PQParams.AreaId, PQParams.VersionId, isDealerSubscriptionRequired, out defaultVersionId);
+                    PQParams.VersionId = PQParams.VersionId != 0 ? PQParams.VersionId : defaultVersionId;
                 }
                 catch (Exception ex)
                 {
@@ -393,33 +424,125 @@ namespace Bikewale.BAL.BikeBooking
                 }
                 finally
                 {
-                    if (PQParams.VersionId == 0)
-                    {
-                        PQParams.VersionId = defaultVersionId;
-                    }
-                    if (PQParams.VersionId > 0)
-                    {
-                        if (objDealerDetail != null)
-                            PQParams.DealerId = objDealerDetail.DealerId;
-                        using (IUnityContainer container = new UnityContainer())
-                        {
-                            container.RegisterType<IPriceQuote, BAL.PriceQuote.PriceQuote>();
-                            IPriceQuote objIPQ = container.Resolve<IPriceQuote>();
-                            quoteId = objIPQ.RegisterPriceQuote(PQParams);
-                        }
-                    }
-                    objPQOutput = new PQOutputEntity()
-                    {
-                        DealerId = PQParams.DealerId,
-                        PQId = quoteId,
-                        VersionId = PQParams.VersionId,
-                        DefaultVersionId = defaultVersionId,
-                        IsDealerAvailable = (objDealerDetail != null) ? objDealerDetail.IsDealerAvailable : false
-                    };
+                    objPQOutput = RegisterPQAndGetPQ(PQParams, objDealerDetail, true);
                 }
             }
             return objPQOutput;
         }   //End of ProcessPQV2
+
+        /// <summary>
+        /// Created by  : Pratibha Verma on 19 June 2018
+        /// Description : remove PQId dependency
+        /// </summary>
+        public Bikewale.Entities.BikeBooking.v2.PQOutputEntity ProcessPQV3(Entities.PriceQuote.v2.PriceQuoteParametersEntity PQParams)
+        {
+            Bikewale.Entities.BikeBooking.v2.PQOutputEntity objPQOutput = null;
+            //uint dealerId = 0;
+            string quoteId = string.Empty;
+            BikeWale.Entities.AutoBiz.DealerInfo objDealerDetail = new BikeWale.Entities.AutoBiz.DealerInfo();
+            try
+            {
+                uint defaultVersionId = 0;
+                objDealerDetail = GetDefaultVersionAndSubscriptionDealer(PQParams.ModelId, PQParams.CityId, PQParams.AreaId, PQParams.VersionId, true, out defaultVersionId);
+                PQParams.VersionId = PQParams.VersionId != 0 ? PQParams.VersionId : defaultVersionId;
+            }
+            catch (Exception ex)
+            {
+                objDealerDetail.DealerId = 0;
+                objDealerDetail.IsDealerAvailable = false;
+                ErrorClass.LogError(ex, "ProcessPQV3 ex : " + ex.Message);
+
+            }
+            finally
+            {
+                objPQOutput = RegisterPQAndGetPQ(PQParams, objDealerDetail, false);
+            }
+            return objPQOutput;
+        }   //End of ProcessPQ
+
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 29 Jun 2018
+        /// Description : Method to get dealer subscription and default version based on dealer.
+        /// </summary>
+        private BikeWale.Entities.AutoBiz.DealerInfo GetDefaultVersionAndSubscriptionDealer(uint modelId, uint cityId, uint areaId, uint versionId, bool isDealerSubscriptionRequired, out uint defaultVersionId)
+        {
+            BikeWale.Entities.AutoBiz.DealerInfo objDealerDetail = null;
+            defaultVersionId = 0;
+            if (cityId > 0)
+            {
+                if (versionId == 0)
+                {
+                    if (areaId > 0)
+                        defaultVersionId = dealerPQRepository.GetDefaultPriceQuoteVersion(modelId, cityId, areaId);
+                    else
+                        defaultVersionId = _pqCache.GetDefaultPriceQuoteVersion(modelId, cityId);
+                }
+
+                if(isDealerSubscriptionRequired)
+                {
+                    using (IUnityContainer container = new UnityContainer())
+                    {
+                        container.RegisterType<IDealer, Bikewale.BAL.AutoBiz.Dealers>();
+                        container.RegisterType<Bikewale.Interfaces.AutoBiz.IDealerPriceQuote, DealerPriceQuoteRepository>();
+                        IDealer objDealer = container.Resolve<IDealer>();
+
+                        objDealerDetail = objDealer.GetSubscriptionDealer(modelId, cityId, areaId);
+                    }
+                }
+                else
+                {
+                    objDealerDetail = new BikeWale.Entities.AutoBiz.DealerInfo();
+                }
+                
+            }
+
+            return objDealerDetail;
+        }
+
+        /// <summary>
+        /// Created by : Ashutosh Sharma on 29 Jun 2018
+        /// Description : Method to get manufacturer campaign and register pq with dealerid of subscribed dealer OR manufacturer dealer if subscribed dealer is not available.
+        /// </summary>
+        /// <param name="PQParams"></param>
+        /// <param name="objDealerDetail"></param>
+        /// <param name="isManufacturerCampaignRequired"></param>
+        /// <returns></returns>
+        private Entities.BikeBooking.v2.PQOutputEntity RegisterPQAndGetPQ(Entities.PriceQuote.v2.PriceQuoteParametersEntity PQParams, BikeWale.Entities.AutoBiz.DealerInfo objDealerDetail, bool isManufacturerCampaignRequired)
+        {
+            string quoteId = string.Empty;
+            ManufacturerCampaignEntity campaigns = null;
+            Entities.BikeBooking.v2.PQOutputEntity objPQOutput;
+            bool isManufacturerDealer = false;
+            if (PQParams.VersionId > 0 && objDealerDetail != null)
+            {
+                PQParams.DealerId = objDealerDetail.DealerId;
+            }
+            if (isManufacturerCampaignRequired && PQParams.DealerId == 0 && PQParams.ManufacturerCampaignPageId > 0)
+            {
+                campaigns = _objManufacturerCampaign.GetCampaigns(PQParams.ModelId, PQParams.CityId, PQParams.ManufacturerCampaignPageId);
+                PQParams.DealerId = campaigns != null && campaigns.LeadCampaign != null ? campaigns.LeadCampaign.DealerId : campaigns.EMICampaign != null ? campaigns.EMICampaign.DealerId : 0;
+                isManufacturerDealer = true;
+            }
+
+            if (PQParams.VersionId > 0 && PQParams.CityId > 0)
+            {
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    container.RegisterType<IPriceQuote, BAL.PriceQuote.PriceQuote>();
+                    IPriceQuote objIPQ = container.Resolve<IPriceQuote>();
+                    quoteId = objIPQ.RegisterPriceQuoteV2(PQParams);
+                }
+            }
+            objPQOutput = new Bikewale.Entities.BikeBooking.v2.PQOutputEntity()
+            {
+                DealerId = !isManufacturerDealer ? PQParams.DealerId : 0,
+                PQId = quoteId,
+                VersionId = PQParams.VersionId,
+                IsDealerAvailable = (objDealerDetail != null) ? objDealerDetail.IsDealerAvailable : false,
+                ManufacturerCampaign = campaigns
+            };
+            return objPQOutput;
+        }
 
         /// <summary>
         /// Modified By  : Rajan Chauhan on 26 Mar 2018
@@ -452,7 +575,7 @@ namespace Bikewale.BAL.BikeBooking
                     IEnumerable<VersionMinSpecsEntity> versionMinSpecsEntityList = adapt.Output;
                     if (versionMinSpecsEntityList != null)
                     {
-                        BikeDealerPriceDetail objVersion = pageDetail.Varients.First(varient => varient.MinSpec.VersionId == iVersionId);
+                        BikeDealerPriceDetail objVersion = pageDetail.Varients.FirstOrDefault(varient => varient.MinSpec.VersionId == iVersionId);
                         if (objVersion != null)
                         {
                             VersionMinSpecsEntity objVersionMinSpec = versionMinSpecsEntityList.FirstOrDefault(versionSpecEntity => versionSpecEntity.VersionId.Equals(iVersionId));

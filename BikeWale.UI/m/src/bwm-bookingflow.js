@@ -177,6 +177,7 @@ var BookingPageViewModel = function () {
     self.CustomerInfo = ko.observable();
     self.SelectedColorId = ko.observable(0);
     self.ActualSteps = ko.observable(1);
+    self.LeadId = ko.observable(0);
     self.changedSteps = function () {
         if (self.Bike().selectedVersionId() > 0) {
             self.SelectedVersionId(self.Bike().selectedVersionId());
@@ -219,14 +220,16 @@ var BookingPageViewModel = function () {
                     "pageUrl": pageUrl,
                     "versionId": self.Bike().selectedVersionId(),
                     "cityId": self.Dealer().CityId(),
+                    "areaId": self.Dealer().AreaId(),
                     "colorId": self.Bike().selectedColorId(),
                     "leadSourceId": leadSourceId,
-                    "deviceId": getCookie('BWC')
+                    "deviceId": getCookie('BWC'),
+                    "leadId": self.LeadId()
                 }
 
                 $.ajax({
                     type: "POST",
-                    url: "/api/UpdatePQCustomerDetails/",
+                    url: "/api/v1/UpdatePQCustomerDetails/",
                     data: ko.toJSON(objCust),
                     async: false,
                     contentType: "application/json",
@@ -238,7 +241,15 @@ var BookingPageViewModel = function () {
                     success: function (response) {
                         var obj = ko.toJS(response);
                         self.Customer().IsVerified(obj.isSuccess);
-                        self.Customer().OtpAttempts(obj.noOfAttempts)
+                        self.Customer().OtpAttempts(obj.noOfAttempts);
+                        self.LeadId(obj.leadId);
+                        // Getting MPQ from querystring
+                        var match = new RegExp('[\\?&]MPQ=([^&#]*)').exec(window.location.href);
+                        var queryParams = atob(match[1]);
+                        if (queryParams.indexOf("&leadId") == -1) {
+                          queryParams += "&leadId=" + self.LeadId();
+                          window.history.replaceState(null, null, "?MPQ=" + Base64.encode(queryParams));
+                        }
                         if (!self.Customer().IsVerified() && self.Customer().OtpAttempts() != -1) {
                             //getotp code here
                             $("#otpPopup").show();
@@ -299,15 +310,15 @@ var BookingPageViewModel = function () {
             var curUserOptions = self.Bike().selectedVersionId().toString() + self.Bike().selectedColorId().toString();
             if (self.UserOptions() != curUserOptions ) {
                 self.UserOptions(curUserOptions);
-
-                url = "/api/UpdatePQ/";
                 var objData = {
-                    "pqId": self.Dealer().PQId(),
+                    "pqguid": self.Dealer().PQId(),
                     "versionId": self.Bike().selectedVersionId(),
+                    "colorId": self.Bike().selectedColorId(),
+                    "leadId": self.LeadId()
                 }
                 $.ajax({
                     type: "POST",
-                    url: (self.Bike().selectedColorId() > 0) ? url + "?colorId=" + self.Bike().selectedColorId() : url,
+                    url: "/api/v1/UpdatePQ/",
                     async: false,
                     data: ko.toJSON(objData),
                     contentType: "application/json",
@@ -316,7 +327,7 @@ var BookingPageViewModel = function () {
                         var obj = ko.toJS(response);
                         if (obj.isUpdated) {
                             isSuccess = true;
-                            var cookieValue = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + self.Dealer().PQId() + "&VersionId=" + self.Bike().selectedVersionId() + "&DealerId=" + self.Dealer().DealerId();
+                            var cookieValue = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + self.Dealer().PQId() + "&VersionId=" + self.Bike().selectedVersionId() + "&DealerId=" + self.Dealer().DealerId() + "&leadId=" + self.LeadId();
                             //SetCookie("_MPQ", cookieValue);                            
                             history.replaceState(null, null, "?MPQ=" + Base64.encode(cookieValue));
                             isSuccess = true;

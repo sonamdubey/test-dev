@@ -156,6 +156,49 @@ namespace Bikewale.Service.Controllers.PriceQuote
         }
 
         /// <summary>
+        /// Created by  : Pratibha Verma on 26 June 2018
+        /// Description : leadId added in input and output to remove PQId dependency
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        [ResponseType(typeof(Bikewale.DTO.PriceQuote.v3.PQCustomerDetailOutput)), Route("api/v1/PQCustomerDetail/"), HttpPost]
+        public IHttpActionResult Post([FromBody]Bikewale.DTO.PriceQuote.v3.PQCustomerDetailInput input)
+        {
+
+            Bikewale.DTO.PriceQuote.v3.PQCustomerDetailOutput output = null;
+
+            try
+            {
+                Bikewale.Entities.PriceQuote.v2.PQCustomerDetailOutputEntity outEntity = null;
+                Bikewale.Entities.PriceQuote.v2.PQCustomerDetailInput pqInput = null;
+                if (input != null
+                    && !String.IsNullOrEmpty(input.CustomerMobile)
+                    && !String.IsNullOrEmpty(input.PQId)
+                    && input.DealerId > 0
+                    && Convert.ToInt32(input.VersionId) > 0
+                    && Convert.ToInt32(input.CityId) > 0)
+                {
+                    pqInput = PQCustomerMapper.Convert(input);
+                    NameValueCollection requestHeaders = SetRequestHeaders(Request.Headers);
+                    outEntity = _objLeadProcess.ProcessPQCustomerDetailInputWithPQV2(pqInput, requestHeaders);
+                    output = PQCustomerMapper.Convert(outEntity);
+
+                    return Ok(output);
+                }
+                else
+                {
+                    return Unauthorized();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, String.Format("Exception : Bikewale.Service.Controllers.PriceQuote.PQCustomerDetailController.Post({0})", Newtonsoft.Json.JsonConvert.SerializeObject(input)));
+
+                return InternalServerError();
+            }
+        }
+
+        /// <summary>
         /// Created by  :   Sumit Kate on 23 May 2016
         /// Description :   Saves the Customer details if it is a new customer.
         /// generated the OTP for the non verified customer
@@ -217,7 +260,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
             PQCustomer output = null;
             try
             {
-                entity = _objDealerPriceQuote.GetCustomerDetails(pqId);
+                entity = _objDealerPriceQuote.GetCustomerDetailsByPQId(pqId);
                 if (entity != null)
                 {
                     output = PQCustomerMapper.Convert(entity);

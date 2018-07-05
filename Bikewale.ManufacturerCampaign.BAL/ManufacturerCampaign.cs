@@ -33,6 +33,7 @@ namespace Bikewale.ManufacturerCampaign.BAL
         /// <param name="pqId"></param>
         /// <param name="dealerId"></param>
         /// <returns></returns>
+        [Obsolete("Don't update PriceQuote table.", true)]
         public bool SaveManufacturerIdInPricequotes(uint pqId, uint dealerId)
         {
             bool isSuccess = false;
@@ -55,6 +56,8 @@ namespace Bikewale.ManufacturerCampaign.BAL
             }
             return isSuccess;
         }
+
+       
 
 
         public bool ClearCampaignCache(uint campaignId)

@@ -29,5 +29,6 @@ namespace Bikewale.Entities.PriceQuote
         public ushort? LeadSourceId { get; set; }
 
         public string DeviceId { get; set; }
+        public uint LeadId { get; set; }
     }
 }

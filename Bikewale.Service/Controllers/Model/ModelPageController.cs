@@ -502,4 +502,5 @@ namespace Bikewale.Service.Controllers.Model
 
         #endregion
     }
+
 }

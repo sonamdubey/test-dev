@@ -340,7 +340,7 @@ namespace Bikewale.Ajax
         {
             string response = string.Empty;
 
-            PQOutputEntity objPQOutput = null;
+            Bikewale.Entities.BikeBooking.v2.PQOutputEntity objPQOutput = null;
             try
             {
                 using (IUnityContainer container = new UnityContainer())
@@ -349,7 +349,7 @@ namespace Bikewale.Ajax
                     container.RegisterType<IDealerPriceQuote, Bikewale.BAL.BikeBooking.DealerPriceQuote>();
                     IDealerPriceQuote objIPQ = container.Resolve<IDealerPriceQuote>();
 
-                    PriceQuoteParametersEntity objPQEntity = new PriceQuoteParametersEntity();
+                    Entities.PriceQuote.v2.PriceQuoteParametersEntity objPQEntity = new Entities.PriceQuote.v2.PriceQuoteParametersEntity();
                     objPQEntity.CityId = cityId;
                     objPQEntity.AreaId = areaId > 0 ? areaId : 0;
                     objPQEntity.ClientIP = CommonOpn.GetClientIP();
@@ -357,7 +357,7 @@ namespace Bikewale.Ajax
                     objPQEntity.ModelId = modelId;
 
                     // If pqId exists then, set pqId
-                    objPQOutput = objIPQ.ProcessPQ(objPQEntity);
+                    objPQOutput = objIPQ.ProcessPQV3(objPQEntity);
 
                 }
             }

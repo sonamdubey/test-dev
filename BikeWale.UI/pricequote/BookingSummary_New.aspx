@@ -440,12 +440,13 @@
             var BikeDealerDetails = function () {
                 var self = this;
                 self.DealerId = ko.observable(<%= dealerId %>);
-                self.PQId = ko.observable(<%= pqId %>);
+                self.PQId = ko.observable('<%= pqId %>');
                 self.CityId = ko.observable(<%= cityId %>);  
                 self.IsInsuranceFree = ko.observable(insFree);
                 self.InsuranceAmount = ko.observable(insAmt);
                 self.latitude = ko.observable(<%= latitude %>);
                 self.longitude = ko.observable(<%= longitude %>);
+                self.AreaId = ko.observable(<%= areaId %>);
             };
             var ga_pg_id= '14';
             var gaObj = { 'id': '<%= (int)Bikewale.Entities.Pages.GAPages.Booking_Page%>', 'name': '<%= Bikewale.Entities.Pages.GAPages.Booking_Page%>' };

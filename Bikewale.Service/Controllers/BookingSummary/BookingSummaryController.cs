@@ -61,7 +61,7 @@ namespace Bikewale.Service.Controllers.BookingSummary
                 #endregion
 
                 #region Customer Details
-                objCustomer = _objDealer.GetCustomerDetails(pqId);
+                objCustomer = _objDealer.GetCustomerDetailsByPQId(pqId);
 
                 if (objCustomer != null)
                 {

@@ -157,6 +157,8 @@
     <Compile Include="BikeBooking\PQ_Price.cs" />
     <Compile Include="BikeBooking\PQ_QuotationEntity.cs" />
     <Compile Include="BikeBooking\RSAOfferClaimEntity.cs" />
+    <Compile Include="BikeBooking\v2\DPQ_SaveEntity.cs" />
+    <Compile Include="BikeBooking\v2\PQOutputEntity.cs" />
     <Compile Include="BikeData\BikeColorsbyVersion.cs" />
     <Compile Include="BikeData\BikeEntityBase.cs" />
     <Compile Include="BikeData\BikeFilters.cs" />
@@ -382,6 +384,7 @@
     <Compile Include="MakeABTestCookie.cs" />
     <Compile Include="manufacturecampaign\ManufactureCampaignInput.cs" />
     <Compile Include="manufacturecampaign\ManufactureDealer.cs" />
+    <Compile Include="manufacturecampaign\v2\ManufactureCampaignInput.cs" />
     <Compile Include="MobileAppAlert\AppFCMInput.cs" />
     <Compile Include="MobileAppAlert\FCMNotifications.cs" />
     <Compile Include="MobileAppAlert\MobileAppAlertData.cs" />
@@ -453,9 +456,16 @@
     <Compile Include="PriceQuote\PriceQuoteParametersEntity.cs" />
     <Compile Include="PriceQuote\PriceQuoteStates.cs" />
     <Compile Include="PriceQuote\SpamDetailsEnum.cs" />
+    <Compile Include="PriceQuote\v2\BikeQuotationEntity.cs" />
     <Compile Include="PriceQuote\v2\DetailedDealerQuotationEntity.cs" />
     <Compile Include="PriceQuote\v2\NewBikeDealerBase.cs" />
     <Compile Include="PriceQuote\v2\PQByCityAreaEntity.cs" />
+    <Compile Include="PriceQuote\v2\PQCustomerDetailInput.cs" />
+    <Compile Include="PriceQuote\v2\PQCustomerDetailOutputEntity.cs" />
+    <Compile Include="PriceQuote\v4\PQByCityAreaEntity.cs" />
+    <Compile Include="PriceQuote\v2\PQOnRoadPrice.cs" />
+    <Compile Include="PriceQuote\v2\PriceQuoteParametersEntity.cs" />
+    <Compile Include="PriceQuote\v3\PQByCityAreaEntity.cs" />
     <Compile Include="PriceQuote\VersionPrice.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QuestionAndAnswers\Answer.cs" />

@@ -9,12 +9,15 @@ using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.AutoBiz;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.PriceQuote;
+using Bikewale.Utility;
 using Bikewale.Notifications;
 using BikeWale.Entities.AutoBiz;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using RabbitMqPublishing;
+using System.Collections.Specialized;
 
 namespace Bikewale.BAL.PriceQuote
 {
@@ -59,6 +62,46 @@ namespace Bikewale.BAL.PriceQuote
         }
 
         /// <summary>
+        /// Aithor  : Kartik rathod on 20 jun 2018 price quote changes return guid
+        /// </summary>
+        /// <param name="pqParams"></param>
+        /// <returns></returns>
+        public string RegisterPriceQuoteV2(Bikewale.Entities.PriceQuote.v2.PriceQuoteParametersEntity pqParams)
+        {
+            string pqGUId = string.Empty;
+            try
+            {
+                pqGUId = RandomNoGenerator.GenerateUniqueId();
+                NameValueCollection objNVC = new NameValueCollection();
+                objNVC.Add("GUID", pqGUId);
+                objNVC.Add("versionId", Convert.ToString(pqParams.VersionId));
+                objNVC.Add("cityId", Convert.ToString(pqParams.CityId));
+                objNVC.Add("areaId", Convert.ToString(pqParams.AreaId));
+                objNVC.Add("buyingPreference", Convert.ToString(pqParams.BuyingPreference));
+                objNVC.Add("customerId", Convert.ToString(pqParams.CustomerId));
+                objNVC.Add("customerName", pqParams.CustomerName);
+                objNVC.Add("customerEmail", pqParams.CustomerEmail);
+                objNVC.Add("customerMobile", pqParams.CustomerMobile);
+                objNVC.Add("clientIP", CurrentUser.GetClientIP());
+                objNVC.Add("sourceId", Convert.ToString(pqParams.SourceId));
+                objNVC.Add("dealerId", Convert.ToString(pqParams.DealerId));
+                objNVC.Add("deviceId", pqParams.DeviceId);
+                objNVC.Add("UTMA", pqParams.UTMA);
+                objNVC.Add("UTMZ", pqParams.UTMZ);
+                objNVC.Add("pqSourceId", Convert.ToString(pqParams.PQLeadId));
+                objNVC.Add("refGUID", pqParams.RefPQId);
+
+                RabbitMqPublish _RabbitMQPublishing = new RabbitMqPublish();
+                _RabbitMQPublishing.PublishToQueue(BWConfiguration.Instance.PQConsumerQueue, objNVC);
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("Bikewale.BAL.PriceQuote.PriceQuote.RegisterPriceQuoteV2()--> PQId = {0}", pqGUId));
+            }
+            return pqGUId;
+        }
+
+        /// <summary>
         /// Function to get the price quote by price quote id.
         /// </summary>
         /// <param name="pqId">Price quote id. Only positive numbers are allowed.</param>
@@ -68,6 +111,22 @@ namespace Bikewale.BAL.PriceQuote
             BikeQuotationEntity objQuotation = null;
 
             objQuotation = objPQ.GetPriceQuoteById(pqId);
+
+            return objQuotation;
+        }
+
+        /// <summary>
+        /// Created By  : Pratibha Verma on 19 June 2018
+        /// Description : removed PQId dependency
+        /// </summary>
+        /// <param name="cityId"></param>
+        /// <param name="versionId"></param>
+        /// <returns></returns>
+        public Bikewale.Entities.PriceQuote.v2.BikeQuotationEntity GetPriceQuote(uint cityId, uint versionId)
+        {
+            Bikewale.Entities.PriceQuote.v2.BikeQuotationEntity objQuotation = null;
+
+            objQuotation = objPQ.GetPriceQuote(cityId, versionId);
 
             return objQuotation;
         }
@@ -87,10 +146,28 @@ namespace Bikewale.BAL.PriceQuote
         }
 
         /// <summary>
+        /// Craeted By  : Pratibha Verma on 20 June 2018
+        /// Description : Removed PQId dependency
+        /// </summary>
+        /// <param name="cityId"></param>
+        /// <param name="versionId"></param>
+        /// <param name="page"></param>
+        /// <returns></returns>
+        public Bikewale.Entities.PriceQuote.v2.BikeQuotationEntity GetPriceQuote(uint cityId, uint versionId, LeadSourceEnum page)
+        {
+            Bikewale.Entities.PriceQuote.v2.BikeQuotationEntity objQuotation = null;
+
+            objQuotation = objPQ.GetPriceQuote(cityId, versionId, page);
+
+            return objQuotation;
+        }
+
+        /// <summary>
         /// Function to get the price quote by price quote information. Price quote will be registered automatically and returns price quote.
         /// </summary>
         /// <param name="pqParams">all parameters necessory to save the price quote.</param>
         /// <returns>Retunrs price quote in the PricQuoteEntity object.</returns>
+        [Obsolete("Unused")]
         public BikeQuotationEntity GetPriceQuote(PriceQuoteParametersEntity pqParams)
         {
             BikeQuotationEntity objQuotation = null;
@@ -137,6 +214,22 @@ namespace Bikewale.BAL.PriceQuote
             {
                 return false;
             }
+        }
+
+        /// <summary>
+        /// Created By  : Rajan Chauhan on 27 June 2018
+        /// Description : Method for updating PQ details by leadId
+        /// </summary>
+        /// <param name="leadId"></param>
+        /// <param name="pqParams"></param>
+        /// <returns></returns>
+        public bool UpdatePriceQuoteDetailsByLeadId(UInt32 leadId, PriceQuoteParametersEntity pqParams)
+        {
+            if (leadId > 0)
+            {
+                return objPQ.UpdatePriceQuoteDetailsByLeadId(leadId, pqParams);
+            }
+            return false;
         }
 
 

@@ -48,8 +48,8 @@ namespace Bikewale.Models
         public LeadSourceEnum LeadSource { get; set; }
         public PQSources Platform { get; set; }
         public ManufacturerCampaignServingPages ManufacturerCampaignPageId { get; set; }
-        private uint _modelId, _versionId, _cityId, _areaId, _pqId, _dealerId, _makeId;
-        private string pageUrl, mpqQueryString, currentCity = string.Empty, currentArea = string.Empty;
+        private uint _modelId, _versionId, _cityId, _areaId, _dealerId, _makeId;
+        private string pageUrl, mpqQueryString, currentCity = string.Empty, currentArea = string.Empty, _pqId = string.Empty;
 
 
         /// <summary>
@@ -77,6 +77,10 @@ namespace Bikewale.Models
         /// Description  : To get dealerpricequote page data 
         /// Modified by : Ashutosh Sharma on 31 Oct 2017
         /// Description : Added call to BindAdSlotTags.
+        /// Modified by : Rajan Chauhan on 27 June 2018
+        /// Description : Moved SetModelVariables above 
+        ///		GetDealerVersionsPriceByModelCity to correctly
+        ///		set CityId in objData
         /// </summary>
         /// <returns></returns>
         public DealerPriceQuotePageVM GetData()
@@ -88,9 +92,9 @@ namespace Bikewale.Models
                 if (_versionId > 0)
                 {
                     GetBikeVersions(objData);
+                    SetModelVariables(objData);
                     _objPQ.GetDealerVersionsPriceByModelCity(objData.VersionSpecs ,_cityId, _modelId, _dealerId);
                     SetDealerPriceQuoteDetail(objData);
-                    SetModelVariables(objData);
                     BindPageWidgets(objData);
                     SetPageMetas(objData);
                     GetManufacturerCampaign(objData);
@@ -408,7 +412,8 @@ namespace Bikewale.Models
                     if (isBikewalePQ)
                     {
                         #region Bikewale PriceQuote
-                        objData.Quotation = _objPQ.GetPriceQuoteById(Convert.ToUInt64(_pqId), LeadSource);
+                        objData.Quotation = _objPQ.GetPriceQuote(objData.CityId, objData.VersionId, LeadSource);
+                        objData.Quotation.PriceQuoteId = _pqId;
                         if (objData.Quotation != null)
                         {
                             objData.TotalPrice = (uint)objData.Quotation.OnRoadPrice;
@@ -503,8 +508,8 @@ namespace Bikewale.Models
             var request = HttpContext.Current.Request;
             try
             {
-
-                if (PriceQuoteQueryString.IsPQQueryStringExists() && UInt32.TryParse(PriceQuoteQueryString.PQId, out _pqId) && UInt32.TryParse(PriceQuoteQueryString.VersionId, out _versionId) && UInt32.TryParse(PriceQuoteQueryString.CityId, out _cityId) && _pqId > 0 && _versionId > 0 && _cityId > 0)
+                _pqId = PriceQuoteQueryString.PQId;
+                if (PriceQuoteQueryString.IsPQQueryStringExists() && UInt32.TryParse(PriceQuoteQueryString.VersionId, out _versionId) && UInt32.TryParse(PriceQuoteQueryString.CityId, out _cityId) && !string.IsNullOrEmpty(_pqId) && _versionId > 0 && _cityId > 0)
                 {
                     UInt32.TryParse(PriceQuoteQueryString.DealerId, out _dealerId);
                     UInt32.TryParse(PriceQuoteQueryString.AreaId, out _areaId);
@@ -530,6 +535,8 @@ namespace Bikewale.Models
         /// Description :   Fetches Manufacturer Campaigns
         /// Modified by  :  Sushil Kumar on 11th Aug 2017
         /// Description :   Store dealerid for manufacturer campaigns for impressions tracking
+        /// Modified by : Ashutosh Sharma on 28 Jun 2018
+        /// Description : Removed update of dealer id in pq table. Dealer id is inserted in pq table from the Referrer page of Price Quote page, No need to update here.
         /// </summary>
         private void GetManufacturerCampaign(DealerPriceQuotePageVM objData)
         {
@@ -540,7 +547,7 @@ namespace Bikewale.Models
                     ManufacturerCampaignEntity campaigns = _objManufacturerCampaign.GetCampaigns(_modelId, _cityId, ManufacturerCampaignPageId);
                     if (campaigns.LeadCampaign != null)
                     {
-                        objData.LeadCampaign = new ManufactureCampaignLeadEntity()
+                        objData.LeadCampaign = new Bikewale.Entities.manufacturecampaign.v2.ManufactureCampaignLeadEntity()
                         {
                             Area = GlobalCityArea.GetGlobalCityArea().Area,
                             CampaignId = campaigns.LeadCampaign.CampaignId,
@@ -609,16 +616,6 @@ namespace Bikewale.Models
                         };
                         objData.IsManufacturerEMIAdShown = true;
                     }
-
-                    if (objData.IsManufacturerLeadAdShown)
-                    {
-                        _objManufacturerCampaign.SaveManufacturerIdInPricequotes(objData.PQId, campaigns.LeadCampaign.DealerId);
-                    }
-                    else if (objData.IsManufacturerEMIAdShown)
-                    {
-                        _objManufacturerCampaign.SaveManufacturerIdInPricequotes(objData.PQId, campaigns.EMICampaign.DealerId);
-                    }
-
                 }
             }
             catch (Exception ex)

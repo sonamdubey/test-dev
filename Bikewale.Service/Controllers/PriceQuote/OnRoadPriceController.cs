@@ -618,6 +618,156 @@ namespace Bikewale.Service.Controllers.PriceQuote
         }
 
         /// <summary>
+        /// Created By  : Pratibha Verma on 19 June 2018
+        /// Description : used method GetPriceQuoteByIdV2 to remove dependency from PQId
+        /// </summary>
+        /// <param name="cityId"></param>
+        /// <param name="modelId"></param>
+        /// <param name="clientIP"></param>
+        /// <param name="sourceType"></param>
+        /// <param name="deviceId"></param>
+        /// <param name="areaId"></param>
+        /// <param name="pqLeadId"></param>
+        /// <returns></returns>
+        [ResponseType(typeof(Bikewale.DTO.PriceQuote.v5.PQOnRoad)), Route("api/v5/OnRoadPrice")]
+        public IHttpActionResult GetV5(uint cityId, uint modelId, string clientIP, PQSources sourceType, string deviceId = null, uint? areaId = null, ushort? pqLeadId = null)
+        {
+            Bikewale.DTO.PriceQuote.v3.PQOutput objPQ = null;
+            Bikewale.Entities.BikeBooking.v2.PQOutputEntity objPQOutput = null;
+            Bikewale.Entities.PriceQuote.v2.BikeQuotationEntity bpqOutput = null;
+            Bikewale.DTO.PriceQuote.v5.PQOnRoad onRoadPrice = null;
+            Bikewale.Entities.PriceQuote.v2.DetailedDealerQuotationEntity objDealerQuotation = null;
+            Bikewale.ManufacturerCampaign.Entities.ManufacturerCampaignEntity manufacturerCampaign = null;
+            uint versionPrice = 0;
+            try
+            {
+                Entities.PriceQuote.v2.PriceQuoteParametersEntity objPQEntity = new Entities.PriceQuote.v2.PriceQuoteParametersEntity()
+                {
+                    CityId = cityId,
+                    AreaId = areaId.HasValue ? areaId.Value : 0,
+                    ClientIP = clientIP,
+                    SourceId = (ushort)sourceType,
+                    ModelId = modelId,
+                    DeviceId = deviceId,
+                    PQLeadId = pqLeadId
+                };
+
+                objPQOutput = _objIPQ.ProcessPQV3(objPQEntity);
+                if (objPQOutput != null)
+                {
+                    onRoadPrice = new Bikewale.DTO.PriceQuote.v5.PQOnRoad();
+                    objPQ = PQOutputMapper.ConvertV3(objPQOutput);
+                    onRoadPrice.PriceQuote = objPQ;
+
+                    if (objPQ != null && !String.IsNullOrEmpty(objPQ.PQId))
+                    {
+                        bpqOutput = _objPriceQuote.GetPriceQuote(objPQEntity.CityId, objPQOutput.VersionId);
+                        //add bike make and model
+                        objPQ.MakeName = bpqOutput.MakeName;
+                        objPQ.ModelName = bpqOutput.ModelName;
+
+                        bpqOutput.Varients = _objPriceQuoteCache.GetOtherVersionsPrices(modelId, cityId);
+
+                        if (objPQ.DealerId > 0)
+                        {
+
+                            objDealerQuotation = _objDPQ.GetDealerQuotationV2(cityId, objPQOutput.VersionId, objPQOutput.DealerId, objPQEntity.AreaId);
+
+                            onRoadPrice.Versions = PQBikePriceQuoteOutputMapper.Convert(bpqOutput.Varients);
+
+                            if (objDealerQuotation != null && objDealerQuotation.SecondaryDealers != null)
+                            {
+                                onRoadPrice.SecondaryDealers = PQBikePriceQuoteOutputMapper.Convert(objDealerQuotation.SecondaryDealers);
+                            }
+
+                            if (onRoadPrice.SecondaryDealers == null)
+                            {
+                                onRoadPrice.SecondaryDealers = new System.Collections.Generic.List<DTO.PriceQuote.v3.DPQDealerBase>();
+                            }
+
+                            if (objDealerQuotation != null && objDealerQuotation.PrimaryDealer != null && objDealerQuotation.PrimaryDealer.DealerDetails != null)
+                            {
+                                onRoadPrice.SecondaryDealers.Insert(0, new DTO.PriceQuote.v3.DPQDealerBase()
+                                {
+                                    Area = objDealerQuotation.PrimaryDealer.DealerDetails.objArea.AreaName,
+                                    DealerId = objDealerQuotation.PrimaryDealer.DealerDetails.DealerId,
+                                    MaskingNumber = objDealerQuotation.PrimaryDealer.DealerDetails.MaskingNumber,
+                                    Name = objDealerQuotation.PrimaryDealer.DealerDetails.Organization,
+                                    IsPremiumDealer = objDealerQuotation.PrimaryDealer.IsPremiumDealer
+                                });
+
+                                if (objPQ.DealerId == 0)
+                                {
+                                    onRoadPrice.SecondaryDealers.Insert(0, new DTO.PriceQuote.v3.DPQDealerBase()
+                                    {
+                                        Area = String.Empty,
+                                        DealerId = 0,
+                                        MaskingNumber = String.Empty,
+                                        Name = String.Empty,
+                                        IsPremiumDealer = true
+                                    });
+                                }
+                            }
+                            else
+                            {
+                                onRoadPrice.SecondaryDealers.Insert(0, new DTO.PriceQuote.v3.DPQDealerBase()
+                                {
+                                    Area = String.Empty,
+                                    DealerId = 0,
+                                    MaskingNumber = String.Empty,
+                                    Name = string.Empty,
+                                    IsPremiumDealer = true
+                                });
+                            }
+                        }
+                        else
+                        {
+                            bool isArea = false;
+                            var bikePriceQuotationList = _objPriceQuote.GetVersionPricesByModelId(modelId, cityId, out isArea);
+                            if (bikePriceQuotationList != null && bikePriceQuotationList.Any())
+                            {
+                                var selversion = bikePriceQuotationList.FirstOrDefault(x => x.VersionId == objPQOutput.VersionId);
+                                if (selversion != null)
+                                {
+                                    versionPrice = (uint)selversion.OnRoadPrice;
+                                }
+                            }
+                            onRoadPrice.Versions = PQBikePriceQuoteOutputMapper.Convert(bpqOutput.Varients);
+                            if (onRoadPrice.SecondaryDealers == null)
+                            {
+                                onRoadPrice.SecondaryDealers = new System.Collections.Generic.List<DTO.PriceQuote.v3.DPQDealerBase>();
+                            }
+                            onRoadPrice.SecondaryDealers.Insert(0, new DTO.PriceQuote.v3.DPQDealerBase()
+                            {
+                                Area = String.Empty,
+                                DealerId = 0,
+                                MaskingNumber = String.Empty,
+                                Name = string.Empty,
+                                IsPremiumDealer = true
+                            });
+
+                            if (cityId > 0 && !String.IsNullOrEmpty(objPQ.PQId))
+                            {
+                                manufacturerCampaign = _objManufacturerCampaign.GetCampaigns(modelId, cityId, ManufacturerCampaign.Entities.ManufacturerCampaignServingPages.Mobile_Model_Page);
+                            }
+                        }
+                        onRoadPrice.Campaign = ManufacturerCampaignMapper.ConvertV2((ushort)sourceType, objPQ.PQId, modelId, objPQ.VersionId, cityId, objDealerQuotation, manufacturerCampaign, versionPrice, objPQ.MakeName, objPQ.ModelName);
+                    }
+                    return Ok(onRoadPrice);
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.Controllers.PriceQuote.OnRoadPriceController.GetV5");
+                return InternalServerError();
+            }
+        }
+
+        /// <summary>
         /// Created By : Sumit Kate
         /// Created on : 3th June 2016
         /// Description : To provide dealer quotation and its bike's version prices 

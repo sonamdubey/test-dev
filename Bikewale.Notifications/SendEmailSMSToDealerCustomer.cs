@@ -346,6 +346,61 @@ namespace Bikewale.Notifications
             }
         }
 
+        /// <summary>
+        /// Created by  : Pratibha Verma on 26 June 2018
+        /// Description : changes PQId data type
+        /// </summary>
+        /// <param name="pqId"></param>
+        /// <param name="requestUrl"></param>
+        /// <param name="objDPQSmsEntity"></param>
+        /// <param name="DPQType"></param>
+        public static void SendSMSToCustomerV2(string pqId, string requestUrl, DPQSmsEntity objDPQSmsEntity, DPQTypes DPQType)
+        {
+            string message = String.Empty;
+
+            try
+            {
+                if (objDPQSmsEntity != null && !String.IsNullOrEmpty(objDPQSmsEntity.CustomerMobile) && !String.IsNullOrEmpty(pqId))
+                {
+                    switch (DPQType)
+                    {
+                        case DPQTypes.NoOfferNoBooking:
+                            message = String.Format("{0},{1} ({2}) will call you regarding your bike inquiry on BikeWale. For more details, visit {3}", objDPQSmsEntity.DealerName, objDPQSmsEntity.Locality, objDPQSmsEntity.DealerMobile, objDPQSmsEntity.LandingPageShortUrl);
+                            break;
+                        case DPQTypes.NoOfferOnlineBooking:
+                            message = String.Format("You can now book {0} by just paying Rs. {1} at your convenience. This amount will be adjusted against the total payment. For more details, visit {2}", objDPQSmsEntity.BikeName, objDPQSmsEntity.BookingAmount, objDPQSmsEntity.LandingPageShortUrl);
+                            break;
+                        case DPQTypes.OfferNoBooking:
+                            message = String.Format("We are running exciting offers on purchase of {0} from {1},{2}. Hurry! Offer valid till stock lasts. For more details, visit {3}", objDPQSmsEntity.BikeName, objDPQSmsEntity.DealerName, objDPQSmsEntity.Locality, objDPQSmsEntity.LandingPageShortUrl);
+                            break;
+                        case DPQTypes.OfferAndBooking:
+                            message = String.Format("We are running exciting offers on online booking of {0} at BikeWale. Hurry! Offer valid till stock lasts. For more details, visit {1}", objDPQSmsEntity.BikeName, objDPQSmsEntity.LandingPageShortUrl);
+                            break;
+                        case DPQTypes.AndroidAppNoOfferNoBooking:
+                        case DPQTypes.AndroidAppOfferNoBooking:
+                            message = String.Format("Hi {0}, thanks for your interest on BikeWale. {1},{2} ({3}) will call you regarding your bike inquiry.", objDPQSmsEntity.CustomerName, objDPQSmsEntity.DealerName, objDPQSmsEntity.Locality, objDPQSmsEntity.DealerMobile);
+                            break;
+                        case DPQTypes.SubscriptionModel:
+                            message = String.Format("Contact {0} at {1} or visit at {2}, {3}, {4} for further assistance.", objDPQSmsEntity.OrganisationName, objDPQSmsEntity.DealerMobile, objDPQSmsEntity.DealerAdd, objDPQSmsEntity.DealerArea, objDPQSmsEntity.DealerCity);
+                            break;
+                        case DPQTypes.KawasakiCampaign:
+                            message = string.Format("Thank you {0} for your interest in Ninja 300. Your coupon code is BW1038. Please visit the nearest authorized Kawasaki dealership {1} and use the coupon to avail an exclusive offer.", objDPQSmsEntity.CustomerName, objDPQSmsEntity.DealerName);
+                            break;
+
+                    }
+                    if (!String.IsNullOrEmpty(message))
+                    {
+                        SMSCommon sc = new SMSCommon();
+                        sc.ProcessSMS(objDPQSmsEntity.CustomerMobile, message, EnumSMSServiceType.NewBikePriceQuoteSMSToCustomer, requestUrl);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "Bikewale.Notifications.SendEmailSMSToDealerCustomer.SendSMSToCustomerV2");
+            }
+        }
+
         #endregion
 
         /// <summary>

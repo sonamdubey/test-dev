@@ -22,5 +22,6 @@ namespace Bikewale.Interfaces.PriceQuote
         Bikewale.Entities.PriceQuote.v2.DetailedDealerQuotationEntity GetDealerPriceQuoteByPackageV2(PQParameterEntity objParams);
 
         string GetManufacturerCampaignMobileRenderedTemplate(string key, ManufactureCampaignLeadEntity leadCampaign);
+        string GetManufacturerCampaignMobileRenderedTemplateV2(string key, Entities.manufacturecampaign.v2.ManufactureCampaignLeadEntity leadCampaign);
     }
 }

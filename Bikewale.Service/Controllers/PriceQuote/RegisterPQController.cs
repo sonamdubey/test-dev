@@ -37,7 +37,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        [ResponseType(typeof(PQOutputEntity))]
+        [ResponseType(typeof(PQOutput))]
         public IHttpActionResult Post([FromBody]PQInput input)
         {
             string response = string.Empty;
@@ -82,6 +82,56 @@ namespace Bikewale.Service.Controllers.PriceQuote
             {
                 ErrorClass.LogError(ex, String.Format("Exception : Bikewale.Service.Controllers.PriceQuote.RegisterPQController.Post({0})", Newtonsoft.Json.JsonConvert.SerializeObject(input)));
                
+                return InternalServerError();
+            }
+        }
+
+
+        [ResponseType(typeof(DTO.PriceQuote.v3.PQOutput)), Route("api/v1/registerpq/")]
+        public IHttpActionResult Post([FromBody]Bikewale.DTO.PriceQuote.v4.PQInput input)
+        {
+            string response = string.Empty;
+            DTO.PriceQuote.v3.PQOutput objPQ = null;
+            string pqId = string.Empty;
+            try
+            {
+                if (input.DealerId.HasValue && input.CityId > 0 && input.VersionId > 0)
+                {
+                    Entities.PriceQuote.v2.PriceQuoteParametersEntity objPQEntity = new Entities.PriceQuote.v2.PriceQuoteParametersEntity();
+                    objPQEntity.CityId = input.CityId;
+                    objPQEntity.AreaId = input.AreaId > 0 ? input.AreaId : 0;
+                    objPQEntity.ClientIP = input.ClientIP;
+                    objPQEntity.SourceId = Convert.ToUInt16(input.SourceType);
+                    objPQEntity.ModelId = input.ModelId;
+                    objPQEntity.VersionId = input.VersionId;
+                    objPQEntity.UTMA = Request.Headers.Contains("utma") ? Request.Headers.GetValues("utma").FirstOrDefault() : String.Empty;
+                    objPQEntity.UTMZ = Request.Headers.Contains("utmz") ? Request.Headers.GetValues("utmz").FirstOrDefault() : String.Empty;
+                    objPQEntity.DeviceId = input.DeviceId;
+                    objPQEntity.PQLeadId = input.PQLeadId;
+                    objPQEntity.VersionId = input.VersionId;
+                    objPQEntity.RefPQId = input.RefPQId;
+                    objPQEntity.DealerId = (uint)input.DealerId;
+
+                    pqId = _objIPQ.RegisterPriceQuoteV2(objPQEntity);
+                }
+
+                if (!string.IsNullOrEmpty(pqId))
+                {
+                    objPQ = new DTO.PriceQuote.v3.PQOutput();
+                    objPQ.DealerId = input.DealerId.Value;
+                    objPQ.PQId = pqId;
+                    objPQ.VersionId = input.VersionId;
+                    return Ok(objPQ);
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, String.Format("Exception : Bikewale.Service.Controllers.PriceQuote.RegisterPQController.Post({0})", Newtonsoft.Json.JsonConvert.SerializeObject(input)));
+
                 return InternalServerError();
             }
         }

@@ -127,7 +127,7 @@ function getPriceQuoteOnRoad() {
 
         $.ajax({
             type: 'POST',
-            url: "/api/PriceQuote/",
+            url: "/api/v2/PriceQuote/",
             data: obj,
             dataType: 'json',
             beforeSend: function (xhr) {
@@ -152,7 +152,7 @@ function getPriceQuoteOnRoad() {
                 cookieValue = "CityId=" + viewModelOnRoad.selectedCity() + "&AreaId=" + (!isNaN(viewModelOnRoad.selectedArea()) ? viewModelOnRoad.selectedArea() : 0) + "&PQId=" + jsonObj.quoteId + "&VersionId=" + jsonObj.versionId + "&DealerId=" + jsonObj.dealerId;
                 //SetCookie("_MPQ", cookieValue);
 
-                if (jsonObj != undefined && jsonObj.quoteId > 0) {
+                if (jsonObj != undefined && jsonObj.quoteId != "") {
                     gtmCodeAppender(pageId, 'Dealer_PriceQuote_Success_Submit', gaLabel);
                     window.location = "/m/pricequote/dealer/?MPQ=" + Base64.encode(cookieValue);
                 }

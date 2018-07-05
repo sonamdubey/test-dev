@@ -84,6 +84,21 @@ namespace Bikewale.Common
             }
         }
 
+		public static string LeadId
+		{
+			get
+			{
+				if (HttpContext.Current.Request.QueryString != null && HttpContext.Current.Request.QueryString.HasKeys() && (!String.IsNullOrEmpty(HttpContext.Current.Request.QueryString["MPQ"])))
+				{
+					if (!String.IsNullOrEmpty(HttpContext.Current.Request.QueryString["MPQ"]))
+					{
+						return HttpUtility.ParseQueryString(EncodingDecodingHelper.DecodeFrom64(HttpContext.Current.Request.QueryString["MPQ"])).Get("LeadId");
+					}
+				}
+				return String.Empty;
+			}
+		}
+
         #endregion
         public static bool IsPQQueryStringExists()
         {

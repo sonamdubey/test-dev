@@ -26,5 +26,7 @@ namespace Bikewale.DTO.PriceQuote
         public UInt32 VersionId { get; set; }
         [JsonProperty("cityId")]
         public UInt32 CityId { get; set; }
+        [JsonProperty("leadId")]
+        public uint LeadId { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Bikewale.ManufacturerCampaign.Entities;
+using System;
 
 namespace Bikewale.Entities.PriceQuote
 {
@@ -30,5 +31,6 @@ namespace Bikewale.Entities.PriceQuote
         public ushort? PQLeadId { get; set; }
         public UInt64? RefPQId { get; set; }
         public uint? CampaignId { get; set; }
+        public ManufacturerCampaignServingPages ManufacturerCampaignPageId { get; set; }
     }
 }

@@ -49,7 +49,7 @@ function secondarydealer_Click(dealerID) {
         isSuccess = dleadvm.registerPQ(objData);
 
         if (isSuccess) {
-            var rediurl = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + dleadvm.pqId() + "&VersionId=" + versionId + "&DealerId=" + dealerID;
+            var rediurl = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + dleadvm.pqGUId() + "&VersionId=" + versionId + "&DealerId=" + dealerID;
             window.location.href = "/m/pricequote/dealer/?MPQ=" + Base64.encode(rediurl);
         }
     } catch (e) {
@@ -154,7 +154,8 @@ docReady(function () {
                 "pqsourceid": ele.attr('data-pqsourceid'),
                 "isleadpopup": ele.attr('data-isleadpopup'),
                 "mfgCampid": ele.attr('data-mfgcampid'),
-                "pqid": pqId,
+                "pqId": 0,
+                "pqguid": pqId,
                 "pageurl": pageUrl,
                 "clientip": clientIP,
                 "dealerHeading": ele.attr('data-item-heading'),

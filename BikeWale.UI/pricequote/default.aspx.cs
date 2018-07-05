@@ -132,8 +132,8 @@ namespace Bikewale.PriceQuote
             {
 
                 GetPQDetails(ref cityId, ref areaId);
-                PriceQuoteParametersEntity objPQEntity = new PriceQuoteParametersEntity();
-                PQOutputEntity objPQOutput = null;
+                Entities.PriceQuote.v2.PriceQuoteParametersEntity objPQEntity = new Entities.PriceQuote.v2.PriceQuoteParametersEntity();
+                Bikewale.Entities.BikeBooking.v2.PQOutputEntity objPQOutput = null;
                 try
                 {
                     modelId = hdn_ddlModel.Value;
@@ -154,7 +154,8 @@ namespace Bikewale.PriceQuote
                         objPQEntity.UTMA = Request.Cookies["__utma"] != null ? Request.Cookies["__utma"].Value : "";
                         objPQEntity.UTMZ = Request.Cookies["_bwutmz"] != null ? Request.Cookies["_bwutmz"].Value : "";
                         objPQEntity.DeviceId = Request.Cookies["BWC"] != null ? Request.Cookies["BWC"].Value : "";
-                        objPQOutput = objIPQ.ProcessPQ(objPQEntity);
+                        objPQEntity.ManufacturerCampaignPageId = ManufacturerCampaign.Entities.ManufacturerCampaignServingPages.Desktop_DealerPriceQuote;
+                        objPQOutput = objIPQ.ProcessPQV2(objPQEntity, true);
 
                     }
                 }
@@ -167,7 +168,7 @@ namespace Bikewale.PriceQuote
                 finally
                 {
 
-                    if (objPQOutput.PQId > 0)
+                    if (!string.IsNullOrEmpty(objPQOutput.PQId))
                     {
                         // Save pq cookie
                         //PriceQuoteCookie.SavePQCookie(objPQEntity.CityId.ToString(), objPQOutput.PQId.ToString(), objPQEntity.AreaId.ToString(), objPQOutput.VersionId.ToString(), objPQOutput.DealerId.ToString());                        

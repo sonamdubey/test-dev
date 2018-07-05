@@ -316,6 +316,73 @@ namespace Bikewale.Service.AutoMappers.Model
         }
 
         /// <summary>
+        /// Author  : Kartik Raahtod on 20 jun 2018 pricequote changes
+        /// </summary>
+        /// <param name="objModelPage"></param>
+        /// <param name="pqEntity"></param>
+        /// <returns></returns>
+        internal static BikeSpecs ConvertToBikeSpecsV2(BikeModelPageEntity objModelPage, Bikewale.Entities.PriceQuote.v3.PQByCityAreaEntity pqEntity)
+        {
+            try
+            {
+                Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
+                Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
+                Mapper.CreateMap<BikeSeriesEntityBase, SeriesBase>();
+                Mapper.CreateMap<BikeDescriptionEntity, ModelDescription>();
+                Mapper.CreateMap<BikeModelEntity, ModelDetails>();
+                Mapper.CreateMap<BikeSpecificationEntity, VersionSpecifications>();
+                Mapper.CreateMap<BikeVersionsListEntity, ModelVersionList>();
+                Mapper.CreateMap<BikeVersionMinSpecs, VersionDetail>();
+                Mapper.CreateMap<BikeModelPageEntity, BikeSpecs>();
+                Mapper.CreateMap<NewBikeModelColor, NewModelColor>();
+                Mapper.CreateMap<BikeDescriptionEntity, BikeDiscription>();
+                Mapper.CreateMap<UpcomingBikeEntity, UpcomingBike>();
+                Mapper.CreateMap<Entities.BikeData.Specs, DTO.Model.Specs>();
+                Mapper.CreateMap<Entities.BikeData.SpecsCategory, DTO.Model.v2.SpecsCategory>();
+
+                IEnumerable<DTO.Model.Specs> featuresList = null;
+                IList<DTO.Model.v2.SpecsCategory> specsCategory = null;
+                if (objModelPage != null && objModelPage.VersionSpecsFeatures != null)
+                {
+                    if (objModelPage.VersionSpecsFeatures.Features != null)
+                    {
+                        featuresList = Convert(objModelPage.VersionSpecsFeatures.Features);
+                    }
+                    if (objModelPage.VersionSpecsFeatures.Specs != null)
+                    {
+                        specsCategory = new List<DTO.Model.v2.SpecsCategory>();
+                        specsCategory.Add(new DTO.Model.v2.SpecsCategory()
+                        {
+                            DisplayName = "Summary",
+                            Specs = Convert(objModelPage.SpecsSummaryList.Reverse().Skip(1).Reverse())
+                        });
+                        foreach (var specsCat in objModelPage.VersionSpecsFeatures.Specs)
+                        {
+                            specsCategory.Add(new DTO.Model.v2.SpecsCategory()
+                            {
+                                DisplayName = GetCategoryDisplayName(specsCategory.Count),
+                                Specs = Convert(specsCat.SpecsItemList)
+                            });
+                        }
+                    }
+                }
+
+                var bikespecs = Mapper.Map<BikeSpecs>(objModelPage);
+                bikespecs.IsAreaExists = pqEntity.IsAreaExists;
+                bikespecs.IsExShowroomPrice = pqEntity.IsExShowroomPrice;
+                bikespecs.ModelVersions = ConvertBikeVersionToVersionDetail(pqEntity.VersionList);
+                bikespecs.FeaturesList = featuresList;
+                bikespecs.SpecsCategory = specsCategory;
+                return bikespecs;
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.AutoMappers.Model.ModelMapper.ConvertToBikeSpecsV2");
+                return default(BikeSpecs);
+            }
+        }
+
+        /// <summary>
         /// Created by: Sangram Nandkhile on 15 Apr 2016
         /// Summary:To map Object for V3 model entity and PQ entity
         /// updated by: Sangram Nandkhile on 05 May 2016 
@@ -642,6 +709,22 @@ namespace Bikewale.Service.AutoMappers.Model
             versionPrices.VersionList = ConvertBikeVersionToVersionDetail(pqCityAea.VersionList);
             return versionPrices;
         }
+
+        /// <summary>
+        /// Author  : Kartik Raahtod on 20 jun 2018 pricequote changes
+        /// </summary>
+        /// <param name="pqCityAea"></param>
+        /// <returns></returns>
+        internal static Bikewale.DTO.PriceQuote.Version.v4.PQByCityAreaDTO ConvertV4(Bikewale.Entities.PriceQuote.v3.PQByCityAreaEntity pqCityAea)
+        {
+            Mapper.CreateMap<BikeVersionMinSpecs, VersionDetail>();
+            Mapper.CreateMap<PQByCityAreaEntity, Bikewale.DTO.PriceQuote.Version.v3.PQByCityAreaDTO>();
+            var versionPrices = Mapper.Map<Bikewale.Entities.PriceQuote.v3.PQByCityAreaEntity, Bikewale.DTO.PriceQuote.Version.v4.PQByCityAreaDTO>(pqCityAea);
+            versionPrices.VersionList = ConvertBikeVersionToVersionDetail(pqCityAea.VersionList);
+            return versionPrices;
+        }
+
+
         /// <summary>
         /// Created by  :   Sumit Kate on 01 Jul 2016
         /// Description :   AutoMapper Entity to DTO for Popular Bikes

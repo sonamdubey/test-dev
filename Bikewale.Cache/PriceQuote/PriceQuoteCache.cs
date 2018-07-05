@@ -184,6 +184,27 @@ namespace Bikewale.Cache.PriceQuote
         }
 
         /// <summary>
+        /// Created by  : Pratibha Verma on 19 JUne 2018
+        /// Description : used new entity for ManufactureCampaignLeadEntity
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="leadCampaign"></param>
+        /// <returns></returns>
+        public string GetManufacturerCampaignMobileRenderedTemplateV2(string key, Entities.manufacturecampaign.v2.ManufactureCampaignLeadEntity leadCampaign)
+        {
+            try
+            {
+                string htmlTemplate = _cache.GetFromCache<string>(key + "_v1.1", new TimeSpan(24, 0, 0), () => GetRenderMobileTemplateV2(leadCampaign));
+                return htmlTemplate;
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, String.Format("GetManufacturerCampaignMobileRenderedTemplateV2()", leadCampaign.CampaignId));
+            }
+            return null;
+        }
+
+        /// <summary>
         /// Created by  :   Sumit Kate on 29 Mar 2018
         /// Description :   GetRenderMobileTemplate using MvcHelper class
         /// Modified by :   Sumit Kate on 30 Mar 2018
@@ -201,6 +222,26 @@ namespace Bikewale.Cache.PriceQuote
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, String.Format("GetManufacturerCampaignMobileRenderedTemplate()", leadCampaign.CampaignId));
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Created by  : Pratibha Verma on 19 June 2018
+        /// Description : used new entity for ManufactureCampaignLeadEntity
+        /// </summary>
+        /// <param name="leadCampaign"></param>
+        /// <returns></returns>
+        private string GetRenderMobileTemplateV2(Entities.manufacturecampaign.v2.ManufactureCampaignLeadEntity leadCampaign)
+        {
+            try
+            {
+                string template = MvcHelper.Render(string.Format("LeadCampaign_Android_{0}", leadCampaign.CampaignId), leadCampaign, leadCampaign.LeadsHtmlMobile);
+                return template;
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, String.Format("GetManufacturerCampaignMobileRenderedTemplateV2()", leadCampaign.CampaignId));
             }
             return null;
         }

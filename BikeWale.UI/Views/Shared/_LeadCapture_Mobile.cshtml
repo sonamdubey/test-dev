@@ -190,6 +190,7 @@
             self.pincode = ko.observable();
             self.IsVerified = ko.observable(false);
             self.pqId = ko.observable(0);
+            self.pqGUId = ko.observable("");
             self.dealerId = ko.observable();
             self.modelId = ko.observable(leadmodelid);
             self.versionId = ko.observable();
@@ -224,6 +225,7 @@
             self.ko_DealerName = ko.observable();
             self.sendLeadSMSCustomer = ko.observable(false);
             self.organizationName = ko.observable();
+            self.leadId = ko.observable(0);
 
             @if (Model.CityId <= 0)
             {
@@ -379,11 +381,15 @@
                         self.pageUrl = options.pageurl;
 
                     if (options.clientip != null)
-                        self.clientIP = options.clientip;
+                    	self.clientIP = options.clientip;
+                    
 
                     if (options.pqid != null && options.pqid)
-                        self.pqId(options.pqid);
-
+                    	self.pqId(options.pqid);
+                    
+                    if (options.pqguid != null && options.pqguid)
+                    	self.pqGUId(options.pqguid);
+                    
                     if (options.gaobject != null)
                         self.GAObject(options.gaobject);
 
@@ -530,7 +536,7 @@
             self.registerPQ = function (objPQData) {
                 var isSuccess = false;
                 if (objPQData) {
-                    var url = '/api/RegisterPQ/';
+                    var url = '/api/v1/registerpq/';
                     $.ajax({
                         type: "POST",
                         url: url,
@@ -542,7 +548,7 @@
                             self.showLoader();
                         },
                         success: function (response) {
-                            self.pqId(response.quoteId);
+                            self.pqGUId(response.quoteId);
                             isSuccess = true;
                         },
                         complete: function (xhr) {
@@ -575,10 +581,12 @@
                 if (self.isRegisterPQ())
                     self.generatePQ(data, event);
 
-                if (self.pqId() && self.dealerId()) {
+                if ((self.pqGUId() || self.pqId()) && self.dealerId()) {
+                	var isOldPQ = self.pqId() && self.pqId() != 0;
+                	var url = isOldPQ ? "/api/PQCustomerDetail/" : "/api/v1/PQCustomerDetail/";
                     var objCust = {
-                        "dealerId": self.dealerId(),
-                        "pqId": self.pqId(),
+                    	"dealerId": self.dealerId(),
+                    	"pqId": isOldPQ ? self.pqId() : self.pqGUId(),
                         "versionId": self.versionId(),
                         "cityId": self.cityId(),
                         "customerName": self.fullName(),
@@ -591,7 +599,7 @@
                     };
                     $.ajax({
                         type: "POST",
-                        url: "/api/PQCustomerDetail/",
+                        url: url,
                         data: ko.toJSON(objCust),
                         beforeSend: function (xhr) {
                             self.showLoader();
@@ -604,6 +612,7 @@
                         success: function (response) {
                             var obj = ko.toJS(response);
                             self.IsVerified(obj.isSuccess);
+                            if(!isOldPQ) self.leadId(obj.leadId);
                         },
                         complete: function (xhr, ajaxOptions, thrownError) {
                             self.hideLoader();
@@ -834,13 +843,14 @@
 
                 if (isValidCustomer && self.mfgCampaignId() > 0) {
 
-                    if (!(self.pqId() && self.pqId() != "0"))
-                        self.generatePQ(data, event);
+                if (!((self.pqId() && self.pqId() != 0) || (self.pqGUId() && self.pqGUId() != "")))
+                    self.generatePQ(data, event);
                     self.ko_DealerName($('#ddlMfgDealers option:selected').text());
                     $('#processing').show();
                     var objCust = {
                         "dealerId": self.dealerId(),
                         "pqId": self.pqId(),
+                        "pqguid": self.pqGUId(),
                         "name": self.fullName(),
                         "mobile": self.mobileNo(),
                         "email": self.emailId(),
@@ -854,7 +864,9 @@
                         "manufacturerDealer": self.ko_DealerName(),
                         "bikeName": leadBikeName,
                         "dealerName": self.organizationName() ? self.organizationName() : self.dealerName(),
-                        "sendLeadSMSCustomer": self.sendLeadSMSCustomer()
+                        "sendLeadSMSCustomer": self.sendLeadSMSCustomer(),
+                    	"leadId":self.leadId()
+
                     };
                     $.ajax({
                         type: "POST",
@@ -869,6 +881,7 @@
                         contentType: "application/json",
                         dataType: 'json',
                         success: function (response) {
+                            self.leadId(response);
                             $("#personalInfo,#otpPopup").hide();
                             $('#processing').hide();
 

@@ -165,7 +165,7 @@
 
             $.ajax({
                 type: 'POST',
-                url: "/api/PriceQuote/",
+                url: "/api/v2/PriceQuote/",
                 data: obj,
                 dataType: 'json',
                 beforeSend: function (xhr) {

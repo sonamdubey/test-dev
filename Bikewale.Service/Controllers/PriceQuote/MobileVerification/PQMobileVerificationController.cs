@@ -128,7 +128,7 @@ namespace Bikewale.Service.Controllers.PriceQuote.MobileVerification
                                 dealer = objBookingPageDetailsDTO.Dealer;
                                 //objCust = _objCustomer.GetByEmail(input.CustomerEmail);
 
-                                pqCustomer = _objDealerPriceQuote.GetCustomerDetails(input.PQId);
+                                pqCustomer = _objDealerPriceQuote.GetCustomerDetailsByPQId(input.PQId);
                                 objCust = pqCustomer.objCustomerBase;
 
                                 using (IUnityContainer container = new UnityContainer())
@@ -214,7 +214,7 @@ namespace Bikewale.Service.Controllers.PriceQuote.MobileVerification
 
 
                                     _objPriceQuote.SaveBookingState(input.PQId, PriceQuoteStates.LeadSubmitted);
-                                    _objLeadNofitication.PushtoAB(input.BranchId.ToString(), input.PQId, objCust.CustomerName, objCust.CustomerMobile, objCust.CustomerEmail, input.VersionId.ToString(), input.CityId.ToString());
+                                    _objLeadNofitication.PushtoAB(input.BranchId.ToString(), input.PQId, objCust.CustomerName, objCust.CustomerMobile, objCust.CustomerEmail, input.VersionId.ToString(), input.CityId.ToString(), string.Empty, pqCustomer.LeadId);
 
 
                                     if (dealerDetailEntity.objFacilities != null)

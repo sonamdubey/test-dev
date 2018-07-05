@@ -94,7 +94,7 @@ namespace Bikewale.Models.BikeModels
 
         private ModelPageVM _objData = null;
 
-        private PQOnRoadPrice _pqOnRoad;
+        private Bikewale.Entities.PriceQuote.v2.PQOnRoadPrice _pqOnRoad;
         private readonly StringBuilder _colorStr = new StringBuilder();
 
         private readonly String _adPath_Mobile = "/1017752/BikeWale_Mobile_Model";
@@ -840,7 +840,7 @@ namespace Bikewale.Models.BikeModels
                                 _objData.BikeVersionPrices = _objPQ.GetVersionPricesByModelId(this._modelId, _emiCityId, out hasAreaAvailable);
                                 if (_objData.BikeVersionPrices != null)
                                 {
-                                    var selectedversion = _objData.BikeVersionPrices.SingleOrDefault(x => x.VersionId == _objData.VersionId);
+                                    var selectedversion = _objData.BikeVersionPrices.FirstOrDefault(x => x.VersionId == _objData.VersionId);
                                     if (selectedversion != null)
                                     {
                                         onRoadPrice = (uint)selectedversion.OnRoadPrice;
@@ -1448,7 +1448,7 @@ namespace Bikewale.Models.BikeModels
             {
                 if (modelPg != null && modelPg.ModelDetails != null && modelPg.ModelVersions != null && !modelPg.ModelDetails.Futuristic)
                 {
-                    if (_pqOnRoad != null)
+                    if (_pqOnRoad != null && _objData.City != null && ((_objData.City.HasAreas && _areaId > 0) || !_objData.City.HasAreas))
                     {
                         ///Dealer Pricing
                         if (_pqOnRoad.IsDealerPriceAvailable && _pqOnRoad.DPQOutput.Varients.Any() && modelPg.ModelVersions.Count > 0)
@@ -1770,17 +1770,18 @@ namespace Bikewale.Models.BikeModels
             var errorParams = string.Empty;
             try
             {
+                _pqOnRoad = GetOnRoadPrice();
                 if (_cityId > 0 && _objData.City != null && ((_objData.City.HasAreas && _areaId > 0) || !_objData.City.HasAreas))
                 {
-                    _pqOnRoad = GetOnRoadPrice();
                     // Set Pricequote Cookie
                     if (_pqOnRoad != null)
                     {
                         if (_pqOnRoad.PriceQuote != null)
                         {
                             _objData.DealerId = _pqOnRoad.PriceQuote.DealerId;
+                            _objData.VersionId = _pqOnRoad.PriceQuote.VersionId;
                         }
-                        _objData.MPQString = EncodingDecodingHelper.EncodeTo64(Bikewale.Common.PriceQuoteQueryString.FormQueryString(_cityId.ToString(), _pqOnRoad.PriceQuote.PQId.ToString(), _areaId.ToString(), _objData.VersionId.ToString(), _objData.DealerId.ToString()));
+                        _objData.MPQString = EncodingDecodingHelper.EncodeTo64(Bikewale.Common.PriceQuoteQueryString.FormQueryString(_cityId.ToString(), _pqOnRoad.PriceQuote.PQId, _areaId.ToString(), _objData.VersionId.ToString(), _objData.DealerId.ToString()));
 
                         if (_pqOnRoad.IsDealerPriceAvailable && _pqOnRoad.DPQOutput != null && _pqOnRoad.DPQOutput.Varients != null && _pqOnRoad.DPQOutput.Varients.Any())
                         {
@@ -1815,23 +1816,20 @@ namespace Bikewale.Models.BikeModels
                         }
                     }
                 }
-                else
+                else if (_cityId > 0 && _objData.City != null)
                 {
-                    if (_cityId > 0 && _objData.City != null)
+                    IEnumerable<OtherVersionInfoEntity> objBWPrice = _pqOnRoad != null && _pqOnRoad.BPQOutput != null ? _pqOnRoad.BPQOutput.Varients : null;
+                    if (_objData.ModelPageEntity.ModelVersions != null && objBWPrice != null)
                     {
-                        IEnumerable<OtherVersionInfoEntity> objBWPrice =  _objPQ.GetOtherVersionsPrices(_objData.ModelId, _objData.CityId);
-                        if (_objData.ModelPageEntity.ModelVersions != null && objBWPrice != null)
+                        foreach (var version in _objData.ModelPageEntity.ModelVersions)
                         {
-                            foreach (var version in _objData.ModelPageEntity.ModelVersions)
+                            var bwPriceObj = objBWPrice.FirstOrDefault(x => x.VersionId == version.VersionId);
+                            if (bwPriceObj != null)
                             {
-                                var bwPriceObj = objBWPrice.FirstOrDefault(x => x.VersionId == version.VersionId);
-                                if (bwPriceObj != null)
+                                version.Price = bwPriceObj.Price;
+                                if (_objData.SelectedVersion != null && bwPriceObj.VersionId == _objData.SelectedVersion.VersionId)
                                 {
-                                    version.Price = bwPriceObj.Price;
-                                    if (_objData.SelectedVersion != null && bwPriceObj.VersionId == _objData.SelectedVersion.VersionId)
-                                    {
-                                        _objData.BikePrice = bwPriceObj.Price;
-                                    }
+                                    _objData.BikePrice = bwPriceObj.Price;
                                 }
                             }
                         }
@@ -1862,111 +1860,115 @@ namespace Bikewale.Models.BikeModels
         /// Description :   Enable EMI ES Campaign on Model Page
         /// Modified by : Pratibha Verma on 13 Mar 2018
         /// Description : added ShowOnExshowroom in EMICampaign
+        /// Modified by : Ashutosh Sharma on 28 Jun 2018
+        /// Description : Using Manufacturer campaigns fetched at the time of processing pq. Removed update of dealer id in pq table.
         /// </summary>
         private void GetManufacturerCampaign()
         {
             try
             {
-                if (_objManufacturerCampaign != null && !(_objData.IsDealerDetailsExists))
+                
+                if (!(_objData.IsDealerDetailsExists))
                 {
-                    ManufacturerCampaignEntity campaigns = _objManufacturerCampaign.GetCampaigns(_modelId, _cityId, ManufacturerCampaignPageId);
-                    if (campaigns.LeadCampaign != null)
+                    ManufacturerCampaignEntity campaigns = null;
+                    if (_pqOnRoad.PriceQuote != null && _pqOnRoad.PriceQuote.ManufacturerCampaign != null)
                     {
-                        _objData.LeadCampaign = new ManufactureCampaignLeadEntity()
+                        campaigns = _pqOnRoad.PriceQuote.ManufacturerCampaign;
+                        if (campaigns.LeadCampaign != null)
                         {
-                            Area = GlobalCityArea.GetGlobalCityArea().Area,
-                            CampaignId = campaigns.LeadCampaign.CampaignId,
-                            DealerId = campaigns.LeadCampaign.DealerId,
-                            DealerRequired = campaigns.LeadCampaign.DealerRequired,
-                            EmailRequired = campaigns.LeadCampaign.EmailRequired,
-                            LeadsButtonTextDesktop = campaigns.LeadCampaign.LeadsButtonTextDesktop,
-                            LeadsButtonTextMobile = campaigns.LeadCampaign.LeadsButtonTextMobile,
-                            LeadSourceId = (int)LeadSource,
-                            PqSourceId = (int)PQSource,
-                            GACategory = "Model_Page",
-                            GALabel = string.Format("{0}_{1}", _objData.BikeName, _objData.City != null ? _objData.City.CityName : string.Empty),
-                            LeadsHtmlDesktop = campaigns.LeadCampaign.LeadsHtmlDesktop,
-                            LeadsHtmlMobile = campaigns.LeadCampaign.LeadsHtmlMobile,
-                            LeadsPropertyTextDesktop = campaigns.LeadCampaign.LeadsPropertyTextDesktop,
-                            LeadsPropertyTextMobile = campaigns.LeadCampaign.LeadsPropertyTextMobile,
-                            MakeName = _objData.ModelPageEntity.ModelDetails.MakeBase.MakeName,
-                            Organization = campaigns.LeadCampaign.Organization,
-                            MaskingNumber = campaigns.LeadCampaign.MaskingNumber,
-                            PincodeRequired = campaigns.LeadCampaign.PincodeRequired,
-                            PopupDescription = campaigns.LeadCampaign.PopupDescription,
-                            PopupHeading = campaigns.LeadCampaign.PopupHeading,
-                            PopupSuccessMessage = campaigns.LeadCampaign.PopupSuccessMessage,
-                            ShowOnExshowroom = campaigns.LeadCampaign.ShowOnExshowroom,
-                            PQId = _objData.PQId,
-                            VersionId = _objData.VersionId,
-                            CurrentPageUrl = CurrentPageUrl,
-                            PlatformId = Convert.ToUInt16(IsMobile ? 2 : 1),
-                            BikeName = _objData.BikeName,
-                            LoanAmount = Convert.ToUInt32((_objData.BikePrice) * 0.8),
-                            SendLeadSMSCustomer = campaigns.LeadCampaign.SendLeadSMSCustomer
-                        };
-
-                        _objData.IsManufacturerTopLeadAdShown = !_objData.ShowOnRoadButton;
-                        _objData.IsManufacturerLeadAdShown = (_objData.LeadCampaign.ShowOnExshowroom || (_objData.IsLocationSelected && !_objData.LeadCampaign.ShowOnExshowroom));
-
-
-                        if (_objData.PQId == 0 && _cityId != 0)
-                        {
-                            PriceQuoteParametersEntity objPQEntity = new PriceQuoteParametersEntity();
-                            objPQEntity.CityId = Convert.ToUInt16(_cityId);
-                            objPQEntity.AreaId = Convert.ToUInt32(_areaId);
-                            objPQEntity.ClientIP = "";
-                            objPQEntity.SourceId = Convert.ToUInt16(Source);
-                            objPQEntity.ModelId = _modelId;
-                            objPQEntity.VersionId = _objData.VersionId;
-                            objPQEntity.PQLeadId = Convert.ToUInt16(PQSource);
-                            objPQEntity.UTMA = HttpContext.Current.Request.Cookies["__utma"] != null ? HttpContext.Current.Request.Cookies["__utma"].Value : "";
-                            objPQEntity.UTMZ = HttpContext.Current.Request.Cookies["_bwutmz"] != null ? HttpContext.Current.Request.Cookies["_bwutmz"].Value : "";
-                            objPQEntity.DeviceId = HttpContext.Current.Request.Cookies["BWC"] != null ? HttpContext.Current.Request.Cookies["BWC"].Value : "";
-                            _objData.PQId = _objData.LeadCampaign.PQId = (uint)_objPQ.RegisterPriceQuote(objPQEntity);
-
-                            if (_objData.LeadCampaign.DealerId == Bikewale.Utility.BWConfiguration.Instance.CapitalFirstDealerId)
+                            _objData.LeadCampaign = new Bikewale.Entities.manufacturecampaign.v2.ManufactureCampaignLeadEntity()
                             {
-                                var versions = _objPQCache.GetOtherVersionsPrices(_modelId, _cityId);
-                                _objData.LeadCampaign.LoanAmount = (uint)Convert.ToUInt32((versions.FirstOrDefault(m => m.VersionId == _objData.VersionId).OnRoadPrice) * 0.8);
+                                Area = GlobalCityArea.GetGlobalCityArea().Area,
+                                CampaignId = campaigns.LeadCampaign.CampaignId,
+                                DealerId = campaigns.LeadCampaign.DealerId,
+                                DealerRequired = campaigns.LeadCampaign.DealerRequired,
+                                EmailRequired = campaigns.LeadCampaign.EmailRequired,
+                                LeadsButtonTextDesktop = campaigns.LeadCampaign.LeadsButtonTextDesktop,
+                                LeadsButtonTextMobile = campaigns.LeadCampaign.LeadsButtonTextMobile,
+                                LeadSourceId = (int)LeadSource,
+                                PqSourceId = (int)PQSource,
+                                GACategory = "Model_Page",
+                                GALabel = string.Format("{0}_{1}", _objData.BikeName, _objData.City != null ? _objData.City.CityName : string.Empty),
+                                LeadsHtmlDesktop = campaigns.LeadCampaign.LeadsHtmlDesktop,
+                                LeadsHtmlMobile = campaigns.LeadCampaign.LeadsHtmlMobile,
+                                LeadsPropertyTextDesktop = campaigns.LeadCampaign.LeadsPropertyTextDesktop,
+                                LeadsPropertyTextMobile = campaigns.LeadCampaign.LeadsPropertyTextMobile,
+                                MakeName = _objData.ModelPageEntity.ModelDetails.MakeBase.MakeName,
+                                Organization = campaigns.LeadCampaign.Organization,
+                                MaskingNumber = campaigns.LeadCampaign.MaskingNumber,
+                                PincodeRequired = campaigns.LeadCampaign.PincodeRequired,
+                                PopupDescription = campaigns.LeadCampaign.PopupDescription,
+                                PopupHeading = campaigns.LeadCampaign.PopupHeading,
+                                PopupSuccessMessage = campaigns.LeadCampaign.PopupSuccessMessage,
+                                ShowOnExshowroom = campaigns.LeadCampaign.ShowOnExshowroom,
+                                PQId = _objData.PQId,
+                                VersionId = _objData.VersionId,
+                                CurrentPageUrl = CurrentPageUrl,
+                                PlatformId = Convert.ToUInt16(IsMobile ? 2 : 1),
+                                BikeName = _objData.BikeName,
+                                LoanAmount = Convert.ToUInt32((_objData.BikePrice) * 0.8),
+                                SendLeadSMSCustomer = campaigns.LeadCampaign.SendLeadSMSCustomer
+                            };
+
+                            _objData.IsManufacturerTopLeadAdShown = !_objData.ShowOnRoadButton;
+                            _objData.IsManufacturerLeadAdShown = (_objData.LeadCampaign.ShowOnExshowroom || (_objData.IsLocationSelected && !_objData.LeadCampaign.ShowOnExshowroom));
+
+
+                            if (string.IsNullOrEmpty(_objData.PQId) && _cityId != 0)
+                            {
+                                Bikewale.Entities.PriceQuote.v2.PriceQuoteParametersEntity objPQEntity = new Bikewale.Entities.PriceQuote.v2.PriceQuoteParametersEntity();
+                                objPQEntity.CityId = Convert.ToUInt16(_cityId);
+                                objPQEntity.AreaId = Convert.ToUInt32(_areaId);
+                                objPQEntity.ClientIP = "";
+                                objPQEntity.SourceId = Convert.ToUInt16(Source);
+                                objPQEntity.ModelId = _modelId;
+                                objPQEntity.VersionId = _objData.VersionId;
+                                objPQEntity.PQLeadId = Convert.ToUInt16(PQSource);
+                                objPQEntity.UTMA = HttpContext.Current.Request.Cookies["__utma"] != null ? HttpContext.Current.Request.Cookies["__utma"].Value : "";
+                                objPQEntity.UTMZ = HttpContext.Current.Request.Cookies["_bwutmz"] != null ? HttpContext.Current.Request.Cookies["_bwutmz"].Value : "";
+                                objPQEntity.DeviceId = HttpContext.Current.Request.Cookies["BWC"] != null ? HttpContext.Current.Request.Cookies["BWC"].Value : "";
+                                objPQEntity.DealerId = campaigns.LeadCampaign.DealerId;
+                                _objData.PQId = _objData.LeadCampaign.PQId = _objPQ.RegisterPriceQuoteV2(objPQEntity);
+
+                                if (_objData.LeadCampaign.DealerId == Bikewale.Utility.BWConfiguration.Instance.CapitalFirstDealerId)
+                                {
+                                    var versions = _objPQCache.GetOtherVersionsPrices(_modelId, _cityId);
+                                    _objData.LeadCampaign.LoanAmount = (uint)Convert.ToUInt32((versions.FirstOrDefault(m => m.VersionId == _objData.VersionId).OnRoadPrice) * 0.8);
+                                }
                             }
                         }
-                        _objManufacturerCampaign.SaveManufacturerIdInPricequotes(_objData.PQId, campaigns.LeadCampaign.DealerId);
-                    }
-
-                    if (campaigns.EMICampaign != null)
-                    {
-                        _objData.EMICampaign = new ManufactureCampaignEMIEntity()
+                        if (campaigns.EMICampaign != null)
                         {
-                            Area = GlobalCityArea.GetGlobalCityArea().Area,
-                            CampaignId = campaigns.EMICampaign.CampaignId,
-                            DealerId = campaigns.EMICampaign.DealerId,
-                            Organization = campaigns.EMICampaign.Organization,
-                            DealerRequired = campaigns.EMICampaign.DealerRequired,
-                            EmailRequired = campaigns.EMICampaign.EmailRequired,
-                            EMIButtonTextDesktop = campaigns.EMICampaign.EMIButtonTextDesktop,
-                            EMIButtonTextMobile = campaigns.EMICampaign.EMIButtonTextMobile,
-                            LeadSourceId = (int)LeadSource,
-                            PqSourceId = (int)PQSource,
-                            EMIPropertyTextDesktop = campaigns.EMICampaign.EMIPropertyTextDesktop,
-                            EMIPropertyTextMobile = campaigns.EMICampaign.EMIPropertyTextMobile,
-                            MakeName = _objData.ModelPageEntity.ModelDetails.MakeBase.MakeName,
-                            MaskingNumber = campaigns.EMICampaign.MaskingNumber,
-                            PincodeRequired = campaigns.EMICampaign.PincodeRequired,
-                            PopupDescription = campaigns.EMICampaign.PopupDescription,
-                            PopupHeading = campaigns.EMICampaign.PopupHeading,
-                            PopupSuccessMessage = campaigns.EMICampaign.PopupSuccessMessage,
-                            VersionId = _objData.VersionId,
-                            CurrentPageUrl = CurrentPageUrl,
-                            PlatformId = Convert.ToUInt16(IsMobile ? 2 : 1),
-                            LoanAmount = Convert.ToUInt32((_objData.BikePrice) * 0.8),
-                            ShowOnExshowroom = campaigns.EMICampaign.ShowOnExshowroom,
-                            SendLeadSMSCustomer = campaigns.EMICampaign.SendLeadSMSCustomer
-                        };
+                            _objData.EMICampaign = new ManufactureCampaignEMIEntity()
+                            {
+                                Area = GlobalCityArea.GetGlobalCityArea().Area,
+                                CampaignId = campaigns.EMICampaign.CampaignId,
+                                DealerId = campaigns.EMICampaign.DealerId,
+                                Organization = campaigns.EMICampaign.Organization,
+                                DealerRequired = campaigns.EMICampaign.DealerRequired,
+                                EmailRequired = campaigns.EMICampaign.EmailRequired,
+                                EMIButtonTextDesktop = campaigns.EMICampaign.EMIButtonTextDesktop,
+                                EMIButtonTextMobile = campaigns.EMICampaign.EMIButtonTextMobile,
+                                LeadSourceId = (int)LeadSource,
+                                PqSourceId = (int)PQSource,
+                                EMIPropertyTextDesktop = campaigns.EMICampaign.EMIPropertyTextDesktop,
+                                EMIPropertyTextMobile = campaigns.EMICampaign.EMIPropertyTextMobile,
+                                MakeName = _objData.ModelPageEntity.ModelDetails.MakeBase.MakeName,
+                                MaskingNumber = campaigns.EMICampaign.MaskingNumber,
+                                PincodeRequired = campaigns.EMICampaign.PincodeRequired,
+                                PopupDescription = campaigns.EMICampaign.PopupDescription,
+                                PopupHeading = campaigns.EMICampaign.PopupHeading,
+                                PopupSuccessMessage = campaigns.EMICampaign.PopupSuccessMessage,
+                                VersionId = _objData.VersionId,
+                                CurrentPageUrl = CurrentPageUrl,
+                                PlatformId = Convert.ToUInt16(IsMobile ? 2 : 1),
+                                LoanAmount = Convert.ToUInt32((_objData.BikePrice) * 0.8),
+                                ShowOnExshowroom = campaigns.EMICampaign.ShowOnExshowroom,
+                                SendLeadSMSCustomer = campaigns.EMICampaign.SendLeadSMSCustomer
+                            };
 
-                        _objData.IsManufacturerEMIAdShown = true;
-                        if (campaigns.LeadCampaign == null)
-                            _objManufacturerCampaign.SaveManufacturerIdInPricequotes(_objData.PQId, campaigns.EMICampaign.DealerId);
+                            _objData.IsManufacturerEMIAdShown = true;
+                        }
                     }
                 }
             }
@@ -1983,7 +1985,7 @@ namespace Bikewale.Models.BikeModels
         /// Description : Removed IsGstPrice flag
         /// </summary>
         /// <param name="pqOnRoad"></param>
-        private void SetBikeWalePQ(PQOnRoadPrice pqOnRoad)
+        private void SetBikeWalePQ(Bikewale.Entities.PriceQuote.v2.PQOnRoadPrice pqOnRoad)
         {
             if (pqOnRoad != null && pqOnRoad.BPQOutput != null)
             {
@@ -2009,12 +2011,13 @@ namespace Bikewale.Models.BikeModels
         /// Description : replace cookie __utmz with _bwutmz
         /// </summary>
         /// <returns></returns>
-        private PQOnRoadPrice GetOnRoadPrice()
+        private Bikewale.Entities.PriceQuote.v2.PQOnRoadPrice GetOnRoadPrice()
         {
             try
             {
-                BikeQuotationEntity bpqOutput = null;
-                PriceQuoteParametersEntity objPQEntity = new PriceQuoteParametersEntity();
+                bool isDealerSubscription = _objData.City != null && ((_objData.City.HasAreas && _areaId > 0) || !_objData.City.HasAreas);
+                Bikewale.Entities.PriceQuote.v2.BikeQuotationEntity bpqOutput = null;
+                Entities.PriceQuote.v2.PriceQuoteParametersEntity objPQEntity = new Entities.PriceQuote.v2.PriceQuoteParametersEntity();
                 objPQEntity.CityId = Convert.ToUInt16(_cityId);
                 objPQEntity.AreaId = Convert.ToUInt32(_areaId);
                 objPQEntity.ClientIP = "";
@@ -2025,24 +2028,24 @@ namespace Bikewale.Models.BikeModels
                 objPQEntity.UTMA = HttpContext.Current.Request.Cookies["__utma"] != null ? HttpContext.Current.Request.Cookies["__utma"].Value : "";
                 objPQEntity.UTMZ = HttpContext.Current.Request.Cookies["_bwutmz"] != null ? HttpContext.Current.Request.Cookies["_bwutmz"].Value : "";
                 objPQEntity.DeviceId = HttpContext.Current.Request.Cookies["BWC"] != null ? HttpContext.Current.Request.Cookies["BWC"].Value : "";
-                PQOutputEntity objPQOutput = _objDealerPQ.ProcessPQV2(objPQEntity);
+                objPQEntity.ManufacturerCampaignPageId = ManufacturerCampaignPageId;
+                Bikewale.Entities.BikeBooking.v2.PQOutputEntity objPQOutput = _objDealerPQ.ProcessPQV2(objPQEntity, isDealerSubscription);
 
+                
                 if (objPQOutput != null)
                 {
-                    if (_objData.VersionId == 0)
-                        _objData.VersionId = objPQOutput.VersionId;
-                    _pqOnRoad = new PQOnRoadPrice();
+                    _pqOnRoad = new Bikewale.Entities.PriceQuote.v2.PQOnRoadPrice();
                     _pqOnRoad.PriceQuote = objPQOutput;
-                    if (objPQOutput != null && objPQOutput.PQId > 0)
+                    if (objPQOutput != null && !string.IsNullOrEmpty(objPQOutput.PQId))
                     {
-                        _objData.PQId = (uint)objPQOutput.PQId;
-                        bpqOutput = new BikeQuotationEntity();
+                        _objData.PQId = objPQOutput.PQId;
+                        bpqOutput = new Bikewale.Entities.PriceQuote.v2.BikeQuotationEntity();
                         bpqOutput.Varients = _objPQCache.GetOtherVersionsPrices(_modelId, _cityId);
                         if (bpqOutput != null)
                         {
                             _pqOnRoad.BPQOutput = bpqOutput;
                         }
-                        if (objPQOutput.DealerId != 0)
+                        if (objPQOutput.DealerId != 0 && isDealerSubscription && objPQOutput.ManufacturerCampaign == null)
                         {
                             _objData.ShowOnRoadButton = false;
                             _objData.IsAreaSelected = true;
@@ -2050,7 +2053,7 @@ namespace Bikewale.Models.BikeModels
                             AutoBizCommon dealerPq = new AutoBizCommon();
                             try
                             {
-                                oblDealerPQ = dealerPq.GetDealePQEntity(_cityId, objPQOutput.DealerId, _objData.VersionId);
+                                oblDealerPQ = dealerPq.GetDealePQEntity(_cityId, objPQOutput.DealerId, objPQOutput.VersionId);
                                 if (oblDealerPQ != null)
                                 {
                                     uint insuranceAmount = 0;

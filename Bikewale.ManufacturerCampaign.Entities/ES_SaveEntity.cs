@@ -20,5 +20,8 @@ namespace Bikewale.ManufacturerCampaign.Entities
         public String Reason { get; set; }
         public bool IsAccepted { get; set; }
         public ushort OverallSpamScore { get; set; }
+        public uint CityId { get; set; }
+        public uint VersionId { get; set; }
+        public string PQGUId{ get; set; }
     }
 }

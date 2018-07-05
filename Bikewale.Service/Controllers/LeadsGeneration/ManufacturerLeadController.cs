@@ -57,7 +57,7 @@ namespace Bikewale.Service.Controllers.LeadsGeneration
         /// <param name="objLead"></param>
         /// <returns></returns>
         /////uint cityId, uint versionId, string name, string email, string mobile, string pqId, UInt16? platformId, UInt16? leadSourceId, string deviceId = null
-        [ResponseType(typeof(bool))]
+        [ResponseType(typeof(uint))]
         public IHttpActionResult Post([FromBody]ManufacturerLeadEntity objLead)
         {
             if (objLead != null)

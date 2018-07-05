@@ -119,6 +119,8 @@ namespace Bikewale.Service.Controllers.Model
 				return InternalServerError();
 			}
 		}
+
+        
 		/// <summary>
 		/// Created by : Ashutosh Sharma on 26 Dec 2017
 		/// Description : API to get specs and features of a version.

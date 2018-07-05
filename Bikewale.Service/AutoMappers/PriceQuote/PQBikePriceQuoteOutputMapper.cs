@@ -271,5 +271,15 @@ namespace Bikewale.Service.AutoMappers.PriceQuote
             Mapper.CreateMap<Entities.PriceQuote.v2.PQByCityAreaEntity, DTO.PriceQuote.BikePQOutput>();
             return Mapper.Map<Entities.PriceQuote.v2.PQByCityAreaEntity, DTO.PriceQuote.BikePQOutput>(pqOut);
         }
+
+
+        internal static Bikewale.DTO.PriceQuote.v2.BikePQOutput Convert(Bikewale.Entities.PriceQuote.v4.PQByCityAreaEntity pqOut)
+        {
+            Mapper.CreateMap<Bikewale.Entities.BikeBooking.v2.PQOutputEntity, Bikewale.DTO.PriceQuote.v3.PQOutput>();
+            Mapper.CreateMap<CityEntityBase, PQCityBase>();
+            Mapper.CreateMap<Bikewale.Entities.Location.AreaEntityBase, PQAreaBase>();
+            Mapper.CreateMap<Entities.PriceQuote.v4.PQByCityAreaEntity, Bikewale.DTO.PriceQuote.v2.BikePQOutput>();
+            return Mapper.Map<Entities.PriceQuote.v4.PQByCityAreaEntity, DTO.PriceQuote.v2.BikePQOutput>(pqOut);
+        }
     }
 }

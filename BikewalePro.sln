@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Bikewale.DAL", "Bikewale.DAL", "{42FF1FB7-AC82-4750-8DF6-2BF39E69950E}"
 EndProject
@@ -171,6 +171,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bikewale.BAL.ApiGateway", "Bikewale.BAL.ApiGateway\Bikewale.BAL.ApiGateway.csproj", "{281D4C7B-6329-4307-A1A3-DE25135659F6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MySqlDatabaseLibrary", "MySqlDatabaseLibrary\MySqlDatabaseLibrary.csproj", "{F01DB691-7B3A-493A-9B1D-C9E21D43B30B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PriceQuoteConsumer", "PriceQuoteConsumer\PriceQuoteConsumer.csproj", "{690FC73B-9A9C-462C-9085-98089060E7E5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -1805,12 +1807,28 @@ Global
 		{F01DB691-7B3A-493A-9B1D-C9E21D43B30B}.Release|x86.ActiveCfg = Release|Any CPU
 		{F01DB691-7B3A-493A-9B1D-C9E21D43B30B}.Staging|Any CPU.ActiveCfg = Staging|Any CPU
 		{F01DB691-7B3A-493A-9B1D-C9E21D43B30B}.Staging|Any CPU.Build.0 = Staging|Any CPU
-		{F01DB691-7B3A-493A-9B1D-C9E21D43B30B}.Staging|x64.ActiveCfg = Release|Any CPU
-		{F01DB691-7B3A-493A-9B1D-C9E21D43B30B}.Staging|x86.ActiveCfg = Release|Any CPU
-		{F01DB691-7B3A-493A-9B1D-C9E21D43B30B}.Testing|Any CPU.ActiveCfg = Release|Any CPU
-		{F01DB691-7B3A-493A-9B1D-C9E21D43B30B}.Testing|Any CPU.Build.0 = Release|Any CPU
-		{F01DB691-7B3A-493A-9B1D-C9E21D43B30B}.Testing|x64.ActiveCfg = Release|Any CPU
-		{F01DB691-7B3A-493A-9B1D-C9E21D43B30B}.Testing|x86.ActiveCfg = Release|Any CPU
+		{F01DB691-7B3A-493A-9B1D-C9E21D43B30B}.Staging|x64.ActiveCfg = Staging|Any CPU
+		{F01DB691-7B3A-493A-9B1D-C9E21D43B30B}.Staging|x86.ActiveCfg = Staging|Any CPU
+		{F01DB691-7B3A-493A-9B1D-C9E21D43B30B}.Testing|Any CPU.ActiveCfg = Staging|Any CPU
+		{F01DB691-7B3A-493A-9B1D-C9E21D43B30B}.Testing|Any CPU.Build.0 = Staging|Any CPU
+		{F01DB691-7B3A-493A-9B1D-C9E21D43B30B}.Testing|x64.ActiveCfg = Staging|Any CPU
+		{F01DB691-7B3A-493A-9B1D-C9E21D43B30B}.Testing|x86.ActiveCfg = Staging|Any CPU
+		{690FC73B-9A9C-462C-9085-98089060E7E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{690FC73B-9A9C-462C-9085-98089060E7E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{690FC73B-9A9C-462C-9085-98089060E7E5}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{690FC73B-9A9C-462C-9085-98089060E7E5}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{690FC73B-9A9C-462C-9085-98089060E7E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{690FC73B-9A9C-462C-9085-98089060E7E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{690FC73B-9A9C-462C-9085-98089060E7E5}.Release|x64.ActiveCfg = Release|Any CPU
+		{690FC73B-9A9C-462C-9085-98089060E7E5}.Release|x86.ActiveCfg = Release|Any CPU
+		{690FC73B-9A9C-462C-9085-98089060E7E5}.Staging|Any CPU.ActiveCfg = Release|Any CPU
+		{690FC73B-9A9C-462C-9085-98089060E7E5}.Staging|Any CPU.Build.0 = Release|Any CPU
+		{690FC73B-9A9C-462C-9085-98089060E7E5}.Staging|x64.ActiveCfg = Release|Any CPU
+		{690FC73B-9A9C-462C-9085-98089060E7E5}.Staging|x86.ActiveCfg = Release|Any CPU
+		{690FC73B-9A9C-462C-9085-98089060E7E5}.Testing|Any CPU.ActiveCfg = Release|Any CPU
+		{690FC73B-9A9C-462C-9085-98089060E7E5}.Testing|Any CPU.Build.0 = Release|Any CPU
+		{690FC73B-9A9C-462C-9085-98089060E7E5}.Testing|x64.ActiveCfg = Release|Any CPU
+		{690FC73B-9A9C-462C-9085-98089060E7E5}.Testing|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1888,5 +1906,6 @@ Global
 		{A00B0A07-EB13-4B08-8089-6ED33B9896FE} = {7960339E-0DDB-4B69-BA53-B20F63897143}
 		{A2232B60-DF4E-4464-91D9-F587CCE00738} = {E68522E8-0DD4-4E00-A60F-CAEBAB2236F6}
 		{281D4C7B-6329-4307-A1A3-DE25135659F6} = {D2AE1DE5-22CC-4CA0-AD06-E5B85E93F6E9}
+		{690FC73B-9A9C-462C-9085-98089060E7E5} = {B11DD9B4-6451-432B-B918-C2F42563C1B2}
 	EndGlobalSection
 EndGlobal

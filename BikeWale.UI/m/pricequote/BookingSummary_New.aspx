@@ -492,12 +492,13 @@
             var BikeDealerDetails = function () {
                 var self = this;
                 self.DealerId = ko.observable(<%= dealerId %>);
-                self.PQId = ko.observable(<%= pqId %>);
+                self.PQId = ko.observable('<%= pqId %>');
                 self.CityId = ko.observable(<%= cityId %>);
                 self.IsInsuranceFree = ko.observable(insFree);
                 self.InsuranceAmount = ko.observable(insAmt);
                 self.latitude = ko.observable(<%= latitude %>);
                 self.longitude = ko.observable(<%= longitude %>);
+                self.AreaId = ko.observable(<%= areaId %>);
             };
             var getCityArea = GetGlobalCityArea();
         </script>

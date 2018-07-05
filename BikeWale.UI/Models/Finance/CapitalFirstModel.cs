@@ -43,18 +43,20 @@ namespace Bikewale.Models.Finance
                 if (queryCollection != null)
                 {
 					bool sendSMStoCustomer = false;
-					
+                    uint pqId = 0;
+                    UInt32.TryParse(queryCollection["pqid"], out pqId);
                     leadEntity = new ManufacturerLeadEntity();
 
-                    leadEntity.CampaignId = Convert.ToUInt16(queryCollection["campaingid"]);
+                    leadEntity.CampaignId = Convert.ToUInt16(String.IsNullOrEmpty(queryCollection["campaingid"]) ? "0" : queryCollection["campaingid"]);
                     leadEntity.DealerId = Convert.ToUInt16(queryCollection["dealerid"]);
-                    leadEntity.LeadSourceId = Convert.ToUInt16(queryCollection["leadsourceid"]);
+                    leadEntity.LeadSourceId = Convert.ToUInt16(String.IsNullOrEmpty(queryCollection["leadsourceid"]) ? "0" : queryCollection["leadsourceid"]);
                     leadEntity.VersionId = Convert.ToUInt16(queryCollection["versionid"]);
-                    leadEntity.PQId = Convert.ToUInt32(queryCollection["pqid"]);
+                    leadEntity.PQId = pqId;
                     leadEntity.CityId = Convert.ToUInt32(queryCollection["cityid"]);
 					leadEntity.BikeName = queryCollection["bike"];
 					leadEntity.DealerName = queryCollection["dealerName"];
 					leadEntity.SendLeadSMSCustomer = Boolean.TryParse(queryCollection["sendLeadSMSCustomer"], out sendSMStoCustomer) ? sendSMStoCustomer : false;
+                    leadEntity.PQGUId = queryCollection["pqguid"];
 
                     if (leadEntity.CityId == 0)
                     {
@@ -67,7 +69,7 @@ namespace Bikewale.Models.Finance
                     viewModel.ObjLead = leadEntity;
                     viewModel.PageUrl = queryCollection["url"];
                     viewModel.BikeName = queryCollection["bike"];
-                    viewModel.LoanAmount = Convert.ToUInt32(queryCollection["loanamount"]);
+                    viewModel.LoanAmount = Convert.ToUInt32(String.IsNullOrEmpty(queryCollection["loanamount"]) ? "0" : queryCollection["loanamount"]);
 
                     if (viewModel.ObjLead != null)
                     {

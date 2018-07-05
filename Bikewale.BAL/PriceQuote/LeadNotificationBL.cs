@@ -104,6 +104,65 @@ namespace Bikewale.BAL.PriceQuote
         }
 
         /// <summary>
+        /// Created by  : Pratibha Verma on 26 JUne 2018
+        /// Description : changes PQId data type
+        /// </summary>
+        /// <param name="pqId"></param>
+        /// <param name="bikeName"></param>
+        /// <param name="bikeImage"></param>
+        /// <param name="dealerName"></param>
+        /// <param name="dealerEmail"></param>
+        /// <param name="dealerMobileNo"></param>
+        /// <param name="organization"></param>
+        /// <param name="address"></param>
+        /// <param name="customerName"></param>
+        /// <param name="customerEmail"></param>
+        /// <param name="priceList"></param>
+        /// <param name="offerList"></param>
+        /// <param name="pinCode"></param>
+        /// <param name="stateName"></param>
+        /// <param name="cityName"></param>
+        /// <param name="totalPrice"></param>
+        /// <param name="objDPQSmsEntity"></param>
+        /// <param name="requestUrl"></param>
+        /// <param name="leadSourceId"></param>
+        /// <param name="versionName"></param>
+        /// <param name="dealerLat"></param>
+        /// <param name="dealerLong"></param>
+        /// <param name="workingHours"></param>
+        /// <param name="platformId"></param>
+        public void NotifyCustomerV2(string pqId, string bikeName, string bikeImage, string dealerName, string dealerEmail, string dealerMobileNo, string organization, string address, string customerName, string customerEmail, List<PQ_Price> priceList, List<OfferEntity> offerList, string pinCode, string stateName, string cityName, uint totalPrice, DPQSmsEntity objDPQSmsEntity, string requestUrl, uint? leadSourceId, string versionName, double dealerLat, double dealerLong, string workingHours, string platformId = "")
+        {
+            try
+            {
+                if (!IsFakeMobileNumber(objDPQSmsEntity.CustomerMobile) && !String.IsNullOrEmpty(pqId))
+                {
+                    //Different SMS is sent if lead is submitted from BikeWale APP
+                    if (platformId == "3" || platformId == "4")
+                    {
+                        SendEmailSMSToDealerCustomer.SendSMSToCustomerV2(pqId, requestUrl, objDPQSmsEntity, DPQTypes.AndroidAppOfferNoBooking);
+                    }
+                    else
+                    {
+                        //If lead is submitted while Booking a bike online don't sent SMS to customer
+                        if (leadSourceId != 16 && leadSourceId != 22)
+                            SendEmailSMSToDealerCustomer.SendSMSToCustomerV2(pqId, requestUrl, objDPQSmsEntity, DPQTypes.SubscriptionModel);
+                    }
+                    //If lead is submitted while Booking a bike online don't sent SMS to customer
+                    if (leadSourceId != 16 && leadSourceId != 22 && !String.IsNullOrEmpty(customerEmail))
+                    {
+                        SendEmailSMSToDealerCustomer.SendEmailToCustomer(bikeName, bikeImage, dealerName, dealerEmail, dealerMobileNo, organization, address, customerName, customerEmail, priceList, offerList, pinCode, stateName, cityName, totalPrice,
+                            versionName, dealerLat, dealerLong, workingHours);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "LeadNotificationBL.NotifyCustomerV2");
+            }
+        }
+
+        /// <summary>
         /// Sends SMS and Email to Dealer
         /// Modified BY : Lucky Rathore on 12 May 2016
         /// Description : Signature of Notify Dealer and SendEmailToDealer.
@@ -137,7 +196,7 @@ namespace Bikewale.BAL.PriceQuote
         {
             try
             {
-                if (!IsFakeMobileNumber(customerMobile))
+                if (!IsFakeMobileNumber(customerMobile) && pqId > 0)
                 {
                     SendEmailSMSToDealerCustomer.SendEmailToDealer(makeName, modelName, versionName, dealerName, dealerEmail, customerName, customerEmail, customerMobile, areaName, cityName, priceList, totalPrice, offerList, imagePath, additionalEmails);
                     SendEmailSMSToDealerCustomer.SMSToDealer(dealerMobile, customerName, customerMobile, bikeName, areaName, cityName, dealerArea, additionalNumbers);
@@ -150,6 +209,46 @@ namespace Bikewale.BAL.PriceQuote
         }
 
         /// <summary>
+        /// Created by  : Pratibha Verma on 26 June 2018
+        /// Description : changes PQId data type
+        /// </summary>
+        /// <param name="pqId"></param>
+        /// <param name="makeName"></param>
+        /// <param name="modelName"></param>
+        /// <param name="versionName"></param>
+        /// <param name="dealerName"></param>
+        /// <param name="dealerEmail"></param>
+        /// <param name="customerName"></param>
+        /// <param name="customerEmail"></param>
+        /// <param name="customerMobile"></param>
+        /// <param name="areaName"></param>
+        /// <param name="cityName"></param>
+        /// <param name="priceList"></param>
+        /// <param name="totalPrice"></param>
+        /// <param name="offerList"></param>
+        /// <param name="imagePath"></param>
+        /// <param name="dealerMobile"></param>
+        /// <param name="bikeName"></param>
+        /// <param name="dealerArea"></param>
+        /// <param name="additionalNumbers"></param>
+        /// <param name="additionalEmails"></param>
+        public void NotifyDealerV2(string pqId, string makeName, string modelName, string versionName, string dealerName, string dealerEmail, string customerName, string customerEmail, string customerMobile, string areaName, string cityName, List<PQ_Price> priceList, int totalPrice, List<OfferEntity> offerList, string imagePath, string dealerMobile, string bikeName, string dealerArea, string additionalNumbers, string additionalEmails)
+        {
+            try
+            {
+                if (!IsFakeMobileNumber(customerMobile) && !String.IsNullOrEmpty(pqId))
+                {
+                    SendEmailSMSToDealerCustomer.SendEmailToDealer(makeName, modelName, versionName, dealerName, dealerEmail, customerName, customerEmail, customerMobile, areaName, cityName, priceList, totalPrice, offerList, imagePath, additionalEmails);
+                    SendEmailSMSToDealerCustomer.SMSToDealer(dealerMobile, customerName, customerMobile, bikeName, areaName, cityName, dealerArea, additionalNumbers);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "LeadNotificationBL.NotifyDealerV2");
+            }
+        }
+
+        /// <summary>
         /// Pushes Inquiry in AutoBiz using API
         /// Modified By : Sushil Kumar on 29th Nov 2016
         /// Description : Added feature to pass autobiz leads only when dealer leads does not exceeds daily limit count
@@ -157,6 +256,8 @@ namespace Bikewale.BAL.PriceQuote
         /// Summary     : Added function to check if mobile number is authentic before pushing lead
         /// Modified by :   Sumit Kate on 24 Feb 2017
         /// Description :   If AbInquiryId is invalid Push Inquiry Json to Rabbit Mq
+        /// Modified by : Pratibha Verma on 26 June 2018
+        /// Description : added parameters pqGuId and leadId
         /// </summary>
         /// <param name="dealerId"></param>
         /// <param name="pqId"></param>
@@ -165,7 +266,7 @@ namespace Bikewale.BAL.PriceQuote
         /// <param name="customerEmail"></param>
         /// <param name="versionId"></param>
         /// <param name="cityId"></param>
-        public void PushtoAB(string dealerId, uint pqId, string customerName, string customerMobile, string customerEmail, string versionId, string cityId)
+        public void PushtoAB(string dealerId, uint pqId, string customerName, string customerMobile, string customerEmail, string versionId, string cityId, string pqGuId, uint leadId)
         {
             string abInquiryId = string.Empty, message = string.Empty;
             bool isNotFakeMobileNumber = false;
@@ -178,7 +279,6 @@ namespace Bikewale.BAL.PriceQuote
                 //update dealer's daily lead count
                 if (isNotFakeMobileNumber)
                 {
-
                     NameValueCollection objNVC = new NameValueCollection();
                     objNVC.Add("pqId", pqId.ToString());
                     objNVC.Add("dealerId", dealerId);
@@ -187,9 +287,10 @@ namespace Bikewale.BAL.PriceQuote
                     objNVC.Add("customerMobile", customerMobile);
                     objNVC.Add("versionId", versionId);
                     objNVC.Add("cityId", cityId);
+                    objNVC.Add("pqGUId", pqGuId);
+                    objNVC.Add("manufacturerLeadId", Convert.ToString(leadId));
                     RabbitMqPublish objRMQPublish = new RabbitMqPublish();
                     objRMQPublish.PublishToQueue(Bikewale.Utility.BWConfiguration.Instance.LeadConsumerQueue, objNVC);
-
                 }
 
             }

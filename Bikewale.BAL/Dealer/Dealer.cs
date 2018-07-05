@@ -122,6 +122,7 @@ namespace Bikewale.BAL.Dealer
         /// </summary>
         /// <param name="lead"></param>
         /// <returns></returns>
+        [Obsolete("Not being used", true)]
         public bool SaveManufacturerLead(ManufacturerLeadEntity lead)
         {
             bool status = false;
