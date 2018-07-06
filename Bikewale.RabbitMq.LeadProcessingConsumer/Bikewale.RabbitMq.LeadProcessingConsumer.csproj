@@ -154,6 +154,9 @@
     <Compile Include="AutoBizServiceRef.cs" />
     <Compile Include="Entities\BajajFinanceLeadEntity.cs" />
     <Compile Include="Entities\BikeVersionAndCityDetails.cs" />
+    <Compile Include="Entities\DealerEntity.cs" />
+    <Compile Include="Entities\RoyalEnfieldDealer.cs" />
+    <Compile Include="Entities\YamahaLeadEntity.cs" />
     <Compile Include="LeadHandlers\BajajFinanceLeadHandler.cs" />
     <Compile Include="Entities\BikeQuotationEntity.cs" />
     <Compile Include="LeadHandlers\DefaultManufacturerLeadHandler.cs" />
@@ -161,6 +164,7 @@
     <Compile Include="IManufacturerLeadHandler.cs" />
     <Compile Include="Entities\ManufacturerLeadEntityBase.cs" />
     <Compile Include="LeadHandlers\TVSManufacturerLeadHandler.cs" />
+    <Compile Include="LeadHandlers\YamahaManufacturerLeadHandler.cs" />
     <Compile Include="LeadProcessingRepository.cs" />
     <Compile Include="LeadProcessor.cs" />
     <Compile Include="Entities\LeadTypes.cs" />
@@ -175,7 +179,6 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="Entities\RoyalEnfieldDealer.cs" />
     <Compile Include="LeadHandlers\RoyalEnfieldLeadHandler.cs" />
     <Compile Include="Entities\TataCapitalInputEntity.cs" />
     <Compile Include="LeadHandlers\TataCapitalLeadHandler.cs" />

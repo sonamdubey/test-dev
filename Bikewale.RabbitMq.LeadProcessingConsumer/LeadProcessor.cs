@@ -1,5 +1,6 @@
 ﻿
 using Bikewale.RabbitMq.LeadProcessingConsumer.AutoBizServiceRef;
+using Bikewale.RabbitMq.LeadProcessingConsumer.LeadHandlers;
 using Consumer;
 using RabbitMQ.Client;
 using RabbitMqPublishing;
@@ -365,8 +366,8 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
     internal class LeadProcessor
     {
         private readonly LeadProcessingRepository _repository = null;
-        private readonly string _hondaGaddiAPIUrl, _bajajFinanceAPIUrl, _tataCapitalAPIUrl, _TvsApiUrl;
-        private readonly uint _hondaGaddiId, _bajajFinanceId, _RoyalEnfieldId, _TataCapitalId, _TvsId;
+        private readonly string _hondaGaddiAPIUrl, _bajajFinanceAPIUrl, _tataCapitalAPIUrl, _TvsApiUrl, _yamahaAPIUrl;
+        private readonly uint _hondaGaddiId, _bajajFinanceId, _RoyalEnfieldId, _TataCapitalId, _TvsId, _yamahaId;
         private readonly bool _isTataCapitalAPIStarted = false;
         private readonly IDictionary<uint, IManufacturerLeadHandler> handlers;
         private readonly string _BWOprApiHostUrl;
@@ -384,6 +385,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
             _tataCapitalAPIUrl = ConfigurationManager.AppSettings["TataCapitalAPIUrl"];
             _TvsApiUrl = ConfigurationManager.AppSettings["TvsApiUrl"];
             _BWOprApiHostUrl = ConfigurationManager.AppSettings["BwOprApiHostUrl"];
+            _yamahaAPIUrl = ConfigurationManager.AppSettings["YamahaAPIUrl"];
 
             _dealerCacheClearAPIUrl = String.Concat(_BWOprApiHostUrl, _dealerCacheClearAPI);
             uint.TryParse(ConfigurationManager.AppSettings["HondaGaddiId"], out _hondaGaddiId);
@@ -391,6 +393,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
             uint.TryParse(ConfigurationManager.AppSettings["RoyalEnfieldId"], out _RoyalEnfieldId);
             uint.TryParse(ConfigurationManager.AppSettings["TataCapitalId"], out _TataCapitalId);
             uint.TryParse(ConfigurationManager.AppSettings["TvsId"], out _TvsId);
+            uint.TryParse(ConfigurationManager.AppSettings["YamahaId"], out _yamahaId);
             Boolean.TryParse(ConfigurationManager.AppSettings["IsTataCapitalAPIStarted"], out _isTataCapitalAPIStarted);
 
             #region Manufacturer Lead Handlers. Please do not change this
@@ -404,6 +407,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
             handlers.Add(_RoyalEnfieldId, new RoyalEnfieldLeadHandler(_RoyalEnfieldId, "", true, false));
             handlers.Add(_TataCapitalId, new TataCapitalLeadHandler(_TataCapitalId, _tataCapitalAPIUrl, _isTataCapitalAPIStarted));
             handlers.Add(_TvsId, new TVSManufacturerLeadHandler(_TvsId, _TvsApiUrl, true));
+            handlers.Add(_yamahaId, new YamahaManufacturerLeadHandler(_yamahaId, _yamahaAPIUrl, true));
             #endregion
         }
 

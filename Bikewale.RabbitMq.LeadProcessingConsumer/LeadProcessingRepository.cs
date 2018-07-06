@@ -255,6 +255,44 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
             }
             return hondaModel;
         }
+        
+        /// <summary>
+        /// Created By  : Pratibha Verma on 18 June 2018
+        /// Description : function to get Yamaha model mapping
+        /// </summary>
+        /// <returns></returns>
+        public Hashtable GetYamahaModelMapping()
+        {
+            Hashtable yamahaModel = null;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand())
+                {
+                    cmd.CommandText = "getyamahamodelmapping";
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
+                    {
+                        if (dr != null)
+                        {
+                            yamahaModel = new Hashtable();
+                            while (dr.Read())
+                            {
+                                if (!yamahaModel.ContainsKey(dr["modelid"]))
+                                {
+                                    yamahaModel.Add(SqlReaderConvertor.ToInt32(dr["modelid"]), Convert.ToString(dr["modelname"]));
+                                }
+                            }
+                            dr.Close();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logs.WriteErrorLog("Bikewale.RabbitMq.LeadProcessingConsumer.GetYamahaModelMapping()", ex);
+            }
+            return yamahaModel;
+        }
 
         /// <summary>
         /// Created By : Sushil Kumar
@@ -419,12 +457,12 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
         /// <returns>
         /// Created by : Sangram Nandkhile on 12-May-2017 
         /// </returns>
-        public RoyalEnfieldDealer GetRoyalEnfieldDealerById(uint re_dealerId)
+        public DealerEntity GetDealerInfoById(uint re_dealerId)
         {
-            RoyalEnfieldDealer objDealerData = null;
+            DealerEntity objDealerData = null;
             try
             {
-                objDealerData = new RoyalEnfieldDealer();
+                objDealerData = new DealerEntity();
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandText = "getroyalendfieldealers";

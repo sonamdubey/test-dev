@@ -69,7 +69,7 @@ namespace Bikewale.RabbitMq.LeadProcessingConsumer
             try
             {
                 BikeVersionAndCityDetails versionAndCityDetails = base.LeadRepostiory.GetVersionAndCityDetails(leadEntity.VersionId, leadEntity.CityId);
-                RoyalEnfieldDealer dealer = base.LeadRepostiory.GetRoyalEnfieldDealerById(leadEntity.ManufacturerDealerId);
+                DealerEntity dealer = base.LeadRepostiory.GetDealerInfoById(leadEntity.ManufacturerDealerId);
                 Logs.WriteInfoLog(String.Format("Royal Enfield Request : {0}", Newtonsoft.Json.JsonConvert.SerializeObject(leadEntity)));
 
                 using (RoyalEnfieldWebAPI.Service service = new RoyalEnfieldWebAPI.Service())
