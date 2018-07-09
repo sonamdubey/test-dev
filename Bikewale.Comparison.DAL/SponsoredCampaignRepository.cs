@@ -251,7 +251,10 @@ namespace Bikewale.Comparison.DAL
                     using (var results = connection.QueryMultiple("getsponsoredcomparisonversionmapping", param: param, commandType: CommandType.StoredProcedure))
                     {
                         objResult.SponsoredModelVersion = results.Read<BikeModel>();
-                        objResult.TargetVersionsMapping = results.Read<BikeModelVersionMapping>();
+                        if(!results.IsConsumed)
+                            objResult.TargetVersionsMapping = results.Read<BikeModelVersionMapping>();
+                        else
+                            objResult.TargetVersionsMapping = new List<BikeModelVersionMapping>();
                     }
 
                 }
