@@ -29,7 +29,7 @@ namespace BikeIndex
         
         private string[] _pricestypes = { "RTO", "Insurance", "Exshowroom" };
         private IApiGatewayCaller _apiGatewayCaller;
-        IUnityContainer container = null;
+
         private static IEnumerable<EnumSpecsFeaturesItems> requiredSpec = new List<EnumSpecsFeaturesItems>{
                                         EnumSpecsFeaturesItems.Displacement,
                                         EnumSpecsFeaturesItems.FuelEfficiencyOverall,
@@ -40,14 +40,13 @@ namespace BikeIndex
                                         EnumSpecsFeaturesItems.AntilockBrakingSystem,
                                         EnumSpecsFeaturesItems.StartType
                                     };
-
-        public BikeModelRepository()
+        static readonly IUnityContainer _container;
+        static BikeModelRepository()
         {
-            using (container = new UnityContainer())
-            {
-                container.RegisterType<IApiGatewayCaller, ApiGatewayCaller>();
-            }
+            _container = new UnityContainer();
+            _container.RegisterType<IApiGatewayCaller, ApiGatewayCaller>();
         }
+
 
         /// <summary>
         /// Created by: Dhruv Joshi
@@ -206,7 +205,7 @@ namespace BikeIndex
             {
                 if (objList != null && objList.Count > 0)
                 {
-                    _apiGatewayCaller = container.Resolve<IApiGatewayCaller>();
+                    _apiGatewayCaller = _container.Resolve<IApiGatewayCaller>();
 
 
                     List<VersionMinSpecsEntity> minSpec = new List<VersionMinSpecsEntity>();

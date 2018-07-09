@@ -31,6 +31,23 @@ namespace Bikewale.BikeBooking
         protected string clientIP = String.Empty;
         protected Repeater rptPopularBrand, rptOtherBrands;
 
+        static readonly IUnityContainer _container;
+        static BookingListing()
+        {
+            _container = new UnityContainer();
+
+            _container.RegisterType<IBikeMakesCacheRepository, BikeMakesCacheRepository>()
+                     .RegisterType<ICacheManager, MemcacheManager>()
+                     .RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>()
+                    ;
+            _container.RegisterType<IDealer, Dealer>()
+                       .RegisterType<IDealerRepository, DealersRepository>()
+                       .RegisterType<IDealerCacheRepository, DealerCacheRepository>()
+                       .RegisterType<IApiGatewayCaller, ApiGatewayCaller>()
+                       ;
+            _container.RegisterType<IArea, AreaRepository>();
+        }
+
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -62,13 +79,8 @@ namespace Bikewale.BikeBooking
             IEnumerable<Entities.BikeData.BikeMakeEntityBase> makes = null;
             try
             {
-                using (IUnityContainer container = new UnityContainer())
-                {
-                    container.RegisterType<IBikeMakesCacheRepository, BikeMakesCacheRepository>()
-                             .RegisterType<ICacheManager, MemcacheManager>()
-                             .RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>()
-                            ;
-                    var objCache = container.Resolve<IBikeMakesCacheRepository>();
+
+                var objCache = _container.Resolve<IBikeMakesCacheRepository>();
                     makes = objCache.GetMakesByType(EnumBikeType.New);
                     if (makes != null && makes.Any())
                     {
@@ -78,7 +90,6 @@ namespace Bikewale.BikeBooking
                         rptOtherBrands.DataSource = makes.Skip(9).OrderBy(m => m.MakeName);
                         rptOtherBrands.DataBind();
                     }
-                }
             }
             catch (Exception ex)
             {
@@ -98,14 +109,8 @@ namespace Bikewale.BikeBooking
             try
             {
                 bookingCities = new List<CityEntityBase>();
-                using (IUnityContainer container = new UnityContainer())
-                {
-                    container.RegisterType<IDealer, Dealer>()
-                        .RegisterType<IDealerRepository, DealersRepository>()
-                        .RegisterType<IDealerCacheRepository, DealerCacheRepository>()
-                        .RegisterType<IApiGatewayCaller, ApiGatewayCaller>()
-                        .RegisterType<ICacheManager, MemcacheManager>();
-                    IDealer _objDealerPricequote = container.Resolve<IDealer>();
+                
+                    IDealer _objDealerPricequote = _container.Resolve<IDealer>();
 
                     bookingCities = _objDealerPricequote.GetDealersBookingCitiesList();
 
@@ -131,7 +136,7 @@ namespace Bikewale.BikeBooking
 
                     }
 
-                }
+                
             }
             catch (Exception err)
             {
@@ -153,39 +158,37 @@ namespace Bikewale.BikeBooking
             try
             {
                 bookingAreas = new List<AreaEntityBase>();
-                using (IUnityContainer container = new UnityContainer())
+
+                IArea _areaRepo = _container.Resolve<IArea>();
+                bookingAreas = _areaRepo.GetAreasByCity(Convert.ToUInt16(cityId));
+
+                if (bookingAreas != null && bookingAreas.Any())
                 {
-                    container.RegisterType<IArea, AreaRepository>();
-                    IArea _areaRepo = container.Resolve<IArea>();
-                    bookingAreas = _areaRepo.GetAreasByCity(Convert.ToUInt16(cityId));
+                    bookingAreasList.DataSource = bookingAreas.ToList();
+                    bookingAreasList.DataTextField = "AreaName";
+                    bookingAreasList.DataValueField = "AreaId";
+                    bookingAreasList.DataBind();
+                    bookingAreasList.Items.Insert(0, " Select Area ");
 
-                    if (bookingAreas != null && bookingAreas.Any())
+                    if (areaId > 0 && bookingAreas.Any(p => p.AreaId == areaId))
                     {
-                        bookingAreasList.DataSource = bookingAreas.ToList();
-                        bookingAreasList.DataTextField = "AreaName";
-                        bookingAreasList.DataValueField = "AreaId";
-                        bookingAreasList.DataBind();
-                        bookingAreasList.Items.Insert(0, " Select Area ");
-
-                        if (areaId > 0 && bookingAreas.Any(p => p.AreaId == areaId))
-                        {
-                            bookingAreasList.Items.FindByValue(Convert.ToString(areaId)).Selected = true;
-                        }
-                        else
-                        {
-                            Response.Redirect("/bikebooking/", false);
-                            HttpContext.Current.ApplicationInstance.CompleteRequest();
-                            this.Page.Visible = false;
-                        }
-
+                        bookingAreasList.Items.FindByValue(Convert.ToString(areaId)).Selected = true;
                     }
+                    else
+                    {
+                        Response.Redirect("/bikebooking/", false);
+                        HttpContext.Current.ApplicationInstance.CompleteRequest();
+                        this.Page.Visible = false;
+                    }
+
                 }
             }
+
             catch (Exception err)
             {
                 Trace.Warn(err.Message);
                 ErrorClass.LogError(err, Request.ServerVariables["URL"]);
-                
+
             }
         }
 

@@ -15,14 +15,17 @@ namespace Bikewale.BAL.MobileVerification
     public class MobileVerification : IMobileVerification, IMobileVerificationRepository
     {
         private readonly IMobileVerificationRepository mobileVerRespo = null;
+        static readonly IUnityContainer _container;
+
+        static MobileVerification()
+        {
+            _container = new UnityContainer();
+            _container.RegisterType<IMobileVerificationRepository, MobileVerificationRepository>();
+        }
 
         public MobileVerification()
         {
-            using (IUnityContainer container = new UnityContainer())
-            {
-                container.RegisterType<IMobileVerificationRepository, MobileVerificationRepository>();
-                mobileVerRespo = container.Resolve<IMobileVerificationRepository>();
-            }
+                mobileVerRespo = _container.Resolve<IMobileVerificationRepository>();
         }
 
         /// <summary>

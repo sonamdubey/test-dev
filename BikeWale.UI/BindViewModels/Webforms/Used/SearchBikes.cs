@@ -52,8 +52,6 @@ namespace Bikewale.BindViewModels.Webforms.Used
         public int startIndex = 0, endIndex = 0;
         private const int _pagerSlotSize = 5;
 
-
-
         private ICityMaskingCacheRepository objCityCache = null;
         private IBikeMakesCacheRepository objMakeCache = null;
         private IBikeMaskingCacheRepository<BikeModelEntity, int> objModelsCache = null;
@@ -80,8 +78,39 @@ namespace Bikewale.BindViewModels.Webforms.Used
         public BikeMakeEntityBase SelectedMake = null;
 
         public string modelMaskingName = string.Empty, cityMaskingName = string.Empty, makeMaskingName = string.Empty;
+        static readonly IUnityContainer _container;
+        static SearchUsedBikes()
+        {
+            _container = new UnityContainer();
 
+            _container.RegisterType<IBikeMaskingCacheRepository<BikeModelEntity, int>, BikeModelMaskingCache<BikeModelEntity, int>>()
+            .RegisterType<ICacheManager, MemcacheManager>()
+            .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
+            .RegisterType<ICityCacheRepository, CityCacheRepository>()
+            .RegisterType<ICityMaskingCacheRepository, CityMaskingCache>()
+            .RegisterType<ICity, CityRepository>()
+            .RegisterType<IBikeMakesCacheRepository, BikeMakesCacheRepository>()
+            .RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>()
+            .RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>()
+            .RegisterType<ISearchFilters, ProcessSearchFilters>()
+            .RegisterType<ISearchQuery, SearchQuery>()
+            .RegisterType<ISearchRepository, SearchRepository>()
+            .RegisterType<ISearch, SearchBikes>()
+            .RegisterType<IPager, Pager>()
+            .RegisterType<IApiGatewayCaller, ApiGatewayCaller>()
+            .RegisterType<IBikeModelsCacheHelper, BikeModelsCacheHelper>()
+            .RegisterType<IUserReviewsSearch, UserReviewsSearch>()
+            .RegisterType<IArticles, Articles>()
+            .RegisterType<ICMSCacheContent, CMSCacheRepository>()
+            .RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>()
+            .RegisterType<IVideos, Bikewale.BAL.Videos.Videos>()
+            .RegisterType<IUserReviews, Bikewale.BAL.UserReviews.UserReviews>()
+            .RegisterType<IUserReviewsCache, UserReviewsCacheRepository>()
+            .RegisterType<IUserReviewsRepository, UserReviewsRepository>()
+            .RegisterType<ICustomer<CustomerEntity, uint>, Customer<CustomerEntity, uint>>()
+            .RegisterType<ICustomerRepository<CustomerEntity, uint>, CustomerRepository<CustomerEntity, uint>>();
 
+        }
 
         /// <summary>
         /// Created By : Sushil Kumar on 23rd Sep 2016 
@@ -89,47 +118,17 @@ namespace Bikewale.BindViewModels.Webforms.Used
         /// </summary>
         public SearchUsedBikes()
         {
-            using (IUnityContainer container = new UnityContainer())
-            {
-                container.RegisterType<IBikeMaskingCacheRepository<BikeModelEntity, int>, BikeModelMaskingCache<BikeModelEntity, int>>()
-                .RegisterType<ICacheManager, MemcacheManager>()
-                .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
-                .RegisterType<ICityCacheRepository, CityCacheRepository>()
-                .RegisterType<ICityMaskingCacheRepository, CityMaskingCache>()
-                .RegisterType<ICity, CityRepository>()
-                .RegisterType<IBikeMakesCacheRepository, BikeMakesCacheRepository>()
-                .RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>()
-                .RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>()
-                .RegisterType<ISearchFilters, ProcessSearchFilters>()
-                .RegisterType<ISearchQuery, SearchQuery>()
-                .RegisterType<ISearchRepository, SearchRepository>()
-                .RegisterType<ISearch, SearchBikes>()
-                .RegisterType<IPager, Pager>()
-                .RegisterType<IApiGatewayCaller, ApiGatewayCaller>()
-                .RegisterType<IBikeModelsCacheHelper, BikeModelsCacheHelper>()
-                .RegisterType<IUserReviewsSearch, UserReviewsSearch>()
-                .RegisterType<IArticles, Articles>()
-                .RegisterType<ICMSCacheContent, CMSCacheRepository>()
-                .RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>()
-                .RegisterType<IVideos, Bikewale.BAL.Videos.Videos>()
-                .RegisterType<IUserReviews, Bikewale.BAL.UserReviews.UserReviews>()
-                .RegisterType<IUserReviewsCache, UserReviewsCacheRepository>()
-                .RegisterType<IUserReviewsRepository, UserReviewsRepository>()
-                .RegisterType<ICustomer<CustomerEntity, uint>, Customer<CustomerEntity, uint>>()
-                .RegisterType<ICustomerRepository<CustomerEntity, uint>, CustomerRepository<CustomerEntity, uint>>();
-
-                objCityCache = container.Resolve<ICityMaskingCacheRepository>();
-                objMakeCache = container.Resolve<IBikeMakesCacheRepository>();
-                objCitiesCache = container.Resolve<ICityCacheRepository>();
-                objModels = container.Resolve<IBikeModels<BikeModelEntity, int>>();
-                objModelsCache = container.Resolve<IBikeMaskingCacheRepository<BikeModelEntity, int>>();
-                objPager = container.Resolve<IPager>();
-                objSearch = container.Resolve<ISearch>();
-            }
-
+            
+                objCityCache = _container.Resolve<ICityMaskingCacheRepository>();
+                objMakeCache = _container.Resolve<IBikeMakesCacheRepository>();
+                objCitiesCache = _container.Resolve<ICityCacheRepository>();
+                objModels = _container.Resolve<IBikeModels<BikeModelEntity, int>>();
+                objModelsCache = _container.Resolve<IBikeMaskingCacheRepository<BikeModelEntity, int>>();
+                objPager = _container.Resolve<IPager>();
+                objSearch = _container.Resolve<ISearch>();
+            
             City = "India";
             ProcessQueryString();
-
         }
 
         /// <summary>
@@ -153,7 +152,6 @@ namespace Bikewale.BindViewModels.Webforms.Used
             catch (Exception ex)
             {
                 Bikewale.Notifications.ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"] + " : GetAllCities");
-
             }
         }
 

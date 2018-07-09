@@ -15,6 +15,15 @@ namespace Bikewale.Ajax
 {
     public class AjaxBikeBooking
     {
+        static readonly IUnityContainer _container;
+        static AjaxBikeBooking()
+        {
+            _container = new UnityContainer();
+            _container.RegisterType<IDealerPriceQuote, Bikewale.BAL.BikeBooking.DealerPriceQuote>();
+            _container.RegisterType<IMobileVerificationRepository, MobileVerification>();
+            _container.RegisterType<IMobileVerification, MobileVerification>();
+        }
+
         // Marked unused By : Sadhana Upadhyay
         /// <summary>
         /// Created By : Sadhana Upadhyay on 30 Oct 2014
@@ -28,34 +37,29 @@ namespace Bikewale.Ajax
             bool isSuccess = false;
             try
             {
-                using (IUnityContainer container = new UnityContainer())
+                IDealerPriceQuote objDealer = _container.Resolve<IDealerPriceQuote>();                
+                IMobileVerificationRepository mobileVerRespo = _container.Resolve<IMobileVerificationRepository>();
+
+                if (!mobileVerRespo.IsMobileVerified(customerMobile, customerEmail))
                 {
-                    container.RegisterType<IDealerPriceQuote, Bikewale.BAL.BikeBooking.DealerPriceQuote>();
-                    IDealerPriceQuote objDealer = container.Resolve<IDealerPriceQuote>();
-
-                    container.RegisterType<IMobileVerificationRepository, MobileVerification>();
-                    IMobileVerificationRepository mobileVerRespo = container.Resolve<IMobileVerificationRepository>();
-
-                    if (!mobileVerRespo.IsMobileVerified(customerMobile, customerEmail))
+                    if (mobileVerRespo.VerifyMobileVerificationCode(customerMobile, cwiCode, string.Empty))
                     {
-                        if (mobileVerRespo.VerifyMobileVerificationCode(customerMobile, cwiCode, ""))
-                        {
-                            isSuccess = objDealer.UpdateIsMobileVerified(pqId);
+                        isSuccess = objDealer.UpdateIsMobileVerified(pqId);
 
-                            // if mobile no is verified push lead to autobiz
-                            if (isSuccess)
-                            {
-                                BikeBookingOperations.PushInquiryInAB(branchId, pqId, customerName, customerMobile, customerEmail, versionId, cityId);
-                            }
+                        // if mobile no is verified push lead to autobiz
+                        if (isSuccess)
+                        {
+                            BikeBookingOperations.PushInquiryInAB(branchId, pqId, customerName, customerMobile, customerEmail, versionId, cityId);
                         }
                     }
                 }
+
             }
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn(ex.Message);
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
             return isSuccess;
         }
@@ -75,44 +79,37 @@ namespace Bikewale.Ajax
             MobileVerificationEntity mobileVer = null;
             try
             {
-                using (IUnityContainer container = new UnityContainer())
+                IDealerPriceQuote objDealer = _container.Resolve<IDealerPriceQuote>();
+                IMobileVerificationRepository mobileVerRespo = _container.Resolve<IMobileVerificationRepository>();
+                IMobileVerification mobileVerificetion = _container.Resolve<IMobileVerification>();
+
+                if (!mobileVerRespo.IsMobileVerified(customerMobile, customerEmail))
                 {
-                    container.RegisterType<IDealerPriceQuote, Bikewale.BAL.BikeBooking.DealerPriceQuote>();
-                    IDealerPriceQuote objDealer = container.Resolve<IDealerPriceQuote>();
+                    mobileVer = mobileVerificetion.ProcessMobileVerification(customerEmail, customerMobile);
 
-                    container.RegisterType<IMobileVerificationRepository, MobileVerification>();
-                    IMobileVerificationRepository mobileVerRespo = container.Resolve<IMobileVerificationRepository>();
-
-                    container.RegisterType<IMobileVerification, MobileVerification>();
-                    IMobileVerification mobileVerificetion = container.Resolve<IMobileVerification>();
-
-                    if (!mobileVerRespo.IsMobileVerified(customerMobile, customerEmail))
-                    {
-                        mobileVer = mobileVerificetion.ProcessMobileVerification(customerEmail, customerMobile);
-
-                        SMSTypes st = new SMSTypes();
-                        st.SMSMobileVerification(mobileVer.CustomerMobile, customerName, mobileVer.CWICode, HttpContext.Current.Request.ServerVariables["URL"].ToString());
-                    }
-                    else
-                    {
-                        isSuccess = objDealer.UpdateIsMobileVerified(pqId);
-                        isVerified = true;
-
-                        // If customer is mobile verified push lead to autobiz
-                        if (isVerified)
-                        {
-                            BikeBookingOperations.PushInquiryInAB(branchId, pqId, customerName, customerMobile, customerEmail, versionId, cityId);
-                        }
-                    }
-
-                    isSuccess = objDealer.UpdateMobileNumber(pqId, customerMobile);
+                    SMSTypes st = new SMSTypes();
+                    st.SMSMobileVerification(mobileVer.CustomerMobile, customerName, mobileVer.CWICode, HttpContext.Current.Request.ServerVariables["URL"].ToString());
                 }
+                else
+                {
+                    isSuccess = objDealer.UpdateIsMobileVerified(pqId);
+                    isVerified = true;
+
+                    // If customer is mobile verified push lead to autobiz
+                    if (isVerified)
+                    {
+                        BikeBookingOperations.PushInquiryInAB(branchId, pqId, customerName, customerMobile, customerEmail, versionId, cityId);
+                    }
+                }
+
+                isSuccess = objDealer.UpdateMobileNumber(pqId, customerMobile);
+
             }
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn(ex.Message);
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
             return isVerified;
         }
@@ -132,31 +129,27 @@ namespace Bikewale.Ajax
             MobileVerificationEntity mobileVer = null;
             try
             {
-                using (IUnityContainer container = new UnityContainer())
+
+                IMobileVerificationRepository mobileVerRespo = _container.Resolve<IMobileVerificationRepository>();
+                IMobileVerification mobileVerificetion = _container.Resolve<IMobileVerification>();
+
+                if (!mobileVerRespo.IsMobileVerified(customerMobile, customerEmail))
                 {
-                    container.RegisterType<IMobileVerificationRepository, MobileVerification>();
-                    IMobileVerificationRepository mobileVerRespo = container.Resolve<IMobileVerificationRepository>();
+                    mobileVer = mobileVerificetion.ProcessMobileVerification(customerEmail, customerMobile);
 
-                    container.RegisterType<IMobileVerification, MobileVerification>();
-                    IMobileVerification mobileVerificetion = container.Resolve<IMobileVerification>();
+                    SMSTypes st = new SMSTypes();
+                    st.SMSMobileVerification(mobileVer.CustomerMobile, customerName, mobileVer.CWICode, HttpContext.Current.Request.ServerVariables["URL"].ToString());
 
-                    if (!mobileVerRespo.IsMobileVerified(customerMobile, customerEmail))
-                    {
-                        mobileVer = mobileVerificetion.ProcessMobileVerification(customerEmail, customerMobile);
-
-                        SMSTypes st = new SMSTypes();
-                        st.SMSMobileVerification(mobileVer.CustomerMobile, customerName, mobileVer.CWICode, HttpContext.Current.Request.ServerVariables["URL"].ToString());
-
-                        isSuccess = true;
-                    }
-
+                    isSuccess = true;
                 }
+
+
             }
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn(ex.Message);
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
             return isSuccess;
         }
@@ -182,13 +175,8 @@ namespace Bikewale.Ajax
 
                 if (!String.IsNullOrEmpty(abInquiryId))
                 {
-                    using (IUnityContainer container = new UnityContainer())
-                    {
-                        container.RegisterType<IDealerPriceQuote, Bikewale.BAL.BikeBooking.DealerPriceQuote>();
-                        IDealerPriceQuote objDealer = container.Resolve<IDealerPriceQuote>();
-
-                        isSuccess = objDealer.PushedToAB(pqId, Convert.ToUInt32(abInquiryId));
-                    }
+                    IDealerPriceQuote objDealer = _container.Resolve<IDealerPriceQuote>();
+                    isSuccess = objDealer.PushedToAB(pqId, Convert.ToUInt32(abInquiryId));
                 }
             }
             catch (Exception ex)
@@ -200,39 +188,6 @@ namespace Bikewale.Ajax
             return isSuccess;
         }
 
-#if unused
-        /// <summary>
-        /// Written By : Ashwini Todkar on 3 Oct 2014
-        /// PopulateWhere to set shecdule appointmnet date
-        /// </summary>
-        /// <param name="pqId"></param>
-        /// <returns>if a valid user then returns true else false</returns>
-        [AjaxPro.AjaxMethod()]
-        public bool UpdateAppointmentDate(UInt32 pqId, string date)
-        {
-            bool isSuccess = false;
-
-            try
-            {
-                using (IUnityContainer container = new UnityContainer())
-                {
-                    container.RegisterType<IDealerPriceQuote, Bikewale.BAL.BikeBooking.DealerPriceQuote>();
-                    IDealerPriceQuote objDealer = container.Resolve<IDealerPriceQuote>();
-
-                    isSuccess = objDealer.UpdateAppointmentDate(pqId, DateTime.Parse(date));
-
-                }
-            }
-            catch (Exception ex)
-            {
-                HttpContext.Current.Trace.Warn(ex.Message);
-                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
-            }
-
-            return isSuccess;
-        }
-#endif
         /// <summary>
         /// Created By : Sadhana Upadhyay on 10 Nov 2014
         /// Summary : to check new bike pq exist or not
@@ -244,22 +199,16 @@ namespace Bikewale.Ajax
         {
             bool isSuccess = false;
             string abInquiryId = string.Empty;
-
             try
             {
-                using (IUnityContainer container = new UnityContainer())
-                {
-                    container.RegisterType<IDealerPriceQuote, Bikewale.BAL.BikeBooking.DealerPriceQuote>();
-                    IDealerPriceQuote objDealer = container.Resolve<IDealerPriceQuote>();
-
-                    isSuccess = objDealer.IsNewBikePQExists(pqId);
-                }
+                IDealerPriceQuote objDealer = _container.Resolve<IDealerPriceQuote>();
+                isSuccess = objDealer.IsNewBikePQExists(pqId);
             }
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn(ex.Message);
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
             return isSuccess;
         }
@@ -278,19 +227,14 @@ namespace Bikewale.Ajax
 
             try
             {
-                using (IUnityContainer container = new UnityContainer())
-                {
-                    container.RegisterType<IDealerPriceQuote, Bikewale.BAL.BikeBooking.DealerPriceQuote>();
-                    IDealerPriceQuote objDealer = container.Resolve<IDealerPriceQuote>();
-
-                    isUpdated = objDealer.UpdatePQBikeColor(colorId, pqId);
-                }
+                IDealerPriceQuote objDealer = _container.Resolve<IDealerPriceQuote>();
+                isUpdated = objDealer.UpdatePQBikeColor(colorId, pqId);
             }
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn(ex.Message);
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
             return isUpdated;
         }
@@ -308,19 +252,14 @@ namespace Bikewale.Ajax
             bool isDealerPricesAvailable = false;
             try
             {
-                using (IUnityContainer container = new UnityContainer())
-                {
-                    container.RegisterType<IDealerPriceQuote, Bikewale.BAL.BikeBooking.DealerPriceQuote>();
-                    IDealerPriceQuote objDealer = container.Resolve<IDealerPriceQuote>();
-
-                    isDealerPricesAvailable = objDealer.IsDealerPriceAvailable(versionId, cityId);
-                }
+                IDealerPriceQuote objDealer = _container.Resolve<IDealerPriceQuote>();
+                isDealerPricesAvailable = objDealer.IsDealerPriceAvailable(versionId, cityId);
             }
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn(ex.Message);
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
             return isDealerPricesAvailable;
         }
@@ -343,11 +282,8 @@ namespace Bikewale.Ajax
             Bikewale.Entities.BikeBooking.v2.PQOutputEntity objPQOutput = null;
             try
             {
-                using (IUnityContainer container = new UnityContainer())
-                {
-                    // save price quote
-                    container.RegisterType<IDealerPriceQuote, Bikewale.BAL.BikeBooking.DealerPriceQuote>();
-                    IDealerPriceQuote objIPQ = container.Resolve<IDealerPriceQuote>();
+
+                    IDealerPriceQuote objIPQ = _container.Resolve<IDealerPriceQuote>();
 
                     Entities.PriceQuote.v2.PriceQuoteParametersEntity objPQEntity = new Entities.PriceQuote.v2.PriceQuoteParametersEntity();
                     objPQEntity.CityId = cityId;
@@ -358,26 +294,13 @@ namespace Bikewale.Ajax
 
                     // If pqId exists then, set pqId
                     objPQOutput = objIPQ.ProcessPQV3(objPQEntity);
-
-                }
             }
             catch (Exception ex)
             {
                 string selectedParams = "cityid : " + cityId + ", areaId : " + areaId + ", modelId : " + modelId;
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"] + " " + selectedParams);
                 
-            }
-
-            // Check if dealer price quote exists for the given area id
-            //finally
-            //{
-
-            //    if (objPQOutput.PQId > 0)
-            //    {
-            //        // Save pq cookie
-            //        PriceQuoteCookie.SavePQCookie(cityId.ToString(), objPQOutput.PQId.ToString(), areaId.ToString(), objPQOutput.VersionId.ToString(), objPQOutput.DealerId.ToString());
-            //    }
-            //}
+            }     
 
             response = "{\"quoteId\":\"" + objPQOutput.PQId + "\",\"dealerId\":\"" + objPQOutput.DealerId + "\"}";
 

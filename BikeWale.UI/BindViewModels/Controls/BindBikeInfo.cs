@@ -37,32 +37,24 @@ namespace Bikewale.BindViewModels.Controls
         public float Rating { get; set; }
         public UInt16 RatingCount { get; set; }
         public UInt16 UserReviewCount { get; set; }
+        private readonly static IUnityContainer _container;
+
+        static BindBikeInfo()
+        {
+            _container = new UnityContainer();
+            _container.RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
+                       .RegisterType<ICacheManager, MemcacheManager>()
+                       .RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>()
+                       .RegisterType<IPager, Pager>()
+                       .RegisterType<IBikeModelsCacheHelper, BikeModelsCacheHelper>()
+                       .RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>()
+                       .RegisterType<IApiGatewayCaller, ApiGatewayCaller>()
+                       .RegisterType<IBikeInfo, BikeInfo>();
+        }
+
         public BindBikeInfo()
         {
-            try
-            {
-                using (IUnityContainer container = new UnityContainer())
-                {
-
-                    container.RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
-                        .RegisterType<ICacheManager, MemcacheManager>()
-                        .RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>()
-                        .RegisterType<IPager, Pager>()
-						.RegisterType<IBikeModelsCacheHelper, BikeModelsCacheHelper>()
-                        .RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>()
-						.RegisterType<IApiGatewayCaller, ApiGatewayCaller>()
-						.RegisterType<IBikeInfo, BikeInfo>();
-
-
-                    _objGenericBike = container.Resolve<IBikeInfo>();
-                }
-
-            }
-            catch (Exception ex)
-            {
-                Bikewale.Notifications.ErrorClass.LogError(ex, "BindBikeInfo.BindBikeInfo");
-            }
-
+            _objGenericBike = _container.Resolve<IBikeInfo>();
         }
 
         /// <summary>
@@ -191,8 +183,6 @@ namespace Bikewale.BindViewModels.Controls
                 catch (Exception ex)
                 {
                     Bikewale.Notifications.ErrorClass.LogError(ex, "BindGenericBikeInfo.BindInfoWidgetDatas");
-
-
                 }
             }
         }
