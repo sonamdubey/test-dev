@@ -401,7 +401,10 @@ namespace BikewaleOpr.DALs.ContractCampaign
                     {
 
                         objDealerCampaignArea.DealerName = results.Read<string>().SingleOrDefault();
-                        objDealerCampaignArea.Areas = results.Read<CampaignAreas>();
+                        if (!results.IsConsumed)
+                            objDealerCampaignArea.Areas = results.Read<CampaignAreas>();
+                        else
+                            objDealerCampaignArea.Areas = new List<CampaignAreas>();
                     }
 
                 }
@@ -486,7 +489,10 @@ namespace BikewaleOpr.DALs.ContractCampaign
                     using (var results = connection.QueryMultiple("GetDealerToAreasDistance", param: param, commandType: CommandType.StoredProcedure))
                     {
                         objDistances.DealerLocation = results.Read<GeoLocationEntity>().SingleOrDefault();
-                        objDistances.Areas = results.Read<GeoLocationEntity>();
+                        if(!results.IsConsumed)
+                            objDistances.Areas = results.Read<GeoLocationEntity>();
+                        else
+                            objDistances.Areas = new List<GeoLocationEntity>();
                     }
 
                 }
@@ -527,7 +533,10 @@ namespace BikewaleOpr.DALs.ContractCampaign
                     {
                         objDistances = new DealerAreaDistance();
                         objDistances.DealerLocation = results.Read<GeoLocationEntity>().SingleOrDefault();
-                        objDistances.Areas = results.Read<GeoLocationEntity>();
+                        if(!results.IsConsumed)
+                            objDistances.Areas = results.Read<GeoLocationEntity>();
+                        else
+                            objDistances.Areas = new List<GeoLocationEntity>();
                     }
 
 

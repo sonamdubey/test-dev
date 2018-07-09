@@ -108,7 +108,10 @@ namespace BikewaleOpr.DALs.BikePricing
                     {
                         priceSheetBase = new DealerPriceBaseEntity();
                         priceSheetBase.DealerVersions = results.Read<DealerVersionEntity>();
-                        priceSheetBase.VersionPrices = results.Read<VersionPriceEntity>();
+                        if(!results.IsConsumed)
+                            priceSheetBase.VersionPrices = results.Read<VersionPriceEntity>();
+                        else
+                            priceSheetBase.VersionPrices = new List<VersionPriceEntity>();
                     }
                 }
             }
