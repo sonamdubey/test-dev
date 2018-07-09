@@ -252,7 +252,7 @@ namespace Bikewale.Ajax
             bool isDealerPricesAvailable = false;
             try
             {
-                IDealerPriceQuote objDealer = container.Resolve<IDealerPriceQuote>();
+                IDealerPriceQuote objDealer = _container.Resolve<IDealerPriceQuote>();
                 isDealerPricesAvailable = objDealer.IsDealerPriceAvailable(versionId, cityId);
             }
             catch (Exception ex)
