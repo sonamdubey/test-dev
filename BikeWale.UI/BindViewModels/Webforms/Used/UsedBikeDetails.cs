@@ -41,6 +41,17 @@ namespace Bikewale.BindViewModels.Webforms.Used
         public string ProfileId { get; set; }
         private string _customerId = string.Empty;
         private IApiGatewayCaller _apiGatewayCaller;
+        static readonly IUnityContainer _container;
+
+        static UsedBikeDetailsPage()
+        {
+            _container = new UnityContainer();
+            _container.RegisterType<IUsedBikeDetailsCacheRepository, UsedBikeDetailsCache>()
+                     .RegisterType<ICacheManager, MemcacheManager>()
+                     .RegisterType<IUsedBikeDetails, UsedBikeDetailsRepository>()
+                     .RegisterType<IApiGatewayCaller, ApiGatewayCaller>()
+                    ;
+        }
 
         /// <summary>
         /// Created By : Sushil Kumar on 17th August 2016
@@ -80,15 +91,9 @@ namespace Bikewale.BindViewModels.Webforms.Used
         {
             try
             {
-                using (IUnityContainer container = new UnityContainer())
-                {
-                    container.RegisterType<IUsedBikeDetailsCacheRepository, UsedBikeDetailsCache>()
-                             .RegisterType<ICacheManager, MemcacheManager>()
-                             .RegisterType<IUsedBikeDetails, UsedBikeDetailsRepository>()
-                             .RegisterType<IApiGatewayCaller, ApiGatewayCaller>()
-                            ;
-                    var objCache = container.Resolve<IUsedBikeDetailsCacheRepository>();
-                    _apiGatewayCaller = container.Resolve<IApiGatewayCaller>();
+                
+                    var objCache = _container.Resolve<IUsedBikeDetailsCacheRepository>();
+                    _apiGatewayCaller = _container.Resolve<IApiGatewayCaller>();
 
                     InquiryDetails = objCache.GetProfileDetails(InquiryId);
                     if (InquiryDetails != null && InquiryDetails.Version.VersionId > 0)
@@ -147,8 +152,7 @@ namespace Bikewale.BindViewModels.Webforms.Used
 
                     }
                     else
-                        IsPageNotFoundRedirection = true;
-                }
+                        IsPageNotFoundRedirection = true;                
             }
             catch (Exception ex)
             {

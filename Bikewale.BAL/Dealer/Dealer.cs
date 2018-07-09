@@ -25,6 +25,14 @@ namespace Bikewale.BAL.Dealer
         private readonly IDealerCacheRepository _dealerCacheRepository;
         private readonly IApiGatewayCaller _apiGatewayCaller;
 
+        static readonly IUnityContainer _container;
+        static Dealer()
+        {
+            _container = new UnityContainer();
+            _container.RegisterType<Bikewale.Interfaces.AutoBiz.IDealerPriceQuote, Bikewale.DAL.AutoBiz.DealerPriceQuoteRepository>();
+
+        }
+
         public Dealer(IDealerRepository dealerRepository, IDealerCacheRepository dealerCacheRepository, IApiGatewayCaller apiGatewayCaller)
         {
             _dealerRepository = dealerRepository;
@@ -141,12 +149,8 @@ namespace Bikewale.BAL.Dealer
             List<CityEntityBase> lstCity = null;
             try
             {
-                using (IUnityContainer container = new UnityContainer())
-                {
-                    container.RegisterType<Bikewale.Interfaces.AutoBiz.IDealerPriceQuote, Bikewale.DAL.AutoBiz.DealerPriceQuoteRepository>();
-                    Bikewale.Interfaces.AutoBiz.IDealerPriceQuote objPriceQuote = container.Resolve<Bikewale.DAL.AutoBiz.DealerPriceQuoteRepository>();
-                    lstCity = objPriceQuote.GetBikeBookingCities(null);
-                }
+                Bikewale.Interfaces.AutoBiz.IDealerPriceQuote objPriceQuote = _container.Resolve<Bikewale.DAL.AutoBiz.DealerPriceQuoteRepository>();
+                lstCity = objPriceQuote.GetBikeBookingCities(null);
             }
             catch (Exception ex)
             {

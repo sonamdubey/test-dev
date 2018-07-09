@@ -43,6 +43,22 @@ namespace Bikewale.New
         protected DealerDetailEntity dealerObj;
         protected MostPopularBikes_new ctrlPopoularBikeMake;
         protected ServiceCenterCard ctrlServiceCenterCard;
+        static readonly  IUnityContainer _container ;
+        static BikeDealerDetails()
+        {
+            _container = new UnityContainer();
+
+            _container.RegisterType<IDealer, Dealer>()
+                     .RegisterType<IDealerCacheRepository, DealerCacheRepository>()
+                     .RegisterType<ICacheManager, MemcacheManager>()
+                     .RegisterType<IDealerRepository, DealersRepository>()
+                     .RegisterType<IApiGatewayCaller, ApiGatewayCaller>();
+
+            _container.RegisterType<IBikeMakesCacheRepository, BikeMakesCacheRepository>()                                 
+                                 .RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>()
+                                ;
+        }
+
         protected override void OnInit(EventArgs e)
         {
             InitializeComponent();
@@ -169,43 +185,37 @@ namespace Bikewale.New
         {
             try
             {
-                using (IUnityContainer container = new UnityContainer())
+
+                var objDealer = _container.Resolve<IDealer>();
+                dealerDetails = objDealer.GetDealerDetailsAndBikesByDealerAndMake(dealerId, makeId);
+
+                if (dealerDetails != null && dealerDetails.DealerDetails != null)
                 {
-                    container.RegisterType<IDealer, Dealer>()
-                             .RegisterType<IDealerCacheRepository, DealerCacheRepository>()
-                             .RegisterType<ICacheManager, MemcacheManager>()
-                             .RegisterType<IDealerRepository, DealersRepository>()
-                             .RegisterType<IApiGatewayCaller, ApiGatewayCaller>();
-                    var objDealer = container.Resolve<IDealer>();
-                    dealerDetails = objDealer.GetDealerDetailsAndBikesByDealerAndMake(dealerId, makeId);
-
-                    if (dealerDetails != null && dealerDetails.DealerDetails != null)
+                    dealerObj = dealerDetails.DealerDetails;
+                    dealerName = dealerObj.Name;
+                    dealerMaskingName = UrlFormatter.RemoveSpecialCharUrl(dealerName);
+                    cityName = dealerObj.City;
+                    if (dealerObj.Area != null)
                     {
-                        dealerObj = dealerDetails.DealerDetails;
-                        dealerName = dealerObj.Name;
-                        dealerMaskingName = UrlFormatter.RemoveSpecialCharUrl(dealerName);
-                        cityName = dealerObj.City;
-                        if (dealerObj.Area != null)
-                        {
-                            areaName = dealerObj.objArea.AreaName;
-                            areaId = dealerObj.objArea.AreaId;
-                        }
-                        address = dealerObj.Address;
-                        maskingNumber = dealerObj.MaskingNumber;
-                        eMail = dealerObj.EMail;
-                        workingHours = dealerObj.WorkingHours;
-                        makeName = dealerObj.MakeName;
-                        cityMaskingName = dealerObj.CityMaskingName;
-                        cityId = (uint)dealerObj.CityId;
-                        pincode = dealerObj.Pincode;
-                        ctaSmallText = dealerObj.DisplayTextSmall;
+                        areaName = dealerObj.objArea.AreaName;
+                        areaId = dealerObj.objArea.AreaId;
+                    }
+                    address = dealerObj.Address;
+                    maskingNumber = dealerObj.MaskingNumber;
+                    eMail = dealerObj.EMail;
+                    workingHours = dealerObj.WorkingHours;
+                    makeName = dealerObj.MakeName;
+                    cityMaskingName = dealerObj.CityMaskingName;
+                    cityId = (uint)dealerObj.CityId;
+                    pincode = dealerObj.Pincode;
+                    ctaSmallText = dealerObj.DisplayTextSmall;
 
-                    }
-                    else
-                    {
-                        UrlRewrite.Return404();
-                    }
                 }
+                else
+                {
+                    UrlRewrite.Return404();
+                }
+
             }
             catch (Exception ex)
             {
@@ -237,15 +247,8 @@ namespace Bikewale.New
                     dealerId = Convert.ToUInt32(currentReq.QueryString["dealerid"]);
                     if (dealerId > 0 && !string.IsNullOrEmpty(makeMaskingName))
                     {
-                        using (IUnityContainer container = new UnityContainer())
-                        {
-                            container.RegisterType<IBikeMakesCacheRepository, BikeMakesCacheRepository>()
-                                  .RegisterType<ICacheManager, MemcacheManager>()
-                                  .RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>()
-                                 ;
-                            var objCache = container.Resolve<IBikeMakesCacheRepository>();
-                            objResponse = objCache.GetMakeMaskingResponse(makeMaskingName);
-                        }
+                        var objCache = _container.Resolve<IBikeMakesCacheRepository>();
+                        objResponse = objCache.GetMakeMaskingResponse(makeMaskingName);
                     }
                     else
                     {

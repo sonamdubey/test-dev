@@ -19,7 +19,6 @@ namespace Bikewale.Models.BestBikes
     {
         #region Private variables
         private readonly IBikeModels<BikeModelEntity, int> _models = null;
-        private readonly IApiGatewayCaller _apiGatewayCaller;
         private int TotalWidgetItems = 9;
         #endregion
         
@@ -33,7 +32,6 @@ namespace Bikewale.Models.BestBikes
         public PopularBikesByBodyStyle(IBikeModels<BikeModelEntity, int> models)
         {
             _models = models;
-            _apiGatewayCaller = new ApiGatewayCaller();
         }
         #endregion
 

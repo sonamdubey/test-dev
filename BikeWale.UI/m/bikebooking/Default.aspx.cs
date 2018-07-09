@@ -29,6 +29,21 @@ namespace Bikewale.Mobile.bikebooking
         protected uint cityId = 0, areaId = 0;
         protected StringBuilder cityListData = new System.Text.StringBuilder(), areaListData = new System.Text.StringBuilder();
 
+        static readonly IUnityContainer _container;
+        static Default()
+        {
+            _container = new UnityContainer();
+
+            _container.RegisterType<IDealer, Dealer>()
+                .RegisterType<IDealerRepository, DealersRepository>()
+                .RegisterType<IDealerCacheRepository, DealerCacheRepository>()
+                .RegisterType<IApiGatewayCaller, ApiGatewayCaller>()
+                .RegisterType<ICacheManager, MemcacheManager>();
+            _container.RegisterType<IArea, AreaRepository>();
+
+        }
+
+
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -51,45 +66,38 @@ namespace Bikewale.Mobile.bikebooking
             try
             {
                 bookingCities = new List<CityEntityBase>();
-                using (IUnityContainer container = new UnityContainer())
+
+                IDealer _objDealerPricequote = _container.Resolve<IDealer>();
+
+                bookingCities = _objDealerPricequote.GetDealersBookingCitiesList();
+
+                if (bookingCities != null && bookingCities.Count > 0)
                 {
-                    container.RegisterType<IDealer, Dealer>()
-                        .RegisterType<IDealerRepository, DealersRepository>()
-                        .RegisterType<IDealerCacheRepository, DealerCacheRepository>()
-                        .RegisterType<IApiGatewayCaller, ApiGatewayCaller>()
-                        .RegisterType<ICacheManager, MemcacheManager>();
-                    IDealer _objDealerPricequote = container.Resolve<IDealer>();
-
-                    bookingCities = _objDealerPricequote.GetDealersBookingCitiesList();
-
-                    if (bookingCities != null && bookingCities.Count > 0)
+                    bool citySelected = false;
+                    foreach (var city in bookingCities)
                     {
-                        bool citySelected = false;
-                        foreach (var city in bookingCities)
+                        if (cityId != city.CityId)
+                            cityListData.AppendFormat("<li cityId='{0}'>{1}</li>", city.CityId, city.CityName);
+                        else
                         {
-                            if (cityId != city.CityId)
-                                cityListData.AppendFormat("<li cityId='{0}'>{1}</li>", city.CityId, city.CityName);
-                            else
-                            {
-                                cityListData.AppendFormat("<li class='activeCity' cityId='{0}'>{1}</li>", city.CityId, city.CityName);
-                                citySelected = true;
-                            }
+                            cityListData.AppendFormat("<li class='activeCity' cityId='{0}'>{1}</li>", city.CityId, city.CityName);
+                            citySelected = true;
                         }
+                    }
 
-                        if (citySelected)
-                        {
-                            GetDealerAreas();
-                        }
-
+                    if (citySelected)
+                    {
+                        GetDealerAreas();
                     }
 
                 }
+
             }
             catch (Exception err)
             {
                 Trace.Warn(err.Message);
                 Bikewale.Notifications.ErrorClass.LogError(err, Request.ServerVariables["URL"]);
-                
+
             }
         }
 
@@ -103,32 +111,30 @@ namespace Bikewale.Mobile.bikebooking
             try
             {
                 bookingAreas = new List<AreaEntityBase>();
-                using (IUnityContainer container = new UnityContainer())
+
+                IArea _areaRepo = _container.Resolve<IArea>();
+                bookingAreas = _areaRepo.GetAreasByCity(Convert.ToUInt16(cityId));
+
+                if (bookingAreas != null && bookingAreas.Any())
                 {
-                    container.RegisterType<IArea, AreaRepository>();
-                    IArea _areaRepo = container.Resolve<IArea>();
-                    bookingAreas = _areaRepo.GetAreasByCity(Convert.ToUInt16(cityId));
-
-                    if (bookingAreas != null && bookingAreas.Any())
+                    foreach (var area in bookingAreas)
                     {
-                        foreach (var area in bookingAreas)
+                        if (areaId != area.AreaId)
+                            areaListData.AppendFormat("<li areaId='{0}'>{1}</li>", area.AreaId, area.AreaName);
+                        else
                         {
-                            if (areaId != area.AreaId)
-                                areaListData.AppendFormat("<li areaId='{0}'>{1}</li>", area.AreaId, area.AreaName);
-                            else
-                            {
-                                areaListData.AppendFormat("<li class='activeArea' areaId='{0}'>{1}</li>", area.AreaId, area.AreaName);
-                            }
+                            areaListData.AppendFormat("<li class='activeArea' areaId='{0}'>{1}</li>", area.AreaId, area.AreaName);
                         }
-
                     }
+
                 }
+
             }
             catch (Exception err)
             {
                 Trace.Warn(err.Message);
                 Bikewale.Notifications.ErrorClass.LogError(err, Request.ServerVariables["URL"]);
-                
+
             }
         }
 

@@ -51,6 +51,21 @@ namespace Bikewale.Mobile
         {
             this.Load += new EventHandler(Page_Load);
         }
+        static readonly IUnityContainer _container ;
+        static DealerDetails()
+        {
+            _container = new UnityContainer();
+
+            _container.RegisterType<IDealer, Dealer>()
+                     .RegisterType<IDealerCacheRepository, DealerCacheRepository>()
+                     .RegisterType<ICacheManager, MemcacheManager>()
+                     .RegisterType<IDealerRepository, DealersRepository>()
+                     .RegisterType<IApiGatewayCaller, ApiGatewayCaller>();
+            _container.RegisterType<IBikeMakesCacheRepository, BikeMakesCacheRepository>()
+                     .RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>();
+
+        }
+
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -143,64 +158,57 @@ namespace Bikewale.Mobile
             DealerBikesEntity dealer = null;
             try
             {
-                using (IUnityContainer container = new UnityContainer())
+
+                var objDealer = _container.Resolve<IDealer>();
+                dealer = objDealer.GetDealerDetailsAndBikesByDealerAndMake(dealerId, makeId);
+
+                if (dealer != null && dealer.DealerDetails != null)
                 {
-                    container.RegisterType<IDealer, Dealer>()
-                             .RegisterType<IDealerCacheRepository, DealerCacheRepository>()
-                             .RegisterType<ICacheManager, MemcacheManager>()
-                             .RegisterType<IDealerRepository, DealersRepository>()
-                             .RegisterType<IApiGatewayCaller, ApiGatewayCaller>();
-                    var objDealer = container.Resolve<IDealer>();
-                    dealer = objDealer.GetDealerDetailsAndBikesByDealerAndMake(dealerId, makeId);
+                    dealerDetails = dealer.DealerDetails;
 
-                    if (dealer != null && dealer.DealerDetails != null)
+                    isDealerDetail = true;
+
+                    cityMaskingName = dealerDetails.CityMaskingName;
+
+                    dealerName = dealerDetails.Name;
+                    dealerArea = dealerDetails.objArea.AreaName;
+                    dealerCity = dealerDetails.City;
+
+                    ctaSmallText = dealerDetails.DisplayTextSmall;
+
+                    if (dealerDetails.Area != null)
                     {
-                        dealerDetails = dealer.DealerDetails;
-
-                        isDealerDetail = true;
-
-                        cityMaskingName = dealerDetails.CityMaskingName;
-
-                        dealerName = dealerDetails.Name;
-                        dealerArea = dealerDetails.objArea.AreaName;
-                        dealerCity = dealerDetails.City;
-
-                        ctaSmallText = dealerDetails.DisplayTextSmall;
-
-                        if (dealerDetails.Area != null)
-                        {
-                            areaId = dealerDetails.objArea.AreaId;
-                            dealerLat = dealerDetails.objArea.Latitude;
-                            dealerLong = dealerDetails.objArea.Longitude;
-                        }
-                        ctrlDealerCard.MakeId = (uint)dealerDetails.MakeId;
-                        ctrlDealerCard.makeMaskingName = dealerDetails.MakeMaskingName;
-                        ctrlDealerCard.makeName = dealerDetails.MakeName;
-                        ctrlDealerCard.CityId = cityId = (uint)dealerDetails.CityId;
-                        ctrlDealerCard.cityName = cityName = dealerCity;
-                        ctrlDealerCard.PageName = "Dealer_Details";
-                        ctrlDealerCard.TopCount = 6;
-                        ctrlDealerCard.PQSourceId = (int)PQSourceEnum.Mobile_dealer_details_Get_offers;
-                        ctrlDealerCard.LeadSourceId = 15;
-                        ctrlDealerCard.widgetHeading = string.Format("More {0} showrooms", dealerDetails.MakeName);
-                        makeName = dealerDetails.MakeName;
-                        campaignId = dealerDetails.CampaignId;
-                        ctrlDealerCard.DealerId = (int)dealerId;
-
-                        ctrlLeadCapture.CityId = (uint)dealerDetails.CityId;
-
-                        maskingNumber = dealerDetails.MaskingNumber;
-
-                        if (dealer.Models != null && dealer.Models.Any())
-                        {
-                            dealerModels = dealer.Models;
-                            dealerBikesCount = dealer.Models.Count();
-                        }
+                        areaId = dealerDetails.objArea.AreaId;
+                        dealerLat = dealerDetails.objArea.Latitude;
+                        dealerLong = dealerDetails.objArea.Longitude;
                     }
-                    else
+                    ctrlDealerCard.MakeId = (uint)dealerDetails.MakeId;
+                    ctrlDealerCard.makeMaskingName = dealerDetails.MakeMaskingName;
+                    ctrlDealerCard.makeName = dealerDetails.MakeName;
+                    ctrlDealerCard.CityId = cityId = (uint)dealerDetails.CityId;
+                    ctrlDealerCard.cityName = cityName = dealerCity;
+                    ctrlDealerCard.PageName = "Dealer_Details";
+                    ctrlDealerCard.TopCount = 6;
+                    ctrlDealerCard.PQSourceId = (int)PQSourceEnum.Mobile_dealer_details_Get_offers;
+                    ctrlDealerCard.LeadSourceId = 15;
+                    ctrlDealerCard.widgetHeading = string.Format("More {0} showrooms", dealerDetails.MakeName);
+                    makeName = dealerDetails.MakeName;
+                    campaignId = dealerDetails.CampaignId;
+                    ctrlDealerCard.DealerId = (int)dealerId;
+
+                    ctrlLeadCapture.CityId = (uint)dealerDetails.CityId;
+
+                    maskingNumber = dealerDetails.MaskingNumber;
+
+                    if (dealer.Models != null && dealer.Models.Any())
                     {
-                        UrlRewrite.Return404();
+                        dealerModels = dealer.Models;
+                        dealerBikesCount = dealer.Models.Count();
                     }
+                }
+                else
+                {
+                    UrlRewrite.Return404();
                 }
             }
             catch (Exception ex)
@@ -240,17 +248,8 @@ namespace Bikewale.Mobile
 
                     if (!String.IsNullOrEmpty(makeMaskingName))
                     {
-
-                        using (IUnityContainer container = new UnityContainer())
-                        {
-                            container.RegisterType<IBikeMakesCacheRepository, BikeMakesCacheRepository>()
-                                  .RegisterType<ICacheManager, MemcacheManager>()
-                                  .RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>()
-                                 ;
-                            var objCache = container.Resolve<IBikeMakesCacheRepository>();
-
-                            objResponse = objCache.GetMakeMaskingResponse(makeMaskingName);
-                        }
+                        var objCache = _container.Resolve<IBikeMakesCacheRepository>();
+                        objResponse = objCache.GetMakeMaskingResponse(makeMaskingName);
                     }
                     else
                     {

@@ -28,6 +28,18 @@ namespace Bikewale.BikeBooking
         List<CityEntityBase> bookingCities = null;
         IEnumerable<AreaEntityBase> bookingAreas = null;
         protected uint cityId = 0, areaId = 0;
+        static readonly IUnityContainer _container ;
+        static Default()
+        {
+            _container = new UnityContainer();
+
+            _container.RegisterType<IDealer, Dealer>()
+                .RegisterType<IDealerRepository, DealersRepository>()
+                .RegisterType<IDealerCacheRepository, DealerCacheRepository>()
+                .RegisterType<IApiGatewayCaller, ApiGatewayCaller>()
+                .RegisterType<ICacheManager, MemcacheManager>();
+            _container.RegisterType<IArea, AreaRepository>();
+        }
 
         protected override void OnInit(EventArgs e)
         {
@@ -66,29 +78,21 @@ namespace Bikewale.BikeBooking
             try
             {
                 bookingCities = new List<CityEntityBase>();
-                using (IUnityContainer container = new UnityContainer())
+
+                IDealer _objDealerPricequote = _container.Resolve<IDealer>();
+
+                bookingCities = _objDealerPricequote.GetDealersBookingCitiesList();
+
+                if (bookingCities != null && bookingCities.Count > 0)
                 {
-                    container.RegisterType<IDealer, Dealer>()
-                        .RegisterType<IDealerRepository, DealersRepository>()
-                        .RegisterType<IDealerCacheRepository, DealerCacheRepository>()
-                        .RegisterType<IApiGatewayCaller, ApiGatewayCaller>()
-                        .RegisterType<ICacheManager, MemcacheManager>();
-                    IDealer _objDealerPricequote = container.Resolve<IDealer>();
+                    bookingCitiesList.DataSource = bookingCities;
+                    bookingCitiesList.DataTextField = "CityName";
+                    bookingCitiesList.DataValueField = "CityId";
+                    bookingCitiesList.DataBind();
+                    bookingCitiesList.Items.Insert(0, " Select City ");
 
-                    bookingCities = _objDealerPricequote.GetDealersBookingCitiesList();
-
-                    if (bookingCities != null && bookingCities.Count > 0)
-                    {
-                        bookingCitiesList.DataSource = bookingCities;
-                        bookingCitiesList.DataTextField = "CityName";
-                        bookingCitiesList.DataValueField = "CityId";
-                        bookingCitiesList.DataBind();
-                        bookingCitiesList.Items.Insert(0, " Select City ");
-
-                        if (cityId > 0 && bookingCities.Any(p => p.CityId == cityId))
-                            GetDealerAreas();
-
-                    }
+                    if (cityId > 0 && bookingCities.Any(p => p.CityId == cityId))
+                        GetDealerAreas();
 
                 }
             }
@@ -96,7 +100,7 @@ namespace Bikewale.BikeBooking
             {
                 Trace.Warn(err.Message);
                 ErrorClass.LogError(err, Request.ServerVariables["URL"]);
-                
+
             }
         }
 
@@ -111,31 +115,27 @@ namespace Bikewale.BikeBooking
 
             try
             {
-                bookingAreas = new List<AreaEntityBase>();
-                using (IUnityContainer container = new UnityContainer())
+                IArea _areaRepo = _container.Resolve<IArea>();
+                bookingAreas = _areaRepo.GetAreasByCity(Convert.ToUInt16(cityId));
+
+                if (bookingAreas != null && bookingAreas.Any())
                 {
-                    container.RegisterType<IArea, AreaRepository>();
-                    IArea _areaRepo = container.Resolve<IArea>();
-                    bookingAreas = _areaRepo.GetAreasByCity(Convert.ToUInt16(cityId));
+                    bookingAreasList.DataSource = bookingAreas.ToList();
+                    bookingAreasList.DataTextField = "AreaName";
+                    bookingAreasList.DataValueField = "AreaId";
+                    bookingAreasList.DataBind();
+                    bookingAreasList.Items.Insert(0, " Select Area ");
 
-                    if (bookingAreas != null && bookingAreas.Any())
-                    {
-                        bookingAreasList.DataSource = bookingAreas.ToList();
-                        bookingAreasList.DataTextField = "AreaName";
-                        bookingAreasList.DataValueField = "AreaId";
-                        bookingAreasList.DataBind();
-                        bookingAreasList.Items.Insert(0, " Select Area ");
-
-                        if (areaId > 0 && bookingAreas.Any(p => p.AreaId == areaId))
-                            bookingAreasList.Items.FindByValue(Convert.ToString(areaId)).Selected = true;
-                    }
+                    if (areaId > 0 && bookingAreas.Any(p => p.AreaId == areaId))
+                        bookingAreasList.Items.FindByValue(Convert.ToString(areaId)).Selected = true;
                 }
+
             }
             catch (Exception err)
             {
                 Trace.Warn(err.Message);
                 ErrorClass.LogError(err, Request.ServerVariables["URL"]);
-                
+
             }
         }
 
