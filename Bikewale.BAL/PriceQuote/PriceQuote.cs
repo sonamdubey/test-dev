@@ -116,8 +116,8 @@ namespace Bikewale.BAL.PriceQuote
                 objNVC.Add("pqSourceId", Convert.ToString(pqParams.PQLeadId));
                 objNVC.Add("refGUID", pqParams.RefPQId);
 
-                RabbitMqPublish _RabbitMQPublishing = new RabbitMqPublish();
-                _RabbitMQPublishing.PublishToQueue(BWConfiguration.Instance.PQConsumerQueue, objNVC);
+                RabbitMqPublish rabbitMQPublishing = new RabbitMqPublish();
+                rabbitMQPublishing.PublishToQueue(BWConfiguration.Instance.PQConsumerQueue, objNVC);
             }catch(Exception ex)
             {
                 ErrorClass.LogError(ex, string.Format("Bikewale.BAL.PriceQuote.PriceQuote.PushToQueue()--> PQId = {0}", pqGUId));
