@@ -76,7 +76,8 @@ namespace Bikewale.BAL.PriceQuote
             {
                 DateTime startTime = DateTime.Now;
                 pqGUId = RandomNoGenerator.GenerateUniqueId();
-                Task.Run(() => PushToQueue(pqParams, pqGUId, CurrentUser.GetClientIP()));
+                string clientIp = CurrentUser.GetClientIP();
+                Task.Run(() => PushToQueue(pqParams, pqGUId, clientIp));
                 DateTime endTime = DateTime.Now;
                 time = (endTime - startTime).TotalMilliseconds;
             }
