@@ -19,6 +19,7 @@ using System.Linq;
 using RabbitMqPublishing;
 using System.Collections.Specialized;
 using log4net;
+using System.Threading.Tasks;
 
 namespace Bikewale.BAL.PriceQuote
 {
@@ -75,27 +76,7 @@ namespace Bikewale.BAL.PriceQuote
             {
                 DateTime startTime = DateTime.Now;
                 pqGUId = RandomNoGenerator.GenerateUniqueId();
-                NameValueCollection objNVC = new NameValueCollection();
-                objNVC.Add("GUID", pqGUId);
-                objNVC.Add("versionId", Convert.ToString(pqParams.VersionId));
-                objNVC.Add("cityId", Convert.ToString(pqParams.CityId));
-                objNVC.Add("areaId", Convert.ToString(pqParams.AreaId));
-                objNVC.Add("buyingPreference", Convert.ToString(pqParams.BuyingPreference));
-                objNVC.Add("customerId", Convert.ToString(pqParams.CustomerId));
-                objNVC.Add("customerName", pqParams.CustomerName);
-                objNVC.Add("customerEmail", pqParams.CustomerEmail);
-                objNVC.Add("customerMobile", pqParams.CustomerMobile);
-                objNVC.Add("clientIP", CurrentUser.GetClientIP());
-                objNVC.Add("sourceId", Convert.ToString(pqParams.SourceId));
-                objNVC.Add("dealerId", Convert.ToString(pqParams.DealerId));
-                objNVC.Add("deviceId", pqParams.DeviceId);
-                objNVC.Add("UTMA", pqParams.UTMA);
-                objNVC.Add("UTMZ", pqParams.UTMZ);
-                objNVC.Add("pqSourceId", Convert.ToString(pqParams.PQLeadId));
-                objNVC.Add("refGUID", pqParams.RefPQId);
-
-                RabbitMqPublish _RabbitMQPublishing = new RabbitMqPublish();
-                _RabbitMQPublishing.PublishToQueue(BWConfiguration.Instance.PQConsumerQueue, objNVC);
+                Task.Run(() => PushToQueue(pqParams, pqGUId));
                 DateTime endTime = DateTime.Now;
                 time = (endTime - startTime).TotalMilliseconds;
             }
@@ -109,6 +90,31 @@ namespace Bikewale.BAL.PriceQuote
                 ThreadContext.Properties.Remove("RegisterPriceQuoteV2");
             }
             return pqGUId;
+        }
+
+        private void PushToQueue(Bikewale.Entities.PriceQuote.v2.PriceQuoteParametersEntity pqParams, string pqGUId)
+        {
+            NameValueCollection objNVC = new NameValueCollection();
+            objNVC.Add("GUID", pqGUId);
+            objNVC.Add("versionId", Convert.ToString(pqParams.VersionId));
+            objNVC.Add("cityId", Convert.ToString(pqParams.CityId));
+            objNVC.Add("areaId", Convert.ToString(pqParams.AreaId));
+            objNVC.Add("buyingPreference", Convert.ToString(pqParams.BuyingPreference));
+            objNVC.Add("customerId", Convert.ToString(pqParams.CustomerId));
+            objNVC.Add("customerName", pqParams.CustomerName);
+            objNVC.Add("customerEmail", pqParams.CustomerEmail);
+            objNVC.Add("customerMobile", pqParams.CustomerMobile);
+            objNVC.Add("clientIP", CurrentUser.GetClientIP());
+            objNVC.Add("sourceId", Convert.ToString(pqParams.SourceId));
+            objNVC.Add("dealerId", Convert.ToString(pqParams.DealerId));
+            objNVC.Add("deviceId", pqParams.DeviceId);
+            objNVC.Add("UTMA", pqParams.UTMA);
+            objNVC.Add("UTMZ", pqParams.UTMZ);
+            objNVC.Add("pqSourceId", Convert.ToString(pqParams.PQLeadId));
+            objNVC.Add("refGUID", pqParams.RefPQId);
+
+            RabbitMqPublish _RabbitMQPublishing = new RabbitMqPublish();
+            _RabbitMQPublishing.PublishToQueue(BWConfiguration.Instance.PQConsumerQueue, objNVC);
         }
 
         /// <summary>
