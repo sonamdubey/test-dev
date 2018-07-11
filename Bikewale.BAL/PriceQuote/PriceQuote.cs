@@ -18,6 +18,8 @@ using System.Collections.Generic;
 using System.Linq;
 using RabbitMqPublishing;
 using System.Collections.Specialized;
+using log4net;
+using System.Threading.Tasks;
 
 namespace Bikewale.BAL.PriceQuote
 {
@@ -32,7 +34,7 @@ namespace Bikewale.BAL.PriceQuote
     {
         private readonly IPriceQuote objPQ;
         private readonly IDealerPriceQuoteCache _dealerPQCache;
-
+        static ILog _logger = LogManager.GetLogger("PriceQuoteLogger");
         public PriceQuote()
         {
             using (IUnityContainer objPQCont = new UnityContainer())
@@ -69,9 +71,32 @@ namespace Bikewale.BAL.PriceQuote
         public string RegisterPriceQuoteV2(Bikewale.Entities.PriceQuote.v2.PriceQuoteParametersEntity pqParams)
         {
             string pqGUId = string.Empty;
+            double time=0;
             try
             {
+                DateTime startTime = DateTime.Now;
                 pqGUId = RandomNoGenerator.GenerateUniqueId();
+                string clientIp = CurrentUser.GetClientIP();
+                Task.Run(() => PushToQueue(pqParams, pqGUId, clientIp));
+                DateTime endTime = DateTime.Now;
+                time = (endTime - startTime).TotalMilliseconds;
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("Bikewale.BAL.PriceQuote.PriceQuote.RegisterPriceQuoteV2()--> PQId = {0}", pqGUId));
+            }finally
+            {
+                ThreadContext.Properties["RegisterPriceQuoteV2"] = time;
+                _logger.Error("Time");
+                ThreadContext.Properties.Remove("RegisterPriceQuoteV2");
+            }
+            return pqGUId;
+        }
+
+        private void PushToQueue(Bikewale.Entities.PriceQuote.v2.PriceQuoteParametersEntity pqParams, string pqGUId, string clientIp)
+        {
+            try
+            {
                 NameValueCollection objNVC = new NameValueCollection();
                 objNVC.Add("GUID", pqGUId);
                 objNVC.Add("versionId", Convert.ToString(pqParams.VersionId));
@@ -82,7 +107,7 @@ namespace Bikewale.BAL.PriceQuote
                 objNVC.Add("customerName", pqParams.CustomerName);
                 objNVC.Add("customerEmail", pqParams.CustomerEmail);
                 objNVC.Add("customerMobile", pqParams.CustomerMobile);
-                objNVC.Add("clientIP", CurrentUser.GetClientIP());
+                objNVC.Add("clientIP", clientIp);
                 objNVC.Add("sourceId", Convert.ToString(pqParams.SourceId));
                 objNVC.Add("dealerId", Convert.ToString(pqParams.DealerId));
                 objNVC.Add("deviceId", pqParams.DeviceId);
@@ -91,14 +116,12 @@ namespace Bikewale.BAL.PriceQuote
                 objNVC.Add("pqSourceId", Convert.ToString(pqParams.PQLeadId));
                 objNVC.Add("refGUID", pqParams.RefPQId);
 
-                RabbitMqPublish _RabbitMQPublishing = new RabbitMqPublish();
-                _RabbitMQPublishing.PublishToQueue(BWConfiguration.Instance.PQConsumerQueue, objNVC);
-            }
-            catch (Exception ex)
+                RabbitMqPublish rabbitMQPublishing = new RabbitMqPublish();
+                rabbitMQPublishing.PublishToQueue(BWConfiguration.Instance.PQConsumerQueue, objNVC);
+            }catch(Exception ex)
             {
-                ErrorClass.LogError(ex, string.Format("Bikewale.BAL.PriceQuote.PriceQuote.RegisterPriceQuoteV2()--> PQId = {0}", pqGUId));
+                ErrorClass.LogError(ex, string.Format("Bikewale.BAL.PriceQuote.PriceQuote.PushToQueue()--> PQId = {0}", pqGUId));
             }
-            return pqGUId;
         }
 
         /// <summary>
