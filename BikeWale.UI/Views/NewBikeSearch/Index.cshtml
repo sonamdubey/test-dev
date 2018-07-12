@@ -13,7 +13,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 
 
-
+    
     <!-- #include file="/includes/headscript.aspx" -->
     <!--Check Use of this ga_pg_id at page and script-->
     <script>ga_pg_id = '5';</script>
@@ -368,13 +368,25 @@
                                                         </span>
                                                         <span class='font11 text-xt-light-grey inline-block padding-left3' data-bind="visible: { if: models()[@i].bikemodel.ratingCount }">
                                                             &nbsp;(<span data-bind="text: models()[@i].bikemodel.ratingCount">@bike.BikeModel.RatingCount</span><span data-bind="text: models()[@i].bikemodel.ratingCount == 1 ? ' rating' : ' ratings'">@(bike.BikeModel.RatingCount == 1 ? " rating" : " ratings")</span>)
-                                                        </span>
-                                                        <span style="display:@(bike.BikeModel.ReviewCount == 0 ? "none" : "")" data-bind="visible: models()[@i].bikemodel.reviewCount">
-                                                            <a class='text-xt-light  inline-block' href="@string.Format("{0}{1}", UrlFormatter.BikePageUrl(bike.BikeModel.MakeBase.MaskingName, bike.BikeModel.MaskingName) ,"reviews/")" title="@string.Format("{0} user reviews", bike.BikeName)" data-bind="attr: { href: '/' + models()[@i].bikemodel.makeBase.maskingName + '-bikes/' + models()[@i].bikemodel.maskingName + '/reviews/' , title: models()[@i].bikeName + ' user reviews' }">
+                                                        </span> 
+                                                        
+                                                        <!-- ko if: models()[@i].bikemodel.reviewCount -->    
+                                                        @{string temp = "javascript:void(0)";}
+                                                        @{string display_status = "none";}
+                                                        @if(bike.BikeModel.ReviewCount > 0)
+                                                        {
+                                                            temp = "/" + bike.BikeModel.MakeBase.MaskingName + "-bikes/" + bike.BikeModel.MaskingName + "/reviews/";
+                                                            display_status = "";
+                                                        }                                                       
+                                                        <span style="display:@display_status" data-bind="visible: models()[@i].bikemodel.reviewCount">
+                                                            <a class='text-xt-light  inline-block' href="@temp" title="@string.Format("{0} user reviews", bike.BikeName)" data-bind="attr: { href: '/' + models()[@i].bikemodel.makeBase.maskingName + '-bikes/' + models()[@i].bikemodel.maskingName + '/reviews/' , title: models()[@i].bikeName + ' user reviews' }">
                                                                 <span class="review-left-divider" data-bind="text: models()[@i].bikemodel.reviewCount">@bike.BikeModel.ReviewCount</span>&nbsp;<span data-bind="text: models()[@i].bikemodel.reviewCount == 1 ? 'review' : 'reviews' ">@(bike.BikeModel.ReviewCount == 1 ? " review" : " reviews")</span>
                                                             </a>
                                                         </span>
+                                                        <!-- /ko -->                   
+                                                                                                                               
                                                     </div>
+
 
                                                     <div class="font14 text-light-grey margin-bottom5">Ex-showroom, @BWConfiguration.Instance.DefaultName </div>
                                                     <div class="text-bold">
@@ -390,7 +402,7 @@
                                     <!-- /ko -->
                                         i++;
                                     }
-
+                                    
                                     @while (i < 30)
                                     {
                                     <!-- ko if: models()[@i] && models()[@i].bikemodel -->
@@ -411,11 +423,14 @@
                                                         <span class='font11 text-xt-light-grey inline-block padding-left3' data-bind="visible: { if: models()[@i].bikemodel.ratingCount }">
                                                             &nbsp;(<span data-bind="text: models()[@i].bikemodel.ratingCount"></span><span data-bind="text: models()[@i].bikemodel.ratingCount == 1 ? ' rating' : ' ratings'"></span>)
                                                         </span>
+                                                        <!-- ko if: models()[@i].bikemodel.reviewCount -->                                                      
                                                         <span data-bind="visible: models()[@i].bikemodel.reviewCount">
                                                             <a class='text-xt-light  inline-block' data-bind="attr: { href: '/' + models()[@i].bikemodel.makeBase.maskingName + '-bikes/' + models()[@i].bikemodel.maskingName + '/reviews/' , title: models()[@i].bikeName + ' user reviews' }">
                                                                 <span class="review-left-divider" data-bind="text: models()[@i].bikemodel.reviewCount"></span>&nbsp;<span data-bind="text: models()[@i].bikemodel.reviewCount == 1 ? 'review' : 'reviews' "></span>
                                                             </a>
                                                         </span>
+                                                        <!-- /ko -->
+                                                        
                                                     </div>
 
                                                     <div class="font14 text-light-grey margin-bottom5">Ex-showroom, @BWConfiguration.Instance.DefaultName </div>
@@ -459,7 +474,9 @@
                                     <img src="/image/no_result_d.png" />
                                 </div>
                             </div>
+
                             <script type="text/html" id="loadMoreListing">
+                                
                                 <li>
                                     <div class="contentWrapper">
                                         <div class="imageWrapper">
@@ -477,11 +494,16 @@
                                                 <span class='font11 text-xt-light-grey inline-block padding-left3' data-bind="visible: { if: bikemodel.ratingCount }">
                                                     &nbsp;(<span data-bind="text: bikemodel.ratingCount"></span><span data-bind="text: bikemodel.ratingCount == 1 ? ' rating' : ' ratings'"></span>)
                                                 </span>
+                                                
+                                                <!-- ko if: bikemodel.reviewCount --> 
                                                 <span data-bind="visible: bikemodel.reviewCount">
                                                     <a class='text-xt-light  inline-block' data-bind="attr: { href: '/' + bikemodel.makeBase.maskingName + '-bikes/' + bikemodel.maskingName + '/reviews/' , title: bikeName + ' user reviews' }">
                                                         <span class="review-left-divider" data-bind="text: bikemodel.reviewCount"></span>&nbsp;<span data-bind="text: bikemodel.reviewCount == 1 ? 'review' : 'reviews' "></span>
                                                     </a>
                                                 </span>
+                                                <!-- /ko -->
+                                               
+                                               
                                             </div>
 
                                             <div class="font14 text-light-grey margin-bottom5">Ex-showroom, @BWConfiguration.Instance.DefaultName </div>

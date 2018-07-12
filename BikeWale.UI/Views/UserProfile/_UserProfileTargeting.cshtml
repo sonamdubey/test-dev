@@ -1,0 +1,12 @@
+﻿@model Bikewale.Entities.UserProfile.UserProfileTargeting
+@using Bikewale.Utility;
+@using System.Linq;
+
+@if(Model != null && Model.TargetingData != null && Model.TargetingData.Any())
+{
+    foreach(KeyValuePair<Bikewale.Entities.UserProfile.UserProfileKeysEnum, string> keyValue in Model.TargetingData)
+    {
+        @Html.Raw(String.Format("googletag.pubads().setTargeting(\"{0}\", \"{1}\");", keyValue.Key.ToString(), keyValue.Value.RemoveInvalidSpecialCharacters()));
+        @Html.Raw("\n");
+    }
+}

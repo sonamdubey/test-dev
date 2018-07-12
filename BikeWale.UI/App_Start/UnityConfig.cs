@@ -18,6 +18,7 @@ using Bikewale.BAL.PWA.CMS;
 using Bikewale.BAL.QuestionAndAnswers;
 using Bikewale.BAL.ServiceCenter;
 using Bikewale.BAL.UsedBikes;
+using Bikewale.BAL.UserProfile;
 using Bikewale.BAL.UserReviews;
 using Bikewale.BAL.UserReviews.Search;
 using Bikewale.Cache.AdSlot;
@@ -88,6 +89,7 @@ using Bikewale.Interfaces.QuestionAndAnswers;
 using Bikewale.Interfaces.ServiceCenter;
 using Bikewale.Interfaces.Used;
 using Bikewale.Interfaces.UsedBikes;
+using Bikewale.Interfaces.UserProfile;
 using Bikewale.Interfaces.UserReviews;
 using Bikewale.Interfaces.UserReviews.Search;
 using Bikewale.Interfaces.Videos;
@@ -111,6 +113,8 @@ namespace Bikewale
     /// Description :   Register IBikeSearchCacheRepository
     /// Modified by :   Rajan Chauhan on 11 Apr 2018
     /// Description :   Registered IBikeVersionRepository
+    /// Modified by : Sanskar Gupta on 03 July 2018
+    /// Description : Registered `IUserProfileBAL`
     /// </summary>
     public static class UnityConfig
     {
@@ -210,6 +214,7 @@ namespace Bikewale
             container.RegisterType<IDealerPriceQuoteCache, DealerPriceQuoteCache>();
             container.RegisterType<IFinanceCacheRepository, FinanceCacheRepository>();
             container.RegisterType<IFinanceRepository, FinanceRepository>();
+            container.RegisterType<IUserProfileBAL, UserProfileBAL>();
             container.RegisterType<IQuestions, Questions>();
             container.RegisterType<IQuestionsCacheRepository, QuestionsCacheRepository>();
             container.RegisterType<IQuestionsRepository, QuestionsRepository>();

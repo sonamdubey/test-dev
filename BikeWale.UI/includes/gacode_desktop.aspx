@@ -1,4 +1,5 @@
 ﻿<%@ Import namespace ="Bikewale.Utility" %>
+<%@ Import namespace ="Bikewale.Controllers.Shared" %>
 bwHostUrl = '<%= ConfigurationManager.AppSettings["bwHostUrlForJs"] %>';
 var ga_pg_id = '0';
 
@@ -56,6 +57,8 @@ googletag.cmd.push(function () {
     <% if(!String.IsNullOrEmpty(TargetedModels)){%>googletag.pubads().setTargeting("CompareBike-D", "<%= TargetedModels.RemoveSpecialCharacters() %>");<%}%>
     <% if (!String.IsNullOrEmpty(TargetedCity)){%>googletag.pubads().setTargeting("City", "<%= TargetedCity.RemoveSpecialCharacters() %>");<%}%>
         
+    <% MvcHelper.RenderAction("GetUserProfileTargeting", "GoogleAds"); %>
+    
     googletag.pubads().collapseEmptyDivs();
     googletag.pubads().enableSingleRequest();
     googletag.enableServices();

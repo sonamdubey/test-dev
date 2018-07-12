@@ -163,15 +163,19 @@ namespace Bikewale.Models.Features
         {
             try
             {
-                objPage.PageMetaTags.CanonicalUrl = string.Format("{0}/features/{1}-{2}/", BWConfiguration.Instance.BwHostUrl, objPage.objFeature.ArticleUrl, objPage.objFeature.BasicId);
-                objPage.PageMetaTags.AlternateUrl = string.Format("{0}/m/features/{1}-{2}/", BWConfiguration.Instance.BwHostUrl, objPage.objFeature.ArticleUrl, objPage.objFeature.BasicId);
-                objPage.PageMetaTags.AmpUrl = string.Format("{0}/m/features/{1}-{2}/amp/", BWConfiguration.Instance.BwHostUrl, objPage.objFeature.ArticleUrl, objPage.objFeature.BasicId);
-                objPage.PageMetaTags.Title = string.Format("{0} - Bikewale ", objPage.objFeature.Title);
-                objPage.PageMetaTags.Description = string.Format("Read about {0}. Read through more bike care tips to learn more about your bike maintenance.", objPage.objFeature.Title);
-                objPage.PageMetaTags.Keywords = string.Format("features, stories, travelogues, specials, drives.");
-                objPage.PageMetaTags.ShareImage = Bikewale.Utility.Image.GetPathToShowImages(objPage.objFeature.OriginalImgUrl, objPage.objFeature.HostUrl, ImageSize._640x348);
-                objPage.Page_H1 = objPage.objFeature.Title;
-
+                var objPageDetails = objPage.objFeature;
+                if (objPageDetails != null)
+                {
+                    objPage.AdTags.TargetedTags = String.Join(", ", objPageDetails.TagsList);
+                    objPage.PageMetaTags.CanonicalUrl = string.Format("{0}/features/{1}-{2}/", BWConfiguration.Instance.BwHostUrl, objPageDetails.ArticleUrl, objPageDetails.BasicId);
+                    objPage.PageMetaTags.AlternateUrl = string.Format("{0}/m/features/{1}-{2}/", BWConfiguration.Instance.BwHostUrl, objPageDetails.ArticleUrl, objPageDetails.BasicId);
+                    objPage.PageMetaTags.AmpUrl = string.Format("{0}/m/features/{1}-{2}/amp/", BWConfiguration.Instance.BwHostUrl, objPageDetails.ArticleUrl, objPageDetails.BasicId);
+                    objPage.PageMetaTags.Title = string.Format("{0} - Bikewale ", objPageDetails.Title);
+                    objPage.PageMetaTags.Description = string.Format("Read about {0}. Read through more bike care tips to learn more about your bike maintenance.", objPageDetails.Title);
+                    objPage.PageMetaTags.Keywords = string.Format("features, stories, travelogues, specials, drives.");
+                    objPage.PageMetaTags.ShareImage = Bikewale.Utility.Image.GetPathToShowImages(objPageDetails.OriginalImgUrl, objPageDetails.HostUrl, ImageSize._640x348);
+                    objPage.Page_H1 = objPageDetails.Title;
+                }
                 SetBreadcrumList(objPage);
                 SetPageJSONSchema(objPage);
             }

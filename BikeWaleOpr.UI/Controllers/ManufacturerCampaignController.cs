@@ -8,7 +8,6 @@ using BikewaleOpr.Entity.ManufacturerCampaign;
 using BikewaleOpr.Interface.ContractCampaign;
 using BikewaleOpr.Models;
 using BikewaleOpr.Models.ManufacturerCampaign;
-using BikeWaleOpr.Common;
 using System;
 using System.Web.Mvc;
 

@@ -453,10 +453,20 @@ namespace Bikewale.Models
             {
                 objData.BaseUrl = IsMobile ? "/m" : "";
                 objData.PageMetaTags.Title = string.Format("{0} - BikeWale", objData.ArticleDetails.Title);
+                AdTags objTargetedAds = new AdTags();
                 if (objData.Make != null)
-                    objData.AdTags.TargetedMakes = objData.Make.MakeName;
+                {
+                    objTargetedAds.TargetedMakes = objData.Make.MakeName;
+                }
                 if (objData.Model != null)
-                    objData.AdTags.TargetedModel = objData.Model.ModelName;
+                {
+                    objTargetedAds.TargetedModel = objData.Model.ModelName;
+                }
+                if (objData.ArticleDetails != null)
+                {
+                    objTargetedAds.TargetedTags = String.Join(", ", objData.ArticleDetails.TagsList);
+                }
+                objData.AdTags = objTargetedAds;                
                 objData.PageMetaTags.ShareImage = Image.GetPathToShowImages(objData.ArticleDetails.OriginalImgUrl, objData.ArticleDetails.HostUrl, ImageSize._640x348);
                 objData.PageMetaTags.Description = string.Format("BikeWale coverage on {0}. Get the latest reviews and photos for {0} on BikeWale coverage.", objData.ArticleDetails.Title);
                 objData.PageMetaTags.CanonicalUrl = string.Format("https://www.bikewale.com/news/{0}-{1}.html", objData.ArticleDetails.BasicId, objData.ArticleDetails.ArticleUrl);

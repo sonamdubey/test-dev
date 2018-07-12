@@ -282,6 +282,7 @@
     <Compile Include="AutoMappers\UsedBikes\PopularUsedBikesMapper.cs" />
     <Compile Include="AutoMappers\Used\UsedBikeSearchResult.cs" />
     <Compile Include="AutoMappers\UsedBikes\UsedBikeBuyerMapper.cs" />
+    <Compile Include="AutoMappers\UserProfile\UserProfileMapper.cs" />
     <Compile Include="AutoMappers\Videos\VideosMapper.cs" />
     <Compile Include="Controllers\AppDeepLinking\DeepLinkingController.cs" />
     <Compile Include="Controllers\AppNotifications\AppAlertController.cs" />
@@ -377,6 +378,7 @@
     <Compile Include="Controllers\Used\PopularUsedBikesController.cs" />
     <Compile Include="Controllers\Used\UsedBikesSearchController.cs" />
     <Compile Include="Controllers\UsedBikes\UsedBikeBuyerController.cs" />
+    <Compile Include="Controllers\UserProfile\GoogleAdsController.cs" />
     <Compile Include="Controllers\UserReviews\UserReviewsController.cs" />
     <Compile Include="Controllers\UserReviews\UserReviewsListController.cs" />
     <Compile Include="Controllers\UserReviews\UserReviewsListTypeController.cs" />
@@ -435,6 +437,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Views\GoogleAds\" />
     <Folder Include="Views\InsuranceLead\" />
     <Folder Include="Views\ManufacturerCampaign\" />
     <Folder Include="Views\SplashScreen\" />

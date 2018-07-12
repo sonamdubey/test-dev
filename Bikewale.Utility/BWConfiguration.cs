@@ -30,6 +30,8 @@ namespace Bikewale.Utility
     /// Description : Added SpecsFeaturesServiceModuleName for specs & features service module name.
     /// Modifier    : Kartik Rathod on 30 march
     /// Desc        : Added GoogleAPIHostUrl and CWOPRHostURL
+    /// Modified by : Sanskar Gupta on 03 July 2018
+    /// Description : Added `UserProfileServiceModuleName`
     /// </summary>
     public sealed class BWConfiguration
     {
@@ -155,6 +157,7 @@ namespace Bikewale.Utility
         private readonly int _MemcachedDefaultObjDuration;
         private readonly string _MakePageViewShowPercentage;
         private string _SpamFilterServiceModuleName;
+        private string _UserProfileServiceModuleName;
 
         // Private constructor, so no outsiders have access.
         private BWConfiguration()
@@ -280,6 +283,8 @@ namespace Bikewale.Utility
             _bikeModelPriceIndex = Convert.ToString(ConfigurationManager.AppSettings["BikePriceIndex"]);
             _SpecsFeaturesServiceModuleName = Convert.ToString(ConfigurationManager.AppSettings["SpecsFeaturesServiceModuleName"]);
             _SpamFilterServiceModuleName = Convert.ToString(ConfigurationManager.AppSettings["SpamFilterServiceModuleName"]);
+            _pqConsumerQueue = Convert.ToString(ConfigurationManager.AppSettings["PQConsumerQueue"]);
+            _UserProfileServiceModuleName = Convert.ToString(ConfigurationManager.AppSettings["UserProfileServiceModuleName"]);
             _pqConsumerQueue = Convert.ToString(ConfigurationManager.AppSettings["PQConsumerQueue"]);
         }
 
@@ -461,5 +466,6 @@ namespace Bikewale.Utility
         public string SpecsFeaturesServiceModuleName { get { return _SpecsFeaturesServiceModuleName; } }
         public string SpamFilterServiceModuleName { get { return _SpamFilterServiceModuleName; } }
         public string PQConsumerQueue { get { return _pqConsumerQueue;  } }
+        public string UserProfileServiceModuleName { get { return _UserProfileServiceModuleName; } }        
     }   // class
 }   // namespace

@@ -1,0 +1,40 @@
+﻿@helper RenderAmpAds(int width, int height, string slot)
+{
+    <amp-ad width=@width height=@height type="doubleclick" layout="responsive" data-slot=@slot></amp-ad>
+}
+
+@helper RenderAmpAds(int width, int height, string slot, IHtmlString json)
+{
+    <amp-ad width=@width height=@height type="doubleclick" layout="responsive" data-slot=@slot json='@json'></amp-ad>
+}
+
+@functions{
+    public static string SetTargettingAds(Bikewale.Models.AdTags objAdTags)
+    {
+        IDictionary<string, string> TargetAds = new Dictionary<string, string>();
+        string setTargettingJson = "";
+        if (objAdTags != null)
+        {
+            IList<KeyValuePair<string, string>> objTargets = new List<KeyValuePair<string, string>>(); 
+            objTargets.Add(new KeyValuePair<string,string>("Make", objAdTags.TargetedMakes));
+            objTargets.Add(new KeyValuePair<string,string>("Model", objAdTags.TargetedModel));
+            objTargets.Add(new KeyValuePair<string,string>("City", objAdTags.TargetedCity));
+            objTargets.Add(new KeyValuePair<string,string>("Tags", objAdTags.TargetedTags));
+            foreach(KeyValuePair<string, string> item in objTargets)
+            {
+                var val = item.Value;
+                if(val != null && !string.IsNullOrEmpty(val))
+                {
+                    TargetAds.Add(item);
+                }            
+            }
+            IDictionary<string, IDictionary<string, string>> TargetJson = new Dictionary<string, IDictionary<string, string>>();
+            if(TargetAds != null && TargetAds.Count > 0)
+            {
+                TargetJson.Add("targeting", TargetAds);        
+            }           
+            setTargettingJson = Json.Encode(TargetJson);
+        }
+        return setTargettingJson;
+    }
+}

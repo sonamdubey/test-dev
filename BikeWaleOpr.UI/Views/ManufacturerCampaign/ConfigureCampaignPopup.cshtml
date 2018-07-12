@@ -1,4 +1,5 @@
 ﻿@model  Bikewale.ManufacturerCampaign.Entities.Models.ManufacturerCampaignPopupVM
+@using Bikewale.ManufacturerCampaign.Entities;
 @{
     ViewBag.Title = "Configure Campaign Popup";
     ViewBag.PageTitle = "Configure Popup for Manufacturer Campaign";
@@ -13,7 +14,7 @@
             <div class="input-field col s3 offset-s4">
                 <input id="txtPopupHeading" type="text" class="validate" maxlength="100" name="PopupHeading" value="@Model.objPopup.PopupHeading" data-bind="disable : isDefaultHeading">
                 <label for="txtPopupHeading">Popup Heading</label>
-                </div>
+                </div> 
             <div class="input-field col m3 offset-s4">
                 <input id="chkDefaultHeading" type="checkbox" class="filled-in" data-bind="checked : isDefaultHeading">
                 <label for="chkDefaultHeading" class="black-text">Use Default</label>
@@ -44,29 +45,17 @@
 
         <div class="row">
             <div class="col offset-s4">
-                <input type="checkbox" class="filled-in" id="chkEmail" name="EmailRequired" @(Model.objPopup.EmailRequired?"checked value=true":"") />
-                <label for="chkEmail">Email Required</label>
+                <label>Email Options</label>
+                @Html.DropDownListFor(model => model.objPopup.EmailOption, EnumHelper.GetSelectList(typeof(EnumEmailOptions)), new {Name= "EmailOption"})
             </div>
-        </div>
-
-        <div class="row">
-            <div class="col s2 offset-s4">
-                <input type="checkbox" class="filled-in" id="chkPincode" name="PinCodeRequired" @(Model.objPopup.PinCodeRequired ? "checked value=true":"") />
-                <label for="chkPincode">Pincode Required</label>
+            <div class="col s2 input-field">
+                <input type="checkbox" class="filled-in" id="chkPincode" name="PinCodeRequired" @(Model.objPopup.PinCodeRequired ? "checked value=true" : "") />
+                <label for="chkPincode">Pincode Required</label>              
             </div>
-            @*<div class="col">
-                <a href="">Map Manufacturer Pincodes</a>
-            </div>*@
-        </div>
-
-        <div class="row">
-            <div class="col s2 offset-s4">
-                <input type="checkbox" class="filled-in" id="chkDealer" name="DealerRequired" @(Model.objPopup.DealerRequired ? "checked value=true":"") />
+            <div class="col s2 input-field">
+                <input type="checkbox" class="filled-in" id="chkDealer" name="DealerRequired" @(Model.objPopup.DealerRequired ? "checked value=true" : "") />
                 <label for="chkDealer">Dealer Required</label>
             </div>
-            @*<div class="col">
-                <a href="">Map Manufacturer Dealers</a>
-            </div>*@
         </div>
 
         <div class="row">
@@ -134,7 +123,7 @@
 
         if (msg == "" || msg == undefined)
             popUpVM.isDefaultMsg(true);
-
+        
         ko.applyBindings(popUpVM, $('#configPopUp')[0]);
     });
 </script>

@@ -1,4 +1,5 @@
 ﻿<%@ Import namespace ="Bikewale.Utility" %>    
+<%@ Import namespace ="Bikewale.Controllers.Shared" %>
 var ga_pg_id = '0';
 
     (function (w, d, s, l, i) {
@@ -38,6 +39,9 @@ var ga_pg_id = '0';
         <% if (!String.IsNullOrEmpty(TargetedMakes)){ %>googletag.pubads().setTargeting("Make", "<%= TargetedMakes.RemoveSpecialCharacters() %>");<% } %>
         <% if (!String.IsNullOrEmpty(TargetedModels)){ %>googletag.pubads().setTargeting("CompareBike-M", "<%= TargetedModels.RemoveSpecialCharacters() %>");<% } %>
         <% if (!String.IsNullOrEmpty(TargetedCity)){%>googletag.pubads().setTargeting("City", "<%= TargetedCity.RemoveSpecialCharacters() %>");<%}%>
+        
+        <% MvcHelper.RenderAction("GetUserProfileTargeting", "GoogleAds"); %>    
+        
         googletag.pubads().enableSingleRequest();
         googletag.pubads().collapseEmptyDivs();
         googletag.enableServices();

@@ -53,7 +53,8 @@
             </div>
             <div class="input-box form-control-box personal-info-list" data-bind="visible : emailRequired() && (mfgCampaignId() > 0)">
                 <input type="text" class="get-email-id" id="getEmailID" data-bind="textInput: emailId" tabindex="3" maxlength="50">
-                <label for="getEmailID">Email<sup>*</sup></label>
+                <label for="getEmailID" data-bind="visible: emailOption() == 'Required'">Email<sup>*</sup></label>
+                <label for="getEmailID" data-bind="visible : emailOption()== 'Optional'">Email (optional)</label>
                 <span class="boundary"></span>
                 <span class="error-text"></span>
             </div>
@@ -162,6 +163,7 @@
         self.dealerDescription = ko.observable();
         self.pinCodeRequired = ko.observable();
         self.emailRequired = ko.observable();
+        self.emailOption = ko.observable();
         self.dealersRequired = ko.observable();
         self.cityRequired = ko.observable(leadcityid <= 0);
         self.pincode = ko.observable();
@@ -226,8 +228,10 @@
                     self.pinCodeRequired(options.pinCodeRequired == 'True');
 
                 if (options.emailRequired != null)
-                    self.emailRequired(options.emailRequired == 'True');
-
+                {
+                    self.emailRequired(options.emailRequired != 'Not_Required');
+                    self.emailOption(options.emailRequired);
+                }
                 if (options.dealersRequired != null) {
                     self.dealersRequired(options.dealersRequired == 'True');
                     if (self.cityId() && self.dealersRequired()) {
@@ -861,7 +865,7 @@
                 emailVal = $(inputEmail).val(),
                 reEmail = /^[A-z0-9._+-]+@@[A-z0-9.-]+\.[A-z]{2,6}$/;
 
-            if (self.emailRequired() && emailVal == "") {
+            if (self.emailOption() == 'Required' && emailVal == "") {
                 validate.setError($(inputEmail), 'Please enter email id');
                 isValid = false;
             }

@@ -43,6 +43,9 @@
     <Reference Include="ApiGatewayLibrary">
       <HintPath>..\Libs\APIGateway\ApiGatewayLibrary.dll</HintPath>
     </Reference>
+    <Reference Include="BhriguServiceCaller">
+      <HintPath>..\Libs\BhriguServiceCaller\BhriguServiceCaller.dll</HintPath>
+    </Reference>
     <Reference Include="Crc32C.NET">
       <HintPath>..\Libs\zipkin\Crc32C.NET.dll</HintPath>
     </Reference>
@@ -83,6 +86,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\zipkin\System.Threading.Tasks.Dataflow.dll</HintPath>
     </Reference>
+    
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -91,11 +95,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-  <Compile Include="Adapters\SpamFilter\GetScoreAdapter.cs" />
+    <Compile Include="Adapters\SpamFilter\GetScoreAdapter.cs" />
     <Compile Include="Adapters\BikeData\GetCustomDataTypesByItemIdAdapter.cs" />
     <Compile Include="Adapters\BikeData\GetVersionSpecsByIdAdapter.cs" />
     <Compile Include="Adapters\BikeData\GetVersionSpecsByItemIdAdapter.cs" />
     <Compile Include="Adapters\BikeData\GetVersionSpecsSummaryByItemIdAdapter.cs" />
+    <Compile Include="Adapters\UserProfile\GetUserProfileAdapter.cs" />
     <Compile Include="ApiGatewayHelper\AbstractApiGatewayAdapter.cs" />
     <Compile Include="ApiGatewayHelper\ApiGatewayCaller.cs" />
     <Compile Include="ApiGatewayHelper\ApiGatewayResponse.cs" />

@@ -22,6 +22,7 @@ using Bikewale.BAL.Security;
 using Bikewale.BAL.ServiceCenter;
 using Bikewale.BAL.Used.Search;
 using Bikewale.BAL.UsedBikes;
+using Bikewale.BAL.UserProfile;
 using Bikewale.BAL.UserReviews;
 using Bikewale.BAL.UserReviews.Search;
 using Bikewale.Cache.App;
@@ -91,6 +92,7 @@ using Bikewale.Interfaces.ServiceCenter;
 using Bikewale.Interfaces.Used;
 using Bikewale.Interfaces.Used.Search;
 using Bikewale.Interfaces.UsedBikes;
+using Bikewale.Interfaces.UserProfile;
 using Bikewale.Interfaces.UserReviews;
 using Bikewale.Interfaces.UserReviews.Search;
 using Bikewale.Interfaces.Videos;
@@ -263,6 +265,7 @@ namespace Bikewale.Service.UnityConfiguration
             container.RegisterType<QuestionsAnswers.Cache.ICacheManager, QuestionsAnswers.Cache.MemcacheManager>();
             container.RegisterType<QuestionsAnswers.Cache.IQuestionsCacheRepository, QuestionsAnswers.Cache.QuestionsCacheRepository>();
             container.RegisterType<IQuestionsRepository, QuestionsRepository>();
+            container.RegisterType<IUserProfileBAL, UserProfileBAL>();
             return container;
 
         }

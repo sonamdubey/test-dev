@@ -426,10 +426,20 @@ namespace Bikewale.Models
                 objData.PageMetaTags.AlternateUrl = string.Format("{0}/m/expert-reviews/{1}-{2}.html", BWConfiguration.Instance.BwHostUrl, objData.ArticleDetails.ArticleUrl, objData.ArticleDetails.BasicId);
                 objData.PageMetaTags.Title = string.Format("{0} - BikeWale", objData.ArticleDetails.Title);
                 objData.PageMetaTags.ShareImage = Image.GetPathToShowImages(objData.ArticleDetails.OriginalImgUrl, objData.ArticleDetails.HostUrl, ImageSize._468x263);
+                AdTags objTargetedAds = new AdTags();
                 if (objData.Make != null)
-                    objData.AdTags.TargetedMakes = objData.Make.MakeName;
+                {
+                    objTargetedAds.TargetedMakes = objData.Make.MakeName;
+                }                    
                 if (objData.Model != null)
-                    objData.AdTags.TargetedModel = objData.Model.ModelName;
+                {
+                    objTargetedAds.TargetedModel = objData.Model.ModelName;
+                }                    
+                if(objData.ArticleDetails != null)
+                {
+                    objTargetedAds.TargetedTags = String.Join(", ", objData.ArticleDetails.TagsList);
+                }
+                objData.AdTags = objTargetedAds;
                 objData.PageMetaTags.Keywords = string.Format("{0},road test, road tests, roadtests, roadtest, bike reviews, expert bike reviews, detailed bike reviews, test-drives, comprehensive bike tests, bike preview, first drives", (objData.Model != null) ? objData.Model.ModelName : "");
                 if (IsMobile)
                     objData.PageMetaTags.Description = string.Format("BikeWale tests {0}, Read the complete road test report to know how it performed.", (objData.Model != null) ? objData.Model.ModelName : "");

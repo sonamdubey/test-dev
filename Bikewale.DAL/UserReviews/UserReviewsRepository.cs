@@ -1288,6 +1288,8 @@ namespace Bikewale.DAL.UserReviews
         /// <summary>
         /// Modified By :Snehal Dange on 12 Oct 2017
         /// Description : Changed Sp to getbikeratingsandreviewsinfo_12102017 .Added isScooterOnly parameter
+        /// Modified by : Sanskar Gupta on 11 July 2018
+        /// Description : `SqlReaderConverter` is used now to typecast `dr["BodyStyleId"]` into `UInt16`
         /// </summary>
         /// <param name="modelId"></param>
         /// <returns></returns>
@@ -1333,7 +1335,7 @@ namespace Bikewale.DAL.UserReviews
                                     FourStarRatings = SqlReaderConvertor.ToUInt32(dr["fourstars"]),
                                     FiveStarRatings = SqlReaderConvertor.ToUInt32(dr["fivestars"]),
                                     TotalRatings = SqlReaderConvertor.ToUInt32(dr["totalratings"]),
-                                    BodyStyle = (EnumBikeBodyStyles)Convert.ToUInt16(dr["BodyStyleId"]),
+                                    BodyStyle = (EnumBikeBodyStyles)SqlReaderConvertor.ToUInt16(dr["BodyStyleId"]),
                                     ExpertReviewsCount = SqlReaderConvertor.ToUInt32(dr["ExpertReviewsCount"])
                                 },
                                 ReviewDetails = new BikeReviewsInfo()

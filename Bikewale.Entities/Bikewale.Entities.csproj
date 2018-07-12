@@ -550,6 +550,8 @@
     <Compile Include="Used\UsedBikeSellerBase.cs" />
     <Compile Include="Used\SearchResult.cs" />
     <Compile Include="Used\UsedBikeBase.cs" />
+    <Compile Include="UserProfile\UserProfileKeysEnum.cs" />
+    <Compile Include="UserProfile\UserProfileTargeting.cs" />
     <Compile Include="UserReviews\BikeRatingsInfo.cs" />
     <Compile Include="UserReviews\BikeRatingsReviewsInfo.cs" />
     <Compile Include="UserReviews\BikeReviewIdListByCategory.cs" />

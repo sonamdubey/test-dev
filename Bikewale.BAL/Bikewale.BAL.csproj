@@ -98,6 +98,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\AutoMapper.dll</HintPath>
     </Reference>
+    <Reference Include="BhriguServiceCaller">
+      <HintPath>..\Libs\BhriguServiceCaller\BhriguServiceCaller.dll</HintPath>
+    </Reference>
     <Reference Include="Carwale.BL">
       <HintPath>..\Libs\Carwale.BL.dll</HintPath>
     </Reference>
@@ -257,6 +260,7 @@
     <Compile Include="Used\UsedBikeBuyer.cs" />
     <Compile Include="Used\SearchBikes.cs" />
     <Compile Include="Used\SearchQuery.cs" />
+    <Compile Include="UserProfile\UserProfileBAL.cs" />
     <Compile Include="UserReviews\ProcessSearchFilters.cs" />
     <Compile Include="UserReviews\UserReviews.cs" />
     <Compile Include="Videos\Videos.cs" />

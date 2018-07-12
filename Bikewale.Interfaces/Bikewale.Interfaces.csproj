@@ -238,6 +238,7 @@
     <Compile Include="Used\IUsedBikeDetailsCacheRepository.cs" />
     <Compile Include="Used\IUsedBikeSeller.cs" />
     <Compile Include="Used\IUsedBikeSellerRepository.cs" />
+    <Compile Include="UserProfile\IUserProfileBAL.cs" />
     <Compile Include="UserReviews\ISearchFilters.cs" />
     <Compile Include="UserReviews\IUserReviews.cs" />
     <Compile Include="UserReviews\IUserReviewsRepository.cs" />

@@ -244,7 +244,7 @@
         @if(!String.IsNullOrEmpty(Model.AdTags.TargetedTags)){@Html.Raw(GetGTTargeting(6, Model.AdTags.TargetedTags))}
 
         
-
+        @{Html.RenderAction("GetUserProfileTargeting", "GoogleAds");}
 
         googletag.pubads().collapseEmptyDivs();
         googletag.pubads().enableSingleRequest();

@@ -71,15 +71,15 @@
     <script type="text/javascript">
     var ga_pg_id = '0', gaObj, galleryId, lastPageId;
     var adSlot = {};
-        var FbPixelEvent = { pageView: 'PageView', viewContent: 'ViewContent' ,lead : 'Lead'};
-    var adsToRefresh = {}; 
+    var FbPixelEvent = { pageView: 'PageView', viewContent: 'ViewContent' ,lead : 'Lead'};
+    var adsToRefresh = {};
     @if(Model.Page !=null)
     {
         <text>
-        gaObj = {'id':@((int)Model.Page), 'name': '@Model.Page'};
-        lastPageId = gaObj.id;
-        galleryId = @((int)Bikewale.Entities.Pages.GAPages.Image_Gallery);
-        </text>
+    gaObj = {'id':@((int)Model.Page), 'name': '@Model.Page'};
+    lastPageId = gaObj.id;
+    galleryId = @((int)Bikewale.Entities.Pages.GAPages.Image_Gallery);
+    </text>
     }
     (function (w, d, s, l, i) {
         w[l] = w[l] || []; w[l].push({
@@ -110,7 +110,7 @@
         node.parentNode.insertBefore(gads, node);
     })();
 
-        @functions{
+    @functions{
         string GetAdSlot(int slotId, string adPath, string adId)
         {
             switch (slotId)
@@ -184,22 +184,22 @@
         }
     }
 
-        
 
-        googletag.cmd.push(function () {
 
-            @if (Model.AdSlots != null)
-                
+    googletag.cmd.push(function () {
+
+        @if (Model.AdSlots != null)
+
 	        {
                 <text>
-                    googletag.pubads().disableInitialLoad();
-                    googletag.pubads().setCentering(true);
-                </text>
+        googletag.pubads().disableInitialLoad();
+        googletag.pubads().setCentering(true);
+        </text>
                 foreach (KeyValuePair<string, Bikewale.Models.AdSlotModel> adentry in Model.AdSlots)
                 {
                     Bikewale.Models.AdSlotModel ad = adentry.Value;
                     var id = String.Format("div-gpt-ad-{0}-{1}", Model.AdTags.AdId, ad.DivId);
-                    if (!String.IsNullOrEmpty(ad.ViewSize)) { 
+                    if (!String.IsNullOrEmpty(ad.ViewSize)) {
                         if (ad.Position != null)
                         {
                             <text> adSlot['@id']  = @Html.Raw(Bikewale.Utility.GoogleAdsHelper.GenerateSlotDefinition(ad.AdId, ad.AdPath, ad.DivId, ad.Size, ad.ViewSize, ad.Position)); </text>
@@ -236,15 +236,18 @@
                 if(Model.AdTags.Ad_300x250_Middle){ @Html.Raw(GetAdSlot(20, Model.AdTags.AdPath, Model.AdTags.AdId))}
                 if(Model.AdTags.Ad_300x250_Bottom){ @Html.Raw(GetAdSlot(21, Model.AdTags.AdPath, Model.AdTags.AdId))}
             }
-                
 
-                
+
+
             @if(!String.IsNullOrEmpty(Model.AdTags.TargetedModel)){@Html.Raw(GetGTTargeting(1, Model.AdTags.TargetedModel))}
             @if(!String.IsNullOrEmpty(Model.AdTags.TargetedMakes)){@Html.Raw(GetGTTargeting(2, Model.AdTags.TargetedMakes))}
             @if(!String.IsNullOrEmpty(Model.AdTags.TargetedModels)){@Html.Raw(GetGTTargeting(3, Model.AdTags.TargetedModels))}
             @if(!String.IsNullOrEmpty(Model.AdTags.TargetedCity)){@Html.Raw(GetGTTargeting(4, Model.AdTags.TargetedCity))}
             @if(!String.IsNullOrEmpty(Model.AdTags.TargetedSeries)){@Html.Raw(GetGTTargeting(5, Model.AdTags.TargetedSeries))}
-            @if(!String.IsNullOrEmpty(Model.AdTags.TargetedTags)){@Html.Raw(GetGTTargeting(6, Model.AdTags.TargetedTags))} 
+            @if(!String.IsNullOrEmpty(Model.AdTags.TargetedTags)){@Html.Raw(GetGTTargeting(6, Model.AdTags.TargetedTags))}
+
+
+            @{Html.RenderAction("GetUserProfileTargeting", "GoogleAds");}
 
             googletag.pubads().enableSingleRequest();
             googletag.pubads().collapseEmptyDivs();

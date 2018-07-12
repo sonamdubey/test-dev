@@ -391,5 +391,27 @@ namespace Bikewale.Utility
             return inputString;
         }
 
+        /// <summary>
+        /// Created by  : Sanskar Gupta on 04 July 2018
+        /// Description : Function to remove all the special characters from the string except `,`
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public static string RemoveInvalidSpecialCharacters(this string input)
+        {
+            try
+            {
+                if (!string.IsNullOrEmpty(input))
+                {
+                    return Regex.Replace(input, "[)\'\"=!+#\\[*\\]~;^<(>]+", "");
+                }
+            }
+            catch(Exception ex)
+            {
+                return input;
+            }
+            return input;
+        }
+
     }
 }

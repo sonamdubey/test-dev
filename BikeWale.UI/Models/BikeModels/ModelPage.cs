@@ -89,6 +89,7 @@ namespace Bikewale.Models.BikeModels
 
 
         private uint _modelId, _cityId, _areaId;
+        private bool checkSeriesData;
 
         private readonly IManufacturerCampaign _objManufacturerCampaign = null;
 
@@ -262,7 +263,7 @@ namespace Bikewale.Models.BikeModels
                     }
 
 
-                    if (_objData.ShowSeriesSlug)
+                    if (checkSeriesData)
                     {
                         BindSeriesSlug(_objData);
                     }
@@ -309,6 +310,8 @@ namespace Bikewale.Models.BikeModels
 
                 if (taggedSeries != null)
                 {
+                    _objData.ShowSeriesSlug = taggedSeries.ModelsCount > 1;
+
                     _objData.SeriesSlug = new ModelSeriesSlugVM
                         {
                             SeriesName = taggedSeries.SeriesName,
@@ -2239,10 +2242,9 @@ namespace Bikewale.Models.BikeModels
                         BikeSeriesEntityBase seriesDetails = modelsBySeries.SeriesBase;
                         int bikeCount = modelsBySeries.SeriesModels.NewBikes != null ? modelsBySeries.SeriesModels.NewBikes.Count() : 0;
                         bool seriesValidation = (modelsBySeries.IsNewAvailable || modelsBySeries.IsUpcomingAvailable)
-                            && seriesDetails.IsSeriesPageUrl
-                            && bikeCount > 1;
+                            && seriesDetails.IsSeriesPageUrl;
 
-                        _objData.ShowSeriesSlug = seriesValidation;
+                        checkSeriesData = seriesValidation;
                     }
                 }
             }

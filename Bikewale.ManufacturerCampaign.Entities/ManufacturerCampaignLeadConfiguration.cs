@@ -32,7 +32,7 @@ namespace Bikewale.ManufacturerCampaign.Entities
         public bool ShowOnExshowroom { get; set; }
         public bool PincodeRequired { get; set; }
         public bool DealerRequired { get; set; }
-        public bool EmailRequired { get; set; }
+        public EnumEmailOptions EmailRequired { get; set; }
         public bool SendLeadSMSCustomer { get; set; }
     }
 }

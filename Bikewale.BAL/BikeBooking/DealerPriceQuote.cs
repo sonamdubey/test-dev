@@ -512,32 +512,39 @@ namespace Bikewale.BAL.BikeBooking
         {
             string quoteId = string.Empty;
             ManufacturerCampaignEntity campaigns = null;
-            Entities.BikeBooking.v2.PQOutputEntity objPQOutput;
-            bool isManufacturerDealer = false;
-            if (PQParams.VersionId > 0 && objDealerDetail != null)
+            Entities.BikeBooking.v2.PQOutputEntity objPQOutput = null;
+            try
             {
-                PQParams.DealerId = objDealerDetail.DealerId;
-            }
-            if (isManufacturerCampaignRequired && PQParams.DealerId == 0 && PQParams.ManufacturerCampaignPageId > 0)
-            {
-                campaigns = _objManufacturerCampaign.GetCampaigns(PQParams.ModelId, PQParams.CityId, PQParams.ManufacturerCampaignPageId);
-                PQParams.DealerId = campaigns != null && campaigns.LeadCampaign != null ? campaigns.LeadCampaign.DealerId : campaigns.EMICampaign != null ? campaigns.EMICampaign.DealerId : 0;
-                isManufacturerDealer = true;
-            }
+                bool isManufacturerDealer = false;
+                if (PQParams.VersionId > 0 && objDealerDetail != null)
+                {
+                    PQParams.DealerId = objDealerDetail.DealerId;
+                }
+                if (isManufacturerCampaignRequired && PQParams.DealerId == 0 && PQParams.ManufacturerCampaignPageId > 0)
+                {
+                    campaigns = _objManufacturerCampaign.GetCampaigns(PQParams.ModelId, PQParams.CityId, PQParams.ManufacturerCampaignPageId);
+                    PQParams.DealerId = campaigns != null && campaigns.LeadCampaign != null ? campaigns.LeadCampaign.DealerId : campaigns != null && campaigns.EMICampaign != null ? campaigns.EMICampaign.DealerId : 0;
+                    isManufacturerDealer = true;
+                }
 
-            if (PQParams.VersionId > 0 && PQParams.CityId > 0)
-            {
-                IPriceQuote objIPQ = _container.Resolve<IPriceQuote>();
-                quoteId = objIPQ.RegisterPriceQuoteV2(PQParams);
+                if (PQParams.VersionId > 0 && PQParams.CityId > 0)
+                {
+                    IPriceQuote objIPQ = _container.Resolve<IPriceQuote>();
+                    quoteId = objIPQ.RegisterPriceQuoteV2(PQParams);
+                }
+                objPQOutput = new Bikewale.Entities.BikeBooking.v2.PQOutputEntity()
+                {
+                    DealerId = !isManufacturerDealer ? PQParams.DealerId : 0,
+                    PQId = quoteId,
+                    VersionId = PQParams.VersionId,
+                    IsDealerAvailable = objDealerDetail != null && objDealerDetail.IsDealerAvailable,
+                    ManufacturerCampaign = campaigns
+                };
             }
-            objPQOutput = new Bikewale.Entities.BikeBooking.v2.PQOutputEntity()
+            catch (Exception ex)
             {
-                DealerId = !isManufacturerDealer ? PQParams.DealerId : 0,
-                PQId = quoteId,
-                VersionId = PQParams.VersionId,
-                IsDealerAvailable = (objDealerDetail != null) ? objDealerDetail.IsDealerAvailable : false,
-                ManufacturerCampaign = campaigns
-            };
+                ErrorClass.LogError(ex, "RegisterPQAndGetPQ ex : " + ex.Message);
+            }
             return objPQOutput;
         }
 

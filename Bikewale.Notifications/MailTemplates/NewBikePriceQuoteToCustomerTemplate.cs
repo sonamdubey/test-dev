@@ -64,7 +64,7 @@ namespace Bikewale.Notifications.MailTemplates
                 mail.Append("<div style=\"text-align:center; border-top:1px solid #f5f5f5;\"> <div style=\" padding-bottom:10px; padding-top:15px; margin:0 20px; text-align:left; font-size:14px; font-weight:bold; color:#4d5057;\">Exclusive offers from this dealer:</div> <div style=\" line-height:1.4; margin:0 20px; text-align:left;\">");
                 foreach (var offer in offerList)
                 {
-                    mail.AppendFormat("<div style=\"max-width:210px; margin:10px 5px 10px; display:inline-block; vertical-align:top;\"> <div style=\"width:45px; float:left;\"><img src=\"https://imgd.aeplcdn.com/0x0/bw/static/design15/mailer-images/offerIcon_{1}.png\" alt=\"Free bike insurance\" title=\"Free bike insurance\" border=\"0\" style=\"border:none;margin-right:5px;\" /></div> <div style=\"width:160px; float:left; text-align:left; font-size:14px; color:#82888b; margin:5px  0 0 0;\">{0}</div> <div style=\"clear:both;\"></div> </div>",
+                    mail.AppendFormat("<div style=\"max-width:210px; margin:10px 5px 10px; display:inline-block; vertical-align:top;\"> <div style=\"width:45px; float:left;\"><img src=\"https://imgd.aeplcdn.com/0x0/bw/static/icons/offers/{1}.png\" alt=\"Free bike insurance\" title=\"Free bike insurance\" border=\"0\" style=\"border:none;margin-right:5px;\" /></div> <div style=\"width:160px; float:left; text-align:left; font-size:14px; color:#82888b; margin:5px  0 0 0;\">{0}</div> <div style=\"clear:both;\"></div> </div>",
                         offer.OfferText, offer.OfferCategoryId);
                 }
                 mail.Append("</div> </div>");
