@@ -1,0 +1,48 @@
+html {
+  box-sizing: border-box;
+  font-family: 'Lato', sans-serif;
+  font-size: 14px;
+}
+
+*,
+*:before,
+*:after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+a {
+  color: #008489;
+  font-weight: bold;
+}
+
+/* markdown */
+pre[class^='css-glamorous-'] {
+  padding: 10px;
+  border: 1px dashed #e2e2e2;
+}
+
+td[class^='css-glamorous-td-'] {
+  padding: 10px;
+  border: 1px solid #e2e2e2;
+  white-space: normal;
+  font-weight: 400;
+  color: #484848;
+
+  &:nth-child(2) {
+    max-width: 250px;
+  }
+}
+
+th[class^='css-glamorous-th-'] {
+    padding: 10px;
+    border: 1px solid #e2e2e2;
+    background: #fafafa;
+}
+
+
+/* story example container */
+.example-container {
+  padding: 20px;
+}

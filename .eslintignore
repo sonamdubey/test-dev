@@ -1,0 +1,8 @@
+node_modules/*
+
+# Ignore tests
+src/**/__tests__/*
+
+# Build products
+build/
+coverage/
