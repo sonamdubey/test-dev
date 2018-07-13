@@ -1874,7 +1874,7 @@ namespace Bikewale.Models.BikeModels
                 if (!(_objData.IsDealerDetailsExists))
                 {
                     ManufacturerCampaignEntity campaigns = null;
-                    if (_pqOnRoad.PriceQuote != null && _pqOnRoad.PriceQuote.ManufacturerCampaign != null)
+                    if (_pqOnRoad!=null && _pqOnRoad.PriceQuote != null && _pqOnRoad.PriceQuote.ManufacturerCampaign != null)
                     {
                         campaigns = _pqOnRoad.PriceQuote.ManufacturerCampaign;
                         if (campaigns.LeadCampaign != null)

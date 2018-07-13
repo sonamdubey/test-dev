@@ -87,7 +87,7 @@ namespace Bikewale.BAL.PriceQuote
             }finally
             {
                 ThreadContext.Properties["RegisterPriceQuoteV2"] = time;
-                _logger.Error("Time");
+                _logger.Info("Time");
                 ThreadContext.Properties.Remove("RegisterPriceQuoteV2");
             }
             return pqGUId;

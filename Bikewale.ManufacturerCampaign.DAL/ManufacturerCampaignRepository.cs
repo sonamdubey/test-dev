@@ -643,6 +643,7 @@ namespace Bikewale.ManufacturerCampaign.DAL
 			catch (Exception ex)
 			{
 				ErrorClass.LogError(ex, string.Format("ManufacturerCampaignRepository.GetCampaigns({0},{1},{2})", modelId, cityId, pageId));
+                throw ex;
 			}
 			return config;
 		}

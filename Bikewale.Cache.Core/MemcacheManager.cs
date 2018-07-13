@@ -85,10 +85,24 @@ namespace Bikewale.Cache.Core
         private T AddDummyData<T>(string key)
         {
             mc.Store(StoreMode.Add, key, _dummyData, DateTime.Now.AddMinutes(_memcacheDefaultObjDuration));
-            _logger.Error("Db has returned null for key " + key);
+            _logger.Error("Db has returned null for key" + key);
             return default(T);
         }
 
+        /// <summary>
+        /// Created by  :   Sumit Kate on 13 Jul 2018
+        /// Description :   Add Dummy Data for specified cacheTime
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="key"></param>
+        /// <param name="cacheTime"></param>
+        /// <returns></returns>
+        private T AddDummyData<T>(string key,DateTime cacheTime)
+        {
+            mc.Store(StoreMode.Add, key, _dummyData, cacheTime);
+            _logger.Error("Db has returned genuine null for key " + key);
+            return default(T);
+        }
 
         public T GetFromCache<T>(string key, TimeSpan cacheDuration, Func<T> dbCallback)
         {
@@ -105,13 +119,15 @@ namespace Bikewale.Cache.Core
                             try
                             {
                                 t = dbCallback();
+                                DateTime cacheTime = DateTime.Now.Add(cacheDuration);
                                 if (t != null)
                                 {
-                                    mc.Store(StoreMode.Add, key, t, DateTime.Now.Add(cacheDuration));
+                                    mc.Store(StoreMode.Add, key, t, cacheTime);
                                 }
                                 else
                                 {
-                                    t = AddDummyData<T>(key);
+                                    //Incase of genuine null from db store the null object for the standard duration
+                                    t = AddDummyData<T>(key, cacheTime);
                                 }
                             }
                             catch (Exception ex)

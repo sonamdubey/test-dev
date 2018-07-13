@@ -545,76 +545,79 @@ namespace Bikewale.Models
                 if (_objManufacturerCampaign != null && !(objData.IsPrimaryDealerAvailable))
                 {
                     ManufacturerCampaignEntity campaigns = _objManufacturerCampaign.GetCampaigns(_modelId, _cityId, ManufacturerCampaignPageId);
-                    if (campaigns.LeadCampaign != null)
+                    if (campaigns!=null)
                     {
-                        objData.LeadCampaign = new Bikewale.Entities.manufacturecampaign.v2.ManufactureCampaignLeadEntity()
+                        if (campaigns.LeadCampaign != null)
                         {
-                            Area = GlobalCityArea.GetGlobalCityArea().Area,
-                            CampaignId = campaigns.LeadCampaign.CampaignId,
-                            DealerId = campaigns.LeadCampaign.DealerId,
-                            Organization = campaigns.LeadCampaign.Organization,
-                            DealerRequired = campaigns.LeadCampaign.DealerRequired,
-                            EmailRequired = campaigns.LeadCampaign.EmailRequired,
-                            LeadsButtonTextDesktop = campaigns.LeadCampaign.LeadsButtonTextDesktop,
-                            LeadsButtonTextMobile = campaigns.LeadCampaign.LeadsButtonTextMobile,
-                            LeadSourceId = (int)LeadSource,
-                            PqSourceId = (int)objData.PQSourcePage,
-                            GACategory = "Dealer_PQ",
-                            GALabel = string.Format("{0}_{1}", objData.BikeName, currentCity),
-                            LeadsHtmlDesktop = campaigns.LeadCampaign.LeadsHtmlDesktop,
-                            LeadsHtmlMobile = campaigns.LeadCampaign.LeadsHtmlMobile,
-                            LeadsPropertyTextDesktop = campaigns.LeadCampaign.LeadsPropertyTextDesktop,
-                            LeadsPropertyTextMobile = campaigns.LeadCampaign.LeadsPropertyTextMobile,
-                            PriceBreakUpLinkDesktop = campaigns.LeadCampaign.PriceBreakUpLinkDesktop,
-                            PriceBreakUpLinkMobile = campaigns.LeadCampaign.PriceBreakUpLinkMobile,
-                            PriceBreakUpLinkTextDesktop = campaigns.LeadCampaign.PriceBreakUpLinkTextDesktop,
-                            PriceBreakUpLinkTextMobile = campaigns.LeadCampaign.PriceBreakUpLinkTextMobile,
+                            objData.LeadCampaign = new Bikewale.Entities.manufacturecampaign.v2.ManufactureCampaignLeadEntity()
+                            {
+                                Area = GlobalCityArea.GetGlobalCityArea().Area,
+                                CampaignId = campaigns.LeadCampaign.CampaignId,
+                                DealerId = campaigns.LeadCampaign.DealerId,
+                                Organization = campaigns.LeadCampaign.Organization,
+                                DealerRequired = campaigns.LeadCampaign.DealerRequired,
+                                EmailRequired = campaigns.LeadCampaign.EmailRequired,
+                                LeadsButtonTextDesktop = campaigns.LeadCampaign.LeadsButtonTextDesktop,
+                                LeadsButtonTextMobile = campaigns.LeadCampaign.LeadsButtonTextMobile,
+                                LeadSourceId = (int)LeadSource,
+                                PqSourceId = (int)objData.PQSourcePage,
+                                GACategory = "Dealer_PQ",
+                                GALabel = string.Format("{0}_{1}", objData.BikeName, currentCity),
+                                LeadsHtmlDesktop = campaigns.LeadCampaign.LeadsHtmlDesktop,
+                                LeadsHtmlMobile = campaigns.LeadCampaign.LeadsHtmlMobile,
+                                LeadsPropertyTextDesktop = campaigns.LeadCampaign.LeadsPropertyTextDesktop,
+                                LeadsPropertyTextMobile = campaigns.LeadCampaign.LeadsPropertyTextMobile,
+                                PriceBreakUpLinkDesktop = campaigns.LeadCampaign.PriceBreakUpLinkDesktop,
+                                PriceBreakUpLinkMobile = campaigns.LeadCampaign.PriceBreakUpLinkMobile,
+                                PriceBreakUpLinkTextDesktop = campaigns.LeadCampaign.PriceBreakUpLinkTextDesktop,
+                                PriceBreakUpLinkTextMobile = campaigns.LeadCampaign.PriceBreakUpLinkTextMobile,
 
-                            MakeName = objData.SelectedVersion.MakeBase.MakeName,
-                            MaskingNumber = campaigns.LeadCampaign.MaskingNumber,
-                            PincodeRequired = campaigns.LeadCampaign.PincodeRequired,
-                            PopupDescription = campaigns.LeadCampaign.PopupDescription,
-                            PopupHeading = campaigns.LeadCampaign.PopupHeading,
-                            PopupSuccessMessage = campaigns.LeadCampaign.PopupSuccessMessage,
-                            PQId = objData.PQId,
-                            VersionId = objData.VersionId,
-                            CurrentPageUrl = CurrentPageUrl,
-                            PlatformId = (ushort)Platform,
-                            BikeName = objData.BikeName,
-                            LoanAmount = Convert.ToUInt32((objData.TotalPrice) * 0.8),
-                            SendLeadSMSCustomer = campaigns.LeadCampaign.SendLeadSMSCustomer
-                        };
-                        objData.IsManufacturerLeadAdShown = true;
-                    }
-                    if (campaigns.EMICampaign != null)
-                    {
-                        objData.EMICampaign = new ManufactureCampaignEMIEntity()
+                                MakeName = objData.SelectedVersion.MakeBase.MakeName,
+                                MaskingNumber = campaigns.LeadCampaign.MaskingNumber,
+                                PincodeRequired = campaigns.LeadCampaign.PincodeRequired,
+                                PopupDescription = campaigns.LeadCampaign.PopupDescription,
+                                PopupHeading = campaigns.LeadCampaign.PopupHeading,
+                                PopupSuccessMessage = campaigns.LeadCampaign.PopupSuccessMessage,
+                                PQId = objData.PQId,
+                                VersionId = objData.VersionId,
+                                CurrentPageUrl = CurrentPageUrl,
+                                PlatformId = (ushort)Platform,
+                                BikeName = objData.BikeName,
+                                LoanAmount = Convert.ToUInt32((objData.TotalPrice) * 0.8),
+                                SendLeadSMSCustomer = campaigns.LeadCampaign.SendLeadSMSCustomer
+                            };
+                            objData.IsManufacturerLeadAdShown = true;
+                        }
+                        if (campaigns.EMICampaign != null)
                         {
-                            Area = GlobalCityArea.GetGlobalCityArea().Area,
-                            CampaignId = campaigns.EMICampaign.CampaignId,
-                            DealerId = campaigns.EMICampaign.DealerId,
-                            Organization = campaigns.EMICampaign.Organization,
-                            DealerRequired = campaigns.EMICampaign.DealerRequired,
-                            EmailRequired = campaigns.EMICampaign.EmailRequired,
-                            EMIButtonTextDesktop = campaigns.EMICampaign.EMIButtonTextDesktop,
-                            EMIButtonTextMobile = campaigns.EMICampaign.EMIButtonTextMobile,
-                            LeadSourceId = (int)LeadSource,
-                            PqSourceId = (int)objData.PQSourcePage,
-                            EMIPropertyTextDesktop = campaigns.EMICampaign.EMIPropertyTextDesktop,
-                            EMIPropertyTextMobile = campaigns.EMICampaign.EMIPropertyTextMobile,
-                            MakeName = objData.SelectedVersion.MakeBase.MakeName,
-                            MaskingNumber = campaigns.EMICampaign.MaskingNumber,
-                            PincodeRequired = campaigns.EMICampaign.PincodeRequired,
-                            PopupDescription = campaigns.EMICampaign.PopupDescription,
-                            PopupHeading = campaigns.EMICampaign.PopupHeading,
-                            PopupSuccessMessage = campaigns.EMICampaign.PopupSuccessMessage,
-                            VersionId = objData.VersionId,
-                            CurrentPageUrl = CurrentPageUrl,
-                            PlatformId = (ushort)Platform,
-                            LoanAmount = Convert.ToUInt32((objData.TotalPrice) * 0.8),
-                            SendLeadSMSCustomer = campaigns.EMICampaign.SendLeadSMSCustomer
-                        };
-                        objData.IsManufacturerEMIAdShown = true;
+                            objData.EMICampaign = new ManufactureCampaignEMIEntity()
+                            {
+                                Area = GlobalCityArea.GetGlobalCityArea().Area,
+                                CampaignId = campaigns.EMICampaign.CampaignId,
+                                DealerId = campaigns.EMICampaign.DealerId,
+                                Organization = campaigns.EMICampaign.Organization,
+                                DealerRequired = campaigns.EMICampaign.DealerRequired,
+                                EmailRequired = campaigns.EMICampaign.EmailRequired,
+                                EMIButtonTextDesktop = campaigns.EMICampaign.EMIButtonTextDesktop,
+                                EMIButtonTextMobile = campaigns.EMICampaign.EMIButtonTextMobile,
+                                LeadSourceId = (int)LeadSource,
+                                PqSourceId = (int)objData.PQSourcePage,
+                                EMIPropertyTextDesktop = campaigns.EMICampaign.EMIPropertyTextDesktop,
+                                EMIPropertyTextMobile = campaigns.EMICampaign.EMIPropertyTextMobile,
+                                MakeName = objData.SelectedVersion.MakeBase.MakeName,
+                                MaskingNumber = campaigns.EMICampaign.MaskingNumber,
+                                PincodeRequired = campaigns.EMICampaign.PincodeRequired,
+                                PopupDescription = campaigns.EMICampaign.PopupDescription,
+                                PopupHeading = campaigns.EMICampaign.PopupHeading,
+                                PopupSuccessMessage = campaigns.EMICampaign.PopupSuccessMessage,
+                                VersionId = objData.VersionId,
+                                CurrentPageUrl = CurrentPageUrl,
+                                PlatformId = (ushort)Platform,
+                                LoanAmount = Convert.ToUInt32((objData.TotalPrice) * 0.8),
+                                SendLeadSMSCustomer = campaigns.EMICampaign.SendLeadSMSCustomer
+                            };
+                            objData.IsManufacturerEMIAdShown = true;
+                        } 
                     }
                 }
             }
