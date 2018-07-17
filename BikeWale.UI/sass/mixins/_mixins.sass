@@ -9,7 +9,7 @@
   clear: both
   &:before,
   &:after
-    content: " "
+    content: ''
     display: table
 
   &:after
@@ -18,8 +18,8 @@
 //icon in after content
 @mixin afterIcon($fromRight: 8%, $fromTop: 34%)
   &:after
-    @include right-arrow-0288d1-icon
-    content: ""
+    @include right-arrow-3799a7-icon
+    content: ''
     position: absolute
     right: $fromRight
     top: $fromTop
@@ -28,3 +28,10 @@
 
   &:hover:after
     @include right-arrow-fff-icon
+
+//box-shadow
+@mixin box-shadow($shadow...)
+  -webkit-box-shadow: $shadow // iOS <4.3 & Android <4.1
+  -moz-box-shadow: $shadow
+  -ms-box-shadow: $shadow
+  box-shadow: $shadow

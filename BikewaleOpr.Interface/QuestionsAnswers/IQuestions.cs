@@ -18,7 +18,7 @@ namespace BikewaleOpr.Interface.QnA
 
         Entity.QuestionsAndAnswers.Question.UpdateQuestionTagsResponse UpdateQuestionTags(string questionId, Entity.QuestionsAndAnswers.Question.UpdateQuestionTagsEntity updateQuestionTagsEntity);
 
-        bool SaveQuestionAnswer(Answer answerEntity, ushort platformId, ushort sourceId);
+        bool SaveQuestionAnswer(Answer answerEntity, ushort platformId, ushort sourceId, string clientIp);
 
         BikeModelData GetBikeModelDataForQuestion(string questionId);
     }

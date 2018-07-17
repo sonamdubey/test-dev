@@ -122,7 +122,7 @@ namespace Bikewale.BAL.QuestionAndAnswers
         /// <param name="platformId"></param>
         /// <param name="sourceId"></param>
         /// <returns></returns>
-        public Guid? SaveQuestion(Question inputQuestion, ushort platformId, ushort sourceId)
+        public Guid? SaveQuestion(Question inputQuestion, ushort platformId, ushort sourceId, string clientIp)
         {
             ushort applicationId = 2;
             Guid? questionId = null;
@@ -162,7 +162,16 @@ namespace Bikewale.BAL.QuestionAndAnswers
                 #endregion
 
                 #region Storing Question and Maintaining Mapping
-                questionId = _objQNAQuestions.SaveQuestions(ConvertToQNAQuestionEntity(inputQuestion), platformId, applicationId, sourceId);
+                QuestionsAnswers.Entities.ClientInfo clientInfo = new QuestionsAnswers.Entities.ClientInfo()
+                {
+                    ApplicationId = applicationId,
+                    PlatformId = platformId,
+                    SourceId = sourceId,
+                    ClientIp = clientIp
+
+                };
+
+                questionId = _objQNAQuestions.SaveQuestions(ConvertToQNAQuestionEntity(inputQuestion), clientInfo);
 
                 if (questionId != null)
                 {

@@ -36,12 +36,14 @@ else if (Model.ModelPageEntity.ModelDesc != null && !string.IsNullOrEmpty(Model.
 {
 	<span class="bw-ga navtab" data-cat="Model_Page" data-act="Floating_Navigation_Clicked" data-lab="@bikeName&#95;Price" data-href="#modelPricesContent">Price</span>
 }
-
+@if (Model.IsQAModel && Model.IsQAAvailable)
+{
+    <span class="bw-ga navtab" data-cat="Model_Page" data-act="Floating_Navigation_Clicked" data-lab="@bikeName&#95;Q&A" data-href="#questionAnswerWrapper">Q&A</span>
+}
 @if (Model.IsUserReviewsAvailable)
 {
     <span class="bw-ga navtab" data-cat="Model_Page" data-act="Floating_Navigation_Clicked" data-lab="@bikeName&#95;UserReviews" data-href="#modelReviewsContent">User Reviews</span>
 }
-
 @if (Model.IsNewsAvailable)
 {
     <span class="bw-ga navtab" data-cat="Model_Page" data-act="Floating_Navigation_Clicked" data-lab="@bikeName&#95;Dealers&News" data-href="#modelNewsContent">News</span>

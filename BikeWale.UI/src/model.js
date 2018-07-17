@@ -771,6 +771,10 @@ docReady(function () {
     // For saving page in recently viewed models/make
 	if (typeof pageData != "undefined" && pageData != null)
 	    recentSearches.saveRecentSearches(pageData);
+
+	//QnA Read more on model page
+	ToggleReadMore.registerEvents();
+
 });
 
 

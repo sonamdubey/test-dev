@@ -129,6 +129,7 @@
     <Compile Include="BikeData\BikeMakeEntity.cs" />
     <Compile Include="BikeData\BikeMakeEntityBase.cs" />
     <Compile Include="BikeData\BikeMakeModelData.cs" />
+    <Compile Include="QuestionsAndAnswers\AnswerEmailInfo.cs" />
     <Compile Include="QuestionsAndAnswers\BikeModelData.cs" />
     <Compile Include="BikeData\BikeModelEntityBase.cs" />
     <Compile Include="BikeData\BikeModelMailEntity.cs" />

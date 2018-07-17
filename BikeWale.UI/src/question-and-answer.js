@@ -55,7 +55,7 @@ var vmQuestionAndAns = function () {
     self.modelId = ko.observable();
     self.platformId = ko.observable();
     self.sourceId = ko.observable();
-    self.isSubmittedSuccessfully = ko.observable(false);    
+    self.isSubmittedSuccessfully = ko.observable(false);
     self.initCustomer = function () {
         self.askedBy(new customer().readUserCookie());
     };
@@ -86,8 +86,9 @@ var vmQuestionAndAns = function () {
 };
 var koVMQnA;
 var QuestionAndAns = function () {
-    var questionAnsPopup, closeIcon, postQuestion, questionAnsContainer, link;
+    var questionAnsPopup, closeIcon, postQuestion, questionAnsContainer, link, blackoutWindow;
     var bikeName, askedBy, makeName, modelName, userName, userEmail, ques, cat, act, lab, prefilledName, prefilledEmail;
+    var isDesktop = false;
 
     function _setSelector() {
         link = $('.ask-question__link');
@@ -95,6 +96,7 @@ var QuestionAndAns = function () {
         closeIcon = $('.question-answer__close-icon');
         postQuestion = $('#postQuestion');
         questionAnsContainer = $('.question-answer-container');
+        blackoutWindow = $('.blackOut-window');
     };
 
     function _initGAdata() {
@@ -118,7 +120,7 @@ var QuestionAndAns = function () {
         }
 
         if ($('#askQuestionQnASlug').length > 0) {
-            triggerNonInteractiveGA(cat, "Ask_Question_Loaded", lab + "_Slug");
+            triggerNonInteractiveGA(cat, "Ask_Question_Slug_Loaded", lab);
         }
     }
 
@@ -127,7 +129,6 @@ var QuestionAndAns = function () {
             var ele = $(this);
             questionAnsPopup.addClass('popup--active')
             popup.lock();
-            $('.blackOut-window').hide();
             history.pushState('Q&A-popup', '', '');
             if (koVMQnA) {
                 var vmParams = {
@@ -138,10 +139,11 @@ var QuestionAndAns = function () {
                 };
                 koVMQnA.init(vmParams);
             }
-
-            triggerAskQuestionGA("Ask_Question_Button_Clicked", ele);
-            triggerPreFilledGA("Ask_Question_Link_Clicked");
-
+            var argAct = ele.is("button") ? "Ask_Question_Button_Clicked" : "Ask_Question_Link_Clicked";
+            triggerAskQuestionGA(argAct, ele);            
+            if (isDesktop) {
+                $('#questionField').focus();
+            }
         });
     };
 
@@ -156,10 +158,26 @@ var QuestionAndAns = function () {
                 triggerFormCloseGA('Ask_Question_Form_Closed');
                 resetAskQuestionPopupExit();
             }
-            
             _closePopup();
         });
 
+    };
+    function _handleEscKey() {
+        $(document).keyup(function (e) {
+            if (e.keyCode == 27) {
+                if (questionAnsPopup.hasClass('popup--active')) {
+                    window.history.back();
+                }
+            }
+        });
+    }
+
+    function _handleBlackOutClick() {
+        blackoutWindow.on('mouseup', function () {
+            if (questionAnsPopup.hasClass('popup--active')) {
+                window.history.back();
+            }
+        });
     };
 
     function _closePopup() {
@@ -179,13 +197,13 @@ var QuestionAndAns = function () {
         $('.question-answer__content').show();
     }
 
-    function resetAskQuestionPopupExit() {
-        koVMQnA.isSubmittedSuccessfully(false);
-        koVMQnA.questionId(null);
-        postQuestion.text('Post Question');
-        $('.question-answer__email').removeClass('invalid');
-        $('.question-answer__thank-you').hide();
-        $('.question-answer__content').show();
+    function resetAskQuestionPopupExit() {		
+        koVMQnA.isSubmittedSuccessfully(false);		
+        koVMQnA.questionId(null);		
+        postQuestion.text('Post Question');		
+        $('.question-answer__email').removeClass('invalid');		
+        $('.question-answer__thank-you').hide();		
+        $('.question-answer__content').show();		
     }
 
     function resetGAdata(action) {
@@ -201,50 +219,52 @@ var QuestionAndAns = function () {
 
     function triggerAskQuestionGA(action, ele) {
         resetGAdata(action);
-        var labSuffix = ele.data('lab-suffix');
-        labSuffix = labSuffix != undefined ? labSuffix : "";
-        triggerGA(cat, act, lab + labSuffix);
-    }
-
-    function triggerPreFilledGA(action) {
-        resetGAdata(action);
+        var actSuffix = ele.data('act-suffix');
+        actSuffix = actSuffix != undefined ? actSuffix : "";
+        act += actSuffix;
+        var emailPrefilled = false, namePrefilled = false;
         if (userName != undefined && userName != '') {
-            lab += "_Name"
+            act += "_Name"
+            namePrefilled = true;
         }
         if (userEmail != undefined && userEmail != '') {
-            lab += "_Email"
+            act += "_Email"
+            emailPrefilled = true;
         }
-        if (lab != makeName + '_' + modelName) {
-            lab += "_Prefilled"
-        }        
+        if (namePrefilled || emailPrefilled) {
+            act += "_Prefilled"
+        }
         triggerGA(cat, act, lab);
-    };
+    }
 
     function triggerFormCloseGA(action) {
         resetGAdata(action);
         var emailPrefilled = false, namePrefilled = false;
         if (prefilledName != undefined && prefilledName != '' && prefilledName === userName) {
-            lab += "_Name";
+            act += "_Name";
             namePrefilled = true;
         }
         if (prefilledEmail != undefined && prefilledEmail != '' && prefilledEmail === userEmail) {
-            lab += "_Email";
+            act += "_Email";
             emailPrefilled = true;
         }
         if (emailPrefilled || namePrefilled) {
-            triggerGA(cat, act, lab + "_Prefilled");
+            triggerGA(cat, act + "_Prefilled", lab);
         }
-        lab = makeName + '_' + modelName;
-        if (quesText != undefined) {
-            lab += "_Question";
+        act = action;
+        if (quesText != undefined && quesText != '') {
+            act += "_Question";
         }
         if (!namePrefilled && userName != undefined && userName != '') {
-            lab += "_Name";
+            act += "_Name";
         }
         if (!emailPrefilled && userEmail != undefined && userEmail != '') {
-            lab += "_Email";
-        }       
-        triggerGA(cat, act, lab);
+            act += "_Email";
+        }
+        if((!emailPrefilled && !namePrefilled) || (act != action)) {
+            triggerGA(cat, act, lab);            
+        }        
+                
     };    
 
     function removeMaliciousCode(text) {
@@ -368,7 +388,7 @@ var QuestionAndAns = function () {
                         act += '_Email'
                     }
                     break;
-                case "nonempty":                    
+                case "nonempty":
                     isValid = !(currentVal.length == 0 || currentVal.length > 300);
                     if (!isValid) {
                         act += '_Question'
@@ -376,7 +396,7 @@ var QuestionAndAns = function () {
                     break;
                 default:
                     break;
-            }            
+            }
             if (!isValid) {
                 parent.addClass('invalid');
                 validation = false;
@@ -394,7 +414,7 @@ var QuestionAndAns = function () {
     function validateEmail(leadEmailId) {
         var regMaxLen = /^[A-z0-9._+-@]{1,50}$/;
         var errorMessage = '';
-        var isValid = true,            
+        var isValid = true,
             reEmail = /^[A-z0-9._+-]+@[A-z0-9.-]+\.[A-z]{2,6}$/;
         if (leadEmailId == "") {
             errorMessage = "Please enter Email ID";
@@ -405,13 +425,13 @@ var QuestionAndAns = function () {
             isValid = false;
         }
         else if (!regMaxLen.test(leadEmailId)) {
-            errorMessage ="Email cannot be more than 50 characters";
+            errorMessage = "Email cannot be more than 50 characters";
             isValid = false;
         }
-        return { "isValid" : isValid , "message" : errorMessage };
+        return { "isValid": isValid, "message": errorMessage };
     };
 
-    function validateUserName(leadUsername) {        
+    function validateUserName(leadUsername) {
         var isValid = false;
         var errorMessage = '';
         var regMaxLen = /^[a-zA-Z ]{1,50}$/;
@@ -427,15 +447,15 @@ var QuestionAndAns = function () {
                 isValid = false;
             }
             else if (!regMaxLen.test(leadUsername)) {
-                errorMessage ='Name cannot be more than 50 characters';
+                errorMessage = 'Name cannot be more than 50 characters';
                 isValid = false;
             }
-            else if (nameLength >= 1) {                
+            else if (nameLength >= 1) {
                 isValid = true;
             }
         }
         else {
-            errorMessage ="Please enter Name";
+            errorMessage = "Please enter Name";
             isValid = false;
         }
         return { "isValid": isValid, "message": errorMessage };
@@ -452,8 +472,14 @@ var QuestionAndAns = function () {
     };
 
     function registerEvents() {
+        if (window.innerWidth > 1024) {
+            isDesktop = true;
+        }
+
         _setSelector();
         _handleLinkClick();
+        _handleEscKey();
+        _handleBlackOutClick();
         _handleCloseIconClick();
         _handlePostQuestionClick();
         _onPopupState();
@@ -467,7 +493,7 @@ var QuestionAndAns = function () {
         registerEvents: registerEvents
     }
 
-    function _initializeKO() {        
+    function _initializeKO() {
         koVMQnA = new vmQuestionAndAns();
         koVMLoadMoreQuestions = new vmQuestionAnswerLoadMore();
         if (koVMQnA && !koVMQnA.isKOInitialized()) {
@@ -570,12 +596,12 @@ var TextArea = function () {
 
 var vmQuestionAnswerLoadMore = function () {
     var self = this;
-    var pageNo = 1;
+    var pageNo = $("#currentPage").length > 0 ? parseInt($("#currentPage").val()) : 1;
     var pageSize = 10;
     self.isKOInitialized = ko.observable(false);
     self.modelId = ($('#askQuestionButton').length > 0 ? $('#askQuestionButton').data('modelid') : 0);
     self.otherQuestions = ko.observableArray([]);
-    self.remainingQuestions = ko.observable($('#totalAnsweredQuestions').val() - pageSize);
+    self.remainingQuestions = ko.observable($('#totalAnsweredQuestions').val() - pageSize);    
 
     self.readMoreText = function (d, e) {
         $(e.target).parent('.question-answer-wrapper__answer-box').addClass("question-answer-wrapper--active");
@@ -584,7 +610,7 @@ var vmQuestionAnswerLoadMore = function () {
         try
         {
             pageNo = pageNo + 1;
-            if (koVMLoadMoreQuestions.modelId > 0 && (pageNo > 0) && (pageSize > 0)) {
+            if (koVMLoadMoreQuestions.modelId > 0 && (pageSize > 0)) {
                 $.ajax({
                     type: "GET",
                     url: "/api/models/" + koVMLoadMoreQuestions.modelId + "/questions/?pageNo=" + pageNo + "&pageSize=" + pageSize,

@@ -309,7 +309,7 @@
 #model-key-highlights tr td {
     padding-top: 12px;
     padding-bottom: 12px;
-    border-top: 1px solid #eee; 
+    border-top: 1px solid #eee;
 }
 
 #model-key-highlights tbody tr:first-child td {
@@ -524,7 +524,7 @@ h1 {font-weight: 700;}
 
 #dealername {
     margin-bottom: 5px;
-} 
+}
 
 .inr-grey-xxxsm-icon {
     width: 7px;
@@ -794,3 +794,25 @@ a.btn:hover {
     display: inline-block;
 }
 
+/* ATF css for Popup */
+.ask-question__link {
+    color: #0288d1;
+    border-left: 1px solid #ededed;
+    cursor: pointer;
+}
+.question-answer-popup {
+      height: 100%;
+      width: 100%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #fff;
+      display: none;
+      z-index: 10;
+      -webkit-transform: translateX(-100%);
+      -moz-transform: translateX(-100%);
+      -ms-transform: translateX(-100%);
+      transform: translateX(-100%);
+}

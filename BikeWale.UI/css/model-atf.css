@@ -257,7 +257,7 @@
     border-bottom: 1px solid #82888b;
 }
 
-.loc-change-blue { 
+.loc-change-blue {
     width: 12px;
     height: 16px;
     background-position: -205px -9px;
@@ -744,7 +744,7 @@
 }
 
 .partner-dealer-details-btn {
-    width: 200px;    
+    width: 200px;
 }
 
 .get-offers-main-btn, .partner-dealer-details-btn {
@@ -1018,5 +1018,25 @@
     width: 25%;
 }
 
-
-
+/* ATF css for Popup */
+.ask-question__link {
+    color: #0288d1;
+    border-left: 0;
+    cursor: pointer;
+}
+.question-answer-popup {
+    height: 100%;
+    width: 436px;
+    position: fixed;
+    top: 0;
+    left: auto;
+    right: 0;
+    bottom: 0;
+    background-color: #fff;
+    display: none;
+    z-index: 210;
+    -webkit-transform: translateY(-100%);
+    -moz-transform: translateY(-100%);
+    -ms-transform: translateY(-100%);
+    transform: translateY(-100%);
+}

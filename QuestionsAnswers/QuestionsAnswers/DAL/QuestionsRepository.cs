@@ -488,6 +488,88 @@ namespace QuestionsAnswers.DAL
             }
         }
 
+        /// <summary>
+        /// Created By : Deepak Israni on 9 July 2018
+        /// Description : Overloaded function to save question which also stores the client ip.
+        /// </summary>
+        /// <param name="inputQuestion"></param>
+        /// <param name="clientInfo"></param>
+        /// <returns></returns>
+        public bool SaveQuestion(Question inputQuestion, ClientInfo clientInfo)
+        {
+            bool success = false;
 
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand())
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "savequestion_09072018";
+
+
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_questiontext", DbType.String, inputQuestion.Text));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbType.UInt32, inputQuestion.AskedBy.Id));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customeremailid", DbType.String, inputQuestion.AskedBy.Email));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customermaskingname", DbType.String, inputQuestion.AskedBy.Name));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_sourceid", DbType.UInt16, clientInfo.SourceId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_applicationid", DbType.UInt16, clientInfo.ApplicationId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_platformid", DbType.UInt16, clientInfo.PlatformId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_clientip", DbType.String, clientInfo.ClientIp));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_tags", DbType.String, String.Join(",", inputQuestion.Tags.Select(m => m.Name))));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_questionid", DbType.String, inputQuestion.Id));
+
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
+                }
+
+                success = true;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+            return success;
+        }
+
+        /// <summary>
+        /// Created By : Deepak Israni on 10 July 2018
+        /// Description : Overloaded function to save answer to a question along with the client ip.
+        /// </summary>
+        /// <param name="answerObj"></param>
+        /// <param name="clientInfo"></param>
+        /// <returns></returns>
+        public bool SaveQuestionAnswer(Answer answerObj, ClientInfo clientInfo)
+        {
+            bool isSavedSuccessfully = false;
+            try
+            {
+                if (answerObj != null && !String.IsNullOrEmpty(answerObj.Text) && answerObj.AnsweredBy != null)
+                {
+                    Customer objCustomerBase = answerObj.AnsweredBy;
+                    using (DbCommand cmd = DbFactory.GetDBCommand())
+                    {
+                        cmd.CommandText = "savequestionanswer_09072018";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_questionid", DbType.String, answerObj.QuestionId));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_answertext", DbType.String, answerObj.Text));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbType.UInt32, objCustomerBase.Id));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_customername", DbType.String, objCustomerBase.Name));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_customeremail", DbType.String, objCustomerBase.Email));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_sourceid", DbType.UInt16, clientInfo.SourceId));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_platformid", DbType.UInt16, clientInfo.PlatformId));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_clientip", DbType.String, clientInfo.ClientIp));
+                        isSavedSuccessfully = MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase) > 0;
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return isSavedSuccessfully;
+        }
     }
 }

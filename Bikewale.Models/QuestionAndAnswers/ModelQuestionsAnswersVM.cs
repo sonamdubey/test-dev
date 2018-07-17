@@ -1,5 +1,6 @@
 ﻿using Bikewale.Entities;
 using Bikewale.Entities.GenericBikes;
+using Bikewale.Entities.Pager;
 using Bikewale.Entities.QuestionAndAnswers;
 
 
@@ -20,6 +21,8 @@ namespace Bikewale.Models.QuestionAndAnswers
         public Platforms Platform { get; set; }
         public uint ModelId { get; set; }
         public string Tags { get; set; }
-
+        public PagerEntity PagerEntity { get; set; }
+        public int StartIndex { get; set; }
+        public int EndIndex { get; set; }
     }
 }

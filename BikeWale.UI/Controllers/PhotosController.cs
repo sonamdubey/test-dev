@@ -164,15 +164,8 @@ namespace Bikewale.Controllers
             if (obj.Status.Equals(StatusCodes.ContentFound))
             {
                 obj.IsMobile = true;
-                PhotosPageVM objData = obj.GetData(30, 6, q);
-                if (objData != null && objData.TotalPhotos > 0)
-                {
-                    return View(objData);
-                }
-                else
-                {
-                    return HttpNotFound();
-                }
+                PhotosPageVM objData = obj.GetData(30, 6, q);                
+                return View(objData);                                
 
             }
             else if (obj.Status.Equals(StatusCodes.RedirectPermanent))

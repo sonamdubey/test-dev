@@ -1,6 +1,7 @@
 ﻿using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
+using Bikewale.Interfaces.Pager;
 using Bikewale.Interfaces.QuestionAndAnswers;
 using Bikewale.Models.QuestionAndAnswers;
 using Bikewale.Models.QuestionsAnswers;
@@ -17,11 +18,12 @@ namespace Bikewale.Controllers
         private readonly IBikeSeriesCacheRepository _seriesCache;
         private readonly IBikeMaskingCacheRepository<BikeModelEntity, int> _modelMaskingCache = null;
         private readonly IBikeModels<BikeModelEntity, int> _objModelEntity = null;
+        private readonly IPager _pager = null;
 
         /// <summary>
         /// Constructor
         /// </summary>
-        public QuestionAndAnswersController(IBikeMakesCacheRepository objMakeCache, IQuestions objQuestions, IBikeModelsCacheRepository<int> modelCache, IBikeSeriesCacheRepository seriesCache, IBikeMaskingCacheRepository<BikeModelEntity, int> modelMaskingCache, IBikeVersions<BikeVersionEntity, uint> objVersion, IBikeModels<BikeModelEntity, int> objModelEntity)
+        public QuestionAndAnswersController(IBikeMakesCacheRepository objMakeCache, IQuestions objQuestions, IBikeModelsCacheRepository<int> modelCache, IBikeSeriesCacheRepository seriesCache, IBikeMaskingCacheRepository<BikeModelEntity, int> modelMaskingCache, IBikeVersions<BikeVersionEntity, uint> objVersion, IBikeModels<BikeModelEntity, int> objModelEntity, IPager pager)
         {
             _objMakeCache = objMakeCache;
             _objQuestions = objQuestions;
@@ -30,6 +32,7 @@ namespace Bikewale.Controllers
             _modelMaskingCache = modelMaskingCache;
             _objVersion = objVersion;
             _objModelEntity = objModelEntity;
+            _pager = pager;
 
         }
 
@@ -37,7 +40,7 @@ namespace Bikewale.Controllers
         public ActionResult Model_Index_Mobile(string makeMaskingName, string modelMaskingName)
         {
             ModelQuestionsAnswersVM objVM = null;
-            QuestionAnswerModel modelobj = new QuestionAnswerModel(makeMaskingName, modelMaskingName, _objMakeCache, _objQuestions, _modelCache, _seriesCache, _modelMaskingCache, _objVersion, _objModelEntity);
+            QuestionAnswerModel modelobj = new QuestionAnswerModel(makeMaskingName, modelMaskingName, _objMakeCache, _objQuestions, _modelCache, _seriesCache, _modelMaskingCache, _objVersion, _objModelEntity, _pager);
 
             if (modelobj.Status == StatusCodes.ContentNotFound)
             {
@@ -63,13 +66,34 @@ namespace Bikewale.Controllers
 
         }
 
+        [Bikewale.Filters.DeviceDetection]
         [Route("qna/{makeMaskingName}-bikes/{modelMaskingName}/")]
         public ActionResult Model_Index(string makeMaskingName, string modelMaskingName)
         {
             ModelQuestionsAnswersVM objVM = null;
-            QuestionAnswerModel modelobj = new QuestionAnswerModel(makeMaskingName, modelMaskingName, _objMakeCache, _objQuestions, _modelCache, _seriesCache, _modelMaskingCache, _objVersion, _objModelEntity);
-            objVM = modelobj.GetData();
-            return View(objVM);
+            QuestionAnswerModel modelobj = new QuestionAnswerModel(makeMaskingName, modelMaskingName, _objMakeCache, _objQuestions, _modelCache, _seriesCache, _modelMaskingCache, _objVersion, _objModelEntity, _pager);
+
+            if (modelobj.Status == StatusCodes.ContentNotFound)
+            {
+                return HttpNotFound();
+            }
+            else if (modelobj.Status == StatusCodes.RedirectPermanent)
+            {
+                return RedirectPermanent(modelobj.RedirectUrl);
+            }
+            else
+            {
+                objVM = modelobj.GetData();
+                if (modelobj.Status.Equals(StatusCodes.ContentNotFound))
+                {
+                    return HttpNotFound();
+                }
+                else
+                {
+                    return View(objVM);
+                }
+            }
+
         }
     }
 }

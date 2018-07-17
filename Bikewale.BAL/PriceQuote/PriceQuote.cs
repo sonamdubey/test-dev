@@ -77,7 +77,7 @@ namespace Bikewale.BAL.PriceQuote
                 DateTime startTime = DateTime.Now;
                 pqGUId = RandomNoGenerator.GenerateUniqueId();
                 string clientIp = CurrentUser.GetClientIP();
-                Task.Run(() => PushToQueue(pqParams, pqGUId, clientIp));
+                PushToQueue(pqParams, pqGUId, clientIp);
                 DateTime endTime = DateTime.Now;
                 time = (endTime - startTime).TotalMilliseconds;
             }
@@ -314,9 +314,9 @@ namespace Bikewale.BAL.PriceQuote
         /// <returns>
         /// Created by : Sangram Nandkhile on 10-May-2017 
         /// </returns>
-        public IEnumerable<Entities.ManufacturerDealer> GetManufacturerDealers()
+        public IDictionary<uint, List<Entities.ManufacturerDealer>> GetManufacturerDealers(uint dealerId)
         {
-            return objPQ.GetManufacturerDealers();
+            return objPQ.GetManufacturerDealers(dealerId);
         }
 
         /// <summary>

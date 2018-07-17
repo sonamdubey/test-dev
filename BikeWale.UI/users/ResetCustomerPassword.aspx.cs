@@ -39,9 +39,13 @@ namespace Bikewale.Users
 
         void Page_Load(object Sender, EventArgs e)
         {
-            divErrMsg.Visible = false;
-
-            ValidateToken();
+            if (Bikewale.Common.CurrentUser.Id != null && Bikewale.Common.CurrentUser.Id != "-1")
+                Response.Redirect("/");
+            else
+            {
+                divErrMsg.Visible = false;
+                ValidateToken();
+            }
         } // Page_Load
 
 
@@ -52,13 +56,14 @@ namespace Bikewale.Users
             string email = string.Empty;
 
             token = Request.QueryString["tkn"];
-            
+
             StringBuilder msgQ = new StringBuilder();
 
-            if (!String.IsNullOrEmpty(token))
+            try
             {
-                try
+                if (!String.IsNullOrEmpty(token))
                 {
+
                     RegisterCustomer objCust = new RegisterCustomer();
                     try
                     {
@@ -109,17 +114,24 @@ namespace Bikewale.Users
                         msgQ.AppendLine("Inner Exception block.");
                     }
                 }
-                catch (Exception ex)
+                else
                 {
-                    ErrorClass.LogError(ex, "ValidateToken");
-                    msgQ.AppendLine("Outer Exception block.");
+                    msgQ.AppendLine(String.Format("Token is blank in query string."));
+                    divErrMsg.InnerText = "You are not authorized to reset the password.";
+                    divErrMsg.Visible = true;
+                    tblPassword.Visible = false;
                 }
-                finally
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "ValidateToken");
+                msgQ.AppendLine("Outer Exception block.");
+            }
+            finally
+            {
+                if (enablePwdResetLogging)
                 {
-                    if (enablePwdResetLogging)
-                    {
-                        _logger.Error(msgQ.ToString());
-                    }
+                    _logger.Error(msgQ.ToString());
                 }
             }
         }   // End of ValidateToken method
@@ -136,7 +148,7 @@ namespace Bikewale.Users
             try
             {
                 Page.Validate();
-                
+
                 if (!Page.IsValid)
                 {
                     msgQ.AppendLine("!Page.IsValid");
@@ -157,7 +169,7 @@ namespace Bikewale.Users
                 // Generate random salt and hash from the password given by customer
                 string newSalt = objCust.GenerateRandomSalt();
                 string newHash = objCust.GenerateHashCode(newPasswd, newSalt);
-                
+
                 msgQ.AppendLine("userId : " + userId);
                 msgQ.AppendLine("newSalt : " + newSalt);
                 msgQ.AppendLine("newHash : " + newHash);

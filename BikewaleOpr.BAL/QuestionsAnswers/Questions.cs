@@ -116,7 +116,7 @@ namespace BikewaleOpr.BAL.QuestionsAnswers
                     // Populate `dedicatedPageUrl` only when number of questions posted for that model is atleast 2.
                     if (noOfQuestionsForModel >= 2)
                     {
-                        dedicatedPageUrl = string.Format("{0}/m/{1}-bikes/{2}/questions-and-answers/", BWConfiguration.Instance.BwHostUrl, associatedModelData.MakeMaskingName, associatedModelData.ModelMaskingName);
+                        dedicatedPageUrl = string.Format("{0}/{1}-bikes/{2}/questions-and-answers/", BWConfiguration.Instance.BwHostUrl, associatedModelData.MakeMaskingName, associatedModelData.ModelMaskingName);
                     }
                 }
             }
@@ -198,19 +198,30 @@ namespace BikewaleOpr.BAL.QuestionsAnswers
         /// <summary>
         /// CReated by : Snehal Dange on 20th June 2018
         /// Desc :  save answer to answer table and update count in bikewale modelquestionmapping table
+        /// Modified By : Deepak Israni on 10 July 2018
+        /// Description : Change call to different SaveQuestionAnswer function that takes in client ip as input too.
         /// </summary>
         /// <param name="answerEntity"></param>
         /// <returns></returns>
-        public bool SaveQuestionAnswer(Answer answerEntity, ushort platformId, ushort sourceId)
+        public bool SaveQuestionAnswer(Answer answerEntity, ushort platformId, ushort sourceId, string clientIp)
         {
             bool issucess = false;
             try
             {
                 if (answerEntity != null && answerEntity.QuestionId != null)
                 {
-                    issucess = _questions.SaveQuestionAnswer(answerEntity, platformId, sourceId);
+                    ClientInfo clientInfo = new ClientInfo()
+                    {
+                        PlatformId = platformId,
+                        SourceId = sourceId,
+                        ClientIp = clientIp
+
+                    };
+
+                    issucess = _questions.SaveQuestionAnswer(answerEntity, clientInfo);
                     if (issucess)
                     {
+                        _questions.IncreaseAnswerCount(answerEntity.QuestionId);
                         BikeModelData associatedModelData = GetBikeModelDataForQuestion(answerEntity.QuestionId);
                         uint modelId = (associatedModelData != null) ? associatedModelData.ModelId : 0; 
                         #region Send Email to Customer

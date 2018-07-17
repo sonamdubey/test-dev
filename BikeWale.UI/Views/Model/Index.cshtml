@@ -2,9 +2,9 @@
 @{
 
 
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/model-atf.css' inline /> <link href='/css/campaign/hero-campaign.css' rel='stylesheet' type='text/css' inline /> <link rel='stylesheet' type='text/css' href='/css/threesixty-slider.css' inline /><link rel='stylesheet' type='text/css' href='/css/emicalculator.css' inline /> <link rel='stylesheet' type='text/css' href='/sass/modules/review-article.css' inline/> <link rel='stylesheet' type='text/css' href='/sass/partials/version-dropdown.css' inline/><link rel='stylesheet' type='text/css' href='/sass/partials/find-product-offers.css' inline/>  <link rel='stylesheet' type='text/css' href='/sass/partials/dealer-offers.css' inline />";
-    Model.Page_BTF_CSS_Path = "/css/model-btf.css";
-	Model.Page_JS_Paths = new string[] {"/src/utils/dropdown.js", "/src/model.js" ,"/src/emi-calculator.js"};
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/model-atf.css' inline />  <link rel='stylesheet' type='text/css' href='/css/emicalculator.css' inline /> <link rel='stylesheet' type='text/css' href='/sass/modules/review-article.css' inline/> <link rel='stylesheet' type='text/css' href='/sass/partials/version-dropdown.css' inline/><link rel='stylesheet' type='text/css' href='/sass/partials/find-product-offers.css' inline/>  <link rel='stylesheet' type='text/css' href='/sass/partials/dealer-offers.css' inline />";
+    Model.Page_BTF_CSS_Paths = new string[] { "/css/model-btf.css", "/sass/partials/question-answer-popup.css",  "/sass/partials/question-answer.css", "/sass/partials/question-answer-slug.css" };
+    Model.Page_JS_Paths = new string[] { "/src/utils/dropdown.js", "/src/utils/readMore.js", "/src/model.js", "/src/emi-calculator.js", "/src/question-and-answer.js" };
 	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 	@if (Model.IsNewBike)
@@ -19,7 +19,6 @@
 	{
 		@Html.Partial("~/Views/Model/_Index_Upcoming.cshtml", Model)
 	}
-
 
 	<script type="text/javascript">
 	ga_pg_id = '2';

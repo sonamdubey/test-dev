@@ -2050,6 +2050,7 @@ namespace Bikewale.BAL.BikeData
         }
 
 
+
         /// <summary>
         /// Created By : Deepak Israni on 14 June 2018
         /// Description: Function to check if passed model id has QnA active for it.

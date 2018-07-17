@@ -32,7 +32,8 @@ namespace Bikewale.Service.Controllers.QuestionAndAnswers
             {
                 if (objQuestionInput != null && objQuestionInput.PlatformId > 0 && objQuestionInput.SourceId > 0)
                 {
-                    Guid? questionId = _questions.SaveQuestion(QuestionMapper.Convert(objQuestionInput), objQuestionInput.PlatformId, objQuestionInput.SourceId);
+                    string clientIp = Bikewale.Utility.CurrentUser.GetClientIP();
+                    Guid? questionId = _questions.SaveQuestion(QuestionMapper.Convert(objQuestionInput), objQuestionInput.PlatformId, objQuestionInput.SourceId, clientIp);
                     if (questionId != null)
                     {
                         return Ok(questionId);

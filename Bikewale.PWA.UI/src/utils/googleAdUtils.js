@@ -24,6 +24,22 @@ function addAdToGTcmd(adUnitPath, adDimension, adDivId, adTarget) {
   });
 }
 
+function adSlotTargeting() {
+    var objTargetingData = bwcache.get("useradtargeting", true)
+    if(!objTargetingData || Object.keys(objTargetingData).length == 0) {
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = () => {
+        if(xhr.response && xhr.response != "") {
+        objTargetingData = (JSON.parse(xhr.response)).targetingData;
+        bwcache.set("useradtargeting", objTargetingData, true);
+      }      
+    };
+    xhr.open("GET", "/api/userprofiletargeting/", false);
+    xhr.send();
+  }
+  return objTargetingData;
+}
+
 function addAdSlot(adUnitPath, adDimension, adDivId, tags) {
   try {
     if (!googletag && !googletag.cmd)
@@ -44,16 +60,7 @@ function addAdSlot(adUnitPath, adDimension, adDivId, tags) {
     }
 
     if (!adExists) {
-      let adTarget = {
-        City: '',
-        Make: '',
-        Model: '',
-        Series: '',
-        Tags: ''
-      }
-
-      adTarget = Object.assign(adTarget, tags)
-
+      var adTarget = Object.assign({}, tags, adSlotTargeting());
       addAdToGTcmd(adUnitPath, adDimension, adDivId, adTarget);
     }
 

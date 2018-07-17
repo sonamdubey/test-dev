@@ -470,30 +470,28 @@
                     },
                     success: function (response) {
                         $("#dealerDropdownLabel").hide();
-
                         var obj = ko.toJS(response);
                         var count = obj.length;
-                        if (count >= 1) {
-                            if (count == 1) {
-                                $("#ddlMfgDealers").html('');
-                                $("#ddlMfgDealers").append("<option value='0' data-id='" + obj[0].id + "' >" + obj[0].dealerName + "</option>");
-                                $("#ddlMfgDealers").val('0');
-                                $("#ddlMfgDealers").closest('.select-box').addClass('done');
-                            } else {
-                                $("#ddlMfgDealers").html('');
-                                $("#ddlMfgDealers").append("<option value selected>Select dealer</option>");
-                                for (i = 0; i < count; i++) {
-                                    var dt = obj[i];
-                                    var areaName = '';
-                                    if (dt.area != null) {
-                                        areaName = ", " + dt.area;
-                                    }
-                                    $("#ddlMfgDealers").append("<option value=" + (i + 1) + " data-id='" + dt.id + "'  >" + dt.dealerName + areaName + "</option>");
+                        var objMfgDealers = $("#ddlMfgDealers");
+
+                        if (count >= 1) {                            
+                            objMfgDealers.html('');
+                            if (count > 1) { objMfgDealers.append("<option value selected>Select dealer</option>"); }
+                            for (i = 0; i < count; i++) {
+                                var dt = obj[i];
+                                var areaName = '';
+                                if (dt.area != null) {
+                                    areaName = ", " + dt.area;
                                 }
+                                objMfgDealers.append("<option value=" + (i + 1) + " data-id='" + dt.id + "'  >" + dt.dealerName + areaName + "</option>");
+                            }
+                            if (count == 1) {
+                                objMfgDealers.val('0');
+                                objMfgDealers.closest('.select-box').addClass('done');
                             }
                         }
                         $("#getDealer-select-box").find(".dropdown-menu").remove();
-                        dropdown.setMenu($("#ddlMfgDealers"));
+                        dropdown.setMenu(objMfgDealers);
                     },
                 });
             };

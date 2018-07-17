@@ -21,6 +21,8 @@ namespace QuestionsAnswers.BAL
         bool UpdateQuestionTags(string questionId, uint moderatorId, List<uint> oldTags, List<string> newTags);
         bool SaveQuestionAnswer(Answer answerObj, ushort platformId, ushort sourceId);
         IEnumerable<Question> GetQuestionDataByQuestionIds(IEnumerable<string> questionIds);
-
+        Guid? SaveQuestions(Question inputQuestion, ClientInfo clientInfo);
+        bool SaveQuestionAnswer(Answer answerObj, ClientInfo clientInfo);
+        bool IncreaseAnswerCount(string questionId);
     }
 }

@@ -8,10 +8,12 @@ using Bikewale.Utility;
 using MySql.CoreDAL;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
 using System.Web;
+
 
 namespace Bikewale.DAL.PriceQuote
 {
@@ -795,17 +797,17 @@ namespace Bikewale.DAL.PriceQuote
         /// Summary; To Fetch manufacturer Dealers
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<ManufacturerDealer> GetManufacturerDealers()
-
+        public IDictionary<uint, List<ManufacturerDealer>> GetManufacturerDealers(uint dealerId)
         {
-            List<ManufacturerDealer> dealers = null;
+            IDictionary<uint, List<ManufacturerDealer>> dealer = null;
             try
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "getmanufacturerdealers_21062017";
-                    dealers = new List<ManufacturerDealer>();
+                    cmd.CommandText = "getmanufacturerdealers_12072018";
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, dealerId));
+                    dealer = new Dictionary<uint, List<ManufacturerDealer>>();
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
                     {
@@ -813,15 +815,34 @@ namespace Bikewale.DAL.PriceQuote
                         {
                             while (dr.Read())
                             {
-                                dealers.Add(new ManufacturerDealer
+                                uint key=SqlReaderConvertor.ToUInt32(dr["cityid"]);
+                                if(dealer.ContainsKey(key))
                                 {
-                                    Id = Convert.ToString(dr["id"]),
-                                    DealerName = Convert.ToString(dr["bwdealername"]),
-                                    City = Convert.ToString(dr["city"]),
-                                    CityId = SqlReaderConvertor.ToUInt32(dr["cityid"]),
-                                    DealerArea = Convert.ToString(dr["dealerarea"]),
-                                    DealerId = SqlReaderConvertor.ToUInt32(Convert.ToString(dr["dealerid"]))
-                                });
+                                    dealer[key].Add(new ManufacturerDealer
+                                    {
+                                        Id = Convert.ToString(dr["id"]),
+                                        DealerName = Convert.ToString(dr["bwdealername"]),
+                                        City = Convert.ToString(dr["city"]),
+                                        CityId = key,
+                                        DealerArea = Convert.ToString(dr["dealerarea"]),
+                                        DealerId = SqlReaderConvertor.ToUInt32(Convert.ToString(dr["dealerid"]))
+                                    });    
+                                }
+                                else
+                                {
+                                    dealer.Add(key, new List<ManufacturerDealer> 
+                                    { 
+                                        new ManufacturerDealer
+                                        {
+                                            Id = Convert.ToString(dr["id"]),
+                                            DealerName = Convert.ToString(dr["bwdealername"]),
+                                            City = Convert.ToString(dr["city"]),
+                                            CityId = key,
+                                            DealerArea = Convert.ToString(dr["dealerarea"]),
+                                            DealerId = SqlReaderConvertor.ToUInt32(Convert.ToString(dr["dealerid"]))
+                                        }
+                                    });
+                                }
                             }
                             dr.Close();
                         }
@@ -833,7 +854,7 @@ namespace Bikewale.DAL.PriceQuote
 
                 ErrorClass.LogError(ex, String.Format("PriceQuoteRepository.GetManufacturerDealers()"));
             }
-            return dealers;
+            return dealer;
         }
 
         public void GetDealerVersionsPriceByModelCity(IEnumerable<BikeVersionMinSpecs> versionList, uint cityId, uint modelId, uint dealerId = 0)

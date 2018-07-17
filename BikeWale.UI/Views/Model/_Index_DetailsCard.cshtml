@@ -11,12 +11,12 @@
 			</div>
 		</div>
 	}
-	
+
     @if (Model.ModelPageEntity != null && Model.ModelPageEntity.ModelColors != null && Model.ModelPageEntity.ModelColors.Count() > 0)
     {
         @Html.Partial("~/Views/Model/_Index_ModelColors.cshtml", Model)
     }
-    
+
     @if (Model.IsSimilarBikesAvailable)
     {
         if (Model.AdTags.Ad_Model_Comparo_976x400)
@@ -35,8 +35,8 @@
                                                     <li class="sponsored-card">
                                                         @{Html.RenderPartial("/Views/Shared/Ads/Desktop/AdSlotGeneric.cshtml", Model.AdSlots[String.Format("{0}-14", adIdSimilarBikes)]);}
                                                     </li>
-                                                     
-                           
+
+
                         }
                         @Html.Partial("~/Views/BikeModels/_SimilarBikes.cshtml", Model.SimilarBikes)
                     </ul>
@@ -77,13 +77,15 @@
              @if (Model.BikeSpecsFeatures != null || (Model.ModelPageEntity.ModelDesc != null && !string.IsNullOrEmpty(Model.ModelPageEntity.ModelDesc.SmallDescription)))
              {
                  <div id="modelSpecsFeaturesAboutContent" data-id="modelSpecsFeaturesAboutContent" class="bw-model-tabs-data">
-    
+
             @if (Model.BikeSpecsFeatures != null)
             {
                 <div id="modelSpecsFeaturesContent" class="content-box-shadow card-bottom-margin font14">
                     @Html.Partial("~/Views/Model/_Index_ModelSpecsAndFeatures.cshtml", Model.BikeSpecsFeatures)
                 </div>
             }
+
+
 			@if (Model.ModelPageEntity.ModelDesc != null && !string.IsNullOrEmpty(Model.ModelPageEntity.ModelDesc.FullDescription) && Model.ModelPageEntity.ModelDetails != null && Model.IsUpcomingBike)
 			{
                 <div id="modelAboutContent" class="content-box-shadow content-inner-block-20 card-bottom-margin font14">
@@ -105,12 +107,15 @@
                 </div>
 			}
         </div>
-    }
-
+    }   
 	@if ((Model.IsNewBike || Model.IsDiscontinuedBike) && Model.ModelPageEntity != null && Model.ModelPageEntity.ModelVersions != null && Model.ModelPageEntity.ModelVersions.Count > 0)
 	{
 		@Html.Partial("~/Views/Model/_Index_VersionPrices.cshtml", Model)
 	}
+    @if (Model.IsQAModel && Model.IsQAAvailable && Model.QASection != null)
+    {
+        @Html.Partial("~/Views/QuestionAndAnswers/_QuestionAnswerSection.cshtml", Model.QASection);
+    }
     @if (Model.IsUpcomingBike && Model.objUpcomingBikes != null && Model.objUpcomingBikes.UpcomingBikes != null && Model.objUpcomingBikes.UpcomingBikes.Count() > 0)
     {
         <div class="content-box-shadow card-bottom-margin padding-bottom15">

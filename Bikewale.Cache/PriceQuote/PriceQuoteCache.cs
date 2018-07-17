@@ -7,7 +7,9 @@ using Bikewale.Utility;
 using log4net;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
+
 
 namespace Bikewale.Cache.PriceQuote
 {
@@ -103,21 +105,23 @@ namespace Bikewale.Cache.PriceQuote
         /// </returns>
         public IEnumerable<ManufacturerDealer> GetManufacturerDealers(uint cityId, uint dealerId)
         {
-            IEnumerable<ManufacturerDealer> dealers = null;
-            string key = "BW_Manufacturer_Dealers_All";
+            IEnumerable<ManufacturerDealer> dealerInCity = null;
+            IDictionary<uint, List<ManufacturerDealer>> dealer = null;
+            string key = "BW_Manufacturer_Dealer_"+dealerId;
             try
             {
-                dealers = _cache.GetFromCache<IEnumerable<ManufacturerDealer>>(key, new TimeSpan(24, 0, 0), () => _obPriceQuote.GetManufacturerDealers());
-                if (dealers != null && dealers.Any())
+                dealer = _cache.GetFromCache<IDictionary<uint, List<ManufacturerDealer>>>(key, new TimeSpan(24, 0, 0), () => _obPriceQuote.GetManufacturerDealers(dealerId));
+                
+                if (dealer != null && dealer.Any())
                 {
-                    dealers = (from d in dealers where d.CityId == cityId && d.DealerId == dealerId select d).ToList();
+                    dealerInCity = dealer[cityId]; 
                 }
             }
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "PriceQuoteCache.GetManufacturerDealers");
             }
-            return dealers;
+            return dealerInCity;
         }
 
         /// <summary>

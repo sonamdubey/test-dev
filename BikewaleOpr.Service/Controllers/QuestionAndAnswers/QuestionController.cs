@@ -89,6 +89,8 @@ namespace BikewaleOpr.Service.Controllers.QuestionAndAnswers
         /// <summary>
         /// Created by :Snehal Dange on 19th June 2018
         /// Description : Action method for saving answer in opr
+        /// Modified By : Deepak Israni on 10 July 2018
+        /// Description : Get user's client ip to store in db with answer.
         /// </summary>
         /// <returns></returns>
         [HttpPost, Route("api/questions/{questionId}/answer/")]
@@ -104,7 +106,8 @@ namespace BikewaleOpr.Service.Controllers.QuestionAndAnswers
                         answerDTO.QuestionId = questionId;
                     }
                     Answer answerEntity = QuestionAnswerMapper.Convert(answerDTO);
-                    isSaveSuccessful = _questions.SaveQuestionAnswer(answerEntity, platformId, sourceId);
+                    string clientIp = Bikewale.Utility.CurrentUser.GetClientIP();
+                    isSaveSuccessful = _questions.SaveQuestionAnswer(answerEntity, platformId, sourceId, clientIp);
                     if (isSaveSuccessful)
                     {
                         return Ok("Answer successfully saved");

@@ -1,4 +1,5 @@
-﻿    @model Bikewale.Models.Photos.PhotosPageVM
+﻿@using Bikewale.Entities.BikeData
+@model Bikewale.Models.Photos.PhotosPageVM
 @{
     Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
 	Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/m/photos/listing.css' inline /> <link rel='stylesheet' type='text/css' href='/sass/m/photos/gallery-popup.css' inline />";
@@ -7,7 +8,7 @@
 }
 @if (Model != null)
 {
-    int i = 0; IList<Bikewale.Entities.CMS.Photos.ColorImageBaseEntity> objImages = new List<Bikewale.Entities.CMS.Photos.ColorImageBaseEntity>();
+    int i = 0; IList<Bikewale.Entities.CMS.Photos.ColorImageBaseEntity> objImages = null;
 
     if (Model.ModelImages != null)
     {
@@ -17,216 +18,219 @@
         <div class="container box-shadow section-bottom-margin">
 
 			<div class="bg-white">
-            <div id="galleryRoot" class="margin-bottom60" data-bind="css: { 'orientation--landscape': fullScreenModeActive(), 'gallery-popup--active': activePopup() }">
-                <h1 class="page-header fullscreen--anchestor">@Model.Page_H1</h1>
-                <div class="model-gallery-section fullscreen--anchestor" data-bind="css: {'gallery-color-slug--active': colorSlug().activeSlug(), 'gallery-video-slug--active': videoSlug().activeSlug()}">
-                    <div class="model-gallery__container" data-bind="css: activePopup() ? 'gallery-popup--active' : ''">
-                        <div id="mainPhotoSwiper" class="swiper-container swiper__image noSwiper model-gallery">
-                            <div class="swiper-wrapper" data-bind="foreach: limitedPhotoList">
-                                <div class="swiper-slide" data-bind="attr: { 'data-imgid': ImageId,'data-imgcat': ImageCategory,'data-imgtype': ImageType}">
-                                    <img class="swiper-lazy gallery-swiper-image" data-bind="attr: { 'data-index': $index, alt: MODEL_NAME + ' ' + ImageCategory, title: MODEL_NAME + ' ' + ImageCategory, 'data-src': $parent.renderImage(HostUrl,OriginalImgPath,'642x361') }" src="https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif" alt="" title="" border="0" />
-                                </div>
-                            </div>
-                            <div class="swiper--next gallery__next gallery__arrow-btn"></div>
-                            <div class="swiper--prev gallery__prev gallery__arrow-btn"></div>
-
-                            <div data-bind="with: colorSlug">
-								<!-- ko if : colorCount -->
-                                <div class="model-gallery__color-slide gallery__slide-slug" data-bind="if: $parent.isColorSlugEligible, visible: activeSlug()">
-                                    <p class="gallery-slide-slug__title" data-bind="text: modelName + ' Colours'"></p>
-                                    <ul class="color-slide__list" data-bind="foreach: colorList">
-                                        <li class="color-slide-list__item">
-                                            <div class="color-box" data-bind="foreach: Colors, attr: { 'data-color-count': Colors.length }">
-                                                <span class="color-box__item" data-bind="style: { 'background-color': '#' + $data }"></span>
-                                            </div>
-                                        </li>
-                                    </ul>
-									<!-- ko if : remainingCount > 0 -->
-                                    <p class="color-slide__more-count" data-bind="text: '+' + remainingCount + ' More Colour' + (remainingCount > 1 ? 's' : '') "></p>
-									<!-- /ko -->
-                                    <div class="slide__more-btn-content">
-                                        <button type="button" class="btn btn-inv-blue slide__more-btn" data-bind="click: $parent.colorPopup().openPopup">Show All Colour Images</button>
-                                    </div>
-                                </div>
-                                <p class="gallery__single-color-title" data-bind="visible: activeSingleColorMessage(), text: modelName + ' is available in ' + colorList[0].ImageTitle + ' color only.'"></p>
-								<!-- /ko -->
-                            </div>
-
-                            <div data-bind="with: videoSlug">
-								<!-- ko if : videoCount && slugSupport() -->
-                                <div class="model-gallery__video-slide gallery__slide-slug" data-bind="if: videoCount, visible: activeSlug(), css: {'video-slug--single-video': videoCount === 1, 'video-slug--video-playing': isPlaying()}">
-                                    <p class="gallery-slide-slug__title" data-bind="text: modelName + ' Video' + (videoCount > 1 ? 's' : '')"></p>
-                                    <!-- ko if : videoCount === 1 -->
-                                    <span class="video-slug__play" data-bind="click: function(data, event) { playVideo(event) }"></span>
-                                    <p class="video-slug__description" data-bind="text: videoList[0].VideoTitle"></p>
-                                    <div id="singleVideoSlug" class="swiper-youtube video-slug__iframe-container">
-                                        <div class="youtube-iframe-preview video-card__video-preview">
-                                            <div class="bw-youtube" data-bind="attr: { 'data-embed': videoList[0].VideoId }">
-                                                <img class="lazy" src="https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif" alt="loader">
-                                            </div>
-                                            <img class="video-slug__thumbnail" data-bind="attr: {'src': 'https://img.youtube.com/vi/' + videoList[0].VideoId + '/mqdefault.jpg'}" src="" />
+                @if(objImages != null)
+                {
+                    <div id="galleryRoot" class="margin-bottom60" data-bind="css: { 'orientation--landscape': fullScreenModeActive(), 'gallery-popup--active': activePopup() }">
+                        <h1 class="page-header fullscreen--anchestor">@Model.Page_H1</h1>
+                        <div class="model-gallery-section fullscreen--anchestor" data-bind="css: {'gallery-color-slug--active': colorSlug().activeSlug(), 'gallery-video-slug--active': videoSlug().activeSlug()}">
+                            <div class="model-gallery__container" data-bind="css: activePopup() ? 'gallery-popup--active' : ''">
+                                <div id="mainPhotoSwiper" class="swiper-container swiper__image noSwiper model-gallery">
+                                    <div class="swiper-wrapper" data-bind="foreach: limitedPhotoList">
+                                        <div class="swiper-slide" data-bind="attr: { 'data-imgid': ImageId,'data-imgcat': ImageCategory,'data-imgtype': ImageType}">
+                                            <img class="swiper-lazy gallery-swiper-image" data-bind="attr: { 'data-index': $index, alt: MODEL_NAME + ' ' + ImageCategory, title: MODEL_NAME + ' ' + ImageCategory, 'data-src': $parent.renderImage(HostUrl,OriginalImgPath,'642x361') }" src="https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif" alt="" title="" border="0" />
                                         </div>
                                     </div>
-                                    <!-- /ko -->
-                                    <!-- ko if : videoCount > 1 -->
-                                    <p class="video-slug__description" data-bind="text: description"></p>
-                                    <div class="slide__more-btn-content">
-                                        <button id="popupLoadMore" type="button" class="btn btn-inv-blue slide__more-btn" data-bind="click: $parent.videoPopup().openPopup">Show All Videos</button>
+                                    <div class="swiper--next gallery__next gallery__arrow-btn"></div>
+                                    <div class="swiper--prev gallery__prev gallery__arrow-btn"></div>
+
+                                    <div data-bind="with: colorSlug">
+								        <!-- ko if : colorCount -->
+                                        <div class="model-gallery__color-slide gallery__slide-slug" data-bind="if: $parent.isColorSlugEligible, visible: activeSlug()">
+                                            <p class="gallery-slide-slug__title" data-bind="text: modelName + ' Colours'"></p>
+                                            <ul class="color-slide__list" data-bind="foreach: colorList">
+                                                <li class="color-slide-list__item">
+                                                    <div class="color-box" data-bind="foreach: Colors, attr: { 'data-color-count': Colors.length }">
+                                                        <span class="color-box__item" data-bind="style: { 'background-color': '#' + $data }"></span>
+                                                    </div>
+                                                </li>
+                                            </ul>
+									        <!-- ko if : remainingCount > 0 -->
+                                            <p class="color-slide__more-count" data-bind="text: '+' + remainingCount + ' More Colour' + (remainingCount > 1 ? 's' : '') "></p>
+									        <!-- /ko -->
+                                            <div class="slide__more-btn-content">
+                                                <button type="button" class="btn btn-inv-blue slide__more-btn" data-bind="click: $parent.colorPopup().openPopup">Show All Colour Images</button>
+                                            </div>
+                                        </div>
+                                        <p class="gallery__single-color-title" data-bind="visible: activeSingleColorMessage(), text: modelName + ' is available in ' + colorList[0].ImageTitle + ' color only.'"></p>
+								        <!-- /ko -->
                                     </div>
 
-                                    <!-- /ko -->
-                                </div>
-								<!-- /ko -->
-                            </div>
-
-                        </div>
-                        <div class="gallery-footer" data-bind="visible: galleryFooterActive()">
-                            <div class="gallery-footer__content">
-                                <div class="gallery-image__footer" data-visible="color">
-                                    <div class="gallery-image__left-section">
-                                        <span class="gallery-image__count">
-                                            <span data-bind="text: activeIndex()"></span>&nbsp;/&nbsp;<span data-bind="text : MODEL_IMAGES.length"></span>
-                                        </span>
-                                        <h2 class="model-gallery__image-title" data-bind="text: activeTitle(), visible: activeSwiperTitle()"></h2>
-                                    </div>
-                                    <span class="gallery-image__color" data-bind="visible: activeFooterColorOption(), click: colorPopup().openPopup" style="display: none">Colours</span>
-                                    <div class="gallery-image__feature">
-                                        <a data-bind="attr: { href: getImageDownloadUrl() }" download title="Download Image" class="gallery__download-icon"></a>
-                                        
-                                        <span class="gallery__zoom-icon" data-bind="click: openGalleryPopup"></span>
-                                        <span class="landscape-icon__container" data-bind="attr: { 'data-visible': activeLandscapeIcon() && activePopup() && fullScreenSupport() ? 'true': 'false' }, click: toggleFullScreen">
-                                            <span class="gallery__landscape-icon" data-bind="visible: !rotateScreenOption()"></span>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                        </div>
-                    </div>
-                    <div class="gallery__landscape-slug" data-bind="visible: rotateScreenOption() && fullScreenSupport(), css: {'landscape-slug--inactive': fullScreenModeActive() }, click: toggleFullScreen" style="display: none">
-                        <span class="landscape-text">Switch to Landscape for better Experience</span>
-                        <span class="screen--rotate-slug__landscape-container">
-                            <span class="screen--rotate-slug__landscape-icon"></span>
-                        </span>
-                    </div>
-                    <div class="gallery__color-floating-slug" style="display: none" data-bind="visible: activeFloatingColorSlug(), click: colorPopup().openPopup">See colour images</div>
-                    <div class="gallery__continue-swipe-info" style="display: none" data-bind="visible: activeContinueSlug(), click: handleGalleryContinueClick">
-                        <span class="continue-info__label">Swipe to Continue Images</span>
-                        <span class="continue-info__arrow"></span>
-                    </div>
-                </div>
-
-                <span id="galleryCloseBtn" class="gallery__close-btn fullscreen--anchestor" data-bind="visible: activePopup()" onclick="history.back()" style="display: none">
-					<span class="gallery-close-btn__icon"></span>
-				</span>
-                <div id="galleryBgWindow" class="black-window fullscreen--anchestor"></div>
-
-                <div id="colorGalleryPopup" class="color-popup__content" data-bind="with: colorPopup, css: { 'color-popup--active': colorPopup().activePopup(), 'color-popup--landscape': fullScreenModeActive() }">
-                    <div class="color-popup__head">
-                        <span class="color-popup-head__back" data-bind="click: closePopup(true)"></span>
-                        <p class="color-popup-head__title" data-bind="text: modelName + ' Colours'"></p>
-                    </div>
-                    <div class="color-popup__body">
-                        <div id="mainColorSwiper" class="swiper-container swiper__colors model-gallery noSwiper">
-                            <div class="swiper-wrapper" data-bind="foreach: colorSwiper().colorList">
-                                <div class="swiper-slide" data-bind="attr: { 'data-imgid': ImageId,'data-imgcat': ImageCategory,'data-imgtype': ImageType}">
-                                    <img class="swiper-lazy gallery-swiper-image" data-bind="attr: { 'data-index': $index, alt: MODEL_NAME + ' ' + ImageTitle, title: MODEL_NAME + ' ' + ImageTitle, 'data-src': $root.renderImage(HostUrl, OriginalImgPath,'642x361') }" src="https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif" alt="" title="" border="0" />
-                                </div>
-                            </div>
-                            <div class="swiper--next color-type-next color__arrow-btn"></div>
-                            <div class="swiper--prev color-type-prev color__arrow-btn"></div>
-                        </div>
-                        <div class="gallery-footer__content">
-                            <div class="gallery-image__footer">
-                                <div class="gallery-image__left-section">
-                                    <span class="gallery-image__count">
-                                        <span data-bind="text: colorSwiper().activeIndex()"></span> / <span data-bind="text: colorSwiper().colorList().length"></span>
-                                    </span>
-                                </div>
-                                <div class="gallery-image__feature">
-                                    <a data-bind="attr: { href: getColorImageDownloadUrl() }" download title="Download Image" class="gallery__download-icon"></a>
-                                    
-                                    <span class="landscape-icon__container" data-bind="click: $root.toggleFullScreen, visible: $root.fullScreenSupport()">
-                                        <span class="gallery__landscape-icon"></span>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="color-popup__thumbnail-content" data-bind="css: { 'color-footer--inactive': !activeLandscapeFooter() }">
-                            <p class="color-list__heading">Colours</p>
-                            <div id="thumbnailColorSwiper" class="swiper-container noSwiper swiper__color-thumbnail" data-bind="css: { 'color-list--scrollable': !$root.fullScreenModeActive() }">
-                                <div class="model-color__list swiper-wrapper " data-bind="foreach: colorSwiper().colorList, css: colorSwiper().colorList().length == 3 ? 'list-column--3' : ''">
-                                    <div class="swiper-slide">
-                                        <div class="color-box--border">
-                                            <div class="color-box__content">
-                                                <div class="color-box" data-bind="foreach: Colors, attr: { 'data-color-count': Colors.length }">
-                                                    <span class="color-box__item" data-bind="style: { 'background-color': '#' + $data }"></span>
+                                    <div data-bind="with: videoSlug">
+								        <!-- ko if : videoCount && slugSupport() -->
+                                        <div class="model-gallery__video-slide gallery__slide-slug" data-bind="if: videoCount, visible: activeSlug(), css: {'video-slug--single-video': videoCount === 1, 'video-slug--video-playing': isPlaying()}">
+                                            <p class="gallery-slide-slug__title" data-bind="text: modelName + ' Video' + (videoCount > 1 ? 's' : '')"></p>
+                                            <!-- ko if : videoCount === 1 -->
+                                            <span class="video-slug__play" data-bind="click: function(data, event) { playVideo(event) }"></span>
+                                            <p class="video-slug__description" data-bind="text: videoList[0].VideoTitle"></p>
+                                            <div id="singleVideoSlug" class="swiper-youtube video-slug__iframe-container">
+                                                <div class="youtube-iframe-preview video-card__video-preview">
+                                                    <div class="bw-youtube" data-bind="attr: { 'data-embed': videoList[0].VideoId }">
+                                                        <img class="lazy" src="https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif" alt="loader">
+                                                    </div>
+                                                    <img class="video-slug__thumbnail" data-bind="attr: {'src': 'https://img.youtube.com/vi/' + videoList[0].VideoId + '/mqdefault.jpg'}" src="" />
                                                 </div>
-                                                <p class="color-box-label" data-bind="text: ImageTitle"></p>
                                             </div>
+                                            <!-- /ko -->
+                                            <!-- ko if : videoCount > 1 -->
+                                            <p class="video-slug__description" data-bind="text: description"></p>
+                                            <div class="slide__more-btn-content">
+                                                <button id="popupLoadMore" type="button" class="btn btn-inv-blue slide__more-btn" data-bind="click: $parent.videoPopup().openPopup">Show All Videos</button>
+                                            </div>
+
+                                            <!-- /ko -->
                                         </div>
+								        <!-- /ko -->
                                     </div>
+
                                 </div>
-                            </div>
-                            <span class="color-list__back-btn" onclick="history.back()">Back</span>
-
-							<div class="color-popup-body__footer">
-								<div class="color-popup__landscape-slug-content">
-									<div class="gallery__landscape-slug" data-bind="click: $root.toggleFullScreen, visible: $root.fullScreenSupport()">
-										<span class="landscape-text">Switch to Landscape for better Experience</span>
-										<span class="screen--rotate-slug__landscape-container">
-											<span class="screen--rotate-slug__landscape-icon"></span>
-										</span>
-									</div>
-								</div>
-							</div>
-                        </div>
-                    </div>
-
-                </div>
-
-								<!-- ko if: !videoPopup().browserCustomPlayer() -->
-                <div id="videoGalleryPopup" class="video-popup__content" data-bind="with: videoPopup, css: { 'video-popup--active': videoPopup().activePopup(), 'video-popup--landscape': fullScreenModeActive() }">
-                    <div class="video-popup__head fullscreen--anchestor">
-                        <span class="video-popup-head__back" data-bind="click: closePopup(true)"></span>
-						<p class="video-popup-head__title" data-bind="text: modelName + ' Videos'"></p>
-                    </div>
-                    <div class="video-popup__body">
-                        <div id="mainVideoSwiper" class="swiper-container swiper-youtube swiper__videos noSwiper">
-                            <div class="swiper-wrapper video-list" data-bind="foreach: videoData().videoList">
-                                <div class="swiper-slide video-card-container">
-                                    <h4 class="swiper-card__label" data-bind="text: VideoTitle"></h4>
-                                    <div class="model-card__list__video-card">
-                                        <div class="youtube-iframe-preview video-card__video-preview">
-                                            <div class="bw-youtube" data-bind="attr: { 'data-embed': VideoId,  'id': VideoId}">
-                                                <img class="lazy" src="https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif" alt="loader">
+                                <div class="gallery-footer" data-bind="visible: galleryFooterActive()">
+                                    <div class="gallery-footer__content">
+                                        <div class="gallery-image__footer" data-visible="color">
+                                            <div class="gallery-image__left-section">
+                                                <span class="gallery-image__count">
+                                                    <span data-bind="text: activeIndex()"></span>&nbsp;/&nbsp;<span data-bind="text : MODEL_IMAGES.length"></span>
+                                                </span>
+                                                <h2 class="model-gallery__image-title" data-bind="text: activeTitle(), visible: activeSwiperTitle()"></h2>
                                             </div>
-                                        </div>
-                                        <div class="video-card__desc clearfix">
-                                            <div class="grid-4">
-                                                <p class="font11 text-light-grey text-truncate" data-bind="text: formatDate(DisplayDate)"></p>
-                                            </div>
-                                            <div class="grid-8 text-right font11">
-                                                <span class="model-card__sub-title"><span data-bind="text: formatNumeric(Views) + ' ' + ((Views > 1) ? 'Views' : 'View')"></span> </span>
-                                                <span class="model-card__sub-title margin-left20">
-                                                    <span class="thumbsup-icon"></span>
-                                                    <span data-bind="text: formatNumeric(Likes)"></span>
+                                            <span class="gallery-image__color" data-bind="visible: activeFooterColorOption(), click: colorPopup().openPopup" style="display: none">Colours</span>
+                                            <div class="gallery-image__feature">
+                                                <a data-bind="attr: { href: getImageDownloadUrl() }" download title="Download Image" class="gallery__download-icon"></a>
+                                        
+                                                <span class="gallery__zoom-icon" data-bind="click: openGalleryPopup"></span>
+                                                <span class="landscape-icon__container" data-bind="attr: { 'data-visible': activeLandscapeIcon() && activePopup() && fullScreenSupport() ? 'true': 'false' }, click: toggleFullScreen">
+                                                    <span class="gallery__landscape-icon" data-bind="visible: !rotateScreenOption()"></span>
                                                 </span>
                                             </div>
                                         </div>
                                     </div>
+                            
                                 </div>
                             </div>
+                            <div class="gallery__landscape-slug" data-bind="visible: rotateScreenOption() && fullScreenSupport(), css: {'landscape-slug--inactive': fullScreenModeActive() }, click: toggleFullScreen" style="display: none">
+                                <span class="landscape-text">Switch to Landscape for better Experience</span>
+                                <span class="screen--rotate-slug__landscape-container">
+                                    <span class="screen--rotate-slug__landscape-icon"></span>
+                                </span>
+                            </div>
+                            <div class="gallery__color-floating-slug" style="display: none" data-bind="visible: activeFloatingColorSlug(), click: colorPopup().openPopup">See colour images</div>
+                            <div class="gallery__continue-swipe-info" style="display: none" data-bind="visible: activeContinueSlug(), click: handleGalleryContinueClick">
+                                <span class="continue-info__label">Swipe to Continue Images</span>
+                                <span class="continue-info__arrow"></span>
+                            </div>
                         </div>
-                        <span class="video-list__back-btn" onclick="history.back()">Back</span>
-                    </div>
-                </div>
-								<!-- /ko -->
 
-                <div id="galleryLoader" class="gallery__loader black-window hide">
-                    <span class="loader__spin loader--fixed"></span>
-                </div>
-            </div>
+                        <span id="galleryCloseBtn" class="gallery__close-btn fullscreen--anchestor" data-bind="visible: activePopup()" onclick="history.back()" style="display: none">
+					        <span class="gallery-close-btn__icon"></span>
+				        </span>
+                        <div id="galleryBgWindow" class="black-window fullscreen--anchestor"></div>
+
+                        <div id="colorGalleryPopup" class="color-popup__content" data-bind="with: colorPopup, css: { 'color-popup--active': colorPopup().activePopup(), 'color-popup--landscape': fullScreenModeActive() }">
+                            <div class="color-popup__head">
+                                <span class="color-popup-head__back" data-bind="click: closePopup(true)"></span>
+                                <p class="color-popup-head__title" data-bind="text: modelName + ' Colours'"></p>
+                            </div>
+                            <div class="color-popup__body">
+                                <div id="mainColorSwiper" class="swiper-container swiper__colors model-gallery noSwiper">
+                                    <div class="swiper-wrapper" data-bind="foreach: colorSwiper().colorList">
+                                        <div class="swiper-slide" data-bind="attr: { 'data-imgid': ImageId,'data-imgcat': ImageCategory,'data-imgtype': ImageType}">
+                                            <img class="swiper-lazy gallery-swiper-image" data-bind="attr: { 'data-index': $index, alt: MODEL_NAME + ' ' + ImageTitle, title: MODEL_NAME + ' ' + ImageTitle, 'data-src': $root.renderImage(HostUrl, OriginalImgPath,'642x361') }" src="https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif" alt="" title="" border="0" />
+                                        </div>
+                                    </div>
+                                    <div class="swiper--next color-type-next color__arrow-btn"></div>
+                                    <div class="swiper--prev color-type-prev color__arrow-btn"></div>
+                                </div>
+                                <div class="gallery-footer__content">
+                                    <div class="gallery-image__footer">
+                                        <div class="gallery-image__left-section">
+                                            <span class="gallery-image__count">
+                                                <span data-bind="text: colorSwiper().activeIndex()"></span> / <span data-bind="text: colorSwiper().colorList().length"></span>
+                                            </span>
+                                        </div>
+                                        <div class="gallery-image__feature">
+                                            <a data-bind="attr: { href: getColorImageDownloadUrl() }" download title="Download Image" class="gallery__download-icon"></a>
+                                    
+                                            <span class="landscape-icon__container" data-bind="click: $root.toggleFullScreen, visible: $root.fullScreenSupport()">
+                                                <span class="gallery__landscape-icon"></span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="color-popup__thumbnail-content" data-bind="css: { 'color-footer--inactive': !activeLandscapeFooter() }">
+                                    <p class="color-list__heading">Colours</p>
+                                    <div id="thumbnailColorSwiper" class="swiper-container noSwiper swiper__color-thumbnail" data-bind="css: { 'color-list--scrollable': !$root.fullScreenModeActive() }">
+                                        <div class="model-color__list swiper-wrapper " data-bind="foreach: colorSwiper().colorList, css: colorSwiper().colorList().length == 3 ? 'list-column--3' : ''">
+                                            <div class="swiper-slide">
+                                                <div class="color-box--border">
+                                                    <div class="color-box__content">
+                                                        <div class="color-box" data-bind="foreach: Colors, attr: { 'data-color-count': Colors.length }">
+                                                            <span class="color-box__item" data-bind="style: { 'background-color': '#' + $data }"></span>
+                                                        </div>
+                                                        <p class="color-box-label" data-bind="text: ImageTitle"></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <span class="color-list__back-btn" onclick="history.back()">Back</span>
+
+							        <div class="color-popup-body__footer">
+								        <div class="color-popup__landscape-slug-content">
+									        <div class="gallery__landscape-slug" data-bind="click: $root.toggleFullScreen, visible: $root.fullScreenSupport()">
+										        <span class="landscape-text">Switch to Landscape for better Experience</span>
+										        <span class="screen--rotate-slug__landscape-container">
+											        <span class="screen--rotate-slug__landscape-icon"></span>
+										        </span>
+									        </div>
+								        </div>
+							        </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+								        <!-- ko if: !videoPopup().browserCustomPlayer() -->
+                        <div id="videoGalleryPopup" class="video-popup__content" data-bind="with: videoPopup, css: { 'video-popup--active': videoPopup().activePopup(), 'video-popup--landscape': fullScreenModeActive() }">
+                            <div class="video-popup__head fullscreen--anchestor">
+                                <span class="video-popup-head__back" data-bind="click: closePopup(true)"></span>
+						        <p class="video-popup-head__title" data-bind="text: modelName + ' Videos'"></p>
+                            </div>
+                            <div class="video-popup__body">
+                                <div id="mainVideoSwiper" class="swiper-container swiper-youtube swiper__videos noSwiper">
+                                    <div class="swiper-wrapper video-list" data-bind="foreach: videoData().videoList">
+                                        <div class="swiper-slide video-card-container">
+                                            <h4 class="swiper-card__label" data-bind="text: VideoTitle"></h4>
+                                            <div class="model-card__list__video-card">
+                                                <div class="youtube-iframe-preview video-card__video-preview">
+                                                    <div class="bw-youtube" data-bind="attr: { 'data-embed': VideoId,  'id': VideoId}">
+                                                        <img class="lazy" src="https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif" alt="loader">
+                                                    </div>
+                                                </div>
+                                                <div class="video-card__desc clearfix">
+                                                    <div class="grid-4">
+                                                        <p class="font11 text-light-grey text-truncate" data-bind="text: formatDate(DisplayDate)"></p>
+                                                    </div>
+                                                    <div class="grid-8 text-right font11">
+                                                        <span class="model-card__sub-title"><span data-bind="text: formatNumeric(Views) + ' ' + ((Views > 1) ? 'Views' : 'View')"></span> </span>
+                                                        <span class="model-card__sub-title margin-left20">
+                                                            <span class="thumbsup-icon"></span>
+                                                            <span data-bind="text: formatNumeric(Likes)"></span>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <span class="video-list__back-btn" onclick="history.back()">Back</span>
+                            </div>
+                        </div>
+								        <!-- /ko -->
+
+                        <div id="galleryLoader" class="gallery__loader black-window hide">
+                            <span class="loader__spin loader--fixed"></span>
+                        </div>
+                    </div> 
+                }
 						<div class="gallery-placeholder"></div>
             
                 @if (Model.AdTags.Ad_320x50Top)
@@ -417,7 +421,19 @@
                         <li>First Drive</li>
                         <li>Comparison test</li>
                     </ul>
-                    <a href="@string.Format("/m/{0}-bikes/{1}/videos/",Model.Make.MaskingName,Model.Model.MaskingName)" title="@string.Format("{0} {1} Videos", Model.Make.MakeName, Model.Model.ModelName)" class="btn btn-inv-blue video-slug__more-btn">View All Videos</a>
+                    @{
+                        BikeMakeEntityBase objMake = null;
+                        BikeModelEntityBase objModel = null;
+                        if(Model.Make != null && Model.Model != null)
+                        {
+                            objMake = Model.Make;
+                            objModel = Model.Model;
+                        }
+                    }
+                    @if(objModel != null && objMake != null)
+                    {
+                        <a href="@string.Format("/m/{0}-bikes/{1}/videos/",objMake.MaskingName, objModel.MaskingName)" title="@string.Format("{0} {1} Videos", objMake.MakeName, objModel.ModelName)" class="btn btn-inv-blue video-slug__more-btn">View All Videos</a>                        
+                    }                    
                 </div>
             </div>
             <div class="clear"></div>

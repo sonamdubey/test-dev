@@ -125,7 +125,6 @@ namespace QuestionsAnswers.BAL
             }
             catch (Exception ex)
             {
-
                 throw ex;
             }
         }
@@ -232,7 +231,7 @@ namespace QuestionsAnswers.BAL
                         IEnumerable<Question> batchQuestions = null;
                         foreach (List<string> ids in splitQuestionIds)
                         {
-                            batchQuestions = _objIQuestionsCacheRepository.GetQuestionDataByQuestionIds(questionIds);
+                            batchQuestions = _objIQuestionsCacheRepository.GetQuestionDataByQuestionIds(ids);
                             questions.AddRange(batchQuestions);
                         }
                     } 
@@ -264,6 +263,75 @@ namespace QuestionsAnswers.BAL
             {
                 yield return locations.GetRange(i, Math.Min(splitSize, length - i));
             }
+        }
+
+        /// <summary>
+        /// Created By : Deepak Israni on 9 July 2018
+        /// Description : Overloaded BAL function to save question details along with client ip.
+        /// </summary>
+        /// <param name="inputQuestion"></param>
+        /// <param name="clientInfo"></param>
+        /// <returns></returns>
+        public Guid? SaveQuestions(Question inputQuestion, ClientInfo clientInfo)
+        {
+            try
+            {
+                Guid? questionId = Guid.NewGuid();
+                inputQuestion.Id = questionId;
+
+                if (!_objIQuestionsRepository.SaveQuestion(inputQuestion, clientInfo))
+                {
+                    questionId = null;
+                }
+
+                return questionId;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        /// <summary>
+        /// Created By : Deepak Israni on 10 July 2018
+        /// Description : Overloaded function to save answer to a question along with the client ip.
+        /// </summary>
+        /// <param name="answerObj"></param>
+        /// <param name="clientInfo"></param>
+        /// <returns></returns>
+        public bool SaveQuestionAnswer(Answer answerObj, ClientInfo clientInfo)
+        {
+            bool isSuccess = false;
+            try
+            {
+                if (answerObj != null && !string.IsNullOrEmpty(answerObj.QuestionId) && !String.IsNullOrEmpty(answerObj.Text))
+                {
+                    isSuccess = _objIQuestionsRepository.SaveQuestionAnswer(answerObj, clientInfo);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return isSuccess;
+        }
+
+        /// <summary>
+        /// Created By : Deepak Israni on 10 July 2018
+        /// Description : BAL function to update the answer count for a certain question.
+        /// </summary>
+        /// <param name="questionId"></param>
+        /// <returns></returns>
+        public bool IncreaseAnswerCount(string questionId)
+        {
+            bool success = false;
+
+            if (String.IsNullOrEmpty(questionId))
+            {
+                success = _objIQuestionsRepository.IncreaseAnswerCount(questionId);
+            }
+
+            return success;
         }
     }
 }

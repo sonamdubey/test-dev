@@ -268,12 +268,8 @@ namespace Bikewale.Models.BikeModels
                         BindSeriesSlug(_objData);
                     }
 
-                    #endregion Do Not change the sequence
-
-                    if (IsMobile)
-                    {
-                        BindQuestionAnswers(_objData);
-                    }
+                    #endregion Do Not change the sequence    
+                    BindQuestionAnswers(_objData);                    
                 }
             }
             catch (Exception ex)
@@ -2467,16 +2463,25 @@ namespace Bikewale.Models.BikeModels
                 objData.IsQAAvailable = objData.QACount > 0;
 
                 var objMakeModelDetails = objData.ModelPageEntity.ModelDetails;
+                string makeName = "";
+                string makeMaskingName = "";
+                if(objMakeModelDetails.MakeBase != null)
+                {
+                    makeName =  objMakeModelDetails.MakeBase.MakeName;
+                    makeMaskingName = objMakeModelDetails.MakeBase.MaskingName;
+                }
+                string modelName = objMakeModelDetails.ModelName;
+                string modelMaskingName = objMakeModelDetails.MaskingName;
 
                 objData.QASlug = new QuestionAnswerSlugVM()
                 {
                     IsQAAvailable = objData.IsQAAvailable,
                     Platform = IsMobile ? Platforms.Mobile : Platforms.Desktop,
                     ModelId = _modelId,
-                    Tags = objMakeModelDetails != null && objMakeModelDetails.MakeBase != null ? String.Format("{0},{1}", objMakeModelDetails.MakeBase.MaskingName, objMakeModelDetails.MaskingName) : "",
-                    MakeName = objMakeModelDetails.MakeBase != null ? objMakeModelDetails.MakeBase.MakeName : "",
+                    Tags = String.Format("{0},{1}", makeMaskingName, modelMaskingName),
+                    MakeName = makeName,
                     BikeName = objData.BikeName,
-                    ModelName = objMakeModelDetails.ModelName,
+                    ModelName = modelName,
                     GAPageType = GAPages.Model_Page
                 };
 
@@ -2484,8 +2489,8 @@ namespace Bikewale.Models.BikeModels
                 {
                     objData.AskQuestionPopup = new AskQuestionPopupVM()
                     {
-                        MakeName = objMakeModelDetails.MakeBase.MakeName,
-                        ModelName = objMakeModelDetails.ModelName,
+                        MakeName = makeName,
+                        ModelName = modelName,
                         GAPageType = GAPages.Model_Page
                     };
                 }                
@@ -2494,7 +2499,7 @@ namespace Bikewale.Models.BikeModels
                 {
                     ushort pageNo = 1;
                     ushort questionsShown = 3;
-                    string viewAll = String.Format("{0}questions-and-answers/", objData.PageMetaTags.AlternateUrl);
+                    string viewAll = String.Format("{0}/{1}-bikes/{2}/questions-and-answers/", BWConfiguration.Instance.BwHostUrl + (IsMobile ? "/m" : ""), makeMaskingName, modelMaskingName);
 
                     objData.QAUrl = viewAll;
                     objData.QASlug.ViewAllUrl = viewAll;
@@ -2504,11 +2509,11 @@ namespace Bikewale.Models.BikeModels
                         ViewAllURL = viewAll,
                         Platform = IsMobile ? Platforms.Mobile : Platforms.Desktop,
                         ModelId = _modelId,
-                        Tags = objMakeModelDetails != null && objMakeModelDetails.MakeBase != null ? String.Format("{0},{1}", objMakeModelDetails.MakeBase.MaskingName, objMakeModelDetails.MaskingName) : "",
+                        Tags = String.Format("{0},{1}", makeMaskingName, modelMaskingName),
                         BikeName = objData.BikeName,
                         QACount = objData.QACount,
-                        MakeName = objMakeModelDetails.MakeBase != null ? objMakeModelDetails.MakeBase.MakeName : "",
-                        ModelName = objMakeModelDetails.ModelName,
+                        MakeName = makeName,
+                        ModelName = modelName,
                         GAPageType = GAPages.Model_Page
                     };
 

@@ -1,0 +1,119 @@
+﻿@model Bikewale.Models.QuestionAndAnswers.ModelQuestionsAnswersVM
+@using Bikewale.Utility;
+
+@{
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/partials/question-answer.css' inline/> ";
+    Model.Page_BTF_CSS_Path = "/sass/partials/question-answer-popup.css";
+    Model.Page_JS_Paths = new string[] { "/m/src/qna/landing.js", "/src/question-and-answer.js", "/src/utils/readMore.js" };
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string makeName = null;
+    string modelName = null;
+}
+
+@if (Model != null)
+{
+    <div class="container clearfix">
+        <div class="grid-12">
+            <div id="questionAnswerWrapper" data-id="questionAnswerWrapper" class="question-answer-wrapper question-answer-wrapper--screen">
+                @if (Model.MakeModelBase != null && Model.MakeModelBase.Make != null && Model.MakeModelBase.Model != null)
+                {
+                    makeName = Model.MakeModelBase.Make.MakeName;
+                    modelName = Model.MakeModelBase.Model.ModelName;
+                    <h1 class="question-answer-wrapper__title">
+                        @string.Format("{0} {1} - Questions and Answers", makeName, modelName)
+                    </h1>
+                }
+                <div class="question-answer-wrapper__image"></div>
+                <div class="question-answer-wrapper__container">
+                    <div class="question-answer-wrapper__content">
+                        @if (Model.QuestionAnswerWrapper != null && Model.QuestionAnswerWrapper.QuestionList != null)
+                        {
+
+                            <ul class="question-answer-wrapper__list">
+                                @foreach (var quesAnswer in Model.QuestionAnswerWrapper.QuestionList)
+                                {
+
+                                    <li class="question-answer-wrapper__list-item">
+                                        @{
+                                    var quesObj = quesAnswer.Question;
+                                    <p class="question-answer-wrapper__question">
+                                        @string.Format("Q: {0}", quesObj.Text)
+                                    </p>
+                                    if (quesObj.AskedBy != null && quesObj.AskedBy.CustomerName != null)
+                                    {
+                                        <p class="question-answer-wrapper__author">@string.Format("{0} ago by {1}", FormatDate.GetTimeSpan(quesObj.AskedOn), quesObj.AskedBy.CustomerName.Truncate(25)) </p>
+
+                                    }
+                                    var ansObj = quesAnswer.Answer;
+
+
+                                    <p class="question-answer-wrapper__answer-box">
+                                        <span class="question-answer-wrapper__starting-letter">A: </span>
+                                        @if (!string.IsNullOrEmpty(ansObj.StrippedText))
+                                        {
+                                            <span class="question-answer-wrapper__ans-trim-content">
+                                                @string.Format("{0} ...", ansObj.StrippedText)
+                                            </span>
+                                        }
+                                        else
+                                        {
+                                            <span class="question-answer-wrapper__ans-trim-content">
+                                                @string.Format("{0} ", ansObj.Text)
+                                            </span>
+                                        }
+                                        <span class="question-answer-wrapper__ans-full-content ">
+                                            @string.Format("{0} ", ansObj.Text)
+                                        </span>
+                                        @if (!string.IsNullOrEmpty(ansObj.StrippedText))
+                                        {
+
+                                            <span class="question-answer-wrapper__read-more">Read More</span>
+
+                                        }
+                                    </p>
+                                    if (ansObj.AnsweredBy != null && !string.IsNullOrEmpty(ansObj.AnsweredBy.CustomerName))
+                                    {
+                                        <p class="question-answer-wrapper__author">@string.Format("{0} ago by {1}", FormatDate.GetTimeSpan(ansObj.AnsweredOn), ansObj.AnsweredBy.CustomerName.Truncate(25))</p>
+                                    }
+
+
+                                        }
+                                    </li>
+                                }
+                            </ul>
+                            <div class="question-answer-wrapper__pagination">
+                                <div class="grid-5 alpha omega text-light-grey">
+                                    <p>
+                                        Showing <span class="text-default text-bold">@string.Format("{0}-{1}", Model.StartIndex, Model.EndIndex)</span> of
+                                        <span class="text-default text-bold">@Model.QuestionAnswerWrapper.TotalAnsweredQuestions</span> Questions & Answers
+                                    </p>
+                                </div>
+                                @if (Model.QuestionAnswerWrapper.TotalAnsweredQuestions > 10)
+                                {
+                                    Html.RenderAction("Index", "Pager", new { objPager = Model.PagerEntity });
+
+                                }
+                                <div class="clear"></div>
+                            </div>
+                        }
+
+                    </div>
+
+
+                    <div class="question-answer-wrapper__cta-container">
+                        <p class="question-answer-wrapper__line">Didn't find what you were looking for?</p>
+                        <button id="askQuestionButton" class="btn btn-blue question-answer-wrapper--ask-link ask-question__link" data-platform="@((int)Model.Platform)" data-source="@((int)Bikewale.Entities.QuestionAndAnswers.Sources.Model_QuestionAnswerDedicatedPage)" data-modelid="@Model.ModelId" data-tags="@Model.Tags">Ask a Question</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="clear"></div>
+       
+    </div>
+    if (Model.AskQuestionPopup != null)
+    {
+        @Html.Partial("~/Views/m/Shared/_question-answer.cshtml", Model.AskQuestionPopup);
+    }
+}

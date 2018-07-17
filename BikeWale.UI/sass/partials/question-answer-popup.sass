@@ -8,14 +8,16 @@
 @import ../mixins/popup
 @import ../mixins/button
 
+
 //popup
 .ask-question__link
 	color: color('pacific-blue')
 	border-left: 1px solid color('whisper-2')
+	cursor: pointer
 
 
 .question-answer-popup
-	@include popup('bottom')
+	@include popup($direction: 'bottom', $desktop: true)
 
 @include popup-header
 
@@ -65,6 +67,9 @@
 	.form-control-box
 		&.invalid
 			margin-bottom: 6px
+			
+		&.question-answer__email
+			margin-bottom: 10px
 
 .area-control-box
 	display: block
@@ -79,9 +84,9 @@
 	letter-spacing: 0
 	color: color('dark-gray-2')
 	margin-top: 5px
-	margin-bottom: 40px
-	
-		
+	margin-bottom: 15px
+
+
 //button
 .question-answer-container
 	@include btn(16px, $font-bold)
@@ -89,7 +94,7 @@
 
 .question-answer-container
 	> .btn-blue
-		margin-top: 20px
+		margin-top: 15px
 		margin-bottom: 15px
 
 //thank you screen
@@ -122,3 +127,13 @@
 	margin-top: 6px
 
 
+// Styles for Destop (Media Queries)
+
+@media screen and (min-width: 1024px)
+  .question-answer-container
+    .btn
+      padding-top: 10px
+      padding-bottom: 10px
+
+  .ask-question__link
+    border-left: 0

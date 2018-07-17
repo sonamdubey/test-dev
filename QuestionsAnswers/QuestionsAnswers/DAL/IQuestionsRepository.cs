@@ -30,5 +30,7 @@ namespace QuestionsAnswers.DAL
         bool IncreaseAnswerCount(string questionId);
         IEnumerable<Question> GetQuestionDataByQuestionIds(IEnumerable<string> questionIds);
         IEnumerable<Question> GetQuestionDataByQuestionId(string questionId);
+        bool SaveQuestion(Question inputQuestion, ClientInfo clientInfo);
+        bool SaveQuestionAnswer(Answer answerObj, ClientInfo clientInfo);
     }
 }

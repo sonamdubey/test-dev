@@ -111,12 +111,6 @@
                     </div>
                 </div>
 
-
-                
-
-
-
-
                 @if (Model.IsManufacturerLeadAdShown)
                 {
                     @Html.Partial("~/Views/Price/_ManufacturerCampaign_Mobile.cshtml", Model.LeadCampaign)
@@ -147,7 +141,7 @@
                         @{Html.RenderPartial("/Views/Shared/Ads/Mobile/AdSlotGeneric.cshtml", Model.AdSlots[String.Format("{0}-6", Model.AdTags.AdId)]);}
                     </div>
                 }
-                
+
                 @if (Model.ShowSeriesSlug && Model.SeriesSlug != null)
                 {
                     @Html.Partial("~/Views/BikeSeries/_ModelSeriesSlug_Mobile.cshtml", Model.SeriesSlug);
@@ -188,7 +182,7 @@
                                         @Html.Partial("~/Views/BikeSeries/_BikeModelsBySeries_Mobile.cshtml", Model.ModelsBySeries)
                                     }
                                 }
-                              
+
 
                             </div>
 

@@ -14,7 +14,7 @@ namespace Bikewale.Interfaces.QuestionAndAnswers
     /// </summary>
     public interface IQuestions
     {
-        Guid? SaveQuestion(Question inputQuestion, ushort platformId, ushort sourceId);
+        Guid? SaveQuestion(Question inputQuestion, ushort platformId, ushort sourceId, string clientIp);
         IEnumerable<string> GetQuestionIdsByModelId(uint modelId, ushort pageNo, ushort pageSize);
         uint GetQuestionCountByModelId(uint modelId);
         IEnumerable<Question> GetQuestionDataByModelId(uint modelId, ushort pageNo, ushort recordSize);

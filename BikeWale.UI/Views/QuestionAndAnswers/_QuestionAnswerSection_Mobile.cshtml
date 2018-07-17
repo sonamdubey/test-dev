@@ -9,7 +9,7 @@
     </h2>
     <div class="question-answer-wrapper__container">
         <div class="question-answer-wrapper__content">
-            <ul class="question-answer-wrapper__block">
+            <ul class="question-answer-wrapper__list">
                 @foreach (Bikewale.Entities.QuestionAndAnswers.QuestionAnswer question in Model.Questions)
                 {
                     <li class="question-answer-wrapper__list-item">
@@ -35,19 +35,19 @@
                             </span>
                             @if (showReadMore)
                             {
-                                <span class="question-answer-wrapper__read-more">Read More</span>   
+                                <span class="question-answer-wrapper__read-more">Read More</span>
                             }
                         </p>
-                        <p class="question-answer-wrapper__author">@string.Format("{0} by {1}", Bikewale.Utility.FormatDate.GetDaysAgo(question.Answer.AnsweredOn), Bikewale.Utility.StringExtention.StringHelper.Truncate(question.Answer.AnsweredBy.CustomerName, 25))</p>   
+                        <p class="question-answer-wrapper__author">@string.Format("{0} by {1}", Bikewale.Utility.FormatDate.GetDaysAgo(question.Answer.AnsweredOn), Bikewale.Utility.StringExtention.StringHelper.Truncate(question.Answer.AnsweredBy.CustomerName, 25))</p>
                         }
                     }
-                        
+
                     </li>
                 }
             </ul>
             @if (Model.QACount > 3)
             {
-                <a title="@(Model.BikeName) Questions and Answers" href="@(Model.ViewAllURL)" class="qna-redirection-link btn btn-inv-blue" data-cat="@Model.GAPageType" data-act="View_All_Button_Clicked" data-lab="@String.Format("{0}_{1}_Section", Model.MakeName, Model.ModelName)">
+                <a title="@(Model.BikeName) Questions and Answers" href="@(Model.ViewAllURL)" class="qna-redirection-link btn question-answer-wrapper__view-question-btn" data-cat="@Model.GAPageType" data-act="View_All_Button_Clicked" data-lab="@String.Format("{0}_{1}", Model.MakeName, Model.ModelName)">
                 	Read All @(Model.QACount) Q&As
                 </a>
             }

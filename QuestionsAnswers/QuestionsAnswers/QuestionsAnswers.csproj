@@ -67,6 +67,7 @@
     <Compile Include="DAL\QuestionsRepository.cs" />
     <Compile Include="Entities\Answer.cs" />
     <Compile Include="Entities\AnswerBase.cs" />
+    <Compile Include="Entities\ClientInfo.cs" />
     <Compile Include="Entities\Customer.cs" />
     <Compile Include="Entities\EnumModerationStatus.cs" />
     <Compile Include="Entities\EnumQATagTypes.cs" />

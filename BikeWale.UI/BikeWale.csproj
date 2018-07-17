@@ -4186,6 +4186,8 @@
     <Content Include="Views\QuestionAndAnswers\_QuestionAnswerSlug.cshtml" />
     <Content Include="sass\partials\question-answer-slug.sass" />
     <Content Include="Views\QuestionAndAnswers\_QuestionAnswerSection_Mobile.cshtml" />
+    <Content Include="Views\QuestionAndAnswers\Model_Index.cshtml" />
+    <None Include="Views\QuestionAndAnswers\_QuestionAnswerSection.cshtml" />
     <None Include="Views\Shared\_Sidebar-section.cshtml" />
     <Content Include="Views\BikeModels\_MultiTabsWidget.cshtml" />
     <Content Include="Views\Shared\_ReviewPopup.cshtml" />
@@ -4460,7 +4462,7 @@
           <AutoAssignPort>False</AutoAssignPort>
           <DevelopmentServerPort>9011</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:9011/</IISUrl>
+          <IISUrl>http://localhost:9011</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

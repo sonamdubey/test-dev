@@ -74,6 +74,13 @@
 
             <link href="@String.Format("{0}{1}?{2}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, Model.Page_BTF_CSS_Path,Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion)" rel="stylesheet" type="text/css" />
         }
+        @if (Model.Page_BTF_CSS_Paths != null && Model.Page_BTF_CSS_Paths.Any())
+        {
+            foreach (var cssFile in Model.Page_BTF_CSS_Paths)
+            {
+                <link href="@String.Format("{0}{1}?{2}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, cssFile.Trim(), Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion)" rel="stylesheet" type="text/css" />
+            }
+        }
         @Html.Partial("~/Views/Shared/fontcss/OpenSans/_Latin400.cshtml")
         @Html.Partial("~/Views/Shared/fontcss/OpenSans/_Latin600.cshtml")
         @Html.Partial("~/Views/Shared/fontcss/OpenSans/_Latin700.cshtml")
@@ -188,7 +195,7 @@
         }
 
     googletag.cmd.push(function () {
-        
+
         @if (Model.AdSlots != null)
         {
             <text>
@@ -199,7 +206,7 @@
             {
                 Bikewale.Models.AdSlotModel ad = adEntry.Value;
                 var id = String.Format("div-gpt-ad-{0}-{1}", Model.AdTags.AdId, ad.DivId);
-                
+
                 if (!string.IsNullOrEmpty(ad.Position))
                 {
                     <text> adSlot['@id']  = @Html.Raw(Bikewale.Utility.GoogleAdsHelper.GenerateSlotDefinition(ad.AdId, ad.AdPath, ad.DivId, ad.Size, ad.ViewSize, ad.Position)); </text>
@@ -208,7 +215,7 @@
                 {
                     <text> adSlot['@id']  = @Html.Raw(Bikewale.Utility.GoogleAdsHelper.GenerateSlotDefinition(ad.AdId, ad.AdPath, ad.DivId, ad.Size, ad.ViewSize)); </text>
                 }
-               
+
             }
         }
         else
@@ -243,7 +250,7 @@
         @if(!String.IsNullOrEmpty(Model.AdTags.TargetedSeries)){@Html.Raw(GetGTTargeting(5, Model.AdTags.TargetedSeries))}
         @if(!String.IsNullOrEmpty(Model.AdTags.TargetedTags)){@Html.Raw(GetGTTargeting(6, Model.AdTags.TargetedTags))}
 
-        
+
         @{Html.RenderAction("GetUserProfileTargeting", "GoogleAds");}
 
         googletag.pubads().collapseEmptyDivs();

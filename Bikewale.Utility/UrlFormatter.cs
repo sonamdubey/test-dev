@@ -731,6 +731,23 @@ namespace Bikewale.Utility
             return string.Format("/scooters/");
         }
 
+        /// <summary>
+        /// Created by  :   Snehal Dange on 3rd July 2018
+        /// Description :   Format QuestionAnswer Url
+        /// </summary>
+        /// <param name="makeMaskingName"></param>
+        /// <param name="modelMaskingName"></param>
+        /// <returns></returns>
+        public static string FormatQnAUrl(string makeMaskingName, string modelMaskingName)
+        {
+            string url = String.Empty;
+            if (!String.IsNullOrEmpty(makeMaskingName) && !String.IsNullOrEmpty(modelMaskingName))
+            {
+                url = String.Format("/{0}-bikes/{1}/questions-and-answers/", makeMaskingName, modelMaskingName);
+            }
+            return url;
+        }
+
     }
 }
 
