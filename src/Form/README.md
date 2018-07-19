@@ -1,6 +1,7 @@
 # Form
 
 ## Usage
+> Important: Make sure to include the [scss file](https://github.com/carwale/oxygen/blob/master/src/Form/style/form-item.scss) or feel free to create your own.
 ```js
 import { Form, Input } from "oxygen"
 // or

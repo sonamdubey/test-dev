@@ -1,6 +1,7 @@
 # Checkbox
 
 ## Usage
+> Important: Make sure to include the [scss file](https://github.com/carwale/oxygen/blob/master/src/Checkbox/style/checkbox.scss) or feel free to create your own.
 ```js
 import { Checkbox } from "oxygen"
 // or

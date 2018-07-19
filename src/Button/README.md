@@ -1,6 +1,7 @@
 # Button
 
 ## Usage
+> Important: Make sure to include the [scss file](https://github.com/carwale/oxygen/blob/master/src/Button/style/button.scss) or feel free to create your own.
 ```js
 import { Button } from "oxygen"
 // or

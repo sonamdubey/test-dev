@@ -1,6 +1,7 @@
 # Input
 
 ## Usage
+> Important: Make sure to include the [scss file](https://github.com/carwale/oxygen/blob/master/src/Input/style/input.scss) or feel free to create your own.
 ```js
 import { Input } from "oxygen"
 // or
