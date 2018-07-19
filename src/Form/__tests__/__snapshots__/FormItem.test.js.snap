@@ -1,0 +1,64 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<FormItem /> props should render a form item input 1`] = `
+<FormItem
+  prefixClass="oxygen-form-item"
+>
+  <div
+    className="oxygen-form-item"
+  >
+    <div
+      className="oxygen-form-item-control"
+    >
+      <Input
+        prefixClass="oxygen-input"
+        type="text"
+      >
+        <div
+          className="oxygen-input"
+        >
+          <input
+            className="oxygen-input-field"
+            type="text"
+          />
+        </div>
+      </Input>
+    </div>
+  </div>
+</FormItem>
+`;
+
+exports[`<FormItem /> props should render a form item with helper text as error 1`] = `
+<div
+  className="oxygen-form-item oxygen-form-item-with-help"
+>
+  <div
+    className="oxygen-form-item-control"
+  >
+    <Input
+      prefixClass="oxygen-input"
+      type="text"
+    />
+    <div
+      className="oxygen-form-item-help"
+    >
+      Enter a valid name
+    </div>
+  </div>
+</div>
+`;
+
+exports[`<FormItem /> render should render a form item input 1`] = `
+<div
+  className="oxygen-form-item"
+>
+  <div
+    className="oxygen-form-item-control"
+  >
+    <Input
+      prefixClass="oxygen-input"
+      type="text"
+    />
+  </div>
+</div>
+`;

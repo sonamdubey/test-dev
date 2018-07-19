@@ -1,0 +1,70 @@
+@import './normalize';
+
+// input
+.oxygen-input {
+  display: inline-block;
+  position: relative;
+}
+
+.oxygen-input-label {
+  color: #6f6f6f;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding-bottom: 10px;
+  display: block;
+}
+
+.oxygen-input-field {
+  width: 100%;
+  color: #484848;
+  font-size: 16px;
+  padding: 10px 16px;
+  display: inline-block;
+  border-radius: 3px;
+  border: 1px solid #aaa;
+
+  &:focus {
+    outline: 0;
+    border-color: #3fbfff;
+  }
+}
+
+/* affix */
+.oxygen-input-affix-content {
+  position: relative;
+
+  .oxygen-input-field {
+    &:not(:first-child) {
+      padding-left: 50px;
+    }
+
+    &:not(:last-child) {
+      padding-right: 50px;
+    }
+  }
+}
+
+.oxygen-input-prefix {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  transform: translateY(-50%);
+  color: #484848;
+  font-size: 16px;
+  line-height: 0;
+}
+
+.oxygen-input-suffix {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  transform: translateY(-50%);
+  color: #484848;
+  font-size: 16px;
+  line-height: 0;
+}

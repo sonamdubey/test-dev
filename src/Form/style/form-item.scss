@@ -1,0 +1,17 @@
+.oxygen-form-item-help {
+  margin-top: 5px;
+  font-size: 14px;
+
+  .has-error & {
+    font-style: italic;
+    color: #ff8484;
+  }
+}
+
+.oxygen-form-item-control {
+  margin-bottom: 30px;
+
+  .oxygen-form-item-with-help & {
+    margin-bottom: 8px;
+  }
+}

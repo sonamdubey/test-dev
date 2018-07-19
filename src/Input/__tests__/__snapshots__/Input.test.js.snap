@@ -1,0 +1,95 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Input /> component props should render an input with label 1`] = `
+<Input
+  label="Name"
+  prefixClass="oxygen-input"
+  type="text"
+>
+  <div
+    className="oxygen-input"
+  >
+    <label
+      className="oxygen-input-label"
+    >
+      Name
+    </label>
+    <input
+      className="oxygen-input-field"
+      type="text"
+    />
+  </div>
+</Input>
+`;
+
+exports[`<Input /> component props should render an input with prefix 1`] = `
+<Input
+  placeholder="Enter mobile number"
+  prefix="+91"
+  prefixClass="oxygen-input"
+  type="tel"
+>
+  <div
+    className="oxygen-input"
+  >
+    <div
+      className="oxygen-input-affix-content"
+    >
+      <div
+        className="oxygen-input-prefix"
+      >
+        +91
+      </div>
+      <input
+        className="oxygen-input-field"
+        placeholder="Enter mobile number"
+        type="tel"
+      />
+    </div>
+  </div>
+</Input>
+`;
+
+exports[`<Input /> component props should render an input with suffix 1`] = `
+<Input
+  placeholder="Enter kilometer"
+  prefixClass="oxygen-input"
+  suffix="kms"
+  type="tel"
+>
+  <div
+    className="oxygen-input"
+  >
+    <div
+      className="oxygen-input-affix-content"
+    >
+      <input
+        className="oxygen-input-field"
+        placeholder="Enter kilometer"
+        type="tel"
+      />
+      <div
+        className="oxygen-input-suffix"
+      >
+        kms
+      </div>
+    </div>
+  </div>
+</Input>
+`;
+
+exports[`<Input /> render should render an input 1`] = `
+<Input
+  prefixClass="oxygen-input"
+  type="text"
+>
+  <div
+    className="oxygen-input"
+  >
+    <input
+      className="oxygen-input-field"
+      type="text"
+    />
+  </div>
+</Input>
+`;
