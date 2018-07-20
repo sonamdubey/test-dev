@@ -19,6 +19,8 @@ using System.Web.UI.WebControls;
 using BikewaleOpr.Cache.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Cache.Core;
+using BikewaleOpr.Interface.Amp;
+using BikewaleOpr.BAL.Amp;
 
 namespace BikeWaleOpr.Content
 {
@@ -221,14 +223,18 @@ namespace BikeWaleOpr.Content
                 container.RegisterType<ICacheManager, MemcacheManager>();
                 container.RegisterType<IBikeVersions, BikeVersionsRepository>();
                 container.RegisterType<IBikeVersionsCacheRepository, BikeVersionsCacheRepository>();
-                
+
                 IShowroomPricesRepository pricesRepo = container.Resolve<IShowroomPricesRepository>();
 
                 container.RegisterType<IBwPrice, BwPrice>();
                 IBwPrice bwPrice = container.Resolve<IBwPrice>();
 
-                pricesRepo.SaveBikePrices(priceData, citiesList, Convert.ToInt32(CurrentUser.Id));
+                if (!String.IsNullOrEmpty(priceData) && !String.IsNullOrEmpty(citiesList))
+                {
+                    pricesRepo.SaveBikePrices(priceData, citiesList, Convert.ToInt32(CurrentUser.Id));
+                }
                 ClearBWCache();
+                ClearAmpCache();
 
                 bwPrice.UpdateModelPriceDocument(priceData, citiesList);
             }
@@ -256,10 +262,14 @@ namespace BikeWaleOpr.Content
             foreach (string model in arrModel)
             {
                 //To clear price quote for city
-                BwMemCache.ClearPriceQuoteCity(Convert.ToUInt32(model));
+                uint modelId;
+                if (uint.TryParse(model, out modelId))
+                {
+                    BwMemCache.ClearPriceQuoteCity(modelId);
+                }
 
             }
-            string[] arrSeries = seriesIds.Split(',');
+            string[] arrSeries = seriesIds.Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries);
             foreach (var series in arrSeries)
             {
                 BwMemCache.ClearSeriesCache(Convert.ToUInt32(series), !String.IsNullOrEmpty(ddlMakes.SelectedValue) ? Convert.ToUInt32(ddlMakes.SelectedValue) : 0);
@@ -267,6 +277,35 @@ namespace BikeWaleOpr.Content
             //To clear new launched bikes cache
             MemCachedUtil.Remove("BW_NewLaunchedBikes_V1");
             BwMemCache.ClearPopularBikesByMakes(!String.IsNullOrEmpty(ddlMakes.SelectedValue) ? Convert.ToUInt32(ddlMakes.SelectedValue) : 0);
+        }
+
+        /// <summary>
+        /// Created by  : Pratibha Verma on 17 July 2018
+        /// Description : AMP Cache clear for Model Page
+        /// </summary>
+        private void ClearAmpCache()
+        {
+            string cities = hdnSelectedCities.Value;
+            string[] commaSeperator = new string[] { "," };
+            string[] arrCity = cities.Split(commaSeperator, StringSplitOptions.RemoveEmptyEntries);
+            uint[] arrModel = Array.ConvertAll(modelIds.Split(commaSeperator, StringSplitOptions.RemoveEmptyEntries), s => uint.Parse(s));
+            using (IUnityContainer container = new UnityContainer())
+            {
+                container.RegisterType<IBikeMakesRepository, BikeMakesRepository>()
+                        .RegisterType<IBikeModelsRepository, BikeModelsRepository>()
+                        .RegisterType<IAmpCache,AmpCache>();
+                IAmpCache _ampCache = container.Resolve<IAmpCache>();
+
+                bool isExshowroomCity = false;
+                if (Array.IndexOf(arrCity, "1") > -1)
+                {
+                    isExshowroomCity = true;
+                }
+                if (isExshowroomCity)
+                {
+                    _ampCache.UpdateModelAmpCache(arrModel);
+                }
+            }
         }
 
         /// <summary>
@@ -284,29 +323,32 @@ namespace BikeWaleOpr.Content
             try
             {
                 // Parsing the price data
-                for (int i = 0; i < rptPrices.Items.Count; i++)
+                if (rptPrices.Items != null)
                 {
-                    TextBox txtPrice = (TextBox)rptPrices.Items[i].FindControl("txtPrice");
-                    TextBox txtInsurance = (TextBox)rptPrices.Items[i].FindControl("txtInsurance");
-                    TextBox txtRTO = (TextBox)rptPrices.Items[i].FindControl("txtRTO");
-                    CheckBox chkUpdate = (CheckBox)rptPrices.Items[i].FindControl("chkUpdate");
-
-                    string versionid = txtPrice.Attributes["VersionId"];
-                    string modelId = txtPrice.Attributes["data-modeldid"];
-                    string seriesId = txtPrice.Attributes["data-seriesId"];
-                    string price = txtPrice.Text;
-                    string insurance = txtInsurance.Text;
-                    string rto = txtRTO.Text;
-                    modelIds += String.Format("{0},", modelId);
-                    if (chkUpdate.Checked)
+                    for (int i = 0; i < rptPrices.Items.Count; i++)
                     {
-                        Trace.Warn("Saving Prices...");
+                        TextBox txtPrice = (TextBox)rptPrices.Items[i].FindControl("txtPrice");
+                        TextBox txtInsurance = (TextBox)rptPrices.Items[i].FindControl("txtInsurance");
+                        TextBox txtRTO = (TextBox)rptPrices.Items[i].FindControl("txtRTO");
+                        CheckBox chkUpdate = (CheckBox)rptPrices.Items[i].FindControl("chkUpdate");
 
-                        if (!String.IsNullOrEmpty(price) && !String.IsNullOrEmpty(insurance) && !String.IsNullOrEmpty(rto))
+                        string versionid = txtPrice.Attributes["VersionId"];
+                        string modelId = txtPrice.Attributes["data-modeldid"];
+                        string seriesId = txtPrice.Attributes["data-seriesId"];
+                        string price = txtPrice.Text;
+                        string insurance = txtInsurance.Text;
+                        string rto = txtRTO.Text;
+                        modelIds += String.Format("{0},", modelId);
+                        if (chkUpdate.Checked)
                         {
-                            priceData += String.Format("{0}#c0l#{1}#c0l#{2}#c0l#{3}|r0w|", versionid, price, insurance, rto);
+                            Trace.Warn("Saving Prices...");
+
+                            if (!String.IsNullOrEmpty(price) && !String.IsNullOrEmpty(insurance) && !String.IsNullOrEmpty(rto))
+                            {
+                                priceData += String.Format("{0}#c0l#{1}#c0l#{2}#c0l#{3}|r0w|", versionid, price, insurance, rto);
+                            }
+                            seriesIds += string.Format("{0},", seriesId);
                         }
-                        seriesIds += string.Format("{0},", seriesId);
                     }
                 }
 

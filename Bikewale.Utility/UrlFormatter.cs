@@ -747,7 +747,17 @@ namespace Bikewale.Utility
             }
             return url;
         }
-
+        /// <summary>
+        /// Created by  : Pratibha Verma on 17 July 2018
+        /// Description : URL for AMP Model Page 
+        /// </summary>
+        /// <param name="makeMasking"></param>
+        /// <param name="modelMasking"></param>
+        /// <returns></returns>
+        public static string CreateModelUrl(string makeMasking, string modelMasking)
+        {
+            return String.Format("{0}-bikes/{1}/", makeMasking, modelMasking);
+        }
     }
 }
 

@@ -11,5 +11,6 @@
         public bool BasicDetails { get; set; }       
         public uint SanitizedReviewLength { get; set; }
         public bool SantizeHtml { get; set; }
+        public bool IsDescriptionRequired { get; set; }
     }
 }

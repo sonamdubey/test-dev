@@ -58,8 +58,6 @@ namespace BikewaleOpr.BAL
             return objMakes;
         }
 
-
-
         /// <summary>
         /// Gets the make details by identifier.
         /// Author: Sangram Nandkhile on 08 Dec 2017
@@ -68,16 +66,8 @@ namespace BikewaleOpr.BAL
         /// <returns></returns>
         public BikeMakeEntity GetMakeDetailsById(uint makeId)
         {
-            BikeMakeEntity objMake = null;
-            try
-            {
-                objMake = _bikeMakesRepository.GetMakeDetailsById(makeId);
-            }
-            catch (Exception ex)
-            {
-                ErrorClass.LogError(ex, string.Format("BikewaleOpr.BAL.BikeMakes.objMake_MakeId:{0}", makeId));
-            }
-            return objMake;
+            throw new NotImplementedException();
         }
+
     }
 }

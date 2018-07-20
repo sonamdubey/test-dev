@@ -677,6 +677,50 @@ namespace BikewaleOpr.DALs.Bikedata
             }
             return modelId;
         }
+
+        /// <summary>
+        /// Created by  : Pratibha Verma on 17 July 2018
+        /// Description : returns model details by id
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
+        public BikeMakeModelData GetModelDetailsById(uint modelId)
+        {
+            BikeMakeModelData objData = null;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("getmodeldetailsbyid"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null && dr.Read())
+                        {
+                            objData = new BikeMakeModelData();
+                            objData.BikeMake = new BikeMakeEntityBase()
+                            {
+                                MakeId = SqlReaderConvertor.ToInt32(dr["MakeId"]),
+                                MakeName = Convert.ToString(dr["MakeName"]),
+                                MaskingName = Convert.ToString(dr["MakeMaskingName"])
+                            };
+                            objData.BikeModel = new BikeModelEntityBase()
+                            {
+                                ModelId = SqlReaderConvertor.ToInt32(dr["ModelId"]),
+                                ModelName = Convert.ToString(dr["ModelName"]),
+                                MaskingName = Convert.ToString(dr["ModelMaskingName"])
+                            };
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, String.Format("BikewaleOpr.DALs.Bikedata.BikeMOdelsRepository.GetModelDetailsById({0})", modelId));
+            }
+            return objData;
+        }
     }
 }
 

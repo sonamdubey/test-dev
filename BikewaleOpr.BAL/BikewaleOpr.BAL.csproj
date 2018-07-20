@@ -136,6 +136,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdSlot\AdSlot.cs" />
+    <Compile Include="Amp\AmpCache.cs" />
     <Compile Include="BikeBodyStyles.cs" />
     <Compile Include="BikeMakes.cs" />
     <Compile Include="BikeModels.cs" />

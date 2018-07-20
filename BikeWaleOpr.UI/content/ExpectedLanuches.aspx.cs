@@ -21,6 +21,8 @@ using BikeWaleOpr.Common;
 using Microsoft.Practices.Unity;
 using MySql.CoreDAL;
 using System.Text;
+using BikewaleOpr.Interface.Amp;
+using BikewaleOpr.BAL.Amp;
 
 namespace BikeWaleOpr.Content
 {
@@ -36,6 +38,7 @@ namespace BikeWaleOpr.Content
         private readonly string _indexName;
         private readonly IBikeESRepository _bikeESRepository;
         private readonly IBikeModels _bikeModels;
+        private readonly IAmpCache _ampCache;
 
         public ExpectedLaunches()
         {
@@ -45,12 +48,14 @@ namespace BikeWaleOpr.Content
                     .RegisterType<IBikeMakes, BikewaleOpr.BAL.BikeMakes>()
                     .RegisterType<IBikeESRepository, BikeESRepository>()
                     .RegisterType<IBikeModelsRepository, BikeModelsRepository>()
-                    .RegisterType<IBikeModels, BikewaleOpr.BAL.BikeModels>();
+                    .RegisterType<IBikeModels, BikewaleOpr.BAL.BikeModels>()
+                    .RegisterType<IAmpCache, AmpCache>();
 
                 _makes = container.Resolve<IBikeMakes>();
                 _indexName = ConfigurationManager.AppSettings["MMIndexName"];
                 _bikeESRepository = container.Resolve<IBikeESRepository>();
                 _bikeModels = container.Resolve<IBikeModels>();
+                _ampCache = container.Resolve<IAmpCache>();
             }
         }
 
@@ -152,7 +157,8 @@ namespace BikeWaleOpr.Content
                             BwMemCache.ClearPopularBikesCacheKey(9, makeId);
                             BwMemCache.ClearPopularBikesCacheKey(9, null);
 
-                            RefreshAmpContent(makeId);
+                            //AMP cache clear for make page
+                            _ampCache.UpdateMakeAmpCache(makeId);
 
                         }
                         if (modelId > 0 && makeId > 0)
@@ -368,22 +374,7 @@ namespace BikeWaleOpr.Content
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
 
             }
-        }//End UpdateBikeIsLaunched
-
-        private void RefreshAmpContent(uint makeId)
-        {
-            try
-            {
-                var makeDetails = _makes.GetMakeDetailsById(makeId);
-                string makeUrl = string.Format("{0}/m/{1}amp", BWConfiguration.Instance.BwHostUrl, Bikewale.Utility.UrlFormatter.CreateMakeUrl(makeDetails.MaskingName));
-                string privateKeyPath = HttpContext.Current.Server.MapPath("~/App_Data/private-key.pem");
-                GoogleAmpCacheRefreshCall.UpdateAmpCache(makeUrl, privateKeyPath);
-            }
-            catch (Exception ex)
-            {
-               ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-            }
-        }
+        }//End UpdateBikeIsLaunched      
 
 
         /// <summary>

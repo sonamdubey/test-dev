@@ -190,6 +190,48 @@ namespace Bikewale.Controllers
             }
         }
 
+        /// <summary>
+        /// Created by  : Pratibha Verma on 4 July 2018
+        /// Description : Index method for Model AMP Page
+        /// </summary>
+        /// <param name="makeMasking"></param>
+        /// <param name="modelMasking"></param>
+        /// <param name="versionId"></param>
+        /// <returns></returns>
+        [Route("m/model/{makeMasking}-bikes/{modelMasking}/amp/")]
+        public ActionResult Index_Mobile_AMP(string makeMasking, string modelMasking, uint? versionId)
+        {
+            ModelPage obj = new ModelPage(makeMasking, modelMasking, _userReviewsSearch, _userReviewsCache, _objModel, _objDealerPQ, _objAreaCache, _objCityCache, _objPQ, _objDealerCache, _objDealerDetails, _objVersion, _objArticles, _objVideos, _objUsedBikescache, _objServiceCenter, _objPQCache, _usedBikesCache, _upcoming, _objManufacturerCampaign, _bikeSeries, _adSlot, _bikeInfo, _bikeMakesCacheRepository, _apiGatewayCaller
+                , _cacheManager, _pager, _bikeModelsCacheHelper, _bikeModelsCacheRepository, _objQuestions);
+
+            if (obj.Status.Equals(StatusCodes.ContentFound))
+            {
+                obj.IsAmpPage = true;
+                obj.IsMobile = true;
+                obj.Source = DTO.PriceQuote.PQSources.Mobile;
+                obj.PQSource = Entities.PriceQuote.PQSourceEnum.Mobile_ModelPage;
+                obj.LeadSource = Entities.BikeBooking.LeadSourceEnum.Model_Mobile;
+                obj.ManufacturerCampaignPageId = ManufacturerCampaignServingPages.Mobile_Model_Page;
+                obj.CurrentPageUrl = Request.RawUrl;
+                ModelPageVM objData = obj.GetData(versionId);
+                //if data is null check for new bikes page redirection
+                if (obj.Status.Equals(StatusCodes.RedirectPermanent))
+                {
+                    return RedirectPermanent(obj.RedirectUrl);
+                }
+                else return View("~/views/model/Index_mobile_amp.cshtml", objData); // Do not remove View path from here.
+
+            }
+            else if (obj.Status.Equals(StatusCodes.RedirectPermanent))
+            {
+                return RedirectPermanent(obj.RedirectUrl);
+            }
+            else
+            {
+                return HttpNotFound();
+            }
+        }
+
 
     }   // class
 }   // namespace

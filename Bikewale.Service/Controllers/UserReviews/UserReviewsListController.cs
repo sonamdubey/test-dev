@@ -115,6 +115,7 @@ namespace Bikewale.Service.Controllers.UserReviews
             {
                 if (filters != null && (!String.IsNullOrEmpty(filters.InputFilter.Model) || !String.IsNullOrEmpty(filters.InputFilter.Make)))
                 {
+                    filters.ReviewFilter.IsDescriptionRequired = true;
                     objUserReviews = _userReviewsSearch.GetUserReviewsList(filters);
                     if (objUserReviews != null)
                     {

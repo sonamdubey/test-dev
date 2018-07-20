@@ -1,11 +1,7 @@
 ﻿@model Bikewale.Models.BikeModels.ModelPageVM
 @if (!Model.IsUpcomingBike)
 {
-	var minSpecAvailable = false;
-	if (Model.ModelPageEntity.ModelVersionMinSpecs != null && Model.ModelPageEntity.ModelVersionMinSpecs.MinSpecsList != null)
-	{
-		minSpecAvailable  = true;
-	}
+	bool minSpecAvailable = Model.ModelPageEntity.ModelVersionMinSpecs != null && Model.ModelPageEntity.ModelVersionMinSpecs.MinSpecsList != null;
     <div id="overviewContent" data-id="overviewContent" class="content-box-shadow card-bottom-margin padding-top15 padding-right20 padding-bottom20 padding-left20">
         <h2>@Model.BikeName Summary</h2>
         @if (minSpecAvailable)

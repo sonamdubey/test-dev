@@ -1,0 +1,67 @@
+﻿@model Bikewale.Models.BikeSeries.BikeSeriesModelsVM
+@using Bikewale.Utility
+@if (Model != null && Model.SeriesModels != null)
+{ 
+    <amp-carousel height="75" layout="fixed-height" type="carousel" class="series-model-carousel">
+        @if (Model.SeriesModels != null)
+        {
+            if (Model.IsNewAvailable)
+            {
+
+                foreach (var bike in Model.SeriesModels.NewBikes)
+                {
+                    <div class="swiper-card">
+                        <a class="seriesClick" data-vars-label="@bike.BikeModel.ModelName" href="@string.Format("{0}/m{1}", BWConfiguration.Instance.BwHostUrl, UrlFormatter.BikePageUrl(bike.BikeMake.MakeMaskingName, bike.BikeModel.MaskingName))" title="@string.Format("{0} {1}", bike.BikeMake.MakeName, bike.BikeModel.ModelName)">
+                            @if (bike.BikeImage != null)
+                            {
+                                <div class="inline-block">
+                                    <amp-img alt="@string.Format("{0} {1}", bike.BikeMake.MakeName, bike.BikeModel.ModelName)" title="@string.Format("{0} {1}", bike.BikeMake.MakeName, bike.BikeModel.ModelName)" src="@(Image.GetPathToShowImages(bike.BikeImage.OriginalImagePath, bike.BikeImage.HostUrl, ImageSize._110x61, QualityFactor._70))" width="80" height="45"></amp-img>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="inline-block">
+                                    <amp-img alt="@string.Format("{0} {1}", bike.BikeMake.MakeName, bike.BikeModel.ModelName)" title="@string.Format("{0} {1}", bike.BikeMake.MakeName, bike.BikeModel.ModelName)" src="@(Image.GetPathToShowImages(string.Empty, string.Empty, ImageSize._110x61))" width="80" height="45"></amp-img>
+                                </div>
+                            }
+                            <div class="series-model__details inline-block">
+                                <h3 class="series-model__card-title font-semibold font12 text-truncate">@bike.BikeModel.ModelName</h3>
+                                <p class="series-model__card-subtitle  text-slate-grey text-truncate">@FormatMinSpecs.GetMinSpecsAsText(bike.MinSpecsList)</p>
+                            </div>
+                        </a>
+                    </div>
+                }
+            }
+            if (Model.IsUpcomingAvailable)
+            {
+
+                foreach (var bike in Model.SeriesModels.UpcomingBikes)
+                {
+                    <div class="swiper-card">
+                        <a class="seriesClick" data-vars-label="@bike.BikeModel.ModelName" href="@string.Format("{0}/m{1}", BWConfiguration.Instance.BwHostUrl, UrlFormatter.BikePageUrl(bike.BikeMake.MakeMaskingName, bike.BikeModel.MaskingName))" title="@string.Format("{0} {1}", bike.BikeMake.MakeName, bike.BikeModel.ModelName)">
+                            <span class="horizontal-swiper__tag">Upcoming</span>
+                            @if (bike.BikeImage != null)
+                            {
+                                <div class="inline-block">
+                                    <amp-img src="@(Image.GetPathToShowImages(bike.BikeImage.OriginalImagePath, bike.BikeImage.HostUrl, ImageSize._110x61, QualityFactor._70))" alt="@string.Format("{0} {1}", bike.BikeMake.MakeName, bike.BikeModel.ModelName)" title="@string.Format("{0} {1}", bike.BikeMake.MakeName, bike.BikeModel.ModelName)" width="80" height="45"></amp-img>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="inline-block">
+                                    <amp-img src="@(Image.GetPathToShowImages(string.Empty, string.Empty, ImageSize._110x61))" alt="@string.Format("{0} {1}", bike.BikeMake.MakeName, bike.BikeModel.ModelName)" title="@string.Format("{0} {1}", bike.BikeMake.MakeName, bike.BikeModel.ModelName)" src="" width="80" height="45"></amp-img>
+                                </div>
+                            }
+                            <div class="series-model__details inline-block">
+                                <h3 class="series-model__card-title font-semibold font12 text-truncate">@bike.BikeModel.ModelName</h3>
+                                <p class="series-model__card-subtitle  text-slate-grey text-truncate">Expected Launch @bike.ExpectedLaunch.ToString("MMM yyyy")</p>
+                            </div>
+                        </a>
+                    </div>
+                }
+            }
+
+        }
+    </amp-carousel>
+}
+

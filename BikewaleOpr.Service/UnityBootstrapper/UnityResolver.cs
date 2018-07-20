@@ -1,4 +1,5 @@
-﻿using Microsoft.Practices.Unity;
+﻿using Bikewale.Notifications;
+using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
 using System.Web.Http.Dependencies;
@@ -42,6 +43,7 @@ namespace BikewaleOpr.Service.UnityConfiguration
             }
             catch (ResolutionFailedException ex)
             {
+                ErrorClass.LogError(ex, "UnityResolver.GetService");
                 return null;
             }
         }
@@ -57,8 +59,9 @@ namespace BikewaleOpr.Service.UnityConfiguration
             {
                 return container.ResolveAll(serviceType);
             }
-            catch (ResolutionFailedException)
+            catch (ResolutionFailedException ex)
             {
+                ErrorClass.LogError(ex, "UnityResolver.GetService");
                 return new List<object>();
             }
         }

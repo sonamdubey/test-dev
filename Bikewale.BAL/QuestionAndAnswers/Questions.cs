@@ -132,7 +132,10 @@ namespace Bikewale.BAL.QuestionAndAnswers
                 CustomerEntityBase inpCust = inputQuestion.AskedBy;
 
                 #region Input Validation & Sanitization
-                if (!String.IsNullOrEmpty(inputQuestion.AskedBy.CustomerEmail) && !Validate.ValidateEmail(inputQuestion.AskedBy.CustomerEmail))
+                if (String.IsNullOrEmpty(inputQuestion.AskedBy.CustomerEmail)
+                    || String.IsNullOrEmpty(inputQuestion.Text)
+                    || String.IsNullOrEmpty(inputQuestion.AskedBy.CustomerName)
+                    || (!String.IsNullOrEmpty(inputQuestion.AskedBy.CustomerEmail) && !Validate.ValidateEmail(inputQuestion.AskedBy.CustomerEmail)))
                 {
                     return questionId;
                 }

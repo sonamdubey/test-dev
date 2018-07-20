@@ -2288,6 +2288,9 @@
     <Content Include="fonts\WebRupee.V2.0.ttf" />
     <Content Include="fonts\WebRupee.V2.0.woff" />
     <Content Include="m\ads.txt" />
+    <Content Include="m\css\amp\make.css" />
+    <Content Include="m\css\amp\model.css" />
+    <Content Include="m\css\amp\price-in-city.css" />
     <Content Include="m\css\campaign\hero-campaign.css" />
     <Content Include="m\css\components\model-gallery.css" />
     <Content Include="m\css\electricbikes\landing.css" />
@@ -4172,6 +4175,7 @@
     <Content Include="sass\partials\find-product-offers.sass" />
     <Content Include="Views\BikeSeries\_ModelSeriesSlug.cshtml" />
     <Content Include="Views\BikeSeries\_ModelSeriesSlug_Mobile.cshtml" />
+    <Content Include="Views\Model\Index_Mobile_AMP.cshtml" />
     <Content Include="sass\mixins\_dropdown.sass" />
     <Content Include="sass\partials\version-dropdown.sass" />
     <Content Include="sass\mixins\_dealer.sass" />
@@ -4186,6 +4190,8 @@
     <Content Include="Views\QuestionAndAnswers\_QuestionAnswerSlug.cshtml" />
     <Content Include="sass\partials\question-answer-slug.sass" />
     <Content Include="Views\QuestionAndAnswers\_QuestionAnswerSection_Mobile.cshtml" />
+    <Content Include="Views\m\Shared\_UpcomingBikes_AMP.cshtml" />
+    <Content Include="Views\m\Shared\_SeriesBikes_AMP.cshtml" />
     <Content Include="Views\QuestionAndAnswers\Model_Index.cshtml" />
     <None Include="Views\QuestionAndAnswers\_QuestionAnswerSection.cshtml" />
     <None Include="Views\Shared\_Sidebar-section.cshtml" />

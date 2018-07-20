@@ -124,6 +124,7 @@
         self.LoadingText = ko.observable("Loading...");
         self.DealerId = ko.observable();
         self.VersionId = ko.observable();
+        self.RedirectUrl = ko.observable("");
         self.FilterData = function (data,filter)
         {
             filterObj = data;
@@ -172,6 +173,7 @@
                 self.IsReload(options.isreload || false);
                 self.DealerId(options.dealerid || 0);
                 self.VersionId(options.versionid || 0);
+                self.RedirectUrl(options.redirectUrl || "");
                 if (self.IsPersistance())  self.LoadingText("Loading locations...");
 
                 if (self.SelectedModelId()) {
@@ -287,7 +289,10 @@
                                 _responseData.qStr = self.createMPQ(_responseData.priceQuote.quoteId);
                             }
                             self.triggerABTestGA();
-                            if(!self.IsReload() && _responseData.qStr!='')
+                            if(self.RedirectUrl() != "")
+                            {
+                                window.location.href = self.RedirectUrl();
+                            }else if(!self.IsReload() && _responseData.qStr!='')
                             {
                                 window.location.href = "/m/pricequote/dealer/" + "?MPQ=" + _responseData.qStr;
                             }
@@ -311,7 +316,11 @@
 
                             }
                             self.triggerABTestGA();
-                            window.location.reload(true);
+                            if(self.RedirectUrl() != ""){
+                                window.location.href = self.RedirectUrl();
+                            }else { 
+                                window.location.reload(true);
+                            }
                         }
                     }
                 });

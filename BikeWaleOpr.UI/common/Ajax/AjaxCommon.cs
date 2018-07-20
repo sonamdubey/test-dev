@@ -1,12 +1,14 @@
 ﻿using Bikewale.Notifications;
 using Bikewale.Utility;
 using BikewaleOpr.BAL;
+using BikewaleOpr.BAL.Amp;
 using BikewaleOpr.BAL.ContractCampaign;
 using BikewaleOpr.common.ContractCampaignAPI;
 using BikewaleOpr.Common;
 using BikewaleOpr.DALs.Bikedata;
 using BikewaleOpr.Entities.ContractCampaign;
 using BikewaleOpr.Entity.ElasticSearch;
+using BikewaleOpr.Interface.Amp;
 using BikewaleOpr.Interface.BikeData;
 using BikewaleOpr.Interface.ContractCampaign;
 using BikeWaleOpr.Classified;
@@ -35,6 +37,7 @@ namespace BikeWaleOpr.Common
 
         private readonly IBikeESRepository _bikeESRepository;
         private readonly IBikeModels _bikeModels;
+        private readonly IAmpCache _ampCache;
 
         private readonly string _indexName;
 
@@ -50,17 +53,21 @@ namespace BikeWaleOpr.Common
             {
                 container.RegisterType<IBikeSeriesRepository, BikeSeriesRepository>()
                     .RegisterType<IBikeModelsRepository, BikeModelsRepository>()
+                    .RegisterType<IBikeMakesRepository, BikeMakesRepository>()
                     .RegisterType<IBikeSeries, BikewaleOpr.BAL.BikeSeries>()
                     .RegisterType<IBikeESRepository, BikeESRepository>()
                     .RegisterType<IBikeBodyStylesRepository, BikeBodyStyleRepository>()
                     .RegisterType<IBikeBodyStyles, BikeBodyStyles>()
-                    .RegisterType<IBikeModels, BikewaleOpr.BAL.BikeModels>();
+                    .RegisterType<IBikeModels, BikewaleOpr.BAL.BikeModels>()
+                    .RegisterType<IBikeMakes, BikeMakes>()
+                    .RegisterType<IAmpCache, AmpCache>();
 
                 _series = container.Resolve<IBikeSeries>();
                 _indexName = ConfigurationManager.AppSettings["MMIndexName"];
                 _bikeESRepository = container.Resolve<IBikeESRepository>();
 
                 _bikeModels = container.Resolve<IBikeModels>();
+                _ampCache = container.Resolve<IAmpCache>();
             }
         }
         /// <summary>
@@ -222,6 +229,8 @@ namespace BikeWaleOpr.Common
         ///  Method to update masking name in BikeModel Table and insert old masking Name to OldMaskingLog
         ///  Modified by : Vivek Singh Tomar on 12th Dec 2017
         ///  Description : Update masking name of model when masking name is updated
+        ///  Modified by : Pratibha Verma on 17 July 2018
+        ///  Description : Added AMP Cache clear for model page
         /// </summary>
         /// <param name="maskingName">passed as model masking name for url formation to bikemodel table</param>
         /// <param name="updatedBy"> passed which user has updated last time</param>
@@ -261,6 +270,8 @@ namespace BikeWaleOpr.Common
                         nvc.Add("par_oldname", oldMaskingName);
                         nvc.Add("par_newname", maskingName);
                         SyncBWData.PushToQueue("updatetagname", DataBaseName.BW, nvc);
+                        //Amp cache clear model page
+                        _ampCache.UpdateModelAmpCache(Convert.ToUInt32(modelId));
                     }
                     else
                     {

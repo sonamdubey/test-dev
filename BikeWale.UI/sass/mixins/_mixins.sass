@@ -16,7 +16,7 @@
     clear: both
 
 //icon in after content
-@mixin afterIcon($fromRight: 8%, $fromTop: 34%)
+@mixin afterIcon($fromRight: 8%, $fromTop: 34%, $hover: false)
   &:after
     @include right-arrow-3799a7-icon
     content: ''
@@ -26,6 +26,10 @@
     width: 6px
     height: 10px
 
+  @if $hover
+    @include afterIcon-hover
+
+@mixin afterIcon-hover
   &:hover:after
     @include right-arrow-fff-icon
 

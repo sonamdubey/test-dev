@@ -834,7 +834,7 @@ namespace Bikewale.Models
                                                string.Format("{0}/m/{1}-bikes/{2}/price-in-{3}/", BWConfiguration.Instance.BwHostUrlForJs, firstVersion.MakeMaskingName, modelMaskingName, cityMaskingName),priceInCityAMPVM.LeadCampaign.SendLeadSMSCustomer,priceInCityAMPVM.LeadCampaign.Organization));
 
                         str = str.ReplaceHref("leadcapturebtn", url);
-
+						str = str.ReplaceGAAttributes();
                         priceInCityAMPVM.LeadCapture.ManufacturerLeadAdAMPConvertedContent = str;
                     }
                 }
@@ -861,8 +861,8 @@ namespace Bikewale.Models
                     double loanAmount = Math.Round(objVM.FirstVersion.OnRoadPrice * .7);
                     int downPayment = Convert.ToInt32(bikePrice - loanAmount);
 
-                    float minDnPay = (float)(10 * bikePrice) / 100;
-                    float maxDnPay = (float)(40 * bikePrice) / 100;
+                    float minDnPay = (float)(0.10 * bikePrice);
+                    float maxDnPay = (float)(0.40 * bikePrice);
 
                     ushort minTenure = 12;
                     ushort maxTenure = 48;

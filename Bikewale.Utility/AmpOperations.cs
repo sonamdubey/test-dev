@@ -17,13 +17,15 @@ namespace Bikewale.Utility
 
         /// <summary>
         /// Convert normal html content to amp html
+        /// Modified By : Rajan Chauhan on 13 July 2018
+        /// Description : Modified ampString to use DocumentNode.InnerHtml rather than input htmlString to sanitize the input html into standard html
         /// </summary>
         /// <param name="htmlString"></param>
         /// <returns></returns>
         public static string ConvertToAmpContent(this string htmlString)
         {
-            var ampString = htmlString;
-
+            var ampString = System.Net.WebUtility.HtmlDecode(htmlString);
+            ampString = GetHtmlDocument(ampString).DocumentNode.InnerHtml;
             try
             {
                 var attributes = new Dictionary<string, string>();
@@ -293,6 +295,27 @@ namespace Bikewale.Utility
             }
             return html;
         }
+		/// <summary>
+		/// Created By : Prabhu Puredla
+		/// Description : 17 july 2018
+		/// </summary>
+		/// <param name="htmlContent"></param>
+		/// <param name="htmlContent"></param>
+		/// <returns></returns>
+		public static string ReplaceGAAttributes(this string html)
+		{
+			try
+			{
+				html = Regex.Replace(html, @"\sa=", " data-act=");
+				html = Regex.Replace(html, @"\sl=", " data-lab=");
+				html = Regex.Replace(html, @"\sc=", " data-cat=");
+			}
+			catch(Exception ex)
+			{
+
+			}
+			return html;
+		}
         /// <summary>
         /// Function to read the html document from given string
         /// </summary>

@@ -1,0 +1,2211 @@
+﻿@model Bikewale.Models.BikeModels.ModelPageVM
+@using Bikewale.Utility
+@using Bikewale.Entities.BikeData
+@using Bikewale.BAL.ApiGateway.Entities.BikeData
+@{
+    Layout = "~/Views/Shared/_Layout_Mobile_AMP.cshtml";
+    Model.Amp_Page_CSS = @"html{-webkit-tap-highlight-color:rgba(0,0,0,0)}*,:after,:before{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}h3{font-size:14px;font-weight:600;color:#4d5057}.amp-carousel-button-next{right:0;z-index:9}.amp-carousel-button-prev{left:0;z-index:9}.content-box{background:#fff;box-shadow:2px 2px 2px #dcdcdc;margin-bottom:20px}.content-inner-block-20{padding:20px}.content-details-wrapper h2{font-size:16px;margin-bottom:13px}.content-details-wrapper>.carousel-heading-content h2{margin-bottom:0}.content-details-wrapper h3,.content-details-wrapper .model-specs-header{margin-bottom:12px}.section-padding{padding-top:20px;padding-bottom:20px;font-size:14px;background-color:#fff}.section-padding .swiper-card:first-child{margin-left:20px}.section-padding .swiper-card:last-child{margin-right:20px}.section-padding>h2,.section-padding>.view-all-btn-container{padding-left:20px;padding-right:20px}.breadcrumb{margin:10px;padding:10px;background:#eee}.breadcrumb-title{display:block;font-size:12px;color:#82888B;padding-bottom:5px}.breadcrumb li{position:relative;display:inline-block;vertical-align:middle;margin-right:5px;margin-bottom:10px}.breadcrumb-link__label{padding-right:12px}.breadcrumb-link::after{content:'';height:5px;width:5px;border:solid grey;border-width:0 1px 1px 0;-webkit-transform:rotate(-45deg);transform:rotate(-45deg);display:inline-block;position:absolute;top:7px;right:0}.btn{display:inline-block;padding:8px 42px;font-size:16px;white-space:nowrap;border:1px solid transparent;border-radius:2px;outline:0;vertical-align:middle;-ms-touch-action:manipulation;touch-action:manipulation;-webkit-user-select:none;user-select:none;background-image:none;-webkit-appearance:none;text-align:center}.btn-teal{background:#41b4c4;color:#fff;border:1px solid #41b4c4}.text-truncate{text-align:left;text-overflow:ellipsis;white-space:nowrap;overflow:hidden}.carousel-card{box-shadow:0 2px 4px 0 rgba(213,213,213,.5);border:1px solid #e2e2e2;margin:0 auto;border-radius:2px;display:block;position:relative;max-height:289px;max-width:340px}.font12{font-size:12px}.font11{font-size:11px}.font14{font-size:14px}.font16{font-size:16px}.font18{font-size:18px}.text-light-grey{color:#82888b}.text-slate-grey{color:#787878}.text-default{color:#4d5057}.text-teal{color:#0288d1}.bg-light-grey{background-color:#f5f5f5}.font-semibold{font-weight:600}.font-bold{font-weight:700}.inline-block{display:inline-block;vertical-align:middle}.flexbox{display:-webkit-box;display:-moz-box;display:-ms-flexbox;display:-webkit-flex;display:flex}.flexbox-justify-center{-webkit-box-pack:center;-moz-box-pack:center;-ms-flex-pack:center;-webkit-justify-content:center;justify-content:center}.flexbox-align-start{-webkit-box-align:start;-moz-box-align:start;-ms-flex-align:start;-webkit-align-items:flex-start;align-items:flex-start}.margin-bottom5{margin-bottom:5px}.star-zero-icon{width:23px;height:20px;-webkit-transform:scale(.8);transform:scale(.8);background:url(https://imgd.aeplcdn.com/0x0/bw/static/icons/ratings/star-0.png) center no-repeat}.rate-count-5 .star-icon{background:url(https://imgd.aeplcdn.com/0x0/bw/static/icons/ratings/star-5-26x25.png) center no-repeat}.rate-count-4 .star-icon{background:url(https://imgd.aeplcdn.com/0x0/bw/static/icons/ratings/star-4-26x25.png) center no-repeat}.rate-count-3 .star-icon{background:url(https://imgd.aeplcdn.com/0x0/bw/static/icons/ratings/star-3-26x25.png) center no-repeat}.rate-count-2 .star-icon{background:url(https://imgd.aeplcdn.com/0x0/bw/static/icons/ratings/star-2-26x25.png) center no-repeat}.rate-count-1 .star-icon{background:url(https://imgd.aeplcdn.com/0x0/bw/static/icons/ratings/star-1-26x25.png) center no-repeat}.rate-count-5{color:#198d55}.rate-count-4{color:#13b65d}.rate-count-3{color:#efd700}.rate-count-2{color:#fd971c}.rate-count-1{color:#ef3f30}.star-icon{width:23px;height:22px;-webkit-transform:scale(.6);transform:scale(.6)}.rate-star--small .star-icon{-webkit-transform:scale(.5);transform:scale(.5)}.rate-star-count{font-weight:700}.rating-review-container{padding:10px 20px 0;background-color:#fff}.rating-review__title{padding-bottom:5px}.rating-review-content>*{margin-right:10px;padding-left:10px;border-left:1px solid #ededed}.rating-review-content>*:first-child{border-left:none;padding-left:0}.contest-slug-sm{padding:8px 10px}.slug-teal-target{display:block;color:#fff;background:#6cc7d1;position:relative}.trophy-white{width:15px;height:16px;background:url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/trophy-white-14.png) no-repeat}.contest-slug__label{width:92%;color:#fff;padding-left:6px}.arrow-white-right{width:7px;height:7px;border:solid #fff;border-width:0 1px 1px 0;-webkit-transform:rotate(-45deg);transform:rotate(-45deg);position:absolute;top:40%;right:10px}.model-container h2{font-size:16px;font-weight:600}#overallSpecsTab{width:100%;display:block;background:#fff;overflow-x:auto;position:-webkit-sticky;position:sticky;z-index:10;-webkit-overflow-scrolling:touch;top:0;box-shadow:0 4px 5px -2px #d5d5d5}.overall-specs-tabs-wrapper{width:100%;display:table}.overall-specs-tabs-wrapper>li{display:table-cell;width:1%;text-align:center;white-space:nowrap;font-size:14px;color:#82888b;cursor:pointer}.overall-specs-tabs-wrapper>li.active{border-bottom:3px solid #ef3f30;color:#4d5057;font-weight:600}.overall-specs-tabs-wrapper>li>a{color:#82888b;padding:10px 15px;display:inline-block}.overall-specs-tabs-wrapper>li.active>a{color:#4d5057}.position--relative{position:relative}.model-carousel__more{position:absolute;top:0;left:0;right:0;width:100%;height:100%;background:rgba(0,0,0,.5);text-align:center;color:#fff;padding-top:80px}.model-ribbon{position:absolute;top:14px;left:0;font-size:12px;padding:2px 10px;display:inline-block;z-index:2}.model-ribbon:after{content:'';position:absolute;border-top:10px solid transparent;border-right:10px solid #fff;border-bottom:10px solid transparent;right:0}.model-ribbon:before,.model-ribbon:after{content:'';width:0;height:0;position:absolute;border-style:solid;border-color:transparent;right:-10px}.model-ribbon:before{top:0;border-width:11px 10px 0 0}.model-ribbon:after{bottom:0;border-width:0 10px 11px 0}.upcoming-ribbon{color:#fff;background:#4d5057}.discontinued-ribbon{color:#4d5957;background:#b5b5b5}.upcoming-ribbon.model-ribbon:before{border-top-color:#4d5057}.upcoming-ribbon.model-ribbon:after{border-bottom-color:#4d5057}.discontinued-ribbon.model-ribbon:before{border-top-color:#b5b5b5}.discontinued-ribbon.model-ribbon:after{border-bottom-color:#b5b5b5}.model-media-list{padding:10px 20px;text-align:center}.model-media-list li{margin:4px}.model-media__link{background:#fff;display:block;box-shadow:0 1px 1px 1px #dcdcdc;border-radius:2px;padding:2px 10px 4px}.photos-sm,.videos-sm{width:14px;height:14px;vertical-align:middle;margin-right:3px}.photos-sm{background-position:0 -477px}.videos-sm{background-position:-16px -476px}.colors-sm{width:14px;height:14px;vertical-align:middle;margin-right:3px;background-position:-193px -595px}.elevated-shadow-top{position:relative;top:1px;box-shadow:0 0 7px #dcdcdc}.version-city__content{border-bottom:1px solid #e2e2e2;border-top:1px solid #e2e2e2;padding-left:0;padding-right:0;min-height:55px;width:100%}.dropdown-box{position:relative}.dropdown-box__menu-tab{-webkit-box-direction:normal;-webkit-box-orient:vertical;-moz-box-direction:normal;-moz-box-orient:vertical;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;cursor:pointer;position:relative;background-color:#fff}.version-city-content__tab{padding:6px 20px;min-height:55px;width:50%}.version-city-content__tab.city-selection-tab{padding-top:9px}.version-city-content__tab:first-of-type{border-right:1px solid #e2e2e2}.dropdown-box__menu-value{width:80%}.dropdown-box__menu-tab:after{background:url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/dropdown-icon.png) center no-repeat;-webkit-transition:all .3s;transition:all .3s;content:'';display:inline-block;width:10px;height:5px;position:absolute;right:20px;top:50%;will-change:transform}.loc-change-blue-icon{width:16px;height:16px;background-position:-195px -395px;vertical-align:middle}.dropdown-box__submenu-list{clear:both;box-shadow:1px 2px 10px 2px #e2e2e2;position:absolute;top:100%;left:0;z-index:3;width:100%;list-style:none;padding-left:16px;padding-right:16px;background-color:#fff}.dropdown-box-submenu-list__item{border-bottom:1px solid #e6e6e6;padding-top:15px;padding-bottom:15px;color:#8f9496;cursor:pointer}.dropdown-box-submenu-list__item a{color:#8f9496}.submenu-list-item__title{clear:both;width:100%}.submenu-list-item--active .submenu-list-item__title{color:#4d5057}.submenu-list-item__title:after,.submenu-list-item__title:before{content:' ';display:table}.submenu-list-item-title__left-col{width:70%;float:left}.submenu-list-item-title__right-col{float:right;text-align:right}.submenu-list-item__title:after{clear:both}.dropdown-box-submenu__specs-list{width:100%}.dropdown-box-specs-list__item{font-weight:400;border:none;line-height:17px;padding:7px 7px 0 10px;color:#a2a2a2;position:relative}.dropdown-box-specs-list__item:before{border-radius:50%;content:'';width:4px;height:4px;background-color:#a2a2a2;position:absolute;top:56%;left:0}.onroad-price-slug{padding:10px 20px}.onroad-price-slug__price{font-size:24px}.onroad-price-slug__price>span:last-child{padding-right:5px}.onroad-price-slug__price-breakup{cursor:pointer;color:#0288d1;margin-top:3px}.model-emi-slug{padding:0 20px 15px}.emi-calculator__link{float:right;color:#0288d1}.emi-popup{height:auto;width:100%;background-color:#fff;z-index:12;position:fixed;bottom:0;left:0;right:0;-webkit-transform:translateY(150%);transform:translateY(150%);transition:transform .5s linear;will-change:transform}.emi-popup.popup--active{-webkit-transform:translateY(0);transform:translateY(0)}#blackoutWindow{position:fixed;background-color:#000;width:100%;height:100%;top:0;left:0;right:0;bottom:0;z-index:11;display:block;opacity:.8}.emi-popup-close-btn{cursor:pointer;top:0;right:0;width:50px;height:50px;position:absolute}.emi-popup-close-btn:after,.emi-popup-close-btn:before{position:absolute;left:20px;top:17px;content:' ';height:17px;width:2px;background-color:#484848}.emi-popup-close-btn:before{-webkit-transform:rotate(45deg);transform:rotate(45deg)}.emi-popup-close-btn:after{-webkit-transform:rotate(-45deg);transform:rotate(-45deg)}.emi-popup__title{padding:15px 40px 15px 20px}.finance-emi-container>div{padding:20px;border-top:1px solid #e2e2e2;font-size:0}.emi-summary-left{width:42%}.emi-summary-right{text-align:right;width:58%}@media (max-width:320px){.emi-summary-right{width:56%}}@media screen and (-webkit-min-device-pixel-ratio:0){input[type=range]{overflow:hidden;width:100%;-webkit-appearance:none;background-color:#e2e2e2}input[type=range]::-webkit-slider-runnable-track{height:10px;-webkit-appearance:none;color:#ef3030;margin-top:1px}input[type=range]::-webkit-slider-thumb{width:10px;border-radius:50%;border:1px solid #930202;-webkit-appearance:none;height:10px;cursor:ew-resize;background:#ef3030;box-shadow:-605px 10px 0 600px #ef3030}}input[type=range]{overflow:hidden;width:100%;-webkit-appearance:none}input[type=range]:focus{outline:0}input[type=range]::-moz-range-thumb{border-radius:10px;-moz-box-shadow:inset 0 0 6px #fff;background:#ef3030;color:#00f}input[type=range]::-moz-range-progress{background-color:#ef3030}input[type=range]::-moz-range-track{background-color:#bababa}input[type=range]::-ms-track{width:100%;height:5px;background:0 0;border-color:transparent;border-width:6px 0;color:transparent}input[type=range]::-ms-fill-lower{background:#ef3030;border-radius:10px}input[type=range]::-ms-fill-upper{background:#bababa;border-radius:10px}input[type=range]::-ms-thumb{border:none;height:16px;width:16px;border-radius:50%;background:#ef3030}input[type=range]:focus::-ms-fill-lower{background:#ef3030}input[type=range]:focus::-ms-fill-upper{background:#bababa}.total-emi-amount{margin-bottom:5px;font-size:18px}.total-emi-amount__text{font-size:14px}.indicative-emi-amount{font-size:18px;margin-bottom:5px}.indicative-emi__text{font-size:14px;color:#82888b}.emi-quote__btn-block>.btn{width:100%}.emi-slider-box{font-size:0;width:100%;margin-bottom:20px}.emi-slider-box:last-child{margin-bottom:0}.emi-slider-box__left-section{font-size:14px;color:#787878;width:60.66666667%;padding-left:5px;display:inline-block;vertical-align:middle;padding-bottom:4px}.emi-slider-box__right-section{display:inline-block;vertical-align:middle;text-align:right;font-size:14px;width:36.33333333%;padding-left:10px;font-weight:600;padding-bottom:4px}.emi-slider-right__price{font-weight:400}.emi-slider-right__price>span{font-weight:600}.blue-right-arrow-icon,.teal-right{width:6px;height:10px;position:relative;top:1px;margin-left:6px}.blue-right-arrow-icon{background-position:-58px -437px}.dealers-popup__close-btn{cursor:pointer;top:0;right:0;width:50px;height:50px;position:absolute}.dealers-popup__close-btn:after,.dealers-popup__close-btn:before{position:absolute;left:20px;top:17px;content:' ';height:17px;width:2px;background-color:#484848}.dealers-popup__close-btn:before{-webkit-transform:rotate(45deg);transform:rotate(45deg)}.dealers-popup__close-btn:after{-webkit-transform:rotate(-45deg);transform:rotate(-45deg)}.bwm-fullscreen-popup{background:#fff;margin:auto;width:100%;position:fixed;left:0;top:0;height:100%;z-index:10;overflow-y:scroll;padding:30px 25px}.icon-outer-container{width:102px;height:102px;margin:0 auto;background:#fff;border:1px solid #ccc;width:72px;height:72px;border-radius:50%}.icon-inner-container{background:#fff;border:1px solid #666;border-radius:50%;text-align:center;width:64px;height:64px;margin:3px auto}.offers-sprite{background:url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/offers-sprite.png?v16may2017) no-repeat;display:inline-block}.offers-box-icon{width:34px;height:37px;background-position:0 0;margin-top:12px}.dealer-popup__title{margin-bottom:15px;text-align:center}#more-dealers-popup ul{max-width:310px;margin:0 auto}.secondary-dealer-card{margin-top:10px}.secondary-dealer-card>a{width:308px;min-height:102px;padding:10px 10px 20px;box-shadow:0 1px 7px 0 #ccc;border-radius:2px;display:block;font-size:0}.secondary-dealer-card:first-child{margin-top:0}.secondary-dealer__title{width:75%}.secondary-dealer__kilometers{width:25%;text-align:right;font-size:13px}.secondary-dealer__offers{margin-top:15px}.secondary-dealer__price-container{width:33.33333333%}.secondary-dealer__price-tag{margin-bottom:5px}.secondary-dealer__offers-detail{width:66.66666667%;padding-top:10px;padding-left:20px;border-left:1px solid #e2e2e2}.offers-sm-box-icon{width:15px;height:16px;background-position:-183px -460px;position:relative;top:1px}.expected-details__content{padding-right:20px;padding-left:20px}.font24{font-size:24px}.expected-details__divider{border-top:1px solid #e2e2e2;margin-top:10px;padding-top:10px}.find-series__icon{-webkit-box-align:center;-moz-box-align:center;-ms-flex-align:center;-webkit-align-items:center;align-items:center;background:url(https://imgd.aeplcdn.com/0x0/bw/static/icons/41b4c4/bike-series.svg) center no-repeat #D9F0F4;background-size:73px;min-width:111px;min-height:111px}.find-series__content{-webkit-box-direction:normal;-webkit-box-orient:vertical;-moz-box-direction:normal;-moz-box-orient:vertical;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;padding:12px 34px 12px 20px;width:100%;position:relative}.find-series__head{font-size:15px;line-height:20px;color:#2a2a2a;margin-bottom:7px}.find-series__desc{line-height:17px;margin-bottom:6px}.find-series__view-link{font-size:13px;color:#41B4C4;line-height:18px;text-decoration:none;position:relative}.model-summary__item{padding-bottom:10px;padding-top:15px;border-top:1px solid #e2e2e2}.model-summary__item.summary-list--no-border{border-top:none}.summary-specs-list{text-align:center}.summary-specs-list>li{width:24%;padding-right:3px;padding-left:3px;margin-top:5px;margin-bottom:5px}.model-summary__highlights{text-align:left}.model-summary__highlights th{padding-bottom:5px}.model-summary__highlights td{vertical-align:top}.model-summary__highlights td:first-child,.model-summary__highlights td:first-child>strong{width:36%;font-weight:400}.model-summary__highlights tr td{padding-top:12px;padding-bottom:12px;border-top:1px solid #eee}.model-summary__highlights tbody tr:first-child td{border-top:0}.model-summary__highlights td:last-child{width:64%}#model-key-highlights .model-color-list li{margin-right:3px;float:left}#model-key-highlights .model-color-list li:not(:last-child):after{content:', '}.onroad-price__btn{padding:10px 10px 15px;text-align:center}.other-popular-carousel .swiper-card{padding:0}.other-popular-carousel a{position:relative}.other-popular-carousel .swiper-btn-block{padding:10px 15px 15px;text-align:center}.other-popular-carousel .swiper-btn-block>a{text-align:center;padding-top:5px;padding-bottom:5px}.model-category__tag{position:absolute;top:5px;left:5px;padding:2px 5px;font-size:10px;letter-spacing:.9px;text-transform:uppercase;z-index:2;background-color:#fff;border-radius:2px}.category--newlaunch{color:#f23d25;padding-left:20px;background:url(https://imgd.aeplcdn.com/0x0/bw/static/icons/f45944/trending-fire.svg) 5px no-repeat rgba(255,255,255,.7);background-size:9px}.model-about-content>p{display:inline;color:#82888b}.read-more-model-preview{display:block;color:#0288d1}.series-model-content{margin-bottom:20px}.series-model-content>h2{margin-bottom:10px;padding-right:15px;padding-left:20px}.series-model-carousel .swiper-card:first-child{margin-left:20px}.series-model-carousel .swiper-card:last-child{margin-right:20px}.series-model-carousel a{display:block;padding:10px 5px;position:relative}.horizontal-swiper__tag{position:absolute;top:5px;right:5px;font-size:9px;color:#82888b}.series-model-carousel .swiper-card{width:240px;min-height:65px;padding:0}.series-model__details{width:62%;padding-left:5px}.series-model__card-title{margin-bottom:12px;width:100%;color:#2a2a2a}.series-model__card-subtitle{font-size:10px;width:100%}.expert-review-list{display:block;border-collapse:separate;border-spacing:0;margin-bottom:20px;margin-top:27px;padding-right:20px;padding-left:20px;vertical-align:top;white-space:normal}.expert-review__card{padding:15px 10px 10px;display:table-cell;width:1%;max-width:340px;margin:0 auto;margin-left:10px;width:auto}.expert-review__card .review-article__card-title{color:#2a2a2a;font-size:13px;display:block;margin-bottom:8px;overflow:hidden;position:relative;max-height:36px}.trucatable-content:before{content:'...';position:absolute;right:0;bottom:0;display:block;padding-left:3px;background:white}.trucatable-content:after{content:'';position:absolute;right:0;width:14px;height:14px;margin-top:.2em;background:white}.card-category__tag{height:auto;min-width:101%;border-radius:3px 3px 3px 0;padding:4px 10px 4px 28px;position:absolute;font-size:10px;color:#fff;top:-15px;left:-1px;text-transform:capitalize}.carousel-card[data-review-category='40'] .card-category__tag{background-color:#68c7d2}.carousel-card[data-review-category='40'] .card-category__tag:after{border-top-color:#68c7d2}.carousel-card[data-review-category='24'] .card-category__tag{background-color:#f2aa58}.carousel-card[data-review-category='24'] .card-category__tag:after{border-top-color:#f2aa58}.carousel-card[data-review-category='23'] .card-category__tag{background-color:#57abeb}.carousel-card[data-review-category='23'] .card-category__tag:after{border-top-color:#57abeb}.card-category__tag:after,.card-category__tag:before{content:'';position:absolute}.card-category__tag:before{display:block;left:8px;top:5px;width:15px;height:13px}.carousel-card[data-review-category='40'] .card-category__tag:before{background:url(https://imgd.aeplcdn.com/0x0/bw/static/icons/fff/star.svg) center no-repeat}.carousel-card[data-review-category='24'] .card-category__tag:before{background:url(https://imgd.aeplcdn.com/0x0/bw/static/icons/fff/flag.svg) center no-repeat}.carousel-card[data-review-category='23'] .card-category__tag:before{background:url(https://imgd.aeplcdn.com/0x0/bw/static/icons/fff/helmet.svg) center no-repeat;top:4px}.model-carousel-container .swiper-slide{width:215px;min-height:245px;padding:0}.model-carousel-container .swiper-slide>a{padding-left:10px;padding-right:10px;margin-left:10px;display:block;width:205px;min-height:245px}.model-carousel-container .swiper-slide:first-child{margin-left:10px}.model-carousel-container .swiper-slide:last-child{margin-right:20px}.article-stats{font-size:10px}.article-stats__date{padding-right:10px;min-width:50px}.article-stats__name{width:110px}.article-description{margin-bottom:5px;margin-top:10px;overflow:hidden;max-height:122px;line-height:1.4;position:relative}.article-description:before{content:'...';position:absolute;right:0;bottom:1px;padding-left:2px;padding-right:2px;background:#fff}.article-description:after{content:'';position:absolute;width:20px;height:14px;background:#fff;right:0}.review-card__read-more{font-size:13px}.view-all-target-btn{padding:5px 6px}.btn-inv-teal,.view-all-target-btn{background:0 0;color:#3799a7;border:1px solid #3799a7}.teal-right{background-position:-69px -437px}.color-section__list{padding-top:5px}.color-section__list>li{width:100%;margin-top:20px}.color-section__list>li:first-child{margin-top:0}.color-box{width:30px;height:30px;margin-right:15px;background:#f1f1f1;border:1px solid #e2e2e2}.color-box span{width:100%;display:block}.color-count-one span{height:100%}.color-count-two span{height:50%}.color-count-three span{height:33.33%}.similar-bikes h2{padding-left:20px;padding-right:20px}.similar-model-carousel .swiper-card{padding:0}.similar-bikes .compare-with-target{padding-bottom:10px}.compare-with-target{display:block;padding:10px 35px 0 15px;position:relative;top:-1px;width:100%}.compare-with-target:before{content:'';position:absolute;left:8%;top:0;width:168px;height:1px;border-top:1px solid #e2e2e2}.compare-sm{width:17px;height:12px;background-position:-173px -596px;position:relative;top:1px;margin-right:5px}.right-arrow{width:8px;height:12px;background-position:-182px -394px;position:absolute;right:20px;top:41%}.btn-card{padding:5px;overflow:hidden;text-overflow:ellipsis}.btn-full-width{display:block;width:100%}.btn-white{background:#fff;color:#e42029;border:1px solid #e42029}.exploremore__imagebackground{padding-top:15px;padding-bottom:10px;background:rgba(65,180,196,.3)}.exploremore__icon-background{height:64px;width:64px;background:white url(https://imgd.aeplcdn.com/0x0/bw/static/icons/41b4c4/bike-36x22.png) no-repeat center;margin:0 auto;border-radius:50%}.exploremore-detailblock{margin:0 auto;padding-top:10px;min-height:115px;text-align:center;white-space:normal}.detailblock__title{line-height:25px;margin-bottom:10px}.detailblock__description{color:#A2A2A2}.mileage-box-list{width:100%;font-size:0;padding-bottom:20px;position:relative}.mileage-box-list h2{padding-left:20px;padding-right:20px}.mileage-box-list th{text-align:left}.mileage-box-list .mileage-list__item{width:50%;padding:0 20px 10px;min-height:45px;border-left:1px solid #eee}.mileage-list__item:first-child{border-left-style:none;padding-right:10px}.mileage-box__arai-block,.mileage-box__users-block{padding-left:50px}.mileage-box__arai-block{background:url(https://imgd.aeplcdn.com/0x0/bw/static/icons/41B4C4/arai-40x40.png) no-repeat left}.mileage-box__users-block{background:url(https://imgd.aeplcdn.com/0x0/bw/static/icons/41B4C4/users-36x24.png) no-repeat left}.mileage-box__mileage-count>span{font-size:18px}.mileage-box__subtitle{margin-right:2px}.mileage-box-list .tooltip-icon-target.info-icon{left:-8px;top:-5px}.tooltip-top .bw-tooltip-text:before,.tooltip-top .bw-tooltip-text:after{content:'';width:9px;height:18px;display:block;position:absolute;left:85px;border-left:7px solid transparent;border-top:7px solid;border-right:7px solid transparent}.tooltip-top .bw-tooltip-text:before{border-top-color:#e2e2e2;bottom:-19px}.tooltip-top .bw-tooltip-text:after{border-top-color:#fff;bottom:-18px}.tooltip--right.tooltip-top .bw-tooltip-text:before,.tooltip--right.tooltip-top .bw-tooltip-text:after{left:135px}.tooltip-icon-target:hover .bw-tooltip{display:block}.mileage-box__head{margin-bottom:12px;padding:0 20px 5px}.mileage-list__average-content>.mileage-box__desc{margin-bottom:5px}.grey-bike-icon{background:url(https://imgd.aeplcdn.com/0x0/bw/static/icons/82888b/bike-36x20.png) no-repeat;width:36px;height:20px}.mileage-box-desc__content-text{padding-left:10px}.mileage-box-desc__content-text>span{font-weight:700;color:#82888b}.mileage-list__special{font-weight:700;font-size:30px;color:#3799a7}.model-mileage-carousel>h3{padding-top:20px;border-top:1px solid #e2e2e2;margin:0 20px 12px}.model-mileage-carousel .swiper-card{padding:0}.swiper-card{vertical-align:top;margin:2px 3px 2px 5px;padding:15px 15px 10px;min-height:170px;background:#fff;box-shadow:0 1px 4px rgba(0,0,0,.2);border-radius:2px;width:200px}.swiper-card>a{display:block;color:#4d5057}.swiper-card>a:hover{text-decoration:none}.swiper-image-preview{height:95px;padding:5px 5px 0;position:relative;background:#fff}.swiper-slide>img{max-width:100%;position:relative;z-index:1;height:90px}.swiper-details-block{padding:5px 15px 0}.swiper-detail__title{color:#2a2a2a;display:block;width:100%;text-align:left;white-space:nowrap;overflow:hidden;margin-bottom:5px}.swiper-detail__desc{width:100%}.specs-container .model-specs-header{margin-bottom:12px;padding-left:20px;padding-right:20px}.model-accordion-tab{padding:12px 15px;position:relative;border:none;border-bottom:1px solid #e2e2e2;cursor:pointer;background-color:#fff}.model-accordion-tab>*{display:inline-block;vertical-align:middle}.model-specs-list>section:first-child .model-accordion-tab{border-top:1px solid #e2e2e2}.model-specs-list>li:first-child .model-accordion-tab{border-top:1px solid #e2e2e2}.model-accordion-tab:focus{outline:none}.model-accordion-tab>amp-img{margin-right:10px}.accordion-tab-active{box-shadow:0 2px 3px #e2e2e2}.accordion-tab-active + .specs-features-list{display:block}.arrow-black-top{width:7px;height:7px;border:2px solid #000;border-width:0 1px 1px 0;transform:rotate(45deg);transition:transform .2s linear;will-change:transform}.model-accordion-tab .arrow-black-top{position:absolute;right:20px;top:20px}.accordion-tab-active .arrow-black-top{transform:rotate(-135deg)}.specs-features-list{padding:0 20px 10px;border-bottom:1px solid #e2e2e2}.specs-features-list>li{width:100%;font-size:0;margin-top:20px}.specs-features-list>li:first-child{margin-top:10px}.specs-features-list li>div{width:50%;padding-right:5px;display:inline-block;font-size:14px}.model-features__heading{padding:20px 20px 0;font-size:14px;margin-bottom:12px}.specs-features-list.model-features-list{border-bottom:none}.specs-features-list__link{position:relative;cursor:pointer;color:#0288d1;padding:10px 20px 0;display:block}#specsFeatureExpand:before{content:'';width:100%;height:30px;position:absolute;top:-40px;left:0;z-index:1;background:linear-gradient(to bottom,rgba(255,255,255,0) 0%,#fff 100%)}.version-price-table{padding-right:20px;padding-left:20px;width:100%}.version-price-table th{text-align:left;border-bottom:1px solid #e2e2e2;padding-bottom:10px;font-weight:400;width:35%}.version-price-table th:first-child{width:30%}.version-price-table td{vertical-align:top;border-bottom:1px solid #eee;padding-bottom:10px;padding-top:10px;font-size:14px}.version-price-table__note{padding:5px 20px 20px;color:#a8afb3}.price-top-cities{padding:15px 20px 0;margin-bottom:12px}.price-in-city{font-size:0}.price-in-city .city-name{font-size:14px;width:60%;padding-bottom:20px;text-align:left}.price-in-city .city-price{font-size:14px;width:40%;padding-bottom:20px;text-align:right}.price-in-city__link{position:relative;cursor:pointer;color:#0288d1;padding-bottom:15px;display:block;font-size:14px}.price-in-city__link:before{content:'';width:100%;height:20px;position:absolute;top:-40px;left:0;z-index:1;background:linear-gradient(to bottom,rgba(255,255,255,0) 0,#fff 100%)}.price-in-city__note{line-height:1.6}.reviews-content__rating{padding-left:20px;padding-right:20px}.model-overall-rating{padding-bottom:10px;margin-bottom:5px;border-bottom:1px solid #e2e2e2}.overall-rating-alignment{position:relative;left:-4px}.model-overall-rating__link{color:#a2a2a2;display:inline-block;vertical-align:middle}.overall-rating-alignment .rate-star-count{font-size:18px}.rating-circle-list{padding-bottom:5px;border-bottom:1px solid #e2e2e2}.rating-circle-list>li{float:left;min-width:148px;margin-right:7px;margin-top:7px;margin-bottom:7px}.rating-circle-list:after{content:'';display:block;clear:both}.rating-circle{width:30px;height:30px;position:relative;border-radius:50%;background-color:#ccc}.circle-label{width:24px;height:24px;position:absolute;top:3px;left:3px;line-height:24px;border-radius:50%;background:#fff;text-align:center;z-index:1}.rating-progress{width:30px;height:30px;display:block;position:absolute;clip:rect(0,30px,30px,15px)}.circle-rate-3 .rating-progress,.circle-rate-4 .rating-progress,.circle-rate-5 .rating-progress{clip:rect(auto,auto,auto,auto)}.compare-with-target:before,.rating-circle-list:after,.rating-progress:after,.rating-progress:before,.review-left-divider:before,.user-review-list li:after{content:''}.rating-progress:after,.rating-progress:before{width:30px;height:30px;display:block;position:absolute;border-width:3px;border-style:solid;border-radius:50%;clip:rect(0,15px,30px,0)}.circle-rate-3 .rating-progress:after,.circle-rate-4 .rating-progress:after,.circle-rate-5 .rating-progress:after{-webkit-transform:rotate(180deg);transform:rotate(180deg)}.circle-rate-1 .rating-progress:before{border-color:#EF3F30;-webkit-transform:rotate(62deg);transform:rotate(62deg)}.circle-rate-2 .rating-progress:before{border-color:#FD971C;-webkit-transform:rotate(144deg);transform:rotate(144deg)}.circle-rate-3 .rating-progress:before{-webkit-transform:rotate(216deg);transform:rotate(216deg)}.circle-rate-4 .rating-progress:before{-webkit-transform:rotate(288deg);transform:rotate(288deg)}.circle-rate-3 .rating-progress:after,.circle-rate-3 .rating-progress:before{border-color:#efd700}.circle-rate-4 .rating-progress:after,.circle-rate-4 .rating-progress:before{border-color:#13b65d}.circle-rate-5 .rating-progress:after,.circle-rate-5 .rating-progress:before{border-color:#198d55}.rating-circle-list .list-item-label{font-size:13px;padding-left:5px}.user-review-list>li{position:relative;padding-top:15px}.user-review-list>li:after{content:'';width:90%;height:1px;position:absolute;top:0;left:0;right:0;margin:0 auto;border-top:1px solid #eee}.user-review-list>li:first-child:after{content:none}.user-review__head{padding-left:20px;padding-right:20px}.user-review__head>div{margin-bottom:10px}.rating-badge{min-width:40px;height:20px;padding-right:5px;padding-left:5px;font-size:14px;color:#fff;margin-right:6px;text-align:center;border-radius:2px}.star-white{width:12px;height:12px;background-image:url(https://imgd.aeplcdn.com/0x0/bw/static/icons/fff/star.svg);background-size:contain;background-repeat:no-repeat}.rating-badge[data-rate-bg='5']{background-color:#198d55}.rating-badge[data-rate-bg='4']{background-color:#13b65d}.rating-badge[data-rate-bg='3']{background-color:#efd700}.rating-badge[data-rate-bg='2']{background-color:#fd971c}.rating-badge[data-rate-bg='1']{background-color:#ef3f30}.user-review__title{font-size:15px;margin-right:-4px;width:83.33333%}.user-review__title>a{color:#2a2a2a}.collapsible-content .main-content{padding-right:20px;padding-left:20px;font-size:14px;margin-bottom:10px}.collapsible-content .more-content__wrapper{font-size:14px;margin-bottom:10px;padding-right:20px;padding-left:20px}.about-reviewer-content{padding:15px 20px 0;background:#fafafa;margin-bottom:15px}.about-reviewer__head{font-size:13px}.questionId-1{width:24px;height:16px;background-position:-131px -643px}.questionId-2{background-position:-94px -643px}.questionId-3{background-position:-112px -643px}.questionId-2,.questionId-3{width:16px;height:16px}.about-reviewer-list .item-question{font-size:10px;color:#a2a2a2;margin-bottom:4px}.about-reviewer-list .item-answer{font-size:13px}.read-more-target{color:#0288d1;cursor:pointer}.about-reviewer-list li{text-align:center;vertical-align:top;margin-right:-4px;padding:20px 10px}.item-count-3 li{width:33.33333%}.item-count-2 li{width:50%}.review-question-container{padding-left:20px;padding-right:20px;margin-bottom:15px;margin-top:15px}.feedback-button{min-width:60px;background:white;margin:0 4px;padding:6px;border:1px solid #E2E2E2;border-radius:2px;cursor:pointer;font-family:'Open Sans',sans-serif,Arial}.like-sm,.dislike-sm,.views-sm{width:16px;height:14px;vertical-align:middle}.like-sm{background-position:-109px -252px}.dislike-sm{background-position:-109px -265px}.views-sm{background-position:-59px -304px}.feedback-button .like-sm,.feedback-button .dislike-sm{opacity:.6}.feedback-button:focus{border-color:#41B4C4;background:#41B4C4;color:white;pointer-events:none;outline:none}.feedback-button:focus .like-sm{opacity:1;background-position:-94px -624px}.feedback-button:focus .dislike-sm{opacity:1;background-position:-110px -624px}.comparision-review__list>li{margin-bottom:20px}.review-image-wrapper{width:120px;height:68px;border:1px solid #e2e2e2;vertical-align:top;margin-right:10px;position:relative}.news-image-wrapper a,.review-image-wrapper a{width:100%;display:block}.review-heading-wrapper{width:58%;vertical-align:top;font-size:0}.review-heading-wrapper>a{color:#2a2a2a;display:block;font-size:14px}.article-stats{padding-left:5px}.article-stats:first-child{padding-left:0;width:58.33%}.article-stats:last-child{width:41.66666667%}.calender-grey-sm-icon,.author-grey-sm-icon{width:10px;height:10px;margin-right:2px;vertical-align:middle;margin-right:5px}.calender-grey-sm-icon{background-position:-48px -486px}.author-grey-sm-icon{background-position:-66px -486px}.views-grey-sm-icon{width:14px;height:10px;vertical-align:middle;background-position:-84px -486px;margin-right:5px}.article-stats-content{width:70%}.comparision-review__desc{margin-top:10px}.article-list>li{margin-bottom:20px}.play-icon-wrapper{width:100%;height:100%;display:block;position:absolute;top:0;left:0;margin:0 auto;text-align:center;padding-top:20%;background:rgba(0,0,0,.4);z-index:1}.video-play-icon{width:24px;height:24px;background-position:-107px -486px}.dealer-horizontal-swiper .swiper-card{width:253px;padding:15px 20px 10px}.dealer-location{display:block}.carousel-heading-content{font-size:0;margin-bottom:13px;padding-right:20px;padding-left:20px}.swiper-heading-left-grid{width:77%;margin-right:-4px}.swiper-heading-right-grid{width:23%;text-align:right}.dealer-name{color:#2a2a2a;display:block;width:100%;font-size:15px;margin-bottom:10px}.dealer-location__desc{margin-bottom:10px}.dealership-loc-icon{width:12px;height:15px;background-position:-40px -435px;position:relative;top:4px}.dealership-address{width:92%;font-size:14px;vertical-align:top;white-space:normal;text-align:left;max-height:80px;overflow:hidden}.dealer-contact{width:100%;font-size:14px}.tel-sm-grey-icon{width:15px;height:15px;background-position:0 -435px;position:relative;top:2px}.no-city-selection-carousel{font-size:14px}.dealer-text{margin-bottom:5px;font-weight:700;white-space:normal}.dealer-city-image-preview{text-align:center;display:block}.city-sprite{background:url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/bwm-city-sprite.png?26Dec2016) no-repeat;display:inline-block}.mumbai-icon,.pune-icon,.bangalore-icon,.newdelhi-icon,.delhi-icon,.chennai-icon,.hyderabad-icon,.kolkata-icon,.ahmedabad-icon,.chandigarh-icon,.lucknow-icon,.india-icon{height:70px}.mumbai-icon{width:98px;background-position:0 0}.pune-icon{width:140px;background-position:-108px 0}.bangalore-icon{width:102px;background-position:-258px 0}.delhi-icon{width:54px;background-position:-370px 0}.newdelhi-icon{width:54px;background-position:-370px 0}.chennai-icon{width:41px;background-position:-434px 0}.hyderabad-icon{width:49px;background-position:-485px 0}.kolkata-icon{width:138px;background-position:-544px 0}.lucknow-icon{width:132px;background-position:-692px 0}.ahmedabad-icon{width:0;background-position:0 0}.chandigarh-icon{width:0;background-position:0 0}.india-icon{width:61px;background-position:-834px 0}.upcoming-model-carousel .upcoming-model__name{color:#2a2a2a;display:block;width:100%;margin-bottom:5px}.upcoming-model__expected-launch{margin-bottom:5px}.upcoming-expected-launch__date{font-weight:700}.upcoming-expected-launch__onward-text{font-size:14px}.upcoming-model-carousel .swiper-card{padding:5px}.upcoming-model-carousel .swiper-image-preview{padding:0}.upcoming-model-carousel .swiper-details-block{padding-left:10px;padding-right:10px}.used-model-list{padding-right:20px;padding-left:20px}.used-model-list>li{margin-bottom:20px}.used-model-list__price{margin-top:5px;color:#2a2a2a}.more-make-model-carousel .swiper-card{padding:0;position:relative}.more-make-model-carousel .swiper-details-block{padding-bottom:15px}.more-make-model-carousel .swiper-details__title{margin-bottom:5px}.swiper-details__title{color:#2a2a2a;font-weight:600;display:block;width:100%;margin-bottom:5px}.swiper-details__exshowroom{width:100%}.tooltip-icon-target.info-icon{position:relative;width:25px;height:15px;background:url(https://imgd.aeplcdn.com/0x0/bw/static/icons/0288d1/info-10x10.png) no-repeat center;cursor:pointer}.info-tooltip{display:none;padding:5px;width:190px;height:auto;cursor:default;position:absolute;bottom:20px;right:-85px;z-index:1;text-align:center;border-radius:2px;border:1px solid #e2e2e2;background:#fff;box-shadow:0 1px 2px #eee}.discover-bike-carousel .tooltip-icon-target,.more-make-model .tooltip-icon-target{position:absolute;top:123px;left:135px}.tooltip--right .info-tooltip{right:-35px}.best-bike-list{margin-bottom:5px}.best-bike-list__item{padding-top:10px;padding-bottom:10px;border-top:1px solid #eee;position:relative}.best-bike-list__item:first-child{border-top:0}.list-item-target{display:block}.item-image-block{width:102px;height:57px;margin-right:5px;background:url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif) center no-repeat;position:relative}.item-rank-label{font-size:14px;color:#a2a2a2;position:absolute;left:0;top:-12px;z-index:1}.item-details-block{width:65%}.item-details__title{font-size:14px;width:100%}.best-bike-list .key-specs-list{color:#a2a2a2;margin-bottom:5px}.grid-7{width:58.33333333%}.grid-5{width:41.66666667%}.grid-7,.grid-5{float:left;position:relative;min-height:1px;padding-right:10px;padding-left:10px}.dealer-campaign-wrapper{padding:20px}.campaign__icon{width:18px;height:17px;background:url(https://imgd.aeplcdn.com/0x0/bw/static/icons/dealer-4d5057-18.png) no-repeat;display:inline-block;vertical-align:middle;margin-right:10px}.campaign__name{width:80%;font-size:14px;font-weight:700}.campaign__list li{color:#787878}.dealer-campaign__list-offer li:before,.campaign__list li:before{content:'\2022';margin-right:5px}.item--50-percent li{width:49%;display:inline-block;vertical-align:top}.btn-180-32{min-width:180px;padding:5px;font-size:14px}.campaign__floating-btn{position:fixed;bottom:0;right:0;left:0;z-index:8;padding:10px;background:#fff;box-shadow:0 0 7px #ccc}.campaign__floating-btn .btn.btn-full-32{width:100%;padding:5px;font-size:14px;border-radius:2px}.campaign__floating-btn .btn__left-label{color:#82888b;position:relative;top:6px}.campaign__contact{font-size:14px;color:#4d5057;font-weight:600}.campaign__contact:hover{text-decoration:none}.tel-sm-icon{width:15px;height:12px;background-position:-88px -324px;position:relative;top:2px}@media only screen and (max-width:320px){.dealer-campaign-wrapper .btn-180-32{min-width:160px;margin-right:5px}.dealer-campaign-wrapper .campaign__name{width:67%}.dealer-campaign-wrapper .dealer-campaign-right-column .btn-180-32{min-width:130px}.dealer-campaign-wrapper .campaign__name{width:80%}}.list-type-disc{list-style:disc;margin-left:19px}.dealer-grey{width:24px;height:22px;background-position:-33px -639px;vertical-align:middle}.get-offer-link{color:#0288d1;font-weight:700}.dealer-campaign__name{font-size:14px;font-weight:700}.vertical-align-middle{vertical-align:bottom;margin-right:5px}.dealer-campaign__list-offer li{padding-top:5px;color:#787878;list-style:none;line-height:1.9}.dealer-campaign__list-offer .campaign__list-item{padding-left:40px;min-height:30px;background-repeat:no-repeat;background-position:left center}.list-item__jacket{background-image:url(https://imgd.aeplcdn.com/0x0//bw/static/icons/f04031/jacket-30x30.jpg?v24112017)}.list-item__warranty{background-image:url(https://imgd.aeplcdn.com/0x0//bw/static/icons/f04031/warranty-30x30.jpg?v24112017)}.list-item__gift{background-image:url(https://imgd.aeplcdn.com/0x0/bw/static/icons/f04031/gift-30x30.jpg?v24112017)}.card-bottom-margin{margin-bottom:20px}.margin-bottom10{margin-bottom:10px}.margin-bottom15{margin-bottom:15px}.btn-orange{background:#ef3030;color:#fff}.margin-right20{margin-right:20px}@media (max-width:320px){.review-heading-wrapper{width:52%}.article-stats{white-space:nowrap}.item-details-block{width:60%}.model-media__link{padding-right:5px;padding-left:5px}.mileage-box__arai-block,.mileage-box__users-block{background-size:25px;padding-left:30px}.mileage-list__item:first-child{padding-right:5px}.tooltip--right .info-tooltip{right:-55px}.tooltip--right.tooltip-top .bw-tooltip-text:before,.tooltip--right.tooltip-top .bw-tooltip-text:after{left:115px}}.floating-btn{position:fixed;bottom:0;right:0;left:0;z-index:11}.floating-btn .btn{border-radius:0}.getquotation{width:100%;padding-top:10px;padding-bottom:10px}.electric-slug__content{padding:15px 30px 15px 15px;margin-bottom:10px;display:block;font-size:0;border:1px solid #b5b5b5;background:url(https://imgd.aeplcdn.com/0x0/bw/static/icons/4d5057/arrow-right.svg) 95% no-repeat #fff;box-shadow:0 2px 2px #e2e2e2}.electric-scooter-icon{vertical-align:middle}.electric-slug__details{width:74%;padding-left:15px;display:inline-block;vertical-align:middle}.electric-slug__title{color:#4acea8;margin-bottom:5px;text-transform:capitalize}.model-thumbnail-image__wrapper{position:relative}.model-thumbnail-image{width:360px;height:202px;display:table;text-align:center;background:#f5f5f5;margin:0 auto;overflow:hidden;position:relative;margin-bottom:20px;top:10px}.model-thumbnail-image>a{display:table-cell;vertical-align:middle;line-height:0;background:url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif) center center no-repeat}.no-image-icon{width:40px;height:30px;background-position:0 -510px}.grey-scooter-icon{width:36px;height:23px;background:url(https://imgd.aeplcdn.com/0x0/bw/static/icons/82888b/scooter-36x23.png) no-repeat}.hide{display:none}.show{display:block}#modelPageSeriesSlug{cursor:pointer}#marker{position:absolute;height:50%}";
+}
+<amp-state id="model">
+    <script type="application/json">
+        {
+        "selectedDropDownVersion": @(Model.SelectedVersion != null && Model.SelectedVersion.VersionId >0 ? Model.SelectedVersion.VersionId : 0),
+        "isEmiPopupActive": 0
+        }
+    </script>
+</amp-state>
+
+@if (!String.IsNullOrEmpty(Model.JSONEMISlider))
+{
+    <amp-state id="EmiSlider">
+        <script type="application/json">
+            @Html.Raw(Model.JSONEMISlider)
+        </script>
+    </amp-state>
+}
+
+<amp-state id="specsAccordion">
+    <script type="application/json">
+        {
+            "activeIndex": 1
+        }
+    </script>
+</amp-state>
+
+<amp-analytics type="googleanalytics">
+    <script type="application/json">
+        {
+            "vars": {
+                "account": "UA-34771801-1"
+            },
+            "extraUrlParams": {
+                "pageSourceType": "AMP"
+            },
+            "triggers": {
+                "ImageCarouselNext": {
+                "selector": "#overviewContent .amp-carousel-button-next",
+                "on": "click",
+                "request": "event",
+                "vars": {
+                "eventCategory": "Model_Page_AMP",
+                "eventAction": "Image_Carousel_Clicked",
+                "eventLabel": "@String.Format("{0}_Next", Model.BikeName)"
+                }
+                },
+                "ImageCarouselNext": {
+                "selector": "#overviewContent .amp-carousel-button-prev",
+                "on": "click",
+                "request": "event",
+                "vars": {
+                "eventCategory": "Model_Page_AMP",
+                "eventAction": "Image_Carousel_Clicked",
+                "eventLabel": "@String.Format("{0}_Previous", Model.BikeName)"
+                }
+                },
+                "ampCarouselNext": {
+                "on": "amp-carousel-next",
+                "request": "event",
+                "vars": {
+                "eventCategory": "Model_Page_AMP",
+                "eventAction": "Image_Carousel_Clicked",
+                "eventLabel": "@String.Format("{0}_Next", Model.BikeName)"
+                }
+                },
+                "ImageCarouselNext": {
+                "on": "amp-carousel-prev",
+                "request": "event",
+                "vars": {
+                "eventCategory": "Model_Page_AMP",
+                "eventAction": "Image_Carousel_Clicked",
+                "eventLabel": "@String.Format("{0}_Previous", Model.BikeName)"
+                }
+                },
+                "OverviewTab": {
+                    "selector": "#overviewTab",
+                    "on": "click",
+                    "request": "event",
+                    "vars": {
+                    "eventCategory": "Model_Page_AMP",
+                    "eventAction": "Floating_Navigation_Clicked",
+                    "eventLabel": "@String.Format("{0}_Overview", Model.BikeName)"
+                    }
+                },
+                "SelectCityPopup": {
+                "selector": "#selectCityPopup",
+                "on": "click",
+                "request": "event",
+                "vars": {
+                "eventCategory": "Model_Page_AMP",
+                "eventAction": "City_Change_Initiated",
+                "eventLabel": "@Model.BikeName"
+                }
+                },
+                "ExpertReviewsTab": {
+                    "selector": "#expertReviewsTab",
+                    "on": "click",
+                    "request": "event",
+                    "vars": {
+                    "eventCategory": "Model_Page_AMP",
+                    "eventAction": "Floating_Navigation_Clicked",
+                    "eventLabel": "@String.Format("{0}_ExpertReviews", Model.BikeName)"
+                    }
+                },
+                "ColourTab": {
+                    "selector": "#coloursTab",
+                    "on": "click",
+                    "request": "event",
+                    "vars": {
+                    "eventCategory": "Model_Page_AMP",
+                    "eventAction": "Floating_Navigation_Clicked",
+                    "eventLabel": "@String.Format("{0}_Colours", Model.BikeName)"
+                    }
+                },
+                "SimilarTab": {
+                    "selector": "#similarTab",
+                    "on": "click",
+                    "request": "event",
+                    "vars": {
+                    "eventCategory": "Model_Page_AMP",
+                    "eventAction": "Floating_Navigation_Clicked",
+                    "eventLabel": "@String.Format("{0}_SimilarBikes", Model.BikeName)"
+                    }
+                },
+                "PopularBodystyleTab": {
+                    "selector": "#popularTab",
+                    "on": "click",
+                    "request": "event",
+                    "vars": {
+                    "eventCategory": "Model_Page_AMP",
+                    "eventAction": "Floating_Navigation_Clicked",
+                    "eventLabel": "@String.Format("{0}_{1}", Model.BikeName, @Model.BodyStyleName)"
+                    }
+                },
+                "MileageTab": {
+                    "selector": "#mileageTab",
+                    "on": "click",
+                    "request": "event",
+                    "vars": {
+                    "eventCategory": "Model_Page_AMP",
+                    "eventAction": "Floating_Navigation_Clicked",
+                    "eventLabel": "@String.Format("{0}_Mileage", Model.BikeName)"
+                    }
+                },
+                "SpecsTab": {
+                    "selector": "#specsFeaturesAndAboutTab",
+                    "on": "click",
+                    "request": "event",
+                    "vars": {
+                    "eventCategory": "Model_Page_AMP",
+                    "eventAction": "Floating_Navigation_Clicked",
+                    "eventLabel": "@String.Format("{0}_SpecsFeatures", Model.BikeName)"
+                    }
+                },
+                "AboutTab": {
+                    "selector": "#aboutTab",
+                    "on": "click",
+                    "request": "event",
+                    "vars": {
+                    "eventCategory": "Model_Page_AMP",
+                    "eventAction": "Floating_Navigation_Clicked",
+                    "eventLabel": "@String.Format("{0}_About", Model.BikeName)"
+                    }
+                },
+                "PricesTab": {
+                    "selector": "#pricesTab",
+                    "on": "click",
+                    "request": "event",
+                    "vars": {
+                    "eventCategory": "Model_Page_AMP",
+                    "eventAction": "Floating_Navigation_Clicked",
+                    "eventLabel": "@String.Format("{0}_Price", Model.BikeName)"
+                    }
+                },
+                "ReviewsTab": {
+                    "selector": "#reviewsTab",
+                    "on": "click",
+                    "request": "event",
+                    "vars": {
+                    "eventCategory": "Model_Page_AMP",
+                    "eventAction": "Floating_Navigation_Clicked",
+                    "eventLabel": "@String.Format("{0}_UserReviews", Model.BikeName)"
+                    }
+                },
+                "NewsTab": {
+                    "selector": "#newsTab",
+                    "on": "click",
+                    "request": "event",
+                    "vars": {
+                    "eventCategory": "Model_Page_AMP",
+                    "eventAction": "Floating_Navigation_Clicked",
+                    "eventLabel": "@String.Format("{0}_News", Model.BikeName)"
+                    }
+                },
+                "VideosTab": {
+                    "selector": "#videosTab",
+                    "on": "click",
+                    "request": "event",
+                    "vars": {
+                    "eventCategory": "Model_Page_AMP",
+                    "eventAction": "Floating_Navigation_Clicked",
+                    "eventLabel": "@String.Format("{0}_Videos", Model.BikeName)"
+                    }
+                },
+                "DealerTab": {
+                    "selector": "#dealerAndServiceTab",
+                    "on": "click",
+                    "request": "event",
+                    "vars": {
+                    "eventCategory": "Model_Page_AMP",
+                    "eventAction": "Floating_Navigation_Clicked",
+                    "eventLabel": "@String.Format("{0}_Dealers", Model.BikeName)"
+                    }
+                },
+                "UsedBikeTab": {
+                    "selector": "#makeUsedBikeTab",
+                    "on": "click",
+                    "request": "event",
+                    "vars": {
+                    "eventCategory": "Model_Page_AMP",
+                    "eventAction": "Floating_Navigation_Clicked",
+                    "eventLabel": "@String.Format("{0}_Used", Model.BikeName)"
+                    }
+                },
+                "ReadMoreOnExpertReviews":{
+                    "selector": "#readMoreOnExpertReviews",
+                    "on": "click",
+                    "request": "event",
+                    "vars": {
+                    "eventCategory": "Model_Page_AMP",
+                    "eventAction": "Expert_Review_CardClicked",
+                    "eventLabel": "@Model.BikeName"
+                    }
+                 },
+                "RateAndWin": {
+                    "selector": "#rateAndWin",
+                    "on": "click",
+                    "request": "event",
+                    "vars": {
+                    "eventCategory": "Model_Page_AMP",
+                    "eventAction": "Clicked_RateThisBike"
+                    }
+                },
+                "MainImage": {
+                    "selector": "#mainBikeImage",
+                    "on": "click",
+                    "request": "event",
+                    "vars": {
+                    "eventCategory": "Model_Page_AMP",
+                    "eventAction": "Main_Image_Clicked",
+                    "eventLabel": "@Model.BikeName"
+                    }
+                 },
+                "MediaModelPhotosTab": {
+                    "selector": "#imagesPill",
+                    "on": "click",
+                    "request": "event",
+                    "vars": {
+                    "eventCategory": "Model_Page_AMP",
+                    "eventAction": "Image_Tab_Clicked",
+                    "eventLabel": "@Model.BikeName"
+                    }
+                 },
+                "MediaVideosTab": {
+                    "selector": "#videosPill",
+                    "on": "click",
+                    "request": "event",
+                    "vars": {
+                    "eventCategory": "Model_Page_AMP",
+                    "eventAction": "Video_Tab_Clicked",
+                    "eventLabel": "@Model.BikeName"
+                    }
+                 },
+                "MediaColourPhotosTab": {
+                    "selector": "#colorsPill",
+                    "on": "click",
+                    "request": "event",
+                    "vars": {
+                    "eventCategory": "Model_Page_AMP",
+                    "eventAction": "Colours_Tab_Clicked",
+                    "eventLabel": "@Model.BikeName"
+                    }
+                 },
+                "GetOnRoadPriceButton": {
+                    "selector": "#btnGetOnRoadPrice",
+                    "on": "click",
+                    "request": "event",
+                    "vars": {
+                    "eventCategory": "Model_Page_AMP",
+                    "eventAction": "Check_On_Road_Price_Clicked",
+                    "eventLabel": "@Model.BikeName"
+                    }
+                }
+                @if(Model.SimilarBikes != null & Model.SimilarBikes.Model != null) {
+
+                    <text>,
+                    "ExploreMoreBikesCard": {
+                        "selector": "#exploreMoreSimilarBikes",
+                        "on": "click",
+                        "request": "event",
+                        "vars": {
+                        "eventCategory": "Model_Page_AMP",
+                        "eventAction": "Clicked_ExploreMore_Card",
+                        "eventLabel": "@Model.SimilarBikes.Model.ModelName"
+                        }
+                    },
+                    "SimilarBike": {
+                        "selector": ".similarBikeclick",
+                        "on": "click",
+                        "request": "event",
+                        "vars": {
+                        "eventCategory": "Model_Page_AMP",
+                        "eventAction": "Clicked_on_SimilarModel",
+                        "eventLabel": "${label}"
+                        }
+                    },
+                    "CompareWithTarget": {
+                        "selector": ".compareWithTarget",
+                        "on": "click",
+                        "request": "event",
+                        "vars": {
+                        "eventCategory": "Model_Page_AMP",
+                        "eventAction": "Clicked_on_CompareCard",
+                        "eventLabel": "${label}"
+                        }
+                    }, 
+                    "CheckOnRoadInSimilarBikes": {
+                        "selector": ".checkOnRoadInSimilarBikes",
+                        "on": "click",
+                        "request": "event",
+                        "vars": {
+                        "eventCategory": "Model_Page_AMP",
+                        "eventAction": "Get_On_Road_Price_Click",
+                        "eventLabel": "${label}"
+                        }
+                    },                      
+                    
+                           </text>
+                }
+                "SimilarMileageCard": {
+                    "selector": "#mileageContent",
+                    "on": "click",
+                    "request": "event",
+                    "vars": {
+                    "eventCategory": "Model_Page_AMP",
+                    "eventAction": "Clicked_On_SimilarMileage_Card",
+                    "eventLabel": "@Model.BikeName"
+                    }
+                },
+                "EMICalculatorLink": {
+                    "selector": "#mobileEmiCalculator",
+                    "on": "click",
+                    "request": "event",
+                    "vars": {
+                    "eventCategory": "Model_Page_AMP",
+                    "eventAction": "Interacted_with_EMI_Calculator",
+                    "eventLabel": "@Model.BikeName.Replace(" ", "_")"
+                    }
+                },
+                "ViewAllFeatures":{
+                    "selector": "#specsFeatureExpand",
+                    "on": "click",
+                    "request": "event",
+                    "vars": {
+                    "eventCategory": "Model_Page_AMP",
+                    "eventAction": "View_all_features_link_cliked",
+                    "eventLabel": "@Model.BikeName"
+                    }
+                }
+                @if(Model.ModelsBySeries != null && (Model.ModelsBySeries.IsNewAvailable || Model.ModelsBySeries.IsUpcomingAvailable))
+                {
+                    <text>,       
+                  
+                    "SeriesClick":{
+                        "selector": ".seriesClick",
+                        "on": "click",
+                        "request": "event",
+                        "vars": {
+                        "eventCategory": "Model_Page_AMP",
+                        "eventAction": "Series_WidgetClicked",
+                        "eventLabel": "${label}"
+                        }
+                    }                   
+                    </text>
+                }
+                @if (Model.IsUserReviewsAvailable && !Model.IsUpcomingBike && Model.UserReviews != null)
+                {
+                    <text>,
+                        "UserReviewsReadMore": {
+                            "selector": ".read-more-user-review",
+                            "on": "click",
+                            "request": "event",
+                            "vars": {
+                            "eventCategory": "Model_Page_AMP",
+                            "eventAction": "UserReview_ReadMoreClicked",
+                            "eventLabel": "@Model.UserReviews.ReviewsInfo.Model.ModelName"
+                            }
+                        },
+                        "ReadAllUserReviews": {
+                            "selector": "#readAllUserReviews",
+                            "on": "click",
+                            "request": "event",
+                            "vars": {
+                            "eventCategory": "Model_Page_AMP",
+                            "eventAction": "Read_all_user_reviews_link_clicked",
+                            "eventLabel": "@Model.BikeName"
+                            }
+                        }</text>
+                }
+                @if (Model.IsVideosAvailable)
+                {
+                    <text>,
+                        "VideosViewAll": {
+                        "selector": "#viewAllVideos",
+                        "on": "click",
+                        "request": "event",
+                        "vars": {
+                        "eventCategory": "Model_Page_AMP",
+                        "eventAction": "View_all_videos_link_cliked",
+                        "eventLabel": "@Model.BikeName"
+                        }
+                    }</text>
+                }
+                @if (Model.OtherBestBikes != null && Model.OtherBestBikes.BestBikes != null && Model.OtherBestBikes.BestBikes.Any())
+                {
+                    <text>,
+                        "MoreBikesFromMakeClick": {
+                        "selector": ".moreBikesFromMakeClick",
+                        "on": "click",
+                        "request": "event",
+                        "vars": {
+                        "eventCategory": "Model_Page_AMP",
+                        "eventAction": "Clicked_SameBrandBikes_widget",
+                        "eventLabel": "${label}"
+                        }
+                        }</text>
+                }
+                @if (Model.IsNewBike && Model.ShowSeriesSlug && Model.SeriesSlug != null)
+                {
+                    <text>,
+                        "SeriesWidgetShown": {
+                        "on": "visible",
+                        "ni" :1,
+                        "request": "event",
+                        "vars": {
+                        "eventCategory": "Model_Page_AMP",
+                        "eventAction": "Series_WidgetShown",
+                        "eventLabel": "@Model.SeriesSlug.SeriesName"
+                        },
+                        "extraUrlParams": {
+                            "ni": "1"
+                        }
+                        }</text>
+                }
+                else if(Model.ModelsBySeries.SeriesBase != null && Model.ModelPageEntity.ModelDetails.MakeBase != null && !string.IsNullOrEmpty(Model.ModelsBySeries.SeriesBase.MaskingName))
+                {
+                    
+                        <text>,
+                        "ModelsBySeriesWidget": {
+                        "on": "visible",
+                        "ni" :1,
+                        "request": "event",
+                        "vars": {
+                        "eventCategory": "Model_Page_AMP",
+                        "eventAction": "Series_WidgetShown",
+                        "eventLabel": "@Model.BikeName"
+                        },
+                        "extraUrlParams": {
+                            "ni": "1"
+                        }
+                        }</text>
+                }
+                @if (Model != null && Model.IsNewBike && Model.IsMileageByUsersAvailable && Model.Mileage != null && Model.Mileage.MileageInfo != null && Model.Mileage.SimilarBikeList.Any())
+                {
+                    <text>,
+                        "MileageWidgetShown": {
+                        "on": "visible",
+                        "request": "event",
+                        "vars": {
+                        "eventCategory": "Model_Page_AMP",
+                        "eventAction": "Mileage_Card_Shown",
+                        "eventLabel": "@Model.BikeName"
+                        },
+                        "extraUrlParams": {
+                            "ni": "1"
+                        }
+                        }</text>
+                }
+                @if (Model.ExpertReviews != null && Model.ExpertReviews.FetchedCount > 0)
+                {
+                    <text>,
+                        "ExpertReviewShown": {
+                        "on": "visible",                
+                        "request": "event",
+                        "vars": {
+                        "eventCategory": "Model_Page_AMP",
+                        "eventAction": "Expert_Review_CardShown",
+                        "eventLabel": "@Model.BikeName"
+                        },
+                        "extraUrlParams": {
+                            "ni": "1"
+                        }
+                        }</text>
+                }
+                @if (Model.IsNewBike && (!Model.IsLocationSelected || Model.ShowOnRoadButton) && (Model.BikePrice > 0 || (Model.SelectedVersion != null && Model.SelectedVersion.AverageExShowroom > 0)) && !Model.IsManufacturerTopLeadAdShown)
+                {
+                    <text>,
+                        "GetOnRoadPriceButtonShown": {
+                        "on": "visible",
+                        "request": "event",
+                        "vars": {
+                        "eventCategory": "Model_Page_AMP",
+                        "eventAction": "Get_On_Road_Price_Button_Shown",
+                        "eventLabel": "@Model.BikeName"
+                        },
+                        "extraUrlParams": {
+                            "ni": "1"
+                        }
+                        }</text>
+                }
+            }
+        }
+    </script>
+</amp-analytics>
+<div id="marker">
+    <amp-position-observer intersection-ratios="0" on="enter:hideAnim.start;exit:showAnim.start"
+                           layout="nodisplay">
+    </amp-position-observer>
+</div>
+<section class="model-container">
+    @{
+        string q = Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(string.Format("csrc={0}", (int)Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Mobile_ModelPage_Topslug));
+        string setTargettingJson = BWHelpers.SetTargettingAds(Model.AdTags);
+        }
+    <div id="blackoutWindow" tabindex="0" role="option" hidden on="tap: blackoutWindow.hide, AMP.setState({ model: { isEmiPopupActive: 0 } })"></div>
+    <a href="@string.Format("/m/bike-review-contest/?q={0}", q)" class="contest-slug-sm font12 slug-teal-target bw-anchor-link">
+        <span class="trophy-white inline-block"></span>
+        <p class="contest-slug__label inline-block">Write a review and win Amazon vouchers worth &#x20b9;@Format.FormatPrice(BWConfiguration.Instance.ContestPriceMoney)</p>
+        <span class="arrow-white-right inline-block"></span>
+    </a>
+    <div class="rating-review-container">
+        <h1 class="rating-review__title">@Model.Page_H1</h1>
+        <div class="rating-review-content">
+            @if (!Model.IsUpcomingBike)
+            {
+                if (Model.ModelPageEntity != null && Model.ModelPageEntity.ModelDetails != null && Model.ModelPageEntity.ModelDetails.ReviewRate > 0)
+                {
+                    <span class="rate-count-container rate-star--small rate-count-@Math.Round(Convert.ToDouble(Model.ModelPageEntity.ModelDetails.ReviewUIRating)) inline-block">
+                        <span class="star-icon inline-block"></span>
+                        <span class="rate-star-count inline-block font14">@Model.ModelPageEntity.ModelDetails.ReviewUIRating</span>
+                    </span>
+                    if (Model.ModelPageEntity.ModelDetails.ReviewCount > 0)
+                    {
+                        <a class="inline-block" href="@string.Format("/m{0}", Bikewale.Utility.UrlFormatter.FormatShowReviewLink(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName))" title="@string.Format("{0} {1} review{2}", Model.ModelPageEntity.ModelDetails.MakeBase.MakeName, Model.ModelPageEntity.ModelDetails.ModelName, (Model.ModelPageEntity.ModelDetails.ReviewCount > 1 ? "s" : ""))">                     
+                                 <span>@Model.ModelPageEntity.ModelDetails.ReviewCount</span><span>&nbsp;Review@((Model.ModelPageEntity.ModelDetails.ReviewCount) > 1 ? "s" : "")</span>                                             
+                        </a>
+                    } 
+                }
+                else
+                {
+                    <span class="model-top-review-list__item">
+                        <span class="star-span star-zero-icon inline-block"></span>
+                        <span class="font12 text-light-grey inline-block">Not rated yet</span>
+                    </span>
+                }
+                
+                var ModelDetails = Model.ModelPageEntity.ModelDetails;
+                var MakeDetails = Model.ModelPageEntity.ModelDetails.MakeBase;
+                q = Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(string.Format("csrc={0}&makeId={1}&modelId={2}&makeName={3}&modelName={4}&makeMaskingName={5}&modelMaskingName={6}", (int)Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Mobile_ModelPage, MakeDetails.MakeId, ModelDetails.ModelId, MakeDetails.MakeName, ModelDetails.ModelName, MakeDetails.MaskingName,ModelDetails.MaskingName));
+                
+                <a class="inline-block" rel="nofollow" href="@string.Format("/m/bike-review-contest/?q={0}" , q)" id="rateAndWin">
+                    <span>Rate &amp; Win</span>
+                </a>
+            }
+            
+        </div>
+    </div>
+    <div id="overallSpecsTab" class="overall-specs-tabs-container">
+        <ul class="overall-specs-tabs-wrapper">
+            <li role="button" tabindex="0" on="tap:overviewContent.scrollTo(duration=200)" id="overviewTab"><a>Overview</a></li>
+            @if (Model.IsReviewsAvailable)
+            {
+                <li role="button" tabindex="1" on="tap:expertReviewsContent.scrollTo(duration=200)" id="expertReviewsTab"><a>Expert Reviews</a></li>
+            }
+
+            @if (Model.IsModelColorsAvailable)
+            {
+                <li role="button" tabindex="2" on="tap:coloursContent.scrollTo(duration=200)" id="coloursTab"><a>Colours</a></li>
+            }
+
+            @if (Model.IsSimilarBikesAvailable)
+            {
+                <li role="button" tabindex="3" on="tap:similarContent.scrollTo(duration=200)" id="similarTab"><a>Similar @Model.BodyStyleText</a></li>
+            }
+            else if (Model.IsPopularBodyStyleAvailable)
+            {
+                <li role="button" tabindex="4" on="tap:popularContent.scrollTo(duration=200)" id="popularTab"><a>Popular @Model.BodyStyleName</a></li>
+            }
+            @if (Model.IsMileageByUsersAvailable && Model.Mileage != null)
+            {
+                <li role="button" tabindex="5" on="tap:mileageContent.scrollTo(duration=200)" id="mileageTab"><a>Mileage</a></li>
+            }
+            @if (Model.BikeSpecsFeatures != null && Model.BikeSpecsFeatures.IsVersionSpecsAvailable)
+            {
+                <li role="button" tabindex="6" on="tap:specsFeaturesAndAboutContent.scrollTo(duration=200)" id="specsFeaturesAndAboutTab"><a>Specs & Features</a></li>
+            }
+            else if (Model.ModelPageEntity.ModelDesc != null && !string.IsNullOrEmpty(Model.ModelPageEntity.ModelDesc.SmallDescription))
+            {
+                <li role="button" tabindex="7" on="tap:aboutContent.scrollTo(duration=200)" id="aboutTab"><a>About</a></li>
+            }
+            @if (Model.IsShowPriceTab)
+            {
+                <li role="button" tabindex="8" on="tap:pricesContent.scrollTo(duration=200)" id="pricesTab"><a>Price</a></li>
+            }
+            @if (Model.IsUserReviewsAvailable)
+            {
+                <li role="button" tabindex="9" on="tap:reviewsContent.scrollTo(duration=200)" id="reviewsTab"><a>User Reviews</a></li>
+            }
+            @if (Model.IsNewsAvailable)
+            {
+                <li role="button" tabindex="10" on="tap:newsContent.scrollTo(duration=200)" id="newsTab"><a>News</a></li>
+            }
+            @if (Model.IsVideosAvailable)
+            {
+                <li role="button" tabindex="11" on="tap:videosContent.scrollTo(duration=200)" id="videosTab"><a>Videos</a></li>
+            }
+            else if (Model.IsOtherDealersAvailable || Model.IsDealersServiceCenterAvailable)
+            {
+                <li role="button" tabindex="12" on="tap:dealerAndServiceContent.scrollTo(duration=200)" id="dealerAndServiceTab"><a>Dealers</a></li>
+            }
+            @if (Model.IsUsedBikesAvailable)
+            {
+                <li role="button" tabindex="13" on="tap:makeUsedBikeContent.scrollTo(duration=200)" id="makeUsedBikeTab"><a>Used</a></li>
+            }
+        </ul>
+    </div>
+
+    <div id="overviewContent" class="overview-container">
+        <div class="content-box">
+            @{int totalPhotos = Model.AreModelPhotosAvailable ?  Model.ModelPageEntity.AllPhotos.Count() : 0;}
+            <div class="model-thumbnail-image__wrapper">
+                @if (!Model.IsNewBike)
+                {
+                    <p class="model-ribbon @(Model.IsUpcomingBike ? " upcoming-ribbon" : " discontinued-ribbon")">@(Model.IsUpcomingBike ? "Upcoming" : "Discontinued")</p>
+                }
+                @if (Model.AreModelPhotosAvailable)
+                {
+                    var bikeImages = Model.ModelPageEntity.AllPhotos.Take(10);
+                    int imageIndex = 0;
+                    <amp-carousel height="203" width="360" layout="responsive" type="slides" controls>
+                        @foreach (var image in bikeImages)
+                        {
+                            string imageProperty = string.Format("{0} {1}", Model.BikeName, image.ImageCategory);
+                            if (imageIndex == 0)
+                            {
+                                <a role="button" href="@string.Format("/m{0}?q={1}", Bikewale.Utility.UrlFormatter.FormatPhotoPageUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName), Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(string.Format("imageindex={0}&retUrl={1}", imageIndex, Model.PageMetaTags.AlternateUrl)))" tabindex="@imageIndex" class="position--relative" id="mainBikeImage">
+                                        <amp-img src="@Bikewale.Utility.Image.GetPathToShowImages(image.OriginalImgPath, image.HostUrl, Bikewale.Utility.ImageSize._360x202, "85")" width="360" height="203" layout="responsive" alt="@imageProperty" title="@imageProperty"></amp-img>
+                                </a>
+                            }
+                            else
+                            {
+                                <div role="button" on="tap:AMP.navigateTo(url='@String.Format("/m{0}?q={1}", Bikewale.Utility.UrlFormatter.FormatPhotoPageUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName), Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(string.Format("imageindex={0}&retUrl={1}", imageIndex, Model.PageMetaTags.CanonicalUrl)))')" tabindex="@imageIndex" class="position--relative">
+                                   
+                                    @if (imageIndex < 2)
+                                    {
+                                        <amp-img src="@Bikewale.Utility.Image.GetPathToShowImages(image.OriginalImgPath,image.HostUrl,Bikewale.Utility.ImageSize._360x202,"85")" width="360" height="203" layout="responsive" alt="@imageProperty" title="@imageProperty"></amp-img>
+                                    }
+                                    else
+                                    {
+                                        <amp-img src="@Bikewale.Utility.Image.GetPathToShowImages(image.OriginalImgPath,image.HostUrl,Bikewale.Utility.ImageSize._393x221,"85")" width="360" height="203" layout="responsive" alt="@imageProperty" title="@imageProperty"></amp-img>
+                                    }
+                                    @if (totalPhotos > 10 && imageIndex == 9)
+                                    {
+                                        <div class="model-carousel__more">
+                                            <p class="font16 font-semibold">+@(totalPhotos - 10)</p>
+                                            <p class="font14">images</p>
+                                        </div>
+                                    }
+                                </div>
+                            }
+                            imageIndex++;
+                        }
+                    </amp-carousel>
+                }
+                else
+                {
+                    <div class="model-thumbnail-image">
+                        <a>
+                            <div class="bg-light-grey">
+                                <span class="bwmsprite no-image-icon margin-bottom15"></span>
+                                <p class="font12 font-semibold text-light-grey">Image not available</p>
+                            </div>
+                        </a>
+                    </div>
+                }
+            </div>
+            <ul class="model-media-list text-center padding-right20 padding-left20 padding-bottom15">
+                @if (Model.AreModelPhotosAvailable)
+                {
+                    <li class="inline-block">
+                        <a title="@Model.BikeName @(Model.ModelColorPhotosCount > 1 ? "Images" : "Image")" href="@string.Format("/m{0}",Bikewale.Utility.UrlFormatter.FormatPhotoPageUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName))" class="model-media__link text-default" id="imagesPill">
+                            <span class="bwmsprite photos-sm">
+                            </span>
+                            <span class="model-media__count inline-block">
+                                <span class="font12">@totalPhotos</span>&nbsp;
+                                <span class="font11">@string.Format("{0}", totalPhotos > 1 ? "images" : "image")</span>
+                            </span>
+                        </a>
+                    </li>
+                }
+                @if (Model.IsVideosAvailable)
+                {
+                    <li class="inline-block">
+                        <a title="@Model.BikeName @(Model.ModelPageEntity.ModelDetails.VideosCount > 1 ? "Videos" : "Video")" href="@string.Format("/m{0}",Bikewale.Utility.UrlFormatter.FormatVideoPageUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName))" class="model-media__link text-default" id="videosPill">
+                            <span class="bwmsprite videos-sm"></span>
+                            <span class="model-media__count inline-block">
+                                <span class="font12">@Model.ModelPageEntity.ModelDetails.VideosCount</span>
+                                &nbsp;<span class="font11">@string.Format("{0}", Model.ModelPageEntity.ModelDetails.VideosCount > 1 ? "videos" : "video")</span>
+                            </span>
+                        </a>
+                    </li>
+                }
+                @if (Model.ModelColorPhotosCount > 0)
+                {
+                    <li class="inline-block">
+                        <a title="@Model.BikeName @(Model.ModelColorPhotosCount > 1 ? "Colors" : "Color")" href="@string.Format("/m{0}", Model.ColourImageUrl)" class="model-media__link text-default" id="colorsPill">
+                            <span class="bwmsprite colors-sm"></span>
+                            <span class="model-media__count inline-block">
+                                <span class="font12">@Model.ModelColorPhotosCount</span>
+                                &nbsp;<span class="font11">@string.Format("{0}", Model.ModelColorPhotosCount > 1 ? "colours" : "colour")</span>
+                            </span>
+                        </a>
+                    </li>
+                }
+            </ul>
+
+            
+            <div class="elevated-shadow-top">
+                @if (Model.ModelPageEntity.UpcomingBike!= null && Model.ModelPageEntity.UpcomingBike.EstimatedPriceMin != 0 && Model.ModelPageEntity.UpcomingBike.EstimatedPriceMax != 0)
+                {
+                    <!--  upcoming bikes start -->
+                    <div class="section-padding">
+                        <div class="expected-details__content">
+                            <p class="font12 text-light-grey">Expected price</p>
+                            @if (Model.ModelPageEntity.UpcomingBike.EstimatedPriceMin != 0 && Model.ModelPageEntity.UpcomingBike.EstimatedPriceMax != 0)
+                            {
+                                <div>
+                                    <span class="font24 font-bold">
+                                        @Html.Raw("<span >&#x20B9;</span>")
+                                        @Bikewale.Utility.Format.FormatNumeric(Convert.ToString(Model.ModelPageEntity.UpcomingBike.EstimatedPriceMin)) -
+                                        &nbsp;@Html.Raw("<span>&#x20B9;</span>")&nbsp;@Bikewale.Utility.Format.FormatNumeric(Convert.ToString(Model.ModelPageEntity.UpcomingBike.EstimatedPriceMax))
+                                    </span>
+                                </div>
+                            }
+                            else
+                            {
+                                <p class="font16 default-showroom-text text-light-grey">Price Unavailable</p>
+                            }
+                            @if (!string.IsNullOrEmpty(Model.ModelPageEntity.UpcomingBike.ExpectedLaunchDate))
+                            {
+                                <div class="expected-details__divider">
+                                    <p class="font12 text-light-grey">Expected launch date</p>
+                                    <p class="font18 margin-bottom5 font-bold">@Model.ModelPageEntity.UpcomingBike.ExpectedLaunchDate</p>
+
+                                    <p class="font14 text-slate-grey">@Model.BikeName is not launched in India yet. Information on this page is tentative.</p>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <!-- upcoming bikes end -->
+                }
+
+                @if (!Model.IsUpcomingBike)
+                {
+                    <div id="versionSelector" class="version-city__content dropdown-box flexbox" data-pageurl="">
+                        <div class="version-city-content__tab dropdown-box__menu-tab flexbox flexbox-justify-center flexbox-align-start" tabindex="1" role="option" on="tap: versionDropdownList.toggleVisibility,versionSelector.scrollTo(duration=200)">
+                            <p class="text-light-grey font12">Version</p>
+                            <span id="defversion" class="dropdown-box__menu-value font-semibold text-default font14 text-truncate">@(Model.SelectedVersion != null ? Model.SelectedVersion.VersionName : Model.VersionName)</span>
+                        </div>
+                        <div class="version-city-content__tab city-selection-tab">
+                            <p class="text-light-grey font12">Location:</p>
+                            @if (Model.IsDiscontinuedBike)
+                            {
+                                <span class="selected-location-label inline-block dropdown-box__menu-value font-semibold text-default font14 text-truncate">@BWConfiguration.Instance.GetDefaultCityName</span>
+                            }
+                            else
+                            {
+                                <a id="selectCityPopup" href="@string.Format("{0}/m/popup/?queryString={1}", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, Utils.Utils.EncryptTripleDES(string.Format("pqsourceid={0}&pagecatid={1}&preselcity={2}&makeid={3}&makename={4}&modelid={5}&modelname={6}&Url={7}{8}", (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_PriceInCity_SelectArea, "9", "0", Model.ModelPageEntity.ModelDetails.MakeBase.MakeId, Model.ModelPageEntity.ModelDetails.MakeBase.MakeName, Model.ModelPageEntity.ModelDetails.ModelId, Model.ModelPageEntity.ModelDetails.ModelName, Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, @String.Format("/m{0}", Bikewale.Utility.UrlFormatter.BikePageUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName)))))" class="" rel="nofollow">
+                                    <span class="selected-location-label inline-block dropdown-box__menu-value font-semibold text-default font14 text-truncate">Select City</span>
+                                    <span class="bwmsprite loc-change-blue-icon"></span>
+                                </a>
+                            }
+                        </div>
+                        @if (Model.ModelPageEntity.ModelVersions != null && Model.ModelPageEntity.ModelVersions.Any())
+                        {
+                            int versionIndex = 1;
+                            <ul id="versionDropdownList" class="dropdown-box__submenu-list" hidden>
+                                @foreach (var version in Model.ModelPageEntity.ModelVersions)
+                                {
+                                    <li class="@String.Format("dropdown-box-submenu-list__item{0}",(Model.SelectedVersion != null && Model.SelectedVersion.VersionId == version.VersionId? " font-semibold submenu-list-item--active":""))" [class]="model.selectedDropDownVersion == @versionIndex? 'dropdown-box-submenu-list__item font-semibold submenu-list-item--active': 'dropdown-box-submenu-list__item font-semibold' " tabindex="@versionIndex" role="option" on="tap: versionDropdownList.toggleVisibility, AMP.setState({ model: { selectedDropDownVersion: @versionIndex } })">
+                                        <a href="@String.Format("/m{0}?versionId={1}", Bikewale.Utility.UrlFormatter.BikePageUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName), version.VersionId)" class="" rel="nofollow">
+                                            <div class="submenu-list-item__title font-semibold font14">
+                                                <p class="submenu-list-item-title__left-col text-truncate">@version.VersionName</p>
+                                                <p class="submenu-list-item-title__right-col">@Html.Raw(version.Price != 0 ? string.Format("{0} {1}", "&#x20b9;", Format.FormatPrice(Convert.ToString(version.Price))) : (version.AverageExShowroom != 0 ? string.Format("{0} {1}", "&#x20b9;", Format.FormatPrice(Convert.ToString(version.AverageExShowroom))) : string.Empty))</p>
+                                            </div>
+                                            <ul class="dropdown-box-submenu__specs-list text-truncate">
+                                                @Html.Raw(FormatMinSpecs.GetMinSpecsAsLiElement(version.MinSpecsList.Take(4), "dropdown-box-specs-list__item inline-block font12"))
+                                            </ul>
+                                        </a>
+                                    </li>
+                                    versionIndex++;
+                                }
+                            </ul>
+                        }
+                    </div>
+
+                    <div class="onroad-price-slug">
+                        @if (Model.IsDiscontinuedBike)
+                        {
+                            <p class="text-light-grey font14">@Model.BikeName is now discontinued in India.</p><br>
+                            <p class="text-light-grey font12">Last known Ex-showroom price</p>
+                        }
+                        else
+                        {
+                            <p class="text-light-grey font12">Ex-showroom price in @Bikewale.Utility.BWConfiguration.Instance.DefaultName</p>
+                        }
+                        <div>
+                            <span class="onroad-price-slug__price inline-block">
+                                @if (Model.BikePrice > 0)
+                                {
+                                    <span>&#x20b9;</span><span class="font-semibold">&nbsp;@Bikewale.Utility.Format.FormatPrice(Model.BikePrice.ToString())</span>
+                                }
+                                else if (Model.SelectedVersion != null && Model.SelectedVersion.AverageExShowroom > 0)
+                                {
+                                    <span>&#x20b9;</span><span class="font-semibold">&nbsp;@Bikewale.Utility.Format.FormatPrice(Model.SelectedVersion.AverageExShowroom.ToString())</span>
+                                }
+                                else
+                                {
+                                    <span class="font18 text-bold">Price not available</span>
+                                }
+                            </span>
+                            @if ((Model.City != null && Model.IsLocationSelected && !Model.ShowOnRoadButton) && Model.BikePrice > 0 && Model.IsNewBike)
+                            {
+                                <a href="/m/pricequote/dealer/?MPQ=@Model.MPQString" class="onroad-price-slug__price-breakup font-semibold font14 inline-block" rel="nofollow" id="viewDetailedPrice">View detailed price</a>
+                            }
+                        </div>
+                    </div>
+                }   
+                    @if (Model.SelectedVersion != null && Model.SelectedVersion.AverageExShowroom > 0 && Model.EMIDetails != null && Model.EMISliderAMP != null)
+                    {
+                        <div class="model-emi-slug">
+                            @if (Model.EMIDetails != null)
+                            {
+                                <span class="model-emi-slug__text text-light-grey">
+                                    EMI starting at
+                                    <span class="model-emi-slug__text-price font-semibold">
+                                        &#x20b9;&nbsp;@Format.FormatPrice(Model.EMIDetails.EMIAmount.ToString())/month
+                                    </span>
+                                </span>
+                                <span id="mobileEmiCalculator" class="emi-calculator__link inline-block" tabindex="1" role="option" on="tap: blackoutWindow.show, AMP.setState({ model: { isEmiPopupActive: 1 } })">
+                                    Calculate EMI
+                                </span>
+                                <amp-bind-macro id="TotalAmountFunc" arguments="bikeprice, loanamount, tenure, interest" expression="round(bikeprice + (loanamount * tenure * interest / 1200)) + '.'" />
+                                <amp-bind-macro id="IndicativeEmiFunc" arguments="totalAmount, downPayment, tenure" expression="round((totalAmount-downPayment)/tenure) + '.'" />
+                                <div id="emiPopup" class="emi-popup" [class]="model.isEmiPopupActive ? 'emi-popup popup--active' : 'emi-popup'">
+                                <div class="emi-popup-close-btn" tabindex="1" role="option" on="tap: blackoutWindow.hide, AMP.setState({ model: { isEmiPopupActive: 0 } })"></div>
+                                <p class="emi-popup__title font-semibold font16">EMI Calculator</p>
+                                <div class="finance-emi-container">
+                                    <div>
+                                        <div class="emi-summary-left inline-block font14">
+                                            <div class="total-emi-amount font-semibold">
+                                                ₹&nbsp;
+                                                <span id="totalAmount">@Convert.ToString(Model.EMISliderAMP.TotalAmount)</span>
+                                                <span class="hide" [class]="((EmiSlider.formatedTotalAmount.lastIndexOf('.'))>5) ? 'text-bold': 'hide'" [text]="EmiSlider.formatedTotalAmount.lastIndexOf('.')-5 <=1? EmiSlider.formatedTotalAmount.substr(EmiSlider.formatedTotalAmount.lastIndexOf('.')-6, 1)+',' : EmiSlider.formatedTotalAmount.substr(EmiSlider.formatedTotalAmount.lastIndexOf('.')-7, 2)+','">0,</span><span class="hide" [class]="((EmiSlider.formatedTotalAmount.lastIndexOf('.'))>3) ? 'text-bold': 'hide'" [text]="EmiSlider.formatedTotalAmount.lastIndexOf('.')-3 <=1? EmiSlider.formatedTotalAmount.substr(EmiSlider.formatedTotalAmount.lastIndexOf('.')-4, 1) : EmiSlider.formatedTotalAmount.substr(EmiSlider.formatedTotalAmount.lastIndexOf('.')-5, 2)">0</span><span class="hide" [class]="((EmiSlider.formatedTotalAmount.lastIndexOf('.')) > 3) ? 'text-bold': 'hide'" [text]="EmiSlider.formatedTotalAmount.lastIndexOf('.')>3? ',' + EmiSlider.formatedTotalAmount.substr(EmiSlider.formatedTotalAmount.lastIndexOf('.')-3,3) : EmiSlider.formatedTotalAmount.substr(EmiSlider.formatedTotalAmount.lastIndexOf('.')-3,3)">0</span>
+                                            </div>
+                                            <p class="total-emi-amount__text font-semibold">Total amount</p>
+                                            <p class="text-light-grey font12">(Principal + Interest)</p>
+                                        </div>
+                                        <div class="emi-summary-right inline-block font14">
+                                            <div class="indicative-emi-amount font-semibold">
+                                                ₹&nbsp;
+                                                <span id="totalemi">@Format.FormatPrice(Model.EMIDetails.EMIAmount.ToString())</span>
+                                                <span class="hide" [class]="((EmiSlider.emi.lastIndexOf('.'))>5) ? 'text-bold': 'hide'" [text]="EmiSlider.emi.lastIndexOf('.')-5 <=1? EmiSlider.emi.substr(EmiSlider.emi.lastIndexOf('.')-6, 1)+',' : EmiSlider.emi.substr(EmiSlider.emi.lastIndexOf('.')-7, 2)+','">0,</span>
+                                                <span class="hide" [class]="((EmiSlider.emi.lastIndexOf('.'))>3) ? 'text-bold': 'hide'" [text]="EmiSlider.emi.lastIndexOf('.')-3 <=1? EmiSlider.emi.substr(EmiSlider.emi.lastIndexOf('.')-4, 1) : EmiSlider.emi.substr(EmiSlider.emi.lastIndexOf('.')-5, 2)">0</span>
+                                                <span class="hide" [class]="((EmiSlider.emi.lastIndexOf('.')) > 3) ? 'text-bold': 'hide'" [text]="EmiSlider.emi.lastIndexOf('.')>3? ',' + EmiSlider.emi.substr(EmiSlider.emi.lastIndexOf('.')-3,3) : EmiSlider.emi.substr(EmiSlider.emi.lastIndexOf('.')-3,3)">0</span>
+                                                /month
+                                            </div>
+                                            <p class="indicative-emi__text">Indicative EMI</p>
+                                        </div>
+                                    </div>
+                                    <div class="emi-calculator__amount-container">
+                                        <div class="emi-slider-box inline-block font14">
+                                            <label for="downPaymentSlider" class="emi-slider-box__left-section">Down payment</label>
+                                            <div class="emi-slider-box__right-section">
+                                                <span class="emi-slider-right__price">
+                                                    &#x20b9;
+                                                    <span id="downPayment">@Format.FormatPrice(Convert.ToString(Model.EMISliderAMP.DownPayment))</span>
+                                                    <span class="hide" [class]="((EmiSlider.formatedDownPayment.lastIndexOf('.'))>5) ? 'text-bold': 'hide'" [text]="EmiSlider.formatedDownPayment.lastIndexOf('.')-5 <=1? EmiSlider.formatedDownPayment.substr(EmiSlider.formatedDownPayment.lastIndexOf('.')-6, 1)+',' : EmiSlider.formatedDownPayment.substr(EmiSlider.formatedDownPayment.lastIndexOf('.')-7, 2)+','">0,</span>
+                                                    <span class="hide" [class]="((EmiSlider.formatedDownPayment.lastIndexOf('.'))>3) ? 'text-bold': 'hide'" [text]="EmiSlider.formatedDownPayment.lastIndexOf('.')-3 <=1? EmiSlider.formatedDownPayment.substr(EmiSlider.formatedDownPayment.lastIndexOf('.')-4, 1) : EmiSlider.formatedDownPayment.substr(EmiSlider.formatedDownPayment.lastIndexOf('.')-5, 2)">0</span>
+                                                    <span class="hide" [class]="((EmiSlider.formatedDownPayment.lastIndexOf('.')) > 3) ? 'text-bold': 'hide'" [text]="EmiSlider.formatedDownPayment.lastIndexOf('.')>3? ',' + EmiSlider.formatedDownPayment.substr(EmiSlider.formatedDownPayment.lastIndexOf('.')-3,3) : EmiSlider.formatedDownPayment.substr(EmiSlider.formatedDownPayment.lastIndexOf('.')-3,3)">0</span>
+                                                </span>
+                                            </div>
+                                            <input id="downPaymentSlider" type="range" min="@Model.EMIDetails.MinDownPayment" max="@Model.EMIDetails.MaxDownPayment" step="1" value="@Model.EMISliderAMP.DownPayment" [value]="EmiSlider.downPayment" on="change:downPayment.hide,AMP.setState({EmiSlider:{downPayment:event.value,loanAmount:EmiSlider.bikePrice-event.value,totalAmount:(EmiSlider.bikePrice)+(((EmiSlider.bikePrice-event.value)*EmiSlider.tenure*EmiSlider.interest)/1200)}});input-debounced:AMP.setState({EmiSlider:{emi:round((EmiSlider.totalAmount-EmiSlider.downPayment)/EmiSlider.tenure)+'.',formatedLoanAmount:round(EmiSlider.bikePrice-event.value)+'.',formatedTotalAmount:round(EmiSlider.totalAmount)+'.',formatedDownPayment:round(event.value)+'.'}}),totalemi.hide,totalAmount.hide,loanAmount.hide" />
+                                        </div>
+                                        <div class="emi-slider-box inline-block font14">
+                                            <label for="loanAmountSlider" class="emi-slider-box__left-section">Loan amount</label>
+                                            <div class="emi-slider-box__right-section">
+                                                <span class="emi-slider-right__price">
+                                                    &#x20b9;
+                                                    <span id="loanAmount">@Format.FormatPrice(Convert.ToString(Model.EMISliderAMP.LoanAmount))</span>
+                                                    <span class="hide" [class]="((EmiSlider.formatedLoanAmount.lastIndexOf('.'))>5) ? 'text-bold': 'hide'" [text]="EmiSlider.formatedLoanAmount.lastIndexOf('.')-5 <=1? EmiSlider.formatedLoanAmount.substr(EmiSlider.formatedLoanAmount.lastIndexOf('.')-6, 1)+',' : EmiSlider.formatedLoanAmount.substr(EmiSlider.formatedLoanAmount.lastIndexOf('.')-7, 2)+','">0,</span>
+                                                    <span class="hide" [class]="((EmiSlider.formatedLoanAmount.lastIndexOf('.'))>3) ? 'text-bold': 'hide'" [text]="EmiSlider.formatedLoanAmount.lastIndexOf('.')-3 <=1? EmiSlider.formatedLoanAmount.substr(EmiSlider.formatedLoanAmount.lastIndexOf('.')-4, 1) : EmiSlider.formatedLoanAmount.substr(EmiSlider.formatedLoanAmount.lastIndexOf('.')-5, 2)">0</span>
+                                                    <span class="hide" [class]="((EmiSlider.formatedLoanAmount.lastIndexOf('.')) > 3) ? 'text-bold': 'hide'" [text]="EmiSlider.formatedLoanAmount.lastIndexOf('.')>3? ',' + EmiSlider.formatedLoanAmount.substr(EmiSlider.formatedLoanAmount.lastIndexOf('.')-3,3) : EmiSlider.formatedLoanAmount.substr(EmiSlider.formatedLoanAmount.lastIndexOf('.')-3,3)">0</span>
+                                                </span>
+                                            </div>
+                                            <input id="loanAmountSlider" type="range" min="@(Model.EMISliderAMP.BikePrice - Model.EMIDetails.MaxDownPayment)" max="@(Model.EMISliderAMP.BikePrice - Model.EMIDetails.MinDownPayment)" step="1" value="@Model.EMISliderAMP.LoanAmount" [value]="EmiSlider.loanAmount" on="change:loanAmount.hide,AMP.setState({EmiSlider:{loanAmount:event.value,downPayment:EmiSlider.bikePrice-event.value,totalAmount:(EmiSlider.bikePrice)+((event.value*EmiSlider.tenure*EmiSlider.interest)/1200)}});input-debounced:AMP.setState({EmiSlider:{emi:round((EmiSlider.totalAmount-EmiSlider.downPayment)/EmiSlider.tenure)+'.',formatedTotalAmount:round(EmiSlider.totalAmount)+'.',formatedDownPayment:round(EmiSlider.downPayment)+'.',formatedLoanAmount:round(event.value)+'.'}}),totalAmount.hide,totalemi.hide,downPayment.hide" />
+                                        </div>
+                                        <div class="emi-slider-box inline-block font14">
+                                            <label for="tenureSlider" class="emi-slider-box__left-section">Tenure</label>
+                                            <div class="emi-slider-box__right-section">
+                                                <span id="tenurePeriod" [text]="EmiSlider.tenure ">@Format.FormatPrice(Convert.ToString(Model.EMIDetails.Tenure))</span>&nbsp;Months
+                                            </div>
+                                            <input id="tenureSlider" type="range" min="@Model.EMIDetails.MinTenure" max="@Model.EMIDetails.MaxTenure" step="1" value="@Model.EMIDetails.Tenure" on="change:AMP.setState({EmiSlider: {tenure :event.value, totalAmount:EmiSlider.bikePrice + EmiSlider.fees+((event.value * EmiSlider.loanAmount * EmiSlider.interest) / 1200)}}); input-debounced:AMP.setState({EmiSlider:{  emi:round((EmiSlider.totalAmount-EmiSlider.downPayment)/EmiSlider.tenure )+ '.' , formatedTotalAmount:round(EmiSlider.totalAmount) + '.'} }),totalAmount.hide, totalemi.hide" />
+                                        </div>
+                                        <div class="emi-slider-box inline-block font14">
+                                            <label for="rateOfInterestSlider" class="emi-slider-box__left-section">Interest</label>
+                                            <div class="emi-slider-box__right-section">
+                                                <span id="rateOfInterestPercentage" [text]="EmiSlider.interest">@Model.EMIDetails.RateOfInterest</span>&nbsp;%
+                                            </div>
+                                            <input id="rateOfInterestSlider" type="range" min="@Model.EMIDetails.MinRateOfInterest" max="@Model.EMIDetails.MaxRateOfInterest" step="0.25" value="@Model.EMIDetails.RateOfInterest" on="change:AMP.setState({EmiSlider: {interest:event.value, totalAmount:EmiSlider.bikePrice + EmiSlider.fees+((EmiSlider.tenure  * EmiSlider.loanAmount * event.value) / 1200)}}); input-debounced:AMP.setState({EmiSlider:{  emi:round((EmiSlider.totalAmount-EmiSlider.downPayment)/EmiSlider.tenure )+ '.', formatedTotalAmount:round(EmiSlider.totalAmount) + '.' } }),totalAmount.hide, totalemi.hide" />
+                                        </div>
+                                    </div>
+                                    @if (Model.EMICalculator.ESEMICampaign != null && (Model.EMICalculator.IsPrimaryDealer || Model.EMICalculator.IsManufacturerLeadAdShown))
+                                    {
+                                    <div class="emi-quote__btn-block">
+                                        @if (Model.EMICalculator.ESEMICampaign.DealerId == Bikewale.Utility.BWConfiguration.Instance.CapitalFirstDealerId)
+                                        {
+                                            <a id="btnEmiQuote" class="btn btn-white emi-quote-btn" rel="nofollow" href="/m/finance/capitalfirst/?campaingid=@Model.EMICalculator.ESEMICampaign.CampaignId&amp;dealerid=@Model.EMICalculator.ESEMICampaign.DealerId&amp;pqguid=@Model.EMICalculator.PQId&amp;leadsourceid=@Model.EMICalculator.ESEMICampaign.LeadSourceId&amp;versionid=@Model.EMICalculator.ESEMICampaign.VersionId&amp;url=@Model.EMICalculator.ESEMICampaign.CurrentPageUrl&amp;platformid=@Model.EMICalculator.ESEMICampaign.PlatformId&amp;bike=@Model.EMICalculator.BikeName&amp;loanamount=@Model.EMICalculator.ESEMICampaign.LoanAmount&amp;dealerName=@Model.EMICalculator.ESEMICampaign.Organization&amp;sendLeadSMSCustomer=@Convert.ToString(Model.EMICalculator.ESEMICampaign.SendLeadSMSCustomer)"> @Model.EMICalculator.ESEMICampaign.EMIButtonTextMobile</a>
+                                        }
+                                        else
+                                        {
+                                            <a id="btnEmiQuote" class="btn btn-white emi-quote-btn" rel="nofollow" href="/m/popup/leadcapture/?q=@Utils.Utils.EncryptTripleDES(string.Format("modelid={0}&cityid={1}&areaid={2}&bikename={3}&location={4}&city={5}&area={6}&ismanufacturer={7}&dealerid={8}&dealername={9}&dealerarea={10}&versionid={11}&leadsourceid={12}&pqsourceid={13}&mfgcampid={14}&pqguid={15}&pageurl={16}&clientip={17}&dealerheading={18}&dealermessage={19}&dealerdescription={20}&pincoderequired={21}&emailrequired={22}&dealersrequired={23}&url={24}&sendLeadSMSCustomer={25}&organizationName={26}",
+                                            Model.ModelId, 0, string.Empty, string.Format(Model.EMICalculator.BikeName), string.Empty, string.Empty, string.Empty,
+                                            Model.EMICalculator.IsManufacturerLeadAdShown, Model.EMICalculator.ESEMICampaign.DealerId, String.Format(Model.EMICalculator.ESEMICampaign.EMIPropertyTextMobile, Model.EMICalculator.ESEMICampaign.Organization),
+                                            Model.EMICalculator.ESEMICampaign.Area, Model.EMICalculator.ESEMICampaign.VersionId, Model.EMICalculator.ESEMICampaign.LeadSourceId, Model.EMICalculator.ESEMICampaign.PqSourceId, Model.EMICalculator.ESEMICampaign.CampaignId, Model.PQId,
+                                        string.Empty, Bikewale.Common.CommonOpn.GetClientIP(), Model.EMICalculator.ESEMICampaign.PopupHeading, String.Format(Model.EMICalculator.ESEMICampaign.PopupSuccessMessage,
+                                        Model.EMICalculator.ESEMICampaign.Organization), Model.EMICalculator.ESEMICampaign.PopupDescription, Model.EMICalculator.ESEMICampaign.PincodeRequired, Model.EMICalculator.ESEMICampaign.EmailRequired,
+                                        Model.EMICalculator.ESEMICampaign.DealerRequired, @String.Format("/m{0}", Bikewale.Utility.UrlFormatter.BikePageUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName)), Model.EMICalculator.ESEMICampaign.SendLeadSMSCustomer, Model.EMICalculator.ESEMICampaign.Organization))">@Model.EMICalculator.ESEMICampaign.EMIButtonTextMobile</a>
+                                        }
+                                    </div>
+                                    }
+                                </div>
+                            </div>
+                            }
+                        </div>
+                    }
+
+            </div>
+
+            <!-- check on road floating button start -->
+            @if (Model.IsNewBike && (!Model.IsLocationSelected || Model.ShowOnRoadButton) && (Model.BikePrice > 0 || (Model.SelectedVersion != null && Model.SelectedVersion.AverageExShowroom > 0)) && !Model.IsManufacturerTopLeadAdShown)
+            {
+                <div class="floating-btn clearfix">
+                    <div class="grid-12 alpha omega">
+                        <a id="btnGetOnRoadPrice" href="@string.Format("{0}/m/popup/?queryString={1}", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, Utils.Utils.EncryptTripleDES(string.Format("pqsourceid={0}&pagecatid={1}&preselcity={2}&makeid={3}&makename={4}&modelid={5}&modelname={6}&Url={7}{8}", (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_PriceInCity_SelectArea, "9", "0", Model.ModelPageEntity.ModelDetails.MakeBase.MakeId, Model.ModelPageEntity.ModelDetails.MakeBase.MakeName, Model.ModelPageEntity.ModelDetails.ModelId, Model.ModelPageEntity.ModelDetails.ModelName, Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, @String.Format("/m{0}", Bikewale.Utility.UrlFormatter.BikePageUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName)))))" style="width: 100%" class="btn btn-orange getquotation">Check on-road price</a>
+                    </div>
+                </div>
+            }
+            <!-- check on road floating button end -->
+
+        </div>
+        @if (Model.IsNewBike && Model.IsManufacturerLeadAdShown)
+        {
+            <div class="margin-bottom20">
+                @if (Model.LeadCapture != null && !string.IsNullOrEmpty(Model.LeadCapture.ManufacturerLeadAdAMPConvertedContent))
+                {
+                    @Html.Raw(Model.LeadCapture.ManufacturerLeadAdAMPConvertedContent);
+                }
+
+            </div>
+        }
+        @if (Model.AdTags.Ad320x100ATF && Model.IsNewBike)
+        {
+            <div class="margin-bottom10 margin-top15">
+                @BWHelpers.RenderAmpAds(320, 100, string.Format("{0}_ATF_320x100", Model.AdTags.AdPath), @Html.Raw(setTargettingJson))
+            </div>
+        }
+        @if (Model.IsNewBike && Model.ShowSeriesSlug && Model.SeriesSlug != null)
+        {
+            <div class="find-series content-box flexbox" id="modelPageSeriesSlug" role="button" on="tap:AMP.navigateTo(url='@string.Format("/m/{0}-bikes/{1}/", Model.SeriesSlug.MakeMaskingName, Model.SeriesSlug.SeriesMaskingName)')" tabindex="0">
+                <div class="find-series__icon flexbox flexbox-justify-center"></div>
+                <div class="find-series__content flexbox flexbox-justify-center flexbox-align-start">
+                    <h2 class="find-series__head font-semibold">Find The Right @Model.SeriesSlug.SeriesName</h2>
+                    <p class="find-series__desc font12">@Html.Raw(String.Format("{0} offers {1} more {2} model{3} starting from &#x20b9; {4}", Model.SeriesSlug.MakeName, Model.SeriesSlug.SeriesBikesCount - 1, Model.SeriesSlug.SeriesName, Model.SeriesSlug.SeriesBikesCount > 2 ? "s" : "", Bikewale.Utility.Format.FormatPrice(Convert.ToString(Model.SeriesSlug.MinimumPrice))))</p>
+                    <a href="@string.Format("/m/{0}-bikes/{1}/", Model.SeriesSlug.MakeMaskingName, Model.SeriesSlug.SeriesMaskingName)" class="find-series__view-link font-semibold" title="@string.Format("{0} {1}", Model.SeriesSlug.MakeName, Model.SeriesSlug.SeriesName)">View all</a>
+                </div>
+            </div>
+        }
+        @if (!Model.IsUpcomingBike)
+        {
+            bool minSpecAvailable = Model.ModelPageEntity.ModelVersionMinSpecs != null && Model.ModelPageEntity.ModelVersionMinSpecs.MinSpecsList != null;
+            <div class="model-summary content-box content-inner-block-20">
+                <h2>@Model.BikeName Summary</h2>
+                @if (minSpecAvailable)
+                {
+                    <ul class="summary-specs-list model-summary__item summary-list--no-border">
+                    @{
+	                    var minSpecsList = Model.ModelPageEntity.ModelVersionMinSpecs.MinSpecsList.Take(4);
+                    }
+                    @foreach (var minSpec in minSpecsList)
+                    {
+                        <li class="inline-block">
+                            <amp-img src="@minSpec.Icon" width="22" height="20" alt="@minSpec.Name"></amp-img>
+                            <p class="text-light-grey font12">
+                                @Bikewale.Utility.FormatMinSpecs.ShowAvailable(minSpec.Value, minSpec.UnitType, minSpec.DataType, minSpec.Id)
+                            </p>
+                        </li>
+                    }
+                    </ul>
+                }
+
+                <table id="model-key-highlights" cellspacing="0" cellpadding="0" width="100%" border="0" class="model-summary__highlights font14 model-summary__item">
+                    <thead>
+                        <tr>
+                            <th colspan="2" class="font-semibold">@Model.ModelPageEntity.ModelDetails.ModelName key highlights</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.BikePrice > 0 || (Model.SelectedVersion != null && Model.SelectedVersion.AverageExShowroom > 0))
+                        {
+                            <tr>
+                                <td><strong>Price</strong></td>
+                                <td class="font-semibold">
+                                    &#x20b9;&nbsp;<strong class="font-semibold">@(Model.BikePrice > 0 ? string.Format("{0}", Bikewale.Utility.Format.FormatPrice(Model.BikePrice.ToString())) : Bikewale.Utility.Format.FormatPrice(Model.SelectedVersion.AverageExShowroom.ToString()))</strong>
+                                </td>
+                            </tr>
+                        }
+                        @if (minSpecAvailable)
+                        {
+                            var topSpeed = Bikewale.Utility.FormatMinSpecs.SanitizeNumericMinSpec(Model.ModelPageEntity.ModelVersionMinSpecs.MinSpecsList, Bikewale.Entities.BikeData.EnumSpecsFeaturesItems.TopSpeed);
+				            if (topSpeed != null && !string.IsNullOrEmpty(topSpeed.Value))
+				            {
+                                <tr>
+                                    <td>Top speed</td>
+                                    <td class="font-semibold">@Bikewale.Utility.FormatMinSpecs.ShowAvailable(topSpeed.Value, topSpeed.UnitType, topSpeed.DataType, topSpeed.Id)</td>
+                                </tr>
+                            }
+                            var fuelEfficiency = Bikewale.Utility.FormatMinSpecs.SanitizeNumericMinSpec(Model.ModelPageEntity.ModelVersionMinSpecs.MinSpecsList, Bikewale.Entities.BikeData.EnumSpecsFeaturesItems.FuelEfficiencyOverall);
+				            if (fuelEfficiency != null && !string.IsNullOrEmpty(fuelEfficiency.Value))
+				            {
+                                <tr>
+                                    <td>Mileage</td>
+                                    <td class="font-semibold">@Bikewale.Utility.FormatMinSpecs.ShowAvailable(fuelEfficiency.Value, fuelEfficiency.UnitType, fuelEfficiency.DataType, fuelEfficiency.Id)</td>
+                                </tr>
+                            }
+                        }
+                        @if (Model.IsModelColorsAvailable)
+                        {
+                            <tr>
+                                <td>Colours</td>
+                                <td class="font-semibold">
+                                    <ul class="model-color-list">
+                                    @foreach (var colorName in Model.ModelPageEntity.ModelColors)
+                                    {
+                                        <li>@colorName.ColorName</li>
+                                    }
+                                    </ul>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                @if (Model.ModelPageEntity.ModelDesc != null && !string.IsNullOrEmpty(Model.ModelPageEntity.ModelDesc.SmallDescription)
+                                                && Model.ModelPageEntity.ModelDetails != null && Model.ModelPageEntity.ModelDetails.MakeBase != null)
+                {
+                <div id="aboutContent" class="content-details-wrapper model-summary__item model-about-content">
+                    <h2>About @Model.ModelPageEntity.ModelDetails.ModelName</h2>
+                    <p class="font14">
+                        <span id="modelAboutContentMainContent" class="model-preview-main-content">
+                            @if (!String.IsNullOrEmpty(Model.ModelPageEntity.ModelDesc.SmallDescription))
+                            {
+                                @Html.Raw(Model.ModelPageEntity.ModelDesc.SmallDescription)
+                            }
+                            else
+                            {
+                                @Html.Raw(Model.ModelPageEntity.ModelDesc.FullDescription.ConvertToAmpContent())
+                            }
+                        </span>
+                        @if (!String.IsNullOrEmpty(Model.ModelPageEntity.ModelDesc.SmallDescription) && !String.IsNullOrEmpty(Model.ModelPageEntity.ModelDesc.FullDescription))
+                        {
+                            <span id="modelAboutContentMoreContent" class="model-preview-more-content" hidden>
+                                @Html.Raw(Model.ModelPageEntity.ModelDesc.FullDescription.ConvertToAmpContent())
+                            </span>
+                            <span id="modelAboutContentReadMore" class="read-more-model-preview" tabindex="1" role="option" on="tap: modelAboutContentMoreContent.show, modelAboutContentMainContent.hide, modelAboutContentReadMore.hide, modelAboutContentCollapse.show">Read more</span>
+                            <span id="modelAboutContentCollapse" class="read-more-model-preview" tabindex="1" role="option" on="tap: modelAboutContentMoreContent.hide, modelAboutContentMainContent.show, modelAboutContentReadMore.show, modelAboutContentCollapse.hide, aboutContent.scrollTo(duration=200)" hidden>Collapse</span>
+                        }
+                    </p>
+                </div>
+                }
+            </div>
+            if (Model.IsElectricBike)
+            {
+                <div class="content-box content-inner-block-20">
+                    <a href="/m/electric-bikes/" title="Electric Bikes" class="electric-slug__content">
+                        <amp-img width="55" height="47" alt="" class="electric-scooter-icon" title="" src="https://imgd.aeplcdn.com/0x0/bw/static/icons/4d5057/electric-scooter.svg"></amp-img>
+                        <div class="electric-slug__details">
+                            <p class="electric-slug__title font-semibold font14">Go Green, Go Electric.</p>
+                            <p class="text-light-grey font-semibold font11">Find electric bikes and scooter.</p>
+                        </div>
+                    </a>
+                </div>
+            }
+        }
+
+    @if ((Model.IsNewBike && Model.ModelsBySeries != null && Model.ModelsBySeries.SeriesBase != null && !Model.ModelsBySeries.SeriesBase.IsSeriesPageUrl) || Model.IsUpcomingBike)
+    { 
+        if (Model.ModelsBySeries != null && (Model.ModelsBySeries.IsNewAvailable || Model.ModelsBySeries.IsUpcomingAvailable))
+        {
+            <div id="modelsBySeriesWidget" class="series-model-content">
+                @if (Model.ModelsBySeries.SeriesBase != null && Model.ModelPageEntity.ModelDetails.MakeBase != null && !string.IsNullOrEmpty(Model.ModelsBySeries.SeriesBase.MaskingName))
+                    {
+                        if (Model.ModelsBySeries.SeriesBase.IsSeriesPageUrl) 
+                        {
+                            <div class="carousel-heading-content">
+                                <div class="swiper-heading-left-grid inline-block">
+                                    <h2>@String.Format("Explore other {0} {1}", Model.ModelsBySeries.SeriesBase.SeriesName, Model.BodyStyle.Equals(Bikewale.Entities.GenericBikes.EnumBikeBodyStyles.Scooter) ? "scooters:" : "bikes:")</h2>
+                                </div>
+                                <div class="swiper-heading-right-grid inline-block text-right">
+                                    <a href="@string.Format("/m/{0}-bikes/{1}/", Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelsBySeries.SeriesBase.MaskingName)" title="@string.Format("{0} {1} bikes", Model.ModelPageEntity.ModelDetails.MakeBase.MakeName, Model.ModelsBySeries.SeriesBase.SeriesName)" class="btn view-all-target-btn">View all</a>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                        }
+                        else 
+                        {
+                        <div class="carousel-heading-content">
+                            <h2>Explore other @Model.ModelsBySeries.SeriesBase.SeriesName @(Model.BodyStyle.Equals(Bikewale.Entities.GenericBikes.EnumBikeBodyStyles.Scooter) ? "scooters:" : "bikes:")</h2>
+                        </div>
+                    }
+                }
+                @Html.Partial("~/Views/m/Shared/_SeriesBikes_AMP.cshtml", Model.ModelsBySeries)
+
+            </div>
+        }
+        <div class="clear"></div>
+    }
+
+    @if (Model.AdTags.Ad320x100ATF && Model.IsUpcomingBike)
+    {
+        <div class="margin-bottom10 margin-top15">
+            @BWHelpers.RenderAmpAds(320, 100, string.Format("{0}_ATF_320x100", Model.AdTags.AdPath), @Html.Raw(setTargettingJson))
+        </div>
+    }
+
+
+    @if (Model.ExpertReviews != null && Model.ExpertReviews.FetchedCount > 0)
+    {
+    <div id="expertReviewsContent" class="content-box content-details-wrapper section-padding">
+        <h2>@Model.BikeName Expert Reviews</h2>
+
+        @if (Model.ExpertReviews.ArticlesList != null && Model.ExpertReviews.ArticlesList.Any())
+        {
+            if (Model.ExpertReviews.FetchedCount == 1)
+            {
+            <div class="expert-review-list">
+                @{
+                    var firstReview = Model.ExpertReviews.ArticlesList.First();
+                  }
+                <a id="readMoreOnExpertReviews"  href="@string.Format("/m{0}", UrlFormatter.GetArticleUrl(Convert.ToString(firstReview.BasicId), firstReview.ArticleUrl, Convert.ToString(firstReview.CategoryId)))" title="@firstReview.Title" class="expert-review__card carousel-card" data-review-category="@firstReview.SubCategoryId">
+                    <h3 class="review-article__card-title font-semibold trucatable-content">@firstReview.Title</h3>
+                    <div class="card-category__tag"> @firstReview.SubCategory Review </div>
+                    <div class="article-stats inline-block text-light-grey">
+                        <span class="article-stats__date">@FormatDate.GetFormatDate(Convert.ToString(firstReview.DisplayDate), "dd MMM yyyy")</span>
+                        <span class="article-stats__name text-truncate">@firstReview.AuthorName</span>
+                    </div>
+                    <p class="article-description  text-slate-grey font11">
+                        @FormatDescription.SanitizeHtml(WebUtility.HtmlDecode(firstReview.Description))
+                    </p>
+                    <span class="review-card__read-more">...Read more</span>
+                </a>
+            </div>
+            }
+            else
+            {
+                <amp-carousel height="295" layout="fixed-height" type="carousel" class="model-carousel-container">
+                    @foreach (var review in Model.ExpertReviews.ArticlesList)
+                    {
+                    <div class="expert-review-list swiper-slide">
+                        <a href="@string.Format("/m{0}", UrlFormatter.GetArticleUrl(Convert.ToString(review.BasicId), review.ArticleUrl, Convert.ToString(review.CategoryId)))" title="@review.Title" class="expert-review__card carousel-card" data-review-category="@review.SubCategoryId">
+                            <h3 class="review-article__card-title font-semibold trucatable-content">@review.Title</h3>
+                            <div class="card-category__tag"> @review.SubCategory Review </div>
+                            <div class="article-stats inline-block text-light-grey">
+                                <span class="article-stats__date">@FormatDate.GetFormatDate(Convert.ToString(review.DisplayDate), "dd MMM yyyy")</span>
+                                <span class="article-stats__name text-truncate">@review.AuthorName</span>
+                            </div>
+                        <p class="article-description  text-slate-grey font11">
+                                @FormatDescription.SanitizeHtml(WebUtility.HtmlDecode(review.Description))
+                            </p>
+                            <span class="review-card__read-more">...Read more</span>
+                        </a>
+                    </div>
+                    }
+
+                </amp-carousel>
+            }
+        }
+
+        <div class="view-all-btn-container">
+            <a title="@Model.ExpertReviews.LinkTitle" href="@String.Format("/m{0}", Model.ExpertReviews.MoreExpertReviewUrl)" class="btn view-all-target-btn font14">
+                Read all reviews
+                <span class="bwmsprite teal-right"></span>
+            </a>
+        </div>
+
+    </div>
+    }
+
+    @if (Model.ModelPageEntity != null && Model.ModelPageEntity.ModelColors != null && Model.ModelPageEntity.ModelColors.Count() > 0)
+    {
+    <div id="coloursContent" class="color-section content-box content-details-wrapper content-inner-block-20">
+        <h2>@Model.BikeName Colours</h2>
+        <ul id="modelColorsList" class="color-section__list">
+        @foreach (var modelColor in Model.ModelPageEntity.ModelColors)
+        {
+            var returnUrl = string.Format("{0}#coloursContent", Model.PageMetaTags.AlternateUrl);
+            <li>
+                @if (modelColor.ColorImageId != 0)
+                {
+                <a href="@String.Format(@"/m{0}?q={1}", Bikewale.Utility.UrlFormatter.FormatPhotoPageUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName), Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(string.Format("colorImageId={0}&retUrl={1}#modelColorsList", modelColor.ColorImageId, Model.PageMetaTags.AlternateUrl)))">
+                    <div class="color-box inline-block @(modelColor.HexCodes.Count() == 1 ? " color-count-one" : (modelColor.HexCodes.Count() == 3 ? "color-count-three" : "color-count-two"))">
+                        @if (Model.ModelPageEntity.ModelColors != null)
+                        {
+                            foreach (var HexCode in modelColor.HexCodes)
+                            {
+                                <span style="background-color: #@HexCode"></span>
+                            }
+                        }
+                    </div>
+                    <p class="text-default inline-block font14 text-truncate">@Convert.ToString(modelColor.ColorName)</p>
+                </a>
+                }
+                else
+                {
+                    <div class="color-box inline-block @(modelColor.HexCodes.Count() == 1 ? " color-count-one" : (modelColor.HexCodes.Count() == 3 ? "color-count-three" : "color-count-two"))">
+                        @if (Model.ModelPageEntity.ModelColors != null)
+                        {
+                            foreach (var HexCode in modelColor.HexCodes)
+                            {
+                                <span style="background-color: #@HexCode"></span>
+                            }
+                        }
+                    </div>
+                    <p class="text-default inline-block font14 text-truncate">@Convert.ToString(modelColor.ColorName)</p>
+                }
+            </li>
+        }
+        </ul>
+    </div>
+    }
+
+    @if (Model.AdTags.Ad_320x400_Middle && !Model.IsUpcomingBike)
+    {
+        <div class="margin-bottom10 margin-top15">
+            @BWHelpers.RenderAmpAds(200, 253, string.Format("{0}_Comparo_320x400", Model.AdTags.AdPath), @Html.Raw(setTargettingJson))
+        </div>
+    }
+    @if (Model.IsSimilarBikesAvailable)
+    {
+
+        <!-- Similar bikes start  -->
+        <div id="similarContent" class="similar-bikes content-box content-details-wrapper section-padding">
+            <h2>@Model.BodyStyleText Similar to @Model.ModelPageEntity.ModelDetails.ModelName</h2>
+            <amp-carousel height="260" layout="fixed-height" type="carousel" class="similar-model-carousel">
+                @if (Model.AdTags.Ad_200x253)
+                {
+                    <div class="swiper-card ">
+                        @BWHelpers.RenderAmpAds(200, 253, "/1017752/SimilarBikes_Mobile_200x253", @Html.Raw(setTargettingJson)) 
+                    </div>
+                }
+                    @foreach (var bike in Model.SimilarBikes.Bikes)
+                    {
+                        string make = bike.MakeBase.MakeName, modelName = bike.ModelBase.ModelName;
+                        var bikeUrl = String.Format("/m{0}", UrlFormatter.BikePageUrl(bike.MakeBase.MaskingName, bike.ModelBase.MaskingName));
+                        var bikeName = String.Format("{0} {1}", make, modelName);
+
+                        <div class="swiper-card">
+                            <div>
+                                <a href="@bikeUrl" title="@bikeName" class="bw-ga similarBikeclick" data-vars-label="@bikeName">
+                                    <div class="swiper-image-preview">
+                                        <amp-img width="160" height="90" src="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath,bike.HostUrl,ImageSize._210x118,Bikewale.Utility.QualityFactor._70)" title="@bikeName" alt="@bikeName"></amp-img>
+                                    </div>
+                                    @if (bike.VersionPrice == 0 && bike.AvgExShowroomPrice == 0)
+                                    {
+                                        <p class="text-bold text-default">
+                                            <span class="font14">Price not available</span>
+                                        </p>
+                                    }
+                                    else
+                                    {
+                                        <div class="swiper-details-block">
+                                            <p class="swiper-details__title text-truncate">@bikeName</p>
+                                            <p class="swiper-details__exshowroom text-light-grey font11 text-truncate">@(bike.VersionPrice > 0 ? String.Format("Ex-showroom, {0}", (!String.IsNullOrEmpty(bike.CityName) ? bike.CityName : BWConfiguration.Instance.GetDefaultCityName)) : "Avg. Ex-showroom price")</p>
+                                            <p class="text-default font-semibold font16">
+                                                @Html.Raw("<span>&#x20B9;</span>")&nbsp;<span class="text-bold">@Bikewale.Utility.Format.FormatPrice(bike.VersionPrice > 0 ? bike.VersionPrice.ToString() : bike.AvgExShowroomPrice.ToString())</span>
+                                            </p>
+                                        </div>
+                                    }
+                                </a>
+                                @if (bike.VersionPrice == 0)
+                                {
+                                    <span class="info-icon tooltip-icon-target tooltip-top tooltip--right">
+                                        <span class="bw-tooltip info-tooltip">
+                                            <span class="bw-tooltip-text">@string.Format("Price is not available in {0}", bike.CityName)</span>
+                                        </span>
+                                    </span>
+                                }
+                            </div>
+                            @if (Model.SimilarBikes.ShowCheckOnRoadCTA)
+                            {
+                                <div class="swiper-btn-block onroad-price__btn">
+                                    <a class="checkOnRoadInSimilarBikes btn btn-card font14 btn-full-width btn-white"data-vars-label="@bikeName" href="@string.Format("{0}/m/popup/?queryString={1}", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, Utils.Utils.EncryptTripleDES(string.Format("pqsourceid={0}&pagecatid={1}&preselcity={2}&makeid={3}&makename={4}&modelid={5}&modelname={6}", (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_ModelPage, "9", "0", bike.MakeBase.MakeId, bike.MakeBase.MakeName, bike.ModelBase.ModelId, bike.ModelBase.ModelName)))" rel="nofollow">Check on-road price</a>
+                                </div>
+                            }
+                            @if (Model.SimilarBikes.ShowPriceInCityCTA)
+                            {
+                                <div class="swiper-btn-block onroad-price__btn">
+                                    <a href="@String.Format("/m{0}", UrlFormatter.PriceInCityUrl(bike.MakeBase.MaskingName,bike.ModelBase.MaskingName,bike.CityMaskingName))" class="btn btn-card font14 btn-full-width btn-white" rel="nofollow"
+                                       title="@String.Format("{0} {1} On-road price in {2}",make,modelName,bike.CityName)">On-road price in@bike.CityName</a>
+                                </div>
+                            }
+                            @if (Model.SimilarBikes.Make != null && Model.SimilarBikes.Model != null && Model.SimilarBikes.IsNew)
+                            {
+                                string fullUrl = string.Format("/m/{0}", Bikewale.Utility.UrlFormatter.CreateCompareUrl(Model.SimilarBikes.Make.MaskingName, Model.SimilarBikes.Model.MaskingName, bike.MakeBase.MaskingName, bike.ModelBase.MaskingName, Convert.ToString(Model.SimilarBikes.VersionId), Convert.ToString(bike.VersionBase.VersionId), (uint)Model.SimilarBikes.Model.ModelId, (uint)bike.ModelBase.ModelId, Bikewale.Entities.Compare.CompareSources.Mobile_Model_MostPopular_Compare_Widget));
+                                <a class="compare-with-target text-default font12 text-truncate compareWithTarget" data-vars-label="@string.Format("{0} vs {1}", @Model.ModelPageEntity.ModelDetails.ModelName, bikeName)" href="@Bikewale.Utility.UrlFormatter.RemoveQueryString(fullUrl)" title="@Bikewale.Utility.UrlFormatter.CreateCompareTitle(bike.ModelBase.ModelName, Model.SimilarBikes.Model.ModelName)">
+                                    <span class="bwmsprite compare-sm"></span>Compare with @Model.SimilarBikes.Model.ModelName
+                                    <span class="bwmsprite right-arrow"></span>
+                                </a>
+                            }
+                        </div>
+                    }
+                    <div class="swiper-card">
+                        <div>
+                            <a id="exploreMoreSimilarBikes" href="@string.Format("/m{0}",(Model.BodyStyle.Equals(Bikewale.Entities.GenericBikes.EnumBikeBodyStyles.Scooter))? "/scooters/" : "/new-bikes-in-india/")" title="@(string.Format("Explore more {0}", (Model.BodyStyle.Equals(Bikewale.Entities.GenericBikes.EnumBikeBodyStyles.Scooter))? "scooters" : "bikes"))" >
+                                <div class=" swiper-image-preview">
+                                    <div class="exploremore__imagebackground">
+                                        <div class="exploremore__icon-background">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="swiper-details-block">
+                                    <div class="exploremore-detailblock">
+                                        <p class="detailblock__title text-default font-semibold font14">Couldn’t find what you were looking for?</p>
+                                        <p class="detailblock__description font12">@(Model.SimilarBikes.BodyStyle.Equals(Bikewale.Entities.GenericBikes.EnumBikeBodyStyles.Scooter) ? "View 60+ scooters from over 10 brands" : " View 200+ bikes from over 30 brands")</p>
+                                    </div>
+                                </div>
+
+
+                                @if (Model.SimilarBikes.IsNew)
+                                {
+                                    <div class="compare-with-target text-default font12 text-truncate" >
+                                        <span class="compare-sm"></span>@(string.Format("Explore more {0}", (Model.SimilarBikes.BodyStyle.Equals(Bikewale.Entities.GenericBikes.EnumBikeBodyStyles.Scooter)) ? "scooters" : "bikes"))<span class="bwmsprite right-arrow"></span>
+                                        <span class="bwmsprite right-arrow"></span>
+                                    </div>
+                                }
+                            </a>
+                        </div>
+                    </div>
+            </amp-carousel>
+            </div>
+
+            <!-- Similar bikes end  -->
+    }
+    else if (Model.IsPopularBodyStyleAvailable && (Model.IsNewBike || Model.IsUpcomingBike))
+    {
+        <!-- Other Popular bikes start  -->
+        <div id="popularContent" class="popular-content content-box content-details-wrapper section-padding">
+            <div class="carousel-heading-content">
+                <div class="swiper-heading-left-grid inline-block">
+                    <h2>Other popular @Model.BodyStyleText.ToLower()</h2>
+                </div>
+                <div class="swiper-heading-right-grid inline-block">
+                    <a href="@String.Format("/m{0}", Bikewale.Utility.UrlFormatter.FormatGenericPageUrl(Model.BodyStyle))" title="Best @Model.BodyStyleText in India" class="btn view-all-target-btn font14">View all</a>
+                </div>
+            </div>
+            @Html.Partial("~/Views/BestBikes/_PopularBodyStyleCarousel_Mobile_AMP.cshtml", Model.PopularBodyStyle)
+        </div>
+        <!-- Other Popular bikes end  -->
+    }
+    
+     @if (Model.AdTags.Ad_300x250)
+     {
+        <div class="margin-bottom10 margin-top15">
+            @BWHelpers.RenderAmpAds(300, 250, string.Format("{0}_300x250", Model.AdTags.AdPath), @Html.Raw(setTargettingJson))
+        </div>   
+     }
+    @*Mileage widget start*@
+    @if (Model != null && Model.IsNewBike && Model.IsMileageByUsersAvailable && Model.Mileage!= null && Model.Mileage.MileageInfo != null && Model.Mileage.SimilarBikeList.Any())
+    {
+        var currentBike = string.Format("{0} {1}", Model.Mileage.MileageInfo.Make.MakeName, Model.Mileage.MileageInfo.Model.ModelName);
+        var bodyType = (Model.Mileage.MileageInfo.BodyStyleId.Equals((uint)Bikewale.Entities.GenericBikes.EnumBikeBodyStyles.Scooter) ? "scooters" : "commuters");
+
+        <div id="mileageContent" class="mileage-content content-box content-details-wrapper section-padding">
+            <table class="mileage-box-list">
+                @if (Model.Mileage.MileageInfo.Make != null && Model.Mileage.MileageInfo.Model != null)
+                {
+                    <thead>
+                        <tr>
+                            <th colspan="2">
+                                <h2>@currentBike Mileage</h2>
+                            </th>
+                        </tr>
+                    </thead>
+                }
+                <tbody>
+                    <tr>
+                        @if (Model.Mileage.MileageInfo != null && Model.Mileage.MileageInfo.ARAIMileage > 0)
+                        {
+                            <td class="mileage-list__item inline-block">
+                                <div class="mileage-box__arai-block">
+                                    <p class="mileage-box__mileage-count font14">
+                                        <span class="text-default font-semibold">@Model.Mileage.MileageInfo.ARAIMileage</span>
+                                        kmpl
+                                    </p>
+                                    <p>
+                                        <span class="mileage-box__subtitle text-slate-grey font11">ARAI certified</span>
+                                        <span class="info-icon inline-block tooltip-icon-target tooltip-top tooltip--right">
+                                            <span class="bw-tooltip info-tooltip text-slate-grey font12">
+                                                <span class="bw-tooltip-text">ARAI is a research association under GOI responsible for verifying mileage data for every bike sold in India.</span>
+                                            </span>
+                                        </span>
+                                    </p>
+                                </div>
+                            </td>
+                        }
+                        <td class="mileage-list__item inline-block">
+                            <div class="mileage-box__users-block">
+                                <p class="mileage-box__mileage-count font14">
+                                    <span class="text-default font-semibold">@Model.Mileage.MileageInfo.MileageByUserReviews</span>
+                                    kmpl
+                                </p>
+                                <p>
+                                    <span class="mileage-box__subtitle text-slate-grey font11">Reported by owners</span>
+                                </p>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <h3 class="mileage-box__head font-semibold font14">@string.Format("Where does {0} stand among {1}?", Model.Mileage.MileageInfo.Model != null ? Model.Mileage.MileageInfo.Model.ModelName : currentBike, bodyType)</h3>
+            <ul class="mileage-box-list">
+                <li class="mileage-list__item inline-block mileage-list__average-content">
+                    <p class="mileage-box__desc text-slate-grey font12">@string.Format("Average mileage among {0}", bodyType)</p>
+                    <div class="mileage-box-desc__content inline-block">
+                        @if (Model.Mileage.MileageInfo.BodyStyleId.Equals((uint)Bikewale.Entities.GenericBikes.EnumBikeBodyStyles.Scooter))
+                        {
+                            <span class="grey-scooter-icon inline-block"></span>
+                        }
+                        else
+                        {
+                            <span class="grey-bike-icon inline-block"></span>
+                        }
+                        <p class="mileage-box-desc__content-text inline-block font12">
+                            <span class="font14">@Math.Round(Model.Mileage.AvgBodyStyleMileageByUserReviews, 2) </span>
+                            kmpl
+                        </p>
+                    </div>
+                </li>
+                <li class="mileage-list__item inline-block">
+                    <p class="mileage-list__special inline-block">@Math.Round(Model.Mileage.MileageInfo.Percentile)%</p>
+                    <p class="mileage-box__desc text-slate-grey font12">
+                        @string.Format("{0} has better mileage than {1}% of {2}", Model.Mileage.MileageInfo.Model != null ? Model.Mileage.MileageInfo.Model.ModelName : currentBike, Math.Round(Model.Mileage.MileageInfo.Percentile), bodyType)
+                    </p>
+                </li>
+            </ul>
+
+            <div class="model-mileage-carousel">
+            <h3>@Model.Mileage.WidgetHeading</h3>
+            <amp-carousel height="180" layout="fixed-height" type="carousel">
+                @foreach (var similarObj in Model.Mileage.SimilarBikeList)
+                {
+                    var bikeName = string.Format("{0} {1}", similarObj.Make.MakeName, similarObj.Model.ModelName);
+
+                    <div class="swiper-card">
+                        <a href="@string.Format("/m{0}",UrlFormatter.BikePageUrl(similarObj.Make.MaskingName, similarObj.Model.MaskingName))" title="@bikeName">
+                            <div class="swiper-image-preview">
+                                <amp-img alt="@bikeName" src="@Image.GetPathToShowImages(similarObj.OriginalImagePath, similarObj.HostUrl, ImageSize._174x98, "70")" width="174" height="98"></amp-img>
+                            </div>
+                            <div class="swiper-details-block">
+                                <h3 class="swiper-detail__title font12 font-semibold">@bikeName</h3>
+                                <p class="swiper-detail__desc text-light-grey font12 text-truncate">@similarObj.MileageByUserReviews kmpl</p>
+                            </div>
+                        </a>
+                    </div>
+                }
+            </amp-carousel>
+        </div>
+        </div>
+    }
+    <!-- Mileage widget end  -->
+
+    @if (Model.BikeSpecsFeatures != null && Model.BikeSpecsFeatures.VersionSpecsFeatures != null)
+    {
+    <div id="specsFeaturesAndAboutContent" class="specs-feature-container content-box section-padding content-details-wrapper">
+        @if(Model.BikeSpecsFeatures.VersionSpecsFeatures.Specs != null && Model.BikeSpecsFeatures.VersionSpecsFeatures.Specs.Any())
+        {
+            <h2>@Model.BikeSpecsFeatures.ModelName Specifications &amp; Features</h2>
+            <div id="specsFeaturesContent" class="specs-container content-details-wrapper">
+                <h3 class="model-specs-header font-semibold font14">Specifications</h3>
+
+                <div id="modelSpecsList" class="model-specs-list">
+                    @{
+                        int counter = 1;
+                    }
+                    @foreach (var category in Model.BikeSpecsFeatures.VersionSpecsFeatures.Specs)
+                    {
+
+                        if (counter == 1){
+                        <section>
+                            <header id="specs-@(counter)" on="tap:AMP.setState({ specsAccordion: { activeIndex: handleAccordionClick(specsAccordion.activeIndex, @(counter)) } }), specs-@(counter).scrollTo(duration=200)" role="button" tabindex="1" class="model-accordion-tab font-semibold accordion-tab-active" [class]="specsAccordion.activeIndex == @(counter) ? 'model-accordion-tab font-semibold accordion-tab-active' : 'model-accordion-tab font-semibold'">
+                                <amp-img src="@FormatMinSpecs.GetOutlineIconUrl(category.Icon)" width="30" height="28" class="inline-block margin-right10" alt="@category.DisplayText"></amp-img>
+                                <span>@category.DisplayText</span>
+                                <span class="arrow-black-top inline-block"></span>
+                            </header>
+                            <ul class="specs-features-list hide">
+                                @foreach (var item in category.SpecsItemList)
+                                {
+                                    <li>
+                                        <div class="specs-features-label text-truncate">@item.DisplayText</div>
+                                        <div class="font-semibold text-truncate">@FormatMinSpecs.ShowAvailable(item.ItemValues.FirstOrDefault(), item.UnitTypeText, item.DataType, item.Id)</div>
+                                    </li>
+                                }
+                            </ul>
+                        </section>
+                            counter++;
+                        }
+                        else
+                        {
+                            <section>
+                                <header id="specs-@(counter)" on="tap:AMP.setState({ specsAccordion: { activeIndex: handleAccordionClick(specsAccordion.activeIndex, @(counter)) } }), specs-@(counter).scrollTo(duration=200)" role="button" tabindex="1" class="model-accordion-tab font-semibold" [class]="specsAccordion.activeIndex == @(counter) ? 'model-accordion-tab font-semibold accordion-tab-active' : 'model-accordion-tab font-semibold'">
+                                    <amp-img src="@FormatMinSpecs.GetOutlineIconUrl(category.Icon)" width="30" height="28" class="inline-block margin-right10" alt="@category.DisplayText"></amp-img>
+                                    <span>@category.DisplayText</span>
+                                    <span class="arrow-black-top inline-block"></span>
+                                </header>
+                                <ul class="specs-features-list hide">
+                                    @foreach (var item in category.SpecsItemList)
+                                    {
+                                        <li>
+                                            <div class="specs-features-label text-truncate">@item.DisplayText</div>
+                                            <div class="font-semibold text-truncate">@FormatMinSpecs.ShowAvailable(item.ItemValues.FirstOrDefault(), item.UnitTypeText, item.DataType, item.Id)</div>
+                                        </li>
+                                    }
+                                </ul>
+                            </section>
+                            counter++;
+                        }
+                    }
+                </div>
+            </div>
+            <amp-bind-macro id="handleAccordionClick" arguments="activeIndex, clickedIndex" expression="activeIndex != clickedIndex ? clickedIndex : 0" />
+        }
+    @if (Model.BikeSpecsFeatures.VersionSpecsFeatures.Features != null && Model.BikeSpecsFeatures.VersionSpecsFeatures.Features.Any())
+    {
+        <div id="modelFeaturesContent" class="model-feature-container">
+            <h3 class="model-features__heading font-semibold">Features</h3>
+            <ul class="specs-features-list model-features-list" id="modelMainFeaturesList">
+                @{
+                    var shownFeaturesHeight = 6;
+                }
+                @foreach (var feature in Model.BikeSpecsFeatures.VersionSpecsFeatures.Features.Take(shownFeaturesHeight))
+                {
+                    <li>
+                        <div class="specs-features-label text-truncate">@feature.DisplayText</div>
+                        <div class="font-semibold text-truncate">@FormatMinSpecs.ShowAvailable(feature.ItemValues.FirstOrDefault(), feature.UnitTypeText, feature.DataType, feature.Id) </div>
+                    </li>
+                }
+            </ul>
+            <ul id="modelMoreFeaturesList" class="specs-features-list model-features-list" hidden>
+                @foreach (var feature in Model.BikeSpecsFeatures.VersionSpecsFeatures.Features.Skip(shownFeaturesHeight))
+                {
+                    <li>
+                        <div class="specs-features-label text-truncate">@feature.DisplayText</div>
+                        <div>@FormatMinSpecs.ShowAvailable(feature.ItemValues.FirstOrDefault(), feature.UnitTypeText, feature.DataType, feature.Id) </div>
+                    </li>
+                }
+            </ul>
+            <span id="specsFeatureExpand" class="specs-features-list__link" tabindex="1" role="option" on="tap:modelMoreFeaturesList.show, specsFeatureExpand.hide, specsFeatureCollapse.show">
+                View all features
+            </span>
+            <span id="specsFeatureCollapse" class="specs-features-list__link" hidden tabindex="1" role="option" on="tap:modelMainFeaturesList.show, modelMoreFeaturesList.hide, specsFeatureExpand.show, specsFeatureCollapse.hide, modelFeaturesContent.scrollTo(duration=200)">
+                Collapse
+            </span>
+        </div>
+    }
+    </div>
+   }
+    @if (Model.AdTags.Ad320x100ATF && Model.IsDiscontinuedBike)
+    {
+        <div class="margin-bottom10 margin-top15">
+            @BWHelpers.RenderAmpAds(320, 100, string.Format("{0}_ATF_320x100", Model.AdTags.AdPath), @Html.Raw(setTargettingJson))
+        </div>
+    }
+        @if (Model.ModelPageEntity.ModelDesc != null && !string.IsNullOrEmpty(Model.ModelPageEntity.ModelDesc.FullDescription)
+                && Model.ModelPageEntity.ModelDetails != null && Model.IsUpcomingBike)
+    {
+        <div class="model-summary content-box content-inner-block-20">
+            <div id="aboutContent" class="content-details-wrapper  model-about-content">
+                <h2>About @Model.ModelPageEntity.ModelDetails.ModelName</h2>
+                <p class="font14">
+                    <span id="modelAboutContentMoreContent" class="model-preview-more-content">
+                        @Html.Raw(Model.ModelPageEntity.ModelDesc.FullDescription.ConvertToAmpContent())
+                    </span>
+                </p>
+            </div>
+        </div>
+    }
+
+   @if ((Model.IsNewBike || Model.IsDiscontinuedBike) && Model.ModelPageEntity.ModelVersions != null && Model.ModelPageEntity.ModelVersions.Count > 0 || Model.IsPriceInTopCitiesAvailable)
+   {
+    <div id="pricesContent" class="model-prices content-box content-details-wrapper section-padding">
+        <h2>@Model.BikeName Price</h2>
+        <table class="version-price-table" cellspacing="0" cellpadding="0">
+            <thead class="version-table__head font12 text-light-grey">
+                <tr class="table">
+                    <th>Variant</th>
+                    <th>Price</th>
+                    <th>Specs</th>
+                </tr>
+            </thead>
+            <tbody class="version-table__body">
+                @foreach (var version in Model.ModelPageEntity.ModelVersions)
+                {
+                    <tr>
+                        <td>@version.ModelName&nbsp;@version.VersionName</td>
+                        <td class="version-table__price">
+                            &#x20b9;
+                            <span class="font-semibold">&nbsp;@(version.Price > 0 ? Format.FormatPrice(version.Price.ToString()) : Format.FormatPrice(version.AverageExShowroom.ToString()))</span>
+                        </td>
+                        <td valign="top">@((version.MinSpecsList != null) ? FormatMinSpecs.GetCommaSepratedGeneralSpecs(version.MinSpecsList.Take(2)) : "")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        @if (!Model.ModelPageEntity.ModelVersions.Any(x => x.Price == 0))
+        {
+            <div class="version-price-table__note font12">Above mentioned prices are @String.Format("{0}{1}{2}", (Model.IsDiscontinuedBike ? "Last known " : ""), (Model.IsLocationSelected && !Model.ShowOnRoadButton ? "On-road price " : Model.LocationCookie.CityId > 0 && !Model.IsLocationSelected ? "On-road price " : "Ex-showroom "), (!String.IsNullOrEmpty(Model.LocationCookie.City) ? Model.LocationCookie.City : BWConfiguration.Instance.DefaultName))</div>
+        }
+        else
+        {
+            <div class="version-price-table__note font12">Above mentioned prices are Avg. Ex-showroom.</div>
+        }
+        @if (Model.IsPriceInTopCitiesAvailable)
+        {
+            var priceQuotesCities = Model.PriceInTopCities.PriceQuoteList;
+            Model.PriceInTopCities.PriceQuoteList = priceQuotesCities.Take(4);
+            <div class="price-top-cities">
+                @if (Model.LocationCookie != null && Model.LocationCookie.City != null)
+                {
+                    <h3 class="padding-top15 padding-right20 padding-left20 margin-bottom20">On-road prices in cities near @Model.LocationCookie.City</h3>
+                }
+                else
+                {
+                    <h3 class="padding-top15 padding-right20 padding-left20 margin-bottom20">Price by cities<span class="text-light-grey text-unbold"> (@(Model.IsLocationSelected && !Model.ShowOnRoadButton && Model.IsNewBike ? "On-road price" : "Ex-showroom price"))</span></h3>
+                }
+                <ul id="PriceInTopCity" class="price-in-city">
+                    @foreach (var priceQuote in Model.PriceInTopCities.PriceQuoteList)
+                    {
+                    <li>
+                        <span class="city-name inline-block">
+                            <a title="@string.Format("{0} price in {1}", @Model.BikeName, @priceQuote.CityName)" href="@string.Format("/m{0}", @Bikewale.Utility.UrlFormatter.PriceInCityUrl(@priceQuote.MakeMaskingName, @priceQuote.ModelMaskingName, @priceQuote.CityMaskingName))">@priceQuote.CityName</a>
+                        </span>
+                        <span class="city-price inline-block">
+                            @Html.Raw("<span>&#x20B9;</span>")&nbsp;@Format.FormatPrice(Convert.ToString(priceQuote.OnRoadPrice))
+                        </span>
+                    </li>
+                    }
+               </ul>
+            <ul id="moreCitiesList" class="price-in-city" hidden>
+                @{Model.PriceInTopCities.PriceQuoteList = priceQuotesCities.Skip(4);}
+                @foreach (var priceQuote in Model.PriceInTopCities.PriceQuoteList)
+                {
+                <li>
+                    <span class="city-name inline-block">
+                        <a title="@string.Format("{0} price in {1}", @Model.BikeName, @priceQuote.CityName)" href="@string.Format("/m{0}", @Bikewale.Utility.UrlFormatter.PriceInCityUrl(@priceQuote.MakeMaskingName, @priceQuote.ModelMaskingName, @priceQuote.CityMaskingName))">@priceQuote.CityName</a>
+                    </span>
+                    <span class="city-price inline-block">
+                        @Html.Raw("<span>&#x20B9;</span>")&nbsp;@Format.FormatPrice(Convert.ToString(priceQuote.OnRoadPrice))
+                    </span>
+                </li>
+                }
+            </ul>
+                @if (priceQuotesCities != null && priceQuotesCities.Count() > 4)
+                {
+                    <div id="PriceInCityExpand" class="price-in-city__link" tabindex="1" role="option" on="tap: moreCitiesList.show, PriceInCityExpand.hide">
+                        View more cities
+                    </div>
+                }
+            <div class="font-size14 text-light-grey">
+                @Html.Raw(Model.VersionPriceListSummary)
+            </div>
+        </div>
+        }
+    </div>
+   }
+    @if (Model.AdTags.Ad_300x250BTF)
+    {
+        <div class="margin-bottom10 margin-top15">
+            @BWHelpers.RenderAmpAds(320, 250, string.Format("{0}_BTF_300x250", Model.AdTags.AdPath), @Html.Raw(setTargettingJson))
+        </div>
+    }
+    @if (Model.IsUpcomingBike && Model.objUpcomingBikes != null && Model.objUpcomingBikes.UpcomingBikes != null && Model.objUpcomingBikes.UpcomingBikes.Any())
+    {      
+        <div id="" class="upcoming-model content-box content-details-wrapper section-padding">
+                <div class="carousel-heading-content">
+     
+                    <div class="swiper-heading-left-grid inline-block">
+                        <h2>Similar upcoming bikes</h2>
+                    </div>
+                    <div class="swiper-heading-right-grid inline-block">
+                        <a href="/m/upcoming-bikes/" title="Upcoming Bikes in India" class="btn view-all-target-btn font14">All upcoming bikes</a>
+                    </div>
+                </div>
+            @Html.Partial("~/Views/m/Shared/_UpcomingBikes_AMP.cshtml")
+        </div>
+    }
+    @if ((Model.IsUserReviewsAvailable && !Model.IsUpcomingBike) || (Model.ComparisionTestExpertReviews.FetchedCount > 0))
+    {
+        <div id="reviewsContent" class="reviews-content content-box content-details-wrapper section-padding">
+            @if (Model.IsUserReviewsAvailable && !Model.IsUpcomingBike && Model.UserReviews != null)
+            {
+            <div class="reviews-content__rating">
+                <h2>@Model.BikeName User Reviews</h2>
+                <div class="model-overall-rating">
+                    <div class="overall-rating-alignment rating-review-content">
+                        <div class="inline-block">
+                            <span class="rate-count-container rate-count-@Math.Round(Convert.ToDouble(Model.ModelPageEntity.ModelDetails.ReviewUIRating))">
+                                <span class="star-icon inline-block"></span>
+                                <span class="rate-star-count inline-block font14">@Model.ModelPageEntity.ModelDetails.ReviewUIRating</span>
+                            </span>
+                            @if (Model.UserReviews.UserReviews.Result != null)
+                            {
+                                <span class="model-overall-rating__link">(@Model.UserReviews.UserReviews.Result.FirstOrDefault().TotalRatings @string.Format("{0}", Model.UserReviews.UserReviews.Result.FirstOrDefault().TotalRatings > 1 ? "ratings" : "rating"))</span>
+                            }
+                        </div>
+                        <span class="model-overall-rating__link">@Model.UserReviews.UserReviews.TotalCount @string.Format("{0}", Model.UserReviews.UserReviews.TotalCount > 1 ? "reviews" : "review")</span>
+                    </div>
+                </div>
+
+                @if (Model.UserReviews.ObjQuestionValue != null && Model.UserReviews.ObjQuestionValue.QuestionsList != null && Model.UserReviews.ObjQuestionValue.QuestionsList.Count() > 0)
+                {
+                    <ul class="rating-circle-list">
+                        @foreach (var obj in Model.UserReviews.ObjQuestionValue.QuestionsList)
+                        {
+                            <li>
+                                <div class="rating-circle inline-block circle-rate-@Math.Floor(obj.AverageRatingValue)">
+                                    <p class="circle-label font-semibold text-slate-grey font12">@Math.Floor(obj.AverageRatingValue)</p>
+                                    <span class="rating-progress"></span>
+                                </div>
+                                <p class="list-item-label text-slate-grey inline-block">@obj.QuestionHeading</p>
+                            </li>
+                        }
+                    </ul>
+                }
+            </div>
+            <ul class="user-review-list">
+                @if (Model.UserReviews.UserReviews != null && Model.UserReviews.UserReviews.Result != null && Model.UserReviews.UserReviews.Result.Any())
+                {
+                    foreach (var review in Model.UserReviews.UserReviews.Result)
+                    {
+                     <li class="list-item">
+                        <div class="user-review__head">
+                            <div>
+                                <span class="rating-badge font-semibold inline-block" data-rate-bg="@review.OverallRating.Value">
+                                    <span class="star-white inline-block"></span>
+                                    <span>@review.OverallRating.Value</span>
+                                </span>
+                                <div class="user-review__title font-semibold inline-block text-truncate">
+                                    <a rel="nofollow" href="@string.Format("/m/{0}-bikes/{1}/reviews/{2}/", Model.UserReviews.ReviewsInfo.Make.MaskingName, Model.UserReviews.ReviewsInfo.Model.MaskingName, review.ReviewId)">@review.Title</a>
+                                </div>
+                            </div>
+                            <div>
+                                <span class="text-light-grey font12">@review.ReviewAge ago by @review.CustomerName.Truncate(25)</span>
+                            </div>
+                        </div>
+                    <div class="collapsible-content">
+                        <div id="userReviewMainContent-@review.ReviewId" class="main-content text-slate-grey">
+                            <div>
+                                <p>@review.SanitizedDescription</p>
+                                <span class="read-more-target read-more-user-review" rel="nofollow" tabindex="1" role="option" on="tap: @String.Format("userReviewMainContent-{0}.hide", review.ReviewId), @String.Format("userReviewMoreContent-{0}.show", @review.ReviewId)">Read more</span>
+                            </div>
+                        </div>
+                        <div id="userReviewMoreContent-@review.ReviewId" class="more-content" hidden>
+                            <div class="more-content__wrapper text-slate-grey">
+                                <div class="more-description">
+                                    @Html.Raw(review.Description)
+                                </div>
+                            </div>
+                            @if (review != null && review.Questions != null && review.Questions.Count() > 0)
+                            {
+                                <div class="about-reviewer-content">
+                                    <p class="about-reviewer__head font-semibold text-slate-grey">About the reviewer</p>
+                                    <ul class="about-reviewer-list item-count-@review.RatingQuestionsCount">
+                                        @if (review.Questions != null)
+                                        {
+                                            foreach (var question in review.Questions)
+                                            {
+                                            <li class="inline-block">
+                                                <span class="bwmsprite questionId-@question.Id"></span>
+                                                <p class="item-question">@question.MinHeading</p>
+                                                <p class="item-answer text-slate-grey">@question.SelectedRatingText</p>
+                                            </li>
+                                            }
+                                        }
+                                    </ul>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </li>
+                    }
+                }
+            </ul>
+            <div class="view-all-btn-container">
+                <a title="@String.Format("{0} User Reviews", Model.BikeName)" href="@string.Format("/m{0}", Bikewale.Utility.UrlFormatter.FormatUserReviewUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName))" class="btn view-all-target-btn font14" id="readAllUserReviews">
+                    Read all user reviews
+                    <span class="bwmsprite teal-right"></span>
+                </a>
+            </div>
+            }
+    </div>
+    }
+
+    @if(Model.ComparisionTestExpertReviews != null && Model.ComparisionTestExpertReviews.FetchedCount > 0)
+    {
+    <div id="comparisionReviewsContainer" class="comparision-review content-box content-details-wrapper content-inner-block-20">
+        @if (Model.ComparisionTestExpertReviews != null && Model.ComparisionTestExpertReviews.FetchedCount > 0)
+        {
+        <h2>@Model.ModelPageEntity.ModelDetails.ModelName Comparisons by Experts</h2>
+        if (Model.ComparisionTestExpertReviews.ArticlesList != null && Model.ComparisionTestExpertReviews.ArticlesList.Count() > 0)
+        {
+            <ul class="article-list">
+                @foreach (var review in Model.ComparisionTestExpertReviews.ArticlesList)
+                {
+                <li>
+                    <div class="review-image-wrapper inline-block">
+                        <a href="">
+                            <amp-img width="118" height="66" alt="@review.Title" title="@review.Title" src="@Image.GetPathToShowImages(review.OriginalImgUrl, review.HostUrl, ImageSize._144x81, QualityFactor._70)"></amp-img>
+                        </a>
+                    </div>
+                    <div class="review-heading-wrapper inline-block">
+                        <a class="font-semibold" href="@string.Format("/m{0}",UrlFormatter.GetArticleUrl(Convert.ToString(review.BasicId),review.ArticleUrl,Convert.ToString(Bikewale.Entities.CMS.EnumCMSContentType.RoadTest)))" title="@review.Title">@review.Title.Truncate(44)</a>
+                        <div>
+                            <div class="article-stats inline-block text-light-grey">
+                                <span class="bwmsprite calender-grey-sm-icon"></span>
+                                <span class="article-stats-content inline-block text-light-grey font12 text-truncate">@FormatDate.GetFormatDate(Convert.ToString(review.DisplayDate), "dd MMM yyyy")</span>
+                            </div>
+                            <div class="article-stats inline-block text-light-grey">
+                                <span class="bwmsprite author-grey-sm-icon"></span>
+                                <span class="article-stats-content inline-block text-light-grey font12 text-truncate">@review.AuthorName</span>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="comparision-review__desc">
+                        @FormatDescription.TruncateDescription(review.Description, 180)
+                    </p>
+                    <a title="@review.Title" href="@string.Format("/m{0}",UrlFormatter.GetArticleUrl(Convert.ToString(review.BasicId),review.ArticleUrl,Convert.ToString(Bikewale.Entities.CMS.EnumCMSContentType.RoadTest)))" rel="nofollow">Read more</a>
+                </li>
+                }
+            </ul>
+        }
+        <div class="view-all-btn-container">
+            <a title="@Model.ComparisionTestExpertReviews.LinkTitle" href="@String.Format("/m{0}", Model.ComparisionTestExpertReviews.MoreExpertReviewUrl)" class="btn view-all-target-btn font14">
+                Read all reviews
+                <span class="bwmsprite teal-right"></span>
+            </a>
+        </div>
+        }
+    </div>
+    }
+
+    @if (Model.IsNewsAvailable)
+    {
+    <div id="newsContent" data-id="newsContent" class="news-container content-box content-details-wrapper content-inner-block-20">
+        <h2>@Model.BikeName News</h2>
+        @if (Model.News != null && Model.News.ArticlesList != null && Model.News.ArticlesList.Count() > 0)
+        {
+            <ul class="article-list">
+                @foreach (var news in Model.News.ArticlesList)
+                {
+                 <li>
+                    <div class="review-image-wrapper inline-block">
+                        <a href="@string.Format("/m{0}", @UrlFormatter.GetArticleUrl(Convert.ToString(news.BasicId), news.ArticleUrl, Convert.ToString(Bikewale.Entities.CMS.EnumCMSContentType.News)))">
+                            <amp-img width="118" height="66" alt="" title="@news.Title" src="@Image.GetPathToShowImages(news.OriginalImgUrl, news.HostUrl, ImageSize._144x81, QualityFactor._70)"></amp-img>
+                        </a>
+                    </div>
+                    <div class="review-heading-wrapper inline-block">
+                        <a class="font-semibold" href="@string.Format("/m{0}",UrlFormatter.GetArticleUrl(Convert.ToString(news.BasicId), news.ArticleUrl, Convert.ToString(Bikewale.Entities.CMS.EnumCMSContentType.News)))" title="@news.Title">@FormatDescription.TruncateDescription(news.Title, 44)</a>
+                        <div>
+                            <div class="article-stats inline-block text-light-grey">
+                                <span class="bwmsprite calender-grey-sm-icon"></span>
+                                <span class="article-stats-content inline-block text-light-grey font12 text-truncate">@FormatDate.GetFormatDate(Convert.ToString(news.DisplayDate), "dd MMM yyyy")</span>
+                            </div>
+                            <div class="article-stats inline-block text-light-grey">
+                                <span class="bwmsprite author-grey-sm-icon"></span>
+                                <span class="article-stats-content inline-block text-light-grey font12 text-truncate">@news.AuthorName</span>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="comparision-review__desc">
+                        @FormatDescription.TruncateDescription(@news.Description, 180)
+                    </p>
+                    <a title="@news.Title" href="@string.Format("/m{0}",UrlFormatter.GetArticleUrl(Convert.ToString(news.BasicId), news.ArticleUrl, Convert.ToString(Bikewale.Entities.CMS.EnumCMSContentType.News)))" rel="nofollow">Read more</a>
+                </li>
+                }
+        </ul>
+        }
+        <div class="view-all-btn-container">
+            <a title="@(!string.IsNullOrEmpty(Model.News.ModelMasking) ? string.Format("{0} {1} News", Model.News.MakeName, Model.News.ModelName):!string.IsNullOrEmpty(Model.News.MakeMasking) ? string.Format("{0} News",Model.News.MakeName):"Bikes News")" href="@string.Format("/m{0}",Bikewale.Utility.UrlFormatter.FormatNewsUrl(Model.News.MakeMasking,Model.News.ModelMasking))" class="btn view-all-target-btn font14">
+                Read all news
+                <span class="bwmsprite teal-right"></span>
+            </a>
+        </div>
+    </div>
+    }
+
+    @if (Model.IsVideosAvailable)
+    {
+    <div id="videosContent" class="video-container content-box content-details-wrapper content-inner-block-20">
+        <h2>@Model.BikeName Videos</h2>
+        @if (Model.Videos != null && Model.Videos.VideosList != null && Model.Videos.VideosList.Count() > 0)
+        {
+            <ul class="article-list">
+                @foreach (var video in Model.Videos.VideosList)
+                {
+                    <li>
+                        <div class="review-image-wrapper inline-block">
+                            <a href="@string.Format("/m{0}",UrlFormatter.VideoDetailPageUrl(video.VideoTitleUrl,Convert.ToString(video.BasicId)))">
+                                <amp-img width="118" height="66" alt="@video.VideoTitle" title="@video.VideoTitle" src="@string.Format("https://img.youtube.com/vi/{0}/mqdefault.jpg",video.VideoId)"></amp-img>
+                            </a>
+                            <span class="play-icon-wrapper"><span class="bwmsprite video-play-icon"></span></span>
+                        </div>
+                        <div class="review-heading-wrapper inline-block">
+                            <a class="font-semibold" href="@string.Format("/m{0}",UrlFormatter.VideoDetailPageUrl(video.VideoTitleUrl,Convert.ToString(video.BasicId)))" title="@video.VideoTitle">@FormatDescription.TruncateDescription(video.VideoTitle, 44)</a>
+                            <div>
+                                <div class="article-stats inline-block text-light-grey">
+                                    <span class="bwmsprite calender-grey-sm-icon"></span>
+                                    <span class="article-stats-content inline-block text-light-grey font12 text-truncate">@FormatDate.GetFormatDate(Convert.ToString(video.DisplayDate), "dd MMM yyyy")</span>
+                                </div>
+                                <div class="article-stats inline-block text-light-grey">
+                                    <span class="bwmsprite views-grey-sm-icon"></span>
+                                    <span class="article-stats-content inline-block text-light-grey font12 text-truncate">@Format.FormatPrice(Convert.ToString(video.Views))</span>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="comparision-review__desc">
+                            @FormatDescription.TruncateDescription(video.Description, 180)
+                        </p>
+                    </li>
+                }
+        </ul>
+        }
+        <div class="view-all-btn-container">
+            <a title="@Model.Videos.LinkTitle" href="@string.Format("/m{0}",Model.Videos.MoreVideoUrl)" class="btn view-all-target-btn font14" id="viewAllVideos">
+                View all videos
+                <span class="bwmsprite teal-right"></span>
+            </a>
+        </div>
+    </div>
+    }
+
+    @if (Model.IsOtherDealersAvailable || Model.IsDealersServiceCenterAvailable)
+    {
+    <div id="dealerAndServiceContent" class="dealer-content content-box content-details-wrapper section-padding">
+        @if (Model.CityId > 0 && Model.IsOtherDealersAvailable)
+        {
+        <div class="carousel-heading-content">
+            <div class="swiper-heading-left-grid inline-block">
+                <h2>@Model.ModelPageEntity.ModelDetails.MakeBase.MakeName showrooms in @(Model.OtherDealers != null ? Model.OtherDealers.CityName : "India")</h2>
+            </div>
+            <div class="swiper-heading-right-grid inline-block">
+                <a href="@string.Format("/m/dealer-showrooms/{0}/{1}/", Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.OtherDealers.CityMaskingName)" title="@Model.ModelPageEntity.ModelDetails.MakeBase.MakeName showrooms in @Model.OtherDealers.CityName" class="btn view-all-target-btn font14">View all</a>
+            </div>
+        </div>
+
+        if (Model.OtherDealers != null && Model.OtherDealers.Dealers != null)
+        {
+        <amp-carousel class="dealer-horizontal-swiper" height="180" layout="fixed-height" type="carousel">
+            @foreach (var dealer in Model.OtherDealers.Dealers)
+            {
+            <div class="swiper-card" title="@dealer.Name">
+                <div class="dealer-location">
+                    <div class="dealer-name font-semibold text-truncate">@Html.Raw(String.Format("<div class=\"target-link margin-bottom10 text-truncate font15\">{0}</div>", dealer.Name))</div>
+                    <p class="dealer-location__desc text-light-grey">
+                        <span class="@string.Format("margin-bottom10 text-light-grey {0}",String.IsNullOrEmpty(dealer.Address)? "hide":"")"></span>
+                        @if (string.IsNullOrEmpty(dealer.objArea.PinCode))
+                        {
+                            <span class="dealership-address inline-block text-light-grey">@string.Format("{0}, {1}", dealer.Address, dealer.City)</span>
+                        }
+                        else
+                        {
+                        <span class="dealership-address inline-block text-light-grey">@string.Format("{0}, {1} - {2}", dealer.Address, dealer.City, dealer.objArea.PinCode)</span>
+                        }
+                    </p>
+                </div>
+                <a href="tel:@dealer.MaskingNumber" class="@string.Format("text-default text-bold text-truncate font14 {0}", String.IsNullOrEmpty(dealer.MaskingNumber) ? "hide" : "block")"><span class="bwmsprite tel-sm-grey-icon"></span>@dealer.MaskingNumber</a>
+            </div>
+            }
+        </amp-carousel>
+            }
+        }
+        else
+        {
+            <h2 class="padding-top15 padding-right20 padding-left20">@Model.ModelPageEntity.ModelDetails.MakeBase.MakeName showrooms</h2>
+            if (Model.IsDealersServiceCenterAvailable)
+            {
+
+            <amp-carousel class="dealer-horizontal-swiper no-city-selection-carousel" height="185" layout="fixed-height" type="carousel">
+                @foreach (var details in Model.DealersServiceCenter.DealerServiceCenters.DealerDetails)
+                {
+                    if (details.DealerCount > 0)
+                    {
+                    <div class="swiper-card">
+                        <a href="@string.Format("{0}/m/dealer-showrooms/{1}/{2}/", BWConfiguration.Instance.BwHostUrl, Model.DealersServiceCenter.MakeMaskingName, details.CityMaskingName)" title="@Model.DealersServiceCenter.MakeName showroom in New @details.CityName" class="block">
+                            <span class="dealer-city-image-preview margin-bottom10">
+                                <span class="city-sprite @details.CityMaskingName-icon"></span>
+                            </span>
+                            <p class="dealer-text text-default">@Model.DealersServiceCenter.MakeName @(details.DealerCount > 1 ? "showrooms" : "showroom") in @details.CityName</p>
+                            <span class="text-teal">@details.DealerCount @(details.DealerCount > 1 ? "showrooms" : "showroom")</span>
+                        </a>
+                    </div>
+                    }
+                }
+                @if (Model.DealersServiceCenter.DealerServiceCenters.TotalDealerCount > 0 || Model.DealersServiceCenter.DealerServiceCenters.TotalServiceCenterCount > 0)
+                {
+                    <div class="swiper-card">
+                        <a href="@string.Format("{0}/m/dealer-showrooms/{1}/", BWConfiguration.Instance.BwHostUrl, Model.DealersServiceCenter.MakeMaskingName)" title="@Model.DealersServiceCenter.MakeName showroom in India" class="block">
+                            <span class="dealer-city-image-preview margin-bottom10">
+                                <span class="city-sprite india-icon"></span>
+                            </span>
+                            <p class="dealer-text text-default">@Model.DealersServiceCenter.MakeName @(Model.DealersServiceCenter.DealerServiceCenters.TotalDealerCount > 1 ? "showrooms" : "showroom") in India</p>
+                            <span>@Model.DealersServiceCenter.DealerServiceCenters.TotalDealerCount @(Model.DealersServiceCenter.DealerServiceCenters.TotalDealerCount > 1 ? "showrooms" : "showroom")</span>
+                        </a>
+
+                    </div>
+                }
+            </amp-carousel>
+            }
+        }
+    </div>
+    }
+
+    <!-- UpcomingBikes section start  -->
+    @if ((Model.IsNewBike || Model.IsDiscontinuedBike) && Model.objUpcomingBikes != null && Model.objUpcomingBikes.UpcomingBikes != null && Model.objUpcomingBikes.UpcomingBikes.Any())
+    {
+    <div id="" class="upcoming-model content-box content-details-wrapper section-padding">
+        @if (Model.ModelPageEntity != null && Model.ModelPageEntity.ModelDetails != null && Model.ModelPageEntity.ModelDetails.MakeBase != null)
+        {
+            <div class="carousel-heading-content">
+                <div class="swiper-heading-left-grid inline-block">
+                    <h2>@string.Format("Upcoming {0} bikes", Model.ModelPageEntity.ModelDetails.MakeBase.MakeName)</h2>
+                </div>
+                <div class="swiper-heading-right-grid inline-block">
+                    <a href="@string.Format("/m/{0}-bikes/upcoming/", Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName)" title="@string.Format("Upcoming {0} bikes in India", Model.ModelPageEntity.ModelDetails.MakeBase.MakeName)" class="btn view-all-target-btn font14">View all</a>
+                </div>
+            </div>
+        }
+        @Html.Partial("~/Views/m/Shared/_UpcomingBikes_AMP.cshtml")
+    </div>
+    }
+    <!-- UpcomingBikes section end  -->
+
+@if (!Model.IsUpcomingBike && Model.IsUsedBikesAvailable)
+{
+    <div id="makeUsedBikeContent" class="used-model-city content-box content-details-wrapper section-padding">
+        <h2>Used @Model.BikeName bikes in @(Model.City != null ? Model.City.CityName : "India")</h2>
+        @if (Model.UsedModels != null && Model.UsedModels.City != null && Model.UsedModels.RecentUsedBikesList != null)
+        {
+            <ul class="used-model-list">
+                @if (Model.UsedModels.City.CityId == 0)
+                {
+                    foreach (var bike in Model.UsedModels.RecentUsedBikesList)
+                    {
+                        <li>
+                            @if (Model.UsedModels.Make != null && Model.UsedModels.Model != null)
+                            {
+                                <a href="@string.Format("/m{0}", UrlFormatter.UsedBikesUrlNoCity(@bike.MakeMaskingName, @bike.ModelMaskingName, @bike.CityMaskingName))" title="@Model.UsedModels.Make.MakeName@(Model.UsedModels.Model.ModelId > 0 ? String.Format(" {0} ", Model.UsedModels.Model.ModelName) : "")Used Bikes in @bike.CityName" rel="nofollow">Used @Model.UsedModels.Make.MakeName @(Model.UsedModels.Model.ModelId > 0 ? String.Format(" {0} ", Model.UsedModels.Model.ModelName) : "") bikes in @bike.CityName</a>
+                            }
+                            <p class="used-model-list__price">
+                                @String.Format("{0} {1} available", Format.FormatPrice(Convert.ToString(@bike.AvailableBikes)), bike.AvailableBikes == 1 ? " bike" : " bikes")
+                            </p>
+
+                        </li>
+                    }
+                }
+            </ul>
+        }
+        <div class="view-all-btn-container">
+            <a title="@Model.BikeName Used Bikes in @(Model.City!=null ? Model.City.CityName :"India")" href="@String.Format("/m{0}", Bikewale.Utility.UrlFormatter.ViewMoreUsedBikes(Model.CityId, (Model.City != null ? Model.City.CityMaskingName : "india"), Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName))" class="btn view-all-target-btn font14">
+                View all used bikes
+                <span class="bwmsprite teal-right"></span>
+            </a>
+        </div>
+    </div>
+}
+    <!-- More Bikes from Make Start  -->
+    @if (Model.OtherBestBikes != null && Model.OtherBestBikes.BestBikes != null && Model.OtherBestBikes.BestBikes.Any())
+    {
+        if (!Model.OtherBestBikes.IsMakePresentInConfig)
+        {
+            <div class="best-bikes content-box content-details-wrapper content-inner-block-20">
+                <h2>@Model.OtherBestBikes.OtherBestBikesHeading</h2>
+                <ul class="best-bike-list">
+                    @{int i = 0;}
+                    @foreach (var Bike in Model.OtherBestBikes.BestBikes)
+                    {
+                        i = i + 1;
+                        <li class="best-bike-list__item">
+                            <a data-vars-label="@string.Format("{0} {1}",@Bike.Make.MakeName, @Bike.Model.ModelName)" href="@string.Format("/m{0}",Bikewale.Utility.UrlFormatter.BikePageUrl(Bike.Make.MaskingName,Bike.Model.MaskingName))" class="moreBikesFromMakeClick list-item-target" title="@Bike.Make.MakeName @Bike.Model.ModelName">
+                                <div class="item-image-block inline-block">
+                                    <span class="item-rank-label font-semibold">#@i</span>
+                                    <amp-img width="102" height="57" alt="@Bike.Make.MakeName @Bike.Model.ModelName" title="@Bike.Make.MakeName @Bike.Model.ModelName" src="@Bikewale.Utility.Image.GetPathToShowImages(Bike.OriginalImagePath, Bike.HostUrl, Bikewale.Utility.ImageSize._110x61,Bikewale.Utility.QualityFactor._70)"></amp-img>
+                                </div>
+                                <div class="item-details-block inline-block">
+                                    <p class="item-details__title text-default font-semibold text-truncate">@Bike.Make.MakeName @Bike.Model.ModelName</p>
+                                    <div class="key-specs-list font12">
+                                        @Html.Raw(Bikewale.Utility.FormatMinSpecs.GetMinSpecsSpanElements(Bike.MinSpecsList))
+                                    </div>
+                                    <p class="item-details__exshowroom text-slate-grey font11 text-truncate">@(Bike.Price > 0 ? string.Format("Ex-showroom, {0}", Bike.PriceInCity) : "Avg. Ex-showroom price")</p>
+                                    <span class="text-default font-semibold font16">
+                                        &#x20b9;
+                                        <span>&nbsp;@Bikewale.Utility.Format.FormatPrice(Convert.ToString(Bike.Price > 0 ? Bike.Price : Bike.AvgPrice))</span>
+                                    </span>
+                                </div>
+                            </a>
+                            @if (Bike.Price == 0)
+                            {
+                                <span class="info-icon tooltip-icon-target tooltip-top tooltip--right">
+                                    <span class="bw-tooltip info-tooltip">
+                                        <span class="bw-tooltip-text">@string.Format("Price is not available in {0}", Bike.PriceInCity)</span>
+                                    </span>
+                                </span>
+                            }
+                        </li>
+                    }
+
+                </ul>
+                <div class="view-all-btn-container">
+                    <a href="@string.Format("/m{0}", Bikewale.Utility.UrlFormatter.FormatGenericPageUrl(Model.BikeRanking.BodyStyle))" title="Best @Model.BikeRanking.StyleName in India" class="btn view-all-target-btn font14">View complete list<span class="bwmsprite teal-right"></span></a>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div id="" class="more-make-model content-box content-details-wrapper section-padding">
+                <h2>@Model.OtherBestBikes.OtherBestBikesHeading</h2>
+                <amp-carousel height="205" layout="fixed-height" type="carousel" class="more-make-model-carousel">
+                    @foreach (var Bike in Model.OtherBestBikes.BestBikes)
+                    {
+                        <div class="swiper-card">
+                            <a  class ="moreBikesFromMakeClick" data-vars-label="@string.Format("{0} {1}",@Bike.Make.MakeName, @Bike.Model.ModelName)" href="@string.Format("/m{0}",Bikewale.Utility.UrlFormatter.BikePageUrl(Bike.Make.MaskingName,Bike.Model.MaskingName))" title="@Bike.Make.MakeName @Bike.Model.ModelName">
+                                <div class="swiper-image-preview">
+                                    <amp-img width="160" height="90" alt="@Bike.Make.MakeName @Bike.Model.ModelName" title="@Bike.Make.MakeName @Bike.Model.ModelName" src="@Bikewale.Utility.Image.GetPathToShowImages(Bike.OriginalImagePath, Bike.HostUrl, Bikewale.Utility.ImageSize._210x118,Bikewale.Utility.QualityFactor._70)"></amp-img>
+                                </div>
+                                <div class="swiper-details-block">
+                                    <h3 class="swiper-details__title text-truncate font12">@Bike.Make.MakeName @Bike.Model.ModelName</h3>
+                                    @if (Bike.OnRoadPriceInCity == 0 && Bike.Price > Bike.OnRoadPriceInCity)
+                                    {
+                                        <p class="swiper-details__exshowroom text-light-grey font11 text-truncate">@(Bike.UsedCity.CityId == 0 ? "Ex-showroom, Mumbai" : "Avg. Ex-showroom price")</p>
+                                        <span class="font-semibold font16">
+                                            &#x20b9;
+                                            <span>&nbsp;@Bikewale.Utility.Format.FormatPrice(Convert.ToString(Bike.UsedCity.CityId == 0 ? Bike.Price : Bike.AvgPrice))</span>
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <p class="swiper-details__exshowroom text-light-grey font11 text-truncate">On Road, @Bike.UsedCity.CityName</p>
+                                        <span class="font-semibold font16">
+                                            &#x20b9;
+                                            <span>&nbsp;@Bikewale.Utility.Format.FormatPrice(Convert.ToString(Bike.OnRoadPriceInCity))</span>
+                                        </span>
+                                    }
+                                </div>
+                            </a>
+                            @if (Bike.OnRoadPriceInCity == 0 && Bike.UsedCity.CityId != 0)
+                            {
+                                <span class="info-icon inline-block tooltip-icon-target tooltip-top tooltip--right">
+                                    <span class="bw-tooltip info-tooltip text-slate-grey font12">
+                                        <span class="bw-tooltip-text">@string.Format("Price is not available in {0}", Bike.UsedCity.CityName)</span>
+                                    </span>
+                                </span>
+                            }
+                        </div>
+                    }
+                </amp-carousel>
+                <div class="view-all-btn-container">
+                    <a href="@string.Format("/m/{0}-bikes/", Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName)" title="@Model.ModelPageEntity.ModelDetails.MakeBase.MakeName Bikes" class="btn view-all-target-btn font14">View complete list<span class="bwmsprite teal-right"></span></a>
+                </div>
+            </div>
+        }
+
+    }
+    <!-- More Bikes from Make End  -->
+</section>
+<button id="scrollToTopButton" on="tap:top-page.scrollTo(duration=200)" class="scrollToTop"></button>

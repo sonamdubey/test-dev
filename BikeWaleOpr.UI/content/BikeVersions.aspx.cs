@@ -1,6 +1,8 @@
 ﻿using Bikewale.Utility;
+using BikewaleOpr.BAL.Amp;
 using BikewaleOpr.Cache;
 using BikewaleOpr.DALs.Bikedata;
+using BikewaleOpr.Interface.Amp;
 using BikewaleOpr.Interface.BikeData;
 using BikeWaleOpr.Common;
 using Microsoft.Practices.Unity;
@@ -39,6 +41,7 @@ namespace BikeWaleOpr.Content
         } // SortDirection
 
         private IBikeModels _bikeModels;
+        private IAmpCache _ampCache;
 
         protected override void OnInit(EventArgs e)
         {
@@ -59,9 +62,13 @@ namespace BikeWaleOpr.Content
 
             using (IUnityContainer container = new UnityContainer())
             {
-                container.RegisterType<IBikeModelsRepository, BikeModelsRepository>();
-                container.RegisterType<IBikeModels, BikewaleOpr.BAL.BikeModels>();
+                container.RegisterType<IBikeModelsRepository, BikeModelsRepository>()
+                    .RegisterType<IBikeMakesRepository, BikeMakesRepository>()
+                    .RegisterType<IBikeModelsRepository, BikeModelsRepository>()
+                    .RegisterType<IBikeModels, BikewaleOpr.BAL.BikeModels>()
+                    .RegisterType<IAmpCache, AmpCache>();
                 _bikeModels = container.Resolve<IBikeModels>();
+                _ampCache = container.Resolve<IAmpCache>();
             }
         }
 
@@ -137,6 +144,8 @@ namespace BikeWaleOpr.Content
         /// Description : Replaced sp from 'con_savebikeversion14092017' to 'con_savebikeversion_23102017'.
         /// Modified By : Deepak Israni on 8 March 2018
         /// Description : Added method call to push to BWEsDocumentBuilder consumer.
+        /// Modified by : Pratibha Verma on 17 July 2018
+        /// Description : Added AMP Cache clear for model page
         /// <param name="id"></param>
         /// <returns></returns>
         string SaveData(string id)
@@ -191,6 +200,9 @@ namespace BikeWaleOpr.Content
                 BwMemCache.ClearVersionByType(modelId);
 
                 BwMemCache.ClearPopularBikesByBodyStyle(Convert.ToUInt16(cmbBodyStyles.SelectedValue));
+
+                //AMP Cache clear for model page
+                _ampCache.UpdateModelAmpCache(modelId);
             }
             catch (SqlException err)
             {
@@ -261,6 +273,8 @@ namespace BikeWaleOpr.Content
         /// Description : Refresh cache when any of the version is updated
         /// Modified By : Deepak Israni on 8 March 2018
         /// Description : Added method call to push to BWEsDocumentBuilder consumer.
+        /// Modified by : Pratibha Verma on 17 July 2018
+        /// Description : Added AMP cache clear for model page
         /// <param name="sender"></param>
         /// <param name="e"></param>
         void dtgrdMembers_Update(object sender, DataGridCommandEventArgs e)
@@ -353,6 +367,9 @@ namespace BikeWaleOpr.Content
                 _bikeModels.UpdateModelESIndex(Convert.ToString(modelId), "update");
                 //Refresh memcache object for Default PQ Version
                 BwMemCache.ClearDefaultPQVersion(modelId);
+
+                //AMP Cache clear for Model Page
+                _ampCache.UpdateModelAmpCache(modelId);
             }
             catch (SqlException ex)
             {
@@ -422,6 +439,8 @@ namespace BikeWaleOpr.Content
                 _bikeModels.UpdateModelESIndex(Convert.ToString(modelId), "update");
                 //Refresh memcache object for Default PQ Version
                 BwMemCache.ClearDefaultPQVersion(modelId);
+                //Amp Cache clear for Model Page
+                _ampCache.UpdateModelAmpCache(modelId);
 
             }
             catch (SqlException ex)

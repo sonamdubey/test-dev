@@ -75,7 +75,7 @@ namespace Bikewale.Used.Sell
                 if (CurrentUser.Id != null)
                 {
                     userId = CurrentUser.Id;
-                    userEmail = CurrentUser.Email;
+					userEmail = CurrentUser.Email.Contains("unknown.com") ? string.Empty : CurrentUser.Email;
                     userName = CurrentUser.Name;
                 }
             }

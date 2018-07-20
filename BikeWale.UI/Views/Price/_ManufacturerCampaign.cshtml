@@ -5,7 +5,8 @@
     <!-- Manufacturer Campaign Ad section starts -->
     try
     {
-        @Html.Raw(MvcHelper.Render(String.Format("LeadCampaign_{0}", Model.CampaignId), Model, Model.LeadsHtmlDesktop))
+        string hash = Bikewale.PWA.Utils.PwaCmsHelper.GetSha256Hash(Model.LeadsHtmlDesktop);
+        @Html.Raw(MvcHelper.Render(hash, Model, Model.LeadsHtmlDesktop))
     }
     catch (Exception ex)
     {

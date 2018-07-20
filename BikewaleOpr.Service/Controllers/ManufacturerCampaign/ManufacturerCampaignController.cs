@@ -4,6 +4,8 @@ using Bikewale.ManufacturerCampaign.Entities.SearchCampaign;
 using Bikewale.Notifications;
 using BikewaleOpr.BAL.ContractCampaign;
 using BikewaleOpr.Entities.ContractCampaign;
+using BikewaleOpr.Interface.Amp;
+using BikewaleOpr.Interface.BikeData;
 using BikewaleOpr.Interface.ContractCampaign;
 using BikewaleOpr.Interface.ManufacturerCampaign;
 using BikewaleOpr.Service.AutoMappers.BikeData;
@@ -24,17 +26,25 @@ namespace BikewaleOpr.Service.Controllers.ManufacturerCamapaigns
     /// </summary>    
     public class ManufacturerCampaignController : ApiController
     {
-        private readonly Interface.ManufacturerCampaign.IManufacturerCampaignRepository _objManufacturerCampaign = null;
-        private readonly IManufacturerReleaseMaskingNumber _objManufacturerReleaseMaskingNumber = null;
-        private readonly Bikewale.ManufacturerCampaign.Interface.IManufacturerCampaignRepository _objMfgCampaign = null;
-        private readonly Bikewale.ManufacturerCampaign.Interface.IManufacturerCampaign _manufacturerCampaign;
+        private readonly Interface.ManufacturerCampaign.IManufacturerCampaignRepository _objManufacturerCampaign;
+        private readonly IManufacturerReleaseMaskingNumber _objManufacturerReleaseMaskingNumber;
+        private readonly Bikewale.ManufacturerCampaign.Interface.IManufacturerCampaignRepository _objMfgCampaign;
+        private readonly Bikewale.ManufacturerCampaign.Interface.IManufacturerCampaign _manufacturerCampaign;  
+        private readonly Bikewale.ManufacturerCampaign.Interface.IManufacturerCampaignRepository _repo;
+        private readonly IBikeModelsRepository _bikeModelsRepository;
+        private readonly IBikeMakesRepository _bikeMakesRepository;
+        private readonly IAmpCache _ampCache;
 
-        public ManufacturerCampaignController(Interface.ManufacturerCampaign.IManufacturerCampaignRepository objManufacturerCampaign, IManufacturerReleaseMaskingNumber objManufacturerReleaseMaskingNumber, Bikewale.ManufacturerCampaign.Interface.IManufacturerCampaignRepository objMfgCampaign, Bikewale.ManufacturerCampaign.Interface.IManufacturerCampaign manufacturerCampaign)
+        public ManufacturerCampaignController(Interface.ManufacturerCampaign.IManufacturerCampaignRepository objManufacturerCampaign, IManufacturerReleaseMaskingNumber objManufacturerReleaseMaskingNumber, Bikewale.ManufacturerCampaign.Interface.IManufacturerCampaignRepository objMfgCampaign, Bikewale.ManufacturerCampaign.Interface.IManufacturerCampaign manufacturerCampaign, Bikewale.ManufacturerCampaign.Interface.IManufacturerCampaignRepository repo, IBikeModelsRepository bikeModelsRepository, IBikeMakesRepository bikeMakesRepository, IAmpCache ampCache)
         {
             _objManufacturerCampaign = objManufacturerCampaign;
             _objManufacturerReleaseMaskingNumber = objManufacturerReleaseMaskingNumber;
             _objMfgCampaign = objMfgCampaign;
             _manufacturerCampaign = manufacturerCampaign;
+            _repo = repo;
+            _bikeModelsRepository = bikeModelsRepository;
+            _bikeMakesRepository = bikeMakesRepository;
+            _ampCache = ampCache;
         }
 
         /// <summary>
@@ -128,6 +138,7 @@ namespace BikewaleOpr.Service.Controllers.ManufacturerCamapaigns
             {
                 isSuccess = _objManufacturerCampaign.UpdateCampaignStatus(campaignId, status);
                 _manufacturerCampaign.ClearCampaignCache(campaignId);
+                ClearAmpCache(campaignId);
             }
             catch (Exception ex)
             {
@@ -344,6 +355,21 @@ namespace BikewaleOpr.Service.Controllers.ManufacturerCamapaigns
                 urls.Add(new KeyValuePair<string, string>(req.bikeName, url));
             }
             return urls;
+        }
+
+        /// <summary>
+        /// Created by  : Pratibha Verma on 17 July 2018
+        /// Description : Amp cache clear for model page
+        /// </summary>
+        /// <param name="campaignId"></param>
+        private void ClearAmpCache(uint campaignId)
+        {
+            var rules = _repo.GetManufacturerCampaignRules(campaignId);
+            if (rules != null && rules.ManufacturerCampaignRules != null && rules.ManufacturerCampaignRules.Any())
+            {
+                IEnumerable<uint> modelIds = rules.ManufacturerCampaignRules.Select(m => m.ModelId);
+                _ampCache.UpdateModelAmpCache(modelIds);
+            }
         }
 
         public class LeadPopupRequest

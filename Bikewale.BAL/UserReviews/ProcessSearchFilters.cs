@@ -110,11 +110,14 @@ namespace Bikewale.BAL.UserReviews.Search
                         if (filter.ReviewFilter.SantizeHtml)
                         {
                             review.SanitizedDescription = (review.SanitizedDescription != null) && (review.SanitizedDescription.Length > filter.ReviewFilter.SanitizedReviewLength) ? review.SanitizedDescription.Substring(0, (int)filter.ReviewFilter.SanitizedReviewLength) : review.SanitizedDescription;
-                            review.Description = null;
                         }
                         else
                         {
                             review.SanitizedDescription = null;
+                        }
+                        if (!filter.ReviewFilter.IsDescriptionRequired)
+                        {
+                            review.Description = null;
                         }
 
                     }

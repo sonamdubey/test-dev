@@ -5,6 +5,7 @@ using Bikewale.Comparison.DAL;
 using Bikewale.Comparison.Interface;
 using Bikewale.Interfaces.Cache.Core;
 using BikewaleOpr.BAL;
+using BikewaleOpr.BAL.Amp;
 using BikewaleOpr.BAL.BikePricing;
 using BikewaleOpr.BAL.ContractCampaign;
 using BikewaleOpr.BAL.Images;
@@ -31,6 +32,7 @@ using BikewaleOpr.DALs.ServiceCenter;
 using BikewaleOpr.DALs.UserReviews;
 using BikewaleOpr.Interface;
 using BikewaleOpr.Interface.AdSlot;
+using BikewaleOpr.Interface.Amp;
 using BikewaleOpr.Interface.Banner;
 using BikewaleOpr.Interface.BikeColorImages;
 using BikewaleOpr.Interface.BikeData;
@@ -139,6 +141,7 @@ namespace BikewaleOpr.Service.UnityConfiguration
             container.RegisterType<IAnswersRepository, AnswersRepository>();
             container.RegisterType<IAnswers, Answers>();
             container.RegisterType<IUsersRepository, UsersRepository>();
+            container.RegisterType<IAmpCache, AmpCache>();
             return container;
         }
     }

@@ -78,6 +78,10 @@
       <Project>{23d53f9a-3b4e-4c7e-8843-5279d74542af}</Project>
       <Name>BikewaleOpr.Cache</Name>
     </ProjectReference>
+    <ProjectReference Include="..\BikewaleOpr.Interface\BikewaleOpr.Interface.csproj">
+      <Project>{539FA12C-3799-4E88-A833-F65594EA1934}</Project>
+      <Name>BikewaleOpr.Interface</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

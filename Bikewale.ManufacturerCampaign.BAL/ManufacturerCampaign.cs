@@ -12,8 +12,8 @@ namespace Bikewale.ManufacturerCampaign.BAL
 {
     public class ManufacturerCampaign : IManufacturerCampaign
     {
-        private readonly Interface.IManufacturerCampaignCache _cacheRepo = null;
-        private readonly Interface.IManufacturerCampaignRepository _repo = null;
+        private readonly IManufacturerCampaignCache _cacheRepo;
+        private readonly IManufacturerCampaignRepository _repo;
 
         private readonly Array _pages = Enum.GetValues(typeof(Entities.ManufacturerCampaignServingPages));
         public ManufacturerCampaign(Interface.IManufacturerCampaignCache cacheRepo, Interface.IManufacturerCampaignRepository repo)
@@ -59,7 +59,11 @@ namespace Bikewale.ManufacturerCampaign.BAL
 
        
 
-
+        /// <summary>
+        /// Clear campaign cache
+        /// </summary>
+        /// <param name="campaignId"></param>
+        /// <returns></returns>
         public bool ClearCampaignCache(uint campaignId)
         {
             try
@@ -69,7 +73,7 @@ namespace Bikewale.ManufacturerCampaign.BAL
                 if (rules != null && rules.ManufacturerCampaignRules != null && rules.ManufacturerCampaignRules.Any())
                 {
                     IEnumerable<string> keys = rules.ManufacturerCampaignRules.Select(m => String.Format(keyFormat, m.ModelId, m.CityId));
-
+                    
                     List<string> allKeys = new List<string>();
                     foreach (var page in _pages)
                     {
@@ -79,6 +83,8 @@ namespace Bikewale.ManufacturerCampaign.BAL
                         }
                     }
                     BwMemCache.ClearManufacturerCampaign(allKeys);
+                    
+                    IEnumerable<uint> modelIds = rules.ManufacturerCampaignRules.Select(m => m.ModelId);
                 }
             }
             catch (Exception ex)

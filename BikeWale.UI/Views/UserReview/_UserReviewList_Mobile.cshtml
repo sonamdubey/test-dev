@@ -29,9 +29,9 @@
                 <li class="list-item padding-top15">
                     <div class="padding-right20 padding-left20">
                         <div class="margin-bottom10">
-                            <span class="rating-badge" data-rate-bg="@review.OverallRating.Value">
+                            <span class="rating-badge" data-rate-bg="@(review.OverallRating != null ? review.OverallRating.Value : 0)">
                                 <span class="bwmsprite star-white"></span>
-                                <span>@review.OverallRating.Value</span>
+                                <span>@(review.OverallRating != null ? review.OverallRating.Value : 0)</span>
                             </span>
                             <div class="grid-10-inline font15 text-bold text-truncate">
                                 <a rel="nofollow" class="text-black bw-anchor-link" onclick="logBhrighu(@i,'TitleClick')" href="javascript:void(0)" data-href="@string.Format("/m/{0}-bikes/{1}/reviews/{2}/", Model.ReviewsInfo.Make.MaskingName, Model.ReviewsInfo.Model.MaskingName, review.ReviewId)" data-id="@i" class="text-black">@review.Title</a>

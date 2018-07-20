@@ -111,7 +111,7 @@ namespace BikewaleOpr.DALs.BikePricing
             }
             catch (Exception ex)
             {
-                ErrorClass.LogError(ex, "BikewaleOpr.DALs.BikePricing.BikeShowroomPrices.GetBikePrices");
+                ErrorClass.LogError(ex, "BikewaleOpr.DALs.BikePricing.BikeShowroomPrices.SaveBikePrices");
                 
             }
 

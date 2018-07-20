@@ -6,6 +6,7 @@ using Bikewale.Comparison.Interface;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.ManufacturerCampaign.DAL;
 using BikewaleOpr.BAL;
+using BikewaleOpr.BAL.Amp;
 using BikewaleOpr.BAL.BikePricing;
 using BikewaleOpr.BAL.ContractCampaign;
 using BikewaleOpr.BAL.QuestionsAnswers;
@@ -25,11 +26,13 @@ using BikewaleOpr.DALs.BikePricing;
 using BikewaleOpr.DALs.ConfigurePageMetas;
 using BikewaleOpr.DALs.ContractCampaign;
 using BikewaleOpr.DALs.Location;
+using BikewaleOpr.DALs.ManufactureCampaign;
 using BikewaleOpr.DALs.QuestionsAnswers;
 using BikewaleOpr.DALs.ServiceCenter;
 using BikewaleOpr.DALs.UserReviews;
 using BikewaleOpr.Interface;
 using BikewaleOpr.Interface.AdSlot;
+using BikewaleOpr.Interface.Amp;
 using BikewaleOpr.Interface.Banner;
 using BikewaleOpr.Interface.BikeData;
 using BikewaleOpr.Interface.BikePricing;
@@ -37,6 +40,7 @@ using BikewaleOpr.Interface.ConfigurePageMetas;
 using BikewaleOpr.Interface.ContractCampaign;
 using BikewaleOpr.Interface.Dealers;
 using BikewaleOpr.Interface.Location;
+using BikewaleOpr.Interface.ManufacturerCampaign;
 using BikewaleOpr.Interface.QnA;
 using BikewaleOpr.Interface.QuestionsAnswers;
 using BikewaleOpr.Interface.ServiceCenter;
@@ -89,7 +93,6 @@ namespace BikewaleOpr
                 .RegisterType<Bikewale.ManufacturerCampaign.Interface.IManufacturerCampaignCache, Bikewale.ManufacturerCampaign.Cache.ManufacturerCampaignCache>()
                 .RegisterType<Bikewale.ManufacturerCampaign.Interface.IManufacturerCampaign, Bikewale.ManufacturerCampaign.BAL.ManufacturerCampaign>()
                 .RegisterType<IContractCampaign, ContractCampaign>()
-
                 .RegisterType<ILocation, LocationRepository>()
                 .RegisterType<IDealerPriceQuote, DealerPriceQuoteRepository>()
                 .RegisterType<IDealerPrice, DealerPrice>()
@@ -129,7 +132,10 @@ namespace BikewaleOpr
                 .RegisterType<IQuestionsAndAnswersCache, QuestionsAndAnswersCache>()
                 .RegisterType<IAnswersBAL, AnswersBAL>()
                 .RegisterType<IAnswersRepository, AnswersRepository>()
-                .RegisterType<IAnswers, Answers>();
+                .RegisterType<IAnswers, Answers>()
+                .RegisterType<IAmpCache, AmpCache>()
+                .RegisterType<IManufacturerReleaseMaskingNumber, ManufacturerReleaseMaskingNumber>()
+                .RegisterType<IManufacturerCampaignRepository, ManufacturerCampaign>();
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
 
         }

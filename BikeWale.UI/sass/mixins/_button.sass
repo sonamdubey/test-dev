@@ -30,7 +30,7 @@
     background-color: color('pacific-blue')
     text-transform: capitalize
 
-@mixin btn-inv-blue($btn-padding: 5px 31px 5px 15px)
+@mixin btn-inv-blue($btn-padding: 5px 31px 5px 15px, $hover: false)
   .btn-inv-blue
     background-color: transparent
     color: color('pacific-blue')
@@ -38,17 +38,25 @@
     padding: $btn-padding
     position: relative
 
+    @if $hover
+        @include btn-inv-blue-hover
+
+@mixin btn-inv-blue-hover
     &:hover
       background-color: color('pacific-blue')
       color: color('white')
 
-@mixin btn-inv-teal($padding: 5px 28px 5px 16px)
+@mixin btn-inv-teal($padding: 5px 28px 5px 16px, $hover: false)
     background-color: transparent
     color: color('scooter')
     border-color: color('scooter')
     padding: $padding
     position: relative
 
+    @if $hover
+        @include btn-inv-teal-hover
+
+@mixin btn-inv-teal-hover
     &:hover
       background-color: color('viking')
       border-color: color('viking')

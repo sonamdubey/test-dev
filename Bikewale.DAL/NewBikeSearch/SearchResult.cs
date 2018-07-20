@@ -30,6 +30,8 @@ namespace Bikewale.DAL.NewBikeSearch
         /// <summary>
         /// Created by  :   Sumit Kate on 05 Jan 2018
         /// Description :   returns Budgets ranges with bike count
+        /// Modified by :   Sanjay George on 18 July 2018
+        /// Description :   change CommandType to StoredProcedure
         /// </summary>
         /// <returns></returns>
         public BudgetFilterRanges GetBudgetRanges()
@@ -62,7 +64,7 @@ namespace Bikewale.DAL.NewBikeSearch
 
                 using (DbCommand cmd = DbFactory.GetDBCommand("getnewbikesearchbudget"))
                 {
-                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandType = CommandType.StoredProcedure;
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {

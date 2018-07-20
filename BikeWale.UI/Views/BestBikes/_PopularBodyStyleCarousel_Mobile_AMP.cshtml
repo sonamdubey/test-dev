@@ -1,41 +1,45 @@
 ﻿@model Bikewale.Models.PopularBodyStyleVM
 @using Bikewale.Utility
-<amp-carousel height="@(Model.ShowCheckOnRoadCTA ? 225 : 180)" layout="fixed-height" type="carousel">
-        @foreach (var bike in Model.PopularBikes)
-        {
-            string bikeName = string.Format("{0} {1}", bike.MakeName, bike.objModel.ModelName);
-                <div class="swiper-card">
-                    <a class="block position-rel" href="@string.Format("{0}/m{1}", BWConfiguration.Instance.BwHostUrl, UrlFormatter.BikePageUrl(bike.MakeMaskingName,bike.objModel.MaskingName))" title="@bikeName">
-                        @if (bike.IsAdPromoted)
-                        {
-                            <span class="model-category__tag category--newlaunch">Newly Launched</span>
-                        }
-                        <div class="swiper-image-preview">
-                            <amp-img alt="@bikeName" src="@Image.GetPathToShowImages(bike.OriginalImagePath, bike.HostURL, ImageSize._174x98, QualityFactor._70)" title="@bikeName" width="160" height="90"></amp-img>
-                        </div>
-                        <div class="swiper-details-block">
-                            <h3 class="target-link font12 text-truncate margin-bottom5">@bikeName</h3>
-                            @if (bike.VersionPrice > 0)
-                            {
-                                <p class="text-truncate text-light-grey font11">Ex-showroom, @(!string.IsNullOrEmpty(bike.CityName) ? bike.CityName : BWConfiguration.Instance.GetDefaultCityName)</p>
-                                <p class="text-default font16">
-                                    @Html.Raw("<span>&#x20B9;</span>")&nbsp;<span class="text-bold">@Format.FormatPrice(Convert.ToString(bike.VersionPrice))</span>
-                                </p>
-                            }
-                            else
-                            {
-                                <p class="text-default">
-                                    <span class="font14 text-light-grey">Price not available</span>
-                                </p>
-                            }
-                        </div>
-                    </a>
-                    @if (Model.ShowCheckOnRoadCTA)
+@if (Model != null && Model.PopularBikes != null)
+{
+<amp-carousel height="@(Model.ShowCheckOnRoadCTA ? 225 : 180)" layout="fixed-height" type="carousel" class="other-popular-carousel">
+    @foreach (var bike in Model.PopularBikes)
+    {
+        string bikeName = string.Format("{0} {1}", bike.MakeName, bike.objModel.ModelName);
+        <div class="swiper-card">
+            <a class="block position-rel" href="@string.Format("{0}/m{1}", BWConfiguration.Instance.BwHostUrl, UrlFormatter.BikePageUrl(bike.MakeMaskingName, bike.objModel.MaskingName))" title="@bikeName">
+                @if (bike.IsAdPromoted)
+                {
+                    <span class="model-category__tag category--newlaunch">Newly Launched</span>
+                }
+                <div class="swiper-image-preview">
+                    <amp-img alt="@bikeName" src="@Image.GetPathToShowImages(bike.OriginalImagePath, bike.HostURL, ImageSize._174x98, QualityFactor._70)" title="@bikeName" width="160" height="90"></amp-img>
+                </div>
+                <div class="swiper-details-block">
+                    <h3 class="target-link font12 text-truncate margin-bottom5">@bikeName</h3>
+                    @if (bike.VersionPrice > 0)
                     {
-                        <div class="swiper-btn-block">
-                            <a href="@string.Format("{0}/m/popup/?queryString={1}", BWConfiguration.Instance.BwHostUrl, Utils.Utils.EncryptTripleDES(string.Format("pqsourceid={0}&preselcity={1}&modelid={2}&Url={3}", (int)Model.PQSourceId, Model.CityId, bike.objModel.ModelId, Model.ReturnUrlForAmpPages)))" class="btn btn-card btn-full-width btn-white text-truncate getquotation font12" rel="nofollow">Check on-road price</a>
-                        </div>
+                        <p class="text-truncate text-light-grey font11">Ex-showroom, @(!string.IsNullOrEmpty(bike.CityName) ? bike.CityName : BWConfiguration.Instance.GetDefaultCityName)</p>
+                        <p class="text-default font16">
+                            @Html.Raw("<span>&#x20B9;</span>")&nbsp;<span class="text-bold">@Format.FormatPrice(Convert.ToString(bike.VersionPrice))</span>
+                        </p>
+                    }
+                    else
+                    {
+                        <p class="text-default">
+                            <span class="font14 text-light-grey">Price not available</span>
+                        </p>
                     }
                 </div>
-        }
+            </a>
+            @if (Model.ShowCheckOnRoadCTA)
+            {
+                <div class="swiper-btn-block">
+                    <a href="@string.Format("{0}/m/popup/?queryString={1}", BWConfiguration.Instance.BwHostUrl, Utils.Utils.EncryptTripleDES(string.Format("pqsourceid={0}&preselcity={1}&modelid={2}&Url={3}", (int)Model.PQSourceId, Model.CityId, bike.objModel.ModelId, Model.ReturnUrlForAmpPages)))" class="btn btn-card btn-full-width btn-white text-truncate getquotation font12" rel="nofollow">Check on-road price</a>
+                </div>
+            }
+        </div>
+    }
 </amp-carousel>
+}
+

@@ -50,5 +50,6 @@ namespace BikewaleOpr.Interface.BikeData
         string GetModelsByVersions(string versions);
         IEnumerable<BikeModelEntityBase> GetModelsByMake(uint makeId);
         int GetModelIdIfTopVersion(int versionId);
+        BikeMakeModelData GetModelDetailsById(uint modelId);
     }
 }

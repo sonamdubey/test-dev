@@ -189,7 +189,10 @@ namespace BikewaleOpr.BAL.BikePricing
             {
                 ids += string.Format("{0},", words[i]);
             }
-            ids = ids.Remove(ids.Length - 1);
+            if (ids.Length > 1)
+            {
+                ids = ids.Remove(ids.Length - 1);
+            }
             return ids;
         }
         public double GetRegistrationCharges(uint versionId,uint stateId, double price)

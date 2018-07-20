@@ -1,8 +1,14 @@
 ﻿@model Bikewale.Models.ModelBase
+@using Bikewale.Entities.Pages;
 <!doctype html>
 <html amp lang="en">
 <head @(Model != null && Model.PageMetaTags != null ? "prefix=og:http://ogp.me/ns#" : "")>
     <meta charset="utf-8">
+    @if (Model.Page == GAPages.Model_Page)
+    {
+        <script async custom-element="amp-position-observer" src="https://cdn.ampproject.org/v0/amp-position-observer-0.1.js"></script>
+        <script async custom-element="amp-animation" src="https://cdn.ampproject.org/v0/amp-animation-0.1.js"></script>
+    }
     @if (Model != null && Model.PageMetaTags != null)
     {
         Model.PageMetaTags.EnableOG = true;
@@ -43,352 +49,7 @@
     <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
 
     <style amp-custom>
-            *{
-                margin: 0;
-                padding: 0;
-                box-sizing: border-box;
-            }
-            body {
-                font-family: 'Open Sans',Serif;
-                font-size: 13px;
-                color: #4d5057;
-                background: #f5f5f5;
-            }
-            ul {
-                list-style: none;
-            }
-            li {
-                display: list-item;
-                text-align: -webkit-match-parent;
-            }
-            a {
-                color: #0288d1;
-                text-decoration: none;
-            }
-            .margin-center {
-                margin: 0 auto;
-            }
-            .block {
-                display:block;
-            }
-            button {
-                border: 0;
-                margin: 0;
-            }
-            .margin-center {
-                margin:0 auto;
-            }
-            blockquote, body, div, fieldset, h1, h2, h3, h4, h5, h6, label, legend, li, ol, p, ul {
-                margin: 0;
-                padding: 0;
-            }
-            header {
-                background: #333;
-                padding: 13px 10px;
-                height: 50px;
-            }
-            .bwmsprite {
-                background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/bwmsprite-v4.png?v29Jun20171498739734721) no-repeat;
-                display: inline-block;
-            }
-            .nav-icon {
-                background-position: 0 0;
-                width: 27px;
-                height: 15px;
-                cursor: pointer;
-                vertical-align: middle;
-                margin-right: 10px;
-            }
-            .bw-logo {
-
-                width: 84px;
-                height: 24px;
-                vertical-align: middle;
-                background-position: -31px 0;
-                position: absolute;
-                left: 52px;
-            }
-            .bw-footer-icon, .ct-footer-icon, .cw-footer-icon {
-                height: 20px;
-            }
-
-            .bw-footer-icon {
-                width: 73px;
-                background-position: 0 -547px;
-            }
-
-            .cw-footer-icon {
-                width: 69px;
-                background-position: -78px -515px;
-            }
-
-            .ct-footer-icon {
-                width: 93px;
-                background-position: -78px -533px;
-            }
-
-            .footer-top{
-              padding-top: 15px;
-              padding-bottom: 10px;
-            }
-            .footer {
-                padding-bottom: 15px;
-            }
-
-            .footer-popular-brands {
-                padding-top: 15px;
-                padding-bottom: 10px;
-            }
-            .footer-popular-brands li{
-                display: inline-block;
-            }
-            .footer-popular-brands li a{
-                padding: 0px 10px 0px 10px;
-            }
-            footer, footer a {
-                color: #fff;
-            }
-
-            .footer-middle li, .footer-top li {
-                display: inline-block;
-            }
-
-            footer {
-                background: #323434;
-                padding-top: 5px;
-                text-align: center;
-            }
-
-            .footer-top li {
-                width: 32%;
-                height: 26px;
-                vertical-align: middle;
-            }
-
-            .footer-middle {
-                border-top: 1px solid rgba(183,183,183,.2);
-                border-bottom: 1px solid rgba(183,183,183,.2);
-                padding-bottom: 20px;
-                margin-bottom: 10px;
-            }
-
-                .footer-middle li a {
-                    display: block;
-                    padding: 10px;
-                }
-
-            .footer-bottom {
-                padding-right: 10px;
-                padding-left: 10px;
-            }
-
-            .cw-logo-label {
-                font-size: 8px;
-                color: #cfcfcf;
-                margin-left: 13px;
-                position: relative;
-                top: -10px;
-            }
-            .left-float {
-                float: left;
-            }
-
-            .right-float {
-                float: right;
-            }
-
-            .clear {
-                clear: both;
-            }
-
-            #nav {
-                width: 275px;
-                background: #fff;
-                box-shadow: -3px 0 10px 0 #191818;
-            }
-            .navUL .nav-accordion-header, .navUL li a {
-			color: #1a1a1a;
-			font-size: 14px;
-			text-decoration: none;
-			display: block;
-			padding: 13px 0 13px 15px;
-			font-weight: 400;
-			position: relative;
-		}
-
-		.nav-accordion-header {
-			background: #fff;
-			border: none;
-			padding: 0;
-		}
-
-		#nav .nestedUL {
-			border-top: 1px solid #ebecec;
-			border-bottom: 1px solid #ebecec;
-			background: #f6f7f7;
-		}
-
-		.navUL .nestedUL a {
-			padding-left: 51px;
-			border-left: 4px solid transparent;
-		}
-
-		.nestedUL a:hover {
-			border-left: 4px solid #ef3030;
-			background: #fff;
-			font-weight: 700;
-		}
-
-		amp-accordion > section[expanded] .nav-accordion-header {
-			font-weight: 700;
-		}
-
-		amp-accordion > section[expanded] .fa-angle-down {
-			transform: rotateZ(180deg);
-		}
-
-		.home-icon, .newBikes-icon, .scooter-icon, .reviews-icon, .forum-icon, .news-icon, .sellBikes-icon, .usedBikes-icon {
-			width: 24px;
-			height: 22px;
-			margin-right: 10px;
-			vertical-align: middle;
-		}
-
-		.home-icon {
-			background-position: 0 -40px;
-		}
-
-		.newBikes-icon {
-			background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/4d5057/bike-22x13.png') no-repeat center;
-			display: inline-block;
-		}
-
-		.scooter-icon {
-			background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/4d5057/scooter-22x15.png') no-repeat center;
-			display: inline-block;
-		}
-
-		.usedBikes-icon {
-			background-position: 0 -178px;
-		}
-
-		.sellBikes-icon {
-			background-position: 0 -155px;
-		}
-
-		.reviews-icon {
-			background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/4d5057/review-24x16.png') no-repeat center;
-			display: inline-block;
-		}
-
-		.news-icon {
-			background-position: 0 -132px;
-		}
-
-		.track-day {
-			width: 24px;
-			height: 22px;
-			background-position: -188px -498px;
-			position: relative;
-			top: 4px;
-			margin-right: 10px;
-		}
-
-		.forum-icon {
-			background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/4d5057/calculator.png') no-repeat center;
-			display: inline-block;
-		}
-
-		.fa-angle-down {
-			width: 12px;
-			height: 7px;
-			background-position: -155px -87px;
-			position: absolute;
-			top: 22px;
-			right: 10px;
-			transition: transform .3s;
-		}
-		.google-play-logo {
-			background-position: 0 -344px;
-			width: 114px;
-			height: 42px;
-			margin-top: 10px;
-			margin-bottom: 10px;
-		}
-
-		.new-flag {
-			width: 34px;
-			height: 16px;
-			background: url('https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/new-flag.png') no-repeat;
-			display: inline-block;
-			position: relative;
-			top: 2px;
-			margin-left: 5px;
-		}
-
-		/* auto expo navigation start */
-		.auto-expo-nav {
-			padding: 15px;
-			background: rgba(14, 58, 80, 1);
-			background: -moz-linear-gradient(left, rgba(14, 58, 80, 1) 0%, rgba(24, 113, 145, 1) 100%);
-			background: -webkit-linear-gradient(left, rgba(14, 58, 80, 1) 0%, rgba(24, 113, 145, 1) 100%);
-			background: linear-gradient(to right, rgba(14, 58, 80, 1) 0%, rgba(24, 113, 145, 1) 100%);
-			display: block;
-			cursor: pointer;
-		}
-
-		.auto-expo-nav__logo {
-			width: 61px;
-			height: 32px;
-			background-image: url('https://imgd.aeplcdn.com/0x0/cw/es/auto-expo-2018/auto-expo-white.svg?v1');
-			background-repeat: no-repeat;
-			display: inline-block;
-			position: relative;
-		}
-
-		.auto-expo-nav__logo:after {
-			content: '';
-			position: absolute;
-			top: 16px;
-			right: -23px;
-			width: 15px;
-			height: 10px;
-			display: inline-block;
-			background: url('https://imgd.aeplcdn.com/0x0/cw/static/icons/svg/uparrow.svg') no-repeat 50%;
-			background-size: cover;
-			transform: rotate(90deg);
-			opacity: 0.6;
-		}
-
-		.auto-expo-nav__title {
-			width: 65%;
-			display: inline-block;
-		}
-
-		.auto-expo-nav__title--main,
-		.auto-expo-nav__title--sub {
-			color: #fff;
-		}
-
-		.auto-expo-nav__title--sub {
-			text-transform: uppercase;
-			font-size: 11px;
-			opacity: 0.6;
-			letter-spacing: 1px;
-		}
-
-		.auto-expo-nav__title--main {
-			font-size: 14px;
-		}
-		/* auto expo navigation end */
-
-		.dealer-campaign-wrapper {
-			background: #fff;
-			-webkit-box-shadow: 2px 2px 2px #dcdcdc;
-			box-shadow: 2px 2px 2px #dcdcdc;
-		}
-
-
+     *,button{margin:0}.bw-logo,.footer-top li,.nav-icon{vertical-align:middle}*{padding:0;box-sizing:border-box}body{font-family:'Open Sans',Serif;font-size:13px;color:#4d5057;background:#f5f5f5}ul{list-style:none}li{display:list-item;text-align:-webkit-match-parent}a{color:#0288d1;text-decoration:none}.block{display:block}.bwmsprite,.footer-middle li,.footer-popular-brands li,.footer-top li{display:inline-block}button{border:0}.margin-center{margin:0 auto}blockquote,body,div,fieldset,h1,h2,h3,h4,h5,h6,label,legend,li,ol,p,ul{margin:0;padding:0}header{background:#333;padding:13px 10px;height:50px}.bwmsprite{background:url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/bwmsprite-v4.png?v29Jun20171498739734721) no-repeat}.nav-icon{background-position:0 0;width:27px;height:15px;cursor:pointer;margin-right:10px}.bw-logo{width:84px;height:24px;background-position:-31px 0;position:absolute;left:52px}.bw-footer-icon,.ct-footer-icon,.cw-footer-icon{height:20px}.bw-footer-icon{width:73px;background-position:0 -547px}.cw-footer-icon{width:69px;background-position:-78px -515px}.ct-footer-icon{width:93px;background-position:-78px -533px}.footer-top{padding-top:15px;padding-bottom:10px}.footer{padding-bottom:15px}.footer-popular-brands{padding-top:15px;padding-bottom:10px}.footer-popular-brands li a{padding:0 10px}footer,footer a{color:#fff}footer{background:#323434;padding-top:5px;text-align:center}.footer-top li{width:32%;height:26px}.footer-middle{border-top:1px solid rgba(183,183,183,.2);border-bottom:1px solid rgba(183,183,183,.2);padding-bottom:20px;margin-bottom:10px}.footer-middle li a{display:block;padding:10px}.footer-bottom{padding-right:10px;padding-left:10px}.cw-logo-label{font-size:8px;color:#cfcfcf;margin-left:13px;position:relative;top:-10px}.left-float{float:left}.right-float{float:right}.clear{clear:both}#nav{width:275px;background:#fff;box-shadow:-3px 0 10px 0 #191818}.navUL .nav-accordion-header,.navUL li a{color:#1a1a1a;font-size:14px;text-decoration:none;display:block;padding:13px 0 13px 15px;font-weight:400;position:relative}.forum-icon,.new-flag,.newBikes-icon,.reviews-icon,.scooter-icon{display:inline-block}.nav-accordion-header{background:#fff;border:none;padding:0}#nav .nestedUL{border-top:1px solid #ebecec;border-bottom:1px solid #ebecec;background:#f6f7f7}.navUL .nestedUL a{padding-left:51px;border-left:4px solid transparent}.nestedUL a:hover{border-left:4px solid #ef3030;background:#fff;font-weight:700}amp-accordion>section[expanded] .nav-accordion-header{font-weight:700}amp-accordion>section[expanded] .fa-angle-down{transform:rotateZ(180deg)}.forum-icon,.home-icon,.newBikes-icon,.news-icon,.reviews-icon,.scooter-icon,.sellBikes-icon,.usedBikes-icon{width:24px;height:22px;margin-right:10px;vertical-align:middle}.home-icon{background-position:0 -40px}.newBikes-icon{background:url(https://imgd.aeplcdn.com/0x0/bw/static/icons/4d5057/bike-22x13.png) center no-repeat}.scooter-icon{background:url(https://imgd.aeplcdn.com/0x0/bw/static/icons/4d5057/scooter-22x15.png) center no-repeat}.usedBikes-icon{background-position:0 -178px}.sellBikes-icon{background-position:0 -155px}.reviews-icon{background:url(https://imgd.aeplcdn.com/0x0/bw/static/icons/4d5057/review-24x16.png) center no-repeat}.news-icon{background-position:0 -132px}.track-day{width:24px;height:22px;background-position:-188px -498px;position:relative;top:4px;margin-right:10px}.forum-icon{background:url(https://imgd.aeplcdn.com/0x0/bw/static/icons/4d5057/calculator.png) center no-repeat}.fa-angle-down{width:12px;height:7px;background-position:-155px -87px;position:absolute;top:22px;right:10px;transition:transform .3s}.google-play-logo{background-position:0 -344px;width:114px;height:42px;margin-top:10px;margin-bottom:10px}.new-flag{width:34px;height:16px;background:url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/new-flag.png) no-repeat;position:relative;top:2px;margin-left:5px}.auto-expo-nav{padding:15px;background:rgba(14,58,80,1);background:-moz-linear-gradient(left,rgba(14,58,80,1) 0,rgba(24,113,145,1) 100%);background:-webkit-linear-gradient(left,rgba(14,58,80,1) 0,rgba(24,113,145,1) 100%);background:linear-gradient(to right,rgba(14,58,80,1) 0,rgba(24,113,145,1) 100%);display:block;cursor:pointer}.auto-expo-nav__logo{width:61px;height:32px;background-image:url(https://imgd.aeplcdn.com/0x0/cw/es/auto-expo-2018/auto-expo-white.svg?v1);background-repeat:no-repeat;display:inline-block;position:relative}.auto-expo-nav__logo:after{content:'';position:absolute;top:16px;right:-23px;width:15px;height:10px;display:inline-block;background:url(https://imgd.aeplcdn.com/0x0/cw/static/icons/svg/uparrow.svg) 50% no-repeat;background-size:cover;transform:rotate(90deg);opacity:.6}.auto-expo-nav__title{width:65%;display:inline-block}.auto-expo-nav__title--main,.auto-expo-nav__title--sub{color:#fff}.auto-expo-nav__title--sub{text-transform:uppercase;font-size:11px;opacity:.6;letter-spacing:1px}.auto-expo-nav__title--main{font-size:14px}.dealer-campaign-wrapper{background:#fff;-webkit-box-shadow:2px 2px 2px #dcdcdc;box-shadow:2px 2px 2px #dcdcdc}.scrollToTop {width: 48px;height: 48px;z-index: 8;position: fixed;bottom: 60px;right: 20px;background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/top-icon.png) no-repeat scroll center center;cursor: pointer;}       
         @Html.Raw(Model.Amp_Page_CSS)
     </style>
 
@@ -459,12 +120,48 @@
         }
 
     }
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css' />
-   
     
+     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css' />
 
 </head>
 <body>
+    @if (Model.Page == GAPages.Model_Page)
+    {
+        <div id="top-page"></div>
+        <amp-animation id="showAnim" layout="nodisplay">
+            <script type="application/json">
+                {
+                "duration": "200ms","fill": "both","iterations": "1","direction": "alternate","animations": [
+                {
+                "selector": "#scrollToTopButton","keyframes": [
+                { "opacity": "1", "visibility": "visible" }
+                ]
+                }
+                ]
+                }
+            </script>
+        </amp-animation>
+    <!-- ... and the second one is for adding the button.-->
+        <amp-animation id="hideAnim" layout="nodisplay">
+            <script type="application/json">
+                {
+                "duration": "200ms",
+                "fill": "both",
+                "iterations": "1",
+                "direction": "alternate",
+                "animations": [
+                {
+                "selector": "#scrollToTopButton",
+                "keyframes": [
+                { "opacity": "0", "visibility": "hidden" }
+                ]
+                }
+                ]
+                }
+            </script>
+        </amp-animation>
+    }
+    
     <amp-pixel src="https://www.facebook.com/tr?id=904915516356416&ev=PageView&noscript=1"
                layout="nodisplay"></amp-pixel>
     <amp-sidebar id="nav" layout="nodisplay" side="left">

@@ -16,5 +16,6 @@ namespace BikewaleOpr.Interface.BikeData
         IEnumerable<BikeModelsByMake> GetModelsWithMissingColorImage();
         void UpdateModelESIndex(string ids, string operation);
         int GetModelIdIfTopVersion(int versionId);
+        BikeMakeModelData GetModelDetailsById(uint modelId);
     }
 }

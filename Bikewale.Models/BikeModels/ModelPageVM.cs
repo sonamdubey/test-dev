@@ -1,4 +1,4 @@
-﻿
+﻿using Bikewale.Entities;
 using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS.Photos;
@@ -33,6 +33,8 @@ namespace Bikewale.Models.BikeModels
     /// Modified by: Dhruv Joshi
     /// Dated: 25th June 2018
     /// Description: Added AskQuestionPopupVM
+    /// Modified by : Rajan Chauhan on 6 July 2018
+    /// Description : Added EMISliderAMP and JSONEMISlider for handling AMP
     /// </summary>
     public class ModelPageVM : ModelBase
     {
@@ -160,6 +162,8 @@ namespace Bikewale.Models.BikeModels
         public QuestionAnswerSlugVM QASlug { get; set; }
         public QuestionAnswerSectionVM QASection { get; set; }
         public AskQuestionPopupVM AskQuestionPopup { get; set; }
+        public EMISliderAMP EMISliderAMP { get; set; }
+        public string JSONEMISlider { get; set; }
     }
 
 }

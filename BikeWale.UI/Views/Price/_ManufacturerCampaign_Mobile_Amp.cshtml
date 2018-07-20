@@ -5,7 +5,8 @@
     <!-- Manufacturer Campaign Ad section starts -->
     try
     {
-        @Html.Raw(MvcHelper.GetRenderedContent(String.Format("LeadCampaign_Mobile_AMP_{0}", Model.CampaignId), Model.LeadsHtmlMobile, Model).ConvertToAmpContent())
+        string hash = Bikewale.PWA.Utils.PwaCmsHelper.GetSha256Hash(Model.LeadsHtmlMobile);
+        @Html.Raw(MvcHelper.GetRenderedContent(hash, Model.LeadsHtmlMobile, Model).ConvertToAmpContent())
     }
     catch (Exception ex)
     {

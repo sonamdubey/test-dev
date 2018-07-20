@@ -26,7 +26,8 @@ var paths = {
 
 var pattern = {
 	CSS_ATF: /<link(?:[^>]*)href=(?:"|')([^,"']*)(?:"|')(?:[^>]*)atf-css(?:[^>]*)\/{0,1}>/ig,
-	INLINE_CSS: /<link(?:[^>]*)href=(?:"|')([^,"']*)(?:"|')(?:[^>]*)inline(?:[^>]*)\/{0,1}>/ig
+	INLINE_CSS: /<link(?:[^>]*)href=(?:"|')([^,"']*)(?:"|')(?:[^>]*)inline(?:[^>]*)\/{0,1}>/ig,
+	AMP_CSS: /<link(?:[^>]*)href=(?:"|')([^,"']*)(?:"|')(?:[^>]*)amp(?:[^>]*)\/{0,1}>/ig
 };
 
 var Configuration = process.argv[3] || 'Debug';
@@ -192,6 +193,15 @@ gulp.task('replace-css-link-reference', function () {
 		}))
 		.pipe(gulp.dest(buildFolder));
 });
+gulp.task('replace-amp-css-link-reference', function () {
+	return gulp.src(app + 'Views/**/*.cshtml', { base: app })
+		.pipe(replace(pattern.AMP_CSS, function (s, fileName) {
+			var style = fs.readFileSync(minifiedAssetsFolder + fileName, 'utf-8'),
+			styleTag = style.replace(/@charset "utf-8";/g, "").replace(/\"/g, "'").replace(/\\[0-9]/g, "");
+			return styleTag;
+		}))
+		.pipe(gulp.dest(buildFolder));
+});
 
 // PWA specific gulp tasks
 var patternJSBundle = /\/pwa\/js\/(\w)+.bundle.js/g;
@@ -347,8 +357,6 @@ gulp.task('generate-service-worker' , function() { // this task has to follow 'r
 	})
 }); 
 
-
-
 gulp.task('sass', function () {
 	return gulp.src([app + 'sass/**/*.sass', app + 'm/sass/**/*.sass'], { base: app })
 		.pipe(sass().on('error', sass.logError))
@@ -368,6 +376,7 @@ gulp.task('default', gulpSequence(
 			'bw-framework-js',
 			'replace-css-reference',
 			'replace-css-link-reference',
+			'replace-amp-css-link-reference',
 			'replace-css-chunk-json',
 			'replace-js-css-reference',
 			'appshell-procesing',

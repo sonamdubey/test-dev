@@ -1,10 +1,12 @@
 ﻿using AmpCacheRefreshLibrary;
 using Bikewale.Notifications;
 using Bikewale.Utility;
+using BikewaleOpr.BAL.Amp;
 using BikewaleOpr.common;
 using BikewaleOpr.DALs.Bikedata;
 using BikewaleOpr.Entity.BikeData;
 using BikewaleOpr.Entity.ElasticSearch;
+using BikewaleOpr.Interface.Amp;
 using BikewaleOpr.Interface.BikeData;
 using BikeWaleOpr.Common;
 using Enyim.Caching;
@@ -40,6 +42,8 @@ namespace BikeWaleOpr.Content
         private readonly IBikeESRepository _bikeESRepository;
         private readonly string _indexName;
         private readonly IBikeModels _bikeModels;
+        private readonly IAmpCache _ampCache;
+        private readonly IBikeMakesRepository _bikeMakesRepository;
 
         private string SortCriteria
         {
@@ -88,22 +92,22 @@ namespace BikeWaleOpr.Content
             {
                 container.RegisterType<IBikeSeriesRepository, BikeSeriesRepository>()
                 .RegisterType<IBikeModelsRepository, BikeModelsRepository>()
+                .RegisterType<IBikeMakesRepository, BikeMakesRepository>()
                 .RegisterType<IBikeSeries, BikewaleOpr.BAL.BikeSeries>()
                 .RegisterType<IBikeBodyStylesRepository, BikeBodyStyleRepository>()
                 .RegisterType<IBikeESRepository, BikeESRepository>()
-                .RegisterType<IBikeModels, BikewaleOpr.BAL.BikeModels>();
+                .RegisterType<IBikeModels, BikewaleOpr.BAL.BikeModels>()  
+                .RegisterType<IBikeMakes, BikewaleOpr.BAL.BikeMakes>()
+                .RegisterType<IAmpCache, AmpCache>();
                 _series = container.Resolve<IBikeSeries>();
+                _makes = container.Resolve<IBikeMakes>();
                 _indexName = ConfigurationManager.AppSettings["MMIndexName"];
                 _bikeESRepository = container.Resolve<IBikeESRepository>();
                 _bikeModels = container.Resolve<IBikeModels>();
+                _ampCache = container.Resolve<IAmpCache>();
+                _bikeMakesRepository = container.Resolve<IBikeMakesRepository>();
             }
 
-            using (IUnityContainer container = new UnityContainer())
-            {
-                container.RegisterType<IBikeMakesRepository, BikeMakesRepository>()
-                    .RegisterType<IBikeMakes, BikewaleOpr.BAL.BikeMakes>();
-                _makes = container.Resolve<IBikeMakes>();
-            }
             _isMemcachedUsed = bool.Parse(ConfigurationManager.AppSettings.Get("IsMemcachedUsed"));
             if (_isMemcachedUsed && _mc == null)
             {
@@ -346,6 +350,8 @@ namespace BikeWaleOpr.Content
         /// Description : Added method call to push to BWEsDocumentBuilder consumer.
         /// Modified by : Sanskar Gupta on 03 May 2018
         /// Description : Added logic to Send an Internal Email on change of Model Name.
+        /// Modified by : Pratibha Verma on 17 July 2018
+        /// Description : Added Cache clear for AMP
         /// <param name="sender"></param>
         /// <param name="e"></param>
         void dtgrdMembers_Update(object sender, DataGridCommandEventArgs e)
@@ -430,7 +436,8 @@ namespace BikeWaleOpr.Content
                     uint makeId;
                     uint.TryParse(lblMakeId.Text, out makeId);
                     deleteModelMostPopularBikes(modelId, makeId);
-                    RefreshAmpContent(makeId);
+                    //AMP cache clear for make page
+                    _ampCache.UpdateMakeAmpCache(makeId);
                 }
 
                 //Update Upcoming Bike
@@ -438,10 +445,10 @@ namespace BikeWaleOpr.Content
                     MakeUpcomingBike(strModelID, lblMakeId.Text);
 
                 //Write URL
-                if (modelId > 0)
-                {
-                    WriteFileModel(strModelID, txt.Text.Trim().Replace("'", "''"));
-                }
+                //if (modelId > 0)
+                //{
+                //    WriteFileModel(strModelID, txt.Text.Trim().Replace("'", "''"));
+                //}
                 //trigger mail to notify that a model has been discontinued
                 if (chkUsed1.Checked && !chkFuturistic1.Checked && !chkNew1.Checked)
                 {
@@ -488,6 +495,8 @@ namespace BikeWaleOpr.Content
                 //Refresh memcache object for Default PQ Version
                 BikewaleOpr.Cache.BwMemCache.ClearDefaultPQVersion(modelId);
 
+                //Clear AMP Model Page Cache
+                _ampCache.UpdateModelAmpCache(modelId);
             }
             catch (SqlException ex)
             {
@@ -533,6 +542,7 @@ namespace BikeWaleOpr.Content
             _bikeModels.UpdateModelESIndex(Convert.ToString(modelId), "delete");
 
             BindGrid();
+            _ampCache.UpdateModelAmpCache(modelId);
         }
 
         void Page_Change(object sender, DataGridPageChangedEventArgs e)
@@ -648,7 +658,7 @@ namespace BikeWaleOpr.Content
             {
                 //catch the sql exception. if it is equal to 2627, then say that it is for duplicate entry 
                 Trace.Warn(err.Message);
-                BikeWaleOpr.Common.ErrorClass objErr = new BikeWaleOpr.Common.ErrorClass(err, Request.ServerVariables["URL"]);
+                BikeWaleOpr.Common.ErrorClass objErr = new BikeWaleOpr.Common.ErrorClass(err, Request.ServerVariables["URL"] + " fullPath - " + fullPath);
 
                 isSaved = false;
             } // catch Exception
@@ -930,26 +940,7 @@ namespace BikeWaleOpr.Content
                 BikeWaleOpr.Common.ErrorClass objErr = new BikeWaleOpr.Common.ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
             }
         }
-
-        /// <summary>
-        /// Refreshes the content of the amp.
-        /// </summary>
-        /// <param name="makeId">The make identifier.</param>
-        private void RefreshAmpContent(uint makeId)
-        {
-            try
-            {
-                var makeDetails = _makes.GetMakeDetailsById(makeId);
-                string makeUrl = string.Format("{0}/m/{1}amp", BWConfiguration.Instance.BwHostUrl, Bikewale.Utility.UrlFormatter.CreateMakeUrl(makeDetails.MaskingName));
-                string privateKeyPath = HttpContext.Current.Server.MapPath("~/App_Data/private-key.pem");
-                GoogleAmpCacheRefreshCall.UpdateAmpCache(makeUrl, privateKeyPath);
-            }
-            catch (Exception ex)
-            {
-                BikeWaleOpr.Common.ErrorClass objErr = new BikeWaleOpr.Common.ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-            }
-        }
-
+      
         /// <summary>
         /// Created by : Vivek Singh Tomar on 26th Dec 2017
         /// Description : Update model detais in ES index
@@ -969,7 +960,7 @@ namespace BikeWaleOpr.Content
                 BikeList bike = _bikeESRepository.GetBikeESIndex(id, _indexName);
                 if (bike != null && bike.payload != null)
                 {
-                    var makeDetails = _makes.GetMakeDetailsById(makeId);
+                    var makeDetails = _bikeMakesRepository.GetMakeDetailsById(makeId);
                     bike.output = bike.name = string.Format("{0} {1}", makeDetails.MakeName, modelName);
                     bike.payload.IsNew = Convert.ToString(isNew);
                     bike.payload.Futuristic = Convert.ToString(isFuturistic);

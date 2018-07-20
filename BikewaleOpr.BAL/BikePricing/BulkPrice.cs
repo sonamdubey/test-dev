@@ -13,6 +13,7 @@ using System.Configuration;
 using System.Collections.ObjectModel;
 using log4net;
 using System.Text;
+using BikewaleOpr.Interface.Amp;
 
 namespace BikewaleOpr.BAL.BikePricing
 {
@@ -28,13 +29,15 @@ namespace BikewaleOpr.BAL.BikePricing
         private readonly IBikeVersions _versionsRepo;
         private static readonly ILog _logger = LogManager.GetLogger(typeof(BulkPrice));
         private readonly IBwPrice _bwPrice;
-        public BulkPrice(IBulkPriceRepository bulkPriceRepos, IBikeModelsRepository bikeModelsRepos, ILocation locationRepos, IBikeVersions versionsRepo, IBwPrice bwPrice)
+        private readonly IAmpCache _ampCache;
+        public BulkPrice(IBulkPriceRepository bulkPriceRepos, IBikeModelsRepository bikeModelsRepos, ILocation locationRepos, IBikeVersions versionsRepo, IBwPrice bwPrice, IAmpCache ampCache)
         {
             _bulkPriceRepos = bulkPriceRepos;
             _bikeModelsRepos = bikeModelsRepos;
             _locationRepos = locationRepos;
             _versionsRepo = versionsRepo;
             _bwPrice = bwPrice;
+            _ampCache = ampCache;
         }
 
         /// <summary>
@@ -257,6 +260,8 @@ namespace BikewaleOpr.BAL.BikePricing
         /// <summary>
         /// Created By : Prabhu Puredla on 5 june 2018
         /// Description : Save the updatable prices 
+        /// Modified by : Pratibha Verma on 17 July 2018
+        /// Description : Added AMP Cache clear for Model Page
         /// </summary>
         /// <param name="PricesList"></param>
         /// <param name="updatedBy"></param>
@@ -327,6 +332,11 @@ namespace BikewaleOpr.BAL.BikePricing
                     }                   
                 }
                 _bwPrice.UpdateModelPriceDocumentV2(modelIds,cityIds);
+                //AMP cache clear for model page( 1 for mumbai prices)
+                if (cityIdsSet.Contains(1))
+                {
+                    _ampCache.UpdateModelAmpCache(modelIdsSet);
+                }
                 return true;
             }
             catch (Exception ex)

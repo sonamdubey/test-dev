@@ -132,5 +132,17 @@ namespace BikewaleOpr.BAL
             }
             return modelId;
         }
+
+        /// <summary>
+        /// Created by  : Pratibha Verma on 17 July 2018
+        /// Description : returns model details by id
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
+        public BikeMakeModelData GetModelDetailsById(uint modelId)
+        {
+            throw new NotImplementedException();
+        }
+        
     }
 }
