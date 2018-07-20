@@ -271,10 +271,12 @@ namespace Bikewale.Utility
                     {
                         string[] details = userData.Split('&');
 
+                        int detailsLength = details.Length;
+
                         customer.CustomerName = details[0];
-                        customer.CustomerMobile = details[2];
-                        customer.CustomerEmail = details[1] == "" ? CurrentUser.Email : details[1];
-                        if (details.Length > 3)
+                        customer.CustomerMobile = detailsLength > 2 ? Utility.CommonValidators.ParseMobileNumber(details[2]) : "";
+                        customer.CustomerEmail = detailsLength > 1 ?( details[1] == "" ? CurrentUser.Email : details[1]) : "";
+                        if (detailsLength > 3)
                             customer.CustomerId = Convert.ToUInt64(BikewaleSecurity.DecryptUserId(Convert.ToInt64(details[3])));
                     }
                 }

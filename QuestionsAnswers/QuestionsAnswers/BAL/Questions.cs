@@ -326,7 +326,7 @@ namespace QuestionsAnswers.BAL
         {
             bool success = false;
 
-            if (String.IsNullOrEmpty(questionId))
+            if (!String.IsNullOrEmpty(questionId))
             {
                 success = _objIQuestionsRepository.IncreaseAnswerCount(questionId);
             }
