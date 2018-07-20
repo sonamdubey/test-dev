@@ -4,5 +4,5 @@ node_modules/*
 src/**/__tests__/*
 
 # Build products
-build/
+lib/
 coverage/

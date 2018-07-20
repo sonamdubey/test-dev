@@ -1,11 +1,11 @@
 {
   "name": "oxygen",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "oxygen is a collection of React components",
-  "main": "build/index.js",
+  "main": "lib/index.js",
   "scripts": {
-    "build": "npm run clean && babel src -d build",
-    "clean": "rimraf build",
+    "build": "npm run clean && babel src -d lib",
+    "clean": "rimraf lib",
     "storybook": "start-storybook -p 8001 -c .storybook",
     "prepublish": "npm run build",
     "lint": "eslint --ext .js,.jsx ./src",
