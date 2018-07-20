@@ -5,8 +5,8 @@
 ```js
 import { Form, Input } from "oxygen"
 // or
-import Form from "oxygen/Form"
-import Input from "oxygen/Input"
+import Form from "oxygen/lib/Form"
+import Input from "oxygen/lib/Input"
 const FormItem = Form.Item
 
 <Form>

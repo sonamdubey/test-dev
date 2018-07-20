@@ -5,7 +5,7 @@
 ```js
 import { Input } from "oxygen"
 // or
-import Input from "oxygen/Input"
+import Input from "oxygen/lib/Input"
 
 <Input
   label="Name"

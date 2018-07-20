@@ -5,7 +5,7 @@
 ```js
 import { Button } from "oxygen"
 // or
-import Button from "oxygen/Button"
+import Button from "oxygen/lib/Button"
 
 <Button type="primary">
   Hello World!

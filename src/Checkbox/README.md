@@ -5,7 +5,7 @@
 ```js
 import { Checkbox } from "oxygen"
 // or
-import Checkbox from "oxygen/Checkbox"
+import Checkbox from "oxygen/lib/Checkbox"
 
 <Checkbox value="1">
   Hello World!
@@ -16,7 +16,7 @@ import Checkbox from "oxygen/Checkbox"
 ```js
 import CheckboxGroup from "oxygen"
 // or
-import { CheckboxGroup } from "oxygen/Checkbox"
+import { CheckboxGroup } from "oxygen/lib/Checkbox"
 
 const checkboxOptions = [
   {
