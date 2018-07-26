@@ -1070,9 +1070,7 @@ namespace Bikewale.Models
                     adTagsObj.AdId = _adId_Mobile_Old;
                     adTagsObj.Ad_320x50 = true;
                     adTagsObj.Ad300x250_Bottom = true;
-                    adTagsObj.Ad_300x250BTF = _oldMakePageV1Status && objData.Bikes.Count() > 5;
-
-
+                    
                     IDictionary<string, AdSlotModel> ads = new Dictionary<string, AdSlotModel>();
 
                     NameValueCollection adInfo = new NameValueCollection();
@@ -1087,11 +1085,7 @@ namespace Bikewale.Models
                     {
                         ads.Add(String.Format("{0}-16", _adId_Mobile_Old), GoogleAdsHelper.SetAdSlotProperties(adInfo, ViewSlotSize.ViewSlotSizes[AdSlotSize._300x250], 16, 300, AdSlotSize._300x250, "Bottom"));
                     }
-                    if (adTagsObj.Ad_300x250BTF)
-                    {
-                        ads.Add(String.Format("{0}-1", _adId_Mobile_Old), GoogleAdsHelper.SetAdSlotProperties(adInfo, ViewSlotSize.ViewSlotSizes[AdSlotSize._300x250], 1, 300, AdSlotSize._300x250, "BTF"));
-                    }
-
+                    
                     objData.AdSlots = ads;
                 }
                 else

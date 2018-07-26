@@ -12,6 +12,7 @@ using Bikewale.Models.QuestionAndAnswers;
 using Bikewale.Utility;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Web;
@@ -511,15 +512,49 @@ namespace Bikewale.Models.QuestionsAnswers
         /// <summary>
         /// Created By : Sumit Kate on 28 Jun 2018
         /// Description : Webpage schema
+        /// Modified By : Kumar Swapnil on 18 July 2018
+        /// Description : Added Questions Schema
         /// </summary>
-        private void SetPageJSONLDSchema(ModelBase objPageMeta)
+        private void SetPageJSONLDSchema(ModelQuestionsAnswersVM objPageMeta)
         {
             //set webpage schema for the model page
             WebPage webpage = SchemaHelper.GetWebpageSchema(objPageMeta.PageMetaTags, objPageMeta.BreadcrumbList, SchemaHelper.QAPage);
 
+            ushort pos = 1;
             if (webpage != null)
             {
+                ICollection<Question> questionList = new Collection<Question>();
+
+                foreach(var currentQuestion in objPageMeta.QuestionAnswerWrapper.QuestionList)
+                {
+                    Answer answer = new Answer
+                    {
+                        AuthorObj = new Author { Name = currentQuestion.Answer.AnsweredBy.CustomerName },
+                        Text = currentQuestion.Answer.Text,
+                        Position = 1,
+                        CreatedOn = currentQuestion.Answer.AnsweredOn
+                    };
+
+                    ICollection<Answer> answerList = new Collection<Answer>();
+                    answerList.Add(answer);
+
+                    Question question = new Question
+                    {
+                        Text = currentQuestion.Question.Text,
+                        DateCreated = currentQuestion.Question.AskedOn,
+                        AuthorObj = new Author { Name = currentQuestion.Question.AskedBy.CustomerName },
+                        AnswersCount = (uint)answerList.Count,
+                        Position = pos++,
+                        AcceptedAnswerObj = new AcceptedAnswer { AnswersList = answerList }
+                    };
+
+                    questionList.Add(question);
+                }
+
+                QuestionAnswerWrapper questionAnswerWrapper = new QuestionAnswerWrapper { QuestionList = questionList };
+
                 objPageMeta.PageMetaTags.SchemaJSON = SchemaHelper.JsonSerialize(webpage);
+                objPageMeta.PageMetaTags.PageSchemaJSON = SchemaHelper.JsonSerialize(questionAnswerWrapper);
             }
         }
 

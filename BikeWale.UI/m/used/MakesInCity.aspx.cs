@@ -40,27 +40,24 @@ namespace Bikewale.Mobile.Used
         /// <summary>
         /// Created by : Subodh Jain 29 Dec 2016
         /// Summary: for processing querystring
+        /// Modified by: Dhruv Joshi
+        /// Dated: 19th July 2018
+        /// Description: Processing Masking Name
         /// </summary>
         private void ProcessQueryString()
         {
 
             try
-            {
-                if (!String.IsNullOrEmpty(Request.QueryString["make"]))
+            {                
+                makeMaskingName = Request.QueryString["make"];
+                if (!string.IsNullOrEmpty(makeMaskingName))
                 {
-                    makeMaskingName = Request.QueryString["make"];
-
-                    if (!String.IsNullOrEmpty(makeMaskingName))
-                    {
-                        makeMaskingName = Request.QueryString["make"];
-                        if (!string.IsNullOrEmpty(makeMaskingName))
-                        {
-                            MakeMaskingResponse objMake = new MakeHelper().GetMakeByMaskingName(makeMaskingName);
-                            if (objMake != null)
-                                MakeDetails = new MakeHelper().GetMakeNameByMakeId(Convert.ToUInt16(objMake.MakeId));
-                        }
-                    }
+                    makeMaskingName = makeMaskingName.ToLower();
+                    MakeMaskingResponse objMake = new MakeHelper().GetMakeByMaskingName(makeMaskingName);
+                    if (objMake != null)
+                        MakeDetails = new MakeHelper().GetMakeNameByMakeId(Convert.ToUInt16(objMake.MakeId));
                 }
+                    
             }
             catch (Exception ex)
             {
@@ -71,6 +68,9 @@ namespace Bikewale.Mobile.Used
         /// <summary>
         /// Created By Subodh Jain on 29 dec 2016
         /// Desc : Bind cities on City page accoding to make
+        /// Modified by: Dhruv Joshi
+        /// Dated: 19th July 2018
+        /// Description: Set Make Masking Name
         /// </summary>
         private void BindCities()
         {
@@ -78,6 +78,7 @@ namespace Bikewale.Mobile.Used
             {
                 BindUsedBikesByMakeCity objBikeCity = new BindUsedBikesByMakeCity();
                 objBikeCity.MakeName = MakeDetails.MakeName;
+                objBikeCity.MakeMaskingName = MakeDetails.MaskingName;
                 UsedBikeCityCountList = objBikeCity.GetUsedBikeByMakeCityWithCount(Convert.ToUInt16(MakeDetails.MakeId));
                 objBikeCity.CreateMetas();
                 UsedBikeCityCountTopList = UsedBikeCityCountList.Where(x => x.Priority > 0); ;

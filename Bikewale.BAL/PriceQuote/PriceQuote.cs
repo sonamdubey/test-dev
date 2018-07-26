@@ -20,6 +20,7 @@ using RabbitMqPublishing;
 using System.Collections.Specialized;
 using log4net;
 using System.Threading.Tasks;
+using System.Web.Hosting;
 
 namespace Bikewale.BAL.PriceQuote
 {
@@ -35,6 +36,7 @@ namespace Bikewale.BAL.PriceQuote
         private readonly IPriceQuote objPQ;
         private readonly IDealerPriceQuoteCache _dealerPQCache;
         static ILog _logger = LogManager.GetLogger("PriceQuoteLogger");
+        static RabbitMqPublish rabbitMQPublishing = new RabbitMqPublish();
         public PriceQuote()
         {
             using (IUnityContainer objPQCont = new UnityContainer())
@@ -45,8 +47,7 @@ namespace Bikewale.BAL.PriceQuote
                 objPQCont.RegisterType<IDealerPriceQuote, Bikewale.DAL.AutoBiz.DealerPriceQuoteRepository>();
                 objPQ = objPQCont.Resolve<IPriceQuote>();
                 _dealerPQCache = objPQCont.Resolve<IDealerPriceQuoteCache>();
-            }
-            
+            }            
         }
 
         /// <summary>
@@ -115,13 +116,17 @@ namespace Bikewale.BAL.PriceQuote
                 objNVC.Add("UTMZ", pqParams.UTMZ);
                 objNVC.Add("pqSourceId", Convert.ToString(pqParams.PQLeadId));
                 objNVC.Add("refGUID", pqParams.RefPQId);
-
-                RabbitMqPublish rabbitMQPublishing = new RabbitMqPublish();
-                rabbitMQPublishing.PublishToQueue(BWConfiguration.Instance.PQConsumerQueue, objNVC);
+                
+                HostingEnvironment.QueueBackgroundWorkItem(f => PushToPQConsumerQueue(objNVC));
             }catch(Exception ex)
             {
                 ErrorClass.LogError(ex, string.Format("Bikewale.BAL.PriceQuote.PriceQuote.PushToQueue()--> PQId = {0}", pqGUId));
             }
+        }
+
+        private void PushToPQConsumerQueue(NameValueCollection objNVC)
+        {   
+            rabbitMQPublishing.PublishToQueue(BWConfiguration.Instance.PQConsumerQueue, objNVC);
         }
 
         /// <summary>

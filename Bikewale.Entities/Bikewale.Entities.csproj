@@ -476,10 +476,12 @@
     <Compile Include="QuestionAndAnswers\QuestionBase.cs" />
     <Compile Include="QuestionAndAnswers\Sources.cs" />
     <Compile Include="QuestionAndAnswers\Tag.cs" />
+    <Compile Include="Schema\AcceptedAnswer.cs" />
     <Compile Include="Schema\AdditionalProperty.cs" />
     <Compile Include="Schema\Address.cs" />
     <Compile Include="Schema\AggregateOffer.cs" />
     <Compile Include="Schema\AggregateRating.cs" />
+    <Compile Include="Schema\Answer.cs" />
     <Compile Include="Schema\Author.cs" />
     <Compile Include="Schema\Brand.cs" />
     <Compile Include="Schema\BreadcrumbItem.cs" />
@@ -500,6 +502,8 @@
     <Compile Include="Schema\Product.cs" />
     <Compile Include="Schema\ProductListItem.cs" />
     <Compile Include="Schema\Organization.cs" />
+    <Compile Include="Schema\Question.cs" />
+    <Compile Include="Schema\QuestionAnswerWrapper.cs" />
     <Compile Include="Schema\Review.cs" />
     <Compile Include="Schema\ReviewRating.cs" />
     <Compile Include="Schema\SchemaBase.cs" />

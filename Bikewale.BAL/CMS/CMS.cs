@@ -5,8 +5,12 @@ using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.EditCMS;
 using Bikewale.Notifications;
+using log4net;
+using log4net.Core;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
+using System.Web.Hosting;
 
 namespace Bikewale.BAL.CMS
 {
@@ -18,7 +22,6 @@ namespace Bikewale.BAL.CMS
     {
         private readonly IArticles _objArticles;
         private readonly ICacheManager _cache = null;
-
         /// <summary>
         /// constructor to initialize the dependencies
         /// </summary>
@@ -45,8 +48,11 @@ namespace Bikewale.BAL.CMS
             if (basicId > 0)
             {
                 articleDetails = _cache.GetFromCache<String>(string.Format("BW_ArticleDetails_Mobile_{0}", basicId), new TimeSpan(1, 0, 0), () => GetArticleDetailsPageJSON(basicId));
+                if (!String.IsNullOrEmpty(articleDetails))
+                {
+                    HostingEnvironment.QueueBackgroundWorkItem(f => _objArticles.UpdateViewCount(basicId));
+                }
             }
-
             return articleDetails;
         }   // end of GetArticleDetailsPage 
         #endregion
@@ -73,9 +79,6 @@ namespace Bikewale.BAL.CMS
 
                     if (objNews != null)
                     {
-                        // update view count if data is present for given basic id
-                        _objArticles.UpdateViewCount(basicId);
-
                         objCMSFArticles = new CMSArticleDetails();
 
                         // Convert Entity to DTO
@@ -143,8 +146,11 @@ namespace Bikewale.BAL.CMS
             if (basicId > 0)
             {
                 articleDetails = _cache.GetFromCache<String>(string.Format("BW_ArticleDetails_Mobile_{0}", basicId), new TimeSpan(1, 0, 0), () => GetArticleDetailsPagesJSON(basicId));
+                if (!String.IsNullOrEmpty(articleDetails))
+                {
+                    HostingEnvironment.QueueBackgroundWorkItem( f => _objArticles.UpdateViewCount(basicId));
+                }
             }
-
             return articleDetails;
         }  // end of GetArticleDetailsPages
         #endregion

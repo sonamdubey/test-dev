@@ -19,6 +19,7 @@ namespace Bikewale.BindViewModels.Webforms.Used
     {
         private ICityCacheRepository objCitiesCache = null;
         public string MakeName { get; set; }
+        public string MakeMaskingName { get; set; }
         public string title = string.Empty, description = string.Empty, canonical = string.Empty, keywords = string.Empty, alternative = string.Empty;
         public BindUsedBikesByMakeCity()
         {
@@ -62,6 +63,9 @@ namespace Bikewale.BindViewModels.Webforms.Used
         /// <summary>
         /// Created by : Subodh Jain 29 Dec 2016
         /// Summary:Create Metas
+        /// Modified by: Dhruv Joshi
+        /// Dated: 19th July 2018
+        /// Description: Correcting Meta URLs
         /// </summary>
         public void CreateMetas()
         {
@@ -69,9 +73,9 @@ namespace Bikewale.BindViewModels.Webforms.Used
             {
                 title = string.Format("Browse used {0} bikes by cities", MakeName);
                 description = string.Format("Browse used {0} bikes by cities in India", MakeName);
-                canonical = string.Format("https://www.bikewale.com/used/browse-{0}-bikes-by-cities/", MakeName);
+                canonical = string.Format("https://www.bikewale.com/used/browse-{0}-bikes-in-cities/", MakeMaskingName);
                 keywords = "city wise used bikes listing,used bikes for sale, second hand bikes, buy used bike";
-                alternative = string.Format("https://www.bikewale.com/m/used/browse-{0}-bikes-by-cities/", MakeName);
+                alternative = string.Format("https://www.bikewale.com/m/used/browse-{0}-bikes-in-cities/", MakeMaskingName);
             }
             catch (Exception ex)
             {

@@ -269,6 +269,9 @@ namespace Bikewale.Models.UserReviews
         /// summary :- added targetmodel and make
         /// Modified by : Sanskar Gupta on 26 April 2018
         /// Description : Modified `objPage.PageMetaTags.CanonicalUrl` to accommodate for pagination.
+        /// Modified by: Dhruv Joshi
+        /// Dated: 20th July 2018
+        /// Description: Alternate URLs for paginated views
         /// </summary>
         /// <param name="objPage"></param>
         public void BindPageMetas(UserReviewListingVM objPage)
@@ -309,10 +312,12 @@ namespace Bikewale.Models.UserReviews
                     {
                         objPage.PageMetaTags.CanonicalUrl = string.Format("https://www.bikewale.com/{0}-bikes/{1}/reviews/page/{2}/", objPage.ReviewsInfo.Make.MaskingName, objPage.ReviewsInfo.Model.MaskingName, curPageNo);
                         objPage.PageMetaTags.PreviousPageUrl = string.Format("https://www.bikewale.com/{0}-bikes/{1}/reviews/page/{2}/", objPage.ReviewsInfo.Make.MaskingName, objPage.ReviewsInfo.Model.MaskingName, curPageNo - 1);
+                        objPage.PageMetaTags.AlternateUrl = string.Format("https://www.bikewale.com/m/{0}-bikes/{1}/reviews/page/{2}/", objPage.RatingsInfo.Make.MaskingName, objPage.RatingsInfo.Model.MaskingName, curPageNo);
                     }
                     else
                     {
                         objPage.PageMetaTags.CanonicalUrl = string.Format("https://www.bikewale.com/{0}-bikes/{1}/reviews/", objPage.ReviewsInfo.Make.MaskingName, objPage.ReviewsInfo.Model.MaskingName);
+                        objPage.PageMetaTags.AlternateUrl = string.Format("https://www.bikewale.com/m/{0}-bikes/{1}/reviews/", objPage.ReviewsInfo.Make.MaskingName, objPage.ReviewsInfo.Model.MaskingName);
 
                     }
                     if ((curPageNo * _pageSize) < _totalResults)

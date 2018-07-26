@@ -120,15 +120,6 @@
                                             </div>
                                         </li>
                                     
-                                    if (Model.AdTags.Ad_300x250BTF && bikeCount == 2)
-                                    {
-                                        <li>
-                                            <div class="border-top1 margin-left20 margin-right20 padding-top20"></div>
-                                            <div style="margin-bottom: 15px">
-                                                @{Html.RenderPartial("/Views/Shared/Ads/Mobile/AdSlotGeneric.cshtml", Model.AdSlots[String.Format("{0}-1", Model.AdTags.AdId)]);}
-                                            </div>
-                                        </li>
-                                    }
                                     }
                                 </ul>
                             </div>

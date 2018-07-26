@@ -667,7 +667,7 @@
                             }
                             else
                             {
-                                <div role="button" on="tap:AMP.navigateTo(url='@String.Format("/m{0}?q={1}", Bikewale.Utility.UrlFormatter.FormatPhotoPageUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName), Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(string.Format("imageindex={0}&retUrl={1}", imageIndex, Model.PageMetaTags.CanonicalUrl)))')" tabindex="@imageIndex" class="position--relative">
+                                <div role="button" on="tap:AMP.navigateTo(url='@String.Format("{0}/m{1}?q={2}", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, Bikewale.Utility.UrlFormatter.FormatPhotoPageUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName), Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(string.Format("imageindex={0}&retUrl={1}", imageIndex, Model.PageMetaTags.CanonicalUrl)))')" tabindex="@imageIndex" class="position--relative">
                                    
                                     @if (imageIndex < 2)
                                     {
@@ -995,7 +995,7 @@
         }
         @if (Model.IsNewBike && Model.ShowSeriesSlug && Model.SeriesSlug != null)
         {
-            <div class="find-series content-box flexbox" id="modelPageSeriesSlug" role="button" on="tap:AMP.navigateTo(url='@string.Format("/m/{0}-bikes/{1}/", Model.SeriesSlug.MakeMaskingName, Model.SeriesSlug.SeriesMaskingName)')" tabindex="0">
+            <div class="find-series content-box flexbox" id="modelPageSeriesSlug" role="button" on="tap:AMP.navigateTo(url='@string.Format("{0}/m/{1}-bikes/{2}/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, Model.SeriesSlug.MakeMaskingName, Model.SeriesSlug.SeriesMaskingName)')" tabindex="0">
                 <div class="find-series__icon flexbox flexbox-justify-center"></div>
                 <div class="find-series__content flexbox flexbox-justify-center flexbox-align-start">
                     <h2 class="find-series__head font-semibold">Find The Right @Model.SeriesSlug.SeriesName</h2>
