@@ -1,9 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<mapData>
-  <bikes>
-    <bike OEMBikeName="Discover 100 4 Speed" BikewaleBikeName="Bajaj Discover 100Standard" BikewaleBikeId="218" />
-    <bike OEMBikeName="Discover 100 M Standard" BikewaleBikeName="Bajaj Discover 100 MStandard" BikewaleBikeId="219" />
-    <bike OEMBikeName="Discover 125 ST Standard" BikewaleBikeName="Bajaj Discover 125 STStandard" BikewaleBikeId="228" />
-    <bike OEMBikeName="Pulsor 135 LS" BikewaleBikeName="Bajaj Pulsar 135 LSStandard" BikewaleBikeId="211" />
-  </bikes>
-</mapData>

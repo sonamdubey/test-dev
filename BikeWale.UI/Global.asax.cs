@@ -20,6 +20,7 @@ namespace Bikewale
             ViewEngines.Engines.Add(new RazorViewEngine());
             log4net.Config.XmlConfigurator.Configure();
             UnityConfig.RegisterComponents();
+            AreaRegistration.RegisterAllAreas();
             Bikewale.Service.WebApiConfig.Register(GlobalConfiguration.Configuration);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             GlobalConfiguration.Configuration.EnsureInitialized();

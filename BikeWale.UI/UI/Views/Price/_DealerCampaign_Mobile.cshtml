@@ -1,0 +1,308 @@
+﻿@model Bikewale.Entities.PriceQuote.v2.DetailedDealerQuotationEntity
+
+@if (Model != null && Model.PrimaryDealer != null && Model.PrimaryDealer.DealerDetails != null && Model.PrimaryDealer.DealerDetails.objArea != null)
+{
+    var PrimaryDealerDetails = Model.PrimaryDealer.DealerDetails;
+
+    <div id="pq-dealer-details" class="dealer-details__content">
+        <div class="dealer__name-content margin-bottom15">
+            <span class="dealer-details__icon"></span>
+            <div>
+                <h2 class="dealer-details__name">@PrimaryDealerDetails.Organization</h2>
+                <p class="dealer-details__description">@((!PrimaryDealerDetails.IsDSA) ? "Authorized Dealer in " : "Multi-brand Dealer in ")@PrimaryDealerDetails.objArea.AreaName</p>
+            </div>
+        </div>
+        @if(PrimaryDealerDetails.IsDSA){
+            <div class="bw-tooltip multi-brand-tooltip tooltip-bottom slideUp-tooltip">
+                <p class="bw-tooltip-text position-rel font14">This dealer sells bikes of multiple brands.<br />Above price is not final and may vary at the dealership.</p>
+                <span class="position-abt pos-top10 pos-right10 bwmsprite cross-sm-dark-grey cur-pointer close-bw-tooltip"></span>
+            </div>
+        }
+        <div class="dealer__price-content">
+			<span class="dealer-price__on-road-price">&#x20b9;&nbsp;<span class="text-bold">@Bikewale.Utility.Format.FormatPrice(ViewBag.TotalPrice.ToString())</span>
+			</span>
+			<span class="dealer-price__on-road-price-label">On-road price</span>
+			@if (Model.PrimaryDealer.EMIDetails != null && !Model.PrimaryDealer.IsStandardDealer)
+			{
+			<p class="dealer-price__emi">
+				EMI&nbsp;
+				<span class="text-default">&#x20b9;</span>
+				<span id="spnEMIAmount" class="text-default"></span>&nbsp;onwards&nbsp;
+				<a href="javascript:void(0)" class="calculate-emi-target" rel="nofollow">Calculate Now</a>
+			</p>
+			}
+        </div>
+
+        @if ((Model.PrimaryDealer.HasOffers && !Model.PrimaryDealer.IsStandardDealer) || Model.PrimaryDealer.IsBookingAvailable)
+        {
+            <div class="dealer__offers-content dealer-details--model">
+                @if (Model.PrimaryDealer.HasOffers && !Model.PrimaryDealer.IsStandardDealer)
+                {
+                    int offersPreviewCount = 2;
+                    int offersCount = Model.PrimaryDealer.OfferList.Count();
+
+                    <div class="dealer-offer__container">
+                        <div class="dealer-offer__badge">
+                            <span class="offer-badge__star"></span>
+                            <span>@string.Format("{0} {1}", offersCount, offersCount > 1 ? "OFFERS" : "OFFER")</span>
+                        </div>
+                        <ul class="benefit__list" data-count="@offersPreviewCount">
+                            @foreach (var offer in Model.PrimaryDealer.OfferList)
+                            {
+                                <li class="benefit-list__item">
+                                    <span class="benefit-item__icon @(string.Format(" offer-{0}-icon", offer.OfferCategoryId))"></span>
+                                    <span class="benefit-item__label">
+                                        @offer.OfferText
+                                        @if (offer.IsOfferTerms)
+                                        {
+                                            <span class="margin-left10 tnc font9" id="@offer.OfferId">View terms</span>
+                                        }
+                                    </span>
+                                </li>
+                            }
+                        </ul>
+                        @if (offersCount > offersPreviewCount)
+                        {
+                            <span class="benefit-list__more-target">+@(offersCount - offersPreviewCount) more</span>
+                        }
+                    </div>
+                }
+                @if (Model.PrimaryDealer.IsBookingAvailable)
+                {
+                    <div class="dealer__booking-content">
+                        <a href="#" onclick="return this.href='/m/pricequote/bookingsummary_new.aspx' + window.location.search" class="btn btn-teal book-now__btn">Book Now</a>
+                        <p class="book-now__label">
+                            (Pay &#x20b9; @Bikewale.Utility.Format.FormatPrice(Model.PrimaryDealer.BookingAmount.ToString()) to book online and rest at dealership.)
+                        </p>
+                    </div>
+                }
+            </div>
+        }
+
+        <div class="dealer-details__card">
+
+            @if (Model.PrimaryDealer.IsPremiumDealer)
+            {
+                <script src="https://maps.googleapis.com/maps/api/js?key=@Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey&callback=initializeDealerMap" async defer></script>
+                <div id="dealerMap" class="dealer-details-card__map" style="height: 94px; position: relative; text-align: center">
+                    <img src="https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif" />
+                </div>
+                <script type="text/javascript">
+                    function initializeDealerMap() {
+                        var element = document.getElementById('dealerMap');
+                        var latitude = '@PrimaryDealerDetails.objArea.Latitude';
+                        var longitude = '@PrimaryDealerDetails.objArea.Longitude';
+
+                        try {
+                            mapUrl = "https://maps.google.com/?q=" + latitude + "," + longitude;
+                            latLng = new google.maps.LatLng(latitude, longitude),
+                            mapOptions = {
+                                zoom: 13,
+                                center: latLng,
+                                scrollwheel: false,
+                                navigationControl: false,
+                                draggable: false,
+                                mapTypeId: google.maps.MapTypeId.ROADMAP
+                            },
+                            map = new google.maps.Map(element, mapOptions),
+                            marker = new google.maps.Marker({
+                                title: "Dealer's Location",
+                                position: latLng,
+                                map: map,
+                                animation: google.maps.Animation.DROP
+                            });
+                            google.maps.event.addListener(marker, 'click', function () {
+                                window.open(mapUrl, '_blank');
+                            });
+                            google.maps.event.addListener(map, 'click', function () {
+                                window.open(mapUrl, '_blank');
+                            });
+                            google.maps.event.addListenerOnce(map, 'idle', function () {
+                            });
+                        } catch (e) {
+                            return;
+                        }
+                    }
+
+                </script>
+            }
+
+            <div class="padding-15-20 dealership-details-wrapper">
+                @if (!string.IsNullOrEmpty(PrimaryDealerDetails.Address))
+                {
+                    <p class="margin-bottom10">
+                        <span class="bwmsprite dealership-loc-icon vertical-top margin-right15"></span>
+                        <span class="vertical-top dealership-address">@PrimaryDealerDetails.Address</span>
+                    </p>
+}
+
+                @if (!string.IsNullOrEmpty(PrimaryDealerDetails.MaskingNumber))
+                {
+                    <p class="margin-bottom10">
+                        <span class="bwmsprite tel-grey-sm-icon vertical-top margin-right15"></span>
+                        <a id="aDealerNumber" href="tel:@PrimaryDealerDetails.MaskingNumber" class="vertical-top text-default">@PrimaryDealerDetails.MaskingNumber</a>
+                    </p>
+                }
+                @if (!string.IsNullOrEmpty(PrimaryDealerDetails.WorkingTime))
+                {
+                    <div>
+                        <span class="bwmsprite clock-icon vertical-top margin-right15"></span>
+                        <span class="vertical-top">@PrimaryDealerDetails.WorkingTime</span>
+                        </div>
+                }
+            </div>
+
+        </div>
+
+        @if (Model.PrimaryDealer.HasBenefits && Model.PrimaryDealer.IsPremiumDealer)
+        {
+            <div class="dealer__benefit-content">
+                <p class="dealer-benefit__title">Benefits from this dealer</p>
+                <ul class="benefit__list">
+                    @foreach (var benefit in Model.PrimaryDealer.Benefits)
+					{
+						<li class="benefit-list__item">
+							<span class="benefit-item__icon @(string.Format(" benefit-{0}-icon", benefit.CatId))"></span>
+							<span class="benefit-item__label">@benefit.BenefitText</span>
+						</li>
+                    }
+                </ul>
+            </div>
+        }
+    </div>
+
+    <div id="pricequote-floating-button-wrapper" class="grid-12 alpha omega">
+        <div class="float-button float-fixed">
+            <div class="grid-@(!String.IsNullOrEmpty(PrimaryDealerDetails.MaskingNumber) ? "6" : "12") alpha omega padding-right5">
+                <input type="button" data-role="none" id="leadBtnBookNow" data-pqsourceid="@Convert.ToUInt16(Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_DPQ_Quotation)" data-leadsourceid="17" data-item-registerpq="false" data-item-id="@PrimaryDealerDetails.DealerId" data-item-name="@PrimaryDealerDetails.Organization" data-item-area="@PrimaryDealerDetails.objArea.AreaName" data-cat="Dealer_PQ" name="leadBtnBookNow" class="btn btn-full-width btn-orange leadcapturebtn" value="@PrimaryDealerDetails.DisplayTextSmall" />
+            </div>
+            @if (!String.IsNullOrEmpty(PrimaryDealerDetails.MaskingNumber))
+            {
+                <div class="@(!string.IsNullOrEmpty(PrimaryDealerDetails.MaskingNumber) ? " grid-6 omega padding-left5" : "")">
+                    <a id="calldealer" class="btn btn-full-width btn-green rightfloat" href="tel:@PrimaryDealerDetails.MaskingNumber">
+                        <span class="bwmsprite tel-white-icon margin-right5"></span>Call dealer
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
+
+
+    if (Model.PrimaryDealer.EMIDetails != null && !Model.PrimaryDealer.IsStandardDealer)
+    {
+    <div id="emiPopup" data-bind="visible: true" style="display: none;" class="bwm-fullscreen-popup text-center padding-top30">
+        <div class="emi-popup-close-btn position-abt pos-top10 pos-right10 bwmsprite cross-lg-lgt-grey cur-pointer"></div>
+        <div class="icon-outer-container rounded-corner50percent">
+            <div class="icon-inner-container rounded-corner50percent">
+                <span class="offers-sprite cal-emi-icon margin-top15"></span>
+            </div>
+        </div>
+        <p class="font16 text-bold margin-top25 margin-bottom10">EMI Calculator</p>
+        <div class="finance-emi-container">
+            <div class="finance-emi-left-box alpha">
+                <div class="emi-slider-box">
+                    <div class="emi-slider-box-left-section">
+                        <div class="clearfix font14">
+                            <p class="grid-8 alpha text-light-grey text-left">Down payment</p>
+                            <div class="emi-slider-box-right-section grid-4 omega">
+                                <span class="bwmsprite inr-xxsm-icon"></span>
+                                <span id="downPaymentAmount" data-bind="text: formatPrice(Math.round(downPayment()))" class="text-bold"></span>
+                            </div>
+                        </div>
+                        <div id="downPaymentSlider"
+                             data-bind="slider: downPayment, sliderOptions: { min: minDnPay(), max: maxDnPay(), range: 'min', step: 1, value: Math.round(((maxDnPay() - minDnPay()) / 2) + minDnPay()) }"
+                             class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
+                            <div class="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-min"></div>
+                            <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+
+                <div class="emi-slider-box">
+                    <div class="emi-slider-box-left-section">
+                        <div class="clearfix font14">
+                            <p class="grid-8 alpha text-light-grey text-left">Loan amount</p>
+                            <div class="emi-slider-box-right-section grid-4 omega">
+                                <span class="bwmsprite inr-xxsm-icon"></span>
+                                <span id="loanAmount" data-bind="text: formatPrice(Math.round(loan()))" class="text-bold"></span>
+                            </div>
+                        </div>
+                        <div id="loanAmountSlider"
+                             data-bind="slider: loan, sliderOptions: { min: bikePrice() - maxDnPay(), max: bikePrice() - minDnPay(), range: 'min', step: 1 }"
+                             class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
+                            <div class="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-min"></div>
+                            <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+
+                <div class="emi-slider-box">
+                    <div class="emi-slider-box-left-section">
+                        <div class="clearfix font14">
+                            <p class="grid-8 alpha text-light-grey text-left">Tenure</p>
+                            <div class="emi-slider-box-right-section grid-4 omega text-bold">
+                                <span id="tenurePeriod" data-bind="text: tenure"></span>&nbsp;Months
+                            </div>
+                        </div>
+                        <div id="tenureSlider"
+                             data-bind="slider: tenure, sliderOptions: { min: minTenure(), max: maxTenure(), range: 'min', step: 1 }"
+                             class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
+                            <div class="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-min"></div>
+                            <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+
+                <div class="emi-slider-box">
+                    <div class="emi-slider-box-left-section">
+                        <div class="clearfix font14">
+                            <p class="grid-8 alpha text-light-grey text-left">Interest</p>
+                            <div class="emi-slider-box-right-section grid-4 omega text-bold">
+                                <span id="rateOfInterestPercentage" data-bind="text: rateofinterest">5</span>&nbsp;%
+                            </div>
+                        </div>
+                        <div id="rateOfInterestSlider"
+                             data-bind="slider: rateofinterest, sliderOptions: { min: minROI(), max: maxROI(), range: 'min', step: 0.25 }"
+                             class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
+                            <div class="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-min"></div>
+                            <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+
+            </div>
+            <div class="finance-emi-right-box omega margin-top5 margin-bottom25 padding-right15 padding-left15">
+                <div class="clearfix">
+                    <p class="grid-5 font16 text-left text-light-grey alpha position-rel pos-top2">Indicative EMI</p>
+                    <div class="indicative-emi-amount text-right grid-7 omega font18 text-bold">
+                        @Html.Raw("<span class='font18'> &#x20B9;</span>")
+                        <span id="emiAmount" data-bind="text: formatPrice(monthlyEMI())"></span>&nbsp;per month
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+            <a id="btnEmiQuote" class="btn btn-orange text-bold emi-quote-btn leadcapturebtn" data-pqsourceid="@Convert.ToUInt16(Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_DPQ_Quotation)" data-leadsourceid="18" data-item-registerpq="false" data-item-id="@PrimaryDealerDetails.DealerId" data-item-name="@PrimaryDealerDetails.Organization" data-item-area="@PrimaryDealerDetails.objArea.AreaName" data-ga-cat="Dealer_PQ" data-ga-act="Lead_Submitted" data-ga-lab="@(String.Format("EMI_Calculator_{0}_{1}", PrimaryDealerDetails.objCity.CityName, PrimaryDealerDetails.objArea.AreaName))">Get EMI quote from dealer</a>
+        </div>
+    </div>
+    }
+
+    <!-- Terms and condition Popup start -->
+    <div class="termsPopUpContainer content-inner-block-20 hide" id="termsPopUpContainer">
+        <div class="fixed-close-btn-wrapper">
+            <div id="termsPopUpCloseBtn" class="termsPopUpCloseBtn bwmsprite fixed-close-btn cross-lg-lgt-grey cur-pointer"></div>
+        </div>
+        <h3>Terms and Conditions</h3>
+        <div class="hide" style="vertical-align: middle; text-align: center;" id="termspinner">
+            <img src="https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif" />
+        </div>
+        <div id="terms" class="breakup-text-container padding-bottom10 font14">
+        </div>
+        <div id='orig-terms' class="hide">
+        </div>
+    </div>
+		<!-- Terms and condition Popup end -->
+}

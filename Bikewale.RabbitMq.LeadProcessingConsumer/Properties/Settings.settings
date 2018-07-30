@@ -1,9 +1,0 @@
-﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Bikewale.RabbitMq.LeadProcessingConsumer.Properties" GeneratedClassName="Settings">
-  <Profiles />
-  <Settings>
-    <Setting Name="Bikewale_RabbitMq_LeadProcessingConsumer_RoyalEnfieldWebAPI_Service" Type="(Web Service URL)" Scope="Application">
-      <Value Profile="(Default)">http://crc.cequitycti.com/RoyalEnfield/Service.asmx</Value>
-    </Setting>
-  </Settings>
-</SettingsFile>
