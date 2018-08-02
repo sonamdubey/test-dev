@@ -1,6 +1,6 @@
 {
   "name": "oxygen",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "oxygen is a collection of React components",
   "main": "lib/index.js",
   "scripts": {
