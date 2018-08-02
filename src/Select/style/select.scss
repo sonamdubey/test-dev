@@ -1,0 +1,54 @@
+@import './normalize';
+
+// select
+.oxygen-select {
+  display: inline-block;
+  position: relative;
+}
+
+.oxygen-select-label {
+  color: #6f6f6f;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding-bottom: 10px;
+  display: block;
+}
+
+.oxygen-select-content {
+  position: relative;
+}
+
+.oxygen-select-arrow-separator {
+  position: absolute;
+  top: 0;
+  right: 40px;
+  display: block;
+  height: 100%;
+  border-left: 1px solid #aaa;
+}
+
+.oxygen-select-field {
+  width: 100%;
+  color: #484848;
+  font-size: 16px;
+  padding: 10px 56px 10px 16px; // 40px arrow button + 16px right padding = 56px
+  display: inline-block;
+  border-radius: 3px;
+  border: 1px solid #aaa;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: #fff;
+  // NOTE: Use cdn image in your project
+  background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMy43NyA3LjQ0Ij48ZGVmcz48c3R5bGU+LmNscy0xe2ZpbGw6bm9uZTtzdHJva2U6IzZmNmY2ZjtzdHJva2UtbGluZWNhcDpyb3VuZDtzdHJva2UtbGluZWpvaW46cm91bmQ7fTwvc3R5bGU+PC9kZWZzPjx0aXRsZT5hcnJvdyBuZXc8L3RpdGxlPjxnIGlkPSJMYXllcl8yIiBkYXRhLW5hbWU9IkxheWVyIDIiPjxnIGlkPSJMYXllcl8xLTIiIGRhdGEtbmFtZT0iTGF5ZXIgMSI+PGcgaWQ9IkxheWVyXzItMiIgZGF0YS1uYW1lPSJMYXllciAyIj48ZyBpZD0iTGF5ZXJfMi0yLTIiIGRhdGEtbmFtZT0iTGF5ZXIgMi0yIj48cG9seWxpbmUgY2xhc3M9ImNscy0xIiBwb2ludHM9IjEzLjI4IDAuNSA2LjgzIDYuOTQgMC41IDAuNSIvPjwvZz48L2c+PC9nPjwvZz48L3N2Zz4='); // TODO: Replace data-uri with static svg icon path
+  background-size: 16px;
+  background-repeat: no-repeat;
+  background-position: right 12px center; // 12px left space + 12px right space + 16px icon width = 40px arrow button
+
+  &:focus {
+    outline: 0;
+    border-color: #3fbfff;
+  }
+}

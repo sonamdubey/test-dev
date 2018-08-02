@@ -16,6 +16,7 @@ npm intall oxygen --save
 * [Checkbox](https://github.com/carwale/oxygen/tree/master/src/Checkbox)
 * [Form](https://github.com/carwale/oxygen/tree/master/src/Form)
 * [Input](https://github.com/carwale/oxygen/tree/master/src/Input)
+* [Select](https://github.com/carwale/oxygen/tree/master/src/Select)
 
 ### Live Playground
 
