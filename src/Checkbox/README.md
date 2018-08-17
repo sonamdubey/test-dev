@@ -59,7 +59,7 @@ const checkboxOptions = [
 | defaultChecked | `bool` | - | - | The default value of `checkbox` element. |
 | disabled | `bool` | - | - | Disabled state of button. |
 | name | `string` | - | - | The `name` attribute of `checkbox` element. |
-| prefixClass | `func` | `oxygen-checkbox` | - | The prefix for `checkbox` component. |
+| prefixClass | `string` | `oxygen-checkbox` | - | The prefix for `checkbox` component. |
 
 ### Events
 
@@ -71,11 +71,12 @@ const checkboxOptions = [
 
 | propName | propType | defaultValue | isRequired | description |
 | -------- | -------- | ------------ | ---------- | ----------- |
+| alignIcon | oneOf `left`, `right` | `left` | - | Align `checkbox` icon. |
 | className | `string` | - | - | A custom class for `CheckboxGroup` component. |
 | defaultValue | `array` | - | - | Default selected value. |
 | name | `string` | - | - | The `name` propery of all `input`. |
 | options | `array` | - | - | Set children. |
-| prefixClass | `func` | `oxygen-checkbox-group` | - | The prefix for `checkbox` component. |
+| prefixClass | `string` | `oxygen-checkbox-group` | - | The prefix for `checkbox` component. |
 | type | oneOf `default`, `pill` | `default` | - | Type of checkbox. |
 | value | `array` | - | - | Set currently selected value. |
 

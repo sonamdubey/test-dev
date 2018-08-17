@@ -30,6 +30,11 @@ class Checkbox extends React.Component {
     prefixClass: 'oxygen-checkbox',
   };
 
+  shouldComponentUpdate(nextProps) {
+    // TODO: Shallow equal entire `nextProps`
+    return this.props.checked !== nextProps.checked;
+  }
+
   handleChange = event => {
     const { onChange } = this.props;
 
