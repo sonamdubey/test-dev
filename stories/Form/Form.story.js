@@ -21,7 +21,6 @@ storiesOf('Form', module)
             label="Name"
             placeholder="Enter your name"
             value="John Doe"
-            onChange={this.handleUserNameChange}
           />
         </Form.Item>
         <Form.Item>
@@ -31,7 +30,6 @@ storiesOf('Form', module)
             type="tel"
             placeholder="Enter your mobile"
             value="9876543210"
-            onChange={this.handleMobileChange}
             prefix="+91"
             maxLength={10}
           />
