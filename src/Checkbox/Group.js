@@ -1,11 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import shallowEqual from 'shallowequal';
 
 import Checkbox from './Checkbox';
 
 class CheckboxGroup extends React.Component {
   static propTypes = {
+    /** Align `checkbox` icon. */
+    alignIcon: PropTypes.oneOf(['left', 'right']),
     /** A custom class for `CheckboxGroup` component. */
     className: PropTypes.string,
     /** Default selected value. */
@@ -35,6 +38,22 @@ class CheckboxGroup extends React.Component {
     this.state = {
       value: props.value || props.defaultValue || [],
     };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if ('value' in nextProps) {
+      this.setState({
+        value: nextProps.value || [],
+      });
+    }
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    // TODO: Shallow equal entire `nextProps` and `nextState`
+    return (
+      !shallowEqual(this.props.value, nextProps.value) ||
+      !shallowEqual(this.state.value, nextState.value)
+    );
   }
 
   getOptions = () => {
@@ -78,7 +97,14 @@ class CheckboxGroup extends React.Component {
   };
 
   render() {
-    const { className, name, type, options, prefixClass } = this.props;
+    const {
+      className,
+      name,
+      type,
+      options,
+      prefixClass,
+      alignIcon,
+    } = this.props;
 
     const { value } = this.state;
 
@@ -97,6 +123,7 @@ class CheckboxGroup extends React.Component {
           name={name}
           value={option.value}
           onChange={this.toggleOption.bind(this, option)}
+          alignIcon={alignIcon}
         >
           {option.label}
         </Checkbox>
