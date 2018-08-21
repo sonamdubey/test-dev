@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 0.2.1
+
+- 🛠 Transform ES6 module syntax to commonjs. [#6](https://github.com/carwale/oxygen/pull/6)
+- 🐞 Fix `Checkbox`'s `Group` component update lifecycle. [#8](https://github.com/carwale/oxygen/pull/8)
+
 ## 0.2.0
 
 - 🌟 Add `Select` component. [#4](https://github.com/carwale/oxygen/pull/4)
