@@ -9,8 +9,8 @@
     AdId = "1398766302464";
     menu = "9";
 %>
-<!-- #include file="/includes/headermobile.aspx" -->
-<link rel="stylesheet" type="text/css" href="/m/css/user-review/landing.css" />
+<!-- #include file="/UI/includes/headermobile.aspx" -->
+<link rel="stylesheet" type="text/css" href="/UI/m/css/user-review/landing.css" />
 <script type="text/javascript" src="https://stb.aeplcdn.com/bikewale/src/BikeWaleCommon.js?v=3.2"></script>
 
 <section>
@@ -226,8 +226,8 @@
         <a href="#" data-role="button" data-rel="back" data-theme="c" data-mini="true">OK</a>
     </div>
 </div>
-<script type="text/javascript" src="<%= staticUrl %>/m/src/user-review/landing.js?<%= staticFileVersion %>"></script>
+<script type="text/javascript" src="<%= staticUrl %>/UI/m/src/user-review/landing.js?<%= staticFileVersion %>"></script>
 <script type="text/javascript">
-    var returnUrl = '<%=Utils.Utils.EncryptTripleDES(string.Format("returnUrl=/user-reviews/&sourceid={0}",(int)Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Mobile_UserReview_Landing))%>';
+    var returnUrl = '<%=TripleDES.EncryptTripleDES(string.Format("returnUrl=/user-reviews/&sourceid={0}",(int)Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Mobile_UserReview_Landing))%>';
 </script>
-<!-- #include file="/includes/footermobile.aspx" -->
+<!-- #include file="/UI/includes/footermobile.aspx" -->

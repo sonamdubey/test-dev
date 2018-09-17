@@ -158,6 +158,27 @@ docReady(function () {
         triggerNonInteractiveGA("Model_Page", "Mileage_Card_Shown", myBikeName);
     }
 
+    function sanitizeGALabel(str) {
+      return str ? str : "null";
+    }
+
+    function checkPresentOrAbsent(id) {
+      switch (typeof (id)) {
+        case "number":
+          return id > 0 ? "Present" : "Absent";
+        case "string":
+          return id.toLowerCase() == "true" ? "Present" : "Absent";
+        case "boolean":
+          return id ? "Present" : "Absent";
+      }
+    }
+    if (isBikeNew.toLowerCase() == 'true') {
+      var location = GetGlobalLocationObject();
+      var eventAction = 'User_City ' + checkPresentOrAbsent(parseInt(cityId)) + '_Area ' + checkPresentOrAbsent(parseInt(areaId)) + '_Campaign_City Level ' + checkPresentOrAbsent(isCityLevelCampaignPresent) + '_Area Level ' + checkPresentOrAbsent(isAreaLevelCampaignPresent);
+      var eventLabel = myBikeName + '_' + sanitizeGALabel(location.CityName) + '_' + sanitizeGALabel(location.AreaName) + '_' + shownCampaignType + " Campaign Shown";
+      triggerNonInteractiveGA("Model_Page", eventAction, eventLabel);
+    }
+
     function callFallBackWriteReview() {
         $('#adBlocker').show();
         $('.sponsored-card').hide();
@@ -241,7 +262,8 @@ docReady(function () {
                 lab: bikeVersionLocation
             },
             "sendLeadSMSCustomer": ele.attr('data-issendleadsmscustomer'),
-            "organizationName": ele.attr('data-item-organization')
+            "organizationName": ele.attr('data-item-organization'),
+            "campaignId": ele.attr("data-campaignid")
         };
         gaLabel = getBikeVersionLocation();
         dleadvm.setOptions(leadOptions);
@@ -487,7 +509,7 @@ docReady(function () {
     });
 
     var tabsHashParameter = window.location.hash;
-    if (tabsHashParameter) {
+    if (tabsHashParameter && $(tabsHashParameter).offset() != null) {
 
         $('html, body').scrollTop($(tabsHashParameter).offset().top - 650);
         //$('.overall-specs-tabs-wrapper a[href^=' + tabsHashParameter + ']').trigger('click');

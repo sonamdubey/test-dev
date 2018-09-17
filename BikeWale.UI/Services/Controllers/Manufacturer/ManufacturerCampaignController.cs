@@ -49,7 +49,7 @@ namespace Bikewale.Service.Controllers.Manufacturer
                 objDealers = _objPQCache.GetManufacturerDealers(city, dealerId);
                 if (objDealers != null && objDealers.Any())
                 {
-                    dealersData = ManufacturingCampaign.Convert(objDealers);
+                    dealersData = Bikewale.Service.AutoMappers.PriceQuote.ManufacturingCampaign.Convert(objDealers);
                     return Ok(dealersData);
                 }
                 else

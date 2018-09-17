@@ -8,15 +8,25 @@
     description = "bikewale.com user login";
     keywords = "users, login, register, forgot password";
 %>
-<!-- #include file="/includes/headscript_mobile.aspx" -->
-<link href="<%= staticUrl  %>/css/login.css?<%= staticFileVersion%>" rel="stylesheet" type="text/css"/>
+<!-- #include file="/UI/includes/headscript_mobile.aspx" -->
+<link href="<%= staticUrl  %>/UI/css/login.css?<%= staticFileVersion%>" rel="stylesheet" type="text/css"/>
 </head>
 <body>
     <form id="form1" runat="server">
         <div class="blackOut-window bwm-blackOut-window"></div>       
-        <!-- #include file="/includes/Navigation_Mobile.aspx" -->
+        <!-- #include file="/UI/includes/Navigation_Mobile.aspx" -->
         
         <div id="header" class="header-fixed"> <!-- Header code starts here -->
+		<!-- BW Doodle start-->
+		<span class="bw-doodle__container">
+			<span class="bw-doodle__bell-one"></span>
+			<span class="bw-doodle__bell-two"></span>
+			<span class="bw-doodle__ganesh-image">
+				<span class="bw-doodle__ganesh"></span>
+				<span class="bw-doodle__ganesh-bg"></span>
+			</span>
+		</span>
+		<!-- BW Doodle end-->
             <div class="leftfloat">
                 <span id="navbarBtn" class="navbarBtn bwm-navbarBtn bwmsprite nav-icon margin-right25"></span>
                 <a href="/" id="bwheader-logo" class="bwmsprite bw-logo" title="Bikewale"></a>
@@ -102,7 +112,7 @@
                 <div class="login-box-footer"></div>
             </div>
         </section>
-        <!-- #include file="/includes/footerloginBW.aspx" -->       
+        <!-- #include file="/UI/includes/footerloginBW.aspx" -->       
         <script type="text/javascript">
             //client side validation for login
             var email = $("#<%=txtLoginid.ClientID.ToString() %>");
@@ -121,7 +131,7 @@
                 setBackgroundImage();
             });
         </script>
-        <script type="text/javascript" src="<%= staticUrl  %>/src/login/login.js?<%= staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl  %>/UI/src/login/login.js?<%= staticFileVersion %>"></script>
     </form>
 </body>
 </html>

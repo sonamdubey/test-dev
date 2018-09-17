@@ -5,6 +5,7 @@ using Bikewale.Interfaces.UserReviews;
 using Bikewale.Notifications;
 using System;
 using System.Collections.Generic;
+using Bikewale.Utility;
 
 namespace Bikewale.Models.UserReviews
 {
@@ -77,9 +78,9 @@ namespace Bikewale.Models.UserReviews
                 viewModel.UserReviewPopup.MakeName = _makeName;
 
                 if (csrc > 0)
-                    viewModel.QueryString = Utils.Utils.EncryptTripleDES(string.Format("sourceid={0}", csrc));
+                    viewModel.QueryString = TripleDES.EncryptTripleDES(string.Format("sourceid={0}", csrc));
                 else
-                    viewModel.QueryString = Utils.Utils.EncryptTripleDES(string.Format("sourceid={0}", _isMobile ? (int)UserReviewPageSourceEnum.Mobile_UserReviewContestPage : (int)UserReviewPageSourceEnum.Desktop_UserReviewContestPage));
+                    viewModel.QueryString = TripleDES.EncryptTripleDES(string.Format("sourceid={0}", _isMobile ? (int)UserReviewPageSourceEnum.Mobile_UserReviewContestPage : (int)UserReviewPageSourceEnum.Desktop_UserReviewContestPage));
 
                 viewModel.UserReviewsWinners = new UserReviewWinnerWidget(_userReviewCache).GetData();
                 BindPageMetas(viewModel);

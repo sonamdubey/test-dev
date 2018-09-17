@@ -1,9 +1,9 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Service.ServiceCenterDetails" EnableViewState="false" %>
-<%@ Register Src="~/m/controls/DealersCard.ascx" TagName="DealerCard" TagPrefix="BW" %>
-<%@ Register Src="~/m/controls/ServiceCenterCard.ascx" TagName="ServiceCenterCard" TagPrefix="BW" %>
-<%@ Register Src="~/m/controls/serviceschedule.ascx" TagName="ServiceSchedule" TagPrefix="BW" %>
-<%@ Register Src="~/m/controls/MMostPopularBikes.ascx" TagName="PopularBikeMake" TagPrefix="BW" %>
-<%@ Register Src="~/m/controls/usedBikeModel.ascx" TagName="usedBikeModel" TagPrefix="BW" %>
+<%@ Register Src="~/UI/m/controls/DealersCard.ascx" TagName="DealerCard" TagPrefix="BW" %>
+<%@ Register Src="~/UI/m/controls/ServiceCenterCard.ascx" TagName="ServiceCenterCard" TagPrefix="BW" %>
+<%@ Register Src="~/UI/m/controls/serviceschedule.ascx" TagName="ServiceSchedule" TagPrefix="BW" %>
+<%@ Register Src="~/UI/m/controls/MMostPopularBikes.ascx" TagName="PopularBikeMake" TagPrefix="BW" %>
+<%@ Register Src="~/UI/m/controls/usedBikeModel.ascx" TagName="usedBikeModel" TagPrefix="BW" %>
 
 <!DOCTYPE html>
 <html>
@@ -16,15 +16,15 @@
         Ad_320x50 = true;
         Ad_Bot_320x50 = true;
     %>
-    <!-- #include file="/includes/headscript_mobile_min.aspx" -->
-    <link rel="stylesheet" type="text/css" href="/m/css/service/details.css" />
+    <!-- #include file="/UI/includes/headscript_mobile_min.aspx" -->
+    <link rel="stylesheet" type="text/css" href="/UI/m/css/service/details.css" />
     <script type="text/javascript">
-        <!-- #include file="\includes\gacode_mobile.aspx" -->
+        <!-- #include file="\UI\includes\gacode_mobile.aspx" -->
     </script>
 </head>
 <body class="bg-light-grey">
     <form runat="server">
-        <!-- #include file="/includes/headBW_Mobile.aspx" -->
+        <!-- #include file="/UI/includes/headBW_Mobile.aspx" -->
         <% if (objServiceCenterData != null)
         { %>
              <section>
@@ -113,7 +113,7 @@
                 <% }  %>
             </div>
         </section>
-        <script type="text/javascript" src="<%= staticUrl  %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl  %>/UI/m/src/frameworks.js?<%= staticFileVersion %>"></script>
 
         <section>
             <!-- schedule widget start -->
@@ -152,7 +152,7 @@
                 <%} %>
 
                 <div class="padding-top10 text-center">
-                    <!-- #include file="/ads/Ad300x250_mobile.aspx" -->
+                    <!-- #include file="/UI/ads/Ad300x250_mobile.aspx" -->
                 </div>
                 <div class="margin-right10 margin-left10 border-solid-bottom"></div>
 
@@ -179,11 +179,11 @@
             </div>
         </section>
 
-        <!-- #include file="/includes/footerBW_Mobile.aspx" -->
+        <!-- #include file="/UI/includes/footerBW_Mobile.aspx" -->
         <link href="<%= staticUrl  %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
-        <link href="<%= staticUrl  %>/css/chosen.min.css?<%= staticFileVersion %>" type="text/css" rel="stylesheet" />
-        <!-- #include file="/includes/footerscript_mobile.aspx" -->
-        <script type="text/javascript" src="<%= staticUrl  %>/m/src/chosen-jquery-min-mobile.js?<%= staticFileVersion %>"></script>
+        <link href="<%= staticUrl  %>/UI/css/chosen.min.css?<%= staticFileVersion %>" type="text/css" rel="stylesheet" />
+        <!-- #include file="/UI/includes/footerscript_mobile.aspx" -->
+        <script type="text/javascript" src="<%= staticUrl  %>/UI/m/src/chosen-jquery-min-mobile.js?<%= staticFileVersion %>"></script>
         <script src="https://maps.googleapis.com/maps/api/js?key=<%= Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey %>&libraries=places&callback=initializeMap" async defer></script>
         <script type="text/javascript">
             var versionId, dealerId = "<%= dealerId %>", cityId = "<%= cityId %>", clientIP = "<%= clientIP%>",campaignId = "<%= campaignId %>";
@@ -192,8 +192,8 @@
              var googleMapAPIKey = "<%= Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey%>";
             var pageUrl = window.location.href;
         </script>
-        <script type="text/javascript" src="<%= staticUrl  %>/m/src/service/details.js?<%= staticFileVersion %>"></script>
-        <!-- #include file="/includes/fontBW_Mobile.aspx" -->
+        <script type="text/javascript" src="<%= staticUrl  %>/UI/m/src/service/details.js?<%= staticFileVersion %>"></script>
+        <!-- #include file="/UI/includes/fontBW_Mobile.aspx" -->
     </form>
 </body>
 </html>

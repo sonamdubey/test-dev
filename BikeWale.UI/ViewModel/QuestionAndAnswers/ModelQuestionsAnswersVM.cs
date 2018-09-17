@@ -24,5 +24,6 @@ namespace Bikewale.Models.QuestionAndAnswers
         public PagerEntity PagerEntity { get; set; }
         public int StartIndex { get; set; }
         public int EndIndex { get; set; }
+        public string BaseUrl { get; set; }
     }
 }

@@ -29295,15 +29295,14 @@ var EMICalculator = exports.EMICalculator = function (_React$Component) {
 			    financeCitySelection = _props.financeCitySelection,
 			    IsFetching = _props.IsFetching;
 
-
-			var pieLoanAmt = sliderDp.onRoadPrice - sliderDp.values[0];
+			var pieLoanAmt = sliderDp.onRoadPrice - downpayment;
 			var finalIntPayable = (0, _formatAmount.formatToINR)(parseInt(interestPayable));
 			var finalTotalPrincipalAmt = (0, _formatAmount.formatToINR)(totalBikeCost);
-
 			var pieChartData = {
 				intStatePay: interestPayable,
 				pieLoanAmt: pieLoanAmt,
 				pieTotalPay: totalBikeCost,
+				pieDownPaymentAmt: downpayment,
 				interestPay: finalIntPayable,
 				TotalPrincipalAmt: finalTotalPrincipalAmt
 			};
@@ -30178,7 +30177,7 @@ var PieBreakUp = function (_React$Component) {
 			var loanAmount = parseFloat(onRoadPrice - downpayment);
 			var pricipalLoan = (0, _formatAmount.formatToINR)(loanAmount);
 			var pieInterestAmt = (0, _formatAmount.formatToINR)(interestPayable);
-
+			var downPaymentAmount = (0, _formatAmount.formatToINR)(downpayment);
 			return _react2.default.createElement(
 				'div',
 				null,
@@ -30191,13 +30190,13 @@ var PieBreakUp = function (_React$Component) {
 						_react2.default.createElement(
 							'div',
 							{ className: 'pie-breakup__title' },
-							_react2.default.createElement('span', { className: 'pie-breakup_bullet pie-breakup_bullet-interest' }),
-							' Total Interest Payable'
+							_react2.default.createElement('span', { className: 'pie-breakup_bullet pie-breakup_bullet-downpayment' }),
+							'Down Payment'
 						),
 						_react2.default.createElement(
 							'div',
 							{ className: 'pie-breakup__amount' },
-							pieInterestAmt
+							downPaymentAmount
 						)
 					),
 					_react2.default.createElement(
@@ -30207,7 +30206,7 @@ var PieBreakUp = function (_React$Component) {
 							'div',
 							{ className: 'pie-breakup__title' },
 							_react2.default.createElement('span', { className: 'pie-breakup_bullet pie-breakup_bullet-loan' }),
-							' Principle Loan Amount'
+							'Loan Amount'
 						),
 						_react2.default.createElement(
 							'div',
@@ -30217,18 +30216,17 @@ var PieBreakUp = function (_React$Component) {
 					),
 					_react2.default.createElement(
 						'div',
-						null,
+						{ className: 'pie-breakup_unit' },
 						_react2.default.createElement(
 							'div',
 							{ className: 'pie-breakup__title' },
-							_react2.default.createElement('span', { className: 'pie-breakup__bullet-tenure' }),
-							' Tenure',
-							_react2.default.createElement(
-								'span',
-								{ className: 'pie-breakup_tenure' },
-								parseInt(tenure),
-								' Months'
-							)
+							_react2.default.createElement('span', { className: 'pie-breakup_bullet pie-breakup_bullet-interest' }),
+							'Total Interest'
+						),
+						_react2.default.createElement(
+							'div',
+							{ className: 'pie-breakup__amount' },
+							pieInterestAmt
 						)
 					)
 				),
@@ -30293,7 +30291,8 @@ var EmiPieChart = function (_React$Component) {
 
 		_this.state = {
 			intStatePay: _this.props.pieChartData.intStatePay,
-			pieLoanAmt: _this.props.pieChartData.pieLoanAmt
+			pieLoanAmt: _this.props.pieChartData.pieLoanAmt,
+			pieDownPaymentAmt: _this.props.pieChartData.pieDownPaymentAmt
 		};
 		return _this;
 	}
@@ -30303,15 +30302,19 @@ var EmiPieChart = function (_React$Component) {
 		value: function componentWillReceiveProps(nextProps) {
 			this.setState({
 				intStatePay: nextProps.pieChartData.intStatePay,
-				pieLoanAmt: nextProps.pieChartData.pieLoanAmt
+				pieLoanAmt: nextProps.pieChartData.pieLoanAmt,
+				pieDownPaymentAmt: nextProps.pieChartData.pieDownPaymentAmt
 			});
 		}
 	}, {
 		key: 'render',
 		value: function render() {
 			var pieData = [{
-				value: this.state.pieLoanAmt,
+				value: this.state.pieDownPaymentAmt,
 				color: '#fed1cd'
+			}, {
+				value: this.state.pieLoanAmt,
+				color: '#c3c3c3'
 			}, {
 				value: this.state.intStatePay,
 				color: '#f45944'

@@ -76,6 +76,8 @@ namespace Bikewale.Entities.GenericBikes
     /// Summary :- BikeInfo Slug details GetBikeInfo
     /// Modified by : Sajal Gupta on 13-02-2017
     /// Added PriceInCity.
+    /// Modified by : Snehal Dange on 14th August 2018
+    /// Desc :  Added Question
     public enum BikeInfoTabType
     {
         Image = 1,
@@ -86,7 +88,8 @@ namespace Bikewale.Entities.GenericBikes
         ExpertReview = 6,
         News = 7,
         PriceInCity = 8,
-        Features = 9
+        Features = 9,
+        Question = 10
 
     }
 

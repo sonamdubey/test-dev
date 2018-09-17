@@ -1,9 +1,9 @@
 ﻿<%@ Page Language="C#" Inherits="Bikewale.New.BikeDealerDetails" AutoEventWireup="false" EnableViewState="false" %>
 
-<%@ Register Src="~/controls/DealerCard.ascx" TagName="DealerCard" TagPrefix="BW" %>
-<%@ Register Src="~/controls/LeadCaptureControl.ascx" TagName="LeadCapture" TagPrefix="BW" %>
-<%@ Register Src="~/controls/MostPopularBikes_new.ascx" TagName="MostPopularBikesMake" TagPrefix="BW" %>
-<%@ Register Src="~/controls/ServiceCenterCard.ascx" TagName="ServiceCenterCard" TagPrefix="BW" %>
+<%@ Register Src="~/UI/controls/DealerCard.ascx" TagName="DealerCard" TagPrefix="BW" %>
+<%@ Register Src="~/UI/controls/LeadCaptureControl.ascx" TagName="LeadCapture" TagPrefix="BW" %>
+<%@ Register Src="~/UI/controls/MostPopularBikes_new.ascx" TagName="MostPopularBikesMake" TagPrefix="BW" %>
+<%@ Register Src="~/UI/controls/ServiceCenterCard.ascx" TagName="ServiceCenterCard" TagPrefix="BW" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,15 +20,15 @@
         isAd300x250Shown = false;
         isAd300x250BTFShown = false;
     %>
-    <!-- #include file="/includes/headscript_desktop_min.aspx" -->
-    <link rel="stylesheet" type="text/css" href="/css/dealer/details.css" />
+    <!-- #include file="/UI/includes/headscript_desktop_min.aspx" -->
+    <link rel="stylesheet" type="text/css" href="/UI/css/dealer/details.css" />
     <script type="text/javascript">
-        <!-- #include file="\includes\gacode_desktop.aspx" -->
+        <!-- #include file="\UI\includes\gacode_desktop.aspx" -->
     </script>
 </head>
 <body class="bg-light-grey padding-top50">
     <form id="Form1" runat="server">
-        <!-- #include file="/includes/headBW.aspx" -->
+        <!-- #include file="/UI/includes/headBW.aspx" -->
         <section>
             <div class="container padding-top10">
                 <div class="grid-12">
@@ -296,8 +296,8 @@
                 <div class="clear"></div>
             </div>
         </section>        
-        <script type="text/javascript" src="<%= staticUrl %>/src/frameworks.js?<%=staticFileVersion %>"></script>
-        <!-- #include file="/includes/footerBW.aspx" -->
+        <script type="text/javascript" src="<%= staticUrl %>/UI/src/frameworks.js?<%=staticFileVersion %>"></script>
+        <!-- #include file="/UI/includes/footerBW.aspx" -->
         <script type="text/javascript">
             var versionId = "";
             var dealerid = <%= dealerId %>;
@@ -334,11 +334,11 @@
         </script>
         <BW:LeadCapture ID="ctrlLeadCapture" runat="server" />
 
-        <link href="<%= staticUrl  %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
-        <!-- #include file="/includes/footerscript.aspx" -->
-        <script type="text/javascript" src="<%= staticUrl  %>/src/dealer/details.js?<%= staticFileVersion %>"></script>
+        <link href="<%= staticUrl  %>/UI/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
+        <!-- #include file="/UI/includes/footerscript.aspx" -->
+        <script type="text/javascript" src="<%= staticUrl  %>/UI/src/dealer/details.js?<%= staticFileVersion %>"></script>
         <script src="https://maps.googleapis.com/maps/api/js?key=<%= Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey %>&libraries=places&callback=initializeMap"></script>
-        <!-- #include file="/includes/fontBW.aspx" -->
+        <!-- #include file="/UI/includes/fontBW.aspx" -->
     </form>
 </body>
 </html>

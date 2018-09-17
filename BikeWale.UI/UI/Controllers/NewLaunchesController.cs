@@ -129,7 +129,7 @@ namespace Bikewale.Controllers
             {
                 ViewBag.BrandCountList = (_newLaunches.GetMakeList().Take(9));
             }
-            return PartialView("~/Views/Shared/_NewLaunchedByMakeWithCount.cshtml", ViewBag.BrandCountList);
+            return PartialView("~/UI/Views/Shared/_NewLaunchedByMakeWithCount.cshtml", ViewBag.BrandCountList);
         }
 
 
@@ -181,7 +181,7 @@ namespace Bikewale.Controllers
         [Route("m/newlaunches/models/")]
         public ActionResult Models_Mobile()
         {
-            return View("~/views/m/shared/_newlaunchedbymakewithoutcount.cshtml");
+            return View("~/UI/views/m/shared/_newlaunchedbymakewithoutcount.cshtml");
         }
 
         [Route("m/newlaunches/makes/")]
@@ -195,7 +195,7 @@ namespace Bikewale.Controllers
             {
                 ViewBag.BrandCountList = _newLaunches.GetMakeList().Take(9);
             }
-            return PartialView("~/Views/m/Shared/_NewLaunchedByMakeWithCount.cshtml", ViewBag.BrandCountList);
+            return PartialView("~/UI/Views/m/Shared/_NewLaunchedByMakeWithCount.cshtml", ViewBag.BrandCountList);
         }
 
     }

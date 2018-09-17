@@ -25,13 +25,15 @@ namespace Bikewale.Service.Controllers.Dealer
     public class DealersListController : CompressionApiController//ApiController
     {
         private readonly IDealer _dealer = null;
+		private readonly IDealerRepository _dealerRepo = null;
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="dealer"></param>
-        public DealersListController(IDealer dealer)
+		public DealersListController(IDealer dealer, IDealerRepository dealerRepo)
         {
             _dealer = dealer;
+			_dealerRepo = dealerRepo;
         }
 
         #region Dealer List for clients
@@ -117,6 +119,84 @@ namespace Bikewale.Service.Controllers.Dealer
                 return BadRequest();
             }
         }
+        /// <summary>
+        /// Created By : Prabhu Puredla on 20 july 2018
+        /// Description : Api to fetch dealers list based on model and city
+        /// Modified by : Pratibha Verma on 14 August 2018
+        /// Description : Added method call to filter out multioutlet dealers
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <param name="cityId"></param>
+        /// <param name="dealerId"></param>
+        /// <param name="areaId"></param>
+        /// <returns></returns>
+        [Route("api/dealers/model/{modelId}/city/{cityId}/dealerId/{dealerId}/")]
+		public IHttpActionResult GetMLADealers(uint modelId, uint cityId, uint dealerId, uint? areaId)
+		{
+			if (modelId > 0 && cityId > 0)
+			{
+				try
+				{
+                    IEnumerable<SecondaryDealerBase> secondaryDealers = _dealerRepo.GetMLADealers(modelId, dealerId, cityId, areaId);
+                    List<SecondaryDealerBase> mlaDealers = null;
+                    if (secondaryDealers != null)
+                    {
+                        mlaDealers = _dealer.FilterMultioutletDealers(secondaryDealers);
+                        if (mlaDealers != null)
+                        {
+                            return Ok(mlaDealers);
+                        }
+                        else
+                        {
+                            return NotFound();
+                        }
+                    }
+                    else
+                    {
+                        return NotFound();
+                    }
+                }
+				catch (Exception ex)
+				{
+					ErrorClass.LogError(ex, "Exception : Bikewale.Service.Controllers.Dealer.DealersListController.GetMLADealers");
+
+					return InternalServerError();
+				}
+			}
+			else
+			{
+				return BadRequest();
+			}
+		}
+
+        /// <summary>
+        /// Created by  : Pratibha Verma on 31 August 2018
+        /// Description : to get dealers list bay makeId and cityId
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <param name="cityId"></param>
+        /// <returns></returns>
+        [Route("api/dealers/all/make/{makeId}/city/{cityId}/")]
+        public IHttpActionResult GetAllDealersbyMakeCity(uint makeId, uint cityId)
+        {
+            if (makeId > 0 && cityId > 0)
+            {
+                IEnumerable<NewBikeDealerDetails> objDealer = _dealerRepo.GetAllDealersByMakeCity(makeId, cityId);
+                if (objDealer != null && objDealer.Any())
+                {
+                    return Ok(objDealer);
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
+
         #endregion
     }
 }

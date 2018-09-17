@@ -4,10 +4,14 @@ using Bikewale.Interfaces.AutoComplete;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.AutoComplete;
 using Bikewale.Service.Utilities;
+using Bikewale.Utility;
 using System;
+using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Http;
+using System.Web.Http.Cors;
 namespace Bikewale.Service.Controllers.AutoComplete
 {
     /// <summary>
@@ -19,6 +23,7 @@ namespace Bikewale.Service.Controllers.AutoComplete
     public class AutoSuggestController : CompressionApiController//ApiController
     {
         private readonly IAutoSuggest _autoSuggest = null;
+        private static HashSet<string> _ampCors = new HashSet<string> { "https://www-bikewale-com.cdn.ampproject.org", "https://www-bikewale-com.amp.cloudflare.com", "https://cdn.ampproject.org","https://www.bikewale.com" };
         public AutoSuggestController(IAutoSuggest autoSuggest)
         {
             _autoSuggest = autoSuggest;
@@ -32,8 +37,16 @@ namespace Bikewale.Service.Controllers.AutoComplete
         /// </summary>
         /// <param name="inputText">user entered input in search box</param>
         /// <returns></returns>
+        [EnableCors("https://www-bikewale-com.cdn.ampproject.org,https://www-bikewale-com.amp.cloudflare.com,https://cdn.ampproject.org,https://www.bikewale.com", "*", "GET")]
         public IHttpActionResult Get(string inputText, AutoSuggestEnum source, int? noOfRecords = null)
        {
+           string ampSourceOrigin = HttpUtility.ParseQueryString(Request.RequestUri.Query)["__amp_source_origin"];
+           string ampOrigin = Request.Headers.Contains("Origin") ? Request.Headers.GetValues("Origin").FirstOrDefault() : string.Empty;
+
+           if (!string.IsNullOrEmpty(ampSourceOrigin) && _ampCors.Contains(ampOrigin))
+           {
+               BWCookies.AddAmpHeaders(ampSourceOrigin, ampOrigin, true);
+           }
           string platformId = string.Empty;
             uint appVersion = 0;
             CityPayload city = null;

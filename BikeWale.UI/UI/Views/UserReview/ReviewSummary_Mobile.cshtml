@@ -2,9 +2,9 @@
 @using Bikewale.Utility;
 @using System.Linq;
 @{
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/sass/user-review/write-review.css' inline />";
-    Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
-    Model.Page_JS_Path = "/m/src/user-review/write-review.js";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/UI/m/sass/user-review/write-review.css' inline />  <link rel='stylesheet' type='text/css' href='/UI/sass/qna/answer-list.css' inline />";
+    Layout = "~/UI/Views/Shared/_Layout_Mobile.cshtml";
+    Model.Page_JS_Path = "/UI/m/src/user-review/write-review.js";
 }
 @if (Model != null && Model.Summary != null)
 {
@@ -34,84 +34,95 @@
     if (!string.IsNullOrEmpty(Model.Summary.Description))
     {
         <section>
-            <div id="review-summary-card" class="container bg-white card-bottom-margin box-shadow font14">
-                <div class="user-review-list content-box-shadow margin-top3 padding-10-20">
-                    <div class="font14 text-light-grey margin-bottom10 border-solid-bottom">
-                        <p class="padding-bottom10">Check, how others will see your review!</p>
+            <div id="review-summary-card" class="container review-summary @(!Model.HasUnansweredQuestions ? " answer-question--inactive" : "")">
+
+                <div class="review-summary__wrapper">
+                    <div class="user-review-list content-box-shadow margin-top3 padding-10-20">
+                        <div class="font14 text-light-grey margin-bottom10">
+                            <p class="padding-bottom10">Check, how others will see your review!</p>
+                        </div>
+                        <div class="margin-bottom10 review-summary__panel">
+                            <div class="review-summary__ratings">
+                                <span class="@string.Format("rating-badge bg-rate-{0}", Model.Summary.OverallRating.Value)">
+                                    <span class="bwmsprite star-white"></span>
+                                    <span>@Model.Summary.OverallRating.Value</span>
+                                </span>
+                                <div class="review-summary__rating-title font15 text-black text-bold">
+                                    <span class="review-title position-rel"><span itemprop="name">@Model.Summary.Title.Truncate(85)</span></span>
+                                </div>
+                            </div>
+                           @if(Model.HasUnansweredQuestions){ <span class="review-summary__link">See Preview</span>}
+                        </div>
                     </div>
-                    <div class="margin-bottom10">
-                        <span class="@string.Format("rating-badge bg-rate-{0}", Model.Summary.OverallRating.Value)">
-                            <span class="bwmsprite star-white"></span>
-                            <span>@Model.Summary.OverallRating.Value</span>
-                        </span>
-                        <div class="grid-10-inline font15 text-black text-bold">
-                            <span class="review-title position-rel"><span itemprop="name">@Model.Summary.Title.Truncate(85)</span></span>
+                    @{ int quesCount = 0;
+                     if (Model.RatingQuestions != null)
+                     { quesCount = Model.RatingQuestions.TakeWhile(q => !string.IsNullOrEmpty(q.SelectedRatingText)).Count(); }
+                    }
+                    <div class="review-summary__content">
+                        @if (quesCount > 0)
+                        {
+                            <div class="bg-light position-rel top3">
+                                <ul class="@string.Format("about-reviewer-list item-count-{0}", quesCount)">
+                                    @foreach (var q in Model.RatingQuestions)
+                                    {
+                                        if (!string.IsNullOrEmpty(q.SelectedRatingText))
+                                        {
+                                            <li>
+                                                <span class="@string.Format("bwmsprite questionId-{0}", q.Id)"></span>
+                                                <p class="item-question">@q.MinHeading</p>
+                                                <p class="item-answer">@q.SelectedRatingText</p>
+                                            </li>
+                                        }
+                                    }
+                                </ul>
+                            </div>
+                        }
+                        <div class="padding-top15 padding-right20 padding-bottom50 padding-left20">
+                            <div id="summary-review-box" class="padding-bottom10">
+                                <div class="text-light-grey">
+                                    @Html.Raw(Model.Summary.Description)
+                                </div>
+                            </div>
+
+                            @if (Model.ReviewQuestions != null && Model.ReviewQuestions.Count() > 0)
+                            {
+                                <ul class="rating-circle-list margin-bottom10">
+                                    @foreach (var q in Model.ReviewQuestions)
+                                    {
+                                        if (q.SelectedRatingId > 0)
+                                        {
+                                            <li>
+                                                <div class="@string.Format("rating-circle circle-rate-{0}", q.SelectedRatingId)">
+                                                    <p class="circle-label">@q.SelectedRatingId</p>
+                                                    <span class="rating-progress">
+                                                    </span>
+                                                </div>
+                                                <p class="list-item-label">@q.Heading</p>
+                                            </li>
+                                        }
+                                    }
+                                </ul>
+                            }
+                            @if (!string.IsNullOrEmpty(Model.Summary.Tips))
+                            {
+                                <h3 class="font15 text-black margin-bottom15">Tips for other riders</h3>
+                                <div class="text-light-grey padding-bottom20">
+                                    <p>@Model.Summary.Tips</p>
+                                </div>
+                            }
                         </div>
                     </div>
                 </div>
-                @{ int quesCount = 0;
-                    if (Model.RatingQuestions != null)
-                    { quesCount = Model.RatingQuestions.TakeWhile(q => !string.IsNullOrEmpty(q.SelectedRatingText)).Count(); }
-                }
-                @if (quesCount > 0)
+                @if (Model.HasUnansweredQuestions)
                 {
-                    <div class="bg-light position-rel top3">
-                        <ul class="@string.Format("about-reviewer-list item-count-{0}", quesCount)">
-                            @foreach (var q in Model.RatingQuestions)
-                            {
-                                if (!string.IsNullOrEmpty(q.SelectedRatingText))
-                                {
-                                    <li>
-                                        <span class="@string.Format("bwmsprite questionId-{0}", q.Id)"></span>
-                                        <p class="item-question">@q.MinHeading</p>
-                                        <p class="item-answer">@q.SelectedRatingText</p>
-                                    </li>
-                                }
-                            }
-                        </ul>
-                    </div>
+                <div class="answer-question-wrapper">
+                    <h2 class="answer-question__title">Make your opinion count!</h2>
+                    <p class="answer-question__subtitle">(Answer any of the below questions on @string.Format("{0} {1}", Model.Summary.Make.MakeName, Model.Summary.Model.ModelName))</p>
+                    @Html.Partial("~/UI/Views/userReview/_AnswerQuestionList_Mobile.cshtml", Model.UnansweredQuestions)
+                </div>
                 }
-                <div class="padding-top15 padding-right20 padding-bottom50 padding-left20">
-                    <div id="floating-btn" class="floating-btn">
-                        <div class="grid-12 alpha omega">
-                            <a class="btn btn-orange btn-full-width" href="@Model.Summary.ReturnUrl">Done</a>
-                        </div>
-                        <div class="clear"></div>
-                    </div>
-
-
-                    <div id="summary-review-box" class="padding-bottom10">
-                        <div class="text-light-grey">
-                            @Html.Raw(Model.Summary.Description)
-                        </div>
-                    </div>
-
-                    @if (Model.ReviewQuestions != null && Model.ReviewQuestions.Count() > 0)
-                    {
-                        <ul class="rating-circle-list margin-bottom10">
-                            @foreach (var q in Model.ReviewQuestions)
-                            {
-                                if (q.SelectedRatingId > 0)
-                                {
-                                    <li>
-                                        <div class="@string.Format("rating-circle circle-rate-{0}", q.SelectedRatingId)">
-                                            <p class="circle-label">@q.SelectedRatingId</p>
-                                            <span class="rating-progress">
-                                            </span>
-                                        </div>
-                                        <p class="list-item-label">@q.Heading</p>
-                                    </li>
-                                }
-                            }
-                        </ul>
-                    }
-                    @if (!string.IsNullOrEmpty(Model.Summary.Tips))
-                    {
-                        <h3 class="font15 text-black margin-bottom15">Tips for other riders</h3>
-                        <div class="text-light-grey padding-bottom20">
-                            <p>@Model.Summary.Tips</p>
-                        </div>
-                    }
+                <div id="floating-btn" class="review-summary__btn">
+                    <a class="btn btn-orange" href="@Model.Summary.ReturnUrl" title="Done">Done</a>
                 </div>
             </div>
         </section>
@@ -121,68 +132,121 @@
                     else
                     {
                         <section>
-                            <div id="review-summary-card" class="container bg-white card-bottom-margin box-shadow font14">
-                                <div class="padding-15-20 content-box-shadow">
-                                    <div class="model-image-grid inline-block">
-                                        <img src="@Image.GetPathToShowImages(Model.Summary.OriginalImagePath, Model.Summary.HostUrl, ImageSize._110x61, QualityFactor._70)" alt="@Model.Summary.Make.MakeName @Model.Summary.Model.ModelName" />
+                            <div id="review-summary-card" class="review-rating-wrapper @(!Model.HasUnansweredQuestions ? " answer-question--inactive" : "")">
+                                @if (!Model.HasUnansweredQuestions)
+                                {
+                                <div class="bg-white">
+                                    <div class="padding-15-20 content-box-shadow">
+                                        <div class="model-image-grid inline-block">
+                                            <img src="@Image.GetPathToShowImages(Model.Summary.OriginalImagePath, Model.Summary.HostUrl, ImageSize._110x61, QualityFactor._70)" alt="@Model.Summary.Make.MakeName @Model.Summary.Model.ModelName" />
+                                        </div>
+                                        @if (Model.Summary.Make != null && Model.Summary.Model != null)
+                                        {
+                                            <h1 class="model-details-grid inline-block">@string.Format("{0} {1}", Model.Summary.Make.MakeName, Model.Summary.Model.ModelName)</h1>
+                                        }
                                     </div>
-                                    @if (Model.Summary.Make != null && Model.Summary.Model != null)
-                    {
-                                        <h1 class="model-details-grid inline-block">@string.Format("{0} {1}", Model.Summary.Make.MakeName, Model.Summary.Model.ModelName)</h1>
-                                    }
-                                </div>
-                                <div class="padding-top15 padding-right20 padding-bottom50 padding-left20">
-                                    <div id="bike-rating-box" class="margin-bottom15 border-light border-radius-10">
-                                        <div class="rating-box-top">
-                                            <div class="table-middle">
-                                                <span class="rating-feedback @string.Format("feedback-{0}", Model.Summary.OverallRating.Value)"></span>
-                                                <div class="feedback-grid inline-block">
-                                                    <p class="font16 font-bold">@Model.Summary.OverallRating.Heading</p>
-                                                    <p class="margin-top5 font12 text-slate-grey">@Model.Summary.OverallRating.Description</p>
+                                    <div class="padding-top15 padding-right20 padding-bottom50 padding-left20">
+                                        <div id="bike-rating-box" class="margin-bottom15 border-light border-radius-10">
+                                            <div class="rating-box-top">
+                                                <div class="table-middle">
+                                                    <span class="rating-feedback @string.Format("feedback-{0}", Model.Summary.OverallRating.Value)"></span>
+                                                    <div class="feedback-grid inline-block">
+                                                        <p class="font16 font-bold">@Model.Summary.OverallRating.Heading</p>
+                                                        <p class="margin-top5 font12 text-slate-grey">@Model.Summary.OverallRating.Description</p>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="rating-placeholder">
-                                            <ul class="margin-top10 item-rating-list text-center rating-start">
-                                                @for (int i = 0; i < 5; i++)
-                                                {
-                                                    if (i < Model.Summary.OverallRating.Value)
+                                            <div class="rating-placeholder">
+                                                <ul class="margin-top10 item-rating-list text-center rating-start">
+                                                    @for (int i = 0; i < 5; i++)
                                                     {
-                                                        <li class="bwmsprite star-one"></li>
+                                                        if (i < Model.Summary.OverallRating.Value)
+                                                        {
+                                                            <li class="bwmsprite star-one"></li>
+                                                        }
+                                                        else
+                                                        {
+                                                            <li class="bwmsprite star-zero"></li>
+                                                        }
                                                     }
-                                                    else
-                                                    {
-                                                        <li class="bwmsprite star-zero"></li>
-                                                    }
-                                                }
-                                            </ul>
+                                                </ul>
+                                            </div>
                                         </div>
+                                        <div class="border-solid-bottom"></div>
                                     </div>
-                                    <div id="floating-btn" class="floating-btn">
-
-                                        <div class="grid-6 alpha omega">
-                                            <a class="btn btn-white btn-full-width" href="@string.Format("/m{0}", Model.WriteReviewLink)">Write a review</a>
-                                        </div>
-                                        <div class="grid-6 alpha omega">
-                                            <a class="btn btn-orange btn-full-width" href="@string.Format("/m{0}", Model.Summary.ReturnUrl)">Done</a>
-                                        </div>
-
-                                        <div class="clear"></div>
-                                    </div>
-                                    <div class="margin-bottom20 border-solid-bottom"></div>
-                                    <h3 class="font15 text-black margin-bottom15">Tell us more about your experience!</h3>
-                                    <p class="padding-bottom20 text-light-grey">Help fellow bikers make the right choice. Write a review and stand a chance to win Amazon vouchers worth Rs. @Format.FormatPrice(BWConfiguration.Instance.ContestPriceMoney).</p>
                                 </div>
-                            </div>
+                                }
+                                else if (Model.HasUnansweredQuestions)
+                                {
+                                <div class="review-rating__head">
+                                    @if (Model.Summary.Make != null && Model.Summary.Model != null)
+                                    {
+                                        <h1 class="review-summary__title"><span class="review-summary__secondary-title">You rated </span>@string.Format("{0} {1}", Model.Summary.Make.MakeName, Model.Summary.Model.ModelName)</h1>
+                                    }
+
+                                    <div class="padding-top10">
+                                        <div id="bike-rating-box" class="bike-rating-wrapper">
+                                            <div class="rating-placeholder">
+                                                <ul class="item-rating-list rating-start">
+                                                    @for (int i = 0; i < 5; i++)
+                                                    {
+                                                        if (i < Model.Summary.OverallRating.Value)
+                                                        {
+                                                            <li class="bwmsprite star-one"></li>
+                                                        }
+                                                        else
+                                                        {
+                                                            <li class="bwmsprite star-zero"></li>
+                                                        }
+                                                    }
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                }
+
+                                <div class="review-rating__content">
+                                    <h3 class="font15 text-black margin-bottom15">Tell us more about your experience!</h3>
+                                    <p class="text-light-grey">Help fellow bikers make the right choice. Write a review and stand a chance to win Amazon vouchers worth Rs. @Format.FormatPrice(BWConfiguration.Instance.ContestPriceMoney).</p>
+                                    @if (Model.HasUnansweredQuestions)
+                                    {
+                                        <div class="padding-top20 review-rating__btn">
+                                            <a class="btn btn-inv-orange" href="@string.Format("/m{0}", Model.WriteReviewLink)" title="Write Review">Write Review</a>
+                                        </div>
+                                    }
+                                </div>
+
+                                    @if (Model.HasUnansweredQuestions)
+                                    {
+                                        <div class="answer-question-wrapper">
+                                            <h2 class="answer-question__title">Make your opinion count!</h2>
+                                            <p class="answer-question__subtitle">(Answer any of the below questions on @string.Format("{0} {1}", Model.Summary.Make.MakeName, Model.Summary.Model.ModelName))</p>
+                                            @Html.Partial("~/UI/Views/userReview/_AnswerQuestionList_Mobile.cshtml", Model.UnansweredQuestions)
+                                        </div>
+                                    }
+                                   
+                                    <div id="floating-btn" class="review-summary__btn">
+                                        <a class="btn btn-white review-rating--outline-btn" href="@string.Format("{0}/m{1}", BWConfiguration.Instance.BwHostUrl, Model.WriteReviewLink)" title="Write Review">Write Review</a>
+                                        <a class="btn btn-orange" href="@string.Format("{0}/m{1}", BWConfiguration.Instance.BwHostUrl, Model.Summary.ReturnUrl)" title="Done">Done</a>
+                                    </div>
+
+                                </div>
                         </section>
+
                     }
+
+
                     <input id="pageSource" type="hidden" value="@string.Format("/m{0}",Model.Summary.ReturnUrl)" />
-                    <div id="review-summary-page"></div>
-                    }
+                    <input id="reviewTitle" type="hidden" value="@Model.Summary.Title"/>
+                    <input id="makeName" type="hidden" value="@Model.Summary.Make.MakeName" />
+                    <input id="modelName" type="hidden" value="@Model.Summary.Model.ModelName" />
+                                        <div id="review-summary-page"></div>
+}
 <script type="text/javascript">
     var page = "reviewSummary";
     var vmWriteReview;
-    docReady(function () {        
+    docReady(function () {
         if (navigator.userAgent.indexOf('UCBrowser/') >= 0) {
             $('#review-summary-card').addClass('browser-type-uc');
         }

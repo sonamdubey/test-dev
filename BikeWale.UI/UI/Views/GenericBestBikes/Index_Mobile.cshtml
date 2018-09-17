@@ -2,8 +2,8 @@
 @using Bikewale.Utility;
 @using Bikewale.Entities.GenericBikes;
 @{
-    Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/sass/generic/listing.css' inline />";
+    Layout = "~/UI/Views/Shared/_Layout_Mobile.cshtml";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/UI/m/sass/generic/listing.css' inline />";
     int i = 10;
     string prevMonth = DateTime.Now.AddMonths(-1).ToString("MMMM");
     Model.IsTransparentHeader = true;
@@ -191,7 +191,7 @@
 @if (Model.AdTags.Ad_300x250BTF)
 {
     <div class="margin-bottom15 text-center">
-        @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad300x250BTF.cshtml", new { AdId = Model.AdTags.AdId });}
+        @{Html.RenderPartial("/UI/Views/Shared/Ads/Mobile/Ad300x250BTF.cshtml", new { AdId = Model.AdTags.AdId });}
     </div>
 }
 @if (Model.Brands != null && Model.BestBikes.CurrentPage != EnumBikeBodyStyles.Scooter)
@@ -213,7 +213,7 @@
                     </div>
 
                     <div class="bw-tabs-data collapsible-brand-content" id="discoverBrand">
-                        @Html.Partial("~/Views/Make/_Brands_Mobile.cshtml", Model.Brands)
+                        @Html.Partial("~/UI/Views/Make/_Brands_Mobile.cshtml", Model.Brands)
                     </div>
                     <div class="bw-tabs-data hide" id="discoverBudget">
                         <ul class="block-button-list text-center">
@@ -362,7 +362,7 @@
                     </div>
                     <div id="brand-tab" class="bw-tabs-data">
                         <div class="padding-bottom10 text-center collapsible-brand-content">
-                            @{ Html.RenderPartial("~/views/make/_Brands_Mobile.cshtml", Model.Brands); }
+                            @{ Html.RenderPartial("~/UI/views/make/_Brands_Mobile.cshtml", Model.Brands); }
                         </div>
                     </div>
                     <div id="budget-tab" class="bw-tabs-data hide">
@@ -449,7 +449,7 @@
     <div class="container section-bottom-margin">
         <h2 class="section-heading">Best bikes in other categories</h2>
         <div class="box-shadow bg-white padding-top10 padding-bottom10">
-            @Html.Partial("~/Views/GenericBestBikes/_BestBikesGenericPage_Mobile.cshtml", Model.BestBikes)
+            @Html.Partial("~/UI/Views/GenericBestBikes/_BestBikesGenericPage_Mobile.cshtml", Model.BestBikes)
         </div>
     </div>
 </section>
@@ -460,7 +460,7 @@
         <h2 class="section-heading">More news about top 10 @Model.PageName.ToLower()</h2>
         <div id="newsContent" class="padding-15-20-20 content-box-shadow card-bottom-margin content-details-wrapper font14">
 
-            @Html.Partial("~/Views/News/_RecentNews_Mobile.cshtml", Model.News)
+            @Html.Partial("~/UI/Views/News/_RecentNews_Mobile.cshtml", Model.News)
 
         </div>
     </section>

@@ -6,6 +6,7 @@ using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Notifications;
 using BikeWale.Entities.AutoBiz;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace Bikewale.Cache.PriceQuote
@@ -34,5 +35,24 @@ namespace Bikewale.Cache.PriceQuote
             }
             return objDealerPrice;
         }
+		/// <summary>
+		/// Created By : Prabhu Puredla on 18 july 2018
+		/// Description : Get All active mla combinations
+		/// </summary>		
+		/// <returns></returns>
+		public IEnumerable<string> GetMLAMakeCities()
+		{
+			IEnumerable<string> mlaMakeCities = null;
+			string key = "MlaMakeCities";
+			try
+			{
+				mlaMakeCities = _cache.GetFromCache<IEnumerable<string>>(key, new TimeSpan(7,0,0,0), () => _objDealerPQ.GetMLAMakeCities());
+			}
+			catch (Exception ex)
+			{
+				ErrorClass.LogError(ex, "Bikewale.Cache.PriceQuote.GetMLAMakeCities");
+			}
+			return mlaMakeCities;
+		}
     }
 }

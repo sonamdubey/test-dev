@@ -2,9 +2,9 @@
 <%@ Import Namespace="Bikewale.Common" %>
 <% Title = "Bike Photos Preview"; %>
 <!-- #include file="sell_header.aspx" -->
-<script language="javascript" src="/src/common/bt.js?v1.1"></script>
-<!--[if IE]><script language="javascript" src="/src/common/excanvas.js?v=1.0"></script><![endif]-->
-<script type="text/javascript" src="<%= staticUrl %>/src/common/process.js?v=1.0"></script>
+<script language="javascript" src="/UI/src/common/bt.js?v1.1"></script>
+<!--[if IE]><script language="javascript" src="/UI/src/common/excanvas.js?v=1.0"></script><![endif]-->
+<script type="text/javascript" src="<%= staticUrl %>/UI/src/common/process.js?v=1.0"></script>
 <script language="javascript">
 	var inquiryId = '<%= inquiryId %>';	
 	var requestCount = 0;

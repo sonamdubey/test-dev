@@ -11,10 +11,10 @@
     Ad_Bot_320x50 = true;
     menu = "3";
 %>
-<!-- #include file="/includes/headermobile_noad.aspx" -->
-<script type="text/javascript" src="<%= staticUrl%>/m/src/placeholder.js?v=1.0"></script>
+<!-- #include file="/UI/includes/headermobile_noad.aspx" -->
+<script type="text/javascript" src="<%= staticUrl%>/UI/m/src/placeholder.js?v=1.0"></script>
 <script type="text/javascript" src="https://stb.aeplcdn.com/bikewale/src/BikeWaleCommon.js?v=3.2"></script>
-<link href="<%= staticUrl  %>/css/chosen.min.css?<%= staticFileVersion %>" type="text/css" rel="stylesheet" />
+<link href="<%= staticUrl  %>/UI/css/chosen.min.css?<%= staticFileVersion %>" type="text/css" rel="stylesheet" />
 <style type="text/css">
     .ui-filterable div input {
         height: 40px;
@@ -509,4 +509,4 @@
         }
     }
 </script>
-<!-- #include file="/includes/footermobile_noad.aspx" -->
+<!-- #include file="/UI/includes/footermobile_noad.aspx" -->

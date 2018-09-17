@@ -1,9 +1,9 @@
 ﻿@model  Bikewale.Models.IndexVM
 @{
-	Layout = "~/Views/Shared/_Layout.cshtml";
-	Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/dealer/landing.css' inline /> <link rel='stylesheet' type='text/css' href='/css/components/brand-logo.css' inline />";
+	Layout = "~/UI/Views/Shared/_Layout.cshtml";
+	Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/UI/css/dealer/landing.css' inline /> <link rel='stylesheet' type='text/css' href='/UI/css/components/brand-logo.css' inline />";
     Model.IsHeaderFix = true;
-    Model.Page_JS_Path = "/src/dealer/landing.js";
+    Model.Page_JS_Path = "/UI/src/dealer/landing.js";
     Model.PageMetaTags.CanonicalUrl = "https://www.bikewale.com/dealer-showrooms/";
     Model.PageMetaTags.AlternateUrl = "https://www.bikewale.com/m/dealer-showrooms/";
     Model.IsPageTypeLanding = true;
@@ -65,7 +65,7 @@
         <div class="grid-12">
             <h2 class="section-header">Explore showroom by brand</h2>
             <div class="content-box-shadow padding-top20">
-                @Html.Partial("~/Views/Make/_Brands.cshtml", Model.Brands)
+                @Html.Partial("~/UI/Views/Make/_Brands.cshtml", Model.Brands)
             </div>
         </div>
         <div class="clear"></div>
@@ -74,7 +74,7 @@
 @if (Model.BestBikes != null)
 {
     <section>
-        @Html.Partial("~/Views/BestBikes/_BestBikes.cshtml", Model.BestBikes)
+        @Html.Partial("~/UI/Views/BestBikes/_BestBikes.cshtml", Model.BestBikes)
     </section>
 }
 @if (Model.NewLaunchedBikes != null && Model.NewLaunchedBikes.Bikes != null && Model.NewLaunchedBikes.Bikes.Count() > 0)
@@ -83,7 +83,7 @@
         <div class="container section-container">
             <div class="grid-12">
                 <h2 class="section-header">New Bike Launches in India</h2><div class="content-box-shadow padding-top20">
-                    @Html.Partial("~/Views/NewLaunches/_NewLaunches.cshtml", Model.NewLaunchedBikes)
+                    @Html.Partial("~/UI/Views/NewLaunches/_NewLaunches.cshtml", Model.NewLaunchedBikes)
 
                     <div class="view-all-btn-container padding-top15 padding-bottom20">
                         <a href="/new-bike-launches/" class="btn view-all-target-btn" title="New Bike Launches in India">View all launches<span class="bwsprite teal-right"></span></a>
@@ -102,7 +102,7 @@
             <div class="grid-12">
                 <h2 class="section-header">Upcoming Bikes in India</h2>
                 <div class="content-box-shadow padding-top20">
-                    @Html.Partial("~/Views/Upcoming/_UpcomingBikes.cshtml", Model.objUpcomingBikes)
+                    @Html.Partial("~/UI/Views/Upcoming/_UpcomingBikes.cshtml", Model.objUpcomingBikes)
                     <div class="view-all-btn-container padding-top15 padding-bottom20">
                         <a href="/upcoming-bikes/" class="btn view-all-target-btn" title="Upcoming Bikes in India">View all bikes<span class="bwsprite teal-right"></span></a>
                     </div>

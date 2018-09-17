@@ -1,8 +1,8 @@
 ﻿@model Bikewale.Models.WriteReviewPageVM
 @{
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/sass/user-review/write-review.css' inline />";
-    Model.Page_JS_Path = "/m/src/user-review/write-review.js";
-    Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/UI/m/sass/user-review/write-review.css' inline /> <link rel='stylesheet' type='text/css' href='/UI/sass/qna/answer-list.css' inline />";
+    Model.Page_JS_Paths = new string[] { "/UI/src/utils/text-area.js", "/UI/m/src/user-review/write-review.js" };
+    Layout = "~/UI/Views/Shared/_Layout_Mobile.cshtml";
     Model.PageMetaTags.CanonicalUrl = string.Format("https://www.bikewale.com/rate-your-bike/{0}/", Model.Model.ModelId);
 }
 
@@ -18,16 +18,16 @@
     <form action="/user-reviews/save/" method="post">
         <section>
             <div id="write-review-form">
-                <div class="container content-box-shadow card-bottom-margin font14">
+                <div class="container content-box-shadow card-bottom-margin font14 ">
                     <div class="padding-10-20 content-box-shadow">
                         <div class="model-image-grid inline-block">
                             <img src="@Bikewale.Utility.Image.GetPathToShowImages(Model.OriginalImagePath, Model.HostUrl, Bikewale.Utility.ImageSize._110x61, Bikewale.Utility.QualityFactor._75)" alt="" />
                         </div>
-                        <div class="model-details-grid inline-block">                           
+                        <div class="model-details-grid inline-block">
                             <h1 class="text-truncate margin-bottom5">@Model.Make.MakeName @Model.Model.ModelName</h1>
                             <div>
                                 <span class="font12 text-slate-grey">You rated:</span><span class="bwmsprite star-one"></span><span class="text-bold">@Model.Rating.Value</span><span class="font12 text-xx-light">/5</span>
-                            </div>                            
+                            </div>
                         </div>
                     </div>
                     <div class="write-review-padding">
@@ -64,7 +64,15 @@
 
                     </div>
                 </div>
-
+                @if (Model.HasUnansweredQuestion)
+                {
+                    <div id="answerQuestionBox" class="answer-question__form-box">
+                        <h2 class="answer-question__title answer-question--text-margin">
+                            Increase your chances of winning by answering this question on @(string.Format("{0} {1}", Model.Make.MakeName, Model.Model.ModelName)) <span class="answer-question__secondary-headline">(Optional)</span>
+                        </h2>
+                        @Html.Partial("~/UI/views/questionandanswers/_unansweredquestion_mobile.cshtml",Model.UnansweredQuestion)
+                    </div>
+                }
                 <div class="container content-box-shadow content-inner-block-20 card-bottom-margin font14">
                     <h2 class="padding-bottom20">Can you share a little more about this bike?<span class="text-light-grey text-unbold font14">&nbsp;(Optional)</span></h2>
 
@@ -105,21 +113,21 @@
                         </li>
                         <!-- /ko -->
                     </ul>
-                   
+
 
                     <div class="clear"></div>
 
                     <input type="hidden" id="reviewQuestion" name="reviewQuestion" />
                     <input type="hidden" id="formattedDescripton" name="reviewDescription" />
                     <input type="hidden" id="reviewId" name="reviewId" value="@Model.ReviewId" />
-                    <input type="hidden" name="encodedId" value="@Utils.Utils.EncryptTripleDES(string.Format("customerid={0}&reviewid={1}", Model.CustomerId, Model.ReviewId))" />
+                    <input type="hidden" name="encodedId" value="@TripleDES.EncryptTripleDES(string.Format("customerid={0}&reviewid={1}", Model.CustomerId, Model.ReviewId))" />
                     <input type="hidden" name="userName" value="@Model.UserName" />
                     <input type="hidden" name="emailId" value="@Model.EmailId" />
                     <input type="hidden" name="makeName" value="@Model.Make.MakeName" />
                     <input type="hidden" name="modelName" value="@Model.Model.ModelName" />
-                    <input type="hidden" name="encodedString" value="@Model.EncodedWriteUrl" />  
+                    <input type="hidden" name="encodedString" value="@Model.EncodedWriteUrl" />
                     <input type="hidden" id="pageSourceId" value="@Model.PageSourceId" />
-                    <input type="hidden" id="overAllRatings" value="@Model.Rating.Value" />                  
+                    <input type="hidden" id="overAllRatings" value="@Model.Rating.Value" />
                     <input type="hidden" id="contestSrc" value="@Model.ContestSrc" />
                     <input type="hidden" name="fromParametersRatingScreen" value="false" />
                     <h3 class="font15 margin-bottom10">Maintenance tips for other riders</h3>

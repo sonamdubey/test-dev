@@ -2097,3 +2097,7 @@ popup = {
         $('html, body').scrollTop(-windowScrollTop);
     }
 };
+
+String.isNullOrEmpty = function (str) {
+    return (!str || str.length === 0);
+};

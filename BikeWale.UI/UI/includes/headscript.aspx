@@ -41,7 +41,7 @@
     bwHostUrl = '<%= ConfigurationManager.AppSettings["bwHostUrlForJs"] %>';
     var ga_pg_id = '0';
 </script>
-<!-- #include file="\includes\gacode.aspx" -->
+<!-- #include file="\UI\includes\gacode.aspx" -->
 
 <script type="text/javascript">!function (a, b) { "use strict"; function f() { if (!d) { d = !0; for (var a = 0; a < c.length; a++) c[a].fn.call(window, c[a].ctx); c = [] } } function g() { "complete" === document.readyState && f() } a = a || "docReady", b = b || window; var c = [], d = !1, e = !1; b[a] = function (a, b) { if ("function" != typeof a) throw new TypeError("callback for docReady(fn) must be a function"); return d ? void setTimeout(function () { a(b) }, 1) : (c.push({ fn: a, ctx: b }), void ("complete" === document.readyState || !document.attachEvent && "interactive" === document.readyState ? setTimeout(f, 1) : e || (document.addEventListener ? (document.addEventListener("DOMContentLoaded", f, !1), window.addEventListener("load", f, !1)) : (document.attachEvent("onreadystatechange", g), window.attachEvent("onload", f)), e = !0))) } }("docReady", window);</script>
 
@@ -49,7 +49,7 @@
 
 
         <%
-            string fontFile = "/css/fonts/OpenSans/open-sans-v15-latin-regular.woff",
+            string fontFile = "/UI/css/fonts/OpenSans/open-sans-v15-latin-regular.woff",
             fontUrl = String.Format("{0}{1}?{2}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, fontFile, Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion);
         %>
         <style>
@@ -62,7 +62,7 @@
         </style>
         
         <%  
-            fontFile = "/css/fonts/OpenSans/open-sans-v15-latin-700.woff";
+            fontFile = "/UI/css/fonts/OpenSans/open-sans-v15-latin-700.woff";
             fontUrl  = String.Format("{0}{1}?{2}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, fontFile, Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion); 
         %>
         <style>
@@ -74,8 +74,9 @@
              }
         </style>
 
-<link href="<%= staticUrl  %>/css/bw-common-style.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="<%= staticUrl %>/src/frameworks.js?<%=staticFileVersion %>"></script>
+<link href="<%= staticUrl  %>/UI/css/bw-common-style.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="/UI/css/bw-doodle.css" />
+<script type="text/javascript" src="<%= staticUrl %>/UI/src/frameworks.js?<%=staticFileVersion %>"></script>
 <script type='text/javascript'>
     var googletag = googletag || {};
     googletag.cmd = googletag.cmd || [];
@@ -134,5 +135,5 @@
 
 <!-- for IE to understand the new elements of HTML5 like header, footer, section and so on -->
 <!--[if lt IE 9]>
-    <script src="/src/html5.js"></script>
+    <script src="/UI/src/html5.js"></script>
 <![endif]-->

@@ -44,7 +44,7 @@
             if (Model.IsQAAvailable)
             {
                 <a href="@(Model.QAUrl)" title="@(Model.BikeName) Questions and Answers">
-                    <span id="qnaReviewListItem" class="model-top-review-list__item qna-redirection-link" data-cat="Model_Page" data-act="Q&A_Link_Clicked" data-lab="@(MakeDetails != null && ModelDetails != null ? String.Format("{0}_{1}", MakeDetails.MakeName, ModelDetails.ModelName) : "")">
+                    <span id="qnaReviewListItem" class="model-top-review-list__item bw-ga" data-cat="Model_Page" data-act="Q&A_Link_Clicked" data-lab="@(MakeDetails != null && ModelDetails != null ? String.Format("{0}_{1}", MakeDetails.MakeName, ModelDetails.ModelName) : "")">
                         Q&amp;A (@(Model.QACount))
                     </span>
                 </a>

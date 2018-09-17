@@ -471,8 +471,6 @@
 .newBikes-latest-updates-container .grid-4{padding-left:10px}
 .available-colors{display:inline-block;width:150px;text-align:center;margin-bottom:20px;padding:0 5px;vertical-align:top}
 .available-colors .color-box{width:60px;height:60px;margin:0 auto 15px;border-radius:3px;background:#f00;border:1px solid #ccc}
-#leadCapturePopup{display:none;width:450px;min-height:470px;background:#fff;margin:0 auto;position:fixed;top:10%;right:5%;left:5%;z-index:210;padding:30px 40px}
-.personal-info-list .errorIcon,.personal-info-list .errorText{display:none}
 #otpPopup{display:none}
 #otpPopup .otp-box,#otpPopup .update-mobile-box{width:280px;margin:15px auto 0}
 #otpPopup .update-mobile-box .form-control-box{margin-top:25px;margin-bottom:50px}
@@ -752,3 +750,67 @@
     right: 20px;
     top: 15px;
 }
+
+/* emi tooltip */
+.emi-info {
+    width: 13px;
+    height: 10px;
+    background-position: -217px -282px;
+    position: relative;
+    top: 1px;
+    cursor: pointer;
+}
+
+.tooltip-icon-target:hover .bw-tooltip {
+    display: block;
+}
+
+.emi-tooltip {
+    display: none;
+    width: 235px;
+    top: -10px;
+    right: -245px; /* width + tooltip width */
+    border-radius: 2px;
+    box-shadow: 0 1px 2px #eee;
+    cursor: default;
+    position: absolute;
+}
+
+.tooltip-white {
+    background: #fff;
+    padding: 10px;
+}
+
+.tooltip-white .bw-tooltip-text:before {
+    left: -10px;
+}
+
+.tooltip-white .bw-tooltip-text:after {
+    left: -9px;
+    border-right-color: #fff;
+}
+
+.emi-tooltip .bw-tooltip-text:before,
+.emi-tooltip .bw-tooltip-text:after {
+    top: 13%;
+}
+
+.bw-tooltip--large.bw-tooltip {
+	padding: 12px 15px;
+	width: 260px;
+	text-align: left;
+	box-shadow: 0 2px 4px 0 rgba(213, 213, 213, .5);
+	border-radius: 3px;
+	font-size: 13px;
+}
+
+/* insurance tooltip start */
+.insurance-info-tooltip.info-tooltip {
+	right: -120px;
+}
+
+.tooltip-top .insurance-info-tooltip .bw-tooltip-text:before,
+.tooltip-top .insurance-info-tooltip .bw-tooltip-text:after {
+	left: 122px;
+}
+/* insurance tooltip end */

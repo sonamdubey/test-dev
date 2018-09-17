@@ -1,10 +1,10 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" EnableViewState="false" Inherits="Bikewale.Mobile.Used.BikeDetails" %>
 
-<%@ Register Src="~/m/controls/SimilarUsedBikes.ascx" TagPrefix="BW" TagName="SimilarUsedBikes" %>
-<%@ Register Src="~/m/controls/UploadPhotoRequestPopup.ascx" TagPrefix="BW" TagName="UploadPhotoRequestPopup" %>
-<%@ Register Src="~/m/controls/UsedBikeLeadCaptureControl.ascx" TagPrefix="BW" TagName="UBLeadCapturePopup" %>
-<%@ Register Src="~/m/controls/ServiceCenterCard.ascx" TagName="ServiceCenterCard" TagPrefix="BW" %>
-<%@ Register Src="~/m/controls/usedBikeModel.ascx" TagName="usedBikeModel" TagPrefix="BW" %>
+<%@ Register Src="~/UI/m/controls/SimilarUsedBikes.ascx" TagPrefix="BW" TagName="SimilarUsedBikes" %>
+<%@ Register Src="~/UI/m/controls/UploadPhotoRequestPopup.ascx" TagPrefix="BW" TagName="UploadPhotoRequestPopup" %>
+<%@ Register Src="~/UI/m/controls/UsedBikeLeadCaptureControl.ascx" TagPrefix="BW" TagName="UBLeadCapturePopup" %>
+<%@ Register Src="~/UI/m/controls/ServiceCenterCard.ascx" TagName="ServiceCenterCard" TagPrefix="BW" %>
+<%@ Register Src="~/UI/m/controls/usedBikeModel.ascx" TagName="usedBikeModel" TagPrefix="BW" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,18 +23,18 @@
         TargetedCity = (inquiryDetails != null && inquiryDetails.City != null) ? inquiryDetails.City.CityName : string.Empty;
         ShowSellBikeLink = true;
     %>
-    <!-- #include file="/includes/headscript_mobile_min.aspx" -->
-    <link rel="stylesheet" type="text/css" href="/m/css/used/details.css" />
+    <!-- #include file="/UI/includes/headscript_mobile_min.aspx" -->
+    <link rel="stylesheet" type="text/css" href="/UI/m/css/used/details.css" />
     <script type="text/javascript">
-        <!-- #include file="\includes\gacode_mobile.aspx" -->
+        <!-- #include file="\UI\includes\gacode_mobile.aspx" -->
     </script>
 </head>
 <body>
     <form id="form1" runat="server">
-        <!-- #include file="/includes/headBW_Mobile.aspx" -->
+        <!-- #include file="/UI/includes/headBW_Mobile.aspx" -->
         <% if (inquiryDetails != null)
             { %>
-        <% if (!isBikeSold)
+        <% if (!isBikeSold && !isFakeListing)
             { %>
         <section>
             <div class="container bg-white clearfix box-shadow margin-bottom10">
@@ -169,12 +169,12 @@
             </div>
         </section>
         <% }
-            else
+            else if (isBikeSold)
             { %>
         <section>
             <div class="container bg-white clearfix box-shadow margin-bottom10">
                 <div class="font14 padding-top15 padding-right20 padding-bottom15 padding-left20">
-                    <span class="used-sprite sold-icon"></span>
+                    <span class="listing-sold-icon"></span>
 
                     <div class="bike-sold-msg text-grey ">
                         <h1><%= bikeName %></h1>
@@ -183,17 +183,32 @@
                 </div>
             </div>
         </section>
+        <% }
+            else if (isFakeListing)
+            { %>
+        <section>
+            <div class="container bg-white clearfix box-shadow margin-bottom10">
+                <div class="font14 padding-top15 padding-right20 padding-bottom15 padding-left20 listing--removed">
+                    <span class="listing-removed-icon"></span>
+
+                    <div class="bike-sold-msg text-grey ">
+                        <h1><%= bikeName %></h1>
+                        The <%= bikeName %> bike you are looking for has been removed. You might want to consider other used bikes shown below.
+                    </div>
+                </div>
+            </div>
+        </section>
         <% } %>
 
-        <script type="text/javascript" src="<%= staticUrl %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
-        <% if ((inquiryDetails.VersionMinSpecs != null && !isBikeSold) || ctrlusedBikeModel.FetchCount > 0 || ctrlSimilarUsedBikes.FetchedRecordsCount > 0)
+        <script type="text/javascript" src="<%= staticUrl %>/UI/m/src/frameworks.js?<%= staticFileVersion %>"></script>
+        <% if ((inquiryDetails.VersionMinSpecs != null && !isBikeSold && !isFakeListing) || ctrlusedBikeModel.FetchCount > 0 || ctrlSimilarUsedBikes.FetchedRecordsCount > 0)
             { %>
         <section>
             <div id="model-bottom-card-wrapper" class="container bg-white clearfix box-shadow margin-bottom30">
                 <div id="model-overall-specs-wrapper">
                     <div id="overall-specs-tab" class="overall-specs-tabs-container">
                         <ul class="overall-specs-tabs-wrapper">
-                            <% if (inquiryDetails.VersionMinSpecs != null && !isBikeSold)
+                            <% if (inquiryDetails.VersionMinSpecs != null && !isBikeSold && !isFakeListing)
                                 { %>
                             <li data-tabs="#modelSpecs" class="active">Specifications</li>
                             <li data-tabs="#modelFeatures">Features</li>
@@ -210,7 +225,7 @@
                     </div>
                 </div>
 
-                <% if (inquiryDetails.VersionMinSpecs != null && !isBikeSold)
+                <% if (inquiryDetails.VersionMinSpecs != null && !isBikeSold && !isFakeListing)
                     { %>
                 <div id="modelSpecs" class="bw-model-tabs-data margin-right20 margin-left20 padding-top15 padding-bottom20 font14 border-solid-bottom">
                     <h2 class="margin-bottom20">Specification summary</h2>
@@ -391,14 +406,14 @@
             <div class="clear"></div>
         </section>
 
-        <!-- #include file="/includes/footerBW_Mobile.aspx" -->
+        <!-- #include file="/UI/includes/footerBW_Mobile.aspx" -->
         <link href="<%= staticUrl  %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
-        <!-- #include file="/includes/footerscript_mobile.aspx" -->
-        <script type="text/javascript" src="<%= staticUrl  %>/m/src/used-details.js?<%= staticFileVersion%>"></script>
+        <!-- #include file="/UI/includes/footerscript_mobile.aspx" -->
+        <script type="text/javascript" src="<%= staticUrl  %>/UI/m/src/used-details.js?<%= staticFileVersion%>"></script>
         <script type="text/javascript">
             var gaObj = { 'id': '<%= (int)Bikewale.Entities.Pages.GAPages.Used_Bike_Details%>', 'name': '<%= Bikewale.Entities.Pages.GAPages.Used_Bike_Details%>' };
         </script>
-        <!-- #include file="/includes/fontBW_Mobile.aspx" -->
+        <!-- #include file="/UI/includes/fontBW_Mobile.aspx" -->
     </form>
 </body>
 </html>

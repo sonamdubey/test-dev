@@ -24,26 +24,24 @@ class PieBreakUp  extends React.Component {
 		const loanAmount = parseFloat(onRoadPrice - downpayment)
 		const pricipalLoan = formatToINR(loanAmount);
 		const pieInterestAmt = formatToINR(interestPayable)
-
+		const downPaymentAmount = formatToINR(downpayment);
 		return (
 				<div>          
 					<div className="pie-breakup-data">
 							<div className="pie-breakup_unit">
 									<div className="pie-breakup__title">
-										<span className="pie-breakup_bullet pie-breakup_bullet-interest"></span> Total Interest Payable</div>
-									<div className="pie-breakup__amount">{pieInterestAmt}</div>
+									<span className="pie-breakup_bullet pie-breakup_bullet-downpayment"></span>Down Payment</div>
+								<div className="pie-breakup__amount">{downPaymentAmount}</div>
 							</div>
 							<div className="pie-breakup_unit">
 									<div className="pie-breakup__title">
-										<span className="pie-breakup_bullet pie-breakup_bullet-loan"></span> Principle Loan Amount</div>
+									<span className="pie-breakup_bullet pie-breakup_bullet-loan"></span>Loan Amount</div>
 									<div className="pie-breakup__amount">{pricipalLoan}</div>
 							</div>
-							<div>
+						<div className="pie-breakup_unit">
 									<div className="pie-breakup__title">
-										<span className="pie-breakup__bullet-tenure"></span> Tenure
-										<span className="pie-breakup_tenure">{parseInt(tenure)} Months</span>
-									</div>
-									
+									<span className="pie-breakup_bullet pie-breakup_bullet-interest"></span>Total Interest</div>
+								<div className="pie-breakup__amount">{pieInterestAmt}</div>
 							</div>
 					</div>
 					<div className="pie-breakup-graph">

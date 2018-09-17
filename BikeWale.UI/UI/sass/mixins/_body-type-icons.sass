@@ -1,6 +1,6 @@
 @mixin scooter-style-icon($width: 75, $height: 42)
 	.scooter-style-icon
-		@if unitless($width) && unitless($height)
+		@if unitless($width) and unitless($height)
 			width: $width * 1px
 			height: $height * 1px
 			display: inline-block
@@ -8,12 +8,11 @@
 			@include scooter-style-line
 		@else
 			@warn "Please provide unitless value for body style icon"
-			@return false
 
 
 @mixin street-style-icon($width: 75, $height: 42)
 	.street-style-icon
-		@if unitless($width) && unitless($height)
+		@if unitless($width) and unitless($height)
 			width: $width * 1px
 			height: $height * 1px
 			display: inline-block
@@ -21,12 +20,11 @@
 			@include street-style-line
 		@else
 			@warn "Please provide unitless value for body style icon"
-			@return false
 
 
 @mixin cruiser-style-icon($width: 75, $height: 42)
 	.cruiser-style-icon
-		@if unitless($width) && unitless($height)
+		@if unitless($width) and unitless($height)
 			width: $width * 1px
 			height: $height * 1px
 			display: inline-block
@@ -34,12 +32,11 @@
 			@include cruiser-style-line
 		@else
 			@warn "Please provide unitless value for body style icon"
-			@return false
 
 
 @mixin sports-style-icon($width: 75, $height: 42)
 	.sports-style-icon
-		@if unitless($width) && unitless($height)
+		@if unitless($width) and unitless($height)
 			width: $width * 1px
 			height: $height * 1px
 			display: inline-block
@@ -47,7 +44,6 @@
 			@include sports-style-line
 		@else
 			@warn "Please provide unitless value for body style icon"
-			@return false
 
 
 // state: active

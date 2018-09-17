@@ -121,7 +121,7 @@ namespace Bikewale.Controllers
                 obj.IsMobile = true;
                 abtestResults = BWCookies.GetAbTestCookieFlag(BWConfiguration.Instance.MakePageViewShowPercentage);
                 objData = obj.GetData(abtestResults);
-                string viewName = string.Format("~/views/make/{0}", abtestResults.ViewName);
+                string viewName = string.Format("~/UI/views/make/{0}", abtestResults.ViewName);
                 return View(viewName, objData);
 
             }

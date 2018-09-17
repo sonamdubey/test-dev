@@ -5,7 +5,7 @@
 	{
 		<div id="modelExpertReviewsContent" data-id="modelExpertReviewsContent" class="content-box-shadow padding-top20 padding-bottom20 card-bottom-margin bw-model-tabs-data">
 			<h2 class="h2-heading padding-right20 padding-left20">@Model.BikeName Expert Reviews</h2>
-			@Html.Partial("~/Views/ExpertReviews/_ExpertReview.cshtml", Model.ExpertReviews)
+			@Html.Partial("~/UI/Views/ExpertReviews/_ExpertReview.cshtml", Model.ExpertReviews)
 			<div class="padding-left20 view-all-btn-container">
 				<a title="@Model.ExpertReviews.LinkTitle" href="@Model.ExpertReviews.MoreExpertReviewUrl" class="bw-ga btn view-all-target-btn" data-cat="Model_Page" data-act="Read_all_user_reviews_link_cliked" data-var="myBikeName">Read all reviews<span class="bwmsprite teal-right"></span></a>
 			</div>
@@ -14,7 +14,7 @@
 
     @if (Model.ModelPageEntity != null && Model.ModelPageEntity.ModelColors != null && Model.ModelPageEntity.ModelColors.Count() > 0)
     {
-        @Html.Partial("~/Views/Model/_Index_ModelColors.cshtml", Model)
+        @Html.Partial("~/UI/Views/Model/_Index_ModelColors.cshtml", Model)
     }
 
     @if (Model.IsSimilarBikesAvailable)
@@ -22,7 +22,7 @@
         if (Model.AdTags.Ad_Model_Comparo_976x400)
         {
             <section>
-                @{Html.RenderPartial("/Views/Shared/Ads/Desktop/AdSlotGeneric.cshtml", Model.AdSlots[String.Format("{0}-18", Model.AdTags.AdId)]);}
+                @{Html.RenderPartial("/UI/Views/Shared/Ads/Desktop/AdSlotGeneric.cshtml", Model.AdSlots[String.Format("{0}-18", Model.AdTags.AdId)]);}
             </section>
         }
         <div id="modelSimilarContent" data-id="modelSimilarContent" class="bw-model-tabs-data content-box-shadow padding-bottom20 card-bottom-margin font14">
@@ -33,12 +33,12 @@
                                                 @if (Model.AdTags.Ad_292x399)
                         {
                                                     <li class="sponsored-card">
-                                                        @{Html.RenderPartial("/Views/Shared/Ads/Desktop/AdSlotGeneric.cshtml", Model.AdSlots[String.Format("{0}-14", adIdSimilarBikes)]);}
+                                                        @{Html.RenderPartial("/UI/Views/Shared/Ads/Desktop/AdSlotGeneric.cshtml", Model.AdSlots[String.Format("{0}-14", adIdSimilarBikes)]);}
                                                     </li>
 
 
                         }
-                        @Html.Partial("~/Views/BikeModels/_SimilarBikes.cshtml", Model.SimilarBikes)
+                        @Html.Partial("~/UI/Views/BikeModels/_SimilarBikes.cshtml", Model.SimilarBikes)
                     </ul>
                 </div>
                 <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a></span>
@@ -57,21 +57,21 @@
                     <a href="@Bikewale.Utility.UrlFormatter.FormatGenericPageUrl(Model.BodyStyle)" title="Best @Model.BodyStyleText in India" class="btn view-all-target-btn">View all</a>
                 </div>
             </div>
-            @Html.Partial("~/Views/BestBikes/_PopularBodyStyleCarousel.cshtml", Model.PopularBodyStyle)
+            @Html.Partial("~/UI/Views/BestBikes/_PopularBodyStyleCarousel.cshtml", Model.PopularBodyStyle)
         </div>
     }
 
     @if(Model.IsNewBike && Model.IsMileageByUsersAvailable)
     {
         <section>
-            @Html.Partial("~/Views/Model/_Index_MileageDetails.cshtml", Model.Mileage)
+            @Html.Partial("~/UI/Views/Model/_Index_MileageDetails.cshtml", Model.Mileage)
         </section>
     }
 
     @if (Model.AdTags.Ad_Model_BTF_970x90)
     {
         <div class="margin-bottom15 margin-top10 text-center">
-            @{Html.RenderPartial("/Views/Shared/Ads/Desktop/AdSlotGeneric.cshtml", Model.AdSlots[String.Format("{0}-12", Model.AdTags.AdId)]);}
+            @{Html.RenderPartial("/UI/Views/Shared/Ads/Desktop/AdSlotGeneric.cshtml", Model.AdSlots[String.Format("{0}-12", Model.AdTags.AdId)]);}
         </div>
     }
              @if (Model.BikeSpecsFeatures != null || (Model.ModelPageEntity.ModelDesc != null && !string.IsNullOrEmpty(Model.ModelPageEntity.ModelDesc.SmallDescription)))
@@ -81,7 +81,7 @@
             @if (Model.BikeSpecsFeatures != null)
             {
                 <div id="modelSpecsFeaturesContent" class="content-box-shadow card-bottom-margin font14">
-                    @Html.Partial("~/Views/Model/_Index_ModelSpecsAndFeatures.cshtml", Model.BikeSpecsFeatures)
+                    @Html.Partial("~/UI/Views/Model/_Index_ModelSpecsAndFeatures.cshtml", Model.BikeSpecsFeatures)
                 </div>
             }
 
@@ -99,7 +99,7 @@
                         @if (Model.AdTags.Ad_Model_ATF_300x250)
                         {
                             <div class="sponsored-card">
-                                @{Html.RenderPartial("/Views/Shared/Ads/Desktop/AdSlotGeneric.cshtml", Model.AdSlots[String.Format("{0}-9", Model.AdTags.AdId)]);}
+                                @{Html.RenderPartial("/UI/Views/Shared/Ads/Desktop/AdSlotGeneric.cshtml", Model.AdSlots[String.Format("{0}-9", Model.AdTags.AdId)]);}
                             </div>
                                  }
                     </div>
@@ -110,11 +110,11 @@
     }   
 	@if ((Model.IsNewBike || Model.IsDiscontinuedBike) && Model.ModelPageEntity != null && Model.ModelPageEntity.ModelVersions != null && Model.ModelPageEntity.ModelVersions.Count > 0)
 	{
-		@Html.Partial("~/Views/Model/_Index_VersionPrices.cshtml", Model)
+		@Html.Partial("~/UI/Views/Model/_Index_VersionPrices.cshtml", Model)
 	}
     @if (Model.IsQAModel && Model.IsQAAvailable && Model.QASection != null)
     {
-        @Html.Partial("~/Views/QuestionAndAnswers/_QuestionAnswerSection.cshtml", Model.QASection);
+        @Html.Partial("~/UI/Views/QuestionAndAnswers/_QuestionAnswerSection.cshtml", Model.QASection);
     }
     @if (Model.IsUpcomingBike && Model.objUpcomingBikes != null && Model.objUpcomingBikes.UpcomingBikes != null && Model.objUpcomingBikes.UpcomingBikes.Count() > 0)
     {
@@ -127,7 +127,7 @@
                     <a href="/upcoming-bikes/" title="Upcoming Bikes in India" class="btn view-all-target-btn">All upcoming bikes</a>
                 </div>
             </div>
-            @Html.Partial("~/Views/Upcoming/_UpcomingBikes.cshtml", Model.objUpcomingBikes)
+            @Html.Partial("~/UI/Views/Upcoming/_UpcomingBikes.cshtml", Model.objUpcomingBikes)
         </div>
         <div class="clear"></div>
     }
@@ -171,7 +171,7 @@
 					</div>
 				</div>
 				<div class="review-list-wrapper">
-					@Html.Partial("~/Views/UserReview/_UserReviewList.cshtml", Model.UserReviews)
+					@Html.Partial("~/UI/Views/UserReview/_UserReviewList.cshtml", Model.UserReviews)
 					<div class="more-article-target view-all-btn-container">
 						<a title="@String.Format("{0} User Reviews", Model.BikeName)" href="@Bikewale.Utility.UrlFormatter.FormatUserReviewUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName)" class="btn view-all-target-btn">Read all user reviews<span class="bwsprite teal-right"></span></a>
 					</div>
@@ -198,7 +198,7 @@
 					<h2 class="h2-heading  padding-right20 padding-left20 padding-bottom20">@Model.ModelPageEntity.ModelDetails.ModelName Comparisons by Experts</h2>
 				}
 					<div class="expert-article-list  padding-right10 padding-left10">
-						@Html.Partial("~/Views/ExpertReviews/_RecentExpertReviews.cshtml", Model.ComparisionTestExpertReviews)
+						@Html.Partial("~/UI/Views/ExpertReviews/_RecentExpertReviews.cshtml", Model.ComparisionTestExpertReviews)
 					</div>
 
 					<div class="padding-left20 more-article-target view-all-btn-container">
@@ -219,7 +219,7 @@
 
             <div id="modelNewsContent" data-id="modelNewsContent" class="bw-model-tabs-data content-box-shadow content-inner-block-20 card-bottom-margin font14">
                 <h2 class="h2-heading margin-bottom20">@Model.BikeName News</h2>
-                @Html.Partial("~/Views/News/_RecentNews.cshtml", Model.News)
+                @Html.Partial("~/UI/Views/News/_RecentNews.cshtml", Model.News)
                 <div class="more-article-target view-all-btn-container">
                     <a href="@Bikewale.Utility.UrlFormatter.FormatNewsUrl(Model.News.MakeMasking, Model.News.ModelMasking)" title="@(!string.IsNullOrEmpty(Model.News.ModelMasking) ? string.Format("{0} {1} News", Model.News.MakeName, Model.News.ModelName) : (!string.IsNullOrEmpty(Model.News.MakeMasking) ? string.Format("{0} News", Model.News.MakeName) : "Bikes News"))"
                        class="btn view-all-target-btn">Read all news<span class="bwsprite teal-right"></span></a>
@@ -230,7 +230,7 @@
      @if (Model.AdTags.Ad_Model_Bottom_970x90)
      {
         <div class="margin-bottom15 margin-top10 text-center">
-            @{Html.RenderPartial("/Views/Shared/Ads/Desktop/AdSlotGeneric.cshtml", Model.AdSlots[String.Format("{0}-20", Model.AdTags.AdId)]);}
+            @{Html.RenderPartial("/UI/Views/Shared/Ads/Desktop/AdSlotGeneric.cshtml", Model.AdSlots[String.Format("{0}-20", Model.AdTags.AdId)]);}
         </div>
      }
         <div id="videosAndServiceCenterContent" data-id="videosAndServiceCenterContent" class="bw-model-tabs-data">
@@ -239,7 +239,7 @@
                 <div id="modelVideosContent" class="content-box-shadow padding-top20 padding-right10 padding-left10 padding-bottom20 card-bottom-margin font14">
                     <!-- Video start -->
                     <h2 class="h2-heading padding-left10 margin-bottom20">@Model.BikeName Videos</h2>
-                    @Html.Partial("~/Views/Videos/_RecentVideos.cshtml", Model.Videos)
+                    @Html.Partial("~/UI/Views/Videos/_RecentVideos.cshtml", Model.Videos)
                     <div class="padding-left10 more-article-target view-all-btn-container">
                         <a title="@Model.Videos.LinkTitle" href="@Model.Videos.MoreVideoUrl" class="bw-ga btn view-all-target-btn" data-cat="Model_Page" data-act="View_all_videos_link_cliked" data-var="@Model.BikeName">View all videos<span class="bwsprite teal-right"></span></a>
                     </div>
@@ -261,7 +261,7 @@
                                 </div>
                                 <div class="clear"></div>
                             </div>
-                            @Html.Partial("~/Views/DealerShowroom/_DealerCard.cshtml", Model.OtherDealers)
+                            @Html.Partial("~/UI/Views/DealerShowroom/_DealerCard.cshtml", Model.OtherDealers)
                         </div>
                 }
                 else
@@ -270,7 +270,7 @@
                     {
                         <div class="padding-bottom20">
                             <h2 class="h2-heading padding-left20 margin-bottom20">@Model.ModelPageEntity.ModelDetails.MakeBase.MakeName showrooms</h2>
-                            @Html.Partial("~/Views/DealerShowroom/_DealersServiceCentersInIndia.cshtml", Model.DealersServiceCenter)
+                            @Html.Partial("~/UI/Views/DealerShowroom/_DealersServiceCentersInIndia.cshtml", Model.DealersServiceCenter)
                         </div>
                     }
                 }
@@ -291,7 +291,7 @@
                             </div>
                         </div>
                     }
-                    @Html.Partial("~/Views/Upcoming/_UpcomingBikes.cshtml", Model.objUpcomingBikes)
+                    @Html.Partial("~/UI/Views/Upcoming/_UpcomingBikes.cshtml", Model.objUpcomingBikes)
                 </div>
                 <div class="clear"></div>
             }
@@ -303,7 +303,7 @@
     {
             <div id="makeUsedBikeContent" data-id="makeUsedBikeContent" class="bw-model-tabs-data content-box-shadow padding-top20 padding-right10 padding-bottom20 padding-left10 card-bottom-margin font14">
                 <h2 class="h2-heading padding-left10 padding-right10 margin-bottom20">Used @Model.BikeName bikes in @(Model.City != null ? Model.City.CityName : "India")</h2>
-                @Html.Partial("~/Views/Used/_UsedBikesByModelCity.cshtml", Model.UsedModels)
+                @Html.Partial("~/UI/Views/Used/_UsedBikesByModelCity.cshtml", Model.UsedModels)
                 <div class="clear"></div>
                 <div class="padding-left10 view-all-btn-container">
                     <a title="@Model.BikeName Used Bikes in @(Model.City!=null ? Model.City.CityName :"India")" href="@Bikewale.Utility.UrlFormatter.ViewMoreUsedBikes(Model.CityId, (Model.City!=null ? Model.City.CityMaskingName :"india"), Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName)" class="btn view-all-target-btn">View all used bikes<span class="bwsprite teal-right"></span></a>
@@ -338,11 +338,11 @@
                     </div>
                     @if (!Model.OtherBestBikes.IsMakePresentInConfig)
                     {
-                        @Html.Partial("~/Views/Model/_BestBikes.cshtml", Model.OtherBestBikes);
+                        @Html.Partial("~/UI/Views/Model/_BestBikes.cshtml", Model.OtherBestBikes);
                     }
                     else
                     {
-                        @Html.Partial("~/Views/Model/_MoreBikesFromMake.cshtml", Model.OtherBestBikes);
+                        @Html.Partial("~/UI/Views/Model/_MoreBikesFromMake.cshtml", Model.OtherBestBikes);
                     }
                     <div class="clear"></div>
                 </div>

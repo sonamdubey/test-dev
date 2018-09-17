@@ -1484,35 +1484,6 @@ input[type="number"] {
 .personal-info-list .errorText {
     display: none
 }
-#leadCapturePopup {
-    display: none;
-    width: 450px;
-    min-height: 470px;
-    background: #fff;
-    margin: 0 auto;
-    position: fixed;
-    top: 10%;
-    right: 5%;
-    left: 5%;
-    z-index: 210;
-    padding: 15px 40px
-}
-.personal-info-form-container {
-    margin: 10px auto;
-    width: 300px;
-    min-height: 100px
-}
-.personal-info-form-container .personal-info-list {
-    margin: 0 auto 7px;
-    width: 100%;
-    float: left;
-    border-radius: 0
-}
-.ui-autocomplete.pincode-autocomplete {
-    overflow-y: auto;
-    max-height: 140px;
-    top: 1px !important;
-}
 #otpPopup .otp-box,
 #otpPopup .update-mobile-box {
     width: 280px;
@@ -1803,7 +1774,8 @@ input[type="number"] {
 }
 
 /* loader */
-#ub-ajax-loader {
+#ub-ajax-loader,
+.display-loader {
     display: none;
 }
 

@@ -1,6 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.BikeBooking.BookingSummary_New" %>
 
-<%@ Register Src="~/controls/UsersTestimonials.ascx" TagPrefix="BW" TagName="UsersTestimonials" %>
+<%@ Register Src="~/UI/controls/UsersTestimonials.ascx" TagPrefix="BW" TagName="UsersTestimonials" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,12 +13,12 @@
         isAd300x250BTFShown = false;
         isAd970x90BottomShown = false;
     %>
-    <!-- #include file="/includes/headscript.aspx" -->
-    <link href="<%= staticUrl  %>/css/booking.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
+    <!-- #include file="/UI/includes/headscript.aspx" -->
+    <link href="<%= staticUrl  %>/UI/css/booking.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
 </head>
 <body class="header-fixed-inner" data-contestslug="true">
     <form runat="server">
-        <!-- #include file="/includes/headBW.aspx" -->
+        <!-- #include file="/UI/includes/headBW.aspx" -->
         <script type="text/javascript">$("#header").find(".leftfloat .navbarBtn").hide();$("#header").find(".rightfloat ").hide();</script>
         <section class="bg-light-grey padding-top10">
             <div class="container">
@@ -120,7 +120,7 @@
 
                         </div>
                         <div class="grid-12 alpha margin-top15 query-number-container">
-                            <input type="button" value="Next" class="btn btn-orange rightfloat" id="bikeSummaryNextBtn" leadsourceid="16" data-bind="click : function(data,event){return $root.verifyCustomer(data,event);}" />
+                            <input type="button" value="Next" class="btn btn-orange rightfloat" id="bikeSummaryNextBtn" leadsourceid="72" data-bind="click : function(data,event){return $root.verifyCustomer(data,event);}" />
                         </div>
                         <div class="clear"></div>
 
@@ -413,8 +413,8 @@
 
         <input id="hdnBikeData" type="hidden" value='<%= bikesData %>' />
         <input id="hdnDiscountList" type="hidden" value='<%= discountedPriceList %>' />
-        <!-- #include file="/includes/footerscript.aspx" -->
-        <!-- #include file="/includes/footerBW.aspx" -->
+        <!-- #include file="/UI/includes/footerscript.aspx" -->
+        <!-- #include file="/UI/includes/footerBW.aspx" -->
 
         <script type="text/javascript">
             var leadSourceId;
@@ -452,7 +452,7 @@
             var gaObj = { 'id': '<%= (int)Bikewale.Entities.Pages.GAPages.Booking_Page%>', 'name': '<%= Bikewale.Entities.Pages.GAPages.Booking_Page%>' };
         </script>
 
-        <script type="text/javascript" src="<%= staticUrl  %>/src/booking.js?<%= staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl  %>/UI/src/booking.js?<%= staticFileVersion %>"></script>
 
         <script type="text/javascript">
             <% if (objCustomer != null && objCustomer.objCustomerBase != null && !String.IsNullOrEmpty(objCustomer.objCustomerBase.CustomerName))

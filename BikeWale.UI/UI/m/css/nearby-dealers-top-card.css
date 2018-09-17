@@ -1,0 +1,82 @@
+﻿ .dealer-campaign-wrapper .btn {
+    display: inline-block;
+    padding: 8px 42px;
+    font-size: 16px;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    border: 1px solid transparent;
+    border-radius: 2px;
+    outline: none;
+    text-decoration: none;
+    vertical-align: middle;
+    touch-action: manipulation;
+    cursor: pointer;
+    user-select: none;
+    background-image: none;
+    -webkit-appearance: none;
+}
+
+.dealer-campaign-wrapper .btn-teal {
+    background: #41b4c4;
+    color: #fff;
+    border: 1px solid #41b4c4;
+}
+
+.dealer-campaign-wrapper .btn-180-32 {
+    min-width: 180px;
+    padding: 5px;
+    font-size: 14px;
+}
+
+.dealer-campaign-wrapper {
+    padding: 20px;
+    background: #fff;
+    -moz-box-shadow: 0 0 2px 2px #e9e9e9;
+    -webkit-box-shadow: 0 0 2px 2px #e9e9e9;
+    box-shadow: 0 0 2px 2px #e9e9e9;
+}
+
+.campaign__icon {
+    width: 18px;
+    height: 17px;
+    background: url(https://imgd.aeplcdn.com/0x0/bw/static/icons/dealer-4d5057-18.png) no-repeat;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 10px;
+}
+
+.campaign__name {
+    width: 80%;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.campaign__list {
+    list-style: none;
+}
+
+.campaign__list li {
+color: #787878;
+}
+
+.campaign__list li:before {
+    content: '\2022';
+    margin-right: 5px;
+}
+
+.item--50-percent li {
+    width: 49%;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.nearby-dealers-top-card .btn-180-32 {
+    min-width: 140px;
+}
+@media only screen and (max-width:320px) {
+    .dealer-campaign-wrapper .btn-180-32 {
+        min-width: 160px;
+        margin-right: 5px;
+    }
+}

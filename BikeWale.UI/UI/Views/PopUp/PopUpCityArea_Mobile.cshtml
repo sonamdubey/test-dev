@@ -2,8 +2,8 @@
 
 @{
 
-    Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/PopUp/PopUpCityArea.css' />";
+    Layout = "~/UI/Views/Shared/_Layout_Mobile.cshtml";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/UI/css/PopUp/PopUpCityArea.css' />";
 }
 
 <script type="text/javascript">
@@ -27,8 +27,8 @@
             };
             obj.cityId = @Model.PreSelectedCity || obj.cityId;
             vmquotation.setOptions(obj);
-            $('#popupWrapper .close-btn').attr("data-returnurl",'@Model.Url');
-
+            $('#popupWrapper .close-btn').attr("data-returnurl", "@Model.Url".replace("#onRoadPriceAmp", ""));
+            
         })();
 
     });

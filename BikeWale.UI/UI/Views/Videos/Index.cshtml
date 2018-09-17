@@ -2,8 +2,8 @@
 @using Bikewale.Utility;
 
 @{
-    Layout = "~/Views/Shared/_Layout.cshtml";
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/video/landing.css' inline />";
+    Layout = "~/UI/Views/Shared/_Layout.cshtml";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/UI/css/video/landing.css' inline />";
     Model.IsHeaderFix = true;
     Model.IsTransparentHeader = false;
     Model.IsPageTypeLanding = true;
@@ -107,16 +107,16 @@
 
     if (Model.FirstRideWidgetData != null && Model.FirstRideWidgetData.VideoList != null && Model.FirstRideWidgetData.VideoList.Videos != null && Model.FirstRideWidgetData.VideoList.Videos.Count() > 0)
     {
-        @Html.Partial("~/Views/Videos/_VideosByCategory.cshtml", Model.FirstRideWidgetData)
+        @Html.Partial("~/UI/Views/Videos/_VideosByCategory.cshtml", Model.FirstRideWidgetData)
     }
 
     if (Model.LaunchAlertWidgetData != null && Model.LaunchAlertWidgetData.VideoList != null && Model.LaunchAlertWidgetData.VideoList.Videos != null && Model.LaunchAlertWidgetData.VideoList.Videos.Count() > 0)
     {
-        @Html.Partial("~/Views/Videos/_VideosByCategory.cshtml", Model.LaunchAlertWidgetData)
+        @Html.Partial("~/UI/Views/Videos/_VideosByCategory.cshtml", Model.LaunchAlertWidgetData)
     }
     if (Model.FirstLookWidgetData != null && Model.FirstLookWidgetData.VideoList != null && Model.FirstLookWidgetData.VideoList.Videos != null && Model.FirstLookWidgetData.VideoList.Videos.Count() > 0)
     {
-        @Html.Partial("~/Views/Videos/_VideosByCategory.cshtml", Model.FirstLookWidgetData)
+        @Html.Partial("~/UI/Views/Videos/_VideosByCategory.cshtml", Model.FirstLookWidgetData)
     }
 
     if (Model.Brands != null)
@@ -125,7 +125,7 @@
             <div class="grid-12">
                 <h2 class="text-bold text-center margin-top40 margin-bottom20 font28">Browse videos by brands</h2>
                 <div class="content-box-shadow padding-top20 collapsible-brand-content">
-                    @Html.Partial("~/Views/Make/_Brands.cshtml", Model.Brands)
+                    @Html.Partial("~/UI/Views/Make/_Brands.cshtml", Model.Brands)
                 </div>
             </div>
             <div class="clear"></div>
@@ -134,27 +134,27 @@
 
     if (Model.PowerDriftBlockbusterWidgetData != null && Model.PowerDriftBlockbusterWidgetData.VideoList != null && Model.PowerDriftBlockbusterWidgetData.VideoList.Videos != null && Model.PowerDriftBlockbusterWidgetData.VideoList.Videos.Count() > 0)
     {
-        @Html.Partial("~/Views/Videos/_VideosByCategory.cshtml", Model.PowerDriftBlockbusterWidgetData)
+        @Html.Partial("~/UI/Views/Videos/_VideosByCategory.cshtml", Model.PowerDriftBlockbusterWidgetData)
     }
 
     if (Model.MotorSportsWidgetData != null && Model.MotorSportsWidgetData.VideoList != null && Model.MotorSportsWidgetData.VideoList.Videos != null && Model.MotorSportsWidgetData.VideoList.Videos.Count() > 0)
     {
-        @Html.Partial("~/Views/Videos/_VideosByCategory.cshtml", Model.MotorSportsWidgetData)
+        @Html.Partial("~/UI/Views/Videos/_VideosByCategory.cshtml", Model.MotorSportsWidgetData)
     }
 
     if (Model.PowerDriftSpecialsWidgetData != null && Model.PowerDriftSpecialsWidgetData.VideoList != null && Model.PowerDriftSpecialsWidgetData.VideoList.Videos != null && Model.PowerDriftSpecialsWidgetData.VideoList.Videos.Count() > 0)
     {
-        @Html.Partial("~/Views/Videos/_VideosByCategory.cshtml", Model.PowerDriftSpecialsWidgetData)
+        @Html.Partial("~/UI/Views/Videos/_VideosByCategory.cshtml", Model.PowerDriftSpecialsWidgetData)
     }
 
     if (Model.PowerDriftTopMusicWidgetData != null && Model.PowerDriftTopMusicWidgetData.VideoList != null && Model.PowerDriftTopMusicWidgetData.VideoList.Videos != null && Model.PowerDriftTopMusicWidgetData.VideoList.Videos.Count() > 0)
     {
-        @Html.Partial("~/Views/Videos/_VideosByCategory.cshtml", Model.PowerDriftTopMusicWidgetData)
+        @Html.Partial("~/UI/Views/Videos/_VideosByCategory.cshtml", Model.PowerDriftTopMusicWidgetData)
     }
 
     if (Model.MiscellaneousWidgetData != null && Model.MiscellaneousWidgetData.VideoList != null && Model.MiscellaneousWidgetData.VideoList.Videos != null && Model.MiscellaneousWidgetData.VideoList.Videos.Count() > 0)
     {
-        @Html.Partial("~/Views/Videos/_VideosByCategory.cshtml", Model.MiscellaneousWidgetData)
+        @Html.Partial("~/UI/Views/Videos/_VideosByCategory.cshtml", Model.MiscellaneousWidgetData)
     }
     <section>
         <div class="container">
@@ -162,7 +162,7 @@
 				<h2 class="text-bold text-center margin-top40 margin-bottom20 font28">Bike Images</h2>
 				@if (Model.PopularSportsBikesWidget != null && Model.PopularSportsBikesWidget.ModelList != null && Model.PopularSportsBikesWidget.ModelList.Any())
 				{
-					@Html.Partial("~/Views/Photos/_ImageCaraousel.cshtml", Model.PopularSportsBikesWidget)
+					@Html.Partial("~/UI/Views/Photos/_ImageCaraousel.cshtml", Model.PopularSportsBikesWidget)
 				}
 				<div class="margin-bottom25"></div>
 				<div class="view-all-btn-container">

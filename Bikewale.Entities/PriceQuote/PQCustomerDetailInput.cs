@@ -30,5 +30,8 @@ namespace Bikewale.Entities.PriceQuote
 
         public string DeviceId { get; set; }
         public uint LeadId { get; set; }
+        public ushort PlatformId { get; set; }
+        public ushort PageId { get; set; }
+        public uint CampaignId { get; set; }
     }
 }

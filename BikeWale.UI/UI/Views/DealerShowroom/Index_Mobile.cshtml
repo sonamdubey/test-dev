@@ -1,9 +1,9 @@
 ﻿@model  Bikewale.Models.IndexVM
 @{
-	Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
-	Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/dealer/landing.css' inline /> <link rel='stylesheet' type='text/css' href='/css/components/m-brand-logo.css' inline />";
+	Layout = "~/UI/Views/Shared/_Layout_Mobile.cshtml";
+	Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/UI/m/css/dealer/landing.css' inline /> <link rel='stylesheet' type='text/css' href='/UI/css/components/m-brand-logo.css' inline />";
     Model.PageMetaTags.CanonicalUrl = "https://www.bikewale.com/dealer-showrooms/";
-    Model.Page_JS_Path = "/m/src/dealer/landing.js";
+    Model.Page_JS_Path = "/UI/m/src/dealer/landing.js";
     Model.IsTransparentHeader = true;
 }
 
@@ -42,7 +42,7 @@
         <div class="container section-container">
             <h2 class="section-heading">Explore showroom by brand</h2>
             <div class="content-box-shadow padding-top25 padding-bottom20 collapsible-brand-content text-center">
-                @Html.Partial("~/Views/Make/_Brands_Mobile.cshtml", Model.Brands)
+                @Html.Partial("~/UI/Views/Make/_Brands_Mobile.cshtml", Model.Brands)
             </div>
         </div>
     }
@@ -50,7 +50,7 @@
 @if (Model.BestBikes != null)
 {
     <div class="container section-container">
-        @Html.Partial("~/Views/BestBikes/_BestBikes_Mobile.cshtml", Model.BestBikes)
+        @Html.Partial("~/UI/Views/BestBikes/_BestBikes_Mobile.cshtml", Model.BestBikes)
     </div>
 }
 
@@ -60,7 +60,7 @@
             <h2 class="section-heading">New Bike Launches in India</h2>
             <div class="content-box-shadow padding-top15 padding-bottom15">
 
-                @Html.Partial("~/Views/NewLaunches/_NewLaunches_Mobile.cshtml", Model.NewLaunchedBikes)
+                @Html.Partial("~/UI/Views/NewLaunches/_NewLaunches_Mobile.cshtml", Model.NewLaunchedBikes)
 
 
                 <div class="padding-left10 view-all-btn-container margin-top10">
@@ -77,7 +77,7 @@
             <h2 class="section-heading">Upcoming Bikes in India</h2>
             <div class="content-box-shadow padding-top15 padding-bottom15">
 
-                @Html.Partial("~/Views/Upcoming/_UpcomingBikes_Mobile.cshtml", Model.objUpcomingBikes)
+                @Html.Partial("~/UI/Views/Upcoming/_UpcomingBikes_Mobile.cshtml", Model.objUpcomingBikes)
 
 
                 <div class="padding-left10 view-all-btn-container margin-top10">

@@ -3,13 +3,13 @@
 @using Bikewale.Utility;
 @{
     Model.IsHeaderFix = false;
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/user-review/listing.css' inline />";
-    Model.Page_JS_Path = "/src/user-review/listing.js";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/UI/sass/user-review/listing.css' inline />";
+    Model.Page_JS_Path = "/UI/src/user-review/listing.js";
     Model.AdTags.AdPath = "/1017752/Bikewale_UserReviews_";
     Model.AdTags.AdId = "1496833829224";
     Model.AdTags.Ad_970x90 = true;
     Model.AdTags.Ad_970x90Bottom = true;
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/UI/Views/Shared/_Layout.cshtml";
 }
 @if (Model != null && Model.UserReviewDetailsObj != null && Model.UserReviewDetailsObj.Model != null && Model.UserReviewDetailsObj.Make != null)
 {
@@ -118,12 +118,12 @@
     </section>
     if (Model.UserReviews != null && Model.UserReviews.UserReviews != null && Model.UserReviews.UserReviews.Result != null && Model.UserReviews.UserReviews.Result.Count() > 0)
     {
-        @Html.Partial("~/views/UserReview/_UserReviewsSearch.cshtml", Model.UserReviews)
+        @Html.Partial("~/UI/views/UserReview/_UserReviewsSearch.cshtml", Model.UserReviews)
     }
     if (Model.GenericBikeWidgetData != null)
     {
         <section>
-            @Html.Partial("~/views/BikeModels/_BikeInfoCard.cshtml", Model.GenericBikeWidgetData)
+            @Html.Partial("~/UI/views/BikeModels/_BikeInfoCard.cshtml", Model.GenericBikeWidgetData)
         </section>
     }
     <section>
@@ -138,15 +138,15 @@
                         <p class="font14 text-slate-grey inline-block">Share your experience about this bike</p>
                     </div>
                     <div class="rightfloat padding-top15 answer-star-list hover-effect">
-                        <input data-querystring="@Utils.Utils.EncryptTripleDES(string.Format("returnurl={0}&selectedRating=5&sourceid={1}", Model.PageUrl,(int)UserReviewPageSourceEnum.Desktop_UserReview_Details))" type="radio" id="rate-star-5" name="rate-bike" value="5">
+                        <input data-querystring="@TripleDES.EncryptTripleDES(string.Format("returnurl={0}&selectedRating=5&sourceid={1}", Model.PageUrl,(int)UserReviewPageSourceEnum.Desktop_UserReview_Details))" type="radio" id="rate-star-5" name="rate-bike" value="5">
                         <label class="bwsprite star-0" for="rate-star-5" data-value="5"></label>
-                        <input data-querystring="@Utils.Utils.EncryptTripleDES(string.Format("returnurl={0}&selectedRating=4&sourceid={1}", Model.PageUrl,(int)UserReviewPageSourceEnum.Desktop_UserReview_Details))" type="radio" id="rate-star-4" name="rate-bike" value="4">
+                        <input data-querystring="@TripleDES.EncryptTripleDES(string.Format("returnurl={0}&selectedRating=4&sourceid={1}", Model.PageUrl,(int)UserReviewPageSourceEnum.Desktop_UserReview_Details))" type="radio" id="rate-star-4" name="rate-bike" value="4">
                         <label class="bwsprite star-0" for="rate-star-4" data-value="4"></label>
-                        <input data-querystring="@Utils.Utils.EncryptTripleDES(string.Format("returnurl={0}&selectedRating=3&sourceid={1}", Model.PageUrl,(int)UserReviewPageSourceEnum.Desktop_UserReview_Details))" type="radio" id="rate-star-3" name="rate-bike" value="3">
+                        <input data-querystring="@TripleDES.EncryptTripleDES(string.Format("returnurl={0}&selectedRating=3&sourceid={1}", Model.PageUrl,(int)UserReviewPageSourceEnum.Desktop_UserReview_Details))" type="radio" id="rate-star-3" name="rate-bike" value="3">
                         <label class="bwsprite star-0" for="rate-star-3" data-value="3"></label>
-                        <input data-querystring="@Utils.Utils.EncryptTripleDES(string.Format("returnurl={0}&selectedRating=2&sourceid={1}", Model.PageUrl,(int)UserReviewPageSourceEnum.Desktop_UserReview_Details))" type="radio" id="rate-star-2" name="rate-bike" value="2">
+                        <input data-querystring="@TripleDES.EncryptTripleDES(string.Format("returnurl={0}&selectedRating=2&sourceid={1}", Model.PageUrl,(int)UserReviewPageSourceEnum.Desktop_UserReview_Details))" type="radio" id="rate-star-2" name="rate-bike" value="2">
                         <label class="bwsprite star-0" for="rate-star-2" data-value="2"></label>
-                        <input data-querystring="@Utils.Utils.EncryptTripleDES(string.Format("returnurl={0}&selectedRating=1&sourceid={1}", Model.PageUrl,(int)UserReviewPageSourceEnum.Desktop_UserReview_Details))" type="radio" id="rate-star-1" name="rate-bike" value="1">
+                        <input data-querystring="@TripleDES.EncryptTripleDES(string.Format("returnurl={0}&selectedRating=1&sourceid={1}", Model.PageUrl,(int)UserReviewPageSourceEnum.Desktop_UserReview_Details))" type="radio" id="rate-star-1" name="rate-bike" value="1">
                         <label class="bwsprite star-0" for="rate-star-1" data-value="1"></label>
                     </div>
                     <div class="clear"></div>
@@ -163,7 +163,7 @@
                 <div class="grid-12">
                     <div class="content-box-shadow padding-top20 padding-right10 padding-bottom20 padding-left10 article-list font14">
                         <h2 class="h2-heading margin-bottom20 margin-left10">@Model.ExpertReviews.Title</h2>
-                        @Html.Partial("~/views/ExpertReviews/_RecentExpertReviews.cshtml", Model.ExpertReviews)
+                        @Html.Partial("~/UI/views/ExpertReviews/_RecentExpertReviews.cshtml", Model.ExpertReviews)
                         <div class="padding-left10 more-article-target view-all-btn-container">
                             <a href="@Model.ExpertReviews.MoreExpertReviewUrl" title="@string.Format("{0} {1} Expert Reviews", Model.UserReviewDetailsObj.Make.MakeName, Model.UserReviewDetailsObj.Model.ModelName)" class="btn view-all-target-btn">
                                 Read all expert reviews<span class="bwsprite teal-right"></span>
@@ -187,7 +187,7 @@
                                 <h2 class="h2-heading">Reviews of similar bikes</h2>
                             </div>
                         </div>
-                        @Html.Partial("~/views/UserReview/_SimilarBikeUserReview.cshtml", Model.SimilarBikesWidget)
+                        @Html.Partial("~/UI/views/UserReview/_SimilarBikeUserReview.cshtml", Model.SimilarBikesWidget)
                         <div class="clear"></div>
                     </div>
                 </div>

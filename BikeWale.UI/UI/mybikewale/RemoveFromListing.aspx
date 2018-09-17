@@ -2,7 +2,7 @@
 <%
     title = "My BikeWale - Remove Sell Bike Ad";
 %>
-<!-- #include file="/includes/headMyBikeWale.aspx" -->
+<!-- #include file="/UI/includes/headMyBikeWale.aspx" -->
 
  <div class="container_12 container-min-height"> 
       
@@ -79,4 +79,4 @@
  </script>     
      </div>
 
-<!-- #include file="/includes/footerInner.aspx" -->
+<!-- #include file="/UI/includes/footerInner.aspx" -->

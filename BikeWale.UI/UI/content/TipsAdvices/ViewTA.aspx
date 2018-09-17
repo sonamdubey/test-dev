@@ -7,7 +7,7 @@
     AdId = "1395986297721";
     AdPath = "/1017752/BikeWale_New_";
 %>
-<!-- #include file="/includes/headnew.aspx" -->
+<!-- #include file="/UI/includes/headnew.aspx" -->
 <div class="container_12">
     <div class="grid_12"><ul class="breadcrumb"><li>You are here: </li><li><a href="/">Home</a></li><li>&rsaquo;<a title="Tips And Advices" href="/tipsadvices/">Bike Tips And Advices</a></li><li class="current">&rsaquo; <strong><%= ArticleTitle%></strong></li></ul><div class="clear"></div></div>
 	<div class="grid_8 margin-top10">        
@@ -67,7 +67,7 @@
     <div class="grid_4">
         <div class="margin-top15">
             <!-- BikeWale_NewBike/BikeWale_NewBike_HP_300x250 -->
-            <!-- #include file="/ads/Ad300x250.aspx" -->
+            <!-- #include file="/UI/ads/Ad300x250.aspx" -->
         </div>
         <div class="light-grey-bg content-block border-radius5 padding-bottom20 margin-top5">
             <h1>Instant bike On-Road Price</h1>
@@ -86,7 +86,7 @@
         </div>
         <div class="margin-top15">
             <!-- BikeWale_NewBike/BikeWale_NewBike_HP_300x250 -->
-            <!-- #include file="/ads/Ad300x250BTF.aspx" -->
+            <!-- #include file="/UI/ads/Ad300x250BTF.aspx" -->
         </div>
     </div>    
 </div>
@@ -221,4 +221,4 @@
     }
 
 </script>
-<!-- #include file="/includes/footerInner.aspx" -->
+<!-- #include file="/UI/includes/footerInner.aspx" -->

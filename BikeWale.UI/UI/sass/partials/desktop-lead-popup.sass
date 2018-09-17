@@ -1,0 +1,133 @@
+﻿// Core variables and mixins
+@import ../base/variables
+@import ../components/typography
+
+@import ../mixins/index
+@import ../utils/index
+@import ../components/mixins
+@import ../mixins/scrollbar
+
+@media only screen and (min-width: 800px)
+	.lead-popup--active
+		.popoup-content
+			max-height: 573px
+			position: relative
+
+	.contact-detail-screen
+		max-height: 573px
+
+	.lead-popup
+		width: 360px
+		height: auto
+		min-height: 240px
+		top: 7%
+		left: 38%
+		left: -webkit-calc(50% - 180px)
+		left: -moz-calc(50% - 180px)
+		left: calc(50% - 180px)
+		margin: 0 auto
+		z-index: 210
+		overflow: hidden
+
+	.lead-popup__close-btn
+		top: 11px
+		right: 11px
+
+	.lead-contact-head__title
+		color: color('black')
+
+	.lead-contact-head__subtitle
+		color: color('slate-grey')
+
+	.agreement-and-policy
+		margin-top: 8px
+
+	.icon-container--round
+		height: 54px
+		width: 54px
+
+		&::after
+			height: 48px
+			width: 48px
+
+	.notify-response__container
+		padding-top: 20px
+		padding-bottom: 30px
+
+	.lead-popup-thankyou__desc
+		color: color('slate-grey')
+		margin-bottom: 30px
+		font-size: 13px
+
+	.dealers__content
+		padding-top: 20px
+		margin-bottom: 0
+
+	.dealer-head__title
+		color: color('black')
+
+	.dealer-head__subtitle
+		color: color('aluminium')
+
+	.checkbox-container__label
+		color: color('slate-grey')
+
+	.dealers-item__name
+		color: color('slate-grey')
+
+	.dealers__btn-container
+		text-align: center
+
+	.thankyou-with-code
+		font-size: 14px
+		margin-top: 12px
+		margin-bottom: 40px
+
+		.lead-msg__detail
+			margin-left: 0
+			margin-right: 0
+			width: auto
+
+	.personal-info-form-container
+		.input-number-prefix
+			top: 4px
+
+	.additional-screen
+		backface-visibility: hidden
+
+		@include scrollbar-custom(8px)
+
+		&.dealers--active
+			height: 430px
+			overflow-x: hidden
+			overflow-y: auto
+			margin-bottom: 113px
+
+			.dealers__btn-container
+				left: auto
+				right: auto
+				width: 360px
+				position: absolute
+				bottom: -113px
+
+	.additional-screen--active
+		.leadcapture-close__container
+			left: 8px
+
+		.notify-response__container
+			padding-bottom: 20px
+
+	.personal-info-form-container
+		position: relative
+		backface-visibility: hidden
+
+	.leadcapture-close__container
+		position: relative
+
+
+
+	.contact-detail-screen
+		.select-box
+			.chosen-results
+				max-height: 130px
+

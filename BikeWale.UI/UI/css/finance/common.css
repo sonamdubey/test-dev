@@ -1,0 +1,613 @@
+﻿.text-slate-grey {
+    color: #787878;
+}
+
+.read-more-tab,
+.terms__read-more-tab {
+    font-size: 14px;
+    color:  #0288d1;
+    cursor: pointer;
+    display: inline-block;
+         
+}
+
+.personal__title,
+.employment__title {
+    font-size: 15px;
+    color: #2a2a2a;
+    margin-left: 30px;
+    display: inline-block;
+    vertical-align : middle; 
+}
+
+.personal__title.inactive,
+.employment__title.inactive {
+    color: #787878;
+}
+.contact-details__form,
+.personal-details__form {
+    margin: 10px 0 10px 20px;
+    border-left: 2px solid #e2e2e2;
+    padding: 10px 50px;
+}
+
+.employment-details-form {
+    margin-left: 45px;
+    padding: 25px 25px 0;
+}
+
+.gender-box {
+    height: 60px;
+    display: inline-block;
+    vertical-align: bottom;
+}
+
+.marital-box {
+    height: 60px;
+    vertical-align: bottom;
+}
+
+.vertical-align-bottom {
+    vertical-align: bottom;
+}
+    
+.heading-title {
+    padding: 17px 20px;
+    margin-bottom: 3px;
+    background: #fff;
+    box-shadow: 0 2px 4px 0 rgba(221,221,221,0.50);
+    font-size: 22px;
+}
+
+.input-box {
+    display: inline-block;
+    vertical-align: top;
+    width: 41%; 
+}
+.otp-container .input-box {
+    margin: 0 auto;
+    display: block;
+}
+
+.block {
+    display: block;
+}
+
+.width-91-percent {
+    display: block;
+    width: 91%;
+}
+
+.contact-details__form .input-box label,
+.personal-details__form .input-box label,
+.employment-details-form  .input-box label {
+    color: #a2a2a2;
+    font-size: 14px;
+}
+
+.employment-details-form .status-box {
+    height: 60px;
+}
+
+.gender-label, 
+.marital-label,
+.employment-label {
+    color: #82888b;
+    font-size: 14px;
+    margin-right: 30px;
+    position: relative;
+    top: 10px;
+}
+
+.how-works-container__li {
+    width: 33.08%;
+    display: inline-block;
+    text-align: center;
+    position: relative;
+    margin: 10px 0 30px;
+    vertical-align: top;
+}
+   
+input[type=radio] {
+    position: absolute;
+    visibility: hidden;
+}
+
+.input-box input#cfNum,  .input-box input#otpNewNumber{
+    padding-left: 30px;
+}
+
+.radio-box li {
+    display: inline-block;
+}
+
+.radio-box label {
+    padding: 6px 19px;
+    border: 1px solid #eee;
+    cursor: pointer;
+    margin-right: 8px;
+}
+
+.radio-box input[type=radio]:checked+label {
+    padding-left: 36px;
+    border-color: #41B4C4;
+    background: url("https://imgd.aeplcdn.com/0x0/bw/static/icons/41b4c4/checked-circle-14x14.png") 15px 50% no-repeat;
+}
+
+.radio-box .error-text {
+	position: absolute;
+	top: 60%;
+}
+
+.how-works-container__li:before {
+    content: "";
+    position: absolute;       
+    background-color: #e2e2e2;
+    width: 235px;
+    height: 2px;
+    top: 36px;
+    left: 206px;
+}
+
+.how-works-container__li:last-child:before{
+    display: none;
+}
+
+.how-works__image-unit {
+    width: 73px;
+    height: 73px;
+    display: inline-block;       
+    background: #fff;
+    border: 1px solid #a2a2a2;
+}
+
+.loan-form-icon {
+    background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/787878/form-20x24.png') center no-repeat;
+}
+
+.loan-approval-icon {
+    background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/787878/approval-24x24.png') center no-repeat;
+}
+
+.loan-contact-icon {
+    background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/787878/contact-line-23x23.png') center no-repeat;
+}
+
+.round-border {
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -o-border-radius: 50%;
+    border-radius: 50%;
+}
+
+.how-works__content {
+    display: block;
+    width: 100%;
+    font-size: 14px;
+    color: #787878;
+    padding: 0 25px;
+}
+
+.terms-condition__content {
+    color: #787878;
+    margin: 0 20px;
+    font-size: 14px;
+    list-style-type: decimal;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.page-tabs-data {
+    background: white;
+    margin: 20px;
+    border: 1px solid #e2e2e2;
+    padding: 30px 30px 30px 30px;
+}
+
+.collapsible-content .main-content,
+.collapsible-content.active .more-content {
+    display: block; 
+}
+
+.collapsible-content .more-content {
+    display: none; 
+}
+
+.collapsible-content.toggle-off.active .read-more-target {
+    display: none; 
+}
+
+.personal-details__form .form-control-box:nth-child(2),
+.contact-details__form .input-box:nth-child(2),
+.contact-details__form .input-box:nth-child(4),
+.contact-details__form .form-control-box:nth-child(6) {
+    margin-left : 60px;
+}
+
+.v-align-none {
+    vertical-align: unset;
+}
+
+.contact-image-unit,
+.personal-image-unit,
+.employment-image-unit {
+    display: inline-block;
+    width: 41px;
+    height: 41px;       
+    color: rgba(239,63,48,1);
+    vertical-align: middle;
+}
+.contact-icon {
+    background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/fff/contact-24x18.png') center no-repeat;
+}
+.white-personal-icon {
+    background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/fff/personal-17x20.png') center no-repeat;
+}
+.gray-personal-icon {
+    background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/787878/personal-17x20.png') center no-repeat;
+}
+.white-tick-icon {
+    background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/fff/tick-18x14.png') center no-repeat;
+}
+
+.gray-bag-icon {
+    background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/787878/bag-18x18.png') center no-repeat;
+}
+
+.white-bag-icon {
+    background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/fff/bag-18x18.png') center no-repeat;
+}
+
+.bg-red {
+    background-color :#ef3f30;
+}
+
+.bg-gray {
+    background-color: #e2e2e2;
+}
+.personal-details-container.visible {
+    margin-top: 50px;
+    position: relative;
+}
+.personal-details-container.visible .personal-image-unit {
+    background-color: #ef3f30;
+}
+
+.personal-details-container.visible::before {
+    content: "";
+    position: absolute;
+    background-color: #e2e2e2;
+    width: 2px;
+    height: 30px;
+    top: -40px;
+    left: 20px;
+}
+
+.employment-details-container {
+    margin-top: 50px;
+    position: relative;
+}
+.employment-details-container.visible .employment-image-unit {
+    background-color: #ef3f30;
+}
+
+.employment-details-container::before,
+.step--divider::before {
+    content: '';
+    position: absolute;
+    background-color: #e2e2e2;
+    width: 2px;
+    height: 30px;
+    top: -40px;
+    left: 20px;
+}
+.employment-details-container.visible .employment-image-unit {
+    background-color: #ef3f30;
+}
+
+.employment-details-container.visible::before,
+.step--divider.visible::before {
+    content: '';
+    position: absolute;
+    background-color: #e2e2e2;
+    width: 2px;
+    height: 30px;
+    top: -40px;
+    left: 20px;
+}
+
+.step--divider {
+	margin-top: 50px;
+	position: relative;
+}
+   
+.otp-container {
+	display: none;
+    position: fixed;
+    width: 500px;
+    min-height: 250px;
+    top: 15%;
+	left: 0;
+	right: 0;
+	margin: 0 auto;
+    background-color: #fff;
+    z-index: 10;
+    padding: 0 40px;
+    text-align: center;
+}
+
+.otp-container__icon {
+    width: 28px;
+    height: 40px;
+    background-image: url("https://imgd.aeplcdn.com/0x0/bw/static/icons/4d5057/mobile-verified-29x40.png");
+    margin: 26px 29px;
+}
+
+.otp-container__title{
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.otp-icons {
+    background-image: url('https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/bwmsprite-v4.png?v29Jun20171498739734721');
+}
+
+.otp-container__close {
+  position: absolute;
+  display: block;
+  right: 15px;
+  top: 15px;
+  width: 16px;
+  height: 16px;
+  background-position: -36px -226px;
+  cursor: pointer;
+}
+.otp-container__span {
+    display: inline-block;
+    vertical-align: middle;
+}
+.otp-container__phone-icon {
+    width: 16px;
+    height: 16px;
+    background-position: -41px -111px;
+}
+.otp-container__edit-icon {
+    width: 16px;
+    height: 16px;
+    background-image: url("https://imgd.aeplcdn.com/0x0/bw/static/icons/0288d1/edit-15x14.png");
+}
+.otp-container__phone-number {
+    font-size: 24px;
+    margin: 10px;
+}
+.otp-container__resend {
+    color: #0288d1;
+}
+.otp-container__edit {
+    display: none;
+    margin-top: 20px;
+}
+.not-empty .input-number-prefix {
+    display: block;
+}
+.thankyou-container,
+.failure-container {
+    padding : 20px 10px;
+}
+.otp-container__info {
+    margin: 40px 0;
+}
+.otp-container__info .icon-outer-container {
+    margin: 40px auto;
+}
+.thankyou-container .icon-outer-container,
+.failure-container .icon-outer-container {
+    width: 70px;
+    height: 70px;
+}
+.thankyou-container .icon-inner-container,
+.failure-container .icon-inner-container {
+    width: 60px;
+    height: 60px;
+}
+.thumbsup-icon {
+    display: block;
+    width: 30px;
+    height: 30px;
+    background-position: -135px -392px;
+    left: 13px;
+    top: 13px;
+    position: relative;
+}
+.failure-container .icon-inner-container.fail-icon {
+    background: url(https://imgd.aeplcdn.com/0x0/bw/static/icons/4d5057/sorry-30x23.png) no-repeat 50%;
+}
+.rounded-corner50 {
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -o-border-radius: 50%;
+    -ms-border-radius: 50%;
+    border-radius: 50%;
+}
+.lock-browser-scroll {
+  position: fixed;
+  overflow-y: hidden;
+  width: 100%;
+}
+.otp-black-window {
+    display: none;
+    background: #000;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9;
+    opacity: 0.7;
+}
+
+/* datepicker */
+.personal-details__form .Zebra_DatePicker,
+.form-field__zebrapicker .Zebra_DatePicker {
+	top: -20px !important;
+}
+
+.personal-details__form .dp_visible .dp_footer,
+.form-field__zebrapicker .dp_visible .dp_footer {
+	display: none !important;
+}
+
+.personal-details__form .dp_header,
+.form-field__zebrapicker .dp_header {
+	width: 100% !important;
+}
+
+/* modal popup */
+#modalBg {
+	width: 100%;
+	height: 100%;
+	display: none;
+	background: rgba(0, 0, 0, 0.6);
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 10;
+}
+
+.modal-box {
+	width: 400px;
+	min-height: 150px;
+	padding: 40px 20px;
+	text-align: center;
+	display: none;
+	position: fixed;
+	top: 30%;
+	left: 0;
+	right: 0;
+	margin: 0 auto;
+	background: #fff;
+	border-radius: 2px;
+	z-index: 11;
+}
+
+.modal__description {
+	margin-bottom: 25px;
+}
+
+.cross-default-15x16 {
+	width: 25px;
+	height: 25px;
+	background-position: -32px -222px;
+	cursor: pointer;
+}
+
+.modal-box .cross-default-15x16 {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+}
+
+.btn-124-36 {
+	width: 124px;
+	padding: 7px;
+	font-size: 14px;
+}
+
+/* loader */
+.section-spinner {
+	display: none;
+	position: absolute;
+	left: 0;
+	top: 0;
+	background: #f5f5f5;
+	width: 100%;
+	height: 100%;
+	z-index: 2;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+	filter: alpha(opacity=80);
+	-moz-opacity: 0.8;
+	-khtml-opacity: 0.8;
+	opacity: 0.8;
+}
+
+.spinner-container {
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
+
+.spinner-box {
+	width: 50px;
+	height: 50px;
+	top: 45%;
+	left: 0;
+	right: 0;
+	margin: 0 auto;
+	z-index: 3;
+}
+
+.spinner-box--fixed {
+	position: fixed;
+}
+
+.spinner-box--absolute {
+	position: absolute;
+}
+
+#otpLoader {
+	display: none;
+}
+
+/* no suggestion */
+.no-suggestion-item {
+	width: 100%;
+	position: absolute;
+	top: 35px;
+	left: 3px;
+}
+
+/* text shown on focus*/
+.text-note {
+    font-size: 12px;
+    color: #a2a2a2;
+    position: relative;
+    top: 0;
+    display: none;
+}
+.input-box input#cfNum:focus ~ .text-note{
+    display: block;
+}
+.input-box input#cfPan:focus ~ .text-note{
+    display: block;
+}
+
+.dp_yearpicker td,
+.dp_monthpicker td {
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+
+}
+
+/* check box */
+.check-box input[type='checkbox'] {
+	display: none;
+}
+
+.check-box .check-box__label:before {
+    border-radius: 3px;
+    content: '';
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    margin: -2px 10px 0 0;
+    vertical-align: middle;
+    cursor: pointer;
+    border: 1px solid #bcbcbc;
+}
+
+.check-box__field:checked + .check-box__label:before {
+    background: #4d5057 url('https://imgd.aeplcdn.com/0x0/bw/static/icons/fff/tick.svg') no-repeat center;
+    border-color: #4d5057;
+}

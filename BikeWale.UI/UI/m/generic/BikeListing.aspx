@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Generic.BikeListing" %>
-<%@ Register Src="~/m/controls/BestBikes.ascx" TagName="BestBikes" TagPrefix="BW" %>
+<%@ Register Src="~/UI/m/controls/BestBikes.ascx" TagName="BestBikes" TagPrefix="BW" %>
 <%@ Import Namespace="Bikewale.Entities.GenericBikes" %>
 <!DOCTYPE html>
 <html>
@@ -15,15 +15,15 @@
         Ad_Bot_320x50 = false;
     %>
 
-    <!-- #include file="/includes/headscript_mobile_min.aspx" -->
-    <link rel="stylesheet" type="text/css" href="/m/sass/generic/listing.css" />
+    <!-- #include file="/UI/includes/headscript_mobile_min.aspx" -->
+    <link rel="stylesheet" type="text/css" href="/UI/m/sass/generic/listing.css" />
     <script type="text/javascript">
-        <!-- #include file="\includes\gacode_mobile.aspx" -->
+        <!-- #include file="\UI\includes\gacode_mobile.aspx" -->
     </script>
 </head>
 <body>
     <form id="form1" runat="server">
-        <!-- #include file="/includes/headBW_Mobile.aspx" -->
+        <!-- #include file="/UI/includes/headBW_Mobile.aspx" -->
          <% 
             switch (ctrlBestBikes.CurrentPage.Value)
             {
@@ -216,13 +216,13 @@
             </div>
         </section>
 
-        <script type="text/javascript" src="<%= staticUrl  %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl  %>/UI/m/src/frameworks.js?<%= staticFileVersion %>"></script>
 
-        <!-- #include file="/includes/footerBW_Mobile.aspx" -->
+        <!-- #include file="/UI/includes/footerBW_Mobile.aspx" -->
 
         <link href="<%= staticUrl  %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
-        <!-- #include file="/includes/footerscript_mobile.aspx" -->
-        <!-- #include file="/includes/fontBW_Mobile.aspx" -->
+        <!-- #include file="/UI/includes/footerscript_mobile.aspx" -->
+        <!-- #include file="/UI/includes/fontBW_Mobile.aspx" -->
 
         <script type="text/javascript">
             $('.read-more-desc-target').on('click', function () {

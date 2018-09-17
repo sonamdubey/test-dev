@@ -156,7 +156,7 @@ namespace Bikewale.Models
         {
             var objSchema = new NewsArticle();
             objSchema.HeadLine = objData.ArticleDetails.Title;
-            objSchema.DateModified = objData.ArticleDetails.DisplayDate.ToString();
+            objSchema.DateModified = Utility.FormatDate.ConvertToISO(objData.ArticleDetails.DisplayDate);
             objSchema.DatePublished = objSchema.DateModified;
             objSchema.Description = FormatDescription.SanitizeHtml(objData.ArticleDetails.Description);
             if (objData.ArticleDetails.PageList != null && objData.ArticleDetails.PageList.Any())

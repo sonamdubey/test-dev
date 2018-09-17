@@ -47,6 +47,7 @@ namespace Bikewale.Models
         public string CurrentPageUrl { get; set; }
         public LeadSourceEnum LeadSource { get; set; }
         public PQSources Platform { get; set; }
+        public PQSourceEnum PQSource { get; set; }
         public ManufacturerCampaignServingPages ManufacturerCampaignPageId { get; set; }
         private uint _modelId, _versionId, _cityId, _areaId, _dealerId, _makeId;
         private string pageUrl, mpqQueryString, currentCity = string.Empty, currentArea = string.Empty, _pqId = string.Empty;
@@ -108,8 +109,12 @@ namespace Bikewale.Models
                             Area = currentArea,
                             City = currentCity,
                             Location = objData.Location,
-                            BikeName = objData.BikeName
-
+                            BikeName = objData.BikeName,
+                            IsMLAActive = _objPQ.GetMLAStatus((int)_makeId, _cityId),
+                            MLADealers = objData.DetailedDealer.MLADealers,
+                            PlatformId = Convert.ToUInt16(Platform),
+                            MlaLeadSourceId = (Platform == PQSources.Desktop) ? (UInt16)LeadSourceEnum.DPQ_MLA_Desktop : (UInt16)LeadSourceEnum.DPQ_MLA_Mobile,
+                            PageId = Convert.ToUInt16(PQSource)
                         };
                     }
                     if (objData.SimilarBikesVM != null)
@@ -559,7 +564,7 @@ namespace Bikewale.Models
                                 EmailRequired = campaigns.LeadCampaign.EmailRequired,
                                 LeadsButtonTextDesktop = campaigns.LeadCampaign.LeadsButtonTextDesktop,
                                 LeadsButtonTextMobile = campaigns.LeadCampaign.LeadsButtonTextMobile,
-                                LeadSourceId = (int)LeadSource,
+                                LeadSourceId = (Platform == PQSources.Desktop) ? (int)LeadSourceEnum.DPQ_TopCard_Desktop : (int)LeadSourceEnum.DPQ_TopCard_Mobile,
                                 PqSourceId = (int)objData.PQSourcePage,
                                 GACategory = "Dealer_PQ",
                                 GALabel = string.Format("{0}_{1}", objData.BikeName, currentCity),
@@ -600,7 +605,7 @@ namespace Bikewale.Models
                                 EmailRequired = campaigns.EMICampaign.EmailRequired,
                                 EMIButtonTextDesktop = campaigns.EMICampaign.EMIButtonTextDesktop,
                                 EMIButtonTextMobile = campaigns.EMICampaign.EMIButtonTextMobile,
-                                LeadSourceId = (int)LeadSource,
+                                LeadSourceId = (Platform == PQSources.Desktop) ? (int)LeadSourceEnum.DPQ_EmiCalculator_Desktop : (int)LeadSourceEnum.DPQ_EmiCalculator_Mobile,
                                 PqSourceId = (int)objData.PQSourcePage,
                                 EMIPropertyTextDesktop = campaigns.EMICampaign.EMIPropertyTextDesktop,
                                 EMIPropertyTextMobile = campaigns.EMICampaign.EMIPropertyTextMobile,

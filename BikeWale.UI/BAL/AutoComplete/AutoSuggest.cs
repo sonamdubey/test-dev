@@ -18,7 +18,8 @@ namespace Bikewale.BAL.AutoComplete
             _userReviews = "UserReviews",
             _pinCodeCapitalFirst = "AreaPinCodes",
             _nonUpcomingBikes = "NonUpcomingBikes",
-            _bikeImages = "BikeImages";
+            _bikeImages = "BikeImages",
+            _bajajFinanceCompanies = "bajajfinancecompanies";
 
         #region GetAutoSuggestResult PopulateWhere
         /// <summary>
@@ -27,6 +28,8 @@ namespace Bikewale.BAL.AutoComplete
         /// Modified by :   Sumit Kate on 05 Jan 2016
         /// Description :   Added below condition
         /// if (_result!=null && _result.Suggestions!=null && _result.Suggestions.ContainsKey(completion_field))
+        /// Modified by : Rajan Chauhan on 29 August 2018
+        /// Description : Added null check on inputText 
         /// </summary>
         /// <param name="inputText"></param>
         /// <param name="noOfRecords"></param>
@@ -37,11 +40,15 @@ namespace Bikewale.BAL.AutoComplete
             string indexName = string.Empty;
             try
             {
+                if (!String.IsNullOrEmpty(inputText))
+                {
                 suggestionList = GetSuggestionList<T>(inputText, noOfRecords, source);
                 if (suggestionList != null)
                 {
                     suggestionList = suggestionList.Take(noOfRecords);
                 }
+            }
+                
             }
             catch (Exception ex)
             {
@@ -145,6 +152,9 @@ namespace Bikewale.BAL.AutoComplete
                 case AutoSuggestEnum.PinCodeCapitalFirst:
                     indexName = Utility.BWConfiguration.Instance.CapitalFirstPinCode;
                     break;
+                case AutoSuggestEnum.BajajFinanceCompanies:
+                    indexName = Utility.BWConfiguration.Instance.BajajFinanceCompaniesIndex;
+                    break;
                 default:
                     indexName = Utility.BWConfiguration.Instance.MMindexName;
                     break;
@@ -186,6 +196,9 @@ namespace Bikewale.BAL.AutoComplete
                     break;
                 case AutoSuggestEnum.BikeImages:
                     indexName.Add(_bikeImages);
+                    break;
+                case AutoSuggestEnum.BajajFinanceCompanies:
+                    indexName.Add(_bajajFinanceCompanies);
                     break;
                 default:
                     indexName.Add(_allMakeModel);

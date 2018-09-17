@@ -365,7 +365,7 @@ $(document).on('click', '#dealersList a.get-assistance-btn', function (e) {
         else
             $('body').removeClass('lock-browser-scroll');
         $(".blackOut-window").show();
-        campId = parentLi.attr("data-campId");
+        campId = parentLi.attr("data-campaignid");
         dname = parentLi.find("a.dealer-sidebar-link").text();
         if (!parentLi.hasClass("active"))
             getDealerDetails(id, campId, dname);
@@ -428,7 +428,7 @@ var selectedDealer = function (dealer) {
             $('#dealerDetailsSliderCard').css({ 'height': $(window).innerHeight() - 52 });
             $("#assistGetName").focus();
             $('body').addClass('hide-scroll')
-            campId = $("ul#dealersList li.active").attr("data-campId");
+            campId = $("ul#dealersList li.active").attr("data-campaignid");
             dname = dealer.find("a.dealer-sidebar-link").text();
             getDealerDetails(dealerId, campId, dname);
             getLocation();

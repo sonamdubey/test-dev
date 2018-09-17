@@ -1272,20 +1272,22 @@ docReady(function () {
         },
         handleKeyEvents: function (event) {
             var rsele = this.options.recentSearchesEle.find("li.focus-state");
-            if (event.keyCode == 40) {
+            if (event != undefined) {
+              if (event.keyCode == 40) {
                 rsele.next().addClass("focus-state").siblings().removeClass("focus-state");
                 curElement = rsele.next();
                 return false;
-            } else if (event.keyCode == 38) {
+              } else if (event.keyCode == 38) {
                 rsele.prev().addClass("focus-state").siblings().removeClass("focus-state");
                 curElement = rsele.prev();
                 return false;
-            }
-            else if (event.keyCode == 27) {
+              }
+              else if (event.keyCode == 27) {
                 this.hideRecentSearches();
-            }
-            else if (event.keyCode == 13) {
+              }
+              else if (event.keyCode == 13) {
                 rsele.trigger('click');
+              }
             }
         },
         objectIndexOf: function (arr, opt) {

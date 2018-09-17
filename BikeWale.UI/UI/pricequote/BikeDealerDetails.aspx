@@ -1,6 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Pricequote.BookingConfig" %>
 
-<%@ Register Src="~/controls/UsersTestimonials.ascx" TagPrefix="BW" TagName="UsersTestimonials" %>
+<%@ Register Src="~/UI/controls/UsersTestimonials.ascx" TagPrefix="BW" TagName="UsersTestimonials" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,13 +10,13 @@
         keywords = bikeName + ", price, authorised, dealer,Booking ";
         isAd970x90Shown = false;  
     %>
-    <!-- #include file="/includes/headscript.aspx" -->
-    <link href="<%= staticUrl  %>/css/bookingconfig.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
+    <!-- #include file="/UI/includes/headscript.aspx" -->
+    <link href="<%= staticUrl  %>/UI/css/bookingconfig.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
 
 </head>
 <body class="header-fixed-inner">
     <form runat="server">
-        <!-- #include file="/includes/headBW.aspx" -->
+        <!-- #include file="/UI/includes/headBW.aspx" -->
      <div id="bookingConfig" style="display: none" data-bind="visible: true">
         <section>
             <div class="container">
@@ -578,8 +578,8 @@
          <input id="hdnBikeData" type="hidden" value='<%= jsonBikeVarients  %>' />
         <input id="hdnDiscountList" type="hidden" value='<%= new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(dealerDetailEntity.objQuotation.discountedPriceList)%>' />
 
-        <!-- #include file="/includes/footerBW.aspx" -->
-        <!-- #include file="/includes/footerscript.aspx" -->
+        <!-- #include file="/UI/includes/footerBW.aspx" -->
+        <!-- #include file="/UI/includes/footerscript.aspx" -->
 
         <script type="text/javascript">
             $(document).ready(function() {
@@ -606,7 +606,7 @@
             var getCityArea = GetGlobalCityArea();
             var bwHostUrl = '<%= ConfigurationManager.AppSettings["bwHostUrl"]%>';
         </script>
-        <script type="text/javascript" src="<%= staticUrl  %>/src/bookingconfig.js?<%= staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl  %>/UI/src/bookingconfig.js?<%= staticFileVersion %>"></script>
 
 
     </form>

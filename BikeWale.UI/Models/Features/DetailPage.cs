@@ -188,13 +188,15 @@ namespace Bikewale.Models.Features
         /// <summary>
         /// Created By  : Sushil Kumar on 25th Aug 2017
         /// Description : To load json schema for the featured articles
+        /// Modified By : Monika Korrapati on 30 July 2018
+        /// Description : Format date into ISO 8601
         /// </summary>
         /// <param name="objData"></param>
         private void SetPageJSONSchema(DetailFeatureVM objData)
         {
             var objSchema = new NewsArticle();
             objSchema.HeadLine = objData.objFeature.Title;
-            objSchema.DateModified = objData.objFeature.DisplayDate.ToString();
+            objSchema.DateModified = Utility.FormatDate.ConvertToISO(objData.objFeature.DisplayDate);
             objSchema.DatePublished = objSchema.DateModified;
             objSchema.Description = FormatDescription.SanitizeHtml(objData.objFeature.Description);
             if (objData.objFeature.PageList != null && objData.objFeature.PageList.Any())

@@ -15,13 +15,13 @@ namespace Bikewale.Controllers
         [HttpGet]
         public ActionResult PrivacyPolicy()
         {
-            return View("~/Views/Shared/_PrivacyPolicy.cshtml");
+            return View("~/UI/Views/Shared/_PrivacyPolicy.cshtml");
         }
 
         [HttpGet]
         public ActionResult VisitorAgreement()
         {
-            return View("~/Views/Shared/_VisitorAgreement.cshtml");
+            return View("~/UI/Views/Shared/_VisitorAgreement.cshtml");
         }
     }
 }

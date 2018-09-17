@@ -80,11 +80,6 @@ a.text-black:hover { text-decoration:none; }
 .dealership-card-details { width:92%; }
 #dealersList .mail-grey-icon { position:relative; top:6px; }
 .crosshair-icon { width:20px; height:20px; background:url(https://imgd.aeplcdn.com/0x0/bw/static/design15/detect-location-icon.jpg) no-repeat; }
-
-#leadCapturePopup{display:none;width:450px;min-height:470px;background:#fff;margin:0 auto;position:fixed;top:5%;right:5%;left:5%;z-index:210;padding:30px 40px}
-.personal-info-form-container{margin:10px auto;width:300px;min-height:100px}
-.personal-info-form-container .personal-info-list{margin:0 auto;width:280px;float:left;margin-bottom:20px;border-radius:0}
-.personal-info-list .errorIcon,.personal-info-list .errorText{display:none}
 #otpPopup{display:none}
 #otpPopup .otp-box,#otpPopup .update-mobile-box{width:280px;margin:15px auto 0}
 #otpPopup .update-mobile-box .form-control-box{margin-top:25px;margin-bottom:50px}

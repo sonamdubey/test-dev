@@ -3,7 +3,7 @@
    is300x250BTFShown = false;
     is300x250Shown = false;
 %>
-<!-- #include file="/includes/headUsed.aspx" -->
+<!-- #include file="/UI/includes/headUsed.aspx" -->
     <div class="container_12 margin-top15">
         <div class="grid_8 min-height">
             <div class="grey-bg content-block border-light margin-top10">
@@ -12,4 +12,4 @@
 	        </div>
         </div>
     </div>
-<!-- #include file="/includes/footerinner.aspx" -->
+<!-- #include file="/UI/includes/footerinner.aspx" -->

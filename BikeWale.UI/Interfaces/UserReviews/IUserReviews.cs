@@ -17,8 +17,8 @@ namespace Bikewale.Interfaces.UserReviews
     {
         Entities.UserReviews.UserReviewsData GetUserReviewsData();
         UserReviewSummary GetUserReviewSummary(uint reviewId);
-        IEnumerable<UserReviewQuestion> GetUserReviewQuestions(UserReviewsInputEntity inputParams);
-        IEnumerable<UserReviewQuestion> GetUserReviewQuestions(UserReviewsInputEntity inputParams, Entities.UserReviews.UserReviewsData objUserReviewQuestions);
+        IEnumerable<UserReviewQuestion> GetUserReviewQuestions(Bikewale.Entities.UserReviews.UserReviewsInputEntity inputParams);
+        IEnumerable<UserReviewQuestion> GetUserReviewQuestions(Bikewale.Entities.UserReviews.UserReviewsInputEntity inputParams, Entities.UserReviews.UserReviewsData objUserReviewQuestions);
         UserReviewRatingObject SaveUserRatings(InputRatingSaveEntity objInputRating);
         WriteReviewPageSubmitResponse SaveUserReviews(ReviewSubmitData objReviewData);
         ReviewListBase GetUserReviews(uint startIndex, uint endIndex, uint modelId, uint versionId, FilterBy filter);

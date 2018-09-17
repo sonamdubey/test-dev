@@ -2,9 +2,9 @@
 @using Bikewale.Utility;
 
 @{
-    Layout = "~/Views/Shared/_Layout.cshtml";
-    Model.Page_JS_Path = "/src/service/details.js";
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/service/details.css' inline />";
+    Layout = "~/UI/Views/Shared/_Layout.cshtml";
+    Model.Page_JS_Path = "/UI/src/service/details.js";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/UI/sass/service/details.css' inline />";
     Model.PageMetaTags.CanonicalUrl = String.Format("https://www.bikewale.com{0}", UrlFormatter.GetServiceCenterUrl(Model.Make.MaskingName, Model.City.CityMaskingName, Model.ServiceCenterData.Name, Model.ServiceCenterData.Id));
     Model.PageMetaTags.AlternateUrl = String.Format("https://www.bikewale.com/m{0}", UrlFormatter.GetServiceCenterUrl(Model.Make.MaskingName, Model.City.CityMaskingName, Model.ServiceCenterData.Name, Model.ServiceCenterData.Id));
     Model.AdTags.AdId = "1395986297721";
@@ -132,7 +132,7 @@
                             </div>
                             <div class="clear"></div>
                         </div>
-                        @Html.Partial("~/Views/ServiceCenters/_ServiceCentersCard.cshtml", Model.OtherServiceCentersWidgetData)
+                        @Html.Partial("~/UI/Views/ServiceCenters/_ServiceCentersCard.cshtml", Model.OtherServiceCentersWidgetData)
                         <div class="clear"></div>
                         <div class="margin-right10 margin-left10 border-solid-bottom"></div>
                     </div>
@@ -242,7 +242,7 @@
                                         </div>
                                         <div class="clear"></div>
                                     </div>
-                                    @Html.Partial("~/Views/BikeModels/_MostPopularBikes.cshtml", Model.PopularWidgetData)
+                                    @Html.Partial("~/UI/Views/BikeModels/_MostPopularBikes.cshtml", Model.PopularWidgetData)
                                 </div>
                             }
                             <div class="margin-left10 margin-right10 border-solid-bottom"></div>
@@ -259,7 +259,7 @@
                                     <div class="clear"></div>
                                 </div>
                                 <div class="padding-bottom20">
-                                    @Html.Partial("~/Views/Used/_UsedBikesByModel.cshtml", Model.UsedBikesByMakeList)
+                                    @Html.Partial("~/UI/Views/Used/_UsedBikesByModel.cshtml", Model.UsedBikesByMakeList)
                                 </div>
                             }
                             <div class="margin-left10 margin-right10 border-solid-bottom"></div>
@@ -286,7 +286,7 @@
                                     </div>
                                     <div class="clear"></div>
                                 </div>
-                                @Html.Partial("~/Views/DealerShowroom/_DealerCard.cshtml", Model.DealersWidgetData)
+                                @Html.Partial("~/UI/Views/DealerShowroom/_DealerCard.cshtml", Model.DealersWidgetData)
                             </div>
                         </div>
                     </div>

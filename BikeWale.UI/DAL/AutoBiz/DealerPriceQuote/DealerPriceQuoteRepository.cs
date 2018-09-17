@@ -614,6 +614,12 @@ namespace Bikewale.DAL.AutoBiz
         /// Description :   Replaced Convert methods with SqlReaderConvertor and Set IsDSA flag
         /// Modified by : Ashutosh Sharma on 30 Aug 2017 
         /// Description : Changed SP from 'bw_getdealerdetails_10082017' to 'bw_getdealerdetails_30082017', removed IsGstPrice flag
+        /// Modified by : Pratibha Verma on 14 July 2018
+        /// Description : changed sp from `bw_getdealerdetails_30082017` to `bw_getdealerdetails_14082018`, added masterdealerid
+        /// Modified by : Pratibha Verma on 21 August 2018
+        /// Description : changed sp from 'bw_getdealerdetails_14082018' to 'bw_getdealerdetails_21082018' added dealers campaignId
+        /// Modified By : Karik rathod on 12 sept 2018
+        /// Desc    : Feches cityid made versioning of sp to bw_getdealerdetails_12092018 from bw_getdealerdetails_21082018
         /// </summary>
         /// <param name="objParams"></param>
         /// <returns></returns>
@@ -632,7 +638,7 @@ namespace Bikewale.DAL.AutoBiz
 
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("bw_getdealerdetails_30082017"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("bw_getdealerdetails_12092018"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
@@ -696,6 +702,7 @@ namespace Bikewale.DAL.AutoBiz
                                 {
                                     primaryDealer = new NewBikeDealers();
                                     primaryDealer.DealerId = SqlReaderConvertor.ToUInt32(dr["ID"]);
+                                    primaryDealer.MasterDealerId = SqlReaderConvertor.ToUInt32(dr["masterdealerid"]);
                                     primaryDealer.Organization = Convert.ToString(dr["Organization"]);
                                     primaryDealer.Name = String.Format("{0} {1}", Convert.ToString(dr["FirstName"]), (Convert.ToString(dr["LastName"])));
                                     primaryDealer.Address = Convert.ToString(dr["Address"]);
@@ -711,7 +718,7 @@ namespace Bikewale.DAL.AutoBiz
                                         Longitude = SqlReaderConvertor.ParseToDouble(dr["Longitude"]),
                                         PinCode = Convert.ToString(dr["Pincode"])
                                     };
-                                    primaryDealer.objCity = new CityEntityBase() { CityName = Convert.ToString(dr["CityName"]) };
+                                    primaryDealer.objCity = new CityEntityBase() { CityName = Convert.ToString(dr["CityName"]), CityId = SqlReaderConvertor.ToUInt32(dr["CityId"]) };
                                     primaryDealer.objState = new StateEntityBase() { StateName = Convert.ToString(dr["StateName"]) };
                                     primaryDealer.Website = Convert.ToString(dr["WebsiteUrl"]);
                                     primaryDealer.Distance = Convert.ToString(dr["Distance"]);
@@ -722,6 +729,7 @@ namespace Bikewale.DAL.AutoBiz
                                     primaryDealer.DisplayTextLarge = Convert.ToString(dr["DisplayTextLarge"]);
                                     primaryDealer.DisplayTextSmall = Convert.ToString(dr["DisplayTextSmall"]);
                                     primaryDealer.IsDSA = SqlReaderConvertor.ToBoolean(dr["isDSA"]);
+                                    primaryDealer.CampaignId = SqlReaderConvertor.ToUInt32(dr["campaignId"]);
 
                                 }
                                 dealerQuotation.DealerDetails = primaryDealer;
@@ -856,7 +864,8 @@ namespace Bikewale.DAL.AutoBiz
                                             OfferCount = SqlReaderConvertor.ToUInt16(dr["offerCount"]),
                                             DisplayTextLarge = Convert.ToString(dr["DisplayTextLarge"]),
                                             DisplayTextSmall = Convert.ToString(dr["DisplayTextSmall"]),
-                                            IsDSA = SqlReaderConvertor.ToBoolean(dr["isDSA"])
+                                            IsDSA = SqlReaderConvertor.ToBoolean(dr["isDSA"]),
+                                            MasterDealerId = SqlReaderConvertor.ToUInt32(dr["MasterDealerId"])
                                         }
                                         );
                                 }
@@ -1011,5 +1020,39 @@ namespace Bikewale.DAL.AutoBiz
             }
             return objDealersList;
         }
+		/// <summary>
+		/// Created By : Prabhu Puredla on 18 july 2018
+		/// Description : Get All active mla combinations
+		/// </summary>
+		/// <returns></returns>
+		public IEnumerable<string> GetMLAMakeCities()
+		{
+			ICollection<string> mlaMakeCities = null;
+			try
+			{
+				using (DbCommand cmd = DbFactory.GetDBCommand("getmlamakecities"))
+				{
+					cmd.CommandType = CommandType.StoredProcedure;
+
+					using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+					{
+						mlaMakeCities = new HashSet<string>();					
+						if (dr != null)
+						{
+							while (dr.Read())
+							{
+								string value = string.Format("{0}_{1}", SqlReaderConvertor.ToUInt32(dr["makeId"]), SqlReaderConvertor.ToUInt32(dr["cityId"]));
+								mlaMakeCities.Add(value);
+							}
+						}
+					}
+				}
+			}			
+			catch (Exception ex)
+			{
+				ErrorClass.LogError(ex, "DealerPriceQuoteRepository.GetMLAMakeCities");
+			}
+			return mlaMakeCities;
+		}
     } // class
 } // namespace

@@ -14,7 +14,7 @@
     isAd300x250Shown = false;
     isAd300x250_BTFShown = false;
 %>
-<!-- #include file="/includes/headnew.aspx" -->
+<!-- #include file="/UI/includes/headnew.aspx" -->
 <style type="text/css">
     .ul-2col li {
         float: left;
@@ -167,4 +167,4 @@
     });
 
 </script>
-<!-- #include file="/includes/footerinner.aspx" -->
+<!-- #include file="/UI/includes/footerinner.aspx" -->

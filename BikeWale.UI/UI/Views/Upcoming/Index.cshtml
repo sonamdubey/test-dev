@@ -3,9 +3,9 @@
 @{
     Model.IsHeaderFix = true;
     Model.IsPageTypeLanding = true;
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/upcoming-bikes/upcoming-bikes.css' inline />";
-    Model.Page_JS_Path = "/src/upcoming-bikes.js";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/UI/sass/upcoming-bikes/upcoming-bikes.css' inline />";
+    Model.Page_JS_Path = "/UI/src/upcoming-bikes.js";
+    Layout = "~/UI/Views/Shared/_Layout.cshtml";
     Model.AdTags.AdPath = "/1017752/Bikewale_Upcoming_";
     Model.AdTags.AdId = "1517814650143";
     Model.AdTags.Ad_970x90Top = true;
@@ -37,7 +37,7 @@
         <div id="upcoming-bikes" class="container">
             <div class="grid-12">
                 <h2 class="section-heading">Upcoming bikes in India</h2>
-                @Html.Partial("~/Views/Upcoming/_UpcomingBikesList.cshtml", Model)
+                @Html.Partial("~/UI/Views/Upcoming/_UpcomingBikesList.cshtml", Model)
                 <div class="clear"></div>
             </div>
             <div class="clear"></div>
@@ -50,7 +50,7 @@
             <div class="container section-container">
                 <div class="grid-12">
                     <h2 class="section-heading">New bike launches in India</h2><div class="content-box-shadow padding-top20">
-                        @Html.Partial("~/Views/NewLaunches/_NewLaunches.cshtml", Model.NewLaunches)
+                        @Html.Partial("~/UI/Views/NewLaunches/_NewLaunches.cshtml", Model.NewLaunches)
                         <div class="view-all-btn-container padding-top15 padding-bottom10">
                             <a href="/new-bike-launches/" class="btn view-all-target-btn" title="New bike launches in India">View all launches<span class="bwsprite teal-right"></span></a>
                         </div>
@@ -68,7 +68,7 @@
                 <div class="grid-12">
                     <h2 class="section-heading">Upcoming bikes by brand</h2>
                     <div class="content-box-shadow padding-top20">
-                        @Html.Partial("~/Views/Make/_Brands.cshtml", Model.Brands)
+                        @Html.Partial("~/UI/Views/Make/_Brands.cshtml", Model.Brands)
                     </div>
                 </div>
                 <div class="clear"></div>
@@ -84,7 +84,7 @@
                 <div class="grid-12">
                     <h2 class="section-heading"> More about upcoming bikes</h2>
                     <div class="content-box-shadow content-inner-block-20 card-bottom-margin font14">
-                        @Html.Partial("~/Views/News/_RecentNews.cshtml", Model.News)
+                        @Html.Partial("~/UI/Views/News/_RecentNews.cshtml", Model.News)
                     </div>
                 </div>
                 <div class="clear"></div>

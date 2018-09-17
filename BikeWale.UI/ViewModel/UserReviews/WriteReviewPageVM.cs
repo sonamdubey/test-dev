@@ -1,5 +1,6 @@
 ﻿using Bikewale.Entities.BikeData;
 using Bikewale.Entities.UserReviews;
+using Bikewale.Models.QuestionAndAnswers;
 using Bikewale.Models.UserReviews;
 using System.Collections.Generic;
 
@@ -32,5 +33,8 @@ namespace Bikewale.Models
         public string JsonReviewSummary { get; set; }
         public uint PageSourceId { get; set; }
         public int ContestSrc { get; set; }
+
+        public UnansweredQuestionVM UnansweredQuestion { get; set; }
+        public bool HasUnansweredQuestion { get { return UnansweredQuestion != null && UnansweredQuestion.Question != null; } }
     }
 }

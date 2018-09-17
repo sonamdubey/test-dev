@@ -2,14 +2,18 @@
 @using Bikewale.Utility;
 
 @{
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/partials/question-answer.css' inline/> ";
-    Model.Page_BTF_CSS_Path = "/sass/partials/question-answer-popup.css";
-    Model.Page_JS_Paths = new string[] { "/m/src/qna/landing.js", "/src/question-and-answer.js", "/src/utils/readMore.js" };
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/UI/sass/partials/question-answer.css' inline/> ";
+    Model.Page_BTF_CSS_Path = "/UI/sass/partials/question-answer-popup.css";
+    Model.Page_JS_Paths = new string[] { "/UI/m/src/qna/landing.js", "/UI/src/utils/text-area.js", "/UI/src/question-and-answer.js", "/UI/src/utils/readMore.js" };
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
+    Layout = "~/UI/Views/Shared/_Layout_Mobile.cshtml";
     string makeName = null;
     string modelName = null;
 }
+
+<script type="text/javascript">
+    var qnaBaseUrl = "@(Model.BaseUrl)";
+</script>
 
 
 @if (Model != null)
@@ -46,42 +50,49 @@
                                         var ansObj = quesAnswer.Answer;
                                             <p class="question-answer-wrapper__answer-box">
                                                 <span class="question-answer-wrapper__starting-letter">A: </span>
-                                                @if (!string.IsNullOrEmpty(ansObj.StrippedText))
-                                                {
-                                                    <span class="question-answer-wrapper__ans-trim-content">
-                                                        @string.Format("{0} ...", ansObj.StrippedText)
-                                                    </span>
+                                                @{
+                                                    string bindanswer = null;
+                                                    if (!string.IsNullOrEmpty(ansObj.StrippedText))
+                                                    {
+                                                        bindanswer = string.Format("{0} ...", ansObj.StrippedText);
+                                                    }
+                                                    else
+                                                    {
+                                                        bindanswer = string.Format("{0}", ansObj.Text);
+                                                    }
                                                 }
-                                                else
-                                                {
-                                                    <span class="question-answer-wrapper__ans-trim-content">
-                                                        @string.Format("{0} ", ansObj.Text)
-                                                    </span>
-                                                }
-                                                <span class="question-answer-wrapper__ans-full-content ">
-                                                    @string.Format("{0} ", ansObj.Text)
-                                                </span>
-                                                @if (!string.IsNullOrEmpty(ansObj.StrippedText))
-                                                {
-                                                    <span class="question-answer-wrapper__read-more">Read More</span>
-                                                }
-                                            </p>
+
+                                            <span class="question-answer-wrapper__ans-trim-content">
+                                                @bindanswer
+                                            </span>
+
+                                            <span class="question-answer-wrapper__ans-full-content ">
+                                                @string.Format("{0} ", ansObj.Text)
+                                            </span>
+                                            @if (!string.IsNullOrEmpty(ansObj.StrippedText))
+                                            {
+                                                <span class="question-answer-wrapper__read-more">Read More</span>
+                                            }
+</p>
                                         if (ansObj.AnsweredBy != null && !string.IsNullOrEmpty(ansObj.AnsweredBy.CustomerName))
                                         {
                                             <p class="question-answer-wrapper__author">@string.Format("{0} ago by {1}", FormatDate.GetTimeSpan(ansObj.AnsweredOn), ansObj.AnsweredBy.CustomerName.Truncate(25))</p>
                                         }
-
-
-                                    }
+                                        if(quesAnswer.AnswerCount > 1)
+                                        {
+                                            <a class="question-answer-wrapper__answers-link" href="@(String.Format("{0}{1}", Model.BaseUrl, quesAnswer.Url))">
+                                                Read @(quesAnswer.AnswerCount - 1) More @(quesAnswer.AnswerCount > 2 ? Html.Raw("Answers") : Html.Raw("Answer"))
+                                            </a>
+                                        }
+                                }
                                 </li>
 
                         }
                     </ul>
                      <!-- ko if: otherQuestions != null -->
                     <ul data-bind="foreach: otherQuestions">
+                        <!-- ko if: $data.question != null &&  $data.answer != null -->
                         <li class="question-answer-wrapper__list-item" data-bind="if:$data">
-
-                            <!-- ko if: $data.question != null &&  $data.answer != null -->
                             <p class="question-answer-wrapper__question" data-bind="text: 'Q: ' + $data.question.text ">
                             </p>
 
@@ -92,23 +103,30 @@
                             <p class="question-answer-wrapper__answer-box">
                                 <span class="question-answer-wrapper__starting-letter">A: </span>
 
-                                    <span class="question-answer-wrapper__ans-trim-content" data-bind="text : $data.answer.strippedText!= '' ?  $data.answer.strippedText + '...' : $data.answer.text ">
-                                    </span>
+                                <span class="question-answer-wrapper__ans-trim-content" data-bind="text : !String.isNullOrEmpty($data.answer.strippedText) ?  $data.answer.strippedText + '...' : $data.answer.text ">
+                                </span>
 
 
                                 <span class="question-answer-wrapper__ans-full-content " data-bind="text: $data.answer.text ">
                                 </span>
 
-                                <!-- ko if: $data.answer.strippedText != "" -->
+                                <!-- ko if: !String.isNullOrEmpty($data.answer.strippedText) -->
                                 <span class="question-answer-wrapper__read-more" data-bind="event : { click : function(d,e) { $parent.readMoreText(d,e); } } ">Read More</span>
                                 <!-- /ko -->
                             </p>
 
+                            <!-- ko if: $data.answer.answerAge -->
                             <p class="question-answer-wrapper__author" data-bind="text: $data.answer.answerAge + ' ago by ' + $data.answer.answeredBy.customerName "></p>
-
                             <!-- /ko -->
-                        </li>
 
+                            <!-- ko if: $data.answerCount > 1 -->
+                           
+                            <a class="question-answer-wrapper__answers-link" data-bind="attr: { href: qnaBaseUrl + $data.url }, text: $data.answerCount > 2 ? 'Read ' + ($data.answerCount - 1) + ' More Answers' : 'Read ' + ($data.answerCount - 1) + ' More Answer'">
+                            </a>
+                            <!-- /ko -->
+
+                        </li>
+                        <!-- /ko -->
                     </ul>
                     <!-- /ko -->
                     <!-- ko if: (remainingQuestions() > 0) -->
@@ -128,7 +146,6 @@
     </div>
     if(Model.AskQuestionPopup != null)
     {
-        @Html.Partial("~/Views/m/Shared/_question-answer.cshtml", Model.AskQuestionPopup);
+        @Html.Partial("~/UI/Views/m/Shared/_question-answer.cshtml", Model.AskQuestionPopup);
     }
-
 }

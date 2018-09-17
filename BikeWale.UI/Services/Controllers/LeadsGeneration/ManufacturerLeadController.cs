@@ -53,6 +53,8 @@ namespace Bikewale.Service.Controllers.LeadsGeneration
         /// Modified by :   Sumit Kate on 18 Aug 2016
         /// Description :   rearranged the data validation checks and return BadRequest if data is invalid
         /// Modifier    : Kartik Rathod on 16 may 2018, added dealerName,bikename and sendLeadSMSCustomer to ManufacturerLead consumer 
+        /// Modified by : Monika Korrapati on 17 Aug 2018
+        /// Description : Added appVersion to headers nvc for bhrigu tracking
         /// </summary>
         /// <param name="objLead"></param>
         /// <returns></returns>
@@ -65,8 +67,8 @@ namespace Bikewale.Service.Controllers.LeadsGeneration
                 NameValueCollection headers = new NameValueCollection();
                 headers["UTMA"] = Request.Headers.Contains("utma") ? Request.Headers.GetValues("utma").FirstOrDefault() : String.Empty;
                 headers["UTMZ"] = Request.Headers.Contains("utmz") ? Request.Headers.GetValues("utmz").FirstOrDefault() : String.Empty;
-                //headers["PlatformId"] = Request.Headers.Contains("platformid") ? Request.Headers.GetValues("platformid").FirstOrDefault() : String.Empty;
-               
+                headers["PlatformId"] = Request.Headers.Contains("platformid") ? Request.Headers.GetValues("platformid").FirstOrDefault().ToString() : String.Empty;
+                headers["appVersion"] = Request.Headers.Contains("version_code") && headers["platformId"] == ((byte)Bikewale.DTO.PriceQuote.PQSources.Android).ToString() ? Request.Headers.GetValues("version_code").First().ToString() : String.Empty;
                 uint leadId = _leadProcess.ProcessESLead(objLead, headers);
 
                 if (leadId > 0)

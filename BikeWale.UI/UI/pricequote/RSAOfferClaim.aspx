@@ -1,6 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Trace="false" Inherits="Bikewale.PriceQuote.RSAOfferClaim" %>
 
-<%@ Register TagPrefix="BikeWale" TagName="Calender" Src="~/controls/DateControl.ascx" %>
+<%@ Register TagPrefix="BikeWale" TagName="Calender" Src="~/UI/controls/DateControl.ascx" %>
 <%
     title = "Bike Purchase Offer Claim";
     AdId = "1395986297721";
@@ -9,11 +9,11 @@
     isAd300x250_BTFShown = false;
 %>
 
-<!-- #include file="/includes/headNew.aspx" -->
-<link rel="stylesheet" href="/css/datepicker.css" />
-<link rel="stylesheet" href="<%=  staticUrl  %>/css/bw-pq-new.css?<%= staticFileVersion %>" />
-<script src="/src/picker.js"></script>
-<script src="/src/picker.date.js"></script>
+<!-- #include file="/UI/includes/headNew.aspx" -->
+<link rel="stylesheet" href="/UI/css/datepicker.css" />
+<link rel="stylesheet" href="<%=  staticUrl  %>/UI/css/bw-pq-new.css?<%= staticFileVersion %>" />
+<script src="/UI/src/picker.js"></script>
+<script src="/UI/src/picker.date.js"></script>
 <style>
     .inner-content {
         border: 1px solid #eaeaea;
@@ -213,7 +213,7 @@
         <div class="grid_4">
             <div class="margin-top15">
                 <!-- BikeWale_NewBike/BikeWale_NewBike_HP_300x250 -->
-                <!-- #include file="/ads/Ad300x250.aspx" -->
+                <!-- #include file="/UI/ads/Ad300x250.aspx" -->
             </div>
         </div>
         <!-- Right Container ends here  -->
@@ -440,4 +440,4 @@
         left: 4px;
     }
 </style>
-<!-- #include file="/includes/footerInner.aspx" -->
+<!-- #include file="/UI/includes/footerInner.aspx" -->

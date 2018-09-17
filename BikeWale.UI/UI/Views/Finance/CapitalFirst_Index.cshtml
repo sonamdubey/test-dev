@@ -1,10 +1,10 @@
 ﻿@model Bikewale.Models.Finance.CapitalFirstVM
 @{
     ViewBag.Title = "CapitalFirst_Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/finance/capital-first.css' />";
-    Model.Page_BTF_CSS_Path = "/css/zebra-datepicker.css";
-    Model.Page_JS_Path = "/src/finance/capital-first.js";
+	Layout = "~/UI/Views/Shared/_Layout.cshtml";
+	Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/UI/css/finance/common.css' />";
+    Model.Page_BTF_CSS_Path = "/UI/css/zebra-datepicker.css";
+    Model.Page_JS_Path = "/UI/src/finance/capital-first.js";
     Model.PageMetaTags.Title = "Get Instant Two Wheeler Loan Approval";
     Model.PageMetaTags.Description = "Owning a bike was never this easy. Apply for a bike loan and get instant online approval for a two wheeler loan. Apply Now!";
 }
@@ -158,7 +158,7 @@
 <input type="hidden" id="hdnPlatform" value="@((ushort)Model.PlatformId)" />
 <input type="hidden" id="loanAmount" value="@Model.LoanAmount"/>
 
-@Html.Partial("~/Views/Shared/_otpScreen.cshtml")
+@Html.Partial("~/UI/Views/Shared/_otpScreen.cshtml")
 <div class="otp-black-window"></div>
 
 <div id="modalPopUp" class="modal-box"></div>

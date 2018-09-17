@@ -37,7 +37,7 @@ namespace Bikewale.Controllers
                 objPopularBikes = _modelCache.GetMostPopularBikes((int)topCount, (int)makeId);
             ViewBag.MakeName = objPopularBikes.FirstOrDefault().objMake.MakeName;
             ViewBag.MakeMaskingName = objPopularBikes.FirstOrDefault().objMake.MaskingName;
-            return View("~/Views/Shared/_PopularBikes.cshtml", objPopularBikes);
+            return View("~/UI/Views/Shared/_PopularBikes.cshtml", objPopularBikes);
         }
 
         /// <summary>
@@ -53,7 +53,7 @@ namespace Bikewale.Controllers
                 objPopularBikes = _modelCache.GetMostPopularBikes((int)topCount, (int)makeId);
             ViewBag.MakeName = objPopularBikes.FirstOrDefault().objMake.MakeName;
             ViewBag.MakeMaskingName = objPopularBikes.FirstOrDefault().objMake.MaskingName;
-            return View("~/Views/m/Shared/_PopularBikes.cshtml", objPopularBikes);
+            return View("~/UI/Views/m/Shared/_PopularBikes.cshtml", objPopularBikes);
         }
 
         /// <summary>
@@ -69,7 +69,7 @@ namespace Bikewale.Controllers
             {
                 ViewBag.BodyStyle = objPopularBodyStyle.FirstOrDefault().BodyStyle;
             }
-            return View("~/Views/Shared/_PopularBodyStyle.cshtml", objPopularBodyStyle);
+            return View("~/UI/Views/Shared/_PopularBodyStyle.cshtml", objPopularBodyStyle);
         }
 
         /// <summary>
@@ -86,7 +86,7 @@ namespace Bikewale.Controllers
             {
                 ViewBag.BodyStyle = objPopularBodyStyle.FirstOrDefault().BodyStyle;
             }
-            return View("~/Views/m/Shared/_PopularBodyStyle.cshtml", objPopularBodyStyle);
+            return View("~/UI/Views/m/Shared/_PopularBodyStyle.cshtml", objPopularBodyStyle);
         }
         /// <summary>
         /// Created by : Ashutosh Sharma on 18-Aug-2017
@@ -117,7 +117,7 @@ namespace Bikewale.Controllers
 
             }
 
-            return View("~/Views/Shared/_PopularBodyStyle.cshtml", objPopularBodyStyle);
+            return View("~/UI/Views/Shared/_PopularBodyStyle.cshtml", objPopularBodyStyle);
         }
 
         /// <summary>
@@ -146,7 +146,7 @@ namespace Bikewale.Controllers
                 ErrorClass.LogError(ex, string.Format("PopularBikesController.MostPopularBikesByBodyStyle_Mobile: BodyStyleId: {0}, topCount: {1}, CityId {2}", bodyStyleId, topCount, cityId));
             }
 
-            return View("~/Views/m/Shared/_PopularBodyStyle.cshtml", objPopularBodyStyle);
+            return View("~/UI/Views/m/Shared/_PopularBodyStyle.cshtml", objPopularBodyStyle);
         }
 
     }

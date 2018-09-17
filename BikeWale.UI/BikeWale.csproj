@@ -17,11 +17,10 @@
     <AssemblyName>Bikewale</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <UseIISExpress>false</UseIISExpress>
-    <IISUrl>http://localhost:9011/</IISUrl>
+    <IISUrl>http://localhost:9015/</IISUrl>
     <TargetFrameworkProfile />
     <UseGlobalApplicationHostFile />
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
+    <NuGetPackageImportStamp>bcfa836d</NuGetPackageImportStamp>
     <Use64BitIISExpress />
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
@@ -73,43 +72,58 @@
     </When>
   </Choose>
   <ItemGroup>
-    <Reference Include="Ajax, Version=5.7.22.2, Culture=neutral">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="AEPLCore.Logging, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\AEPLCore.Logging.1.0.2\lib\net452\AEPLCore.Logging.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="AEPLCore.Queue, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\AEPLCore.Queue.2.0.6\lib\net452\AEPLCore.Queue.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="AEPLCore.Utils, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\AEPLCore.Utils.1.0.4\lib\net452\AEPLCore.Utils.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Ajax">
       <HintPath>..\Libs\Ajax.dll</HintPath>
     </Reference>
-    <Reference Include="AjaxPro.2, Version=9.2.17.1, Culture=neutral, PublicKeyToken=4735ae9824c7d3ec, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="AjaxPro.2">
       <HintPath>..\Libs\AjaxPro.2.dll</HintPath>
     </Reference>
-    <Reference Include="ApiGatewayLibrary, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\APIGateway\ApiGatewayLibrary.dll</HintPath>
+    <Reference Include="APIGatewayLibrary, Version=2.1.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\APIGatewayLibrary.2.1.3\lib\net451\APIGatewayLibrary.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="AutoMapper, Version=4.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="AutoMapper">
       <HintPath>..\Libs\AutoMapper.dll</HintPath>
     </Reference>
-    <Reference Include="BhriguServiceCaller, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\BhriguServiceCaller\BhriguServiceCaller.dll</HintPath>
+    <Reference Include="BhriguServiceCaller, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\BhriguServiceCaller.1.2.0\lib\net452\BhriguServiceCaller.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Bikewale.BAL.ApiGateway, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="Bikewale.BAL.ApiGateway">
       <HintPath>..\Libs\Bikewale.BAL.ApiGateway.dll</HintPath>
+    </Reference>
+    <Reference Include="Bikewale.Cache.Core">
+      <HintPath>..\Libs\Bikewale.Cache.Core.dll</HintPath>
     </Reference>
     <Reference Include="BikeWale.Comparison">
       <HintPath>..\Libs\BikeWale.Comparison.dll</HintPath>
     </Reference>
-    <Reference Include="Bikewale.ElasticSearch.Entities, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="Bikewale.ElasticSearch.Entities">
       <HintPath>..\Libs\Bikewale.ElasticSearch.Entities.dll</HintPath>
     </Reference>
-    <Reference Include="Bikewale.Notifications, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="Bikewale.Entities">
+      <HintPath>..\Libs\Bikewale.Entities.dll</HintPath>
+    </Reference>
+    <Reference Include="Bikewale.Notifications">
       <HintPath>..\Libs\Bikewale.Notifications.dll</HintPath>
     </Reference>
     <Reference Include="Bikewale.Utility">
       <HintPath>..\Libs\Bikewale.Utility.dll</HintPath>
+    </Reference>
+    <Reference Include="BikewaleOpr.Entity">
+      <HintPath>..\Libs\BikewaleOpr.Entity.dll</HintPath>
     </Reference>
     <Reference Include="Carwale.BL, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -123,8 +137,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\Carwale.Entity.dll</HintPath>
     </Reference>
-    <Reference Include="Carwale.Interfaces, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="Carwale.Interfaces">
       <HintPath>..\Libs\Carwale.Interfaces.dll</HintPath>
     </Reference>
     <Reference Include="Carwale.Utility, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -134,17 +147,19 @@
     <Reference Include="ClearScript">
       <HintPath>..\Libs\PWA\ClearScript.dll</HintPath>
     </Reference>
+    <Reference Include="Consul, Version=0.7.2.3, Culture=neutral, PublicKeyToken=20a6ad9a81df1d95, processorArchitecture=MSIL">
+      <HintPath>..\packages\Consul.0.7.2.3\lib\net45\Consul.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Crc32C.NET">
       <HintPath>..\Libs\zipkin\Crc32C.NET.dll</HintPath>
     </Reference>
     <Reference Include="Criteo.Profiling.Tracing">
       <HintPath>..\Libs\zipkin\Criteo.Profiling.Tracing.dll</HintPath>
     </Reference>
-    <Reference Include="Dapper">
-      <HintPath>..\Libs\Dapper.dll</HintPath>
-    </Reference>
-    <Reference Include="DapperWrapper">
-      <HintPath>..\Libs\DapperWrapper.dll</HintPath>
+    <Reference Include="Dapper, Version=1.50.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dapper.1.50.5\lib\net451\Dapper.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="ElasticClientManager, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -158,21 +173,17 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\Enyim.Caching.dll</HintPath>
     </Reference>
-    <Reference Include="Gelf4Net, Version=2.0.3.11, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\Gelf4Net.dll</HintPath>
-    </Reference>
-    <Reference Include="Gelf4Net.UdpAppender, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\Gelf4Net.UdpAppender.dll</HintPath>
+    <Reference Include="Gelf4Net, Version=3.0.0.6, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Gelf4Net.3.0.0.7\lib\net45\Gelf4Net.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Google.Protobuf, Version=3.5.1.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\APIGateway\Google.Protobuf.dll</HintPath>
+      <HintPath>..\packages\Google.Protobuf.3.5.1\lib\net45\Google.Protobuf.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Grpc.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=d754f35622e28bad, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\Grpc.Core.dll</HintPath>
+      <HintPath>..\packages\Grpc.Core.1.10.0\lib\net45\Grpc.Core.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="itextsharp">
       <HintPath>..\Libs\itextsharp.dll</HintPath>
@@ -199,9 +210,9 @@
     <Reference Include="Kafka">
       <HintPath>..\Libs\zipkin\Kafka.dll</HintPath>
     </Reference>
-    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\log4net.dll</HintPath>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="LZ4">
       <HintPath>..\Libs\zipkin\LZ4.dll</HintPath>
@@ -209,7 +220,14 @@
     <Reference Include="ManufacturingCampaign">
       <HintPath>..\Libs\ManufacturingCampaign.dll</HintPath>
     </Reference>
+    <Reference Include="ManufacturingCampaign.Entities">
+      <HintPath>..\Libs\ManufacturingCampaign.Entities.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Diagnostics.Tracing.EventSource, Version=1.1.28.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Diagnostics.Tracing.EventSource.Redist.1.1.28\lib\net40\Microsoft.Diagnostics.Tracing.EventSource.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.Practices.Unity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\mvc 5\unity 4.0.1\Microsoft.Practices.Unity.dll</HintPath>
@@ -231,21 +249,20 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\MSMQLibrary.dll</HintPath>
     </Reference>
-    <Reference Include="MySqlConnector, Version=0.42.1.0, Culture=neutral, PublicKeyToken=d33d3e53aa5f8c92, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\MySqlConnector.dll</HintPath>
+    <Reference Include="MySql.Data, Version=8.0.12.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySql.Data.8.0.12\lib\net452\MySql.Data.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="MySqlConnectorDatabaseLibrary, Version=1.1.0.0, Culture=neutral, PublicKeyToken=b2fa150a84eff3dc, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\MySqlConnectorDatabaseLibrary.dll</HintPath>
+    <Reference Include="Mysql.Data.DatabaseLibrary">
+      <HintPath>..\Libs\Mysql.Data.DatabaseLibrary.dll</HintPath>
     </Reference>
     <Reference Include="Nest, Version=5.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\ElasticSearch\Nest.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\ElasticSearch\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="NReco.PdfGenerator">
       <HintPath>..\Libs\NReco.PdfGenerator.dll</HintPath>
@@ -256,14 +273,11 @@
     </Reference>
     <Reference Include="QuestionsAnswers, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\QuestionsAndAnswers\QuestionsAnswers.dll</HintPath>
+      <HintPath>..\Libs\QuestionsAnswers.dll</HintPath>
     </Reference>
-    <Reference Include="RabbitMQ.Client">
-      <HintPath>..\Libs\RabbitMQ.Client.dll</HintPath>
-    </Reference>
-    <Reference Include="RabbitMqPublishing, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\RabbitMqPublishing.dll</HintPath>
+    <Reference Include="RabbitMQ.Client, Version=5.0.0.0, Culture=neutral, PublicKeyToken=89e7d7c5feba84ce, processorArchitecture=MSIL">
+      <HintPath>..\packages\RabbitMQ.Client.5.0.1\lib\net451\RabbitMQ.Client.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="React.Core, Version=3.0.1.0, Culture=neutral, PublicKeyToken=9aed67b161f7db78, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -281,20 +295,24 @@
       <HintPath>..\Libs\zipkin\Snappy.NET.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel" />
+    <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data.Linq" />
-    <Reference Include="System.Interactive.Async, Version=1.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\System.Interactive.Async.dll</HintPath>
+    <Reference Include="System.Drawing.Design" />
+    <Reference Include="System.Interactive.Async, Version=3.0.1000.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Interactive.Async.3.1.1\lib\net45\System.Interactive.Async.dll</HintPath>
+      <Private>True</Private>
     </Reference>
+    <Reference Include="System.Management" />
     <Reference Include="System.Net" />
     <Reference Include="System.Net.Http" />
-    <Reference Include="System.Net.Http.Formatting, Version=5.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\System.Net.Http.Formatting.dll</HintPath>
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.6\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System.Reactive.Core">
       <HintPath>..\Libs\zipkin\System.Reactive.Core.dll</HintPath>
@@ -307,21 +325,27 @@
     </Reference>
     <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.Threading.Tasks.Dataflow">
-      <HintPath>..\Libs\zipkin\System.Threading.Tasks.Dataflow.dll</HintPath>
+    <Reference Include="System.Threading.Tasks.Dataflow, Version=4.6.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Dataflow.4.7.0\lib\portable-net45+win8+wpa81\System.Threading.Tasks.Dataflow.dll</HintPath>
+      <Private>True</Private>
     </Reference>
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\mvc 5\mvc 5.2.3\System.Web.Helpers.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web.Http, Version=5.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\System.Web.Http.dll</HintPath>
+    <Reference Include="System.Web.Http, Version=5.2.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.6\lib\net45\System.Web.Http.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="System.Web.Http.WebHost, Version=5.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="System.Web.Http.Cors, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\System.Web.Http.WebHost.dll</HintPath>
+      <HintPath>..\Libs\System.Web.Http.Cors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.6\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -357,13 +381,13 @@
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.Xml.Linq" />
+    <Reference Include="ThriftNetStandard, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Apache.Thrift.1.0.2\lib\net451\ThriftNetStandard.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Unity.Mvc5, Version=1.2.3.0, Culture=neutral, PublicKeyToken=43da31bc42a85347, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\mvc 5\unity 4.0.1\Unity.Mvc5.dll</HintPath>
-    </Reference>
-    <Reference Include="Utils, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\Utils.dll</HintPath>
     </Reference>
     <Reference Include="VroomJs, Version=1.2.3.0, Culture=neutral, PublicKeyToken=e7c52e67fcb0044f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -379,12 +403,18 @@
     <Reference Include="Wurfl.Aspnet.Extensions">
       <HintPath>..\Libs\WURFL\Wurfl.Aspnet.Extensions.dll</HintPath>
     </Reference>
+    <Reference Include="zipkin4net, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\zipkin4net.1.2.0\lib\net451\zipkin4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\ReactConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Automappers\CMS\CMSMapper.cs" />
+    <Compile Include="Automappers\QuestionAndAnswers\QuestionAndAnswersMappper.cs" />
     <Compile Include="BAL\ABServiceRef\TCApi_Inquiry.cs" />
     <Compile Include="BAL\AdSlot\AdSlot.cs" />
     <Compile Include="BAL\AppDeepLinking\DeepLinking.cs" />
@@ -392,6 +422,7 @@
     <Compile Include="BAL\Authors\Authors.cs" />
     <Compile Include="BAL\AutoBiz\Dealers.cs" />
     <Compile Include="BAL\AutoComplete\AutoSuggest.cs" />
+    <Compile Include="BAL\Bhrigu\LeadTracking.cs" />
     <Compile Include="BAL\BikeBooking\AbstractBikeBooking.cs" />
     <Compile Include="BAL\BikeBooking\BrowserBikeBooking.cs" />
     <Compile Include="BAL\BikeBooking\DealerPriceQuote.cs" />
@@ -405,6 +436,7 @@
     <Compile Include="BAL\BikeSearch\BikeSearch.cs" />
     <Compile Include="BAL\BikeSearch\BikeSearchResult.cs" />
     <Compile Include="BAL\BikeSearch\NewBikeSearchMapper.cs" />
+    <Compile Include="BAL\Campaign\CampaignBL.cs" />
     <Compile Include="BAL\CMS\CMS.cs" />
     <Compile Include="BAL\CMS\CMSData.cs" />
     <Compile Include="BAL\CMS\CMSShareUrl.cs" />
@@ -416,6 +448,7 @@
     <Compile Include="BAL\EditCMS\Articles.cs" />
     <Compile Include="BAL\Feedback\Feedback.cs" />
     <Compile Include="BAL\Filters\PageFilters.cs" />
+    <Compile Include="BAL\Finance\BajajAuto.cs" />
     <Compile Include="BAL\Finance\CapitalFirst.cs" />
     <Compile Include="BAL\GrpcFiles\CustomGRPCLoadBalancer.cs" />
     <Compile Include="BAL\GrpcFiles\EditCms.cs" />
@@ -436,6 +469,8 @@
     <Compile Include="BAL\PriceQuote\PQByCityArea.cs" />
     <Compile Include="BAL\PriceQuote\PriceQuote.cs" />
     <Compile Include="BAL\PWA\CMS\PWACMSData.cs" />
+    <Compile Include="BAL\QuestionAndAnswers\Answers.cs" />
+    <Compile Include="BAL\QuestionAndAnswers\Mappers.cs" />
     <Compile Include="BAL\QuestionAndAnswers\Questions.cs" />
     <Compile Include="BAL\Security\SecurityBL.cs" />
     <Compile Include="BAL\ServiceCenter\ServiceCenter.cs" />
@@ -451,35 +486,41 @@
     <Compile Include="BAL\UserReviews\ProcessSearchFilters.cs" />
     <Compile Include="BAL\UserReviews\UserReviews.cs" />
     <Compile Include="BAL\Videos\Videos.cs" />
+    <Compile Include="Cache\Dealer\IDealerCache.cs" />
+    <Compile Include="Cache\Finance\BajajAutoCache.cs" />
+    <Compile Include="common\ManageSeries.cs" />
+    <Compile Include="common\ManageVideos.cs" />
+    <Compile Include="DAL\AppAlert\AppAlertRepository.cs" />
+    <Compile Include="DAL\Finance\BajajAutoRepository.cs" />
+    <Compile Include="DAL\QuestionAndAnswers\AnswerRepository.cs" />
+    <Compile Include="DTO\Campaign\DealerCampaignDTO.cs" />
+    <Compile Include="DTO\Campaign\ESDSCampaignDTO.cs" />
+    <Compile Include="DTO\Campaign\ManufacturerLeadCampaignDTO.cs" />
+    <Compile Include="DTO\Dealer\NewBikeDealerDetails.cs" />
+    <Compile Include="DTO\Finance\BajajAutoLeadResponseDto.cs" />
+    <Compile Include="DTO\PriceQuote\v3\MLALeadDetails.cs" />
+    <Compile Include="DTO\PriceQuote\Version\PriceCategory.cs" />
+    <Compile Include="DTO\PriceQuote\Version\PriceInfo.cs" />
+    <Compile Include="DTO\PriceQuote\Version\VersionPrice.cs" />
+    <Compile Include="DTO\QuestionAndAnswers\QuestionURLDTO.cs" />
+    <Compile Include="DTO\UserReviews\UserReviewsInputEntity.cs" />
+    <Compile Include="Interfaces\AppAlert\IAppAlert.cs" />
+    <Compile Include="Interfaces\Campaign\ICampaignBL.cs" />
+    <Compile Include="Interfaces\BikeBooking\IFeedBacks.cs" />
+    <Compile Include="Interfaces\CMS\IPwaCMSCacheRepository.cs" />
+    <Compile Include="Interfaces\Finance\IBajajAuto.cs" />
+    <Compile Include="Interfaces\Finance\IBajajAutoCache.cs" />
+    <Compile Include="Interfaces\Finance\IBajajAutoRepository.cs" />
+    <Compile Include="Interfaces\News\INews.cs" />
+    <Compile Include="Interfaces\News\INewsCache.cs" />
+    <Compile Include="Interfaces\QuestionAndAnswers\IAnswerRepository.cs" />
+    <Compile Include="Interfaces\QuestionAndAnswers\IAnswers.cs" />
+    <Compile Include="Models\Finance\BajajFinanceModel.cs" />
+    <Compile Include="Models\QuestionsAnswers\QuestionDetailsModel.cs" />
+    <Compile Include="Models\QuestionsAnswers\SaveAnswerPageModel.cs" />
+    <Compile Include="Models\QuestionsAnswers\ThankYouPageModel.cs" />
+    <Compile Include="Models\QuestionsAnswers\UnansweredQuestionModel.cs" />
     <Compile Include="Services\APISecurity\IPAuthorizationAttribute.cs" />
-    <Compile Include="Services\Areas\HelpPage\ApiDescriptionExtensions.cs" />
-    <Compile Include="Services\Areas\HelpPage\App_Start\HelpPageConfig.cs" />
-    <Compile Include="Services\Areas\HelpPage\Controllers\HelpController.cs" />
-    <Compile Include="Services\Areas\HelpPage\HelpPageAreaRegistration.cs" />
-    <Compile Include="Services\Areas\HelpPage\HelpPageConfigurationExtensions.cs" />
-    <Compile Include="Services\Areas\HelpPage\ModelDescriptions\CollectionModelDescription.cs" />
-    <Compile Include="Services\Areas\HelpPage\ModelDescriptions\ComplexTypeModelDescription.cs" />
-    <Compile Include="Services\Areas\HelpPage\ModelDescriptions\DictionaryModelDescription.cs" />
-    <Compile Include="Services\Areas\HelpPage\ModelDescriptions\EnumTypeModelDescription.cs" />
-    <Compile Include="Services\Areas\HelpPage\ModelDescriptions\EnumValueDescription.cs" />
-    <Compile Include="Services\Areas\HelpPage\ModelDescriptions\IModelDocumentationProvider.cs" />
-    <Compile Include="Services\Areas\HelpPage\ModelDescriptions\KeyValuePairModelDescription.cs" />
-    <Compile Include="Services\Areas\HelpPage\ModelDescriptions\ModelDescription.cs" />
-    <Compile Include="Services\Areas\HelpPage\ModelDescriptions\ModelDescriptionGenerator.cs" />
-    <Compile Include="Services\Areas\HelpPage\ModelDescriptions\ModelNameAttribute.cs" />
-    <Compile Include="Services\Areas\HelpPage\ModelDescriptions\ModelNameHelper.cs" />
-    <Compile Include="Services\Areas\HelpPage\ModelDescriptions\ParameterAnnotation.cs" />
-    <Compile Include="Services\Areas\HelpPage\ModelDescriptions\ParameterDescription.cs" />
-    <Compile Include="Services\Areas\HelpPage\ModelDescriptions\SimpleTypeModelDescription.cs" />
-    <Compile Include="Services\Areas\HelpPage\Models\HelpPageApiModel.cs" />
-    <Compile Include="Services\Areas\HelpPage\SampleGeneration\HelpPageSampleGenerator.cs" />
-    <Compile Include="Services\Areas\HelpPage\SampleGeneration\HelpPageSampleKey.cs" />
-    <Compile Include="Services\Areas\HelpPage\SampleGeneration\ImageSample.cs" />
-    <Compile Include="Services\Areas\HelpPage\SampleGeneration\InvalidSample.cs" />
-    <Compile Include="Services\Areas\HelpPage\SampleGeneration\ObjectGenerator.cs" />
-    <Compile Include="Services\Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
-    <Compile Include="Services\Areas\HelpPage\SampleGeneration\TextSample.cs" />
-    <Compile Include="Services\Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Services\AutoMappers\AppDeepLinking\DeepLinkingMapper.cs" />
     <Compile Include="Services\AutoMappers\App\AppVersionMapper.cs" />
     <Compile Include="Services\AutoMappers\Area\AreaListMapper.cs" />
@@ -739,13 +780,6 @@
     <Compile Include="Cache\BikeSearch\BikeSearchCacheRepository.cs" />
     <Compile Include="Cache\CMS\CMSCacheRepository.cs" />
     <Compile Include="Cache\Compare\BikeCompareCacheRepository.cs" />
-    <Compile Include="Cache\Core\CacheRefreshTime.cs" />
-    <Compile Include="Cache\Core\ICacheManager.cs" />
-    <Compile Include="Cache\Core\LocalcacheManager.cs" />
-    <Compile Include="Cache\Core\MemcacheClientExtension.cs" />
-    <Compile Include="Cache\Core\MemcacheLog.cs" />
-    <Compile Include="Cache\Core\MemcacheLogFactory.cs" />
-    <Compile Include="Cache\Core\MemcacheManager.cs" />
     <Compile Include="Cache\DealersLocator\DealerCacheRepository.cs" />
     <Compile Include="Cache\Finance\FinanceCacheRepository.cs" />
     <Compile Include="Cache\Helper\BikeData\BikeModelsCacheHelper.cs" />
@@ -1734,7 +1768,6 @@
     <Compile Include="Interfaces\BikeBooking\IBookingCancellation.cs" />
     <Compile Include="Interfaces\BikeBooking\IBookingListing.cs" />
     <Compile Include="Interfaces\BikeBooking\IDealerPriceQuote.cs" />
-    <Compile Include="Interfaces\BikeBooking\IFeedBacks.cs" />
     <Compile Include="Interfaces\BikeData\IBikeInfo.cs" />
     <Compile Include="Interfaces\BikeData\IBikeMakes.cs" />
     <Compile Include="Interfaces\BikeData\IBikeMakesCacheRepository.cs" />
@@ -2681,7 +2714,6 @@
       <DependentUpon>ResetCustomerPassword.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Utilities\CMS\CMSMapper.cs" />
     <Compile Include="Utilities\PWA\ConverterUtility.cs" />
     <Compile Include="Utilities\PWA\CustomConcurrentArray.cs" />
     <Compile Include="Utilities\PWA\PwaCmsHelper.cs" />
@@ -2748,6 +2780,7 @@
     <Compile Include="ViewModel\ExpertReviews\ScooterExpertReviewsPageVM.cs" />
     <Compile Include="ViewModel\Features\DetailFeatureVM.cs" />
     <Compile Include="ViewModel\Features\IndexFeatureVM.cs" />
+    <Compile Include="ViewModel\Finance\BajajFinanceVM.cs" />
     <Compile Include="ViewModel\Finance\CapitalFirstVM.cs" />
     <Compile Include="ViewModel\Finance\FinanceIndexPageVM.cs" />
     <Compile Include="ViewModel\Gallery\ModelGalleryVM.cs" />
@@ -2791,6 +2824,11 @@
     <Compile Include="ViewModel\QuestionAndAnswers\ModelQuestionsAnswersVM.cs" />
     <Compile Include="ViewModel\QuestionAndAnswers\QuestionAnswerSectionVM.cs" />
     <Compile Include="ViewModel\QuestionAndAnswers\QuestionAnswerSlugVM.cs" />
+    <Compile Include="ViewModel\QuestionAndAnswers\QuestionDetailsVM.cs" />
+    <Compile Include="ViewModel\QuestionAndAnswers\SaveUserAnswerVM.cs" />
+    <Compile Include="ViewModel\QuestionAndAnswers\ThankYouPageVM.cs" />
+    <Compile Include="ViewModel\QuestionAndAnswers\UnansweredQuestionsVM.cs" />
+    <Compile Include="ViewModel\QuestionAndAnswers\UnansweredQuestionVM.cs" />
     <Compile Include="ViewModel\Scooters\MoreAboutScootersWidgetVM.cs" />
     <Compile Include="ViewModel\Scooters\ScooterComparesVM.cs" />
     <Compile Include="ViewModel\Scooters\ScootersIndexPageVM.cs" />
@@ -2846,7 +2884,6 @@
     <Compile Include="ViewModel\Videos\VideosLandingPageVM.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Services\Areas\HelpPage\HelpPage.css" />
     <Content Include="UI\AboutUs.aspx" />
     <Content Include="ads.txt" />
     <Content Include="UI\ads\Ad300x250_mobile.aspx" />
@@ -3000,6 +3037,7 @@
     <Content Include="UI\css\bw-common-atf.css" />
     <Content Include="UI\css\bw-common-btf.css" />
     <Content Include="UI\css\bw-common-style.css" />
+    <Content Include="UI\css\bw-doodle.css" />
     <Content Include="UI\css\bw-pq-new.css" />
     <Content Include="UI\css\bw-pq.css" />
     <Content Include="UI\css\campaign\hero-campaign.css" />
@@ -3019,6 +3057,8 @@
     <Content Include="UI\css\components\select-box.css" />
     <Content Include="UI\css\electric-bikes\landing.css" />
     <Content Include="UI\css\emicalculator.css" />
+    <Content Include="UI\css\finance\bajaj.css" />
+    <Content Include="UI\css\finance\common.css" />
     <Content Include="UI\css\fonts\fontawesome-webfont.svg" />
     <Content Include="UI\css\fonts\WebRupee.V2.0.svg" />
     <Content Include="UI\css\threesixty-slider.css" />
@@ -3033,6 +3073,63 @@
     <Content Include="UI\fonts\WebRupee.V2.0.svg" />
     <Content Include="UI\fonts\WebRupee.V2.0.ttf" />
     <Content Include="UI\fonts\WebRupee.V2.0.woff" />
+    <Content Include="UI\includes\images\0.gif" />
+    <Content Include="UI\includes\images\1.gif" />
+    <Content Include="UI\includes\images\action-btn-bg.jpg" />
+    <Content Include="UI\includes\images\action-btn-rollover.jpg" />
+    <Content Include="UI\includes\images\ajax-loader.gif" />
+    <Content Include="UI\includes\images\arrow-left-test.png" />
+    <Content Include="UI\includes\images\arrow-right-test.png" />
+    <Content Include="UI\includes\images\blue_button.jpg" />
+    <Content Include="UI\includes\images\body-texture-bg.jpg" />
+    <Content Include="UI\includes\images\booking-comforts-sprite.png" />
+    <Content Include="UI\includes\images\brand-img.png" />
+    <Content Include="UI\includes\images\brand-type-sprite.png" />
+    <Content Include="UI\includes\images\bw-circle-icon.png" />
+    <Content Include="UI\includes\images\bw-logo.png" />
+    <Content Include="UI\includes\images\bw-m-logo.png" />
+    <Content Include="UI\includes\images\bw-sprite-new.png" />
+    <Content Include="UI\includes\images\bw-sprite.png" />
+    <Content Include="UI\includes\images\bwsprite.png" />
+    <Content Include="UI\includes\images\circleloader.gif" />
+    <Content Include="UI\includes\images\dropArrowBg.png" />
+    <Content Include="UI\includes\images\favicon.gif" />
+    <Content Include="UI\includes\images\favicon.ico" />
+    <Content Include="UI\includes\images\favicon.png" />
+    <Content Include="UI\includes\images\footer.jpg" />
+    <Content Include="UI\includes\images\get-final-price-banner.jpg" />
+    <Content Include="UI\includes\images\half.gif" />
+    <Content Include="UI\includes\images\header-seperator.png" />
+    <Content Include="UI\includes\images\home-top-banner.jpg" />
+    <Content Include="UI\includes\images\icon-sprite.png" />
+    <Content Include="UI\includes\images\icons-sheet.png" />
+    <Content Include="UI\includes\images\inputChecked.png" />
+    <Content Include="UI\includes\images\inputUnchecked.png" />
+    <Content Include="UI\includes\images\light-grey-bg.jpg" />
+    <Content Include="UI\includes\images\light-sept.jpg" />
+    <Content Include="UI\includes\images\nav-bg-org.jpg" />
+    <Content Include="UI\includes\images\nav-bg-rollover.jpg" />
+    <Content Include="UI\includes\images\nav-sept.jpg" />
+    <Content Include="UI\includes\images\nav.png" />
+    <Content Include="UI\includes\images\new-bikes-banner.jpg" />
+    <Content Include="UI\includes\images\pattern-bg.jpg" />
+    <Content Include="UI\includes\images\Pratikphoto.JPG" />
+    <Content Include="UI\includes\images\ratings\0.png" />
+    <Content Include="UI\includes\images\ratings\1.png" />
+    <Content Include="UI\includes\images\ratings\half.png" />
+    <Content Include="UI\includes\images\rsa-logo.png" />
+    <Content Include="UI\includes\images\search-bg.jpg" />
+    <Content Include="UI\includes\images\seperator-m.png" />
+    <Content Include="UI\includes\images\seperator.png" />
+    <Content Include="UI\includes\images\shadow-header.jpg" />
+    <Content Include="UI\includes\images\spls-icons.png" />
+    <Content Include="UI\includes\images\sprite-2.png" />
+    <Content Include="UI\includes\images\style-type-sprite.png" />
+    <Content Include="UI\includes\images\tab-bg-org.jpg" />
+    <Content Include="UI\includes\images\tab-bg-rollover.jpg" />
+    <Content Include="UI\includes\images\user-profile-banner.jpg" />
+    <Content Include="UI\includes\images\v-seperator.png" />
+    <Content Include="UI\includes\images\white-shadow.png" />
     <Content Include="UI\m\ads.txt" />
     <Content Include="UI\m\css\amp\make.css" />
     <Content Include="UI\m\css\amp\model.css" />
@@ -3605,7 +3702,6 @@
     <Content Include="UI\m\css\jquery.mobile-1.4.2.min.css" />
     <Content Include="UI\m\css\leadcapture.css" />
     <Content Include="UI\m\css\photos.css" />
-    <Content Include="UI\m\css\finance\capital-first.css" />
     <Content Include="UI\m\css\specsandfeature.css" />
     <Content Include="UI\m\css\used\landing.css" />
     <Content Include="UI\m\css\mobile-rsa.css" />
@@ -3885,7 +3981,6 @@
     <Content Include="UI\sass\modules\_carousel-card.sass" />
     <Content Include="UI\sass\modules\_card-category.sass" />
     <Content Include="UI\sass\partials\review-popup.sass" />
-    <Content Include="UI\sass\modules\sidebar-bike-section.sass" />
     <Content Include="UI\sass\partials\_horizontal-rating-graph.sass" />
     <Content Include="UI\sass\partials\_loader.sass" />
     <Content Include="UI\sass\modules\_review-category.sass" />
@@ -3919,14 +4014,11 @@
     <Content Include="UI\sass\modules\_m-brand-logo.sass" />
     <Content Include="UI\sass\m\make\make.sass" />
     <Content Include="UI\sass\mixins\_flex.sass" />
-    <Content Include="UI\sass\utils\_color.sass" />
-    <Content Include="UI\sass\utils\_index.sass" />
     <Content Include="UI\sass\partials\_all-bikes-list.sass" />
     <Content Include="UI\sass\mixins\_model-card.sass" />
     <Content Include="UI\sass\mixins\_overall-tabs.sass" />
     <Content Include="UI\sass\mixins\_card.sass" />
     <Content Include="UI\sass\mixins\_heading.sass" />
-    <Content Include="UI\sass\mixins\_text.sass" />
     <Content Include="UI\sass\partials\_upcoming-bikes-carousel.sass" />
     <Content Include="UI\sass\partials\_popular-bikes-carousel.sass" />
     <Content Include="UI\sass\partials\_bike-images-carousel.sass" />
@@ -4235,35 +4327,12 @@
     <Content Include="UI\css\fonts\WebRupee.V2.0.woff" />
     <Content Include="App_Data\wurfl-latest.zip" />
     <Content Include="App_Code\BWHelpers.cshtml" />
-    <Content Include="Services\Areas\HelpPage\Views\_ViewStart.cshtml" />
-    <Content Include="Services\Areas\HelpPage\Views\Help\Api.cshtml" />
-    <Content Include="Services\Areas\HelpPage\Views\Help\ControllerHelp.cshtml" />
-    <Content Include="Services\Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
-    <Content Include="Services\Areas\HelpPage\Views\Help\DisplayTemplates\CollectionModelDescription.cshtml" />
-    <Content Include="Services\Areas\HelpPage\Views\Help\DisplayTemplates\ComplexTypeModelDescription.cshtml" />
-    <Content Include="Services\Areas\HelpPage\Views\Help\DisplayTemplates\DictionaryModelDescription.cshtml" />
-    <Content Include="Services\Areas\HelpPage\Views\Help\DisplayTemplates\EnumTypeModelDescription.cshtml" />
-    <Content Include="Services\Areas\HelpPage\Views\Help\DisplayTemplates\HelpPageApiModel.cshtml" />
-    <Content Include="Services\Areas\HelpPage\Views\Help\DisplayTemplates\ImageSample.cshtml" />
-    <Content Include="Services\Areas\HelpPage\Views\Help\DisplayTemplates\InvalidSample.cshtml" />
-    <Content Include="Services\Areas\HelpPage\Views\Help\DisplayTemplates\KeyValuePairModelDescription.cshtml" />
-    <Content Include="Services\Areas\HelpPage\Views\Help\DisplayTemplates\ModelDescriptionLink.cshtml" />
-    <Content Include="Services\Areas\HelpPage\Views\Help\DisplayTemplates\Parameters.cshtml" />
-    <Content Include="Services\Areas\HelpPage\Views\Help\DisplayTemplates\Samples.cshtml" />
-    <Content Include="Services\Areas\HelpPage\Views\Help\DisplayTemplates\SimpleTypeModelDescription.cshtml" />
-    <Content Include="Services\Areas\HelpPage\Views\Help\DisplayTemplates\TextSample.cshtml" />
-    <Content Include="Services\Areas\HelpPage\Views\Help\Error.cshtml" />
-    <Content Include="Services\Areas\HelpPage\Views\Help\Index.cshtml" />
-    <Content Include="Services\Areas\HelpPage\Views\Help\ResourceModel.cshtml" />
-    <Content Include="Services\Areas\HelpPage\Views\Help\Search.cshtml" />
-    <Content Include="Services\Areas\HelpPage\Views\Help\SearchApiDoc.cshtml" />
-    <Content Include="Services\Areas\HelpPage\Views\Shared\_Layout.cshtml" />
-    <Content Include="Services\Areas\HelpPage\Views\Web.config" />
-    <None Include="UI\sass\components\_card-header.sass" />
+    <Content Include="UI\includes\images\ratings\Thumbs.db" />
+    <Content Include="UI\m\.htaccess" />
+    <Content Include="UI\m\sw.js.orig" />
     <Content Include="UI\sass\sell-bike\_style.sass" />
     <Content Include="UI\sass\components\_typography.sass" />
     <Content Include="UI\sass\components\_mixins.sass" />
-    <None Include="UI\sass\components\_box-boundary.sass" />
     <Content Include="UI\sass\components\_input-box.sass" />
     <Content Include="UI\sass\sell-bike\_color-box.sass" />
     <Content Include="UI\sass\components\_textarea-box.sass" />
@@ -4286,8 +4355,6 @@
     <Content Include="UI\m\sass\modules\_section-heading.sass" />
     <Content Include="UI\m\sass\modules\_accordion.sass" />
     <Content Include="UI\sass\components\_card-header.sass" />
-    <Content Include="UI\sass\components\_mixins.sass" />
-    <Content Include="UI\sass\components\_typography.sass" />
     <Content Include="UI\sass\service\listing.sass" />
     <Content Include="UI\sass\service\_listing-style.sass" />
     <Content Include="UI\sass\components\_variables.sass" />
@@ -4296,7 +4363,6 @@
     <Content Include="UI\sass\modules\_card.sass" />
     <Content Include="UI\sass\service\_details-style.sass" />
     <Content Include="UI\sass\service\details.sass" />
-    <Content Include="UI\sass\components\_input-box.sass" />
     <Content Include="UI\sass\components\_box-boundary.sass" />
     <Content Include="UI\sass\components\_select-box.sass" />
     <Content Include="UI\sass\service\location.sass" />
@@ -4306,22 +4372,6 @@
     <Content Include="UI\m\sass\modules\_modal.sass" />
     <Content Include="UI\m\sass\service\landing.sass" />
     <Content Include="UI\m\sass\service\_landing-style.sass" />
-    <Content Include="UI\sass\components\_card-header.sass" />
-    <Content Include="UI\sass\components\_mixins.sass" />
-    <Content Include="UI\sass\components\_typography.sass" />
-    <Content Include="UI\sass\service\listing.sass" />
-    <Content Include="UI\sass\service\_listing-style.sass" />
-    <Content Include="UI\sass\components\_variables.sass" />
-    <Content Include="UI\sass\modules\_section.sass" />
-    <Content Include="UI\sass\modules\_bike-tips.sass" />
-    <Content Include="UI\sass\modules\_card.sass" />
-    <Content Include="UI\sass\service\_details-style.sass" />
-    <Content Include="UI\sass\service\details.sass" />
-    <Content Include="UI\sass\components\_select-box.sass" />
-    <Content Include="UI\sass\service\location.sass" />
-    <Content Include="UI\sass\service\_location-style.sass" />
-    <Content Include="UI\sass\modules\_article.sass" />
-    <Content Include="UI\sass\modules\_accordion.sass" />
     <Content Include="UI\sass\service\landing.sass" />
     <Content Include="UI\sass\service\_landing-style.sass" />
     <Content Include="UI\sass\modules\_brand-logo.sass" />
@@ -4905,7 +4955,19 @@
     <Content Include="UI\Views\m\Shared\_UpcomingBikes_AMP.cshtml" />
     <Content Include="UI\Views\m\Shared\_SeriesBikes_AMP.cshtml" />
     <Content Include="UI\Views\QuestionAndAnswers\Model_Index.cshtml" />
+    <Content Include="UI\Views\QuestionAndAnswers\AnswerPage.cshtml" />
+    <Content Include="UI\Views\QuestionAndAnswers\AnswerPage_Mobile.cshtml" />
+    <Content Include="UI\Views\QuestionAndAnswers\Index_ThankYou.cshtml" />
+    <Content Include="UI\Views\QuestionAndAnswers\Index_ThankYou_Mobile.cshtml" />
+    <Content Include="UI\Views\QuestionAndAnswers\Question_Details.cshtml" />
+    <Content Include="UI\Views\QuestionAndAnswers\Question_Details_Mobile.cshtml" />
+    <Content Include="UI\sass\partials\lead-popup.sass" />
+    <Content Include="UI\sass\partials\desktop-lead-popup.sass" />
+    <Content Include="UI\sass\partials\qna-answer.sass" />
+    <Content Include="UI\sass\qna\answer-list.sass" />
+    <Content Include="UI\sass\qna\question-details.sass" />
     <None Include="UI\Views\QuestionAndAnswers\_QuestionAnswerSection.cshtml" />
+    <Content Include="UI\Views\QuestionAndAnswers\_unansweredquestion_mobile.cshtml" />
     <None Include="UI\Views\Shared\_Sidebar-section.cshtml" />
     <Content Include="UI\Views\BikeModels\_MultiTabsWidget.cshtml" />
     <Content Include="UI\Views\Shared\_ReviewPopup.cshtml" />
@@ -4934,6 +4996,7 @@
     <Content Include="UI\Views\Videos\_LazyLoadVideos_Mobile.cshtml" />
     <Content Include="UI\Views\Videos\_LazyLoadVideos.cshtml" />
     <Content Include="UI\Views\UserProfile\_UserProfileTargeting.cshtml" />
+    <Content Include="UI\Views\UserReview\_AnswerQuestionList_Mobile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -4972,9 +5035,6 @@
     <Folder Include="UI\Controllers\new\" />
     <Folder Include="UI\m\dealerlocator\" />
     <Folder Include="UI\new\photos\" />
-    <Folder Include="UI\Views\BikeInfo\" />
-    <Folder Include="UI\Views\Content\News\Amp\" />
-    <Folder Include="UI\Views\Privacy\" />
     <Folder Include="ViewModel\ComparisonTest\" />
     <Folder Include="ViewModel\Desktop\" />
   </ItemGroup>
@@ -4982,10 +5042,6 @@
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Bikewale.Entities\Bikewale.Entities.csproj">
-      <Project>{8223a4b8-db14-4658-9897-257d872ae8d9}</Project>
-      <Name>Bikewale.Entities</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Bikewale.PWA.UI\Bikewale.PWA.UI.csproj">
       <Project>{3279e44e-3eae-4fe9-9721-980610c6f896}</Project>
       <Name>Bikewale.PWA.UI</Name>
@@ -5076,9 +5132,9 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>False</AutoAssignPort>
-          <DevelopmentServerPort>9011</DevelopmentServerPort>
+          <DevelopmentServerPort>9015</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:9011</IISUrl>
+          <IISUrl>http://localhost:9015</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
@@ -5107,23 +5163,21 @@
   </Target>-->
   <PropertyGroup>
     <PreBuildEvent>
-      "$(MSBuildToolsPath)\msbuild.exe" $(ProjectDir)..\Bikewale.ReleaseManagement\copyfiles\Bikewale.ReleaseManagement.csproj /T:Rebuild /P:Configuration=$(Configuration);RunCodeAnalysis=false
     </PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PostBuildEvent>
 	xcopy /Y "$(ProjectDir)..\Libs\PWA\JavaScriptEngineSwitcher.V8.Native.win-x86.2.4.2\runtimes\win7-x86\native\*" "$(ProjectDir)bin\x86\"
 	xcopy /Y "$(ProjectDir)..\Libs\PWA\JavaScriptEngineSwitcher.V8.Native.win-x64.2.4.2\runtimes\win7-x64\native\*" "$(ProjectDir)bin\x64\"
-	<!-- xcopy /Y "$(ProjectDir)..\Libs\PWA\x64\*" "$(ProjectDir)bin\x64\" --><!-- xcopy /Y "$(ProjectDir)..\Libs\PWA\x86\*" "$(ProjectDir)bin\x86\" -->
+	
 	xcopy /Y "$(ProjectDir)..\Libs\PWA\ru-ru\*" "$(ProjectDir)bin\ru-ru\"
 	xcopy /Y "$(ProjectDir)..\Libs\PWA\x86\*" "$(ProjectDir)bin\x86\"
 	xcopy /Y "$(ProjectDir)..\Libs\PWA\x64\*" "$(ProjectDir)bin\x64\"
 	xcopy /Y "$(ProjectDir)..\Libs\System.Web.Http.Cors.dll" "$(ProjectDir)bin\"
 	xcopy /Y "$(ProjectDir)..\Libs\System.Web.Cors.dll" "$(ProjectDir)bin\"
-	<!--xcopy /Y "$(ProjectDir)..\Libs\System.Runtime.dll" "$(ProjectDir)bin\"-->
-	xcopy /Y "$(ProjectDir)..\Libs\grpc_csharp_ext.x64.dll" "$(ProjectDir)bin\"
-	xcopy /Y "$(ProjectDir)..\Libs\grpc_csharp_ext.x86.dll" "$(ProjectDir)bin\"
-	<!--xcopy /Y "$(ProjectDir)..\Libs\CommonUtility.dll" "$(ProjectDir)bin\"--></PostBuildEvent>
+	
+	
+	</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
   </PropertyGroup>
@@ -5133,5 +5187,7 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\Libs\PWA\JavaScriptEngineSwitcher.V8.Native.win-x64.2.4.2\build\JavaScriptEngineSwitcher.V8.Native.win-x64.props')" Text="$([System.String]::Format('$(ErrorText)', '..\Libs\PWA\JavaScriptEngineSwitcher.V8.Native.win-x64.2.4.2\build\JavaScriptEngineSwitcher.V8.Native.win-x64.props'))" />
     <Error Condition="!Exists('..\Libs\PWA\JavaScriptEngineSwitcher.V8.Native.win-x86.2.4.2\build\JavaScriptEngineSwitcher.V8.Native.win-x86.props')" Text="$([System.String]::Format('$(ErrorText)', '..\Libs\PWA\JavaScriptEngineSwitcher.V8.Native.win-x86.2.4.2\build\JavaScriptEngineSwitcher.V8.Native.win-x86.props'))" />
+    <Error Condition="!Exists('..\packages\Grpc.Core.1.10.0\build\net45\Grpc.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Grpc.Core.1.10.0\build\net45\Grpc.Core.targets'))" />
   </Target>
+  <Import Project="..\packages\Grpc.Core.1.10.0\build\net45\Grpc.Core.targets" Condition="Exists('..\packages\Grpc.Core.1.10.0\build\net45\Grpc.Core.targets')" />
 </Project>

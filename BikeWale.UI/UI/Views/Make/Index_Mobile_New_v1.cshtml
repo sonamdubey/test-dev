@@ -1,10 +1,10 @@
 ﻿
 @model Bikewale.Models.MakePageVM
 @{
-    Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/m/make/make.css' inline /><link rel='stylesheet' type='text/css' href='/sass/partials/explore-bikes-carousel.css' inline /><link rel='stylesheet' type='text/css' href='/m/css/bwm-brand.css' inline />";
-    Model.Page_JS_Paths = new[] { "/m/src/make.js", "/m/src/popup/newBikeSearchPopup.js", "/src/review-popup.js" };
-    ushort index = 0, prev = 0, gap = 2, j = 0;
+    Layout = "~/UI/Views/Shared/_Layout_Mobile.cshtml";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/UI/sass/m/make/make.css' inline /><link rel='stylesheet' type='text/css' href='/UI/sass/partials/explore-bikes-carousel.css' inline /><link rel='stylesheet' type='text/css' href='/UI/m/css/bwm-brand.css' inline />";
+    Model.Page_JS_Paths = new[] { "/UI/m/src/make.js", "/UI/m/src/popup/newBikeSearchPopup.js", "/UI/src/review-popup.js" };
+    // ushort index = 0, prev = 0, gap = 2, j = 0;
 }
 
 @if (Model != null)
@@ -12,7 +12,7 @@
     <section id="overallContainer">
         <div id="bikeMakeContainer" class="container section-bottom-margin">
             <h1 class="page__heading">@Model.MakeName Bikes</h1>
-            @Html.Partial("~/Views/Make/_Index_Tabs_Mobile_New_V1.cshtml", Model)
+            @Html.Partial("~/UI/Views/Make/_Index_Tabs_Mobile_New_V1.cshtml", Model)
 
             @if (Model.Bikes != null && Model.Bikes.Any())
             {
@@ -22,13 +22,13 @@
                         <ul id="listitems" class="listitems all-model__list">
                             @foreach (var bike in Model.Bikes)
                             {
-                                if (Model.PageFilters != null && Model.PageFilters.FilterResults != null)
+                                @*if (Model.PageFilters != null && Model.PageFilters.FilterResults != null)
                                 {
 
                                     if (j - prev == gap && index < Model.PageFilters.FilterResults.Count() && Model.PageFilters.FilterResults[index].FilterType != null)
                                     {
                                         <li class="model-list__item filter-type__item filter-type__item-ab-test" data-filter-type="@Model.PageFilters.FilterResults[index].FilterType">
-                                            @Html.Partial("~/Views/Filters/InPageFilters/_InPageFilters_Mobile.cshtml", Model.PageFilters.FilterResults[index])
+                                            @Html.Partial("~/UI/Views/Filters/InPageFilters/_InPageFilters_Mobile.cshtml", Model.PageFilters.FilterResults[index])
                                         </li>
                                         gap++;
                                         prev = j;
@@ -36,7 +36,7 @@
 
                                     }
                                     j++;
-                                }
+                                }*@
 
                                 var modelUrl = Bikewale.Utility.UrlFormatter.BikePageUrl(bike.objMake.MaskingName, bike.objModel.MaskingName);
                                 var bikeName = string.Format("{0} {1}", bike.objMake.MakeName, bike.objModel.ModelName);
@@ -101,7 +101,7 @@
                         <div class="carousel__title">
                             <h2 class="page__heading-h2">Explore @Model.MakeName Bike Series</h2>
                         </div>
-                        @Html.Partial("~/Views/BikeSeries/_MakeSeriesSlug_Mobile_New.cshtml", Model.SeriesLinkages)
+                        @Html.Partial("~/UI/Views/BikeSeries/_MakeSeriesSlug_Mobile_New.cshtml", Model.SeriesLinkages)
                     </div>
                 </section>
             }
@@ -110,7 +110,7 @@
             {
                 <section>
                     <div style="margin-bottom: 20px">
-                        @{Html.RenderPartial("/Views/Shared/Ads/Mobile/AdSlotGeneric.cshtml", Model.AdSlots[String.Format("{0}-1", Model.AdTags.AdId)]);}
+                        @{Html.RenderPartial("/UI/Views/Shared/Ads/Mobile/AdSlotGeneric.cshtml", Model.AdSlots[String.Format("{0}-1", Model.AdTags.AdId)]);}
                     </div>
                 </section>
             }
@@ -125,7 +125,7 @@
                                 View all
                             </a>
                         </div>
-                        @Html.Partial("~/Views/Upcoming/_UpcomingBikesWithNotify_Mobile.cshtml", Model.UpcomingBikes)
+                        @Html.Partial("~/UI/Views/Upcoming/_UpcomingBikesWithNotify_Mobile.cshtml", Model.UpcomingBikes)
                     </div>
                 </section>
             }
@@ -145,7 +145,7 @@
 
                             <div class="swiper-container comparison-swiper card-container">
                                 <div class="swiper-wrapper">
-                                    @Html.Partial("~/Views/CompareBikes/_SimilarComparisons_Mobile_V1.cshtml", Model.CompareSimilarBikes)
+                                    @Html.Partial("~/UI/Views/CompareBikes/_SimilarComparisons_Mobile_V1.cshtml", Model.CompareSimilarBikes)
                                 </div>
                             </div>
                         </div>
@@ -170,7 +170,7 @@
                         <p>Please enter your email ID</p>
                     </div>
                     <div class="form-field__content">
-                        <input type="text" id="notifyEmailField" class="form-control form-field__input" placeholder="Enter your email id">
+                        <input type="text" id="notifyEmailField" class="form-control form-field__input" placeholder="Enter your email id" aria-label="Enter your email id">
                         <button type="button" id="notifySubmitBtn" class="btn btn-orange form-field__submit-btn" data-bikename="" data-makeid="" data-modelid="">Submit</button>
                         <p class="field__error-message"></p>
                     </div>
@@ -235,7 +235,7 @@
                                 </span>
                             </p>
                             <div class="swiper-container carousel__dealer-in-city" data-spacebetween="0">
-                                @Html.Partial("~/Views/DealerShowroom/_NewDealerShowroomWithCount.cshtml", Model.Dealers)
+                                @Html.Partial("~/UI/Views/DealerShowroom/_NewDealerShowroomWithCount.cshtml", Model.Dealers)
                             </div>
                         }
                         else if (Model.DealersServiceCenterPopularCities != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters != null && Model.DealersServiceCenterPopularCities.DealerServiceCenters.TotalDealerCount > 0)
@@ -254,7 +254,7 @@
                             </p>
 
                             <div class="swiper-container carousel__dealer-by-city" data-spacebetween="0">
-                                @Html.Partial("~/Views/PopularCityWidget/_DealerInPopularCity_Mobile.cshtml", Model.DealersServiceCenterPopularCities)
+                                @Html.Partial("~/UI/Views/PopularCityWidget/_DealerInPopularCity_Mobile.cshtml", Model.DealersServiceCenterPopularCities)
                             </div>
                         }
 
@@ -276,7 +276,7 @@
                         </div>
 
                         <div class="swiper-container carousel__editorial" data-spacebetween="0">
-                            @Html.Partial("~/Views/News/_RecentNews_Mobile_New.cshtml", Model.News)
+                            @Html.Partial("~/UI/Views/News/_RecentNews_Mobile_New.cshtml", Model.News)
                         </div>
                     </div>
                 </section>
@@ -286,7 +286,7 @@
             {
                 <section>
                     <div style="margin-bottom: 20px">
-                        @{Html.RenderPartial("/Views/Shared/Ads/Mobile/AdSlotGeneric.cshtml", Model.AdSlots[String.Format("{0}-2", Model.AdTags.AdId)]);}
+                        @{Html.RenderPartial("/UI/Views/Shared/Ads/Mobile/AdSlotGeneric.cshtml", Model.AdSlots[String.Format("{0}-2", Model.AdTags.AdId)]);}
                     </div>
                 </section>
             }
@@ -309,7 +309,7 @@
                                     </a>
                                 </div>
 
-                                @Html.Partial("~/Views/ExpertReviews/_RecentExpertReviews_Mobile_New.cshtml", Model.ExpertReviews)
+                                @Html.Partial("~/UI/Views/ExpertReviews/_RecentExpertReviews_Mobile_New.cshtml", Model.ExpertReviews)
 
                             </section>
                         }
@@ -325,7 +325,7 @@
                                             View all
                                         </a>
                                     </div>
-                                    @Html.Partial("~/Views/UserReview/BikesWithReviewsByMake_Mobile_New.cshtml", Model.PopularBikesUserReviews)
+                                    @Html.Partial("~/UI/Views/UserReview/BikesWithReviewsByMake_Mobile_New.cshtml", Model.PopularBikesUserReviews)
                                 </div>
                             </section>
                         }
@@ -343,7 +343,7 @@
                                 View all
                             </a>
                         </div>
-                        @Html.Partial("~/Views/Photos/_ImageCaraousel_Mobile.cshtml", Model.BikeModelsPhotos)
+                        @Html.Partial("~/UI/Views/Photos/_ImageCaraousel_Mobile.cshtml", Model.BikeModelsPhotos)
                     </div>
                 </section>
 
@@ -356,7 +356,7 @@
                         <div class="carousel__title">
                             <h2 class="page__heading-h2 carousel-title__label">@Model.MakeName Videos</h2>
                         </div>
-                        @Html.Partial("~/Views/Videos/_LazyLoadVideos_Mobile.cshtml", Model.Videos)
+                        @Html.Partial("~/UI/Views/Videos/_LazyLoadVideos_Mobile.cshtml", Model.Videos)
                         <div class="video-list__more-btn-content">
                             <a href="@string.Format("/m{0}", Model.Videos.MoreVideoUrl)" title="@Model.Videos.LinkTitle" class="btn btn-inv-blue">View all</a>
                         </div>
@@ -377,7 +377,7 @@
                             </a>
                         </div>
                         <div class="swiper-container carousel__related-makes" data-spacebetween="0">
-                            @Html.Partial("~/Views/Make/_OtherBrand_New.cshtml", Model.OtherMakes)
+                            @Html.Partial("~/UI/Views/Make/_OtherBrand_New.cshtml", Model.OtherMakes)
 
                         </div>
                     </div>
@@ -413,11 +413,11 @@
     {
         <section>
             <div style="margin-bottom: 20px">
-                @{Html.RenderPartial("/Views/Shared/Ads/Mobile/AdSlotGeneric.cshtml", Model.AdSlots[String.Format("{0}-0", Model.AdTags.AdId)]);}
+                @{Html.RenderPartial("/UI/Views/Shared/Ads/Mobile/AdSlotGeneric.cshtml", Model.AdSlots[String.Format("{0}-0", Model.AdTags.AdId)]);}
             </div>
         </section>
     }
-    @Html.Partial("~/Views/NewBikeSearch/_NewBikeSearchPopup_Mobile.cshtml", Model.NewBikeSearchPopup);
+    @Html.Partial("~/UI/Views/NewBikeSearch/_NewBikeSearchPopup_Mobile.cshtml", Model.NewBikeSearchPopup);
 }
 <script type="text/javascript">
     docReady(function () {

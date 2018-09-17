@@ -13,7 +13,7 @@
 				@foreach (var minSpec in minSpecsList)
 				{
 					<li>
-                        <img src="@minSpec.Icon" width="22" height="20" class="inline-block margin-right5 margin-bottom5">
+                        <img src="@minSpec.Icon" width="22" height="20" class="inline-block margin-right5 margin-bottom5" alt="@Model.BikeName @minSpec.Name" title="@Model.BikeName @minSpec.Name">
 						<p class="font12 text-light-grey">
 							@Bikewale.Utility.FormatMinSpecs.ShowAvailable(minSpec.Value, minSpec.UnitType, minSpec.DataType, minSpec.Id)
 						</p>

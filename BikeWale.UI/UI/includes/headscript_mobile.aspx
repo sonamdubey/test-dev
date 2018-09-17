@@ -25,7 +25,7 @@
 <link rel="next" href="<%= relNextPageUrl %>" /><% }%>
 <link rel="SHORTCUT ICON" href="https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/favicon.png"  type="image/png"/>
 <%
-            string fontFile = "/css/fonts/OpenSans/open-sans-v15-latin-regular.woff",
+            string fontFile = "/UI/css/fonts/OpenSans/open-sans-v15-latin-regular.woff",
             fontUrl = String.Format("{0}{1}?{2}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, fontFile, Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion);
         %>
         <style>
@@ -38,7 +38,7 @@
         </style>
         
         <%  
-            fontFile = "/css/fonts/OpenSans/open-sans-v15-latin-700.woff";
+            fontFile = "/UI/css/fonts/OpenSans/open-sans-v15-latin-700.woff";
             fontUrl  = String.Format("{0}{1}?{2}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, fontFile, Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion); 
         %>
         <style>
@@ -51,7 +51,8 @@
         </style>
 
 
-<link href="/m/css/bwm-common-style.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
+<link href="/UI/m/css/bwm-common-style.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
+<link rel='stylesheet' type='text/css' href='/UI/m/css/bwm-doodle.css'/>
 
 <%if (EnableOG)
   { %>
@@ -63,11 +64,11 @@
 <% } %>
 
 
-<script type="text/javascript" src="<%= staticUrl  %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
+<script type="text/javascript" src="<%= staticUrl  %>/UI/m/src/frameworks.js?<%= staticFileVersion %>"></script>
 <script type="text/javascript">
    var ga_pg_id = '0';    
 </script>
-<!-- #include file="\includes\gacode.aspx" -->
+<!-- #include file="\UI\includes\gacode.aspx" -->
 <script type='text/javascript'>
     var googletag = googletag || {};
     googletag.cmd = googletag.cmd || [];
@@ -109,5 +110,5 @@
 
 <!-- for IE to understand the new elements of HTML5 like header, footer, section and so on -->
 <!--[if lt IE 9]>
-    <script src="/m/src/html5.js"></script>
+    <script src="/UI/m/src/html5.js"></script>
 <![endif]-->

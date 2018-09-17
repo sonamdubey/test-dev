@@ -35,6 +35,16 @@ namespace Bikewale.Models.BikeModels
     /// Description: Added AskQuestionPopupVM
     /// Modified by : Rajan Chauhan on 6 July 2018
     /// Description : Added EMISliderAMP and JSONEMISlider for handling AMP
+    /// Modified by : Rajan Chauhan on 10 August 2018
+    /// Description : Added IsManufacturerCampaignPresent flag for campaign tracking
+    /// Modified by : Sanjay George on 07 Sept 2018
+    /// Description : Added IsNewCitySVG flag for showing new SVG icon in location selector
+    /// Modified by : Monika Korrapati on 07 Sept 2018
+    /// Description : Added IsEditCityOption flag for showing edit city option in price text
+    /// Modified by : Sanjay George on 10 Sept 2018
+    /// Description : Added IsAnimatedCTA flag for floating animated CTA for Manufacturer Campaigns
+    /// Modified By : Rajan Chauhan on 14 September 2018
+    /// Description : Added IsNearlyAllIndiaCampaign for nearly all india campaign experiment and IsNearByDealerCTA
     /// </summary>
     public class ModelPageVM : ModelBase
     {
@@ -131,6 +141,8 @@ namespace Bikewale.Models.BikeModels
         public string ReturnUrl { get; set; }
         public bool HasCityPricing { get; set; }
         public Bikewale.Entities.manufacturecampaign.v2.ManufactureCampaignLeadEntity LeadCampaign { get; set; }
+        // flag introduced for tracking whether ManufacturerCampaignPresent
+        public bool IsManufacturerCampaignPresent { get; set; }
         public bool IsManufacturerLeadAdShown { get; set; }
         public bool IsManufacturerTopLeadAdShown { get; set; }
         public ManufactureCampaignEMIEntity EMICampaign { get; set; }
@@ -164,6 +176,13 @@ namespace Bikewale.Models.BikeModels
         public AskQuestionPopupVM AskQuestionPopup { get; set; }
         public EMISliderAMP EMISliderAMP { get; set; }
         public string JSONEMISlider { get; set; }
+
+        // for AB TEST
+        public bool IsNewCitySVG { get; set; }
+        public bool IsEditCityOption { get; set; }
+        public bool IsAnimatedCTA { get; set; }
+        public bool IsNearlyAllIndiaCampaign { get; set; }
+        public bool IsNearByDealerCTA { get; set; } 
     }
 
 }

@@ -4,14 +4,14 @@
 @if (Model != null)
 {
     {
-        Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/authors.css' inline />";
+        Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/UI/css/authors.css' inline />";
         Model.AdTags.AdPath = "/1017752/BikeWale_News_";
         Model.AdTags.AdId = "1395995626568";
         Model.AdTags.Ad_300x250 = true;
         Model.AdTags.Ad_970x90 = true;
         Model.AdTags.Ad_970x90Bottom = true;
         Model.IsHeaderFix = true;
-        Layout = "~/Views/Shared/_Layout.cshtml";
+        Layout = "~/UI/Views/Shared/_Layout.cshtml";
     }
     <section class="container padding-top10">
         <div class="grid-12">
@@ -74,10 +74,10 @@
             <div class="grid-4 omega">
                 @if (Model.ArticlesList != null)
                 {
-                    @Html.Partial("~/Views/News/_RecentNewsWidget.cshtml", Model.ArticlesList)
+                    @Html.Partial("~/UI/Views/News/_RecentNewsWidget.cshtml", Model.ArticlesList)
                 }
                 <div class="margin-bottom20">
-                    @Html.Partial("~/Views/Shared/Ads/Desktop/Ad300x250.cshtml", Model.AdTags)
+                    @Html.Partial("~/UI/Views/Shared/Ads/Desktop/Ad300x250.cshtml", Model.AdTags)
                 </div>
             </div>
         </div>

@@ -12,7 +12,7 @@ namespace Bikewale.Entities.UserProfile
     /// </summary>
     public enum UserProfileKeysEnum
     {
-        #region the order of this list should be in sync with the service call in `Bikewale.BAL.ApiGateway.Adapters.UserProfile.GetUserProfileAdapter.BuildRequest()`
+        #region the order of this list should be in sync with the service call in `Bikewale.BAL.ApiGateway.Adapters.Bhrigu.GetUserProfileAdapter.BuildRequest()`
         BikeType,
         ModelsList,
         BodyStyleList,

@@ -43,7 +43,7 @@ namespace Bikewale.DAL.Customer
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_customercityid", DbType.Int32, String.IsNullOrEmpty(t.cityDetails.CityId.ToString()) ? Convert.DBNull : t.cityDetails.CityId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_passwordsalt", DbType.String, 10, t.PasswordSalt));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_passwordhash", DbType.String, 64, t.PasswordHash));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_clientip", DbType.String, 40, string.IsNullOrEmpty(t.ClientIP) ? Convert.DBNull : t.ClientIP));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_clientip", DbType.String, 40, CurrentUser.GetClientIP()));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbType.Int64, ParameterDirection.Output));
                     MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
                     customerId = (U)Convert.ChangeType(cmd.Parameters["par_customerid"].Value, typeof(U));

@@ -8,7 +8,7 @@
     AdId = "1398766302464";
     menu = "10";
 %>
-<!-- #include file="/includes/headermobile.aspx" -->
+<!-- #include file="/UI/includes/headermobile.aspx" -->
 <style>
     .pad5 {padding:5px;}
     .borBot{border-bottom:1px solid #b3b4c6;padding-bottom:10px;}
@@ -37,5 +37,5 @@
         </div>
         <%} %>
     </div>
-<!-- #include file="/includes/footermobile.aspx" -->
+<!-- #include file="/UI/includes/footermobile.aspx" -->
 

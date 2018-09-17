@@ -1,9 +1,9 @@
 ﻿@model Bikewale.Models.Videos.VideosByCategoryPageVM
 
 @{
-    Model.Page_JS_Path = "/src/Videos/videoByCategory.js";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/video/VideosByCategory.css' inline />";
+    Model.Page_JS_Path = "/UI/src/Videos/videoByCategory.js";
+    Layout = "~/UI/Views/Shared/_Layout.cshtml";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/UI/css/video/VideosByCategory.css' inline />";
     Model.PageMetaTags.CanonicalUrl = string.Format("https://www.bikewale.com/bike-videos/category/{0}-{1}/", Model.CanonicalTitle, Model.CategoryId.Replace(',', '-'));
 }
 

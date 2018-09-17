@@ -1,4 +1,5 @@
 ﻿@model Bikewale.Models.BikeModels.ModelPageVM
+@using Bikewale.Entities.BikeBooking
 
 <div id="dealerDetailsWrapper" class="border-solid-top">
 
@@ -8,21 +9,19 @@
             <h3 class="dealer-details__name">@Model.DealerDetails.Organization</h3>
 
             <p class="dealer-details__description">@(!Model.DealerDetails.IsDSA ? "Authorized Dealer in " : "Multi-brand Dealer in ")@Model.DealerArea</p>
-
-            @if (Model.DealerDetails.IsDSA)
-            {
-                <div class="bw-tooltip multi-brand-tooltip tooltip-left">
-                    <p class="bw-tooltip-text position-rel font14">This dealer sells bikes of multiple brands.<br />Above price is not final and may vary at the dealership.</p>
-                    <span class="position-abt pos-top10 pos-right10 bwsprite cross-sm-dark-grey cur-pointer close-bw-tooltip"></span>
-                </div>
-
-            }
         </div>
         @if (!string.IsNullOrEmpty(Model.DealerDetails.MaskingNumber))
         {
             <div class="dealer-details__contact">
                 <span class="bwsprite phone-md margin-right5"></span>
                 <span class="font16 text-bold"><span class="text-grey">+91 </span>@Model.DealerDetails.MaskingNumber</span>
+            </div>
+        }
+        @if (Model.DealerDetails.IsDSA)
+        {
+            <div class="bw-tooltip multi-brand-tooltip tooltip-left">
+                <p class="bw-tooltip-text position-rel font14">This dealer sells bikes of multiple brands.<br />Above price is not final and may vary at the dealership.</p>
+                <span class="position-abt pos-top10 pos-right10 bwsprite cross-sm-dark-grey cur-pointer close-bw-tooltip"></span>
             </div>
         }
     </div>
@@ -121,7 +120,7 @@
                 </div>
 
           
-                <a class="btn btn-teal assistance-submit-btn btn-188-40" data-leadsourceid="13" data-versionid="@Model.VersionId" data-modelid="@Model.ModelId" data-item-id="@Model.DealerDetails.DealerId" data-item-name="@Model.DealerDetails.Organization" data-item-area="@Model.DealerArea" data-isleadpopup="false" id="assistFormSubmit" data-bind="event: { click: HiddenSubmitLead }">Get assistance</a>
+                <a class="btn btn-teal assistance-submit-btn btn-188-40" data-leadsourceid=@Convert.ToInt16(LeadSourceEnum.ModelPage_TopCard_Desktop) data-campaignid="@Model.DealerDetails.CampaignId" data-versionid="@Model.VersionId" data-modelid="@Model.ModelId" data-item-id="@Model.DealerDetails.DealerId" data-item-name="@Model.DealerDetails.Organization" data-item-area="@Model.DealerArea" data-isleadpopup="false" id="assistFormSubmit" data-bind="event: { click: HiddenSubmitLead }">Get assistance</a>
                 <p class="margin-bottom10 text-left">By proceeding ahead, you agree to BikeWale <a title="Visitor agreement" href="/visitoragreement.aspx" target="_blank" rel="noopener">visitor agreement</a> and <a title="Privacy policy" href="/privacypolicy.aspx" target="_blank" rel="noopener">privacy policy</a>.</p>
             </div>
         </div>

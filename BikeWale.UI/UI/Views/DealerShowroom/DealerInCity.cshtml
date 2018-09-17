@@ -1,8 +1,9 @@
 ﻿@model  Bikewale.Models.DealerShowroomCityPageVM
+@using Bikewale.Entities.BikeBooking;
 @{
-    Layout = "~/Views/Shared/_Layout.cshtml";
-	Model.Page_JS_Path = "/src/dealer/listing.js";
-	Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/dealer/listing.css' inline /> <link rel='stylesheet' type='text/css' href='/css/components/brand-logo.css' inline />";
+    Layout = "~/UI/Views/Shared/_Layout.cshtml";
+	Model.Page_JS_Path = "/UI/src/dealer/listing.js";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/UI/css/dealer/listing.css' inline /> <link rel='stylesheet' type='text/css' href='/UI/css/components/brand-logo.css' inline /> <link rel='stylesheet' type='text/css' href='/UI/sass/partials/lead-popup.css' inline /><link rel='stylesheet' type='text/css' href='/UI/sass/partials/desktop-lead-popup.css' inline />";
     Model.PageMetaTags.CanonicalUrl = String.Format("https://www.bikewale.com/dealer-showrooms/{0}/{1}/", Model.Make.MaskingName, Model.CityDetails.CityMaskingName);
     Model.PageMetaTags.AlternateUrl = String.Format("https://www.bikewale.com/m/dealer-showrooms/{0}/{1}/", Model.Make.MaskingName, Model.CityDetails.CityMaskingName);
     Model.AdTags.AdId = "1516179171948";
@@ -41,7 +42,7 @@
                         <span class="edit-blue-link" data-lab="" id="brandSelect"><span class="bwsprite edit-blue text-link"></span> <span class="change text-link">change</span></span>
                         @if (Model.BrandCityPopUp != null)
                         {
-                            @Html.Partial("~/Views/Make/_BrandCityPopup.cshtml", Model.BrandCityPopUp)
+                            @Html.Partial("~/UI/Views/Make/_BrandCityPopup.cshtml", Model.BrandCityPopUp)
                         }
 
                     </div>
@@ -51,7 +52,7 @@
                     <ul id="dealersList">
                         @foreach (var Details in Model.DealersList.Dealers)
                         {
-                            <li @(Details.IsFeatured ? "class=dealer-card__featured" : "class=dealer-card-target") data-item-type="@Details.DealerType" data-isfeatured="@(Details.IsFeatured ? 1 : 0)" data-item-id="@Details.DealerId" data-item-inquired="false" data-item-number="@Details.MaskingNumber" data-lat="@Details.objArea.Latitude" data-log="@Details.objArea.Longitude" data-address="@Details.Address" data-campid="@Details.CampaignId" data-item-url="@Bikewale.Utility.UrlFormatter.RemoveSpecialCharUrl(Details.Name)" data-dealername="@Details.Name">
+                            <li @(Details.IsFeatured ? "class=dealer-card__featured" : "class=dealer-card-target") data-item-type="@Details.DealerType" data-isfeatured="@(Details.IsFeatured ? 1 : 0)" data-item-id="@Details.DealerId" data-item-inquired="false" data-item-number="@Details.MaskingNumber" data-lat="@Details.objArea.Latitude" data-log="@Details.objArea.Longitude" data-address="@Details.Address" data-campaignid="@Details.CampaignId" data-item-url="@Bikewale.Utility.UrlFormatter.RemoveSpecialCharUrl(Details.Name)" data-dealername="@Details.Name">
                                 <a href=@(Details.IsFeatured ? string.Format("/dealer-showrooms/{0}/{1}/{2}-{3}/", Model.Make.MaskingName, Model.CityDetails.CityMaskingName, Bikewale.Utility.UrlFormatter.RemoveSpecialCharUrl(Details.Name), Details.DealerId) : "javascript:void(0)") class="dealer-details__target" rel="nofollow" title="@Details.Name">
                                     @if (Details.IsFeatured)
                                     {
@@ -95,7 +96,7 @@
                                 @if (Details.IsFeatured)
                                 {
                                     <div class="dealer__get-offers">
-                                        <a id="dealerLead" data-clientip="@Bikewale.Common.CommonOpn.GetClientIP()" data-item-id="@Details.DealerId" href="Javascript:void(0)" data-leadsourceid="14" data-item-name="@Details.Name" data-item-area="@Details.objArea.AreaName" data-areaname="@Details.objArea.AreaName" data-cityname="@Model.CityDetails.CityName" data-campid="@Details.CampaignId" data-pqsourceid="@((int)Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_DealerLocator_GetOfferButton)" data-eventcategory="Dealer_Locator" class="btn btn-white btn-full-width font14 leadcapturebtn bw-ga" data-cat="Dealer_Locator" data-act="Get_Offers_Clicked" data-lab="@Details.GetOffersGALabel">@Details.DisplayTextLarge</a>
+                                        <a id="dealerLead" data-clientip="@Bikewale.Common.CommonOpn.GetClientIP()" data-item-id="@Details.DealerId" href="Javascript:void(0)" data-leadsourceid=@Convert.ToInt16(LeadSourceEnum.DealersShowroomList_LeadForm_Desktop) data-item-name="@Details.Name" data-item-area="@Details.objArea.AreaName" data-campaignid="@Details.CampaignId" data-areaname="@Details.objArea.AreaName" data-cityname="@Model.CityDetails.CityName" data-campaignid="@Details.CampaignId" data-pqsourceid="@((int)Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_DealerLocator_GetOfferButton)" data-eventcategory="Dealer_Locator" class="btn btn-white btn-full-width font14 leadcapturebtn bw-ga" data-cat="Dealer_Locator" data-act="Get_Offers_Clicked" data-lab="@Details.GetOffersGALabel">@Details.DisplayTextLarge</a>
                                     </div>
                                 }
                                 else
@@ -140,14 +141,14 @@
 
                             <div class="grid-5 omega inline-block padding-top20 text-right">
                                 <a href="javascript:void(0)" id="changeCity" data-makemasking="@Model.Make.MaskingName" class="btn changepriceincitypage btn-orange btn-200-32 " rel="nofollow">Select your city</a>
-                                @Html.Partial("~/Views/PopUp/BikeCityPopup.cshtml", @Model.BikeCityPopup)
+                                @Html.Partial("~/UI/Views/PopUp/BikeCityPopup.cshtml", @Model.BikeCityPopup)
                             </div>
                             <div class="clear"></div>
                         </div>
                         <div class="margin-right20 margin-bottom20 margin-left20 border-solid-bottom"></div>
                         <h3 class="margin-right20 margin-bottom20 margin-left20">@Model.Make.MakeName showrooms in popular cities</h3>
                         <div class="jcarousel-grid-8">
-                            @Html.Partial("~/Views/PopularCityWidget/DealerServiceCenterInTopCityWidget.cshtml", Model.DealersServiceCenterPopularCities)
+                            @Html.Partial("~/UI/Views/PopularCityWidget/DealerServiceCenterInTopCityWidget.cshtml", Model.DealersServiceCenterPopularCities)
                         </div>
                     </div>
                 </section>
@@ -171,7 +172,7 @@
                             <div class="clear"></div>
                         </div>
                         <div class="jcarousel-grid-8">
-                            @Html.Partial("~/Views/Make/_BrandsModelCount.cshtml", Model.SimilarBrandsByCity)
+                            @Html.Partial("~/UI/Views/Make/_BrandsModelCount.cshtml", Model.SimilarBrandsByCity)
                         </div>
                     </div>
                 </section>
@@ -195,7 +196,7 @@
                 if (Model.AdTags.Ad_Model_ATF_300x250)
                 {
                     <section class="section-bottom-margin" >
-                        @{Html.RenderPartial("/Views/Shared/Ads/Desktop/Model_ATF_300x250.cshtml", new { AdId = Model.AdTags.AdId });}
+                        @{Html.RenderPartial("/UI/Views/Shared/Ads/Desktop/Model_ATF_300x250.cshtml", new { AdId = Model.AdTags.AdId });}
                     </section>
                 }
             }
@@ -208,7 +209,7 @@
                         <h2 class="sidebar-list-heading">Popular @Model.Make.MakeName Bikes</h2>
 
                         <div class="sidebar-list--overflow">
-                                @Html.Partial("~/Views/BikeModels/_MostPopularBikesSideBar.cshtml", Model.PopularBikes)
+                                @Html.Partial("~/UI/Views/BikeModels/_MostPopularBikesSideBar.cshtml", Model.PopularBikes)
                         </div>
 
                         <div class="view-all-btn-container padding-10-20-20">
@@ -220,7 +221,7 @@
                 if (Model.AdTags.Ad_Model_BTF_300x250)
                 {
                     <section class="section-bottom-margin">
-                        @{Html.RenderPartial("/Views/Shared/Ads/Desktop/Model_BTF_300x250.cshtml", new { AdId = Model.AdTags.AdId });}
+                        @{Html.RenderPartial("/UI/Views/Shared/Ads/Desktop/Model_BTF_300x250.cshtml", new { AdId = Model.AdTags.AdId });}
                     </section>
                 }
 
@@ -231,7 +232,7 @@
 
                 <div class="content-box-shadow section-bottom-margin">
                     <h2 class="sidebar-list-heading">Research More</h2>
-                    @Html.Partial("~/Views/Make/ResearchMoreAboutMake.cshtml", Model.ResearchMoreMakeWidget)
+                    @Html.Partial("~/UI/Views/Make/ResearchMoreAboutMake.cshtml", Model.ResearchMoreMakeWidget)
                 </div>
             }
 
@@ -243,7 +244,7 @@
 
 @if (Model.LeadCapture != null)
 {
-    @Html.Partial("~/Views/Shared/_LeadCapture.cshtml", Model.LeadCapture)
+    @Html.Partial("~/UI/Views/Shared/_LeadCapture.cshtml", Model.LeadCapture)
 }
 
 <section>
@@ -257,7 +258,7 @@
     </div>
 </section>
 
-@Html.Partial("~/Views/Make/_BrandCityPopup.cshtml", Model.BrandCityPopupWidget)
+@Html.Partial("~/UI/Views/Make/_BrandCityPopup.cshtml", Model.BrandCityPopupWidget)
 @{Html.RenderAction("ChangeLocation", "Location", new { cityId = Model.CityDetails.CityId, cityName = Model.CityDetails.CityName });}
 
 <script type="text/javascript">

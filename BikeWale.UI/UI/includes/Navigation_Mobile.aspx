@@ -1,4 +1,4 @@
-﻿<%@ Register Src="~/m/controls/LogInOutControl.ascx" TagPrefix="BW" TagName="Login" %>
+﻿<%@ Register Src="~/UI/m/controls/LogInOutControl.ascx" TagPrefix="BW" TagName="Login" %>
 
 <nav id="nav">
     <!-- nav code starts here -->

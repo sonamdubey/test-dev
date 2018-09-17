@@ -1,6 +1,6 @@
 ﻿<% if(isAd970x90Shown){ %>
 <section>
-        <!-- #include file="/ads/Ad970x90_Bottom.aspx" -->
+        <!-- #include file="/UI/ads/Ad970x90_Bottom.aspx" -->
 </section>
 <% } %>
         <!--footer code start here -->

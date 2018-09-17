@@ -3,8 +3,8 @@
 <% //modified by SajalGupta for unfilled impression of ads on 04 Aug 2016.
     isAd300x250Shown = false;
     isAd300x250_BTFShown = false; %>
-<!-- #include file="/includes/headNew.aspx" -->
-<script type="text/javascript" src="/src/new/search.js?v=1.1"></script>
+<!-- #include file="/UI/includes/headNew.aspx" -->
+<script type="text/javascript" src="/UI/src/new/search.js?v=1.1"></script>
 <style type="text/css">
     .sel_parama{border:1px solid #DFDFDF; color:#445566!important; padding:1px 1px 1px 5px; margin:3px; display:inline-block; text-decoration:none!important; border-radius:3px; cursor:pointer;}
     .sel_parama span{background-color:#DFDFDF; color:#445566; padding:0 3px; margin-left:5px; cursor:pointer;}
@@ -106,4 +106,4 @@
          $("#divSelectedCriteria").hide();
      }
  </script>
-<!-- #include file="/includes/footerInner.aspx" -->
+<!-- #include file="/UI/includes/footerInner.aspx" -->

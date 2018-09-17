@@ -16,16 +16,16 @@
         isAd300x250Shown = false;
         isAd300x250BTFShown = false;
          %>
-    <!-- #include file="/includes/headscript.aspx" -->
-    <link href="<%= staticUrl  %>/css/home.css?<%= staticFileVersion%>" rel="stylesheet" type="text/css"/>
-    <link href="<%= staticUrl  %>/css/insurance.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css"/>
-    <link href="<%= staticUrl  %>/css/pikaday.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css"/>    
+    <!-- #include file="/UI/includes/headscript.aspx" -->
+    <link href="<%= staticUrl  %>/UI/css/home.css?<%= staticFileVersion%>" rel="stylesheet" type="text/css"/>
+    <link href="<%= staticUrl  %>/UI/css/insurance.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css"/>
+    <link href="<%= staticUrl  %>/UI/css/pikaday.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css"/>    
         
     <%  isTransparentHeader = true;   %>
 </head>
 <body class="bg-light-grey">
     <form id="form1" runat="server">
-        <!-- #include file="/includes/headBW.aspx" -->
+        <!-- #include file="/UI/includes/headBW.aspx" -->
         <div class="clear"></div>
         <header class="insurance-top-banner">    	
             <div class="container">
@@ -280,11 +280,11 @@
         </div>
         <div class="clear"></div>
     </section>
-        <!-- #include file="/includes/footerBW.aspx" -->
-        <!-- #include file="/includes/footerscript.aspx" -->
-    <script type="text/javascript" src="<%= staticUrl %>/src/home.js?<%= staticFileVersion %>"></script>
-    <script type="text/javascript" src="<%= staticUrl %>/src/insurance.js?<%= staticFileVersion %>"></script>
-    <script type="text/javascript" src="<%= staticUrl %>/src/pikaday.js?<%= staticFileVersion %>"></script>
+        <!-- #include file="/UI/includes/footerBW.aspx" -->
+        <!-- #include file="/UI/includes/footerscript.aspx" -->
+    <script type="text/javascript" src="<%= staticUrl %>/UI/src/home.js?<%= staticFileVersion %>"></script>
+    <script type="text/javascript" src="<%= staticUrl %>/UI/src/insurance.js?<%= staticFileVersion %>"></script>
+    <script type="text/javascript" src="<%= staticUrl %>/UI/src/pikaday.js?<%= staticFileVersion %>"></script>
         <script type="text/javascript">
             var picker = new Pikaday({
                 field: document.getElementById('bikeRegistrationDate')

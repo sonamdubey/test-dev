@@ -1,6 +1,6 @@
 ﻿<%@ Page Language="C#" %>
 <% Response.StatusCode = 404 ;%>
-<!-- #include file="/includes/headermobile_noad.aspx" -->
+<!-- #include file="/UI/includes/headermobile_noad.aspx" -->
 <style>
 	h1 
 	{ 
@@ -27,4 +27,4 @@
         </div>		
 		<div class="new-line10">Please try visiting the page again within few minutes.</div>
     </div>
-<!-- #include file="/includes/footermobile_noad.aspx" -->
+<!-- #include file="/UI/includes/footermobile_noad.aspx" -->

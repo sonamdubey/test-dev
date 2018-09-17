@@ -1,9 +1,9 @@
 ﻿@model  Bikewale.Models.DealerShowroomIndiaPageVM
 
 @{
-    Layout = "~/Views/Shared/_Layout.cshtml";
-	Model.Page_JS_Path = "/src/dealer/location.js";
-	Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/dealer/location.css' inline /> <link rel='stylesheet' type='text/css' href='/css/components/brand-logo.css' inline />";
+    Layout = "~/UI/Views/Shared/_Layout.cshtml";
+	Model.Page_JS_Path = "/UI/src/dealer/location.js";
+	Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/UI/css/dealer/location.css' inline /> <link rel='stylesheet' type='text/css' href='/UI/css/components/brand-logo.css' inline />";
     Model.AdTags.Ad_970x90Top = true;
     Model.AdTags.Ad_970x90Bottom = true;
     Model.AdTags.AdId = "1516179171948";
@@ -90,7 +90,7 @@
                 <div class="content-box-shadow padding-top20 padding-bottom20">
                     <h2 class="font18 padding-bottom20 padding-left20">Find showroom for other brands</h2>
 
-                    @Html.Partial("~/Views/DealerShowroom/_DealersByBrand.cshtml", Model.AllDealers)
+                    @Html.Partial("~/UI/Views/DealerShowroom/_DealersByBrand.cshtml", Model.AllDealers)
                 </div>
             </div>
             <div class="clear"></div>
@@ -116,7 +116,7 @@
                             </div>
                             <div class="clear"></div>
                         </div>
-                        @Html.Partial("~/Views/NewLaunches/_NewLaunches.cshtml", Model.NewLaunchedBikes)
+                        @Html.Partial("~/UI/Views/NewLaunches/_NewLaunches.cshtml", Model.NewLaunchedBikes)
 
 
 
@@ -134,7 +134,7 @@
                             <div class="clear"></div>
                         </div>
                         <div class="padding-top20 ">
-                            @Html.Partial("~/Views/Upcoming/_UpcomingBikes.cshtml", Model.objUpcomingBikes)
+                            @Html.Partial("~/UI/Views/Upcoming/_UpcomingBikes.cshtml", Model.objUpcomingBikes)
                         </div>
 
 
@@ -154,7 +154,7 @@
                             <div class="clear"></div>
                         </div>
                         <div class="padding-top20 padding-bottom20">
-                            @Html.Partial("~/Views/Used/_UsedBikesByModel.cshtml", Model.UsedBikeModel)
+                            @Html.Partial("~/UI/Views/Used/_UsedBikesByModel.cshtml", Model.UsedBikeModel)
                         </div>
 
 
@@ -167,4 +167,4 @@
     </section>
 }
 <script defer src="@string.Format("https://maps.googleapis.com/maps/api/js?key={0}&libraries=places",Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey)"></script>
-<script defer type="text/javascript" src="@String.Format("{0}/src/new/markerwithlabel.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl,Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion)"></script>
+<script defer type="text/javascript" src="@String.Format("{0}/UI/src/new/markerwithlabel.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl,Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion)"></script>

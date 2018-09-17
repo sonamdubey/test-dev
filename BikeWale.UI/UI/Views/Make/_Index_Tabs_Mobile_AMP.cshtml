@@ -2,73 +2,69 @@
 @if (Model != null)
 {
     string mobileUrl = string.Format("{0}/m/{1}-bikes/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, Model.MakeMaskingName);
+    <amp-state id="scrollTab">
+        <script type="application/json">
+            {
+                "activeTabId": 0
+            }
+        </script>
+    </amp-state>
     
         <div id="overallSpecsTab" class="overall-specs-tabs-container">
             <ul class="overall-specs-tabs-wrapper">
-                @{
-                    bool IsActive = true;
-                }
-
+               
                 @if (Model.BikeDescription != null && Model.BikeDescription.FullDescription.Length > 0)
                 {
-                    <li class="bw-makepage-tabs-ga @(IsActive ? "active":"")">
-                        <a href="@string.Format("{0}#makeAboutContent", mobileUrl)">About</a>
+                    <li class="bw-makepage-tabs-ga active" [class]="(scrollTab.activeTabId== 0)? 'bw-makepage-tabs-ga active':'bw-makepage-tabs-ga'" role="button" tabindex="0" on="tap: makeAboutContent.scrollTo(duration = 200), AMP.setState({ scrollTab: {activeTabId: 0} })">
+                        <a>About</a>
                     </li>
-                    {IsActive = false;}
                 }
                 @if (Model.Bikes != null && Model.Bikes.Any())
                 {
-                    <li class="bw-makepage-tabs-ga @(IsActive ? "active":"")">
-                        <a href="@string.Format("{0}#bikeMakeList", mobileUrl)">Bike Models</a>
+                    <li class="bw-makepage-tabs-ga" [class]="(scrollTab.activeTabId== 1)? 'bw-makepage-tabs-ga active':'bw-makepage-tabs-ga'" role="button" tabindex="1" on="tap: bikeByMakesListing.scrollTo(duration = 200), AMP.setState({ scrollTab: { activeTabId: 1 } })">
+                        <a>Bike Models</a>
                     </li>
-                    {IsActive = false;}
                 }
                 @if (Model.IsUpComingBikesAvailable)
                 {
-                    <li class="bw-makepage-tabs-ga @(IsActive ? "active":"")">
-                        <a href="@string.Format("{0}#bikeByMakesUpcoming", mobileUrl)">Upcoming</a>
+                    <li class="bw-makepage-tabs-ga" [class]="(scrollTab.activeTabId== 2)? 'bw-makepage-tabs-ga active':'bw-makepage-tabs-ga'" role="button" tabindex="2" on="tap: bikeByMakesUpcoming.scrollTo(duration = 200), AMP.setState({ scrollTab: { activeTabId: 2 } })">
+                        <a>Upcoming</a>
                     </li>
-                    {IsActive = false;}
                 }
                 @if (Model.IsCompareBikesAvailable)
                 {
-                    <li class="bw-makepage-tabs-ga @(IsActive ? "active":"")">
-                        <a href="@string.Format("{0}#popularComparison", mobileUrl)">Top Comparisions</a>
+                    <li class="bw-makepage-tabs-ga" [class]="(scrollTab.activeTabId== 3)? 'bw-makepage-tabs-ga active':'bw-makepage-tabs-ga'" role="button" tabindex="3" on="tap: ctrlCompareBikes.scrollTo(duration = 200), AMP.setState({ scrollTab: { activeTabId: 3 } })">
+                        <a>Top Comparisions</a>
                     </li>
-                    {IsActive = false;}
                 }
                 @if (Model.IsNewsAvailable)
                 {
-                    <li class="bw-makepage-tabs-ga @(IsActive ? "active":"")">
-                        <a href="@string.Format("{0}#makeNewsContent", mobileUrl)">News</a>
+                    <li class="bw-makepage-tabs-ga" [class]="(scrollTab.activeTabId== 4)? 'bw-makepage-tabs-ga active':'bw-makepage-tabs-ga'" role="button" tabindex="4" on="tap: makeNewsContent.scrollTo(duration = 200), AMP.setState({ scrollTab: { activeTabId: 4 } })">
+                        <a>News</a>
                     </li>
-                    {IsActive = false;}
                 }
                 @if (Model.IsExpertReviewsAvailable || Model.IsUserReviewsAvailable)
                 {
-                    <li class="bw-makepage-tabs-ga @(IsActive ? "active":"")">
-                        <a href="@string.Format("{0}#makeReviewsContent", mobileUrl)">Reviews</a>
+                    <li class="bw-makepage-tabs-ga" [class]="(scrollTab.activeTabId== 5)? 'bw-makepage-tabs-ga active':'bw-makepage-tabs-ga'" role="button" tabindex="5" on="tap: makeReviewsContent.scrollTo(duration = 200), AMP.setState({ scrollTab: { activeTabId: 5 } })">
+                        <a>Reviews</a>
                     </li>
-                    {IsActive = false;}
                 }
                 @if (Model.IsVideosAvailable)
                 {
-                    <li class="bw-makepage-tabs-ga @(IsActive ? "active":"")">
-                        <a href="@string.Format("{0}#makeVideosContent", mobileUrl)">Videos</a>
+                    <li class="bw-makepage-tabs-ga" [class]="(scrollTab.activeTabId== 6)? 'bw-makepage-tabs-ga active':'bw-makepage-tabs-ga'" role="button" tabindex="6" on="tap: makeVideosContent.scrollTo(duration = 200), AMP.setState({ scrollTab: { activeTabId: 6 } })">
+                        <a>Videos</a>
                     </li>
-                    {IsActive = false;}
                 }
                 @if (Model.IsDealerServiceDataAvailable || Model.IsDealerServiceDataInIndiaAvailable)
                 {
-                    <li class="bw-makepage-tabs-ga @(IsActive ? "active":"")">
-                        <a href="@string.Format("{0}#makeDealersContent", mobileUrl)">Dealers</a>
+                    <li class="bw-makepage-tabs-ga" [class]="(scrollTab.activeTabId== 7)? 'bw-makepage-tabs-ga active':'bw-makepage-tabs-ga'" role="button" tabindex="7" on="tap: makeDealersContent.scrollTo(duration = 200), AMP.setState({ scrollTab: { activeTabId: 7 } })">
+                        <a>Dealers</a>
                     </li>
-                    {IsActive = false;}
                 }
                 @if (Model.IsUsedModelsBikeAvailable)
                 {
-                    <li class="bw-makepage-tabs-ga @(IsActive ? "active":"")">
-                        <a href="@string.Format("{0}#makeUsedBikeContent", mobileUrl)">Used Bikes</a>
+                    <li class="bw-makepage-tabs-ga" [class]="(scrollTab.activeTabId== 8)? 'bw-makepage-tabs-ga active':'bw-makepage-tabs-ga'" role="button" tabindex="8" on="tap:makeUsedBikeContent.scrollTo(duration = 200), AMP.setState({ scrollTab: { activeTabId: 8 } })">
+                        <a>Used Bikes</a>
                     </li>
                 }
             </ul>

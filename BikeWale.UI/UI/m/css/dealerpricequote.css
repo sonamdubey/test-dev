@@ -472,8 +472,6 @@
 .discover-bike-carousel .front{height:auto}
 
 /*lead capture*/
-#leadCapturePopup .leadCapture-close-btn{z-index:2}
-#leadCapturePopup .error-icon,#leadCapturePopup .bw-blackbg-tooltip{display:none}
 .btn-grey{background:#fff;color:#82888b;border:1px solid #82888b}
 .btn-grey:hover{background:#82888b;color:#fff;text-decoration:none;border:1px solid #82888b}
 #notifyAvailabilityContainer{min-height:320px;background:#fff;margin:0 auto;padding:10px;position:fixed;top:10%;right:5%;left:5%;z-index:10}
@@ -481,7 +479,6 @@
 .personal-info-notify-container input{margin:0 auto}
 .notify-offers-list{list-style:disc;margin-left:10px}
 #notifyAvailabilityContainer .notify-close-btn{z-index:2}
-#leadCapturePopup .error-icon,#leadCapturePopup .bw-blackbg-tooltip{display:none}
 #otpPopup{display:none}
 .bwm-fullscreen-popup .icon-outer-container{width:72px;height:72px;}
 .bwm-fullscreen-popup .icon-inner-container{width:64px;height:64px;margin:3px auto;}

@@ -1,5 +1,6 @@
 ﻿using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.AdSlot;
 using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.BikeData;
@@ -85,6 +86,7 @@ namespace Bikewale.Controllers
             obj.ManufacturerCampaignPageId = ManufacturerCampaign.Entities.ManufacturerCampaignServingPages.Desktop_DealerPriceQuote;
             obj.CurrentPageUrl = Request.RawUrl;
             obj.Platform = DTO.PriceQuote.PQSources.Desktop;
+            obj.PQSource = PQSourceEnum.Desktop_DPQ_Quotation;
             if (obj.Status.Equals(StatusCodes.ContentFound))
             {
                 obj.OtherTopCount = 3;
@@ -124,6 +126,7 @@ namespace Bikewale.Controllers
             obj.ManufacturerCampaignPageId = ManufacturerCampaign.Entities.ManufacturerCampaignServingPages.Mobile_DealerPriceQuote;
             obj.CurrentPageUrl = Request.RawUrl;
             obj.Platform = DTO.PriceQuote.PQSources.Mobile;
+            obj.PQSource = PQSourceEnum.Mobile_DPQ_Quotation;
             if (obj.Status.Equals(StatusCodes.ContentFound))
             {
                 obj.OtherTopCount = 9;

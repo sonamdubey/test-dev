@@ -494,7 +494,8 @@
                 "pqid": pqId,
                 "isregisterpq": ele.attr('data-isregisterpq'),
                 "pageurl": pageUrl,
-                "clientip": clientIP
+                "clientip": clientIP,
+                "campaignId": ele.attr("data-campaignid")
             };
 
             self.setOptions(leadOptions);

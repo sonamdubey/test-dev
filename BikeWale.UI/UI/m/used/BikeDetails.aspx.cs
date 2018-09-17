@@ -27,6 +27,7 @@ namespace Bikewale.Mobile.Used
             moreBikeSpecsUrl = string.Empty, moreBikeFeaturesUrl = string.Empty, profileId = string.Empty, adStatus = string.Empty;
         protected BikePhoto firstImage = null;
         protected bool isBikeSold;
+        protected bool isFakeListing;
         protected ClassifiedInquiryDetails inquiryDetails = null;
         protected UsedBikePhotoGallery ctrlUsedBikeGallery;
         protected Repeater rptUsedBikeNavPhotos, rptUsedBikePhotos;
@@ -227,6 +228,7 @@ namespace Bikewale.Mobile.Used
                         profileId = usedBikeDetails.ProfileId;
                         isPageNotFound = usedBikeDetails.IsPageNotFoundRedirection;
                         isBikeSold = usedBikeDetails.IsBikeSold;
+                        isFakeListing = usedBikeDetails.IsFakeListing;
                     }
                 }
             }

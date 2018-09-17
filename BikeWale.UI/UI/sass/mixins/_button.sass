@@ -61,3 +61,27 @@
       background-color: color('viking')
       border-color: color('viking')
       color: color('white')
+
+@mixin btn-orange($width: 100%)
+	.btn-orange
+		width: $width
+		color: color('white')
+		background-color: color('red-orange')
+
+@mixin btn-inv-orange($btn-padding: 8px 15px, $width: 100%, $hover: false)
+	.btn-inv-orange
+		width: $width
+		background-color: transparent
+		color: color('red-orange')
+		border-color: color('red-orange')
+		padding: $btn-padding
+		position: relative
+
+		@if $hover
+			@include btn-inv-orange-hover
+
+@mixin btn-inv-orange-hover
+    &:hover
+    	background-color: color('red-orange')
+    	border-color: color('red-orange')
+    	color: color('white')

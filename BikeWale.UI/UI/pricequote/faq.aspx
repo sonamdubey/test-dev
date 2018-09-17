@@ -3,15 +3,15 @@
 <head>
 <meta charset="utf-8">
 <title>Bike Booking FAQ's</title>
-<!-- #include file="/includes/globalStaticFiles.aspx"-->
+<!-- #include file="/UI/includes/globalStaticFiles.aspx"-->
 <script runat="server">	
     string staticUrl = System.Configuration.ConfigurationManager.AppSettings["staticUrl"];
     string staticFileVersion = System.Configuration.ConfigurationManager.AppSettings["staticFileVersion"];
 </script>
-<link href="/css/bw-pq.css?<%= staticFileVersion %>" rel="stylesheet" />
+<link href="/UI/css/bw-pq.css?<%= staticFileVersion %>" rel="stylesheet" />
     <script type="text/javascript">!function (a, b) { "use strict"; function f() { if (!d) { d = !0; for (var a = 0; a < c.length; a++) c[a].fn.call(window, c[a].ctx); c = [] } } function g() { "complete" === document.readyState && f() } a = a || "docReady", b = b || window; var c = [], d = !1, e = !1; b[a] = function (a, b) { if ("function" != typeof a) throw new TypeError("callback for docReady(fn) must be a function"); return d ? void setTimeout(function () { a(b) }, 1) : (c.push({ fn: a, ctx: b }), void ("complete" === document.readyState || !document.attachEvent && "interactive" === document.readyState ? setTimeout(f, 1) : e || (document.addEventListener ? (document.addEventListener("DOMContentLoaded", f, !1), window.addEventListener("load", f, !1)) : (document.attachEvent("onreadystatechange", g), window.attachEvent("onload", f)), e = !0))) } }("docReady", window);</script>
 
-<link rel="stylesheet"  href="<%= staticUrl%>/css/bw-pq-new.css?<%= staticFileVersion %>" />
+<link rel="stylesheet"  href="<%= staticUrl%>/UI/css/bw-pq-new.css?<%= staticFileVersion %>" />
 
 </head>
 <body class="header-fixed-inner">

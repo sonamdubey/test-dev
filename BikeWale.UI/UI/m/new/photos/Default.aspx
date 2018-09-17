@@ -1,8 +1,8 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" EnableViewState="false" Inherits="Bikewale.Mobile.New.Photos.Default" %>
 
-<%@ Register Src="/m/controls/NewVideosWidget.ascx" TagName="Videos" TagPrefix="BW" %>
-<%@ Register TagPrefix="BW" TagName="GenericBikeInfo" Src="~/m/controls/GenericBikeInfoControl.ascx" %>
-<%@ Register TagPrefix="BW" TagName="SimilarBikeWithPhotos" Src="~/m/controls/SimilarBikeWithPhotos.ascx" %>
+<%@ Register Src="/UI/m/controls/NewVideosWidget.ascx" TagName="Videos" TagPrefix="BW" %>
+<%@ Register TagPrefix="BW" TagName="GenericBikeInfo" Src="~/UI/m/controls/GenericBikeInfoControl.ascx" %>
+<%@ Register TagPrefix="BW" TagName="SimilarBikeWithPhotos" Src="~/UI/m/controls/SimilarBikeWithPhotos.ascx" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,10 +17,10 @@
         }
        
     %>
-    <!-- #include file="/includes/headscript_mobile_min.aspx" -->
-    <link rel="stylesheet" type="text/css" href="/m/css/photos.css" />
+    <!-- #include file="/UI/includes/headscript_mobile_min.aspx" -->
+    <link rel="stylesheet" type="text/css" href="/UI/m/css/photos.css" />
     <script type="text/javascript">
-        <!-- #include file="\includes\gacode_mobile.aspx" -->
+        <!-- #include file="\UI\includes\gacode_mobile.aspx" -->
     </script>
      <% if (vmModelPhotos != null && !String.IsNullOrEmpty(vmModelPhotos.SchemaJSON))
         { %>
@@ -37,7 +37,7 @@
         <%}
             else
             {%>
-        <!-- #include file="/includes/headBW_Mobile.aspx" -->
+        <!-- #include file="/UI/includes/headBW_Mobile.aspx" -->
         <% if (vmModelPhotos != null)
             {
                 var objImages = vmModelPhotos.objImageList; %>
@@ -394,10 +394,10 @@
         </section>
         <% } %>
 
-        <script type="text/javascript" src="<%= staticUrl %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
-        <!-- #include file="/includes/footerBW_Mobile.aspx" -->
+        <script type="text/javascript" src="<%= staticUrl %>/UI/m/src/frameworks.js?<%= staticFileVersion %>"></script>
+        <!-- #include file="/UI/includes/footerBW_Mobile.aspx" -->
         <link href="<%= staticUrl  %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
-        <!-- #include file="/includes/footerscript_mobile.aspx" -->
+        <!-- #include file="/UI/includes/footerscript_mobile.aspx" -->
         <script type="text/javascript">
             try {
                 var photoCount = "<%= vmModelPhotos!=null ?  vmModelPhotos.totalPhotosCount : 0 %>";
@@ -415,7 +415,7 @@
             }
         </script>
 
-        <script type="text/javascript" src="<%= staticUrl %>/m/src/photos.js?<%= staticFileVersion%>"></script>
+        <script type="text/javascript" src="<%= staticUrl %>/UI/m/src/photos.js?<%= staticFileVersion%>"></script>
         <script type="text/javascript">
             $(document).ready(function () {
                 if (returnUrl.length > 0) {
@@ -423,7 +423,7 @@
                 }
             });
         </script>
-        <!-- #include file="/includes/fontBW_Mobile.aspx" -->
+        <!-- #include file="/UI/includes/fontBW_Mobile.aspx" -->
     </form>
 </body>
 </html>

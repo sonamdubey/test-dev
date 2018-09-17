@@ -1,4 +1,4 @@
-﻿using Bikewale.BAL.ApiGateway.Adapters.UserProfile;
+﻿using Bikewale.BAL.ApiGateway.Adapters.Bhrigu;
 using Bikewale.BAL.ApiGateway.ApiGatewayHelper;
 using Bikewale.Entities.UserProfile;
 using Bikewale.Interfaces.UserProfile;

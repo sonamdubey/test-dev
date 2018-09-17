@@ -33,5 +33,9 @@ namespace Bikewale.Entities.PriceQuote.v2
         public string RefPQId { get; set; }
         public uint? CampaignId { get; set; }
         public ManufacturerCampaignServingPages ManufacturerCampaignPageId { get; set; }
+
+        public string RefGUID { get; set; }
+
+        public string GUID { get; set; }
     }
 }

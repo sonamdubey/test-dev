@@ -4,9 +4,9 @@
     Model.AdTags.AdPath = "/1017752/Bikewale_Mobile_NewHome";
     Model.AdTags.Ad320x150_Top = true;
     Model.AdTags.Ad320x150_Bottom = true;
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/sass/scooters/landing.css' inline />";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/UI/m/sass/scooters/landing.css' inline />";
     Model.PageMetaTags.AlternateUrl = "";
-    Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
+    Layout = "~/UI/Views/Shared/_Layout_Mobile.cshtml";
     Model.IsTransparentHeader = true;
 }
 
@@ -31,7 +31,7 @@
                     </div>
                     <div id="brand-tab" class="bw-tabs-data">
                         <div class="container bg-white box-shadow section-bottom-margin padding-top25 padding-bottom20 text-center collapsible-brand-content">
-                            @{ Html.RenderPartial("~/views/make/_Brands_Mobile.cshtml", Model.Brands); }
+                            @{ Html.RenderPartial("~/UI/views/make/_Brands_Mobile.cshtml", Model.Brands); }
                           </div>
                     </div>
                     <div id="budget-tab" class="bw-tabs-data hide">
@@ -117,7 +117,7 @@
 </section>
 @if (Model.AdTags.Ad320x150_Top) { 
 <section>
-    @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad320x150_First.cshtml", new { AdId = Model.AdTags.AdId });}
+    @{Html.RenderPartial("/UI/Views/Shared/Ads/Mobile/Ad320x150_First.cshtml", new { AdId = Model.AdTags.AdId });}
 </section>
 }
 
@@ -142,7 +142,7 @@
             @if(Model.HasPopularBikes)
               {
             <div id="mctrlMostPopularBikes" class="bw-tabs-data features-bikes-container">
-                @Html.Partial("~/Views/BikeModels/_MostPopularBikes_Mobile.cshtml", Model.PopularBikes)
+                @Html.Partial("~/UI/Views/BikeModels/_MostPopularBikes_Mobile.cshtml", Model.PopularBikes)
                 <div class="padding-left10 view-all-btn-container margin-top10 text-center">
                     <a href="/m/best-scooters-in-india/" title="Popular Scooters in India" class="btn view-all-target-btn">View all scooters<span class="bwmsprite teal-right"></span></a>
                 </div>
@@ -151,12 +151,12 @@
                 @if (Model.HasNewLaunches)
                 {
                     <div id="mctrlNewLaunchedBikes" class="bw-tabs-data features-bikes-container hide">
-                        @Html.Partial("~/Views/Newlaunches/_newLaunches_Mobile.cshtml", Model.NewLaunches)
+                        @Html.Partial("~/UI/Views/Newlaunches/_newLaunches_Mobile.cshtml", Model.NewLaunches)
                     </div>
                 }
                 @if (Model.HasUpcoming)
                 {<div id="mctrlUpcomingBikes" class="bw-tabs-data features-bikes-container hide">
-                     @Html.Partial("~/Views/Upcoming/_UpcomingBikes_Mobile.cshtml", Model.Upcoming)
+                     @Html.Partial("~/UI/Views/Upcoming/_UpcomingBikes_Mobile.cshtml", Model.Upcoming)
                 </div>
                 }
             </div>
@@ -178,7 +178,7 @@
     <section>
         <h2 class="font18 margin-bottom20 margin-top20 text-center">Compare Scooters</h2>
         <div class="container content-box-shadow padding-top15 card-bottom-margin padding-bottom15">
-            @Html.Partial("~/Views/CompareBikes/_SimilarComparisons_Mobile.cshtml", Model.ComparePopularScooters)
+            @Html.Partial("~/UI/Views/CompareBikes/_SimilarComparisons_Mobile.cshtml", Model.ComparePopularScooters)
             <div class="view-all-btn-container margin-top10 text-center">
                 <a href="/m/comparebikes/" title="New Bike Comparisons in India" class="btn view-all-target-btn">View all comparisons<span class="bwmsprite teal-right"></span></a>
             </div>
@@ -188,7 +188,7 @@
 @if (Model.AdTags.Ad320x150_Bottom) 
 { 
 <section>
-    @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad320x150_Second.cshtml", new { AdId = Model.AdTags.AdId });}
+    @{Html.RenderPartial("/UI/Views/Shared/Ads/Mobile/Ad320x150_Second.cshtml", new { AdId = Model.AdTags.AdId });}
 </section>
 }
 <div class="margin-bottom10"></div>
@@ -224,7 +224,7 @@
                         <div class="bw-tabs-data margin-right20 margin-left20" id="ctrlNews">
                             @if (Model.News.FetchedCount > 0)
                             {
-                                @Html.Partial("~/Views/News/_RecentNews_Mobile.cshtml", Model.News)
+                                @Html.Partial("~/UI/Views/News/_RecentNews_Mobile.cshtml", Model.News)
                             }
                             <div class="view-all-btn-container">
                                 <a href="/m/scooters/news/" title="Scooter News" class="btn view-all-target-btn">Read all news<span class="bwsprite teal-right"></span></a>
@@ -233,7 +233,7 @@
                         <div class="bw-tabs-data hide margin-right20 margin-left20" id="ctrlExpertReviews">
                             @if (Model.ExpertReviews.FetchedCount > 0)
                             {
-                                @Html.Partial("~/Views/ExpertReviews/_RecentExpertReviews_Mobile.cshtml", Model.ExpertReviews)
+                                @Html.Partial("~/UI/Views/ExpertReviews/_RecentExpertReviews_Mobile.cshtml", Model.ExpertReviews)
                                 <div class="view-all-btn-container">
                                     <a title="@Model.ExpertReviews.LinkTitle" href="@string.Format("/m{0}",Model.ExpertReviews.MoreExpertReviewUrl)" class="btn view-all-target-btn">Read all reviews<span class="bwmsprite teal-right"></span></a>
                                 </div>
@@ -242,7 +242,7 @@
                         <div class="bw-tabs-data hide margin-right20 margin-left20" id="ctrlVideos">
                             @if (Model.Videos.FetchedCount > 0)
                             {
-                                @Html.Partial("~/Views/Videos/_RecentVideos_Mobile.cshtml", Model.Videos)
+                                @Html.Partial("~/UI/Views/Videos/_RecentVideos_Mobile.cshtml", Model.Videos)
                             }
                             <div class="view-all-btn-container">
                                 <a title="Scooter Videos" href="/m/scooters/videos/" class="btn view-all-target-btn">View all videos<span class="bwmsprite teal-right"></span></a>

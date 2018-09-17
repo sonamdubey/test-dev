@@ -7,7 +7,7 @@
         description = "Authorise dealer price details of a bike " + bikeName;
         keywords = bikeName + ", price, authorised, dealer,Booking ";    
     %>
-    <!-- #include file="/includes/headscript_mobile.aspx" -->
+    <!-- #include file="/UI/includes/headscript_mobile.aspx" -->
      <link href="<%= staticUrl  %>/m/css/bwm-booking.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
 
 <style>
@@ -16,7 +16,7 @@
 </head>
 <body class="bg-light-grey">
     <form runat="server">
-        <!-- #include file="/includes/headBW_Mobile.aspx" -->               
+        <!-- #include file="/UI/includes/headBW_Mobile.aspx" -->               
     <section class="container bg-white box-shadow padding-bottom20 margin-bottom10 clearfix"><!--  Discover bikes section code starts here -->
         <div class="grid-12">
                 <div class="imageWrapper margin-top10">
@@ -254,8 +254,8 @@
         </div>
         <!--Documents popup ends here-->
 
-   <!-- #include file="/includes/footerBW_Mobile.aspx" -->
-   <!-- #include file="/includes/footerscript_Mobile.aspx" -->
+   <!-- #include file="/UI/includes/footerBW_Mobile.aspx" -->
+   <!-- #include file="/UI/includes/footerscript_Mobile.aspx" -->
         <script src="https://maps.googleapis.com/maps/api/js?key=<%= Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey %>&sensor=false"></script>
         <script>
             $(function () {

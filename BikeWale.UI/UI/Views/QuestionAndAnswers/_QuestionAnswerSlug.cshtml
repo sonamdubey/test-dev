@@ -11,13 +11,13 @@
             <span class="question-answer-slug__description">Get answers from fellow riders!</span>        
         </div>
         @if (Model.IsQAAvailable)
-        {
-            <a id="viewAllQnASlug" href="@(Model.ViewAllUrl)" title="@(Model.BikeName) Questions and Answers" class="question-answer-slug__button qna-redirection-link" data-cat="@Model.GAPageType" data-act="View_All_Button_Slug_Clicked" data-lab="@String.Format("{0}_{1}", Model.MakeName, Model.ModelName)">
-                View all Q&As
-            </a>
-        }
-        else
-        {
+{
+    <a id="viewAllQnASlug" href="@(Model.ViewAllUrl)" title="@(Model.BikeName) Questions and Answers" class="question-answer-slug__button bw-ga" data-cat="@Model.GAPageType" data-act="View_All_Button_Slug_Clicked" data-lab="@String.Format("{0}_{1}", Model.MakeName, Model.ModelName)">
+        View all Q&As
+    </a>
+}
+else
+{
             <button id="askQuestionQnASlug" class="ask-question__link question-answer-slug__button" data-platform="@((int)Model.Platform)" data-source="@((int)Bikewale.Entities.QuestionAndAnswers.Sources.ModelPage_Ask_Question_Slug)" data-modelid="@Model.ModelId" data-tags="@Model.Tags" data-act-suffix="_Slug">
                 Ask a Question
             </button>

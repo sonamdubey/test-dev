@@ -1,8 +1,8 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.DealerDetails" EnableViewState="false" %>
-<%@ Register Src="~/m/controls/DealersCard.ascx" TagName="DealerCard" TagPrefix="BW" %>
-<%@ Register Src="~/m/controls/LeadCaptureControl.ascx" TagName="LeadCapture" TagPrefix="BW" %>
-<%@ Register Src="~/m/controls/MMostPopularBikes.ascx" TagName="PopularBikeMake" TagPrefix="BW" %>
-<%@ Register Src="~/m/controls/ServiceCenterCard.ascx" TagName="ServiceCenterCard" TagPrefix="BW" %>
+<%@ Register Src="~/UI/m/controls/DealersCard.ascx" TagName="DealerCard" TagPrefix="BW" %>
+<%@ Register Src="~/UI/m/controls/LeadCaptureControl.ascx" TagName="LeadCapture" TagPrefix="BW" %>
+<%@ Register Src="~/UI/m/controls/MMostPopularBikes.ascx" TagName="PopularBikeMake" TagPrefix="BW" %>
+<%@ Register Src="~/UI/m/controls/ServiceCenterCard.ascx" TagName="ServiceCenterCard" TagPrefix="BW" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,15 +12,15 @@
         title = String.Format("{0} | {0} showroom in {1} - BikeWale", dealerName, dealerCity);
         canonical =  String.Format("https://www.bikewale.com{0}",Bikewale.Utility.UrlFormatter.GetDealerUrl(makeMaskingName, cityMaskingName, dealerName, (int)dealerId));
     %>
-    <!-- #include file="/includes/headscript_mobile_min.aspx" -->
-    <link rel="stylesheet" type="text/css" href="/m/css/dealer/details.css" />
+    <!-- #include file="/UI/includes/headscript_mobile_min.aspx" -->
+    <link rel="stylesheet" type="text/css" href="/UI/m/css/dealer/details.css" />
     <script type="text/javascript">
-        <!-- #include file="\includes\gacode_mobile.aspx" -->
+        <!-- #include file="\UI\includes\gacode_mobile.aspx" -->
     </script>
 </head>
 <body class="bg-light-grey">
     <form runat="server">
-        <!-- #include file="/includes/headBW_Mobile.aspx" -->
+        <!-- #include file="/UI/includes/headBW_Mobile.aspx" -->
         
         <section class="container bg-white margin-bottom10">
             <div class="bg-white box-shadow">
@@ -159,7 +159,7 @@
             </div>
         </section>
         <%} %>
-        <script type="text/javascript" src="<%= staticUrl  %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl  %>/UI/m/src/frameworks.js?<%= staticFileVersion %>"></script>
         <section class="container bg-white margin-bottom10">
             <div class="box-shadow">
                 <!-- dealer card -->
@@ -197,9 +197,9 @@
             </div>
         </section>
 
-        <!-- #include file="/includes/footerBW_Mobile.aspx" -->
+        <!-- #include file="/UI/includes/footerBW_Mobile.aspx" -->
         <link href="<%= staticUrl  %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
-        <!-- #include file="/includes/footerscript_mobile.aspx" -->
+        <!-- #include file="/UI/includes/footerscript_mobile.aspx" -->
         <script type="text/javascript">
              var versionId, dealerId = "<%= dealerId %>", cityId = "<%= cityId %>", clientIP = "<%= Bikewale.Common.CommonOpn.GetClientIP()%>",campaignId = "<%= campaignId %>";                                              
              var dealerLat = "<%= dealerLat %>", dealerLong = "<%= dealerLong%>";
@@ -234,7 +234,7 @@
                    "clientip" : clientIP,
                    "isregisterpq": true,
                    "isdealerbikes": true,
-                   "campid": campaignId
+                   "campaignId": campaignId
                };
                dleadvm.setOptions(leadOptions);
            });
@@ -261,8 +261,8 @@
 
         </script>
         <script src="https://maps.googleapis.com/maps/api/js?key=<%= Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey %>&libraries=places&callback=initializeMap" async defer></script>
-        <script type="text/javascript" src="<%= staticUrl  %>/m/src/dealer/details.js?<%= staticFileVersion %>"></script>
-        <!-- #include file="/includes/fontBW_Mobile.aspx" -->
+        <script type="text/javascript" src="<%= staticUrl  %>/UI/m/src/dealer/details.js?<%= staticFileVersion %>"></script>
+        <!-- #include file="/UI/includes/fontBW_Mobile.aspx" -->
     </form>
 </body>
 </html>

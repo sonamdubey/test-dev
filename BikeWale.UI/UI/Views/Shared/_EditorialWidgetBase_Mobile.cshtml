@@ -43,17 +43,17 @@
         switch (inputColumn.WidgetType)
         {
             case EditorialWidgetType.Popular:
-                partialView = "~/Views/BikeModels/_PopularBikesWidgetBase_Mobile.cshtml";
+                partialView = "~/UI/Views/BikeModels/_PopularBikesWidgetBase_Mobile.cshtml";
                 columnView = (EditorialPopularBikesWidget)inputColumn;
                 break;
 
             case EditorialWidgetType.Upcoming:
-                partialView = "~/Views/BikeModels/_UpcomingBikesWidgetBase_Mobile.cshtml";
+                partialView = "~/UI/Views/BikeModels/_UpcomingBikesWidgetBase_Mobile.cshtml";
                 columnView = (EditorialUpcomingBikesWidget)inputColumn;
                 break;
 
             case EditorialWidgetType.OtherBrands:
-                partialView = "~/Views/Make/_OtherBrandsWidgetBase_Mobile.cshtml";
+                partialView = "~/UI/Views/Make/_OtherBrandsWidgetBase_Mobile.cshtml";
                 columnView = (EditorialOtherBrandsWidget)inputColumn;
                 break;
         }

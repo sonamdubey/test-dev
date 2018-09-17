@@ -63,7 +63,7 @@ namespace Bikewale.BindViewModels.Webforms.Used
             }
             catch (Exception ex)
             {
-                 ErrorClass.LogError(ex, "Bikewale.BindViewModels.Webforms.Used.UsedBikeLandingPage.constructor");
+                ErrorClass.LogError(ex, "Bikewale.BindViewModels.Webforms.Used.UsedBikeLandingPage.constructor");
             }
         }
 

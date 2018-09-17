@@ -10,18 +10,18 @@
         canonical = "https://www.bikewale.com/used/sell/";
     %>
 
-    <!-- #include file="/includes/headscript_mobile_min.aspx" -->
+    <!-- #include file="/UI/includes/headscript_mobile_min.aspx" -->
     <link href="<%= staticUrl %>/m/sass/sell-bike/sell-bike.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
-    <link href="<%= staticUrl  %>/css/zebra-datepicker.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
-    <link href="<%= staticUrl  %>/css/dropzone.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
+    <link href="<%= staticUrl  %>/UI/css/zebra-datepicker.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
+    <link href="<%= staticUrl  %>/UI/css/dropzone.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
 
     <script type="text/javascript">
-        <!-- #include file="\includes\gacode_mobile.aspx" -->
+        <!-- #include file="\UI\includes\gacode_mobile.aspx" -->
     </script>
 </head>
 <body class="lock-browser-scroll loader-active">
     <form id="form1" runat="server">
-        <!-- #include file="/includes/headBW_Mobile.aspx" -->
+        <!-- #include file="/UI/includes/headBW_Mobile.aspx" -->
 
         <div id="ub-ajax-loader">
             <div class="cover-popup-loader"></div>
@@ -596,21 +596,21 @@ BikeWale ensures that only verified buyers can reach out to you. You can re-post
             var gaObj = { 'id': '<%= (int)Bikewale.Entities.Pages.GAPages.Sell_Page%>', 'name': '<%= Bikewale.Entities.Pages.GAPages.Sell_Page%>' };
         </script>
 
-        <script type="text/javascript" src="<%= staticUrl  %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
-        <!-- #include file="/includes/footerBW_Mobile.aspx" -->
+        <script type="text/javascript" src="<%= staticUrl  %>/UI/m/src/frameworks.js?<%= staticFileVersion %>"></script>
+        <!-- #include file="/UI/includes/footerBW_Mobile.aspx" -->
         <link href="<%= staticUrl %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
-        <link href="<%= staticUrl%>/css/chosen.min.css?<%= staticFileVersion %>" type="text/css" rel="stylesheet" />
-        <!-- #include file="/includes/footerscript_mobile.aspx" -->
-        <script type="text/javascript" src="<%= staticUrl %>/m/src/chosen-jquery-min-mobile.js?<%= staticFileVersion %>"></script>
-        <script type="text/javascript" src="<%= staticUrl %>/src/knockout.validation.js?<%= staticFileVersion %>"></script>
-        <script type="text/javascript" src="<%= staticUrl %>/src/zebra-datepicker.js?<%=staticFileVersion %>"></script>
-        <script type="text/javascript" src="<%= staticUrl %>/src/imageUpload.js?<%=staticFileVersion %>"></script>
-        <script type="text/javascript" src="<%= staticUrl %>/src/dropzone.js?<%=staticFileVersion %>"></script>
+        <link href="<%= staticUrl%>/UI/css/chosen.min.css?<%= staticFileVersion %>" type="text/css" rel="stylesheet" />
+        <!-- #include file="/UI/includes/footerscript_mobile.aspx" -->
+        <script type="text/javascript" src="<%= staticUrl %>/UI/m/src/chosen-jquery-min-mobile.js?<%= staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl %>/UI/src/knockout.validation.js?<%= staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl %>/UI/src/zebra-datepicker.js?<%=staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl %>/UI/src/imageUpload.js?<%=staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl %>/UI/src/dropzone.js?<%=staticFileVersion %>"></script>
         <% if (isAuthorized)
             { %>
-        <script type="text/javascript" src="<%= staticUrl %>/m/src/sell-bike.js?<%= staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl %>/UI/m/src/sell-bike.js?<%= staticFileVersion %>"></script>
         <% } %>
-        <!-- #include file="/includes/fontBW_Mobile.aspx" -->
+        <!-- #include file="/UI/includes/fontBW_Mobile.aspx" -->
 
         <script type="text/javascript">
             window.onbeforeunload = function () {

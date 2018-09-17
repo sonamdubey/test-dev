@@ -4,7 +4,7 @@
 <section>            
     <div class="container">
         <div>
-            <!-- #include file="/ads/Ad320x50_Bottom_mobile.aspx" -->
+            <!-- #include file="/UI/ads/Ad320x50_Bottom_mobile.aspx" -->
         </div>
     </div>
 </section>
@@ -12,7 +12,7 @@
 
 <div class="blackOut-window"></div>
 
-<!-- #include file="/includes/Navigation_Mobile.aspx" -->
+<!-- #include file="/UI/includes/Navigation_Mobile.aspx" -->
 <div class="globalcity-popup bwm-fullscreen-popup hide" id="globalcity-popup">
     <div class="globalcity-popup-data text-center">
         <div class="globalcity-close-btn position-abt pos-top10 pos-right10 bwmsprite cross-lg-lgt-grey cur-pointer"></div>
@@ -107,6 +107,6 @@
     </div>
     <div class="clear"></div>
 </footer> <!-- Ends here -->
-<script type="text/javascript" defer src="<%= staticUrl  %>/src/bwcache.js?<%= staticFileVersion %>"></script>
+<script type="text/javascript" defer src="<%= staticUrl  %>/UI/src/bwcache.js?<%= staticFileVersion %>"></script>
 <BW:LocationWidget runat="server" id="ctrlChangeLocation" />
 <script type="text/javascript">var loadAsyncCss = function () { var a = document.getElementById("asynced-css"); if (a) { var b = document.createElement("div"); b.style.display='none', b.innerHTML = a.textContent, document.body.appendChild(b), a.parentElement.removeChild(a) } }, raf = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame; raf ? raf(function () { window.setTimeout(loadAsyncCss, 0) }) : window.addEventListener("load", loadAsyncCss);</script>

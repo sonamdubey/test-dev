@@ -1,17 +1,23 @@
 ﻿@model Bikewale.Models.PriceInCity.PriceInCityPageAMPVM
 @using Bikewale.Utility;
+@using Bikewale.DTO.PriceQuote;
+@using Bikewale.Entities.BikeBooking;
+
+@if(Model != null)
+{
+    Layout = "~/UI/Views/Shared/_Layout_Mobile_AMP.cshtml";
+    Model.AdTags.Ad_320x50 = true;
+    Model.AdTags.Ad_300x250 = true;
+    Model.AdTags.Ad_Bot_320x50 = true;
+    Model.Amp_Page_CSS = @"html{font-size:13px;padding:0;margin:0;background:#f5f5f5;box-sizing:border-box;font-family:'Open Sans',sans-serif,Arial;color:#4d5057;line-height:1.42857143}*{margin:0;padding:0;box-sizing:border-box}h1{margin:0;padding:0;font-size:18px;font-weight:700;color:#2a2a2a}h2{font-size:16px;font-weight:600;color:#2a2a2a}h3{font-size:14px;font-weight:600;color:#4d5057}.omega{padding-right:0}.alpha{padding-left:0}.grid-12{width:100%}.grid-9{width:75%}.grid-8{width:66.66666667%}.grid-7{width:58.33333333%}.grid-5{width:41.66666667%}.grid-4{width:33.33333333%}.grid-3{width:25%}.grid-1,.grid-10,.grid-11,.grid-12,.grid-2,.grid-3,.grid-4,.grid-5,.grid-6,.grid-7,.grid-8,.grid-9{float:left;position:relative;min-height:1px;padding-right:10px;padding-left:10px}.padding-top10{padding-top:10px}.padding-top15{padding-top:15px}.padding-top20{padding-top:20px}.orpContent-block.padding-top40{padding-top:40px}.padding-left5{padding-left:5px}.padding-left10{padding-left:10px}.padding-left15{padding-left:15px}.padding-left20{padding-left:20px}.padding-right20{padding-right:20px}.padding-bottom5{padding-bottom:5px}.padding-bottom10{padding-bottom:10px}.padding-bottom15{padding-bottom:15px}.padding-bottom20{padding-bottom:20px}.padding-15-20{padding:15px 20px}.text-right{text-align:right}.text-default{color:#4d5057}.text-center{text-align:center}.text-slate-grey{color:#787878}.text-xx-light{color:#a2a2a2}.margin-right5{margin-right:5px}.margin-right10{margin-right:10px}.margin-right20{margin-right:20px}.margin-left20{margin-left:20px}.margin-top5{margin-top:5px}.margin-top15{margin-top:15px}.margin-bottom20{margin-bottom:20px}.margin-bottom15{margin-bottom:15px}.margin-bottom16{margin-bottom:16px}.margin-bottom10{margin-bottom:10px}.margin-bottom5{margin-bottom:5px}.font11{font-size:11px}.font12{font-size:12px}.font14{font-size:14px}.font20{font-size:20px}.font15{font-size:15px}.alpha{padding-left:0}.omega{padding-right:0}.text-light-grey{color:#82888b}.font-bold{font-weight:700}.text-unbold{font-weight:400}.text-bold{font-weight:600}.line-height16{line-height:1.6}.clear{clear:both}.border-solid-top{border-top:1px solid #e2e2e2}.border-solid-bottom{border-bottom:1px solid #e2e2e2}.review-left-divider{position:relative;margin-left:15px;padding-left:15px;padding-right:5px}.divider-bottom{border-bottom:1px solid #eee}a{color:#0288d1;text-decoration:none}.hide{display:none}.inline-block{display:inline-block;vertical-align:middle}.vertical-top{display:inline-block;vertical-align:top}.block{display:block}.position-rel{position:relative}.pos-top2{top:2px}.text-truncate{width:100%;text-align:left;text-overflow:ellipsis;white-space:nowrap;overflow:hidden}.target-link{color:#2a2a2a;font-weight:600;display:block}.btn{display:inline-block;padding:8px 42px;font-size:16px;line-height:1.42857143;text-align:center;white-space:nowrap;border:1px solid transparent;border-radius:2px;outline:0;text-decoration:none;vertical-align:middle;-ms-touch-action:manipulation;touch-action:manipulation;cursor:pointer;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;background-image:none;-webkit-appearance:none}.city-sprite{background:url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/bwm-city-sprite-v2.png?v07Oct2016) no-repeat;display:inline-block}.btn-teal{background:#41b4c4;color:#fff;border:1px solid #41b4c4}.btn-orange{background:#ef3030;color:#fff}.btn-white{background:#fff;color:#e42029;border:1px solid #e42029}.btn-180-34{font-size:14px;width:180px;padding:6px}.btn-red-arrow{width:6px;height:10px;background-position:-204px -35px;margin-left:5px;position:relative;top:1px}.btn-inv-teal,.view-all-target-btn{background:0 0;color:#3799a7;border:1px solid #3799a7}.btn-card{font-size:14px;padding:5px;overflow:hidden;text-overflow:ellipsis}.btn-170-32{width:170px;font-size:14px;padding:5px}.btn-160-32{min-width:160px;padding:5px;font-size:14px}.btn-full-width{display:block;width:100%}.campaign__floating-btn{position:fixed;bottom:0;right:0;left:0;z-index:8;padding:10px;background:#fff;-moz-box-shadow:0 0 7px #ccc;-webkit-box-shadow:0 0 7px #ccc;-o-box-shadow:0 0 7px #ccc;box-shadow:0 0 7px #ccc}.clearfix{clear:both}.btn__left-label{color:#82888b;position:relative;top:6px}.btn.btn-full-32{width:100%;padding:5px;font-size:14px;border-radius:2px}.btn-orange{background:#ef3030;color:#fff}ol,ul{list-style:none}.campaign__powered-key{font-size:12px;color:#a2a2a2}.campaign__powered-value{font-size:13px;color:#82888b}.item-more-details-list li{float:left;margin-bottom:8px;margin-right:8px}.container{width:100%;margin:0 auto;clear:both}.price-in-city__head{padding:10px 20px 0;font-size:20px;background:#fff}#modelOverallSpecsTopContent{height:44px}#overallSpecsTab{width:100%;display:block;background:#fff;overflow-x:auto;z-index:3;-webkit-overflow-scrolling:touch;position:-webkit-sticky;position:sticky;top:0;-moz-box-shadow:0 4px 5px -2px #d5d5d5;-webkit-box-shadow:0 4px 5px -2px #d5d5d5;box-shadow:0 4px 5px -2px #d5d5d5}.overall-specs-tabs-wrapper{width:100%;display:table}.overall-specs-tabs-wrapper li{display:table-cell;width:1%;padding:10px 15px;text-align:center;white-space:nowrap;font-size:14px;color:#82888b;cursor:pointer}.overall-specs-tabs-wrapper li a{color:#82888b}.overall-specs-tabs-wrapper li.active{border-bottom:3px solid #ef3f30;color:#4d5057;font-weight:600;outline-color:transparent;}.overall-specs-tabs-wrapper li.active a{color:#4d5057}#overallSpecsTab::-webkit-scrollbar{width:0;height:0;display:none}.card-bottom-margin,.section-bottom-margin{margin-bottom:20px}.content-box-shadow{background:#fff;-moz-box-shadow:2px 2px 2px #dcdcdc;-webkit-box-shadow:2px 2px 2px #dcdcdc;-o-box-shadow:2px 2px 2px #dcdcdc;-ms-box-shadow:2px 2px 2px #dcdcdc;box-shadow:2px 2px 2px #dcdcdc;-moz-border-radius:2px;-webkit-border-radius:2px;-o-border-radius:2px;-ms-border-radius:2px;border-radius:2px}.content-inner-block-20{padding:20px}.model-image{width:96px;height:53px;display:inline-block;vertical-align:top}.model-image a{display:inline-block;height:48px;width:86px}.model-version-block{width:60%;padding-left:0;display:inline-block;font-size:14px}.version-block__title{color:#82888b;font-size:12px}.select-wrapper__list{position:absolute;top:35px;background:#fff}.select-wrapper__list [selected]{border-bottom:1px solid #82888b}amp-selector [option][selected]{cursor:auto;outline:0}.price-table__heading{padding-bottom:15px;color:#4d5057;font-size:14px;text-align:left}.model-version_price-table{width:100%}.model-version_price-table td{font-size:14px}.info-grey-14{width:14px;height:15px;background-position:-173px -613px;position:relative;top:2px;margin-right:2px;cursor:pointer}.position--left-neg-5{left:-5px}.rate-count-1 .star-icon{background-position:0 -667px}.rate-count-2 .star-icon{background-position:-38px -667px}.rate-count-3 .star-icon{background-position:0 -278px}.rate-count-4 .star-icon{background-position:-74px -667px}.rate-count-5 .star-icon{background-position:-110px -667px}.rate-count-5{color:#198d55}.rate-count-4{color:#13b65d}.rate-count-3{color:#efd700}.rate-count-2{color:#fd971c}.rate-count-1{color:#ef3f30}.star-icon.star-size-16{-webkit-transform:scale(.6);-moz-transform:scale(.6);-o-transform:scale(.6);transform:scale(.6)}.star-icon{width:26px;height:25px;vertical-align:middle;-webkit-transform:scale(.8);-moz-transform:scale(.8);-o-transform:scale(.8);transform:scale(.8)}.review-left-divider:before{content:'';position:absolute;top:4px;left:0;width:1px;height:12px;border-left:1px solid #e2e2e2}.model-more-info-section .item-image-content{width:100px;height:56px;display:inline-block;vertical-align:top;background:url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif) no-repeat center}.item-image-content img{width:100%}.model-more-info-section .bike-details-block{width:62%;vertical-align:top;display:inline-block;padding-left:10px}.price-label-size-12{font-size:12px;color:#82888b}.price-value-size-18{font-size:18px;font-weight:700}.item-more-details-list a{display:block;padding:1px 8px 5px;color:#787878;background:rgba(245,245,245,.9);-webkit-border-radius:2px;-moz-border-radius:2px;-ms-border-radius:2px;border-radius:2px}.photos-sm{background-position:0 -477px}.photos-sm,.videos-sm{width:14px;height:14px;vertical-align:middle;margin-right:3px}.item-more-details-list .icon-label{font-size:13px;display:inline-block;vertical-align:middle;line-height:13px}.dealers-sm{background-position:-31px -476px}.specs-sm{background-position:-141px -555px}.dealers-sm,.news-sm,.reviews-sm,.specs-sm,.user-reviews-sm{width:14px;height:14px;vertical-align:middle;margin-right:3px}.videos-sm{background-position:-16px -476px}.model-more-info-section .used-target-label{width:94%}.next-grey-icon{width:8px;height:13px;background-position:-182px -393px;vertical-align:middle}.carousel-heading-content{margin-bottom:10px;padding-right:15px;padding-left:20px}.swiper-heading-left-grid{width:77%;margin-right:-4px}.swiper-heading-right-grid{width:23%}.view-all-target-btn{padding:5px 6px;font-size:14px}.dealer-horizontal-swiper .swiper-slide{width:253px}.swiper-slide:first-child{margin-left:5px}.swiper-card{vertical-align:top;width:253px;margin:2px 3px 2px 5px;padding:15px 15px 10px;min-height:170px;background:#fff;-webkit-box-shadow:0 1px 4px rgba(0, 0, 0, .2);-moz-box-shadow:0 1px 4px rgba(0, 0, 0, .2);-ms-box-shadow:0 1px 4px rgba(0, 0, 0, .2);box-shadow:0 1px 4px rgba(0,0,0,.2);-webkit-border-radius:2px;-moz-border-radius:2px;-ms-border-radius:2px;border-radius:2px}.dealership-loc-icon{width:12px;height:15px;background-position:-40px -435px;position:relative;top:4px}.dealership-address{color:#82888b;width:92%;font-size:14px;display:inline-block;vertical-align:top;white-space:normal;text-align:left;max-height:80px;overflow:hidden}.tel-sm-grey-icon{width:15px;height:15px;background-position:0 -435px;position:relative;top:2px}.dealer-horizontal-swiper::-webkit-scrollbar{width:0;height:0;display:none}.service-center-grey{width:28px;height:25px;background-position:0 -636px;vertical-align:middle}.grid-11-inline{display:inline-block;vertical-align:middle;width:88.66666667%}.card-h2-heading{font-size:18px}.teal-right{background-position:-69px -437px}.blue-right-arrow-icon,.teal-right{width:6px;height:10px;position:relative;top:1px;margin-left:6px}.emi-slider-box-right-section{text-align:right}#emiContent .inr-xxsm-icon{width:8px}.inr-xxsm-icon{width:11px;height:10px;background-position:-54px -94px}#versionContent td a{font-size:14px}#viewmore{color:#0288d1}.view-cities-link:before{content:'';width:100%;height:20px;position:absolute;top:-40px;left:0;z-index:1;background:-moz-linear-gradient(to bottom, rgba(255, 255, 255, 0) 0, #fff 100%);background:-o-linear-gradient(to bottom, rgba(255, 255, 255, 0) 0, #fff 100%);background:linear-gradient(to bottom, rgba(255, 255, 255, 0) 0, #fff 100%)}#similarContent .swiper-card{margin-left:8px;padding:5px;width:200px;min-height:210px}#popularContent .swiper-card{margin-left:8px;padding:5px;width:200px;min-height:210px}.swiper-card:first-child{margin-left:8px}.swiper-card:last-child{margin-right:8px}.carousel-image-preview{height:95px;padding:5px 5px 0;position:relative}.carousel-slide img{max-width:100%}.carousel-image-preview img{height:90px}#similarContent .swiper-details-block{padding:5px 15px 0}#similarContent .swiper-btn-block{padding:10px 15px 15px}#popularContent .swiper-btn-block{padding:10px 15px 15px}#popularContent .swiper-details-block{padding:5px 15px 0}.compare-with-target{display:block;padding:10px 35px 0 15px;position:relative;font-size:12px;color:#4d5057;top:-1px}.compare-with-target:before{content:'';position:absolute;left:8%;top:0;width:168px;height:1px;border-top:1px solid #e2e2e2}.compare-sm{width:17px;height:12px;background-position:-173px -596px;position:relative;top:1px;margin-right:5px}.swiper-type-similar .right-arrow{right:18px;top:13px;transform:scale(.8)}.right-arrow{width:8px;height:12px;background-position:-182px -394px;position:absolute;right:20px;top:41%}#swiper-city .swiper-card{width:200px;margin-left:8px}#swiper-city .swiper-image-preview{height:100px;padding:25px 0 10px;border-bottom:1px solid #eee;text-align:center}.c-bangalore-icon,.c-chennai-icon,.c-hyderabad-icon,.c-kolkata-icon,.c-lucknow-icon,.c-mumbai-icon,.c-newdelhi-icon,.c-pune-icon{height:48px}.c-mumbai-icon{width:78px;background-position:0 0}.c-pune-icon{width:112px;background-position:-84px 0}.c-bangalore-icon{width:82px;background-position:-202px 0}.c-newdelhi-icon{width:38px;background-position:-290px 0}.c-chennai-icon{width:33px;background-position:-334px 0}.c-hyderabad-icon{width:34px;background-position:-373px 0}.c-kolkata-icon{width:110px;background-position:-413px 0}.c-lucknow-icon{width:106px;background-position:-529px 0}#swiper-city .swiper-details-block{padding-top:10px}.graph-rank-grey{width:28px;height:25px;background-position:-62px -637px;vertical-align:middle}.text-white{color:#fff}@media screen and (-webkit-min-device-pixel-ratio: 0){input[type=range]{overflow:hidden;width:100%;-webkit-appearance:none;background-color:#e2e2e2}input[type=range]::-webkit-slider-runnable-track{height:10px;-webkit-appearance:none;color:#ef3030;margin-top:1px}input[type=range]::-webkit-slider-thumb{width:10px;border-radius:50%;border:1px solid #930202;-webkit-appearance:none;height:10px;cursor:ew-resize;background:#ef3030;box-shadow:-605px 10px 0 600px #ef3030}}input[type=range]{overflow:hidden;width:100%;-webkit-appearance:none}input[type=range]:focus{outline:0}input[type=range]::-moz-range-thumb{border-radius:10px;-moz-box-shadow:inset 0 0 6px #fff;background:#ef3030;color:#00f}input[type=range]::-moz-range-progress{background-color:#ef3030}input[type=range]::-moz-range-track{background-color:#bababa}input[type=range]::-ms-track{width:100%;height:5px;background:0 0;border-color:transparent;border-width:6px 0;color:transparent}input[type=range]::-ms-fill-lower{background:#ef3030;border-radius:10px}input[type=range]::-ms-fill-upper{background:#bababa;border-radius:10px}input[type=range]::-ms-thumb{border:none;height:16px;width:16px;border-radius:50%;background:#ef3030}input[type=range]:focus::-ms-fill-lower{background:#ef3030}input[type=range]:focus::-ms-fill-upper{background:#bababa}div::-webkit-scrollbar{display:none;width:0;height:0}#select-box:focus{outline:0}.orpContent-block{position:relative;padding:20px;margin-bottom:20px;background:#fff;-moz-box-shadow:2px 2px 2px #dcdcdc;-webkit-box-shadow:2px 2px 2px #dcdcdc;-o-box-shadow:2px 2px 2px #dcdcdc;-ms-box-shadow:2px 2px 2px #dcdcdc;box-shadow:2px 2px 2px #dcdcdc;-moz-border-radius:2px;-webkit-border-radius:2px;-o-border-radius:2px;-ms-border-radius:2px;border-radius:2px}.version-table__head tr{font-weight:400;color:#82888b;font-size:12px}.version-table__head th{padding-bottom:10px;border-bottom:1px solid #e2e2e2}.version-table__body td{border-bottom:1px solid #eee;font-size:14px;color:#787878;padding-bottom:10px;padding-top:10px}.price-table__body td:first-child{color:#787878}.price-table__body td{padding-bottom:15px}.price-table__body tr:last-child td{padding-bottom:5px;padding-top:15px;border-top:1px solid #e2e2e2;font-size:14px;color:#4d5057}.dealer-name{color:#2a2a2a;font-weight:600;display:block;width:100%;text-align:left;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;font-size:15px;margin-bottom:10px}.dealer-contact{width:100%;text-align:left;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;font-weight:600;font-size:14px;color:#4d5057}.swiper-block__title{width:100%;text-align:left;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;color:#2a2a2a;font-weight:600;display:block;margin-bottom:5px;font-size:12px}.city-area-banner{width:100%;height:109px;background:#f5f5f5 url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/city-area-banner.png) repeat-x center bottom}#priceInCityWrapper{overflow-x:hidden;background:#fff;padding:10px 20px 30px;margin:auto;width:100%;position:fixed;left:0;top:0;height:100%;z-index:11;overflow-y:scroll;text-align:center}.onroad-price-close-btn{width:16px;height:16px;cursor:pointer;background-position:-36px -226px;position:absolute;top:10px;right:10px}#popupHeading{padding:20px}.popupheading-head{margin-bottom:5px;font-size:18px;text-transform:capitalize}#pcitySelection{position:relative;margin-bottom:10px;text-align:left;padding:8px 10px;display:block;width:100%;padding:10px;min-height:35px;line-height:1.42857143;color:#4d5057;position:relative;background-color:#fff;background-image:none;border:1px solid #ccc;border-radius:2px;-webkit-transition:border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;-o-transition:border-color ease-in-out .15s, box-shadow ease-in-out .15s;transition:border-color ease-in-out .15s, box-shadow ease-in-out .15s}.fa-angle-right{width:6px;height:13px;background-position:-162px -58px;position:absolute;top:10px;right:10px}#btnPriceinCityLoader{position:relative;margin-top:20px;text-align:center}.btnPriceInCityPopup{font-size:18px;display:block;width:100%;background:#ef3030;color:#fff;padding:8px 42px;line-height:1.42857143;white-space:nowrap;border:1px solid transparent;border-radius:2px;outline:0;text-decoration:none;vertical-align:middle;-ms-touch-action:manipulation;touch-action:manipulation;cursor:pointer;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;background-image:none;-webkit-appearance:none}#priceInCityPopUpContent{background:#f5f5f5;z-index:12;position:fixed;right:0;top:0;overflow-y:scroll;width:100%;height:100%;-webkit-transition:right 1s;transition:right .5s;animation:fadein .5s;-moz-animation:fadein .5s;-webkit-animation:fadein .5s;-o-animation:fadein .5s}.bwm-city-area-box{text-align:left;position:relative}#pcPopupCityList{padding-top:40px}#pcPopupCityList li{border-top:1px solid #ccc;font-size:14px;padding:15px 10px;color:#333;cursor:pointer}.user-input-box{width:100%;position:fixed;top:0;right:0}.bwm-city-area-box .back-arrow-box{position:absolute;left:5px;height:30px;width:40px;position:absolute;top:5px;z-index:11;cursor:pointer}.bwm-city-area-box .back-arrow-box span.back-long-arrow-left{position:absolute;top:7px;left:10px}.back-long-arrow-left{background-position:-155px 0;width:21px;height:16px}#popupPriceInCityInput{background:#f5f5f5;display:block;padding:10px 50px;border:1px solid #ccc;border-radius:2px;position:relative}@keyframes fadein{from{opacity:0}to{opacity:1}}@-moz-keyframes fadein{from{opacity:0}to{opacity:1}}@-webkit-keyframes fadein{from{opacity:0}to{opacity:1}}@-o-keyframes fadein{from{opacity:0}to{opacity:1}}.error-text{display:block;font-size:12px;position:relative;top:4px;left:0;color:#d9534f}.single-version-content{min-width:125px;padding-top:5px;padding-bottom:5px;font-weight:700;border-bottom:1px solid #ddd;display:inline-block;position:relative}.exploremore__imagebackground{padding-top:15px;padding-bottom:10px;background:rgba(65,180,196,.3)}.exploremore__icon-background{height:64px;width:64px;background:#fff url(https://imgd.aeplcdn.com/0x0/bw/static/icons/41b4c4/bike-36x22.png) no-repeat center;margin:0 auto;-moz-border-radius:50%;-webkit-border-radius:50%;border-radius:50%}.exploremore-detailblock{margin:0 auto;padding-top:20px;min-height:115px;text-align:center}.detailblock__title{white-space:normal;font-size:14px;color:#4d5057;font-weight:600;line-height:25px;margin-bottom:10px}.detailblock__description{white-space:normal;font-size:12px;color:#a2a2a2}.single-version-content{min-width:125px;padding-top:5px;padding-bottom:5px;font-weight:700;border-bottom:1px solid #ddd;display:inline-block;position:relative}.dropdown-effect-light:after{content:'';position:absolute;right:0;top:0;width:25px;height:100%;background:#fff;opacity: .7;background:transparent url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/dropdown-icon.png) no-repeat 94%}.model-image .model-ribbon-tag{position:absolute;top:-25px;display:inline-block}.content-box-shadow{background:#fff;-moz-box-shadow:2px 2px 2px #dcdcdc;-webkit-box-shadow:2px 2px 2px #dcdcdc;-o-box-shadow:2px 2px 2px #dcdcdc;-ms-box-shadow:2px 2px 2px #dcdcdc;box-shadow:2px 2px 2px #dcdcdc;-moz-border-radius:2px;-webkit-border-radius:2px;-o-border-radius:2px;-ms-border-radius:2px;border-radius:2px}.discontinued-ribbon{color:#4d5957;background:#b5b5b5}.model-ribbon-tag{position:relative;top:-5px;left:-20px;font-size:12px;padding:2px 20px 2px 10px;display:inline-block}.model-ribbon-tag:after{content:'';position:absolute;border-top:10px solid transparent;border-right:10px solid #fff;border-bottom:10px solid transparent;right:0;top:0}.ShowroomInCity{margin-left:20px;margin-right:20px;padding-bottom:20px}.btn-auto-32{padding:5px 10px;font-size:14px}.dealer-campaign-wrapper{padding:20px}.campaign__icon{width:18px;height:17px;background:url(https://imgd.aeplcdn.com/0x0/bw/static/icons/dealer-4d5057-18.png) no-repeat;display:inline-block;vertical-align:middle;margin-right:10px}.campaign__name{width:80%;font-size:14px;font-weight:700}.campaign__list li{color:#787878}.campaign__list li:before{content:'\2022';margin-right:5px}.item--50-percent li{width:49%;display:inline-block;vertical-align:top}.btn-180-32{min-width:180px;padding:5px;font-size:14px}.campaign__floating-btn{position:fixed;bottom:0;right:0;left:0;z-index:8;padding:10px;background:#fff;-moz-box-shadow:0 0 7px #ccc;-webkit-box-shadow:0 0 7px #ccc;-o-box-shadow:0 0 7px #ccc;box-shadow:0 0 7px #ccc}.campaign__floating-btn .btn.btn-full-32{width:100%;padding:5px;font-size:14px;border-radius:2px}.campaign__floating-btn .btn__left-label{color:#82888b;position:relative;top:6px}.campaign__contact{font-size:14px;color:#4d5057;font-weight:600}.campaign__contact:hover{text-decoration:none}.tel-sm-icon{width:15px;height:12px;background-position:-88px -324px;position:relative;top:2px}@media only screen and (max-width: 320px){.dealer-campaign-wrapper.btn-180-32{min-width:160px;margin-right:5px}}.list-type-disc{list-style:disc;margin-left:19px}.dealer-grey{width:24px;height:22px;background-position:-33px -639px;vertical-align:middle}.get-offer-link{color:#0288d1;font-weight:bold}.dealer-campaign__name{font-size:14px;font-weight:700}.vertical-align-middle{vertical-align:bottom;margin-right:5px}.dealer-campaign__list-offer li{padding-top:5px;color:#787878;list-style:none;line-height:1.9}.dealer-campaign__list-offer .campaign__list-item{padding-left:40px;min-height:30px;background-repeat:no-repeat;background-position:left center}.list-item__jacket{background-image:url('https://imgd.aeplcdn.com/0x0//bw/static/icons/f04031/jacket-30x30.jpg?v24112017')}.list-item__warranty{background-image:url('https://imgd.aeplcdn.com/0x0//bw/static/icons/f04031/warranty-30x30.jpg?v24112017')}.list-item__gift{background-image:url('https://imgd.aeplcdn.com/0x0/bw/static/icons/f04031/gift-30x30.jpg?v24112017')}.related-list__section{padding-top:15px;font-size:0}.model-related__card{display:inline-block;vertical-align:top;font-size:14px;width:247px;height:205px}.related-card__title{font-weight:600;font-size:14px;padding-bottom:10px}.related-card__target-link{color:#787878;padding-top:5px;padding-bottom:15px;display:block}.related-card__list li{font-size:12px;margin-bottom:0}.model-related-swiper .swiper-slide{margin-right:0;width:190px}.model-related-swiper .swiper-slide:last-child{margin-right:30px}.dropdown-box__menu-tab{display:-webkit-box;display:-moz-box;display:-ms-flexbox;display:-webkit-flex;display:flex;-webkit-box-align:start;-moz-box-align:start;-ms-flex-align:start;-webkit-align-items:flex-start;align-items:flex-start;-webkit-box-pack:center;-moz-box-pack:center;-ms-flex-pack:center;-webkit-justify-content:center;justify-content:center;-webkit-box-direction:normal;-webkit-box-orient:vertical;-moz-box-direction:normal;-moz-box-orient:vertical;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;cursor:pointer;position:relative;background-color:#fff}.dropdown-box__menu-tab:after{background:url('https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/dropdown-icon.png') no-repeat center;-webkit-transition:all 0.3s;-moz-transition:all 0.3s;-ms-transition:all 0.3s;transition:all 0.3s;content:'';display:inline-block;width:10px;height:5px;position:absolute;right:20px;top:50%;will-change:transform}.dropdown-box__menu-title{font-size:12px;color:#82888b}.dropdown-box__menu-value{width:90%;text-align:left;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;color:#4d5057;font-weight:600}.dropdown-box--active .dropdown-box__menu-title{font-size:14px}.dropdown-box--active .dropdown-box__menu-value{display:none}.dropdown-box--active .dropdown-box__menu-tab{-webkit-box-shadow:0 -2px 10px 0 #e2e2e2;-moz-box-shadow:0 -2px 10px 0 #e2e2e2;-ms-box-shadow:0 -2px 10px 0 #e2e2e2;box-shadow:0 -2px 10px 0 #e2e2e2;border-bottom:1px solid #e6e6e6;z-index:4}.dropdown-box--active .dropdown-box__menu-tab:after{-webkit-transform:rotate(180deg);-moz-transform:rotate(180deg);-ms-transform:rotate(180deg);transform:rotate(180deg)}.dropdown-box__submenu-wrapper{width:100%;clear:both;position:absolute;top:100%;left:0;z-index:1}.dropdown-box__submenu-list{-webkit-box-shadow:1px 2px 10px 2px #e2e2e2;-moz-box-shadow:1px 2px 10px 2px #e2e2e2;-ms-box-shadow:1px 2px 10px 2px #e2e2e2;box-shadow:1px 2px 10px 2px #e2e2e2;width:100%;display:none;list-style:none;padding-left:16px;padding-right:16px;background-color:#fff}.dropdown-box__submenu-list:before,.dropdown-box__submenu-list:after{content:'';display:table}.dropdown-box__submenu-list:after{clear:both}.dropdown-box-submenu-list__item{border-bottom:1px solid #e6e6e6;padding-top:15px;padding-bottom:15px;color:#8f9496;font-weight:600;cursor:pointer}.dropdown-box-submenu-list__item:last-child{border-bottom:none}.dropdown-box-submenu-list__item:focus{outline:none}.submenu-list-item__title{font-size:14px;font-weight:600}.submenu-list-item--active .submenu-list-item__title{color:#4d5057}.dropdown-box--active .dropdown-box__submenu-list{display:block}.dropdown-box-submenu__specs-list{width:100%;text-align:left;text-overflow:ellipsis;white-space:nowrap;overflow:hidden}.dropdown-box-specs-list__item{font-weight:normal;border:none;font-size:12px;line-height:17px;display:inline-block;vertical-align:middle;padding:7px 7px 0 10px;color:#a2a2a2;position:relative}.dropdown-box-specs-list__item:before{-webkit-border-radius:50%;-moz-border-radius:50%;-ms-border-radius:50%;border-radius:50%;content:'';width:4px;height:4px;background-color:#a2a2a2;position:absolute;top:56%;left:0}.submenu-list-item__title{clear:both;width:100%}.submenu-list-item__title:before,.submenu-list-item__title:after{content:'';display:table}.submenu-list-item__title:after{clear:both}.submenu-list-item-title__left-col{width:70%;text-align:left;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;float:left}.submenu-list-item-title__right-col{float:right;text-align:right}.version__dropdown-box .dropdown-box__menu-tab{padding:6px 17px;min-height:55px}.version__dropdown-box .dropdown-box__menu-tab:before{content:'';position:absolute;top:100%;left:10%;right:10%;display:block;width:80%;border-bottom:1px solid #e2e2e2}.margin-right15{margin-right:15px}.pos-top0{top:0}.position-abt{position:absolute}.font8{font-size:8px}.text-light-grey{color:#82888b}.tooltip-icon-target.info-icon{position:relative;width:20px;height:15px;background:url('https://imgd.aeplcdn.com/0x0/bw/static/icons/0288d1/info-10x10.png') center no-repeat;cursor:pointer;display:inline-block;vertical-align:middle}.tooltip-icon-target:hover .bw-tooltip{display:block}.info-tooltip{display:none;padding:5px;width:190px;height:auto;cursor:default;position:absolute;bottom:20px;right:-85px;z-index:1;text-align:center;font-size:12px;color:#787878;border-radius:2px;border:1px solid #e2e2e2;background:#fff;box-shadow:0 1px 2px #eee}.tooltip-top .bw-tooltip-text:after, .tooltip-top .bw-tooltip-text:before{content:'';width:9px;height:18px;display:block;position:absolute;left:85px;border-left:7px solid transparent;border-top:7px solid;border-right:7px solid transparent;box-sizing:border-box}.tooltip-top .bw-tooltip-text:before{border-top-color:#e2e2e2;bottom:-19px}.tooltip-top .bw-tooltip-text:after{border-top-color:#fff;bottom:-18px}.tooltip--right .info-tooltip{right:-35px}.tooltip--right.tooltip-top .bw-tooltip-text:after, .tooltip--right.tooltip-top .bw-tooltip-text:before{left:135px}.bw-tooltip--large.bw-tooltip{padding:12px 15px;width:260px;text-align:left;box-shadow:0 2px 4px 0 rgba(213, 213, 213, .5);border-radius:3px;font-size:13px}.tooltip-top .insurance-info-tooltip .bw-tooltip-text:before, .tooltip-top .insurance-info-tooltip .bw-tooltip-text:after{left:155px}@media (max-width: 320px){.model-version_price-table td{font-size:13px}}";
+    Model.AdTags.AdPath = "/1017752/Bikewale_CityPrice_Mobile";
+    Model.AdTags.AdId = "1516080888816";
+}
+
 
 @if (Model != null && Model.BikeModel != null && Model.CityEntity != null && Model.FirstVersion != null)
 {
-	Layout = "~/Views/Shared/_Layout_Mobile_AMP.cshtml";
-
-	Model.AdTags.Ad_320x50 = true;
-	Model.AdTags.Ad_300x250 = true;
-    Model.AdTags.Ad_Bot_320x50 = true;
-    Model.Amp_Page_CSS = @"html{font-size:13px;padding:0;margin:0;background:#f5f5f5;box-sizing:border-box;font-family:'Open Sans',sans-serif,Arial;color:#4d5057;line-height:1.42857143}*{margin:0;padding:0;box-sizing:border-box}h1{margin:0;padding:0;font-size:18px;font-weight:700;color:#2a2a2a}h2{font-size:16px;font-weight:600;color:#2a2a2a}h3{font-size:14px;font-weight:600;color:#4d5057}.omega{padding-right:0}.alpha{padding-left:0}.grid-12{width:100%}.grid-9{width:75%}.grid-8{width:66.66666667%}.grid-7{width:58.33333333%}.grid-5{width:41.66666667%}.grid-4{width:33.33333333%}.grid-3{width:25%}.grid-1,.grid-10,.grid-11,.grid-12,.grid-2,.grid-3,.grid-4,.grid-5,.grid-6,.grid-7,.grid-8,.grid-9{float:left;position:relative;min-height:1px;padding-right:10px;padding-left:10px}.padding-top10{padding-top:10px}.padding-top15{padding-top:15px}.padding-top20{padding-top:20px}.orpContent-block.padding-top40{padding-top:40px}.padding-left5{padding-left:5px}.padding-left10{padding-left:10px}.padding-left15{padding-left:15px}.padding-left20{padding-left:20px}.padding-right20{padding-right:20px}.padding-bottom5{padding-bottom:5px}.padding-bottom10{padding-bottom:10px}.padding-bottom15{padding-bottom:15px}.padding-bottom20{padding-bottom:20px}.padding-15-20{padding:15px 20px}.text-right{text-align:right}.text-default{color:#4d5057}.text-center{text-align:center}.text-slate-grey{color:#787878}.text-xx-light{color:#a2a2a2}.margin-right5{margin-right:5px}.margin-right10{margin-right:10px}.margin-right20{margin-right:20px}.margin-left20{margin-left:20px}.margin-top5{margin-top:5px}.margin-top15{margin-top:15px}.margin-bottom20{margin-bottom:20px}.margin-bottom15{margin-bottom:15px}.margin-bottom16{margin-bottom:16px}.margin-bottom10{margin-bottom:10px}.margin-bottom5{margin-bottom:5px}.font11{font-size:11px}.font12{font-size:12px}.font14{font-size:14px}.font20{font-size:20px}.font15{font-size:15px}.alpha{padding-left:0}.omega{padding-right:0}.text-light-grey{color:#82888b}.font-bold{font-weight:700}.text-unbold{font-weight:400}.text-bold{font-weight:600}.line-height16{line-height:1.6}.clear{clear:both}.border-solid-top{border-top:1px solid #e2e2e2}.border-solid-bottom{border-bottom:1px solid #e2e2e2}.review-left-divider{position:relative;margin-left:15px;padding-left:15px;padding-right:5px}.divider-bottom{border-bottom:1px solid #eee}a{color:#0288d1;text-decoration:none}.hide{display:none}.inline-block{display:inline-block;vertical-align:middle}.vertical-top{display:inline-block;vertical-align:top}.block{display:block}.position-rel{position:relative}.pos-top2{top:2px}.text-truncate{width:100%;text-align:left;text-overflow:ellipsis;white-space:nowrap;overflow:hidden}.target-link{color:#2a2a2a;font-weight:600;display:block}.btn{display:inline-block;padding:8px 42px;font-size:16px;line-height:1.42857143;text-align:center;white-space:nowrap;border:1px solid transparent;border-radius:2px;outline:0;text-decoration:none;vertical-align:middle;-ms-touch-action:manipulation;touch-action:manipulation;cursor:pointer;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;background-image:none;-webkit-appearance:none}.city-sprite{background:url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/bwm-city-sprite-v2.png?v07Oct2016) no-repeat;display:inline-block}.btn-teal{background:#41b4c4;color:#fff;border:1px solid #41b4c4}.btn-orange{background:#ef3030;color:#fff}.btn-white{background:#fff;color:#e42029;border:1px solid #e42029}.btn-180-34{font-size:14px;width:180px;padding:6px}.btn-red-arrow{width:6px;height:10px;background-position:-204px -35px;margin-left:5px;position:relative;top:1px}.btn-inv-teal,.view-all-target-btn{background:0 0;color:#3799a7;border:1px solid #3799a7}.btn-card{font-size:14px;padding:5px;overflow:hidden;text-overflow:ellipsis}.btn-170-32{width:170px;font-size:14px;padding:5px}.btn-160-32{min-width:160px;padding:5px;font-size:14px}.btn-full-width{display:block;width:100%}.campaign__floating-btn{position:fixed;bottom:0;right:0;left:0;z-index:8;padding:10px;background:#fff;-moz-box-shadow:0 0 7px #ccc;-webkit-box-shadow:0 0 7px #ccc;-o-box-shadow:0 0 7px #ccc;box-shadow:0 0 7px #ccc}.clearfix{clear:both}.btn__left-label{color:#82888b;position:relative;top:6px}.btn.btn-full-32{width:100%;padding:5px;font-size:14px;border-radius:2px}.btn-orange{background:#ef3030;color:#fff}ol,ul{list-style:none}.campaign__powered-key{font-size:12px;color:#a2a2a2}.campaign__powered-value{font-size:13px;color:#82888b}.item-more-details-list li{float:left;margin-bottom:8px;margin-right:8px}.container{width:100%;margin:0 auto;clear:both}.price-in-city__head{padding:10px 20px 0;font-size:20px;background:#fff}#modelOverallSpecsTopContent{height:44px}#overallSpecsTab{width:100%;display:block;background:#fff;overflow-x:auto;z-index:3;-webkit-overflow-scrolling:touch;position:absolute;top:0;-moz-box-shadow:0 4px 5px -2px #d5d5d5;-webkit-box-shadow:0 4px 5px -2px #d5d5d5;-o-box-shadow:0 4px 5px -2px #d5d5d5;-ms-box-shadow:0 4px 5px -2px #d5d5d5;box-shadow:0 4px 5px -2px #d5d5d5}.overall-specs-tabs-wrapper{width:100%;display:table}.overall-specs-tabs-wrapper li{display:table-cell;width:1%;padding:10px 15px;text-align:center;white-space:nowrap;font-size:14px;color:#82888b;cursor:pointer}.overall-specs-tabs-wrapper li a{color:#82888b}.overall-specs-tabs-wrapper li.active{border-bottom:3px solid #ef3f30;color:#4d5057;font-weight:600}.overall-specs-tabs-wrapper li.active a{color:#4d5057}#overallSpecsTab::-webkit-scrollbar{width:0;height:0;display:none}.card-bottom-margin,.section-bottom-margin{margin-bottom:20px}.content-box-shadow{background:#fff;-moz-box-shadow:2px 2px 2px #dcdcdc;-webkit-box-shadow:2px 2px 2px #dcdcdc;-o-box-shadow:2px 2px 2px #dcdcdc;-ms-box-shadow:2px 2px 2px #dcdcdc;box-shadow:2px 2px 2px #dcdcdc;-moz-border-radius:2px;-webkit-border-radius:2px;-o-border-radius:2px;-ms-border-radius:2px;border-radius:2px}.content-inner-block-20{padding:20px}.model-image{width:96px;height:53px;display:inline-block;vertical-align:top}.model-image a{display:inline-block;height:48px;width:86px}.model-version-block{width:60%;padding-left:0;display:inline-block;font-size:14px}.version-block__title{color:#82888b;font-size:12px}.select-wrapper__list{position:absolute;top:35px;background:#fff}.select-wrapper__list[selected]{border-bottom:1px solid #82888b}.model-version-block amp-selector [option][selected]{cursor:auto;outline:0}.price-table__heading{padding-bottom:15px;color:#4d5057;font-size:14px;text-align:left}.model-version_price-table{width:100%}.model-version_price-table td{font-size:14px}.info-grey-14{width:14px;height:15px;background-position:-173px -613px;position:relative;top:2px;margin-right:2px;cursor:pointer}.position--left-neg-5{left:-5px}.rate-count-1 .star-icon{background-position:0 -667px}.rate-count-2 .star-icon{background-position:-38px -667px}.rate-count-3 .star-icon{background-position:0 -278px}.rate-count-4 .star-icon{background-position:-74px -667px}.rate-count-5 .star-icon{background-position:-110px -667px}.rate-count-5{color:#198d55}.rate-count-4{color:#13b65d}.rate-count-3{color:#efd700}.rate-count-2{color:#fd971c}.rate-count-1{color:#ef3f30}.star-icon.star-size-16{-webkit-transform:scale(.6);-moz-transform:scale(.6);-o-transform:scale(.6);transform:scale(.6)}.star-icon{width:26px;height:25px;vertical-align:middle;-webkit-transform:scale(.8);-moz-transform:scale(.8);-o-transform:scale(.8);transform:scale(.8)}.review-left-divider:before{content:'';position:absolute;top:4px;left:0;width:1px;height:12px;border-left:1px solid #e2e2e2}.model-more-info-section .item-image-content{width:100px;height:56px;display:inline-block;vertical-align:top;background:url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif) no-repeat center}.item-image-content img{width:100%}.model-more-info-section .bike-details-block{width:62%;vertical-align:top;display:inline-block;padding-left:10px}.price-label-size-12{font-size:12px;color:#82888b}.price-value-size-18{font-size:18px;font-weight:700}.item-more-details-list a{display:block;padding:1px 8px 5px;color:#787878;background:rgba(245,245,245,.9);-webkit-border-radius:2px;-moz-border-radius:2px;-ms-border-radius:2px;border-radius:2px}.photos-sm{background-position:0 -477px}.photos-sm,.videos-sm{width:14px;height:14px;vertical-align:middle;margin-right:3px}.item-more-details-list .icon-label{font-size:13px;display:inline-block;vertical-align:middle;line-height:13px}.dealers-sm{background-position:-31px -476px}.specs-sm{background-position:-141px -555px}.dealers-sm,.news-sm,.reviews-sm,.specs-sm,.user-reviews-sm{width:14px;height:14px;vertical-align:middle;margin-right:3px}.videos-sm{background-position:-16px -476px}.model-more-info-section .used-target-label{width:94%}.next-grey-icon{width:8px;height:13px;background-position:-182px -393px;vertical-align:middle}.carousel-heading-content{margin-bottom:10px;padding-right:15px;padding-left:20px}.swiper-heading-left-grid{width:77%;margin-right:-4px}.swiper-heading-right-grid{width:23%}.view-all-target-btn{padding:5px 6px;font-size:14px}.dealer-horizontal-swiper .swiper-slide{width:253px}.swiper-slide:first-child{margin-left:5px}.swiper-card{vertical-align:top;width:253px;margin:2px 3px 2px 5px;padding:15px 15px 10px;min-height:170px;background:#fff;-webkit-box-shadow:0 1px 4px rgba(0, 0, 0, .2);-moz-box-shadow:0 1px 4px rgba(0, 0, 0, .2);-ms-box-shadow:0 1px 4px rgba(0, 0, 0, .2);box-shadow:0 1px 4px rgba(0,0,0,.2);-webkit-border-radius:2px;-moz-border-radius:2px;-ms-border-radius:2px;border-radius:2px}.dealership-loc-icon{width:12px;height:15px;background-position:-40px -435px;position:relative;top:4px}.dealership-address{color:#82888b;width:92%;font-size:14px;display:inline-block;vertical-align:top;white-space:normal;text-align:left;max-height:80px;overflow:hidden}.tel-sm-grey-icon{width:15px;height:15px;background-position:0 -435px;position:relative;top:2px}.dealer-horizontal-swiper::-webkit-scrollbar{width:0;height:0;display:none}.service-center-grey{width:28px;height:25px;background-position:0 -636px;vertical-align:middle}.grid-11-inline{display:inline-block;vertical-align:middle;width:88.66666667%}.card-h2-heading{font-size:18px}.teal-right{background-position:-69px -437px}.blue-right-arrow-icon,.teal-right{width:6px;height:10px;position:relative;top:1px;margin-left:6px}.emi-slider-box-right-section{text-align:right}#emiContent .inr-xxsm-icon{width:8px}.inr-xxsm-icon{width:11px;height:10px;background-position:-54px -94px}#versionContent td a{font-size:14px}#viewmore{color:#0288d1}.view-cities-link:before{content:'';width:100%;height:20px;position:absolute;top:-40px;left:0;z-index:1;background:-moz-linear-gradient(to bottom, rgba(255, 255, 255, 0) 0, #fff 100%);background:-o-linear-gradient(to bottom, rgba(255, 255, 255, 0) 0, #fff 100%);background:linear-gradient(to bottom, rgba(255, 255, 255, 0) 0, #fff 100%)}#similarContent .swiper-card{margin-left:8px;padding:5px;width:200px;min-height:210px}#popularContent .swiper-card{margin-left:8px;padding:5px;width:200px;min-height:210px}.swiper-card:first-child{margin-left:8px}.swiper-card:last-child{margin-right:8px}.carousel-image-preview{height:95px;padding:5px 5px 0;position:relative}.carousel-slide img{max-width:100%}.carousel-image-preview img{height:90px}#similarContent .swiper-details-block{padding:5px 15px 0}#similarContent .swiper-btn-block{padding:10px 15px 15px}#popularContent .swiper-btn-block{padding:10px 15px 15px}#popularContent .swiper-details-block{padding:5px 15px 0}.compare-with-target{display:block;padding:10px 35px 0 15px;position:relative;font-size:12px;color:#4d5057;top:-1px}.compare-with-target:before{content:'';position:absolute;left:8%;top:0;width:168px;height:1px;border-top:1px solid #e2e2e2}.compare-sm{width:17px;height:12px;background-position:-173px -596px;position:relative;top:1px;margin-right:5px}.swiper-type-similar .right-arrow{right:18px;top:13px;transform:scale(.8)}.right-arrow{width:8px;height:12px;background-position:-182px -394px;position:absolute;right:20px;top:41%}#swiper-city .swiper-card{width:200px;margin-left:8px}#swiper-city .swiper-image-preview{height:100px;padding:25px 0 10px;border-bottom:1px solid #eee;text-align:center}.c-bangalore-icon,.c-chennai-icon,.c-hyderabad-icon,.c-kolkata-icon,.c-lucknow-icon,.c-mumbai-icon,.c-newdelhi-icon,.c-pune-icon{height:48px}.c-mumbai-icon{width:78px;background-position:0 0}.c-pune-icon{width:112px;background-position:-84px 0}.c-bangalore-icon{width:82px;background-position:-202px 0}.c-newdelhi-icon{width:38px;background-position:-290px 0}.c-chennai-icon{width:33px;background-position:-334px 0}.c-hyderabad-icon{width:34px;background-position:-373px 0}.c-kolkata-icon{width:110px;background-position:-413px 0}.c-lucknow-icon{width:106px;background-position:-529px 0}#swiper-city .swiper-details-block{padding-top:10px}.graph-rank-grey{width:28px;height:25px;background-position:-62px -637px;vertical-align:middle}.text-white{color:#fff}@media screen and (-webkit-min-device-pixel-ratio: 0){input[type=range]{overflow:hidden;width:100%;-webkit-appearance:none;background-color:#e2e2e2}input[type=range]::-webkit-slider-runnable-track{height:10px;-webkit-appearance:none;color:#ef3030;margin-top:1px}input[type=range]::-webkit-slider-thumb{width:10px;border-radius:50%;border:1px solid #930202;-webkit-appearance:none;height:10px;cursor:ew-resize;background:#ef3030;box-shadow:-605px 10px 0 600px #ef3030}}input[type=range]{overflow:hidden;width:100%;-webkit-appearance:none}input[type=range]:focus{outline:0}input[type=range]::-moz-range-thumb{border-radius:10px;-moz-box-shadow:inset 0 0 6px #fff;background:#ef3030;color:#00f}input[type=range]::-moz-range-progress{background-color:#ef3030}input[type=range]::-moz-range-track{background-color:#bababa}input[type=range]::-ms-track{width:100%;height:5px;background:0 0;border-color:transparent;border-width:6px 0;color:transparent}input[type=range]::-ms-fill-lower{background:#ef3030;border-radius:10px}input[type=range]::-ms-fill-upper{background:#bababa;border-radius:10px}input[type=range]::-ms-thumb{border:none;height:16px;width:16px;border-radius:50%;background:#ef3030}input[type=range]:focus::-ms-fill-lower{background:#ef3030}input[type=range]:focus::-ms-fill-upper{background:#bababa}div::-webkit-scrollbar{display:none;width:0;height:0}#select-box:focus{outline:0}.orpContent-block{position:relative;padding:20px;margin-bottom:20px;background:#fff;-moz-box-shadow:2px 2px 2px #dcdcdc;-webkit-box-shadow:2px 2px 2px #dcdcdc;-o-box-shadow:2px 2px 2px #dcdcdc;-ms-box-shadow:2px 2px 2px #dcdcdc;box-shadow:2px 2px 2px #dcdcdc;-moz-border-radius:2px;-webkit-border-radius:2px;-o-border-radius:2px;-ms-border-radius:2px;border-radius:2px}.version-table__head tr{font-weight:400;color:#82888b;font-size:12px}.version-table__head th{padding-bottom:10px;border-bottom:1px solid #e2e2e2}.version-table__body td{border-bottom:1px solid #eee;font-size:14px;color:#787878;padding-bottom:10px;padding-top:10px}.price-table__body td:first-child{color:#787878}.price-table__body td{padding-bottom:15px}.price-table__body tr:last-child td{padding-bottom:5px;padding-top:15px;border-top:1px solid #e2e2e2;font-size:14px;color:#4d5057}.dealer-name{color:#2a2a2a;font-weight:600;display:block;width:100%;text-align:left;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;font-size:15px;margin-bottom:10px}.dealer-contact{width:100%;text-align:left;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;font-weight:600;font-size:14px;color:#4d5057}.swiper-block__title{width:100%;text-align:left;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;color:#2a2a2a;font-weight:600;display:block;margin-bottom:5px;font-size:12px}.city-area-banner{width:100%;height:109px;background:#f5f5f5 url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/city-area-banner.png) repeat-x center bottom}#priceInCityWrapper{overflow-x:hidden;background:#fff;padding:10px 20px 30px;margin:auto;width:100%;position:fixed;left:0;top:0;height:100%;z-index:11;overflow-y:scroll;text-align:center}.onroad-price-close-btn{width:16px;height:16px;cursor:pointer;background-position:-36px -226px;position:absolute;top:10px;right:10px}#popupHeading{padding:20px}.popupheading-head{margin-bottom:5px;font-size:18px;text-transform:capitalize}#pcitySelection{position:relative;margin-bottom:10px;text-align:left;padding:8px 10px;display:block;width:100%;padding:10px;min-height:35px;line-height:1.42857143;color:#4d5057;position:relative;background-color:#fff;background-image:none;border:1px solid #ccc;border-radius:2px;-webkit-transition:border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;-o-transition:border-color ease-in-out .15s, box-shadow ease-in-out .15s;transition:border-color ease-in-out .15s, box-shadow ease-in-out .15s}.fa-angle-right{width:6px;height:13px;background-position:-162px -58px;position:absolute;top:10px;right:10px}#btnPriceinCityLoader{position:relative;margin-top:20px;text-align:center}.btnPriceInCityPopup{font-size:18px;display:block;width:100%;background:#ef3030;color:#fff;padding:8px 42px;line-height:1.42857143;white-space:nowrap;border:1px solid transparent;border-radius:2px;outline:0;text-decoration:none;vertical-align:middle;-ms-touch-action:manipulation;touch-action:manipulation;cursor:pointer;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;background-image:none;-webkit-appearance:none}#priceInCityPopUpContent{background:#f5f5f5;z-index:12;position:fixed;right:0;top:0;overflow-y:scroll;width:100%;height:100%;-webkit-transition:right 1s;transition:right .5s;animation:fadein .5s;-moz-animation:fadein .5s;-webkit-animation:fadein .5s;-o-animation:fadein .5s}.bwm-city-area-box{text-align:left;position:relative}#pcPopupCityList{padding-top:40px}#pcPopupCityList li{border-top:1px solid #ccc;font-size:14px;padding:15px 10px;color:#333;cursor:pointer}.user-input-box{width:100%;position:fixed;top:0;right:0}.bwm-city-area-box .back-arrow-box{position:absolute;left:5px;height:30px;width:40px;position:absolute;top:5px;z-index:11;cursor:pointer}.bwm-city-area-box .back-arrow-box span.back-long-arrow-left{position:absolute;top:7px;left:10px}.back-long-arrow-left{background-position:-155px 0;width:21px;height:16px}#popupPriceInCityInput{background:#f5f5f5;display:block;padding:10px 50px;border:1px solid #ccc;border-radius:2px;position:relative}@keyframes fadein{from{opacity:0}to{opacity:1}}@-moz-keyframes fadein{from{opacity:0}to{opacity:1}}@-webkit-keyframes fadein{from{opacity:0}to{opacity:1}}@-o-keyframes fadein{from{opacity:0}to{opacity:1}}.error-text{display:block;font-size:12px;position:relative;top:4px;left:0;color:#d9534f}.single-version-content{min-width:125px;padding-top:5px;padding-bottom:5px;font-weight:700;border-bottom:1px solid #ddd;display:inline-block;position:relative}.exploremore__imagebackground{padding-top:15px;padding-bottom:10px;background:rgba(65,180,196,.3)}.exploremore__icon-background{height:64px;width:64px;background:#fff url(https://imgd.aeplcdn.com/0x0/bw/static/icons/41b4c4/bike-36x22.png) no-repeat center;margin:0 auto;-moz-border-radius:50%;-webkit-border-radius:50%;border-radius:50%}.exploremore-detailblock{margin:0 auto;padding-top:20px;min-height:115px;text-align:center}.detailblock__title{white-space:normal;font-size:14px;color:#4d5057;font-weight:600;line-height:25px;margin-bottom:10px}.detailblock__description{white-space:normal;font-size:12px;color:#a2a2a2}.single-version-content{min-width:125px;padding-top:5px;padding-bottom:5px;font-weight:700;border-bottom:1px solid #ddd;display:inline-block;position:relative}.dropdown-effect-light:after{content:'';position:absolute;right:0;top:0;width:25px;height:100%;background:#fff;opacity: .7;background:transparent url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/dropdown-icon.png) no-repeat 94%}.model-image .model-ribbon-tag{position:absolute;top:-25px;display:inline-block}.content-box-shadow{background:#fff;-moz-box-shadow:2px 2px 2px #dcdcdc;-webkit-box-shadow:2px 2px 2px #dcdcdc;-o-box-shadow:2px 2px 2px #dcdcdc;-ms-box-shadow:2px 2px 2px #dcdcdc;box-shadow:2px 2px 2px #dcdcdc;-moz-border-radius:2px;-webkit-border-radius:2px;-o-border-radius:2px;-ms-border-radius:2px;border-radius:2px}.discontinued-ribbon{color:#4d5957;background:#b5b5b5}.model-ribbon-tag{position:relative;top:-5px;left:-20px;font-size:12px;padding:2px 20px 2px 10px;display:inline-block}.model-ribbon-tag:after{content:'';position:absolute;border-top:10px solid transparent;border-right:10px solid #fff;border-bottom:10px solid transparent;right:0;top:0}.ShowroomInCity{margin-left:20px;margin-right:20px;padding-bottom:20px}.btn-auto-32{padding:5px 10px;font-size:14px}.dealer-campaign-wrapper{padding:20px}.campaign__icon{width:18px;height:17px;background:url(https://imgd.aeplcdn.com/0x0/bw/static/icons/dealer-4d5057-18.png) no-repeat;display:inline-block;vertical-align:middle;margin-right:10px}.campaign__name{width:80%;font-size:14px;font-weight:700}.campaign__list li{color:#787878}.campaign__list li:before{content:'\2022';margin-right:5px}.item--50-percent li{width:49%;display:inline-block;vertical-align:top}.btn-180-32{min-width:180px;padding:5px;font-size:14px}.campaign__floating-btn{position:fixed;bottom:0;right:0;left:0;z-index:8;padding:10px;background:#fff;-moz-box-shadow:0 0 7px #ccc;-webkit-box-shadow:0 0 7px #ccc;-o-box-shadow:0 0 7px #ccc;box-shadow:0 0 7px #ccc}.campaign__floating-btn .btn.btn-full-32{width:100%;padding:5px;font-size:14px;border-radius:2px}.campaign__floating-btn .btn__left-label{color:#82888b;position:relative;top:6px}.campaign__contact{font-size:14px;color:#4d5057;font-weight:600}.campaign__contact:hover{text-decoration:none}.tel-sm-icon{width:15px;height:12px;background-position:-88px -324px;position:relative;top:2px}@media only screen and (max-width: 320px){.dealer-campaign-wrapper.btn-180-32{min-width:160px;margin-right:5px}}.list-type-disc{list-style:disc;margin-left:19px}.dealer-grey{width:24px;height:22px;background-position:-33px -639px;vertical-align:middle}.get-offer-link{color:#0288d1;font-weight:bold}.dealer-campaign__name{font-size:14px;font-weight:700}.vertical-align-middle{vertical-align:bottom;margin-right:5px}.dealer-campaign__list-offer li{padding-top:5px;color:#787878;list-style:none;line-height:1.9}.dealer-campaign__list-offer .campaign__list-item{padding-left:40px;min-height:30px;background-repeat:no-repeat;background-position:left center}.list-item__jacket{background-image:url('https://imgd.aeplcdn.com/0x0//bw/static/icons/f04031/jacket-30x30.jpg?v24112017')}.list-item__warranty{background-image:url('https://imgd.aeplcdn.com/0x0//bw/static/icons/f04031/warranty-30x30.jpg?v24112017')}.list-item__gift{background-image:url('https://imgd.aeplcdn.com/0x0/bw/static/icons/f04031/gift-30x30.jpg?v24112017')}.breadcrumb{margin:10px;padding:10px;background:#eee}.breadcrumb li{position:relative;display:inline-block;vertical-align:middle;margin-right:5px;margin-bottom:10px}.breadcrumb-title{display:block;font-size:12px;color:#82888B;padding-bottom:5px}.breadcrumb-link__label{padding-right:12px}.breadcrumb-link::after{content:'';height:5px;width:5px;border:solid grey;border-width:0px 1px 1px 0px;-webkit-transform:rotate(-45deg);-moz-transform:rotate(-45deg);-o-transform:rotate(-45deg);transform:rotate(-45deg);display:inline-block;position:absolute;top:7px;right:0px}.related-list__section{padding-top:15px;font-size:0}.model-related__card{display:inline-block;vertical-align:top;font-size:14px;width:247px;height:205px}.related-card__title{font-weight:600;font-size:14px;padding-bottom:10px}.related-card__target-link{color:#787878;padding-top:5px;padding-bottom:15px;display:block}.related-card__list li{font-size:12px;margin-bottom:0}.model-related-swiper .swiper-slide{margin-right:0;width:190px}.model-related-swiper .swiper-slide:last-child{margin-right:30px}.dropdown-box__menu-tab{display:-webkit-box;display:-moz-box;display:-ms-flexbox;display:-webkit-flex;display:flex;-webkit-box-align:start;-moz-box-align:start;-ms-flex-align:start;-webkit-align-items:flex-start;align-items:flex-start;-webkit-box-pack:center;-moz-box-pack:center;-ms-flex-pack:center;-webkit-justify-content:center;justify-content:center;-webkit-box-direction:normal;-webkit-box-orient:vertical;-moz-box-direction:normal;-moz-box-orient:vertical;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;cursor:pointer;position:relative;background-color:#fff}.dropdown-box__menu-tab:after{background:url('https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/dropdown-icon.png') no-repeat center;-webkit-transition:all 0.3s;-moz-transition:all 0.3s;-ms-transition:all 0.3s;transition:all 0.3s;content:'';display:inline-block;width:10px;height:5px;position:absolute;right:20px;top:50%;will-change:transform}.dropdown-box__menu-title{font-size:12px;color:#82888b}.dropdown-box__menu-value{width:90%;text-align:left;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;color:#4d5057;font-weight:600}.dropdown-box--active .dropdown-box__menu-title{font-size:14px}.dropdown-box--active .dropdown-box__menu-value{display:none}.dropdown-box--active .dropdown-box__menu-tab{-webkit-box-shadow:0 -2px 10px 0 #e2e2e2;-moz-box-shadow:0 -2px 10px 0 #e2e2e2;-ms-box-shadow:0 -2px 10px 0 #e2e2e2;box-shadow:0 -2px 10px 0 #e2e2e2;border-bottom:1px solid #e6e6e6;z-index:4}.dropdown-box--active .dropdown-box__menu-tab:after{-webkit-transform:rotate(180deg);-moz-transform:rotate(180deg);-ms-transform:rotate(180deg);transform:rotate(180deg)}.dropdown-box__submenu-wrapper{width:100%;clear:both;position:absolute;top:100%;left:0;z-index:1}.dropdown-box__submenu-list{-webkit-box-shadow:1px 2px 10px 2px #e2e2e2;-moz-box-shadow:1px 2px 10px 2px #e2e2e2;-ms-box-shadow:1px 2px 10px 2px #e2e2e2;box-shadow:1px 2px 10px 2px #e2e2e2;width:100%;display:none;list-style:none;padding-left:16px;padding-right:16px;background-color:#fff}.dropdown-box__submenu-list:before,.dropdown-box__submenu-list:after{content:'';display:table}.dropdown-box__submenu-list:after{clear:both}.dropdown-box-submenu-list__item{border-bottom:1px solid #e6e6e6;padding-top:15px;padding-bottom:15px;color:#8f9496;font-weight:600;cursor:pointer}.dropdown-box-submenu-list__item:last-child{border-bottom:none}.dropdown-box-submenu-list__item:focus{outline:none}.submenu-list-item__title{font-size:14px;font-weight:600}.submenu-list-item--active .submenu-list-item__title{color:#4d5057}.dropdown-box--active .dropdown-box__submenu-list{display:block}.dropdown-box-submenu__specs-list{width:100%;text-align:left;text-overflow:ellipsis;white-space:nowrap;overflow:hidden}.dropdown-box-specs-list__item{font-weight:normal;border:none;font-size:12px;line-height:17px;display:inline-block;vertical-align:middle;padding:7px 7px 0 10px;color:#a2a2a2;position:relative}.dropdown-box-specs-list__item:before{-webkit-border-radius:50%;-moz-border-radius:50%;-ms-border-radius:50%;border-radius:50%;content:'';width:4px;height:4px;background-color:#a2a2a2;position:absolute;top:56%;left:0}.submenu-list-item__title{clear:both;width:100%}.submenu-list-item__title:before,.submenu-list-item__title:after{content:'';display:table}.submenu-list-item__title:after{clear:both}.submenu-list-item-title__left-col{width:70%;text-align:left;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;float:left}.submenu-list-item-title__right-col{float:right;text-align:right}.version__dropdown-box .dropdown-box__menu-tab{padding:6px 17px;min-height:55px}.version__dropdown-box .dropdown-box__menu-tab:before{content:'';position:absolute;top:100%;left:10%;right:10%;display:block;width:80%;border-bottom:1px solid #e2e2e2}";
-	Model.AdTags.AdPath = "/1017752/Bikewale_CityPrice_Mobile";
-	Model.AdTags.AdId = "1516080888816";
-
+	
 	<amp-state id="currentVersion">
 		<script type="application/json">
 			{
@@ -101,18 +107,16 @@
 		</script>
 	</amp-analytics>
 
-	<section id="priceincity">
-		<div class="container">
-			<h1 class="price-in-city__head">@Model.Page_H1</h1>
-			<div class="modelSpecsTabsContentWrapper">
-				<div id="modelOverallSpecsTopContent" class="position-rel">
-					<div id="overallSpecsTab">
-						@Html.Partial("~/views/priceincity/_Index_Tabs_Mobile_Amp.cshtml", Model)
-					</div>
-				</div>
-				<!-- model orp start -->
-				<div id="orpContent" class="bw-model-tabs-data active">
-					<div class="@(Model.IsDiscontinued ? "padding-top40":"") orpContent-block">
+    <section id="priceincity">
+        <div class="container">
+            <h1 class="price-in-city__head">@Model.Page_H1</h1>
+            <div class="modelSpecsTabsContentWrapper">
+                <div id="overallSpecsTab">
+                    @Html.Partial("~/UI/views/priceincity/_Index_Tabs_Mobile_Amp.cshtml", Model)
+                </div>
+                <!-- model orp start -->
+                <div id="orpContent" class="bw-model-tabs-data active">
+                    <div class="@(Model.IsDiscontinued ? "padding-top40":"") orpContent-block">
                         <div class="margin-bottom15 position-rel" [class]="versionDropdown.isActive ? 'margin-bottom15 position-rel dropdown-box--active' : 'margin-bottom15 position-rel'">
                             <div class="model-image position-rel">
                                 @if (Model.IsDiscontinued)
@@ -135,671 +139,681 @@
                                         <ul id="select-option" class="dropdown-box__submenu-list">
                                             @foreach (var version in Model.VersionSpecs)
                                             {
-                                                <li role="option" class="dropdown-box-submenu-list__item" [class]="currentVersion.versionId == '@version.VersionId' ? 'dropdown-box-submenu-list__item submenu-list-item--active':'dropdown-box-submenu-list__item'" tabindex="0" option="@version.VersionId" on="tap:select-option.hide,AMP.setState({currentVersion: {versionId : '@version.VersionId'}, versionDropdown: {isActive: !versionDropdown.isActive}})">
-                                                    <div class="submenu-list-item__title">
-                                                        <p class="submenu-list-item-title__left-col">@version.VersionName</p>
-                                                        <p class="submenu-list-item-title__right-col">@Html.Raw(version.Price != 0 ? string.Format("&#x20b9; {0}", Format.FormatPrice(Convert.ToString(version.Price))) : (version.AverageExShowroom != 0 ? string.Format("&#x20b9; {0}",
-                                                                                                         Format.FormatPrice(Convert.ToString(version.AverageExShowroom))) : string.Empty))</p>
+                                                if (version.Price > 0)
+                                                {
+                                                    <li role="option" class="dropdown-box-submenu-list__item" [class]="currentVersion.versionId == '@version.VersionId' ? 'dropdown-box-submenu-list__item submenu-list-item--active':'dropdown-box-submenu-list__item'" tabindex="0" option="@version.VersionId" on="tap:select-option.hide,AMP.setState({currentVersion: {versionId : '@version.VersionId'}, versionDropdown: {isActive: !versionDropdown.isActive}})">
+                                                        <div class="submenu-list-item__title">
+                                                            <p class="submenu-list-item-title__left-col">@version.VersionName</p>
+                                                            <p class="submenu-list-item-title__right-col">
+                                                                @Html.Raw(version.Price != 0 ? string.Format("&#x20b9; {0}", Format.FormatPrice(Convert.ToString(version.Price))) : (version.AverageExShowroom != 0 ? string.Format("&#x20b9; {0}",
+                                                                                                             Format.FormatPrice(Convert.ToString(version.AverageExShowroom))) : string.Empty))
+                                                        </p>
                                                     </div>
                                                     <ul class="dropdown-box-submenu__specs-list">
                                                         @Html.Raw(FormatMinSpecs.GetMinSpecsAsLiElement(version.MinSpecsList, "dropdown-box-specs-list__item"))
                                                     </ul>
                                                 </li>
+                                                }
                                             }
                                         </ul>
                                     </amp-selector>
                                 }
                             </div>
                         </div>
-						@if (Model.IsNew)
-						{
-							<table class="model-version_price-table">
-								<thead>
-									<tr>
-										<th colspan="2" class="price-table__heading">@string.Format("{0} price in {1}", Model.BikeName, Model.CityEntity.CityName)</th>
-									</tr>
-								</thead>
-								<tbody class="price-table__body">
-									<tr class="show" [class]="versions[currentVersion.versionId].FormatedExShowroomPrice ? 'show': 'hide'">
-										<td align="left" valign="top" width="70%">Ex-showroom</td>
-										<td align="right" valign="top" width="30%">
-											<span>&#x20b9;</span>&nbsp;<p class="text-bold inline-block" [text]="versions[currentVersion.versionId].FormatedExShowroomPrice">@Format.FormatPrice(Convert.ToString(Model.FirstVersion.ExShowroomPrice))</p>
-										</td>
-									</tr>
-									<tr class="show" [class]="versions[currentVersion.versionId].FormatedRTO ? 'show': 'hide'">
-										<td align="left" valign="top">RTO</td>
-										<td align="right" valign="top">
-											<span>&#x20b9;</span>&nbsp;<p class="text-bold inline-block" [text]="versions[currentVersion.versionId].FormatedRTO">@Format.FormatPrice(Convert.ToString(Model.FirstVersion.RTO))</p>
-										</td>
-									</tr>
-									<tr class="show" [class]="versions[currentVersion.versionId].FormatedInsurance ? 'show': 'hide'">
-										<td align="left" valign="top">
-											Insurance (Comprehensive)@*<br><p class="position-rel">
-												@if (!string.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink))
-												{
-													<a target="_blank" href="@BWConfiguration.Instance.CoverFoxLink" class="font12 bw-ga text-bold coverfox-link-clicked" rel="nofollow">Get Personal Loan Offers<span class="position-abt pos-top0 text-light-grey font10 text-unbold">&nbsp;Ad</span></a>
-												}
-											</p>*@
-										</td>
-										<td align="right" valign="top">
-											<span>&#x20b9;</span>&nbsp;<p class="text-bold inline-block" [text]="versions[currentVersion.versionId].FormatedInsurance">@Format.FormatPrice(Convert.ToString(Model.FirstVersion.Insurance))</p>
-										</td>
-									</tr>
-									<tr class="show" [class]="versions[currentVersion.versionId].FormatedOnRoadPrice ? 'show': 'hide'">
-										<td align="left" valign="top">@string.Format("{0} on-road price in {1}", Model.BikeModel.ModelName, Model.CityEntity.CityName)</td>
-										<td align="right" valign="top" class="font16">
-											<span>&#x20b9;</span>&nbsp;<p class="text-bold inline-block" [text]="versions[currentVersion.versionId].FormatedOnRoadPrice">@Format.FormatPrice(Convert.ToString(Model.FirstVersion.OnRoadPrice))</p>
-										</td>
-									</tr>
-								</tbody>
-							</table>
-							if (!string.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink) && !Model.IsManufacturerLeadAdShown)
-							{
-								<div class="position-rel text-right margin-right15"><a target="_blank" href="@BWConfiguration.Instance.CoverFoxLink" class="font12 bw-ga text-bold coverfox-link-clicked" rel="nofollow">Get Personal Loan Offers<span class="position-abt pos-top0 text-light-grey font10 text-unbold">&nbsp;Ad</span></a></div>
-							}
+                        @if (Model.IsNew)
+                        {
+                            <table class="model-version_price-table">
+                                <thead>
+                                    <tr>
+                                        <th colspan="2" class="price-table__heading">@string.Format("{0} price in {1}", Model.BikeName, Model.CityEntity.CityName)</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="price-table__body">
+                                    <tr class="show" [class]="versions[currentVersion.versionId].FormatedExShowroomPrice ? 'show': 'hide'">
+                                        <td align="left" valign="top" width="70%">Ex-showroom</td>
+                                        <td align="right" valign="top" width="30%">
+                                            <span>&#x20b9;</span>&nbsp;<p class="text-bold inline-block" [text]="versions[currentVersion.versionId].FormatedExShowroomPrice">@Format.FormatPrice(Convert.ToString(Model.FirstVersion.ExShowroomPrice))</p>
+                                        </td>
+                                    </tr>
+                                    <tr class="show" [class]="versions[currentVersion.versionId].FormatedRTO ? 'show': 'hide'">
+                                        <td align="left" valign="top">RTO</td>
+                                        <td align="right" valign="top">
+                                            <span>&#x20b9;</span>&nbsp;<p class="text-bold inline-block" [text]="versions[currentVersion.versionId].FormatedRTO">@Format.FormatPrice(Convert.ToString(Model.FirstVersion.RTO))</p>
+                                        </td>
+                                    </tr>
+                                    <tr class="show" [class]="versions[currentVersion.versionId].FormatedInsurance ? 'show': 'hide'">
+                                        <td align="left" valign="top">
+                                            Insurance (Comprehensive)
+                                            <span class="info-icon tooltip-icon-target tooltip-top">
+                                                <span class="bw-tooltip info-tooltip bw-tooltip--large insurance-info-tooltip">
+                                                    <span class="bw-tooltip-text">Insurance amount is inclusive of a 5-year third party cover. This is in accordance with the law effective 1<sup>st</sup> Sep 2018 where in all the new bikes sold in India should have a 5-year third party cover. <a href="https://www.bikewale.com/news/35897-what-the-new-insurance-directive-means-a-guide.html" target="_blank">Learn more</a></span>
+                                                </span>
+                                            </span>
+                                                    @*<br><p class="position-rel">
+                                                    @if (!string.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink))
+                                                    {
+                                                        <a target="_blank" href="@BWConfiguration.Instance.CoverFoxLink" class="font12 bw-ga text-bold coverfox-link-clicked" rel="nofollow">Get Personal Loan Offers<span class="position-abt pos-top0 text-light-grey font10 text-unbold">&nbsp;Ad</span></a>
+                                                    }
+                                                </p>*@
+                                        </td>
+                                        <td align="right" valign="top">
+                                            <span>&#x20b9;</span>&nbsp;<p class="text-bold inline-block" [text]="versions[currentVersion.versionId].FormatedInsurance">@Format.FormatPrice(Convert.ToString(Model.FirstVersion.Insurance))</p>
+                                        </td>
+                                    </tr>
+                                    <tr class="show" [class]="versions[currentVersion.versionId].FormatedOnRoadPrice ? 'show': 'hide'">
+                                        <td align="left" valign="top">@string.Format("{0} on-road price in {1}", Model.BikeModel.ModelName, Model.CityEntity.CityName)</td>
+                                        <td align="right" valign="top" class="font16">
+                                            <span>&#x20b9;</span>&nbsp;<p class="text-bold inline-block" [text]="versions[currentVersion.versionId].FormatedOnRoadPrice">@Format.FormatPrice(Convert.ToString(Model.FirstVersion.OnRoadPrice))</p>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>if (!string.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink) && !Model.IsManufacturerLeadAdShown)
+                            {
+                                <div class="position-rel text-right margin-right15"><a target="_blank" rel="noopener nofollow" href="@BWConfiguration.Instance.CoverFoxLink" class="position-rel font12 bw-ga text-bold coverfox-link-clicked">Personal Loans from 10.99%<span class="position-abt pos-top0 text-light-grey font8 text-unbold">&nbsp;Ad</span></a></div>
+                            }
 							<!-- Price break up link property starts -->
-							if (Model.LeadCampaign != null && !string.IsNullOrEmpty(Model.LeadCampaign.PriceBreakUpLinkTextMobile))
-							{
-								<div class="right-float">
-									@if (!string.IsNullOrEmpty(Model.LeadCampaign.PriceBreakUpLinkMobile))
-									{
-										<a class="get-offer-link font14" href="@string.Format("{0}?campaingid={1}&dealerid={2}&pqguid={3}&leadsourceid={4}&versionid={5}&url={6}&platformid={7}&bike={8}&loanamount={9}&sendLeadSMSCustomer={10}&dealerName={11}", Model.LeadCampaign.PriceBreakUpLinkMobile, Model.LeadCampaign.CampaignId, Model.LeadCampaign.DealerId, Model.LeadCampaign.PQId, Model.LeadCampaign.LeadSourceId, Model.LeadCampaign.VersionId, Model.LeadCampaign.CurrentPageUrl, Model.LeadCampaign.PlatformId, Model.LeadCampaign.BikeName, Model.LeadCampaign.LoanAmount, Model.LeadCampaign.SendLeadSMSCustomer, Model.LeadCampaign.Organization)" rel="nofollow">
-											@Model.LeadCampaign.PriceBreakUpLinkTextMobile
-										</a>
-									}
-									else
-									{
-										<a class="get-offer-link font14" href="/m/popup/leadcapture/?q=@Utils.Utils.EncryptTripleDES(string.Format(@"modelid={0}&cityid={1}&areaid={2}&bikename={3}&location={4}&city={5}&area={6}&ismanufacturer={7}&dealerid={8}&dealername={9}&dealerarea={10}&versionid={11}&leadsourceid={12}&pqsourceid={13}&mfgcampid={14}&pqguid={15}&pageurl={16}&clientip={17}&dealerheading={18}&dealermessage={19}&dealerdescription={20}&pincoderequired={21}&emailrequired={22}&dealersrequired={23}&url={24}&sendLeadSMSCustomer={25}&organizationName={26}",
+                            if (Model.LeadCampaign != null && !string.IsNullOrEmpty(Model.LeadCampaign.PriceBreakUpLinkTextMobile))
+                            {
+                                <div class="right-float">
+                                    @if (!string.IsNullOrEmpty(Model.LeadCampaign.PriceBreakUpLinkMobile))
+                                    {
+					<a class="get-offer-link font14" href="@string.Format("{0}?campaingid={1}&dealerid={2}&pqguid={3}&leadsourceid={4}&versionid={5}&url={6}&platformid={7}&bike={8}&loanamount={9}&sendLeadSMSCustomer={10}&dealerName={11}", Model.LeadCampaign.PriceBreakUpLinkMobile, Model.LeadCampaign.CampaignId, Model.LeadCampaign.DealerId, Model.LeadCampaign.PQId, Convert.ToInt16(LeadSourceEnum.PriceInCity_PriceBreakUpLink_AMP), Model.LeadCampaign.VersionId, Model.LeadCampaign.CurrentPageUrl, Model.LeadCampaign.PlatformId, Model.LeadCampaign.BikeName, Model.LeadCampaign.LoanAmount, Model.LeadCampaign.SendLeadSMSCustomer, Model.LeadCampaign.Organization)" rel="nofollow">
+                                            @Model.LeadCampaign.PriceBreakUpLinkTextMobile
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <a class="get-offer-link font14" href="/m/popup/leadcapture/?q=@TripleDES.EncryptTripleDES(string.Format(@"modelid={0}&cityid={1}&areaid={2}&bikename={3}&location={4}&city={5}&area={6}&ismanufacturer={7}&dealerid={8}&dealername={9}&dealerarea={10}&versionid={11}&leadsourceid={12}&pqsourceid={13}&mfgcampid={14}&pqguid={15}&pageurl={16}&clientip={17}&dealerheading={18}&dealermessage={19}&dealerdescription={20}&pincoderequired={21}&emailrequired={22}&dealersrequired={23}&url={24}&sendLeadSMSCustomer={25}&organizationName={26}&platformid={27}",
                                                    Model.BikeModel.ModelId, Model.CityEntity.CityId, string.Empty, string.Format(Model.BikeName), string.Empty, string.Empty, string.Empty,
                                                    Model.IsManufacturerLeadAdShown, Model.LeadCampaign.DealerId, String.Format(Model.LeadCampaign.LeadsPropertyTextMobile,
-                                                   Model.LeadCampaign.Organization), Model.LeadCampaign.Area, Model.VersionId, Model.LeadCampaign.LeadSourceId, Model.LeadCampaign.PqSourceId,
+                                                   Model.LeadCampaign.Organization), Model.LeadCampaign.Area, Model.VersionId, Convert.ToInt16(LeadSourceEnum.PriceInCity_PriceBreakUpLink_Mobile), Model.LeadCampaign.PqSourceId,
                                                    Model.LeadCampaign.CampaignId, Model.PQId, string.Empty, Bikewale.Common.CommonOpn.GetClientIP(), Model.LeadCampaign.PopupHeading,
                                                    String.Format(Model.LeadCampaign.PopupSuccessMessage, Model.LeadCampaign.Organization), Model.LeadCampaign.PopupDescription,
                                                    Model.LeadCampaign.PincodeRequired, Model.LeadCampaign.EmailRequired, Model.LeadCampaign.DealerRequired,
-                                                   Model.PageMetaTags.AlternateUrl, Model.LeadCampaign.SendLeadSMSCustomer, Model.LeadCampaign.Organization))" rel="nofollow">
-											@Model.LeadCampaign.PriceBreakUpLinkTextMobile
-										</a>
-									}
-								</div>
-								<div class="clear"></div>
-							}
+                                                   Model.PageMetaTags.AlternateUrl, Model.LeadCampaign.SendLeadSMSCustomer, Model.LeadCampaign.Organization, 4))" rel="nofollow">
+                                            @Model.LeadCampaign.PriceBreakUpLinkTextMobile
+                                        </a>
+                                    }
+                                </div>
+                                <div class="clear"></div>
+                            }
 							<!-- Price break up link property ends -->
 
-							<div class="margin-top15 font14">
-								<p class="font-bold margin-bottom10">@string.Format("Quick facts about {0}", Model.BikeModel.ModelName)</p>
-								<p class="text-slate-grey line-height16">@Html.Raw(Model.PageDescription)</p>
-							</div>
-						}
-						@if (Model.IsDiscontinued)
-						{
-							<div class="font14 text-default text-bold">
-								<span>Last known Ex-showroom price</span><span class="rightfloat">@Html.Raw("<span class='font16 text-bold'> &#x20B9;</span>")<span class="text-bold font16" [text]="versions[currentVersion.versionId].FormatedExShowroomPrice">@Format.FormatPrice(Convert.ToString(Model.FirstVersion.ExShowroomPrice))</span></span>
-							</div>
-							<div class="margin-top15 font14">
-								<p class="text-slate-grey line-height16">@String.Format("{0} has discontinued the {1} and the bike is out of production.", Model.Make.MakeName, Model.BikeModel.ModelName)</p>
-							</div>
-						}
-					</div>
-					<!--Manufacturer Ad Campaign-->
-					@if (Model.IsNew && Model.IsManufacturerLeadAdShown)
-					{
-						<div class="margin-bottom20">
-							@if (Model.LeadCapture != null && !string.IsNullOrEmpty(Model.LeadCapture.ManufacturerLeadAdAMPConvertedContent))
-							{
-								@Html.Raw(Model.LeadCapture.ManufacturerLeadAdAMPConvertedContent);
-							}
+                            <div class="margin-top15 font14">
+                                <p class="font-bold margin-bottom10">@string.Format("Quick facts about {0}", Model.BikeModel.ModelName)</p>
+                                <p class="text-slate-grey line-height16">@Html.Raw(Model.PageDescription)</p>
+                            </div>
+                        }
+                        @if (Model.IsDiscontinued)
+                        {
+                            <div class="font14 text-default text-bold">
+                                <span>Last known Ex-showroom price</span><span class="rightfloat">@Html.Raw("<span class='font16 text-bold'> &#x20B9;</span>")<span class="text-bold font16" [text]="versions[currentVersion.versionId].FormatedExShowroomPrice">@Format.FormatPrice(Convert.ToString(Model.FirstVersion.ExShowroomPrice))</span></span>
+                            </div>
+                            <div class="margin-top15 font14">
+                                <p class="text-slate-grey line-height16">@String.Format("{0} has discontinued the {1} and the bike is out of production.", Model.Make.MakeName, Model.BikeModel.ModelName)</p>
+                            </div>
+                        }
+                    </div>
+                    <!--Manufacturer Ad Campaign-->
+                    @if (Model.IsNew && Model.IsManufacturerLeadAdShown)
+                    {
+                        <div class="margin-bottom20">
+                            @if (Model.LeadCapture != null && !string.IsNullOrEmpty(Model.LeadCapture.ManufacturerLeadAdAMPConvertedContent))
+                            {
+                                @Html.Raw(Model.LeadCapture.ManufacturerLeadAdAMPConvertedContent);
+                            }
 
-						</div>
-						<div class="campaign__floating-btn floating-btn clearfix">
-							<p class="grid-7 alpha btn__left-label">@String.Format(Model.LeadCampaign.LeadsPropertyTextMobile, Model.LeadCampaign.Organization)</p>
-							<div class="grid-5 alpha omega">
-								<!-- is custom link provided for campaign -->
-								@if (Model.LeadCampaign != null && !string.IsNullOrEmpty(Model.LeadCampaign.PriceBreakUpLinkMobile))
-								{
-									<a class="btn btn-orange btn-full-32" href="@string.Format("{0}?campaingid={1}&dealerid={2}&pqguid={3}&leadsourceid={4}&versionid={5}&url={6}&platformid={7}&bike={8}&loanamount={9}&dealerName={10}&sendLeadSMSCustomer={11}", Model.LeadCampaign.PriceBreakUpLinkMobile, Model.LeadCampaign.CampaignId, Model.LeadCampaign.DealerId, Model.LeadCampaign.PQId, Model.LeadCampaign.LeadSourceId, Model.LeadCampaign.VersionId, Model.LeadCampaign.CurrentPageUrl, Model.LeadCampaign.PlatformId, Model.LeadCampaign.BikeName, Model.LeadCampaign.LoanAmount, Model.LeadCampaign.Organization, Model.LeadCampaign.SendLeadSMSCustomer)" rel="nofollow">
-										@Model.LeadCampaign.LeadsButtonTextMobile
-									</a>
-								}
-								else
-								{
-									<a href="/m/popup/leadcapture/?q=@Utils.Utils.EncryptTripleDES(string.Format(@"modelid={0}&cityid={1}&areaid={2}&bikename={3}&location={4}&city={5}&area={6}&ismanufacturer={7}&dealerid={8}&dealername={9}&dealerarea={10}&versionid={11}&leadsourceid={12}&pqsourceid={13}&mfgcampid={14}&pqguid={15}&pageurl={16}&clientip={17}&dealerheading={18}&dealermessage={19}&dealerdescription={20}&pincoderequired={21}&emailrequired={22}&dealersrequired={23}&url={24}&sendLeadSMSCustomer={25}&organizationName={26}",
+                        </div>
+                        <div class="campaign__floating-btn floating-btn clearfix">
+                            <p class="grid-7 alpha btn__left-label">@String.Format(Model.LeadCampaign.LeadsPropertyTextMobile, Model.LeadCampaign.Organization)</p>
+                            <div class="grid-5 alpha omega">
+                                <!-- is custom link provided for campaign -->
+                                @if (Model.LeadCampaign != null && !string.IsNullOrEmpty(Model.LeadCampaign.PriceBreakUpLinkMobile))
+                                {
+                                    <a class="btn btn-orange btn-full-32" href="@string.Format("{0}?campaingid={1}&dealerid={2}&pqguid={3}&leadsourceid={4}&versionid={5}&url={6}&platformid={7}&bike={8}&loanamount={9}&dealerName={10}&sendLeadSMSCustomer={11}", Model.LeadCampaign.PriceBreakUpLinkMobile, Model.LeadCampaign.CampaignId, Model.LeadCampaign.DealerId, Model.LeadCampaign.PQId, @Convert.ToInt16(LeadSourceEnum.PriceInCity_Floating_AMP), Model.LeadCampaign.VersionId, Model.LeadCampaign.CurrentPageUrl, Model.LeadCampaign.PlatformId, Model.LeadCampaign.BikeName, Model.LeadCampaign.LoanAmount, Model.LeadCampaign.Organization, Model.LeadCampaign.SendLeadSMSCustomer)" rel="nofollow">
+                                        @Model.LeadCampaign.LeadsButtonTextMobile
+                                    </a>
+                                }
+                                else
+                                {
+                                    <a href="/m/popup/leadcapture/?q=@TripleDES.EncryptTripleDES(string.Format(@"modelid={0}&cityid={1}&areaid={2}&bikename={3}&location={4}&city={5}&area={6}&ismanufacturer={7}&dealerid={8}&dealername={9}&dealerarea={10}&versionid={11}&leadsourceid={12}&pqsourceid={13}&mfgcampid={14}&pqguid={15}&pageurl={16}&clientip={17}&dealerheading={18}&dealermessage={19}&dealerdescription={20}&pincoderequired={21}&emailrequired={22}&dealersrequired={23}&url={24}&sendLeadSMSCustomer={25}&organizationName={26}&platformid={27}",
                                    Model.BikeModel.ModelId, Model.CityEntity.CityId, string.Empty, string.Format(Model.BikeName), string.Empty, string.Empty, string.Empty,
                                    Model.IsManufacturerLeadAdShown, Model.LeadCampaign.DealerId, String.Format(Model.LeadCampaign.LeadsPropertyTextMobile,
-                                   Model.LeadCampaign.Organization), Model.LeadCampaign.Area, Model.VersionId, Model.LeadCampaign.LeadSourceId, Model.LeadCampaign.PqSourceId,
+                                   Model.LeadCampaign.Organization), Model.LeadCampaign.Area, Model.VersionId, @Convert.ToInt16(LeadSourceEnum.PriceInCity_TopCard_AMP), Model.LeadCampaign.PqSourceId,
                                    Model.LeadCampaign.CampaignId, Model.PQId, string.Empty, Bikewale.Common.CommonOpn.GetClientIP(), Model.LeadCampaign.PopupHeading,
                                    String.Format(Model.LeadCampaign.PopupSuccessMessage, Model.LeadCampaign.Organization), Model.LeadCampaign.PopupDescription,
                                    Model.LeadCampaign.PincodeRequired, Model.LeadCampaign.EmailRequired, Model.LeadCampaign.DealerRequired,
-                                   Model.PageMetaTags.AlternateUrl, Model.LeadCampaign.SendLeadSMSCustomer, Model.LeadCampaign.Organization))" class="btn btn-orange btn-full-32" rel="nofollow">
-										@Model.LeadCampaign.LeadsButtonTextMobile
-									</a>
-
-								}
-								<!-- is custom link provided for campaign -->
-							</div>
-							<div class="clear"></div>
-						</div>
-					}
-					<!-- model about start -->
-					<div class="content-box-shadow card-bottom-margin">
-						<!-- _BikeInfoCard starts here -->
-						@if (Model.BikeInfo != null && Model.BikeInfo.BikeInfo != null)
-						{
-							var bikeInfo = Model.BikeInfo.BikeInfo;
-							var cityDetails = Model.BikeInfo.CityDetails;
-							<div class="padding-15-20">
-								<div class="model-more-info-section">
-									@if (Model.BikeInfo.IsUpcoming)
-									{
-										<p class="model-ribbon-tag upcoming-ribbon">Upcoming</p>
-									}
-									else if (Model.BikeInfo.IsDiscontinued)
-									{
-										<p class="model-ribbon-tag discontinued-ribbon">Discontinued</p>
-									}
-									<div class="clear"></div>
-									<a href="@string.Format("{0}/m{1}", BWConfiguration.Instance.BwHostUrl, Model.BikeInfo.BikeUrl)" class="block text-default margin-bottom5" title="@Model.BikeName">
-										<h2>@Model.BikeName</h2>
-									</a>
-									@if (bikeInfo.RatingCount > 0)
-									{
-										<div id="reviewRatingsDiv" class="margin-bottom10 position-rel position--left-neg-5">
-											<span class="rate-count-@Math.Round(bikeInfo.Rating)">
-												<span class="bwmsprite star-icon star-size-16"></span>
-												<span class="font14 text-bold inline-block rate-count-@Math.Round(bikeInfo.Rating)">@bikeInfo.Rating.ToString("0.0")</span>
-											</span>
-											<span class="font11 text-xx-light inline-block padding-left5">(@string.Format("{0} {1}", bikeInfo.RatingCount, bikeInfo.RatingCount > 1 ? "ratings" : "rating"))</span>
-											@if (bikeInfo.UserReviewCount > 0)
-											{
-												<a class="text-xt-light review-left-divider inline-block" href="@string.Format("{0}/m{1}reviews/", BWConfiguration.Instance.BwHostUrl, Model.BikeInfo.BikeUrl)" title="@Model.BikeName user reviews">@string.Format("{0} {1}", bikeInfo.UserReviewCount, bikeInfo.UserReviewCount > 1 ? "reviews" : "review")</a>
-											}
-										</div>
-									}
-									<div class="margin-bottom10">
-										@if (Model.BikeInfo.IsSmallSlug)
-										{
-											if (Model.BikeInfo.IsUpcoming)
-											{
-												<p class="model-ribbon-tag upcoming-ribbon">Upcoming</p>
-											}
-											else if (bikeInfo.IsDiscontinued)
-											{
-												<p class="model-ribbon-tag discontinued-ribbon">Discontinued</p>
-											}
-										}
-										<a href="@string.Format("{0}/m{1}", BWConfiguration.Instance.BwHostUrl,  Model.BikeInfo.BikeUrl)" class="item-image-content vertical-top" title="@Model.BikeName ">
-											<amp-img src="@Bikewale.Utility.Image.GetPathToShowImages(bikeInfo.OriginalImagePath, bikeInfo.HostUrl, Bikewale.Utility.ImageSize._110x61, Bikewale.Utility.QualityFactor._70)" alt="@Model.BikeName" width="86" height="48" layout="responsive"></amp-img>
-										</a>
-										<div class="bike-details-block">
-											@if (Model.BikeInfo.IsSmallSlug)
-											{<a href="@Model.BikeInfo.BikeUrl" class="block text-default margin-bottom5" title="@Model.BikeName ">
-													<h3 class="text-truncate">@Model.BikeName </h3>
-												</a>
-											}
-											@if (Model.BikeInfo.IsDiscontinued)
-											{
-												<p class="price-label-size-12 text-truncate">Last known Ex-showroom price</p>
-												<div>
-													@Html.Raw("<span class='price-value-size-18'>&#x20B9;</span>")&nbsp;<span class="price-value-size-18 version-price" [text]="versions[currentVersion.versionId].FormatedExShowroomPrice">@Format.FormatPrice(Convert.ToString(Model.FirstVersion.ExShowroomPrice))</span>
-												</div>
-											}
-											else if (Model.BikeInfo.IsUpcoming)
-											{
-												<p class="price-label-size-12">Expected price</p>
-												<div>
-													@Html.Raw("<span class='price-value-size-18'>&#x20B9;</span>")&nbsp;<span class="price-value-size-18 version-price">
-														@Bikewale.Utility.Format.FormatNumeric(Convert.ToString(bikeInfo.EstimatedPriceMin)) - @Bikewale.Utility.Format.FormatNumeric(Convert.ToString(bikeInfo.EstimatedPriceMax))
-													</span>
-												</div>
-											}
-											else
-											{
-												if (bikeInfo.PriceInCity > 0 && cityDetails != null)
-												{
-													<p class="price-label-size-12 text-truncate">@String.Format("On-road price, {0}", cityDetails.CityName)</p>
-													<div>
-														@Html.Raw("<span class='price-value-size-18'>&#x20B9;</span>")&nbsp;<span class="price-value-size-18 version-price" [text]="versions[currentVersion.versionId].FormatedOnRoadPrice">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(Model.FirstVersion.OnRoadPrice))</span>
-													</div>																										
-												}
-												else
-												{
-													<p class="price-label-size-12 text-truncate">@String.Format("Ex-showroom, {0}", Bikewale.Utility.BWConfiguration.Instance.DefaultName)</p>
-													<div>
-														@Html.Raw("<span class='price-value-size-18'>&#x20B9;</span>")&nbsp;<span class="price-value-size-18 version-price" [text]="versions[currentVersion.versionId].FormatedOnRoadPrice">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(Model.FirstVersion.OnRoadPrice)) </span>
-													</div>
-												}
-											}
-										</div>										
-											
-									</div>
-									@if (!Model.BikeInfo.IsSmallSlug)
-									{
-										<a href="@string.Format("{0}/m{1}", BWConfiguration.Instance.BwHostUrl, UrlFormatter.BikePageUrl(bikeInfo.Make.MaskingName,bikeInfo.Model.MaskingName))" title="@Model.BikeName" class="btn btn-white btn-180-34  margin-bottom15">View model details <span class="bwmsprite btn-red-arrow"></span></a>
-									}
-									@if (bikeInfo != null)
-									{
-										<ul class="item-more-details-list">
-											@foreach (var Tabsdetails in bikeInfo.Tabs)
-											{
-												<li>
-													<a href="@string.Format("{0}/m{1}", BWConfiguration.Instance.BwHostUrl, Tabsdetails.URL)" title="@string.Format("{0} {1}", Model.BikeName, Tabsdetails.Title)">
-														<span class="bwmsprite @Tabsdetails.IconText-sm"></span>
-														<span class="icon-label">@Tabsdetails.TabText </span>
-													</a>
-												</li>
-											}
-										</ul>
-									}
-									<div class="clear"></div>
-									@if (bikeInfo.UsedBikeCount > 0)
-									{
-										<div class="border-solid-bottom margin-top5 margin-bottom10"></div>
-										<a href="@string.Format("{0}/m{1}", BWConfiguration.Instance.BwHostUrl, UrlFormatter.UsedBikesUrlNoCity(bikeInfo.Make.MaskingName, bikeInfo.Model.MaskingName, (cityDetails != null) ? cityDetails.CityMaskingName : "india"))" title="Used @Model.BikeName" class="block text-default hover-no-underline">
-											<span class="used-target-label inline-block">
-												<span class="font14 text-bold">@string.Format("{0} Used {1} bikes", bikeInfo.UsedBikeCount, bikeInfo.Model.ModelName)</span><br />
-												<span class="font12 text-light-grey">starting at &#x20b9; @Format.FormatNumeric(Convert.ToString(bikeInfo.UsedBikeMinPrice))</span>
-											</span>
-											<span class="bwmsprite next-grey-icon"></span>
-										</a>
-									}
-								</div>
-							</div>
-						}
-						<!-- _BikeInfoCard_Mobile ends here -->
-					</div>
-					<!-- model about end -->
-				</div>
-				<!-- model orp end -->
-				@if (Model.HasDealers || Model.HasServiceCenters || Model.HasCampaignDealer)
-				{
-					<div id="dealerContent" class="bw-model-tabs-data">
-						@if (Model.HasDealers || Model.HasCampaignDealer)
-						{
-							<div class="content-box-shadow padding-top20 padding-bottom5 card-bottom-margin">
-								@if (Model.IsAreaAvailable && !Model.HasCampaignDealer && !Model.IsAreaSelected && Model.IsNew && !Model.IsManufacturerLeadAdShown)
-								{
-									<div class="ShowroomInCity">
-										<h2 class="card-h2-heading margin-bottom10">@Model.Make.MakeName Showrooms in @Model.CityEntity.CityName</h2>
-										<div class="font14 text-slate-grey">
-											<p class="margin-bottom10">Please provide your location to get information on:</p>
-											<ul class="list-type-disc margin-bottom15">
-												<li>Nearest dealer details in @Model.CityEntity.CityName</li>
-												<li>Exclusive offers</li>
-												<li>Complete buying assistance</li>
-											</ul>
-											<a href="@string.Format("{0}/m/popup/?queryString={1}", BWConfiguration.Instance.BwHostUrl, Utils.Utils.EncryptTripleDES(string.Format("pqsourceid={0}&preselcity={1}&modelid={2}&Url={3}{4}", (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_PriceInCity_SelectArea, Model.CityEntity.CityId, Model.BikeModel.ModelId, BWConfiguration.Instance.BwHostUrl, Model.ReturnUrl)))" class="btn btn-orange btn-auto-32 changeCity" rel="nofollow">Select your location</a>
-										</div>
-									</div>
-								}
-								else
-								{
-									if (Model.HasCampaignDealer && Model.IsNew && !Model.IsManufacturerLeadAdShown)
-									{
-										<div class="ShowroomInCity">
-											<h2 class="card-h2-heading margin-bottom10">@Model.Make.MakeName Dealer near you</h2>
-											<div class="margin-bottom10">
-												<span class="bwmsprite dealer-grey"></span>
-												<div class="grid-11-inline padding-left10">
-													<h3>@String.Format("{0}, {1}", Model.DetailedDealer.PrimaryDealer.DealerDetails.Organization, Model.DetailedDealer.PrimaryDealer.DealerDetails.objArea.AreaName)</h3>
-													<p class="font12 text-xx-light">@Model.DetailedDealer.PrimaryDealer.DealerDetails.objArea.AreaName</p>
-												</div>
-											</div>
-											<div class="font14 text-slate-grey">
-												<p class="margin-bottom10">Get in touch with @Model.DetailedDealer.PrimaryDealer.DealerDetails.Organization for:</p>
-												<ul class="list-type-disc margin-bottom15">
-													<li>Best offers</li>
-													<li>EMI options</li>
-													<li>Complete buying assistance</li>
-												</ul>
-												<a href="@string.Format("{0}/m/pricequote/dealer/?MPQ={1}", BWConfiguration.Instance.BwHostUrl, Model.MPQString)" data-pqsourceid="@((int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_PriceInCity_Dealer_Detail_Click)" data-modelid="@Model.BikeModel.ModelId" class="btn btn-orange btn-180-32 view-dealer-details-clicked" rel="nofollow">View dealer details</a>
-											</div>
-										</div>
-									}
-
-								}
-								@if (Model.HasDealers)
-								{
-									if (Model.IsAreaAvailable && !Model.HasCampaignDealer && !Model.IsAreaSelected && Model.IsNew && !Model.IsManufacturerLeadAdShown)
-									{
-										<div class="margin-right20 margin-bottom20 margin-left20 border-solid-bottom"></div>
-									}
-									<div class="carousel-heading-content">
-										<div class="swiper-heading-left-grid inline-block">
-											@if (Model.IsNew && (Model.HasCampaignDealer))
-											{
-												<h3>@Model.Dealers.TotalCount Authorised dealer@(Model.Dealers.TotalCount > 1 ? "s" : "")</h3>
-											}
-											else
-											{
-												<h2>@Model.DealersWidget_H2</h2>
-											}
-										</div>
-										<div class="swiper-heading-right-grid inline-block text-right">
-											<a href="@String.Format("{0}/m{1}",BWConfiguration.Instance.BwHostUrl, Model.DealersWidget_ViewAll_Href)" title="@Model.DealersWidget_ViewAll_Title" class="btn view-all-target-btn">View all</a>
-										</div>
-									</div>
-									@Html.Partial("~/views/dealershowroom/_DealerCard_Mobile_Amp.cshtml", Model.Dealers)
-								}
-							</div>
-						}
-						<!-- model service centers start -->
-						@if (Model.HasServiceCenters)
-						{
-							<div class="content-box-shadow content-inner-block-20 card-bottom-margin">
-								<div class="margin-bottom10">
-									<span class="bwmsprite service-center-grey"></span>
-									<div class="grid-11-inline padding-left10">
-										<h2 class="card-h2-heading">@String.Format("{0} {1}", Model.ServiceCentersCount, Model.ServiceCenterWidget_H2)</h2>
-									</div>
-								</div>
-								<p class="font14 text-slate-grey margin-bottom15">Get in touch with your nearest @Model.Make.MakeName service center in @Model.CityEntity.CityName for service enquiries, service and repair costs and more!</p>
-								<a href="@String.Format("{0}/m{1}", BWConfiguration.Instance.BwHostUrl, Model.ServiceCenterWidget_ViewAll_Href)" title="@Model.ServiceCenterWidget_ViewAll_Title" class="btn view-all-target-btn">View complete list<span class="bwmsprite teal-right"></span></a>
-							</div>
-						}
-						<!-- model service centers end -->
-					</div>
-				}
-
-				<!-- model emi calculator start -->
-				@if (Model.IsNew && Model.EMI != null && Model.EMISliderAMP != null)
-				{
-					<div id="emiContent" class="bw-model-tabs-data content-box-shadow card-bottom-margin content-inner-block-20">
-						<h2 class="card-h2-heading margin-bottom10">@Model.BikeModel.ModelName EMI Calculator</h2>
-						<div class="finance-emi-container font14">
-							<div class="emi-slider-box">
-								<div class="emi-slider-box-left-section">
-									<label for="downPaymentSlider" class="grid-8 alpha text-slate-grey font14">Down payment</label>
-									<div class="emi-slider-box-right-section grid-4 omega">
-										<span class="bwmsprite inr-xxsm-icon margin-right5"></span><span id="downPayment" class="font14 text-bold">@Format.FormatPrice(Convert.ToString(Model.EMISliderAMP.DownPayment))</span>
-										<span class="hide" [class]="((EmiSlider.formatedDownPayment.lastIndexOf('.'))>5) ? 'text-bold': 'hide'" [text]="EmiSlider.formatedDownPayment.lastIndexOf('.')-5 <=1? EmiSlider.formatedDownPayment.substr(EmiSlider.formatedDownPayment.lastIndexOf('.')-6, 1)+',' : EmiSlider.formatedDownPayment.substr(EmiSlider.formatedDownPayment.lastIndexOf('.')-7, 2)+','">0,</span>
-										<span class="hide" [class]="((EmiSlider.formatedDownPayment.lastIndexOf('.'))>3) ? 'text-bold': 'hide'" [text]="EmiSlider.formatedDownPayment.lastIndexOf('.')-3 <=1? EmiSlider.formatedDownPayment.substr(EmiSlider.formatedDownPayment.lastIndexOf('.')-4, 1) : EmiSlider.formatedDownPayment.substr(EmiSlider.formatedDownPayment.lastIndexOf('.')-5, 2)">0</span>
-										<span class="hide" [class]="((EmiSlider.formatedDownPayment.lastIndexOf('.')) > 3) ? 'text-bold': 'hide'" [text]="EmiSlider.formatedDownPayment.lastIndexOf('.')>3? ',' + EmiSlider.formatedDownPayment.substr(EmiSlider.formatedDownPayment.lastIndexOf('.')-3,3) : EmiSlider.formatedDownPayment.substr(EmiSlider.formatedDownPayment.lastIndexOf('.')-3,3)">0</span>
-									</div>
-									<div class="clear"></div>
-
-									<input id="downPaymentSlider" class="margin-bottom20" type="range" min="@Model.EMI.MinDownPayment" max="@Model.EMI.MaxDownPayment" step="1" value="@Model.EMISliderAMP.DownPayment" [value]="EmiSlider.downPayment" on="change:downPayment.hide,AMP.setState({EmiSlider:{downPayment:event.value,loanAmount:EmiSlider.bikePrice-event.value,totalAmount:(EmiSlider.bikePrice)+(((EmiSlider.bikePrice-event.value)*EmiSlider.tenure*EmiSlider.interest)/1200)}});input-debounced:AMP.setState({EmiSlider:{emi:round((EmiSlider.totalAmount-EmiSlider.downPayment)/EmiSlider.tenure)+'.',formatedLoanAmount:round(EmiSlider.bikePrice-event.value)+'.',formatedTotalAmount:round(EmiSlider.totalAmount)+'.',formatedDownPayment:round(event.value)+'.'}}),totalemi.hide,totalAmount.hide,loanAmount.hide" />
-								</div>
-								<div class="clear"></div>
-							</div>
-							<div class="emi-slider-box font14">
-								<div class="emi-slider-box-left-section">
-									<label for="loanAmountSlider" class="grid-8 alpha text-slate-grey font14">Loan amount</label>
-									<div class="emi-slider-box-right-section grid-4 omega">
-										<span class="bwmsprite inr-xxsm-icon margin-right5"></span><span id="loanAmount" class="text-bold font14">@Format.FormatPrice(Convert.ToString(Model.EMISliderAMP.LoanAmount))</span>
-										<span class="hide" [class]="((EmiSlider.formatedLoanAmount.lastIndexOf('.'))>5) ? 'text-bold': 'hide'" [text]="EmiSlider.formatedLoanAmount.lastIndexOf('.')-5 <=1? EmiSlider.formatedLoanAmount.substr(EmiSlider.formatedLoanAmount.lastIndexOf('.')-6, 1)+',' : EmiSlider.formatedLoanAmount.substr(EmiSlider.formatedLoanAmount.lastIndexOf('.')-7, 2)+','">0,</span>
-										<span class="hide" [class]="((EmiSlider.formatedLoanAmount.lastIndexOf('.'))>3) ? 'text-bold': 'hide'" [text]="EmiSlider.formatedLoanAmount.lastIndexOf('.')-3 <=1? EmiSlider.formatedLoanAmount.substr(EmiSlider.formatedLoanAmount.lastIndexOf('.')-4, 1) : EmiSlider.formatedLoanAmount.substr(EmiSlider.formatedLoanAmount.lastIndexOf('.')-5, 2)">0</span>
-										<span class="hide" [class]="((EmiSlider.formatedLoanAmount.lastIndexOf('.')) > 3) ? 'text-bold': 'hide'" [text]="EmiSlider.formatedLoanAmount.lastIndexOf('.')>3? ',' + EmiSlider.formatedLoanAmount.substr(EmiSlider.formatedLoanAmount.lastIndexOf('.')-3,3) : EmiSlider.formatedLoanAmount.substr(EmiSlider.formatedLoanAmount.lastIndexOf('.')-3,3)">0</span>
-									</div>
-									<div class="clear"></div>
-									<input id="loanAmountSlider" class="margin-bottom20" type="range" min="@(Model.EMISliderAMP.BikePrice - Model.EMI.MaxDownPayment)" max="@(Model.EMISliderAMP.BikePrice - Model.EMI.MinDownPayment)" step="1" value="@Model.EMISliderAMP.LoanAmount" [value]="EmiSlider.loanAmount" on="change:loanAmount.hide,AMP.setState({EmiSlider:{loanAmount:event.value,downPayment:EmiSlider.bikePrice-event.value,totalAmount:(EmiSlider.bikePrice)+((event.value*EmiSlider.tenure*EmiSlider.interest)/1200)}});input-debounced:AMP.setState({EmiSlider:{emi:round((EmiSlider.totalAmount-EmiSlider.downPayment)/EmiSlider.tenure)+'.',formatedTotalAmount:round(EmiSlider.totalAmount)+'.',formatedDownPayment:round(EmiSlider.downPayment)+'.',formatedLoanAmount:round(event.value)+'.'}}),totalAmount.hide,totalemi.hide,downPayment.hide" />
-								</div>
-								<div class="clear"></div>
-							</div>
-							<div class="emi-slider-box">
-								<div class="emi-slider-box-left-section">
-									<label for="tenureSlider" class="grid-8 alpha text-slate-grey font14">Tenure</label>
-									<div class="emi-slider-box-right-section grid-4 omega text-bold">
-										<span id="tenurePeriod" [text]="EmiSlider.tenure ">@Format.FormatPrice(Convert.ToString(Model.EMI.Tenure))</span>&nbsp;Months
-									</div>
-									<div class="clear"></div>
-									<input class="margin-bottom20" id="tenureSlider" type="range" min="@Model.EMI.MinTenure" max="@Model.EMI.MaxTenure" step="1" value="@Model.EMI.Tenure" on="change:AMP.setState({EmiSlider: {tenure :event.value, totalAmount:EmiSlider.bikePrice + EmiSlider.fees+((event.value * EmiSlider.loanAmount * EmiSlider.interest) / 1200)}}); input-debounced:AMP.setState({EmiSlider:{  emi:round((EmiSlider.totalAmount-EmiSlider.downPayment)/EmiSlider.tenure )+ '.' , formatedTotalAmount:round(EmiSlider.totalAmount) + '.'} }),totalAmount.hide, totalemi.hide" />
-								</div>
-								<div class="clear"></div>
-							</div>
-							<div class="emi-slider-box">
-								<div class="emi-slider-box-left-section">
-									<label for="rateOfInterestSlider" class="grid-8 alpha text-slate-grey font14">Interest</label>
-									<div class="emi-slider-box-right-section grid-4 omega text-bold ">
-										<span id="rateOfInterestPercentage" [text]="EmiSlider.interest">@Model.EMI.RateOfInterest</span>&nbsp;%
-									</div>
-									<div class="clear"></div>
-									<input class="margin-bottom20" id="rateOfInterestSlider" type="range" min="@Model.EMI.MinRateOfInterest" max="@Model.EMI.MaxRateOfInterest" step="0.25" value="@Model.EMI.RateOfInterest" on="change:AMP.setState({EmiSlider: {interest:event.value, totalAmount:EmiSlider.bikePrice + EmiSlider.fees+((EmiSlider.tenure  * EmiSlider.loanAmount * event.value) / 1200)}}); input-debounced:AMP.setState({EmiSlider:{  emi:round((EmiSlider.totalAmount-EmiSlider.downPayment)/EmiSlider.tenure )+ '.', formatedTotalAmount:round(EmiSlider.totalAmount) + '.' } }),totalAmount.hide, totalemi.hide" />
-								</div>
-								<div class="clear"></div>
-							</div>
-							<div class="border-solid-top padding-top20 padding-bottom15">
-								<p class="grid-8 alpha text-slate-grey omega">Total amount (Principal + Interest)</p>
-								<div class="emi-slider-box-right-section grid-4 omega alpha">
-									<span class="bwmsprite inr-xxsm-icon margin-right5"></span><span id="totalAmount" class="text-bold">@Convert.ToString(Model.EMISliderAMP.TotalAmount)</span>
-									<span class="hide" [class]="((EmiSlider.formatedTotalAmount.lastIndexOf('.'))>5) ? 'text-bold': 'hide'" [text]="EmiSlider.formatedTotalAmount.lastIndexOf('.')-5 <=1? EmiSlider.formatedTotalAmount.substr(EmiSlider.formatedTotalAmount.lastIndexOf('.')-6, 1)+',' : EmiSlider.formatedTotalAmount.substr(EmiSlider.formatedTotalAmount.lastIndexOf('.')-7, 2)+','">0,</span><span class="hide" [class]="((EmiSlider.formatedTotalAmount.lastIndexOf('.'))>3) ? 'text-bold': 'hide'" [text]="EmiSlider.formatedTotalAmount.lastIndexOf('.')-3 <=1? EmiSlider.formatedTotalAmount.substr(EmiSlider.formatedTotalAmount.lastIndexOf('.')-4, 1) : EmiSlider.formatedTotalAmount.substr(EmiSlider.formatedTotalAmount.lastIndexOf('.')-5, 2)">0</span><span class="hide" [class]="((EmiSlider.formatedTotalAmount.lastIndexOf('.')) > 3) ? 'text-bold': 'hide'" [text]="EmiSlider.formatedTotalAmount.lastIndexOf('.')>3? ',' + EmiSlider.formatedTotalAmount.substr(EmiSlider.formatedTotalAmount.lastIndexOf('.')-3,3) : EmiSlider.formatedTotalAmount.substr(EmiSlider.formatedTotalAmount.lastIndexOf('.')-3,3)">0</span>
-								</div>
-								<div class="clear"></div>
-							</div>
-							<p class="grid-5 text-default alpha position-rel pos-top2">Indicative EMI</p>
-							<div class="text-right grid-7 omega font16 text-bold">
-								<span> &#x20b9;</span>&nbsp;<span id="totalemi" class="margin-right5">@Format.FormatPrice(Model.EMISliderAMP.EMI)</span>
-								<span class="hide" [class]="((EmiSlider.emi.lastIndexOf('.'))>5) ? 'text-bold': 'hide'" [text]="EmiSlider.emi.lastIndexOf('.')-5 <=1? EmiSlider.emi.substr(EmiSlider.emi.lastIndexOf('.')-6, 1)+',' : EmiSlider.emi.substr(EmiSlider.emi.lastIndexOf('.')-7, 2)+','">0,</span><span class="hide" [class]="((EmiSlider.emi.lastIndexOf('.'))>3) ? 'text-bold': 'hide'" [text]="EmiSlider.emi.lastIndexOf('.')-3 <=1? EmiSlider.emi.substr(EmiSlider.emi.lastIndexOf('.')-4, 1) : EmiSlider.emi.substr(EmiSlider.emi.lastIndexOf('.')-5, 2)">0</span><span class="hide" [class]="((EmiSlider.emi.lastIndexOf('.')) > 3) ? 'text-bold': 'hide'" [text]="EmiSlider.emi.lastIndexOf('.')>3? ',' + EmiSlider.emi.substr(EmiSlider.emi.lastIndexOf('.')-3,3) : EmiSlider.emi.substr(EmiSlider.emi.lastIndexOf('.')-3,3)">0</span>
-								/month
-							</div>
-							<div class="clear"></div>
-							@if (Model.IsManufacturerEMIAdShown)
-							{
-								<div class="powered-by-campaign-wrapper margin-top15">
-									<!-- is custom link provided for campaign -->
-									@if (Model.LeadCampaign != null && !string.IsNullOrEmpty(Model.LeadCampaign.PriceBreakUpLinkMobile))
-									{
-										<a class="btn btn-teal btn-160-32 font14 margin-right10" href="@string.Format("{0}?campaingid={1}&dealerid={2}&pqguid={3}&leadsourceid={4}&versionid={5}&url={6}&platformid={7}&bike={8}&loanamount={9}&dealerName={10}&sendLeadSMSCustomer={11}", Model.LeadCampaign.PriceBreakUpLinkMobile, Model.LeadCampaign.CampaignId, Model.LeadCampaign.DealerId, Model.LeadCampaign.PQId, Model.LeadCampaign.LeadSourceId, Model.LeadCampaign.VersionId, Model.LeadCampaign.CurrentPageUrl, Model.LeadCampaign.PlatformId, Model.LeadCampaign.BikeName, Model.LeadCampaign.LoanAmount, Model.LeadCampaign.Organization, Model.LeadCampaign.SendLeadSMSCustomer)" rel="nofollow">
-											@Model.EMICampaign.EMIButtonTextMobile
-										</a>
-									}
-									else
-									{
-										<a href="/m/popup/leadcapture/?q=@Utils.Utils.EncryptTripleDES(string.Format("modelid={0}&cityid={1}&areaid={2}&bikename={3}&location={4}&city={5}&area={6}&ismanufacturer={7}&dealerid={8}&dealername={9}&dealerarea={10}&versionid={11}&leadsourceid={12}&pqsourceid={13}&mfgcampid={14}&pqguid={15}&pageurl={16}&clientip={17}&dealerheading={18}&dealermessage={19}&dealerdescription={20}&pincoderequired={21}&emailrequired={22}&dealersrequired={23}&url={24}&sendLeadSMSCustomer={25}&organizationName={26}", 
-                                        Model.BikeModel.ModelId, Model.CityEntity.CityId, string.Empty, string.Format(Model.BikeName), string.Empty, string.Empty, string.Empty, 
-                                        Model.IsManufacturerLeadAdShown, Model.EMICampaign.DealerId, String.Format(Model.EMICampaign.EMIPropertyTextMobile, Model.EMICampaign.Organization), 
-                                        Model.EMICampaign.Area, Model.VersionId, Model.EMICampaign.LeadSourceId, Model.EMICampaign.PqSourceId, Model.EMICampaign.CampaignId, Model.PQId, 
-                                        string.Empty, Bikewale.Common.CommonOpn.GetClientIP(), Model.EMICampaign.PopupHeading, String.Format(Model.EMICampaign.PopupSuccessMessage, 
-                                        Model.EMICampaign.Organization), Model.EMICampaign.PopupDescription, Model.EMICampaign.PincodeRequired, Model.EMICampaign.EmailRequired,
-                                        Model.EMICampaign.DealerRequired, Model.PageMetaTags.AlternateUrl, Model.EMICampaign.SendLeadSMSCustomer, Model.EMICampaign.Organization))" class="btn btn-teal btn-160-32 font14 margin-right10">
-											@Model.EMICampaign.EMIButtonTextMobile
-										</a>
-									}
-									<!-- is custom link provided for campaign -->
-									<div class="inline-block">
-										<p class="campaign__powered-key">Powered by</p>
-										<p class="campaign__powered-value" title="@String.Format(Model.EMICampaign.EMIPropertyTextMobile, Model.EMICampaign.Organization)">@String.Format(Model.EMICampaign.EMIPropertyTextMobile, Model.EMICampaign.Organization)</p>
-									</div>
-								</div>
-							}
-
-						</div>
-
-					</div>
-					if (Model.AdTags.AdPath != null && Model.AdTags.Ad_300x250)
-					{                        
-						<div class="card-bottom-margin">
-                            @BWHelpers.RenderAmpAds(300, 250, string.Format("{0}_300x250", Model.AdTags.AdPath), Html.Raw(BWHelpers.SetTargettingAds(Model.AdTags)));							
-						</div>
-					}
-					<!-- model version prices start -->
-					if (Model.IsNew && (Model.VersionSpecs != null || Model.HasNearestPriceCities))
-					{
-						<div id="versionContent" class="bw-model-tabs-data card-bottom-margin">
-							@if (Model.VersionSpecs != null)
-							{
-								<div class="content-box-shadow card-bottom-margin content-inner-block-20">
-									<h2 class="card-h2-heading margin-bottom20">@Model.BikeName price in @Model.CityEntity.CityName</h2>
-									<table class="padding-bottom10" width="100%" cellspacing="0" cellpadding="0">
-										<thead class="version-table__head">
-											<tr class="table">
-												<th align="left" width="30%">Variant</th>
-												<th align="left" width="35%">Price</th>
-												<th align="left" width="35%">Specs</th>
-											</tr>
-										</thead>
-										<tbody class="version-table__body">
-											@foreach (var version in Model.VersionSpecs)
-											{
-												<tr>
-													<td valign="top">@string.Format("{0} {1}", version.ModelName, version.VersionName)</td>
-													<td valign="top" class="text-default">&#x20b9;<span class="text-bold">&nbsp;@Format.FormatPrice(Convert.ToString(version.Price))</span></td>
-													<td valign="top">@FormatMinSpecs.GetCommaSepratedGeneralSpecs(version.MinSpecsList)</td>
-												</tr>
-											}
-										</tbody>
-									</table>
-									<div class="padding-top10 font12 text-light-grey">@string.Format("Above mentioned prices are On-road, {0}", Model.CityEntity.CityName)</div>
-								</div>
-							}
-							<!-- model prices in nearby cities start -->
-							@if (Model.HasNearestPriceCities && Model.NearestPriceCities != null)
-							{
-								var priceQuotesCities = Model.NearestPriceCities.PriceQuoteList;
-								var top4Cities = priceQuotesCities.Take(4);
-								Model.NearestPriceCities.PriceQuoteList = top4Cities;
-
-								<div class="padding-top20 padding-bottom10 content-box-shadow card-bottom-margin padding-left20 padding-right20">
-									<h2 class="card-h2-heading margin-bottom10">@string.Format("{0} price in cities near {1}", Model.BikeModel.ModelName, Model.CityEntity.CityName)<span class="font14 text-slate-grey text-unbold">&nbsp;(On-road price)</span></h2>
-									<table width="100%" border="0" cellspacing="0" cellpadding="0" class="font14">
-										<tbody>
-											@Html.Partial("~/Views/PriceInCity/_PriceInTopCities_Mobile_AMP.cshtml", Model.NearestPriceCities)
-										</tbody>
-									</table>
-									@if (priceQuotesCities.Count() > 4)
-									{
-										Model.NearestPriceCities.PriceQuoteList = priceQuotesCities.Skip(4);
-										<table id="more-cities-list" width="100%" border="0" cellspacing="0" cellpadding="0" class="font14" hidden>
-											<tbody>
-												@Html.Partial("~/Views/PriceInCity/_PriceInTopCities_Mobile_AMP.cshtml", Model.NearestPriceCities)
-											</tbody>
-										</table>
-										<div class="padding-bottom5">
-											<p id="viewmore" role="option" tabindex="0" class="view-cities-link position-rel block font14" on="tap:more-cities-list.show, viewmore.hide">View more cities</p>
-										</div>
-									}
-								</div>
-							}
-							<!-- model prices in nearby cities end -->
-						</div>
-					}
-				}
-				<!-- model version prices end -->
-				<!-- model prices similar bikes start -->
-				@if (Model.HasAlternateBikes)
-				{
-					<div id="similarContent" class="bw-model-tabs-data content-box-shadow padding-top20 padding-bottom5 card-bottom-margin">
-						<h2 class="card-h2-heading margin-bottom10 padding-left20 padding-right20">@string.Format("Prices of similar {0} in {1}", Model.BodyStyleText, Model.CityEntity.CityName)</h2>
-						@Html.Partial("~/views/Bikemodels/_SimilarBikes_Mobile_AMP.cshtml", Model.AlternateBikes)
-					</div>
-				}
-				else if (Model.IsPopularBodyStyleAvailable)
-				{
-					<div id="popularContent" class="bw-model-tabs-data padding-top15 padding-bottom15 content-box-shadow card-bottom-margin">
-						<div class="carousel-heading-content">
-							<div class="swiper-heading-left-grid inline-block">
-								<h2 class="card-h2-heading padding-right20">Popular @Model.BodyStyleText</h2>
-							</div>
-							<div class="swiper-heading-right-grid inline-block text-right">
-								<a href="@String.Format("{0}/m{1}", BWConfiguration.Instance.BwHostUrl, UrlFormatter.FormatGenericPageUrl(Model.BodyStyle))" title="Best @Model.BodyStyleText in India" class="btn view-all-target-btn">View all</a>
-							</div>
-						</div>
-						@Html.Partial("~/Views/BestBikes/_PopularBodyStyleCarousel_Mobile_AMP.cshtml", Model.PopularBodyStyle)
-					</div>
-				}
-				<div id="modelSpecsFooter"></div>
-			</div>
-		</div>
-	</section>
-
-	<section>
-		<div id="priceInCityWrapper" hidden>
-			<div class="city-area-banner"></div>
-			<div class="popup-inner-container">
-				<div class="bwmsprite onroad-price-close-btn" role="option" tabindex="0" on="tap:priceInCityWrapper.hide"></div>
-				<div id="popupHeading">
-					<p class="popupheading-head">Please Tell Us Your Location</p>
-					<div class="text-light-grey margin-bottom5">See on-road prices in your city!</div>
-					<div role="option" tabindex="1" id="pcitySelection" on="tap:priceInCityPopUpContent.show">
-						<p [text]="Popup.city">Select City</p>
-						<span class="bwmsprite fa-angle-right"></span>
-					</div>
-					<span id="priceincityerror" class="hide" [class]="Popup.cityerrorflag== 1 ?'error-text':'hide'">Please select city.</span>
-					<div id="btnPriceinCityLoader" class="center-align margin-top20 text-center position-rel">
-						<a class="hide" [class]="Popup.cityerrorflag== 0 ?'btnPriceInCityPopup':'hide'" href='#' [href]="Popup.href" role="option" tabindex="0" id="btnPriceInCityPopupURL" on="tap:AMP.setState({Popup:{cityerrorflag:(Popup.city=='Select City')? 1: 0}})">Show on-road price</a>
-						<span class="btnPriceInCityPopup" [class]="Popup.cityerrorflag != 0 ?'btnPriceInCityPopup':'hide'" role="option" tabindex="0" on="tap:AMP.setState({Popup:{cityerrorflag:(Popup.city=='Select City')? 1: 0}})">Show on-road price</span>
-					</div>
-					<div id="priceInCityPopUpContent" hidden>
-						<div class="bwm-city-area-box">
-							<div role="option" tabindex="0" class="user-input-box" on="tap:priceInCityPopUpContent.hide">
-								<span class="back-arrow-box">
-									<span class="bwmsprite back-long-arrow-left"></span>
-								</span>
-								<span id="popupPriceInCityInput">Select City</span>
-							</div>
-							<ul id="pcPopupCityList">
-								@foreach (var City in Model.Cities)
-								{
-									<li role="option" tabindex="1" on="tap:priceInCityPopUpContent.hide, AMP.setState({Popup:{ city:'@City.CityName',cityerrorflag:0, href:'@Bikewale.Utility.BWConfiguration.Instance.BwHostUrl/m/@Model.Make.MaskingName-bikes/@Model.BikeModel.MaskingName/price-in-@City.CityMaskingName/'}})">@City.CityName</li>
-								}
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-
-	<!-- model prices in other cities start -->
-	if (Model.HasPriceInTopCities && Model.IsNew)
-	{
-		<section>
-			<div class="container card-bottom-margin">
-				<div class="content-box-shadow padding-bottom5 card-bottom-margin">
-					<div class="content-inner-block-20">
-						<h2 class="card-h2-heading margin-bottom10">@Model.BikeModel.ModelName prices in other cities</h2>
-						<p class="font14 text-slate-grey margin-bottom15">You are currently viewing price of @Model.BikeName in @Model.CityEntity.CityName. Not from @Model.CityEntity.CityName? Select your city to see price in your city.</p>
-						<p role="option" tabindex="0" id="changeCity" class="btn btn-white btn-170-32 changepriceincitypage bw-ga" on="tap:priceInCityWrapper.show">Select your city</p>
-					</div>
-					<div class="margin-right20 margin-bottom20 margin-left20 border-solid-bottom"></div>
-					<h3 class="margin-right20 margin-bottom10 margin-left20">@Model.BikeModel.ModelName prices in popular cities</h3>
-					<div class="swiper-container card-container swiper-city">
-						@Html.Partial("~/views/priceincity/_PriceInTopCitiesIcon_Mobile_AMP.cshtml", Model.PriceInTopCities)
-					</div>
-				</div>
-			</div>
-		</section>
-
-		<!-- model prices in other cities end -->
-	}
-
-	if (Model.BikeRank != null && Model.BikeRank.BikeType != null)
-	{
-		<section>
-			<div class="container content-box-shadow content-inner-block-20 card-bottom-margin">
-				<div class="margin-bottom10">
-					<span class="bwmsprite graph-rank-grey"></span>
-					<div class="grid-11-inline padding-left10">
-						<h2 class="card-h2-heading">Top 10 @Model.BikeRank.StyleName in India</h2>
-					</div>
-				</div>
-				<p class="font14 margin-bottom15 text-slate-grey">Are you looking for a @Model.BikeRank.BikeType.ToLower()? Check out our list of top 10 @Model.BikeRank.StyleName.ToLower() in India.</p>
-				<a href="@String.Format("{0}/m{1}", BWConfiguration.Instance.BwHostUrl, UrlFormatter.FormatGenericPageUrl(Model.BikeRank.Rank.BodyStyle))"
-				   title="Best @Model.BikeRank.StyleName in India" class="btn view-all-target-btn">
-					View complete list<span class="bwmsprite teal-right"></span>
-				</a>
-			</div>
-		</section>
-	}
-
-
-	if (Model.objMoreAboutScooter != null)
-	{
-		<div id="moreAboutScooter" class="content-box-shadow padding-top20 padding-bottom20 card-bottom-margin font14">
-			<div class="swiper-container card-container model-related-swiper swiper-container-horizontal">
-				@Html.Partial("~/Views/Scooters/_ModelRelatedCard_Mobile_Amp.cshtml", Model.objMoreAboutScooter)
-			</div>
-		</div>
-	}
-
-
-	<section>
-		<div class="container card-bottom-margin padding-right20 padding-left20">
-			<p class="text-default text-bold font12 text-slate-grey">Disclaimer:</p>
-			<p class="font12 text-slate-grey">
-				BikeWale takes utmost care in gathering precise and accurate information about @Model.BikeName price in @Model.CityEntity.CityName However, this information is only indicative and may not reflect the final price you may pay. For more information please read
-				<a class="font12" href="@string.Format("{0}/termsconditions.aspx", BWConfiguration.Instance.BwHostUrl)" target="_blank">terms and conditions</a>,<a class="font12" href="@string.Format("{0}/visitoragreement.aspx", BWConfiguration.Instance.BwHostUrl)" target="_blank">&nbsp;visitor agreement</a>&nbsp;and&nbsp;
-				<a class="font12" href="@string.Format("{0}/privacypolicy.aspx", BWConfiguration.Instance.BwHostUrl)" target="_blank">privacy policy</a>.
-			</p>
-		</div>
-	</section>
+                                   Model.PageMetaTags.AlternateUrl, Model.LeadCampaign.SendLeadSMSCustomer, Model.LeadCampaign.Organization, 4))" class="btn btn-orange btn-full-32" rel="nofollow">
+                                        @Model.LeadCampaign.LeadsButtonTextMobile
+                                    </a>
+                                }
+                                <!-- is custom link provided for campaign -->
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                    }
+                    <!-- model about start -->
+                    <div class="content-box-shadow card-bottom-margin">
+                        <!-- _BikeInfoCard starts here -->
+                        @if (Model.BikeInfo != null && Model.BikeInfo.BikeInfo != null)
+                        {
+                            var bikeInfo = Model.BikeInfo.BikeInfo;
+                            var cityDetails = Model.BikeInfo.CityDetails;
+                            <div class="padding-15-20">
+                                <div class="model-more-info-section">
+                                    @if (Model.BikeInfo.IsUpcoming)
+                                    {
+                                        <p class="model-ribbon-tag upcoming-ribbon">Upcoming</p>
+                                    }
+                                    else if (Model.BikeInfo.IsDiscontinued)
+                                    {
+                                        <p class="model-ribbon-tag discontinued-ribbon">Discontinued</p>
+                                    }
+                                    <div class="clear"></div>
+                                    <a href="@string.Format("{0}/m{1}", BWConfiguration.Instance.BwHostUrl, Model.BikeInfo.BikeUrl)" class="block text-default margin-bottom5" title="@Model.BikeName">
+                                        <h2>@Model.BikeName</h2>
+                                    </a>
+                                    @if (bikeInfo.RatingCount > 0)
+                                    {
+                                        <div id="reviewRatingsDiv" class="margin-bottom10 position-rel position--left-neg-5">
+                                            <span class="rate-count-@Math.Round(bikeInfo.Rating)">
+                                                <span class="bwmsprite star-icon star-size-16"></span>
+                                                <span class="font14 text-bold inline-block rate-count-@Math.Round(bikeInfo.Rating)">@bikeInfo.Rating.ToString("0.0")</span>
+                                            </span>
+                                            <span class="font11 text-xx-light inline-block padding-left5">(@string.Format("{0} {1}", bikeInfo.RatingCount, bikeInfo.RatingCount > 1 ? "ratings" : "rating"))</span>
+                                            @if (bikeInfo.UserReviewCount > 0)
+                                            {
+                                                <a class="text-xt-light review-left-divider inline-block" href="@string.Format("{0}/m{1}reviews/", BWConfiguration.Instance.BwHostUrl, Model.BikeInfo.BikeUrl)" title="@Model.BikeName user reviews">@string.Format("{0} {1}", bikeInfo.UserReviewCount, bikeInfo.UserReviewCount > 1 ? "reviews" : "review")</a>
+                                            }
+                                        </div>
+                                    }
+                                    <div class="margin-bottom10">
+                                        @if (Model.BikeInfo.IsSmallSlug)
+                                        {
+                                            if (Model.BikeInfo.IsUpcoming)
+                                            {
+                                                <p class="model-ribbon-tag upcoming-ribbon">Upcoming</p>
+                                            }
+                                            else if (bikeInfo.IsDiscontinued)
+                                            {
+                                                <p class="model-ribbon-tag discontinued-ribbon">Discontinued</p>
+                                            }
+                                        }
+                                        <a href="@string.Format("{0}/m{1}", BWConfiguration.Instance.BwHostUrl,  Model.BikeInfo.BikeUrl)" class="item-image-content vertical-top" title="@Model.BikeName ">
+                                            <amp-img src="@Bikewale.Utility.Image.GetPathToShowImages(bikeInfo.OriginalImagePath, bikeInfo.HostUrl, Bikewale.Utility.ImageSize._110x61, Bikewale.Utility.QualityFactor._70)" alt="@Model.BikeName" width="86" height="48" layout="responsive"></amp-img>
+                                        </a>
+                                        <div class="bike-details-block">
+                                            @if (Model.BikeInfo.IsSmallSlug)
+                                            {<a href="@Model.BikeInfo.BikeUrl" class="block text-default margin-bottom5" title="@Model.BikeName ">
+                                                <h3 class="text-truncate">@Model.BikeName </h3>
+                                            </a>
+                                            }
+                                            @if (Model.BikeInfo.IsDiscontinued)
+                                            {
+                                                <p class="price-label-size-12 text-truncate">Last known Ex-showroom price</p>
+                                                <div>
+                                                    @Html.Raw("<span class='price-value-size-18'>&#x20B9;</span>")&nbsp;<span class="price-value-size-18 version-price" [text]="versions[currentVersion.versionId].FormatedExShowroomPrice">@Format.FormatPrice(Convert.ToString(Model.FirstVersion.ExShowroomPrice))</span>
+                                                </div>
+                                            }
+                                            else if (Model.BikeInfo.IsUpcoming)
+                                            {
+                                                <p class="price-label-size-12">Expected price</p>
+                                                <div>
+                                                    @Html.Raw("<span class='price-value-size-18'>&#x20B9;</span>")&nbsp;<span class="price-value-size-18 version-price">
+                                                        @Bikewale.Utility.Format.FormatNumeric(Convert.ToString(bikeInfo.EstimatedPriceMin)) - @Bikewale.Utility.Format.FormatNumeric(Convert.ToString(bikeInfo.EstimatedPriceMax))
+                                                    </span>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                if (bikeInfo.PriceInCity > 0 && cityDetails != null)
+                                                {
+                                                    <p class="price-label-size-12 text-truncate">@String.Format("On-road price, {0}", cityDetails.CityName)</p>
+                                                    <div>
+                                                        @Html.Raw("<span class='price-value-size-18'>&#x20B9;</span>")&nbsp;<span class="price-value-size-18 version-price" [text]="versions[currentVersion.versionId].FormatedOnRoadPrice">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(Model.FirstVersion.OnRoadPrice))</span>
+                                                    </div>
 }
+                                                else
+                                                {
+                                                    <p class="price-label-size-12 text-truncate">@String.Format("Ex-showroom, {0}", Bikewale.Utility.BWConfiguration.Instance.DefaultName)</p>
+                                                    <div>
+                                                        @Html.Raw("<span class='price-value-size-18'>&#x20B9;</span>")&nbsp;<span class="price-value-size-18 version-price" [text]="versions[currentVersion.versionId].FormatedOnRoadPrice">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(Model.FirstVersion.OnRoadPrice)) </span>
+                                                    </div>
+                                                }
+                                            }
+                                        </div>
+
+                                    </div>
+                                    @if (!Model.BikeInfo.IsSmallSlug)
+                                    {
+                                        <a href="@string.Format("{0}/m{1}", BWConfiguration.Instance.BwHostUrl, UrlFormatter.BikePageUrl(bikeInfo.Make.MaskingName,bikeInfo.Model.MaskingName))" title="@Model.BikeName" class="btn btn-white btn-180-34  margin-bottom15">View model details <span class="bwmsprite btn-red-arrow"></span></a>
+                                    }
+                                    @if (bikeInfo != null)
+                                    {
+                                        <ul class="item-more-details-list">
+                                            @foreach (var Tabsdetails in bikeInfo.Tabs)
+                                            {
+                                                <li>
+                                                    <a href="@string.Format("{0}/m{1}", BWConfiguration.Instance.BwHostUrl, Tabsdetails.URL)" title="@string.Format("{0} {1}", Model.BikeName, Tabsdetails.Title)">
+                                                        <span class="bwmsprite @Tabsdetails.IconText-sm"></span>
+                                                        <span class="icon-label">@Tabsdetails.TabText </span>
+                                                    </a>
+                                                </li>
+                                            }
+                                        </ul>
+                                    }
+                                    <div class="clear"></div>
+                                    @if (bikeInfo.UsedBikeCount > 0)
+                                    {
+                                        <div class="border-solid-bottom margin-top5 margin-bottom10"></div>
+                                        <a href="@string.Format("{0}/m{1}", BWConfiguration.Instance.BwHostUrl, UrlFormatter.UsedBikesUrlNoCity(bikeInfo.Make.MaskingName, bikeInfo.Model.MaskingName, (cityDetails != null) ? cityDetails.CityMaskingName : "india"))" title="Used @Model.BikeName" class="block text-default hover-no-underline">
+                                            <span class="used-target-label inline-block">
+                                                <span class="font14 text-bold">@string.Format("{0} Used {1} bikes", bikeInfo.UsedBikeCount, bikeInfo.Model.ModelName)</span><br />
+                                                <span class="font12 text-light-grey">starting at &#x20b9; @Format.FormatNumeric(Convert.ToString(bikeInfo.UsedBikeMinPrice))</span>
+                                            </span>
+                                            <span class="bwmsprite next-grey-icon"></span>
+                                        </a>
+                                    }
+                                </div>
+                            </div>
+                        }
+                        <!-- _BikeInfoCard_Mobile ends here -->
+                    </div>
+                    <!-- model about end -->
+                </div>
+                <!-- model orp end -->
+                @if (Model.HasDealers || Model.HasServiceCenters || Model.HasCampaignDealer)
+                {
+                    <div id="dealerContent" class="bw-model-tabs-data">
+                        @if (Model.HasDealers || Model.HasCampaignDealer)
+                        {
+                            <div class="content-box-shadow padding-top20 padding-bottom5 card-bottom-margin">
+                                @if (Model.IsAreaAvailable && !Model.HasCampaignDealer && !Model.IsAreaSelected && Model.IsNew && !Model.IsManufacturerLeadAdShown)
+                                {
+                                    <div class="ShowroomInCity">
+                                        <h2 class="card-h2-heading margin-bottom10">@Model.Make.MakeName Showrooms in @Model.CityEntity.CityName</h2>
+                                        <div class="font14 text-slate-grey">
+                                            <p class="margin-bottom10">Please provide your location to get information on:</p>
+                                            <ul class="list-type-disc margin-bottom15">
+                                                <li>Nearest dealer details in @Model.CityEntity.CityName</li>
+                                                <li>Exclusive offers</li>
+                                                <li>Complete buying assistance</li>
+                                            </ul>
+                                            <a href="@string.Format("{0}/m/popup/?queryString={1}", BWConfiguration.Instance.BwHostUrl, TripleDES.EncryptTripleDES(string.Format("pqsourceid={0}&preselcity={1}&modelid={2}&Url={3}{4}", (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_PriceInCity_SelectArea, Model.CityEntity.CityId, Model.BikeModel.ModelId, BWConfiguration.Instance.BwHostUrl, Model.ReturnUrl)))" class="btn btn-orange btn-auto-32 changeCity" rel="nofollow">Select your location</a>
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    if (Model.HasCampaignDealer && Model.IsNew && !Model.IsManufacturerLeadAdShown)
+                                    {
+                                        <div class="ShowroomInCity">
+                                            <h2 class="card-h2-heading margin-bottom10">@Model.Make.MakeName Dealer near you</h2>
+                                            <div class="margin-bottom10">
+                                                <span class="bwmsprite dealer-grey"></span>
+                                                <div class="grid-11-inline padding-left10">
+                                                    <h3>@String.Format("{0}, {1}", Model.DetailedDealer.PrimaryDealer.DealerDetails.Organization, Model.DetailedDealer.PrimaryDealer.DealerDetails.objArea.AreaName)</h3>
+                                                    <p class="font12 text-xx-light">@Model.DetailedDealer.PrimaryDealer.DealerDetails.objArea.AreaName</p>
+                                                </div>
+                                            </div>
+                                            <div class="font14 text-slate-grey">
+                                                <p class="margin-bottom10">Get in touch with @Model.DetailedDealer.PrimaryDealer.DealerDetails.Organization for:</p>
+                                                <ul class="list-type-disc margin-bottom15">
+                                                    <li>Best offers</li>
+                                                    <li>EMI options</li>
+                                                    <li>Complete buying assistance</li>
+                                                </ul>
+                                                <a href="@string.Format("{0}/m/pricequote/dealer/?MPQ={1}", BWConfiguration.Instance.BwHostUrl, Model.MPQString)" data-pqsourceid="@((int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_PriceInCity_Dealer_Detail_Click)" data-modelid="@Model.BikeModel.ModelId" class="btn btn-orange btn-180-32 view-dealer-details-clicked" rel="nofollow">View dealer details</a>
+                                            </div>
+                                        </div>
+                                    }
+
+                                }
+                                @if (Model.HasDealers)
+                                {
+                                    if (Model.IsAreaAvailable && !Model.HasCampaignDealer && !Model.IsAreaSelected && Model.IsNew && !Model.IsManufacturerLeadAdShown)
+                                    {
+                                        <div class="margin-right20 margin-bottom20 margin-left20 border-solid-bottom"></div>
+                                    }
+                                    <div class="carousel-heading-content">
+                                        <div class="swiper-heading-left-grid inline-block">
+                                            @if (Model.IsNew && (Model.HasCampaignDealer))
+                                            {
+                                                <h3>@Model.Dealers.TotalCount Authorised dealer@(Model.Dealers.TotalCount > 1 ? "s" : "")</h3>
+                                            }
+                                            else
+                                            {
+                                                <h2>@Model.DealersWidget_H2</h2>
+                                            }
+                                        </div>
+                                        <div class="swiper-heading-right-grid inline-block text-right">
+                                            <a href="@String.Format("{0}/m{1}",BWConfiguration.Instance.BwHostUrl, Model.DealersWidget_ViewAll_Href)" title="@Model.DealersWidget_ViewAll_Title" class="btn view-all-target-btn">View all</a>
+                                        </div>
+                                    </div>
+                                    @Html.Partial("~/UI/views/dealershowroom/_DealerCard_Mobile_Amp.cshtml", Model.Dealers)
+                                }
+                            </div>
+                        }
+                        <!-- model service centers start -->
+                        @if (Model.HasServiceCenters)
+                        {
+                            <div class="content-box-shadow content-inner-block-20 card-bottom-margin">
+                                <div class="margin-bottom10">
+                                    <span class="bwmsprite service-center-grey"></span>
+                                    <div class="grid-11-inline padding-left10">
+                                        <h2 class="card-h2-heading">@String.Format("{0} {1}", Model.ServiceCentersCount, Model.ServiceCenterWidget_H2)</h2>
+                                    </div>
+                                </div>
+                                <p class="font14 text-slate-grey margin-bottom15">Get in touch with your nearest @Model.Make.MakeName service center in @Model.CityEntity.CityName for service enquiries, service and repair costs and more!</p>
+                                <a href="@String.Format("{0}/m{1}", BWConfiguration.Instance.BwHostUrl, Model.ServiceCenterWidget_ViewAll_Href)" title="@Model.ServiceCenterWidget_ViewAll_Title" class="btn view-all-target-btn">View complete list<span class="bwmsprite teal-right"></span></a>
+                            </div>
+                        }
+                        <!-- model service centers end -->
+                    </div>
+                }
+
+                <!-- model emi calculator start -->
+                @if (Model.IsNew && Model.EMI != null && Model.EMISliderAMP != null)
+                {
+                    <div id="emiContent" class="bw-model-tabs-data content-box-shadow card-bottom-margin content-inner-block-20">
+                        <h2 class="card-h2-heading margin-bottom10">@Model.BikeModel.ModelName EMI Calculator</h2>
+                        <div class="finance-emi-container font14">
+                            <div class="emi-slider-box">
+                                <div class="emi-slider-box-left-section">
+                                    <label for="downPaymentSlider" class="grid-8 alpha text-slate-grey font14">Down payment</label>
+                                    <div class="emi-slider-box-right-section grid-4 omega">
+                                        <span class="bwmsprite inr-xxsm-icon margin-right5"></span><span id="downPayment" class="font14 text-bold">@Format.FormatPrice(Convert.ToString(Model.EMISliderAMP.DownPayment))</span>
+                                        <span class="hide" [class]="((EmiSlider.formatedDownPayment.lastIndexOf('.'))>5) ? 'text-bold': 'hide'" [text]="EmiSlider.formatedDownPayment.lastIndexOf('.')-5 <=1? EmiSlider.formatedDownPayment.substr(EmiSlider.formatedDownPayment.lastIndexOf('.')-6, 1)+',' : EmiSlider.formatedDownPayment.substr(EmiSlider.formatedDownPayment.lastIndexOf('.')-7, 2)+','">0,</span>
+                                        <span class="hide" [class]="((EmiSlider.formatedDownPayment.lastIndexOf('.'))>3) ? 'text-bold': 'hide'" [text]="EmiSlider.formatedDownPayment.lastIndexOf('.')-3 <=1? EmiSlider.formatedDownPayment.substr(EmiSlider.formatedDownPayment.lastIndexOf('.')-4, 1) : EmiSlider.formatedDownPayment.substr(EmiSlider.formatedDownPayment.lastIndexOf('.')-5, 2)">0</span>
+                                        <span class="hide" [class]="((EmiSlider.formatedDownPayment.lastIndexOf('.')) > 3) ? 'text-bold': 'hide'" [text]="EmiSlider.formatedDownPayment.lastIndexOf('.')>3? ',' + EmiSlider.formatedDownPayment.substr(EmiSlider.formatedDownPayment.lastIndexOf('.')-3,3) : EmiSlider.formatedDownPayment.substr(EmiSlider.formatedDownPayment.lastIndexOf('.')-3,3)">0</span>
+                                    </div>
+                                    <div class="clear"></div>
+
+                                    <input id="downPaymentSlider" class="margin-bottom20" type="range" min="@Model.EMI.MinDownPayment" max="@Model.EMI.MaxDownPayment" step="1" value="@Model.EMISliderAMP.DownPayment" [value]="EmiSlider.downPayment" on="change:downPayment.hide,AMP.setState({EmiSlider:{downPayment:event.value,loanAmount:EmiSlider.bikePrice-event.value,totalAmount:(EmiSlider.bikePrice)+(((EmiSlider.bikePrice-event.value)*EmiSlider.tenure*EmiSlider.interest)/1200)}});input-debounced:AMP.setState({EmiSlider:{emi:round((EmiSlider.totalAmount-EmiSlider.downPayment)/EmiSlider.tenure)+'.',formatedLoanAmount:round(EmiSlider.bikePrice-event.value)+'.',formatedTotalAmount:round(EmiSlider.totalAmount)+'.',formatedDownPayment:round(event.value)+'.'}}),totalemi.hide,totalAmount.hide,loanAmount.hide" />
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                            <div class="emi-slider-box font14">
+                                <div class="emi-slider-box-left-section">
+                                    <label for="loanAmountSlider" class="grid-8 alpha text-slate-grey font14">Loan amount</label>
+                                    <div class="emi-slider-box-right-section grid-4 omega">
+                                        <span class="bwmsprite inr-xxsm-icon margin-right5"></span><span id="loanAmount" class="text-bold font14">@Format.FormatPrice(Convert.ToString(Model.EMISliderAMP.LoanAmount))</span>
+                                        <span class="hide" [class]="((EmiSlider.formatedLoanAmount.lastIndexOf('.'))>5) ? 'text-bold': 'hide'" [text]="EmiSlider.formatedLoanAmount.lastIndexOf('.')-5 <=1? EmiSlider.formatedLoanAmount.substr(EmiSlider.formatedLoanAmount.lastIndexOf('.')-6, 1)+',' : EmiSlider.formatedLoanAmount.substr(EmiSlider.formatedLoanAmount.lastIndexOf('.')-7, 2)+','">0,</span>
+                                        <span class="hide" [class]="((EmiSlider.formatedLoanAmount.lastIndexOf('.'))>3) ? 'text-bold': 'hide'" [text]="EmiSlider.formatedLoanAmount.lastIndexOf('.')-3 <=1? EmiSlider.formatedLoanAmount.substr(EmiSlider.formatedLoanAmount.lastIndexOf('.')-4, 1) : EmiSlider.formatedLoanAmount.substr(EmiSlider.formatedLoanAmount.lastIndexOf('.')-5, 2)">0</span>
+                                        <span class="hide" [class]="((EmiSlider.formatedLoanAmount.lastIndexOf('.')) > 3) ? 'text-bold': 'hide'" [text]="EmiSlider.formatedLoanAmount.lastIndexOf('.')>3? ',' + EmiSlider.formatedLoanAmount.substr(EmiSlider.formatedLoanAmount.lastIndexOf('.')-3,3) : EmiSlider.formatedLoanAmount.substr(EmiSlider.formatedLoanAmount.lastIndexOf('.')-3,3)">0</span>
+                                    </div>
+                                    <div class="clear"></div>
+                                    <input id="loanAmountSlider" class="margin-bottom20" type="range" min="@(Model.EMISliderAMP.BikePrice - Model.EMI.MaxDownPayment)" max="@(Model.EMISliderAMP.BikePrice - Model.EMI.MinDownPayment)" step="1" value="@Model.EMISliderAMP.LoanAmount" [value]="EmiSlider.loanAmount" on="change:loanAmount.hide,AMP.setState({EmiSlider:{loanAmount:event.value,downPayment:EmiSlider.bikePrice-event.value,totalAmount:(EmiSlider.bikePrice)+((event.value*EmiSlider.tenure*EmiSlider.interest)/1200)}});input-debounced:AMP.setState({EmiSlider:{emi:round((EmiSlider.totalAmount-EmiSlider.downPayment)/EmiSlider.tenure)+'.',formatedTotalAmount:round(EmiSlider.totalAmount)+'.',formatedDownPayment:round(EmiSlider.downPayment)+'.',formatedLoanAmount:round(event.value)+'.'}}),totalAmount.hide,totalemi.hide,downPayment.hide" />
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                            <div class="emi-slider-box">
+                                <div class="emi-slider-box-left-section">
+                                    <label for="tenureSlider" class="grid-8 alpha text-slate-grey font14">Tenure</label>
+                                    <div class="emi-slider-box-right-section grid-4 omega text-bold">
+                                        <span id="tenurePeriod" [text]="EmiSlider.tenure ">@Format.FormatPrice(Convert.ToString(Model.EMI.Tenure))</span>&nbsp;Months
+                                    </div>
+                                    <div class="clear"></div>
+                                    <input class="margin-bottom20" id="tenureSlider" type="range" min="@Model.EMI.MinTenure" max="@Model.EMI.MaxTenure" step="1" value="@Model.EMI.Tenure" on="change:AMP.setState({EmiSlider: {tenure :event.value, totalAmount:EmiSlider.bikePrice + EmiSlider.fees+((event.value * EmiSlider.loanAmount * EmiSlider.interest) / 1200)}}); input-debounced:AMP.setState({EmiSlider:{  emi:round((EmiSlider.totalAmount-EmiSlider.downPayment)/EmiSlider.tenure )+ '.' , formatedTotalAmount:round(EmiSlider.totalAmount) + '.'} }),totalAmount.hide, totalemi.hide" />
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                            <div class="emi-slider-box">
+                                <div class="emi-slider-box-left-section">
+                                    <label for="rateOfInterestSlider" class="grid-8 alpha text-slate-grey font14">Interest</label>
+                                    <div class="emi-slider-box-right-section grid-4 omega text-bold ">
+                                        <span id="rateOfInterestPercentage" [text]="EmiSlider.interest">@Model.EMI.RateOfInterest</span>&nbsp;%
+                                    </div>
+                                    <div class="clear"></div>
+                                    <input class="margin-bottom20" id="rateOfInterestSlider" type="range" min="@Model.EMI.MinRateOfInterest" max="@Model.EMI.MaxRateOfInterest" step="0.25" value="@Model.EMI.RateOfInterest" on="change:AMP.setState({EmiSlider: {interest:event.value, totalAmount:EmiSlider.bikePrice + EmiSlider.fees+((EmiSlider.tenure  * EmiSlider.loanAmount * event.value) / 1200)}}); input-debounced:AMP.setState({EmiSlider:{  emi:round((EmiSlider.totalAmount-EmiSlider.downPayment)/EmiSlider.tenure )+ '.', formatedTotalAmount:round(EmiSlider.totalAmount) + '.' } }),totalAmount.hide, totalemi.hide" />
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                            <div class="border-solid-top padding-top20 padding-bottom15">
+                                <p class="grid-8 alpha text-slate-grey omega">Total amount (Principal + Interest)</p>
+                                <div class="emi-slider-box-right-section grid-4 omega alpha">
+                                    <span class="bwmsprite inr-xxsm-icon margin-right5"></span><span id="totalAmount" class="text-bold">@Convert.ToString(Model.EMISliderAMP.TotalAmount)</span>
+                                    <span class="hide" [class]="((EmiSlider.formatedTotalAmount.lastIndexOf('.'))>5) ? 'text-bold': 'hide'" [text]="EmiSlider.formatedTotalAmount.lastIndexOf('.')-5 <=1? EmiSlider.formatedTotalAmount.substr(EmiSlider.formatedTotalAmount.lastIndexOf('.')-6, 1)+',' : EmiSlider.formatedTotalAmount.substr(EmiSlider.formatedTotalAmount.lastIndexOf('.')-7, 2)+','">0,</span><span class="hide" [class]="((EmiSlider.formatedTotalAmount.lastIndexOf('.'))>3) ? 'text-bold': 'hide'" [text]="EmiSlider.formatedTotalAmount.lastIndexOf('.')-3 <=1? EmiSlider.formatedTotalAmount.substr(EmiSlider.formatedTotalAmount.lastIndexOf('.')-4, 1) : EmiSlider.formatedTotalAmount.substr(EmiSlider.formatedTotalAmount.lastIndexOf('.')-5, 2)">0</span><span class="hide" [class]="((EmiSlider.formatedTotalAmount.lastIndexOf('.')) > 3) ? 'text-bold': 'hide'" [text]="EmiSlider.formatedTotalAmount.lastIndexOf('.')>3? ',' + EmiSlider.formatedTotalAmount.substr(EmiSlider.formatedTotalAmount.lastIndexOf('.')-3,3) : EmiSlider.formatedTotalAmount.substr(EmiSlider.formatedTotalAmount.lastIndexOf('.')-3,3)">0</span>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                            <p class="grid-5 text-default alpha position-rel pos-top2">Indicative EMI</p>
+                            <div class="text-right grid-7 omega font16 text-bold">
+                                <span> &#x20b9;</span>&nbsp;<span id="totalemi" class="margin-right5">@Format.FormatPrice(Model.EMISliderAMP.EMI)</span>
+                                <span class="hide" [class]="((EmiSlider.emi.lastIndexOf('.'))>5) ? 'text-bold': 'hide'" [text]="EmiSlider.emi.lastIndexOf('.')-5 <=1? EmiSlider.emi.substr(EmiSlider.emi.lastIndexOf('.')-6, 1)+',' : EmiSlider.emi.substr(EmiSlider.emi.lastIndexOf('.')-7, 2)+','">0,</span><span class="hide" [class]="((EmiSlider.emi.lastIndexOf('.'))>3) ? 'text-bold': 'hide'" [text]="EmiSlider.emi.lastIndexOf('.')-3 <=1? EmiSlider.emi.substr(EmiSlider.emi.lastIndexOf('.')-4, 1) : EmiSlider.emi.substr(EmiSlider.emi.lastIndexOf('.')-5, 2)">0</span><span class="hide" [class]="((EmiSlider.emi.lastIndexOf('.')) > 3) ? 'text-bold': 'hide'" [text]="EmiSlider.emi.lastIndexOf('.')>3? ',' + EmiSlider.emi.substr(EmiSlider.emi.lastIndexOf('.')-3,3) : EmiSlider.emi.substr(EmiSlider.emi.lastIndexOf('.')-3,3)">0</span>
+                                /month
+                            </div>
+                            <div class="clear"></div>
+                            @if (Model.IsManufacturerEMIAdShown)
+                            {
+                                <div class="powered-by-campaign-wrapper margin-top15">
+                                    <!-- is custom link provided for campaign -->
+                                    @if (Model.LeadCampaign != null && !string.IsNullOrEmpty(Model.LeadCampaign.PriceBreakUpLinkMobile))
+                                    {
+                                          <a class="btn btn-teal btn-160-32 font14 margin-right10" href="@string.Format("{0}?campaingid={1}&dealerid={2}&pqguid={3}&leadsourceid={4}&versionid={5}&url={6}&platformid={7}&bike={8}&loanamount={9}&dealerName={10}&sendLeadSMSCustomer={11}", Model.LeadCampaign.PriceBreakUpLinkMobile, Model.LeadCampaign.CampaignId, Model.LeadCampaign.DealerId, Model.LeadCampaign.PQId, @Convert.ToInt16(LeadSourceEnum.PriceInCity_EmiCalculator_AMP), Model.LeadCampaign.VersionId, Model.LeadCampaign.CurrentPageUrl, Model.LeadCampaign.PlatformId, Model.LeadCampaign.BikeName, Model.LeadCampaign.LoanAmount, Model.LeadCampaign.Organization, Model.LeadCampaign.SendLeadSMSCustomer)" rel="nofollow">
+                                            @Model.EMICampaign.EMIButtonTextMobile
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <a href="/m/popup/leadcapture/?q=@TripleDES.EncryptTripleDES(string.Format("modelid={0}&cityid={1}&areaid={2}&bikename={3}&location={4}&city={5}&area={6}&ismanufacturer={7}&dealerid={8}&dealername={9}&dealerarea={10}&versionid={11}&leadsourceid={12}&pqsourceid={13}&mfgcampid={14}&pqguid={15}&pageurl={16}&clientip={17}&dealerheading={18}&dealermessage={19}&dealerdescription={20}&pincoderequired={21}&emailrequired={22}&dealersrequired={23}&url={24}&sendLeadSMSCustomer={25}&organizationName={26}&platformid={27}",
+                                        Model.BikeModel.ModelId, Model.CityEntity.CityId, string.Empty, string.Format(Model.BikeName), string.Empty, string.Empty, string.Empty,
+                                        Model.IsManufacturerLeadAdShown, Model.EMICampaign.DealerId, String.Format(Model.EMICampaign.EMIPropertyTextMobile, Model.EMICampaign.Organization),
+                                        Model.EMICampaign.Area, Model.VersionId, Model.EMICampaign.LeadSourceId, Model.EMICampaign.PqSourceId, Model.EMICampaign.CampaignId, Model.PQId,
+                                        string.Empty, Bikewale.Common.CommonOpn.GetClientIP(), Model.EMICampaign.PopupHeading, String.Format(Model.EMICampaign.PopupSuccessMessage,
+                                        Model.EMICampaign.Organization), Model.EMICampaign.PopupDescription, Model.EMICampaign.PincodeRequired, Model.EMICampaign.EmailRequired,
+                                        Model.EMICampaign.DealerRequired, Model.PageMetaTags.AlternateUrl, Model.EMICampaign.SendLeadSMSCustomer, Model.EMICampaign.Organization, 4))" class="btn btn-teal btn-160-32 font14 margin-right10">
+                                            @Model.EMICampaign.EMIButtonTextMobile
+                                        </a>
+                                    }
+                                    <!-- is custom link provided for campaign -->
+                                    <div class="inline-block">
+                                        <p class="campaign__powered-key">Powered by</p>
+                                        <p class="campaign__powered-value" title="@String.Format(Model.EMICampaign.EMIPropertyTextMobile, Model.EMICampaign.Organization)">@String.Format(Model.EMICampaign.EMIPropertyTextMobile, Model.EMICampaign.Organization)</p>
+                                    </div>
+                                </div>
+                            }
+
+                        </div>
+
+                    </div>if (Model.AdTags.AdPath != null && Model.AdTags.Ad_300x250)
+                    {
+                        <div class="card-bottom-margin">
+                            @BWHelpers.RenderAmpAds(300, 250, string.Format("{0}_300x250", Model.AdTags.AdPath), Html.Raw(BWHelpers.SetTargettingAds(Model.AdTags)))
+                        </div>
+                    }
+					<!-- model version prices start -->
+                    if (Model.IsNew && (Model.VersionSpecs != null || Model.HasNearestPriceCities))
+                    {
+                        <div id="versionContent" class="bw-model-tabs-data card-bottom-margin">
+                            @if (Model.VersionSpecs != null)
+                            {
+                                <div class="content-box-shadow card-bottom-margin content-inner-block-20">
+                                    <h2 class="card-h2-heading margin-bottom20">@Model.BikeName price in @Model.CityEntity.CityName</h2>
+                                    <table class="padding-bottom10" width="100%" cellspacing="0" cellpadding="0">
+                                        <thead class="version-table__head">
+                                            <tr class="table">
+                                                <th align="left" width="30%">Variant</th>
+                                                <th align="left" width="35%">Price</th>
+                                                <th align="left" width="35%">Specs</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="version-table__body">
+                                            @foreach (var version in Model.VersionSpecs)
+                                            {
+                                                if (version.Price > 0)
+                                                {
+                                                    <tr>
+                                                        <td valign="top">@string.Format("{0} {1}", version.ModelName, version.VersionName)</td>
+                                                        <td valign="top" class="text-default">&#x20b9;<span class="text-bold">&nbsp;@Format.FormatPrice(Convert.ToString(version.Price))</span></td>
+                                                        <td valign="top">@FormatMinSpecs.GetCommaSepratedGeneralSpecs(version.MinSpecsList)</td>
+                                                    </tr>
+                                                }
+                                            }
+                                        </tbody>
+                                    </table>
+                                    <div class="padding-top10 font12 text-light-grey">@string.Format("Above mentioned prices are On-road, {0}", Model.CityEntity.CityName)</div>
+                                </div>}
+                            <!-- model prices in nearby cities start -->
+                            @if (Model.HasNearestPriceCities && Model.NearestPriceCities != null)
+                            {
+                                var priceQuotesCities = Model.NearestPriceCities.PriceQuoteList;
+                                var top4Cities = priceQuotesCities.Take(4);
+                                Model.NearestPriceCities.PriceQuoteList = top4Cities;
+
+                                <div class="padding-top20 padding-bottom10 content-box-shadow card-bottom-margin padding-left20 padding-right20">
+                                    <h2 class="card-h2-heading margin-bottom10">@string.Format("{0} price in cities near {1}", Model.BikeModel.ModelName, Model.CityEntity.CityName)<span class="font14 text-slate-grey text-unbold">&nbsp;(On-road price)</span></h2>
+                                    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="font14">
+                                        <tbody>
+                                            @Html.Partial("~/UI/Views/PriceInCity/_PriceInTopCities_Mobile_AMP.cshtml", Model.NearestPriceCities)
+                                        </tbody>
+                                    </table>
+                                    @if (priceQuotesCities.Count() > 4)
+                                    {
+                                        Model.NearestPriceCities.PriceQuoteList = priceQuotesCities.Skip(4);
+                                        <table id="more-cities-list" width="100%" border="0" cellspacing="0" cellpadding="0" class="font14" hidden>
+                                            <tbody>
+                                                @Html.Partial("~/UI/Views/PriceInCity/_PriceInTopCities_Mobile_AMP.cshtml", Model.NearestPriceCities)
+                                            </tbody>
+                                        </table>
+                                        <div class="padding-bottom5">
+                                            <p id="viewmore" role="option" tabindex="0" class="view-cities-link position-rel block font14" on="tap:more-cities-list.show, viewmore.hide">View more cities</p>
+                                        </div>
+                                    }
+                                </div>}
+                            <!-- model prices in nearby cities end -->
+                        </div>
+                    }
+                }
+                <!-- model version prices end -->
+                <!-- model prices similar bikes start -->
+                @if (Model.HasAlternateBikes)
+                {
+                    <div id="similarContent" class="bw-model-tabs-data content-box-shadow padding-top20 padding-bottom5 card-bottom-margin">
+                        <h2 class="card-h2-heading margin-bottom10 padding-left20 padding-right20">@string.Format("Prices of similar {0} in {1}", Model.BodyStyleText, Model.CityEntity.CityName)</h2>
+                        @Html.Partial("~/UI/views/Bikemodels/_SimilarBikes_Mobile_AMP.cshtml", Model.AlternateBikes)
+                    </div>
+                }
+                else if (Model.IsPopularBodyStyleAvailable)
+                {
+                    <div id="popularContent" class="bw-model-tabs-data padding-top15 padding-bottom15 content-box-shadow card-bottom-margin">
+                        <div class="carousel-heading-content">
+                            <div class="swiper-heading-left-grid inline-block">
+                                <h2 class="card-h2-heading padding-right20">Popular @Model.BodyStyleText</h2>
+                            </div>
+                            <div class="swiper-heading-right-grid inline-block text-right">
+                                <a href="@String.Format("{0}/m{1}", BWConfiguration.Instance.BwHostUrl, UrlFormatter.FormatGenericPageUrl(Model.BodyStyle))" title="Best @Model.BodyStyleText in India" class="btn view-all-target-btn">View all</a>
+                            </div>
+                        </div>
+                        @Html.Partial("~/UI/Views/BestBikes/_PopularBodyStyleCarousel_Mobile_AMP.cshtml", Model.PopularBodyStyle)
+                    </div>
+                }
+                <div id="modelSpecsFooter"></div>
+            </div>
+        </div>
+
+
+        <section>
+            <div id="priceInCityWrapper" hidden>
+                <div class="city-area-banner"></div>
+                <div class="popup-inner-container">
+                    <div class="bwmsprite onroad-price-close-btn" role="option" tabindex="0" on="tap:priceInCityWrapper.hide"></div>
+                    <div id="popupHeading">
+                        <p class="popupheading-head">Please Tell Us Your Location</p>
+                        <div class="text-light-grey margin-bottom5">See on-road prices in your city!</div>
+                        <div role="option" tabindex="1" id="pcitySelection" on="tap:priceInCityPopUpContent.show">
+                            <p [text]="Popup.city">Select City</p>
+                            <span class="bwmsprite fa-angle-right"></span>
+                        </div>
+                        <span id="priceincityerror" class="hide" [class]="Popup.cityerrorflag== 1 ?'error-text':'hide'">Please select city.</span>
+                        <div id="btnPriceinCityLoader" class="center-align margin-top20 text-center position-rel">
+                            <a class="hide" [class]="Popup.cityerrorflag== 0 ?'btnPriceInCityPopup':'hide'" href='#' [href]="Popup.href" role="option" tabindex="0" id="btnPriceInCityPopupURL" on="tap:AMP.setState({Popup:{cityerrorflag:(Popup.city=='Select City')? 1: 0}})">Show on-road price</a>
+                            <span class="btnPriceInCityPopup" [class]="Popup.cityerrorflag != 0 ?'btnPriceInCityPopup':'hide'" role="option" tabindex="0" on="tap:AMP.setState({Popup:{cityerrorflag:(Popup.city=='Select City')? 1: 0}})">Show on-road price</span>
+                        </div>
+                        <div id="priceInCityPopUpContent" hidden>
+                            <div class="bwm-city-area-box">
+                                <div role="option" tabindex="0" class="user-input-box" on="tap:priceInCityPopUpContent.hide">
+                                    <span class="back-arrow-box">
+                                        <span class="bwmsprite back-long-arrow-left"></span>
+                                    </span>
+                                    <span id="popupPriceInCityInput">Select City</span>
+                                </div>
+                                <ul id="pcPopupCityList">
+                                    @foreach (var City in Model.Cities)
+                                    {
+                                        <li role="option" tabindex="1" on="tap:priceInCityPopUpContent.hide, AMP.setState({Popup:{ city:'@City.CityName',cityerrorflag:0, href:'@Bikewale.Utility.BWConfiguration.Instance.BwHostUrl/m/@Model.Make.MaskingName-bikes/@Model.BikeModel.MaskingName/price-in-@City.CityMaskingName/'}})">@City.CityName</li>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- model prices in other cities start -->
+        @if (Model.HasPriceInTopCities && Model.IsNew)
+        {
+        <section>
+            <div class="container card-bottom-margin">
+                <div class="content-box-shadow padding-bottom5 card-bottom-margin">
+                    <div class="content-inner-block-20">
+                        <h2 class="card-h2-heading margin-bottom10">@Model.BikeModel.ModelName prices in other cities</h2>
+                        <p class="font14 text-slate-grey margin-bottom15">You are currently viewing price of @Model.BikeName in @Model.CityEntity.CityName. Not from @Model.CityEntity.CityName? Select your city to see price in your city.</p>
+                        <p role="option" tabindex="0" id="changeCity" class="btn btn-white btn-170-32 changepriceincitypage bw-ga" on="tap:priceInCityWrapper.show">Select your city</p>
+                    </div>
+                    <div class="margin-right20 margin-bottom20 margin-left20 border-solid-bottom"></div>
+                    <h3 class="margin-right20 margin-bottom10 margin-left20">@Model.BikeModel.ModelName prices in popular cities</h3>
+                    <div class="swiper-container card-container swiper-city">
+                        @Html.Partial("~/UI/views/priceincity/_PriceInTopCitiesIcon_Mobile_AMP.cshtml", Model.PriceInTopCities)
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- model prices in other cities end -->
+        }
+
+        @if (Model.BikeRank != null && Model.BikeRank.BikeType != null)
+        {
+        <section>
+            <div class="container content-box-shadow content-inner-block-20 card-bottom-margin">
+                <div class="margin-bottom10">
+                    <span class="bwmsprite graph-rank-grey"></span>
+                    <div class="grid-11-inline padding-left10">
+                        <h2 class="card-h2-heading">Top 10 @Model.BikeRank.StyleName in India</h2>
+                    </div>
+                </div>
+                <p class="font14 margin-bottom15 text-slate-grey">Are you looking for a @Model.BikeRank.BikeType.ToLower()? Check out our list of top 10 @Model.BikeRank.StyleName.ToLower() in India.</p>
+                <a href="@String.Format("{0}/m{1}", BWConfiguration.Instance.BwHostUrl, UrlFormatter.FormatGenericPageUrl(Model.BikeRank.Rank.BodyStyle))"
+                   title="Best @Model.BikeRank.StyleName in India" class="btn view-all-target-btn">
+                    View complete list<span class="bwmsprite teal-right"></span>
+                </a>
+            </div>
+        </section>
+        }
+
+
+        @if (Model.objMoreAboutScooter != null)
+        {
+        <div id="moreAboutScooter" class="content-box-shadow padding-top20 padding-bottom20 card-bottom-margin font14">
+            <div class="swiper-container card-container model-related-swiper swiper-container-horizontal">
+                @Html.Partial("~/UI/Views/Scooters/_ModelRelatedCard_Mobile_Amp.cshtml", Model.objMoreAboutScooter)
+            </div>
+        </div>
+        }
+
+
+        <section>
+            <div class="container card-bottom-margin padding-right20 padding-left20">
+                <p class="text-default text-bold font12 text-slate-grey">Disclaimer:</p>
+                <p class="font12 text-slate-grey">
+                    BikeWale takes utmost care in gathering precise and accurate information about @Model.BikeName price in @Model.CityEntity.CityName However, this information is only indicative and may not reflect the final price you may pay. For more information please read
+                    <a class="font12" href="@string.Format("{0}/termsconditions.aspx", BWConfiguration.Instance.BwHostUrl)" target="_blank">terms and conditions</a>,<a class="font12" href="@string.Format("{0}/visitoragreement.aspx", BWConfiguration.Instance.BwHostUrl)" target="_blank">&nbsp;visitor agreement</a>&nbsp;and&nbsp;
+                    <a class="font12" href="@string.Format("{0}/privacypolicy.aspx", BWConfiguration.Instance.BwHostUrl)" target="_blank">privacy policy</a>.
+                </p>
+            </div>
+        </section>
+    </section>
+                                    }
 

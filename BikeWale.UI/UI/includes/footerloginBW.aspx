@@ -12,5 +12,5 @@
     </div>
 </footer>
         
-<script type="text/javascript" src="<%= staticUrl %>/src/Plugins.js?<%= staticFileVersion %>"></script>    
+<script type="text/javascript" src="<%= staticUrl %>/UI/src/Plugins.js?<%= staticFileVersion %>"></script>    
 <!-- Ends here -->

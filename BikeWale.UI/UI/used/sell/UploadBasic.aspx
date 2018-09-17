@@ -6,8 +6,8 @@
     isAd300x250BTFShown = false;
         
  %>
-<!-- #include file="/includes/headSell.aspx" -->
-<script type="text/javascript" src="<%= staticUrl  %>/src/classified/sellbike.js?14sept2015"></script>
+<!-- #include file="/UI/includes/headSell.aspx" -->
+<script type="text/javascript" src="<%= staticUrl  %>/UI/src/classified/sellbike.js?14sept2015"></script>
 <script language="javascript">
 	var inquiryId = '<%= inquiryId %>';
 	var requestCount = 0;
@@ -160,4 +160,4 @@
         }
     }
 </script>
-<!-- #include file="/includes/footerInner.aspx" -->
+<!-- #include file="/UI/includes/footerInner.aspx" -->

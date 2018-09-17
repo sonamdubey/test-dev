@@ -57,7 +57,7 @@ namespace Bikewale.BAL.UserReviews
         /// </summary>
         /// <param name="inputParams"></param>
         /// <returns></returns>
-        public IEnumerable<UserReviewQuestion> GetUserReviewQuestions(UserReviewsInputEntity inputParams)
+        public IEnumerable<UserReviewQuestion> GetUserReviewQuestions(Bikewale.Entities.UserReviews.UserReviewsInputEntity inputParams)
         {
             IEnumerable<UserReviewQuestion> objQuestions = null;
             try
@@ -80,7 +80,7 @@ namespace Bikewale.BAL.UserReviews
         /// <param name="inputParams"></param>
         /// <param name="objUserReviewQuestions"></param>
         /// <returns></returns>
-        public IEnumerable<UserReviewQuestion> GetUserReviewQuestions(UserReviewsInputEntity inputParams, Entities.UserReviews.UserReviewsData objUserReviewQuestions)
+        public IEnumerable<UserReviewQuestion> GetUserReviewQuestions(Bikewale.Entities.UserReviews.UserReviewsInputEntity inputParams, Entities.UserReviews.UserReviewsData objUserReviewQuestions)
         {
             IEnumerable<UserReviewQuestion> objQuestions = null;
             try
@@ -107,7 +107,7 @@ namespace Bikewale.BAL.UserReviews
         /// </summary>
         /// <param name="filters"></param>
         /// <returns></returns>
-        private Func<UserReviewQuestion, bool> ProcessInputFilter(UserReviewsInputEntity filters)
+        private Func<UserReviewQuestion, bool> ProcessInputFilter(Bikewale.Entities.UserReviews.UserReviewsInputEntity filters)
         {
             Expression<Func<UserReviewQuestion, bool>> filterExpression = PredicateBuilder.True<UserReviewQuestion>();
             if (filters != null)
@@ -492,7 +492,7 @@ namespace Bikewale.BAL.UserReviews
                         if (objReviewData.Questions != null)
                         {
 
-                            UserReviewsInputEntity filter = new UserReviewsInputEntity()
+                            Bikewale.Entities.UserReviews.UserReviewsInputEntity filter = new Bikewale.Entities.UserReviews.UserReviewsInputEntity()
                             {
                                 Type = Entities.UserReviews.UserReviewQuestionType.Rating
                             };
@@ -600,7 +600,7 @@ namespace Bikewale.BAL.UserReviews
                 UserReviewsData objUserReviewData = _userReviewsCache.GetUserReviewsData();
                 if (objUserReviewData != null && objUserReviewData.Questions != null)
                 {
-                    UserReviewsInputEntity filter = new UserReviewsInputEntity()
+                    Bikewale.Entities.UserReviews.UserReviewsInputEntity filter = new Bikewale.Entities.UserReviews.UserReviewsInputEntity()
                     {
                         Type = Entities.UserReviews.UserReviewQuestionType.Review,
                         PriceRangeId = priceRangeId

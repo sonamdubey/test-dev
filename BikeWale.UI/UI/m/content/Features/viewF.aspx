@@ -1,8 +1,8 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Content.viewF" Async="true" Trace="false" %>
-<%@ Register Src="~/m/controls/UpcomingBikesMin.ascx" TagPrefix="BW" TagName="MUpcomingBikesMin"  %>
-<%@ Register Src="~/m/controls/PopularBikesMin.ascx" TagPrefix="BW" TagName="MPopularBikesMin"  %>
-<%@ Register Src="~/m/controls/PopularBikesByBodyStyle.ascx" TagPrefix="BW" TagName="MBikesByBodyStyle"  %>
-<%@ Register Src="~/m/controls/ModelGallery.ascx" TagPrefix="BW" TagName="ModelGallery"  %>
+<%@ Register Src="~/UI/m/controls/UpcomingBikesMin.ascx" TagPrefix="BW" TagName="MUpcomingBikesMin"  %>
+<%@ Register Src="~/UI/m/controls/PopularBikesMin.ascx" TagPrefix="BW" TagName="MPopularBikesMin"  %>
+<%@ Register Src="~/UI/m/controls/PopularBikesByBodyStyle.ascx" TagPrefix="BW" TagName="MBikesByBodyStyle"  %>
+<%@ Register Src="~/UI/m/controls/ModelGallery.ascx" TagPrefix="BW" TagName="ModelGallery"  %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,16 +14,16 @@
         AdPath = "/1017752/Bikewale_Mobile_NewBikes_";
         AdId = "1398766302464";
         %>
-    <!-- #include file="/includes/headscript_mobile_min.aspx" -->
+    <!-- #include file="/UI/includes/headscript_mobile_min.aspx" -->
     <link rel="amphtml" href="<%= ampUrl %>" />
     <link rel="stylesheet" type="text/css" href="<%= staticUrl  %>/m/css/content/details.css?<%= staticFileVersion %>" />
     <script type="text/javascript">
-        <!-- #include file="\includes\gacode_mobile.aspx" -->
+        <!-- #include file="\UI\includes\gacode_mobile.aspx" -->
     </script>
 </head>
 <body class="bg-light-grey">
     <form runat="server">
-        <!-- #include file="/includes/headBW_Mobile.aspx" -->
+        <!-- #include file="/UI/includes/headBW_Mobile.aspx" -->
 
         <section>
             <div class="container box-shadow bg-white section-bottom-margin">
@@ -109,14 +109,14 @@
 
         <div class="back-to-top" id="back-to-top"></div>
 
-        <script type="text/javascript" src="<%= staticUrl  %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl  %>/UI/m/src/frameworks.js?<%= staticFileVersion %>"></script>
 
-        <!-- #include file="/includes/footerBW_Mobile.aspx" -->
+        <!-- #include file="/UI/includes/footerBW_Mobile.aspx" -->
 
         <link href="<%= staticUrl%>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
-        <!-- #include file="/includes/footerscript_mobile.aspx" -->
-        <script type="text/javascript" src="<%= staticUrl %>/m/src/content/details.js?<%= staticFileVersion %>"></script>
-        <!-- #include file="/includes/fontBW_Mobile.aspx" -->
+        <!-- #include file="/UI/includes/footerscript_mobile.aspx" -->
+        <script type="text/javascript" src="<%= staticUrl %>/UI/m/src/content/details.js?<%= staticFileVersion %>"></script>
+        <!-- #include file="/UI/includes/fontBW_Mobile.aspx" -->
 
         <script type="text/javascript">
             $(document).ready(function () {

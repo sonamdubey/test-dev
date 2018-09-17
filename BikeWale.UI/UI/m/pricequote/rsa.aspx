@@ -2,7 +2,7 @@
 <%
     title = "Bikewale Road Side Assistance";
 %>
-<!-- #include file="/includes/headermobile_noad.aspx" -->
+<!-- #include file="/UI/includes/headermobile_noad.aspx" -->
 <%--<link type="text/css" href="../css/mobile-rsa.css" rel="stylesheet" />--%>
 <link rel="stylesheet"  href="<%=  staticUrl %>/m/css/mobile-rsa.css?<%= staticFileVersion %>" />
 <body>
@@ -59,4 +59,4 @@
         </div>
     </div>
 </body>
-<!-- #include file="/includes/footermobile_noad.aspx" -->
+<!-- #include file="/UI/includes/footermobile_noad.aspx" -->

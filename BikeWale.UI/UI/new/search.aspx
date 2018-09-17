@@ -20,14 +20,14 @@
         isAd970x90BTFShown = false;
          
     %>
-    <!-- #include file="/includes/headscript.aspx" -->
+    <!-- #include file="/UI/includes/headscript.aspx" -->
     <script>ga_pg_id = '5';</script>
 </head>
 <body class="bg-light-grey">
     <form runat="server">
-        <!-- #include file="/includes/headBW.aspx" -->
-        <link href="<%= staticUrl  %>/css/new/search.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
-        <link href="<%= staticUrl  %>/css/chosen.min.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
+        <!-- #include file="/UI/includes/headBW.aspx" -->
+        <link href="<%= staticUrl  %>/UI/css/new/search.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
+        <link href="<%= staticUrl  %>/UI/css/chosen.min.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
 
         <section class="bg-light-grey padding-top10">
             <div class="container">
@@ -353,9 +353,9 @@
         </section>
 
 
-        <!-- #include file="/includes/footerBW.aspx" -->
-        <!-- #include file="/includes/footerscript.aspx" -->
-        <script type="text/javascript" src="<%= staticUrl  %>/src/new/search.js?<%= staticFileVersion %>"></script>
+        <!-- #include file="/UI/includes/footerBW.aspx" -->
+        <!-- #include file="/UI/includes/footerscript.aspx" -->
+        <script type="text/javascript" src="<%= staticUrl  %>/UI/src/new/search.js?<%= staticFileVersion %>"></script>
         <script type="text/javascript">
             var PQSourceId = '<%= (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_NewBikeSearch%>';
         </script>

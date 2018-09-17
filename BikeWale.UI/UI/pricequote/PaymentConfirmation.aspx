@@ -9,8 +9,8 @@
         isAd300x250BTFShown = false;
         isAd300x250Shown = false;
     %>
-    <!-- #include file="/includes/headscript.aspx" -->
-    <link href="<%= staticUrl  %>/css/booking.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
+    <!-- #include file="/UI/includes/headscript.aspx" -->
+    <link href="<%= staticUrl  %>/UI/css/booking.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
     <style>
         .map-box {width: 290px;height: 90px;}
         .inr-sm { width:8px; height:12px; background-position:-110px -468px; }
@@ -19,7 +19,7 @@
 </head>
 <body class="bg-light-grey header-fixed-inner">
     <form runat="server">
-        <!-- #include file="/includes/headBW.aspx" -->
+        <!-- #include file="/UI/includes/headBW.aspx" -->
 
         <section class="bg-white">
             <div class="container">
@@ -292,7 +292,7 @@
             </div>
             <!-- Terms and condition Popup Ends -->
 
-        <!-- #include file="/includes/footerBW.aspx" -->                                    
+        <!-- #include file="/UI/includes/footerBW.aspx" -->                                    
         <script src="https://maps.googleapis.com/maps/api/js?key=<%= Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey %>&sensor=false"></script>
         <script type="text/javascript">
             $(document).ready(function () {

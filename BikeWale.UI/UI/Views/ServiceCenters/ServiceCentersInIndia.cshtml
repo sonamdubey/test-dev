@@ -1,9 +1,9 @@
 ﻿@model  Bikewale.Models.ServiceCenters.ServiceCenterIndiaPageVM
 
 @{
-    Layout = "~/Views/Shared/_Layout.cshtml";
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/service/location.css' inline />";
-    Model.Page_JS_Path = "/src/service/location.js";
+    Layout = "~/UI/Views/Shared/_Layout.cshtml";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/UI/sass/service/location.css' inline />";
+    Model.Page_JS_Path = "/UI/src/service/location.js";
     Model.AdTags.Ad_970x90Top = true;
     Model.AdTags.Ad_970x90Bottom = true;
     Model.PageMetaTags.CanonicalUrl = string.Format("https://www.bikewale.com/service-centers/{0}/", Model.Make.MaskingName);
@@ -79,7 +79,7 @@
                     <h2 class="font18 padding-bottom20 padding-left20">Find service centers for other brands</h2>
                     <div class="jcarousel-wrapper inner-content-carousel brand-type-carousel">
                         <div class="jcarousel">
-                            @{Html.RenderPartial("/Views/ServiceCenters/_ServiceCentersByBrand.cshtml", Model.ServiceCenterBrandsList);}
+                            @{Html.RenderPartial("/UI/Views/ServiceCenters/_ServiceCentersByBrand.cshtml", Model.ServiceCenterBrandsList);}
                         </div>
                         <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a></span>
                         <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next" rel="nofollow"></a></span>
@@ -103,7 +103,7 @@
                         <div class="clear"></div>
                     </div>
                     <div class="padding-bottom20">
-                        @Html.Partial("~/Views/Used/_UsedBikesByModel.cshtml", Model.UsedBikesByMakeList)
+                        @Html.Partial("~/UI/Views/Used/_UsedBikesByModel.cshtml", Model.UsedBikesByMakeList)
                     </div>
                 </div>
             </div>
@@ -119,7 +119,7 @@
                     <h2 class="section-heading">Bike Care - Maintenance tips</h2>
                     <div class="grid-12">
                         <div class="content-box-shadow content-inner-block-20">
-                            @Html.Partial("~/Views/BikeCare/_RecentBikeCare.cshtml", Model.BikeCareWidgetVM)
+                            @Html.Partial("~/UI/Views/BikeCare/_RecentBikeCare.cshtml", Model.BikeCareWidgetVM)
                         </div>
                     </div>
                     <div class="clear"></div>
@@ -133,7 +133,7 @@
             <h2 class="section-heading">Bike Troubleshooting - FAQs</h2>
             <div class="grid-12">
                 <div class="content-box-shadow padding-bottom20">
-                    @Html.Partial("~/Views/BikeCare/_BikeTroubleshootingFAQ.cshtml")
+                    @Html.Partial("~/UI/Views/BikeCare/_BikeTroubleshootingFAQ.cshtml")
                     <a href="/bike-troubleshooting/" target="_blank" rel="noopener" title="Bike Troubleshooting- FAQs" class="font14 margin-left20">Read all FAQs<span class="bwsprite blue-right-arrow-icon"></span></a>
                 </div>
             </div>
@@ -143,4 +143,4 @@
 
 }
 <script defer src="@string.Format("https://maps.googleapis.com/maps/api/js?key={0}&libraries=places",Bikewale.Utility.BWConfiguration.Instance.GoogleMapApiKey)"></script>
-<script defer type="text/javascript" src="@String.Format("{0}/src/new/markerwithlabel.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl,Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion)"></script>
+<script defer type="text/javascript" src="@String.Format("{0}/UI/src/new/markerwithlabel.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl,Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion)"></script>

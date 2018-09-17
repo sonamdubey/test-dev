@@ -2,26 +2,55 @@
 .version-price-table {
     width: 100%;
 }
-.version-price-table th:first-child {
-    width: 30%;
-}
 .version-price-table th {
     text-align: left;
     border-bottom: 1px solid #e2e2e2;
     padding-bottom: 10px;
     font-size: 12px;
     color: #82888b;
-    font-weight: normal;
+    font-weight: 600;
     width: 35%;
 }
 .version-price-table td {
     vertical-align: top;
     border-bottom: 1px solid #eee;
-    padding-bottom: 10px;
+    padding-bottom: 15px;
     padding-top: 10px;
-    font-size: 14px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #4d5057;
 }
-
+.version-price-table td:first-child {
+    padding-right: 10px;
+}
+.version-price__title {
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+.version-price__spec {
+    color: #82888b;
+    width: 160px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.version-price__amount {
+    font-size: 16px;
+    font-weight: bold;
+}
+.version-price__link {
+    color: #0288d1;
+    cursor: pointer;
+    margin-top: 5px;
+}
+@media (max-width: 320px) {
+    .version-price__spec {
+        width: 140px;
+    }
+    .version-price__link {
+        font-size: 11px;
+    }
+}
 /* price in top city */
 .PriceInTopCity {
     padding-right: 20px;
@@ -42,7 +71,7 @@
     padding-bottom: 20px;
     text-align: right;
 }
-  
+
 .view-cities-link {
     top: -13px;
 }
@@ -56,7 +85,7 @@
     margin-top:0;
 }
 #modelColorsList a:hover {
-    text-decoration: none;    
+    text-decoration: none;
 }
 #modelColorsList li p {
     width:75%;
@@ -97,7 +126,7 @@
     padding: 10px 35px 10px 15px;
     position: relative;
     font-size: 12px;
-    color: #4d5057;    
+    color: #4d5057;
 }
 .compare-with-target:before {
     content: '';
@@ -108,7 +137,6 @@
     height: 1px;
     border-top: 1px solid #e2e2e2;
 }
-
 .compare-sm {
     width: 17px;
     height: 12px;
@@ -179,7 +207,7 @@
     width: 102px;
     height: 57px;
     margin-right: 5px;
-    background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif) center no-repeat;
+    background: url('https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif') center no-repeat;
     position: relative;
 }
 .best-bike-list .item-image-block img {
@@ -193,7 +221,7 @@
 .trend-arrow {
     width: 116px;
     height: 72px;
-    background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/trend-arrow.png) no-repeat;
+    background: url('https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/trend-arrow.png') no-repeat;
     position: absolute;
     left: 0;
     bottom: -20px;
@@ -274,12 +302,11 @@
 /*notify availability*/
 #notifyAvailabilityContainer {min-height: 320px; background: #fff; margin: 0 auto; padding:10px;position: fixed; top: 10%; right: 5%; left: 5%; z-index: 10; }
 #notify-form .grid-12 { padding: 10px 20px; }
-.personal-info-notify-container input { margin:0 auto; } 
+.personal-info-notify-container input { margin:0 auto; }
 .notify-offers-list { list-style:disc; margin-left:10px; }
 #notifyAvailabilityContainer .notify-close-btn {z-index:2;}
-#leadCapturePopup .error-icon, #leadCapturePopup .bw-blackbg-tooltip {display:none} 
 
-.offer-list-container ul.offersList li, .offer-list-container ul.moreOffersList li { background:url("https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/star-icon.png") no-repeat 0 3px; padding: 0 0 0 18px;} 
+.offer-list-container ul.offersList li, .offer-list-container ul.moreOffersList li { background:url("https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/star-icon.png") no-repeat 0 3px; padding: 0 0 0 18px;}
 .bike-details-list-ul { list-style:disc; margin-left:18px; }
 
 .content-details-wrapper .overall-specs-tabs-wrapper li.active h3 { font-weight: bold; }
@@ -768,7 +795,7 @@ h2.text-bold { font-weight: bold; }
 
 /* dealer carousel */
 .dealer-city-image-preview { height: 75px; display:block; text-align:center; margin-bottom:10px; }
-.city-sprite { background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/bwm-city-sprite.png?26Dec2016) no-repeat; display: inline-block; }
+.city-sprite { background: url('https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/bwm-city-sprite.png?26Dec2016') no-repeat; display: inline-block; }
 .mumbai-icon, .pune-icon, .bangalore-icon, .newdelhi-icon, .delhi-icon, .chennai-icon, .hyderabad-icon, .kolkata-icon, .ahmedabad-icon, .chandigarh-icon, .lucknow-icon, .india-icon { height: 70px; }
 .mumbai-icon { width: 98px; background-position: 0 0; }
 .pune-icon { width: 140px; background-position: -108px 0; }
@@ -796,7 +823,7 @@ h2.text-bold { font-weight: bold; }
     position: fixed;
     bottom: 60px;
     right: 20px;
-    background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/top-icon.png) no-repeat scroll center center;
+    background: url('https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/top-icon.png') no-repeat scroll center center;
     cursor: pointer;
 }
 
@@ -912,7 +939,7 @@ h2.text-bold { font-weight: bold; }
 	min-width: 60px;
 	background: white;
 	margin: 0 4px;
-	padding: 6px; 
+	padding: 6px;
 	color: #82888B;
 	border: 1px solid #E2E2E2;
 	border-radius: 2px;
@@ -927,7 +954,7 @@ h2.text-bold { font-weight: bold; }
 
 .about-reviewer-list li:after {
     border:none;
-}	
+}
 
 .feedback-button.active {
     border-color: #41B4C4;
@@ -1012,7 +1039,7 @@ h2.text-bold { font-weight: bold; }
 
 /*explore more card starts here*/
 .exploremore__imagebackground {
-    
+
     padding-top: 15px;
     padding-bottom: 10px;
     background: rgba(65,180,196,0.3);
@@ -1021,7 +1048,7 @@ h2.text-bold { font-weight: bold; }
 .exploremore__icon-background {
     height: 64px;
     width: 64px;
-    background: white url(https://imgd.aeplcdn.com/0x0/bw/static/icons/41b4c4/bike-36x22.png) no-repeat center;
+    background: white url('https://imgd.aeplcdn.com/0x0/bw/static/icons/41b4c4/bike-36x22.png') no-repeat center;
     margin: 0 auto;
     -moz-border-radius: 50%;
     -webkit-border-radius: 50%;
@@ -1061,7 +1088,7 @@ h2.text-bold { font-weight: bold; }
 .more-make-bike .item-image-block {
     width: 102px;
     height: 57px;
-    background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif) center no-repeat;
+    background: url('https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif') center no-repeat;
     position: relative;
 }
 .more-make-bike .item-image-block img {
@@ -1076,12 +1103,12 @@ h2.text-bold { font-weight: bold; }
 .user-reviews-type-carousel .swiper-slide,
 .user-reviews-type-carousel .swiper-card {
     width: 200px;
-    min-height: 110px; 
+    min-height: 110px;
 }
 
 .user-reviews-type-carousel .swiper-details-block {
     padding-top: 7px;
-    padding-bottom: 15px; 
+    padding-bottom: 15px;
 }
 
 

@@ -4,7 +4,7 @@
     keywords = "Model wise used bikes listing,used bikes for sale, second hand bikes, buy used bike";
     description = "bikewale.com Model wise used bikes listing.";
 %>
-<!-- #include file="/includes/headUsed.aspx" -->
+<!-- #include file="/UI/includes/headUsed.aspx" -->
     <div  class="container_12">
          <div class="grid_12">
             <ul class="breadcrumb">
@@ -47,4 +47,4 @@
         </div>
         <!-- Left container ends here-->
     </div>
-<!-- #include file="/includes/footerInner.aspx" -->
+<!-- #include file="/UI/includes/footerInner.aspx" -->

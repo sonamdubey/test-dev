@@ -1,0 +1,249 @@
+﻿@import ../base/variables
+@import ../components/variables
+@import ../mixins/index
+@import ../utils/index
+@import ../mixins/button
+@import ../mixins/icons
+
+.qna-ans-head
+  background-color: color('white-smoke-4')
+  padding: 10px 20px 15px
+  border-bottom: 1px solid color('gainsboro')
+  position: relative
+
+.ans-head__answer-for
+  display: inline-block
+  font-size: 12px
+  margin-bottom: 5px
+
+.ans-head__model
+  font-size: 15px
+  font-weight: $font-semibold
+  color: color('default')
+
+.qna-ans__content
+  background-color: color('white')
+  padding: 12px 20px
+  min-height: 350px
+
+.qna-ans__question
+  margin-bottom: 10px
+
+.qna-ans__content
+  @include form-control-box
+  @include input-field($fontSize: 16, $color: 'default', $font-weight: $font-semibold, $focus-color: 'deep-sky-blue', $placeholder-style: italic, $border-radius: 4px)
+  @include area-control-box
+  @include btn(16px, $font-bold)
+  @include btn-blue
+
+  .question-answer-wrapper__question
+    margin-bottom: 10px
+    font-size: 15px
+    line-height: 24.33px
+    font-weight: $font-bold
+
+.question-answer__description
+    display: block
+    font-size: 13px
+    letter-spacing: 0
+    color: color('dark-gray-2')
+    margin-bottom: 15px
+
+
+.qna-question__content
+  display: none
+  padding: 20px
+  background-color: color('white')
+
+  .question-answer-wrapper__question
+    margin-bottom: 10px
+
+  .question-answer-wrapper__list
+    > .question-answer-wrapper__list-item
+      &:first-child
+        border-top: none
+.question-answer-wrapper__question--normal
+  font-weight: $font-normal
+
+.qna-answer__link
+  color: color('pacific-blue')
+  line-height: 0
+  font-size: 14px
+  text-align: left
+  font-weight: $font-semibold
+
+.qna-head__title
+  padding-top: 15px
+  font-size: 16px
+  color: color('default')
+  font-weight: $font-bold
+  margin-bottom: 6px
+
+.qna-head__desc
+  font-size: 14px
+  line-height: 20px
+  color: color('aluminium')
+
+@include icon-container--round
+
+.lead-popup__thankyou-icon
+  @include thumbs-up-838383
+  background-position: center
+  background-size: 20px
+
+.qna-question-container
+  .lead-popup__thankyou-icon
+    @include vendor-prefix('transform', translateY(-50%))
+    background-position: center
+    background-size: 20px
+    position: absolute
+    top: 50%
+
+  .qna-head__title,
+  .qna-head__desc
+    display: block
+    margin-left: 75px
+
+  .qna-question__content
+    display: block
+
+  .qna-ans-head
+    background-color: color('white-smoke-4')
+    border-bottom: none
+
+  .qna__submit-btn
+    display: none
+
+.thankyou-container
+  padding: 20px
+  background-color: color('white')
+  height: 100vh
+
+  .qna-ans-head
+    padding: 0
+    background-color: color('white')
+    border-bottom: none
+
+  .qna__submit-btn
+    @include vendor-prefix('border-radius', 3px)
+    font-weight: $font-bold
+    width: 100%
+    text-transform: capitalize
+    margin-top: 90px
+    margin-bottom: 25px
+
+  .qna-head__title
+    width: 70%
+    display: inline-block
+    vertical-align: middle
+    margin-left: 15px
+    margin-bottom: 10px
+
+  .qna-head__desc
+    display: block
+
+  .qna-ans-head
+    @include vendor-prefix('transform', translateY(-50%))
+    position: relative
+    top: 50%
+
+@include btn-blue
+
+.form-control__input
+  overflow: auto
+
+.qna-question__btn
+	@include btn($font-weight: 600)
+	margin-top: 10px
+
+
+// Style for desktop (media queries from 1024)
+
+.qna-ans
+  @include vendor-prefix('box-shadow', 0 2px 4px 0 color('gainsboro'))
+  background-color: color('white')
+  margin-top: 20px
+  margin-bottom: 20px
+  padding: 20px
+
+.container--height
+  min-height: 58vh
+
+@media screen and (min-width: 800px)
+
+  .qna-ans-head
+    background-color: color('snow-2')
+    padding-top: 20px
+    padding-bottom: 20px
+    border-bottom: none
+    text-align: center
+
+  .ans-head__model
+    color: color('black')
+    font-size: 14px
+
+  .ans-head__title
+    color: color('light-grey')
+    font-weight: $font-normal
+
+  .qna-ans__content
+    max-width: 640px
+    min-height: 1px
+    margin-left: auto
+    margin-right: auto
+
+    .question-answer-wrapper__question
+      font-weight: $font-semibold
+      font-size: 14px
+      margin-bottom: 20px
+
+    .area-control-box
+      .form-control__input
+        height: 95px
+
+    .btn-blue
+      margin-left: auto
+      margin-right: auto
+      max-width: 360px
+      font-weight: $font-normal
+
+  .question-answer__description
+    margin-bottom: 20px
+
+  .qna-question-container
+    .qna-ans-head
+      background-color: color('snow-2')
+      text-align: left
+      padding-top: 35px
+      padding-bottom: 50px
+
+    .qna-head__title,
+    .qna-head__desc
+      margin-left: 160px
+
+    .lead-popup__thankyou-icon
+      background-size: 40px
+      margin-left: 10px
+
+    .question-answer-wrapper__title
+      font-size: 16px
+      font-weight: $font-bold
+
+  .icon-container--round
+    width: 106px
+    height: 106px
+
+    &:after
+      width: 94px
+      height: 94px
+      top: 5px
+      left: 5px
+
+  .qna-question__content
+    padding-bottom: 0
+    padding-left: 0
+    padding-right: 0
+
+  .question-answer-wrapper--question-list-item
+    &:last-child
+      padding-bottom: 0

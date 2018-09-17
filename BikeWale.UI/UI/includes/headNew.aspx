@@ -1,6 +1,6 @@
 ﻿<%@ Import namespace ="Bikewale.Utility" %>
 <%@ Register TagPrefix="BikeWale" TagName="LoginStatus" src="/Controls/loginstatus.ascx" %>
-<%@ Register TagPrefix="BM" TagName="BikeMakes" Src="/controls/BrowseBikeManufacturerMin.ascx" %>
+<%@ Register TagPrefix="BM" TagName="BikeMakes" Src="/UI/controls/BrowseBikeManufacturerMin.ascx" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml" lang="en"> 
 <head>
@@ -25,14 +25,14 @@
 <% if( prevPageUrl != "" ) { %><link rel="prev" href="<%= prevPageUrl %>" /><% } %>
 <% if( nextPageUrl != "" ) { %><link rel="next" href="<%= nextPageUrl %>" /><% } %>
 <!-- #include file="globalStaticFiles.aspx"-->
-    <script src="<%= staticUrl %>/src/jquery.jcarousel.min.js" type="text/javascript"></script>
+    <script src="<%= staticUrl %>/UI/src/jquery.jcarousel.min.js" type="text/javascript"></script>
     <script language="c#" runat="server">	    
 	    private string title = "", description = "", keywords = "",ShowTargeting="",TargetedModel="", TargetedSeries="", TargetedMake="",TargetedModels ="", canonical = "",prevPageUrl = "",nextPageUrl = "", fbTitle = "", fbImage = "", AdId = "", AdPath = "", alternate="";	    
         private bool isHeaderFix = true, isAd970x90Shown = true, isAd970x90BottomShown = true, isAd300x250Shown = true, isAd300x250_BTFShown = true;
         private string staticUrl = System.Configuration.ConfigurationManager.AppSettings["staticUrl"];
         private string staticFileVersion = System.Configuration.ConfigurationManager.AppSettings["staticFileVersion"];
     </script>
-    <!-- #include file="/includes/gacode.aspx" -->    
+    <!-- #include file="/UI/includes/gacode.aspx" -->    
     <script type='text/javascript'>
         var ga_pg_id = '0';
         var googletag = googletag || {};
@@ -100,6 +100,6 @@
 <body class="bg-white header-fixed-inner">
     <form runat="server">    
 	<div class="main-container">
-    	<!-- #include file="/includes/headBW.aspx" -->
+    	<!-- #include file="/UI/includes/headBW.aspx" -->
 
         <div class="clear"></div>

@@ -1,11 +1,14 @@
 ﻿using Bikewale.DTO.PriceQuote;
+using Bikewale.DTO.PriceQuote.Version;
 using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeBooking;
+using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.PriceQuote;
 using Bikewale.Service.Utilities;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Description;
@@ -19,13 +22,15 @@ namespace Bikewale.Service.Controllers.PriceQuote
     public class PriceQuoteController : CompressionApiController//ApiController
     {
         private readonly IDealerPriceQuote _objIPQ = null;
+        private readonly IPriceQuote _objPQ;
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="objIPQ"></param>
-        public PriceQuoteController(IDealerPriceQuote objIPQ)
+        public PriceQuoteController(IDealerPriceQuote objIPQ, IPriceQuote objPQ)
         {
             _objIPQ = objIPQ;
+            _objPQ = objPQ;
         }
         /// <summary>
         /// Bikewale Price Quote and Dealer Price Quote
@@ -81,7 +86,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
         /// <param name="input"></param>
         /// <returns></returns>
         [ResponseType(typeof(Bikewale.Entities.BikeBooking.v2.PQOutputEntity)), Route("api/v2/PriceQuote/")]
-        public IHttpActionResult PostV2([FromBody]Bikewale.DTO.PriceQuote.v4.PQInput﻿ input)
+        public IHttpActionResult PostV2([FromBody]Bikewale.DTO.PriceQuote.v4.PQInput input)
         {
             string response = string.Empty;
             Bikewale.DTO.PriceQuote.v3.PQOutput objPQ = null;
@@ -117,6 +122,43 @@ namespace Bikewale.Service.Controllers.PriceQuote
             {
                 ErrorClass.LogError(ex, "Exception : Bikewale.Service.Controllers.PriceQuote.PriceQuoteController.PostV2 - /api/v2/PriceQuote/");
                 return InternalServerError();
+            }
+        }
+
+        /// <summary>
+        /// Created by  : Pratibha Verma on 29 August 2018
+        /// Description : get version's price list(Exshowroom, RTO, Insurance)
+        /// </summary>
+        /// <param name="versionId"></param>
+        /// <param name="cityId"></param>
+        /// <returns></returns>
+        [ResponseType(typeof(Bikewale.Entities.BikeBooking.v2.PQOutputEntity)), Route("api/prices/version/{versionid}/cityid/{cityid}")]
+        public IHttpActionResult GetVersionPriceList(uint versionId, uint cityId)
+        {
+            if (versionId > 0 && cityId > 0)
+            {
+                try
+                {
+                    IEnumerable<PriceCategory> priceListObj = _objPQ.GetVersionPriceListByCityId(versionId, cityId);
+                    if (priceListObj != null && priceListObj.Any())
+                    {
+                        var priceList = new { priceList = priceListObj };
+                        return Ok(new[] { priceList });
+                    }
+                    else
+                    {
+                        return NotFound();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ErrorClass.LogError(ex, "Exception : Bikewale.Service.Controllers.PriceQuote.GetVersionPriceList");
+                    return InternalServerError();
+                }
+            }
+            else
+            {
+                return BadRequest();
             }
         }
 

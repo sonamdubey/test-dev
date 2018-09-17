@@ -1,8 +1,9 @@
 ﻿@model  Bikewale.Models.DealerShowroomDealerDetailsVM
+@using Bikewale.Entities.BikeBooking;
 @{
-    Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/dealer/details.css' inline />";
-    Model.Page_JS_Path = "/m/src/dealer/details.js";
+    Layout = "~/UI/Views/Shared/_Layout_Mobile.cshtml";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/UI/m/css/dealer/details.css' inline /><link rel='stylesheet' type='text/css' href='/UI/sass/partials/lead-popup.css' inline />";
+    Model.Page_JS_Paths = new string[] { "/UI/m/src/dealer/details.js", "/UI/src/utils/checkbox.js" };
     Model.PageMetaTags.CanonicalUrl = String.Format("https://www.bikewale.com/dealer-showrooms/{0}/{1}/{2}-{3}/", Model.Make.MaskingName, Model.CityDetails.CityMaskingName, Bikewale.Utility.UrlFormatter.RemoveSpecialCharUrl(Model.DealerDetails.DealerDetails.Name), Model.DealerDetails.DealerDetails.DealerId);
 }
 @if (Model.DealerDetails != null && Model.DealerDetails.DealerDetails != null)
@@ -91,7 +92,7 @@
                     @if (!string.IsNullOrEmpty(Model.DealerDetails.DealerDetails.MaskingNumber))
                     {
                         <div class="grid-6 alpha padding-right5">
-                            <a data-leadsourceid="15" data-clientip="@Bikewale.Common.CommonOpn.GetClientIP()" data-champaignid="@Model.DealerDetails.DealerDetails.CampaignId" data-isregisterpq="true" data-item-name="@Model.DealerDetails.DealerDetails.Name" data-item-area="@((Model.DealerDetails.DealerDetails.objArea!=null)?Model.DealerDetails.DealerDetails.objArea.AreaName: "")" data-isleadpopup="false" data-pqsourceid="@Convert.ToInt32(Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_dealer_details_Get_offers)"
+                            <a data-leadsourceid=@Convert.ToInt16(LeadSourceEnum.DealersShowroomDetail_Floating_Mobile) data-clientip="@Bikewale.Common.CommonOpn.GetClientIP()" data-campaignid="@Model.DealerDetails.DealerDetails.CampaignId" data-isregisterpq="true" data-item-name="@Model.DealerDetails.DealerDetails.Name" data-item-area="@((Model.DealerDetails.DealerDetails.objArea!=null)?Model.DealerDetails.DealerDetails.objArea.AreaName: "")" data-isleadpopup="false" data-pqsourceid="@Convert.ToInt32(Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_dealer_details_Get_offers)"
                                data-item-id="@Model.DealerDetails.DealerDetails.DealerId" data-cityname="@Model.CityDetails.CityName" data-eventcategory="Dealer_Locator_Detail" class=" btn btn-orange btn-full-width rightfloat leadcapturebtn bw-ga" data-act="Get_Offers_Clicked" data-cat="Dealer_Locator_Detail" data-lab="@Model.GALabel" href="javascript:void(0);" rel="nofollow">@Model.DealerDetails.DealerDetails.DisplayTextSmall</a>
                         </div>
                         <div class="grid-6 omega padding-left5">
@@ -103,7 +104,7 @@
                     else
                     {
                         <div class="grid-12 alpha padding-right5">
-                            <a data-leadsourceid="15" data-clientip="@Bikewale.Common.CommonOpn.GetClientIP()" data-champaignid="@Model.DealerDetails.DealerDetails.CampaignId" data-isregisterpq="true" data-item-name="@Model.DealerDetails.DealerDetails.Name" data-item-area="@Model.DealerDetails.DealerDetails.objArea!=null?@Model.DealerDetails.DealerDetails.objArea.AreaName" data-isleadpopup="false" data-pqsourceid="@Convert.ToInt32(Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_dealer_details_Get_offers)"
+                            <a data-leadsourceid=@Convert.ToInt16(LeadSourceEnum.DealersShowroomDetail_Floating_Mobile) data-clientip="@Bikewale.Common.CommonOpn.GetClientIP()" data-campaignid="@Model.DealerDetails.DealerDetails.CampaignId" data-isregisterpq="true"  data-item-name="@Model.DealerDetails.DealerDetails.Name" data-item-area="@Model.DealerDetails.DealerDetails.objArea!=null?@Model.DealerDetails.DealerDetails.objArea.AreaName" data-isleadpopup="false" data-pqsourceid="@Convert.ToInt32(Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_dealer_details_Get_offers)"
                                data-item-id="@Model.DealerDetails.DealerDetails.DealerId" data-cityname="@Model.CityDetails.CityName" data-eventcategory="Dealer_Locator_Detail" class=" btn btn-orange btn-full-width rightfloat leadcapturebtn bw-ga" data-act="Get_Offers_Clicked" data-cat="Dealer_Locator_Detail" data-lab="@Model.GALabel" href="javascript:void(0);">@Model.DealerDetails.DealerDetails.DisplayTextSmall</a>
                         </div>
                     }
@@ -181,7 +182,7 @@
                     </div>
                     <div class="clear"></div>
                 </div>
-                @Html.Partial("~/Views/DealerShowroom/_DealerCard_Mobile.cshtml", Model.DealersList)
+                @Html.Partial("~/UI/Views/DealerShowroom/_DealerCard_Mobile.cshtml", Model.DealersList)
             </div>
             <div class="clear"></div>
         </div>
@@ -197,7 +198,7 @@
             </div>
             <div class="clear"></div>
         </div>
-        @Html.Partial("~/Views/BikeModels/_MostPopularBikes_Mobile.cshtml", Model.PopularBikes)
+        @Html.Partial("~/UI/Views/BikeModels/_MostPopularBikes_Mobile.cshtml", Model.PopularBikes)
     </div>
 }
 @if (Model.ServiceCenterDetails != null && Model.ServiceCenterDetails.ServiceCentersList != null && Model.ServiceCenterDetails.ServiceCentersList.Count() > 0)
@@ -213,7 +214,7 @@
             </div>
             <div class="swiper-container card-container margin-bottom15 dealer-horizontal-swiper font14">
                 <div class="swiper-wrapper">
-                    @Html.Partial("~/Views/ServiceCenters/_ServiceCentersCard_Mobile.cshtml", Model.ServiceCenterDetails)
+                    @Html.Partial("~/UI/Views/ServiceCenters/_ServiceCentersCard_Mobile.cshtml", Model.ServiceCenterDetails)
                 </div>
             </div>
         </div>
@@ -221,7 +222,7 @@
 }
 @if (Model.LeadCapture != null)
 {
-    @Html.Partial("~/Views/Shared/_LeadCapture_Mobile.cshtml", Model.LeadCapture)
+    @Html.Partial("~/UI/Views/Shared/_LeadCapture_Mobile.cshtml", Model.LeadCapture)
 }
 <section>
     <div class="container margin-bottom30">

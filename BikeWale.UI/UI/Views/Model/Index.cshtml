@@ -2,26 +2,30 @@
 @{
 
 
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/model-atf.css' inline />  <link rel='stylesheet' type='text/css' href='/css/emicalculator.css' inline /> <link rel='stylesheet' type='text/css' href='/sass/modules/review-article.css' inline/> <link rel='stylesheet' type='text/css' href='/sass/partials/version-dropdown.css' inline/><link rel='stylesheet' type='text/css' href='/sass/partials/find-product-offers.css' inline/>  <link rel='stylesheet' type='text/css' href='/sass/partials/dealer-offers.css' inline />";
-    Model.Page_BTF_CSS_Paths = new string[] { "/css/model-btf.css", "/sass/partials/question-answer-popup.css",  "/sass/partials/question-answer.css", "/sass/partials/question-answer-slug.css" };
-    Model.Page_JS_Paths = new string[] { "/src/utils/dropdown.js", "/src/utils/readMore.js", "/src/model.js", "/src/emi-calculator.js", "/src/question-and-answer.js" };
-	Layout = "~/Views/Shared/_Layout.cshtml";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/UI/css/model-atf.css' inline />  <link rel='stylesheet' type='text/css' href='/UI/css/emicalculator.css' inline /> <link rel='stylesheet' type='text/css' href='/UI/sass/modules/review-article.css' inline/> <link rel='stylesheet' type='text/css' href='/UI/sass/partials/version-dropdown.css' inline/><link rel='stylesheet' type='text/css' href='/UI/sass/partials/find-product-offers.css' inline/>  <link rel='stylesheet' type='text/css' href='/UI/sass/partials/dealer-offers.css' inline />";
+    Model.Page_BTF_CSS_Paths = new string[] { "/UI/css/model-btf.css", "/UI/sass/partials/question-answer-popup.css", "/UI/sass/partials/question-answer.css", "/UI/sass/partials/question-answer-slug.css", "/UI/sass/partials/lead-popup.css", "/UI/sass/partials/desktop-lead-popup.css" };
+    Model.Page_JS_Paths = new string[] { "/UI/src/utils/dropdown.js", "/UI/src/utils/readMore.js", "/UI/src/model.js", "/UI/src/emi-calculator.js", "/UI/src/utils/text-area.js", "/UI/src/question-and-answer.js", "/UI/src/utils/checkbox.js" };
+	Layout = "~/UI/Views/Shared/_Layout.cshtml";
 }
 	@if (Model.IsNewBike)
 	{
-		@Html.Partial("~/Views/Model/_Index_New.cshtml", Model)
+		@Html.Partial("~/UI/Views/Model/_Index_New.cshtml", Model)
 	}
 	else if (Model.IsDiscontinuedBike)
 	{
-		@Html.Partial("~/Views/Model/_Index_Discontinued.cshtml", Model)
+		@Html.Partial("~/UI/Views/Model/_Index_Discontinued.cshtml", Model)
 	}
 	else if (Model.IsUpcomingBike)
 	{
-		@Html.Partial("~/Views/Model/_Index_Upcoming.cshtml", Model)
+		@Html.Partial("~/UI/Views/Model/_Index_Upcoming.cshtml", Model)
 	}
 
-	<script type="text/javascript">
-	ga_pg_id = '2';
+    <script type="text/javascript">
+    ga_pg_id = '2';
+    var isCityLevelCampaignPresent = '@(Model.IsManufacturerCampaignPresent && (Model.LeadCapture != null && Model.LeadCapture.IsManufacturerCampaign) || (Model.IsLocationSelected && !Model.City.HasAreas && Model.IsPremiumDealer))';
+    var isAreaLevelCampaignPresent = '@(Model.IsLocationSelected && Model.City.HasAreas && (Model.AreaId == 0 || (Model.AreaId > 0 && Model.IsPremiumDealer)))';
+    var shownCampaignType = '@((Model.LeadCapture != null && Model.LeadCapture.IsManufacturerCampaign) ? "ES" : (Model.IsPremiumDealer ? "DS": "NO"))';
+    var isBikeNew = '@Model.IsNewBike';
 	var dealerId = '@Model.DealerId';
 	var pqId = '@Model.PQId';
 	var versionId = '@Model.VersionId';
@@ -62,4 +66,4 @@
     });
 	</script>
 
-	<script defer src="@String.Format("{0}/src/ads.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl,Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion)"></script>
+	<script defer src="@String.Format("{0}/UI/src/ads.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl,Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion)"></script>

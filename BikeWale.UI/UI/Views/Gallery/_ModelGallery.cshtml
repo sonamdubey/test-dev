@@ -157,7 +157,7 @@
 
                     @if (Model.BikeInfo != null)
                     {
-                        @Html.Partial("~/views/Photos/_PhotosBikeInfoCard.cshtml", Model.BikeInfo)
+                        @Html.Partial("~/UI/views/Photos/_PhotosBikeInfoCard.cshtml", Model.BikeInfo)
                     }
                 </div>
 
@@ -277,5 +277,5 @@
 </section>
 
 <!--[if lt IE 10]>
-           <script defer type="text/javascript" src="@String.Format("{0}/src/fallback-gallery.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion)"></script>
+           <script defer type="text/javascript" src="@String.Format("{0}/UI/src/fallback-gallery.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion)"></script>
 <![endif]-->

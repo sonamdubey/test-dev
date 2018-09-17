@@ -3,8 +3,8 @@
 @using Bikewale.Utility;
 
 @{
-    Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/videos/videosByModel.css' inline />";
+    Layout = "~/UI/Views/Shared/_Layout_Mobile.cshtml";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/UI/m/css/videos/videosByModel.css' inline />";
 
     Model.IsHeaderFix = false;
     Model.IsHeaderRequired = false;
@@ -61,7 +61,7 @@
     {
         <section>
             <div class="container bg-white box-shadow section-bottom-margin margin-bottom10">
-                @Html.Partial("~/Views/BikeModels/_BikeInfoCard_Mobile.cshtml", Model.BikeInfoWidgetData)
+                @Html.Partial("~/UI/Views/BikeModels/_BikeInfoCard_Mobile.cshtml", Model.BikeInfoWidgetData)
             </div>
         </section>
     }
@@ -131,7 +131,7 @@
             <div id="moreAboutScooter" class="content-box-shadow padding-top20 padding-bottom20 card-bottom-margin font14">
                 <div class="swiper-container card-container model-related-swiper swiper-container-horizontal">
                     <div class="swiper-wrapper">
-                        @Html.Partial("~/Views/Scooters/_ModelRelatedCard_Mobile.cshtml", Model.ObjMoreAboutScooter)
+                        @Html.Partial("~/UI/Views/Scooters/_ModelRelatedCard_Mobile.cshtml", Model.ObjMoreAboutScooter)
                     </div>
                 </div>
             </div>
@@ -197,7 +197,7 @@ else if (Model != null && Model.Make != null && Model.objSeries != null)
                 </div>
                 <div class="swiper-container card-container swiper-type-similar">
                     <div class="swiper-wrapper">
-                        @Html.Partial("~/Views/BikeSeries/_PopularSeriesBikes_Mobile.cshtml", Model.PopularSeriesBikes)
+                        @Html.Partial("~/UI/Views/BikeSeries/_PopularSeriesBikes_Mobile.cshtml", Model.PopularSeriesBikes)
                     </div>
                 </div>
             </div>

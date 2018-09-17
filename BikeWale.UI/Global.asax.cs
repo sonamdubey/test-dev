@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using WURFL;
 using WURFL.Config;
+using AEPLCore.Logging;
 
 namespace Bikewale
 {
@@ -17,10 +18,11 @@ namespace Bikewale
 
         protected void Application_Start(object sender, EventArgs e)
         {
-            ViewEngines.Engines.Add(new RazorViewEngine());
+            ViewEngines.Engines.Add(new CustomViewEngine());
             log4net.Config.XmlConfigurator.Configure();
+            Logger logger = LoggerFactory.GetLogger();
+            logger.LogInfo("Application Started");
             UnityConfig.RegisterComponents();
-            AreaRegistration.RegisterAllAreas();
             Bikewale.Service.WebApiConfig.Register(GlobalConfiguration.Configuration);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             GlobalConfiguration.Configuration.EnsureInitialized();
@@ -83,6 +85,19 @@ namespace Bikewale
         {
             Exception ex = Server.GetLastError();
             Bikewale.Notifications.ErrorClass.LogError(ex, "Global.Application_Error");
+        }
+    }
+
+    public class CustomViewEngine : RazorViewEngine
+    {
+        public CustomViewEngine()
+        {
+            base.ViewLocationFormats = new string[] 
+            {
+                "~/UI/Views/{1}/{0}.cshtml",
+            "~/UI/Views/{2}/{1}/{0}.cshtml",
+            "~/UI/Views/{3}/{2}/{1}/{0}.cshtml"
+            };
         }
     }
 }

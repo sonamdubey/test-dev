@@ -6,8 +6,8 @@
     Model.AdTags.AdId = "1398766302464";
     Model.AdTags.Ad_320x50 = true;
     Model.AdTags.Ad_Bot_320x50 = true;
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/videos/videos-by-make.css' inline />";
-    Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/UI/m/css/videos/videos-by-make.css' inline />";
+    Layout = "~/UI/Views/Shared/_Layout_Mobile.cshtml";
     Model.PageMetaTags.CanonicalUrl = string.Format("https://www.bikewale.com/{0}-bikes/videos/", Model.Make.MaskingName);
 if (Model.Make != null && Model.Videos != null && Model.Videos.Any())
 {
@@ -58,7 +58,7 @@ if (Model.Make != null)
             </div>
             @if (Model.PopularSportsBikesWidget != null && Model.PopularSportsBikesWidget.ModelList != null && Model.PopularSportsBikesWidget.ModelList.Any())
             {
-                @Html.Partial("~/Views/Photos/_ImageCaraousel_Mobile.cshtml", Model.PopularSportsBikesWidget)
+                @Html.Partial("~/UI/Views/Photos/_ImageCaraousel_Mobile.cshtml", Model.PopularSportsBikesWidget)
             }
         </div>
     </section>

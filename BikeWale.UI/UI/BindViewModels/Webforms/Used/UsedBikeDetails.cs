@@ -39,6 +39,8 @@ namespace Bikewale.BindViewModels.Webforms.Used
         public bool IsBikeSold { get; set; }
         public bool IsAdUserLoggedIn { get; set; }
         public string ProfileId { get; set; }
+        public bool IsFakeListing { get; set; }
+
         private string _customerId = string.Empty;
         private IApiGatewayCaller _apiGatewayCaller;
         static readonly IUnityContainer _container;
@@ -148,8 +150,8 @@ namespace Bikewale.BindViewModels.Webforms.Used
                         AlternateUrl = string.Format("https://www.bikewale.com/m/used/bikes-in-{0}/{1}-{2}-{3}/", InquiryDetails.City.CityMaskingName, InquiryDetails.Make.MaskingName, InquiryDetails.Model.MaskingName, ProfileId).ToLower();
                         FirstImage = (InquiryDetails.PhotosCount > 0) ? InquiryDetails.Photo.FirstOrDefault() : null;
                         IsBikeSold = (InquiryDetails.AdStatus == 3 || InquiryDetails.AdStatus == 6);
-                        IsPageNotFoundRedirection = !IsAdUserLoggedIn && (InquiryDetails.AdStatus != 1 && !IsBikeSold);
-
+                        IsFakeListing = InquiryDetails.AdStatus == 2;
+                        IsPageNotFoundRedirection = !IsAdUserLoggedIn && (InquiryDetails.AdStatus != 1 && !IsBikeSold && !IsFakeListing);
                     }
                     else
                         IsPageNotFoundRedirection = true;                

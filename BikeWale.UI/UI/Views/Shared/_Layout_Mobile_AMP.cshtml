@@ -9,6 +9,10 @@
         <script async custom-element="amp-position-observer" src="https://cdn.ampproject.org/v0/amp-position-observer-0.1.js"></script>
         <script async custom-element="amp-animation" src="https://cdn.ampproject.org/v0/amp-animation-0.1.js"></script>
     }
+    <script async custom-element="amp-lightbox" src="https://cdn.ampproject.org/v0/amp-lightbox-0.1.js"></script>
+    <script async custom-element="amp-list" src="https://cdn.ampproject.org/v0/amp-list-0.1.js"></script>
+    <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.2.js"></script>
+
     @if (Model != null && Model.PageMetaTags != null)
     {
         Model.PageMetaTags.EnableOG = true;
@@ -49,7 +53,9 @@
     <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
 
     <style amp-custom>
-     *,button{margin:0}.bw-logo,.footer-top li,.nav-icon{vertical-align:middle}*{padding:0;box-sizing:border-box}body{font-family:'Open Sans',Serif;font-size:13px;color:#4d5057;background:#f5f5f5}ul{list-style:none}li{display:list-item;text-align:-webkit-match-parent}a{color:#0288d1;text-decoration:none}.block{display:block}.bwmsprite,.footer-middle li,.footer-popular-brands li,.footer-top li{display:inline-block}button{border:0}.margin-center{margin:0 auto}blockquote,body,div,fieldset,h1,h2,h3,h4,h5,h6,label,legend,li,ol,p,ul{margin:0;padding:0}header{background:#333;padding:13px 10px;height:50px}.bwmsprite{background:url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/bwmsprite-v4.png?v29Jun20171498739734721) no-repeat}.nav-icon{background-position:0 0;width:27px;height:15px;cursor:pointer;margin-right:10px}.bw-logo{width:84px;height:24px;background-position:-31px 0;position:absolute;left:52px}.bw-footer-icon,.ct-footer-icon,.cw-footer-icon{height:20px}.bw-footer-icon{width:73px;background-position:0 -547px}.cw-footer-icon{width:69px;background-position:-78px -515px}.ct-footer-icon{width:93px;background-position:-78px -533px}.footer-top{padding-top:15px;padding-bottom:10px}.footer{padding-bottom:15px}.footer-popular-brands{padding-top:15px;padding-bottom:10px}.footer-popular-brands li a{padding:0 10px}footer,footer a{color:#fff}footer{background:#323434;padding-top:5px;text-align:center}.footer-top li{width:32%;height:26px}.footer-middle{border-top:1px solid rgba(183,183,183,.2);border-bottom:1px solid rgba(183,183,183,.2);padding-bottom:20px;margin-bottom:10px}.footer-middle li a{display:block;padding:10px}.footer-bottom{padding-right:10px;padding-left:10px}.cw-logo-label{font-size:8px;color:#cfcfcf;margin-left:13px;position:relative;top:-10px}.left-float{float:left}.right-float{float:right}.clear{clear:both}#nav{width:275px;background:#fff;box-shadow:-3px 0 10px 0 #191818}.navUL .nav-accordion-header,.navUL li a{color:#1a1a1a;font-size:14px;text-decoration:none;display:block;padding:13px 0 13px 15px;font-weight:400;position:relative}.forum-icon,.new-flag,.newBikes-icon,.reviews-icon,.scooter-icon{display:inline-block}.nav-accordion-header{background:#fff;border:none;padding:0}#nav .nestedUL{border-top:1px solid #ebecec;border-bottom:1px solid #ebecec;background:#f6f7f7}.navUL .nestedUL a{padding-left:51px;border-left:4px solid transparent}.nestedUL a:hover{border-left:4px solid #ef3030;background:#fff;font-weight:700}amp-accordion>section[expanded] .nav-accordion-header{font-weight:700}amp-accordion>section[expanded] .fa-angle-down{transform:rotateZ(180deg)}.forum-icon,.home-icon,.newBikes-icon,.news-icon,.reviews-icon,.scooter-icon,.sellBikes-icon,.usedBikes-icon{width:24px;height:22px;margin-right:10px;vertical-align:middle}.home-icon{background-position:0 -40px}.newBikes-icon{background:url(https://imgd.aeplcdn.com/0x0/bw/static/icons/4d5057/bike-22x13.png) center no-repeat}.scooter-icon{background:url(https://imgd.aeplcdn.com/0x0/bw/static/icons/4d5057/scooter-22x15.png) center no-repeat}.usedBikes-icon{background-position:0 -178px}.sellBikes-icon{background-position:0 -155px}.reviews-icon{background:url(https://imgd.aeplcdn.com/0x0/bw/static/icons/4d5057/review-24x16.png) center no-repeat}.news-icon{background-position:0 -132px}.track-day{width:24px;height:22px;background-position:-188px -498px;position:relative;top:4px;margin-right:10px}.forum-icon{background:url(https://imgd.aeplcdn.com/0x0/bw/static/icons/4d5057/calculator.png) center no-repeat}.fa-angle-down{width:12px;height:7px;background-position:-155px -87px;position:absolute;top:22px;right:10px;transition:transform .3s}.google-play-logo{background-position:0 -344px;width:114px;height:42px;margin-top:10px;margin-bottom:10px}.new-flag{width:34px;height:16px;background:url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/new-flag.png) no-repeat;position:relative;top:2px;margin-left:5px}.auto-expo-nav{padding:15px;background:rgba(14,58,80,1);background:-moz-linear-gradient(left,rgba(14,58,80,1) 0,rgba(24,113,145,1) 100%);background:-webkit-linear-gradient(left,rgba(14,58,80,1) 0,rgba(24,113,145,1) 100%);background:linear-gradient(to right,rgba(14,58,80,1) 0,rgba(24,113,145,1) 100%);display:block;cursor:pointer}.auto-expo-nav__logo{width:61px;height:32px;background-image:url(https://imgd.aeplcdn.com/0x0/cw/es/auto-expo-2018/auto-expo-white.svg?v1);background-repeat:no-repeat;display:inline-block;position:relative}.auto-expo-nav__logo:after{content:'';position:absolute;top:16px;right:-23px;width:15px;height:10px;display:inline-block;background:url(https://imgd.aeplcdn.com/0x0/cw/static/icons/svg/uparrow.svg) 50% no-repeat;background-size:cover;transform:rotate(90deg);opacity:.6}.auto-expo-nav__title{width:65%;display:inline-block}.auto-expo-nav__title--main,.auto-expo-nav__title--sub{color:#fff}.auto-expo-nav__title--sub{text-transform:uppercase;font-size:11px;opacity:.6;letter-spacing:1px}.auto-expo-nav__title--main{font-size:14px}.dealer-campaign-wrapper{background:#fff;-webkit-box-shadow:2px 2px 2px #dcdcdc;box-shadow:2px 2px 2px #dcdcdc}.scrollToTop {width: 48px;height: 48px;z-index: 8;position: fixed;bottom: 60px;right: 20px;background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/top-icon.png) no-repeat scroll center center;cursor: pointer;}       
+     *,button{margin:0}.bw-logo,.footer-top li,.nav-icon{vertical-align:middle}*{padding:0;box-sizing:border-box}body{font-family:'Open Sans',Serif;font-size:13px;color:#4d5057;background:#f5f5f5}ul{list-style:none}li{display:list-item;text-align:-webkit-match-parent}a{color:#0288d1;text-decoration:none}.block{display:block}.bwmsprite,.footer-middle li,.footer-popular-brands li,.footer-top li{display:inline-block}button{border:0}.margin-center{margin:0 auto}blockquote,body,div,fieldset,h1,h2,h3,h4,h5,h6,label,legend,li,ol,p,ul{margin:0;padding:0}header{background:#333;padding:13px 10px;height:50px}.bwmsprite{background:url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/bwmsprite-v4.png?v29Jun20171498739734721) no-repeat}.nav-icon{background-position:0 0;width:27px;height:15px;cursor:pointer;margin-right:10px}.bw-logo{width:84px;height:24px;background-position:-31px 0;position:absolute;left:52px}.bw-footer-icon,.ct-footer-icon,.cw-footer-icon{height:20px}.bw-footer-icon{width:73px;background-position:0 -547px}.cw-footer-icon{width:69px;background-position:-78px -515px}.ct-footer-icon{width:93px;background-position:-78px -533px}.footer-top{padding-top:15px;padding-bottom:10px}.footer{padding-bottom:15px}.footer-popular-brands{padding-top:15px;padding-bottom:10px}.footer-popular-brands li a{padding:0 10px}footer,footer a{color:#fff}footer{background:#323434;padding-top:5px;text-align:center}.footer-top li{width:32%;height:26px}.footer-middle{border-top:1px solid rgba(183,183,183,.2);border-bottom:1px solid rgba(183,183,183,.2);padding-bottom:20px;margin-bottom:10px}.footer-middle li a{display:block;padding:10px}.footer-bottom{padding-right:10px;padding-left:10px}.cw-logo-label{font-size:8px;color:#cfcfcf;margin-left:13px;position:relative;top:-10px}.left-float{float:left}.right-float{float:right}.clear{clear:both}#nav{width:275px;background:#fff;box-shadow:-3px 0 10px 0 #191818}.navUL .nav-accordion-header,.navUL li a{color:#1a1a1a;font-size:14px;text-decoration:none;display:block;padding:13px 0 13px 15px;font-weight:400;position:relative}.forum-icon,.new-flag,.newBikes-icon,.reviews-icon,.scooter-icon{display:inline-block}.nav-accordion-header{background:#fff;border:none;padding:0}#nav .nestedUL{border-top:1px solid #ebecec;border-bottom:1px solid #ebecec;background:#f6f7f7}.navUL .nestedUL a{padding-left:51px;border-left:4px solid transparent}.nestedUL a:hover{border-left:4px solid #ef3030;background:#fff;font-weight:700}amp-accordion>section[expanded] .nav-accordion-header{font-weight:700}amp-accordion>section[expanded] .fa-angle-down{transform:rotateZ(180deg)}.forum-icon,.home-icon,.newBikes-icon,.news-icon,.reviews-icon,.scooter-icon,.sellBikes-icon,.usedBikes-icon{width:24px;height:22px;margin-right:10px;vertical-align:middle}.home-icon{background-position:0 -40px}.newBikes-icon{background:url(https://imgd.aeplcdn.com/0x0/bw/static/icons/4d5057/bike-22x13.png) center no-repeat}.scooter-icon{background:url(https://imgd.aeplcdn.com/0x0/bw/static/icons/4d5057/scooter-22x15.png) center no-repeat}.usedBikes-icon{background-position:0 -178px}.sellBikes-icon{background-position:0 -155px}.reviews-icon{background:url(https://imgd.aeplcdn.com/0x0/bw/static/icons/4d5057/review-24x16.png) center no-repeat}.news-icon{background-position:0 -132px}.track-day{width:24px;height:22px;background-position:-188px -498px;position:relative;top:4px;margin-right:10px}.forum-icon{background:url(https://imgd.aeplcdn.com/0x0/bw/static/icons/4d5057/calculator.png) center no-repeat}.fa-angle-down{width:12px;height:7px;background-position:-155px -87px;position:absolute;top:22px;right:10px;transition:transform .3s}.google-play-logo{background-position:0 -344px;width:114px;height:42px;margin-top:10px;margin-bottom:10px}.new-flag{width:34px;height:16px;background:url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/new-flag.png) no-repeat;position:relative;top:2px;margin-left:5px}.auto-expo-nav{padding:15px;background:rgba(14,58,80,1);background:-moz-linear-gradient(left,rgba(14,58,80,1) 0,rgba(24,113,145,1) 100%);background:-webkit-linear-gradient(left,rgba(14,58,80,1) 0,rgba(24,113,145,1) 100%);background:linear-gradient(to right,rgba(14,58,80,1) 0,rgba(24,113,145,1) 100%);display:block;cursor:pointer}.auto-expo-nav__logo{width:61px;height:32px;background-image:url(https://imgd.aeplcdn.com/0x0/cw/es/auto-expo-2018/auto-expo-white.svg?v1);background-repeat:no-repeat;display:inline-block;position:relative}.auto-expo-nav__logo:after{content:'';position:absolute;top:16px;right:-23px;width:15px;height:10px;display:inline-block;background:url(https://imgd.aeplcdn.com/0x0/cw/static/icons/svg/uparrow.svg) 50% no-repeat;background-size:cover;transform:rotate(90deg);opacity:.6}.auto-expo-nav__title{width:65%;display:inline-block}.auto-expo-nav__title--main,.auto-expo-nav__title--sub{color:#fff}.auto-expo-nav__title--sub{text-transform:uppercase;font-size:11px;opacity:.6;letter-spacing:1px}.auto-expo-nav__title--main{font-size:14px}.dealer-campaign-wrapper{background:#fff;-webkit-box-shadow:2px 2px 2px #dcdcdc;box-shadow:2px 2px 2px #dcdcdc}.scrollToTop {width: 48px;height: 48px;z-index: 8;position: fixed;bottom: 60px;right: 20px;background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/top-icon.png) no-repeat scroll center center;cursor: pointer;}
+        .breadcrumb{margin:10px;padding:10px;background:#eee;font-size:13px}.breadcrumb li{position:relative;display:inline-block;vertical-align:middle;margin-right:6px;margin-bottom:8px}.breadcrumb-title{display:block;font-size:12px;color:#82888b;padding-bottom:5px}.breadcrumb-link__label{padding-right:8px}.breadcrumb-link::after{content:'';height:4px;width:4px;border:solid grey;border-width:0 1px 1px 0;-webkit-transform:rotate(-45deg);transform:rotate(-45deg);display:inline-block;position:absolute;top:7px;right:0}
+        .rightfloat{float:right;}.search-bold-icon { width:15px; height:15px; background-position:-61px -278px; }.search-icon { display: inline-block;top: 5px;margin-left: 10px;}.blackOut-window > a{position:fixed;top:0;right:0;bottom:0;background:#000;left:0;z-index:9;opacity:.8;display:block;filter:alpha(opacity=80)}.global-search-popup .cross-box{right:5px;}.global-search-popup .back-long-arrow-left {transform: rotate(90deg);position: absolute;top: 7px;left: 10px;}.global-search-popup .back-arrow-box,.global-search-popup .cross-box{position:absolute;top:11px;z-index:11;}.global-search-popup{position:fixed;left:0;right:0;z-index:10}.global-search-popup .form-control{border:none;padding:16px 50px}.form-control,.form-control-box{position:relative; background-color:white; width: 100%}.search__result{padding:10px;display:inline-block}.search-title{font-size:10px;text-transform: uppercase;letter-spacing:1px;color:#babfc3;padding:10px}.top-border{border-top:solid 1px #e0e0e0;}.cross-md-dark-grey{width:13px;height:13px;right:13px;top:8px;opacity:0.6}.text-bold{font-weight: 600;}.padding10{padding:10px}
         @Html.Raw(Model.Amp_Page_CSS)
     </style>
 
@@ -312,6 +318,13 @@
     <header>
         <button class="bwmsprite nav-icon" on="tap:nav.open"></button>
         <a href="https://www.bikewale.com/m/" target="_top" title="BikeWale" class="bwmsprite bw-logo"></a>
+        <div class="rightfloat">
+            <div class="global-search" id="global-search">
+                <span class="search-icon-grey-box" on="tap:AMP.setState({searchterm : ''}),global__search,blackOut-window.show,globalsearchsuggest-list.hide" role="tab" tabindex="0">
+                    <span class="bwmsprite search-bold-icon"></span>
+                </span>   
+            </div>
+        </div>
     </header>
 
     @{
@@ -327,6 +340,41 @@
 
 
     @RenderBody()
+    <amp-state id="suggest" [src]="'@System.Configuration.ConfigurationManager.AppSettings["bwhosturl"]/api/AutoSuggest/?source=1&noofrecords=5&inputText=' + (searchterm || '')"> </amp-state>
+    <amp-lightbox layout="nodisplay" class="global__search" id="global__search">
+        <div class="global-search-popup">
+            <div class="form-control-box" id="search">
+                <span class="back-arrow-box" id="gs-close" on="tap: global__search.close" role="tab" tabindex="0" ><amp-img class="back-long-arrow-left" src="https://imgd.aeplcdn.com/0x0/cw/static/icons/svg/6f6f6f/arrow-down.svg" width="15" height= "15"></amp-img></span>
+                <span class="cross-box" [hidden] ="searchterm == null || searchterm == ''" id="gs-text-clear" on="tap:globalsearchsuggest-form.focus, AMP.setState({searchterm :''}),globalsearchsuggest-list.hide" role="tab" tabindex="1"><amp-img class="cross-md-dark-grey" src="https://imgd.aeplcdn.com/0x0/cw/static/icons/svg/6f6f6f/cross.svg" width="15" height="15"></amp-img></span>
+
+                <div >
+                    <input type="text" id="globalsearchsuggest-form" class="form-control" placeholder="Search" autocomplete="off" on="input-debounced: AMP.setState({searchterm : event.value}),globalsearchsuggest-list.show" [value]="searchterm || ''" autofocus>
+                    <div class="top-border" [hidden]="searchterm != ''">
+                        <div class="search-title">Trending Searches</div>
+
+                        <amp-list id="trendingsuggest-list" layout="responsive" src="@System.Configuration.ConfigurationManager.AppSettings["bwhosturl"]/api/popularbikes/?topCount=5" width="200" height="120" items=".">
+                            <template type="amp-mustache">   
+                                <amp-img class="search-icon" src="https://imgd.aeplcdn.com/0x0/bw/static/icons/6f6f6f/arrow-trending.svg" width="17" height="12"></amp-img>
+                                <span on="tap: AMP.navigateTo(url= '@System.Configuration.ConfigurationManager.AppSettings["bwhosturl"]/m/{{objMake.maskingName}}-bikes/{{objModel.maskingName}}/')" role="link" tabindex="2" class="search__result">{{BikeName}}</span>
+                            </template>
+                        </amp-list>
+                    </div>
+                    <div class="top-border" [hidden]="searchterm == ''">
+                        <div [hidden]="suggest.suggestionList.length != 0">
+                            <span class="text-bold padding10">Oops! No suggestions found</span><br /> <span class="padding10">Search by bike name e.g: Honda Activa</span>
+                        </div>
+                        <amp-list id="globalsearchsuggest-list" layout="responsive" [src]="'@System.Configuration.ConfigurationManager.AppSettings["bwhosturl"]/api/AutoSuggest/?source=1&noofrecords=5&inputText=' + (searchterm || '')" width="200" height="120" hidden="" items="suggestionList" reset-on-refresh>
+                            <template type="amp-mustache">
+                                <amp-img class="search-icon" src="https://imgd.aeplcdn.com/0x0/bw/static/icons/6f6f6f/search.svg" width="17" height="16"></amp-img>
+                                <span class="search__result " on="tap: AMP.navigateTo(url='@System.Configuration.ConfigurationManager.AppSettings["bwhosturl"]/m/{{payload.makeMaskingName}}-bikes/{{payload.modelMaskingName}}/')" role="link" tabindex="2">{{text}}</span>
+                            </template>
+                        </amp-list>
+                      </div>
+                 </div>
+            </div>
+        </div>
+        <div class="blackOut-window"><a id="blackOut-window" href="#" on="tap: global__search.close"></a></div>
+    </amp-lightbox>
 
     @if (Model.BreadcrumbList != null && Model.BreadcrumbList.BreadcrumListItem != null && Model.BreadcrumbList.BreadcrumListItem.Any())
     {
@@ -334,9 +382,12 @@
             <div class="breadcrumb">
                 <span class="breadcrumb-title">You are here:</span>
                 <ul>
-                    @foreach (var item in Model.BreadcrumbList.BreadcrumListItem)
+                    @{
+                    var breadcrumItemCount = Model.BreadcrumbList.BreadcrumListItem.Count();
+                    short currentBreadCrum = 0;
+                    foreach (var item in Model.BreadcrumbList.BreadcrumListItem)
                     {
-                        if (!string.IsNullOrEmpty(item.Item.Url))
+                        if (!string.IsNullOrEmpty(item.Item.Url) && (breadcrumItemCount - 1) > currentBreadCrum++)
                         {
                             <li>
                                 <a class="breadcrumb-link" href="@item.Item.Url" title="@item.Item.Name">
@@ -350,6 +401,7 @@
                                 <span class="breadcrumb-link__label">@item.Item.Name</span>
                             </li>
                         }
+                    }
                     }
                 </ul>
                 <div class="clear"></div>

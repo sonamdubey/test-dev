@@ -2,9 +2,9 @@
 
 @{
     Model.IsHeaderFix = false;
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/user-review/write-review.css' inline />";
-    Model.Page_JS_Path = "/src/user-review/write-review.js";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/UI/sass/user-review/write-review.css' inline />";
+    Model.Page_JS_Path = "/UI/src/user-review/write-review.js";
+    Layout = "~/UI/Views/Shared/_Layout.cshtml";
     Model.ExcludeContestSlug = true;
 }
 
@@ -117,7 +117,7 @@
                                 <input type="hidden" id="reviewQuestion" name="reviewQuestion" />
                                 <input type="hidden" name="reviewDescription" value="" />
                                 <input type="hidden" id="reviewId" name="reviewId" value="@Model.ReviewId" />
-                                <input type="hidden" id="encodedId" name="encodedId" value="@Utils.Utils.EncryptTripleDES(string.Format("customerid={0}&reviewid={1}", Model.CustomerId, Model.ReviewId))" />
+                                <input type="hidden" id="encodedId" name="encodedId" value="@TripleDES.EncryptTripleDES(string.Format("customerid={0}&reviewid={1}", Model.CustomerId, Model.ReviewId))" />
                                 <input type="hidden" name="userName" value="@Model.UserName" />
                                 <input type="hidden" name="emailId" value="@Model.EmailId" />
                                 <input type="hidden" name="makeName" value="@Model.Make.MakeName" />

@@ -1,9 +1,9 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Content.DefaultRT" %>
 <%@ Import Namespace="Bikewale.Common" %>
-<%@ Register TagPrefix="BikeWale" TagName="RepeaterPager" Src="~/m/controls/LinkPagerControl.ascx" %>
-<%@ Register TagPrefix="BW" TagName="MostPopularBikesMin" Src="~/controls/MostPopularBikesMin.ascx" %>
-<%@ Register TagPrefix="BW" TagName="UpcomingBikes" Src="~/controls/UpcomingBikesMinNew.ascx" %>
-<%@ Register TagPrefix="BW" TagName="PopularBikesByBodyStyle" Src="~/controls/PopularBikesByBodyStyle.ascx" %>
+<%@ Register TagPrefix="BikeWale" TagName="RepeaterPager" Src="~/UI/m/controls/LinkPagerControl.ascx" %>
+<%@ Register TagPrefix="BW" TagName="MostPopularBikesMin" Src="~/UI/controls/MostPopularBikesMin.ascx" %>
+<%@ Register TagPrefix="BW" TagName="UpcomingBikes" Src="~/UI/controls/UpcomingBikesMinNew.ascx" %>
+<%@ Register TagPrefix="BW" TagName="PopularBikesByBodyStyle" Src="~/UI/controls/PopularBikesByBodyStyle.ascx" %>
 <!Doctype html>
 <html>
 <head>
@@ -43,16 +43,16 @@
 	    fbImage = Bikewale.Utility.BWConfiguration.Instance.BikeWaleLogo;
         isAd300x250BTFShown = false;
     %>
-    <!-- #include file="/includes/headscript_desktop_min.aspx" -->
-    <link href="<%= staticUrl  %>/css/content/listing.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
+    <!-- #include file="/UI/includes/headscript_desktop_min.aspx" -->
+    <link href="<%= staticUrl  %>/UI/css/content/listing.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
 
     <script type="text/javascript">
-        <!-- #include file="\includes\gacode_desktop.aspx" -->
+        <!-- #include file="\UI\includes\gacode_desktop.aspx" -->
     </script>
 </head>
 <body class="bg-light-grey header-fixed-inner">
     <form runat="server">
-        <!-- #include file="/includes/headBW.aspx" -->
+        <!-- #include file="/UI/includes/headBW.aspx" -->
 
         <section class="container padding-top10">
             <div class="grid-12">
@@ -146,7 +146,7 @@
                         </div>
                     </div>
 
-                    <script type="text/javascript" src="<%= staticUrl  %>/src/frameworks.js?<%=staticFileVersion %>"></script>
+                    <script type="text/javascript" src="<%= staticUrl  %>/UI/src/frameworks.js?<%=staticFileVersion %>"></script>
 
                     <div class="grid-4 omega">
                         <BW:MostPopularBikesMin runat="server" ID="ctrlPopularBikes" />
@@ -161,7 +161,7 @@
                         <BW:UpcomingBikes ID="ctrlUpcomingBikes" runat="server" />
                         <%} %>
                           <div class="margin-bottom20">
-                           <!-- #include file="/ads/Ad300x250.aspx" -->
+                           <!-- #include file="/UI/ads/Ad300x250.aspx" -->
                         </div>                       
                         <a href="/pricequote/" id="on-road-price-widget" class="content-box-shadow content-inner-block-20">
                             <span class="inline-block">
@@ -176,7 +176,7 @@
 			        
 			            <%--<div>
 				            <!-- BikeWale_NewBike/BikeWale_NewBike_HP_300x250 -->
-				            <!-- #include file="/ads/Ad300x250BTF.aspx" -->
+				            <!-- #include file="/UI/ads/Ad300x250BTF.aspx" -->
 			            </div>--%>
                     </div>
                     <div class="clear"></div>
@@ -185,11 +185,11 @@
             </div>
         </section>
 
-        <!-- #include file="/includes/footerBW.aspx" -->
+        <!-- #include file="/UI/includes/footerBW.aspx" -->
         
-        <link href="<%= staticUrl %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
-        <!-- #include file="/includes/footerscript.aspx" -->
-        <!-- #include file="/includes/fontBW.aspx" -->
+        <link href="<%= staticUrl %>/UI/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
+        <!-- #include file="/UI/includes/footerscript.aspx" -->
+        <!-- #include file="/UI/includes/fontBW.aspx" -->
     </form>
 </body>
 </html>

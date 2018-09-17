@@ -1,8 +1,8 @@
 ﻿@model Bikewale.Models.ElectricBikesPageVM
 @{
-	Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
-	Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/electricbikes/landing.css' inline /> <link rel='stylesheet' type='text/css' href='/css/components/m-brand-logo.css' inline />";
-    Model.Page_JS_Path = "/m/src/electricbikes/electricbikeindex.js";
+	Layout = "~/UI/Views/Shared/_Layout_Mobile.cshtml";
+	Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/UI/m/css/electricbikes/landing.css' inline /> <link rel='stylesheet' type='text/css' href='/UI/css/components/m-brand-logo.css' inline />";
+    Model.Page_JS_Path = "/UI/m/src/electricbikes/electricbikeindex.js";
 }
 
 <section id="makeTabsContentWrapper">
@@ -10,7 +10,7 @@
         <div class="container content-box-shadow">
             <h1 class="padding-15-20 content-box-shadow">Electric Bike and Scooters</h1>
         </div>
-        @Html.Partial("~/Views/ElectricBikes/_Index_Tabs_Mobile.cshtml", Model)
+        @Html.Partial("~/UI/Views/ElectricBikes/_Index_Tabs_Mobile.cshtml", Model)
 
         <div id="makeAboutContent" class="content-box-shadow bw-model-tabs-data padding-top15 padding-bottom15 margin-bottom20 active">
             <div class="padding-right20 padding-left20">
@@ -67,7 +67,7 @@
            {
                 <div id="modelNewsContent" class="bw-model-tabs-data margin-right20 margin-left20 padding-top15 padding-bottom20 border-solid-bottom font14">
                     <h2 class="text-bold">News about Electric Bikes</h2>
-                    @Html.Partial("~/Views/News/_RecentNews_Mobile.cshtml", Model.News)
+                    @Html.Partial("~/UI/Views/News/_RecentNews_Mobile.cshtml", Model.News)
                   
                 </div>
 
@@ -78,7 +78,7 @@
                 <div id="makeReviewsContent" class="bw-model-tabs-data margin-right20 margin-left20 padding-top15 padding-bottom20 border-solid-bottom font14">
                     <h2 class="text-bold">Expert reviews on Electric Bikes</h2>
                     <h3 class="model-section-subtitle">Expert Reviews</h3>
-                    @Html.Partial("~/Views/ExpertReviews/_RecentExpertReviews_Mobile.cshtml", Model.ExpertReviews)
+                    @Html.Partial("~/UI/Views/ExpertReviews/_RecentExpertReviews_Mobile.cshtml", Model.ExpertReviews)
                     
                 </div>
             }
@@ -86,7 +86,7 @@
             {
                 <div id="makeVideosContent" class="bw-model-tabs-data margin-right20 margin-left20 padding-top15 padding-bottom20 border-solid-bottom font14">
                     <h2 class="text-bold">Videos of Electric Bikes</h2>
-                    @Html.Partial("~/Views/Videos/_RecentVideos_Mobile.cshtml", Model.Videos)
+                    @Html.Partial("~/UI/Views/Videos/_RecentVideos_Mobile.cshtml", Model.Videos)
                 </div>
             }
            
@@ -109,7 +109,7 @@
                         </div>
 
                         <div class="bw-tabs-data collapsible-brand-content" id="discoverBrand">
-                            @Html.Partial("~/Views/Make/_Brands_Mobile.cshtml", Model.Brands)
+                            @Html.Partial("~/UI/Views/Make/_Brands_Mobile.cshtml", Model.Brands)
                         </div>
                         <div class="bw-tabs-data hide" id="discoverBudget">
                             <ul class="block-button-list text-center">

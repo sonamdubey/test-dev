@@ -20,13 +20,13 @@
         <div id="modelSpecsTabsContentWrapper">
             <div id="modelOverallSpecsTopContent" class="bg-white position-rel">
                 <div id="overallSpecsTab" class="overall-specs-tabs-container">
-                    @Html.Partial("~/Views/Model/_Index_Tabs_Mobile.cshtml", Model)
+                    @Html.Partial("~/UI/Views/Model/_Index_Tabs_Mobile.cshtml", Model)
                 </div>
             </div>
 
             <div id="overviewContent" data-id="overviewContent" class="bw-model-tabs-data card-bottom-margin content-details-wrapper">
                 <div class="content-box-shadow card-bottom-margin">
-                    @Html.Partial("~/Views/Model/_Index_ModelGallery_Mobile.cshtml", Model)
+                    @Html.Partial("~/UI/Views/Model/_Index_ModelGallery_Mobile.cshtml", Model)
                     @if (Model.ModelPageEntity != null && Model.ModelPageEntity.UpcomingBike != null)
                     {
                         <div class="elevated-shadow-top padding-15-20">
@@ -58,14 +58,17 @@
                 </div>
                 @if (Model.ModelPageEntity.ModelVersionMinSpecs != null)
                 {
-                    @Html.Partial("~/Views/Model/_Index_ModelSummary_Mobile.cshtml", Model)
+                    @Html.Partial("~/UI/Views/Model/_Index_ModelSummary_Mobile.cshtml", Model)
                 }
             </div>
 
 
-            
+            @if (Model.SeriesSlug != null && Model.ShowSeriesSlug)
+            {
+                @Html.Partial("~/UI/Views/BikeSeries/_ModelSeriesSlug.cshtml", Model.SeriesSlug);
+            }
 
-            @if (Model.ModelsBySeries != null && (Model.ModelsBySeries.IsNewAvailable || Model.ModelsBySeries.IsUpcomingAvailable))
+            else if (Model.ModelsBySeries != null && (Model.ModelsBySeries.IsNewAvailable || Model.ModelsBySeries.IsUpcomingAvailable))
             {
                 <div id="modelsBySeriesWidget" class="margin-bottom15 bw-ga" data-cat="@Model.ModelsBySeries.Page" data-act="Series_WidgetShown" data-lab="@string.Format("{0} {1}", Model.ModelPageEntity.ModelDetails.MakeBase.MakeName, Model.ModelPageEntity.ModelDetails.ModelSeries.SeriesName)">
                     @if (Model.ModelsBySeries.SeriesBase != null && Model.ModelPageEntity.ModelDetails.MakeBase != null && !string.IsNullOrEmpty(Model.ModelsBySeries.SeriesBase.MaskingName))
@@ -89,16 +92,16 @@
                             </div>
                         }
                     }
-                    @Html.Partial("~/Views/BikeSeries/_BikeModelsBySeries_Mobile.cshtml", Model.ModelsBySeries)
+                    @Html.Partial("~/UI/Views/BikeSeries/_BikeModelsBySeries_Mobile.cshtml", Model.ModelsBySeries)
                 </div>
             }
             @if (Model.AdTags.Ad320x100ATF)
             {
                 <div class="margin-bottom20 text-center">
-                    @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad320x100ATF.cshtml", new { AdId = Model.AdTags.AdId });}
+                    @{Html.RenderPartial("/UI/Views/Shared/Ads/Mobile/Ad320x100ATF.cshtml", new { AdId = Model.AdTags.AdId });}
                 </div>
             }
-            @Html.Partial("~/Views/Model/_Index_DetailsCard_Mobile.cshtml", Model)
+            @Html.Partial("~/UI/Views/Model/_Index_DetailsCard_Mobile.cshtml", Model)
         </div>
     </div>
 </section>
@@ -108,6 +111,6 @@
 @if (Model.AdTags.Ad300x250_Bottom)
 {
     <div class="margin-bottom20 text-center">
-        @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad300x250_Bottom.cshtml",Model.AdTags);}
+        @{Html.RenderPartial("/UI/Views/Shared/Ads/Mobile/Ad300x250_Bottom.cshtml",Model.AdTags);}
     </div>
 }

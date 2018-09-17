@@ -1,11 +1,14 @@
 ﻿using Bikewale.DAL.AutoBiz;
 using Bikewale.Entities.BikeBooking;
+using Bikewale.Entities.Dealer;
 using Bikewale.Entities.PriceQuote;
+using Bikewale.Interfaces.Dealer;
 using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Notifications;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Web;
 namespace Bikewale.BAL.PriceQuote
@@ -20,12 +23,13 @@ namespace Bikewale.BAL.PriceQuote
         private readonly IPriceQuote _objPQ = null;
         private readonly Bikewale.Interfaces.BikeBooking.IDealerPriceQuote _objDPQ = null;
         private readonly IPriceQuoteCache _objPqCache = null;
-        public DealerPriceQuoteDetail(IPriceQuote objPQ, Bikewale.Interfaces.BikeBooking.IDealerPriceQuote objDPQ, IPriceQuoteCache objPqCache)
+        private readonly IDealer _dealer = null;
+        public DealerPriceQuoteDetail(IPriceQuote objPQ, Bikewale.Interfaces.BikeBooking.IDealerPriceQuote objDPQ, IPriceQuoteCache objPqCache, IDealer objdealer)
         {
             _objPQ = objPQ;
             _objDPQ = objDPQ;
             _objPqCache = objPqCache;
-
+            _dealer = objdealer;
         }
         /// <summary>
         /// Created By : Lucky Rathore
@@ -86,6 +90,10 @@ namespace Bikewale.BAL.PriceQuote
         /// Created By : Sushil Kumar
         /// Created on : 17th June 2016
         /// Description : call Autobiz API to get reponse for DealerPriceQuote deatils along with secondary dealers having version prices.
+        /// Modified By : Prabhu puredla on 18 july 2018
+        /// Description : Added logic to get mla dealers
+        /// Modified by : Pratibha Verma on 14 August 2018
+        /// Description : Added method call to filter out multioutlet dealers
         /// </summary>
         /// <param name="cityId">e.g. 1</param>
         /// <param name="versionID">e.g. 806</param>
@@ -120,7 +128,35 @@ namespace Bikewale.BAL.PriceQuote
                             dealerQuotation.PrimaryDealer.EMIDetails.ProcessingFee = 2000;
                         }
                     }
+                    if (dealerQuotation.objMake != null && _objPQ.GetMLAStatus(dealerQuotation.objMake.MakeId, cityId))
+                    {
+                        if (dealerQuotation.SecondaryDealers != null && dealerQuotation.SecondaryDealers.Any())
+                        {
+                            IList<SecondaryDealerBase> MultioutletDealers = new List<SecondaryDealerBase>();
+                            foreach (var secondaryDealer in dealerQuotation.SecondaryDealers)
+                            {
+                                if (areaId == 0 || (areaId > 0 && secondaryDealer.Distance != 0))
+                                {
+                                    SecondaryDealerBase objDealer = new SecondaryDealerBase()
+                                    {
+                                        DealerId = secondaryDealer.DealerId,
+                                        Area = secondaryDealer.Area,
+                                        Name = secondaryDealer.Name,
+                                        Distance = secondaryDealer.Distance,
+                                        MasterDealerId = secondaryDealer.MasterDealerId
+                                    };
+                                    MultioutletDealers.Add(objDealer);
+                                }
+                            }
+                            dealerQuotation.MLADealers = _dealer.FilterMultioutletDealers(MultioutletDealers);
+                            if(dealerQuotation.PrimaryDealer.DealerDetails.MasterDealerId > 0)
+                            {
+                                dealerQuotation.MLADealers.RemoveAll(x => x.MasterDealerId == dealerQuotation.PrimaryDealer.DealerDetails.MasterDealerId);
+                            }
+                        }
+                    }
                 }
+
             }
             catch (Exception ex)
             {

@@ -2,9 +2,9 @@
 @using Bikewale.Utility;
 
 @{
-    Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/sass/service/details.css' inline />";
-    Model.Page_JS_Path = "/m/src/service/details.js";
+    Layout = "~/UI/Views/Shared/_Layout_Mobile.cshtml";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/UI/m/sass/service/details.css' inline />";
+    Model.Page_JS_Path = "/UI/m/src/service/details.js";
     Model.AdTags.AdPath = "/1017752/Bikewale_Mobile_Model";
     Model.AdTags.AdId = "1444028976556";
     Model.AdTags.Ad_320x50 = true;
@@ -111,7 +111,7 @@
                     </div>
                     <div class="swiper-container card-container margin-bottom15 dealer-horizontal-swiper font14">
                         <div class="swiper-wrapper">
-                            @Html.Partial("~/Views/ServiceCenters/_ServiceCentersCard_Mobile.cshtml", Model.OtherServiceCentersWidgetData)
+                            @Html.Partial("~/UI/Views/ServiceCenters/_ServiceCentersCard_Mobile.cshtml", Model.OtherServiceCentersWidgetData)
                         </div>
                     </div>
                 </div>
@@ -203,7 +203,7 @@
                         </div>
                         <div class="clear"></div>
                     </div>
-                    @Html.Partial("~/Views/BikeModels/_MostPopularBikes_Mobile.cshtml", Model.PopularWidgetData)
+                    @Html.Partial("~/UI/Views/BikeModels/_MostPopularBikes_Mobile.cshtml", Model.PopularWidgetData)
                 }
                 <div class="padding-top10 text-center">
                 </div>
@@ -222,7 +222,7 @@
                         </div>
                         <div class="padding-top15">
                             <div class="content-box-shadow padding-bottom20">
-                                @Html.Partial("~/Views/Used/_UsedBikesByModel_Mobile.cshtml", Model.UsedBikesByMakeList)
+                                @Html.Partial("~/UI/Views/Used/_UsedBikesByModel_Mobile.cshtml", Model.UsedBikesByMakeList)
                             </div>
                         </div>
                     </div>
@@ -245,7 +245,7 @@
                         </div>
                         <div class="clear"></div>
                     </div>
-                    @Html.Partial("~/Views/DealerShowroom/_DealerCard_Mobile.cshtml", Model.DealersWidgetData)
+                    @Html.Partial("~/UI/Views/DealerShowroom/_DealerCard_Mobile.cshtml", Model.DealersWidgetData)
                 </div>
             </div>
         </section>

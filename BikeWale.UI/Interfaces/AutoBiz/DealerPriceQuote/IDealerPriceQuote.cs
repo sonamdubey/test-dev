@@ -26,5 +26,6 @@ namespace Bikewale.Interfaces.AutoBiz
         DealerInfo GetNearestDealer(uint modelId, uint cityId);
         DealerInfo GetNearestDealer(uint modelId, uint cityId, uint areaId);
         IEnumerable<PQ_VersionPrice> GetDealerPriceQuotesByModelCity(uint cityId, uint modelId, uint dealerId);
+		IEnumerable<string> GetMLAMakeCities();
     }
 }

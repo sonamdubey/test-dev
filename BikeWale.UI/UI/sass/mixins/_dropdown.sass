@@ -40,7 +40,7 @@
             display: none
 
         .dropdown-box__menu-tab
-            @include vendor-prefix(box-shadow, 0 -2px 10px 0 color('border-dark'))
+            @include vendor-prefix(box-shadow, 0 -2px 10px 0 color('gainsboro'))
             border-bottom: 1px solid color('whisper')
             z-index: 4
 
@@ -51,7 +51,7 @@
 @mixin dropdown-box-submenu-list($list-color: 'aluminium-2', $list-hover-color: 'default', $desktop: false)
     .dropdown-box__submenu-list
         @include clearfix
-        @include vendor-prefix(box-shadow, 1px 2px 10px 2px color('border-dark'))
+        @include vendor-prefix(box-shadow, 1px 2px 10px 2px color('gainsboro'))
         display: none
         position: absolute
         top: 100%

@@ -13,8 +13,8 @@
     position: relative
 
   .select-box__tabs
-    border-bottom: solid 1px color('border-dark')
-    border-top: solid 1px color('border-dark')
+    border-bottom: solid 1px color('gainsboro')
+    border-top: solid 1px color('gainsboro')
     padding-left: 0
     padding-right: 0
 
@@ -28,7 +28,7 @@
     @include justify-content(center)
     @include flex-direction(column)
     cursor: pointer
-    border-right: solid 1px color('border-dark')
+    border-right: solid 1px color('gainsboro')
     position: relative
 
     &:after
@@ -53,12 +53,12 @@
   @if $desktop
     @media screen and (min-width: 1024px)
       .select-box__tabs
-        border: solid 1px color('border-dark')
+        border: solid 1px color('gainsboro')
 
 @mixin select-box-list($list-color: 'aluminium-2', $list-hover-color: 'default', $desktop: false)
   .select-box__submenu
     @include clearfix
-    @include vendor-prefix(box-shadow, 1px 2px 10px 2px color('border-dark'))
+    @include vendor-prefix(box-shadow, 1px 2px 10px 2px color('gainsboro'))
     display: none
     position: absolute
     z-index: 9
@@ -135,7 +135,7 @@
       float: right
       text-align: right
 
-@mixin select-box-active($active-boxshadow-color: 'border-dark')
+@mixin select-box-active($active-boxshadow-color: 'gainsboro')
   .select-box--active
     display: block
 

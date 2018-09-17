@@ -35,7 +35,7 @@
             @if (Model.ShowCheckOnRoadCTA)
             {
                 <div class="swiper-btn-block">
-                    <a href="@string.Format("{0}/m/popup/?queryString={1}", BWConfiguration.Instance.BwHostUrl, Utils.Utils.EncryptTripleDES(string.Format("pqsourceid={0}&preselcity={1}&modelid={2}&Url={3}", (int)Model.PQSourceId, Model.CityId, bike.objModel.ModelId, Model.ReturnUrlForAmpPages)))" class="btn btn-card btn-full-width btn-white text-truncate getquotation font12" rel="nofollow">Check on-road price</a>
+                    <a href="@string.Format("{0}/m/popup/?queryString={1}", BWConfiguration.Instance.BwHostUrl, TripleDES.EncryptTripleDES(string.Format("pqsourceid={0}&preselcity={1}&modelid={2}&Url={3}", (int)Model.PQSourceId, Model.CityId, bike.objModel.ModelId, Model.ReturnUrlForAmpPages)))" class="btn btn-card btn-full-width btn-white text-truncate getquotation font12" rel="nofollow">Check on-road price</a>
                 </div>
             }
         </div>

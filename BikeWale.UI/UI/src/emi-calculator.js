@@ -23,7 +23,20 @@ emiCalculator = {
 
     close: function (element) {
         if (isMobile.length) {
-            element.hide(emiCalculator.setting.effect, emiCalculator.setting.directionleft, emiCalculator.setting.duration, function () { });
+            if ($("#leadCapturePopup").is(":visible")) {
+                if (typeof (LeadPopupState) != "undefined" && typeof (LeadPopupState.close) != "undefined") {
+                    LeadPopupState.close();
+                    if (typeof (windowScreen) != "undefined") {
+                        windowScreen.unlock();
+                    }
+                    triggerGA("Lead_PopUP", "Close", "");                   
+                }
+            }
+            
+            if ($("#emiPopup").is(":visible")) {
+                element.hide(emiCalculator.setting.effect, emiCalculator.setting.directionleft, emiCalculator.setting.duration, function () {
+            });
+            }
             unlockPopup();
         }
         else {

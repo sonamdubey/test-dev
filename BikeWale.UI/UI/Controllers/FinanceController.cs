@@ -4,9 +4,14 @@ using Bikewale.Interfaces.PWA.CMS;
 using Bikewale.Models;
 using Bikewale.Models.Finance;
 using Bikewale.Models.Shared;
+using Newtonsoft.Json;
 using System.Collections.Specialized;
 using System.Web;
 using System.Web.Mvc;
+using Bikewale.Entities.Dealer;
+using System;
+using Bikewale.Entities.Location;
+using Bikewale.Utility;
 
 namespace Bikewale.Controllers
 {
@@ -42,7 +47,7 @@ namespace Bikewale.Controllers
 		{
 			FinanceIndexPage obj = new FinanceIndexPage(_renderedArticles);
 			FinanceIndexPageVM objData = obj.GetPwaData();
-			return View("~/Views/Shared/Index_Mobile_Pwa.cshtml", objData);
+			return View("~/UI/Views/Shared/Index_Mobile_Pwa.cshtml", objData);
 		}
 
 
@@ -86,6 +91,43 @@ namespace Bikewale.Controllers
             CapitalFirstVM viewModel = obj.GetData(queryCollection);
             return View(viewModel);
         }
+
+        #endregion
+
+        #region Bajaj Auto
+        /// <summary>
+        /// Modifier    : Kartik Rathod on 19 july 2019
+        /// Desc        : Moved logic to BajajFinanceModel
+        /// </summary>
+        /// <returns></returns>
+        [Bikewale.Filters.DeviceDetection]
+        [Route("finance/bajaj/")]
+        public ActionResult BajajFinance_Index()
+        {
+            string q = Request.Url.Query;
+            BajajFinanceModel objBajajFinanceModel = new BajajFinanceModel();
+
+            NameValueCollection queryCollection = HttpUtility.ParseQueryString(q);
+            BajajFinanceVM viewModel = objBajajFinanceModel.GetData(queryCollection);
+            return View(viewModel);
+        }
+
+        /// <summary>
+        /// Modifier    : Kartik Rathod on 19 july 2019
+        /// Desc        : Moved logic to BajajFinanceModel
+        /// </summary>
+        /// <returns></returns>
+        [Route("m/finance/bajaj/")]
+        public ActionResult BajajFinance_Index_Mobile()
+        {
+            string q = Request.Url.Query;
+            BajajFinanceModel objBajajFinanceModel = new BajajFinanceModel();
+            objBajajFinanceModel.IsMobile = true;
+
+            NameValueCollection queryCollection = HttpUtility.ParseQueryString(q);
+            BajajFinanceVM viewModel = objBajajFinanceModel.GetData(queryCollection);
+            return View(viewModel);
+        } 
 
         #endregion
     }

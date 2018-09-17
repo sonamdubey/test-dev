@@ -1,0 +1,61 @@
+﻿@model Bikewale.Models.QuestionAndAnswers.ThankYouPageVM
+@using Bikewale.Utility;
+@{
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/UI/sass/partials/question-answer.css' inline/> <link rel='stylesheet' type='text/css' href='/UI/sass/partials/qna-answer.css' inline/> ";
+    Model.Page_JS_Paths = new string[] { "/UI/src/question-and-answer.js" };
+    ViewBag.Title = "Index";
+    Layout = "~/UI/Views/Shared/_Layout.cshtml";
+}
+@if (Model != null)
+{
+    <section>
+        <div class="container">
+            <div class="grid-12 container--height">
+                <div class="qna-ans">
+                    <div class="qna-question-container">
+                        <div class="qna-ans-head">
+                            <div class="lead-popup__thankyou-icon icon-container--round">
+                            </div>
+                            <p class="qna-head__title">
+                                Thanks for answering the question.
+                            </p>
+                            <p class="qna-head__desc">
+                                We appreciate your effort. We will display your answer once our internal team has reviewed it.
+                            </p>
+                        </div>
+                        @if (Model.Questions != null && Model.Questions.Any())
+                        {
+
+                            <div class="qna-question__content">
+                                <h2 class="question-answer-wrapper__title">
+                                    @{
+                            String bikeMessage = "";
+                            if (!String.IsNullOrEmpty(Model.BikeName))
+                            {
+                                bikeMessage = String.Format("on {0}", Model.BikeName);
+                            }
+                                    }
+                                    Answer more Q&A @bikeMessage
+                                </h2>
+                                <ul class="question-answer-wrapper__list">
+                                    @foreach (Bikewale.Entities.QuestionAndAnswers.QuestionUrl question in Model.Questions)
+                                    {
+
+                                        <li class="question-answer-wrapper__list-item  question-answer-wrapper--question-list-item">
+                                            <p class="question-answer-wrapper__question question-answer-wrapper__question--normal">
+                                                Q: @(question.QuestionData.Text)
+                                            </p>
+                                            <a href="@(question.AnsweringUrl)" title="Answer this Question" class="qna-answer__link">Answer this Question</a>
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                        }
+
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </section>
+}

@@ -1646,4 +1646,66 @@ width: 100%;
 .ul-grid-4 li {
   width: 25%;
 }
+/* emi tooltip */
+.emi-info {
+    width: 13px;
+    height: 10px;
+    background-position: -217px -282px;
+    position: relative;
+    top: 1px;
+    cursor: pointer;
+}
 
+.tooltip-icon-target:hover .bw-tooltip {
+    display: block;
+}
+
+.emi-tooltip {
+    display: none;
+    width: 235px;
+    top: -10px;
+    right: -245px; /* width + tooltip width */
+    border-radius: 2px;
+    box-shadow: 0 1px 2px #eee;
+    cursor: default;
+    position: absolute;
+}
+
+.tooltip-white {
+    background: #fff;
+    padding: 10px;
+}
+
+.tooltip-white .bw-tooltip-text:before {
+    left: -10px;
+}
+
+.tooltip-white .bw-tooltip-text:after {
+    left: -9px;
+    border-right-color: #fff;
+}
+
+.emi-tooltip .bw-tooltip-text:before,
+.emi-tooltip .bw-tooltip-text:after {
+    top: 13%;
+}
+
+.bw-tooltip--large.bw-tooltip {
+	padding: 12px 15px;
+	width: 260px;
+	text-align: left;
+	box-shadow: 0 2px 4px 0 rgba(213, 213, 213, .5);
+	border-radius: 3px;
+	font-size: 13px;
+}
+
+/* insurance tooltip start */
+.insurance-info-tooltip.info-tooltip {
+	right: -120px;
+}
+
+.tooltip-top .insurance-info-tooltip .bw-tooltip-text:before,
+.tooltip-top .insurance-info-tooltip .bw-tooltip-text:after {
+	left: 122px;
+}
+/* insurance tooltip end */

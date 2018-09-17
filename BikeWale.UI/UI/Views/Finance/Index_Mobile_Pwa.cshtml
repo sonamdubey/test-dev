@@ -126,7 +126,7 @@
     <link rel="dns-prefetch" href="https://imgd.aeplcdn.com/">
     <link rel="dns-prefetch" href="https://stb.aeplcdn.com/">
     
-    @{Html.RenderPartial("/Views/Shared/_CssChunksScript.cshtml");}
+    @{Html.RenderPartial("/UI/Views/Shared/_CssChunksScript.cshtml");}
     <script type="text/javascript">
         window.state = @Html.Raw(Model.WindowState);
     </script>
@@ -175,7 +175,7 @@
 <body>
     
     @Html.Raw(Model.ServerRouterWrapper)
-    @{Html.RenderPartial("/Views/Shared/_ServiceWorkerScript.cshtml");}
+    @{Html.RenderPartial("/UI/Views/Shared/_ServiceWorkerScript.cshtml");}
 
 </body>
 </html>

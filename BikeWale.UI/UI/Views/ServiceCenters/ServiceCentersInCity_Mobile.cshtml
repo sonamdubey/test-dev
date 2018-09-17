@@ -2,9 +2,9 @@
 @using Bikewale.Utility;
 
 @{
-    Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/sass/service/listing.css' inline />";
-    Model.Page_JS_Path = "/m/src/service/listing.js";
+    Layout = "~/UI/Views/Shared/_Layout_Mobile.cshtml";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/UI/m/sass/service/listing.css' inline />";
+    Model.Page_JS_Path = "/UI/m/src/service/listing.js";
     Model.AdTags.AdPath = "/1017752/Bikewale_Service_Centers"; 
     Model.AdTags.AdId = "1444028976556";
     Model.AdTags.Ad_320x50 = true;
@@ -138,7 +138,7 @@
             <h2 class="padding-right20 padding-bottom15 padding-left20">@String.Format("Explore {0} service centers in cities near {1}", Model.Make.MakeName, Model.City.CityName)</h2>
             <div class="swiper-container padding-top5 padding-bottom5 map-type-carousel">
                 <div class="swiper-wrapper">
-                    @Html.Partial("~/Views/ServiceCenters/_ServiceCentersInNearByCities_Mobile.cshtml", Model.NearByCityWidgetData)
+                    @Html.Partial("~/UI/Views/ServiceCenters/_ServiceCentersInNearByCities_Mobile.cshtml", Model.NearByCityWidgetData)
                 </div>
             </div>
         </div>
@@ -159,7 +159,7 @@
                         </div>
                         <div class="clear"></div>
                     </div>
-                    @Html.Partial("~/Views/BikeModels/_MostPopularBikes_Mobile.cshtml", Model.PopularWidgetData)
+                    @Html.Partial("~/UI/Views/BikeModels/_MostPopularBikes_Mobile.cshtml", Model.PopularWidgetData)
                 }
                 <div class="padding-top10 text-center">
                 </div>
@@ -178,7 +178,7 @@
                         </div>
                         <div class="padding-top15">
                             <div class="content-box-shadow padding-bottom20">
-                                @Html.Partial("~/Views/Used/_UsedBikesByModel_Mobile.cshtml", Model.UsedBikesByMakeList)
+                                @Html.Partial("~/UI/Views/Used/_UsedBikesByModel_Mobile.cshtml", Model.UsedBikesByMakeList)
                             </div>
                         </div>
                     </div>
@@ -202,7 +202,7 @@
                         <a href="javascript:void(0)" id="changeCity" class="btn btn-white btn-170-32 changepriceincitypage" rel="nofollow"  data-makemasking="@Model.Make.MaskingName">
                             Select your city
                         </a>
-                        @Html.Partial("~/Views/PopUp/BikeCityPopup_Mobile.cshtml", Model.BikeCityPopup)
+                        @Html.Partial("~/UI/Views/PopUp/BikeCityPopup_Mobile.cshtml", Model.BikeCityPopup)
                     </div>
                     <div class="margin-right20 margin-bottom20 margin-left20 border-solid-bottom">
 
@@ -211,7 +211,7 @@
                         @Model.Make.MakeName service centers in popular cities
                     </h3>
                     <div class="swiper-container card-container swiper-city">
-                        @Html.Partial("~/Views/PopularCityWidget/DealerServiceCenterInTopCityWidget_Mobile.cshtml", Model.DealersServiceCenterPopularCities)
+                        @Html.Partial("~/UI/Views/PopularCityWidget/DealerServiceCenterInTopCityWidget_Mobile.cshtml", Model.DealersServiceCenterPopularCities)
                     </div>
                 </div>
                 <!-- model prices in other cities end -->
@@ -237,7 +237,7 @@
                     </div>
                     <div class="clear"></div>
                 </div>
-                @Html.Partial("~/Views/Make/_BrandsModelCount_Mobile.cshtml", Model.SimilarBrandsByCity)
+                @Html.Partial("~/UI/Views/Make/_BrandsModelCount_Mobile.cshtml", Model.SimilarBrandsByCity)
             </div>
         </section>
     }
@@ -268,6 +268,6 @@
             <span class="font14"><strong>Disclaimer:</strong></span> The above-mentioned information about authorised @Model.Make.MakeName service centers is furnished to best of our knowledge. The facilities of pick and drop, timings and service schedule related information might vary slightly from service center to service center. Please check with the authorised @Model.Make.MakeName service center before scheduling an appointment.
         </div>
     </section>
-    @Html.Partial("~/Views/Make/_BrandCityPopup_Mobile.cshtml", Model.BrandCityPopupWidget)
+    @Html.Partial("~/UI/Views/Make/_BrandCityPopup_Mobile.cshtml", Model.BrandCityPopupWidget)
 }
 @{Html.RenderAction("ChangeLocation_Mobile", "Location", new { cityId = Model.City.CityId, cityName = Model.City.CityName });}

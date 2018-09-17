@@ -1,0 +1,395 @@
+﻿// Core variables and mixins
+@import ../base/variables
+@import ../components/typography
+
+@import ../mixins/index
+@import ../utils/index
+@import ../components/mixins
+
+.lead-popup
+    background: color('white')
+    margin: auto
+    width: 100%
+    position: fixed
+    left: 0
+    top: 0
+    overflow: auto
+    height: 100%
+    z-index: 10
+    display: none
+    
+    &.lead-popup--active
+        display: block
+
+    .chosen-container
+	    .chosen-drop
+		    width: 300px
+
+    .error-icon
+	    display: none
+
+    .bw-blackbg-tooltip
+	    display: none
+
+.ui-autocomplete
+	&.pincode-autocomplete
+		overflow-y: auto
+		max-height: 140px
+		top: 1px !important
+		
+.personal-info-form-container
+	.personal-info-list
+		margin: 0 auto 7px
+		width: 100%
+		float: left
+		border-radius: 0
+
+.personal-info-list
+	.errorIcon
+		display: none
+
+.personal-info-list
+	.errorText
+		display: none
+
+.popup-inner-container
+	text-align: center		
+
+.lead-popup__close-btn
+	@include cross-icon
+	z-index: 2
+	position: absolute
+	right: 10px
+	top: 15px
+	cursor: pointer
+
+.lead-contact-detail__head
+	padding-bottom: 30px
+	text-align: left
+
+@include icon-container--round
+
+.lead-popup__contact-icon
+	@include contact-4d5057-icon
+	background-position: center
+	background-size: 20px
+	margin-right: 18px	
+
+.lead-popup__contact-desc
+	display: inline-block
+	vertical-align: middle
+	width: 75%
+
+.lead-contact-head__title
+	font-size: 18px
+	color: color('tuna-2')
+	font-weight: $font-semibold
+	margin-bottom: 6px
+
+.lead-contact-head__subtitle
+	font-size: 13px
+	line-height: 18px
+	color: color('aluminium-3')
+
+.agreement-and-policy
+	margin-top: 15px
+	margin-bottom: 10px
+	text-align: left
+	color: color('aluminium-3')
+	font-size: 11px
+
+.contact-details__submit
+	@include vendor-prefix('border-radius', 3px)
+	width: 100%
+	font-weight: $font-bold
+
+.notify-response__container
+	text-align: left
+	padding: 20px
+	display: none
+	background-color: color('white')
+
+	&.notify-response--active
+		display: block
+	
+.lead-popup__thankyou-icon
+	@include thumbs-up-4d5057
+	background-position: center
+	background-size: 20px
+
+.lead-popup-thankyou__title
+	font-size: 22px
+	color: color('tuna-2')
+	display: inline-block
+	vertical-align: middle
+	font-weight: $font-semibold
+	text-transform: capitalize
+	margin-left: 15px
+
+.lead-popup-thankyou__desc
+	margin-top: 12px
+	font-size: 14px
+	line-height: 20px
+	color: color('aluminium-3')
+	margin-bottom: 30px
+
+.notify-response__submit
+	@include vendor-prefix('border-radius', 3px)
+	width: 100%
+	font-weight: $font-bold
+
+.personal-info-form-container
+	.input-number-prefix
+		top: 9px
+
+// other dealers
+
+.dealers--active
+	background-color: color('white-smoke-3')
+
+	.dealers__content
+		background-color: color('white-smoke-3')
+
+	> .notify-response__container
+		display: block
+		position: relative
+
+		.notify-response__submit
+			display: none
+
+		.lead-popup__thankyou-icon
+			@include vendor-prefix('transform', translateY(-50%))
+			position: absolute
+			top: 50%
+
+		.lead-popup-thankyou__title
+			margin-left: 80px
+			font-size: 18px
+		
+		.lead-popup-thankyou__desc
+			margin: 5px 0 0 80px
+
+.dealers__container
+	position: relative
+
+.dealers__content
+	padding: 35px 20px 0
+	margin-bottom: 115px
+
+.dealers__head
+	margin-bottom: 20px
+	font-size: 0
+
+	.checkbox-container
+		display: inline-block
+		position: relative
+
+.dealer-head__right
+	position: relative
+	display: inline-block
+	vertical-align: middle
+	width: 40%
+	padding-right: 20px
+	text-align: right
+
+.dealers-head__left
+	text-align: left
+	display: inline-block
+	vertical-align: middle
+	width: 60%
+
+.dealer-head__title
+	font-size: 18px
+	color: color('tuna-2')
+	
+
+.dealer-head__subtitle
+	font-size: 12px
+	color: color('aluminium-3')
+
+.dealers__list
+	padding-bottom: 20px
+
+	.checkbox-container
+		position: absolute
+		right: 20px
+		top: 40%
+
+.dealers-list__item
+	@include vendor-prefix('border-radius', 3px)
+	background-color: color('white')
+	margin-bottom: 10px
+	padding: 20px
+	position: relative
+	border: 1px solid color('gainsboro')
+	cursor: pointer
+
+	label
+		cursor: pointer
+
+.dealers-item__content
+	padding-right: 20px
+	text-align: left
+	display: block
+
+.dealers-item__name
+	font-size: 14px
+	font-weight: $font-semibold
+	color: color('fiord')
+	display: block	
+
+.dealer-info__item
+	display: inline-block
+	vertical-align: middle
+	padding-left: 5px
+	padding-right: 5px
+	border-left: 1px solid color('fiord')
+	font-size: 11px
+	color: color('fiord')
+	line-height: 1
+
+	&:first-child
+		border-left: none
+
+.dealers__location
+	@include locator-6f6f6f
+	padding-left: 15px
+	background-position: left 2px center
+	background-size: 9px
+
+.dealers-item__info
+	.dealers__location
+		padding-left: 15px
+		line-height: 1.5
+
+@media only screen and (max-width: 320px)
+	.agreement-and-policy
+		margin-bottom: 50px
+
+	.lead-popup__contact-desc
+		width: 70%
+
+	.lead-popup__contact-icon
+		margin-right: 10px
+
+	.full-width-select
+		.dropdown-menu-list
+			max-height: 135px
+	.dealer-head__right
+		.checkbox-container__label
+			font-size: 11px
+
+	.dealer-head__subtitle
+		font-size: 11px
+
+@include checkbox-container($alignment: 'right')
+
+.dealers__btn-container
+	position: fixed
+	left: 0
+	bottom: 0
+	right: 0
+	padding: 20px
+	background-color: color('white-smoke-3')
+	box-shadow: 0 -1px 4px 0 rgba(0, 0, 0, .15)
+
+.dealers__submit-btn
+	@include vendor-prefix('border-radius', 3px)
+	width: 100%
+	font-weight: $font-bold
+
+	&:disabled
+		opacity: .38
+		cursor: not-allowed
+
+.dealers__skip-btn
+	color: color('pacific-blue')
+	text-transform: capitalize
+	font-size: 15px
+	padding-top: 12px
+	padding-bottom: 0
+	background-color: color('white', 0)
+	cursor: pointer
+	display: inline-block
+	text-align: center
+
+
+.additional-screen
+	display: none
+
+	&.additional-screen--active
+		display: block
+
+		.dealers__container
+			display: block
+
+		.notify-response__container
+			display: block
+
+		.dealers__container
+			display: none
+
+		.dealers__btn-container
+			display: none
+
+	&.dealers--active
+		height: 100%
+		height: 100vh
+
+		.dealers__container
+			display: block
+
+		.thankyou-with-code
+			display: none
+		
+		.lead-popup-thankyou__desc
+			font-size: 13px
+			line-height: 18px
+
+		.notify-response__container
+			padding-left: 15px
+
+		.dealers__btn-container
+			display: block
+
+.contact-detail-screen
+	display: none
+	padding: 20px
+	
+	&.contact-detail--active
+		display: block
+
+		.dealers__container
+			display: none
+
+.thankyou-with-code
+	margin-bottom: 40px
+	font-size: 16px
+
+	span
+		font-size: 18px
+		color: color('tuna-2')
+		font-weight: $font-semibold
+		margin-bottom: 10px
+
+	a
+		width: 100%
+		text-align: center
+		display: block
+
+	.lead-msg__detail
+		margin-top: 12px
+		margin-bottom: 20px
+		font-size: 13px
+		color: color('slate-grey')
+		line-height: 19px
+		font-weight: $font-normal
+		display: block
+		text-align: left
+
+	.lead-msg__detail
+		> span
+			font-size: 13px
+			color: color('slate-grey')
+			font-weight: $font-normal
+			margin-bottom: 0

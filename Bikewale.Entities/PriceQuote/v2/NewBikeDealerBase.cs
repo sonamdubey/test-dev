@@ -55,5 +55,8 @@ namespace Bikewale.Entities.PriceQuote.v2
 
         [JsonProperty("isDSA"), DataMember]
         public bool IsDSA { get; set; }
+
+        [JsonProperty("masterDealerId"), DataMember]
+        public UInt32 MasterDealerId { get; set; }
     }
 }

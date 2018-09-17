@@ -674,7 +674,8 @@ input[type="text"]:focus, input[type="number"]:focus { outline:none; box-shadow:
 
 
 /* loader */
-#ub-ajax-loader {
+#ub-ajax-loader,
+.display-loader {
     display: none;
 }
 
@@ -810,9 +811,20 @@ input[type="text"]:focus, input[type="number"]:focus { outline:none; box-shadow:
     background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/used-sprite.png?v1=14Oct2016) no-repeat; 
     display: inline-block; 
 }
-.sold-icon {
+.listing-sold-icon {
    width: 87px;
    height: 64px;
-   background-position: 0 -209px;
+   background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/4d5057/sold-sign.svg') no-repeat center / contain;
+   display: inline-block;
    vertical-align: middle;
+}
+.listing-removed-icon {
+   width: 127px;
+   height: 64px;
+   background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/4d5057/removed-sign.svg') no-repeat center / contain;
+   display: inline-block;
+   vertical-align: middle;
+}
+.listing--removed .bike-sold-msg {
+    width: 85%;
 }

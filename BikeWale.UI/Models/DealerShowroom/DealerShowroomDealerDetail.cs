@@ -3,6 +3,7 @@ using Bikewale.BAL.ApiGateway.Adapters.BikeData;
 using Bikewale.BAL.ApiGateway.ApiGatewayHelper;
 using Bikewale.BAL.ApiGateway.Entities.BikeData;
 using Bikewale.Common;
+using Bikewale.DTO.PriceQuote;
 using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.DealerLocator;
@@ -12,6 +13,7 @@ using Bikewale.Entities.PriceQuote;
 using Bikewale.Entities.Schema;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Dealer;
+using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Interfaces.ServiceCenter;
 using Bikewale.Memcache;
 using Bikewale.Models.ServiceCenters;
@@ -35,6 +37,7 @@ namespace Bikewale.Models
         private readonly IBikeModels<BikeModelEntity, int> _bikeModels = null;
         private readonly IServiceCenter _objSC = null;
         private readonly IApiGatewayCaller _apiGatewayCaller;
+		private readonly IPriceQuote _objPQ = null;
         private uint cityId, makeId, dealerId, TopCount;
         public StatusCodes status;
         public MakeMaskingResponse objResponse;
@@ -44,6 +47,8 @@ namespace Bikewale.Models
         private readonly IDealer _objDealer;
 
         public bool IsMobile { get; internal set; }
+        public PQSources Source { get; set; }
+        public PQSourceEnum PQSource { get; set; }
 
         /// <summary>
         /// Constructor 
@@ -56,7 +61,7 @@ namespace Bikewale.Models
         /// <param name="dealerId"></param>
         public DealerShowroomDealerDetail(IServiceCenter objSC, IDealerCacheRepository objDealerCache, IBikeMakesCacheRepository bikeMakesCache,
             IBikeModels<BikeModelEntity, int> bikeModels, string makeMaskingName, string cityMaskingName, uint dealerId, uint topCount, bool isMobile,
-            IApiGatewayCaller apiGatewayCaller, IDealer objDealer)
+            IApiGatewayCaller apiGatewayCaller, IDealer objDealer, IPriceQuote objPQ)
         {
             _objDealerCache = objDealerCache;
             _bikeMakesCache = bikeMakesCache;
@@ -67,6 +72,7 @@ namespace Bikewale.Models
             objDealerDetails = new DealerShowroomDealerDetailsVM();
             _apiGatewayCaller = apiGatewayCaller;
             _objDealer = objDealer;
+			_objPQ = objPQ;
             ProcessQuery(makeMaskingName, cityMaskingName, dealerId);
         }
 
@@ -126,8 +132,10 @@ namespace Bikewale.Models
                 CityId = cityId,
                 AreaId = objDealerDetails.DealerDetails.DealerDetails.objArea.AreaId,
                 Area = objDealerDetails.DealerDetails.DealerDetails.objArea.AreaName,
-                City = CityDetails.CityName
-
+                City = CityDetails.CityName,
+				IsMLAActive = _objPQ.GetMLAStatus(objMake.MakeId, CityDetails.CityId),
+                PlatformId = Convert.ToUInt16(Source),
+                PageId = Convert.ToUInt16(PQSource)
             };
             objDealerDetails.GALabel = string.Format("{0}_{1}_{2}", objDealerDetails.Make.MakeName, CityDetails.CityName, objDealerDetails.DealerDetails.DealerDetails.objArea.AreaName);
         }

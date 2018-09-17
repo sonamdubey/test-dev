@@ -51,3 +51,54 @@
 		display: block
 		border: 1px solid color('dark-gray')
 		background-color: color('white')
+
+@mixin checkbox-container($size: 20, $checkedBgColor:'tuna-2', $alignment: 'left')
+	.checkbox-container
+		padding-#{$alignment}: ($size + 10) * 1px
+		cursor: pointer
+
+	.checkbox-container__input
+		display: none
+
+		&:checked
+			~ .checkbox-container__icon
+				background-color: color($checkedBgColor)
+
+				&:after
+					@include vendor-prefix('transform', rotate(45deg))
+					content: ''
+					display: block
+					height: $size / 2 * 1px
+					width: $size / 4 * 1px
+					border-bottom: 2px solid color('white')
+					border-right: 2px solid color('white')
+					position: absolute
+					top: $size / 10 * 1px
+					left: $size / 4 + 2px
+					
+		&:disabled
+			~
+				.checkbox-container__label,
+				.checkbox-container__icon
+					@include vendor-prefix('opacity', .4)			
+
+	.checkbox-container__icon
+		@include vendor-prefix('border-radius', 2px)
+		height: $size * 1px
+		width: $size * 1px
+		border: 1px solid color('dark-gray-2')
+		display: block
+		position: absolute
+		top: 0
+
+		@if $alignment == 'left'
+			left: 0
+
+		@else
+			right: 0
+
+	.checkbox-container__label
+		font-size: 13px
+		color: color('aluminium-3')
+		display: inline-block
+		vertical-align: middle

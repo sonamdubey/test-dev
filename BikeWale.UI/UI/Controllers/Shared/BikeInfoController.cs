@@ -32,7 +32,7 @@ namespace Bikewale.Controllers.Shared
                 bikeInfo = info.GetBikeInfo(modelId);
             }
 
-            return PartialView("~/views/bikemodels/_BikeInfoCard_AMP_Mobile.cshtml", bikeInfo);
+            return PartialView("~/UI/views/bikemodels/_BikeInfoCard_AMP_Mobile.cshtml", bikeInfo);
         }
     }
 }

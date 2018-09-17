@@ -148,7 +148,11 @@ namespace Bikewale.Entities.PriceQuote
         Mobile_ComparisionTest_Listing_Page = 114,
         Mobile_News_Details_Page = 115,
         Mobile_ExpertReviews_Details_Page = 116,
-        Desktop_ExpertReviews_Details_Page = 117
+        Desktop_ExpertReviews_Details_Page = 117,
+        Desktop_DealerLocator_Detail = 118,
+        Desktop_DealerLocator_Listing = 119,
+        Desktop_PriceInCity = 120,
+        Mobile_PriceInCity = 121
     }
 
 }

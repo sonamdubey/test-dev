@@ -1,6 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.PriceQuote.BookingSummary_New" %>
 
-<%@ Register Src="~/m/controls/UsersTestimonials.ascx" TagPrefix="BW" TagName="UsersTestimonials" %>
+<%@ Register Src="~/UI/m/controls/UsersTestimonials.ascx" TagPrefix="BW" TagName="UsersTestimonials" %>
 <!doctype html>
 <html>
 <head>
@@ -9,12 +9,12 @@
         description = "Authorise dealer price details of a bike " + bikeName;
         keywords = bikeName + ", price, authorised, dealer,Booking ";    
     %>
-    <!-- #include file="/includes/headscript_mobile.aspx" -->
+    <!-- #include file="/UI/includes/headscript_mobile.aspx" -->
     <link href="<%= staticUrl  %>/m/css/bwm-bookingflow.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
 </head>
 <body class="bg-light-grey">
     <form runat="server">
-        <!-- #include file="/includes/headBW_Mobile.aspx" -->
+        <!-- #include file="/UI/includes/headBW_Mobile.aspx" -->
         <script type="text/javascript">$("header").find(".leftfloat .navbarBtn").hide();$("header").find(".rightfloat ").hide();</script>
         <section class="bg-white" id="bookingFlow" style="display: none;" data-bind="visible: true">
             <div class="container margin-bottom20 padding-top20">
@@ -364,7 +364,7 @@
                         </div>
 
                         <div class="clear"></div>
-                        <input type="button" value="Next" leadsourceid="22" class="btn btn-orange btn-full-width" id="bikeSummaryNextBtn" data-bind="click : function(data,event){return $root.verifyCustomer(data,event);}" />
+                        <input type="button" value="Next" leadsourceid="55" class="btn btn-orange btn-full-width" id="bikeSummaryNextBtn" data-bind="click : function(data,event){return $root.verifyCustomer(data,event);}" />
                     </div>
 
                     <div id="payDetails" data-bind="visible: CurrentStep() > 2" style="display: none">
@@ -454,8 +454,8 @@
         <input id="hdnBikeData" type="hidden" value='<%= jsonBikeVarients  %>' />
         <input id="hdnDiscountList" type="hidden" value='<%= discountedPriceList %>' />
         <!-- all other js plugins -->
-        <!-- #include file="/includes/footerBW_Mobile.aspx" -->
-        <!-- #include file="/includes/footerscript_Mobile.aspx" -->
+        <!-- #include file="/UI/includes/footerBW_Mobile.aspx" -->
+        <!-- #include file="/UI/includes/footerscript_Mobile.aspx" -->
         <script type="text/javascript">
             var pqId = '<%= pqId %>';
             var verId = '<%= versionId %>';
@@ -502,7 +502,7 @@
             };
             var getCityArea = GetGlobalCityArea();
         </script>
-        <script src="<%= staticUrl  %>/m/src/bwm-bookingflow.js?<%= staticFileVersion %>" type="text/javascript"></script>
+        <script src="<%= staticUrl  %>/UI/m/src/bwm-bookingflow.js?<%= staticFileVersion %>" type="text/javascript"></script>
 
         <script type="text/javascript">
             var leadSourceId;

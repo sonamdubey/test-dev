@@ -176,6 +176,8 @@ namespace Bikewale.Models.BikeModels
         /// Description: Added BindAdSlots.
         /// Modified vy : Sanskar Gupta on 25 May 2018
         /// Description : Added code to BindSeriesSlug.
+        /// Modified by : Rajan Chauhan on 10 August 2018
+        /// Description : Setting IsManufacturerCampaignPresent flag for campaign tracking
         /// </summary>
         /// <param name="versionId"></param>
         /// <returns></returns>
@@ -204,6 +206,7 @@ namespace Bikewale.Models.BikeModels
                     if (_objData.IsModelDetails && _objData.ModelPageEntity.ModelDetails.New)
                     {
                         FetchOnRoadPrice(_objData.ModelPageEntity);
+                        _objData.IsManufacturerCampaignPresent = _objManufacturerCampaign.CheckManufacturerCampaign(_modelId, _cityId);
                     }
                     p3 = DateTime.Now;
 
@@ -258,6 +261,7 @@ namespace Bikewale.Models.BikeModels
                     SetPageJSONLDSchema();
                     ShowInnovationBanner(_modelId);
                     BindAdSlotTags();
+                    SetTestFlags();
 
                     if (_objData != null && _objData.SelectedVersion != null && !string.IsNullOrEmpty(_objData.SelectedVersion.FuelType))
                     {
@@ -296,6 +300,26 @@ namespace Bikewale.Models.BikeModels
             }
 
             return _objData;
+        }
+
+        /// <summary>
+        /// Created By : Sanjay George on 07 Sept 2018
+        /// Description : Set AB testing flags based on cookie values
+        /// Modified By : Monika Korrapati on 07 Sept 2018
+        /// Description : setting IsEditCityOption flag value
+        /// Modified By : Rajan Chauhan on 14 September 2018
+        /// Description : Set new test flag for NearlyAllIndiaCampaign
+        /// </summary>
+        private void SetTestFlags(){
+            ushort cookieValue;
+            if(HttpContext.Current.Request.Cookies["_bwtest"] != null && ushort.TryParse(HttpContext.Current.Request.Cookies["_bwtest"].Value, out cookieValue))
+            {
+                _objData.IsNewCitySVG = cookieValue >= 31 && cookieValue <= 40;
+                _objData.IsEditCityOption = cookieValue >= 41 && cookieValue <= 50;
+                _objData.IsAnimatedCTA = cookieValue > 10;
+                _objData.IsNearlyAllIndiaCampaign = cookieValue > 10 && cookieValue <= 20 && _objData.ModelId == 78; // Test for Classic 350
+                _objData.IsNearByDealerCTA =  cookieValue > 20 && cookieValue < 23; 
+            }           
         }
 
         /// <summary>
@@ -880,7 +904,7 @@ namespace Bikewale.Models.BikeModels
                     BindExpertReviews();
                     BindComparisionReviews();
                     _objData.Videos = new RecentVideos(1, 3, (uint)objMake.MakeId, objMake.MakeName, objMake.MaskingName, _objData.ModelId, _objData.ModelPageEntity.ModelDetails.ModelName, _objData.ModelPageEntity.ModelDetails.MaskingName, _objVideos).GetData();
-                    _objData.ReturnUrl = Utils.Utils.EncryptTripleDES(string.Format("returnUrl=/{0}-bikes/{1}/&sourceid={2}", objMake.MaskingName, _objData.ModelPageEntity.ModelDetails.MaskingName, (int)(IsMobile ? UserReviewPageSourceEnum.Mobile_ModelPage : UserReviewPageSourceEnum.Desktop_ModelPage)));
+                    _objData.ReturnUrl = TripleDES.EncryptTripleDES(string.Format("returnUrl=/{0}-bikes/{1}/&sourceid={2}", objMake.MaskingName, _objData.ModelPageEntity.ModelDetails.MaskingName, (int)(IsMobile ? UserReviewPageSourceEnum.Mobile_ModelPage : UserReviewPageSourceEnum.Desktop_ModelPage)));
 
                     if (!_objData.IsUpcomingBike)
                     {
@@ -928,7 +952,13 @@ namespace Bikewale.Models.BikeModels
                                 City = _objData.LocationCookie.City,
                                 Location = _objData.Location,
                                 BikeName = _objData.BikeName,
-                                IsManufacturerCampaign = _objData.IsManufacturerLeadAdShown || _objData.IsManufacturerEMIAdShown || _objData.IsManufacturerTopLeadAdShown
+                                IsManufacturerCampaign = _objData.IsManufacturerLeadAdShown || _objData.IsManufacturerEMIAdShown || _objData.IsManufacturerTopLeadAdShown,
+                                IsMLAActive = _objPQ.GetMLAStatus(objMake.MakeId, _cityId),
+                                MLADealers = _objData.DetailedDealer != null ? _objData.DetailedDealer.MLADealers : null,
+                                PlatformId = Convert.ToUInt16(Source),
+                                MlaLeadSourceId = (Source == PQSources.Desktop) ? (UInt16)LeadSourceEnum.ModelPage_MLA_Desktop : (Source == PQSources.Amp ?
+                                                   (UInt16)LeadSourceEnum.ModelPage_MLA_AMP : (UInt16)LeadSourceEnum.ModelPage_MLA_Mobile),
+                                PageId = Convert.ToUInt16(PQSource)
                             };
 
 
@@ -1355,7 +1385,8 @@ namespace Bikewale.Models.BikeModels
                 _objData.EMICalculator.PQId = _objData.PQId;
                 _objData.EMICalculator.IsPremiumDealer = _objData.IsPremiumDealer;
                 _objData.EMICalculator.DealerDetails = _objData.DealerDetails;
-                _objData.EMICalculator.PremiumDealerLeadSourceId = IsMobile ? LeadSourceEnum.EMI_Calculator_ModelPage_Mobile : LeadSourceEnum.EMI_Calculator_ModelPage_Desktop;
+                _objData.EMICalculator.PremiumDealerLeadSourceId = (Source == PQSources.Desktop) ? LeadSourceEnum.ModelPage_EmiCalculator_Desktop : (Source == PQSources.Amp ? 
+                                                                   LeadSourceEnum.ModelPage_EmiCalculator_AMP : LeadSourceEnum.ModelPage_EmiCalculator_Mobile);
                 _objData.EMICalculator.BikeName = _objData.BikeName;
                 _objData.EMICalculator.IsPrimaryDealer = _objData.IsPrimaryDealer;
                 if (_objData.LeadCampaign != null)
@@ -1995,7 +2026,8 @@ namespace Bikewale.Models.BikeModels
                                 EmailRequired = campaigns.LeadCampaign.EmailRequired,
                                 LeadsButtonTextDesktop = campaigns.LeadCampaign.LeadsButtonTextDesktop,
                                 LeadsButtonTextMobile = campaigns.LeadCampaign.LeadsButtonTextMobile,
-                                LeadSourceId = (int)LeadSource,
+                                LeadSourceId = (Source == PQSources.Desktop) ? (int)LeadSourceEnum.ModelPage_TopCard_Desktop : (Source == PQSources.Amp ? 
+                                               (int)LeadSourceEnum.ModelPage_TopCard_AMP : (int)LeadSourceEnum.ModelPage_TopCard_Mobile),
                                 PqSourceId = (int)PQSource,
                                 GACategory = "Model_Page",
                                 GALabel = string.Format("{0}_{1}", _objData.BikeName, _objData.City != null ? _objData.City.CityName : string.Empty),
@@ -2014,7 +2046,7 @@ namespace Bikewale.Models.BikeModels
                                 PQId = _objData.PQId,
                                 VersionId = _objData.VersionId,
                                 CurrentPageUrl = CurrentPageUrl,
-                                PlatformId = Convert.ToUInt16(IsMobile ? 2 : 1),
+                                PlatformId = Convert.ToUInt16(Source),
                                 BikeName = _objData.BikeName,
                                 LoanAmount = Convert.ToUInt32((_objData.BikePrice) * 0.8),
                                 SendLeadSMSCustomer = campaigns.LeadCampaign.SendLeadSMSCustomer
@@ -2029,7 +2061,7 @@ namespace Bikewale.Models.BikeModels
                                 Bikewale.Entities.PriceQuote.v2.PriceQuoteParametersEntity objPQEntity = new Bikewale.Entities.PriceQuote.v2.PriceQuoteParametersEntity();
                                 objPQEntity.CityId = Convert.ToUInt16(_cityId);
                                 objPQEntity.AreaId = Convert.ToUInt32(_areaId);
-                                objPQEntity.ClientIP = "";
+                                objPQEntity.ClientIP = CurrentUser.GetClientIP();
                                 objPQEntity.SourceId = Convert.ToUInt16(Source);
                                 objPQEntity.ModelId = _modelId;
                                 objPQEntity.VersionId = _objData.VersionId;
@@ -2059,7 +2091,8 @@ namespace Bikewale.Models.BikeModels
                                 EmailRequired = campaigns.EMICampaign.EmailRequired,
                                 EMIButtonTextDesktop = campaigns.EMICampaign.EMIButtonTextDesktop,
                                 EMIButtonTextMobile = campaigns.EMICampaign.EMIButtonTextMobile,
-                                LeadSourceId = (int)LeadSource,
+                                LeadSourceId = (Source == PQSources.Desktop) ? (int)LeadSourceEnum.ModelPage_EmiCalculator_Desktop : (Source == PQSources.Amp ? 
+                                (int)LeadSourceEnum.ModelPage_EmiCalculator_AMP : (int)LeadSourceEnum.ModelPage_EmiCalculator_Mobile),
                                 PqSourceId = (int)PQSource,
                                 EMIPropertyTextDesktop = campaigns.EMICampaign.EMIPropertyTextDesktop,
                                 EMIPropertyTextMobile = campaigns.EMICampaign.EMIPropertyTextMobile,
@@ -2071,7 +2104,7 @@ namespace Bikewale.Models.BikeModels
                                 PopupSuccessMessage = campaigns.EMICampaign.PopupSuccessMessage,
                                 VersionId = _objData.VersionId,
                                 CurrentPageUrl = CurrentPageUrl,
-                                PlatformId = Convert.ToUInt16(IsMobile ? 2 : 1),
+                                PlatformId = Convert.ToUInt16(Source),
                                 LoanAmount = Convert.ToUInt32((_objData.BikePrice) * 0.8),
                                 ShowOnExshowroom = campaigns.EMICampaign.ShowOnExshowroom,
                                 SendLeadSMSCustomer = campaigns.EMICampaign.SendLeadSMSCustomer
@@ -2130,7 +2163,7 @@ namespace Bikewale.Models.BikeModels
                 Entities.PriceQuote.v2.PriceQuoteParametersEntity objPQEntity = new Entities.PriceQuote.v2.PriceQuoteParametersEntity();
                 objPQEntity.CityId = Convert.ToUInt16(_cityId);
                 objPQEntity.AreaId = Convert.ToUInt32(_areaId);
-                objPQEntity.ClientIP = "";
+                objPQEntity.ClientIP = CurrentUser.GetClientIP();
                 objPQEntity.SourceId = Convert.ToUInt16(Source);
                 objPQEntity.ModelId = _modelId;
                 objPQEntity.VersionId = _objData.VersionId;
@@ -2639,6 +2672,8 @@ namespace Bikewale.Models.BikeModels
 		/// <summary>
 		/// Created by : Prabhu Puredla on 11 july 2018
 		/// Description : Bind Manufacturer Lead Ad and href 
+        /// Modified by : Pratibha Verma on 2 August 2018
+        /// Description : Added platformid in url
 		/// </summary>
 		/// <param name="priceInCityAMPVM"></param>
 		private void BindManufacturerLeadAdAMP()
@@ -2659,14 +2694,15 @@ namespace Bikewale.Models.BikeModels
 						str = str.RemoveAttribure("name");
 						str = str.RemoveStyleElement();
 
-						string url = "/m/popup/leadcapture/?q=" + Utils.Utils.EncryptTripleDES(string.Format(@"modelid={0}&cityid={1}&areaid={2}&bikename={3}&location={4}&city={5}&area={6}&ismanufacturer={7}&dealerid={8}&dealername={9}&dealerarea={10}&versionid={11}&leadsourceid={12}&pqsourceid={13}&mfgcampid={14}&pqid={15}&pageurl={16}&clientip={17}&dealerheading={18}&dealermessage={19}&dealerdescription={20}&pincoderequired={21}&emailrequired={22}&dealersrequired={23}&url={24}&sendLeadSMSCustomer={25}&organizationName={26}",
+						string url = "/m/popup/leadcapture/?q=" + TripleDES.EncryptTripleDES(string.Format(@"modelid={0}&cityid={1}&areaid={2}&bikename={3}&location={4}&city={5}&area={6}&ismanufacturer={7}&dealerid={8}&dealername={9}&dealerarea={10}&versionid={11}&leadsourceid={12}&pqsourceid={13}&mfgcampid={14}&pqid={15}&pageurl={16}&clientip={17}&dealerheading={18}&dealermessage={19}&dealerdescription={20}&pincoderequired={21}&emailrequired={22}&dealersrequired={23}&url={24}&sendLeadSMSCustomer={25}&organizationName={26}&platformid={27}",
 											   _objData.ModelId, _objData.CityId, string.Empty, string.Format(_objData.BikeName), string.Empty, string.Empty, string.Empty,
 											   _objData.IsManufacturerLeadAdShown, _objData.LeadCampaign.DealerId, String.Format(_objData.LeadCampaign.LeadsPropertyTextMobile,
 											   _objData.LeadCampaign.Organization), _objData.LeadCampaign.Area, _objData.VersionId, _objData.LeadCampaign.LeadSourceId, _objData.LeadCampaign.PqSourceId,
 											   _objData.LeadCampaign.CampaignId, _objData.PQId, string.Empty, Bikewale.Common.CommonOpn.GetClientIP(), _objData.LeadCampaign.PopupHeading,
 											   String.Format(_objData.LeadCampaign.PopupSuccessMessage, _objData.LeadCampaign.Organization), _objData.LeadCampaign.PopupDescription,
 											   _objData.LeadCampaign.PincodeRequired, _objData.LeadCampaign.EmailRequired, _objData.LeadCampaign.DealerRequired,
-											   string.Format("{0}/m/{1}-bikes/{2}/", BWConfiguration.Instance.BwHostUrlForJs, _objData.ModelPageEntity.ModelDetails.MakeBase.MaskingName, _objData.ModelPageEntity.ModelDetails.MaskingName), _objData.LeadCampaign.SendLeadSMSCustomer, _objData.LeadCampaign.Organization));
+											   string.Format("{0}/m/{1}-bikes/{2}/", BWConfiguration.Instance.BwHostUrlForJs, _objData.ModelPageEntity.ModelDetails.MakeBase.MaskingName, _objData.ModelPageEntity.ModelDetails.MaskingName), _objData.LeadCampaign.SendLeadSMSCustomer, 
+                                               _objData.LeadCampaign.Organization, Source));
 
 						str = str.ReplaceHref("leadcapturebtn", url);
 						str = str.ReplaceGAAttributes();

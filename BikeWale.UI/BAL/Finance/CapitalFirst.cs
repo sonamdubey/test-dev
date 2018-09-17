@@ -7,6 +7,7 @@ using Bikewale.Interfaces.MobileVerification;
 using Bikewale.ManufacturerCampaign.Interface;
 using Bikewale.Notifications;
 using Bikewale.Notifications.MailTemplates;
+using Bikewale.Utility;
 using Newtonsoft.Json;
 using RabbitMqPublishing;
 using System;
@@ -187,13 +188,15 @@ namespace Bikewale.BAL.Finance
         /// <summary>
         /// Saves the lead data to pq_newbikepricequote table
         /// Kartik Rathod on 21 jun 2018 modify SaveManufacturerCampaignLead added cityId,versionId and pqGuId
+        /// Modified by : Pratibha Verma on 2 August 2018
+        /// Description : added sourceid and clientip in entity to be saved
         /// </summary>
         /// <param name="objDetails"></param>
         /// <param name="Utmz"></param>
         /// <param name="Utma"></param>
         /// <param name="isMobileVerified"></param>
         /// <returns></returns>
-        private uint SubmitLead(PersonalDetails objDetails, string Utmz, string Utma)
+        private uint SubmitLead(PersonalDetails objDetails, string Utmz, string Utma, ushort leadSource)
         {
             uint id = 0;
             try
@@ -214,7 +217,9 @@ namespace Bikewale.BAL.Finance
                       objDetails.LeadId,
                       objDetails.objLead.CityId,
                       objDetails.objLead.VersionId,
-                      objDetails.objLead.PQGUId
+                      objDetails.objLead.PQGUId,
+                      leadSource,
+                      CurrentUser.GetClientIP()
                      );
             }
             catch (Exception ex)
@@ -287,8 +292,8 @@ namespace Bikewale.BAL.Finance
                 #region Do not change the sequence
                 if (objDetails.LeadId == 0)
                 {
-                    //Save Lead data to pq_newbikepricequote table
-                    objDetails.LeadId = SubmitLead(objDetails, utmz, utma);
+                    //Save Lead data to pq_newbikedealerpricequotes table
+                    objDetails.LeadId = SubmitLead(objDetails, utmz, utma, leadSource);
                 }
                 isMobileVerified = _mobileVerRespo.IsMobileVerified(objDetails.MobileNumber, objDetails.EmailId);
                 //Push lead to consumer where data is saved to manufaturerlead table and lead is further pushed to AutoBiz

@@ -23,7 +23,7 @@
         dd.DetectDevice();        
     }
 </script>
-<!-- #include file="/includes/headhome.aspx" -->
+<!-- #include file="/UI/includes/headhome.aspx" -->
 
 <div class="container_12 container-min-height">
     <div class="grid_12 margin-top10">
@@ -41,4 +41,4 @@
 <style type="text/css">
     .container-min-height { min-height:530px; }
 </style>
- <!-- #include file="/includes/footerinner.aspx" -->
+ <!-- #include file="/UI/includes/footerinner.aspx" -->

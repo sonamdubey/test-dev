@@ -3,9 +3,9 @@
 @if (Model != null)
 {
     {
-        Layout = "~/Views/Shared/_Layout.cshtml";
-        Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/photos.css' inline />";
-        Model.Page_JS_Paths = new string[] { "/src/swiper-3.1.7.js", "/src/photos/modelgallery.js", "/src/photos/photos.js" };
+        Layout = "~/UI/Views/Shared/_Layout.cshtml";
+        Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/UI/css/photos.css' inline />";
+        Model.Page_JS_Paths = new string[] { "/UI/src/swiper-3.1.7.js", "/UI/src/photos/modelgallery.js", "/UI/src/photos/photos.js" };
         Model.AdTags.Ad_970x90Top = true;
         Model.AdTags.Ad_970x90Bottom = true;
         Model.AdTags.AdId = "1516082384256";
@@ -94,7 +94,7 @@
 
     if (Model.BikeInfo != null)
     {
-        @Html.Partial("~/views/Bikemodels/_BikeInfoCard.cshtml", Model.BikeInfo)
+        @Html.Partial("~/UI/views/Bikemodels/_BikeInfoCard.cshtml", Model.BikeInfo)
     }
 
     if (Model.ModelVideos != null && Model.Videos != null)
@@ -108,7 +108,7 @@
                             <div class="carousel-heading-content">
                                 <h2>@Model.BikeName Videos</h2>
                             </div>
-                            @Html.Partial("~/Views/Videos/_RecentVideos_v1.cshtml", Model.Videos)
+                            @Html.Partial("~/UI/Views/Videos/_RecentVideos_v1.cshtml", Model.Videos)
                             <div class="margin-top10 padding-left20">
                                 <a title="@Model.Videos.LinkTitle" href="@Model.Videos.MoreVideoUrl" class="btn view-all-target-btn">
                                     View all videos <span class="bwsprite teal-right"></span>
@@ -124,11 +124,11 @@
 
     if (Model.SimilarBikes != null && Model.SimilarBikes.Bikes != null)
     {
-        @Html.Partial("~/views/Photos/_SimilarBikeWithPhotos.cshtml", Model.SimilarBikes)
+        @Html.Partial("~/UI/views/Photos/_SimilarBikeWithPhotos.cshtml", Model.SimilarBikes)
     }
     if (Model.ModelGallery != null)
     {
-        @Html.Partial("~/views/Gallery/_ModelGallery.cshtml", Model.ModelGallery)
+        @Html.Partial("~/UI/views/Gallery/_ModelGallery.cshtml", Model.ModelGallery)
     }
 
     if (Model.objMoreAboutScooter != null)
@@ -137,7 +137,7 @@
             <div class="container margin-bottom20">
                 <div class="grid-12">
                     <div id="moreAboutScooter" class="content-box-shadow padding-top20 padding-right10 padding-bottom20 padding-left10 card-bottom-margin font14">
-                        @Html.Partial("~/Views/Scooters/_ModelRelatedCard.cshtml", Model.objMoreAboutScooter)
+                        @Html.Partial("~/UI/Views/Scooters/_ModelRelatedCard.cshtml", Model.objMoreAboutScooter)
                     </div>
                 </div>
                 <div class="clear"></div>

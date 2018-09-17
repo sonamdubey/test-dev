@@ -1,0 +1,632 @@
+﻿.text-xt-light-grey {
+    color: #2a2a2a;
+}
+.collapsible-content .main-content {
+  display: inline; 
+}
+
+.collapsible-content .more-content {
+  display: none; 
+}
+
+.collapsible-content.active .more-content {
+  display: inline; 
+}
+
+.collapsible-content.toggle-off.active .read-more-target {
+  display: none; 
+}
+
+.collapsible-content a.read-more-target{
+    text-decoration: none;
+}
+
+.terms-condition-container__ol{
+    list-style-type: decimal;   
+}
+.terms-condition-container__ol li{
+    margin: 10px;   
+}
+.page-tabs-data .input-box label {
+    font-size: 14px;
+    top: 10px;
+}
+
+.page-tabs-data .input-box input,
+.page-tabs-data .input-number-prefix {
+    font-size: 14px;
+}
+
+.header-container {
+    margin-bottom: 3px;
+    background: #FFFFFF;
+    box-shadow: 0 2px 4px 0 rgba(221,221,221,0.50);
+}
+.page-tabs {
+    background: #F5F5F5;
+    margin-top: 10px;
+}
+
+.round-border {
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -o-border-radius: 50%;
+    border-radius: 50%;
+}
+.contact-icon {
+    background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/fff/contact-24x18.png') center no-repeat;
+    background-size: 60%;
+}
+
+.white-personal-icon {
+    background: url(https://imgd.aeplcdn.com/0x0/bw/static/icons/fff/personal-17x20.png) center no-repeat;
+    background-size: 60%;
+}
+
+.gray-personal-icon {
+    background: url(https://imgd.aeplcdn.com/0x0/bw/static/icons/787878/personal-17x20.png) center no-repeat;
+    background-size: 60%;
+}
+
+.gray-bag-icon {
+    background: url(https://imgd.aeplcdn.com/0x0/bw/static/icons/787878/bag-18x18.png) center no-repeat;
+    background-size: 60%;
+}
+
+.white-tick-icon {
+    background: url(https://imgd.aeplcdn.com/0x0/bw/static/icons/fff/tick-18x14.png) center no-repeat;
+    background-size: 50%;
+}
+
+.white-bag-icon {
+    background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/fff/bag-18x18.png') center no-repeat;
+}
+
+.contact-image-unit,
+.personal-image-unit,
+.employment-image-unit {
+    display: block;
+    margin: 0 auto;
+    width: 30px;
+    height: 30px;
+    color: rgba(239,63,48,1);
+    background-color: #ef3f30;
+}
+
+.employment-details-container {
+    margin-top: 50px;
+    position: relative;
+}
+
+.personal__title,
+.employment__title {
+    width: 76px;
+    font-size: 12px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.page-tabs ul {
+    font-size: 0;
+}
+
+.page-tabs__li.inactive h3 {
+    color: #787878;
+}
+
+.page-tabs__li.inactive span:nth-of-type(1) {
+    background-color: #e2e2e2;
+}
+
+.page-tabs__li {
+    display: inline-block;
+    vertical-align: middle;
+    width: 38%;
+    text-align: right;
+    height: 105px;
+    font-size: 12px;
+    font-weight: 600;
+    padding-top: 14px;
+    border: 1px solid #f5f5f5;
+    position: relative;
+    overflow: hidden;
+}
+
+.page-tabs__li:nth-of-type(1) {
+    width: 72px;
+}
+
+.page-tabs__li.active {
+    color: #4d5057;
+}
+
+.page-tabs__li-container {
+    display: inline-block;
+    text-align: center;
+}
+
+.page-tabs__li-container:before {
+    content: '';
+    display: block;
+    width: 100%;
+    position: absolute;
+    height: 1px;
+    background-color: #e2e2e2;
+    top: 30%;
+    right: 68px;
+}
+
+input[type=radio] {
+  position: absolute;
+  visibility: hidden;
+}
+
+input:focus ~ .input-number-prefix{
+    display: block;
+}
+
+.input-box input#cfNum,  .input-box input#otpNewNumber{
+    padding-left: 30px;
+}
+.input-box input#cfCompIncome {
+    padding-left: 15px;
+}
+.radio-box {
+    height: 60px;
+    text-align: left;
+    font-size: 14px;
+}
+
+.radio-box ul {
+    position: relative;
+    top: 5px;
+    margin-bottom: 10px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 30px;
+}
+
+.radio-box ul li {
+	display: inline-block;
+	margin-left: 8px;
+}
+.radio-box ul li:first-child {
+	margin-left: 0;
+}
+
+.radio-box label {
+    padding: 5px 16px;
+    border: 1px solid #eee;
+}
+.radio-box input[type=radio]:checked ~ label {
+    padding-left: 25px;
+    border-color: #41B4C4;
+    background: url("https://imgd.aeplcdn.com/0x0/bw/static/icons/41b4c4/checked-circle-14x14.png") 5px 50% no-repeat;
+}
+.how-works-container__li {
+    position: relative;
+    margin: 50px 0;
+}
+.how-works-container__li:before {
+    content: "";
+    position: absolute;
+    width: 2px;
+    height: 30px;
+    background-color: #E2E2E2;
+    top: 75px;
+    left: 26px;
+}
+.how-works-container__li:last-child:before{
+    display: none;
+}
+
+.how-works__sprite {
+    width: 60px;
+    height: 60px;
+    display: inline-block;
+    background-repeat: no-repeat;
+    background-position: 50%;
+    border: 1px solid #A2A2A2;
+}
+.how-works__sprite.fill-form {
+    background-image: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/787878/form-20x24.png');
+}
+.how-works__sprite.approval {
+    background-image: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/787878/approval-24x24.png');
+}
+.how-works__sprite.contact {
+    background-image: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/787878/contact-line-23x23.png');
+}
+.how-works__content {
+    display: inline-block;
+    width: 78%;
+    padding-left: 20px;
+}
+
+#personal-detail-submit,
+#employment-detail-submit,
+#other-detail-submit {
+    display: block;
+    margin: 0 auto;
+}
+
+.otp-container {
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    background-color: #fff;
+    width: 100%;
+    z-index: 5;
+    padding: 0 40px;
+    text-align: center;
+    overflow-y: scroll;
+}
+
+.otp-container__icon {
+    width: 28px;
+    height: 40px;
+    background-image: url("https://imgd.aeplcdn.com/0x0/bw/static/icons/4d5057/mobile-verified-29x40.png");
+    margin: 26px 29px;
+}
+
+.otp-container__title{
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.otp-icons {
+    background-image: url('https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/bwmsprite-v4.png?v29Jun20171498739734721');
+}
+
+.otp-container__close {
+  position: absolute;
+  display: block;
+  right: 15px;
+  top: 15px;
+  width: 16px;
+  height: 16px;
+  background-position: -36px -226px;
+}
+.otp-container__span {
+    display: inline-block;
+    vertical-align: middle;
+}
+.otp-container__phone-icon {
+    width: 16px;
+    height: 16px;
+    background-position: -41px -111px;
+}
+.otp-container__edit-icon {
+    width: 16px;
+    height: 16px;
+    background-image: url("https://imgd.aeplcdn.com/0x0/bw/static/icons/0288d1/edit-15x14.png");
+}
+.otp-container__phone-number {
+    font-size: 24px;
+    margin: 10px;
+}
+.otp-container__resend {
+    color: #0288d1;
+}
+.otp-container__edit {
+    display: none;
+    margin-top: 20px;
+}
+.not-empty .input-number-prefix {
+    display: block;
+}
+.thankyou-container,
+.failure-container {
+    padding : 20px 10px;
+}
+.otp-container__info {
+    min-height: 640px;
+}
+.otp-container__info .icon-outer-container {
+    margin: 40px auto;
+}
+.thankyou-container .icon-outer-container,
+.failure-container .icon-outer-container {
+    width: 70px;
+    height: 70px;
+}
+.thankyou-container .icon-inner-container,
+.failure-container .icon-inner-container{
+    width: 60px;
+    height: 60px;
+}
+.thumbsup-icon {
+    display: block;
+    width: 30px;
+    height: 30px;
+    background-position: -135px -392px;
+    left: 13px;
+    top: 13px;
+    position: relative;
+}
+.fail-icon {
+    background: url(https://imgd.aeplcdn.com/0x0/bw/static/icons/4d5057/sorry-30x23.png) no-repeat 50%;
+}
+.rounded-corner50 {
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -o-border-radius: 50%;
+    -ms-border-radius: 50%;
+    border-radius: 50%;
+}
+
+.lock-browser-scroll {
+  position: fixed;
+  overflow-y: hidden;
+  width: 100%;
+}
+
+/* datepicker */
+.personal-details__form .Zebra_DatePicker,
+.form-field__zebrapicker .Zebra_DatePicker {
+	top: -20px !important;
+}
+
+.personal-details__form .dp_visible .dp_footer,
+.form-field__zebrapicker .dp_visible .dp_footer {
+	display: none !important;
+}
+
+.personal-details__form .dp_header,
+.form-field__zebrapicker .dp_header {
+	width: 100% !important;
+}
+
+@media only screen and (max-width: 320px) {
+	.how-works__content {
+		width: 75%;		
+	}
+
+    .radio-box label {
+        font-size: 12px;
+        padding-right: 10px;
+        padding-left: 10px;
+    }
+}
+
+/* modal popup */
+
+#modalBg {
+	width: 100%;
+	height: 100%;
+	display: none;
+	background: rgba(0, 0, 0, 0.6);
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 10;
+}
+
+.modal-box {
+	width: 320px;
+	min-height: 150px;
+	padding: 40px 20px;
+	text-align: center;
+	display: none;
+	position: fixed;
+	top: 30%;
+	left: 0;
+	right: 0;
+	margin: 0 auto;
+	background: #fff;
+	border-radius: 2px;
+	z-index: 11;
+}
+
+.modal__description {
+	margin-bottom: 25px;
+}
+
+.cross-default-15x16 {
+	width: 25px;
+	height: 25px;
+	background-position: -32px -222px;
+	cursor: pointer;
+}
+
+.modal-box .cross-default-15x16 {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+}
+
+.btn-124-36 {
+	width: 124px;
+	padding: 7px;
+	font-size: 14px;
+}
+
+/* loader */
+
+.section-spinner {
+	display: none;
+	position: absolute;
+	left: 0;
+	top: 0;
+	background: #f5f5f5;
+	width: 100%;
+	height: 100%;
+	z-index: 2;
+	-moz-opacity: 0.8;
+	-khtml-opacity: 0.8;
+	opacity: 0.8;
+}
+
+.spinner-container {
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
+
+.spinner-box {
+	width: 50px;
+	height: 50px;
+	top: 45%;
+	left: 0;
+	right: 0;
+	margin: 0 auto;
+	z-index: 3;
+}
+
+.spinner-box--fixed {
+	position: fixed;
+}
+
+.spinner-box--absolute {
+	position: absolute;
+}
+
+#otpLoader {
+	display: none;
+}
+
+.bw-spinner {
+	-webkit-animation: rotator 1.4s linear infinite;
+	animation: rotator 1.4s linear infinite;
+}
+
+@-webkit-keyframes rotator {
+	0% {
+		-webkit-transform: rotate(0deg);
+		transform: rotate(0deg);
+	}
+	100% {
+		-webkit-transform: rotate(270deg);
+		transform: rotate(270deg);
+	}
+}
+
+@keyframes rotator {
+	0% {
+		-webkit-transform: rotate(0deg);
+		transform: rotate(0deg);
+	}
+	100% {
+		-webkit-transform: rotate(270deg);
+		transform: rotate(270deg);
+	}
+}
+
+.circle-path {
+	stroke-dasharray: 187;
+	stroke-dashoffset: 0;
+	-webkit-transform-origin: center;
+	transform-origin: center;
+	-webkit-animation: dash 1.4s ease-in-out infinite, colors 5.6s ease-in-out infinite;
+	animation: dash 1.4s ease-in-out infinite, colors 5.6s ease-in-out infinite;
+}
+
+@-webkit-keyframes colors {
+	0% {
+		stroke: #ef3f30;
+	}
+	100% {
+		stroke: #ef3f30;
+	}
+}
+
+@keyframes colors {
+	0% {
+		stroke: #ef3f30;
+	}
+	100% {
+		stroke: #ef3f30;
+	}
+}
+
+@-webkit-keyframes dash {
+	0% {
+		stroke-dashoffset: 187;
+	}
+	50% {
+		stroke-dashoffset: 46.75;
+		-webkit-transform: rotate(135deg);
+		transform: rotate(135deg);
+	}
+	100% {
+		stroke-dashoffset: 187;
+		-webkit-transform: rotate(450deg);
+		transform: rotate(450deg);
+	}
+}
+
+@keyframes dash {
+	0% {
+		stroke-dashoffset: 187;
+	}
+	50% {
+		stroke-dashoffset: 46.75;
+		-webkit-transform: rotate(135deg);
+		transform: rotate(135deg);
+	}
+	100% {
+		stroke-dashoffset: 187;
+		-webkit-transform: rotate(450deg);
+		transform: rotate(450deg);
+	}
+}
+
+/* no suggestion */
+.no-suggestion-item {
+	width: 100%;
+	position: absolute;
+	top: 35px;
+	left: 3px;
+}
+
+/* text shown on focus*/
+.text-note {
+    font-size: 12px;
+    color: #a2a2a2;
+    position: relative;
+    top: 0;
+    display: none;
+}
+.input-box input#cfNum:focus ~ .text-note{
+    display: block;
+}
+.input-box input#cfPan:focus ~ .text-note{
+    display: block;
+}
+
+@media only screen and (max-width: 320px) {
+    .text-note {
+        font-size: 11px;
+    }
+}
+.dp_yearpicker td,
+.dp_monthpicker td {
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+
+}
+
+/* check box */
+.check-box input[type='checkbox'] {
+	display: none;
+}
+
+.check-box .check-box__label:before {
+    border-radius: 3px;
+    content: '';
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    margin: -2px 10px 0 0;
+    vertical-align: middle;
+    cursor: pointer;
+    border: 1px solid #bcbcbc;
+}
+
+.check-box__field:checked + .check-box__label:before {
+    background: #4d5057 url('https://imgd.aeplcdn.com/0x0/bw/static/icons/fff/tick.svg') no-repeat center;
+    border-color: #4d5057;
+}

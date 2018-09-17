@@ -1,0 +1,211 @@
+﻿
+<div id="otpCapturePopup" class="otp-container hide">
+    <a href="javascript:void(0)" data-bind="event: { click: redirect }" class="otp-container__close otp-icons" onclick="Android.closeForm();"></a>
+    <div id="otpContainerInfo" class="otp-container__info">
+        <div class="icon-outer-container rounded-corner50">
+            <div class="icon-inner-container rounded-corner50">
+                <div class="otp-container__icon"></div>
+            </div>
+        </div>
+        <div class="otp-container__content">
+            <p class="otp-container__title">Verify your mobile number</p>
+            <p class="font14">We have sent an OTP on the following mobile number. Please enter that OTP in the box provided below: </p>
+        </div>
+        <div class="otp-container__verification">
+            <span class="otp-container__span otp-container__phone-icon otp-icons"></span>
+            <span class="otp-container__span otp-container__phone-number"><span data-bind="text: mobileNumber()"></span></span>
+            <span class="otp-container__span otp-container__edit-icon"></span>
+            <div class="input-box form-control-box">
+                <input id="otpNumber" data-bind="textInput: otpNumber" type="tel" min="1" maxlength="6">
+                <label for="otpNumber">Enter your OTP<sup>*</sup></label>
+                <span class="boundary"></span>
+                <span class="error-text" style="display: none;"></span>
+            </div>
+            <input type="button" id="process-order" data-bind="event: { click: Done }" class="btn btn-orange btn-primary-big bw-ga margin-bottom10" value="Submit OTP">
+            <p><a href="javascript:void(0)" rel="nofollow" id="resend_Otp" class="otp-container__resend font15" data-bind="event: { click: resendOtp }">Resend OTP</a></p>
+        </div>
+        <div class="otp-container__edit">
+            <div class="input-box form-control-box">
+                <input id="otpNewNumber" data-bind="textInput: newMobileNumber" type="tel" min="1" maxlength="10">
+                <label for="otpNewNumber">Mobile Number<sup>*</sup></label>
+                <span class="input-number-prefix">+91</span>
+                <span class="boundary"></span>
+                <span class="error-text" style="display: none;"></span>
+            </div>
+            <input type="button" id="saveNewNumber" data-bind="event: { click: changeMobileNumber }" class="btn btn-orange btn-primary-big bw-ga margin-bottom10" value="Done">
+        </div>
+    </div>
+    <div id="thankyouScreen" class="thankyou-container hide">
+        <div class="icon-outer-container rounded-corner50">
+            <div class="icon-inner-container rounded-corner50">
+                <span class="otp-icons thumbsup-icon"></span>
+            </div>
+        </div>
+        <p class="font18 text-bold margin-top20">Thank you, <span data-bind="text: userName()"></span>!</p>
+        <p class="text-black font14 margin-top20">Your loan application is being processed by our finance partner. The status of the application will be shared over SMS and E-mail.</p>
+        <input type="button" id="sendEmail" data-bind="event: { click: redirect }" class="btn btn-orange btn-primary-big bw-ga margin-top20" value="Done" onclick="Android.leadSubmit();">
+    </div>
+    <div id="failureScreen" class="failure-container hide">
+        <div class="icon-outer-container rounded-corner50">
+            <div class="icon-inner-container rounded-corner50">
+                <span class="otp-icons fail-icon"></span>
+            </div>
+        </div>
+        <p class="font18 text-bold margin-top20">We are sorry</p>
+        <p class="text-black font14 margin-top20">Due to some technical failure, we cannot process your loan application currently.</p>
+        <p class="text-black font14">Please try again after some time.</p>
+    </div>
+
+    <div id="otpLoader" class="spinner-box spinner-box--absolute">
+        <svg class="bw-spinner" width="50px" height="50px" viewBox="0 0 50 50">
+            <circle class="circle-path" fill="none" stroke-width="4" stroke-linecap="round" cx="25" cy="25" r="22"></circle>
+        </svg>
+    </div>
+</div>
+<script type="text/javascript">
+    var otpvm;
+    function otpModel() {
+        var self = this;
+        self.userName = ko.observable();
+        self.mobileNumber = ko.observable();
+        self.otpNumber = ko.observable();
+        self.newMobileNumber = ko.observable();
+        self.email = null;
+        self.redirectPageUrl = null;
+        self.changeMobileApiUrl = null;
+        self.changeMobileApiUrlData = null;
+        // set parameter for otp popup
+        self.setParameters = function (objData) {
+            if (objData != null) {
+                self.userName(objData.userName);
+                self.mobileNumber(objData.mobileNumber);
+                self.email = objData.email;
+                self.redirectPageUrl = objData.redirectPageUrl;
+                self.changeMobileApiUrl = objData.changeMobileApiUrl;
+                self.changeMobileApiUrlData = objData.changeMobileApiUrlData;
+            }
+        };
+
+        self.resendOtp = function () {
+            var objInput = {
+                "customerName": otpvm.userName,
+                "customerMobile": otpvm.mobileNumber,
+                "customerEmail": otpvm.email,
+                "redirectPageUrl" : otpvm.redirectPageUrl
+            };
+
+            $.ajax({
+                type: "POST",
+                url: "/api/ResendVerificationCode/",
+                contentType: "application/json",
+                data: ko.toJSON(objInput),
+                beforeSend: function () {
+                    $('#otpLoader').show();
+                },
+                success: function (response) {
+                    var obj = JSON.parse(response);
+                    if (response != null)
+                    {
+                        if (obj.noOfAttempts >= 3)
+                        {
+                            $('#resend_Otp').hide();
+                        }
+                    }
+                },
+                complete: function () {
+                    $('#otpLoader').hide();
+                }
+            });
+        };
+
+        self.redirect = function () {
+            if ($("#otpContainerInfo").is(":visible"))
+            {
+                $(".otp-container").hide();
+            }
+            else {
+                window.location.href = otpvm.redirectPageUrl;
+            }
+        };
+
+        self.Done = function () {
+            var objData = {
+                "otp": otpvm.otpNumber(),
+                "mobileNumber": self.mobileNumber()
+            };
+            $.ajax({
+                type: "POST",
+                url: "/api/mobileverification/validateotp/?mobile="+objData.mobileNumber+"&otp="+objData.otp,
+                beforeSend: function () {
+                    $('#otpLoader').show();
+                },
+                success: function (response) {
+                    if (response == true) {
+                        self.callChangeMoileAPI();
+                        if (bikeName != null) {
+                            triggerGA('Loan_Application_BajajFinance', 'OTP_Success', bikeName + '_' + otpvm.mobileNumber());
+                        }
+                    }
+                    else {
+                        validate.setError($('#otpNumber'), "Invalid otp");
+                    }
+                },
+                complete: function () {
+                    $('#otpLoader').hide();
+                }
+            });
+        };
+        self.changeMobileNumber = function () {
+            var mobileNumber = otpvm.newMobileNumber();
+            var objRefValidation = {
+                "msg":""
+            };
+            if (validateMobileNo(mobileNumber, objRefValidation)) {
+                otpvm.changeMobileApiUrlData.mobileNumber = mobileNumber;
+                otpvm.mobileNumber(mobileNumber);
+                self.callChangeMoileAPI();
+            }
+            else{
+                validate.setError($('#otpNewNumber'), objRefValidation.msg);
+            }
+        };
+        self.callChangeMoileAPI = function(){
+            $.ajax({
+                type: "POST",
+                url: otpvm.changeMobileApiUrl,
+                contentType: "application/json",
+                data: ko.toJSON(otpvm.changeMobileApiUrlData),
+                beforeSend: function () {
+                    $('#otpLoader').show();
+                },
+                success: function (response) {
+                    if (response && response.status == 2) {
+                        self.mobileNumber(otpvm.mobileNumber());
+                        self.newMobileNumber('');
+                    }
+                    else if (response.status == 1) {
+                        $('.otp-container__info').hide();
+                        $('#thankyouScreen').removeClass("hide");
+                        if (typeof isFormSubmitted !== 'undefined') {
+                            isFormSubmitted = true;
+                        }
+                    }else if(response.status == 0){
+                        $('.otp-container__info').hide();
+                        $('#failureScreen').removeClass("hide");
+                        if (typeof isFormSubmitted !== 'undefined') {
+                            isFormSubmitted = true;
+                        }
+                    } 
+                },
+                complete: function () {
+                    $('#otpLoader').hide();
+                }
+            });
+        };
+    }
+
+    docReady(function () {
+        otpvm = new otpModel();
+        ko.applyBindings(otpvm, document.getElementById("otpCapturePopup"));
+    });
+</script>

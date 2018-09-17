@@ -1,0 +1,87 @@
+﻿@using Bikewale.Entities.GenericBikes;
+@using Bikewale.Entities.BikeData;
+@using Bikewale.Entities.Customer;
+@using Bikewale.Entities.QuestionAndAnswers;
+@using Bikewale.Models.QuestionAndAnswers;
+@using Bikewale.Utility;
+@model QuestionDetailsVM
+@{
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/UI/sass/partials/question-answer.css' inline/> <link rel='stylesheet' type='text/css' href='/UI/sass/qna/question-details.css' inline/>";
+    Model.Page_BTF_CSS_Path = "/UI/sass/partials/question-answer-popup.css";
+    Model.Page_JS_Paths = new string[] { "/UI/m/src/qna/landing.js", "/UI/src/utils/readMore.js" };
+    ViewBag.Title = "Index";
+    Layout = "~/UI/Views/Shared/_Layout_Mobile.cshtml";
+}
+@if (Model != null && Model.Question != null)
+{
+
+    Question ques = Model.Question;
+    GenericBikeInfo objBikeInfo = (Model.BikeInfoWidget != null ? Model.BikeInfoWidget.BikeInfo : null);
+    string makeName = string.Empty, modelName = string.Empty, baseUrl = string.Empty, strippedAns = string.Empty;
+    if (objBikeInfo != null && objBikeInfo.Make != null && objBikeInfo.Model != null)
+    {
+        makeName = objBikeInfo.Make.MakeName;
+        modelName = objBikeInfo.Model.ModelName;
+        baseUrl = string.Format("/m/{0}-bikes/{1}/", objBikeInfo.Make.MaskingName, objBikeInfo.Model.MaskingName);
+    }
+    <div class="qna-screen__question-detail question--detail question-answer-wrapper__content">
+        <div class="qna-detail__header">
+            <h1 class="question-answer-wrapper__question">Q: @ques.Text</h1>
+            <p class="question-answer-wrapper__author">@ques.QuestionAge ago by @(ques.AskedBy != null ? ques.AskedBy.CustomerName : "")</p>
+            <h2 class="question-answer__model-content">
+                <span class="question-answer__model-label">Question on </span><span class="question-answer__model-name">@string.Format("{0} {1}", makeName, modelName)</span>
+            </h2>
+
+        </div>
+
+        <div class="qna-detail__body">
+            <ul class="qna__answer-list">
+                @foreach (Answer ans in ques.Answers)
+                {
+                    <li class="qna-answer-list__item">
+                        <p class="question-answer-wrapper__answer-box">
+                            <span class="question-answer-wrapper__starting-letter">A: </span>
+
+                            @if (!string.IsNullOrEmpty(ans.StrippedText))
+                            {
+                                strippedAns = string.Format("{0} ...", ans.StrippedText);
+                            }
+                            else
+                            {
+                                strippedAns = string.Format("{0} ", ans.Text);
+                            }
+                            <span class="question-answer-wrapper__ans-trim-content">
+                                @strippedAns
+                            </span>
+
+                            <span class="question-answer-wrapper__ans-full-content ">
+                                @string.Format("{0} ", ans.Text)
+                            </span>
+                            @if (!string.IsNullOrEmpty(ans.StrippedText))
+                            {
+                                <span class="question-answer-wrapper__read-more">Read More</span>
+                            }
+                        </p>
+                        @if (ans.AnsweredBy != null && !string.IsNullOrEmpty(ans.AnsweredBy.CustomerName))
+                        {
+                            <p class="question-answer-wrapper__author">@ans.AnswerAge ago by @ans.AnsweredBy.CustomerName</p>
+                        }
+
+                    </li>
+                }
+
+            </ul>
+
+            <div class="qna-detail__footer">
+                @if (Model.BikeModelAnsweredQuestions > 1)
+                {
+                    <a title="Questions and Answers" href="@string.Format("{0}questions-and-answers/", baseUrl)" class="bw-ga btn btn-inv-blue btn-inv-blue--arrow" data-cat="Question_Page" data-act="View_All_Button_Clicked" data-lab="@string.Format("{0}_{1}", makeName, modelName)">
+                        Read All Q&amp;As
+                    </a>
+                }
+                <a title="View Bike Details" href="@baseUrl" class="bw-ga qna__view-link" data-cat="Question_Page" data-act="View_Model_Details_Button_Clicked" data-lab="@string.Format("{0}_{1}", makeName, modelName)">View Bike Details</a>
+            </div>
+        </div>
+    </div>
+
+}

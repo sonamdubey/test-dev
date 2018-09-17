@@ -1,7 +1,7 @@
 @mixin input-field($fontSize: 13, $color: 'dark-gray', $font-weight: normal, $focus-color: 'default', $placeholder-style: normal, $border-radius: 2px)
 	.form-control__input
-		@include vendor-prefix('border-radius', $border-radius)	
-		font-family: 'Open Sans', sans-serif, Arial	
+		@include vendor-prefix('border-radius', $border-radius)
+		font-family: inherit
 		width: 100%
 		font-size: $fontSize * 1px
 		padding: 12px 20px
@@ -86,7 +86,18 @@
 			height: $min-height
 				@if $max-height != ''
 					max-height: $max-height
-			padding-bottom: 20px
+					padding-bottom: 20px
+
+@mixin text-area($border-color: 'gainsboro', $fontSize: 16, $color: 'default', $font-weight: $font-semibold, $focus-color: 'deep-sky-blue', $placeholder-style: italic, $border-radius: 4px, $min-height: 66px, $box-shadow: false)
+	@include input-field($fontSize, $color, $font-weight, $focus-color, $placeholder-style, $border-radius)
+	@include form-control-box
+	@include area-control-box($min-height)
+	.form-control__text-area
+		@include vendor-prefix(appearance, none)
+		border-color: color($border-color)
+
+		@if $box-shadow
+			@include vendor-prefix(box-shadow, none)
 
 @mixin text-area__character-count($font-size: 11px, $color: 'dark-gray-2')
 	.text-area__character-count
@@ -109,4 +120,3 @@
 			> .text-area__character-count
 				background-color: color('snow')
 				color: color('tomato')
-		

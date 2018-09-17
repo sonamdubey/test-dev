@@ -6,6 +6,7 @@ using System;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Web;
+using Bikewale.Utility;
 
 namespace Bikewale.Models.UserReviews
 {
@@ -41,7 +42,7 @@ namespace Bikewale.Models.UserReviews
         {
             try
             {
-                string decodedQueryString = Utils.Utils.DecryptTripleDES(encodedQueryString);
+                string decodedQueryString = TripleDES.DecryptTripleDES(encodedQueryString);
 
                 NameValueCollection queryCollection = HttpUtility.ParseQueryString(decodedQueryString);
 

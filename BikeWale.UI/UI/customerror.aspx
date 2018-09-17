@@ -64,7 +64,7 @@
         }
     }
 </script>
-<!-- #include file="/includes/headhomenoad.aspx" -->
+<!-- #include file="/UI/includes/headhomenoad.aspx" -->
 <style>
     h1 {
         color: #003366;
@@ -92,4 +92,4 @@
     </div>
     <div class="clear"></div>
 </div>
-<!-- #include file="/includes/footerinner.aspx" -->
+<!-- #include file="/UI/includes/footerinner.aspx" -->

@@ -2,10 +2,10 @@
 @using Bikewale.Utility;
 @{
     Model.IsHeaderFix = false;
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/user-review/write-review.css' inline />";
-    Model.Page_JS_Path = "/src/user-review/write-review.js";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/UI/sass/user-review/write-review.css' inline />";
+    Model.Page_JS_Path = "/UI/src/user-review/write-review.js";
     Model.ExcludeContestSlug = true;
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/UI/Views/Shared/_Layout.cshtml";
     Model.PageMetaTags.AlternateUrl = string.Format("https://www.bikewale.com/m/rate-your-bike/{0}/", Model.Summary.Model.ModelId);
 }
 @if (Model != null && Model.Summary != null)

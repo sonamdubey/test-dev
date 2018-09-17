@@ -4,6 +4,7 @@
     {
         Desktop = 1,
         Mobile = 2,
-        Android = 3
+        Android = 3,
+        Amp = 4
     }
 }

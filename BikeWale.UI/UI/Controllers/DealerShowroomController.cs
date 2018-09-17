@@ -1,10 +1,12 @@
 ﻿using Bikewale.BAL.ApiGateway.ApiGatewayHelper;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.NewLaunched;
 using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Interfaces.Location;
+using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Interfaces.ServiceCenter;
 using Bikewale.Interfaces.Used;
 using Bikewale.Models;
@@ -30,8 +32,9 @@ namespace Bikewale.Controllers
         private readonly IBikeModelsCacheRepository<int> _objBestBikes = null;
         private readonly IDealer _objDealer;
         private readonly IApiGatewayCaller _apiGatewayCaller;
+		private readonly IPriceQuote _objPQ = null;
         //Constructor for dealer locator
-        public DealerShowroomController(IBikeModelsCacheRepository<int> objBestBikes, IBikeMakes<BikeMakeEntity, int> bikeMakes, INewBikeLaunchesBL newLaunches, IServiceCenter objSC, IDealerCacheRepository objDealerCache, IBikeMakesCacheRepository bikeMakesCache, IUpcoming upcoming, IBikeModels<BikeModelEntity, int> bikeModels, IUsedBikeDetailsCacheRepository objUsedCache, IStateCacheRepository objStateCache, IDealer objDealer, IApiGatewayCaller apiGatewayCaller)
+        public DealerShowroomController(IBikeModelsCacheRepository<int> objBestBikes, IBikeMakes<BikeMakeEntity, int> bikeMakes, INewBikeLaunchesBL newLaunches, IServiceCenter objSC, IDealerCacheRepository objDealerCache, IBikeMakesCacheRepository bikeMakesCache, IUpcoming upcoming, IBikeModels<BikeModelEntity, int> bikeModels, IUsedBikeDetailsCacheRepository objUsedCache, IStateCacheRepository objStateCache, IDealer objDealer, IApiGatewayCaller apiGatewayCaller, IPriceQuote objPQ)
         {
             _objDealerCache = objDealerCache;
             _bikeMakesCache = bikeMakesCache;
@@ -44,6 +47,7 @@ namespace Bikewale.Controllers
             _objBestBikes = objBestBikes;
             _objDealer = objDealer;
             _apiGatewayCaller = apiGatewayCaller;
+			_objPQ = objPQ;
         }
 
 
@@ -167,7 +171,8 @@ namespace Bikewale.Controllers
         public ActionResult DealerInCity(string makeMaskingName, string cityMaskingName)
         {
 
-            DealerShowroomCityPage objDealer = new DealerShowroomCityPage(_bikeModels, _objSC, _objDealerCache, _objUsedCache, _bikeMakesCache, makeMaskingName, cityMaskingName, 3);
+			DealerShowroomCityPage objDealer = new DealerShowroomCityPage(_bikeModels, _objSC, _objDealerCache, _objUsedCache, _bikeMakesCache, makeMaskingName, cityMaskingName, 3, _objPQ);
+            objDealer.PQSource = PQSourceEnum.Desktop_DealerLocator_Listing;
 
             if (objDealer.status.Equals(Entities.StatusCodes.ContentFound))
             {
@@ -196,7 +201,8 @@ namespace Bikewale.Controllers
         public ActionResult DealerInCity_Mobile(string makeMaskingName, string cityMaskingName)
         {
 
-            DealerShowroomCityPage objDealer = new DealerShowroomCityPage(_bikeModels, _objSC, _objDealerCache, _objUsedCache, _bikeMakesCache, makeMaskingName, cityMaskingName, 9);
+			DealerShowroomCityPage objDealer = new DealerShowroomCityPage(_bikeModels, _objSC, _objDealerCache, _objUsedCache, _bikeMakesCache, makeMaskingName, cityMaskingName, 9, _objPQ);
+            objDealer.PQSource = PQSourceEnum.Mobile_DealerLocator_Listing;
 
             if (objDealer.status == Entities.StatusCodes.ContentFound)
             {
@@ -226,7 +232,7 @@ namespace Bikewale.Controllers
         public ActionResult DealerDetail(string makeMaskingName, string cityMaskingName, uint dealerId)
         {
 
-            DealerShowroomDealerDetail objDealerDetails = new DealerShowroomDealerDetail(_objSC, _objDealerCache, _bikeMakesCache, _bikeModels, makeMaskingName, cityMaskingName, dealerId, 3, false, _apiGatewayCaller, _objDealer);
+			DealerShowroomDealerDetail objDealerDetails = new DealerShowroomDealerDetail(_objSC, _objDealerCache, _bikeMakesCache, _bikeModels, makeMaskingName, cityMaskingName, dealerId, 3, false, _apiGatewayCaller, _objDealer, _objPQ);
 
             if (dealerId > 0)
             {
@@ -234,7 +240,8 @@ namespace Bikewale.Controllers
 
                 if (objDealerDetails.status == Entities.StatusCodes.ContentFound)
                 {
-
+                    objDealerDetails.Source = DTO.PriceQuote.PQSources.Desktop;
+                    objDealerDetails.PQSource = PQSourceEnum.Desktop_DealerLocator_Detail;
                     objDealerDetailsVM = objDealerDetails.GetData();
                     if (objDealerDetailsVM != null && objDealerDetailsVM.DealerDetails != null && objDealerDetailsVM.DealerDetails.DealerDetails != null)
                         return View(objDealerDetailsVM);
@@ -267,13 +274,15 @@ namespace Bikewale.Controllers
         {
 
 
-            DealerShowroomDealerDetail objDealerDetails = new DealerShowroomDealerDetail(_objSC, _objDealerCache, _bikeMakesCache, _bikeModels, makeMaskingName, cityMaskingName, dealerId, 9, true, _apiGatewayCaller, _objDealer);
+			DealerShowroomDealerDetail objDealerDetails = new DealerShowroomDealerDetail(_objSC, _objDealerCache, _bikeMakesCache, _bikeModels, makeMaskingName, cityMaskingName, dealerId, 9, true, _apiGatewayCaller, _objDealer, _objPQ);
             if (dealerId > 0)
             {
                 DealerShowroomDealerDetailsVM objDealerDetailsVM = null;
 
                 if (objDealerDetails.status == Entities.StatusCodes.ContentFound)
                 {
+                    objDealerDetails.Source = DTO.PriceQuote.PQSources.Mobile;
+                    objDealerDetails.PQSource = PQSourceEnum.Mobile_DealerLocator_Detail;
                     objDealerDetailsVM = objDealerDetails.GetData();
                     if (objDealerDetailsVM != null && objDealerDetailsVM.DealerDetails != null && objDealerDetailsVM.DealerDetails.DealerDetails != null)
                         return View(objDealerDetailsVM);

@@ -1,4 +1,5 @@
-﻿using Bikewale.DTO.MobileVerification;
+﻿using Bikewale.DTO.Dealer;
+using Bikewale.DTO.MobileVerification;
 using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Dealer;
@@ -12,6 +13,7 @@ using Bikewale.Utility;
 using MySql.CoreDAL;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.Common;
 using System.Linq;
@@ -1146,6 +1148,106 @@ namespace Bikewale.DAL.Dealer
 
             }
             return objSMSData;
+        }
+        /// <summary>
+        /// Created by  : Prabhu Puredla on 19 july 2018
+        /// Description : Function to get dealers by model and city
+        /// Modified by : Pratibha Verma on 14 August 2018
+        /// Description : changed sp from `bw_getdealerdetails_30082017` to `bw_getdealerdetails_14082018`, added logic to remove primary dealers outlet
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <param name="cityId"></param>
+        /// <param name="areaId"></param>
+        /// <returns></returns>
+        public IEnumerable<SecondaryDealerBase> GetMLADealers(uint modelId, uint dealerId, uint cityId, uint? areaId)
+		{
+			ICollection<SecondaryDealerBase> dealers = null;
+			try
+			{
+				using (DbCommand cmd = DbFactory.GetDBCommand("getmodelcitydealerslist_14082018"))
+				{
+					cmd.CommandType = CommandType.StoredProcedure;
+					cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, dealerId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityId", DbType.Int32, cityId));
+					cmd.Parameters.Add(DbFactory.GetDbParam("par_areaId", DbType.Int32, areaId));
+
+					using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+					{
+						if (dr != null)
+						{
+							dealers = new Collection<SecondaryDealerBase>();
+							
+							while(dr.Read())
+							{
+								SecondaryDealerBase dealer = new SecondaryDealerBase()
+								{
+									DealerId = SqlReaderConvertor.ToUInt32(dr["dealerId"]),
+									Name = Convert.ToString(dr["name"]),
+									Area = Convert.ToString(dr["area"]),
+									Distance = SqlReaderConvertor.ParseToDouble(dr["distance"]),
+									AreaId = SqlReaderConvertor.ToUInt32(dr["areaId"]),
+                                    MasterDealerId = SqlReaderConvertor.ToUInt32(dr["masterdealerid"])
+								};
+								dealers.Add(dealer);
+							}						
+						}
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				ErrorClass.LogError(ex, string.Format("DealersRepository.GetMLADealers: ModelId : {0}, DealerId : {1}, CityId : {2}, AreaId : {3}", modelId, dealerId, cityId, areaId));
+			}
+			return dealers;
+		}
+
+        /// <summary>
+        /// Created by  : Pratibha Verma on 30 August 2018
+        /// Description : returns all bikewale and autobiz dealers by make city
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <param name="cityId"></param>
+        /// <returns></returns>
+        public IList<NewBikeDealerDetails> GetAllDealersByMakeCity(uint makeId, uint cityId)
+        {
+            IList<NewBikeDealerDetails> objDealer = null;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand())
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "getalldealersbymakecity";
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.UInt32, makeId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.UInt32, cityId));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            objDealer = new List<NewBikeDealerDetails>();
+                            while (dr.Read())
+                            {
+                                objDealer.Add(new NewBikeDealerDetails()
+                                {
+                                    DealerName = Convert.ToString(dr["dealername"]),
+                                    ContactNo = Convert.ToString(dr["contactnumber"]),
+                                    Address = Convert.ToString(dr["address"]),
+                                    Email = Convert.ToString(dr["email"]),
+                                    PinCode = Convert.ToString(dr["pincode"]),
+                                    State = Convert.ToString(dr["state"]),
+                                    City = Convert.ToString(dr["city"])
+                                });
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("Bikewale.DAL.Dealer.DealersRepository.GetAllDealersByMakeCity(makeId = {0}, cityId = {1})", makeId, cityId));
+            }
+            return objDealer;
         }
     }//End class
 }

@@ -5,6 +5,7 @@ using System;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Web;
+using Bikewale.Utility;
 
 namespace Bikewale.Models.PopUp
 {
@@ -35,7 +36,7 @@ namespace Bikewale.Models.PopUp
         /// <param name="qs">The query string.</param>
         public void ParseQueryString(string queryString)
         {
-            string qs = Utils.Utils.DecryptTripleDES(queryString);
+            string qs = TripleDES.DecryptTripleDES(queryString);
             try
             {
                 uint _modelId,

@@ -1,10 +1,10 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Videos.VideoMakeModel" EnableViewState="false" %>
 
-<%@ Register TagPrefix="BW" TagName="MPopupWidget" Src="/m/controls/MPopupWidget.ascx" %>
-<%@ Register Src="~/m/controls/ChangeLocationPopup.ascx" TagPrefix="BW" TagName="LocationWidget" %>
-<%@ Register Src="~/m/controls/SimilarBikeVideos.ascx" TagName="SimilarBikeVideos" TagPrefix="BW" %>
-<%@ Register Src="~/m/controls/PopularBikesByBodyStyle.ascx" TagPrefix="BW" TagName="MBikesByBodyStyle" %>
-<%@ Register TagPrefix="BW" TagName="GenericBikeInfo" Src="~/m/controls/GenericBikeInfoControl.ascx" %>
+<%@ Register TagPrefix="BW" TagName="MPopupWidget" Src="/UI/m/controls/MPopupWidget.ascx" %>
+<%@ Register Src="~/UI/m/controls/ChangeLocationPopup.ascx" TagPrefix="BW" TagName="LocationWidget" %>
+<%@ Register Src="~/UI/m/controls/SimilarBikeVideos.ascx" TagName="SimilarBikeVideos" TagPrefix="BW" %>
+<%@ Register Src="~/UI/m/controls/PopularBikesByBodyStyle.ascx" TagPrefix="BW" TagName="MBikesByBodyStyle" %>
+<%@ Register TagPrefix="BW" TagName="GenericBikeInfo" Src="~/UI/m/controls/GenericBikeInfoControl.ascx" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,7 +21,7 @@
             canonical = string.Format("https://www.bikewale.com/{0}-bikes/videos/", makeMaskingName);
         }
     %>
-    <!-- #include file="/includes/headscript_mobile.aspx" -->
+    <!-- #include file="/UI/includes/headscript_mobile.aspx" -->
     <style type="text/css">
         @charset "utf-8";
 
@@ -268,10 +268,10 @@
                 window.location = document.referrer;
             });
         </script>
-        <!-- #include file="/includes/footerBW_Mobile.aspx" -->
-        <!-- #include file="/includes/footerscript_Mobile.aspx" -->
-        <script src="<%= staticUrl  %>/src/lscache.min.js?<%= staticFileVersion%>"></script>
-        <script type="text/javascript" src="<%= staticUrl  %>/m/src/video/videoByCategory.js?<%= staticFileVersion %>"></script>
+        <!-- #include file="/UI/includes/footerBW_Mobile.aspx" -->
+        <!-- #include file="/UI/includes/footerscript_Mobile.aspx" -->
+        <script src="<%= staticUrl  %>/UI/src/lscache.min.js?<%= staticFileVersion%>"></script>
+        <script type="text/javascript" src="<%= staticUrl  %>/UI/m/src/video/videoByCategory.js?<%= staticFileVersion %>"></script>
 
     </form>
 </body>

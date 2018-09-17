@@ -7,6 +7,8 @@ var window, overallSpecsTabsContainer, modelSpecsTabsContentWrapper, modelSpecsF
 var backToTopBtn, halfBodyHeight, overViewContentHeight;
 var lastScrollTop = 0;
 var reg, vmUserReviews;
+var versionListGATriggered = false;
+
 
 function getBikeVersion() {
     return versionName;
@@ -91,7 +93,88 @@ var appendState = function (state) {
     window.history.pushState(state, '', '');
 };
 
+var findTopOffset = function () {
+    var elem = $("#scroll-point");
+    if ($(".floating-btn").find("a").hasClass("js-mfg")) {
+        floatBtnHeight = $(".floating-btn:last").outerHeight();
+    }
+    else {
+        floatBtnHeight = $(".floating-btn").outerHeight();
+    }
+    if (floatBtnHeight == null)
+        floatBtnHeight = 0;
+    return elem.outerHeight() + elem.offset().top - (window.innerHeight - floatBtnHeight);   
+}
+
+$(".campaign__floating-btn").on("click", "a", function () {
+
+    if ($(this).hasClass("js-mfg"))
+    {
+        if ($(this).closest(".js-floating-btn").hasClass("animated"))
+        {
+            triggerGA("Model_Page", "FloatingLeadCTA_Partial_GetBestOffers_Click", "");
+        }
+        else if ($(this).closest(".js-floating-btn").hasClass("campaign-with-animation"))
+        {
+            triggerGA("Model_Page", "FloatingLeadCTA_FullWidth_Click", "");
+        }
+        else if ($(this).attr("data-group") == "default")
+        {
+            triggerGA("Model_Page", "FloatingLeadCTA_Partial_DefaultCTA_Click", "");
+        }
+    }   
+   
+})
+
+var triggerGAAnimateCTA = function () {
+    var container = $('.cta-animation-container');
+    var campaignContainer = $('.campaign-with-animation');
+    var campaignContainerHeight = campaignContainer.outerHeight();
+    var windowScrollTop = $window.scrollTop() + $window.innerHeight();
+    var containerScrollTop = container.offset().top + container.height() + campaignContainerHeight;
+
+    if($(window).scrollTop() === 0 || windowScrollTop < containerScrollTop)
+    {
+        triggerNonInteractiveGA("Model_Page", "FloatingLeadCTA_FullWidth_Shown", "");
+        fullShown = true;
+    }
+    else if($('.campaign-with-animation').hasClass("animated"))
+    {
+        triggerNonInteractiveGA("Model_Page", "FloatingLeadCTA_Partial_GetBestOffers_Shown", "");
+        partialShown = true;
+    }
+}
+
+window.addEventListener('load', function () {
+    // scroll to offset 
+    if (window.location.href.indexOf("#") !== -1) {
+        if ((window.location.href.split('#'))[1].indexOf("onRoadPrice") !== -1) {
+            var positionTop = findTopOffset();
+            if (positionTop > 0) {
+                history.scrollRestoration = 'manual';
+                window.scrollTo(0, positionTop);
+            }
+        }
+    }
+
+    if ($(".js-mfg").length > 0) {
+        // trigger non-interactive GA for animated floating CTA (AB test)     
+        if ($("#animate-btn").length > 0) {            
+            fullShown = false;
+            partialShown = false;
+
+            setTimeout(triggerGAAnimateCTA(), 500);
+        }
+        else if ($(".js-mfg").attr("data-group") == "default")
+        {
+            triggerNonInteractiveGA("Model_Page", "FloatingLeadCTA_Partial_DefaultCTA_Shown", "");
+        }
+    }
+});
+
+
 docReady(function () {
+
     // ad blocker active than fallback method
     if (window.canRunAds === undefined) {
         callFallBackWriteReview();
@@ -100,6 +183,32 @@ docReady(function () {
     if (isMileageSectionVisible.length > 0) {
         triggerNonInteractiveGA("Model_Page", "Mileage_Card_Shown", myBikeName);
     }
+    var isContactNearByDealersShown = $('#btnNearByDealers');
+    if (isContactNearByDealersShown.length > 0) {
+        triggerNonInteractiveGA("Model_Page", "FloatingCTA_NearbyDealers_Shown", bikeModelId);
+    }
+    function sanitizeGALabel(str) {
+      return str ? str : "null";
+    }
+
+    function checkPresentOrAbsent(id) {
+      switch (typeof (id)) {
+        case "number":
+          return id > 0 ? "Present" : "Absent";
+        case "string":
+          return id.toLowerCase() == "true" ? "Present" : "Absent";
+        case "boolean":
+          return id ? "Present" : "Absent";
+      }
+    }
+
+    if (isBikeNew.toLowerCase() == 'true') {
+      var location = GetGlobalLocationObject();
+      var eventAction = 'User_City ' + checkPresentOrAbsent(parseInt(cityId)) + '_Area ' + checkPresentOrAbsent(parseInt(areaId)) + '_Campaign_City Level ' + checkPresentOrAbsent(isCityLevelCampaignPresent) + '_Area Level ' + checkPresentOrAbsent(isAreaLevelCampaignPresent);
+      var eventLabel = myBikeName + '_' + sanitizeGALabel(location.CityName) + '_' + sanitizeGALabel(location.AreaName) + '_' + shownCampaignType + " Campaign Shown";
+      triggerNonInteractiveGA("Model_Page", eventAction, eventLabel);
+    }
+
     function callFallBackWriteReview() {
         $('#adBlocker').show();
         $('.sponsored-card').hide();
@@ -149,7 +258,7 @@ docReady(function () {
                 "dealerid": ele.attr('data-item-id'),
                 "dealername": ele.attr('data-item-name'),
                 "dealerarea": ele.attr('data-item-area'),
-                "versionid": versionId,
+                "versionid": ele.attr('data-versionid') != undefined ? ele.attr('data-versionid') : versionId,
                 "leadsourceid": ele.attr('data-leadsourceid'),
                 "pqsourceid": ele.attr('data-pqsourceid'),
                 "isleadpopup": ele.attr('data-isleadpopup'),
@@ -171,7 +280,8 @@ docReady(function () {
                     lab: ele.attr("data-var")
                 },
                 "sendLeadSMSCustomer": ele.attr('data-issendleadsmscustomer'),
-                "organizationName": ele.attr('data-item-organization')
+                "organizationName": ele.attr('data-item-organization'),
+                "campaignId": ele.attr("data-campaignid")
             };
 
             gaLabel = myBikeName + '_' + getCityArea;
@@ -179,7 +289,6 @@ docReady(function () {
         } catch (e) {
             console.warn("Unable to get submit details : " + e.message);
         }
-
     });
 
 
@@ -207,7 +316,41 @@ docReady(function () {
 
     getCityArea = GetGlobalCityArea();
 
+    $("#pricesContent").on("click", "a", function () {
+
+        if ($(this).text().toLowerCase() === "get offers") {
+            triggerGA("Model_Page", "GetOffers_VersionList_Click", "");
+        }
+        else if($(this).text().toLowerCase() === "check on-road price")
+        {
+            triggerGA("Model_Page", "CheckOnRoad_VersionList_Click", "");
+        }
+
+    });
+
+    function isPriceListInView(elem) {
+        var elemTop = elem.offset().top;
+        var elemBottom = elem.offset().top + elem.outerHeight();
+        var viewportHeight = $(window).innerHeight() - 56;
+        var viewportTop = $(window).scrollTop();
+
+        return viewportTop + viewportHeight > elemBottom && viewportTop < elemTop;
+    }
+
     $(window).scroll(function () {
+
+        // check if version price table links are shown        
+        var container = $("#versionPriceTable");
+        if (container.length > 0 && isPriceListInView(container) && !versionListGATriggered && container.find(".version-price__link").length > 0) {
+            versionListGATriggered = true;
+            if (container.find("a:first").text().toLowerCase() === "get offers") {
+                triggerNonInteractiveGA("Model_Page", "GetOffers_VersionList_Shown", "");
+            }
+            else if (container.find("a:first").text().toLowerCase() === "check on-road price") {
+                triggerNonInteractiveGA("Model_Page", "CheckOnRoad_VersionList_Shown", "");
+            }            
+        }
+
         var windowScrollTop = $window.scrollTop(),
             modelSpecsTabsOffsetTop = modelSpecsTabsContentWrapper.offset().top,
             modelSpecsFooterOffsetTop = modelSpecsFooter.offset().top;
@@ -307,7 +450,8 @@ docReady(function () {
         centerItVariableWidth($(this), '.overall-specs-tabs-container');
     });
     //QnA Read more on model page
-    ToggleReadMore.registerEvents();
+    if (typeof (ToggleReadMore) != "undefined")
+        ToggleReadMore.registerEvents();
 
     // dropdown
     dropdown = {
@@ -413,6 +557,7 @@ docReady(function () {
         }
     });
 
+    AnimateCTA.registerEvents();
 });
 
 docReady(function () {
@@ -640,6 +785,13 @@ docReady(function () {
         dataLayer.push({ "event": "Bikewale_all", "cat": "Model_Page", "act": "Show_On_Road_Price_Clicked", "lab": bikeVersionLocation });
     });
 
+    $('#btnNearByDealers').on('click', function (e) {
+        triggerGA('Model_Page', 'FloatingCTA_NearbyDealers_Click', bikeModelId);
+    });
+
+    $('#btnTopCardNearbyDealers').on('click', function (e) {
+        triggerGA('Model_Page', 'TopCard_NearbyDealers_Click', bikeModelId);
+    });
 
     $('.tnc').on('click', function (e) {
         appendHash("termsConditions");
@@ -649,7 +801,10 @@ docReady(function () {
 
     $('.changeCity').on('click', function (e) {
         try {
-            dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'City_Change_Initiated', 'lab': bikeVersionLocation });
+            if (e.currentTarget.dataset.act == undefined)
+            {
+                dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'City_Change_Initiated', 'lab': bikeVersionLocation });
+            }  
         }
         catch (err) { }
     });

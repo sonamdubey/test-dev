@@ -1,5 +1,5 @@
 ﻿                <%--<div class="ad-unit">
-                    <!-- #include file="/ads/Ad320x50_Bottom_mobile.aspx" -->
+                    <!-- #include file="/UI/ads/Ad320x50_Bottom_mobile.aspx" -->
                 </div>--%>
                 <!-- Ad unit code ends here-->
         	</div>
@@ -7,8 +7,8 @@
         </div>
         
     </div> 
-    <!-- #include file="/includes/footerBW_Mobile.aspx" -->
-    <!-- #include file="/includes/footerscript_mobile.aspx" -->
+    <!-- #include file="/UI/includes/footerBW_Mobile.aspx" -->
+    <!-- #include file="/UI/includes/footerscript_mobile.aspx" -->
 </form>
 </body>
 </html>

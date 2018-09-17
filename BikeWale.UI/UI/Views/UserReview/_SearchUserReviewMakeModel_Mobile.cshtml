@@ -6,7 +6,7 @@
             <div class="user-review__intro">
                 <p class="review-intro__title">3000+ unbiased, verified reviews.<br>Know the pros and cons of 200+ bike models.</p>
                 <div class="form-control-box margin-bottom15">
-                    <input type="text" class="user-review__search-field" placeholder="Search bike e.g. Bajaj Dominar 400" id="userReviewList" autocomplete="off">
+                    <input type="text" class="user-review__search-field" placeholder="Search bike e.g. Bajaj Dominar 400" id="userReviewList" autocomplete="off" aria-label="Search Bike">
 					<ul id="erruserReviewList" class="ui-autocomplete ui-front ui-menu hide">
 						<li class="ui-menu-item" tabindex="-1">
 							<span class="text-bold">Oops! No suggestions found</span><br />
@@ -33,7 +33,7 @@
                 <span class="winner-tag__label">Winner</span>
             </div>
             }
-          
+
             <span class="review-card__author-circle"></span>
             <p class="review-card__author">@review.CustomerName</p>
             <span class="rating-badge" data-rate-bg="@review.Rating">
@@ -49,7 +49,7 @@
         </ul>
     </div>
 }
-         
+
         </div>
     </div>
 </section>
@@ -155,7 +155,7 @@
         return UserReviewRedirection(focusedMakeModel);
     }
     docReady(function () {
-        
+
         $.fn.hint = bwHint;
         $.fn.bw_autocomplete = bwAutoComplete;
         var vmUserReviewSearch = new userReviewSearch();

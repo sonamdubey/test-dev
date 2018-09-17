@@ -1,6 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.New.SearchOld" %>
 
-<%@ Register TagPrefix="BW" TagName="MPopupWidget" Src="/m/controls/MPopupWidget.ascx" %>
+<%@ Register TagPrefix="BW" TagName="MPopupWidget" Src="/UI/m/controls/MPopupWidget.ascx" %>
 <!doctype html>
 <html>
 <head>
@@ -17,20 +17,20 @@
     %>
 
 
-    <!-- #include file="/includes/headscript_mobile.aspx" -->
+    <!-- #include file="/UI/includes/headscript_mobile.aspx" -->
     <script>ga_pg_id = '5';</script>
 </head>
 <body class="bg-light-grey">
-    <!-- #include file="/includes/Navigation_Mobile.aspx" -->
+    <!-- #include file="/UI/includes/Navigation_Mobile.aspx" -->
     <section>            
         <div class="container">
             <div>
-                 <!-- #include file="/ads/Ad320x50_mobile.aspx" -->
+                 <!-- #include file="/UI/ads/Ad320x50_mobile.aspx" -->
             </div>
         </div>     
     </section>
     <link href="<%= staticUrl  %>/m/css/new/bwm-search.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
-    <link href="<%= staticUrl  %>/css/chosen.min.css?<%= staticFileVersion %>" rel="stylesheet" />
+    <link href="<%= staticUrl  %>/UI/css/chosen.min.css?<%= staticFileVersion %>" rel="stylesheet" />
    
     <div class="blackOut-window"></div>
     <!-- global-search-popup code starts here -->
@@ -317,10 +317,10 @@
         <div class="clear"></div>
     </div>
     <!--Main container ends here-->
-    <!-- #include file="/includes/footerBW_Mobile.aspx" -->
+    <!-- #include file="/UI/includes/footerBW_Mobile.aspx" -->
     <!-- all other js plugins -->
-    <!-- #include file="/includes/footerscript_Mobile.aspx" -->
-    <script src="<%= staticUrl  %>/m/src/new/search.js?<%= staticFileVersion %>" type="text/javascript"></script>
+    <!-- #include file="/UI/includes/footerscript_Mobile.aspx" -->
+    <script src="<%= staticUrl  %>/UI/m/src/new/search.js?<%= staticFileVersion %>" type="text/javascript"></script>
     <script type="text/javascript"> var PQSourceId = '<%= (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_NewBikeSearch %>';</script>
     <div class="back-to-top" id="back-to-top"><a><span></span></a></div>
 </body>

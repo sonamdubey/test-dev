@@ -1,10 +1,10 @@
 ﻿@model Bikewale.Models.UserReviews.UserReviewLandingVM
 
 @{
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/m/review/landing.css' inline>";
-    Model.Page_JS_Path = "/m/src/review/landing.js";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/UI/sass/m/review/landing.css' inline>";
+    Model.Page_JS_Path = "/UI/m/src/review/landing.js";
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
+    Layout = "~/UI/Views/Shared/_Layout_Mobile.cshtml";
 }
 <div class="bw-tabs-panel">
     <div class="banner-review" data-bg-image="0">
@@ -16,7 +16,7 @@
                     <li data-tabs="expertReviewContent" data-image="m_bikewale_reviewlanding_expert_banner" class="">Expert Reviews</li>
                 </ul>
             </div>
-            @Html.Partial("~/views/UserReview/_SearchUserReviewExpertReviewModel_Mobile.cshtml")
+            @Html.Partial("~/UI/views/UserReview/_SearchUserReviewExpertReviewModel_Mobile.cshtml")
         </div>
     </div>
 
@@ -75,7 +75,7 @@
         @if (Model.TopRatedBikesWidget != null)
         {
             <section>
-                @Html.Partial("~/views/UserReview/_TopRatedBikes_Mobile.cshtml", Model.TopRatedBikesWidget)
+                @Html.Partial("~/UI/views/UserReview/_TopRatedBikes_Mobile.cshtml", Model.TopRatedBikesWidget)
             </section>
         }
 
@@ -150,7 +150,7 @@
                 <h2 class="font18 text-center margin-top20 margin-bottom15">Recently added reviews</h2>
                 <div class="user-review-swiper content-box-shadow card-bottom-margin">
                     <div class="swiper-container user-review__swiper">
-                        @Html.Partial("~/views/UserReview/_RecentUploadedReviews_Mobile.cshtml", Model.RecentUserReviewsList)
+                        @Html.Partial("~/UI/views/UserReview/_RecentUploadedReviews_Mobile.cshtml", Model.RecentUserReviewsList)
                     </div>
                 </div>
             </section>
@@ -162,7 +162,7 @@
                 <h2 class="font18 text-center margin-top20 margin-bottom15">Browse user reviews by brands</h2>
                 <div class="content-box-shadow card-bottom-margin">
                     <div class="content-box-shadow padding-top25 padding-bottom20 collapsible-brand-content text-center">
-                        @Html.Partial("~/Views/Make/_Brands_Mobile.cshtml", Model.Brands)
+                        @Html.Partial("~/UI/Views/Make/_Brands_Mobile.cshtml", Model.Brands)
                     </div>
                 </div>
             </section>
@@ -223,7 +223,7 @@
 
         @if (Model.BikesWithExpertReviews != null)
         {
-            @Html.Partial("~/views/UserReview/_PopularBikesWithExpertReviews_Mobile.cshtml", Model.BikesWithExpertReviews)
+            @Html.Partial("~/UI/views/UserReview/_PopularBikesWithExpertReviews_Mobile.cshtml", Model.BikesWithExpertReviews)
         }
 
         <h2 class="font18 text-center margin-top20 margin-bottom10">Recently added reviews</h2>
@@ -237,7 +237,7 @@
                         </div>
                     </div>
 
-                    @Html.Partial("~/views/ExpertReviews/_ExpertReviewsModelWiseCard_Mobile.cshtml", Model.ExpertReviews)
+                    @Html.Partial("~/UI/views/ExpertReviews/_ExpertReviewsModelWiseCard_Mobile.cshtml", Model.ExpertReviews)
 
                     <div class="view-all-btn-container padding-top15 padding-bottom5 padding-left15 text-center">
                         <a title="Expert Reviews" href="/m/expert-reviews/" class="btn view-all-target-btn">Read all reviews<span class="bwmsprite teal-right"></span></a>
@@ -254,7 +254,7 @@
                 @if (Model.Authors != null && Model.Authors.Any())
                 {
                     <div class="box-content">
-                        @Html.Partial("~/Views/Author/_AuthorsListCarousel_Mobile.cshtml", Model.Authors)
+                        @Html.Partial("~/UI/Views/Author/_AuthorsListCarousel_Mobile.cshtml", Model.Authors)
                     </div>
                 }
             </div>

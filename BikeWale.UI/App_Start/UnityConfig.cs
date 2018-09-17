@@ -6,6 +6,7 @@ using Bikewale.BAL.BikeData;
 using Bikewale.BAL.BikeData.NewLaunched;
 using Bikewale.BAL.BikeData.UpComingBike;
 using Bikewale.BAL.BikeSearch;
+using Bikewale.BAL.Campaign;
 using Bikewale.BAL.CMS;
 using Bikewale.BAL.Customer;
 using Bikewale.BAL.Dealer;
@@ -70,6 +71,7 @@ using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.NewLaunched;
 using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Interfaces.Cache.Core;
+using Bikewale.Interfaces.Campaign;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.Compare;
 using Bikewale.Interfaces.Customer;
@@ -223,6 +225,9 @@ namespace Bikewale
             container.RegisterType<QuestionsAnswers.Cache.ICacheManager, QuestionsAnswers.Cache.MemcacheManager>();
             container.RegisterType<QuestionsAnswers.Cache.IQuestionsCacheRepository, QuestionsAnswers.Cache.QuestionsCacheRepository>();
             container.RegisterType<ICustomerAuthentication<CustomerEntity, UInt32>, CustomerAuthentication<CustomerEntity, UInt32>>();
+            container.RegisterType<IAnswerRepository, AnswerRepository>();
+            container.RegisterType<IAnswers, Answers>();
+            container.RegisterType<ICampaignBL, CampaignBL>();
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }
     }

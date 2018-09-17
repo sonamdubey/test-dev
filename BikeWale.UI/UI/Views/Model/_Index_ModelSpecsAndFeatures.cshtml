@@ -11,12 +11,12 @@
             <ul id="model-specs-list">
                 @{
                     var isCategoryActive = true;
-                }        
+                }
                 @foreach (var category in Model.VersionSpecsFeatures.Specs)
                 {
                     <li>
                         <div class="model-accordion-tab @(isCategoryActive ? "active" : "")">
-                            <img src="@Bikewale.Utility.FormatMinSpecs.GetOutlineIconUrl(category.Icon)" width="30" height="28" class="inline-block margin-right10" alt="@category.DisplayText">
+                            <img src="@Bikewale.Utility.FormatMinSpecs.GetOutlineIconUrl(category.Icon)" width="30" height="28" class="inline-block margin-right10" alt="@Model.ModelName @category.DisplayText" title="@Model.ModelName @category.DisplayText">
                             <span class="inline-block">@category.DisplayText</span>
                             <span class="bwsprite accordion-angle-icon"></span>
                         </div>
@@ -49,7 +49,7 @@
                         </div>
                     </li>
                 }
-            </ul>  
+            </ul>
         }
 
         if(Model.VersionSpecsFeatures.Features != null && Model.VersionSpecsFeatures.Features.Any())
@@ -113,7 +113,7 @@
 		            <a href="javascript:void(0)" class="view-features-link bw-ga" data-cat="Model_Page" data-act="View_all_features_link_cliked" data-var="myModel.BikeName" title="@Model.BikeName Features" rel="nofollow">View all features</a>
 	            </div>
             </div>
-    
+
         }
    }
 }

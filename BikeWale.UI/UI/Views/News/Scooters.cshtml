@@ -3,14 +3,14 @@
 @using Bikewale.Utility
 @using System.Text.RegularExpressions
 @{
-	Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/content/listing.css' inline /> <link rel='stylesheet' type='text/css' href='/css/components/m-brand-logo.css' inline />";
+	Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/UI/css/content/listing.css' inline /> <link rel='stylesheet' type='text/css' href='/UI/css/components/m-brand-logo.css' inline />";
     Model.AdTags.AdPath = "/1017752/BikeWale_News_";
     Model.AdTags.AdId = "1395995626568";
     Model.AdTags.Ad_300x250 = true;
     Model.AdTags.Ad_970x90 = true;
     Model.AdTags.Ad_970x90Bottom = true;
     Model.IsHeaderFix = true;
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/UI/Views/Shared/_Layout.cshtml";
 }
 
 
@@ -114,7 +114,7 @@
                 {
                     <div class="content-box-shadow padding-15-20-10 margin-bottom20">
                         <h2>@Model.MostPopularBikes.WidgetHeading</h2>
-                        @Html.Partial("~/Views/BikeModels/_MostPopularBikesSideBar.cshtml", Model.MostPopularBikes)
+                        @Html.Partial("~/UI/Views/BikeModels/_MostPopularBikesSideBar.cshtml", Model.MostPopularBikes)
 
                         <div class="view-all-btn-container padding-top10 padding-bottom10">
                             <a href="@Model.MostPopularBikes.WidgetHref" title="@Model.MostPopularBikes.WidgetLinkTitle" class="btn view-all-target-btn">View all scooters<span class="bwsprite teal-right"></span></a>
@@ -127,7 +127,7 @@
                     {
                         <div class="content-box-shadow padding-15-20-10 margin-bottom20">
                             <h2>@Model.PopularBodyStyle.WidgetHeading</h2>
-                            @Html.Partial("~/Views/BestBikes/_PopularBodyStyle_Vertical.cshtml", Model.PopularBodyStyle)
+                            @Html.Partial("~/UI/Views/BestBikes/_PopularBodyStyle_Vertical.cshtml", Model.PopularBodyStyle)
                             <div class="view-all-btn-container padding-top10 padding-bottom10">
                                 <a href="@Model.PopularBodyStyle.WidgetHref" title="@Model.PopularBodyStyle.WidgetLinkTitle" class="btn view-all-target-btn">View all scooters<span class="bwsprite teal-right"></span></a>
                             </div>
@@ -141,7 +141,7 @@
                     {
                         <div class="content-box-shadow padding-15-20-10 margin-bottom20">
                             <h2>@Model.PopularScooterBrandsWidgetHeading</h2>
-                            @Html.Partial("~/Views/Scooters/_PopularScooterBrandsVerticalWidget.cshtml", Model.PopularScooterMakesWidget)
+                            @Html.Partial("~/UI/Views/Scooters/_PopularScooterBrandsVerticalWidget.cshtml", Model.PopularScooterMakesWidget)
                             <div class="view-all-btn-container padding-top10 padding-bottom10">
                                 <a href="/scooters/" title="Scooters" class="btn view-all-target-btn">
                                     View all scooters<span class="bwsprite teal-right"></span>
@@ -153,9 +153,9 @@
 
                 }
                 <div class="margin-bottom20">
-                    @Html.Partial("~/Views/Shared/Ads/Desktop/Ad300x250.cshtml", Model.AdTags)
+                    @Html.Partial("~/UI/Views/Shared/Ads/Desktop/Ad300x250.cshtml", Model.AdTags)
                 </div>
-                @Html.Partial("~/Views/PriceInCity/_OnRoadPriceWidget.cshtml")
+                @Html.Partial("~/UI/Views/PriceInCity/_OnRoadPriceWidget.cshtml")
 
             </div>
             <div class="clear"></div>

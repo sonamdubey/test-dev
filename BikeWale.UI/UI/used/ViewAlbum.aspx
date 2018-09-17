@@ -2,7 +2,7 @@
 <%@ Import Namespace="Bikewale.Common" %>
 <html>
 <head>
-    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="/UI/css/style.css" />
     <style type="text/css">
         .ad-gallery{width:675px; background-color:#3c3c3c;}
         .ad-gallery,.ad-gallery *{margin:0;padding:0}
@@ -37,7 +37,7 @@
         .ad-gallery .ad-image-wrapper .ad-image .ad-image-description .ad-description-title,.ad-gallery .ad-thumbs li a{display:block}
     </style>  
     <script type="text/javascript" src="https://st.carwale.com/jquery-1.7.2.min.js?v=1.0" ></script>
-    <script src="<%= staticUrl  %>/src/common/ad-gallery.js?v=1.0" type="text/javascript"></script>    
+    <script src="<%= staticUrl  %>/UI/src/common/ad-gallery.js?v=1.0" type="text/javascript"></script>    
     <title>View Photographs for Bike Profile #<%= profileNo%></title>	
 </head>
 <body style="background:none;">

@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.New.DealersInIndia" EnableViewState="false" %>
-<%@ Register TagPrefix="BW" TagName="MPopupWidget" Src="/m/controls/MPopupWidget.ascx" %>
+<%@ Register TagPrefix="BW" TagName="MPopupWidget" Src="/UI/m/controls/MPopupWidget.ascx" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,7 +14,7 @@
         Ad_Bot_320x50 = true;
     %>   
 
-    <!-- #include file="/includes/headscript_mobile.aspx" -->
+    <!-- #include file="/UI/includes/headscript_mobile.aspx" -->
     <link href="<%= staticUrl  %>/m/css/bwm-dealersbylocation.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
 </head>
 <body class="bg-light-grey">
@@ -31,7 +31,7 @@
           <% if(Ad_320x50){ %>
                 <section>            
                     <div>
-                        <!-- #include file="/ads/Ad320x50_mobile.aspx" -->
+                        <!-- #include file="/UI/ads/Ad320x50_mobile.aspx" -->
                     </div>
                 </section>
             <% } %>
@@ -61,9 +61,9 @@
             <div class="clear"></div>
         </section>
         
-        <!-- #include file="/includes/footerBW_Mobile.aspx" -->
-        <!-- #include file="/includes/footerscript_Mobile.aspx" -->
-        <script type="text/javascript" src="<%= staticUrl  %>/m/src/dealersbylocation.js?<%= staticFileVersion %>"></script>
+        <!-- #include file="/UI/includes/footerBW_Mobile.aspx" -->
+        <!-- #include file="/UI/includes/footerscript_Mobile.aspx" -->
+        <script type="text/javascript" src="<%= staticUrl  %>/UI/m/src/dealersbylocation.js?<%= staticFileVersion %>"></script>
     </form>
 </body>
 </html>

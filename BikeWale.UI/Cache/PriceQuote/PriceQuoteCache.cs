@@ -101,7 +101,9 @@ namespace Bikewale.Cache.PriceQuote
         /// </summary>
         /// <param name="cityId">The city identifier.</param>
         /// <returns>
-        /// Created by : Sangram Nandkhile on 10-May-2017 
+        /// Created by : Sangram Nandkhile on 10-May-2017
+        /// Modified by : Rajan Chauhan on 16 August 2018
+        /// Description : Added check on dictionary for cityId existence
         /// </returns>
         public IEnumerable<ManufacturerDealer> GetManufacturerDealers(uint cityId, uint dealerId)
         {
@@ -112,7 +114,7 @@ namespace Bikewale.Cache.PriceQuote
             {
                 dealer = _cache.GetFromCache<IDictionary<uint, List<ManufacturerDealer>>>(key, new TimeSpan(24, 0, 0), () => _obPriceQuote.GetManufacturerDealers(dealerId));
                 
-                if (dealer != null && dealer.Any())
+                if (dealer != null && dealer.ContainsKey(cityId))
                 {
                     dealerInCity = dealer[cityId]; 
                 }

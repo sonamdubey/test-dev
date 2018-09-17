@@ -3,16 +3,16 @@
 @if (Model != null)
 {
     ushort i = 0;
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/new/bwm-search.css' inline />";
-    Model.Page_BTF_CSS_Path = "/css/chosen.min.css";
-    Model.Page_JS_Path = "/m/src/new/search_new.js";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/UI/m/css/new/bwm-search.css' inline />";
+    Model.Page_BTF_CSS_Path = "/UI/css/chosen.min.css";
+    Model.Page_JS_Path = "/UI/m/src/new/search_new.js";
     Model.AdTags.AdId = "1517810637194";
     Model.AdTags.AdPath = "/1017752/Bikewale_NewBikeSearch";
     Model.AdTags.Ad_Body_Top_320x50 = true;
     Model.AdTags.Ad_Bot_320x50 = true;
     Model.AdTags.Ad_300x250BTF = true;
     Model.IsHeaderRequired = false;
-    Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
+    Layout = "~/UI/Views/Shared/_Layout_Mobile.cshtml";
 
     <div class="blackOut-window"></div>
     <!-- global-search-popup code starts here -->
@@ -64,7 +64,7 @@
     if (Model.AdTags.Ad_Body_Top_320x50)
     {
         <div class="margin-bottom20 text-center">
-            @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad320x50_Top.cshtml", Model.AdTags);}
+            @{Html.RenderPartial("/UI/Views/Shared/Ads/Mobile/Ad320x50_Top.cshtml", Model.AdTags);}
         </div>
     }
     <section>
@@ -483,7 +483,7 @@
     </div>
     if (Model.AdTags.Ad_300x250BTF)
     {
-        Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad300x250BTF.cshtml", Model.AdTags);
+        Html.RenderPartial("/UI/Views/Shared/Ads/Mobile/Ad300x250BTF.cshtml", Model.AdTags);
     }
     if (Model.TabCount > 0)
     {
@@ -517,19 +517,19 @@
                             <div class="bw-tabs-data margin-right20 margin-left20" id="ctrlNews">
                                 @if (Model.News.FetchedCount > 0)
                                 {
-                                    @Html.Partial("~/Views/News/_RecentNews_Mobile.cshtml", Model.News)
+                                    @Html.Partial("~/UI/Views/News/_RecentNews_Mobile.cshtml", Model.News)
                                 }
                             </div>
                             <div class="bw-tabs-data hide margin-right20 margin-left20" id="ctrlExpertReviews">
                                 @if (Model.ExpertReviews.FetchedCount > 0)
                                 {
-                                    @Html.Partial("~/Views/ExpertReviews/_RecentExpertReviews_Mobile.cshtml", Model.ExpertReviews)
+                                    @Html.Partial("~/UI/Views/ExpertReviews/_RecentExpertReviews_Mobile.cshtml", Model.ExpertReviews)
                                 }
                             </div>
                             <div class="bw-tabs-data hide margin-right20 margin-left20" id="ctrlVideos">
                                 @if (Model.Videos.FetchedCount > 0)
                                 {
-                                    @Html.Partial("~/Views/Videos/_RecentVideos_Mobile.cshtml", Model.Videos)
+                                    @Html.Partial("~/UI/Views/Videos/_RecentVideos_Mobile.cshtml", Model.Videos)
                                 }
                             </div>
                         </div>
@@ -549,7 +549,7 @@
                 <div class="grid-12 alpha omega">
                     <div class="content-box-shadow padding-top15 padding-right10 padding-bottom5 padding-left10 content-details-wrapper">
                         <h2 class="font18 padding-left10 padding-right10">Explore bikes in other price ranges</h2>
-                        @Html.Partial("~/Views/NewBikeSearch/_NewBikeSearchBudget_Mobile.cshtml", Model.BikeSearch.BudgetLinks)
+                        @Html.Partial("~/UI/Views/NewBikeSearch/_NewBikeSearchBudget_Mobile.cshtml", Model.BikeSearch.BudgetLinks)
                     </div>
                 </div>
                 <div class="clear"></div>

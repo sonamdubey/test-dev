@@ -19,7 +19,11 @@ const slider = (state = initialSliderState, action) => {
 
 	switch (action.type) {
 		case emiCalculatorAction.UPDATE_DOWNPAYMENT_SLIDER_VALUE:
-			return state.setIn(['values'], fromJS(action.values)).setIn(['userChange'], action.userChange);
+			return fromJS({
+				...state.toJS(),
+				values: action.values,
+				userChange: action.userChange,
+			});
 		case emiCalculatorAction.OPEN_EMICALCULATOR:
 			let payload = action.payload
 			let downPayment = null;

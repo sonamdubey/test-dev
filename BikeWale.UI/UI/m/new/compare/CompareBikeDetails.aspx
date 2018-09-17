@@ -1,6 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.New.CompareBikeDetails" Trace="false" %>
 
-<%@ Register Src="~/m/controls/SimilarCompareBikes.ascx" TagPrefix="BW" TagName="SimilarBikes" %>
+<%@ Register Src="~/UI/m/controls/SimilarCompareBikes.ascx" TagPrefix="BW" TagName="SimilarBikes" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,15 +16,15 @@
             TargetedModels = targetedModels;
         }
     %>
-    <!-- #include file="/includes/headscript_mobile_min.aspx" -->
-    <link rel="stylesheet" type="text/css" href="/m/css/compare/details.css" />
+    <!-- #include file="/UI/includes/headscript_mobile_min.aspx" -->
+    <link rel="stylesheet" type="text/css" href="/UI/m/css/compare/details.css" />
     <script type="text/javascript">
-        <!-- #include file="\includes\gacode_mobile.aspx" -->
+        <!-- #include file="\UI\includes\gacode_mobile.aspx" -->
     </script>
 </head>
 <body>
     <form id="form1" runat="server">
-        <!-- #include file="/includes/headBW_Mobile.aspx" -->
+        <!-- #include file="/UI/includes/headBW_Mobile.aspx" -->
 
         <% if (vmCompare != null)
             { %>
@@ -537,13 +537,13 @@
         <script type="text/javascript">
             var compareSource = <%=  (int)Bikewale.Entities.Compare.CompareSources.Mobile_CompareBike_Page %>;
         </script>
-        <script type="text/javascript" src="<%= staticUrl  %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
-        <!-- #include file="/includes/footerBW_Mobile.aspx" -->
+        <script type="text/javascript" src="<%= staticUrl  %>/UI/m/src/frameworks.js?<%= staticFileVersion %>"></script>
+        <!-- #include file="/UI/includes/footerBW_Mobile.aspx" -->
         <link href="<%= staticUrl  %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
-        <!-- #include file="/includes/footerscript_mobile.aspx" -->
-        <script type="text/javascript" src="<%= staticUrl %>/m/src/compare/details.js?<%= staticFileVersion %>"></script>
+        <!-- #include file="/UI/includes/footerscript_mobile.aspx" -->
+        <script type="text/javascript" src="<%= staticUrl %>/UI/m/src/compare/details.js?<%= staticFileVersion %>"></script>
         <%
-            string fontFile = "/css/fonts/OpenSans/open-sans-v15-latin-regular.woff",
+            string fontFile = "/UI/css/fonts/OpenSans/open-sans-v15-latin-regular.woff",
             fontUrl = String.Format("{0}{1}?{2}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, fontFile, Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion);
         %>
         <style>
@@ -557,7 +557,7 @@
         
         
         <%  
-            fontFile = "/css/fonts/OpenSans/open-sans-v15-latin-600.woff";
+            fontFile = "/UI/css/fonts/OpenSans/open-sans-v15-latin-600.woff";
             fontUrl = String.Format("{0}{1}?{2}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, fontFile, Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion); 
         %>
         <style>
@@ -569,7 +569,7 @@
              } 
         </style>
         <%  
-            fontFile = "/css/fonts/OpenSans/open-sans-v15-latin-700.woff";
+            fontFile = "/UI/css/fonts/OpenSans/open-sans-v15-latin-700.woff";
             fontUrl  = String.Format("{0}{1}?{2}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, fontFile, Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion); 
         %>
         <style>

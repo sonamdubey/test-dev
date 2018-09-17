@@ -1,10 +1,12 @@
 ﻿using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.QuestionAndAnswers;
 using Bikewale.Entities.UserReviews;
 using Bikewale.Interfaces.Authors;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.Location;
+using Bikewale.Interfaces.QuestionAndAnswers;
 using Bikewale.Interfaces.UserReviews;
 using Bikewale.Interfaces.UserReviews.Search;
 using Bikewale.Models;
@@ -36,7 +38,9 @@ namespace Bikewale.Controllers
         private readonly IBikeModels<BikeModelEntity, int> _models;
         private readonly IBikeModelsCacheRepository<int> _objModelCache = null;
         private readonly IBikeVersions<BikeVersionEntity, uint> _objVersion;
+        private readonly IQuestions _questions;        
 
+        private readonly QuestionAndAnswersController _qnaController = null;
         /// <summary>
         /// Created By : Sushil Kumar on 7th May 2017
         /// Description : Constructor to resolve dependencies    
@@ -58,7 +62,7 @@ namespace Bikewale.Controllers
         public UserReviewController(ICMSCacheContent objArticles, ICityCacheRepository cityCache, IBikeInfo bikeInfo,
             IUserReviewsCache userReviewsCacheRepo, IUserReviews userReviews, IBikeMaskingCacheRepository<BikeModelEntity, int> objModel,
             IUserReviewsRepository userReviewsRepo, IUserReviewsSearch userReviewsSearch, IBikeMakesCacheRepository makesRepository, IUserReviewsCache userReviewCache,
-            IAuthors authors, IBikeModels<BikeModelEntity, int> models, IBikeModelsCacheRepository<int> objModelCache, IBikeVersions<BikeVersionEntity, uint> objVersion)
+            IAuthors authors, IBikeModels<BikeModelEntity, int> models, IBikeModelsCacheRepository<int> objModelCache, IBikeVersions<BikeVersionEntity, uint> objVersion, IQuestions questions)
         {
 
             _userReviews = userReviews;
@@ -75,6 +79,11 @@ namespace Bikewale.Controllers
             _models = models;
             _objModelCache = objModelCache;
             _objVersion = objVersion;
+            _questions = questions;
+
+            //This is to initialize _qnaController member variable. So that we can invoke action method on QuestionAndAnswersController.
+            if (DependencyResolver.Current != null)
+                _qnaController = DependencyResolver.Current.GetService<QuestionAndAnswersController>();
         }
 
 
@@ -276,7 +285,7 @@ namespace Bikewale.Controllers
             if (objRating != null)
                 strQueryString = string.Format("reviewid={0}&makeid={1}&modelid={2}&overallrating={3}&customerid={4}&priceRangeId={5}&userName={6}&emailId={7}&isFake={8}&returnUrl={9}&sourceid={10}&contestsrc={11}", objRating.ReviewId, objInputRating.MakeId, objInputRating.ModelId, objInputRating.OverAllrating, objRating.CustomerId, objInputRating.PriceRangeId, objInputRating.UserName, objInputRating.EmailId, objRating.IsFake, objInputRating.ReturnUrl, objInputRating.SourceId, objInputRating.ContestSrc);
 
-            string strEncoded = Utils.Utils.EncryptTripleDES(strQueryString);
+            string strEncoded = TripleDES.EncryptTripleDES(strQueryString);
             if (objRating != null && !objRating.IsFake)
             {
                 if (objInputRating.IsDesktop.HasValue && objInputRating.IsDesktop.Value)
@@ -335,7 +344,7 @@ namespace Bikewale.Controllers
         [Route("m/user-reviews/write-review/")]
         public ActionResult WriteReview_Mobile(string q)
         {
-            WriteReviewPageModel objPage = new WriteReviewPageModel(_userReviews, q);
+            WriteReviewPageModel objPage = new WriteReviewPageModel(_userReviews, q, _questions);
 
             if (!string.IsNullOrEmpty(q))
             {
@@ -375,7 +384,7 @@ namespace Bikewale.Controllers
         /// 
         [ValidateInput(false)]
         [HttpPost, Route("user-reviews/save/"), ValidateAntiForgeryToken]
-        public ActionResult SaveReview(ReviewSubmitData objReviewData, bool? fromParametersRatingScreen)
+        public ActionResult SaveReview(ReviewSubmitData objReviewData, bool? fromParametersRatingScreen,AnswerSubmitData answerData=null)
         {
             try
             {
@@ -383,8 +392,8 @@ namespace Bikewale.Controllers
 
                 uint decodedReviewId;
                 ulong decodedCustomerId;
-
-                string decodedString = Utils.Utils.DecryptTripleDES(objReviewData.EncodedId);
+                bool isDesktop = objReviewData.IsDesktop.HasValue && objReviewData.IsDesktop.Value;
+                string decodedString = TripleDES.DecryptTripleDES(objReviewData.EncodedId);
                 NameValueCollection queryCollection = HttpUtility.ParseQueryString(decodedString);
 
                 uint.TryParse(queryCollection["reviewid"], out decodedReviewId);
@@ -394,17 +403,24 @@ namespace Bikewale.Controllers
                 objReviewData.CustomerId = decodedCustomerId;
 
                 objReviewData.fromParamterRatingPage = fromParametersRatingScreen;
-
+                
                 objResponse = _userReviews.SaveUserReviews(objReviewData);
+
+                if (answerData!=null && !String.IsNullOrEmpty(answerData.AnswerText))
+                {
+                    answerData.CustomerName = objReviewData.UserName;
+                    answerData.CustomerEmail = objReviewData.EmailId;
+                    _qnaController.ControllerContext = new ControllerContext(this.Request.RequestContext, _qnaController);
+                    var result = _qnaController.SaveUserAnswer(answerData);
+                }
 
                 if (objResponse != null)
                 {
-
                     if (objResponse.IsSuccess)
                     {
-                        if (objReviewData.IsDesktop.HasValue && objReviewData.IsDesktop.Value && fromParametersRatingScreen.HasValue && !fromParametersRatingScreen.Value)
+                        if (isDesktop && fromParametersRatingScreen.HasValue && !fromParametersRatingScreen.Value)
                             return Redirect(string.Format("/parameter-ratings/?q={0}", objReviewData.EncodedString));
-                        else if (objReviewData.IsDesktop.HasValue && objReviewData.IsDesktop.Value)
+                        else if (isDesktop)
                             return Redirect(string.Format("/user-reviews/review-summary/{0}/?q={1}", objReviewData.ReviewId, objReviewData.EncodedString));
                         else
                             return Redirect(string.Format("/m/user-reviews/review-summary/{0}/?q={1}", objReviewData.ReviewId, objReviewData.EncodedString));
@@ -415,7 +431,7 @@ namespace Bikewale.Controllers
                         var objData = objPage.GetData();
                         objData.SubmitResponse = objResponse;
 
-                        if (objReviewData.IsDesktop.HasValue && objReviewData.IsDesktop.Value)
+                        if (isDesktop)
                         {
                             return View("WriteReview", objData);
                         }
@@ -500,7 +516,7 @@ namespace Bikewale.Controllers
         {
             if (reviewid > 0)
             {
-                UserReviewSummaryPage objData = new UserReviewSummaryPage(_userReviews, reviewid, q);
+                UserReviewSummaryPage objData = new UserReviewSummaryPage(_userReviews, reviewid, q,_questions);
                 objData.IsMobile = true;
                 if (objData.status == Entities.StatusCodes.ContentNotFound)
                 {

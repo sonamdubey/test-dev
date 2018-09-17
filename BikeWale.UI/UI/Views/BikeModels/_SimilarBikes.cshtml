@@ -51,9 +51,17 @@
         }
         @if (Model.ShowPriceInCityCTA)
         {
+            if (bike.VersionPrice > 0) { 
             <div class="margin-left20 margin-bottom20">
                 <a href="@Bikewale.Utility.UrlFormatter.PriceInCityUrl(bike.MakeBase.MaskingName,bike.ModelBase.MaskingName,bike.CityMaskingName)" class="btn btn-white btn-truncate font14 btn-size-2" title="@String.Format("{0} {1} On-road price in {2}",make,modelName,bike.CityName)">@String.Format("On-road price in {0}", bike.CityName)</a>
             </div>
+            }
+            else
+            {
+                <div class="margin-left20 margin-bottom20">
+                    <a href="javascript:void(0);" data-pqsourceid="@((int)Model.PQSourceId)" data-makename="@make" data-modelname="@modelName" data-modelid="@bike.ModelBase.ModelId" class="btn btn-grey btn-sm font14  @(bike.AvgExShowroomPrice!=0 ?"":"hide") getquotation" rel="nofollow">Check on-road price</a>
+                </div>
+            }
         }
         @if (Model.Make != null && Model.Model != null && Model.IsNew)
         {

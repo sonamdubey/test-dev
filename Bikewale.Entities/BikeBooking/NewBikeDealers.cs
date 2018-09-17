@@ -18,6 +18,9 @@ namespace Bikewale.Entities.BikeBooking
         [JsonProperty("dealerId"), DataMember]
         public UInt32 DealerId { get; set; }
 
+        [JsonProperty("masterDealerId"), DataMember]
+        public UInt32 MasterDealerId { get; set; }
+
         [JsonProperty("areaId"), DataMember]
         public UInt32 AreaId { get; set; }
 
@@ -75,6 +78,9 @@ namespace Bikewale.Entities.BikeBooking
 
         [JsonProperty("additionalEmails"), DataMember]
         public string AdditionalEmails { get; set; }
+
+        [JsonProperty("campaignId")]
+        public uint CampaignId { get; set; }
 
     }   //End of Class
 }   //End of namespace

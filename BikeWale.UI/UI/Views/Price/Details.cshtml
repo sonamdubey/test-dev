@@ -2,12 +2,13 @@
 @using Bikewale.Common;
 @using Bikewale.BikeBooking;
 @using Bikewale.Utility;
+@using Bikewale.Entities.BikeBooking;
 @{
 
 
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/dealerpricequote.css' inline /> <link rel='stylesheet' type='text/css' href='/sass/partials/dealer-offers.css' inline /><link rel='stylesheet' type='text/css' href='/sass/partials/version-dropdown.css' inline/>";
-    Model.Page_BTF_CSS_Path = "";
-    Model.Page_JS_Paths = new string[] { "/src/utils/dropdown.js", "/src/dealerpricequote.js" };
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/UI/css/dealerpricequote.css' inline /> <link rel='stylesheet' type='text/css' href='/UI/sass/partials/dealer-offers.css' inline /><link rel='stylesheet' type='text/css' href='/UI/sass/partials/version-dropdown.css' inline/>";
+    Model.Page_BTF_CSS_Paths = new string[] { "/UI/sass/partials/lead-popup.css", "/UI/sass/partials/desktop-lead-popup.css" };
+    Model.Page_JS_Paths = new string[] { "/UI/src/utils/dropdown.js", "/UI/src/dealerpricequote.js" };
     Model.AdTags.AdPath = "/1017752/BikeWale_PQ_";
     Model.AdTags.AdId = "1516081799439";
     Model.AdTags.Ad_970x90 = false;
@@ -17,7 +18,7 @@
     Model.AdTags.Ad_300x250BTF = false;
     Model.IsHeaderFix = true;
     Model.ExcludeContestSlug = true;
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/UI/Views/Shared/_Layout.cshtml";
 }
 @{
     var cityArea = Bikewale.Utility.GlobalCityArea.GetGlobalCityArea();
@@ -88,16 +89,19 @@
                                     <ul class="dropdown-box__submenu-list">
                                         @foreach (var version in Model.VersionSpecs)
                                         {
-                                            <li class="dropdown-box-submenu-list__item @(version.VersionId == Model.VersionId ? "submenu-list-item--active" : "")" data-value=@version.VersionId>
-                                                <div class="submenu-list-item__title">
-                                                    <p class="submenu-list-item-title__left-col">@version.VersionName</p>
-                                                    <p class="submenu-list-item-title__right-col">@Html.Raw(version.Price != 0 ? string.Format("&#x20b9; {0}", Format.FormatPrice(Convert.ToString(version.Price))) : (version.AverageExShowroom != 0 ? string.Format("&#x20b9; {0}",
-                                                                                                         Format.FormatPrice(Convert.ToString(version.AverageExShowroom))) : string.Empty))</p>
-                                                </div>
-                                                <ul class="dropdown-box-submenu__specs-list">
-                                                    @Html.Raw(FormatMinSpecs.GetMinSpecsAsLiElement(version.MinSpecsList, "dropdown-box-specs-list__item"))
-                                                </ul>
-                                            </li>
+                                            if (version.Price > 0) 
+                                            { 
+                                                <li class="dropdown-box-submenu-list__item @(version.VersionId == Model.VersionId ? "submenu-list-item--active" : "")" data-value=@version.VersionId>
+                                                    <div class="submenu-list-item__title">
+                                                        <p class="submenu-list-item-title__left-col">@version.VersionName</p>
+                                                        <p class="submenu-list-item-title__right-col">@Html.Raw(version.Price != 0 ? string.Format("&#x20b9; {0}", Format.FormatPrice(Convert.ToString(version.Price))) : (version.AverageExShowroom != 0 ? string.Format("&#x20b9; {0}",
+                                                                                                             Format.FormatPrice(Convert.ToString(version.AverageExShowroom))) : string.Empty))</p>
+                                                    </div>
+                                                    <ul class="dropdown-box-submenu__specs-list">
+                                                        @Html.Raw(FormatMinSpecs.GetMinSpecsAsLiElement(version.MinSpecsList, "dropdown-box-specs-list__item"))
+                                                    </ul>
+                                                </li>
+                                            }
                                         }
                                     </ul>
                                 }
@@ -122,6 +126,12 @@
                                             <tr class="row-with-padding">
                                                 <td width="300" class="font14">
                                                     @item.CategoryName
+                                                    @if(item.CategoryName.ToUpper().Contains("INSURANCE"))
+                                                    {
+                                                        <span class="bwsprite emi-info tooltip-icon-target tooltip-top">
+                                                            <span class="bw-tooltip info-tooltip bw-tooltip--large insurance-info-tooltip"><span class="bw-tooltip-text">Insurance amount is inclusive of a 5-year third party cover. This is in accordance with the law effective 1<sup>st</sup> Sep 2018 where in all the new bikes sold in India should have a 5-year third party cover. <a href="https://www.bikewale.com/news/35897-what-the-new-insurance-directive-means-a-guide.html" target="_blank">Learn more</a></span></span>
+                                                </span>
+                                                    }
                                                 </td>
                                                 <td width="170" align="right">
                                                     @Html.Raw("<span class='font16' >&#x20B9;</span>")&nbsp;<span id="exShowroomPrice" class="font16 text-bold">@CommonOpn.FormatPrice(item.Price.ToString())</span>
@@ -159,7 +169,7 @@
                                             <td align="right">
                                                 @if (Model.IsPrimaryDealerAvailable)
                                                 {
-                                                    <a href="javascript:void(0)" class="font14 bw-ga leadcapturebtn" data-leadsourceid="8" data-item-id="@Model.DealerId" data-item-name="@Model.DetailedDealer.PrimaryDealer.DealerDetails.Organization" data-item-area="@Model.DetailedDealer.PrimaryDealer.DealerDetails.objArea.AreaName" data-cat="Dealer_PQ" data-act="Get_more_details_below_price_clicked" data-func="GetBikeVerLoc" rel="nofollow">Get more details</a>
+                                                    <a href="javascript:void(0)" class="font14 bw-ga leadcapturebtn" data-leadsourceid=@Convert.ToInt16(LeadSourceEnum.DPQ_PriceBreakUpLink_Desktop) data-campaignid="@Model.DetailedDealer.PrimaryDealer.DealerDetails.CampaignId" data-item-id="@Model.DealerId" data-item-name="@Model.DetailedDealer.PrimaryDealer.DealerDetails.Organization" data-item-area="@Model.DetailedDealer.PrimaryDealer.DealerDetails.objArea.AreaName" data-cat="Dealer_PQ" data-act="Get_more_details_below_price_clicked" data-func="GetBikeVerLoc" rel="nofollow">Get more details</a>
                                                 }
                                             </td>
                                         </tr>
@@ -191,6 +201,9 @@
                                         <tr class="row-with-padding">
                                             <td class="font14">
                                                 Insurance (Comprehensive)
+                                                <span class="bwsprite emi-info tooltip-icon-target tooltip-top">
+                                                    <span class="bw-tooltip info-tooltip bw-tooltip--large insurance-info-tooltip"><span class="bw-tooltip-text">Insurance amount is inclusive of a 5-year third party cover. This is in accordance with the law effective 1<sup>st</sup> Sep 2018 where in all the new bikes sold in India should have a 5-year third party cover. <a href="https://www.bikewale.com/news/35897-what-the-new-insurance-directive-means-a-guide.html" target="_blank">Learn more</a></span></span>
+                                                </span>
                                             </td>
                                             <td align="right">
                                                 @Html.Raw("<span class='font16'>&#x20B9;</span>")&nbsp;<span class="font16 text-bold">@CommonOpn.FormatNumeric(@Model.Quotation.Insurance.ToString())</span>
@@ -209,7 +222,7 @@
                                                 @Html.Raw("<span class='font22'>&#x20B9;</span>")&nbsp;<span class="font22 text-bold">@CommonOpn.FormatNumeric(Model.Quotation.OnRoadPrice.ToString())</span>
 												@if (!Model.IsPrimaryDealerAvailable && !string.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink) && !Model.IsManufacturerLeadAdShown)
                                                 {
-                                                    <br><p class="position-rel"><a target="_blank" rel="noopener" href="@Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink" class="font12 bw-ga text-bold" data-cat="Dealer_PQ" data-act="BankbazaarLink_Clicked" data-lab="@string.Format("{0}_{1}",Model.BikeName,Model.CiyName)" rel=" nofollow">Get Personal Loan Offers<span class="position-abt pos-top0 text-light-grey text-unbold font10">&nbsp;Ad</span></a></p>
+                                                    <br><p class="position-rel"><a target="_blank" rel="noopener nofollow" href="@Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink" class="font12 bw-ga text-bold" data-cat="Dealer_PQ" data-act="BankbazaarLink_Clicked" data-lab="@string.Format("{0}_{1}",Model.BikeName,Model.CiyName)">Personal Loans from 10.99%<span class="position-abt pos-top0 text-light-grey text-unbold font10">&nbsp;Ad</span></a></p>
                                                 }
                                             </td>
                                         </tr>
@@ -220,11 +233,11 @@
                                             <td align="right">
                                                 @if (!string.IsNullOrEmpty(Model.LeadCampaign.PriceBreakUpLinkDesktop))
                                                 {
-                                                    <a class="bw-ga font14" href="@string.Format("{0}?campaingid={1}&dealerid={2}&pqguid={3}&leadsourceid={4}&versionid={5}&url={6}&platformid={7}&bike={8}&loanamount={9}&sendLeadSMSCustomer={10}&dealerName={11}", Model.LeadCampaign.PriceBreakUpLinkDesktop, Model.LeadCampaign.CampaignId, Model.LeadCampaign.DealerId, Model.LeadCampaign.PQId, Model.LeadCampaign.LeadSourceId, Model.LeadCampaign.VersionId, Model.LeadCampaign.CurrentPageUrl, Model.LeadCampaign.PlatformId, Model.LeadCampaign.BikeName, Model.LeadCampaign.LoanAmount, Model.LeadCampaign.SendLeadSMSCustomer, Model.LeadCampaign.Organization)" rel="nofollow">@Model.LeadCampaign.PriceBreakUpLinkTextDesktop</a>
+                                                    <a class="bw-ga font14" href="@string.Format("{0}?campaingid={1}&dealerid={2}&pqguid={3}&leadsourceid={4}&versionid={5}&url={6}&platformid={7}&bike={8}&loanamount={9}&sendLeadSMSCustomer={10}&dealerName={11}&cityId={12}", Model.LeadCampaign.PriceBreakUpLinkDesktop, Model.LeadCampaign.CampaignId, Model.LeadCampaign.DealerId, Model.LeadCampaign.PQId, Convert.ToInt16(LeadSourceEnum.DPQ_PriceBreakUpLink_Desktop), Model.LeadCampaign.VersionId, Model.LeadCampaign.CurrentPageUrl, Model.LeadCampaign.PlatformId, Model.LeadCampaign.BikeName, Model.LeadCampaign.LoanAmount, Model.LeadCampaign.SendLeadSMSCustomer, Model.LeadCampaign.Organization,cityId)" rel="nofollow">@Model.LeadCampaign.PriceBreakUpLinkTextDesktop</a>
                                                 }
                                                 else
                                                 {
-                                                    <a class="leadcapturebtn bw-ga font-14" id="pricebreakuplink" href="javascript:void(0)" data-mfgcampid="@Model.LeadCampaign.CampaignId" data-item-id="@Model.LeadCampaign.DealerId" data-item-area="@Model.LeadCampaign.Area" data-leadsourceid="@Model.LeadCampaign.LeadSourceId" data-pqsourceid="@Model.LeadCampaign.PqSourceId" data-item-message="@Model.LeadCampaign.PopupSuccessMessage" data-item-heading="@Model.LeadCampaign.PopupHeading" data-item-description="@Model.LeadCampaign.PopupDescription" data-ispincodrequired="@Model.LeadCampaign.PincodeRequired" data-dealersrequired="@Model.LeadCampaign.DealerRequired" data-item-name="@Model.LeadCampaign.Organization" data-isemailrequired="@Model.LeadCampaign.EmailRequired" data-cat="@Model.LeadCampaign.GACategory" data-act="Get_more_details_below_price_clicked" data-lab="@Model.LeadCampaign.GALabel" data-issendleadsmscustomer="@Model.LeadCampaign.SendLeadSMSCustomer" data-item-organization="@Model.LeadCampaign.Organization" rel="nofollow">
+                                                    <a class="leadcapturebtn bw-ga font-14" id="pricebreakuplink" href="javascript:void(0)" data-mfgcampid="@Model.LeadCampaign.CampaignId" data-item-id="@Model.LeadCampaign.DealerId" data-item-area="@Model.LeadCampaign.Area" data-leadsourceid="@Convert.ToInt16(LeadSourceEnum.DPQ_PriceBreakUpLink_Desktop)" data-campaignid="@Model.LeadCampaign.CampaignId" data-pqsourceid="@Model.LeadCampaign.PqSourceId" data-item-message="@Model.LeadCampaign.PopupSuccessMessage" data-item-heading="@Model.LeadCampaign.PopupHeading" data-item-description="@Model.LeadCampaign.PopupDescription" data-ispincodrequired="@Model.LeadCampaign.PincodeRequired" data-dealersrequired="@Model.LeadCampaign.DealerRequired" data-item-name="@Model.LeadCampaign.Organization" data-isemailrequired="@Model.LeadCampaign.EmailRequired" data-cat="@Model.LeadCampaign.GACategory" data-act="Get_more_details_below_price_clicked" data-lab="@Model.LeadCampaign.GALabel" data-issendleadsmscustomer="@Model.LeadCampaign.SendLeadSMSCustomer" data-item-organization="@Model.LeadCampaign.Organization" rel="nofollow">
                                                         @Model.LeadCampaign.PriceBreakUpLinkTextDesktop
                                                     </a>
                                                 }
@@ -241,7 +254,7 @@
                                                 </td>
                                                 <td align="right">
 
-                                                    <a href="javascript:void(0)" class="font14 bw-ga leadcapturebtn" data-leadsourceid="8" data-item-id="@Model.DealerId" data-item-name="@Model.DetailedDealer.PrimaryDealer.DealerDetails.Organization" data-item-area="@Model.DetailedDealer.PrimaryDealer.DealerDetails.objArea.AreaName" data-cat="Dealer_PQ" data-act="Get_more_details_below_price_clicked" data-func="GetBikeVerLoc" rel="nofollow">Get more details</a>
+                                                    <a href="javascript:void(0)" class="font14 bw-ga leadcapturebtn" data-leadsourceid=@Convert.ToInt16(LeadSourceEnum.DPQ_PriceBreakUpLink_Desktop) data-campaignid="@Model.DetailedDealer.PrimaryDealer.DealerDetails.CampaignId" data-item-id="@Model.DealerId" data-item-name="@Model.DetailedDealer.PrimaryDealer.DealerDetails.Organization" data-item-area="@Model.DetailedDealer.PrimaryDealer.DealerDetails.objArea.AreaName" data-cat="Dealer_PQ" data-act="Get_more_details_below_price_clicked" data-func="GetBikeVerLoc" rel="nofollow">Get more details</a>
                                                 </td>
                                             </tr>
                                         }
@@ -258,7 +271,7 @@
 
                     @if (Model.DetailedDealer.PrimaryDealer != null && Model.DetailedDealer.PrimaryDealer.DealerDetails != null && Model.DetailedDealer.PrimaryDealer.DealerDetails.objArea != null)
                     {
-                        @Html.Partial("~/Views/Price/_DealerCampaign.cshtml", Model.DetailedDealer)
+                        @Html.Partial("~/UI/Views/Price/_DealerCampaign.cshtml", Model.DetailedDealer)
                     }
                 </div>
             </div>
@@ -275,7 +288,7 @@
             <div class="grid-12">
                 <div class="content-box-shadow padding-bottom20">
                     <h2 class="font18 padding-top20 padding-left20">Prices from @Model.DetailedDealer.SecondaryDealerCount more partner dealer@(Model.DetailedDealer.SecondaryDealerCount > 1 ? "s" : "")</h2><div class="jcarousel-wrapper inner-content-carousel small-card-carousel">
-                        @Html.Partial("~/Views/Price/_SecondaryDealers.cshtml", Model.DetailedDealer.SecondaryDealers)
+                        @Html.Partial("~/UI/Views/Price/_SecondaryDealers.cshtml", Model.DetailedDealer.SecondaryDealers)
                     </div>
                 </div>
             </div>
@@ -289,7 +302,7 @@
     <section>
         <div class="container">
             <div class="grid-12">
-                @Html.Partial("~/Views/Price/_ManufacturerCampaign.cshtml", Model.LeadCampaign)
+                @Html.Partial("~/UI/Views/Price/_ManufacturerCampaign.cshtml", Model.LeadCampaign)
             </div>
             <div class="clear"></div>
         </div>
@@ -393,9 +406,13 @@
                                             {
                                                 <a class="btn btn-orange btn-160-32 margin-right10 bw-ga" href="/finance/capitalfirst/?campaingid=@Model.EMICampaign.CampaignId&amp;dealerid=@Model.EMICampaign.DealerId&amp;pqguid=@Model.PQId&amp;leadsourceid=@Model.EMICampaign.LeadSourceId&amp;versionid=@Model.EMICampaign.VersionId&amp;url=@Model.EMICampaign.CurrentPageUrl&amp;platformid=@Model.EMICampaign.PlatformId&amp;bike=@Model.BikeName&amp;loanamount=@Model.EMICampaign.LoanAmount&amp;cityid=@cityId&amp;dealerName=@Model.EMICampaign.Organization&amp;sendLeadSMSCustomer=@Convert.ToString(Model.EMICampaign.SendLeadSMSCustomer)" rel="nofollow">@Model.EMICampaign.EMIButtonTextDesktop</a>
                                             }
+                                            else if (Model.EMICampaign.DealerId == Bikewale.Utility.BWConfiguration.Instance.BajajAutoFinanceDealerId)
+                                            {
+                                                <a class="btn btn-orange btn-160-32 margin-right10 bw-ga" rel="nofollow" href="@string.Format("/finance/bajaj/?dealerid={0}&campaignid={1}&pqguid={2}&leadsourceid={3}&versionid={4}&url={5}&platformid={6}&bike={7}&dealerName={8}&sendLeadSMSCustomer={9}&cityid={10}", Model.EMICampaign.DealerId, Model.EMICampaign.CampaignId, Model.PQId, Model.EMICampaign.LeadSourceId, Model.EMICampaign.VersionId, Model.EMICampaign.CurrentPageUrl, Model.EMICampaign.PlatformId, Model.BikeName, Model.EMICampaign.Organization, Model.EMICampaign.SendLeadSMSCustomer, cityId)">@Model.EMICampaign.EMIButtonTextDesktop</a>
+                                            }
                                             else
                                             {
-                                                <a href="javascript:void(0)" class="btn btn-orange btn-160-32 margin-right10 leadcapturebtn bw-ga" rel="nofollow" data-mfgcampid="@Model.EMICampaign.CampaignId" data-item-id="@Model.EMICampaign.DealerId" data-item-area="@Model.EMICampaign.Area" data-leadsourceid="@Model.EMICampaign.LeadSourceId" data-pqsourceid="@Model.EMICampaign.PqSourceId" data-item-message="@String.Format(Model.EMICampaign.PopupSuccessMessage,Model.EMICampaign.Organization)" data-item-heading="@Model.EMICampaign.PopupHeading" data-item-description="@Model.EMICampaign.PopupDescription" data-ispincodrequired="@Model.EMICampaign.PincodeRequired" data-dealersrequired="@Model.EMICampaign.DealerRequired" data-item-name="@(String.Format("Authorised {0} Dealer", Model.EMICampaign.Organization))" id="btnManufacturer" data-isemailrequired="@Model.EMICampaign.EmailRequired" data-issendleadsmscustomer="@Model.EMICampaign.SendLeadSMSCustomer" data-item-organization="@Model.EMICampaign.Organization">@Model.EMICampaign.EMIButtonTextDesktop</a>
+                                                <a href="javascript:void(0)" class="btn btn-orange btn-160-32 margin-right10 leadcapturebtn bw-ga" rel="nofollow" data-mfgcampid="@Model.EMICampaign.CampaignId" data-item-id="@Model.EMICampaign.DealerId" data-item-area="@Model.EMICampaign.Area" data-leadsourceid="@Model.EMICampaign.LeadSourceId" data-campaignid="@Model.EMICampaign.CampaignId" data-pqsourceid="@Model.EMICampaign.PqSourceId" data-item-message="@String.Format(Model.EMICampaign.PopupSuccessMessage,Model.EMICampaign.Organization)" data-item-heading="@Model.EMICampaign.PopupHeading" data-item-description="@Model.EMICampaign.PopupDescription" data-ispincodrequired="@Model.EMICampaign.PincodeRequired" data-dealersrequired="@Model.EMICampaign.DealerRequired" data-item-name="@(String.Format("Authorised {0} Dealer", Model.EMICampaign.Organization))" id="btnManufacturer" data-isemailrequired="@Model.EMICampaign.EmailRequired" data-issendleadsmscustomer="@Model.EMICampaign.SendLeadSMSCustomer" data-item-organization="@Model.EMICampaign.Organization">@Model.EMICampaign.EMIButtonTextDesktop</a>
                                             }
 
                                         <div class="inline-block">
@@ -432,7 +449,7 @@
                             </div>
                             <div class="clear"></div>
                         </div>
-                        @Html.Partial("~/Views/DealerShowroom/_DealerCard.cshtml", Model.OtherDealers)
+                        @Html.Partial("~/UI/Views/DealerShowroom/_DealerCard.cshtml", Model.OtherDealers)
                         <div class="clear"></div>
                     </div>
                     <div class="margin-right10 margin-left10 border-solid-bottom"></div>
@@ -455,10 +472,10 @@
                             <ul>
                                 @if (Model.AdTags.Ad_292x359)
                                 {
-                                    { Html.RenderPartial("/Views/Shared/Ads/Desktop/Ad292x359.cshtml", new { AdId = "1506343636197" }); }
+                                    { Html.RenderPartial("/UI/Views/Shared/Ads/Desktop/Ad292x359.cshtml", new { AdId = "1506343636197" }); }
 
                                 }
-                                @Html.Partial("~/Views/BikeModels/_SimilarBikes.cshtml", Model.SimilarBikesVM)
+                                @Html.Partial("~/UI/Views/BikeModels/_SimilarBikes.cshtml", Model.SimilarBikesVM)
                             </ul>
                         </div>
                         <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a></span>
@@ -477,9 +494,9 @@
 
 @if (Model.LeadCapture != null)
 {
-    @Html.Partial("~/Views/Shared/_LeadCapture.cshtml", Model.LeadCapture)
+    @Html.Partial("~/UI/Views/Shared/_LeadCapture.cshtml", Model.LeadCapture)
 }
-<script defer src="@String.Format("{0}/src/ads.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl,Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion)"></script>
+<script defer src="@String.Format("{0}/UI/src/ads.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl,Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion)"></script>
 
 <script type="text/javascript">
 

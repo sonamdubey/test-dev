@@ -21,7 +21,7 @@ namespace Bikewale.Controllers
         public ActionResult ChangeLocation(uint cityId, string cityName)
         {
             ChangeLocationPopupVM objVM = (new ChangeLocationPopup(new GlobalCityAreaEntity() { CityId = cityId, City = cityName })).GetData();
-            return PartialView("~/views/Location/_changelocation.cshtml", objVM);
+            return PartialView("~/UI/views/Location/_changelocation.cshtml", objVM);
         }
 
         /// <summary>
@@ -35,7 +35,7 @@ namespace Bikewale.Controllers
         public ActionResult ChangeLocation_Mobile(uint cityId, string cityName)
         {
             ChangeLocationPopupVM objVM = (new ChangeLocationPopup(new GlobalCityAreaEntity() { CityId = cityId, City = cityName })).GetData();
-            return PartialView("~/views/Location/_changelocation_mobile.cshtml", objVM);
+            return PartialView("~/UI/views/Location/_changelocation_mobile.cshtml", objVM);
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.New.ModelSpecsFeatures" EnableViewState="false" %>
 
-<%@ Register TagPrefix="BW" TagName="GenericBikeInfo" Src="~/controls/GenericBikeInfoControl.ascx" %>
+<%@ Register TagPrefix="BW" TagName="GenericBikeInfo" Src="~/UI/controls/GenericBikeInfoControl.ascx" %>
 <!DOCTYPE html>
 
 <html>
@@ -20,13 +20,13 @@
         AdId = "1442913773076";
         AdPath = "/1017752/Bikewale_NewBike_";
     %>
-    <!-- #include file="/includes/headscript.aspx" -->
-    <link href="<%=  staticUrl  %>/css/specsandfeature.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
+    <!-- #include file="/UI/includes/headscript.aspx" -->
+    <link href="<%=  staticUrl  %>/UI/css/specsandfeature.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
 
 </head>
 <body class="bg-light-grey">
     <form runat="server">
-        <!-- #include file="/includes/headBW.aspx" -->
+        <!-- #include file="/UI/includes/headBW.aspx" -->
         <section class="bg-light-grey padding-top10">
             <div class="container">
                 <div class="grid-12">
@@ -406,8 +406,8 @@
             </div>
             <div class="clear"></div>
         </section>
-        <!-- #include file="/includes/footerBW.aspx" -->
-        <!-- #include file="/includes/footerscript.aspx" -->
+        <!-- #include file="/UI/includes/footerBW.aspx" -->
+        <!-- #include file="/UI/includes/footerscript.aspx" -->
 
         <script type="text/javascript">
             var pageUrl = window.location.href;

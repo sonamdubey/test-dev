@@ -1,12 +1,13 @@
-﻿<%@ Register Src="~/controls/LoginStatusNew.ascx" TagPrefix="BW" TagName="LoginStatus" %>
-<%@ Register Src="~/controls/PopupWidget.ascx" TagPrefix="BW" TagName="PopupWidget" %>
-<%@ Register Src="~/controls/ChangeLocationPopup.ascx" TagPrefix="BW" TagName="LocationWidget" %>
-
+﻿<%@ Register Src="~/UI/controls/LoginStatusNew.ascx" TagPrefix="BW" TagName="LoginStatus" %>
+<%@ Register Src="~/UI/controls/PopupWidget.ascx" TagPrefix="BW" TagName="PopupWidget" %>
+<%@ Register Src="~/UI/controls/ChangeLocationPopup.ascx" TagPrefix="BW" TagName="LocationWidget" %>
     <div id="header" class='<%= isHeaderFix ? "header-fixed": "header-not-fixed" %> <%=  isTransparentHeader?" header-landing header-transparent":String.Empty   %>'> <!-- Fixed Header code starts here -->
-        <div class="leftfloat">
+        
+		<div class="leftfloat">
             <span class="navbarBtn bwsprite nav-icon margin-right25"></span>
             <a href="/" id="bwheader-logo" class="bwsprite bw-logo" title="Bikewale" alt="Bikewale"></a>
 			</div>
+		
         <div class="rightfloat">
             <div class="global-search" >
                 <span class="bwsprite search-icon-grey" id="btnGlobalSearch" style="z-index:2"></span>
@@ -42,6 +43,16 @@
             <div class="clear"></div>
         </div>
         <div class="clear"></div>
+		<!-- BW Doodle start-->
+		<span class="bw-doodle__container">
+			<span class="bw-doodle__bell-one"></span>
+			<span class="bw-doodle__bell-two"></span>
+			<span class="bw-doodle__ganesh-image">
+				<span class="bw-doodle__ganesh"></span>
+				<span class="bw-doodle__ganesh-bg"></span>
+			</span>
+		</span>
+		<!-- BW Doodle end-->
     </div> <!-- ends here -->
     <div class="clear"></div>    
 <% if(isAd970x90Shown){ %>
@@ -49,7 +60,7 @@
         <div class="container">
             <div class="grid-12">
                 <div>
-                    <!-- #include file="/ads/Ad970x90.aspx" -->
+                    <!-- #include file="/UI/ads/Ad970x90.aspx" -->
                 </div>
             </div>
             <div class="clear"></div>

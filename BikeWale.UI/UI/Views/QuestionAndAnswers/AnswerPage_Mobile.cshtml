@@ -1,0 +1,51 @@
+﻿@model Bikewale.Models.QuestionAndAnswers.SaveUserAnswerVM
+@using Bikewale.Utility;
+@{
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/UI/sass/partials/qna-answer.css' inline/> ";
+    Model.Page_JS_Paths = new string[] { "/UI/src/utils/text-area.js", "/UI/src/QuestionAndAnswers/questionAnswerFlow.js" };
+    ViewBag.Title = "index";
+    Layout = "~/UI/Views/Shared/_Layout_Mobile.cshtml";
+}
+@if (Model != null)
+{
+    <section>
+        <div class="qna-ans-head">
+            <span class="ans-head__answer-for">
+                You are answering for:
+            </span>
+            <h1 class="ans-head__model">
+                @if (Model.BikeMakeModel != null )
+                {
+                    @Html.Raw(string.Format("{0} {1}", Model.BikeMakeModel.MakeBase.MakeName, Model.BikeMakeModel.ModelName));
+                }
+            </h1>
+        </div>
+        @if (Model.Question != null)
+        {
+            <form id="answerForm" action="/questions-and-answers/save/answer/" method="post">
+                <div class="qna-ans__content">
+                    <p class="question-answer-wrapper__question">
+                        @string.Format("Q: {0}?", Model.Question.Text)
+                    </p>
+                    <label class="form-control-box area-control-box">
+                        <textarea class="form-control__input form-control__text-area" placeholder="Start Typing Answer" id="submittedAnswer"></textarea>
+                        <span class="form-control__error">*Please enter the answer</span>
+                    </label>
+                    <span class="question-answer__description">Your answer will help your fellow riders make better decisions</span>
+                    <input type="hidden" id="submittedAnswerText" name="submittedAnswerText" />
+                    <input type="hidden" name="encryptedUrl" value="@Model.EncryptedUrl" />
+                    <input type="hidden" name="platformId" value="@Model.Platform" />
+                    <input id="sourceId" type="hidden" name="sourceId" value="@Model.Source" />
+                    <input type="hidden" name="returnUrl" value="@(Url.Encode(Model.ReturnUrl))" />
+                    <input type="hidden" id="makeName" value="@(Model.BikeMakeModel.MakeBase.MakeName)" />
+                    <input type="hidden" id="modelName" value="@(Model.BikeMakeModel.ModelName)" />
+                    @Html.AntiForgeryToken()
+                    <input type="submit" class="btn btn-blue" value="Submit">
+                </div>
+            </form>
+
+        }
+    </section>
+}
+
+

@@ -3,7 +3,7 @@
 @using Bikewale.Utility
 @if (Model != null && Model.VideosList != null && Model.VideosList.Any())
 {
-    <script defer type="text/javascript" src="@String.Format("{0}/src/lazyloadyoutube.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, Bikewale.Utility.BWConfiguration.Instance.StaticPluginFileVersion)"></script>
+    <script defer type="text/javascript" src="@String.Format("{0}/UI/src/lazyloadyoutube.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, Bikewale.Utility.BWConfiguration.Instance.StaticPluginFileVersion)"></script>
     
     var firstVideo = Model.VideosList.First();
 

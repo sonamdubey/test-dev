@@ -2,16 +2,16 @@
 @{
     Model.IsHeaderFix = false;
     Model.IsPageTypeLanding = true;
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/user-review/review-contest.css' inline />";
-    Model.Page_JS_Path = "/src/user-review/review-contest.js";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/UI/sass/user-review/review-contest.css' inline />";
+    Model.Page_JS_Path = "/UI/src/user-review/review-contest.js";
+    Layout = "~/UI/Views/Shared/_Layout.cshtml";
     Model.ExcludeContestSlug = true;
 }
 
 
-@Html.Partial("~/Views/Shared/fontcss/Oxygen/_Latin300.cshtml")
-@Html.Partial("~/Views/Shared/fontcss/Oxygen/_Latin400.cshtml")
-@Html.Partial("~/Views/Shared/fontcss/Oxygen/_Latin700.cshtml")
+@Html.Partial("~/UI/Views/Shared/fontcss/Oxygen/_Latin300.cshtml")
+@Html.Partial("~/UI/Views/Shared/fontcss/Oxygen/_Latin400.cshtml")
+@Html.Partial("~/UI/Views/Shared/fontcss/Oxygen/_Latin700.cshtml")
 
 
 <section>
@@ -128,7 +128,7 @@
 
         @if (Model.UserReviewsWinners != null && Model.UserReviewsWinners.Count() > 0)
         {
-            @Html.Partial("~/Views/UserReview/_UserReviewContestWinners.cshtml", Model)
+            @Html.Partial("~/UI/Views/UserReview/_UserReviewContestWinners.cshtml", Model)
         }
 
         <div class="container padding-right10 padding-left10">
@@ -174,11 +174,11 @@
 
 @if (Model.UserReviewPopup != null)
 {
-    @Html.Partial("~/Views/Make/_MakeModelPopup.cshtml", Model.UserReviewPopup);
+    @Html.Partial("~/UI/Views/Make/_MakeModelPopup.cshtml", Model.UserReviewPopup);
 }
 
 
-<script defer type="text/javascript" src="@String.Format("{0}/src/swiper-3.1.7.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl,Bikewale.Utility.BWConfiguration.Instance.StaticFrameworkFileVersion)"></script>
+<script defer type="text/javascript" src="@String.Format("{0}/UI/src/swiper-3.1.7.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl,Bikewale.Utility.BWConfiguration.Instance.StaticFrameworkFileVersion)"></script>
 
 <style type="text/css">
     .winner-review-swiper .swiper-slide {

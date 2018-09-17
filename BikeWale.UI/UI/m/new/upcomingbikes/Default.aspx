@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" EnableViewState="false" Inherits="Bikewale.Mobile.New.UpcomingbikesList" Trace="false" %>
-<%@ Register TagPrefix="Pager" TagName="Pager" Src="/m/controls/ListPagerControl.ascx" %>
+<%@ Register TagPrefix="Pager" TagName="Pager" Src="/UI/m/controls/ListPagerControl.ascx" %>
 <% 
     if (meta != null)
     {
@@ -15,7 +15,7 @@
         Ad_Bot_320x50 = true;
     }
 %>
-<!-- #include file="/includes/headermobile.aspx" -->
+<!-- #include file="/UI/includes/headermobile.aspx" -->
 <div class="padding5">
     <div id="br-cr"  itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
         <a href="/m/" class="normal" itemprop="url"><span itemprop="title">Home</span></a> &rsaquo; 
@@ -48,4 +48,4 @@
     </div>
     <Pager:Pager id="listPager" runat="server"></Pager:Pager>
     </div>
-<!-- #include file="/includes/footermobile.aspx" -->
+<!-- #include file="/UI/includes/footermobile.aspx" -->

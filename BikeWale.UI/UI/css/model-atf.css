@@ -655,8 +655,10 @@
 
 .multi-brand-tooltip {
     width: 395px;
-    top: -15px;
-    right: -405px; /* width + 10px */
+}
+
+.bw-tooltip {
+    position: relative;
 }
 
 .tooltip-left .bw-tooltip-text:before,
@@ -705,6 +707,7 @@
     border-radius: 2px;
     box-shadow: 0 1px 2px #eee;
     cursor: default;
+    position: absolute;
 }
 
 .tooltip-white {
@@ -902,7 +905,7 @@
 .text-blue { color:#0288d1; }
 .border-light-bottom { border-bottom:1px solid #f1f1f1; }
 
-#leadCapturePopup, #otpPopup { display:none;}
+#otpPopup { display:none;}
 
 /* price list */
 /* version prices */

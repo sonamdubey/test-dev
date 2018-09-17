@@ -3,9 +3,9 @@
     Model.AdTags.AdPath = "/1017752/BikeWale_New_";
     Model.AdTags.AdId = "1395986297721";
     Model.AdTags.Ad_970x90 = true;
-    Layout = "~/Views/Shared/_Layout.cshtml";
-    Model.Page_JS_Path = "/src/new-launch.js";
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/new-launch/new-launch.css' inline />";    
+    Layout = "~/UI/Views/Shared/_Layout.cshtml";
+    Model.Page_JS_Path = "/UI/src/new-launch.js";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/UI/sass/new-launch/new-launch.css' inline />";    
 }
 
 <section>
@@ -22,7 +22,7 @@
 <section id="newlaunched-bikes" data-make-filter="@Model.Make.MakeId" data-city="@Model.CityId">
     <div class="container section-bottom-margin">
         <div class="grid-12">
-            @Html.Partial("~/Views/NewLaunches/_NewLaunchedBikes.cshtml", Model.NewLaunched)
+            @Html.Partial("~/UI/Views/NewLaunches/_NewLaunchedBikes.cshtml", Model.NewLaunched)
         </div>
         <div class="clear"></div>
     </div>
@@ -41,7 +41,7 @@
                     </div>
                     <div class="clear"></div>
                 </div>
-                @Html.Partial("~/Views/Upcoming/_UpcomingBikes.cshtml", Model.Upcoming)
+                @Html.Partial("~/UI/Views/Upcoming/_UpcomingBikes.cshtml", Model.Upcoming)
             </div>
         </div>
         <div class="clear"></div>

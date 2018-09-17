@@ -2,7 +2,7 @@
 @model AskQuestionPopupVM
 @if(Model != null)
 {
- 
+
     <div id="questionAnswerPopup" class="question-answer-popup" data-makename="@Model.MakeName" data-modelname="@Model.ModelName" data-cat="@Model.GAPageType">
         <div class="popup-header">
             <span class="popup-header__title">
@@ -27,7 +27,7 @@
                 </div>
 
 
-                <label class="form-control-box area-control-box">
+                <label class="form-control-box area-control-box" data-char-limit="true">
                     <textarea class="form-control__input form-control__text-area" data-validationtype="nonempty" data-maxlength="300" placeholder="Start Typing Question" data-bind="value: text"></textarea>
                     <span class="text-area__character-count">
                         Max 300 Characters
@@ -35,13 +35,13 @@
                 </label>
 
                 <label class="form-control-box question-answer__email">
-                    <input type="text" class="form-control__input" data-validationtype="name" placeholder="Your Name Here" data-bind="value: askedBy().name" />
+                    <input type="text" class="form-control__input" data-validationtype="name" placeholder="Your Name Here" data-bind="value: askedBy().name" aria-label="Your Name"/>
                     <span class="form-control__error">
                         *Name is Mandatory
                     </span>
                 </label>
                 <label class="form-control-box question-answer__email">
-                    <input type="email" class="form-control__input" data-validationtype="email" placeholder="Your Email ID Here" data-bind="value: askedBy().email" />
+                    <input type="email" class="form-control__input" data-validationtype="email" placeholder="Your Email ID Here" data-bind="value: askedBy().email" aria-label="Your Email Id"/>
                     <span class="form-control__error">
                         *Email ID is Mandatory
                     </span>
@@ -64,7 +64,7 @@
                 Post Question
             </button>
         </div>
-        <div id="ub-ajax-loader">
+        <div id="ub-ajax-loader-qna" class="display-loader">
             <div class="cover-popup-loader"></div>
         </div>
     </div>

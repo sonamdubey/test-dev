@@ -3,8 +3,8 @@
 
 @if (Model != null && Model.Author != null)
 {
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/authors.css' inline />";
-    Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/UI/m/css/authors.css' inline />";
+    Layout = "~/UI/Views/Shared/_Layout_Mobile.cshtml";
     Model.AdTags.AdId = "1395986297721";
     Model.AdTags.AdPath = "/1017752/Bikewale_Reviews";
     Model.AdTags.Ad_320x50 = true;
@@ -83,7 +83,7 @@
         {
             <div class="box-content">
                 <h2 class="list-heading padding-left20 padding-top15">Other authors</h2>
-                @Html.Partial("~/Views/Author/_AuthorsListCarousel_Mobile.cshtml", Model.OtherAuthors)
+                @Html.Partial("~/UI/Views/Author/_AuthorsListCarousel_Mobile.cshtml", Model.OtherAuthors)
             </div>
         }
     </div>

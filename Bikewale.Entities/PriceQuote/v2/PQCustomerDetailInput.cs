@@ -4,6 +4,8 @@ namespace Bikewale.Entities.PriceQuote.v2
     /// <summary>
     /// Created by  : Pratibha Verma on 26 June 2018
     /// Description : PriceQuote.v2.PQCustomerDetailInput entity created to map PriceQuote.v3.PQCustomerDetailInput dto
+    /// Modified by : Rajan Chauhan on 27 July 2018
+    /// Description : Added AreaId
     /// </summary>
     public class PQCustomerDetailInput
     {
@@ -25,10 +27,16 @@ namespace Bikewale.Entities.PriceQuote.v2
 
         public uint CityId { get; set; }
 
+        public uint AreaId { get; set; }
+
         public ushort? LeadSourceId { get; set; }
 
         public string DeviceId { get; set; }
 
         public uint LeadId { get; set; }
+
+        public ushort PlatformId { get; set; }
+        public ushort PageId { get; set; }
+        public uint CampaignId { get; set; }
     }
 }

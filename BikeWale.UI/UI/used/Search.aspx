@@ -1,10 +1,10 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false"  Inherits="Bikewale.Used.Search" EnableViewState="false" %>
-<%@ Register TagPrefix="BikeWale" TagName="Pager" Src="~/m/controls/LinkPagerControl.ascx" %>
-<%@ Register Src="/controls/UsedBikeLeadCaptureControl.ascx" TagPrefix="BW" TagName="UBLeadCapturePopup" %>
-<%@ Register Src="/controls/UsedBikesCityCountByBrand.ascx" TagPrefix="BW" TagName="UBCCountByMake" %>
-<%@ Register Src="/controls/UsedBikeByModels.ascx" TagPrefix="BW" TagName="UsedBikeByModels" %>
-<%@ Register Src="/controls/UsedBikeModelByCity.ascx" TagPrefix="BW" TagName="UsedBikeModelByCity" %>
-<%@ Register Src="/controls/UsedBikesCityCountByModel.ascx" TagPrefix="BW" TagName="UBCCountByModel" %>
+<%@ Register TagPrefix="BikeWale" TagName="Pager" Src="~/UI/m/controls/LinkPagerControl.ascx" %>
+<%@ Register Src="/UI/controls/UsedBikeLeadCaptureControl.ascx" TagPrefix="BW" TagName="UBLeadCapturePopup" %>
+<%@ Register Src="/UI/controls/UsedBikesCityCountByBrand.ascx" TagPrefix="BW" TagName="UBCCountByMake" %>
+<%@ Register Src="/UI/controls/UsedBikeByModels.ascx" TagPrefix="BW" TagName="UsedBikeByModels" %>
+<%@ Register Src="/UI/controls/UsedBikeModelByCity.ascx" TagPrefix="BW" TagName="UsedBikeModelByCity" %>
+<%@ Register Src="/UI/controls/UsedBikesCityCountByModel.ascx" TagPrefix="BW" TagName="UBCCountByModel" %>
 
 <!DOCTYPE html>
 <html>
@@ -23,15 +23,15 @@
         isAd300x250Shown=false;         
 
     %>
-    <!-- #include file="/includes/headscript_desktop_min.aspx" -->
-    <link rel="stylesheet" type="text/css" href="/css/used/search.css" />
+    <!-- #include file="/UI/includes/headscript_desktop_min.aspx" -->
+    <link rel="stylesheet" type="text/css" href="/UI/css/used/search.css" />
     <script type="text/javascript">
-        <!-- #include file="\includes\gacode_desktop.aspx" -->
+        <!-- #include file="\UI\includes\gacode_desktop.aspx" -->
     </script>
 </head>
 <body class="bg-light-grey header-fixed-inner">
     <form id="form1" runat="server">
-        <!-- #include file="/includes/headBW.aspx" -->
+        <!-- #include file="/UI/includes/headBW.aspx" -->
 
         <div id="usedBikesSection">
 
@@ -435,11 +435,11 @@
 
         <div id="loader-bg-window"></div>
 
-        <script type="text/javascript" src="<%= staticUrl  %>/src/frameworks.js?<%=staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl  %>/UI/src/frameworks.js?<%=staticFileVersion %>"></script>
         <BW:UBLeadCapturePopup runat="server" ID="ctrlUBLeadCapturePopup"></BW:UBLeadCapturePopup>
-        <!-- #include file="/includes/footerBW.aspx" -->
-        <link href="<%= staticUrl  %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
-        <!-- #include file="/includes/footerscript.aspx" -->
+        <!-- #include file="/UI/includes/footerBW.aspx" -->
+        <link href="<%= staticUrl  %>/UI/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
+        <!-- #include file="/UI/includes/footerscript.aspx" -->
          <script type="text/javascript">
              var OnInitTotalBikes = <%= totalListing %>; 
              var pageQS = "<%= currentQueryString %>" ;
@@ -448,8 +448,8 @@
              var gaObj = { 'id': '<%= (int)Bikewale.Entities.Pages.GAPages.Used_Bike_Listing%>', 'name': '<%= Bikewale.Entities.Pages.GAPages.Used_Bike_Listing%>' };
 
         </script>
-        <script type="text/javascript" src="<%= staticUrl %>/src/used-search.js?<%= staticFileVersion%>"></script>
-        <!-- #include file="/includes/fontBW.aspx" -->
+        <script type="text/javascript" src="<%= staticUrl %>/UI/src/used-search.js?<%= staticFileVersion%>"></script>
+        <!-- #include file="/UI/includes/fontBW.aspx" -->
     </form>
 </body>
 </html>

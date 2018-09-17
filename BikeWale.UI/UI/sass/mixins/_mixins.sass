@@ -16,7 +16,7 @@
     clear: both
 
 //icon in after content
-@mixin afterIcon($fromRight: 8%, $fromTop: 34%, $hover: false)
+@mixin afterIcon-arrow-3799a7($fromRight: 8%, $fromTop: 34%, $hover: false)
   &:after
     @include right-arrow-3799a7-icon
     content: ''
@@ -27,11 +27,25 @@
     height: 10px
 
   @if $hover
-    @include afterIcon-hover
+    @include afterIcon-arrow-fff-hover
 
-@mixin afterIcon-hover
+@mixin afterIcon-arrow-0288d1($fromRight: 8%, $fromTop: 34%, $hover: false)
+  &:after
+    @include right-arrow-0288d1-icon
+    content: ''
+    position: absolute
+    right: $fromRight
+    top: $fromTop
+    width: 6px
+    height: 10px
+
+  @if $hover
+    @include afterIcon-arrow-fff-hover
+
+@mixin afterIcon-arrow-fff-hover
   &:hover:after
     @include right-arrow-fff-icon
+
 
 //box-shadow
 @mixin box-shadow($shadow...)

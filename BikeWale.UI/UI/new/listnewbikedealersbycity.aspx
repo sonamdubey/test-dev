@@ -1,8 +1,8 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.New.ListNewBikeDealersByCity" Trace="false" Debug="false" %>
 
-<%@ Register TagPrefix="NBL" TagName="NewBikeLaunches" Src="/controls/NewBikeLaunches.ascx" %>
-<%@ Register TagPrefix="TIP" TagName="TipsAdvicesMin" Src="/controls/TipsAdvicesMin.ascx" %>
-<%@ Register TagPrefix="FM" TagName="ForumsMin" Src="/controls/forumsmin.ascx" %>
+<%@ Register TagPrefix="NBL" TagName="NewBikeLaunches" Src="/UI/controls/NewBikeLaunches.ascx" %>
+<%@ Register TagPrefix="TIP" TagName="TipsAdvicesMin" Src="/UI/controls/TipsAdvicesMin.ascx" %>
+<%@ Register TagPrefix="FM" TagName="ForumsMin" Src="/UI/controls/forumsmin.ascx" %>
 <%@ Import Namespace="Bikewale.Common" %>
 <% 
     description = objMMV.Make + " bike dealers/showrooms in India. Find new bike dealer information for more than 200 cities. Dealer information includes full address, phone numbers, email, pin code etc.";
@@ -12,7 +12,7 @@
     AdId = "1395986297721";
     AdPath = "/1017752/BikeWale_New_";
 %>
-<!-- #include file="/includes/headNew.aspx" -->
+<!-- #include file="/UI/includes/headNew.aspx" -->
 
 <style type="text/css">
     .dvShrink {display: none;}
@@ -77,7 +77,7 @@
         <!--    Right Container starts here -->
         <div class="margin-top5">
             <!-- BikeWale_NewBike/BikeWale_NewBike_HP_300x250 -->
-            <!-- #include file="/ads/Ad300x250.aspx" -->
+            <!-- #include file="/UI/ads/Ad300x250.aspx" -->
         </div>
         <div class="light-grey-bg content-block border-radius5 padding-bottom20 margin-top15">
             <NBL:NewBikeLaunches ID="ctrl_NewBikeLaunches" TopCount="3" runat="server" />
@@ -133,4 +133,4 @@
         }
     }
 </script>
-<!-- #include file="/includes/footerInner.aspx" -->
+<!-- #include file="/UI/includes/footerInner.aspx" -->

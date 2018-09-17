@@ -1,10 +1,20 @@
 ﻿
-<%@ Register TagPrefix="BW" TagName="MPopupWidget" Src="/m/controls/MPopupWidget.ascx" %>
-<%@ Register Src="~/m/controls/ChangeLocationPopup.ascx" TagPrefix="BW" TagName="LocationWidget" %>
+<%@ Register TagPrefix="BW" TagName="MPopupWidget" Src="/UI/m/controls/MPopupWidget.ascx" %>
+<%@ Register Src="~/UI/m/controls/ChangeLocationPopup.ascx" TagPrefix="BW" TagName="LocationWidget" %>
 
     <header>
         <div id="bw-header">
     	    <div class="header-fixed"> <!-- Fixed Header code starts here -->
+				<!-- BW Doodle start-->
+					<span class="bw-doodle__container">
+						<span class="bw-doodle__bell-one"></span>
+						<span class="bw-doodle__bell-two"></span>
+						<span class="bw-doodle__ganesh-image">
+							<span class="bw-doodle__ganesh"></span>
+							<span class="bw-doodle__ganesh-bg"></span>
+						</span>
+					</span>
+					<!-- BW Doodle end-->
         	    <a href="/m/" id="bwheader-logo" title="BikeWale" class="bwmsprite bw-logo bw-lg-fixed-position"></a>
            
                 <div class="leftfloat">
@@ -42,7 +52,7 @@
 <% if(Ad_320x50){ %>
     <section>            
         <div>
-            <!-- #include file="/ads/Ad320x50_mobile.aspx" -->
+            <!-- #include file="/UI/ads/Ad320x50_mobile.aspx" -->
         </div>
     </section>
 <% } %>

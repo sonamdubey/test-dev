@@ -1,5 +1,5 @@
-﻿<script type="text/javascript" src="<%= staticUrl  %>/src/Plugins.js?<%= staticFileVersion %>"></script>
-<script type="text/javascript" src="<%= staticUrl%>/src/common.js?<%= staticFileVersion %>"></script>
+﻿<script type="text/javascript" src="<%= staticUrl  %>/UI/src/Plugins.js?<%= staticFileVersion %>"></script>
+<script type="text/javascript" src="<%= staticUrl%>/UI/src/common.js?<%= staticFileVersion %>"></script>
 <script defer type="text/javascript" src="//www.googleadservices.com/pagead/conversion_async.js">
 </script>
 <script type="text/javascript">

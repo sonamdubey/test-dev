@@ -48,5 +48,6 @@ namespace Bikewale.Interfaces.Dealer
         IEnumerable<DealerBrandEntity> GetDealerByBrandList();
         IEnumerable<NearByCityDealerCountEntity> FetchNearByCityDealersCount(uint makeId, uint cityId);
         EnumSMSStatus GetDealerShowroomSMSData(MobileSmsVerification objData);
+        List<SecondaryDealerBase> FilterMultioutletDealers(IEnumerable<SecondaryDealerBase> mlaDealers);
     }
 }

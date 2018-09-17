@@ -7,6 +7,7 @@ using Bikewale.Utility;
 using EditCMSWindowsService.Messages;
 using Google.Protobuf;
 using System;
+using AEPLCore.Utils.Serializer;
 
 namespace Bikewale.Models.Videos
 {
@@ -62,7 +63,7 @@ namespace Bikewale.Models.Videos
                 if (payload != null && !string.IsNullOrEmpty(categoryIdList))
                 {
                     objVideos = new VideosBySubcategoryVM();
-                    objVideos.VideoList = GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(Utilities.ConvertBytesToMsg<GrpcVideoListEntity>(payload));
+                    objVideos.VideoList = GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(Serializer.ConvertBytesToMsg<GrpcVideoListEntity>(payload));
                     objVideos.SectionTitle = VideoTitleDescription.VideoCategoryTitle(categoryIdList);
                     objVideos.CategoryIdList = categoryIdList;
                     objVideos.SectionBackgroundClass = sectionBackgroundClass;

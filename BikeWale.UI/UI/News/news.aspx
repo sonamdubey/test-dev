@@ -1,10 +1,10 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.News.news" %>
 
-<%@ Register TagPrefix="BW" TagName="MostPopularBikesMin" Src="~/controls/MostPopularBikesMin.ascx" %>
+<%@ Register TagPrefix="BW" TagName="MostPopularBikesMin" Src="~/UI/controls/MostPopularBikesMin.ascx" %>
 <%@ Import Namespace="Bikewale.Common" %>
-<%@ Register TagPrefix="BW" TagName="UpcomingBikes" Src="~/controls/UpcomingBikesMinNew.ascx" %>
-<%@ Register TagPrefix="BW" TagName="MinGenericBikeInfo" Src="~/controls/MinGenericBikeInfoControl.ascx" %>
-<%@ Register TagPrefix="BW" TagName="PopularBikesByBodyStyle" Src="~/controls/PopularBikesByBodyStyle.ascx" %>
+<%@ Register TagPrefix="BW" TagName="UpcomingBikes" Src="~/UI/controls/UpcomingBikesMinNew.ascx" %>
+<%@ Register TagPrefix="BW" TagName="MinGenericBikeInfo" Src="~/UI/controls/MinGenericBikeInfoControl.ascx" %>
+<%@ Register TagPrefix="BW" TagName="PopularBikesByBodyStyle" Src="~/UI/controls/PopularBikesByBodyStyle.ascx" %>
 
 <!Doctype html>
 <html>
@@ -26,19 +26,19 @@
 
     %>
 
-    <!-- #include file="/includes/headscript_desktop_min.aspx" -->
+    <!-- #include file="/UI/includes/headscript_desktop_min.aspx" -->
     <% if(metas!= null){ %>
     <link rel="amphtml" href="<%= metas.AmpUrl %>" />
     <% } %>
-    <link href="<%= staticUrl  %>/css/content/details.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
+    <link href="<%= staticUrl  %>/UI/css/content/details.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
 
     <script type="text/javascript">
-        <!-- #include file="\includes\gacode_desktop.aspx" -->
+        <!-- #include file="\UI\includes\gacode_desktop.aspx" -->
     </script>
 </head>
 <body class="bg-light-grey header-fixed-inner">
     <form runat="server">
-        <!-- #include file="/includes/headBW.aspx" -->
+        <!-- #include file="/UI/includes/headBW.aspx" -->
 
         <section class="container padding-top10">
             <div class="grid-12">
@@ -127,12 +127,12 @@
                         </div>
                     </div>
 
-                    <script type="text/javascript" src="<%= staticUrl  %>/src/frameworks.js?<%=staticFileVersion %>"></script>
+                    <script type="text/javascript" src="<%= staticUrl  %>/UI/src/frameworks.js?<%=staticFileVersion %>"></script>
 
                     <div class="grid-4 omega">
                         <BW:MostPopularBikesMin runat="server" ID="ctrlPopularBikes" />
                        <div class="margin-bottom20">
-                            <!-- #include file="/ads/ad300x250.aspx" -->
+                            <!-- #include file="/UI/ads/ad300x250.aspx" -->
                         </div>
                         <%if(isModelTagged){ %>
                         <%if (ctrlBikesByBodyStyle.FetchedRecordsCount > 0){ %>
@@ -154,19 +154,19 @@
 
 
 
-        <!-- #include file="/includes/footerBW.aspx" -->
+        <!-- #include file="/UI/includes/footerBW.aspx" -->
 
-        <link href="<%= staticUrl  %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
-        <link href="<%=  staticUrl  %>/css/jquery.floating-social-share.min.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
-        <!-- #include file="/includes/footerscript.aspx" -->
-        <script type="text/javascript" src="<%= staticUrl %>/src/jquery.floating-social-share.min.js?<%= staticFileVersion %>"></script>
+        <link href="<%= staticUrl  %>/UI/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
+        <link href="<%=  staticUrl  %>/UI/css/jquery.floating-social-share.min.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
+        <!-- #include file="/UI/includes/footerscript.aspx" -->
+        <script type="text/javascript" src="<%= staticUrl %>/UI/src/jquery.floating-social-share.min.js?<%= staticFileVersion %>"></script>
         <script type="text/javascript">
             $(document).ready(function () {
                 $("body").floatingSocialShare();
             });
 
         </script>
-        <!-- #include file="/includes/fontBW.aspx" -->
+        <!-- #include file="/UI/includes/fontBW.aspx" -->
     </form>
 </body>
 </html>

@@ -24,5 +24,7 @@ namespace Bikewale.Entities.BikeBooking
         public string RejectionReason { get; set; }
         public bool IsAccepted { get; set; }
         public ushort OverallSpamScore { get; set; }
+        public UInt16? PlatformId { get; set; }
+        public string ClientIP { get; set; }
     }
 }

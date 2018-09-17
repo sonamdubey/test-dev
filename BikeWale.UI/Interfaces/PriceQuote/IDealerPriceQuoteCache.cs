@@ -8,5 +8,6 @@ namespace Bikewale.Interfaces.PriceQuote
     public interface IDealerPriceQuoteCache
     {
         IEnumerable<PQ_VersionPrice> GetDealerPriceQuotesByModelCity(uint cityId, uint modelId, uint dealerId);
+		IEnumerable<string> GetMLAMakeCities();
     }
 }

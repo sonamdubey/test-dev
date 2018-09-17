@@ -1,7 +1,7 @@
 ﻿<%@ Page Language="C#" Inherits="Bikewale.Videos.video" AutoEventWireup="false" EnableViewState="false" %>
 <!DOCTYPE html>
-<%@ Register Src="~/controls/SimilarVideos.ascx" TagName="SimilarVideos" TagPrefix="BW" %>
-<%@ Register TagPrefix="BW" TagName="GenericBikeInfo" Src="~/controls/GenericBikeInfoControl.ascx" %>
+<%@ Register Src="~/UI/controls/SimilarVideos.ascx" TagName="SimilarVideos" TagPrefix="BW" %>
+<%@ Register TagPrefix="BW" TagName="GenericBikeInfo" Src="~/UI/controls/GenericBikeInfoControl.ascx" %>
 <html>
 <head>
     <%   
@@ -15,16 +15,16 @@
         canonical = string.Format("https://www.bikewale.com/bike-videos/{0}-{1}/", videoModel.VideoTitleUrl, videoModel.BasicId);
         alternate = string.Format("https://www.bikewale.com/m/bike-videos/{0}-{1}/", videoModel.VideoTitleUrl, videoModel.BasicId);
     %>
-     <!-- #include file="/includes/headscript.aspx" -->
+     <!-- #include file="/UI/includes/headscript.aspx" -->
   
     <style type="text/css">
         #embedVideo iframe { width:934px; height:527px; }.video-views-counts { min-width:140px; }.border-light-right { border-right:1px solid #e2e2e2; }.video-social-wrapper { position:fixed; left:0; top:230px; width:54px; height:162px; overflow:hidden; background:#e2e2e2; }.video-social-wrapper li { height:54px; font-size:11px; padding-top:8px; padding-bottom:8px; }.video-social-wrapper a { display:block; color:#fff; text-align:center; }.video-social-wrapper a:hover { text-decoration:none; }.video-social-wrapper span { display:block; margin:0 auto;}.video-social-wrapper span.fa { font-size:25px; }.fb-counter { background:#3b5998; } .tw-counter { background:#00aced; } .gp-counter { background:#dd4b39; }.related-video-jcarousel li { height:312px; border: 1px solid #e2e2e2; padding:20px; }.videocarousel-image-wrapper { width:271px; height:153px; margin-bottom:15px; overflow:hidden; text-align:center; }.videocarousel-image-wrapper a { width:100%; height:100%; display:block; background:url('https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/loader.gif') no-repeat center center; }.videocarousel-image-wrapper img { width:100%; height:100%; }.more-videos-link { width:200px; display:block; margin:5px auto 25px; }.margin-top8{margin-top:8px;}
     </style>
-    <link href="<%=  + staticUrl  %>/css/jquery.floating-social-share.min.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
+    <link href="<%=  + staticUrl  %>/UI/css/jquery.floating-social-share.min.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
 </head>
 <body class="bg-light-grey header-fixed-inner">
     <form id="form1" runat="server">
-        <!-- #include file="/includes/headBW.aspx" -->
+        <!-- #include file="/UI/includes/headBW.aspx" -->
         <% if(videoModel!= null) { %>
         <section>
             <div class="container">
@@ -86,9 +86,9 @@
                 }catch(err){}
             });
         </script>
-        <!-- #include file="/includes/footerBW.aspx" -->
-        <!-- #include file="/includes/footerscript.aspx" -->
+        <!-- #include file="/UI/includes/footerBW.aspx" -->
+        <!-- #include file="/UI/includes/footerscript.aspx" -->
     </form>
-    <script type="text/javascript" src="<%= staticUrl %>/src/jquery.floating-social-share.min.js?<%= staticFileVersion %>">"></script>
+    <script type="text/javascript" src="<%= staticUrl %>/UI/src/jquery.floating-social-share.min.js?<%= staticFileVersion %>">"></script>
 </body>
 </html>

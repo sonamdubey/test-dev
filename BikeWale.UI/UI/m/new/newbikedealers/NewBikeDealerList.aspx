@@ -1,10 +1,10 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.New.NewBikeDealerList" EnableViewState="false" %>
-<%@ Register Src="~/m/controls/MMostPopularBikes.ascx" TagName="PopularBikeMake" TagPrefix="BW" %>
-<%@ Register Src="~/m/controls/LeadCaptureControl.ascx" TagName="LeadCapture" TagPrefix="BW" %>
-<%@ Register Src="~/m/controls/ServiceCenterCard.ascx" TagName="ServiceCenterCard" TagPrefix="BW" %>
-<%@ Register Src="~/m/controls/BrandCityPopUp.ascx" TagName="BrandCity" TagPrefix="BW" %>
-<%@ Register Src="~/m/controls/DealersInNearByCities.ascx" TagName="DealersCount" TagPrefix="BW" %>
-<%@ Register Src="~/m/controls/usedBikeModel.ascx" TagName="usedBikeModel" TagPrefix="BW" %>
+<%@ Register Src="~/UI/m/controls/MMostPopularBikes.ascx" TagName="PopularBikeMake" TagPrefix="BW" %>
+<%@ Register Src="~/UI/m/controls/LeadCaptureControl.ascx" TagName="LeadCapture" TagPrefix="BW" %>
+<%@ Register Src="~/UI/m/controls/ServiceCenterCard.ascx" TagName="ServiceCenterCard" TagPrefix="BW" %>
+<%@ Register Src="~/UI/m/controls/BrandCityPopUp.ascx" TagName="BrandCity" TagPrefix="BW" %>
+<%@ Register Src="~/UI/m/controls/DealersInNearByCities.ascx" TagName="DealersCount" TagPrefix="BW" %>
+<%@ Register Src="~/UI/m/controls/usedBikeModel.ascx" TagName="usedBikeModel" TagPrefix="BW" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,10 +18,10 @@
         Ad_Bot_320x50 = true;
         
     %>
-    <!-- #include file="/includes/headscript_mobile_min.aspx" -->
-    <link rel="stylesheet" type="text/css" href="/m/css/dealer/listing.css" />
+    <!-- #include file="/UI/includes/headscript_mobile_min.aspx" -->
+    <link rel="stylesheet" type="text/css" href="/UI/m/css/dealer/listing.css" />
     <script type="text/javascript">
-        <!-- #include file="\includes\gacode_mobile.aspx" -->
+        <!-- #include file="\UI\includes\gacode_mobile.aspx" -->
 
         var makeName = "<%=makeName%>";
         var makeMaskingName = "<%=makeMaskingName%>";
@@ -38,7 +38,7 @@
 </head>
 <body class="bg-light-grey">
     <form runat="server">
-        <!-- #include file="/includes/headBW_Mobile.aspx" -->
+        <!-- #include file="/UI/includes/headBW_Mobile.aspx" -->
 
         <section>
             <div class="container margin-bottom10">
@@ -83,7 +83,7 @@
                                         </a>
                                     </div>
                                 </a>
-                                <input data-leadsourceid="20" data-item-id="<%# DataBinder.Eval(Container.DataItem,"DealerId") %>" data-item-type="<%# (DataBinder.Eval(Container.DataItem,"DealerType")) %>" data-item-name="<%# DataBinder.Eval(Container.DataItem,"Name") %>" data-item-area="<%# DataBinder.Eval(Container.DataItem,"Name") %>" data-campid="<%# DataBinder.Eval(Container.DataItem,"CampaignId") %>" data-pqsourceid="<%= (int) Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_DealerLocator_GetOfferButton %>" type="button" class="btn btn-white margin-top10 leadcapturebtn <%# ((DataBinder.Eval(Container.DataItem,"DealerType").ToString() == "3") || (DataBinder.Eval(Container.DataItem,"DealerType").ToString() == "2"))? "" : "hide" %>" value="<%# DataBinder.Eval(Container.DataItem,"DisplayTextLarge") %>">
+                                <input data-leadsourceid="20" data-item-id="<%# DataBinder.Eval(Container.DataItem,"DealerId") %>" data-item-type="<%# (DataBinder.Eval(Container.DataItem,"DealerType")) %>" data-item-name="<%# DataBinder.Eval(Container.DataItem,"Name") %>" data-item-area="<%# DataBinder.Eval(Container.DataItem,"Name") %>" data-campaignid="<%# DataBinder.Eval(Container.DataItem,"CampaignId") %>" data-pqsourceid="<%= (int) Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_DealerLocator_GetOfferButton %>" type="button" class="btn btn-white margin-top10 leadcapturebtn <%# ((DataBinder.Eval(Container.DataItem,"DealerType").ToString() == "3") || (DataBinder.Eval(Container.DataItem,"DealerType").ToString() == "2"))? "" : "hide" %>" value="<%# DataBinder.Eval(Container.DataItem,"DisplayTextLarge") %>">
                             </li>
                         </ItemTemplate>
                     </asp:Repeater>
@@ -107,7 +107,7 @@
                 <%} %>
 
                 <div class="padding-top10 text-center">
-                    <!-- #include file="/ads/Ad300x250_mobile.aspx" -->
+                    <!-- #include file="/UI/ads/Ad300x250_mobile.aspx" -->
                 </div>
                 <div class="margin-right10 margin-left10 border-solid-bottom"></div>
                     <% if (ctrlServiceCenterCard.showWidget)
@@ -142,13 +142,13 @@
             </div>
         </section>
       
-        <script type="text/javascript" src="<%= staticUrl  %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
-        <!-- #include file="/includes/footerBW_Mobile.aspx" -->
+        <script type="text/javascript" src="<%= staticUrl  %>/UI/m/src/frameworks.js?<%= staticFileVersion %>"></script>
+        <!-- #include file="/UI/includes/footerBW_Mobile.aspx" -->
         <BW:BrandCity runat="server" ID="ctrlBrandCity" />
         <BW:LeadCapture ID="ctrlLeadCapture" runat="server" />
         <link href="<%= staticUrl  %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
-        <!-- #include file="/includes/footerscript_mobile.aspx" -->
-        <!-- #include file="/includes/fontBW_Mobile.aspx" -->
+        <!-- #include file="/UI/includes/footerscript_mobile.aspx" -->
+        <!-- #include file="/UI/includes/fontBW_Mobile.aspx" -->
         <script type="text/javascript">
             
             $(".leadcapturebtn").click(function (e) {
@@ -157,7 +157,7 @@
                     "dealerid": ele.attr('data-item-id'),
                     "dealername": ele.attr('data-item-name'),
                     "dealerarea": ele.attr('data-item-area'),
-                    "campid": ele.attr('data-campid'),
+                    "campaignId": ele.attr('data-campaignid'),
                     "leadsourceid": ele.attr('data-leadsourceid'),
                     "pqsourceid": ele.attr('data-pqsourceid'),
                     "isdealerbikes": true,

@@ -10,7 +10,7 @@
         AdPath = "/1017752/Bikewale_Mobile_PriceQuote";
         AdId = "1398766000399";   
     %>
-    <!-- #include file="/includes/headscript_mobile.aspx" -->
+    <!-- #include file="/UI/includes/headscript_mobile.aspx" -->
      <link href="<%= staticUrl  %>/m/css/bwm-booking.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
 </head>
 <body class="bg-light-grey">

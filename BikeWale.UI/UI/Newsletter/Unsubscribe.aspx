@@ -7,7 +7,7 @@
     isAd300x250Shown = false;
     isAd300x250BtfShown = false;
 %>
-<!-- #include file="/includes/headmybikewale.aspx" -->
+<!-- #include file="/UI/includes/headmybikewale.aspx" -->
 <div class="container_12">
     <div class="grid_12">
         <ul class="breadcrumb">
@@ -58,5 +58,5 @@
     </script>
 </div>
 <!-- Footer starts here -->
-<!-- #include file="/includes/footerInner.aspx" -->
+<!-- #include file="/UI/includes/footerInner.aspx" -->
 <!-- Footer ends here -->  

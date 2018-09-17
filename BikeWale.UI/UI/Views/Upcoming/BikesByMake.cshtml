@@ -2,9 +2,9 @@
 @{
     Model.IsHeaderFix = false;
     Model.IsTransparentHeader = false;
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/upcoming-bikes/upcoming-bikes.css' inline />";
-    Model.Page_JS_Path = "/src/upcoming-bikes.js";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/UI/sass/upcoming-bikes/upcoming-bikes.css' inline />";
+    Model.Page_JS_Path = "/UI/src/upcoming-bikes.js";
+    Layout = "~/UI/Views/Shared/_Layout.cshtml";
     Model.AdTags.AdPath = "/1017752/Bikewale_Upcoming_";
     Model.AdTags.AdId = "1517814650143";
     Model.AdTags.Ad_970x90Top = true;
@@ -28,7 +28,7 @@
     <section>
         <div id="upcoming-bikes" data-make-filter="@Model.Make.MakeId" class="container section-bottom-margin">
             <div class="grid-12">
-                @Html.Partial("~/Views/Upcoming/_UpcomingBikesList.cshtml", Model)
+                @Html.Partial("~/UI/Views/Upcoming/_UpcomingBikesList.cshtml", Model)
             </div>
             <div class="clear"></div>
         </div>
@@ -53,7 +53,7 @@
                         </div>
 
 
-                        @Html.Partial("~/Views/BikeModels/_MostPopularBikes.cshtml", Model.PopularBikes)
+                        @Html.Partial("~/UI/Views/BikeModels/_MostPopularBikes.cshtml", Model.PopularBikes)
                     </div>
                 </div>
                 <div class="clear"></div>
@@ -76,7 +76,7 @@
                             </div>
                             <div class="clear"></div>
                         </div>
-                        @Html.Partial("~/Views/Make/_OtherMakes.cshtml", Model.OtherMakes)
+                        @Html.Partial("~/UI/Views/Make/_OtherMakes.cshtml", Model.OtherMakes)
                     </div>
                 </div>
                 <div class="clear"></div>

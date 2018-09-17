@@ -1,8 +1,8 @@
 ﻿@model Bikewale.Models.UpcomingPageVM
 @{
-    Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/sass/upcoming-bikes/upcoming-bikes.css' inline />";
-    Model.Page_JS_Path = "/m/src/upcoming-bikes.js";
+    Layout = "~/UI/Views/Shared/_Layout_Mobile.cshtml";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/UI/m/sass/upcoming-bikes/upcoming-bikes.css' inline />";
+    Model.Page_JS_Path = "/UI/m/src/upcoming-bikes.js";
     Model.AdTags.AdPath = "/1017752/Bikewale_Mobile_Upcoming";
     Model.AdTags.AdId = "1517814337429";
     Model.AdTags.Ad_320x50 = true;
@@ -25,14 +25,14 @@
     <section>
         <div id="upcoming-bikes" data-make-filter="@Model.Make.MakeId" class="container bg-white box-shadow card-bottom-margin">
             <h2 class="padding-15-20 border-solid-bottom">@Model.TotalBikes Upcoming @Model.Make.MakeName bike@(Model.TotalBikes > 1 ? "s" : "")</h2>
-            @Html.Partial("~/Views/Upcoming/_UpcomingBikesList_Mobile.cshtml", Model)
+            @Html.Partial("~/UI/Views/Upcoming/_UpcomingBikesList_Mobile.cshtml", Model)
         </div>
     </section>
     if (Model.AdTags.Ad_300x250BTF)
     {
     <section>
         <div class="container">
-            @Html.Partial("~/Views/Shared/Ads/Mobile/Ad300x250BTF.cshtml", Model.AdTags)
+            @Html.Partial("~/UI/Views/Shared/Ads/Mobile/Ad300x250BTF.cshtml", Model.AdTags)
         </div>
     </section>
     }
@@ -48,7 +48,7 @@
                     </div>
                     <div class="clear"></div>
                 </div>
-                @Html.Partial("~/Views/BikeModels/_MostPopularBikes_Mobile.cshtml", Model.PopularBikes)
+                @Html.Partial("~/UI/Views/BikeModels/_MostPopularBikes_Mobile.cshtml", Model.PopularBikes)
             </div>
         </section>
     }
@@ -67,7 +67,7 @@
                 </div>
                 <div class="swiper-container card-container brand-type-carousel">
                     <div class="swiper-wrapper">
-                        @Html.Partial("~/Views/Make/_OtherMakes_Mobile.cshtml", Model.OtherMakes)
+                        @Html.Partial("~/UI/Views/Make/_OtherMakes_Mobile.cshtml", Model.OtherMakes)
                     </div>
                 </div>
             </div>

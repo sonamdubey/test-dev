@@ -1,8 +1,8 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.New.UpcomingBikesList" Trace="false" EnableViewState="false" Debug="false" %>
 
-<%@ Register TagPrefix="BikeWale" TagName="RepeaterPager" Src="~/controls/RepeaterPager.ascx" %>
-<%@ Register TagPrefix="BikeWale" TagName="UpcomingBikeSearch" Src="~/controls/UpcomingBikeSearch.ascx" %>
-<%@ Register TagPrefix="NBL" TagName="NewBikeLaunches" Src="/controls/NewBikeLaunches.ascx" %>
+<%@ Register TagPrefix="BikeWale" TagName="RepeaterPager" Src="~/UI/controls/RepeaterPager.ascx" %>
+<%@ Register TagPrefix="BikeWale" TagName="UpcomingBikeSearch" Src="~/UI/controls/UpcomingBikeSearch.ascx" %>
+<%@ Register TagPrefix="NBL" TagName="NewBikeLaunches" Src="/UI/controls/NewBikeLaunches.ascx" %>
 <%@ Import Namespace="Bikewale.Common" %>
 <%
     if (meta != null)
@@ -19,7 +19,7 @@
     AdPath = "/1017752/BikeWale_New_";
 %>
 
-<!-- #include file="/includes/headNew.aspx" -->
+<!-- #include file="/UI/includes/headNew.aspx" -->
 <div class="container_12">
     <div class="grid_12">
         <ul class="breadcrumb">
@@ -65,7 +65,7 @@
     <div class="grid_4">
         <div class="margin-top15">
             <!-- BikeWale_NewBike/BikeWale_NewBike_HP_300x250 -->
-            <!-- #include file="/ads/Ad300x250.aspx" -->
+            <!-- #include file="/UI/ads/Ad300x250.aspx" -->
         </div>
         <div class="grey-bg content-block border-radius5 padding-bottom20 margin-top15">
             <NBL:NewBikeLaunches ID="ctrl_NewBikeLaunches" TopCount="3" runat="server" />
@@ -73,8 +73,8 @@
         </div>
         <div class="margin-top15">
             <!-- BikeWale_NewBike/BikeWale_NewBike_HP_300x250 -->
-            <!-- #include file="/ads/Ad300x250BTF.aspx" -->
+            <!-- #include file="/UI/ads/Ad300x250BTF.aspx" -->
         </div>
     </div>
 </div>
-<!-- #include file="/includes/footerInner.aspx" -->
+<!-- #include file="/UI/includes/footerInner.aspx" -->

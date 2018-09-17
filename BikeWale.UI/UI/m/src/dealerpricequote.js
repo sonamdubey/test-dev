@@ -269,7 +269,8 @@ docReady(function () {
                     lab: ele.attr("data-var")
                 },
                 "sendLeadSMSCustomer": ele.attr('data-issendleadsmscustomer'),
-                "organizationName": ele.attr('data-item-organization')
+                "organizationName": ele.attr('data-item-organization'),
+                "campaignId": ele.attr("data-campaignid")
             };
 
             dleadvm.setOptions(leadOptions);

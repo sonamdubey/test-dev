@@ -11,12 +11,12 @@
     //modified by SajalGupta for unfilled impression of ads on 04 Aug 2016.
     isAd300x250_BTFShown = false;
 %>
-<!-- #include file="/includes/headNew.aspx" -->
+<!-- #include file="/UI/includes/headNew.aspx" -->
 
-<link href="<%= staticUrl  %>/css/bw-pq.css?<%= staticFileVersion %>" rel="stylesheet" />
-<link href="<%= staticUrl  %>/css/chosen.min.css?<%= staticFileVersion %>" rel="stylesheet" />
-<script type="text/javascript" src="<%= staticUrl  %>/src/pq/price_quote.js?<%= staticFileVersion %>"></script>
-<script type="text/javascript" src="<%= staticUrl  %>/src/common/chosen.jquery.min.js"></script>
+<link href="<%= staticUrl  %>/UI/css/bw-pq.css?<%= staticFileVersion %>" rel="stylesheet" />
+<link href="<%= staticUrl  %>/UI/css/chosen.min.css?<%= staticFileVersion %>" rel="stylesheet" />
+<script type="text/javascript" src="<%= staticUrl  %>/UI/src/pq/price_quote.js?<%= staticFileVersion %>"></script>
+<script type="text/javascript" src="<%= staticUrl  %>/UI/src/common/chosen.jquery.min.js"></script>
 <div class="main-container">
     <div class="container_12  container-min-height">
         <div class="grid_12">
@@ -106,7 +106,7 @@
         <div class="grid_4">
                 <div class="margin-top15">
                     <!-- BikeWale_NewBike/BikeWale_NewBike_HP_300x250 -->
-                    <!-- #include file="/ads/Ad300x250.aspx" -->
+                    <!-- #include file="/UI/ads/Ad300x250.aspx" -->
                 </div>
         </div>
         <!-- Right Container ends here  -->
@@ -377,4 +377,4 @@
         min-height: 530px;
     }
 </style>
-<!-- #include file="/includes/footerInner.aspx" -->
+<!-- #include file="/UI/includes/footerInner.aspx" -->

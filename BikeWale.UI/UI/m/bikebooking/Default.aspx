@@ -9,14 +9,14 @@
         description = "BikeWale - India's favourite bike portal. Book your bikes, scooters and avail exciting offers and benefits exclusively on BikeWale.";
         canonical = "https://www.bikewale.com/bikebooking/";
     %>
-    <!-- #include file="/includes/headscript_mobile.aspx" -->
+    <!-- #include file="/UI/includes/headscript_mobile.aspx" -->
     <link href="<%= staticUrl  %>/m/css/bwm-booking-landing.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css"/>
     <script>
     </script>
 </head>
 <body class="bg-light-grey">
     <form id="form1" runat="server">
-        <!-- #include file="/includes/headBW_Mobile.aspx" -->
+        <!-- #include file="/UI/includes/headBW_Mobile.aspx" -->
         <script type="text/javascript">$("header").find(".rightfloat ").hide();</script>
         <section>
             <div class="container booking-landing-banner content-inner-block-10 text-center text-white">
@@ -197,7 +197,7 @@
             </div>
         </section>
         
-        <!-- #include file="/includes/footerBW_Mobile.aspx" -->
+        <!-- #include file="/UI/includes/footerBW_Mobile.aspx" -->
         <script type="text/javascript">
             var $ddlCities = $("#bookingCitiesList"), $ddlAreas = $("#bookingAreasList"), $liCities = $("#sliderCityList"), $liAreas = $("#sliderAreaList");
             var key = "bCity_";
@@ -392,7 +392,7 @@
         </script>        
         
 
-        <!-- #include file="/includes/footerscript_Mobile.aspx" -->
+        <!-- #include file="/UI/includes/footerscript_Mobile.aspx" -->
         
     </form>
 </body>

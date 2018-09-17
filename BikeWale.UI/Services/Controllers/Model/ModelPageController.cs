@@ -8,11 +8,16 @@ using Bikewale.ManufacturerCampaign.Interface;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.Model;
 using Bikewale.Service.Utilities;
+using Bikewale.Utility;
 using log4net;
 using Microsoft.Practices.Unity;
 using System;
+using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
+using System.Web;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using System.Web.Http.Description;
 
 
@@ -33,6 +38,7 @@ namespace Bikewale.Service.Controllers.Model
         private readonly IPQByCityArea _objPQByCityArea = null;
         private readonly IPriceQuoteCache _objPqCache = null;
         private static readonly ILog _logger = LogManager.GetLogger(typeof(ModelPageController));
+        private static HashSet<string> _ampCors = new HashSet<string> { "https://www-bikewale-com.cdn.ampproject.org", "https://www-bikewale-com.amp.cloudflare.com", "https://cdn.ampproject.org" ,"https://www.bikewale.com" };
 
         /// <summary>
         /// Modified by :   Sumit Kate on 29 Mar 2018
@@ -500,6 +506,20 @@ namespace Bikewale.Service.Controllers.Model
             }
         }
 
+
+        [Route("api/model/{modelId}/details/amp/"), EnableCors("https://www-bikewale-com.cdn.ampproject.org, https://www-bikewale-com.amp.cloudflare.com, https://cdn.ampproject.org,https://www.bikewale.com", "*", "GET")]
+        public IHttpActionResult GetModelDetails(uint modelId)
+        {
+            string ampSourceOrigin = HttpUtility.ParseQueryString(Request.RequestUri.Query)["__amp_source_origin"];
+            string ampOrigin = Request.Headers.Contains("Origin") ? Request.Headers.GetValues("Origin").FirstOrDefault() : string.Empty;
+
+            if (!string.IsNullOrEmpty(ampSourceOrigin) && _ampCors.Contains(ampOrigin))
+            {
+                BWCookies.AddAmpHeaders(ampSourceOrigin, ampOrigin, true);
+            }
+            
+            return Ok();
+        }
         #endregion
     }
 

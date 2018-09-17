@@ -99,7 +99,7 @@ namespace Bikewale.Service.Controllers.CMS
         /// <param name="posts">Mandatory. No of records on each page.</param>
         /// <param name="pageNumber">Page number for which records are required.</param>        
         /// <returns></returns>
-        [ResponseType(typeof(IEnumerable<Bikewale.DTO.CMS.Photos.CMSImageList>)), Route("api/cms/photos/othermodels/modelId/{modelId}/posts/{posts}/pn/{pageNumber}/")]
+        [ResponseType(typeof(IEnumerable<CMSImageList>)), Route("api/cms/photos/othermodels/modelId/{modelId}/posts/{posts}/pn/{pageNumber}/")]
         public IHttpActionResult GetOtherModelsPhotos(int modelId, int posts, int pageNumber)
         {
             int startIndex = 0, endIndex = 0;

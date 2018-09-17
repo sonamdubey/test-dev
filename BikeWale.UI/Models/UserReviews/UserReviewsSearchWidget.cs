@@ -3,6 +3,7 @@ using Bikewale.Entities.UserReviews.Search;
 using Bikewale.Interfaces.UserReviews;
 using Bikewale.Interfaces.UserReviews.Search;
 using System;
+using Bikewale.Utility;
 
 namespace Bikewale.Models.UserReviews
 {
@@ -61,7 +62,7 @@ namespace Bikewale.Models.UserReviews
                     //set bike data and other properties
                     objData.BikeName = string.Format("{0} {1}", objData.ReviewsInfo.Make.MakeName, objData.ReviewsInfo.Model.ModelName);
 
-                    objData.WriteReviewLink = Utils.Utils.EncryptTripleDES(string.Format("returnUrl=/{0}-bikes/{1}/", objData.ReviewsInfo.Make.MaskingName, objData.ReviewsInfo.Model.MaskingName));
+                    objData.WriteReviewLink = TripleDES.EncryptTripleDES(string.Format("returnUrl=/{0}-bikes/{1}/", objData.ReviewsInfo.Make.MaskingName, objData.ReviewsInfo.Model.MaskingName));
 
                     objData.Pager = new Entities.Pager.PagerEntity()
                     {

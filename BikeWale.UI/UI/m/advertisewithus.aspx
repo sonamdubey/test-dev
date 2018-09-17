@@ -3,7 +3,7 @@
     AdPath = "/1017752/Bikewale_Mobile_Homepage_";
     AdId = "1398766000399";    
 %>
-<!-- #include file="/includes/headermobile.aspx" -->
+<!-- #include file="/UI/includes/headermobile.aspx" -->
     <div class="padding5">
         <h1>Advertise with Us</h1>
         <div class="new-line5 lightgray f-12">
@@ -15,4 +15,4 @@
             <span class="bFontCol">Email: <a href="mailto:vijay@bikewale.com" class="viewDetails">vijay@bikewale.com</a></span>
         </div>           
     </div>
-<!-- #include file="/includes/footermobile.aspx" -->
+<!-- #include file="/UI/includes/footermobile.aspx" -->

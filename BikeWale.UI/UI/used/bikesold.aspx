@@ -4,7 +4,7 @@
     AdId = "1395992162974";
     AdPath = "/1017752/BikeWale_UsedBikes_HomePage_";
 %>
-<!-- #include file="/includes/headUsed.aspx" -->
+<!-- #include file="/UI/includes/headUsed.aspx" -->
         <div class="container_12">
             <div class="grid_12">
                 <ul class="breadcrumb">
@@ -34,7 +34,7 @@
             </div><!--    Left Container ends here -->
             <div class="grid_4 margin-top20"><!--    Right Container starts here -->
                 <!-- BikeWale_UsedBike/BikeWale_UsedBike_300x250 -->
-                <!-- #include file="/ads/Ad300x250.aspx" -->
+                <!-- #include file="/UI/ads/Ad300x250.aspx" -->
             </div><!--    Right Container ends here -->
         </div>
-<!-- #include file="/includes/footerInner.aspx" -->
+<!-- #include file="/UI/includes/footerInner.aspx" -->

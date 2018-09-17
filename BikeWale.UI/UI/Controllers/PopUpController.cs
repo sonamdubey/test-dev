@@ -14,7 +14,7 @@ namespace Bikewale.Controllers
             PopUpCityArea obj = new PopUpCityArea();
             objPopupCityAreaVM = obj.GetData(queryString);
 
-            return View("~/Views/PopUp/PopUpCityArea_Mobile.cshtml", objPopupCityAreaVM);
+            return View("~/UI/Views/PopUp/PopUpCityArea_Mobile.cshtml", objPopupCityAreaVM);
         }
 
 
@@ -28,7 +28,7 @@ namespace Bikewale.Controllers
         {
             PopupLeadCaptureModel objLead = new PopupLeadCaptureModel(q);
             PopupLeadCaptureVM viewModel = objLead.GetData();
-            viewModel.LeadCapture.IsAmp = platformId <= 0;
+            viewModel.LeadCapture.IsAmp = platformId == 4;
             viewModel.LeadCapture.IsApp = platformId == 3;
             viewModel.LeadCapture.PlatformId = (ushort)(platformId > 0 ? platformId : 2);
             return View(viewModel);

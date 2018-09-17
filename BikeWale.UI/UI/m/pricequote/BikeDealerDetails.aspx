@@ -1,6 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Pricequote.BookingConfig" %>
 
-<%@ Register Src="~/m/controls/UsersTestimonials.ascx" TagPrefix="BW" TagName="UsersTestimonials" %>
+<%@ Register Src="~/UI/m/controls/UsersTestimonials.ascx" TagPrefix="BW" TagName="UsersTestimonials" %>
 <!doctype html>
 <html>
 <head>
@@ -9,12 +9,12 @@
         description = "Authorise dealer price details of a bike " + bikeName;
         keywords = bikeName + ", price, authorised, dealer,Booking ";    
     %>
-    <!-- #include file="/includes/headscript_mobile.aspx" -->
+    <!-- #include file="/UI/includes/headscript_mobile.aspx" -->
     <link href="<%= staticUrl  %>/m/css/bwm-bookingconfig.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
 </head>
 <body class="bg-light-grey">
     <form runat="server">
-        <!-- #include file="/includes/headBW_Mobile.aspx" -->
+        <!-- #include file="/UI/includes/headBW_Mobile.aspx" -->
 
         <section class="bg-white" id="bookingConfig" style="display: none" data-bind="visible: true">
             <h1 class="padding-top15 padding-left20 padding-right20 padding-bottom20">More details about <span data-bind="text : $root.Bike().bikeName()"></span></h1>
@@ -562,8 +562,8 @@
         <input id="hdnDiscountList" type="hidden" value='<%= new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(dealerDetailEntity.objQuotation.discountedPriceList)%>' />
 
         <!-- all other js plugins -->
-        <!-- #include file="/includes/footerBW_Mobile.aspx" -->
-        <!-- #include file="/includes/footerscript_Mobile.aspx" -->
+        <!-- #include file="/UI/includes/footerBW_Mobile.aspx" -->
+        <!-- #include file="/UI/includes/footerscript_Mobile.aspx" -->
 
         <script type="text/javascript">
             //Need to uncomment the below script
@@ -590,7 +590,7 @@
             ga_pg_id = "8";
             var getCityArea = GetGlobalCityArea();
         </script>
-        <script src="<%= staticUrl  %>/m/src/bwm-bookingconfig.js?<%= staticFileVersion %>" type="text/javascript"></script>
+        <script src="<%= staticUrl  %>/UI/m/src/bwm-bookingconfig.js?<%= staticFileVersion %>" type="text/javascript"></script>
 
     </form>
 </body>

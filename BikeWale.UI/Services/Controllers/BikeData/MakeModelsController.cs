@@ -9,6 +9,11 @@ using Bikewale.Service.AutoMappers.BikeData;
 using Bikewale.Service.Utilities;
 using Bikewale.BAL.BikeData;
 using Microsoft.Practices.Unity;
+using System.Web.Http.Cors;
+using System.Configuration;
+using Bikewale.Utility;
+using System.Web;
+using System.Linq;
 
 namespace Bikewale.Service.Controllers.BikeData
 {
@@ -20,6 +25,7 @@ namespace Bikewale.Service.Controllers.BikeData
     {
         private readonly IBikeMakesCacheRepository _makesCacheRepository;
         private readonly IBikeModels<BikeModelEntity, int> _bikeModels;
+        private static HashSet<string> _ampCors = new HashSet<string> { "https://www-bikewale-com.cdn.ampproject.org", "https://www-bikewale-com.amp.cloudflare.com", "https://cdn.ampproject.org","https://www.bikewale.com" };
         
         /// <summary>
         /// Constructor to Initialize cache layer
@@ -95,9 +101,17 @@ namespace Bikewale.Service.Controllers.BikeData
         /// Summary    : Get popular bikes 
         /// </summary>
         /// <returns></returns>
-        [HttpGet, Route("api/popularbikes/")]
+
+        [HttpGet, Route("api/popularbikes/"), EnableCors("https://www-bikewale-com.cdn.ampproject.org, https://www-bikewale-com.amp.cloudflare.com, https://cdn.ampproject.org,https://www.bikewale.com", "*", "GET")]
         public IHttpActionResult GetMostPopularBikes(int topCount)
         {
+            string ampSourceOrigin = HttpUtility.ParseQueryString(Request.RequestUri.Query)["__amp_source_origin"];
+            string ampOrigin = Request.Headers.Contains("Origin") ? Request.Headers.GetValues("Origin").FirstOrDefault() : string.Empty;
+
+            if (!string.IsNullOrEmpty(ampSourceOrigin) && _ampCors.Contains(ampOrigin))
+            {
+                BWCookies.AddAmpHeaders(ampSourceOrigin,ampOrigin, true);
+            }
             IEnumerable<MostPopularBikes> makeModels = null;
             try
             {

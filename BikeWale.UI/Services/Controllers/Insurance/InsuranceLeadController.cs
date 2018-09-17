@@ -45,7 +45,7 @@ namespace Bikewale.Service.Controllers.Insurance
         /// <returns></returns>
         [ResponseType(typeof(IHttpActionResult))]
         [HttpPost]
-        public IHttpActionResult POST([FromBody] Bikewale.Entities.Insurance.InsuranceLead insuranceLead)
+        public IHttpActionResult POST([FromBody]Bikewale.Entities.Insurance.InsuranceLead insuranceLead)
         {
             CustomerEntity objCust = null;
             //Submission at Client Side            

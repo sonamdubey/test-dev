@@ -7,11 +7,13 @@ using Bikewale.BAL.BikeData;
 using Bikewale.BAL.BikeData.NewLaunched;
 using Bikewale.BAL.BikeData.UpComingBike;
 using Bikewale.BAL.BikeSearch;
+using Bikewale.BAL.Campaign;
 using Bikewale.BAL.CMS;
 using Bikewale.BAL.Compare;
 using Bikewale.BAL.Customer;
 using Bikewale.BAL.Dealer;
 using Bikewale.BAL.EditCMS;
+using Bikewale.BAL.Finance;
 using Bikewale.BAL.Images;
 using Bikewale.BAL.Lead;
 using Bikewale.BAL.Notifications;
@@ -32,6 +34,7 @@ using Bikewale.Cache.CMS;
 using Bikewale.Cache.Compare;
 using Bikewale.Cache.Core;
 using Bikewale.Cache.Finance;
+using Bikewale.Cache.Finance.BajajAuto;
 using Bikewale.Cache.Location;
 using Bikewale.Cache.MobileVerification;
 using Bikewale.Cache.PriceQuote;
@@ -48,6 +51,7 @@ using Bikewale.DAL.BikeData;
 using Bikewale.DAL.Customer;
 using Bikewale.DAL.Dealer;
 using Bikewale.DAL.Feedback;
+using Bikewale.DAL.Finance.BajajAuto;
 using Bikewale.DAL.Images;
 using Bikewale.DAL.Location;
 using Bikewale.DAL.NewBikeSearch;
@@ -70,6 +74,7 @@ using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.NewLaunched;
 using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Interfaces.Cache.Core;
+using Bikewale.Interfaces.Campaign;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.Compare;
 using Bikewale.Interfaces.Customer;
@@ -77,6 +82,7 @@ using Bikewale.Interfaces.Dealer;
 using Bikewale.Interfaces.EditCMS;
 using Bikewale.Interfaces.Feedback;
 using Bikewale.Interfaces.Finance;
+using Bikewale.Interfaces.Finance.BajajAuto;
 using Bikewale.Interfaces.Images;
 using Bikewale.Interfaces.Lead;
 using Bikewale.Interfaces.Location;
@@ -138,6 +144,8 @@ namespace Bikewale.Service.UnityConfiguration
         /// Description :   Registered IBikeVersionRepository, IApiGatewayCaller
         /// Modified By :   Deepak Israni on 12 June 2018
         /// Description :   Register IQuestions, QuestionsAnswers.BAL.IQuestions, QuestionsAnswers.DAL.IQuestionsRepository
+        /// Modified By :   Kartik rathod on 12 sept 2018
+        /// Desc        :   added ICampaignBL
         /// </summary>
         /// <returns></returns>
         public static IUnityContainer Initialize()
@@ -251,7 +259,10 @@ namespace Bikewale.Service.UnityConfiguration
             container.RegisterType<IBikeSeriesRepository, BikeSeriesRepository>();
             container.RegisterType<IPQByCityArea, PQByCityArea>();
             container.RegisterType<Bikewale.Interfaces.AutoBiz.IDealerPriceQuote, Bikewale.DAL.AutoBiz.DealerPriceQuoteRepository>();
-			container.RegisterType<IBikeModelsCacheHelper, BikeModelsCacheHelper>();
+            container.RegisterType<IBajajAuto, BajajAuto>();
+            container.RegisterType<IBajajAutoRepository, BajajAutoRepository>();
+            container.RegisterType<IBajajAutoCache, BajajAutoCache>();
+	    container.RegisterType<IBikeModelsCacheHelper, BikeModelsCacheHelper>();
             container.RegisterType<IBikeSearchResult, BikeSearchResult>();
             container.RegisterType<ILead, LeadProcess>();
             container.RegisterType<Bikewale.Interfaces.AutoBiz.IDealers, Bikewale.DAL.AutoBiz.DealersRepository>();
@@ -266,6 +277,7 @@ namespace Bikewale.Service.UnityConfiguration
             container.RegisterType<QuestionsAnswers.Cache.IQuestionsCacheRepository, QuestionsAnswers.Cache.QuestionsCacheRepository>();
             container.RegisterType<IQuestionsRepository, QuestionsRepository>();
             container.RegisterType<IUserProfileBAL, UserProfileBAL>();
+            container.RegisterType<ICampaignBL, CampaignBL>();
             return container;
 
         }

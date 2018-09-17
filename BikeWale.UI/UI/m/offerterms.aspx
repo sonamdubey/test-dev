@@ -1,6 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="offerterms.aspx.cs" Inherits="Bikewale.Mobile.OfferTerms" %>
 
-<!-- #include file="/includes/headermobile.aspx" -->
+<!-- #include file="/UI/includes/headermobile.aspx" -->
 
 <div class="padding5">
     <div class="grid_10 format-content margin-top10">
@@ -11,4 +11,4 @@
         <%=htmlContent%>
     </div>
 </div>
-<!-- #include file="/includes/footermobile.aspx" -->
+<!-- #include file="/UI/includes/footermobile.aspx" -->

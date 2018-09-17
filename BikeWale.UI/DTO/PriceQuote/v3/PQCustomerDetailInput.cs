@@ -5,6 +5,8 @@ namespace Bikewale.DTO.PriceQuote.v3
     /// <summary>
     /// Created by  : Pratibha Verma on 26 June 2018
     /// Description : changed PQId data type and added LeadId
+    /// Modified by : Rajan Chauhan on 27 July 2018
+    /// Description : Added AreaId
     /// </summary>
     public class PQCustomerDetailInput
     {
@@ -24,6 +26,8 @@ namespace Bikewale.DTO.PriceQuote.v3
         public string PageUrl { get; set; }
         [JsonProperty("versionId")]
         public string VersionId { get; set; }
+        [JsonProperty("areaId")]
+        public string AreaId { get; set; }
         [JsonProperty("cityId")]
         public string CityId { get; set; }
         [JsonProperty("leadSourceId")]
@@ -32,5 +36,11 @@ namespace Bikewale.DTO.PriceQuote.v3
         public string DeviceId { get; set; }
         [JsonProperty("leadId")]
         public uint LeadId { get; set; }
+        [JsonProperty("platformId")]
+        public ushort PlatformId { get; set; }
+        [JsonProperty("pageId")]
+        public ushort PageId { get; set; }
+        [JsonProperty("campaignId")]
+        public uint CampaignId { get; set; }
     }
 }

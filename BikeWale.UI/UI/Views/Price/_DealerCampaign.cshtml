@@ -1,5 +1,5 @@
 ﻿@model Bikewale.Entities.PriceQuote.v2.DetailedDealerQuotationEntity
-
+@using Bikewale.Entities.BikeBooking;
 @if (Model != null && Model.PrimaryDealer != null && Model.PrimaryDealer.DealerDetails != null && Model.PrimaryDealer.DealerDetails.objArea != null)
 {
     var PrimaryDealerDetails = Model.PrimaryDealer.DealerDetails;
@@ -30,11 +30,14 @@
                         </ul>
                     </div>
                 }
+                @if (PrimaryDealerDetails != null)
+                {
                 <div id="get-offers-btn-content" class="dealer__get-offers-content">
-                    <a href=" javascript:void(0)" id="leadBtn" data-leadsourceid="9" data-item-id="@PrimaryDealerDetails.DealerId" data-item-name="@PrimaryDealerDetails.Organization" data-item-area="@PrimaryDealerDetails.objArea.AreaName" class="btn btn-orange pq-get-dealer-offers bw-ga leadcapturebtn" data-cat="DealerPriceQoute_Page" data-act="Get_Offers_Clicked" data-var="bikeVerLocation" rel="nofollow">
+                    <a href="javascript:void(0)" id="leadBtn" data-leadsourceid=@Convert.ToInt16(LeadSourceEnum.DPQ_TopCard_Desktop) data-campaignid="@PrimaryDealerDetails.CampaignId" data-item-id="@PrimaryDealerDetails.DealerId" data-item-name="@PrimaryDealerDetails.Organization" data-item-area="@PrimaryDealerDetails.objArea.AreaName" class="btn btn-orange pq-get-dealer-offers bw-ga leadcapturebtn" data-cat="DealerPriceQoute_Page" data-act="Get_Offers_Clicked" data-var="bikeVerLocation" rel="nofollow">
                         @PrimaryDealerDetails.DisplayTextLarge
                     </a>
                 </div>
+                }
             </div>
             
             @if (PrimaryDealerDetails.IsDSA)
@@ -250,7 +253,7 @@
                                     <span id="emiAmount" data-bind="text: formatPrice(monthlyEMI())"></span> per month
                                 </span>
                             </div>
-                            <a id="btnEmiQuote" data-leadsourceid="11" data-item-name="@PrimaryDealerDetails.Organization" data-item-area="@PrimaryDealerDetails.objArea.AreaName" data-item-id="@PrimaryDealerDetails.DealerId" class="btn btn-grey btn-md font14 leadcapturebtn">Get EMI quote</a>
+                            <a id="btnEmiQuote" data-leadsourceid=@Convert.ToInt16(LeadSourceEnum.DPQ_EmiCalculator_Desktop) data-campaignid="@PrimaryDealerDetails.CampaignId" data-item-name="@PrimaryDealerDetails.Organization" data-item-area="@PrimaryDealerDetails.objArea.AreaName" data-item-id="@PrimaryDealerDetails.DealerId" class="btn btn-grey btn-md font14 leadcapturebtn">Get EMI quote</a>
                         </div>
 
                     </div>

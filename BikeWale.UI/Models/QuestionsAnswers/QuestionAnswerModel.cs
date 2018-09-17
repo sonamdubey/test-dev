@@ -99,19 +99,23 @@ namespace Bikewale.Models.QuestionsAnswers
                         BindAdSlots(objVM);
                         SetBreadcrumbList(objVM);
                         BindAskQuestionPopup(objVM);
-                        SetPageJSONLDSchema(objVM);
 
                         if (objVM.QuestionAnswerWrapper != null)
                         {
 
-                            uint recordCount = objVM.QuestionAnswerWrapper.TotalAnsweredQuestions;
+                            int recordCount = Convert.ToInt32(objVM.QuestionAnswerWrapper.TotalAnsweredQuestions);
                             objVM.StartIndex = _startIndex;
-                            objVM.EndIndex = _endIndex > recordCount ? Convert.ToInt32(recordCount) : _endIndex;
-                            _totalPagesCount = (uint)_pager.GetTotalPages((int)recordCount, pageSize);
-                            BindLinkPager(objVM, Convert.ToInt32(recordCount), makeMaskingName, modelMaskingName);
-                            CreatePrevNextUrl(objVM, Convert.ToInt32(recordCount));
+                            objVM.EndIndex = Math.Min(recordCount, _endIndex);
+                            _totalPagesCount = (uint)_pager.GetTotalPages(recordCount, pageSize);
+                            BindLinkPager(objVM, recordCount, makeMaskingName, modelMaskingName);
+                            CreatePrevNextUrl(objVM, recordCount);
                         }
                         BindPageMetas(objVM);
+                        SetPageJSONLDSchema(objVM);
+                        String siteBaseUrl = IsMobile ? String.Format("{0}/m", BWConfiguration.Instance.BwHostUrl) : BWConfiguration.Instance.BwHostUrl;
+
+                        objVM.BaseUrl = String.Format("{0}{1}", siteBaseUrl, UrlFormatter.FormatQnAUrl(makeMaskingName, modelMaskingName));
+
                     }
                 }
 
@@ -446,7 +450,7 @@ namespace Bikewale.Models.QuestionsAnswers
                     bikeUrl = string.Format("{0}{1}/", bikeUrl, modelMaskingName);
 
                     BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, bikeUrl, string.Format("{0} {1}", _objVM.MakeModelBase.Make.MakeName, _objVM.MakeModelBase.Model.ModelName)));
-                    BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, null, _objVM.MakeModelBase.Model.ModelName + " Questions & Answers"));
+                    BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, String.Format("{0}questions-and-answers/", bikeUrl), _objVM.MakeModelBase.Model.ModelName + " Questions & Answers"));
 
                     _objVM.BreadcrumbList.BreadcrumListItem = BreadCrumbs;
 
@@ -518,14 +522,14 @@ namespace Bikewale.Models.QuestionsAnswers
         private void SetPageJSONLDSchema(ModelQuestionsAnswersVM objPageMeta)
         {
             //set webpage schema for the model page
-            WebPage webpage = SchemaHelper.GetWebpageSchema(objPageMeta.PageMetaTags, objPageMeta.BreadcrumbList, SchemaHelper.QAPage);
+            WebPage webpage = SchemaHelper.GetWebpageSchema(objPageMeta.PageMetaTags, objPageMeta.BreadcrumbList);
 
             ushort pos = 1;
             if (webpage != null)
             {
                 ICollection<Question> questionList = new Collection<Question>();
 
-                foreach(var currentQuestion in objPageMeta.QuestionAnswerWrapper.QuestionList)
+                foreach (var currentQuestion in objPageMeta.QuestionAnswerWrapper.QuestionList)
                 {
                     Answer answer = new Answer
                     {

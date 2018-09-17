@@ -1,6 +1,8 @@
 ﻿using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.PriceQuote;
+using Bikewale.ManufacturerCampaign.Entities;
+using BikeWale.Entities.AutoBiz;
 using System.Collections.Generic;
 
 namespace Bikewale.Interfaces.BikeBooking
@@ -19,6 +21,8 @@ namespace Bikewale.Interfaces.BikeBooking
     /// Modified by : Sangram Nandkhile on 14 Feb
     /// Summary : Added function ProcessPQV2
     /// Modified by : Kartik Rathod on 20 jun 2018 added ProcessPQV3 price qoute changes
+    /// Modified by : Kartik Rathod on 12 sept 2018
+    /// Summary     : made GetDefaultVersionAndSubscriptionDealer and GetManufacturerCampaignDealer public
     /// </summary>
     public interface IDealerPriceQuote
     {
@@ -46,5 +50,7 @@ namespace Bikewale.Interfaces.BikeBooking
         bool IsDealerDailyLeadLimitExceeds(uint campaignId);
         Bikewale.Entities.BikeBooking.v2.PQOutputEntity ProcessPQV3(Entities.PriceQuote.v2.PriceQuoteParametersEntity PQParams);
         PQCustomerDetail GetCustomerDetailsByLeadId(uint leadId);
+        DealerInfo GetDefaultVersionAndSubscriptionDealer(uint modelId, uint cityId, uint areaId, uint versionId, bool isDealerSubscriptionRequired, out uint defaultVersionId);
+        uint GetManufacturerCampaignDealer(uint modelId, uint cityId, ManufacturerCampaignServingPages page, out ManufacturerCampaignEntity campaigns, out bool isManufacturerDealer);
     }
 }

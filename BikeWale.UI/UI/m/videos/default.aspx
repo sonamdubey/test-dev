@@ -1,7 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Videos.Default" EnableViewState="false" %>
 
-<%@ Register Src="~/m/controls/VideosByCategory.ascx" TagName="ByCategory" TagPrefix="BW" %>
-<%@ Register Src="~/m/controls/ExpertReviewsVideos.ascx" TagName="ExpertReview" TagPrefix="BW" %>
+<%@ Register Src="~/UI/m/controls/VideosByCategory.ascx" TagName="ByCategory" TagPrefix="BW" %>
+<%@ Register Src="~/UI/m/controls/ExpertReviewsVideos.ascx" TagName="ExpertReview" TagPrefix="BW" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,13 +12,13 @@
         keywords = "bike videos, video reviews, expert video reviews, road test videos, bike comparison videos";
         canonical = "https://www.bikewale.com/bike-videos/";
     %>
-    <!-- #include file="/includes/headscript_mobile.aspx" -->
+    <!-- #include file="/UI/includes/headscript_mobile.aspx" -->
      <link href="<%= staticUrl  %>/m/css/videos/bwm-videos-landing.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
 
 </head>
 <body class="bg-light-grey page-type-landing">
     <form runat="server">
-        <!-- #include file="/includes/headBW_Mobile.aspx" -->
+        <!-- #include file="/UI/includes/headBW_Mobile.aspx" -->
         <section>
             <div class="container">
                 <div class="video-jumbotron">
@@ -152,8 +152,8 @@
                 $("img.lazy").lazyload();
             });
         </script>
-        <!-- #include file="/includes/footerBW_Mobile.aspx" -->
-        <!-- #include file="/includes/footerscript_Mobile.aspx" -->
+        <!-- #include file="/UI/includes/footerBW_Mobile.aspx" -->
+        <!-- #include file="/UI/includes/footerscript_Mobile.aspx" -->
     </form>
 </body>
 </html>

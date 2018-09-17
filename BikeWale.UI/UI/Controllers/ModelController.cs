@@ -71,7 +71,8 @@ namespace Bikewale.Controllers
             ICacheManager cacheManager,
             Bikewale.Interfaces.Pager.IPager pager,
             IBikeModelsCacheHelper bikeModelsCacheHelper,
-            IBikeModelsCacheRepository<int> bikeModelsCacheRepository,IQuestions objQuestions)
+            IBikeModelsCacheRepository<int> bikeModelsCacheRepository,
+            IQuestions objQuestions)
         {
             _objModel = objModel;
             _objDealerPQ = objDealerPQ;
@@ -133,7 +134,7 @@ namespace Bikewale.Controllers
                 {
                     return RedirectPermanent(obj.RedirectUrl);
                 }
-                else return View("~/views/model/Index.cshtml", objData);// Do not remove View path from here.
+                else return View("~/UI/views/model/Index.cshtml", objData);// Do not remove View path from here.
 
             }
             else if (obj.Status.Equals(StatusCodes.RedirectPermanent))
@@ -172,12 +173,13 @@ namespace Bikewale.Controllers
                 obj.ManufacturerCampaignPageId = ManufacturerCampaignServingPages.Mobile_Model_Page;
                 obj.CurrentPageUrl = Request.RawUrl;
                 ModelPageVM objData = obj.GetData(versionId);
+
                 //if data is null check for new bikes page redirection
                 if (obj.Status.Equals(StatusCodes.RedirectPermanent))
                 {
                     return RedirectPermanent(obj.RedirectUrl);
                 }
-                else return View("~/views/model/Index_mobile.cshtml", objData); // Do not remove View path from here.
+                else return View("~/UI/views/model/Index_mobile.cshtml", objData); // Do not remove View path from here.
 
             }
             else if (obj.Status.Equals(StatusCodes.RedirectPermanent))
@@ -208,7 +210,7 @@ namespace Bikewale.Controllers
             {
                 obj.IsAmpPage = true;
                 obj.IsMobile = true;
-                obj.Source = DTO.PriceQuote.PQSources.Mobile;
+                obj.Source = DTO.PriceQuote.PQSources.Amp;
                 obj.PQSource = Entities.PriceQuote.PQSourceEnum.Mobile_ModelPage;
                 obj.LeadSource = Entities.BikeBooking.LeadSourceEnum.Model_Mobile;
                 obj.ManufacturerCampaignPageId = ManufacturerCampaignServingPages.Mobile_Model_Page;
@@ -219,7 +221,7 @@ namespace Bikewale.Controllers
                 {
                     return RedirectPermanent(obj.RedirectUrl);
                 }
-                else return View("~/views/model/Index_mobile_amp.cshtml", objData); // Do not remove View path from here.
+                else return View("~/UI/views/model/Index_mobile_amp.cshtml", objData); // Do not remove View path from here.
 
             }
             else if (obj.Status.Equals(StatusCodes.RedirectPermanent))

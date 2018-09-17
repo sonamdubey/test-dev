@@ -1,10 +1,10 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Content.ViewF" %>
 
-<%@ Register TagPrefix="PG" TagName="PhotoGallery" Src="/controls/ArticlePhotoGallery.ascx" %>
-<%@ Register TagPrefix="BW" TagName="MostPopularBikesMin" Src="~/controls/MostPopularBikesMin.ascx" %>
-<%@ Register TagPrefix="BW" TagName="UpcomingBikes" Src="~/controls/UpcomingBikesMinNew.ascx" %>
-<%@ Register TagPrefix="BW" TagName="PopularBikesByBodyStyle" Src="~/controls/PopularBikesByBodyStyle.ascx" %>
-<%@ Register Src="~/controls/ModelGallery.ascx" TagPrefix="BW" TagName="ModelGallery" %>
+<%@ Register TagPrefix="PG" TagName="PhotoGallery" Src="/UI/controls/ArticlePhotoGallery.ascx" %>
+<%@ Register TagPrefix="BW" TagName="MostPopularBikesMin" Src="~/UI/controls/MostPopularBikesMin.ascx" %>
+<%@ Register TagPrefix="BW" TagName="UpcomingBikes" Src="~/UI/controls/UpcomingBikesMinNew.ascx" %>
+<%@ Register TagPrefix="BW" TagName="PopularBikesByBodyStyle" Src="~/UI/controls/PopularBikesByBodyStyle.ascx" %>
+<%@ Register Src="~/UI/controls/ModelGallery.ascx" TagPrefix="BW" TagName="ModelGallery" %>
 <!Doctype html>
 <html>
 <head>
@@ -17,19 +17,19 @@
         AdPath = "/1017752/BikeWale_New_";
         alternate = Bikewale.Utility.BWConfiguration.Instance.BwHostUrl + "/m" + canonicalUrl;
     %>
-    <!-- #include file="/includes/headscript_desktop_min.aspx" -->
-    <link href="<%= staticUrl  %>/css/content/details.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
+    <!-- #include file="/UI/includes/headscript_desktop_min.aspx" -->
+    <link href="<%= staticUrl  %>/UI/css/content/details.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
     <link rel="amphtml" href="<%= ampUrl %>" />
     <script type="text/javascript">
-        <!-- #include file="\includes\gacode_desktop.aspx" -->
+        <!-- #include file="\UI\includes\gacode_desktop.aspx" -->
     </script>
 
-    <script type="text/javascript" src="<%= staticUrl  %>/src/frameworks.js?<%=staticFileVersion %>"></script>
+    <script type="text/javascript" src="<%= staticUrl  %>/UI/src/frameworks.js?<%=staticFileVersion %>"></script>
 
 </head>
 <body class="bg-light-grey header-fixed-inner">
     <form runat="server">
-        <!-- #include file="/includes/headBW.aspx" -->
+        <!-- #include file="/UI/includes/headBW.aspx" -->
 
         <section class="container padding-top10">
             <div class="grid-12">
@@ -108,7 +108,7 @@
                     <div class="grid-4 omega">
                         <BW:MostPopularBikesMin runat="server" ID="ctrlPopularBikes" />
                        <div class="margin-bottom20">
-                            <!-- #include file="/ads/ad300x250.aspx" -->
+                            <!-- #include file="/UI/ads/ad300x250.aspx" -->
                         </div>
                         <%if(isModelTagged){ %>
                         <%if (ctrlBikesByBodyStyle.FetchedRecordsCount > 0){ %>
@@ -127,19 +127,19 @@
             </div>
         </section>
         <div id="back-to-top" class="back-to-top"><a><span></span></a></div>
-        <!-- #include file="/includes/footerBW.aspx" -->
+        <!-- #include file="/UI/includes/footerBW.aspx" -->
         <BW:ModelGallery ID="ctrlModelGallery" runat="server" />
-        <link href="<%= staticUrl  %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
-        <link href="<%=  staticUrl %>/css/jquery.floating-social-share.min.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
-        <!-- #include file="/includes/footerscript.aspx" -->
-        <script type="text/javascript" src="<%= staticUrl  %>/src/jquery.floating-social-share.min.js?<%= staticFileVersion %>"></script>
-        <script type="text/javascript" src="<%= staticUrl  %>/src/content/details.js?<%= staticFileVersion %>"></script>
+        <link href="<%= staticUrl  %>/UI/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
+        <link href="<%=  staticUrl %>/UI/css/jquery.floating-social-share.min.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
+        <!-- #include file="/UI/includes/footerscript.aspx" -->
+        <script type="text/javascript" src="<%= staticUrl  %>/UI/src/jquery.floating-social-share.min.js?<%= staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl  %>/UI/src/content/details.js?<%= staticFileVersion %>"></script>
         <script type="text/javascript">
             $(document).ready(function () {
                 $("body").floatingSocialShare();
             });
         </script>
-        <!-- #include file="/includes/fontBW.aspx" -->
+        <!-- #include file="/UI/includes/fontBW.aspx" -->
     </form>
 </body>
 </html>

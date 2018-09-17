@@ -16,12 +16,12 @@
         isAd970x90BottomShown = false;
          
     %>
-    <!-- #include file="/includes/headscript.aspx" -->
-    <link href="<%= staticUrl  %>/css/bookinglanding.css?<%= staticFileVersion%>" rel="stylesheet" type="text/css" />
+    <!-- #include file="/UI/includes/headscript.aspx" -->
+    <link href="<%= staticUrl  %>/UI/css/bookinglanding.css?<%= staticFileVersion%>" rel="stylesheet" type="text/css" />
 </head>
 <body class="bg-light-grey" data-contestslug="true">
     <form id="form1" runat="server">
-        <!-- #include file="/includes/headBW.aspx" -->
+        <!-- #include file="/UI/includes/headBW.aspx" -->
         <script type="text/javascript">document.getElementById("header").children[1].innerHTML = "";</script>
         <header class="booking-landing-banner">
             <div class="container">
@@ -155,7 +155,7 @@
             </div>
         </section>
 
-        <script src="<%= staticUrl  %>/src/lscache.min.js?<%= staticFileVersion%>"></script>
+        <script src="<%= staticUrl  %>/UI/src/lscache.min.js?<%= staticFileVersion%>"></script>
 
         <script>
             $(window).on("scroll", function () {
@@ -258,7 +258,7 @@
 
         </script>
 
-        <!-- #include file="/includes/footerBW.aspx" -->
+        <!-- #include file="/UI/includes/footerBW.aspx" -->
         
         <script type="text/javascript">
 
@@ -276,7 +276,7 @@
 
             })
         </script>
-        <!-- #include file="/includes/footerscript.aspx" -->
+        <!-- #include file="/UI/includes/footerscript.aspx" -->
     </form>
 </body>
 </html>

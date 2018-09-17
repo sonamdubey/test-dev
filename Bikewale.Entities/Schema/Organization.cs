@@ -18,9 +18,9 @@ namespace Bikewale.Entities.Schema
             {
                 return new ImageObject()
                 {
-                    ImageUrl = "https://imgd.aeplcdn.com/0x0/bw/static/design15/mailer-images/bw-logo.png",
-                    Height = "39",
-                    Width = "114"
+                    ImageUrl = "https://imgd.aeplcdn.com/0x0/bw/static/icons/logo/202x60/bikewale.png",
+                    Height = "60",
+                    Width = "202"
                 };
             }
         }

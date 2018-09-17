@@ -1,0 +1,183 @@
+﻿@import ../base/variables
+@import ../components/variables
+@import ../mixins/index
+@import ../utils/index
+@import ../mixins/button
+
+.question-answer__model-content
+  font-size: 12px
+
+.question-answer__model-label
+  color: color('aluminium')
+  font-weight: $font-semibold
+
+.question-answer__model-name
+  color: color('default')
+  font-weight: $font-bold
+
+.qna-screen__question-detail
+  margin-bottom: 20px
+  background-color: color('white')
+  box-shadow: 0 2px 2px color('gainsboro')
+
+.qna-detail__header
+  padding: 15px 20px
+  box-shadow: 0 2px 2px color('gainsboro', .5)
+
+.qna-detail__body
+  padding: 15px 20px
+
+.qna-detail__footer
+  @include flexbox
+  @include justify-content(space-between)
+  @include align-items(center)
+  margin-top: 30px
+
+.qna-answer-list__item
+  &:first-child
+    .question-answer-wrapper__answer-box
+      margin-top: 0
+
+.qna__view-link
+  font-size: 14px
+  font-weight: $font-semibold
+
+
+.question--detail
+  .question-answer-wrapper__question
+    font-size: 16px
+    font-weight: $font-bold
+
+  .question-answer-wrapper__author
+    color: color('dark-gray-2')
+
+  .question-answer__model-content
+    margin-top: 3px
+
+  .question-answer-wrapper__answer-box
+    color: color('default')
+    font-size: 16px
+
+  .question-answer-wrapper__read-more
+    font-weight: $font-semibold
+
+.qna-detail__header
+  .question-answer-wrapper__author
+    margin: 0px 0px 7px
+
+// Styles for desktop (Media Queries)
+
+@media screen and (min-width: 800px)
+  .question--detail
+    .qna-detail__header
+      padding-top: 20px
+      padding-bottom: 20px
+
+    .qna-detail__body
+      padding-top: 20px
+      padding-bottom: 20px
+
+    .question-answer-wrapper__question
+      font-size: 20px
+      color: color('nero')      
+
+    .question-answer__model-content
+      display: inline-block
+      vertical-align: middle
+
+    .question--author
+      margin-left: 15px
+      margin-top: 0
+      padding-left: 15px
+      position: relative
+      display: inline-block
+      vertical-align: middle
+
+      &:before
+        content: ''
+        width: 1px
+        height: 14px
+        position: absolute
+        top: 3px
+        left: 0
+        border: solid 1px color('gainsboro-4')
+
+    .question-answer-wrapper__answer-box
+      font-size: 14px
+      margin-top: 20px
+      padding-right: 20px
+
+    .question-answer__model-content
+      margin-top: 0
+
+    .question-answer-wrapper__read-more
+      display: inline-block
+      vertical-align: top
+      top: 1px
+
+    .btn-inv-blue
+      @include btn-inv-blue-hover
+      @include afterIcon-arrow-0288d1($hover: true)
+
+    .question-answer-wrapper--active
+      .question-answer-wrapper__read-more
+        display: none
+
+
+// Review and rating css
+
+.star-icon
+  width: 26px
+  height: 25px
+  vertical-align: middle
+  -webkit-transform: scale(0.8)
+  -moz-transform: scale(0.8)
+  -o-transform: scale(0.8)
+  transform: scale(0.8)
+  &.star-size-16
+    -webkit-transform: scale(0.6)
+    -moz-transform: scale(0.6)
+    -o-transform: scale(0.6)
+    transform: scale(0.6)
+
+.rate-count-1 .star-icon
+  background-position: 0 -790px
+
+.rate-count-2 .star-icon
+  background-position: -46px -790px
+
+.rate-count-3 .star-icon
+  background-position: 0 -757px
+
+.rate-count-4 .star-icon
+  background-position: -92px -790px
+
+.rate-count-5
+  .star-icon
+    background-position: -138px -790px
+  color: #198D55
+
+.rate-count-4
+  color: #13B65D
+
+.rate-count-3
+  color: #EFD700
+
+.rate-count-2
+  color: #FD971C
+
+.rate-count-1
+  color: #EF3F30
+
+.review-left-divider
+  position: relative
+  margin-left: 15px
+  padding-left: 15px
+  &:before
+    content: ""
+    position: absolute
+    top: 4px
+    left: 0
+    width: 1px
+    height: 12px
+    border-left: 1px solid #e2e2e2

@@ -25,7 +25,7 @@
         dd.DetectDevice();        
     }
 </script>
-<!-- #include file="/includes/headhome.aspx" -->
+<!-- #include file="/UI/includes/headhome.aspx" -->
 
 
 <div class="container_12 margin-top15 container-min-height">
@@ -38,7 +38,6 @@
                 Sector 30A, Vashi,<br />
                 Navi Mumbai - 400705<br />
                 Phone: (022) 6739 8888<br />
-                Fax: (022) 6645 9665, 6739 8877<br />
                 Email: contact@bikewale.com<br />
                 Working Hours: 10 a.m. - 7 p.m. (closed on Sundays and Holidays)
             </div>
@@ -48,4 +47,4 @@
 <style type="text/css">
     .container-min-height { min-height:530px; }
 </style>
-<!-- #include file="/includes/footerinner.aspx" -->
+<!-- #include file="/UI/includes/footerinner.aspx" -->

@@ -6,6 +6,7 @@ using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.Customer;
 using Bikewale.Entities.Dealer;
 using Bikewale.Entities.PriceQuote;
+using Bikewale.Entities.Location;
 using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.Customer;
 using Bikewale.Interfaces.Dealer;
@@ -17,7 +18,10 @@ using Bikewale.ManufacturerCampaign.Interface;
 using Bikewale.Notifications;
 using RabbitMqPublishing;
 using System;
+using System.Web;
 using System.Collections.Specialized;
+using Bikewale.Utility;
+using Bikewale.BAL.Bhrigu;
 
 namespace Bikewale.BAL.Lead
 {
@@ -76,6 +80,8 @@ namespace Bikewale.BAL.Lead
         /// <summary>
         /// Modified by : Sanskar Gupta on 09 May 2018
         /// Description : Removed unused variables such as `isVerified` and the DTO
+        /// Modified by : Monika Korrapati on 20 Aug 2018
+        /// Description : Added NVC object of tracking data and Bhrigu tracking method 'PushDataToBhrigu'
         /// </summary>
         public PQCustomerDetailOutputEntity ProcessPQCustomerDetailInputWithPQ(Entities.PriceQuote.PQCustomerDetailInput pqInput, System.Collections.Specialized.NameValueCollection requestHeaders)
         {
@@ -86,6 +92,8 @@ namespace Bikewale.BAL.Lead
             PQCustomerDetailOutputEntity pqCustomerDetailEntity = null;
             sbyte noOfAttempts = 0;
             CustomerEntity objCust = null;
+            var request = HttpContext.Current.Request;
+
             try
             {
                 if (pqInput != null && (pqInput.PQId > 0))
@@ -97,7 +105,7 @@ namespace Bikewale.BAL.Lead
 
                     pqInput.LeadId = _objDealerPriceQuote.SaveCustomerDetailByPQId(entity);
 
-                    if (entity.IsAccepted) //if the details are not abusive 
+                    if (entity != null && entity.IsAccepted && pqInput.LeadId > 0) //if the details are not abusive and lead saved successfully
                     {
                         objBookingPageDetailsEntity = _objDealerPriceQuote.FetchBookingPageDetails(Convert.ToUInt32(pqInput.CityId), Convert.ToUInt32(pqInput.VersionId), pqInput.DealerId);
 
@@ -105,7 +113,7 @@ namespace Bikewale.BAL.Lead
                         objCust = pqCustomer.objCustomerBase;
 
                         pqCustomerDetailEntity = NotifyCustomerAndDealer(pqInput, requestHeaders, objCust, false);
-                        pqCustomerDetailEntity.Dealer = objBookingPageDetailsEntity.Dealer;
+                        pqCustomerDetailEntity.Dealer = objBookingPageDetailsEntity != null ? objBookingPageDetailsEntity.Dealer : null;
                     }
                     else
                     {
@@ -114,11 +122,43 @@ namespace Bikewale.BAL.Lead
                     }
                     pqCustomerDetailEntity.NoOfAttempts = noOfAttempts;
                     pqCustomerDetailEntity.IsSuccess = true;
+
+                    NameValueCollection objNVC = new NameValueCollection();
+                    string PageUrl = request.UrlReferrer.ToString();
+                    GlobalCityAreaEntity LocationEntity = GlobalCityArea.GetGlobalCityArea();
+
+                    objNVC.Add("leadId", pqInput.LeadId.ToString());
+                    objNVC.Add("leadSourceId", pqInput.LeadSourceId.ToString());
+                    objNVC.Add("platformId", pqInput.PlatformId.ToString());
+                    objNVC.Add("versionId", pqInput.VersionId.ToString());
+                    objNVC.Add("dealerId", pqInput.DealerId.ToString());
+                    objNVC.Add("appVersion", requestHeaders["appVersion"]);
+                    objNVC.Add("pageId", pqInput.PageId.ToString());
+                    objNVC.Add("campaignId", pqInput.CampaignId.ToString());
+                    objNVC.Add("category", "NewBikesLead");
+                    objNVC.Add("action", entity != null && entity.IsAccepted ? "Accepted" : "Rejected");
+                    objNVC.Add("pageUrl", PageUrl);
+                    objNVC.Add("clientIP", CurrentUser.GetClientIP());
+                    objNVC.Add("queryString", PageUrl.Split('?').Length > 1 ? PageUrl.Split('?')[1].Replace('&', '|') : String.Empty);
+                    objNVC.Add("userAgent", request.UserAgent);
+                    objNVC.Add("referrer", String.Empty);
+                    objNVC.Add("cookieId", request.Cookies["BWC"] != null ? request.Cookies["BWC"].Value : request.Headers["IMEI"]);
+                    objNVC.Add("sessionId", "NA");
+                    objNVC.Add("name", pqInput.CustomerName);
+                    objNVC.Add("mobile", pqInput.CustomerMobile);
+                    objNVC.Add("email", pqInput.CustomerEmail);
+                    objNVC.Add("bwtest", request.Cookies["_bwtest"] != null ? request.Cookies["_bwtest"].Value : "");
+                    objNVC.Add("bwutmz", request.Cookies["_bwutmz"] != null ? request.Cookies["_bwutmz"].Value : "");
+                    objNVC.Add("cwv", request.Cookies["_cwv"] != null ? request.Cookies["_cwv"].Value : "");
+                    objNVC.Add("locationCity", LocationEntity.City );
+                    objNVC.Add("locationArea", LocationEntity.Area );
+
+                    LeadTracking.PushDataToBhrigu(objNVC);
                 }
             }
             catch (Exception ex)
             {
-                ErrorClass.LogError(ex, string.Format("Bikewale.BAL.Lead.LeadProcess.ProcessPQCustomerDetailInput"));
+                ErrorClass.LogError(ex, string.Format("Bikewale.BAL.Lead.LeadProcess.ProcessPQCustomerDetailInputWithPQ(), pqInput : {0}", Newtonsoft.Json.JsonConvert.SerializeObject(pqInput)));
             }
             return pqCustomerDetailEntity;
         }
@@ -126,6 +166,8 @@ namespace Bikewale.BAL.Lead
         /// <summary>
         /// Created by  : Pratibha Verma on 26 June 2018
         /// Description : changes PQId data type and added leadId in entities
+        /// Modified by : Monika Korrapati on 20 Aug 2018
+        /// Description : Added NVC object of tracking data and Bhrigu tracking method 'PushDataToBhrigu'
         /// </summary>
         /// <param name="pqInput"></param>
         /// <param name="requestHeaders"></param>
@@ -139,6 +181,7 @@ namespace Bikewale.BAL.Lead
             Bikewale.Entities.PriceQuote.v2.PQCustomerDetailOutputEntity pqCustomerDetailEntity = null;
             sbyte noOfAttempts = 0;
             CustomerEntity objCust = null;
+            var request = HttpContext.Current.Request;
             try
             {
                 if (pqInput != null && !String.IsNullOrEmpty(pqInput.PQId))
@@ -150,7 +193,7 @@ namespace Bikewale.BAL.Lead
 
                     pqInput.LeadId = _objDealerPriceQuote.SaveCustomerDetailByLeadId(entity);
 
-                    if (entity.IsAccepted) //if the details are not abusive 
+                    if (entity != null && entity.IsAccepted && pqInput.LeadId > 0) //if the details are not abusive and lead saved sucessfully
                     {
                         objBookingPageDetailsEntity = _objDealerPriceQuote.FetchBookingPageDetails(Convert.ToUInt32(pqInput.CityId), Convert.ToUInt32(pqInput.VersionId), pqInput.DealerId);
 
@@ -158,7 +201,7 @@ namespace Bikewale.BAL.Lead
                         objCust = pqCustomer.objCustomerBase;
 
                         pqCustomerDetailEntity = NotifyCustomerAndDealerV2(pqInput, requestHeaders, objCust);
-                        pqCustomerDetailEntity.Dealer = objBookingPageDetailsEntity.Dealer;
+                        pqCustomerDetailEntity.Dealer = objBookingPageDetailsEntity != null ? objBookingPageDetailsEntity.Dealer : null;
                     }
                     else
                     {
@@ -167,11 +210,43 @@ namespace Bikewale.BAL.Lead
                     }
                     pqCustomerDetailEntity.NoOfAttempts = noOfAttempts;
                     pqCustomerDetailEntity.IsSuccess = true;
+
+                    NameValueCollection objNVC = new NameValueCollection();
+                    string PageUrl = request.UrlReferrer.ToString();
+                    GlobalCityAreaEntity LocationEntity = GlobalCityArea.GetGlobalCityArea();
+
+                    objNVC.Add("leadId", pqInput.LeadId.ToString());
+                    objNVC.Add("leadSourceId", pqInput.LeadSourceId.ToString());
+                    objNVC.Add("platformId", pqInput.PlatformId.ToString());
+                    objNVC.Add("versionId", pqInput.VersionId.ToString());
+                    objNVC.Add("dealerId", pqInput.DealerId.ToString());
+                    objNVC.Add("appVersion", requestHeaders["appVersion"]);
+                    objNVC.Add("pageId", pqInput.PageId.ToString());
+                    objNVC.Add("campaignId", pqInput.CampaignId.ToString());
+                    objNVC.Add("category", "NewBikesLead");
+                    objNVC.Add("action", entity != null && entity.IsAccepted ? "Accepted" : "Rejected");
+                    objNVC.Add("pageUrl", PageUrl);
+                    objNVC.Add("clientIP", CurrentUser.GetClientIP());
+                    objNVC.Add("queryString", PageUrl.Split('?').Length > 1 ? PageUrl.Split('?')[1].Replace('&', '|') : String.Empty);
+                    objNVC.Add("userAgent", request.UserAgent);
+                    objNVC.Add("referrer", String.Empty);
+                    objNVC.Add("cookieId", request.Cookies["BWC"] != null ? request.Cookies["BWC"].Value : request.Headers["IMEI"]);
+                    objNVC.Add("sessionId", "NA");
+                    objNVC.Add("name", pqInput.CustomerName);
+                    objNVC.Add("mobile", pqInput.CustomerMobile);
+                    objNVC.Add("email", pqInput.CustomerEmail);
+                    objNVC.Add("bwtest", request.Cookies["_bwtest"] != null ? request.Cookies["_bwtest"].Value : "");
+                    objNVC.Add("bwutmz", request.Cookies["_bwutmz"] != null ? request.Cookies["_bwutmz"].Value : "");
+                    objNVC.Add("cwv", request.Cookies["_cwv"] != null ? request.Cookies["_cwv"].Value : "");
+                    objNVC.Add("locationCity", LocationEntity.City);
+                    objNVC.Add("locationArea", LocationEntity.Area);
+
+                    LeadTracking.PushDataToBhrigu(objNVC);
                 }
             }
             catch (Exception ex)
             {
-                ErrorClass.LogError(ex, string.Format("Bikewale.BAL.Lead.LeadProcess.ProcessPQCustomerDetailInput"));
+                ErrorClass.LogError(ex, string.Format("Bikewale.BAL.Lead.LeadProcess.ProcessPQCustomerDetailInputWithPQV2() , pqInput : {0}", Newtonsoft.Json.JsonConvert.SerializeObject(pqInput)));
             }
             return pqCustomerDetailEntity;
         }
@@ -505,7 +580,14 @@ namespace Bikewale.BAL.Lead
             return output;
         }
 
-
+        /// <summary>
+        /// Modified by : Pratibha Verma on 2 August 2018
+        /// Description : Added sourceid and clientip in the entity to be saved
+        /// </summary>
+        /// <param name="input"></param>
+        /// <param name="requestHeaders"></param>
+        /// <param name="objCust"></param>
+        /// <returns></returns>
         private DPQ_SaveEntity CheckRegisteredUser(Entities.PriceQuote.PQCustomerDetailInput input, System.Collections.Specialized.NameValueCollection requestHeaders, ref CustomerEntity objCust)
         {
             DPQ_SaveEntity entity = null;
@@ -535,6 +617,7 @@ namespace Bikewale.BAL.Lead
                         _objCustomer.Update(objCust);
                     }
                     spamScore = CheckSpamScore(objCust);
+                    UInt16 platformId;
                     entity = new DPQ_SaveEntity()
                     {
                         DealerId = input.DealerId,
@@ -546,7 +629,9 @@ namespace Bikewale.BAL.Lead
                         UTMA = requestHeaders["utma"],
                         UTMZ = requestHeaders["utmz"],
                         DeviceId = input.DeviceId,
-                        LeadSourceId = input.LeadSourceId
+                        LeadSourceId = input.LeadSourceId,
+                        PlatformId = UInt16.TryParse(requestHeaders["platformid"], out platformId) ? platformId : Convert.ToUInt16(0),
+                        ClientIP = CurrentUser.GetClientIP()
                     };
                     if (spamScore != null)
                     {
@@ -564,6 +649,14 @@ namespace Bikewale.BAL.Lead
             return entity;
         }
 
+        /// <summary>
+        /// Modified by : Pratibha Verma on 2 August 2018
+        /// Description : Added sourceid and clientip in the entity to be saved
+        /// </summary>
+        /// <param name="input"></param>
+        /// <param name="requestHeaders"></param>
+        /// <param name="objCust"></param>
+        /// <returns></returns>
         private Bikewale.Entities.BikeBooking.v2.DPQ_SaveEntity CheckRegisteredUserV2(Bikewale.Entities.PriceQuote.v2.PQCustomerDetailInput input, NameValueCollection requestHeaders, ref CustomerEntity objCust)
         {
             Bikewale.Entities.BikeBooking.v2.DPQ_SaveEntity entity = null;
@@ -605,9 +698,12 @@ namespace Bikewale.BAL.Lead
                         UTMZ = requestHeaders["utmz"],
                         DeviceId = input.DeviceId,
                         LeadSourceId = input.LeadSourceId,
+                        AreaId = input.AreaId,
                         CityId = input.CityId,
                         VersionId = input.VersionId,
-                        LeadId = input.LeadId
+                        LeadId = input.LeadId,
+                        PlatformId = input.PlatformId,
+                        ClientIP = CurrentUser.GetClientIP()
                     };
                     if (spamScore != null)
                     {
@@ -628,20 +724,21 @@ namespace Bikewale.BAL.Lead
         /// <summary>
         /// Created By : Deepak Israni on 4 May 2018
         /// Description: BAL function to process manufacturer leads.
+        /// Modified by : Pratibha Verma on 2 August 2018
+        /// Description : Added sourceid and clientip in the entity to be saved
+        /// Modified by : Monika Korrapati on 20 Aug 2018
+        /// Description : Added NVC object of tracking data and Bhrigu tracking method 'PushDataToBhrigu'
         /// </summary>
         /// <param name="input"></param>
         /// <param name="headers"></param>
         public uint ProcessESLead(ManufacturerLeadEntity input, NameValueCollection headers)
         {
             uint leadId = 0;
+            var request = HttpContext.Current.Request;
 
             try
             {
-                String utma = headers["UTMA"];
-                String utmz = headers["UTMZ"];
-                //String platformId = headers["PlatformId"];
-
-                if (input.CityId > 0 && input.VersionId > 0 && (input.PQId > 0 || !string.IsNullOrEmpty(input.PQGUId)) && !String.IsNullOrEmpty(input.Name) && !String.IsNullOrEmpty(input.Mobile) && input.DealerId > 0)
+                if (input!=null && input.CityId > 0 && input.VersionId > 0 && (input.PQId > 0 || !string.IsNullOrEmpty(input.PQGUId)) && !String.IsNullOrEmpty(input.Name) && !String.IsNullOrEmpty(input.Mobile) && input.DealerId > 0)
                 {
                     CustomerEntity objCust = GetCustomerEntity(input.Name, input.Mobile, input.Email);
 
@@ -654,14 +751,16 @@ namespace Bikewale.BAL.Lead
                         CustomerEmail = input.Email,
                         CustomerMobile = input.Mobile,
                         LeadSourceId = input.LeadSourceId,
-                        UTMA = utma,
-                        UTMZ = utmz,
+                        UTMA = headers["UTMA"],
+                        UTMZ = headers["UTMZ"],
                         DeviceId = input.DeviceId,
                         CampaignId = input.CampaignId,
                         LeadId = input.LeadId,
                         CityId = input.CityId,
                         VersionId = input.VersionId,
-                        PQGUId = input.PQGUId
+                        PQGUId = input.PQGUId,
+                        PlatformId = Convert.ToUInt16(input.PlatformId),
+                        ClientIP = CurrentUser.GetClientIP()
                     };
 
                     SpamScore spamScore = CheckSpamScore(objCust);
@@ -675,6 +774,38 @@ namespace Bikewale.BAL.Lead
                     }
 
                     input.LeadId = leadId = _manufacturerCampaignRepo.SaveManufacturerCampaignLead(leadInfo);
+
+                    NameValueCollection objNVC = new NameValueCollection();
+                    string PageUrl = request.UrlReferrer.ToString();
+                    GlobalCityAreaEntity LocationEntity = GlobalCityArea.GetGlobalCityArea();
+
+                    objNVC.Add("leadId", input.LeadId.ToString());
+                    objNVC.Add("leadSourceId", input.LeadSourceId.ToString());
+                    objNVC.Add("platformId", input.PlatformId.ToString());
+                    objNVC.Add("versionId", input.VersionId.ToString());
+                    objNVC.Add("dealerId", input.DealerId.ToString());
+                    objNVC.Add("appVersion", headers["appVersion"]);
+                    objNVC.Add("pageId", input.PageId.ToString());
+                    objNVC.Add("campaignId", input.CampaignId.ToString() );
+                    objNVC.Add("category", "NewBikesLead");
+                    objNVC.Add("action", leadInfo!=null && leadInfo.IsAccepted ? "Accepted" : "Rejected");
+                    objNVC.Add("pageUrl", PageUrl);
+                    objNVC.Add("clientIP", CurrentUser.GetClientIP());
+                    objNVC.Add("queryString", PageUrl.Split('?').Length > 1 ? PageUrl.Split('?')[1].Replace('&', '|') : String.Empty);
+                    objNVC.Add("userAgent", request.UserAgent);
+                    objNVC.Add("referrer", String.Empty);
+                    objNVC.Add("cookieId", request.Cookies["BWC"] != null ? request.Cookies["BWC"].Value : request.Headers["IMEI"]);
+                    objNVC.Add("sessionId", "NA");     
+                    objNVC.Add("name", input.Name);
+                    objNVC.Add("mobile", input.Mobile);
+                    objNVC.Add("email", input.Email);
+                    objNVC.Add("bwtest", request.Cookies["_bwtest"]!=null ? request.Cookies["_bwtest"].Value: "");
+                    objNVC.Add("bwutmz", request.Cookies["_bwutmz"]!=null ? request.Cookies["_bwutmz"].Value: "");
+                    objNVC.Add("cwv", request.Cookies["_cwv"]!=null ? request.Cookies["_cwv"].Value: "");
+                    objNVC.Add("locationCity", LocationEntity.City);
+                    objNVC.Add("locationArea", LocationEntity.Area);
+                    
+                    LeadTracking.PushDataToBhrigu(objNVC);
 
                     if (leadId > 0 && leadInfo.IsAccepted)
                     {
@@ -730,6 +861,8 @@ namespace Bikewale.BAL.Lead
         /// Created By : Deepak Israni on 4 May 2018
         /// Description: Pushes lead to Lead Processing Consumer.
 		/// Modifier    : Kartik Rathod on 16 may 2018, added dealerName,bikename and sendLeadSMSCustomer to ManufacturerLead consumer 
+        /// Modified By : Rajan Chauhan on 20 August 2018 
+        /// Description : Added null check on Pincode 
         /// </summary>
         /// <param name="input"></param>
         private static void PushToLeadConsumer(ManufacturerLeadEntity input)
@@ -743,7 +876,7 @@ namespace Bikewale.BAL.Lead
             objNVC.Add("customerEmail", input.Email);
             objNVC.Add("customerMobile", input.Mobile);
             objNVC.Add("versionId", input.VersionId.ToString());
-            objNVC.Add("pincodeId", input.PinCode.ToString());
+            objNVC.Add("pincodeId", string.IsNullOrEmpty(input.PinCode) ? string.Empty : input.PinCode.ToString());
             objNVC.Add("cityId", input.CityId.ToString());
             objNVC.Add("leadType", "2");
             objNVC.Add("manufacturerDealerId", input.ManufacturerDealerId.ToString());

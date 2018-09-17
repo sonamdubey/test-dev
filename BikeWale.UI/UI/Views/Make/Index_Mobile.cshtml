@@ -2,10 +2,10 @@
 @using Bikewale.Entities.BikeData
 @using Bikewale.BAL.ApiGateway.Entities.BikeData
 @{
-	Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
-	Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/bwm-brand.css' inline /> <link rel='stylesheet' type='text/css' href='/css/components/m-brand-logo.css' inline /> <link rel='stylesheet' type='text/css' href='/sass/partials/bw-youtube.css' inline /> <link rel='stylesheet' type='text/css' href='/sass/partials/explore-bikes-carousel.css' inline />";
-    
-    Model.Page_JS_Paths = new string[] {"/m/src/bwm-brand.js", "/src/review-popup.js"};
+	Layout = "~/UI/Views/Shared/_Layout_Mobile.cshtml";
+	Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/UI/m/css/bwm-brand.css' inline /> <link rel='stylesheet' type='text/css' href='/UI/css/components/m-brand-logo.css' inline /> <link rel='stylesheet' type='text/css' href='/UI/sass/partials/bw-youtube.css' inline /> <link rel='stylesheet' type='text/css' href='/UI/sass/partials/explore-bikes-carousel.css' inline />";
+
+    Model.Page_JS_Paths = new string[] { "/UI/m/src/bwm-brand.js", "/UI/src/review-popup.js" };
 }
 @if (Model != null)
 {
@@ -35,7 +35,7 @@
                     <div class="bg-white box-shadow content-inner-block-1520">
                         <h1>@Model.Page_H1</h1>
                     </div>
-                    @Html.Partial("~/Views/Make/_Index_Tabs_Mobile.cshtml", Model)
+                    @Html.Partial("~/UI/Views/Make/_Index_Tabs_Mobile.cshtml", Model)
                     <div id="listItemsFooter"></div>
                     @if (Model.BikeDescription != null && Model.BikeDescription.FullDescription.Length > 0)
                     {
@@ -137,7 +137,7 @@
                 <div class="carousel__title">
                     <h2 class="page__heading-h2">Explore @Model.MakeName Bike Series</h2>
                 </div>
-                @Html.Partial("~/Views/BikeSeries/_MakeSeriesSlug_Mobile.cshtml", Model.SeriesLinkages)
+                @Html.Partial("~/UI/Views/BikeSeries/_MakeSeriesSlug_Mobile.cshtml", Model.SeriesLinkages)
             </div>
         </section>
     }
@@ -155,7 +155,7 @@
                         </div>
                         <div class="clear"></div>
                     </div>
-                    @Html.Partial("~/Views/Upcoming/_UpcomingBikes_Mobile.cshtml", Model.UpcomingBikes)
+                    @Html.Partial("~/UI/Views/Upcoming/_UpcomingBikes_Mobile.cshtml", Model.UpcomingBikes)
                 </div>
             }
         </section>
@@ -175,7 +175,7 @@
                                 </div>
                                 <div class="clear"></div>
                             </div>
-                            @Html.Partial("~/Views/CompareBikes/_SimilarComparisons_Mobile.cshtml", Model.CompareSimilarBikes)
+                            @Html.Partial("~/UI/Views/CompareBikes/_SimilarComparisons_Mobile.cshtml", Model.CompareSimilarBikes)
                         </div>
                     </section>
                 }
@@ -194,7 +194,7 @@
                                 </div>
                                 <div class="clear"></div>
                             </div>
-                            @Html.Partial("~/Views/Make/_BrandsModelCount_Mobile.cshtml", Model.OtherMakes)
+                            @Html.Partial("~/UI/Views/Make/_BrandsModelCount_Mobile.cshtml", Model.OtherMakes)
                         </div>
                     </section>
                 }
@@ -218,7 +218,7 @@
                                     </div>
                                     <div class="clear"></div>
                                 </div>
-                                @Html.Partial("~/Views/DealerShowroom/_DealerCard_Mobile.cshtml", Model.Dealers)
+                                @Html.Partial("~/UI/Views/DealerShowroom/_DealerCard_Mobile.cshtml", Model.Dealers)
                             </div>
                         </div>
                         <div class="clear"></div>
@@ -241,7 +241,7 @@
                                     <a href="javascript:void(0)" id="changeCity" class="btn btn-white btn-170-32 changepriceincitypage " rel="nofollow" data-makemasking="@Model.MakeMaskingName">
                                         Select your city
                                     </a>
-                                    @Html.Partial("~/Views/PopUp/BikeCityPopup_Mobile.cshtml", Model.BikeCityPopup)
+                                    @Html.Partial("~/UI/Views/PopUp/BikeCityPopup_Mobile.cshtml", Model.BikeCityPopup)
                                 </div>
                                 <div class="margin-right20 margin-bottom20 margin-left20 border-solid-bottom">
 
@@ -250,7 +250,7 @@
                                     @Model.MakeName showrooms
                                 </h3>
                                 <div class="swiper-container card-container swiper-city">
-                                    @Html.Partial("~/Views/PopularCityWidget/DealerServiceCenterInTopCityWidget_Mobile.cshtml", Model.DealersServiceCenterPopularCities)
+                                    @Html.Partial("~/UI/Views/PopularCityWidget/DealerServiceCenterInTopCityWidget_Mobile.cshtml", Model.DealersServiceCenterPopularCities)
                                 </div>
                             </div>
                             <!-- model prices in other cities end -->
@@ -270,7 +270,7 @@
                     {
                         <div id="makeNewsContent" class="bw-model-tabs-data margin-right20 margin-left20 padding-top15 padding-bottom20 border-solid-bottom font14">
                             <h2 class="text-bold">@Model.MakeName News</h2>
-                            @Html.Partial("~/Views/News/_RecentNews_Mobile.cshtml", Model.News)
+                            @Html.Partial("~/UI/Views/News/_RecentNews_Mobile.cshtml", Model.News)
                             <div class="view-all-btn-container">
                                 <a href="@string.Format("/m{0}", Bikewale.Utility.UrlFormatter.FormatNewsUrl(Model.News.MakeMasking, Model.News.ModelMasking))" title="@(!string.IsNullOrEmpty(Model.News.ModelMasking) ? string.Format("{0} {1} News", Model.News.MakeName, Model.News.ModelName) : !string.IsNullOrEmpty(Model.News.MakeMasking) ? string.Format("{0} News", Model.News.MakeName) : "Bikes News")" class="btn view-all-target-btn">Read all news<span class="bwmsprite teal-right"></span></a>
                             </div>
@@ -285,7 +285,7 @@
                             @if (Model.IsExpertReviewsAvailable && Model.ExpertReviews != null)
                             {
                                 <h3>Expert Reviews</h3>
-                                @Html.Partial("~/Views/ExpertReviews/_RecentExpertReviews_Mobile.cshtml", Model.ExpertReviews)
+                                @Html.Partial("~/UI/Views/ExpertReviews/_RecentExpertReviews_Mobile.cshtml", Model.ExpertReviews)
                                 <div class="view-all-btn-container">
                                     <a title="@Model.ExpertReviews.LinkTitle" href="@string.Format("/m{0}", Model.ExpertReviews.MoreExpertReviewUrl)" class="btn view-all-target-btn">Read all reviews<span class="bwmsprite teal-right"></span></a>
                                 </div>
@@ -301,7 +301,7 @@
 
                                 <div>
                                     <h3>User Reviews</h3>
-                                    @Html.Partial("~/Views/UserReview/BikesWithReviewsByMake_Mobile.cshtml", Model.PopularBikesUserReviews)
+                                    @Html.Partial("~/UI/Views/UserReview/BikesWithReviewsByMake_Mobile.cshtml", Model.PopularBikesUserReviews)
                                 </div>
                             }
                         </div>
@@ -320,7 +320,7 @@
                                 </div>
                                 <div class="clear"></div>
                             </div>
-                            @Html.Partial("~/Views/Photos/_ImageCaraousel_Mobile.cshtml", Model.BikeModelsPhotos)
+                            @Html.Partial("~/UI/Views/Photos/_ImageCaraousel_Mobile.cshtml", Model.BikeModelsPhotos)
                         </div>
                     </section>
 
@@ -331,7 +331,7 @@
                         <div id="makeVideosContent" class="bw-model-tabs-data margin-right20 margin-left20 padding-top15 padding-bottom20 border-solid-bottom font14">
                             <h2 class="text-bold">@Model.MakeName Videos</h2>
 
-                        @Html.Partial("~/Views/Videos/_LazyLoadVideos_Mobile.cshtml", Model.Videos)
+                        @Html.Partial("~/UI/Views/Videos/_LazyLoadVideos_Mobile.cshtml", Model.Videos)
 
                             <div class="margin-top10">
                             <a title="@Model.Videos.LinkTitle" href="@string.Format("/m{0}",Model.Videos.MoreVideoUrl)" class="btn view-all-target-btn">
@@ -353,7 +353,7 @@
                                 </div>
                                 <div class="clear"></div>
                             </div>
-                            @Html.Partial("~/Views/Used/_UsedBikesByModel_Mobile.cshtml", Model.UsedModels)
+                            @Html.Partial("~/UI/Views/Used/_UsedBikesByModel_Mobile.cshtml", Model.UsedModels)
                         </div>
                     }
                     <div id="makeSpecsFooter"></div>
@@ -392,7 +392,7 @@
 { 
     <section>
         <div style="margin-bottom: 15px">
-            @{Html.RenderPartial("/Views/Shared/Ads/Mobile/AdSlotGeneric.cshtml", Model.AdSlots[String.Format("{0}-16", Model.AdTags.AdId)]);}
+            @{Html.RenderPartial("/UI/Views/Shared/Ads/Mobile/AdSlotGeneric.cshtml", Model.AdSlots[String.Format("{0}-16", Model.AdTags.AdId)]);}
         </div>
     </section>
 }
@@ -401,7 +401,7 @@
     {
         <section>
             <div class="container">
-                @Html.Partial("~/Views/Make/MakeFooterCategoriesandPrice_Mobile.cshtml", Model.SubFooter)
+                @Html.Partial("~/UI/Views/Make/MakeFooterCategoriesandPrice_Mobile.cshtml", Model.SubFooter)
             </div>
         </section>
     }

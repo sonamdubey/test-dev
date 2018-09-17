@@ -47,7 +47,7 @@
 
   .question-answer-wrapper__view-question-btn
     @include btn-inv-teal
-    @include afterIcon
+    @include afterIcon-arrow-3799a7
     border-radius: 2px
     font-weight: normal
 
@@ -168,6 +168,10 @@
     padding-top: 15px
     color: color('aluminium')
 
+// button arrow
+.btn-inv-blue--arrow
+    @include afterIcon-arrow-0288d1
+
 // Styles for Desktop
 @media screen and (min-width: 800px)
   .question-answer-wrapper
@@ -219,7 +223,7 @@
 
   .question-answer-wrapper__view-question-btn
       @include btn-inv-teal-hover
-      @include afterIcon-hover
+      @include afterIcon-arrow-fff-hover
 
   .question-answer-wrapper--screen
     padding-top: 0
@@ -237,3 +241,23 @@
       height: 196px
       margin-top: 3px
       background-size: 30%
+
+.question-answer-wrapper__answers-link
+    display: inline-block
+    position: relative
+    font-size: 14px
+    font-weight: $font-semibold
+    text-transform: capitalize
+    margin-top: 10px
+
+    &:after
+      @include right-arrow-0288d1-icon
+      content: ''
+      position: absolute
+      top: 6px
+      right: -14px
+      width: 6px
+      height: 12px
+
+    &:hover
+      text-decoration: none

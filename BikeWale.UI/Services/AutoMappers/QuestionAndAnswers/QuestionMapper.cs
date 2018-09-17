@@ -41,5 +41,25 @@ namespace Bikewale.Service.AutoMappers.QuestionAndAnswers
                 .ForMember(d => d.QuestionsAnswersList, opt => opt.MapFrom(s => s.QuestionList));
             return Mapper.Map<Questions, QuestionsDTO>(questions);
         }
+
+        /// <summary>
+        /// Created by  : Kumar Swapnil on 14 September 2018
+        /// Description : Function to map `TIn` entity to `TOutDTO`.
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public static TOut Convert<TIn, TOut>(TIn input)
+        {
+            Mapper.CreateMap<CustomerEntityBase, CustomerBase>();
+            Mapper.CreateMap<Answer, AnswerDTO>();
+            Mapper.CreateMap<Entities.QuestionAndAnswers.Tag, Bikewale.DTO.QuestionAndAnswers.Tag>();
+            Mapper.CreateMap<QuestionAnswer, QuestionAnswerDTO>();
+            Mapper.CreateMap<QuestionBase, QuestionDTO>();
+            Mapper.CreateMap<Questions, QuestionsDTO>()
+                .ForMember(d => d.QuestionsAnswersList, opt => opt.MapFrom(s => s.QuestionList));
+
+            Mapper.CreateMap<QuestionUrl, QuestionURLDTO>();
+            return Mapper.Map<TIn, TOut>(input);
+        }
     }
 }

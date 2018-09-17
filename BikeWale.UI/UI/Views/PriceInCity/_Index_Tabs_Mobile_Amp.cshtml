@@ -2,42 +2,49 @@
 @{
     var gaBikeName = String.Format("{0}_{1}_{2}", Model.Make.MakeName, Model.BikeModel.ModelName, Model.CityEntity.CityName);
 }
+<amp-state id="scrollTab">
+    <script type="application/json">
+        {
+        "activeTabId": 0
+        }
+    </script>
+</amp-state>
 
 <ul class="overall-specs-tabs-wrapper">
     @if (Model.FirstVersion != null)
     {
-        <li class="bw-price-in-city-ga active">
-            <a href="@string.Format("{0}/m{1}price-in-{2}/#orpContent", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, Model.BikeInfo.BikeUrl, Model.CityEntity.CityMaskingName)">On-road price</a>
+        <li class="bw-price-in-city-ga active" [class]="(scrollTab.activeTabId== 0)? 'bw-price-in-city-ga active':'bw-price-in-city-ga'" role="button" tabindex="0" on="tap:orpContent.scrollTo(duration = 200), AMP.setState({ scrollTab: {activeTabId: 0} })">
+            <a>On-road price</a>
         </li>
     }
     @if (Model.HasDealers || Model.HasServiceCenters)
     {
-        <li class="bw-price-in-city-ga">
-            <a href="@string.Format("{0}/m{1}price-in-{2}/#dealerContent", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, Model.BikeInfo.BikeUrl, Model.CityEntity.CityMaskingName)">Dealers</a>
-    </li>
+        <li class="bw-price-in-city-ga" [class]="(scrollTab.activeTabId== 1)? 'bw-price-in-city-ga active':'bw-price-in-city-ga'" role="button" tabindex="1" on="tap: dealerContent.scrollTo(duration = 200), AMP.setState({ scrollTab: { activeTabId: 1 } })">
+            <a>Dealers</a>
+        </li>
     }
     @if (Model.IsNew)
     {
-        <li class="bw-price-in-city-ga">
-            <a href="@string.Format("{0}/m{1}price-in-{2}/#emiContent", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, Model.BikeInfo.BikeUrl, Model.CityEntity.CityMaskingName)">EMI calculator</a>
-    </li>
+        <li class="bw-price-in-city-ga" [class]="(scrollTab.activeTabId== 2)? 'bw-price-in-city-ga active':'bw-price-in-city-ga'" role="button" tabindex="2" on="tap: emiContent.scrollTo(duration = 200), AMP.setState({ scrollTab: { activeTabId: 2 } })">
+            <a>EMI calculator</a>
+        </li>
     }
     @if (Model.IsNew && (Model.BikeVersionPrices != null || Model.HasNearestPriceCities))
     {
-        <li class="bw-price-in-city-ga">
-            <a href="@string.Format("{0}/m{1}price-in-{2}/#versionContent", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, Model.BikeInfo.BikeUrl, Model.CityEntity.CityMaskingName)">Price list</a>
-    </li>
+        <li class="bw-price-in-city-ga" [class]="(scrollTab.activeTabId== 3)? 'bw-price-in-city-ga active':'bw-price-in-city-ga'" role="button" tabindex="3" on="tap: versionContent.scrollTo(duration = 200), AMP.setState({ scrollTab: { activeTabId: 3 } })">
+            <a>Price list</a>
+        </li>
     }
     @if (Model.HasAlternateBikes)
     {
-        <li class="bw-price-in-city-ga">
-            <a href="@string.Format("{0}/m{1}price-in-{2}/#similarContent", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, Model.BikeInfo.BikeUrl, Model.CityEntity.CityMaskingName)">Compare @Model.BodyStyleText</a>
-    </li>
+        <li class="bw-price-in-city-ga" [class]="(scrollTab.activeTabId== 4)? 'bw-price-in-city-ga active':'bw-price-in-city-ga'" role="button" tabindex="4" on="tap: similarContent.scrollTo(duration = 200), AMP.setState({ scrollTab: { activeTabId: 4 } })">
+            <a>Compare @Model.BodyStyleText</a>
+        </li>
     }
     else if (Model.IsPopularBodyStyleAvailable)
     {
-        <li class="bw-price-in-city-ga">
-            <a href="@string.Format("{0}/m{1}price-in-{2}/#popularContent", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, Model.BikeInfo.BikeUrl, Model.CityEntity.CityMaskingName)">Popular @Model.BodyStyleText</a>
-    </li>
+        <li class="bw-price-in-city-ga" [class]="(scrollTab.activeTabId== 5)? 'bw-price-in-city-ga active':'bw-price-in-city-ga'" role="button" tabindex="5" on="tap: popularContent.scrollTo(duration = 200), AMP.setState({ scrollTab: { activeTabId: 5 } })">
+            <a>Popular @Model.BodyStyleText</a>
+        </li>
     }
 </ul>

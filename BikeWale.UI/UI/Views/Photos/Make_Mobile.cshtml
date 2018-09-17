@@ -3,9 +3,9 @@
 @if (Model != null)
 {
     {
-        Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
-        Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/photos/landing.css' inline />";
-        Model.Page_JS_Path = "/src/photos/landing.js";
+        Layout = "~/UI/Views/Shared/_Layout_Mobile.cshtml";
+        Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/UI/sass/photos/landing.css' inline />";
+        Model.Page_JS_Path = "/UI/src/photos/landing.js";
         Model.AdTags.AdId = "1516009422206";
         Model.AdTags.AdPath = "/1017752/Bikewale_Bike_Image_Mobile";
         Model.AdTags.Ad_Bot_320x50 = true;
@@ -56,7 +56,7 @@
     if (Model.AdTags != null && Model.AdTags.Ad_Mid_320x50)
     {
         <section>
-            @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad320x50_Middle.cshtml", Model.AdTags);}
+            @{Html.RenderPartial("/UI/Views/Shared/Ads/Mobile/Ad320x50_Middle.cshtml", Model.AdTags);}
         </section>
     }
     <section>
@@ -145,7 +145,7 @@
                     @if (Model.BikeModelsPhotos != null)
                     {
                         <ul class="explore-model-image__list image-card--list">
-                            @Html.Partial("~/Views/Photos/_ModelsImageListBase_Mobile.cshtml", Model.BikeModelsPhotos)
+                            @Html.Partial("~/UI/Views/Photos/_ModelsImageListBase_Mobile.cshtml", Model.BikeModelsPhotos)
                         </ul>
                     }
                 </div>
@@ -161,7 +161,7 @@
                     {
                         <h2 class="font18">@Model.Make.MakeName Bike Videos</h2>
                     }
-                    @Html.Partial("~/Views/Videos/_RecentVideos_v1_Mobile.cshtml", Model.Videos)
+                    @Html.Partial("~/UI/Views/Videos/_RecentVideos_v1_Mobile.cshtml", Model.Videos)
                     <div class="margin-top10">
                         <a title="@Model.Videos.LinkTitle" href="@string.Format("/m{0}",Model.Videos.MoreVideoUrl)" class="btn view-all-target-btn">
                             View all videos <span class="bwmsprite teal-right"></span>
@@ -176,7 +176,7 @@
         <section>
             <div class="container bg-white padding-bottom10 section-bottom-margin">
                 <h2 class="related-bikes__title">Browse Images by Brands</h2>
-                @Html.Partial("~/Views/Photos/_OtherPopularMakes_Mobile.cshtml", Model.OtherPopularMakes)
+                @Html.Partial("~/UI/Views/Photos/_OtherPopularMakes_Mobile.cshtml", Model.OtherPopularMakes)
             </div>
         </section>
     }

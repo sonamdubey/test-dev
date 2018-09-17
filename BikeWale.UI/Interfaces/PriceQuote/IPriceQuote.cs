@@ -1,4 +1,5 @@
-﻿using Bikewale.Entities;
+﻿using Bikewale.DTO.PriceQuote.Version;
+using Bikewale.Entities;
 using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.PriceQuote;
@@ -38,5 +39,8 @@ namespace Bikewale.Interfaces.PriceQuote
         string RegisterPriceQuoteV2(Bikewale.Entities.PriceQuote.v2.PriceQuoteParametersEntity pqParams);
         void GetDealerVersionsPriceByModelCity(IEnumerable<BikeVersionMinSpecs> versionList, uint cityId, uint modelId, uint dealerId = 0);
         Bikewale.Entities.PriceQuote.v2.BikeQuotationEntity GetPriceQuote(uint cityId, uint versionId, LeadSourceEnum page);
+		bool GetMLAStatus(int makeId, uint cityId);
+        VersionPrice GetVersionPriceByCityId(uint versionId, uint cityId);
+        IList<PriceCategory> GetVersionPriceListByCityId(uint versionId, uint cityId);
     }
 }

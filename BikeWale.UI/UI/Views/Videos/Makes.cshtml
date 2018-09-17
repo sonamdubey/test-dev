@@ -2,8 +2,8 @@
 @using Bikewale.Utility;
 @if (Model != null)
 {
-    Layout = "~/Views/Shared/_Layout.cshtml";
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/video/videos-by-make.css' inline />";
+    Layout = "~/UI/Views/Shared/_Layout.cshtml";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/UI/css/video/videos-by-make.css' inline />";
     Model.AdTags.AdId = "1395995626568";
     Model.AdTags.AdPath = "/1017752/BikeWale_News_";
     Model.AdTags.Ad_970x90 = true;
@@ -68,7 +68,7 @@
                             </div>
                             @if (Model.PopularSportsBikesWidget != null && Model.PopularSportsBikesWidget.ModelList != null &&  Model.PopularSportsBikesWidget.ModelList.Any())
                             {
-                                @Html.Partial("~/Views/Photos/_ImageCaraousel.cshtml", Model.PopularSportsBikesWidget)
+                                @Html.Partial("~/UI/Views/Photos/_ImageCaraousel.cshtml", Model.PopularSportsBikesWidget)
                             }
                         </div>
                     </div>

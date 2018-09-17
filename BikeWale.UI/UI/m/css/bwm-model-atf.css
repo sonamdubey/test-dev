@@ -816,3 +816,117 @@ a.btn:hover {
       -ms-transform: translateX(-100%);
       transform: translateX(-100%);
 }
+
+/* change city location link */
+.edit-city-link {
+    color: #0288d1;
+    font-weight: 600;
+    cursor: pointer;
+}
+.edit-city__text{
+    display: inline-block;
+}
+.edit-city__icon {
+    background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/0288d1/edit.svg') center no-repeat;
+    width: 9px;
+    height: 9px;
+    margin-left: 5px;
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+    top: -1px;
+}
+/* TODO: Remove this css while development*/
+#animate-btn.campaign__floating-btn {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    z-index: 8;
+    background: #fff;
+    -moz-box-shadow: 0 0 7px #ccc;
+    -webkit-box-shadow: 0 0 7px #ccc;
+    box-shadow: 0 0 7px #ccc;
+}
+#animate-btn.campaign__floating-btn .btn__left-label {
+    color: #82888b;
+    position : absolute;
+    top: 17px;
+}
+#animate-btn.campaign__floating-btn .btn.btn-full-32 {
+    width: 100%;
+    padding: 5px;
+    font-size: 14px;
+    border-radius: 2px;
+}
+
+/*floating cta animation*/
+.campaign-with-animation .campaign-animation-text__content {
+    opacity: 0;
+    -webkit-transition: opacity .5s ease-in-out;
+    transition: opacity .5s ease-in-out;
+    will-change: opacity;
+}
+.campaign-with-animation .campaign-with-animation__text {
+    display: inline-block;
+    vertical-align: top;
+    float: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    position: absolute;
+    top: 14px;
+    padding-left: 10px;
+ }
+.campaign-with-animation .campaign-with-animation__button {
+    width: 100%;
+    -webkit-transition: width .5s ease-in-out;
+    transition: width .5s ease-in-out;
+    float: right;
+    text-align: right;
+    font-weight: 600;
+}
+
+.campaign-with-animation .campaign-with-animation__button .btn {
+    border-radius: 0;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: 16px;
+}
+
+.campaign-with-animation.animated .campaign-animation-text__content {
+    opacity: 1;
+}
+
+.campaign-with-animation.animated .campaign-with-animation__button {
+    width: 41.66%;
+}
+
+
+@media screen and (max-width: 320px) {
+    .campaign-with-animation .campaign-with-animation__text {
+        font-size: 12px;
+    }
+}
+
+/* Location icon */
+.changeCity {
+    position: relative;
+}
+
+.location-map-icon {
+    background-image: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/0987d1/location-filled.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    width: 16px;
+    height: 28px;
+    position: absolute;
+    bottom: 0;
+    left: 105%;
+}
+
+/* Location Active state */
+.location--active .location-map-icon {
+    background-image: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/0987d1/location-outline.svg');
+}

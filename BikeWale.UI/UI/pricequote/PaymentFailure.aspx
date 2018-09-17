@@ -10,14 +10,24 @@
         isAd970x90Shown = false;
         isAd970x90BottomShown = false;
     %>
-    <!-- #include file="/includes/headscript.aspx" -->
-    <link href="<%= staticUrl  %>/css/bookingfail.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
+    <!-- #include file="/UI/includes/headscript.aspx" -->
+    <link href="<%= staticUrl  %>/UI/css/bookingfail.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
 </head>
 <body class="bg-light-grey">
     <form runat="server">
         <div class="main-container">
         <!--Header code start here -->
         <div id="header" class="header-fixed">
+		<!-- BW Doodle start-->
+		<span class="bw-doodle__container">
+			<span class="bw-doodle__bell-one"></span>
+			<span class="bw-doodle__bell-two"></span>
+			<span class="bw-doodle__ganesh-image">
+				<span class="bw-doodle__ganesh"></span>
+				<span class="bw-doodle__ganesh-bg"></span>
+			</span>
+		</span>
+		<!-- BW Doodle end-->
             <div class="left-float margin-left50">
                 <a href="/" class="bwsprite bw-logo"></a>
             </div>

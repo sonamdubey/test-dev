@@ -2,9 +2,9 @@
 @using Bikewale.Entities.UserReviews;
 @using Bikewale.Utility;
 @{
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/sass/user-review/listing.css' inline />";
-    Model.Page_JS_Path = "/m/src/user-review/listing.js";
-    Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/UI/m/sass/user-review/listing.css' inline />";
+    Model.Page_JS_Path = "/UI/m/src/user-review/listing.js";
+    Layout = "~/UI/Views/Shared/_Layout_Mobile.cshtml";
     Model.AdTags.AdPath = "/1017752/Bikewale_Mobile_UserReviews";
     Model.AdTags.AdId = "1493795506249";
     Model.AdTags.Ad_320x50 = true;
@@ -120,27 +120,27 @@
 
     if (Model.UserReviews != null && Model.UserReviews.UserReviews.TotalCount > 0)
     {
-        @Html.Partial("~/Views/UserReview/_UserReviewsSearch_Mobile.cshtml", Model.UserReviews)
+        @Html.Partial("~/UI/Views/UserReview/_UserReviewsSearch_Mobile.cshtml", Model.UserReviews)
     }
     if (Model.AdTags.Ad_300x250BTF)
     {
     <div class="margin-bottom20 text-center">
-        @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad300x250BTF.cshtml", new { AdId = Model.AdTags.AdId });}
+        @{Html.RenderPartial("/UI/Views/Shared/Ads/Mobile/Ad300x250BTF.cshtml", new { AdId = Model.AdTags.AdId });}
     </div>
      }
     <section>
         <div id="bike-rating-box" class="container content-box-shadow card-bottom-margin content-inner-block-20">
             <p class="font16 text-black text-bold inline-block margin-right15">Rate this bike now</p>
             <div class="answer-star-list inline-block">
-                <input data-querystring="@Utils.Utils.EncryptTripleDES(string.Format("returnurl={0}&selectedRating=5&sourceid={1}", Model.PageUrl,(int)UserReviewPageSourceEnum.Mobile_UserReview_Details))" type="radio" id="rate-star-5" name="rate-bike" value="5">
+                <input data-querystring="@TripleDES.EncryptTripleDES(string.Format("returnurl={0}&selectedRating=5&sourceid={1}", Model.PageUrl,(int)UserReviewPageSourceEnum.Mobile_UserReview_Details))" type="radio" id="rate-star-5" name="rate-bike" value="5">
                 <label class="bwmsprite star-0" for="rate-star-5" data-value="5"></label>
-                <input data-querystring="@Utils.Utils.EncryptTripleDES(string.Format("returnurl={0}&selectedRating=4&sourceid={1}", Model.PageUrl,(int)UserReviewPageSourceEnum.Mobile_UserReview_Details))" type="radio" id="rate-star-4" name="rate-bike" value="4">
+                <input data-querystring="@TripleDES.EncryptTripleDES(string.Format("returnurl={0}&selectedRating=4&sourceid={1}", Model.PageUrl,(int)UserReviewPageSourceEnum.Mobile_UserReview_Details))" type="radio" id="rate-star-4" name="rate-bike" value="4">
                 <label class="bwmsprite star-0" for="rate-star-4" data-value="4"></label>
-                <input data-querystring="@Utils.Utils.EncryptTripleDES(string.Format("returnurl={0}&selectedRating=3&sourceid={1}", Model.PageUrl,(int)UserReviewPageSourceEnum.Mobile_UserReview_Details))" type="radio" id="rate-star-3" name="rate-bike" value="3">
+                <input data-querystring="@TripleDES.EncryptTripleDES(string.Format("returnurl={0}&selectedRating=3&sourceid={1}", Model.PageUrl,(int)UserReviewPageSourceEnum.Mobile_UserReview_Details))" type="radio" id="rate-star-3" name="rate-bike" value="3">
                 <label class="bwmsprite star-0" for="rate-star-3" data-value="3"></label>
-                <input data-querystring="@Utils.Utils.EncryptTripleDES(string.Format("returnurl={0}&selectedRating=2&sourceid={1}", Model.PageUrl,(int)UserReviewPageSourceEnum.Mobile_UserReview_Details))" type="radio" id="rate-star-2" name="rate-bike" value="2">
+                <input data-querystring="@TripleDES.EncryptTripleDES(string.Format("returnurl={0}&selectedRating=2&sourceid={1}", Model.PageUrl,(int)UserReviewPageSourceEnum.Mobile_UserReview_Details))" type="radio" id="rate-star-2" name="rate-bike" value="2">
                 <label class="bwmsprite star-0" for="rate-star-2" data-value="2"></label>
-                <input data-querystring="@Utils.Utils.EncryptTripleDES(string.Format("returnurl={0}&selectedRating=1&sourceid={1}", Model.PageUrl,(int)UserReviewPageSourceEnum.Mobile_UserReview_Details))" type="radio" id="rate-star-1" name="rate-bike" value="1">
+                <input data-querystring="@TripleDES.EncryptTripleDES(string.Format("returnurl={0}&selectedRating=1&sourceid={1}", Model.PageUrl,(int)UserReviewPageSourceEnum.Mobile_UserReview_Details))" type="radio" id="rate-star-1" name="rate-bike" value="1">
                 <label class="bwmsprite star-0" for="rate-star-1" data-value="1"></label>
             </div>
         </div>
@@ -149,7 +149,7 @@
             if (Model.GenericBikeWidgetData != null)
             {
                 <section class="content-box-shadow section-bottom-margin">
-                    @Html.Partial("~/views/BikeModels/_BikeInfoCard_Mobile.cshtml", Model.GenericBikeWidgetData)
+                    @Html.Partial("~/UI/views/BikeModels/_BikeInfoCard_Mobile.cshtml", Model.GenericBikeWidgetData)
                 </section>
             }
 
@@ -168,7 +168,7 @@
                             <div class="clear"></div>
                         </div>
 
-                        @Html.Partial("~/views/ExpertReviews/_ExpertReviewsModelWiseCard_Mobile.cshtml", Model.ExpertReviews)
+                        @Html.Partial("~/UI/views/ExpertReviews/_ExpertReviewsModelWiseCard_Mobile.cshtml", Model.ExpertReviews)
 
                     </div>
                 </section>
@@ -185,7 +185,7 @@
                             <div class="clear"></div>
                         </div>
 
-                        @Html.Partial("~/views/UserReview/_SimilarBikeUserReview_Mobile.cshtml", Model.SimilarBikesWidget)
+                        @Html.Partial("~/UI/views/UserReview/_SimilarBikeUserReview_Mobile.cshtml", Model.SimilarBikesWidget)
 
                     </div>
                 </section>

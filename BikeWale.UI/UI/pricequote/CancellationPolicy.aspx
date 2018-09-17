@@ -7,8 +7,8 @@
     is300x250Shown=false;
     is300x250_BTFShown=false;
  %>
-    <!-- #include file="/includes/pgheader.aspx" -->
-<link rel="stylesheet" href="<%= staticUrl %>/css/bw-pq-new.css?<%= staticFileVersion %>" type="text/css">
+    <!-- #include file="/UI/includes/pgheader.aspx" -->
+<link rel="stylesheet" href="<%= staticUrl %>/UI/css/bw-pq-new.css?<%= staticFileVersion %>" type="text/css">
     <div class="container_12">
         <h1 class=" margin-top15 margin-bottom10">Cancellation Policy</h1>
         <div class="cancellation-box">

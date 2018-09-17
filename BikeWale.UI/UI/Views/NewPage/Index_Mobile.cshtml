@@ -1,8 +1,8 @@
 ﻿@model Bikewale.Models.NewPageVM
 @{
-	Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
-	Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/bwm-newbikes.css' inline /> <link rel='stylesheet' type='text/css' href='/css/components/m-brand-logo.css' inline />";
-    Model.Page_BTF_CSS_Path = "/m/css/bwm-common-btf.css";
+	Layout = "~/UI/Views/Shared/_Layout_Mobile.cshtml";
+	Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/UI/m/css/bwm-newbikes.css' inline /> <link rel='stylesheet' type='text/css' href='/UI/css/components/m-brand-logo.css' inline />";
+    Model.Page_BTF_CSS_Path = "/UI/m/css/bwm-common-btf.css";
     Model.AdTags.AdPath = "/1017752/Bikewale_Mobile_NewHome";
     Model.AdTags.AdId = "1450262524302";
     Model.AdTags.Ad320x150_Top = true;
@@ -34,7 +34,7 @@
                 </div>
 
                 <div class="bw-tabs-data collapsible-brand-content" id="discoverBrand">
-                    @Html.Partial("~/Views/Make/_Brands_Mobile.cshtml", Model.Brands)
+                    @Html.Partial("~/UI/Views/Make/_Brands_Mobile.cshtml", Model.Brands)
                 </div>
                 <div class="bw-tabs-data hide" id="discoverBudget">
                     <div class="budget-container">
@@ -192,7 +192,7 @@
 </section>
 
 <section>
-    @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad320x150_First.cshtml", new { AdId = Model.AdTags.AdId });}
+    @{Html.RenderPartial("/UI/Views/Shared/Ads/Mobile/Ad320x150_First.cshtml", new { AdId = Model.AdTags.AdId });}
 </section>
 <section>
     <!--  Upcoming, New Launches and Top Selling code starts here -->
@@ -222,7 +222,7 @@
                         {
                             <div class="bw-tabs-data features-bikes-container" id="mctrlMostPopularBikes">
 
-                                @Html.Partial("~/Views/BikeModels/_MostPopularBikes_Mobile.cshtml", Model.PopularBikes)
+                                @Html.Partial("~/UI/Views/BikeModels/_MostPopularBikes_Mobile.cshtml", Model.PopularBikes)
 
                                 <div class="padding-left10 view-all-btn-container margin-top10">
                                     <a href="/m/best-bikes-in-india/" title="Popular Bikes in India" class="btn view-all-target-btn">View all bikes<span class="bwmsprite teal-right"></span></a>
@@ -233,7 +233,7 @@
                         {
                             <div class="bw-tabs-data hide features-bikes-container" id="mctrlNewLaunchedBikes">
 
-                                @Html.Partial("~/Views/NewLaunches/_NewLaunches_Mobile.cshtml", Model.NewLaunchedBikes)
+                                @Html.Partial("~/UI/Views/NewLaunches/_NewLaunches_Mobile.cshtml", Model.NewLaunchedBikes)
 
                                 <div class="padding-left10 view-all-btn-container margin-top10">
                                     <a href="/m/new-bike-launches/" title="New Bike Launches in India" class="btn view-all-target-btn">View all launches<span class="bwmsprite teal-right"></span></a>
@@ -244,7 +244,7 @@
                         {
                             <div class="bw-tabs-data hide features-bikes-container" id="mctrlUpcomingBikes">
 
-                                @Html.Partial("~/Views/Upcoming/_UpcomingBikes_Mobile.cshtml", Model.UpcomingBikes)
+                                @Html.Partial("~/UI/Views/Upcoming/_UpcomingBikes_Mobile.cshtml", Model.UpcomingBikes)
                                 <div class="padding-left10 view-all-btn-container margin-top10">
                                     <a href="/m/upcoming-bikes/" title="Upcoming Bikes in India" class="btn view-all-target-btn">View all bikes<span class="bwmsprite teal-right"></span></a>
                                 </div>
@@ -288,7 +288,7 @@
                     <div id="compareTypeBike" class="bw-tabs-data">
                         <div class="swiper-container card-container swiper-small">
                             <div class="swiper-wrapper discover-bike-carousel">
-                                @Html.Partial("~/Views/BestBikes/_BestBikeByBodyStyleCarousel_Mobile.cshtml", Model.BestBikes.objBestScootersList)
+                                @Html.Partial("~/UI/Views/BestBikes/_BestBikeByBodyStyleCarousel_Mobile.cshtml", Model.BestBikes.objBestScootersList)
                             </div>
                         </div>
                         <div class="padding-left10 view-all-btn-container margin-top10">
@@ -301,7 +301,7 @@
                     <div id="compareTypeScooter" class="bw-tabs-data hide">
                         <div class="swiper-container card-container swiper-small">
                             <div class="swiper-wrapper discover-bike-carousel">
-                                @Html.Partial("~/Views/BestBikes/_BestBikeByBodyStyleCarousel_Mobile.cshtml", Model.BestBikes.objBestMileageBikesList)
+                                @Html.Partial("~/UI/Views/BestBikes/_BestBikeByBodyStyleCarousel_Mobile.cshtml", Model.BestBikes.objBestMileageBikesList)
                             </div>
                         </div>
                         <div class="padding-left10 view-all-btn-container margin-top10">
@@ -314,7 +314,7 @@
                     <div id="compareTypeCruiser" class="bw-tabs-data hide">
                         <div class="swiper-container card-container swiper-small">
                             <div class="swiper-wrapper discover-bike-carousel">
-                                @Html.Partial("~/Views/BestBikes/_BestBikeByBodyStyleCarousel_Mobile.cshtml", Model.BestBikes.objBestSportsBikeList)
+                                @Html.Partial("~/UI/Views/BestBikes/_BestBikeByBodyStyleCarousel_Mobile.cshtml", Model.BestBikes.objBestSportsBikeList)
                             </div>
                         </div>
                         <div class="padding-left10 view-all-btn-container margin-top10">
@@ -327,7 +327,7 @@
                     <div id="compareTypeSport" class="bw-tabs-data hide">
                         <div class="swiper-container card-container swiper-small">
                             <div class="swiper-wrapper discover-bike-carousel">
-                                @Html.Partial("~/Views/BestBikes/_BestBikeByBodyStyleCarousel_Mobile.cshtml", Model.BestBikes.objBestCruiserBikesList)
+                                @Html.Partial("~/UI/Views/BestBikes/_BestBikeByBodyStyleCarousel_Mobile.cshtml", Model.BestBikes.objBestCruiserBikesList)
                             </div>
                         </div>
                         <div class="padding-left10 view-all-btn-container margin-top10">
@@ -352,7 +352,7 @@
 </div>
 
 <section>
-    @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad320x150_Second.cshtml", new { AdId = Model.AdTags.AdId });}
+    @{Html.RenderPartial("/UI/Views/Shared/Ads/Mobile/Ad320x150_Second.cshtml", new { AdId = Model.AdTags.AdId });}
 </section>
 
 
@@ -361,7 +361,7 @@
     <section>
         <h2 class="font18 margin-bottom20 margin-top20 text-center">Compare Bikes</h2>
         <div class="container content-box-shadow padding-top15 card-bottom-margin padding-bottom15">
-            @Html.Partial("~/Views/CompareBikes/_SimilarComparisons_Mobile.cshtml", Model.ComparePopularBikes)
+            @Html.Partial("~/UI/Views/CompareBikes/_SimilarComparisons_Mobile.cshtml", Model.ComparePopularBikes)
             <div class="view-all-btn-container margin-bottom5 margin-top15 text-center">
                 <a href="/m/comparebikes/" title="New Bike Comparisons in India" class="btn view-all-target-btn">View all comparisons<span class="bwmsprite teal-right"></span></a>
             </div>
@@ -371,11 +371,11 @@
 @*@if (Model.BestBikes != null)
 {
     <section>
-        @Html.Partial("~/Views/BestBikes/_BestBikes_Mobile.cshtml", Model.BestBikes)
+        @Html.Partial("~/UI/Views/BestBikes/_BestBikes_Mobile.cshtml", Model.BestBikes)
     </section>
 }*@
 
-@Html.Partial("~/Views/UserReview/_SearchUserReviewMakeModel_Mobile.cshtml", Model.RecentUserReviewsList)
+@Html.Partial("~/UI/Views/UserReview/_SearchUserReviewMakeModel_Mobile.cshtml", Model.RecentUserReviewsList)
 
 
 <section>
@@ -476,7 +476,7 @@
                         <div class="bw-tabs-data margin-right20 margin-left20" id="ctrlNews">
                             @if (Model.News.FetchedCount > 0)
                             {
-                                @Html.Partial("~/Views/News/_RecentNews_Mobile.cshtml", Model.News)
+                                @Html.Partial("~/UI/Views/News/_RecentNews_Mobile.cshtml", Model.News)
                                 <div class="view-all-btn-container">
                                     <a href="@string.Format("/m{0}",Bikewale.Utility.UrlFormatter.FormatNewsUrl(Model.News.MakeMasking,Model.News.ModelMasking))" title="@(!string.IsNullOrEmpty(Model.News.ModelMasking) ? string.Format("{0} {1} News", Model.News.MakeName, Model.News.ModelName):!string.IsNullOrEmpty(Model.News.MakeMasking) ? string.Format("{0} News",Model.News.MakeName):"Bikes News")" class="btn view-all-target-btn">Read all news<span class="bwmsprite teal-right"></span></a>
                                 </div>
@@ -487,7 +487,7 @@
                         <div class="bw-tabs-data hide margin-right20 margin-left20" id="ctrlExpertReviews">
                             @if (Model.ExpertReviews.FetchedCount > 0)
                             {
-                                @Html.Partial("~/Views/ExpertReviews/_RecentExpertReviews_Mobile.cshtml", Model.ExpertReviews)
+                                @Html.Partial("~/UI/Views/ExpertReviews/_RecentExpertReviews_Mobile.cshtml", Model.ExpertReviews)
                                 <div class="view-all-btn-container">
                                     <a title="@Model.ExpertReviews.LinkTitle" href="@string.Format("/m{0}",Model.ExpertReviews.MoreExpertReviewUrl)" class="btn view-all-target-btn">Read all reviews<span class="bwmsprite teal-right"></span></a>
                                 </div>
@@ -496,7 +496,7 @@
                         <div class="bw-tabs-data hide margin-right20 margin-left20" id="ctrlVideos">
                             @if (Model.Videos.FetchedCount > 0)
                             {
-                                @Html.Partial("~/Views/Videos/_RecentVideos_Mobile.cshtml", Model.Videos)
+                                @Html.Partial("~/UI/Views/Videos/_RecentVideos_Mobile.cshtml", Model.Videos)
                                 <div class="view-all-btn-container">
                                     <a title="@Model.Videos.LinkTitle" href="@string.Format("/m{0}",Model.Videos.MoreVideoUrl)" class="btn view-all-target-btn">View all videos<span class="bwmsprite teal-right"></span></a>
                                 </div>

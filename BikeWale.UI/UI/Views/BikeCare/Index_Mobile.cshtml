@@ -1,13 +1,13 @@
 ﻿@model Bikewale.Models.BikeCareIndexPageVM
 @using Bikewale.Utility
 @{
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/content/listing.css' inline /> <link rel='stylesheet' type='text/css' href='/css/components/m-brand-logo.css' inline />";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/UI/m/css/content/listing.css' inline /> <link rel='stylesheet' type='text/css' href='/UI/css/components/m-brand-logo.css' inline />";
     Model.AdTags.AdId = "1517812803381";
     Model.AdTags.AdPath = "/1017752/Bikewale_Mobile_EditorialList";
     Model.AdTags.Ad_320x50 = true;
     Model.AdTags.Ad_Bot_320x50 = true;
     Model.AdTags.Ad_300x250BTF = true;
-    Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
+    Layout = "~/UI/Views/Shared/_Layout_Mobile.cshtml";
 }
 <section>
     <div class="container box-shadow bg-white section-bottom-margin">
@@ -58,7 +58,7 @@
 @if (Model.AdTags.Ad_300x250BTF)
 {
     <div class="margin-bottom20 text-center">
-        @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad300x250BTF.cshtml", Model.AdTags);}
+        @{Html.RenderPartial("/UI/Views/Shared/Ads/Mobile/Ad300x250BTF.cshtml", Model.AdTags);}
     </div>
 }
 @if (Model.PageWidgets != null)
@@ -69,7 +69,7 @@ widgetItem in Model.PageWidgets)
         var widget = widgetItem.Value;
         if (widget != null)
         {
-            @Html.Partial("~/Views/Shared/_EditorialWidgetBase_Mobile.cshtml", widget)
+            @Html.Partial("~/UI/Views/Shared/_EditorialWidgetBase_Mobile.cshtml", widget)
             <div class="clear"></div>
         }
     }

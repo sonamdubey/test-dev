@@ -6,7 +6,7 @@
     //Modified By :Sajal Gupta on 03 August 2016
     isAd300x250BtfShown = false;
 %>
-<!-- #include file="/includes/headmybikewale.aspx" -->
+<!-- #include file="/UI/includes/headmybikewale.aspx" -->
 <style>
     .bikeDetails li {display:block;}
 </style>
@@ -105,8 +105,8 @@
     <div class="grid_4">
         <div class="margin-top15">
             <!-- BikeWale_NewBike/BikeWale_NewBike_HP_300x250 -->
-            <!-- #include file="/ads/Ad300x250.aspx" -->
+            <!-- #include file="/UI/ads/Ad300x250.aspx" -->
         </div>
     </div>
 </div>
-<!-- #include file="/includes/footerinner.aspx" -->
+<!-- #include file="/UI/includes/footerinner.aspx" -->

@@ -9,7 +9,7 @@
     isAd300x250Shown = false;
     isAd600x270Shown = false;
 %>
-<!-- #include file="/includes/headhome.aspx" -->
+<!-- #include file="/UI/includes/headhome.aspx" -->
 <style type="text/css">
     ul.ul-normal li { margin-left:10px; }
 </style>
@@ -132,4 +132,4 @@
         
     </div>    
 </div>
- <!-- #include file="/includes/footerinner.aspx" -->
+ <!-- #include file="/UI/includes/footerinner.aspx" -->

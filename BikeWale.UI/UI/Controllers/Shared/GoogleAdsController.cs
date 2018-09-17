@@ -48,9 +48,9 @@ namespace Bikewale.Controllers.Shared
                 userCookie = cookieId;
             }
                 
-            targetingInfo = _userProfileBAL.GetUserProfile(userCookie);
+            //targetingInfo = _userProfileBAL.GetUserProfile(userCookie);
 
-            return View("~/Views/UserProfile/_UserProfileTargeting.cshtml", targetingInfo);
+            return View("~/UI/Views/UserProfile/_UserProfileTargeting.cshtml", targetingInfo);
         }
     }
 }

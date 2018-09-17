@@ -1,8 +1,8 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Videos.VideoMakeModel" EnableViewState="false" %>
 
-<%@ Register Src="~/controls/SimilarBikeVideos.ascx" TagName="SimilarBikeVideos" TagPrefix="BW" %>
-<%@ Register TagPrefix="BW" TagName="PopularBikesByBodyStyle" Src="~/controls/PopularBikeByBodyStyleCarousal.ascx" %>
-<%@ Register TagPrefix="BW" TagName="GenericBikeInfo" Src="~/controls/GenericBikeInfoControl.ascx" %>
+<%@ Register Src="~/UI/controls/SimilarBikeVideos.ascx" TagName="SimilarBikeVideos" TagPrefix="BW" %>
+<%@ Register TagPrefix="BW" TagName="PopularBikesByBodyStyle" Src="~/UI/controls/PopularBikeByBodyStyleCarousal.ascx" %>
+<%@ Register TagPrefix="BW" TagName="GenericBikeInfo" Src="~/UI/controls/GenericBikeInfoControl.ascx" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,7 +27,7 @@
             alternate = string.Format("https://www.bikewale.com/m/{0}-bikes/videos/", makeMaskingName);
         }
     %>
-    <!-- #include file="/includes/headscript.aspx" -->
+    <!-- #include file="/UI/includes/headscript.aspx" -->
 
 
     <style type="text/css">
@@ -40,7 +40,7 @@
 </head>
 <body class="bg-light-grey header-fixed-inner">
     <form id="form1" runat="server">
-        <!-- #include file="/includes/headBW.aspx" -->
+        <!-- #include file="/UI/includes/headBW.aspx" -->
         <section>
             <div class="container">
                 <div class="grid-12">
@@ -182,10 +182,10 @@
                 window.location.hash = "";
             });
         </script>
-        <!-- #include file="/includes/footerBW.aspx" -->
-        <!-- #include file="/includes/footerscript.aspx" -->
-        <script src="<%= staticUrl  %>/src/lscache.min.js?<%= staticFileVersion%>"></script>
-        <script type="text/javascript" src="<%= staticUrl  %>/src/Videos/videoByCategory.js?<%= staticFileVersion %>"></script>
+        <!-- #include file="/UI/includes/footerBW.aspx" -->
+        <!-- #include file="/UI/includes/footerscript.aspx" -->
+        <script src="<%= staticUrl  %>/UI/src/lscache.min.js?<%= staticFileVersion%>"></script>
+        <script type="text/javascript" src="<%= staticUrl  %>/UI/src/Videos/videoByCategory.js?<%= staticFileVersion %>"></script>
     </form>
 </body>
 </html>

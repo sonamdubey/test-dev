@@ -1,7 +1,7 @@
 <%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.New.DealerLocator.LocateNewBikeDealers" EnableViewState="false" %>
-<%@ Register Src="~/controls/NewLaunchedBikes_new.ascx" TagName="NewLaunchedBikes" TagPrefix="BW" %>
-<%@ Register Src="~/controls/UpcomingBikes_new.ascx" TagName="UpcomingBikes" TagPrefix="BW" %>
-<%@ Register Src="~/controls/BestBikes.ascx" TagName="BestBikes" TagPrefix="BW" %>
+<%@ Register Src="~/UI/controls/NewLaunchedBikes_new.ascx" TagName="NewLaunchedBikes" TagPrefix="BW" %>
+<%@ Register Src="~/UI/controls/UpcomingBikes_new.ascx" TagName="UpcomingBikes" TagPrefix="BW" %>
+<%@ Register Src="~/UI/controls/BestBikes.ascx" TagName="BestBikes" TagPrefix="BW" %>
 <%@ Import Namespace="Bikewale.Common" %>
 <!doctype html>
 <html>
@@ -19,15 +19,15 @@
         isAd300x250BTFShown = false;
         isAd970x90BottomShown = false;
     %>
-    <!-- #include file="/includes/headscript_desktop_min.aspx" -->
-    <link rel="stylesheet" type="text/css" href="/css/dealer/landing.css" />
+    <!-- #include file="/UI/includes/headscript_desktop_min.aspx" -->
+    <link rel="stylesheet" type="text/css" href="/UI/css/dealer/landing.css" />
     <script type="text/javascript">
-        <!-- #include file="\includes\gacode_desktop.aspx" -->
+        <!-- #include file="\UI\includes\gacode_desktop.aspx" -->
     </script>
 </head>
 <body class="bg-light-grey page-type-landing">
     <form runat="server">
-        <!-- #include file="/includes/headBW.aspx" -->
+        <!-- #include file="/UI/includes/headBW.aspx" -->
         <header class="dealerlocator-banner">
             <div id="dealer-locator-box" class="container">
                 <div class="welcome-box">
@@ -182,11 +182,11 @@
         </section>
 
 
-        <script type="text/javascript" src="<%= staticUrl %>/src/frameworks.js?<%=staticFileVersion %>"></script>
-        <!-- #include file="/includes/footerBW.aspx" -->
-        <link href="<%= staticUrl  %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
+        <script type="text/javascript" src="<%= staticUrl %>/UI/src/frameworks.js?<%=staticFileVersion %>"></script>
+        <!-- #include file="/UI/includes/footerBW.aspx" -->
+        <link href="<%= staticUrl  %>/UI/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
 
-        <!-- #include file="/includes/footerscript.aspx" -->
+        <!-- #include file="/UI/includes/footerscript.aspx" -->
         
         <script type="text/javascript"> 
             var $ddlCities = $("#ddlCities"), $ddlMakes = $("#ddlMakes");
@@ -291,7 +291,7 @@
 
         </script>
 
-        <!-- #include file="/includes/fontBW.aspx" -->
+        <!-- #include file="/UI/includes/fontBW.aspx" -->
     </form>
 </body>
 </html>

@@ -137,3 +137,16 @@
 
   .ask-question__link
     border-left: 0
+
+@media screen and (min-width: 800px)
+  #questionAnswerPopup
+    @include vendor-prefix(transition, #{transform .5s linear, visibility .1s ease .5s})
+    z-index: 210
+
+#questionAnswerPopup
+  @include vendor-prefix(transition, #{transform .5s linear, visibility .1s ease .5s})
+  visibility: hidden
+  z-index: 210
+  &.popup--active
+    @include vendor-prefix(transition, #{visibility 0.01s ease, transform 0.5s linear 0.01s})
+    visibility: visible

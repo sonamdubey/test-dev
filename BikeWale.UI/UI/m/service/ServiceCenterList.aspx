@@ -1,11 +1,11 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Service.ServiceCenterList" EnableViewState="false" %>
-<%@ Register Src="~/m/controls/LeadCaptureControl.ascx" TagName="LeadCapture" TagPrefix="BW" %>
-<%@ Register Src="~/m/controls/DealersCard.ascx" TagName="DealerCard" TagPrefix="BW" %>
-<%@ Register Src="~/m/controls/UsedPopularModelsInCity.ascx" TagName="UsedMostPopularModels" TagPrefix="BW" %>
-<%@ Register Src="~/m/controls/BrandCityPopUp.ascx" TagName="BrandCity" TagPrefix="BW" %>
-<%@ Register Src="~/m/controls/MMostPopularBikes.ascx" TagName="PopularBikeMake" TagPrefix="BW" %>
-<%@ Register Src="~/m/controls/ServiceCentersInNearbyCities.ascx" TagName="NearbyServiceCenters" TagPrefix="BW" %>
-<%@ Register Src="~/m/controls/usedBikeModel.ascx" TagName="usedBikeModel" TagPrefix="BW" %>
+<%@ Register Src="~/UI/m/controls/LeadCaptureControl.ascx" TagName="LeadCapture" TagPrefix="BW" %>
+<%@ Register Src="~/UI/m/controls/DealersCard.ascx" TagName="DealerCard" TagPrefix="BW" %>
+<%@ Register Src="~/UI/m/controls/UsedPopularModelsInCity.ascx" TagName="UsedMostPopularModels" TagPrefix="BW" %>
+<%@ Register Src="~/UI/m/controls/BrandCityPopUp.ascx" TagName="BrandCity" TagPrefix="BW" %>
+<%@ Register Src="~/UI/m/controls/MMostPopularBikes.ascx" TagName="PopularBikeMake" TagPrefix="BW" %>
+<%@ Register Src="~/UI/m/controls/ServiceCentersInNearbyCities.ascx" TagName="NearbyServiceCenters" TagPrefix="BW" %>
+<%@ Register Src="~/UI/m/controls/usedBikeModel.ascx" TagName="usedBikeModel" TagPrefix="BW" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,10 +20,10 @@
         Ad_320x50 = true;
         Ad_Bot_320x50 = true;
     %>
-     <!-- #include file="/includes/headscript_mobile_min.aspx" -->
-    <link rel="stylesheet" type="text/css" href="/m/css/service/listing.css" />
+     <!-- #include file="/UI/includes/headscript_mobile_min.aspx" -->
+    <link rel="stylesheet" type="text/css" href="/UI/m/css/service/listing.css" />
     <script type="text/javascript">
-        <!-- #include file="\includes\gacode_mobile.aspx" -->
+        <!-- #include file="\UI\includes\gacode_mobile.aspx" -->
 
         var makeName = "<%=makeName%>";
         var makeMaskingName = "<%=makeMaskingName%>";
@@ -40,7 +40,7 @@
 </head>
 <body class="bg-light-grey">
     <form runat="server">
-        <!-- #include file="/includes/headBW_Mobile.aspx" -->
+        <!-- #include file="/UI/includes/headBW_Mobile.aspx" -->
 
         <section>
             <div class="container bg-white card-bottom-margin">
@@ -152,7 +152,7 @@
                  <BW:PopularBikeMake runat="server" ID="ctrlPopoularBikeMake" />
                 <%} %>
                 <div class="padding-top10 text-center">
-                    <!-- #include file="/ads/Ad300x250_mobile.aspx" -->
+                    <!-- #include file="/UI/ads/Ad300x250_mobile.aspx" -->
                 </div>
                 <div class="margin-right10 margin-left10 border-solid-bottom"></div>
                         <% if (ctrlusedBikeModel.FetchCount>0)
@@ -174,14 +174,14 @@
             </div>
         </section>
 
-        <script type="text/javascript" src="<%= staticUrl  %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
-        <!-- #include file="/includes/footerBW_Mobile.aspx" -->
+        <script type="text/javascript" src="<%= staticUrl  %>/UI/m/src/frameworks.js?<%= staticFileVersion %>"></script>
+        <!-- #include file="/UI/includes/footerBW_Mobile.aspx" -->
         <BW:LeadCapture ID="ctrlLeadCapture" runat="server" />
         <BW:BrandCity runat="server" ID="ctrlBrandCity" />
         <link href="<%= staticUrl  %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
-        <!-- #include file="/includes/footerscript_mobile.aspx" -->
-        <script type="text/javascript" src="<%= staticUrl  %>/m/src/service/listing.js?<%= staticFileVersion %>"></script>
-        <!-- #include file="/includes/fontBW_Mobile.aspx" -->
+        <!-- #include file="/UI/includes/footerscript_mobile.aspx" -->
+        <script type="text/javascript" src="<%= staticUrl  %>/UI/m/src/service/listing.js?<%= staticFileVersion %>"></script>
+        <!-- #include file="/UI/includes/fontBW_Mobile.aspx" -->
 
     </form>
 </body>

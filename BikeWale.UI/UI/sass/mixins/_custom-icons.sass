@@ -1,0 +1,47 @@
+﻿@mixin cross-icon($size: 30, $color: 'aluminium')
+	height: $size * 1px
+	width: $size * 1px
+	display: inline-block
+	vertical-align: middle
+	position: relative
+
+	&:before,
+	&:after
+		content: ''
+		height: $size / 2 * 1px + 1px
+		width: 2px
+		display: inline-block
+		background-color: color($color)
+		position: absolute
+		top: 50%
+		left: 50%
+
+	&:after
+		@include vendor-prefix('transform', translate(-50%, -50%) rotate(-45deg) )
+
+	&:before
+		@include vendor-prefix('transform', translate(-50%, -50%) rotate(45deg))
+
+
+
+@mixin icon-container--round($size: 58, $inside-border-color: 'dim-gray', $outside-border-color: 'very-light-grey')
+	.icon-container--round
+		@include vendor-prefix('border-radius', 50%)
+		height: $size * 1px
+		width: $size * 1px
+		display: inline-block
+		vertical-align: middle
+		border: 1px solid color($outside-border-color)
+		position: relative
+
+		&:after
+			@include vendor-prefix('border-radius', 50%)
+			content: ''
+			height: $size - 6 * 1px
+			width: $size - 6 * 1px
+			display: inline-block
+			vertical-align: middle
+			border: 1px solid color($inside-border-color)
+			position: absolute
+			top: 2px
+			left: 2px	

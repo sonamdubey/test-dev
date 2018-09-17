@@ -10,8 +10,8 @@
     isAd300x250Shown = false;
 	alternateUrl = "https://www.bikewale.com/m/bike-loan-emi-calculator/"; 
 %>
-<!-- #include file="/includes/headTools.aspx" -->
-<script type="text/javascript" src="/src/calculateemi.js?v=1.0"></script>
+<!-- #include file="/UI/includes/headTools.aspx" -->
+<script type="text/javascript" src="/UI/src/calculateemi.js?v=1.0"></script>
 <script language="C#" runat="server">
     string loanAmount = "";
     string rate = "";
@@ -161,7 +161,7 @@ All loan figures are based upon non-commercial usage and are subject to credit a
     <div class="grid_4">
         <%--<div class="margin-top15">
         <!-- BikeWale_NewBike/BikeWale_NewBike_HP_300x250 -->
-        <!-- #include file="/ads/Ad300x250.aspx" -->   
+        <!-- #include file="/UI/ads/Ad300x250.aspx" -->   
         </div>--%>
 
         
@@ -200,7 +200,7 @@ All loan figures are based upon non-commercial usage and are subject to credit a
         }
     });
 </script>
-<!-- #include file="/includes/footerInner.aspx" -->
+<!-- #include file="/UI/includes/footerInner.aspx" -->
 
 
 

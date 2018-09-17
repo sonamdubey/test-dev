@@ -76,8 +76,7 @@ export class EMICalculator extends React.Component {
 			financeCitySelection,
 			IsFetching
 		} = this.props
-
-		let pieLoanAmt = sliderDp.onRoadPrice - sliderDp.values[0];
+		let pieLoanAmt = sliderDp.onRoadPrice - downpayment;
 		let finalIntPayable = formatToINR(parseInt(interestPayable));
 		let finalTotalPrincipalAmt = formatToINR(totalBikeCost);
 
@@ -85,6 +84,7 @@ export class EMICalculator extends React.Component {
 			intStatePay: interestPayable,
 			pieLoanAmt: pieLoanAmt,
 			pieTotalPay: totalBikeCost,
+			pieDownPaymentAmt: downpayment,
 			interestPay: finalIntPayable,
 			TotalPrincipalAmt: finalTotalPrincipalAmt
 		}

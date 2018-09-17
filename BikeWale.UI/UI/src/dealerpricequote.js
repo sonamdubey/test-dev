@@ -162,7 +162,8 @@ docReady(function () {
                 lab: bikeVerLocation
             },
             "sendLeadSMSCustomer": ele.attr('data-issendleadsmscustomer'),
-            "organizationName": ele.attr('data-item-organization')
+            "organizationName": ele.attr('data-item-organization'),
+            "campaignId": ele.attr("data-campaignid")
         };
 
         dleadvm.setOptions(leadOptions);

@@ -1,5 +1,5 @@
 <%@ Page Inherits="Bikewale.Users.ResetCustomerPassword" AutoEventWireUp="false" Language="C#" Trace="false" Debug="false" %>
-<!-- #include file="/includes/headMyBikeWale.aspx" -->
+<!-- #include file="/UI/includes/headMyBikeWale.aspx" -->
     <div class="container_12">
         <div class="grid_12">
             <ul class="breadcrumb">
@@ -94,5 +94,5 @@
         return isError;
     }
 </script>
-<!-- #include file="/includes/footerInner.aspx" -->
+<!-- #include file="/UI/includes/footerInner.aspx" -->
 <!-- Footer ends here -->

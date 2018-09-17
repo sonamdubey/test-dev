@@ -1,12 +1,12 @@
 ﻿<BW:PopupWidget runat="server" id="PopupWidget" />
-<%@ Register Src="~/controls/LoginControlNew.ascx" TagPrefix="BW" TagName="Login" %>
+<%@ Register Src="~/UI/controls/LoginControlNew.ascx" TagPrefix="BW" TagName="Login" %>
 <% if(isAd970x90Shown){ %>
 <section>
-        <!-- #include file="/ads/Ad970x90_Bottom.aspx" -->
+        <!-- #include file="/UI/ads/Ad970x90_Bottom.aspx" -->
 </section>
 <% } %>
 <div class="blackOut-window"></div>
-<!-- #include file="/includes/Navigation.aspx" -->
+<!-- #include file="/UI/includes/Navigation.aspx" -->
 <div class="globalcity-popup rounded-corner2 hide" id="globalcity-popup"><!-- global city pop up code starts here -->
     <div class="globalcity-popup-data text-center">
         <div class="globalcity-close-btn position-abt pos-top10 pos-right10 bwsprite cross-lg-lgt-grey cur-pointer"></div>
@@ -32,7 +32,7 @@
     </div>
     <div class="clear"></div>
 </div>
-<script type="text/javascript" src="<%= staticUrl  %>/src/bwcache.js?<%= staticFileVersion %>"></script>
+<script type="text/javascript" src="<%= staticUrl  %>/UI/src/bwcache.js?<%= staticFileVersion %>"></script>
 <BW:LocationWidget runat="server" id="ctrlChangeLocation" />
 <footer class="bg-footer padding-top10 padding-bottom20">
     <!-- Footer section code starts here -->
@@ -102,7 +102,7 @@
 <!-- Ends here -->
 <BW:Login ID="ctrlLogin" runat="server" />
 
-<!-- #include file="/includes/footerscript.aspx" -->
+<!-- #include file="/UI/includes/footerscript.aspx" -->
 </form>
 </body>
 </html>

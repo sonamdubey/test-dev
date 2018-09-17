@@ -673,10 +673,18 @@
 }
 
 .used-sprite { background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/used-sprite.png?v1=14Oct2016) no-repeat; display: inline-block; }
-.sold-icon {
+.listing-sold-icon {
    width: 62px;
    height: 46px;
-   background-position: 0 -133px;
+   background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/4d5057/sold-sign.svg') no-repeat center / contain;
+   display: inline-block;
+   vertical-align: middle;
+}
+.listing-removed-icon {
+   width: 95px;
+   height: 46px;
+   background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/4d5057/removed-sign.svg') no-repeat center / contain;
+   display: inline-block;
    vertical-align: middle;
 }
 
@@ -685,4 +693,14 @@
     vertical-align: middle;
     width: 75%;
     padding: 10px 20px;
+}
+
+.listing--removed .bike-sold-msg {
+    width: 68%;
+}
+
+@media (max-width: 320px) {
+    .listing--removed .bike-sold-msg {
+        width: 64%;
+    }
 }

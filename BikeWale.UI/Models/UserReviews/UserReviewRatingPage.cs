@@ -9,6 +9,7 @@ using System;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Web;
+using Bikewale.Utility;
 namespace Bikewale.Models
 {
     public class UserReviewRatingPage
@@ -57,7 +58,7 @@ namespace Bikewale.Models
         {
             try
             {
-                string _decodedString = Utils.Utils.DecryptTripleDES(Querystring);
+                string _decodedString = TripleDES.DecryptTripleDES(Querystring);
 
                 NameValueCollection queryCollection = HttpUtility.ParseQueryString(_decodedString);
                 uint.TryParse(queryCollection["reviewid"], out _reviewId);

@@ -9,17 +9,19 @@
         <div class="question-answer-wrapper__container">
             <div class="question-answer-wrapper__content">
                 <ul class="question-answer-wrapper__list">
+                    @{var baseUrl = string.Format("{0}{1}questions-and-answers", Request.Url.GetLeftPart(UriPartial.Authority), Request.RawUrl);}
                     @foreach (Bikewale.Entities.QuestionAndAnswers.QuestionAnswer question in Model.Questions)
                     {
+
                         <li class="question-answer-wrapper__list-item">
-                        
+
                             <p class="question-answer-wrapper__question">Q: @(question.Question.Text)</p>
-                            @if(question.Answer != null)
+                            @if (question.Answer != null)
                             {
                                 string answerText = question.Answer.Text;
                                 string smallDescription = answerText;
                                 bool showReadMore = false;
-                                int strippedAnswerLimit = Model.Platform.Equals(Bikewale.Entities.Platforms.Desktop) ? 360 : 150;                                
+                                int strippedAnswerLimit = Model.Platform.Equals(Bikewale.Entities.Platforms.Desktop) ? 360 : 150;
                                 if (answerText.Length > strippedAnswerLimit)
                                 {
                                     smallDescription = Bikewale.Utility.StringExtention.StringHelper.Truncate(answerText, strippedAnswerLimit) + "...";
@@ -29,26 +31,30 @@
                                     <span class="question-answer-wrapper__starting-letter">A: </span>
                                     <span class="question-answer-wrapper__ans-trim-content">@(smallDescription)</span>
                                     <span class="question-answer-wrapper__ans-full-content ">@(answerText)</span>
-                                    @if(showReadMore)
+                                    @if (showReadMore)
                                     {
                                         <span class="question-answer-wrapper__read-more">Read More</span>
                                     }
                                 </p>
                                 <p class="question-answer-wrapper__author">@string.Format("{0} by {1}", Bikewale.Utility.FormatDate.GetDaysAgo(question.Answer.AnsweredOn), Bikewale.Utility.StringExtention.StringHelper.Truncate(question.Answer.AnsweredBy.CustomerName, 25))</p>
+                                if (question.AnswerCount > 1)
+                                {
+                                    <a class="question-answer-wrapper__answers-link" href="@string.Format("{0}/{1}", baseUrl,question.Url)">Read @(question.AnswerCount - 1) More @(question.AnswerCount > 2 ? Html.Raw("Answers") : Html.Raw("Answer"))</a>
+                                }
                             }
                         </li>
                     }
                 </ul>
                 @if (Model.QACount > 3)
                 {
-                    <a title="@(Model.BikeName) Questions and Answers" href="@(Model.ViewAllURL)" class="qna-redirection-link btn question-answer-wrapper__view-question-btn" data-cat="@Model.GAPageType" data-act="View_All_Button_Clicked" data-lab="@String.Format("{0}_{1}", Model.MakeName, Model.ModelName)">
+                    <a title="@(Model.BikeName) Questions and Answers" href="@(Model.ViewAllURL)" class="bw-ga btn question-answer-wrapper__view-question-btn" data-cat="@Model.GAPageType" data-act="View_All_Button_Clicked" data-lab="@String.Format("{0}_{1}", Model.MakeName, Model.ModelName)">
                         Read All @(Model.QACount) Q&As
                     </a>
                 }
             </div>
             <div class="question-answer-wrapper__cta-container">
                 <p class="question-answer-wrapper__line">Didn't find what you were looking for?</p>
-                <button class="btn btn-blue question-answer-wrapper--ask-link ask-question__link" data-platform="@((int)Model.Platform)" data-source="@((int)Bikewale.Entities.QuestionAndAnswers.Sources.Model_QuestionAnswerDedicatedPage)" data-modelid="@Model.ModelId" data-tags="@Model.Tags">Ask a Question</button>
+                <button class="btn btn-blue question-answer-wrapper--ask-link ask-question__link" data-platform="@((int)Model.Platform)" data-source="@((int)Bikewale.Entities.QuestionAndAnswers.Sources.ModelPage_Question_Answer_Section)" data-modelid="@Model.ModelId" data-tags="@Model.Tags">Ask a Question</button>
             </div>
         </div>
     </div>

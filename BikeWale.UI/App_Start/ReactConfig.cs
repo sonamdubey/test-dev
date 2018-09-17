@@ -26,7 +26,7 @@ namespace Bikewale
             ReactSiteConfiguration.Configuration
               .SetLoadBabel(false)
               .SetUseDebugReact(false)
-              .AddScriptWithoutTransform("~/pwa/server/server.bundle.js")
+              .AddScriptWithoutTransform("~/UI/pwa/server/server.bundle.js")
               .SetStartEngines(minSize)
               .SetMaxEngines(maxSize)
               .SetReuseJavaScriptEngines(true)

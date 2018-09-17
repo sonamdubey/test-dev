@@ -50,6 +50,14 @@ class Navigation extends React.Component {
         
         return (
             <div className="header-navbar">
+				<span className="bw-doodle__container">
+					<span className="bw-doodle__bell-one"></span>
+					<span className="bw-doodle__bell-two"></span>
+					<span className="bw-doodle__ganesh-image">
+						<span className="bw-doodle__ganesh"></span>
+						<span className="bw-doodle__ganesh-bg"></span>
+					</span>
+				</span>
                 <div className="leftfloat">
                     <div id="navbar-btn" className="inline-block cur-pointer" onClick={this.openNavDrawer}>
                         <span className="bwmsprite nav-icon"></span>
@@ -68,7 +76,7 @@ class Navigation extends React.Component {
                 </div>
                 <div className="clear"></div>
             </div>
-        )
+        );
     }
 }
 

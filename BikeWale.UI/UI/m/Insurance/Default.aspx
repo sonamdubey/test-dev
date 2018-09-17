@@ -10,13 +10,13 @@
         description = "New bikes in India. Search for the right new bikes for you, know accurate on-road price and discounts. Compare new bikes and find dealers.";
         canonical = "https://www.bikewale.com/m/insurance/";
      %>
-    <!-- #include file="/includes/headscript_mobile.aspx" -->
+    <!-- #include file="/UI/includes/headscript_mobile.aspx" -->
      <link href="<%= staticUrl  %>/m/css/insurance.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css"/>
     <link href="<%= staticUrl  %>/m/css/zebra_datepicker.css?<%= staticFileVersion %>" rel="stylesheet" />
 </head>
 <body class="bg-light-grey">
     <form id="form1" runat="server">
-        <!-- #include file="/includes/headBW_Mobile.aspx" -->
+        <!-- #include file="/UI/includes/headBW_Mobile.aspx" -->
         <!--Add banner ends here-->
         <section class="clearfix">
             <div class="container">
@@ -220,11 +220,11 @@
             </div>
             <div class="clear"></div>
         </section>--%>
-        <!-- #include file="/includes/footerBW_Mobile.aspx" -->
+        <!-- #include file="/UI/includes/footerBW_Mobile.aspx" -->
         <!-- all other js plugins -->
-        <!-- #include file="/includes/footerscript_Mobile.aspx" -->
-        <script type="text/javascript" src="<%= staticUrl %>/m/src/insurance.js?<%= staticFileVersion %>"></script>
-        <script type="text/javascript" src="<%= staticUrl  %>/m/src/zebra_datepicker.js?<%= staticFileVersion %>"></script>
+        <!-- #include file="/UI/includes/footerscript_Mobile.aspx" -->
+        <script type="text/javascript" src="<%= staticUrl %>/UI/m/src/insurance.js?<%= staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl  %>/UI/m/src/zebra_datepicker.js?<%= staticFileVersion %>"></script>
 
         <script type="text/javascript">
             <% var serializer = new System.Web.Script.Serialization.JavaScriptSerializer(); %>

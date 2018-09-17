@@ -4,6 +4,7 @@ using Bikewale.Entities.Customer;
 using Bikewale.Entities.Dealer;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeBooking;
+using Bikewale.ManufacturerCampaign.Entities;
 using Bikewale.Notifications;
 using Bikewale.Utility;
 using MySql.CoreDAL;
@@ -33,6 +34,8 @@ namespace Bikewale.DAL.BikeBooking
         /// Descripton : Changed sp name from 'savebikedealerquotations_07062017' to 'savebikedealerquotations_14052018' .Added par_spamscore,par_isaccepted,par_overallspamscore to store overall score
         /// Modified by : Pratibha Verma on 26 June 2018
         /// Description : changed sp 'savebikedealerquotations_14052018' to 'savecustomerdetailsbypqid' .Returned leadid from db
+        /// Modified by : Pratibha Verma on 2 August 2018
+        /// Description : changed sp from 'savecustomerdetailsbypqid' to 'savecustomerdetailsbypqid_02082018'. Added parameters SourceId and ClientIP
         /// Description :  
         /// </summary>
         /// <param name="dealerId"></param>
@@ -47,34 +50,38 @@ namespace Bikewale.DAL.BikeBooking
 
             try
             {
-
-                using (DbCommand cmd = DbFactory.GetDBCommand())
+                if (entity != null)
                 {
-                    cmd.CommandText = "savecustomerdetailsbypqid";
-                    cmd.CommandType = CommandType.StoredProcedure;
+                    using (DbCommand cmd = DbFactory.GetDBCommand())
+                    {
+                        cmd.CommandText = "savecustomerdetailsbypqid_02082018";
+                        cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, entity.DealerId));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, entity.DealerId));
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_pqid", DbType.Int32, entity.PQId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customername", DbType.String, 50, entity.CustomerName));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customeremail", DbType.String, 50, entity.CustomerEmail));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customermobile", DbType.String, 50, entity.CustomerMobile));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_pqid", DbType.Int32, entity.PQId));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_customername", DbType.String, 50, entity.CustomerName));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_customeremail", DbType.String, 50, entity.CustomerEmail));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_customermobile", DbType.String, 50, entity.CustomerMobile));
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_colorid", DbType.Int32, (entity.ColorId.HasValue) ? entity.ColorId.Value : Convert.DBNull));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_leadsourceid", DbType.Byte, (entity.LeadSourceId.HasValue) ? entity.LeadSourceId.Value : Convert.DBNull));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_utma", DbType.String, 500, (!String.IsNullOrEmpty(entity.UTMA)) ? entity.UTMA : Convert.DBNull));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_utmz", DbType.String, 500, (!String.IsNullOrEmpty(entity.UTMZ)) ? entity.UTMZ : Convert.DBNull));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_deviceid", DbType.String, 25, (!String.IsNullOrEmpty(entity.DeviceId)) ? entity.DeviceId : Convert.DBNull));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_colorid", DbType.Int32, (entity.ColorId.HasValue) ? entity.ColorId.Value : Convert.DBNull));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_leadsourceid", DbType.Byte, (entity.LeadSourceId.HasValue) ? entity.LeadSourceId.Value : Convert.DBNull));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_utma", DbType.String, 500, (!String.IsNullOrEmpty(entity.UTMA)) ? entity.UTMA : Convert.DBNull));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_utmz", DbType.String, 500, (!String.IsNullOrEmpty(entity.UTMZ)) ? entity.UTMZ : Convert.DBNull));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_deviceid", DbType.String, 25, (!String.IsNullOrEmpty(entity.DeviceId)) ? entity.DeviceId : Convert.DBNull));
 
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_spamscore", DbType.Double, entity.SpamScore));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isaccepted", DbType.Boolean, entity.IsAccepted));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_overallspamscore", DbType.Byte, entity.OverallSpamScore));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_leadid", DbType.Int32, ParameterDirection.Output));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_spamscore", DbType.Double, entity.SpamScore));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_isaccepted", DbType.Boolean, entity.IsAccepted));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_overallspamscore", DbType.Byte, entity.OverallSpamScore));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_leadid", DbType.Int32, ParameterDirection.Output));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_sourceid", DbType.Byte, entity.PlatformId));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_clientip", DbType.String, 40, !String.IsNullOrEmpty(entity.ClientIP) ? entity.ClientIP : null));
 
-                    // LogLiveSps.LogSpInGrayLog(cmd);
-                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
-                    leadId = SqlReaderConvertor.ToUInt32(cmd.Parameters["par_leadid"].Value);
+                        // LogLiveSps.LogSpInGrayLog(cmd);
+                        MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
+                        leadId = SqlReaderConvertor.ToUInt32(cmd.Parameters["par_leadid"].Value);
+                    }
                 }
             }
             catch (Exception ex)
@@ -88,6 +95,8 @@ namespace Bikewale.DAL.BikeBooking
         /// <summary>
         /// Created by  : Pratibha Verma on 26 june 2018
         /// Description : passed leadId in param and return leadId
+        /// Modified by : Pratibha Verma on 2 August 2018
+        /// Description : changed sp from "savecustomerdetailsbyleadid" to "savecustomerdetailsbyleadid_02082018" in order to store sourceId and clientIP
         /// </summary>
         /// <param name="entity"></param>
         /// <returns></returns>
@@ -97,36 +106,40 @@ namespace Bikewale.DAL.BikeBooking
 
             try
             {
-
-                using (DbCommand cmd = DbFactory.GetDBCommand())
+                if (entity != null)
                 {
-                    cmd.CommandText = "savecustomerdetailsbyleadid";
-                    cmd.CommandType = CommandType.StoredProcedure;
+                    using (DbCommand cmd = DbFactory.GetDBCommand())
+                    {
+                        cmd.CommandText = "savecustomerdetailsbyleadid_02082018";
+                        cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, entity.DealerId));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, entity.DealerId));
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_pqguid", DbType.String, 40, entity.PQId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customername", DbType.String, 50, entity.CustomerName));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customeremail", DbType.String, 50, entity.CustomerEmail));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_customermobile", DbType.String, 50, entity.CustomerMobile));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_pqguid", DbType.String, 40, entity.PQId));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_customername", DbType.String, 50, entity.CustomerName));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_customeremail", DbType.String, 50, entity.CustomerEmail));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_customermobile", DbType.String, 50, entity.CustomerMobile));
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_colorid", DbType.Int32, (entity.ColorId.HasValue) ? entity.ColorId.Value : Convert.DBNull));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_leadsourceid", DbType.Byte, (entity.LeadSourceId.HasValue) ? entity.LeadSourceId.Value : Convert.DBNull));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_utma", DbType.String, 500, (!String.IsNullOrEmpty(entity.UTMA)) ? entity.UTMA : Convert.DBNull));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_utmz", DbType.String, 500, (!String.IsNullOrEmpty(entity.UTMZ)) ? entity.UTMZ : Convert.DBNull));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_deviceid", DbType.String, 25, (!String.IsNullOrEmpty(entity.DeviceId)) ? entity.DeviceId : Convert.DBNull));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_colorid", DbType.Int32, (entity.ColorId.HasValue) ? entity.ColorId.Value : Convert.DBNull));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_leadsourceid", DbType.Byte, (entity.LeadSourceId.HasValue) ? entity.LeadSourceId.Value : Convert.DBNull));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_utma", DbType.String, 500, (!String.IsNullOrEmpty(entity.UTMA)) ? entity.UTMA : Convert.DBNull));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_utmz", DbType.String, 500, (!String.IsNullOrEmpty(entity.UTMZ)) ? entity.UTMZ : Convert.DBNull));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_deviceid", DbType.String, 25, (!String.IsNullOrEmpty(entity.DeviceId)) ? entity.DeviceId : Convert.DBNull));
 
 
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_spamscore", DbType.Double, entity.SpamScore));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_isaccepted", DbType.Boolean, entity.IsAccepted));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_overallspamscore", DbType.Byte, entity.OverallSpamScore));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_versionid", DbType.Int32, entity.VersionId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, entity.CityId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_areaid", DbType.Int32, entity.AreaId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_leadid", DbType.Int32, ParameterDirection.InputOutput, entity.LeadId));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_spamscore", DbType.Double, entity.SpamScore));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_isaccepted", DbType.Boolean, entity.IsAccepted));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_overallspamscore", DbType.Byte, entity.OverallSpamScore));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_versionid", DbType.Int32, entity.VersionId));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, entity.CityId));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_areaid", DbType.Int32, entity.AreaId));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_leadid", DbType.Int32, ParameterDirection.InputOutput, entity.LeadId));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_sourceid", DbType.Byte, entity.PlatformId));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_clientip", DbType.String, 40, !String.IsNullOrEmpty(entity.ClientIP) ? entity.ClientIP : null));
 
-                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
-                    leadId = SqlReaderConvertor.ToUInt32(cmd.Parameters["par_leadid"].Value);
+                        MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
+                        leadId = SqlReaderConvertor.ToUInt32(cmd.Parameters["par_leadid"].Value);
+                    }
                 }
             }
             catch (Exception ex)
@@ -1208,6 +1221,16 @@ namespace Bikewale.DAL.BikeBooking
         }
 
         public Entities.BikeBooking.v2.PQOutputEntity ProcessPQV3(Entities.PriceQuote.v2.PriceQuoteParametersEntity PQParams)
+        {
+            throw new NotImplementedException();
+        }
+        
+        public BikeWale.Entities.AutoBiz.DealerInfo GetDefaultVersionAndSubscriptionDealer(uint modelId, uint cityId, uint areaId, uint versionId, bool isDealerSubscriptionRequired, out uint defaultVersionId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public uint GetManufacturerCampaignDealer(uint modelId, uint cityId, ManufacturerCampaignServingPages page, out ManufacturerCampaignEntity campaigns, out bool isManufacturerDealer)
         {
             throw new NotImplementedException();
         }

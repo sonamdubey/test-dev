@@ -6,7 +6,7 @@
      is300x250BTFShown = false;
      is300x250Shown = false;
 %>
-<!-- #include file="/includes/headUsed.aspx" -->
+<!-- #include file="/UI/includes/headUsed.aspx" -->
 <style type="text/css">
 .ul-hrz-makes li { width:150px; float:left; padding:5px 0; }
 </style>
@@ -45,4 +45,4 @@
         </asp:repeater>
             </div>
     </div>
-<!-- #include file="/includes/footerInner.aspx" -->
+<!-- #include file="/UI/includes/footerInner.aspx" -->

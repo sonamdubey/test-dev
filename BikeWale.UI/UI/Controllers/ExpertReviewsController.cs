@@ -294,7 +294,7 @@ namespace Bikewale.Controllers
                 if (obj.status == StatusCodes.ContentNotFound)
                     return HttpNotFound();
                 else
-                    return View("~/views/m/content/expertreviews/details_amp.cshtml", objData);
+                    return View("~/UI/views/m/content/expertreviews/details_amp.cshtml", objData);
             }
         }
 
@@ -307,7 +307,7 @@ namespace Bikewale.Controllers
             objData = obj.GetData();
             objData.Title = "You may also like expert's reviews";
 
-            return View("~/views/ExpertReviews/_ExpertReviewHorizontalListByModel.cshtml", objData);
+            return View("~/UI/views/ExpertReviews/_ExpertReviewHorizontalListByModel.cshtml", objData);
         }
 
         [Route("m/expertreviews/list/")]
@@ -319,7 +319,7 @@ namespace Bikewale.Controllers
             objData = obj.GetData();
             objData.Title = "You may also like expert's reviews";
 
-            return View("~/views/ExpertReviews/_ExpertReviewHorizontalListByModel_Mobile.cshtml", objData);
+            return View("~/UI/views/ExpertReviews/_ExpertReviewHorizontalListByModel_Mobile.cshtml", objData);
         }
 
         /// <summary>

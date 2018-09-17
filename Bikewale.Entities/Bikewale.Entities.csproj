@@ -98,12 +98,12 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\Bikewale.ElasticSearch.Entities.dll</HintPath>
     </Reference>
-    <Reference Include="ManufacturingCampaign">
-      <HintPath>..\..\..\..\bwutils\BikeWaleUtils\Libs\ManufacturingCampaign.dll</HintPath>
+    <Reference Include="ManufacturingCampaign.Entities">
+      <HintPath>..\Libs\ManufacturingCampaign.Entities.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -342,6 +342,8 @@
     <Compile Include="Dealer\Offer.cs" />
     <Compile Include="Dealer\PopularCityDealerEntity.cs" />
     <Compile Include="Dealer\PopularDealerServiceCenter.cs" />
+    <Compile Include="Dealer\MultioutletDealer.cs" />
+    <Compile Include="Dealer\SecondaryDealerBase.cs" />
     <Compile Include="EditCMS\Articles\ArticleBase.cs" />
     <Compile Include="EditCMS\Articles\ArticleDetails.cs" />
     <Compile Include="EditCMS\Articles\ArticlePageDetails.cs" />
@@ -361,6 +363,9 @@
     <Compile Include="Filters\FilterBase.cs" />
     <Compile Include="Filters\FilterPageEntity.cs" />
     <Compile Include="Filters\InPageFilterEnum.cs" />
+    <Compile Include="Finance\BajajAuto\BASupplierResponse.cs" />
+    <Compile Include="Finance\BajajAuto\LeadResponse.cs" />
+    <Compile Include="Finance\BajajAuto\UserDetails.cs" />
     <Compile Include="Finance\CapitalFirst\CapitalFirstEmailDetailsEntity.cs" />
     <Compile Include="Finance\CapitalFirst\CapitalFirstMakeEntityBase.cs" />
     <Compile Include="Finance\CapitalFirst\CapitalFirstVoucherEntityBase.cs" />
@@ -510,11 +515,16 @@
     <Compile Include="PWA\Photos\PwaImageList.cs" />
     <Compile Include="PWA\Photos\PwaModelImages.cs" />
     <Compile Include="QuestionAndAnswers\Answer.cs" />
+    <Compile Include="QuestionAndAnswers\AnswerSubmitData.cs" />
+    <Compile Include="QuestionAndAnswers\BWClientInfo.cs" />
+    <Compile Include="QuestionAndAnswers\EnumQuestionIdHashMappingChoice.cs" />
+    <Compile Include="QuestionAndAnswers\HashQuestionIdMappingTables.cs" />
     <Compile Include="QuestionAndAnswers\Question.cs" />
     <Compile Include="QuestionAndAnswers\QuestionAnswer.cs" />
     <Compile Include="QuestionAndAnswers\QuestionAnswerWrapper.cs" />
     <Compile Include="QuestionAndAnswers\Questions.cs" />
     <Compile Include="QuestionAndAnswers\QuestionBase.cs" />
+    <Compile Include="QuestionAndAnswers\QuestionURL.cs" />
     <Compile Include="QuestionAndAnswers\Sources.cs" />
     <Compile Include="QuestionAndAnswers\Tag.cs" />
     <Compile Include="Schema\AcceptedAnswer.cs" />
@@ -563,6 +573,7 @@
     <Compile Include="service\ServiceCityEntity.cs" />
     <Compile Include="App\SplashScreenEntity.cs" />
     <Compile Include="StatusCodes.cs" />
+    <Compile Include="Tracking\BhriguTrackEntity.cs" />
     <Compile Include="UI\Customer\AuthenticatedCustomer.cs" />
     <Compile Include="UI\Customer\CustomerBase.cs" />
     <Compile Include="UI\Customer\RegisteredCustomer.cs" />
@@ -651,7 +662,10 @@
     <Compile Include="Videos\EnumVideosCategory.cs" />
     <Compile Include="Videos\VideosSortOrder.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

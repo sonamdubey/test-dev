@@ -1,8 +1,8 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" EnableViewState="false" Inherits="Bikewale.Mobile.Videos.Video" %>
 
 <!DOCTYPE html>
-<%@ Register Src="~/m/controls/SimilarVideos.ascx" TagName="SimilarVideos" TagPrefix="BW" %>
-<%@ Register TagPrefix="BW" TagName="GenericBikeInfo" Src="~/m/controls/GenericBikeInfoControl.ascx" %>
+<%@ Register Src="~/UI/m/controls/SimilarVideos.ascx" TagName="SimilarVideos" TagPrefix="BW" %>
+<%@ Register TagPrefix="BW" TagName="GenericBikeInfo" Src="~/UI/m/controls/GenericBikeInfoControl.ascx" %>
 <html>
 <head>
     <%   
@@ -13,7 +13,7 @@
     %>
     <meta property="og:title" content="<%=metaTitle%>" />
     <meta property="og:image" content="<%=string.Format("https://img.youtube.com/vi/{0}/mqdefault.jpg", videoModel.VideoId)%>" />
-    <!-- #include file="/includes/headscript_mobile.aspx" -->
+    <!-- #include file="/UI/includes/headscript_mobile.aspx" -->
 
     <style type="text/css">
         @charset "utf-8";.padding20{padding:15px 20px}#embedVideo{max-width:476px;width:100%;height:180px;margin:0 auto}#embedVideo iframe{width:100%}.bottom-shadow{-webkit-box-shadow:0 2px 2px #ccc;-moz-box-shadow:0 2px 2px #ccc;box-shadow:0 2px 2px #ccc}.text-default{color:#4d5057}.text-xlight-grey{color:#a8afb3}.line-height18{line-height:1.8}.video-views-count-container{min-width:138px}.border-light-right{border-right:1px solid #e2e2e2}.border-light-top{border-top:1px solid #e2e2e2}.social-wrapper li{width:38px;height:24px;margin-right:10px;float:left}.social-wrapper a{width:100%;height:100%;display:block}.whatsapp-container{background:-webkit-linear-gradient(to bottom, #49c633, #40ad2c);background:-o-linear-gradient(to bottom, #49c633, #40ad2c);background:-moz-linear-gradient(to bottom, #49c633, #40ad2c);background:linear-gradient(to bottom, #49c633, #40ad2c)}.fb-container{background:-webkit-linear-gradient(to bottom, #5171ba, #3b599c);background:-o-linear-gradient(to bottom, #5171ba, #3b599c);background:-moz-linear-gradient(to bottom, #5171ba, #3b599c);background:linear-gradient(to bottom, #5171ba, #3b599c)}.tweet-container{background:-webkit-linear-gradient(to bottom, #28c0ff, #1babe7);background:-o-linear-gradient(to bottom, #28c0ff, #1babe7);background:-moz-linear-gradient(to bottom, #28c0ff, #1babe7);background:linear-gradient(to bottom, #28c0ff, #1babe7)}.gplus-container{background:-webkit-linear-gradient(to bottom, #ff533f, #dd2a16);background:-o-linear-gradient(to bottom, #ff533f, #dd2a16);background:-moz-linear-gradient(to bottom, #ff533f, #dd2a16);background:linear-gradient(to bottom, #ff533f, #dd2a16)}.mail-container{background:-webkit-linear-gradient(to bottom, #c6c6c6, #acacac);background:-o-linear-gradient(to bottom, #c6c6c6, #acacac);background:-moz-linear-gradient(to bottom, #c6c6c6, #acacac);background:linear-gradient(to bottom, #c6c6c6, #acacac)}.social-icons-sprite{background:url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/social-icons-sprite.png) no-repeat;display:inline-block}.whatsapp-icon,.fb-icon,.tweet-icon,.gplus-icon,.mail-icon{height:14px;position:relative;top:4px}.whatsapp-icon{width:12px;background-position:0 0}.fb-icon{width:8px;background-position:-22px 0}.tweet-icon{width:16px;background-position:-39px 0}.gplus-icon{width:14px;background-position:-65px 0}.mail-icon{width:16px;background-position:-89px 0}.swiper-slide.video-carousel-content{width:270px;min-height:290px;background:#fff;border:1px solid #e2e2e2}.swiper-slide img{width:100%}.video-carousel-image{width:100%;height:157px;display:table;overflow:hidden;text-align:center;position:relative}.video-carousel-image a{width:100%;display:table-cell;vertical-align:middle}.video-carousel-desc{padding:10px}.more-videos-link{display:block;margin-top:15px;margin-bottom:15px}.video-views-count-container{min-width:90px}.powerdrift-sub-btn{position:relative;top:-2px}
@@ -21,7 +21,7 @@
 </head>
 <body class="bg-light-grey">
     <form runat="server">
-        <!-- #include file="/includes/headBW_Mobile.aspx" -->
+        <!-- #include file="/UI/includes/headBW_Mobile.aspx" -->
         <% if (videoModel != null)
            { %>
         <section class="bg-white">
@@ -107,8 +107,8 @@
             });
             function formatPrice(x) { try { x = x.toString(); var lastThree = x.substring(x.length - 3); var otherNumbers = x.substring(0, x.length - 3); if (otherNumbers != '') lastThree = ',' + lastThree; var res = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree; return res; } catch (err) { } }
         </script>
-        <!-- #include file="/includes/footerBW_Mobile.aspx" -->
-        <!-- #include file="/includes/footerscript_Mobile.aspx" -->
+        <!-- #include file="/UI/includes/footerBW_Mobile.aspx" -->
+        <!-- #include file="/UI/includes/footerscript_Mobile.aspx" -->
     </form>
 </body>
 </html>

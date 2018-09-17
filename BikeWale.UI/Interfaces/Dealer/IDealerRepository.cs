@@ -1,4 +1,5 @@
-﻿using Bikewale.DTO.MobileVerification;
+﻿using Bikewale.DTO.Dealer;
+using Bikewale.DTO.MobileVerification;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Dealer;
 using Bikewale.Entities.DealerLocator;
@@ -25,6 +26,8 @@ namespace Bikewale.Interfaces.Dealer
     /// Description :   Get Dealer By BrandList
     /// Modified by :  Subodh Jain on 21 Dec 2016
     /// Description :   Merge Dealer and service center for make and model page
+	/// Modified by :  Prabhu Puredla on 19 july 2018
+	/// Description :   Added GetModelCityDealers method
     /// </summary>    
     public interface IDealerRepository
     {
@@ -48,5 +51,7 @@ namespace Bikewale.Interfaces.Dealer
         DealerBikeModelsEntity GetBikesByDealerAndMake(uint dealerId, uint makeId);
         DealerVersionPrices GetBikeVersionPrice(uint dealerId, uint versionId);
         SMSData GetDealerShowroomSMSData(MobileSmsVerification objData);
+		IEnumerable<SecondaryDealerBase> GetMLADealers(uint modelId, uint dealerId, uint cityId, uint? areaId);
+        IList<NewBikeDealerDetails> GetAllDealersByMakeCity(uint makeId, uint cityId);
     }
 }

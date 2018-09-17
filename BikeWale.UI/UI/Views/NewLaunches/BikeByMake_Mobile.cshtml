@@ -3,10 +3,10 @@
     Model.AdTags.AdPath = "/1017752/Bikewale_Mobile_NewBikes";
     Model.AdTags.AdId = "1398766302464";
     Model.AdTags.Ad_320x50 = true;
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/sass/new-launch/new-launch.css' inline />";
-    Model.Page_JS_Path = "/m/src/new-launch.js";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/UI/m/sass/new-launch/new-launch.css' inline />";
+    Model.Page_JS_Path = "/UI/m/src/new-launch.js";
     Model.PageMetaTags.AlternateUrl = "";
-    Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
+    Layout = "~/UI/Views/Shared/_Layout_Mobile.cshtml";
 }
 <section>
     <div class="container bg-white card-bottom-margin">
@@ -21,7 +21,7 @@
 <section id="newlaunched-bikes" data-make-filter="@Model.Make.MakeId" data-city="@Model.CityId">
     <div class="container bg-white box-shadow card-bottom-margin">
         <h2 class="padding-15-20 border-solid-bottom">Latest @Model.Make.MakeName bikes in India</h2>
-        @Html.Partial("~/Views/NewLaunches/_NewLaunchedBikes_Mobile.cshtml",Model.NewLaunched)
+        @Html.Partial("~/UI/Views/NewLaunches/_NewLaunchedBikes_Mobile.cshtml",Model.NewLaunched)
     </div>
 </section>
 @if (Model.HasUpcoming) {
@@ -35,7 +35,7 @@
             </div>
             <div class="clear"></div>
         </div>
-          @Html.Partial("~/Views/Upcoming/_UpcomingBikes_Mobile.cshtml", Model.Upcoming)
+          @Html.Partial("~/UI/Views/Upcoming/_UpcomingBikes_Mobile.cshtml", Model.Upcoming)
         </div>
 </section>
 }

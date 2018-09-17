@@ -8,16 +8,16 @@
         isHeaderFix = false;
     %>
     
-    <!-- #include file="/includes/headscript_desktop_min.aspx" -->
-    <link type="text/css" href="/css/used/details.css" rel="stylesheet" />
+    <!-- #include file="/UI/includes/headscript_desktop_min.aspx" -->
+    <link type="text/css" href="/UI/css/used/details.css" rel="stylesheet" />
 
     <script type="text/javascript">
-        <!-- #include file="\includes\gacode_desktop.aspx" -->
+        <!-- #include file="\UI\includes\gacode_desktop.aspx" -->
     </script>
 </head>
 <body>
     <form id="form1" runat="server">
-        <!-- #include file="/includes/headBW.aspx" -->
+        <!-- #include file="/UI/includes/headBW.aspx" -->
         <section class="bg-light-grey padding-top10" id="breadcrumb">
             <div class="container">
                 <div class="grid-12">
@@ -718,19 +718,19 @@
             </div>
         </section>
         
-        <script type="text/javascript" src="<%= staticUrl  %>/src/frameworks.js?<%=staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl  %>/UI/src/frameworks.js?<%=staticFileVersion %>"></script>
 
-        <!-- #include file="/includes/footerBW.aspx" -->
-        <link href="<%= staticUrl %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
-        <script type="text/javascript" src="<%= staticUrl  %>/src/common.min.js?<%= staticFileVersion %>"></script>
-        <script type="text/javascript" src="<%= staticUrl  %>/src/used-details.js?<%= staticFileVersion %>"></script>
+        <!-- #include file="/UI/includes/footerBW.aspx" -->
+        <link href="<%= staticUrl %>/UI/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
+        <script type="text/javascript" src="<%= staticUrl  %>/UI/src/common.min.js?<%= staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl  %>/UI/src/used-details.js?<%= staticFileVersion %>"></script>
         <script type="text/javascript" >
             var gaObj = { 'id': '<%= (int)Bikewale.Entities.Pages.GAPages.Used_Bike_Details%>', 'name': '<%= Bikewale.Entities.Pages.GAPages.Used_Bike_Details%>' };
             </script>
         
         
         <%
-            string fontFile = "/css/fonts/OpenSans/open-sans-v15-latin-regular.woff",
+            string fontFile = "/UI/css/fonts/OpenSans/open-sans-v15-latin-regular.woff",
             fontUrl = String.Format("{0}{1}?{2}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, fontFile, Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion);
         %>
         <style>
@@ -743,7 +743,7 @@
         </style>
         
         <%  
-            fontFile = "/css/fonts/OpenSans/open-sans-v15-latin-700.woff";
+            fontFile = "/UI/css/fonts/OpenSans/open-sans-v15-latin-700.woff";
             fontUrl  = String.Format("{0}{1}?{2}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, fontFile, Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion); 
         %>
         <style>
@@ -756,7 +756,7 @@
         </style>
              
         <!--[if lt IE 9]>
-            <script src="/src/html5.js"></script>
+            <script src="/UI/src/html5.js"></script>
         <![endif]-->
     </form>
 </body>

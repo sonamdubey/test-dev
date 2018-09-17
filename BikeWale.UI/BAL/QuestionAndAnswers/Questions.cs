@@ -7,6 +7,7 @@ using Bikewale.Notifications;
 using Bikewale.Utility;
 using Newtonsoft.Json;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -174,7 +175,7 @@ namespace Bikewale.BAL.QuestionAndAnswers
 
                 };
 
-                questionId = _objQNAQuestions.SaveQuestions(ConvertToQNAQuestionEntity(inputQuestion), clientInfo);
+                questionId = _objQNAQuestions.SaveQuestions(Mappers.Convert<Question, QuestionsAnswers.Entities.Question>(inputQuestion), clientInfo);
 
                 if (questionId != null)
                 {
@@ -209,20 +210,26 @@ namespace Bikewale.BAL.QuestionAndAnswers
             {
                 if (pageNo > 0)
                 {
-                    List<string> _questions = _objQuestionsCacheRepository.GetQuestionIdsByModelId(modelId) as List<String>;
-
-                    int totalRecords = _questions.Count();
-                    int recordsSoFar = (pageNo - 1) * pageSize;
-                    int remainingRecords = totalRecords - recordsSoFar;
-
-                    if (remainingRecords > 0)
+                    IEnumerable<string> questionList = null;
+                    questionList = _objQuestionsCacheRepository.GetQuestionIdsByModelId(modelId);
+                    if (questionList != null)
                     {
-                        questions = _questions.GetRange(recordsSoFar, Math.Min(pageSize, remainingRecords));
+                        List<string> _questions = questionList.ToList();
+
+                        int totalRecords = _questions.Count();
+                        int recordsSoFar = (pageNo - 1) * pageSize;
+                        int remainingRecords = totalRecords - recordsSoFar;
+
+                        if (remainingRecords > 0)
+                        {
+                            questions = _questions.GetRange(recordsSoFar, Math.Min(pageSize, remainingRecords));
+                        }
+                        else
+                        {
+                            return questions;
+                        }
                     }
-                    else
-                    {
-                        return questions;
-                    }
+
                 }
             }
             catch (Exception ex)
@@ -273,7 +280,7 @@ namespace Bikewale.BAL.QuestionAndAnswers
 
                 if (questionIds != null)
                 {
-                    questions = ConvertToBikewaleQuestionEntity(_objQNAQuestions.GetQuestionDataByQuestionIds(questionIds));
+                    questions = Mappers.Convert<IEnumerable<QuestionsAnswers.Entities.Question>, IEnumerable<Question>>(_objQNAQuestions.GetQuestionDataByQuestionIds(questionIds));
                 }
             }
             catch (Exception ex)
@@ -308,7 +315,9 @@ namespace Bikewale.BAL.QuestionAndAnswers
                         qa = new QuestionAnswer()
                         {
                             Question = question,
-                            Answer = question.Answers.FirstOrDefault()
+                            Answer = question.Answers.FirstOrDefault(),
+                            AnswerCount = question.AnswerCount,
+                            Url = string.Format("{0}-{1}/", question.BaseUrl, GetQuestionIdHashMapping(question.Id.ToString(), modelId, EnumQuestionIdHashMappingChoice.QuestionIdToHash))
                         };
 
                         questionanswer.Add(qa);
@@ -387,7 +396,7 @@ namespace Bikewale.BAL.QuestionAndAnswers
                 ErrorClass.LogError(ex, "Bikewale.Models.QuestionsAnswers.QuestionAnswerModel.FormatQuestionsAnswers()");
             }
         }
-
+        
         public QuestionAnswerWrapper GetQuestionAnswerList(uint modelId, ushort pageNo, ushort recordSize)
         {
             QuestionAnswerWrapper questionAnswerWrapper = null;
@@ -407,7 +416,206 @@ namespace Bikewale.BAL.QuestionAndAnswers
             }
             return questionAnswerWrapper;
         }
+
+
+        /// <summary>
+        /// Created By : Deepak Israni on 13 July 2018
+        /// Description : Get remaining unanswered questions for a certain model.
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <param name="questionId"></param>
+        /// <returns></returns>
+        public IEnumerable<string> GetRemainingUnansweredQuestionIds(uint modelId, string questionId, int questionLimit)
+        {
+            IEnumerable<string> questionIds = null;
+
+            try
+            {
+                List<string> allQuestions = _objQuestionsCacheRepository.GetUnansweredQuestionIdsByModelId(modelId) as List<string>;
+
+                if (allQuestions != null && questionLimit > 0)
+                {
+                    allQuestions = allQuestions.Count > questionLimit + 1 ? allQuestions.GetRange(0, questionLimit + 1) : allQuestions;
+                    allQuestions.Remove(questionId);
+
+                    questionIds = allQuestions.Count > questionLimit ? allQuestions.GetRange(0, questionLimit) : allQuestions;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, String.Format("Bikewale.BAL.QuestionAndAnswers.GetRemainingUnansweredQuestionIds. Model Id: {0}, Question Id: {1}", modelId, questionId));
+            }
+
+            return questionIds;
+        }
+
+        /// <summary>
+        /// Created By : Kumar Swapnil on 07 September 2018
+        /// Description : Get remaining unanswered questions for a certain emailId.
+        /// </summary>
+        /// <param name="emailId"></param>
+        /// <returns></returns>
+        public IEnumerable<string> GetRemainingUnansweredQuestionIds(uint modelId, int questionLimit, string emailId)
+        {
+            IList<string> allQuestions = _objQuestionsCacheRepository.GetUnansweredQuestionIdsByModelId(modelId).ToList();
+            List<string> unapprovedAnswerQuestions = _objQNAQuestions.GetUnapprovedAnswerQuestionIds(emailId).ToList();
+            try
+            {
+                for (int i = 0; i < unapprovedAnswerQuestions.Count ; i++)
+                {
+                    if (allQuestions == null)
+                        break;
+                    if (allQuestions.Contains(unapprovedAnswerQuestions[i]))
+                        allQuestions.Remove(unapprovedAnswerQuestions[i]);
+                }
+                allQuestions = allQuestions.Count > questionLimit + 1 ? allQuestions.Take<string>(questionLimit).ToList<string>() : allQuestions;
+
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, String.Format("Bikewale.BAL.QuestionAndAnswers.GetRemainingUnansweredQuestionIds. Model Id: {0}", modelId));
+            }
+
+            return allQuestions;
+        }
+
+        /// <summary>
+        /// Created By : Deepak Israni on 13 July 2018
+        /// Description : Get remaining unanswered questions.
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <param name="questionId"></param>
+        /// <param name="questionLimit"></param>
+        /// <returns></returns>
+        public IEnumerable<Question> GetRemainingUnansweredQuestions(uint modelId, string questionId, int questionLimit)
+        {
+            IEnumerable<Question> questions = null;
+            try
+            {
+                IEnumerable<string> questionIds = GetRemainingUnansweredQuestionIds(modelId, questionId, questionLimit);
+                if (questionIds != null)
+                {
+                    questions = Mappers.Convert<IEnumerable<QuestionsAnswers.Entities.Question>, IEnumerable<Question>>(_objQNAQuestions.GetQuestionDataByQuestionIds(questionIds));
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, String.Format("QuestionAndAnswers.GetRemainingUnansweredQuestions, Model Id: {0}, Question Id: {1}, Question Limit: {2}", modelId, questionId, questionLimit));
+            }
+
+            return questions;
+        }
+
+        public IEnumerable<Question> GetRemainingUnansweredQuestions(uint modelId, int questionLimit, string EmailId)
+        {
+            IEnumerable<Question> questions = null;
+            try
+            {
+                IEnumerable<string> questionIds = GetRemainingUnansweredQuestionIds(modelId, questionLimit, EmailId);
+                if (questionIds != null)
+                {
+                    questions = Mappers.Convert<IEnumerable<QuestionsAnswers.Entities.Question>, IEnumerable<Question>>(_objQNAQuestions.GetQuestionDataByQuestionIds(questionIds));
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, String.Format("QuestionAndAnswers.GetRemainingUnansweredQuestions, Model Id: {0}, Question Id: {1}, Question Limit: {2}", modelId, questionLimit));
+            }
+
+            return questions;
+        }
+
+        /// <summary>
+        /// Created by : Snehal Dange on 7th August 2018
+        /// Desc : Get the hash-questionGuid mapping  
+        /// Modified by: Dhruv Joshi
+        /// Dated: 10th August 2018
+        /// Description: Modified function to handle question-id hash both way mapping
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
+        public string GetQuestionIdHashMapping(string key, uint modelId, EnumQuestionIdHashMappingChoice mappingChoice) //Get both mappings, 0 for questionId to hash and 1 for hash to questionId
+        {
+            string value = string.Empty;
+            try
+            {
+                HashQuestionIdMappingTables hashQuesMapping = _objQuestionsCacheRepository.GetHashQuestionMapping(modelId);
+                if(hashQuesMapping != null)
+                {
+                    Hashtable mappingTable = null;
+                    if (mappingChoice == EnumQuestionIdHashMappingChoice.QuestionIdToHash)
+                    {
+                        mappingTable = hashQuesMapping.QuestionIdToHashMapping;
+                        if (mappingTable != null && mappingTable[key] != null)
+                        {
+                            value = mappingTable[key].ToString();
+                        }
+                    }
+                    else
+                    {
+                        mappingTable = hashQuesMapping.HashToQuestionIdMapping;
+                        if(mappingTable != null && mappingTable[key] != null)
+                        {
+                            value = mappingTable[key].ToString();
+                        }                        
+                    }
+                }                
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, String.Format(" Bikewale.BAL.QuestionAndAnswers.GetHashQuestionMapping:ModelId : {0}", modelId));
+            }
+            return value;
+        }
+        /// <summary>
+        /// Created by: Dhruv Joshi
+        /// Dated: 10th August 2018
+        /// Description: Get data for specific question
+        /// </summary>
+        /// <param name="questionId"></param>
+        /// <returns></returns>
+        public Question GetQuestionDataByQuestionId(string questionId)
+        {
+            Question questionData = null;
+            try
+            {
+
+                IEnumerable<string> questionIdList = new List<string>() { questionId };
+                QuestionsAnswers.Entities.Question qnaServiceQuestion = _objQNAQuestions.GetQuestionDataByQuestionIds(questionIdList).FirstOrDefault();
+                questionData = Mappers.Convert<QuestionsAnswers.Entities.Question, Question>(qnaServiceQuestion);                
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "Bikewale.BAL.QuestionAndAnswers.Questions.GetQuestionDataByQuestionId(string)");
+            }
+            return questionData;
+        }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 03 Sept 2018
+        /// Description :   Returns the Unanswered questions for a model
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <param name="questionLimit"></param>
+        /// <returns></returns>
+        public IEnumerable<Question> GetRemainingUnansweredQuestions(uint modelId, int questionLimit)
+        {
+            IEnumerable<Question> questions = null;
+            try
+            {
+                IEnumerable<string> questionIds = GetRemainingUnansweredQuestionIds(modelId,"", questionLimit);
+                if (questionIds != null)
+                {
+                    questions = Mappers.Convert<IEnumerable<QuestionsAnswers.Entities.Question>, IEnumerable<Question>>(_objQNAQuestions.GetQuestionDataByQuestionIds(questionIds));
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, String.Format("QuestionAndAnswers.GetRemainingUnansweredQuestions, Model Id: {0}, Question Limit: {1}", modelId, questionLimit));
+            }
+
+            return questions;
+        }
+
     }
-
-
 }

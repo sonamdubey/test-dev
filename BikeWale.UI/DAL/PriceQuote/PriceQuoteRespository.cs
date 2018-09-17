@@ -1,4 +1,5 @@
-﻿using Bikewale.Entities;
+﻿using Bikewale.DTO.PriceQuote.Version;
+using Bikewale.Entities;
 using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.PriceQuote;
@@ -6,6 +7,7 @@ using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Notifications;
 using Bikewale.Utility;
 using MySql.CoreDAL;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -869,6 +871,93 @@ namespace Bikewale.DAL.PriceQuote
         /// <param name="pqParams"></param>
         /// <returns></returns>
         public string RegisterPriceQuoteV2(Entities.PriceQuote.v2.PriceQuoteParametersEntity pqParams)
+        {
+            try
+            {
+
+                if (pqParams.VersionId > 0)
+                {
+                    using (DbCommand cmd = DbFactory.GetDBCommand())
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.CommandText = "savepricequote_19062018";
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_guid", DbType.String, 40, pqParams.GUID));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_bikeversionid", DbType.Int32, pqParams.VersionId));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, pqParams.CityId));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_areaid", DbType.Int32, (pqParams.AreaId > 0) ? pqParams.AreaId : Convert.DBNull));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbType.Int32, pqParams.CustomerId));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_customername", DbType.String, 50, pqParams.CustomerName));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_customeremail", DbType.String, 100, pqParams.CustomerEmail));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_customermobile", DbType.String, 20, pqParams.CustomerMobile));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_clientip", DbType.String, 40, !String.IsNullOrEmpty(pqParams.ClientIP) ? pqParams.ClientIP : null));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_sourceid", DbType.Byte, pqParams.SourceId));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, pqParams.DealerId));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_deviceid", DbType.String, 25, (!String.IsNullOrEmpty(pqParams.DeviceId)) ? pqParams.DeviceId : null));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_utma", DbType.String, 500, (!String.IsNullOrEmpty(pqParams.UTMA)) ? pqParams.UTMA : null));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_utmz", DbType.String, 500, (!String.IsNullOrEmpty(pqParams.UTMZ)) ? pqParams.UTMZ : null));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_pqsourceid", DbType.Byte, (pqParams.PQLeadId.HasValue) ? pqParams.PQLeadId : Convert.DBNull));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_refguid", DbType.String, 40, !String.IsNullOrEmpty(pqParams.RefGUID) ? pqParams.RefGUID : Convert.DBNull)); // RefGUID string 40
+                        MySqlDatabase.InsertQuery(cmd, ConnectionType.MasterDatabase);
+                        
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex,String.Format("PQConsumer.PriceQuoteRepository.RegisterPriceQuote : SqlException {0}", JsonConvert.SerializeObject(pqParams)));
+            }
+            return "";
+        }
+
+		public bool GetMLAStatus(int makeId, uint cityId)
+		{
+			throw new NotImplementedException();
+		}
+
+        /// <summary>
+        /// Created by  : Pratibha Verma on 29 August 2018
+        /// Description : returns version price by cityid
+        /// </summary>
+        /// <param name="versionId"></param>
+        /// <param name="cityId"></param>
+        /// <returns></returns>
+        public VersionPrice GetVersionPriceByCityId(uint versionId, uint cityId)
+        {
+            VersionPrice versionPrice = null;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand())
+                {
+                    cmd.CommandText = "getversionpricebycityid";
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_versionid", DbType.UInt32, versionId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.UInt32, cityId));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            versionPrice = new VersionPrice();
+                            if (dr.Read())
+                            {
+                                versionPrice.VersionId = SqlReaderConvertor.ToUInt32(dr["versionid"]);
+                                versionPrice.Exshowroom = SqlReaderConvertor.ToUInt32(dr["exshowroom"]);
+                                versionPrice.RTO = SqlReaderConvertor.ToUInt32(dr["rto"]);
+                                versionPrice.Insurance = SqlReaderConvertor.ToUInt32(dr["insurance"]);
+                                versionPrice.VersionPrice = SqlReaderConvertor.ToUInt32(dr["onroad"]);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("Bikewale.DAL.PriceQuote.PriceQuoteRepository.GetVersionPriceByCityId(versionId = {0}, cityId = {1})", versionId, cityId));
+            }
+            return versionPrice;
+        }
+
+        public IList<PriceCategory> GetVersionPriceListByCityId(uint versionId, uint cityId)
         {
             throw new NotImplementedException();
         }

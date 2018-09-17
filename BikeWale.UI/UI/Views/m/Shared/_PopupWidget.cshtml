@@ -43,7 +43,7 @@
                         <div class="selected-city" data-bind="text: (SelectedCity() != null && SelectedCity().name != '') ? SelectedCity().name : 'Select City'"></div>
                         <span class="bwmsprite fa-angle-right position-abt pos-top10 pos-right10"></span>
                     </div>
-                    <div id="areaSelection" class="form-control text-left input-sm position-rel margin-bottom10 " data-bind="visible: BookingAreas().length > 0">
+                    <div id="areaSelection" class="form-control text-left input-sm position-rel margin-bottom10" data-bind="visible: BookingAreas().length > 0">
                         <div class="selected-area" data-bind="text: (SelectedArea() != null && SelectedArea().name != '') ? SelectedArea().name : 'Select Area'">Select Area</div>
                         <span class="bwmsprite fa-angle-right position-abt pos-top10 pos-right10"></span>
 
@@ -125,6 +125,8 @@
         self.DealerId = ko.observable();
         self.VersionId = ko.observable();
         self.RedirectUrl = ko.observable("");
+        self.areaDropdown = $("#areaSelection");
+
         self.FilterData = function (data,filter)
         {
             filterObj = data;
@@ -296,7 +298,7 @@
                             {
                                 window.location.href = "/m/pricequote/dealer/" + "?MPQ=" + _responseData.qStr;
                             }
-                            else   window.location.reload(true);
+                            else  window.location.reload(true);
                         }
                         else
                         {
@@ -318,7 +320,11 @@
                             self.triggerABTestGA();
                             if(self.RedirectUrl() != ""){
                                 window.location.href = self.RedirectUrl();
-                            }else { 
+                            }
+                            else if (self.VersionId() != 0){
+                                window.location.href = window.location.origin + window.location.pathname + "?versionId=" + self.VersionId() + "#onRoadPrice";
+                            }
+                            else { 
                                 window.location.reload(true);
                             }
                         }
@@ -339,23 +345,24 @@
                 self.SelectedCity(findCityById(self.SelectedCityId()));
                 if(!event.originalEvent) return;
             }
-
+            
             if(self.SelectedCity()!=null && !self.SelectedCity().hasAreas)
             {
                 $('#city-area-content').addClass('city-selected');
                 self.LoadingText("Fetching on-road price for " + self.SelectedCity().name);
                 self.IsPersistance(false);
-
             }
             else{
                 self.LoadingText("Loading areas for " + self.SelectedCity().name);
             }
+
             self.SelectedArea(null);
             self.SelectedAreaId(0);
             self.BookingAreas([]);
 
             if (self.SelectedCity().hasAreas || self.SelectedCity().id != onCookieObj.PQCitySelectedId) {
                 self.InitializePQ(true);
+                self.areaDropdown.click();
             }
 
             if (ga_pg_id != null && ga_pg_id == 2) {
@@ -465,7 +472,9 @@
                 "pagecatid" : ele.attr('data-pagecatid'),
                 "pagesrcid" : ele.attr('data-pqSourceId'),
                 "ispersistent" : ele.attr('data-persistent') !=null ? true : false,
-                "isreload" : ele.attr("data-reload") !=null ? true : false
+                "isreload" : ele.attr("data-reload") !=null ? true : false,
+                "versionid" : ele.attr("data-versionid") != undefined ? ele.attr("data-versionid") : 0,
+                
 
             };
 

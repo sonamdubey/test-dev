@@ -4,9 +4,9 @@
 @if (Model != null)
 {
     {
-        Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/model-series/series.css' inline> <link rel='stylesheet' type='text/css' href='/sass/partials/bw-youtube.css' inline />";
-        Model.Page_JS_Path = "/src/model-series/series.js";
-        Layout = "~/Views/Shared/_Layout.cshtml";
+        Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/UI/sass/model-series/series.css' inline> <link rel='stylesheet' type='text/css' href='/UI/sass/partials/bw-youtube.css' inline />";
+        Model.Page_JS_Path = "/UI/src/model-series/series.js";
+        Layout = "~/UI/Views/Shared/_Layout.cshtml";
     }
     <section id="seriesTabsContentWrapper" class="overall-tabs-wrapper">
         <section class="container margin-bottom20">
@@ -17,7 +17,7 @@
                         <h1>@string.Format("{0} {1}", Model.BikeMake.MakeName, Model.SeriesBase.SeriesName)</h1>
                     </div>
                 }
-                @Html.Partial("~/Views/BikeSeries/_Index_Tabs.cshtml", Model)
+                @Html.Partial("~/UI/Views/BikeSeries/_Index_Tabs.cshtml", Model)
             </div>
             @if (Model.SeriesDescription != null && !string.IsNullOrEmpty(Model.SeriesDescription.FullDescription))
             {
@@ -39,7 +39,7 @@
                 </div>
             }
 
-            @Html.Partial("~/Views/BikeSeries/_PopularNewBikes.cshtml", Model)
+            @Html.Partial("~/UI/Views/BikeSeries/_PopularNewBikes.cshtml", Model)
             <div class="clear"></div>
         </section>
         @if (Model.SeriesModels != null && Model.SeriesModels.UpcomingBikes != null && Model.SeriesModels.UpcomingBikes.Any())
@@ -54,7 +54,7 @@
                                     <h2 class="font22">@string.Format("{0} {1} Upcoming Bikes", Model.BikeMake.MakeName, Model.SeriesBase.SeriesName)</h2>
                                 </div>
                             }
-                            @Html.Partial("~/Views/Upcoming/_UpcomingBikes_v1.cshtml", Model.SeriesModels.UpcomingBikes)
+                            @Html.Partial("~/UI/Views/Upcoming/_UpcomingBikes_v1.cshtml", Model.SeriesModels.UpcomingBikes)
                         </div>
                     </div>
                     <div class="clear"></div>
@@ -83,7 +83,7 @@
                                     </div>
                                     <div class="clear"></div>
                                 </div>
-                                @Html.Partial("~/Views/CompareBikes/_SimilarComparisons_V1.cshtml", Model.TopComparisons)
+                                @Html.Partial("~/UI/Views/CompareBikes/_SimilarComparisons_V1.cshtml", Model.TopComparisons)
 
                             </div>
 
@@ -107,7 +107,7 @@
                                 }
                                 <p class="padding-left20 font16 font-bold padding-right20">What are you looking for?</p>
                                 <div class="find-right-bike margin-top25">
-                                    @Html.Partial("~/Views/BikeSeries/_BikeSeriesCompareBikesWithSpecs.cshtml", Model.ObjModel)
+                                    @Html.Partial("~/UI/Views/BikeSeries/_BikeSeriesCompareBikesWithSpecs.cshtml", Model.ObjModel)
                                 </div>
                             </div>
                         </div>
@@ -130,7 +130,7 @@
                                     <h2 class="font22">@string.Format("{0} {1} News", Model.BikeMake.MakeName, Model.SeriesBase.SeriesName)</h2>
                                 </div>
                             }
-                            @Html.Partial("~/Views/News/_RecentNews_v1.cshtml", Model.News)
+                            @Html.Partial("~/UI/Views/News/_RecentNews_v1.cshtml", Model.News)
 							@if (Model.BikeMake != null && Model.SeriesBase != null)
 							{
 								<div class="margin-top10 padding-left20">
@@ -156,7 +156,7 @@
                                     <h2 class="font22">@string.Format("{0} {1} Videos", Model.BikeMake.MakeName, Model.SeriesBase.SeriesName)</h2>
                                 </div>
                             }
-                            @Html.Partial("~/Views/Videos/_LazyLoadVideos.cshtml", Model.Videos)
+                            @Html.Partial("~/UI/Views/Videos/_LazyLoadVideos.cshtml", Model.Videos)
                             @if (Model.BikeMake != null && Model.SeriesBase != null)
                             {
                                 <div class="margin-top10 padding-left20">
@@ -182,7 +182,7 @@
                                     <h2 class="font22">@string.Format("{0} {1} Expert Reviews", Model.BikeMake.MakeName, Model.SeriesBase.SeriesName)</h2>
                                 </div>
                             }
-                            @Html.Partial("~/Views/ExpertReviews/_RecentExpertReviews_v1.cshtml", Model.ExpertReviews)
+                            @Html.Partial("~/UI/Views/ExpertReviews/_RecentExpertReviews_v1.cshtml", Model.ExpertReviews)
 							@if (Model.BikeMake != null && Model.SeriesBase != null)
 							{
 								<div class="margin-top10 padding-left20">
@@ -210,7 +210,7 @@
 						}
                         <div class="used-model-swiper jcarousel-wrapper inner-content-carousel" data-overlay="right">
                             <div class="jcarousel">
-                                @Html.Partial("~/Views/Used/_UsedBikeByModelCity_v1.cshtml", Model.objUsedBikes)
+                                @Html.Partial("~/UI/Views/Used/_UsedBikeByModelCity_v1.cshtml", Model.objUsedBikes)
                             </div>
                             <span class="jcarousel-control-left">
                                 <a href="#" class="bwsprite jcarousel-control-prev" rel="nofollow"></a>
@@ -237,7 +237,7 @@
                                     <h2 class="font22">@string.Format("Other {0} Bikes", Model.OtherSeries.BikeMake.MakeName)</h2>
                                 </div>
                             }
-							@Html.Partial("~/Views/BikeSeries/_OtherSeriesFromMake.cshtml", Model.OtherSeries)
+							@Html.Partial("~/UI/Views/BikeSeries/_OtherSeriesFromMake.cshtml", Model.OtherSeries)
                             
                         </div>
                     </div>

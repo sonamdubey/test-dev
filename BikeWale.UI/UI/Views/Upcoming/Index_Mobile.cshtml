@@ -1,9 +1,9 @@
 ﻿@model Bikewale.Models.UpcomingPageVM
 
 @{
-    Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/sass/upcoming-bikes/upcoming-bikes.css' inline />";
-    Model.Page_JS_Path = "/m/src/upcoming-bikes.js";
+    Layout = "~/UI/Views/Shared/_Layout_Mobile.cshtml";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/UI/m/sass/upcoming-bikes/upcoming-bikes.css' inline />";
+    Model.Page_JS_Path = "/UI/m/src/upcoming-bikes.js";
     Model.IsTransparentHeader = true;
     Model.IsPageTypeLanding = true;
     Model.AdTags.AdPath = "/1017752/Bikewale_Mobile_Upcoming";
@@ -43,13 +43,13 @@
     <section>
         <h2 class="section-heading">Upcoming bikes in India</h2>
         <div id="upcoming-bikes" class="container content-box-shadow section-bottom-margin">
-            @Html.Partial("~/Views/Upcoming/_UpcomingBikesList_Mobile.cshtml", Model)
+            @Html.Partial("~/UI/Views/Upcoming/_UpcomingBikesList_Mobile.cshtml", Model)
         </div>
     </section>
     if (Model.AdTags.Ad_300x250BTF)
     {
         <section>
-                @Html.Partial("~/Views/Shared/Ads/Mobile/Ad300x250BTF.cshtml", Model.AdTags)
+                @Html.Partial("~/UI/Views/Shared/Ads/Mobile/Ad300x250BTF.cshtml", Model.AdTags)
         </section>
     }
     if (Model.NewLaunches != null)
@@ -57,7 +57,7 @@
         <section>
             <h2 class="section-heading">New bike launches in India</h2>
             <div class="contaner content-box-shadow section-bottom-margin padding-top15 padding-bottom15">
-                @Html.Partial("~/Views/NewLaunches/_NewLaunches_Mobile.cshtml", Model.NewLaunches)
+                @Html.Partial("~/UI/Views/NewLaunches/_NewLaunches_Mobile.cshtml", Model.NewLaunches)
                 <div class="view-all-btn-container margin-top10">
                     <a href="/m/new-bike-launches/" title="New bike launches in India" class="btn view-all-target-btn">View all launches<span class="bwmsprite teal-right"></span></a>
                 </div>
@@ -70,7 +70,7 @@
         <section>
             <h2 class="section-heading">Upcoming bikes by brands</h2>
             <div class="container content-box-shadow section-bottom-margin padding-top25 padding-bottom20 text-center collapsible-brand-content">
-                @Html.Partial("~/Views/Make/_Brands_Mobile.cshtml", Model.Brands)
+                @Html.Partial("~/UI/Views/Make/_Brands_Mobile.cshtml", Model.Brands)
             </div>
         </section>
     }
@@ -81,7 +81,7 @@
             <h2 class="section-heading">More about upcoming bikes</h2>
             <div id="newsContent" class="padding-15-20-20 content-box-shadow card-bottom-margin content-details-wrapper font14">
                
-                @Html.Partial("~/Views/News/_RecentNews_Mobile.cshtml", Model.News)
+                @Html.Partial("~/UI/Views/News/_RecentNews_Mobile.cshtml", Model.News)
               
             </div>
         </section>

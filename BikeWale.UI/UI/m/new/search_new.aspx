@@ -1,7 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.New.Search" %>
 
-<%@ Register Src="~/m/controls/ChangeLocationPopup.ascx" TagPrefix="BW" TagName="LocationWidget" %>
-<%@ Register TagPrefix="BW" TagName="MPopupWidget" Src="/m/controls/MPopupWidget.ascx" %>
+<%@ Register Src="~/UI/m/controls/ChangeLocationPopup.ascx" TagPrefix="BW" TagName="LocationWidget" %>
+<%@ Register TagPrefix="BW" TagName="MPopupWidget" Src="/UI/m/controls/MPopupWidget.ascx" %>
 
 <!doctype html>
 <html>
@@ -19,13 +19,13 @@
     %>
 
 
-    <!-- #include file="/includes/headscript_mobile.aspx" -->
+    <!-- #include file="/UI/includes/headscript_mobile.aspx" -->
     <script>ga_pg_id = '5'; var PQSourceId = '<%= (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_NewBikeSearch %>';</script>
 </head>
 <body class="bg-light-grey">
 
     <link href="<%= staticUrl  %>/m/css/new/bwm-search.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
-    <link href="<%= staticUrl  %>/css/chosen.min.css?<%= staticFileVersion %>" rel="stylesheet" />
+    <link href="<%= staticUrl  %>/UI/css/chosen.min.css?<%= staticFileVersion %>" rel="stylesheet" />
     <link href="<%= staticUrl  %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
 
     <div class="blackOut-window"></div>
@@ -79,7 +79,7 @@
     <section>
         <div class="container">
             <div>
-                <!-- #include file="/ads/Ad320x50_mobile.aspx" -->
+                <!-- #include file="/UI/ads/Ad320x50_mobile.aspx" -->
             </div>
         </div>
     </section>
@@ -331,10 +331,10 @@
         <div class="clear"></div>
     </div>
     <!--Main container ends here-->
-    <!-- #include file="/includes/footerBW_Mobile.aspx" -->
+    <!-- #include file="/UI/includes/footerBW_Mobile.aspx" -->
     <!-- all other js plugins -->
-    <!-- #include file="/includes/footerscript_Mobile.aspx" -->
-    <script src="<%= staticUrl  %>/m/src/new/search.js?<%= staticFileVersion %>" type="text/javascript"></script>
+    <!-- #include file="/UI/includes/footerscript_Mobile.aspx" -->
+    <script src="<%= staticUrl  %>/UI/m/src/new/search.js?<%= staticFileVersion %>" type="text/javascript"></script>
     <div class="back-to-top" id="back-to-top"></div>
 </body>
 </html>

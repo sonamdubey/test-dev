@@ -17,17 +17,17 @@
        
     %>
 
-    <!-- #include file="/includes/headscript_desktop_min.aspx" -->
+    <!-- #include file="/UI/includes/headscript_desktop_min.aspx" -->
      <link rel="stylesheet" type="text/css" href="<%= staticUrl  %>/trackday2016/css/track-day.css?<%= staticFileVersion %>" />
   
       <script type="text/javascript">
-        <!-- #include file="\includes\gacode_desktop.aspx" -->
+        <!-- #include file="\UI\includes\gacode_desktop.aspx" -->
     </script>
     
 </head>
 <body>
     <form id="form1" runat="server">
-        <!-- #include file="/includes/headBW.aspx" -->
+        <!-- #include file="/UI/includes/headBW.aspx" -->
         <header>
             <div class="trackday-banner">
                 <div class="container">
@@ -286,15 +286,15 @@
             </div>
         </section>
 
-        <script type="text/javascript" src="<%= staticUrl  %>/src/frameworks.js?<%=staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl  %>/UI/src/frameworks.js?<%=staticFileVersion %>"></script>
 
-        <!-- #include file="/includes/footerBW.aspx" -->
+        <!-- #include file="/UI/includes/footerBW.aspx" -->
 
-        <link href="<%= staticUrl  %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
-        <!-- #include file="/includes/footerscript.aspx" -->
+        <link href="<%= staticUrl  %>/UI/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
+        <!-- #include file="/UI/includes/footerscript.aspx" -->
         <script type="text/javascript" src="<%= staticUrl  %>/trackday2016/src/track-day.js?<%= staticFileVersion %>"></script>
 
-        <!-- #include file="/includes/fontBW.aspx" -->
+        <!-- #include file="/UI/includes/fontBW.aspx" -->
 
         <script type="text/javascript">
             $(document).ready(function () {

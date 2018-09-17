@@ -3,6 +3,7 @@ using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Location;
 using Bikewale.Interfaces.AutoBiz;
 using Bikewale.Notifications;
+using Bikewale.Utility;
 using BikeWale.Entities.AutoBiz;
 using MySql.CoreDAL;
 using System;
@@ -23,6 +24,8 @@ namespace Bikewale.DAL.AutoBiz
     {
         /// <summary>
         /// Written By : Ashwini Todkar on 29 Oct 2014
+        /// Modified by : Pratibha VErma on 21 August 2018
+        /// Description : changed sp from 'bw_getdealerdetails_27042018' to 'bw_getdealerdetails_22082018'
         /// </summary>
         /// <param name="objParams"></param>
         /// <returns></returns>
@@ -34,7 +37,7 @@ namespace Bikewale.DAL.AutoBiz
             IList<PQ_VersionPrice> priceSplits = null;
             try
             {
-                using (DbCommand cmd = DbFactory.GetDBCommand("bw_getdealerdetails_27042018"))
+                using (DbCommand cmd = DbFactory.GetDBCommand("bw_getdealerdetails_22082018"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerId", DbType.Int64, Convert.ToInt64(objParams.DealerId)));
@@ -185,6 +188,7 @@ namespace Bikewale.DAL.AutoBiz
                             objDetailPQ.objDealer.WorkingTime = (dr["ContactHours"] != null) ? dr["ContactHours"].ToString() : "";
                             objDetailPQ.objDealer.AdditionalNumbers = (dr["AdditionalNumbers"] != null) ? dr["AdditionalNumbers"].ToString() : "";
                             objDetailPQ.objDealer.AdditionalEmails = (dr["AdditionalEmails"] != null) ? dr["AdditionalEmails"].ToString() : "";
+                            objDetailPQ.objDealer.CampaignId = SqlReaderConvertor.ToUInt32(dr["campaignId"]);
                         }
 
                         //Get facilities list provided by dealer

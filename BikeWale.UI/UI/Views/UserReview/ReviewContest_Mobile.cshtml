@@ -1,13 +1,13 @@
 ﻿@model Bikewale.Models.WriteReviewContestVM
 @{
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/sass/user-review/review-contest.css' inline />";
-    Model.Page_JS_Path = "/m/src/user-review/review-contest.js";
-    Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/UI/m/sass/user-review/review-contest.css' inline />";
+    Model.Page_JS_Path = "/UI/m/src/user-review/review-contest.js";
+    Layout = "~/UI/Views/Shared/_Layout_Mobile.cshtml";
 }
 
-@Html.Partial("~/Views/Shared/fontcss/Oxygen/_Latin300.cshtml")
-@Html.Partial("~/Views/Shared/fontcss/Oxygen/_Latin400.cshtml")
-@Html.Partial("~/Views/Shared/fontcss/Oxygen/_Latin700.cshtml")
+@Html.Partial("~/UI/Views/Shared/fontcss/Oxygen/_Latin300.cshtml")
+@Html.Partial("~/UI/Views/Shared/fontcss/Oxygen/_Latin400.cshtml")
+@Html.Partial("~/UI/Views/Shared/fontcss/Oxygen/_Latin700.cshtml")
 
 <section class="font-oxygen">
     <div class="container contest-banner-container card-bottom-margin">
@@ -143,7 +143,7 @@
 
         @if (Model.UserReviewsWinners != null && Model.UserReviewsWinners.Count() > 0)
         {
-            @Html.Partial("~/Views/UserReview/_UserReviewContestWinners_Mobile.cshtml", Model)
+            @Html.Partial("~/UI/Views/UserReview/_UserReviewContestWinners_Mobile.cshtml", Model)
         }
         <div id="tncContent" class="bw-model-tabs-data card-shadow padding-25-20 margin-bottom40">
             <h2 class="h2-heading text-center">Terms &amp; Conditions</h2>

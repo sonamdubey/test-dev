@@ -1,4 +1,5 @@
 ﻿@model Bikewale.Models.BikeModels.ModelPageVM
+@using Bikewale.Entities.BikeBooking
 @{
     var cityArea = Bikewale.Utility.GlobalCityArea.GetGlobalCityArea();
     uint cityId = cityArea.CityId;            
@@ -18,7 +19,8 @@
 @if (Model.IsPremiumDealer)
 {
     <div class="margin-top10">
-        <a href="javascript:void(0)" class="btn btn-orange margin-right15 get-offers-main-btn leftfloat leadcapturebtn bw-ga" data-leadsourceid="12" data-item-id="@Model.DealerDetails.DealerId" data-item-name="@Model.DealerDetails.Organization" data-item-area="@Model.DealerArea" data-cat="Model_Page" data-act="Get_Offers_Clicked" data-var="bikeVersionLocation">@Model.DealerDetails.DisplayTextLarge</a>
+        <a href="javascript:void(0)" class="btn btn-orange margin-right15 get-offers-main-btn leftfloat leadcapturebtn bw-ga" data-leadsourceid="@Convert.ToInt16(LeadSourceEnum.ModelPage_PriceLink_Desktop)" data-campaignid="@Model.DealerDetails.CampaignId" data-item-id="@Model.DealerDetails.DealerId" data-item-name="@Model.DealerDetails.Organization" 
+           data-item-area="@Model.DealerArea" data-cat="Model_Page" data-act="Get_Offers_Clicked" data-var="bikeVersionLocation">@Model.DealerDetails.DisplayTextLarge</a>
         <div class="grid-6 alpha omega">
             <span class="font12 text-light-grey">Powered by</span>
             <p class="font14 text-truncate" title="@Model.DealerDetails.Organization, @Model.DealerArea">@Model.DealerDetails.Organization,&nbsp;@Model.DealerArea</p>
@@ -31,11 +33,15 @@ else if (Model.IsManufacturerTopLeadAdShown)
     <div class="margin-top10">
         @if (Model.LeadCampaign.DealerId == Bikewale.Utility.BWConfiguration.Instance.CapitalFirstDealerId)
 {
-    <a class="btn btn-grey margin-right15 leftfloat bw-ga" rel="nofollow" href="/finance/capitalfirst/?campaingid=@Model.LeadCampaign.CampaignId&amp;dealerid=@Model.LeadCampaign.DealerId&amp;leadsourceid=@Model.LeadCampaign.LeadSourceId&amp;versionid=@Model.LeadCampaign.VersionId&amp;url=@Model.LeadCampaign.CurrentPageUrl&amp;platformid=@Model.LeadCampaign.PlatformId&amp;bike=@Model.BikeName&amp;loanamount=@Model.LeadCampaign.LoanAmount&amp;dealerName=@Model.LeadCampaign.Organization&amp;sendLeadSMSCustomer=@Convert.ToString(Model.LeadCampaign.SendLeadSMSCustomer)&amp;pqguid=@Model.PQId">@Model.LeadCampaign.LeadsButtonTextDesktop</a>
+    <a class="btn btn-grey margin-right15 leftfloat bw-ga" rel="nofollow" href="/finance/capitalfirst/?campaingid=@Model.LeadCampaign.CampaignId&amp;dealerid=@Model.LeadCampaign.DealerId&amp;leadsourceid=@Model.LeadCampaign.LeadSourceId&amp;versionid=@Model.LeadCampaign.VersionId&amp;url=@Model.LeadCampaign.CurrentPageUrl&amp;platformid=@Model.LeadCampaign.PlatformId&amp;bike=@Model.BikeName&amp;loanamount=@Model.LeadCampaign.LoanAmount&amp;dealerName=@Model.LeadCampaign.Organization&amp;sendLeadSMSCustomer=@Convert.ToString(Model.LeadCampaign.SendLeadSMSCustomer)&amp;pqguid=@Model.PQId&amp;cityId=@cityId">@Model.LeadCampaign.LeadsButtonTextDesktop</a>
 }
-else
+else if (Model.LeadCampaign.DealerId == Bikewale.Utility.BWConfiguration.Instance.BajajAutoFinanceDealerId)
 {
-            <a href="javascript:void(0)" class="btn btn-grey margin-right15 leftfloat leadcapturebtn bw-ga" rel="nofollow" data-mfgcampid="@Model.LeadCampaign.CampaignId" data-item-id="@Model.LeadCampaign.DealerId" data-item-area="@Model.LeadCampaign.Area" data-leadsourceid="@Model.LeadCampaign.LeadSourceId" data-pqsourceid="@Model.LeadCampaign.PqSourceId" data-item-message="@String.Format(Model.LeadCampaign.PopupSuccessMessage, Model.LeadCampaign.Organization)" data-item-heading="@Model.LeadCampaign.PopupHeading" data-item-description="@Model.LeadCampaign.PopupDescription" data-ispincodrequired="@Model.LeadCampaign.PincodeRequired" data-dealersrequired="@Model.LeadCampaign.DealerRequired" data-item-name="@(String.Format("Authorised {0} Dealer", Model.LeadCampaign.Organization))" id="btnManufacturer" data-isemailrequired="@Model.LeadCampaign.EmailRequired" data-issendleadsmscustomer="@Model.LeadCampaign.SendLeadSMSCustomer" data-item-organization="@Model.LeadCampaign.Organization" >@Model.LeadCampaign.LeadsButtonTextDesktop</a>
+            <a class="btn btn-grey margin-right15 leftfloat bw-ga" rel="nofollow" href="@string.Format("/finance/bajaj/?dealerid={0}&campaignid={1}&pqguid={2}&leadsourceid={3}&versionid={4}&url={5}&platformid={6}&bike={7}&dealerName={8}&sendLeadSMSCustomer={9}&cityId={10}", Model.LeadCampaign.DealerId, Model.LeadCampaign.CampaignId, Model.PQId, Model.LeadCampaign.LeadSourceId, Model.LeadCampaign.VersionId, Model.LeadCampaign.CurrentPageUrl, Model.LeadCampaign.PlatformId, Model.LeadCampaign.BikeName, Model.LeadCampaign.Organization, Model.LeadCampaign.SendLeadSMSCustomer,cityId)">@Model.LeadCampaign.LeadsButtonTextDesktop</a>
+        }
+        else
+        {
+            <a href="javascript:void(0)" class="btn btn-grey margin-right15 leftfloat leadcapturebtn bw-ga" rel="nofollow" data-mfgcampid="@Model.LeadCampaign.CampaignId" data-item-id="@Model.LeadCampaign.DealerId" data-item-area="@Model.LeadCampaign.Area" data-leadsourceid="@Convert.ToInt16(LeadSourceEnum.ModelPage_PriceLink_Desktop)" data-campaignid="@Model.LeadCampaign.CampaignId" data-pqsourceid="@Model.LeadCampaign.PqSourceId" data-item-message="@String.Format(Model.LeadCampaign.PopupSuccessMessage, Model.LeadCampaign.Organization)" data-item-heading="@Model.LeadCampaign.PopupHeading" data-item-description="@Model.LeadCampaign.PopupDescription" data-ispincodrequired="@Model.LeadCampaign.PincodeRequired" data-dealersrequired="@Model.LeadCampaign.DealerRequired" data-item-name="@(String.Format("Authorised {0} Dealer", Model.LeadCampaign.Organization))" id="btnManufacturer" data-isemailrequired="@Model.LeadCampaign.EmailRequired" data-issendleadsmscustomer="@Model.LeadCampaign.SendLeadSMSCustomer" data-item-organization="@Model.LeadCampaign.Organization" >@Model.LeadCampaign.LeadsButtonTextDesktop</a>
         }
         <div class="grid-6 alpha omega">
             <span class="font12 text-light-grey">Powered by</span>

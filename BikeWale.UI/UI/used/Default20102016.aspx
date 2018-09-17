@@ -1,10 +1,10 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Used.Default20102016" Trace="false" Debug="false" %>
 
-<%@ Register Src="~/controls/TopUsedListedBike.ascx" TagPrefix="ub" TagName="TopUsedListedBikes" %>
-<%@ Register TagPrefix="BP" TagName="InstantBikePrice" Src="/controls/instantbikeprice.ascx" %>
-<%@ Register TagPrefix="TA" TagName="TipsAdvicesMin" Src="/controls/TipsAdvicesMin.ascx" %>
-<%@ Register TagPrefix="US" TagName="UsedBike" Src="~/controls/UsedBikeSearch.ascx" %>
-<%--<%@ Register TagPrefix="BB" TagName="BrowseBikes" Src="/controls/browsebikes.ascx" %>--%>
+<%@ Register Src="~/UI/controls/TopUsedListedBike.ascx" TagPrefix="ub" TagName="TopUsedListedBikes" %>
+<%@ Register TagPrefix="BP" TagName="InstantBikePrice" Src="/UI/controls/instantbikeprice.ascx" %>
+<%@ Register TagPrefix="TA" TagName="TipsAdvicesMin" Src="/UI/controls/TipsAdvicesMin.ascx" %>
+<%@ Register TagPrefix="US" TagName="UsedBike" Src="~/UI/controls/UsedBikeSearch.ascx" %>
+<%--<%@ Register TagPrefix="BB" TagName="BrowseBikes" Src="/UI/controls/browsebikes.ascx" %>--%>
 <%
     title = "Used Bikes in India - Buy & Sell Second Hand Bikes";
     keywords = "Used bikes, used bike, used bikes for sale, second hand bikes, buy used bike";
@@ -16,7 +16,7 @@
     isAd970x90Shown = true;
     isAd970x90BottomShown = true;
 %>
-<!-- #include file="/includes/headUsed.aspx" -->
+<!-- #include file="/UI/includes/headUsed.aspx" -->
 <style type="text/css">
     .col {
         float: left;
@@ -182,7 +182,7 @@
     <div class="grid_4 right-grid">
         <%--<div>
             <!-- BikeWale_UsedBike/BikeWale_UsedBike_300x250 -->
-            <!-- #include file="/ads/Ad300x250.aspx" -->
+            <!-- #include file="/UI/ads/Ad300x250.aspx" -->
         </div>--%>
         <div class="light-grey-bg content-block border-radius5 padding-bottom20 margin-top15">
             <BP:InstantBikePrice ID="getPriceQuoteMin" runat="server" />
@@ -192,7 +192,7 @@
         </div>
         <div>
                 <%--<!-- BikeWale_UsedBike/BikeWale_UsedBike_300x250 -->--%>
-                <!-- #include file="/ads/Ad300x250BTF.aspx" -->
+                <!-- #include file="/UI/ads/Ad300x250BTF.aspx" -->
         </div>        
     </div>
 </div>
@@ -357,4 +357,4 @@
 
 
 </script>
-<!-- #include file="/includes/footerInner.aspx" -->
+<!-- #include file="/UI/includes/footerInner.aspx" -->

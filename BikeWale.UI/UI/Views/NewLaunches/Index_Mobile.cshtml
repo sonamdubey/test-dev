@@ -2,9 +2,9 @@
 @if (Model != null)
 {
 {
-    Model.Page_JS_Path = "/m/src/new-launch.js";
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/sass/new-launch/new-launch.css' inline />";
-    Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
+    Model.Page_JS_Path = "/UI/m/src/new-launch.js";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/UI/m/sass/new-launch/new-launch.css' inline />";
+    Layout = "~/UI/Views/Shared/_Layout_Mobile.cshtml";
     Model.PageMetaTags.AlternateUrl = "";
     Model.AdTags.Ad_Bot_320x50 = true;
     Model.AdTags.Ad_300x250BTF = true;
@@ -34,7 +34,7 @@ if (Model.NewLaunched.Bikes != null)
 {
     <section id="newlaunched-bikes" data-city="@Model.CityId">
         <h2 class="section-heading">New bike launches in India</h2>
-        @Html.Partial("~/Views/NewLaunches/_NewLaunchedBikes_Mobile.cshtml", Model.NewLaunched)
+        @Html.Partial("~/UI/Views/NewLaunches/_NewLaunchedBikes_Mobile.cshtml", Model.NewLaunched)
     </section>
 }
 if (Model.AdTags.Ad_300x250BTF)
@@ -48,7 +48,7 @@ if (Model.HasUpcoming)
     <section>
         <h2 class="section-heading">Upcoming bikes in India</h2>
         <div class="content-box-shadow padding-top20 padding-bottom20">
-            @Html.Partial("~/Views/Upcoming/_UpcomingBikes_Mobile.cshtml", Model.Upcoming)
+            @Html.Partial("~/UI/Views/Upcoming/_UpcomingBikes_Mobile.cshtml", Model.Upcoming)
             <div class="padding-left10 view-all-btn-container margin-top10 text-center">
                 <a href="/m/upcoming-bikes/" title="Upcoming Bikes in India" class="btn view-all-target-btn">View all bikes<span class="bwmsprite teal-right"></span></a>
             </div>
@@ -60,7 +60,7 @@ if (Model.News != null)
     <section>
         <h2 class="section-heading">More about newly launched bikes</h2>
         <div id="newsContent" class="padding-15-20-20 content-box-shadow card-bottom-margin content-details-wrapper font14 ">
-            @Html.Partial("~/Views/News/_RecentNews_Mobile.cshtml", Model.News)
+            @Html.Partial("~/UI/Views/News/_RecentNews_Mobile.cshtml", Model.News)
         </div>
     </section>
 }

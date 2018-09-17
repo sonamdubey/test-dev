@@ -122,7 +122,7 @@
     <link rel='stylesheet' type='text/css' href='/pwa/css/news/newsBundle.css' atf-css />
     <link rel="dns-prefetch" href="https://imgd.aeplcdn.com/">
     <link rel="dns-prefetch" href="https://stb.aeplcdn.com/">
-    @{Html.RenderPartial("/Views/Shared/_CssChunksScript.cshtml");}
+    @{Html.RenderPartial("/UI/Views/Shared/_CssChunksScript.cshtml");}
     <script>
         window.state = @Html.Raw(Model.WindowState);
         var jsUrls = ['@ManifestJsUrl', '@VendorJsUrl', '@AppJsUrl', '@BwcacheJsUrl','@NewsJsUrl'];
@@ -190,7 +190,7 @@
 
 
 
-    @{Html.RenderPartial("/Views/Shared/_ServiceWorkerScript.cshtml");}
+    @{Html.RenderPartial("/UI/Views/Shared/_ServiceWorkerScript.cshtml");}
     <div class="back-to-top" id="back-to-top"></div>
 </body>
 </html>

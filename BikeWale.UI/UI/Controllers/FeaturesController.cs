@@ -171,7 +171,7 @@ namespace Bikewale.Controllers
                 if (objDetail.status == Entities.StatusCodes.ContentNotFound)
                     return HttpNotFound();
                 else
-                    return View("~/views/m/content/features/details_amp.cshtml", objData);
+                    return View("~/UI/views/m/content/features/details_amp.cshtml", objData);
             }
         }
     }

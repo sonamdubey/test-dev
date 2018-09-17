@@ -2,7 +2,7 @@
 <%
     title = "My BikeWale - Repost Sell Bike Ad";
 %>
-<!-- #include file="/includes/headMyBikeWale.aspx" -->
+<!-- #include file="/UI/includes/headMyBikeWale.aspx" -->
     <div class="container_12 container-min-height">
         <div class="grid_12">
             <ul class="breadcrumb">
@@ -49,8 +49,8 @@
         <div class="grid_4">
             <div class="margin-top15">
                 <!-- BikeWale_NewBike/BikeWale_NewBike_HP_300x250 -->
-                <!-- #include file="/ads/Ad300x250.aspx" -->
+                <!-- #include file="/UI/ads/Ad300x250.aspx" -->
             </div>
         </div>
     </div>
-<!-- #include file="/includes/footerInner.aspx" -->
+<!-- #include file="/UI/includes/footerInner.aspx" -->

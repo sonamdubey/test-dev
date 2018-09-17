@@ -1,10 +1,10 @@
 ﻿@model  Bikewale.Models.CompareVM
 @{
-    Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
+    Layout = "~/UI/Views/Shared/_Layout_Mobile.cshtml";
     Model.IsTransparentHeader = true;
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/compare/landing.css' inline />";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/UI/m/css/compare/landing.css' inline />";
     Model.IsPageTypeLanding = true;
-    Model.Page_JS_Path = "/m/src/compare/landing.js";
+    Model.Page_JS_Path = "/UI/m/src/compare/landing.js";
     Model.AdTags.AdPath = "/1017752/BikeWale_CompareBikes_Mobile";
     Model.AdTags.AdId = "1494843676829";
     Model.AdTags.Ad320x100BTF = true;
@@ -183,25 +183,25 @@
             @if (Model.CompareBikes.topBikeCompares != null && Model.CompareBikes.topBikeCompares.Count() > 0)
             {
                 <div id="compareTypeBike" class="bw-tabs-data">
-                    @Html.Partial("~/Views/CompareBikes/_PopularComaprisonBodyStyle_Mobile.cshtml", Model.CompareBikes.topBikeCompares)
+                    @Html.Partial("~/UI/Views/CompareBikes/_PopularComaprisonBodyStyle_Mobile.cshtml", Model.CompareBikes.topBikeCompares)
                 </div>
             }
             @if (Model.CompareBikes.topBikeComparesScooters != null && Model.CompareBikes.topBikeComparesScooters.Count() > 0)
             {
                 <div id="compareTypeScooter" class="bw-tabs-data hide">
-                    @Html.Partial("~/Views/CompareBikes/_PopularComaprisonBodyStyle_Mobile.cshtml", Model.CompareBikes.topBikeComparesScooters)
+                    @Html.Partial("~/UI/Views/CompareBikes/_PopularComaprisonBodyStyle_Mobile.cshtml", Model.CompareBikes.topBikeComparesScooters)
                 </div>
             }
             @if (Model.CompareBikes.topBikeComparesCruisers != null && Model.CompareBikes.topBikeComparesCruisers.Count() > 0)
             {
                 <div id="compareTypeCruiser" class="bw-tabs-data hide">
-                    @Html.Partial("~/Views/CompareBikes/_PopularComaprisonBodyStyle_Mobile.cshtml", Model.CompareBikes.topBikeComparesCruisers)
+                    @Html.Partial("~/UI/Views/CompareBikes/_PopularComaprisonBodyStyle_Mobile.cshtml", Model.CompareBikes.topBikeComparesCruisers)
                 </div>
             }
             @if (Model.CompareBikes.topBikeComparesSports != null && Model.CompareBikes.topBikeComparesSports.Count() > 0)
             {
                 <div id="compareTypeSport" class="bw-tabs-data hide">
-                    @Html.Partial("~/Views/CompareBikes/_PopularComaprisonBodyStyle_Mobile.cshtml", Model.CompareBikes.topBikeComparesSports)
+                    @Html.Partial("~/UI/Views/CompareBikes/_PopularComaprisonBodyStyle_Mobile.cshtml", Model.CompareBikes.topBikeComparesSports)
                 </div>
             }
         </div>
@@ -210,7 +210,7 @@
 }
 
     <div class="margin-bottom20 text-center">
-    @{Html.RenderPartial("/Views/Shared/Ads/Mobile/Ad320x100BTF.cshtml", new { AdId = Model.AdTags.AdId });}
+    @{Html.RenderPartial("/UI/Views/Shared/Ads/Mobile/Ad320x100BTF.cshtml", new { AdId = Model.AdTags.AdId });}
 </div>
 
 @if (Model.ArticlesList != null && Model.ArticlesList.Count() > 0)
@@ -220,7 +220,7 @@
         <h2 class="font18 font-bold text-center margin-top20 margin-bottom10">Bike comparisons by our experts</h2>
         <div class="content-box-shadow content-inner-block-20 font14">
             <div class="model-expert-review-container">
-                @Html.Partial("~/Views/ComparisonTest/_ComparisonTestWidget_Mobile.cshtml", Model.ArticlesList)
+                @Html.Partial("~/UI/Views/ComparisonTest/_ComparisonTestWidget_Mobile.cshtml", Model.ArticlesList)
 
 
                 <div class="view-all-btn-container">

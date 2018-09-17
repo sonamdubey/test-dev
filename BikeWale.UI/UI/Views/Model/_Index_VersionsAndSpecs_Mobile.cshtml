@@ -12,13 +12,28 @@
         <div class="grid-6 version-city-content__tab">
             <p class="font12 text-light-grey">Location:</p>
             @if (!Model.IsDiscontinuedBike)
-            {
-                <div class="font14 text-bold">
-                    <a href="javascript:void(0)" data-reload="true" data-persistent=" true" data-modelid='@Model.ModelId' class="getquotation changeCity" rel="nofollow">
-                        <span class="selected-location-label inline-block text-default text-truncate">@(Model.IsLocationSelected && !Model.ShowOnRoadButton ? Model.Location : (Model.LocationCookie.CityId > 0 ? Model.LocationCookie.City : "Select city"))</span>
-                        <span class="bwmsprite loc-change-blue-icon"></span>
-                    </a>
-                </div>
+            {       
+                if (Model.IsNewCitySVG)
+                {
+                    <div class="font14 text-bold">
+                        <a href="javascript:void(0)" data-cat="Model_Page" data-act="City_Change_Svg_Initiated" data-lab="@Model.BikeName" data-reload="true" data-persistent=" true" data-modelid='@Model.ModelId' class="getquotation changeCity bw-ga @(Model.IsLocationSelected && !Model.ShowOnRoadButton ? "location--active" : (Model.LocationCookie.CityId > 0 ? "location--active" : ""))" rel="nofollow">
+                            @* TODO: Add class location--active when city is selected. *@
+                            <span class="selected-location-label inline-block text-default text-truncate">@(Model.IsLocationSelected && !Model.ShowOnRoadButton ? Model.Location : (Model.LocationCookie.CityId > 0 ? Model.LocationCookie.City : "Select city"))</span>
+                            <span class="location-map-icon"></span>
+                        </a>
+                    </div>
+                }
+                else
+                {
+                    <div class="font14 text-bold">
+                        <a href="javascript:void(0)" data-reload="true" data-persistent=" true" data-modelid='@Model.ModelId' class="getquotation changeCity" rel="nofollow">
+                            <span class="selected-location-label inline-block text-default text-truncate">@(Model.IsLocationSelected && !Model.ShowOnRoadButton ? Model.Location : (Model.LocationCookie.CityId > 0 ? Model.LocationCookie.City : "Select city"))</span>
+                            <span class="bwmsprite loc-change-blue-icon"></span>
+                        </a>
+                    </div>
+                }
+               
+
             }
             else
             {

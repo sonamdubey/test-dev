@@ -13,9 +13,9 @@
         isAd300x250BTFShown = false;
         isAd970x90BottomShown = false;
     %>
-    <!-- #include file="/includes/headscript.aspx" -->
-    <link href="<%= staticUrl %>/css/new/bookinglisting.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
-    <link href="<%= staticUrl  %>/css/chosen.min.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
+    <!-- #include file="/UI/includes/headscript.aspx" -->
+    <link href="<%= staticUrl %>/UI/css/new/bookinglisting.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
+    <link href="<%= staticUrl  %>/UI/css/chosen.min.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
     <script type="text/javascript">
         ga_pg_id = '39';
         var clientIP = '<%= clientIP %>';
@@ -23,7 +23,7 @@
 </head>
 <body class="bg-light-grey" data-contestslug="true">
     <form runat="server">
-        <!-- #include file="/includes/headBW.aspx" -->
+        <!-- #include file="/UI/includes/headBW.aspx" -->
         <script type="text/javascript">document.getElementById("header").children[1].innerHTML = "";</script>
         <section class="bg-light-grey padding-top10">
             <div class="container">
@@ -295,8 +295,8 @@
             <!-- Terms and condition Popup Ends -->
         
 
-        <!-- #include file="/includes/footerBW.aspx" -->
-        <script src="<%= staticUrl %>/src/lscache.min.js?<%= staticFileVersion%>"></script>
+        <!-- #include file="/UI/includes/footerBW.aspx" -->
+        <script src="<%= staticUrl %>/UI/src/lscache.min.js?<%= staticFileVersion%>"></script>
         <script>
             var $ddlCities = $("#bookingCitiesList"), $ddlAreas = $("#bookingAreasList");
             var selectedCityId = '<%= cityId %>', selectedAreaId = '<%= areaId %>';
@@ -388,7 +388,7 @@
             }
         </script>
 
-        <!-- #include file="/includes/footerscript.aspx" -->
+        <!-- #include file="/UI/includes/footerscript.aspx" -->
 
         <script>
             $ddlCities.chosen({ no_results_text: "No matches found!!" });
@@ -397,7 +397,7 @@
             $("#bookingAreasList_chosen .chosen-single.chosen-default span").text("Please Select City");
         </script>
 
-        <script type="text/javascript" src="<%= staticUrl %>/src/BikeBooking/bookinglisting.js?<%= staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl %>/UI/src/BikeBooking/bookinglisting.js?<%= staticFileVersion %>"></script>
         <script type="text/javascript">
             var PQSourceId = '<%= (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_NewBikeSearch%>';
             var gaObj = { 'id': '<%= (int)Bikewale.Entities.Pages.GAPages.BookingListing_Page%>', 'name': '<%= Bikewale.Entities.Pages.GAPages.BookingListing_Page%>' };

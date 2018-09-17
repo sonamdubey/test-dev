@@ -1,9 +1,9 @@
 ﻿@model  Bikewale.Models.ServiceCenters.ServiceCenterIndiaPageVM
 
 @{
-    Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/sass/service/location.css' inline />";
-    Model.Page_JS_Path = "/m/src/service/location.js";
+    Layout = "~/UI/Views/Shared/_Layout_Mobile.cshtml";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/UI/m/sass/service/location.css' inline />";
+    Model.Page_JS_Path = "/UI/m/src/service/location.js";
     Model.AdTags.Ad_320x50 = true;
     Model.AdTags.Ad_Bot_320x50 = true;
     Model.AdTags.AdId = "1444028976556";
@@ -60,7 +60,7 @@
 
                 <div class="swiper-container card-container brand-type-carousel">
                     <div class="swiper-wrapper">
-                        @{Html.RenderPartial("/Views/ServiceCenters/_ServiceCentersByBrand_Mobile.cshtml", Model.ServiceCenterBrandsList);}
+                        @{Html.RenderPartial("/UI/Views/ServiceCenters/_ServiceCentersByBrand_Mobile.cshtml", Model.ServiceCenterBrandsList);}
                     </div>
                 </div>
             </div>
@@ -81,7 +81,7 @@
                 <div class="clear"></div>
             </div>
             <div class="content-box-shadow padding-bottom20">
-                @Html.Partial("~/Views/Used/_UsedBikesByModel_Mobile.cshtml", Model.UsedBikesByMakeList)
+                @Html.Partial("~/UI/Views/Used/_UsedBikesByModel_Mobile.cshtml", Model.UsedBikesByMakeList)
             </div>
         </div>
     }
@@ -90,14 +90,14 @@
     {
         <section>
             <h2 class="section-heading">Bike Care - Maintenance tips</h2>
-            @Html.Partial("~/Views/BikeCare/_RecentBikeCare_Mobile.cshtml", Model.BikeCareWidgetVM)
+            @Html.Partial("~/UI/Views/BikeCare/_RecentBikeCare_Mobile.cshtml", Model.BikeCareWidgetVM)
         </section>
     }
 
     <section>
         <h2 class="section-heading">Bike Troubleshooting - FAQs</h2>
         <div class="container bg-white box-shadow card-bottom-margin padding-bottom20">
-            @Html.Partial("~/Views/BikeCare/_BikeTroubleshootingFAQ_Mobile.cshtml")
+            @Html.Partial("~/UI/Views/BikeCare/_BikeTroubleshootingFAQ_Mobile.cshtml")
             <div class="padding-left20">
                 <a href="/m/bike-troubleshooting/" target="_blank" rel="noopener" class="font14">Read all FAQs<span class="bwmsprite blue-right-arrow-icon"></span></a>
             </div>

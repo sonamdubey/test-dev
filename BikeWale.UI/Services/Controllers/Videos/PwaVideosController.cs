@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Description;
+using AEPLCore.Utils.Serializer;
 using ApiGatewayLibrary;
 using Bikewale.BAL.GrpcFiles;
 using Bikewale.DTO.Videos;
@@ -139,7 +140,7 @@ namespace Bikewale.Service.Controllers.Pwa.Videos
                         IEnumerable<PwaBikeVideoEntity>[] apiGateWayOutput = new IEnumerable<PwaBikeVideoEntity>[objApiData.Count];
                         for (ushort i = 0; i < objApiData.Count; i++)
                         {
-                            apiGateWayOutput[i] = ProcessGrpcVideoListEntity(ApiGatewayLibrary.Utilities.ConvertBytesToMsg<GrpcVideoListEntity>(objApiData[i].Payload));
+                            apiGateWayOutput[i] = ProcessGrpcVideoListEntity(Serializer.ConvertBytesToMsg<GrpcVideoListEntity>(objApiData[i].Payload));
                         }
                         
                         otherVideos.FirstLook = PwaCmsHelper.SetPwaSubCategoryVideos(apiGateWayOutput[0], categoryIds[0]);

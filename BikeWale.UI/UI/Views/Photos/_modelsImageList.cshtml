@@ -3,7 +3,7 @@
 @if (Model != null)
 {
     <ul class="explore-model-image__list image-card--list" data-bind="visible: $root.FirstPageLoad">
-        @Html.Partial("~/Views/Photos/_ModelsImageListBase.cshtml", Model)
+        @Html.Partial("~/UI/Views/Photos/_ModelsImageListBase.cshtml", Model)
     </ul>
     <ul id="moreBikeModels" class="explore-model-image__list image-card--list" data-bind="template: { name: 'loadMoreModels', foreach: $root.modelList}"></ul>
 }

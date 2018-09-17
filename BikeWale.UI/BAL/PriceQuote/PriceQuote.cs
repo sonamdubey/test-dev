@@ -21,6 +21,7 @@ using System.Collections.Specialized;
 using log4net;
 using System.Threading.Tasks;
 using System.Web.Hosting;
+using Bikewale.DTO.PriceQuote.Version;
 
 namespace Bikewale.BAL.PriceQuote
 {
@@ -37,6 +38,8 @@ namespace Bikewale.BAL.PriceQuote
         private readonly IDealerPriceQuoteCache _dealerPQCache;
         static ILog _logger = LogManager.GetLogger("PriceQuoteLogger");
         static RabbitMqPublish rabbitMQPublishing = new RabbitMqPublish();
+
+        private readonly PQGenerate _pqGenerate;
         public PriceQuote()
         {
             using (IUnityContainer objPQCont = new UnityContainer())
@@ -47,6 +50,7 @@ namespace Bikewale.BAL.PriceQuote
                 objPQCont.RegisterType<IDealerPriceQuote, Bikewale.DAL.AutoBiz.DealerPriceQuoteRepository>();
                 objPQ = objPQCont.Resolve<IPriceQuote>();
                 _dealerPQCache = objPQCont.Resolve<IDealerPriceQuoteCache>();
+                _pqGenerate=new PQGenerate(objPQ);
             }            
         }
 
@@ -117,7 +121,7 @@ namespace Bikewale.BAL.PriceQuote
                 objNVC.Add("pqSourceId", Convert.ToString(pqParams.PQLeadId));
                 objNVC.Add("refGUID", pqParams.RefPQId);
                 
-                HostingEnvironment.QueueBackgroundWorkItem(f => PushToPQConsumerQueue(objNVC));
+                HostingEnvironment.QueueBackgroundWorkItem(f => PushToPQConsumerQueue(objNVC));                
             }catch(Exception ex)
             {
                 ErrorClass.LogError(ex, string.Format("Bikewale.BAL.PriceQuote.PriceQuote.PushToQueue()--> PQId = {0}", pqGUId));
@@ -126,8 +130,10 @@ namespace Bikewale.BAL.PriceQuote
 
         private void PushToPQConsumerQueue(NameValueCollection objNVC)
         {   
-            rabbitMQPublishing.PublishToQueue(BWConfiguration.Instance.PQConsumerQueue, objNVC);
+            //rabbitMQPublishing.PublishToQueue(BWConfiguration.Instance.PQConsumerQueue, objNVC);
+            _pqGenerate.RabbitMQExecution(objNVC);
         }
+        
 
         /// <summary>
         /// Function to get the price quote by price quote id.
@@ -363,5 +369,138 @@ namespace Bikewale.BAL.PriceQuote
                 ErrorClass.LogError(ex, "Bikewale.BAL.PriceQuote.GetDealerVersionPriceByModelCity");
             }
         }
+		/// <summary>
+		/// Created By : Prabhu Puredla on 18 july 2018
+		/// Description : Get the status for make city combination in mla
+		/// </summary>
+		/// <param name="makeId"></param>
+		/// <param name="cityId"></param>
+		/// <returns></returns>
+		public bool GetMLAStatus(int makeId, uint cityId)
+		{
+			try
+			{
+				if(makeId > 0 && cityId >0)
+				{
+					string key = string.Format("{0}_{1}", makeId, cityId);
+					IEnumerable<string> mlaMakeCities = _dealerPQCache.GetMLAMakeCities();
+					if (mlaMakeCities != null)
+					{
+						return mlaMakeCities.Contains(key);
+					}	
+				}						
+			}
+			catch(Exception ex)
+			{
+				ErrorClass.LogError(ex, string.Format("Bikewale.BAL.PriceQuote.GetMLAStatus for MakeId_{0} , CityId_{1}", makeId, cityId));
+			}
+			return false; 
+		}
+
+        public VersionPrice GetVersionPriceByCityId(uint versionId, uint cityId)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Created by  : Pratibha Verma on 29 August 2018
+        /// Description : Get Version price list by cityid
+        /// </summary>
+        /// <param name="versionId"></param>
+        /// <param name="cityId"></param>
+        /// <returns></returns>
+        public IList<PriceCategory> GetVersionPriceListByCityId(uint versionId, uint cityId)
+        {
+            IList<PriceCategory> versionPriceList = null;
+            try
+            {
+                VersionPrice versionPrice = objPQ.GetVersionPriceByCityId(versionId, cityId);
+                if (versionPrice != null)
+                {
+                    versionPriceList = new List<PriceCategory>();
+                    if (versionPrice.Exshowroom > 0)
+                    {
+                        versionPriceList.Add(new PriceCategory() { Category = "Ex-Showroom Price", Price = versionPrice.Exshowroom });
+                    }
+                    if (versionPrice.RTO > 0)
+                    {
+                        versionPriceList.Add(new PriceCategory() { Category = "RTO", Price = versionPrice.RTO });
+                    }
+                    if (versionPrice.Insurance > 0)
+                    {
+                        versionPriceList.Add(new PriceCategory() { Category = "Insurance", Price = versionPrice.Insurance });
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("Bikewale.BAL.PriceQuote.PriceQuote.GetVersionPriceByCityId(versionId = {0}, cityId = {1})", versionId, cityId));
+            }
+            return versionPriceList;
+        }
     }   // class
+
+
+    internal class PQGenerate
+    {
+        private readonly IPriceQuote _objPQ;
+        public PQGenerate(IPriceQuote objPQ)
+        {
+            _objPQ = objPQ;
+        }
+        public void RabbitMQExecution(NameValueCollection nvc)
+        {
+            try
+            {
+                // For unvalidated messages dropping them from queue by returning true from the Execution method
+                if (validateMessage(nvc))
+                {
+                    Bikewale.Entities.PriceQuote.v2.PriceQuoteParametersEntity pqParams = new Bikewale.Entities.PriceQuote.v2.PriceQuoteParametersEntity()
+                    {
+                        GUID = nvc["GUID"],
+                        VersionId = Convert.ToUInt32(String.IsNullOrEmpty(nvc["versionId"]) ? "0" : nvc["versionId"]),
+                        CityId = Convert.ToUInt32(String.IsNullOrEmpty(nvc["cityId"]) ? "0" : nvc["cityId"]),
+                        AreaId = Convert.ToUInt32(String.IsNullOrEmpty(nvc["areaId"]) ? "0" : nvc["areaId"]),
+                        BuyingPreference = Convert.ToUInt16(String.IsNullOrEmpty(nvc["buyingPreference"]) ? "0" : nvc["buyingPreference"]),
+                        CustomerId = Convert.ToUInt64(String.IsNullOrEmpty(nvc["customerId"]) ? "0" : nvc["customerId"]),
+                        CustomerName = nvc["customerName"],
+                        CustomerEmail = nvc["customerEmail"],
+                        CustomerMobile = nvc["customerMobile"],
+                        ClientIP = nvc["clientIP"],
+                        SourceId = Convert.ToUInt16(String.IsNullOrEmpty(nvc["sourceId"]) ? "0" : nvc["sourceId"]),
+                        DealerId = Convert.ToUInt32(String.IsNullOrEmpty(nvc["dealerId"]) ? "0" : nvc["dealerId"]),
+                        DeviceId = nvc["deviceId"],
+                        UTMA = nvc["UTMA"],
+                        UTMZ = nvc["UTMZ"],
+                        PQLeadId = Convert.ToUInt16(String.IsNullOrEmpty(nvc["pqSourceId"]) ? "0" : nvc["pqSourceId"]),
+                        RefPQId = nvc["refGUID"]
+                    };
+                    _objPQ.RegisterPriceQuoteV2(pqParams);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, String.Format("PQConsumer.RabbitMQExecution: Error while performing operation for versionId = {0}, GUID = {1}, pqSourceId = {2}", nvc["versionId"], nvc["GUID"], nvc["pqSourceId"]));
+            }
+        }
+
+        /// <summary>
+        /// Method for validating queueMessage
+        /// </summary>
+        /// <param name="nvc"></param>
+        /// <returns></returns>
+        private bool validateMessage(NameValueCollection nvc)
+        {
+            try
+            {
+                return (!String.IsNullOrEmpty(nvc["GUID"]) && !String.IsNullOrEmpty(nvc["versionId"]) && Convert.ToUInt32(nvc["versionId"]) > 0);
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, String.Format("PQConsumer.validateMessage : versionId = {0}, GUID = {1}", nvc["versionId"], nvc["GUID"]));
+            }
+            return false;
+        }
+    }
+
 }   // namespace

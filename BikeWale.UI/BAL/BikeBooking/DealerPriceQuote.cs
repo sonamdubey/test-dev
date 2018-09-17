@@ -20,6 +20,7 @@ using Bikewale.ManufacturerCampaign.Interface;
 using Bikewale.ManufacturerCampaign.Entities;
 using Bikewale.ManufacturerCampaign.DAL;
 using Bikewale.ManufacturerCampaign.Cache;
+using BikeWale.Entities.AutoBiz;
 
 namespace Bikewale.BAL.BikeBooking
 {
@@ -380,7 +381,7 @@ namespace Bikewale.BAL.BikeBooking
                         PQParams.DealerId = objDealerDetail.DealerId;
                     if(isManufacturerCampaignRequired && PQParams.DealerId == 0 && PQParams.ManufacturerCampaignPageId > 0)
                     {
-                       PQParams.DealerId = GetManufacturerCampaignDealer(PQParams.ModelId,PQParams.CityId,PQParams.ManufacturerCampaignPageId, ref campaigns, ref isManufacturerDealer);
+                       PQParams.DealerId = GetManufacturerCampaignDealer(PQParams.ModelId,PQParams.CityId,PQParams.ManufacturerCampaignPageId, out campaigns, out isManufacturerDealer);
                     }
                     
                         IPriceQuote objIPQ = _container.Resolve<IPriceQuote>();
@@ -402,6 +403,8 @@ namespace Bikewale.BAL.BikeBooking
         /// <summary>
         /// Created by  :   Sumit Kate on 13 Jul 2018
         /// Description :   Gets the manufacturer campaign and dealerid associated with it
+        /// Modified By : Kartik rathod on 12 sept 2018
+        /// Desc        : made method public changed reference input with out
         /// </summary>
         /// <param name="modelId"></param>
         /// <param name="cityId"></param>
@@ -409,10 +412,12 @@ namespace Bikewale.BAL.BikeBooking
         /// <param name="campaigns"></param>
         /// <param name="isManufacturerDealer"></param>
         /// <returns></returns>
-        private uint GetManufacturerCampaignDealer(uint modelId,uint cityId,ManufacturerCampaignServingPages page, ref ManufacturerCampaignEntity campaigns, ref bool isManufacturerDealer)
+        public uint GetManufacturerCampaignDealer(uint modelId,uint cityId,ManufacturerCampaignServingPages page, out ManufacturerCampaignEntity campaigns, out bool isManufacturerDealer)
         {
 
             uint dealerId = 0;
+            isManufacturerDealer = false;
+            campaigns = null;
             try
             {
                 campaigns = _objManufacturerCampaign.GetCampaigns(modelId, cityId, page);
@@ -493,10 +498,12 @@ namespace Bikewale.BAL.BikeBooking
         /// <summary>
         /// Created by : Ashutosh Sharma on 29 Jun 2018
         /// Description : Method to get dealer subscription and default version based on dealer.
+        /// Modified By : Kartik rathod on 12 sept 2018
+        /// Desc        : made method public changed reference input with out
         /// </summary>
-        private BikeWale.Entities.AutoBiz.DealerInfo GetDefaultVersionAndSubscriptionDealer(uint modelId, uint cityId, uint areaId, uint versionId, bool isDealerSubscriptionRequired, out uint defaultVersionId)
+        public DealerInfo GetDefaultVersionAndSubscriptionDealer(uint modelId, uint cityId, uint areaId, uint versionId, bool isDealerSubscriptionRequired, out uint defaultVersionId)
         {
-            BikeWale.Entities.AutoBiz.DealerInfo objDealerDetail = null;
+            DealerInfo objDealerDetail = null;
             defaultVersionId = 0;
             if (cityId > 0)
             {
@@ -545,7 +552,7 @@ namespace Bikewale.BAL.BikeBooking
                 }
                 if (isManufacturerCampaignRequired && PQParams.DealerId == 0 && PQParams.ManufacturerCampaignPageId > 0)
                 {
-                    PQParams.DealerId = GetManufacturerCampaignDealer(PQParams.ModelId, PQParams.CityId, PQParams.ManufacturerCampaignPageId, ref campaigns, ref isManufacturerDealer);
+                    PQParams.DealerId = GetManufacturerCampaignDealer(PQParams.ModelId, PQParams.CityId, PQParams.ManufacturerCampaignPageId, out campaigns, out isManufacturerDealer);
                 }
 
                 if (PQParams.VersionId > 0 && PQParams.CityId > 0)

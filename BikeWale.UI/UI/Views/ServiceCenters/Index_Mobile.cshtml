@@ -1,10 +1,10 @@
 ﻿@model Bikewale.ServiceCenters.ServiceCenterLandingPageVM
 
 @{
-    Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/sass/service/landing.css' inline />";
+    Layout = "~/UI/Views/Shared/_Layout_Mobile.cshtml";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/UI/m/sass/service/landing.css' inline />";
     Model.PageMetaTags.CanonicalUrl = "https://www.bikewale.com/service-centers/";
-    Model.Page_JS_Path = "/m/src/service/landing.js";
+    Model.Page_JS_Path = "/UI/m/src/service/landing.js";
     Model.IsTransparentHeader = true;
 }
 
@@ -75,7 +75,7 @@
         <div class="container section-container">
             <h2 class="section-heading">Service Centers by brands</h2>
             <div class="content-box-shadow padding-top25 padding-bottom20 collapsible-brand-content text-center">
-                @Html.Partial("~/Views/Make/_Brands_Mobile.cshtml", Model.Brands)
+                @Html.Partial("~/UI/Views/Make/_Brands_Mobile.cshtml", Model.Brands)
             </div>
         </div>
     }
@@ -84,7 +84,7 @@
     {
         <section>
             <h2 class="section-heading">Bike Care - Maintenance tips</h2>
-            @Html.Partial("~/Views/BikeCare/_RecentBikeCare_Mobile.cshtml", Model.BikeCareWidgetVM)
+            @Html.Partial("~/UI/Views/BikeCare/_RecentBikeCare_Mobile.cshtml", Model.BikeCareWidgetVM)
         </section>
     }
 
@@ -125,19 +125,19 @@
                             </div>
                             <div class="grid-12 alpha omega">
                                 <div class="bw-tabs-data features-bikes-container" id="mctrlMostPopularBikes">
-                                    @Html.Partial("~/Views/BikeModels/_MostPopularBikes_Mobile.cshtml", Model.PopularWidgetData)
+                                    @Html.Partial("~/UI/Views/BikeModels/_MostPopularBikes_Mobile.cshtml", Model.PopularWidgetData)
                                     <div class="padding-left10 view-all-btn-container margin-top10">
                                         <a href="/m/best-bikes-in-india/" title="Popular Bikes in India" class="btn view-all-target-btn">View all bikes<span class="bwmsprite teal-right"></span></a>
                                     </div>
                                 </div>
                                 <div class="bw-tabs-data hide features-bikes-container" id="mctrlNewLaunchedBikes">
-                                    @Html.Partial("~/Views/NewLaunches/_NewLaunches_Mobile.cshtml", Model.NewLaunchWidgetData)
+                                    @Html.Partial("~/UI/Views/NewLaunches/_NewLaunches_Mobile.cshtml", Model.NewLaunchWidgetData)
                                     <div class="padding-left10 view-all-btn-container margin-top10">
                                         <a href="/m/new-bike-launches/" title="New Bike Launches in India" class="btn view-all-target-btn">View all launches<span class="bwmsprite teal-right"></span></a>
                                     </div>
                                 </div>
                                 <div class="bw-tabs-data hide features-bikes-container" id="mctrlUpcomingBikes">
-                                    @Html.Partial("~/Views/Upcoming/_UpcomingBikes_Mobile.cshtml", Model.UpcomingWidgetData)
+                                    @Html.Partial("~/UI/Views/Upcoming/_UpcomingBikes_Mobile.cshtml", Model.UpcomingWidgetData)
                                     <div class="padding-left10 view-all-btn-container margin-top10">
                                         <a href="/m/upcoming-bikes/" title="Upcoming Bikes in India" class="btn view-all-target-btn">View all bikes<span class="bwmsprite teal-right"></span></a>
                                     </div>
@@ -176,7 +176,7 @@
                 {
                     <div class="bw-tabs-data" id="usedByModel">
                         <div>
-                            @Html.Partial("~/Views/Used/_UsedBikesByModel_Mobile.cshtml", Model.UsedBikesModelWidgetData)
+                            @Html.Partial("~/UI/Views/Used/_UsedBikesByModel_Mobile.cshtml", Model.UsedBikesModelWidgetData)
                             <div class="padding-left10 view-all-btn-container margin-top10 padding-bottom20">
                                 <a title="@string.Format("Second Hand Bikes in {0}", (Model.City != null ? Model.City.CityName : "India"))" href="@string.Format("/m/used/bikes-in-{0}/", city)" class="btn view-all-target-btn inv-teal-sm margin-top10">View all used bikes<span class="bwmsprite teal-right"></span></a>
                             </div>
@@ -187,7 +187,7 @@
                 @if (Model.UsedBikesCityWidgetData != null)
                 {
                     <div class="bw-tabs-data @(( Model.UsedBikesModelWidgetData != null && Model.UsedBikesModelWidgetData.UsedBikeModelList != null && Model.UsedBikesModelWidgetData.UsedBikeModelList.Count() > 0 ) ?" hide":"") " id="usedByCity">
-                        @Html.Partial("~/Views/UsedBikes/_UsedBikesCIties_Mobile.cshtml", Model.UsedBikesCityWidgetData)
+                        @Html.Partial("~/UI/Views/UsedBikes/_UsedBikesCIties_Mobile.cshtml", Model.UsedBikesCityWidgetData)
                     </div>
                 }                              
                 <div class="bw-tabs-data @((Model.UsedBikesModelWidgetData != null && Model.UsedBikesModelWidgetData.UsedBikeModelList != null && Model.UsedBikesModelWidgetData.UsedBikeModelList.Count() > 0) || (Model.UsedBikesCityWidgetData != null && Model.UsedBikesCityWidgetData.Cities != null && Model.UsedBikesCityWidgetData.Cities.Count() > 0) ? " hide" : "") " id="usedByBudget">
@@ -241,7 +241,7 @@
     <section>
         <h2 class="section-heading">Bike Troubleshooting - FAQs</h2>
         <div class="container bg-white box-shadow card-bottom-margin padding-bottom20">
-            @Html.Partial("~/Views/BikeCare/_BikeTroubleshootingFAQ_Mobile.cshtml")
+            @Html.Partial("~/UI/Views/BikeCare/_BikeTroubleshootingFAQ_Mobile.cshtml")
             <div class="padding-left20">
                 <a href="/m/bike-troubleshooting/" target="_blank" rel="noopener" class="font14">Read all FAQs<span class="bwmsprite blue-right-arrow-icon"></span></a>
             </div>

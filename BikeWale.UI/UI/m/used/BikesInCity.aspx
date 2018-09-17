@@ -15,7 +15,7 @@
          Ad_300x250 = false;
         
     %>
-    <!-- #include file="/includes/headscript_mobile_min.aspx" -->
+    <!-- #include file="/UI/includes/headscript_mobile_min.aspx" -->
     <style type="text/css">
         @charset "utf-8";
 
@@ -147,12 +147,12 @@
         }
     </style>
     <script type="text/javascript">
-        <!-- #include file="\includes\gacode_mobile.aspx" -->
+        <!-- #include file="\UI\includes\gacode_mobile.aspx" -->
     </script>
 </head>
 <body>
     <form id="form1" runat="server">
-        <!-- #include file="/includes/headBW_Mobile.aspx" -->
+        <!-- #include file="/UI/includes/headBW_Mobile.aspx" -->
         
         <section>
             <div class="container bg-white clearfix box-shadow padding-bottom15 margin-bottom10">
@@ -237,12 +237,12 @@
             <div class="clear"></div>
         </section>
 
-        <script type="text/javascript" src="<%= staticUrl %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
-        <!-- #include file="/includes/footerBW_Mobile.aspx" -->
+        <script type="text/javascript" src="<%= staticUrl %>/UI/m/src/frameworks.js?<%= staticFileVersion %>"></script>
+        <!-- #include file="/UI/includes/footerBW_Mobile.aspx" -->
         <link href="<%= staticUrl  %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
-        <!-- #include file="/includes/footerscript_mobile.aspx" -->
-        <script type="text/javascript" src="<%= staticUrl %>/m/src/used/bikes-in-city.js?<%= staticFileVersion%>"></script>
-        <!-- #include file="/includes/fontBW_Mobile.aspx" -->
+        <!-- #include file="/UI/includes/footerscript_mobile.aspx" -->
+        <script type="text/javascript" src="<%= staticUrl %>/UI/m/src/used/bikes-in-city.js?<%= staticFileVersion%>"></script>
+        <!-- #include file="/UI/includes/fontBW_Mobile.aspx" -->
     </form>
 </body>
 </html>

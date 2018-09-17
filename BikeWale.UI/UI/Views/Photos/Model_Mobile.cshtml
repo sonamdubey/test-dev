@@ -1,10 +1,10 @@
 ﻿@using Bikewale.Entities.BikeData
 @model Bikewale.Models.Photos.PhotosPageVM
 @{
-    Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
-	Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/m/photos/listing.css' inline /> <link rel='stylesheet' type='text/css' href='/sass/m/photos/gallery-popup.css' inline />";
-	Model.Page_BTF_CSS_Paths = new string[] { "/sass/m/photos/listing-btf.css", "/sass/m/photos/colours-popup.css", "/sass/m/photos/videos-popup.css" };
-	Model.Page_JS_Paths = new string[] { "/src/utils/swiperYoutube.js", "/src/utils/scroll.js", "/src/utils/navigationTabs.js", "/src/utils/viewport.js", "/src/plugins/screenfull.js", "/m/src/photos/videoPopupViewModel.js", "/m/src/photos/colorPopupViewModel.js", "/m/src/photos/galleryViewModel.js", "/m/src/photos/gallery.js", "/m/src/photos/model.js" };
+    Layout = "~/UI/Views/Shared/_Layout_Mobile.cshtml";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/UI/sass/m/photos/listing.css' inline /> <link rel='stylesheet' type='text/css' href='/UI/sass/m/photos/gallery-popup.css' inline />";
+    Model.Page_BTF_CSS_Paths = new string[] { "/UI/sass/m/photos/listing-btf.css", "/UI/sass/m/photos/colours-popup.css", "/UI/sass/m/photos/videos-popup.css" };
+    Model.Page_JS_Paths = new string[] { "/UI/src/utils/swiperYoutube.js", "/UI/src/utils/scroll.js", "/UI/src/utils/navigationTabs.js", "/UI/src/utils/viewport.js", "/UI/src/plugins/screenfull.js", "/UI/m/src/photos/videoPopupViewModel.js", "/UI/m/src/photos/colorPopupViewModel.js", "/UI/m/src/photos/galleryViewModel.js", "/UI/m/src/photos/gallery.js", "/UI/m/src/photos/model.js" };
 }
 @if (Model != null)
 {
@@ -236,7 +236,7 @@
                 @if (Model.AdTags.Ad_320x50Top)
                 {
                     <div class="bg-white text-center gallery__sponsored-top-slot">
-                        @{Html.RenderPartial("/Views/Shared/Ads/Mobile/AdSlotGeneric.cshtml", Model.AdSlots[String.Format("{0}-0", Model.AdTags.AdId)]);}
+                        @{Html.RenderPartial("/UI/Views/Shared/Ads/Mobile/AdSlotGeneric.cshtml", Model.AdSlots[String.Format("{0}-0", Model.AdTags.AdId)]);}
                     </div>
                 }
 			</div>
@@ -279,7 +279,7 @@
                         @if (Model.BikeInfo != null)
                         { <section>
                             <div class="image-list__model-widget">
-                                @Html.Partial("~/views/Bikemodels/_BikeInfoCard_New_Mobile.cshtml", Model.BikeInfo)
+                                @Html.Partial("~/UI/views/Bikemodels/_BikeInfoCard_New_Mobile.cshtml", Model.BikeInfo)
                             </div>
                         </section>
                         }
@@ -394,7 +394,7 @@
                           
                         </div>
                         
-                        <script defer type="text/javascript" src="@String.Format("{0}/m/src/lazyloadyoutube.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, Bikewale.Utility.BWConfiguration.Instance.StaticPluginFileVersion)"></script>
+                        <script defer type="text/javascript" src="@String.Format("{0}/UI/m/src/lazyloadyoutube.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, Bikewale.Utility.BWConfiguration.Instance.StaticPluginFileVersion)"></script>
                         <script>
                             var videoTab = document.getElementById("videoTabLink");
                             videoTab.addEventListener("click", function (event) {
@@ -445,7 +445,7 @@
     if (Model.SimilarBikes != null && Model.SimilarBikes.Bikes != null)
     {
         <section>
-            @Html.Partial("~/views/Photos/_SimilarBikeWithPhotos_New_Mobile.cshtml", Model.SimilarBikes)
+            @Html.Partial("~/UI/views/Photos/_SimilarBikeWithPhotos_New_Mobile.cshtml", Model.SimilarBikes)
         </section>
     }
 
@@ -462,7 +462,7 @@
     if (Model.ModelGallery != null)
     {
         <section class="margin-bottom20">
-            @Html.Partial("~/views/Gallery/_ModelGallery_Mobile.cshtml", Model.ModelGallery)
+            @Html.Partial("~/UI/views/Gallery/_ModelGallery_Mobile.cshtml", Model.ModelGallery)
         </section>
     }
 
@@ -472,7 +472,7 @@
         <div id="moreAboutScooter" class="content-box-shadow padding-top20 padding-bottom20 card-bottom-margin font14">
             <div class="swiper-container card-container model-related-swiper swiper-container-horizontal">
                 <div class="swiper-wrapper">
-                    @Html.Partial("~/Views/Scooters/_ModelRelatedCard_Mobile.cshtml", Model.objMoreAboutScooter)
+                    @Html.Partial("~/UI/Views/Scooters/_ModelRelatedCard_Mobile.cshtml", Model.objMoreAboutScooter)
                 </div>
             </div>
         </div>
@@ -483,7 +483,7 @@
 {
     
     <div class="margin-bottom20 text-center">
-        @{Html.RenderPartial("/Views/Shared/Ads/Mobile/AdSlotGeneric.cshtml", Model.AdSlots[String.Format("{0}-14", Model.AdTags.AdId)]);}
+        @{Html.RenderPartial("/UI/Views/Shared/Ads/Mobile/AdSlotGeneric.cshtml", Model.AdSlots[String.Format("{0}-14", Model.AdTags.AdId)]);}
     </div>
 }
 

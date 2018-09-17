@@ -1,12 +1,13 @@
 ﻿@model Bikewale.Models.PopupLeadCaptureVM
 @{
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/new/bwm-modelprice-in-city.css' />";
-    Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/UI/m/css/new/bwm-modelprice-in-city.css' /><link rel='stylesheet' type='text/css' href='/UI/sass/partials/lead-popup.css' />";
+    Model.Page_JS_Path = "/UI/src/utils/checkbox.js";
+    Layout = "~/UI/Views/Shared/_Layout_Mobile.cshtml";
 }
 
 @if (Model.LeadCapture != null)
 {
-    @Html.Partial("~/Views/Shared/_LeadCapture_Mobile.cshtml", Model.LeadCapture)
+    @Html.Partial("~/UI/Views/Shared/_LeadCapture_Mobile.cshtml", Model.LeadCapture)
 
 }
 <script type="text/javascript">
@@ -43,7 +44,7 @@
                 "organizationName": obj.organizationName
             };
             dleadvm.setOptions(leadOptions);
-            $('#leadCapturePopup').show();
+            LeadPopupState.open();
             // dropdown
             dropdown = {
                 setDropdown: function () {
@@ -126,7 +127,7 @@
                     dropdown.selectOption($(this));
                     dropdown.inactive();
 
-                    
+
                 }
             });
 
@@ -163,8 +164,13 @@
             console.warn("Unable to get submit details : " + e.message);
         }
 
-        $(".onlyPopup-leadCapture-close-btn").on("click", function () {
-            window.location.href = '@Model.Url';
+        $(".onlyPopup-leadCapture-close-btn, .leadCapture-close-btn, .notify-response__submit").on("click", function () {
+            @if (!String.IsNullOrEmpty(Model.Url))
+            {
+                <text>
+                    window.location.href = '@Model.Url';
+                </text>
+            }
         });
         $("#notifyOkayBtn").on("click", function () {
             $(".onlyPopup-leadCapture-close-btn").trigger("click");

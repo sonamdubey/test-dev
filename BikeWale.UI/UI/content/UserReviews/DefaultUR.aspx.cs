@@ -7,6 +7,7 @@ using System.Data.Common;
 using System.Data.SqlClient;
 using System.Web;
 using System.Web.UI.WebControls;
+using Bikewale.Utility;
 
 namespace Bikewale.Content
 {
@@ -68,7 +69,7 @@ namespace Bikewale.Content
 
         private void btnWrite_Click(object Sender, EventArgs e)
         {
-            string _returnUrl = Utils.Utils.EncryptTripleDES(string.Format("returnUrl=/user-reviews/&sourceid={0}",(int)Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Desktop_UserReview_Landing));
+            string _returnUrl = TripleDES.EncryptTripleDES(string.Format("returnUrl=/user-reviews/&sourceid={0}",(int)Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Desktop_UserReview_Landing));
             Response.Redirect(string.Format("/rate-your-bike/{0}/?q={1}", Request.Form["drpModel"], _returnUrl, false));
             HttpContext.Current.ApplicationInstance.CompleteRequest();
             this.Page.Visible = false;

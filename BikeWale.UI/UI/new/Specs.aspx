@@ -1,6 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.New.Specs" Debug="false" Trace="false" %>
-<%@ Register TagPrefix="BikeWale" TagName="BikeRatings" Src="~/controls/BikeRatings.ascx" %>
-<%@ Register TagPrefix="NBL" TagName="NewBikeLaunches" Src="/controls/NewBikeLaunches.ascx" %>
+<%@ Register TagPrefix="BikeWale" TagName="BikeRatings" Src="~/UI/controls/BikeRatings.ascx" %>
+<%@ Register TagPrefix="NBL" TagName="NewBikeLaunches" Src="/UI/controls/NewBikeLaunches.ascx" %>
 <%@ Import Namespace="Bikewale.Common" %>
 <%
     title = "Technical Specifications: " + mmv.Make + " " + mmv.Model + " " + mmv.Version;
@@ -9,7 +9,7 @@
     AdId = "1395986297721";
     AdPath = "/1017752/BikeWale_New_";
 %>
-<!-- #include file="/includes/headNew.aspx" --> 
+<!-- #include file="/UI/includes/headNew.aspx" --> 
 
 <div class="container_12">
     <div class="grid_12">
@@ -549,7 +549,7 @@
     <div class="grid_4">        
         <div class="margin-top15">
             <!-- BikeWale_NewBike/BikeWale_NewBike_HP_300x250 -->
-            <!-- #include file="/ads/Ad300x250.aspx" -->
+            <!-- #include file="/UI/ads/Ad300x250.aspx" -->
         </div>
         <div class="grey-bg content-block border-radius5 padding-bottom20 margin-top15">
             <NBL:NewBikeLaunches ID="ctrl_NewBikeLaunches" runat="server" />                    
@@ -557,8 +557,8 @@
         </div>
         <div class="margin-top15">
            <!-- BikeWale_NewBike/BikeWale_NewBike_HP_300x250 -->
-            <!-- #include file="/ads/Ad300x250BTF.aspx" -->
+            <!-- #include file="/UI/ads/Ad300x250BTF.aspx" -->
        </div>
     </div>    
 </div>
-<!-- #include file="/includes/footerInner.aspx" -->
+<!-- #include file="/UI/includes/footerInner.aspx" -->

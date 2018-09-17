@@ -46,13 +46,14 @@ docReady(function () {
         ele = $(this);
         var leadOptions = {
             "dealerid": ele.attr('data-item-id'),
+            "dealername": ele.attr('data-item-name'),
             "leadsourceid": ele.attr('data-leadsourceid'),
             "pqsourceid": ele.attr('data-pqsourceid'),
             "pageurl": window.location.href,
             "clientip": clientIP,
             "isregisterpq": true,
             "isdealerbikes": true,
-            "campid": ele.attr('data-champaignid'),
+            "campaignId": ele.attr('data-campaignid'),
             "dealerareaname": ele.attr('data-item-area'),
             "dealercityname": ele.attr('data-cityname'),
             "eventcategory": ele.attr('data-eventcategory'),

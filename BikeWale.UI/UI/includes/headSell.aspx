@@ -1,5 +1,5 @@
 ﻿<%@ Register TagPrefix="BikeWale" TagName="LoginStatus" src="/Controls/loginstatus.ascx" %>
-<%@ Register TagPrefix="BM" TagName="BikeMakes" Src="/controls/BrowseBikeManufacturerMin.ascx" %>
+<%@ Register TagPrefix="BM" TagName="BikeMakes" Src="/UI/controls/BrowseBikeManufacturerMin.ascx" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,7 +16,7 @@
         private string staticUrl = System.Configuration.ConfigurationManager.AppSettings["staticUrl"];
         private string staticFileVersion = System.Configuration.ConfigurationManager.AppSettings["staticFileVersion"];
     </script>
-    <!-- #include file="/includes/gacode.aspx" --> 
+    <!-- #include file="/UI/includes/gacode.aspx" --> 
     <script type='text/javascript'>
         var ga_pg_id = '0';
         var googletag = googletag || {};
@@ -62,5 +62,5 @@
 <body class="header-fixed-inner">
     <form runat="server">    
 	<div class="main-container">
-    	<!-- #include file="/includes/headBW.aspx" -->
+    	<!-- #include file="/UI/includes/headBW.aspx" -->
         

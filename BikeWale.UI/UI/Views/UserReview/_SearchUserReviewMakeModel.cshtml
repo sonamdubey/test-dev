@@ -8,7 +8,7 @@
                     <p class="review-intro__title">3000+ unbiased, verified reviews from bike owners. Know the pros and cons of 200+ bike models from real owners.</p>
                     <div class="user-review__search-form">
                         <div class="user-review__search-field">
-                            <input type="text" class="form-control" placeholder="Search bike e.g. Bajaj Dominar 400" id="userReviewList" autocomplete="off">
+                            <input type="text" class="form-control" placeholder="Search bike e.g. Bajaj Dominar 400" id="userReviewList" autocomplete="off" aria-label="Search bike ">
                         </div>
                         <button type="button" id="btnUserSearch" class="btn btn-orange user-review__form-submit">Read reviews</button>
 
@@ -180,6 +180,6 @@
         $.fn.hint = bwHint;
         $.fn.bw_autocomplete = bwAutoComplete;
         var vmUserReviewSearch = new userReviewSearch();
-      
+
     });
 </script>

@@ -1,0 +1,445 @@
+﻿@model Bikewale.Models.Finance.BajajFinanceVM
+@{
+    Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/finance/common.css' /> <link rel='stylesheet' type='text/css' href='/m/css/finance/bajaj.css' /> <link rel='stylesheet' type='text/css' href='/css/zebra-datepicker.css' />  <link type='text/css' rel='stylesheet' href='/css/chosen.min.css'  />";
+    Model.Page_JS_Paths = new string[] {"/m/src/chosen-jquery-min-mobile.js?20Feb2017", "/src/finance/bajaj.js", "/src/finance/finance-common.js"};
+    Model.Page_BTF_CSS_Path = "/css/zebra-datepicker.css";
+    Model.PageMetaTags.Title = "Get Instant Two Wheeler Loan Approval";
+    Model.PageMetaTags.Description = "Owning a bike was never this easy. Apply for a bike loan and get instant online approval for a two wheeler loan. Apply Now!";
+}
+<div class="header-container padding-15-20 ">
+    <p class="font18 text-xt-light-grey text-bold">Get Instant Loan Approval</p>
+</div>
+
+<div class="container content-box-shadow margin-bottom20">
+    <div class="card-inner-padding font14 text-light-grey collapsible-content padding-15-20">
+        <p class="main-content"> Get upto 80% of vehicle’s value as loan! Fill in your personal and employment details and get an instant loan approval from one of our finance partners.</p>
+    </div>
+    <div id="form-tabs-content" class="page-tabs">
+        <ul class="padding-left10 padding-right10">
+            <li class="page-tabs__li  active step1" data-id="basic-detail-tab">
+                <div class="page-tabs__li-container">
+                    <span class="contact-image-unit round-border contact-icon"></span>
+                    <h3 class="personal__title">Basic details</h3>
+                </div>
+            </li>
+            <li class="page-tabs__li inactive step2" data-id="employee-detail-tab">
+                <div class="page-tabs__li-container">
+                    <span class="personal-image-unit gray-bag-icon round-border"></span>
+                    <h3 class="personal__title">Employment details</h3>
+                </div>
+            </li>
+            <li class="page-tabs__li inactive hide step3" data-id="other-detail-tab">
+                <div class="page-tabs__li-container">
+                    <span class="employment-image-unit gray-personal-icon round-border"></span>
+                    <h3 class="employment__title">Other details</h3>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="page-tabs-data padding-15-20">
+        <div id="basic-detail-tab" class="contact-details__form">
+            <div class="margin-bottom5">
+                <div class="input-box form-control-box width10 cfTitle">
+                    <div class="select-box select-box-no-input">
+                        <p class="select-label">Title<sup>*</sup></p>
+                        <select id="financeTitle" class="chosen-select select-lbl" data-title="Title">
+                            <option value="-1"></option>
+                            <option value="1">Mr</option>
+                            <option value="2">Ms</option>
+                            <option value="3">Dr</option>
+                            <option value="4">Mrs</option>
+                            <option value="5">M/S</option>
+                        </select>
+                        <span class="boundary"></span>
+                        <span class="error-text"></span>
+                    </div>
+                </div>
+            </div>
+                <div class="margin-bottom5">
+                    <div class="input-box form-control-box  width31">
+                        <input id="financeFname" type="text" min="1" maxlength="26" autocomplete="off">
+                        <label for="financeFName">First Name<sup>*</sup></label>
+                        <span class="boundary"></span>
+                        <span class="error-text"></span>
+                    </div>
+                </div>
+                <div class="margin-bottom5">
+                    <div class="input-box form-control-box">
+                        <input id="financeLName" type="text" min="1" maxlength="26" autocomplete="off">
+                        <label for="financeLName">Last Name<sup>*</sup></label>
+                        <span class="boundary"></span>
+                        <span class="error-text"></span>
+                    </div>
+                </div>
+                <div class="margin-bottom5">
+                    <div class="form-control-box gender-box radio-box">
+                        <p class="inline-block">Gender<sup>*</sup></p>
+                        <ul>
+                            <li>
+								<input id="financeGenderM" type="radio" name="gender" value="Male">
+								<label for="financeGenderM">Male</label>
+                            </li>
+                            <li>
+								<input id="financeGenderF" type="radio" name="gender" value="Female">
+								<label for="financeGenderF">Female</label>
+                            </li>
+                        </ul>
+                        <p class="error-text"></p>
+                    </div>
+                </div>
+                <div class="margin-bottom5">
+                    <div class="margin-bottom5 date form-field__zebrapicker">
+                        <div class="input-box form-control-box width100">
+                            <input id="financeDOB" type="text" autocomplete="off">
+                            <label for="financeDOB">Date of Birth<sup>*</sup></label>
+                            <span class="boundary"></span>
+                            <span class="error-text"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="margin-bottom5">
+                    <div class="input-box form-control-box width-91-percent ">
+                        <input id="financeEmail" type="text" min="5" maxlength="50" autocomplete="off">
+                        <label for="financeEmail">Email<sup>*</sup></label>
+                        <span class="boundary"></span>
+                        <span class="error-text"></span>
+                    </div>
+                </div>
+                <div class="margin-bottom5">
+                    <div class="input-box input-number-box form-control-box">
+                        <input id="financeNum" type="tel" maxlength="10" autocomplete="off">
+                        <label for="financeNum">Mobile Number<sup>*</sup></label>
+                        <span class="input-number-prefix">+91</span>
+                        <span class="boundary"></span>
+                        <span class="error-text"></span>
+                        <span class="text-note">OTP will be sent for verification</span>
+                    </div>
+                </div>
+                <div class="margin-bottom5">
+                    <div class="input-box form-control-box width-91-percent ">
+                        <input id="financeAddress1" type="text" min="10" maxlength="24" autocomplete="off">
+						<label for="financeAddress1">Address Line1<sup>*</sup></label>
+                        <span class="boundary"></span>
+                        <span class="error-text"></span>
+                    </div>
+                </div>
+                <div class="margin-bottom5">
+                    <div class="input-box form-control-box width-91-percent ">
+                        <input id="financeAddress2" type="text" min="10" maxlength="24" autocomplete="off">
+						<label for="financeAddress2">Address Line2<sup>*</sup></label>
+                        <span class="boundary"></span>
+                        <span class="error-text"></span>
+                    </div>
+               </div>
+                <div class="margin-bottom5">
+                    <div class="input-box form-control-box">
+                        <input id="financeLandmark" type="text" min="10" maxlength="24" autocomplete="off">
+						<label for="financeLandmark">Landmark<sup>*</sup></label>
+                        <span class="boundary"></span>
+                        <span class="error-text"></span>
+                    </div>
+                </div>
+
+                <div class="margin-bottom5 position-rel">
+                    <div class="input-box form-control-box">
+                        <input id="financePincode" type="tel" min="1" maxlength="6" autocomplete="off">
+						<label for="financePincode">Pincode<sup>*</sup></label>
+                        <span class="boundary"></span>
+                        <span class="error-text"></span>
+                    </div>
+                    <ul id="errPinCodeSearch" class="ui-autocomplete ui-front ui-menu ui-widget no-suggestion-item hide">
+                        <li class="ui-menu-item" tabindex="-1">
+                            <span class="text-bold">Oops! No suggestions found</span><br>
+                            <span class="text-light-grey font12">Search by pincode or area e.g: 400708 or airoli</span>
+                        </li>
+                    </ul>
+                </div>
+            <div class="margin-bottom5">
+                <div class="input-box form-control-box">
+                    <div class="select-box select-box-no-input">
+                        <p class="select-label">Present Residence Status<sup>*</sup></p>
+                        <select id="financePresentResidenceStatus" class="chosen-select select-lbl" data-title="Present Residence Status">
+                            <option value="-1"></option>
+                            <option value="Owned">Owned by Self / Family</option>
+                            <option value="Rented">Rented - With family</option>
+                            <option value="Bachelor Accomodation">Bachelor Accommodation</option>
+                            <option value="Paying guest">Paying guest / Hostel</option>
+                            <option value="Co.Provided">Company provided</option>
+                        </select>
+                        <span class="boundary"></span>
+                        <span class="error-text"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="margin-bottom5">
+                <div class="input-box form-control-box displayBlock">
+                    <input id="financeResidingSince" type="tel" maxlength="3">
+					<label for="financeResidingSince">Residing Since (years)<sup>*</sup></label>
+                    <span class="boundary"></span>
+                    <span class="error-text"></span>
+                </div>
+            </div>
+            <input type="button" id="basic-detail-submit" class="btn btn-orange btn-primary-big bw-ga" value="Save &amp; Continue">
+           
+        </div>
+
+
+        <div id="employee-detail-tab" class="personal-details__form hide" >
+            <div class="margin-top20">
+                <div class="input-box form-control-box">
+                    <div class="select-box select-box-no-input">
+                        <p class="select-label">Primary Employment Type<sup>*</sup></p>
+                        <select id="financePrimaryEmploymentType" class="chosen-select select-lbl" data-title="Primary Employment Type">
+                            <option value="-1"></option>
+                            <option value="1">Salaried</option>
+                            <option value="2">Self Employed Business</option>
+                            <option value="2">Self Employed Professional</option>
+                            <option value="4">Retired</option>
+                            <option value="4">Student</option>
+                            <option value="4">Homemaker</option>
+                        </select>
+                        <span class="boundary"></span>
+                        <span class="error-text"></span>
+                    </div>
+                </div>
+            </div>
+			<div class="margin-bottom5">
+				<div id="workingsince" class="input-box form-control-box">
+					<input id="financeWorkingSince" type="tel" min="0" max="500" maxlength="3" autocomplete="off">
+					<label for="financeWorkingSince">Working Since (months)<sup>*</sup></label>
+					<span class="boundary"></span>
+					<span class="error-text"></span>
+				</div>
+			</div>
+            <div class="margin-bottom5">
+				<div class="input-box form-control-box form-field__company-name">
+					<div class="select-box">
+						<input id="financeCompanyName" type="text" autocomplete="off">
+                        <label for="financeCompanyName">Company Name<sup>*</sup></label>
+
+						<span class="boundary"></span>
+						<span class="error-text"></span>
+                        <ul id="errCompanyNameSearch" class="ui-autocomplete ui-front ui-menu ui-widget hide no-suggestion-item">
+                            <li class="ui-menu-item" tabindex="-1">
+                                <span class="text-bold">Oops! No suggestions found</span><br>
+                                <span class="text-light-grey font12">Search by company name e.g: fiat international</span>
+                            </li>
+                        </ul>
+
+						<div class="check-box position-rel padding-top5">
+							<input type="checkbox" id="otherCompanyCheckbox" class="check-box__field" />
+							<label for="otherCompanyCheckbox" class="check-box__label">Check this box if your company is not in the list</label>
+						</div>
+					</div>
+				</div>
+             </div>
+            <div class="margin-bottom5">
+                <div id="otherCompany" class="input-box form-control-box">
+					<input id="financeOtherCompany" type="text" min="3" maxlength="40" autocomplete="off" disabled="disabled">
+					<label for="financeOtherCompany">Specify company name in case of other<sup>*</sup></label>
+                    <span class="boundary"></span>
+                    <span class="error-text"></span>
+                </div>
+            </div>
+            <div class="margin-bottom5">
+                <div id="netprimaryincome" class="input-box form-control-box ">
+                    <input id="financeNetPrimaryIncome" type="tel" min="1" maxlength="9">
+                    <label for="financeNetPrimaryIncome" class="incomeLabel" id="incomeType">Net Primary Income<sup>*</sup></label>
+                    <span class="boundary"></span>
+                    <span class="error-text"></span>
+                </div>
+            </div>
+            <div class="margin-bottom5">
+                <div id="noofdependants" class="input-box form-control-box">
+                    <input id="financeNoofDependents" type="tel" min="1" maxlength="2">
+					<label for="financeNoofDependents">No. of Dependents<sup>*</sup></label>
+                    <span class="boundary"></span>
+                    <span class="error-text"></span>
+                </div>
+            </div>
+                <input type="button" id="employment-detail-submit" class="btn btn-orange btn-primary-big bw-ga" value="Save &amp; Continue">
+            </div>
+
+
+        <div id="other-detail-tab" class="hide" >
+           
+            <div class="margin-bottom5">
+                <div class="input-box form-control-box">
+                    <div class="select-box select-box-no-input">
+                        <p class="select-label">Please choose a nearest dealer<sup>*</sup></p>
+                        <select id="financeNearestDealer" class="chosen-select select-lbl" data-title="Please choose a nearest dealer">
+                            <option value="-1"></option>
+                        </select>
+                        <span class="boundary"></span>
+                        <span class="error-text"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="margin-bottom5">
+                <div class="margin-bottom5 date form-field__zebrapicker">
+                    <div class="input-box form-control-box width100 ">
+                        <input id="financeDOP" type="text" autocomplete="off">
+						<label for="financeDOP">Likely purchase date of bike<sup>*</sup></label>
+                        <span class="boundary"></span>
+                        <span class="error-text"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="margin-bottom5">
+                <div class="input-box form-control-box displayBlock">
+                    <div class="select-box select-box-no-input">
+                        <p class="select-label">Please choose repayment mode<sup>*</sup></p>
+                        <select id="financeRepayMode" class="chosen-select select-lbl" data-title="Please choose repayment mode">
+                            <option value="-1"></option>
+                            <option value="ADM">Auto Debit Mandate</option>
+                            <option value="ECS">ECS</option>
+                            <option value="DAS">DAS</option>
+                            <option value="DCC">DCC</option>
+                            <option value="PDC">Post Dated Cheques</option>
+                            <option value="DIRECT BILL">DIRECT BILL</option>
+                        </select>
+                        <span class="boundary"></span>
+                        <span class="error-text"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="margin-bottom5">
+                <div class="input-box form-control-box ">
+                    <div class="select-box select-box-no-input">
+                        <p class="select-label">Identification document<sup>*</sup></p>
+                        <select id="financeIdentificationdocument" class="chosen-select select-lbl" data-title="Identification document">
+                            <option value="-1"></option>
+                            <option data-idproof="MARK SHEET / DEGREE CERTIFICATE" value="131">MARK SHEET / DEGREE CERTIFICATE</option>
+                            <option data-idproof="PANCARD COPY" value="155">PANCARD COPY</option>
+                            <option data-idproof="VOTER ID CARD COPY" value="156">VOTER ID CARD COPY</option>
+                            <option data-idproof="VALID PASSPORT COPY" value="157">VALID PASSPORT COPY</option>
+                            <option data-idproof="GOVT AND PUB LTD.-EMPLOYEE ID CARD" value="158">GOVT AND PUB LTD.-EMPLOYEE ID CARD</option>
+                            <option data-idproof="ADHAR CARD COPY" value="159">AADHAAR CARD COPY</option>
+                            <option data-idproof="PHOTO CREDIT CARD COPY" value="160">CREDIT CARD PHOTO COPY</option>
+                            <option data-idproof="PENSION PASS BOOK - ST./CENT GOVT." value="161">PENSION PASS BOOK - ST./CENT GOVT.</option>
+                            <option data-idproof="BANK PASS BOOK WITH PHOTO/SIGNATURE" value="162">BANK PASS BOOK WITH PHOTO/SIGNATURE</option>
+                            <option data-idproof="SALES TAX VAT REGIST.CERTIFICATE" value="165">SALES TAX VAT REGIST.CERTIFICATE</option>
+                            <option data-idproof="DRIVING LICENSE COPY" value="167">DRIVING LICENSE COPY</option>
+                        </select>
+                        <span class="boundary"></span>
+                        <span class="error-text"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="margin-bottom5">
+                <div class="input-box form-control-box ">
+                    <input id="financeCorrespondingIDNo" type="text" min="1" autocomplete="off" maxlength="20">
+					<label for="financeCorrespondingIDNo"><span id="identificationLabel">Corresponding ID No</span><sup>*</sup></label>
+                    <span class="boundary"></span>
+                    <span class="error-text"></span>
+                </div>
+            </div>
+            <div class="margin-bottom5">
+                <div class="input-box form-control-box ">
+                    <input id="financeBankAccountNumber" type="tel" maxlength="16" autocomplete="off">
+					<label for="financeBankAccountNumber">Bank Account Number</label>
+                    <span class="boundary"></span>
+                    <span class="error-text"></span>
+                </div>
+            </div>
+            <div class="margin-bottom5">
+                <div class="input-box form-control-box  displayBlock width-91-percent cfAccountTerm">
+                    <div class="select-box select-box-no-input">
+                        <p class="select-label">Account Term<sup>*</sup></p>
+                        <select id="financeAccountTerm" class="chosen-select select-lbl" data-title="Account Term">
+                            <option value="-1"></option>
+                            <option value="1">New</option>
+                            <option value="2">Less than 3 months</option>
+                            <option value="3">3 to 5 months</option>
+                            <option value="4">6 to 11 months</option>
+                            <option value="5">Greater than 12 months</option>
+                        </select>
+                        <span class="boundary"></span>
+                        <span class="error-text"></span>
+                    </div>
+                </div>
+            </div>
+                <input type="button" id="other-detail-submit" class="btn btn-orange btn-primary-big bw-ga" value="Submit Application">
+            </div>
+    </div>
+</div>
+
+<div class="container content-box-shadow how-works-container padding-15-20 margin-bottom20">
+    <p class="text-xt-light-grey font18 text-bold">How It Works</p>
+    <ul>
+        <li class="how-works-container__li">
+            <div class="how-works__sprite fill-form rounded-corner50"></div>
+            <div class="how-works__content">
+                <p class="font14 text-bold margin-bottom10">Apply online</p>
+                <p>Just fill in personal and employment details online</p>
+            </div>
+        </li>
+        <li class="how-works-container__li">
+            <div class="how-works__sprite approval rounded-corner50"></div>
+            <div class="how-works__content">
+                <p class="font14 text-bold margin-bottom10">Get instant loan approval</p>
+                <p>You will get an instant loan voucher based on your eligibility</p>
+            </div>
+        </li>
+        <li class="how-works-container__li">
+            <div class="how-works__sprite contact rounded-corner50"></div>
+            <div class="how-works__content">
+                <p class="font14 text-bold margin-bottom10">Submit documents</p>
+                <p>Contact our finance partner to submit documents and process your loan</p>
+            </div>
+        </li>
+    </ul>
+</div>
+
+<div id="modalPopUp" class="modal-box"></div>
+<div id="modalBg"></div>
+
+<div id="screenLoader" class="section-spinner spinner-box--fixed">
+	<div class="spinner-box spinner-box--fixed">
+		<svg class="bw-spinner" width="50px" height="50px" viewBox="0 0 50 50">
+			<circle class="circle-path" fill="none" stroke-width="4" stroke-linecap="round" cx="25" cy="25" r="22"></circle>
+		</svg>
+	</div>
+</div>
+
+<div class="container content-box-shadow terms-condition-container padding-15-20 margin-bottom20 collapsible-content")">
+    <p class="text-xt-light-grey font18 text-bold">Terms & Conditions</p>
+    <ol class="terms-condition-container__ol text-slate-grey font14 main-content" type="1">
+        <li>Sanction for a higher loan amount shall be subject to documents furnished by you and the same meeting Capital First Norms.</li>
+        <li>Funding amount and tenure will vary from vehicle to vehicle.</li>
+        <li>The information/particulars provided/to be provided by the Customer/Borrower to Capital First are information pertaining to the Customer/ Borrower only and not of any third party.</li>
+        <li>That all the particulars filled in the application form by the Customer/Borrower are true, correct, complete and up to date in all respects and the Customer/Borrower has not withheld any information which is material.</li>
+        <li>That the Customer will promptly advise Capital First in writing of any change in the Customer's/Borrower's Residential or Employment address or any other details provided in the Loan application.</li>
+</ol>
+    <ol class="text-slate-grey font14 more-content terms-condition-container__ol" start="6">
+        <li>That the Customer/Borrower will use the loan amount availed from Capital First only for the stated purpose and will not use the same for any speculative or antisocial purpose.</li>
+        <li>That the Customer/Borrower has not availed any loan from any other bank/finance company other than those specifically declared/ to be declared by the Customer.</li>
+        <li>That the Customer/Borrower is a citizen of India.</li>
+        <li>That the Customer/Borrower has authorized Capital First to make any enquiries regarding the Customer's/Borrower's application to any third person for Loan availed/to be availed from Capital First Limited.</li>
+        <li>That the Customer/Borrower has understood/agreed/ consented that Capital First shall have absolute right to reject the Customer's/Borrower's application or reduce/restrict/revise/discontinue the loan without assigning any reason thereof.</li>
+        <li>That the Customer/Borrower has authorized Capital First to make any enquiries with any other finance company/bank/registered credit information company regarding the Customer's/Borrower's credit history with them & also authorize Capital First to provide details of the Customer's/Borrower's credit history to any other bank/finance company/registered credit bureau.</li>
+        <li>That the Customer/Borrower has received, read& understood the terms and conditions applicable to the Customer/Borrower for the loan availed from Capital First and unconditionally accepts the same. The Customer/Borrower agrees that these terms & conditions can be changed by Capital First at any time without any notice to the Customer/Borrower and the Customer/Borrower will be bound by the amended terms & conditions.</li>
+        <li>That the Customer/Borrower has agreed/consented that Capital First reserves the right to retain the photographs and documents submitted by the Customer/Borrower with the Loan application and will not return the same to the Customer/Borrower.</li>
+        <li>That the Customer/Borrower has agreed/consented to know through telephonic calls/SMSs on Customer's/Borrower's mobile number mentioned in the application form by the Customer/Borrower or through any other communication mode, various loan schemes, promotional offers of Capital First and the Customer/Borrower authorizes Capital First, its employees or its agents to act accordingly.</li>
+        <li>That the Customer/Borrower agrees/consents that the laws in relations to the unsolicited communications referred in 'National Do Not Call Registry' as laid down by Telecom Regulatory Development Authority shall not be applicable to such communications/ telephonic calls/SMSs received from Capital First, its employees or its agents.</li>
+</ol>
+     <a href="javascript:void(0)" class="read-more-target" rel="nofollow">...Read more</a>
+</div>
+<input type="hidden" id="objLead" value="@(Model.objLeadJson)" />
+<input type="hidden" id="hdnBikeName" value="@(Model.BikeName)" />
+<input type="hidden" id="pageUrl" value="@Model.PageUrl" />
+<input type="hidden" id="hdnPlatform" value="@((ushort)Model.PlatformId)" />
+<input type="hidden" id="loanAmount" value="@Model.LoanAmount" />
+@Html.Partial("~/Views/Shared/_otpScreen_New_Mobile.cshtml")
+<script defer src="/src/zebra-datepicker.js"></script>
+
+@if (Model.PlatformId == 3)
+{
+    <script type="text/javascript">
+        docReady(function () {
+            $("header").hide();
+            $("footer").hide();
+        });   
+    </script>
+}

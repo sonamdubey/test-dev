@@ -1,8 +1,8 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Content.BikeCare" %>
 <%@ Import Namespace="Bikewale.Common" %>
-<%@ Register TagPrefix="BikeWale" TagName="RepeaterPager" Src="~/m/controls/LinkPagerControl.ascx" %>
-<%@ Register TagPrefix="BW" TagName="MostPopularBikesMin" Src="~/controls/MostPopularBikesMin.ascx" %>
-<%@ Register TagPrefix="BW" TagName="UpcomingBikes" Src="~/controls/UpcomingBikesMinNew.ascx" %>
+<%@ Register TagPrefix="BikeWale" TagName="RepeaterPager" Src="~/UI/m/controls/LinkPagerControl.ascx" %>
+<%@ Register TagPrefix="BW" TagName="MostPopularBikesMin" Src="~/UI/controls/MostPopularBikesMin.ascx" %>
+<%@ Register TagPrefix="BW" TagName="UpcomingBikes" Src="~/UI/controls/UpcomingBikesMinNew.ascx" %>
 <%
     title = pgTitle;
     description = pgDescription;
@@ -17,15 +17,15 @@
     isAd300x250BTFShown = false;
 
 %>
-    <!-- #include file="/includes/headscript_desktop_min.aspx" -->
-    <link href="<%= staticUrl  %>/css/content/listing.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
+    <!-- #include file="/UI/includes/headscript_desktop_min.aspx" -->
+    <link href="<%= staticUrl  %>/UI/css/content/listing.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
 
     <script type="text/javascript">
-        <!-- #include file="\includes\gacode_desktop.aspx" -->
+        <!-- #include file="\UI\includes\gacode_desktop.aspx" -->
     </script>
     <body class="bg-light-grey header-fixed-inner">
     <form runat="server">
-        <!-- #include file="/includes/headBW.aspx" -->
+        <!-- #include file="/UI/includes/headBW.aspx" -->
         <section class="container padding-top10">
             <div class="grid-12">
                 <div class="breadcrumb margin-bottom15">
@@ -94,7 +94,7 @@
                         </div>
                     </div>
 
-                    <script type="text/javascript" src="<%= staticUrl %>/src/frameworks.js?<%=staticFileVersion %>"></script>
+                    <script type="text/javascript" src="<%= staticUrl %>/UI/src/frameworks.js?<%=staticFileVersion %>"></script>
 
                     <div class="grid-4 omega">
                         <BW:MostPopularBikesMin ID="ctrlPopularBikes" runat="server" />
@@ -103,7 +103,7 @@
                           <BW:UpcomingBikes ID="ctrlUpcoming" runat="server" />
 
                           <div class="margin-bottom20">
-                           <!-- #include file="/ads/Ad300x250.aspx" -->
+                           <!-- #include file="/UI/ads/Ad300x250.aspx" -->
                         </div>
                         <a href="/pricequote/" id="on-road-price-widget" class="content-box-shadow content-inner-block-20">
                             <span class="inline-block">
@@ -118,11 +118,11 @@
             </div>
         </section>
 
-        <!-- #include file="/includes/footerBW.aspx" -->
+        <!-- #include file="/UI/includes/footerBW.aspx" -->
         
-        <link href="<%= staticUrl %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
-        <!-- #include file="/includes/footerscript.aspx" -->
-        <!-- #include file="/includes/fontBW.aspx" -->
+        <link href="<%= staticUrl %>/UI/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
+        <!-- #include file="/UI/includes/footerscript.aspx" -->
+        <!-- #include file="/UI/includes/fontBW.aspx" -->
     </form>
 </body>
 </html>

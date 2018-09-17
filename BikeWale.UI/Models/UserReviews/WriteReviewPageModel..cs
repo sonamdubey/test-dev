@@ -2,11 +2,14 @@
 using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.UserReviews;
+using Bikewale.Interfaces.QuestionAndAnswers;
 using Bikewale.Interfaces.UserReviews;
+using Bikewale.Models.QuestionsAnswers;
 using System;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Web;
+using Bikewale.Utility;
 
 namespace Bikewale.Models.UserReviews
 {
@@ -17,6 +20,7 @@ namespace Bikewale.Models.UserReviews
     public class WriteReviewPageModel
     {
         private readonly IUserReviews _userReviews = null;
+        private readonly IQuestions _questions;
         private uint _reviewId, _modelId, _makeId, _overAllRating, _priceRangeId, _pageSourceID;
         private string _encodedString, _userName, _emailId;
         private ulong _customerId;
@@ -28,7 +32,7 @@ namespace Bikewale.Models.UserReviews
         public ushort Rating { get; set; }
         public bool IsDesktop { get; set; }
         public bool IsMobile { get; internal set; }
-
+        public Platforms Platform { get; private set; }
         public StatusCodes Status;
 
         /// <summary>
@@ -50,11 +54,23 @@ namespace Bikewale.Models.UserReviews
                 Status = Entities.StatusCodes.ContentNotFound;
         }
 
+        /// <summary>
+        /// Created by  :   Sumit Kate on 03 Sep 2018
+        /// Description :   Passed the questions interface dependency
+        /// </summary>
+        /// <param name="userReviews"></param>
+        /// <param name="encodedString"></param>
+        /// <param name="questions"></param>
+        public WriteReviewPageModel(IUserReviews userReviews, string encodedString,IQuestions questions) : this(userReviews,encodedString)
+        {
+            _questions = questions;
+        }
+
         public void ParseQueryString(string encodedQueryString)
         {
             try
             {
-                string decodedQueryString = Utils.Utils.DecryptTripleDES(encodedQueryString);
+                string decodedQueryString = TripleDES.DecryptTripleDES(encodedQueryString);
 
                 NameValueCollection queryCollection = HttpUtility.ParseQueryString(decodedQueryString);
 
@@ -102,9 +118,15 @@ namespace Bikewale.Models.UserReviews
                     objPage.OriginalImagePath = objReviewSummary.OriginalImagePath;
 
                     if (IsDesktop)
+                    {
                         objPage.PreviousPageUrl = string.Format("/user-reviews/rate-bike/{0}/?q={1}", objPage.Model.ModelId, _encodedString);
+                        Platform = Platforms.Desktop;
+                    }
                     else
+                    {
                         objPage.PreviousPageUrl = string.Format("/m/user-reviews/rate-bike/{0}/?q={1}", objPage.Model.ModelId, _encodedString);
+                        Platform = Platforms.Mobile;
+                    }
 
                     objPage.JsonReviewSummary = Newtonsoft.Json.JsonConvert.SerializeObject(objReviewSummary);
                 }
@@ -118,12 +140,27 @@ namespace Bikewale.Models.UserReviews
                 GetUserRatings(objPage);
                 BindPageMetas(objPage);
                 objPage.Page = Entities.Pages.GAPages.Write_Review;
+
+                GetUnansweredQuestion(ref objPage);
             }
             catch (Exception ex)
             {
                 Bikewale.Notifications.ErrorClass.LogError(ex, "WriteReviewPageModel.GetData()");
             }
             return objPage;
+        }
+
+        private void GetUnansweredQuestion(ref WriteReviewPageVM objPage)
+        {
+            if (_questions!=null)
+            {
+                objPage.UnansweredQuestion = new UnansweredQuestionModel(_questions).GetData(_modelId,objPage.EmailId);
+                if (objPage.HasUnansweredQuestion)
+                {
+                    objPage.UnansweredQuestion.SourceId = Entities.QuestionAndAnswers.Sources.WriteReview;
+                    objPage.UnansweredQuestion.Platform = (ushort)(Platform);
+                }
+            }
         }
 
         private void BindPageMetas(WriteReviewPageVM objPageVM)

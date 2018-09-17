@@ -10,7 +10,7 @@
     isAd300x250Shown = false;
     isAd600x270Shown = false;
 %>
-<!-- #include file="/includes/headhome.aspx" -->
+<!-- #include file="/UI/includes/headhome.aspx" -->
 
 <div class="container_12">
     <div class="grid_12 margin-top10">
@@ -49,4 +49,4 @@
         </div>
     </div>
 </div>
- <!-- #include file="/includes/footerinner.aspx" -->
+ <!-- #include file="/UI/includes/footerinner.aspx" -->

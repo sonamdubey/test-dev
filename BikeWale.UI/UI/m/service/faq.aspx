@@ -7,7 +7,7 @@
         keywords = " Bike repairs, repairing bikes, troubleshooting bikes, bike repairing, bike issues ";
         description = "BikeWale brings you some of the common tips to troubleshoot your bike. Check out the troubleshooting tips from Bike Experts."; 
     %>
-    <!-- #include file="/includes/headscript_mobile.aspx" -->
+    <!-- #include file="/UI/includes/headscript_mobile.aspx" -->
     <style type="text/css">
     .faq-top-banner { background: #57605e url(https://imgd.aeplcdn.com/0x0/bw/static/landing-banners/m/m-faqs-banner.jpg) no-repeat center center; background-size: cover; height: 130px; }
     .faq-content h3 { margin-bottom:15px; padding:5px 10px 15px; border-bottom:1px solid #ccc; }
@@ -18,7 +18,7 @@
 </head>
 <body class="bg-light-grey">
     <form runat="server">
-        <!-- #include file="/includes/headBW_Mobile.aspx" -->
+        <!-- #include file="/UI/includes/headBW_Mobile.aspx" -->
         <section>
             <div class="container">
                 <div class="faq-top-banner">
@@ -68,8 +68,8 @@
             </div>
         </section>
 
-        <!-- #include file="/includes/footerBW_Mobile.aspx" -->
-        <!-- #include file="/includes/footerscript_Mobile.aspx" -->
+        <!-- #include file="/UI/includes/footerBW_Mobile.aspx" -->
+        <!-- #include file="/UI/includes/footerscript_Mobile.aspx" -->
         <script type="text/javascript">
             $(document).ready(function () {
                 var hashValue = window.location.hash.substr(1);

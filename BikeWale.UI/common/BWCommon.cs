@@ -824,7 +824,7 @@ namespace Bikewale.Common
         }//End of SaveEMIAssistaneRequest
         public static void dummyFunction()
         {
-            gelf4net.Appender.GelfUdpAppender.GenerateMessageId();
+            Gelf4Net.Appender.GelfUdpAppender.GenerateMessageId();
         }
     }//class
 }//namespace

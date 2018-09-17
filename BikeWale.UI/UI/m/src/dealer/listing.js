@@ -8,7 +8,7 @@ docReady(function () {
             "dealerid": ele.attr('data-item-id'),
             "dealername": ele.attr('data-item-name'),
             "dealerarea": ele.attr('data-item-area'),
-            "campid": ele.attr('data-campid'),
+            "campaignId": ele.attr('data-campaignid'),
             "leadsourceid": ele.attr('data-leadsourceid'),
             "pqsourceid": ele.attr('data-pqsourceid'),
             "isdealerbikes": true,

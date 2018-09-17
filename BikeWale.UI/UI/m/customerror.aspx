@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" %>
-<!-- #include file="/includes/headermobile_noad.aspx" -->
+<!-- #include file="/UI/includes/headermobile_noad.aspx" -->
 <style>
 	h1 
 	{ 
@@ -18,4 +18,4 @@
         <p class="margin-top20 font14">We are sorry for this inconvenience. Error cause has been sent to the administrators. We will resolve the problem very soon.</p>
         <p class="margin-top5 font14">Please try visiting the page again within few minutes.</p>
     </div>
-<!-- #include file="/includes/footermobile_noad.aspx" -->
+<!-- #include file="/UI/includes/footermobile_noad.aspx" -->

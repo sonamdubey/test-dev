@@ -1,0 +1,176 @@
+﻿/*msite*/
+
+
+.input-box .select-box .select-label{
+    font-size: 14px;
+    color: #82888b;
+    padding-top: 10px;
+}
+.input-box .done .select-label{
+    font-size: 12px;
+   padding-top: 2px;
+}
+
+.select-box {
+    height: 60px;
+    position: relative
+}
+
+.select-box .select-label {
+    position: absolute;
+    top: 3px;
+    color: #82888b;
+    font-size: 16px
+}
+
+.select-box .chosen-container {
+    width: 100%!important;
+    height: 36px;
+    position: relative;
+    top: 0;
+    padding: 0;
+    border: 0;
+    cursor: pointer;
+    border-bottom: 1px solid #82888b;
+    background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/dropdown-icon.png) 100% 50% no-repeat;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    -ms-border-radius: 0;
+    border-radius: 0
+}
+
+.select-box .chosen-container .chosen-single {
+    color: #4d5057;
+    font-size: 16px;
+    font-weight: 700;
+    background: 0 0;
+    position: relative;
+    top: 7px
+}
+
+.select-box .chosen-container .chosen-default {
+    display: none
+}
+
+.select-box .chosen-container .chosen-search {
+    padding: 0;
+    border-bottom: 1px solid #41b4c4
+}
+
+.select-box .chosen-container .chosen-search input[type=text] {
+    border: 0;
+    padding: 8px 10px;
+    font-size: 16px;
+    background-image: none!important;
+    background-size: 0!important
+}
+
+.select-box .chosen-container .chosen-search input[type=text]:focus {
+    box-shadow: none
+}
+
+.select-box .chosen-container .chosen-results {
+    margin: 0;
+    padding: 0;
+    max-height: 170px;
+    font-size: 14px
+}
+
+.chosen-container.chosen-with-drop .chosen-drop{
+    width: 100% !important;
+}
+
+.chosen-container-single .chosen-single span{
+    font-size: 14px;
+}
+
+.select-box .chosen-container .chosen-drop {
+    width: 300px;
+    z-index: 1;
+    top: -9px;
+    border: 1px solid #e2e2e2;
+    -webkit-box-shadow: 0 2px 10px 1px #dcdcdc;
+    -moz-box-shadow: 0 2px 10px 1px #dcdcdc;
+    -ms-box-shadow: 0 2px 10px 1px #dcdcdc;
+    -o-box-shadow: 0 2px 10px 1px #dcdcdc;
+    box-shadow: 0 2px 10px 1px #dcdcdc;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    -ms-border-radius: 2px;
+    border-radius: 2px
+}
+
+.select-box.select-box-no-input .chosen-search {
+    border-bottom: 1px solid #e2e2e2
+}
+
+.select-box.select-box-no-input .chosen-results li {
+    padding-right: 20px;
+    padding-left: 20px
+}
+
+.select-box.select-box-no-input .no-input-label {
+    font-size: 16px;
+    color: #4d5057;
+    padding: 11px 20px;
+    cursor: text
+}
+
+.done .select-label {
+    font-size: 12px;
+    top: -14px
+}
+
+.select-box.size-small .chosen-container {
+    height: 24px
+}
+
+.select-box.size-small .chosen-container .chosen-single {
+    font-size: 14px;
+    top: 0
+}
+
+
+
+#basic-detail-submit{
+    margin:0 auto;
+    display:block;
+}
+
+.page-tabs__li:nth-of-type(1){
+    width:76px;
+}
+
+.page-tabs__li{
+    width: 37%;
+}
+
+.input-box input[disabled="disabled"]{
+	border-bottom: 1px solid #d8d5d5 !important; 
+	background: #fff;  
+	cursor:not-allowed;
+}
+.input-box input[disabled="disabled"] ~ label{
+    color: #d8d5d5;
+}
+
+.form-field__company-name.input-box {
+	height: 85px;
+}
+
+.input-box .check-box label {
+	position: relative;
+	top: 0;
+	left: 0;
+	font-size: 12px;
+	color: #a2a2a2;
+	display: inline-block;
+	vertical-align: middle;
+	cursor: pointer;
+	pointer-events: auto;
+}
+
+.input-box .check-box input:focus ~ label,
+.input-box.not-empty .check-box label {
+	top: 0;
+}

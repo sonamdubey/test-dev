@@ -1,0 +1,60 @@
+﻿@import ../base/variables
+@import ../components/variables
+@import ../mixins/index
+@import ../utils/index
+
+.answer-question-wrapper
+  @include vendor-prefix(box-shadow, 2px 2px 2px color('gainsboro-2'))
+  background-color: color('old-lace')
+  padding: 15px 20px
+  font-size: 14px
+
+.answer-question__title
+  font-size: 16px
+  font-weight: $font-semibold
+  color: color('black')
+
+.answer-question__subtitle
+  color: color('aluminium')
+  margin-bottom: 15px
+  line-height: 22px
+
+.answer-question__item
+  @include vendor-prefix(box-shadow, 0 2px 4px 0 color('black', .14))
+  border-radius: 3px
+  background-color: color('white')
+  color: color('default')
+  font-weight: $font-semibold
+  padding: 10px 20px 15px
+  margin-bottom: 10px
+
+  &:last-child
+    margin-bottom: 0
+
+.answer-question__item-title
+  margin-bottom: 10px
+
+// Type answer section
+.answer-question__form-box
+  margin-top: -10px
+  font-size: 14px
+  padding: 15px 20px 20px
+  background-color: color('bg-light-grey')
+
+.answer-question--text-margin
+  margin-bottom: 15px
+
+.answer-question__secondary-headline
+  color: color('aluminium')
+  font-size: 14px
+  font-weight: $font-normal
+
+.answer-question--answer-box
+  @include text-area($fontSize: 14, $box-shadow: true)
+  padding-bottom: 5px
+  padding-left: 15px
+  padding-right: 15px
+
+  .area-control-box
+    .form-control__input
+      padding: 10px

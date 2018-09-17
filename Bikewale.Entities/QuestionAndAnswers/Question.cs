@@ -9,9 +9,14 @@ namespace Bikewale.Entities.QuestionAndAnswers
     /// Description: Entity to hold information about a Question.
     /// Modified By : Deepak Israni on 25 June 2018
     /// Description : Moved common properties to QuestionBase.
+    /// Modified by: Dhruv Joshi
+    /// Dated: 10th August 2018
+    /// Description: Added property for sanitized text url
     /// </summary>
     public class Question : QuestionBase
     {
         public IEnumerable<Answer> Answers { get; set; }
+        public uint AnswerCount { get; set; }
+        public string BaseUrl { get; set; }
     }
 }

@@ -1,11 +1,11 @@
 ﻿@using Bikewale.Entities.BikeData;
 @{
 
-    Layout = "~/Views/Shared/_Layout_Desktop.cshtml";
+    Layout = "~/UI/Views/Shared/_Layout_Desktop.cshtml";
     ViewBag.Page_JS_Path = "/src/new-launch.js";
     ViewBag.staticUrl = Bikewale.Utility.BWConfiguration.Instance.StaticUrl;
     ViewBag.staticFileVersion = Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion;
-    ViewBag.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/new-launch/new-launch.css' inline />";
+    ViewBag.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/UI/sass/new-launch/new-launch.css' inline />";
 
     IEnumerable<UpcomingBikeEntity> objUpcoming = ViewBag.UpcomingBikes;
 
@@ -59,7 +59,7 @@
 <section id="newlaunched-bikes" data-year-filter="@ViewBag.launchYear" data-city="@ViewBag.location.CityId">
     <div class="container section-bottom-margin">
         <div class="grid-12">
-            @Html.Partial("~/Views/NewLaunches/_NewLaunchedBikes.cshtml")
+            @Html.Partial("~/UI/Views/NewLaunches/_NewLaunchedBikes.cshtml")
         </div>
         <div class="clear"></div>
     </div>
@@ -84,7 +84,7 @@
                     </div>
                     <div class="clear"></div>
                 </div>
-                @Html.Partial("~/Views/Shared/_UpcomingBikes.cshtml", objUpcoming)
+                @Html.Partial("~/UI/Views/Shared/_UpcomingBikes.cshtml", objUpcoming)
             </div>
         </div>
         <div class="clear"></div>
@@ -109,4 +109,4 @@
         <div class="clear"></div>
     </div>
 </section>
-<script type="text/javascript" src="@String.Format("{0}/src/frameworks.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl,Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion)"></script>
+<script type="text/javascript" src="@String.Format("{0}/UI/src/frameworks.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl,Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion)"></script>

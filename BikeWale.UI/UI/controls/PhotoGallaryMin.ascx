@@ -1,6 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Controls.PhotoGallaryMin" %>
-<%@ Register TagPrefix="BP" TagName="InstantBikePrice" Src="/controls/instantbikeprice.ascx" %>
-<%@ Register TagPrefix="LD" TagName="LocateDealer" Src="/controls/locatedealer.ascx" %>
+<%@ Register TagPrefix="BP" TagName="InstantBikePrice" Src="/UI/controls/instantbikeprice.ascx" %>
+<%@ Register TagPrefix="LD" TagName="LocateDealer" Src="/UI/controls/locatedealer.ascx" %>
 <h1 style="padding-bottom:10px;"><%=BikeName %> Images</h1>
 <div id="imageContent">            
     <div class="clear"></div>

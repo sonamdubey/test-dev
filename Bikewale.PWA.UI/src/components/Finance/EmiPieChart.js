@@ -11,20 +11,26 @@ export default class EmiPieChart extends React.Component {
 		super(props)
 		this.state = {
 			intStatePay: this.props.pieChartData.intStatePay,
-			pieLoanAmt: this.props.pieChartData.pieLoanAmt
+			pieLoanAmt: this.props.pieChartData.pieLoanAmt,
+			pieDownPaymentAmt: this.props.pieChartData.pieDownPaymentAmt
 		}
 	}
 	componentWillReceiveProps(nextProps){
 		this.setState({
 			intStatePay: nextProps.pieChartData.intStatePay,
-			pieLoanAmt: nextProps.pieChartData.pieLoanAmt
+			pieLoanAmt: nextProps.pieChartData.pieLoanAmt,
+			pieDownPaymentAmt: nextProps.pieChartData.pieDownPaymentAmt
 		})
 	}
 	render(){
 		const pieData = [
 			{
-				value: this.state.pieLoanAmt,
+				value: this.state.pieDownPaymentAmt,
 				color: '#fed1cd'
+			},
+			{
+				value: this.state.pieLoanAmt,
+				color: '#c3c3c3'
 			},
 			{
 				value: this.state.intStatePay,

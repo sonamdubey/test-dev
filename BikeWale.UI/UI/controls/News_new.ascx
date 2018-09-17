@@ -3,7 +3,7 @@
 <div class="bw-tabs-data news-expert-video-content" id="ctrlNews"><!-- News data code starts here-->    
     <asp:Repeater ID="rptNews" runat="server">
         <HeaderTemplate>
-            <!-- #include file="/ads/Ad976x204.aspx" -->
+            <!-- #include file="/UI/ads/Ad976x204.aspx" -->
         </HeaderTemplate>
         <ItemTemplate>
             <div class="padding-bottom20">

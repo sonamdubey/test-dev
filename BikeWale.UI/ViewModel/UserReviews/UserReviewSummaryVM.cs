@@ -1,6 +1,7 @@
 ﻿using Bikewale.Entities.UserReviews;
+using Bikewale.Models.QuestionAndAnswers;
 using System.Collections.Generic;
-
+using System.Linq;
 namespace Bikewale.Models
 {
     /// <summary>
@@ -13,6 +14,9 @@ namespace Bikewale.Models
         public string WriteReviewLink { get; set; }
         public IEnumerable<UserReviewQuestion> RatingQuestions { get; set; }
         public IEnumerable<UserReviewQuestion> ReviewQuestions { get; set; }
+        public UnansweredQuestionsVM UnansweredQuestions { get; set; }
+        public bool HasUnansweredQuestions { get { return UnansweredQuestions != null && UnansweredQuestions.Questions != null && UnansweredQuestions.Questions.Any(); } }
+        public bool IsMobile { get; set; }
     }
 
 }

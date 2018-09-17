@@ -1,6 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.bikebooking.BookingListing" Trace="false" %>
-<%@ Register Src="~/m/controls/ChangeLocationPopup.ascx" TagPrefix="BW" TagName="LocationWidget" %>
-<%@ Register TagPrefix="BW" TagName="MPopupWidget" Src="/m/controls/MPopupWidget.ascx" %>
+<%@ Register Src="~/UI/m/controls/ChangeLocationPopup.ascx" TagPrefix="BW" TagName="LocationWidget" %>
+<%@ Register TagPrefix="BW" TagName="MPopupWidget" Src="/UI/m/controls/MPopupWidget.ascx" %>
 <!doctype html>
 <html>
 <head>
@@ -9,12 +9,12 @@
         keywords = "book bikes, book scooters, buy bikes, buy scooters, bikes prices, avail offers, avail discounts, instant bike on-road price";
         description = "BikeWale - India's favourite bike portal. Book your bikes, scooters and avail exciting offers and benefits exclusively on BikeWale.";
     %>
-    <!-- #include file="/includes/headscript_mobile.aspx" -->
+    <!-- #include file="/UI/includes/headscript_mobile.aspx" -->
 
 </head>
 <body class="bg-light-grey">
     <link href="<%= staticUrl  %>/m/css/new/bwm-bookinglisting.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
-    <link href="<%= staticUrl  %>/css/chosen.min.css?<%= staticFileVersion %>" rel="stylesheet" />
+    <link href="<%= staticUrl  %>/UI/css/chosen.min.css?<%= staticFileVersion %>" rel="stylesheet" />
     <div class="blackOut-window"></div>
     <!-- global-search-popup code starts here -->
 
@@ -327,7 +327,7 @@
 
 
     <!--Main container ends here-->
-    <!-- #include file="/includes/footerBW_Mobile.aspx" -->
+    <!-- #include file="/UI/includes/footerBW_Mobile.aspx" -->
     <script>
         var selectedCityId = '<%= cityId %>', selectedAreaId = '<%= areaId %>';
         var cityName = $("#listingPopupCityList li[cityid='" + selectedCityId + "']").text(),
@@ -356,8 +356,8 @@
 
     </script>
     <!-- all other js plugins -->
-    <!-- #include file="/includes/footerscript_Mobile.aspx" -->
-    <script src="<%= staticUrl  %>/m/src/BikeBooking/bookinglisting.js?<%= staticFileVersion %>" type="text/javascript"></script>
+    <!-- #include file="/UI/includes/footerscript_Mobile.aspx" -->
+    <script src="<%= staticUrl  %>/UI/m/src/BikeBooking/bookinglisting.js?<%= staticFileVersion %>" type="text/javascript"></script>
     <script>
         $('.chosen-container').attr('style', 'width:100%;');
         $("#bookingAreasList_chosen .chosen-single.chosen-default span").text("Please Select City");

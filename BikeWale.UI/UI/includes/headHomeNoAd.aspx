@@ -1,5 +1,5 @@
 ﻿<%@ Register TagPrefix="BikeWale" TagName="LoginStatus" src="/Controls/loginstatus.ascx" %>
-<%@ Register TagPrefix="BM" TagName="BikeMakes" Src="/controls/BrowseBikeManufacturerMin.ascx" %>
+<%@ Register TagPrefix="BM" TagName="BikeMakes" Src="/UI/controls/BrowseBikeManufacturerMin.ascx" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml">
 <head>
@@ -15,7 +15,7 @@
         private string staticUrl = System.Configuration.ConfigurationManager.AppSettings["staticUrl"];
         private string staticFileVersion = System.Configuration.ConfigurationManager.AppSettings["staticFileVersion"];
     </script>        
-    <!-- #include file="/includes/gacode.aspx" --> 
+    <!-- #include file="/UI/includes/gacode.aspx" --> 
     <script type="text/javascript">
         var ga_pg_id = '0';
         //facebook like button script
@@ -45,5 +45,5 @@
 <body class="header-fixed-inner">
     <form runat="server">    
 	<div class="main-container">
-    	<!-- #include file="/includes/headBW.aspx" -->  
+    	<!-- #include file="/UI/includes/headBW.aspx" -->  
         

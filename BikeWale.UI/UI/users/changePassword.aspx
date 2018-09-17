@@ -2,7 +2,7 @@
 <% //Modified By :Sajal Gupta on 03 August 2016
     isAd300x250Shown = false;
     isAd300x250BtfShown = false; %>
-<!-- #include file="/includes/headMyBikeWale.aspx" -->
+<!-- #include file="/UI/includes/headMyBikeWale.aspx" -->
     <div class="container_12 container-min-height">
         <div class="grid_12">
             <ul class="breadcrumb">
@@ -107,5 +107,5 @@
         return isError;
     }
 </script>
-<!-- #include file="/includes/footerInner.aspx" -->
+<!-- #include file="/UI/includes/footerInner.aspx" -->
 <!-- Footer ends here -->

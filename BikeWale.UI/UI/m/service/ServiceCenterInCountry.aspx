@@ -1,7 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Service.ServiceCenterInCountry" EnableViewState="false" %>
-<%@ Register Src="~/m/controls/BikeCare.ascx" TagName="BikeCare" TagPrefix="BW" %>
-<%@ Register Src="~/m/controls/ServiceCentersByBrand.ascx" TagName="OtherServiceCenters" TagPrefix="BW" %>
-<%@ Register Src="~/m/controls/usedBikeModel.ascx" TagName="usedBikeModel" TagPrefix="BW" %>
+<%@ Register Src="~/UI/m/controls/BikeCare.ascx" TagName="BikeCare" TagPrefix="BW" %>
+<%@ Register Src="~/UI/m/controls/ServiceCentersByBrand.ascx" TagName="OtherServiceCenters" TagPrefix="BW" %>
+<%@ Register Src="~/UI/m/controls/usedBikeModel.ascx" TagName="usedBikeModel" TagPrefix="BW" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,20 +16,20 @@
         Ad_Bot_320x50 = true;
     %>
 
-    <!-- #include file="/includes/headscript_mobile_min.aspx" -->
-    <link rel="stylesheet" type="text/css" href="/m/css/service/location.css" />
+    <!-- #include file="/UI/includes/headscript_mobile_min.aspx" -->
+    <link rel="stylesheet" type="text/css" href="/UI/m/css/service/location.css" />
 
     <script type="text/javascript">
-        <!-- #include file="\includes\gacode_mobile.aspx" -->
+        <!-- #include file="\UI\includes\gacode_mobile.aspx" -->
     </script>
 </head>
 <body class="bg-light-grey">
     <form runat="server">
-        <!-- #include file="/includes/headBW_Mobile.aspx" -->
+        <!-- #include file="/UI/includes/headBW_Mobile.aspx" -->
          <% if(Ad_320x50){ %>
             <section>
                 <div>
-                    <!-- #include file="/ads/Ad320x50_mobile.aspx" -->
+                    <!-- #include file="/UI/ads/Ad320x50_mobile.aspx" -->
                 </div>
             </section>
         <% } %>
@@ -132,12 +132,12 @@
             </div>
         </section>
         <%} %>
-        <script type="text/javascript" src="<%= staticUrl  %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
-        <!-- #include file="/includes/footerBW_Mobile.aspx" -->
+        <script type="text/javascript" src="<%= staticUrl  %>/UI/m/src/frameworks.js?<%= staticFileVersion %>"></script>
+        <!-- #include file="/UI/includes/footerBW_Mobile.aspx" -->
         <link href="<%= staticUrl  %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
-        <!-- #include file="/includes/footerscript_mobile.aspx" -->
-        <script type="text/javascript" src="<%= staticUrl  %>/m/src/service/location.js?<%= staticFileVersion %>"></script>
-        <!-- #include file="/includes/fontBW_Mobile.aspx" -->
+        <!-- #include file="/UI/includes/footerscript_mobile.aspx" -->
+        <script type="text/javascript" src="<%= staticUrl  %>/UI/m/src/service/location.js?<%= staticFileVersion %>"></script>
+        <!-- #include file="/UI/includes/fontBW_Mobile.aspx" -->
     </form>
 </body>
 </html>

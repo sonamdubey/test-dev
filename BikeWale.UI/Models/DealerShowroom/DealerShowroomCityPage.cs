@@ -10,6 +10,7 @@ using Bikewale.Entities.Schema;
 using Bikewale.Entities.ServiceCenters;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Dealer;
+using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Interfaces.ServiceCenter;
 using Bikewale.Interfaces.Used;
 using Bikewale.Memcache;
@@ -32,17 +33,19 @@ namespace Bikewale.Models.DealerShowroom
         private readonly IUsedBikeDetailsCacheRepository _objUsedCache = null;
         private readonly IServiceCenter _objSC = null;
         private readonly IBikeModels<BikeModelEntity, int> _bikeModels = null;
+		private readonly IPriceQuote _objPQ = null;
         private DealerShowroomCityPageVM objDealerVM;
         public MakeMaskingResponse objResponse;
         public uint cityId, makeId, topCount;
         public StatusCodes status;
         public BikeMakeEntityBase objMake;
         public CityEntityBase CityDetails;
+        public PQSourceEnum PQSource { get; set; }
 
         public bool IsMobile { get; internal set; }
 
         //Constructor
-        public DealerShowroomCityPage(IBikeModels<BikeModelEntity, int> bikeModels, IServiceCenter objSC, IDealerCacheRepository objDealerCache, IUsedBikeDetailsCacheRepository objUsedCache, IBikeMakesCacheRepository bikeMakesCache, string makeMaskingName, string cityMaskingName, uint count)
+        public DealerShowroomCityPage(IBikeModels<BikeModelEntity, int> bikeModels, IServiceCenter objSC, IDealerCacheRepository objDealerCache, IUsedBikeDetailsCacheRepository objUsedCache, IBikeMakesCacheRepository bikeMakesCache, string makeMaskingName, string cityMaskingName, uint count, IPriceQuote objPQ)
         {
             _objDealerCache = objDealerCache;
             _bikeMakesCache = bikeMakesCache;
@@ -51,6 +54,7 @@ namespace Bikewale.Models.DealerShowroom
             _bikeModels = bikeModels;
             topCount = count;
             ProcessQuery(makeMaskingName, cityMaskingName);
+			_objPQ = objPQ;
         }
         /// <summary>
         /// Created By :- Subodh Jain 27 March 2017
@@ -128,6 +132,8 @@ namespace Bikewale.Models.DealerShowroom
             {
                 PlatformId = (ushort)(IsMobile ? 2: 1),
                 CityId = cityId,
+				IsMLAActive = _objPQ.GetMLAStatus(objMake.MakeId, CityDetails.CityId),
+                PageId = Convert.ToUInt16(PQSource)
             };
         }
 

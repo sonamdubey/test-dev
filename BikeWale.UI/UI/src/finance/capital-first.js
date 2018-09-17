@@ -91,6 +91,7 @@ docReady(function () {
 
 	isDesktop = $(".capital-first-desktop");
 	
+
     $(".page-tabs-data input, .otp-container input[type!=button]").on('blur', function () {
         validate.onBlur($(this));
     });

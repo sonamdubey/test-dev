@@ -52,7 +52,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="google-site-verification" content="fG4Dxtv_jDDSh1jFelfDaqJcyDHn7_TCJH3mbvq6xW8" />
-    <link rel='stylesheet' type='text/css' href='/css/bw-common-atf.css' atf-css />
+    <link rel='stylesheet' type='text/css' href='/UI/css/bw-common-atf.css' atf-css />
+	<link rel='stylesheet' type='text/css' href='/UI/css/bw-doodle.css' atf-css />
     <link href="//www.googletagservices.com" rel="dns-prefetch" />
     <link href="//ad.doubleclick.net" rel="dns-prefetch" />
     <link href="//www.googleadservices.com" rel="dns-prefetch" />
@@ -63,12 +64,12 @@
     <link href="//bhrigu.bikewale.com" rel="dns-prefetch" />
     <link href="//tpc.googlesyndication.com" rel="dns-prefetch" />
     <link rel="SHORTCUT ICON" href="https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/favicon.png" type="image/png" />
-    <script defer type="text/javascript" src="@String.Format("{0}/src/frameworks.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, Bikewale.Utility.BWConfiguration.Instance.StaticFrameworkFileVersion)"></script>
+    <script defer type="text/javascript" src="@String.Format("{0}/UI/src/frameworks.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, Bikewale.Utility.BWConfiguration.Instance.StaticFrameworkFileVersion)"></script>
     <noscript>
         <iframe src="//www.googletagmanager.com/ns.html?id=GTM-5CSHD6" height="0" width="0" style="display:none;visibility:hidden"></iframe>
     </noscript>
     <noscript id="asynced-css">
-        <link href="@String.Format("{0}/css/bw-common-btf.css?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl,Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion)" rel="stylesheet" type="text/css" />
+        <link href="@String.Format("{0}/UI/css/bw-common-btf.css?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl,Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion)" rel="stylesheet" type="text/css" />
         @if (!String.IsNullOrEmpty(Model.Page_BTF_CSS_Path))
         {
 
@@ -81,20 +82,26 @@
                 <link href="@String.Format("{0}{1}?{2}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, cssFile.Trim(), Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion)" rel="stylesheet" type="text/css" />
             }
         }
-        @Html.Partial("~/Views/Shared/fontcss/OpenSans/_Latin400.cshtml")
-        @Html.Partial("~/Views/Shared/fontcss/OpenSans/_Latin600.cshtml")
-        @Html.Partial("~/Views/Shared/fontcss/OpenSans/_Latin700.cshtml")
+        @Html.Partial("~/UI/Views/Shared/fontcss/OpenSans/_Latin400.cshtml")
+        @Html.Partial("~/UI/Views/Shared/fontcss/OpenSans/_Latin600.cshtml")
+        @Html.Partial("~/UI/Views/Shared/fontcss/OpenSans/_Latin700.cshtml")
 
     </noscript>
     <script type="text/javascript">!function (a, b) { "use strict"; function f() { if (!d) { d = !0; for (var a = 0; a < c.length; a++) c[a].fn.call(window, c[a].ctx); c = [] } } function g() { "complete" === document.readyState && f() } a = a || "docReady", b = b || window; var c = [], d = !1, e = !1; b[a] = function (a, b) { if ("function" != typeof a) throw new TypeError("callback for docReady(fn) must be a function"); return d ? void setTimeout(function () { a(b) }, 1) : (c.push({ fn: a, ctx: b }), void ("complete" === document.readyState || !document.attachEvent && "interactive" === document.readyState ? setTimeout(f, 1) : e || (document.addEventListener ? (document.addEventListener("DOMContentLoaded", f, !1), window.addEventListener("load", f, !1)) : (document.attachEvent("onreadystatechange", g), window.attachEvent("onload", f)), e = !0))) } }("docReady", window);</script>
     <!--[if lt IE 9]>
-        <script src="@String.Format("{0}/src/html5.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl,Bikewale.Utility.BWConfiguration.Instance.StaticFrameworkFileVersion)"></script>
+        <script src="@String.Format("{0}/UI/src/html5.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl,Bikewale.Utility.BWConfiguration.Instance.StaticFrameworkFileVersion)"></script>
     <![endif]-->
     @Html.Raw(Model.Page_ATF_CSS)
     <script type="text/javascript">
     var ga_pg_id = '0', gaObj;
     var adSlot = {};
     var FbPixelEvent = { pageView: 'PageView', viewContent: 'ViewContent', lead: 'Lead' };
+    var gaEnum = { 
+        "Dealer_Locator_City_Page": 15,
+        "Dealer_Locator_Details_Page":16,
+        "Model_Page":3,
+        "DealerPriceQuote_Page":8
+    };
     @if(Model.Page !=null)
         {
             <text>
@@ -181,7 +188,8 @@
                 case 2:
                     return String.Format("googletag.pubads().setTargeting(\"Make\", \"{0}\");", target.RemoveSpecialCharacters());
                 case 3:
-                    return String.Format("googletag.pubads().setTargeting(\"CompareBike-D\", \"{0}\");", target.RemoveSpecialCharacters());
+                    return String.Format("googletag.pubads().setTargeting(\"CompareBike-D\", {0});", target);
+                    
                 case 4:
                     return String.Format("googletag.pubads().setTargeting(\"City\", \"{0}\");", target.RemoveSpecialCharacters());
                 case 5:
@@ -294,6 +302,16 @@
 <body class="@(@Model.IsPageTypeLanding ? " page-type-landing " : "") bg-light-grey @(@Model.IsHeaderFix ? "header-fixed-inner" : "")" @string.Format("{0}", Model.ExcludeContestSlug ? "data-contestslug='true'" : "") data-page-id="@((int)Model.Page)" data-page-name="@Model.Page" data-pricemoney="@Bikewale.Utility.Format.FormatPrice(Bikewale.Utility.BWConfiguration.Instance.ContestPriceMoney)">
     <div id="header" class='@(Model.IsHeaderFix ? "header-fixed" : "header-not-fixed") @(Model.IsTransparentHeader ? "header-landing header-transparent" : "")'>
         <!-- Fixed Header code starts here -->
+		<!-- BW Doodle start-->
+		<span class="bw-doodle__container">
+			<span class="bw-doodle__bell-one"></span>
+			<span class="bw-doodle__bell-two"></span>
+			<span class="bw-doodle__ganesh-image">
+				<span class="bw-doodle__ganesh"></span>
+				<span class="bw-doodle__ganesh-bg"></span>
+			</span>
+		</span>
+		<!-- BW Doodle end-->
         <div class="leftfloat">
             <span class="navbarBtn bwsprite nav-icon margin-right25"></span>
             <a href="/" id="bwheader-logo" class="bwsprite bw-logo" title="Bikewale" alt="Bikewale"></a>
@@ -301,7 +319,7 @@
         <div class="rightfloat">
             <div class="global-search">
                 <span class="bwsprite search-icon-grey" id="btnGlobalSearch" style="z-index:2"></span>
-                <input type="text" name="globalSearch" placeholder="Search" id="globalSearch" class="blur ui-autocomplete-input" autocomplete="off">
+                <input type="text" name="globalSearch" placeholder="Search" id="globalSearch" class="blur ui-autocomplete-input" autocomplete="off" aria-label="Search">
                 <span class="fa fa-spinner fa-spin position-abt  text-black" style="display:none;right:14px;top:7px;background:#fff"></span>
                 <ul id="errGlobalSearch" style="width:420px;position:absolute;top:30px;left:3px" class="ui-autocomplete ui-front ui-menu hide">
                     <li class="ui-menu-item" tabindex="-1">
@@ -327,7 +345,7 @@
                     </div>
                 </div>
             </div>
-            @Html.Partial("~/Views/Shared/_LoginStatus.cshtml")
+            @Html.Partial("~/UI/Views/Shared/_LoginStatus.cshtml")
             <div class="changecity-blackout-window"></div>
             <div class="clear"></div>
         </div>
@@ -374,7 +392,7 @@
             <div class="container">
                 <div class="grid-12">
                     <div>
-                        @{Html.RenderPartial("~/Views/Shared/Ads/Desktop/Model_ATF_970x90.cshtml", Model.AdTags);}
+                        @{Html.RenderPartial("~/UI/Views/Shared/Ads/Desktop/Model_ATF_970x90.cshtml", Model.AdTags);}
                     </div>
                 </div>
                 <div class="clear"></div>
@@ -383,18 +401,21 @@
     }
     else if (Model.AdTags.ShowInnovationBannerDesktop)
     {
-        Html.RenderPartial("~/Views/Shared/Ads/Desktop/Ad970x90_InnovationBanner.cshtml", Model.AdTags);
+        Html.RenderPartial("~/UI/Views/Shared/Ads/Desktop/Ad970x90_InnovationBanner.cshtml", Model.AdTags);
     }
 
     @if (Model.BreadcrumbList != null && Model.BreadcrumbList.BreadcrumListItem != null && Model.BreadcrumbList.BreadcrumListItem.Any())
     {
         <section class="container padding-top10">
             <div class="grid-12">
-                <div class="breadcrumb margin-bottom15">
+                <div class="breadcrumb margin-bottom15 text-truncate">
                     <ul>
-                        @foreach (var item in Model.BreadcrumbList.BreadcrumListItem)
+                        @{
+                        var breadcrumItemCount = Model.BreadcrumbList.BreadcrumListItem.Count();
+                        short currentBreadCrum = 0;
+                        foreach (var item in Model.BreadcrumbList.BreadcrumListItem)
                         {
-                            if (item.Item != null && !string.IsNullOrEmpty(item.Item.Url))
+                            if (item.Item != null && !string.IsNullOrEmpty(item.Item.Url) && (breadcrumItemCount - 1) > currentBreadCrum++)
                             {
                                 <li>
                                     <a class="breadcrumb-link" href="@item.Item.Url" title="@item.Item.Name">
@@ -409,6 +430,7 @@
                                 </li>
                             }
                         }
+                        }
                     </ul>
                     <div class="clear"></div>
                 </div>
@@ -417,7 +439,7 @@
         </section>
     }
     @RenderBody()
-    @Html.Partial("~/Views/Shared/_PopupWidget.cshtml")
+    @Html.Partial("~/UI/Views/Shared/_PopupWidget.cshtml")
     @if (Model.AdTags.Ad_970x90Bottom)
     {
         <section class="container">
@@ -614,18 +636,18 @@
             <div class="clear"></div>
         </div>
     </footer><!-- Ends here -->
-    @Html.Partial("~/Views/Shared/_LoginControl.cshtml")
+    @Html.Partial("~/UI/Views/Shared/_LoginControl.cshtml")
 
-    <script defer type="text/javascript" src="@String.Format("{0}/src/bwcache.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion)"></script>
+    <script defer type="text/javascript" src="@String.Format("{0}/UI/src/bwcache.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion)"></script>
     <script>
         var loadAsyncCss = function () { var a = document.getElementById("asynced-css"); if (a) { var b = document.createElement("div"); b.style.display = 'none', b.innerHTML = a.textContent, document.body.appendChild(b), a.parentElement.removeChild(a) } }, raf = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame; raf ? raf(function () { window.setTimeout(loadAsyncCss, 0) }) : window.addEventListener("load", loadAsyncCss);
     </script>
-    <script defer type="text/javascript" src="@String.Format("{0}/src/Plugins.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, Bikewale.Utility.BWConfiguration.Instance.StaticPluginFileVersion)"></script>
-    <script defer type="text/javascript" src="@String.Format("{0}/src/cwTracking.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, Bikewale.Utility.BWConfiguration.Instance.StaticPluginFileVersion)"></script>
-    <script defer type="text/javascript" src="@String.Format("{0}/src/common.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion)"></script>
+    <script defer type="text/javascript" src="@String.Format("{0}/UI/src/Plugins.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, Bikewale.Utility.BWConfiguration.Instance.StaticPluginFileVersion)"></script>
+    <script defer type="text/javascript" src="@String.Format("{0}/UI/src/cwTracking.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, Bikewale.Utility.BWConfiguration.Instance.StaticPluginFileVersion)"></script>
+    <script defer type="text/javascript" src="@String.Format("{0}/UI/src/common.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion)"></script>
     @if (Model.AdSlots != null)
     {
-    <script defer type="text/javascript" src="@String.Format("{0}/src/lazyloadad.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, Bikewale.Utility.BWConfiguration.Instance.StaticPluginFileVersion)"></script>
+    <script defer type="text/javascript" src="@String.Format("{0}/UI/src/lazyloadad.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, Bikewale.Utility.BWConfiguration.Instance.StaticPluginFileVersion)"></script>
     }
     @if (!String.IsNullOrEmpty(Model.Page_JS_Path))
     {

@@ -7,8 +7,8 @@
     isAd300x250BTFShown = false;
 %>
 
-<!-- #include file="/includes/headSell.aspx" -->
-<script type="text/javascript" src="<%= staticUrl  %>/src/classified/sellbike.js?1.1"></script>
+<!-- #include file="/UI/includes/headSell.aspx" -->
+<script type="text/javascript" src="<%= staticUrl  %>/UI/src/classified/sellbike.js?1.1"></script>
 <div class="container_12 margin-top20">    
     <div class="grid_8 min-height"><!--    Left Container starts here -->
         <h1>One-time Mobile Verification</h1>
@@ -33,4 +33,4 @@
 <style type="text/css">
     #txtVerificationCode { height:40px; }
 </style>
-<!--    #include file="/includes/footerInner.aspx" -->
+<!--    #include file="/UI/includes/footerInner.aspx" -->

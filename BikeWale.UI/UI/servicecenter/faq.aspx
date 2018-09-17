@@ -16,7 +16,7 @@
         isAd300x250Shown = false;
         isAd300x250BTFShown = false;
     %>
-    <!-- #include file="/includes/headscript.aspx" -->
+    <!-- #include file="/UI/includes/headscript.aspx" -->
     <style type="text/css">
     .faq-top-banner { background:#746d62 url(https://imgd.aeplcdn.com/0x0/bw/static/landing-banners/d/d-faqs-banner.jpg) no-repeat center top; background-size: cover; height: 285px; padding-top: 1px; }
     .faq-content h3 { margin-bottom:15px; padding:0 20px 15px; border-bottom:1px solid #ccc; }
@@ -27,7 +27,7 @@
 </head>
 <body class="bg-light-grey">
     <form runat="server">
-        <!-- #include file="/includes/headBW.aspx" -->
+        <!-- #include file="/UI/includes/headBW.aspx" -->
         <div class="clear"></div>
 
         <header class="faq-top-banner " >    	
@@ -77,8 +77,8 @@
             </div>
         </section>
 
-        <!-- #include file="/includes/footerBW.aspx" -->
-        <!-- #include file="/includes/footerscript.aspx" -->
+        <!-- #include file="/UI/includes/footerBW.aspx" -->
+        <!-- #include file="/UI/includes/footerscript.aspx" -->
         <script type="text/javascript">
             $(window).on("scroll", function () {
                 if ($(window).scrollTop() > 40)

@@ -99,7 +99,7 @@ namespace Bikewale.Controllers
                 model.BikeInfoTabCount = 4;
                 model.NearestCityCount = 9;
                 model.TopCount = 3;
-                model.PQSource = PQSourceEnum.Desktop_PriceInCity_Dealer_Detail_Click;
+                model.PQSource = PQSourceEnum.Desktop_PriceInCity;
                 model.Platform = DTO.PriceQuote.PQSources.Desktop;
                 model.LeadSource = Entities.BikeBooking.LeadSourceEnum.DPQ_Desktop;
                 model.ManufacturerCampaignPageId = ManufacturerCampaign.Entities.ManufacturerCampaignServingPages.Desktop_PriceInCity;
@@ -147,7 +147,7 @@ namespace Bikewale.Controllers
                 model.NearestCityCount = 8;
                 model.IsMobile = true;
                 model.TopCount = 9;
-                model.PQSource = PQSourceEnum.Mobile_PriceInCity_Dealer_Detail_Click;
+                model.PQSource = PQSourceEnum.Mobile_PriceInCity;
                 model.Platform = DTO.PriceQuote.PQSources.Mobile;
                 model.LeadSource = Entities.BikeBooking.LeadSourceEnum.DPQ_Mobile;
                 model.ManufacturerCampaignPageId = ManufacturerCampaign.Entities.ManufacturerCampaignServingPages.Mobile_PriceInCity;
@@ -193,7 +193,7 @@ namespace Bikewale.Controllers
                 model.NearestCityCount = 8;
                 model.TopCount = 9;
                 model.PQSource = PQSourceEnum.Mobile_PriceInCity_Dealer_Detail_Click;
-                model.Platform = DTO.PriceQuote.PQSources.Mobile;
+                model.Platform = DTO.PriceQuote.PQSources.Amp;
                 model.LeadSource = Entities.BikeBooking.LeadSourceEnum.DPQ_Mobile;
                 model.ManufacturerCampaignPageId = ManufacturerCampaign.Entities.ManufacturerCampaignServingPages.Mobile_PriceInCity;
                 model.CurrentPageUrl = Request.RawUrl.Substring(0, Request.RawUrl.LastIndexOf("amp/"));

@@ -1,0 +1,107 @@
+﻿@model Bikewale.Models.BikeModels.ModelPageVM
+@using Bikewale.Entities.BikeBooking
+
+@if (Model.IsShowPriceTab)
+{
+    <div id="pricesContent" data-id="pricesContent" class="content-box-shadow card-bottom-margin padding-top15 content-details-wrapper bw-model-tabs-data">
+        <h2 class="padding-right20 padding-left20">@Model.BikeName Price</h2>
+        <table id="versionPriceTable" class="version-price-table padding-right20 padding-left20">
+            <thead>
+                <tr>
+                    <th>Variant</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var version in Model.ModelPageEntity.ModelVersions)
+                {
+                    <tr>
+                        <td>
+                            <p class="version-price__title">@version.ModelName&nbsp;@version.VersionName</p>
+                            <p class="version-price__spec">@((version.MinSpecsList != null) ? Bikewale.Utility.FormatMinSpecs.GetCommaSepratedGeneralSpecs(version.MinSpecsList.Take(2)) : "")</p>
+                        </td>
+                        <td>
+                            <p>
+                                <span class="font16">&#x20B9;</span>
+                                <span id="priced_@version.VersionId" class="version-price__amount">
+                                    <span>@(version.Price > 0 ? Bikewale.Utility.Format.FormatPrice(version.Price.ToString()) : Bikewale.Utility.Format.FormatPrice(version.AverageExShowroom.ToString()))</span>
+                                </span>
+                            </p>
+                           
+
+                            @if (!Model.IsDiscontinuedBike)
+                            {
+                                if (!Model.IsLocationSelected && Model.IsManufacturerLeadAdShown && !(Model.LeadCampaign.DealerId == Bikewale.Utility.BWConfiguration.Instance.CapitalFirstDealerId || Model.LeadCampaign.DealerId == Bikewale.Utility.BWConfiguration.Instance.BajajAutoFinanceDealerId))
+                                {
+                                    <p class="version-price__link">
+                                        <a href="javascript:void(0)" class="leadcapturebtn bw-ga" data-versionid="@version.VersionId" data-mfgcampid="@Model.LeadCampaign.CampaignId" data-item-id="@Model.LeadCampaign.DealerId" data-item-area="@Model.LeadCampaign.Area" data-leadsourceid="@Convert.ToInt16(LeadSourceEnum.ModelPage_VersionPriceList_Mobile)" data-pqsourceid="@Model.LeadCampaign.PqSourceId" data-item-message="@String.Format(Model.LeadCampaign.PopupSuccessMessage, Model.LeadCampaign.Organization)" data-item-heading="@Model.LeadCampaign.PopupHeading" data-item-description="@Model.LeadCampaign.PopupDescription" data-ispincodrequired="@Model.LeadCampaign.PincodeRequired" data-dealersrequired="@Model.LeadCampaign.DealerRequired" data-item-name="@Model.BikeName" data-isemailrequired="@Model.LeadCampaign.EmailRequired" data-organization="@Model.LeadCampaign.Organization" data-item-organization="@Model.LeadCampaign.Organization" data-issendleadsmscustomer="@Model.LeadCampaign.SendLeadSMSCustomer">Get Offers</a>
+                                    </p>
+                                }
+                                else if ((!Model.IsLocationSelected || Model.ShowOnRoadButton) && (Model.BikePrice > 0 || (Model.SelectedVersion != null && Model.SelectedVersion.AverageExShowroom > 0)) && !Model.IsManufacturerTopLeadAdShown)
+                                {
+                                    <p class="version-price__link">
+                                        <a href="javascript:void(0)" data-reload="true" data-persistent="true" data-modelid="@Model.ModelId" data-versionid="@version.VersionId" style="width: 100%" class="getquotation">Check on-road price</a>
+                                    </p>
+                                }
+                                else if (Model.IsDealerDetailsExists)
+                                {
+                                    <p class="version-price__link">
+                                        <a class="leadcapturebtn" href="javascript:void(0);" data-versionid="@version.VersionId" data-leadsourceid=@Convert.ToInt16(LeadSourceEnum.ModelPage_VersionPriceList_Mobile) data-campaignid="@Model.DealerDetails.CampaignId" data-item-id="@Model.DealerDetails.DealerId" data-item-name="@Model.DealerDetails.Organization" data-item-area="@Model.DealerArea">Get offers</a>
+                                    </p>
+                                }
+                                else if (Model.LeadCapture != null && Model.LeadCampaign != null && Model.LeadCapture.IsManufacturerCampaign && Model.LeadCampaign.DealerId != Bikewale.Utility.BWConfiguration.Instance.CapitalFirstDealerId && Model.LeadCampaign.DealerId != Bikewale.Utility.BWConfiguration.Instance.BajajAutoFinanceDealerId)
+                                {
+                                    <p class="version-price__link">
+                                        <a data-mfgcampid="@Model.LeadCampaign.CampaignId" data-versionid="@version.VersionId" data-item-id="@Model.LeadCampaign.DealerId" data-item-area="@Model.LeadCampaign.Area" data-leadsourceid="@Convert.ToInt16(LeadSourceEnum.ModelPage_VersionPriceList_Mobile)" data-campaignid="@Model.LeadCampaign.CampaignId" data-pqsourceid="@Model.LeadCampaign.PqSourceId" data-item-message="@String.Format(Model.LeadCampaign.PopupSuccessMessage, Model.LeadCampaign.Organization)" data-item-heading="@Model.LeadCampaign.PopupHeading" data-item-description="@Model.LeadCampaign.PopupDescription" data-ispincodrequired="@Model.LeadCampaign.PincodeRequired" data-dealersrequired="@Model.LeadCampaign.DealerRequired" data-item-name="@(String.Format(Model.LeadCampaign.LeadsButtonTextMobile, Model.LeadCampaign.Organization))" data-isemailrequired="@Model.LeadCampaign.EmailRequired" data-issendleadsmscustomer="@Model.LeadCampaign.SendLeadSMSCustomer" data-item-organization="@Model.LeadCampaign.Organization" class="leadcapturebtn">Get Offers</a>
+                                    </p>
+                                }    
+                            }    
+                                                              
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        @if (!Model.ModelPageEntity.ModelVersions.Any(x => x.Price == 0))
+        {
+            <div class="font12 text-x-light padding-right20 padding-left20 margin-bottom20 padding-top5">Above mentioned prices are @(Model.IsDiscontinuedBike ? "Last known " : "")@(Model.IsLocationSelected && !Model.ShowOnRoadButton ? "On-road price" : (Model.LocationCookie.CityId > 0 && !Model.IsLocationSelected ? "On-road price" : "Ex-showroom")),&nbsp;@(!String.IsNullOrEmpty(Model.LocationCookie.City) ? Model.LocationCookie.City : Bikewale.Utility.BWConfiguration.Instance.DefaultName)</div>
+        }
+        else
+        {
+            <div class="font12 text-x-light padding-right20 padding-left20 margin-bottom20 padding-top5">Above mentioned prices are Avg. Ex-showroom.</div>
+        }
+        @if (Model.IsPriceInTopCitiesAvailable)
+        {
+            var priceQuotesCities = Model.PriceInTopCities.PriceQuoteList;
+            Model.PriceInTopCities.PriceQuoteList = priceQuotesCities.Take(4);
+            <div id="prices-top-cities">
+                @if (Model.LocationCookie != null && Model.LocationCookie.City != null)
+                {
+                    <h3 class="padding-top15 padding-right20 padding-left20 margin-bottom20">On-road prices in cities near @Model.LocationCookie.City</h3>
+                }
+                else
+                {
+                    <h3 class="padding-top15 padding-right20 padding-left20 margin-bottom20">Price by cities<span class="text-light-grey text-unbold"> (@(Model.IsLocationSelected && !Model.ShowOnRoadButton && Model.IsNewBike ? "On-road price" : "Ex-showroom price"))</span></h3>
+                }
+                <ul class="PriceInTopCity">
+                    @Html.Partial("~/Views/PriceInCity/_PriceInTopCities_Mobile.cshtml", Model.PriceInTopCities)
+                </ul>
+            </div>
+
+            <ul id="more-cities-list" class="PriceInTopCity hide">
+                @{Model.PriceInTopCities.PriceQuoteList = priceQuotesCities.Skip(4);}
+                @Html.Partial("~/Views/PriceInCity/_PriceInTopCities_Mobile.cshtml", Model.PriceInTopCities)
+            </ul>
+
+                    if (priceQuotesCities != null && priceQuotesCities.Count() > 4)
+                    {
+                        <div class="padding-top10 padding-right20 padding-left20 padding-bottom5">
+                            <a href="javascript:void(0)" class="view-cities-link position-rel block font14" title="" rel="nofollow">View more cities</a>
+                        </div>
+                        }
+                    }
+        <div class="font14 text-light-grey line-height16 padding-bottom20 padding-right20 padding-left20">
+            @Html.Raw(Model.VersionPriceListSummary)
+        </div>
+    </div>
+                    }

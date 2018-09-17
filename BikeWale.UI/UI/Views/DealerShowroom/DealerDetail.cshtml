@@ -1,9 +1,10 @@
 ﻿@model Bikewale.Models.DealerShowroomDealerDetailsVM
-
+@using Bikewale.Entities.BikeBooking;
 @{
-    Layout = "~/Views/Shared/_Layout.cshtml";
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/dealer/details.css' inline />";
-    Model.Page_JS_Path = "/src/dealer/details.js";
+    Layout = "~/UI/Views/Shared/_Layout.cshtml";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/UI/css/dealer/details.css' inline />";
+    Model.Page_BTF_CSS_Paths = new string[] {"/UI/sass/partials/lead-popup.css"};
+    Model.Page_JS_Path = "/UI/src/dealer/details.js";
     Model.AdTags.AdId = "1395986297721";
     Model.AdTags.AdPath = "/1017752/BikeWale_New_";
     Model.AdTags.Ad_970x90 = true;
@@ -157,7 +158,7 @@
                         </div>
                     </div>
                     <div class="type-sumit-button">
-                        <input type="button" id="dealer-assist-btn" data-isregisterpq="true" data-item-name="@Model.DealerDetails.DealerDetails.Name" data-item-area="@((Model.DealerDetails.DealerDetails.objArea!=null)? Model.DealerDetails.DealerDetails.objArea.AreaName : "")" data-leadsourceid="14" class="btn btn-orange margin-bottom5 " data-isleadpopup="false" data-pqsourceid="@Convert.ToInt32(Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_dealer_details_Get_offers)"
+                        <input type="button" id="dealer-assist-btn" data-isregisterpq="true" data-item-name="@Model.DealerDetails.DealerDetails.Name" data-item-area="@((Model.DealerDetails.DealerDetails.objArea!=null)? Model.DealerDetails.DealerDetails.objArea.AreaName : "")" data-leadsourceid=@Convert.ToInt16(LeadSourceEnum.DealersShowroomDetail_TopCard_Desktop) class="btn btn-orange margin-bottom5 " data-isleadpopup="false" data-campaignid="@Model.DealerDetails.DealerDetails.CampaignId" data-pqsourceid="@Convert.ToInt32(Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_dealer_details_Get_offers)"
                                data-item-id="@Model.DealerDetails.DealerDetails.DealerId" data-cityname="@Model.CityDetails.CityName" data-eventcategory="Dealer_Locator_Detail" data-bind="click: function (d, e) { validateBikeData(); validateUserLeadDetails(); HiddenSubmitLead(d, e) }" value="@Model.DealerDetails.DealerDetails.DisplayTextSmall" />
                     </div>
                     <p>By proceeding ahead, you agree to BikeWale <a title="Visitor agreement" href="/visitoragreement.aspx" target="_blank" rel="noopener">visitor agreement</a> and <a title="Privacy policy" href="/privacypolicy.aspx" target="_blank" rel="noopener">privacy policy</a>.</p>
@@ -240,7 +241,7 @@
                             </div>
                             <div class="clear"></div>
                         </div>
-                        @Html.Partial("~/Views/DealerShowroom/_DealerCard.cshtml", Model.DealersList)
+                        @Html.Partial("~/UI/Views/DealerShowroom/_DealerCard.cshtml", Model.DealersList)
                     </div>
                 </div>
             </div>
@@ -263,7 +264,7 @@
                         </div>
                         <div class="clear"></div>
                     </div>
-                    @Html.Partial("~/Views/BikeModels/_MostPopularBikes.cshtml", Model.PopularBikes)
+                    @Html.Partial("~/UI/Views/BikeModels/_MostPopularBikes.cshtml", Model.PopularBikes)
                 </div>
             </div>
         </div>
@@ -283,7 +284,7 @@
                     </div>
                     <div class="clear"></div>
                 </div>
-                @Html.Partial("~/Views/ServiceCenters/_ServiceCentersCard.cshtml", Model.ServiceCenterDetails)
+                @Html.Partial("~/UI/Views/ServiceCenters/_ServiceCentersCard.cshtml", Model.ServiceCenterDetails)
                 <div class="clear"></div>
             </div>
         </div>
@@ -293,7 +294,7 @@
 }
 @if (Model.LeadCapture != null)
 {
-    @Html.Partial("~/Views/Shared/_LeadCapture.cshtml", Model.LeadCapture)
+    @Html.Partial("~/UI/Views/Shared/_LeadCapture.cshtml", Model.LeadCapture)
 }
 <section>
     <div class="container margin-top10 margin-bottom30">

@@ -19,6 +19,8 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Net.Http;
+using System.Web;
+
 namespace Bikewale.BAL.PriceQuote
 {
     /// <summary>
@@ -172,6 +174,8 @@ namespace Bikewale.BAL.PriceQuote
         /// Summary     : Added function to check if mobile number is authentic before notifying dealer
         /// Modified by : Pratibha Verma on 27 April 2018
         /// Description : Added additional commumication parameters
+        /// Modified by : Pratibha Verma on 30 July 2018
+        /// Description : Add HttpContext URL to call SMSToDealer method
         /// </summary>
         /// <param name="pqId"></param>
         /// <param name="makeName"></param>
@@ -199,7 +203,7 @@ namespace Bikewale.BAL.PriceQuote
                 if (!IsFakeMobileNumber(customerMobile) && pqId > 0)
                 {
                     SendEmailSMSToDealerCustomer.SendEmailToDealer(makeName, modelName, versionName, dealerName, dealerEmail, customerName, customerEmail, customerMobile, areaName, cityName, priceList, totalPrice, offerList, imagePath, additionalEmails);
-                    SendEmailSMSToDealerCustomer.SMSToDealer(dealerMobile, customerName, customerMobile, bikeName, areaName, cityName, dealerArea, additionalNumbers);
+                    SendEmailSMSToDealerCustomer.SMSToDealer(dealerMobile, customerName, customerMobile, bikeName, areaName, cityName, dealerArea, additionalNumbers, HttpContext.Current.Request.ServerVariables["URL"].ToString());
                 }
             }
             catch (Exception ex)
@@ -211,6 +215,8 @@ namespace Bikewale.BAL.PriceQuote
         /// <summary>
         /// Created by  : Pratibha Verma on 26 June 2018
         /// Description : changes PQId data type
+        /// Modified by : Pratibha Verma on 30 July 2018
+        /// Description : Add HttpContext URL to call SMSToDealer method
         /// </summary>
         /// <param name="pqId"></param>
         /// <param name="makeName"></param>
@@ -239,7 +245,7 @@ namespace Bikewale.BAL.PriceQuote
                 if (!IsFakeMobileNumber(customerMobile) && !String.IsNullOrEmpty(pqId))
                 {
                     SendEmailSMSToDealerCustomer.SendEmailToDealer(makeName, modelName, versionName, dealerName, dealerEmail, customerName, customerEmail, customerMobile, areaName, cityName, priceList, totalPrice, offerList, imagePath, additionalEmails);
-                    SendEmailSMSToDealerCustomer.SMSToDealer(dealerMobile, customerName, customerMobile, bikeName, areaName, cityName, dealerArea, additionalNumbers);
+                    SendEmailSMSToDealerCustomer.SMSToDealer(dealerMobile, customerName, customerMobile, bikeName, areaName, cityName, dealerArea, additionalNumbers, HttpContext.Current.Request.ServerVariables["URL"].ToString());
                 }
             }
             catch (Exception ex)

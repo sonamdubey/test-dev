@@ -2,7 +2,7 @@
     string fontFile = "";
     string fontUrl = "";	
 </script>
-<%     fontFile = "/css/fonts/OpenSans/open-sans-v15-latin-regular.woff";
+<%     fontFile = "/UI/css/fonts/OpenSans/open-sans-v15-latin-regular.woff";
        fontUrl = String.Format("{0}{1}?{2}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, fontFile, Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion);
 %>
 <style>
@@ -14,7 +14,7 @@
     }
 
 </style>
-<%     fontFile = "/css/fonts/OpenSans/open-sans-v15-latin-600.woff"; %>
+<%     fontFile = "/UI/css/fonts/OpenSans/open-sans-v15-latin-600.woff"; %>
 <%      fontUrl = String.Format("{0}{1}?{2}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, fontFile, Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion); %>
 <style>
      @font-face { 
@@ -24,7 +24,7 @@
         src: local('Open Sans SemiBold'), local('OpenSans-SemiBold'), url('<%=fontUrl%>') format('woff');
      }
 </style>
-<%     fontFile = "/css/fonts/OpenSans/open-sans-v15-latin-700.woff"; %>
+<%     fontFile = "/UI/css/fonts/OpenSans/open-sans-v15-latin-700.woff"; %>
 <%       fontUrl = String.Format("{0}{1}?{2}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, fontFile, Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion); %>
 <style>
      @@font-face { 

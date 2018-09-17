@@ -9,6 +9,8 @@ namespace Bikewale.Entities.Dealer
     /// Description :   Removed the private variable and kept only public properties
     /// Modifier    : Kartik rathod on 15 may 2018 , added dealername and bikename,SendLeadSMSCustomer
     /// Modifier    :  Kartik on 20 jun 2018 for price quote changes added PQGuId
+    /// Modified By :   Prabhu Puredla on 16 aug 2018
+    /// Description :   Added ModelId property 
     /// </summary>
     public class ManufacturerLeadEntity
     {
@@ -71,6 +73,18 @@ namespace Bikewale.Entities.Dealer
 
         [JsonProperty("pqguid")]
         public string PQGUId{ get; set; }
+        
+        [JsonProperty("platformId")]
+        public string PlatformId { get; set; }
+
+        [JsonProperty("pageId")]
+        public ushort? PageId { get; set; }
+
+        [JsonProperty("modelId")]
+        public uint ModelId { set; get; }
+
+        [JsonProperty("modelName")]
+        public string ModelName { set; get; }
     }
 
     /// <summary>

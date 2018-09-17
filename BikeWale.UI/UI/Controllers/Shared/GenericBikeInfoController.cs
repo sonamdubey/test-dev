@@ -40,7 +40,7 @@ namespace Bikewale.Controllers.Shared
                 BikeInfoWidget model = new BikeInfoWidget(_bikeInfo, _city, bikeInfo.ModelId, bikeInfo.CityId, totalTabs, bikeInfo.PageId);
                 objVM = model.GetData();
             }
-            return PartialView("~/views/BikeModels/_BikeInfoCard.cshtml", objVM);
+            return PartialView("~/UI/views/BikeModels/_BikeInfoCard.cshtml", objVM);
         }
     }
 }

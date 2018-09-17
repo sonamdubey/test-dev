@@ -1704,7 +1704,9 @@ html {
   width: 100%;
   padding-top: 25px;
   text-align: center;
-  font-size: 0; }
+  font-size: 0;
+  padding-right: 10px;
+  padding-left: 10px; }
   .view-breakup-container svg {
     transform-origin: 50% 50%;
     display: inline-block;
@@ -1714,7 +1716,8 @@ html {
   text-align: left;
   display: inline-block;
   vertical-align: middle;
-  padding-right: 15px; }
+  padding-right: 15px;
+  width: 50%; }
 
 .pie-breakup_unit {
   padding-bottom: 15px; }
@@ -1732,8 +1735,13 @@ html {
   display: inline-block;
   vertical-align: middle;
   position: relative;
-  width: 140px;
+  width: 50%;
   text-align: center; }
+
+.pie-graph-container {
+  display: inline-block;
+  width: 159px;
+  padding-bottom: 15px; }
 
 .pie-graph__total-payment {
   position: absolute;
@@ -1764,6 +1772,8 @@ html {
   .pie-breakup_bullet.pie-breakup_bullet-interest {
     background-color: #f45944; }
   .pie-breakup_bullet.pie-breakup_bullet-loan {
+    background-color: #c3c3c3; }
+  .pie-breakup_bullet.pie-breakup_bullet-downpayment {
     background-color: #fed1cd; }
 
 .pie-breakup__bullet-tenure {

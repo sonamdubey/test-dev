@@ -1,9 +1,9 @@
 ﻿@model Bikewale.Models.Finance.CapitalFirstVM
 @{
-    Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/finance/capital-first.css' /> <link rel='stylesheet' type='text/css' href='/css/zebra-datepicker.css' />";
-    Model.Page_JS_Path = "/src/finance/capital-first.js";
-    Model.Page_BTF_CSS_Path = "/css/zebra-datepicker.css";
+	Layout = "~/UI/Views/Shared/_Layout_Mobile.cshtml";
+	Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/UI/m/css/finance/common.css' /> <link rel='stylesheet' type='text/css' href='/UI/css/zebra-datepicker.css' />";
+    Model.Page_JS_Path = "/UI/src/finance/capital-first.js";
+    Model.Page_BTF_CSS_Path = "/UI/css/zebra-datepicker.css";
     Model.PageMetaTags.Title = "Get Instant Two Wheeler Loan Approval";
     Model.PageMetaTags.Description = "Owning a bike was never this easy. Apply for a bike loan and get instant online approval for a two wheeler loan. Apply Now!";
 }
@@ -155,7 +155,7 @@
 <input type="hidden" id="loanAmount" value="@Model.LoanAmount" />
 
 
-@Html.Partial("~/Views/Shared/_otpScreen_Mobile.cshtml")
+@Html.Partial("~/UI/Views/Shared/_otpScreen_Mobile.cshtml")
 @if (Model.PlatformId == 3)
 {
     <script type="text/javascript">

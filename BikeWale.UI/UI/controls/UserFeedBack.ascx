@@ -2,7 +2,7 @@
 <%@ Import Namespace="Bikewale.Common" %>
 <script type="text/javascript" src="/ajax/common.ashx"></script>
 <script type="text/javascript" src="/ajax/Vspl.Common.AjaxFunctions,Carwale.Common.ashx"></script>
-<script type="text/javascript" language="javascript" src="/src/AjaxFunctions.js?v=1.0"></script>
+<script type="text/javascript" language="javascript" src="/UI/src/AjaxFunctions.js?v=1.0"></script>
 <div id="divFeedback">
 	<h2 class="greyboxtitle">Feedback</h2>
 	<p>What is your opinion about this  page?</p>

@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Generic.BikeListing" %>
-<%@ Register Src="~/controls/BestBikes.ascx" TagName="BestBikes" TagPrefix="BW" %>
+<%@ Register Src="~/UI/controls/BestBikes.ascx" TagName="BestBikes" TagPrefix="BW" %>
 <%@ Import Namespace="System.Linq" %>
 <%@ Import Namespace="Bikewale.Utility" %>
 <%@ Import Namespace="Bikewale.Entities.GenericBikes" %>
@@ -23,15 +23,15 @@
         isAd970x90BottomShown = false;
             
     %>
-    <!-- #include file="/includes/headscript_desktop_min.aspx" -->
-    <link rel="stylesheet" type="text/css" href="/sass/generic/listing.css" />
+    <!-- #include file="/UI/includes/headscript_desktop_min.aspx" -->
+    <link rel="stylesheet" type="text/css" href="/UI/sass/generic/listing.css" />
     <script type="text/javascript">
-        <!-- #include file="\includes\gacode_desktop.aspx" -->
+        <!-- #include file="\UI\includes\gacode_desktop.aspx" -->
     </script>
 </head>
 <body>
     <form id="form1" runat="server">
-        <!-- #include file="/includes/headBW.aspx" -->
+        <!-- #include file="/UI/includes/headBW.aspx" -->
 
         <% 
             switch (ctrlBestBikes.CurrentPage.Value)
@@ -255,13 +255,13 @@
             </div>
         </section>
 
-        <script type="text/javascript" src="<%= staticUrl  %>/src/frameworks.js?<%=staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl  %>/UI/src/frameworks.js?<%=staticFileVersion %>"></script>
 
-        <!-- #include file="/includes/footerBW.aspx" -->
+        <!-- #include file="/UI/includes/footerBW.aspx" -->
         
-        <link href="<%= staticUrl  %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
-        <!-- #include file="/includes/footerscript.aspx" -->
-        <!-- #include file="/includes/fontBW.aspx" -->
+        <link href="<%= staticUrl  %>/UI/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
+        <!-- #include file="/UI/includes/footerscript.aspx" -->
+        <!-- #include file="/UI/includes/fontBW.aspx" -->
 
         <script type="text/javascript">
 

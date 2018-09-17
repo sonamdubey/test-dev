@@ -347,6 +347,8 @@ namespace Bikewale.Models
         /// Description : Removed Images load with Ajax for honda and hero.
         /// Modified By : Deepak Israni on 19 Feb 2018
         /// Description : Sending isNew flag with GetVersionMinSpecs instead of the hardcoded true value.
+        /// Modified by : Monika korrapati on 01 Aug 2018
+        /// Description : Filtered BikeVersionPrices based on ExShowroomPrice.
         /// </summary>
         /// <returns></returns>
         public PriceInCityPageVM GetData()
@@ -362,92 +364,103 @@ namespace Bikewale.Models
                     objVM.BikeVersionPrices = _objPQ.GetVersionPricesByModelId(modelId, cityId, out hasAreaAvailable);
                     if (objVM.BikeVersionPrices != null && objVM.BikeVersionPrices.Any())
                     {
-                        firstVersion = objVM.BikeVersionPrices.OrderByDescending(m => m.IsVersionNew).OrderBy(v => v.ExShowroomPrice).FirstOrDefault();
-                        objVM.IsNew = isNew = firstVersion.IsModelNew;
-                        var newVersions = objVM.BikeVersionPrices.Where(x => x.IsVersionNew);
-                        if (objVM.IsNew && newVersions != null && newVersions.Any())
+                        IEnumerable<BikeQuotationEntity> priceAvailableVersions = objVM.BikeVersionPrices.Where(r => r.ExShowroomPrice > 0).ToList();
+                        if (priceAvailableVersions != null && priceAvailableVersions.Any())
                         {
-                            objVM.BikeVersionPrices = newVersions;
-                        }
-                        versionCount = (uint)objVM.BikeVersionPrices.Count();
-                        objVM.VersionSpecs = _version.GetVersionMinSpecs(modelId, objVM.IsNew);
-                        if (objVM.VersionSpecs != null)
-                        {
-                            var objMin = objVM.VersionSpecs.FirstOrDefault(x => x.VersionId == firstVersion.VersionId);
-                            if (objMin != null)
+                            objVM.BikeVersionPrices = priceAvailableVersions;
+                            firstVersion = objVM.BikeVersionPrices.OrderByDescending(m => m.IsVersionNew).OrderBy(v => v.ExShowroomPrice).FirstOrDefault();
+                            objVM.IsNew = isNew = firstVersion.IsModelNew;
+                            var newVersions = objVM.BikeVersionPrices.Where(x => x.IsVersionNew);
+                            if (objVM.IsNew && newVersions != null && newVersions.Any())
                             {
-                                objVM.MinSpecsList = objMin.MinSpecsList;
-                                // Set body style
-                                objVM.BodyStyle = objMin.BodyStyle;
+                                objVM.BikeVersionPrices = newVersions;
                             }
-                            else
+                            versionCount = (uint)objVM.BikeVersionPrices.Count();
+                            objVM.VersionSpecs = _version.GetVersionMinSpecs(modelId, objVM.IsNew);
+                            if (objVM.VersionSpecs != null)
                             {
-                                var firstVersionSpec = objVM.VersionSpecs.FirstOrDefault();
-                                if (firstVersionSpec != null)
+                                var objMin = objVM.VersionSpecs.FirstOrDefault(x => x.VersionId == firstVersion.VersionId);
+                                if (objMin != null)
                                 {
-                                    objVM.BodyStyle = objVM.VersionSpecs.FirstOrDefault().BodyStyle;
-
+                                    objVM.MinSpecsList = objMin.MinSpecsList;
+                                    // Set body style
+                                    objVM.BodyStyle = objMin.BodyStyle;
                                 }
-                            }
-
-                            if (!objVM.IsDiscontinued)
-                            {
-                                foreach (var version in objVM.VersionSpecs)
+                                else
                                 {
-                                    var versionPrice = objVM.BikeVersionPrices.FirstOrDefault(m => m.VersionId == version.VersionId);
-                                    if (versionPrice != null)
+                                    var firstVersionSpec = objVM.VersionSpecs.FirstOrDefault();
+                                    if (firstVersionSpec != null)
                                     {
-                                        version.Price = versionPrice.OnRoadPrice;
+                                        objVM.BodyStyle = objVM.VersionSpecs.FirstOrDefault().BodyStyle;
+
                                     }
                                 }
-                            }
 
-                            objVM.BodyStyleText = objVM.BodyStyle == EnumBikeBodyStyles.Scooter ? "Scooters" : "Bikes";
-                        }
-
-                        BindBikeBasicDetails(objVM);
-                        BindServiceCenters(objVM);
-                        BindSimilarBikes(objVM);
-                        BindBikeInfoRank(objVM);
-
-                        if (objVM.IsNew)
-                        {
-                            BindPriceInNearestCities(objVM);
-                            BindPriceInTopCities(objVM);
-                            if (objVM.CookieCityEntity != null)
-                            {
-                                Entities.BikeBooking.v2.PQOutputEntity pQOutput = GetDealerPriceQuote(objVM);
-                                if (objVM.CookieCityEntity.HasAreas && areaId == 0)
+                                if (!objVM.IsDiscontinued)
                                 {
-                                    objVM.IsAreaAvailable = true;
+                                    foreach (var version in objVM.VersionSpecs)
+                                    {
+                                        var versionPrice = objVM.BikeVersionPrices.FirstOrDefault(m => m.VersionId == version.VersionId);
+                                        if (versionPrice != null)
+                                        {
+                                            version.Price = versionPrice.OnRoadPrice;
+                                        }
+                                        else
+                                        {
+                                            version.Price = 0;
+                                        }
+                                    }
                                 }
-                                GetManufacturerCampaign(objVM, pQOutput);
-                                objVM.LeadCapture = new LeadCaptureEntity()
-                                {
-                                    ModelId = modelId,
-                                    CityId = cityId,
-                                    AreaId = areaId,
-                                    Area = area,
-                                    City = city,
-                                    Location = String.Format("{0} {1}", area, city),
-                                    BikeName = objVM.BikeName
-                                };
+
+                                objVM.BodyStyleText = objVM.BodyStyle == EnumBikeBodyStyles.Scooter ? "Scooters" : "Bikes";
                             }
+
+                            BindBikeBasicDetails(objVM);
+                            BindServiceCenters(objVM);
+                            BindSimilarBikes(objVM);
+                            BindBikeInfoRank(objVM);
+
+                            if (objVM.IsNew)
+                            {
+                                BindPriceInNearestCities(objVM);
+                                BindPriceInTopCities(objVM);
+                                if (objVM.CookieCityEntity != null)
+                                {
+                                    Entities.BikeBooking.v2.PQOutputEntity pQOutput = GetDealerPriceQuote(objVM);
+                                    if (objVM.CookieCityEntity.HasAreas && areaId == 0)
+                                    {
+                                        objVM.IsAreaAvailable = true;
+                                    }
+                                    GetManufacturerCampaign(objVM, pQOutput);
+                                    objVM.LeadCapture = new LeadCaptureEntity()
+                                    {
+                                        ModelId = modelId,
+                                        CityId = cityId,
+                                        AreaId = areaId,
+                                        Area = area,
+                                        City = city,
+                                        Location = String.Format("{0} {1}", area, city),
+                                    BikeName = objVM.BikeName,
+                                    PlatformId = Convert.ToUInt16(Platform),
+                                    PageId = Convert.ToUInt16(PQSource)
+                                    };
+                                }
+                            }
+
+                            BindDealersWidget(objVM);
+
+                            var objModelColours = _modelCache.GetModelColor(Convert.ToInt16(modelId));
+                            colorCount = (uint)(objModelColours != null ? objModelColours.Count() : 0);
+
+                            objVM.PageDescription = PageDescription();
+                            objVM.IsAreaSelected = isAreaSelected;
+                            objVM.IsAreaAvailable = hasAreaAvailable;
+                            objVM.Page_H1 = String.Format("{0} price in {1}", objVM.BikeName, objVM.CityEntity.CityName);
+
+                            objVM.CookieCityArea = String.Format("{0} {1}", locationCookie.City, locationCookie.Area);
+                            BuildPageMetas(objVM);
+                            ShowInnovationBanner(objVM, modelId);
                         }
-
-                        BindDealersWidget(objVM);
-
-                        var objModelColours = _modelCache.GetModelColor(Convert.ToInt16(modelId));
-                        colorCount = (uint)(objModelColours != null ? objModelColours.Count() : 0);
-
-                        objVM.PageDescription = PageDescription();
-                        objVM.IsAreaSelected = isAreaSelected;
-                        objVM.IsAreaAvailable = hasAreaAvailable;
-                        objVM.Page_H1 = String.Format("{0} price in {1}", objVM.BikeName, objVM.CityEntity.CityName);
-
-                        objVM.CookieCityArea = String.Format("{0} {1}", locationCookie.City, locationCookie.Area);
-                        BuildPageMetas(objVM);
-                        ShowInnovationBanner(objVM, modelId);
                     }
                     else
                     {
@@ -608,8 +621,12 @@ namespace Bikewale.Models
         /// Description : Added call to BindAmpJsTags.
         /// Modified by : Ashutosh Sharma on 11 Dec 2017
         /// Description : Added IsNew check for GetManufacturerCampaign and BindManufacturerLeadAdAMP
-        /// Modified by : Deepak Israni on 20 Dec 2018
+        /// Modified by : Deepak Israni on 20 Feb 2018
         /// Description : Fixed call to GetVersionMinSpecs.
+        /// Modified by : Monika korrapati on 01 Aug 2018
+        /// Description : Filtered BikeVersionPrices based on ExShowroomPrice.
+        /// Modified By : Deepak Israni on 13 August 2018
+        /// Description : Fixed bug where a single key was used multiple times to store data in the dictionary.
         /// </summary>
         /// <returns></returns>
         public PriceInCityPageAMPVM GetDataAMP()
@@ -622,18 +639,22 @@ namespace Bikewale.Models
                     objVM = new PriceInCityPageAMPVM();
                     CheckCityCookie(objVM);
                     //Get Bike version Prices
-                    IEnumerable<BikeQuotationEntity> objBikePQList = objVM.BikeVersionPrices = _objPQ.GetVersionPricesByModelId(modelId, cityId, out hasAreaAvailable);
+                    objVM.BikeVersionPrices = _objPQ.GetVersionPricesByModelId(modelId, cityId, out hasAreaAvailable);
+                    IEnumerable<BikeQuotationEntity> objBikePQList = objVM.BikeVersionPrices = objVM.BikeVersionPrices.Where(r => r.ExShowroomPrice > 0).ToList();
                     ICollection<BikeQuotationAMPEntity> objBikePQAMPList = new List<BikeQuotationAMPEntity>();
                     BikeQuotationAMPEntity objPq = null;
-                    foreach (var item in objBikePQList)
+                    if (objBikePQList != null && objBikePQList.Any())
                     {
-                        objPq = new BikeQuotationAMPEntity();
-                        objPq.BikeQuotationEntity = item;
-                        objPq.FormatedExShowroomPrice = Format.FormatPrice(Convert.ToString(item.ExShowroomPrice));
-                        objPq.FormatedInsurance = Format.FormatPrice(Convert.ToString(item.Insurance));
-                        objPq.FormatedOnRoadPrice = Format.FormatPrice(Convert.ToString(item.OnRoadPrice));
-                        objPq.FormatedRTO = Format.FormatPrice(Convert.ToString(item.RTO));
-                        objBikePQAMPList.Add(objPq);
+                        foreach (var item in objBikePQList)
+                        {
+                            objPq = new BikeQuotationAMPEntity();
+                            objPq.BikeQuotationEntity = item;
+                            objPq.FormatedExShowroomPrice = Format.FormatPrice(Convert.ToString(item.ExShowroomPrice));
+                            objPq.FormatedInsurance = Format.FormatPrice(Convert.ToString(item.Insurance));
+                            objPq.FormatedOnRoadPrice = Format.FormatPrice(Convert.ToString(item.OnRoadPrice));
+                            objPq.FormatedRTO = Format.FormatPrice(Convert.ToString(item.RTO));
+                            objBikePQAMPList.Add(objPq);
+                        }
                     }
                     objVM.FormatedBikeVersionPrices = objBikePQAMPList;
 
@@ -650,10 +671,16 @@ namespace Bikewale.Models
                         versionCount = (uint)objVM.FormatedBikeVersionPrices.Count();
                         objVM.VersionSpecs = _version.GetVersionMinSpecs(modelId, objVM.IsNew);
 
-                        ICollection<KeyValuePair<uint, BikeQuotationAMPEntity>> values = new Dictionary<uint, BikeQuotationAMPEntity>();
+                        IDictionary<uint, BikeQuotationAMPEntity> values = new Dictionary<uint, BikeQuotationAMPEntity>();
+                        uint verId;
+
                         foreach (var item in objVM.FormatedBikeVersionPrices)
                         {
-                            values.Add(new KeyValuePair<uint, BikeQuotationAMPEntity>(item.BikeQuotationEntity.VersionId, item));
+                            verId = item.BikeQuotationEntity.VersionId;
+                            if (!values.ContainsKey(verId))
+                            {
+                                values.Add(verId, item);
+                            }
                         }
                         objVM.JSONBikeVersions = JsonConvert.SerializeObject(values);
                         if (objVM.VersionSpecs != null)
@@ -683,6 +710,10 @@ namespace Bikewale.Models
                                     if (versionPrice != null)
                                     {
                                         version.Price = Convert.ToUInt64(versionPrice.BikeQuotationEntity.OnRoadPrice);
+                                    }
+                                    else
+                                    {
+                                        version.Price = 0;
                                     }
                                 }
                             }
@@ -719,7 +750,9 @@ namespace Bikewale.Models
                                 Area = area,
                                 City = city,
                                 Location = String.Format("{0} {1}", area, city),
-                                BikeName = objVM.BikeName
+                                BikeName = objVM.BikeName,
+                                PlatformId = Convert.ToUInt16(Platform),
+                                PageId = Convert.ToUInt16(PQSource)
                             };
                         }
 
@@ -803,6 +836,8 @@ namespace Bikewale.Models
         /// Description : Bind Manufacturer Lead Ad and href, remove AMP prohibitated attribute
         /// Modified by : Ashutosh Sharma on 11 Dec 2017
         /// Description : LeadCapture null check added.
+        /// Modified by : Pratibha Verma on 2 August 2018
+        /// Description : Added platformid in url
         /// </summary>
         /// <param name="priceInCityAMPVM"></param>
         private void BindManufacturerLeadAdAMP(PriceInCityPageAMPVM priceInCityAMPVM)
@@ -824,14 +859,15 @@ namespace Bikewale.Models
                         str = str.RemoveAttribure("name");
                         str = str.RemoveStyleElement();
 
-                        string url = "/m/popup/leadcapture/?q=" + Utils.Utils.EncryptTripleDES(string.Format(@"modelid={0}&cityid={1}&areaid={2}&bikename={3}&location={4}&city={5}&area={6}&ismanufacturer={7}&dealerid={8}&dealername={9}&dealerarea={10}&versionid={11}&leadsourceid={12}&pqsourceid={13}&mfgcampid={14}&pqguid={15}&pageurl={16}&clientip={17}&dealerheading={18}&dealermessage={19}&dealerdescription={20}&pincoderequired={21}&emailrequired={22}&dealersrequired={23}&url={24}&sendLeadSMSCustomer={25}&organizationName={26}",
+                        string url = "/m/popup/leadcapture/?q=" + TripleDES.EncryptTripleDES(string.Format(@"modelid={0}&cityid={1}&areaid={2}&bikename={3}&location={4}&city={5}&area={6}&ismanufacturer={7}&dealerid={8}&dealername={9}&dealerarea={10}&versionid={11}&leadsourceid={12}&pqsourceid={13}&mfgcampid={14}&pqguid={15}&pageurl={16}&clientip={17}&dealerheading={18}&dealermessage={19}&dealerdescription={20}&pincoderequired={21}&emailrequired={22}&dealersrequired={23}&url={24}&sendLeadSMSCustomer={25}&organizationName={26}&platformid={27}",
                                                priceInCityAMPVM.BikeModel.ModelId, priceInCityAMPVM.CityEntity.CityId, string.Empty, string.Format(priceInCityAMPVM.BikeName), string.Empty, string.Empty, string.Empty,
                                                priceInCityAMPVM.IsManufacturerLeadAdShown, priceInCityAMPVM.LeadCampaign.DealerId, String.Format(priceInCityAMPVM.LeadCampaign.LeadsPropertyTextMobile,
                                                priceInCityAMPVM.LeadCampaign.Organization), priceInCityAMPVM.LeadCampaign.Area, priceInCityAMPVM.VersionId, priceInCityAMPVM.LeadCampaign.LeadSourceId, priceInCityAMPVM.LeadCampaign.PqSourceId,
                                                priceInCityAMPVM.LeadCampaign.CampaignId, priceInCityAMPVM.PQId, string.Empty, Bikewale.Common.CommonOpn.GetClientIP(), priceInCityAMPVM.LeadCampaign.PopupHeading,
                                                String.Format(priceInCityAMPVM.LeadCampaign.PopupSuccessMessage, priceInCityAMPVM.LeadCampaign.Organization), priceInCityAMPVM.LeadCampaign.PopupDescription,
                                                priceInCityAMPVM.LeadCampaign.PincodeRequired, priceInCityAMPVM.LeadCampaign.EmailRequired, priceInCityAMPVM.LeadCampaign.DealerRequired,
-                                               string.Format("{0}/m/{1}-bikes/{2}/price-in-{3}/", BWConfiguration.Instance.BwHostUrlForJs, firstVersion.MakeMaskingName, modelMaskingName, cityMaskingName),priceInCityAMPVM.LeadCampaign.SendLeadSMSCustomer,priceInCityAMPVM.LeadCampaign.Organization));
+                                               string.Format("{0}/m/{1}-bikes/{2}/price-in-{3}/", BWConfiguration.Instance.BwHostUrlForJs, firstVersion.MakeMaskingName, modelMaskingName, cityMaskingName),priceInCityAMPVM.LeadCampaign.SendLeadSMSCustomer,
+                                               priceInCityAMPVM.LeadCampaign.Organization, Platform));
 
                         str = str.ReplaceHref("leadcapturebtn", url);
 						str = str.ReplaceGAAttributes();
@@ -1375,7 +1411,8 @@ namespace Bikewale.Models
                                 EmailRequired = campaigns.LeadCampaign.EmailRequired,
                                 LeadsButtonTextDesktop = campaigns.LeadCampaign.LeadsButtonTextDesktop,
                                 LeadsButtonTextMobile = campaigns.LeadCampaign.LeadsButtonTextMobile,
-                                LeadSourceId = (int)LeadSource,
+                                LeadSourceId = (Platform == PQSources.Desktop) ? (int)LeadSourceEnum.PriceInCity_TopCard_Desktop : (Platform == PQSources.Amp ? 
+                                               (int)LeadSourceEnum.PriceInCity_TopCard_AMP : (int)LeadSourceEnum.PriceInCity_TopCard_Mobile),
                                 PqSourceId = (int)PQSource,
                                 GACategory = "Price_in_City_Page",
                                 GALabel = string.Format("{0}_{1}", objData.BikeName, cityMaskingName),
@@ -1406,7 +1443,7 @@ namespace Bikewale.Models
 
 
                             objData.IsManufacturerLeadAdShown = true;
-                            objData.LeadCampaign.PageUrl = string.Format("{0}/m/popup/leadcapture/?q={1}", BWConfiguration.Instance.BwHostUrl, Utils.Utils.EncryptTripleDES(string.Format("modelid={0}&cityid={1}&areaid={2}&bikename={3}&location={4}&city={5}&area={6}&ismanufacturer={7}&dealerid={8}&dealername={9}&dealerarea={10}&versionid={11}&leadsourceid={12}&pqsourceid={13}&mfgcampid={14}&pqguid={15}&pageurl={16}&clientip={17}&dealerheading={18}&dealermessage={19}&dealerdescription={20}&pincoderequired={21}&emailrequired={22}&dealersrequired={23}&url={24}&sendLeadSMSCustomer={25}&organizationName={26}",
+                            objData.LeadCampaign.PageUrl = string.Format("{0}/m/popup/leadcapture/?q={1}", BWConfiguration.Instance.BwHostUrl, TripleDES.EncryptTripleDES(string.Format("modelid={0}&cityid={1}&areaid={2}&bikename={3}&location={4}&city={5}&area={6}&ismanufacturer={7}&dealerid={8}&dealername={9}&dealerarea={10}&versionid={11}&leadsourceid={12}&pqsourceid={13}&mfgcampid={14}&pqguid={15}&pageurl={16}&clientip={17}&dealerheading={18}&dealermessage={19}&dealerdescription={20}&pincoderequired={21}&emailrequired={22}&dealersrequired={23}&url={24}&sendLeadSMSCustomer={25}&organizationName={26}&platformid={27}",
                                 objData.BikeModel.ModelId, objData.CityEntity.CityId, string.Empty, string.Format(objData.BikeName), string.Empty, string.Empty, string.Empty,
                                 objData.IsManufacturerLeadAdShown, objData.LeadCampaign.DealerId, String.Format(objData.LeadCampaign.LeadsPropertyTextMobile,
                                 objData.LeadCampaign.Organization), objData.LeadCampaign.Area, objData.VersionId, objData.LeadCampaign.LeadSourceId, objData.LeadCampaign.PqSourceId,
@@ -1414,7 +1451,7 @@ namespace Bikewale.Models
                                 String.Format(objData.LeadCampaign.PopupSuccessMessage, objData.LeadCampaign.Organization), objData.LeadCampaign.PopupDescription,
                                 objData.LeadCampaign.PincodeRequired, objData.LeadCampaign.EmailRequired, objData.LeadCampaign.DealerRequired,
                                 string.Format("{0}/m/{1}-bikes/{2}/price-in-{3}/", BWConfiguration.Instance.BwHostUrlForJs, firstVersion.MakeMaskingName, modelMaskingName, cityMaskingName),
-                                objData.LeadCampaign.SendLeadSMSCustomer, objData.LeadCampaign.Organization)));
+                                objData.LeadCampaign.SendLeadSMSCustomer, objData.LeadCampaign.Organization,Platform)));
                         }
                         if (campaigns.EMICampaign != null)
                         {
@@ -1428,7 +1465,8 @@ namespace Bikewale.Models
                                 EmailRequired = campaigns.EMICampaign.EmailRequired,
                                 EMIButtonTextDesktop = campaigns.EMICampaign.EMIButtonTextDesktop,
                                 EMIButtonTextMobile = campaigns.EMICampaign.EMIButtonTextMobile,
-                                LeadSourceId = (int)LeadSource,
+                                LeadSourceId = (Platform == PQSources.Desktop) ? (int)LeadSourceEnum.PriceInCity_EmiCalculator_Desktop : (Platform == PQSources.Amp ?
+                                               (int)LeadSourceEnum.PriceInCity_EmiCalculator_AMP : (int)LeadSourceEnum.PriceInCity_EmiCalculator_Mobile),
                                 PqSourceId = (int)PQSource,
                                 EMIPropertyTextDesktop = campaigns.EMICampaign.EMIPropertyTextDesktop,
                                 EMIPropertyTextMobile = campaigns.EMICampaign.EMIPropertyTextMobile,
@@ -1445,14 +1483,14 @@ namespace Bikewale.Models
                                 SendLeadSMSCustomer = campaigns.EMICampaign.SendLeadSMSCustomer
                             };
 
-                            objData.EMICampaign.PageUrl = string.Format("{0}/m/popup/leadcapture/?q={1}", BWConfiguration.Instance.BwHostUrl, Utils.Utils.EncryptTripleDES(string.Format("modelid={0}&cityid={1}&areaid={2}&bikename={3}&location={4}&city={5}&area={6}&ismanufacturer={7}&dealerid={8}&dealername={9}&dealerarea={10}&versionid={11}&leadsourceid={12}&pqsourceid={13}&mfgcampid={14}&pqguid={15}&pageurl={16}&clientip={17}&dealerheading={18}&dealermessage={19}&dealerdescription={20}&pincoderequired={21}&emailrequired={22}&dealersrequired={23}&url={24}&sendLeadSMSCustomer={25}&organizationName={26}",
+                            objData.EMICampaign.PageUrl = string.Format("{0}/m/popup/leadcapture/?q={1}", BWConfiguration.Instance.BwHostUrl, TripleDES.EncryptTripleDES(string.Format("modelid={0}&cityid={1}&areaid={2}&bikename={3}&location={4}&city={5}&area={6}&ismanufacturer={7}&dealerid={8}&dealername={9}&dealerarea={10}&versionid={11}&leadsourceid={12}&pqsourceid={13}&mfgcampid={14}&pqguid={15}&pageurl={16}&clientip={17}&dealerheading={18}&dealermessage={19}&dealerdescription={20}&pincoderequired={21}&emailrequired={22}&dealersrequired={23}&url={24}&sendLeadSMSCustomer={25}&organizationName={26}&platformid={27}",
                                 objData.BikeModel.ModelId, objData.CityEntity.CityId, string.Empty, string.Format(objData.BikeName), string.Empty, string.Empty, string.Empty,
                                 objData.IsManufacturerLeadAdShown, objData.EMICampaign.DealerId, String.Format(objData.EMICampaign.EMIPropertyTextDesktop,
                                 objData.EMICampaign.Organization), objData.EMICampaign.Area, objData.VersionId, objData.EMICampaign.LeadSourceId, objData.EMICampaign.PqSourceId,
                                 objData.EMICampaign.CampaignId, objData.PQId, string.Empty, Bikewale.Common.CommonOpn.GetClientIP(), objData.EMICampaign.PopupHeading,
                                 String.Format(objData.EMICampaign.PopupSuccessMessage, objData.EMICampaign.Organization), objData.EMICampaign.PopupDescription,
                                 objData.EMICampaign.PincodeRequired, objData.EMICampaign.EmailRequired, objData.EMICampaign.DealerRequired, objData.PageMetaTags.AlternateUrl,
-                                objData.EMICampaign.SendLeadSMSCustomer, objData.EMICampaign.Organization)));
+                                objData.EMICampaign.SendLeadSMSCustomer, objData.EMICampaign.Organization, Platform)));
 
                             objData.IsManufacturerEMIAdShown = true;
                         }

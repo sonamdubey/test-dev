@@ -1,10 +1,10 @@
 ﻿@model Bikewale.Models.DetailFeatureVM
 @using Bikewale.Utility
 @{
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/content/details.css' inline /> <link rel='stylesheet' type='text/css' href='/css/components/m-brand-logo.css' inline />";
-    Model.Page_BTF_CSS_Path = "/css/jquery.floating-social-share.min.css";
-    Model.Page_JS_Paths = new string[] { "/src/content/details.js", "/src/bw-contenttracking.js" };
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/UI/css/content/details.css' inline /> <link rel='stylesheet' type='text/css' href='/UI/css/components/m-brand-logo.css' inline />";
+    Model.Page_BTF_CSS_Path = "/UI/css/jquery.floating-social-share.min.css";
+    Model.Page_JS_Paths = new string[] { "/UI/src/content/details.js", "/UI/src/bw-contenttracking.js" };
+    Layout = "~/UI/Views/Shared/_Layout.cshtml";
     Model.AdTags.AdId = "1395995626568";
     Model.AdTags.AdPath = "/1017752/BikeWale_News_";
     Model.AdTags.Ad_300x250 = true;
@@ -74,7 +74,7 @@
                                         @if (Model.PhotoGallery != null && Model.PhotoGallery.Images != null && Model.PhotoGallery.ImageCount > 0)
                                         {
                                             <div id="divPhotos">
-                                                @Html.Partial("~/Views/Shared/_EditCMSPhotoGallery.cshtml", Model.PhotoGallery.Images)
+                                                @Html.Partial("~/UI/Views/Shared/_EditCMSPhotoGallery.cshtml", Model.PhotoGallery.Images)
                                             </div>
                                         }
                                     </div>
@@ -86,16 +86,16 @@
                             var pageWidgets = Model.PageWidgets;
                             if (pageWidgets != null)
                             {
-                                @Html.Partial("~/Views/Shared/_EditorialWidgetBase.cshtml", Model.PageWidgets[Bikewale.Entities.BikeData.EditorialPageWidgetPosition.First])
+                                @Html.Partial("~/UI/Views/Shared/_EditorialWidgetBase.cshtml", Model.PageWidgets[Bikewale.Entities.BikeData.EditorialPageWidgetPosition.First])
                                     <div class="clear"></div>
 
 
-                                    @Html.Partial("~/Views/Shared/_EditorialWidgetBase.cshtml", Model.PageWidgets[Bikewale.Entities.BikeData.EditorialPageWidgetPosition.Second])
+                                    @Html.Partial("~/UI/Views/Shared/_EditorialWidgetBase.cshtml", Model.PageWidgets[Bikewale.Entities.BikeData.EditorialPageWidgetPosition.Second])
                                     <div class="clear"></div>
                             }
                         }
                         <div class="margin-bottom20">
-                            @Html.Partial("~/Views/Shared/Ads/Desktop/Ad300x250.cshtml", Model.AdTags)
+                            @Html.Partial("~/UI/Views/Shared/Ads/Desktop/Ad300x250.cshtml", Model.AdTags)
                         </div>
 
                     </div>
@@ -118,12 +118,12 @@
                     <div class="bike-gallery-heading margin-bottom20 margin-left30 margin-top90">
                         <p class="font18 text-bold text-white">@Model.objFeature.Title</p>
                     </div>
-                    @Html.Partial("~/Views/Shared/_EditCMSModelGallery.cshtml", Model.PhotoGallery)
+                    @Html.Partial("~/UI/Views/Shared/_EditCMSModelGallery.cshtml", Model.PhotoGallery)
                 </div>
             </div>
         </section>
     }
-    <script defer type="text/javascript" src="@String.Format("{0}/src/jquery.floating-social-share.min.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl,Bikewale.Utility.BWConfiguration.Instance.StaticPluginFileVersion)"></script>
+    <script defer type="text/javascript" src="@String.Format("{0}/UI/src/jquery.floating-social-share.min.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl,Bikewale.Utility.BWConfiguration.Instance.StaticPluginFileVersion)"></script>
 
     <div id="lightBoxContainer" class="hide">
         <span class="light-box__close-icon"></span>

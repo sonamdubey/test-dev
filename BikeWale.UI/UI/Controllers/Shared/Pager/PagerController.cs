@@ -32,7 +32,7 @@ namespace Bikewale.Controllers.Shared.Pager
                 objPagerModel = _objPager.GetPagerControl(objPager);
             }
 
-            return PartialView("~/views/pager/pagercontrol.cshtml", objPagerModel);
+            return PartialView("~/UI/views/pager/pagercontrol.cshtml", objPagerModel);
         }
     }
 }

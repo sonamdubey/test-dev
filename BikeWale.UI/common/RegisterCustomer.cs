@@ -6,6 +6,7 @@ using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
 using System.Web;
+using Bikewale.Utility;
 
 namespace Bikewale.Common
 {
@@ -386,7 +387,7 @@ namespace Bikewale.Common
         {
             string token = string.Empty;
 
-            token = Utils.Utils.EncryptTripleDES(value);
+            token = TripleDES.EncryptTripleDES(value);
 
             return token;
         }
@@ -403,7 +404,7 @@ namespace Bikewale.Common
         {
             string decodedValue = string.Empty;
             HttpContext.Current.Trace.Warn("passed token : " + token);
-            decodedValue = Utils.Utils.DecryptTripleDES(token);
+            decodedValue = TripleDES.DecryptTripleDES(token);
             HttpContext.Current.Trace.Warn("decoded token : " + decodedValue);
 
             return decodedValue;

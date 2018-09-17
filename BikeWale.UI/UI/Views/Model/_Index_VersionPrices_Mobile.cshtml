@@ -22,7 +22,7 @@
                                 <span>@(version.Price > 0 ? Bikewale.Utility.Format.FormatPrice(version.Price.ToString()) : Bikewale.Utility.Format.FormatPrice(version.AverageExShowroom.ToString()))</span>
                             </span>
                         </td>
-			 <td class="font12">@((version.MinSpecsList != null) ? Bikewale.Utility.FormatMinSpecs.GetCommaSepratedGeneralSpecs(version.MinSpecsList.Take(2)) : "")</td>
+                        <td class="font12">@((version.MinSpecsList != null) ? Bikewale.Utility.FormatMinSpecs.GetCommaSepratedGeneralSpecs(version.MinSpecsList.Take(2)) : "")</td>
                     </tr>
                 }
             </tbody>
@@ -49,24 +49,24 @@
                     <h3 class="padding-top15 padding-right20 padding-left20 margin-bottom20">Price by cities<span class="text-light-grey text-unbold"> (@(Model.IsLocationSelected && !Model.ShowOnRoadButton && Model.IsNewBike ? "On-road price" : "Ex-showroom price"))</span></h3>
                 }
                 <ul class="PriceInTopCity">
-                    @Html.Partial("~/Views/PriceInCity/_PriceInTopCities_Mobile.cshtml", Model.PriceInTopCities)
+                    @Html.Partial("~/UI/Views/PriceInCity/_PriceInTopCities_Mobile.cshtml", Model.PriceInTopCities)
                 </ul>
             </div>
 
             <ul id="more-cities-list" class="PriceInTopCity hide">
                 @{Model.PriceInTopCities.PriceQuoteList = priceQuotesCities.Skip(4);}
-                @Html.Partial("~/Views/PriceInCity/_PriceInTopCities_Mobile.cshtml", Model.PriceInTopCities)
+                @Html.Partial("~/UI/Views/PriceInCity/_PriceInTopCities_Mobile.cshtml", Model.PriceInTopCities)
             </ul>
 
-                    if (priceQuotesCities != null && priceQuotesCities.Count() > 4)
-                    {
-                        <div class="padding-top10 padding-right20 padding-left20 padding-bottom5">
-                            <a href="javascript:void(0)" class="view-cities-link position-rel block font14" title="" rel="nofollow">View more cities</a>
-                        </div>
-                        }
-                    }
+            if (priceQuotesCities != null && priceQuotesCities.Count() > 4)
+            {
+                <div class="padding-top10 padding-right20 padding-left20 padding-bottom5">
+                    <a href="javascript:void(0)" class="view-cities-link position-rel block font14" title="" rel="nofollow">View more cities</a>
+                </div>
+            }
+        }
         <div class="font14 text-light-grey line-height16 padding-bottom20 padding-right20 padding-left20">
             @Html.Raw(Model.VersionPriceListSummary)
         </div>
     </div>
-                    }
+}

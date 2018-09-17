@@ -1,6 +1,6 @@
 ﻿<%@ Control Language="C#" Inherits="Bikewale.Controls.RichTextEditor" AutoEventWireUp="false" %>
 <!-- TinyMCE -->
-<script type="text/javascript" src="/editor/tiny_mce/tiny_mce.js?v=1.0"></script>
+<script type="text/javascript" src="/UI/editor/tiny_mce/tiny_mce.js?v=1.0"></script>
 <script type="text/javascript">
     tinyMCE.init({
         // General options
@@ -22,10 +22,10 @@
         content_css: "css/content.css",
 
         // Drop lists for link/image/media/template dialogs
-        template_external_list_url: "/editor/lists/template_list.js?v=1.0",
-        external_link_list_url: "/editor/lists/link_list.js?v=1.0",
-        external_image_list_url: "/editor/lists/image_list.js?v=1.0",
-        media_external_list_url: "/editor/lists/media_list.js?v=1.0",
+        template_external_list_url: "/UI/editor/lists/template_list.js?v=1.0",
+        external_link_list_url: "/UI/editor/lists/link_list.js?v=1.0",
+        external_image_list_url: "/UI/editor/lists/image_list.js?v=1.0",
+        media_external_list_url: "/UI/editor/lists/media_list.js?v=1.0",
 
         // Style formats
         style_formats: [

@@ -16,18 +16,18 @@
         
     %>
 
-    <!-- #include file="/includes/headscript_mobile_min.aspx" -->
+    <!-- #include file="/UI/includes/headscript_mobile_min.aspx" -->
 
     <link rel="stylesheet" type="text/css" href="<%= staticUrl  %>/m/trackday2016/css/track-day.css?<%= staticFileVersion %>" />
     <script type="text/javascript">
-        <!-- #include file="\includes\gacode_mobile.aspx" -->
+        <!-- #include file="\UI\includes\gacode_mobile.aspx" -->
     </script>
 </head>
 <body class="bg-light-grey">
     <form runat="server">
         <% if (!androidApp)
            { %>
-        <!-- #include file="/includes/headBW_Mobile.aspx" -->
+        <!-- #include file="/UI/includes/headBW_Mobile.aspx" -->
         <% } %>
 
         <section>
@@ -114,17 +114,17 @@
         <div id="gallery-close-btn" class="bwmsprite cross-lg-white"></div>
         <div id="gallery-blackOut-window"></div>
 
-        <script type="text/javascript" src="<%= staticUrl  %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl  %>/UI/m/src/frameworks.js?<%= staticFileVersion %>"></script>
 
         <% if (!androidApp)
            { %>
-        <!-- #include file="/includes/footerBW_Mobile.aspx" -->
+        <!-- #include file="/UI/includes/footerBW_Mobile.aspx" -->
         <% } %>
 
         <link href="<%= staticUrl  %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
-        <!-- #include file="/includes/footerscript_mobile.aspx" -->
+        <!-- #include file="/UI/includes/footerscript_mobile.aspx" -->
         <script type="text/javascript" src="<%= staticUrl %>/m/trackday2016/src/track-day.js?<%= staticFileVersion %>"></script>
-        <!-- #include file="/includes/fontBW_Mobile.aspx" -->
+        <!-- #include file="/UI/includes/fontBW_Mobile.aspx" -->
 
     </form>
 </body>

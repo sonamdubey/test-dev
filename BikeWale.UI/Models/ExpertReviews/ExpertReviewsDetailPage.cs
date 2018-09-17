@@ -458,13 +458,15 @@ namespace Bikewale.Models
         /// <summary>
         /// Created By  : Sushil Kumar on 25th Aug 2017
         /// Description : To load json schema for the expert reviews articles
+        /// Modified By : Monika Korrapati on 30 July 2018
+        /// Description : Format date into ISO 8601
         /// </summary>
         /// <param name="objData"></param>
         private void SetPageJSONSchema(ExpertReviewsDetailPageVM objData)
         {
             var objSchema = new NewsArticle();
             objSchema.HeadLine = objData.ArticleDetails.Title;
-            objSchema.DateModified = objData.ArticleDetails.DisplayDate.ToString();
+            objSchema.DateModified = Utility.FormatDate.ConvertToISO(objData.ArticleDetails.DisplayDate);
             objSchema.DatePublished = objSchema.DateModified;
             objSchema.Description = FormatDescription.SanitizeHtml(objData.ArticleDetails.Description);
             if (objData.ArticleDetails.PageList != null && objData.ArticleDetails.PageList.Any())
@@ -637,7 +639,7 @@ namespace Bikewale.Models
 
                     if (IsMobile && !IsAMPPage)
                     {
-                        viewName = "~/views/BikeModels/_minBikeInfoCard_Mobile.cshtml";
+                        viewName = "~/UI/views/BikeModels/_minBikeInfoCard_Mobile.cshtml";
                     }
                     else if (IsAMPPage)
                     {
@@ -647,9 +649,9 @@ namespace Bikewale.Models
                             Bike = objData.BikeInfo.BikeName,
                             Url = objData.BikeInfo.BikeUrl
                         };
-                        viewName = "~/views/BikeModels/_BikeInfoCard_AMP_Mobile.cshtml";
+                        viewName = "~/UI/views/BikeModels/_BikeInfoCard_AMP_Mobile.cshtml";
                     }
-                    else viewName = "~/views/BikeModels/_minBikeInfoCard.cshtml";
+                    else viewName = "~/UI/views/BikeModels/_minBikeInfoCard.cshtml";
 
 
                     //get length of each pages with stripped html

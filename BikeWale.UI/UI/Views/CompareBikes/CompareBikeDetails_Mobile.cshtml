@@ -1,8 +1,8 @@
 ﻿@model Bikewale.Models.CompareDetailsVM
 @{
-	Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
-	Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/compare/details.css' />";
-	Model.Page_JS_Path = "/m/src/compare/details.js";
+	Layout = "~/UI/Views/Shared/_Layout_Mobile.cshtml";
+	Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/UI/m/css/compare/details.css' />";
+	Model.Page_JS_Path = "/UI/m/src/compare/details.js";
 	Model.AdTags.AdPath = "/1017752/Bikewale_Mobile_CompareBikes";
 	Model.AdTags.AdId = "1516080462255";
 	Model.AdTags.Ad_300x250BTF = true;
@@ -456,7 +456,7 @@
 					</section>					
 					@if (Model.AdTags.Ad_300x250BTF)
 					{
-						Html.RenderPartial("~/Views/Shared/Ads/Mobile/Ad300x250BTF.cshtml", Model.AdTags);
+						Html.RenderPartial("~/UI/Views/Shared/Ads/Mobile/Ad300x250BTF.cshtml", Model.AdTags);
 					}
 					@if (Model.isUsedBikePresent)
 					{
@@ -559,7 +559,7 @@
                     <!-- Similar bikes comparison start-->
 		<section>
 			<div id="similarBikeTabContent" data-id="similarBikeTabContent" class="bw-tabs-data">
-				@Html.Partial("~/Views/CompareBikes/SimilarBikeComparison_Mobile.cshtml", Model.SimilarBikeWidget)
+				@Html.Partial("~/UI/Views/CompareBikes/SimilarBikeComparison_Mobile.cshtml", Model.SimilarBikeWidget)
 			</div>
 		</section>
 
@@ -572,7 +572,7 @@
 			<h2 class="padding-left20 padding-right20">@Model.SimilarBikesCompareWidgetText</h2>
 			<div class="swiper-container card-container swiper-type-similar noswiper" id="similar-bikes-swiper" data-comptext="@Model.templateSummaryTitle">
 				<div class="swiper-wrapper">
-					@Html.Partial("~/Views/BikeModels/_SimilarBikes_Mobile.cshtml", Model.SimilarBikes)
+					@Html.Partial("~/UI/Views/BikeModels/_SimilarBikes_Mobile.cshtml", Model.SimilarBikes)
 				</div>
 			</div>
 		</div>
@@ -582,7 +582,7 @@
 		<section>
 			<div id="expertComparisonTabContent" data-id="expertComparisonTabContent" class="bw-tabs-data bw-model-tabs-data padding-15-20-20 content-box-shadow card-bottom-margin content-details-wrapper font14">
 				<h2>@Model.ArticlesList.Title</h2>
-				@Html.Partial("~/Views/ExpertReviews/_RecentExpertReviews_Mobile.cshtml", Model.ArticlesList)
+				@Html.Partial("~/UI/Views/ExpertReviews/_RecentExpertReviews_Mobile.cshtml", Model.ArticlesList)
 			</div>
 		</section>
 	}

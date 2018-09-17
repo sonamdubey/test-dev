@@ -16,18 +16,18 @@
         isAd300x250BTFShown = false;
         isAd970x90Shown = false;
 %>
-    <!-- #include file="/includes/headscript_desktop_min.aspx" -->
+    <!-- #include file="/UI/includes/headscript_desktop_min.aspx" -->
     <link href="<%= staticUrl %>/sass/sell-bike/sell-bike.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
-    <link href="<%= staticUrl %>/css/zebra-datepicker.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
-    <link href="<%= staticUrl %>/css/dropzone.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
+    <link href="<%= staticUrl %>/UI/css/zebra-datepicker.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
+    <link href="<%= staticUrl %>/UI/css/dropzone.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
     <script type="text/javascript">
-        <!-- #include file="\includes\gacode_desktop.aspx" -->
+        <!-- #include file="\UI\includes\gacode_desktop.aspx" -->
     </script>
     
 </head>
 <body class="bg-light-grey header-fixed-inner" data-contestslug="true">
     <form id="form1" runat="server">
-        <!-- #include file="/includes/headBW.aspx" -->
+        <!-- #include file="/UI/includes/headBW.aspx" -->
 
         <section class="bg-light-grey padding-top10" id="breadcrumb">
             <div class="container">
@@ -576,7 +576,7 @@ BikeWale ensures that only verified buyers can reach out to you. You can re-post
             </div>
         </section>
 
-        <script type="text/javascript" src="<%= staticUrl  %>/src/frameworks.js?<%=staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl  %>/UI/src/frameworks.js?<%=staticFileVersion %>"></script>
 
         <script type="text/javascript"> 
             var userId = '<%= userId%>';    
@@ -590,17 +590,17 @@ BikeWale ensures that only verified buyers can reach out to you. You can re-post
             var gaObj = { 'id': '<%= (int)Bikewale.Entities.Pages.GAPages.Sell_Page%>', 'name': '<%= Bikewale.Entities.Pages.GAPages.Sell_Page%>' };
         </script>
         
-        <!-- #include file="/includes/footerBW.aspx" -->
-        <link href="<%= staticUrl %>/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
-        <!-- #include file="/includes/footerscript.aspx" -->
-        <script type="text/javascript" src="<%= staticUrl %>/src/knockout.validation.js?<%= staticFileVersion %>"></script>
-        <script type="text/javascript" src="<%= staticUrl %>/src/zebra-datepicker.js?<%=staticFileVersion %>"></script>
-        <script type="text/javascript" src="<%= staticUrl %>/src/imageUpload.js?<%=staticFileVersion %>"></script>
-        <script type="text/javascript" src="<%= staticUrl %>/src/dropzone.js?<%=staticFileVersion %>"></script>
+        <!-- #include file="/UI/includes/footerBW.aspx" -->
+        <link href="<%= staticUrl %>/UI/css/bw-common-btf.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
+        <!-- #include file="/UI/includes/footerscript.aspx" -->
+        <script type="text/javascript" src="<%= staticUrl %>/UI/src/knockout.validation.js?<%= staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl %>/UI/src/zebra-datepicker.js?<%=staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl %>/UI/src/imageUpload.js?<%=staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl %>/UI/src/dropzone.js?<%=staticFileVersion %>"></script>
         <% if(isAuthorized) { %>
-        <script type="text/javascript" src="<%= staticUrl %>/src/sell-bike.js?<%=staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl %>/UI/src/sell-bike.js?<%=staticFileVersion %>"></script>
         <%} %>
-        <!-- #include file="/includes/fontBW.aspx" -->
+        <!-- #include file="/UI/includes/fontBW.aspx" -->
         <script type="text/javascript">
 
             window.onbeforeunload = function () {

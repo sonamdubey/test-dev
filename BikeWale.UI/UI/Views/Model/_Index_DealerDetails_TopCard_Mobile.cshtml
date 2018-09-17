@@ -1,4 +1,5 @@
 ﻿@model Bikewale.Models.BikeModels.ModelPageVM
+@using Bikewale.Entities.BikeBooking
 @if (Model.IsDealerDetailsExists)
 {
     <div id="model-dealer-card" class="dealer-details__content dealer-details--model">
@@ -10,17 +11,17 @@
                     <h2 id="dealername" class="dealer-details__name">@Model.DealerDetails.Organization</h2>
                     <p class="dealer-details__description">@(!Model.DealerDetails.IsDSA ? "Authorized Dealer in " : "Multi-brand Dealer in ")@Model.DealerArea</p>
                 </div>
-                @if (Model.DealerDetails.IsDSA)
-                {
-                    <div class="bw-tooltip multi-brand-tooltip tooltip-bottom slideUp-tooltip">
-                        <p class="bw-tooltip-text position-rel font14">
-                            This dealer sells bikes of multiple brands.<br />
-                            Above price is not final and may vary at the dealership.
-                        </p>
-                        <span class="position-abt pos-top10 pos-right10 bwmsprite cross-sm-dark-grey cur-pointer close-bw-tooltip"></span>
-                    </div>
-                }
             </div>
+            if (Model.DealerDetails.IsDSA)
+            {
+                <div class="bw-tooltip multi-brand-tooltip tooltip-bottom slideUp-tooltip">
+                    <p class="bw-tooltip-text position-rel font14">
+                        This dealer sells bikes of multiple brands.<br />
+                        Above price is not final and may vary at the dealership.
+                    </p>
+                    <span class="position-abt pos-top10 pos-right10 bwmsprite cross-sm-dark-grey cur-pointer close-bw-tooltip"></span>
+                </div>
+            }
         }
         @if (Model.IsPrimaryDealer && Model.DetailedDealer.PrimaryDealer.HasOffers)
         {
@@ -77,7 +78,7 @@
             else
             {
                 <div class="dealer__request-callback-content padding-bottom10">
-                    <a id="requestcallback" data-cat="Model_Page" data-act="Request_Callback_Details_Clicked" data-var="bikeVersionLocation" data-leadsourceid="30" data-item-id="@Model.DealerDetails.DealerId" data-item-name="@Model.DealerDetails.Organization" data-item-area="@Model.DealerArea" href="javascript:void(0)" class="btn btn-white request-callback__btn bw-ga leadcapturebtn">Request callback</a>
+                    <a id="requestcallback" data-cat="Model_Page" data-act="Request_Callback_Details_Clicked" data-var="bikeVersionLocation" data-leadsourceid=@Convert.ToInt16(LeadSourceEnum.ModelPage_TopCard_Mobile) data-campaignid="@Model.DealerDetails.CampaignId" data-item-id="@Model.DealerDetails.DealerId" data-item-name="@Model.DealerDetails.Organization" data-item-area="@Model.DealerArea" href="javascript:void(0)" class="btn btn-white request-callback__btn bw-ga leadcapturebtn">Request callback</a>
                     <p class="request-callback__label">(Get EMI options, test rides other services from dealer.)</p>
                 </div>
             }
@@ -156,13 +157,13 @@
         @if (String.IsNullOrEmpty(Model.DealerDetails.MaskingNumber))
         {
             <div class="grid-12 alpha omega">
-                <a class="btn btn-orange btn-full-width leadcapturebtn" href="javascript:void(0);" data-leadsourceid="30" data-item-id="@Model.DealerDetails.DealerId" data-item-name="@Model.DealerDetails.Organization" data-item-area="@Model.DealerArea">@Model.LeadBtnShortText</a>
+                <a class="btn btn-orange btn-full-width leadcapturebtn" href="javascript:void(0);" data-leadsourceid= @Convert.ToInt16(LeadSourceEnum.ModelPage_Floating_Mobile) data-campaignid="@Model.DealerDetails.CampaignId" data-item-id="@Model.DealerDetails.DealerId" data-item-name="@Model.DealerDetails.Organization" data-item-area="@Model.DealerArea">@Model.LeadBtnShortText</a>
             </div>
         }
         else
         {
             <div class="grid-6 alpha omega">
-                <a class="btn btn-orange btn-full-width leadcapturebtn" href="javascript:void(0);" data-leadsourceid="30" data-item-id="@Model.DealerDetails.DealerId" data-item-name="@Model.DealerDetails.Organization" data-item-area="@Model.DealerArea">@Model.LeadBtnShortText</a>
+                <a class="btn btn-orange btn-full-width leadcapturebtn" href="javascript:void(0);" data-leadsourceid=@Convert.ToInt16(LeadSourceEnum.ModelPage_Floating_Mobile) data-campaignid="@Model.DealerDetails.CampaignId" data-item-id="@Model.DealerDetails.DealerId" data-item-name="@Model.DealerDetails.Organization" data-item-area="@Model.DealerArea">@Model.LeadBtnShortText</a>
             </div>
             <div class="grid-6 alpha omega">
                 <a class="btn btn-green btn-full-width" href="@string.Format("tel:+91{0}", Model.DealerDetails.MaskingNumber)"><span class="bwmsprite tel-white-icon margin-right10"></span>Call dealer</a>
@@ -198,7 +199,7 @@
             }
         </ul>
         <div class="text-center">
-            <a data-leadsourceid="31" data-item-id="@Model.DealerDetails.DealerId" data-item-name="@Model.DealerDetails.Organization" data-item-area="@Model.DealerArea" href="javascript:void(0);" class="btn btn-orange text-bold leadcapturebtn">@Model.LeadBtnLongText</a>
+            <a data-leadsourceid="31" data-campaignid="@Model.DealerDetails.CampaignId" data-item-id="@Model.DealerDetails.DealerId" data-item-name="@Model.DealerDetails.Organization" data-item-area="@Model.DealerArea" href="javascript:void(0);" class="btn btn-orange text-bold leadcapturebtn">@Model.LeadBtnLongText</a>
         </div>
     </div>
 

@@ -1,6 +1,9 @@
-﻿using Bikewale.Entities.Dealer;
+﻿using Bikewale.DTO.Finance.BajajAuto;
+using Bikewale.Entities.Dealer;
+using Bikewale.Entities.Finance.BajajAuto;
 using Bikewale.Entities.Finance.CapitalFirst;
 using Bikewale.Interfaces.Finance;
+using Bikewale.Interfaces.Finance.BajajAuto;
 using Bikewale.Interfaces.MobileVerification;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.Finance;
@@ -16,12 +19,13 @@ namespace Bikewale.Service.Controllers
         private readonly ICapitalFirst _objICapitalFirst = null;
         private readonly IMobileVerificationRepository _mobileVerRespo = null;
         private readonly IMobileVerificationCache _mobileVerCacheRepo = null;
-        public FinanceController(ICapitalFirst objICapitalFirst, IMobileVerificationRepository mobileVerRespo, IMobileVerificationCache mobileVerCacheRepo)
+        private readonly IBajajAuto _bajajAuto;
+        public FinanceController(ICapitalFirst objICapitalFirst, IMobileVerificationRepository mobileVerRespo, IMobileVerificationCache mobileVerCacheRepo, IBajajAuto bajajAuto)
         {
-
             _objICapitalFirst = objICapitalFirst;
             _mobileVerRespo = mobileVerRespo;
             _mobileVerCacheRepo = mobileVerCacheRepo;
+            _bajajAuto = bajajAuto;
 
         }
         /// <summary>
@@ -80,8 +84,68 @@ namespace Bikewale.Service.Controllers
 
                 return InternalServerError();
             }
-
-
         }
+
+        #region BajajAuto
+        [HttpPost, Route("api/finance/bajaj/basicdetails/")]
+        public IHttpActionResult SaveBajajAutoBasicDetails([FromBody] UserDetails userDetails)
+        {
+            try
+            {
+                if (userDetails == null && string.IsNullOrEmpty(userDetails.MobileNumber) && string.IsNullOrEmpty(userDetails.EmailId))
+                {
+                    return BadRequest();
+                }
+                return Ok(_bajajAuto.SaveBasicDetails(userDetails));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "Bikewale.Service.Controllers.SaveBajajAutoBasicDetails");
+                return InternalServerError();
+            }
+        }
+        [HttpPost, Route("api/finance/bajaj/employeedetails/")]
+        public IHttpActionResult SaveBajajAutoEmployeeDetails([FromBody] UserDetails userDetails)
+        {
+            try
+            {
+                if (userDetails != null && userDetails.BajajAutoId > 0 && userDetails.VersionId > 0 && userDetails.PinCodeId > 0 && userDetails.EmploymentType > 0)
+                {
+                    return Ok(_bajajAuto.SaveEmployeeDetails(userDetails));
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "Bikewale.Service.Controllers.SaveBajajAutoEmployeeDetails");
+                return InternalServerError();
+            }
+        }
+        [HttpPost, Route("api/finance/bajaj/otherdetails/")]
+        public IHttpActionResult SaveBajajAutoOtherDetails([FromBody] UserDetails userDetails, DTO.PriceQuote.PQSources source)
+        {
+            try
+            {
+                if (userDetails == null && userDetails.BajajAutoId == 0 && string.IsNullOrEmpty(userDetails.MobileNumber) && string.IsNullOrEmpty(userDetails.EmailId))
+                {
+                    return BadRequest();
+                }
+                userDetails.ManufacturerLead = Newtonsoft.Json.JsonConvert.DeserializeObject<ManufacturerLeadEntity>(userDetails.LeadJson);
+                string utma = Request.Headers.Contains("utma") ? Request.Headers.GetValues("utma").FirstOrDefault() : String.Empty;
+                string utmz = Request.Headers.Contains("utmz") ? Request.Headers.GetValues("utmz").FirstOrDefault() : String.Empty;
+                LeadResponse leadResponse = _bajajAuto.SaveOtherDetails(userDetails, utmz, utma, (ushort)source);
+                BajajAutoLeadResponseDto dto = FinanceMapper.Convert(leadResponse);
+                return Ok(dto);
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "Bikewale.Service.Controllers.SaveBajajAutoOtherDetails");
+                return InternalServerError();
+            }
+        } 
+        #endregion
     }
 }

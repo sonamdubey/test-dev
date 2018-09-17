@@ -170,7 +170,7 @@ namespace Bikewale.Controllers
         {
             ScooterBrands scooters = new ScooterBrands();
             IEnumerable<BikeMakeEntityBase> otherBrand = scooters.GetOtherScooterBrands(_objMakeCache, makeId, 9);
-            return View("~/views/shared/_otherbrands.cshtml", otherBrand);
+            return View("~/UI/views/shared/_otherbrands.cshtml", otherBrand);
         }
 
         [Route("m/scooters/otherBrands/")]
@@ -178,7 +178,7 @@ namespace Bikewale.Controllers
         {
             ScooterBrands scooters = new ScooterBrands();
             IEnumerable<BikeMakeEntityBase> otherBrand = scooters.GetOtherScooterBrands(_objMakeCache, makeId, 9);
-            return View("~/views/m/shared/_otherbrands.cshtml", otherBrand);
+            return View("~/UI/views/m/shared/_otherbrands.cshtml", otherBrand);
         }
 
 

@@ -2,9 +2,9 @@
 @if (Model != null)
 {
 
-    Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/photos/landing.css' inline />";
-    Model.Page_JS_Path = "/src/photos/landing.js";
+    Layout = "~/UI/Views/Shared/_Layout_Mobile.cshtml";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/UI/sass/photos/landing.css' inline />";
+    Model.Page_JS_Path = "/UI/src/photos/landing.js";
     // Top Ad is being set in this file, not in _Layout_Mobile.cshtml
     Model.AdTags.Ad_Bot_320x50 = true;
     Model.AdTags.AdId = "1516009422206";
@@ -30,7 +30,7 @@
         <section>
             <div class="container margin-bottom15">
                 <h2 class="image-carousel__title">Popular Sport Bikes Images</h2>
-                @Html.Partial("~/Views/Photos/_ImageCaraousel_Mobile.cshtml", Model.PopularSportsBikesWidget)
+                @Html.Partial("~/UI/Views/Photos/_ImageCaraousel_Mobile.cshtml", Model.PopularSportsBikesWidget)
             </div>
         </section>
     }
@@ -66,7 +66,7 @@
                     </div>
                     @if (Model != null && Model.BikeModelsPhotos != null)
                     {
-                        @Html.Partial("~/Views/Photos/_ModelsImageList_Mobile.cshtml", Model.BikeModelsPhotos)
+                        @Html.Partial("~/UI/Views/Photos/_ModelsImageList_Mobile.cshtml", Model.BikeModelsPhotos)
                     }
                     
                     @if (!string.IsNullOrEmpty(Model.PageMetaTags.NextPageUrl))
@@ -89,7 +89,7 @@
         <section>
             <div class="container bg-white padding-bottom10 section-bottom-margin">
                 <h2 class="related-bikes__title">Browse Images by Brands</h2>
-                @Html.Partial("~/Views/Photos/_OtherPopularMakes_Mobile.cshtml", Model.OtherPopularMakes)
+                @Html.Partial("~/UI/Views/Photos/_OtherPopularMakes_Mobile.cshtml", Model.OtherPopularMakes)
             </div>
         </section>
     }
@@ -99,7 +99,7 @@
         <div class="container bg-white ">
             <div id="videosContent" class="margin-right20 margin-left20 padding-top15 padding-bottom20 font14">
                 <h2 class="font18">Bike Videos</h2>
-                @Html.Partial("~/Views/Videos/_RecentVideos_v1_Mobile.cshtml", Model.Videos)
+                @Html.Partial("~/UI/Views/Videos/_RecentVideos_v1_Mobile.cshtml", Model.Videos)
                 <div class="margin-top10">
                     <a title="@Model.Videos.LinkTitle" href="@string.Format("/m{0}",Model.Videos.MoreVideoUrl)" class="btn view-all-target-btn">
                         View all videos <span class="bwmsprite teal-right"></span>

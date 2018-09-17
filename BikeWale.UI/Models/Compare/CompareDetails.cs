@@ -339,6 +339,7 @@ namespace Bikewale.Models
                     obj.PageMetaTags.AlternateUrl = string.Format("{0}/m/comparebikes/{1}/", Bikewale.Utility.BWConfiguration.Instance.BwHostUrlForJs, _compareUrl);
                     obj.Page_H1 = string.Format("Compare {0}", obj.comparisionText);
                     obj.Page = GAPages.Compare_Bikes;
+                    obj.AdTags.TargetedModels = System.Web.Helpers.Json.Encode(bikeModels.Distinct());
 
                     SetBreadcrumList(obj);
                     SetPageJSONLDSchema(obj);

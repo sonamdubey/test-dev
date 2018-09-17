@@ -8,14 +8,14 @@
                     <div class="padding-top15 padding-left20">
                         <h1 class="inline-block margin-right15">@Model.Page_H1</h1>
                         <div class="inline-block">
-                            @Html.Partial("~/Views/Model/_Index_Reviews.cshtml", Model)
+                            @Html.Partial("~/UI/Views/Model/_Index_Reviews.cshtml", Model)
                         </div>
                     </div>
                     
                     <div id="overallTabsWrapper" class="overall-tabs position-rel">
                         <div id="overallSpecsTab" class="overall-specs-tabs-container">
                             <div class="overall-specs-tabs-wrapper">
-                                @Html.Partial("~/Views/Model/_Index_Tabs.cshtml", Model)
+                                @Html.Partial("~/UI/Views/Model/_Index_Tabs.cshtml", Model)
                             </div>
                         </div>
                     </div>
@@ -23,7 +23,7 @@
                     <div class="padding-top15 padding-right20 padding-bottom10 padding-left20">
                         <div id="model-right-grid" class="grid-7 alpha omega rightfloat">
 
-                            @Html.Partial("~/Views/Model/_Index_VersionsAndSpecs.cshtml", Model)
+                            @Html.Partial("~/UI/Views/Model/_Index_VersionsAndSpecs.cshtml", Model)
 
                             <div id="modelPriceContainer">
                                 <p class="font14 text-light-grey">Last known Ex-showroom price in <span class="city-area-name">@Model.Location</span> </p>
@@ -48,7 +48,7 @@
                             <div class="position-rel">
                                 <span class="model-ribbon discontinued-ribbon">Discontinued</span>
                             </div>
-                            @Html.Partial("~/Views/Model/_Index_ModelGallery.cshtml", Model)
+                            @Html.Partial("~/UI/Views/Model/_Index_ModelGallery.cshtml", Model)
                         </div>
                         <div class="clear"></div>
                     </div>
@@ -60,7 +60,7 @@
             {
                 <div class="bw-model-tabs-data">
                      <div class="grid-12">
-                        @Html.Partial("~/Views/Model/_Index_ModelSummary.cshtml", Model)
+                        @Html.Partial("~/UI/Views/Model/_Index_ModelSummary.cshtml", Model)
                     </div>
                     
                     <div class="clear"></div>
@@ -69,6 +69,6 @@
 
           
         </div>
-        @Html.Partial("~/Views/Model/_Index_DetailsCard.cshtml", Model)
+        @Html.Partial("~/UI/Views/Model/_Index_DetailsCard.cshtml", Model)
     </div>
 </section>

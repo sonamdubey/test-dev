@@ -1,6 +1,6 @@
 ﻿<%@ Import namespace ="Bikewale.Utility" %>
 <%@ Register TagPrefix="BikeWale" TagName="LoginStatus" src="/Controls/loginstatus.ascx" %>
-<%@ Register TagPrefix="BM" TagName="BikeMakes" Src="/controls/BrowseBikeManufacturerMin.ascx" %>
+<%@ Register TagPrefix="BM" TagName="BikeMakes" Src="/UI/controls/BrowseBikeManufacturerMin.ascx" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />    
@@ -21,7 +21,7 @@
     is300x250_BTFShown=true;
     
         </script>
-    <!-- #include file="/includes/gacode.aspx" --> 
+    <!-- #include file="/UI/includes/gacode.aspx" --> 
     <script type='text/javascript'>
         var ga_pg_id = '0';
         var googletag = googletag || {};
@@ -67,10 +67,19 @@
 	<div class="main-container">
         <!--Header code start here -->
         <div id="header" class="header-fixed">
+		<!-- BW Doodle start-->
+		<span class="bw-doodle__container">
+			<span class="bw-doodle__bell-one"></span>
+			<span class="bw-doodle__bell-two"></span>
+			<span class="bw-doodle__ganesh-image">
+				<span class="bw-doodle__ganesh"></span>
+				<span class="bw-doodle__ganesh-bg"></span>
+			</span>
+		</span>
+		<!-- BW Doodle end-->
             <div class="left-float margin-left50">
                 <a href="/" class="bwsprite bw-logo"></a>
             </div>
             <div class="clear"></div>
         </div>
         <!--Header code end here -->
-        

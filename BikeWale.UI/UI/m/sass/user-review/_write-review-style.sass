@@ -282,7 +282,7 @@ h1,
 		font-size: 13px
 		position: relative
 		top: 1px
-		color: #4d5057		
+		color: #4d5057
 
 body
 	-webkit-tap-highlight-color: rgba(0,0,0,0)
@@ -304,8 +304,6 @@ body
 		height: 62px
 		margin: 1px auto
 
-#review-summary-card
-	margin-bottom: 45px
 
 #summary-review-box
 	p
@@ -558,7 +556,7 @@ body
   height: 16px
   background-position: -131px -643px
 
-/*Rating circle Starts here
+// Rating circle Starts here
 
 .rating-circle
   width: 30px
@@ -676,7 +674,7 @@ body
     display: inline-block
     vertical-align: middle
 
-/*Rating circle Ends here
+// Rating circle Ends here
 
 // terms and condition
 .input-type-checkbox
@@ -702,3 +700,127 @@ body
 			.checkbox-icon
 				background-position: -174px -430px
 
+
+// new review summary
+.review-summary
+    margin-bottom: 44px
+
+.review-summary__wrapper
+	@include vendor-prefix(box-shadow, 2px 2px 2px color('gainsboro-2'))
+	background-color: color('white')
+	font-size: 14px
+	margin-bottom: 10px
+
+.review-summary__panel
+	@include flexbox
+
+.review-summary__ratings
+	margin-right: auto
+
+.review-summary__rating-title
+	@include text-truncate($width: '160px')
+	display: inline-block
+	vertical-align: middle
+
+.review-summary__link
+	@include afterIcon-arrow-0288d1($fromRight: 0, $fromTop: 34%)
+	position: relative
+	display: block
+	padding-right: 15px
+	color: color('pacific-blue')
+	font-size: 14px
+	font-weight: $font-semibold
+	cursor: pointer
+
+	&:after
+		@include vendor-prefix(transform, rotate(90deg))
+
+.review-summary__content
+	display: none
+
+.review-summary__btn
+	@include vendor-prefix(box-shadow, 0 0 2px 2px color('gainsboro-2'))
+	@include flexbox
+	position: fixed
+	left: 0
+	right: 0
+	bottom: 0
+	z-index: 2
+
+	.btn
+		@include flex-grow
+		padding: 10px 15px
+		border-radius: 0
+		width: 0
+
+// New User rating
+.review-rating-wrapper
+	@include vendor-prefix(box-shadow, 2px 2px 2px color('gainsboro-2'))
+	font-size: 14px
+	margin-bottom: 44px
+
+.review-rating__content
+	@include vendor-prefix(box-shadow, 2px 2px 2px color('gainsboro-2'))
+	background-color: color('white')
+	padding: 15px 20px
+	margin-bottom: 10px
+
+#bike-rating-box
+	&.bike-rating-wrapper
+		min-height: 1px
+		padding-bottom: 0
+
+		.item-rating-list
+			>li:first-child
+				margin-left: 0
+
+.review-rating__btn
+	@include btn($font-weight: $font-semibold)
+	@include btn-inv-orange($hover: true)
+
+	.btn
+		border-radius: 2px
+
+.review-summary__title
+	font-size: 16px
+	color: color('default')
+	font-weight: $font-bold
+
+.review-summary__secondary-title
+	font-weight: $font-normal
+
+.review-rating--outline-btn
+	display: none
+	border-color: color('white')
+	color: color('default')
+
+.review-rating__head
+	background-color: color('white')
+	padding: 15px 20px 0
+
+// Active state
+.review-summary
+	&.answer-question--inactive
+		.review-summary__link
+			display: none
+
+		.review-summary__content
+			display: block
+
+.review-summary__wrapper
+	&.review-summary--active
+		.review-summary__link
+			display: none
+
+		.review-summary__content
+			display: block
+
+.review-rating-wrapper
+	&.answer-question--inactive
+		.review-rating--outline-btn
+			display: inline-block
+
+		.review-rating__content
+			box-shadow: none
+			padding-top: 20px
+			padding-bottom: 20px

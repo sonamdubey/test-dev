@@ -1,6 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Used.Default" %>
-<%@ Register Src="~/m/controls/usedBikeModel.ascx" TagName="usedBikeModel" TagPrefix="BW" %>
-<%@ Register Src="~/m/controls/usedBikeInCities.ascx" TagName="usedBikeInCities" TagPrefix="BW" %>
+<%@ Register Src="~/UI/m/controls/usedBikeModel.ascx" TagName="usedBikeModel" TagPrefix="BW" %>
+<%@ Register Src="~/UI/m/controls/usedBikeInCities.ascx" TagName="usedBikeInCities" TagPrefix="BW" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,17 +10,17 @@
     keywords="Used bikes, used bike, used bikes for sale, second hand bikes, buy used bike";        
     canonical="https://www.bikewale.com/used/";
 %>
-    <!-- #include file="/includes/headscript_mobile_min.aspx" -->
+    <!-- #include file="/UI/includes/headscript_mobile_min.aspx" -->
 	<link href="<%= staticUrl  %>/m/css/used/landing.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
-	<link href="<%= staticUrl  %>/css/components/m-brand-logo.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
+	<link href="<%= staticUrl  %>/UI/css/components/m-brand-logo.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
     <script type="text/javascript">
-        <!-- #include file="\includes\gacode_mobile.aspx" -->
+        <!-- #include file="\UI\includes\gacode_mobile.aspx" -->
     </script>
 </head>
 <body class="page-type-landing">
     <form id="form1" runat="server">
         <% if(viewModel!= null){ %>
-        <!-- #include file="/includes/headBW_Mobile.aspx" -->
+        <!-- #include file="/UI/includes/headBW_Mobile.aspx" -->
 
         <section>
             <div class="container">
@@ -187,14 +187,14 @@
             </div>
             <a class="btn btn-orange btn-fixed-width" id="search-profile-id-btn">Search</a>
         </div>
-        <script type="text/javascript" src="<%= staticUrl  %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
-        <!-- #include file="/includes/footerBW_Mobile.aspx" -->
+        <script type="text/javascript" src="<%= staticUrl  %>/UI/m/src/frameworks.js?<%= staticFileVersion %>"></script>
+        <!-- #include file="/UI/includes/footerBW_Mobile.aspx" -->
         <link href="<%= staticUrl  %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
-        <!-- #include file="/includes/footerscript_mobile.aspx" -->
-        <script type="text/javascript" src="<%= staticUrl  %>/m/src/used/landing.js?<%= staticFileVersion %>">
+        <!-- #include file="/UI/includes/footerscript_mobile.aspx" -->
+        <script type="text/javascript" src="<%= staticUrl  %>/UI/m/src/used/landing.js?<%= staticFileVersion %>">
              var gaObj = { 'id': '<%= (int)Bikewale.Entities.Pages.GAPages.Used_Bike_Landing%>', 'name': '<%= Bikewale.Entities.Pages.GAPages.Used_Bike_Landing%>' }
         </script>
-        <!-- #include file="/includes/fontBW_Mobile.aspx" -->
+        <!-- #include file="/UI/includes/fontBW_Mobile.aspx" -->
         <% } %>
     </form>
 </body>

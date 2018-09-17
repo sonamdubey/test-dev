@@ -11,13 +11,13 @@
         isAd300x250BTFShown = false;
         isAd970x90BottomShown = false;
          %>
-    <!-- #include file="/includes/headscript.aspx" -->
-    <link href="<%= staticUrl  %>/css/cancellation.css?<%= staticFileVersion%>" rel="stylesheet" type="text/css"/>
+    <!-- #include file="/UI/includes/headscript.aspx" -->
+    <link href="<%= staticUrl  %>/UI/css/cancellation.css?<%= staticFileVersion%>" rel="stylesheet" type="text/css"/>
     
 </head>
 <body class="bg-light-grey" data-contestslug="true">
     <form id="form1" runat="server">
-        <!-- #include file="/includes/headBW.aspx" -->
+        <!-- #include file="/UI/includes/headBW.aspx" -->
         <header class="booking-cancellation-banner">    	
             <div class="container">
                 <div class="welcome-box">
@@ -191,9 +191,9 @@
             </div>
         </section>--%>
         <asp:HiddenField ID="hdnBwid" Value="" runat="server" />
-        <!-- #include file="/includes/footerBW.aspx" -->
-        <!-- #include file="/includes/footerscript.aspx" -->
-        <script type="text/javascript" src="<%= staticUrl %>/src/cancellation.js?<%= staticFileVersion %>"></script>
+        <!-- #include file="/UI/includes/footerBW.aspx" -->
+        <!-- #include file="/UI/includes/footerscript.aspx" -->
+        <script type="text/javascript" src="<%= staticUrl %>/UI/src/cancellation.js?<%= staticFileVersion %>"></script>
     </form>
 </body>
 </html>

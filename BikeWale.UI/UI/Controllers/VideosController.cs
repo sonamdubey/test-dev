@@ -134,7 +134,7 @@ namespace Bikewale.Controllers.Desktop.Videos
                 catch (Exception ex)
                 {
                     _logger.Error(ex);
-                    return View("~/Views/Videos/Index_Mobile.cshtml", objVM);
+                    return View("~/UI/Views/Videos/Index_Mobile.cshtml", objVM);
                 }
                 return View(objVM);
             }
@@ -186,7 +186,7 @@ namespace Bikewale.Controllers.Desktop.Videos
             catch (Exception ex)
             {
                 _logger.Error(ex);
-                return View("~/Views/Videos/CategoryVideos_Mobile.cshtml", objVM);
+                return View("~/UI/Views/Videos/CategoryVideos_Mobile.cshtml", objVM);
             }
             return View(objVM);
         }
@@ -246,7 +246,7 @@ namespace Bikewale.Controllers.Desktop.Videos
                 catch (Exception ex)
                 {
                     _logger.Error(ex);
-                    return View("~/Views/Videos/Details_Mobile.cshtml", objVM);
+                    return View("~/UI/Views/Videos/Details_Mobile.cshtml", objVM);
                 }
                 return View(objVM);
             }
@@ -429,7 +429,7 @@ namespace Bikewale.Controllers.Desktop.Videos
         public ActionResult SimilarVideos(uint videoId, uint modelId)
         {
             SimilarVideosModel model = new SimilarVideosModel(modelId, videoId, _video);
-            return PartialView("~/views/videos/_SimilarVideos.cshtml", model.GetData());
+            return PartialView("~/UI/views/videos/_SimilarVideos.cshtml", model.GetData());
         }
 
         /// <summary>
@@ -440,7 +440,7 @@ namespace Bikewale.Controllers.Desktop.Videos
         public ActionResult SimilarVideos_Mobile(uint videoId, uint modelId)
         {
             SimilarVideosModel model = new SimilarVideosModel(modelId, videoId, _video);
-            return PartialView("~/views/videos/_SimilarVideos_Mobile.cshtml", model.GetData());
+            return PartialView("~/UI/views/videos/_SimilarVideos_Mobile.cshtml", model.GetData());
         }
         /// <summary>
         /// Created by : Ashutosh Sharma on 17-Aug-2017

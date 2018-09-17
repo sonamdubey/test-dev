@@ -1,10 +1,10 @@
 ﻿@model Bikewale.Models.UserReviews.UserReviewLandingVM
 
 @{
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/review/landing.css' inline>";
-    Model.Page_JS_Path = "/src/review/landing.js";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/UI/sass/review/landing.css' inline>";
+    Model.Page_JS_Path = "/UI/src/review/landing.js";
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/UI/Views/Shared/_Layout.cshtml";
     Model.IsPageTypeLanding = true;
     Model.IsTransparentHeader = true;
     Model.PageMetaTags.AlternateUrl = "https://www.bikewale.com/m/reviews/";
@@ -19,7 +19,7 @@
                     <li data-tabs="expertReviewContent" class="">Expert Reviews</li>
                 </ul>
             </div>
-            @Html.Partial("~/views/UserReview/_SearchUserReviewExpertReviewModel.cshtml")
+            @Html.Partial("~/UI/views/UserReview/_SearchUserReviewExpertReviewModel.cshtml")
         </div>
     </div>
 
@@ -84,7 +84,7 @@
         @if (Model.TopRatedBikesWidget != null)
         {
             <section>
-                @Html.Partial("~/views/UserReview/_TopRatedBikes.cshtml", Model.TopRatedBikesWidget)
+                @Html.Partial("~/UI/views/UserReview/_TopRatedBikes.cshtml", Model.TopRatedBikesWidget)
             </section>
         }
 
@@ -129,7 +129,7 @@
                 {
                     <h2 class="font22 text-center margin-bottom20 padding-top30 text-bold">Recently added reviews</h2>
                     <div class="jcarousel-wrapper inner-content-carousel user-review__swiper section-bottom-margin content-box-shadow padding-bottom20 padding-top20">
-                        @Html.Partial("~/views/UserReview/_RecentUploadedReviews.cshtml", Model.RecentUserReviewsList)
+                        @Html.Partial("~/UI/views/UserReview/_RecentUploadedReviews.cshtml", Model.RecentUserReviewsList)
                     </div>
                 }
             </div>
@@ -141,7 +141,7 @@
                 <div class="container section-container section-bottom-margin">
                     <div class="grid-12">
                         <div class="content-box-shadow padding-top20">
-                            @Html.Partial("~/Views/Make/_Brands.cshtml", Model.Brands)
+                            @Html.Partial("~/UI/Views/Make/_Brands.cshtml", Model.Brands)
                         </div>
                     </div>
                     <div class="clear"></div>
@@ -211,7 +211,7 @@
         @if (Model.BikesWithExpertReviews != null)
         {
 
-            @Html.Partial("~/views/UserReview/_PopularBikesWithExpertReviews.cshtml", Model.BikesWithExpertReviews)
+            @Html.Partial("~/UI/views/UserReview/_PopularBikesWithExpertReviews.cshtml", Model.BikesWithExpertReviews)
 
         }
         <section>
@@ -219,7 +219,7 @@
                 <h2 class="text-bold text-center margin-bottom20 font22 margin-top20 margin-top30">Recently added reviews</h2>
                 <div class="grid-12">
                     <div class="content-box-shadow padding-bottom20">
-                        @Html.Partial("~/views/ExpertReviews/_ExpertReviewHorizontalListByModel.cshtml", Model.ExpertReviews)
+                        @Html.Partial("~/UI/views/ExpertReviews/_ExpertReviewHorizontalListByModel.cshtml", Model.ExpertReviews)
                     </div>
                 </div>
             </div>
@@ -232,7 +232,7 @@
                     <div class="author-block">
                         <span class="author-block__title">WHO ARE THEY?</span>
                         <p class="author-block__description">A bunch of petrolheads with a never-ending appetite for mopeds, superbikes and everything in between.</p>
-                        @Html.Partial("~/Views/Author/_AuthorsListCarousel.cshtml", Model.Authors)
+                        @Html.Partial("~/UI/Views/Author/_AuthorsListCarousel.cshtml", Model.Authors)
                     </div>
                 </div>
             </div>

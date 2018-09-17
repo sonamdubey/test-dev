@@ -1,4 +1,4 @@
-﻿
+﻿using Bikewale.DAL.BikeData;
 using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;

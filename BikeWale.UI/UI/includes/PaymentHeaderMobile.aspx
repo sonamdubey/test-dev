@@ -23,7 +23,7 @@
     <%if(!String.IsNullOrEmpty(relPrevPageUrl)) { %><link rel="prev" href="<%= relPrevPageUrl %>" /><% } %>
     <%if(!String.IsNullOrEmpty(relNextPageUrl)){ %><link rel="next" href="<%= relNextPageUrl %>" /><% }%>
      
-    <!-- #include file="/includes/gacode.aspx" --> 
+    <!-- #include file="/UI/includes/gacode.aspx" --> 
     <script type='text/javascript'>
         (function () {
             var useSSL = 'https:' == document.location.protocol;
@@ -64,7 +64,7 @@
     <script type="text/javascript">!function (a, b) { "use strict"; function f() { if (!d) { d = !0; for (var a = 0; a < c.length; a++) c[a].fn.call(window, c[a].ctx); c = [] } } function g() { "complete" === document.readyState && f() } a = a || "docReady", b = b || window; var c = [], d = !1, e = !1; b[a] = function (a, b) { if ("function" != typeof a) throw new TypeError("callback for docReady(fn) must be a function"); return d ? void setTimeout(function () { a(b) }, 1) : (c.push({ fn: a, ctx: b }), void ("complete" === document.readyState || !document.attachEvent && "interactive" === document.readyState ? setTimeout(f, 1) : e || (document.addEventListener ? (document.addEventListener("DOMContentLoaded", f, !1), window.addEventListener("load", f, !1)) : (document.attachEvent("onreadystatechange", g), window.attachEvent("onload", f)), e = !0))) } }("docReady", window);</script>
 
 
-    <!-- #include file="\includes\globalStaticFiles_mobile.aspx" -->
+    <!-- #include file="\UI\includes\globalStaticFiles_mobile.aspx" -->
 </head>
 <body>
     <form runat="server">    

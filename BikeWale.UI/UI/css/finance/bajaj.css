@@ -1,0 +1,138 @@
+﻿.gender-box{
+    margin-right: 44px;
+}
+
+.margin-left0{
+    margin-left: 0 !important; 
+}
+
+.margin-left60{
+    margin-left: 60px;
+}
+
+.margin-left65 {
+	margin-left: 65px;
+}
+
+.margin-left52{
+     margin-left: 52px;
+}
+
+
+.hide{
+    display: none;
+}
+
+.displayBlock{
+    display: block;
+}
+
+.width10{
+    width: 10%;
+}
+
+.width28{
+    width: 28%;
+    margin-left: 2% !important;
+
+}
+
+.width-90-percent {
+    display: block;
+    width: 90%;
+}
+
+.width100{
+    width: 100%;
+}
+.date{
+    width: 41%;
+    display: inline-block;
+}
+
+.selectBox{
+    border-bottom: 1px solid #82888b;
+    height: 33px;
+    width: 100%;
+}
+.input-box .select-box .select-label{
+    font-size: 14px;
+    color: #a2a2a2;
+    padding-top: 3px;
+}
+
+.input-box .done .select-label{
+    font-size: 12px;
+    padding-top: 3px;
+}
+.input-box .select-box .chosen-container .chosen-single{
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.select-box{
+    width: 100%;
+    margin-right: 10px;
+    padding-top: 3px;
+}
+.cfTitle .chosen-container.chosen-with-drop .chosen-drop{
+    width:90px;
+}
+
+.cfAccountTerm .chosen-container.chosen-with-drop .chosen-drop{
+    width:90%;
+}
+
+.Zebra_DatePicker table.dp_header{
+    width: 210px !important;
+}
+
+div .gender-box{
+    width: 273px;
+}
+
+.input-box input[disabled="disabled"]{
+    border-bottom: 1px solid #d8d5d5 !important; 
+    background: #ffffff;  
+    cursor:not-allowed;
+}
+.input-box input[disabled="disabled"] ~ label{
+    color: #d8d5d5;
+}
+
+.employment-details-form {
+	margin: 10px 0 10px 20px;
+	border-left: 2px solid #e2e2e2;
+	padding: 10px 50px;
+}
+
+.form-field__company-name.input-box {
+	height: 85px;
+}
+
+.input-box .check-box label {
+	position: relative;
+	top: 0;
+	left: 0;
+	font-size: 12px;
+	color: #a2a2a2;
+	display: inline-block;
+	vertical-align: middle;
+	cursor: pointer;
+	pointer-events: auto;
+}
+
+.input-box .check-box input:focus ~ label,
+.input-box.not-empty .check-box label {
+	top: 0;
+}
+
+@media only screen and (max-width: 1024px) {
+	.gender-box {
+		margin-right: 30px;
+	}
+}
+
+.contact-details__form .form-control-box.form-field__email {
+	margin-left: 0;
+}

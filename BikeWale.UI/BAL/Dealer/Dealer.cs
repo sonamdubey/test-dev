@@ -396,5 +396,50 @@ namespace Bikewale.BAL.Dealer
             }
             return 0;
         }
+
+        /// <summary>
+        /// Created by  : Pratibha Verma on 14 August 2018
+        /// Description : Method to filter out multioutlet dealers
+        /// </summary>
+        /// <param name="mlaDealers"></param>
+        /// <returns></returns>
+        public List<SecondaryDealerBase> FilterMultioutletDealers(IEnumerable<SecondaryDealerBase> mlaDealers)
+        {
+            List<SecondaryDealerBase> objResult = null;
+            try
+            {
+                if (mlaDealers != null)
+                {
+                    objResult = new List<SecondaryDealerBase>();
+                    List<MultioutletDealer> objMultioutletDealers = mlaDealers.GroupBy(d => d.MasterDealerId)    // grouping dealers based on MasterDealerId
+                                                                    .Select(g => new MultioutletDealer
+                    {
+                        MasterDealerId = g.Key,
+                        SecondaryDealers = g.Select(x => x).ToList()
+                    }
+                    ).ToList();
+
+                    if (objMultioutletDealers != null)
+                    {
+                        foreach (var dealer in objMultioutletDealers)
+                        {
+                            if (dealer.MasterDealerId == 0)
+                            {
+                                objResult.AddRange(dealer.SecondaryDealers);  // adding single outlet dealers in the result set
+                            }
+                            else
+                            {
+                                objResult.Add(dealer.SecondaryDealers.OrderBy(x => x.Distance).FirstOrDefault());   // adding nearest dealer in the result set from multioutlet dealers
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "Bikewale.BAL.Dealer.FilterMultioutletDealers");
+            }
+            return objResult;
+        }
     }
 }

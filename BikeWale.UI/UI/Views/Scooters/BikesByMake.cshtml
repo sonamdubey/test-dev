@@ -6,9 +6,9 @@
     Model.AdTags.AdPath = "/1017752/Bikewale_MakeScooter_";
     Model.IsHeaderFix = false;
     Model.IsTransparentHeader = false;
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/scooters/listing.css' inline />";
-    Model.Page_JS_Path = "/src/scooters.js";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/UI/sass/scooters/listing.css' inline />";
+    Model.Page_JS_Path = "/UI/src/scooters.js";
+    Layout = "~/UI/Views/Shared/_Layout.cshtml";
 }
 
 <section id="makeTabsContentWrapper">
@@ -18,7 +18,7 @@
                 <h1 class="padding-15-20 content-box-shadow">@Model.Page_H1</h1>
             </div>
 
-            @Html.Partial("~/Views/Scooters/_Index_Tabs.cshtml", Model)
+            @Html.Partial("~/UI/Views/Scooters/_Index_Tabs.cshtml", Model)
 
             @if (Model.Description != null && Model.Description.FullDescription.Length > 0)
             {
@@ -97,7 +97,7 @@
                             </div>
                             <div class="clear"></div>
                         </div>
-                        @Html.Partial("~/Views/CompareBikes/_SimilarComparisons.cshtml", Model.SimilarCompareScooters)
+                        @Html.Partial("~/UI/Views/CompareBikes/_SimilarComparisons.cshtml", Model.SimilarCompareScooters)
                     </div>
                 </div>
                 <div class="clear"></div>
@@ -115,7 +115,7 @@
                         </div>
                         <div class="clear"></div>
                     </div>
-                    @Html.Partial("~/views/shared/_otherbrands.cshtml", Model.OtherBrands)
+                    @Html.Partial("~/UI/views/shared/_otherbrands.cshtml", Model.OtherBrands)
                 </div>
             </div>
             <div class="clear"></div>
@@ -130,7 +130,7 @@
                 <div class="grid-12">
                     <div class="content-box-shadow padding-top20 padding-bottom20">
                         <h2 class="font18 padding-bottom20 padding-left20">Upcoming Scooters</h2>
-                        @Html.Partial("~/Views/Upcoming/_UpcomingBikes.cshtml", Model.UpcomingScooters)
+                        @Html.Partial("~/UI/Views/Upcoming/_UpcomingBikes.cshtml", Model.UpcomingScooters)
                     </div>
                 </div>
                 <div class="clear"></div>
@@ -148,7 +148,7 @@
                     {
                     <div id="modelNewsContent" class="bw-model-tabs-data margin-right10 margin-left10 content-inner-block-2010 padding-top20 padding-bottom20 border-solid-bottom font14">
                         <h2 class="margin-bottom20">News about @Model.Make.MakeName Scooters</h2>
-                        @Html.Partial("~/Views/News/_RecentNews.cshtml", Model.News)
+                        @Html.Partial("~/UI/Views/News/_RecentNews.cshtml", Model.News)
 
                         <div class="more-article-target view-all-btn-container">
                             <a href=@Model.ScooterNewsUrl title="@(!string.IsNullOrEmpty(Model.News.ModelMasking) ? string.Format("{0} {1} News", Model.News.MakeName, Model.News.ModelName) : (!string.IsNullOrEmpty(Model.News.MakeMasking) ? string.Format("{0} News", Model.News.MakeName) : "Scooters News"))"
@@ -165,7 +165,7 @@
                     <div id="makeReviewsContent" class="bw-model-tabs-data margin-right10 margin-left10 padding-top20 padding-bottom20 border-solid-bottom font14">
                         <h2 class="padding-left10 padding-right10">Reviews about @Model.Make.MakeName Scooters</h2>
                         <h3 class="model-section-subtitle padding-right10 padding-left10">Expert Reviews</h3>
-                        @Html.Partial("~/Views/ExpertReviews/_RecentExpertReviews.cshtml", Model.ExpertReviews)
+                        @Html.Partial("~/UI/Views/ExpertReviews/_RecentExpertReviews.cshtml", Model.ExpertReviews)
                         <div class="padding-left10 more-article-target view-all-btn-container">
                             <a title="@Model.ExpertReviews.LinkTitle" href="@Model.ExpertReviews.MoreExpertReviewUrl" class="btn view-all-target-btn">Read all reviews<span class="bwsprite teal-right"></span></a>
                         </div>
@@ -175,7 +175,7 @@
                     {
                     <div id="makeVideosContent" class="bw-model-tabs-data margin-right10 margin-left10 padding-top20 padding-bottom20 border-solid-bottom font14">
                         <h2 class="padding-right10 padding-left10">Videos of @Model.Make.MakeName Scooters</h2>
-                        @Html.Partial("~/Views/Videos/_RecentVideos.cshtml", Model.Videos)
+                        @Html.Partial("~/UI/Views/Videos/_RecentVideos.cshtml", Model.Videos)
                     </div>
                     }
                         @if (Model.IsDealerServiceDataAvailable || Model.IsDealerServiceDataInIndiaAvailable)
@@ -193,14 +193,14 @@
                                     </div>
                                     <div class="clear"></div>
                                 </div>
-                                @Html.Partial("~/Views/DealerShowroom/_DealerCard.cshtml", Model.Dealers)
+                                @Html.Partial("~/UI/Views/DealerShowroom/_DealerCard.cshtml", Model.Dealers)
                             </div>
                             }
                             else if (Model.IsDealerServiceDataInIndiaAvailable)
                             {
                             <div id="makeDealersContent" class="padding-top20 padding-bottom20 font14">
                                 <h2 class="padding-left20 padding-right20">@Model.Make.MakeName showrooms</h2>
-                                @Html.Partial("~/Views/DealerShowroom/_DealersServiceCentersInIndia.cshtml", Model.DealersServiceCenter)
+                                @Html.Partial("~/UI/Views/DealerShowroom/_DealersServiceCentersInIndia.cshtml", Model.DealersServiceCenter)
                             </div>
 
                             }

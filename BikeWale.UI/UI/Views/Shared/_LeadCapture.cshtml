@@ -1,102 +1,166 @@
 ﻿@model Bikewale.Entities.PriceQuote.LeadCaptureEntity
 
 <!-- lead capture popup start-->
-<div id="leadCapturePopup" class="text-center rounded-corner2">
-    <div class="leadCapture-close-btn position-abt pos-top20 pos-right20 bwsprite cross-lg-lgt-grey cur-pointer"></div>
-    <!-- contact details starts here -->
-    <div id="contactDetailsPopup">
-        <div class="icon-outer-container rounded-corner50">
-            <div class="icon-inner-container rounded-corner50">
-                <span class="bwsprite user-contact-details-icon margin-top25"></span>
+<div id="leadCapturePopup" class="lead-popup">
+    <div class="popoup-content">
+        <!-- contact details starts here -->
+        <div id="contactDetailsPopup" class="contact-detail-screen">
+            <div class="leadCapture-close-btn lead-popup__close-btn" data-act="MLA_Closed_Clicked"></div>
+            <div class="lead-contact-detail__head">
+                <span class="lead-popup__contact-icon icon-container--round"></span>
+                <div class="lead-popup__contact-desc">
+                    <p class="lead-contact-head__title" data-bind="text: (dealerHeading() != null && dealerHeading() != '') ? dealerHeading() : 'Provide contact details'"></p>
+                    <p class="lead-contact-head__subtitle" data-bind="text: (dealerDescription() != null && dealerDescription() != '') ? dealerDescription() : 'Dealership will get back to you with offers, EMI quotes, exchange benefits and much more!'"></p>
+                </div>
             </div>
-        </div>
-        <p class="font20 margin-top10 margin-bottom10" data-bind="text: (dealerHeading() != null && dealerHeading() != '') ? dealerHeading() : 'Provide contact details'"></p>
-        <p class="text-light-grey margin-bottom20" data-bind="text: (dealerDescription() != null && dealerDescription() != '') ? dealerDescription() : 'Dealership will get back to you with offers, EMI quotes, exchange benefits and much more!'"></p>
-        <div class="personal-info-form-container">
-            @if (Model.CityId <= 0)
-            {
-                <div class="form-control-box personal-info-list position-rel" data-bind="visible: cityRequired() ">
-                    <div class="select-box full-width-select text-left">
-                        <p class="select-label">Select City</p>
-                        <select id="getLeadCity" data-title="Select City" data-bind="value: selectedCity, options: cities, optionValue: 'cityId', optionsText: 'cityName',event : { change : selectCity } " class="chosen-select margin-bottom10"></select>
+            <div class="personal-info-form-container">
+                @if (Model.CityId <= 0)
+                {
+                    <div class="form-control-box personal-info-list position-rel" data-bind="visible: cityRequired() ">
+                        <div class="select-box full-width-select text-left">
+                            <p class="select-label">Select City</p>
+                            <select id="getLeadCity" data-title="Select City" data-bind="value: selectedCity, options: cities, optionValue: 'cityId', optionsText: 'cityName',event : { change : selectCity } " class="chosen-select margin-bottom10"></select>
+                            <span class="boundary"></span>
+                            <span class="error-text"></span>
+                        </div>
+                    </div>
+                }
+
+                <!-- ko if : isDealerBikes() -->
+                <div data-bind="visible: isDealerBikes()" class="form-control-box personal-info-list position-rel">
+                    <div class="placeholder-loading-text position-abt form-control border-solid" style="display: none; height: 40px; border: 1px solid #e2e2e2;">Loading dealer bikes..<span class="fa fa-spinner fa-spin position-abt text-black btnSpinner"></span></div>
+                    <div class="select-box">
+                        <select id="getLeadBike" class="chosen-select form-control chosen-select margin-bottom10" data-placeholder="Choose a bike model" data-bind="chosen: { width: '100%' }, value: selectedBike, options: dealerBikes, optionValue: function (i) { return i.model.modelId; }, optionsText: 'bike', optionsCaption: 'Select a bike'"></select>
+                        <span class="error-text"></span>
+                    </div>
+                    <span class="bwsprite error-icon errorIcon"></span>
+                    <div class="bw-blackbg-tooltip errorText"></div>
+                    <span class="position-abt progress-bar" style="width: 100%; overflow: hidden; display: none;"></span>
+                </div>
+                <!-- /ko -->
+                <div class="input-box form-control-box personal-info-list">
+                    <input type="text" class="get-first-name" id="getFullName" data-bind="textInput: fullName" tabindex="1" maxlength="50">
+                    <label for="getFullName">Name<sup>*</sup></label>
+                    <span class="boundary"></span>
+                    <span class="error-text"></span>
+                </div>
+
+                <div class="input-box input-number-box form-control-box personal-info-list">
+                    <input type="text" class="get-mobile-no" id="getMobile" maxlength="10" data-bind="textInput: mobileNo" tabindex="2">
+                    <label for="getMobile">Mobile number<sup>*</sup></label>
+                    <span class="input-number-prefix">+91</span>
+                    <span class="boundary"></span>
+                    <span class="error-text"></span>
+                </div>
+                <div class="input-box form-control-box personal-info-list" data-bind="visible : emailRequired() && (mfgCampaignId() > 0)">
+                    <input type="text" class="get-email-id" id="getEmailID" data-bind="textInput: emailId" tabindex="3" maxlength="50">
+                    <label for="getEmailID" data-bind="visible: emailOption() == 'Required'">Email<sup>*</sup></label>
+                    <label for="getEmailID" data-bind="visible : emailOption()== 'Optional'">Email (optional)</label>
+                    <span class="boundary"></span>
+                    <span class="error-text"></span>
+                </div>
+                <div id="getPincode-input-box" class="input-box form-control-box personal-info-list" data-bind="visible : pinCodeRequired()">
+                    <input type="text" id="getPinCode" autocomplete="off" tabindex="4" maxlength="6">
+                    <label for="getPinCode">Pincode<sup>*</sup></label>
+                    <span class="boundary"></span>
+                    <span class="error-text"></span>
+
+                    <ul id="errPinCodeSearch" class="ui-autocomplete ui-front ui-menu ui-widget hide">
+                        <li class="ui-menu-item" tabindex="-1">
+                            <span class="text-bold">Oops! No suggestions found</span><br>
+                            <span class="text-light-grey font12">Search by pincode or area e.g: 400708 or airoli</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="form-control-box personal-info-list position-rel" data-bind="visible: dealersRequired() ">
+                    <div class="select-box select-box-no-input full-width-select text-left">
+                        <p class="select-label">Select dealer</p>
+                        <select id="ddlMfgDealers" data-title="Select dealer" class="chosen-select margin-bottom10"></select>
                         <span class="boundary"></span>
                         <span class="error-text"></span>
                     </div>
                 </div>
+                <div class="clear"></div>
+                <button class="btn btn-orange contact-details__submit bw-ga" id="user-details-submit-btn" data-bind="click: function(data, event){ @(Model.IsMLAActive && !Model.IsManufacturerCampaign ? "getMLADealers();" : "") submitLead(data, event); }" tabindex="5">Submit</button>
+                <p class="agreement-and-policy">By proceeding ahead, you agree to BikeWale <a title="Visitor agreement" href="/visitoragreement.aspx" target="_blank" rel="noopener">visitor agreement</a> and <a title="Privacy policy" href="/privacypolicy.aspx" target="_blank" rel="noopener">privacy policy</a>.</p>
+            </div>
+        </div>
+        <div id="dealer-lead-msg" class="additional-screen">
+            <div class="leadcapture-close__container">
+                <div class="leadCapture-close-btn lead-popup__close-btn" data-act="MLA_Closed_Clicked"></div>
+            </div>
+            <div id="notify-response" class="notify-response__container">
+                <div class="lead-popup__thankyou-icon icon-container--round">
+                </div>
+                <p class="lead-popup-thankyou__title">Thank you!</p>
+                <!-- ko if : !dealerMessage() -->
+                <p class="lead-popup-thankyou__desc">Thank you for providing your details. <span data-bind="text: dealerName()"></span><span data-bind="visible : dealerArea() && dealerArea().length > 0, text: ', ' + dealerArea()"></span>&nbsp; will get in touch with you soon.</p>
+                <!-- /ko -->
+                <!-- ko ifnot : !dealerMessage()-->
+                <p class="thankyou-with-code" id="ko_thankyoumessage" data-bind="html: dealerMessage()"></p>
+                <!-- /ko -->
+                <button id="notifyOkayBtn" class="btn btn-orange notify-response__submit">Okay</button>
+            </div>
+            @if (Model.IsMLAActive && !Model.IsManufacturerCampaign)
+            {
+                <div id="otherDealers" class="dealers__container">
+                    <div class="dealers__content selection-container">
+                        <div class="dealers__head">
+                            <div class="dealers-head__left">
+                                <p class="dealer-head__title">
+                                    Other Dealers
+                                </p>
+                                <p class="dealer-head__subtitle">
+                                    Check offers from other dealers
+                                </p>
+                            </div>
+                            <div class="dealer-head__right">
+                                <label class="checkbox-toggle checkbox-container">
+                                    <input type="checkbox" class="checkbox-container__input" data-bind="click: modifyMLADealerIds , checked: isSelectAllChecked" />
+                                    <span class="checkbox-container__label">
+                                        Select All
+                                    </span>
+                                    <span class="checkbox-container__icon">
+                                    </span>
+
+                                </label>
+                            </div>
+                        </div>
+                        <ul class="dealers__list selection-checkbox-container" data-bind="foreach: MLADealers">
+                            <li class="dealers-list__item">
+                                <label>
+                                    <span class="dealers-item__content">
+                                        <span class="dealers-item__name" data-bind="text: name">
+
+                                        </span>
+                                        <span class="dealers-item__info">
+                                            <span class="dealers__location dealer-info__item" data-bind="text: area">
+
+                                            </span>
+                                            <span class="dealers__distance dealer-info__item" data-bind="text: distance">
+
+                                            </span>
+                                        </span>
+                                    </span>
+                                    <span class="checkbox-container">
+                                        <input type="checkbox" class="checkbox-container__input" data-bind="checkedValue: dealerId, checked: $parent.selectedMLADealerIds" />
+                                        <span class="checkbox-container__icon"></span>
+                                    </span>
+                                </label>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="dealers__btn-container">
+                    <button id="otherDealerBtn" class="btn btn-orange dealers__submit-btn" data-bind="enable : selectedMLADealerIds().length != 0, click:submitLeadToMLADealers">
+                        Submit
+                    </button>
+                    <button id="otherDealerSkipBtn" class="dealers__skip-btn" data-act="MLA_Not_Interested_Clicked" data-bind="click: triggerMlaGAs">
+                        not interested
+                    </button>
+                </div>
             }
-
-            <!-- ko if : isDealerBikes() -->
-            <div data-bind="visible: isDealerBikes()" class="form-control-box personal-info-list position-rel">
-                <div class="placeholder-loading-text position-abt form-control border-solid" style="display: none; height: 40px; border: 1px solid #e2e2e2;">Loading dealer bikes..<span class="fa fa-spinner fa-spin position-abt text-black btnSpinner"></span></div>
-                <div class="select-box">
-                    <select id="getLeadBike" class="chosen-select form-control chosen-select margin-bottom10" data-placeholder="Choose a bike model" data-bind="chosen: { width: '100%' }, value: selectedBike, options: dealerBikes, optionValue: function (i) { return i.model.modelId; }, optionsText: 'bike', optionsCaption: 'Select a bike'"></select>
-                    <span class="error-text"></span>
-                </div>
-                <span class="bwsprite error-icon errorIcon"></span>
-                <div class="bw-blackbg-tooltip errorText"></div>
-                <span class="position-abt progress-bar" style="width: 100%; overflow: hidden; display: none;"></span>
-            </div>
-            <!-- /ko -->
-            <div class="input-box form-control-box personal-info-list">
-                <input type="text" class="get-first-name" id="getFullName" data-bind="textInput: fullName" tabindex="1" maxlength="50">
-                <label for="getFullName">Name<sup>*</sup></label>
-                <span class="boundary"></span>
-                <span class="error-text"></span>
-            </div>
-
-            <div class="input-box input-number-box form-control-box personal-info-list">
-                <input type="text" class="get-mobile-no" id="getMobile" maxlength="10" data-bind="textInput: mobileNo" tabindex="2">
-                <label for="getMobile">Mobile number<sup>*</sup></label>
-                <span class="input-number-prefix">+91</span>
-                <span class="boundary"></span>
-                <span class="error-text"></span>
-            </div>
-            <div class="input-box form-control-box personal-info-list" data-bind="visible : emailRequired() && (mfgCampaignId() > 0)">
-                <input type="text" class="get-email-id" id="getEmailID" data-bind="textInput: emailId" tabindex="3" maxlength="50">
-                <label for="getEmailID" data-bind="visible: emailOption() == 'Required'">Email<sup>*</sup></label>
-                <label for="getEmailID" data-bind="visible : emailOption()== 'Optional'">Email (optional)</label>
-                <span class="boundary"></span>
-                <span class="error-text"></span>
-            </div>
-            <div id="getPincode-input-box" class="input-box form-control-box personal-info-list" data-bind="visible : pinCodeRequired()">
-                <input type="text" id="getPinCode" autocomplete="off" tabindex="4" maxlength="6">
-                <label for="getPinCode">Pincode<sup>*</sup></label>
-                <span class="boundary"></span>
-                <span class="error-text"></span>
-
-                <ul id="errPinCodeSearch" class="ui-autocomplete ui-front ui-menu ui-widget hide">
-                    <li class="ui-menu-item" tabindex="-1">
-                        <span class="text-bold">Oops! No suggestions found</span><br>
-                        <span class="text-light-grey font12">Search by pincode or area e.g: 400708 or airoli</span>
-                    </li>
-                </ul>
-            </div>
-            <div class="form-control-box personal-info-list position-rel" data-bind="visible: dealersRequired() ">
-                <div class="select-box select-box-no-input full-width-select text-left">
-                    <p class="select-label">Select dealer</p>
-                    <select id="ddlMfgDealers" data-title="Select dealer" class="chosen-select margin-bottom10"></select>
-                    <span class="boundary"></span>
-                    <span class="error-text"></span>
-                </div>
-            </div>
-            <div class="clear"></div>
-            <a class="btn btn-orange bw-ga" id="user-details-submit-btn" data-bind="event: { click: submitLead }" tabindex="5">Submit</a>
-            <p class="margin-top15 text-left">By proceeding ahead, you agree to BikeWale <a title="Visitor agreement" href="/visitoragreement.aspx" target="_blank" rel="noopener">visitor agreement</a> and <a title="Privacy policy" href="/privacypolicy.aspx" target="_blank" rel="noopener">privacy policy</a>.</p>
         </div>
-    </div>
-    <div id="dealer-lead-msg" class="hide">
-        <div class="icon-outer-container rounded-corner50">
-            <div class="icon-inner-container rounded-corner50">
-                <span class="bwsprite otp-icon margin-top25"></span>
-            </div>
-        </div>
-        <!-- ko if : !dealerMessage() -->
-        <p class="font18 margin-top25 margin-bottom20">Thank you for providing your details. <span data-bind="text: dealerName()"></span><span data-bind="visible : dealerArea() && dealerArea().length > 0, text: ', ' + dealerArea()"></span>&nbsp; will get in touch with you soon.</p>
-        <!-- /ko -->
-        <!-- ko ifnot : !dealerMessage()-->
-        <p class="font18 margin-top25 margin-bottom20" id="ko_thankyoumessage" data-bind="html: dealerMessage()"></p>
-        <!-- /ko -->
-        <a href="javascript:void(0)" class="btn btn-orange okay-thanks-msg">Okay</a>
     </div>
 </div>
 <!-- lead capture popup End-->
@@ -111,6 +175,38 @@
 
 <script type="text/javascript">
 
+    var LeadPopupStateEnum = {"Open":1,"Close":2,"Final":3};
+    var LeadPopupState = (function () {
+        var leadCapturePopup = document.getElementById('leadCapturePopup');
+        function close() {
+            $(leadCapturePopup).removeClass('lead-popup--active');
+            $("#notify-response").removeClass('notify-response--active');
+            $('.additional-screen').removeClass('dealers--active');
+            $('.popoup-content').removeClass('dealer-screen--active');
+            this.status = LeadPopupStateEnum.Close;
+        }
+        function open() {
+            $(leadCapturePopup).addClass('lead-popup--active');
+            $('.additional-screen').removeClass('additional-screen--active');
+            $("#notify-response").removeClass('notify-response');
+            $('#contactDetailsPopup').addClass('contact-detail--active');
+            dleadvm.selectedMLADealerIds([]);
+            this.status = LeadPopupStateEnum.Open;
+        }
+        function setFinalScreen() {
+            $('.additional-screen').addClass('additional-screen--active');
+            $('.popoup-content').addClass('dealer-screen--active');
+            $('#contactDetailsPopup').removeClass('contact-detail--active');
+            this.status = LeadPopupStateEnum.Final;
+        }
+
+        return {
+            close: close,
+            open: open,
+            setFinalScreen: setFinalScreen,
+            status: status
+        }
+    })();
     var gaLabel = "";
     var eventAction = "Lead_Submitted";
     var leadBtnBookNow, leadCapturePopup, leadBike;
@@ -120,10 +216,11 @@
     var leadmodelid = parseInt('@Model.ModelId'), leadcityid = parseInt('@Model.CityId'), leadareaid = parseInt('@Model.AreaId');
     var leadBikeName = '@Model.BikeName', leadLocation = '@Model.Location';
     var objPinCodes = new Object(), dleadvm, validate;
-    var isBindingApplied = false;
     var fbPixelLeadEvent = "";
+
     function leadModel() {
         var arr = setuserDetails();
+        var globalLocation = GetGlobalLocationObject();
         var self = this;
         if (arr != null && arr.length > 0) {
             self.fullName = ko.observable(arr[0] || '');
@@ -176,6 +273,166 @@
         self.sendLeadSMSCustomer = ko.observable(false);
         self.organizationName = ko.observable();
         self.leadId = ko.observable(0);
+        self.selectedMLADealerIds = ko.observableArray([]);
+        self.MLADealers = ko.observableArray([]);
+        self.isBikeSelected = ko.observable(false);
+        self.isUserAreaAvailable = ko.computed(function () {
+            return self.cityId() == globalLocation.CityId && globalLocation.AreaId > 0;
+        });
+        self.selectedBike.subscribe(function (data) {
+            if( data != null && gaObj.id == gaEnum.Dealer_Locator_City_Page && !self.isBikeSelected())
+            {
+                @if (Model.IsMLAActive && !Model.IsManufacturerCampaign)
+                {
+                    <text>
+                    triggerNonInteractiveGA(gaObj.name, "MLA_Eligible_Lead_Popup_Shown", self.selectedBike().bike + "_" + (self.isUserAreaAvailable() ? globalLocation.CityName : self.dealerCityName()) + "_" + (self.isUserAreaAvailable()  ? globalLocation.AreaName : null));
+                    </text>
+                }
+                self.isBikeSelected(true);
+            }
+        });
+        function Dealer(dealerId, name, area, distance, areaId) {
+            this.dealerId = dealerId;
+            this.name = name;
+            this.area = area;
+            this.distance = distance != 0 ? (distance != Math.round(distance) ? distance.toFixed(1): distance) + " Kms" : "";
+            this.areaId = areaId;
+        }
+
+        @if (Model.IsMLAActive && !Model.IsManufacturerCampaign)
+        {
+            <text>
+        self.setMLADealers = function (mlaDealers) {
+            if (mlaDealers != undefined && mlaDealers.length > 0) {
+                self.MLADealers.removeAll();
+                mlaDealers.forEach(function (dealer) {
+                    if (dealer.DealerId != self.dealerId()) {
+                        var dealerDistance = self.isUserAreaAvailable() ? dealer.Distance : 0;
+                        self.MLADealers.push(new Dealer(dealer.DealerId, dealer.Name, dealer.Area, dealerDistance, dealer.AreaId));
+                    }
+                });
+                if (self.MLADealers() != null && self.MLADealers().length > 0) {
+                    $('.additional-screen').addClass('dealers--active');
+                }
+            }
+        };
+        self.getMLADealers = function () {
+            var isValidUserDetails = self.validateUserInfo(fullName, emailid, mobile);
+            if (isValidUserDetails) {
+                if (gaObj.id == gaEnum.Dealer_Locator_City_Page ) {
+                    if (self.selectedBike() != null && self.selectedBike().model.modelId > 0) {
+                        var url = "/api/dealers/model/" + self.selectedBike().model.modelId + "/city/" + leadcityid + "/dealerId/" + self.dealerId() + "/?areaId=" + (self.isUserAreaAvailable() ? globalLocation.AreaId : "0");
+                        $.getJSON(url, function (data) {
+                            self.setMLADealers(data);
+                            triggerNonInteractiveGA(gaObj.name, "MLA_Primary_Lead_Success_" + self.MLADealers().length + "_dealers_shown", self.selectedBike().bike + "_" + (self.isUserAreaAvailable() ? globalLocation.CityName : self.dealerCityName()) + "_" + (self.isUserAreaAvailable() ? globalLocation.AreaName : "null"));
+                        });
+                    }
+                }
+                else {
+                    self.setMLADealers(@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.MLADealers)));
+                    triggerNonInteractiveGA(gaObj.name, "MLA_Primary_Lead_Success_" + self.MLADealers().length + "_dealers_shown", "@Model.BikeName" + "_" + "@Model.City" + "_" + "@Model.Area");
+                }
+            }
+        };
+        self.modifyMLADealerIds = ko.computed({
+            read: function() {
+            },
+            write: function(value,event) {
+                if(!self.isSelectAllChecked())
+                {
+                    self.selectedMLADealerIds([]);
+                    ko.utils.arrayForEach(self.MLADealers(), function (dealer) {
+                        self.selectedMLADealerIds.push(dealer.dealerId);
+                    });
+                }
+                else{
+                    self.selectedMLADealerIds([]);
+                }
+                if (gaObj.id == gaEnum.Model_Page || gaObj.id == gaEnum.DealerPriceQuote_Page)
+                {
+                    triggerGA(gaObj.name,"MLA_Select All_Clicked","@Model.BikeName" + "_" +  "@Model.City" + "_" + "@Model.Area");
+                }
+                else{
+                    triggerGA(gaObj.name,"MLA_Select All_Clicked",self.selectedBike().bike +"_" +  (self.isUserAreaAvailable() ? globalLocation.CityName : self.dealerCityName() )+ "_" + (self.isUserAreaAvailable() ? globalLocation.AreaName : "null"));
+                }
+            }
+        }).extend({ rateLimit: 1 });
+
+        self.isSelectAllChecked = ko.computed(function(){
+            return (self.selectedMLADealerIds().length == self.MLADealers().length);
+        }).extend({ rateLimit: 1 });
+
+        self.triggerMlaGAs = function (data, event) {
+            if (gaObj.id == gaEnum.Model_Page || gaObj.id == gaEnum.DealerPriceQuote_Page) {
+                triggerGA(gaObj.name, event.target.dataset.act, "@Model.BikeName" + "_" + "@Model.City" + "_" + "@Model.Area");
+            }
+            else {
+                if (self.selectedBike() != null) {
+                    triggerGA(gaObj.name, event.target.dataset.act, self.selectedBike().bike + "_" + (self.isUserAreaAvailable() ? globalLocation.CityName : self.dealerCityName()) + "_" + (self.isUserAreaAvailable() ? globalLocation.AreaName : "null"));
+                }
+            }
+        }
+        </text>
+        };
+
+        self.triggerCloseBtnGA = function (event) {
+            @if(Model.IsMLAActive && !Model.IsManufacturerCampaign) {
+                <text>
+            if (LeadPopupStateEnum.Final == LeadPopupState.status) {
+                self.triggerMlaGAs(null, event);
+            }
+            </text>
+            }
+        };
+
+        self.submitLeadToMLADealers = function () {
+            var objCust = {
+                "dealerId": self.dealerId(),
+                "pqId": self.pqGUId(),
+                "customerName": self.fullName(),
+                "customerMobile": self.mobileNo(),
+                "customerEmail": self.emailId(),
+                "versionId": self.versionId(),
+                "cityId": self.cityId(),
+                "cityName": self.isUserAreaAvailable() ? globalLocation.CityName : self.dealerCityName(),
+                "areaId": self.isUserAreaAvailable() ? globalLocation.AreaId : 0,
+                "areaName": self.isUserAreaAvailable() ? globalLocation.AreaName : 0,
+                "leadSourceId": (gaObj.id == gaEnum.Dealer_Locator_City_Page ? "69" : (gaObj.id == gaEnum.Dealer_Locator_Details_Page ? "71" : @Model.MlaLeadSourceId)),
+                "pinCode": self.pincode() || 0,
+                "deviceId": getCookie('BWC'),
+                "campaignId": self.campaignId(),
+                "manufacturerDealerId": $('#ddlMfgDealers :selected').data('id'),
+                "manufacturerDealer": self.ko_DealerName(),
+                "bikeName": leadBikeName,
+                "dealerName": self.organizationName() ? self.organizationName() : self.dealerName(),
+                "sendLeadSMSCustomer": self.sendLeadSMSCustomer(),
+                "leadId": self.leadId(),
+                "dealerIds": self.selectedMLADealerIds(),
+                "platformId": @Model.PlatformId,
+                "pageId": @Model.PageId
+            };
+            if (gaObj.id == gaEnum.Model_Page || gaObj.id == gaEnum.DealerPriceQuote_Page) {
+                triggerGA(gaObj.name, "MLA_Lead_Success_" + self.selectedMLADealerIds().length + "/" + self.MLADealers().length + "_dealers_Lead Submitted", "@Model.BikeName" + "_" + "@Model.City" + "_" + "@Model.Area");
+            }
+            else {
+                triggerGA(gaObj.name, "MLA_Lead_Success_" + self.selectedMLADealerIds().length + "/" + self.MLADealers().length + "_dealers_Lead Submitted", self.selectedBike().bike + "_" + (self.isUserAreaAvailable() ? globalLocation.CityName : self.dealerCityName()) + "_" + (self.isUserAreaAvailable() ? globalLocation.AreaName : "null"));
+            }
+            $.ajax({
+                type: "POST",
+                url: "/api/submitmlaleads/",
+                data: ko.toJSON(objCust),
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader('utma', getCookie('__utma'));
+                    xhr.setRequestHeader('utmz', getCookie('_bwutmz'));
+                },
+                async: true,
+                contentType: "application/json",
+                dataType: 'json',
+                success: function (response) {
+                }
+            });
+        };
+
         self.setOptions = function (options) {
             if (options != null) {
                 if (options.eventcategory != null)
@@ -208,8 +465,8 @@
                 if (options.isregisterpq != null)
                     self.isRegisterPQ(options.isregisterpq);
 
-                if (options.campid != null)
-                    self.campaignId(options.campid);
+                if (options.campaignId != null)
+                    self.campaignId(options.campaignId);
 
                 if (options.mfgCampid != null) {
                     self.mfgCampaignId(options.mfgCampid);
@@ -265,12 +522,13 @@
                     self.clientIP = options.clientip;
 
                 if (options.sendLeadSMSCustomer != null) {
-                    self.sendLeadSMSCustomer(options.sendLeadSMSCustomer)
+                    self.sendLeadSMSCustomer(options.sendLeadSMSCustomer);
                 }
 
                 if (options.organizationName != null) {
-                    self.organizationName(options.organizationName)
+                    self.organizationName(options.organizationName);
                 }
+                self.isBikeSelected(false);
             }
         };
 
@@ -380,7 +638,7 @@
                     var obj = ko.toJS(response);
                     var count = obj.length;
                     var objMfgDealers = $("#ddlMfgDealers");
-                    if (count >= 1) {                        
+                    if (count >= 1) {
                         objMfgDealers.html('');
                         if (count > 1) { objMfgDealers.append("<option value selected></option>"); }
                         for (i = 0; i < count; i++) {
@@ -477,7 +735,7 @@
 
         self.pushToGA = function (data, event) {
             if (data != null && data.act != null) {
-                triggerGA(data.cat, data.act, data.lab)
+                triggerGA(data.cat, data.act, data.lab);
             }
         };
 
@@ -499,7 +757,11 @@
                     "PageUrl": self.pageUrl,
                     "leadSourceId": self.leadSourceId(),
                     "deviceId": getCookie('BWC'),
-					"leadId": self.leadId()
+                    "leadId": self.leadId(),
+                    "areaId": self.isUserAreaAvailable() ? globalLocation.AreaId : "0",
+                    "platformId": @Model.PlatformId,
+                    "pageId": @Model.PageId,
+                    "campaignId": self.campaignId()
                 };
                 $.ajax({
                     type: "POST",
@@ -508,9 +770,8 @@
                     beforeSend: function (xhr) {
                         xhr.setRequestHeader('utma', getCookie('__utma'));
                         xhr.setRequestHeader('utmz', getCookie('_bwutmz'));
-                        self.showLoader();
                     },
-                    async: false,
+                    async: true,
                     contentType: "application/json",
                     dataType: 'json',
                     success: function (response) {
@@ -519,10 +780,9 @@
                         self.leadId(obj.leadId);
                     },
                     complete: function (xhr, ajaxOptions, thrownError) {
-                        self.hideLoader();
                         if (xhr.status != 200)
-                        	self.IsVerified(false);
-							
+                            self.IsVerified(false);
+
 
                     }
                 });
@@ -536,69 +796,68 @@
             if (isValidCustomer && self.mfgCampaignId() > 0) {
 
                 if (!(self.pqGUId() && self.pqGUId() != ""))
-            		self.generatePQ(data, event);
+                    self.generatePQ(data, event);
 
-            	self.ko_DealerName($('#ddlMfgDealers option:selected').text());
+                self.ko_DealerName($('#ddlMfgDealers option:selected').text());
 
-            	$('#processing').show();
-            	var objCust = {
-            		"dealerId": self.dealerId(),
+                $('#processing').show();
+                var objCust = {
+                    "dealerId": self.dealerId(),
                     "pqId": 0,
                     "pqguid": self.pqGUId(),
-            		"name": self.fullName(),
-            		"mobile": self.mobileNo(),
-            		"email": self.emailId(),
-            		"versionId": self.versionId(),
-            		"cityId": self.cityId(),
-            		"leadSourceId": self.leadSourceId(),
-            		"pinCode": self.pincode() || 0,
-            		"campaignId": self.mfgCampaignId(),
-            		"deviceId": getCookie('BWC'),
-            		"manufacturerDealerId": $('#ddlMfgDealers :selected').data('id'),
-            		"manufacturerDealer": self.ko_DealerName(),
-            		"bikeName": leadBikeName,
-            		"dealerName": self.organizationName() ? self.organizationName() : self.dealerName(),
-            		"sendLeadSMSCustomer": self.sendLeadSMSCustomer(),
-            		"leadId": self.leadId()
-            	};
-            	$.ajax({
-            		type: "POST",
-            		url: "/api/ManufacturerLead/",
-            		data: ko.toJSON(objCust),
-            		beforeSend: function (xhr) {
-            			self.showLoader();
-            			xhr.setRequestHeader('utma', getCookie('__utma'));
-            			xhr.setRequestHeader('utmz', getCookie('_bwutmz'));
-            		},
-            		async: false,
-            		contentType: "application/json",
-            		dataType: 'json',
-            		success: function (response) {
-            		    self.leadId(response);
-            			$("#contactDetailsPopup").hide();
-            			$("#personalInfo").hide();
-            			$("#dealer-lead-msg").fadeIn();
-            			if (self.cityRequired() && self.selectedCity()) {
-            				SetCookieInDays("location", self.selectedCity().cityId + "_" + self.selectedCity().cityName, 365);
-            			}
-            			if (fbPixelLeadEvent) {
-            				fbq('track', fbPixelLeadEvent);
-            			}
-            		},
-            		error: function (xhr, ajaxOptions, thrownError) {
-            			$("#leadCapturePopup").show();
-            			popup.lock();
-            		},
-            		complete: function (xhr, ajaxOptions, thrownError) {
-            			self.hideLoader();
-            			if (self.dealerMessage && !isBindingApplied) {
-            				ko.applyBindings(self, $('#ko_thankyoumessage div.html_ko')[0]);
-            				isBindingApplied = true;
-            			}
-            		}
-            	});
-            	setPQUserCookie();
-            	//triggerGA(eventCategory, eventAction, gaLabel)
+                    "name": self.fullName(),
+                    "mobile": self.mobileNo(),
+                    "email": self.emailId(),
+                    "versionId": self.versionId(),
+                    "cityId": self.cityId(),
+                    "leadSourceId": self.leadSourceId(),
+                    "pinCode": self.pincode() || 0,
+                    "campaignId": self.mfgCampaignId(),
+                    "deviceId": getCookie('BWC'),
+                    "manufacturerDealerId": $('#ddlMfgDealers :selected').data('id'),
+                    "manufacturerDealer": self.ko_DealerName(),
+                    "bikeName": leadBikeName,
+                    "dealerName": self.organizationName() ? self.organizationName() : self.dealerName(),
+                    "sendLeadSMSCustomer": self.sendLeadSMSCustomer(),
+                    "leadId": self.leadId(),
+                    "platformId": @Model.PlatformId,
+                    "pageId": @Model.PageId
+                };
+                $.ajax({
+                    type: "POST",
+                    url: "/api/ManufacturerLead/",
+                    data: ko.toJSON(objCust),
+                    beforeSend: function (xhr) {
+                        self.showLoader();
+                        xhr.setRequestHeader('utma', getCookie('__utma'));
+                        xhr.setRequestHeader('utmz', getCookie('_bwutmz'));
+                    },
+                    async: true,
+                    contentType: "application/json",
+                    dataType: 'json',
+                    success: function (response) {
+                        self.leadId(response);
+                        $("#contactDetailsPopup").removeClass('contact-detail--active');
+                        $("#personalInfo").hide();
+                        $("#dealer-lead-msg").fadeIn();
+                        LeadPopupState.setFinalScreen();
+                        if (self.cityRequired() && self.selectedCity()) {
+                            SetCookieInDays("location", self.selectedCity().cityId + "_" + self.selectedCity().cityName, 365);
+                        }
+                        if (fbPixelLeadEvent) {
+                            fbq('track', fbPixelLeadEvent);
+                        }
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        $("#leadCapturePopup").show();
+                        popup.lock();
+                    },
+                    complete: function (xhr, ajaxOptions, thrownError) {
+                        self.hideLoader();
+                    }
+                });
+                setPQUserCookie();
+                // triggerGA(eventCategory, eventAction, gaLabel)
             }
         };
 
@@ -614,15 +873,14 @@
                 }
                 else {
                     self.IsVerified(false);
-                    isValidDetails = self.validateUserInfo(fullName, emailid, mobile);
                     var eventButtonId = $(event.currentTarget).attr('id');
                     switch (eventButtonId) {
                         // model 'get offers from dealers', dealer locator listing 'submit'
                         case 'user-details-submit-btn':
                             isValidDetails = self.validateUserInfo('#getFullName', '#getEmailID', '#getMobile');
                             break;
-                        // model 'get dealer assistance'
-                        // dealer details 'get assistance'
+                            // model 'get dealer assistance'
+                            // dealer details 'get assistance'
                         case 'dealer-assist-btn':
                         case 'assistFormSubmit':
                             isValidDetails = self.validateUserInfo('#assistGetName', '#assistGetEmail', '#assistGetMobile');
@@ -633,11 +891,9 @@
 
                     if (self.dealerId() && isValidDetails) {
                         self.verifyCustomer();
-
+                        LeadPopupState.setFinalScreen();
                         if (self.IsLeadPopup()) {
-                            $("#contactDetailsPopup").hide();
                             $("#personalInfo").hide();
-                            $("#dealer-lead-msg").fadeIn();
                         }
                         else {
                             $("#buyingAssistance").hide();
@@ -663,7 +919,7 @@
                     google_conversion_label: "vUR5CPXFq3EQxcf82wM",
                     google_remarketing_only: false
                 });
-                //]]>
+                // ]]>
 
             } catch (e) {
                 console.log(e.message);
@@ -687,7 +943,8 @@
                     "pageurl": pageUrl,
                     "clientip": clientIP,
                     "eventcategory": ele.attr("data-cat"),
-                    "dealercityname": ele.attr('data-cityname')
+                    "dealercityname": ele.attr('data-cityname'),
+                    "campaignId": ele.attr("data-campaignid")
                 };
 
                 if (!isNaN(leadOptions.versionid) && leadOptions.versionid != "0")
@@ -981,7 +1238,7 @@
                 triggerGA("Lead_PopUP", "Lead_Success", abuser + "_" + pgSource + "_" + galabel || '');
             }
             catch (e) {
-                console.log(e.message)
+                console.log(e.message);
             }
         };
 
@@ -1030,7 +1287,6 @@
     }
 
     docReady(function () {
-
         leadBtnBookNow = $(".leadcapturebtn"), leadCapturePopup = $("#leadCapturePopup"), leadBike = $("#getLeadBike");
         fullName = $("#getFullName"), emailid = $("#getEmailID"), mobile = $("#getMobile");
         assistanceGetName = $('#assistanceGetName'), assistanceGetEmail = $('#assistanceGetEmail'), assistanceGetMobile = $('#assistanceGetMobile');
@@ -1078,26 +1334,41 @@
             }
         };
 
+        function closeLeadPopup() {
+            LeadPopupState.close();
+            popup.unlock();
+        }
+
         $(document).on('click', ".leadcapturebtn", function () {
-            leadCapturePopup.show();
-            $("#dealer-lead-msg").hide();
-            $("div#contactDetailsPopup").show();
+            LeadPopupState.open();
+            @if (Model.IsMLAActive && !Model.IsManufacturerCampaign)
+            {
+                <text>
+            if(gaObj.id == gaEnum.Model_Page || gaObj.id == gaEnum.DealerPriceQuote_Page)
+                {
+                    triggerNonInteractiveGA(gaObj.name,"MLA_Eligible_Lead_Popup_Shown",  "@Model.BikeName" + "_" +  "@Model.City" + "_" + "@Model.Area");
+                }
+                </text>
+            }
             popup.lock();
         });
 
-        $(".leadCapture-close-btn, .blackOut-window").on("click mouseup", function () {
-            leadCapturePopup.hide();
-            $("#dealer-lead-msg").hide();
-            popup.unlock();
+        $(".leadCapture-close-btn").on("click", function (event) {
+            dleadvm.triggerCloseBtnGA(event);
+            closeLeadPopup();
         });
 
-        $(document).on('click', '#dealer-lead-msg .okay-thanks-msg', function () {
-            $(".leadCapture-close-btn").click();
+        $(".blackOut-window, .dealers__skip-btn, .dealers__submit-btn").on("click mouseup", function () {
+            closeLeadPopup();
+        });
+
+        $(document).on('click', '#dealer-lead-msg #notifyOkayBtn', function () {
+            closeLeadPopup();
         });
 
         $(document).on('keydown', function (e) {
             if (e.keyCode === 27) {
-                $("#leadCapturePopup .leadCapture-close-btn").click();
+                closeLeadPopup();
             }
         });
 

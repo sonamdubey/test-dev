@@ -5,12 +5,12 @@
 <html>
 <head>
      <title>Hassle-free process to cancel your booked bike | BikeWale</title>
-    <!-- #include file="/includes/headscript_mobile.aspx" -->
+    <!-- #include file="/UI/includes/headscript_mobile.aspx" -->
     <link href="<%= staticUrl  %>/m/css/bwm-cancellation.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
 </head>
 <body class="bg-light-grey">
     <form id="form1" runat="server">
-        <!-- #include file="/includes/headBW_Mobile.aspx" -->
+        <!-- #include file="/UI/includes/headBW_Mobile.aspx" -->
         <section class="clearfix">
             <div class="container text-center">
                 <div class="booking-cancel-banner">
@@ -182,9 +182,9 @@
             </div>
         </section>--%>
         <asp:HiddenField ID="hdnBwid" Value="" runat="server" />
-        <!-- #include file="/includes/footerBW_Mobile.aspx" -->
-        <!-- #include file="/includes/footerscript_Mobile.aspx" -->
-        <script type="text/javascript" src="<%= staticUrl  %>/m/src/bwm-cancellation.js?<%= staticFileVersion %>"></script>
+        <!-- #include file="/UI/includes/footerBW_Mobile.aspx" -->
+        <!-- #include file="/UI/includes/footerscript_Mobile.aspx" -->
+        <script type="text/javascript" src="<%= staticUrl  %>/UI/m/src/bwm-cancellation.js?<%= staticFileVersion %>"></script>
 
     </form>
 </body>

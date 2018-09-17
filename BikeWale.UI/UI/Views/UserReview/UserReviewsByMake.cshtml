@@ -1,8 +1,8 @@
 ﻿@model Bikewale.Models.UserReviews.UserReviewByMakeVM
 
 @{
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/sass/review/make.css' inline>";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/UI/sass/review/make.css' inline>";
+    Layout = "~/UI/Views/Shared/_Layout.cshtml";
 }
 
 <section>
@@ -76,7 +76,7 @@
                         </div>
                         <div class="clear"></div>
                     </div>
-                    @Html.Partial("~/Views/Make/_BrandsModelCount.cshtml", Model.OtherMakes)
+                    @Html.Partial("~/UI/Views/Make/_BrandsModelCount.cshtml", Model.OtherMakes)
                 </div>
             </div>
             <div class="clear"></div>

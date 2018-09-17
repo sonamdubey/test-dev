@@ -13,10 +13,14 @@ using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.PriceQuote;
 using Bikewale.Service.Utilities;
+using Bikewale.Utility;
+using RabbitMqPublishing;
 using System;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Net.Http.Headers;
+using System.Text;
+using System.Web;
 using System.Web.Http;
 using System.Web.Http.Description;
 namespace Bikewale.Service.Controllers.PriceQuote
@@ -71,6 +75,8 @@ namespace Bikewale.Service.Controllers.PriceQuote
         /// Desc :  Method created to set request headers into nvc.
         /// Modified by : Sanskar Gupta on 09 May 2018
         /// Description : Add logging when exception is caught.
+        /// Modified by : Monika Korrapati on 17 Aug 2018
+        /// Description : Added appVersion to requestHeaders nvc for bhrigu tracking
         /// </summary>
         /// <param name="requestHeadersInput"></param>
         /// <returns></returns>
@@ -83,6 +89,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
                 requestHeaders["utma"] = requestHeadersInput.Contains("utma") ? requestHeadersInput.GetValues("utma").FirstOrDefault() : String.Empty;
                 requestHeaders["utmz"] = requestHeadersInput.Contains("utmz") ? requestHeadersInput.GetValues("utmz").FirstOrDefault() : String.Empty;
                 requestHeaders["platformId"] = requestHeadersInput.Contains("platformId") ? requestHeadersInput.GetValues("platformId").FirstOrDefault().ToString() : String.Empty;
+                requestHeaders["appVersion"] = requestHeadersInput.Contains("version_code") && requestHeaders["platformId"] == ((byte)PQSources.Android).ToString()? requestHeadersInput.GetValues("version_code").First().ToString() : String.Empty;
             }
             catch (Exception ex)
             {
@@ -139,7 +146,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
                     NameValueCollection requestHeaders = SetRequestHeaders(Request.Headers);
                     outEntity = _objLeadProcess.ProcessPQCustomerDetailInputWithPQ(pqInput, requestHeaders);
                     output = PQCustomerMapper.Convert(outEntity);
-                    
+
                     return Ok(output);
                 }
                 else
@@ -157,7 +164,9 @@ namespace Bikewale.Service.Controllers.PriceQuote
 
         /// <summary>
         /// Created by  : Pratibha Verma on 26 June 2018
-        /// Description : leadId added in input and output to remove PQId dependency
+        /// Description : added leadId in input and output entity to remove PQId dependency
+        /// Modified by : Rajan Chauhan on 27 July 2018
+        /// Description : Added AreaId
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
@@ -199,6 +208,48 @@ namespace Bikewale.Service.Controllers.PriceQuote
         }
 
         /// <summary>
+        /// Created by  : Pratibha Verma on 24 July 2018
+        /// Description : Process MLA Leads
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        [ResponseType(typeof(bool)), Route("api/submitmlaleads/"), HttpPost]
+        public IHttpActionResult Post([FromBody]Bikewale.DTO.PriceQuote.v3.MLALeadDetails input)
+        {
+            bool isSuccess = false;
+            try
+            {
+                if (input != null
+                    && !String.IsNullOrEmpty(input.CustomerMobile)
+                    && !String.IsNullOrEmpty(input.PQId)
+                    && Convert.ToUInt32(input.VersionId) > 0
+                    && Convert.ToUInt32(input.CityId) > 0
+                    && input.DealerIds != null
+                    && input.DealerIds.Any())
+                {
+                    NameValueCollection requestHeaders = SetRequestHeaders(Request.Headers);
+                    NameValueCollection mlaNvcObj = GetMLAConsumersObject(input, requestHeaders);
+                    if (mlaNvcObj != null)
+                    {
+                        RabbitMqPublish objRMQPublish = new RabbitMqPublish();
+                        objRMQPublish.PublishToQueue(Bikewale.Utility.BWConfiguration.Instance.MLALeadConsumerQueue, mlaNvcObj);
+                    }
+                    isSuccess = true;
+                    return Ok(isSuccess);
+                }
+                else
+                {
+                    return Unauthorized();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, String.Format("Exception : Bikewale.Service.Controllers.PriceQuote.PQCustomerDetailController.Post({0})", Newtonsoft.Json.JsonConvert.SerializeObject(input)));
+                return InternalServerError();
+            }
+        }
+
+        /// <summary>
         /// Created by  :   Sumit Kate on 23 May 2016
         /// Description :   Saves the Customer details if it is a new customer.
         /// generated the OTP for the non verified customer
@@ -229,7 +280,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
                     NameValueCollection requestHeaders = SetRequestHeaders(Request.Headers);
                     outEntity = _objLeadProcess.ProcessPQCustomerDetailInputWithoutPQ(pqInput, requestHeaders);
                     output = PQCustomerMapper.Convertv2(outEntity);//mapper
-                    
+
                     return Ok(output);
                 }
                 else
@@ -279,5 +330,69 @@ namespace Bikewale.Service.Controllers.PriceQuote
             }
         }
 
+        /// <summary>
+        /// Created by  : Pratibha Verma on 24 July 2018
+        /// Description : returns nvc object for mla lead processing consumer
+        /// </summary>
+        /// <param name="input"></param>
+        /// <param name="requestHeaders"></param>
+        /// <returns></returns>
+        private NameValueCollection GetMLAConsumersObject(Bikewale.DTO.PriceQuote.v3.MLALeadDetails input, NameValueCollection requestHeaders)
+        {
+            NameValueCollection mlaNvcObj = null;
+            try
+            {
+                StringBuilder dealerIds = new StringBuilder();
+                if(input.DealerIds != null && input.DealerIds.Any())
+                {
+                    foreach (uint dealerId in input.DealerIds)
+                    {
+                        dealerIds.Append(String.Format("{0},", dealerId));
+                    }
+                    if (dealerIds.Length > 1)
+                    {
+                        dealerIds.Remove(dealerIds.Length - 1, 1);
+                    }
+                }
+
+                var request = HttpContext.Current.Request;
+                string PageUrl = request.UrlReferrer.ToString();
+                if (dealerIds.Length > 0)
+                {
+                    mlaNvcObj = new NameValueCollection();
+                    mlaNvcObj.Add("pqGUId", input.PQId);
+                    mlaNvcObj.Add("dealerIds", dealerIds.ToString());
+                    mlaNvcObj.Add("customerName", input.CustomerName);
+                    mlaNvcObj.Add("customerEmail", input.CustomerEmail);
+                    mlaNvcObj.Add("customerMobile", input.CustomerMobile);
+                    mlaNvcObj.Add("versionId", input.VersionId);
+                    mlaNvcObj.Add("cityId", input.CityId);
+                    mlaNvcObj.Add("utma", request.Cookies["_bwutma"] != null ? request.Cookies["_bwutma"].Value : requestHeaders["utma"]);
+                    mlaNvcObj.Add("utmz", request.Cookies["_bwutmz"] != null ? request.Cookies["_bwutmz"].Value : requestHeaders["utmz"]);
+                    mlaNvcObj.Add("platformId", Convert.ToString(input.PlatformId));
+                    mlaNvcObj.Add("deviceId", input.DeviceId);
+                    mlaNvcObj.Add("clientIP", CurrentUser.GetClientIP());
+                    mlaNvcObj.Add("pageUrl", PageUrl);
+                    mlaNvcObj.Add("leadSourceId", Convert.ToString(input.LeadSourceId));
+                    mlaNvcObj.Add("cityName", input.CityName);
+                    mlaNvcObj.Add("areaId", input.AreaId);
+                    mlaNvcObj.Add("areaName", input.AreaName);
+                    mlaNvcObj.Add("pageId", input.PageId.ToString());
+                    mlaNvcObj.Add("appVersion", requestHeaders["appVersion"]);
+                    mlaNvcObj.Add("queryString", PageUrl.Split('?').Length > 1 ? PageUrl.Split('?')[1].Replace('&', '|') : String.Empty);
+                    mlaNvcObj.Add("userAgent", request.UserAgent);
+                    mlaNvcObj.Add("cookieId", request.Cookies["BWC"] != null ? request.Cookies["BWC"].Value : request.Headers["IMEI"]);
+                    mlaNvcObj.Add("bwTest", request.Cookies["_bwtest"].Value);
+                    mlaNvcObj.Add("cwv", request.Cookies["_cwv"].Value);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, String.Format("Exception : Bikewale.Service.Controllers.PriceQuote.PQCustomerDetailController.GetMLAConsumersObject({0})", Newtonsoft.Json.JsonConvert.SerializeObject(mlaNvcObj)));
+            }
+            return mlaNvcObj;
+          }
+
+        }
+
     }
-}
