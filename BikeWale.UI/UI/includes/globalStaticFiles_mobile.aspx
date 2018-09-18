@@ -28,7 +28,7 @@
      }
 </style>
 
-<link rel="stylesheet" href="<%=  staticUrlPath%>/m/css/jquery.mobile-1.4.2.min.css?v=2.0" />
+<link rel="stylesheet" href="<%=  staticUrlPath%>/UI/m/css/jquery.mobile-1.4.2.min.css?v=2.0" />
 <link rel="stylesheet" href="/UI/m/css/style.css?<%= staticFilesVersion%>" />
 <link rel="stylesheet"  href="/UI/m/css/design.css?<%= staticFilesVersion%>" />
 <link href="/UI/m/css/bwm-common-style.css?<%= staticFileVersion %>" rel="stylesheet" />

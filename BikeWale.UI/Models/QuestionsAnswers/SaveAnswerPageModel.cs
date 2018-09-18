@@ -182,7 +182,7 @@ namespace Bikewale.Models.QuestionsAnswers
                 }
                 else
                 {
-                    string decodedString = TripleDES.DecryptTripleDES(_queryString);
+                    string decodedString = Bikewale.Utility.TripleDES.DecryptTripleDES(_queryString);
 
                     NameValueCollection queryCollection = HttpUtility.ParseQueryString(decodedString);
                     bool isUrlCorrect = (queryCollection != null && !string.IsNullOrEmpty(queryCollection["userName"]) && !string.IsNullOrEmpty(queryCollection["userEmail"]) & !string.IsNullOrEmpty(queryCollection["questionId"]) && !string.IsNullOrEmpty(queryCollection["modelId"]));

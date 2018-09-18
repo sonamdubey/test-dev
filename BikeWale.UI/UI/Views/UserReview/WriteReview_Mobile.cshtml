@@ -120,7 +120,7 @@
                     <input type="hidden" id="reviewQuestion" name="reviewQuestion" />
                     <input type="hidden" id="formattedDescripton" name="reviewDescription" />
                     <input type="hidden" id="reviewId" name="reviewId" value="@Model.ReviewId" />
-                    <input type="hidden" name="encodedId" value="@TripleDES.EncryptTripleDES(string.Format("customerid={0}&reviewid={1}", Model.CustomerId, Model.ReviewId))" />
+                    <input type="hidden" name="encodedId" value="@Bikewale.Utility.TripleDES.EncryptTripleDES(string.Format("customerid={0}&reviewid={1}", Model.CustomerId, Model.ReviewId))" />
                     <input type="hidden" name="userName" value="@Model.UserName" />
                     <input type="hidden" name="emailId" value="@Model.EmailId" />
                     <input type="hidden" name="makeName" value="@Model.Make.MakeName" />

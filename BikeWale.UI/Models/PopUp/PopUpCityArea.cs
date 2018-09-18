@@ -12,7 +12,7 @@ namespace Bikewale.Models
             PoupCityAreaVM objPopupCityAreaVM = new PoupCityAreaVM();
             try
             {
-                string decodedQueryString = TripleDES.DecryptTripleDES(encodedQueryString);
+                string decodedQueryString = Bikewale.Utility.TripleDES.DecryptTripleDES(encodedQueryString);
 
                 NameValueCollection queryCollection = HttpUtility.ParseQueryString(decodedQueryString);
                 objPopupCityAreaVM.PQSourceId = SqlReaderConvertor.ToUInt16(queryCollection["pqsourceid"]);

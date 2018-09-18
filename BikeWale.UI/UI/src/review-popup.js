@@ -183,7 +183,7 @@ docReady(function () {
 		vmModelUserReviewDetailPopup.init();
 	}
 	else {
-        reviewPopupCotent.load("/Templates/UserReviewDetails_Popup.html", function (responseTxt, statusTxt, xhr) {
+        reviewPopupCotent.load("/UI/Templates/UserReviewDetails_Popup.html", function (responseTxt, statusTxt, xhr) {
 			if (statusTxt == "success") {
 				bwcache.set("ReviewSummaryTemplate", responseTxt, true);
 				vmModelUserReviewDetailPopup.init();

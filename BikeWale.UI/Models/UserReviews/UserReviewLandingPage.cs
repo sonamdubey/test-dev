@@ -100,7 +100,7 @@ namespace Bikewale.Models.UserReviews
                     {
                         returnUrl = string.Format("returnUrl=/user-reviews/&sourceid={0}", (int)UserReviewPageSourceEnum.Desktop_UserReview_Landing);
                     }
-                    objData.UserReviewsQueryString = TripleDES.EncryptTripleDES(returnUrl);
+                    objData.UserReviewsQueryString = Bikewale.Utility.TripleDES.EncryptTripleDES(returnUrl);
                 }
             }
             catch (Exception ex)

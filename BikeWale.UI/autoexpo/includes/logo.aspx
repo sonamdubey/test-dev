@@ -1,2 +1,0 @@
-<a title="BikeWale" href="http://<%=Request.ServerVariables["HTTP_HOST"]%>/autoexpo/2014/"><img border="0" alt="" src="http://img.carwale.com/bikewaleimg/images/bw-logo.png"  /></a>
-<!-- width="215" height="74"-->

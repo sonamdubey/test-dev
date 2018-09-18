@@ -36,7 +36,7 @@ namespace Bikewale.Models.PopUp
         /// <param name="qs">The query string.</param>
         public void ParseQueryString(string queryString)
         {
-            string qs = TripleDES.DecryptTripleDES(queryString);
+            string qs = Bikewale.Utility.TripleDES.DecryptTripleDES(queryString);
             try
             {
                 uint _modelId,

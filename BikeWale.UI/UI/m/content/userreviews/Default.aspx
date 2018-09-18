@@ -228,6 +228,6 @@
 </div>
 <script type="text/javascript" src="<%= staticUrl %>/UI/m/src/user-review/landing.js?<%= staticFileVersion %>"></script>
 <script type="text/javascript">
-    var returnUrl = '<%=TripleDES.EncryptTripleDES(string.Format("returnUrl=/user-reviews/&sourceid={0}",(int)Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Mobile_UserReview_Landing))%>';
+    var returnUrl = '<%=Bikewale.Utility.TripleDES.EncryptTripleDES(string.Format("returnUrl=/user-reviews/&sourceid={0}",(int)Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Mobile_UserReview_Landing))%>';
 </script>
 <!-- #include file="/UI/includes/footermobile.aspx" -->

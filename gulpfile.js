@@ -14,7 +14,8 @@ var gulp = require('gulp'),
 	workbox = require('workbox-build');
 
 
-var app = 'BikeWale.UI/',
+var baseApp = 'BikeWale.UI/',
+	app = 'BikeWale.UI/UI/',
 	buildFolder = app + 'build/',
 	minifiedAssetsFolder = buildFolder + 'min/';
 
@@ -31,7 +32,7 @@ var pattern = {
 };
 
 var Configuration = process.argv[3] || 'Debug';
-var webpackAssetsJson = require('./BikeWale.UI/pwa/webpack-assets.json');
+var webpackAssetsJson = require('./BikeWale.UI/UI/pwa/webpack-assets.json');
 if(!webpackAssetsJson) {
 	console.log('Webpack assets json not found');
 	return;
@@ -44,7 +45,7 @@ for (const key of Object.keys(webpackAssetsJson)) {
 var jsChunksJson = {};
 for(const key of Object.keys(webpackAssetsJson)) {
 	if(webpackAssetsJson[key].js) {
-		jsChunksJson['/pwa/js/'+key+'.bundle.js'] = webpackAssetsJson[key].js;
+		jsChunksJson['/UI/pwa/js/'+key+'.bundle.js'] = webpackAssetsJson[key].js;
 	}
 }
 
@@ -56,7 +57,7 @@ gulp.task('clean', function () {
 gulp.task('minify-css', function () {
 	var cssCache = fsCache(app + '.gulp-cache/' + paths.CSS);
 
-	return gulp.src([app + paths.CSS + '**', app + 'm/' + paths.CSS + '**'], { base: app })
+	return gulp.src([app + paths.CSS + '**', app + 'm/' + paths.CSS + '**'], { base: baseApp })
 		.pipe(cssCache)
 		.pipe(cssmin())
 		.pipe(cssCache.restore)
@@ -66,7 +67,7 @@ gulp.task('minify-css', function () {
 gulp.task('minify-js', function () {
 	var jsCache = fsCache(app + '.gulp-cache/' + paths.JS);
 
-	return gulp.src([app + paths.JS + '**', app + 'm/' + paths.JS + '**'], { base: app })
+	return gulp.src([app + paths.JS + '**', app + 'm/' + paths.JS + '**'], { base: baseApp })
 		.pipe(jsCache)
 		.pipe(uglify().on('error', function (e) {
 			console.log(e);
@@ -78,12 +79,12 @@ gulp.task('minify-js', function () {
 gulp.task('minify-sass-css', function () {
 	var sassCache = fsCache(app + '.gulp-cache/' + paths.SASS);
 
-	return gulp.src([app + 'sass/**/*.sass', app + 'm/sass/**/*.sass'], { base: app })
+	return gulp.src([app + 'sass/**/*.sass', app + 'm/sass/**/*.sass'], { base: baseApp })
 		.pipe(sassCache)
 		.pipe(sass().on('error', sass.logError))
 		.pipe(cssmin())
 		.pipe(sassCache.restore)
-		.pipe(gulp.dest(buildFolder))
+		//.pipe(gulp.dest(buildFolder))
 		.pipe(gulp.dest(minifiedAssetsFolder));
 });
 
@@ -145,7 +146,7 @@ var pageArray = [
 gulp.task('replace-mvc-layout-css-reference', function () {
 	return gulp.src([
 		app + 'Views/Shared/_Layout.cshtml',
-		app + 'Views/Shared/_Layout_Mobile.cshtml'], { base: app })
+		app + 'Views/Shared/_Layout_Mobile.cshtml'], { base: baseApp })
 		.pipe(replace(pattern.CSS_ATF, function (s, fileName) {
 			var style = fs.readFileSync(minifiedAssetsFolder + fileName, 'utf-8'),
 				style = style.replace(/@charset "utf-8";/g, "").replace(/\"/g, "'").replace(/\\[0-9]/g, "").replace(/[@]{1}/g, "@@"),
@@ -162,13 +163,13 @@ gulp.task('replace-css-reference', function () {
 
 	for (var i = 0; i < pageLength; i++) {
 		var element = pageArray[i],
-			style = fs.readFileSync(minifiedAssetsFolder + element.stylesheet, 'utf-8'),
+			style = fs.readFileSync(minifiedAssetsFolder + 'UI/' + element.stylesheet, 'utf-8'),
 			styleTag = '<style type="text/css">\n@charset "utf-8";' + style + '\n</style>',
 			styleLink = '<link rel="stylesheet" type="text/css" href="/' + element.stylesheet + '" />';
 
-		gulp.src(app + element.folderName + element.fileName, { base: app + element.folderName })
+		gulp.src(app + element.folderName + element.fileName, { base: baseApp })
 			.pipe(replace(styleLink, styleTag))
-			.pipe(gulp.dest(buildFolder + element.folderName));
+			.pipe(gulp.dest(buildFolder));
 	}
 
 	console.log('internal css reference replaced');
@@ -179,12 +180,12 @@ gulp.task('replace-css-reference', function () {
 
 // replace desktop frameworks js, ie8 fix
 gulp.task('bw-framework-js', function () {
-	return gulp.src(app + paths.JS + 'frameworks.js', { base: app + paths.JS })
-		.pipe(gulp.dest(minifiedAssetsFolder + paths.JS));
+	return gulp.src(app + paths.JS + 'frameworks.js', { base: baseApp })
+		.pipe(gulp.dest(minifiedAssetsFolder));
 });
 
 gulp.task('replace-css-link-reference', function () {
-	return gulp.src(app + 'Views/**/*.cshtml', { base: app })
+	return gulp.src(app + 'Views/**/*.cshtml', { base: baseApp })
 		.pipe(replace(pattern.INLINE_CSS, function (s, fileName) {
 			var style = fs.readFileSync(minifiedAssetsFolder + fileName, 'utf-8'),
 				styleTag = "<style type='text/css'>" + style.replace(/@charset "utf-8";/g, "").replace(/\"/g, "'").replace(/\\[0-9]/g, "") + "</style>";
@@ -194,7 +195,7 @@ gulp.task('replace-css-link-reference', function () {
 		.pipe(gulp.dest(buildFolder));
 });
 gulp.task('replace-amp-css-link-reference', function () {
-	return gulp.src(app + 'Views/**/*.cshtml', { base: app })
+	return gulp.src(app + 'Views/**/*.cshtml', { base: baseApp })
 		.pipe(replace(pattern.AMP_CSS, function (s, fileName) {
 			var style = fs.readFileSync(minifiedAssetsFolder + fileName, 'utf-8'),
 			styleTag = style.replace(/@charset "utf-8";/g, "").replace(/\"/g, "'").replace(/\\[0-9]/g, "");
@@ -247,7 +248,7 @@ gulp.task('replace-js-css-reference' , function() {
 		app + 'Views/ExpertReviews/Index_Mobile_Pwa.cshtml',
 		app + 'Views/ExpertReviews/Detail_Mobile_Pwa.cshtml',
 		app + 'Views/Shared/Index_Mobile_Pwa.cshtml'
-		], { base: app })
+		], { base: baseApp })
 		.pipe(replace(patternJSBundle,replaceJsVersion))
 	    .pipe(replace(pattern.CSS_ATF, replaceInlineCssReferenceLink ))
 		.pipe(gulp.dest(buildFolder));
@@ -257,7 +258,7 @@ gulp.task('replace-js-css-reference' , function() {
 var cssChunksJsonPattern = /<script>(.|\n)*window\.__CSS_CHUNKS__(.|\n)*=(.|\n)*?<\/script>/g;
 var cssChunksTag = '<script>window.__CSS_CHUNKS__='+JSON.stringify(cssChunksJson)+';</script>';
 gulp.task('replace-css-chunk-json',function() {
-	return gulp.src(app + 'Views/Shared/_CssChunksScript.cshtml' , { base: app })
+	return gulp.src(app + 'Views/Shared/_CssChunksScript.cshtml' , { base: baseApp })
 		.pipe(replace(cssChunksJsonPattern, function(match, p1, offset, string){
 			return cssChunksTag;
 		}))

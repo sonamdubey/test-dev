@@ -8,12 +8,12 @@
 Bikewale.Service/bin/*.XML
 Bikewale.Service/App_Data/*.XML
 *.orig
-BikeWale.UI/build/
+BikeWale.UI/UI/build/
 BikeWale.UI/min/
 node_modules/
-BikeWale.UI/.gulp-cache/
-BikeWale.UI/sass/**/*.css
-BikeWale.UI/m/sass/**/*.css
+BikeWale.UI/UI/.gulp-cache/
+BikeWale.UI/UI/sass/**/*.css
+BikeWale.UI/UI/m/sass/**/*.css
 .vs
 .vscode
 Bikewale.DataSync/DataSync/bin
@@ -23,9 +23,9 @@ Bikewale.ReleaseManagement/copyfiles/obj
 *.sh
 Bikewale.PWA.UI/node_modules/*
 Bikewale.PWA.UI/build/*
-BikeWale.UI/pwa/css/
-BikeWale.UI/pwa/js/
-BikeWale.UI/pwa/server/
+BikeWale.UI/UI/pwa/css/
+BikeWale.UI/UI/pwa/js/
+BikeWale.UI/UI/pwa/server/
 BikeWale.UI/pwa/webpack-assets.json
 # User-specific files
 *.suo

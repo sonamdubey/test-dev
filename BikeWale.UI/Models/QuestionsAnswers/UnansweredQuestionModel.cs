@@ -55,8 +55,8 @@ namespace Bikewale.Models.QuestionsAnswers
 
                     foreach (var question in questions)
                     {
-                        string queryString = TripleDES.EncryptTripleDES(string.Format(@"userEmail={0}&userName={1}&questionId={2}&modelId={3}", userEmail, userName, question.Id, modelId));
-                        string decString = TripleDES.DecryptTripleDES(queryString);
+                        string queryString = Bikewale.Utility.TripleDES.EncryptTripleDES(string.Format(@"userEmail={0}&userName={1}&questionId={2}&modelId={3}", userEmail, userName, question.Id, modelId));
+                        string decString = Bikewale.Utility.TripleDES.DecryptTripleDES(queryString);
                         questionUrls.Add(new QuestionUrl
                         {
                             QuestionData = question,

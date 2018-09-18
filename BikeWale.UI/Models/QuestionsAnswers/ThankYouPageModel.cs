@@ -52,7 +52,7 @@ namespace Bikewale.Models.QuestionsAnswers
 
             try
             {
-                string decodedString = TripleDES.DecryptTripleDES(queryString);
+                string decodedString = Bikewale.Utility.TripleDES.DecryptTripleDES(queryString);
 
                 NameValueCollection queryCollection = HttpUtility.ParseQueryString(decodedString);
                 uint modelId;
@@ -87,7 +87,7 @@ namespace Bikewale.Models.QuestionsAnswers
                         {
                             questionItem = new QuestionUrl();
                             questionItem.QuestionData = question;
-                            string q = TripleDES.EncryptTripleDES(string.Format(@"userEmail={0}&userName={1}&questionId={2}&modelId={3}", queryCollection["userEmail"], queryCollection["userName"], question.Id, queryCollection["modelId"]));
+                            string q = Bikewale.Utility.TripleDES.EncryptTripleDES(string.Format(@"userEmail={0}&userName={1}&questionId={2}&modelId={3}", queryCollection["userEmail"], queryCollection["userName"], question.Id, queryCollection["modelId"]));
 
                             questionItem.AnsweringUrl = IsMobile ?
                                 String.Format("{0}/m/questions-and-answers/answer/?q={1}", BWConfiguration.Instance.BwHostUrl, q)

@@ -45,7 +45,7 @@
         }catch(err){}
         
     </script>
-    <link rel='stylesheet' type='text/css' href='/pwa/css/app.css' atf-css />
+    <link rel='stylesheet' type='text/css' href='/UI/pwa/css/app.css' atf-css />
 
 </head>
 <body>
@@ -67,9 +67,9 @@
             <span class="loader"></span>
         </div>
     </div>
-    <script>window.__CSS_CHUNKS__ = { "app": "/pwa/css/app.css", "newsBundle": "/pwa/css/news/newsBundle.css", "videosBundle": "/pwa/css/videos/videosBundle.css" }</script>
+    <script>window.__CSS_CHUNKS__ = { "app": "/UI/pwa/css/app.css", "newsBundle": "/UI/pwa/css/news/newsBundle.css", "videosBundle": "/UI/pwa/css/videos/videosBundle.css" }</script>
     <script>
-        var jsUrls = ["/pwa/js/manifest.bundle.js", "/pwa/js/vendor.bundle.js", "/pwa/js/app.bundle.js", "https://stb.aeplcdn.com/bikewale/min/src/bwcache.js?08Nov2017v2"];
+        var jsUrls = ["/UI/pwa/js/manifest.bundle.js", "/UI/pwa/js/vendor.bundle.js", "/UI/pwa/js/app.bundle.js", "https://stb.aeplcdn.com/bikewale/min/src/bwcache.js?08Nov2017v2"];
         var numberOfJsToLoad = jsUrls.length;
     function jsLoadedCallback() {
         try {
@@ -117,11 +117,11 @@
         window.addEventListener('DOMContentLoaded', function () {
             if ('serviceWorker' in navigator) {
                 navigator.serviceWorker.getRegistration('/m/news/').then(function (reg) {
-                    if (reg && reg.active && reg.active.scriptURL == window.location.origin + '/m/news/sw.js') {
+                    if (reg && reg.active && reg.active.scriptURL == window.location.origin + '/UI/m/news/sw.js') {
                         reg.unregister();
                     }
                 });
-                navigator.serviceWorker.register(window.location.origin + "/m/sw.js").then(function (registration) {
+                navigator.serviceWorker.register(window.location.origin + "/UI/m/sw.js").then(function (registration) {
                     registration.addEventListener('updatefound', function () {
                         var newWorker = registration.installing;
                         newWorker.addEventListener('statechange', function () {

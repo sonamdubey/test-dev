@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Used.BikeSold" Trace="false" Debug="false" %>
-<%@ Register TagPrefix="BikeWale" TagName="BikesInBudget" src="/Controls/BikesInBudget.ascx" %>
+<%@ Register TagPrefix="BikeWale" TagName="BikesInBudget" src="/UI/Controls/BikesInBudget.ascx" %>
 <% 
     AdId = "1395992162974";
     AdPath = "/1017752/BikeWale_UsedBikes_HomePage_";

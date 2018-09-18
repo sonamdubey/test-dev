@@ -524,7 +524,7 @@ namespace Bikewale.Service.Controllers.UserReviews
                 {
 
                     uint reviewId, customerId;
-                    string decodedString = TripleDES.DecryptTripleDES(objOptionalQuestionInput.EncodedCustomerAndReviewId);
+                    string decodedString = Bikewale.Utility.TripleDES.DecryptTripleDES(objOptionalQuestionInput.EncodedCustomerAndReviewId);
                     NameValueCollection qCol = HttpUtility.ParseQueryString(decodedString);
 
                     uint.TryParse(qCol["reviewid"], out reviewId);

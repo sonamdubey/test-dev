@@ -247,7 +247,7 @@ namespace Bikewale.BAL.UsedBikes
                 string profileId = (ad.Seller.SellerType == SellerType.Individual) ? String.Format("S{0}", ad.InquiryId) : String.Format("D{0}", ad.InquiryId);
                 ModelHostImagePath modelImage = _modelCache.GetModelPhotoInfo(ad.Model.ModelId);
                 string modelImg = Bikewale.Utility.Image.GetPathToShowImages(modelImage.OriginalImgPath, modelImage.HostURL, Bikewale.Utility.ImageSize._110x61);
-                string qEncoded = TripleDES.EncryptTripleDES(string.Format("sourceid={0}", (int)Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.UsedBikes_Email));
+                string qEncoded = Bikewale.Utility.TripleDES.EncryptTripleDES(string.Format("sourceid={0}", (int)Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.UsedBikes_Email));
                 string writeReviewlink = string.Format("{0}/rate-your-bike/{1}/?q={2}'", BWConfiguration.Instance.BwHostUrl, ad.Model.ModelId, qEncoded);
                 SendEmailSMSToDealerCustomer.UsedBikeAdEmailToIndividual(ad.Seller, profileId, bikeName, ad.Expectedprice.ToString(), modelImg, Format.FormatNumeric(ad.KiloMeters.ToString()), writeReviewlink);
                 SMSTypes smsType = new SMSTypes();

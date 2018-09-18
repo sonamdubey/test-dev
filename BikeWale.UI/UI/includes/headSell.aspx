@@ -1,4 +1,4 @@
-﻿<%@ Register TagPrefix="BikeWale" TagName="LoginStatus" src="/Controls/loginstatus.ascx" %>
+﻿<%@ Register TagPrefix="BikeWale" TagName="LoginStatus" src="/UI/Controls/loginstatus.ascx" %>
 <%@ Register TagPrefix="BM" TagName="BikeMakes" Src="/UI/controls/BrowseBikeManufacturerMin.ascx" %>
 <!DOCTYPE html>
 <html>

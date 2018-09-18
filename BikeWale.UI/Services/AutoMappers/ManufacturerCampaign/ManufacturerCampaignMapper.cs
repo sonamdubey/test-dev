@@ -131,7 +131,7 @@ namespace Bikewale.Service.AutoMappers.ManufacturerCampaign
                         LeadCampaign.PqSourceId, LeadCampaign.CampaignId, LeadCampaign.PQId, string.Empty, string.Empty, LeadCampaign.PopupHeading, 
                         String.Format(LeadCampaign.PopupSuccessMessage, LeadCampaign.Organization), LeadCampaign.PopupDescription, LeadCampaign.PincodeRequired,
                         LeadCampaign.EmailRequired, LeadCampaign.DealerRequired, LeadCampaign.SendLeadSMSCustomer, LeadCampaign.Organization);
-                    LeadCampaign.PageUrl = string.Format("{0}/m/popup/leadcapture/?q={1}&amp;platformid=3", BWConfiguration.Instance.BwHostUrl, TripleDES.EncryptTripleDES(strDES));
+                    LeadCampaign.PageUrl = string.Format("{0}/m/popup/leadcapture/?q={1}&amp;platformid=3", BWConfiguration.Instance.BwHostUrl, Bikewale.Utility.TripleDES.EncryptTripleDES(strDES));
                 }
                 campaignResponse = new DTO.Campaign.CampaignBaseDto();
                 campaignResponse.DetailsCampaign = new DTO.Campaign.DetailsDto();
@@ -267,7 +267,7 @@ namespace Bikewale.Service.AutoMappers.ManufacturerCampaign
                     string strDES = string.Format("modelid={0}&cityid={1}&areaid={2}&bikename={3}&location={4}&city={5}&area={6}&ismanufacturer={7}&dealerid={8}&dealername={9}&dealerarea={10}&versionid={11}&leadsourceid={12}&pqsourceid={13}&mfgcampid={14}&pqid={15}&pageurl={16}&clientip={17}&dealerheading={18}&dealermessage={19}&dealerdescription={20}&pincoderequired={21}&emailrequired={22}&dealersrequired={23}", 
                                     modelId, cityId, string.Empty, string.Format(LeadCampaign.BikeName), string.Empty, string.Empty, string.Empty, true, LeadCampaign.DealerId, String.Format(LeadCampaign.LeadsPropertyTextMobile, LeadCampaign.Organization), LeadCampaign.Area, versionId, LeadCampaign.LeadSourceId, LeadCampaign.PqSourceId, LeadCampaign.CampaignId, LeadCampaign.PQId, string.Empty, string.Empty, 
                                     LeadCampaign.PopupHeading, String.Format(LeadCampaign.PopupSuccessMessage, LeadCampaign.Organization), LeadCampaign.PopupDescription, LeadCampaign.PincodeRequired, LeadCampaign.EmailRequired, LeadCampaign.DealerRequired);
-                    LeadCampaign.PageUrl = string.Format("{0}/m/popup/leadcapture/?q={1}&amp;platformid=3", BWConfiguration.Instance.BwHostUrl, TripleDES.EncryptTripleDES(strDES));
+                    LeadCampaign.PageUrl = string.Format("{0}/m/popup/leadcapture/?q={1}&amp;platformid=3", BWConfiguration.Instance.BwHostUrl, Bikewale.Utility.TripleDES.EncryptTripleDES(strDES));
                 }
                 campaignResponse = new DTO.Campaign.CampaignBaseDto();
                 campaignResponse.DetailsCampaign = new DTO.Campaign.DetailsDto();

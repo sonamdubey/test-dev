@@ -387,7 +387,7 @@ namespace Bikewale.Common
         {
             string token = string.Empty;
 
-            token = TripleDES.EncryptTripleDES(value);
+            token = Bikewale.Utility.TripleDES.EncryptTripleDES(value);
 
             return token;
         }
@@ -404,7 +404,7 @@ namespace Bikewale.Common
         {
             string decodedValue = string.Empty;
             HttpContext.Current.Trace.Warn("passed token : " + token);
-            decodedValue = TripleDES.DecryptTripleDES(token);
+            decodedValue = Bikewale.Utility.TripleDES.DecryptTripleDES(token);
             HttpContext.Current.Trace.Warn("decoded token : " + decodedValue);
 
             return decodedValue;

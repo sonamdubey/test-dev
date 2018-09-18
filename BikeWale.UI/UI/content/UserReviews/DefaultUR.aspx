@@ -1,6 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Content.DefaultUR" Trace="false" EnableEventValidation="false" %>
 
-<%@ Register TagPrefix="ur" TagName="UserReviews" Src="/Controls/BikeReviews.ascx" %>
+<%@ Register TagPrefix="ur" TagName="UserReviews" src="/UI/Controls/BikeReviews.ascx" %>
 <%     
     title = "User Reviews on Bikes in India";
     description = "Know what users are saying about the bike you aspire to buy. Read first hand user feedback on bikes in India. Write your own review or write comments on others' reviews to let people know about your experience.";

@@ -1,27 +1,27 @@
 {
+  "manifest": {
+    "js": "/UI/pwa/js/manifest.bundle.js"
+  },
   "videosBundle": {
-    "js": "/pwa/js/videosBundle.bundle.js",
-    "css": "/pwa/css/videos/videosBundle.css"
+    "js": "/UI/pwa/js/videosBundle.bundle.js",
+    "css": "/UI/pwa/css/videos/videosBundle.css"
   },
   "newsBundle": {
-    "js": "/pwa/js/newsBundle.bundle.js",
-    "css": "/pwa/css/news/newsBundle.css"
+    "js": "/UI/pwa/js/newsBundle.bundle.js",
+    "css": "/UI/pwa/css/news/newsBundle.css"
   },
   "financeBundle": {
-    "js": "/pwa/js/financeBundle.bundle.js",
-    "css": "/pwa/css/finance/financeBundle.css"
+    "js": "/UI/pwa/js/financeBundle.bundle.js",
+    "css": "/UI/pwa/css/finance/financeBundle.css"
   },
   "peripheralComponents": {
-    "js": "/pwa/js/peripheralComponents.bundle.js"
+    "js": "/UI/pwa/js/peripheralComponents.bundle.js"
   },
   "vendor": {
-    "js": "/pwa/js/vendor.bundle.js"
+    "js": "/UI/pwa/js/vendor.bundle.js"
   },
   "app": {
-    "js": "/pwa/js/app.bundle.js",
-    "css": "/pwa/css/app.css"
-  },
-  "manifest": {
-    "js": "/pwa/js/manifest.bundle.js"
+    "js": "/UI/pwa/js/app.bundle.js",
+    "css": "/UI/pwa/css/app.css"
   }
 }

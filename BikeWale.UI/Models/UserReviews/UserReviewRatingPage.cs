@@ -58,7 +58,7 @@ namespace Bikewale.Models
         {
             try
             {
-                string _decodedString = TripleDES.DecryptTripleDES(Querystring);
+                string _decodedString = Bikewale.Utility.TripleDES.DecryptTripleDES(Querystring);
 
                 NameValueCollection queryCollection = HttpUtility.ParseQueryString(_decodedString);
                 uint.TryParse(queryCollection["reviewid"], out _reviewId);

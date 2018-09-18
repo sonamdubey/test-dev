@@ -277,7 +277,7 @@ namespace Bikewale.Controllers
             NameValueCollection queryCollection = null;
             try
             {
-                string decodedString = TripleDES.DecryptTripleDES(queryString);
+                string decodedString = Bikewale.Utility.TripleDES.DecryptTripleDES(queryString);
                 queryCollection = HttpUtility.ParseQueryString(decodedString);
             }
             catch (Exception ex)

@@ -285,7 +285,7 @@ namespace Bikewale.Controllers
             if (objRating != null)
                 strQueryString = string.Format("reviewid={0}&makeid={1}&modelid={2}&overallrating={3}&customerid={4}&priceRangeId={5}&userName={6}&emailId={7}&isFake={8}&returnUrl={9}&sourceid={10}&contestsrc={11}", objRating.ReviewId, objInputRating.MakeId, objInputRating.ModelId, objInputRating.OverAllrating, objRating.CustomerId, objInputRating.PriceRangeId, objInputRating.UserName, objInputRating.EmailId, objRating.IsFake, objInputRating.ReturnUrl, objInputRating.SourceId, objInputRating.ContestSrc);
 
-            string strEncoded = TripleDES.EncryptTripleDES(strQueryString);
+            string strEncoded = Bikewale.Utility.TripleDES.EncryptTripleDES(strQueryString);
             if (objRating != null && !objRating.IsFake)
             {
                 if (objInputRating.IsDesktop.HasValue && objInputRating.IsDesktop.Value)
@@ -393,7 +393,7 @@ namespace Bikewale.Controllers
                 uint decodedReviewId;
                 ulong decodedCustomerId;
                 bool isDesktop = objReviewData.IsDesktop.HasValue && objReviewData.IsDesktop.Value;
-                string decodedString = TripleDES.DecryptTripleDES(objReviewData.EncodedId);
+                string decodedString = Bikewale.Utility.TripleDES.DecryptTripleDES(objReviewData.EncodedId);
                 NameValueCollection queryCollection = HttpUtility.ParseQueryString(decodedString);
 
                 uint.TryParse(queryCollection["reviewid"], out decodedReviewId);

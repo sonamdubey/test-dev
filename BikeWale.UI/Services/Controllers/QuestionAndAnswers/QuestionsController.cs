@@ -119,7 +119,7 @@ namespace Bikewale.Service.Controllers.QuestionAndAnswers
                 {
                     foreach (var question in questionList)
                     {
-                        string queryString = TripleDES.EncryptTripleDES(string.Format(@"userEmail={0}&userName={1}&questionId={2}&modelId={3}", userEmail, userName, question.Id, modelId));
+                        string queryString = Bikewale.Utility.TripleDES.EncryptTripleDES(string.Format(@"userEmail={0}&userName={1}&questionId={2}&modelId={3}", userEmail, userName, question.Id, modelId));
                         questionUrls.Add(new QuestionUrl
                         {
                             QuestionData = question,

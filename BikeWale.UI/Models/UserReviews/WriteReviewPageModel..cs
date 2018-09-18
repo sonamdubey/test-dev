@@ -70,7 +70,7 @@ namespace Bikewale.Models.UserReviews
         {
             try
             {
-                string decodedQueryString = TripleDES.DecryptTripleDES(encodedQueryString);
+                string decodedQueryString = Bikewale.Utility.TripleDES.DecryptTripleDES(encodedQueryString);
 
                 NameValueCollection queryCollection = HttpUtility.ParseQueryString(decodedQueryString);
 

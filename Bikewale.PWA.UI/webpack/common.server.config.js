@@ -2,7 +2,7 @@ var webpack = require('webpack');
 var path = require('path');
 var CleanWebpackPlugin = require('clean-webpack-plugin');
 
-var BUILD_DIR = path.resolve(__dirname, '../../Bikewale.UI/', 'pwa');
+var BUILD_DIR = path.resolve(__dirname, '../../Bikewale.UI/UI/', 'pwa');
 var APP_DIR = path.resolve(__dirname, '..','src');
 
 

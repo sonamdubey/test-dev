@@ -10,11 +10,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     @{
         var StaticUrl = Bikewale.Utility.BWConfiguration.Instance.StaticUrl;
-        var ManifestJsUrl = "/pwa/js/manifest.bundle.js";
-        var VendorJsUrl = "/pwa/js/vendor.bundle.js";
-        var AppJsUrl = "/pwa/js/app.bundle.js";
-        var NewsJsUrl = "/pwa/js/newsBundle.bundle.js";
-        var BwcacheJsUrl = (!String.IsNullOrEmpty(StaticUrl) ? StaticUrl : "") + "/src/bwcache.js?" + Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion;
+        var ManifestJsUrl = "/UI/pwa/js/manifest.bundle.js";
+        var VendorJsUrl = "/UI/pwa/js/vendor.bundle.js";
+        var AppJsUrl = "/UI/pwa/js/app.bundle.js";
+        var NewsJsUrl = "/UI/pwa/js/newsBundle.bundle.js";
+        var BwcacheJsUrl = (!String.IsNullOrEmpty(StaticUrl) ? StaticUrl : "") + "/UI/src/bwcache.js?" + Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion;
         
     }
 
@@ -97,8 +97,8 @@
 
 
     </script>
-    <link rel='stylesheet' type='text/css' href='/pwa/css/app.css' atf-css />
-    <link rel='stylesheet' type='text/css' href='/pwa/css/news/newsBundle.css' atf-css />
+    <link rel='stylesheet' type='text/css' href='/UI/pwa/css/app.css' atf-css />
+    <link rel='stylesheet' type='text/css' href='/UI/pwa/css/news/newsBundle.css' atf-css />
 
     <link rel="dns-prefetch" href="https://imgd.aeplcdn.com/">
     <link rel="dns-prefetch" href="https://stb.aeplcdn.com/">

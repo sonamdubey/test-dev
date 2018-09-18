@@ -2891,6 +2891,7 @@
     <Content Include="UI\ads\Ad300x250BTF.aspx" />
     <Content Include="UI\ads\Ad320x150_First.aspx" />
     <Content Include="UI\ads\Ad320x150_Second.aspx" />
+    <Content Include="UI\ads\Ad320x50_Bottom_mobile.aspx" />
     <Content Include="UI\ads\Ad320x50_Middle_mobile.aspx" />
     <Content Include="UI\ads\Ad320x50_mobile.aspx" />
     <Content Include="UI\ads\Ad970x90.aspx" />
@@ -4966,6 +4967,7 @@
     <Content Include="UI\sass\partials\qna-answer.sass" />
     <Content Include="UI\sass\qna\answer-list.sass" />
     <Content Include="UI\sass\qna\question-details.sass" />
+    <Content Include="UI\pwa\webpack-assets.json" />
     <None Include="UI\Views\QuestionAndAnswers\_QuestionAnswerSection.cshtml" />
     <Content Include="UI\Views\QuestionAndAnswers\_unansweredquestion_mobile.cshtml" />
     <None Include="UI\Views\Shared\_Sidebar-section.cshtml" />
@@ -5034,7 +5036,6 @@
     <Folder Include="UI\Controllers\m\new\Scooters\" />
     <Folder Include="UI\Controllers\new\" />
     <Folder Include="UI\m\dealerlocator\" />
-    <Folder Include="UI\new\photos\" />
     <Folder Include="ViewModel\ComparisonTest\" />
     <Folder Include="ViewModel\Desktop\" />
   </ItemGroup>
