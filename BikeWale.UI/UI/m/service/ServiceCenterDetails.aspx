@@ -180,7 +180,7 @@
         </section>
 
         <!-- #include file="/UI/includes/footerBW_Mobile.aspx" -->
-        <link href="<%= staticUrl  %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
+        <link href="<%= staticUrl  %>/UI/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
         <link href="<%= staticUrl  %>/UI/css/chosen.min.css?<%= staticFileVersion %>" type="text/css" rel="stylesheet" />
         <!-- #include file="/UI/includes/footerscript_mobile.aspx" -->
         <script type="text/javascript" src="<%= staticUrl  %>/UI/m/src/chosen-jquery-min-mobile.js?<%= staticFileVersion %>"></script>

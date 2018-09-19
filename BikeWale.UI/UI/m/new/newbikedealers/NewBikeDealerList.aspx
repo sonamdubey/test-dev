@@ -146,7 +146,7 @@
         <!-- #include file="/UI/includes/footerBW_Mobile.aspx" -->
         <BW:BrandCity runat="server" ID="ctrlBrandCity" />
         <BW:LeadCapture ID="ctrlLeadCapture" runat="server" />
-        <link href="<%= staticUrl  %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
+        <link href="<%= staticUrl  %>/UI/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
         <!-- #include file="/UI/includes/footerscript_mobile.aspx" -->
         <!-- #include file="/UI/includes/fontBW_Mobile.aspx" -->
         <script type="text/javascript">

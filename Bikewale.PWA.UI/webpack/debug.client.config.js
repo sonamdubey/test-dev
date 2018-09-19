@@ -17,7 +17,7 @@ const config = merge(commonConfig, {
 	output : {
     filename: 'js/[name].bundle.js',
         chunkFilename: 'js/[name].bundle.js',
-        publicPath : '/pwa/'
+        publicPath : '/UI/pwa/'
 	},
     module: {
         loaders: [

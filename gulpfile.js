@@ -17,6 +17,7 @@ var gulp = require('gulp'),
 var baseApp = 'BikeWale.UI/',
 	app = 'BikeWale.UI/UI/',
 	buildFolder = app + 'build/',
+	buildFolderUI = buildFolder + 'UI/',
 	minifiedAssetsFolder = buildFolder + 'min/';
 
 var paths = {
@@ -205,7 +206,7 @@ gulp.task('replace-amp-css-link-reference', function () {
 });
 
 // PWA specific gulp tasks
-var patternJSBundle = /\/pwa\/js\/(\w)+.bundle.js/g;
+var patternJSBundle = /\/UI\/pwa\/js\/(\w)+.bundle.js/g;
 var replaceJsVersion = function(match, p1, offset, string) { //replace js urls with hashcode
 			if(jsChunksJson[match])
 				return jsChunksJson[match];
@@ -214,7 +215,7 @@ var replaceJsVersion = function(match, p1, offset, string) { //replace js urls w
 	    }
 var replaceInlineCssReferenceLink = function (s, fileName) { // replace inline css
 			
-			var regex = /\/pwa\/css\/(.*\/)?(.*).css/;
+			var regex = /\/UI\/pwa\/css\/(.*\/)?(.*).css/;
 			var matches = regex.exec(fileName);
 			if(!matches || !matches[2]) {
 				console.log('Could not find filename from '+fileName);
@@ -222,7 +223,7 @@ var replaceInlineCssReferenceLink = function (s, fileName) { // replace inline c
 			}
 			var cssNameWithHash = cssChunksJson[matches[2]];
 						
-			regex = /\/pwa\/css\/.*\.(.*)\.css/;
+			regex = /\/UI\/pwa\/css\/.*\.(.*)\.css/;
 			matches = regex.exec(cssNameWithHash);
 
 			if(!matches || !matches[1]) {
@@ -230,7 +231,7 @@ var replaceInlineCssReferenceLink = function (s, fileName) { // replace inline c
 				return;
 			}
 			var fileName = fileName.replace('.css','.'+matches[1]+'.css');
-			var style = fs.readFileSync(app + fileName, 'utf-8'),
+			var style = fs.readFileSync(baseApp + fileName, 'utf-8'),
 				style = style.replace(/@charset "utf-8";/g, "").replace(/\"/g, "'").replace(/\\[0-9]/g, "").replace(/[@]{1}/g, "@@"),
 				styleTag = "<style type='text/css'>" + style + "</style>";
 			return styleTag;
@@ -285,10 +286,10 @@ gulp.task('appshell-procesing', function() {
 	if(Configuration == "Debug") {
 		return
 	}
-	
+	console.log("Current working directory : " + buildFolder);
 	return gulp.src([
 		app + 'pwa/appshell.html'
-		] , { base : app})
+		] , { base : baseApp})
 		.pipe(replace(patternJSBundle,replaceJsVersion))
 	    .pipe(replace(pattern.CSS_ATF,replaceInlineCssReferenceLink))
 	    .pipe(replace(cssChunksJsonPattern,function(match, p1, offset, string){
@@ -343,7 +344,7 @@ gulp.task('generate-service-worker' , function() { // this task has to follow 'r
 		swDest : buildFolder + 'm/sw.js',
 		globDirectory : buildFolder,
 		staticFileGlobs: [
-			revManifest["pwa/appshell.html"]
+			revManifest["UI/pwa/appshell.html"]
 		],
 		dontCacheBustUrlsMatching: regexPatternForAppshell,
 		manifestTransforms : [(manifestEntries) => {

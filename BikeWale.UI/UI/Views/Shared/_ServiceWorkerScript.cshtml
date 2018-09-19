@@ -12,7 +12,7 @@
                 }
             });
                     
-            navigator.serviceWorker.register("/m/sw.js").then(function(registration) {
+            navigator.serviceWorker.register("/UI/m/sw.js").then(function(registration) {
                 registration.addEventListener('updatefound', function () {
                     var newWorker = registration.installing;
                     newWorker.addEventListener('statechange', function () {

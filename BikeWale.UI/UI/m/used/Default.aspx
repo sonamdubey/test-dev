@@ -189,7 +189,7 @@
         </div>
         <script type="text/javascript" src="<%= staticUrl  %>/UI/m/src/frameworks.js?<%= staticFileVersion %>"></script>
         <!-- #include file="/UI/includes/footerBW_Mobile.aspx" -->
-        <link href="<%= staticUrl  %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
+        <link href="<%= staticUrl  %>/UI/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
         <!-- #include file="/UI/includes/footerscript_mobile.aspx" -->
         <script type="text/javascript" src="<%= staticUrl  %>/UI/m/src/used/landing.js?<%= staticFileVersion %>">
              var gaObj = { 'id': '<%= (int)Bikewale.Entities.Pages.GAPages.Used_Bike_Landing%>', 'name': '<%= Bikewale.Entities.Pages.GAPages.Used_Bike_Landing%>' }

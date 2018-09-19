@@ -59,18 +59,6 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
-  <Choose>
-    <When Condition=" '$(GO_SCM_BIKEWALEWEB_PR_BRANCH)'=='' ">
-      <PropertyGroup>
-        <DestFolder>C:/BWRelease/develop/</DestFolder>
-      </PropertyGroup>
-    </When>
-    <When Condition=" '$(GO_SCM_BIKEWALEWEB_PR_BRANCH)'!='' ">
-      <PropertyGroup>
-        <DestFolder>C:/BWRelease/$(GO_SCM_BIKEWALEWEB_PR_BRANCH)/</DestFolder>
-      </PropertyGroup>
-    </When>
-  </Choose>
   <ItemGroup>
     <Reference Include="AEPLCore.Logging, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\AEPLCore.Logging.1.0.2\lib\net452\AEPLCore.Logging.dll</HintPath>
@@ -1958,7 +1946,7 @@
     <Compile Include="Models\Scooters\MoreAboutScootersWidget.cs" />
     <Compile Include="Models\Scooters\PopularScooterBrandsWidget.cs" />
     <Compile Include="Models\Scooters\ScootersMakePageModel.cs" />
-    <Compile Include="Models\ServiceCenters\ShowroomsWidgetModel.Cs" />
+    <Compile Include="Models\ServiceCenters\ShowroomsWidgetModel.cs" />
     <Compile Include="Models\Scooters\ScootersIndexPageModel.cs" />
     <Compile Include="Models\ServiceCenters\ServiceCenterCityPage.cs" />
     <Compile Include="Models\ServiceCenters\ServiceCenterDetailsPage.cs" />
@@ -5052,9 +5040,6 @@
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
   </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject />
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\</OutputPath>
@@ -5112,18 +5097,6 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
-  <!--<Choose>
-    <When Condition=" '$(GITHUB_PR_SOURCE_BRANCH)'=='' ">
-      <PropertyGroup>
-        <DestFolder>C:/Release/develop/</DestFolder>
-      </PropertyGroup>
-    </When>
-    <When Condition=" '$(GITHUB_PR_SOURCE_BRANCH)'!='' ">
-      <PropertyGroup>
-        <DestFolder>D:/Release/$(GITHUB_PR_SOURCE_BRANCH)/</DestFolder>
-      </PropertyGroup>
-    </When>
-  </Choose> -->
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
@@ -5159,9 +5132,14 @@
     <Message Text="Checking and installing NPM on machine.." Importance="high" />
     <Exec Command="npm install  --quiet" WorkingDirectory="$(ProjectDir)" />
   </Target>
-  <!--<Target Name="AfterBuild">
-    <Copy SourceFiles="@(Content)" DestinationFiles="@(Content->'$(DestFolder)%(RelativeDir)%(Filename)%(Extension)')" />
-  </Target>-->
+  <Target Name="ExecuteGulpEvent" AfterTargets="AfterBuild" DependsOnTargets="CheckNPMInstall" Condition="'$(Configuration)' != 'Debug'">
+    <Message Text="Running gulp task $(Configuration)" Importance="high" />
+    <Exec Command="$(ProjectDir)..\node_modules\.bin\gulp --env $(Configuration)" WorkingDirectory="$(ProjectDir)" />
+  </Target>
+  <Target Name="AfterBuild" DependsOnTargets="ExecuteGulpEvent" Condition="'$(Configuration)' != 'Debug'">
+    <Message Text="Creating Release folder $(Configuration)" Importance="high" />
+    <Exec Command="$(ProjectDir)..\Bikewale.ReleaseManagement\copyfiles.exe $(DaysOld) $(ProjectDir)" WorkingDirectory="$(ProjectDir)" />
+  </Target>
   <PropertyGroup>
     <PreBuildEvent>
     </PreBuildEvent>

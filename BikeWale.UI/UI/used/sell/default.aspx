@@ -17,7 +17,7 @@
         isAd970x90Shown = false;
 %>
     <!-- #include file="/UI/includes/headscript_desktop_min.aspx" -->
-    <link href="<%= staticUrl %>/sass/sell-bike/sell-bike.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
+    <link href="<%= staticUrl %>/UI/sass/sell-bike/sell-bike.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
     <link href="<%= staticUrl %>/UI/css/zebra-datepicker.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
     <link href="<%= staticUrl %>/UI/css/dropzone.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
     <script type="text/javascript">

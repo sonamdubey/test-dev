@@ -11,7 +11,7 @@
     %>
 
     <!-- #include file="/UI/includes/headscript_mobile_min.aspx" -->
-    <link href="<%= staticUrl %>/m/sass/sell-bike/sell-bike.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
+    <link href="<%= staticUrl %>/UI/m/sass/sell-bike/sell-bike.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
     <link href="<%= staticUrl  %>/UI/css/zebra-datepicker.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
     <link href="<%= staticUrl  %>/UI/css/dropzone.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
 
@@ -598,7 +598,7 @@ BikeWale ensures that only verified buyers can reach out to you. You can re-post
 
         <script type="text/javascript" src="<%= staticUrl  %>/UI/m/src/frameworks.js?<%= staticFileVersion %>"></script>
         <!-- #include file="/UI/includes/footerBW_Mobile.aspx" -->
-        <link href="<%= staticUrl %>/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
+        <link href="<%= staticUrl %>/UI/m/css/bwm-common-btf.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
         <link href="<%= staticUrl%>/UI/css/chosen.min.css?<%= staticFileVersion %>" type="text/css" rel="stylesheet" />
         <!-- #include file="/UI/includes/footerscript_mobile.aspx" -->
         <script type="text/javascript" src="<%= staticUrl %>/UI/m/src/chosen-jquery-min-mobile.js?<%= staticFileVersion %>"></script>

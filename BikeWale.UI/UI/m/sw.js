@@ -1,4 +1,4 @@
-var baseUrl = '/';
+var baseUrl = '/UI/';
 var APPSHELL = baseUrl + 'pwa/appshell.html';
 var WORKBOX_JS = baseUrl + 'pwa/workbox-sw.prod.v2.1.2.js';
 importScripts(WORKBOX_JS);
