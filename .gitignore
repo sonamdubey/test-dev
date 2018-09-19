@@ -26,7 +26,7 @@ Bikewale.PWA.UI/build/*
 BikeWale.UI/UI/pwa/css/
 BikeWale.UI/UI/pwa/js/
 BikeWale.UI/UI/pwa/server/
-BikeWale.UI/pwa/webpack-assets.json
+BikeWale.UI/UI/pwa/webpack-assets.json
 # User-specific files
 *.suo
 *.user
