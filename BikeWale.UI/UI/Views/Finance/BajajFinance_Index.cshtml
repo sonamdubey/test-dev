@@ -1,10 +1,10 @@
 ﻿@model Bikewale.Models.Finance.BajajFinanceVM
 @{
 	ViewBag.Title = "BajajFinance_Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/css/finance/common.css' /> <link rel='stylesheet' type='text/css' href='/css/finance/bajaj.css' />";
-    Model.Page_BTF_CSS_Path = "/css/zebra-datepicker.css";
-    Model.Page_JS_Paths = new string[] { "/src/finance/bajaj.js", "/src/finance/finance-common.js" };
+    Layout = "~/UI/Views/Shared/_Layout.cshtml";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/UI/css/finance/common.css' /> <link rel='stylesheet' type='text/css' href='/UI/css/finance/bajaj.css' />";
+    Model.Page_BTF_CSS_Path = "/UI/css/zebra-datepicker.css";
+    Model.Page_JS_Paths = new string[] { "/UI/src/finance/bajaj.js", "/UI/src/finance/finance-common.js" };
     
     
     Model.PageMetaTags.Title = "Get Instant Two Wheeler Loan Approval";
@@ -393,7 +393,7 @@
 <input type="hidden" id="hdnBikeName" value="@(Model.BikeName)" />
 <input type="hidden" id="pageUrl" value="@Model.PageUrl" />
 <input type="hidden" id="hdnPlatform" value="@((ushort)Model.PlatformId)" />
-@Html.Partial("~/Views/Shared/_otpScreen_New.cshtml")
+@Html.Partial("~/UI/Views/Shared/_otpScreen_New.cshtml")
 <div class="otp-black-window"></div>
 
 <div id="modalPopUp" class="modal-box"></div>
@@ -407,4 +407,4 @@
 	</div>
 </div>
 
-<script defer src="/src/zebra-datepicker.js"></script>
+<script defer src="/UI/src/zebra-datepicker.js"></script>

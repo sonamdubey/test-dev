@@ -13,7 +13,7 @@
 
 </head>
 <body class="bg-light-grey">
-    <link href="<%= staticUrl  %>/m/css/new/bwm-bookinglisting.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
+    <link href="<%= staticUrl  %>/UI/m/css/new/bwm-bookinglisting.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
     <link href="<%= staticUrl  %>/UI/css/chosen.min.css?<%= staticFileVersion %>" rel="stylesheet" />
     <div class="blackOut-window"></div>
     <!-- global-search-popup code starts here -->

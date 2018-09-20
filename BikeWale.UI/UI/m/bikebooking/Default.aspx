@@ -10,7 +10,7 @@
         canonical = "https://www.bikewale.com/bikebooking/";
     %>
     <!-- #include file="/UI/includes/headscript_mobile.aspx" -->
-    <link href="<%= staticUrl  %>/m/css/bwm-booking-landing.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css"/>
+    <link href="<%= staticUrl  %>/UI/m/css/bwm-booking-landing.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css"/>
     <script>
     </script>
 </head>

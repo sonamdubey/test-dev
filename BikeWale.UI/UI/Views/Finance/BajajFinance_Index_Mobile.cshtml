@@ -1,9 +1,9 @@
 ﻿@model Bikewale.Models.Finance.BajajFinanceVM
 @{
-    Layout = "~/Views/Shared/_Layout_Mobile.cshtml";
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/m/css/finance/common.css' /> <link rel='stylesheet' type='text/css' href='/m/css/finance/bajaj.css' /> <link rel='stylesheet' type='text/css' href='/css/zebra-datepicker.css' />  <link type='text/css' rel='stylesheet' href='/css/chosen.min.css'  />";
-    Model.Page_JS_Paths = new string[] {"/m/src/chosen-jquery-min-mobile.js?20Feb2017", "/src/finance/bajaj.js", "/src/finance/finance-common.js"};
-    Model.Page_BTF_CSS_Path = "/css/zebra-datepicker.css";
+    Layout = "~/UI/Views/Shared/_Layout_Mobile.cshtml";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/UI/m/css/finance/common.css' /> <link rel='stylesheet' type='text/css' href='/UI/m/css/finance/bajaj.css' /> <link rel='stylesheet' type='text/css' href='/UI/css/zebra-datepicker.css' />  <link type='text/css' rel='stylesheet' href='/UI/css/chosen.min.css'  />";
+    Model.Page_JS_Paths = new string[] {"/UI/m/src/chosen-jquery-min-mobile.js?20Feb2017", "/UI/src/finance/bajaj.js", "/UI/src/finance/finance-common.js"};
+    Model.Page_BTF_CSS_Path = "/UI/css/zebra-datepicker.css";
     Model.PageMetaTags.Title = "Get Instant Two Wheeler Loan Approval";
     Model.PageMetaTags.Description = "Owning a bike was never this easy. Apply for a bike loan and get instant online approval for a two wheeler loan. Apply Now!";
 }
@@ -431,8 +431,8 @@
 <input type="hidden" id="pageUrl" value="@Model.PageUrl" />
 <input type="hidden" id="hdnPlatform" value="@((ushort)Model.PlatformId)" />
 <input type="hidden" id="loanAmount" value="@Model.LoanAmount" />
-@Html.Partial("~/Views/Shared/_otpScreen_New_Mobile.cshtml")
-<script defer src="/src/zebra-datepicker.js"></script>
+@Html.Partial("~/UI/Views/Shared/_otpScreen_New_Mobile.cshtml")
+<script defer src="/UI/src/zebra-datepicker.js"></script>
 
 @if (Model.PlatformId == 3)
 {
