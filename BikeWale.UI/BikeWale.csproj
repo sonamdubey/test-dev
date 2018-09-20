@@ -4958,6 +4958,7 @@
     <Content Include="UI\pwa\webpack-assets.json" />
     <Content Include="UI\Views\Finance\BajajFinance_Index.cshtml" />
     <Content Include="UI\Views\Finance\BajajFinance_Index_Mobile.cshtml" />
+    <Content Include="UI\Views\Model\_Index_VersionPrices_Mobile_v1.cshtml" />
     <None Include="UI\Views\QuestionAndAnswers\_QuestionAnswerSection.cshtml" />
     <Content Include="UI\Views\QuestionAndAnswers\_unansweredquestion_mobile.cshtml" />
     <None Include="UI\Views\Shared\_Sidebar-section.cshtml" />
