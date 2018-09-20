@@ -65,7 +65,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="AEPLCore.Queue, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\AEPLCore.Queue.2.0.6\lib\net452\AEPLCore.Queue.dll</HintPath>
+      <HintPath>..\packages\AEPLCore.Queue.2.0.10-beta-2\lib\net452\AEPLCore.Queue.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="AEPLCore.Utils, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL">
@@ -79,7 +79,7 @@
       <HintPath>..\Libs\AjaxPro.2.dll</HintPath>
     </Reference>
     <Reference Include="APIGatewayLibrary, Version=2.1.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\APIGatewayLibrary.2.1.3\lib\net451\APIGatewayLibrary.dll</HintPath>
+      <HintPath>..\packages\APIGatewayLibrary.2.2.0-beta-3\lib\net451\APIGatewayLibrary.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="AutoMapper">
