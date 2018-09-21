@@ -1,0 +1,70 @@
+﻿/*floating cta animation*/
+.campaign-with-animation .campaign-animation-text__content {
+    opacity: 0;
+    -webkit-transition: opacity .5s ease-in-out;
+    transition: opacity .5s ease-in-out;
+    will-change: opacity;
+}
+.campaign-with-animation .campaign-with-animation__text {
+    display: inline-block;
+    vertical-align: top;
+    float: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    position: absolute;
+    top: 14px;
+    padding-left: 10px;
+ }
+.campaign-with-animation .campaign-with-animation__button {
+    width: 100%;
+    -webkit-transition: width .5s ease-in-out;
+    transition: width .5s ease-in-out;
+    float: right;
+    text-align: right;
+    font-weight: 600;
+}
+
+.campaign-with-animation .campaign-with-animation__button .btn {
+    border-radius: 0;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: 16px;
+}
+
+.campaign-with-animation.animated .campaign-animation-text__content {
+    opacity: 1;
+}
+
+.campaign-with-animation.animated .campaign-with-animation__button {
+    width: 41.66%;
+}
+
+#animate-btn.campaign__floating-btn {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    z-index: 8;
+    background: #fff;
+    -moz-box-shadow: 0 0 7px #ccc;
+    -webkit-box-shadow: 0 0 7px #ccc;
+    box-shadow: 0 0 7px #ccc;
+}
+#animate-btn.campaign__floating-btn .btn__left-label {
+    color: #82888b;
+    position : absolute;
+    top: 17px;
+}
+#animate-btn.campaign__floating-btn .btn.btn-full-32 {
+    width: 100%;
+    padding: 5px;
+    font-size: 14px;
+    border-radius: 2px;
+}
+
+@media screen and (max-width: 320px) {
+    .campaign-with-animation .campaign-with-animation__text {
+        font-size: 12px;
+    }
+}

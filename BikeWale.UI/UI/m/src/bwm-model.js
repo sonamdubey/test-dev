@@ -106,26 +106,6 @@ var findTopOffset = function () {
     return elem.outerHeight() + elem.offset().top - (window.innerHeight - floatBtnHeight);   
 }
 
-$(".campaign__floating-btn").on("click", "a", function () {
-
-    if ($(this).hasClass("js-mfg"))
-    {
-        if ($(this).closest(".js-floating-btn").hasClass("animated"))
-        {
-            triggerGA("Model_Page", "FloatingLeadCTA_Partial_GetBestOffers_Click", "");
-        }
-        else if ($(this).closest(".js-floating-btn").hasClass("campaign-with-animation"))
-        {
-            triggerGA("Model_Page", "FloatingLeadCTA_FullWidth_Click", "");
-        }
-        else if ($(this).attr("data-group") == "default")
-        {
-            triggerGA("Model_Page", "FloatingLeadCTA_Partial_DefaultCTA_Click", "");
-        }
-    }   
-   
-})
-
 var triggerGAAnimateCTA = function () {
     var container = $('.cta-animation-container');
     var campaignContainer = $('.campaign-with-animation');

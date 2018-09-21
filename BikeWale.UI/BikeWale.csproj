@@ -3123,6 +3123,7 @@
     <Content Include="UI\m\css\amp\make.css" />
     <Content Include="UI\m\css\amp\model.css" />
     <Content Include="UI\m\css\amp\price-in-city.css" />
+    <Content Include="UI\m\css\animate-cta.css" />
     <Content Include="UI\m\css\campaign\hero-campaign.css" />
     <Content Include="UI\m\css\components\model-gallery.css" />
     <Content Include="UI\m\css\electricbikes\landing.css" />
@@ -3805,6 +3806,8 @@
     <Content Include="UI\m\src\photos\videoPopupViewModel.js" />
     <Content Include="UI\m\src\priceincity.js" />
     <Content Include="UI\m\src\qna\landing.js" />
+    <Content Include="UI\src\utils\animate-cta.js" />
+    <Content Include="UI\src\utils\checkbox.js" />
     <Content Include="UI\src\utils\readMore.js" />
     <Content Include="UI\m\src\review\landing.js" />
     <Content Include="UI\m\src\scooters-by-make.js" />
@@ -4962,6 +4965,7 @@
     <Content Include="UI\Views\Model\_Index_VersionPrices_Mobile_v1.cshtml" />
     <None Include="UI\Views\QuestionAndAnswers\_QuestionAnswerSection.cshtml" />
     <Content Include="UI\Views\QuestionAndAnswers\_unansweredquestion_mobile.cshtml" />
+    <Content Include="UI\Views\Shared\_AnimatedCTA.cshtml" />
     <None Include="UI\Views\Shared\_Sidebar-section.cshtml" />
     <Content Include="UI\Views\BikeModels\_MultiTabsWidget.cshtml" />
     <Content Include="UI\Views\Shared\_ReviewPopup.cshtml" />

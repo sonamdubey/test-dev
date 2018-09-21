@@ -427,6 +427,7 @@ docReady(function () {
     $("#leadLink").on("click", function () {
         dataLayer.push({ "event": "Bikewale_all", "cat": "Dealer_PQ", "act": "Get_More_Details_Clicked_Link", "lab": bikeName + "_" + getCityArea });
     });
+
     ko.bindingHandlers.slider = {
         init: function (element, valueAccessor, allBindingsAccessor, bindingContext) {
             var options = allBindingsAccessor().sliderOptions || {};
@@ -597,5 +598,5 @@ docReady(function () {
     } catch (e) {
         console.log(e.message);
     }
-
+    AnimateCTA.registerEvents();
 });

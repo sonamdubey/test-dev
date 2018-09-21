@@ -3,9 +3,9 @@
 @using Bikewale.Utility;
 @using Bikewale.Entities.BikeBooking;
 @{
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/UI/sass/m/dealer-pricequote.css' inline /> <link rel='stylesheet' type='text/css' href='/UI/sass/partials/dealer-offers.css' inline /><link rel='stylesheet' type='text/css' href='/UI/sass/partials/version-dropdown.css' inline/>";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/UI/sass/m/dealer-pricequote.css' inline /> <link rel='stylesheet' type='text/css' href='/UI/sass/partials/dealer-offers.css' inline /><link rel='stylesheet' type='text/css' href='/UI/sass/partials/version-dropdown.css' inline/><link rel='stylesheet' type='text/css' href='/UI/m/css/animate-cta.css' inline />";
     Model.Page_BTF_CSS_Path = "/UI/sass/partials/lead-popup.css";
-    Model.Page_JS_Paths = new string[] { "/UI/src/utils/dropdown.js", "/UI/m/src/dealerpricequote.js", "/UI/src/utils/checkbox.js" };
+    Model.Page_JS_Paths = new string[] { "/UI/src/utils/dropdown.js", "/UI/src/utils/animate-cta.js", "/UI/m/src/dealerpricequote.js", "/UI/src/utils/checkbox.js" };
     Model.AdTags.AdPath = "/1017752/BikeWale_Mobile_PQ";
     Model.AdTags.AdId = "1516082135812";
     Layout = "~/UI/Views/Shared/_Layout_Mobile.cshtml";
@@ -13,6 +13,7 @@
     Model.AdTags.Ad_320x50 = true;
     bool primaryDealerShown = Model.DetailedDealer.PrimaryDealer != null && Model.DetailedDealer.PrimaryDealer.DealerDetails != null && Model.DetailedDealer.PrimaryDealer.DealerDetails.objArea != null;
     Model.AdTags.Ad_300x250BTF = !(primaryDealerShown || Model.IsManufacturerLeadAdShown || Model.IsManufacturerEMIAdShown);
+    bool isNonFinancePatner = false;
 }
 @{
     var cityArea = Bikewale.Utility.GlobalCityArea.GetGlobalCityArea();
@@ -215,7 +216,7 @@ else
 
 @if (Model.IsManufacturerLeadAdShown)
 {
-    <div class="margin-top10">
+    <div class="margin-top10 cta-animation-container">
         @Html.Partial("~/UI/Views/Price/_ManufacturerCampaign_Mobile.cshtml", Model.LeadCampaign)
     </div>
     <div class="campaign__floating-btn floating-btn clearfix">
@@ -223,20 +224,21 @@ else
         <div class="grid-5 alpha omega">
             @if (Model.LeadCampaign.DealerId == Bikewale.Utility.BWConfiguration.Instance.CapitalFirstDealerId)
             {
-                <a class="btn btn-orange btn-full-32" href="/m/finance/capitalfirst/?campaingid=@Model.LeadCampaign.CampaignId&amp;dealerid=@Model.LeadCampaign.DealerId&amp;pqguid=@Model.PQId&amp;leadsourceid=@Model.LeadCampaign.LeadSourceId&amp;versionid=@Model.LeadCampaign.VersionId&amp;url=@Model.LeadCampaign.CurrentPageUrl&amp;platformid=@Model.LeadCampaign.PlatformId&amp;bike=@Model.BikeName&amp;loanamount=@Model.LeadCampaign.LoanAmount&amp;cityid=@cityId&amp;dealerName=@Model.LeadCampaign.Organization&amp;sendLeadSMSCustomer=@Convert.ToString(Model.LeadCampaign.SendLeadSMSCustomer)" rel="nofollow">@Model.LeadCampaign.LeadsButtonTextMobile</a>
+                <a class="btn btn-orange btn-full-32 js-mfg" href="/m/finance/capitalfirst/?campaingid=@Model.LeadCampaign.CampaignId&amp;dealerid=@Model.LeadCampaign.DealerId&amp;pqguid=@Model.PQId&amp;leadsourceid=@Model.LeadCampaign.LeadSourceId&amp;versionid=@Model.LeadCampaign.VersionId&amp;url=@Model.LeadCampaign.CurrentPageUrl&amp;platformid=@Model.LeadCampaign.PlatformId&amp;bike=@Model.BikeName&amp;loanamount=@Model.LeadCampaign.LoanAmount&amp;cityid=@cityId&amp;dealerName=@Model.LeadCampaign.Organization&amp;sendLeadSMSCustomer=@Convert.ToString(Model.LeadCampaign.SendLeadSMSCustomer)" rel="nofollow">@Model.LeadCampaign.LeadsButtonTextMobile</a>
             }
             else if (Model.LeadCampaign.DealerId == Bikewale.Utility.BWConfiguration.Instance.BajajAutoFinanceDealerId)
             {
-                <a class="btn btn-orange btn-full-32"  href="@string.Format("/m/finance/bajaj/?dealerid={0}&campaignid={1}&pqguid={2}&leadsourceid={3}&versionid={4}&url={5}&platformid={6}&bike={7}&dealerName={8}&sendLeadSMSCustomer={9}&cityId={10}", Model.LeadCampaign.DealerId, Model.LeadCampaign.CampaignId, Model.PQId, Model.LeadCampaign.LeadSourceId, Model.LeadCampaign.VersionId, Model.LeadCampaign.CurrentPageUrl, Model.LeadCampaign.PlatformId, Model.LeadCampaign.BikeName, Model.LeadCampaign.Organization, Model.LeadCampaign.SendLeadSMSCustomer,cityId)" rel="nofollow">@Model.LeadCampaign.LeadsButtonTextMobile</a>
+                <a class="btn btn-orange btn-full-32 js-mfg" href="@string.Format("/m/finance/bajaj/?dealerid={0}&campaignid={1}&pqguid={2}&leadsourceid={3}&versionid={4}&url={5}&platformid={6}&bike={7}&dealerName={8}&sendLeadSMSCustomer={9}&cityId={10}", Model.LeadCampaign.DealerId, Model.LeadCampaign.CampaignId, Model.PQId, Model.LeadCampaign.LeadSourceId, Model.LeadCampaign.VersionId, Model.LeadCampaign.CurrentPageUrl, Model.LeadCampaign.PlatformId, Model.LeadCampaign.BikeName, Model.LeadCampaign.Organization, Model.LeadCampaign.SendLeadSMSCustomer,cityId)" rel="nofollow">@Model.LeadCampaign.LeadsButtonTextMobile</a>
             }
             else
             {
-                <a data-mfgcampid="@Model.LeadCampaign.CampaignId" data-item-id="@Model.LeadCampaign.DealerId" data-item-area="@Model.LeadCampaign.Area" data-leadsourceid="@Convert.ToInt16(LeadSourceEnum.DPQ_Floating_Mobile)" data-pqsourceid="@Model.LeadCampaign.PqSourceId" data-item-message="@String.Format(Model.LeadCampaign.PopupSuccessMessage, Model.LeadCampaign.Organization)" data-item-heading="@Model.LeadCampaign.PopupHeading" data-item-description="@Model.LeadCampaign.PopupDescription" data-ispincodrequired="@Model.LeadCampaign.PincodeRequired" data-dealersrequired="@Model.LeadCampaign.DealerRequired" data-item-name="@(String.Format(Model.LeadCampaign.LeadsButtonTextMobile, Model.LeadCampaign.Organization))" id="btnfloatingManufacturer" data-isemailrequired="@Model.LeadCampaign.EmailRequired" data-issendleadsmscustomer="@Model.LeadCampaign.SendLeadSMSCustomer" data-item-organization="@Model.LeadCampaign.Organization" class="btn btn-orange btn-full-32 leadcapturebtn">@Model.LeadCampaign.LeadsButtonTextMobile</a>
+                @Html.Partial("/UI/Views/Shared/_AnimatedCTA.cshtml", Model.LeadCampaign)
             }
         </div>
         <div class="clear"></div>
     </div>
 }
+
 @if (!(Model.DetailedDealer.PrimaryDealer != null && Model.DetailedDealer.PrimaryDealer.DealerDetails != null && Model.DetailedDealer.PrimaryDealer.DealerDetails.objArea != null))
 {
     <section>

@@ -512,5 +512,5 @@ docReady(function () {
         }
 
     });
-
+    AnimateCTA.registerEvents();
 });

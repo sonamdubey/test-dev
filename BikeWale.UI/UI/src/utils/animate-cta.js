@@ -34,6 +34,22 @@
             });
         }
 
+        $(".campaign__floating-btn").on("click", "a", function () {
+
+            if ($(this).hasClass("js-mfg")) {
+                if ($(this).closest(".js-floating-btn").hasClass("animated")) {
+                    triggerGA($(this).data("gacat"), "FloatingLeadCTA_Partial_GetBestOffers_Click", "");
+                }
+                else if ($(this).closest(".js-floating-btn").hasClass("campaign-with-animation")) {
+                    triggerGA($(this).data("gacat"), "FloatingLeadCTA_FullWidth_Click", "");
+                }
+                else if ($(this).data("group") == "default" && $(this).data("gacat") == "Model_Page") {
+                    triggerGA($(this).data("gacat"), "FloatingLeadCTA_Partial_DefaultCTA_Click", "");
+                }
+            }
+
+        });
+
     }
     return {
         registerEvents: registerEvents
