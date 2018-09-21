@@ -41,17 +41,17 @@ namespace Bikewale.Service.Controllers.UserProfile
             {
                 if (String.IsNullOrEmpty(cookieId))
                 {
-                    CookieHeaderValue cookieData = Request.Headers.GetCookies().FirstOrDefault();
+                    CookieHeaderValue cookieData = null;
+                    ICollection<CookieHeaderValue> cookieList = Request.Headers.GetCookies();
+                    if (cookieList != null)
+                    {
+                        cookieData = cookieList.FirstOrDefault();
+                    }
                     if (cookieData != null)
                     {
                         bwcValue = cookieData["BWC"].Value;
                         cookieValue = bwcValue;
                     }
-                    else
-                    {
-                        return BadRequest();
-                    }
-
                 }
 
                 targetingInfo = _userProfileBAL.GetUserProfile(cookieValue);
