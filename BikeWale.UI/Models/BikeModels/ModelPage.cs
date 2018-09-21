@@ -309,6 +309,8 @@ namespace Bikewale.Models.BikeModels
         /// Description : setting IsEditCityOption flag value
         /// Modified By : Rajan Chauhan on 14 September 2018
         /// Description : Set new test flag for NearlyAllIndiaCampaign
+        /// Modified By : Prabhu Puredla on 21 sept 2018
+        /// Description : Set IsNonAnimatedCTA for es campaign text experiment
         /// </summary>
         private void SetTestFlags(){
             ushort cookieValue;
@@ -318,7 +320,8 @@ namespace Bikewale.Models.BikeModels
                 _objData.IsEditCityOption = cookieValue >= 41 && cookieValue <= 50;
                 _objData.IsAnimatedCTA = cookieValue > 10;
                 _objData.IsNearlyAllIndiaCampaign = cookieValue > 10 && cookieValue <= 20 && _objData.ModelId == 78; // Test for Classic 350
-                _objData.IsNearByDealerCTA =  cookieValue > 20 && cookieValue < 23; 
+                _objData.IsNearByDealerCTA =  cookieValue > 20 && cookieValue < 23;
+                _objData.IsNonAnimatedCTA = cookieValue > 5 && cookieValue <= 10;
             }           
         }
 

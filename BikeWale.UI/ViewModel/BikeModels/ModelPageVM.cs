@@ -45,6 +45,8 @@ namespace Bikewale.Models.BikeModels
     /// Description : Added IsAnimatedCTA flag for floating animated CTA for Manufacturer Campaigns
     /// Modified By : Rajan Chauhan on 14 September 2018
     /// Description : Added IsNearlyAllIndiaCampaign for nearly all india campaign experiment and IsNearByDealerCTA
+    /// Modified By : Prabhu Puredla on 21 sept 2018
+    /// Description : Added IsNonAnimatedCTA for es campaign text experiment
     /// </summary>
     public class ModelPageVM : ModelBase
     {
@@ -182,7 +184,8 @@ namespace Bikewale.Models.BikeModels
         public bool IsEditCityOption { get; set; }
         public bool IsAnimatedCTA { get; set; }
         public bool IsNearlyAllIndiaCampaign { get; set; }
-        public bool IsNearByDealerCTA { get; set; } 
+        public bool IsNearByDealerCTA { get; set; }
+        public bool IsNonAnimatedCTA { get; set; }
     }
 
 }

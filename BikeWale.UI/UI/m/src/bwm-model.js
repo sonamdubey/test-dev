@@ -145,6 +145,10 @@ window.addEventListener('load', function () {
 
             setTimeout(triggerGAAnimateCTA(), 500);
         }
+        else if ($(".js-mfg").attr("data-group") == "fixedCTA")
+        {
+            triggerNonInteractiveGA("Model_Page", "FloatingLeadCTA_Partial_GetBestOffers_TextChange_Shown", $(".js-mfg").attr("data-lab"));
+        }
         else if ($(".js-mfg").attr("data-group") == "default")
         {
             triggerNonInteractiveGA("Model_Page", "FloatingLeadCTA_Partial_DefaultCTA_Shown", "");

@@ -53,7 +53,7 @@
                         </div>
                         @if (version.MinSpecsList != null && version.MinSpecsList.Any()) { 
                         <ul class="dropdown-box-submenu__specs-list">
-                            @Html.Raw(FormatMinSpecs.GetMinSpecsAsLiElement(version.MinSpecsList.Take(4), "dropdown-box-specs-list__item"))
+                            @Html.Raw(FormatMinSpecs.GetMinSpecsAsLiElement(version.MinSpecsList != null ? version.MinSpecsList.Take(4) : null , "dropdown-box-specs-list__item"))
                         </ul>
                         }
                     </li>
