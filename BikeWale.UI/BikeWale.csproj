@@ -4180,6 +4180,7 @@
     <Content Include="UI\src\zebra-datepicker.js" />
     <Content Include="UI\staticHtml\premium.html" />
     <Content Include="UI\staticHtml\standard.html" />
+    <Content Include="UI\staticHtml\tnc.html" />
     <Content Include="UI\Templates\BikesSwiperList_Mobile.html" />
     <Content Include="UI\Templates\ExpertReviewsList_Mobile.html" />
     <Content Include="UI\Templates\UserReviewDetails_Popup.html" />

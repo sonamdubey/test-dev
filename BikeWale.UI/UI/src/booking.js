@@ -519,7 +519,7 @@ function LoadTerms(offerId) {
         });
     }
     else {
-        $("#terms").load("/statichtml/tnc.html");
+        $("#terms").load("/UI/statichtml/tnc.html");
       
     }
     $(".termsPopUpContainer").css('height', '500');

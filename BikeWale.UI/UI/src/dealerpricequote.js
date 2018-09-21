@@ -54,9 +54,9 @@ function formatPrice(price) {
 function loadDisclaimer(dealerType) {
     $("#read-less").hide();
     if (dealerType == 'Premium') {
-        $("#read-more").load("/statichtml/premium.html");
+        $("#read-more").load("/UI/statichtml/premium.html");
     } else {
-        $("#read-more").load("/statichtml/standard.html");
+        $("#read-more").load("/UI/statichtml/standard.html");
     }
     $("#read-more").show();
 }
@@ -83,7 +83,7 @@ function LoadTerms(offerId) {
         });
     }
     else {
-        $("#terms").load("/statichtml/tnc.html");
+        $("#terms").load("/UI/statichtml/tnc.html");
     }
     $('#termspinner').hide();
 }
