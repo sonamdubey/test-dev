@@ -25,8 +25,17 @@ Disallow: /customerror.aspx
 Disallow: /m/customerror.aspx
 Disallow: /api/*
 
-sitemap: https://www.bikewale.com/sitemap.xml
-sitemap: https://www.bikewale.com/sitemaps/new-bike-prices-1.xml
-sitemap: https://www.bikewale.com/sitemaps/new-bike-prices-2.xml
+sitemap: https://www.bikewale.com/sitemaps/general/sitemap.xml
 sitemap: https://www.bikewale.com/sitemaps/used/usedbikes.xml
 sitemap: https://www.bikewale.com/sitemaps/imagesitemap.xml
+sitemap: https://www.bikewale.com/sitemaps/priceincity/new-bike-prices-1.xml
+sitemap: https://www.bikewale.com/sitemaps/priceincity/new-bike-prices-2.xml
+sitemap: https://www.bikewale.com/sitemaps/priceincity/new-bike-prices-3.xml
+sitemap: https://www.bikewale.com/sitemaps/priceincity/new-bike-prices-4.xml
+sitemap: https://www.bikewale.com/sitemaps/priceincity/new-bike-prices-5.xml
+sitemap: https://www.bikewale.com/sitemaps/priceincity/new-bike-prices-6.xml
+sitemap: https://www.bikewale.com/sitemaps/priceincity/new-bike-prices-7.xml
+sitemap: https://www.bikewale.com/sitemaps/priceincity/new-bike-prices-8.xml
+sitemap: https://www.bikewale.com/sitemaps/priceincity/new-bike-prices-9.xml
+sitemap: https://www.bikewale.com/sitemaps/dealerlocator/dealer-locator-showrooms-1.xml
+sitemap: https://www.bikewale.com/sitemaps/servicecenter/service-center-locator-1.xml
