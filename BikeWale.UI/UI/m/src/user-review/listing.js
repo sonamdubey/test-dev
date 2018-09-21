@@ -914,7 +914,7 @@ docReady(function () {
         vmModelExpertReviewsList.init();
     }
     else {
-        $("#expert-review-ul").load("/Templates/ExpertReviewsList_Mobile.html", function (responseTxt, statusTxt, xhr) {
+        $("#expert-review-ul").load("/UI/Templates/ExpertReviewsList_Mobile.html", function (responseTxt, statusTxt, xhr) {
             if (statusTxt == "success") {
                 bwcache.set("ExpertReviewsListTemplate", responseTxt, true);
                 vmModelExpertReviewsList.init();
@@ -935,7 +935,7 @@ docReady(function () {
             }
             else {
                 if (vmModelPopularBikes.bikeList().length == 0) {
-                    $("#popular-bikes-widget").load("/Templates/BikesSwiperList_Mobile.html", function (responseTxt, statusTxt, xhr) {
+                    $("#popular-bikes-widget").load("/UI/Templates/BikesSwiperList_Mobile.html", function (responseTxt, statusTxt, xhr) {
                         if (statusTxt == "success") {
                             bwcache.set("BikeReviewsListTemplate", responseTxt, true);
                             $("#popular-bodystyle-bikes-list").html(responseTxt);
