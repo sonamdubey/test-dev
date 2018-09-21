@@ -82,6 +82,8 @@ namespace Bikewale.BAL.Lead
         /// Description : Removed unused variables such as `isVerified` and the DTO
         /// Modified by : Monika Korrapati on 20 Aug 2018
         /// Description : Added NVC object of tracking data and Bhrigu tracking method 'PushDataToBhrigu'
+        /// Modified by : Monika Korrapati on 18 Sept 2018
+        /// Description : Added Null checks for pqCustomer, objCust, PageUrl
         /// </summary>
         public PQCustomerDetailOutputEntity ProcessPQCustomerDetailInputWithPQ(Entities.PriceQuote.PQCustomerDetailInput pqInput, System.Collections.Specialized.NameValueCollection requestHeaders)
         {
@@ -110,21 +112,20 @@ namespace Bikewale.BAL.Lead
                         objBookingPageDetailsEntity = _objDealerPriceQuote.FetchBookingPageDetails(Convert.ToUInt32(pqInput.CityId), Convert.ToUInt32(pqInput.VersionId), pqInput.DealerId);
 
                         pqCustomer = _objDealerPriceQuote.GetCustomerDetailsByLeadId(pqInput.LeadId);
-                        objCust = pqCustomer.objCustomerBase;
+                        objCust = pqCustomer != null ? pqCustomer.objCustomerBase : null;
 
-                        pqCustomerDetailEntity = NotifyCustomerAndDealer(pqInput, requestHeaders, objCust, false);
-                        pqCustomerDetailEntity.Dealer = objBookingPageDetailsEntity != null ? objBookingPageDetailsEntity.Dealer : null;
+                        pqCustomerDetailEntity = objCust != null ? NotifyCustomerAndDealer(pqInput, requestHeaders, objCust, false) : new PQCustomerDetailOutputEntity();
+                        pqCustomerDetailEntity.Dealer = pqCustomerDetailEntity.IsSuccess && objBookingPageDetailsEntity != null ? objBookingPageDetailsEntity.Dealer : null;
                     }
                     else
                     {
                         pqCustomerDetailEntity = new PQCustomerDetailOutputEntity();
-                        pqCustomerDetailEntity.Dealer = null;
                     }
                     pqCustomerDetailEntity.NoOfAttempts = noOfAttempts;
                     pqCustomerDetailEntity.IsSuccess = true;
 
                     NameValueCollection objNVC = new NameValueCollection();
-                    string PageUrl = request.UrlReferrer.ToString();
+                    string PageUrl = pqInput.PageUrl;
                     GlobalCityAreaEntity LocationEntity = GlobalCityArea.GetGlobalCityArea();
 
                     objNVC.Add("leadId", pqInput.LeadId.ToString());
@@ -139,7 +140,7 @@ namespace Bikewale.BAL.Lead
                     objNVC.Add("action", entity != null && entity.IsAccepted ? "Accepted" : "Rejected");
                     objNVC.Add("pageUrl", PageUrl);
                     objNVC.Add("clientIP", CurrentUser.GetClientIP());
-                    objNVC.Add("queryString", PageUrl.Split('?').Length > 1 ? PageUrl.Split('?')[1].Replace('&', '|') : String.Empty);
+                    objNVC.Add("queryString", !String.IsNullOrEmpty(PageUrl) && PageUrl.Contains("?") ? PageUrl.Split('?')[1].Replace('&', '|') : String.Empty);
                     objNVC.Add("userAgent", request.UserAgent);
                     objNVC.Add("referrer", String.Empty);
                     objNVC.Add("cookieId", request.Cookies["BWC"] != null ? request.Cookies["BWC"].Value : request.Headers["IMEI"]);
@@ -147,9 +148,9 @@ namespace Bikewale.BAL.Lead
                     objNVC.Add("name", pqInput.CustomerName);
                     objNVC.Add("mobile", pqInput.CustomerMobile);
                     objNVC.Add("email", pqInput.CustomerEmail);
-                    objNVC.Add("bwtest", request.Cookies["_bwtest"] != null ? request.Cookies["_bwtest"].Value : "");
-                    objNVC.Add("bwutmz", request.Cookies["_bwutmz"] != null ? request.Cookies["_bwutmz"].Value : "");
-                    objNVC.Add("cwv", request.Cookies["_cwv"] != null ? request.Cookies["_cwv"].Value : "");
+                    objNVC.Add("bwtest", request.Cookies["_bwtest"] != null ? request.Cookies["_bwtest"].Value : String.Empty);
+                    objNVC.Add("bwutmz", request.Cookies["_bwutmz"] != null ? request.Cookies["_bwutmz"].Value : String.Empty);
+                    objNVC.Add("cwv", request.Cookies["_cwv"] != null ? request.Cookies["_cwv"].Value : String.Empty);
                     objNVC.Add("locationCity", LocationEntity.City );
                     objNVC.Add("locationArea", LocationEntity.Area );
 
@@ -168,6 +169,8 @@ namespace Bikewale.BAL.Lead
         /// Description : changes PQId data type and added leadId in entities
         /// Modified by : Monika Korrapati on 20 Aug 2018
         /// Description : Added NVC object of tracking data and Bhrigu tracking method 'PushDataToBhrigu'
+        /// Modified by : Monika Korrapati on 18 Sept 2018
+        /// Description : Added Null checks for pqCustomer, objCust, PageUrl
         /// </summary>
         /// <param name="pqInput"></param>
         /// <param name="requestHeaders"></param>
@@ -198,21 +201,20 @@ namespace Bikewale.BAL.Lead
                         objBookingPageDetailsEntity = _objDealerPriceQuote.FetchBookingPageDetails(Convert.ToUInt32(pqInput.CityId), Convert.ToUInt32(pqInput.VersionId), pqInput.DealerId);
 
                         pqCustomer = _objDealerPriceQuote.GetCustomerDetailsByLeadId(pqInput.LeadId);
-                        objCust = pqCustomer.objCustomerBase;
+                        objCust = pqCustomer != null ? pqCustomer.objCustomerBase : null;
 
-                        pqCustomerDetailEntity = NotifyCustomerAndDealerV2(pqInput, requestHeaders, objCust);
-                        pqCustomerDetailEntity.Dealer = objBookingPageDetailsEntity != null ? objBookingPageDetailsEntity.Dealer : null;
+                        pqCustomerDetailEntity = objCust != null ? NotifyCustomerAndDealerV2(pqInput, requestHeaders, objCust) : new Bikewale.Entities.PriceQuote.v2.PQCustomerDetailOutputEntity();
+                        pqCustomerDetailEntity.Dealer = pqCustomerDetailEntity.IsSuccess && objBookingPageDetailsEntity != null ? objBookingPageDetailsEntity.Dealer : null;
                     }
                     else
                     {
                         pqCustomerDetailEntity = new Bikewale.Entities.PriceQuote.v2.PQCustomerDetailOutputEntity();
-                        pqCustomerDetailEntity.Dealer = null;
                     }
                     pqCustomerDetailEntity.NoOfAttempts = noOfAttempts;
                     pqCustomerDetailEntity.IsSuccess = true;
 
                     NameValueCollection objNVC = new NameValueCollection();
-                    string PageUrl = request.UrlReferrer.ToString();
+                    string PageUrl = Convert.ToString(request.UrlReferrer);
                     GlobalCityAreaEntity LocationEntity = GlobalCityArea.GetGlobalCityArea();
 
                     objNVC.Add("leadId", pqInput.LeadId.ToString());
@@ -227,7 +229,7 @@ namespace Bikewale.BAL.Lead
                     objNVC.Add("action", entity != null && entity.IsAccepted ? "Accepted" : "Rejected");
                     objNVC.Add("pageUrl", PageUrl);
                     objNVC.Add("clientIP", CurrentUser.GetClientIP());
-                    objNVC.Add("queryString", PageUrl.Split('?').Length > 1 ? PageUrl.Split('?')[1].Replace('&', '|') : String.Empty);
+                    objNVC.Add("queryString", !String.IsNullOrEmpty(PageUrl) && PageUrl.Contains("?") ? PageUrl.Split('?')[1].Replace('&', '|') : String.Empty);
                     objNVC.Add("userAgent", request.UserAgent);
                     objNVC.Add("referrer", String.Empty);
                     objNVC.Add("cookieId", request.Cookies["BWC"] != null ? request.Cookies["BWC"].Value : request.Headers["IMEI"]);
@@ -235,9 +237,9 @@ namespace Bikewale.BAL.Lead
                     objNVC.Add("name", pqInput.CustomerName);
                     objNVC.Add("mobile", pqInput.CustomerMobile);
                     objNVC.Add("email", pqInput.CustomerEmail);
-                    objNVC.Add("bwtest", request.Cookies["_bwtest"] != null ? request.Cookies["_bwtest"].Value : "");
-                    objNVC.Add("bwutmz", request.Cookies["_bwutmz"] != null ? request.Cookies["_bwutmz"].Value : "");
-                    objNVC.Add("cwv", request.Cookies["_cwv"] != null ? request.Cookies["_cwv"].Value : "");
+                    objNVC.Add("bwtest", request.Cookies["_bwtest"] != null ? request.Cookies["_bwtest"].Value : String.Empty);
+                    objNVC.Add("bwutmz", request.Cookies["_bwutmz"] != null ? request.Cookies["_bwutmz"].Value : String.Empty);
+                    objNVC.Add("cwv", request.Cookies["_cwv"] != null ? request.Cookies["_cwv"].Value : String.Empty);
                     objNVC.Add("locationCity", LocationEntity.City);
                     objNVC.Add("locationArea", LocationEntity.Area);
 
@@ -254,6 +256,8 @@ namespace Bikewale.BAL.Lead
         /// <summary>
         /// Modified by : Sanskar Gupta on 09 May 2018
         /// Description : Removed unused variables such as `isVerified` and the DTO, Added the check `pqInput.PQId`
+        /// Modified by : Monika Korrapati on 18 Sept 2018
+        /// Description : Added Null checks for pqCustomer, objCust
         /// </summary>
         /// <param name="pqInput"></param>
         /// <param name="requestHeaders"></param>
@@ -307,8 +311,8 @@ namespace Bikewale.BAL.Lead
                     if (entity.IsAccepted) //if the details are not abusive 
                     {
                         pqCustomer = _objDealerPriceQuote.GetCustomerDetailsByLeadId(pqInput.LeadId);
-                        objCust = pqCustomer.objCustomerBase;
-                        pqCustomerDetailEntity = NotifyCustomerAndDealer(pqInput, requestHeaders, objCust, true);
+                        objCust = pqCustomer != null ? pqCustomer.objCustomerBase : null;
+                        pqCustomerDetailEntity = objCust != null ? NotifyCustomerAndDealer(pqInput, requestHeaders, objCust, true) : new PQCustomerDetailOutputEntity();
                     }
                     else
                     {
@@ -336,7 +340,7 @@ namespace Bikewale.BAL.Lead
         /// <returns></returns>
         private PQCustomerDetailOutputEntity NotifyCustomerAndDealer(Bikewale.Entities.PriceQuote.PQCustomerDetailInput pqInput, System.Collections.Specialized.NameValueCollection requestHeaders, CustomerEntity objCust, bool IsPQCustomerDetailWithPQ)
         {
-            PQCustomerDetailOutputEntity output = null;
+            PQCustomerDetailOutputEntity output = new PQCustomerDetailOutputEntity();
             try
             {
                 PQ_DealerDetailEntity dealerDetailEntity = null;
@@ -439,7 +443,6 @@ namespace Bikewale.BAL.Lead
                     {
                         _objLeadNofitication.PushtoAB(pqInput.DealerId.ToString(), pqInput.PQId, objCust.CustomerName, objCust.CustomerMobile, objCust.CustomerEmail, pqInput.VersionId, pqInput.CityId, String.Empty, pqInput.LeadId);
                     }
-                    output = new Entities.PriceQuote.PQCustomerDetailOutputEntity();
                     output.IsSuccess = isVerified;
 
                 }
@@ -463,7 +466,7 @@ namespace Bikewale.BAL.Lead
         /// <returns></returns>
         private Bikewale.Entities.PriceQuote.v2.PQCustomerDetailOutputEntity NotifyCustomerAndDealerV2(Bikewale.Entities.PriceQuote.v2.PQCustomerDetailInput pqInput, NameValueCollection requestHeaders, CustomerEntity objCust)
         {
-            Bikewale.Entities.PriceQuote.v2.PQCustomerDetailOutputEntity output = null;
+            Bikewale.Entities.PriceQuote.v2.PQCustomerDetailOutputEntity output = new Bikewale.Entities.PriceQuote.v2.PQCustomerDetailOutputEntity();
             try
             {
                 PQ_DealerDetailEntity dealerDetailEntity = null;
@@ -566,7 +569,6 @@ namespace Bikewale.BAL.Lead
                     {
                         _objLeadNofitication.PushtoAB(pqInput.DealerId.ToString(), 0, objCust.CustomerName, objCust.CustomerMobile, objCust.CustomerEmail, Convert.ToString(pqInput.VersionId), Convert.ToString(pqInput.CityId), pqInput.PQId, pqInput.LeadId);
                     }
-                    output = new Bikewale.Entities.PriceQuote.v2.PQCustomerDetailOutputEntity();
                     output.IsSuccess = isVerified;
                     output.LeadId = pqInput.LeadId;
 
@@ -728,6 +730,8 @@ namespace Bikewale.BAL.Lead
         /// Description : Added sourceid and clientip in the entity to be saved
         /// Modified by : Monika Korrapati on 20 Aug 2018
         /// Description : Added NVC object of tracking data and Bhrigu tracking method 'PushDataToBhrigu'
+        /// Modified by : Monika Korrapati on 18 Sept 2018
+        /// Description : Added Null check on PageUrl
         /// </summary>
         /// <param name="input"></param>
         /// <param name="headers"></param>
@@ -776,7 +780,7 @@ namespace Bikewale.BAL.Lead
                     input.LeadId = leadId = _manufacturerCampaignRepo.SaveManufacturerCampaignLead(leadInfo);
 
                     NameValueCollection objNVC = new NameValueCollection();
-                    string PageUrl = request.UrlReferrer.ToString();
+                    string PageUrl = Convert.ToString(request.UrlReferrer);
                     GlobalCityAreaEntity LocationEntity = GlobalCityArea.GetGlobalCityArea();
 
                     objNVC.Add("leadId", input.LeadId.ToString());
@@ -786,12 +790,12 @@ namespace Bikewale.BAL.Lead
                     objNVC.Add("dealerId", input.DealerId.ToString());
                     objNVC.Add("appVersion", headers["appVersion"]);
                     objNVC.Add("pageId", input.PageId.ToString());
-                    objNVC.Add("campaignId", input.CampaignId.ToString() );
+                    objNVC.Add("campaignId", input.CampaignId.ToString());
                     objNVC.Add("category", "NewBikesLead");
                     objNVC.Add("action", leadInfo!=null && leadInfo.IsAccepted ? "Accepted" : "Rejected");
                     objNVC.Add("pageUrl", PageUrl);
                     objNVC.Add("clientIP", CurrentUser.GetClientIP());
-                    objNVC.Add("queryString", PageUrl.Split('?').Length > 1 ? PageUrl.Split('?')[1].Replace('&', '|') : String.Empty);
+                    objNVC.Add("queryString", !String.IsNullOrEmpty(PageUrl) && PageUrl.Contains("?") ? PageUrl.Split('?')[1].Replace('&', '|') : String.Empty);
                     objNVC.Add("userAgent", request.UserAgent);
                     objNVC.Add("referrer", String.Empty);
                     objNVC.Add("cookieId", request.Cookies["BWC"] != null ? request.Cookies["BWC"].Value : request.Headers["IMEI"]);
@@ -799,9 +803,9 @@ namespace Bikewale.BAL.Lead
                     objNVC.Add("name", input.Name);
                     objNVC.Add("mobile", input.Mobile);
                     objNVC.Add("email", input.Email);
-                    objNVC.Add("bwtest", request.Cookies["_bwtest"]!=null ? request.Cookies["_bwtest"].Value: "");
-                    objNVC.Add("bwutmz", request.Cookies["_bwutmz"]!=null ? request.Cookies["_bwutmz"].Value: "");
-                    objNVC.Add("cwv", request.Cookies["_cwv"]!=null ? request.Cookies["_cwv"].Value: "");
+                    objNVC.Add("bwtest", request.Cookies["_bwtest"]!=null ? request.Cookies["_bwtest"].Value: String.Empty);
+                    objNVC.Add("bwutmz", request.Cookies["_bwutmz"]!=null ? request.Cookies["_bwutmz"].Value: String.Empty);
+                    objNVC.Add("cwv", request.Cookies["_cwv"]!=null ? request.Cookies["_cwv"].Value: String.Empty);
                     objNVC.Add("locationCity", LocationEntity.City);
                     objNVC.Add("locationArea", LocationEntity.Area);
                     
