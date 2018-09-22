@@ -314,16 +314,21 @@ gulp.task("replace-filepath-in-SW" , function() {
 	if(Configuration == "Debug") {
 		return
 	}
-	var revManifest = require('./'+buildFolder+'rev-manifest.json');
+	var revManifest = require('./'+buildFolder+'rev-manifest.json');	
+	
 	var cdnUrlPattern = /var(\s)*baseUrl(\s|\n)*=(\s|\n)*(?:"|')([^,"']*)(?:"|')(\s|\n)*;/
-	return gulp.src([app + 'm/sw.js',
-    				app + 'm/news/sw.js'] , { base: app })
-        .pipe(replace(/pwa\/appshell(-(\w)*)?\.html/g , function(match, p1, offset, string){ 
-        	return revManifest["pwa/appshell.html"]
+	var cdnbaseWBUrlPattern = /var(\s)*baseWBUrl(\s|\n)*=(\s|\n)*(?:"|')([^,"']*)(?:"|')(\s|\n)*;/
+	return gulp.src([baseApp + 'm/sw.js',
+    				baseApp + 'm/news/sw.js'] , { base: baseApp })
+        .pipe(replace(/pwa\/appshell(-(\w)*)?\.html/g , function(match, p1, offset, string){ 		
+        	return revManifest["UI/pwa/appshell.html"]
         	
         }))
         .pipe(replace(cdnUrlPattern,function(match, p1, offset, string){
 			return 'var baseUrl = \''+getCdnPath()+'\';';
+		}))
+		.pipe(replace(cdnbaseWBUrlPattern,function(match, p1, offset, string){
+			return 'var baseWBUrl = \''+getCdnPath()+'\';';
 		}))
 		.pipe(replace(/workboxSW\.precache\(\[.*\]\);?/g,function(match,p1,offset,string) {
 			console.log('found appshell in sw');
@@ -350,7 +355,7 @@ gulp.task('generate-service-worker' , function() { // this task has to follow 'r
 		manifestTransforms : [(manifestEntries) => {
 			return manifestEntries.map(entry => {
 				if (entry.url.match(regexPatternForAppshell)) {
-			      return getCdnPath()+revManifest["pwa/appshell.html"];
+			      return getCdnPath()+revManifest["UI/pwa/appshell.html"];
 			    } 
 			})
 		}]

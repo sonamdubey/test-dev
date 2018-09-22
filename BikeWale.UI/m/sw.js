@@ -1,6 +1,7 @@
 var baseUrl = '/UI/';
+var baseWBUrl = '/';
 var APPSHELL = baseUrl + 'pwa/appshell.html';
-var WORKBOX_JS = baseUrl + 'pwa/workbox-sw.prod.v2.1.2.js';
+var WORKBOX_JS = baseWBUrl + 'UI/pwa/workbox-sw.prod.v2.1.2.js';
 importScripts(WORKBOX_JS);
 const workboxSW = new WorkboxSW({
     cacheId: "bw",
