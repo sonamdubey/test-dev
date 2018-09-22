@@ -121,7 +121,7 @@
                         reg.unregister();
                     }
                 });
-                navigator.serviceWorker.register(window.location.origin + "/UI/m/sw.js", { scope: '/m/'}).then(function (registration) {
+                navigator.serviceWorker.register(window.location.origin + "/m/sw.js").then(function (registration) {
                     registration.addEventListener('updatefound', function () {
                         var newWorker = registration.installing;
                         newWorker.addEventListener('statechange', function () {

@@ -3845,7 +3845,7 @@
     <Content Include="UI\m\src\video\videoByCategory.js" />
     <Content Include="UI\m\src\zebra_datepicker.js" />
     <Content Include="UI\BikeBooking\BookingListing.aspx" />
-    <Content Include="UI\m\sw.js" />
+    <Content Include="m\sw.js" />
     <Content Include="UI\m\trackday2016\css\track-day.css" />
     <Content Include="UI\m\trackday2016\default.aspx" />
     <Content Include="UI\m\trackday2016\details.aspx" />
