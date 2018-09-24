@@ -319,7 +319,7 @@
                 {
                     <text>
                 triggerNonInteractiveGA(gaObj.name, "MLA_Eligible_Lead_Popup_Shown", self.selectedBike().bike + "_" + (self.isUserAreaAvailable() ? globalLocation.CityName : self.dealerCityName()) + "_" + (self.isUserAreaAvailable()  ? globalLocation.AreaName : null));
-                    </text>
+                </text>
                 }
                 self.isBikeSelected(true);
             }
@@ -447,8 +447,8 @@
                 "sendLeadSMSCustomer": self.sendLeadSMSCustomer(),
                 "leadId":self.leadId(),
                 "dealerIds":self.selectedMLADealerIds(),
-                "platformId": @Model.PlatformId,
-                "pageId": @Model.PageId
+                "platformId": '@Model.PlatformId',
+                "pageId": '@Model.PageId'
             };
             // 3 represents modelpage and 8 represents dealerprice quote page
             if(gaObj.id == gaEnum.Model_Page || gaObj.id == gaEnum.DealerPriceQuote_Page)
@@ -772,7 +772,7 @@
                     "areaId": self.areaId(),
                     "clientIP": self.clientIP,
                     "pageUrl": self.pageUrl,
-                    "sourceType": @(Model.PlatformId != 0 ? Model.PlatformId : 2),
+                    "sourceType": '@(Model.PlatformId != 0 ? Model.PlatformId : 2)',
                     "pQLeadId": self.pqSourceId(),
                     "deviceId": getCookie('BWC')
                 };
@@ -847,8 +847,8 @@
                     "leadSourceId": self.leadSourceId(),
                     "deviceId": getCookie('BWC'),
                     "areaId": self.isUserAreaAvailable() ? globalLocation.AreaId : "0",
-                    "platformId": @Model.PlatformId,
-                    "pageId": @Model.PageId,
+                    "platformId": '@Model.PlatformId',
+                    "pageId": '@Model.PageId',
                     "campaignId": self.campaignId()
                 };
                 $.ajax({
@@ -1118,8 +1118,8 @@
                     "dealerName": self.organizationName() ? self.organizationName() : self.dealerName(),
                     "sendLeadSMSCustomer": self.sendLeadSMSCustomer(),
                     "leadId":self.leadId(),
-                    "platformId": @Model.PlatformId,
-                    "pageId": @Model.PageId
+                    "platformId": '@Model.PlatformId',
+                    "pageId": '@Model.PageId'
                 };
                 $.ajax({
                     type: "POST",
@@ -1295,7 +1295,7 @@
             }
         };
 
-    }// ends leadModel()
+    }; // ends leadModel()
 
     function setuserDetails() {
         var cookieName = "_PQUser";
@@ -1304,12 +1304,12 @@
             var arr = keyValue ? keyValue[2].split("&") : null;
             return arr;
         }
-    }
+    };
 
     function setPQUserCookie() {
         var val = campaignLeadVm.fullName() + '&' + campaignLeadVm.emailId() + '&' + campaignLeadVm.mobileNo();
         SetCookie("_PQUser", val);
-    }
+    };
 
     var setError = function (element, msg) {
         element.addClass("border-red").siblings("span.errorIcon, div.errorText").show();
@@ -1544,7 +1544,7 @@
             if(campaignLeadVm.isLeadPopupFlow()) {
                 window.location.reload(true);
             }
-        }
+        };
 
         $(".leadCapture-close-btn").on("click", function(event) {
             campaignLeadVm.triggerCloseBtnGA(event);
@@ -1859,7 +1859,7 @@
 
     if (Model.CityId <= 0)
     {
-        <link href="@String.Format("/UI/m/css/leadcapture.css?{1}",Bikewale.Utility.BWConfiguration.Instance.StaticUrl,Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion)" rel="stylesheet" type="text/css" />
+        <link href="@String.Format("{0}/UI/m/css/leadcapture.css?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion)" rel="stylesheet" type="text/css" />
     }
 
 
