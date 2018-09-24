@@ -2675,8 +2675,10 @@ namespace Bikewale.Models.BikeModels
 		/// <summary>
 		/// Created by : Prabhu Puredla on 11 july 2018
 		/// Description : Bind Manufacturer Lead Ad and href 
-        /// Modified by : Pratibha Verma on 2 August 2018
-        /// Description : Added platformid in url
+		/// Modified by : Pratibha Verma on 2 August 2018
+		/// Description : Added platformid in url
+		/// Modified by : Rajan Chauhan on 20 September 2018
+		/// Description : Corrected platformid tracking
 		/// </summary>
 		/// <param name="priceInCityAMPVM"></param>
 		private void BindManufacturerLeadAdAMP()
@@ -2697,7 +2699,7 @@ namespace Bikewale.Models.BikeModels
 						str = str.RemoveAttribure("name");
 						str = str.RemoveStyleElement();
 
-						string url = "/m/popup/leadcapture/?q=" + Bikewale.Utility.TripleDES.EncryptTripleDES(string.Format(@"modelid={0}&cityid={1}&areaid={2}&bikename={3}&location={4}&city={5}&area={6}&ismanufacturer={7}&dealerid={8}&dealername={9}&dealerarea={10}&versionid={11}&leadsourceid={12}&pqsourceid={13}&mfgcampid={14}&pqid={15}&pageurl={16}&clientip={17}&dealerheading={18}&dealermessage={19}&dealerdescription={20}&pincoderequired={21}&emailrequired={22}&dealersrequired={23}&url={24}&sendLeadSMSCustomer={25}&organizationName={26}&platformid={27}",
+						string url = String.Format("/m/popup/leadcapture/?q={0}&platformId={1}", Bikewale.Utility.TripleDES.EncryptTripleDES(string.Format(@"modelid={0}&cityid={1}&areaid={2}&bikename={3}&location={4}&city={5}&area={6}&ismanufacturer={7}&dealerid={8}&dealername={9}&dealerarea={10}&versionid={11}&leadsourceid={12}&pqsourceid={13}&mfgcampid={14}&pqid={15}&pageurl={16}&clientip={17}&dealerheading={18}&dealermessage={19}&dealerdescription={20}&pincoderequired={21}&emailrequired={22}&dealersrequired={23}&url={24}&sendLeadSMSCustomer={25}&organizationName={26}",
 											   _objData.ModelId, _objData.CityId, string.Empty, string.Format(_objData.BikeName), string.Empty, string.Empty, string.Empty,
 											   _objData.IsManufacturerLeadAdShown, _objData.LeadCampaign.DealerId, String.Format(_objData.LeadCampaign.LeadsPropertyTextMobile,
 											   _objData.LeadCampaign.Organization), _objData.LeadCampaign.Area, _objData.VersionId, _objData.LeadCampaign.LeadSourceId, _objData.LeadCampaign.PqSourceId,
@@ -2705,7 +2707,7 @@ namespace Bikewale.Models.BikeModels
 											   String.Format(_objData.LeadCampaign.PopupSuccessMessage, _objData.LeadCampaign.Organization), _objData.LeadCampaign.PopupDescription,
 											   _objData.LeadCampaign.PincodeRequired, _objData.LeadCampaign.EmailRequired, _objData.LeadCampaign.DealerRequired,
 											   string.Format("{0}/m/{1}-bikes/{2}/", BWConfiguration.Instance.BwHostUrlForJs, _objData.ModelPageEntity.ModelDetails.MakeBase.MaskingName, _objData.ModelPageEntity.ModelDetails.MaskingName), _objData.LeadCampaign.SendLeadSMSCustomer, 
-                                               _objData.LeadCampaign.Organization, Source));
+                                               _objData.LeadCampaign.Organization)), (int)PQSources.Amp);
 
 						str = str.ReplaceHref("leadcapturebtn", url);
 						str = str.ReplaceGAAttributes();

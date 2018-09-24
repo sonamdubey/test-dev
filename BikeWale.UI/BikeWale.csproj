@@ -591,6 +591,7 @@
     <Compile Include="Services\Controllers\BikeData\UpcomingBikeController.cs" />
     <Compile Include="Services\Controllers\BikeData\VersionsController.cs" />
     <Compile Include="Services\Controllers\BookingSummary\BookingSummaryController.cs" />
+    <Compile Include="Services\Controllers\Campaign\CampaignController.cs" />
     <Compile Include="Services\Controllers\City\CityListController.cs" />
     <Compile Include="Services\Controllers\City\DealerCityController.cs" />
     <Compile Include="Services\Controllers\CMS\CMSController.cs" />
@@ -4963,9 +4964,11 @@
     <Content Include="UI\Views\Finance\BajajFinance_Index.cshtml" />
     <Content Include="UI\Views\Finance\BajajFinance_Index_Mobile.cshtml" />
     <Content Include="UI\Views\Model\_Index_VersionPrices_Mobile_v1.cshtml" />
+    <Content Include="UI\Views\m\Shared\_LocationPopup.cshtml" />
     <None Include="UI\Views\QuestionAndAnswers\_QuestionAnswerSection.cshtml" />
     <Content Include="UI\Views\QuestionAndAnswers\_unansweredquestion_mobile.cshtml" />
     <Content Include="UI\Views\Shared\_AnimatedCTA.cshtml" />
+    <Content Include="UI\Views\Shared\_LeadCapture_Mobile_New.cshtml" />
     <None Include="UI\Views\Shared\_Sidebar-section.cshtml" />
     <Content Include="UI\Views\BikeModels\_MultiTabsWidget.cshtml" />
     <Content Include="UI\Views\Shared\_ReviewPopup.cshtml" />

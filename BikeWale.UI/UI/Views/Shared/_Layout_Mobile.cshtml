@@ -596,6 +596,7 @@ else if (Model.AdTags.ShowInnovationBannerMobile)
     </footer> <!-- Ends here -->
     <noscript id="asynced-css">
         <link href="@String.Format("{0}/UI/m/css/bwm-common-btf.css?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl,Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion)" rel="stylesheet" type="text/css" />
+		<link href="@String.Format("{0}/UI/sass/partials/response-popup.css?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, Bikewale.Utility.BWConfiguration.Instance.StaticCommonFileVersion)" rel="stylesheet" type="text/css" />
         @if (!String.IsNullOrEmpty(Model.Page_BTF_CSS_Path))
         {
             <link href="@String.Format("{0}{1}?{2}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, Model.Page_BTF_CSS_Path,Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion)" rel="stylesheet" type="text/css" />

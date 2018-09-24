@@ -16,82 +16,84 @@
 
 <!-- pricequote widget starts here-->
 <div class="bw-city-popup bwm-fullscreen-popup bw-popup-sm text-center hide" id="popupWrapper">
-    <div class="city-area-banner"></div>
-    <div class="popup-inner-container">
-        <div class="bwmsprite onroad-price-close-btn close-btn position-abt pos-top10 pos-right10 cur-pointer"></div>
-        <div id="popupHeading" class="content-inner-block-20">
-            <p class="font18 margin-bottom5 text-capitalize">Please Tell Us Your Location</p>
-            <div class="text-light-grey margin-bottom5"><span class="red">*</span><span data-bind="text:subTitle"></span></div>
-            @{ if (isOperaBrowser)
-             {
+    <div class="city-popup-wrapper">
+        <div class="city-area-banner"></div>
+        <div class="popup-inner-container">
+            <div class="bwmsprite onroad-price-close-btn close-btn position-abt pos-top10 pos-right10 cur-pointer"></div>
+            <div id="popupHeading" class="content-inner-block-20">
+                <p class="font18 margin-bottom5 text-capitalize">Please Tell Us Your Location</p>
+                <div class="text-light-grey margin-bottom5"><span class="red">*</span><span data-bind="text:subTitle"></span></div>
+                @{ if (isOperaBrowser)
+                 {
 
-                <div class="form-control-box margin-bottom10 ">
-                    <select id="opCityList" class="form-control" tabindex="2" data-bind="options: BookingCities, value: SelectedCityId, optionsText: 'name', optionsValue: 'id', optionsCaption: '--Select City--', event: { change: function(d,e){selectCity(d,e);} }"></select>
-                    <span class="fa fa-spinner fa-spin position-abt  text-black btnSpinner"></span>
-                </div>
-                <div class="form-control-box" data-bind="visible: BookingAreas().length > 0">
-                    <select id="opAreaList" class="form-control" data-bind="options: BookingAreas, value: SelectedAreaId, optionsText: 'name', optionsValue: 'id', optionsCaption: '--Select Area--', event: { change: function (d,e) { selectArea(d,e); } }"></select>
-                    <span class="fa fa-spinner fa-spin position-abt  text-black btnSpinner"></span>
-                </div>
-
-             }
-             else
-             {
-
-                <div id="citySelection" class="form-control text-left input-sm position-rel margin-bottom10">
-                    <div class="selected-city" data-bind="text: (SelectedCity() != null && SelectedCity().name != '') ? SelectedCity().name : 'Select City'"></div>
-                    <span class="bwmsprite fa-angle-right position-abt pos-top10 pos-right10"></span>
-                </div>
-                <div id="areaSelection" class="form-control text-left input-sm position-rel margin-bottom10" data-bind="visible: BookingAreas().length > 0">
-                    <div class="selected-area" data-bind="text: (SelectedArea() != null && SelectedArea().name != '') ? SelectedArea().name : 'Select Area'">Select Area</div>
-                    <span class="bwmsprite fa-angle-right position-abt pos-top10 pos-right10"></span>
-
-                </div>
-
-                <div id="btnPriceLoader" class="center-align margin-top20 text-center position-rel">
-                    <a id="btnDealerPricePopup" class="btn btn-orange btn-full-width font18" data-bind="visible: SelectedCityId() > 0 && IsPersistance() && (!hasAreas() || SelectedAreaId() > 0),click: function(){ IsPersistance(false); InitializePQ();} ">Show on-road price</a>
-                </div>
-
-                <div id="popupContent" class="bwm-city-area-popup-wrapper">
-                    <div class="bw-city-popup-box bwm-city-area-box city-list-container form-control-box text-left">
-                        <div class="user-input-box">
-                            <span class="back-arrow-box">
-                                <span class="bwmsprite back-long-arrow-left"></span>
-                            </span>
-                            <input type="text" class="form-control padding-right40" placeholder="Type to select city" id="popupCityInput" autocomplete="off" data-bind="textInput: cityFilter,attr: { value: (SelectedCity() != undefined) ? SelectedCity().name : '' }">
-                        </div>
-                        <ul id="popupCityList" data-bind="template: { name: 'bindCityList-template', foreach: visibleCities }"></ul>
-                        <script type="text/html" id="bindCityList-template">
-                            <li data-bind="text: name, attr: { 'cityId': id }, click: function (d, e) { $parent.selectCity(d, e); }"></li>
-                        </script>
-                        <div class="margin-top30 font24 text-center margin-top60 "></div>
+                    <div class="form-control-box margin-bottom10 ">
+                        <select id="opCityList" class="form-control" tabindex="2" data-bind="options: BookingCities, value: SelectedCityId, optionsText: 'name', optionsValue: 'id', optionsCaption: '--Select City--', event: { change: function(d,e){selectCity(d,e);} }"></select>
+                        <span class="fa fa-spinner fa-spin position-abt  text-black btnSpinner"></span>
+                    </div>
+                    <div class="form-control-box" data-bind="visible: BookingAreas().length > 0">
+                        <select id="opAreaList" class="form-control" data-bind="options: BookingAreas, value: SelectedAreaId, optionsText: 'name', optionsValue: 'id', optionsCaption: '--Select Area--', event: { change: function (d,e) { selectArea(d,e); } }"></select>
+                        <span class="fa fa-spinner fa-spin position-abt  text-black btnSpinner"></span>
                     </div>
 
-                    <div class="bw-area-popup-box bwm-city-area-box area-list-container form-control-box text-left" data-bind="visible: BookingAreas().length > 0">
-                        <div class="user-input-box">
-                            <span class="back-arrow-box">
-                                <span class="bwmsprite back-long-arrow-left"></span>
-                            </span>
-                            <input type="text" class="form-control padding-right40" placeholder="Type to select area" id="popupAreaInput" autocomplete="off" data-bind="textInput: areaFilter,attr: { value: (SelectedArea() != undefined) ? SelectedArea().name : '' }">
-                        </div>
-                        <ul id="popupAreaList" data-bind="template: { name: 'bindAreaList-template', foreach: visibleAreas }"></ul>
-                        <script type="text/html" id="bindAreaList-template">
-                            <li data-bind="text: name, attr: { 'areaId': id }, click: function (d, e) { $parent.selectArea(d, e); }"></li>
-                        </script>
-                        <div class="margin-top30 font24 text-center margin-top60 "></div>
-                    </div>
-                </div>
+                 }
+                 else
+                 {
 
-             }
-            }
+                    <div id="citySelection" class="form-control text-left input-sm position-rel margin-bottom10">
+                        <div class="selected-city" data-bind="text: (SelectedCity() != null && SelectedCity().name != '') ? SelectedCity().name : 'Select City'"></div>
+                        <span class="bwmsprite fa-angle-right position-abt pos-top10 pos-right10"></span>
+                    </div>
+                    <div id="areaSelection" class="form-control text-left input-sm position-rel margin-bottom10" data-bind="visible: BookingAreas().length > 0">
+                        <div class="selected-area" data-bind="text: (SelectedArea() != null && SelectedArea().name != '') ? SelectedArea().name : 'Select Area'">Select Area</div>
+                        <span class="bwmsprite fa-angle-right position-abt pos-top10 pos-right10"></span>
+
+                    </div>
+
+                    <div id="btnPriceLoader" class="center-align margin-top20 text-center position-rel">
+                        <a id="btnDealerPricePopup" class="btn btn-orange btn-full-width font18" data-bind="visible: SelectedCityId() > 0 && IsPersistance() && (!hasAreas() || SelectedAreaId() > 0),click: function(){ IsPersistance(false); InitializePQ();} ">Show on-road price</a>
+                    </div>
+
+                    <div id="popupContent" class="bwm-city-area-popup-wrapper">
+                        <div class="bw-city-popup-box bwm-city-area-box city-list-container form-control-box text-left">
+                            <div class="user-input-box">
+                                <span class="back-arrow-box">
+                                    <span class="bwmsprite back-long-arrow-left"></span>
+                                </span>
+                                <input type="text" class="form-control padding-right40" placeholder="Type to select city" id="popupCityInput" autocomplete="off" data-bind="textInput: cityFilter,attr: { value: (SelectedCity() != undefined) ? SelectedCity().name : '' }">
+                            </div>
+                            <ul id="popupCityList" data-bind="template: { name: 'bindCityList-template', foreach: visibleCities }"></ul>
+                            <script type="text/html" id="bindCityList-template">
+                                <li data-bind="text: name, attr: { 'cityId': id }, click: function (d, e) { $parent.selectCity(d, e); }"></li>
+                            </script>
+                            <div class="margin-top30 font24 text-center margin-top60 "></div>
+                        </div>
+
+                        <div class="bw-area-popup-box bwm-city-area-box area-list-container form-control-box text-left" data-bind="visible: BookingAreas().length > 0">
+                            <div class="user-input-box">
+                                <span class="back-arrow-box">
+                                    <span class="bwmsprite back-long-arrow-left"></span>
+                                </span>
+                                <input type="text" class="form-control padding-right40" placeholder="Type to select area" id="popupAreaInput" autocomplete="off" data-bind="textInput: areaFilter,attr: { value: (SelectedArea() != undefined) ? SelectedArea().name : '' }">
+                            </div>
+                            <ul id="popupAreaList" data-bind="template: { name: 'bindAreaList-template', foreach: visibleAreas }"></ul>
+                            <script type="text/html" id="bindAreaList-template">
+                                <li data-bind="text: name, attr: { 'areaId': id }, click: function (d, e) { $parent.selectArea(d, e); }"></li>
+                            </script>
+                            <div class="margin-top30 font24 text-center margin-top60 "></div>
+                        </div>
+                    </div>
+
+                 }
+                }
+
+            </div>
 
         </div>
-
-    </div>
-    <div id="popup-loader-container">
-        <div class="cover-popup-loader"></div>
-        <div class="cover-popup-loader-text">
-            <p data-bind="text : LoadingText()" class="font14"></p>
+        <div id="popup-loader-container">
+            <div class="cover-popup-loader"></div>
+            <div class="cover-popup-loader-text">
+                <p data-bind="text : LoadingText()" class="font14"></p>
+            </div>
         </div>
     </div>
 </div>
@@ -160,20 +162,21 @@
         self.setOptions = function (options, e) {
 
             if (options != null) {
-
-                $('#popupWrapper').addClass('loader-active');
-                $('#popupWrapper').show();
-                $("#popupContent").show();
-                self.popupTriggerSource( e.currentTarget.dataset.popupsource === 'leadcapturebtn'? 
+                self.popupTriggerSource( e != undefined && e.currentTarget != undefined && e.currentTarget.dataset!= undefined && e.currentTarget.dataset.popupsource === 'leadcapturebtn'? 
                     PopupTriggerSourceEnum.LeadCaptureButton : PopupTriggerSourceEnum.CitySelectionIcon);
 
                 if(self.isLeadPopupFlow()) {
                     self.subTitle("We will connect you to the nearest authorized dealership.");
+                    appendState('fetchCampaign');
                 }
                 else {
                     self.subTitle("Get on-road prices by just sharing your location!");
                     appendHash("onRoadPrice");
+                    appendState('onRoadPrice');
                 }
+
+                $('#popupWrapper').addClass('loader-active').show();
+                $("#popupContent").show();
 
                 self.SelectedModelId(options.modelId || 0);
                 self.SelectedCityId(options.cityId || 0);
@@ -215,7 +218,6 @@
             $('#popupWrapper').addClass('loader-active');
 
             if (self.SelectedModelId() != null && self.SelectedModelId()  > 0) {
-
                 var objData = {
                     "CityId":self.SelectedCityId(),
                     "AreaId":self.SelectedAreaId(),
@@ -338,7 +340,7 @@
                             if(self.isLeadPopupFlow()) {
                                 if(typeof(LeadPopupState) != "undefined") {
                                     self.closeLocationPopup();
-                                    LeadPopupState.open();
+                                    LeadPopupState.fetchCampaign();
                                 }
                             }
                             else {
@@ -387,7 +389,7 @@
 
             if (self.SelectedCity().hasAreas || self.SelectedCity().id != onCookieObj.PQCitySelectedId) {
                 self.InitializePQ(true);
-                self.areaDropdown.click();
+                areaSelectionClick();
             }
 
             if (ga_pg_id != null && ga_pg_id == 2) {
@@ -471,12 +473,15 @@
     docReady(function(){
         $('#popupWrapper .close-btn').click(function () {
             var rUrl=$(this).data("returnurl");
-            if(rUrl&&rUrl!="")
-               window.location=rUrl;
-            else {
-                vmquotation.closeLocationPopup();
+            if(vmquotation.isLeadPopupFlow()){
+                triggerGA("LocationPopUp", "CloseClick", leadBikeName);
+                cwTracking.trackCustomData("LocationPopUp", "CloseClick", "modelname=" + leadBikeName );
             }
-
+            else {
+                if (rUrl && rUrl != "")
+                    window.location=rUrl;
+            }
+            vmquotation.closeLocationPopup();
         });
 
         $(document).on("click", ".getquotation", function (e) {

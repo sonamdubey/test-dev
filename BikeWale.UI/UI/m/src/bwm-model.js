@@ -90,7 +90,9 @@ function scrollHorizontal(pos) {
 }
 
 var appendState = function (state) {
-    window.history.pushState(state, '', '');
+    /* add check to avoid pushing same state multiple times */ 
+    if(window.history.state !== state)
+        window.history.pushState(state, '', '');
 };
 
 var findTopOffset = function () {

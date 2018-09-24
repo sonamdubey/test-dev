@@ -851,6 +851,12 @@ function CloseCityPopUp() {
     unlockPopup();
 }
 
+function areaSelectionClick() {
+  $("#popupContent .bw-city-popup-box").hide().siblings("div.bw-area-popup-box").show();
+  popupContent.addClass("open").stop().animate({ 'left': '0px' }, 500);
+  $(".user-input-box").stop().animate({ 'left': '0px' }, 500);
+};
+
 var appendState = function (state) {
     window.history.pushState(state, '', '');
 };
@@ -997,13 +1003,18 @@ docReady(function () {
 
     $(".onroad-price-close-btn").click(function () {
         var rUrl = $(this).data("returnurl");
-        if (rUrl && rUrl != "")
-            window.location = rUrl;
-        else {
+        if (typeof (vmquotation) != "undefined" && vmquotation.isLeadPopupFlow())
+        {
             closeOnRoadPricePopUp();
-            window.history.back();
         }
-
+        else {            
+            if (rUrl && rUrl != "")
+                window.location = rUrl;
+            else {
+                closeOnRoadPricePopUp();
+                window.history.back();
+            }
+        }            
     });
 
 
@@ -1498,7 +1509,6 @@ docReady(function () {
         pushNavMenuAnalytics($(this).text());
     });
 
-
     $(".lazy").lazyload({
         effect: "fadeIn"
     });
@@ -1510,11 +1520,7 @@ docReady(function () {
 
     });
 
-    $("#areaSelection").on("click", function () {
-        $("#popupContent .bw-city-popup-box").hide().siblings("div.bw-area-popup-box").show();
-        popupContent.addClass("open").stop().animate({ 'left': '0px' }, 500);
-        $(".user-input-box").stop().animate({ 'left': '0px' }, 500);
-    });
+    $("#areaSelection").on("click", areaSelectionClick);
 
 
     $("#makeSelection").on("click", function () {
@@ -1530,13 +1536,10 @@ docReady(function () {
         $(".user-input-box").stop().animate({ 'left': '0px' }, 500);
     });
 
-    $(".bwm-city-area-popup-wrapper .back-arrow-box").on("click", function () {
-        popupContent.removeClass("open").stop().animate({ 'left': '100%' }, 500);
-        $(".user-input-box").stop().animate({ 'left': '100%' }, 500);
-    });
-    $(".bwm-city-area-popup-wrapper .back-arrow-box").on("click", function () {
-        brandcitypopupContent.removeClass("open").stop().animate({ 'left': '100%' }, 500);
-        $(".user-input-box").stop().animate({ 'left': '100%' }, 500);
+    $(".bwm-city-area-popup-wrapper .back-arrow-box, #popupCityList li, #popupAreaList li").on("click", function () {
+      brandcitypopupContent.removeClass("open").stop().animate({ 'left': '100%' }, 500);
+      popupContent.removeClass("open").stop().animate({ 'left': '100%' }, 500);
+      $(".user-input-box").stop().animate({ 'left': '100%' }, 500);
     });
 
 });
@@ -1764,11 +1767,15 @@ docReady(function () {
     });
 
     $(window).on('popstate', function (event) {
+      var windowState =  window.history.state;
         if ($('#nav').is(':visible')) {
             navDrawer.close();
         }
-        if ($('#leadCapturePopup').is(':visible') && window.history.state !== "leadCapture") {
+        if ($('#leadCapturePopup').is(':visible') && windowState !== "leadCapture" && windowState !== "fetchCampaign") {
             $('#leadCapturePopup').find('.leadCapture-close-btn').trigger('click');
+        }
+        if ($(".city-popup-wrapper").is(':visible') && windowState !== "fetchCampaign" && windowState !== "onRoadPrice") {
+            $('#popupWrapper .close-btn').trigger('click');
         }
     });
 

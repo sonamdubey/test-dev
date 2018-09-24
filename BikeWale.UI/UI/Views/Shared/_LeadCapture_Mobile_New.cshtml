@@ -13,7 +13,9 @@
                         <span class="lead-popup__contact-icon icon-container--round"></span>
                         <div class="lead-popup__contact-desc">
                             <p class="lead-contact-head__title" data-bind="text: (dealerHeading() && dealerHeading() != '') ? dealerHeading() : 'Provide contact details'"></p>
-                            <p class="lead-contact-head__subtitle" data-bind="text: (dealerDescription() && dealerDescription() != '') ? dealerDescription() : 'Dealership will get back to you with offers, EMI quotes, exchange benefits and much more!'"></p>
+                            <p class="lead-contact-head__subtitle" data-bind="visible:!isLeadPopupFlow(),text: (dealerDescription() && dealerDescription() != '') ? dealerDescription() : 'Dealership will get back to you with offers, EMI quotes, exchange benefits and much more!'"></p>
+                            <p class="lead-contact-head__subtitle" data-bind="visible: isLeadPopupFlow() && (dealerDescription() && dealerDescription().startsWith('Dealership'))"><span class="text-bold" data-bind="text: dealerName() + ' Authorized '"></span>Dealership will get back to you with offers, EMI quotes, exchange benefits and much more!</p>
+                            <p class="lead-contact-head__subtitle" data-bind="visible: isLeadPopupFlow() && !(dealerDescription() && dealerDescription().startsWith('Dealership'))"><span class="text-bold" data-bind="text : dealerName()"></span><span class="text-bold" data-bind="visible : dealerArea() && dealerArea().length> 0, text: ', ' + dealerArea()"></span> Dealership will get back to you with offers, EMI quotes, exchange benefits and much more!</p>
                         </div>
 
                     </div>
@@ -21,17 +23,17 @@
 
                     <div class="personal-info-form-container">
                         @if (Model.CityId <= 0)
-                    {
-                    <div class="slideIn-input-box-content margin-bottom15" data-bind="css: selectedCity() ? 'selection-done' : '',click : openCityList">
-                        <div id="city-select-element" class="slideIn-input-box text-left">
-                            <p class="slideIn-input-label city-box-default text-left" data-bind="visible: (selectedCity() && selectedCity().cityName != ''),css : (selectedCity() && selectedCity().cityName != '') ? 'done' : '' ">City<sup>*</sup></p>
-                            <p id="city-select-p" class="selected-option-box city-box-default text-truncate" data-bind="text: (selectedCity() && selectedCity().cityName != '') ? selectedCity().cityName : 'Select City'"></p>
-                            <span class="boundary"></span>
-                            <span class="error-text hide"></span>
-                            <span class="bwmsprite grey-right-icon"></span>
-                        </div>
-                    </div>
-                    }
+                        {
+                            <div class="slideIn-input-box-content margin-bottom15" data-bind="visible: !isLeadPopupFlow(),css: selectedCity() ? 'selection-done' : '',click : openCityList">
+                                <div id="city-select-element" class="slideIn-input-box text-left">
+                                    <p class="slideIn-input-label city-box-default text-left" data-bind="visible: (selectedCity() && selectedCity().cityName != ''),css : (selectedCity() && selectedCity().cityName != '') ? 'done' : '' ">City<sup>*</sup></p>
+                                    <p id="city-select-p" class="selected-option-box city-box-default text-truncate" data-bind="text: (selectedCity() && selectedCity().cityName != '') ? selectedCity().cityName : 'Select City'"></p>
+                                    <span class="boundary"></span>
+                                    <span class="error-text hide"></span>
+                                    <span class="bwmsprite grey-right-icon"></span>
+                                </div>
+                            </div>
+                        }
 
                         <!-- ko if : isDealerBikes() -->
                         <div id="getLeadBike" class="form-control-box margin-bottom15">
@@ -120,62 +122,62 @@
                     <!-- thank you message ends here -->
                     @if (Model.IsMLAActive && !Model.IsManufacturerCampaign)
                 {
-                <div id="otherDealers" class="dealers__container">
-                    <div class="dealers__content selection-container">
-                        <div class="dealers__head">
-                            <div class="dealers-head__left">
-                                <p class="dealer-head__title">
-                                    Other Dealers
-                                </p>
-                                <p class="dealer-head__subtitle">
-                                    Check offers from other dealers
-                                </p>
-                            </div>
-                            <div class="dealer-head__right">
-                                <label class="checkbox-toggle checkbox-container">
-                                    <input type="checkbox" class="checkbox-container__input" id="selectAll" data-bind="click: modifyMLADealerIds , checked: isSelectAllChecked" />
-                                    <span class="checkbox-container__label">
-                                        Select All
-                                    </span>
-                                    <span class="checkbox-container__icon">
-                                    </span>
+                        <div id="otherDealers" class="dealers__container">
+                            <div class="dealers__content selection-container">
+                                <div class="dealers__head">
+                                    <div class="dealers-head__left">
+                                        <p class="dealer-head__title">
+                                            Other Dealers
+                                        </p>
+                                        <p class="dealer-head__subtitle">
+                                            Check offers from other dealers
+                                        </p>
+                                    </div>
+                                    <div class="dealer-head__right">
+                                        <label class="checkbox-toggle checkbox-container">
+                                            <input type="checkbox" class="checkbox-container__input" id="selectAll" data-bind="click: modifyMLADealerIds , checked: isSelectAllChecked" />
+                                            <span class="checkbox-container__label">
+                                                Select All
+                                            </span>
+                                            <span class="checkbox-container__icon">
+                                            </span>
 
-                                </label>
+                                        </label>
+                                    </div>
+                                </div>
+                                <ul class="dealers__list selection-checkbox-container" data-bind="foreach: MLADealers">
+                                    <li class="dealers-list__item">
+                                        <label>
+                                            <span class="dealers-item__content">
+                                                <span class="dealers-item__name" data-bind="text: name">
+
+                                                </span>
+                                                <span class="dealers-item__info">
+                                                    <span class="dealers__location dealer-info__item" data-bind="text: area">
+
+                                                    </span>
+                                                    <span class="dealers__distance dealer-info__item" data-bind="text: distance">
+
+                                                    </span>
+                                                </span>
+                                            </span>
+                                            <span class="checkbox-container">
+                                                <input type="checkbox" class="checkbox-container__input" data-bind="checkedValue: dealerId, checked: $parent.selectedMLADealerIds" />
+                                                <span class="checkbox-container__icon"></span>
+                                            </span>
+                                        </label>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
-                        <ul class="dealers__list selection-checkbox-container" data-bind="foreach: MLADealers">
-                            <li class="dealers-list__item">
-                                <label>
-                                    <span class="dealers-item__content">
-                                        <span class="dealers-item__name" data-bind="text: name">
-
-                                        </span>
-                                        <span class="dealers-item__info">
-                                            <span class="dealers__location dealer-info__item" data-bind="text: area">
-
-                                            </span>
-                                            <span class="dealers__distance dealer-info__item" data-bind="text: distance">
-
-                                            </span>
-                                        </span>
-                                    </span>
-                                    <span class="checkbox-container">
-                                        <input type="checkbox" class="checkbox-container__input" data-bind="checkedValue: dealerId, checked: $parent.selectedMLADealerIds" />
-                                        <span class="checkbox-container__icon"></span>
-                                    </span>
-                                </label>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="dealers__btn-container">
-                    <button id="otherDealerBtn" class="btn btn-orange dealers__submit-btn" data-bind="enable : selectedMLADealerIds().length != 0, click:submitLeadToMLADealers">
-                        Submit
-                    </button>
-                    <button id="otherDealerSkipBtn" class="dealers__skip-btn" data-act="MLA_Not_Interested_Clicked" data-bind="click: triggerMlaGAs">
-                        not interested
-                    </button>
-                </div>
+                        <div class="dealers__btn-container">
+                            <button id="otherDealerBtn" class="btn btn-orange dealers__submit-btn" data-bind="enable : selectedMLADealerIds().length != 0, click:submitLeadToMLADealers">
+                                Submit
+                            </button>
+                            <button id="otherDealerSkipBtn" class="dealers__skip-btn" data-act="MLA_Not_Interested_Clicked" data-bind="click: triggerMlaGAs">
+                                not interested
+                            </button>
+                        </div>
 
                 }
                 </div>
@@ -183,37 +185,38 @@
                 @if (Model.CityId <= 0)
             {
                 <!-- city drawer starts here -->
-            <div id="pqcity-slideIn-drawer" class="slideIn-drawer-container">
-                <div class="form-control-box text-left">
-                    <div class="drawer-top-header">
-                        <div>
-                            <span id="close-city-filter" class="back-arrow-box inline-block" data-bind="click : closeCityList">
-                                <span class="bwmsprite back-long-arrow-left"></span>
-                            </span><p class="head-label inline-block">Select city</p>
-                        </div>
-                        <div class="filter-input-box">
-                            <div class="form-control-box">
-                                <input type="text" id="city-search-box" class="form-control padding-right40" placeholder="Type to select city" data-bind="textInput:cityFilter" autocomplete="off">
-                                <span class="bwmsprite search-icon-grey"></span>
+                    <div id="pqcity-slideIn-drawer" class="slideIn-drawer-container">
+                        <div class="form-control-box text-left">
+                            <div class="drawer-top-header">
+                                <div>
+                                    <span id="close-city-filter" class="back-arrow-box inline-block" data-bind="click : closeCityList">
+                                        <span class="bwmsprite back-long-arrow-left"></span>
+                                    </span><p class="head-label inline-block">Select city</p>
+                                </div>
+                                <div class="filter-input-box">
+                                    <div class="form-control-box">
+                                        <input type="text" id="city-search-box" class="form-control padding-right40" placeholder="Type to select city" data-bind="textInput:cityFilter" autocomplete="off">
+                                        <span class="bwmsprite search-icon-grey"></span>
+                                    </div>
+                                </div>
                             </div>
+                            <ul class="filter-list" id="pqpopupCityList" data-bind="template: { name: 'pqbindCityList-template', foreach: visibleCities }"></ul>
+                            <script type="text/html" id="pqbindCityList-template">
+                                <li data-bind="click: $parent.selectCity , attr: { 'cityId': cityId }">
+                                    <span data-bind="text: cityName"></span>
+                                </li>
+                            </script>
                         </div>
                     </div>
-                    <ul class="filter-list" id="pqpopupCityList" data-bind="template: { name: 'pqbindCityList-template', foreach: visibleCities }"></ul>
-                    <script type="text/html" id="pqbindCityList-template">
-                        <li data-bind="click: $parent.selectCity , attr: { 'cityId': cityId }">
-                            <span data-bind="text: cityName"></span>
-                        </li>
-                    </script>
-                </div>
-            </div>
                 <!-- city drawer ends here -->
             }
                 <div class="response-popup-wrapper">
+                    <div class="city-area-banner"></div>
                     <div class="response-popup__content">
                         <p class="response-popup__message">Sorry, we couldn’t find any dealerships in your area</p>
                         <div class="response-popup__image response-popup--sorry-img"></div>
                     </div>
-                    <button class="btn btn-orange btn-full-width font18">Okay</button>
+                    <button class="btn btn-orange btn-full-width font18 js-sorry__screen__okay-btn">Okay</button>
                 </div>
             </div>
         </div>
@@ -288,7 +291,7 @@
         self.dealerHeading = ko.observable();
         self.dealerMessage = ko.observable();
         self.dealerDescription = ko.observable();
-        self.cityRequired = ko.observable(leadcityid <= 0);
+        self.cityRequired = ko.computed( function() { return self.cityId() <= 0;});
         self.pinCodeRequired = ko.observable();
         self.emailRequired = ko.observable();
         self.emailOption = ko.observable();
@@ -305,6 +308,7 @@
         self.selectedMLADealerIds = ko.observableArray([]);
         self.MLADealers = ko.observableArray([]);
         self.isBikeSelected = ko.observable(false);
+        self.isLeadPopupFlow = ko.observable(false);
         self.isUserAreaAvailable = ko.computed(function(){
             return self.cityId() == globalLocation.CityId && globalLocation.AreaId > 0;
         });
@@ -613,7 +617,8 @@
                 }
 
                 if (options.dealersRequired != null) {
-                    self.dealersRequired(options.dealersRequired != 'True' ? false : true);
+                    var dealerRequiredType = typeof(options.dealersRequired);
+                    self.dealersRequired((dealerRequiredType === "boolean"  && options.dealersRequired) || (dealerRequiredType === "string" && options.dealersRequired.toLowerCase() != 'true' ? false : true));
                     if (self.cityId() && self.dealersRequired()) {
                         self.getDealersList(self.dealerId());
                     }
@@ -1290,7 +1295,7 @@
             }
         };
 
-    }
+    }// ends leadModel()
 
     function setuserDetails() {
         var cookieName = "_PQUser";
@@ -1302,7 +1307,7 @@
     }
 
     function setPQUserCookie() {
-        var val = dleadvm.fullName() + '&' + dleadvm.emailId() + '&' + dleadvm.mobileNo();
+        var val = campaignLeadVm.fullName() + '&' + campaignLeadVm.emailId() + '&' + campaignLeadVm.mobileNo();
         SetCookie("_PQUser", val);
     }
 
@@ -1423,15 +1428,44 @@
             close: close
         }
     })();
-    var LeadPopupStateEnum = {"Fetch":0, "Open":1, "Close":2, "Final":3};
+    var LeadPopupStateEnum = {"Fetch":0, "Open":1, "Close":2, "Final":3, "Sorry":4};
     var LeadPopupState = (function() {
         var leadCapturePopup = document.getElementById('leadCapturePopup');
 
         function fetchCampaign() {
-            $(leadCapturePopup).removeClass('lead-popup--active');
-            $('.response-popup-wrapper').addClass('response-popup--active');
             this.status = LeadPopupStateEnum.Fetch;
+            var location = GetGlobalLocationObject();
+            campaignLeadVm.cityId(location.CityId);
+            campaignLeadVm.areaId(location.AreaId);
+            campaignLeadVm.isLeadPopupFlow(true);
+            campaignLeadVm.selectedCity({cityId :location.CityId, cityName: location.CityName});
+            getCampaignDetails(bikeModelId, location.CityId ? location.CityId : 0 , location.AreaId ? location.AreaId : 0);
         }
+        function setSorryScreen(triggerAnalytics) {
+            $(leadCapturePopup).addClass('lead-popup--active');
+            $('.response-popup-wrapper').addClass('response-popup--active');
+            this.status = LeadPopupStateEnum.Sorry;
+            if(triggerAnalytics){
+                triggerNonInteractiveGA("LocationPopUp", "SorryScreenShown", "" + campaignLeadVm.cityId() + "|" + campaignLeadVm.areaId() + "|" + leadBikeName);
+                cwTracking.trackCustomData("LocationPopUp", "SorryScreenShown", "cityid=" + campaignLeadVm.cityId() + "|areaid=" + campaignLeadVm.areaId() + "|modelname=" + leadBikeName);
+            }
+        }
+
+        function open() {
+            $(leadCapturePopup).addClass('lead-popup--active');
+            $('.additional-screen').removeClass('additional-screen--active');
+            $("#notify-response").removeClass('notify-response');
+            $('#contactDetailsPopup').addClass('contact-detail--active');
+            campaignLeadVm.selectedMLADealerIds([]);
+            this.status = LeadPopupStateEnum.Open;
+        }
+
+        function setFinalScreen() {
+            $('.additional-screen').addClass('additional-screen--active');
+            $('#contactDetailsPopup').removeClass('contact-detail--active');
+            this.status = LeadPopupStateEnum.Final;
+        }
+        
         function close() {
             $(leadCapturePopup).removeClass('lead-popup--active');
             $("#notify-response").removeClass('notify-response--active');
@@ -1439,21 +1473,10 @@
             $('.response-popup-wrapper').removeClass('response-popup--active');
             this.status = LeadPopupStateEnum.Close;
         }
-        function open() {
-            $(leadCapturePopup).addClass('lead-popup--active');
-            $('.additional-screen').removeClass('additional-screen--active');
-            $("#notify-response").removeClass('notify-response');
-            $('#contactDetailsPopup').addClass('contact-detail--active');
-            dleadvm.selectedMLADealerIds([]);
-            this.status = LeadPopupStateEnum.Open;
-        }
-        function setFinalScreen() {
-            $('.additional-screen').addClass('additional-screen--active');
-            $('#contactDetailsPopup').removeClass('contact-detail--active');
-            this.status = LeadPopupStateEnum.Final;
-        }
 
         return {
+            fetchCampaign: fetchCampaign,
+            setSorryScreen: setSorryScreen,
             close: close,
             open: open,
             setFinalScreen: setFinalScreen,
@@ -1497,7 +1520,7 @@
         }
         leadBtnBookNow.on('click', function () {
             $('#selectedbike').html('Select a bike<sup>*</sup>');
-            dleadvm.selectedBike(null);
+            campaignLeadVm.selectedBike(null);
             LeadPopupState.open();
             @if (Model.IsMLAActive && !Model.IsManufacturerCampaign)
             {
@@ -1518,15 +1541,18 @@
             LeadPopupState.close();
             $('body').removeClass('lock-browser-scroll');
             windowScreen.unlock();
+            if(campaignLeadVm.isLeadPopupFlow()) {
+                window.location.reload(true);
+            }
         }
 
         $(".leadCapture-close-btn").on("click", function(event) {
-            dleadvm.triggerCloseBtnGA(event);
+            campaignLeadVm.triggerCloseBtnGA(event);
             closeLeadPopup();
             triggerGA("Lead_PopUP", "Close", "");
         });
 
-        $(".blackOut-window, .dealers__skip-btn, .dealers__submit-btn").on("click mouseup", function () {
+        $(".blackOut-window, .dealers__skip-btn, .dealers__submit-btn, .js-sorry__screen__okay-btn").on("click mouseup", function () {
             closeLeadPopup();
         });
 
@@ -1600,8 +1626,8 @@
 
             if (pc.length > 0 && !(/^[1-9][0-9]{5}$/.test(pc))) {
                 validate.setError($("#getPinCode"), 'Invalid pincode');
-                if (dleadvm.validatePinCode(pincode)) {
-                    dleadvm.IsVerified(false);
+                if (campaignLeadVm.validatePinCode(pincode)) {
+                    campaignLeadVm.IsVerified(false);
                     validate.hideError(pincode);
                 }
             }
@@ -1611,17 +1637,19 @@
         $("#getEmailID").on("blur", function () {
             validate.onBlur($(this));
             if (prevEmail != $(this).val().trim()) {
-                if (dleadvm.validateEmailId($(this))) {
-                    dleadvm.IsVerified(false);
+                if (campaignLeadVm.validateEmailId($(this))) {
+                    campaignLeadVm.IsVerified(false);
                 }
             }
         });
 
         $("#getMobile").on("blur", function () {
+            
             validate.onBlur($(this));
+            
             if (prevMobile != $(this).val().trim()) {
-                if (dleadvm.validateMobileNo($(this))) {
-                    dleadvm.IsVerified(false);
+                if (campaignLeadVm.validateMobileNo($(this))) {
+                    campaignLeadVm.IsVerified(false);
                 }
             }
         });
@@ -1629,12 +1657,12 @@
         $(document).on('click', '#templist li', function () {
             validate.setError($('#ddlMfgDealers'), '');
         });
-        dleadvm = new leadModel();
-        ko.applyBindings(dleadvm, document.getElementById("leadCapturePopup"));
-        dleadvm.setInputValues();
+        campaignLeadVm = new leadModel();
+        ko.applyBindings(campaignLeadVm, document.getElementById("leadCapturePopup"));
+        campaignLeadVm.setInputValues();
 
         if ($("#getPinCode") && $("#getPinCode").length > 0) {
-            dleadvm.setPinCodeSuggestion();
+            campaignLeadVm.setPinCodeSuggestion();
         }
 
         leadCapturePopup.on('click', ".dealer-search-brand", function () {
@@ -1717,15 +1745,121 @@
 
         // register agreement and privacy policy popup events
         agreementPolicyPopup.registerEvents();
-
-
+       
     });
+    
+
+        function isFinancePatner( dealerId ) {
+            return [28454, 24434, 25698].indexOf(dealerId) !== -1;
+        }
+
+        function getCampaignDetails(modelId,cityId,areaId) {
+            campaignLeadVm.showLoader();
+            $.ajax({
+                async: false,
+                type: "GET",
+                url: "/api/campaign/modelId/"+modelId+"/cityId/"+cityId+"/?areaId="+areaId,
+                contentType: "application/json",
+                dataType: "json",
+                success: function (data) {
+                    if (data && (data.dealerCampaign!= null || data.manufacturerCampaign != null) ) {
+                        // show leadpopup
+                        if(data.dealerCampaign && data.dealerCampaign.dealerId > 0 && data.dealerCampaign.campaignId > 0){
+                            showDealerCampaign(data.dealerCampaign);
+                            LeadPopupState.open();
+                            triggerNonInteractiveGA("Lead_PopUP", "DSLeadPopUpShown", "");
+                            cwTracking.trackCustomData("Lead_PopUP", "DSLeadPopUpShown", "NA");
+
+                        }
+                        else if(data.manufacturerCampaign && data.manufacturerCampaign.dealerId > 0 && !isFinancePatner(data.manufacturerCampaign.dealerId) && data.manufacturerCampaign.campaignId > 0){
+                            showManufacturerCampaign(data.manufacturerCampaign);
+                            LeadPopupState.open();
+                            triggerNonInteractiveGA("Lead_PopUP", "ESLeadPopUpShown", "");
+                            cwTracking.trackCustomData("Lead_PopUP", "ESLeadPopUpShown", "NA");
+
+                        }
+                        else{
+                            LeadPopupState.setSorryScreen(true);
+                        }
+
+                    }
+                    else {
+                        LeadPopupState.setSorryScreen(true);
+                    }
+                    campaignLeadVm.hideLoader();
+                },
+                error: function (error) {
+                    campaignLeadVm.hideLoader();
+                }
+                
+            });
+        };
+
+        function showDealerCampaign(dataCampaign){
+            var leadOptions = {
+                "dealerid": dataCampaign.dealerId,
+                "dealername": dataCampaign.organization,
+                "dealerarea": dataCampaign.area,
+                "versionid": versionId,
+                "leadsourceid": 39,
+                "pqsourceid": 22,
+                "pqId": 0,
+                "pqguid": pqId,
+                "pageurl": pageUrl,
+                "clientip": clientIP,
+                "eventcategory": "Model_Page",
+                "gaobject": {
+                    cat: "Model_Page",
+                    act: "Request_Callback_Details_Clicked",
+                    lab: "bikeVersionLocation"
+                },
+                "campaignId": dataCampaign.campaignId
+            };
+            setLeadPopup(leadOptions);
+        };
+
+        function showManufacturerCampaign(dataCampaign) {
+            var leadOptions = {
+                "dealerid": dataCampaign.dealerId,
+                "dealername": dataCampaign.organization,
+                "dealerarea": "",
+                "versionid": versionId,
+                "leadsourceid": 37,
+                "pqsourceid": 22,
+                "mfgCampid":dataCampaign.campaignId ,
+                "pqId": 0,
+                "pqguid": pqId,
+                "pageurl": pageUrl,
+                "clientip": clientIP,
+                "dealerHeading": dataCampaign.popupHeading,
+                "dealerMessage": dataCampaign.popupSuccessMessage,
+                "dealerDescription": dataCampaign.popupDescription,
+                "pinCodeRequired": dataCampaign.pincodeRequired,
+                "emailRequired": dataCampaign.emailRequired,
+                "dealersRequired": dataCampaign.dealerRequired,
+                "eventcategory": "Model_Page",
+                "gaobject": {
+                    cat: "Model_Page",
+                    act: "Request_Callback_Details_Clicked",
+                    lab: "bikeVersionLocation"
+                },
+                "sendLeadSMSCustomer": dataCampaign.sendLeadSMSCustomer,
+                "organizationName": dataCampaign.Organization,
+                "campaignId": dataCampaign.campaignId
+            };
+            setLeadPopup(leadOptions);
+        };
+
+        function setLeadPopup(leadOptions){
+            campaignLeadVm.setOptions(leadOptions);
+        };
+
 
 </script>
 
     if (Model.CityId <= 0)
     {
-        <link href="@String.Format("/UI/m/css/leadcapture.css?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl, Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion)" rel="stylesheet" type="text/css" />
+        <link href="@String.Format("/UI/m/css/leadcapture.css?{1}",Bikewale.Utility.BWConfiguration.Instance.StaticUrl,Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion)" rel="stylesheet" type="text/css" />
     }
 
 

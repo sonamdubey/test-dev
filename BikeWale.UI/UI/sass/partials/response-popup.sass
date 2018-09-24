@@ -1,0 +1,49 @@
+﻿// Core variables and mixins
+@import ../base/variables
+@import ../mixins/index
+@import ../utils/index
+
+.city-popup-wrapper,
+.lead-popup-container
+  @include flexbox
+  @include flex-direction(column)
+  height: 100%
+
+.popup-inner-container
+  @include flexbox
+  @include flex-direction(column)
+  @include flex
+
+.response-popup-wrapper
+  @include flex-direction(column)
+  @include align-items(center)
+  display: none
+  height: 100%
+  padding: 50px 20px
+
+  &.response-popup--active
+    @include flexbox
+
+  .city-area-banner
+      position: absolute
+      top: 0
+
+  .response-popup__content
+      padding-top: 110px
+
+.response-popup__content
+  @include flex
+  text-align: center
+  color: color('charcoal')
+
+.response-popup__message
+  font-size: 14px
+  line-height: normal
+  max-width: 228px
+  margin-bottom: 25px
+
+.response-popup__image
+  height: 101px
+
+.response-popup--sorry-img
+  @include canvas-sorry

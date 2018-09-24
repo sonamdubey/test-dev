@@ -26,8 +26,10 @@ namespace Bikewale.DTO.Campaign
         [JsonProperty("dealerRequired")]
         public bool DealerRequired { get; set; }
         [JsonProperty("emailRequired")]
-        public EnumEmailOptions EmailRequired { get; set; }
+        public string EmailRequired { get; set; }
         [JsonProperty("sendLeadSMSCustomer")]
         public bool SendLeadSMSCustomer { get; set; }
+        [JsonProperty("leadsButtonTextMobile")]
+        public string LeadsButtonTextMobile { get; set; }
     }
 }

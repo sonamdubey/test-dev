@@ -17,14 +17,15 @@
 
 <!-- pricequote widget starts here-->
 <div class="bw-city-popup bwm-fullscreen-popup bw-popup-sm text-center hide" id="popupWrapper">
-    <div class="city-area-banner"></div>
-    <div class="popup-inner-container">
-        <div class="bwmsprite onroad-price-close-btn close-btn position-abt pos-top10 pos-right10 cur-pointer"></div>
-        <div id="popupHeading" class="content-inner-block-20">
-            <p class="font18 margin-bottom5 text-capitalize">Please Tell Us Your Location</p>
-            <div class="text-light-grey margin-bottom5"><span class="red">*</span>Get on-road prices by just sharing your location!</div>
-            @{ if (isOperaBrowser)
-                {
+    <div class="city-popup-wrapper">
+        <div class="city-area-banner"></div>
+        <div class="popup-inner-container">
+            <div class="bwmsprite onroad-price-close-btn close-btn position-abt pos-top10 pos-right10 cur-pointer"></div>
+            <div id="popupHeading" class="content-inner-block-20">
+                <p class="font18 margin-bottom5 text-capitalize">Please Tell Us Your Location</p>
+                <div class="text-light-grey margin-bottom5"><span class="red">*</span>Get on-road prices by just sharing your location!</div>
+                @{ if (isOperaBrowser)
+                 {
 
                     <div class="form-control-box margin-bottom10 ">
                         <select id="opCityList" class="form-control" tabindex="2" data-bind="options: BookingCities, value: SelectedCityId, optionsText: 'name', optionsValue: 'id', optionsCaption: '--Select City--', event: { change: function(d,e){selectCity(d,e);} }"></select>
@@ -35,9 +36,9 @@
                         <span class="fa fa-spinner fa-spin position-abt  text-black btnSpinner"></span>
                     </div>
 
-                }
-                else
-                {
+                 }
+                 else
+                 {
 
                     <div id="citySelection" class="form-control text-left input-sm position-rel margin-bottom10">
                         <div class="selected-city" data-bind="text: (SelectedCity() != null && SelectedCity().name != '') ? SelectedCity().name : 'Select City'"></div>

@@ -90,7 +90,7 @@ docReady(function () {
             "pagesrcid": pqSourceId,
             "dealerid": dealerid
         };
-        vmquotation.setOptions(options);
+        vmquotation.setOptions(options, e);
     });
 });
 

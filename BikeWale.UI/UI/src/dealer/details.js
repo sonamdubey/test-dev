@@ -26,7 +26,7 @@ docReady(function () {
         }
        
     });
-    $(".dealerDetails").click(function () {
+    $(".dealerDetails").click(function (e) {
         var btnDpq = $(this);
         var pqSourceId = btnDpq.data("pqsourceid");
         var modelId = btnDpq.data("modelid");
@@ -50,7 +50,7 @@ docReady(function () {
             "dealerid": dealerid
         };
         vmquotation.IsOnRoadPriceClicked(false);
-        vmquotation.setOptions(options);
+        vmquotation.setOptions(options, e);
     });
     $('.dropdown-select-wrapper').on('click', '.dropdown-label', function () {
         dropdown.active($(this));

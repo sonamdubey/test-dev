@@ -208,7 +208,7 @@
                 self.goToPriceInCity = function (data, event) {
                     if (self.SelectedCityId() != undefined && self.SelectedCityId() > 0) {
                         $('#priceInCityWrapper').addClass('loader-active');
-                        self.LoadingText($('#priceInCityPopUp').attr('data-loading-text') + self.SelectedCity().cityName);
+                        self.LoadingText($('#priceInCityWrapper').attr('data-loading-text') + self.SelectedCity().cityName);
                         self.redirectToPriceInCity();
                     }
                     else
