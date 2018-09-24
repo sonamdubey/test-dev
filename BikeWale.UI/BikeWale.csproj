@@ -4965,6 +4965,7 @@
     <Content Include="UI\Views\Finance\BajajFinance_Index_Mobile.cshtml" />
     <Content Include="UI\Views\Model\_Index_VersionPrices_Mobile_v1.cshtml" />
     <Content Include="UI\Views\m\Shared\_LocationPopup.cshtml" />
+    <Content Include="UI\sass\partials\response-popup.sass" />
     <None Include="UI\Views\QuestionAndAnswers\_QuestionAnswerSection.cshtml" />
     <Content Include="UI\Views\QuestionAndAnswers\_unansweredquestion_mobile.cshtml" />
     <Content Include="UI\Views\Shared\_AnimatedCTA.cshtml" />
