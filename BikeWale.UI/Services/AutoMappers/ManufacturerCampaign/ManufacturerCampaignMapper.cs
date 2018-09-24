@@ -159,6 +159,8 @@ namespace Bikewale.Service.AutoMappers.ManufacturerCampaign
         /// <summary>
         /// Created by  : Pratibha Verma on 19 June 2018
         /// Description : changes type of the parameter PQId
+        /// Modified by : Monika korrapati on 21 Sept 2018
+        /// Description : Versioning of template LeadCampaign.LeadsHtmlMobile
         /// </summary>
         /// <param name="platformId"></param>
         /// <param name="pqId"></param>
@@ -273,7 +275,7 @@ namespace Bikewale.Service.AutoMappers.ManufacturerCampaign
                 campaignResponse.DetailsCampaign = new DTO.Campaign.DetailsDto();
                 campaignResponse.DetailsCampaign.EsCamapign = new DTO.Campaign.PreRenderCampaignBase();
                 campaignResponse.CampaignLeadSource = new DTO.Campaign.ESCampaignBase();
-                string template = MvcHelper.Render(string.Format("LeadCampaign_Android_{0}", LeadCampaign.CampaignId), LeadCampaign, LeadCampaign.LeadsHtmlMobile);
+                string template = MvcHelper.Render(string.Format("LeadCampaign_Android_V2_{0}", LeadCampaign.CampaignId), LeadCampaign, LeadCampaign.LeadsHtmlMobile);
                 //Check if it contains javascript:void(0), replace it with 
                 if (!string.IsNullOrEmpty(template) && template.Contains("href=\"javascript:void(0)\""))
                 {

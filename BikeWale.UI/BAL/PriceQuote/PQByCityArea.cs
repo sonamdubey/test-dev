@@ -878,6 +878,8 @@ namespace Bikewale.BAL.PriceQuote
                 // Fetch ES only when Primary dealer is absent for given model
                 // ES campaign should be shown even if the secondary dealers are found
                 // Updated by: Sangram Nandkhile on 13 Oct 2017
+                // modified by : Monika Korrapati on 21 Sept 2018
+                // Description : Changed LeadsButtonTextMobile value to "Get Best Offers" in default case.
                 if (pqEntity.PrimaryDealer == null && _objManufacturerCampaign != null)
                 {
                     pqEntity.ManufacturerCampaign = pqOnRoad != null && pqOnRoad.PriceQuote != null ? pqOnRoad.PriceQuote.ManufacturerCampaign : null;
@@ -888,6 +890,11 @@ namespace Bikewale.BAL.PriceQuote
                         && !pqEntity.ManufacturerCampaign.LeadCampaign.ShowOnExshowroom)
                     {
                         pqEntity.ManufacturerCampaign = null;
+                    }
+
+                    if(pqEntity.ManufacturerCampaign != null && pqEntity.ManufacturerCampaign.LeadCampaign != null && pqEntity.ManufacturerCampaign.LeadCampaign.LeadsButtonTextMobile.ToLower() == "request callback")
+                    {
+                        pqEntity.ManufacturerCampaign.LeadCampaign.LeadsButtonTextMobile = "Get Best Offers";
                     }
 
                     if (pqEntity.PqId == 0 && cityId > 0)

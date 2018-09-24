@@ -477,6 +477,8 @@ namespace Bikewale.Service.Controllers.PriceQuote
         /// <summary>
         /// Summary: v4 - Gets the On Road Price Quote
         /// Created by: Sangram Nandkhile on 11th Oct 2017
+        /// Modified by : Monika Korrapati on 21 Sept 2018
+        /// Description : Changed LeadsButtonTextMobile value to 'Get Best Offers' in default case
         /// </summary>
         /// <returns></returns>
         [ResponseType(typeof(Bikewale.DTO.PriceQuote.v3.PQOnRoad)), Route("api/v4/OnRoadPrice")]
@@ -599,6 +601,10 @@ namespace Bikewale.Service.Controllers.PriceQuote
                             if (cityId > 0 && objPQ.PQId > 0)
                             {
                                 manufacturerCampaign = _objManufacturerCampaign.GetCampaigns(modelId, cityId, ManufacturerCampaign.Entities.ManufacturerCampaignServingPages.Mobile_Model_Page);
+                                if (manufacturerCampaign != null && manufacturerCampaign.LeadCampaign != null && manufacturerCampaign.LeadCampaign.LeadsButtonTextMobile.ToLower() == "request callback")
+                                {
+                                    manufacturerCampaign.LeadCampaign.LeadsButtonTextMobile = "Get Best Offers";
+                                }
                             }
                         }
                         onRoadPrice.Campaign = ManufacturerCampaignMapper.Convert((ushort)sourceType, objPQ.PQId, modelId, objPQ.VersionId, cityId, objDealerQuotation, manufacturerCampaign, versionPrice, objPQ.MakeName, objPQ.ModelName);
