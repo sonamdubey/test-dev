@@ -5,16 +5,6 @@
     <header>
         <div id="bw-header">
     	    <div class="header-fixed"> <!-- Fixed Header code starts here -->
-				<!-- BW Doodle start-->
-					<span class="bw-doodle__container">
-						<span class="bw-doodle__bell-one"></span>
-						<span class="bw-doodle__bell-two"></span>
-						<span class="bw-doodle__ganesh-image">
-							<span class="bw-doodle__ganesh"></span>
-							<span class="bw-doodle__ganesh-bg"></span>
-						</span>
-					</span>
-					<!-- BW Doodle end-->
         	    <a href="/m/" id="bwheader-logo" title="BikeWale" class="bwmsprite bw-logo bw-lg-fixed-position"></a>
            
                 <div class="leftfloat">

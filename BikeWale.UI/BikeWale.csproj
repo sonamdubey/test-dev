@@ -3027,7 +3027,6 @@
     <Content Include="UI\css\bw-common-atf.css" />
     <Content Include="UI\css\bw-common-btf.css" />
     <Content Include="UI\css\bw-common-style.css" />
-    <Content Include="UI\css\bw-doodle.css" />
     <Content Include="UI\css\bw-pq-new.css" />
     <Content Include="UI\css\bw-pq.css" />
     <Content Include="UI\css\campaign\hero-campaign.css" />

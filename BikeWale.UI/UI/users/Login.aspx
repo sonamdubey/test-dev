@@ -20,16 +20,6 @@
         <!-- #include file="/UI/includes/Navigation.aspx" -->
         
         <div id="header" class="header-fixed"> <!-- Header code starts here -->
-			<!-- BW Doodle start-->
-			<span class="bw-doodle__container">
-				<span class="bw-doodle__bell-one"></span>
-				<span class="bw-doodle__bell-two"></span>
-				<span class="bw-doodle__ganesh-image">
-					<span class="bw-doodle__ganesh"></span>
-					<span class="bw-doodle__ganesh-bg"></span>
-				</span>
-			</span>
-			<!-- BW Doodle end-->
             <div class="leftfloat">
                 <span class="navbarBtn bwsprite nav-icon margin-right25"></span>
                 <a href="/" id="bwheader-logo" class="bwsprite bw-logo" title="Bikewale"></a>

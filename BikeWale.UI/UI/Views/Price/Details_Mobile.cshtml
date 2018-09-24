@@ -24,7 +24,7 @@
 @if (Model.DetailedDealer != null && Model.DetailedDealer.PrimaryDealer != null && Model.DetailedDealer.PrimaryDealer.HasOffers)
 {
 	int offersCount = Model.DetailedDealer.PrimaryDealer.OfferList.Count();
-	Model.CssClasses.Add("bodyTagClass", "doodle--disable offer-summary-toolbar--active");
+	Model.CssClasses.Add("bodyTagClass", "offer-summary-toolbar--active");
     <div id="offersSummaryToolbar" class="offers-summary-toolbar pq__offers-summary-toolbar">
         <div class="dealer__offers-summary-content">
             <span class="dealer-offers__icon"></span>
@@ -33,10 +33,6 @@
             <span id="closeDealerOffersToolbar" class="dealer-offers-toolbar__close"></span>
         </div>
     </div>
-}
-else
-{
-	Model.CssClasses.Add("bodyTagClass", "doodle--disable");
 }
 
 <div class="model__details-content">

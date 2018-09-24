@@ -32,7 +32,6 @@
 <link rel="stylesheet" href="/UI/m/css/style.css?<%= staticFilesVersion%>" />
 <link rel="stylesheet"  href="/UI/m/css/design.css?<%= staticFilesVersion%>" />
 <link href="/UI/m/css/bwm-common-style.css?<%= staticFileVersion %>" rel="stylesheet" />
-<link rel='stylesheet' type='text/css' href='/UI/m/css/bwm-doodle.css'/>
 <script type="text/javascript" src="<%=  staticUrlPath %>/UI/m/src/jquery-1.10.2.min.js?v=1.0"></script>
 <script type="text/javascript" src="<%=  staticUrlPath %>/UI/m/src/index.js?v=1.0"></script>
 <script type="text/javascript" src="<%=  staticUrlPath %>/UI/m/src/jquery.mobile-1.4.2.min.js?v=1.0"></script>

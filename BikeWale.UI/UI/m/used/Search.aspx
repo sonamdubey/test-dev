@@ -32,7 +32,7 @@
     </script>
 
 </head>
-<body class="doodle--disable">
+<body>
     <form id="form1" runat="server">
         <!-- #include file="/UI/includes/headBW_Mobile.aspx" -->
          <div class="modal-background"></div>

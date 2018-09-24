@@ -43,16 +43,6 @@
             <div class="clear"></div>
         </div>
         <div class="clear"></div>
-		<!-- BW Doodle start-->
-		<span class="bw-doodle__container">
-			<span class="bw-doodle__bell-one"></span>
-			<span class="bw-doodle__bell-two"></span>
-			<span class="bw-doodle__ganesh-image">
-				<span class="bw-doodle__ganesh"></span>
-				<span class="bw-doodle__ganesh-bg"></span>
-			</span>
-		</span>
-		<!-- BW Doodle end-->
     </div> <!-- ends here -->
     <div class="clear"></div>    
 <% if(isAd970x90Shown){ %>
