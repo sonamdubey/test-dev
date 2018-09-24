@@ -8,6 +8,7 @@ using System.Web.Routing;
 using WURFL;
 using WURFL.Config;
 using AEPLCore.Logging;
+using ApiGatewayLibrary;
 
 namespace Bikewale
 {
@@ -31,6 +32,7 @@ namespace Bikewale
 
             if (BWConfiguration.Instance.EnablePWA)
                 AssemblyRegistration.Container.Resolve<IReactEnvironment>();
+            CustomGRPCLoadBalancer.InitializeGRPCLoadBalancer();
         }
 
         /// <summary>
