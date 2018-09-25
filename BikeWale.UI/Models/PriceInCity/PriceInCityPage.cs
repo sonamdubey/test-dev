@@ -836,8 +836,10 @@ namespace Bikewale.Models
         /// Description : Bind Manufacturer Lead Ad and href, remove AMP prohibitated attribute
         /// Modified by : Ashutosh Sharma on 11 Dec 2017
         /// Description : LeadCapture null check added.
-        /// Modified by : Pratibha Verma on 2 August 2018
-        /// Description : Added platformid in url
+		/// Modified by : Pratibha Verma on 2 August 2018
+		/// Description : Added platformid in url
+		/// Modified by : Rajan Chauhan on 25 September 2018
+		/// Description : Corrected platformId tracking Set PageUrl on LeadCampaign
         /// </summary>
         /// <param name="priceInCityAMPVM"></param>
         private void BindManufacturerLeadAdAMP(PriceInCityPageAMPVM priceInCityAMPVM)
@@ -849,6 +851,16 @@ namespace Bikewale.Models
                 try
                 {
                     priceInCityAMPVM.LeadCampaign.IsAmp = true;
+					string url = String.Format("{0}/m/popup/leadcapture/?q={1}&platformId={2}", BWConfiguration.Instance.BwHostUrl, Bikewale.Utility.TripleDES.EncryptTripleDES(string.Format(@"modelid={0}&cityid={1}&areaid={2}&bikename={3}&location={4}&city={5}&area={6}&ismanufacturer={7}&dealerid={8}&dealername={9}&dealerarea={10}&versionid={11}&leadsourceid={12}&pqsourceid={13}&mfgcampid={14}&pqguid={15}&pageurl={16}&clientip={17}&dealerheading={18}&dealermessage={19}&dealerdescription={20}&pincoderequired={21}&emailrequired={22}&dealersrequired={23}&url={24}&sendLeadSMSCustomer={25}&organizationName={26}",
+											   priceInCityAMPVM.BikeModel.ModelId, priceInCityAMPVM.CityEntity.CityId, string.Empty, string.Format(priceInCityAMPVM.BikeName), string.Empty, string.Empty, string.Empty,
+											   priceInCityAMPVM.IsManufacturerLeadAdShown, priceInCityAMPVM.LeadCampaign.DealerId, String.Format(priceInCityAMPVM.LeadCampaign.LeadsPropertyTextMobile,
+											   priceInCityAMPVM.LeadCampaign.Organization), priceInCityAMPVM.LeadCampaign.Area, priceInCityAMPVM.VersionId, priceInCityAMPVM.LeadCampaign.LeadSourceId, priceInCityAMPVM.LeadCampaign.PqSourceId,
+											   priceInCityAMPVM.LeadCampaign.CampaignId, priceInCityAMPVM.PQId, string.Empty, Bikewale.Common.CommonOpn.GetClientIP(), priceInCityAMPVM.LeadCampaign.PopupHeading,
+											   String.Format(priceInCityAMPVM.LeadCampaign.PopupSuccessMessage, priceInCityAMPVM.LeadCampaign.Organization), priceInCityAMPVM.LeadCampaign.PopupDescription,
+											   priceInCityAMPVM.LeadCampaign.PincodeRequired, priceInCityAMPVM.LeadCampaign.EmailRequired, priceInCityAMPVM.LeadCampaign.DealerRequired,
+											   string.Format("{0}/m/{1}-bikes/{2}/price-in-{3}/", BWConfiguration.Instance.BwHostUrl, firstVersion.MakeMaskingName, modelMaskingName, cityMaskingName), priceInCityAMPVM.LeadCampaign.SendLeadSMSCustomer,
+											   priceInCityAMPVM.LeadCampaign.Organization)), (int)PQSources.Amp);
+					priceInCityAMPVM.LeadCampaign.PageUrl = url;
                     str = MvcHelper.GetRenderedContent(String.Format("LeadCampaign_Mobile_AMP_{0}", priceInCityAMPVM.LeadCampaign.CampaignId), priceInCityAMPVM.LeadCampaign.LeadsHtmlMobile, priceInCityAMPVM.LeadCampaign);
 
                     // Code to remove name attribute form span tags, remove style css tag and replace javascript:void(0) in href with url (not supported in AMP)
@@ -858,17 +870,6 @@ namespace Bikewale.Models
                         str = str.ConvertToAmpContent();
                         str = str.RemoveAttribure("name");
                         str = str.RemoveStyleElement();
-
-                        string url = "/m/popup/leadcapture/?q=" + Bikewale.Utility.TripleDES.EncryptTripleDES(string.Format(@"modelid={0}&cityid={1}&areaid={2}&bikename={3}&location={4}&city={5}&area={6}&ismanufacturer={7}&dealerid={8}&dealername={9}&dealerarea={10}&versionid={11}&leadsourceid={12}&pqsourceid={13}&mfgcampid={14}&pqguid={15}&pageurl={16}&clientip={17}&dealerheading={18}&dealermessage={19}&dealerdescription={20}&pincoderequired={21}&emailrequired={22}&dealersrequired={23}&url={24}&sendLeadSMSCustomer={25}&organizationName={26}&platformid={27}",
-                                               priceInCityAMPVM.BikeModel.ModelId, priceInCityAMPVM.CityEntity.CityId, string.Empty, string.Format(priceInCityAMPVM.BikeName), string.Empty, string.Empty, string.Empty,
-                                               priceInCityAMPVM.IsManufacturerLeadAdShown, priceInCityAMPVM.LeadCampaign.DealerId, String.Format(priceInCityAMPVM.LeadCampaign.LeadsPropertyTextMobile,
-                                               priceInCityAMPVM.LeadCampaign.Organization), priceInCityAMPVM.LeadCampaign.Area, priceInCityAMPVM.VersionId, priceInCityAMPVM.LeadCampaign.LeadSourceId, priceInCityAMPVM.LeadCampaign.PqSourceId,
-                                               priceInCityAMPVM.LeadCampaign.CampaignId, priceInCityAMPVM.PQId, string.Empty, Bikewale.Common.CommonOpn.GetClientIP(), priceInCityAMPVM.LeadCampaign.PopupHeading,
-                                               String.Format(priceInCityAMPVM.LeadCampaign.PopupSuccessMessage, priceInCityAMPVM.LeadCampaign.Organization), priceInCityAMPVM.LeadCampaign.PopupDescription,
-                                               priceInCityAMPVM.LeadCampaign.PincodeRequired, priceInCityAMPVM.LeadCampaign.EmailRequired, priceInCityAMPVM.LeadCampaign.DealerRequired,
-                                               string.Format("{0}/m/{1}-bikes/{2}/price-in-{3}/", BWConfiguration.Instance.BwHostUrlForJs, firstVersion.MakeMaskingName, modelMaskingName, cityMaskingName),priceInCityAMPVM.LeadCampaign.SendLeadSMSCustomer,
-                                               priceInCityAMPVM.LeadCampaign.Organization, Platform));
-
                         str = str.ReplaceHref("leadcapturebtn", url);
 						str = str.ReplaceGAAttributes();
                         priceInCityAMPVM.LeadCapture.ManufacturerLeadAdAMPConvertedContent = str;
@@ -876,7 +877,7 @@ namespace Bikewale.Models
                 }
                 catch (Exception ex)
                 {
-                    Bikewale.Notifications.ErrorClass.LogError(ex, String.Format("ManufacturerCampaign.Mobile.AMP(CampaignId : {0})", priceInCityAMPVM.LeadCampaign.CampaignId));
+					Bikewale.Notifications.ErrorClass.LogError(ex, String.Format("PriceInCityPage.BindManufacturerLeadAdAMP(CampaignId : {0})", priceInCityAMPVM.LeadCampaign.CampaignId));
                 }
 
             }

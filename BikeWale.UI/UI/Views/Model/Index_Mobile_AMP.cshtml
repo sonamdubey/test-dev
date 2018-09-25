@@ -818,7 +818,7 @@
                                                 <p class="submenu-list-item-title__right-col">@Html.Raw(version.Price != 0 ? string.Format("{0} {1}", "&#x20b9;", Format.FormatPrice(Convert.ToString(version.Price))) : (version.AverageExShowroom != 0 ? string.Format("{0} {1}", "&#x20b9;", Format.FormatPrice(Convert.ToString(version.AverageExShowroom))) : string.Empty))</p>
                                             </div>
                                             <ul class="dropdown-box-submenu__specs-list text-truncate">
-                                                @Html.Raw(FormatMinSpecs.GetMinSpecsAsLiElement(version.MinSpecsList.Take(4), "dropdown-box-specs-list__item inline-block font12"))
+                                                @Html.Raw(FormatMinSpecs.GetMinSpecsAsLiElement(version.MinSpecsList != null ? version.MinSpecsList.Take(4): null, "dropdown-box-specs-list__item inline-block font12"))
                                             </ul>
                                         </a>
                                     </li>
