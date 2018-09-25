@@ -12,6 +12,10 @@ node ('master'){
 		externalMethod = load("${BikewaleCI}" + "\\Staging-new\\Staging.groovy")
 		externalMethod.Staging()
 	}
+	else if(details[0]=='NewBikeWaleProductionPipeline'){
+		externalMethod = load("${BikewaleCI}" + "\\production-new\\Production.groovy")
+		externalMethod.Production()
+	}
 	else if(details[0]=='BikeWaleFeatureTestingPipeline'){
 		externalMethod = load("D:\\JenkinsUtilities\\bikewale\\FeatureTesting\\FeatureTesting.groovy")
 	}
