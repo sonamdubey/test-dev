@@ -34,7 +34,8 @@
             });
         }
 
-        $(".campaign__floating-btn").on("click", "a", function () {
+        $(".campaign__floating-btn").on("click", "a", function (event) {
+            event.stopPropagation();
 
             if ($(this).hasClass("js-mfg")) {
                 if ($(this).closest(".js-floating-btn").hasClass("animated")) {
