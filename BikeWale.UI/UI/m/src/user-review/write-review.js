@@ -671,8 +671,8 @@ docReady(function () {
         });
     });
 
+    var makeModel = $('#makeName').val() + "_" + $('#modelName').val();
     $(".answer-question__item a").on('click', function () {
-        var makeModel = $('#makeName').val() + "_" + $('#modelName').val();
         if ($('#reviewTitle').val().length > 0)
         {
             triggerGA("Write_Review", "Answer_This_Question_Link_Clicked", makeModel);
@@ -684,9 +684,15 @@ docReady(function () {
         
     });
 
+    if ($('.answer-question-wrapper').length) {
+        triggerNonInteractiveGA(!$('#reviewTitle').length || $('#reviewTitle').val() == '' ? "Rate_Bike_Thanks" : "Write_Review_Thanks",
+            "Answer_This_Question_Link_Displayed", makeModel);
+    }
+
     // Text Area
     if ($('#answerQuestionBox').length) {
         TextArea.registerEvents();
+        triggerNonInteractiveGA("Rate_Bike", "Review_Page_Loaded_Question", makeModelName.substr(0, makeModelName.length - 1));
     }
 });
 
