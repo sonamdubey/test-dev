@@ -22,6 +22,7 @@ namespace Bikewale.BAL.QuestionAndAnswers
         private readonly QuestionsAnswers.BAL.IQuestions _objQNAQuestions = null;
         private readonly IQuestionsRepository _objQuestionsRepository = null;
         private readonly IQuestionsCacheRepository _objQuestionsCacheRepository = null;
+        private readonly Random randomizer = null;
         #endregion
 
         #region Constructor
@@ -37,6 +38,8 @@ namespace Bikewale.BAL.QuestionAndAnswers
             _objQNAQuestions = objQNAQuestions;
             _objQuestionsRepository = objQuestionsRepository;
             _objQuestionsCacheRepository = objQuestionsCacheRepository;
+
+            randomizer = new Random();
         }
         #endregion
 
@@ -452,6 +455,8 @@ namespace Bikewale.BAL.QuestionAndAnswers
         /// <summary>
         /// Created By : Kumar Swapnil on 07 September 2018
         /// Description : Get remaining unanswered questions for a certain emailId.
+        /// Modified By : Deepak Israni on 25 September 2018
+        /// Description : Changed function to return all question ids when questionLimit is 0.    
         /// </summary>
         /// <param name="emailId"></param>
         /// <returns></returns>
@@ -468,8 +473,11 @@ namespace Bikewale.BAL.QuestionAndAnswers
                     if (allQuestions.Contains(unapprovedAnswerQuestions[i]))
                         allQuestions.Remove(unapprovedAnswerQuestions[i]);
                 }
-                allQuestions = allQuestions.Count > questionLimit + 1 ? allQuestions.Take<string>(questionLimit).ToList<string>() : allQuestions;
 
+                if (questionLimit > 0)
+                {
+                    allQuestions = allQuestions.Count > questionLimit + 1 ? allQuestions.Take<string>(questionLimit).ToList<string>() : allQuestions;
+                }
             }
             catch (Exception ex)
             {
@@ -617,5 +625,110 @@ namespace Bikewale.BAL.QuestionAndAnswers
             return questions;
         }
 
+        /// <summary>
+        /// Created By  : Deepak Israni on 25 September 2018
+        /// Description : Function to get Question Ids based on the ordering parameter.
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <param name="questionLimit"></param>
+        /// <param name="emailId"></param>
+        /// <param name="ordering"></param>
+        /// <returns></returns>
+        public IEnumerable<string> GetRemainingUnansweredQuestionIds(uint modelId, int questionLimit, string emailId, QuestionOrdering ordering)
+        {
+            IEnumerable<string> allQuestions = null;
+
+            try
+            {
+                switch (ordering)
+                {
+                    default:
+                    case QuestionOrdering.Default:
+                        allQuestions = GetRemainingUnansweredQuestionIds(modelId, questionLimit, emailId);
+                        break;
+                    case QuestionOrdering.Random:
+                        allQuestions = GetRemainingUnansweredQuestionIds(modelId, 0, emailId); //Gets all unanswered questions
+                        if (allQuestions != null)
+                        {
+                            allQuestions = GetRandomList<string>(allQuestions.ToList(), questionLimit); //Picks questions at random
+                        }
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, String.Format("Bikewale.BAL.QuestionAndAnswers.GetRemainingUnansweredQuestionIds. Model Id: {0}, Ordering: {1}", modelId, ordering));
+            }
+
+            return allQuestions;
+        }
+
+        /// <summary>
+        /// Created By  : Deepak Israni on 25 September 2018
+        /// Description : Function to get Question Data based on the ordering parameter.
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <param name="questionLimit"></param>
+        /// <param name="emailId"></param>
+        /// <param name="ordering"></param>
+        /// <returns></returns>
+        public IEnumerable<Question> GetRemainingUnansweredQuestions(uint modelId, int questionLimit, string emailId, QuestionOrdering ordering)
+        {
+            IEnumerable<Question> questions = null;
+            try
+            {
+                IEnumerable<string> questionIds = GetRemainingUnansweredQuestionIds(modelId, questionLimit, emailId, ordering);
+                if (questionIds != null)
+                {
+                    questions = Mappers.Convert<IEnumerable<QuestionsAnswers.Entities.Question>, IEnumerable<Question>>(_objQNAQuestions.GetQuestionDataByQuestionIds(questionIds));
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, String.Format("QuestionAndAnswers.GetRemainingUnansweredQuestions, Model Id: {0}, Question Id: {1}, Question Limit: {2}, Ordering: {3}", modelId, questionLimit, ordering));
+            }
+
+            return questions;
+        }
+
+        /// <summary>
+        /// Created By  : Deepak Israni on 25 September 2018
+        /// Description : Private function to get a random list back.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="input"></param>
+        /// <param name="topCount"></param>
+        /// <returns></returns>
+        private IEnumerable<T> GetRandomList<T>(IList<T> input, int topCount)
+        {
+            int inpLength = input.Count, maxIterations = topCount * 2, count = 0, listLen = topCount;
+
+            if (topCount > inpLength)
+        	{
+                return input;
+	        }
+
+            HashSet<T> items = new HashSet<T>();
+         
+            if (inpLength > 0)
+            {
+                while (listLen > 0 && count < maxIterations)
+                {
+                    if (items.Add(input[randomizer.Next(0, inpLength)]))
+                    {
+                        listLen--;
+                    }
+                    count++;
+                }
+            }
+
+            //When randomizer exceeds max iterations allowed, send normal list instead.
+            if (count == maxIterations && items.Count != topCount)
+            {
+                return input.Take<T>(topCount);
+            }
+
+            return items;
+        }
     }
 }

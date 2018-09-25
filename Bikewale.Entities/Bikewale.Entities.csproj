@@ -522,6 +522,7 @@
     <Compile Include="QuestionAndAnswers\Question.cs" />
     <Compile Include="QuestionAndAnswers\QuestionAnswer.cs" />
     <Compile Include="QuestionAndAnswers\QuestionAnswerWrapper.cs" />
+    <Compile Include="QuestionAndAnswers\QuestionOrdering.cs" />
     <Compile Include="QuestionAndAnswers\Questions.cs" />
     <Compile Include="QuestionAndAnswers\QuestionBase.cs" />
     <Compile Include="QuestionAndAnswers\QuestionURL.cs" />
@@ -667,6 +668,11 @@
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>if $(ConfigurationName) ==  Release (
+xcopy /I /y $(TargetPath) $(ProjectDir)..\Libs\
+)</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

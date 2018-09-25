@@ -33,5 +33,7 @@ namespace Bikewale.Interfaces.QuestionAndAnswers
         Question GetQuestionDataByQuestionId(string questionId);
         string GetQuestionIdHashMapping(string key, uint modelId, EnumQuestionIdHashMappingChoice mappingChoice);
         IEnumerable<Question> GetRemainingUnansweredQuestions(uint modelId, int questionLimit);
+        IEnumerable<string> GetRemainingUnansweredQuestionIds(uint modelId, int questionLimit, string emailId, QuestionOrdering ordering);
+        IEnumerable<Question> GetRemainingUnansweredQuestions(uint modelId, int questionLimit, string emailId, QuestionOrdering ordering);
     }
 }

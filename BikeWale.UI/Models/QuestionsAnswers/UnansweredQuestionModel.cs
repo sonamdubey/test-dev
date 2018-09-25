@@ -31,7 +31,7 @@ namespace Bikewale.Models.QuestionsAnswers
             UnansweredQuestionVM viewModel = null;
             if (modelId > 0)
             {
-                var questions = _questions.GetRemainingUnansweredQuestions(modelId, SINGLE_QUESTIONS, emailId);
+                var questions = _questions.GetRemainingUnansweredQuestions(modelId, SINGLE_QUESTIONS, emailId, QuestionOrdering.Random);
                 if (questions != null && questions.Any())
                 {
                     viewModel = new UnansweredQuestionVM();
