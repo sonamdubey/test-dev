@@ -673,12 +673,10 @@ docReady(function () {
 
     $(".answer-question__item a").on('click', function () {
         var makeModel = $('#makeName').val() + "_" + $('#modelName').val();
-        //When the user clicks "Answer this question" link displayed below the question after successfully submitting the review
         if ($('#reviewTitle').val().length > 0)
         {
             triggerGA("Write_Review", "Answer_This_Question_Link_Clicked", makeModel);
         }
-        //When the user clicks "Answer this question" link displayed below the question after successfully submitting the rating
         else
         {
             triggerGA("Rate_Bike", "Answer_This_Question_Link_Clicked", makeModel);

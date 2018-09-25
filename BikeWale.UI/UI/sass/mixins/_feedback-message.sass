@@ -1,0 +1,29 @@
+﻿@mixin message-wrapper($prefix: '',  $color: 'regent-grey', $margin-bottom: 20px)
+	$className: concat('message__wrapper', $prefix)
+	.#{$className}
+		@include flexbox
+		@include align-items(center)
+		background-color: color('white')
+		font-size: 13px
+		color: color($color)
+		margin-bottom: $margin-bottom
+
+	$titleClassName: concat('message__title', $prefix)
+	.#{$titleClassName}
+		font-size: 18px
+		font-weight: $font-semibold
+		color: color('black')
+		margin-bottom: 5px
+
+@mixin message-icon($prefix: '', $min-width: 69, $height: 69)
+	$className: concat('message__icon', $prefix)
+	.#{$className}
+		background-position: center
+		min-width: $min-width * 1px
+		height: $height * 1px
+		margin-right: 20px
+
+@mixin thumbs-up-icon($prefix: '')
+	$className: concat('message--thumbs-up', $prefix)
+	.#{$className}
+		@include thumbs-up-838383

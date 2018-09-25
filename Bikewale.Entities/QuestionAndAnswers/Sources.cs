@@ -11,7 +11,8 @@ namespace Bikewale.Entities.QuestionAndAnswers
         QuestionAnswer_MailTemplate = 5,
         WriteReview = 6,
         WriteReview_ThankYou = 7,
-        Rating_Thankyou = 8
+        Rating_Thankyou = 8,
+        UsedBike_Listing = 9
 
     }
 }

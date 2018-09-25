@@ -36,12 +36,16 @@
                 var answer = answerField.val().trim();
                 $("#submittedAnswerText").val(answer);
                 var pageSrc = $('#sourceId').val();
-                var modelName = $('#modelName').val();
-                var makeName = $('#makeName').val();
-                if (parseInt(pageSrc) === 7)
-                    triggerGA('Write_Review', 'Submit_Answer_Button_Clicked', makeName + "_" + modelName);
-                else if (parseInt(pageSrc) === 8)
-                    triggerGA('Rate_Bike', 'Submit_Answer_Button_Clicked', makeName + "_" + modelName);
+                var makeModelName = $('#makeName').val() + "_" + $('#modelName').val();
+                var gaEventAction = "Submit_Answer_Button_Clicked";
+
+                switch(parseInt(pageSrc))
+                {
+                    case 7: triggerGA('Write_Review', gaEventAction, makeModelName);
+                    case 8: triggerGA('Rate_Bike', gaEventAction, makeModelName);
+                    case 9: triggerGA("List_Used_Bike", gaEventAction, makeModelName);
+                }
+                    
             }
             else
             {

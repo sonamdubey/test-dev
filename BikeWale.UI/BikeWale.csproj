@@ -3807,6 +3807,7 @@
     <Content Include="UI\m\src\priceincity.js" />
     <Content Include="UI\m\src\qna\landing.js" />
     <Content Include="UI\src\utils\animate-cta.js" />
+    <Content Include="UI\src\QuestionAndAnswers\questionAnswerFlow.js" />
     <Content Include="UI\src\utils\checkbox.js" />
     <Content Include="UI\src\utils\readMore.js" />
     <Content Include="UI\m\src\review\landing.js" />
@@ -4958,11 +4959,13 @@
     <Content Include="UI\sass\partials\desktop-lead-popup.sass" />
     <Content Include="UI\sass\partials\qna-answer.sass" />
     <Content Include="UI\sass\qna\answer-list.sass" />
+    <Content Include="UI\sass\utils\_concatenation.sass" />
     <Content Include="UI\sass\qna\question-details.sass" />
     <Content Include="UI\pwa\webpack-assets.json" />
     <Content Include="UI\Views\Finance\BajajFinance_Index.cshtml" />
     <Content Include="UI\Views\Finance\BajajFinance_Index_Mobile.cshtml" />
     <Content Include="UI\Views\Model\_Index_VersionPrices_Mobile_v1.cshtml" />
+    <Content Include="UI\sass\mixins\_feedback-message.sass" />
     <Content Include="UI\Views\m\Shared\_LocationPopup.cshtml" />
     <Content Include="UI\sass\partials\response-popup.sass" />
     <None Include="UI\Views\QuestionAndAnswers\_QuestionAnswerSection.cshtml" />

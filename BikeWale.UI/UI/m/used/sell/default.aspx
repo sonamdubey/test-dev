@@ -1,5 +1,4 @@
 ﻿<%@ Page Language="C#" Inherits="Bikewale.Mobile.Used.Sell.Default" EnableViewState="false" %>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,6 +11,7 @@
 
     <!-- #include file="/UI/includes/headscript_mobile_min.aspx" -->
     <link href="<%= staticUrl %>/UI/m/sass/sell-bike/sell-bike.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
+    <link href="<%= staticUrl %>/UI/sass/qna/answer-list.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
     <link href="<%= staticUrl  %>/UI/css/zebra-datepicker.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
     <link href="<%= staticUrl  %>/UI/css/dropzone.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
 
@@ -20,7 +20,7 @@
     </script>
 </head>
 <body class="lock-browser-scroll loader-active">
-    <form id="form1" runat="server">
+<form id="form1" runat="server" class="sell-bike-wrapper">
         <!-- #include file="/UI/includes/headBW_Mobile.aspx" -->
 
         <div id="ub-ajax-loader">
@@ -320,7 +320,7 @@
                             <p>
                                 I agree with BikeWale sell bike <a href="/TermsConditions.aspx" target="_blank" rel="noopener">Terms & Conditions</a>, <a target="_blank" rel="noopener" href="/visitoragreement.aspx">visitor agreement</a> and <a target="_blank" rel="noopener" href="/privacypolicy.aspx">privacy policy</a> *.<br />
                                 <br />
-                                I agree that by clicking 'List your bike’ button, I am permitting buyers to contact me on my Mobile number.
+                                I agree that by clicking 'List your bike’ button, I am permitting buyers to contact me on my Mobile number.
                             </p>
                             <span class="error-text" data-bind="validationMessage: termsCheckbox"></span>
                         </div>
@@ -425,38 +425,33 @@
                     </div>
                 </div>
 
-                <div id="form-success" class="form-response-body text-center icon-size-small" data-bind="visible: formStep() == 4">
-                    <div class="icon-outer-container rounded-corner50percent">
-                        <div class="icon-inner-container rounded-corner50percent">
-                            <span class="bwmsprite thankyou-icon margin-top15"></span>
+                <div id="form-success" data-bind="visible: formStep() == 4">
+                    <div class="sell-bike-message-screen">
+                        <div class="sell-bike-message__wrapper">
+                            <div class="sell-bike-message__icon sell-bike-message--thumbs-up icon-container--round"></div>
+                            <div class="sell-bike-message__content">
+                                <h2 class="sell-bike-message__title">
+                                    Congratulations!
+                                </h2>
+                                <p>Your Ad has been successfully submitted and it will be LIVE after verification.</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="margin-top15 margin-bottom15">
-                        <p class="font18 text-bold">Congratulations!</p>
-                        <br />
                         <% if (!isEdit)
                             { %>
-                        <p class="font14">
-                            Your ad has been successfully submitted.<br />
-                            <br />
-                            Your profile ID is <span data-bind="text: profileId"></span>.<br />
-                            You can find and edit your ad by logging in.<br />
-                            <br />
-                            Your bike ad will be live after verification.
-                        </p>
+                        <p>Your profile ID : <span class="sell-bike__profile-id" data-bind="text: profileId"></span>.</p>
+                        <p>You can find and edit your Ad by logging in.</p>
                         <% }
                             else
                             { %>
-                        <p class="font14">Your changes have been recorded. Your ad will be live after verification.</p>
+                        <p>Your changes have been recorded. Your ad will be live after verification.</p>
                         <% } %>
-                    </div>
-                    <div id="form-success-btn-group">
-                        <input type="button" id="btnEditAd" class="btn btn-white btn-primary-small margin-right20" value="Edit my Ad" data-bind="click: editMyAd" />
-                        <input type="button" class="btn btn-orange btn-primary-small " data-bind="click: congratsScreenDoneFunction" value="Done" />
+                        <div id="form-success-btn-group" class="sell-bike-message__btn-wrapper">
+                            <input type="button" id="btnEditAd" class="btn btn-white sell-bike__outline-btn" value="Edit my Ad" data-bind="click: editMyAd" />
+                            <input type="button" class="btn btn-orange sell-bike__filled-btn" data-bind="click: congratsScreenDoneFunction" value="Done" />
+                        </div>
                     </div>
                 </div>
                 <!-- /ko -->
-
                 <!-- ko if: isFakeCustomer -->
                 <div class="form-response-body text-center icon-size-small">
 
@@ -492,8 +487,15 @@
                 </div>
             </div>
             <% } %>
-        </section>
 
+        </section>
+        <!--Unanswered Questions Section Starts-->
+        <div id="answer-question-wrapper" class="answer-question-wrapper sell-bike--answer-question" data-bind="visible: formStep() == 4 && isUnansweredQuestionsKOInitialized()">
+            <h2 class="answer-question__title">Be a champion of your fellow riders!</h2>
+            <p class="answer-question__subtitle">Can you answer these questions on <span data-bind="text: makeName()"></span><span>&nbsp;</span><span data-bind="text: modelName()"></span> asked by your fellow riders?</p>
+            <% MvcHelper.RenderPartial("~/UI/Views/UserReview/_AnswerQuestionList_Mobile.cshtml"); %>
+        </div>
+        <!--Unanswered Questions Section Ends-->
         <section>
             <h2 class="text-center padding-bottom20">FAQs- Selling Bike on BikeWale</h2>
             <div class="container bg-white box-shadow card-bottom-margin">
@@ -543,7 +545,7 @@ BikeWale ensures that only verified buyers can reach out to you. You can re-post
                             <span class="bwmsprite arrow-sm-down"></span>
                         </div>
                         <div class="accordion-body">
-                            <p>You should provide comprehensive and correct details of your bike and upload multiple Images of good quality to improve the responses from buyers. You should provide a reasonable and competitive pricing to get better results. Once you provide the above mentioned details correctly, you can sit back and relax. Your bike will likely be sold within few days of posting.</p>
+                            <p>You should provide comprehensive and correct details of your bike and upload multiple Images of good quality to improve the responses from buyers. You should provide a reasonable and competitive pricing to get better results. Once you provide the above mentioned details correctly, you can sit back and relax. Your bike will likely be sold within few days of posting.</p>
                         </div>
                     </li>
                     <li>

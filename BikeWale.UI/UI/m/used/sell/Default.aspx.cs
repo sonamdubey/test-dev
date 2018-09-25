@@ -1,6 +1,7 @@
 ﻿using Bikewale.BAL.Customer;
 using Bikewale.BAL.MobileVerification;
 using Bikewale.BAL.Pager;
+using Bikewale.BAL.QuestionAndAnswers;
 using Bikewale.BAL.UsedBikes;
 using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
@@ -26,7 +27,10 @@ using Bikewale.Interfaces.Customer;
 using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.MobileVerification;
 using Bikewale.Interfaces.Pager;
+using Bikewale.Interfaces.QuestionAndAnswers;
 using Bikewale.Interfaces.Used;
+using Bikewale.Models.QuestionAndAnswers;
+using Bikewale.Models.QuestionsAnswers;
 using Bikewale.Utility;
 using Microsoft.Practices.Unity;
 using System;
@@ -131,7 +135,7 @@ namespace Bikewale.Mobile.Used.Sell
                 using (IUnityContainer container = new UnityContainer())
                 {
                     container.RegisterType<ICity, CityRepository>();
-                    container.RegisterType<ICacheManager, MemcacheManager>(); ;
+                    container.RegisterType<ICacheManager, MemcacheManager>(); 
                     container.RegisterType<ICityCacheRepository, CityCacheRepository>();
                     ICityCacheRepository cityCacheRepository = container.Resolve<ICityCacheRepository>();
                     objCityList = cityCacheRepository.GetAllCities(EnumBikeType.All);
@@ -241,5 +245,6 @@ namespace Bikewale.Mobile.Used.Sell
             AutoMapper.Mapper.CreateMap<SellBikeAd, SellBikeAdDTO>();
             return AutoMapper.Mapper.Map<SellBikeAdDTO>(inquiryDetailsObject);
         }
+
     }
 }

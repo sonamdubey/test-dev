@@ -1,9 +1,14 @@
 ﻿// Core variables and mixins
 @import ../base/variables
 @import ../base/mixins
+@import ../../../sass/base/variables
 
 // Components
 @import ../base/typography
+
+//functions
+@import ../../../sass/utils/color
+@import ../../../sass/utils/concatenation
 
 // Page specific
 @import tabs
@@ -17,3 +22,46 @@
 @import icons
 @import ../modules/textarea-box
 @import ../modules/accordion
+
+// Mixins
+@import ../../../sass/mixins/index
+@import ../../../sass/mixins/feedback-message
+@import ../../../sass/mixins/custom-icons
+
+
+// Thank you screen
+
+$message-prefix: 'sell-bike'
+
+@include message-wrapper($message-prefix)
+@include message-icon($message-prefix)
+@include thumbs-up-icon($message-prefix)
+@include icon-container--round($size: 69)
+
+.sell-bike-message-screen
+	font-size: 14px
+	color: color('aluminium')
+	padding: 15px 15px 20px
+
+.sell-bike__profile-id
+	font-size: 16px
+	font-weight: $font-semibold
+	color: color('default')
+
+.sell-bike-message__btn-wrapper
+	@include flexbox
+	@include justify-content(center)
+	margin-top: 30px
+
+	.btn
+		font-weight: $font-semibold
+		font-size: 14px
+		padding: 5px
+		min-width: 120px
+
+.sell-bike__outline-btn
+	margin-right: 20px
+
+.sell-bike--answer-question
+	margin-bottom: 20px
+	margin-top: -10px
