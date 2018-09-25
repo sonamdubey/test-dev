@@ -2873,6 +2873,9 @@
     <Compile Include="ViewModel\Videos\VideosLandingPageVM.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="favicon.ico" />
+    <Content Include="m\pagenotfound.aspx" />
+    <Content Include="pagenotfound.aspx" />
     <Content Include="UI\AboutUs.aspx" />
     <Content Include="ads.txt" />
     <Content Include="UI\ads\Ad300x250_mobile.aspx" />
