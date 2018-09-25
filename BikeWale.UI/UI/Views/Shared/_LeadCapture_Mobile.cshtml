@@ -208,13 +208,6 @@
             </div>
                 <!-- city drawer ends here -->
             }
-                <div class="response-popup-wrapper">
-                    <div class="response-popup__content">
-                        <p class="response-popup__message">Sorry, we couldn’t find any dealerships in your area</p>
-                        <div class="response-popup__image response-popup--sorry-img"></div>
-                    </div>
-                    <button class="btn btn-orange btn-full-width font18">Okay</button>
-                </div>
             </div>
         </div>
     </div>
@@ -1423,20 +1416,14 @@
             close: close
         }
     })();
-    var LeadPopupStateEnum = {"Fetch":0, "Open":1, "Close":2, "Final":3};
+    var LeadPopupStateEnum = {"Open":1, "Close":2, "Final":3};
     var LeadPopupState = (function() {
         var leadCapturePopup = document.getElementById('leadCapturePopup');
 
-        function fetchCampaign() {
-            $(leadCapturePopup).removeClass('lead-popup--active');
-            $('.response-popup-wrapper').addClass('response-popup--active');
-            this.status = LeadPopupStateEnum.Fetch;
-        }
         function close() {
             $(leadCapturePopup).removeClass('lead-popup--active');
             $("#notify-response").removeClass('notify-response--active');
             $('.additional-screen').removeClass('dealers--active');
-            $('.response-popup-wrapper').removeClass('response-popup--active');
             this.status = LeadPopupStateEnum.Close;
         }
         function open() {
