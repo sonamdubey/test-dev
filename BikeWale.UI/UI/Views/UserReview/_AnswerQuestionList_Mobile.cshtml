@@ -1,7 +1,6 @@
 ﻿@model Bikewale.Models.QuestionAndAnswers.UnansweredQuestionsVM
 
 <ul id="answer-question__list" class="answer-question__list" >
-    <!--Server Side Rendering-->
     @if (Model != null && Model.Questions != null && Model.Questions.Any())
     {
         foreach (var question in Model.Questions)
@@ -13,13 +12,12 @@
         }
     }
         
-    <!--Client Side Rendering-->
-    <!--ko foreach: questions-->
+    <!-- ko foreach: questions -->
     <li class="answer-question__item hide" data-bind="style: { display: $root.isUnansweredQuestionsKOInitialized()  ? 'block' : 'none' }">
         <p class="answer-question__item-title" data-bind="text: $data.QuestionData.text"></p>
         <a href="#" data-bind="attr: { href: $data.AnsweringUrl}" title="Answer this Question">Answer this Question</a>
     </li>
-    <!-- /ko-->
+    <!-- /ko -->
     
 </ul>
 
