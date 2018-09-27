@@ -116,10 +116,12 @@
                 @if (Model.HasUnansweredQuestions)
                 {
                 <div class="answer-question-wrapper">
-                    <h2 class="answer-question__title">Make your opinion count!</h2>
-                    <p class="answer-question__subtitle">(Answer any of the below questions on @string.Format("{0} {1}", Model.Summary.Make.MakeName, Model.Summary.Model.ModelName))</p>
-                    @Html.Partial("~/UI/Views/userReview/_AnswerQuestionList_Mobile.cshtml", Model.UnansweredQuestions)
-                </div>
+                    <h2 class="answer-question__title">Can you help your fellow riders?</h2>
+                    <p class="answer-question__subtitle">
+                        (Answer any of these questions on @string.Format("{0} {1}", Model.Summary.Make.MakeName, Model.Summary.Model.ModelName))
+                    </p>
+                        @Html.Partial("~/UI/Views/userReview/_AnswerQuestionList_Mobile.cshtml", Model.UnansweredQuestions)
+                    </div>
                 }
                 <div id="floating-btn" class="review-summary__btn">
                     <a class="btn btn-orange" href="@Model.Summary.ReturnUrl" title="Done">Done</a>
@@ -220,8 +222,10 @@
                                     @if (Model.HasUnansweredQuestions)
                                     {
                                         <div class="answer-question-wrapper">
-                                            <h2 class="answer-question__title">Make your opinion count!</h2>
-                                            <p class="answer-question__subtitle">(Answer any of the below questions on @string.Format("{0} {1}", Model.Summary.Make.MakeName, Model.Summary.Model.ModelName))</p>
+                                            <h2 class="answer-question__title">Can you help your fellow riders?</h2>
+                                            <p class="answer-question__subtitle">
+                                                (Answer any of these questions on @string.Format("{0} {1}", Model.Summary.Make.MakeName, Model.Summary.Model.ModelName))
+                                            </p>
                                             @Html.Partial("~/UI/Views/userReview/_AnswerQuestionList_Mobile.cshtml", Model.UnansweredQuestions)
                                         </div>
                                     }
