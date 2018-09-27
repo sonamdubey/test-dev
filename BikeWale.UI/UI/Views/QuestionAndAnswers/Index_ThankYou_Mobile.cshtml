@@ -56,11 +56,23 @@
                 @if (!String.IsNullOrEmpty(Model.ReturnUrl))
                 {
                     <div class="qna-question__btn">
-                        <a class="btn btn-blue" href="@string.Format("{0}/m{1}", BWConfiguration.Instance.BwHostUrl, HttpUtility.UrlDecode(Model.ReturnUrl))">Done</a>
+                        @if (Model.Source == 9)
+                        {
+                            <a class="btn btn-blue" href="@string.Format("{0}/{1}", BWConfiguration.Instance.BwHostUrl, HttpUtility.UrlDecode(Model.ReturnUrl))">Done</a>
+                        }
+                        else
+                        {
+                            <a class="btn btn-blue" href="@string.Format("{0}/m{1}", BWConfiguration.Instance.BwHostUrl, HttpUtility.UrlDecode(Model.ReturnUrl))">Done</a>
+                        }
+                        
                     </div>
                 }
             </div>
 
         </div>
     </section>
+    
+    <input id="sourceId" value="@Model.Source" hidden />
+    <input id="makeName" value="@Model.MakeName" hidden />
+    <input id="modelName" value="@Model.ModelName" hidden />
 }

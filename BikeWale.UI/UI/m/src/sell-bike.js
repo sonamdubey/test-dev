@@ -1,6 +1,6 @@
 ﻿var vmUnansweredQuestions = null;
 var platformId = 2;
-var returnUrl = "/used/sell";
+var returnUrl = "/mybikewale";
 var makeName = "";
 var modelName = "";
 var pageSrcId = 9;
@@ -1779,8 +1779,8 @@ var accordion = {
     }
 };
 
-$(".answer-question__item a").on("click", function () {
-    triggerGA("List_Used_Bike", "Answer_This_Question_Link_Clicked", makeName + "_" + modelName);
+$(document).on("click", ".answer-question__item a", function () {
+    triggerGA("List_Used_Bike", "Answer_This_Question_Link_Clicked", vmSellBike.bikeDetails().makeName() + "_" + vmSellBike.bikeDetails().modelName());
 });
 
 

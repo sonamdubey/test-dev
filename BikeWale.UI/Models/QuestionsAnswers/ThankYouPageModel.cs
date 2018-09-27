@@ -61,6 +61,10 @@ namespace Bikewale.Models.QuestionsAnswers
                 {
                     objData.ReturnUrl = ReturnUrl;
                 }
+                if(this.Source != Sources.Invalid)
+                {
+                    objData.Source = (ushort)this.Source;
+                }
 
                 #region Bind Question Data
 
@@ -71,6 +75,8 @@ namespace Bikewale.Models.QuestionsAnswers
                     if (bikeData != null && bikeData.Make != null && bikeData.Model != null)
                     {
                         objData.BikeName = String.Format("{0} {1}", bikeData.Make.MakeName, bikeData.Model.ModelName);
+                        objData.MakeName = bikeData.Make.MakeName;
+                        objData.ModelName = bikeData.Model.ModelName;
                     }
                     else
                     {

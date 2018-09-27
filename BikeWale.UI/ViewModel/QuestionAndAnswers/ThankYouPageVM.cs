@@ -12,5 +12,8 @@ namespace Bikewale.Models.QuestionAndAnswers
         public IEnumerable<QuestionUrl> Questions { get; set; }
         public string BikeName { get; set; }
         public string ReturnUrl { get; set; }
+        public ushort Source { get; set; }
+        public string MakeName { get; set; }
+        public string ModelName { get; set; }
     }
 }

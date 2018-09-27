@@ -45,6 +45,9 @@
     };
 };
 
+var makeName = $("#makeName").val();
+var modelName = $("#modelName").val();
+
 var vmQuestionAndAns = function () {
     var self = this;
     self.isKOInitialized = ko.observable(false);
@@ -581,3 +584,20 @@ $(document).ready(function () {
     TextArea.registerEvents();
     QuestionAndAns.registerEvents();   
 })
+
+$(document).on("click", ".qna-answer__link", function () {
+    if ($("#sourceId").val() != "undefined")
+    {
+        var gaEventAction = "Answer_This_Question_Link_Clicked";
+        var makeModelName = makeName + "_" + modelName;
+        switch (parseInt($("#sourceId").val())) {
+            case 7: triggerGA("Write_Review", gaEventAction, makeModelName);
+                    break;
+            case 8: triggerGA("Rate_Bike", gaEventAction, makeModelName);
+                    break;
+            case 9: triggerGA("List_Used_Bike", gaEventAction, makeModelName);
+                    break;
+        }
+    }
+    
+});

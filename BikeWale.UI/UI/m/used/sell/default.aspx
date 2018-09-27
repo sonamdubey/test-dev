@@ -491,8 +491,8 @@
         </section>
         <!--Unanswered Questions Section Starts-->
         <div id="answer-question-wrapper" class="answer-question-wrapper sell-bike--answer-question" data-bind="visible: formStep() == 4 && isUnansweredQuestionsKOInitialized()">
-            <h2 class="answer-question__title">Be a champion of your fellow riders!</h2>
-            <p class="answer-question__subtitle">Can you answer these questions on <span data-bind="text: makeName()"></span><span>&nbsp;</span><span data-bind="text: modelName()"></span> asked by your fellow riders?</p>
+            <h2 class="answer-question__title">Can you help your fellow riders?</h2>
+            <p class="answer-question__subtitle">(Answer any of these questions on <span data-bind="text: makeName()"></span><span>&nbsp;</span><span data-bind="    text: modelName()"></span>)</p>
             <% MvcHelper.RenderPartial("~/UI/Views/UserReview/_AnswerQuestionList_Mobile.cshtml"); %>
         </div>
         <!--Unanswered Questions Section Ends-->
