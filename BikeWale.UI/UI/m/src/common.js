@@ -2035,7 +2035,21 @@ docReady(function () {
            }
         catch (e) { 
         }
-     });
+    });
+
+    $(document).on("click", ".bw-bhrigu", function () {
+        try {
+            var obj = $(this);
+            var category = obj.attr("data-cat") || pageName;
+            var action = obj.attr("data-act");
+            var label = obj.attr("data-bhrigulab") || "NA";
+            
+            cwTracking.trackCustomData(category, action, label);   
+        }
+        catch (e) {
+            console.error(e);
+        }
+    });
 
     // more brand - collapse
     $('.view-brandType').click(function () {
