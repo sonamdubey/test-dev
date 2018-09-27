@@ -258,8 +258,8 @@ string.Format("{0} <span class='font14'> onwards</span>", Bikewale.Utility.Forma
 
                 @if (Model.IsUpComingBikesAvailable)
                 {
-                    <section>
-                    <div data-id="upcomingBikes" class="bg-white section-bottom-margin overall-tabs-data">
+                    <section class="bw-ga-viewport" data-lab="@Model.MakeName" data-cat="Make_Page" data-act="Notify_me_shown">
+                        <div data-id="upcomingBikes" class="bg-white section-bottom-margin overall-tabs-data">
                             <div class="carousel__title">
                                 <h2 class="page__heading-h2 carousel-title__label">Upcoming @Model.MakeName Bikes</h2>
                                 <a href="@string.Format("/m/{0}-bikes/upcoming/", Model.MakeMaskingName)" class="view-all-btn" title="Upcoming @Model.MakeName Bikes in India">
@@ -312,7 +312,7 @@ string.Format("{0} <span class='font14'> onwards</span>", Bikewale.Utility.Forma
                         </div>
                         <div class="form-field__content">
                             <input type="text" id="notifyEmailField" class="form-control form-field__input" placeholder="Enter your email id" aria-label="Enter your email id">
-                            <button type="button" id="notifySubmitBtn" class="btn btn-orange form-field__submit-btn" data-bikename="" data-makeid="" data-modelid="">Submit</button>
+                            <button type="button" id="notifySubmitBtn" class="btn btn-orange form-field__submit-btn bw-ga" data-bikename="" data-makeid="" data-modelid="" data-lab="@Model.MakeName" data-cat="Make_Page" data-act="Notify_me_form submitted">Submit</button>
                             <p class="field__error-message"></p>
                         </div>
                     </div>
@@ -338,14 +338,14 @@ string.Format("{0} <span class='font14'> onwards</span>", Bikewale.Utility.Forma
                 </div>
 
                     <section>
-                        <div data-id="@(Model.IsUpComingBikesAvailable ? "upcomingBikes" : "bikeModel")" class="section-bottom-margin interesting-fact-section  overall-tabs-data">
+                        <div data-id="@(Model.IsUpComingBikesAvailable ? "upcomingBikes" : "bikeModel")" class="@(Model.IsUpComingBikesAvailable ? "section-bottom-margin interesting-fact-section overall-tabs-data bw-ga-viewport" : "section-bottom-margin interesting-fact-section overall-tabs-data")" data-lab="@Model.MakeName" data-cat="Make_Page" data-act="Interesting Fact_shown">
                             <h2 class="interesting-fact__title page__heading-h2">Interesting Fact</h2>
                             <div class="interesting-fact-container">
                                 <p class="interesting-fact__content">
                                     @Html.Raw(Model.BikeDescription.FullDescription)
                                 </p>
                                 <div class="interesting-fact__link-block">
-                                    <span class="interesting-fact__read-more">
+                                    <span class="interesting-fact__read-more bw-ga" data-lab="@Model.MakeName" data-cat="Make_Page" data-act="Interesting Fact_clicked">
                                         Read more about @Model.MakeName Bikes
                                     </span>
                                 </div>

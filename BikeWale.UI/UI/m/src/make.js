@@ -254,9 +254,22 @@ var floatingNav = (function () {
         }
     }
 
+    var _initViewportGATriggerProp = function ()
+    {
+        var gaViewportElem = document.getElementsByClassName("bw-ga-viewport");
+        if (typeof gaViewportElem !== "undefined")
+        {
+            for (var idx = 0 ; idx < gaViewportElem.length ; idx++) {
+                gaViewportElem[idx].isGATriggered = false;
+            }
+        }
+        
+    }
+
     function registerEvents() {
         _setSelectores();
         _setFallback();
+        _initViewportGATriggerProp();
 
         $(window).scroll(function () {
             var windowScrollTop = $(window).scrollTop(),
@@ -306,6 +319,11 @@ var floatingNav = (function () {
 
             });
 
+            if (typeof document.getElementsByClassName("bw-ga-viewport") !== "undefined")
+            {
+                triggerNonInteractiveGAWithinViewport(document.getElementsByClassName("bw-ga-viewport"));
+            }
+   
         });
         $('.overall-tabs__list li').on('click', function () {
             var target = $(this).attr('data-tabs'),

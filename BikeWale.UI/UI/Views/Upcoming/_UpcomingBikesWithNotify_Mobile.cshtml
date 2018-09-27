@@ -47,9 +47,9 @@
                             }
                             <div class="upcoming-card__footer">
                                 <p class="upcoming-card__notify-label">Get latest update of this bike</p>
-                                @if( bike.MakeBase.MakeId > 0 && bike.ModelBase.ModelId > 0 &&bikeName != null )
+                                @if (bike.MakeBase.MakeId > 0 && bike.ModelBase.ModelId > 0 && bikeName != null)
                                 {
-                                <span class="upcoming-card__notify-btn" data-makeid="@bike.MakeBase.MakeId" data-modelid="@bike.ModelBase.ModelId" data-bikename="@bikeName">Notify Me</span>
+                                    <span class="upcoming-card__notify-btn bw-ga" data-makeid="@bike.MakeBase.MakeId" data-modelid="@bike.ModelBase.ModelId" data-bikename="@bikeName" data-lab="@bike.MakeBase.MakeName" data-cat="Make_Page" data-act="Notify_me_clicked">Notify Me</span>
                                 }
                             </div>
                         </div>

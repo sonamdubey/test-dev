@@ -2122,3 +2122,22 @@ popup = {
 String.isNullOrEmpty = function (str) {
     return (!str || str.length === 0);
 };
+
+
+var triggerNonInteractiveGAWithinViewport = function (elem) {
+    
+
+    for (var i = 0 ; i < elem.length ; i++)
+    {
+        var rect = elem[i].getBoundingClientRect();
+        if (elem[i].isGATriggered == false && rect.top >= 0 && (rect.top + rect.height) <= window.innerHeight)
+        {
+            triggerNonInteractiveGA(elem[i].getAttribute("data-cat"), elem[i].getAttribute("data-act"), elem[i].getAttribute("data-lab"));
+            console.log("triggered: " + i);
+            elem[i].isGATriggered = true;        
+        }
+    }
+    
+}
+
+
