@@ -16,8 +16,13 @@
                     
                     
                     <li class="question-answer-wrapper__list-item">
-                        <p class="question-answer-wrapper__question">Q: @(question.Question.Text)</p>
+                        <p class="question-answer-wrapper__question">
+                            <a title="@question.Question.Text" href="@string.Format("{0}/{1}", baseUrl,question.Url)" class="text-black">
+                                @string.Format("Q: {0}", question.Question.Text)
+                            </a>
+                        </p>
 
+                        
                     @{
                         if (question.Answer != null)
                         {

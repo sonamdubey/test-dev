@@ -40,8 +40,11 @@
                                     @{
                                         var quesObj = quesAnswer.Question;
                                             <p class="question-answer-wrapper__question">
-                                                @string.Format("Q: {0}", quesObj.Text)
+                                                <a title="@quesObj.Text" href="@quesAnswer.Url" class="text-black">
+                                                        @string.Format("Q: {0}", quesObj.Text)
+                                                </a>                                            
                                             </p>
+                                        
                                             if (quesObj.AskedBy != null && quesObj.AskedBy.CustomerName != null)
                                             {
                                                 <p class="question-answer-wrapper__author">@string.Format("{0} ago by {1}", FormatDate.GetTimeSpan(quesObj.AskedOn), quesObj.AskedBy.CustomerName.Truncate(25)) </p>
@@ -92,8 +95,9 @@
                      <!-- ko if: otherQuestions != null -->
                     <ul data-bind="foreach: otherQuestions">
                         <!-- ko if: $data.question != null &&  $data.answer != null -->
-                        <li class="question-answer-wrapper__list-item" data-bind="if:$data">
-                            <p class="question-answer-wrapper__question" data-bind="text: 'Q: ' + $data.question.text ">
+                        <li class="question-answer-wrapper__list-item" data-bind="if:$data">                            
+                            <p class="question-answer-wrapper__question">
+                                <a class="text-black" data-bind="attr: { href: qnaBaseUrl + $data.url }, text: 'Q: ' + $data.question.text "></a>                                
                             </p>
 
                             <p class="question-answer-wrapper__author" data-bind="text: ($data.question.questionAge) + ' ago by ' + $data.question.askedBy.customerName "> </p>
