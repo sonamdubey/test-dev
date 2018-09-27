@@ -37,8 +37,8 @@
                                     @{
                                         var quesObj = quesAnswer.Question;                                            
                                         <p class="question-answer-wrapper__question">
-                                            <a title="@quesObj.Text" href="@quesAnswer.Url" class="text-black">
-                                                    @string.Format("Q: {0}", quesObj.Text)
+                                            <a title="@quesObj.Text" href="@(String.Format("{0}{1}", Model.BaseUrl, quesAnswer.Url))" class="text-black">
+                                                @string.Format("Q: {0}", quesObj.Text)
                                             </a>                                            
                                         </p>
                                         
