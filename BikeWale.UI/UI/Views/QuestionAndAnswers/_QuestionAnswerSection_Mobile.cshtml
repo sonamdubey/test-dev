@@ -10,7 +10,7 @@
     <div class="question-answer-wrapper__container">
         <div class="question-answer-wrapper__content">
             <ul class="question-answer-wrapper__list">
-                @{var baseUrl = string.Format("{0}{1}questions-and-answers", Request.Url.GetLeftPart(UriPartial.Authority), Request.RawUrl);}
+                @{var baseUrl = string.Format("{0}/m/{1}-bikes/{2}/questions-and-answers", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, Model.MakeMasking, Model.ModelMasking);}
                 @foreach (Bikewale.Entities.QuestionAndAnswers.QuestionAnswer question in Model.Questions)
                 {
                     

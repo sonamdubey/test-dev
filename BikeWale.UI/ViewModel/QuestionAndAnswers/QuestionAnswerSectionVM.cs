@@ -1,11 +1,8 @@
-﻿using Bikewale.Entities.QuestionAndAnswers;
-using Bikewale.Entities;
+﻿using Bikewale.Entities;
+using Bikewale.Entities.Pages;
+using Bikewale.Entities.QuestionAndAnswers;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Bikewale.Entities.Pages;
 
 namespace Bikewale.Models.QuestionAndAnswers
 {
@@ -24,6 +21,8 @@ namespace Bikewale.Models.QuestionAndAnswers
         public uint QACount { get; set; }
         public string MakeName { get; set; }
         public string ModelName { get; set; }
+        public string MakeMasking { get; set; }
+        public string ModelMasking { get; set; }
         public GAPages GAPageType { get; set; }
     }
 }
