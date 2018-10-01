@@ -258,7 +258,7 @@ input[type="text"]:focus, input[type="number"]:focus { outline:none; box-shadow:
     overflow: hidden
 }
 .brandlogosprite {
-    background: url('https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/brand-type-sprite.png?07Jun20181528360754292') no-repeat;
+    background: url('https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/brand-type-sprite.png?28Sep20181538143400578') no-repeat;
     display: inline-block;
 }
 .brand-2,
@@ -429,8 +429,8 @@ background-position: -2794px 0
     background-position: -3026px 0;
 }
 .brand-72 {
-	width: 50px;
-	background-position: -3161px 0;
+	width: 122px;
+	background-position: -3924px 0;
 }
 
 .brand-73 {
