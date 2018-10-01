@@ -72,19 +72,31 @@ noindex:-o-prefocus, .findBtn .btn-md { padding: 10px 20px; }
 .bw-footer-icon {
     width: 142px;
     height: 41px;
-    background-position: 0 -592px;
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 0;
+    background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/logo/fff/bikewale.svg') no-repeat center;
+    background-size: contain;
 }
 
 .cw-footer-icon {
     width: 154px;
     height: 23px;
-    background-position: 0 -640px;
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 0;
+    background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/logo/fff/carwale.svg') no-repeat center;
+    background-size: contain;
 }
 
 .ct-footer-icon {
     width: 182px;
     height: 35px;
-    background-position: 0 -670px;
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 0;
+    background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/logo/fff/cartrade.svg') no-repeat center;
+    background-size: contain;
 }
 
 footer ul li { display: block; }
@@ -147,7 +159,7 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 .footer-social-icons .fa-gp:hover { background: #db4c3f; }
 
 .global-map-marker { width:8px; height:12px; background-position:-84px -259px; position:relative; top:2px; }
-.gplay-icon { background-position: 0 -339px; width: 114px; height: 40px; }
+.gplay-icon { width: 114px; height: 40px; display: inline-block; vertical-align: middle; font-size: 0; background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/logo/google-play.svg') no-repeat center; background-size: contain; }
 .error-icon { background-position: -177px -35px; width: 19px; height: 19px; position: absolute; right: 10px; top: 10px; z-index: 2; }
 .cityPopup-icon { background-position: -106px -273px; width: 60px; height: 52px; }
 .filter-icon { width:23px; height:21px; background-position: -180px -329px;}
@@ -310,7 +322,7 @@ a.action-btn:hover{text-decoration:none;}
     text-decoration: none;
 }
 
-.bg-footer { background: #323434; }
+.bg-footer { background: #333; }
 .margin-left-1 { margin-left:-1px;}
 
 .margin-left25 { margin-left: 25px; }

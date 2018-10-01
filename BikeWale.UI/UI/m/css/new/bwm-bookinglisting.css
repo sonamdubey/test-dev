@@ -1,4 +1,7 @@
 ﻿@charset "utf-8";
+.header-fixed .nav-icon {
+    top: -5px;
+}
 .booking-listing-nav { bottom:3px; }
 .filter-btn, .sort-btn { color: #fff; padding: 0 10px; position: relative; cursor: pointer; font-size: 20px; }
 /*.brand-total { position: relative; top: -2px; }*/

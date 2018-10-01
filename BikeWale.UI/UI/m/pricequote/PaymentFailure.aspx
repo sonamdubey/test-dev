@@ -20,7 +20,7 @@
             <header>
 
     	        <div class="header-fixed"> <!-- Fixed Header code starts here -->
-        	        <a href="/m/" class="bwmsprite bw-logo bw-lg-fixed-position" style="left:10px;"></a>
+        	        <a href="/m/" class="bw-logo bw-lg-fixed-position" title="BikeWale" style="left:10px;">BikeWale</a>
                 </div> <!-- ends here -->
     	        <div class="clear"></div>        
             </header>

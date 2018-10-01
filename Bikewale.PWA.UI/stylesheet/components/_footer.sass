@@ -1,3 +1,5 @@
+@import "./icons"
+
 .bwm-footer
     background: #323434
     padding-top: 30px
@@ -21,35 +23,45 @@
 @include grid(8)
 
 .bw-footer-icon
+    @include bw-fff-icon
     width: 73px
     height: 20px
-    background-position: 0 -547px
+    display: inline-block
+    vertical-align: middle
+    font-size: 0
     position: relative
     top: 2px
 
 .cw-footer-icon
+    @include cw-fff-icon
     width: 69px
     height: 12px
-    background-position: -78px -516px
+    display: inline-block
+    vertical-align: middle
+    font-size: 0
 
 .cw-logo-label
     font-size: 8px
     color: #cfcfcf
     margin-left: 13px
-    position: relative
-    top: -5px
 
 .ct-footer-icon
+    @include ct-fff-icon
     width: 93px
     height: 17px
-    background-position: -78px -534px
+    display: inline-block
+    vertical-align: middle
+    font-size: 0
     position: relative
     top: 4px
 
 .google-play-logo
-    background-position: 2px -344px
+    @include gplay-icon
     width: 118px
     height: 42px
+    display: inline-block
+    vertical-align: middle
+    font-size: 0
     margin-top: 10px
     margin-bottom: 15px
 

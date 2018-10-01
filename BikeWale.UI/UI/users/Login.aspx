@@ -22,7 +22,7 @@
         <div id="header" class="header-fixed"> <!-- Header code starts here -->
             <div class="leftfloat">
                 <span class="navbarBtn bwsprite nav-icon margin-right25"></span>
-                <a href="/" id="bwheader-logo" class="bwsprite bw-logo" title="Bikewale"></a>
+                <a href="/" id="bwheader-logo" class="bw-logo" title="BikeWale">BikeWale</a>
            
             </div>
             <div class="clear"></div>

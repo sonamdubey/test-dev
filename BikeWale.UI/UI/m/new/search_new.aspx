@@ -55,11 +55,11 @@
             <!-- Fixed Header code starts here -->
             <span id="bikecount" class="font18 text-white brand-total"></span>
             <div class="leftfloat">
-                <span id="navbarBtn" class="navbarBtn bwmsprite nav-icon margin-right10"></span>
+                <span id="navbarBtn" class="navbarBtn nav-icon margin-right10"></span>
             </div>
             <div class="rightfloat">
                 <a class="global-search" id="global-search" style="display: none">
-                    <span class="bwmsprite search-icon-grey"></span>
+                    <span class="global-search-icon"></span>
                 </a>
                 <a class="filter-btn" id="filter-btn">
                     <span class="bwmsprite filter-icon"></span>

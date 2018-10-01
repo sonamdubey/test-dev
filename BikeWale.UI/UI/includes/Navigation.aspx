@@ -93,7 +93,7 @@
 
     </ul>
     <div class="margin-top40 margin-bottom40 margin-left20">
-        <a href="https://play.google.com/store/apps/details?id=com.bikewale.app&referrer=utm_source%3DDesktopsite%26utm_medium%3DDrawer%26utm_campaign%3DBikeWale%2520Desktopsite%2520Drawer" target="_blank" rel="noopener nofollow" class="bwsprite gplay-icon margin-right5"></a>
+        <a href="https://play.google.com/store/apps/details?id=com.bikewale.app&referrer=utm_source%3DDesktopsite%26utm_medium%3DDrawer%26utm_campaign%3DBikeWale%2520Desktopsite%2520Drawer" target="_blank" rel="noopener nofollow" class="gplay-icon margin-right5" title="BikeWale App on Google Play">BikeWale App on Google Play</a>
         <%--<a href="https://itunes.apple.com/in/app/bikewale/id910137745?mt=8" target="_blank" rel="noopener" class="bwsprite app-store-icon"></a>--%>
     </div>
 </nav>

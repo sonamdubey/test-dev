@@ -97,8 +97,6 @@ font-family:"Roboto-Regular";
 
 /*BW sprite clssses*/
 .bw-sprite { background:url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/bw-sprite.png?v=150915) no-repeat; display:inline-block; }
-.nav-icon { background-position:0 0px; width:20px; height:13px; }
-.bw-logo { background:url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/bw-m-logo.png?v=150915) no-repeat; width:102px; height:30px; display:inline-block; }
 .right-arrow { background-position:0 -45px; width:12px; height:12px; position:absolute; right:10px; }
 
 /* M-Carousel classes */
@@ -449,12 +447,11 @@ button, a[data-role="button"]:not([data-icon]):focus, input[type="button"]:focus
 
 /* sprite classes */
 .bwmsprite { background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/bwmsprite-v4.png?v06Jun2017) no-repeat; display: inline-block; }
-.nav-icon { background-position: 0 0; width: 27px; height: 20px; cursor: pointer; position: relative; top: 3px; }
-.nav-icon:hover { background-position: 0 -20px; }
+.nav-icon { width: 15px; height: 16px; cursor: pointer; position: relative; top: 0; display: inline-block; vertical-align: middle; background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/fff/hamburger.svg') no-repeat; background-size: cover; }
 .headerTitle,.white-back-arrow {display:none;}
 .headerTitle { position:relative; top:-2px; left:-10px;}
 .white-back-arrow{ width: 22px; height: 18px; cursor: pointer; background-position: -63px -163px; position: relative; top: 8px; }
-.bw-logo { background-position: -31px 0px; width: 121px; height: 24px; }
+.bw-logo { width: 84px; height: 24px; font-size: 0; display: inline-block; vertical-align: middle; background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/logo/fff/bikewale.svg') no-repeat center; background-size: contain; }
 .bw-logo.bw-lg-fixed-position { position: absolute; left: 52px; }
 .search-icon-grey, .search-icon-white { width: 18px; height: 18px; }
 .search-icon-grey { background-position: -62px -275px; }

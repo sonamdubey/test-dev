@@ -18,8 +18,8 @@
         
         <div id="header" class="header-fixed"> <!-- Header code starts here -->
             <div class="leftfloat">
-                <span id="navbarBtn" class="navbarBtn bwm-navbarBtn bwmsprite nav-icon margin-right25"></span>
-                <a href="/" id="bwheader-logo" class="bwmsprite bw-logo" title="Bikewale"></a>
+                <span id="navbarBtn" class="navbarBtn bwm-navbarBtn nav-icon margin-right25"></span>
+                <a href="/" id="bwheader-logo" class="bw-logo" title="BikeWale">BikeWale</a>
            
             </div>
             <div class="clear"></div>

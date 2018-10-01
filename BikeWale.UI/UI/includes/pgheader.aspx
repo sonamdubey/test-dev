@@ -68,7 +68,7 @@
         <!--Header code start here -->
         <div id="header" class="header-fixed">
             <div class="left-float margin-left50">
-                <a href="/" class="bwsprite bw-logo"></a>
+                <a href="/" class="bw-logo" title="BikeWale">BikeWale</a>
             </div>
             <div class="clear"></div>
         </div>

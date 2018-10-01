@@ -41,12 +41,12 @@
         <div class="header-fixed">
             <!-- Fixed Header code starts here -->
             <div class="leftfloat">
-                <span id="navbarBtn" class="navbarBtn bwmsprite nav-icon margin-right5"></span>
+                <span id="navbarBtn" class="navbarBtn nav-icon margin-right5"></span>
                 <span class="booking-listing-nav font16 text-white position-rel">Book your bike</span>
             </div>
             <div class="rightfloat">
                 <a class="global-search" id="global-search" style="display: none">
-                    <span class="bwmsprite search-icon-grey"></span>
+                    <span class="global-search-icon"></span>
                 </a>
                 <a class="filter-btn" id="filter-btn">
                     <span class="bwmsprite filter-icon"></span>

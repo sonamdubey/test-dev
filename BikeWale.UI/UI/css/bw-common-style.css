@@ -266,7 +266,7 @@ a.bikeTitle { color:#2a2a2a; font-size: 16px; font-weight: bold; display: block;
 .header-fixed, .header-landing { position: fixed; top: 0; right: 0; left: 0; padding: 10px 20px; z-index: 203; }
 .header-not-fixed { padding: 10px 20px; z-index: 203; }
 .header-fixed-inner { padding-top: 55px; }
-.header-fixed, .header-fixed-with-bg, .header-not-fixed { background: #595959; }
+.header-fixed, .header-fixed-with-bg, .header-not-fixed { background: #333; }
 .header-landing { background: none !important; }
 
 #nav, .loginPopUpWrapper { background: #fff; width:325px; position: fixed; top: 0; right: 0; bottom: 0; left: -325px; overflow-y: hidden; z-index: 210; }
@@ -325,14 +325,14 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 
 /* sprite classes */
 .bwsprite { background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/bwsprite-v3.png?05July20171499235738247) no-repeat; display: inline-block; }
-.nav-icon { background-position: 0 0; width: 24px; height: 21px; cursor: pointer; position: relative; top: -1px; }
+.nav-icon { background-position: 0 0; width: 24px; height: 21px; cursor: pointer; position: relative; top: -1px; vertical-align: middle; }
 .nav-icon:hover { background-position: 0 -29px; }
-.bw-logo { background-position: -34px 0; width: 93px; height: 27px; }
+.bw-logo { width: 93px; height: 27px; display: inline-block; vertical-align: middle; font-size: 0; background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/logo/fff/bikewale.svg') no-repeat center; background-size: contain; }
 .search-icon-grey, .search-icon-white { width: 18px; height: 18px; }
 .search-icon-grey { background-position: -34px -275px; }
 .search-icon-white { background-position: -64px -278px; }
 .global-map-marker { width:8px; height:12px; background-position:-84px -259px; position:relative; top:2px; }
-.gplay-icon { background-position: 0 -339px; width: 114px; height: 40px; }
+.gplay-icon { width: 114px; height: 40px; display: inline-block; vertical-align: middle; font-size: 0; background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/logo/google-play.svg') no-repeat center; background-size: contain; }
 .error-icon { background-position: -177px -35px; width: 19px; height: 19px; position: absolute; right: 10px; top: 10px; z-index: 2; }
 .cityPopup-icon { background-position: -106px -273px; width: 60px; height: 52px; }
 .filter-icon { width:23px; height:21px; background-position: -180px -329px;}
@@ -618,7 +618,7 @@ a.action-btn:hover{text-decoration:none;}
 .bg-light-grey-with-alpha { background: rgba(242, 242, 243, 0.9); }
 .bg-grey { background: #e1e1e1; }
 .bg-dark-grey { background: #333333; }
-.bg-footer { background: #323434; }
+.bg-footer { background: #333; }
 .margin-left-1 { margin-left:-1px;}
 .margin-left5 { margin-left: 5px; }
 .margin-left10 { margin-left: 10px; }
@@ -777,19 +777,31 @@ a.action-btn:hover{text-decoration:none;}
 .bw-footer-icon {
     width: 142px;
     height: 41px;
-    background-position: 0 -592px;
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 0;
+    background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/logo/fff/bikewale.svg') no-repeat center;
+    background-size: contain;
 }
 
 .cw-footer-icon {
     width: 154px;
     height: 23px;
-    background-position: 0 -640px;
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 0;
+    background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/logo/fff/carwale.svg') no-repeat center;
+    background-size: contain;
 }
 
 .ct-footer-icon {
     width: 182px;
     height: 35px;
-    background-position: 0 -670px;
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 0;
+    background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/logo/fff/cartrade.svg') no-repeat center;
+    background-size: contain;
 }
 
 .cur-pointer { cursor: pointer; }

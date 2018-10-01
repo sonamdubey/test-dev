@@ -67,14 +67,14 @@
     <div class="container">
         <div class="text-center padding-bottom15 padding-top15">
             <div class="grid-4">
-                <a href="/m/" class="bwmsprite bw-footer-icon" title="Bikewale"></a>
+                <a href="/m/" class="bw-footer-icon" title="BikeWale">BikeWale</a>
             </div>
             <div class="grid-4">
-                <a href="https://www.carwale.com/m/" target="_blank" rel="noopener" class="bwmsprite cw-footer-icon" title="CarWale"></a>
+                <a href="https://www.carwale.com/m/" target="_blank" rel="noopener" class="cw-footer-icon" title="CarWale">CarWale</a>
                 <p class="cw-logo-label">ask the experts</p>
             </div>
             <div class="grid-4 omega">
-                <a href="https://m.cartrade.com/" target="_blank" rel="noopener" class="bwmsprite ct-footer-icon" title="CarTrade"></a>
+                <a href="https://m.cartrade.com/" target="_blank" rel="noopener" class="ct-footer-icon" title="CarTrade">CarTrade</a>
             </div>
             <div class="clear"></div>
         </div>
@@ -88,8 +88,7 @@
                 <p class="font13 text-white margin-bottom10">Download Mobile App</p>
                     
                 <div>
-                    <a class="bwmsprite google-play-logo gplay-icon margin-right5" href="https://play.google.com/store/apps/details?id=com.bikewale.app&referrer=utm_source%3DBikeWaleMobileWebsite%26utm_medium%3DFooter%26utm_campaign%3DBikeWale%2520MobileWebsite%2520Footer" target="_blank" rel="noopener nofollow" >
-                    </a>
+                    <a class="gplay-icon margin-right5" href="https://play.google.com/store/apps/details?id=com.bikewale.app&referrer=utm_source%3DBikeWaleMobileWebsite%26utm_medium%3DFooter%26utm_campaign%3DBikeWale%2520MobileWebsite%2520Footer" target="_blank" rel="noopener nofollow" title="BikeWale App on Google Play">BikeWale App on Google Play</a>
                 </div>
             </div>
             <div class="margin-top15 margin-bottom15">

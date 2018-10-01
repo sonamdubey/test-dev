@@ -379,7 +379,7 @@ button.swiper-pagination-bullet { border: none; margin: 0; padding: 0; box-shado
 }
 
 /* sprite classes */
-.gplay-icon { background-position: 0 -339px; width: 114px; height: 40px; }
+.gplay-icon { width: 114px; height: 40px; display: inline-block; vertical-align: middle; font-size: 0; background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/logo/google-play.svg') no-repeat center; background-size: contain; }
 .error-icon { background-position: -177px -35px; width: 19px; height: 19px; position: absolute; right: 10px; top: 10px; z-index: 9; }
 .cityPopup-icon { background-position: -122px -333px; width: 58px; height: 52px; }
 .back-long-arrow-left { background-position: -155px 0;  width: 21px; height: 16px; }
@@ -487,31 +487,41 @@ button.swiper-pagination-bullet { border: none; margin: 0; padding: 0; box-shado
 .back-circle-icon { background-position: -107px -291px; }
 .swiper-container .swiper-slide:hover .back-circle-icon { background-position: -150px -291px; }
 
-.bg-footer { background: #323434; }
+.bg-footer { background: #333; }
 .cw-logo-label {
     font-size: 8px;
     color: #cfcfcf;
     margin-left: 13px;
-    position: relative;
-    top: -5px;
 }
 
 .bw-footer-icon {
     width: 73px;
     height: 20px;
-    background-position: 0 -547px;
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 0;
+    background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/logo/fff/bikewale.svg') no-repeat center;
+    background-size: contain;
     position: relative;
     top: 2px;
 }
 .cw-footer-icon {
     width: 69px;
     height: 12px;
-    background-position: -78px -516px;
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 0;
+    background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/logo/fff/carwale.svg') no-repeat center;
+    background-size: contain;
 }
 .ct-footer-icon {
     width: 93px;
     height: 17px;
-    background-position: -78px -534px;
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 0;
+    background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/logo/fff/cartrade.svg') no-repeat center;
+    background-size: contain;
     position: relative;
     top: 4px;
 }

@@ -68,21 +68,21 @@
             <div class="grid-3 footer-company-section-three">
                 <p class="font18 text-white margin-bottom30">Download Mobile App</p>
                 <div class="margin-bottom15">
-                    <a href="https://play.google.com/store/apps/details?id=com.bikewale.app&referrer=utm_source%3DDesktopsite%26utm_medium%3DFooter%26utm_campaign%3DBikeWale%2520Desktopsite%2520Footer" target="_blank" rel="noopener nofollow" class="bwsprite gplay-icon margin-right5"></a>
+                    <a href="https://play.google.com/store/apps/details?id=com.bikewale.app&referrer=utm_source%3DDesktopsite%26utm_medium%3DFooter%26utm_campaign%3DBikeWale%2520Desktopsite%2520Footer" target="_blank" rel="noopener nofollow" class="gplay-icon margin-right5" title="BikeWale App on Google Play">BikeWale App on Google Play</a>
                 </div>
             </div>
             <div class="clear"></div>
         </div>
         <div class="text-center padding-top10">
             <div class="grid-4">
-                <a href="/" class="bwsprite bw-footer-icon" title="Bikewale"></a>
+                <a href="/" class="bw-footer-icon" title="BikeWale">BikeWale</a>
             </div>
             <div class="grid-4">
-                <a href="https://www.carwale.com/" target="_blank" rel="noopener" class="bwsprite cw-footer-icon" title="CarWale"></a>
+                <a href="https://www.carwale.com/" target="_blank" rel="noopener" class="cw-footer-icon" title="CarWale">CarWale</a>
                 <p class="cw-logo-label">ask the experts</p>
             </div>
             <div class="grid-4">
-                <a href="https://www.cartrade.com/" target="_blank" rel="noopener" class="bwsprite ct-footer-icon" title="CarTrade"></a>
+                <a href="https://www.cartrade.com/" target="_blank" rel="noopener" class="ct-footer-icon" title="CarTrade">CarTrade</a>
             </div>
             <div class="clear"></div>
         </div>
