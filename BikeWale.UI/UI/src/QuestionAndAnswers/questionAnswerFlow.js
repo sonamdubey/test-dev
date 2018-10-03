@@ -42,8 +42,11 @@
                 switch(parseInt(pageSrc))
                 {
                     case 7: triggerGA('Write_Review', gaEventAction, makeModelName);
+                            break;
                     case 8: triggerGA('Rate_Bike', gaEventAction, makeModelName);
+                            break;
                     case 9: triggerGA("List_Used_Bike", gaEventAction, makeModelName);
+                            break;
                 }
                     
             }
