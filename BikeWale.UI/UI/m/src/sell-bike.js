@@ -1814,7 +1814,7 @@ var unansweredQuestions = function()
     {
         if(self.questions().length > 0)
         {
-            triggerGA("List_Used_Bike", "Answer_This_Question_Link_Displayed", self.makeName() + "_" + self.modelName());
+            triggerNonInteractiveGA("List_Used_Bike", "Answer_This_Question_Link_Displayed", self.makeName() + "_" + self.modelName());
         }
     }
 
