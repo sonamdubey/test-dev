@@ -60,7 +60,7 @@
 
 .question-answer-container
 	@include form-control-box
-	@include input-field(16, 'default', $font-semibold, 'deep-sky-blue', italic, 4px)
+	@include input-field($fontSize: 16, $color: 'default', $font-weight: $font-semibold, $focus-color: 'deep-sky-blue', $placeholder-style: italic, $border-radius: 4px, $padding: 12px 20px 20px)
 	@include area-control-box
 	@include text-area__character-count
 
