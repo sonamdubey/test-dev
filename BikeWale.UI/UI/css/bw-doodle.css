@@ -1,0 +1,209 @@
+﻿.header-fixed {
+	overflow: hidden;
+}
+.doodle__container {
+	position: absolute;
+	top: 0;
+	left: 135px;
+	display: inline-block;
+	width: 90px;
+	height: 50px;
+	overflow: hidden;
+	-webkit-transition: all linear 1s;
+	-moz-transition: all linear 1s;
+	-ms-transition: all linear 1s;
+	-o-transition: all linear 1s;
+	transition: all linear 1s;
+}
+.doodle__asset-one,
+.doodle__asset-two,
+.doodle__asset-three {
+	display: inline-block;
+	width: 55px;
+	position: absolute;
+}
+.doodle__asset-one,
+.doodle__asset-two {
+	-webkit-animation: left-hand-animation infinite 2s alternate;
+	-moz-animation: left-hand-animation infinite 2s alternate;
+	-ms-animation: left-hand-animation infinite 2s alternate;
+	-o-animation: left-hand-animation infinite 2s alternate;
+	animation: left-hand-animation infinite 2s alternate;
+}
+.doodle__asset-one {
+	height: 10px;
+	top: 29px;
+  left: 17px;	
+	background: url('https://imgd.aeplcdn.com/0x0/cw/static/icons/doodle/navratri/2018/doodle-asset-2.png') no-repeat center left / contain;
+	background-size: contain;
+	z-index: 3;
+	
+}
+.doodle__asset-two {
+	top: 19px;
+	left: 15px;
+	background: url('https://imgd.aeplcdn.com/0x0/cw/static/icons/doodle/navratri/2018/doodle-asset-1.png') no-repeat center left / contain;
+	height: 14px;
+}
+.doodle__asset-three {
+	top: 24px;
+	right: 14px;
+	background: url('https://imgd.aeplcdn.com/0x0/cw/static/icons/doodle/navratri/2018/doodle-asset-3.png') no-repeat center right / contain;
+	height: 15px;
+	-webkit-animation: right-hand-animation infinite 2s alternate;
+	-moz-animation: right-hand-animation infinite 2s alternate;
+	-ms-animation: right-hand-animation infinite 2s alternate;
+	-o-animation: right-hand-animation infinite 2s alternate;
+	animation: right-hand-animation infinite 2s alternate;
+}
+.doodle__block {
+	display: block;
+	height: 50px;
+	width: 50px;
+	margin: 0 auto;
+	text-align: center;
+}
+.doodle__image {
+	position: absolute;
+	top: 0;
+	left: 18px;
+	display: inline-block;
+	width: 50px;
+	height: 50px;
+	background: transparent url('https://imgd.aeplcdn.com/0x0/cw/static/icons/doodle/navratri/2018/doodle.png') no-repeat center / contain;
+	z-index: 2;
+}
+
+.doodle__asset-one--zindex {
+	z-index: 3;
+}
+.doodle__bg {
+	display: inline-block;
+	width: 45px;
+	height: 48px;
+  margin-left: 5px;
+	background: url('https://imgd.aeplcdn.com/0x0/cw/static/icons/doodle/navratri/2018/doodle-bg.png') no-repeat center / contain;
+	-webkit-animation: doodleBgAnimation 8s infinite linear;
+	-moz-animation: doodleBgAnimation 8s infinite linear;
+	-ms-animation: doodleBgAnimation 8s infinite linear;
+	-o-animation: doodleBgAnimation 8s infinite linear;
+	animation: doodleBgAnimation 8s infinite linear;
+}
+@-webkit-keyframes left-hand-animation {
+0%,
+100%  {
+		-webkit-transform: rotate(5deg);
+		-moz-transform: rotate(5deg);
+		-ms-transform: rotate(5deg);
+		-o-transform: rotate(5deg);
+		 transform: rotate(5deg);
+  }
+50% {
+		-webkit-transform: rotate(-5deg);
+		-moz-transform: rotate(-5deg);
+		-ms-transform: rotate(-5deg);
+		-o-transform: rotate(-5deg);
+		transform: rotate(-5deg);
+  }
+}
+@keyframes left-hand-animation {
+0%,
+100% {
+		-webkit-transform: rotate(5deg);
+		-moz-transform: rotate(5deg);
+		-ms-transform: rotate(5deg);
+		-o-transform: rotate(5deg);
+		 transform: rotate(5deg);
+  }
+50% {
+		-webkit-transform: rotate(-5deg);
+		-moz-transform: rotate(-5deg);
+		-ms-transform: rotate(-5deg);
+		-o-transform: rotate(-5deg);
+		transform: rotate(-5deg);
+  }
+}
+@-webkit-keyframes right-hand-animation {
+0%,
+100% {
+		-webkit-transform: rotate(-5deg);
+		-moz-transform: rotate(-5deg);
+		-ms-transform: rotate(-5deg);
+		-o-transform: rotate(-5deg);
+		transform: rotate(-5deg);
+  }
+50% {
+		-webkit-transform: rotate(5deg);
+		-moz-transform: rotate(5deg);
+		-ms-transform: rotate(5deg);
+		-o-transform: rotate(5deg);
+		transform: rotate(5deg);
+  }
+}
+@keyframes right-hand-animation {
+0%,
+100% {
+		-webkit-transform: rotate(-5deg);
+		-moz-transform: rotate(-5deg);
+		-ms-transform: rotate(-5deg);
+		-o-transform: rotate(-5deg);
+		transform: rotate(-5deg);
+  }
+50% {
+		-webkit-transform: rotate(5deg);
+		-moz-transform: rotate(5deg);
+		-ms-transform: rotate(5deg);
+		-o-transform: rotate(5deg);
+		transform: rotate(5deg);
+  }
+}
+@-webkit-keyframes doodleBgAnimation {
+	0% {
+		-webkit-transform: rotate(0deg);
+		-moz-transform: rotate(0deg);
+		-ms-transform: rotate(0deg);
+		-o-transform: rotate(0deg);
+		transform: rotate(0deg);
+	}
+	100% {
+		-webkit-transform: rotate(359deg);
+		-moz-transform: rotate(359deg);
+		-ms-transform: rotate(359deg);
+		-o-transform: rotate(359deg);
+		transform: rotate(359deg);
+	}
+}
+@keyframes doodleBgAnimation {
+	0% {
+		-webkit-transform: rotate(0deg);
+		-moz-transform: rotate(0deg);
+		-ms-transform: rotate(0deg);
+		-o-transform: rotate(0deg);
+		transform: rotate(0deg);
+	}
+	100% {
+		-webkit-transform: rotate(359deg);
+		-moz-transform: rotate(359deg);
+		-ms-transform: rotate(359deg);
+		-o-transform: rotate(359deg);
+		transform: rotate(359deg);
+	}
+}
+@media screen and (min-width:768px) {
+	.doodle__container {
+		left: 165px;
+		height: 49px;
+	}
+	.doodle__image {
+		top: 1px;
+	}
+}
+@media screen and (max-width:359px) {
+	.doodle__container {
+		left: 130px;
+	}
+}
+.doodle--disable .doodle__container{
+	display: none;
+}
+		

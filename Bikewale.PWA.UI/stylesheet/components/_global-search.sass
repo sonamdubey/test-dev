@@ -1,3 +1,5 @@
+@import mixins/_vendor-prefix.sass
+
 .global-search-popup
 	position: fixed
 	left: 5px
@@ -53,3 +55,138 @@
 	width: 13px
 	height: 13px
 	background-position: -62px -246px
+
+.doodle__container
+	@include vendor-prefix('animation', all linear 1s)
+	position: absolute
+	top: 0
+	left: 135px
+	display: inline-block
+	width: 90px
+	height: 50px
+	overflow: hidden
+	
+
+.doodle__asset-one,
+.doodle__asset-two,
+.doodle__asset-three
+	display: inline-block
+	width: 55px
+	position: absolute
+
+.doodle__asset-one,
+.doodle__asset-two
+	@include vendor-prefix('animation', left-hand-animation infinite 2s alternate)
+
+.doodle__asset-one
+	height: 10px
+	top: 29px
+	left: 17px	
+	background: url('https://imgd.aeplcdn.com/0x0/cw/static/icons/doodle/navratri/2018/doodle-asset-2.png') no-repeat center left / contain
+	z-index: 3
+
+.doodle__asset-two
+	top: 19px
+	left: 15px
+	background: url('https://imgd.aeplcdn.com/0x0/cw/static/icons/doodle/navratri/2018/doodle-asset-1.png') no-repeat center left / contain
+	height: 14px
+
+.doodle__asset-three
+	@include vendor-prefix('animation', right-hand-animation infinite 2s alternate)
+	top: 24px
+	right: 14px
+	background: url('https://imgd.aeplcdn.com/0x0/cw/static/icons/doodle/navratri/2018/doodle-asset-3.png') no-repeat center right / contain
+	height: 15px
+	
+
+.doodle__block
+	display: block
+	height: 50px
+	width: 50px
+	margin: 0 auto
+	text-align: center
+
+.doodle__image
+	position: absolute
+	top: 0
+	left: 18px
+	display: inline-block
+	width: 50px
+	height: 50px
+	background: transparent url('https://imgd.aeplcdn.com/0x0/cw/static/icons/doodle/navratri/2018/doodle.png') no-repeat center / contain
+	z-index: 2
+
+.doodle__asset-one--zindex
+	z-index: 3
+
+.doodle__bg
+	@include vendor-prefix('animation', doodleBgAnimation 8s infinite linear)
+	display: inline-block
+	width: 45px
+	height: 48px
+	margin-top: -2px
+	margin-left: 5px
+	background: url('https://imgd.aeplcdn.com/0x0/cw/static/icons/doodle/navratri/2018/doodle-bg.png') no-repeat center / contain
+
+@-webkit-keyframes left-hand-animation
+	0%,
+	100% 
+		@include vendor-prefix('transform', rotate(5deg))
+
+	50%
+		@include vendor-prefix('transform', rotate(-5deg))
+
+@keyframes left-hand-animation
+	0%,
+	100% 
+		@include vendor-prefix('transform', rotate(5deg))
+
+	50%
+		@include vendor-prefix('transform', rotate(-5deg))
+
+	
+@-webkit-keyframes right-hand-animation
+	0%,
+	100%
+		@include vendor-prefix('transform', rotate(-5deg))
+
+	50%
+		@include vendor-prefix('transform', rotate(5deg))
+
+@keyframes right-hand-animation
+	0%,
+	100%
+		@include vendor-prefix('transform', rotate(-5deg))
+
+	50%
+		@include vendor-prefix('transform', rotate(5deg))
+
+@-webkit-keyframes doodleBgAnimation
+	0%
+		@include vendor-prefix('transform', rotate(0deg))
+ 
+	100%
+		@include vendor-prefix('transform', rotate(359deg))
+
+@keyframes doodleBgAnimation
+	0%
+		@include vendor-prefix('transform', rotate(0deg))
+
+	100%
+		@include vendor-prefix('transform', rotate(359deg))
+
+@media screen and (min-width:768px)
+	.doodle__container
+		height: 49px
+		left: 165px
+	
+	.doodle__image
+		top: 1px	
+
+@media screen and (max-width:359px)
+	.doodle__container
+		left: 130px
+	
+.doodle--disable
+	.doodle__container
+		display: none;

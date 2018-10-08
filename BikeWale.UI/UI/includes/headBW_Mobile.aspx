@@ -5,6 +5,17 @@
     <header>
         <div id="bw-header">
     	    <div class="header-fixed"> <!-- Fixed Header code starts here -->
+				<!-- Doodle start-->	
+				<span class="doodle__container bw-ga" data-cat="Doodle" data-act="Doodle_Click" data-lab="Navratri">	
+					<span class="doodle__asset-one"></span>	
+					<span class="doodle__asset-two"></span>
+					<span class="doodle__asset-three"></span>	
+					<span class="doodle__block">	
+						<span class="doodle__image"></span>	
+						<span class="doodle__bg"></span>	
+					</span>	
+				</span>	
+				<!--Doodle end-->
         	    <a href="/m/" id="bwheader-logo" title="BikeWale" class="bw-logo bw-lg-fixed-position">BikeWale</a>
            
                 <div class="leftfloat">

@@ -34,6 +34,7 @@
 <link href="<%= String.IsNullOrEmpty(staticUrlPath) ? "" : staticUrlPath %>/UI/css/style.css?<%= staticFilesVersion%>" rel="stylesheet" type="text/css" />
 <link href="<%= String.IsNullOrEmpty(staticUrlPath) ? "" : staticUrlPath %>/UI/css/960.css?<%= staticFilesVersion%>" rel="stylesheet" type="text/css" />
 <link href="<%= String.IsNullOrEmpty(staticUrlPath) ? "" : staticUrlPath %>/UI/css/bw-common-style.css?<%= staticFilesVersion%>" rel="stylesheet" type="text/css" />
+<link rel='stylesheet' type='text/css' href='/UI/css/bw-doodle.css' />
 
 <script type="text/javascript" src="<%= staticUrlPath %>/UI/src/frameworks.js?<%= staticFilesVersion %>"></script>
 <script type="text/javascript" src="<%= staticUrlPath  %>/UI/src/BikeWaleCommon.js?v=1.2"></script>

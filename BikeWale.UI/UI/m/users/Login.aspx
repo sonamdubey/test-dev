@@ -17,6 +17,17 @@
         <!-- #include file="/UI/includes/Navigation_Mobile.aspx" -->
         
         <div id="header" class="header-fixed"> <!-- Header code starts here -->
+			<!-- Doodle start-->	
+			<span class="doodle__container bw-ga" data-cat="Doodle" data-act="Doodle_Click" data-lab="Navratri">	
+				<span class="doodle__asset-one"></span>	
+				<span class="doodle__asset-two"></span>
+				<span class="doodle__asset-three"></span>	
+				<span class="doodle__block">	
+					<span class="doodle__image"></span>	
+					<span class="doodle__bg"></span>	
+				</span>	
+			</span>	
+			<!--Doodle end-->
             <div class="leftfloat">
                 <span id="navbarBtn" class="navbarBtn bwm-navbarBtn nav-icon margin-right25"></span>
                 <a href="/" id="bwheader-logo" class="bw-logo" title="BikeWale">BikeWale</a>
