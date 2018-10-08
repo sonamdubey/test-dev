@@ -14,11 +14,13 @@ namespace Bikewale.Interfaces.BikeData
     /// Modified by :   Rajan Chauhan on 11 Apr 2017
     /// Description :   Removed GetSpecifications.
     /// Modifier    : Kartik Rathod on 11 May 2018, added GetSimilarBikesForEMI
+    /// Modified By : Prabhu Puredla on 28 sept 2018
+    /// Descritption : Removed cityId parameter in GetSimilarBikesList method
     /// </summary>
     public interface IBikeVersionCacheRepository<T, U>
     {
 
-        IEnumerable<SimilarBikeEntity> GetSimilarBikesList(U versionId, uint topCount, uint cityid);
+        IEnumerable<SimilarBikeEntity> GetSimilarBikesList(U versionId, uint topCount);
         IEnumerable<SimilarBikeEntity> GetSimilarBikesByModel(U modelId, uint topCount, uint cityid);
         IEnumerable<SimilarBikeEntity> GetSimilarBikesByMinPriceDiff(U modelId, uint topCount, uint cityid);
         List<BikeVersionsListEntity> GetVersionsByType(EnumBikeType requestType, int modelId, int? cityId = null);

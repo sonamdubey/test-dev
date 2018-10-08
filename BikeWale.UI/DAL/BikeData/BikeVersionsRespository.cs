@@ -458,23 +458,24 @@ namespace Bikewale.DAL.BikeData
         /// Description : Removed MinSpecs code
         /// Modified by : Ashutosh Sharma on 05 Apr 2018.
         /// Description : Changed sp from 'getsimilarbikeslist_02102017' to 'getsimilarbikeslist_05042018' to remove min specs.
+        /// Modified by : Prabhu Puredla on 26 sep 2018.
+        /// Description : Changed sp from 'getsimilarbikeslist_05042018' to 'getsimilarbikeslist_26092018' to remove prices dependency.
         /// </summary>
-        /// <param name="versionId"></param>
+        /// <param name="modelId"></param>
         /// <param name="topCount"></param>
         /// <param name="cityid"></param>
         /// <returns></returns>
-        public IEnumerable<SimilarBikeEntity> GetSimilarBikesList(U versionId, uint topCount, uint cityid)
+        public IEnumerable<SimilarBikeEntity> GetSimilarBikesList(U modelId, uint topCount)
         {
             ICollection<SimilarBikeEntity> objSimilarBikes = null;
             try
             {
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
-                    cmd.CommandText = "getsimilarbikeslist_05042018";
+                    cmd.CommandText = "getsimilarbikeslist_26092018";
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_bikeversionid", DbType.Int32, versionId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelId", DbType.Int32, modelId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_topcount", DbType.Int32, topCount));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityid));
 
                     using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
@@ -482,6 +483,7 @@ namespace Bikewale.DAL.BikeData
                         {
                             objSimilarBikes = new Collection<SimilarBikeEntity>();
                             SimilarBikeEntity objBike;
+
                             while (dr.Read())
                             {
                                 objBike = new SimilarBikeEntity();
@@ -493,16 +495,12 @@ namespace Bikewale.DAL.BikeData
                                 objBike.ModelBase.MaskingName = Convert.ToString(dr["modelmaskingname"]);
                                 objBike.VersionBase.VersionId = SqlReaderConvertor.ToInt32(dr["versionid"]);
                                 objBike.HostUrl = Convert.ToString(dr["hosturl"]);
-                                objBike.MinPrice = SqlReaderConvertor.ToInt32(dr["versionprice"]);
-                                objBike.VersionPrice = SqlReaderConvertor.ToInt32(dr["versionprice"]);
                                 objBike.AvgExShowroomPrice = SqlReaderConvertor.ToUInt32(dr["AvgPrice"]);
                                 objBike.OriginalImagePath = dr["originalimagepath"].ToString();
                                 objBike.ReviewCount = Convert.ToUInt16(dr["reviewcount"]);
                                 objBike.ReviewRate = Convert.ToDouble(dr["reviewrate"]);
                                 objBike.LargePicUrl = "/bikewaleimg/models/" + Convert.ToString(dr["largePic"]);
                                 objBike.SmallPicUrl = "/bikewaleimg/models/" + Convert.ToString(dr["smallPic"]);
-                                objBike.CityName = Convert.ToString(dr["cityname"]);
-                                objBike.CityMaskingName = Convert.ToString(dr["CityMaskingName"]);
                                 objSimilarBikes.Add(objBike);
                             }
                             dr.Close();

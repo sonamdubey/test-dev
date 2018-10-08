@@ -1,7 +1,7 @@
-﻿
-using AutoMapper;
+﻿using AutoMapper;
 using Bikewale.DAL.CoreDAL;
 using Bikewale.ElasticSearch.Entities;
+using Bikewale.Entities.BikeData;
 using Bikewale.Entities.NewBikeSearch;
 using Bikewale.Interfaces.NewBikeSearch;
 using Bikewale.Notifications;
@@ -20,6 +20,8 @@ namespace Bikewale.BAL.BikeSearch
     /// Description: Added GetDocuments function and modified GetBikeSearch to get price according to the city using the bikewalepricingindex.
     /// Modified by : SnehaL Dange on 16th April 2018
     /// Description: Added 
+    /// Modified By : Prabhu Puredla on 28 sept 2018
+    /// Descritption : Fetching prices from elastic index
     /// </summary>
     public class BikeSearch : IBikeSearch
     {
@@ -42,6 +44,9 @@ namespace Bikewale.BAL.BikeSearch
 
         private static readonly byte _modelStatus = 1;// by defaut all new bikes status
         private static readonly byte _versionStatus = 1;
+
+        private static readonly string _modelId = "bikeModel.modelId";
+
 
         public BikeSearch()
         {
@@ -608,5 +613,93 @@ namespace Bikewale.BAL.BikeSearch
             return Mapper.Map<IEnumerable<Bikewale.ElasticSearch.Entities.PriceEntity>, IEnumerable<Bikewale.Entities.NewBikeSearch.PriceEntity>>(obj);
         }
 
+        /// <summary>
+        /// Created By   : Prabhu Puredla on 28 sept 2018
+        /// Descritption : Fetching prices from elastic index
+        /// </summary>
+        /// <param name="modelIds"></param>
+        /// <param name="cityId"></param>
+        /// <param name="source"></param>
+        /// <returns></returns>
+        public IEnumerable<BikeTopVersion> GetBikePriceSearchList(IEnumerable<int> modelIds, uint cityId, BikeSearchEnum source)
+        {
+           
+            try
+            {
+                string indexName = GetIndexName(source);
+                string typeName = GetTypeName(source);
+
+                if (_client != null && modelIds != null)
+                {
+                    Func<SearchDescriptor<BikeTopVersion>, SearchDescriptor<BikeTopVersion>> searchDescriptor = BuildPriceSearchDescriptor<BikeTopVersion>(modelIds, cityId, indexName, typeName);
+
+                    if (searchDescriptor != null)
+                    {
+                        ISearchResponse<BikeTopVersion> _result = _client.Search(searchDescriptor);
+                        if (_result != null)
+                        {
+                            return _result.Documents;  
+                            
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("Exception : Bikewale.BAL.BikeSearch.GetBikePriceSearchList"));
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Created By : Prabhu Puredla on 28 sept 2018
+        /// Descritption : Build search descriptor to fetch Price documents in ES
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="modelIds"></param>
+        /// <param name="cityId"></param>
+        /// <param name="indexName"></param>
+        /// <param name="typeName"></param>
+        /// <returns></returns>
+        private Func<SearchDescriptor<T>, SearchDescriptor<T>> BuildPriceSearchDescriptor<T>(IEnumerable<int> modelIds, uint cityId, string indexName, string typeName) where T : class
+        {
+            Func<SearchDescriptor<T>, SearchDescriptor<T>> searchDescriptor = null;
+            if (modelIds != null)
+            {
+                searchDescriptor = new Func<SearchDescriptor<T>, SearchDescriptor<T>>(
+                        sd => sd.Index(indexName).Type(typeName)
+                                    .Query(q => q
+                                    .Bool(bq => bq
+                                    .Filter(ff => ff
+                                        .Bool(bb => bb.
+                                            Must(ProcessBikes(modelIds, cityId)))))));
+
+            }
+            return searchDescriptor;
+        }
+
+        /// <summary>
+        /// Created By : Prabhu Puredla on 28 sept 2018
+        /// Descritption : Creates the query with given data
+        /// </summary>
+        /// <param name="modelIds"></param>
+        /// <param name="cityId"></param>
+        /// <returns></returns>
+        private QueryContainer ProcessBikes(IEnumerable<int> modelIds, uint cityId)
+        {
+            QueryContainer query = new QueryContainer();
+            QueryContainerDescriptor<BikeTopVersion> FDS = new QueryContainerDescriptor<BikeTopVersion>();
+
+            if (modelIds.Any())
+            {
+                QueryContainer qtmp = new QueryContainer();
+                foreach (var modelId in modelIds)
+                {
+                    qtmp |= FDS.Term(_modelId, modelId) & FDS.Term(_cityId, cityId);
+                }
+                query &= qtmp;
+            }
+            return query;
+        }
     }
 }

@@ -1,5 +1,4 @@
 ﻿
-
 using Bikewale.Interfaces.AutoBiz;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.PriceQuote;
@@ -54,5 +53,31 @@ namespace Bikewale.Cache.PriceQuote
 			}
 			return mlaMakeCities;
 		}
+
+        /// <summary>
+        ///  Author     :   Kartik Rathod on 28 sept 2018
+        ///  Desc       :    Give nearest dealer ids and cache for 12 hours  new key introducd BW_NearestDealer_C_{0}_M_{1}
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <param name="cityId"></param>
+        /// <returns></returns>
+        public IEnumerable<uint> GetNearestDealer(uint modelId, uint cityId)
+        {
+            IEnumerable<uint> objDealerList = null;
+            try
+            {
+                if (modelId > 0 && cityId > 0)
+                {
+                    string key = string.Format("BW_NearestDealer_M_{0}_C_{1}", modelId, cityId);
+                    objDealerList = _cache.GetFromCache<IEnumerable<uint>>(key, new TimeSpan(12, 0, 0), () => _objDealerPQ.GetNearestDealer(modelId, cityId));
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, String.Format("DealerPriceQuoteCache : GetNearestDealer({0},{1}", modelId, cityId));
+            }
+            return objDealerList;
+        }
+
     }
 }

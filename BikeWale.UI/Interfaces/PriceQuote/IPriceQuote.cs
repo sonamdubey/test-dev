@@ -34,6 +34,7 @@ namespace Bikewale.Interfaces.PriceQuote
         IEnumerable<PriceQuoteOfTopCities> FetchPriceQuoteOfTopCities(uint modelId, uint topCount);
         IEnumerable<PriceQuoteOfTopCities> GetModelPriceInNearestCities(uint modelId, uint cityId, ushort topCount);
         IEnumerable<BikeQuotationEntity> GetVersionPricesByModelId(uint modelId, uint cityId, out bool HasArea);
+        IEnumerable<BikeQuotationEntity> GetVersionPricesByModelId(uint modelId, uint cityId);
         BikeQuotationEntity GetPriceQuoteById(ulong p, Entities.BikeBooking.LeadSourceEnum leadSourceEnum);
         IDictionary<uint, List<ManufacturerDealer>> GetManufacturerDealers(uint dealerId);
         string RegisterPriceQuoteV2(Bikewale.Entities.PriceQuote.v2.PriceQuoteParametersEntity pqParams);

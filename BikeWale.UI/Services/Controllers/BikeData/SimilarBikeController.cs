@@ -19,9 +19,9 @@ namespace Bikewale.Service.Controllers.BikeData
     /// </summary>
     public class SimilarBikeController : CompressionApiController//ApiController
     {
-        private readonly IBikeVersions<BikeVersionEntity, int> _objVersion = null;
+        private readonly IBikeVersions<BikeVersionEntity, uint> _objVersion = null;
 
-        public SimilarBikeController(IBikeVersions<BikeVersionEntity, int> objVersion)
+        public SimilarBikeController(IBikeVersions<BikeVersionEntity, uint> objVersion)
         {
             _objVersion = objVersion;
         }
@@ -32,7 +32,7 @@ namespace Bikewale.Service.Controllers.BikeData
         /// <param name="versionId">Version Id</param>
         /// <param name="topCount">Top Count (Optional)</param>
         /// <returns></returns>
-        public IHttpActionResult Get(int versionId, uint topCount)
+        public IHttpActionResult Get(uint versionId, uint topCount)
         {
             Bikewale.DTO.BikeData.SimilarBikeList objSimilar = new Bikewale.DTO.BikeData.SimilarBikeList();
             try

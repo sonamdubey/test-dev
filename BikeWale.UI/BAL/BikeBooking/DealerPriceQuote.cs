@@ -26,6 +26,8 @@ namespace Bikewale.BAL.BikeBooking
 {
     /// <summary>
     /// Created By : Sadhana Upadhyay on 24 Oct 2014
+    /// Modofier    :Kartik Rathod on 28 sept 2018
+    /// Desc        : Added dependancy of IDealerPriceQuoteCache,ICacheManager
     /// </summary>
     public class DealerPriceQuote : Bikewale.Interfaces.BikeBooking.IDealerPriceQuote
     {
@@ -47,12 +49,14 @@ namespace Bikewale.BAL.BikeBooking
             _container.RegisterType<IManufacturerCampaignRepository, ManufacturerCampaignRepository>();
             _container.RegisterType<IManufacturerCampaign, ManufacturerCampaign.BAL.ManufacturerCampaign>();
             _container.RegisterType<IApiGatewayCaller, ApiGatewayCaller>();
-
-
+            
             _abContainer = new UnityContainer();
 
             _abContainer.RegisterType<IDealer, Bikewale.BAL.AutoBiz.Dealers>();
-            _abContainer.RegisterType<Bikewale.Interfaces.AutoBiz.IDealerPriceQuote, DealerPriceQuoteRepository>();            
+            _abContainer.RegisterType<Bikewale.Interfaces.AutoBiz.IDealerPriceQuote, DealerPriceQuoteRepository>();
+            _abContainer.RegisterType<Bikewale.Interfaces.PriceQuote.IDealerPriceQuoteCache, DealerPriceQuoteCache>();
+            _abContainer.RegisterType<ICacheManager, MemcacheManager>(); 
+
         }
 
         public DealerPriceQuote()
@@ -62,7 +66,8 @@ namespace Bikewale.BAL.BikeBooking
             _pqCache = _container.Resolve<IPriceQuoteCache>();
             _apiGatewayCaller = _container.Resolve<IApiGatewayCaller>();
             _objManufacturerCampaign = _container.Resolve<IManufacturerCampaign>();
-
+            _abContainer.Resolve<Bikewale.Interfaces.PriceQuote.IDealerPriceQuoteCache>();
+            _abContainer.Resolve<ICacheManager>();
         }
 
         /// <summary>

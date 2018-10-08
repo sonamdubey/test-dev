@@ -58,6 +58,8 @@ namespace Bikewale.Interfaces.BikeData
     /// 
     /// Modified By :   Deepak Israni on 14 June 2018
     /// Description :   Added new method GetQuestionAnswerModels to get model ids for which question and answers is active.
+    /// Modified By : Sanjay George on 1 Oct 2018
+    /// Description : Added method GetUsedBikeInfo 
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <typeparam name="U"></typeparam>
@@ -110,6 +112,7 @@ namespace Bikewale.Interfaces.BikeData
         ICollection<MostPopularBikesBase> GetPopularBikesByModelBodyStyle(int modelId, int topCount, uint cityId);
         GenericBikeInfo GetBikeInfo(uint modelId, uint cityId);
         GenericBikeInfo GetBikeInfo(uint modelId);
+        UsedBikeInfo GetUsedBikeInfo(uint modelId, uint cityId);
         BikeRankingEntity GetBikeRankingByCategory(uint modelId);
         IEnumerable<BikeMakeEntityBase> GetMakeIfVideo();
         IEnumerable<SimilarBikeWithVideo> GetSimilarBikesVideos(uint modelId, uint totalRecords, uint cityid);

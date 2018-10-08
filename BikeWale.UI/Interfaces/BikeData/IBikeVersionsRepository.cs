@@ -7,6 +7,8 @@ namespace Bikewale.Interfaces.BikeData
     /// Created By : Rajan Chauhan on 11 Apr 2018
     /// Summary    : Interface for bike versions DAL
     /// Modifier    : Kartik Rathod on 11 May 2018, added GetSimilarBikesForEMI
+    /// Modified By : Prabhu Puredla on 28 sept 2018
+    /// Descritption : Removed cityId parameter in GetSimilarBikesList method
     /// </summary>
     /// <typeparam name="T">Generic type (need to specify type while implementing this interface)</typeparam>
     /// <typeparam name="U">Generic type (need to specify type while implementing this interface)</typeparam>
@@ -15,7 +17,7 @@ namespace Bikewale.Interfaces.BikeData
         List<BikeVersionsListEntity> GetVersionsByType(EnumBikeType requestType, int modelId, int? cityId = null);
         BikeSpecificationEntity GetSpecifications(U versionId);
         IEnumerable<BikeVersionMinSpecs> GetVersionMinSpecs(uint modelId, bool isNew);
-        IEnumerable<SimilarBikeEntity> GetSimilarBikesList(U versionId, uint topCount, uint cityId);
+        IEnumerable<SimilarBikeEntity> GetSimilarBikesList(U modelId, uint topCount);
         IEnumerable<SimilarBikeEntity> GetSimilarBikesByModel(U modelId, uint topCount, uint cityId);
         IEnumerable<SimilarBikeEntity> GetSimilarBudgetBikes(U modelId, uint topCount, uint cityId);
 

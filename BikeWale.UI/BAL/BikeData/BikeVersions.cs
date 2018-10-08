@@ -1,27 +1,24 @@
 ﻿using Bikewale.BAL.ApiGateway.ApiGatewayHelper;
 using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
-﻿using Bikewale.Cache.BikeData;
-using Bikewale.Cache.Core;
 using Bikewale.BAL.ApiGateway.Adapters.BikeData;
-using Bikewale.BAL.ApiGateway.ApiGatewayHelper;
 using Bikewale.BAL.ApiGateway.Entities.BikeData;
-using Bikewale.DAL.BikeData;
-using Bikewale.Entities.BikeData;
-using Bikewale.Interfaces.BikeData;
-using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Notifications;
-using Microsoft.Practices.Unity;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Bikewale.Interfaces.NewBikeSearch;
+using Bikewale.Entities.NewBikeSearch;
+using System.Collections.ObjectModel;
+using log4net;
+using System.Diagnostics;
 
 namespace Bikewale.BAL.BikeData
 {
 	/// <summary>
 	/// Created By : Ashish G. Kamble on 24 Apr 2014
-	/// Summary : Class have all functions related to the bike versions.
+	/// Summary : Class have all functions related to the bike versions. 
 	/// </summary>
 	/// <typeparam name="T"></typeparam>
 	/// <typeparam name="U"></typeparam>
@@ -29,13 +26,18 @@ namespace Bikewale.BAL.BikeData
 	{
 		private IBikeVersionsRepository<T, U> _versionRepository = null;
 		private IBikeVersionCacheRepository<T, U> _versionCacheRepository;
+        private IBikeVersionCacheRepository<T, uint> _uVersionCacheRepository;
 		private readonly IApiGatewayCaller _apiGatewayCaller;
+        private readonly IBikeSearch _bikeSearch;
+        private static readonly ILog _logger = LogManager.GetLogger(typeof(BikeVersions<T, U>));
 
-		public BikeVersions(IBikeVersionsRepository<T, U> versionRepository, IBikeVersionCacheRepository<T, U> versionCacheRepository, IApiGatewayCaller apiGatewayCaller)
+        public BikeVersions(IBikeVersionsRepository<T, U> versionRepository, IBikeVersionCacheRepository<T, U> versionCacheRepository, IBikeVersionCacheRepository<T, uint> uVersionCacheRepository, IApiGatewayCaller apiGatewayCaller, IBikeSearch bikeSearch)
 		{
 			_apiGatewayCaller = apiGatewayCaller;
 			_versionRepository = versionRepository;
 			_versionCacheRepository = versionCacheRepository;
+            _uVersionCacheRepository = uVersionCacheRepository;
+            _bikeSearch = bikeSearch;
 		}
 
 		/// <summary>
@@ -136,39 +138,111 @@ namespace Bikewale.BAL.BikeData
 		/// Description : Binding of specs to similarBikesList from SpecsFeatures MS
 		/// Modified By : Rajan Chauhan on 17 Apr 2018
 		/// Description : Added maxTorqueRequired param to cater to SimilarBike API
+        /// Modified By : Prabhu Puredla on 28 sept 2018
+        /// Descritption : Fetching prices from elastic index
 		/// </summary>
 		/// <param name="versionId"></param>
 		/// <param name="topCount"></param>
-		/// <param name="cityid"></param>
+		/// <param name="cityId"></param>
 		/// <param name="maxTorqueRequired"></param>
 		/// <returns></returns>
-		public IEnumerable<SimilarBikeEntity> GetSimilarBikesList(U versionId, uint topCount, uint cityid, bool maxTorqueRequired)
-		{
+		public IEnumerable<SimilarBikeEntity> GetSimilarBikesList(U versionId, uint topCount, uint cityId, bool maxTorqueRequired)
+        {
+            var watch = Stopwatch.StartNew();
+            Stopwatch watch2 = null;
 			try
 			{
-				IEnumerable<SimilarBikeEntity> similarBikesList = _versionCacheRepository.GetSimilarBikesList(versionId, topCount, cityid);
-				if (similarBikesList != null && similarBikesList.Any())
-				{
-					IList<EnumSpecsFeaturesItems> specItemList = new List<EnumSpecsFeaturesItems>{
+                BikeVersionEntity version = _versionCacheRepository.GetById(versionId);
+                IEnumerable<SimilarBikeEntity> similarBikesList = null;
+                
+                if(version != null)
+                {
+                    similarBikesList = _uVersionCacheRepository.GetSimilarBikesList(Convert.ToUInt32(version.ModelBase.ModelId), topCount);
+                    if (similarBikesList != null && similarBikesList.Any())
+                    {
+                        watch2 = System.Diagnostics.Stopwatch.StartNew();
+                        PopulateSimilarBikePrices(similarBikesList, cityId);
+                        watch2.Stop();
+                        watch.Stop();
+
+                        IList<EnumSpecsFeaturesItems> specItemList = new List<EnumSpecsFeaturesItems>{
                         EnumSpecsFeaturesItems.Displacement,
                         EnumSpecsFeaturesItems.FuelEfficiencyOverall,
                         EnumSpecsFeaturesItems.MaxPowerBhp,
                         EnumSpecsFeaturesItems.KerbWeight
-                    };
-					if (maxTorqueRequired)
-					{
-						specItemList.Add(EnumSpecsFeaturesItems.MaximumTorqueNm);
-					}
-					BindMinSpecs(similarBikesList, specItemList);
-				}
+                        };
+                        if (maxTorqueRequired)
+                        {
+                            specItemList.Add(EnumSpecsFeaturesItems.MaximumTorqueNm);
+                        }
+                        BindMinSpecs(similarBikesList, specItemList);
+                    }
+                }
+                
 				return similarBikesList;
 			}
 			catch (Exception ex)
 			{
-				ErrorClass.LogError(ex, String.Format("Bikewale.BAL.BikeData.Bikeversions.GetSimilarBikesList({0}, {1}, {2})", versionId, topCount, cityid));
+				ErrorClass.LogError(ex, String.Format("Bikewale.BAL.BikeData.Bikeversions.GetSimilarBikesList({0}, {1}, {2})", versionId, topCount, cityId));
 			}
+            finally
+            {
+                ThreadContext.Properties["BAL_BikeVersion_GetSimilarBikes_Time"] = watch.ElapsedMilliseconds;
+                if(watch2 != null)
+                {
+                    ThreadContext.Properties["BAL_BikeVersion_GetSimilarBikes_ESTime"] = watch2.ElapsedMilliseconds;
+                }
+                _logger.Error("BAL_BikeVersion_GetSimilarBikes");
+            }
 			return null;
 		}
+        /// <summary>
+        /// Created By : Prabhu Puredla on 28 sept 2018
+        /// Descritption : Populate prices from ES
+        /// </summary>
+        /// <param name="similarBikesList"></param>
+        /// <param name="cityId"></param>
+        private void PopulateSimilarBikePrices(IEnumerable<SimilarBikeEntity> similarBikesList, uint cityId)
+        {
+            try
+            {
+                IEnumerable<int> modelIds = similarBikesList.Select(model => model.ModelBase.ModelId);
+                IEnumerable<BikeTopVersion> similarBikePrices = _bikeSearch.GetBikePriceSearchList(modelIds, cityId, BikeSearchEnum.PriceList);
+
+                IDictionary<uint, uint> pricesDictionary = new Dictionary<uint, uint>();
+                if (similarBikePrices != null && similarBikePrices.Any())
+                {
+                    string cityName = similarBikePrices.First().City.CityName;//city name is constant for all items in ienumerable
+                    foreach (var bike in similarBikePrices)
+                    {
+                        if (bike.VersionPrice != null)
+                        {
+                            foreach (var bikePrice in bike.VersionPrice)
+                            {
+                                if (!pricesDictionary.ContainsKey(bikePrice.VersionId))
+                                {
+                                    pricesDictionary.Add(bikePrice.VersionId, bikePrice.PriceList.First().PriceValue);
+                                }
+                            }
+                        }
+                    }
+
+                    foreach (var similarBike in similarBikesList)
+                    {
+                        uint versionPrice;
+                        if (pricesDictionary.TryGetValue((uint)similarBike.VersionBase.VersionId, out versionPrice))
+                        {
+                            similarBike.VersionPrice = similarBike.MinPrice = (int)versionPrice;
+                        }
+                        similarBike.CityName = cityName;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "Bikewale.BAL.BikeData.Bikeversions.PopulateSimilarBikePrices");
+            }
+        }
 
 		public IEnumerable<SimilarBikeEntity> GetSimilarBikesByModel(U modelId, uint topCount, uint cityid)
 		{

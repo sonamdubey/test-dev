@@ -52,7 +52,7 @@ namespace Bikewale.Models
             try
             {
                 objVM = new BikeInfoVM();
-                objVM.BikeInfo = _bikeInfo.GetBikeInfo(_modelId, _cityId);
+                objVM.BikeInfo = _bikeInfo.GetBikeInfo(_modelId, _cityId, true);
                 GenericBikeInfo bikeInfo = objVM.BikeInfo;
                 if (bikeInfo != null)
                 {

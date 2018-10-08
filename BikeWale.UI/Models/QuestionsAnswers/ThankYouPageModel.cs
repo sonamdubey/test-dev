@@ -70,7 +70,7 @@ namespace Bikewale.Models.QuestionsAnswers
 
                 if (UInt32.TryParse(queryCollection["modelId"], out modelId))
                 {
-                    GenericBikeInfo bikeData = _bikeInfo.GetBikeInfo(modelId, 1);
+                    GenericBikeInfo bikeData = _bikeInfo.GetBikeInfo(modelId, 1, false);
 
                     if (bikeData != null && bikeData.Make != null && bikeData.Model != null)
                     {

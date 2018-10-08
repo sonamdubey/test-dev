@@ -46,9 +46,9 @@ namespace Bikewale.Models
         /// <param name="versionId"></param>
         /// <param name="pqSource"></param>
         public SimilarBikesWidget(IBikeVersions<BikeVersionEntity, uint> objVersion
-            , uint versionId, PQSourceEnum pqSource)
+            , uint modelId, PQSourceEnum pqSource)
         {
-            _versionId = versionId;
+            _modelId = modelId;
             _pqSource = pqSource;
             _objVersion = objVersion;
         }
@@ -111,7 +111,7 @@ namespace Bikewale.Models
                 objVM.ShowPriceInCityCTA = _showPriceInCityCTA;
                 if (!_similarBikesByModel)
                 {
-                    objVM.Bikes = _objVersion.GetSimilarBikesList(_versionId, TopCount, CityId, false);
+                    objVM.Bikes = _objVersion.GetSimilarBikesList(_modelId, TopCount, CityId, false);
                 }
                 else
                 {

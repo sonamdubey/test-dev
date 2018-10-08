@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
-using System.Collections.Generic;
 
 namespace Bikewale.Entities.PWA.Articles
 {

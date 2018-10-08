@@ -11,6 +11,8 @@ namespace Bikewale.Interfaces.PriceQuote
     /// Author : Vivek Gupta
     /// Date : 20-05-2016
     /// Description : Price Quote Cache method references
+    /// Modified by : Rajan Chauhan on 28 September 2018
+    /// Description : Added GetVersionPricesByModelId method
     /// </summary>
     public interface IPriceQuoteCache
     {
@@ -23,5 +25,6 @@ namespace Bikewale.Interfaces.PriceQuote
 
         string GetManufacturerCampaignMobileRenderedTemplate(string key, ManufactureCampaignLeadEntity leadCampaign);
         string GetManufacturerCampaignMobileRenderedTemplateV2(string key, Entities.manufacturecampaign.v2.ManufactureCampaignLeadEntity leadCampaign);
+        IEnumerable<BikeQuotationEntity> GetVersionPricesByModelId(uint modelId, uint cityId);
     }
 }

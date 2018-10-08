@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Bikewale.Entities.PriceQuote
 {
@@ -18,7 +19,10 @@ namespace Bikewale.Entities.PriceQuote
     /// Description : Removed IsGstPrice property
     /// Modifeid by Sajal on 02-11-2017
     /// Desc :  Added IsScooterOnly
+    /// Modified by : Rajan Chauhan on 28 September 2018
+    /// Description : Made the entity serializable
     /// </summary>
+    [Serializable]
     public class BikeQuotationEntity
     {
         public ulong PriceQuoteId { get; set; }

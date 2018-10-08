@@ -8,26 +8,38 @@ using log4net;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
+using Microsoft.Practices.Unity;
 
 
 namespace Bikewale.Cache.PriceQuote
 {
     /// Created By : Vivek Gupta on 20-05-2016
+    /// Modified By : Monika Korrapati on 27 Sept 2018
+    /// Description : DealerPriceQuoteRepository of DAL layer resolving instead of BAL.
     public class PriceQuoteCache : IPriceQuoteCache
     {
         private readonly ICacheManager _cache = null;
         private readonly IPriceQuote _obPriceQuote = null;
-        private readonly Bikewale.Interfaces.BikeBooking.IDealerPriceQuote _dealerPQRepository = null;
+        private readonly Bikewale.Interfaces.BikeBooking.IDealerPriceQuote _dealerPriceQuoteRepository ;
         private readonly Bikewale.Interfaces.AutoBiz.IDealerPriceQuote _objDealerPriceQuote = null;
+        private readonly static IUnityContainer _container;
 
         private static readonly ILog _logger = LogManager.GetLogger(typeof(PriceQuoteCache));
-        public PriceQuoteCache(ICacheManager cache, IPriceQuote obPriceQuote, Bikewale.Interfaces.BikeBooking.IDealerPriceQuote dealerPQRepository, Bikewale.Interfaces.AutoBiz.IDealerPriceQuote objDealerPriceQuote)
+
+        static PriceQuoteCache()
+        {
+            _container = new UnityContainer();
+            _container.RegisterType<Bikewale.Interfaces.BikeBooking.IDealerPriceQuote, Bikewale.DAL.BikeBooking.DealerPriceQuoteRepository>();
+        }
+
+        public PriceQuoteCache(ICacheManager cache, IPriceQuote obPriceQuote,  Bikewale.Interfaces.AutoBiz.IDealerPriceQuote objDealerPriceQuote)
         {
             _cache = cache;
             _obPriceQuote = obPriceQuote;
-            _dealerPQRepository = dealerPQRepository;
             _objDealerPriceQuote = objDealerPriceQuote;
+            _dealerPriceQuoteRepository = _container.Resolve<Bikewale.Interfaces.BikeBooking.IDealerPriceQuote>();
         }
 
         /// <summary>
@@ -79,7 +91,13 @@ namespace Bikewale.Cache.PriceQuote
             return prices;
         }
 
-
+        /// <summary>
+        /// Modified by  : Rajan Chauhan on 28 September 2018
+        /// Description  : Increased cached duration to 7 days
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <param name="cityId"></param>
+        /// <returns></returns>
         public IEnumerable<OtherVersionInfoEntity> GetOtherVersionsPrices(uint modelId, uint cityId)
         {
             IEnumerable<OtherVersionInfoEntity> versions = null;
@@ -87,7 +105,7 @@ namespace Bikewale.Cache.PriceQuote
             string key = String.Format("BW_VersionPrices_M_{0}_C_{1}", modelId, cityId);
             try
             {
-                versions = _cache.GetFromCache<IEnumerable<OtherVersionInfoEntity>>(key, new TimeSpan(6, 0, 0), () => _obPriceQuote.GetOtherVersionsPrices(modelId, cityId));
+                versions = _cache.GetFromCache<IEnumerable<OtherVersionInfoEntity>>(key, new TimeSpan(7, 0, 0, 0), () => _obPriceQuote.GetOtherVersionsPrices(modelId, cityId));
             }
             catch (Exception ex)
             {
@@ -129,22 +147,31 @@ namespace Bikewale.Cache.PriceQuote
         /// <summary>
         /// Created by  :   Sumit Kate on 16 Mar 2018
         /// Description :   Get GetDefaultPriceQuoteVersion by calling DAL
+        /// Modified by :   Monika Korrapati on 28 Sept 2018
+        /// Description :   Increased cache timing to 30 days
         /// </summary>
         /// <param name="modelId"></param>
         /// <param name="cityId"></param>
         /// <returns></returns>
         public uint GetDefaultPriceQuoteVersion(uint modelId, uint cityId)
         {
+            DateTime dt1 = DateTime.Now, dt2;
             uint versionId = 0;
             string key = String.Format("BW_DefaultPQVersion_{0}_{1}", modelId, cityId);
             try
             {
-                versionId = _cache.GetFromCache<uint>(key, new TimeSpan(24, 0, 0), () => _dealerPQRepository.GetDefaultPriceQuoteVersion(modelId, cityId));
+                versionId = _cache.GetFromCache<uint>(key, new TimeSpan(30, 0, 0, 0), () => _dealerPriceQuoteRepository.GetDefaultPriceQuoteVersion(modelId, cityId));
             }
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, String.Format("PriceQuoteCache.GetDefaultPriceQuoteVersion({0},{1})", modelId, cityId));
             }
+            finally
+            {
+                dt2 = DateTime.Now;
+                ThreadContext.Properties["DefaultPriceQuoteVersion_FetchTime"] = (dt2 - dt1).TotalMilliseconds;
+                _logger.Error("GetDefaultPriceQuoteVersion");
+            }     
             return versionId;
         }
 
@@ -205,9 +232,39 @@ namespace Bikewale.Cache.PriceQuote
             }
             catch (Exception ex)
             {
-                ErrorClass.LogError(ex, String.Format("GetManufacturerCampaignMobileRenderedTemplateV2()", leadCampaign.CampaignId));
+                ErrorClass.LogError(ex, String.Format("GetManufacturerCampaignMobileRenderedTemplateV2({0})", leadCampaign.CampaignId));
             }
             return null;
+        }
+
+        /// <summary>
+        /// Created by : Rajan Chauhan on 28 September 2018
+        /// Description : Created GetVersionPricesByModelId to get Bikewale VersionPrices
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <param name="cityId"></param>
+        /// <returns></returns>
+        public IEnumerable<BikeQuotationEntity> GetVersionPricesByModelId(uint modelId, uint cityId)
+        {
+            Stopwatch watch = Stopwatch.StartNew();
+            IEnumerable<BikeQuotationEntity> versionPrices = null;
+            try
+            {
+                string key = String.Format("BW_Version_PQ_M_{0}_C_{1}", modelId, cityId);
+                bool hasArea = false;
+                versionPrices = _cache.GetFromCache<IEnumerable<BikeQuotationEntity>>(key, new TimeSpan(7, 0, 0, 0), () => _obPriceQuote.GetVersionPricesByModelId(modelId, cityId, out hasArea));
+                watch.Stop();
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, String.Format("PriceQuoteCache.GetVersionPricesByModelId( {0}, {1})", modelId, cityId));
+            }
+            finally
+            {
+                ThreadContext.Properties["GetVersionPricesByModelId_Time"] = watch.ElapsedMilliseconds;
+                _logger.Error("GetVersionPricesByModelId");
+            }
+            return versionPrices;
         }
 
         /// <summary>

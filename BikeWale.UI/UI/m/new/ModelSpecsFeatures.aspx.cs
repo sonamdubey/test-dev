@@ -345,7 +345,7 @@ namespace Bikewale.Mobile
                 {
                    
                         var objVersion = _container.Resolve<IBikeVersions<BikeVersionEntity, uint>>();
-                        var objSimilarBikes = new SimilarBikesWidget(objVersion, versionId, PQSourceEnum.Desktop_DPQ_Alternative);
+                        var objSimilarBikes = new SimilarBikesWidget(objVersion, modelId, PQSourceEnum.Desktop_DPQ_Alternative);
 
                         objSimilarBikes.TopCount = 9;
                         objSimilarBikes.CityId = cityId;

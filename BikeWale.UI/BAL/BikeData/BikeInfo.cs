@@ -8,6 +8,10 @@ using Bikewale.Notifications;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using log4net;
+using Bikewale.Entities.NewBikeSearch;
+using System.Collections.ObjectModel;
+using Bikewale.Interfaces.NewBikeSearch;
 
 namespace Bikewale.BAL.BikeData
 {
@@ -19,15 +23,18 @@ namespace Bikewale.BAL.BikeData
     {
         private readonly IBikeModelsCacheRepository<int> _modelCache = null;
         private readonly IApiGatewayCaller _apiGatewayCaller;
+        private static readonly ILog _logger = LogManager.GetLogger(typeof(BikeInfo));
+        private readonly IBikeSearch _bikeSearch;
         /// <summary>
         /// Constructor to initialize all the dependencies
         /// </summary>
         /// <param name="_cache"></param>
         /// <param name="_genericBike"></param>
-        public BikeInfo(IBikeModelsCacheRepository<int> modelCache, IApiGatewayCaller apiGatewayCaller)
+        public BikeInfo(IBikeModelsCacheRepository<int> modelCache, IApiGatewayCaller apiGatewayCaller, IBikeSearch bikeSearch)
         {
             _modelCache = modelCache;
             _apiGatewayCaller = apiGatewayCaller;
+            _bikeSearch = bikeSearch;
         }
 
         /// <summary>
@@ -76,22 +83,52 @@ namespace Bikewale.BAL.BikeData
         /// Description : Added MinSpecsBinding to Generic BikeInfo
         /// Modified By : Rajan Chauhan on 23 Apr 2018
         /// Description : Added null check on genericBike
+        /// Modified By : Sanjay George on 1 Oct 2018
+        /// Description : Seperated flow for used bike info
         /// </summary>
-        public GenericBikeInfo GetBikeInfo(uint modelId, uint cityId)
+        public GenericBikeInfo GetBikeInfo(uint modelId, uint cityId, bool isUsedBikeFetched)
         {
+
+            var watch = new System.Diagnostics.Stopwatch();
             GenericBikeInfo genericBike = null;
+            UsedBikeInfo usedBikeInfo = null;
+            
             try
             {
+                
                 if (modelId > 0)
                 {
-                    if (cityId > 0)
-                    {
-                        genericBike = _modelCache.GetBikeInfo(modelId, cityId);
-                    }
-                    else
+                    watch.Start();
+                    if (cityId <= 0)
                     {
                         genericBike = _modelCache.GetBikeInfo(modelId);
                     }
+                    else if (!isUsedBikeFetched)
+                    {
+                        // fetch from new version of sp and bind with price
+                        genericBike = _modelCache.GetBikeInfo(modelId, cityId);
+                        if(genericBike != null)
+                        {
+                            genericBike.PriceInCity = GetPriceFromES(modelId, cityId, (uint)genericBike.VersionId);
+                        }
+                        
+                    }
+                    else
+                    {
+                        // fetch from new sp + price + usedbikesp
+                        genericBike = _modelCache.GetBikeInfo(modelId, cityId);
+                        usedBikeInfo = _modelCache.GetUsedBikeInfo(modelId, cityId);
+
+                        if (genericBike != null && usedBikeInfo != null)
+                        {
+                            genericBike.PriceInCity = GetPriceFromES(modelId, cityId, (uint)genericBike.VersionId);
+                            genericBike.UsedBikeCount = usedBikeInfo.UsedBikeCount;
+                            genericBike.UsedBikeMinPrice = usedBikeInfo.UsedBikeMinPrice;
+                        }
+                    }
+                    watch.Stop();
+                    ThreadContext.Properties["BAL_New_GetBikeInfo_Total_Time"] = watch.ElapsedMilliseconds;
+                    _logger.Error("BAL_New_GetBikeInfo");
                     if (genericBike != null && genericBike.VersionId > 0)
                     {
                         GetVersionSpecsSummaryByItemIdAdapter adapt = new GetVersionSpecsSummaryByItemIdAdapter();
@@ -123,7 +160,45 @@ namespace Bikewale.BAL.BikeData
             {
                 ErrorClass.LogError(ex, string.Format("Bikewale.BAL.BikeData.BikeInfo.GetBikeInfo {0}, {1}", modelId, cityId));
             }
+            
             return genericBike;
+        }
+        /// <summary>
+        /// Created By : Prabhu Puredla on 1 oct 2018
+        /// Description : Get the price of a bike from Elastic Search
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <param name="cityId"></param>
+        /// <param name="versionId"></param>
+        /// <returns></returns>
+        private uint GetPriceFromES(uint modelId, uint cityId, uint versionId)
+        {
+            uint versionPrice = 0;
+            try
+            {
+                ICollection<int> modelIds = new Collection<int> { (int)modelId };
+                IEnumerable<BikeTopVersion> similarBikePrices = _bikeSearch.GetBikePriceSearchList(modelIds, cityId, BikeSearchEnum.PriceList);
+                if (similarBikePrices != null && similarBikePrices.Any())
+                {
+                    IEnumerable<PriceEntity> priceList = null;
+                    foreach (var version in similarBikePrices.First().VersionPrice)
+                    {
+                        if (version.VersionId == versionId)
+                        {
+                            priceList = similarBikePrices.First().VersionPrice.First().PriceList;
+                        }
+                    }
+                    if (priceList != null)
+                    {
+                        versionPrice = (uint)priceList.Sum(price => price.PriceValue);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("Bikewale.BAL.BikeData.BikeInfo.GetPriceFromES {0}, {1}, {2}", modelId, cityId, versionId));
+            }
+            return versionPrice;
         }
     }   // class
 }   // namespace

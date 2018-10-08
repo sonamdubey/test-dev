@@ -379,6 +379,7 @@
     <Compile Include="GenericBikes\BikeRankingPropertiesEntity.cs" />
     <Compile Include="GenericBikes\EnumBikeBodyStyles.cs" />
     <Compile Include="GenericBikes\GenericBikeInfo.cs" />
+    <Compile Include="GenericBikes\UsedBikeInfo.cs" />
     <Compile Include="HomePage\HomePageBannerEntity.cs" />
     <Compile Include="Images\Image.cs" />
     <Compile Include="Images\ImageEntityBase.cs" />
@@ -418,6 +419,7 @@
     <Compile Include="NewBikeSearch\BikeSearchEnum.cs" />
     <Compile Include="NewBikeSearch\BikeSearchOutputEntity.cs" />
     <Compile Include="NewBikeSearch\BikeStatus.cs" />
+    <Compile Include="NewBikeSearch\BikeTopVersion.cs" />
     <Compile Include="NewBikeSearch\BudgetFilterRanges.cs" />
     <Compile Include="NewBikeSearch\FilterEnum.cs" />
     <Compile Include="NewBikeSearch\FilterInput.cs" />

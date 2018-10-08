@@ -10,6 +10,7 @@ using BikeWale.Entities.AutoBiz;
 using MySql.CoreDAL;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.Common;
 using System.Linq;
@@ -938,19 +939,21 @@ namespace Bikewale.DAL.AutoBiz
         /// Created by  :   Sumit Kate on 18 Jul 2017
         /// Description :   Returns the primary dealer by model and city
         /// Primary dealer allocation is by random logic. because area is not given
+        /// Modifier    :   Kartik Rathod on 28 sept 2018
+        /// Desc        :   get nearest dealers list based on city and model
         /// </summary>
         /// <param name="modelId"></param>
         /// <param name="cityId"></param>
         /// <returns></returns>
-        public DealerInfo GetNearestDealer(uint modelId, uint cityId)
+        public ICollection<uint> GetNearestDealer(uint modelId, uint cityId)
         {
-            DealerInfo objDealersList = null;
+            ICollection<uint> objDealersList = null;
 
             try
             {
                 if (modelId > 0 && cityId > 0)
                 {
-                    using (DbCommand cmd = DbFactory.GetDBCommand("getnearestdealerbymodelcity"))
+                    using (DbCommand cmd = DbFactory.GetDBCommand("getnearestdealerbymodelcity_27092018"))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
 
@@ -959,13 +962,15 @@ namespace Bikewale.DAL.AutoBiz
 
                         using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                         {
-                            objDealersList = new DealerInfo();
-
-                            while (dr.Read())
+                            objDealersList = new Collection<uint>();
+                            if(dr!= null)
                             {
-                                objDealersList.DealerId = SqlReaderConvertor.ToUInt32(dr["DealerId"]);
-                                objDealersList.IsDealerAvailable = SqlReaderConvertor.ToBoolean(dr["IsDealerAvailable"]);
+                                while (dr.Read())
+                                {
+                                    objDealersList.Add(SqlReaderConvertor.ToUInt32(dr["DealerId"]));
+                                }
                             }
+                            
                         }
                     }
                 }

@@ -70,7 +70,7 @@ namespace Bikewale.BindViewModels.Controls
             try
             {
 
-                _genericBikeInfo = _objGenericBike.GetBikeInfo(ModelId, CityId);
+                _genericBikeInfo = _objGenericBike.GetBikeInfo(ModelId, CityId, true);
                 BindInfoWidgetDatas();
 
 

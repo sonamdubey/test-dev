@@ -181,9 +181,8 @@ namespace Bikewale.Service.Controllers.PriceQuote.Version
                     pqEntity = _objPQByCityArea.GetVersionListV2((int)modelId, objVersionsList, (int)cityId, areaId, platform, null, null, deviceId);
                     objPQDTO = ModelMapper.ConvertV3(pqEntity);
 
-                    bool isArea = false;
                     BikeQuotationEntity bikeVersionprice = null;
-                    var bikePriceQuotationList = _objPQ.GetVersionPricesByModelId(modelId, Convert.ToUInt32(cityId), out isArea);
+                    var bikePriceQuotationList = _objPQ.GetVersionPricesByModelId(modelId, Convert.ToUInt32(cityId));
                     if (bikePriceQuotationList != null && bikePriceQuotationList.Any())
                     {
                         bikeVersionprice = bikePriceQuotationList.FirstOrDefault();

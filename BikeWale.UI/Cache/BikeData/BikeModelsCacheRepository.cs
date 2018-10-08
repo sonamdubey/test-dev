@@ -11,6 +11,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using log4net;
 
 namespace Bikewale.Cache.BikeData
 {
@@ -26,6 +27,8 @@ namespace Bikewale.Cache.BikeData
         private readonly IPager _objPager;
         private readonly IBikeModelsCacheHelper _bikeModelCacheHelper;
         private static readonly string _modelIdsWithBodyStyleKey = "BW_ModelIdsWithBodyStyle";
+        private static readonly ILog _logger = LogManager.GetLogger(typeof(BikeModelsCacheRepository<T, U>));
+
 
         /// <summary>
         /// Intitalize the references for the cache and BL
@@ -1151,6 +1154,8 @@ namespace Bikewale.Cache.BikeData
         /// <summary>
         /// Created by  :   Subodh jain 9 Feb 2017
         /// Description :   Calls DAL via Cache layer for generic bike info
+        /// Modified By : Sanjay George on 23 Apr 2018
+        /// Description : To get generic bike info
         /// </summary>
         /// <param name="modelId"></param>
         /// <returns></returns>
@@ -1160,17 +1165,11 @@ namespace Bikewale.Cache.BikeData
             try
             {
                 string key = string.Format("BW_GenericBikeInfo_V1_MO_{0}_cityId_{1}", modelId, cityId);
-                TimeSpan cacheTime;
-                if (cityId == 0)
-                {
-                    cacheTime = new TimeSpan(23, 0, 0);
-                }
-                else
-                {
-                    cacheTime = new TimeSpan(3, 0, 0);
-                }
-                objSearchList = _cache.GetFromCache(key, cacheTime, () => _modelRepository.GetBikeInfo(modelId, cityId));
-
+                var watch2 = System.Diagnostics.Stopwatch.StartNew();
+                objSearchList = _cache.GetFromCache(key, new TimeSpan(23, 0, 0), () => _modelRepository.GetBikeInfo(modelId, cityId));
+                watch2.Stop();
+                ThreadContext.Properties["DAL_GetBikeInfo_Time"] = watch2.ElapsedMilliseconds;
+                _logger.Error("DAL_GetBikeInfo");
             }
             catch (Exception ex)
             {
@@ -1178,6 +1177,45 @@ namespace Bikewale.Cache.BikeData
             }
             return objSearchList;
         }
+
+    
+        /// <summary>
+        /// Created By : Sanjay George on 23 Apr 2018
+        /// Description : To get used bike info
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <param name="cityId"></param>
+        /// <returns></returns>
+        public UsedBikeInfo GetUsedBikeInfo(uint modelId, uint cityId)
+        {
+            UsedBikeInfo objSearchList = null;
+            try
+            {
+                string key = string.Format("BW_UsedBikeInfo_MO_{0}_cityId_{1}", modelId, cityId);
+                TimeSpan cacheTime;
+                if (cityId == 0)
+                {
+                    cacheTime = new TimeSpan(23, 0, 0);
+                }
+                else
+                {
+                    cacheTime = new TimeSpan(3, 0, 0); 
+                }
+                var watch3 = System.Diagnostics.Stopwatch.StartNew();
+                objSearchList = _cache.GetFromCache(key, cacheTime, () => _modelRepository.GetUsedBikeInfo(modelId, cityId));
+                watch3.Stop();
+                ThreadContext.Properties["DAL_GetUsedBikeInfo_Time"] = watch3.ElapsedMilliseconds;
+                _logger.Error("DAL_GetUsedBikeInfo");
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("BestBikesCacheRepository.GetUsedBikeInfo ModelId:{0} CityId:{1}", modelId, cityId));
+            }
+            return objSearchList;
+        }
+
+        
+
         /// <summary>
         /// Created By : Aditi Srivastava on 12 Jan 2017
         /// Description : To get bike rankings by category

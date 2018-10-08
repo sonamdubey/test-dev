@@ -561,7 +561,7 @@ namespace Bikewale.Service.Controllers.PWA.CMS
                                 cityId = currentCityArea.CityId;
 
                             var modelId = GetTaggedBikeListByModel(articleDetails.VehiclTagsList);
-                            objBikeInfo = _bikeInfo.GetBikeInfo(modelId, cityId);
+                            objBikeInfo = _bikeInfo.GetBikeInfo(modelId, cityId, true);
 
                             if (objBikeInfo != null)
                             {

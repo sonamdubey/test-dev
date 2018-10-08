@@ -49,6 +49,8 @@ namespace Bikewale.Interfaces.BikeData
     /// Description : Added IEnumerable<MostPopularBikesBase> GetAdPromotedBike(BikeFilters bikeFilters)
     /// Modified By :   Deepak Israni on 14 June 2018
     /// Description :   Added new method GetQuestionAnswerModels to get model ids for which question and answers is active.
+    /// Modified By : Sanjay George on 1 Oct 2018
+    /// Description : Added method GetUsedBikeInfo 
     /// <typeparam name="U"></typeparam>
     /// </summary>
     public interface IBikeModelsCacheRepository<U>
@@ -70,6 +72,7 @@ namespace Bikewale.Interfaces.BikeData
         ICollection<MostPopularBikesBase> GetMostPopularBikesByModelBodyStyle(int modelId, int topCount, uint cityId);
         GenericBikeInfo GetBikeInfo(uint modelId, uint cityId);
         GenericBikeInfo GetBikeInfo(uint modelId);
+        UsedBikeInfo GetUsedBikeInfo(uint modelId, uint cityId);
         BikeRankingEntity GetBikeRankingByCategory(uint modelId);
         ICollection<BestBikeEntityBase> GetBestBikesByCategory(EnumBikeBodyStyles bodyStyle, uint? cityId = null);
         IEnumerable<BestBikeEntityBase> GetBestBikesByModelInMake(uint modelId, uint? cityId = null);

@@ -6,7 +6,7 @@ using Bikewale.DAL.PriceQuote;
 using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.PriceQuote;
-using Bikewale.Interfaces.AutoBiz;
+using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Utility;
@@ -22,6 +22,7 @@ using log4net;
 using System.Threading.Tasks;
 using System.Web.Hosting;
 using Bikewale.DTO.PriceQuote.Version;
+using Bikewale.DAL.BikeBooking;
 
 namespace Bikewale.BAL.PriceQuote
 {
@@ -35,20 +36,23 @@ namespace Bikewale.BAL.PriceQuote
     public class PriceQuote : IPriceQuote
     {
         private readonly IPriceQuote objPQ;
+        private readonly IPriceQuoteCache objPQCache;
         private readonly IDealerPriceQuoteCache _dealerPQCache;
         static ILog _logger = LogManager.GetLogger("PriceQuoteLogger");
-        static RabbitMqPublish rabbitMQPublishing = new RabbitMqPublish();
 
         private readonly PQGenerate _pqGenerate;
         public PriceQuote()
         {
             using (IUnityContainer objPQCont = new UnityContainer())
             {
+                objPQCont.RegisterType<IPriceQuoteCache, PriceQuoteCache>();
                 objPQCont.RegisterType<IPriceQuote, PriceQuoteRepository>();
+                objPQCont.RegisterType<IDealerPriceQuote, DealerPriceQuoteRepository>();
                 objPQCont.RegisterType<IDealerPriceQuoteCache, DealerPriceQuoteCache>();
                 objPQCont.RegisterType<ICacheManager, MemcacheManager>();
-                objPQCont.RegisterType<IDealerPriceQuote, Bikewale.DAL.AutoBiz.DealerPriceQuoteRepository>();
+                objPQCont.RegisterType<Bikewale.Interfaces.AutoBiz.IDealerPriceQuote, Bikewale.DAL.AutoBiz.DealerPriceQuoteRepository>();
                 objPQ = objPQCont.Resolve<IPriceQuote>();
+                objPQCache = objPQCont.Resolve<IPriceQuoteCache>();
                 _dealerPQCache = objPQCont.Resolve<IDealerPriceQuoteCache>();
                 _pqGenerate=new PQGenerate(objPQ);
             }            
@@ -129,8 +133,7 @@ namespace Bikewale.BAL.PriceQuote
         }
 
         private void PushToPQConsumerQueue(NameValueCollection objNVC)
-        {   
-            //rabbitMQPublishing.PublishToQueue(BWConfiguration.Instance.PQConsumerQueue, objNVC);
+        {
             _pqGenerate.RabbitMQExecution(objNVC);
         }
         
@@ -305,6 +308,18 @@ namespace Bikewale.BAL.PriceQuote
             return objPQ.GetModelPriceInNearestCities(modelId, cityId, topCount);
         }
 
+
+        /// <summary>
+        /// Created By  : Rajan Chauhan on 28 September 2018
+        /// Description : Created method to access VersionPrices via cache 
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <param name="cityId"></param>
+        /// <returns></returns>
+        public IEnumerable<BikeQuotationEntity> GetVersionPricesByModelId(uint modelId, uint cityId)
+        {
+            return objPQCache.GetVersionPricesByModelId(modelId, cityId);
+        }
         /// <summary>
         /// Created by  :   Sumit Kate on 28 Mar 2017
         /// Description :   Call DAL function

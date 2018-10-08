@@ -29,7 +29,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
     /// Modified by :   Sumit Kate on 18 May 2016
     /// Description :   Extend from CompressionApiController instead of ApiController 
     /// </summary>
-    public class OnRoadPriceController : CompressionApiController//ApiController
+    public class OnRoadPriceController : CompressionApiController //ApiController
     {
         private readonly IDealerPriceQuote _objIPQ = null;
         private readonly IPriceQuote _objPriceQuote = null;
@@ -574,8 +574,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
                         }
                         else
                         {
-                            bool isArea = false;
-                            var bikePriceQuotationList = _objPriceQuote.GetVersionPricesByModelId(modelId, cityId, out isArea);
+                            var bikePriceQuotationList = _objPriceQuote.GetVersionPricesByModelId(modelId, cityId);
                             if (bikePriceQuotationList != null && bikePriceQuotationList.Any())
                             {
                                 var selversion = bikePriceQuotationList.FirstOrDefault(x => x.VersionId == objPQOutput.VersionId);
@@ -728,8 +727,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
                         }
                         else
                         {
-                            bool isArea = false;
-                            var bikePriceQuotationList = _objPriceQuote.GetVersionPricesByModelId(modelId, cityId, out isArea);
+                            var bikePriceQuotationList = _objPriceQuote.GetVersionPricesByModelId(modelId, cityId);
                             if (bikePriceQuotationList != null && bikePriceQuotationList.Any())
                             {
                                 var selversion = bikePriceQuotationList.FirstOrDefault(x => x.VersionId == objPQOutput.VersionId);

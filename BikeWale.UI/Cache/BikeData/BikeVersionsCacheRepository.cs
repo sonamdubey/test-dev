@@ -5,6 +5,7 @@ using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Notifications;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Bikewale.Cache.BikeData
 {
@@ -35,25 +36,19 @@ namespace Bikewale.Cache.BikeData
         /// Summary     :   Gets the Similar Bikes  list
         /// Modified by : Ashutosh Sharma on 03 Oct 2017
         /// Description : Changed key from 'BW_SimilarBikes_' to 'BW_SimilarBikes_V1_'.
+        /// Modified By : Prabhu Puredla on 28 sept 2018
+        /// Descritption : Cache key is formed based on the modelId
         /// </summary>
         /// <param name="makeType">Type of make</param>
         /// <returns></returns>
-        public IEnumerable<SimilarBikeEntity> GetSimilarBikesList(U versionId, uint topCount, uint cityid)
+        public IEnumerable<SimilarBikeEntity> GetSimilarBikesList(U modelId, uint topCount)
         {
             IEnumerable<SimilarBikeEntity> versions = null;
             try
             {
-                string key = String.Format("BW_SimilarBikes_{0}_Cnt_{1}_{2}", versionId, topCount, cityid);
-                TimeSpan cacheTime;
-                if (cityid == 0)
-                {
-                    cacheTime = new TimeSpan(23, 0, 0);
-                }
-                else
-                {
-                    cacheTime = new TimeSpan(3, 0, 0);
-                }
-                versions = _cache.GetFromCache(key, cacheTime, () => _objVersionsRepository.GetSimilarBikesList(versionId, topCount, cityid));
+                string key = String.Format("BW_SimilarBikes_{0}", modelId);
+                versions = _cache.GetFromCache(key, new TimeSpan(24, 0, 0), () => _objVersionsRepository.GetSimilarBikesList(modelId, 12));
+                versions = versions != null ? versions.Take((int)topCount) : null;
             }
             catch (Exception ex)
             {

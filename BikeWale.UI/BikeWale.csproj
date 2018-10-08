@@ -474,7 +474,6 @@
     <Compile Include="BAL\UserReviews\ProcessSearchFilters.cs" />
     <Compile Include="BAL\UserReviews\UserReviews.cs" />
     <Compile Include="BAL\Videos\Videos.cs" />
-    <Compile Include="Cache\Dealer\IDealerCache.cs" />
     <Compile Include="Cache\Finance\BajajAutoCache.cs" />
     <Compile Include="common\ManageSeries.cs" />
     <Compile Include="common\ManageVideos.cs" />

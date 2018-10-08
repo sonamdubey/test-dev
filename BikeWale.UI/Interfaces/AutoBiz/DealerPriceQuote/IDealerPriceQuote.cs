@@ -13,6 +13,8 @@ namespace Bikewale.Interfaces.AutoBiz
     /// Description :   Added GetDealerPriceQuoteByPackage to get the dealer price quote based on subscription model.
     /// Modified by :   Sumit Kate on 21 Mar 2016
     /// Description :   Added GetCampaignDealersLatLong to get the Dealers Lattitude and Longitude based on subscription model
+    ///  Modofier    :Kartik Rathod on 28 sept 2018
+    ///  Desc       : Modified ICollection<uint> GetNearestDealer(uint modelId, uint cityId)
     /// </summary>
     public interface IDealerPriceQuote
     {
@@ -23,7 +25,7 @@ namespace Bikewale.Interfaces.AutoBiz
         DealerPriceQuoteEntity GetPriceQuoteForAllDealer(uint versionId, uint cityId, string dealerIds);
         DetailedDealerQuotationEntity GetDealerPriceQuoteByPackage(PQParameterEntity objParams);
         Bikewale.Entities.PriceQuote.v2.DetailedDealerQuotationEntity GetDealerPriceQuoteByPackageV2(PQParameterEntity objParams);
-        DealerInfo GetNearestDealer(uint modelId, uint cityId);
+        ICollection<uint> GetNearestDealer(uint modelId, uint cityId);
         DealerInfo GetNearestDealer(uint modelId, uint cityId, uint areaId);
         IEnumerable<PQ_VersionPrice> GetDealerPriceQuotesByModelCity(uint cityId, uint modelId, uint dealerId);
 		IEnumerable<string> GetMLAMakeCities();

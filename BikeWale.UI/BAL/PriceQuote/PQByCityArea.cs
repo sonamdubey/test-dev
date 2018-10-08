@@ -717,6 +717,8 @@ namespace Bikewale.BAL.PriceQuote
         /// Created by: vivek gupta on 17 june 2016
         /// Summary:To map versionList Object for V3 model entity
         ///         and adding dealer packages , secondary dealers count, 
+        /// Modified by :   Monika Korrapati on 27 Sept 2018
+        /// Description :   versionID will be fetched from cache layer.
         /// </summary>
         /// <param name="objModelPage"></param>
         /// <returns></returns>
@@ -851,7 +853,9 @@ namespace Bikewale.BAL.PriceQuote
                     if (areaId.HasValue && areaId.Value > 0)
                         versionID = objDealer.GetDefaultPriceQuoteVersion((uint)modelId, (uint)cityId.Value, (uint)areaId.Value);
                     else
-                        versionID = objDealer.GetDefaultPriceQuoteVersion((uint)modelId, Convert.ToUInt32(cityId));
+                    {
+                        versionID = _objPQCache.GetDefaultPriceQuoteVersion((uint)modelId, Convert.ToUInt32(cityId));
+                    }       
                 }
 
                 dt4 = DateTime.Now;

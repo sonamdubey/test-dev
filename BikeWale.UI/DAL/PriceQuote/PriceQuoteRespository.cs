@@ -743,6 +743,17 @@ namespace Bikewale.DAL.PriceQuote
         }
 
         /// <summary>
+        /// Created By  : Rajan Chauhan on 28 September 2018
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <param name="cityId"></param>
+        /// <returns></returns>
+        public IEnumerable<BikeQuotationEntity> GetVersionPricesByModelId(uint modelId, uint cityId)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
         /// Created by  :   Sumit Kate on 07 Apr 2017
         /// Description :   GetOtherVersionsPrices
         /// </summary>

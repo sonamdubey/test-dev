@@ -2000,6 +2000,8 @@ namespace Bikewale.DAL.BikeData
         /// Summary : Modified sp from "getbikeinfobycity_15112017" to "getbikeinfobycity_24012018". Added fueltype parameter.
         /// Modified by : Pratibha Verma on 2 April 2018
         /// Description : Replaced sp "getbikeinfobycity_24012018" with "getbikeinfobycity_02042018"
+        /// Modified By : Sanjay George on 1 Oct 2018
+        /// Description : Changed sp to getbikeinfobycity_26092018 to remove prices dependency.
         /// </summary>
         /// <returns></returns>
         public GenericBikeInfo GetBikeInfo(uint modelId, uint cityId)
@@ -2011,7 +2013,7 @@ namespace Bikewale.DAL.BikeData
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "getbikeinfobycity_02042018";
+                    cmd.CommandText = "getbikeinfobycity_26092018";
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId));
                     genericBikeInfo = PopulateGenericBikeInfoEntity(genericBikeInfo, cmd);
@@ -2024,6 +2026,51 @@ namespace Bikewale.DAL.BikeData
             }
             return genericBikeInfo;
         }
+
+        /// <summary>
+        /// Created By : Sanjay George on 1 Oct 2018
+        /// Description : New Sp for getting used bike info 
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <param name="cityId"></param>
+        /// <returns></returns>
+        public UsedBikeInfo GetUsedBikeInfo(uint modelId, uint cityId)
+        {
+            UsedBikeInfo usedBikeInfo = null;
+            try
+            {
+
+                using (DbCommand cmd = DbFactory.GetDBCommand())
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "getusedbikeinfobycity";
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId));
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            if (dr.Read())
+                            {
+                                usedBikeInfo = new UsedBikeInfo();
+                                usedBikeInfo.UsedBikeCount = Convert.ToUInt32(dr["availableBikes"]);
+                                usedBikeInfo.UsedBikeMinPrice = Convert.ToUInt32(dr["minPrice"]);
+                               
+                            }
+                            dr.Close();
+                        }
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, String.Format("GenericBikeRepository.GetUsedBikeInfo: ModelId:{0}", modelId));
+
+            }
+            return usedBikeInfo;
+        } 
+
         /// <summary>
         /// Created By : Aditi Srivastava on 12 Jan 2017
         /// Description : To get bike rankings by category

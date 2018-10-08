@@ -969,9 +969,8 @@ namespace Bikewale.Models.BikeModels
                             uint onRoadPrice = _objData.BikePrice;
                             if (!IsDealerPriceAvailble || onRoadPrice == 0)
                             {
-                                bool hasAreaAvailable = false;
                                 uint _emiCityId = (this._cityId == 0 || onRoadPrice == 0) ? 1 : this._cityId;
-                                _objData.BikeVersionPrices = _objPQ.GetVersionPricesByModelId(this._modelId, _emiCityId, out hasAreaAvailable);
+                                _objData.BikeVersionPrices = _objPQ.GetVersionPricesByModelId(this._modelId, _emiCityId);
                                 if (_objData.BikeVersionPrices != null)
                                 {
                                     var selectedversion = _objData.BikeVersionPrices.FirstOrDefault(x => x.VersionId == _objData.VersionId);
@@ -1077,7 +1076,7 @@ namespace Bikewale.Models.BikeModels
             {
                 if (_modelId > 0)
                 {
-                    var objSimilarBikes = new SimilarBikesWidget(_objVersion, _objData.VersionId, PQSourceEnum.Desktop_DPQ_Alternative);
+                    var objSimilarBikes = new SimilarBikesWidget(_objVersion, _objData.ModelId, PQSourceEnum.Desktop_DPQ_Alternative);
 
                     objSimilarBikes.TopCount = 9;
                     objSimilarBikes.CityId = _cityId;

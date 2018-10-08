@@ -37,12 +37,15 @@ namespace Bikewale.Service.Controllers.Model
         private readonly IManufacturerCampaign _objManufacturerCampaign = null;
         private readonly IPQByCityArea _objPQByCityArea = null;
         private readonly IPriceQuoteCache _objPqCache = null;
+        private readonly IDealerPriceQuote _dealerPriceQuote;
         private static readonly ILog _logger = LogManager.GetLogger(typeof(ModelPageController));
         private static HashSet<string> _ampCors = new HashSet<string> { "https://www-bikewale-com.cdn.ampproject.org", "https://www-bikewale-com.amp.cloudflare.com", "https://cdn.ampproject.org" ,"https://www.bikewale.com" };
 
         /// <summary>
         /// Modified by :   Sumit Kate on 29 Mar 2018
         /// Description :   Added Price Quote cache layer interface
+        /// Modified by :   Monika Korrapati on 27 Sept 2018
+        /// Description :   Added DealerPriceQuote BAL layer interface
         /// </summary>
         /// <param name="objManufacturerCampaign"></param>
         /// <param name="modelRepository"></param>
@@ -53,7 +56,7 @@ namespace Bikewale.Service.Controllers.Model
         /// <param name="objPQByCityArea"></param>
         /// <param name="objPqCache"></param>
         public ModelPageController(IManufacturerCampaign objManufacturerCampaign, IBikeModelsRepository<Bikewale.Entities.BikeData.BikeModelEntity, int> modelRepository, IBikeModelsCacheRepository<int> cache, IDealerPriceQuoteDetail dealers, IBikeModels<Bikewale.Entities.BikeData.BikeModelEntity, int> modelBL, IUserReviews userReviews, IPQByCityArea objPQByCityArea,
-            IPriceQuoteCache objPqCache)
+            IPriceQuoteCache objPqCache, IDealerPriceQuote dealerPriceQuote)
         {
 
             _dealers = dealers;
@@ -62,7 +65,7 @@ namespace Bikewale.Service.Controllers.Model
             _objManufacturerCampaign = objManufacturerCampaign;
             _objPQByCityArea = objPQByCityArea;
             _objPqCache = objPqCache;
-
+            _dealerPriceQuote = dealerPriceQuote;
         }
 
         #region Model Page Complete
@@ -344,6 +347,8 @@ namespace Bikewale.Service.Controllers.Model
         /// Descrioption : Call BAL function instead of cache function to fetch model details.
         /// Modified by :   Sumit Kate on 26 Apr 2017
         /// Description :   For App, review count is fetched from old user reviews
+        /// Modified by :   Monika Korrapati on 27 Sept 2018
+        /// Description :   versionId will be fetched from BAL instead of DAL.
         /// </summary>
         /// <returns></returns>
         [ResponseType(typeof(Bikewale.DTO.Model.v4.ModelPage)), Route("api/v4/model/details/")]
@@ -396,7 +401,7 @@ namespace Bikewale.Service.Controllers.Model
                                         if (areaId.HasValue && areaId.Value > 0)
                                             versionId = (int)dealerPQRepository.GetDefaultPriceQuoteVersion((uint)modelID, (uint)cityId.Value, (uint)areaId.Value);
                                         else
-                                            versionId = (int)dealerPQRepository.GetDefaultPriceQuoteVersion(Convert.ToUInt32(modelID), Convert.ToUInt32(cityId));
+                                            versionId = (int)_dealerPriceQuote.GetDefaultPriceQuoteVersion(Convert.ToUInt32(modelID), Convert.ToUInt32(cityId));
 
                                     }
                                 }
