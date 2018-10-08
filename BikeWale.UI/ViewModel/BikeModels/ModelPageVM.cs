@@ -47,6 +47,8 @@ namespace Bikewale.Models.BikeModels
     /// Description : Added IsNearlyAllIndiaCampaign for nearly all india campaign experiment and IsNearByDealerCTA
     /// Modified By : Prabhu Puredla on 21 sept 2018
     /// Description : Added IsNonAnimatedCTA for es campaign text experiment
+    /// Modified By : Prabhu Puredla on 08 oct 2018
+    /// Description : Removed IsNearByDealerCTA property
     /// </summary>
     public class ModelPageVM : ModelBase
     {
@@ -184,7 +186,6 @@ namespace Bikewale.Models.BikeModels
         public bool IsEditCityOption { get; set; }
         public bool IsAnimatedCTA { get; set; }
         public bool IsNearlyAllIndiaCampaign { get; set; }
-        public bool IsNearByDealerCTA { get; set; }
         public bool IsNonAnimatedCTA { get; set; }
     }
 

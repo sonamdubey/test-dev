@@ -98,7 +98,7 @@
                                 {
                                     <a id="btnGetOnRoadPrice" href="javascript:void(0)" data-reload="true" data-persistent="true" data-modelid="@Model.ModelId" style="width: 100%" class="font14 text-bold getquotation">Check on-road price</a>
                                 }
-                                @if (!Model.IsLocationSelected && !Model.IsManufacturerLeadAdShown && (Model.IsNearByDealerCTA || Model.IsNearlyAllIndiaCampaign))
+                                @if (!Model.IsLocationSelected && !Model.IsManufacturerLeadAdShown && (Model.IsNearlyAllIndiaCampaign))
                                 {
                                     <a id="btnGetOnRoadPrice" href="javascript:void(0)" data-reload="true" data-persistent="true" data-modelid="@Model.ModelId" style="width: 100%" class="font14 text-bold getquotation">Check on-road price</a>
                                 }
@@ -138,11 +138,7 @@
 
                                 else if (!Model.IsLocationSelected && !Model.IsManufacturerLeadAdShown)
                                 {
-                                    if (Model.IsNearByDealerCTA)
-                                    {
-                                        <a href="@string.Format("/m/{0}", UrlFormatter.GetDealerShowroomUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName))" class="btn btn-orange btn-full-width bw-ga" id="btnNearByDealers">Contact Nearby Dealers</a>
-                                    }
-                                    else if (Model.IsNearlyAllIndiaCampaign)
+                                    if (Model.IsNearlyAllIndiaCampaign)
                                     {
                                         <a class="btn btn-orange btn-full-width getquotation bw-bhrigu" data-cat="Model_Page" data-act="FloatingLeadCTA_FullWidth_Click" data-bhrigulab="@Model.BikeName" href="javascript:void(0)" data-reload="true" data-persistent="true" data-modelid="@Model.ModelId" data-leadsourceid="@Convert.ToInt16(LeadSourceEnum.ModelPage_Floating_Mobile)" data-popupsource="leadcapturebtn">Get Best Offers</a>
                                     }
@@ -169,23 +165,7 @@
                 else if (!Model.IsLocationSelected && !Model.IsManufacturerLeadAdShown)
                 {
                     <link rel="stylesheet" type="text/css" href="/UI/m/css/nearby-dealers-top-card.css">
-                    if( Model.IsNearByDealerCTA)
-                    {
-                        <div class="dealer-campaign-wrapper card-bottom-margin nearby-dealers-top-card">
-                            <div class="margin-bottom10">
-                                <span class="campaign__icon"></span><p class="campaign__name inline-block">Contact <span name="mfg_organization">@Model.ModelPageEntity.ModelDetails.MakeBase.MakeName</span> Dealer Nearby</p>
-                            </div>
-                            <p class="font14 margin-bottom10">Get in touch with authorized dealer near you for:</p>
-                            <ul class="campaign__list item--50-percent margin-bottom15">
-                                <li class="campaign__list-item">Best offers</li>
-                                <li class="campaign__list-item">Test rides</li>
-                                <li class="campaign__list-item">EMI options</li>
-                                <li class="campaign__list-item">Exchange benefits</li>
-                            </ul>
-                            <a href="@string.Format("/m{0}", UrlFormatter.GetDealerShowroomUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName))" class="btn btn-teal btn-180-32 margin-right20 bw-ga" id="btnTopCardNearbyDealers">Select your City</a>
-                        </div>
-                    }
-                    else if (Model.IsNearlyAllIndiaCampaign)
+                    if (Model.IsNearlyAllIndiaCampaign)
                     {
                         <div class="dealer-campaign-wrapper card-bottom-margin nearby-dealers-top-card">
                             <div class="margin-bottom10">

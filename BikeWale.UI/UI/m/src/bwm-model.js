@@ -169,10 +169,6 @@ docReady(function () {
     if (isMileageSectionVisible.length > 0) {
         triggerNonInteractiveGA("Model_Page", "Mileage_Card_Shown", myBikeName);
     }
-    var isContactNearByDealersShown = $('#btnNearByDealers');
-    if (isContactNearByDealersShown.length > 0) {
-        triggerNonInteractiveGA("Model_Page", "FloatingCTA_NearbyDealers_Shown", bikeModelId);
-    }
     function sanitizeGALabel(str) {
       return str ? str : "null";
     }
