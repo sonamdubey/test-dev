@@ -213,6 +213,7 @@ namespace Bikewale.BAL.BikeData
                 if (similarBikePrices != null && similarBikePrices.Any())
                 {
                     string cityName = similarBikePrices.First().City.CityName;//city name is constant for all items in ienumerable
+                    string cityMaskingName = similarBikePrices.First().City.CityMaskingName;
                     foreach (var bike in similarBikePrices)
                     {
                         if (bike.VersionPrice != null)
@@ -235,6 +236,7 @@ namespace Bikewale.BAL.BikeData
                             similarBike.VersionPrice = similarBike.MinPrice = (int)versionPrice;
                         }
                         similarBike.CityName = cityName;
+                        similarBike.CityMaskingName = cityMaskingName;
                     }
                 }
             }
