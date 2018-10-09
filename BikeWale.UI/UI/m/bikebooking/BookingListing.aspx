@@ -38,12 +38,23 @@
     </div>
     <!-- global-search-popup code ends here -->
     <header>
-        <div class="header-fixed">
+        <div class="header-fixed book-your-bike-doodle">
             <!-- Fixed Header code starts here -->
             <div class="leftfloat">
                 <span id="navbarBtn" class="navbarBtn nav-icon margin-right5"></span>
                 <span class="booking-listing-nav font16 text-white position-rel">Book your bike</span>
             </div>
+			<!-- Doodle start-->
+			<span class="doodle__container bw-ga" data-cat="Doodle" data-act="Doodle_Click" data-lab="Navratri">
+				<span class="doodle__asset-one"></span>
+				<span class="doodle__asset-two"></span>
+				<span class="doodle__asset-three"></span>
+				<span class="doodle__block">
+					<span class="doodle__image"></span>
+					<span class="doodle__bg"></span>
+				</span>
+			</span>
+			<!--Doodle end-->
             <div class="rightfloat">
                 <a class="global-search" id="global-search" style="display: none">
                     <span class="global-search-icon"></span>

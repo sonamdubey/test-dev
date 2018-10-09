@@ -204,3 +204,6 @@
 .doodle--disable .doodle__container{
 	display: none;
 }
+.book-your-bike-doodle .doodle__container {
+	left: 140px;
+}
