@@ -195,15 +195,6 @@ gulp.task('replace-css-link-reference', function () {
 		}))
 		.pipe(gulp.dest(buildFolder));
 });
-gulp.task('replace-amp-css-link-reference', function () {
-	return gulp.src(app + 'Views/**/*.cshtml', { base: baseApp })
-		.pipe(replace(pattern.AMP_CSS, function (s, fileName) {
-			var style = fs.readFileSync(minifiedAssetsFolder + fileName, 'utf-8'),
-			styleTag = style.replace(/@charset "utf-8";/g, "").replace(/\"/g, "'").replace(/\\[0-9]/g, "");
-			return styleTag;
-		}))
-		.pipe(gulp.dest(buildFolder));
-});
 
 // PWA specific gulp tasks
 var patternJSBundle = /\/UI\/pwa\/js\/(\w)+.bundle.js/g;
@@ -383,7 +374,6 @@ gulp.task('default', gulpSequence(
 			'bw-framework-js',
 			'replace-css-reference',
 			'replace-css-link-reference',
-			'replace-amp-css-link-reference',
 			'replace-css-chunk-json',
 			'replace-js-css-reference',
 			'appshell-procesing',
