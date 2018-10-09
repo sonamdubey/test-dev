@@ -101,9 +101,6 @@
     <Reference Include="Bikewale.ElasticSearch.Entities">
       <HintPath>..\Libs\Bikewale.ElasticSearch.Entities.dll</HintPath>
     </Reference>
-    <Reference Include="Bikewale.Entities">
-      <HintPath>..\Libs\Bikewale.Entities.dll</HintPath>
-    </Reference>
     <Reference Include="Bikewale.Notifications">
       <HintPath>..\Libs\Bikewale.Notifications.dll</HintPath>
     </Reference>
@@ -5048,6 +5045,10 @@
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Bikewale.Entities\Bikewale.Entities.csproj">
+      <Project>{8223a4b8-db14-4658-9897-257d872ae8d9}</Project>
+      <Name>Bikewale.Entities</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Bikewale.PWA.UI\Bikewale.PWA.UI.csproj">
       <Project>{3279e44e-3eae-4fe9-9721-980610c6f896}</Project>
       <Name>Bikewale.PWA.UI</Name>
