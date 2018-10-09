@@ -25,7 +25,7 @@
 .bike-booking-image { width:100%;  height:42px; position:relative; }
 .bike-booking-image span {  margin: auto; position: absolute; top: 0; left: 0; bottom: 0; right: 0; z-index:1;  }
 .personal-info-form-container .personal-info-list { margin-bottom:15px; }
-.personal-info-form-icon { width:18px; height:26px; background-position:-111px -139px; }
+.personal-info-form-icon { width:18px; height:22px; background-position:-111px -143px; }
 
 .horizontal-line { width:610px; height:1px; background:#ccc; top:59px; }
 .border-light-grey { border:1px solid #e2e2e2; }
