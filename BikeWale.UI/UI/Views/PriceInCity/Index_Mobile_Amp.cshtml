@@ -439,7 +439,7 @@
                                                 <li>Exclusive offers</li>
                                                 <li>Complete buying assistance</li>
                                             </ul>
-                                            <a href="@string.Format("{0}/m/popup/?queryString={1}", BWConfiguration.Instance.BwHostUrl, Bikewale.Utility.TripleDES.EncryptTripleDES(string.Format("pqsourceid={0}&preselcity={1}&modelid={2}&Url={3}{4}", (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_PriceInCity_SelectArea, Model.CityEntity.CityId, Model.BikeModel.ModelId, BWConfiguration.Instance.BwHostUrl, Model.ReturnUrl)))" class="btn btn-orange btn-auto-32 changeCity" rel="nofollow">Select your location</a>
+                                            <a href="@string.Format("{0}/m/popup/?queryString={1}", BWConfiguration.Instance.BwHostUrl, Bikewale.Utility.TripleDES.EncryptTripleDES(string.Format("pqsourceid={0}&preselcity={1}&modelid={2}&exitUrl={3}{4}", (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_PriceInCity_SelectArea, Model.CityEntity.CityId, Model.BikeModel.ModelId, BWConfiguration.Instance.BwHostUrl, Model.ReturnUrl)))" class="btn btn-orange btn-auto-32 changeCity" rel="nofollow">Select your location</a>
                                         </div>
                                     </div>
                                 }

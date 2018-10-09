@@ -23,7 +23,7 @@ namespace Bikewale.Models
                 objPopupCityAreaVM.ModelId = SqlReaderConvertor.ToUInt16(queryCollection["modelid"]);
                 objPopupCityAreaVM.ModelName = Convert.ToString(queryCollection["modelname"]);
                 objPopupCityAreaVM.Url = Convert.ToString(queryCollection["Url"]);
-
+                objPopupCityAreaVM.ExitUrl = queryCollection["exitUrl"];
                 BindPageMetaTags(objPopupCityAreaVM.PageMetaTags);
             }
             catch (Exception ex)

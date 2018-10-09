@@ -50,7 +50,7 @@ namespace Bikewale.Models
         public PQSourceEnum PQSource { get; set; }
         public ManufacturerCampaignServingPages ManufacturerCampaignPageId { get; set; }
         private uint _modelId, _versionId, _cityId, _areaId, _dealerId, _makeId;
-        private string pageUrl, mpqQueryString, currentCity = string.Empty, currentArea = string.Empty, _pqId = string.Empty;
+        private string pageUrl, mpqQueryString, currentCity = string.Empty, currentArea = string.Empty, _pqId = string.Empty, exitUrl;
 
 
         /// <summary>
@@ -82,6 +82,8 @@ namespace Bikewale.Models
         /// Description : Moved SetModelVariables above 
         ///		GetDealerVersionsPriceByModelCity to correctly
         ///		set CityId in objData
+        /// Modified By : Prabhu Puredla on 10 oct 2018
+        /// Description : Get the exitUrl from the querystring
         /// </summary>
         /// <returns></returns>
         public DealerPriceQuotePageVM GetData()
@@ -128,8 +130,9 @@ namespace Bikewale.Models
 
                     ShowInnovationBanner(objData, _modelId);
                     BindAdSlotTags(objData);
-                }
 
+                }
+                objData.ExitUrl = exitUrl;
 
             }
             catch (Exception err)
@@ -507,6 +510,8 @@ namespace Bikewale.Models
         /// Description : Private Method to proceess mpq queryString and set the for queried parameters viz. versionId,dealerId,cityId,pqId and areaId
         /// Modified By : Lucky Rathore
         /// Description : DealerId Assingment moved in "if" condition
+        /// Modified By : Prabhu Puredla on 10 oct 2018
+        /// Description : Get the exitUrl from the querystring
         /// </summary>
         private void ProcessQueryString()
         {
@@ -520,6 +525,7 @@ namespace Bikewale.Models
                     UInt32.TryParse(PriceQuoteQueryString.AreaId, out _areaId);
                     pageUrl = request.ServerVariables["URL"];
                     mpqQueryString = request.QueryString["MPQ"];
+                    exitUrl = request.QueryString["exitUrl"];
                     Status = StatusCodes.ContentFound;
                 }
                 else

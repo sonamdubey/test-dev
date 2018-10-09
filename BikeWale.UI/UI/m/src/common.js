@@ -895,7 +895,14 @@ docReady(function () {
         $('.headerTitle,.white-back-arrow').show();
 
         $('#book-back').on('click', function () {
-            window.history.back();
+            if (typeof (vmquotation) != "undefined" && vmquotation.ExitUrl() != "")
+            {
+                window.location.href = vmquotation.ExitUrl();
+            }
+            else
+            {
+                window.history.back();
+            }
         });
     }
 

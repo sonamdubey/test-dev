@@ -130,6 +130,7 @@
         self.subTitle = ko.observable("");
         self.popupTriggerSource = ko.observable();
         self.isLeadPopupFlow = ko.computed(function(){ return self.popupTriggerSource() == PopupTriggerSourceEnum.LeadCaptureButton;});
+        self.ExitUrl = ko.observable("");
         self.FilterData = function (data,filter)
         {
             filterObj = data;
@@ -195,6 +196,7 @@
                 self.DealerId(options.dealerid || 0);
                 self.VersionId(options.versionid || 0);
                 self.RedirectUrl(options.redirectUrl || "");
+                self.ExitUrl(options.exitUrl || "");
                 if (self.IsPersistance())  self.LoadingText("Loading locations...");
 
                 if (self.SelectedModelId()) {
@@ -313,9 +315,10 @@
                             if(self.RedirectUrl() != "")
                             {
                                 window.location.href = self.RedirectUrl();
-                            }else if(!self.IsReload() && _responseData.qStr!='')
+                            }
+                            else if(!self.IsReload() && _responseData.qStr!='')
                             {
-                                window.location.href = "/m/pricequote/dealer/" + "?MPQ=" + _responseData.qStr;
+                                window.location.href = "/m/pricequote/dealer/" + "?MPQ=" + _responseData.qStr + "&exiturl=" + self.ExitUrl();
                             }
                             else  window.location.reload(true);
                         }

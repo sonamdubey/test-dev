@@ -3,6 +3,8 @@
     /// <summary>
     /// Modified by : Sanskar Gupta on 16 May 2018
     /// Description : Added property `MakeId`
+    /// Modified By : Prabhu Puredla on 10 oct 2018
+    /// Description : Added ExitUrl property for amp pages for amp pages when user clicks back 
     /// </summary>
     public class PoupCityAreaVM : ModelBase
     {
@@ -25,6 +27,8 @@
         public string Url { get; set; }
 
         public uint MakeId { get; set;}
+
+        public string ExitUrl { set; get; }
 
 
     }

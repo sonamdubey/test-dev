@@ -13,6 +13,8 @@ namespace Bikewale.Models.Price
     /// Description : Added BhriguTrackingLabel
     /// modified by : Pratibha Verma on 6 June 2018
     /// Description : Added BikeVersionMinSpecs for version dropdown
+    /// Modified By : Prabhu Puredla on 10 oct 2018
+    /// Description : Added ExitUrl property for amp pages when user clicks back 
     /// </summary>
     public class DealerPriceQuotePageVM : ModelBase
     {
@@ -61,5 +63,6 @@ namespace Bikewale.Models.Price
         public string BhriguTrackingLabel { get; set; }
         public EnumBikeBodyStyles BodyStyle { get; set; }
         public string BodyStyleText { get; set; }
+        public string ExitUrl { set; get; }
     }
 }

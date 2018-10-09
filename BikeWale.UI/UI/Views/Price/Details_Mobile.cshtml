@@ -424,6 +424,7 @@ else
 
     docReady(function () {
         ga_pg_id = "7";
+        vmquotation.ExitUrl("@Model.ExitUrl");
         try {
             getCityArea = GetGlobalCityArea();
             bikeVerLocation = bikeName + '_' + versionName + '_' + getCityArea;
@@ -433,7 +434,7 @@ else
              <text>triggerNonInteractiveGA('Dealer_PQ', 'Secondary_Dealer_Card_Shown', bikeVerLocation);</text>
          }
 
-        @if (!Model.IsPrimaryDealerAvailable && !string.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink) && !Model.IsManufacturerLeadAdShown)
+            @if (!Model.IsPrimaryDealerAvailable && !string.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink) && !Model.IsManufacturerLeadAdShown)
         {
             <text>triggerNonInteractiveGA('Dealer_PQ', 'BankbazaarLink_Shown', bikeVerLocation);</text>
         }
@@ -452,6 +453,6 @@ else
         catch (e) {
             console.log(e.message);
         }
-       
+
     });
 </script>
