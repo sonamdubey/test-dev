@@ -1,7 +1,4 @@
-﻿.header-fixed {
-	overflow: hidden;
-}
-.doodle__container {
+﻿.doodle__container {
 	position: absolute;
 	top: 0;
 	left: 135px;
@@ -62,10 +59,11 @@
 	width: 50px;
 	margin: 0 auto;
 	text-align: center;
+	overflow: hidden;
 }
 .doodle__image {
 	position: absolute;
-	top: 0;
+	bottom: 0;
 	left: 18px;
 	display: inline-block;
 	width: 50px;
@@ -192,10 +190,10 @@
 @media screen and (min-width:768px) {
 	.doodle__container {
 		left: 165px;
-		height: 49px;
+		height: 48px;
 	}
-	.doodle__image {
-		top: 1px;
+	.doodle__block {
+		height: 48px;
 	}
 }
 @media screen and (max-width:359px) {
@@ -206,4 +204,3 @@
 .doodle--disable .doodle__container{
 	display: none;
 }
-		
