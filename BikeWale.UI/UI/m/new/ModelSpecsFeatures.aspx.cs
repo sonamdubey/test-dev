@@ -1,18 +1,35 @@
 ﻿using Bikewale.BAL.ApiGateway.Adapters.BikeData;
 using Bikewale.BAL.ApiGateway.ApiGatewayHelper;
 using Bikewale.BAL.BikeData;
+using Bikewale.BAL.BikeSearch;
+using Bikewale.BAL.Customer;
+using Bikewale.BAL.EditCMS;
 using Bikewale.BAL.Pager;
+using Bikewale.BAL.UserReviews.Search;
 using Bikewale.Cache.BikeData;
+using Bikewale.Cache.CMS;
 using Bikewale.Cache.Core;
+using Bikewale.Cache.UserReviews;
+using Bikewale.CacheHelper.BikeData;
 using Bikewale.Common;
 using Bikewale.DAL.BikeData;
+using Bikewale.DAL.Customer;
+using Bikewale.DAL.UserReviews;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.Customer;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Pages;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
+using Bikewale.Interfaces.CMS;
+using Bikewale.Interfaces.Customer;
+using Bikewale.Interfaces.EditCMS;
+using Bikewale.Interfaces.NewBikeSearch;
 using Bikewale.Interfaces.Pager;
+using Bikewale.Interfaces.UserReviews;
+using Bikewale.Interfaces.UserReviews.Search;
+using Bikewale.Interfaces.Videos;
 using Bikewale.Mobile.Controls;
 using Bikewale.Models;
 using Bikewale.Utility;
@@ -21,21 +38,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using Bikewale.CacheHelper.BikeData;
-using Bikewale.Interfaces.UserReviews.Search;
-using Bikewale.BAL.UserReviews.Search;
-using Bikewale.Interfaces.EditCMS;
-using Bikewale.BAL.EditCMS;
-using Bikewale.Cache.CMS;
-using Bikewale.Interfaces.CMS;
-using Bikewale.Interfaces.Videos;
-using Bikewale.Interfaces.UserReviews;
-using Bikewale.Interfaces.Customer;
-using Bikewale.BAL.Customer;
-using Bikewale.DAL.Customer;
-using Bikewale.Entities.Customer;
-using Bikewale.DAL.UserReviews;
-using Bikewale.Cache.UserReviews;
 
 namespace Bikewale.Mobile
 {
@@ -93,7 +95,8 @@ namespace Bikewale.Mobile
                     .RegisterType<IBikeMaskingCacheRepository<BikeModelEntity, int>, BikeModelMaskingCache<BikeModelEntity, int>>()
                     .RegisterType<IBikeVersions<BikeVersionEntity, uint>, BikeVersions<BikeVersionEntity, uint>>()
                     .RegisterType<IBikeVersionsRepository<BikeVersionEntity, uint>, BikeVersionsRepository<BikeVersionEntity, uint>>()
-                    .RegisterType<IBikeVersionCacheRepository<BikeVersionEntity, uint>, BikeVersionsCacheRepository<BikeVersionEntity, uint>>();
+                    .RegisterType<IBikeVersionCacheRepository<BikeVersionEntity, uint>, BikeVersionsCacheRepository<BikeVersionEntity, uint>>()
+                    .RegisterType<IBikeSearch, BikeSearch>();
         }
 
 

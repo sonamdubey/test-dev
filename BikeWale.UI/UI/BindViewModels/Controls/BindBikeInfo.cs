@@ -1,5 +1,6 @@
 ﻿using Bikewale.BAL.ApiGateway.ApiGatewayHelper;
 using Bikewale.BAL.BikeData;
+using Bikewale.BAL.BikeSearch;
 using Bikewale.BAL.Pager;
 using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
@@ -10,6 +11,7 @@ using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
+using Bikewale.Interfaces.NewBikeSearch;
 using Bikewale.Interfaces.Pager;
 using Microsoft.Practices.Unity;
 using System;
@@ -49,7 +51,8 @@ namespace Bikewale.BindViewModels.Controls
                        .RegisterType<IBikeModelsCacheHelper, BikeModelsCacheHelper>()
                        .RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>()
                        .RegisterType<IApiGatewayCaller, ApiGatewayCaller>()
-                       .RegisterType<IBikeInfo, BikeInfo>();
+                       .RegisterType<IBikeInfo, BikeInfo>()
+                       .RegisterType<IBikeSearch, BikeSearch>();
         }
 
         public BindBikeInfo()
