@@ -1077,7 +1077,7 @@ namespace Bikewale.Models.BikeModels
             {
                 if (_modelId > 0)
                 {
-                    var objSimilarBikes = new SimilarBikesWidget(_objVersion, _objData.ModelId, PQSourceEnum.Desktop_DPQ_Alternative);
+                    var objSimilarBikes = new SimilarBikesWidget(_objVersion, _objData.VersionId, PQSourceEnum.Desktop_DPQ_Alternative);
 
                     objSimilarBikes.TopCount = 9;
                     objSimilarBikes.CityId = _cityId;

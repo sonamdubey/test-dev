@@ -36,6 +36,7 @@ using Bikewale.Utility;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 
@@ -348,10 +349,10 @@ namespace Bikewale.Mobile
                 {
                    
                         var objVersion = _container.Resolve<IBikeVersions<BikeVersionEntity, uint>>();
-                        var objSimilarBikes = new SimilarBikesWidget(objVersion, modelId, PQSourceEnum.Desktop_DPQ_Alternative);
+                        var objSimilarBikes = new SimilarBikesWidget(objVersion, versionId, PQSourceEnum.Desktop_DPQ_Alternative);
 
                         objSimilarBikes.TopCount = 9;
-                        objSimilarBikes.CityId = cityId;
+                        objSimilarBikes.CityId = cityId == 0 ? uint.Parse(ConfigurationManager.AppSettings["DefaultCity"]): cityId;
                         objSimilarBikes.IsNew = modelDetail.ModelDetails.New;
                         objSimilarBikes.IsUpcoming = modelDetail.ModelDetails.Futuristic;
                         objSimilarBikes.IsDiscontinued = !modelDetail.ModelDetails.New && modelDetail.ModelDetails.Used;

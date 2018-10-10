@@ -277,7 +277,7 @@ namespace Bikewale.Models
 
         private void BindSimilarBikes(DealerPriceQuotePageVM objData)
         {
-            var objSimilarBikes = new SimilarBikesWidget(_objVersion, (uint)objData.SelectedVersion.ModelBase.ModelId , PQSourceEnum.Desktop_DPQ_Alternative);
+            var objSimilarBikes = new SimilarBikesWidget(_objVersion, _versionId , PQSourceEnum.Desktop_DPQ_Alternative);
             objSimilarBikes.TopCount = 9;
             objSimilarBikes.CityId = _cityId;
             objData.SimilarBikesVM = objSimilarBikes.GetData();
