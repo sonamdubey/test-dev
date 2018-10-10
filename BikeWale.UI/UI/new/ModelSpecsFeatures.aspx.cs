@@ -37,6 +37,8 @@ using Bikewale.DAL.Customer;
 using Bikewale.Entities.Customer;
 using Bikewale.DAL.UserReviews;
 using Bikewale.Cache.UserReviews;
+using Bikewale.Interfaces.NewBikeSearch;
+using Bikewale.BAL.BikeSearch;
 
 namespace Bikewale.New
 {
@@ -95,7 +97,8 @@ namespace Bikewale.New
                     .RegisterType<IBikeMaskingCacheRepository<BikeModelEntity, int>, BikeModelMaskingCache<BikeModelEntity, int>>()
                     .RegisterType<IBikeVersions<BikeVersionEntity, uint>, BikeVersions<BikeVersionEntity, uint>>()                                
                     .RegisterType<IBikeVersionsRepository<BikeVersionEntity, uint>, BikeVersionsRepository<BikeVersionEntity, uint>>()
-                    .RegisterType<IBikeVersionCacheRepository<BikeVersionEntity, uint>, BikeVersionsCacheRepository<BikeVersionEntity, uint>>();
+                    .RegisterType<IBikeVersionCacheRepository<BikeVersionEntity, uint>, BikeVersionsCacheRepository<BikeVersionEntity, uint>>()
+                    .RegisterType<IBikeSearch, BikeSearch>();
         }
 
         
