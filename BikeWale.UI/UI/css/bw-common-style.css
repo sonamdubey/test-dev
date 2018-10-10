@@ -266,7 +266,7 @@ a.bikeTitle { color:#2a2a2a; font-size: 16px; font-weight: bold; display: block;
 .header-fixed, .header-landing { position: fixed; top: 0; right: 0; left: 0; padding: 10px 20px; z-index: 203; }
 .header-not-fixed { padding: 10px 20px; z-index: 203; }
 .header-fixed-inner { padding-top: 55px; }
-.header-fixed, .header-fixed-with-bg, .header-not-fixed { background: #333; }
+.header-fixed, .header-fixed-with-bg, .header-not-fixed { background: #333; height: 50px; }
 .header-landing { background: none !important; }
 
 #nav, .loginPopUpWrapper { background: #fff; width:325px; position: fixed; top: 0; right: 0; bottom: 0; left: -325px; overflow-y: hidden; z-index: 210; }

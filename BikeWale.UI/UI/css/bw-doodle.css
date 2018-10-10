@@ -32,9 +32,7 @@
 	top: 29px;
   left: 17px;	
 	background: url('https://imgd.aeplcdn.com/0x0/cw/static/icons/doodle/navratri/2018/doodle-asset-2.png') no-repeat center left / contain;
-	background-size: contain;
-	z-index: 3;
-	
+	background-size: contain;	
 }
 .doodle__asset-two {
 	top: 19px;
@@ -69,12 +67,8 @@
 	width: 50px;
 	height: 50px;
 	background: transparent url('https://imgd.aeplcdn.com/0x0/cw/static/icons/doodle/navratri/2018/doodle.png') no-repeat center / contain;
-	z-index: 2;
 }
 
-.doodle__asset-one--zindex {
-	z-index: 3;
-}
 .doodle__bg {
 	display: inline-block;
 	width: 45px;
@@ -190,10 +184,6 @@
 @media screen and (min-width:768px) {
 	.doodle__container {
 		left: 165px;
-		height: 48px;
-	}
-	.doodle__block {
-		height: 48px;
 	}
 }
 @media screen and (max-width:359px) {

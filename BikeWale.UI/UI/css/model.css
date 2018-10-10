@@ -1,5 +1,5 @@
 ﻿@charset "utf-8";
-.header-not-fixed { background: #595959; padding: 10px 20px; z-index: 3; }
+.header-not-fixed { background: #595959; padding: 10px 20px; z-index: 3;height: 50px; }
 #modelDetailsContainer .model-details-wrapper { width:522px; margin-left:20px; }
 #expectedPriceContainer { border-bottom:1px solid #ecedee; }
 #variantDetailsContainer .variantText { float:left; font-size:14px; line-height:28px; }
