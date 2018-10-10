@@ -34,21 +34,13 @@
             });
         }
 
-        $(".campaign__floating-btn").on("click", "a", function (event) {
-            event.stopPropagation();
-
-            if ($(this).hasClass("js-mfg")) {
+        $("a.js-mfg").click(function(){           
                 if ($(this).closest(".js-floating-btn").hasClass("animated")) {
                     triggerGA($(this).data("cat"), "FloatingLeadCTA_Partial_GetBestOffers_Click", "");
                 }
                 else if ($(this).closest(".js-floating-btn").hasClass("campaign-with-animation")) {
                     triggerGA($(this).data("cat"), "FloatingLeadCTA_FullWidth_Click", "");
                 }
-                else if ($(this).data("group") == "default" && $(this).data("cat") == "Model_Page") {
-                    triggerGA($(this).data("cat"), "FloatingLeadCTA_Partial_DefaultCTA_Click", "");
-                }
-            }
-
         });
 
     }

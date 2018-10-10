@@ -2027,9 +2027,9 @@ docReady(function () {
             var obj = $(this);
             var category = obj.attr("data-cat") || obj.attr("c") || $('body').data('page-name') || pageName;
             var action = obj.attr("data-act") || obj.attr("a");
-            var label = obj.attr("data-lab") || obj.attr("l");
-            var variable = obj.attr("data-var") || obj.attr("v");
-            var funct = obj.attr("data-func") || obj.attr("f");
+            var label = obj.attr("data-lab") !== undefined ? obj.attr("data-lab") : obj.attr("l");
+            var variable = obj.attr("data-var") !== undefined ? obj.attr("data-var") : obj.attr("v");
+            var funct = obj.attr("data-func") !== undefined ? obj.attr("data-func") : obj.attr("f"); 
             if (label !== undefined) {
                 triggerGA(category, action, label);
             }
