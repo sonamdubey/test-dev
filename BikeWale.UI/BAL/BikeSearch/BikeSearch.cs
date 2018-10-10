@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Bikewale.DAL.CoreDAL;
 using Bikewale.ElasticSearch.Entities;
-using Bikewale.Entities.BikeData;
 using Bikewale.Entities.NewBikeSearch;
 using Bikewale.Interfaces.NewBikeSearch;
 using Bikewale.Notifications;
@@ -628,7 +627,7 @@ namespace Bikewale.BAL.BikeSearch
             {
                 string indexName = GetIndexName(source);
                 string typeName = GetTypeName(source);
-
+                cityId = cityId == 0 ? uint.Parse(BWConfiguration.Instance.DefaultCity) : cityId;
                 if (_client != null && modelIds != null)
                 {
                     Func<SearchDescriptor<BikeTopVersion>, SearchDescriptor<BikeTopVersion>> searchDescriptor = BuildPriceSearchDescriptor<BikeTopVersion>(modelIds, cityId, indexName, typeName);

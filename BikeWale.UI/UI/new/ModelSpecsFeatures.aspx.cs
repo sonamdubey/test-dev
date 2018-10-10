@@ -371,7 +371,7 @@ namespace Bikewale.New
                     var objSimilarBikes = new SimilarBikesWidget(objVersion, (uint)versionId, PQSourceEnum.Desktop_DPQ_Alternative);
 
                     objSimilarBikes.TopCount = 9;
-                    objSimilarBikes.CityId = cityId == 0 ? uint.Parse(ConfigurationManager.AppSettings["DefaultCity"]) : cityId; 
+                    objSimilarBikes.CityId = cityId == 0 ? uint.Parse(BWConfiguration.Instance.DefaultCity) : cityId; 
                     objSimilarBikes.IsNew = modelPg.ModelDetails.New;
                     objSimilarBikes.IsUpcoming = modelPg.ModelDetails.Futuristic;
                     objSimilarBikes.IsDiscontinued = !modelPg.ModelDetails.New && modelPg.ModelDetails.Used;
