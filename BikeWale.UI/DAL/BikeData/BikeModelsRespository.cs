@@ -2053,8 +2053,8 @@ namespace Bikewale.DAL.BikeData
                             if (dr.Read())
                             {
                                 usedBikeInfo = new UsedBikeInfo();
-                                usedBikeInfo.UsedBikeCount = Convert.ToUInt32(dr["availableBikes"]);
-                                usedBikeInfo.UsedBikeMinPrice = Convert.ToUInt32(dr["minPrice"]);
+                                usedBikeInfo.UsedBikeCount = SqlReaderConvertor.ToUInt32(dr["availableBikes"]);
+                                usedBikeInfo.UsedBikeMinPrice = SqlReaderConvertor.ToUInt32(dr["minPrice"]);
                                
                             }
                             dr.Close();
