@@ -1,7 +1,6 @@
 ﻿
 using Bikewale.BAL.ApiGateway.Adapters.BikeData;
 using Bikewale.BAL.ApiGateway.ApiGatewayHelper;
-using Bikewale.BAL.ApiGateway.Entities.BikeData;
 using Bikewale.Comparison.Interface;
 using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
@@ -160,7 +159,7 @@ namespace Bikewale.Models
                     _apiGatewayCaller.Call();
 
                     obj.Compare.VersionSpecsFeatures = adapt.Output;
-                    
+
                     if (obj.Compare != null && obj.Compare.BasicInfo != null)
                     {
                         if (obj.Compare.VersionSpecsFeatures != null && obj.Compare.VersionSpecsFeatures.Specs != null)
@@ -174,7 +173,7 @@ namespace Bikewale.Models
                                     IEnumerator<string> specItemEnumerator = specItem.ItemValues.GetEnumerator();
                                     IEnumerator<BikeEntityBase> basicInfoEnumerator = obj.Compare.BasicInfo.GetEnumerator();
                                     ushort mileage;
-                                    while( basicInfoEnumerator.MoveNext())
+                                    while (basicInfoEnumerator.MoveNext())
                                     {
                                         if (basicInfoEnumerator.Current.VersionId > 0 && specItemEnumerator.MoveNext())
                                         {
@@ -447,7 +446,17 @@ namespace Bikewale.Models
         {
             try
             {
-                _compareUrl = string.Join("-vs-", obj.Compare.BasicInfo.Where(x => x.VersionId != obj.sponsoredVersionId).OrderBy(x => x.ModelId).Select(x => string.Format("{0}-{1}", x.MakeMaskingName, x.ModelMaskingName)));
+                IEnumerable<BikeEntityBase> compareBike = obj.Compare.BasicInfo.Where(x => x.VersionId != obj.sponsoredVersionId).OrderBy(x => x.ModelId);
+                IList<string> versionIdList = _versionsList.Split(',');
+                if (compareBike.Count() == 1 && versionIdList.Count() > 1 && versionIdList[0] == versionIdList[1])
+                {
+                    string compareMakeModelName = string.Format("{0}-{1}", compareBike.First().MakeMaskingName, compareBike.First().ModelMaskingName);
+                    _compareUrl = string.Format("{0}-vs-{1}", compareMakeModelName, compareMakeModelName);
+                }
+                else
+                {
+                    _compareUrl = string.Join("-vs-", compareBike.Select(x => string.Format("{0}-{1}", x.MakeMaskingName, x.ModelMaskingName)));
+                }
             }
             catch (Exception ex)
             {
