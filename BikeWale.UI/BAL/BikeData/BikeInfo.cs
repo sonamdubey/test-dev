@@ -88,8 +88,6 @@ namespace Bikewale.BAL.BikeData
         /// </summary>
         public GenericBikeInfo GetBikeInfo(uint modelId, uint cityId, bool isUsedBikeFetched)
         {
-
-            var watch = new System.Diagnostics.Stopwatch();
             GenericBikeInfo genericBike = null;
             UsedBikeInfo usedBikeInfo = null;
             
@@ -98,7 +96,6 @@ namespace Bikewale.BAL.BikeData
                 
                 if (modelId > 0)
                 {
-                    watch.Start();
                     if (cityId <= 0)
                     {
                         genericBike = _modelCache.GetBikeInfo(modelId);
@@ -126,9 +123,6 @@ namespace Bikewale.BAL.BikeData
                             genericBike.UsedBikeMinPrice = usedBikeInfo.UsedBikeMinPrice;
                         }
                     }
-                    watch.Stop();
-                    ThreadContext.Properties["BAL_New_GetBikeInfo_Total_Time"] = watch.ElapsedMilliseconds;
-                    _logger.Error("BAL_New_GetBikeInfo");
                     if (genericBike != null && genericBike.VersionId > 0)
                     {
                         GetVersionSpecsSummaryByItemIdAdapter adapt = new GetVersionSpecsSummaryByItemIdAdapter();

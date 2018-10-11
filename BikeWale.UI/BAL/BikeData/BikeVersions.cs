@@ -148,8 +148,6 @@ namespace Bikewale.BAL.BikeData
 		/// <returns></returns>
 		public IEnumerable<SimilarBikeEntity> GetSimilarBikesList(U versionId, uint topCount, uint cityId, bool maxTorqueRequired)
         {
-            var watch = Stopwatch.StartNew();
-            Stopwatch watch2 = null;
 			try
 			{
                 BikeVersionEntity version = _versionCacheRepository.GetById(versionId);
@@ -160,10 +158,7 @@ namespace Bikewale.BAL.BikeData
                     similarBikesList = _uVersionCacheRepository.GetSimilarBikesList(Convert.ToUInt32(version.ModelBase.ModelId), topCount);
                     if (similarBikesList != null && similarBikesList.Any())
                     {
-                        watch2 = System.Diagnostics.Stopwatch.StartNew();
                         PopulateSimilarBikePrices(similarBikesList, cityId);
-                        watch2.Stop();
-                        watch.Stop();
 
                         IList<EnumSpecsFeaturesItems> specItemList = new List<EnumSpecsFeaturesItems>{
                         EnumSpecsFeaturesItems.Displacement,
@@ -185,15 +180,6 @@ namespace Bikewale.BAL.BikeData
 			{
 				ErrorClass.LogError(ex, String.Format("Bikewale.BAL.BikeData.Bikeversions.GetSimilarBikesList({0}, {1}, {2})", versionId, topCount, cityId));
 			}
-            finally
-            {
-                ThreadContext.Properties["BAL_BikeVersion_GetSimilarBikes_Time"] = watch.ElapsedMilliseconds;
-                if(watch2 != null)
-                {
-                    ThreadContext.Properties["BAL_BikeVersion_GetSimilarBikes_ESTime"] = watch2.ElapsedMilliseconds;
-                }
-                _logger.Error("BAL_BikeVersion_GetSimilarBikes");
-            }
 			return null;
 		}
         /// <summary>

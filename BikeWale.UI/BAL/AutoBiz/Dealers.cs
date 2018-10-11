@@ -13,7 +13,6 @@ namespace Bikewale.BAL.AutoBiz
     {
         IDealerPriceQuote _dealerPQRepository = null;
         IDealerPriceQuoteCache _dealerPqCache;
-        private static readonly ILog _logger = LogManager.GetLogger(typeof(Dealers));
         private readonly Random _rand;
 
         public Dealers(IDealerPriceQuote dealerPQRepository,IDealerPriceQuoteCache dealerPqCache)
@@ -25,8 +24,8 @@ namespace Bikewale.BAL.AutoBiz
         /// <summary>
         /// Created by  :   Sumit Kate on 18 Jul 2017
         /// Description :   Returns primary Dealer allocation
-        /// Modofier    :Kartik Rathod on 28 sept 2018
-        /// Desc        : Modified called GetNearestDealer(modelId, cityId)
+        /// Modofier    :   Kartik Rathod on 28 sept 2018
+        /// Desc        :   Modified called GetNearestDealer(modelId, cityId)
         /// </summary>
         /// <param name="modelId"></param>
         /// <param name="cityId"></param>
@@ -35,7 +34,6 @@ namespace Bikewale.BAL.AutoBiz
         public DealerInfo GetSubscriptionDealer(uint modelId, uint cityId, uint areaId)
         {
             DealerInfo dealer = null;
-            DateTime dtStart = DateTime.Now, dtEnd;
             try
             {
                 if (modelId > 0 && cityId > 0)
@@ -48,9 +46,6 @@ namespace Bikewale.BAL.AutoBiz
                     if (dealer == null || !dealer.IsDealerAvailable)
                     {
                         dealer = GetNearestDealer(modelId, cityId);
-                        dtEnd = DateTime.Now;
-                        ThreadContext.Properties["NearestDealer_FetchTime"] = (dtEnd - dtStart).TotalMilliseconds;
-                        _logger.Error("GetNearestDealer");
                     }
                 }
                 

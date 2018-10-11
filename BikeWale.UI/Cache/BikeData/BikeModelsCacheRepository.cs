@@ -27,7 +27,6 @@ namespace Bikewale.Cache.BikeData
         private readonly IPager _objPager;
         private readonly IBikeModelsCacheHelper _bikeModelCacheHelper;
         private static readonly string _modelIdsWithBodyStyleKey = "BW_ModelIdsWithBodyStyle";
-        private static readonly ILog _logger = LogManager.GetLogger(typeof(BikeModelsCacheRepository<T, U>));
 
 
         /// <summary>
@@ -1165,11 +1164,7 @@ namespace Bikewale.Cache.BikeData
             try
             {
                 string key = string.Format("BW_GenericBikeInfo_V1_MO_{0}_cityId_{1}", modelId, cityId);
-                var watch2 = System.Diagnostics.Stopwatch.StartNew();
                 objSearchList = _cache.GetFromCache(key, new TimeSpan(23, 0, 0), () => _modelRepository.GetBikeInfo(modelId, cityId));
-                watch2.Stop();
-                ThreadContext.Properties["DAL_GetBikeInfo_Time"] = watch2.ElapsedMilliseconds;
-                _logger.Error("DAL_GetBikeInfo");
             }
             catch (Exception ex)
             {
@@ -1201,11 +1196,7 @@ namespace Bikewale.Cache.BikeData
                 {
                     cacheTime = new TimeSpan(3, 0, 0); 
                 }
-                var watch3 = System.Diagnostics.Stopwatch.StartNew();
                 objSearchList = _cache.GetFromCache(key, cacheTime, () => _modelRepository.GetUsedBikeInfo(modelId, cityId));
-                watch3.Stop();
-                ThreadContext.Properties["DAL_GetUsedBikeInfo_Time"] = watch3.ElapsedMilliseconds;
-                _logger.Error("DAL_GetUsedBikeInfo");
             }
             catch (Exception ex)
             {

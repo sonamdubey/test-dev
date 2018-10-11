@@ -26,8 +26,6 @@ namespace Bikewale.Cache.PriceQuote
         private readonly Bikewale.Interfaces.AutoBiz.IDealerPriceQuote _objDealerPriceQuote = null;
         private readonly static IUnityContainer _container;
 
-        private static readonly ILog _logger = LogManager.GetLogger(typeof(PriceQuoteCache));
-
         static PriceQuoteCache()
         {
             _container = new UnityContainer();
@@ -155,7 +153,6 @@ namespace Bikewale.Cache.PriceQuote
         /// <returns></returns>
         public uint GetDefaultPriceQuoteVersion(uint modelId, uint cityId)
         {
-            DateTime dt1 = DateTime.Now, dt2;
             uint versionId = 0;
             string key = String.Format("BW_DefaultPQVersion_{0}_{1}", modelId, cityId);
             try
@@ -165,13 +162,7 @@ namespace Bikewale.Cache.PriceQuote
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, String.Format("PriceQuoteCache.GetDefaultPriceQuoteVersion({0},{1})", modelId, cityId));
-            }
-            finally
-            {
-                dt2 = DateTime.Now;
-                ThreadContext.Properties["DefaultPriceQuoteVersion_FetchTime"] = (dt2 - dt1).TotalMilliseconds;
-                _logger.Error("GetDefaultPriceQuoteVersion");
-            }     
+            }  
             return versionId;
         }
 
@@ -246,23 +237,16 @@ namespace Bikewale.Cache.PriceQuote
         /// <returns></returns>
         public IEnumerable<BikeQuotationEntity> GetVersionPricesByModelId(uint modelId, uint cityId)
         {
-            Stopwatch watch = Stopwatch.StartNew();
             IEnumerable<BikeQuotationEntity> versionPrices = null;
             try
             {
                 string key = String.Format("BW_Version_PQ_M_{0}_C_{1}", modelId, cityId);
                 bool hasArea = false;
                 versionPrices = _cache.GetFromCache<IEnumerable<BikeQuotationEntity>>(key, new TimeSpan(7, 0, 0, 0), () => _obPriceQuote.GetVersionPricesByModelId(modelId, cityId, out hasArea));
-                watch.Stop();
             }
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, String.Format("PriceQuoteCache.GetVersionPricesByModelId( {0}, {1})", modelId, cityId));
-            }
-            finally
-            {
-                ThreadContext.Properties["GetVersionPricesByModelId_Time"] = watch.ElapsedMilliseconds;
-                _logger.Error("GetVersionPricesByModelId");
             }
             return versionPrices;
         }
