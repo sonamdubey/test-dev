@@ -1,4 +1,7 @@
-﻿.doodle__container {
+﻿#header.header-landing {
+	background-color: #333 !important;
+}
+.doodle__container {
 	position: absolute;
 	top: 0;
 	left: 135px;
