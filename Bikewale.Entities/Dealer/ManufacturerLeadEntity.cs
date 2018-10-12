@@ -11,6 +11,8 @@ namespace Bikewale.Entities.Dealer
     /// Modifier    :  Kartik on 20 jun 2018 for price quote changes added PQGuId
     /// Modified By :   Prabhu Puredla on 16 aug 2018
     /// Description :   Added ModelId property 
+    /// Modified by : Pratibha Verma on 10 October 2018
+    /// Description : Added EmailOption property
     /// </summary>
     public class ManufacturerLeadEntity
     {
@@ -85,6 +87,9 @@ namespace Bikewale.Entities.Dealer
 
         [JsonProperty("modelName")]
         public string ModelName { set; get; }
+
+        [JsonProperty("emailOption")]
+        public string EmailOption { get; set; }
     }
 
     /// <summary>

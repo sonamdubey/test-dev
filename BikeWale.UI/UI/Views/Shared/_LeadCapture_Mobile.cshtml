@@ -1107,7 +1107,8 @@
                     "sendLeadSMSCustomer": self.sendLeadSMSCustomer(),
                     "leadId":self.leadId(),
                     "platformId": @Model.PlatformId,
-                    "pageId": @Model.PageId
+                    "pageId": @Model.PageId,
+                    "emailOption": self.emailOption()
                 };
                 $.ajax({
                     type: "POST",

@@ -867,10 +867,13 @@ namespace Bikewale.BAL.Lead
 		/// Modifier    : Kartik Rathod on 16 may 2018, added dealerName,bikename and sendLeadSMSCustomer to ManufacturerLead consumer 
         /// Modified By : Rajan Chauhan on 20 August 2018 
         /// Description : Added null check on Pincode 
+        /// Modified by : Pratibha Verma on 10 October 2018
+        /// Description : added emailOption in nvc object
         /// </summary>
         /// <param name="input"></param>
         private static void PushToLeadConsumer(ManufacturerLeadEntity input)
         {
+            UInt16 emailOption = (UInt16)((EnumEmailOptions) Enum.Parse(typeof(EnumEmailOptions), input.EmailOption));
             NameValueCollection objNVC = new NameValueCollection();
 
             objNVC.Add("pqId", input.PQId.ToString());
@@ -888,6 +891,7 @@ namespace Bikewale.BAL.Lead
 			objNVC.Add("dealerName", input.DealerName);
 			objNVC.Add("bikeName", input.BikeName);
 			objNVC.Add("sendLeadSMSCustomer", Convert.ToString(input.SendLeadSMSCustomer));
+            objNVC.Add("emailOption", emailOption.ToString());
 
             RabbitMqPublish objRMQPublish = new RabbitMqPublish();
             objRMQPublish.PublishToQueue(Bikewale.Utility.BWConfiguration.Instance.LeadConsumerQueue, objNVC);
