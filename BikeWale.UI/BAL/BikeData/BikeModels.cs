@@ -383,7 +383,7 @@ namespace Bikewale.BAL.BikeData
         {
             try
             {
-                if (popularBikes != null)
+                if (promotedBikes != null && popularBikes != null)
                 {
                     IEnumerable<MostPopularBikesBase> results = promotedBikes.Except(popularBikes.Take(5), new MostPopularBikesBaseComparer());
 
