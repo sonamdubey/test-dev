@@ -1,120 +1,122 @@
 ﻿@model Bikewale.Models.BikeInfoVM
-
-<div class="model-more-info-section padding-15-20">
-    @if (Model.BikeInfo.IsUpcoming)
+@if (Model != null && Model.BikeInfo != null)
+{
+    <div class="model-more-info-section padding-15-20">
+        @if (Model.BikeInfo.IsUpcoming)
         {
-        <p class="model-ribbon-tag upcoming-ribbon">Upcoming</p>
+            <p class="model-ribbon-tag upcoming-ribbon">Upcoming</p>
         }
-    @if (Model.BikeInfo.IsDiscontinued)
+        @if (Model.BikeInfo.IsDiscontinued)
         {
-        <p class="model-ribbon-tag discontinued-ribbon">Discontinued</p>
+            <p class="model-ribbon-tag discontinued-ribbon">Discontinued</p>
         }
-    <div class="clear"></div>
-    <div class="margin-bottom10">
-        <a href="/m@(Model.BikeUrl)" class="item-image-content inline-block" title="@Model.BikeName">
-            <img src="@Bikewale.Utility.Image.GetPathToShowImages(Model.BikeInfo.OriginalImagePath,Model.BikeInfo.HostUrl,Bikewale.Utility.ImageSize._110x61)" alt="@Model.BikeName" title="@Model.BikeName">
-        </a>
+        <div class="clear"></div>
+        <div class="margin-bottom10">
+            <a href="/m@(Model.BikeUrl)" class="item-image-content inline-block" title="@Model.BikeName">
+                <img src="@Bikewale.Utility.Image.GetPathToShowImages(Model.BikeInfo.OriginalImagePath,Model.BikeInfo.HostUrl,Bikewale.Utility.ImageSize._110x61)" alt="@Model.BikeName" title="@Model.BikeName">
+            </a>
 
-        @{int count = 0; }
+            @{int count = 0; }
 
-        <div class="bike-details-block vertical-top">
-            <h3 class="margin-bottom5"><a href="/m@(Model.BikeUrl)" class="block text-bold text-default text-truncate" title="@Model.BikeName">@Model.BikeName</a></h3>
-            <ul class="item-more-details-list">
-                @if (Model.BikeInfo.IsSpecsAvailable && count < 3)
-                    {
-                        count++;
-
-
-                    <li>
-                        <a href="/m@(Bikewale.Utility.UrlFormatter.ViewAllFeatureSpecs(Model.BikeInfo.Make.MaskingName,Model.BikeInfo.Model.MaskingName))" title="@Model.BikeName Specification">
-                            <span class="bwsprite specs-sm"></span>
-                            <span class="icon-label">Specs</span>
-                        </a>
-                    </li>
-                    }
-                @if (Model.BikeInfo.UserReview > 0 && count < 3)
+            <div class="bike-details-block vertical-top">
+                <h3 class="margin-bottom5"><a href="/m@(Model.BikeUrl)" class="block text-bold text-default text-truncate" title="@Model.BikeName">@Model.BikeName</a></h3>
+                <ul class="item-more-details-list">
+                    @if (Model.BikeInfo.IsSpecsAvailable && count < 3)
                     {
                         count++;
 
-                    <li>
-                        <a href="/m@(Bikewale.Utility.UrlFormatter.FormatUserReviewUrl(Model.BikeInfo.Make.MaskingName, Model.BikeInfo.Model.MaskingName))" title="@Model.BikeName User Reviews">
-                            <span class="bwsprite user-reviews-sm"></span>
-                            <span class="icon-label">User Reviews</span>
-                        </a>
-                    </li>
+
+                        <li>
+                            <a href="/m@(Bikewale.Utility.UrlFormatter.ViewAllFeatureSpecs(Model.BikeInfo.Make.MaskingName,Model.BikeInfo.Model.MaskingName))" title="@Model.BikeName Specification">
+                                <span class="bwsprite specs-sm"></span>
+                                <span class="icon-label">Specs</span>
+                            </a>
+                        </li>
                     }
-                @if (Model.BikeInfo.VideosCount > 0 && count < 3)
+                    @if (Model.BikeInfo.UserReview > 0 && count < 3)
                     {
                         count++;
-                    <li>
-                        <a href="/m@(Bikewale.Utility.UrlFormatter.FormatVideoPageUrl(Model.BikeInfo.Make.MaskingName, Model.BikeInfo.Model.MaskingName))" title="@Model.BikeName Videos">
-                            <span class="bwsprite videos-sm"></span>
-                            <span class="icon-label">Videos</span>
-                        </a>
-                    </li>
+
+                        <li>
+                            <a href="/m@(Bikewale.Utility.UrlFormatter.FormatUserReviewUrl(Model.BikeInfo.Make.MaskingName, Model.BikeInfo.Model.MaskingName))" title="@Model.BikeName User Reviews">
+                                <span class="bwsprite user-reviews-sm"></span>
+                                <span class="icon-label">User Reviews</span>
+                            </a>
+                        </li>
                     }
-                @if (Model.BikeInfo.DealersCount > 0 && count < 3)
+                    @if (Model.BikeInfo.VideosCount > 0 && count < 3)
                     {
                         count++;
-                    <li>
-                        <a href="@string.Format("/m{0}",(Model.CityDetails != null ? Bikewale.Utility.UrlFormatter.DealerLocatorUrl(Model.BikeInfo.Make.MaskingName, Model.CityDetails.CityMaskingName) : Bikewale.Utility.UrlFormatter.DealerLocatorUrl(Model.BikeInfo.Make.MaskingName)))" title="@Model.BikeName Dealers">
-                            <span class="bwsprite dealers-sm"></span>
-                            <span class="icon-label">Dealers</span>
-                        </a>
-                    </li>
+                        <li>
+                            <a href="/m@(Bikewale.Utility.UrlFormatter.FormatVideoPageUrl(Model.BikeInfo.Make.MaskingName, Model.BikeInfo.Model.MaskingName))" title="@Model.BikeName Videos">
+                                <span class="bwsprite videos-sm"></span>
+                                <span class="icon-label">Videos</span>
+                            </a>
+                        </li>
                     }
-                @if (Model.BikeInfo.ExpertReviewsCount > 0 && count < 3)
+                    @if (Model.BikeInfo.DealersCount > 0 && count < 3)
                     {
                         count++;
-                    <li>
-                        <a href="/m@(Bikewale.Utility.UrlFormatter.FormatExpertReviewUrl(Model.BikeInfo.Make.MaskingName,Model.BikeInfo.Model.MaskingName))" title="@Model.BikeName Expert reviews">
-                            <span class="bwsprite reviews-sm"></span>
-                            <span class="icon-label">Expert reviews</span>
-                        </a>
-                    </li>
+                        <li>
+                            <a href="@string.Format("/m{0}",(Model.CityDetails != null ? Bikewale.Utility.UrlFormatter.DealerLocatorUrl(Model.BikeInfo.Make.MaskingName, Model.CityDetails.CityMaskingName) : Bikewale.Utility.UrlFormatter.DealerLocatorUrl(Model.BikeInfo.Make.MaskingName)))" title="@Model.BikeName Dealers">
+                                <span class="bwsprite dealers-sm"></span>
+                                <span class="icon-label">Dealers</span>
+                            </a>
+                        </li>
                     }
-                @if (Model.BikeInfo.NewsCount > 0 && count < 3)
+                    @if (Model.BikeInfo.ExpertReviewsCount > 0 && count < 3)
                     {
                         count++;
-                    <li>
-                        <a href="/m@(Bikewale.Utility.UrlFormatter.FormatNewsUrl(Model.BikeInfo.Make.MaskingName,Model.BikeInfo.Model.MaskingName))" title="@Model.BikeName News">
-                            <span class="bwsprite news-sm"></span>
-                            <span class="icon-label">News</span>
-                        </a>
-                    </li>
+                        <li>
+                            <a href="/m@(Bikewale.Utility.UrlFormatter.FormatExpertReviewUrl(Model.BikeInfo.Make.MaskingName,Model.BikeInfo.Model.MaskingName))" title="@Model.BikeName Expert reviews">
+                                <span class="bwsprite reviews-sm"></span>
+                                <span class="icon-label">Expert reviews</span>
+                            </a>
+                        </li>
                     }
-            </ul>
+                    @if (Model.BikeInfo.NewsCount > 0 && count < 3)
+                    {
+                        count++;
+                        <li>
+                            <a href="/m@(Bikewale.Utility.UrlFormatter.FormatNewsUrl(Model.BikeInfo.Make.MaskingName,Model.BikeInfo.Model.MaskingName))" title="@Model.BikeName News">
+                                <span class="bwsprite news-sm"></span>
+                                <span class="icon-label">News</span>
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </div>
         </div>
-    </div>
 
-    @if (!Model.IsUpcoming && !Model.IsDiscontinued)
+        @if (!Model.IsUpcoming && !Model.IsDiscontinued)
         {
-        <div class="grid-7 alpha omega">
+            <div class="grid-7 alpha omega">
                 <p class="font11 text-light-grey text-truncate">Ex-showroom price, @Bikewale.Utility.BWConfiguration.Instance.DefaultName</p>
                 <span class="bwmsprite inr-xsm-icon"></span>
                 <span class="font16 text-bold">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(Model.BikeInfo.BikePrice))</span>
-        </div>
+            </div>
         }
         else if (Model.IsUpcoming)
         {
-        <div class="grid-7 alpha omega">
-            <p class="font11 text-light-grey text-truncate">Expected price</p>
+            <div class="grid-7 alpha omega">
+                <p class="font11 text-light-grey text-truncate">Expected price</p>
 
-            <span class="bwmsprite inr-xsm-icon"></span>
-            <span class="font16 text-bold">@Bikewale.Utility.Format.FormatNumeric(Convert.ToString(Model.BikeInfo.EstimatedPriceMin)) onwards</span>
-        </div>
-    }
-    else if (Model.IsDiscontinued)
-    {
-        <div class="grid-7 alpha omega">
-            <p class="font11 text-light-grey text-truncate">Last know price</p>
+                <span class="bwmsprite inr-xsm-icon"></span>
+                <span class="font16 text-bold">@Bikewale.Utility.Format.FormatNumeric(Convert.ToString(Model.BikeInfo.EstimatedPriceMin)) onwards</span>
+            </div>
+        }
+        else if (Model.IsDiscontinued)
+        {
+            <div class="grid-7 alpha omega">
+                <p class="font11 text-light-grey text-truncate">Last know price</p>
 
-            <span class="bwmsprite inr-xsm-icon"></span>
-            <span class="font16 text-bold">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(Model.BikeInfo.BikePrice))</span>
-        </div>
-    }
-    <div class="clear"></div>
-</div>
+                <span class="bwmsprite inr-xsm-icon"></span>
+                <span class="font16 text-bold">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(Model.BikeInfo.BikePrice))</span>
+            </div>
+        }
+        <div class="clear"></div>
+    </div>
+}
 
 
 

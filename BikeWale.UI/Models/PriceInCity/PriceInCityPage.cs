@@ -1016,7 +1016,7 @@ namespace Bikewale.Models
 
                 objVM.BikeInfo = (new BikeInfoWidget(_bikeInfo, _objCityCache, modelId, cityId, BikeInfoTabCount, Entities.GenericBikes.BikeInfoTabType.PriceInCity)).GetData();
                 objVM.BikeRank = (new BikeModelRank(_modelCache, modelId)).GetData();
-                objVM.IsElectricBike = objVM.BikeInfo.BikeInfo.FuelType.Equals(5);
+                objVM.IsElectricBike = (objVM.BikeInfo != null && objVM.BikeInfo.BikeInfo != null) ? objVM.BikeInfo.BikeInfo.FuelType == 5 : false;
             }
             catch (Exception ex)
             {
