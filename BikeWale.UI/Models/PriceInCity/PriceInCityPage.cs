@@ -1148,7 +1148,7 @@ namespace Bikewale.Models
         {
             try
             {
-                objVM.NearestPriceCities = new ModelPriceInNearestCities(_objPQCache, modelId, cityId, (ushort)NearestCityCount).GetData();
+                objVM.NearestPriceCities = _objPQCache.GetModelPriceInNearestCities(modelId, cityId);
             }
             catch (Exception ex)
             {

@@ -21,6 +21,7 @@ using Bikewale.ManufacturerCampaign.Entities;
 using Bikewale.ManufacturerCampaign.DAL;
 using Bikewale.ManufacturerCampaign.Cache;
 using BikeWale.Entities.AutoBiz;
+using Bikewale.Cache.Helper.PriceQuote;
 
 namespace Bikewale.BAL.BikeBooking
 {
@@ -43,6 +44,7 @@ namespace Bikewale.BAL.BikeBooking
             _container.RegisterType<Bikewale.Interfaces.BikeBooking.IDealerPriceQuote, Bikewale.DAL.BikeBooking.DealerPriceQuoteRepository>();
             _container.RegisterType<ICacheManager, MemcacheManager>();
             _container.RegisterType<IPriceQuote, BAL.PriceQuote.PriceQuote>();
+            _container.RegisterType<IPriceQuoteCacheHelper, PriceQuoteCacheHelper>();
             _container.RegisterType<IPriceQuoteCache, PriceQuoteCache>();
             _container.RegisterType<Bikewale.Interfaces.AutoBiz.IDealerPriceQuote, Bikewale.DAL.AutoBiz.DealerPriceQuoteRepository>();
             _container.RegisterType<IManufacturerCampaignCache, ManufacturerCampaignCache>();

@@ -23,6 +23,7 @@ using System.Threading.Tasks;
 using System.Web.Hosting;
 using Bikewale.DTO.PriceQuote.Version;
 using Bikewale.DAL.BikeBooking;
+using Bikewale.Cache.Helper.PriceQuote;
 
 namespace Bikewale.BAL.PriceQuote
 {
@@ -46,6 +47,7 @@ namespace Bikewale.BAL.PriceQuote
             using (IUnityContainer objPQCont = new UnityContainer())
             {
                 objPQCont.RegisterType<IPriceQuoteCache, PriceQuoteCache>();
+                objPQCont.RegisterType<IPriceQuoteCacheHelper, PriceQuoteCacheHelper>();
                 objPQCont.RegisterType<IPriceQuote, PriceQuoteRepository>();
                 objPQCont.RegisterType<IDealerPriceQuote, DealerPriceQuoteRepository>();
                 objPQCont.RegisterType<IDealerPriceQuoteCache, DealerPriceQuoteCache>();
@@ -306,6 +308,11 @@ namespace Bikewale.BAL.PriceQuote
         public IEnumerable<PriceQuoteOfTopCities> GetModelPriceInNearestCities(uint modelId, uint cityId, ushort topCount)
         {
             return objPQ.GetModelPriceInNearestCities(modelId, cityId, topCount);
+        }
+
+        public ModelTopVersionPrices GetTopVersionPriceInCities(uint modelId)
+        {
+            return objPQ.GetTopVersionPriceInCities(modelId);
         }
 
 

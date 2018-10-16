@@ -1,4 +1,5 @@
 ﻿using Bikewale.Entities;
+using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.PriceQuote;
@@ -10,8 +11,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Device.Location;
 using Microsoft.Practices.Unity;
-
+using Bikewale.Models.PriceInCity;
 
 namespace Bikewale.Cache.PriceQuote
 {
@@ -24,6 +26,7 @@ namespace Bikewale.Cache.PriceQuote
         private readonly IPriceQuote _obPriceQuote = null;
         private readonly Bikewale.Interfaces.BikeBooking.IDealerPriceQuote _dealerPriceQuoteRepository ;
         private readonly Bikewale.Interfaces.AutoBiz.IDealerPriceQuote _objDealerPriceQuote = null;
+        private readonly IPriceQuoteCacheHelper _priceQuoteCacheHelper;
         private readonly static IUnityContainer _container;
 
         static PriceQuoteCache()
@@ -32,11 +35,12 @@ namespace Bikewale.Cache.PriceQuote
             _container.RegisterType<Bikewale.Interfaces.BikeBooking.IDealerPriceQuote, Bikewale.DAL.BikeBooking.DealerPriceQuoteRepository>();
         }
 
-        public PriceQuoteCache(ICacheManager cache, IPriceQuote obPriceQuote,  Bikewale.Interfaces.AutoBiz.IDealerPriceQuote objDealerPriceQuote)
+        public PriceQuoteCache(ICacheManager cache, IPriceQuote obPriceQuote,  Bikewale.Interfaces.AutoBiz.IDealerPriceQuote objDealerPriceQuote, IPriceQuoteCacheHelper priceQuoteCacheHelper)
         {
             _cache = cache;
             _obPriceQuote = obPriceQuote;
             _objDealerPriceQuote = objDealerPriceQuote;
+            _priceQuoteCacheHelper = priceQuoteCacheHelper;
             _dealerPriceQuoteRepository = _container.Resolve<Bikewale.Interfaces.BikeBooking.IDealerPriceQuote>();
         }
 
@@ -89,6 +93,65 @@ namespace Bikewale.Cache.PriceQuote
             return prices;
         }
 
+        /// <summary>
+        /// Created by  : Pratibha Verma on 28 September 2018
+        /// Description : returns the topVersion price in all cities
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
+        private ModelTopVersionPrices GetTopVersionPriceInCities(uint modelId)
+        {
+            ModelTopVersionPrices modelTopVersionPrices = null;
+            string key = string.Format("BW_TopVersionPrices_M_{0}", modelId);
+            try
+            {
+                modelTopVersionPrices = _cache.GetFromCache<ModelTopVersionPrices>(key, new TimeSpan(30, 0, 0, 0), () => _obPriceQuote.GetTopVersionPriceInCities(modelId));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("Bikewale.Cache.PriceQuote.PriceQuoteCache.GetTopVersionPriceInCities(modelId = {0})", modelId));
+            }
+            return modelTopVersionPrices;
+        }
+
+        /// <summary>
+        /// Created by  : Pratibha Verma on 3 October 2018
+        /// Description : returns model top version price in nearest cities
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <param name="cityId"></param>
+        /// <returns></returns>
+        public PriceInTopCitiesWidgetVM GetModelPriceInNearestCities(uint modelId, uint cityId)
+        {
+            DateTime dt1 = DateTime.Now, dt2;
+            PriceInTopCitiesWidgetVM priceInTopCities = null;
+            string nearestCityKey = String.Format("BW_PriceInNearestCities_M_{0}_C_{1}", modelId, cityId);
+            try
+            {
+                ModelTopVersionPrices modelTopVersionPrices = GetTopVersionPriceInCities(modelId);
+                IEnumerable<PriceQuoteOfTopCities> priceInNearestCities = _cache.GetFromCache<IEnumerable<PriceQuoteOfTopCities>>(nearestCityKey, new TimeSpan(30, 0, 0, 0), () => _priceQuoteCacheHelper.GetModelPriceInNearestCities(modelTopVersionPrices, cityId, modelId));
+
+                if (priceInNearestCities != null)
+                {
+                    priceInTopCities = new PriceInTopCitiesWidgetVM
+                    {
+                        PriceQuoteList = priceInNearestCities,
+                        BikeName = string.Format("{0} {1}", priceInNearestCities.First().Make, priceInNearestCities.First().Model)
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("Bikewale.Cache.PriceQuote.PriceQuoteCache.GetModelPriceInNearestCities(modelId = {0}, cityId = {1})", modelId, cityId));
+            }
+            finally
+            {
+                dt2 = DateTime.Now;
+                ThreadContext.Properties["MOdelPriceInNearestCities_FetchTime"] = (dt2 - dt1).TotalMilliseconds;
+            }
+            return priceInTopCities;
+        }
+        
         /// <summary>
         /// Modified by  : Rajan Chauhan on 28 September 2018
         /// Description  : Increased cached duration to 7 days

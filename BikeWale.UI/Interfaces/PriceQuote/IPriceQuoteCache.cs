@@ -3,6 +3,7 @@ using Bikewale.Entities;
 using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.manufacturecampaign;
 using Bikewale.Entities.PriceQuote;
+using Bikewale.Models.PriceInCity;
 using System.Collections.Generic;
 
 namespace Bikewale.Interfaces.PriceQuote
@@ -25,6 +26,7 @@ namespace Bikewale.Interfaces.PriceQuote
 
         string GetManufacturerCampaignMobileRenderedTemplate(string key, ManufactureCampaignLeadEntity leadCampaign);
         string GetManufacturerCampaignMobileRenderedTemplateV2(string key, Entities.manufacturecampaign.v2.ManufactureCampaignLeadEntity leadCampaign);
+        PriceInTopCitiesWidgetVM GetModelPriceInNearestCities(uint modelId, uint cityId);
         IEnumerable<BikeQuotationEntity> GetVersionPricesByModelId(uint modelId, uint cityId);
     }
 }

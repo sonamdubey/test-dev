@@ -31,6 +31,7 @@ using Bikewale.Cache.Compare;
 using Bikewale.Cache.Core;
 using Bikewale.Cache.DealersLocator;
 using Bikewale.Cache.Finance;
+using Bikewale.Cache.Helper.PriceQuote;
 using Bikewale.Cache.HomePage;
 using Bikewale.Cache.Location;
 using Bikewale.Cache.PriceQuote;
@@ -228,6 +229,7 @@ namespace Bikewale
             container.RegisterType<IAnswerRepository, AnswerRepository>();
             container.RegisterType<IAnswers, Answers>();
             container.RegisterType<ICampaignBL, CampaignBL>();
+            container.RegisterType<IPriceQuoteCacheHelper, PriceQuoteCacheHelper>();
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }
     }

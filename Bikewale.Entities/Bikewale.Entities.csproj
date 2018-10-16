@@ -189,6 +189,7 @@
     <Compile Include="BikeData\BikeModelImageEntityBase.cs" />
     <Compile Include="BikeData\BikeModelPageEntity.cs" />
     <Compile Include="BikeData\BikeModelsListEntity.cs" />
+    <Compile Include="BikeData\BikeModelTopVersion.cs" />
     <Compile Include="BikeData\BikeModelVersionsDetails.cs" />
     <Compile Include="BikeData\BikeSeriesCompareBikes.cs" />
     <Compile Include="BikeData\BikeSeriesEntity.cs">
@@ -389,6 +390,7 @@
     <Compile Include="Location\AreaEntityBase.cs" />
     <Compile Include="Location\CityEntityBase.cs" />
     <Compile Include="Location\CityMaskingResponse.cs" />
+    <Compile Include="Location\CityPriceEntity.cs" />
     <Compile Include="Location\DealerCityEntity.cs" />
     <Compile Include="Location\DealerStateEntity.cs" />
     <Compile Include="Location\DealerStateCities.cs" />
@@ -458,6 +460,7 @@
     <Compile Include="PriceQuote\DPQTypes.cs" />
     <Compile Include="PriceQuote\LeadCaptureEntity.cs" />
     <Compile Include="PriceQuote\ManufacturerCampaign.cs" />
+    <Compile Include="PriceQuote\ModelTopVersionPrices.cs" />
     <Compile Include="PriceQuote\NewBikeDealerBase.cs" />
     <Compile Include="PriceQuote\OfferHtmlEntity.cs" />
     <Compile Include="PriceQuote\OtherVersionInfoEntity.cs" />

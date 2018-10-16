@@ -1,4 +1,5 @@
 ﻿using Bikewale.Cache.Core;
+using Bikewale.Cache.Helper.PriceQuote;
 using Bikewale.Cache.PriceQuote;
 using Bikewale.Common;
 using Bikewale.Entities.PriceQuote;
@@ -76,7 +77,8 @@ namespace Bikewale.Controls
 
                     container.RegisterType<IPriceQuote, Bikewale.BAL.PriceQuote.PriceQuote>()
                         .RegisterType<ICacheManager, MemcacheManager>()
-                        .RegisterType<IPriceQuoteCache, PriceQuoteCache>();
+                        .RegisterType<IPriceQuoteCache, PriceQuoteCache>()
+                        .RegisterType<IPriceQuoteCacheHelper, PriceQuoteCacheHelper>();
                     IPriceQuoteCache objCache = container.Resolve<IPriceQuoteCache>();
 
                     prices = objCache.FetchPriceQuoteOfTopCitiesCache(ModelId, TopCount);

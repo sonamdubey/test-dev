@@ -929,7 +929,9 @@ namespace Bikewale.Models.BikeModels
 
                         _objData.UsedModels = BindUsedBikeByModel((uint)objMake.MakeId, _cityId);
                         if (_cityId > 0)
-                            _objData.PriceInTopCities = new ModelPriceInNearestCities(_objPQCache, _modelId, _cityId, 9).GetData();
+                        {
+                            _objData.PriceInTopCities = _objPQCache.GetModelPriceInNearestCities(_modelId, _cityId);
+                        }  
                         else
                             _objData.PriceInTopCities = new PriceInTopCities(_objPQCache, _modelId, 9).GetData();
 

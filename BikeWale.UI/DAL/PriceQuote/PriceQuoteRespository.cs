@@ -2,6 +2,7 @@
 using Bikewale.Entities;
 using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Notifications;
@@ -659,6 +660,84 @@ namespace Bikewale.DAL.PriceQuote
 
             return objPrice;
         }
+
+        /// <summary>
+        /// Created by  : Pratibha Verma on 28 September 2018
+        /// Description : return model's topVersion price in all cities
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
+        public ModelTopVersionPrices GetTopVersionPriceInCities(uint modelId)
+        {
+            ModelTopVersionPrices modelTopVersionPrice = null;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("modeltopversionpriceincities"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            BikeMakeBase bikeMake = null;
+                            BikeModelTopVersion bikeModelTopVersion = null;
+                            IList<CityPriceEntity> cityPrice = new List<CityPriceEntity>();
+                            while (dr.Read())
+                            {
+                                if (bikeMake != null && bikeModelTopVersion != null)
+                                {
+                                    cityPrice.Add(new CityPriceEntity {
+                                        CityId = SqlReaderConvertor.ToUInt32(dr["cityId"]),
+                                        CityName = Convert.ToString(dr["cityName"]),
+                                        CityMaskingName = Convert.ToString(dr["cityMaskingName"]),
+                                        Latitude = SqlReaderConvertor.ToFloat(dr["lattitude"]),
+                                        Longitude = SqlReaderConvertor.ToFloat(dr["longitude"]),
+                                        OnRoadPrice = SqlReaderConvertor.ToUInt32(dr["onRoadPrice"])
+                                    });
+                                }
+                                else
+                                {
+                                    bikeMake = new BikeMakeBase
+                                    {
+                                        MakeId = SqlReaderConvertor.ToInt32(dr["makeId"]),
+                                        MakeName = Convert.ToString(dr["makeName"]),
+                                        MakeMaskingName = Convert.ToString(dr["makeMaskingName"])
+                                    };
+                                    bikeModelTopVersion = new BikeModelTopVersion
+                                    {
+                                        ModelId = SqlReaderConvertor.ToInt32(dr["modelId"]),
+                                        ModelName = Convert.ToString(dr["modelName"]),
+                                        MaskingName = Convert.ToString(dr["modelMaskingName"]),
+                                        TopVersionId = SqlReaderConvertor.ToInt32(dr["topVersionId"])
+                                    };
+                                    cityPrice.Add(new CityPriceEntity {
+                                        CityId = SqlReaderConvertor.ToUInt32(dr["cityId"]),
+                                        CityName = Convert.ToString(dr["cityName"]),
+                                        CityMaskingName = Convert.ToString(dr["cityMaskingName"]),
+                                        Latitude = SqlReaderConvertor.ToFloat(dr["lattitude"]),
+                                        Longitude = SqlReaderConvertor.ToFloat(dr["longitude"]),
+                                        OnRoadPrice = SqlReaderConvertor.ToUInt32(dr["onRoadPrice"])
+                                    });
+                                }
+                            }
+                            dr.Close();
+                            modelTopVersionPrice = new ModelTopVersionPrices {
+                                BikeMake = bikeMake,
+                                BikeModel = bikeModelTopVersion,
+                                CityPrice = cityPrice
+                            };
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("Bikewale.DAL.PriceQuote.PriceQuoteRepository.GetTopVersionPriceInCities", modelId));
+            }
+            return modelTopVersionPrice;
+        }
+
         /// <summary>
         /// Author: Sangram Nandkhile on 25 May 2016
         /// Summary: Get bike versions and prices by model Id

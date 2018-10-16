@@ -43,5 +43,6 @@ namespace Bikewale.Interfaces.PriceQuote
 		bool GetMLAStatus(int makeId, uint cityId);
         VersionPrice GetVersionPriceByCityId(uint versionId, uint cityId);
         IList<PriceCategory> GetVersionPriceListByCityId(uint versionId, uint cityId);
+        ModelTopVersionPrices GetTopVersionPriceInCities(uint modelId);
     }
 }

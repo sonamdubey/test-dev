@@ -35,6 +35,7 @@ using Bikewale.Cache.Compare;
 using Bikewale.Cache.Core;
 using Bikewale.Cache.Finance;
 using Bikewale.Cache.Finance.BajajAuto;
+using Bikewale.Cache.Helper.PriceQuote;
 using Bikewale.Cache.Location;
 using Bikewale.Cache.MobileVerification;
 using Bikewale.Cache.PriceQuote;
@@ -278,6 +279,7 @@ namespace Bikewale.Service.UnityConfiguration
             container.RegisterType<IQuestionsRepository, QuestionsRepository>();
             container.RegisterType<IUserProfileBAL, UserProfileBAL>();
             container.RegisterType<ICampaignBL, CampaignBL>();
+            container.RegisterType<IPriceQuoteCacheHelper, PriceQuoteCacheHelper>();
             return container;
 
         }
