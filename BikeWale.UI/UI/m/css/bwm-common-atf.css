@@ -200,6 +200,8 @@ header.fixed {    position: fixed;    left: 0;    right: 0;    top: 0;    z-inde
 .text-light-grey { color: #82888b; }
 .text-medium-grey { color: #82888b; }
 .text-white { color: #fff; }
+.text-black { color: #2a2a2a; }
+
 
 .font9 { font-size: 9px; }
 .font10 { font-size: 10px; }
