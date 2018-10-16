@@ -79,7 +79,7 @@
       <HintPath>..\Libs\AjaxPro.2.dll</HintPath>
     </Reference>
     <Reference Include="APIGatewayLibrary, Version=2.1.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\APIGatewayLibrary.2.2.0-beta-3\lib\net451\APIGatewayLibrary.dll</HintPath>
+      <HintPath>..\packages\APIGatewayLibrary.2.2.1\lib\net452\APIGatewayLibrary.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="AutoMapper">
@@ -5006,6 +5006,7 @@
     </None>
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
     </None>
     <None Include="Web.Staging.config">
       <DependentUpon>Web.config</DependentUpon>
