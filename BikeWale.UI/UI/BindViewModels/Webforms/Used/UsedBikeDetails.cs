@@ -136,7 +136,7 @@ namespace Bikewale.BindViewModels.Webforms.Used
                     }
                     if (InquiryDetails != null && InquiryDetails.MinDetails != null)
                     {
-
+                        string cityMaskingName = !string.IsNullOrEmpty(InquiryDetails.City.CityMaskingName) ? InquiryDetails.City.CityMaskingName : "india";
                         ProfileId = InquiryDetails.OtherDetails.Seller + InquiryDetails.OtherDetails.Id;
                         IsAdUserLoggedIn = _customerId == InquiryDetails.CustomerId.ToString();
                         BikeName = string.Format("{0} {1} {2}", InquiryDetails.Make.MakeName, InquiryDetails.Model.ModelName, InquiryDetails.Version.VersionName);
@@ -146,8 +146,8 @@ namespace Bikewale.BindViewModels.Webforms.Used
                         Description = string.Format("BikeWale - Used {0} {1} for sale in {2}. This second hand bike is of {3} model and its profile id is {4}. Get phone number of the seller and call directly to inspect and test ride the bike.", InquiryDetails.Make.MakeName, InquiryDetails.Model.ModelName, InquiryDetails.City.CityName, ModelYear, ProfileId);
                         MoreBikeSpecsUrl = string.Format("/{0}-bikes/{1}/specifications-features/?vid={2}#specs", InquiryDetails.Make.MaskingName, InquiryDetails.Model.MaskingName, InquiryDetails.Version.VersionId);
                         MoreBikeFeaturesUrl = string.Format("/{0}-bikes/{1}/specifications-features/?vid={2}#features", InquiryDetails.Make.MaskingName, InquiryDetails.Model.MaskingName, InquiryDetails.Version.VersionId);
-                        CanonicalUrl = string.Format("https://www.bikewale.com/used/bikes-in-{0}/{1}-{2}-{3}/", InquiryDetails.City.CityMaskingName, InquiryDetails.Make.MaskingName, InquiryDetails.Model.MaskingName, ProfileId).ToLower();
-                        AlternateUrl = string.Format("https://www.bikewale.com/m/used/bikes-in-{0}/{1}-{2}-{3}/", InquiryDetails.City.CityMaskingName, InquiryDetails.Make.MaskingName, InquiryDetails.Model.MaskingName, ProfileId).ToLower();
+                        CanonicalUrl = string.Format("https://www.bikewale.com/used/bikes-in-{0}/{1}-{2}-{3}/", cityMaskingName, InquiryDetails.Make.MaskingName, InquiryDetails.Model.MaskingName, ProfileId).ToLower();
+                        AlternateUrl = string.Format("https://www.bikewale.com/m/used/bikes-in-{0}/{1}-{2}-{3}/", cityMaskingName, InquiryDetails.Make.MaskingName, InquiryDetails.Model.MaskingName, ProfileId).ToLower();
                         FirstImage = (InquiryDetails.PhotosCount > 0) ? InquiryDetails.Photo.FirstOrDefault() : null;
                         IsBikeSold = (InquiryDetails.AdStatus == 3 || InquiryDetails.AdStatus == 6);
                         IsFakeListing = InquiryDetails.AdStatus == 2;

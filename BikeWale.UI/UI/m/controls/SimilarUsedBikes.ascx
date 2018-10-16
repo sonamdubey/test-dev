@@ -15,10 +15,12 @@
             <div id="similar-bike-swiper" class="swiper-container padding-top5 padding-bottom5">
                 <div class="swiper-wrapper">
                     <% foreach (var bike in similarBikeList)
-                       { %>
+                        {
+                            string cityMaskingName = !string.IsNullOrEmpty(CityMaskingName) ? CityMaskingName : "india";
+                            %>
                         <div class="swiper-slide swiper-shadow">
                         <div class="model-swiper-image-preview">
-                            <a href="/m/used/bikes-in-<%= CityMaskingName %>/<%= MakeMaskingName %>-<%= ModelMaskingName %>-<%= bike.ProfileId %>/">
+                            <a href="/m/used/bikes-in-<%= cityMaskingName %>/<%= MakeMaskingName %>-<%= ModelMaskingName %>-<%= bike.ProfileId %>/">
                                 <% if (String.IsNullOrEmpty(bike.Photo.OriginalImagePath)) { %>
                                 <img class="swiper-lazy" data-src="<%= Bikewale.Utility.Image.GetPathToShowImages(bike.Photo.OriginalImagePath,bike.Photo.HostUrl,Bikewale.Utility.ImageSize._210x118) %>" />
                                 <% } else { %>
@@ -28,7 +30,7 @@
                             </a>
                         </div>
                         <div class="model-swiper-details font11">
-                            <a href="/m/used/bikes-in-<%= CityMaskingName %>/<%= MakeMaskingName %>-<%= ModelMaskingName %>-<%= bike.ProfileId %>/" class="target-link font12 text-truncate margin-bottom5" title="Used <%=String.Format("{0} {1}",bike.ModelYear.Year, bike.BikeName)%>">Used <%= bike.BikeName %></a>
+                            <a href="/m/used/bikes-in-<%= cityMaskingName %>/<%= MakeMaskingName %>-<%= ModelMaskingName %>-<%= bike.ProfileId %>/" class="target-link font12 text-truncate margin-bottom5" title="Used <%=String.Format("{0} {1}",bike.ModelYear.Year, bike.BikeName)%>">Used <%= bike.BikeName %></a>
                              <% if (bike.ModelYear!=null)
                                  { %>
                             <div class="grid-6 alpha padding-right5">

@@ -144,7 +144,7 @@ namespace Bikewale.Mobile.Used
                         ctrlSimilarUsedBikes.BikeName = bikeName;
                         if(inquiryDetails.Make != null && inquiryDetails.Model != null && inquiryDetails.City != null)
                         {
-                            ctrlSimilarUsedBikes.WidgetHref = string.Format("/m/used/{0}-{1}-bikes-in-{2}/", inquiryDetails.Make.MaskingName, inquiryDetails.Model.MaskingName, inquiryDetails.City.CityId > 0 ? inquiryDetails.City.CityMaskingName : "india");
+                            ctrlSimilarUsedBikes.WidgetHref = string.Format("/m/used/{0}-{1}-bikes-in-{2}/", inquiryDetails.Make.MaskingName, inquiryDetails.Model.MaskingName, inquiryDetails.City.CityId > 0 && !string.IsNullOrEmpty(inquiryDetails.City.CityMaskingName) ? inquiryDetails.City.CityMaskingName : "india");
                             ctrlSimilarUsedBikes.WidgetTitle = string.Format("More second-hand {0} {1} Bikes in {2}", inquiryDetails.Make.MakeName, inquiryDetails.Model.ModelName, inquiryDetails.City.CityId > 0 ? inquiryDetails.City.CityName : "India");
                         
                         }
@@ -182,7 +182,7 @@ namespace Bikewale.Mobile.Used
                             }
                             ctrlusedBikeModel.WidgetTitle = string.Format("Second-hand Bikes in {0}", inquiryDetails.City.CityId > 0 ? inquiryDetails.City.CityName : "India");
                             ctrlusedBikeModel.header = string.Format("More second-hand bikes in {0}", inquiryDetails.City.CityId > 0 ? inquiryDetails.City.CityName : "India");
-                            ctrlusedBikeModel.WidgetHref = string.Format("/m/used/bikes-in-{0}/", inquiryDetails.City.CityId > 0 ? inquiryDetails.City.CityMaskingName : "india");
+                            ctrlusedBikeModel.WidgetHref = string.Format("/m/used/bikes-in-{0}/", inquiryDetails.City.CityId > 0 && !string.IsNullOrEmpty(inquiryDetails.City.CityMaskingName) ? inquiryDetails.City.CityMaskingName : "india");
                             ctrlusedBikeModel.TopCount = 9;
                         }
                         

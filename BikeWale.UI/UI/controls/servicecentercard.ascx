@@ -5,7 +5,7 @@
     <div class="swiper-heading-left-grid inline-block">
         <h2><%=widgetHeading %></h2>
     </div><div class="swiper-heading-right-grid inline-block text-right">
-        <a href="<%= Bikewale.Utility.UrlFormatter.GetServiceCenterUrl(makeMaskingName, cityMaskingName) %>" title="<%= makeName %> Service Centers in <%=cityName %>" class="btn view-all-target-btn">View all</a>
+        <a href="<%= Bikewale.Utility.UrlFormatter.GetServiceCenterUrl(makeMaskingName, !string.IsNullOrEmpty(cityMaskingName) ? cityMaskingName : "india") %>" title="<%= makeName %> Service Centers in <%=cityName %>" class="btn view-all-target-btn">View all</a>
     </div>
     <div class="clear"></div>
 </div>

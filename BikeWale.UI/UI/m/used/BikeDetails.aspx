@@ -376,23 +376,25 @@
                         </a>
                     </li>
                     <% if (inquiryDetails != null && inquiryDetails.City != null)
-                        { %>
+                        {
+                            String cityMaskingName = !string.IsNullOrEmpty(inquiryDetails.City.CityMaskingName) ? inquiryDetails.City.CityMaskingName : "india";
+                            %>
                     <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
 
-                        <a class="breadcrumb-link" href="/m/used/bikes-in-<%= inquiryDetails.City.CityMaskingName %>/" itemprop="url">
+                        <a class="breadcrumb-link" href="/m/used/bikes-in-<%= cityMaskingName %>/" itemprop="url">
                             <span class="breadcrumb-link__label" itemprop="name"><%= inquiryDetails.City.CityName %></span>
                         </a>
                     </li>
                     <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
 
-                        <a class="breadcrumb-link" href="<%= string.Format("/m/used/{0}-bikes-in-{1}/", inquiryDetails.Make.MaskingName, inquiryDetails.City.CityMaskingName) %>" itemprop="url">
+                        <a class="breadcrumb-link" href="<%= string.Format("/m/used/{0}-bikes-in-{1}/", inquiryDetails.Make.MaskingName, cityMaskingName) %>" itemprop="url">
                             <span class="breadcrumb-link__label" itemprop="name">Used <%= inquiryDetails.Make.MakeName %> Bikes</span>
                         </a>
                     </li>
 
                     <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
 
-                        <a class="breadcrumb-link" href="<%= string.Format("/m/used/{0}-{1}-bikes-in-{2}/", inquiryDetails.Make.MaskingName, inquiryDetails.Model.MaskingName, inquiryDetails.City.CityMaskingName) %>" itemprop="url">
+                        <a class="breadcrumb-link" href="<%= string.Format("/m/used/{0}-{1}-bikes-in-{2}/", inquiryDetails.Make.MaskingName, inquiryDetails.Model.MaskingName, cityMaskingName) %>" itemprop="url">
                             <span class="breadcrumb-link__label" itemprop="name">Used <%= inquiryDetails.Model.ModelName %></span>
                         </a>
                     </li>

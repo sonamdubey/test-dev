@@ -18,7 +18,7 @@
                     <ul>
                         <%foreach (var bikeDetails in UsedBikeModelInCityList) {%>
                             <li>
-                                <a href="<%=Bikewale.Utility.UrlFormatter.UsedBikesUrlNoCity(bikeDetails.MakeMaskingName,bikeDetails.ModelMaskingName,cityDetails!=null?cityDetails.CityMaskingName:"india") %>" title="<%= string.Format("Used {0} {1} bikes in {2}", bikeDetails.MakeName, bikeDetails.ModelName, (cityDetails != null ? cityDetails.CityName : "India"))%>" class="jcarousel-card">
+                                <a href="<%=Bikewale.Utility.UrlFormatter.UsedBikesUrlNoCity(bikeDetails.MakeMaskingName,bikeDetails.ModelMaskingName,cityDetails!=null && !string.IsNullOrEmpty(cityDetails.CityMaskingName) ?cityDetails.CityMaskingName:"india") %>" title="<%= string.Format("Used {0} {1} bikes in {2}", bikeDetails.MakeName, bikeDetails.ModelName, (cityDetails != null ? cityDetails.CityName : "India"))%>" class="jcarousel-card">
                                     <div class="model-jcarousel-image-preview">
                                         <div class="card-image-block">
                                             <img class="lazy" src="" data-original="<%=Bikewale.Utility.Image.GetPathToShowImages(bikeDetails.UsedOriginalImagePath,bikeDetails.UsedHostUrl,Bikewale.Utility.ImageSize._310x174) %>" alt="<%=string.Format("Used {0} {1} bikes in {2}",bikeDetails.MakeName,bikeDetails.ModelName,cityDetails!=null?cityDetails.CityName:"India") %>">

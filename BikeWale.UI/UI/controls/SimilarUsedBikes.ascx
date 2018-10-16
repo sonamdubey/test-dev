@@ -6,7 +6,7 @@
         <div class="swiper-heading-left-grid inline-block">
             <h2>More second-hand <%= ModelName %> bikes in <%= CityName %></h2>
         </div><div class="swiper-heading-right-grid inline-block text-right">
-            <a href="<%= Bikewale.Utility.UrlFormatter.UsedBikesUrlNoCity(MakeMaskingName,ModelMaskingName,CityMaskingName) %>" title="Used <%= String.Format("{0} {1}",MakeName,ModelName) %> Bikes in <%= CityName %>" class="btn view-all-target-btn">View all</a>
+            <a href="<%= Bikewale.Utility.UrlFormatter.UsedBikesUrlNoCity(MakeMaskingName,ModelMaskingName,!string.IsNullOrEmpty(CityMaskingName) ? CityMaskingName : "india") %>" title="Used <%= String.Format("{0} {1}",MakeName,ModelName) %> Bikes in <%= CityName %>" class="btn view-all-target-btn">View all</a>
         </div>
         <div class="clear"></div>
     </div>
@@ -16,7 +16,7 @@
                 <% foreach (var bike in similarBikeList)
                        { %>
                 <li>
-                    <a href="/used/bikes-in-<%= CityMaskingName %>/<%= MakeMaskingName %>-<%= ModelMaskingName %>-<%= bike.ProfileId %>/" title="Used <%= String.Format("{0} {1}", bike.ModelYear.Year, bike.BikeName) %>" class="jcarousel-card">
+                    <a href="/used/bikes-in-<%= !string.IsNullOrEmpty(CityMaskingName) ? CityMaskingName : "india" %>/<%= MakeMaskingName %>-<%= ModelMaskingName %>-<%= bike.ProfileId %>/" title="Used <%= String.Format("{0} {1}", bike.ModelYear.Year, bike.BikeName) %>" class="jcarousel-card">
                         <div class="model-jcarousel-image-preview">
                             <span class="card-image-block">
                                 <img class="lazy" data-original="<%= Bikewale.Utility.Image.GetPathToShowImages(bike.Photo.OriginalImagePath,bike.Photo.HostUrl,Bikewale.Utility.ImageSize._310x174) %>" title="Used <%=String.Format("{0} {1}", bike.ModelYear.Year, bike.BikeName) %>" alt="Used <%=String.Format("Used {0} {1}", bike.ModelYear.Year, bike.BikeName) %>" border="0">
