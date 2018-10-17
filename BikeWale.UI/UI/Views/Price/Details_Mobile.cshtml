@@ -182,7 +182,18 @@ else
                 }
             </table>
 			if (!Model.IsPrimaryDealerAvailable && !string.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink) && !Model.IsManufacturerLeadAdShown)
-            {<p class='position-rel text-right margin-right15'><a target="_blank" rel="noopener nofollow" href="@Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink" class="font12 bw-ga text-bold" data-cat="Dealer_PQ" data-act="BankbazaarLink_Clicked" data-lab="@string.Format("{0}_{1}",Model.BikeName,Model.CiyName);">Personal Loans from 10.99%</a><span class="position-abt pos-top0 text-light-grey font10 text-unbold">&nbsp;Ad</span></p>}
+            {
+                <p class='position-rel text-right margin-right15'>
+                @if (DateTime.Now < new DateTime(2018, 10, 26, 0, 0, 0))
+                {
+                    <a target="_blank" rel="noopener nofollow" href="https://www.iffcotokio.co.in/GenericLP/Bike-ETHTWP/?utm_source=ethinos&utm_medium=%E2%80%8Bbikewale&utm_campaign=Dusshera&utm_term=%E2%80%8BBW%7CModelpages" class="font12 bw-ga text-bold" data-cat="Dealer_PQ" data-act="PriceBreakUpAdClicked" data-lab="@string.Format("{0}_{1}", Model.BikeName,Model.CiyName);">Offers on Bike Insurance</a>
+                }
+                else
+                {
+                    <a target="_blank" rel="noopener nofollow" href="@Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink" class="font12 bw-ga text-bold" data-cat="Dealer_PQ" data-act="BankbazaarLink_Clicked" data-lab="@string.Format("{0}_{1}", Model.BikeName,Model.CiyName);">Personal Loans from 10.99%</a>
+                }
+                <span class="position-abt pos-top0 text-light-grey font10 text-unbold">&nbsp;Ad</span></p>
+            }
 			if (Model.IsPrimaryDealerAvailable)
 			{
                 <div class="padding-bottom10"></div>}
@@ -435,9 +446,17 @@ else
          }
 
             @if (!Model.IsPrimaryDealerAvailable && !string.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink) && !Model.IsManufacturerLeadAdShown)
-        {
-            <text>triggerNonInteractiveGA('Dealer_PQ', 'BankbazaarLink_Shown', bikeVerLocation);</text>
-        }
+            {
+                if (DateTime.Now < new DateTime(2018, 10, 26, 0, 0, 0))
+                {
+                    <text>triggerNonInteractiveGA('Dealer_PQ', 'PriceBreakUpAdClicked', bikeVerLocation);</text>
+                }
+                else
+                {
+                    <text>triggerNonInteractiveGA('Dealer_PQ', 'BankbazaarLink_Shown', bikeVerLocation);</text>
+                }
+
+            }
 
             if (dealerName != "") {
                 $("#header-dealername").text(dealerName);

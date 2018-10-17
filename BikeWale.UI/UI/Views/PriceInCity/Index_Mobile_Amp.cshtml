@@ -90,7 +90,7 @@
 			    "request": "event",
 			    "vars": {
 			    "eventCategory": "Price_in_City_Page_AMP",
-			    "eventAction": "BankbazaarLink_Clicked"
+			    "eventAction": @String.Format("{0}", (DateTime.Now < new DateTime(2018, 10, 26, 0, 0, 0) ? "PriceBreakUpAdClicked" : "BankbazaarLink_Clicked"))
 			    }
 			    },
 			    "trackEvent3": {
@@ -189,12 +189,6 @@
                                                     <span class="bw-tooltip-text">Insurance amount is inclusive of a 5-year third party cover. This is in accordance with the law effective 1<sup>st</sup> Sep 2018 where in all the new bikes sold in India should have a 5-year third party cover. <a href="https://www.bikewale.com/news/35897-what-the-new-insurance-directive-means-a-guide.html" target="_blank">Learn more</a></span>
                                                 </span>
                                             </span>
-                                                    @*<br><p class="position-rel">
-                                                    @if (!string.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink))
-                                                    {
-                                                        <a target="_blank" href="@BWConfiguration.Instance.CoverFoxLink" class="font12 bw-ga text-bold coverfox-link-clicked" rel="nofollow">Get Personal Loan Offers<span class="position-abt pos-top0 text-light-grey font10 text-unbold">&nbsp;Ad</span></a>
-                                                    }
-                                                </p>*@
                                         </td>
                                         <td align="right" valign="top">
                                             <span>&#x20b9;</span>&nbsp;<p class="text-bold inline-block" [text]="versions[currentVersion.versionId].FormatedInsurance">@Format.FormatPrice(Convert.ToString(Model.FirstVersion.Insurance))</p>
@@ -209,7 +203,16 @@
                                 </tbody>
                             </table>if (!string.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink) && !Model.IsManufacturerLeadAdShown)
                             {
-                                <div class="position-rel text-right margin-right15"><a target="_blank" rel="noopener nofollow" href="@BWConfiguration.Instance.CoverFoxLink" class="position-rel font12 bw-ga text-bold coverfox-link-clicked">Personal Loans from 10.99%<span class="position-abt pos-top0 text-light-grey font8 text-unbold">&nbsp;Ad</span></a></div>
+                                <div class="position-rel text-right margin-right15">
+                                    @if (DateTime.Now < new DateTime(2018, 10, 26, 0, 0, 0))
+                                    {
+                                        <a target="_blank" rel="noopener nofollow" href="https://www.iffcotokio.co.in/GenericLP/Bike-ETHTWP/?utm_source=ethinos&utm_medium=%E2%80%8Bbikewale&utm_campaign=Dusshera&utm_term=%E2%80%8BBW%7CModelpages" class="position-rel font12 bw-ga text-bold coverfox-link-clicked">Offers on Bike Insurance<span class="position-abt pos-top0 text-light-grey font8 text-unbold">&nbsp;Ad</span></a>
+                                    }
+                                    else
+                                    {
+                                        <a target="_blank" rel="noopener nofollow" href="@BWConfiguration.Instance.CoverFoxLink" class="position-rel font12 bw-ga text-bold coverfox-link-clicked">Personal Loans from 10.99%<span class="position-abt pos-top0 text-light-grey font8 text-unbold">&nbsp;Ad</span></a>
+                                    }
+                                </div>
                             }
 							<!-- Price break up link property starts -->
                             if (Model.LeadCampaign != null && !string.IsNullOrEmpty(Model.LeadCampaign.PriceBreakUpLinkTextMobile))
