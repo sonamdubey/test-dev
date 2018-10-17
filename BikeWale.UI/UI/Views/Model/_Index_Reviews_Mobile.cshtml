@@ -5,7 +5,7 @@
     <div class="inline-block margin-right5">
         <span class="rate-count-@Math.Round(Convert.ToDouble(Model.ModelPageEntity.ModelDetails.ReviewUIRating))">
             <span class="bwmsprite star-icon"></span>
-            <span class="font14 text-bold">@Model.ModelPageEntity.ModelDetails.ReviewUIRating</span>
+            <span class="font13 text-bold">@Model.ModelPageEntity.ModelDetails.ReviewUIRating</span>
         </span>
  </div>
 }
@@ -15,7 +15,7 @@
         <span class="model-top-review-list__item">
             @if (Model.ModelPageEntity.ModelDetails.ReviewCount > 0)
             {
-                <a href="@string.Format("/m{0}", Bikewale.Utility.UrlFormatter.FormatShowReviewLink(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName))" title="@string.Format("{0} {1} review{2}", Model.ModelPageEntity.ModelDetails.MakeBase.MakeName, Model.ModelPageEntity.ModelDetails.ModelName, (Model.ModelPageEntity.ModelDetails.ReviewCount > 1 ? "s" : ""))" class="leftfloat font12">
+                <a href="@string.Format("/m{0}", Bikewale.Utility.UrlFormatter.FormatShowReviewLink(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName))" title="@string.Format("{0} {1} review{2}", Model.ModelPageEntity.ModelDetails.MakeBase.MakeName, Model.ModelPageEntity.ModelDetails.ModelName, (Model.ModelPageEntity.ModelDetails.ReviewCount > 1 ? "s" : ""))" class="leftfloat font13">
                     <span>@Model.ModelPageEntity.ModelDetails.ReviewCount</span><span>&nbsp;Review@((Model.ModelPageEntity.ModelDetails.ReviewCount) > 1 ? "s" : "")</span>
                 </a>
             }
