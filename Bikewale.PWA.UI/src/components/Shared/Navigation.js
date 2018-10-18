@@ -54,7 +54,6 @@ class Navigation extends React.Component {
                     <span className="doodle__ram-image"></span>
                     <span className="doodle__ravan-image"></span>
                     <span className="doodle__ravan-head"></span>
-                    <span className="doodle__cloud"></span>
                 </span>
                 <div className="leftfloat">
                     <div id="navbar-btn" className="inline-block cur-pointer" onClick={this.openNavDrawer}>

@@ -72,7 +72,6 @@
                 <span class="doodle__ram-image"></span>
                 <span class="doodle__ravan-image"></span>
                 <span class="doodle__ravan-head"></span>
-                <span class="doodle__cloud"></span>
             </span>
 			<!--Doodle end-->
             <div class="left-float margin-left50">
