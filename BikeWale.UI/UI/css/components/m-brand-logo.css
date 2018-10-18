@@ -1,5 +1,5 @@
 ﻿.brandlogosprite {
-	background-image: url('https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/brand-type-sprite.png?28Sep20181538143400578');
+	background-image: url('https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/brand-type-sprite.png?18Oct20181539845270548');
 	background-repeat: no-repeat;
 	display: inline-block;
 }
@@ -29,6 +29,7 @@
 .brand-14,
 .brand-41,
 .brand-42,
+.brand-80,
 .brand-81,
 .brand-71,
 .brand-21,
@@ -144,9 +145,13 @@
 	width: 38px;
 	background-position: -1481px 0;
 }
+.brand-80 {
+	width: 26px;
+	background-position: -2477px 0;
+}
 .brand-81 {
 	width: 38px;
-	background-position: -1529px 0;
+	background-position: -2513px 0;
 }
 .brand-71 {
 	width: 23px;

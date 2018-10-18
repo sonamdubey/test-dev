@@ -197,6 +197,7 @@
 .brand-7,
 .brand-71,
 .brand-8,
+.brand-80,
 .brand-81,
 .brand-9,
 .brand-23,
@@ -232,7 +233,7 @@
     overflow: hidden
 }
 .brandlogosprite {
-    background: url('https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/brand-type-sprite.png?28Sep20181538143400578') no-repeat;
+    background: url('https://imgd.aeplcdn.com/0x0/bw/static/sprites/d/brand-type-sprite.png?18Oct20181539845270548') no-repeat;
     display: inline-block
 }
 .brand-2 {
@@ -335,9 +336,13 @@
     width: 64px;
     background-position: -2461px 0
 }
+.brand-80 {
+	width: 44px;
+	background-position: -4055px 0;
+}
 .brand-81 {
-    width: 71px;
-    background-position: -2535px 0
+	width: 66px;
+	background-position: -4109px 0;
 }
 .brand-71 {
     width: 39px;
