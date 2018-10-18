@@ -43,16 +43,13 @@
             <div class="clear"></div>
         </div>
         <div class="clear"></div>
-		<!-- Doodle start-->	
-		<span class="doodle__container bw-ga" data-cat="Doodle" data-act="Doodle_Click" data-lab="Navratri">	
-			<span class="doodle__asset-one"></span>	
-			<span class="doodle__asset-two"></span>
-			<span class="doodle__asset-three"></span>	
-			<span class="doodle__block">	
-				<span class="doodle__image"></span>	
-				<span class="doodle__bg"></span>	
-			</span>	
-		</span>	
+		<!-- Doodle start-->
+        <span class="doodle__container bw-ga" data-cat="Doodle" data-act="Doodle_Click" data-lab="Dussehra">
+            <span class="doodle__ram-image"></span>
+            <span class="doodle__ravan-image"></span>
+            <span class="doodle__ravan-head"></span>
+            <span class="doodle__cloud"></span>
+        </span>
 		<!--Doodle end-->
     </div> <!-- ends here -->
     <div class="clear"></div>    

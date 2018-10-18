@@ -57,135 +57,115 @@
 	background-position: -62px -246px
 
 .doodle__container
-	@include vendor-prefix('animation', all linear 1s)
-	position: absolute
-	top: 0
-	left: 135px
-	display: inline-block
-	width: 90px
-	height: 50px
-	overflow: hidden
-	
+  position: absolute
+  top: 0
+  left: 135px
+  display: inline-block
+  width: 93px
+  height: 50px
+  overflow: hidden
+  -webkit-transition: all linear 1s
+  -moz-transition: all linear 1s
+  -ms-transition: all linear 1s
+  -o-transition: all linear 1s
+  transition: all linear 1s
 
-.doodle__asset-one,
-.doodle__asset-two,
-.doodle__asset-three
-	display: inline-block
-	width: 55px
-	position: absolute
+.doodle__ram-image
+  position: absolute
+  bottom: 0
+  left: 4px
+  display: inline-block
+  width: 40px
+  height: 23px
+  background: transparent url('https://imgd.aeplcdn.com/0x0/cw/static/icons/doodle/dusshera/doodle-asset-2.png') no-repeat (center / contain)
+  z-index: 1
 
-.doodle__asset-one,
-.doodle__asset-two
-	@include vendor-prefix('animation', left-hand-animation infinite 2s alternate)
+.doodle__ravan-image
+  position: absolute
+  bottom: 0
+  right: 15px
+  display: inline-block
+  width: 30px
+  height: 36px
+  background: transparent url('https://imgd.aeplcdn.com/0x0/cw/static/icons/doodle/dusshera/doodle-asset-1.png') no-repeat (center / contain)
+  z-index: 1
 
-.doodle__asset-one
-	height: 10px
-	top: 29px
-	left: 17px	
-	background: url('https://imgd.aeplcdn.com/0x0/cw/static/icons/doodle/navratri/2018/doodle-asset-2.png') no-repeat center left / contain
-	z-index: 3
+.doodle__ravan-head
+  display: inline-block
+  width: 55px
+  height: 29px
+  position: absolute
+  top: -6px
+  right: 2px
+  background: transparent url('https://imgd.aeplcdn.com/0x0/cw/static/icons/doodle/dusshera/doodle-asset-3.png') no-repeat center
+  background-size: contain
+  -webkit-animation: ravanheadanimation ease-in-out 2s infinite alternate
+  -moz-animation: ravanheadanimation ease-in-out 2s infinite alternate
+  -ms-animation: ravanheadanimation ease-in-out 2s infinite alternate
+  -o-animation: ravanheadanimation ease-in-out 2s infinite alternate
+  animation: ravanheadanimation ease-in-out 2s infinite alternate
+  z-index: 1
 
-.doodle__asset-two
-	top: 19px
-	left: 15px
-	background: url('https://imgd.aeplcdn.com/0x0/cw/static/icons/doodle/navratri/2018/doodle-asset-1.png') no-repeat center left / contain
-	height: 14px
+.doodle__cloud
+  display: inline-block
+  width: 45px
+  height: 45px
+  background: url('https://imgd.aeplcdn.com/0x0/cw/static/icons/doodle/dusshera/cloud.svg?12oct2018') no-repeat (center / contain)
+  position: absolute
+  top: 0
+  right: 8px
+  -webkit-animation: ravanbganimation ease-in-out infinite 5s
+  -moz-animation: ravanbganimation ease-in-out infinite 5s
+  -ms-animation: ravanbganimation ease-in-out infinite 5s
+  -o-animation: ravanbganimation ease-in-out infinite 5s
+  animation: ravanbganimation ease-in-out infinite 5s
 
-.doodle__asset-three
-	@include vendor-prefix('animation', right-hand-animation infinite 2s alternate)
-	top: 24px
-	right: 14px
-	background: url('https://imgd.aeplcdn.com/0x0/cw/static/icons/doodle/navratri/2018/doodle-asset-3.png') no-repeat center right / contain
-	height: 15px
-	
+@-webkit-keyframes ravanheadanimation
+  0%
+    -webkit-transform: rotate(5deg)
+    -moz-transform: rotate(5deg)
+    -ms-transform: rotate(5deg)
+    -o-transform: rotate(5deg)
+    transform: rotate(5deg)
 
-.doodle__block
-	display: block
-	height: 50px
-	width: 50px
-	margin: 0 auto
-	text-align: center
+  100%
+    -webkit-transform: rotate(-5deg)
+    -moz-transform: rotate(-5deg)
+    -ms-transform: rotate(-5deg)
+    -o-transform: rotate(-5deg)
+    transform: rotate(-5deg)
 
-.doodle__image
-	position: absolute
-	top: 0
-	left: 18px
-	display: inline-block
-	width: 50px
-	height: 50px
-	background: transparent url('https://imgd.aeplcdn.com/0x0/cw/static/icons/doodle/navratri/2018/doodle.png') no-repeat center / contain
-	z-index: 2
 
-.doodle__asset-one--zindex
-	z-index: 3
+@-webkit-keyframes ravanbganimation
+  from
+    opacity: 1
+    -webkit-transform: scale(0.4, 0.4)
+    -moz-transform: scale(0.4, 0.4)
+    -ms-transform: scale(0.4, 0.4)
+    -o-transform: scale(0.4, 0.4)
+    transform: scale(0.4, 0.4)
 
-.doodle__bg
-	@include vendor-prefix('animation', doodleBgAnimation 8s infinite linear)
-	display: inline-block
-	width: 45px
-	height: 48px
-	margin-top: -2px
-	margin-left: 5px
-	background: url('https://imgd.aeplcdn.com/0x0/cw/static/icons/doodle/navratri/2018/doodle-bg.png') no-repeat center / contain
+  to
+    opacity: 0
+    -webkit-transform: scale(1, 1)
+    -moz-transform: scale(1, 1)
+    -ms-transform: scale(1, 1)
+    -o-transform: scale(1, 1)
+    transform: scale(1, 1)
 
-@-webkit-keyframes left-hand-animation
-	0%,
-	100% 
-		@include vendor-prefix('transform', rotate(5deg))
 
-	50%
-		@include vendor-prefix('transform', rotate(-5deg))
+@media screen and (min-width: 768px)
+  .doodle__container
+    left: 165px
 
-@keyframes left-hand-animation
-	0%,
-	100% 
-		@include vendor-prefix('transform', rotate(5deg))
+@media screen and (max-width: 359px)
+  .doodle__container
+    left: 130px
 
-	50%
-		@include vendor-prefix('transform', rotate(-5deg))
+@media only screen and (max-width: 320px)
+  .doodle__container
+    display: none
 
-	
-@-webkit-keyframes right-hand-animation
-	0%,
-	100%
-		@include vendor-prefix('transform', rotate(-5deg))
-
-	50%
-		@include vendor-prefix('transform', rotate(5deg))
-
-@keyframes right-hand-animation
-	0%,
-	100%
-		@include vendor-prefix('transform', rotate(-5deg))
-
-	50%
-		@include vendor-prefix('transform', rotate(5deg))
-
-@-webkit-keyframes doodleBgAnimation
-	0%
-		@include vendor-prefix('transform', rotate(0deg))
- 
-	100%
-		@include vendor-prefix('transform', rotate(359deg))
-
-@keyframes doodleBgAnimation
-	0%
-		@include vendor-prefix('transform', rotate(0deg))
-
-	100%
-		@include vendor-prefix('transform', rotate(359deg))
-
-@media screen and (min-width:768px)
-	.doodle__container
-		left: 165px
-	
-	.doodle__image
-		top: 1px	
-
-@media screen and (max-width:359px)
-	.doodle__container
-		left: 130px
-	
 .doodle--disable
-	.doodle__container
-		display: none;
+  .doodle__container
+    display: none

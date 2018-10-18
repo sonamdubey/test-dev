@@ -50,15 +50,12 @@ class Navigation extends React.Component {
         
         return (
             <div className="header-navbar">
-				<span className="doodle__container">	
-					<span className="doodle__asset-one"></span>	
-					<span className="doodle__asset-two"></span>
-					<span className="doodle__asset-three"></span>	
-					<span className="doodle__block">	
-						<span className="doodle__image"></span>	
-						<span className="doodle__bg"></span>	
-					</span>	
-				</span>	
+                <span className="doodle__container">
+                    <span className="doodle__ram-image"></span>
+                    <span className="doodle__ravan-image"></span>
+                    <span className="doodle__ravan-head"></span>
+                    <span className="doodle__cloud"></span>
+                </span>
                 <div className="leftfloat">
                     <div id="navbar-btn" className="inline-block cur-pointer" onClick={this.openNavDrawer}>
                         <span className="nav-icon"></span>
