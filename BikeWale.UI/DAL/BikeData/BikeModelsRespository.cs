@@ -2801,7 +2801,7 @@ namespace Bikewale.DAL.BikeData
                                 objData.objModel.ModelId = SqlReaderConvertor.ToInt32(dr["ModelId"]);
                                 objData.objMake.MaskingName = Convert.ToString(dr["MakeMaskingName"]);
                                 objData.objModel.MaskingName = Convert.ToString(dr["ModelMaskingName"]);
-                                objData.ModelRating = SqlReaderConvertor.ToDouble(dr["ReviewRate"]);
+                                objData.ModelRating = SqlReaderConvertor.ParseToDouble(dr["ReviewRate"]);
                                 objData.ReviewCount = SqlReaderConvertor.ToUInt16(dr["ReviewCount"]);
                                 objData.BikeName = Convert.ToString(dr["BikeName"]);
                                 objData.HostURL = Convert.ToString(dr["HostUrl"]);
