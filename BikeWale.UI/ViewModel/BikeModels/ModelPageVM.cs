@@ -182,7 +182,6 @@ namespace Bikewale.Models.BikeModels
         public string JSONEMISlider { get; set; }
 
         // for AB TEST
-        public bool IsNewCitySVG { get; set; }
         public bool IsEditCityOption { get; set; }
         public bool IsAnimatedCTA { get; set; }
         public bool IsNearlyAllIndiaCampaign { get; set; }

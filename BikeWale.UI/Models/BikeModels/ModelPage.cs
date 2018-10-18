@@ -319,7 +319,6 @@ namespace Bikewale.Models.BikeModels
             ushort cookieValue;
             if (HttpContext.Current.Request.Cookies["_bwtest"] != null && ushort.TryParse(HttpContext.Current.Request.Cookies["_bwtest"].Value, out cookieValue))
             {
-                _objData.IsNewCitySVG = cookieValue >= 31 && cookieValue <= 40;
                 _objData.IsEditCityOption = cookieValue >= 41 && cookieValue <= 50;
                 _objData.IsAnimatedCTA = cookieValue > 10;
                 _objData.IsNearlyAllIndiaCampaign = cookieValue > 10 && cookieValue <= 20 && _objData.ModelId == 78; // Test for Classic 350
