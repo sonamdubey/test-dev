@@ -11,7 +11,8 @@ var popupHeading, popupContent, brandcitypopupContent;
 var trendingBikes, objSearches;
 var topCount = 5;
 var pageName = typeof (gaObj) === 'undefined' ? 'Others' : gaObj.name;
-
+var bhriguPageName = typeof (gaObj) === 'undefined' ? 'Others' : gaObj.bhriguPageName;
+var fullShown = false, partialShown = false;
 
 if (!Array.prototype.indexOf) {
     Array.prototype.indexOf = function (elt) {
@@ -62,6 +63,29 @@ function triggerNonInteractiveGA(cat, act, lab) {
         dataLayer.push({ 'event': 'Bikewale_noninteraction', 'cat': cat, 'act': act, 'lab': lab });
     }
     catch (e) {// log error   
+    }
+}
+
+function triggerGAAnimateCTA() {
+    var container = $('.cta-animation-container');
+    var campaignContainer = $('.campaign-with-animation');
+    var campaignContainerHeight = campaignContainer.outerHeight();
+    var windowScrollTop = $(window).scrollTop() + $(window).innerHeight();
+    var containerScrollTop = container.offset().top + container.height() + campaignContainerHeight;
+
+    if ($(window).scrollTop() === 0 || windowScrollTop < containerScrollTop) {
+        if (gaObj.id == gaEnum.Model_Page) {
+            triggerNonInteractiveGA("Model_Page", "FloatingLeadCTA_FullWidth_Shown", "");
+        }
+        cwTracking.trackCustomData(bhriguPageName, "ES_FloatingLeadCTA_FullWidthShown", "versionId=" + versionId);
+        fullShown = true;
+    }
+    else if ($('.campaign-with-animation').hasClass("animated")) {
+        if (gaObj.id == gaEnum.Model_Page) {
+            triggerNonInteractiveGA("Model_Page", "FloatingLeadCTA_Partial_GetBestOffers_Shown", "");
+        }
+        cwTracking.trackCustomData(bhriguPageName, "ES_FloatingLeadCTA_AnimatedShown", "versionId=" + versionId);
+        partialShown = true;
     }
 }
 
@@ -2047,8 +2071,8 @@ docReady(function () {
     $(document).on("click", ".bw-bhrigu", function () {
         try {
             var obj = $(this);
-            var category = obj.attr("data-cat") || pageName;
-            var action = obj.attr("data-act");
+            var category = bhriguPageName || obj.attr("data-bhrigucat");
+            var action = obj.attr("data-bhriguact");
             var label = obj.attr("data-bhrigulab") || "NA";
             
             cwTracking.trackCustomData(category, action, label);   
@@ -2057,7 +2081,7 @@ docReady(function () {
             console.error(e);
         }
     });
-
+    
     // more brand - collapse
     $('.view-brandType').click(function () {
         var element = $(this),

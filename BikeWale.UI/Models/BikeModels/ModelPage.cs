@@ -255,6 +255,7 @@ namespace Bikewale.Models.BikeModels
                         _objData.SimilarBikes.BodyStyle = _objData.BodyStyle;
                     }
                     _objData.Page = GAPages.Model_Page;
+                    _objData.BhriguPage = BhriguPages.BWModelPage;
 
                     SetBreadcrumList();
                     SetPageJSONLDSchema();

@@ -33,6 +33,13 @@ docReady(function () {
         $('.sponsored-card').hide();
     };
 
+    if ($(".js-mfg").length > 0 && $("#animate-btn").length > 0) {
+        // trigger non-interactive GA for animated floating CTA (AB test)     
+            fullShown = false;
+            partialShown = false;
+
+            setTimeout(triggerGAAnimateCTA(), 500);
+    }
 
     try {
         // activate first tab

@@ -83,7 +83,7 @@
     @if(Model.Page !=null)
     {
         <text>
-    gaObj = {'id':@((int)Model.Page), 'name': '@Model.Page'};
+    gaObj = {'id':@((int)Model.Page), 'name': '@Model.Page', 'bhriguPageName' : '@Model.BhriguPage'};
     lastPageId = gaObj.id;
     galleryId = @((int)Bikewale.Entities.Pages.GAPages.Image_Gallery);
     </text>

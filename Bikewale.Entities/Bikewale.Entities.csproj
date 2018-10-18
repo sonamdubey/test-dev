@@ -139,6 +139,7 @@
     <Compile Include="AutoComplete\Payload.cs" />
     <Compile Include="AutoComplete\SuggestionOutput.cs" />
     <Compile Include="AWS\Token.cs" />
+    <Compile Include="BhriguPages.cs" />
     <Compile Include="BikeBooking\AreaEntityBase.cs" />
     <Compile Include="BikeBooking\BikeBooking.cs" />
     <Compile Include="BikeBooking\BikeBookingListingEntity.cs" />

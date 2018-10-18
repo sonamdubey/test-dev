@@ -127,6 +127,7 @@ namespace Bikewale.Models
                     }
                     objData.BodyStyleText = objData.BodyStyle.Equals(Entities.GenericBikes.EnumBikeBodyStyles.Scooter) ? "Scooters" : "Bikes";
                     objData.Page = Entities.Pages.GAPages.DealerPriceQuote_Page;
+                    objData.BhriguPage = BhriguPages.BWPQPage;
 
                     ShowInnovationBanner(objData, _modelId);
                     BindAdSlotTags(objData);

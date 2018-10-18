@@ -89,7 +89,15 @@ docReady(function () {
     function callFallBackWriteReview() {
         $('#adBlocker').show();
         $('.sponsored-card').hide();
-	};
+    };
+
+    if ($(".js-mfg").length > 0 && $("#animate-btn").length > 0) {
+        // trigger non-interactive GA for animated floating CTA (AB test)     
+        fullShown = false;
+        partialShown = false;
+
+        setTimeout(triggerGAAnimateCTA(), 500);
+    }
 
 	// focus dealer offers
 	$('#viewDealerOffers').on('click', function () {

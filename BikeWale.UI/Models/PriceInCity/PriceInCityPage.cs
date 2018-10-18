@@ -475,6 +475,7 @@ namespace Bikewale.Models
                         }
                     }
                     objVM.Page = Entities.Pages.GAPages.PriceInCity_Page;
+                    objVM.BhriguPage = BhriguPages.BWPICPage;
 
 
                     BindAdSlotTags(objVM);

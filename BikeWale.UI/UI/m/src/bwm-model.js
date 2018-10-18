@@ -108,24 +108,7 @@ var findTopOffset = function () {
     return elem.outerHeight() + elem.offset().top - (window.innerHeight - floatBtnHeight);   
 }
 
-var triggerGAAnimateCTA = function () {
-    var container = $('.cta-animation-container');
-    var campaignContainer = $('.campaign-with-animation');
-    var campaignContainerHeight = campaignContainer.outerHeight();
-    var windowScrollTop = $window.scrollTop() + $window.innerHeight();
-    var containerScrollTop = container.offset().top + container.height() + campaignContainerHeight;
 
-    if($(window).scrollTop() === 0 || windowScrollTop < containerScrollTop)
-    {
-        triggerNonInteractiveGA("Model_Page", "FloatingLeadCTA_FullWidth_Shown", "");
-        fullShown = true;
-    }
-    else if($('.campaign-with-animation').hasClass("animated"))
-    {
-        triggerNonInteractiveGA("Model_Page", "FloatingLeadCTA_Partial_GetBestOffers_Shown", "");
-        partialShown = true;
-    }
-}
 
 window.addEventListener('load', function () {
     // scroll to offset 
@@ -156,6 +139,15 @@ window.addEventListener('load', function () {
             triggerNonInteractiveGA("Model_Page", "FloatingLeadCTA_Partial_DefaultCTA_Shown", "");
         }
     }
+    $('.bw-shown-in-bhrighu').each(function (index, element) {
+        var currentElement = $(element);
+
+        var bhriguCategory = currentElement.attr("data-bhrigucat");
+        var bhriguAction = currentElement.attr("data-bhrigushownact");
+        var bhriguLabel = currentElement.attr("data-bhrigulab") || "NA";
+
+        cwTracking.trackCustomData(bhriguCategory, bhriguAction, bhriguLabel);
+    });
 });
 
 

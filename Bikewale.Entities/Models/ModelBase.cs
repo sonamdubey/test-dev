@@ -1,4 +1,5 @@
-﻿using Bikewale.Entities.Models;
+﻿using Bikewale.Entities;
+using Bikewale.Entities.Models;
 using Bikewale.Entities.Pages;
 using Bikewale.Entities.Schema;
 using System.Collections.Generic;
@@ -63,6 +64,7 @@ namespace Bikewale.Models
 
         public bool ExcludeContestSlug { get; set; }
         public GAPages Page { get; set; }
+        public BhriguPages BhriguPage { get; set; }
         public AmpJsTags AmpJsTags { get; set; }
         public string Amp_Page_CSS { get; set; }
 
