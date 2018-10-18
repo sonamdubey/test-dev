@@ -382,22 +382,22 @@ namespace Bikewale.DAL.BikeData
                                 t.SmallPicUrl = Convert.ToString(dr["SmallPic"]);
                                 t.LargePicUrl = Convert.ToString(dr["LargePic"]);
                                 t.HostUrl = Convert.ToString(dr["HostURL"]);
-                                t.MinPrice = Convert.ToInt64(dr["MinPrice"]);
-                                t.MaxPrice = Convert.ToInt64(dr["MaxPrice"]);
+                                t.MinPrice = SqlReaderConvertor.ToInt64(dr["MinPrice"]);
+                                t.MaxPrice = SqlReaderConvertor.ToInt64(dr["MaxPrice"]);
                                 t.MaskingName = Convert.ToString(dr["MaskingName"]);
                                 t.MakeBase.MaskingName = Convert.ToString(dr["MakeMaskingname"]);
                                 t.ModelSeries.SeriesId = SqlReaderConvertor.ToUInt32(dr["bikeseriesid"]);
                                 t.ModelSeries.SeriesName = Convert.ToString(dr["bikeseriesname"]);
                                 t.ModelSeries.MaskingName = Convert.ToString(dr["bikeseriesmaskingname"]);
                                 t.ModelSeries.IsSeriesPageUrl = SqlReaderConvertor.ToBoolean(dr["IsSeriesPageUrl"]);
-                                t.ReviewCount = Convert.ToInt32(dr["ReviewCount"]);
+                                t.ReviewCount = SqlReaderConvertor.ToInt32(dr["ReviewCount"]);
                                 t.RatingCount = SqlReaderConvertor.ToInt32(dr["RatingsCount"]);
-                                t.ReviewRate = Convert.ToDouble(dr["ReviewRate"]);
+                                t.ReviewRate = SqlReaderConvertor.ParseToDouble(dr["ReviewRate"]);
                                 t.ReviewUIRating = string.Format("{0:0.0}", t.ReviewRate);
                                 t.OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]);
-                                t.PhotosCount = Convert.ToInt32(dr["PhotosCount"]);
-                                t.VideosCount = Convert.ToInt32(dr["VideosCount"]);
-                                t.UsedListingsCnt = Convert.ToUInt32(dr["UsedListingsCnt"]);
+                                t.PhotosCount = SqlReaderConvertor.ToInt32(dr["PhotosCount"]);
+                                t.VideosCount = SqlReaderConvertor.ToInt32(dr["VideosCount"]);
+                                t.UsedListingsCnt = SqlReaderConvertor.ToUInt32(dr["UsedListingsCnt"]);
                                 t.ExpertReviewsCount = SqlReaderConvertor.ToUInt32(dr["ExpertReviewsCount"]);
                                 t.NewsCount = SqlReaderConvertor.ToUInt32(dr["NewsCount"]);
                             }
@@ -548,8 +548,8 @@ namespace Bikewale.DAL.BikeData
                             {
                                 ExpectedLaunchId = Convert.ToUInt16(dr["id"]),
                                 ExpectedLaunchDate = !String.IsNullOrEmpty(Convert.ToString(dr["ExpectedLaunch"])) ? Convert.ToDateTime(dr["ExpectedLaunch"]).ToString("MMMM yyyy") : "",
-                                EstimatedPriceMin = Convert.ToUInt64(dr["EstimatedPriceMin"]),
-                                EstimatedPriceMax = Convert.ToUInt64(dr["EstimatedPriceMax"]),
+                                EstimatedPriceMin = SqlReaderConvertor.ToUInt64(dr["EstimatedPriceMin"]),
+                                EstimatedPriceMax = SqlReaderConvertor.ToUInt64(dr["EstimatedPriceMax"]),
                                 HostUrl = Convert.ToString(dr["HostURL"]),
                                 LargePicImagePath = Convert.ToString(dr["LargePicImagePath"]),
                                 OriginalImagePath = Convert.ToString(dr["OriginalImagePath"])
@@ -820,13 +820,13 @@ namespace Bikewale.DAL.BikeData
                                 objData.objVersion = new BikeVersionsListEntity();
                                 objData.objMake.MakeName = Convert.ToString(dr["Make"]);
                                 objData.objModel.ModelName = Convert.ToString(dr["Model"]);
-                                objData.objMake.MakeId = Convert.ToInt32(dr["MakeId"]);
-                                objData.objModel.ModelId = Convert.ToInt32(dr["ModelId"]);
+                                objData.objMake.MakeId = SqlReaderConvertor.ToInt32(dr["MakeId"]);
+                                objData.objModel.ModelId = SqlReaderConvertor.ToInt32(dr["ModelId"]);
                                 objData.objMake.MaskingName = Convert.ToString(dr["MakeMaskingName"]);
                                 objData.objModel.MaskingName = Convert.ToString(dr["ModelMaskingName"]);
-                                objData.objVersion.VersionId = Convert.ToInt32(dr["VersionId"]);
-                                objData.ModelRating = Convert.ToDouble(dr["ReviewRate"]);
-                                objData.ReviewCount = Convert.ToUInt16(dr["ReviewCount"]);
+                                objData.objVersion.VersionId = SqlReaderConvertor.ToInt32(dr["VersionId"]);
+                                objData.ModelRating = SqlReaderConvertor.ParseToDouble(dr["ReviewRate"]);
+                                objData.ReviewCount = SqlReaderConvertor.ToUInt16(dr["ReviewCount"]);
                                 objData.BikeName = Convert.ToString(dr["BikeName"]);
                                 objData.HostURL = Convert.ToString(dr["HostUrl"]);
                                 objData.OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]);
@@ -880,14 +880,14 @@ namespace Bikewale.DAL.BikeData
                                 objData.objModel.ModelId = Convert.ToInt32(dr["ModelId"]);
                                 objData.objMake.MaskingName = Convert.ToString(dr["MakeMaskingName"]);
                                 objData.objModel.MaskingName = Convert.ToString(dr["ModelMaskingName"]);
-                                objData.objVersion.VersionId = Convert.ToInt32(dr["VersionId"]);
-                                objData.ModelRating = Convert.ToDouble(dr["ReviewRate"]);
-                                objData.ReviewCount = Convert.ToUInt16(dr["ReviewCount"]);
+                                objData.objVersion.VersionId = SqlReaderConvertor.ToInt32(dr["VersionId"]);
+                                objData.ModelRating = SqlReaderConvertor.ParseToDouble(dr["ReviewRate"]);
+                                objData.ReviewCount = SqlReaderConvertor.ToUInt16(dr["ReviewCount"]);
                                 objData.BikeName = Convert.ToString(dr["BikeName"]);
                                 objData.HostURL = Convert.ToString(dr["HostUrl"]);
                                 objData.OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]);
                                 objData.VersionPrice = SqlReaderConvertor.ToInt64(dr["VersionPrice"]);
-                                objData.BikePopularityIndex = Convert.ToUInt16(dr["PopularityIndex"]);
+                                objData.BikePopularityIndex = SqlReaderConvertor.ToUInt16(dr["PopularityIndex"]);
                                 objList.Add(objData);
                             }
                             dr.Close();
@@ -1279,8 +1279,8 @@ namespace Bikewale.DAL.BikeData
                                 objData.objMake.MaskingName = Convert.ToString(dr["MakeMaskingName"]);
                                 objData.objModel.MaskingName = Convert.ToString(dr["ModelMaskingName"]);
                                 objData.objVersion.VersionId = Convert.ToInt32(dr["VersionId"]);
-                                objData.ModelRating = Convert.ToDouble(dr["ReviewRate"]);
-                                objData.ReviewCount = Convert.ToUInt16(dr["ReviewCount"]);
+                                objData.ModelRating = SqlReaderConvertor.ParseToDouble(dr["ReviewRate"]);
+                                objData.ReviewCount = SqlReaderConvertor.ToUInt16(dr["ReviewCount"]);
                                 objData.BikeName = Convert.ToString(dr["BikeName"]);
                                 objData.HostURL = Convert.ToString(dr["HostUrl"]);
                                 objData.OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]);
@@ -1971,7 +1971,7 @@ namespace Bikewale.DAL.BikeData
                             genericBikeInfo.UserReview = SqlReaderConvertor.ToUInt32(dr["ReviewCount"]);
                             genericBikeInfo.DealersCount = SqlReaderConvertor.ToUInt32(dr["dealeravailable"]);
                             genericBikeInfo.PriceInCity = SqlReaderConvertor.ToUInt32(dr["priceincity"]);
-                            genericBikeInfo.Rating = Convert.ToSingle(dr["ReviewRate"]);
+                            genericBikeInfo.Rating = SqlReaderConvertor.ToFloat(dr["ReviewRate"]);
                             genericBikeInfo.RatingCount = SqlReaderConvertor.ToUInt16(dr["RatingsCount"]);
                             genericBikeInfo.UserReviewCount = SqlReaderConvertor.ToUInt16(dr["ReviewCount"]);
                             genericBikeInfo.BodyStyleId = SqlReaderConvertor.ToInt16(dr["BodyStyleId"]);
@@ -2797,17 +2797,17 @@ namespace Bikewale.DAL.BikeData
                                 objData.objVersion = new BikeVersionsListEntity();
                                 objData.objMake.MakeName = Convert.ToString(dr["Make"]);
                                 objData.objModel.ModelName = Convert.ToString(dr["Model"]);
-                                objData.objMake.MakeId = Convert.ToInt32(dr["MakeId"]);
-                                objData.objModel.ModelId = Convert.ToInt32(dr["ModelId"]);
+                                objData.objMake.MakeId = SqlReaderConvertor.ToInt32(dr["MakeId"]);
+                                objData.objModel.ModelId = SqlReaderConvertor.ToInt32(dr["ModelId"]);
                                 objData.objMake.MaskingName = Convert.ToString(dr["MakeMaskingName"]);
                                 objData.objModel.MaskingName = Convert.ToString(dr["ModelMaskingName"]);
-                                objData.ModelRating = Convert.ToDouble(dr["ReviewRate"]);
-                                objData.ReviewCount = Convert.ToUInt16(dr["ReviewCount"]);
+                                objData.ModelRating = SqlReaderConvertor.ToDouble(dr["ReviewRate"]);
+                                objData.ReviewCount = SqlReaderConvertor.ToUInt16(dr["ReviewCount"]);
                                 objData.BikeName = Convert.ToString(dr["BikeName"]);
                                 objData.HostURL = Convert.ToString(dr["HostUrl"]);
                                 objData.OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]);
                                 objData.VersionPrice = SqlReaderConvertor.ToInt64(dr["VersionPrice"]);
-                                objData.BikePopularityIndex = Convert.ToUInt16(dr["PopularityIndex"]);
+                                objData.BikePopularityIndex = SqlReaderConvertor.ToUInt16(dr["PopularityIndex"]);
                                 objData.objVersion.VersionId = SqlReaderConvertor.ToInt32(dr["VersionId"]);
                                 objList.Add(objData);
                             }
@@ -2827,6 +2827,8 @@ namespace Bikewale.DAL.BikeData
         /// Summary :- Method to GetElectricBikes 
         /// Modified by : Ashutosh Sharma on 07 Apr 2018.
         /// Description : Changed sp from 'getelectricbikes' to 'getelectricbikes_07042018' to remove min specs.
+        /// Modified by : Rajan Chauhan on 18 October 2018
+        /// Description : Changed Convert to SqlReaderConvertor 
         /// </summary>
         /// <returns></returns>
         public IEnumerable<MostPopularBikesBase> GetElectricBikes()
@@ -2851,12 +2853,12 @@ namespace Bikewale.DAL.BikeData
                                 objData.objVersion = new BikeVersionsListEntity();
                                 objData.objMake.MakeName = Convert.ToString(dr["Make"]);
                                 objData.objModel.ModelName = Convert.ToString(dr["Model"]);
-                                objData.objMake.MakeId = Convert.ToInt32(dr["MakeId"]);
-                                objData.objModel.ModelId = Convert.ToInt32(dr["ModelId"]);
+                                objData.objMake.MakeId = SqlReaderConvertor.ToInt32(dr["MakeId"]);
+                                objData.objModel.ModelId = SqlReaderConvertor.ToInt32(dr["ModelId"]);
                                 objData.objMake.MaskingName = Convert.ToString(dr["MakeMaskingName"]);
                                 objData.objModel.MaskingName = Convert.ToString(dr["ModelMaskingName"]);
-                                objData.ModelRating = Convert.ToDouble(dr["ReviewRate"]);
-                                objData.ReviewCount = Convert.ToUInt16(dr["ReviewCount"]);
+                                objData.ModelRating = SqlReaderConvertor.ParseToDouble(dr["ReviewRate"]);
+                                objData.ReviewCount = SqlReaderConvertor.ToUInt16(dr["ReviewCount"]);
                                 objData.BikeName = Convert.ToString(dr["BikeName"]);
                                 objData.HostURL = Convert.ToString(dr["HostUrl"]);
                                 objData.OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]);
@@ -2882,6 +2884,8 @@ namespace Bikewale.DAL.BikeData
         /// Summary :- Method to GetElectricBikes 
         /// Modified by : Ashutosh Sharma on 07 Apr 2018.
         /// Description : Changed sp from 'getelectricbikesbycity' to 'getelectricbikesbycity_07042018' to remove min specs.
+        /// Modified by : Rajan Chauhan on 18 October 2018
+        /// Description : Changed Convert to SqlReaderConvertor 
         /// </summary>
         /// <returns></returns>
         public IEnumerable<MostPopularBikesBase> GetElectricBikes(uint cityId)
@@ -2912,8 +2916,8 @@ namespace Bikewale.DAL.BikeData
                                 objData.objModel.ModelId = Convert.ToInt32(dr["ModelId"]);
                                 objData.objMake.MaskingName = Convert.ToString(dr["MakeMaskingName"]);
                                 objData.objModel.MaskingName = Convert.ToString(dr["ModelMaskingName"]);
-                                objData.ModelRating = Convert.ToDouble(dr["ReviewRate"]);
-                                objData.ReviewCount = Convert.ToUInt16(dr["ReviewCount"]);
+                                objData.ModelRating = SqlReaderConvertor.ParseToDouble(dr["ReviewRate"]);
+                                objData.ReviewCount = SqlReaderConvertor.ToUInt16(dr["ReviewCount"]);
                                 objData.BikeName = Convert.ToString(dr["BikeName"]);
                                 objData.HostURL = Convert.ToString(dr["HostUrl"]);
                                 objData.OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]);
