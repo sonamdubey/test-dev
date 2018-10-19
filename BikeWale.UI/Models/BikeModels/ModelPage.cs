@@ -2057,7 +2057,8 @@ namespace Bikewale.Models.BikeModels
                                 PlatformId = Convert.ToUInt16(Source),
                                 BikeName = _objData.BikeName,
                                 LoanAmount = Convert.ToUInt32((_objData.BikePrice) * 0.8),
-                                SendLeadSMSCustomer = campaigns.LeadCampaign.SendLeadSMSCustomer
+                                SendLeadSMSCustomer = campaigns.LeadCampaign.SendLeadSMSCustomer,
+                                FloatingBtnLeadSourceId = LeadSourceEnum.ModelPage_Floating_Mobile
                             };
 
                             _objData.IsManufacturerTopLeadAdShown = !_objData.ShowOnRoadButton;

@@ -64,14 +64,13 @@ namespace Bikewale.BAL.Bhrigu
 
             objTrackingData.Category = nvc["category"];
             objTrackingData.Action = nvc["action"];
-            objTrackingData.Label = String.Format("leadId={0}|leadSourceId={1}|platformId={2}|versionId={3}|dealerId={4}|appversion={5}|pageId={6}|campaignId={7}", 
+            objTrackingData.Label = String.Format("leadId={0}|leadSourceId={1}|platformId={2}|versionId={3}|dealerId={4}|appversion={5}|campaignId={6}", 
                 String.IsNullOrEmpty(nvc["leadId"]) ? "0" : nvc["leadId"],
                 String.IsNullOrEmpty(nvc["leadSourceId"]) ? "0" : nvc["leadSourceId"], 
                 String.IsNullOrEmpty(nvc["platformId"]) ? "0" : nvc["platformId"], 
                 String.IsNullOrEmpty(nvc["versionId"]) ? "0" : nvc["versionId"],
                 String.IsNullOrEmpty(nvc["dealerId"]) ? "0": nvc["dealerId"],
                 String.IsNullOrEmpty(nvc["appVersion"]) ? "0" : nvc["appVersion"],
-                String.IsNullOrEmpty(nvc["pageId"]) ? "0" : nvc["pageId"],
                 String.IsNullOrEmpty(nvc["campaignId"]) ? "0" : nvc["campaignId"]);           
             objTrackingData.CookieId = nvc["cookieId"];
             objTrackingData.SessionId = nvc["sessionId"];

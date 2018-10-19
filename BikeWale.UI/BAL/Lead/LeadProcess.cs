@@ -134,7 +134,6 @@ namespace Bikewale.BAL.Lead
                     objNVC.Add("versionId", pqInput.VersionId.ToString());
                     objNVC.Add("dealerId", pqInput.DealerId.ToString());
                     objNVC.Add("appVersion", requestHeaders["appVersion"]);
-                    objNVC.Add("pageId", pqInput.PageId.ToString());
                     objNVC.Add("campaignId", pqInput.CampaignId.ToString());
                     objNVC.Add("category", "NewBikesLead");
                     objNVC.Add("action", entity != null && entity.IsAccepted ? "Accepted" : "Rejected");
@@ -223,7 +222,6 @@ namespace Bikewale.BAL.Lead
                     objNVC.Add("versionId", pqInput.VersionId.ToString());
                     objNVC.Add("dealerId", pqInput.DealerId.ToString());
                     objNVC.Add("appVersion", requestHeaders["appVersion"]);
-                    objNVC.Add("pageId", pqInput.PageId.ToString());
                     objNVC.Add("campaignId", pqInput.CampaignId.ToString());
                     objNVC.Add("category", "NewBikesLead");
                     objNVC.Add("action", entity != null && entity.IsAccepted ? "Accepted" : "Rejected");
@@ -789,7 +787,6 @@ namespace Bikewale.BAL.Lead
                     objNVC.Add("versionId", input.VersionId.ToString());
                     objNVC.Add("dealerId", input.DealerId.ToString());
                     objNVC.Add("appVersion", headers["appVersion"]);
-                    objNVC.Add("pageId", input.PageId.ToString());
                     objNVC.Add("campaignId", input.CampaignId.ToString());
                     objNVC.Add("category", "NewBikesLead");
                     objNVC.Add("action", leadInfo!=null && leadInfo.IsAccepted ? "Accepted" : "Rejected");

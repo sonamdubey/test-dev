@@ -1,11 +1,14 @@
 ﻿
 using Bikewale.ManufacturerCampaign.Entities;
+using Bikewale.Entities.BikeBooking;
 
 namespace Bikewale.Entities.manufacturecampaign.v2
 {
     /// <summary>
     /// Created by  :   Pratibha Verma on 19 June 2018
     /// Description :   changes PQId data type
+    /// Modified by :   Sanjay George on 18 Oct 2018
+    /// Description :   Added FloatingBtnLeadSourceId to pass correct lead source to partial view
     /// </summary>
     public class ManufactureCampaignLeadEntity : ManufacturerCampaignLeadConfiguration
     {
@@ -24,5 +27,6 @@ namespace Bikewale.Entities.manufacturecampaign.v2
         public string BikeName { get; set; }
         public bool IsAmp { get; set; }
         public uint LoanAmount { get; set; }
+        public LeadSourceEnum FloatingBtnLeadSourceId {get; set;}
     }
 }
