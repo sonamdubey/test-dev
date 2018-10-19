@@ -94,27 +94,6 @@ namespace Bikewale.Cache.PriceQuote
         }
 
         /// <summary>
-        /// Created by  : Pratibha Verma on 28 September 2018
-        /// Description : returns the topVersion price in all cities
-        /// </summary>
-        /// <param name="modelId"></param>
-        /// <returns></returns>
-        private ModelTopVersionPrices GetTopVersionPriceInCities(uint modelId)
-        {
-            ModelTopVersionPrices modelTopVersionPrices = null;
-            string key = string.Format("BW_TopVersionPrices_M_{0}", modelId);
-            try
-            {
-                modelTopVersionPrices = _cache.GetFromCache<ModelTopVersionPrices>(key, new TimeSpan(30, 0, 0, 0), () => _obPriceQuote.GetTopVersionPriceInCities(modelId));
-            }
-            catch (Exception ex)
-            {
-                ErrorClass.LogError(ex, string.Format("Bikewale.Cache.PriceQuote.PriceQuoteCache.GetTopVersionPriceInCities(modelId = {0})", modelId));
-            }
-            return modelTopVersionPrices;
-        }
-
-        /// <summary>
         /// Created by  : Pratibha Verma on 3 October 2018
         /// Description : returns model top version price in nearest cities
         /// </summary>
@@ -125,11 +104,10 @@ namespace Bikewale.Cache.PriceQuote
         {
             DateTime dt1 = DateTime.Now, dt2;
             PriceInTopCitiesWidgetVM priceInTopCities = null;
-            string nearestCityKey = String.Format("BW_PriceInNearestCities_M_{0}_C_{1}", modelId, cityId);
+            string nearestCityKey = String.Format("BW_PriceInNC_M_{0}_C_{1}", modelId, cityId);
             try
             {
-                ModelTopVersionPrices modelTopVersionPrices = GetTopVersionPriceInCities(modelId);
-                IEnumerable<PriceQuoteOfTopCities> priceInNearestCities = _cache.GetFromCache<IEnumerable<PriceQuoteOfTopCities>>(nearestCityKey, new TimeSpan(30, 0, 0, 0), () => _priceQuoteCacheHelper.GetModelPriceInNearestCities(modelTopVersionPrices, cityId, modelId));
+                IEnumerable<PriceQuoteOfTopCities> priceInNearestCities = _cache.GetFromCache<IEnumerable<PriceQuoteOfTopCities>>(nearestCityKey, new TimeSpan(30, 0, 0, 0), () => _priceQuoteCacheHelper.GetModelPriceInNearestCities(cityId, modelId));
 
                 if (priceInNearestCities != null)
                 {

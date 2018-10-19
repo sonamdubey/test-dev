@@ -683,43 +683,41 @@ namespace Bikewale.DAL.PriceQuote
                             BikeMakeBase bikeMake = null;
                             BikeModelTopVersion bikeModelTopVersion = null;
                             IList<CityPriceEntity> cityPrice = new List<CityPriceEntity>();
+                            if (dr.Read())
+                            {
+                                bikeMake = new BikeMakeBase
+                                {
+                                    MakeId = SqlReaderConvertor.ToInt32(dr["makeId"]),
+                                    MakeName = Convert.ToString(dr["makeName"]),
+                                    MakeMaskingName = Convert.ToString(dr["makeMaskingName"])
+                                };
+                                bikeModelTopVersion = new BikeModelTopVersion
+                                {
+                                    ModelId = SqlReaderConvertor.ToInt32(dr["modelId"]),
+                                    ModelName = Convert.ToString(dr["modelName"]),
+                                    MaskingName = Convert.ToString(dr["modelMaskingName"]),
+                                    TopVersionId = SqlReaderConvertor.ToInt32(dr["topVersionId"])
+                                };
+                                cityPrice.Add(new CityPriceEntity
+                                {
+                                    CityId = SqlReaderConvertor.ToUInt32(dr["cityId"]),
+                                    CityName = Convert.ToString(dr["cityName"]),
+                                    CityMaskingName = Convert.ToString(dr["cityMaskingName"]),
+                                    Latitude = SqlReaderConvertor.ToFloat(dr["lattitude"]),
+                                    Longitude = SqlReaderConvertor.ToFloat(dr["longitude"]),
+                                    OnRoadPrice = SqlReaderConvertor.ToUInt32(dr["onRoadPrice"])
+                                });
+                            }
                             while (dr.Read())
                             {
-                                if (bikeMake != null && bikeModelTopVersion != null)
-                                {
-                                    cityPrice.Add(new CityPriceEntity {
-                                        CityId = SqlReaderConvertor.ToUInt32(dr["cityId"]),
-                                        CityName = Convert.ToString(dr["cityName"]),
-                                        CityMaskingName = Convert.ToString(dr["cityMaskingName"]),
-                                        Latitude = SqlReaderConvertor.ToFloat(dr["lattitude"]),
-                                        Longitude = SqlReaderConvertor.ToFloat(dr["longitude"]),
-                                        OnRoadPrice = SqlReaderConvertor.ToUInt32(dr["onRoadPrice"])
-                                    });
-                                }
-                                else
-                                {
-                                    bikeMake = new BikeMakeBase
-                                    {
-                                        MakeId = SqlReaderConvertor.ToInt32(dr["makeId"]),
-                                        MakeName = Convert.ToString(dr["makeName"]),
-                                        MakeMaskingName = Convert.ToString(dr["makeMaskingName"])
-                                    };
-                                    bikeModelTopVersion = new BikeModelTopVersion
-                                    {
-                                        ModelId = SqlReaderConvertor.ToInt32(dr["modelId"]),
-                                        ModelName = Convert.ToString(dr["modelName"]),
-                                        MaskingName = Convert.ToString(dr["modelMaskingName"]),
-                                        TopVersionId = SqlReaderConvertor.ToInt32(dr["topVersionId"])
-                                    };
-                                    cityPrice.Add(new CityPriceEntity {
-                                        CityId = SqlReaderConvertor.ToUInt32(dr["cityId"]),
-                                        CityName = Convert.ToString(dr["cityName"]),
-                                        CityMaskingName = Convert.ToString(dr["cityMaskingName"]),
-                                        Latitude = SqlReaderConvertor.ToFloat(dr["lattitude"]),
-                                        Longitude = SqlReaderConvertor.ToFloat(dr["longitude"]),
-                                        OnRoadPrice = SqlReaderConvertor.ToUInt32(dr["onRoadPrice"])
-                                    });
-                                }
+                                cityPrice.Add(new CityPriceEntity {
+                                    CityId = SqlReaderConvertor.ToUInt32(dr["cityId"]),
+                                    CityName = Convert.ToString(dr["cityName"]),
+                                    CityMaskingName = Convert.ToString(dr["cityMaskingName"]),
+                                    Latitude = SqlReaderConvertor.ToFloat(dr["lattitude"]),
+                                    Longitude = SqlReaderConvertor.ToFloat(dr["longitude"]),
+                                    OnRoadPrice = SqlReaderConvertor.ToUInt32(dr["onRoadPrice"])
+                                });
                             }
                             dr.Close();
                             modelTopVersionPrice = new ModelTopVersionPrices {
