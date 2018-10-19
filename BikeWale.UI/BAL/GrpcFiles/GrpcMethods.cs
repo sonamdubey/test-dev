@@ -1,12 +1,11 @@
-using System;
-using System.Diagnostics;
+using Bikewale.BAL.ApiGateway.Adapters.Generic;
+using Bikewale.BAL.ApiGateway.ApiGatewayHelper;
 using Bikewale.Entities.Videos;
 using Bikewale.Notifications;
 using Bikewale.Utility;
 using EditCMSWindowsService.Messages;
-using Grpc.Core;
-using GRPCLoadBalancer;
 using log4net;
+using System;
 
 namespace Grpc.CMS
 {
@@ -21,6 +20,7 @@ namespace Grpc.CMS
         static readonly ILog log = LogManager.GetLogger(typeof(GrpcMethods));
         static bool _logGrpcErrors = Convert.ToBoolean(Bikewale.Utility.BWConfiguration.Instance.LogGrpcErrors);
         static uint _msLimit = Convert.ToUInt32(Bikewale.Utility.BWConfiguration.Instance.GrpcMaxTimeLimit);
+        static string _cmsModuleName = BWConfiguration.Instance.EditCMSModuleName;
 
         static GrpcMethods()
         {
@@ -35,128 +35,53 @@ namespace Grpc.CMS
 
         public static GrpcCMSContent GetArticleListByCategory(string catIdList, uint startIdx, uint endIdx)
         {
-            Stopwatch sw = null;
             try
             {
-                if (_logGrpcErrors)
-                {
-                    sw = Stopwatch.StartNew();
-                }
-                Channel ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
-                int i = m_retryCount;
-                while (i-- >= 0)
-                {
-                    if (ch != null)
-                    {
-                        var client = new EditCMSGrpcService.EditCMSGrpcServiceClient(ch);
-                        try
-                        {
-                            return client.GetContentListByCategory(new GrpcArticleByCatURI()
-                            {
-                                ApplicationId = 2,
-                                CategoryIdList = catIdList,
-                                EndIndex = endIdx,
-                                StartIndex = startIdx
-                            },
-                          null, GetForwardTime(m_ChanelWaitTime));
-                        }
-                        catch (RpcException e)
-                        {
-                            log.Error(e);
-                            if (i > 0)
-                            {
-                                log.Error("Error104 Get another Channel " + ch.ResolvedTarget);
-                                ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
-                            }
-                            else
-                                break;
-                        }
-                        catch (Exception e)
-                        {
-                            log.Error(e);
-                        }
-                    }
-                    else
-                        break;
-                }
-
-
-                return null;
+                IApiGatewayCaller caller = new ApiGatewayCaller();
+                GenericApiGatewayAdapter<GrpcCMSContent> adapter = new GenericApiGatewayAdapter<GrpcCMSContent>(_cmsModuleName, "GetContentListByCategory");
+                adapter.AddApiGatewayCall(caller,
+                             new GrpcArticleByCatURI()
+                             {
+                                 ApplicationId = 2,
+                                 CategoryIdList = catIdList,
+                                 EndIndex = endIdx,
+                                 StartIndex = startIdx
+                             });
+                caller.Call();
+                return adapter.Output;
             }
-            finally
+            catch (Exception e)
             {
-                if (_logGrpcErrors && sw != null)
-                {
-                    sw.Stop();
-                    if (sw.ElapsedMilliseconds > _msLimit)
-                        log.Error("Error105 GetArticleListByCategory took " + sw.ElapsedMilliseconds);
-                }
+                log.Error(e);
             }
+            return null;
 
         }
 
         public static GrpcCMSContent GetArticleListByCategory(string catIdList, uint startIdx, uint endIdx, int makeid = 0, int modelid = 0)
         {
-            Stopwatch sw = null;
             try
             {
-                if (_logGrpcErrors)
+                IApiGatewayCaller caller = new ApiGatewayCaller();
+                GenericApiGatewayAdapter<GrpcCMSContent> adapter = new GenericApiGatewayAdapter<GrpcCMSContent>(_cmsModuleName, "GetContentListByCategory");
+                adapter.AddApiGatewayCall(caller,
+                new GrpcArticleByCatURI()
                 {
-                    sw = Stopwatch.StartNew();
-                }
-                Channel ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
-                int i = m_retryCount;
-                while (i-- >= 0)
-                {
-                    if (ch != null)
-                    {
-                        var client = new EditCMSGrpcService.EditCMSGrpcServiceClient(ch);
-                        try
-                        {
-                            return client.GetContentListByCategory(new GrpcArticleByCatURI()
-                            {
-                                ApplicationId = 2,
-                                CategoryIdList = catIdList,
-                                EndIndex = endIdx,
-                                MakeId = makeid,
-                                ModelId = modelid,
-                                StartIndex = startIdx
-                            },
-                          null, GetForwardTime(m_ChanelWaitTime));
-                        }
-                        catch (RpcException e)
-                        {
-                            log.Error(e);
-                            if (i > 0)
-                            {
-                                log.Error("Error104 Get another Channel " + ch.ResolvedTarget);
-                                ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
-                            }
-                            else
-                                break;
-                        }
-                        catch (Exception e)
-                        {
-                            log.Error(e);
-                        }
-                    }
-                    else
-                        break;
-                }
-
-
-                return null;
+                    ApplicationId = 2,
+                    CategoryIdList = catIdList,
+                    EndIndex = endIdx,
+                    MakeId = makeid,
+                    ModelId = modelid,
+                    StartIndex = startIdx
+                });
+                caller.Call();
+                return adapter.Output;
             }
-            finally
+            catch (Exception e)
             {
-                if (_logGrpcErrors && sw != null)
-                {
-                    sw.Stop();
-                    if (sw.ElapsedMilliseconds > _msLimit)
-                        log.Error("Error105 GetArticleListByCategory took " + sw.ElapsedMilliseconds);
-                }
+                log.Error(e);
             }
-
+            return null;
         }
 
         /// <summary>
@@ -173,66 +98,28 @@ namespace Grpc.CMS
         /// <returns></returns>
         public static GrpcCMSContent GetArticleListByCategory(string catIdList, uint startIdx, uint endIdx, int makeid = 0, string modelIds = null)
         {
-            Stopwatch sw = null;
             try
             {
-                if (_logGrpcErrors)
+                IApiGatewayCaller caller = new ApiGatewayCaller();
+                GenericApiGatewayAdapter<GrpcCMSContent> adapter = new GenericApiGatewayAdapter<GrpcCMSContent>(_cmsModuleName, "GetContentListByCategory");
+                adapter.AddApiGatewayCall(caller,
+                new GrpcArticleByCatURI()
                 {
-                    sw = Stopwatch.StartNew();
-                }
-                Channel ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
-                int i = m_retryCount;
-                while (i-- >= 0)
-                {
-                    if (ch != null)
-                    {
-                        var client = new EditCMSGrpcService.EditCMSGrpcServiceClient(ch);
-                        try
-                        {
-                            return client.GetContentListByCategory(new GrpcArticleByCatURI()
-                            {
-                                ApplicationId = 2,
-                                CategoryIdList = catIdList,
-                                EndIndex = endIdx,
-                                MakeId = makeid,
-                                ModelIds = modelIds,
-                                StartIndex = startIdx
-                            },
-                          null, GetForwardTime(m_ChanelWaitTime));
-                        }
-                        catch (RpcException e)
-                        {
-                            log.Error(e);
-                            if (i > 0)
-                            {
-                                log.Error("Error104 Get another Channel " + ch.ResolvedTarget);
-                                ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
-                            }
-                            else
-                                break;
-                        }
-                        catch (Exception e)
-                        {
-                            log.Error(e);
-                        }
-                    }
-                    else
-                        break;
-                }
-
-
-                return null;
+                    ApplicationId = 2,
+                    CategoryIdList = catIdList,
+                    EndIndex = endIdx,
+                    MakeId = makeid,
+                    ModelIds = modelIds,
+                    StartIndex = startIdx
+                });
+                caller.Call();
+                return adapter.Output;
             }
-            finally
+            catch (Exception e)
             {
-                if (_logGrpcErrors && sw != null)
-                {
-                    sw.Stop();
-                    if (sw.ElapsedMilliseconds > _msLimit)
-                        log.Error("Error105 GetArticleListByCategory took " + sw.ElapsedMilliseconds);
-                }
+                log.Error(e);
             }
-
+            return null;
         }
 
         /// <summary>
@@ -247,141 +134,59 @@ namespace Grpc.CMS
         /// <returns></returns>
         public static GrpcCMSContent GetArticleListByCategory(string catIdList, uint startIdx, uint endIdx, string bodyStyleId, int makeid = 0)
         {
-            Stopwatch sw = null;
+
             try
             {
-                if (_logGrpcErrors)
+                IApiGatewayCaller caller = new ApiGatewayCaller();
+                GenericApiGatewayAdapter<GrpcCMSContent> adapter = new GenericApiGatewayAdapter<GrpcCMSContent>(_cmsModuleName, "GetContentListByCategory");
+                adapter.AddApiGatewayCall(caller, new GrpcArticleByCatURI()
                 {
-                    sw = Stopwatch.StartNew();
-                }
-                Channel ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
-                int i = m_retryCount;
-                while (i-- >= 0)
-                {
-                    if (ch != null)
-                    {
-                        var client = new EditCMSGrpcService.EditCMSGrpcServiceClient(ch);
-                        try
-                        {
-                            return client.GetContentListByCategory(new GrpcArticleByCatURI()
-                            {
-                                ApplicationId = 2,
-                                CategoryIdList = catIdList,
-                                EndIndex = endIdx,
-                                MakeId = makeid,
-                                StartIndex = startIdx,
-                                BodyStyleIds = bodyStyleId
-                            },
-                          null, GetForwardTime(m_ChanelWaitTime));
-                        }
-                        catch (RpcException e)
-                        {
-                            log.Error(e);
-                            ErrorClass.LogError(e, "Grpc.CMS.GrpcMethods.GrpcCMSContent");
-
-                            if (i > 0)
-                            {
-                                log.Error("Error104 Get another Channel " + ch.ResolvedTarget);
-                                ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
-                            }
-                            else
-                                break;
-                        }
-                        catch (Exception e)
-                        {
-                            log.Error(e);
-                            ErrorClass.LogError(e, "Grpc.CMS.GrpcMethods.GrpcCMSContent");
-                        }
-                    }
-                    else
-                        break;
-                }
-
-
-                return null;
+                    ApplicationId = 2,
+                    CategoryIdList = catIdList,
+                    EndIndex = endIdx,
+                    MakeId = makeid,
+                    StartIndex = startIdx,
+                    BodyStyleIds = bodyStyleId
+                });
+                caller.Call();
+                return adapter.Output;
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                ErrorClass.LogError(ex, "Grpc.CMS.GrpcMethods.GrpcCMSContent");
-                return null;
+                log.Error(e);
+                ErrorClass.LogError(e, "Grpc.CMS.GrpcMethods.GrpcCMSContent");
             }
-            finally
-            {
-                if (_logGrpcErrors)
-                {
-                    sw.Stop();
-                    if (sw.ElapsedMilliseconds > _msLimit)
-                        log.Error("Error105 GetArticleListByCategory took " + sw.ElapsedMilliseconds);
-                }
-            }
+
+            return null;
 
         }
 
         public static GrpcArticleSummaryList MostRecentList(string contenTypes, int totalRecords, int? makeId = 0, int? modelId = 0)
         {
-            Stopwatch sw = null;
 
             try
             {
-                if (_logGrpcErrors)
-                {
-                    sw = Stopwatch.StartNew();
-                }
 
-                Channel ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
-
-                int i = m_retryCount;
-                while (i-- >= 0)
-                {
-                    if (ch != null)
+                IApiGatewayCaller caller = new ApiGatewayCaller();
+                GenericApiGatewayAdapter<GrpcArticleSummaryList> adapter = new GenericApiGatewayAdapter<GrpcArticleSummaryList>(_cmsModuleName, "GetMostRecentArticles");
+                adapter.AddApiGatewayCall(caller, new GrpcArticleRecentURI()
                     {
-                        var client = new EditCMSGrpcService.EditCMSGrpcServiceClient(ch);
-                        try
-                        {
+                        MakeId = makeId == null ? 0 : makeId.Value,
+                        ModelId = modelId == null ? 0 : modelId.Value,
 
-                            return client.GetMostRecentArticles
-                                (new GrpcArticleRecentURI()
-                                {
-                                    MakeId = makeId == null ? 0 : makeId.Value,
-                                    ModelId = modelId == null ? 0 : modelId.Value,
-
-                                    ApplicationId = 2,
-                                    ContentTypes = contenTypes,
-                                    TotalRecords = (uint)totalRecords
-                                },
-                                 null, GetForwardTime(m_ChanelWaitTime));
-                        }
-                        catch (RpcException e)
-                        {
-                            log.Error(e);
-                            if (i > 0)
-                            {
-                                log.Error("Error104 Get another Channel " + ch.ResolvedTarget);
-                                ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
-                            }
-                            else
-                                break;
-                        }
-                        catch (Exception e)
-                        {
-                            log.Error(e);
-                        }
-                    }
-                    else
-                        break;
-                }
-                return null;
+                        ApplicationId = 2,
+                        ContentTypes = contenTypes,
+                        TotalRecords = (uint)totalRecords
+                    });
+                caller.Call();
+                return adapter.Output;
             }
-            finally
+            catch (Exception e)
             {
-                if (_logGrpcErrors)
-                {
-
-                    sw.Stop();
-                    if (sw.ElapsedMilliseconds > _msLimit)
-                        log.Error("Error105 MostRecentList took " + sw.ElapsedMilliseconds);
-                }
+                log.Error(e);
             }
+            return null;
+
         }
 
         /// <summary>
@@ -395,136 +200,55 @@ namespace Grpc.CMS
         /// <returns></returns>
         public static GrpcArticleSummaryList MostRecentList(string contenTypes, int totalRecords, int? makeId = 0, string modelIds = null)
         {
-            Stopwatch sw = null;
 
             try
             {
-                if (_logGrpcErrors)
-                {
-                    sw = Stopwatch.StartNew();
-                }
 
-                Channel ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
-
-                int i = m_retryCount;
-                while (i-- >= 0)
-                {
-                    if (ch != null)
+                IApiGatewayCaller caller = new ApiGatewayCaller();
+                GenericApiGatewayAdapter<GrpcArticleSummaryList> adapter = new GenericApiGatewayAdapter<GrpcArticleSummaryList>(_cmsModuleName, "GetMostRecentArticles");
+                adapter.AddApiGatewayCall(caller, new GrpcArticleRecentURI()
                     {
-                        var client = new EditCMSGrpcService.EditCMSGrpcServiceClient(ch);
-                        try
-                        {
-
-                            return client.GetMostRecentArticles
-                                (new GrpcArticleRecentURI()
-                                {
-                                    MakeId = makeId == null ? 0 : makeId.Value,
-                                    ApplicationId = 2,
-                                    ContentTypes = contenTypes,
-                                    TotalRecords = (uint)totalRecords,
-                                    ModelIds = String.IsNullOrEmpty(modelIds) ? string.Empty : modelIds,
-                                },
-                                 null, GetForwardTime(m_ChanelWaitTime));
-                        }
-                        catch (RpcException e)
-                        {
-                            log.Error(e);
-                            if (i > 0)
-                            {
-                                log.Error("Error104 Get another Channel " + ch.ResolvedTarget);
-                                ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
-                            }
-                            else
-                                break;
-                        }
-                        catch (Exception e)
-                        {
-                            log.Error(e);
-                        }
-                    }
-                    else
-                        break;
-                }
-                return null;
+                        MakeId = makeId == null ? 0 : makeId.Value,
+                        ApplicationId = 2,
+                        ContentTypes = contenTypes,
+                        TotalRecords = (uint)totalRecords,
+                        ModelIds = String.IsNullOrEmpty(modelIds) ? string.Empty : modelIds,
+                    });
+                caller.Call();
+                return adapter.Output;
             }
-            finally
+            catch (Exception e)
             {
-                if (_logGrpcErrors && sw != null)
-                {
-
-                    sw.Stop();
-                    if (sw.ElapsedMilliseconds > _msLimit)
-                        log.Error("Error105 MostRecentList took " + sw.ElapsedMilliseconds);
-                }
+                log.Error(e);
             }
+            return null;
         }
 
         public static GrpcArticleSummaryList MostRecentList(string contenTypes, int totalRecords, string bodyStyleIds, int? makeId = 0, int? modelId = 0)
         {
-            Stopwatch sw = null;
-
             try
             {
-                if (_logGrpcErrors)
-                {
-                    sw = Stopwatch.StartNew();
-                }
 
-                Channel ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
-
-                int i = m_retryCount;
-                while (i-- >= 0)
-                {
-                    if (ch != null)
+                IApiGatewayCaller caller = new ApiGatewayCaller();
+                GenericApiGatewayAdapter<GrpcArticleSummaryList> adapter = new GenericApiGatewayAdapter<GrpcArticleSummaryList>(_cmsModuleName, "GetMostRecentArticles");
+                adapter.AddApiGatewayCall(caller, new GrpcArticleRecentURI()
                     {
-                        var client = new EditCMSGrpcService.EditCMSGrpcServiceClient(ch);
-                        try
-                        {
+                        MakeId = makeId == null ? 0 : makeId.Value,
+                        ModelId = modelId == null ? 0 : modelId.Value,
 
-                            return client.GetMostRecentArticles
-                                (new GrpcArticleRecentURI()
-                                {
-                                    MakeId = makeId == null ? 0 : makeId.Value,
-                                    ModelId = modelId == null ? 0 : modelId.Value,
-
-                                    ApplicationId = 2,
-                                    ContentTypes = contenTypes,
-                                    TotalRecords = (uint)totalRecords,
-                                    BodyStyleIds = bodyStyleIds
-                                },
-                                 null, GetForwardTime(m_ChanelWaitTime));
-                        }
-                        catch (RpcException e)
-                        {
-                            log.Error(e);
-                            if (i > 0)
-                            {
-                                log.Error("Error104 Get another Channel " + ch.ResolvedTarget);
-                                ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
-                            }
-                            else
-                                break;
-                        }
-                        catch (Exception e)
-                        {
-                            log.Error(e);
-                        }
-                    }
-                    else
-                        break;
-                }
-                return null;
+                        ApplicationId = 2,
+                        ContentTypes = contenTypes,
+                        TotalRecords = (uint)totalRecords,
+                        BodyStyleIds = bodyStyleIds
+                    });
+                caller.Call();
+                return adapter.Output;
             }
-            finally
+            catch (Exception e)
             {
-                if (_logGrpcErrors && sw != null)
-                {
-
-                    sw.Stop();
-                    if (sw.ElapsedMilliseconds > _msLimit)
-                        log.Error("Error105 MostRecentList took " + sw.ElapsedMilliseconds);
-                }
+                log.Error(e);
             }
+            return null;
         }
 
         /// <summary>
@@ -539,194 +263,75 @@ namespace Grpc.CMS
         /// <returns></returns>
         public static GrpcArticleSummaryList MostRecentList(string contenTypes, int totalRecords, string bodyStyleIds, int? makeId = 0, string modelIds = null)
         {
-            Stopwatch sw = null;
 
             try
             {
-                if (_logGrpcErrors)
-                {
-                    sw = Stopwatch.StartNew();
-                }
 
-                Channel ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
-
-                int i = m_retryCount;
-                while (i-- >= 0)
-                {
-                    if (ch != null)
+                IApiGatewayCaller caller = new ApiGatewayCaller();
+                GenericApiGatewayAdapter<GrpcArticleSummaryList> adapter = new GenericApiGatewayAdapter<GrpcArticleSummaryList>(_cmsModuleName, "GetMostRecentArticles");
+                adapter.AddApiGatewayCall(caller, new GrpcArticleRecentURI()
                     {
-                        var client = new EditCMSGrpcService.EditCMSGrpcServiceClient(ch);
-                        try
-                        {
-
-                            return client.GetMostRecentArticles
-                                (new GrpcArticleRecentURI()
-                                {
-                                    MakeId = makeId == null ? 0 : makeId.Value,
-                                    //ModelIds = modelIds,
-                                    ApplicationId = 2,
-                                    ContentTypes = contenTypes,
-                                    TotalRecords = (uint)totalRecords,
-                                    BodyStyleIds = bodyStyleIds
-                                },
-                                 null, GetForwardTime(m_ChanelWaitTime));
-                        }
-                        catch (RpcException e)
-                        {
-                            log.Error(e);
-                            if (i > 0)
-                            {
-                                log.Error("Error104 Get another Channel " + ch.ResolvedTarget);
-                                ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
-                            }
-                            else
-                                break;
-                        }
-                        catch (Exception e)
-                        {
-                            log.Error(e);
-                        }
-                    }
-                    else
-                        break;
-                }
-                return null;
+                        MakeId = makeId == null ? 0 : makeId.Value,
+                        //ModelIds = modelIds,
+                        ApplicationId = 2,
+                        ContentTypes = contenTypes,
+                        TotalRecords = (uint)totalRecords,
+                        BodyStyleIds = bodyStyleIds
+                    });
+                caller.Call();
+                return adapter.Output;
             }
-            finally
+            catch (Exception e)
             {
-                if (_logGrpcErrors)
-                {
-
-                    sw.Stop();
-                    if (sw.ElapsedMilliseconds > _msLimit)
-                        log.Error("Error105 MostRecentList took " + sw.ElapsedMilliseconds);
-                }
+                log.Error(e);
             }
+            return null;
         }
 
         public static GrpcModelImageList GetArticlePhotos(ulong basicId)
         {
-            Stopwatch sw = null;
 
             try
             {
-                if (_logGrpcErrors)
-                {
-                    sw = Stopwatch.StartNew();
-                }
-                Channel ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
-
-                int i = m_retryCount;
-                while (i-- >= 0)
-                {
-                    if (ch != null)
+                IApiGatewayCaller caller = new ApiGatewayCaller();
+                GenericApiGatewayAdapter<GrpcModelImageList> adapter = new GenericApiGatewayAdapter<GrpcModelImageList>(_cmsModuleName, "GetArticlePhotos");
+                adapter.AddApiGatewayCall(caller, new GrpcArticleContentURI()
                     {
-                        var client = new EditCMSGrpcService.EditCMSGrpcServiceClient(ch);
-                        try
-                        {
-
-                            return client.GetArticlePhotos
-                                (new GrpcArticleContentURI()
-                                {
-                                    BasicId = basicId,
-                                    ApplicationId = 2
-                                },
-                                 null, GetForwardTime(m_ChanelWaitTime));
-                        }
-                        catch (RpcException e)
-                        {
-                            log.Error(e);
-                            if (i > 0)
-                            {
-                                log.Error("Error104 Get another Channel " + ch.ResolvedTarget);
-                                ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
-                            }
-                            else
-                                break;
-                        }
-                        catch (Exception e)
-                        {
-                            log.Error(e);
-                        }
-                    }
-                    else
-                        break;
-                }
-                return null;
+                        BasicId = basicId,
+                        ApplicationId = 2
+                    });
+                caller.Call();
+                return adapter.Output;
             }
-            finally
+            catch (Exception e)
             {
-                if (_logGrpcErrors)
-                {
-
-                    sw.Stop();
-                    if (sw.ElapsedMilliseconds > _msLimit)
-                        log.Error("Error105 GetArticlePhotos took " + sw.ElapsedMilliseconds);
-                }
+                log.Error(e);
             }
+            return null;
         }
 
         public static GrpcModelImageList GetModelPhotosList(uint applicationId, int modelId, string categoryId)
         {
-            Stopwatch sw = null;
-
             try
             {
-                if (_logGrpcErrors)
-                {
-                    sw = Stopwatch.StartNew();
-                }
-                Channel ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
 
-                int i = m_retryCount;
-                while (i-- >= 0)
-                {
-                    if (ch != null)
+                IApiGatewayCaller caller = new ApiGatewayCaller();
+                GenericApiGatewayAdapter<GrpcModelImageList> adapter = new GenericApiGatewayAdapter<GrpcModelImageList>(_cmsModuleName, "GetModelPhotosList");
+                adapter.AddApiGatewayCall(caller,
+                    new GrpcModelPhotoURI()
                     {
-                        var client = new EditCMSGrpcService.EditCMSGrpcServiceClient(ch);
-                        try
-                        {
-
-                            return client.GetModelPhotosList
-                                (new GrpcModelPhotoURI()
-                                {
-                                    ApplicationId = applicationId,
-                                    ModelId = modelId,
-                                    CategoryIdList = categoryId
-                                },
-                                 null, GetForwardTime(m_ChanelWaitTime));
-                        }
-                        catch (RpcException e)
-                        {
-                            log.Error(e);
-                            if (i > 0)
-                            {
-                                log.Error("Error104 Get another Channel " + ch.ResolvedTarget);
-                                ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
-                            }
-                            else
-                                break;
-                        }
-                        catch (Exception e)
-                        {
-                            log.Error(e);
-                        }
-                    }
-                    else
-                        break;
-                }
-                return null;
+                        ApplicationId = applicationId,
+                        ModelId = modelId,
+                        CategoryIdList = categoryId
+                    });
+                caller.Call();
+                return adapter.Output;
             }
-            finally
+            catch (Exception e)
             {
-                if (_logGrpcErrors && sw != null)
-                {
-
-                    sw.Stop();
-                    if (sw.ElapsedMilliseconds > _msLimit)
-                        log.Error("Error105 GetModelPhotosList took " + sw.ElapsedMilliseconds);
-                }
+                log.Error(e);
             }
+            return null;
         }
 
         /// <summary>
@@ -740,581 +345,219 @@ namespace Grpc.CMS
         /// <returns></returns>
         public static GrpcModelsImageList GetModelsImages(string modelIds, string categoryIds, int requiredImageCount)
         {
-            Stopwatch sw = null;
-
             try
             {
-                if (_logGrpcErrors)
-                {
-                    sw = Stopwatch.StartNew();
-                }
-                Channel ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
 
-                int i = m_retryCount;
-                while (i-- >= 0)
-                {
-                    if (ch != null)
+                IApiGatewayCaller caller = new ApiGatewayCaller();
+                GenericApiGatewayAdapter<GrpcModelsImageList> adapter = new GenericApiGatewayAdapter<GrpcModelsImageList>(_cmsModuleName, "GetModelsImages");
+                adapter.AddApiGatewayCall(caller, new GrpcModelListPhotoURI()
                     {
-                        var client = new EditCMSGrpcService.EditCMSGrpcServiceClient(ch);
-                        try
-                        {
-
-                            return client.GetModelsImages
-                                (new GrpcModelListPhotoURI()
-                                {
-                                    ApplicationId = 2,
-                                    ModelIds = modelIds,
-                                    CategoryIds = categoryIds,
-                                    RequiredImageCount = requiredImageCount
-                                },
-                                 null, GetForwardTime(m_ChanelWaitTime));
-                        }
-                        catch (RpcException e)
-                        {
-                            log.Error(e);
-                            if (i > 0)
-                            {
-                                log.Error("Error104 Get another Channel " + ch.ResolvedTarget);
-                                ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
-                            }
-                            else
-                                break;
-                        }
-                        catch (Exception e)
-                        {
-                            log.Error(e);
-                        }
-                    }
-                    else
-                        break;
-                }
-                return null;
+                        ApplicationId = 2,
+                        ModelIds = modelIds,
+                        CategoryIds = categoryIds,
+                        RequiredImageCount = requiredImageCount
+                    });
+                caller.Call();
+                return adapter.Output;
             }
-            finally
+            catch (Exception e)
             {
-                if (_logGrpcErrors && sw != null)
-                {
-                    sw.Stop();
-                    if (sw.ElapsedMilliseconds > _msLimit)
-                        log.Error("Error105 GetModelPhotosList took " + sw.ElapsedMilliseconds);
-                }
+                log.Error(e);
             }
+            return null;
         }
 
 
         public static GrpcArticleDetails GetContentDetails(ulong basicId)
         {
-            Stopwatch sw = null;
-
             try
             {
-                if (_logGrpcErrors)
-                {
-                    sw = Stopwatch.StartNew();
-                }
-                Channel ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
 
-                int i = m_retryCount;
-                while (i-- >= 0)
-                {
-                    if (ch != null)
+                IApiGatewayCaller caller = new ApiGatewayCaller();
+                GenericApiGatewayAdapter<GrpcArticleDetails> adapter = new GenericApiGatewayAdapter<GrpcArticleDetails>(_cmsModuleName, "GetContentDetails");
+                adapter.AddApiGatewayCall(caller, new GrpcArticleContentURI()
                     {
-                        var client = new EditCMSGrpcService.EditCMSGrpcServiceClient(ch);
-                        try
-                        {
-
-                            return client.GetContentDetails
-                                (new GrpcArticleContentURI()
-                                {
-                                    BasicId = basicId,
-                                    ApplicationId = 2
-                                },
-                                 null, GetForwardTime(m_ChanelWaitTime));
-                        }
-                        catch (RpcException e)
-                        {
-                            log.Error(e);
-                            if (i > 0)
-                            {
-                                log.Error("Error104 Get another Channel " + ch.ResolvedTarget);
-                                ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
-                            }
-                            else
-                                break;
-                        }
-                        catch (Exception e)
-                        {
-                            log.Error(e);
-                        }
-                    }
-                    else
-                        break;
-                }
-                return null;
+                        BasicId = basicId,
+                        ApplicationId = 2
+                    });
+                caller.Call();
+                return adapter.Output;
             }
-            finally
+            catch (Exception e)
             {
-                if (_logGrpcErrors)
-                {
-
-                    sw.Stop();
-                    if (sw.ElapsedMilliseconds > _msLimit)
-                        log.Error("Error105 GetContentDetails took " + sw.ElapsedMilliseconds);
-                }
+                log.Error(e);
             }
+            return null;
         }
 
         public static GrpcArticlePageDetails GetContentPages(ulong basicId)
         {
-            Stopwatch sw = null;
-
             try
             {
-                if (_logGrpcErrors)
-                {
-                    sw = Stopwatch.StartNew();
-                }
-                Channel ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
 
-                int i = m_retryCount;
-                while (i-- >= 0)
-                {
-                    if (ch != null)
+                IApiGatewayCaller caller = new ApiGatewayCaller();
+                GenericApiGatewayAdapter<GrpcArticlePageDetails> adapter = new GenericApiGatewayAdapter<GrpcArticlePageDetails>(_cmsModuleName, "GetContentPages");
+                adapter.AddApiGatewayCall(caller, new GrpcArticleContentURI()
                     {
-                        var client = new EditCMSGrpcService.EditCMSGrpcServiceClient(ch);
-                        try
-                        {
-
-                            return client.GetContentPages
-                                (new GrpcArticleContentURI()
-                                {
-                                    BasicId = basicId,
-                                    ApplicationId = 2
-                                },
-                                 null, GetForwardTime(m_ChanelWaitTime));
-                        }
-                        catch (RpcException e)
-                        {
-                            log.Error(e);
-                            if (i > 0)
-                            {
-                                log.Error("Error104 Get another Channel " + ch.ResolvedTarget);
-                                ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
-                            }
-                            else
-                                break;
-                        }
-                        catch (Exception e)
-                        {
-                            log.Error(e);
-                        }
-                    }
-                    else
-                        break;
-                }
-                return null;
+                        BasicId = basicId,
+                        ApplicationId = 2
+                    });
+                caller.Call();
+                return adapter.Output;
             }
-            finally
+            catch (Exception e)
             {
-                if (_logGrpcErrors)
-                {
-
-                    sw.Stop();
-                    if (sw.ElapsedMilliseconds > _msLimit)
-                        log.Error("Error105 GetContentPages took " + sw.ElapsedMilliseconds);
-                }
+                log.Error(e);
             }
+            return null;
         }
 
         public static GrpcVideosList GetVideosByModelId(int modelId, uint startId, uint endId)
         {
-            Stopwatch sw = null;
 
             try
             {
-                if (_logGrpcErrors)
-                {
-                    sw = Stopwatch.StartNew();
-                }
-                Channel ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
 
-                int i = m_retryCount;
-                while (i-- >= 0)
-                {
-                    if (ch != null)
+                IApiGatewayCaller caller = new ApiGatewayCaller();
+                GenericApiGatewayAdapter<GrpcVideosList> adapter = new GenericApiGatewayAdapter<GrpcVideosList>(_cmsModuleName, "GetVideosByModelId");
+                adapter.AddApiGatewayCall(caller, new GrpcVideosByIdURI()
                     {
-                        var client = new EditCMSGrpcService.EditCMSGrpcServiceClient(ch);
-                        try
-                        {
-
-                            return client.GetVideosByModelId
-                                (new GrpcVideosByIdURI()
-                                {
-                                    Id = modelId,
-                                    ApplicationId = 2,
-                                    StartIndex = startId,
-                                    EndIndex = endId
-                                },
-
-                                 null, GetForwardTime(m_ChanelWaitTime));
-                        }
-                        catch (RpcException e)
-                        {
-                            log.Error(e);
-                            if (i > 0)
-                            {
-                                log.Error("Error104 Get another Channel " + ch.ResolvedTarget);
-                                ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
-                            }
-                            else
-                                break;
-                        }
-                        catch (Exception e)
-                        {
-                            log.Error(e);
-                        }
-                    }
-                    else
-                        break;
-                }
-                return null;
+                        Id = modelId,
+                        ApplicationId = 2,
+                        StartIndex = startId,
+                        EndIndex = endId
+                    });
+                caller.Call();
+                return adapter.Output;
             }
-            finally
+            catch (Exception e)
             {
-                if (_logGrpcErrors)
-                {
-
-                    sw.Stop();
-                    if (sw.ElapsedMilliseconds > _msLimit)
-                        log.Error("Error105 GetVideosByModelID took " + sw.ElapsedMilliseconds);
-                }
+                log.Error(e);
             }
+            return null;
         }
         public static GrpcVideosList GetVideosByModelId(int modelId, uint startId, uint endId, string bodyStyleId)
         {
-            Stopwatch sw = null;
-
             try
             {
-                if (_logGrpcErrors)
-                {
-                    sw = Stopwatch.StartNew();
-                }
-                Channel ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
 
-                int i = m_retryCount;
-                while (i-- >= 0)
-                {
-                    if (ch != null)
+                IApiGatewayCaller caller = new ApiGatewayCaller();
+                GenericApiGatewayAdapter<GrpcVideosList> adapter = new GenericApiGatewayAdapter<GrpcVideosList>(_cmsModuleName, "GetVideosByModelId");
+                adapter.AddApiGatewayCall(caller, new GrpcVideosByIdURI()
                     {
-                        var client = new EditCMSGrpcService.EditCMSGrpcServiceClient(ch);
-                        try
-                        {
-
-                            return client.GetVideosByModelId
-                                (new GrpcVideosByIdURI()
-                                {
-                                    Id = modelId,
-                                    ApplicationId = 2,
-                                    StartIndex = startId,
-                                    EndIndex = endId,
-                                    BodyStyleIds = bodyStyleId
-                                },
-
-                                 null, GetForwardTime(m_ChanelWaitTime));
-                        }
-                        catch (RpcException e)
-                        {
-                            log.Error(e);
-                            if (i > 0)
-                            {
-                                log.Error("Error104 Get another Channel " + ch.ResolvedTarget);
-                                ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
-                            }
-                            else
-                                break;
-                        }
-                        catch (Exception e)
-                        {
-                            log.Error(e);
-                        }
-                    }
-                    else
-                        break;
-                }
-                return null;
+                        Id = modelId,
+                        ApplicationId = 2,
+                        StartIndex = startId,
+                        EndIndex = endId,
+                        BodyStyleIds = bodyStyleId
+                    });
+                caller.Call();
+                return adapter.Output;
             }
-            finally
+            catch (Exception e)
             {
-                if (_logGrpcErrors)
-                {
-
-                    sw.Stop();
-                    if (sw.ElapsedMilliseconds > _msLimit)
-                        log.Error("Error105 GetVideosByModelID took " + sw.ElapsedMilliseconds);
-                }
+                log.Error(e);
             }
+            return null;
+
         }
         public static GrpcVideosList GetVideosByMakeId(int makeId, uint startId, uint endId)
         {
-            Stopwatch sw = null;
-
             try
             {
-                if (_logGrpcErrors)
-                {
-                    sw = Stopwatch.StartNew();
-                }
-                Channel ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
 
-                int i = m_retryCount;
-                while (i-- >= 0)
-                {
-                    if (ch != null)
+                IApiGatewayCaller caller = new ApiGatewayCaller();
+                GenericApiGatewayAdapter<GrpcVideosList> adapter = new GenericApiGatewayAdapter<GrpcVideosList>(_cmsModuleName, "GetVideosByMakeId");
+                adapter.AddApiGatewayCall(caller, new GrpcVideosByIdURI()
                     {
-                        var client = new EditCMSGrpcService.EditCMSGrpcServiceClient(ch);
-                        try
-                        {
-
-                            return client.GetVideosByMakeId
-                                (new GrpcVideosByIdURI()
-                                {
-                                    Id = makeId,
-                                    ApplicationId = 2,
-                                    StartIndex = startId,
-                                    EndIndex = endId
-                                },
-
-                                 null, GetForwardTime(m_ChanelWaitTime));
-                        }
-                        catch (RpcException e)
-                        {
-                            log.Error(e);
-                            if (i > 0)
-                            {
-                                log.Error("Error104 Get another Channel " + ch.ResolvedTarget);
-                                ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
-                            }
-                            else
-                                break;
-                        }
-                        catch (Exception e)
-                        {
-                            log.Error(e);
-                        }
-                    }
-                    else
-                        break;
-                }
-                return null;
+                        Id = makeId,
+                        ApplicationId = 2,
+                        StartIndex = startId,
+                        EndIndex = endId
+                    });
+                caller.Call();
+                return adapter.Output;
             }
-            finally
+            catch (Exception e)
             {
-                if (_logGrpcErrors)
-                {
-
-                    sw.Stop();
-                    if (sw.ElapsedMilliseconds > _msLimit)
-                        log.Error("Error105 GetVideosByMakeId took " + sw.ElapsedMilliseconds);
-                }
+                log.Error(e);
             }
+            return null;
         }
 
         public static GrpcVideosList GetVideosByMakeId(int makeId, uint startId, uint endId, string bodyStyleId)
         {
-            Stopwatch sw = null;
-
             try
             {
-                if (_logGrpcErrors)
-                {
-                    sw = Stopwatch.StartNew();
-                }
-                Channel ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
 
-                int i = m_retryCount;
-                while (i-- >= 0)
-                {
-                    if (ch != null)
+                IApiGatewayCaller caller = new ApiGatewayCaller();
+                GenericApiGatewayAdapter<GrpcVideosList> adapter = new GenericApiGatewayAdapter<GrpcVideosList>(_cmsModuleName, "GetVideosByMakeId");
+                adapter.AddApiGatewayCall(caller, new GrpcVideosByIdURI()
                     {
-                        var client = new EditCMSGrpcService.EditCMSGrpcServiceClient(ch);
-                        try
-                        {
-
-                            return client.GetVideosByMakeId
-                                (new GrpcVideosByIdURI()
-                                {
-                                    Id = makeId,
-                                    ApplicationId = 2,
-                                    StartIndex = startId,
-                                    EndIndex = endId,
-                                    BodyStyleIds = bodyStyleId
-                                },
-
-                                 null, GetForwardTime(m_ChanelWaitTime));
-                        }
-                        catch (RpcException e)
-                        {
-                            log.Error(e);
-                            if (i > 0)
-                            {
-                                log.Error("Error104 Get another Channel " + ch.ResolvedTarget);
-                                ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
-                            }
-                            else
-                                break;
-                        }
-                        catch (Exception e)
-                        {
-                            log.Error(e);
-                        }
-                    }
-                    else
-                        break;
-                }
-                return null;
+                        Id = makeId,
+                        ApplicationId = 2,
+                        StartIndex = startId,
+                        EndIndex = endId,
+                        BodyStyleIds = bodyStyleId
+                    });
+                caller.Call();
+                return adapter.Output;
             }
-            finally
+            catch (Exception e)
             {
-                if (_logGrpcErrors)
-                {
-
-                    sw.Stop();
-                    if (sw.ElapsedMilliseconds > _msLimit)
-                        log.Error("Error105 GetVideosByMakeId took " + sw.ElapsedMilliseconds);
-                }
+                log.Error(e);
             }
+            return null;
         }
 
         public static GrpcVideosList GetVideosBySubCategory(uint catId, uint startId, uint endId)
         {
-            Stopwatch sw = null;
-
             try
             {
-                if (_logGrpcErrors)
-                {
-                    sw = Stopwatch.StartNew();
-                }
-                Channel ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
 
-                int i = m_retryCount;
-                while (i-- >= 0)
-                {
-                    if (ch != null)
+                IApiGatewayCaller caller = new ApiGatewayCaller();
+                GenericApiGatewayAdapter<GrpcVideosList> adapter = new GenericApiGatewayAdapter<GrpcVideosList>(_cmsModuleName, "GetVideosBySubCategory");
+                adapter.AddApiGatewayCall(caller, new GrpcVideosBySubCategoryURI()
                     {
-                        var client = new EditCMSGrpcService.EditCMSGrpcServiceClient(ch);
-                        try
-                        {
-
-                            return client.GetVideosBySubCategory
-                                (new GrpcVideosBySubCategoryURI()
-                                {
-                                    ApplicationId = 2,
-                                    SubCategoryId = catId,
-                                    StartIndex = startId,
-                                    EndIndex = endId
-                                },
-
-                                 null, GetForwardTime(m_ChanelWaitTime));
-                        }
-                        catch (RpcException e)
-                        {
-                            log.Error(e);
-                            if (i > 0)
-                            {
-                                log.Error("Error104 Get another Channel " + ch.ResolvedTarget);
-                                ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
-                            }
-                            else
-                                break;
-                        }
-                        catch (Exception e)
-                        {
-                            log.Error(e);
-                        }
-                    }
-                    else
-                        break;
-                }
-                return null;
+                        ApplicationId = 2,
+                        SubCategoryId = catId,
+                        StartIndex = startId,
+                        EndIndex = endId
+                    });
+                caller.Call();
+                return adapter.Output;
             }
-            finally
+            catch (Exception e)
             {
-                if (_logGrpcErrors)
-                {
-
-                    sw.Stop();
-                    if (sw.ElapsedMilliseconds > _msLimit)
-                        log.Error("Error105 GetVideosBySubCategory took " + sw.ElapsedMilliseconds);
-                }
+                log.Error(e);
             }
+            return null;
         }
 
         public static GrpcVideosList GetVideosBySubCategory(uint catId, uint startId, uint endId, string bodyStyleId)
         {
-            Stopwatch sw = null;
 
             try
             {
-                if (_logGrpcErrors)
-                {
-                    sw = Stopwatch.StartNew();
-                }
-                Channel ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
 
-                int i = m_retryCount;
-                while (i-- >= 0)
-                {
-                    if (ch != null)
+                IApiGatewayCaller caller = new ApiGatewayCaller();
+                GenericApiGatewayAdapter<GrpcVideosList> adapter = new GenericApiGatewayAdapter<GrpcVideosList>(_cmsModuleName, "GetVideosBySubCategory");
+                adapter.AddApiGatewayCall(caller, new GrpcVideosBySubCategoryURI()
                     {
-                        var client = new EditCMSGrpcService.EditCMSGrpcServiceClient(ch);
-                        try
-                        {
-
-                            return client.GetVideosBySubCategory
-                                (new GrpcVideosBySubCategoryURI()
-                                {
-                                    ApplicationId = 2,
-                                    SubCategoryId = catId,
-                                    StartIndex = startId,
-                                    EndIndex = endId,
-                                    BodyStyleIds = bodyStyleId
-                                },
-
-                                 null, GetForwardTime(m_ChanelWaitTime));
-                        }
-                        catch (RpcException e)
-                        {
-                            log.Error(e);
-                            if (i > 0)
-                            {
-                                log.Error("Error104 Get another Channel " + ch.ResolvedTarget);
-                                ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
-                            }
-                            else
-                                break;
-                        }
-                        catch (Exception e)
-                        {
-                            log.Error(e);
-                        }
-                    }
-                    else
-                        break;
-                }
-                return null;
+                        ApplicationId = 2,
+                        SubCategoryId = catId,
+                        StartIndex = startId,
+                        EndIndex = endId,
+                        BodyStyleIds = bodyStyleId
+                    });
+                caller.Call();
+                return adapter.Output;
             }
-            finally
+            catch (Exception e)
             {
-                if (_logGrpcErrors)
-                {
-
-                    sw.Stop();
-                    if (sw.ElapsedMilliseconds > _msLimit)
-                        log.Error("Error105 GetVideosBySubCategory took " + sw.ElapsedMilliseconds);
-                }
+                log.Error(e);
             }
+            return null;
         }
 
 
@@ -1335,134 +578,53 @@ namespace Grpc.CMS
 
         public static GrpcVideoListEntity GetVideosBySubCategories(string catIds, uint startIndex, uint endIndex, VideosSortOrder sortOrder)
         {
-            Stopwatch sw = null;
 
             try
             {
-                if (_logGrpcErrors)
-                {
-                    sw = Stopwatch.StartNew();
-                }
 
-                Channel ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
-
-                int i = m_retryCount;
-                while (i-- >= 0)
-                {
-                    if (ch != null)
+                IApiGatewayCaller caller = new ApiGatewayCaller();
+                GenericApiGatewayAdapter<GrpcVideoListEntity> adapter = new GenericApiGatewayAdapter<GrpcVideoListEntity>(_cmsModuleName, "GetVideosBySubCategories");
+                adapter.AddApiGatewayCall(caller, new GrpcVideosBySubCategoriesURI()
                     {
-                        var client = new EditCMSGrpcService.EditCMSGrpcServiceClient(ch);
-                        try
-                        {
-
-                            return client.GetVideosBySubCategories
-                                (new GrpcVideosBySubCategoriesURI()
-                                {
-                                    ApplicationId = 2,
-                                    SubCategoryIds = catIds,
-                                    StartIndex = startIndex,
-                                    EndIndex = endIndex,
-                                    SortCategory = MapVideosSortOrder(sortOrder)
-                                },
-
-                                 null, GetForwardTime(m_ChanelWaitTime));
-                        }
-                        catch (RpcException e)
-                        {
-                            log.Error(e);
-                            if (i > 0)
-                            {
-                                log.Error("Error104 Get another Channel " + ch.ResolvedTarget);
-                                ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
-                            }
-                            else
-                                break;
-                        }
-                        catch (Exception e)
-                        {
-                            log.Error(e);
-                        }
-                    }
-                    else
-                        break;
-                }
-                return null;
+                        ApplicationId = 2,
+                        SubCategoryIds = catIds,
+                        StartIndex = startIndex,
+                        EndIndex = endIndex,
+                        SortCategory = MapVideosSortOrder(sortOrder)
+                    });
+                caller.Call();
+                return adapter.Output;
             }
-            finally
+            catch (Exception e)
             {
-                if (_logGrpcErrors)
-                {
-
-                    sw.Stop();
-                    if (sw.ElapsedMilliseconds > _msLimit)
-                        log.Error("Error105 GetVideosBySubcategories took " + sw.ElapsedMilliseconds);
-                }
+                log.Error(e);
             }
+            return null;
         }
 
         public static GrpcVideosList GetSimilarVideos(int id, int totalCount)
         {
-            Stopwatch sw = null;
 
             try
             {
-                if (_logGrpcErrors)
-                {
-                    sw = Stopwatch.StartNew();
-                }
-                Channel ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
 
-                int i = m_retryCount;
-                while (i-- >= 0)
-                {
-                    if (ch != null)
+                IApiGatewayCaller caller = new ApiGatewayCaller();
+                GenericApiGatewayAdapter<GrpcVideosList> adapter = new GenericApiGatewayAdapter<GrpcVideosList>(_cmsModuleName, "GetSimilarVideos");
+                adapter.AddApiGatewayCall(caller, new GrpcVideosByIdURI()
                     {
-                        var client = new EditCMSGrpcService.EditCMSGrpcServiceClient(ch);
-                        try
-                        {
-
-                            return client.GetSimilarVideos
-                                (new GrpcVideosByIdURI()
-                                {
-                                    ApplicationId = 2,
-                                    Id = id,
-                                    StartIndex = 1,
-                                    EndIndex = (uint)totalCount
-                                },
-
-                                 null, GetForwardTime(m_ChanelWaitTime));
-                        }
-                        catch (RpcException e)
-                        {
-                            log.Error(e);
-                            if (i > 0)
-                            {
-                                log.Error("Error104 Get another Channel " + ch.ResolvedTarget);
-                                ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
-                            }
-                            else
-                                break;
-                        }
-                        catch (Exception e)
-                        {
-                            log.Error(e);
-                        }
-                    }
-                    else
-                        break;
-                }
-                return null;
+                        ApplicationId = 2,
+                        Id = id,
+                        StartIndex = 1,
+                        EndIndex = (uint)totalCount
+                    });
+                caller.Call();
+                return adapter.Output;
             }
-            finally
+            catch (Exception e)
             {
-                if (_logGrpcErrors)
-                {
-
-                    sw.Stop();
-                    if (sw.ElapsedMilliseconds > _msLimit)
-                        log.Error("Error105 GetSimilarVideos took " + sw.ElapsedMilliseconds);
-                }
+                log.Error(e);
             }
+            return null;
         }
         /// <summary>
         /// Created by : Ashutosh Sharma on 17 Nov 2017
@@ -1475,129 +637,49 @@ namespace Grpc.CMS
         /// <returns></returns>
         public static GrpcVideosList GetSimilarVideos(uint totalCount, string modelIdList)
         {
-            Stopwatch sw = null;
-
             try
             {
-                if (_logGrpcErrors)
-                {
-                    sw = Stopwatch.StartNew();
-                }
-                Channel ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
 
-                int i = m_retryCount;
-                while (i-- >= 0)
-                {
-                    if (ch != null)
+                IApiGatewayCaller caller = new ApiGatewayCaller();
+                GenericApiGatewayAdapter<GrpcVideosList> adapter = new GenericApiGatewayAdapter<GrpcVideosList>(_cmsModuleName, "GetSimilarVideos");
+                adapter.AddApiGatewayCall(caller, new GrpcVideosByIdURI()
                     {
-                        var client = new EditCMSGrpcService.EditCMSGrpcServiceClient(ch);
-                        try
-                        {
-
-                            return client.GetSimilarVideos
-                                (new GrpcVideosByIdURI()
-                                {
-                                    ApplicationId = 2,
-                                    SimilarModels = modelIdList,
-                                    StartIndex = 1,
-                                    EndIndex = totalCount
-                                },
-
-                                 null, GetForwardTime(m_ChanelWaitTime));
-                        }
-                        catch (RpcException e)
-                        {
-                            log.Error(e);
-                            if (i > 0)
-                            {
-                                log.Error("Error104 Get another Channel " + ch.ResolvedTarget);
-                                ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
-                            }
-                            else
-                                break;
-                        }
-                        catch (Exception e)
-                        {
-                            log.Error(e);
-                        }
-                    }
-                    else
-                        break;
-                }
-                return null;
+                        ApplicationId = 2,
+                        SimilarModels = modelIdList,
+                        StartIndex = 1,
+                        EndIndex = totalCount
+                    });
+                caller.Call();
+                return adapter.Output;
             }
-            finally
+            catch (Exception e)
             {
-                if (_logGrpcErrors && sw != null)
-                {
-                    sw.Stop();
-                    if (sw.ElapsedMilliseconds > _msLimit)
-                        log.Error("Error105 GetSimilarVideos took " + sw.ElapsedMilliseconds);
-                }
+                log.Error(e);
             }
+            return null;
         }
 
         public static GrpcVideo GetVideoByBasicId(int id)
         {
-            Stopwatch sw = null;
 
             try
             {
-                if (_logGrpcErrors)
-                {
-                    sw = Stopwatch.StartNew();
-                }
-                Channel ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
 
-                int i = m_retryCount;
-                while (i-- >= 0)
-                {
-                    if (ch != null)
+                IApiGatewayCaller caller = new ApiGatewayCaller();
+                GenericApiGatewayAdapter<GrpcVideo> adapter = new GenericApiGatewayAdapter<GrpcVideo>(_cmsModuleName, "GetVideoByBasicId");
+                adapter.AddApiGatewayCall(caller, new GrpcVideosByIdURI()
                     {
-                        var client = new EditCMSGrpcService.EditCMSGrpcServiceClient(ch);
-                        try
-                        {
-
-                            return client.GetVideoByBasicId
-                                (new GrpcVideosByIdURI()
-                                {
-                                    ApplicationId = 2,
-                                    Id = id
-                                },
-
-                                 null, GetForwardTime(m_ChanelWaitTime));
-                        }
-                        catch (RpcException e)
-                        {
-                            log.Error(e);
-                            if (i > 0)
-                            {
-                                log.Error("Error104 Get another Channel " + ch.ResolvedTarget);
-                                ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
-                            }
-                            else
-                                break;
-                        }
-                        catch (Exception e)
-                        {
-                            log.Error(e);
-                        }
-                    }
-                    else
-                        break;
-                }
-                return null;
+                        ApplicationId = 2,
+                        Id = id
+                    });
+                caller.Call();
+                return adapter.Output;
             }
-            finally
+            catch (Exception e)
             {
-                if (_logGrpcErrors)
-                {
-
-                    sw.Stop();
-                    if (sw.ElapsedMilliseconds > _msLimit)
-                        log.Error("Error105 GetVideosByID took " + sw.ElapsedMilliseconds);
-                }
+                log.Error(e);
             }
+            return null;
         }
 
         /// <summary>
@@ -1608,97 +690,39 @@ namespace Grpc.CMS
         /// <returns></returns>
         public static GrpcAuthorList GetAuthorsList(int applicationId)
         {
-            Stopwatch sw = null;
             try
             {
-                if (_logGrpcErrors)
-                    sw = Stopwatch.StartNew();
-                Channel ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
-                int i = m_retryCount;
-                while (i-- >= 0)
+                IApiGatewayCaller caller = new ApiGatewayCaller();
+                GenericApiGatewayAdapter<GrpcAuthorList> adapter = new GenericApiGatewayAdapter<GrpcAuthorList>(_cmsModuleName, "GetAuthorsList");
+                adapter.AddApiGatewayCall(caller, new GrpcInt()
                 {
-                    if (ch != null)
-                    {
-                        var client = new EditCMSGrpcService.EditCMSGrpcServiceClient(ch);
-                        try
-                        {
-                            return client.GetAuthorsList(new GrpcInt()
-                            {
-                                ApplicationId = applicationId
-                            },
-                          null, GetForwardTime(m_ChanelWaitTime));
-                        }
-                        catch (RpcException e)
-                        {
-                            log.Error(e);
-                            if (i > 0)
-                            {
-                                log.Error("Error104 Get another Channel " + ch.ResolvedTarget);
-                                ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
-                            }
-                            else
-                                break;
-                        }
-                        catch (Exception e)
-                        {
-                            log.Error(e);
-                        }
-                    }
-                    else
-                        break;
-                }
-
-                return null;
+                    ApplicationId = applicationId
+                });
+                caller.Call();
+                return adapter.Output;
             }
-            finally
+            catch (Exception e)
             {
-                if (_logGrpcErrors && sw != null)
-                {
-
-                    sw.Stop();
-                    if (sw.ElapsedMilliseconds > _msLimit)
-                        log.Error("Error105 GetAuthorsList took " + sw.ElapsedMilliseconds);
-                }
+                log.Error(e);
             }
+            return null;
         }
 
 
 
         public static GrpcBool ClearMemCachedKEys(EditCMSCategoryEnum cat, int makeId, int modelId)
         {
-            Channel ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
-
-            int i = m_retryCount;
-            while (i-- >= 0)
+            try
             {
-                if (ch != null)
-                {
-                    var client = new EditCMSGrpcService.EditCMSGrpcServiceClient(ch);
-                    try
-                    {
-
-                        return client.ClearMemcachedKeys
-                            (new EditCMSCategory() { Category = cat, MakeId = makeId, ModelId = modelId },
-                             null, GetForwardTime(m_ChanelWaitTime));
-                    }
-                    catch (RpcException e)
-                    {
-                        log.Error(e);
-                        if (i > 0)
-                        {
-                            log.Error("Error104 Get another Channel " + ch.ResolvedTarget);
-                            ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
-                        }
-                        else
-                            break;
-                    }
-                    catch (Exception e)
-                    {
-                        log.Error(e);
-                    }
-                }
-                else
-                    break;
+                IApiGatewayCaller caller = new ApiGatewayCaller();
+                GenericApiGatewayAdapter<GrpcBool> adapter = new GenericApiGatewayAdapter<GrpcBool>(_cmsModuleName, "ClearMemcachedKeys");
+                adapter.AddApiGatewayCall(caller, new EditCMSCategory() { Category = cat, MakeId = makeId, ModelId = modelId });
+                caller.Call();
+                return adapter.Output;
+            }
+            catch (Exception e)
+            {
+                log.Error(e);
             }
             return null;
         }
@@ -1711,66 +735,25 @@ namespace Grpc.CMS
         /// <returns></returns>
         public static GrpcAuthor GetAuthorDetails(int authorId)
         {
-            Stopwatch sw = null;
+
             try
             {
-                if (_logGrpcErrors)
-                {
-                    sw = Stopwatch.StartNew();
-                }
-                Channel ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
-                int i = m_retryCount;
-                while (i-- >= 0)
-                {
-                    if (ch != null)
+                IApiGatewayCaller caller = new ApiGatewayCaller();
+                GenericApiGatewayAdapter<GrpcAuthor> adapter = new GenericApiGatewayAdapter<GrpcAuthor>(_cmsModuleName, "GetAuthorDetails");
+                adapter.AddApiGatewayCall(caller, new GrpcInt()
                     {
-                        var client = new EditCMSGrpcService.EditCMSGrpcServiceClient(ch);
-                        try
-                        {
-                            return client.GetAuthorDetails(new GrpcInt()
-                            {
-                                IntOutput = authorId,
-                                ApplicationId = 2
-                            }, null, GetForwardTime(m_ChanelWaitTime));
-                        }
-                        catch (RpcException e)
-                        {
-                            log.Error(e);
-                            ErrorClass.LogError(e, "Grpc.CMS.GrpcMethods.GetAuthorDetails");
-
-                            if (i > 0)
-                            {
-                                log.Error("Error104 Get another Channel " + ch.ResolvedTarget);
-                                ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
-                            }
-                            else
-                                break;
-                        }
-                        catch (Exception e)
-                        {
-                            log.Error(e);
-                            ErrorClass.LogError(e, "Grpc.CMS.GrpcMethods.GetAuthorDetails");
-                        }
-                    }
-                    else
-                        break;
-                }
-                return null;
+                        IntOutput = authorId,
+                        ApplicationId = 2
+                    });
+                caller.Call();
+                return adapter.Output;
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                ErrorClass.LogError(ex, "Grpc.CMS.GrpcMethods.GetAuthorDetails");
-                return null;
+                log.Error(e);
+                ErrorClass.LogError(e, "Grpc.CMS.GrpcMethods.GetAuthorDetails");
             }
-            finally
-            {
-                if (sw != null && _logGrpcErrors)
-                {
-                    sw.Stop();
-                    if (sw.ElapsedMilliseconds > _msLimit)
-                        log.Error("Error105 GetAuthorDetails took " + sw.ElapsedMilliseconds);
-                }
-            }
+            return null;
         }
 
         /// <summary>
@@ -1783,67 +766,26 @@ namespace Grpc.CMS
         /// <returns></returns>
         public static GrpcAuthorContentList GetContentByAuthor(int authorId, int applicationId, string categoryList)
         {
-            Stopwatch sw = null;
+
             try
             {
-                if (_logGrpcErrors)
-                {
-                    sw = Stopwatch.StartNew();
-                }
-                Channel ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
-                int i = m_retryCount;
-                while (i-- >= 0)
-                {
-                    if (ch != null)
+                IApiGatewayCaller caller = new ApiGatewayCaller();
+                GenericApiGatewayAdapter<GrpcAuthorContentList> adapter = new GenericApiGatewayAdapter<GrpcAuthorContentList>(_cmsModuleName, "GetContentByAuthor");
+                adapter.AddApiGatewayCall(caller, new GrpcContentByAuthorURI()
                     {
-                        var client = new EditCMSGrpcService.EditCMSGrpcServiceClient(ch);
-                        try
-                        {
-                            return client.GetContentByAuthor(new GrpcContentByAuthorURI()
-                            {
-                                AuthorId = authorId,
-                                ApplicationId = applicationId,
-                                Categoryids = categoryList
-                            }, null, GetForwardTime(m_ChanelWaitTime));
-                        }
-                        catch (RpcException e)
-                        {
-                            log.Error(e);
-                            ErrorClass.LogError(e, "Grpc.CMS.GrpcMethods.GetContentByAuthor");
-
-                            if (i > 0)
-                            {
-                                log.Error("Error104 Get another Channel " + ch.ResolvedTarget);
-                                ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
-                            }
-                            else
-                                break;
-                        }
-                        catch (Exception e)
-                        {
-                            log.Error(e);
-                            ErrorClass.LogError(e, "Grpc.CMS.GrpcMethods.GetContentByAuthor");
-                        }
-                    }
-                    else
-                        break;
-                }
-                return null;
+                        AuthorId = authorId,
+                        ApplicationId = applicationId,
+                        Categoryids = categoryList
+                    });
+                caller.Call();
+                return adapter.Output;
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                ErrorClass.LogError(ex, "Grpc.CMS.GrpcMethods.GetContentByAuthor");
-                return null;
+                log.Error(e);
+                ErrorClass.LogError(e, "Grpc.CMS.GrpcMethods.GetContentByAuthor");
             }
-            finally
-            {
-                if (sw != null && _logGrpcErrors)
-                {
-                    sw.Stop();
-                    if (sw.ElapsedMilliseconds > _msLimit)
-                        log.Error("Error105 GetContentByAuthor took " + sw.ElapsedMilliseconds);
-                }
-            }
+            return null;
         }
 
         /// <summary>
@@ -1855,66 +797,26 @@ namespace Grpc.CMS
         /// <returns></returns>
         public static GrpcAuthorList GetAllOtherAuthors(int authorId, int applicationId)
         {
-            Stopwatch sw = null;
+
             try
             {
-                if (_logGrpcErrors)
-                {
-                    sw = Stopwatch.StartNew();
-                }
-                Channel ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
-                int i = m_retryCount;
-                while (i-- >= 0)
-                {
-                    if (ch != null)
+                IApiGatewayCaller caller = new ApiGatewayCaller();
+                GenericApiGatewayAdapter<GrpcAuthorList> adapter = new GenericApiGatewayAdapter<GrpcAuthorList>(_cmsModuleName, "GetAllOtherAuthors");
+                adapter.AddApiGatewayCall(caller, new GrpcContentByAuthorURI()
                     {
-                        var client = new EditCMSGrpcService.EditCMSGrpcServiceClient(ch);
-                        try
-                        {
-                            return client.GetAllOtherAuthors(new GrpcContentByAuthorURI()
-                            {
-                                AuthorId = authorId,
-                                ApplicationId = applicationId
-                            }, null, GetForwardTime(m_ChanelWaitTime));
-                        }
-                        catch (RpcException e)
-                        {
-                            log.Error(e);
-                            ErrorClass.LogError(e, "Grpc.CMS.GrpcMethods.GetContentByAuthor");
+                        AuthorId = authorId,
+                        ApplicationId = applicationId
+                    });
+                caller.Call();
+                return adapter.Output;
+            }
+            catch (Exception e)
+            {
+                log.Error(e);
+                ErrorClass.LogError(e, "Grpc.CMS.GrpcMethods.GetContentByAuthor");
+            }
+            return null;
 
-                            if (i > 0)
-                            {
-                                log.Error("Error104 Get another Channel " + ch.ResolvedTarget);
-                                ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
-                            }
-                            else
-                                break;
-                        }
-                        catch (Exception e)
-                        {
-                            log.Error(e);
-                            ErrorClass.LogError(e, "Grpc.CMS.GrpcMethods.GetContentByAuthor");
-                        }
-                    }
-                    else
-                        break;
-                }
-                return null;
-            }
-            catch (Exception ex)
-            {
-                ErrorClass.LogError(ex, "Grpc.CMS.GrpcMethods.GetContentByAuthor");
-                return null;
-            }
-            finally
-            {
-                if (sw != null && _logGrpcErrors)
-                {
-                    sw.Stop();
-                    if (sw.ElapsedMilliseconds > _msLimit)
-                        log.Error("Error105 GetContentByAuthor took " + sw.ElapsedMilliseconds);
-                }
-            }
         }
 
         /// <summary>
@@ -1930,70 +832,31 @@ namespace Grpc.CMS
         /// <returns></returns>
         public static GrpcCMSContent GetContentListBySubCategoryId(uint startIndex, uint endIndex, string categoryIdList, string subCategoryIdList, int makeId = 0, int modelId = 0)
         {
-            Stopwatch sw = null;
 
             try
             {
-                if (_logGrpcErrors)
-                {
-                    sw = Stopwatch.StartNew();
-                }
 
-                Channel ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
+                IApiGatewayCaller caller = new ApiGatewayCaller();
 
-                int i = m_retryCount;
-                while (i-- >= 0)
-                {
-                    if (ch != null)
-                    {
-                        var client = new EditCMSGrpcService.EditCMSGrpcServiceClient(ch);
-                        try
+                GenericApiGatewayAdapter<GrpcCMSContent> adapter = new GenericApiGatewayAdapter<GrpcCMSContent>(_cmsModuleName, "GetContentListBySubCategoryId");
+                adapter.AddApiGatewayCall(caller, new GrpcArticleBySubCatURI()
                         {
-
-                            return client.GetContentListBySubCategoryId
-                                (new GrpcArticleBySubCatURI()
-                                {
-                                    ApplicationId = 2,
-                                    MakeId = makeId,
-                                    ModelId = modelId,
-                                    CategoryIdList = categoryIdList,
-                                    SubCategory = subCategoryIdList,
-                                    StartIndex = startIndex,
-                                    EndIndex = endIndex
-                                },
-                                 null, GetForwardTime(m_ChanelWaitTime));
-                        }
-                        catch (RpcException e)
-                        {
-                            log.Error(e);
-                            if (i > 0)
-                            {
-                                log.Error("Error104 Get another Channel " + ch.ResolvedTarget);
-                                ch = CustomGRPCLoadBalancerWithSingleton.GetWorkingChannel();
-                            }
-                            else
-                                break;
-                        }
-                        catch (Exception e)
-                        {
-                            log.Error(e);
-                        }
-                    }
-                    else
-                        break;
-                }
-                return null;
+                            ApplicationId = 2,
+                            MakeId = makeId,
+                            ModelId = modelId,
+                            CategoryIdList = categoryIdList,
+                            SubCategory = subCategoryIdList,
+                            StartIndex = startIndex,
+                            EndIndex = endIndex
+                        });
+                caller.Call();
+                return adapter.Output;
             }
-            finally
+            catch (Exception e)
             {
-                if (_logGrpcErrors)
-                {
-
-                    sw.Stop();
-                    if (sw.ElapsedMilliseconds > _msLimit)
-                        log.Error("Error105 GetContentListBySubCategoryId took " + sw.ElapsedMilliseconds);
-                }
+                log.Error(e);
             }
+            return null;
         }
     }
 }
