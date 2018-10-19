@@ -114,11 +114,41 @@
                                         EMI starting at
                                         <span class="text-bold">@Html.Raw("<span>&#x20B9;</span>") @Format.FormatPrice(Model.EMIDetails.EMIAmount.ToString())/month</span>
                                     </span>
-                                    <a href="javascript:void(0)" rel="nofollow" class="emi-calculator__link bw-ga" data-cat="Model_Page" data-act="Interacted_with_EMI_Calculator" data-lab="@Model.BikeName.Replace(" ", "_")" id="emiCalculatorLink">
-                                        <span id="mobileEmiCalculator"></span>
-                                        Calculate EMI
-                                    </a>
-                                    @Html.Partial("~/UI/Views/Shared/_EmiCalculator.cshtml", Model.EMICalculator)
+                                    @if (Model.UpfrontLoanCampaign)
+                                    {
+                                        Bikewale.Models.EMICalculatorVM EMICalculatorModel = Model.EMICalculator;
+                                        Bikewale.Entities.manufacturecampaign.ManufactureCampaignEMIEntity ESEMICampaign = EMICalculatorModel.ESEMICampaign;
+                                        if (ESEMICampaign != null && (EMICalculatorModel.IsPrimaryDealer || EMICalculatorModel.IsManufacturerLeadAdShown))
+                                        {
+                                            if (ESEMICampaign.DealerId == Bikewale.Utility.BWConfiguration.Instance.CapitalFirstDealerId)
+                                            {
+                                                <a id="btnEmiQuote" class="emi-calculator__link bw-ga" data-cat="Model_Page" data-act="Get_EMI_Quote_Clicked" data-lab="@EMICalculatorModel.BikeName.Replace(" ", "_")" rel="nofollow" href="@(EMICalculatorModel.IsMobile ? "/m" : "")/finance/capitalfirst/?campaingid=@ESEMICampaign.CampaignId&amp;dealerid=@ESEMICampaign.DealerId&amp;pqguid=@EMICalculatorModel.PQId&amp;leadsourceid=@ESEMICampaign.LeadSourceId&amp;versionid=@ESEMICampaign.VersionId&amp;url=@ESEMICampaign.CurrentPageUrl&amp;platformid=@ESEMICampaign.PlatformId&amp;bike=@EMICalculatorModel.BikeName&amp;loanamount=@ESEMICampaign.LoanAmount&amp;dealerName=@ESEMICampaign.Organization&amp;sendLeadSMSCustomer=@Convert.ToString(ESEMICampaign.SendLeadSMSCustomer)&amp;cityid=@cityId">@(EMICalculatorModel.IsMobile ? ESEMICampaign.EMIButtonTextMobile : ESEMICampaign.EMIButtonTextDesktop)</a>
+                                            }
+                                            else if (ESEMICampaign.DealerId == Bikewale.Utility.BWConfiguration.Instance.BajajAutoFinanceDealerId)
+                                            {
+                                                <a id="btnEmiQuote" class="emi-calculator__link bw-ga" data-cat="Model_Page" data-act="Get_EMI_Quote_Clicked" data-lab="@EMICalculatorModel.BikeName.Replace(" ", "_")" rel="nofollow" href="@string.Format("{0}/finance/bajaj/?dealerid={1}&campaignid={2}&pqguid={3}&leadsourceid={4}&versionid={5}&url={6}&platformid={7}&bike={8}&dealerName={9}&sendLeadSMSCustomer={10}&cityId={11}", EMICalculatorModel.IsMobile ? "/m" : "", ESEMICampaign.DealerId, ESEMICampaign.CampaignId, EMICalculatorModel.PQId, ESEMICampaign.LeadSourceId, ESEMICampaign.VersionId, ESEMICampaign.CurrentPageUrl, ESEMICampaign.PlatformId, EMICalculatorModel.BikeName, ESEMICampaign.Organization, ESEMICampaign.SendLeadSMSCustomer, cityId)">@ESEMICampaign.EMIButtonTextDesktop</a>
+                                            }
+                                            else
+                                            {
+                                                <a id="btnEmiQuote" href="javascript:void(0)" class="emi-calculator__link leadcapturebtn bw-ga" data-cat="Model_Page" data-act="Get_EMI_Quote_Clicked" data-lab="@EMICalculatorModel.BikeName.Replace(" ", "_")" rel="nofollow" data-mfgcampid="@ESEMICampaign.CampaignId" data-item-id="@ESEMICampaign.DealerId" data-item-area="@ESEMICampaign.Area" data-leadsourceid="@ESEMICampaign.LeadSourceId" data-pqsourceid="@ESEMICampaign.PqSourceId" data-item-message="@String.Format(ESEMICampaign.PopupSuccessMessage, ESEMICampaign.Organization)" data-item-heading="@ESEMICampaign.PopupHeading" data-item-description="@ESEMICampaign.PopupDescription" data-ispincodrequired="@ESEMICampaign.PincodeRequired" data-dealersrequired="@ESEMICampaign.DealerRequired" data-item-name="@(String.Format("Authorised {0} Dealer", ESEMICampaign.Organization))" data-item-organization="@ESEMICampaign.Organization" data-isemailrequired="@ESEMICampaign.EmailRequired" data-issendleadsmscustomer="@ESEMICampaign.SendLeadSMSCustomer">@(EMICalculatorModel.IsMobile ? ESEMICampaign.EMIButtonTextMobile : ESEMICampaign.EMIButtonTextDesktop)</a>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            if (EMICalculatorModel.IsPremiumDealer)
+                                            {
+                                                <a id="btnEmiQuote" class="emi-calculator__link leadcapturebtn bw-ga" data-pqsourceid="@Convert.ToUInt16(Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_ModelPage)" data-leadsourceid="@(Convert.ToInt32(EMICalculatorModel.PremiumDealerLeadSourceId))" data-campaignid="@EMICalculatorModel.DealerDetails.CampaignId" data-item-registerpq="false" data-item-id="@EMICalculatorModel.DealerDetails.DealerId" data-item-name="@EMICalculatorModel.DealerDetails.Organization" data-item-organization="@EMICalculatorModel.DealerDetails.Organization" data-item-area="@EMICalculatorModel.DealerDetails.objArea.AreaName" data-cat="Model_Page" data-act="Get_EMI_Quote_Clicked" data-lab="@EMICalculatorModel.BikeName.Replace(" ", "_")">Get EMI quote</a>
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <a href="javascript:void(0)" rel="nofollow" class="emi-calculator__link bw-ga" data-cat="Model_Page" data-act="Interacted_with_EMI_Calculator" data-lab="@Model.EMICalculator.BikeName.Replace(" ", "_")" id="emiCalculatorLink">
+                                            <span id="mobileEmiCalculator"></span>
+                                            Calculate EMI
+                                        </a>
+                                        @Html.Partial("~/UI/Views/Shared/_EmiCalculator.cshtml", Model.EMICalculator)
+                                    }
                                     <span class="clear"></span>
                                 </div>
                             }

@@ -313,6 +313,8 @@ namespace Bikewale.Models.BikeModels
         /// Description : Set IsNonAnimatedCTA for es campaign text experiment
         /// Modified By : Prabhu Puredla on 08 oct 2018
         /// Description : Removed IsNearByDealerCTA property logic
+        /// Modified By : Rajan Chauhan on 19 October 2018
+        /// Desciption  : Set UpfrontLoanCampaign flag for EMI Campaign link in place Calculate EMI
         /// </summary>
         private void SetTestFlags()
         {
@@ -323,6 +325,7 @@ namespace Bikewale.Models.BikeModels
                 _objData.IsAnimatedCTA = cookieValue > 10;
                 _objData.IsNearlyAllIndiaCampaign = cookieValue > 10 && cookieValue <= 20 && _objData.ModelId == 78; // Test for Classic 350
                 _objData.IsNonAnimatedCTA = cookieValue > 5 && cookieValue <= 10;
+                _objData.UpfrontLoanCampaign = cookieValue > 20 && cookieValue <= 30 && (_objData.EMICalculator.ESEMICampaign != null || _objData.EMICalculator.IsPremiumDealer);
             }
         }
 

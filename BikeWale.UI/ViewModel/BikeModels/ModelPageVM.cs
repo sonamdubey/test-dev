@@ -49,6 +49,8 @@ namespace Bikewale.Models.BikeModels
     /// Description : Added IsNonAnimatedCTA for es campaign text experiment
     /// Modified By : Prabhu Puredla on 08 oct 2018
     /// Description : Removed IsNearByDealerCTA property
+    /// Modified By : Rajan Chauhan on 19 October 2018
+    /// Desciption  : Added UpfrontLoanCampaign flag for EMI Campaign link in place Calculate EMI
     /// </summary>
     public class ModelPageVM : ModelBase
     {
@@ -186,6 +188,7 @@ namespace Bikewale.Models.BikeModels
         public bool IsAnimatedCTA { get; set; }
         public bool IsNearlyAllIndiaCampaign { get; set; }
         public bool IsNonAnimatedCTA { get; set; }
+        public bool UpfrontLoanCampaign { get; set; }
     }
 
 }
