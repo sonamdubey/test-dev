@@ -325,7 +325,7 @@ namespace Bikewale.Models.BikeModels
                 _objData.IsAnimatedCTA = cookieValue > 10;
                 _objData.IsNearlyAllIndiaCampaign = cookieValue > 10 && cookieValue <= 20 && _objData.ModelId == 78; // Test for Classic 350
                 _objData.IsNonAnimatedCTA = cookieValue > 5 && cookieValue <= 10;
-                _objData.UpfrontLoanCampaign = cookieValue > 20 && cookieValue <= 30 && (_objData.EMICalculator.ESEMICampaign != null || _objData.EMICalculator.IsPremiumDealer);
+                _objData.UpfrontLoanCampaign = cookieValue > 20 && cookieValue <= 30 && ((_objData.EMICalculator.ESEMICampaign != null && (_objData.EMICalculator.IsPrimaryDealer || _objData.EMICalculator.IsManufacturerLeadAdShown)) || _objData.EMICalculator.IsPremiumDealer);
             }
         }
 
