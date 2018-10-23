@@ -10,17 +10,30 @@ using System.Linq;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Utility;
 using System.Web.Hosting;
+using Bikewale.Interfaces.Location;
+using Microsoft.Practices.Unity;
+using Bikewale.DAL.Location;
+using Bikewale.Cache.Core;
+using Bikewale.Cache.Location;
 
 namespace Bikewale.Cache.Helper.PriceQuote
 {
     public class PriceQuoteCacheHelper : IPriceQuoteCacheHelper
     {
         private readonly ICacheManager _cache;
-        private readonly IPriceQuote _objPriceQuote = null;
+        private readonly IPriceQuote _objPriceQuote;
+        private readonly ICityCacheRepository _cityCacheRepository;
         public PriceQuoteCacheHelper(ICacheManager cache, IPriceQuote objPriceQuote)
         {
             _cache = cache;
             _objPriceQuote = objPriceQuote;
+            using (IUnityContainer container = new UnityContainer())
+            {
+                container.RegisterType<ICity, CityRepository>();
+                container.RegisterType<ICacheManager, MemcacheManager>();
+                container.RegisterType<ICityCacheRepository, CityCacheRepository>();
+                _cityCacheRepository = container.Resolve<ICityCacheRepository>();
+            }
         }
 
         /// <summary>
@@ -39,8 +52,9 @@ namespace Bikewale.Cache.Helper.PriceQuote
                 ModelTopVersionPrices modelPrices = GetTopVersionPriceInCities(modelId);
                 if (modelPrices != null && modelPrices.CityPrice != null)
                 {
-                    CityPriceEntity currentCity = modelPrices.CityPrice.Where(x => x.CityId == cityId).FirstOrDefault();
-                    if(currentCity != null)
+                    CityPriceEntity objLocation = modelPrices.CityPrice.FirstOrDefault(x => x.CityId == cityId);
+                    CityPriceEntity currentCity = objLocation != null ? objLocation : _cityCacheRepository.GetCityInfoByCityId(cityId);
+                    if (currentCity != null)
                     {
                         Distance distObj = new Distance();
                         //get nearest citites where the model price is available based on haversine distance formula

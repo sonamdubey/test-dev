@@ -74,5 +74,10 @@ namespace Bikewale.BAL.Location
 		{
 			throw new NotImplementedException();
 		}
-	}
+
+        public CityPriceEntity GetCityInfoByCityId(uint cityId)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }

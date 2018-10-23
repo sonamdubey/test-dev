@@ -509,5 +509,43 @@ namespace Bikewale.DAL.Location
 			}
 			return objCityList;
 		}
+
+        /// <summary>
+        /// Created by  : Pratibha Verma on 22 October 2018
+        /// Description : get city info by cityId
+        /// </summary>
+        /// <param name="cityId"></param>
+        /// <returns></returns>
+        public CityPriceEntity GetCityInfoByCityId(uint cityId)
+        {
+            CityPriceEntity cityObj = null;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("getcityinfobycityid"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId));
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null && dr.Read())
+                        {
+                            cityObj = new CityPriceEntity
+                            {
+                                CityId = SqlReaderConvertor.ToUInt32(dr["cityid"]),
+                                CityName = Convert.ToString(dr["cityname"]),
+                                CityMaskingName = Convert.ToString(dr["citymaskingname"]),
+                                Latitude = SqlReaderConvertor.ToFloat(dr["latitude"]),
+                                Longitude = SqlReaderConvertor.ToFloat(dr["longitude"])
+                            };
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("Bikewale.DAL.Location.CityRepository.GetCityInfoByCityId(cityId = {0})", cityId));
+            }
+            return cityObj;
+        }
 	}
 }

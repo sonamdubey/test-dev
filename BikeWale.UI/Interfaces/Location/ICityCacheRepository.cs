@@ -21,6 +21,8 @@ namespace Bikewale.Interfaces.Location
         IEnumerable<UsedBikeCities> GetUsedBikeByMakeCityWithCount(uint makeid);
         CityEntityBase GetCityDetails(string cityMasking);
 		IEnumerable<CityEntityBase> GetModelPriceCities(uint modelId, byte popularCityCount);
+        CityPriceEntity GetCityInfoByCityId(uint cityId);
 
-	}
+
+    }
 }

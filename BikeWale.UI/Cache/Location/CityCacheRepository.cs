@@ -185,5 +185,26 @@ namespace Bikewale.Cache.Location
 			return objCityList;
 		}
 
-	}
+        /// <summary>
+        /// Created by  : Pratibha Verma on 22 October 2018
+        /// Description : get city lat long by cityId
+        /// </summary>
+        /// <param name="cityId"></param>
+        /// <returns></returns>
+        public CityPriceEntity GetCityInfoByCityId(uint cityId)
+        {
+            CityPriceEntity cityObj = null;
+            try
+            {
+                string key = string.Format("BW_CityInfo_{0}", cityId);
+                cityObj = _cache.GetFromCache<CityPriceEntity>(key, new TimeSpan(30, 0, 0, 0), () => _objCity.GetCityInfoByCityId(cityId));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("Bikewale.Cache.Location.CityCacheRepository.GetCityInfoByCityId(cityId = {0})", cityId));
+            }
+            return cityObj;
+        }
+
+    }
 }
