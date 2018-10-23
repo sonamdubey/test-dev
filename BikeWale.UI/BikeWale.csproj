@@ -3026,7 +3026,6 @@
     <Content Include="UI\css\bookinglanding.css" />
     <Content Include="UI\css\brand.css" />
     <Content Include="UI\css\booking.css" />
-    <Content Include="UI\css\bw-doodle.css" />
     <Content Include="UI\css\bw-common-atf.css" />
     <Content Include="UI\css\bw-common-btf.css" />
     <Content Include="UI\css\bw-common-style.css" />

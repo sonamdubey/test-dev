@@ -43,13 +43,6 @@
             <div class="clear"></div>
         </div>
         <div class="clear"></div>
-		<!-- Doodle start-->
-        <span class="doodle__container bw-ga" data-cat="Doodle" data-act="Doodle_Click" data-lab="Dussehra">
-            <span class="doodle__ram-image"></span>
-            <span class="doodle__ravan-image"></span>
-            <span class="doodle__ravan-head"></span>
-        </span>
-		<!--Doodle end-->
     </div> <!-- ends here -->
     <div class="clear"></div>    
 <% if(isAd970x90Shown){ %>

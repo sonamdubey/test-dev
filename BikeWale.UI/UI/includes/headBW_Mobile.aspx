@@ -1,19 +1,11 @@
-﻿
-<%@ Register TagPrefix="BW" TagName="MPopupWidget" Src="/UI/m/controls/MPopupWidget.ascx" %>
+﻿<%@ Register TagPrefix="BW" TagName="MPopupWidget" Src="/UI/m/controls/MPopupWidget.ascx" %>
 <%@ Register Src="~/UI/m/controls/ChangeLocationPopup.ascx" TagPrefix="BW" TagName="LocationWidget" %>
 
     <header>
         <div id="bw-header">
     	    <div class="header-fixed"> <!-- Fixed Header code starts here -->
-				<!-- Doodle start-->
-                <span class="doodle__container bw-ga" data-cat="Doodle" data-act="Doodle_Click" data-lab="Dussehra">
-                    <span class="doodle__ram-image"></span>
-                    <span class="doodle__ravan-image"></span>
-                    <span class="doodle__ravan-head"></span>
-                </span>
-				<!--Doodle end-->
         	    <a href="/m/" id="bwheader-logo" title="BikeWale" class="bw-logo bw-lg-fixed-position">BikeWale</a>
-           
+
                 <div class="leftfloat">
                     <span id="navbarBtn" class="navbarBtn nav-icon margin-right10"></span>
                     <span id="book-back" class="bwmsprite white-back-arrow margin-right10 leftfloat hide"></span>                   
