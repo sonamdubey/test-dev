@@ -1495,6 +1495,18 @@ footer .border-solid-top { border-top: 1px solid rgba(183,183,183,0.2); }
 	left: 135px;
 }
 
+.tooltip-bottom .info-tooltip {
+    top: 110%;
+    bottom: auto;
+    right: 0;
+}
+ .tooltip-bottom .bw-tooltip-text:before {
+    top: -18px;
+}
+ .tooltip-bottom .bw-tooltip-text:after {
+    top: -17px;
+}
+
 /* similar bikes carousel tooltip */
 .swiper-type-similar .tooltip-icon-target {
 	position: absolute;

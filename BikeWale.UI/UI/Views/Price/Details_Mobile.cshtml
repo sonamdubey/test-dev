@@ -117,7 +117,7 @@ else
                     <td colspan="2" align="right" class="text-light-grey padding-bottom15">
                         @if (Model.IsPrimaryDealerAvailable)
                         {
-                            <a id='getMoreDetails' class="get-offer-link bw-ga leadcapturebtn" data-item-registerpq="false" data-leadsourceid=@Convert.ToInt16(LeadSourceEnum.DPQ_PriceBreakUpLink_Mobile) data-campaignid="@Model.DetailedDealer.PrimaryDealer.DealerDetails.CampaignId" data-item-id="@Model.DealerId" data-item-name="@Model.DetailedDealer.PrimaryDealer.DealerDetails.Organization" data-item-area="@Model.DetailedDealer.PrimaryDealer.DealerDetails.objArea.AreaName" data-pqsourceid="@Convert.ToUInt16(Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_DPQ_Quotation)" data-cat="Dealer_PQ" data-act="Get_more_details_below_price_clicked" data-func="GetBikeVerLoc">Get more details</a>
+                            <a id='getMoreDetails' class="get-offer-link bw-ga leadcapturebtn" data-item-registerpq="false" data-leadsourceid=@Convert.ToInt16(LeadSourceEnum.DPQ_PriceBreakUpLink_Mobile) data-campaignid="@Model.DetailedDealer.PrimaryDealer.DealerDetails.CampaignId" data-item-id="@Model.DealerId" data-item-name="@Model.DetailedDealer.PrimaryDealer.DealerDetails.Organization" data-item-area="@Model.DetailedDealer.PrimaryDealer.DealerDetails.objArea.AreaName" data-pqsourceid="@Convert.ToUInt16(Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_DPQ_Quotation)" data-cat="Dealer_PQ" data-act="Get_more_details_below_price_clicked" data-func="GetBikeVerLoc">@(Model.LeadCapture != null && Model.LeadCapture.ShowOffersOnLeadPage ? "Get offers on this bike" : "Get more details")</a>
                         }
                     </td>
                 </tr>

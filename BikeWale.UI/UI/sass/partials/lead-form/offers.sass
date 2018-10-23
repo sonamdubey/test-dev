@@ -1,0 +1,121 @@
+﻿.lead-form-offers
+	margin-left: -20px
+	margin-right: -20px
+	color: color('tuna-3')
+	text-align: left
+	margin-bottom: 20px
+
+@import ../../base/variables
+@import ../../components/typography
+
+@import ../../mixins/index
+@import ../../utils/index
+@import ../../components/mixins
+
+@import ../../mixins/flex
+
+.offers__head
+	padding: 10px 20px 5px
+	background-color: color('white-smoke-6')
+	display: inline-block
+	position: relative
+
+	&::after
+		content: ''
+		border: 18px solid transparent
+		border-left-color: color('white-smoke-6')
+		border-bottom-color: color('white-smoke-6')
+		position: absolute
+		top: 0
+		left: 100%
+
+.offers-head__icon
+	@include box-icon
+	display: inline-block
+	vertical-align: middle
+	height: 21px
+	width: 21px
+
+.offers-head__title
+	text-transform: uppercase
+	letter-spacing: .5px
+	font-weight: $font-semibold
+	font-size: 14px
+	display: inline-block
+	vertical-align: bottom
+	padding-left: 5px
+
+.offers__body
+	background-color: color('white-smoke-6')
+	padding: 10px 20px
+
+.offers__list
+	list-style-type: decimal
+	font-size: 12px
+	line-height: 18px
+	padding-left: 15px
+
+.offers-expanded
+	.offers-list__item
+		display: list-item
+
+	.offers-action__more-link
+		display: none
+
+.offers-list__item
+	display: none
+
+	&:nth-of-type(1),
+	&:nth-of-type(2)
+		display: list-item
+
+.offers__action
+	@include flexbox
+	@include justify-content(space-between)
+	padding-top: 5px
+
+.offers-action__more-link
+	font-weight: $font-semibold
+	color: color('navy-blue')
+	padding-left: 15px
+	font-size: 14px
+	cursor: pointer
+
+.offers-action__tnc
+	@include flex-grow(1)
+	text-align: right
+
+.tnc__info-icon
+	font-size: 10px
+	text-align: right
+
+.tnc__info-tooltip
+	position: relative
+	width: 25px
+	height: 13px
+	background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iMTFweCIgaGVpZ2h0PSIxMXB4IiB2aWV3Qm94PSIwIDAgMTEgMTEiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+CiAgICA8IS0tIEdlbmVyYXRvcjogU2tldGNoIDUxLjMgKDU3NTQ0KSAtIGh0dHA6Ly93d3cuYm9oZW1pYW5jb2RpbmcuY29tL3NrZXRjaCAtLT4KICAgIDx0aXRsZT5Hcm91cCA0PC90aXRsZT4KICAgIDxkZXNjPkNyZWF0ZWQgd2l0aCBTa2V0Y2guPC9kZXNjPgogICAgPGRlZnM+PC9kZWZzPgogICAgPGcgaWQ9IlBhZ2UtMSIgc3Ryb2tlPSJub25lIiBzdHJva2Utd2lkdGg9IjEiIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPGcgaWQ9Ik9mZmVyLWxlYWRfMDEiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0zMjkuMDAwMDAwLCAtMTU1LjAwMDAwMCkiPgogICAgICAgICAgICA8ZyBpZD0iR3JvdXAtNSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMjc2LjAwMDAwMCwgMTUyLjAwMDAwMCkiPgogICAgICAgICAgICAgICAgPGcgaWQ9Ikdyb3VwLTQiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDUzLjAwMDAwMCwgMy4wMDAwMDApIj4KICAgICAgICAgICAgICAgICAgICA8Y2lyY2xlIGlkPSJPdmFsLTUiIGZpbGw9IiM5Mjk3QTQiIGZpbGwtcnVsZT0ibm9uemVybyIgY3g9IjUuMTk5OTk5NjkiIGN5PSI1LjE5OTk5OTY5IiByPSI1LjE5OTk5OTY5Ij48L2NpcmNsZT4KICAgICAgICAgICAgICAgICAgICA8dGV4dCBpZD0iaSIgZm9udC1mYW1pbHk9Ik9wZW5TYW5zLVNlbWlib2xkLCBPcGVuIFNhbnMiIGZvbnQtc2l6ZT0iNy4xOTk5OTk1NyIgZm9udC13ZWlnaHQ9IjUwMCIgZmlsbD0iI0ZGRkZGRiI+CiAgICAgICAgICAgICAgICAgICAgICAgIDx0c3BhbiB4PSIzLjk5OTk5OTc2IiB5PSI4Ij5pPC90c3Bhbj4KICAgICAgICAgICAgICAgICAgICA8L3RleHQ+CiAgICAgICAgICAgICAgICA8L2c+CiAgICAgICAgICAgIDwvZz4KICAgICAgICA8L2c+CiAgICA8L2c+Cjwvc3ZnPg==) no-repeat center/contain //#TODO: remove this after image is uploded
+	cursor: pointer
+	display: inline-block
+	vertical-align: middle
+
+	.info-tooltip
+		width: 290px
+
+	.bw-tooltip-text
+		&::before,
+		&::after
+			content: none
+
+	ul
+		list-style-type: disc
+		text-align: left
+		padding-left: 20px
+		margin-bottom: 10px
+
+	li
+		font-size: 10px
+		line-height: 16px
+		margin-top: 10px
+
+		&::first-child
+			margin-top: 0

@@ -177,6 +177,8 @@ namespace Bikewale.Models.BikeModels
         /// Description : Added code to BindSeriesSlug.
         /// Modified by : Rajan Chauhan on 10 August 2018
         /// Description : Setting IsManufacturerCampaignPresent flag for campaign tracking
+        /// Modified by : Kartik Rathod on 19 oct 2018
+        /// Desc        : fetch offerlist in leadcapture to show offers on lead popup
         /// </summary>
         /// <param name="versionId"></param>
         /// <returns></returns>
@@ -263,7 +265,7 @@ namespace Bikewale.Models.BikeModels
                     BindAdSlotTags();
                     SetTestFlags();
 
-                    if (_objData != null && _objData.SelectedVersion != null && !string.IsNullOrEmpty(_objData.SelectedVersion.FuelType))
+                    if (_objData.SelectedVersion != null && !string.IsNullOrEmpty(_objData.SelectedVersion.FuelType))
                     {
                         _objData.IsElectricBike = _objData.SelectedVersion.FuelType.Equals("Electric", StringComparison.InvariantCultureIgnoreCase);
                     }
@@ -272,6 +274,10 @@ namespace Bikewale.Models.BikeModels
                         BindAdSlots(_objData);
                     }
 
+                    if(_objData.IsOffersShownOnLeadPopup && _objData.LeadCapture != null )
+                    {
+                        _objData.LeadCapture.ShowOffersOnLeadPage = _objData.LeadCapture.OfferCount > 0;
+                    }
 
                     if (checkSeriesData)
                     {
@@ -315,6 +321,8 @@ namespace Bikewale.Models.BikeModels
         /// Description : Removed IsNearByDealerCTA property logic
         /// Modified By : Rajan Chauhan on 19 October 2018
         /// Desciption  : Set UpfrontLoanCampaign flag for EMI Campaign link in place Calculate EMI
+        /// Modied By   : Kartik Rathod on 19 oct 2018
+        /// Desc        : Show offers on lead popup page for 1 to 90
         /// </summary>
         private void SetTestFlags()
         {
@@ -326,6 +334,7 @@ namespace Bikewale.Models.BikeModels
                 _objData.IsNearlyAllIndiaCampaign = cookieValue > 10 && cookieValue <= 20 && _objData.ModelId == 78; // Test for Classic 350
                 _objData.IsNonAnimatedCTA = cookieValue > 5 && cookieValue <= 10;
                 _objData.UpfrontLoanCampaign = cookieValue > 20 && cookieValue <= 30 && ((_objData.EMICalculator.ESEMICampaign != null && (_objData.EMICalculator.IsPrimaryDealer || _objData.EMICalculator.IsManufacturerLeadAdShown)) || _objData.EMICalculator.IsPremiumDealer);
+                _objData.IsOffersShownOnLeadPopup = cookieValue <= 90;
             }
         }
 
@@ -967,7 +976,8 @@ namespace Bikewale.Models.BikeModels
                                 PlatformId = Convert.ToUInt16(Source),
                                 MlaLeadSourceId = (Source == PQSources.Desktop) ? (UInt16)LeadSourceEnum.ModelPage_MLA_Desktop : (Source == PQSources.Amp ?
                                                    (UInt16)LeadSourceEnum.ModelPage_MLA_AMP : (UInt16)LeadSourceEnum.ModelPage_MLA_Mobile),
-                                PageId = Convert.ToUInt16(PQSource)
+                                PageId = Convert.ToUInt16(PQSource),
+                                OfferList = _objData.IsPrimaryDealer && _objData.DetailedDealer.PrimaryDealer != null && _objData.DetailedDealer.PrimaryDealer.HasOffers ?  _objData.DetailedDealer.PrimaryDealer.OfferList : null
                             };
 
 
@@ -1996,6 +2006,7 @@ namespace Bikewale.Models.BikeModels
                 if (_pqOnRoad != null && _pqOnRoad.PriceQuote != null && _pqOnRoad.PriceQuote.IsDealerAvailable && _cityId > 0 && _objData.VersionId > 0)
                 {
                     _objData.DetailedDealer = _objDealerDetails.GetDealerQuotationV2(_cityId, _objData.VersionId, _objData.DealerId, _areaId);
+
                 }
             }
         }

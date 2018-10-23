@@ -15,6 +15,8 @@ namespace Bikewale.Models.Price
     /// Description : Added BikeVersionMinSpecs for version dropdown
     /// Modified By : Prabhu Puredla on 10 oct 2018
     /// Description : Added ExitUrl property for amp pages when user clicks back 
+    /// Modified by : Kartik Rathod on 19 oct 2018
+    /// Desc        : added IsOffersShownOnLeadPopup for test exp on show offers on lead page
     /// </summary>
     public class DealerPriceQuotePageVM : ModelBase
     {
@@ -64,5 +66,8 @@ namespace Bikewale.Models.Price
         public EnumBikeBodyStyles BodyStyle { get; set; }
         public string BodyStyleText { get; set; }
         public string ExitUrl { set; get; }
+
+        // for AB TEST
+        public bool IsOffersShownOnLeadPopup { get; set; }
     }
 }

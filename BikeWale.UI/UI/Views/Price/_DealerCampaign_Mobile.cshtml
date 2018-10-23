@@ -287,7 +287,7 @@
             <div class="clear"></div>
             @if (PrimaryDealerDetails != null)
             {
-            <a id="btnEmiQuote" class="btn btn-orange text-bold emi-quote-btn leadcapturebtn" data-pqsourceid="@Convert.ToUInt16(Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_DPQ_Quotation)" data-leadsourceid=@Convert.ToInt16(LeadSourceEnum.DPQ_EmiCalculator_Mobile) data-campaignid="@PrimaryDealerDetails.CampaignId" data-item-registerpq="false" data-item-id="@PrimaryDealerDetails.DealerId" data-item-name="@PrimaryDealerDetails.Organization" data-item-area="@PrimaryDealerDetails.objArea.AreaName" data-ga-cat="Dealer_PQ" data-ga-act="Lead_Submitted" data-ga-lab="@(String.Format("EMI_Calculator_{0}_{1}", PrimaryDealerDetails.objCity.CityName, PrimaryDealerDetails.objArea.AreaName))">Get EMI quote from dealer</a>
+            <a id="btnEmiQuote" class="btn btn-orange text-bold emi-quote-btn leadcapturebtn" data-pqsourceid="@Convert.ToUInt16(Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_DPQ_Quotation)" data-leadsourceid=@Convert.ToInt16(LeadSourceEnum.DPQ_EmiCalculator_Mobile) data-campaignid="@PrimaryDealerDetails.CampaignId" data-item-registerpq="false" data-item-id="@PrimaryDealerDetails.DealerId" data-item-name="@PrimaryDealerDetails.Organization" data-item-area="@PrimaryDealerDetails.objArea.AreaName" data-ga-cat="Dealer_PQ" data-ga-act="Lead_Submitted" data-ga-lab="@(String.Format("EMI_Calculator_{0}_{1}", PrimaryDealerDetails.objCity.CityName, PrimaryDealerDetails.objArea.AreaName))" data-origin="1">Get EMI quote from dealer</a>
             }
         </div>
     </div>

@@ -189,6 +189,7 @@ namespace Bikewale.Models.BikeModels
         public bool IsNearlyAllIndiaCampaign { get; set; }
         public bool IsNonAnimatedCTA { get; set; }
         public bool UpfrontLoanCampaign { get; set; }
+        public bool IsOffersShownOnLeadPopup { get; set; }
     }
 
 }

@@ -3809,6 +3809,7 @@
     <Content Include="UI\m\src\photos\videoPopupViewModel.js" />
     <Content Include="UI\m\src\priceincity.js" />
     <Content Include="UI\m\src\qna\landing.js" />
+    <Content Include="UI\sass\partials\lead-form\offers.css" />
     <Content Include="UI\src\utils\animate-cta.js" />
     <Content Include="UI\src\QuestionAndAnswers\questionAnswerFlow.js" />
     <Content Include="UI\src\utils\checkbox.js" />

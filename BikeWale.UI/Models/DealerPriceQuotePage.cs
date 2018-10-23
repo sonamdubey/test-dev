@@ -84,6 +84,8 @@ namespace Bikewale.Models
         ///		set CityId in objData
         /// Modified By : Prabhu Puredla on 10 oct 2018
         /// Description : Get the exitUrl from the querystring
+        /// Modified by : Kartik Rathod on 19 oct 2018
+        /// Desc        : fetch offerlist in leadcapture to show offers on lead popup
         /// </summary>
         /// <returns></returns>
         public DealerPriceQuotePageVM GetData()
@@ -116,7 +118,8 @@ namespace Bikewale.Models
                             MLADealers = objData.DetailedDealer.MLADealers,
                             PlatformId = Convert.ToUInt16(Platform),
                             MlaLeadSourceId = (Platform == PQSources.Desktop) ? (UInt16)LeadSourceEnum.DPQ_MLA_Desktop : (UInt16)LeadSourceEnum.DPQ_MLA_Mobile,
-                            PageId = Convert.ToUInt16(PQSource)
+                            PageId = Convert.ToUInt16(PQSource),
+                            OfferList = objData != null && objData.DetailedDealer != null &&  objData.DetailedDealer.PrimaryDealer != null && objData.DetailedDealer.PrimaryDealer.HasOffers &&  objData.DetailedDealer.PrimaryDealer.HasOffers ? objData.DetailedDealer.PrimaryDealer.OfferList : null
                         };
                     }
                     if (objData.SimilarBikesVM != null)
@@ -131,6 +134,11 @@ namespace Bikewale.Models
 
                     ShowInnovationBanner(objData, _modelId);
                     BindAdSlotTags(objData);
+                    SetTestFlags(objData);
+                    if (objData != null && objData.IsOffersShownOnLeadPopup && objData.LeadCapture != null)
+                    {
+                        objData.LeadCapture.ShowOffersOnLeadPage = objData.LeadCapture.OfferCount > 0;
+                    }
 
                 }
                 objData.ExitUrl = exitUrl;
@@ -637,6 +645,19 @@ namespace Bikewale.Models
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, string.Format("ModelPage.GetManufacturerCampaign({0},{1},{2})", _modelId, _cityId, ManufacturerCampaignPageId));
+            }
+        }
+
+        /// <summary>
+        /// Author  :   Kartik Rathod on 19 oct 2018
+        /// Desc    :   Set Test experiment flags
+        /// </summary>
+        private void SetTestFlags(DealerPriceQuotePageVM objData)
+        {
+            ushort cookieValue;
+            if (HttpContext.Current.Request.Cookies["_bwtest"] != null && ushort.TryParse(HttpContext.Current.Request.Cookies["_bwtest"].Value, out cookieValue))
+            {
+                objData.IsOffersShownOnLeadPopup = cookieValue <= 90;
             }
         }
     }

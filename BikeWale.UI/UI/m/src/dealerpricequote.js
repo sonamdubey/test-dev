@@ -278,7 +278,8 @@ docReady(function () {
                 },
                 "sendLeadSMSCustomer": ele.attr('data-issendleadsmscustomer'),
                 "organizationName": ele.attr('data-item-organization'),
-                "campaignId": ele.attr("data-campaignid")
+                "campaignId": ele.attr("data-campaignid"),
+                "leadPopupOrigin": ele.attr("data-origin")
             };
 
             dleadvm.setOptions(leadOptions);

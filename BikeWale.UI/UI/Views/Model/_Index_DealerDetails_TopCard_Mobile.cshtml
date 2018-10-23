@@ -78,7 +78,7 @@
             else
             {
                 <div class="dealer__request-callback-content padding-bottom10">
-                    <a id="requestcallback" data-cat="Model_Page" data-act="Request_Callback_Details_Clicked" data-var="bikeVersionLocation" data-leadsourceid=@Convert.ToInt16(LeadSourceEnum.ModelPage_TopCard_Mobile) data-campaignid="@Model.DealerDetails.CampaignId" data-item-id="@Model.DealerDetails.DealerId" data-item-name="@Model.DealerDetails.Organization" data-item-area="@Model.DealerArea" href="javascript:void(0)" class="btn btn-white request-callback__btn bw-ga leadcapturebtn">Request callback</a>
+                    <a id="requestcallback" data-cat="Model_Page" data-act="Request_Callback_Details_Clicked" data-var="bikeVersionLocation" data-leadsourceid=@Convert.ToInt16(LeadSourceEnum.ModelPage_TopCard_Mobile) data-campaignid="@Model.DealerDetails.CampaignId" data-item-id="@Model.DealerDetails.DealerId" data-item-name="@Model.DealerDetails.Organization" data-item-area="@Model.DealerArea" href="javascript:void(0)" class="btn btn-white request-callback__btn bw-ga leadcapturebtn">@(Model.LeadCapture != null && Model.LeadCapture.ShowOffersOnLeadPage ? "Get Offer" : "Request callback")</a>
                     <p class="request-callback__label">(Get EMI options, test rides other services from dealer.)</p>
                 </div>
             }
