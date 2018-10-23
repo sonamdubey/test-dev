@@ -870,7 +870,8 @@ namespace Bikewale.BAL.Lead
         /// <param name="input"></param>
         private static void PushToLeadConsumer(ManufacturerLeadEntity input)
         {
-            UInt16 emailOption = (UInt16)((EnumEmailOptions) Enum.Parse(typeof(EnumEmailOptions), input.EmailOption));
+            EnumEmailOptions emailOptionValue;
+            UInt16 emailOption = Enum.TryParse<EnumEmailOptions>(input.EmailOption, out emailOptionValue) ? (UInt16)emailOptionValue : (UInt16)EnumEmailOptions.Optional;
             NameValueCollection objNVC = new NameValueCollection();
 
             objNVC.Add("pqId", input.PQId.ToString());
