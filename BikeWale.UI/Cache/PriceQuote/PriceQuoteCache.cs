@@ -109,12 +109,12 @@ namespace Bikewale.Cache.PriceQuote
             {
                 IEnumerable<PriceQuoteOfTopCities> priceInNearestCities = _cache.GetFromCache<IEnumerable<PriceQuoteOfTopCities>>(nearestCityKey, new TimeSpan(30, 0, 0, 0), () => _priceQuoteCacheHelper.GetModelPriceInNearestCities(cityId, modelId));
 
-                if (priceInNearestCities != null)
+                if (priceInNearestCities != null && priceInNearestCities.Any())
                 {
                     priceInTopCities = new PriceInTopCitiesWidgetVM
                     {
                         PriceQuoteList = priceInNearestCities,
-                        BikeName = string.Format("{0} {1}", priceInNearestCities.First().Make, priceInNearestCities.First().Model)
+                        BikeName = string.Format("{0} {1}", priceInNearestCities.FirstOrDefault().Make, priceInNearestCities.FirstOrDefault().Model)
                     };
                 }
             }
@@ -125,7 +125,7 @@ namespace Bikewale.Cache.PriceQuote
             finally
             {
                 dt2 = DateTime.Now;
-                ThreadContext.Properties["MOdelPriceInNearestCities_FetchTime"] = (dt2 - dt1).TotalMilliseconds;
+                ThreadContext.Properties["ModelPriceInNearestCities_FetchTime"] = (dt2 - dt1).TotalMilliseconds;
             }
             return priceInTopCities;
         }
