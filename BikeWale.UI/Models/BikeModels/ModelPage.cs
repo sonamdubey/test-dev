@@ -323,6 +323,8 @@ namespace Bikewale.Models.BikeModels
         /// Desciption  : Set UpfrontLoanCampaign flag for EMI Campaign link in place Calculate EMI
         /// Modied By   : Kartik Rathod on 19 oct 2018
         /// Desc        : Show offers on lead popup page for 1 to 90
+        /// Modified By : Prabhu Puredla on 24 oct 2018
+        /// Description : Added logic for IsTopSellingPitch
         /// </summary>
         private void SetTestFlags()
         {
@@ -335,6 +337,10 @@ namespace Bikewale.Models.BikeModels
                 _objData.IsNonAnimatedCTA = cookieValue > 5 && cookieValue <= 10;
                 _objData.UpfrontLoanCampaign = cookieValue > 20 && cookieValue <= 30 && ((_objData.EMICalculator.ESEMICampaign != null && (_objData.EMICalculator.IsPrimaryDealer || _objData.EMICalculator.IsManufacturerLeadAdShown)) || _objData.EMICalculator.IsPremiumDealer);
                 _objData.IsOffersShownOnLeadPopup = cookieValue <= 90;
+                if(_objData.LeadCampaign !=null)
+                {
+                    _objData.LeadCampaign.IsTopSellingPitch = cookieValue > 50 && cookieValue <= 60 && !string.IsNullOrEmpty(_objData.LeadCampaign.TopSellingPitchText);
+                }
             }
         }
 
@@ -1474,6 +1480,21 @@ namespace Bikewale.Models.BikeModels
                     BikeType = bikeRankingSlug.BikeType,
                     RankText = bikeRankingSlug.RankText
                 };
+                if (objBikeRanking.Rank == 1 && _objData.LeadCampaign != null)
+                {
+                    switch(objBikeRanking.BodyStyle)
+                    {
+                        case EnumBikeBodyStyles.Sports:
+                        case EnumBikeBodyStyles.Mileage:
+                        case EnumBikeBodyStyles.Cruiser :
+                            _objData.LeadCampaign.TopSellingPitchText = string.Format("Best {0} Bike in India", bikeRankingSlug.StyleName);
+                            break;
+                        case EnumBikeBodyStyles.Scooter:
+                            _objData.LeadCampaign.TopSellingPitchText = string.Format("Best {0} in India", bikeRankingSlug.StyleName);
+                            break;
+                    }
+                }
+                
             }
             else
                 _objData.BikeRanking = new BikeRankingPropertiesEntity();

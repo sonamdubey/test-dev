@@ -858,3 +858,58 @@ a.btn:hover {
 .location--active .location-map-icon {
     background-image: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/0987d1/location-outline.svg');
 }
+
+/*top selling slug*/
+.top-selling-wrapper {
+    text-align: center;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    background-color: #fff;
+}
+.top-selling__text {
+    font-size: 12px;
+    font-weight: 600;
+    opacity: 1;
+    -webkit-transition: opacity .5s linear;
+    transition: opacity .5s linear;
+    will-change: opacity;
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+    padding-left: 20px;
+    text-align: left;
+}
+.top-selling__text::before {
+    content: '';
+    display: inline-block;
+    width: 12px;
+    height: 14px;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+    background-color: #41b4c4;
+}
+.top-selling__text::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: calc(50% + 5px); /*here, 5 is ribbon corner height */
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+    border-bottom: 5px solid #fff;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+}
+.campaign-with-animation {
+    -webkit-transition: all .5s linear;
+    transition: all .5s linear;
+}
+.campaign-with-animation.animated {
+    -webkit-transform: translateY(calc(100% - 44px));  /*here, 52 is height of campaign floating button container*/
+    transform: translateY(calc(100% - 44px));/*changed to 44 as per requirement*/
+}
+.campaign-with-animation.animated .top-selling__text {
+    opacity: 0;
+}

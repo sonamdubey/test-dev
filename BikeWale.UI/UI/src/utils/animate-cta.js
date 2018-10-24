@@ -1,11 +1,13 @@
 ﻿var AnimateCTA = (function () {
-    var container, animationClass, $window, campaignContainer, campaignContainerHeight;
+    var container, animationClass, $window, campaignContainer, campaignContainerHeight, sellingPitchText, isTopSellingPitch;
     function _setSelector() {
         animationClass = 'animated';
         container = $('.cta-animation-container');
         campaignContainer = $('.campaign-with-animation');
         $window = $(window);
         campaignContainerHeight = campaignContainer.outerHeight();
+        sellingPitchText = campaignContainer.find('#topSellingBlock').text().trim();
+        isTopSellingPitch = sellingPitchText != undefined && sellingPitchText != "";
     }
 
     function registerEvents() {
@@ -23,7 +25,7 @@
                         {
                             triggerNonInteractiveGA("Model_Page", "FloatingLeadCTA_FullWidth_Shown", "");
                         }
-                        cwTracking.trackCustomData(bhriguPageName, "ES_FloatingLeadCTA_FullWidthShown", "versionId=" + versionId);
+                        cwTracking.trackCustomData(bhriguPageName, "ES_FloatingLeadCTA_FullWidthShown", "versionId=" + versionId + (isTopSellingPitch ? "|LeadSupportingText=" + sellingPitchText : ""));
                         fullShown = true;
                     }  
                 }
@@ -35,7 +37,7 @@
                         {
                             triggerNonInteractiveGA("Model_Page", "FloatingLeadCTA_Partial_GetBestOffers_Shown", "");
                         }
-                        cwTracking.trackCustomData(bhriguPageName, "ES_FloatingLeadCTA_AnimatedShown", "versionId=" + versionId);
+                        cwTracking.trackCustomData(bhriguPageName, "ES_FloatingLeadCTA_AnimatedShown", "versionId=" + versionId + (isTopSellingPitch ? "|LeadSupportingText=" + sellingPitchText : ""));
                         partialShown = true;
                     }
                 }
@@ -45,11 +47,11 @@
         $("a.js-mfg").click(function(){           
                 if ($(this).closest(".js-floating-btn").hasClass("animated")) {
                     triggerGA(pageName, "FloatingLeadCTA_Partial_GetBestOffers_Click", "");
-                    cwTracking.trackCustomData(bhriguPageName, "ES_FloatingLeadCTA_AnimatedClick", "versionId=" + versionId);
+                    cwTracking.trackCustomData(bhriguPageName, "ES_FloatingLeadCTA_AnimatedClick", "versionId=" + versionId + (isTopSellingPitch ? "|LeadSupportingText=" + sellingPitchText : ""));
                 }
                 else if ($(this).closest(".js-floating-btn").hasClass("campaign-with-animation")) {
                     triggerGA(pageName, "FloatingLeadCTA_FullWidth_Click", "");
-                    cwTracking.trackCustomData(bhriguPageName, "ES_FloatingLeadCTA_FullWidthClick", "versionId=" + versionId);   
+                    cwTracking.trackCustomData(bhriguPageName, "ES_FloatingLeadCTA_FullWidthClick", "versionId=" + versionId + (isTopSellingPitch ? "|LeadSupportingText=" + sellingPitchText : ""));
                 }
         });
 

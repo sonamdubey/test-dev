@@ -72,19 +72,19 @@ function triggerGAAnimateCTA() {
     var campaignContainerHeight = campaignContainer.outerHeight();
     var windowScrollTop = $(window).scrollTop() + $(window).innerHeight();
     var containerScrollTop = container.offset().top + container.height() + campaignContainerHeight;
-
+    var sellingPitchText = campaignContainer.find('#topSellingBlock').text().trim();
     if ($(window).scrollTop() === 0 || windowScrollTop < containerScrollTop) {
         if (gaObj.id == gaEnum.Model_Page) {
             triggerNonInteractiveGA("Model_Page", "FloatingLeadCTA_FullWidth_Shown", "");
         }
-        cwTracking.trackCustomData(bhriguPageName, "ES_FloatingLeadCTA_FullWidthShown", "versionId=" + versionId);
+        cwTracking.trackCustomData(bhriguPageName, "ES_FloatingLeadCTA_FullWidthShown", "versionId=" + versionId + (sellingPitchText == undefined || sellingPitchText == "" ? "" : "|LeadSupportingText=" + sellingPitchText));
         fullShown = true;
     }
     else if ($('.campaign-with-animation').hasClass("animated")) {
         if (gaObj.id == gaEnum.Model_Page) {
             triggerNonInteractiveGA("Model_Page", "FloatingLeadCTA_Partial_GetBestOffers_Shown", "");
         }
-        cwTracking.trackCustomData(bhriguPageName, "ES_FloatingLeadCTA_AnimatedShown", "versionId=" + versionId);
+        cwTracking.trackCustomData(bhriguPageName, "ES_FloatingLeadCTA_AnimatedShown", "versionId=" + versionId + (sellingPitchText == undefined || sellingPitchText == "" ? "" : "|LeadSupportingText=" + sellingPitchText));
         partialShown = true;
     }
 }

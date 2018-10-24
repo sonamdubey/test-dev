@@ -9,6 +9,8 @@ namespace Bikewale.Entities.manufacturecampaign.v2
     /// Description :   changes PQId data type
     /// Modified by :   Sanjay George on 18 Oct 2018
     /// Description :   Added FloatingBtnLeadSourceId to pass correct lead source to partial view
+    /// Modified By : Prabhu Puredla on 24 oct 2018
+    /// Description : Added  IsTopSellingPitch property
     /// </summary>
     public class ManufactureCampaignLeadEntity : ManufacturerCampaignLeadConfiguration
     {
@@ -28,5 +30,7 @@ namespace Bikewale.Entities.manufacturecampaign.v2
         public bool IsAmp { get; set; }
         public uint LoanAmount { get; set; }
         public LeadSourceEnum FloatingBtnLeadSourceId {get; set;}
+        public bool IsTopSellingPitch { get; set; }
+        public string TopSellingPitchText { set; get; }
     }
 }
