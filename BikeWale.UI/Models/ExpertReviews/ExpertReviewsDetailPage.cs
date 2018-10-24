@@ -307,6 +307,7 @@ namespace Bikewale.Models
                     GetTaggedBikeListByModel(objData);
                     SetPageMetas(objData);
                     CheckSeriesData(objData);
+                    PopulateBikeInfo(objData);
 
 
                     SetAdditionalVariables(objData);

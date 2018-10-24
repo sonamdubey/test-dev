@@ -371,6 +371,7 @@ namespace Bikewale.Models
                     GetTaggedBikeListByMake(objData);
                     GetTaggedBikeListByModel(objData);
                     CheckSeriesData(objData);
+                    BindBikeInfoWidget(objData);
 
                     SetAdditionalVariables(objData);
                     objData.PageWidgets = base.GetEditorialWidgetData(EnumEditorialPageType.Detail);
