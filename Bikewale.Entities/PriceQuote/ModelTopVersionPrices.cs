@@ -8,7 +8,7 @@ using System.Runtime.Serialization;
 
 namespace Bikewale.Entities.PriceQuote
 {
-    [Serializable]
+    [Serializable, DataContract]
     public class ModelTopVersionPrices
     {
         [JsonProperty("bikeMake"), DataMember]
