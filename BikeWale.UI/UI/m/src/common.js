@@ -2154,7 +2154,14 @@ String.isNullOrEmpty = function (str) {
     return (!str || str.length === 0);
 };
 
-
+var trackElementVisiblity = function (element) {
+  if (element != null && element.dataset != null) {
+    var bhriguCategory = element.dataset["bhrigucat"];
+    var bhriguAction = element.dataset["bhrigushownact"];
+    var bhriguLabel = element.dataset["bhrigulab"] || "NA";
+    cwTracking.trackCustomData(bhriguCategory, bhriguAction, bhriguLabel);
+  }
+};
 var triggerNonInteractiveGAWithinViewport = function (elem) {
     
 

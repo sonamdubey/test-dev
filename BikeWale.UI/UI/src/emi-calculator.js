@@ -46,7 +46,12 @@ emiCalculator = {
     }
 };
 $('body').on('click', "#emiCalculatorLink", function (e) {
-    emiCalculator.open(emiPopup);
+  emiCalculator.open(emiPopup);
+  var campaignCTABtn = document.querySelector(".emi-quote__btn-block > .bw-bhrigu-shown-after-click");
+  if (campaignCTABtn != null ) {
+    trackElementVisiblity(campaignCTABtn);
+  }
+
 });
 
 $('body').on('keypress', function (e) {

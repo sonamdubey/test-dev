@@ -335,7 +335,7 @@ namespace Bikewale.Models.BikeModels
                 _objData.IsAnimatedCTA = cookieValue > 10;
                 _objData.IsNearlyAllIndiaCampaign = cookieValue > 10 && cookieValue <= 20 && _objData.ModelId == 78; // Test for Classic 350
                 _objData.IsNonAnimatedCTA = cookieValue > 5 && cookieValue <= 10;
-                _objData.UpfrontLoanCampaign = cookieValue > 20 && cookieValue <= 30 && ((_objData.EMICalculator.ESEMICampaign != null && (_objData.EMICalculator.IsPrimaryDealer || _objData.EMICalculator.IsManufacturerLeadAdShown)) || _objData.EMICalculator.IsPremiumDealer);
+                _objData.UpfrontLoanCampaign = cookieValue > 20 && cookieValue <= 30 && (_objData.EMICalculator != null && (_objData.EMICalculator.ESEMICampaign != null || _objData.EMICalculator.IsPremiumDealer));
                 _objData.IsOffersShownOnLeadPopup = cookieValue <= 90;
                 if(_objData.LeadCampaign !=null)
                 {
@@ -1005,9 +1005,9 @@ namespace Bikewale.Models.BikeModels
 
                             if (onRoadPrice > 0)
                             {
-                                if (_objData.DetailedDealer != null && _objData.DetailedDealer.PrimaryDealer != null)
+                                if (_objData.DetailedDealer != null && _objData.DetailedDealer.PrimaryDealer != null && _objData.DetailedDealer.PrimaryDealer.EMIDetails != null)
                                 {
-                                    SetDealerEMIDetails(onRoadPrice);
+                                    _objData.EMIDetails = SetDealerEMIDetails(onRoadPrice);
                                 }
                                 else
                                 {
@@ -1340,7 +1340,7 @@ namespace Bikewale.Models.BikeModels
         /// Summary : Set EMI details when dealer EMI details present
         /// </summary>
         /// <param name="price"></param>
-        private void SetDealerEMIDetails(uint price)
+        private EMI SetDealerEMIDetails(uint price)
         {
             try
             {
@@ -1384,13 +1384,14 @@ namespace Bikewale.Models.BikeModels
                     objEMI = SetDefaultEMIDetails(price);
                 }
 
-                _objData.EMIDetails = objEMI;
+                return objEMI;
                 #endregion
             }
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "SetDealerEMIDetails");
             }
+            return null;
         }
 
         /// <summary>

@@ -140,13 +140,7 @@ window.addEventListener('load', function () {
         }
     }
     $('.bw-shown-in-bhrighu').each(function (index, element) {
-        var currentElement = $(element);
-
-        var bhriguCategory = currentElement.attr("data-bhrigucat");
-        var bhriguAction = currentElement.attr("data-bhrigushownact");
-        var bhriguLabel = currentElement.attr("data-bhrigulab") || "NA";
-
-        cwTracking.trackCustomData(bhriguCategory, bhriguAction, bhriguLabel);
+      trackElementVisiblity(element);
     });
 });
 

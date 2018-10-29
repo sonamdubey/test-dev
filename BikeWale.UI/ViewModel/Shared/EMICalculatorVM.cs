@@ -23,5 +23,7 @@ namespace Bikewale.Models
         public LeadSourceEnum PremiumDealerLeadSourceId { get; set; }
         public bool IsPrimaryDealer { get; set; }
         public bool IsManufacturerLeadAdShown { get; set; }
+        public uint VersionId { set;get;}
+        public bool IsBhriguTracking { set;get;}
     }
 }
