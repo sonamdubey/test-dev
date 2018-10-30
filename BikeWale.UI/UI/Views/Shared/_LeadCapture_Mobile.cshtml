@@ -890,7 +890,7 @@
 
             self.verifyCustomer = function (data, event) {
 
-                if (!self.isRegisterPQ())
+                if (self.isRegisterPQ())
                     self.generatePQ(data, event);
 
                 if ((self.pqGUId() || self.pqId()) && self.dealerId()) {
