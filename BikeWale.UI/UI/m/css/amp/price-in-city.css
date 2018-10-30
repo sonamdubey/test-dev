@@ -286,6 +286,10 @@ a {
     text-decoration: none;
 }
 
+.font10 {
+	font-size: 10px;
+}
+
 .hide {
     display: none;
 }
@@ -2160,4 +2164,11 @@ div::-webkit-scrollbar {
 	.model-version_price-table td {
 		font-size: 13px;
 	}
+}
+
+/* dealer offers campaign icon*/
+.dealer-campaign-offers-box {
+    width: 21px;
+    height: 23px;
+    background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/offers/box.svg') no-repeat center;
 }

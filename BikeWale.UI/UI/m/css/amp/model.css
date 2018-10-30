@@ -99,6 +99,9 @@ h3 {
 .font12 {
 	font-size: 12px;
 }
+.font10 {
+	font-size: 10px;
+}
 .font11 {
 	font-size: 11px;
 }
@@ -2667,4 +2670,11 @@ input[type=range]:focus::-ms-fill-upper {
 #marker {
 	position: absolute;
 	height: 50%;
+}
+
+/* dealer offers campaign icon*/
+.dealer-campaign-offers-box {
+    width: 21px;
+    height: 23px;
+    background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/offers/box.svg') no-repeat center;
 }
