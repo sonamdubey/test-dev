@@ -147,6 +147,8 @@
                                         </a>
                                         EMICalculatorModel.VersionId = Model.VersionId;
                                         EMICalculatorModel.IsBhriguTracking = true;
+                                        EMICalculatorModel.IsNearlyAllIndiaCampaign = !Model.IsLocationSelected && Model.IsNearlyAllIndiaCampaign && !Model.IsManufacturerLeadAdShown;
+                                        EMICalculatorModel.ModelId = Model.ModelId;
                                         @Html.Partial("~/UI/Views/Shared/_EmiCalculator.cshtml", EMICalculatorModel);
                                     }
                                     <span class="clear"></span>
@@ -170,7 +172,7 @@
                                 {
                                     if (Model.IsNearlyAllIndiaCampaign)
                                     {
-                                        <a class="btn btn-orange btn-full-width getquotation bw-bhrigu" data-cat="Model_Page" data-act="FloatingLeadCTA_FullWidth_Click" data-bhrigulab="@Model.BikeName" href="javascript:void(0)" data-reload="true" data-persistent="true" data-modelid="@Model.ModelId" data-leadsourceid="@Convert.ToInt16(LeadSourceEnum.ModelPage_Floating_Mobile)" data-popupsource="leadcapturebtn">Get Best Offers</a>
+                                        <a class="btn btn-orange btn-full-width getquotation bw-bhrigu" data-cat="Model_Page" data-act="FloatingLeadCTA_FullWidth_Click" data-bhrigulab="@Model.BikeName" href="javascript:void(0)" data-reload="true" data-persistent="true" data-modelid="@Model.ModelId" data-pqsourceid="@Convert.ToUInt16(Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_ModelPage)" data-leadsourceid="@Convert.ToInt16(LeadSourceEnum.ModelPage_Floating_Mobile)" data-popupsource="leadcapturebtn">Get Best Offers</a>
                                     }
                                     else
                                     {
@@ -208,7 +210,7 @@
                                 <li class="campaign__list-item">EMI options</li>
                                 <li class="campaign__list-item">Exchange benefits</li>
                             </ul>
-                            <a href="javascript:void(0)" class="btn btn-teal btn-180-32 margin-right20 getquotation bw-bhrigu" data-cat="Model_Page" data-act="TopCardCTA_Teal_GetOffersFromDealer_Click" data-bhrigulab="@Model.BikeName" data-reload="true" data-persistent="true" data-modelid="@Model.ModelId" data-popupsource="leadcapturebtn">Get offers from dealer</a>
+                            <a href="javascript:void(0)" class="btn btn-teal btn-180-32 margin-right20 getquotation bw-bhrigu" data-cat="Model_Page" data-act="TopCardCTA_Teal_GetOffersFromDealer_Click" data-bhrigulab="@Model.BikeName" data-reload="true" data-persistent="true" data-modelid="@Model.ModelId" data-pqsourceid="@Convert.ToUInt16(Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_ModelPage)" data-leadsourceid="@Convert.ToInt16(LeadSourceEnum.ModelPage_TopCard_Mobile)" data-popupsource="leadcapturebtn">Get offers from dealer</a>
                         </div>
                     }
                 }

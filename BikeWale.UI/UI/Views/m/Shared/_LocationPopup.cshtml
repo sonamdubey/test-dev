@@ -131,6 +131,8 @@
         self.popupTriggerSource = ko.observable();
         self.isLeadPopupFlow = ko.computed(function(){ return self.popupTriggerSource() == PopupTriggerSourceEnum.LeadCaptureButton;});
         self.ExitUrl = ko.observable("");
+        self.Origin = ko.observable("");
+        self.LeadSourceId = ko.observable("");
         self.FilterData = function (data,filter)
         {
             filterObj = data;
@@ -197,6 +199,8 @@
                 self.VersionId(options.versionid || 0);
                 self.RedirectUrl(options.redirectUrl || "");
                 self.ExitUrl(options.exitUrl || "");
+                self.Origin(options.origin);
+                self.LeadSourceId(options.leadsourceid || "");
                 if (self.IsPersistance())  self.LoadingText("Loading locations...");
 
                 if (self.SelectedModelId()) {
@@ -343,6 +347,9 @@
                             if(self.isLeadPopupFlow()) {
                                 if(typeof(LeadPopupState) != "undefined") {
                                     self.closeLocationPopup();
+                                    if(LeadPopupState.setLeadOrigin != undefined)
+                                        LeadPopupState.setLeadOrigin(self.Origin(), self.LeadSourceId());
+                                    if(LeadPopupState.fetchCampaign != undefined)
                                     LeadPopupState.fetchCampaign();
                                 }
                             }
@@ -504,8 +511,8 @@
                 "ispersistent" : ele.attr('data-persistent') !=null ? true : false,
                 "isreload" : ele.attr("data-reload") !=null ? true : false,
                 "versionid" : ele.attr("data-versionid") != undefined ? ele.attr("data-versionid") : 0,
-
-
+                "origin": ele.attr("data-origin"),
+                "leadsourceid": ele.attr("data-leadsourceid")
             };
 
             options.cityId = ele.attr('data-preselcity') || options.cityId;

@@ -249,6 +249,7 @@
     var brandSearchBar, dealerSearchBrand, dealerSearchBrandForm, windowScreen;
     var dropdown;
     var fbPixelLeadEvent = "";
+    var LeadPopupOriginEnum = {"Finance":1,"NonFinance":2};
 
     function leadModel() {
         var arr = setuserDetails();
@@ -312,6 +313,8 @@
         self.isUserAreaAvailable = ko.computed(function(){
             return self.cityId() == globalLocation.CityId && globalLocation.AreaId > 0;
         });
+        self.leadPopupOrigin = ko.observable(LeadPopupOriginEnum.NonFinance);
+
         self.selectedBike.subscribe(function (data) {
             if(data != null && (gaObj.id == gaEnum.Dealer_Locator_City_Page  || gaObj.id == gaEnum.Dealer_Locator_Details_Page) && !self.isBikeSelected())
             {
@@ -651,7 +654,10 @@
                 if (options.organizationName != null) {
                     self.organizationName(options.organizationName);
                 }
+
+                self.leadPopupOrigin(options.leadPopupOrigin != null ? options.leadPopupOrigin : LeadPopupOriginEnum.NonFinance);
                 self.isBikeSelected(false);
+
             }
         };
 
@@ -1432,7 +1438,10 @@
     var LeadPopupStateEnum = {"Fetch":0, "Open":1, "Close":2, "Final":3, "Sorry":4};
     var LeadPopupState = (function() {
         var leadCapturePopup = document.getElementById('leadCapturePopup');
-
+        function setLeadOrigin(origin, leadsourceId) {
+            campaignLeadVm.leadPopupOrigin(origin);
+            campaignLeadVm.leadSourceId(leadsourceId);
+        }
         function fetchCampaign() {
             this.status = LeadPopupStateEnum.Fetch;
             var location = GetGlobalLocationObject();
@@ -1476,6 +1485,7 @@
         }
 
         return {
+            setLeadOrigin: setLeadOrigin,
             fetchCampaign: fetchCampaign,
             setSorryScreen: setSorryScreen,
             close: close,
@@ -1765,24 +1775,33 @@
                 success: function (data) {
                     if (data && (data.dealerCampaign!= null || data.manufacturerCampaign != null) ) {
                         // show leadpopup
-                        if(data.dealerCampaign && data.dealerCampaign.dealerId > 0 && data.dealerCampaign.campaignId > 0){
+                        if(data.dealerCampaign && data.dealerCampaign.dealerId > 0 && data.dealerCampaign.campaignId > 0) {
+                            data.dealerCampaign = setCampaignTrackingSources(data.dealerCampaign);
                             showDealerCampaign(data.dealerCampaign);
                             LeadPopupState.open();
                             triggerNonInteractiveGA("Lead_PopUP", "DSLeadPopUpShown", "");
                             cwTracking.trackCustomData("Lead_PopUP", "DSLeadPopUpShown", "NA");
 
                         }
-                        else if(data.manufacturerCampaign && data.manufacturerCampaign.dealerId > 0 && !isFinancePatner(data.manufacturerCampaign.dealerId) && data.manufacturerCampaign.campaignId > 0){
-                            showManufacturerCampaign(data.manufacturerCampaign);
-                            LeadPopupState.open();
-                            triggerNonInteractiveGA("Lead_PopUP", "ESLeadPopUpShown", "");
-                            cwTracking.trackCustomData("Lead_PopUP", "ESLeadPopUpShown", "NA");
+                        else if(data.manufacturerCampaign && (data.manufacturerCampaign.emiCampaign || data.manufacturerCampaign.leadCampaign)) {
+                            var campaign;
+                            if(parseInt(campaignLeadVm.leadPopupOrigin()) == LeadPopupOriginEnum.Finance) {
+                                campaign = setCampaignTrackingSources(data.manufacturerCampaign.emiCampaign);
+                            }
+                            else {
+                                campaign= setCampaignTrackingSources(data.manufacturerCampaign.leadCampaign);
+                            }
 
+                            if(campaign && campaign.dealerId > 0 && !isFinancePatner(campaign.dealerId) && campaign.campaignId > 0) {
+                                showManufacturerCampaign(campaign);
+                                LeadPopupState.open();
+                                triggerNonInteractiveGA("Lead_PopUP", "ESLeadPopUpShown", "");
+                                cwTracking.trackCustomData("Lead_PopUP", "ESLeadPopUpShown", "NA");
+                            }
                         }
                         else{
                             LeadPopupState.setSorryScreen(true);
                         }
-
                     }
                     else {
                         LeadPopupState.setSorryScreen(true);
@@ -1795,15 +1814,21 @@
                 
             });
         };
-
+        function setCampaignTrackingSources(campaign) {
+            if(campaign != null) {
+                campaign.leadsourceId = campaignLeadVm.leadSourceId();
+                campaign.pqsourceId = 22;
+            }
+            return campaign;
+        }
         function showDealerCampaign(dataCampaign){
             var leadOptions = {
                 "dealerid": dataCampaign.dealerId,
                 "dealername": dataCampaign.organization,
                 "dealerarea": dataCampaign.area,
                 "versionid": versionId,
-                "leadsourceid": 39,
-                "pqsourceid": 22,
+                "leadsourceid": dataCampaign.leadsourceId,
+                "pqsourceid": dataCampaign.pqsourceId,
                 "pqId": 0,
                 "pqguid": pqId,
                 "pageurl": pageUrl,
@@ -1825,8 +1850,8 @@
                 "dealername": dataCampaign.organization,
                 "dealerarea": "",
                 "versionid": versionId,
-                "leadsourceid": 37,
-                "pqsourceid": 22,
+                "leadsourceid": dataCampaign.leadsourceId,
+                "pqsourceid": dataCampaign.pqsourceId,
                 "mfgCampid":dataCampaign.campaignId ,
                 "pqId": 0,
                 "pqguid": pqId,

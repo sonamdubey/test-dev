@@ -481,6 +481,8 @@
     <Compile Include="DAL\QuestionAndAnswers\AnswerRepository.cs" />
     <Compile Include="DTO\Campaign\DealerCampaignDTO.cs" />
     <Compile Include="DTO\Campaign\ESDSCampaignDTO.cs" />
+    <Compile Include="DTO\Campaign\ManufacturerCampaignDto.cs" />
+    <Compile Include="DTO\Campaign\ManufacturerEmiCampaignDto.cs" />
     <Compile Include="DTO\Campaign\ManufacturerLeadCampaignDTO.cs" />
     <Compile Include="DTO\Dealer\NewBikeDealerDetails.cs" />
     <Compile Include="DTO\Finance\BajajAutoLeadResponseDto.cs" />

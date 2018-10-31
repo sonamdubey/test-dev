@@ -30,6 +30,8 @@ namespace Bikewale.BAL.Campaign
 			_objPqCache = pqCache;
 			Mapper.CreateMap<NewBikeDealers, DealerCampaignDto>().ForMember(output => output.Area, opt => opt.MapFrom(input => input.objArea.AreaName)).ForMember(output => output.AreaId, opt => opt.MapFrom(input => input.objArea.AreaId)).ForMember(output => output.City, opt => opt.MapFrom(input => input.objCity.CityName)).ForMember(output => output.CityId, opt => opt.MapFrom(input => input.objCity.CityId));
 			Mapper.CreateMap<ManufacturerCampaignLeadConfiguration, ManufacturerLeadCampaignDto>().ForMember(output => output.PopupSuccessMessage, opt => opt.MapFrom(input => string.Format(input.PopupSuccessMessage, input.Organization))).ForMember(output => output.LeadsButtonTextMobile, opt => opt.MapFrom(input => string.Format(input.LeadsButtonTextMobile, input.Organization)));
+            Mapper.CreateMap<ManufacturerCampaignEMIConfiguration, ManufacturerEmiCampaignDto>().ForMember(output => output.PopupSuccessMessage, opt => opt.MapFrom(input => string.Format(input.PopupSuccessMessage, input.Organization)));
+            
 		}
 
 		/// <summary>
@@ -65,7 +67,7 @@ namespace Bikewale.BAL.Campaign
 					}
 					else // if dealer campaign is not present then fetch ManufacturerCampaign
 					{
-						objESDSCampaign.ManufacturerLeadCampaign = GetEsCampaign(modelId, cityId);
+						objESDSCampaign.ManufacturerCampaign = GetEsCampaign(modelId, cityId);
 					}
 				}
 			}
@@ -83,9 +85,9 @@ namespace Bikewale.BAL.Campaign
 		/// <param name="modelId"></param>
 		/// <param name="cityId"></param>
 		/// <returns>ManufacturerLeadCampaignDTO</returns>
-		private ManufacturerLeadCampaignDto GetEsCampaign(uint modelId, uint cityId)
+		private ManufacturerCampaignDto GetEsCampaign(uint modelId, uint cityId)
 		{
-			ManufacturerLeadCampaignDto objESCampaign = null;
+			ManufacturerCampaignDto objESCampaign = null;
 			try
 			{
 				bool isManufacturerDealer = false;
@@ -93,9 +95,9 @@ namespace Bikewale.BAL.Campaign
 				ManufacturerCampaignEntity objManufacturer = null;
 				_dealerPriceQuote.GetManufacturerCampaignDealer(modelId, cityId, ManufacturerCampaignServingPages.Mobile_Model_Page, out objManufacturer, out isManufacturerDealer);
 
-				if (objManufacturer != null && objManufacturer.LeadCampaign != null)
+				if (objManufacturer != null )
 				{
-					objESCampaign = ConvertToManufacturerCampaign(objManufacturer.LeadCampaign);
+					objESCampaign = ConvertToManufacturerCampaign(objManufacturer);
 				}
 			}
 			catch (Exception ex)
@@ -186,9 +188,12 @@ namespace Bikewale.BAL.Campaign
 		/// </summary>
 		/// <param name="objManufacturer">ManufacturerCampaignLeadConfiguration</param>
 		/// <returns>ManufacturerLeadCampaignDTO</returns>
-		private ManufacturerLeadCampaignDto ConvertToManufacturerCampaign(ManufacturerCampaignLeadConfiguration objManufacturer)
+        private ManufacturerCampaignDto ConvertToManufacturerCampaign(ManufacturerCampaignEntity objManufacturer)
 		{
-			return Mapper.Map<ManufacturerCampaignLeadConfiguration, ManufacturerLeadCampaignDto>(objManufacturer);
+            ManufacturerCampaignDto objManufacturerDto = new ManufacturerCampaignDto();
+            objManufacturerDto.LeadCampaign = objManufacturer.LeadCampaign != null ? Mapper.Map<ManufacturerCampaignLeadConfiguration, ManufacturerLeadCampaignDto>(objManufacturer.LeadCampaign) : null;
+            objManufacturerDto.EmiCampaign = objManufacturer.EMICampaign != null ? Mapper.Map<ManufacturerCampaignEMIConfiguration, ManufacturerEmiCampaignDto>(objManufacturer.EMICampaign) : null;
+            return objManufacturerDto;
 		}
 	}
 }

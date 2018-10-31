@@ -9,7 +9,7 @@ namespace Bikewale.DTO.Campaign
     public class ESDSCampaignDto
     {
         [JsonProperty("manufacturerCampaign")]
-        public ManufacturerLeadCampaignDto ManufacturerLeadCampaign { get; set; }
+        public ManufacturerCampaignDto ManufacturerCampaign { get; set; }
         [JsonProperty("dealerCampaign")]
         public DealerCampaignDto DealerCampaign { get; set; }
     }

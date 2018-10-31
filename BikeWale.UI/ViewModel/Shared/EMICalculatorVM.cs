@@ -25,5 +25,7 @@ namespace Bikewale.Models
         public bool IsManufacturerLeadAdShown { get; set; }
         public uint VersionId { set;get;}
         public bool IsBhriguTracking { set;get;}
+        public bool IsNearlyAllIndiaCampaign { set; get; }
+        public uint ModelId { get; set; }
     }
 }

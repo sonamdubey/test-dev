@@ -29,7 +29,7 @@ namespace Bikewale.Service.Controllers.Campaign
         /// <param name="areaId"></param>
         /// <returns></returns>
         [HttpGet, Route("api/campaign/modelId/{modelId}/cityId/{cityId}/"), ResponseType(typeof(ESDSCampaignDto))]
-        public IHttpActionResult GetCampaignLocationWise(uint cityId, uint modelId, uint areaId)
+        public IHttpActionResult GetCampaignLocationWise(uint cityId, uint modelId, uint areaId = 0)
         {
             try
             {

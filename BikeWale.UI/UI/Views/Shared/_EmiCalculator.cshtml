@@ -127,14 +127,18 @@
                 }
             </div>
         }
-        else
+        else if (Model.IsPremiumDealer)
         {
-            if (Model.IsPremiumDealer)
-            {
-                <div class="emi-quote__btn-block">
+            <div class="emi-quote__btn-block">
                     <a id="btnEmiQuote" class="@String.Format("btn btn-white emi-quote-btn leadcapturebtn {0}", bhriguClass)" data-bhrigucat="BWModelPage" data-bhrigushownact="DS_EMILeadCTA_Shown" data-bhriguact="DS_EMILeadCTA_Click" data-bhrigulab="@bhriguLab" data-pqsourceid="@Convert.ToUInt16(Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_ModelPage)" data-leadsourceid="@(Convert.ToInt32(Model.PremiumDealerLeadSourceId))" data-campaignid="@Model.DealerDetails.CampaignId" data-item-registerpq="false" data-item-id="@Model.DealerDetails.DealerId" data-item-name="@Model.DealerDetails.Organization" data-item-organization="@Model.DealerDetails.Organization" data-item-area="@Model.DealerDetails.objArea.AreaName" data-cat="Model_Page" data-act="Get_EMI_Quote_Clicked" data-lab="@Model.BikeName.Replace(" ", "_")" data-origin="1">Get EMI quote</a>
-                </div>
-            }
+            </div>
         }
+        else if (Model.IsNearlyAllIndiaCampaign)
+        {
+            <div class="emi-quote__btn-block">
+                <a id="btnEmiQuote" class="btn btn-white emi-quote-btn getquotation bw-ga" data-cat="Model_Page" data-act="Get_EMI_Quote_Clicked" data-lab="@Model.BikeName.Replace(" ", "_")" data-modelid="@Model.ModelId" href="javascript:void(0)" data-reload="true" data-persistent="true" data-pqsourceid="@Convert.ToUInt16(Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_ModelPage)" data-leadsourceid="@Convert.ToUInt16(Bikewale.Entities.BikeBooking.LeadSourceEnum.ModelPage_EmiCalculator_Mobile)" data-popupsource="leadcapturebtn" data-origin="1">Get Offers on Loans</a>
+            </div>
+        }
+        
     </div>
 </div>
