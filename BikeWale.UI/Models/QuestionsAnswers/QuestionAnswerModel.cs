@@ -29,11 +29,11 @@ namespace Bikewale.Models.QuestionsAnswers
         public bool IsMobile { get; internal set; }
 
         private readonly IQuestions _objQuestions;
-        private readonly IBikeModelsCacheRepository<int> _modelCache = null;
+        private readonly IBikeModelsCacheRepository<int> _objModelCache = null;
         private readonly IBikeMakesCacheRepository _objMakeCache = null;
         private readonly IBikeVersions<BikeVersionEntity, uint> _objVersion;
         private readonly IBikeSeriesCacheRepository _seriesCache;
-        private readonly IBikeMaskingCacheRepository<BikeModelEntity, int> _modelMaskingCache = null;
+        private readonly IBikeMaskingCacheRepository<BikeModelEntity, int> _objModelMaskingCache = null;
         private readonly IBikeModels<BikeModelEntity, int> _objModelEntity = null;
         private readonly IPager _pager = null;
 
@@ -61,13 +61,13 @@ namespace Bikewale.Models.QuestionsAnswers
         {
             _objMakeCache = objMakeCache;
             _objQuestions = objQuestions;
-            _modelCache = modelCache;
+            _objModelCache = modelCache;
             _seriesCache = seriesCache;
-            _modelMaskingCache = modelMaskingCache;
+            _objModelMaskingCache = modelMaskingCache;
             _objVersion = objVersion;
             _objModelEntity = objModelEntity;
             _pager = pager;
-            ProcessQueryString(makeMasking, modelMasking);
+            ParseQueryString(makeMasking, modelMasking);
             makeMaskingName = makeMasking;
             modelMaskingName = modelMasking;
 
@@ -88,7 +88,7 @@ namespace Bikewale.Models.QuestionsAnswers
                     int _startIndex = 0, _endIndex = 0;
                     objVM = new ModelQuestionsAnswersVM();
                     _pager.GetStartEndIndex(pageSize, curPageNo, out _startIndex, out _endIndex);
-                    objVM.MakeModelBase = _modelCache.GetBikeInfo(_modelId);
+                    objVM.MakeModelBase = _objModelCache.GetBikeInfo(_modelId);
                     if (objVM.MakeModelBase == null)
                     {
                         Status = StatusCodes.ContentNotFound;
@@ -190,131 +190,68 @@ namespace Bikewale.Models.QuestionsAnswers
 
 
 
-        private void ProcessQueryString(string makeMasking, string modelMasking)
+        private void ParseQueryString(string makeMasking, string modelMasking)
         {
+            ModelMaskingResponse objResponse = null;
+            Status = StatusCodes.ContentNotFound;
+            string newMakeMasking = string.Empty;
+            bool isMakeRedirection = false;
             try
             {
-                var request = HttpContext.Current.Request;
-                var queryString = request != null ? request.QueryString : null;
-
-                if (queryString != null)
+                newMakeMasking = ProcessMakeMaskingName(makeMasking, out isMakeRedirection);
+                if (!string.IsNullOrEmpty(newMakeMasking) && !string.IsNullOrEmpty(makeMasking) && !string.IsNullOrEmpty(modelMasking))
                 {
+                    objResponse = _objModelMaskingCache.GetModelMaskingResponse(string.Format("{0}_{1}", makeMasking, modelMasking));
 
-                    if (!string.IsNullOrEmpty(queryString["pn"]))
+                    if (objResponse != null)
                     {
-                        string _pageNo = queryString["pn"];
-                        if (!string.IsNullOrEmpty(_pageNo))
+                        if (objResponse.StatusCode == 200)
                         {
-                            ushort.TryParse(_pageNo, out curPageNo);
+                            _modelId = objResponse.ModelId;
+                            Status = StatusCodes.ContentFound;
                         }
-                    }
-
-                    if (!string.IsNullOrEmpty(makeMasking))
-                    {
-                        ProcessMakeMaskingName(request, makeMasking);
-                        ProcessModelSeriesMaskingName(request, String.Format("{0}_{1}", makeMasking, modelMasking));
+                        else if (objResponse.StatusCode == 301 || isMakeRedirection)
+                        {
+                            RedirectUrl = HttpContext.Current.Request.RawUrl.Replace(modelMasking, objResponse.MaskingName).Replace(makeMasking, newMakeMasking);
+                            Status = StatusCodes.RedirectPermanent;
+                        }
                     }
                 }
             }
             catch (Exception ex)
             {
-                ErrorClass.LogError(ex, string.Format("Bikewale.Models.QuestionsAnswers.QuestionAnswerModel.ProcessQueryString(),ModelId:{0}", _modelId));
+                ErrorClass.LogError(ex, string.Format("Bikewale.Models.QuestionsAnswers.QuestionAnswerModel.ParseQueryString(),ModelId:{0}", _modelId));
             }
-
         }
 
-        private void ProcessMakeMaskingName(HttpRequest request, string make)
+        private string ProcessMakeMaskingName(string make, out bool isMakeRedirection)
         {
-            try
+            MakeMaskingResponse makeResponse = null;
+            Common.MakeHelper makeHelper = new Common.MakeHelper();
+            isMakeRedirection = false;
+            if (!string.IsNullOrEmpty(make))
             {
-                MakeMaskingResponse makeResponse = null;
-                if (!string.IsNullOrEmpty(make))
-                {
-                    makeResponse = _objMakeCache.GetMakeMaskingResponse(make);
-                }
+                makeResponse = makeHelper.GetMakeByMaskingName(make);
                 if (makeResponse != null)
                 {
                     if (makeResponse.StatusCode == 200)
                     {
-                        MakeId = makeResponse.MakeId;
-                        objMake = _objMakeCache.GetMakeDetails(MakeId);
-                        isMakeLive = objMake.IsNew && !objMake.IsFuturistic;
+                        return makeResponse.MaskingName;
                     }
                     else if (makeResponse.StatusCode == 301)
                     {
-                        Status = StatusCodes.RedirectPermanent;
-                        RedirectUrl = request.RawUrl.Replace(make, makeResponse.MaskingName);
+                        isMakeRedirection = true;
+                        return makeResponse.MaskingName;
                     }
                     else
                     {
-                        Status = StatusCodes.ContentNotFound;
+                        return string.Empty;
                     }
                 }
             }
-            catch (Exception ex)
-            {
-                ErrorClass.LogError(ex, string.Format("Bikewale.Models.QuestionsAnswers.QuestionAnswerModel.ProcessMakeMaskingName(),ModelId:{0}", _modelId));
-            }
-
+            return string.Empty;
         }
 
-        private void ProcessModelSeriesMaskingName(HttpRequest request, string maskingName)
-        {
-            try
-            {
-                SeriesMaskingResponse objResponse = null;
-                if (!string.IsNullOrEmpty(maskingName))
-                {
-                    objResponse = _seriesCache.ProcessMaskingName(maskingName);
-                }
-                if (objResponse != null)
-                {
-                    if (objResponse.StatusCode == 200)
-                    {
-                        if (objResponse.IsSeriesPageCreated)
-                        {
-                            series = objResponse.MaskingName;
-                            objSeries = new BikeSeriesEntityBase
-                            {
-                                SeriesId = objResponse.SeriesId,
-                                BodyStyle = objResponse.BodyStyle,
-                                SeriesName = objResponse.Name,
-                                MaskingName = series,
-                                IsSeriesPageUrl = true
-                            };
-                            this.BodyStyle = objSeries.BodyStyle;
-                            isSeriesAvailable = true;
-                        }
-                        else
-                        {
-                            model = objResponse.MaskingName;
-                            _modelId = objResponse.ModelId;
-                            objModel = _modelMaskingCache.GetById((int)objResponse.ModelId);
-                            isSeriesAvailable = objModel.ModelSeries.IsSeriesPageUrl;
-
-                            IEnumerable<BikeVersionMinSpecs> objVersionsList = _objVersion.GetVersionMinSpecs(_modelId, false);
-                            if (objVersionsList != null && objVersionsList.Any())
-                            {
-                                BodyStyle = objVersionsList.FirstOrDefault().BodyStyle;
-                            }
-                        }
-                    }
-                    else if (objResponse.StatusCode == 301)
-                    {
-                        Status = StatusCodes.RedirectPermanent;
-                        RedirectUrl = request.RawUrl.Replace(objResponse.MaskingName, objResponse.NewMaskingName);
-                    }
-                    else
-                    {
-                        Status = StatusCodes.ContentNotFound;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorClass.LogError(ex, string.Format("Bikewale.Models.QuestionsAnswers.QuestionAnswerModel.ProcessModelSeriesMaskingName(),ModelId:{0}", _modelId));
-            }
-        }
         /// <summary>
         /// Created by: Dhruv Joshi
         /// Dated: 25th June 2018
