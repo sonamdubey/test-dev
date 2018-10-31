@@ -26,10 +26,10 @@
                         <div class="content-box-shadow content-inner-block-20 border-solid-bottom margin-bottom20">
                             <p class="font14 text-light-grey line-height17">
                                 <span class="preview-main-content">
-                                    @FormatDescription.TruncateDescription(Model.SeriesDescription.FullDescription, 550)
+                                    @Html.Raw(FormatDescription.TruncateDescription(Model.SeriesDescription.FullDescription, 550))
                                 </span>
                                 <span class="preview-more-content hide">
-                                    @Model.SeriesDescription.FullDescription
+                                    @Html.Raw(Model.SeriesDescription.FullDescription)
                                 </span>
                                 <a href="javascript:void(0)" class="read-more-bike-preview" rel="nofollow">Read more</a>
                             </p>
@@ -74,7 +74,7 @@
 									@if (Model.SeriesBase != null)
 									{
 										<div class="swiper-heading-left-grid inline-block">
-											<h2 class="font22">@Model.SeriesBase.SeriesName Bikes Comparisons</h2>
+											<h2 class="font22">@string.Format("{0} {1} Comparisons", Model.SeriesBase.SeriesName, Model.SeriesBase.BodyStyle == Bikewale.Entities.GenericBikes.EnumBikeBodyStyles.AllBikes ? "Bikes" : "Scooters")</h2>
 										</div>
 									}
                                     
@@ -205,7 +205,7 @@
 						@if (Model.BikeMake != null && Model.SeriesBase != null)
 						{
 							<div class="carousel-heading-content">
-								<h2 class="font22">@string.Format("{0} {1} Used Bikes", Model.BikeMake.MakeName, Model.SeriesBase.SeriesName)</h2>
+								<h2 class="font22">@string.Format("Used {0} {1} Bikes", Model.BikeMake.MakeName, Model.SeriesBase.SeriesName)</h2>
 							</div>
 						}
                         <div class="used-model-swiper jcarousel-wrapper inner-content-carousel" data-overlay="right">

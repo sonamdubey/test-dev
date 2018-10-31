@@ -96,6 +96,7 @@ namespace Bikewale.Models.BikeSeries
                         objSeriesPage.BikeMake = firstNewBike.BikeMake;
                     }
                     IsScooter = objSeriesPage.SeriesModels.NewBikes.All(m => m.BodyStyle == (ushort)EnumBikeBodyStyles.Scooter);
+                    objSeriesPage.SeriesBase.BodyStyle = IsScooter ? EnumBikeBodyStyles.Scooter : EnumBikeBodyStyles.AllBikes;
                 }
 
                 objSeriesPage.SeriesModels.UpcomingBikes = _bikeSeries.GetUpcomingModels(seriesId);
@@ -268,7 +269,19 @@ namespace Bikewale.Models.BikeSeries
             try
             {
                 WebPage webpage = SchemaHelper.GetWebpageSchema(objSeriesPage.PageMetaTags, objSeriesPage.BreadcrumbList);
-                objSeriesPage.PageMetaTags.SchemaJSON = SchemaHelper.JsonSerialize(webpage);
+                Brand brand = null;
+                if(webpage != null)
+                {
+                    brand = new Brand
+                    {
+                        Name = string.Format("{0} {1}", objSeriesPage.BikeMake.MakeMaskingName, objSeriesPage.SeriesBase.MaskingName),
+                        Description = objSeriesPage.SeriesDescription.FullDescription,
+                        Url = string.Format("{0}/{1}{2}-bikes/{3}/", BWConfiguration.Instance.BwHostUrl, (IsMobile ? "m/" : ""),  objSeriesPage.BikeMake.MakeMaskingName, objSeriesPage.SeriesBase.MaskingName)
+                    };
+
+                    objSeriesPage.PageMetaTags.SchemaJSON = SchemaHelper.JsonSerialize(webpage);
+                    objSeriesPage.PageMetaTags.PageSchemaJSON = SchemaHelper.JsonSerialize(brand);
+                }
             }
             catch (Exception ex)
             {
