@@ -75,6 +75,7 @@
         </style>
 
 <link href="<%= staticUrl  %>/UI/css/bw-common-style.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="/UI/css/bw-doodle.css" />
 <script type="text/javascript" src="<%= staticUrl %>/UI/src/frameworks.js?<%=staticFileVersion %>"></script>
 <script type='text/javascript'>
     var googletag = googletag || {};

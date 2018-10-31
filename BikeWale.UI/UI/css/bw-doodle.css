@@ -1,0 +1,407 @@
+﻿#header.header-landing {	
+	background-color: #333 !important;	
+}
+.doodle__container {
+  position: absolute;
+  top: 0;
+  left: 140px;
+  display: inline-block;
+  width: 65px;
+  height: 50px;
+  overflow: hidden;
+  -webkit-transition: all linear 1s;
+  -moz-transition: all linear 1s;
+  -ms-transition: all linear 1s;
+  -o-transition: all linear 1s;
+  transition: all linear 1s;
+}
+
+.doodle__animation-block {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: inline-block;
+  overflow: hidden;
+}
+
+.doodle__hexagaon {
+  position: absolute;
+  top: 0;
+  left: 10px;
+  display: inline-block;
+  background: url('https://imgd.aeplcdn.com/0x0/cw/static/icons/doodle/diwali/bw-hexagon-bg.svg') no-repeat center/contain;
+  width: 54px;
+  height: 50px;
+	will-change: transform , opacity;
+}
+
+.doodle__left-cloud,
+.doodle__right-cloud {
+  display: inline-block;
+  position: absolute;
+  height: 10px;
+}
+
+.doodle__right-cloud {
+  width: 9px;
+  right: 0;
+  top: 16px;
+  background: url('https://imgd.aeplcdn.com/0x0/cw/static/icons/doodle/diwali/bw-right-cloud.svg') no-repeat center/contain;
+}
+
+.doodle__left-cloud {
+  width: 17px;
+  top: 16px;
+  left: -7px;
+  background: url('https://imgd.aeplcdn.com/0x0/cw/static/icons/doodle/diwali/bw-left-cloud.svg') no-repeat center/contain;
+}
+
+.doodle__flag {
+  position: absolute;
+  top: -1px;
+  left: 10px;
+  display: inline-block;
+  width: 20px;
+  height: 10px;
+  background: url('https://imgd.aeplcdn.com/0x0/cw/static/icons/doodle/diwali/flag.svg') no-repeat center/contain;
+}
+
+.doodle__star {
+  display: inline-block;
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: url('https://imgd.aeplcdn.com/0x0/cw/static/icons/doodle/diwali/star-one.svg') no-repeat center/cover;
+}
+
+.star-one {
+  top: 13px;
+  left: 13px;
+  -webkit-animation: staranimation 3s linear infinite;
+  -moz-animation: staranimation 3s linear infinite;
+  -ms-animation: staranimation 3s linear infinite;
+  -o-animation: staranimation 3s linear infinite;
+  animation: staranimation 3s linear infinite;
+	will-change: transform , opacity;
+}
+
+.star-two {
+	top: 30px;
+	left: 10px;
+	-webkit-animation: staranimation 3s linear 1s infinite;
+	-moz-animation: staranimation 3s linear 1s infinite;
+	-ms-animation: staranimation 3s linear 1s infinite;
+	-o-animation: staranimation 3s linear 1s infinite;
+	animation: staranimation 3s linear 1s infinite;
+	will-change: transform , opacity;
+}
+
+.star-three {
+	top: 40px;
+	left: 22px;
+	-webkit-animation: staranimation 3s linear 2s infinite;
+	-moz-animation: staranimation 3s linear 2s infinite;
+	-ms-animation: staranimation 3s linear 2s infinite;
+	-o-animation: staranimation 3s linear 2s infinite;
+	animation: staranimation 3s linear 2s infinite;
+	will-change: transform , opacity;
+}
+
+.star-four {
+	top: 18px;
+	right: 17px;
+	-webkit-animation: staranimation 3s linear 3s infinite;
+	-moz-animation: staranimation 3s linear 3s infinite;
+	-ms-animation: staranimation 3s linear 3s infinite;
+	-o-animation: staranimation 3s linear 3s infinite;
+	animation: staranimation 3s linear 3s infinite;
+	will-change: transform , opacity;
+}
+
+.star-five {
+	top: 6px;
+	right: 16px;
+	-webkit-animation: staranimation 3s linear 2s infinite;
+	-moz-animation: staranimation 3s linear 2s infinite;
+	-ms-animation: staranimation 3s linear 2s infinite;
+	-o-animation: staranimation 3s linear 2s infinite;
+	animation: staranimation 3s linear 2s infinite;
+	will-change: transform , opacity;
+}
+
+.doodle__firework {
+  display: inline-block;
+  position: absolute;
+  width: 17px;
+  height: 17px;
+  opacity: 0;
+}
+
+.firework-one {
+	top: 12px;
+	left: 7px;
+	background: url('https://imgd.aeplcdn.com/0x0/cw/static/icons/doodle/diwali/cracker-one.svg') no-repeat center/contain;
+	-webkit-animation: crackeranimation 3s linear 3s infinite;
+	-moz-animation: crackeranimation 3s linear 3s infinite;
+	-ms-animation: crackeranimation 3s linear 3s infinite;
+	-o-animation: crackeranimation 3s linear 3s infinite;
+	animation: crackeranimation 3s linear 3s infinite;
+	will-change: transform , opacity;
+}
+
+.firework-two {
+	top: 18px;
+	left: 23px;
+	background: url('https://imgd.aeplcdn.com/0x0/cw/static/icons/doodle/diwali/cracker-three.svg') no-repeat center/contain;
+	-webkit-animation: crackeranimation 3s linear 4s forwards;
+	-moz-animation: crackeranimation 3s linear 4s forwards;
+	-ms-animation: crackeranimation 3s linear 4s forwards;
+	-o-animation: crackeranimation 3s linear 4s forwards;
+	animation: crackeranimation 3s linear 4s forwards;
+	will-change: transform , opacity;
+}
+
+.firework-three {
+	top: 28px;
+	left: 14px;
+	background: url('https://imgd.aeplcdn.com/0x0/cw/static/icons/doodle/diwali/cracker-two.svg') no-repeat center/contain;
+	-webkit-animation: crackeranimation 3s linear 5s infinite;
+	-moz-animation: crackeranimation 3s linear 5s infinite;
+	-ms-animation: crackeranimation 3s linear 5s infinite;
+	-o-animation: crackeranimation 3s linear 5s infinite;
+	animation: crackeranimation 3s linear 5s infinite;
+	will-change: transform , opacity;
+}
+
+.doodle__lantern {
+	display: inline-block;
+	position: absolute;
+	opacity: 0;
+}
+
+.lantern-one {
+	width: 8px;
+	height: 32px;
+	top: -9px;
+	left: 13px;
+	background: url('https://imgd.aeplcdn.com/0x0/cw/static/icons/doodle/diwali/lantern-one.svg') no-repeat center bottom/contain;
+	-webkit-transition: all linear 1s;
+	-moz-transition: all linear 1s;
+	-ms-transition: all linear 1s;
+	-o-transition: all linear 1s;
+	transition: all linear 1s;
+	-webkit-animation: lanternscaleanimation 3s linear 7s forwards, lanternswinganimation 3s linear 10s infinite;
+	-moz-animation: lanternscaleanimation 3s linear 7s forwards, lanternswinganimation 3s linear 10s infinite;
+	-ms-animation: lanternscaleanimation 3s linear 7s forwards, lanternswinganimation 3s linear 10s infinite;
+	-o-animation: lanternscaleanimation 3s linear 7s forwards, lanternswinganimation 3s linear 10s infinite;
+	animation: lanternscaleanimation 3s linear 7s forwards, lanternswinganimation 3s linear 10s infinite;
+	will-change: transform , opacity;
+}
+
+.lantern-two {
+	width: 16px;
+	height: 67px;
+	top: -28px;
+	right: 11px;
+	background: url('https://imgd.aeplcdn.com/0x0/cw/static/icons/doodle/diwali/lantern-two.svg') no-repeat center bottom/contain;
+	-webkit-animation: lanternscaleanimation 3s linear 7s forwards, lanternswinganimation 3s linear 10s infinite;
+	-moz-animation: lanternscaleanimation 3s linear 7s forwards, lanternswinganimation 3s linear 10s infinite;
+	-ms-animation: lanternscaleanimation 3s linear 7s forwards, lanternswinganimation 3s linear 10s infinite;
+	-o-animation: lanternscaleanimation 3s linear 7s forwards, lanternswinganimation 3s linear 10s infinite;
+	animation: lanternscaleanimation 3s linear 7s forwards, lanternswinganimation 3s linear 10s infinite;
+	will-change: transform , opacity;
+}
+
+@-webkit-keyframes staranimation {
+    0%,
+    100% {
+        -webkit-transform: scale(1.5);
+        -moz-transform: scale(1.5);
+        -ms-transform: scale(1.5);
+        -o-transform: scale(1.5);
+        transform: scale(1.5);
+    }
+    50% {
+        -webkit-transform: scale(0);
+        -moz-transform: scale(0);
+        -ms-transform: scale(0);
+        -o-transform: scale(0);
+        transform: scale(0);
+    }
+}
+
+@keyframes staranimation {
+    0%,
+    100% {
+        -webkit-transform: scale(1.5);
+        -moz-transform: scale(1.5);
+        -ms-transform: scale(1.5);
+        -o-transform: scale(1.5);
+        transform: scale(1.5);
+    }
+    50% {
+        -webkit-transform: scale(0);
+        -moz-transform: scale(0);
+        -ms-transform: scale(0);
+        -o-transform: scale(0);
+        transform: scale(0);
+    }
+}
+
+@-webkit-keyframes crackeranimation {
+    0% {
+        -webkit-transform: scale(0);
+        -moz-transform: scale(0);
+        -ms-transform: scale(0);
+        -o-transform: scale(0);
+        transform: scale(0);
+        opacity: 1;
+    }
+    90% {
+        -webkit-transform: scale(1.5);
+        -moz-transform: scale(1.5);
+        -ms-transform: scale(1.5);
+        -o-transform: scale(1.5);
+        transform: scale(1.5);
+				opacity: 1;
+    }
+    100% {
+        opacity: 0;
+				-webkit-transform: scale(1.5);
+        -moz-transform: scale(1.5);
+        -ms-transform: scale(1.5);
+        -o-transform: scale(1.5);
+        transform: scale(1.5);
+    }
+}
+
+@keyframes crackeranimation {
+    0% {
+        -webkit-transform: scale(0);
+        -moz-transform: scale(0);
+        -ms-transform: scale(0);
+        -o-transform: scale(0);
+        transform: scale(0);
+        opacity: 1;
+    }
+    90% {
+        -webkit-transform: scale(1.5);
+        -moz-transform: scale(1.5);
+        -ms-transform: scale(1.5);
+        -o-transform: scale(1.5);
+        transform: scale(1.5);
+				opacity: 1;
+    }
+    100% {
+				-webkit-transform: scale(1.5);
+        -moz-transform: scale(1.5);
+        -ms-transform: scale(1.5);
+        -o-transform: scale(1.5);
+        transform: scale(1.5);
+        opacity: 0;
+    }
+}
+
+@-webkit-keyframes lanternscaleanimation {
+    0% {
+        -webkit-transform: translateY(-100%);
+        -moz-transform: translateY(-100%);
+        -ms-transform: translateY(-100%);
+        -o-transform: translateY(-100%);
+        transform: translateY(-100%);
+        opacity: 1;
+    }
+    70% {
+        -webkit-transform: translateY(0%);
+        -moz-transform: translateY(0%);
+        -ms-transform: translateY(0%);
+        -o-transform: translateY(0%);
+        transform: translateY(0%);
+        opacity: 1;
+    }
+    100% {
+        -webkit-transform: rotate(10deg);
+        -moz-transform: rotate(10deg);
+        -ms-transform: rotate(10deg);
+        -o-transform: rotate(10deg);
+        transform: rotate(10deg);
+        opacity: 1;
+    }
+}
+
+@keyframes lanternscaleanimation {
+    0% {
+        -webkit-transform: translateY(-100%);
+        -moz-transform: translateY(-100%);
+        -ms-transform: translateY(-100%);
+        -o-transform: translateY(-100%);
+        transform: translateY(-100%);
+        opacity: 1;
+    }
+    70% {
+        -webkit-transform: translateY(0%);
+        -moz-transform: translateY(0%);
+        -ms-transform: translateY(0%);
+        -o-transform: translateY(0%);
+        transform: translateY(0%);
+        opacity: 1;
+    }
+    100% {
+        -webkit-transform: rotate(10deg);
+        -moz-transform: rotate(10deg);
+        -ms-transform: rotate(10deg);
+        -o-transform: rotate(10deg);
+        transform: rotate(10deg);
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes lanternswinganimation {
+    0%,
+    100% {
+        -webkit-transform: rotate(10deg);
+        -moz-transform: rotate(10deg);
+        -ms-transform: rotate(10deg);
+        -o-transform: rotate(10deg);
+        transform: rotate(10deg);
+    }
+    50% {
+        -webkit-transform: rotate(-10deg);
+        -moz-transform: rotate(-10deg);
+        -ms-transform: rotate(-10deg);
+        -o-transform: rotate(-10deg);
+        transform: rotate(-10deg);
+    }
+}
+
+@keyframes lanternswinganimation {
+    0%,
+    100% {
+        -webkit-transform: rotate(10deg);
+        -moz-transform: rotate(10deg);
+        -ms-transform: rotate(10deg);
+        -o-transform: rotate(10deg);
+        transform: rotate(10deg);
+        opacity: 1;
+    }
+    50% {
+        -webkit-transform: rotate(-10deg);
+        -moz-transform: rotate(-10deg);
+        -ms-transform: rotate(-10deg);
+        -o-transform: rotate(-10deg);
+        transform: rotate(-10deg);
+    }
+}
+@media screen and (min-width:768px) {
+	.doodle__container {
+		left: 175px;
+	}
+}
+@media only screen and (max-width: 320px) {
+	.doodle__container {
+		display: none;
+	}
+}
+.doodle--disable .doodle__container {
+	display: none;
+}

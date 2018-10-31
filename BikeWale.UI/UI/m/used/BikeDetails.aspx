@@ -29,7 +29,7 @@
         <!-- #include file="\UI\includes\gacode_mobile.aspx" -->
     </script>
 </head>
-<body>
+<body class="doodle--disable">
     <form id="form1" runat="server">
         <!-- #include file="/UI/includes/headBW_Mobile.aspx" -->
         <% if (inquiryDetails != null)

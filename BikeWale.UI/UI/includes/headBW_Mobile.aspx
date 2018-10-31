@@ -4,6 +4,27 @@
     <header>
         <div id="bw-header">
     	    <div class="header-fixed"> <!-- Fixed Header code starts here -->
+				<!-- Doodle start-->
+				<span class="doodle__container bw-ga" data-cat="Doodle" data-act="Doodle_Click" data-lab="Diwali">
+					<span class="doodle__animation-block">
+						<span class="doodle__hexagaon">
+							<span class="doodle__left-cloud"></span>
+							<span class="doodle__right-cloud"></span>
+							<span class="doodle__flag"></span>
+							<span class="doodle__star star-one"></span>
+							<span class="doodle__star star-two"></span>
+							<span class="doodle__star star-three"></span>
+							<span class="doodle__star star-four"></span>
+							<span class="doodle__star star-five"></span>
+							<span class="doodle__firework firework-one"></span>
+							<span class="doodle__firework firework-two"></span>
+							<span class="doodle__firework firework-three"></span>
+							<span class="doodle__lantern lantern-one"></span>
+							<span class="doodle__lantern lantern-two"></span>
+						</span>
+					</span>
+				</span>
+				<!--Doodle end-->
         	    <a href="/m/" id="bwheader-logo" title="BikeWale" class="bw-logo bw-lg-fixed-position">BikeWale</a>
 
                 <div class="leftfloat">

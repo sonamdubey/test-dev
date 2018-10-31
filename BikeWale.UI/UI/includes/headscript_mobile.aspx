@@ -52,6 +52,7 @@
 
 
 <link href="/UI/m/css/bwm-common-style.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
+<link rel='stylesheet' type='text/css' href='/UI/css/bw-doodle.css' />
 
 <%if (EnableOG)
   { %>
