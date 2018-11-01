@@ -11,11 +11,11 @@
 							<span class="doodle__left-cloud"></span>
 							<span class="doodle__right-cloud"></span>
 							<span class="doodle__flag"></span>
-							<span class="doodle__star star-one"></span>
-							<span class="doodle__star star-two"></span>
-							<span class="doodle__star star-three"></span>
-							<span class="doodle__star star-four"></span>
-							<span class="doodle__star star-five"></span>
+							<span class="doodle__star doodle__star-one"></span>
+							<span class="doodle__star doodle__star-two"></span>
+							<span class="doodle__star doodle__star-three"></span>
+							<span class="doodle__star doodle__star-four"></span>
+							<span class="doodle__star doodle__star-five"></span>
 							<span class="doodle__firework firework-one"></span>
 							<span class="doodle__firework firework-two"></span>
 							<span class="doodle__firework firework-three"></span>

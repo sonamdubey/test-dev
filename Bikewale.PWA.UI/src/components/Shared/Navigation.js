@@ -56,11 +56,11 @@ class Navigation extends React.Component {
 							<span className="doodle__left-cloud"></span>
 							<span className="doodle__right-cloud"></span>
 							<span className="doodle__flag"></span>
-							<span className="doodle__star star-one"></span>
-							<span className="doodle__star star-two"></span>
-							<span className="doodle__star star-three"></span>
-							<span className="doodle__star star-four"></span>
-							<span className="doodle__star star-five"></span>
+							<span className="doodle__star doodle__star-one"></span>
+							<span className="doodle__star doodle__star-two"></span>
+							<span className="doodle__star doodle__star-three"></span>
+							<span className="doodle__star doodle__star-four"></span>
+							<span className="doodle__star doodle__star-five"></span>
 							<span className="doodle__firework firework-one"></span>
 							<span className="doodle__firework firework-two"></span>
 							<span className="doodle__firework firework-three"></span>

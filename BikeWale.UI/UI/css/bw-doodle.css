@@ -74,7 +74,7 @@
   background: url('https://imgd.aeplcdn.com/0x0/cw/static/icons/doodle/diwali/star-one.svg') no-repeat center/cover;
 }
 
-.star-one {
+.doodle__star-one {
   top: 13px;
   left: 13px;
   -webkit-animation: staranimation 3s linear infinite;
@@ -85,7 +85,7 @@
 	will-change: transform , opacity;
 }
 
-.star-two {
+.doodle__star-two {
 	top: 30px;
 	left: 10px;
 	-webkit-animation: staranimation 3s linear 1s infinite;
@@ -96,7 +96,7 @@
 	will-change: transform , opacity;
 }
 
-.star-three {
+.doodle__star-three {
 	top: 40px;
 	left: 22px;
 	-webkit-animation: staranimation 3s linear 2s infinite;
@@ -107,7 +107,7 @@
 	will-change: transform , opacity;
 }
 
-.star-four {
+.doodle__star-four {
 	top: 18px;
 	right: 17px;
 	-webkit-animation: staranimation 3s linear 3s infinite;
@@ -118,7 +118,7 @@
 	will-change: transform , opacity;
 }
 
-.star-five {
+.doodle__star-five {
 	top: 6px;
 	right: 16px;
 	-webkit-animation: staranimation 3s linear 2s infinite;
