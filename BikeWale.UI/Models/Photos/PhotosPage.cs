@@ -330,7 +330,7 @@ namespace Bikewale.Models.Photos
             try
             {
                 //set webpage schema for the model page
-                WebPage webpage = SchemaHelper.GetWebpageSchema(objPageMeta, _objData.BreadcrumbList);
+                WebPage webpage = SchemaHelper.GetWebpageSchema(objPageMeta, _objData.SchemaBreadcrumbList);
 
                 if (webpage != null)
                 {
@@ -436,6 +436,7 @@ namespace Bikewale.Models.Photos
             BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, null, "Images"));
 
             _objData.BreadcrumbList.BreadcrumListItem = BreadCrumbs;
+            _objData.SchemaBreadcrumbList.BreadcrumListItem = BreadCrumbs.Take(BreadCrumbs.Count - 1);
 
         }
 

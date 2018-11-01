@@ -563,7 +563,7 @@ namespace Bikewale.Models.BikeModels
             {
 
                 //set webpage schema for the model page
-                WebPage webpage = SchemaHelper.GetWebpageSchema(_objData.PageMetaTags, _objData.BreadcrumbList);
+                WebPage webpage = SchemaHelper.GetWebpageSchema(_objData.PageMetaTags, _objData.SchemaBreadcrumbList);
 
                 if (webpage != null)
                 {
@@ -684,6 +684,7 @@ namespace Bikewale.Models.BikeModels
             BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, null, _objData.Page_H1));
 
             _objData.BreadcrumbList.BreadcrumListItem = BreadCrumbs;
+            _objData.SchemaBreadcrumbList.BreadcrumListItem = BreadCrumbs.Take(BreadCrumbs.Count - 1);
 
         }
 

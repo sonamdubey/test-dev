@@ -134,6 +134,7 @@ namespace Bikewale.Models.Photos
                 BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, string.Format("{0}images/", url), "Images"));
                 BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, null,string.Format("{0} Images", MakeName)));
                 objData.BreadcrumbList.BreadcrumListItem = BreadCrumbs;
+                objData.SchemaBreadcrumbList.BreadcrumListItem = BreadCrumbs.Take(BreadCrumbs.Count - 1);
             }
             catch (Exception ex)
             {
@@ -172,7 +173,7 @@ namespace Bikewale.Models.Photos
         {
             try
             {
-                WebPage webpage = SchemaHelper.GetWebpageSchema(objData.PageMetaTags, objData.BreadcrumbList);
+                WebPage webpage = SchemaHelper.GetWebpageSchema(objData.PageMetaTags, objData.SchemaBreadcrumbList);
 
                 if (webpage != null)
                 {

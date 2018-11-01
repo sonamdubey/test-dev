@@ -565,6 +565,7 @@
     <Compile Include="Schema\Review.cs" />
     <Compile Include="Schema\ReviewRating.cs" />
     <Compile Include="Schema\SchemaBase.cs" />
+    <Compile Include="Schema\SchemaBreadcrumbList.cs" />
     <Compile Include="Schema\WebPage.cs" />
     <Compile Include="Schema\WebSite.cs" />
     <Compile Include="SEO\CustomPageMetas.cs" />

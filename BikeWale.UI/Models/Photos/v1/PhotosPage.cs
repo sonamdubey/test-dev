@@ -232,6 +232,7 @@ namespace Bikewale.Models.Photos.v1
             BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position++, url, "New Bikes"));
             BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, null, "Images"));
             objData.BreadcrumbList.BreadcrumListItem = BreadCrumbs;
+            objData.SchemaBreadcrumbList.BreadcrumListItem = BreadCrumbs.Take(BreadCrumbs.Count - 1);
         }
 
         /// <summary>
@@ -257,7 +258,7 @@ namespace Bikewale.Models.Photos.v1
         }
         private void SetPageJSONLDSchema(PhotosPageVM objData)
         {
-            WebPage webpage = SchemaHelper.GetWebpageSchema(objData.PageMetaTags, objData.BreadcrumbList);
+            WebPage webpage = SchemaHelper.GetWebpageSchema(objData.PageMetaTags, objData.SchemaBreadcrumbList);
 
             if (webpage != null)
             {
