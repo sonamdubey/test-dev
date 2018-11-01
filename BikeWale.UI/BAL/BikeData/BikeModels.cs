@@ -2076,5 +2076,21 @@ namespace Bikewale.BAL.BikeData
 
             return qnaStatus;
         }
+
+        /// <summary>
+        /// Created By : Prabhu Puredla on 1 nov 2018
+        /// Description : To check whether model is panindia model
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
+        public bool CheckPanIndiaModel(uint modelId)
+        {
+            HashSet<uint> modelIds = _modelCacheRepository.GetNearlyPanIndiaModels();
+            if(modelIds != null)
+            {
+                return modelIds.Contains(modelId);
+            }
+            return false;
+        }
     }   // Class
 }   // namespace

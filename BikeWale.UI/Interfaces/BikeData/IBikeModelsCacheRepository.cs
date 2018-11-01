@@ -51,6 +51,8 @@ namespace Bikewale.Interfaces.BikeData
     /// Description :   Added new method GetQuestionAnswerModels to get model ids for which question and answers is active.
     /// Modified By : Sanjay George on 1 Oct 2018
     /// Description : Added method GetUsedBikeInfo 
+    /// Created By : Prabhu Puredla on 1 nov 2018
+    /// Description : Added method GetNearlyPanIndiaModels
     /// <typeparam name="U"></typeparam>
     /// </summary>
     public interface IBikeModelsCacheRepository<U>
@@ -93,5 +95,6 @@ namespace Bikewale.Interfaces.BikeData
         IEnumerable<MostPopularBikesBase> GetAdPromotedBikeWithOutCity(BikeFilters bikeFilters);
         IEnumerable<MakeModelListEntity> GetMakeModelList(EnumBikeType requestType);
         Hashtable GetQuestionAnswerModels();
+        HashSet<uint> GetNearlyPanIndiaModels();
     }
 }

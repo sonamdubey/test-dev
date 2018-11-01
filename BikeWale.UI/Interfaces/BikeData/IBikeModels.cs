@@ -37,7 +37,9 @@ namespace Bikewale.Interfaces.BikeData
     /// Description : overload function GetModelIdsForImages to get all models 
     ///               Added method GetModelsWithBodyStyleLookupArray for getting Dictionary mapping bodyStyle with modelIds
     /// Modified By : Rajan Chauhan on 17 Apr 2018
-    /// Description : Added method GetBestBikesByCategory and  GetBestBikesByModelInMake         
+    /// Description : Added method GetBestBikesByCategory and  GetBestBikesByModelInMake  
+    /// Modified By : Prabhu Puredla on 1 nov 2018
+    /// Description : Added method CheckPanIndiaModel
     /// <typeparam name="T">Generic type (need to specify type while implementing this interface)</typeparam>
     /// <typeparam name="U">Generic type (need to specify type while implementing this interface)</typeparam>
     public interface IBikeModels<T, U> : IRepository<T, U>
@@ -89,5 +91,6 @@ namespace Bikewale.Interfaces.BikeData
         IEnumerable<BestBikeEntityBase> GetBestBikesByCategory(EnumBikeBodyStyles bodyStyle, uint? cityId = null);
         IEnumerable<BestBikeEntityBase> GetBestBikesByModelInMake(uint modelId, uint? cityId = null);
         bool CheckQnAStatus(uint modelid);
+        bool CheckPanIndiaModel(uint modelId);
     }
 }

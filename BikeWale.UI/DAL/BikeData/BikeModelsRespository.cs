@@ -3478,5 +3478,40 @@ namespace Bikewale.DAL.BikeData
             }
             return ht;
         }
+
+        /// <summary>
+        /// Created By : Prabhu Puredla on 1 nov 2018
+        /// Description : To return all panindia models
+        /// </summary>
+        /// <returns></returns>
+        public HashSet<uint> GetNearlyPanIndiaModels()
+        {
+            HashSet<uint> modelIds = null;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("getnearlypanindiamodels"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null)
+                        {
+                            modelIds = new HashSet<uint>();
+                            while (dr.Read())
+                            {
+                                modelIds.Add(SqlReaderConvertor.ToUInt32(dr["modelid"]));
+                            }
+                            dr.Close();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "Bikewale.DAL.BikeData.BikeModelsRepository.GetNearlyPanIndiaModels");
+            }
+            return modelIds;
+        }
     }   // class
 }   // namespace

@@ -1650,5 +1650,25 @@ namespace Bikewale.Cache.BikeData
             }
             return ht;
         }
+
+        /// <summary>
+        /// Created By : Prabhu Puredla on 1 nov 2018
+        /// Description : To return all panindia models
+        /// </summary>
+        /// <returns></returns>
+        public HashSet<uint> GetNearlyPanIndiaModels()
+        {
+            HashSet<uint> modelIds = null;
+            try
+            {
+                string key = "BW_NearlyPanIndiaModels";
+                modelIds = _cache.GetFromCache(key, new TimeSpan(30, 0, 0, 0), () => _modelRepository.GetNearlyPanIndiaModels());
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "BikeModelsCacheRepository.GetNearlyPanIndiaModels");
+            }
+            return modelIds;
+        }
     }
 }

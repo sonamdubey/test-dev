@@ -325,6 +325,8 @@ namespace Bikewale.Models.BikeModels
         /// Desc        : Show offers on lead popup page for 1 to 90
         /// Modified By : Prabhu Puredla on 24 oct 2018
         /// Description : Added logic for IsTopSellingPitch
+        /// Modified By : Prabhu Puredla on 1 nov 2018
+        /// Description : Added logic for panindiamodels
         /// </summary>
         private void SetTestFlags()
         {
@@ -333,7 +335,7 @@ namespace Bikewale.Models.BikeModels
             {
                 _objData.IsEditCityOption = cookieValue >= 41 && cookieValue <= 50;
                 _objData.IsAnimatedCTA = cookieValue > 10;
-                _objData.IsNearlyAllIndiaCampaign = cookieValue <= 80 && _objData.ModelId == 78;  // Test for Classic 350
+                _objData.IsNearlyAllIndiaCampaign = cookieValue > 10 && cookieValue <= 20 && _objModel.CheckPanIndiaModel(_objData.ModelId);
                 _objData.IsNonAnimatedCTA = cookieValue > 5 && cookieValue <= 10;
                 _objData.UpfrontLoanCampaign = cookieValue > 20 && cookieValue <= 30 && (_objData.EMICalculator != null && (_objData.EMICalculator.ESEMICampaign != null || _objData.EMICalculator.IsPremiumDealer));
                 _objData.IsOffersShownOnLeadPopup = cookieValue <= 90;
