@@ -92,7 +92,7 @@
                                     <p class="slideIn-input-label city-box-default text-left" data-bind="visible: (selectedCity() && selectedCity().cityName != ''),css : (selectedCity() && selectedCity().cityName != '') ? 'done' : '' ">City<sup>*</sup></p>
                                     <p id="city-select-p" class="selected-option-box city-box-default text-truncate" data-bind="text: (selectedCity() && selectedCity().cityName != '') ? selectedCity().cityName : 'Select City'"></p>
                                     <span class="boundary"></span>
-                                    <span class="error-text hide" data-item="city"></span>
+                                    <span class="error-text hide"></span>
                                     <span class="bwmsprite grey-right-icon"></span>
                                 </div>
                             </div>
@@ -106,7 +106,7 @@
                                 </div>
                                 <span class="bwmsprite grey-right-icon"></span>
                                 <span class="boundary"></span>
-                                <span class="error-text" data-item="bike"></span>
+                                <span class="error-text"></span>
                                 <span class="position-abt progress-bar"></span>
                             </div>
                         </div>
@@ -123,30 +123,30 @@
                         </div>
                         <!-- /ko -->
                         <div class="input-box form-control-box margin-bottom5">
-                            <input name="name" type="text" id="getFullName" data-bind="textInput: fullName" maxlength="50" autocomplete="name">
+                            <input type="text" id="getFullName" data-bind="textInput: fullName" maxlength="50">
                             <label for="getFullName">Name<sup>*</sup></label>
                             <span class="boundary"></span>
-                            <span class="error-text hide" data-item="name"></span>
+                            <span class="error-text hide"></span>
                         </div>
                         <div class="input-box input-number-box form-control-box margin-bottom15">
-                            <input type="tel" name="phone" maxlength="10" id="getMobile" data-bind="textInput: mobileNo" autocomplete="tel">
+                            <input type="tel" maxlength="10" id="getMobile" data-bind="textInput: mobileNo">
                             <label for="getMobile">Mobile number<sup>*</sup></label>
                             <span class="input-number-prefix">+91</span>
                             <span class="boundary"></span>
-                            <span class="error-text hide" data-item="mobileNumber"></span>
+                            <span class="error-text hide"></span>
                         </div>
                         <div class="input-box form-control-box margin-bottom15" data-bind="visible : emailRequired() && (mfgCampaignId() > 0)">
-                            <input name="email" type="email" id="getEmailID" data-bind="textInput: emailId" maxlength="50" autocomplete="email">
+                            <input type="email" id="getEmailID" data-bind="textInput: emailId" maxlength="50">
                             <label for="getEmailID" data-bind="visible: emailOption() == 'Required'">Email<sup>*</sup></label>
                             <label for="getEmailID" data-bind="visible : emailOption()== 'Optional'">Email (optional)</label>
                             <span class="boundary"></span>
-                            <span class="error-text hide" data-item="email"></span>
+                            <span class="error-text hide"></span>
                         </div>
                         <div id="getPinCode-input-box" class="input-box form-control-box margin-bottom15" data-bind="visible: pinCodeRequired()">
                             <input type="text" id="getPinCode" autocomplete="off" maxlength="6">
                             <label for="getPinCode">Pincode<sup>*</sup></label>
                             <span class="boundary"></span>
-                            <span class="error-text hide" data-item="pincode"></span>
+                            <span class="error-text hide"></span>
                             <ul id="errPinCodeSearch" class="ui-autocomplete ui-front ui-menu ui-widget hide">
                                 <li class="ui-menu-item" tabindex="-1">
                                     <span class="text-bold">Oops! No suggestions found</span><br>
@@ -159,7 +159,7 @@
                                 <span id="dealerDropdownLabel" class="font16 text-light-grey">Select dealer</span>
                                 <select id="ddlMfgDealers" data-title="Select dealer" class="dropdown-select"></select>
                                 <span class="boundary"></span>
-                                <span class="error-text hide" data-item="dealer"></span>
+                                <span class="error-text hide"></span>
                             </div>
                         </div>
                         <div class="clear"></div>
@@ -1574,31 +1574,6 @@
                 $('#otherDealer').show();
                 appendState('leadCapture');
                 windowScreen.lock();
-            });
-            
-            detailsSubmitBtn.on("click", function(){
-                // track validation errors if exist
-                if(!dleadvm.validateUserInfo())
-                {
-                    let category = "BWLeadPopUp";
-                    let action = "FormSubmitClick";
-                    let label = "", errorText = "";
-                    let errorList = $(".error-text").filter(function(index){return $(this).text() != ""});
-
-                    if(errorList.length > 0){
-                        let errors = {};
-
-                        for(let i = 0, len = errorList.length; i < len; i++){
-                            errors[errorList[i].dataset.item] = errorList[i].innerText;
-                        }
-
-                        label = "validationerrors=" + JSON.stringify(errors); 
-                        label += typeof(dleadvm.versionId()) !== "undefined" ? "|versionid=" + dleadvm.versionId() : "";  
-                        label += typeof(dleadvm.dealerId()) !== "undefined" ? "|dealerid=" + dleadvm.dealerId() : "";
-
-                        cwTracking.trackCustomData(category, action, label);   
-                    }
-                }
             });
 
             function closeLeadPopup() {
