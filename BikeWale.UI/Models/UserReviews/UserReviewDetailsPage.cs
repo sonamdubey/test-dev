@@ -12,6 +12,7 @@ using Bikewale.Interfaces.UserReviews;
 using Bikewale.Interfaces.UserReviews.Search;
 using Bikewale.Utility;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
@@ -245,6 +246,7 @@ namespace Bikewale.Models.UserReviews
             BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, null, objPage.Page_H1));
 
             objPage.BreadcrumbList.BreadcrumListItem = BreadCrumbs;
+            objPage.SchemaBreadcrumbList.BreadcrumListItem = BreadCrumbs.Take(BreadCrumbs.Count - 1);
         }
 
         /// <summary>
@@ -254,7 +256,7 @@ namespace Bikewale.Models.UserReviews
         private void SetPageJSONLDSchema(UserReviewDetailsVM objPageMeta)
         {
             //set webpage schema for the model page
-            WebPage webpage = SchemaHelper.GetWebpageSchema(objPageMeta.PageMetaTags, objPageMeta.BreadcrumbList);
+            WebPage webpage = SchemaHelper.GetWebpageSchema(objPageMeta.PageMetaTags, objPageMeta.SchemaBreadcrumbList);
 
             if (webpage != null)
             {

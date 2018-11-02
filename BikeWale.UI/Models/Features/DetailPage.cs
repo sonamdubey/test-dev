@@ -218,7 +218,7 @@ namespace Bikewale.Models.Features
             objSchema.Url = objData.PageMetaTags.CanonicalUrl;
             objData.PageMetaTags.PageSchemaJSON = Newtonsoft.Json.JsonConvert.SerializeObject(objSchema);
 
-            WebPage webpage = SchemaHelper.GetWebpageSchema(objData.PageMetaTags, objData.BreadcrumbList);
+            WebPage webpage = SchemaHelper.GetWebpageSchema(objData.PageMetaTags, objData.SchemaBreadcrumbList);
 
             if (webpage != null)
             {
@@ -252,6 +252,7 @@ namespace Bikewale.Models.Features
                     BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, null, objData.objFeature.Title));
                 }
                 objData.BreadcrumbList.BreadcrumListItem = BreadCrumbs;
+                objData.SchemaBreadcrumbList.BreadcrumListItem = BreadCrumbs.Take(BreadCrumbs.Count - 1);
             }
             catch (Exception ex)
             {
