@@ -333,5 +333,28 @@ namespace Bikewale.Cache.PriceQuote
             }
             return null;
         }
+        /// <summary>
+        /// Created by  : Pratibha Verma on 10 October 2018
+        /// Description : returns ES offers by campaignId
+        /// </summary>
+        /// <param name="campaignid"></param>
+        /// <returns></returns>
+        public IEnumerable<string> GetManufacturerOffers(uint campaignid)
+        {
+            IEnumerable<string> offers = null;
+            try
+            {
+                if (campaignid > 0)
+                {
+                    string key = string.Format("BW_ManufacturerOffers_{0}", campaignid);
+                    offers = _cache.GetFromCache<IEnumerable<string>>(key, new TimeSpan(30, 0, 0, 0), () => _obPriceQuote.GetManufacturerOffers(campaignid));
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("Bikewale.Cache.PriceQuote.DealerPriceQuoteCache.GetManufacturerOffers(campaignId = {0})", campaignid));
+            }
+            return offers;
+        }
     }
 }

@@ -1049,5 +1049,44 @@ namespace Bikewale.DAL.PriceQuote
         {
             throw new NotImplementedException();
         }
+
+        /// <summary>
+        /// Craeted by  : Pratibha Verma on 10 October 2018
+        /// Description : returns ES offers by campaignId
+        /// </summary>
+        /// <param name="campaignId"></param>
+        /// <returns></returns>
+        public IEnumerable<string> GetManufacturerOffers(uint campaignId)
+        {
+            IList<string> offers = null;
+            try
+            {
+                if (campaignId > 0)
+                {
+                    using (DbCommand cmd = DbFactory.GetDBCommand("getmanufactureroffers"))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_campaignid", DbType.Int32, campaignId));
+
+                        using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                        {
+                            offers = new List<string>();
+                            if (dr != null)
+                            {
+                                while (dr.Read())
+                                {
+                                    offers.Add(Convert.ToString(dr["OfferText"]));
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("Bikewale.DAL.AutoBiz.DealerPriceQuoteRepository.GetManufacturerOffers(campaignId = {0})", campaignId));
+            }
+            return offers;
+        }
     }   // Class
 }   // namespace

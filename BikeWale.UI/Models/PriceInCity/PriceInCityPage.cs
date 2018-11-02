@@ -442,7 +442,8 @@ namespace Bikewale.Models
                                         Location = String.Format("{0} {1}", area, city),
                                     BikeName = objVM.BikeName,
                                     PlatformId = Convert.ToUInt16(Platform),
-                                    PageId = Convert.ToUInt16(PQSource)
+                                    PageId = Convert.ToUInt16(PQSource),
+                                    OfferList = objVM.LeadCampaign != null ? objVM.LeadCampaign.OffersList : null
                                     };
                                 }
                             }
@@ -479,7 +480,11 @@ namespace Bikewale.Models
 
 
                     BindAdSlotTags(objVM);
-
+                    SetTestFlags(objVM);
+                    if (objVM.IsOffersShownOnLeadPopup && objVM.LeadCapture != null)
+                    {
+                        objVM.LeadCapture.ShowOffersOnLeadPage = objVM.LeadCapture.OfferCount > 0;
+                    }
                     if (objVM.BodyStyle.Equals(EnumBikeBodyStyles.Scooter))
                     {
                         BindMoreAboutScootersWidget(objVM);
@@ -1404,6 +1409,7 @@ namespace Bikewale.Models
                         campaigns = pQOutput.ManufacturerCampaign;
                         if (campaigns.LeadCampaign != null)
                         {
+                            IEnumerable<string> ManufactureroffersList = _objPQCache.GetManufacturerOffers(campaigns.LeadCampaign.CampaignId);
                             objData.LeadCampaign = new Bikewale.Entities.manufacturecampaign.v2.ManufactureCampaignLeadEntity()
                             {
                                 Area = locationCookie.Area,
@@ -1441,7 +1447,8 @@ namespace Bikewale.Models
                                 BikeName = objData.BikeName,
                                 LoanAmount = Convert.ToUInt32((objData.FirstVersion.OnRoadPrice) * 0.8),
                                 SendLeadSMSCustomer = campaigns.LeadCampaign.SendLeadSMSCustomer,
-                                FloatingBtnLeadSourceId = LeadSourceEnum.PriceInCity_Floating_Mobile
+                                FloatingBtnLeadSourceId = LeadSourceEnum.PriceInCity_Floating_Mobile,
+                                OffersList = ManufactureroffersList
                             };
 
 
@@ -1527,6 +1534,19 @@ namespace Bikewale.Models
 
 
 
+        }
+
+        /// <summary>
+        /// Created by  : Pratibha Verma on 10 October 2018
+        /// Description : Set Test experiment flags
+        /// </summary>
+        private void SetTestFlags(PriceInCityPageVM objData)
+        {
+            ushort cookieValue;
+            if (HttpContext.Current.Request.Cookies["_bwtest"] != null && ushort.TryParse(HttpContext.Current.Request.Cookies["_bwtest"].Value, out cookieValue))
+            {
+                objData.IsOffersShownOnLeadPopup = cookieValue <= 90;
+            }
         }
     }
 }

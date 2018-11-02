@@ -41,6 +41,7 @@ namespace Bikewale.Models
         private readonly IPriceQuote _objPQ = null;
         private readonly IManufacturerCampaign _objManufacturerCampaign = null;
         private readonly IAdSlot _adSlot = null;
+        private readonly IPriceQuoteCache _objPQCache;
         public string RedirectUrl { get; set; }
         public uint OtherTopCount { get; set; }
         public StatusCodes Status { get; set; }
@@ -59,7 +60,7 @@ namespace Bikewale.Models
         /// Modified by : Ashutosh Sharma on 31 Oct 2017
         /// Description : Added IAdSlot.
         /// </summary>
-        public DealerPriceQuotePage(IDealerPriceQuoteDetail objDealerPQDetails, IDealerPriceQuote objDealerPQ, IBikeVersions<BikeVersionEntity, uint> objVersion, IAreaCacheRepository objAreaCache, ICityCacheRepository objCityCache, IPriceQuote objPQ, IDealerCacheRepository objDealerCache, IManufacturerCampaign objManufacturerCampaign, IAdSlot adSlot)
+        public DealerPriceQuotePage(IDealerPriceQuoteDetail objDealerPQDetails, IDealerPriceQuote objDealerPQ, IBikeVersions<BikeVersionEntity, uint> objVersion, IAreaCacheRepository objAreaCache, ICityCacheRepository objCityCache, IPriceQuote objPQ, IDealerCacheRepository objDealerCache, IManufacturerCampaign objManufacturerCampaign, IAdSlot adSlot, IPriceQuoteCache objPQCache)
         {
             _objDealerPQDetails = objDealerPQDetails;
             _objDealerPQ = objDealerPQ;
@@ -70,6 +71,7 @@ namespace Bikewale.Models
             _objDealerCache = objDealerCache;
             _objManufacturerCampaign = objManufacturerCampaign;
             _adSlot = adSlot;
+            _objPQCache = objPQCache;
             ProcessQueryString();
         }
 
@@ -119,7 +121,8 @@ namespace Bikewale.Models
                             PlatformId = Convert.ToUInt16(Platform),
                             MlaLeadSourceId = (Platform == PQSources.Desktop) ? (UInt16)LeadSourceEnum.DPQ_MLA_Desktop : (UInt16)LeadSourceEnum.DPQ_MLA_Mobile,
                             PageId = Convert.ToUInt16(PQSource),
-                            OfferList = objData != null && objData.DetailedDealer != null &&  objData.DetailedDealer.PrimaryDealer != null && objData.DetailedDealer.PrimaryDealer.HasOffers &&  objData.DetailedDealer.PrimaryDealer.HasOffers ? objData.DetailedDealer.PrimaryDealer.OfferList : null
+                            OfferList = (objData.IsPrimaryDealerAvailable &&  objData.DetailedDealer.PrimaryDealer.HasOffers) 
+                                        ? objData.DetailedDealer.PrimaryDealer.OfferList.Select(x => x.OfferText) : (objData.LeadCampaign != null ? objData.LeadCampaign.OffersList : null)
                         };
                     }
                     if (objData.SimilarBikesVM != null)
@@ -569,6 +572,7 @@ namespace Bikewale.Models
                     {
                         if (campaigns.LeadCampaign != null)
                         {
+                            IEnumerable<string> ManufactureroffersList = _objPQCache.GetManufacturerOffers(campaigns.LeadCampaign.CampaignId);
                             objData.LeadCampaign = new Bikewale.Entities.manufacturecampaign.v2.ManufactureCampaignLeadEntity()
                             {
                                 Area = GlobalCityArea.GetGlobalCityArea().Area,
@@ -605,7 +609,8 @@ namespace Bikewale.Models
                                 BikeName = objData.BikeName,
                                 LoanAmount = Convert.ToUInt32((objData.TotalPrice) * 0.8),
                                 SendLeadSMSCustomer = campaigns.LeadCampaign.SendLeadSMSCustomer,
-                                FloatingBtnLeadSourceId = LeadSourceEnum.DPQ_Floating_Mobile
+                                FloatingBtnLeadSourceId = LeadSourceEnum.DPQ_Floating_Mobile,
+                                OffersList = ManufactureroffersList
                             };
                             objData.IsManufacturerLeadAdShown = true;
                         }

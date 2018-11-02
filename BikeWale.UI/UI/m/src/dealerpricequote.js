@@ -289,6 +289,11 @@ docReady(function () {
 
     });
 
+    var dealerOffersRibbon = $('#dealerOffersRibbon');
+    if (typeof dealerOffersRibbon !== 'undefined' && dealerOffersRibbon.length) {
+        Ribbon.registerEvents();
+    }
+
     // version dropdown
     function handleVersionMenuClick(dropdown) {
         var offsetTop = $(dropdown.container).offset().top - $('#bw-header').height();

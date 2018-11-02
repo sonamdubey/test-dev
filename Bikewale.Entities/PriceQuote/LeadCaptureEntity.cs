@@ -24,8 +24,10 @@ namespace Bikewale.Entities.PriceQuote
         public ushort MlaLeadSourceId { get; set; }
         public IEnumerable<SecondaryDealerBase> MLADealers { set; get; }
         public ushort PageId { get; set; }
-        public IEnumerable<OfferEntityBase> OfferList { get; set; }
+        public IEnumerable<OfferEntityBase> DSOfferList { get; set; }
         public uint OfferCount { get { return OfferList != null ? (uint)OfferList.Count() : 0; } }
         public bool ShowOffersOnLeadPage { get; set; }
+        public IEnumerable<string> ESOfferList { get; set;}
+        public IEnumerable<string> OfferList { get; set; }
     }
 }

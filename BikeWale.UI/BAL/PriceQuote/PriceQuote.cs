@@ -460,6 +460,11 @@ namespace Bikewale.BAL.PriceQuote
             }
             return versionPriceList;
         }
+
+        public IEnumerable<string> GetManufacturerOffers(uint campaignId)
+        {
+            return objPQ.GetManufacturerOffers(campaignId);
+        }
     }   // class
 
 

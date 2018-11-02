@@ -485,6 +485,11 @@ docReady(function () {
       triggerNonInteractiveGA('Price_in_City_Page', isNewCoverfoxShown ? 'PriceBreakUpAdShown' : 'BankbazaarLink_Shown', bikeName + '_' + cityName);
     }
 
+    var dealerOffersRibbon = $('#dealerOffersRibbon');
+    if (typeof dealerOffersRibbon !== 'undefined' && dealerOffersRibbon.length) {
+        Ribbon.registerEvents();
+    }
+
     $(".leadcapturebtn").click(function (e) {
         ele = $(this);
         try {

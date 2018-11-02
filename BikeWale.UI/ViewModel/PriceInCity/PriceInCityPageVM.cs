@@ -25,6 +25,8 @@ namespace Bikewale.Models
     /// Summary : added MoreAboutScootersWidgetVM
     /// Modified by : Snehal Dange on 24th Jan 2018
     /// Summary: added IsElectricBike flag
+    /// Modified by : Pratibha Verma on 11 October 2018
+    /// Description : Added IsOffersShownOnLeadPopup flag for showing offers on lead popup
     /// </summary>
     public class PriceInCityPageVM : ModelBase
     {
@@ -101,5 +103,6 @@ namespace Bikewale.Models
         public ModelPhotoGalleryEntity PhotoGallery { get; set; }
         public MoreAboutScootersWidgetVM objMoreAboutScooter { get; set; }
         public bool IsElectricBike { get; set; }
+        public bool IsOffersShownOnLeadPopup { get; set; }
     }
 }

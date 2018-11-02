@@ -28,5 +28,6 @@ namespace Bikewale.Interfaces.PriceQuote
         string GetManufacturerCampaignMobileRenderedTemplateV2(string key, Entities.manufacturecampaign.v2.ManufactureCampaignLeadEntity leadCampaign);
         PriceInTopCitiesWidgetVM GetModelPriceInNearestCities(uint modelId, uint cityId);
         IEnumerable<BikeQuotationEntity> GetVersionPricesByModelId(uint modelId, uint cityId);
+        IEnumerable<string> GetManufacturerOffers(uint campaignid);
     }
 }

@@ -986,7 +986,8 @@ namespace Bikewale.Models.BikeModels
                                 MlaLeadSourceId = (Source == PQSources.Desktop) ? (UInt16)LeadSourceEnum.ModelPage_MLA_Desktop : (Source == PQSources.Amp ?
                                                    (UInt16)LeadSourceEnum.ModelPage_MLA_AMP : (UInt16)LeadSourceEnum.ModelPage_MLA_Mobile),
                                 PageId = Convert.ToUInt16(PQSource),
-                                OfferList = _objData.IsPrimaryDealer && _objData.DetailedDealer.PrimaryDealer != null && _objData.DetailedDealer.PrimaryDealer.HasOffers ?  _objData.DetailedDealer.PrimaryDealer.OfferList : null
+                                OfferList = _objData.IsPrimaryDealer && _objData.DetailedDealer.PrimaryDealer.HasOffers ?  _objData.DetailedDealer.PrimaryDealer.OfferList.Select(x => x.OfferText) 
+                                            : (_objData.LeadCampaign != null ? _objData.LeadCampaign.OffersList : null)
                             };
 
 
@@ -2061,6 +2062,7 @@ namespace Bikewale.Models.BikeModels
                         campaigns = _pqOnRoad.PriceQuote.ManufacturerCampaign;
                         if (campaigns.LeadCampaign != null)
                         {
+                            IEnumerable<string> ManufactureroffersList = _objPQCache.GetManufacturerOffers(campaigns.LeadCampaign.CampaignId);
                             _objData.LeadCampaign = new Bikewale.Entities.manufacturecampaign.v2.ManufactureCampaignLeadEntity()
                             {
                                 Area = GlobalCityArea.GetGlobalCityArea().Area,
@@ -2094,7 +2096,8 @@ namespace Bikewale.Models.BikeModels
                                 BikeName = _objData.BikeName,
                                 LoanAmount = Convert.ToUInt32((_objData.BikePrice) * 0.8),
                                 SendLeadSMSCustomer = campaigns.LeadCampaign.SendLeadSMSCustomer,
-                                FloatingBtnLeadSourceId = LeadSourceEnum.ModelPage_Floating_Mobile
+                                FloatingBtnLeadSourceId = LeadSourceEnum.ModelPage_Floating_Mobile,
+                                OffersList = ManufactureroffersList
                             };
 
                             _objData.IsManufacturerTopLeadAdShown = !_objData.ShowOnRoadButton;

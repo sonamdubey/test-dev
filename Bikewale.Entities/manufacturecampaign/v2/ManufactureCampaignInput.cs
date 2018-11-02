@@ -1,6 +1,8 @@
 ﻿
 using Bikewale.ManufacturerCampaign.Entities;
 using Bikewale.Entities.BikeBooking;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Bikewale.Entities.manufacturecampaign.v2
 {
@@ -11,6 +13,8 @@ namespace Bikewale.Entities.manufacturecampaign.v2
     /// Description :   Added FloatingBtnLeadSourceId to pass correct lead source to partial view
     /// Modified By : Prabhu Puredla on 24 oct 2018
     /// Description : Added  IsTopSellingPitch property
+    /// Modified by : Pratibha Verma on 10 October 2018
+    /// Description : Added OffersList property
     /// </summary>
     public class ManufactureCampaignLeadEntity : ManufacturerCampaignLeadConfiguration
     {
@@ -32,5 +36,7 @@ namespace Bikewale.Entities.manufacturecampaign.v2
         public LeadSourceEnum FloatingBtnLeadSourceId {get; set;}
         public bool IsTopSellingPitch { get; set; }
         public string TopSellingPitchText { set; get; }
+        public IEnumerable<string> OffersList { get; set; }
+        public uint OfferCount { get { return OffersList != null ? (uint)OffersList.Count() : 0; } }
     }
 }

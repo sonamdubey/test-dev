@@ -74,6 +74,8 @@ namespace Bikewale.Entities.PriceQuote
         public bool IsStandardDealer { get { return (this.DealerDetails != null && DealerPackageTypes.Standard == this.DealerDetails.DealerPackageType); } }
         [DataMember]
         public bool IsDeluxDealer { get { return (this.DealerDetails != null && DealerPackageTypes.Deluxe == this.DealerDetails.DealerPackageType); } }
+        [DataMember]
+        public uint OfferCount { get { return OfferList != null ? (uint)OfferList.Count() : 0; } }
 
     }
 }

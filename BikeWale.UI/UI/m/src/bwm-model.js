@@ -908,7 +908,6 @@ docReady(function () {
         }
 		}
 		
-		// offers ribbon
 		var dealerOffersRibbon = $('#dealerOffersRibbon');
 		if (typeof dealerOffersRibbon !== 'undefined' && dealerOffersRibbon.length) {
 			Ribbon.registerEvents();
