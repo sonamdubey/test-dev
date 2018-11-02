@@ -8,6 +8,7 @@
     Model.AdTags.AdId = "1517581118761";
     Layout = "~/UI/Views/Shared/_Layout_Mobile.cshtml";
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/UI/m/sass/scooters/listing.css' inline />";
+    Model.Page_BTF_CSS_Path = "/UI/sass/partials/explore-bikes-carousel.css";
     Model.Page_JS_Path = "/UI/m/src/scooters-by-make.js";
 }
 
@@ -66,6 +67,18 @@
         }
 
     </section>
+@if (Model.SeriesLinkages != null && Model.SeriesLinkages.MakeSeriesList != null && Model.SeriesLinkages.MakeSeriesList.Any())
+{
+        <section class="explore-bikes-carousel--default">
+
+            <div class="container content-box-shadow padding-top15 card-bottom-margin">
+                <div class="carousel-heading-content">
+                    <h2 class="page__heading-h2">Explore @Model.Make.MakeName Bike Series</h2>
+                </div>
+                @Html.Partial("~/UI/Views/BikeSeries/_MakeSeriesSlug_Mobile.cshtml", Model.SeriesLinkages)
+            </div>
+        </section>
+    }
     @if (Model.AdTags.Ad_300x250BTF)
     {
         <div class="margin-bottom20 text-center">

@@ -4,7 +4,7 @@
 @if (Model != null && Model.MakeSeriesList != null && Model.MakeSeriesList.Any())
 {   
     <div class="jcarousel-wrapper inner-content-carousel carousel__explore-bikes">
-        <div class="jcarousel">
+        <div class="jcarousel" data-swipe="@Model.CardSlideCount">
             <ul>
                 @foreach (BikeSeriesEntity makeSeries in Model.MakeSeriesList)
                 {

@@ -12,6 +12,7 @@ using Bikewale.Interfaces.Compare;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Interfaces.ServiceCenter;
 using Bikewale.Interfaces.Videos;
+using Bikewale.Models.BikeSeries;
 using Bikewale.Models.CompareBikes;
 using Bikewale.Utility;
 using System;
@@ -38,7 +39,7 @@ namespace Bikewale.Models
         private readonly ICMSCacheContent _articles = null;
         private readonly IVideos _videos = null;
         private ScootersMakePageVM objData = null;
-
+        private readonly IBikeSeries _bikeSeries;
 
         public StatusCodes Status { get; set; }
         private MakeMaskingResponse objResponse;
@@ -60,7 +61,8 @@ namespace Bikewale.Models
             IDealerCacheRepository objDealerCache,
             IServiceCenter objServices,
             ICMSCacheContent articles,
-            IVideos videos
+            IVideos videos,
+            IBikeSeries bikeSeries
             )
         {
             _makeMaskingName = makeMaskingName;
@@ -72,6 +74,7 @@ namespace Bikewale.Models
             _objService = objServices;
             _articles = articles;
             _videos = videos;
+            _bikeSeries = bikeSeries;
             ProcessQuery(makeMaskingName);
         }
 
@@ -127,6 +130,7 @@ namespace Bikewale.Models
                 objData.ScooterNewsUrl = UrlFormatter.FormatScootersNewsUrl(objData.News.MakeMasking, objData.News.ModelMasking);
 
                 BindPageMetaTags();
+                BindSeriesLinkages(objData, CityId);
                 objData.Page = Entities.Pages.GAPages.Make_Scooters;
 
             }
@@ -354,6 +358,31 @@ namespace Bikewale.Models
             RecentVideos objVideos = new RecentVideos(1, (ushort)EditorialTopCount, _makeId, _makeName, _makeMaskingName, _videos);
             objVideos.IsScooter = true;
             objData.Videos = objVideos.GetData();
+        }
+
+        /// <summary>
+        /// Created By :Snehal Dange on 31 Oct 2018
+        /// Description: To bind the series linkage widget on the scooter page.
+        /// </summary>
+        /// <param name="objData"></param>
+        /// <param name="cityId"></param>
+        private void BindSeriesLinkages(ScootersMakePageVM objData, uint cityId)
+        {
+            try
+            {
+                MakeSeriesSlugVM objSeries = new MakeSeriesSlugVM
+                {
+                    MakeName = _makeName,
+                    MakeMaskingName = _makeMaskingName
+                };
+                objSeries.MakeSeriesList = _bikeSeries.GetMakeSeries(_makeId, cityId);
+                objSeries.CardSlideCount = 3;
+                objData.SeriesLinkages = objSeries;
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, String.Format("ScootersMakePageModel.BindSeriesLinkages_MakeId_{0}_CityId_{1}", _makeId, cityId));
+            }
         }
     }
 }

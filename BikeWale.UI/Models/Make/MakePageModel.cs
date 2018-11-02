@@ -1,5 +1,4 @@
-﻿using Bikewale.BAL.ApiGateway.Entities.BikeData;
-using Bikewale.Common;
+﻿using Bikewale.Common;
 using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.BikeData.NewLaunched;
@@ -25,7 +24,6 @@ using Bikewale.Models.BikeSeries;
 using Bikewale.Models.CompareBikes;
 using Bikewale.Models.Images;
 using Bikewale.Models.Make;
-using Bikewale.Models.BikeSeries;
 using Bikewale.Models.UserReviews;
 using Bikewale.Utility;
 using System;
@@ -206,7 +204,7 @@ namespace Bikewale.Models
                     objData.SelectedSortingId = 1;
                     objData.SelectedSortingText = "Popular";
                 }
-                
+
                 BindUpcomingBikes(objData);
                 BindPageMetaTags(objData, objData.Bikes, makeBase);
                 BindCompareBikes(objData, CompareSource, cityId);
@@ -978,8 +976,8 @@ namespace Bikewale.Models
                 objInputFilters = new CustomInputFilters();
                 if (objData.Bikes != null)
                 {
-                    float minDisplacement = Single.MaxValue, tempMinDisplacement,displacementValue;
-                    ushort minMileage = UInt16.MaxValue, tempMinMileage,mileageValue;
+                    float minDisplacement = Single.MaxValue, tempMinDisplacement, displacementValue;
+                    ushort minMileage = UInt16.MaxValue, tempMinMileage, mileageValue;
                     long minExShowroomPrice = Int64.MaxValue, tempExShowroomPrice;
                     IEnumerable<SpecsItem> minSpecList;
                     foreach (var bike in objData.Bikes)
@@ -1071,7 +1069,7 @@ namespace Bikewale.Models
                     adTagsObj.AdId = _adId_Mobile_Old;
                     adTagsObj.Ad_320x50 = true;
                     adTagsObj.Ad300x250_Bottom = true;
-                    
+
                     IDictionary<string, AdSlotModel> ads = new Dictionary<string, AdSlotModel>();
 
                     NameValueCollection adInfo = new NameValueCollection();
@@ -1086,7 +1084,7 @@ namespace Bikewale.Models
                     {
                         ads.Add(String.Format("{0}-16", _adId_Mobile_Old), GoogleAdsHelper.SetAdSlotProperties(adInfo, ViewSlotSize.ViewSlotSizes[AdSlotSize._300x250], 16, 300, AdSlotSize._300x250, "Bottom"));
                     }
-                    
+
                     objData.AdSlots = ads;
                 }
                 else
@@ -1185,6 +1183,8 @@ namespace Bikewale.Models
         /// <summary>
         /// Created By : Deepak Israni on 16 April 2018
         /// Description: To bind the series linkage widget on the page.
+        /// Modified by : Snehal Dange on 2nd Nov 2018
+        /// Desc :  Modified the code to cache the series obj
         /// </summary>
         /// <param name="objData"></param>
         /// <param name="cityId"></param>
@@ -1192,12 +1192,14 @@ namespace Bikewale.Models
         {
             try
             {
-                objData.SeriesLinkages = new MakeSeriesSlugVM
+                MakeSeriesSlugVM objSeries = new MakeSeriesSlugVM
                 {
                     MakeName = objData.MakeName,
                     MakeMaskingName = objData.MakeMaskingName
                 };
-                objData.SeriesLinkages.MakeSeriesList = _bikeSeries.GetMakeSeries(_makeId, cityId);
+                objSeries.MakeSeriesList = _bikeSeries.GetMakeSeries(_makeId, cityId);
+                objSeries.CardSlideCount = 2;
+                objData.SeriesLinkages = objSeries;
             }
             catch (Exception ex)
             {
