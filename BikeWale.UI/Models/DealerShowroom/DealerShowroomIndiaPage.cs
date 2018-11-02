@@ -146,7 +146,7 @@ namespace Bikewale.Models
         private void SetPageJSONLDSchema(DealerShowroomIndiaPageVM objPageMeta)
         {
             //set webpage schema for the model page
-            WebPage webpage = SchemaHelper.GetWebpageSchema(objPageMeta.PageMetaTags, objPageMeta.BreadcrumbList);
+            WebPage webpage = SchemaHelper.GetWebpageSchema(objPageMeta.PageMetaTags, objPageMeta.SchemaBreadcrumbList);
 
             if (webpage != null)
             {
@@ -188,6 +188,7 @@ namespace Bikewale.Models
 
 
                     objPage.BreadcrumbList.BreadcrumListItem = BreadCrumbs;
+                    objPage.SchemaBreadcrumbList.BreadcrumListItem = BreadCrumbs.Take(BreadCrumbs.Count - 1);
                 }
 
             }

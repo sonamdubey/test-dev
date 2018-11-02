@@ -8,6 +8,7 @@ using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Utility;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 
 namespace Bikewale.Models
@@ -196,7 +197,7 @@ namespace Bikewale.Models
         private void SetPageJSONLDSchema(NewLaunchedIndexVM objPageMeta)
         {
             //set webpage schema 
-            WebPage webpage = SchemaHelper.GetWebpageSchema(objPageMeta.PageMetaTags, objPageMeta.BreadcrumbList);
+            WebPage webpage = SchemaHelper.GetWebpageSchema(objPageMeta.PageMetaTags, objPageMeta.SchemaBreadcrumbList);
 
             if (webpage != null)
             {
@@ -229,6 +230,7 @@ namespace Bikewale.Models
                 BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, null, "New Bike Launches"));
 
                 objData.BreadcrumbList.BreadcrumListItem = BreadCrumbs;
+                objData.SchemaBreadcrumbList.BreadcrumListItem = BreadCrumbs.Take(BreadCrumbs.Count - 1);
             }
             catch (Exception ex)
             {

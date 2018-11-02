@@ -219,7 +219,7 @@ namespace Bikewale.Models.DealerShowroom
         private void SetPageJSONLDSchema(DealerShowroomCityPageVM objPageMeta)
         {
             //set webpage schema for the model page
-            WebPage webpage = SchemaHelper.GetWebpageSchema(objPageMeta.PageMetaTags, objPageMeta.BreadcrumbList);
+            WebPage webpage = SchemaHelper.GetWebpageSchema(objPageMeta.PageMetaTags, objPageMeta.SchemaBreadcrumbList);
 
             if (webpage != null)
             {
@@ -263,6 +263,7 @@ namespace Bikewale.Models.DealerShowroom
                     BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, null, objPage.Page_H1));
 
                     objPage.BreadcrumbList.BreadcrumListItem = BreadCrumbs;
+                    objPage.SchemaBreadcrumbList.BreadcrumListItem = BreadCrumbs.Take(BreadCrumbs.Count - 1);
                 }
 
             }

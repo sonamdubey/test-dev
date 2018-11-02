@@ -255,7 +255,7 @@ namespace Bikewale.Models
         private void SetPageJSONLDSchema()
         {
             //set webpage schema for the model page
-            WebPage webpage = SchemaHelper.GetWebpageSchema(objData.PageMetaTags, objData.BreadcrumbList);
+            WebPage webpage = SchemaHelper.GetWebpageSchema(objData.PageMetaTags, objData.SchemaBreadcrumbList);
 
             if (webpage != null)
             {
@@ -284,6 +284,7 @@ namespace Bikewale.Models
             BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, null, objData.Page_H1));
 
             objData.BreadcrumbList.BreadcrumListItem = BreadCrumbs;
+            objData.SchemaBreadcrumbList.BreadcrumListItem = BreadCrumbs.Take(BreadCrumbs.Count - 1);
 
         }
 
