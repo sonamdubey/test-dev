@@ -3028,7 +3028,6 @@
     <Content Include="UI\css\bookinglanding.css" />
     <Content Include="UI\css\brand.css" />
     <Content Include="UI\css\booking.css" />
-    <Content Include="UI\css\bw-doodle.css" />
     <Content Include="UI\css\bw-common-atf.css" />
     <Content Include="UI\css\bw-common-btf.css" />
     <Content Include="UI\css\bw-common-style.css" />
@@ -4974,7 +4973,7 @@
     <Content Include="UI\sass\mixins\_feedback-message.sass" />
     <Content Include="UI\Views\m\Shared\_LocationPopup.cshtml" />
     <Content Include="UI\sass\partials\response-popup.sass" />
-    <Content Include="UI\sass\m\dealer-pricequote.sass" />
+    <Content Include="UI\sass\partials\lead-form\offers.sass" />
     <None Include="UI\Views\QuestionAndAnswers\_QuestionAnswerSection.cshtml" />
     <Content Include="UI\Views\QuestionAndAnswers\_unansweredquestion_mobile.cshtml" />
     <Content Include="UI\Views\Shared\_AnimatedCTA.cshtml" />
