@@ -867,7 +867,8 @@ namespace Bikewale.Models
 											   string.Format("{0}/m/{1}-bikes/{2}/price-in-{3}/", BWConfiguration.Instance.BwHostUrl, firstVersion.MakeMaskingName, modelMaskingName, cityMaskingName), priceInCityAMPVM.LeadCampaign.SendLeadSMSCustomer,
 											   priceInCityAMPVM.LeadCampaign.Organization)), (int)PQSources.Amp);
 					priceInCityAMPVM.LeadCampaign.PageUrl = url;
-                    str = MvcHelper.GetRenderedContent(String.Format("LeadCampaign_Mobile_AMP_{0}", priceInCityAMPVM.LeadCampaign.CampaignId), priceInCityAMPVM.LeadCampaign.LeadsHtmlMobile, priceInCityAMPVM.LeadCampaign);
+                    string hash = Bikewale.PWA.Utils.PwaCmsHelper.GetSha256Hash(priceInCityAMPVM.LeadCampaign.LeadsHtmlMobile);
+                    str = MvcHelper.Render(hash, priceInCityAMPVM.LeadCampaign, priceInCityAMPVM.LeadCampaign.LeadsHtmlMobile);
 
                     // Code to remove name attribute form span tags, remove style css tag and replace javascript:void(0) in href with url (not supported in AMP)
 
