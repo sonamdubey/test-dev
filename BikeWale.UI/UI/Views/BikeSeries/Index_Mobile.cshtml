@@ -54,7 +54,7 @@
 									@if (Model.SeriesBase != null)
 									{
 										<div class="swiper-heading-left-grid inline-block">
-											<h2>@string.Format("{0} {1} Comparisons", Model.SeriesBase.SeriesName, Model.SeriesBase.BodyStyle == Bikewale.Entities.GenericBikes.EnumBikeBodyStyles.AllBikes ? "bikes" : "scooters")</h2>
+											<h2>@string.Format("{0} {1} Comparisons", Model.SeriesBase.SeriesName, Model.SeriesBase.BodyStyle == Bikewale.Entities.GenericBikes.EnumBikeBodyStyles.Scooter ? "Scooters" : "Bikes")</h2>
 										</div>
 									}
 									<div class="swiper-heading-right-grid inline-block text-right">
@@ -163,7 +163,7 @@
 						@if (Model.BikeMake != null && Model.SeriesBase != null)
 						{
 							<div class="swiper-heading-left-grid inline-block">
-								<h2>@string.Format("Used {0} {1} Bikes", Model.BikeMake.MakeName, Model.SeriesBase.SeriesName)</h2>
+								<h2>@string.Format("Used {0} {1} {2}", Model.BikeMake.MakeName, Model.SeriesBase.SeriesName, Model.SeriesBase.BodyStyle == Bikewale.Entities.GenericBikes.EnumBikeBodyStyles.Scooter ? "Scooters" : "Bikes")</h2>
 							</div>
 						}
 

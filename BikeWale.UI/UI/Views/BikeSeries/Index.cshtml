@@ -74,7 +74,7 @@
 									@if (Model.SeriesBase != null)
 									{
 										<div class="swiper-heading-left-grid inline-block">
-											<h2 class="font22">@string.Format("{0} {1} Comparisons", Model.SeriesBase.SeriesName, Model.SeriesBase.BodyStyle == Bikewale.Entities.GenericBikes.EnumBikeBodyStyles.AllBikes ? "Bikes" : "Scooters")</h2>
+											<h2 class="font22">@string.Format("{0} {1} Comparisons", Model.SeriesBase.SeriesName, Model.SeriesBase.BodyStyle == Bikewale.Entities.GenericBikes.EnumBikeBodyStyles.Scooter ? "Scooters" : "Bikes")</h2>
 										</div>
 									}
                                     
@@ -205,7 +205,7 @@
 						@if (Model.BikeMake != null && Model.SeriesBase != null)
 						{
 							<div class="carousel-heading-content">
-								<h2 class="font22">@string.Format("Used {0} {1} Bikes", Model.BikeMake.MakeName, Model.SeriesBase.SeriesName)</h2>
+								<h2 class="font22">@string.Format("Used {0} {1} {2}", Model.BikeMake.MakeName, Model.SeriesBase.SeriesName, Model.SeriesBase.BodyStyle == Bikewale.Entities.GenericBikes.EnumBikeBodyStyles.Scooter ? "Scooters" : "Bikes")</h2>
 							</div>
 						}
                         <div class="used-model-swiper jcarousel-wrapper inner-content-carousel" data-overlay="right">
