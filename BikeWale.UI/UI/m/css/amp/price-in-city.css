@@ -2210,3 +2210,7 @@ div::-webkit-scrollbar {
     margin-right: 60px;
     width: 290px;
 }
+
+.color-floralWhite {
+    background:#fffaf0;
+}
