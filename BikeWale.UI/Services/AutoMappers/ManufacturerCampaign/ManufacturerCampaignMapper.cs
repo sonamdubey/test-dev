@@ -35,7 +35,7 @@ namespace Bikewale.Service.AutoMappers.ManufacturerCampaign
         internal static CampaignBaseDto Convert(
             ushort platformId, ulong pqId, uint modelId, uint versionId, uint cityId,
             Entities.PriceQuote.v2.DetailedDealerQuotationEntity dealers, ManufacturerCampaignEntity manufacturerCampaign,
-            uint price, string makeName, string modelName)
+            uint price, string makeName, string modelName, IEnumerable<string> manufacturerOfferList)
         {
             CampaignBaseDto campaignResponse = null;
             if (dealers != null)
@@ -78,7 +78,7 @@ namespace Bikewale.Service.AutoMappers.ManufacturerCampaign
 
             if (manufacturerCampaign != null && manufacturerCampaign.LeadCampaign != null && (dealers == null || dealers.PrimaryDealer == null || dealers.PrimaryDealer.DealerDetails == null))
             {
-                Entities.manufacturecampaign.ManufactureCampaignLeadEntity LeadCampaign = new Entities.manufacturecampaign.ManufactureCampaignLeadEntity
+                Entities.manufacturecampaign.v2.ManufactureCampaignLeadEntity LeadCampaign = new Entities.manufacturecampaign.v2.ManufactureCampaignLeadEntity
                 {
                     Area = GlobalCityArea.GetGlobalCityArea().Area,
                     CampaignId = manufacturerCampaign.LeadCampaign.CampaignId,
@@ -100,12 +100,12 @@ namespace Bikewale.Service.AutoMappers.ManufacturerCampaign
                     PopupHeading = manufacturerCampaign.LeadCampaign.PopupHeading,
                     PopupSuccessMessage = manufacturerCampaign.LeadCampaign.PopupSuccessMessage,
                     ShowOnExshowroom = manufacturerCampaign.LeadCampaign.ShowOnExshowroom,
-                    PQId = (uint)pqId,
                     VersionId = versionId,
                     PlatformId = 3,
                     BikeName = string.Format("{0} {1}", makeName, modelName),
                     IsAmp = true,
-                    SendLeadSMSCustomer = manufacturerCampaign.LeadCampaign.SendLeadSMSCustomer
+                    SendLeadSMSCustomer = manufacturerCampaign.LeadCampaign.SendLeadSMSCustomer,
+                    OffersList = manufacturerOfferList
                 };
 
                 if (platformId == 3)
@@ -129,8 +129,8 @@ namespace Bikewale.Service.AutoMappers.ManufacturerCampaign
 
                     string strDES = string.Format("modelid={0}&cityid={1}&areaid={2}&bikename={3}&location={4}&city={5}&area={6}&ismanufacturer={7}&dealerid={8}&dealername={9}&dealerarea={10}&versionid={11}&leadsourceid={12}&pqsourceid={13}&mfgcampid={14}&pqid={15}&pageurl={16}&clientip={17}&dealerheading={18}&dealermessage={19}&dealerdescription={20}&pincoderequired={21}&emailrequired={22}&dealersrequired={23}&sendLeadSMSCustomer={24}&organizationName={25}", 
                         modelId, cityId, string.Empty, string.Format(LeadCampaign.BikeName), string.Empty, string.Empty, string.Empty, true, LeadCampaign.DealerId, 
-                        String.Format(LeadCampaign.LeadsPropertyTextMobile, LeadCampaign.Organization), LeadCampaign.Area, versionId, LeadCampaign.LeadSourceId, 
-                        LeadCampaign.PqSourceId, LeadCampaign.CampaignId, LeadCampaign.PQId, string.Empty, string.Empty, LeadCampaign.PopupHeading, 
+                        String.Format(LeadCampaign.LeadsPropertyTextMobile, LeadCampaign.Organization), LeadCampaign.Area, versionId, LeadCampaign.LeadSourceId,
+                        LeadCampaign.PqSourceId, LeadCampaign.CampaignId, pqId, string.Empty, string.Empty, LeadCampaign.PopupHeading, 
                         String.Format(LeadCampaign.PopupSuccessMessage, LeadCampaign.Organization), LeadCampaign.PopupDescription, LeadCampaign.PincodeRequired,
                         LeadCampaign.EmailRequired, LeadCampaign.DealerRequired, LeadCampaign.SendLeadSMSCustomer, LeadCampaign.Organization);
                     LeadCampaign.PageUrl = string.Format("{0}/m/popup/leadcapture/?q={1}&amp;platformid=3", BWConfiguration.Instance.BwHostUrl, Bikewale.Utility.TripleDES.EncryptTripleDES(strDES));
@@ -140,7 +140,7 @@ namespace Bikewale.Service.AutoMappers.ManufacturerCampaign
                 campaignResponse.DetailsCampaign.EsCamapign = new DTO.Campaign.PreRenderCampaignBase();
                 campaignResponse.CampaignLeadSource = new DTO.Campaign.ESCampaignBase();
                 // Since LeadEntity is versioned entity is different 
-                string hash = Bikewale.PWA.Utils.PwaCmsHelper.GetSha256Hash(String.Format("{0}{1}", LeadCampaign.LeadsHtmlMobile, "_V2"));
+                string hash = Bikewale.PWA.Utils.PwaCmsHelper.GetSha256Hash(LeadCampaign.LeadsHtmlMobile);
                 string template = MvcHelper.Render(hash, LeadCampaign, LeadCampaign.LeadsHtmlMobile);
                 //Check if it contains javascript:void(0), replace it with 
                 if (!string.IsNullOrEmpty(template) && template.Contains("href=\"javascript:void(0)\""))

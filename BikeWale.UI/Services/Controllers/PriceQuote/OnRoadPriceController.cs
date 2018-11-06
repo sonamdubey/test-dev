@@ -16,6 +16,7 @@ using Bikewale.Service.AutoMappers.PriceQuote;
 using Bikewale.Service.Utilities;
 using Microsoft.Practices.Unity;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Description;
@@ -513,6 +514,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
 
                     if (objPQ != null && objPQ.PQId > 0)
                     {
+                        IEnumerable<string> ManufactureroffersList = null;
                         bpqOutput = _objPriceQuote.GetPriceQuoteById(objPQ.PQId);
                         //add bike make and model
                         objPQ.MakeName = bpqOutput.MakeName;
@@ -604,9 +606,10 @@ namespace Bikewale.Service.Controllers.PriceQuote
                                 {
                                     manufacturerCampaign.LeadCampaign.LeadsButtonTextMobile = "Get Best Offers";
                                 }
+                                ManufactureroffersList = _objPriceQuoteCache.GetManufacturerOffers(manufacturerCampaign.LeadCampaign.CampaignId);
                             }
                         }
-                        onRoadPrice.Campaign = ManufacturerCampaignMapper.Convert((ushort)sourceType, objPQ.PQId, modelId, objPQ.VersionId, cityId, objDealerQuotation, manufacturerCampaign, versionPrice, objPQ.MakeName, objPQ.ModelName);
+                        onRoadPrice.Campaign = ManufacturerCampaignMapper.Convert((ushort)sourceType, objPQ.PQId, modelId, objPQ.VersionId, cityId, objDealerQuotation, manufacturerCampaign, versionPrice, objPQ.MakeName, objPQ.ModelName, ManufactureroffersList);
                     }
                     return Ok(onRoadPrice);
                 }
@@ -835,7 +838,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
         public IHttpActionResult GetDealerVersionPricesV2(uint cityId, string deviceId, uint dealerId, uint modelId, uint? areaId = null, uint? versionId = null)
         {
             DTO.PriceQuote.v3.DPQuotationOutput dpQuotationOutput = null;
-            Bikewale.ManufacturerCampaign.Entities.ManufacturerCampaignEntity manufactureCampaign = null;
+            Bikewale.ManufacturerCampaign.Entities.ManufacturerCampaignEntity manufacturerCampaign = null;
             try
             {
                 bool isPQRegistered = Request.Headers.Contains("isRegistered") ? Convert.ToBoolean(Request.Headers.GetValues("isRegistered").FirstOrDefault()) : false;
@@ -850,8 +853,9 @@ namespace Bikewale.Service.Controllers.PriceQuote
                     if (dpQuotationOutput != null)
                         dpQuotationOutput.PriceQuoteId = pqId;
 
-                    manufactureCampaign = _objManufacturerCampaign.GetCampaigns(modelId, cityId, ManufacturerCampaign.Entities.ManufacturerCampaignServingPages.Mobile_Model_Page);
-                    dpQuotationOutput.Campaign = ManufacturerCampaignMapper.Convert(platformId, pqId, modelId, (uint)bwPQ.Varients.First().objVersion.VersionId, cityId, objDealerQuotation, manufactureCampaign, bwPQ.Varients.FirstOrDefault().OnRoadPrice, bwPQ.Varients.FirstOrDefault().objMake.MakeName, bwPQ.Varients.FirstOrDefault().objModel.ModelName);
+                    manufacturerCampaign = _objManufacturerCampaign.GetCampaigns(modelId, cityId, ManufacturerCampaign.Entities.ManufacturerCampaignServingPages.Mobile_Model_Page);
+                    IEnumerable<string> ManufactureroffersList = _objPriceQuoteCache.GetManufacturerOffers(manufacturerCampaign.LeadCampaign.CampaignId);
+                    dpQuotationOutput.Campaign = ManufacturerCampaignMapper.Convert(platformId, pqId, modelId, (uint)bwPQ.Varients.First().objVersion.VersionId, cityId, objDealerQuotation, manufacturerCampaign, bwPQ.Varients.FirstOrDefault().OnRoadPrice, bwPQ.Varients.FirstOrDefault().objMake.MakeName, bwPQ.Varients.FirstOrDefault().objModel.ModelName, ManufactureroffersList);
                     return Ok(dpQuotationOutput);
                 }
                 else

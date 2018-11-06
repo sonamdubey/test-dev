@@ -20,7 +20,9 @@ namespace Bikewale.Service.Controllers.PriceQuote.Version
     /// Created by: Sangram Nandkhile on 20 Apr 2016
     /// Summary: API to return PriceQuote for model by city and area
     /// Modified by :   Sumit Kate on 18 May 2016
-    /// Description :   Extend from CompressionApiController instead of ApiController 
+    /// Description :   Extend from CompressionApiController instead of ApiController
+    /// Modified by :   Rajan Chauhan on 06 Nov 2018
+    /// Description :   Added dependency of IPriceQuoteCache
     /// </summary>
     public class PQVersionListByCityAreaController : CompressionApiController//ApiController
     {
@@ -29,18 +31,20 @@ namespace Bikewale.Service.Controllers.PriceQuote.Version
         private readonly IBikeModelsRepository<BikeModelEntity, int> _objModel = null;
         private readonly IPriceQuote _objPQ = null;
         private readonly IPQByCityArea _objPQByCityArea = null;
+        private readonly IPriceQuoteCache _objPriceQuoteCache;
         /// <summary>
         /// To Fetch PQ versionList, PQID and dealerId
         /// </summary>
         /// <param name="objVersion"></param>
         /// <param name="objModel"></param>
-        public PQVersionListByCityAreaController(IBikeVersions<BikeVersionEntity, uint> objVersion, IBikeModelsRepository<BikeModelEntity, int> objModel, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionCache, IPriceQuote objPq, IPQByCityArea objPQByCityArea)
+        public PQVersionListByCityAreaController(IBikeVersions<BikeVersionEntity, uint> objVersion, IBikeModelsRepository<BikeModelEntity, int> objModel, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionCache, IPriceQuote objPq, IPQByCityArea objPQByCityArea, IPriceQuoteCache objPriceQuoteCache)
         {
             _objVersion = objVersion;
             _objModel = objModel;
             _objVersionCache = objVersionCache;
             _objPQ = objPq;
             _objPQByCityArea = objPQByCityArea;
+            _objPriceQuoteCache = objPriceQuoteCache;
         }
 
         /// <summary>
@@ -193,8 +197,8 @@ namespace Bikewale.Service.Controllers.PriceQuote.Version
                             modelName = bikeVersionprice.ModelName;
                         }
                     }
-
-                    objPQDTO.Campaign = Bikewale.Service.AutoMappers.ManufacturerCampaign.ManufacturerCampaignMapper.Convert(platform, pqEntity.PqId, modelId, (uint)pqEntity.VersionList.First().VersionId, cityId.Value, pqEntity.DealerEntity, pqEntity.ManufacturerCampaign, versionPrice, makeName, modelName);
+                    IEnumerable<string> ManufactureroffersList = _objPriceQuoteCache.GetManufacturerOffers(pqEntity.ManufacturerCampaign.LeadCampaign.CampaignId);
+                    objPQDTO.Campaign = Bikewale.Service.AutoMappers.ManufacturerCampaign.ManufacturerCampaignMapper.Convert(platform, pqEntity.PqId, modelId, (uint)pqEntity.VersionList.First().VersionId, cityId.Value, pqEntity.DealerEntity, pqEntity.ManufacturerCampaign, versionPrice, makeName, modelName, ManufactureroffersList);
                     return Ok(objPQDTO);
                 }
                 else
