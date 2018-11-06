@@ -149,7 +149,7 @@ namespace Bikewale.BAL.PriceQuote
                                 }
                             }
                             dealerQuotation.MLADealers = _dealer.FilterMultioutletDealers(MultioutletDealers);
-                            if(dealerQuotation.PrimaryDealer.DealerDetails.MasterDealerId > 0)
+                            if(dealerQuotation.MLADealers != null && dealerQuotation.PrimaryDealer.DealerDetails.MasterDealerId > 0)
                             {
                                 dealerQuotation.MLADealers.RemoveAll(x => x.MasterDealerId == dealerQuotation.PrimaryDealer.DealerDetails.MasterDealerId);
                             }
