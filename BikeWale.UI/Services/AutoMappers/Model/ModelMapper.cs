@@ -760,10 +760,12 @@ namespace Bikewale.Service.AutoMappers.Model
         /// Modified by : Ashutosh Sharma on 14 May 2018.
         /// Description : Calculating hashCode to cache campaign template before setting PageUrl of LeadCampaign.
         /// Modifier    : Kartik Rathod on 16 may 2018, Pageurl for capitalfirst dealer added dealername and sendLeadSMSCustomer
+        /// Modified by : Rajan Chauhan on 06 Nov 2018
+        /// Description : Handled OfferList rendering on template
         /// </summary>
         /// <param name="objModelPage"></param>
         /// <returns></returns>
-        internal static DTO.Model.v5.ModelPage ConvertV5(IPriceQuoteCache objPqCache, BikeModelPageEntity objModelPage, PQByCityAreaEntity pqEntity, Entities.PriceQuote.v2.DetailedDealerQuotationEntity dealers, ushort platformId = 0)
+        internal static DTO.Model.v5.ModelPage ConvertV5(IPriceQuoteCache objPqCache, BikeModelPageEntity objModelPage, PQByCityAreaEntity pqEntity, Entities.PriceQuote.v2.DetailedDealerQuotationEntity dealers, ushort platformId = 0, IEnumerable<string> manufactuerOfferList)
         {
 
             bool isApp = platformId == 3;
@@ -929,7 +931,7 @@ namespace Bikewale.Service.AutoMappers.Model
                     pqEntity.ManufacturerCampaign.LeadCampaign != null)
                 {
                     var leadCampaign = pqEntity.ManufacturerCampaign.LeadCampaign;
-                    ManufactureCampaignLeadEntity LeadCampaign = new ManufactureCampaignLeadEntity()
+                    Entities.manufacturecampaign.v2.ManufactureCampaignLeadEntity LeadCampaign = new Entities.manufacturecampaign.v2.ManufactureCampaignLeadEntity()
                     {
                         CampaignId = leadCampaign.CampaignId,
                         DealerId = leadCampaign.DealerId,
@@ -956,30 +958,30 @@ namespace Bikewale.Service.AutoMappers.Model
                         IsAmp = !isApp,
                         BikeName = string.Format("{0} {1}", modelDetails.MakeBase.MakeName, modelDetails.ModelName),
                         LoanAmount = (objModelPage.ModelVersionMinSpecs != null ? (uint)System.Convert.ToUInt32((pqEntity.VersionList.FirstOrDefault(m => m.VersionId == objModelPage.ModelVersionMinSpecs.VersionId).Price) * 0.8) : 0),
-                        SendLeadSMSCustomer = leadCampaign.SendLeadSMSCustomer
+                        SendLeadSMSCustomer = leadCampaign.SendLeadSMSCustomer,
+                        OffersList = manufactuerOfferList
                     };
                     #region Render the partial view
                     //This hash code is being used as memcache key. Do not assign pqid and LoadAmount in "LeadCampaign" before generating hash code.
                     var hashCode = Bikewale.PWA.Utils.PwaCmsHelper.GetSha256Hash(JsonConvert.SerializeObject(LeadCampaign));
                     LeadCampaign.LoanAmount = (uint)System.Convert.ToUInt32((pqEntity.VersionList.FirstOrDefault(m => m.VersionId == objModelPage.ModelVersionMinSpecs.VersionId).Price) * 0.8);
-                    LeadCampaign.PQId = (uint)pqEntity.PqId;
                     if (LeadCampaign.DealerId == BWConfiguration.Instance.CapitalFirstDealerId)
                     {
-                        LeadCampaign.PageUrl = String.Format("{8}/m/finance/capitalfirst/?campaingid={0}&amp;dealerid={1}&amp;pqid={2}&amp;leadsourceid={3}&amp;versionid={4}&amp;url=&amp;platformid={5}&amp;bike={6}&amp;loanamount={7}&amp;dealerName={9}&amp;sendLeadSMSCustomer={10}&amp;cityid={11}", 
-                                               LeadCampaign.CampaignId, LeadCampaign.DealerId, LeadCampaign.PQId, LeadCampaign.LeadSourceId, pqEntity.VersionList.FirstOrDefault().VersionId, platformId, LeadCampaign.BikeName, LeadCampaign.LoanAmount, BWConfiguration.Instance.BwHostUrl,LeadCampaign.Organization,LeadCampaign.SendLeadSMSCustomer,
+                        LeadCampaign.PageUrl = String.Format("{8}/m/finance/capitalfirst/?campaingid={0}&amp;dealerid={1}&amp;pqid={2}&amp;leadsourceid={3}&amp;versionid={4}&amp;url=&amp;platformid={5}&amp;bike={6}&amp;loanamount={7}&amp;dealerName={9}&amp;sendLeadSMSCustomer={10}&amp;cityid={11}",
+                                               LeadCampaign.CampaignId, LeadCampaign.DealerId, pqEntity.PqId, LeadCampaign.LeadSourceId, pqEntity.VersionList.FirstOrDefault().VersionId, platformId, LeadCampaign.BikeName, LeadCampaign.LoanAmount, BWConfiguration.Instance.BwHostUrl, LeadCampaign.Organization, LeadCampaign.SendLeadSMSCustomer,
                                                (pqEntity.City!=null?pqEntity.City.CityId.ToString() : string.Empty));
                     }
                     else if (LeadCampaign.DealerId == BWConfiguration.Instance.BajajAutoFinanceDealerId)
                     {
-                        LeadCampaign.PageUrl = string.Format("{0}/m/finance/bajaj/?dealerid={1}&amp;campaignid={2}&amp;pqid={3}&amp;leadsourceid={4}&amp;versionid={5}&amp;url=&amp;platformid={6}&amp;bike={7}&amp;dealerName={8}&amp;sendLeadSMSCustomer={9}&amp;cityid={10}", BWConfiguration.Instance.BwHostUrl, LeadCampaign.DealerId, LeadCampaign.CampaignId, LeadCampaign.PQId, LeadCampaign.LeadSourceId, pqEntity.VersionList.FirstOrDefault().VersionId, platformId, LeadCampaign.BikeName, LeadCampaign.Organization, LeadCampaign.SendLeadSMSCustomer, (pqEntity.City != null ? pqEntity.City.CityId.ToString() : string.Empty));
+                        LeadCampaign.PageUrl = string.Format("{0}/m/finance/bajaj/?dealerid={1}&amp;campaignid={2}&amp;pqid={3}&amp;leadsourceid={4}&amp;versionid={5}&amp;url=&amp;platformid={6}&amp;bike={7}&amp;dealerName={8}&amp;sendLeadSMSCustomer={9}&amp;cityid={10}", BWConfiguration.Instance.BwHostUrl, LeadCampaign.DealerId, LeadCampaign.CampaignId, pqEntity.PqId, LeadCampaign.LeadSourceId, pqEntity.VersionList.FirstOrDefault().VersionId, platformId, LeadCampaign.BikeName, LeadCampaign.Organization, LeadCampaign.SendLeadSMSCustomer, (pqEntity.City != null ? pqEntity.City.CityId.ToString() : string.Empty));
                     }
                     else
                     {
-                        LeadCampaign.PageUrl = string.Format("{0}/m/popup/leadcapture/?q={1}&amp;platformid={2}", BWConfiguration.Instance.BwHostUrl, Bikewale.Utility.TripleDES.EncryptTripleDES(string.Format("modelid={0}&cityid={1}&areaid={2}&bikename={3}&location={4}&city={5}&area={6}&ismanufacturer={7}&dealerid={8}&dealername={9}&dealerarea={10}&versionid={11}&leadsourceid={12}&pqsourceid={13}&mfgcampid={14}&pqid={15}&pageurl={16}&clientip={17}&dealerheading={18}&dealermessage={19}&dealerdescription={20}&pincoderequired={21}&emailrequired={22}&dealersrequired={23}&sendLeadSMSCustomer={24}&organizationName={25}", 
-                                               modelDetails.ModelId, (pqEntity.City != null ? pqEntity.City.CityId.ToString() : string.Empty), string.Empty, string.Format(LeadCampaign.BikeName), string.Empty, string.Empty, string.Empty, true, LeadCampaign.DealerId, String.Format(LeadCampaign.LeadsPropertyTextMobile, LeadCampaign.Organization), LeadCampaign.Area, pqEntity.VersionList.FirstOrDefault().VersionId, LeadCampaign.LeadSourceId, LeadCampaign.PqSourceId, LeadCampaign.CampaignId, LeadCampaign.PQId, string.Empty, string.Empty, LeadCampaign.PopupHeading, String.Format(LeadCampaign.PopupSuccessMessage, 
+                        LeadCampaign.PageUrl = string.Format("{0}/m/popup/leadcapture/?q={1}&amp;platformid={2}", BWConfiguration.Instance.BwHostUrl, Bikewale.Utility.TripleDES.EncryptTripleDES(string.Format("modelid={0}&cityid={1}&areaid={2}&bikename={3}&location={4}&city={5}&area={6}&ismanufacturer={7}&dealerid={8}&dealername={9}&dealerarea={10}&versionid={11}&leadsourceid={12}&pqsourceid={13}&mfgcampid={14}&pqid={15}&pageurl={16}&clientip={17}&dealerheading={18}&dealermessage={19}&dealerdescription={20}&pincoderequired={21}&emailrequired={22}&dealersrequired={23}&sendLeadSMSCustomer={24}&organizationName={25}",
+                                               modelDetails.ModelId, (pqEntity.City != null ? pqEntity.City.CityId.ToString() : string.Empty), string.Empty, string.Format(LeadCampaign.BikeName), string.Empty, string.Empty, string.Empty, true, LeadCampaign.DealerId, String.Format(LeadCampaign.LeadsPropertyTextMobile, LeadCampaign.Organization), LeadCampaign.Area, pqEntity.VersionList.FirstOrDefault().VersionId, LeadCampaign.LeadSourceId, LeadCampaign.PqSourceId, LeadCampaign.CampaignId, pqEntity.PqId, string.Empty, string.Empty, LeadCampaign.PopupHeading, String.Format(LeadCampaign.PopupSuccessMessage, 
                                                LeadCampaign.Organization), LeadCampaign.PopupDescription, leadCampaign.PincodeRequired, leadCampaign.EmailRequired, leadCampaign.DealerRequired,leadCampaign.SendLeadSMSCustomer,leadCampaign.Organization)), platformId);
                     }
-                    string template = objPqCache.GetManufacturerCampaignMobileRenderedTemplate(hashCode, LeadCampaign);
+                    string template = objPqCache.GetManufacturerCampaignMobileRenderedTemplateV2(hashCode, LeadCampaign);
                     #endregion
 
                                 
