@@ -18,6 +18,8 @@ namespace Bikewale.Service.AutoMappers.ManufacturerCampaign
         /// <summary>
         /// Converts the specified platform identifier.
         /// Modifier    : Kartik Rathod on 16 may 2018, Pageurl for capitalfirst dealer added dealername and sendLeadSMSCustomer
+        /// Mofified by : Rajan Chauhan on 06 Nov 2018
+        /// Description : Added hash based on campaign LeadHtmlMobile
         /// </summary>
         /// <param name="platformId">The platform identifier.</param>
         /// <param name="pqId">The pq identifier.</param>
@@ -137,7 +139,9 @@ namespace Bikewale.Service.AutoMappers.ManufacturerCampaign
                 campaignResponse.DetailsCampaign = new DTO.Campaign.DetailsDto();
                 campaignResponse.DetailsCampaign.EsCamapign = new DTO.Campaign.PreRenderCampaignBase();
                 campaignResponse.CampaignLeadSource = new DTO.Campaign.ESCampaignBase();
-                string template = MvcHelper.Render(string.Format("LeadCampaign_Android_{0}", LeadCampaign.CampaignId), LeadCampaign, LeadCampaign.LeadsHtmlMobile);
+                // Since LeadEntity is versioned entity is different 
+                string hash = Bikewale.PWA.Utils.PwaCmsHelper.GetSha256Hash(String.Format("{0}{1}", LeadCampaign.LeadsHtmlMobile, "_V2"));
+                string template = MvcHelper.Render(hash, LeadCampaign, LeadCampaign.LeadsHtmlMobile);
                 //Check if it contains javascript:void(0), replace it with 
                 if (!string.IsNullOrEmpty(template) && template.Contains("href=\"javascript:void(0)\""))
                 {
@@ -161,6 +165,8 @@ namespace Bikewale.Service.AutoMappers.ManufacturerCampaign
         /// Description : changes type of the parameter PQId
         /// Modified by : Monika korrapati on 21 Sept 2018
         /// Description : Versioning of template LeadCampaign.LeadsHtmlMobile
+        /// Mofified by : Rajan Chauhan on 06 Nov 2018
+        /// Description : Added hash based on campaign LeadHtmlMobile
         /// </summary>
         /// <param name="platformId"></param>
         /// <param name="pqId"></param>
@@ -275,7 +281,8 @@ namespace Bikewale.Service.AutoMappers.ManufacturerCampaign
                 campaignResponse.DetailsCampaign = new DTO.Campaign.DetailsDto();
                 campaignResponse.DetailsCampaign.EsCamapign = new DTO.Campaign.PreRenderCampaignBase();
                 campaignResponse.CampaignLeadSource = new DTO.Campaign.ESCampaignBase();
-                string template = MvcHelper.Render(string.Format("LeadCampaign_Android_V2_{0}", LeadCampaign.CampaignId), LeadCampaign, LeadCampaign.LeadsHtmlMobile);
+                string hash = Bikewale.PWA.Utils.PwaCmsHelper.GetSha256Hash(LeadCampaign.LeadsHtmlMobile);
+                string template = MvcHelper.Render(hash, LeadCampaign, LeadCampaign.LeadsHtmlMobile);
                 //Check if it contains javascript:void(0), replace it with 
                 if (!string.IsNullOrEmpty(template) && template.Contains("href=\"javascript:void(0)\""))
                 {

@@ -297,6 +297,8 @@ namespace Bikewale.Cache.PriceQuote
         /// Description :   GetRenderMobileTemplate using MvcHelper class
         /// Modified by :   Sumit Kate on 30 Mar 2018
         /// Description :   Changed the template name
+        /// Modified by :   Rajan Chauhan on 06 November 2018
+        /// Description :   Hash created from LeadsHtmlMobile
         /// </summary>
         /// <param name="leadCampaign"></param>
         /// <returns></returns>
@@ -304,7 +306,8 @@ namespace Bikewale.Cache.PriceQuote
         {
             try
             {
-                string template = MvcHelper.Render(string.Format("LeadCampaign_Android_{0}", leadCampaign.CampaignId), leadCampaign, leadCampaign.LeadsHtmlMobile);
+                string hash = Bikewale.PWA.Utils.PwaCmsHelper.GetSha256Hash(leadCampaign.LeadsHtmlMobile);
+                string template = MvcHelper.Render(hash, leadCampaign, leadCampaign.LeadsHtmlMobile);
                 return template;
             }
             catch (Exception ex)
@@ -317,6 +320,8 @@ namespace Bikewale.Cache.PriceQuote
         /// <summary>
         /// Created by  : Pratibha Verma on 19 June 2018
         /// Description : used new entity for ManufactureCampaignLeadEntity
+        /// Modified by : Rajan Chauhan on 06 November 2018
+        /// Description : Hash created from LeadsHtmlMobile
         /// </summary>
         /// <param name="leadCampaign"></param>
         /// <returns></returns>
@@ -324,7 +329,9 @@ namespace Bikewale.Cache.PriceQuote
         {
             try
             {
-                string template = MvcHelper.Render(string.Format("LeadCampaign_Android_{0}", leadCampaign.CampaignId), leadCampaign, leadCampaign.LeadsHtmlMobile);
+
+                string hash = Bikewale.PWA.Utils.PwaCmsHelper.GetSha256Hash(leadCampaign.LeadsHtmlMobile);
+                string template = MvcHelper.Render(hash, leadCampaign, leadCampaign.LeadsHtmlMobile);
                 return template;
             }
             catch (Exception ex)

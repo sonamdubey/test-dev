@@ -6,7 +6,7 @@
     try
     {
         string hash = Bikewale.PWA.Utils.PwaCmsHelper.GetSha256Hash(Model.LeadsHtmlMobile);
-        @Html.Raw(MvcHelper.GetRenderedContent(hash, Model.LeadsHtmlMobile, Model).ConvertToAmpContent())
+        @Html.Raw(MvcHelper.Render(hash, Model, Model.LeadsHtmlMobile).ConvertToAmpContent())
     }
     catch (Exception ex)
     {
