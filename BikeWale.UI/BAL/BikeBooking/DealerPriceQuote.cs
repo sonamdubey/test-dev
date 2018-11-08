@@ -338,6 +338,8 @@ namespace Bikewale.BAL.BikeBooking
         /// Desc : Removed code for selecting different version if pqid is 0;
         /// Modified by : Ashutosh Sharma on 29 Jun 2018
         /// Description : Fetching manufacturer campaign when Subsciption dealer is not available and isManufacturerCampaignRequired. Using Dealer Id of manufacturer when registering PQ.
+        /// Modifier    : Kartik Rathod on 8 nov 2018
+        /// Desc        : If version is not present then also call GetManufacturerCampaignDealer to get all manufacturing campaigns. solved app problem to show all india campaign if city is not present
         /// </summary>
         /// <param name="PQParams"></param>
         /// <returns></returns>
@@ -386,15 +388,18 @@ namespace Bikewale.BAL.BikeBooking
                 {
                     if (objDealerDetail != null)
                         PQParams.DealerId = objDealerDetail.DealerId;
-                    if(isManufacturerCampaignRequired && PQParams.DealerId == 0 && PQParams.ManufacturerCampaignPageId > 0)
-                    {
-                       PQParams.DealerId = GetManufacturerCampaignDealer(PQParams.ModelId,PQParams.CityId,PQParams.ManufacturerCampaignPageId, out campaigns, out isManufacturerDealer);
-                    }
-                    
-                        IPriceQuote objIPQ = _container.Resolve<IPriceQuote>();
-                        quoteId = objIPQ.RegisterPriceQuote(PQParams);
-                    
                 }
+                if(isManufacturerCampaignRequired && PQParams.DealerId == 0 && PQParams.ManufacturerCampaignPageId > 0)
+                {
+                    PQParams.DealerId = GetManufacturerCampaignDealer(PQParams.ModelId,PQParams.CityId,PQParams.ManufacturerCampaignPageId, out campaigns, out isManufacturerDealer);
+                }
+                if (PQParams.VersionId > 0 && PQParams.CityId > 0)
+                {
+                    IPriceQuote objIPQ = _container.Resolve<IPriceQuote>();
+                    quoteId = objIPQ.RegisterPriceQuote(PQParams);
+                }
+                    
+                
                 objPQOutput = new PQOutputEntity()
                 {
                     DealerId = !isManufacturerDealer ? PQParams.DealerId : 0,

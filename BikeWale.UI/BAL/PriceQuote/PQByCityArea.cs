@@ -719,6 +719,8 @@ namespace Bikewale.BAL.PriceQuote
         ///         and adding dealer packages , secondary dealers count, 
         /// Modified by :   Monika Korrapati on 27 Sept 2018
         /// Description :   versionID will be fetched from cache layer.
+        /// Modifier    : Kartik Rathod on 8 nov 2018
+        /// Desc        : in case of city not provided, call getonroadprice function, to fetch all all india level campaigns
         /// </summary>
         /// <param name="objModelPage"></param>
         /// <returns></returns>
@@ -834,6 +836,7 @@ namespace Bikewale.BAL.PriceQuote
                 else if (cityId == null || cityId.Value == 0)
                 {
                     pqEntity.IsExShowroomPrice = true;
+                    pqOnRoad = GetOnRoadPrice(modelId, cityId, areaId, null, sourceId, UTMA, UTMZ, DeviceId, clientIP, isManufacturerCampaignRequired: true);
                 }
 
                 dt4 = DateTime.Now;
