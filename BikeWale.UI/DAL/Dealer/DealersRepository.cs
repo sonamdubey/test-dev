@@ -408,6 +408,8 @@ namespace Bikewale.DAL.Dealer
         /// Description : Read CallToActionLongText, CallToActionSmallText parameters.
         /// Modified by :   Sumit Kate on 15 may 2017
         /// Description :   Refer new SP
+        /// Modified by : Rajan Chauhan on 05 Nov 2018
+        /// Description : Changed sp to getdealerbymakecity_11102018 removed check of cityId from campaignrules to campaignareas
         /// </summary>
         /// <param name="cityId">e.g. 1</param>
         /// <param name="makeId">e.g. 9</param>
@@ -422,7 +424,7 @@ namespace Bikewale.DAL.Dealer
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "getdealerbymakecity_20012018";
+                    cmd.CommandText = "getdealerbymakecity_11102018";
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_makeid", DbType.Int32, makeId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelid > 0 ? modelid : Convert.DBNull));

@@ -111,7 +111,6 @@ namespace Bikewale.Models.BikeModels
 
         public string RedirectUrl { get; set; }
         public StatusCodes Status { get; set; }
-        public uint OtherDealersTopCount { get; set; }
         public PQSources Source { get; set; }
         public PQSourceEnum PQSource { get; set; }
         public LeadSourceEnum LeadSource { get; set; }
@@ -915,6 +914,8 @@ namespace Bikewale.Models.BikeModels
         /// Description : Fetching upcoming bikes for new and discontined bikes also.
         /// Modified by : Rajan Chauhan on 08 Feb 2018
         /// Description : PriceInTopCities now have 9 cities instead of 8 for modelPage Ad_Model_BTF_300x250 logic
+        /// Modified by : Rajan Chauhan on 05 Nov 2018
+        /// Description : Reorganised the code for setting OtherDealers
         /// </summary>
         private void BindControls()
         {
@@ -933,21 +934,17 @@ namespace Bikewale.Models.BikeModels
 
                     if (!_objData.IsUpcomingBike)
                     {
-                        DealerCardWidget objDealer = new DealerCardWidget(_objDealerCache, _cityId, (uint)objMake.MakeId);
-                        objDealer.TopCount = OtherDealersTopCount;
-                        _objData.OtherDealers = objDealer.GetData();
-
                         if (_cityId > 0)
                         {
-                            var dealerData = new DealerCardWidget(_objDealerCache, _cityId, (uint)objMake.MakeId);
-                            dealerData.TopCount = 3;
-                            _objData.OtherDealers = dealerData.GetData();
+                            DealerCardWidget objDealer = new DealerCardWidget(_objDealerCache, _cityId, (uint)objMake.MakeId);
+                            objDealer.ModelId = _objData.ModelId;
+                            objDealer.TopCount = 3;
+                            _objData.OtherDealers = objDealer.GetData();
                         }
                         else
                         {
                             _objData.DealersServiceCenter = new DealersServiceCentersIndiaWidgetModel((uint)objMake.MakeId, objMake.MakeName, objMake.MaskingName, _objDealerCache).GetData();
                         }
-
                         _objData.UsedModels = BindUsedBikeByModel((uint)objMake.MakeId, _cityId);
                         if (_cityId > 0)
                         {
