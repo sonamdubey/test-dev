@@ -22,6 +22,7 @@ using System.Web;
 using System.Collections.Specialized;
 using Bikewale.Utility;
 using Bikewale.BAL.Bhrigu;
+using log4net;
 
 namespace Bikewale.BAL.Lead
 {
@@ -44,6 +45,8 @@ namespace Bikewale.BAL.Lead
         private readonly Bikewale.Interfaces.AutoBiz.IDealers _objAutobizDealer = null;
         private readonly IManufacturerCampaignRepository _manufacturerCampaignRepo = null;
         private readonly IApiGatewayCaller _apiGatewayCaller;
+        private readonly ushort _spamSentinentalScore = 7;
+        static ILog _logger = LogManager.GetLogger("SpamScoreLogger");
 
 
         private const float SPAM_SCORE_THRESHOLD = 0.0f;
@@ -116,6 +119,10 @@ namespace Bikewale.BAL.Lead
 
                         pqCustomerDetailEntity = objCust != null ? NotifyCustomerAndDealer(pqInput, requestHeaders, objCust, false) : new PQCustomerDetailOutputEntity();
                         pqCustomerDetailEntity.Dealer = pqCustomerDetailEntity.IsSuccess && objBookingPageDetailsEntity != null ? objBookingPageDetailsEntity.Dealer : null;
+                        if (entity.SpamScore == _spamSentinentalScore)
+                        {
+                            _logger.Debug(String.Format("Spam Score null for LeadId : {0}", pqInput.LeadId), null);
+                        }
                     }
                     else
                     {
@@ -204,6 +211,10 @@ namespace Bikewale.BAL.Lead
 
                         pqCustomerDetailEntity = objCust != null ? NotifyCustomerAndDealerV2(pqInput, requestHeaders, objCust) : new Bikewale.Entities.PriceQuote.v2.PQCustomerDetailOutputEntity();
                         pqCustomerDetailEntity.Dealer = pqCustomerDetailEntity.IsSuccess && objBookingPageDetailsEntity != null ? objBookingPageDetailsEntity.Dealer : null;
+                        if (entity.SpamScore == _spamSentinentalScore)
+                        {
+                            _logger.Debug(String.Format("Spam Score null for LeadId : {0}", pqInput.LeadId), null);
+                        }
                     }
                     else
                     {
@@ -311,6 +322,9 @@ namespace Bikewale.BAL.Lead
                         pqCustomer = _objDealerPriceQuote.GetCustomerDetailsByLeadId(pqInput.LeadId);
                         objCust = pqCustomer != null ? pqCustomer.objCustomerBase : null;
                         pqCustomerDetailEntity = objCust != null ? NotifyCustomerAndDealer(pqInput, requestHeaders, objCust, true) : new PQCustomerDetailOutputEntity();
+                        if(entity.SpamScore == _spamSentinentalScore) {
+                            _logger.Debug(String.Format("SpamScore returned null for LeadId : {0}", pqInput.LeadId));
+                        }
                     }
                     else
                     {
@@ -639,6 +653,12 @@ namespace Bikewale.BAL.Lead
                         entity.OverallSpamScore = GetSpamOverallScore(spamScore);
                         entity.IsAccepted = (spamScore.Score == spamThreshold);
                     }
+                    else
+                    {
+                        entity.SpamScore = _spamSentinentalScore;
+                        entity.OverallSpamScore = _spamSentinentalScore;
+                        entity.IsAccepted = true;
+                    }
 
                 }
             }
@@ -711,6 +731,12 @@ namespace Bikewale.BAL.Lead
                         entity.OverallSpamScore = GetSpamOverallScore(spamScore);
                         entity.IsAccepted = (spamScore.Score == spamThreshold);
                     }
+                    else
+                    {
+                        entity.SpamScore = _spamSentinentalScore;
+                        entity.OverallSpamScore = _spamSentinentalScore;
+                        entity.IsAccepted = true;
+                    }
 
                 }
             }
@@ -774,8 +800,19 @@ namespace Bikewale.BAL.Lead
                         leadInfo.IsAccepted = !(spamScore.Score > SPAM_SCORE_THRESHOLD);
                         leadInfo.OverallSpamScore = GetSpamOverallScore(spamScore);
                     }
+                    else
+                    {
+                        leadInfo.SpamScore = _spamSentinentalScore;
+                        leadInfo.Reason = "";
+                        leadInfo.OverallSpamScore = _spamSentinentalScore;
+                        leadInfo.IsAccepted = true;
+                    }
 
                     input.LeadId = leadId = _manufacturerCampaignRepo.SaveManufacturerCampaignLead(leadInfo);
+                    if (spamScore == null)
+                    {
+                        _logger.Debug(String.Format("Spam Score null for LeadId : {0}", input.LeadId), null);
+                    }
 
                     NameValueCollection objNVC = new NameValueCollection();
                     string PageUrl = Convert.ToString(request.UrlReferrer);
