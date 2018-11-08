@@ -94,6 +94,8 @@ namespace Bikewale.BAL.PriceQuote
         /// Description : Added logic to get mla dealers
         /// Modified by : Pratibha Verma on 14 August 2018
         /// Description : Added method call to filter out multioutlet dealers
+        /// Modifier    : Kartik rathod on 8 nov 2018
+        /// Desc        : Handled refernce error for dealerQuotation.PrimaryDealer.DealerDetails.MasterDealerId. added uint masterDealerId 
         /// </summary>
         /// <param name="cityId">e.g. 1</param>
         /// <param name="versionID">e.g. 806</param>
@@ -114,6 +116,7 @@ namespace Bikewale.BAL.PriceQuote
 
                 if (dealerQuotation != null)
                 {
+                    uint masterDealerId = 0;
                     if (dealerQuotation.PrimaryDealer != null && dealerQuotation.PrimaryDealer.DealerDetails != null)
                     {
                         if (dealerQuotation.PrimaryDealer.EMIDetails == null && (dealerQuotation.PrimaryDealer.IsPremiumDealer || dealerQuotation.PrimaryDealer.IsDeluxDealer))
@@ -126,6 +129,8 @@ namespace Bikewale.BAL.PriceQuote
                             dealerQuotation.PrimaryDealer.EMIDetails.MaxRateOfInterest = 15;
                             dealerQuotation.PrimaryDealer.EMIDetails.MinRateOfInterest = 10;
                             dealerQuotation.PrimaryDealer.EMIDetails.ProcessingFee = 2000;
+
+                            masterDealerId = dealerQuotation.PrimaryDealer.DealerDetails.MasterDealerId;
                         }
                     }
                     if (dealerQuotation.objMake != null && _objPQ.GetMLAStatus(dealerQuotation.objMake.MakeId, cityId))
@@ -149,7 +154,7 @@ namespace Bikewale.BAL.PriceQuote
                                 }
                             }
                             dealerQuotation.MLADealers = _dealer.FilterMultioutletDealers(MultioutletDealers);
-                            if(dealerQuotation.MLADealers != null && dealerQuotation.PrimaryDealer.DealerDetails.MasterDealerId > 0)
+                            if (dealerQuotation.MLADealers != null && masterDealerId > 0)
                             {
                                 dealerQuotation.MLADealers.RemoveAll(x => x.MasterDealerId == dealerQuotation.PrimaryDealer.DealerDetails.MasterDealerId);
                             }
