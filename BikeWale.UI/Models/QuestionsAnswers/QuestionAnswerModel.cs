@@ -189,7 +189,12 @@ namespace Bikewale.Models.QuestionsAnswers
         }
 
 
-
+        /// <summary>
+        /// Modified by : Kumar Swapnil on 8th Nov 2018
+        /// Desc : Method to fetch pagenumber from request query string and to fetch newmasking name of make/model (for redirection/contentfound)
+        /// </summary>
+        /// <param name="makeMasking"></param>
+        /// <param name="modelMasking"</param>
         private void ParseQueryString(string makeMasking, string modelMasking)
         {
             ModelMaskingResponse objResponse = null;
@@ -198,6 +203,17 @@ namespace Bikewale.Models.QuestionsAnswers
             bool isMakeRedirection = false;
             try
             {
+                var request = HttpContext.Current.Request;
+                var queryString = request != null ? request.QueryString : null;
+
+                if(queryString != null)
+                {
+                    if (!string.IsNullOrEmpty(queryString["pn"]))
+                    {
+                        ushort.TryParse(queryString["pn"], out curPageNo);
+                    }
+                }
+
                 newMakeMasking = ProcessMakeMaskingName(makeMasking, out isMakeRedirection);
                 if (!string.IsNullOrEmpty(newMakeMasking) && !string.IsNullOrEmpty(makeMasking) && !string.IsNullOrEmpty(modelMasking))
                 {
