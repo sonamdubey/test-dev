@@ -408,6 +408,7 @@
     <Compile Include="BAL\Authors\Authors.cs" />
     <Compile Include="BAL\AutoBiz\Dealers.cs" />
     <Compile Include="BAL\AutoComplete\AutoSuggest.cs" />
+    <Compile Include="BAL\Bhrigu\AmpPageViewTracking.cs" />
     <Compile Include="BAL\Bhrigu\LeadTracking.cs" />
     <Compile Include="BAL\BikeBooking\AbstractBikeBooking.cs" />
     <Compile Include="BAL\BikeBooking\BrowserBikeBooking.cs" />
@@ -631,6 +632,7 @@
     <Compile Include="Services\Controllers\Model\ModelSpecsController.cs" />
     <Compile Include="Services\Controllers\NewBikeSearch\NewBikeSearchController.cs" />
     <Compile Include="Services\Controllers\Notifications\UpcomingController.cs" />
+    <Compile Include="Services\Controllers\PageViewController.cs" />
     <Compile Include="Services\Controllers\Photos\PwaPhotosController.cs" />
     <Compile Include="Services\Controllers\PriceQuote\Area\PQAreaListController.cs" />
     <Compile Include="Services\Controllers\PriceQuote\BikePQController.cs" />
