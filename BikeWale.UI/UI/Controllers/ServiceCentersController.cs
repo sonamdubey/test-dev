@@ -30,14 +30,17 @@ namespace Bikewale.Controllers
         private readonly INewBikeLaunchesBL _newLaunches = null;
         private readonly IUpcoming _upcoming = null;
         private readonly ICityCacheRepository _ICityCache = null;
+        private readonly ICityMaskingCacheRepository _cityMaskingCache = null;
+
         #endregion
 
         #region Constructor
-        public ServiceCentersController(ICityCacheRepository ICityCache, IUpcoming upcoming, INewBikeLaunchesBL newLaunches, IDealerCacheRepository objDealerCache, IBikeModels<BikeModelEntity, int> bikeModels, ICMSCacheContent articles, IUsedBikeDetailsCacheRepository objUsedCache, IBikeMakesCacheRepository bikeMakesCache, IServiceCenterCacheRepository objSCCache, IServiceCenter objSC)
+        public ServiceCentersController(ICityCacheRepository ICityCache, IUpcoming upcoming, INewBikeLaunchesBL newLaunches, IDealerCacheRepository objDealerCache, IBikeModels<BikeModelEntity, int> bikeModels, ICMSCacheContent articles, IUsedBikeDetailsCacheRepository objUsedCache, IBikeMakesCacheRepository bikeMakesCache, ICityMaskingCacheRepository cityMaskingCache, IServiceCenterCacheRepository objSCCache, IServiceCenter objSC)
         {
             _objUsedCache = objUsedCache;
             _bikeMakes = bikeMakesCache;
             _objSCCache = objSCCache;
+            _cityMaskingCache = cityMaskingCache;
             _bikeModels = bikeModels;
             _articles = articles;
             _objSC = objSC;
@@ -199,7 +202,7 @@ namespace Bikewale.Controllers
         {
             try
             {
-                ServiceCenterCityPage modelObj = new ServiceCenterCityPage(_objDealerCache, _objUsedCache, _bikeModels, _objSCCache, _objSC, _bikeMakes, cityMaskingName, makeMaskingName);
+                ServiceCenterCityPage modelObj = new ServiceCenterCityPage(_objDealerCache, _objUsedCache, _bikeModels, _objSCCache, _objSC, _bikeMakes, _cityMaskingCache, cityMaskingName, makeMaskingName);
 
                 if (modelObj.status == Entities.StatusCodes.ContentFound)
                 {
@@ -211,7 +214,7 @@ namespace Bikewale.Controllers
                 }
                 else if (modelObj.status == Entities.StatusCodes.RedirectPermanent)
                 {
-                    return RedirectPermanent(Request.RawUrl.Replace(makeMaskingName, modelObj.objResponse.MaskingName));
+                    return RedirectPermanent(modelObj.RedirectUrl);
                 }
                 else
                 {
@@ -236,7 +239,7 @@ namespace Bikewale.Controllers
         {
             try
             {
-                ServiceCenterCityPage modelObj = new ServiceCenterCityPage(_objDealerCache, _objUsedCache, _bikeModels, _objSCCache, _objSC, _bikeMakes, cityMaskingName, makeMaskingName);
+                ServiceCenterCityPage modelObj = new ServiceCenterCityPage(_objDealerCache, _objUsedCache, _bikeModels, _objSCCache, _objSC, _bikeMakes, _cityMaskingCache, cityMaskingName, makeMaskingName);
 
                 if (modelObj.status == Entities.StatusCodes.ContentFound)
                 {
@@ -249,7 +252,7 @@ namespace Bikewale.Controllers
                 }
                 else if (modelObj.status == Entities.StatusCodes.RedirectPermanent)
                 {
-                    return RedirectPermanent(Request.RawUrl.Replace(makeMaskingName, modelObj.objResponse.MaskingName));
+                    return RedirectPermanent(modelObj.RedirectUrl);
                 }
                 else
                 {

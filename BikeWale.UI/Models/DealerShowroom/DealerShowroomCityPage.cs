@@ -10,16 +10,17 @@ using Bikewale.Entities.Schema;
 using Bikewale.Entities.ServiceCenters;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Dealer;
+using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Interfaces.ServiceCenter;
 using Bikewale.Interfaces.Used;
-using Bikewale.Memcache;
 using Bikewale.Models.Make;
 using Bikewale.Models.ServiceCenters;
 using Bikewale.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 namespace Bikewale.Models.DealerShowroom
 {
     /// <summary>
@@ -41,14 +42,18 @@ namespace Bikewale.Models.DealerShowroom
         public BikeMakeEntityBase objMake;
         public CityEntityBase CityDetails;
         public PQSourceEnum PQSource { get; set; }
+        private readonly ICityMaskingCacheRepository _cityMaskingCache;
+        public String RedirectUrl { get; private set; }
+
 
         public bool IsMobile { get; internal set; }
 
         //Constructor
-        public DealerShowroomCityPage(IBikeModels<BikeModelEntity, int> bikeModels, IServiceCenter objSC, IDealerCacheRepository objDealerCache, IUsedBikeDetailsCacheRepository objUsedCache, IBikeMakesCacheRepository bikeMakesCache, string makeMaskingName, string cityMaskingName, uint count, IPriceQuote objPQ)
+        public DealerShowroomCityPage(IBikeModels<BikeModelEntity, int> bikeModels, IServiceCenter objSC, IDealerCacheRepository objDealerCache, IUsedBikeDetailsCacheRepository objUsedCache, IBikeMakesCacheRepository bikeMakesCache, ICityMaskingCacheRepository cityMaskingCache, string makeMaskingName, string cityMaskingName, uint count, IPriceQuote objPQ)
         {
             _objDealerCache = objDealerCache;
             _bikeMakesCache = bikeMakesCache;
+            _cityMaskingCache = cityMaskingCache;
             _objUsedCache = objUsedCache;
             _objSC = objSC;
             _bikeModels = bikeModels;
@@ -328,33 +333,75 @@ namespace Bikewale.Models.DealerShowroom
         /// <summary>
         /// Created By :- Subodh Jain 27 March 2017
         /// Summary :- To process in put query string
+        /// Modified By : Sanjay George on 08 Nov 2018
+        /// Description : Add city masking response check for redirection
         /// </summary>
         /// <returns></returns>
         private void ProcessQuery(string makeMaskingName, string cityMaskingName)
         {
-            objResponse = _bikeMakesCache.GetMakeMaskingResponse(makeMaskingName);
-            if (objResponse != null)
+            String rawUrl = HttpContext.Current.Request.RawUrl;
+            CityMaskingResponse objCityResponse = null;
+
+            try
             {
-                if (objResponse.StatusCode == 200)
+                if (!(String.IsNullOrEmpty(makeMaskingName) || String.IsNullOrEmpty(cityMaskingName)))
                 {
-                    makeId = objResponse.MakeId;
-                    cityId = CitiMapping.GetCityId(cityMaskingName);
-                    status = StatusCodes.ContentFound;
-                    if (cityId <= 0)
-                        status = StatusCodes.ContentNotFound;
+                    objResponse = _bikeMakesCache.GetMakeMaskingResponse(makeMaskingName);
+                    objCityResponse = _cityMaskingCache.GetCityMaskingResponse(cityMaskingName);
+
                 }
-                else if (objResponse.StatusCode == 301)
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, String.Format("ProcessQuery({0},{1})", makeMaskingName,cityMaskingName));
+            }
+            finally
+            {
+                if (objResponse != null && objCityResponse != null)
                 {
-                    status = StatusCodes.RedirectPermanent;
+                    // check city masking name
+                    if (objCityResponse.StatusCode == 200)
+                    {
+                        cityId = objCityResponse.CityId;
+                    }
+                    else if (objCityResponse.StatusCode == 301)
+                    {
+                        rawUrl = rawUrl.Replace(cityMaskingName, objCityResponse.MaskingName);
+                        status = StatusCodes.RedirectPermanent;
+                    }
+                    else
+                    {
+                        status = StatusCodes.ContentNotFound;
+                    }
+
+                    // check make name
+                    if (objResponse.StatusCode == 200)
+                    {
+                        makeId = objResponse.MakeId;
+
+                    }
+                    else if (objResponse.StatusCode == 301)
+                    {
+                        status = StatusCodes.RedirectPermanent;
+                        rawUrl = rawUrl.Replace(makeMaskingName, objResponse.MaskingName);
+                    }
+                    else
+                    {
+                        status = StatusCodes.ContentNotFound;
+                    }
+
+                    if (objCityResponse.StatusCode == 200 && objResponse.StatusCode == 200)
+                    {
+                        status = StatusCodes.ContentFound;
+                    }
+
+                    RedirectUrl = rawUrl;
+
                 }
                 else
                 {
                     status = StatusCodes.ContentNotFound;
                 }
-            }
-            else
-            {
-                status = StatusCodes.ContentNotFound;
             }
         }
         /// <summary>

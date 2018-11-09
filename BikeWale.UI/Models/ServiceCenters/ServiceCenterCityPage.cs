@@ -7,14 +7,15 @@ using Bikewale.Entities.PriceQuote;
 using Bikewale.Entities.Schema;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Dealer;
+using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.ServiceCenter;
 using Bikewale.Interfaces.Used;
-using Bikewale.Memcache;
 using Bikewale.Models.Make;
 using Bikewale.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 
 namespace Bikewale.Models.ServiceCenters
 {
@@ -37,6 +38,7 @@ namespace Bikewale.Models.ServiceCenters
         private readonly IServiceCenterCacheRepository _objSCCache;
         private readonly IBikeModels<BikeModelEntity, int> _bikeModels;
         private readonly IUsedBikeDetailsCacheRepository _objUsedCache = null;
+        private readonly ICityMaskingCacheRepository _cityMaskingCache;
 
         public MakeMaskingResponse objResponse;
         public StatusCodes status;
@@ -45,12 +47,15 @@ namespace Bikewale.Models.ServiceCenters
         public uint UsedBikeWidgetTopCount { get; set; }
         public uint BikeShowroomWidgetTopCount { get; set; }
         public bool IsMobile { get; internal set; }
+        public String RedirectUrl { get; private set; }
 
-        public ServiceCenterCityPage(IDealerCacheRepository objDealerCache, IUsedBikeDetailsCacheRepository objUsedCache, IBikeModels<BikeModelEntity, int> bikeModels, IServiceCenterCacheRepository objSCCache, IServiceCenter objSC, IBikeMakesCacheRepository bikeMakesCache, string cityMaskingName, string makeMaskingName)
+
+        public ServiceCenterCityPage(IDealerCacheRepository objDealerCache, IUsedBikeDetailsCacheRepository objUsedCache, IBikeModels<BikeModelEntity, int> bikeModels, IServiceCenterCacheRepository objSCCache, IServiceCenter objSC, IBikeMakesCacheRepository bikeMakesCache, ICityMaskingCacheRepository cityMaskingCache, string cityMaskingName, string makeMaskingName)
         {
             _objSC = objSC;
             _objSCCache = objSCCache;
             _bikeModels = bikeModels;
+            _cityMaskingCache = cityMaskingCache;
             _objDealerCache = objDealerCache;
             _objUsedCache = objUsedCache;
             _bikeMakesCache = bikeMakesCache;
@@ -135,31 +140,75 @@ namespace Bikewale.Models.ServiceCenters
             }
         }
 
+        /// <summary>
+        /// Modified by : Sanjay George on 08 Nov 2018
+        /// Description : Add city masking response check for redirection
+        /// </summary>
+        /// <param name="makeMaskingName"></param>
+        /// <param name="cityMaskingName"></param>
         private void ProcessQuery(string makeMaskingName, string cityMaskingName)
         {
-            objResponse = _bikeMakesCache.GetMakeMaskingResponse(makeMaskingName);
-            _cityId = CitiMapping.GetCityId(cityMaskingName);
+            String rawUrl = HttpContext.Current.Request.RawUrl;
+            CityMaskingResponse objCityResponse = null;
 
-            if (objResponse != null)
+            try
             {
-                if (objResponse.StatusCode == 200 && _cityId > 0)
+                if(!(String.IsNullOrEmpty(makeMaskingName) || String.IsNullOrEmpty(cityMaskingName)))
                 {
-                    _makeId = objResponse.MakeId;
-                    status = StatusCodes.ContentFound;
+                    objResponse = _bikeMakesCache.GetMakeMaskingResponse(makeMaskingName);
+                    objCityResponse = _cityMaskingCache.GetCityMaskingResponse(cityMaskingName);
                 }
-                else if (objResponse.StatusCode == 301)
+            }
+            catch(Exception ex)
+            {
+                ErrorClass.LogError(ex, String.Format("ProcessQuery({0},{1})", makeMaskingName, cityMaskingName));
+            }
+            finally
+            {
+                if (objResponse != null && objCityResponse != null)
                 {
-                    status = StatusCodes.RedirectPermanent;
+                    // check city masking name status
+                    if (objCityResponse.StatusCode == 200)
+                    {
+                        _cityId = objCityResponse.CityId;
+                    }
+                    else if (objCityResponse.StatusCode == 301)
+                    {
+                        rawUrl = rawUrl.Replace(cityMaskingName, objCityResponse.MaskingName);
+                        status = StatusCodes.RedirectPermanent;
+                    }
+                    else
+                    {
+                        status = StatusCodes.ContentNotFound;
+                    }
+                    
+                    if (objResponse.StatusCode == 200)
+                    {
+                        _makeId = objResponse.MakeId;
+                    }
+                    else if (objResponse.StatusCode == 301)
+                    {
+                        status = StatusCodes.RedirectPermanent;
+                        rawUrl = rawUrl.Replace(makeMaskingName, objResponse.MaskingName);
+                    }
+                    else
+                    {
+                        status = StatusCodes.ContentNotFound;
+                    }
+
+                    if (objCityResponse.StatusCode == 200 && objResponse.StatusCode == 200)
+                    {
+                        status = StatusCodes.ContentFound;
+                    }
+
+                    RedirectUrl = rawUrl;
                 }
                 else
                 {
                     status = StatusCodes.ContentNotFound;
                 }
             }
-            else
-            {
-                status = StatusCodes.ContentNotFound;
-            }
+            
         }
 
         private UsedBikeModelsWidgetVM BindUsedBikeByModel(CityEntityBase city)
