@@ -1088,5 +1088,37 @@ namespace Bikewale.DAL.PriceQuote
             }
             return offers;
         }
+
+        /// <summary>
+        /// Created  by : Rajan Chauhan on 9 Nov 2018
+        /// Description : Method to return offer template based on platformId 
+        /// </summary>
+        /// <param name="platformId"></param>
+        /// <returns></returns>
+        public string GetManufactuerDefaultCampaignOfferTemplate(ushort platformId)
+        {
+            string campaignOfferTemplate = string.Empty;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand("getmanufacturerdefaultcampaignoffertemplate"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_platformid", DbType.Byte, platformId));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        if (dr != null && dr.Read())
+                        {
+                            campaignOfferTemplate = Convert.ToString(dr["OfferTemplate"]);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("Bikewale.DAL.PriceQuote.PriceQuoteRepository.GetManufactuerDefaultCampaignOfferTemplate(platformId = {0})", platformId));
+            }
+            return campaignOfferTemplate;
+        }
     }   // Class
 }   // namespace

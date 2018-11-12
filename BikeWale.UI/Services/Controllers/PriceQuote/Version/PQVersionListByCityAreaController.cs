@@ -31,20 +31,18 @@ namespace Bikewale.Service.Controllers.PriceQuote.Version
         private readonly IBikeModelsRepository<BikeModelEntity, int> _objModel = null;
         private readonly IPriceQuote _objPQ = null;
         private readonly IPQByCityArea _objPQByCityArea = null;
-        private readonly IPriceQuoteCache _objPriceQuoteCache;
         /// <summary>
         /// To Fetch PQ versionList, PQID and dealerId
         /// </summary>
         /// <param name="objVersion"></param>
         /// <param name="objModel"></param>
-        public PQVersionListByCityAreaController(IBikeVersions<BikeVersionEntity, uint> objVersion, IBikeModelsRepository<BikeModelEntity, int> objModel, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionCache, IPriceQuote objPq, IPQByCityArea objPQByCityArea, IPriceQuoteCache objPriceQuoteCache)
+        public PQVersionListByCityAreaController(IBikeVersions<BikeVersionEntity, uint> objVersion, IBikeModelsRepository<BikeModelEntity, int> objModel, IBikeVersionCacheRepository<BikeVersionEntity, uint> objVersionCache, IPriceQuote objPq, IPQByCityArea objPQByCityArea)
         {
             _objVersion = objVersion;
             _objModel = objModel;
             _objVersionCache = objVersionCache;
             _objPQ = objPq;
             _objPQByCityArea = objPQByCityArea;
-            _objPriceQuoteCache = objPriceQuoteCache;
         }
 
         /// <summary>
@@ -197,8 +195,7 @@ namespace Bikewale.Service.Controllers.PriceQuote.Version
                             modelName = bikeVersionprice.ModelName;
                         }
                     }
-                    IEnumerable<string> ManufactureroffersList = _objPriceQuoteCache.GetManufacturerOffers(pqEntity.ManufacturerCampaign.LeadCampaign.CampaignId);
-                    objPQDTO.Campaign = Bikewale.Service.AutoMappers.ManufacturerCampaign.ManufacturerCampaignMapper.Convert(platform, pqEntity.PqId, modelId, (uint)pqEntity.VersionList.First().VersionId, cityId.Value, pqEntity.DealerEntity, pqEntity.ManufacturerCampaign, versionPrice, makeName, modelName, ManufactureroffersList);
+                    objPQDTO.Campaign = Bikewale.Service.AutoMappers.ManufacturerCampaign.ManufacturerCampaignMapper.Convert(platform, pqEntity.PqId, modelId, (uint)pqEntity.VersionList.First().VersionId, cityId.Value, pqEntity.DealerEntity, pqEntity.ManufacturerCampaign, versionPrice, makeName, modelName);
                     return Ok(objPQDTO);
                 }
                 else

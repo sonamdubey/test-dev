@@ -35,7 +35,7 @@ namespace Bikewale.Service.AutoMappers.ManufacturerCampaign
         internal static CampaignBaseDto Convert(
             ushort platformId, ulong pqId, uint modelId, uint versionId, uint cityId,
             Entities.PriceQuote.v2.DetailedDealerQuotationEntity dealers, ManufacturerCampaignEntity manufacturerCampaign,
-            uint price, string makeName, string modelName, IEnumerable<string> manufacturerOfferList)
+            uint price, string makeName, string modelName)
         {
             CampaignBaseDto campaignResponse = null;
             if (dealers != null)
@@ -104,8 +104,7 @@ namespace Bikewale.Service.AutoMappers.ManufacturerCampaign
                     PlatformId = 3,
                     BikeName = string.Format("{0} {1}", makeName, modelName),
                     IsAmp = true,
-                    SendLeadSMSCustomer = manufacturerCampaign.LeadCampaign.SendLeadSMSCustomer,
-                    OffersList = manufacturerOfferList
+                    SendLeadSMSCustomer = manufacturerCampaign.LeadCampaign.SendLeadSMSCustomer
                 };
 
                 if (platformId == 3)
@@ -250,7 +249,7 @@ namespace Bikewale.Service.AutoMappers.ManufacturerCampaign
                     PQId = pqId,
                     VersionId = versionId,
                     PlatformId = 3,
-                    BikeName = string.Format("{0} {1}", makeName, modelName),
+                    BikeName = string.Format("{0} {1}", makeName, modelName)
                 };
 
                 if (platformId == 3)

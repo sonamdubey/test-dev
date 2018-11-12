@@ -363,5 +363,24 @@ namespace Bikewale.Cache.PriceQuote
             }
             return offers;
         }
+
+        public string GetManufactuerDefaultCampaignOfferTemplate(ushort platformId = 2)
+        {
+            string campaignOfferTemplate = string.Empty;
+            try
+            {
+                if (platformId > 0)
+                {
+                    string key = string.Format("BW_ManufacturerOffersTemplate_{0}", platformId > 1 ? 2:1);
+                    campaignOfferTemplate = _cache.GetFromCache<string>(key, new TimeSpan(30, 0, 0, 0), () => _obPriceQuote.GetManufactuerDefaultCampaignOfferTemplate(platformId));
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("Bikewale.Cache.PriceQuote.PriceQuoteCache.GetManufactuerDefaultCampaignOfferTemplate(platformId = {0})", platformId));
+            }
+            return campaignOfferTemplate;
+
+        }
     }
 }

@@ -2059,7 +2059,16 @@ namespace Bikewale.Models.BikeModels
                         campaigns = _pqOnRoad.PriceQuote.ManufacturerCampaign;
                         if (campaigns.LeadCampaign != null)
                         {
-                            IEnumerable<string> ManufactureroffersList = _objPQCache.GetManufacturerOffers(campaigns.LeadCampaign.CampaignId);
+                            string campaignTemplate = string.Empty;
+                            IEnumerable<string> manufacturerOffersList = _objPQCache.GetManufacturerOffers(campaigns.LeadCampaign.CampaignId);
+                            if (manufacturerOffersList != null && manufacturerOffersList.Any() && IsMobile)
+                            {
+                                campaignTemplate = _objPQCache.GetManufactuerDefaultCampaignOfferTemplate((ushort)Source);
+                            }
+                            else
+                            {
+                                campaignTemplate = campaigns.LeadCampaign.LeadsHtmlMobile;
+                            }
                             _objData.LeadCampaign = new Bikewale.Entities.manufacturecampaign.v2.ManufactureCampaignLeadEntity()
                             {
                                 Area = GlobalCityArea.GetGlobalCityArea().Area,
@@ -2075,7 +2084,7 @@ namespace Bikewale.Models.BikeModels
                                 GACategory = "Model_Page",
                                 GALabel = string.Format("{0}_{1}", _objData.BikeName, _objData.City != null ? _objData.City.CityName : string.Empty),
                                 LeadsHtmlDesktop = campaigns.LeadCampaign.LeadsHtmlDesktop,
-                                LeadsHtmlMobile = campaigns.LeadCampaign.LeadsHtmlMobile,
+                                LeadsHtmlMobile = campaignTemplate,
                                 LeadsPropertyTextDesktop = campaigns.LeadCampaign.LeadsPropertyTextDesktop,
                                 LeadsPropertyTextMobile = campaigns.LeadCampaign.LeadsPropertyTextMobile,
                                 MakeName = _objData.ModelPageEntity.ModelDetails.MakeBase.MakeName,
@@ -2094,7 +2103,7 @@ namespace Bikewale.Models.BikeModels
                                 LoanAmount = Convert.ToUInt32((_objData.BikePrice) * 0.8),
                                 SendLeadSMSCustomer = campaigns.LeadCampaign.SendLeadSMSCustomer,
                                 FloatingBtnLeadSourceId = LeadSourceEnum.ModelPage_Floating_Mobile,
-                                OffersList = ManufactureroffersList
+                                OffersList = manufacturerOffersList
                             };
 
                             _objData.IsManufacturerTopLeadAdShown = !_objData.ShowOnRoadButton;

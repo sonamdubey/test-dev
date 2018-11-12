@@ -572,7 +572,16 @@ namespace Bikewale.Models
                     {
                         if (campaigns.LeadCampaign != null)
                         {
-                            IEnumerable<string> ManufactureroffersList = _objPQCache.GetManufacturerOffers(campaigns.LeadCampaign.CampaignId);
+                            string campaignTemplate = string.Empty;
+                            IEnumerable<string> manufacturerOffersList = _objPQCache.GetManufacturerOffers(campaigns.LeadCampaign.CampaignId);
+                            if (manufacturerOffersList != null && manufacturerOffersList.Any() && Platform != PQSources.Desktop)
+                            {
+                                campaignTemplate = _objPQCache.GetManufactuerDefaultCampaignOfferTemplate((ushort)Platform);
+                            }
+                            else
+                            {
+                                campaignTemplate = campaigns.LeadCampaign.LeadsHtmlMobile;
+                            }
                             objData.LeadCampaign = new Bikewale.Entities.manufacturecampaign.v2.ManufactureCampaignLeadEntity()
                             {
                                 Area = GlobalCityArea.GetGlobalCityArea().Area,
@@ -588,7 +597,7 @@ namespace Bikewale.Models
                                 GACategory = "Dealer_PQ",
                                 GALabel = string.Format("{0}_{1}", objData.BikeName, currentCity),
                                 LeadsHtmlDesktop = campaigns.LeadCampaign.LeadsHtmlDesktop,
-                                LeadsHtmlMobile = campaigns.LeadCampaign.LeadsHtmlMobile,
+                                LeadsHtmlMobile = campaignTemplate,
                                 LeadsPropertyTextDesktop = campaigns.LeadCampaign.LeadsPropertyTextDesktop,
                                 LeadsPropertyTextMobile = campaigns.LeadCampaign.LeadsPropertyTextMobile,
                                 PriceBreakUpLinkDesktop = campaigns.LeadCampaign.PriceBreakUpLinkDesktop,
@@ -610,7 +619,7 @@ namespace Bikewale.Models
                                 LoanAmount = Convert.ToUInt32((objData.TotalPrice) * 0.8),
                                 SendLeadSMSCustomer = campaigns.LeadCampaign.SendLeadSMSCustomer,
                                 FloatingBtnLeadSourceId = LeadSourceEnum.DPQ_Floating_Mobile,
-                                OffersList = ManufactureroffersList
+                                OffersList = manufacturerOffersList
                             };
                             objData.IsManufacturerLeadAdShown = true;
                         }

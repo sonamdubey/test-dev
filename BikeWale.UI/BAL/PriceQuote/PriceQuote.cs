@@ -465,6 +465,18 @@ namespace Bikewale.BAL.PriceQuote
         {
             return objPQ.GetManufacturerOffers(campaignId);
         }
+
+
+        /// <summary>
+        /// Created  by : Rajan Chauhan on 9 Nov 2018
+        /// Description : Method to return offer template based on platformId 
+        /// </summary>
+        /// <param name="platformId"></param>
+        /// <returns></returns>
+        public string GetManufactuerDefaultCampaignOfferTemplate(ushort platformId)
+        {
+            return objPQ.GetManufactuerDefaultCampaignOfferTemplate(platformId);
+        }
     }   // class
 
 

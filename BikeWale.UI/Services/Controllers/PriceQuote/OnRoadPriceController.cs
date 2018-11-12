@@ -606,10 +606,9 @@ namespace Bikewale.Service.Controllers.PriceQuote
                                 {
                                     manufacturerCampaign.LeadCampaign.LeadsButtonTextMobile = "Get Best Offers";
                                 }
-                                ManufactureroffersList = _objPriceQuoteCache.GetManufacturerOffers(manufacturerCampaign.LeadCampaign.CampaignId);
                             }
                         }
-                        onRoadPrice.Campaign = ManufacturerCampaignMapper.Convert((ushort)sourceType, objPQ.PQId, modelId, objPQ.VersionId, cityId, objDealerQuotation, manufacturerCampaign, versionPrice, objPQ.MakeName, objPQ.ModelName, ManufactureroffersList);
+                        onRoadPrice.Campaign = ManufacturerCampaignMapper.Convert((ushort)sourceType, objPQ.PQId, modelId, objPQ.VersionId, cityId, objDealerQuotation, manufacturerCampaign, versionPrice, objPQ.MakeName, objPQ.ModelName);
                     }
                     return Ok(onRoadPrice);
                 }
@@ -854,8 +853,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
                         dpQuotationOutput.PriceQuoteId = pqId;
 
                     manufacturerCampaign = _objManufacturerCampaign.GetCampaigns(modelId, cityId, ManufacturerCampaign.Entities.ManufacturerCampaignServingPages.Mobile_Model_Page);
-                    IEnumerable<string> ManufactureroffersList = _objPriceQuoteCache.GetManufacturerOffers(manufacturerCampaign.LeadCampaign.CampaignId);
-                    dpQuotationOutput.Campaign = ManufacturerCampaignMapper.Convert(platformId, pqId, modelId, (uint)bwPQ.Varients.First().objVersion.VersionId, cityId, objDealerQuotation, manufacturerCampaign, bwPQ.Varients.FirstOrDefault().OnRoadPrice, bwPQ.Varients.FirstOrDefault().objMake.MakeName, bwPQ.Varients.FirstOrDefault().objModel.ModelName, ManufactureroffersList);
+                    dpQuotationOutput.Campaign = ManufacturerCampaignMapper.Convert(platformId, pqId, modelId, (uint)bwPQ.Varients.First().objVersion.VersionId, cityId, objDealerQuotation, manufacturerCampaign, bwPQ.Varients.FirstOrDefault().OnRoadPrice, bwPQ.Varients.FirstOrDefault().objMake.MakeName, bwPQ.Varients.FirstOrDefault().objModel.ModelName);
                     return Ok(dpQuotationOutput);
                 }
                 else

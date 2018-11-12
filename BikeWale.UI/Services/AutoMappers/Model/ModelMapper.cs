@@ -760,12 +760,10 @@ namespace Bikewale.Service.AutoMappers.Model
         /// Modified by : Ashutosh Sharma on 14 May 2018.
         /// Description : Calculating hashCode to cache campaign template before setting PageUrl of LeadCampaign.
         /// Modifier    : Kartik Rathod on 16 may 2018, Pageurl for capitalfirst dealer added dealername and sendLeadSMSCustomer
-        /// Modified by : Rajan Chauhan on 06 Nov 2018
-        /// Description : Handled OfferList rendering on template
         /// </summary>
         /// <param name="objModelPage"></param>
         /// <returns></returns>
-        internal static DTO.Model.v5.ModelPage ConvertV5(IPriceQuoteCache objPqCache, BikeModelPageEntity objModelPage, PQByCityAreaEntity pqEntity, Entities.PriceQuote.v2.DetailedDealerQuotationEntity dealers, ushort platformId = 0, IEnumerable<string> manufactuerOfferList = null)
+        internal static DTO.Model.v5.ModelPage ConvertV5(IPriceQuoteCache objPqCache, BikeModelPageEntity objModelPage, PQByCityAreaEntity pqEntity, Entities.PriceQuote.v2.DetailedDealerQuotationEntity dealers, ushort platformId = 0)
         {
 
             bool isApp = platformId == 3;
@@ -958,8 +956,7 @@ namespace Bikewale.Service.AutoMappers.Model
                         IsAmp = !isApp,
                         BikeName = string.Format("{0} {1}", modelDetails.MakeBase.MakeName, modelDetails.ModelName),
                         LoanAmount = (objModelPage.ModelVersionMinSpecs != null ? (uint)System.Convert.ToUInt32((pqEntity.VersionList.FirstOrDefault(m => m.VersionId == objModelPage.ModelVersionMinSpecs.VersionId).Price) * 0.8) : 0),
-                        SendLeadSMSCustomer = leadCampaign.SendLeadSMSCustomer,
-                        OffersList = manufactuerOfferList
+                        SendLeadSMSCustomer = leadCampaign.SendLeadSMSCustomer
                     };
                     #region Render the partial view
                     //This hash code is being used as memcache key. Do not assign pqid and LoadAmount in "LeadCampaign" before generating hash code.

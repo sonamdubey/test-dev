@@ -457,16 +457,11 @@ namespace Bikewale.Service.Controllers.Model
                 {
 
                     PQByCityAreaEntity pqEntity = null;
-                    IEnumerable<string> manufacturerOfferList = null;
                     ushort platformId;
 
                     if (!objModelPage.ModelDetails.Futuristic)
                     {
                         pqEntity = _objPQByCityArea.GetVersionListV2((int)modelId, objModelPage.ModelVersions, (int)(cityId.HasValue ? cityId.Value : 0), areaId, Convert.ToUInt16(Bikewale.DTO.PriceQuote.PQSources.Android), null, null, deviceId);
-                        if (pqEntity != null && pqEntity.ManufacturerCampaign != null && pqEntity.ManufacturerCampaign.LeadCampaign != null)
-                        {
-                            manufacturerOfferList = _objPqCache.GetManufacturerOffers(pqEntity.ManufacturerCampaign.LeadCampaign.CampaignId);
-                        }
                     }
 
                     if (ushort.TryParse(Request.Headers.GetValues("platformId").First().ToString(), out platformId) && platformId == 3 && cityId.HasValue && cityId.Value > 0)
@@ -485,22 +480,22 @@ namespace Bikewale.Service.Controllers.Model
                             }
 
                             if (pqEntity != null && pqEntity.IsExShowroomPrice)
-                                objDTOModelPage = ModelMapper.ConvertV5(_objPqCache, objModelPage, pqEntity, null, platformId, manufacturerOfferList);
+                                objDTOModelPage = ModelMapper.ConvertV5(_objPqCache, objModelPage, pqEntity, null, platformId);
                             else
 
                                 objDTOModelPage = ModelMapper.ConvertV5(_objPqCache, objModelPage, pqEntity,
-                                pqEntity.DealerEntity, platformId, manufacturerOfferList);
+                                pqEntity.DealerEntity, platformId);
 
                         }
                         else
                         {
-                            objDTOModelPage = ModelMapper.ConvertV5(_objPqCache, objModelPage, pqEntity, null, platformId, manufacturerOfferList);
+                            objDTOModelPage = ModelMapper.ConvertV5(_objPqCache, objModelPage, pqEntity, null, platformId);
                         }
                         #endregion
                     }
                     else
                     {
-                        objDTOModelPage = ModelMapper.ConvertV5(_objPqCache, objModelPage, pqEntity, null, platformId, manufacturerOfferList);
+                        objDTOModelPage = ModelMapper.ConvertV5(_objPqCache, objModelPage, pqEntity, null, platformId);
                     }
                     return Ok(objDTOModelPage);
                 }
