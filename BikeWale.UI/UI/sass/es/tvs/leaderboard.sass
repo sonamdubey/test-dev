@@ -1,0 +1,453 @@
+﻿@import ../../base/variables
+@import ../../mixins/button
+@import ../../utils/index
+@import ../../mixins/index
+@import ../../mixins/icons
+
+.leaderboard-container
+  width: 100%
+  position: relative
+  overflow: hidden
+
+.leaderboard
+  @include flexbox
+  @include flex-wrap(wrap)
+  @include justify-content(space-between)
+  @include align-items(center)
+  background-color: color('white')
+  padding: 15px 10px 10px
+
+  &:after
+    @include vendor-prefix(animation,animateLeaderboardBg 30s linear infinite)
+    content: ""
+    position: absolute
+    bottom: 5px
+    width: 5464px
+    height: 90px
+    display: block
+    background-image: url('https://imgd.aeplcdn.com/0x0/bw/es/html5-creatives/tvs/08112018/leaderboard/tvs-bg-animation.png')
+    background-repeat: repeat-x
+    background-position: bottom
+    will-change: transform
+
+  @include btn($font-size: 0, $font-weight: $font-semibold, $border-radius: 2px)
+
+  .leaderboard-btn
+    @include vendor-prefix(animation,leaderboradbtn 1s forwards 4s)
+    padding: 4px 7px
+    display: block
+    color: color('cinnabar-3')
+    border-color: color('cinnabar-3')
+    background-color: transparent
+    -webkit-tap-highlight-color: transparent
+    z-index: 1
+    opacity: 0
+    will-change: opacity, transform
+
+.leaderboard-btn__desktop-text
+  display: none
+
+.leaderboard-btn__mobile-text,
+.leaderboard__expand-icon
+  display: inline-block
+  vertical-align: middle
+
+.leaderboard-btn__mobile-text
+  font-size: 12px
+  line-height: 14px
+
+.leaderboard__sub-content
+  display: none
+
+.leaderboard__expand-icon
+  background: url(https://imgd.aeplcdn.com/0x0/bw/es/html5-creatives/tvs/08112018/leaderboard/cta-btn-icon.png) center/contain no-repeat
+  width: 12px
+  height: 12px
+
+
+.leaderboard__bike-conatiner
+  width: 360px
+  height: 65px
+  position: relative
+  z-index: 1
+  margin: 0 auto
+
+.leaderboard__bike-one-block,
+.leaderboard__bike-two-block,
+.leaderboard__bike-three-block,
+.leaderboard__bike-four-block
+  display: inline-block
+  width: 81px
+  height: 54px
+  position: absolute
+  @include vendor-prefix(transform,translateX(-20px))
+  opacity: 0
+
+.leaderboard__bike-one-block
+  @include vendor-prefix(animation,leaderboardbike 1s forwards .5s)
+  left: 0
+  bottom: 0
+  will-change: opacity, transform
+
+.leaderboard__bike-two-block
+  @include vendor-prefix(animation,leaderboardbike 1s forwards 1s)
+  left: 85px
+  bottom: 1px
+  will-change: opacity, width
+
+.leaderboard__bike-three-block
+  @include vendor-prefix(animation,leaderboardbike 1s forwards 1.5s)
+  left: 170px
+  bottom: 2px
+  will-change: opacity, width
+
+.leaderboard__bike-four-block
+  @include vendor-prefix(animation,leaderboardbike 1s forwards 2s)
+  left: 255px
+  bottom: 3px
+  will-change: opacity, width
+
+.leaderboard__bike
+  width: 81px
+  height: 54px
+  display: inline-block
+  position: absolute
+
+.leaderboard__bike-one
+  background: url('https://imgd.aeplcdn.com/0x0/bw/es/html5-creatives/tvs/08112018/leaderboard/bike-1.png') no-repeat center/contain
+  z-index: 1
+
+.leaderboard__wheel
+  @include vendor-prefix(animation,leaderboardwheel 1s infinite linear)
+  display: inline-block
+  height: 20px
+  width: 20px
+  background: url('https://imgd.aeplcdn.com/0x0/bw/es/html5-creatives/tvs/08112018/leaderboard/tyre.png') no-repeat center/contain
+  position: absolute
+  will-change: opacity, width
+
+.leaderboard__bike-one-wheel--one,
+.leaderboard__bike-two-wheel--one,
+.leaderboard__bike-three-wheel--one,
+.leaderboard__bike-four-wheel--one
+  bottom: -2px
+  left: 4px
+
+.leaderboard__bike-one-wheel--two,
+.leaderboard__bike-two-wheel--two,
+.leaderboard__bike-four-wheel--two
+  bottom: -3px
+  right: 0
+
+.leaderboard__bike-three-wheel--two
+  bottom: -2px
+  right: -2px
+
+.leaderboard__bike-two
+  background: url('https://imgd.aeplcdn.com/0x0/bw/es/html5-creatives/tvs/08112018/leaderboard/bike-2.png') no-repeat center/contain
+  z-index: 1
+
+.leaderboard__bike-three
+  background: url('https://imgd.aeplcdn.com/0x0/bw/es/html5-creatives/tvs/08112018/leaderboard/bike-3.png') no-repeat center/contain
+  z-index: 1
+
+.leaderboard__bike-four
+  background: url('https://imgd.aeplcdn.com/0x0/bw/es/html5-creatives/tvs/08112018/leaderboard/bike-4.png') no-repeat center/contain
+  z-index: 1
+
+.leaderboard__tvs-logo
+  display: inline-block
+  width: 59px
+  height: 11px
+  background: url('https://imgd.aeplcdn.com/0x0/bw/es/html5-creatives/tvs/08112018/tvs-logo.png?v09112018') no-repeat center/contain
+  z-index: 1
+
+.leaderboard__content
+  @include vendor-prefix(animation,leaderboradcontent 1s linear 3s forwards)
+  font-size: 14px
+  color: color('black')
+  font-weight: $font-bold
+  z-index: 1
+  opacity: 0
+  will-change: opacity, transform
+
+
+// Styles for desktop
+@media only screen and (min-width: 800px)
+  .leaderboard
+    padding: 10px 25px
+    background-color: color('white')
+
+    &:after
+      @include vendor-prefix(animation-duration, 22s)
+      height: 105px
+      bottom: 8px
+
+    .leaderboard-btn
+      @include order($int: 3)
+      padding: 10px 15px
+      background-color:  color('cinnabar-3')
+      color: color('white')
+      margin-right: 30px
+
+  .leaderboard-btn__desktop-text
+    display: block
+    font-size: 18px
+    line-height: 18px
+
+  .leaderboard-btn__mobile-text
+    display: none
+
+  .leaderboard__bike-conatiner
+    @include order($int: 1)
+    width: 530px
+    height: 100px
+    bottom: 5px
+    margin: 0
+
+  .leaderboard__tvs-logo
+    @include order($int: 4)
+    width: 125px
+    height: 23px
+
+  .leaderboard__content
+    @include order($int: 2)
+    font-size: 24px
+    line-height: 38.5px
+    
+  .leaderboard__sub-content
+    display: block;
+    font-size: 16px
+    line-height: 15px
+    font-weight: $font-normal
+    margin-top: 9px
+  
+  .leaderboard__bike,
+  .leaderboard__bike-one-block,
+  .leaderboard__bike-two-block,
+  .leaderboard__bike-three-block,
+  .leaderboard__bike-four-block
+    width: 125px
+    height: 91px
+
+  .leaderboard__bike-three-block
+    left: 260px
+
+  .leaderboard__bike-four-block
+    left: 390px
+
+  .leaderboard__bike
+    bottom: -5px
+
+  .leaderboard__wheel
+    height: 35px
+    width: 35px
+
+  .leaderboard__bike-four-wheel--two,
+  .leaderboard__bike-one-wheel--two
+    bottom: -12px
+    right: -3px
+
+  .leaderboard__bike-four-wheel--one,
+  .leaderboard__bike-one-wheel--one,
+  .leaderboard__bike-three-wheel--one,
+  .leaderboard__bike-two-wheel--one
+    bottom: -12px
+    left: 5px
+
+  .leaderboard__bike-two-block
+    left: 130px
+
+  .leaderboard__bike-two-wheel--two
+    bottom: -12px
+    right: -5px
+
+  .leaderboard__bike-three-block
+    left: 260px
+
+  .leaderboard__bike-three-wheel--one
+    bottom: -5px
+
+  .leaderboard__bike-three-wheel--two
+    bottom: -7px
+    right: -5px
+
+  .leaderboard__bike-four-block
+    left: 390px
+    bottom: 10px
+
+  .leaderboard__bike-four-wheel--two
+    bottom: -12px
+    right: -3px
+
+
+// Styles for small screen
+@media only screen and (max-width: 320px)
+  .leaderboard__bike-one-block,
+  .leaderboard__bike-two-block,
+  .leaderboard__bike-three-block,
+  .leaderboard__bike-four-block
+    width: 70px
+
+  .leaderboard__content
+    font-size: 12px
+
+  .leaderboard__bike
+    width: 64px
+
+  .leaderboard__bike-two-block
+    left: 75px
+
+  .leaderboard__bike-three-block
+    left: 155px
+
+  .leaderboard__bike-four-block
+    left: 230px
+
+
+@media only screen and (min-width: 640px) and (max-width: 800px)
+  .leaderboard__bike-conatiner
+    @include vendor-prefix(transform, translateX(-50%))
+    width: 80%
+    left: 50%
+
+@media only screen and (min-width: 800px) and (max-width: 1025px)
+  .leaderboard
+    padding: 25px 10px
+
+    .leaderboard-btn
+      margin-right: 10px
+
+  .leaderboard__bike-conatiner
+    left: 0
+    width: 395px
+    bottom: 0
+
+  .leaderboard-btn__desktop-text
+    font-size: 15px
+
+  .leaderboard__wheel
+    height: 25px
+    width: 25px
+
+  .leaderboard__bike,
+  .leaderboard__bike-one-block,
+  .leaderboard__bike-two-block,
+  .leaderboard__bike-three-block,
+  .leaderboard__bike-four-block
+    width: 90px
+    height: 75px
+
+  .leaderboard__content
+    font-size: 20px
+    margin-right: 5px
+
+  .leaderboard__sub-content
+    font-size: 13px
+    margin-top: 0
+
+  .leaderboard__bike-one-wheel--one,
+  .leaderboard__bike-two-wheel--one,
+  .leaderboard__bike-three-wheel--one,
+  .leaderboard__bike-four-wheel--one,
+  .leaderboard__bike-one-wheel--two,
+  .leaderboard__bike-two-wheel--two
+    bottom: -4px
+
+  .leaderboard__bike-four-wheel--two
+    bottom: -6px
+
+  .leaderboard__bike-three-wheel--two
+    bottom: -3px
+
+  .leaderboard__bike-two-block
+    left: 95px
+
+  .leaderboard__bike-three-block
+    left: 191px
+
+  .leaderboard__bike-four-block
+    bottom: 8px
+    left: 290px
+
+
+@-webkit-keyframes leaderboardbike
+	0%
+		opacity: 0
+
+	100%
+		opacity: 1
+		@include vendor-prefix(transform,translateX(0))
+
+@keyframes leaderboardbike
+	0%
+		opacity: 0
+
+	100%
+		opacity: 1
+		@include vendor-prefix(transform,translateX(0))
+
+@-webkit-keyframes leaderboardwheel
+	0%
+		@include vendor-prefix(transform,rotate(0deg))
+	
+	100%
+		@include vendor-prefix(transform,rotate(359deg))
+
+@keyframes leaderboardwheel
+	0%
+		@include vendor-prefix(transform,rotate(0deg))
+	
+	100%
+		@include vendor-prefix(transform,rotate(359deg))
+
+@-webkit-keyframes animateLeaderboardBg
+	0%
+		@include vendor-prefix(transform,translate(0, 0))
+	
+	100%
+		@include vendor-prefix(transform,translate(-2732px, 0))
+
+@keyframes animateLeaderboardBg
+	0%
+		@include vendor-prefix(transform,translate(0, 0))
+	
+	100%
+		@include vendor-prefix(transform,translate(-2732px, 0))
+
+
+@-webkit-keyframes leaderboradcontent
+	0%
+		@include vendor-prefix(transform,translateX(20%))
+		opacity: 0
+	
+	100%
+		@include vendor-prefix(transform,translateX(0))
+		opacity: 1
+
+@keyframes leaderboradcontent
+	0%
+		@include vendor-prefix(transform,translateX(20%))
+		opacity: 0
+	
+	100%
+		@include vendor-prefix(transform,translateX(0))
+		opacity: 1
+
+@-webkit-keyframes leaderboradbtn
+	0%
+		@include vendor-prefix(transform,scale(0))
+		opacity: 0
+	
+	100%
+		@include vendor-prefix(transform,scale(1))
+		opacity: 1
+
+@keyframes leaderboradbtn
+	0%
+		@include vendor-prefix(transform,scale(0))
+		opacity: 0
+	
+	100%
+		@include vendor-prefix(transform,scale(1))
+		opacity: 1

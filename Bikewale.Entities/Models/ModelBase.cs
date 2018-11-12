@@ -27,6 +27,8 @@ namespace Bikewale.Models
     /// Description : Added property named `PageName`
     /// Modified by : Ashutosh Sharma on 08 Jun 2018
     /// Description : Added CssClassed.
+    /// Modified by : Prabhu Puredla on 08 nov 2018
+    /// Description : Added IsTVSCampaignShown
     /// </summary>
     public class ModelBase
     {
@@ -78,5 +80,7 @@ namespace Bikewale.Models
         /// (string, string) => (key, className), if key exist then apply class name.
         /// </summary>
         public IDictionary<string, string> CssClasses { get; set; }
+
+        public bool IsTVSCampaignShown { get; set; }
     }
 }

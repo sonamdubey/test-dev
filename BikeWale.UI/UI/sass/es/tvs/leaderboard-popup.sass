@@ -1,0 +1,538 @@
+﻿@import ../../base/variables
+@import ../../mixins/button
+@import ../../utils/index
+@import ../../mixins/index
+@import ../../plugin/popup
+@import ../../mixins/icons
+
+@include popup-container
+@include popup
+@include popup-head
+@include popup-body
+@include popup-overlay
+
+
+.leaderboard-popup
+	.popup-head
+		position: relative
+		background-color: color('white-smoke-7')
+	.popup-body
+		padding: 0
+.popup-head__title
+	font-weight: $font-semibold
+	font-size: 14px
+	padding: 10px
+	display: inline-block
+	color: color('black-2')
+
+.popup-back-btn
+	display: inline-block
+	height: 43px
+	width: 43px
+	position: absolute
+	right: 0
+	
+	cursor: pointer
+
+.popup-back-btn:after,
+.popup-back-btn:before
+	content: ''
+	display: block
+	height: 16px
+	width: 2px
+	background-color: color('nobel-3')
+	position: absolute
+	left: 50%;
+	top: 30%
+
+.popup-back-btn:before
+	-webkit-transform: rotate(45deg)
+	-moz-transform: rotate(45deg)
+	-ms-transform: rotate(45deg)
+	transform: rotate(45deg)
+
+.popup-back-btn:after
+	-webkit-transform: rotate(-45deg)
+	-moz-transform: rotate(-45deg)
+	-ms-transform: rotate(-45deg)
+	transform: rotate(-45deg)
+
+.leaderboard__tabs
+	.bw-tabs
+		margin-bottom: 0
+
+	.bw-tabs-data
+		padding: 20px
+
+
+.leaderboard-popup
+  img
+    &.lazy
+      &[src$="circleloader.gif"]
+        min-width: 16px !important
+        width: 16px !important
+        height: 16px !important
+
+.popup-container
+  background-color: color('white')
+
+  @include btn($font-size: 16px, $font-weight: $font-semibold, $border-radius: 2px)
+
+.popup-footer
+  @include flexbox
+  @include justify-content(center)
+  @include flex($fg: 0, $fs: 0, $fb: auto)
+  padding: 15px 15px 10px
+  background-color: color('white')
+
+  .btn-cinnabar
+    width: 100%
+    color: color('white')
+    background-color: color('cinnabar-3')
+    padding: 8px 20px
+    margin-right: 10px
+    font-size: 14px
+
+  .btn-cinnabar-outline
+    width: 100%
+    color: color('cinnabar-3')
+    border-color: color('cinnabar-3')
+    background-color: transparent
+    padding: 8px 20px
+    font-size: 14px
+
+.leaderboard__tabs-wrapper
+  @include flexbox
+  @include flex-direction(column)
+  height: 100%
+
+.leaderboard__tabs
+  margin-bottom: 0
+
+  &.bw-tabs-flex
+    ul
+      margin-bottom: 0
+
+    li
+      &.active
+        pointer-events: none
+
+.leaderboard__tab-img,
+.leaderboard__tab-text-img
+  display: inline-block
+  vertical-align: middle
+  background-size: contain
+  background-position: center
+  background-repeat: no-repeat
+
+.leaderboard__tab-img
+  width: 57px
+  height: 48px
+
+  img
+    width: 57px
+
+.leaderboard__tab-text-img
+  width: 70px
+
+.tab--jupiter-text-img
+  img
+    width: 65px
+
+.tab--wego-text-img
+  img
+    width: 60px
+
+.tab--pep-text-img
+  img
+    width: 60px
+
+.tab--ntorq-text-img
+  img
+    width: 70px
+    margin-top: 5px
+
+.leaderboard__tabs-content
+  @include flex
+  overflow-y: auto
+  background-color: color('white-smoke')
+
+.leaderboard__specs
+  @include flexbox
+  background-color: color('white-smoke')
+
+.leaderboard__specs-list
+  margin-left: auto
+  margin-right: auto
+
+.leaderboard__specs-item
+  width: 100%
+  margin: 15px
+
+.leaderbord__specs-icon
+  display: inline-block
+  vertical-align: middle
+  background-repeat: no-repeat
+  background-position: center
+  background-size: contain
+  margin-right: 32px
+  width: 47px
+  height: 47px
+
+  img
+    width: 47px
+
+
+.leaderboard__specs-content
+  display: inline-block
+  vertical-align: middle
+  color: color('maire')
+  font-size: 14px
+
+.leaderboard__specs-title
+  font-size: 16px
+  font-weight: $font-bold
+  line-height: 1.25
+
+.leaderboard__brand-details
+  background-repeat: no-repeat
+  background-position: center
+  background-size: contain
+  background-color: color('white')
+  padding-left: 15px
+  padding-right: 15px
+  text-align: center
+  position: relative
+  overflow: hidden
+
+.leaderboard__brand-logo
+  position: absolute
+  display: inline-block
+  top: 15px
+  left: 15px
+
+.brand--tvs-logo
+  width: 61px
+
+.leaderboard__brand-img-wrapper
+  width: 100%
+  min-height: 181px
+  line-height: 0
+  text-align: center
+
+.leaderboard__brand-image
+  @include vendor-prefix(transform, translate(-20%, -5%))
+  @include vendor-prefix(transition, all .8s)
+  width: 211px
+  opacity: 0
+  will-change: opacity, transform
+
+.leaderboard__brand-title
+  font-size: 20px
+  font-weight: $font-bold
+  line-height: 27px
+  color: color('black')
+
+.leaderboard__brand-subtitle
+  color: color('maire')
+  font-size: 16px
+  font-weight: $font-normal
+
+.leaderboard__brand-subtitle-bold
+  font-weight: $font-semibold
+
+.leaderboard__brand-info
+  @include vendor-prefix(transform, translateX(20%))
+  @include vendor-prefix(transition, all .3s .6s)
+  max-width: 303px
+  padding-bottom: 20px
+  opacity: 0
+  will-change: opacity, transform
+
+.leaderboard__brand-exshowroom
+  font-size: 12px
+  color: color('dim-gray')
+
+.leaderboard__brand-desription
+  display: none
+
+.popup-head
+  .popup-head__title
+    padding: 7px 10px
+
+.leaderboard__tabs-footer
+  @include vendor-prefix(transition, opacity .3s 1.6s linear)
+  opacity: 0
+  will-change: opacity
+
+.specs-item__engine,
+.specs-item__power,
+.specs-item__transmission
+  @include vendor-prefix(transform,translateY(-40%))
+  opacity: 0
+  will-change: opacity, transform
+
+.specs-item__engine
+  @include vendor-prefix(transition, all .3s 1s)
+
+.specs-item__power
+  @include vendor-prefix(transition, all .3s 1.2s)
+
+.specs-item__transmission
+  @include vendor-prefix(transition, all .3s 1.4s)
+
+
+.leaderboard-tab__container
+  height: 100%
+
+  &.animate
+    .leaderboard__brand-image,
+    .leaderboard__brand-info,
+    .specs-item__engine,
+    .specs-item__power,
+    .specs-item__transmission
+      @include vendor-prefix(transform, translate(0))
+      opacity: 1
+
+    .leaderboard__tabs-footer
+      opacity: 1
+
+.leaderboard-popup
+  .popup-back-btn
+    top: -5px
+    z-index: 1
+
+.tab-body-container
+  @include flexbox
+  @include flex-direction(column)
+  height: 100%
+
+.tab-body__head
+  @include flex($fg: 1, $fs: 1, $fb: auto)
+  position: relative
+  overflow-y: auto
+
+.btn-cinnabar__desktop-text
+  display: none
+
+.btn-cinnabar__mobile-text
+  display: inline-block
+
+// Styles for mobile
+@media only screen and (max-width: 799px)
+  .tvs-jupiter-tab
+    .leaderboard__brand-details
+      background-image: url('https://imgd.aeplcdn.com/0x0/bw/es/html5-creatives/tvs/08112018/jupiter-bg-mobile.png')
+
+  .tvs-wego-tab
+    .leaderboard__brand-details
+      background-image: url('https://imgd.aeplcdn.com/0x0/bw/es/html5-creatives/tvs/08112018/wego-bg-mobile.jpg')
+
+  .scooty-pep-tab
+    .leaderboard__brand-details
+      background-image: url('https://imgd.aeplcdn.com/0x0/bw/es/html5-creatives/tvs/08112018/pep-bg-mobile.jpg')
+
+  .tvs-ntorq-tab
+    .leaderboard__brand-details
+      background-image: url('https://imgd.aeplcdn.com/0x0/bw/es/html5-creatives/tvs/08112018/ntorq-bg-mobile.jpg')
+
+  .leaderboard__brand-info
+    margin-left: auto
+    margin-right: auto
+
+// Styles for desktop
+@media only screen and (min-width: 800px)
+  .popup-footer
+    padding-top: 10px
+    padding-bottom: 10px
+
+    .btn-cinnabar,
+    .btn-cinnabar-outline
+      width: auto
+      font-size: 18px
+      line-height: 22px
+
+    .btn-cinnabar
+      padding: 8px 35px
+
+    .btn-cinnabar__mobile-text
+      display: none
+  
+    .btn-cinnabar__desktop-text
+      display: inline-block
+
+    .btn-cinnabar-outline
+      &:hover
+        color: color('white')
+        background-color: color('cinnabar-3')
+
+  .leaderboard__specs-item
+    margin: 15px 0
+    padding-left: 30px
+    padding-right: 30px
+    display: inline-block
+    width: auto
+
+    &:not(:last-child)
+      border-right: 1px solid color('nobel-3')
+
+  .leaderbord__specs-icon
+    width: 68px
+    height: 66px
+
+    img
+      width: 68px
+
+  .leaderboard__brand-details
+    @include flexbox
+    @include justify-content(center)
+    padding: 25px 50px 0
+    background-position: 100px
+    background-size: 400px
+    text-align: left
+    background-color: color('white')
+
+  .leaderboard__brand-logo
+    left: 40px
+    top: 25px
+
+  .brand--tvs-logo
+    width: 111px
+
+  .leaderboard__brand-img-wrapper
+    max-width: 600px
+    min-height: 257px
+
+  .leaderboard__brand-image
+    width: 299px
+
+  .leaderboard__brand-title
+    font-size: 26px
+
+  .leaderboard__brand-subtitle
+    margin-top: 20px
+    font-size: 18px
+
+  .leaderboard__tab-img
+    width: 81px
+    height: 53px
+
+    img
+      width: 81px
+
+  .leaderboard__tab-text-img
+    width: 96px
+
+  .tab--jupiter-text-img
+    img
+      width: 96px
+
+  .tab--wego-text-img
+    img
+      width: 66px
+
+  .tab--pep-text-img
+    img
+      width: 86px
+
+  .tab--ntorq-text-img
+    img
+      width: 96px
+
+  .leaderboard__brand-exshowroom
+    font-size: 14px
+    color: color('nobel-3')
+    margin-top: 5px
+
+  .leaderboard__brand-desription
+    display: block
+    margin-top: 25px
+    font-size: 14px
+    line-height: 22px
+    color: color('dim-gray')
+
+  .leaderboard-popup
+    &.popup-active
+      .popup
+        width: 1000px
+        height: 550px
+        margin: 35px auto 0
+
+    .popup-head
+      display: none
+
+    .popup-back-btn
+      border-radius: 50%
+      background-color: color('white-smoke-2')
+      right: -20px
+      top: -20px
+
+  .tvs-jupiter-tab
+    .leaderboard__brand-details
+      background-image: url('https://imgd.aeplcdn.com/0x0/bw/es/html5-creatives/tvs/08112018/jupiter-bg.jpg')
+
+  .tvs-wego-tab
+    .leaderboard__brand-details
+      background-image: url('https://imgd.aeplcdn.com/0x0/bw/es/html5-creatives/tvs/08112018/wego-bg.jpg')
+
+  .scooty-pep-tab
+    .leaderboard__brand-details
+      background-image: url('https://imgd.aeplcdn.com/0x0/bw/es/html5-creatives/tvs/08112018/pep-bg.jpg')
+
+  .tvs-ntorq-tab
+    .leaderboard__brand-details
+      background-image: url('https://imgd.aeplcdn.com/0x0/bw/es/html5-creatives/tvs/08112018/ntorq-bg.jpg')
+
+@media only screen and (min-width: 1366px)
+  .leaderboard-popup
+    &.popup-active
+      .popup
+        height: 590px
+
+  .popup-footer
+    padding-top: 20px
+    padding-bottom: 20px
+
+  .leaderboard__brand-details
+    padding-top: 35px
+
+  .leaderboard__specs-item
+    margin-top: 30px
+    margin-bottom: 30px
+
+// Styles for small screen
+@media only screen and (max-width: 320px)
+  .popup-footer
+    .btn-cinnabar,
+    .btn-cinnabar-outline
+      padding-left: 10px
+      padding-right: 10px
+      font-size: 14px
+
+
+@keyframes leaderboradmodelanimate
+  0%
+    @include vendor-prefix(transform,translate(-20%, -10%))
+    opacity: 0
+
+  100%
+    @include vendor-prefix(transform,translate(0))
+    opacity: 1
+
+@keyframes leaderboradinfoanimate
+  0%
+    @include vendor-prefix(transform,translateX(20%))
+    opacity: 0
+
+  100%
+    @include vendor-prefix(transform,translate(0))
+    opacity: 1
+
+@keyframes leaderboradlistanimate
+  0%
+    @include vendor-prefix(transform,translateY(-40%))
+    opacity: 0
+
+  100%
+    @include vendor-prefix(transform,translate(0))
+    opacity: 1

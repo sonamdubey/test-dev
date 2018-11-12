@@ -1,0 +1,150 @@
+﻿@mixin popup-container
+  .popup-container
+    width: 100%
+
+@mixin popup($z-index: 10, $direction: right, $top: 0, $right: 0, $bottom: 0, $left: 0)
+  .popup
+    @include flexbox
+    @include flex-direction(column)
+    @include vendor-prefix('transform', translateX(110%))
+    @include vendor-prefix('transition-property', transform)
+    @include vendor-prefix('transition-timing-function', linear)
+    @include vendor-prefix('transition-duration', 0s)
+    height: 100%
+    width: 100%
+    position: fixed
+    top: $top
+    left: $left
+    right: $right
+    bottom: $bottom
+    background-color: color('white')
+    z-index: $z-index
+
+  @include popup-direction($direction: $direction)
+  @include popup-active
+
+// Popup directions
+@mixin popup-direction($direction: right)
+  .popup-container
+    &[data-direction="#{$direction}"]
+      .popup
+        @if $direction == left
+          @include vendor-prefix('transform', translateX(-110%))
+
+        @else if $direction == down
+          @include vendor-prefix('transform', translateY(110%))
+
+        @else if $direction == up
+          @include vendor-prefix('transform', translateY(-110%))
+
+        @include vendor-prefix('transition-duration', .5s)
+
+// Popup active state
+@mixin popup-active
+  .popup-container
+    &.popup-active
+      .popup
+        @include vendor-prefix('transform', translate(0))
+        will-change: transform
+
+// Popup head
+@mixin popup-head($color: 'default')
+  .popup-head
+    @include flexbox
+    @include align-items(center)
+    color: color($color)
+    box-shadow: 0 2px 4px 0 color('dark-black', .1)
+    width: 100%
+
+// Popup back button
+@mixin popup-back-btn($width: 50, $height: 54, $icon-width: 10, $icon-height: 16, $icon-direction: left)
+  .popup-back-btn
+    position: relative
+    width: $width * 1px
+    height: $height * 1px
+    cursor: pointer
+    -webkit-tap-highlight-color: transparent
+
+    &:after
+      @include arrow-icon($width: $icon-width, $height: $icon-height, $direction: $icon-direction, $translate: translate(-50%, -50%))
+      content: ''
+      position: absolute
+      top: 50%
+      left: 50%
+
+// Popup body
+@mixin popup-body($padding: 10px 20px)
+  .popup-body
+    @include flex
+    padding: $padding
+    position: relative
+    overflow-y: auto
+    height: 100%
+
+// Popup input field
+@mixin popup-head-input-field($focus-color: 'white', $box-shadow-focus-state: none, $padding: 16px 5px, $color: 'dark-gray-2', $has-error: false, $font-size: 16, $box-shadow: null, $border: null, $font-weight: $font-normal, $placeholder-style: normal)
+  .popup-head
+    @include input-field($box-shadow: $box-shadow, $border: $border, $focus-color: $focus-color, $box-shadow-focus-state: $box-shadow-focus-state, $padding: $padding,  $color: $color, $has-error: $has-error, $font-size: $font-size, $placeholder-style: $placeholder-style, $font-weight: $font-weight)
+
+    .form-control-box
+      @include flex-grow
+      position: relative
+
+// Popup input clear
+@mixin popup-head-input-clear($color: pacific-blue, $font-size: 12, $font-weight: $font-semibold, $padding: 19px 20px)
+  .popup-input-clear
+    color: color($color)
+    font-size: $font-size * 1px
+    font-weight: $font-weight
+    padding: $padding
+    line-height: 1.4
+    cursor: pointer
+    -webkit-tap-highlight-color: transparent
+
+// Popup overlay
+@mixin popup-overlay($opacity: .8, $z-index: 8)
+  .popup-overlay
+    width: 100%
+    height: 100%
+    position: fixed
+    top: 0
+    right: 0
+    bottom: 0
+    left: 0
+    background-color: color("dark-black")
+    opacity: $opacity
+    z-index: $z-index
+    display: none
+
+  .popup-active
+    .popup-overlay
+      display: block
+
+// Popup placeholder screen
+@mixin popup-body-placeholder
+  .popup-body-placeholder
+    @include flexbox
+    @include justify-content(center)
+    @include align-items(center)
+    @include flex-direction(column)
+    height: 100%
+
+@mixin popup-placeholder-icon($width: 61px, $height: 61px)
+  .popup-placeholder-icon
+    height: $height
+    width: $width
+    background-size: contain
+    margin-bottom: 15px
+
+@mixin popup--search-icon
+    .popup--search-icon
+      @include search-filled-fd8d81-icon
+
+@mixin popup-placeholder-message($font-size: 12, $font-style: italic, $color: 'default', $font-weight: $font-normal, $opacity: .75)
+  .popup-placeholder-message
+    font-size: $font-size * 1px
+    font-style: $font-style
+    color: color($color)
+    font-weight: $font-weight
+    opacity: $opacity
+    text-align: center

@@ -3813,9 +3813,11 @@
     <Content Include="UI\m\src\priceincity.js" />
     <Content Include="UI\m\src\qna\landing.js" />
     <Content Include="UI\sass\partials\lead-form\offers.css" />
+    <Content Include="UI\src\es\tvs-leaderboard.js" />
     <Content Include="UI\src\utils\animate-cta.js" />
     <Content Include="UI\src\QuestionAndAnswers\questionAnswerFlow.js" />
     <Content Include="UI\src\utils\checkbox.js" />
+    <Content Include="UI\src\utils\popup.js" />
     <Content Include="UI\src\utils\readMore.js" />
     <Content Include="UI\m\src\review\landing.js" />
     <Content Include="UI\m\src\scooters-by-make.js" />
@@ -4183,6 +4185,7 @@
     <Content Include="UI\src\utils\dropdown.js" />
     <Content Include="UI\src\utils\navigationTabs.js" />
     <Content Include="UI\src\utils\ribbon.js" />
+    <Content Include="UI\src\utils\scroll-lock.js" />
     <Content Include="UI\src\utils\scroll.js" />
     <Content Include="UI\src\utils\swiperYoutube.js" />
     <Content Include="UI\src\utils\viewport.js" />
@@ -4976,10 +4979,14 @@
     <Content Include="UI\Views\m\Shared\_LocationPopup.cshtml" />
     <Content Include="UI\sass\partials\response-popup.sass" />
     <Content Include="UI\sass\partials\lead-form\offers.sass" />
+    <Content Include="UI\sass\plugin\_popup.sass" />
+    <Content Include="UI\sass\es\tvs\leaderboard-popup.sass" />
+    <Content Include="UI\sass\es\tvs\leaderboard.sass" />
     <None Include="UI\Views\QuestionAndAnswers\_QuestionAnswerSection.cshtml" />
     <Content Include="UI\Views\QuestionAndAnswers\_unansweredquestion_mobile.cshtml" />
     <Content Include="UI\Views\Shared\_AnimatedCTA.cshtml" />
     <Content Include="UI\Views\Shared\_LeadCapture_Mobile_New.cshtml" />
+    <Content Include="UI\Views\Shared\_leaderboard.cshtml" />
     <None Include="UI\Views\Shared\_Sidebar-section.cshtml" />
     <Content Include="UI\Views\BikeModels\_MultiTabsWidget.cshtml" />
     <Content Include="UI\Views\Shared\_ReviewPopup.cshtml" />

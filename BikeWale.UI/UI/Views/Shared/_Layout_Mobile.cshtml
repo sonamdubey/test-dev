@@ -356,7 +356,11 @@
     {
             <!-- Call Home Page Banner partial view -->
     }
-    @if (Model.AdTags != null && Model.AdTags.Ad_320x50)
+    @if (Model.IsTVSCampaignShown)
+    {
+        @Html.Partial("~/UI/Views/Shared/_leaderboard.cshtml")
+    }
+    else if (Model.AdTags != null && Model.AdTags.Ad_320x50)
 {
     <div id='div-gpt-ad-@Model.AdTags.AdId-0' style='width:320px; height:50px;text-align:center;margin: 10px auto;' data-load-immediate="true">
         <script type='text/javascript'>

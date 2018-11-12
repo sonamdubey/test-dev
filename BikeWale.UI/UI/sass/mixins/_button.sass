@@ -1,6 +1,6 @@
-﻿@mixin btn($font-size: 16px, $font-weight: normal)
+﻿@mixin btn($font-size: 16px, $font-weight: $font-normal, $border-radius: 4px)
   .btn
-    @include vendor-prefix('border-radius', 4px)
+    border-radius: $border-radius
     display: inline-block
     padding: 8px 42px
     font-size: $font-size
