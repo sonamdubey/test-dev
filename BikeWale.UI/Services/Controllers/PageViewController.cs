@@ -13,19 +13,19 @@ namespace Bikewale.Services.Controllers
 {
     public class PageViewController : CompressionApiController//ApiController
     {
-        private static HashSet<string> _ampCors = new HashSet<string> { "https://www-bikewale-com.cdn.ampproject.org", "https://www-bikewale-com.amp.cloudflare.com", "https://cdn.ampproject.org", "https://www.bikewale.com" };
-        
-        [HttpGet, Route("api/trackamppageview/"), EnableCors("https://www-bikewale-com.cdn.ampproject.org, https://www-bikewale-com.amp.cloudflare.com, https://cdn.ampproject.org,https://www.bikewale.com", "*", "GET")]
+        private static HashSet<string> _ampCors = new HashSet<string> { "https://www-bikewale-com.cdn.ampproject.org", "https://www-bikewale-com.amp.cloudflare.com", "https://cdn.ampproject.org", "https://www.bikewale.com", "https://staging-bikewale-com.cdn.ampproject.org" };
+
+        [HttpGet, Route("api/trackamppageview/"), EnableCors("https://www-bikewale-com.cdn.ampproject.org, https://www-bikewale-com.amp.cloudflare.com, https://cdn.ampproject.org,https://www.bikewale.com, https://staging-bikewale-com.cdn.ampproject.org", "*", "GET")]
         public IHttpActionResult TrackAmpPageView()
         {
             string ampSourceOrigin = HttpUtility.ParseQueryString(Request.RequestUri.Query)["__amp_source_origin"];
             string ampOrigin = Request.Headers.Contains("Origin") ? Request.Headers.GetValues("Origin").FirstOrDefault() : string.Empty;
 
 
-            //if (!string.IsNullOrEmpty(ampSourceOrigin) && _ampCors.Contains(ampOrigin))
-            //{
+            if (!string.IsNullOrEmpty(ampSourceOrigin) && _ampCors.Contains(ampOrigin))
+            {
             BWCookies.AddAmpHeaders(ampSourceOrigin, ampOrigin, true);
-            //}
+            }
             NameValueCollection objNVC = new NameValueCollection();
             var cookies = HttpContext.Current.Response.Cookies;
 
