@@ -53,7 +53,6 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="google-site-verification" content="fG4Dxtv_jDDSh1jFelfDaqJcyDHn7_TCJH3mbvq6xW8" />
     <link rel='stylesheet' type='text/css' href='/UI/css/bw-common-atf.css' atf-css />
-	<link rel='stylesheet' type='text/css' href='/UI/css/bw-doodle.css' atf-css />
     <link href="//www.googletagservices.com" rel="dns-prefetch" />
     <link href="//ad.doubleclick.net" rel="dns-prefetch" />
     <link href="//www.googleadservices.com" rel="dns-prefetch" />
@@ -302,27 +301,6 @@
 <body class="@(@Model.IsPageTypeLanding ? " page-type-landing " : "") bg-light-grey @(@Model.IsHeaderFix ? "header-fixed-inner" : "")" @string.Format("{0}", Model.ExcludeContestSlug ? "data-contestslug='true'" : "") data-page-id="@((int)Model.Page)" data-page-name="@Model.Page" data-pricemoney="@Bikewale.Utility.Format.FormatPrice(Bikewale.Utility.BWConfiguration.Instance.ContestPriceMoney)">
     <div id="header" class='@(Model.IsHeaderFix ? "header-fixed" : "header-not-fixed") @(Model.IsTransparentHeader ? "header-landing header-transparent" : "")'>
         <!-- Fixed Header code starts here -->
-		<!-- Doodle start-->
-		<span class="doodle__container bw-ga" data-cat="Doodle" data-act="Doodle_Click" data-lab="Diwali">
-			<span class="doodle__animation-block">
-				<span class="doodle__hexagaon">
-					<span class="doodle__left-cloud"></span>
-					<span class="doodle__right-cloud"></span>
-					<span class="doodle__flag"></span>
-					<span class="doodle__star doodle__star-one"></span>
-					<span class="doodle__star doodle__star-two"></span>
-					<span class="doodle__star doodle__star-three"></span>
-					<span class="doodle__star doodle__star-four"></span>
-					<span class="doodle__star doodle__star-five"></span>
-					<span class="doodle__firework firework-one"></span>
-					<span class="doodle__firework firework-two"></span>
-					<span class="doodle__firework firework-three"></span>
-					<span class="doodle__lantern lantern-one"></span>
-					<span class="doodle__lantern lantern-two"></span>
-				</span>
-			</span>
-		</span>
-		<!--Doodle end-->
         <div class="leftfloat">
             <span class="navbarBtn bwsprite nav-icon margin-right25"></span>
             <a href="/" id="bwheader-logo" class="bw-logo" title="BikeWale">BikeWale</a>
