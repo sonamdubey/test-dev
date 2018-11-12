@@ -268,13 +268,13 @@ namespace Bikewale.Models.BikeSeries
         {
             try
             {
-                WebPage webpage = SchemaHelper.GetWebpageSchema(objSeriesPage.PageMetaTags, objSeriesPage.BreadcrumbList);
+                WebPage webpage = SchemaHelper.GetWebpageSchema(objSeriesPage.PageMetaTags, objSeriesPage.SchemaBreadcrumbList);
                 Brand brand = null;
                 if(webpage != null)
                 {
                     brand = new Brand
                     {
-                        Name = string.Format("{0} {1}", objSeriesPage.BikeMake.MakeMaskingName, objSeriesPage.SeriesBase.MaskingName),
+                        Name = string.Format("{0} {1}", objSeriesPage.BikeMake.MakeName, objSeriesPage.SeriesBase.SeriesName),
                         Description = objSeriesPage.SeriesDescription.FullDescription,
                         Url = string.Format("{0}/{1}{2}-bikes/{3}/", BWConfiguration.Instance.BwHostUrl, (IsMobile ? "m/" : ""),  objSeriesPage.BikeMake.MakeMaskingName, objSeriesPage.SeriesBase.MaskingName)
                     };
@@ -328,6 +328,7 @@ namespace Bikewale.Models.BikeSeries
                     BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, null, objSeriesPage.BikeMake.MakeName + " " + objSeriesPage.SeriesBase.SeriesName));
                 }
                 objSeriesPage.BreadcrumbList.BreadcrumListItem = BreadCrumbs;
+                objSeriesPage.SchemaBreadcrumbList.BreadcrumListItem = BreadCrumbs.Take(BreadCrumbs.Count - 1);
             }
             catch (Exception ex)
             {

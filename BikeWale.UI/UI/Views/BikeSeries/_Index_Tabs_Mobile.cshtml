@@ -49,7 +49,7 @@
 				@if (Model.objUsedBikes != null && Model.objUsedBikes.RecentUsedBikesList != null && Model.objUsedBikes.RecentUsedBikesList.Any())
 				{
 					<li data-tabs="#modelUsedBikeContent" class="navtab" data-lab="@string.Format("{0}_UsedBikes", Model.SeriesBase.SeriesName)">
-						Used Bikes
+						@string.Format("Used {0}", Model.SeriesBase.BodyStyle == Bikewale.Entities.GenericBikes.EnumBikeBodyStyles.Scooter ? "Scooters" : "Bikes") 
 					</li>
 				}
 			</ul>
