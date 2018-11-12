@@ -107,7 +107,8 @@ namespace Bikewale.Controllers
                 model.ManufacturerCampaignPageId = ManufacturerCampaign.Entities.ManufacturerCampaignServingPages.Desktop_PriceInCity;
                 model.CurrentPageUrl = Request.RawUrl;
                 objVM = model.GetData();
-                if (model.Status == Entities.StatusCodes.ContentNotFound)
+                bool renderPage = (objVM != null && objVM.Make != null && objVM.BikeModel != null && objVM.CityEntity != null);
+                if (model.Status == Entities.StatusCodes.ContentNotFound || !renderPage)
                 {
                     return HttpNotFound();
                 }
@@ -155,7 +156,8 @@ namespace Bikewale.Controllers
                 model.ManufacturerCampaignPageId = ManufacturerCampaign.Entities.ManufacturerCampaignServingPages.Mobile_PriceInCity;
                 model.CurrentPageUrl = Request.RawUrl;
                 objVM = model.GetData();
-                if (model.Status == Entities.StatusCodes.ContentNotFound)
+                bool renderPage = (objVM != null && objVM.Make != null && objVM.BikeModel != null && objVM.CityEntity != null);
+                if (model.Status == Entities.StatusCodes.ContentNotFound || !renderPage)
                 {
                     return HttpNotFound();
                 }
