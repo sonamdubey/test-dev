@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Bikewale.Common;
+﻿using Bikewale.Common;
 using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS;
+using Bikewale.Entities.EditorialWidgets;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.Pager;
@@ -19,14 +16,14 @@ using Bikewale.Interfaces.EditCMS;
 using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.Pager;
 using Bikewale.Interfaces.PWA.CMS;
-using Bikewale.Models.BestBikes;
-using Bikewale.Models.BikeModels;
-using Bikewale.Models.Scooters;
+using Bikewale.Models.EditorialPages;
 using Bikewale.PWA.Utils;
 using Bikewale.Utility;
 using Newtonsoft.Json;
-using Bikewale.Models.EditorialPages;
-using Bikewale.Entities.EditorialWidgets;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
 
 namespace Bikewale.Models
 {
@@ -227,7 +224,7 @@ namespace Bikewale.Models
                     SetAdditionalVariables(objData);
                     objData.PageWidgets = base.GetEditorialWidgetData(widgetType);
                     #endregion
-                    
+
                     objData.Page = Entities.Pages.GAPages.Editorial_List_Page;
 
                 }
@@ -254,7 +251,7 @@ namespace Bikewale.Models
 
             try
             {
-				
+
                 int _startIndex = 0, _endIndex = 0;
                 _pager.GetStartEndIndex(pageSize, curPageNo, out _startIndex, out _endIndex);
 
@@ -730,7 +727,7 @@ namespace Bikewale.Models
         {
             try
             {
-                MoreAboutScootersWidget obj = new MoreAboutScootersWidget(_models, _objCityCache, _objVersion, _objGenericBike, Entities.GenericBikes.BikeInfoTabType.News);
+                MoreAboutScootersWidget obj = new MoreAboutScootersWidget(_models, _objCityCache, _objVersion, _objGenericBike, Entities.GenericBikes.BikeInfoTabType.News, _bikeModels, _series);
                 obj.modelId = ModelId;
                 objData.ObjMoreAboutScooter = obj.GetData();
             }
@@ -841,7 +838,7 @@ namespace Bikewale.Models
 
         private void BindBikeInfoWidget(NewsIndexPageVM objData)
         {
-            BikeInfoWidget genericInfoWidget = new BikeInfoWidget(_objGenericBike, _objCityCache, ModelId, CityId, _totalTabCount, _pageId);
+            BikeInfoWidget genericInfoWidget = new BikeInfoWidget(_objGenericBike, _objCityCache, ModelId, CityId, _totalTabCount, _pageId, _bikeModels, _series);
             objData.GenericBikeInfoWidget = genericInfoWidget.GetData();
         }
         #endregion

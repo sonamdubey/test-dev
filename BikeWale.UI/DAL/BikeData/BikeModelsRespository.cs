@@ -1906,6 +1906,8 @@ namespace Bikewale.DAL.BikeData
         /// Description : Replaced sp "getbikeinfo_24012018" with "getbikeinfo_02042018"
         /// Modified by : Rajan Chauhan on 17 Oct 2018
         /// Description : Restored fuel type in new sp `getbikeinfo_17102018`
+        /// Modified by : Snehal Dange on 25 oct 2018
+        /// DESC :  Changed sp from "getbikeinfo_17102018"  to getbikeinfo_25102018 to fetch makeid and modelid
         /// </summary>
         /// <returns></returns>
         public GenericBikeInfo GetBikeInfo(uint modelId)
@@ -1916,7 +1918,7 @@ namespace Bikewale.DAL.BikeData
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "getbikeinfo_17102018";
+                    cmd.CommandText = "getbikeinfo_25102018";
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
                     genericBikeInfo = PopulateGenericBikeInfoEntity(genericBikeInfo, cmd);
                 }
@@ -1958,8 +1960,10 @@ namespace Bikewale.DAL.BikeData
                             genericBikeInfo.BikePrice = SqlReaderConvertor.ToUInt32(dr["price"]);
                             genericBikeInfo.EstimatedPriceMin = SqlReaderConvertor.ToUInt32(dr["EstimatedPriceMin"]);
                             genericBikeInfo.EstimatedPriceMax = SqlReaderConvertor.ToUInt32(dr["EstimatedPriceMax"]);
+                            genericBikeInfo.Make.MakeId = SqlReaderConvertor.ToInt32(dr["bikemakeid"]);
                             genericBikeInfo.Make.MakeName = Convert.ToString(dr["makename"]);
                             genericBikeInfo.Make.MaskingName = Convert.ToString(dr["makemaskingname"]);
+                            genericBikeInfo.Model.ModelId = SqlReaderConvertor.ToInt32(dr["id"]);
                             genericBikeInfo.Model.ModelName = Convert.ToString(dr["modelname"]);
                             genericBikeInfo.Model.MaskingName = Convert.ToString(dr["modelmaskingname"]);
                             genericBikeInfo.IsUsed = SqlReaderConvertor.ToBoolean(dr["Used"]);
@@ -2007,6 +2011,8 @@ namespace Bikewale.DAL.BikeData
         /// Description : Replaced sp "getbikeinfobycity_24012018" with "getbikeinfobycity_02042018"
         /// Modified By : Sanjay George on 1 Oct 2018
         /// Description : Changed sp to getbikeinfobycity_26092018 to remove prices dependency.
+        /// Modified by : Snehal Dange on 25 oct 2018
+        /// DESC :  Changed sp from "getbikeinfobycity_26092018"  to getbikeinfobycity_25102018 to fetch makeid and modelid
         /// </summary>
         /// <returns></returns>
         public GenericBikeInfo GetBikeInfo(uint modelId, uint cityId)
@@ -2018,7 +2024,7 @@ namespace Bikewale.DAL.BikeData
                 using (DbCommand cmd = DbFactory.GetDBCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "getbikeinfobycity_26092018";
+                    cmd.CommandText = "getbikeinfobycity_25102018";
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId));
                     genericBikeInfo = PopulateGenericBikeInfoEntity(genericBikeInfo, cmd);
@@ -2060,7 +2066,7 @@ namespace Bikewale.DAL.BikeData
                                 usedBikeInfo = new UsedBikeInfo();
                                 usedBikeInfo.UsedBikeCount = SqlReaderConvertor.ToUInt32(dr["availableBikes"]);
                                 usedBikeInfo.UsedBikeMinPrice = SqlReaderConvertor.ToUInt32(dr["minPrice"]);
-                               
+
                             }
                             dr.Close();
                         }
@@ -2074,7 +2080,7 @@ namespace Bikewale.DAL.BikeData
 
             }
             return usedBikeInfo;
-        } 
+        }
 
         /// <summary>
         /// Created By : Aditi Srivastava on 12 Jan 2017

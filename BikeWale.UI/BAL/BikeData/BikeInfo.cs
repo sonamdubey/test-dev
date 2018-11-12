@@ -3,15 +3,15 @@ using Bikewale.BAL.ApiGateway.ApiGatewayHelper;
 using Bikewale.BAL.ApiGateway.Entities.BikeData;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.GenericBikes;
+using Bikewale.Entities.NewBikeSearch;
 using Bikewale.Interfaces.BikeData;
+using Bikewale.Interfaces.NewBikeSearch;
 using Bikewale.Notifications;
+using log4net;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using log4net;
-using Bikewale.Entities.NewBikeSearch;
 using System.Collections.ObjectModel;
-using Bikewale.Interfaces.NewBikeSearch;
+using System.Linq;
 
 namespace Bikewale.BAL.BikeData
 {
@@ -25,16 +25,20 @@ namespace Bikewale.BAL.BikeData
         private readonly IApiGatewayCaller _apiGatewayCaller;
         private static readonly ILog _logger = LogManager.GetLogger(typeof(BikeInfo));
         private readonly IBikeSearch _bikeSearch;
+        private readonly IBikeModels<BikeModelEntity, int> _models;
+        private readonly IBikeSeries _bikeSeries = null;
         /// <summary>
         /// Constructor to initialize all the dependencies
         /// </summary>
         /// <param name="_cache"></param>
         /// <param name="_genericBike"></param>
-        public BikeInfo(IBikeModelsCacheRepository<int> modelCache, IApiGatewayCaller apiGatewayCaller, IBikeSearch bikeSearch)
+        public BikeInfo(IBikeModelsCacheRepository<int> modelCache, IApiGatewayCaller apiGatewayCaller, IBikeSearch bikeSearch, IBikeModels<BikeModelEntity, int> models, IBikeSeries bikeSeries)
         {
             _modelCache = modelCache;
             _apiGatewayCaller = apiGatewayCaller;
             _bikeSearch = bikeSearch;
+            _models = models;
+            _bikeSeries = bikeSeries;
         }
 
         /// <summary>
@@ -67,6 +71,10 @@ namespace Bikewale.BAL.BikeData
                         objBikeInfo.Bike = string.Format("{0} {1}", objBikes.Make.MakeName, objBikes.Model.ModelName);
 
                     objBikeInfo.PQSource = (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_GenricBikeInfo_Widget;
+                    if (objBikes.Make != null && objBikes.Model != null)
+                    {
+                        objBikeInfo.Series = BindSeriesData(Convert.ToUInt32(objBikes.Make.MakeId), Convert.ToUInt32(objBikes.Model.ModelId));
+                    }
 
                 };
             }
@@ -90,10 +98,10 @@ namespace Bikewale.BAL.BikeData
         {
             GenericBikeInfo genericBike = null;
             UsedBikeInfo usedBikeInfo = null;
-            
+
             try
             {
-                
+
                 if (modelId > 0)
                 {
                     if (cityId <= 0)
@@ -104,11 +112,11 @@ namespace Bikewale.BAL.BikeData
                     {
                         // fetch from new version of sp and bind with price
                         genericBike = _modelCache.GetBikeInfo(modelId, cityId);
-                        if(genericBike != null)
+                        if (genericBike != null)
                         {
                             genericBike.PriceInCity = GetPriceFromES(modelId, cityId, (uint)genericBike.VersionId);
                         }
-                        
+
                     }
                     else
                     {
@@ -154,7 +162,7 @@ namespace Bikewale.BAL.BikeData
             {
                 ErrorClass.LogError(ex, string.Format("Bikewale.BAL.BikeData.BikeInfo.GetBikeInfo {0}, {1}", modelId, cityId));
             }
-            
+
             return genericBike;
         }
         /// <summary>
@@ -193,6 +201,37 @@ namespace Bikewale.BAL.BikeData
                 ErrorClass.LogError(ex, string.Format("Bikewale.BAL.BikeData.BikeInfo.GetPriceFromES {0}, {1}, {2}", modelId, cityId, versionId));
             }
             return versionPrice;
+        }
+
+
+
+        private BikeSeriesEntity BindSeriesData(uint makeId, uint modelId)
+        {
+            BikeSeriesEntity seriesInfo = null;
+            BikeSeriesEntityBase objSeries = null;
+            uint seriesId = 0;
+            try
+            {
+                if (modelId > 0)
+                {
+                    uint cityId = 0;
+                    objSeries = _models.GetSeriesByModelId(modelId);
+                    if (objSeries != null && objSeries.SeriesId > 0 && makeId > 0)
+                    {
+                        seriesId = objSeries.SeriesId;
+                        IEnumerable<BikeSeriesEntity> makeSeriesList = _bikeSeries.GetMakeSeries(makeId, cityId);
+                        if (makeSeriesList != null && makeSeriesList.Any())
+                        {
+                            seriesInfo = makeSeriesList.FirstOrDefault(s => s.SeriesId == seriesId);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, String.Format("Bikewale.BAL.BikeData.BikeInfo.BindSeriesData(ModelId :{0} ,SeriesId :{2})", modelId, seriesId));
+            }
+            return seriesInfo;
         }
     }   // class
 }   // namespace

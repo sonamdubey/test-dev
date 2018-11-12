@@ -1,5 +1,6 @@
 ﻿using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.EditorialWidgets;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.Pages;
@@ -12,11 +13,7 @@ using Bikewale.Interfaces.CMS;
 using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.PWA.CMS;
 using Bikewale.Memcache;
-using Bikewale.Models.BestBikes;
-using Bikewale.Models.BikeMakes;
-using Bikewale.Models.BikeModels;
-using Bikewale.Models.Scooters;
-using Bikewale.Models.Shared;
+using Bikewale.Models.EditorialPages;
 using Bikewale.Notifications;
 using Bikewale.PWA.Utils;
 using Bikewale.Utility;
@@ -26,8 +23,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using Bikewale.Models.EditorialPages;
-using Bikewale.Entities.EditorialWidgets;
 
 namespace Bikewale.Models
 {
@@ -54,7 +49,6 @@ namespace Bikewale.Models
         private readonly IPWACMSCacheRepository _renderedArticles = null;
         private readonly IBikeMakesCacheRepository _bikeMakesCacheRepository = null;
         private readonly IBikeVersions<BikeVersionEntity, uint> _objBikeVersions;
-        private readonly IBikeSeriesCacheRepository _seriesCache = null;
         private readonly IBikeSeries _series;
 
 
@@ -93,10 +87,11 @@ namespace Bikewale.Models
 
         public bool IsAMPPage { get; set; }
         #endregion
-        
+
         #region Constructor
         public NewsDetailPage(ICMSCacheContent cmsCache, IBikeMakesCacheRepository bikeMakesCacheRepository, IBikeModelsCacheRepository<int> models, IBikeModels<BikeModelEntity, int> bikeModels, IUpcoming upcoming, IBikeInfo bikeInfo, ICityCacheRepository cityCacheRepo, string basicId, IPWACMSCacheRepository renderedArticles, IBikeVersions<BikeVersionEntity, uint> objBikeVersions,
-            IBikeSeriesCacheRepository seriesCache, IBikeSeries series):base(bikeMakesCacheRepository, models, bikeModels, upcoming, series)
+            IBikeSeriesCacheRepository seriesCache, IBikeSeries series)
+            : base(bikeMakesCacheRepository, models, bikeModels, upcoming, series)
         {
             _cmsCache = cmsCache;
             _models = models;
@@ -108,7 +103,6 @@ namespace Bikewale.Models
             _renderedArticles = renderedArticles;
             _bikeMakesCacheRepository = bikeMakesCacheRepository;
             _objBikeVersions = objBikeVersions;
-            _seriesCache = seriesCache;
             _series = series;
             ProcessCityArea();
             ProcessQueryString();
@@ -309,7 +303,7 @@ namespace Bikewale.Models
                         CategoryId = EditorialGACategories.Editorial_Details_Page,
                         PQSourceId = IsMobile ? PQSourceEnum.Mobile_News_Details_Page : PQSourceEnum.Desktop_NewsDetailsPage
                     }
-                    
+
                 };
                 if (IsAMPPage)
                 {
@@ -375,7 +369,7 @@ namespace Bikewale.Models
 
                     SetAdditionalVariables(objData);
                     objData.PageWidgets = base.GetEditorialWidgetData(EnumEditorialPageType.Detail);
-                    
+
                     SetPageMetas(objData);
 
                     if (objData.Model != null && ModelId != 0 && objData.Model.ModelId != ModelId)
@@ -390,7 +384,7 @@ namespace Bikewale.Models
                     if (objData.PageWidgets != null)
                     {
                         newsDetailReducer.NewBikesListData.NewBikesList = ConverterUtility.MapPopularAndUpcomingWidgetDataToPwa(objData.PageWidgets);
-                        newsDetailReducer.NewBikesListData.BikeMakeList = ConverterUtility.MapOtherBrandsWidgetDataToPWA(objData.PageWidgets); 
+                        newsDetailReducer.NewBikesListData.BikeMakeList = ConverterUtility.MapOtherBrandsWidgetDataToPWA(objData.PageWidgets);
                     }
                     var storeJson = JsonConvert.SerializeObject(objData.ReduxStore);
 
@@ -467,7 +461,7 @@ namespace Bikewale.Models
                 {
                     objTargetedAds.TargetedTags = String.Join(", ", objData.ArticleDetails.TagsList);
                 }
-                objData.AdTags = objTargetedAds;                
+                objData.AdTags = objTargetedAds;
                 objData.PageMetaTags.ShareImage = Image.GetPathToShowImages(objData.ArticleDetails.OriginalImgUrl, objData.ArticleDetails.HostUrl, ImageSize._640x348);
                 objData.PageMetaTags.Description = string.Format("BikeWale coverage on {0}. Get the latest reviews and photos for {0} on BikeWale coverage.", objData.ArticleDetails.Title);
                 objData.PageMetaTags.CanonicalUrl = string.Format("https://www.bikewale.com/news/{0}-{1}.html", objData.ArticleDetails.BasicId, objData.ArticleDetails.ArticleUrl);
@@ -630,7 +624,7 @@ namespace Bikewale.Models
         /// <param name="objData"></param>
         private void BindBikeInfoWidget(NewsDetailPageVM objData)
         {
-            BikeInfoWidget objBikeInfo = new BikeInfoWidget(_bikeInfo, _cityCacheRepo, ModelId, CityId, _totalTabCount, _pageId);
+            BikeInfoWidget objBikeInfo = new BikeInfoWidget(_bikeInfo, _cityCacheRepo, ModelId, CityId, _totalTabCount, _pageId, _bikeModels, _series);
             objData.BikeInfo = objBikeInfo.GetData();
             objData.BikeInfo.IsSmallSlug = true;
         }

@@ -298,6 +298,7 @@
                         {
                             var bikeInfo = Model.BikeInfo.BikeInfo;
                             var cityDetails = Model.BikeInfo.CityDetails;
+                            var seriesInfo = Model.BikeInfo.Series;
                             <div class="padding-15-20">
                                 <div class="model-more-info-section">
                                     @if (Model.BikeInfo.IsUpcoming)
@@ -402,13 +403,15 @@
                                         </ul>
                                     }
                                     <div class="clear"></div>
-                                    @if (bikeInfo.UsedBikeCount > 0)
+                                    
+                                    @if (bikeInfo.Make != null && seriesInfo != null && seriesInfo.IsSeriesPageUrl && seriesInfo.ModelsCount > 1)
                                     {
+                                        string bodyType = string.Format("{0}{1}", seriesInfo.BodyStyle.Equals(Bikewale.Entities.GenericBikes.EnumBikeBodyStyles.Scooter) ? "scooter" : "bike", seriesInfo.ModelsCount > 2 ? "s" : "");
                                         <div class="border-solid-bottom margin-top5 margin-bottom10"></div>
-                                        <a href="@string.Format("{0}/m{1}", BWConfiguration.Instance.BwHostUrl, UrlFormatter.UsedBikesUrlNoCity(bikeInfo.Make.MaskingName, bikeInfo.Model.MaskingName, (cityDetails != null) ? cityDetails.CityMaskingName : "india"))" title="Used @Model.BikeName" class="block text-default hover-no-underline">
+                                        <a href="@string.Format("/m{0}",Bikewale.Utility.UrlFormatter.BikeSeriesUrl(bikeInfo.Make.MaskingName, seriesInfo.MaskingName))" title="@string.Format("{0} {1} {2}", bikeInfo.Make.MakeName, seriesInfo.SeriesName, bodyType)" class="block text-default hover-no-underline">
                                             <span class="used-target-label inline-block">
-                                                <span class="font14 text-bold">@string.Format("{0} Used {1} bikes", bikeInfo.UsedBikeCount, bikeInfo.Model.ModelName)</span><br />
-                                                <span class="font12 text-light-grey">starting at &#x20b9; @Format.FormatNumeric(Convert.ToString(bikeInfo.UsedBikeMinPrice))</span>
+                                                <span class="font14 text-bold">@string.Format("{0} more {1} {2} {3}", seriesInfo.ModelsCount - 1, bikeInfo.Make.MakeName, seriesInfo.SeriesName , bodyType)</span><br />
+                                                <span class="font12 text-light-grey">starting from &#x20b9; @Bikewale.Utility.Format.FormatNumeric(Convert.ToString(seriesInfo.MinPrice))</span>
                                             </span>
                                             <span class="bwmsprite next-grey-icon"></span>
                                         </a>

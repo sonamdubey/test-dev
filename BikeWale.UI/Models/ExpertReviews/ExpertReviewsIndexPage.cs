@@ -1,32 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Bikewale.Common;
+﻿using Bikewale.Common;
 using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS;
+using Bikewale.Entities.EditorialWidgets;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.Pager;
 using Bikewale.Entities.PriceQuote;
+using Bikewale.Entities.PWA.Articles;
 using Bikewale.Entities.Schema;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.BikeData.UpComing;
 using Bikewale.Interfaces.CMS;
+using Bikewale.Interfaces.EditCMS;
 using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.Pager;
-using Bikewale.Models.BestBikes;
-using Bikewale.Models.BikeModels;
-using Bikewale.Models.Scooters;
-using Bikewale.Utility;
-using Bikewale.Entities.PWA.Articles;
-using Bikewale.Interfaces.EditCMS;
-using Bikewale.PWA.Utils;
 using Bikewale.Interfaces.PWA.CMS;
-using Newtonsoft.Json;
 using Bikewale.Models.EditorialPages;
-using Bikewale.Entities.EditorialWidgets;
+using Bikewale.PWA.Utils;
+using Bikewale.Utility;
+using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
 
 namespace Bikewale.Models
 {
@@ -213,7 +210,7 @@ namespace Bikewale.Models
                     status = StatusCodes.ContentFound;
                     objData.StartIndex = _startIndex;
                     objData.EndIndex = _endIndex > objData.Articles.RecordCount ? Convert.ToInt32(objData.Articles.RecordCount) : _endIndex;
-                    BindLinkPager(objData, (int) objData.Articles.RecordCount);
+                    BindLinkPager(objData, (int)objData.Articles.RecordCount);
                     SetPageMetas(objData);
                     CreatePrevNextUrl(objData, (int)objData.Articles.RecordCount);
 
@@ -226,7 +223,7 @@ namespace Bikewale.Models
 
                     SetAdditionalVariables(objData);
                     objData.PageWidgets = base.GetEditorialWidgetData(widgetType);
-                    
+
                     #endregion
 
                     if (objData.Model != null)
@@ -280,7 +277,7 @@ namespace Bikewale.Models
                             CityId = CityId
                         };
                         break;
-                    
+
                     case EditorialPageType.ModelPage:
                         widgetType = EnumEditorialPageType.Detail;
 
@@ -347,7 +344,7 @@ namespace Bikewale.Models
 
 
                 base.SetAdditionalData(editorialWidgetData);
-               
+
             }
             catch (Exception ex)
             {
@@ -424,7 +421,7 @@ namespace Bikewale.Models
                     objData.ReduxStore.News.NewsArticleListReducer.ArticleListData.ArticleList = pwaCmsContent;
                     if (objData.PageWidgets != null)
                     {
-                        PopulateStoreForWidgetData(objData); 
+                        PopulateStoreForWidgetData(objData);
                     }
                     string storeJson = JsonConvert.SerializeObject(objData.ReduxStore);
 
@@ -530,7 +527,7 @@ namespace Bikewale.Models
                     {
                         model = objResponse.MaskingName;
                         ModelId = objResponse.ModelId;
-                        objModel = _modelMaskingCache.GetById((int) objResponse.ModelId);
+                        objModel = _modelMaskingCache.GetById((int)objResponse.ModelId);
                         isModelTagged = true;
                         isSeriesAvailable = objModel.ModelSeries.IsSeriesPageUrl;
 
@@ -661,7 +658,7 @@ namespace Bikewale.Models
                 objData.PageMetaTags.Title = string.Format("Page {0} of {1} - {2}", curPageNo, _totalPagesCount, objData.PageMetaTags.Title);
             }
         }
-        
+
         /// <summary>
         /// Created By : Aditi Srivastava on 30 Mar 2017
         /// Summary    : Bind link pager
@@ -788,7 +785,7 @@ namespace Bikewale.Models
         {
             try
             {
-                MoreAboutScootersWidget obj = new MoreAboutScootersWidget(_models, _objCityCache, _objVersion, _objGenericBike, BikeInfoTabType.ExpertReview);
+                MoreAboutScootersWidget obj = new MoreAboutScootersWidget(_models, _objCityCache, _objVersion, _objGenericBike, BikeInfoTabType.ExpertReview, _bikeModels, _series);
                 obj.modelId = ModelId;
                 objData.ObjMoreAboutScooter = obj.GetData();
             }
@@ -800,7 +797,7 @@ namespace Bikewale.Models
 
         private void BindBikeInfoWidget(ExpertReviewsIndexPageVM objData)
         {
-            BikeInfoWidget genericInfoWidget = new BikeInfoWidget(_objGenericBike, _objCityCache, ModelId, CityId, _totalTabCount, _pageId);
+            BikeInfoWidget genericInfoWidget = new BikeInfoWidget(_objGenericBike, _objCityCache, ModelId, CityId, _totalTabCount, _pageId, _bikeModels, _series);
             objData.GenericBikeInfoWidget = genericInfoWidget.GetData();
         }
         #endregion

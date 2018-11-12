@@ -127,7 +127,14 @@
     <div class="margin-bottom20 text-center">
         @{Html.RenderPartial("/UI/Views/Shared/Ads/Mobile/Ad300x250BTF.cshtml", new { AdId = Model.AdTags.AdId });}
     </div>
-     }
+     }            
+            if (Model.GenericBikeWidgetData != null)
+            {
+                <section class="content-box-shadow section-bottom-margin">
+                    @Html.Partial("~/UI/views/BikeModels/_BikeInfoCard_Mobile.cshtml", Model.GenericBikeWidgetData)
+                </section>
+            }
+
     <section>
         <div id="bike-rating-box" class="container content-box-shadow card-bottom-margin content-inner-block-20">
             <p class="font16 text-black text-bold inline-block margin-right15">Rate this bike now</p>
@@ -146,12 +153,6 @@
         </div>
     </section>
 
-            if (Model.GenericBikeWidgetData != null)
-            {
-                <section class="content-box-shadow section-bottom-margin">
-                    @Html.Partial("~/UI/views/BikeModels/_BikeInfoCard_Mobile.cshtml", Model.GenericBikeWidgetData)
-                </section>
-            }
 
 
             if (Model.ExpertReviews != null && Model.ExpertReviews.ArticlesList != null && Model.ExpertReviews.ArticlesList.Count() > 0)

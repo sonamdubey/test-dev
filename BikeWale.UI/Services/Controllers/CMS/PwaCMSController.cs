@@ -820,5 +820,106 @@ namespace Bikewale.Service.Controllers.PWA.CMS
             return matchedPage;
         }
         #endregion
+        /// <summary>
+        /// Created By : Monika Korrapati on 02 Nov 2018
+        /// Description : Versioned 'GetBikeInfo' to 'GetBikeInfoV1'. Added series data to response.
+        /// </summary>
+        /// <param name="basicId"></param>
+        /// <returns></returns>
+        [ResponseType(typeof(PwaBikeInfo)), Route("api/v1/pwa/cms/bikeinfo/id/{basicId}/page/")]
+        public IHttpActionResult GetBikeInfoV1(string basicId)
+        {
+            uint _basicId = default(uint);
+            PwaBikeInfo outBikeInfoObj = null;
+            GenericBikeInfo objBikeInfo = null;
+            BikeSeriesEntity objBikeSeriesInfo = null;
+            try
+            {
+                if (uint.TryParse(basicId, out _basicId))
+                {
+                    if (_basicId > 0)
+                    {
+                        var articleDetails = _CMSCache.GetArticlesDetails((uint)_basicId);
+
+                        if (articleDetails != null)
+                        {
+                            uint cityId = 0;
+                            var currentCityArea = GlobalCityArea.GetGlobalCityArea();
+                            if (currentCityArea != null)
+                                cityId = currentCityArea.CityId;
+
+                            var modelId = GetTaggedBikeListByModel(articleDetails.VehiclTagsList);
+                            objBikeInfo = _bikeInfo.GetBikeInfo(modelId, cityId, false);
+
+                            if (objBikeInfo != null)
+                            {
+                                //modelid is not getting set
+                                if (objBikeInfo.Model != null && modelId != 0 && objBikeInfo.Model.ModelId != modelId)
+                                    objBikeInfo.Model.ModelId = (int)modelId;
+
+                                CityEntityBase cityDetails = null;
+                                if (cityId > 0)
+                                {
+                                    var objCityList = _cityCacheRepository.GetAllCities(EnumBikeType.All);
+                                    cityDetails = objCityList.FirstOrDefault(c => c.CityId == cityId);
+                                }
+
+                                objBikeInfo.Tabs = BindInfoWidgetDatas(objBikeInfo, cityDetails, 3, BikeInfoTabType.News);
+
+                                objBikeSeriesInfo = BindSeriesData((uint)objBikeInfo.Make.MakeId, modelId, cityId);
+
+                                outBikeInfoObj = new PwaBikeInfo();
+                                outBikeInfoObj = ConverterUtility.MapBikeInfoAndSeriesToPwaBikeInfo(objBikeInfo, cityDetails, objBikeSeriesInfo);
+                            }
+                        }
+                    }
+                    return Ok(outBikeInfoObj);
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("Exception : Bikewale.Service.CMS.CMSController.GetBikeInfoV1({0})",basicId));
+                return InternalServerError();
+            }
+        }
+
+        /// <summary>
+        /// Created By : Monika Korrapati on 02 Nov 2018
+        /// Description : Bind series data 
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <param name="modelId"></param>
+        /// <param name="cityId"></param>
+        /// <returns></returns>
+        private BikeSeriesEntity BindSeriesData(uint makeId, uint modelId, uint cityId)
+        {
+            BikeSeriesEntity seriesInfo = null;
+            BikeSeriesEntityBase objSeries = null;
+            try
+            {
+                if(modelId > 0)
+                {
+                    objSeries = _bikeModelEntity.GetSeriesByModelId(modelId);
+                    if (objSeries != null && makeId > 0)
+                    {
+                        IEnumerable<BikeSeriesEntity> makeSeriesList = _series.GetMakeSeries(makeId, cityId);
+                        if (makeSeriesList != null && makeSeriesList.Any())
+                        {
+                            seriesInfo = makeSeriesList.FirstOrDefault(s => s.SeriesId == objSeries.SeriesId);
+                        }
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, String.Format("Bikewale.Service.CMS.CMSController.BindSeriesData(ModelId : {0} , CityId : {1} , SeriesId : {2})", modelId, cityId, objSeries.SeriesId));
+            }
+            return seriesInfo;
+        }
     }   // class
 }   // namespace

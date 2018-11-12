@@ -1063,15 +1063,15 @@ namespace Bikewale.Models.BikeModels
                     RecentExpertReviews objExpertReviews = new RecentExpertReviews(5, (uint)objMake.MakeId, _objData.ModelId, objMake.MakeName, objMake.MaskingName, _objData.ModelPageEntity.ModelDetails.ModelName, _objData.ModelPageEntity.ModelDetails.MaskingName, _objArticles, string.Format("{0} Reviews", _objData.BikeName));
 
                     List<EnumCMSContentType> categoryList = new List<EnumCMSContentType>
-					{
-						EnumCMSContentType.RoadTest
-					};
+                    {
+                        EnumCMSContentType.RoadTest
+                    };
                     List<EnumCMSContentSubCategoryType> subCategoryList = new List<EnumCMSContentSubCategoryType>
-					{
-						EnumCMSContentSubCategoryType.Road_Test,
-						EnumCMSContentSubCategoryType.First_Drive,
-						EnumCMSContentSubCategoryType.Long_Term_Report
-					};
+                    {
+                        EnumCMSContentSubCategoryType.Road_Test,
+                        EnumCMSContentSubCategoryType.First_Drive,
+                        EnumCMSContentSubCategoryType.Long_Term_Report
+                    };
                     _objData.ExpertReviews = objExpertReviews.GetData(categoryList, subCategoryList);
                 }
             }

@@ -1,4 +1,5 @@
 ﻿
+using Bikewale.Entities.BikeData;
 namespace Bikewale.Models.Shared
 {
     public class BikeInfo
@@ -8,5 +9,6 @@ namespace Bikewale.Models.Shared
         public int PQSource { get; set; }
         public uint ModelId { get; set; }
         public Bikewale.Entities.GenericBikes.GenericBikeInfo Info { get; set; }
+        public BikeSeriesEntity Series { get; set; }
     }
 }

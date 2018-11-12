@@ -9,6 +9,8 @@ namespace Bikewale.Models.UserReviews
     /// Description :   Added property UserReviewSimilarBikesWidgetVM and removed IEnumerable<Bikewale.Entities.SimilarBikeUserReview>
     /// Modified  : Snehal Dange on 20th Nov 2017
     /// Descritpin: Added objMoreAboutScooter
+    /// Modified By : Monika Korrapati on 08 Nov 2018
+    /// Description : Added BikeInfoVM GenericBikeWidgetData property
     /// </summary>
     public class UserReviewListingVM : ModelBase
     {
@@ -25,5 +27,6 @@ namespace Bikewale.Models.UserReviews
         public UserReviewSimilarBikesWidgetVM SimilarBikesWidget { get; set; }
         public string PageUrl { get; set; }
         public MoreAboutScootersWidgetVM objMoreAboutScooter { get; set; }
+        public BikeInfoVM GenericBikeWidgetData { get; set; }
     }
 }

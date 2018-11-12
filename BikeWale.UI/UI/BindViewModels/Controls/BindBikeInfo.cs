@@ -1,20 +1,37 @@
 ﻿using Bikewale.BAL.ApiGateway.ApiGatewayHelper;
 using Bikewale.BAL.BikeData;
 using Bikewale.BAL.BikeSearch;
+using Bikewale.BAL.Customer;
+using Bikewale.BAL.EditCMS;
 using Bikewale.BAL.Pager;
+using Bikewale.BAL.UserReviews;
+using Bikewale.BAL.UserReviews.Search;
 using Bikewale.Cache.BikeData;
+using Bikewale.Cache.CMS;
 using Bikewale.Cache.Core;
+using Bikewale.Cache.UserReviews;
 using Bikewale.CacheHelper.BikeData;
 using Bikewale.DAL.BikeData;
+using Bikewale.DAL.Customer;
+using Bikewale.DAL.UserReviews;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.Customer;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
+using Bikewale.Interfaces.CMS;
+using Bikewale.Interfaces.Customer;
+using Bikewale.Interfaces.EditCMS;
 using Bikewale.Interfaces.NewBikeSearch;
 using Bikewale.Interfaces.Pager;
+using Bikewale.Interfaces.UserReviews;
+using Bikewale.Interfaces.UserReviews.Search;
+using Bikewale.Interfaces.Videos;
+using Bikewale.Notifications;
 using Microsoft.Practices.Unity;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 namespace Bikewale.BindViewModels.Controls
@@ -22,8 +39,10 @@ namespace Bikewale.BindViewModels.Controls
     /// <summary>
     /// Created By : Sushil Kumar on 2nd Jan 2016
     /// Generic Bike Functions
-	/// Modified By : Rajan Chauhan on 16 Apr 2018
-	/// Description : Registered API Gateway in UnityContainer 
+    /// Modified By : Rajan Chauhan on 16 Apr 2018
+    /// Description : Registered API Gateway in UnityContainer 
+    /// Modified by : Snehal Dange on 6th Nov 2018
+    /// Desc : Resolved  dependecies for series and bikemodel
     /// </summary>
     public class BindBikeInfo
     {
@@ -33,6 +52,8 @@ namespace Bikewale.BindViewModels.Controls
         public uint CityId { get; set; }
         public BikeInfoTabType PageId { get; set; }
         private readonly IBikeInfo _objGenericBike = null;
+        private readonly IBikeModels<BikeModelEntity, int> _models;
+        private readonly IBikeSeries _bikeSeries = null;
         public uint TabCount { get; set; }
         public CityEntityBase cityDetails { get; set; }
         private GenericBikeInfo _genericBikeInfo;
@@ -52,12 +73,27 @@ namespace Bikewale.BindViewModels.Controls
                        .RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>()
                        .RegisterType<IApiGatewayCaller, ApiGatewayCaller>()
                        .RegisterType<IBikeInfo, BikeInfo>()
-                       .RegisterType<IBikeSearch, BikeSearch>();
+                       .RegisterType<IBikeSearch, BikeSearch>()
+                       .RegisterType<IBikeSeries, BikeSeries>()
+                       .RegisterType<IBikeSeriesCacheRepository, BikeSeriesCacheRepository>()
+                       .RegisterType<IBikeSeriesRepository, BikeSeriesRepository>()
+                       .RegisterType<IBikeMaskingCacheRepository<BikeModelEntity, int>, BikeModelMaskingCache<BikeModelEntity, int>>()
+                       .RegisterType<IUserReviewsSearch, UserReviewsSearch>()
+                       .RegisterType<IUserReviewsCache, UserReviewsCacheRepository>()
+                       .RegisterType<IUserReviewsRepository, UserReviewsRepository>()
+                       .RegisterType<IArticles, Articles>()
+                       .RegisterType<ICMSCacheContent, CMSCacheRepository>()
+                       .RegisterType<IVideos, Bikewale.BAL.Videos.Videos>()
+                       .RegisterType<IUserReviews, UserReviews>()
+                       .RegisterType<ICustomer<CustomerEntity, uint>, Customer<CustomerEntity, uint>>()
+                       .RegisterType<ICustomerRepository<CustomerEntity, uint>, CustomerRepository<CustomerEntity, uint>>();
         }
 
         public BindBikeInfo()
         {
             _objGenericBike = _container.Resolve<IBikeInfo>();
+            _models = _container.Resolve<IBikeModels<BikeModelEntity, int>>();
+            _bikeSeries = _container.Resolve<IBikeSeries>();
         }
 
         /// <summary>
@@ -87,7 +123,7 @@ namespace Bikewale.BindViewModels.Controls
             }
             catch (Exception ex)
             {
-                Bikewale.Notifications.ErrorClass.LogError(ex, "BindBikeInfo.GetBikeInfo");
+                ErrorClass.LogError(ex, "BindBikeInfo.GetBikeInfo");
             }
             return _genericBikeInfo;
         }
@@ -188,6 +224,41 @@ namespace Bikewale.BindViewModels.Controls
                     Bikewale.Notifications.ErrorClass.LogError(ex, "BindGenericBikeInfo.BindInfoWidgetDatas");
                 }
             }
+        }
+
+        /// <summary>
+        /// Created by : Snehal Dange on 5th Nov 2018
+        /// Desc :  Added method to get series data aspx page 
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
+        public BikeSeriesEntity BindSeriesData(uint makeId, uint modelId)
+        {
+            BikeSeriesEntity seriesInfo = null;
+            BikeSeriesEntityBase objSeries = null;
+            uint seriesId = 0;
+            try
+            {
+                if (modelId > 0)
+                {
+                    objSeries = _models.GetSeriesByModelId(modelId);
+                    if (objSeries != null && objSeries.SeriesId > 0 && makeId > 0)
+                    {
+                        seriesId = objSeries.SeriesId;
+                        IEnumerable<BikeSeriesEntity> makeSeriesList = _bikeSeries.GetMakeSeries(makeId, CityId);
+                        if (makeSeriesList != null && makeSeriesList.Any())
+                        {
+                            seriesInfo = makeSeriesList.FirstOrDefault(s => s.SeriesId == seriesId);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, String.Format("BindBikeInfo.BindSeriesData(ModelId :{0} ,CityId :{1} ,SeriesId :{2})", ModelId, CityId, seriesId));
+            }
+            return seriesInfo;
         }
 
     }

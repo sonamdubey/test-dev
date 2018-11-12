@@ -19,6 +19,7 @@ namespace Bikewale.Models.Gallery
         private readonly ICityCacheRepository _objCityCache = null;
         private readonly IBikeInfo _objGenericBike = null;
         private ModelGalleryVM _modelGallery = null;
+        private readonly IBikeSeries _bikeSeries = null;
 
         public bool IsGalleryDataAvailable { get; set; }
         public bool IsJSONRequired { get; set; }
@@ -30,13 +31,14 @@ namespace Bikewale.Models.Gallery
             _modelId = modelId;
         }
 
-        public ModelGalleryWidget(uint modelId, IBikeModels<BikeModelEntity, int> objModelEntity, IBikeInfo objGenericBike, ICityCacheRepository objCityCache, uint cityId)
+        public ModelGalleryWidget(uint modelId, IBikeModels<BikeModelEntity, int> objModelEntity, IBikeInfo objGenericBike, ICityCacheRepository objCityCache, uint cityId, IBikeSeries bikeSeries)
         {
             _objModelEntity = objModelEntity;
             _modelId = modelId;
             _objCityCache = objCityCache;
             _objGenericBike = objGenericBike;
             _cityId = cityId;
+            _bikeSeries = bikeSeries;
         }
 
         public ModelGalleryWidget(BikeMakeEntityBase make, BikeModelEntityBase model, IEnumerable<ColorImageBaseEntity> imagesList, IEnumerable<BikeVideoEntity> videosList, BikeInfoVM bikeInfo)
@@ -97,7 +99,7 @@ namespace Bikewale.Models.Gallery
 
             if (_modelGallery != null && IsBikeInfoRequired && _objGenericBike != null && _objCityCache != null)
             {
-                _modelGallery.BikeInfo = (new BikeInfoWidget(_objGenericBike, _objCityCache, _modelId, _cityId, 4, Entities.GenericBikes.BikeInfoTabType.Image)).GetData();
+                _modelGallery.BikeInfo = (new BikeInfoWidget(_objGenericBike, _objCityCache, _modelId, _cityId, 4, Entities.GenericBikes.BikeInfoTabType.Image, _objModelEntity, _bikeSeries)).GetData();
             }
 
 

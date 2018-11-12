@@ -21,6 +21,8 @@ namespace Bikewale.Models.UserReviews
     /// <summary>
     /// Created By : Sushil Kumar on 7th May 2017
     /// Description : Model for user reviews listing page
+    /// Modified By : Monika Korrapati on 08 Nov 2018
+    /// Description : Added TabsCount member
     /// </summary>
     public class UserReviewListingPage
     {
@@ -39,9 +41,11 @@ namespace Bikewale.Models.UserReviews
         private readonly IBikeVersions<BikeVersionEntity, uint> _objVersion;
         private readonly ICityCacheRepository _objCityCache = null;
         private readonly IBikeInfo _objGenericBike = null;
+        private readonly IBikeSeries _bikeSeries = null;
 
         private uint _modelId = 0;
         private uint _pageSize, _totalResults;
+        public uint TabsCount { get; set; }
         public uint ExpertReviewsWidgetCount { get; set; }
         public uint SimilarBikeReviewWidgetCount { get; set; }
         public bool IsMobile { get; internal set; }
@@ -61,7 +65,7 @@ namespace Bikewale.Models.UserReviews
         /// <param name="objArticles"></param>
         public UserReviewListingPage(string makeMasking, string modelMasking, IBikeMaskingCacheRepository<BikeModelEntity, int> objModelMaskingCache, IUserReviewsCache userReviewCache, IUserReviewsSearch objUserReviewSearch,
             ICMSCacheContent objArticles, IUserReviewsSearch userReviewsSearch, IBikeModels<BikeModelEntity, int> models, IBikeModelsCacheRepository<int> objModelCache, IBikeVersions<BikeVersionEntity, uint> objVersion,
-            ICityCacheRepository objCityCache, IBikeInfo objGenericBike)
+            ICityCacheRepository objCityCache, IBikeInfo objGenericBike, IBikeSeries bikeSeries)
         {
             _objModelMaskingCache = objModelMaskingCache;
             _objUserReviewCache = userReviewCache;
@@ -73,6 +77,7 @@ namespace Bikewale.Models.UserReviews
             _objVersion = objVersion;
             _objCityCache = objCityCache;
             _objGenericBike = objGenericBike;
+            _bikeSeries = bikeSeries;
             ParseQueryString(makeMasking, modelMasking);
         }
 
@@ -121,6 +126,8 @@ namespace Bikewale.Models.UserReviews
         /// <summary>
         /// Created By : Sushil Kumar on 7th May 2017
         /// Description : Function to bind widgets
+        /// Modified By : Monika Korrapati on 08 Nov 2018
+        /// Description : Added BikeInfoWidget call to bind GenericBikeWidgetData
         /// </summary>
         /// <param name="objData"></param>
         private void BindWidgets(UserReviewListingVM objData)
@@ -181,6 +188,9 @@ namespace Bikewale.Models.UserReviews
                     objData.ExpertReviews = new RecentExpertReviews(ExpertReviewsWidgetCount, (uint)objData.ReviewsInfo.Make.MakeId, (uint)objData.ReviewsInfo.Model.ModelId, objData.ReviewsInfo.Make.MakeName, objData.ReviewsInfo.Make.MaskingName, objData.ReviewsInfo.Model.ModelName, objData.ReviewsInfo.Model.MaskingName, _objArticles, string.Format("Expert Reviews on {0}", objData.ReviewsInfo.Model.ModelName)).GetData();
 
                     GlobalCityAreaEntity currentCityArea = GlobalCityArea.GetGlobalCityArea();
+
+                    BikeInfoWidget bikeInfo = new BikeInfoWidget(_objGenericBike, _objCityCache, _modelId, currentCityArea.CityId, TabsCount, BikeInfoTabType.UserReview, _models, _bikeSeries);
+                    objData.GenericBikeWidgetData = bikeInfo.GetData();
 
                     objData.SimilarBikesWidget.SimilarBikes = _objModelMaskingCache.GetSimilarBikesUserReviews((uint)objData.ReviewsInfo.Model.ModelId, currentCityArea.CityId, SimilarBikeReviewWidgetCount);
                     objData.SimilarBikesWidget.GlobalCityName = currentCityArea.City;
@@ -429,7 +439,7 @@ namespace Bikewale.Models.UserReviews
         {
             try
             {
-                MoreAboutScootersWidget obj = new MoreAboutScootersWidget(_objModelCache, _objCityCache, _objVersion, _objGenericBike, Entities.GenericBikes.BikeInfoTabType.UserReview);
+                MoreAboutScootersWidget obj = new MoreAboutScootersWidget(_objModelCache, _objCityCache, _objVersion, _objGenericBike, Entities.GenericBikes.BikeInfoTabType.UserReview, _models, _bikeSeries);
                 obj.modelId = _modelId;
                 objPage.objMoreAboutScooter = obj.GetData();
             }

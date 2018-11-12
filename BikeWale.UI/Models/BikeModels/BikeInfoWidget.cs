@@ -19,6 +19,8 @@ namespace Bikewale.Models
         private readonly IBikeInfo _bikeInfo;
         private readonly ICityCacheRepository _cityCacheRepo;
         private readonly BikeInfoTabType _pageId;
+        private readonly IBikeModels<BikeModelEntity, int> _models;
+        private readonly IBikeSeries _bikeSeries = null;
         private readonly uint _modelId, _cityId, _tabCount;
 
         /// <summary>
@@ -31,7 +33,7 @@ namespace Bikewale.Models
         /// <param name="cityId"></param>
         /// <param name="totalTabCount"></param>
         /// <param name="pageId"></param>
-        public BikeInfoWidget(IBikeInfo bikeInfo, ICityCacheRepository cityCacheRepo, uint modelId, uint cityId, uint totalTabCount, BikeInfoTabType pageId)
+        public BikeInfoWidget(IBikeInfo bikeInfo, ICityCacheRepository cityCacheRepo, uint modelId, uint cityId, uint totalTabCount, BikeInfoTabType pageId, IBikeModels<BikeModelEntity, int> models, IBikeSeries bikeSeries)
         {
             _bikeInfo = bikeInfo;
             _cityCacheRepo = cityCacheRepo;
@@ -39,6 +41,8 @@ namespace Bikewale.Models
             _cityId = cityId;
             _tabCount = totalTabCount;
             _pageId = pageId;
+            _bikeSeries = bikeSeries;
+            _models = models;
         }
 
         /// <summary>
@@ -52,7 +56,7 @@ namespace Bikewale.Models
             try
             {
                 objVM = new BikeInfoVM();
-                objVM.BikeInfo = _bikeInfo.GetBikeInfo(_modelId, _cityId, true);
+                objVM.BikeInfo = _bikeInfo.GetBikeInfo(_modelId, _cityId, false);
                 GenericBikeInfo bikeInfo = objVM.BikeInfo;
                 if (bikeInfo != null)
                 {
@@ -69,6 +73,11 @@ namespace Bikewale.Models
                     objVM.IsDiscontinued = (!bikeInfo.IsNew && !bikeInfo.IsFuturistic);
                     objVM.IsUpcoming = bikeInfo.IsFuturistic;
                     objVM.Category = _pageId;
+
+                    if (bikeInfo.Make != null && bikeInfo.Make.MakeId > 0 && _modelId > 0)
+                    {
+                        objVM.Series = BindSeriesData(Convert.ToUInt32(bikeInfo.Make.MakeId));
+                    }
                 }
             }
             catch (Exception ex)
@@ -179,5 +188,39 @@ namespace Bikewale.Models
             }
             return tabs;
         }
+
+
+        /// <summary>
+        /// Created by : Snehal Dange on 25th Oct 2018
+        /// Desc :  Bind the series data in generic info widget
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <returns></returns>
+        private BikeSeriesEntity BindSeriesData(uint makeId)
+        {
+            BikeSeriesEntity seriesInfo = null;
+            BikeSeriesEntityBase objSeries = null;
+            uint seriesId = 0;
+            try
+            {
+                objSeries = _models.GetSeriesByModelId(_modelId);
+                if (objSeries != null && objSeries.SeriesId > 0)
+                {
+                    seriesId = objSeries.SeriesId;
+                    IEnumerable<BikeSeriesEntity> makeSeriesList = _bikeSeries.GetMakeSeries(makeId, _cityId);
+                    if (makeSeriesList != null && makeSeriesList.Any())
+                    {
+                        seriesInfo = makeSeriesList.FirstOrDefault(s => s.SeriesId == seriesId);
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, String.Format("BikeInfoWidget.BindSeriesData(ModelId : {0} , CityId : {1} , SeriesId : {2})", _modelId, _cityId, seriesId));
+            }
+            return seriesInfo;
+        }
     }
+
 }

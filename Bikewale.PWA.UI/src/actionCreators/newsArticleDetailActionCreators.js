@@ -76,7 +76,7 @@ var fetchNewBikesListDataForNewsDetail = function(basicId) {
 var fetchRelatedModelObjectForNewsDetail = function(basicId) {
 	return function(dispatch) {
 		
-		var url = '/api/pwa/cms/bikeinfo/id/'+basicId+'/page/';
+		var url = '/api/v1/pwa/cms/bikeinfo/id/'+basicId+'/page/';
 		var xhr = new XMLHttpRequest();
 		xhr.onreadystatechange = function() {
 			if(xhr.readyState == 4) {

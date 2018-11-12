@@ -499,6 +499,7 @@
     <Compile Include="PWA\EditCms\Articles\PWaBikeMakeEntityBase.cs" />
     <Compile Include="PWA\EditCms\Articles\PwaBikeNews.cs" />
     <Compile Include="PWA\EditCms\Articles\PwaBikeRating.cs" />
+    <Compile Include="PWA\EditCms\Articles\PwaBikeSeriesInfo.cs" />
     <Compile Include="PWA\EditCms\Articles\PwaBikeVideoDetails.cs" />
     <Compile Include="PWA\EditCms\Articles\PwaBikeVideoEntity.cs" />
     <Compile Include="PWA\EditCms\Articles\PwaBikeVideos.cs" />

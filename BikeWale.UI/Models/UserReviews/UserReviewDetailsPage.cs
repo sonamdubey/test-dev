@@ -31,7 +31,7 @@ namespace Bikewale.Models.UserReviews
         private readonly IBikeMaskingCacheRepository<BikeModelEntity, int> _bikeModelsCache = null;
         private readonly IUserReviewsSearch _userReviewsSearch = null;
         private readonly IBikeModels<BikeModelEntity, int> _models;
-
+        private readonly IBikeSeries _bikeSeries = null;
         private readonly uint _reviewId;
         private uint _modelId;
         private BikeSeriesEntityBase Series;
@@ -41,7 +41,7 @@ namespace Bikewale.Models.UserReviews
         public uint SimilarBikeReviewWidgetCount { get; set; }
         public bool IsMobile { get; internal set; }
 
-        public UserReviewDetailsPage(uint reviewId, IUserReviewsCache userReviewsCache, IBikeInfo bikeInfo, ICityCacheRepository cityCache, ICMSCacheContent objArticles, IBikeMaskingCacheRepository<BikeModelEntity, int> bikeModelsCache, string makeMaskingName, string modelMaskingName, IUserReviewsSearch userReviewsSearch, IBikeModels<BikeModelEntity, int> models)
+        public UserReviewDetailsPage(uint reviewId, IUserReviewsCache userReviewsCache, IBikeInfo bikeInfo, ICityCacheRepository cityCache, ICMSCacheContent objArticles, IBikeMaskingCacheRepository<BikeModelEntity, int> bikeModelsCache, string makeMaskingName, string modelMaskingName, IUserReviewsSearch userReviewsSearch, IBikeModels<BikeModelEntity, int> models, IBikeSeries bikeSeries)
         {
             _reviewId = reviewId;
             _userReviewsCache = userReviewsCache;
@@ -51,6 +51,7 @@ namespace Bikewale.Models.UserReviews
             _bikeModelsCache = bikeModelsCache;
             _userReviewsSearch = userReviewsSearch;
             _models = models;
+            _bikeSeries = bikeSeries;
         }
 
         public UserReviewDetailsVM GetData()
@@ -74,7 +75,7 @@ namespace Bikewale.Models.UserReviews
 
                 GlobalCityAreaEntity currentCityArea = GlobalCityArea.GetGlobalCityArea();
 
-                BikeInfoWidget genericBikeModel = new BikeInfoWidget(_bikeInfo, _cityCache, _modelId, currentCityArea.CityId, TabsCount, BikeInfoTabType.UserReview);
+                BikeInfoWidget genericBikeModel = new BikeInfoWidget(_bikeInfo, _cityCache, _modelId, currentCityArea.CityId, TabsCount, BikeInfoTabType.UserReview, _models, _bikeSeries);
                 objPage.GenericBikeWidgetData = genericBikeModel.GetData();
                 objPage.GenericBikeWidgetData.IsSmallSlug = false;
 

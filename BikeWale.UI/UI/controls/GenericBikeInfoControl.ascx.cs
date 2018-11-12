@@ -5,8 +5,6 @@ using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Bikewale.Controls
 {
@@ -31,6 +29,7 @@ namespace Bikewale.Controls
         protected float Rating { get; set; }
         protected UInt16 RatingCount { get; set; }
         protected UInt16 UserReviewCount { get; set; }
+        protected BikeSeriesEntity Series { get; set; }
 
         protected override void OnInit(EventArgs e)
         {
@@ -39,6 +38,8 @@ namespace Bikewale.Controls
         /// <summary>
         /// Modified  By :- Sajal Gupta 10 Feb 2017
         /// Summary :- BikeInfo Slug details
+        /// Modified by : Snehal Dange on 6th Nov 2018
+        /// Desc : Binded series data
         /// </summary>
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -66,8 +67,17 @@ namespace Bikewale.Controls
                     Rating = genericBikeInfo.Rating;
                     RatingCount = genericBikeInfo.RatingCount;
                     UserReviewCount = genericBikeInfo.UserReviewCount;
+                    if (bikeInfo.Make != null && bikeInfo.Make.MakeId > 0)
+                    {
+                        Series = genericBikeInfo.BindSeriesData(Convert.ToUInt32(bikeInfo.Make.MakeId), ModelId);
+                    }
+
                 };
+
             }
         }
+
+
+
     }
 }

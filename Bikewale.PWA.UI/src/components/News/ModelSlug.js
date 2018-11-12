@@ -24,6 +24,25 @@ class ModelSlug extends React.Component {
 	        )
 		
 	}
+	renderSeriesBikesLink() {
+	    if(!this.props.modelInfo || !this.props.modelInfo.ModelObject || !this.props.modelInfo.ModelObject.Series) {
+	        return false;
+	    }
+	    var series = this.props.modelInfo.ModelObject.Series;
+	    return (
+			<div>
+				<div className="border-solid-bottom margin-top5 margin-bottom10"></div>
+				<a href={series.SeriesLinkUrl} title={series.SeriesLinkTitle} className="block text-default">
+	                <span className="used-target-label inline-block">
+	                    <span className="font14 text-bold">{series.DescriptionLabel}</span><br />
+	                    <span className="font12 text-light-grey">{series.PricePrefix} <span>&#x20B9;</span> {series.Price}</span>
+	                </span>
+	                <span className="bwmsprite next-grey-icon"></span>
+	            </a>
+	        </div>
+	        )
+		
+	}
 	getClassNameForBikeInfo(type) {
 		switch(type) {
 			case 'Expert Reviews' : return 'reviews-sm';
@@ -112,7 +131,7 @@ class ModelSlug extends React.Component {
                     
                 <div className="clear"></div>
 
-                {this.renderUsedBikesLink()}
+                {this.renderSeriesBikesLink()}
             </div>
         )
 	}

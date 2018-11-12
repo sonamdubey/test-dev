@@ -32,6 +32,8 @@ namespace Bikewale.Models.QuestionsAnswers
         private readonly IBikeModelsCacheRepository<int> _modelCache = null;
         private readonly IBikeInfo _objGenericBike = null;
         private readonly ICityCacheRepository _objCityCache = null;
+        private readonly IBikeModels<BikeModelEntity, int> _models;
+        private readonly IBikeSeries _bikeSeries = null;
 
         private readonly ushort _mobAnsTrimLen = 150, _deskAnsTrimLen = 360, _mobQuesBreadCrumbLen = 50;
         private uint _modelId = 0, _cityId = 0, _totalTabCount = 3;
@@ -55,7 +57,9 @@ namespace Bikewale.Models.QuestionsAnswers
             IBikeMaskingCacheRepository<BikeModelEntity, int> modelMaskingCache,
             IBikeModelsCacheRepository<int> modelCache,
             IBikeInfo objGenericBike,
-            ICityCacheRepository objCityCache
+            ICityCacheRepository objCityCache,
+            IBikeModels<BikeModelEntity, int> models,
+            IBikeSeries bikeSeries
            )
         {
             _makeMaskingName = makeMaskingName;
@@ -66,6 +70,8 @@ namespace Bikewale.Models.QuestionsAnswers
             _modelCache = modelCache;
             _objGenericBike = objGenericBike;
             _objCityCache = objCityCache;
+            _models = models;
+            _bikeSeries = bikeSeries;
             ProcessQueryString();
             ProcessCityArea();
         }
@@ -236,7 +242,7 @@ namespace Bikewale.Models.QuestionsAnswers
 
                 if (!String.IsNullOrEmpty(objQuestionDetailsVM.Question.BaseUrl))
                 {
-                    currentPageUrl = string.Format("{0}questions-and-answers/{1}-{2}/", modelUrl, objQuestionDetailsVM.Question.BaseUrl, _questionIdHash); 
+                    currentPageUrl = string.Format("{0}questions-and-answers/{1}-{2}/", modelUrl, objQuestionDetailsVM.Question.BaseUrl, _questionIdHash);
                 }
 
                 breadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, currentPageUrl, quesText));
@@ -293,7 +299,7 @@ namespace Bikewale.Models.QuestionsAnswers
                         },
                         Position = 1
                     };
-                    
+
                     objQuestionDetailsVM.PageMetaTags.SchemaJSON = SchemaHelper.JsonSerialize(webpage);
                     objQuestionDetailsVM.PageMetaTags.PageSchemaJSON = SchemaHelper.JsonSerialize(question);
                 }
@@ -453,7 +459,7 @@ namespace Bikewale.Models.QuestionsAnswers
         /// <param name="objVM"></param>
         private void BindBikeInfoWidget(QuestionDetailsVM objVM)
         {
-            BikeInfoWidget genericInfoWidget = new BikeInfoWidget(_objGenericBike, _objCityCache, _modelId, _cityId, _totalTabCount, _pageId);
+            BikeInfoWidget genericInfoWidget = new BikeInfoWidget(_objGenericBike, _objCityCache, _modelId, _cityId, _totalTabCount, _pageId, _models, _bikeSeries);
             objVM.BikeInfoWidget = genericInfoWidget.GetData();
         }
     }

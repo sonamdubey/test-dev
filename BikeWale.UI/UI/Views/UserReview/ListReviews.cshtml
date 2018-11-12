@@ -175,6 +175,12 @@
     @Html.Partial("~/UI/views/UserReview/_UserReviewsSearch.cshtml", Model.UserReviews)
 }
 
+@if (Model.GenericBikeWidgetData != null)
+{
+    <section>
+        @Html.Partial("~/UI/views/BikeModels/_BikeInfoCard.cshtml", Model.GenericBikeWidgetData)
+    </section>
+}
 <section>
     <div class="container card-bottom-margin">
         <div class="grid-12">

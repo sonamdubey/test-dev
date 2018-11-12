@@ -175,7 +175,7 @@ namespace Bikewale.Models.Videos
 
                 objVM.VideosList = _objVideosCache.GetVideosByMakeModel(_pageNo, _maxVideoCount, _makeId, (uint?)_modelId);
 
-                objVM.BikeInfoWidgetData = new BikeInfoWidget(_bikeInfo, _cityCacheRepo, _modelId, _cookieCityId, 4, BikeInfoTabType.Videos).GetData();
+                objVM.BikeInfoWidgetData = new BikeInfoWidget(_bikeInfo, _cityCacheRepo, _modelId, _cookieCityId, 4, BikeInfoTabType.Videos, _models, _series).GetData();
 
                 objVM.SimilarBikeVideoList = _bikeModelsCache.GetSimilarBikesVideos(_modelId, SimilarBikeWidgetTopCount, _cookieCityId);
 
@@ -440,7 +440,7 @@ namespace Bikewale.Models.Videos
         {
             try
             {
-                MoreAboutScootersWidget obj = new MoreAboutScootersWidget(_objModelCache, _cityCacheRepo, _objVersion, _bikeInfo, Entities.GenericBikes.BikeInfoTabType.Videos);
+                MoreAboutScootersWidget obj = new MoreAboutScootersWidget(_objModelCache, _cityCacheRepo, _objVersion, _bikeInfo, Entities.GenericBikes.BikeInfoTabType.Videos, _models, _series);
                 obj.modelId = _modelId;
                 objData.ObjMoreAboutScooter = obj.GetData();
             }

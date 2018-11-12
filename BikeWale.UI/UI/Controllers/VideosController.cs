@@ -635,7 +635,7 @@ namespace Bikewale.Controllers.Desktop.Videos
             //tagged bike
             if (taggedModel != 0)
             {
-                BikeInfoWidget bikeInfo = new BikeInfoWidget(_bikeInfo, _cityCacheRepo, taggedModel, objVM.CityId, 3, Bikewale.Entities.GenericBikes.BikeInfoTabType.Videos);
+                BikeInfoWidget bikeInfo = new BikeInfoWidget(_bikeInfo, _cityCacheRepo, taggedModel, objVM.CityId, 3, Bikewale.Entities.GenericBikes.BikeInfoTabType.Videos, _models, _series);
                 var bikeInfoVm = bikeInfo.GetData();
                 videoDetail.ModelInfo = ConverterUtility.MapGenericBikeInfoToPwaBikeInfo(bikeInfoVm);
             }

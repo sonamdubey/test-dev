@@ -54,7 +54,7 @@ module.exports = {
 						dispatch({type:videosDetailAction.FETCH_MODELINFO_ERROR})
 				}
 			}
-			xhr.open('GET','/api/pwa/cms/bikeinfo/id/'+basicId+'/page/?city='+globalCityName);
+			xhr.open('GET','/api/v1/pwa/cms/bikeinfo/id/'+basicId+'/page/?city='+globalCityName);
 			xhr.send();
 			dispatch({type:videosDetailAction.FETCH_MODELINFO});
 		}

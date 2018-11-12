@@ -431,12 +431,12 @@ namespace Bikewale.Models
                 if (objData.Make != null)
                 {
                     objTargetedAds.TargetedMakes = objData.Make.MakeName;
-                }                    
+                }
                 if (objData.Model != null)
                 {
                     objTargetedAds.TargetedModel = objData.Model.ModelName;
-                }                    
-                if(objData.ArticleDetails != null)
+                }
+                if (objData.ArticleDetails != null)
                 {
                     objTargetedAds.TargetedTags = String.Join(", ", objData.ArticleDetails.TagsList);
                 }
@@ -648,7 +648,8 @@ namespace Bikewale.Models
                         {
                             Info = objData.BikeInfo.BikeInfo,
                             Bike = objData.BikeInfo.BikeName,
-                            Url = objData.BikeInfo.BikeUrl
+                            Url = objData.BikeInfo.BikeUrl,
+                            Series = objData.BikeInfo.Series
                         };
                         viewName = "~/UI/views/BikeModels/_BikeInfoCard_AMP_Mobile.cshtml";
                     }
@@ -831,7 +832,7 @@ namespace Bikewale.Models
         {
             try
             {
-                BikeInfoWidget objBikeInfo = new BikeInfoWidget(_bikeInfo, _cityCacheRepo, ModelId, CityId, _totalTabCount, BikeInfoTabType.ExpertReview);
+                BikeInfoWidget objBikeInfo = new BikeInfoWidget(_bikeInfo, _cityCacheRepo, ModelId, CityId, _totalTabCount, BikeInfoTabType.ExpertReview, _bikeModels, _series);
                 objData.BikeInfo = objBikeInfo.GetData();
                 objData.BikeInfo.IsSmallSlug = true;
             }

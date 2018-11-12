@@ -1,4 +1,5 @@
-﻿using Bikewale.Interfaces.BikeData;
+﻿using Bikewale.Entities.BikeData;
+using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Location;
 using Bikewale.Models;
 using Bikewale.Models.Mobile.Videos;
@@ -15,10 +16,14 @@ namespace Bikewale.Controllers.Shared
 
         private readonly IBikeInfo _bikeInfo;
         private readonly ICityCacheRepository _city;
-        public GenericBikeInfoController(IBikeInfo bikeInfo, ICityCacheRepository city)
+        private readonly IBikeModels<BikeModelEntity, int> _models;
+        private readonly IBikeSeries _bikeSeries = null;
+        public GenericBikeInfoController(IBikeInfo bikeInfo, ICityCacheRepository city, IBikeModels<BikeModelEntity, int> models, IBikeSeries bikeSeries)
         {
             _bikeInfo = bikeInfo;
             _city = city;
+            _models = models;
+            _bikeSeries = bikeSeries;
         }
         // GET: GenericBikeInfo
         public ActionResult Index()
@@ -37,7 +42,7 @@ namespace Bikewale.Controllers.Shared
             BikeInfoVM objVM = null;
             if (bikeInfo.ModelId > 0)
             {
-                BikeInfoWidget model = new BikeInfoWidget(_bikeInfo, _city, bikeInfo.ModelId, bikeInfo.CityId, totalTabs, bikeInfo.PageId);
+                BikeInfoWidget model = new BikeInfoWidget(_bikeInfo, _city, bikeInfo.ModelId, bikeInfo.CityId, totalTabs, bikeInfo.PageId, _models, _bikeSeries);
                 objVM = model.GetData();
             }
             return PartialView("~/UI/views/BikeModels/_BikeInfoCard.cshtml", objVM);

@@ -34,6 +34,8 @@ namespace Bikewale.Controllers
         private readonly IBikeInfo _bikeInfo;
         private readonly ICityCacheRepository _objCityCache = null;
         private readonly QuestionsAnswers.BAL.IQuestions _objQNAQuestions = null;
+        private readonly IBikeSeries _bikeSeries = null;
+
 
         /// <summary>
         /// Constructor
@@ -51,7 +53,7 @@ namespace Bikewale.Controllers
             QuestionsAnswers.BAL.IQuestions objQNAQuestions,
             ICustomerAuthentication<CustomerEntity, UInt32> objAuthCustomer,
             ICustomer<CustomerEntity, UInt32> objCustomer,
-            ICityCacheRepository objCityCache)
+            ICityCacheRepository objCityCache, IBikeSeries bikeSeries)
         {
             _objMakeCache = objMakeCache;
             _objQuestions = objQuestions;
@@ -67,6 +69,7 @@ namespace Bikewale.Controllers
             _objAuthCustomer = objAuthCustomer;
             _objCustomer = objCustomer;
             _objCityCache = objCityCache;
+            _bikeSeries = bikeSeries;
         }
 
         [Route("m/qna/{makeMaskingName}-bikes/{modelMaskingName}/")]
@@ -154,7 +157,7 @@ namespace Bikewale.Controllers
                     }
                     else if (objModel.IsDuplicate)
                     {
-                        return Redirect(string.Format("{0}/m/questions-and-answers/thank-you/?q={1}&source={2}&returnUrl={3}", BWConfiguration.Instance.BwHostUrl, q,(ushort)source,returnUrl));
+                        return Redirect(string.Format("{0}/m/questions-and-answers/thank-you/?q={1}&source={2}&returnUrl={3}", BWConfiguration.Instance.BwHostUrl, q, (ushort)source, returnUrl));
                     }
                     else
                     {
@@ -239,7 +242,7 @@ namespace Bikewale.Controllers
                 CustomerEntityBase objCust = null;
                 string questionId = "";
                 int modelId = 0;
-                if (TryParseQueryString(encryptedUrl, out objCust,out questionId,out modelId) && !string.IsNullOrEmpty(submittedAnswerText))
+                if (TryParseQueryString(encryptedUrl, out objCust, out questionId, out modelId) && !string.IsNullOrEmpty(submittedAnswerText))
                 {
                     bool saveAnswer = false;
                     BWClientInfo clientInfo = new BWClientInfo()
@@ -249,10 +252,10 @@ namespace Bikewale.Controllers
                         SourceId = sourceId,
                         ClientIp = Bikewale.Utility.CurrentUser.GetClientIP()
                     };
-                    saveAnswer = _objAnswers.SubmitUserAnswer(questionId,submittedAnswerText,objCust.CustomerName,objCust.CustomerEmail, clientInfo);
+                    saveAnswer = _objAnswers.SubmitUserAnswer(questionId, submittedAnswerText, objCust.CustomerName, objCust.CustomerEmail, clientInfo);
                     if (saveAnswer)
                     {
-                        return Redirect(string.Format("{0}/{1}questions-and-answers/thank-you/?q={2}&source={3}&returnUrl={4}", BWConfiguration.Instance.BwHostUrl, (platformId == Convert.ToUInt16(Platforms.Mobile) ? "m/" : string.Empty), encryptedUrl, sourceId,returnUrl));
+                        return Redirect(string.Format("{0}/{1}questions-and-answers/thank-you/?q={2}&source={3}&returnUrl={4}", BWConfiguration.Instance.BwHostUrl, (platformId == Convert.ToUInt16(Platforms.Mobile) ? "m/" : string.Empty), encryptedUrl, sourceId, returnUrl));
                     }
                 }
                 return Redirect(string.Format("{0}{1}", BWConfiguration.Instance.BwHostUrl, (platformId == Convert.ToUInt16(Platforms.Mobile) ? "/m/" : string.Empty)));
@@ -343,7 +346,7 @@ namespace Bikewale.Controllers
         /// <returns></returns>
         [HttpGet, Route("questions-and-answers/thank-you/")]
         [Bikewale.Filters.DeviceDetection]
-        public ActionResult Index_ThankYou(string q, Entities.QuestionAndAnswers.Sources source = Sources.Invalid,string returnUrl = "")
+        public ActionResult Index_ThankYou(string q, Entities.QuestionAndAnswers.Sources source = Sources.Invalid, string returnUrl = "")
         {
             try
             {
@@ -379,7 +382,7 @@ namespace Bikewale.Controllers
             try
             {
                 QuestionDetailsVM objQuestionDetailsVM;
-                QuestionDetailsModel objQuestionDetailsModel = new QuestionDetailsModel(makeMaskingName, modelMaskingName, questionIdHash, _objQuestions, _modelMaskingCache, _modelCache, _bikeInfo, _objCityCache);
+                QuestionDetailsModel objQuestionDetailsModel = new QuestionDetailsModel(makeMaskingName, modelMaskingName, questionIdHash, _objQuestions, _modelMaskingCache, _modelCache, _bikeInfo, _objCityCache, _objModelEntity, _bikeSeries);
                 objQuestionDetailsModel.IsMobile = true;
                 switch (objQuestionDetailsModel.Status)
                 {
@@ -420,7 +423,7 @@ namespace Bikewale.Controllers
             try
             {
                 QuestionDetailsVM objQuestionDetailsVM;
-                QuestionDetailsModel objQuestionDetailsModel = new QuestionDetailsModel(makeMaskingName, modelMaskingName, questionIdHash, _objQuestions, _modelMaskingCache, _modelCache, _bikeInfo, _objCityCache);
+                QuestionDetailsModel objQuestionDetailsModel = new QuestionDetailsModel(makeMaskingName, modelMaskingName, questionIdHash, _objQuestions, _modelMaskingCache, _modelCache, _bikeInfo, _objCityCache, _objModelEntity, _bikeSeries);
                 switch (objQuestionDetailsModel.Status)
                 {
                     case StatusCodes.ContentNotFound:
@@ -464,7 +467,7 @@ namespace Bikewale.Controllers
                         SourceId = answerData.SourceId,
                         ClientIp = Bikewale.Utility.CurrentUser.GetClientIP()
                     };
-                    saveAnswer = _objAnswers.SubmitUserAnswer(answerData.QuestionId,answerData.AnswerText, answerData.CustomerName, answerData.CustomerEmail, clientInfo);
+                    saveAnswer = _objAnswers.SubmitUserAnswer(answerData.QuestionId, answerData.AnswerText, answerData.CustomerName, answerData.CustomerEmail, clientInfo);
                 }
                 return Json(saveAnswer);
             }

@@ -38,8 +38,8 @@ namespace Bikewale.Controllers
         private readonly IBikeModels<BikeModelEntity, int> _models;
         private readonly IBikeModelsCacheRepository<int> _objModelCache = null;
         private readonly IBikeVersions<BikeVersionEntity, uint> _objVersion;
-        private readonly IQuestions _questions;        
-
+        private readonly IQuestions _questions;
+        private readonly IBikeSeries _bikeSeries = null;
         private readonly QuestionAndAnswersController _qnaController = null;
         /// <summary>
         /// Created By : Sushil Kumar on 7th May 2017
@@ -62,7 +62,7 @@ namespace Bikewale.Controllers
         public UserReviewController(ICMSCacheContent objArticles, ICityCacheRepository cityCache, IBikeInfo bikeInfo,
             IUserReviewsCache userReviewsCacheRepo, IUserReviews userReviews, IBikeMaskingCacheRepository<BikeModelEntity, int> objModel,
             IUserReviewsRepository userReviewsRepo, IUserReviewsSearch userReviewsSearch, IBikeMakesCacheRepository makesRepository, IUserReviewsCache userReviewCache,
-            IAuthors authors, IBikeModels<BikeModelEntity, int> models, IBikeModelsCacheRepository<int> objModelCache, IBikeVersions<BikeVersionEntity, uint> objVersion, IQuestions questions)
+            IAuthors authors, IBikeModels<BikeModelEntity, int> models, IBikeModelsCacheRepository<int> objModelCache, IBikeVersions<BikeVersionEntity, uint> objVersion, IQuestions questions, IBikeSeries bikeSeries)
         {
 
             _userReviews = userReviews;
@@ -80,6 +80,7 @@ namespace Bikewale.Controllers
             _objModelCache = objModelCache;
             _objVersion = objVersion;
             _questions = questions;
+            _bikeSeries = bikeSeries;
 
             //This is to initialize _qnaController member variable. So that we can invoke action method on QuestionAndAnswersController.
             if (DependencyResolver.Current != null)
@@ -90,14 +91,17 @@ namespace Bikewale.Controllers
         /// <summary>
         /// Created by : Aditi Srivastava on 7 June 2017
         /// summary    : User review list page for desktop
+        /// Modified By : Monika Korrapati on 08 Nov 2018
+        /// Description : Assigned value to TabsCount
         /// </summary>
         [Filters.DeviceDetection()]
         [Route("{makeMasking}-bikes/{modelMasking}/reviews/")]
         public ActionResult ListReviews(string makeMasking, string modelMasking, uint? pageNo)
         {
-            UserReviewListingPage objData = new UserReviewListingPage(makeMasking, modelMasking, _objModel, _userReviewsCacheRepo, _userReviewsSearch, _objArticles, _userReviewsSearch, _models, _objModelCache, _objVersion, _cityCache, _bikeInfo);
+            UserReviewListingPage objData = new UserReviewListingPage(makeMasking, modelMasking, _objModel, _userReviewsCacheRepo, _userReviewsSearch, _objArticles, _userReviewsSearch, _models, _objModelCache, _objVersion, _cityCache, _bikeInfo, _bikeSeries);
             if (objData.Status.Equals(StatusCodes.ContentFound))
             {
+                objData.TabsCount = 3;
                 objData.PageNumber = pageNo;
                 objData.ExpertReviewsWidgetCount = 3;
                 objData.SimilarBikeReviewWidgetCount = 9;
@@ -126,6 +130,8 @@ namespace Bikewale.Controllers
         /// <summary>
         /// Created By : Sushil Kumar on 7th May 2017
         /// Description : Action method for mobile user reviews section
+        /// Modified By : Monika Korrapati on 08 Nov 2018
+        /// Description : Assigned value to TabsCount
         /// </summary>
         /// <param name="makeMasking"></param>
         /// <param name="modelMasking"></param>
@@ -134,10 +140,11 @@ namespace Bikewale.Controllers
         [Route("m/{makeMasking}-bikes/{modelMasking}/reviews/")]
         public ActionResult ListReviews_Mobile(string makeMasking, string modelMasking, uint? pageNo)
         {
-            UserReviewListingPage objData = new UserReviewListingPage(makeMasking, modelMasking, _objModel, _userReviewsCacheRepo, _userReviewsSearch, _objArticles, _userReviewsSearch, _models, _objModelCache, _objVersion, _cityCache, _bikeInfo);
+            UserReviewListingPage objData = new UserReviewListingPage(makeMasking, modelMasking, _objModel, _userReviewsCacheRepo, _userReviewsSearch, _objArticles, _userReviewsSearch, _models, _objModelCache, _objVersion, _cityCache, _bikeInfo, _bikeSeries);
             if (objData.Status.Equals(StatusCodes.ContentFound))
             {
                 objData.IsMobile = true;
+                objData.TabsCount = 3;
                 objData.PageNumber = pageNo;
                 objData.ExpertReviewsWidgetCount = 9;
                 objData.SimilarBikeReviewWidgetCount = 9;
@@ -170,7 +177,7 @@ namespace Bikewale.Controllers
         [Route("user-reviews/details/{reviewId}")]
         public ActionResult ReviewDetails(uint reviewId, string makeMaskingName, string modelMaskingName)
         {
-            UserReviewDetailsPage objUserReviewDetails = new UserReviewDetailsPage(reviewId, _userReviewsCacheRepo, _bikeInfo, _cityCache, _objArticles, _objModel, makeMaskingName, modelMaskingName, _userReviewsSearch, _models);
+            UserReviewDetailsPage objUserReviewDetails = new UserReviewDetailsPage(reviewId, _userReviewsCacheRepo, _bikeInfo, _cityCache, _objArticles, _objModel, makeMaskingName, modelMaskingName, _userReviewsSearch, _models, _bikeSeries);
 
             objUserReviewDetails.TabsCount = 3;
             objUserReviewDetails.ExpertReviewsWidgetCount = 3;
@@ -193,7 +200,7 @@ namespace Bikewale.Controllers
         [Route("m/user-reviews/details/{reviewId}")]
         public ActionResult ReviewDetails_Mobile(uint reviewId, string makeMaskingName, string modelMaskingName)
         {
-            UserReviewDetailsPage objUserReviewDetails = new UserReviewDetailsPage(reviewId, _userReviewsCacheRepo, _bikeInfo, _cityCache, _objArticles, _objModel, makeMaskingName, modelMaskingName, _userReviewsSearch, _models);
+            UserReviewDetailsPage objUserReviewDetails = new UserReviewDetailsPage(reviewId, _userReviewsCacheRepo, _bikeInfo, _cityCache, _objArticles, _objModel, makeMaskingName, modelMaskingName, _userReviewsSearch, _models, _bikeSeries);
 
             objUserReviewDetails.IsMobile = true;
             objUserReviewDetails.TabsCount = 3;
@@ -384,7 +391,7 @@ namespace Bikewale.Controllers
         /// 
         [ValidateInput(false)]
         [HttpPost, Route("user-reviews/save/"), ValidateAntiForgeryToken]
-        public ActionResult SaveReview(ReviewSubmitData objReviewData, bool? fromParametersRatingScreen,AnswerSubmitData answerData=null)
+        public ActionResult SaveReview(ReviewSubmitData objReviewData, bool? fromParametersRatingScreen, AnswerSubmitData answerData = null)
         {
             try
             {
@@ -403,10 +410,10 @@ namespace Bikewale.Controllers
                 objReviewData.CustomerId = decodedCustomerId;
 
                 objReviewData.fromParamterRatingPage = fromParametersRatingScreen;
-                
+
                 objResponse = _userReviews.SaveUserReviews(objReviewData);
 
-                if (answerData!=null && !String.IsNullOrEmpty(answerData.AnswerText))
+                if (answerData != null && !String.IsNullOrEmpty(answerData.AnswerText))
                 {
                     answerData.CustomerName = objReviewData.UserName;
                     answerData.CustomerEmail = objReviewData.EmailId;
@@ -516,7 +523,7 @@ namespace Bikewale.Controllers
         {
             if (reviewid > 0)
             {
-                UserReviewSummaryPage objData = new UserReviewSummaryPage(_userReviews, reviewid, q,_questions);
+                UserReviewSummaryPage objData = new UserReviewSummaryPage(_userReviews, reviewid, q, _questions);
                 objData.IsMobile = true;
                 if (objData.status == Entities.StatusCodes.ContentNotFound)
                 {

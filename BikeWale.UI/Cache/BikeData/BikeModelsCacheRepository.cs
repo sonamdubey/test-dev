@@ -1133,6 +1133,8 @@ namespace Bikewale.Cache.BikeData
         /// Description :   Calls DAL via Cache layer for generic bike info
         /// Modified By :- subodh Jain 10 Feb 2017
         /// Summary :- BikeInfo Slug details
+        /// Modified By : Monika Korrapati on 31 Oct 2018
+        /// Description : Changed Cache key from 'BW_GenericBikeInfo_MO_{0}' to 'BW_GenericBikeInfo_V1_MO_{0}'
         /// </summary>
         /// <param name="modelId"></param>
         /// <returns></returns>
@@ -1141,7 +1143,7 @@ namespace Bikewale.Cache.BikeData
             GenericBikeInfo objSearchList = null;
             try
             {
-                string key = string.Format("BW_GenericBikeInfo_MO_{0}", modelId);
+                string key = string.Format("BW_GenericBikeInfo_V1_MO_{0}", modelId);
                 objSearchList = _cache.GetFromCache(key, new TimeSpan(23, 0, 0), () => _modelRepository.GetBikeInfo(modelId));
             }
             catch (Exception ex)
@@ -1155,6 +1157,8 @@ namespace Bikewale.Cache.BikeData
         /// Description :   Calls DAL via Cache layer for generic bike info
         /// Modified By : Sanjay George on 23 Apr 2018
         /// Description : To get generic bike info
+        /// Modified By : Monika Korrapati on 31 Oct 2018
+        /// Description : Changed Cache key from 'BW_GenericBikeInfo_V1_MO_{0}_cityId_{1}' to 'BW_GenericBikeInfo_V2_MO_{0}_cityId_{1}'
         /// </summary>
         /// <param name="modelId"></param>
         /// <returns></returns>
@@ -1163,7 +1167,7 @@ namespace Bikewale.Cache.BikeData
             GenericBikeInfo objSearchList = null;
             try
             {
-                string key = string.Format("BW_GenericBikeInfo_V1_MO_{0}_cityId_{1}", modelId, cityId);
+                string key = string.Format("BW_GenericBikeInfo_V2_MO_{0}_cityId_{1}", modelId, cityId);
                 objSearchList = _cache.GetFromCache(key, new TimeSpan(23, 0, 0), () => _modelRepository.GetBikeInfo(modelId, cityId));
             }
             catch (Exception ex)

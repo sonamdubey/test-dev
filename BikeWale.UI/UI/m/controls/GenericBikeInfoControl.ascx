@@ -115,13 +115,15 @@
         </ul>
         <%} %>
         <div class="clear"></div>
-        <%if (bikeInfo.UsedBikeCount > 0)
-            { %>
+        <%if (bikeInfo.Make != null && Series != null && Series.IsSeriesPageUrl && Series.ModelsCount > 1)
+            {
+                string bodyType = string.Format("{0}{1}", Series.BodyStyle.Equals(Bikewale.Entities.GenericBikes.EnumBikeBodyStyles.Scooter) ? "scooter" : "bike", Series.ModelsCount > 2 ? "s" : "");
+               %>
         <div class="border-solid-bottom margin-top5 margin-bottom10"></div>
-        <a href="/m<%=Bikewale.Utility.UrlFormatter.UsedBikesUrlNoCity(bikeInfo.Make.MaskingName,bikeInfo.Model.MaskingName,(cityDetails!=null)?cityDetails.CityMaskingName:"india") %>" title="Used <%=bikeName%>" class="block text-default hover-no-underline">
+        <a href="/m<%=Bikewale.Utility.UrlFormatter.BikeSeriesUrl(bikeInfo.Make.MaskingName,Series.MaskingName) %>" title=" <%= string.Format("{0} {1} {2}", bikeInfo.Make.MakeName, Series.SeriesName, bodyType)%>" class="block text-default hover-no-underline">
             <span class="used-target-label inline-block">
-                <span class="font14 text-bold"><%=bikeInfo.UsedBikeCount %> Used <%=bikeInfo.Model.ModelName %> bikes</span><br />
-                <span class="font12 text-light-grey">starting at <span class="bwmsprite inr-12-grey"></span><%=Bikewale.Utility.Format.FormatNumeric(Convert.ToString(bikeInfo.UsedBikeMinPrice))%></span>
+                <span class="font14 text-bold"><%=string.Format("{0} more {1} {2} {3}", Series.ModelsCount - 1, bikeInfo.Make.MakeName, Series.SeriesName , bodyType) %></span><br />
+                <span class="font12 text-light-grey">starting at <span class="bwmsprite inr-12-grey"></span><%=Bikewale.Utility.Format.FormatNumeric(Convert.ToString(Series.MinPrice))%></span>
             </span>
             <span class="bwmsprite next-grey-icon"></span>
         </a>

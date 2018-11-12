@@ -1,4 +1,5 @@
-﻿using Bikewale.Entities.GenericBikes;
+﻿using Bikewale.Entities.BikeData;
+using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
 
 namespace Bikewale.Models
@@ -6,6 +7,8 @@ namespace Bikewale.Models
     /// <summary>
     /// Created by  :   Sumit Kate on 25 Mar 2017
     /// Description :   BikeInfo ViewModel
+    /// Modified by : Snehal Dange on 25th Oct 2018
+    /// Desc :  Added series data :BikeSeriesEntity
     /// </summary>
     public class BikeInfoVM
     {
@@ -19,5 +22,6 @@ namespace Bikewale.Models
         public BikeInfoTabType Category { get; set; }
         public string ReviewLink { get; set; }
         public uint ReviewCount { get; set; }
+        public BikeSeriesEntity Series { get; set; }
     }
 }

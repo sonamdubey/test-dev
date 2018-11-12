@@ -600,9 +600,11 @@ namespace Bikewale.PWA.Utils
             return widgetList;
         }
 
-        
+
         /// <summary>
         /// Converts the BikeInfo to the PWABikeInfo
+        /// Modified By : Monika Korrapati on 02 Nov 2018
+        /// Description : Added Mapping for BikeSeriesEntity to PwaBikeSeriesInfo
         /// </summary>
         /// <param name="objData"></param>
         /// <returns></returns>
@@ -678,6 +680,22 @@ namespace Bikewale.PWA.Utils
                     curInfo.DetailUrl = string.Format("/m{0}", item.URL);
                     outBikeInfo.MoreDetailsList.Add(curInfo);
                 }
+
+                PwaBikeSeriesInfo pwaBikeSeriesObj = null;
+                BikeSeriesEntity objSeriesInfo = objData.Series;
+                if (orgBikeInfo.Make != null && objSeriesInfo != null && objSeriesInfo.IsSeriesPageUrl && objSeriesInfo.ModelsCount > 1 )
+                {
+                    string bodyStyle = objData.Series.BodyStyle == EnumBikeBodyStyles.Scooter ? "scooter" : "bike";
+                    string bodyStyleText = bodyStyle + (objSeriesInfo.ModelsCount > 2 ? "s" : "");
+
+                    pwaBikeSeriesObj = new PwaBikeSeriesInfo();
+                    pwaBikeSeriesObj.DescriptionLabel = string.Format("{0} more {1} {2} {3}", objSeriesInfo.ModelsCount - 1, orgBikeInfo.Make.MakeName, objSeriesInfo.SeriesName, bodyStyleText);
+                    pwaBikeSeriesObj.PricePrefix = "starting from";
+                    pwaBikeSeriesObj.Price = Format.FormatNumeric(objSeriesInfo.MinPrice.ToString());
+                    pwaBikeSeriesObj.SeriesLinkUrl = string.Format("/m{0}", Bikewale.Utility.UrlFormatter.BikeSeriesUrl(orgBikeInfo.Make.MaskingName, objSeriesInfo.MaskingName));
+                    pwaBikeSeriesObj.SeriesLinkTitle = string.Format("{0} {1} {2}", orgBikeInfo.Make.MakeName, objSeriesInfo.SeriesName, bodyStyleText);
+                }
+                outBikeInfo.Series = pwaBikeSeriesObj;
             }
             return outBikeInfo;
         }
@@ -909,6 +927,110 @@ namespace Bikewale.PWA.Utils
                 throw ex;
             }
             return outList;
+        }
+
+        /// <summary>
+        /// Created By : Monika Korrapati on 02 Nov 2018
+        /// Description : Mapping both GenericBikeInfo and BikeSeriesEntity to PwaBikeInfo
+        /// </summary>
+        /// <param name="inpBikeInfo"></param>
+        /// <param name="cityDetails"></param>
+        /// <param name="seriesInfo"></param>
+        /// <returns></returns>
+        public static PwaBikeInfo MapBikeInfoAndSeriesToPwaBikeInfo(GenericBikeInfo inpBikeInfo, CityEntityBase cityDetails, BikeSeriesEntity seriesInfo)
+        {
+            PwaBikeInfo outBikeInfo = null;
+            if (inpBikeInfo != null)
+            {
+                bool isUpComing = inpBikeInfo.IsFuturistic;
+                bool isDiscontinued = (!inpBikeInfo.IsNew && !inpBikeInfo.IsFuturistic);
+                outBikeInfo = new PwaBikeInfo();
+                outBikeInfo.ModelName = string.Format("{0} {1}", inpBikeInfo.Make.MakeName, inpBikeInfo.Model.ModelName);
+                outBikeInfo.ModelId = inpBikeInfo.Model.ModelId;
+                outBikeInfo.Upcoming = isUpComing.ToString();
+                outBikeInfo.Discontinued = isDiscontinued.ToString();
+                outBikeInfo.ModelDetailUrl = string.Format("/m{0}", UrlFormatter.BikePageUrl(inpBikeInfo.Make.MaskingName, inpBikeInfo.Model.MaskingName));
+                outBikeInfo.ImageUrl = Image.GetPathToShowImages(inpBikeInfo.OriginalImagePath, inpBikeInfo.HostUrl, ImageSize._110x61, QualityFactor._70);
+
+                var bikeRatings = new PwaBikeRating();
+                bikeRatings.Rating = inpBikeInfo.Rating.ToString("0.0");
+                bikeRatings.Count = inpBikeInfo.RatingCount;
+                bikeRatings.ReviewCount = inpBikeInfo.UserReviewCount;
+                bikeRatings.ReviewUrl = string.Format("/m{0}", UrlFormatter.FormatUserReviewUrl(inpBikeInfo.Make.MaskingName, inpBikeInfo.Model.MaskingName));
+                outBikeInfo.Rating = bikeRatings;
+
+
+                if (isDiscontinued)
+                {
+                    outBikeInfo.PriceDescription = "Last known Ex-showroom price";
+                    outBikeInfo.Price = Format.FormatPrice(Convert.ToString(inpBikeInfo.BikePrice));
+
+                }
+                else if (isUpComing)
+                {
+                    outBikeInfo.PriceDescription = "Expected price";
+                    outBikeInfo.Price = String.Format("{0} - {1}",
+                        Format.FormatNumeric(Convert.ToString(inpBikeInfo.EstimatedPriceMin)),
+                        Format.FormatNumeric(Convert.ToString(inpBikeInfo.EstimatedPriceMax)));
+
+                }
+                else
+                {
+                    if (inpBikeInfo.PriceInCity > 0 && cityDetails != null)
+                    {
+                        outBikeInfo.PriceDescription = String.Format("On-road price, {0}", cityDetails.CityName);
+                        outBikeInfo.Price = Format.FormatPrice(Convert.ToString(inpBikeInfo.PriceInCity));
+
+                    }
+                    else
+                    {
+                        outBikeInfo.PriceDescription = String.Format("Ex-showroom, {0}", BWConfiguration.Instance.DefaultName);
+                        outBikeInfo.Price = Format.FormatPrice(Convert.ToString(inpBikeInfo.BikePrice));
+                    }
+                }
+
+                //usedbikelist
+                PwaBikeInfoUsedBikeDetails usedBikeInfo = null;
+                if (inpBikeInfo.UsedBikeCount > 0)
+                {
+                    usedBikeInfo = new PwaBikeInfoUsedBikeDetails();
+                    usedBikeInfo.DescriptionLabel = string.Format("{0} Used {1} bikes",
+                        inpBikeInfo.UsedBikeCount, inpBikeInfo.Model.ModelName);
+                    usedBikeInfo.PricePrefix = "starting at";
+                    usedBikeInfo.Price = Format.FormatNumeric(inpBikeInfo.UsedBikeMinPrice.ToString());
+                    usedBikeInfo.UsedBikesLinkUrl = string.Format("/m{0}", UrlFormatter.UsedBikesUrlNoCity(inpBikeInfo.Make.MaskingName,
+                        inpBikeInfo.Model.MaskingName, (cityDetails != null) ? cityDetails.CityMaskingName : "india"));
+                }
+                outBikeInfo.UsedBikesLink = usedBikeInfo;
+                outBikeInfo.MoreDetailsList = new List<PwaBikeInfoExtraDetails>();
+                //moredetailsList
+                PwaBikeInfoExtraDetails curInfo;
+                foreach (var item in inpBikeInfo.Tabs)
+                {
+
+                    curInfo = new PwaBikeInfoExtraDetails();
+                    curInfo.Type = item.TabText;
+                    curInfo.Title = string.Format("{0} {1}", outBikeInfo.ModelName, item.Title);
+                    curInfo.DetailUrl = string.Format("/m{0}", item.URL);
+                    outBikeInfo.MoreDetailsList.Add(curInfo);
+                }
+
+                PwaBikeSeriesInfo pwaBikeSeriesObj = null;
+                if (inpBikeInfo.Make != null && seriesInfo != null && seriesInfo.IsSeriesPageUrl && seriesInfo.ModelsCount > 1)
+                {
+                    string bodyStyle = seriesInfo.BodyStyle == EnumBikeBodyStyles.Scooter ? "scooter" : "bike";
+                    string bodyStyleText = bodyStyle + (seriesInfo.ModelsCount > 2 ? "s" : "");
+
+                    pwaBikeSeriesObj = new PwaBikeSeriesInfo();
+                    pwaBikeSeriesObj.DescriptionLabel = string.Format("{0} more {1} {2} {3}", seriesInfo.ModelsCount - 1, inpBikeInfo.Make.MakeName, seriesInfo.SeriesName, bodyStyleText);
+                    pwaBikeSeriesObj.PricePrefix = "starting from";
+                    pwaBikeSeriesObj.Price = Format.FormatNumeric(seriesInfo.MinPrice.ToString());
+                    pwaBikeSeriesObj.SeriesLinkUrl = string.Format("/m{0}", Bikewale.Utility.UrlFormatter.BikeSeriesUrl(inpBikeInfo.Make.MaskingName, seriesInfo.MaskingName));
+                    pwaBikeSeriesObj.SeriesLinkTitle = string.Format("{0} {1} {2}", inpBikeInfo.Make.MakeName, seriesInfo.SeriesName, bodyStyleText);
+                }
+                outBikeInfo.Series = pwaBikeSeriesObj;
+            }
+            return outBikeInfo;
         }
     }
 }

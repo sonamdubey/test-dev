@@ -6,6 +6,8 @@ namespace Bikewale.Entities.PWA.Articles
 {
     /// <summary>
     ///  Created By: Prasad Gawde
+    ///  Modified By : Monika Korrapati on 02 Nov 2018
+    ///  Description By : Added PwaBikeSeriesInfo series property.
     /// </summary>
     [Serializable, DataContract]
     public class PwaBikeInfo
@@ -32,6 +34,8 @@ namespace Bikewale.Entities.PWA.Articles
         public PwaBikeInfoUsedBikeDetails UsedBikesLink { get; set; }
         [DataMember]
         public PwaBikeRating Rating { get; set; }
+        [DataMember]
+        public PwaBikeSeriesInfo Series { get; set; }
     }
 
     /// <summary>

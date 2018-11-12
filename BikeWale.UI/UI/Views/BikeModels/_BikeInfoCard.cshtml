@@ -57,12 +57,17 @@
                                     }
                                 }
                             </ul>
-                            @if (Model.BikeInfo.UsedBikeCount > 0)
+                            @if (Model.BikeInfo.Make != null && Model.Series != null && Model.Series.IsSeriesPageUrl && Model.Series.ModelsCount > 1)
                             {
+                                var makeInfo = Model.BikeInfo.Make;
+                                var seriesInfo = Model.Series;
+                                string bodyType = string.Format("{0}{1}", seriesInfo.BodyStyle.Equals(Bikewale.Entities.GenericBikes.EnumBikeBodyStyles.Scooter) ? "scooter" : "bike", seriesInfo.ModelsCount > 2 ? "s" : "");
+                                
                                 <div class="border-solid-bottom margin-bottom10"></div>
-                                <a href="@Bikewale.Utility.UrlFormatter.UsedBikesUrlNoCity(Model.BikeInfo.Make.MaskingName, Model.BikeInfo.Model.MaskingName, (Model.CityDetails != null) ? Model.CityDetails.CityMaskingName : "india")" title="@Model.BikeInfo.UsedBikeCount used @Model.BikeName bikes" class="block text-default hover-no-underline">
+                                <a href="@Bikewale.Utility.UrlFormatter.BikeSeriesUrl(makeInfo.MaskingName, seriesInfo.MaskingName)" title="@string.Format("{0} {1} {2}", makeInfo.MakeName, seriesInfo.SeriesName, bodyType)" class="block text-default hover-no-underline">
                                     <span class="used-target-label inline-block">
-                                        <span class="font14 text-bold">@Model.BikeInfo.UsedBikeCount Used @Model.BikeName bikes</span>&nbsp;<span class="font12 text-light-grey">starting at &#x20b9; @Bikewale.Utility.Format.FormatNumeric(Convert.ToString(Model.BikeInfo.UsedBikeMinPrice))</span>
+                                        <span class="font14 text-bold">@string.Format("{0} more {1} {2} {3}", Model.Series.ModelsCount - 1, Model.BikeInfo.Make.MakeName, Model.Series.SeriesName , bodyType)</span>&nbsp;
+                                        <span class="font12 text-light-grey">starting from &#x20b9; @Bikewale.Utility.Format.FormatNumeric(Convert.ToString(seriesInfo.MinPrice))</span>
                                     </span>
                                     <span class="bwsprite next-grey-icon"></span>
                                 </a>

@@ -75,13 +75,15 @@
             </ul>
         }
         <div class="clear"></div>
-        @if (Model.BikeInfo.UsedBikeCount > 0)
+        @if (Model.BikeInfo.Make != null && Model.Series != null && Model.Series.IsSeriesPageUrl && Model.Series.ModelsCount > 1)
         {
+            string bodyStyle = Model.Series.BodyStyle == Bikewale.Entities.GenericBikes.EnumBikeBodyStyles.Scooter ? "scooter" : "bike";
+            string bodyStyleText = bodyStyle + (Model.Series.ModelsCount > 2 ? "s" : "");
             <div class="border-solid-bottom margin-top5 margin-bottom10"></div>
-            <a href="@string.Format("/m{0}", UrlFormatter.UsedBikesUrlNoCity(Model.BikeInfo.Make.MaskingName,Model.BikeInfo.Model.MaskingName,(Model.CityDetails!=null)?Model.CityDetails.CityMaskingName:"india"))" title="Used @Model.BikeName" class="block text-default hover-no-underline">
+            <a href="@string.Format("/m{0}",Bikewale.Utility.UrlFormatter.BikeSeriesUrl(Model.BikeInfo.Make.MaskingName, Model.Series.MaskingName))" title="@string.Format("{0} {1} {2}",Model.BikeInfo.Make.MakeName, Model.Series.SeriesName, bodyStyleText)" class="block text-default hover-no-underline">
                 <span class="used-target-label inline-block">
-                    <span class="font14 text-bold">@Model.BikeInfo.UsedBikeCount Used @Model.BikeInfo.Model.ModelName bikes</span><br />
-                    <span class="font12 text-light-grey">starting at <span class="bwmsprite inr-12-grey margin-right5"></span>@Format.FormatNumeric(Convert.ToString(Model.BikeInfo.UsedBikeMinPrice))</span>
+                    <span class="font14 text-bold">@(Model.Series.ModelsCount-1) more @Model.BikeInfo.Make.MakeName @Model.Series.SeriesName @bodyStyleText</span><br />
+                    <span class="font12 text-light-grey">starting from <span class="bwmsprite inr-12-grey margin-right5"></span>@Format.FormatNumeric(Convert.ToString(Model.Series.MinPrice))</span>
                 </span>
                 <span class="bwmsprite next-grey-icon"></span>
             </a>

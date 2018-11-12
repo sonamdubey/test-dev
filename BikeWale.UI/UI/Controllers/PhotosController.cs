@@ -22,10 +22,11 @@ namespace Bikewale.Controllers
         private readonly IBikeVersions<BikeVersionEntity, uint> _objVersion;
         private readonly IVideos _objVideos = null;
         private readonly IBikeMakesCacheRepository _objMakeCache = null;
+        private readonly IBikeSeries _bikeSeries = null;
 
         public PhotosController(IBikeModelsCacheRepository<int> objModelCache, IBikeMaskingCacheRepository<BikeModelEntity, int> objModelMaskingCache,
             IBikeModels<BikeModelEntity, int> objModelEntity, ICityCacheRepository objCityCache, IBikeInfo objGenericBike, IBikeVersions<BikeVersionEntity, uint> objVersion,
-            IVideos objVideos, IBikeMakesCacheRepository objMakeCache)
+            IVideos objVideos, IBikeMakesCacheRepository objMakeCache, IBikeSeries bikeSeries)
         {
 
             _objModelCache = objModelCache;
@@ -36,6 +37,7 @@ namespace Bikewale.Controllers
             _objVersion = objVersion;
             _objVideos = objVideos;
             _objMakeCache = objMakeCache;
+            _bikeSeries = bikeSeries;
         }
 
         /// <summary>
@@ -129,7 +131,7 @@ namespace Bikewale.Controllers
         [Route("photos/{makeMasking}-bikes/{modelMasking}/"), Filters.DeviceDetection]
         public ActionResult Model(string makeMasking, string modelMasking, string q)
         {
-            PhotosPage obj = new PhotosPage(makeMasking, modelMasking, _objModelCache, _objModelMaskingCache, _objModelEntity, _objCityCache, _objGenericBike, _objVersion, _objVideos);
+            PhotosPage obj = new PhotosPage(makeMasking, modelMasking, _objModelCache, _objModelMaskingCache, _objModelEntity, _objCityCache, _objGenericBike, _objVersion, _objVideos, _bikeSeries);
 
             if (obj.Status.Equals(StatusCodes.ContentFound))
             {
@@ -159,13 +161,13 @@ namespace Bikewale.Controllers
         [Route("m/photos/{makeMasking}-bikes/{modelMasking}/")]
         public ActionResult Model_Mobile(string makeMasking, string modelMasking, string q)
         {
-            PhotosPage obj = new PhotosPage(makeMasking, modelMasking, _objModelCache, _objModelMaskingCache, _objModelEntity, _objCityCache, _objGenericBike, _objVersion, _objVideos);
+            PhotosPage obj = new PhotosPage(makeMasking, modelMasking, _objModelCache, _objModelMaskingCache, _objModelEntity, _objCityCache, _objGenericBike, _objVersion, _objVideos, _bikeSeries);
 
             if (obj.Status.Equals(StatusCodes.ContentFound))
             {
                 obj.IsMobile = true;
-                PhotosPageVM objData = obj.GetData(30, 6, q);                
-                return View(objData);                                
+                PhotosPageVM objData = obj.GetData(30, 6, q);
+                return View(objData);
 
             }
             else if (obj.Status.Equals(StatusCodes.RedirectPermanent))

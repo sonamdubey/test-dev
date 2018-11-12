@@ -2,14 +2,14 @@
 
 @if (Model != null)
 {
-    <div class="model-slug-content">
+    <div class="model-more-info-section model-slug-content">
         <div class="margin-bottom10">
             <a href="@Model.Url" class="item-image-content inline-block" title="@Model.Bike">
                 @if (Model.Info != null)
                 {
                     <amp-img src="@Bikewale.Utility.Image.GetPathToShowImages(Model.Info.OriginalImagePath, Model.Info.HostUrl,Bikewale.Utility.ImageSize._110x61)" alt="@Model.Bike" height="38" width="68"></amp-img>
                 }
-               
+
             </a>
             <div class="bike-details-block inline-block">
                 <p class="font12 text-grey">Know more</p>
@@ -20,9 +20,9 @@
         <ul class="item-more-details-list">
             @if (Model.Info != null)
             {
-                    string makeMasking = (Model.Info.Make!=null ? Model.Info.Make.MaskingName : "");
-                    string modelMasking = (Model.Info.Model!=null ? Model.Info.Model.MaskingName :"");
-                
+                string makeMasking = (Model.Info.Make != null ? Model.Info.Make.MaskingName : "");
+                string modelMasking = (Model.Info.Model != null ? Model.Info.Model.MaskingName : "");
+
                 if (Model.Info.ExpertReviewsCount > 0)
                 {
                     <li>
@@ -63,5 +63,19 @@
         </ul>
 
         <div class="clear"></div>
+        @if (Model.Info!=null && Model.Info.Make!=null && Model.Series != null && Model.Series.IsSeriesPageUrl && Model.Series.ModelsCount > 1)
+        {
+            string bodyType = string.Format("{0}{1}", Model.Series.BodyStyle.Equals(Bikewale.Entities.GenericBikes.EnumBikeBodyStyles.Scooter) ? "scooter" : "bike", Model.Series.ModelsCount > 2 ? "s" : "");
+
+            <div class="border-solid-bottom margin-top5 margin-bottom10"></div>
+            <a href="@string.Format("/m{0}",Bikewale.Utility.UrlFormatter.BikeSeriesUrl(Model.Info.Make.MaskingName, Model.Series.MaskingName))" title="@string.Format("{0} {1} {2}", Model.Info.Make.MakeName, Model.Series.SeriesName, bodyType)" class="block text-default hover-no-underline">
+                <span class="used-target-label inline-block">
+                    <span class="font14 text-bold">@string.Format("{0} more {1} {2} {3}", Model.Series.ModelsCount - 1, Model.Info.Make.MakeName, Model.Series.SeriesName, bodyType)</span>&nbsp;<br />
+                    <span class="font12 text-light-grey">starting from <span class="bwmsprite inr-12-grey margin-right5"></span>&#x20b9; @Bikewale.Utility.Format.FormatNumeric(Convert.ToString(Model.Series.MinPrice))</span>
+                </span>
+                <span class="bwmsprite next-grey-icon"></span>
+            </a>
+        }
+
     </div>
 }

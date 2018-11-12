@@ -31,6 +31,7 @@ namespace Bikewale.Models.Photos
         private readonly IBikeInfo _objGenericBike = null;
         private readonly IBikeVersions<BikeVersionEntity, uint> _objVersion;
         private readonly IVideos _objVideos = null;
+        private readonly IBikeSeries _bikeSeries = null;
 
         private uint _modelId, _cityId;
         private string _cityName;
@@ -61,7 +62,7 @@ namespace Bikewale.Models.Photos
         /// <param name="objVideos"></param>
         public PhotosPage(string makeMaskingName, string modelMaskingName, IBikeModelsCacheRepository<int> objModelCache,
             IBikeMaskingCacheRepository<BikeModelEntity, int> objModelMaskingCache, IBikeModels<BikeModelEntity, int> objModelEntity, ICityCacheRepository objCityCache,
-            IBikeInfo objGenericBike, IBikeVersions<BikeVersionEntity, uint> objVersion, IVideos objVideos)
+            IBikeInfo objGenericBike, IBikeVersions<BikeVersionEntity, uint> objVersion, IVideos objVideos, IBikeSeries bikeSeries)
         {
             _objModelCache = objModelCache;
             _objModelMaskingCache = objModelMaskingCache;
@@ -70,6 +71,7 @@ namespace Bikewale.Models.Photos
             _objGenericBike = objGenericBike;
             _objVersion = objVersion;
             _objVideos = objVideos;
+            _bikeSeries = bikeSeries;
             ParseQueryString(makeMaskingName, modelMaskingName);
         }
 
@@ -231,7 +233,7 @@ namespace Bikewale.Models.Photos
             {
                 if (_modelId > 0 && _objData.Make != null && _objData.Model != null)
                 {
-                    _objData.BikeInfo = (new BikeInfoWidget(_objGenericBike, _objCityCache, _modelId, _cityId, 4, Entities.GenericBikes.BikeInfoTabType.Image)).GetData();
+                    _objData.BikeInfo = (new BikeInfoWidget(_objGenericBike, _objCityCache, _modelId, _cityId, 4, Entities.GenericBikes.BikeInfoTabType.Image, _objModelEntity, _bikeSeries)).GetData();
                     if (IsMobile)
                         _objData.Videos = new RecentVideos(1, 2, (uint)_objData.Make.MakeId, _objData.Make.MakeName, _objData.Make.MaskingName, (uint)_objData.Model.ModelId, _objData.Model.ModelName, _objData.Model.MaskingName, _objVideos).GetData();
                     else
@@ -503,7 +505,7 @@ namespace Bikewale.Models.Photos
         {
             try
             {
-                MoreAboutScootersWidget obj = new MoreAboutScootersWidget(_objModelCache, _objCityCache, _objVersion, _objGenericBike, Entities.GenericBikes.BikeInfoTabType.Image);
+                MoreAboutScootersWidget obj = new MoreAboutScootersWidget(_objModelCache, _objCityCache, _objVersion, _objGenericBike, Entities.GenericBikes.BikeInfoTabType.Image, _objModelEntity, _bikeSeries);
                 obj.modelId = _modelId;
                 _objData.objMoreAboutScooter = obj.GetData();
             }

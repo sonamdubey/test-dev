@@ -25,7 +25,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
-using System.Text;
 using System.Web;
 
 namespace Bikewale.Models
@@ -53,6 +52,8 @@ namespace Bikewale.Models
         private readonly ICityCacheRepository _objCityCache = null;
         private readonly IAreaCacheRepository _objAreaCache = null;
         private readonly IManufacturerCampaign _objManufacturerCampaign = null;
+        private readonly IBikeSeries _bikeSeries = null;
+
         private uint cityId, modelId, versionCount, colorCount, dealerCount, areaId;
         private readonly string modelMaskingName, cityMaskingName, makeMaskingName;
         private string pageDescription, area, city;
@@ -103,7 +104,7 @@ namespace Bikewale.Models
         /// <param name="pqSource"></param>
         /// <param name="modelMaskingName"></param>
         /// <param name="cityMaskingName"></param>
-        public PriceInCityPage(ICityMaskingCacheRepository cityMaskingCache, IBikeMaskingCacheRepository<Entities.BikeData.BikeModelEntity, int> modelMaskingCache, IPriceQuote objPQ, IPriceQuoteCache objPQCache, IDealerCacheRepository objDealerCache, IServiceCenter objServiceCenter, IBikeVersions<BikeVersionEntity, uint> version, IBikeInfo bikeInfo, IBikeModelsCacheRepository<int> modelCache, IDealerPriceQuoteDetail objDealerDetails, IDealerPriceQuote objDealerPQ, ICityCacheRepository objCityCache, IAreaCacheRepository objAreaCache, IManufacturerCampaign objManufacturerCampaign, PQSourceEnum pqSource, string modelMaskingName, string cityMaskingName, IBikeModels<Entities.BikeData.BikeModelEntity, int> modelEntity, string makeMaskingName)
+        public PriceInCityPage(ICityMaskingCacheRepository cityMaskingCache, IBikeMaskingCacheRepository<Entities.BikeData.BikeModelEntity, int> modelMaskingCache, IPriceQuote objPQ, IPriceQuoteCache objPQCache, IDealerCacheRepository objDealerCache, IServiceCenter objServiceCenter, IBikeVersions<BikeVersionEntity, uint> version, IBikeInfo bikeInfo, IBikeModelsCacheRepository<int> modelCache, IDealerPriceQuoteDetail objDealerDetails, IDealerPriceQuote objDealerPQ, ICityCacheRepository objCityCache, IAreaCacheRepository objAreaCache, IManufacturerCampaign objManufacturerCampaign, PQSourceEnum pqSource, string modelMaskingName, string cityMaskingName, IBikeModels<Entities.BikeData.BikeModelEntity, int> modelEntity, string makeMaskingName, IBikeSeries bikeSeries)
         {
             _cityMaskingCache = cityMaskingCache;
             _modelMaskingCache = modelMaskingCache;
@@ -124,6 +125,7 @@ namespace Bikewale.Models
             this.makeMaskingName = makeMaskingName;
             _objManufacturerCampaign = objManufacturerCampaign;
             _objModelEntity = modelEntity;
+            _bikeSeries = bikeSeries;
             ProcessQueryString();
         }
 
@@ -151,7 +153,7 @@ namespace Bikewale.Models
         /// <param name="modelMaskingName"></param>
         /// <param name="cityMaskingName"></param>
         /// <param name="modelEntity"></param>
-        public PriceInCityPage(ICityMaskingCacheRepository cityMaskingCache, IBikeMaskingCacheRepository<Entities.BikeData.BikeModelEntity, int> modelMaskingCache, IPriceQuote objPQ, IPriceQuoteCache objPQCache, IDealerCacheRepository objDealerCache, IServiceCenter objServiceCenter, IBikeVersions<BikeVersionEntity, uint> version, IBikeInfo bikeInfo, IBikeModelsCacheRepository<int> modelCache, IDealerPriceQuoteDetail objDealerDetails, IDealerPriceQuote objDealerPQ, ICityCacheRepository objCityCache, IAreaCacheRepository objAreaCache, IManufacturerCampaign objManufacturerCampaign, PQSourceEnum pqSource, string modelMaskingName, string cityMaskingName, IBikeModels<Entities.BikeData.BikeModelEntity, int> modelEntity, IAdSlot adSlot, string makeMaskingName)
+        public PriceInCityPage(ICityMaskingCacheRepository cityMaskingCache, IBikeMaskingCacheRepository<Entities.BikeData.BikeModelEntity, int> modelMaskingCache, IPriceQuote objPQ, IPriceQuoteCache objPQCache, IDealerCacheRepository objDealerCache, IServiceCenter objServiceCenter, IBikeVersions<BikeVersionEntity, uint> version, IBikeInfo bikeInfo, IBikeModelsCacheRepository<int> modelCache, IDealerPriceQuoteDetail objDealerDetails, IDealerPriceQuote objDealerPQ, ICityCacheRepository objCityCache, IAreaCacheRepository objAreaCache, IManufacturerCampaign objManufacturerCampaign, PQSourceEnum pqSource, string modelMaskingName, string cityMaskingName, IBikeModels<Entities.BikeData.BikeModelEntity, int> modelEntity, IAdSlot adSlot, string makeMaskingName, IBikeSeries bikeSeries)
         {
             _cityMaskingCache = cityMaskingCache;
             _modelMaskingCache = modelMaskingCache;
@@ -173,6 +175,7 @@ namespace Bikewale.Models
             _objManufacturerCampaign = objManufacturerCampaign;
             _objModelEntity = modelEntity;
             _adSlot = adSlot;
+            _bikeSeries = bikeSeries;
             ProcessQueryString();
         }
 
@@ -440,8 +443,8 @@ namespace Bikewale.Models
                                         Area = area,
                                         City = city,
                                         Location = String.Format("{0} {1}", area, city),
-                                    BikeName = objVM.BikeName,
-                                    PlatformId = Convert.ToUInt16(Platform),
+                                        BikeName = objVM.BikeName,
+                                        PlatformId = Convert.ToUInt16(Platform),
                                     PageId = Convert.ToUInt16(PQSource),
                                     OfferList = objVM.LeadCampaign != null ? objVM.LeadCampaign.OffersList : null
                                     };
@@ -777,7 +780,7 @@ namespace Bikewale.Models
                         BuildPageMetas(objVM);
                         if (objVM.IsNew)
                         {
-                            GetManufacturerCampaign(objVM,pQOutput);
+                            GetManufacturerCampaign(objVM, pQOutput);
                             BindManufacturerLeadAdAMP(objVM);
                         }
 
@@ -842,10 +845,10 @@ namespace Bikewale.Models
         /// Description : Bind Manufacturer Lead Ad and href, remove AMP prohibitated attribute
         /// Modified by : Ashutosh Sharma on 11 Dec 2017
         /// Description : LeadCapture null check added.
-		/// Modified by : Pratibha Verma on 2 August 2018
-		/// Description : Added platformid in url
-		/// Modified by : Rajan Chauhan on 25 September 2018
-		/// Description : Corrected platformId tracking Set PageUrl on LeadCampaign
+        /// Modified by : Pratibha Verma on 2 August 2018
+        /// Description : Added platformid in url
+        /// Modified by : Rajan Chauhan on 25 September 2018
+        /// Description : Corrected platformId tracking Set PageUrl on LeadCampaign
         /// </summary>
         /// <param name="priceInCityAMPVM"></param>
         private void BindManufacturerLeadAdAMP(PriceInCityPageAMPVM priceInCityAMPVM)
@@ -857,16 +860,16 @@ namespace Bikewale.Models
                 try
                 {
                     priceInCityAMPVM.LeadCampaign.IsAmp = true;
-					string url = String.Format("{0}/m/popup/leadcapture/?q={1}&platformId={2}", BWConfiguration.Instance.BwHostUrl, Bikewale.Utility.TripleDES.EncryptTripleDES(string.Format(@"modelid={0}&cityid={1}&areaid={2}&bikename={3}&location={4}&city={5}&area={6}&ismanufacturer={7}&dealerid={8}&dealername={9}&dealerarea={10}&versionid={11}&leadsourceid={12}&pqsourceid={13}&mfgcampid={14}&pqguid={15}&pageurl={16}&clientip={17}&dealerheading={18}&dealermessage={19}&dealerdescription={20}&pincoderequired={21}&emailrequired={22}&dealersrequired={23}&url={24}&sendLeadSMSCustomer={25}&organizationName={26}",
-											   priceInCityAMPVM.BikeModel.ModelId, priceInCityAMPVM.CityEntity.CityId, string.Empty, string.Format(priceInCityAMPVM.BikeName), string.Empty, string.Empty, string.Empty,
-											   priceInCityAMPVM.IsManufacturerLeadAdShown, priceInCityAMPVM.LeadCampaign.DealerId, String.Format(priceInCityAMPVM.LeadCampaign.LeadsPropertyTextMobile,
-											   priceInCityAMPVM.LeadCampaign.Organization), priceInCityAMPVM.LeadCampaign.Area, priceInCityAMPVM.VersionId, priceInCityAMPVM.LeadCampaign.LeadSourceId, priceInCityAMPVM.LeadCampaign.PqSourceId,
-											   priceInCityAMPVM.LeadCampaign.CampaignId, priceInCityAMPVM.PQId, string.Empty, Bikewale.Common.CommonOpn.GetClientIP(), priceInCityAMPVM.LeadCampaign.PopupHeading,
-											   String.Format(priceInCityAMPVM.LeadCampaign.PopupSuccessMessage, priceInCityAMPVM.LeadCampaign.Organization), priceInCityAMPVM.LeadCampaign.PopupDescription,
-											   priceInCityAMPVM.LeadCampaign.PincodeRequired, priceInCityAMPVM.LeadCampaign.EmailRequired, priceInCityAMPVM.LeadCampaign.DealerRequired,
-											   string.Format("{0}/m/{1}-bikes/{2}/price-in-{3}/", BWConfiguration.Instance.BwHostUrl, firstVersion.MakeMaskingName, modelMaskingName, cityMaskingName), priceInCityAMPVM.LeadCampaign.SendLeadSMSCustomer,
-											   priceInCityAMPVM.LeadCampaign.Organization)), (int)PQSources.Amp);
-					priceInCityAMPVM.LeadCampaign.PageUrl = url;
+                    string url = String.Format("{0}/m/popup/leadcapture/?q={1}&platformId={2}", BWConfiguration.Instance.BwHostUrl, Bikewale.Utility.TripleDES.EncryptTripleDES(string.Format(@"modelid={0}&cityid={1}&areaid={2}&bikename={3}&location={4}&city={5}&area={6}&ismanufacturer={7}&dealerid={8}&dealername={9}&dealerarea={10}&versionid={11}&leadsourceid={12}&pqsourceid={13}&mfgcampid={14}&pqguid={15}&pageurl={16}&clientip={17}&dealerheading={18}&dealermessage={19}&dealerdescription={20}&pincoderequired={21}&emailrequired={22}&dealersrequired={23}&url={24}&sendLeadSMSCustomer={25}&organizationName={26}",
+                                               priceInCityAMPVM.BikeModel.ModelId, priceInCityAMPVM.CityEntity.CityId, string.Empty, string.Format(priceInCityAMPVM.BikeName), string.Empty, string.Empty, string.Empty,
+                                               priceInCityAMPVM.IsManufacturerLeadAdShown, priceInCityAMPVM.LeadCampaign.DealerId, String.Format(priceInCityAMPVM.LeadCampaign.LeadsPropertyTextMobile,
+                                               priceInCityAMPVM.LeadCampaign.Organization), priceInCityAMPVM.LeadCampaign.Area, priceInCityAMPVM.VersionId, priceInCityAMPVM.LeadCampaign.LeadSourceId, priceInCityAMPVM.LeadCampaign.PqSourceId,
+                                               priceInCityAMPVM.LeadCampaign.CampaignId, priceInCityAMPVM.PQId, string.Empty, Bikewale.Common.CommonOpn.GetClientIP(), priceInCityAMPVM.LeadCampaign.PopupHeading,
+                                               String.Format(priceInCityAMPVM.LeadCampaign.PopupSuccessMessage, priceInCityAMPVM.LeadCampaign.Organization), priceInCityAMPVM.LeadCampaign.PopupDescription,
+                                               priceInCityAMPVM.LeadCampaign.PincodeRequired, priceInCityAMPVM.LeadCampaign.EmailRequired, priceInCityAMPVM.LeadCampaign.DealerRequired,
+                                               string.Format("{0}/m/{1}-bikes/{2}/price-in-{3}/", BWConfiguration.Instance.BwHostUrl, firstVersion.MakeMaskingName, modelMaskingName, cityMaskingName), priceInCityAMPVM.LeadCampaign.SendLeadSMSCustomer,
+                                               priceInCityAMPVM.LeadCampaign.Organization)), (int)PQSources.Amp);
+                    priceInCityAMPVM.LeadCampaign.PageUrl = url;
                     string hash = Bikewale.PWA.Utils.PwaCmsHelper.GetSha256Hash(priceInCityAMPVM.LeadCampaign.LeadsHtmlMobile);
                     str = MvcHelper.Render(hash, priceInCityAMPVM.LeadCampaign, priceInCityAMPVM.LeadCampaign.LeadsHtmlMobile);
 
@@ -878,13 +881,13 @@ namespace Bikewale.Models
                         str = str.RemoveAttribure("name");
                         str = str.RemoveStyleElement();
                         str = str.ReplaceHref("leadcapturebtn", url);
-						str = str.ReplaceGAAttributes();
+                        str = str.ReplaceGAAttributes();
                         priceInCityAMPVM.LeadCapture.ManufacturerLeadAdAMPConvertedContent = str;
                     }
                 }
                 catch (Exception ex)
                 {
-					Bikewale.Notifications.ErrorClass.LogError(ex, String.Format("PriceInCityPage.BindManufacturerLeadAdAMP(CampaignId : {0})", priceInCityAMPVM.LeadCampaign.CampaignId));
+                    Bikewale.Notifications.ErrorClass.LogError(ex, String.Format("PriceInCityPage.BindManufacturerLeadAdAMP(CampaignId : {0})", priceInCityAMPVM.LeadCampaign.CampaignId));
                 }
 
             }
@@ -1021,7 +1024,7 @@ namespace Bikewale.Models
             try
             {
 
-                objVM.BikeInfo = (new BikeInfoWidget(_bikeInfo, _objCityCache, modelId, cityId, BikeInfoTabCount, Entities.GenericBikes.BikeInfoTabType.PriceInCity)).GetData();
+                objVM.BikeInfo = (new BikeInfoWidget(_bikeInfo, _objCityCache, modelId, cityId, BikeInfoTabCount, Entities.GenericBikes.BikeInfoTabType.PriceInCity, _objModelEntity, _bikeSeries)).GetData();
                 objVM.BikeRank = (new BikeModelRank(_modelCache, modelId)).GetData();
                 objVM.IsElectricBike = (objVM.BikeInfo != null && objVM.BikeInfo.BikeInfo != null) ? objVM.BikeInfo.BikeInfo.FuelType == 5 : false;
             }
@@ -1471,7 +1474,7 @@ namespace Bikewale.Models
                                 String.Format(objData.LeadCampaign.PopupSuccessMessage, objData.LeadCampaign.Organization), objData.LeadCampaign.PopupDescription,
                                 objData.LeadCampaign.PincodeRequired, objData.LeadCampaign.EmailRequired, objData.LeadCampaign.DealerRequired,
                                 string.Format("{0}/m/{1}-bikes/{2}/price-in-{3}/", BWConfiguration.Instance.BwHostUrlForJs, firstVersion.MakeMaskingName, modelMaskingName, cityMaskingName),
-                                objData.LeadCampaign.SendLeadSMSCustomer, objData.LeadCampaign.Organization,Platform)));
+                                objData.LeadCampaign.SendLeadSMSCustomer, objData.LeadCampaign.Organization, Platform)));
                         }
                         if (campaigns.EMICampaign != null)
                         {
@@ -1532,7 +1535,7 @@ namespace Bikewale.Models
         {
             try
             {
-                MoreAboutScootersWidget obj = new MoreAboutScootersWidget(_modelCache, _objCityCache, _version, _bikeInfo, Entities.GenericBikes.BikeInfoTabType.PriceInCity);
+                MoreAboutScootersWidget obj = new MoreAboutScootersWidget(_modelCache, _objCityCache, _version, _bikeInfo, Entities.GenericBikes.BikeInfoTabType.PriceInCity, _objModelEntity, _bikeSeries);
                 obj.modelId = modelId;
                 objData.objMoreAboutScooter = obj.GetData();
             }

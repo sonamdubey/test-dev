@@ -11,7 +11,7 @@ class VideoModelSlug extends React.Component {
 			this.props.Status = Status.Fetched;
 		}
 		this.renderUsedBikesLink = this.renderUsedBikesLink.bind(this);
-		
+		this.renderSeriesBikesLink = this.renderSeriesBikesLink.bind(this);
 	}
 	
 	renderUsedBikesLink(model,usedBikesLink) {
@@ -25,6 +25,25 @@ class VideoModelSlug extends React.Component {
 	                <span className="used-target-label inline-block">
 	                    <span className="font14 text-bold">{usedBikesLink.DescriptionLabel}</span><br />
 	                    <span className="font12 text-light-grey">{usedBikesLink.PricePrefix} <span>&#x20B9;</span> {usedBikesLink.Price}</span>
+	                </span>
+	                <span className="bwmsprite next-grey-icon"></span>
+	            </a>
+	        </div>
+	        )
+
+	}
+
+	renderSeriesBikesLink(model,series) {
+
+	    if(!series) return null;
+
+	    return (
+			<div>
+				<div className="border-solid-bottom margin-top5 margin-bottom10"></div>
+				<a href={series.SeriesLinkUrl} title={series.SeriesLinkTitle} className="block text-default">
+	                <span className="used-target-label inline-block">
+	                    <span className="font14 text-bold">{series.DescriptionLabel}</span><br />
+	                    <span className="font12 text-light-grey">{series.PricePrefix} <span>&#x20B9;</span> {series.Price}</span>
 	                </span>
 	                <span className="bwmsprite next-grey-icon"></span>
 	            </a>
@@ -142,7 +161,7 @@ class VideoModelSlug extends React.Component {
 
 	                <div className="clear"></div>
 
-	                {this.renderUsedBikesLink(model,model.UsedBikesLink)}
+	                {this.renderSeriesBikesLink(model,model.Series)}
 
 
 			    </div>
