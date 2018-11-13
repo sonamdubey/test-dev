@@ -66,7 +66,7 @@
                         <a href="<%=Bikewale.Utility.UrlFormatter.BikeSeriesUrl(bikeInfo.Make.MaskingName,Series.MaskingName) %>" title="<%= string.Format("{0} {1} {2}", bikeInfo.Make.MakeName, Series.SeriesName, bodyType)%>" class="block text-default hover-no-underline">
                             <span class="used-target-label inline-block">
                                 <span class="font14 text-bold"><%=string.Format("{0} more {1} {2} {3}", Series.ModelsCount - 1, bikeInfo.Make.MakeName, Series.SeriesName , bodyType)%> </span>
-                                <span class="font12 text-light-grey">starting from <span class="bwsprite inr-xsm-grey"></span> <%=Bikewale.Utility.Format.FormatNumeric(Convert.ToString(Series.MinPrice))%></span>
+                                <span class="font12 text-light-grey">&nbsp;starting from <span class="bwsprite inr-xsm-grey"></span> <%=Bikewale.Utility.Format.FormatNumeric(Convert.ToString(Series.MinPrice))%></span>
                             </span>
                             <span class="bwsprite next-grey-icon"></span>
                         </a>
