@@ -13,6 +13,8 @@
 
 
 .leaderboard-popup
+	.popup
+		display: none
 	.popup-head
 		position: relative
 		background-color: color('white-smoke-7')
@@ -317,6 +319,11 @@
 
 .btn-cinnabar__mobile-text
   display: inline-block
+
+.leaderboard-popup
+    &.popup-active
+      .popup
+        @include flexbox
 
 // Styles for mobile
 @media only screen and (max-width: 799px)
