@@ -26,9 +26,11 @@
     function lazyLoadTabContentImages(tabId) {
         $('#' + tabId).find('img.lazy').lazyload();
     }
-
-    // Trigger impression tracking
-    triggerNonInteractiveGA('leaderboard', 'TVS leaderboard_shown', 'TVS leaderboard');
+    if (leaderboardTabs.length > 0)
+    {
+        // Trigger impression tracking
+        triggerNonInteractiveGA('leaderboard', 'TVS leaderboard_shown', 'TVS leaderboard');
+    }
 
     // Initialize leadboard popup
     var isInitialTabContentLazyLoaded = false;
