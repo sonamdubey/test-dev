@@ -212,7 +212,7 @@
 </div>
 
 
-@if (Model.DetailedDealer != null && Model.DetailedDealer.SecondaryDealerCount > 0 && !(Model.IsManufacturerLeadAdShown || Model.IsManufacturerEMIAdShown))
+@if (Model.IsPrimaryDealerAvailable && Model.DetailedDealer.SecondaryDealerCount > 0 && !(Model.IsManufacturerLeadAdShown || Model.IsManufacturerEMIAdShown))
 {
     <section>
         @Html.Partial("~/UI/Views/Price/_SecondaryDealers_Mobile.cshtml", Model.DetailedDealer.SecondaryDealers)

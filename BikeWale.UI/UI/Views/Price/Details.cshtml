@@ -290,7 +290,7 @@
 </section>
 
 
-@if (Model.DetailedDealer != null && Model.DetailedDealer.SecondaryDealerCount > 0 && !(Model.IsManufacturerLeadAdShown || Model.IsManufacturerEMIAdShown))
+@if (Model.IsPrimaryDealerAvailable && Model.DetailedDealer.SecondaryDealerCount > 0 && !(Model.IsManufacturerLeadAdShown || Model.IsManufacturerEMIAdShown))
 {
     <section>
         <div class="container margin-bottom20">
