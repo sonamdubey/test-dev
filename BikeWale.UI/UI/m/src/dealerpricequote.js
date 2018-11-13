@@ -613,4 +613,9 @@ docReady(function () {
         console.log(e.message);
     }
     AnimateCTA.registerEvents();
+
+    // for timer
+    $(".model-countdown__close").click(function () {
+        $(".pq-countdown").removeClass("pq-countdown");
+    });
 });

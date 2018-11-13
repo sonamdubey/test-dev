@@ -484,3 +484,150 @@ a.bikeTitle { color:#2a2a2a; font-size: 16px; font-weight: bold; display: block;
     padding-right: 5px;
     border-left: 1px solid #ededed;
 }
+
+/*countdown css starts here*/
+.model-countdown {
+    background-color: #fff;
+    display: none;
+}
+
+.launch-text-container {
+    display: inline-block;
+    padding: 7px;
+    -webkit-box-flex: 1;
+    -moz-box-flex: 1;
+    -webkit-flex-grow: 1;
+    -ms-flex: 1;
+    flex-grow: 1;
+    text-align: right;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.countdown-sponsored-text {
+  font-size: 8px;
+  position: absolute;
+  top: 0;
+  right: 3px;
+  color: #999;
+}
+
+.countdown-timer {
+  display: inline-block;
+  background-color: #efefef;
+  padding: 7px;
+}
+
+.countdown--active.model-countdown {
+	display: block;
+}
+
+.countdown-close-btn {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  display: block;
+  left: 0;
+  top: 13px;
+  background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/4d5057/cross.svg') no-repeat center;
+  background-size: 8px;
+  cursor: pointer;
+}
+
+.model-countdown__content {
+  display: -webkit-box; 
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex; 
+  display: flex;
+  max-width: 360px;
+  margin: 0 auto;
+}
+
+.countdown-timer li {
+    display: inline-block;
+    padding: 0 3px;
+    text-align: center;
+}
+
+.countdown-timer li .clock:after {
+    content: ':';
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    right: -5px;
+}
+
+.countdown-timer li:last-child .clock:after {
+    content: ''
+}
+
+.countdown-timer li span {
+    display: block;
+}
+
+.mins-text:after {
+    background-color: transparent !important;
+    width: 0;
+}
+
+.countdown-timer li .clock {
+    font-size: 15px;
+    font-weight: 700;
+    position: relative;
+}
+
+.count-down-text {
+    font-size: 9px;
+    color: #7a7a7a;
+}
+
+.external-link-icon {
+  width: 10px;
+  height: 10px;
+  display: inline-block;
+  background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/0288d1/external-link.svg') no-repeat center;
+}
+
+.button-cta-countdown {
+    padding: 3px 0 0 0;
+    text-align: center;
+}
+
+.model-countdown__know-more {
+    padding: 8px;
+}
+
+.model-countdown__content .launch-text-container a {
+    color: #0288d1;
+}
+
+@media only screen and (max-width: 320px) {
+  .model-countdown .countdown-close-btn {
+    width: 10px;
+    height: 10px;
+    top: 18px;
+  }
+
+  .countdown-timer li .clock {
+      font-size: 14px;
+  }
+
+  .countdown-timer {
+      padding: 7px;
+  }
+
+  .count-down-text {
+      font-size: 7px;
+  }
+
+  .launch-text-container {
+      font-size: 11px;
+  }
+}
+
+.disable--countdown .model-countdown.countdown--active {
+    display: none;
+}
+
+/*countdown css ends here*/

@@ -297,6 +297,9 @@
     string bodyTagClass = null;
 }
 <body class="@(@Model.IsTransparentHeader ? " page-type-landing " : "") bg-light-grey @(@Model.IsHeaderFix ? "header-fixed-inner" : "") @(Model.CssClasses.TryGetValue("bodyTagClass",out bodyTagClass) && bodyTagClass != null ? bodyTagClass:"")" data-page-id="@((int)Model.Page)" data-page-name="@Model.Page">
+   
+    @Html.Partial("~/UI/Views/Shared/ES/_RoyalEnfieldCountdown_Mobile.cshtml")
+
     @if (Model.IsHeaderRequired)
     {
         <header>
@@ -334,11 +337,8 @@
     {
             <!-- Call Home Page Banner partial view -->
     }
-    @if (Model.IsTVSCampaignShown)
-    {
-        @Html.Partial("~/UI/Views/Shared/_leaderboard.cshtml")
-    }
-    else if (Model.AdTags != null && Model.AdTags.Ad_320x50)
+   
+    @if (Model.AdTags != null && Model.AdTags.Ad_320x50)
 {
     <div id='div-gpt-ad-@Model.AdTags.AdId-0' style='width:320px; height:50px;text-align:center;margin: 10px auto;' data-load-immediate="true">
         <script type='text/javascript'>

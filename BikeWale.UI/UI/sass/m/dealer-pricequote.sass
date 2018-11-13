@@ -809,3 +809,29 @@ header
 @media (max-width: 320px)
   .pqTable.font14
     font-size: 12px
+
+//for timer
+
+.pq-countdown
+	#bw-header
+		&.fixed
+			top: 48px
+
+	.pq__offers-summary-toolbar
+		&.offers-summary-toolbar
+			.dealer__offers-summary-content
+				top: 98px
+
+	.model-countdown
+		position: fixed
+		left: 0
+		right: 0
+		width: 100%
+		z-index: 3
+
+	&.offer-summary-toolbar--active
+		header
+			margin-bottom: 86px
+
+	header
+		margin-bottom: 55px

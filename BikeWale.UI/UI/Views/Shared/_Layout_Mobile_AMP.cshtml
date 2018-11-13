@@ -7,8 +7,11 @@
     @if (Model.Page == GAPages.Model_Page)
     {
         <script async custom-element="amp-position-observer" src="https://cdn.ampproject.org/v0/amp-position-observer-0.1.js"></script>
-        <script async custom-element="amp-animation" src="https://cdn.ampproject.org/v0/amp-animation-0.1.js"></script>
     }
+    @{
+        bool isRECampaignShown = Model.Page != GAPages.Model_Page && DateTime.Now < new DateTime(2018, 11, 14, 18, 31, 0);
+    }
+    <script async custom-element="amp-animation" src="https://cdn.ampproject.org/v0/amp-animation-0.1.js"></script>
     <script async custom-element="amp-lightbox" src="https://cdn.ampproject.org/v0/amp-lightbox-0.1.js"></script>
     <script async custom-element="amp-list" src="https://cdn.ampproject.org/v0/amp-list-0.1.js"></script>
     <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.2.js"></script>
@@ -57,6 +60,13 @@
         .breadcrumb{margin:10px;padding:10px;background:#eee;font-size:13px}.breadcrumb li{position:relative;display:inline-block;vertical-align:middle;margin-right:6px;margin-bottom:8px}.breadcrumb-title{display:block;font-size:12px;color:#82888b;padding-bottom:5px}.breadcrumb-link__label{padding-right:8px}.breadcrumb-link::after{content:'';height:4px;width:4px;border:solid grey;border-width:0 1px 1px 0;-webkit-transform:rotate(-45deg);transform:rotate(-45deg);display:inline-block;position:absolute;top:7px;right:0}
         .rightfloat{float:right;}.search-bold-icon { width:15px; height:15px; background-position:-61px -278px; }.search-icon { display: inline-block;top: 5px;margin-left: 10px;}.blackOut-window > a{position:fixed;top:0;right:0;bottom:0;background:#000;left:0;z-index:9;opacity:.8;display:block;filter:alpha(opacity=80)}.global-search-popup .cross-box{right:5px;}.global-search-popup .back-long-arrow-left {transform: rotate(90deg);position: absolute;top: 7px;left: 10px;}.global-search-popup .back-arrow-box,.global-search-popup .cross-box{position:absolute;top:11px;z-index:11;}.global-search-popup{position:fixed;left:0;right:0;z-index:10}.global-search-popup .form-control{border:none;padding:16px 50px}.form-control,.form-control-box{position:relative; background-color:white; width: 100%}.search__result{padding:10px;display:inline-block}.search-title{font-size:10px;text-transform: uppercase;letter-spacing:1px;color:#babfc3;padding:10px}.top-border{border-top:solid 1px #e0e0e0;}.cross-md-dark-grey{width:13px;height:13px;right:13px;top:8px;opacity:0.6}.text-bold{font-weight: 600;}.padding10{padding:10px}
         @Html.Raw(Model.Amp_Page_CSS)
+        @if (isRECampaignShown)
+        {
+            <text>
+            .model-countdown{background-color:#fff;}.launch-text-container{display:inline-block;padding:7px;-webkit-box-flex:1;-moz-box-flex:1;-webkit-flex-grow:1;-ms-flex:1;flex-grow:1;text-align:right;font-size:12px;font-weight:600}.countdown-sponsored-text{font-size:8px;position:absolute;top:0;right:3px;color:#999;z-index:1;}.countdown-timer{display:inline-block;background-color:#efefef;padding:7px}.countdown--active.model-countdown{display:block}.countdown-close-btn{width:20px;height:20px;position:absolute;display:block;left:5px;top:13px;background:url(https://imgd.aeplcdn.com/0x0/bw/static/icons/4d5057/cross.svg) no-repeat center;background-size:8px;cursor:pointer}.model-countdown__content{display:-webkit-box;display:-moz-box;display:-ms-flexbox;display:-webkit-flex;display:flex;max-width:360px;margin:0 auto}.countdown-timer li{display:inline-block;padding:0 3px;text-align:center}.countdown-timer li .clock:after{content:':';display:inline-block;position:absolute;top:0;right:-5px}.countdown-timer li:last-child .clock:after{content:''}.countdown-timer li span{display:block}.mins-text:after{background-color:transparent;width:0}.countdown-timer li .clock{font-size:15px;font-weight:700;position:relative}.count-down-text{font-size:9px;color:#7a7a7a}.external-link-icon{width:10px;height:10px;display:inline-block;background:url(https://imgd.aeplcdn.com/0x0/bw/static/icons/0288d1/external-link.svg) no-repeat center}.button-cta-countdown{padding:3px 0 0 0;text-align:center}.model-countdown__know-more{padding:8px}.model-countdown__content .launch-text-container a{color:#0288d1}@@media only screen and (max-width:320px){.model-countdown .countdown-close-btn{width:10px;height:10px;top:18px;}.countdown-timer li .clock{font-size:14px}.countdown-timer{padding:7px}.count-down-text{font-size:7px}.launch-text-container{font-size:11px}}.disable--countdown .model-countdown.countdown--active{display:none}
+            </text>
+        }
+        
     </style>
 
     @if (Model.PageMetaTags != null && !String.IsNullOrEmpty(Model.PageMetaTags.SchemaJSON))
@@ -82,8 +92,10 @@
                 </script>
             </amp-state>
         }*@
-
-
+    @if (isRECampaignShown)
+    {
+        <script async custom-element="amp-date-countdown" src="https://cdn.ampproject.org/v0/amp-date-countdown-0.1.js"></script>
+    }
     <script async src="https://cdn.ampproject.org/v0.js"></script>
     <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
     @if (Model.AmpJsTags != null)
@@ -309,12 +321,81 @@
                             "eventLabel":"Track Day 2018"
                         }
                     }
+                @if (isRECampaignShown)
+                {
+                    <text>,
+                        "trackRETwinsVisiblity":{
+                        "on": "visible",
+                        "request": "event",
+                        "vars": {
+                        "eventCategory": "Ticker",
+                        "eventAction": "Ticker_RE Twins 650_shown",
+                        "eventLabel":"Royal Enfield Twins 650"
+                        }
+                        },
+                        "trackRETwinsClick": {
+                        "selector": ".bw-ga",
+                        "on": "click",
+                        "request": "event",
+                        "vars": {
+                        "eventCategory": "Ticker",
+                        "eventAction": "${act}",
+                        "eventLabel":"Royal Enfield Twins 650"
+                        }
+                        }
+                    </text>
+                }
                 }
             }
         </script>
     </amp-analytics>
-
-
+    @if (isRECampaignShown)
+    {
+        <!-- Count Down -->
+        <div id="modelCountdownContainer" class="model-countdown">
+        <span class="countdown-close-btn model-countdown__close bw-ga" role="button" tabindex="0" on="tap: modelCountdownContainer.hide" data-vars-act="Ticker_RE Twins 650_close_clicked"></span>
+            <span class="countdown-sponsored-text">Ad</span>
+            <div class="model-countdown__content">
+                <div class="launch-text-container">
+                    <a href="https://www.royalenfield.com/motorcycles/twins/" target="_blank" class="bw-ga" title="All-New Twins 650" rel="nofollow noopener" data-vars-act="Ticker_RE Twins 650_know more_clicked">
+                    <div>
+                            <p>The All New Royal Enfield 650cc Twins <span class="external-link-icon"></span>  </p>
+                        </div>
+                    </a>
+                    <p>Launches in</p>
+                </div>
+            <amp-animation id="hide-timeout-event" layout="nodisplay">
+                <script type="application/json">
+                    {
+                    "duration": ".1s",
+                    "fill": "both",
+                    "selector": "#modelCountdownContainer",
+                    "keyframes": { "visibility": "hidden"}
+                    }
+                </script>
+            </amp-animation>
+            <amp-date-countdown end-date="2018-11-14T18:29:00+05:30" layout="fixed-height" on="timeout: hide-timeout-event.start" height="48" when-ended="stop" locale='en'>
+                    <template type="amp-mustache">
+                        <ul class="countdown-timer">
+                            <li>
+                                <span class="clock" id="days">{{d}}</span>
+                                <span class="count-down-text">Days</span>
+                            </li>
+                            <li>
+                                <span class="clock" id="hours">{{h}}</span>
+                                <span class="count-down-text">Hours</span>
+                            </li>
+                            <li>
+                                <span class="clock mins-text" id="minutes">{{m}}</span>
+                                <span class="count-down-text">Mins</span>
+                            </li>
+                        </ul>
+                    </template>
+                </amp-date-countdown>
+            </div>
+        </div>
+        <!-- Count Down -->
+    }
     <header>
         <button class="nav-icon" on="tap:nav.open">
             <amp-img src="https://imgd.aeplcdn.com/0x0/bw/static/icons/fff/hamburger.svg" width="22" height="16" alt="Menu"></amp-img>

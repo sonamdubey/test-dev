@@ -341,11 +341,7 @@
         <div class="clear"></div>
     </div> <!-- ends here -->
     <div class="clear"></div>
-    @if (Model.IsTVSCampaignShown)
-    {
-        @Html.Partial("~/UI/Views/Shared/_leaderboard.cshtml")
-    }
-    else if (Model.AdTags.Ad_970x90)
+    @if (Model.AdTags.Ad_970x90)
     {
         <div class="bg-white ">
             <div class="container">
