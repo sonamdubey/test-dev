@@ -50,9 +50,11 @@
             <ul class="bike-listing-horizontal" data-bind="visible : (!noBikes() && TotalBikes() !== 0), css: IsLoading() ? 'loader-active' : '' ">
                 @if (Model.UpcomingBikeModels != null)
                 {
+                    DateTime expectedLaunchDate;
                     foreach (var bike in Model.UpcomingBikeModels)
-                    {
+                    {   
                         <!-- ko if : models()[@i] -->
+                        bool dateParsed = DateTime.TryParse(bike.ExpectedLaunchDate, out expectedLaunchDate);
                         <li class="list-item">
                             <div class="launching-label">
                                 <p class="border-red-left font12 text-bold margin-bottom10 margin-left10" style="display: @(bike.IsLaunchingThisMonth ? "block" : "none")" data-bind="visible: models()[@i].isLaunchingThisMonth, text: 'Launching this month'">Launching this month</p>
@@ -64,7 +66,7 @@
                                 <div class="card-desc-block">
                                     <h3 class="bikeTitle" data-bind="text : models()[@i].makeBase.makeName + ' ' + models()[@i].modelBase.modelName ">@bike.MakeBase.MakeName @bike.ModelBase.ModelName</h3>
                                     <p class="key-size-14 text-truncate">Expected launch</p>
-                                    <span class="value-size-16" data-bind="formatDate : models()[@i].expectedLaunchedDate">@Convert.ToDateTime(bike.ExpectedLaunchDate).ToString("MMMM yyyy")</span>
+                                    <span class="value-size-16" data-bind="formatDate : models()[@i].expectedLaunchedDate">@(dateParsed ? expectedLaunchDate.ToString("MMMM yyyy") : "")</span>
                                     <p class="key-size-14 text-truncate margin-top10">Expected price</p>
                                     @Html.Raw("<span class='value-size-18'>&#x20B9;</span>")&nbsp;
                                     <span class="value-size-18" data-bind="CurrencyText : models()[@i].estimatedPriceMin ">@(bike.EstimatedPriceMin > 0 ? Bikewale.Common.CommonOpn.FormatNumeric(Convert.ToString(bike.EstimatedPriceMin)) : "N/A")</span>&nbsp;
