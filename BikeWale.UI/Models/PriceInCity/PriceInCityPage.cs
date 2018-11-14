@@ -1400,6 +1400,8 @@ namespace Bikewale.Models
         /// Description : Registering price quote before binding lead and emi campaign.
         /// Modified by : Ashutosh Sharma on 28 Jun 2018
         /// Description : Using Manufacturer campaigns fetched at the time of processing pq. Removed update of dealer id in pq table.
+        /// Modified by : Rajan Chauhan on 14 Nov 2018
+        /// Description : Added ABTest check on Offers
         /// </summary>
         private void GetManufacturerCampaign(PriceInCityPageVM objData, Entities.BikeBooking.v2.PQOutputEntity pQOutput)
         {
@@ -1414,8 +1416,10 @@ namespace Bikewale.Models
                         if (campaigns.LeadCampaign != null)
                         {
                             string campaignTemplate = string.Empty;
-                            IEnumerable<string> manufacturerOffersList = _objPQCache.GetManufacturerOffers(campaigns.LeadCampaign.CampaignId);
-                            if (manufacturerOffersList != null && manufacturerOffersList.Any() && IsMobile)
+                            IEnumerable<string> manufacturerOffersList = null;
+                            if(objData.IsOffersShownOnLeadPopup && IsMobile)
+                                manufacturerOffersList = _objPQCache.GetManufacturerOffers(campaigns.LeadCampaign.CampaignId);
+                            if (manufacturerOffersList != null && manufacturerOffersList.Any())
                             {
                                 campaignTemplate = _objPQCache.GetManufactuerDefaultCampaignOfferTemplate((ushort)Platform);
                             }

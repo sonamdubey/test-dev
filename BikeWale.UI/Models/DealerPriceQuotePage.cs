@@ -560,6 +560,8 @@ namespace Bikewale.Models
         /// Description :   Store dealerid for manufacturer campaigns for impressions tracking
         /// Modified by : Ashutosh Sharma on 28 Jun 2018
         /// Description : Removed update of dealer id in pq table. Dealer id is inserted in pq table from the Referrer page of Price Quote page, No need to update here.
+        /// Modified by : Rajan Chauhan on 14 Nov 2018
+        /// Description : Added ABTest check on Offers
         /// </summary>
         private void GetManufacturerCampaign(DealerPriceQuotePageVM objData)
         {
@@ -573,8 +575,10 @@ namespace Bikewale.Models
                         if (campaigns.LeadCampaign != null)
                         {
                             string campaignTemplate = string.Empty;
-                            IEnumerable<string> manufacturerOffersList = _objPQCache.GetManufacturerOffers(campaigns.LeadCampaign.CampaignId);
-                            if (manufacturerOffersList != null && manufacturerOffersList.Any() && Platform != PQSources.Desktop)
+                            IEnumerable<string> manufacturerOffersList = null;
+                            if (objData.IsOffersShownOnLeadPopup & Platform != PQSources.Desktop)
+                                manufacturerOffersList = _objPQCache.GetManufacturerOffers(campaigns.LeadCampaign.CampaignId);
+                            if (manufacturerOffersList != null && manufacturerOffersList.Any())
                             {
                                 campaignTemplate = _objPQCache.GetManufactuerDefaultCampaignOfferTemplate((ushort)Platform);
                             }

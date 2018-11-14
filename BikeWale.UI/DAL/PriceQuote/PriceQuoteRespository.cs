@@ -1070,9 +1070,9 @@ namespace Bikewale.DAL.PriceQuote
 
                         using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                         {
-                            offers = new List<string>();
                             if (dr != null)
                             {
+                                offers = new List<string>();
                                 while (dr.Read())
                                 {
                                     offers.Add(Convert.ToString(dr["OfferText"]));
