@@ -1,30 +1,17 @@
 ﻿using Bikewale.BAL.ApiGateway.Adapters.BikeData;
 using Bikewale.BAL.ApiGateway.ApiGatewayHelper;
 using Bikewale.BAL.ApiGateway.Entities.BikeData;
-using Bikewale.BAL.Customer;
-using Bikewale.BAL.EditCMS;
 using Bikewale.BAL.GrpcFiles;
-using Bikewale.BAL.UserReviews.Search;
-using Bikewale.Cache.BikeData;
-using Bikewale.Cache.CMS;
-using Bikewale.Cache.Core;
-using Bikewale.CacheHelper.BikeData;
-using Bikewale.DAL.BikeData;
-using Bikewale.DAL.Customer;
-using Bikewale.DAL.UserReviews;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.CMS;
 using Bikewale.Entities.CMS.Articles;
 using Bikewale.Entities.CMS.Photos;
-using Bikewale.Entities.Customer;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.PhotoGallery;
 using Bikewale.Entities.UserReviews;
 using Bikewale.Entities.Videos;
 using Bikewale.Interfaces.BikeData;
-using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.CMS;
-using Bikewale.Interfaces.Customer;
 using Bikewale.Interfaces.EditCMS;
 using Bikewale.Interfaces.Pager;
 using Bikewale.Interfaces.UserReviews;
@@ -34,7 +21,6 @@ using Bikewale.Notifications;
 using Bikewale.Utility;
 using Grpc.CMS;
 using log4net;
-using Microsoft.Practices.Unity;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -67,16 +53,16 @@ namespace Bikewale.BAL.BikeData
         private static readonly IEnumerable<EnumBikeBodyStyles> _bodyStyles = new List<EnumBikeBodyStyles> { EnumBikeBodyStyles.Scooter, EnumBikeBodyStyles.Street, EnumBikeBodyStyles.Cruiser, EnumBikeBodyStyles.Sports };
         private readonly IApiGatewayCaller _apiGatewayCaller;
         private string _newsContentType;
-		private readonly IBikeModelsCacheHelper _bikeModelCacheHelper;
-   
-      
+        private readonly IBikeModelsCacheHelper _bikeModelCacheHelper;
+
+
         /// <summary>
         /// Modified by :   Sumit Kate on 26 Apr 2017
         /// Description :   Register the User Reviews BAL and resolve it
         /// </summary>
         public BikeModels(IApiGatewayCaller apiGatewayCaller,
                           IBikeModelsCacheHelper bikeModelsCacheHelper,
-                          IBikeMaskingCacheRepository<BikeModelEntity, int>  modelMaskingCache,
+                          IBikeMaskingCacheRepository<BikeModelEntity, int> modelMaskingCache,
                           IUserReviewsSearch userReviewsSearch,
                           IBikeModelsRepository<T, U> modelRepository,
                           IPager objPager,
@@ -111,17 +97,17 @@ namespace Bikewale.BAL.BikeData
         {
             try
             {
-				if (versionId > 0)
-				{
-					GetVersionSpecsByIdAdapter adapter = new GetVersionSpecsByIdAdapter();
-					adapter.AddApiGatewayCall(_apiGatewayCaller, new List<int> { versionId });
-					_apiGatewayCaller.Call();
-					return adapter.Output;
-				}
+                if (versionId > 0)
+                {
+                    GetVersionSpecsByIdAdapter adapter = new GetVersionSpecsByIdAdapter();
+                    adapter.AddApiGatewayCall(_apiGatewayCaller, new List<int> { versionId });
+                    _apiGatewayCaller.Call();
+                    return adapter.Output;
+                }
             }
             catch (Exception ex)
             {
-                ErrorClass.LogError(ex, string.Format("Bikewale.BAL.BikeData.BikeModels.GetFullSpecsFeatures({0})",versionId));
+                ErrorClass.LogError(ex, string.Format("Bikewale.BAL.BikeData.BikeModels.GetFullSpecsFeatures({0})", versionId));
             }
             return null;
         }
@@ -227,7 +213,7 @@ namespace Bikewale.BAL.BikeData
             }
             return modelList;
         }
-        
+
         public IEnumerable<MostPopularBikesBase> GetMostPopularBikes(int? topCount = null, int? makeId = null)
         {
             return _modelCacheRepository.GetMostPopularBikes(topCount, makeId);
@@ -359,14 +345,14 @@ namespace Bikewale.BAL.BikeData
             }
 
             else
-            { 
+            {
                 objList = _modelCacheRepository.GetAdPromotedBikeWithOutCity(ObjData);
             }
 
             if (objList != null)
             {
                 objList = objList.Where(x => x.StartDate < DateTime.Now && x.EndDate > DateTime.Now);
-            
+
 
                 var specsItemList = new List<EnumSpecsFeaturesItems>
                 {
@@ -375,7 +361,7 @@ namespace Bikewale.BAL.BikeData
                     EnumSpecsFeaturesItems.MaxPowerBhp,
                     EnumSpecsFeaturesItems.KerbWeight
                 };
-                BindMinSpecs(objList, specsItemList); 
+                BindMinSpecs(objList, specsItemList);
             }
             return objList;
         }
@@ -547,17 +533,17 @@ namespace Bikewale.BAL.BikeData
         public BikeModelPageEntity GetModelPageDetails(U modelId, int versionId)
         {
             BikeModelPageEntity objModelPage = null;
-            
+
             try
             {
                 objModelPage = _modelCacheRepository.GetModelPageDetails(modelId, versionId);
-                
+
                 if (objModelPage != null && objModelPage.ModelVersions != null && objModelPage.ModelVersions.Any())
                 {
                     // First 2 in versionPrices in city widget
-                    BindMinSpecs(objModelPage.ModelVersions, 
+                    BindMinSpecs(objModelPage.ModelVersions,
                         new List<EnumSpecsFeaturesItems>{
-                            EnumSpecsFeaturesItems.RearBrakeType,
+                            EnumSpecsFeaturesItems.FrontBrakeType,
                             EnumSpecsFeaturesItems.WheelType,
                             EnumSpecsFeaturesItems.StartType,
                             EnumSpecsFeaturesItems.AntilockBrakingSystem,
@@ -585,7 +571,7 @@ namespace Bikewale.BAL.BikeData
                             modelVersion = avgExshowroomTaggedVersion != null ? avgExshowroomTaggedVersion : objModelPage.ModelVersions.FirstOrDefault();
                         }
                     }
-                    
+
                     if (modelVersion != null && modelVersion.MinSpecsList != null)
                     {
                         objModelPage.ModelVersionMinSpecs = new BikeVersionMinSpecs()
@@ -595,7 +581,7 @@ namespace Bikewale.BAL.BikeData
                         };
                     }
                 }
-				CreateAllPhotoList(modelId, objModelPage);
+                CreateAllPhotoList(modelId, objModelPage);
             }
             catch (Exception ex)
             {
@@ -633,7 +619,7 @@ namespace Bikewale.BAL.BikeData
             {
                 ErrorClass.LogError(ex, string.Format("BikeModels.BindMinSpecs(IEnumerable<BikeVersionMinSpecs> {0})", bikeVersionList));
             }
-            
+
         }
 
 
@@ -693,7 +679,7 @@ namespace Bikewale.BAL.BikeData
                 }
                 var galleryImages = GetBikeModelPhotoGallery(modelId);
                 if (modelImages != null && galleryImages != null && galleryImages.Any())
-                { 
+                {
                     modelImages.AddRange(galleryImages);
                 }
             }
@@ -806,7 +792,7 @@ namespace Bikewale.BAL.BikeData
                     imageWrapper.Models = modelsImages;
                     imageWrapper = SetNextPrevUrl(imageWrapper, pager);
                     if (imageWrapper.Models != null)
-                    { 
+                    {
                         imageWrapper.RecordCount = imageWrapper.Models.Count();
                     }
                 }
@@ -1764,12 +1750,12 @@ namespace Bikewale.BAL.BikeData
         }
 
 
-		/// <summary>
-		/// Created by  : Pratibha Verma on 9 May 2018
-		/// Description : get make model list
-		/// </summary>
-		/// <param name="requestType"></param>
-		/// <returns></returns>
+        /// <summary>
+        /// Created by  : Pratibha Verma on 9 May 2018
+        /// Description : get make model list
+        /// </summary>
+        /// <param name="requestType"></param>
+        /// <returns></returns>
         public IEnumerable<MakeModelListEntity> GetMakeModelList(EnumBikeType requestType)
         {
             IEnumerable<MakeModelListEntity> makeModelList = null;
@@ -1898,7 +1884,7 @@ namespace Bikewale.BAL.BikeData
             }
             catch (Exception ex)
             {
-				ErrorClass.LogError(ex, string.Format("Bikewale.BAL.BikeModels.GetBestBikesByModelInMake: ModelId:{0}", modelId));
+                ErrorClass.LogError(ex, string.Format("Bikewale.BAL.BikeModels.GetBestBikesByModelInMake: ModelId:{0}", modelId));
             }
             return bestBikesList;
         }
@@ -1975,8 +1961,8 @@ namespace Bikewale.BAL.BikeData
                 int hashProductCode = product.objModel.ModelId.GetHashCode();
                 return hashProductName ^ hashProductCode;
             }
-            
-            
+
+
 
         }
 
@@ -2035,8 +2021,8 @@ namespace Bikewale.BAL.BikeData
                     var specsEnumerator = specItemList.GetEnumerator();
                     var bikesEnumerator = versionList.GetEnumerator();
                     while (bikesEnumerator.MoveNext())
-                    { 
-                        if(!bikesEnumerator.Current.VersionId.Equals(0) && specsEnumerator.MoveNext())
+                    {
+                        if (!bikesEnumerator.Current.VersionId.Equals(0) && specsEnumerator.MoveNext())
                         {
                             bikesEnumerator.Current.MinSpecsList = specsEnumerator.Current.MinSpecsList;
                         }
@@ -2086,7 +2072,7 @@ namespace Bikewale.BAL.BikeData
         public bool CheckPanIndiaModel(uint modelId)
         {
             HashSet<uint> modelIds = _modelCacheRepository.GetNearlyPanIndiaModels();
-            if(modelIds != null)
+            if (modelIds != null)
             {
                 return modelIds.Contains(modelId);
             }

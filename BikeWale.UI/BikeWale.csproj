@@ -104,7 +104,8 @@
     <Reference Include="Bikewale.Notifications">
       <HintPath>..\Libs\Bikewale.Notifications.dll</HintPath>
     </Reference>
-    <Reference Include="Bikewale.Utility">
+    <Reference Include="Bikewale.Utility, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\Bikewale.Utility.dll</HintPath>
     </Reference>
     <Reference Include="BikewaleOpr.Entity">
