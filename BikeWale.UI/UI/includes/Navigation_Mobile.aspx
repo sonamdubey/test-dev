@@ -23,6 +23,7 @@
                 <li><a href="/m/service-centers/">Locate Service Center</a></li>
                 <li><a href="/m/upcoming-bikes/">Upcoming Bikes</a></li>
                 <li><a href="/m/new-bike-launches/">New Launches</a></li>
+                <li><a href="/m/electric-bikes/">Electric Bikes</a></li>
                 <li><a href="/m/bikebooking/">Book Your Bike</a></li>
             </ul>
         </li>

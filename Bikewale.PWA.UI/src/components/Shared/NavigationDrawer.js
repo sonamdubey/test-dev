@@ -102,6 +102,7 @@ class NavigationDrawer extends React.Component {
                                 {this.renderNestedListItem("/m/service-centers/","Locate Service Center")}
                                 {this.renderNestedListItem("/m/upcoming-bikes/" ,"Upcoming Bikes")}
                                 {this.renderNestedListItem("/m/new-bike-launches/","New Launches")}
+                                {this.renderNestedListItem("/m/electric-bikes/","Electric Bikes")}
                                 {this.renderNestedListItem("/m/bikebooking/","Book Your Bike")}
                                 
                             </ul>
