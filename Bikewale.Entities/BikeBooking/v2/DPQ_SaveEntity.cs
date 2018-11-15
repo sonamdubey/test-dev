@@ -28,5 +28,6 @@ namespace Bikewale.Entities.BikeBooking.v2
         public uint AreaId { get; set; }
         public UInt16? PlatformId { get; set; }
         public string ClientIP { get; set; }
+        public uint CampaignId { get; set; }
     }
 }

@@ -453,7 +453,7 @@ namespace Bikewale.BAL.Lead
 
                     if (isVerified)
                     {
-                        _objLeadNofitication.PushtoAB(pqInput.DealerId.ToString(), pqInput.PQId, objCust.CustomerName, objCust.CustomerMobile, objCust.CustomerEmail, pqInput.VersionId, pqInput.CityId, String.Empty, pqInput.LeadId);
+                        _objLeadNofitication.PushtoAB(pqInput.DealerId.ToString(), pqInput.PQId, objCust.CustomerName, objCust.CustomerMobile, objCust.CustomerEmail, pqInput.VersionId, pqInput.CityId, String.Empty, pqInput.LeadId, pqInput.CampaignId);
                     }
                     output.IsSuccess = isVerified;
 
@@ -579,7 +579,7 @@ namespace Bikewale.BAL.Lead
 
                     if (isVerified)
                     {
-                        _objLeadNofitication.PushtoAB(pqInput.DealerId.ToString(), 0, objCust.CustomerName, objCust.CustomerMobile, objCust.CustomerEmail, Convert.ToString(pqInput.VersionId), Convert.ToString(pqInput.CityId), pqInput.PQId, pqInput.LeadId);
+                        _objLeadNofitication.PushtoAB(pqInput.DealerId.ToString(), 0, objCust.CustomerName, objCust.CustomerMobile, objCust.CustomerEmail, Convert.ToString(pqInput.VersionId), Convert.ToString(pqInput.CityId), pqInput.PQId, pqInput.LeadId, pqInput.CampaignId);
                     }
                     output.IsSuccess = isVerified;
                     output.LeadId = pqInput.LeadId;
@@ -723,7 +723,8 @@ namespace Bikewale.BAL.Lead
                         VersionId = input.VersionId,
                         LeadId = input.LeadId,
                         PlatformId = input.PlatformId,
-                        ClientIP = CurrentUser.GetClientIP()
+                        ClientIP = CurrentUser.GetClientIP(),
+                        CampaignId = input.CampaignId
                     };
                     if (spamScore != null)
                     {
@@ -927,6 +928,7 @@ namespace Bikewale.BAL.Lead
 			objNVC.Add("bikeName", input.BikeName);
 			objNVC.Add("sendLeadSMSCustomer", Convert.ToString(input.SendLeadSMSCustomer));
             objNVC.Add("emailOption", emailOption.ToString());
+            objNVC.Add("campaignId", Convert.ToString(input.CampaignId));
 
             RabbitMqPublish objRMQPublish = new RabbitMqPublish();
             objRMQPublish.PublishToQueue(Bikewale.Utility.BWConfiguration.Instance.LeadConsumerQueue, objNVC);

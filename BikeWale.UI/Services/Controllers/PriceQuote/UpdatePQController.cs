@@ -158,7 +158,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
                                 "api/UpdatePQ", 16, versionName, dealerDetailEntity.objDealer.objArea.Latitude, dealerDetailEntity.objDealer.objArea.Longitude, dealerDetailEntity.objDealer.WorkingTime, platformId = "");
 
 
-                            _objLeadNofitication.PushtoAB(dealerDetailEntity.objDealer.DealerId.ToString(), input.PQId, objCustomer.objCustomerBase.CustomerName, objCustomer.objCustomerBase.CustomerMobile, objCustomer.objCustomerBase.CustomerEmail, input.VersionId.ToString(), details.CityId.ToString(), String.Empty, objCustomer.LeadId);
+                            _objLeadNofitication.PushtoAB(dealerDetailEntity.objDealer.DealerId.ToString(), input.PQId, objCustomer.objCustomerBase.CustomerName, objCustomer.objCustomerBase.CustomerMobile, objCustomer.objCustomerBase.CustomerEmail, input.VersionId.ToString(), details.CityId.ToString(), String.Empty, objCustomer.LeadId, dealerDetailEntity.objDealer.CampaignId);
 
                             // If customer is mobile verified push lead to autobiz
                             _objPQ.SaveBookingState(input.PQId, PriceQuoteStates.LeadSubmitted);
@@ -355,7 +355,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
 
 
                             _objPQ.SaveBookingState(input.PQId, PriceQuoteStates.LeadSubmitted);
-                            _objLeadNofitication.PushtoAB(dealerDetailEntity.objDealer.DealerId.ToString(), input.PQId, objCustomer.objCustomerBase.CustomerName, objCustomer.objCustomerBase.CustomerMobile, objCustomer.objCustomerBase.CustomerEmail, input.VersionId.ToString(), details.CityId.ToString(), String.Empty, objCustomer.LeadId);
+                            _objLeadNofitication.PushtoAB(dealerDetailEntity.objDealer.DealerId.ToString(), input.PQId, objCustomer.objCustomerBase.CustomerName, objCustomer.objCustomerBase.CustomerMobile, objCustomer.objCustomerBase.CustomerEmail, input.VersionId.ToString(), details.CityId.ToString(), String.Empty, objCustomer.LeadId, dealerDetailEntity.objDealer.CampaignId);
                             #region Old notification way
                             //if (platformId != "3" && platformId != "4")
                             //{
@@ -511,7 +511,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
 								"api/v1/UpdatePQ", 16, versionName, dealerDetailEntity.objDealer.objArea.Latitude, dealerDetailEntity.objDealer.objArea.Longitude, dealerDetailEntity.objDealer.WorkingTime, platformId = "");
 
 
-							_objLeadNofitication.PushtoAB(dealerDetailEntity.objDealer.DealerId.ToString(), 0, objCustomer.objCustomerBase.CustomerName, objCustomer.objCustomerBase.CustomerMobile, objCustomer.objCustomerBase.CustomerEmail, input.VersionId.ToString(), objCustomer.objCustomerBase.cityDetails.CityId.ToString(), String.Empty, objCustomer.LeadId);
+							_objLeadNofitication.PushtoAB(dealerDetailEntity.objDealer.DealerId.ToString(), 0, objCustomer.objCustomerBase.CustomerName, objCustomer.objCustomerBase.CustomerMobile, objCustomer.objCustomerBase.CustomerEmail, input.VersionId.ToString(), objCustomer.objCustomerBase.cityDetails.CityId.ToString(), String.Empty, objCustomer.LeadId, dealerDetailEntity.objDealer.CampaignId);
 						}
 						output.IsUpdated = true;
 					}

@@ -97,6 +97,8 @@ namespace Bikewale.DAL.BikeBooking
         /// Description : passed leadId in param and return leadId
         /// Modified by : Pratibha Verma on 2 August 2018
         /// Description : changed sp from "savecustomerdetailsbyleadid" to "savecustomerdetailsbyleadid_02082018" in order to store sourceId and clientIP
+        /// Modified by : Pratibha Verma on 14 November 2018
+        /// Description : changed sp from `savecustomerdetailsbyleadid_02082018` to `savecustomerdetailsbyleadid_14112018` in order to pass campaignId in input parameter
         /// </summary>
         /// <param name="entity"></param>
         /// <returns></returns>
@@ -110,7 +112,7 @@ namespace Bikewale.DAL.BikeBooking
                 {
                     using (DbCommand cmd = DbFactory.GetDBCommand())
                     {
-                        cmd.CommandText = "savecustomerdetailsbyleadid_02082018";
+                        cmd.CommandText = "savecustomerdetailsbyleadid_14112018";
                         cmd.CommandType = CommandType.StoredProcedure;
 
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, entity.DealerId));
@@ -136,6 +138,7 @@ namespace Bikewale.DAL.BikeBooking
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_leadid", DbType.Int32, ParameterDirection.InputOutput, entity.LeadId));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_sourceid", DbType.Byte, entity.PlatformId));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_clientip", DbType.String, 40, !String.IsNullOrEmpty(entity.ClientIP) ? entity.ClientIP : null));
+                        cmd.Parameters.Add(DbFactory.GetDbParam("par_campaignId", DbType.Int32, entity.CampaignId));
 
                         MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
                         leadId = SqlReaderConvertor.ToUInt32(cmd.Parameters["par_leadid"].Value);

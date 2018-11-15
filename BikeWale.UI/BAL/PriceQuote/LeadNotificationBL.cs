@@ -264,6 +264,8 @@ namespace Bikewale.BAL.PriceQuote
         /// Description :   If AbInquiryId is invalid Push Inquiry Json to Rabbit Mq
         /// Modified by : Pratibha Verma on 26 June 2018
         /// Description : added parameters pqGuId and leadId
+        /// Modified by : Pratibha Verma on 14 November 2018
+        /// Description : added parameter campaignId
         /// </summary>
         /// <param name="dealerId"></param>
         /// <param name="pqId"></param>
@@ -272,7 +274,10 @@ namespace Bikewale.BAL.PriceQuote
         /// <param name="customerEmail"></param>
         /// <param name="versionId"></param>
         /// <param name="cityId"></param>
-        public void PushtoAB(string dealerId, uint pqId, string customerName, string customerMobile, string customerEmail, string versionId, string cityId, string pqGuId, uint leadId)
+        /// <param name="pqGuId"></param>
+        /// <param name="leadId"></param>
+        /// <param name="campaignId"></param>
+        public void PushtoAB(string dealerId, uint pqId, string customerName, string customerMobile, string customerEmail, string versionId, string cityId, string pqGuId, uint leadId, uint campaignId = 0)
         {
             string abInquiryId = string.Empty, message = string.Empty;
             bool isNotFakeMobileNumber = false;
@@ -295,6 +300,7 @@ namespace Bikewale.BAL.PriceQuote
                     objNVC.Add("cityId", cityId);
                     objNVC.Add("pqGUId", pqGuId);
                     objNVC.Add("manufacturerLeadId", Convert.ToString(leadId));
+                    objNVC.Add("campaignId", Convert.ToString(campaignId));
                     RabbitMqPublish objRMQPublish = new RabbitMqPublish();
                     objRMQPublish.PublishToQueue(Bikewale.Utility.BWConfiguration.Instance.LeadConsumerQueue, objNVC);
                 }

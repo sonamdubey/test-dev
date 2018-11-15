@@ -362,6 +362,7 @@ namespace Bikewale.BAL.Finance
                     objNVC.Add("bikeName", userDetails.ManufacturerLead.BikeName);
                     objNVC.Add("sendLeadSMSCustomer", Convert.ToString(userDetails.ManufacturerLead.SendLeadSMSCustomer));
                     objNVC.Add("pqGUId", Convert.ToString(userDetails.ManufacturerLead.PQGUId));
+                    objNVC.Add("campaignId", Convert.ToString(userDetails.ManufacturerLead.CampaignId));
 
                     RabbitMqPublish objRMQPublish = new RabbitMqPublish();
                     objRMQPublish.PublishToQueue(Bikewale.Utility.BWConfiguration.Instance.LeadConsumerQueue, objNVC);
