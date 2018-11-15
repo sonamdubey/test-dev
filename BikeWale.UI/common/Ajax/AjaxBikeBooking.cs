@@ -6,8 +6,10 @@ using Bikewale.Entities.MobileVerification;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.MobileVerification;
+using Bikewale.Utility;
 using Microsoft.Practices.Unity;
 using System;
+using System.Configuration;
 using System.Web;
 using TCClientInq.Proxy;
 
@@ -16,6 +18,8 @@ namespace Bikewale.Ajax
     public class AjaxBikeBooking
     {
         static readonly IUnityContainer _container;
+        private static string _abEnquiryApiUrl = string.Format("{0}{1}", ConfigurationManager.AppSettings["ABHostUrl"], ConfigurationManager.AppSettings["ABEnquiryApiUrl"]);
+
         static AjaxBikeBooking()
         {
             _container = new UnityContainer();
@@ -170,8 +174,10 @@ namespace Bikewale.Ajax
 
             try
             {
-                TCApi_Inquiry objInquiry = new TCApi_Inquiry();
-                abInquiryId = objInquiry.AddNewCarInquiry(branchId, jsonInquiryDetails);
+                using (BWHttpClient objClient = new BWHttpClient())
+                {
+                    abInquiryId = objClient.PostJsonSync<string>(APIHost.AB, BWConfiguration.Instance.APIRequestTypeJSON, _abEnquiryApiUrl, jsonInquiryDetails);
+                }
 
                 if (!String.IsNullOrEmpty(abInquiryId))
                 {

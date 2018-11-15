@@ -1,8 +1,10 @@
 ﻿using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Notifications;
+using Bikewale.Utility;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 using TCClientInq.Proxy;
@@ -14,6 +16,8 @@ namespace Bikewale.BikeBooking.Common
     /// </summary>
     public class BikeBookingOperations
     {
+        private static string _abEnquiryApiUrl = string.Format("{0}{1}", ConfigurationManager.AppSettings["ABHostUrl"], ConfigurationManager.AppSettings["ABEnquiryApiUrl"]);
+
         /// <summary>
         ///  Written By : Ashish G. Kamble
         /// Summary : Function to push the inquiry to the autobiz. Lead should be pushed only if mobile number is verified.
@@ -33,10 +37,12 @@ namespace Bikewale.BikeBooking.Common
 
             try
             {
-                string jsonInquiryDetails = "{\"CustomerName\":\"" + customerName + "\", \"CustomerMobile\":\"" + customerMobile + "\", \"CustomerEmail\":\"" + customerEmail + "\", \"VersionId\":\"" + versionId + "\", \"CityId\":\"" + cityId + "\", \"InquirySourceId\":\"39\", \"Eagerness\":\"1\",\"ApplicationId\":\"2\"}";
+                string jsonInquiryDetails = String.Format("{{ \"CustomerName\": \"{0}\", \"CustomerMobile\":\"{1}\", \"CustomerEmail\":\"{2}\", \"VersionId\":\"{3}\", \"CityId\":\"{4}\",\"InquirySourceId\":\"39\", \"Eagerness\":\"1\",\"ApplicationId\":\"2\",\"BranchId\":\"{5}\"}}", customerName, customerMobile, customerEmail, versionId, cityId, branchId);
 
-                TCApi_Inquiry objInquiry = new TCApi_Inquiry();
-                abInquiryId = objInquiry.AddNewCarInquiry(branchId, jsonInquiryDetails);
+                using (BWHttpClient objClient = new BWHttpClient())
+                {
+                    abInquiryId = objClient.PostJsonSync<string>(APIHost.AB, BWConfiguration.Instance.APIRequestTypeJSON, _abEnquiryApiUrl, jsonInquiryDetails);
+                }
 
                 if (!String.IsNullOrEmpty(abInquiryId))
                 {

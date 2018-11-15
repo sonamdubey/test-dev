@@ -1,14 +1,17 @@
 ﻿using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Notifications;
 using Bikewale.Service.TCClientInq.Proxy;
+using Bikewale.Utility;
 using Microsoft.Practices.Unity;
 using System;
+using System.Configuration;
 using System.Web;
 
 namespace Bikewale.Service.TCAPI
 {
     public class AutoBizAdaptor
     {
+        private static string _abEnquiryApiUrl = string.Format("{0}{1}", ConfigurationManager.AppSettings["ABHostUrl"], ConfigurationManager.AppSettings["ABEnquiryApiUrl"]);
         /// <summary>
         ///  Written By : Ashish G. Kamble
         /// Summary : Function to push the inquiry to the autobiz. Lead should be pushed only if mobile number is verified.
@@ -28,10 +31,13 @@ namespace Bikewale.Service.TCAPI
 
             try
             {
-                string jsonInquiryDetails = "{\"CustomerName\":\"" + customerName + "\", \"CustomerMobile\":\"" + customerMobile + "\", \"CustomerEmail\":\"" + customerEmail + "\", \"VersionId\":\"" + versionId + "\", \"CityId\":\"" + cityId + "\", \"InquirySourceId\":\"39\", \"Eagerness\":\"1\",\"ApplicationId\":\"2\"}";
 
-                TCApi_Inquiry objInquiry = new TCApi_Inquiry();
-                abInquiryId = objInquiry.AddNewCarInquiry(branchId, jsonInquiryDetails);
+                string jsonInquiryDetails = String.Format("{{ \"CustomerName\": \"{0}\", \"CustomerMobile\":\"{1}\", \"CustomerEmail\":\"{2}\", \"VersionId\":\"{3}\", \"CityId\":\"{4}\",\"InquirySourceId\":\"39\", \"Eagerness\":\"1\",\"ApplicationId\":\"2\",\"BranchId\":\"{5}\"}}", customerName, customerMobile, customerEmail, versionId, cityId, branchId);
+
+                using (BWHttpClient objClient = new BWHttpClient())
+                {
+                    abInquiryId = objClient.PostJsonSync<string>(APIHost.AB, BWConfiguration.Instance.APIRequestTypeJSON, _abEnquiryApiUrl, jsonInquiryDetails);
+                }
 
                 if (!String.IsNullOrEmpty(abInquiryId))
                 {
@@ -63,10 +69,12 @@ namespace Bikewale.Service.TCAPI
 
             try
             {
-                string jsonInquiryDetails = "{\"CustomerName\":\"" + customerName + "\", \"CustomerMobile\":\"" + customerMobile + "\", \"CustomerEmail\":\"" + customerEmail + "\", \"VersionId\":\"" + versionId + "\", \"CityId\":\"" + cityId + "\", \"InquirySourceId\":\"39\", \"Eagerness\":\"1\",\"ApplicationId\":\"2\"}";
-
-                TCApi_Inquiry objInquiry = new TCApi_Inquiry();
-                abInquiryId = objInquiry.AddNewCarInquiry(branchId, jsonInquiryDetails);
+                string jsonInquiryDetails = String.Format("{{ \"CustomerName\": \"{0}\", \"CustomerMobile\":\"{1}\", \"CustomerEmail\":\"{2}\", \"VersionId\":\"{3}\", \"CityId\":\"{4}\",\"InquirySourceId\":\"39\", \"Eagerness\":\"1\",\"ApplicationId\":\"2\",\"BranchId\":\"{5}\"}}", customerName, customerMobile, customerEmail, versionId, cityId, branchId);
+                
+                using (BWHttpClient objClient = new BWHttpClient())
+                {
+                    abInquiryId = objClient.PostJsonSync<string>(APIHost.AB, BWConfiguration.Instance.APIRequestTypeJSON, _abEnquiryApiUrl, jsonInquiryDetails);
+                }
 
                 if (!String.IsNullOrEmpty(abInquiryId))
                 {
