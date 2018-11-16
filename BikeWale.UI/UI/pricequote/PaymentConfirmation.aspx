@@ -186,7 +186,7 @@
                     <h2 class="text-bold text-center margin-top50 margin-bottom20">What next!</h2>
                     <div class="content-box-shadow content-inner-block-20">
                         <div class="next-step-box">
-                            <img src="/image/next-steps-thumb.jpg" usemap="#nextSteps">
+                            <img src="/UI/image/next-steps-thumb.jpg" usemap="#nextSteps">
                             <map name="nextSteps">
                                 <area shape="rect" id="required-document" coords="424,23,587,72" href="#">
                             </map>

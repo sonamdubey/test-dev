@@ -255,7 +255,7 @@ function CustomerModel() {
             }
             $.ajax({
                 type: "POST",
-                url: "/api/PQMobileVerification/",
+                url: "/api/v1/PQMobileVerification/",
                 async: false,
                 data: ko.toJSON(objCust),
                 contentType: "application/json",

@@ -189,6 +189,39 @@ namespace Bikewale.DAL.BikeBooking
         }
 
         /// <summary>
+        /// Created by  : Pratibha Verma on 16 October 2018
+        /// Description : new version to update record by leadId
+        /// </summary>
+        /// <param name="leadId"></param>
+        /// <returns></returns>
+        public bool UpdateIsMobileVerifiedByLeadId(uint leadId)
+        {
+            bool isSuccess = false;
+
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand())
+                {
+                    cmd.CommandText = "updateismobileverified_16102018";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_leadid", DbType.Int32, leadId));
+
+                    if (Convert.ToBoolean(MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase)))
+                        isSuccess = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "UpdateIsMobileVerifiedV2 ex : " + ex.Message);
+
+                isSuccess = false;
+            }
+
+            return isSuccess;
+        }
+
+        /// <summary>
         /// Created By : Sadhana Upadhyay on 29 Oct 2014
         /// Summary :  to update mobile no in newbikedealerpricequote table
         /// </summary>
@@ -251,6 +284,39 @@ namespace Bikewale.DAL.BikeBooking
                 ErrorClass.LogError(ex, "PushedToAB ex : " + ex.Message);
 
                 isSuccess = false;
+            }
+
+            return isSuccess;
+        }
+
+        /// <summary>
+        /// Created by  : Pratibha Verma on 19 October 2018
+        /// Description : updating pushtoab by leadId
+        /// </summary>
+        /// <param name="leadId"></param>
+        /// <param name="abInquiryId"></param>
+        /// <returns></returns>
+        public bool PushedToABbyLeadId(uint leadId, uint abInquiryId)
+        {
+            bool isSuccess = false;
+
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand())
+                {
+                    cmd.CommandText = "ispushedtoab_19102018";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_leadid", DbType.Int32, leadId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_abinquiryid", DbType.Int64, abInquiryId));
+
+                    if (Convert.ToBoolean(MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase)))
+                        isSuccess = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("Bikewale.DAL.BikeBooking.DealerPriceQuoteRepository.PushedToABbyLeadId(leadId = {0}, abInquiryId = {1})", leadId, abInquiryId));
             }
 
             return isSuccess;
@@ -570,6 +636,41 @@ namespace Bikewale.DAL.BikeBooking
                 ErrorClass.LogError(ex, "UpdatePQTransactionalDetail ex : " + ex.Message);
 
                 isSuccess = false;
+            }
+
+            return isSuccess;
+        }
+
+        /// <summary>
+        /// Created by  : Pratibha Verma on 17 October 2018
+        /// Description : update transaction details by leadid
+        /// </summary>
+        /// <param name="leadId"></param>
+        /// <param name="transId"></param>
+        /// <param name="isTransComplete"></param>
+        /// <param name="bookingReferenceNo"></param>
+        /// <returns></returns>
+        public bool UpdatePQTransactionalDetailByLeadId(uint leadId, uint transId, bool isTransComplete, string bookingReferenceNo)
+        {
+            bool isSuccess = false;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand())
+                {
+                    cmd.CommandText = "updatepqtransactionaldetail_17102018";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_leadid", DbType.Int32, leadId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_transactionid", DbType.Int64, transId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_transactioncompleted", DbType.Boolean, isTransComplete));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_bookingreferenceno", DbType.String, 20, bookingReferenceNo));
+
+                    isSuccess = MySqlDatabase.UpdateQuery(cmd, ConnectionType.MasterDatabase);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "UpdatePQTransactionalDetailByLeadId ex : " + ex.Message);
             }
 
             return isSuccess;
@@ -1227,7 +1328,11 @@ namespace Bikewale.DAL.BikeBooking
         {
             throw new NotImplementedException();
         }
-        
+
+        public Entities.BikeBooking.v2.PQOutputEntity ProcessPQV4(Entities.PriceQuote.v2.PriceQuoteParametersEntity PQParams, bool isDealerSubscriptionRequired = true)
+        {
+            throw new NotImplementedException();
+        }
         public BikeWale.Entities.AutoBiz.DealerInfo GetDefaultVersionAndSubscriptionDealer(uint modelId, uint cityId, uint areaId, uint versionId, bool isDealerSubscriptionRequired, out uint defaultVersionId)
         {
             throw new NotImplementedException();

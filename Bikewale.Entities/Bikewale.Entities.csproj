@@ -481,6 +481,7 @@
     <Compile Include="PriceQuote\v2\PQByCityAreaEntity.cs" />
     <Compile Include="PriceQuote\v2\PQCustomerDetailInput.cs" />
     <Compile Include="PriceQuote\v2\PQCustomerDetailOutputEntity.cs" />
+    <Compile Include="PriceQuote\v3\PQCustomerDetailOutputEntity.cs" />
     <Compile Include="PriceQuote\v4\PQByCityAreaEntity.cs" />
     <Compile Include="PriceQuote\v2\PQOnRoadPrice.cs" />
     <Compile Include="PriceQuote\v2\PriceQuoteParametersEntity.cs" />

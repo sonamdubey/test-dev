@@ -246,9 +246,9 @@ var BookingPageViewModel = function () {
                         // Getting MPQ from querystring
                         var match = new RegExp('[\\?&]MPQ=([^&#]*)').exec(window.location.href);
                         var queryParams = atob(match[1]);
-                        if (queryParams.indexOf("&leadId") == -1) {
-                          queryParams += "&leadId=" + self.LeadId();
-                          window.history.replaceState(null, null, "?MPQ=" + Base64.encode(queryParams));
+                        if (queryParams.indexOf("&LeadId") == -1) {
+                          queryParams += "&LeadId=" + self.LeadId();                          
+                          location.href = "/m/pricequote/bookingsummary_new.aspx?MPQ=" + Base64.encode(queryParams);
                         }
                         if (!self.Customer().IsVerified() && self.Customer().OtpAttempts() != -1) {
                             //getotp code here
@@ -372,7 +372,7 @@ var BikeCustomer = function () {
             }
             $.ajax({
                 type: "POST",
-                url: "/api/PQMobileVerification/",
+                url: "/api/v1/PQMobileVerification/",
                 data: ko.toJSON(objCust),
                 async: false,
                 contentType: "application/json",

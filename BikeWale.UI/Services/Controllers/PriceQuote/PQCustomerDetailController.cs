@@ -296,7 +296,47 @@ namespace Bikewale.Service.Controllers.PriceQuote
             }
         }
 
+        /// <summary>
+        /// Created by  : Pratibha Verma on 11 October 2018
+        /// Description : new version from api/PQCustomerDetailWithOutPQ/ for PQId related changes
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        [ResponseType(typeof(Bikewale.DTO.PriceQuote.v4.PQCustomerDetailOutput)), Route("api/v1/PQCustomerDetailWithOutPQ/"), HttpPost]
+        public IHttpActionResult Post([FromBody]Bikewale.DTO.PriceQuote.v2.PQCustomerDetailInput input)
+        {
 
+            Bikewale.DTO.PriceQuote.v4.PQCustomerDetailOutput output = null;
+
+            try
+            {
+                if (input != null
+                    && !String.IsNullOrEmpty(input.CustomerEmail)
+                    && !String.IsNullOrEmpty(input.CustomerMobile)
+                    && Convert.ToInt32(input.VersionId) > 0
+                    && Convert.ToInt32(input.CityId) > 0)
+                {
+                    Entities.PriceQuote.v2.PQCustomerDetailInput pqInput = null;
+                    Bikewale.Entities.PriceQuote.v2.PQCustomerDetailOutputEntity outEntity = null;
+                    pqInput = PQCustomerMapper.Convertv2(input);
+                    NameValueCollection requestHeaders = SetRequestHeaders(Request.Headers);
+                    outEntity = _objLeadProcess.ProcessPQCustomerDetailInputWithoutPQV2(pqInput, requestHeaders);
+                    output = PQCustomerMapper.Convertv3(outEntity);//mapper
+
+                    return Ok(output);
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.Controllers.PriceQuote.PQCustomerDetailController.Post(api = api/v1/PQCustomerDetailWithOutPQ/)");
+
+                return InternalServerError();
+            }
+        }
 
 
         /// <summary>

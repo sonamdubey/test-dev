@@ -277,6 +277,10 @@ namespace Bikewale.BAL.PriceQuote
             return objPQ.SaveBookingState(pqId, state);
         }
 
+        public bool SaveBookingStateByLeadId(uint leadId, PriceQuoteStates state)
+        {
+            return objPQ.SaveBookingStateByLeadId(leadId, state);
+        }
 
         public PriceQuoteParametersEntity FetchPriceQuoteDetailsById(ulong pqId)
         {

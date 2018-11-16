@@ -13,7 +13,7 @@
     </style>
 </head>
  <body>
-    <form name="formBillDesk" id="formBillDesk" action="https://pgi.billdesk.com/pgidsk/PGIMerchantPayment" method="post">
+    <form name="formBillDesk" id="formBillDesk" action="<%=paymentGatewayUrl %>" method="post">
         <input type="hidden" name="msg" value='<%=msg%>'/>
        <%-- <input type="submit" id ="pay" name ="pay" onclick="submitData();" runat ="server" value="pay"></input>--%>
      </form>

@@ -18,5 +18,7 @@ namespace Bikewale.Interfaces.Lead
         PQCustomerDetailOutputEntity ProcessPQCustomerDetailInputWithoutPQ(PQCustomerDetailInput pqInput, System.Collections.Specialized.NameValueCollection requestHeaders);
 
         Bikewale.Entities.PriceQuote.v2.PQCustomerDetailOutputEntity ProcessPQCustomerDetailInputWithPQV2(Bikewale.Entities.PriceQuote.v2.PQCustomerDetailInput pqInput, NameValueCollection requestHeaders);
+
+        Bikewale.Entities.PriceQuote.v2.PQCustomerDetailOutputEntity ProcessPQCustomerDetailInputWithoutPQV2(Bikewale.Entities.PriceQuote.v2.PQCustomerDetailInput pqInput, System.Collections.Specialized.NameValueCollection requestHeaders);
     }
 }

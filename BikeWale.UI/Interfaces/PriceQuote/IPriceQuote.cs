@@ -45,6 +45,7 @@ namespace Bikewale.Interfaces.PriceQuote
         IList<PriceCategory> GetVersionPriceListByCityId(uint versionId, uint cityId);
         ModelTopVersionPrices GetTopVersionPriceInCities(uint modelId);
         IEnumerable<string> GetManufacturerOffers(uint campaignId);
+        bool SaveBookingStateByLeadId(uint leadId, PriceQuoteStates state);
         string GetManufactuerDefaultCampaignOfferTemplate(ushort platformId);
     }
 }

@@ -85,7 +85,7 @@ namespace Bikewale.Service.TCAPI
                             container.RegisterType<IDealerPriceQuote, Bikewale.BAL.BikeBooking.DealerPriceQuote>();
                             IDealerPriceQuote objDealer = container.Resolve<IDealerPriceQuote>();
 
-                            objDealer.PushedToAB(pqId, Convert.ToUInt32(abInquiryId));
+                            objDealer.PushedToABbyLeadId(pqId, Convert.ToUInt32(abInquiryId));
                         }
                     }
                 }
@@ -95,6 +95,50 @@ namespace Bikewale.Service.TCAPI
                 HttpContext.Current.Trace.Warn(ex.Message);
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                
+            }
+            return abInquiryId;
+        }
+
+        /// <summary>
+        /// Created by  : Pratibha Verma on 19 October 2018
+        /// Description : new version for PQId related changes 
+        /// </summary>
+        /// <param name="branchId"></param>
+        /// <param name="leadId"></param>
+        /// <param name="customerName"></param>
+        /// <param name="customerMobile"></param>
+        /// <param name="customerEmail"></param>
+        /// <param name="versionId"></param>
+        /// <param name="cityId"></param>
+        /// <returns></returns>
+        public static string PushInquiryInABV2(string branchId, uint leadId, string customerName, string customerMobile, string customerEmail, uint versionId, string cityId)
+        {
+            string abInquiryId = string.Empty;
+
+            try
+            {
+                string jsonInquiryDetails = "{\"CustomerName\":\"" + customerName + "\", \"CustomerMobile\":\"" + customerMobile + "\", \"CustomerEmail\":\"" + customerEmail + "\", \"VersionId\":\"" + versionId + "\", \"CityId\":\"" + cityId + "\", \"InquirySourceId\":\"39\", \"Eagerness\":\"1\",\"ApplicationId\":\"2\"}";
+
+                TCApi_Inquiry objInquiry = new TCApi_Inquiry();
+                abInquiryId = objInquiry.AddNewCarInquiry(branchId, jsonInquiryDetails);
+
+                if (!String.IsNullOrEmpty(abInquiryId))
+                {
+                    if (abInquiryId != "0" && abInquiryId != "-1")
+                    {
+                        using (IUnityContainer container = new UnityContainer())
+                        {
+                            container.RegisterType<IDealerPriceQuote, Bikewale.BAL.BikeBooking.DealerPriceQuote>();
+                            IDealerPriceQuote objDealer = container.Resolve<IDealerPriceQuote>();
+
+                            objDealer.PushedToABbyLeadId(leadId, Convert.ToUInt32(abInquiryId));
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "Bikewale.Service.TCAPI.AutoBizAdaptor.PushInquiryInABV2");
             }
             return abInquiryId;
         }

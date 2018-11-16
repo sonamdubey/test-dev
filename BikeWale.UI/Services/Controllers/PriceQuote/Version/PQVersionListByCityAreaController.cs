@@ -210,6 +210,70 @@ namespace Bikewale.Service.Controllers.PriceQuote.Version
             }
         }
 
- 
+        /// <summary>
+        /// Creayed by  : Pratibha Verma on 12 October 2018
+        /// Description : new version from api/v3/model/versionlistprice/ for PQId releated changes
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <param name="cityId"></param>
+        /// <param name="areaId"></param>
+        /// <param name="deviceId"></param>
+        /// <returns></returns>
+        [ResponseType(typeof(Bikewale.DTO.PriceQuote.Version.v4.PQByCityAreaDTO)), Route("api/v4/model/versionlistprice/")]
+        public IHttpActionResult GetV4(uint modelId, uint? cityId = null, int? areaId = null, string deviceId = null)
+        {
+            if (cityId < 0 || modelId < 0)
+            {
+                return BadRequest();
+            }
+            IEnumerable<BikeVersionMinSpecs> objVersionsList = null;
+            Bikewale.DTO.PriceQuote.Version.v4.PQByCityAreaDTO objPQDTO = null;
+            Bikewale.Entities.PriceQuote.v3.PQByCityAreaEntity pqEntity = null;
+            string makeName = string.Empty;
+            string modelName = string.Empty;
+            uint versionPrice = 0;
+            try
+            {
+                objVersionsList = _objVersionCache.GetVersionMinSpecs(Convert.ToUInt32(modelId), true);
+                if (objVersionsList != null && objVersionsList.Any())
+                {
+                    string platformId = string.Empty;
+                    ushort platform;
+                    if (Request.Headers.Contains("platformId"))
+                    {
+                        platformId = Request.Headers.GetValues("platformId").First().ToString();
+                    }
+                    ushort.TryParse(platformId, out platform);
+                    pqEntity = _objPQByCityArea.GetVersionListV3((int)modelId, objVersionsList, (int)cityId, areaId, platform, null, null, deviceId);
+                    objPQDTO = ModelMapper.ConvertV4(pqEntity);
+
+                    BikeQuotationEntity bikeVersionprice = null;
+                    var bikePriceQuotationList = _objPQ.GetVersionPricesByModelId(modelId, Convert.ToUInt32(cityId));
+                    if (bikePriceQuotationList != null && bikePriceQuotationList.Any())
+                    {
+                        bikeVersionprice = bikePriceQuotationList.FirstOrDefault();
+                        if (bikeVersionprice != null)
+                        {
+                            versionPrice = (uint)bikeVersionprice.OnRoadPrice;
+                            makeName = bikeVersionprice.MakeName;
+                            modelName = bikeVersionprice.ModelName;
+                        }
+                    }
+
+                    objPQDTO.Campaign = Bikewale.Service.AutoMappers.ManufacturerCampaign.ManufacturerCampaignMapper.ConvertV2(platform, pqEntity.PqId, modelId, (uint)pqEntity.VersionList.First().VersionId, cityId.Value, pqEntity.DealerEntity, pqEntity.ManufacturerCampaign, versionPrice, makeName, modelName);
+                    return Ok(objPQDTO);
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.Controllers.PriceQuote.Version.PQVersionListByCityAreaController.GetV4");
+                return InternalServerError();
+            }
+        }
+
     }
 }

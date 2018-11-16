@@ -868,5 +868,57 @@ namespace Bikewale.Service.Controllers.PriceQuote
 
             }
         }
+
+        /// <summary>
+        /// Created by  : Pratibha Verma on 19 October 2018
+        /// Description : new version from 'api/dealerversionprices'  for PQId related changes
+        /// </summary>
+        /// <param name="cityId"></param>
+        /// <param name="deviceId"></param>
+        /// <param name="dealerId"></param>
+        /// <param name="modelId"></param>
+        /// <param name="areaId"></param>
+        /// <param name="versionId"></param>
+        /// <returns></returns>
+        [ResponseType(typeof(DTO.PriceQuote.v3.DPQuotationOutput)), Route("api/v3/dealerversionprices")]
+        public IHttpActionResult GetDealerVersionPricesV1(uint cityId, string deviceId, uint dealerId, uint modelId, uint? areaId = null, uint? versionId = null)
+        {
+            try
+            {
+                bool isPQRegistered = Request.Headers.Contains("isRegistered") ? Convert.ToBoolean(Request.Headers.GetValues("isRegistered").FirstOrDefault()) : false;
+                string pqId = Request.Headers.Contains("quoteId") ? Request.Headers.GetValues("quoteId").FirstOrDefault() : string.Empty;
+                ushort platformId = Request.Headers.Contains("platformId") ? Convert.ToUInt16(Request.Headers.GetValues("platformId").FirstOrDefault()) : default(UInt16);
+
+                if (!string.IsNullOrEmpty(pqId) && platformId > 0)
+                {
+                    PQ_QuotationEntity bwPQ = _objDPQ.QuotationV2(cityId, platformId, deviceId, dealerId, modelId, ref pqId, isPQRegistered, areaId, versionId);
+                    DTO.PriceQuote.v4.DPQuotationOutput dpq = null;
+
+                    DetailedDealerQuotationEntity objDealerQuotation = _objDPQ.GetDealerQuotation(cityId, versionId.HasValue ? versionId.Value : 0, dealerId);
+
+                    dpq = PQBikePriceQuoteOutputMapper.ConvertV2(objDealerQuotation, bwPQ.Varients);
+                    dpq.PriceQuoteId = pqId;
+                    if (objDealerQuotation != null && objDealerQuotation.PrimaryDealer != null && objDealerQuotation.PrimaryDealer.DealerDetails != null)
+                    {
+
+                        dpq.Dealer = PQBikePriceQuoteOutputMapper.Convert(objDealerQuotation.PrimaryDealer.DealerDetails);
+                    }
+                    else if (dealerId == 0) // Show ES campaign is available
+                    {
+                        Bikewale.ManufacturerCampaign.Entities.ManufacturerCampaignEntity manufactureCampaign = _objManufacturerCampaign.GetCampaigns(modelId, cityId, ManufacturerCampaign.Entities.ManufacturerCampaignServingPages.Mobile_Model_Page);
+                    }
+                    return Ok(dpq);
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.Controllers.PriceQuote.OnRoadPriceController.GetDealerVersionPricesV1(), api/v3/dealerversionprices");
+                return InternalServerError();
+            }
+        }
     }
 }

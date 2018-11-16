@@ -41,7 +41,7 @@ namespace Bikewale.PriceQuote
             DeviceDetection dd = new DeviceDetection(originalUrl);
             dd.DetectDevice();
 
-            if (!String.IsNullOrEmpty(PriceQuoteQueryString.DealerId) && Convert.ToUInt32(PriceQuoteQueryString.PQId) > 0 && PGCookie.PGTransId != "-1")
+            if (!String.IsNullOrEmpty(PriceQuoteQueryString.DealerId) && !String.IsNullOrEmpty(PriceQuoteQueryString.PQId) && PGCookie.PGTransId != "-1")
             {
                 GetDetailedQuote();
                 getCustomerDetails();
@@ -72,7 +72,7 @@ namespace Bikewale.PriceQuote
                 container.RegisterType<IDealerPriceQuote, Bikewale.BAL.BikeBooking.DealerPriceQuote>();
                 IDealerPriceQuote objDealer = container.Resolve<IDealerPriceQuote>();
 
-                objCustomer = objDealer.GetCustomerDetailsByPQId(Convert.ToUInt32(PriceQuoteQueryString.PQId));
+                objCustomer = objDealer.GetCustomerDetailsByLeadId(Convert.ToUInt32(PriceQuoteQueryString.LeadId));
             }
         }
 
@@ -113,7 +113,7 @@ namespace Bikewale.PriceQuote
 
         void btnMakePayment_click(object Sender, EventArgs e)
         {
-            if (!String.IsNullOrEmpty(PriceQuoteQueryString.DealerId) && Convert.ToUInt32(PriceQuoteQueryString.PQId) > 0)
+            if (!String.IsNullOrEmpty(PriceQuoteQueryString.DealerId) && !String.IsNullOrEmpty(PriceQuoteQueryString.PQId))
             {
 
 

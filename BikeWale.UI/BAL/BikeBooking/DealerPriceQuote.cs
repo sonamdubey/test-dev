@@ -115,6 +115,11 @@ namespace Bikewale.BAL.BikeBooking
             return isSuccess;
         }
 
+        public bool UpdateIsMobileVerifiedByLeadId(uint leadId)
+        {
+            return _dealerPQRepository.UpdateIsMobileVerifiedByLeadId(leadId);
+        }
+
         /// <summary>
         /// Created By : Sadhana Upadhyay on 29 Oct 2014
         /// Summary :  to update mobile no in newbikedealerpricequote table
@@ -140,6 +145,11 @@ namespace Bikewale.BAL.BikeBooking
             bool isSuccess = false;
             isSuccess = _dealerPQRepository.PushedToAB(pqId, abInquiryId);
             return isSuccess;
+        }
+
+        public bool PushedToABbyLeadId(uint leadId, uint abInquiryId)
+        {
+            return _dealerPQRepository.PushedToABbyLeadId(leadId, abInquiryId);
         }
 
         /// <summary>
@@ -258,6 +268,11 @@ namespace Bikewale.BAL.BikeBooking
             isUpdated = _dealerPQRepository.UpdatePQTransactionalDetail(pqId, transId, isTransComplete, bookingReferenceNo);
 
             return isUpdated;
+        }
+
+        public bool UpdatePQTransactionalDetailByLeadId(uint leadId, uint transId, bool isTransComplete, string bookingReferenceNo)
+        {
+            return _dealerPQRepository.UpdatePQTransactionalDetailByLeadId(leadId, transId, isTransComplete, bookingReferenceNo);
         }
 
         /// <summary>
@@ -506,6 +521,38 @@ namespace Bikewale.BAL.BikeBooking
             }
             return objPQOutput;
         }   //End of ProcessPQ
+
+        /// <summary>
+        /// Created by  : Pratibha Verma on 12 October 2018
+        /// DEscription : new version of ProcessPQ 
+        /// </summary>
+        /// <param name="PQParams"></param>
+        /// <returns></returns>
+        public Bikewale.Entities.BikeBooking.v2.PQOutputEntity ProcessPQV4(Entities.PriceQuote.v2.PriceQuoteParametersEntity PQParams, bool isManufacturerCampaignRequired = false)
+        {
+            Bikewale.Entities.BikeBooking.v2.PQOutputEntity objPQOutput = null;
+            //uint dealerId = 0;
+            string quoteId = string.Empty;
+            BikeWale.Entities.AutoBiz.DealerInfo objDealerDetail = new BikeWale.Entities.AutoBiz.DealerInfo();
+            try
+            {
+                uint defaultVersionId = 0;
+                objDealerDetail = GetDefaultVersionAndSubscriptionDealer(PQParams.ModelId, PQParams.CityId, PQParams.AreaId, PQParams.VersionId, true, out defaultVersionId);
+                PQParams.VersionId = PQParams.VersionId != 0 ? PQParams.VersionId : defaultVersionId;
+            }
+            catch (Exception ex)
+            {
+                objDealerDetail.DealerId = 0;
+                objDealerDetail.IsDealerAvailable = false;
+                ErrorClass.LogError(ex, "ProcessPQV4 ex : " + ex.Message);
+
+            }
+            finally
+            {
+                objPQOutput = RegisterPQAndGetPQ(PQParams, objDealerDetail, true);
+            }
+            return objPQOutput;
+        }
 
         /// <summary>
         /// Created by : Ashutosh Sharma on 29 Jun 2018

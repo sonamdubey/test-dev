@@ -187,7 +187,7 @@ namespace Bikewale.PriceQuote
                 container.RegisterType<IDealerPriceQuote, Bikewale.BAL.BikeBooking.DealerPriceQuote>();
                 IDealerPriceQuote objDealer = container.Resolve<IDealerPriceQuote>();
 
-                objCustomer = objDealer.GetCustomerDetailsByPQId(Convert.ToUInt32(PriceQuoteQueryString.PQId));
+                objCustomer = objDealer.GetCustomerDetailsByLeadId(Convert.ToUInt32(PriceQuoteQueryString.LeadId));
 
                 if (objCustomer == null)
                 {

@@ -52,5 +52,9 @@ namespace Bikewale.Interfaces.BikeBooking
         PQCustomerDetail GetCustomerDetailsByLeadId(uint leadId);
         DealerInfo GetDefaultVersionAndSubscriptionDealer(uint modelId, uint cityId, uint areaId, uint versionId, bool isDealerSubscriptionRequired, out uint defaultVersionId);
         uint GetManufacturerCampaignDealer(uint modelId, uint cityId, ManufacturerCampaignServingPages page, out ManufacturerCampaignEntity campaigns, out bool isManufacturerDealer);
+        Bikewale.Entities.BikeBooking.v2.PQOutputEntity ProcessPQV4(Entities.PriceQuote.v2.PriceQuoteParametersEntity PQParams, bool isManufacturerCampaignRequired = false);
+        bool UpdateIsMobileVerifiedByLeadId(uint leadId);
+        bool UpdatePQTransactionalDetailByLeadId(uint leadId, uint transId, bool isTransComplete, string bookingReferenceNo);
+        bool PushedToABbyLeadId(uint leadId, uint abInquiryId);
     }
 }

@@ -16,5 +16,6 @@ namespace Bikewale.Interfaces.PriceQuote
         DetailedDealerQuotationEntity GetDealerQuotation(UInt32 cityId, UInt32 versionID, UInt32 dealerId);
         Bikewale.Entities.PriceQuote.v2.DetailedDealerQuotationEntity GetDealerQuotationV2(UInt32 cityId, UInt32 versionID, UInt32 dealerId, uint areaId);
         PQ_QuotationEntity Quotation(uint cityId, UInt16 sourceType, string deviceId, uint dealerId, uint modelId, ref ulong pqId, bool isPQRegistered, uint? areaId = null, uint? versionId = null);
+        PQ_QuotationEntity QuotationV2(uint cityId, UInt16 sourceType, string deviceId, uint dealerId, uint modelId, ref string pqId, bool isPQRegistered, uint? areaId = null, uint? versionId = null);
     }
 }

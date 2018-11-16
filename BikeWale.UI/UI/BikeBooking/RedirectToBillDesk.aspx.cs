@@ -12,7 +12,7 @@ namespace Bikewale.BikeBooking
     {
         protected string msg = string.Empty;
         public int submit = 0;
-
+        protected static readonly string paymentGatewayUrl = ConfigurationManager.AppSettings["PaymentGatewayUrlBillDesk"];
         protected override void OnInit(EventArgs e)
         {
             InitializeComponent();
@@ -37,7 +37,7 @@ namespace Bikewale.BikeBooking
         private static void UpdatePGTranscationId(string msg)
         {
             string[] bwTranParameters = null;
-            string pqId = string.Empty, pgRecordId = string.Empty;
+            string pqId = string.Empty, pgRecordId = string.Empty, leadId = string.Empty;
             bool isUpdated = false;
 
             try
@@ -46,12 +46,13 @@ namespace Bikewale.BikeBooking
                 string MPQ = HttpUtility.ParseQueryString(bwTranParameters[21].Split('?')[1]).Get("MPQ");
                 pqId = HttpUtility.ParseQueryString(EncodingDecodingHelper.DecodeFrom64(MPQ)).Get("PQId");
                 pgRecordId = bwTranParameters[1].Replace(BWConfiguration.Instance.OfferUniqueTransaction, "");
+                leadId = HttpUtility.ParseQueryString(EncodingDecodingHelper.DecodeFrom64(MPQ)).Get("leadId");
 
                 using (IUnityContainer containerTran = new UnityContainer())
                 {
                     containerTran.RegisterType<IDealerPriceQuote, Bikewale.BAL.BikeBooking.DealerPriceQuote>();
                     IDealerPriceQuote objDealer = containerTran.Resolve<IDealerPriceQuote>();
-                    isUpdated = objDealer.UpdatePQTransactionalDetail(Convert.ToUInt32(pqId), Convert.ToUInt32(pgRecordId),
+                    isUpdated = objDealer.UpdatePQTransactionalDetailByLeadId(Convert.ToUInt32(leadId), Convert.ToUInt32(pgRecordId),
                                     false, ConfigurationManager.AppSettings["OfferUniqueTransaction"]);
                 }
             }

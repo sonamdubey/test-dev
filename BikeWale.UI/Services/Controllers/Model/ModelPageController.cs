@@ -511,6 +511,88 @@ namespace Bikewale.Service.Controllers.Model
             }
         }
 
+        /// <summary>
+        /// Created by  : Pratibha Verma on 11 October 2018
+        /// Description : new version for PQId related changes
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <param name="cityId"></param>
+        /// <param name="areaId"></param>
+        /// <param name="deviceId"></param>
+        /// <returns></returns>
+        [ResponseType(typeof(DTO.Model.v6.ModelPage)), Route("api/v6/model/{modelId}/details/")]
+        public IHttpActionResult GetV6(uint modelId, uint? cityId = null, int? areaId = null, string deviceId = null)
+        {
+
+            DTO.Model.v6.ModelPage objDTOModelPage = null;
+            try
+            {
+                if (modelId <= 0 || !Request.Headers.Contains("platformId"))
+                {
+                    return BadRequest();
+                }
+
+                BikeModelPageEntity objModelPage = null;
+                objModelPage = _modelBL.GetModelPageDetails((int)modelId);
+
+
+                if (objModelPage != null)
+                {
+
+                    Bikewale.Entities.PriceQuote.v3.PQByCityAreaEntity pqEntity = null;
+                    ushort platformId;
+
+                    if (!objModelPage.ModelDetails.Futuristic)
+                    {
+                        pqEntity = _objPQByCityArea.GetVersionListV3((int)modelId, objModelPage.ModelVersions, (int)(cityId.HasValue ? cityId.Value : 0), areaId, Convert.ToUInt16(Bikewale.DTO.PriceQuote.PQSources.Android), null, null, deviceId);
+                    }
+
+                    if (ushort.TryParse(Request.Headers.GetValues("platformId").First().ToString(), out platformId) && platformId == 3 && cityId.HasValue && cityId.Value > 0)
+                    {
+                        #region On road pricing for versions
+                        if (cityId != null && cityId.Value > 0 && !objModelPage.ModelDetails.Futuristic)
+                        {
+                            int versionId = 0;
+                            if (pqEntity != null && pqEntity.VersionList != null && pqEntity.VersionList.Any())
+                            {
+                                var deafultVersion = pqEntity.VersionList.FirstOrDefault(i => i.IsDealerPriceQuote);
+                                if (deafultVersion != null)
+                                {
+                                    versionId = deafultVersion.VersionId;
+                                }
+                            }
+
+                            if (pqEntity != null && pqEntity.IsExShowroomPrice)
+                                objDTOModelPage = ModelMapper.ConvertV6(_objPqCache, objModelPage, pqEntity, null, platformId);
+                            else
+
+                                objDTOModelPage = ModelMapper.ConvertV6(_objPqCache, objModelPage, pqEntity,
+                                pqEntity.DealerEntity, platformId);
+
+                        }
+                        else
+                        {
+                            objDTOModelPage = ModelMapper.ConvertV6(_objPqCache, objModelPage, pqEntity, null, platformId);
+                        }
+                        #endregion
+                    }
+                    else
+                    {
+                        objDTOModelPage = ModelMapper.ConvertV6(_objPqCache, objModelPage, pqEntity, null, platformId);
+                    }
+                    return Ok(objDTOModelPage);
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, String.Format("Exception : Bikewale.Service.Model.ModelController.GetV6({0},{1},{2})", modelId, cityId, areaId));
+                return InternalServerError();
+            }
+        }
 
         [Route("api/model/{modelId}/details/amp/"), EnableCors("https://www-bikewale-com.cdn.ampproject.org, https://www-bikewale-com.amp.cloudflare.com, https://cdn.ampproject.org,https://www.bikewale.com", "*", "GET")]
         public IHttpActionResult GetModelDetails(uint modelId)

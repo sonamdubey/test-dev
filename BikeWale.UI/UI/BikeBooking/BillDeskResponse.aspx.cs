@@ -31,7 +31,8 @@ namespace Bikewale.BikeBooking
                          MakeModel = string.Empty, bookingRefNum = string.Empty, WorkingTime = string.Empty, bikeColor = String.Empty, VersionName = string.Empty;
         protected UInt32 insuranceAmount = 0;
         protected bool IsInsuranceFree = false;
-        protected uint pqId = 0, versionId = 0, cityId = 0, areaId = 0, dealerId = 0;
+        protected uint versionId = 0, cityId = 0, areaId = 0, dealerId = 0, leadId = 0;
+        protected string pqId = string.Empty;
         protected void Page_Load(object sender, EventArgs e)
         {
             //if (Request.Cookies["PGTransId"] != null)
@@ -79,28 +80,30 @@ namespace Bikewale.BikeBooking
                     //If MPQ Doesn't exist then use Bikebooking Cookie to read Value
                     if (PriceQuoteQueryString.IsPQQueryStringExists())
                     {
-                        pqId = Convert.ToUInt32(PriceQuoteQueryString.PQId);
+                        pqId = PriceQuoteQueryString.PQId;
                         areaId = Convert.ToUInt32(PriceQuoteQueryString.AreaId);
                         cityId = Convert.ToUInt32(PriceQuoteQueryString.CityId);
                         dealerId = Convert.ToUInt32(PriceQuoteQueryString.DealerId);
                         versionId = Convert.ToUInt32(PriceQuoteQueryString.VersionId);
+                        leadId = Convert.ToUInt32(PriceQuoteQueryString.LeadId);
                     }
                     else
                     {
                         if (BikeBookingCookie.IsBBCoockieExist())
                         {
-                            pqId = Convert.ToUInt32(BikeBookingCookie.PQId);
+                            pqId = BikeBookingCookie.PQId;
                             areaId = Convert.ToUInt32(BikeBookingCookie.AreaId);
                             cityId = Convert.ToUInt32(BikeBookingCookie.CityId);
                             dealerId = Convert.ToUInt32(BikeBookingCookie.DealerId);
                             versionId = Convert.ToUInt32(BikeBookingCookie.VersionId);
+                            leadId = Convert.ToUInt32(PriceQuoteQueryString.LeadId);
                         }
                     }
 
                     if (Convert.ToInt16(PGCookie.PGRespCode) == Convert.ToInt16(BillDeskTransactionStatusCode.Successfull))
                     {
 
-                        isUpdated = objDealer.UpdatePQTransactionalDetail(pqId, Convert.ToUInt32(PGCookie.PGTransId),
+                        isUpdated = objDealer.UpdatePQTransactionalDetailByLeadId(leadId, Convert.ToUInt32(PGCookie.PGTransId),
                             true, ConfigurationManager.AppSettings["OfferUniqueTransaction"]);
 
                         SentSuccessNotification();
@@ -109,7 +112,7 @@ namespace Bikewale.BikeBooking
                     }
                     else
                     {
-                        isUpdated = objDealer.UpdatePQTransactionalDetail(Convert.ToUInt32(PriceQuoteQueryString.PQId), Convert.ToUInt32(PGCookie.PGTransId),
+                        isUpdated = objDealer.UpdatePQTransactionalDetailByLeadId(Convert.ToUInt32(PriceQuoteQueryString.LeadId), Convert.ToUInt32(PGCookie.PGTransId),
                             false, ConfigurationManager.AppSettings["OfferUniqueTransaction"]);
                     }
                 }
@@ -133,17 +136,17 @@ namespace Bikewale.BikeBooking
 
                             if (Convert.ToInt16(PGCookie.PGRespCode) == Convert.ToInt16(BillDeskTransactionStatusCode.Successfull))
                             {
-                                _objPriceQuote.SaveBookingState(pqId, Entities.PriceQuote.PriceQuoteStates.SuccessfulPayment);
+                                _objPriceQuote.SaveBookingStateByLeadId(leadId, Entities.PriceQuote.PriceQuoteStates.SuccessfulPayment);
                             }
                             else
                             {
                                 if (Convert.ToInt16(PGCookie.PGRespCode) == Convert.ToInt16(BillDeskTransactionStatusCode.InvalidAuthentication))
                                 {
-                                    _objPriceQuote.SaveBookingState(pqId, Entities.PriceQuote.PriceQuoteStates.PaymentAborted);
+                                    _objPriceQuote.SaveBookingStateByLeadId(leadId, Entities.PriceQuote.PriceQuoteStates.PaymentAborted);
                                 }
                                 else
                                 {
-                                    _objPriceQuote.SaveBookingState(pqId, Entities.PriceQuote.PriceQuoteStates.FailurePayment);
+                                    _objPriceQuote.SaveBookingStateByLeadId(leadId, Entities.PriceQuote.PriceQuoteStates.FailurePayment);
                                 }
                             }
 
@@ -349,7 +352,7 @@ namespace Bikewale.BikeBooking
                     container.RegisterType<IDealerPriceQuote, Bikewale.BAL.BikeBooking.DealerPriceQuote>();
                     IDealerPriceQuote objDealer = container.Resolve<IDealerPriceQuote>();
 
-                    objCustomer = objDealer.GetCustomerDetailsByPQId(pqId);
+                    objCustomer = objDealer.GetCustomerDetailsByLeadId(leadId);
 
                     if (objCustomer != null && objCustomer.objColor != null)
                     {
@@ -432,7 +435,7 @@ namespace Bikewale.BikeBooking
             string abInquiryId = string.Empty;
             try
             {
-                abInquiryId = AutoBizAdaptor.PushInquiryInAB(dealerId.ToString(), pqId, customerDetails.objCustomerBase.CustomerName, customerDetails.objCustomerBase.CustomerMobile, customerDetails.objCustomerBase.CustomerEmail, versionId, cityId.ToString());
+                abInquiryId = AutoBizAdaptor.PushInquiryInABV2(dealerId.ToString(), leadId, customerDetails.objCustomerBase.CustomerName, customerDetails.objCustomerBase.CustomerMobile, customerDetails.objCustomerBase.CustomerEmail, versionId, cityId.ToString());
                 objCustomer.AbInquiryId = abInquiryId;
             }
             catch (Exception err)

@@ -496,6 +496,38 @@ namespace Bikewale.DAL.PriceQuote
         }
 
         /// <summary>
+        /// Created by  : Pratibha Verma on 16 October 2018
+        /// Description : save booking state by leadId
+        /// </summary>
+        /// <param name="leadId"></param>
+        /// <param name="state"></param>
+        /// <returns></returns>
+        public bool SaveBookingStateByLeadId(uint leadId, PriceQuoteStates state)
+        {
+            bool isUpdated = false;
+            try
+            {
+
+                using (DbCommand cmd = DbFactory.GetDBCommand())
+                {
+                    cmd.CommandText = "savepqbookingstate_16102018";
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_leadid", DbType.Int32, leadId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_stateid", DbType.Int32, Convert.ToInt32(state)));
+                    
+                    MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
+                    isUpdated = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("Bikewale.DAL.PriceQuote.PriceQuoteRepository.SaveBookingStateByLeadId(leadId = {0}, state = {1})", leadId, state));
+
+            }
+            return isUpdated;
+        }
+
+        /// <summary>
         /// Author          :   Sumit Kate
         /// Created date    :   08 Jan 2016
         /// Description     :   Gets the Areaid, cityid, dealerid, bikeversionid by pqid

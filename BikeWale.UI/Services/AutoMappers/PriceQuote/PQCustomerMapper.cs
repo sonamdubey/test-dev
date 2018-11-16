@@ -51,6 +51,13 @@ namespace Bikewale.Service.AutoMappers.PriceQuote
             return Mapper.Map<Entities.PriceQuote.PQCustomerDetailOutputEntity, DTO.PriceQuote.v2.PQCustomerDetailOutput>(outEntity);
         }
 
+        internal static DTO.PriceQuote.v4.PQCustomerDetailOutput Convertv3(Entities.PriceQuote.v2.PQCustomerDetailOutputEntity outEntity)
+        {
+            Mapper.CreateMap<Entities.PriceQuote.v2.PQCustomerDetailOutputEntity, DTO.PriceQuote.v4.PQCustomerDetailOutput>();
+            Mapper.CreateMap<Entities.PriceQuote.DealerDetails, DTO.PriceQuote.BikeBooking.DealerDetailsDTO>();
+            return Mapper.Map<Entities.PriceQuote.v2.PQCustomerDetailOutputEntity, DTO.PriceQuote.v4.PQCustomerDetailOutput>(outEntity);
+        }
+
         /// <summary>
         /// Modified by : Sanskar Gupta on 08 May 2018
         /// Description : Added mapping for `DealerDetailsDTO` to `DealerDetails` entity.
@@ -74,5 +81,12 @@ namespace Bikewale.Service.AutoMappers.PriceQuote
             Mapper.CreateMap<DTO.PriceQuote.v2.PQCustomerDetailInput, Entities.PriceQuote.PQCustomerDetailInput>();
             return Mapper.Map<DTO.PriceQuote.v2.PQCustomerDetailInput, Entities.PriceQuote.PQCustomerDetailInput>(input);
         }
+
+        internal static Entities.PriceQuote.v2.PQCustomerDetailInput Convertv2(DTO.PriceQuote.v2.PQCustomerDetailInput input)
+        {
+            Mapper.CreateMap<DTO.PriceQuote.v2.PQCustomerDetailInput, Entities.PriceQuote.v2.PQCustomerDetailInput>();
+            return Mapper.Map<DTO.PriceQuote.v2.PQCustomerDetailInput, Entities.PriceQuote.v2.PQCustomerDetailInput>(input);
+        }
+
     }
 }

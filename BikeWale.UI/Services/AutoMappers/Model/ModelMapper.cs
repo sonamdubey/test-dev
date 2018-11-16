@@ -472,6 +472,87 @@ namespace Bikewale.Service.AutoMappers.Model
             return objDTOModelPage;
         }
 
+
+        internal static DTO.Model.v3.ModelPage ConvertV4(BikeModelPageEntity objModelPage, Entities.PriceQuote.PQByCityAreaEntity pqEntity)
+        {
+            Bikewale.DTO.Model.v3.ModelPage objDTOModelPage = null;
+            try
+            {
+                objDTOModelPage = new DTO.Model.v3.ModelPage();
+                objDTOModelPage.SmallDescription = objModelPage.ModelDesc.SmallDescription;
+                objDTOModelPage.MakeId = objModelPage.ModelDetails.MakeBase.MakeId;
+                objDTOModelPage.MakeName = objModelPage.ModelDetails.MakeBase.MakeName;
+                objDTOModelPage.ModelId = objModelPage.ModelDetails.ModelId;
+                objDTOModelPage.ModelName = objModelPage.ModelDetails.ModelName;
+                objDTOModelPage.ReviewCount = objModelPage.ModelDetails.ReviewCount;
+                objDTOModelPage.ReviewRate = objModelPage.ModelDetails.ReviewRate;
+                objDTOModelPage.IsDiscontinued = !objModelPage.ModelDetails.New;
+                objDTOModelPage.IsUpcoming = objModelPage.ModelDetails.Futuristic;
+
+                if (objModelPage.SpecsSummaryList != null)
+                {
+                    string displayValue;
+                    foreach (var spec in objModelPage.SpecsSummaryList)
+                    {
+                        displayValue = FormatMinSpecs.ShowAvailable(spec.Value, spec.UnitType, spec.DataType, spec.Id);
+                        switch ((EnumSpecsFeaturesItems)spec.Id)
+                        {
+                            case EnumSpecsFeaturesItems.Displacement:
+                                objDTOModelPage.Capacity = displayValue;
+                                break;
+                            case EnumSpecsFeaturesItems.FuelEfficiencyOverall:
+                                objDTOModelPage.Mileage = displayValue;
+                                break;
+                            case EnumSpecsFeaturesItems.MaxPowerBhp:
+                                objDTOModelPage.MaxPower = displayValue;
+                                break;
+                            case EnumSpecsFeaturesItems.KerbWeight:
+                                objDTOModelPage.Weight = displayValue;
+                                break;
+                        }
+                    }
+                }
+
+
+                if (objModelPage.AllPhotos != null)
+                {
+                    var photos = new List<DTO.Model.v3.CMSModelImageBase>();
+                    foreach (var photo in objModelPage.AllPhotos)
+                    {
+                        var addPhoto = new DTO.Model.v3.CMSModelImageBase()
+                        {
+                            HostUrl = photo.HostUrl,
+                            OriginalImgPath = photo.OriginalImgPath
+                        };
+                        photos.Add(addPhoto);
+                    }
+                    objDTOModelPage.Photos = photos;
+                }
+
+                if (pqEntity != null)
+                {
+                    objDTOModelPage.IsCityExists = pqEntity.IsCityExists; //soo
+                    objDTOModelPage.IsAreaExists = pqEntity.IsAreaExists; //soo
+                    objDTOModelPage.IsExShowroomPrice = pqEntity.IsExShowroomPrice; //soo
+                    objDTOModelPage.ModelVersions = ConvertBikeVersionToVersionDetail(pqEntity.VersionList);
+                    objDTOModelPage.DealerId = pqEntity.DealerId;
+                    objDTOModelPage.PQId = pqEntity.PqId;
+                }
+                // Upcoming section
+                if (objModelPage.ModelDetails.Futuristic && objModelPage.UpcomingBike != null && objModelPage.ModelDetails != null)
+                {
+                    objDTOModelPage.ExpectedLaunchDate = objModelPage.UpcomingBike.ExpectedLaunchDate;
+                    objDTOModelPage.ExpectedMinPrice = objModelPage.UpcomingBike.EstimatedPriceMin;
+                    objDTOModelPage.ExpectedMaxPrice = objModelPage.UpcomingBike.EstimatedPriceMax;
+                }
+            }
+            catch (System.Exception)
+            {
+                throw;
+            }
+            return objDTOModelPage;
+        }
+
         /// <summary>
         /// Created By : Lucky Rathore on 17 June 2016
         /// Descritpion : Mapping for V4 version of ModelpageEntity.
@@ -718,7 +799,7 @@ namespace Bikewale.Service.AutoMappers.Model
         internal static Bikewale.DTO.PriceQuote.Version.v4.PQByCityAreaDTO ConvertV4(Bikewale.Entities.PriceQuote.v3.PQByCityAreaEntity pqCityAea)
         {
             Mapper.CreateMap<BikeVersionMinSpecs, VersionDetail>();
-            Mapper.CreateMap<PQByCityAreaEntity, Bikewale.DTO.PriceQuote.Version.v3.PQByCityAreaDTO>();
+            Mapper.CreateMap<Entities.PriceQuote.v3.PQByCityAreaEntity, Bikewale.DTO.PriceQuote.Version.v4.PQByCityAreaDTO>();
             var versionPrices = Mapper.Map<Bikewale.Entities.PriceQuote.v3.PQByCityAreaEntity, Bikewale.DTO.PriceQuote.Version.v4.PQByCityAreaDTO>(pqCityAea);
             versionPrices.VersionList = ConvertBikeVersionToVersionDetail(pqCityAea.VersionList);
             return versionPrices;
@@ -1002,6 +1083,271 @@ namespace Bikewale.Service.AutoMappers.Model
                         template = template.Replace("href=\"javascript:void(0)\"", "onclick=\"Android.openLeadCaptureForm();\"");
                     }
                     
+                    esPreRenderCampaignDTO.TemplateHtml = template;
+                    detailsDto.EsCamapign = esPreRenderCampaignDTO;
+
+                    esCampaignBase.DetailsCampaign = detailsDto;
+                    esCampaignBase.CampaignLeadSource = esCampaignDTO;
+                    objDTOModelPage.Campaign = esCampaignBase;
+                }
+            }
+            catch (System.Exception ex)
+            {
+                ErrorClass.LogError(ex, String.Format("Exception : Bikewale.Service.Model.ModelController.ConvertV5({0})", objModelPage.ModelDetails.ModelId));
+            }
+            return objDTOModelPage;
+        }
+
+        /// <summary>
+        /// Created by  : Pratibha Verma on 11 October 2018
+        /// Description : new version for PQId related changes
+        /// </summary>
+        /// <param name="objPqCache"></param>
+        /// <param name="objModelPage"></param>
+        /// <param name="pqEntity"></param>
+        /// <param name="dealers"></param>
+        /// <param name="platformId"></param>
+        /// <returns></returns>
+        internal static DTO.Model.v6.ModelPage ConvertV6(IPriceQuoteCache objPqCache, BikeModelPageEntity objModelPage, Bikewale.Entities.PriceQuote.v3.PQByCityAreaEntity pqEntity, Entities.PriceQuote.v2.DetailedDealerQuotationEntity dealers, ushort platformId = 0)
+        {
+
+            bool isApp = platformId == 3;
+            DTO.Model.v6.ModelPage objDTOModelPage = null;
+            try
+            {
+                DateTime dt3 = DateTime.Now;
+                var modelDetails = objModelPage.ModelDetails;
+                objDTOModelPage = new DTO.Model.v6.ModelPage();
+                objDTOModelPage.SmallDescription = objModelPage.ModelDesc.SmallDescription;
+                objDTOModelPage.MakeId = modelDetails.MakeBase.MakeId;
+                objDTOModelPage.MakeName = modelDetails.MakeBase.MakeName;
+                objDTOModelPage.ModelId = modelDetails.ModelId;
+                objDTOModelPage.ModelName = modelDetails.ModelName;
+                objDTOModelPage.ReviewCount = modelDetails.ReviewCount;
+                objDTOModelPage.ReviewRate = modelDetails.ReviewRate;
+                objDTOModelPage.NewsCount = modelDetails.NewsCount;
+                objDTOModelPage.IsUpcoming = modelDetails.Futuristic;
+                objDTOModelPage.IsSpecsAvailable = (objModelPage.SpecsSummaryList != null && objModelPage.SpecsSummaryList.Any(spec => spec.Value != ""));
+
+                objDTOModelPage.Review = new DTO.Model.v5.Review()
+                {
+                    ExpertReviewCount = modelDetails.ExpertReviewsCount,
+                    RatingCount = (uint)modelDetails.RatingCount,
+                    UserReviewCount = (uint)modelDetails.ReviewCount
+                };
+
+                if (!objDTOModelPage.IsUpcoming)
+                {
+                    objDTOModelPage.IsDiscontinued = !modelDetails.New;
+                }
+
+                if (objDTOModelPage.IsSpecsAvailable)
+                {
+                    string displayValue;
+                    foreach (var spec in objModelPage.SpecsSummaryList)
+                    {
+                        displayValue = string.IsNullOrEmpty(spec.Value) ? null : FormatMinSpecs.ShowAvailable(spec.Value, spec.UnitType, spec.DataType, spec.Id);
+                        switch ((EnumSpecsFeaturesItems)spec.Id)
+                        {
+                            case EnumSpecsFeaturesItems.Displacement:
+                                objDTOModelPage.Capacity = displayValue;
+                                break;
+                            case EnumSpecsFeaturesItems.FuelEfficiencyOverall:
+                                objDTOModelPage.Mileage = displayValue;
+                                break;
+                            case EnumSpecsFeaturesItems.MaxPowerBhp:
+                                objDTOModelPage.MaxPower = displayValue;
+                                break;
+                            case EnumSpecsFeaturesItems.KerbWeight:
+                                objDTOModelPage.Weight = displayValue;
+                                break;
+                        }
+                    }
+                }
+
+
+
+                if (objModelPage.AllPhotos != null && objModelPage.AllPhotos.Any())
+                {
+                    objDTOModelPage.Gallery = new DTO.Model.v5.Gallery
+                    {
+                        ImageCount = (uint)objModelPage.AllPhotos.Count(),
+                        ColorCount = objModelPage.colorPhotos != null && objModelPage.colorPhotos.Any(m => m.IsImageExists) ? (uint)objModelPage.colorPhotos.Count(m => m.IsImageExists) : 0,
+                        VideoCount = (uint)modelDetails.VideosCount
+                    };
+
+                    var photos = new List<CMSModelImageBase>();
+
+                    var addPhoto = new CMSModelImageBase()
+                    {
+                        HostUrl = objModelPage.AllPhotos.ElementAt(0).HostUrl,
+                        OriginalImgPath = objModelPage.AllPhotos.ElementAt(0).OriginalImgPath
+                    };
+                    photos.Add(addPhoto);
+
+                    objDTOModelPage.Photos = photos;
+                }
+                if (objModelPage.colorPhotos != null && objModelPage.colorPhotos.Any())
+                {
+                    objDTOModelPage.ModelColors = ModelMapper.Convert(objModelPage.colorPhotos).OrderByDescending(m => m.IsImageExists);
+                }
+
+                if (pqEntity != null)
+                {
+                    objDTOModelPage.IsCityExists = pqEntity.IsCityExists;
+                    objDTOModelPage.IsAreaExists = pqEntity.IsAreaExists;
+                    objDTOModelPage.IsExShowroomPrice = pqEntity.IsExShowroomPrice;
+                    objDTOModelPage.ModelVersions = ConvertBikeVersionToVersionDetail(pqEntity.VersionList);
+                    objDTOModelPage.DealerId = pqEntity.DealerId;
+                    objDTOModelPage.PQId = pqEntity.PqId;
+                }
+                // Upcoming section
+                if (modelDetails.Futuristic && objModelPage.UpcomingBike != null)
+                {
+                    var upcomingBike = objModelPage.UpcomingBike;
+                    objDTOModelPage.ExpectedLaunchDate = upcomingBike.ExpectedLaunchDate;
+                    objDTOModelPage.ExpectedMinPrice = upcomingBike.EstimatedPriceMin;
+                    objDTOModelPage.ExpectedMaxPrice = upcomingBike.EstimatedPriceMax;
+                }
+
+
+                if (dealers != null)
+                {
+
+                    var campaignDTO = new CampaignBaseDto();
+                    var detailsCampaignDTO = new DetailsDto();
+                    var dealerCampaignBaseDTO = new DealerCampaignBase();
+
+                    if (dealers.PrimaryDealer != null && dealers.PrimaryDealer.DealerDetails != null)
+                    {
+                        #region Dealer Offers DTO
+                        var offerList = dealers.PrimaryDealer.OfferList;
+                        if (offerList != null && offerList.Any())
+                        {
+                            var dealerOffer = new List<DPQOffer>();
+                            foreach (var offer in offerList)
+                            {
+                                var addOffer = new DPQOffer()
+                                {
+                                    Id = (int)offer.OfferId,
+                                    OfferCategoryId = (int)offer.OfferCategoryId,
+                                    Text = offer.OfferText
+                                };
+                                dealerOffer.Add(addOffer);
+                            }
+                            dealerCampaignBaseDTO.Offers = dealerOffer;
+                        }
+                        #endregion
+
+                        #region Dealer Details
+                        var dealerDetailsEntity = dealers.PrimaryDealer.DealerDetails;
+                        var dealerDetailsDTO = new DealerBase();
+
+                        campaignDTO.CampaignType = CampaignType.DS;
+                        dealerDetailsDTO.Name = dealerDetailsEntity.Organization;
+                        dealerDetailsDTO.MaskingNumber = dealerDetailsEntity.MaskingNumber;
+                        dealerDetailsDTO.Area = dealerDetailsEntity.objArea.AreaName;
+                        dealerDetailsDTO.DealerId = dealerDetailsEntity.DealerId;
+                        dealerDetailsDTO.DealerPkgType = (DTO.PriceQuote.DealerPackageType)dealerDetailsEntity.DealerPackageType;
+                        dealerCampaignBaseDTO.IsPremium = dealers.PrimaryDealer.IsPremiumDealer;
+                        dealerCampaignBaseDTO.CaptionText = String.Format("Authorized dealer in {0}", dealerDetailsEntity.objArea.AreaName);
+
+
+                        dealerCampaignBaseDTO.PrimaryDealer = dealerDetailsDTO;
+                        #endregion
+                    }
+                    dealerCampaignBaseDTO.SecondaryDealerCount = (ushort)dealers.SecondaryDealerCount;
+
+                    detailsCampaignDTO.Dealer = dealerCampaignBaseDTO;
+
+                    campaignDTO.DetailsCampaign = detailsCampaignDTO;
+
+                    objDTOModelPage.Campaign = campaignDTO;
+
+
+                }
+
+                if
+                    (pqEntity != null &&
+                    (dealers == null || dealers.PrimaryDealer == null || dealers.PrimaryDealer.DealerDetails == null) &&
+                    pqEntity.ManufacturerCampaign != null &&
+                    pqEntity.ManufacturerCampaign.LeadCampaign != null)
+                {
+                    var leadCampaign = pqEntity.ManufacturerCampaign.LeadCampaign;
+                    Bikewale.Entities.manufacturecampaign.v2.ManufactureCampaignLeadEntity LeadCampaign = new Bikewale.Entities.manufacturecampaign.v2.ManufactureCampaignLeadEntity()
+                    {
+                        CampaignId = leadCampaign.CampaignId,
+                        DealerId = leadCampaign.DealerId,
+                        DealerRequired = leadCampaign.DealerRequired,
+                        EmailRequired = leadCampaign.EmailRequired,
+                        LeadsButtonTextDesktop = leadCampaign.LeadsButtonTextDesktop,
+                        LeadsButtonTextMobile = leadCampaign.LeadsButtonTextMobile,
+                        LeadSourceId = (int)LeadSourceEnum.Model_Mobile,
+                        PqSourceId = (int)PQSourceEnum.Mobile_ModelPage,
+                        LeadsHtmlDesktop = leadCampaign.LeadsHtmlDesktop,
+                        LeadsHtmlMobile = leadCampaign.LeadsHtmlMobile,
+                        LeadsPropertyTextDesktop = leadCampaign.LeadsPropertyTextDesktop,
+                        LeadsPropertyTextMobile = leadCampaign.LeadsPropertyTextMobile,
+                        MakeName = modelDetails.MakeBase.MakeName,
+                        Organization = leadCampaign.Organization,
+                        MaskingNumber = leadCampaign.MaskingNumber,
+                        PincodeRequired = leadCampaign.PincodeRequired,
+                        PopupDescription = leadCampaign.PopupDescription,
+                        PopupHeading = leadCampaign.PopupHeading,
+                        PopupSuccessMessage = leadCampaign.PopupSuccessMessage,
+                        ShowOnExshowroom = leadCampaign.ShowOnExshowroom,
+                        VersionId = (objModelPage.ModelVersionMinSpecs != null ? (uint)objModelPage.ModelVersionMinSpecs.VersionId : 0),
+                        PlatformId = platformId,
+                        IsAmp = !isApp,
+                        BikeName = string.Format("{0} {1}", modelDetails.MakeBase.MakeName, modelDetails.ModelName),
+                        LoanAmount = (objModelPage.ModelVersionMinSpecs != null ? (uint)System.Convert.ToUInt32((pqEntity.VersionList.FirstOrDefault(m => m.VersionId == objModelPage.ModelVersionMinSpecs.VersionId).Price) * 0.8) : 0),
+                        SendLeadSMSCustomer = leadCampaign.SendLeadSMSCustomer
+                    };
+                    #region Render the partial view
+                    //This hash code is being used as memcache key. Do not assign pqid and LoadAmount in "LeadCampaign" before generating hash code.
+                    var hashCode = Bikewale.PWA.Utils.PwaCmsHelper.GetSha256Hash(JsonConvert.SerializeObject(LeadCampaign));
+                    LeadCampaign.LoanAmount = (uint)System.Convert.ToUInt32((pqEntity.VersionList.FirstOrDefault(m => m.VersionId == objModelPage.ModelVersionMinSpecs.VersionId).Price) * 0.8);
+                    LeadCampaign.PQId = pqEntity.PqId;
+                    if (LeadCampaign.DealerId == BWConfiguration.Instance.CapitalFirstDealerId)
+                    {
+                        LeadCampaign.PageUrl = String.Format("{8}/m/finance/capitalfirst/?campaingid={0}&amp;dealerid={1}&amp;pqid={2}&amp;leadsourceid={3}&amp;versionid={4}&amp;url=&amp;platformid={5}&amp;bike={6}&amp;loanamount={7}&amp;dealerName={9}&amp;sendLeadSMSCustomer={10}&amp;cityid={11}",
+                                               LeadCampaign.CampaignId, LeadCampaign.DealerId, LeadCampaign.PQId, LeadCampaign.LeadSourceId, pqEntity.VersionList.FirstOrDefault().VersionId, platformId, LeadCampaign.BikeName, LeadCampaign.LoanAmount, BWConfiguration.Instance.BwHostUrl, LeadCampaign.Organization, LeadCampaign.SendLeadSMSCustomer,
+                                               (pqEntity.City != null ? pqEntity.City.CityId.ToString() : string.Empty));
+                    }
+                    else if (LeadCampaign.DealerId == BWConfiguration.Instance.BajajAutoFinanceDealerId)
+                    {
+                        LeadCampaign.PageUrl = string.Format("{0}/m/finance/bajaj/?dealerid={1}&amp;campaignid={2}&amp;pqid={3}&amp;leadsourceid={4}&amp;versionid={5}&amp;url=&amp;platformid={6}&amp;bike={7}&amp;dealerName={8}&amp;sendLeadSMSCustomer={9}&amp;cityid={10}", BWConfiguration.Instance.BwHostUrl, LeadCampaign.DealerId, LeadCampaign.CampaignId, LeadCampaign.PQId, LeadCampaign.LeadSourceId, pqEntity.VersionList.FirstOrDefault().VersionId, platformId, LeadCampaign.BikeName, LeadCampaign.Organization, LeadCampaign.SendLeadSMSCustomer, (pqEntity.City != null ? pqEntity.City.CityId.ToString() : string.Empty));
+                    }
+                    else
+                    {
+                        LeadCampaign.PageUrl = string.Format("{0}/m/popup/leadcapture/?q={1}&amp;platformid={2}", BWConfiguration.Instance.BwHostUrl, Bikewale.Utility.TripleDES.EncryptTripleDES(string.Format("modelid={0}&cityid={1}&areaid={2}&bikename={3}&location={4}&city={5}&area={6}&ismanufacturer={7}&dealerid={8}&dealername={9}&dealerarea={10}&versionid={11}&leadsourceid={12}&pqsourceid={13}&mfgcampid={14}&pqguid={15}&pageurl={16}&clientip={17}&dealerheading={18}&dealermessage={19}&dealerdescription={20}&pincoderequired={21}&emailrequired={22}&dealersrequired={23}&sendLeadSMSCustomer={24}&organizationName={25}",
+                                               modelDetails.ModelId, (pqEntity.City != null ? pqEntity.City.CityId.ToString() : string.Empty), string.Empty, string.Format(LeadCampaign.BikeName), string.Empty, string.Empty, string.Empty, true, LeadCampaign.DealerId, String.Format(LeadCampaign.LeadsPropertyTextMobile, LeadCampaign.Organization), LeadCampaign.Area, pqEntity.VersionList.FirstOrDefault().VersionId, LeadCampaign.LeadSourceId, LeadCampaign.PqSourceId, LeadCampaign.CampaignId, LeadCampaign.PQId, string.Empty, string.Empty, LeadCampaign.PopupHeading, String.Format(LeadCampaign.PopupSuccessMessage,
+                                               LeadCampaign.Organization), LeadCampaign.PopupDescription, leadCampaign.PincodeRequired, leadCampaign.EmailRequired, leadCampaign.DealerRequired, leadCampaign.SendLeadSMSCustomer, leadCampaign.Organization)), platformId);
+                    }
+                    string template = objPqCache.GetManufacturerCampaignMobileRenderedTemplateV2(hashCode, LeadCampaign);
+                    #endregion
+
+
+
+
+                    var esCampaignBase = new CampaignBaseDto() { CampaignType = CampaignType.ES };
+                    var detailsDto = new DetailsDto();
+
+                    var esCampaignDTO = new ESCampaignBase();
+                    esCampaignDTO.FloatingBtnText = LeadCampaign.LeadsButtonTextMobile;
+                    esCampaignDTO.CaptionText = String.Format(LeadCampaign.LeadsPropertyTextMobile, LeadCampaign.Organization);
+                    esCampaignDTO.LeadSourceId = (int)LeadSourceEnum.Model_Mobile;
+                    esCampaignDTO.LinkUrl = HttpUtility.HtmlDecode(LeadCampaign.PageUrl);
+
+
+                    var esPreRenderCampaignDTO = new PreRenderCampaignBase();
+
+                    //Check if it contains javascript:void(0), replace it with Android method.
+                    if (isApp && !string.IsNullOrEmpty(template))
+                    {
+                        template = template.Replace("href=\"javascript:void(0)\"", "onclick=\"Android.openLeadCaptureForm();\"");
+                    }
+
                     esPreRenderCampaignDTO.TemplateHtml = template;
                     detailsDto.EsCamapign = esPreRenderCampaignDTO;
 

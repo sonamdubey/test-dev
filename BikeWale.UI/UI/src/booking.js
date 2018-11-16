@@ -170,7 +170,8 @@ var BookingPageViewModel = function () {
                     "areaId": self.Dealer().AreaId(),
                     "colorId": self.Bike().selectedColorId(),
                     "leadSourceId": leadSourceId,
-                    "deviceId": getCookie('BWC')
+                    "deviceId": getCookie('BWC'),
+                    "leadId": self.LeadId()
                 }
 
                 $.ajax({
@@ -193,7 +194,7 @@ var BookingPageViewModel = function () {
                         var queryParams = atob(match[1]);
                         if (queryParams.indexOf("&leadId") == -1) {
                           queryParams += "&leadId=" + self.LeadId();
-                          window.history.replaceState( null, null, "?MPQ=" + Base64.encode(queryParams));
+                          location.href = "/pricequote/bookingsummary_new.aspx?MPQ=" + Base64.encode(queryParams);
                         }
                         if (!self.Customer().IsVerified()) {
                           isSuccess = false;

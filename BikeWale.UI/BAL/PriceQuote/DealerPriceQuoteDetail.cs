@@ -8,7 +8,6 @@ using Bikewale.Notifications;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Web;
 namespace Bikewale.BAL.PriceQuote
@@ -253,6 +252,98 @@ namespace Bikewale.BAL.PriceQuote
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "DealerPriceQuoteDetail: " + "Quotation");
+
+            }
+            return objDealerPQ;
+        }
+        /// <summary>
+        /// Created by  : Pratibha Verma on 19 October 2018
+        /// Description : new version from Quotation for PQId related chnages
+        /// </summary>
+        /// <param name="cityId"></param>
+        /// <param name="sourceType"></param>
+        /// <param name="deviceId"></param>
+        /// <param name="dealerId"></param>
+        /// <param name="modelId"></param>
+        /// <param name="pqId"></param>
+        /// <param name="isPQRegistered"></param>
+        /// <param name="areaId"></param>
+        /// <param name="versionId"></param>
+        /// <returns></returns>
+        public PQ_QuotationEntity QuotationV2(uint cityId, UInt16 sourceType, string deviceId, uint dealerId, uint modelId, ref string pqId, bool isPQRegistered, uint? areaId = null, uint? versionId = null)
+        {
+            PQ_QuotationEntity objDealerPQ = null;
+            IList<PQ_BikeVarient> pqVersion = null;
+            try
+            {
+                if (!isPQRegistered)
+                {
+                    Bikewale.Entities.PriceQuote.v2.PriceQuoteParametersEntity objPQEntity = new Bikewale.Entities.PriceQuote.v2.PriceQuoteParametersEntity();
+                    objPQEntity.CityId = cityId;
+                    objPQEntity.AreaId = areaId.HasValue ? areaId.Value : 0;
+                    objPQEntity.SourceId = Convert.ToUInt16(sourceType);
+                    objPQEntity.ModelId = modelId;
+                    objPQEntity.DeviceId = deviceId;
+                    objPQEntity.VersionId = versionId.HasValue ? versionId.Value : default(uint);
+                    objPQEntity.RefPQId = pqId;
+                    objPQEntity.DealerId = dealerId;
+                    pqId = _objPQ.RegisterPriceQuoteV2(objPQEntity);
+                }
+
+                if (dealerId > 0)
+                {
+                    using (IUnityContainer container = new UnityContainer())
+                    {
+                        container.RegisterType<Bikewale.Interfaces.AutoBiz.IDealerPriceQuote, DealerPriceQuoteRepository>();
+                        Bikewale.Interfaces.AutoBiz.IDealerPriceQuote objPriceQuote = container.Resolve<DealerPriceQuoteRepository>();
+                        PQParameterEntity objParam = new PQParameterEntity();
+                        objParam.CityId = cityId;
+                        objParam.DealerId = dealerId;
+                        objParam.VersionId = Convert.ToUInt32(versionId.Value);
+                        objDealerPQ = objPriceQuote.GetDealerPriceQuote(objParam);
+                    }
+
+                }
+
+                IEnumerable<OtherVersionInfoEntity> versions = _objPQ.GetOtherVersionsPrices(modelId, cityId);
+                pqVersion = new List<PQ_BikeVarient>();
+
+                if (objDealerPQ == null)
+                {
+                    objDealerPQ = new PQ_QuotationEntity();
+                    objDealerPQ.Varients = new List<PQ_BikeVarient>();
+                }
+
+                foreach (var version in objDealerPQ.Varients)
+                {
+                    pqVersion.Add(version);
+                }
+
+                foreach (var bwVersion in versions)
+                {
+                    if (pqVersion.FirstOrDefault(m => m.objVersion.VersionId == bwVersion.VersionId) == null)
+                    {
+                        List<PQ_Price> pricelist = new List<PQ_Price>();
+                        pricelist.Add(new PQ_Price() { CategoryId = 3, CategoryName = "Ex-Showroom", DealerId = 0, Price = bwVersion.Price });
+                        pricelist.Add(new PQ_Price() { CategoryId = 5, CategoryName = "RTO", DealerId = 0, Price = bwVersion.RTO });
+                        pricelist.Add(new PQ_Price() { CategoryId = 11, CategoryName = "Insurance", DealerId = 0, Price = bwVersion.Insurance });
+                        pqVersion.Add(
+                            new PQ_BikeVarient()
+                            {
+                                OnRoadPrice = Convert.ToUInt32(bwVersion.OnRoadPrice),
+                                objVersion = new Entities.BikeData.BikeVersionEntityBase() { VersionId = Convert.ToInt32(bwVersion.VersionId), VersionName = bwVersion.VersionName },
+                                PriceList = pricelist
+                            }
+                            );
+                    }
+                }
+
+                objDealerPQ.Varients = pqVersion;
+
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "Bikewale.BAL.PriceQuote.DealerPriceQuoteDetail.QuotationV2");
 
             }
             return objDealerPQ;

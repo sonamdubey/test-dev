@@ -1,14 +1,14 @@
 ﻿using Bikewale.DTO.PriceQuote.BikeBooking;
 using Newtonsoft.Json;
+using System;
 
-namespace Bikewale.DTO.PriceQuote.v3
+namespace Bikewale.DTO.PriceQuote.v4
 {
-    /// <summary>
-    /// Created by  : Pratibha Verma on 26 June 2018
-    /// Description : new version for Bikewale.DTO.PriceQuote.PQCustomerDetailOutput(added leadId)
-    /// </summary>
     public class PQCustomerDetailOutput
     {
+        [JsonProperty("pqId")]
+        public UInt64 PQId { get; set; }
+
         [JsonProperty("isSuccess")]
         public bool IsSuccess { get; set; }
 
@@ -21,5 +21,7 @@ namespace Bikewale.DTO.PriceQuote.v3
         [JsonProperty("leadId")]
         public uint LeadId { get; set; }
 
+        [JsonProperty("guId")]
+        public string GuId { get; set; }
     }
 }

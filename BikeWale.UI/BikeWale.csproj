@@ -126,6 +126,9 @@
     <Reference Include="Carwale.Interfaces">
       <HintPath>..\Libs\Carwale.Interfaces.dll</HintPath>
     </Reference>
+    <Reference Include="Carwale.Notifications">
+      <HintPath>..\Libs\Carwale.Notifications.dll</HintPath>
+    </Reference>
     <Reference Include="Carwale.Utility, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\Carwale.Utility.dll</HintPath>
@@ -488,7 +491,10 @@
     <Compile Include="DTO\Campaign\ManufacturerLeadCampaignDTO.cs" />
     <Compile Include="DTO\Dealer\NewBikeDealerDetails.cs" />
     <Compile Include="DTO\Finance\BajajAutoLeadResponseDto.cs" />
+    <Compile Include="DTO\PriceQuote\v2\PQMobileVerificationInput.cs" />
     <Compile Include="DTO\PriceQuote\v3\MLALeadDetails.cs" />
+    <Compile Include="DTO\PriceQuote\v4\DPQuotationOutput.cs" />
+    <Compile Include="DTO\PriceQuote\v4\PQCustomerDetailOutput.cs" />
     <Compile Include="DTO\PriceQuote\Version\PriceCategory.cs" />
     <Compile Include="DTO\PriceQuote\Version\PriceInfo.cs" />
     <Compile Include="DTO\PriceQuote\Version\VersionPrice.cs" />
