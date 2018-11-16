@@ -96,6 +96,7 @@
         <div class="clear"></div>
     </div>
 </footer><!-- Ends here -->
+<!-- #include file="~/UI/Views/Shared/ES/_RoyalEnfieldCountdown.cshtml" -->
 <script type="text/javascript" defer src="<%= staticUrl  %>/UI/src/bwcache.js?<%= staticFileVersion %>"></script>
 <script>
     docReady(function () {

@@ -1,6 +1,8 @@
 ﻿<%@ Register TagPrefix="BW" TagName="MPopupWidget" Src="/UI/m/controls/MPopupWidget.ascx" %>
 <%@ Register Src="~/UI/m/controls/ChangeLocationPopup.ascx" TagPrefix="BW" TagName="LocationWidget" %>
 
+    <!-- #include file="/UI/Views/Shared/ES/_RoyalEnfieldCountdown_Mobile.cshtml" -->
+
     <header>
         <div id="bw-header">
     	    <div class="header-fixed"> <!-- Fixed Header code starts here -->

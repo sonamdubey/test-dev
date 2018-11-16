@@ -12,7 +12,7 @@
     <!-- #include file="/UI/includes/headscript_mobile.aspx" -->
     <link href="<%= staticUrl  %>/UI/m/css/bwm-bookingflow.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
 </head>
-<body class="bg-light-grey">
+<body class="bg-light-grey disable--countdown">
     <form runat="server">
         <!-- #include file="/UI/includes/headBW_Mobile.aspx" -->
         <script type="text/javascript">$("header").find(".leftfloat .navbarBtn").hide();$("header").find(".rightfloat ").hide();</script>

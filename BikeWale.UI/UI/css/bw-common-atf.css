@@ -484,3 +484,88 @@ a.bikeTitle { color:#2a2a2a; font-size: 16px; font-weight: bold; display: block;
 		vertical-align: middle;
     background: url(https://imgd.aeplcdn.com/0x0/bw/static/icons/787878/trending.svg) no-repeat;
 }
+
+/*   Model Count Down CSS Start */
+.model-countdown {
+    background-color: #fff;
+    position: fixed;
+    top: 35%;
+    right: -240px;
+    -moz-transition: right 0.5s;
+    -webkit-transition: right 0.5s;
+    -o-transition: right 0.5s;
+	  transition: right 0.5s;
+    z-index: 1;
+		width: 170px;
+}
+.model-countdown__sponsored-text {
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	font-size: 10px;
+	color: #b7b7b7;
+}
+.countdown--active.model-countdown {
+	right: 0;
+}
+.model-countdown__content {
+	text-align: center;
+  padding: 12px 0 0;
+	font-size: 14px;
+	color: #000;
+	line-height: 18px;
+}
+
+.model-displacement-unit {
+    text-transform: lowercase;
+}
+
+.countdown-timer li {
+  display: inline-block;
+  padding: 0 5px;
+  text-align: center;
+}
+.countdown-timer li .clock:after {
+  content: '';
+  width: 1px;
+  height: 20px;
+  background-color: #4d5057;
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  right: -7px;
+}
+.countdown-timer li .clock:last-child:after {
+  border-right: 0;
+}
+.countdown-timer li span {
+  display: block;
+}
+.mins-text {
+	font-weight: 400 !important;
+}
+.mins-text:after {
+  background-color: transparent !important;
+  width: 0;
+}
+.countdown-timer {
+	margin-bottom: 13px;
+}
+.countdown-timer li .clock {
+  font-size: 22px;
+  font-weight: 700;
+  position: relative;
+}
+.count-down-text {
+  font-size: 11px;
+}
+.button-cta-countdown {
+  padding-bottom:10px;
+  text-align: center;
+}
+.model-countdown__know-more {
+  padding: 5px 16px;
+	border-radius: 3px;
+	font-size: 14px;
+}
+/*   Model Count Down CSS End */

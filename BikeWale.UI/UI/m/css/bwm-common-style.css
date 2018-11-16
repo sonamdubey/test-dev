@@ -1918,10 +1918,10 @@ footer .border-solid-top { border-top: 1px solid rgba(183,183,183,0.2); }
   height: 20px;
   position: absolute;
   display: block;
-  left: 0;
-  top: 13px;
+  left: 5px;
+  top: 22px;
   background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/4d5057/cross.svg') no-repeat center;
-  background-size: 8px;
+  background-size: 10px;
   cursor: pointer;
 }
 
@@ -1997,7 +1997,8 @@ footer .border-solid-top { border-top: 1px solid rgba(183,183,183,0.2); }
   .model-countdown .countdown-close-btn {
     width: 10px;
     height: 10px;
-    top: 18px;
+    top: 24px;
+    background-size: cover;
   }
 
   .countdown-timer li .clock {

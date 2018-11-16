@@ -101,7 +101,7 @@
 </footer>
 <!-- Ends here -->
 <BW:Login ID="ctrlLogin" runat="server" />
-
+<!-- #include file="~/UI/Views/Shared/ES/_RoyalEnfieldCountdown.cshtml" -->
 <!-- #include file="/UI/includes/footerscript.aspx" -->
 </form>
 </body>

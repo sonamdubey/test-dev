@@ -1857,4 +1857,57 @@ docReady(function () {
 
         window.errorLog = errorLog;
     })();
+
+
+    function modelCountDown() {
+        var remainingTime = setModelCountdownTime();
+
+        // check if 1 minute is remaining, since we are not showing 'seconds' in countdown
+        if (remainingTime > 60000) {
+            $(".model-countdown").addClass("countdown--active");
+
+            // Update the count down every 1 second
+            var timer = setInterval(function () {
+                var remainingTime = setModelCountdownTime();
+                if (remainingTime < 60000) {
+                    clearInterval(timer);
+                    $(".model-countdown").removeClass("countdown--active");
+                }
+            }, 1000);
+
+            $(".model-countdown__close").click(function () {
+                $(".model-countdown").removeClass("countdown--active");
+            });
+
+            triggerNonInteractiveGA('Ticker', 'Ticker_RE Twins 650_shown', 'Royal Enfield Twins 650');
+        }
+    }
+
+    function setModelCountdownTime() {
+        // Set the date we're counting down to
+        // date = date + 1 minute, since we are not showing 'seconds' in countdown
+        var countDownDate = new Date("Nov 14, 2018 18:31:00").getTime();
+
+        // Get todays date and time
+        var now = new Date().getTime();
+
+        // Find the distance between now an the count down date
+        var distance = countDownDate - now;
+
+        // Time calculations for days, hours, minutes and seconds
+        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+
+        // Output the result in an element with id="demo"
+        document.getElementById("days").innerHTML = days;
+        document.getElementById("hours").innerHTML = hours;
+        document.getElementById("minutes").innerHTML = minutes;
+
+        return distance;
+    }
+
+    if ($('#modelCountdownContainer').length) {
+        modelCountDown();
+    }
 });

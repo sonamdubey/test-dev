@@ -4988,9 +4988,7 @@
     <Content Include="UI\Views\Shared\_AnimatedCTA.cshtml" />
     <Content Include="UI\Views\Shared\_LeadCapture_Mobile_New.cshtml" />
     <Content Include="UI\Views\Shared\_leaderboard.cshtml" />
-    <Content Include="UI\Views\Shared\ES\_RoyalEnfieldCountdown.cshtml">
-      <SubType>Code</SubType>
-    </Content>
+    <Content Include="UI\Views\Shared\ES\_RoyalEnfieldCountdown.cshtml" />
     <Content Include="UI\Views\Shared\ES\_RoyalEnfieldCountdown_Mobile.cshtml" />
     <None Include="UI\Views\Shared\_Sidebar-section.cshtml" />
     <Content Include="UI\Views\BikeModels\_MultiTabsWidget.cshtml" />
