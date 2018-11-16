@@ -983,7 +983,7 @@ namespace Bikewale.Models.BikeModels
                                 Location = _objData.Location,
                                 BikeName = _objData.BikeName,
                                 IsManufacturerCampaign = _objData.IsManufacturerLeadAdShown || _objData.IsManufacturerEMIAdShown || _objData.IsManufacturerTopLeadAdShown,
-                                IsMLAActive = _objPQ.GetMLAStatus(objMake.MakeId, _cityId),
+                                IsMLAActive = true,
                                 MLADealers = _objData.DetailedDealer != null ? _objData.DetailedDealer.MLADealers : null,
                                 PlatformId = Convert.ToUInt16(Source),
                                 MlaLeadSourceId = (Source == PQSources.Desktop) ? (UInt16)LeadSourceEnum.ModelPage_MLA_Desktop : (Source == PQSources.Amp ?

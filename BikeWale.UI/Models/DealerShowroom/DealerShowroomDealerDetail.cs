@@ -133,7 +133,7 @@ namespace Bikewale.Models
                 AreaId = objDealerDetails.DealerDetails.DealerDetails.objArea.AreaId,
                 Area = objDealerDetails.DealerDetails.DealerDetails.objArea.AreaName,
                 City = CityDetails.CityName,
-				IsMLAActive = _objPQ.GetMLAStatus(objMake.MakeId, CityDetails.CityId),
+				IsMLAActive = true,
                 PlatformId = Convert.ToUInt16(Source),
                 PageId = Convert.ToUInt16(PQSource)
             };

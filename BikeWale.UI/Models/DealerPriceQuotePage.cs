@@ -116,7 +116,7 @@ namespace Bikewale.Models
                             City = currentCity,
                             Location = objData.Location,
                             BikeName = objData.BikeName,
-                            IsMLAActive = _objPQ.GetMLAStatus((int)_makeId, _cityId),
+                            IsMLAActive = true,
                             MLADealers = objData.DetailedDealer.MLADealers,
                             PlatformId = Convert.ToUInt16(Platform),
                             MlaLeadSourceId = (Platform == PQSources.Desktop) ? (UInt16)LeadSourceEnum.DPQ_MLA_Desktop : (UInt16)LeadSourceEnum.DPQ_MLA_Mobile,

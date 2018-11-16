@@ -137,7 +137,7 @@ namespace Bikewale.Models.DealerShowroom
             {
                 PlatformId = (ushort)(IsMobile ? 2: 1),
                 CityId = cityId,
-				IsMLAActive = _objPQ.GetMLAStatus(objMake.MakeId, CityDetails.CityId),
+				IsMLAActive = true,
                 PageId = Convert.ToUInt16(PQSource)
             };
         }

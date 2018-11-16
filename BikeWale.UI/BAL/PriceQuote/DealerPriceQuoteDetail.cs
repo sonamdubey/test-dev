@@ -133,7 +133,7 @@ namespace Bikewale.BAL.PriceQuote
                             masterDealerId = dealerQuotation.PrimaryDealer.DealerDetails.MasterDealerId;
                         }
                     }
-                    if (dealerQuotation.objMake != null && _objPQ.GetMLAStatus(dealerQuotation.objMake.MakeId, cityId))
+                    if (dealerQuotation.objMake != null)
                     {
                         if (dealerQuotation.SecondaryDealers != null && dealerQuotation.SecondaryDealers.Any())
                         {
