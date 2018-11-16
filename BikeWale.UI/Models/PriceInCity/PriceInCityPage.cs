@@ -1417,7 +1417,8 @@ namespace Bikewale.Models
                         {
                             string campaignTemplate = string.Empty;
                             IEnumerable<string> manufacturerOffersList = null;
-                            if(objData.IsOffersShownOnLeadPopup && IsMobile)
+                            ushort cookieValue;
+                            if (HttpContext.Current.Request.Cookies["_bwtest"] != null && ushort.TryParse(HttpContext.Current.Request.Cookies["_bwtest"].Value, out cookieValue) && cookieValue <= 90 && IsMobile)
                                 manufacturerOffersList = _objPQCache.GetManufacturerOffers(campaigns.LeadCampaign.CampaignId);
                             if (manufacturerOffersList != null && manufacturerOffersList.Any())
                             {

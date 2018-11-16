@@ -43,11 +43,14 @@ namespace Bikewale.Cache.DealersLocator
             string key = modelId > 0 ? String.Format("BW_DealerList_Make_{0}_{1}_City_{2}_v1", makeId, modelId, cityId) : String.Format("BW_DealerList_Make_{0}_City_{1}_v1", makeId, cityId);
             try
             {
-                TimeSpan cacheTime = new TimeSpan(1, 0, 0);
+                TimeSpan cacheTime = TimeSpan.MinValue;
                 if (modelId > 0)
                 {
                     cacheTime = new TimeSpan(12, 0, 0);
                 }
+                else
+                    cacheTime = new TimeSpan(1, 0, 0);
+
                 dealers = _cache.GetFromCache<Entities.DealerLocator.DealersEntity>(key, cacheTime, () => _objDealersRepository.GetDealerByMakeCity(cityId, makeId, modelId));
             }
             catch (Exception ex)
