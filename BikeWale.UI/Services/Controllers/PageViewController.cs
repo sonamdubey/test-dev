@@ -34,11 +34,11 @@ namespace Bikewale.Services.Controllers
             objNVC.Add("label", "IsAmp=true");
             objNVC.Add("cookieId", cookies["BWC"] != null ? cookies["BWC"].Value : string.Empty);
             objNVC.Add("sessionId", cookies["_cwv"] != null ? cookies["_cwv"].Value : string.Empty);
-            objNVC.Add("pageUrl", HttpContext.Current.Request.Url.AbsoluteUri);
+            objNVC.Add("pageUrl", HttpContext.Current.Request.UrlReferrer.ToString());
             objNVC.Add("queryString", !String.IsNullOrEmpty(ampSourceOrigin) && ampSourceOrigin.Contains("?") ? ampSourceOrigin.Split('?')[1].Replace('&', '|') : String.Empty);
             objNVC.Add("clientIP", CurrentUser.GetClientIP());
             objNVC.Add("userAgent", HttpContext.Current.Request.UserAgent);
-            objNVC.Add("referrer", HttpContext.Current.Request.UrlReferrer.ToString());
+            objNVC.Add("referrer", "GoogleAmp");
             objNVC.Add("_bwtest", cookies["_bwtest"] != null ? cookies["_bwtest"].Value : string.Empty);
             objNVC.Add("location", HttpContext.Current.Request.Cookies["location"] != null ? HttpContext.Current.Request.Cookies["location"].Value : string.Empty);
             objNVC.Add("_bwutmz", cookies["_bwutmz"] != null ? cookies["_bwutmz"].Value : string.Empty);

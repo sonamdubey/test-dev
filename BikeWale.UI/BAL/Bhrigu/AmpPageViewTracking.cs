@@ -68,14 +68,16 @@ namespace Bikewale.BAL.Bhrigu
             objTrackingData.Action = nvc["action"];
             objTrackingData.Label = nvc["label"];
             objTrackingData.CookieId = nvc["cookieId"];
-            objTrackingData.SessionId = nvc["sessionId"];
             objTrackingData.PageUrl = nvc["pageUrl"];
             objTrackingData.QueryString = nvc["queryString"];
-            objTrackingData.Cookie = String.Format("BWC={0}; _cwv={1} _bwtest={2}; location={3};_bwutmz={4};", 
+            objTrackingData.Cookie = String.Format("BWC={0}; _cwv={1} _bwtest={2}; location={3}; _bwutmz={4};", 
                 nvc["cookieId"], nvc["sessionId"], nvc["_bwtest"], nvc["location"], nvc["_bwutmz"]);                 
             objTrackingData.ClientIP = nvc["clientIP"];
             objTrackingData.UserAgent = nvc["userAgent"];
             objTrackingData.Referrer = nvc["referrer"];
+            
+            string[] objValues = nvc["sessionId"].Split('.');
+            objTrackingData.SessionId = objValues.Length > 1 ? objValues[1] : string.Empty;
 
             return objTrackingData;
         }

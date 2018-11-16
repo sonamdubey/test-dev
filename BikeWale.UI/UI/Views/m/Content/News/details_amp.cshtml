@@ -8,6 +8,8 @@
     Model.AdTags.AdPath = "/1017752/Bikewale_Reviews";
     if (Model != null && Model.ArticleDetails != null) { Model.AdTags.TargetedTags = String.Join(", ", Model.ArticleDetails.TagsList); };
 }
+<amp-state id="bhrigu" src="@Bikewale.Utility.BWConfiguration.Instance.BwHostUrl/api/trackamppageview/" credentials="include">
+</amp-state>
 @if (Model != null && Model.ArticleDetails != null)
 {
     if (!String.IsNullOrEmpty(Model.ArticleDetails.Content))
