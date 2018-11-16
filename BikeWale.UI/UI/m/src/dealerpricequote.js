@@ -1,11 +1,13 @@
 ﻿var swiper, dropdown, emiPopupDiv, offersPopupDiv;
 var processingFees = 0;
+var mfgCampaignId = document.getElementById("btnManufacturer") != null ? document.getElementById("btnManufacturer").dataset.itemId : "0";
+
 function registerPQAndReload(eledealerId,eleversionId)
 {
     try {
         var isSuccess = false;
         var objData = {
-            "dealerId": eledealerId || dealerId,
+            "dealerId":  parseInt(eledealerId) || parseInt(dealerId) || parseInt(mfgCampaignId),
             "modelId": modelId,
             "versionId": eleversionId || versionId,
             "cityId": cityId,

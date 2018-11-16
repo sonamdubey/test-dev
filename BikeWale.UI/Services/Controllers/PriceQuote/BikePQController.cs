@@ -10,6 +10,7 @@ using System;
 using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Description;
+using Bikewale.ManufacturerCampaign.Entities;
 
 namespace Bikewale.Service.Controllers.PriceQuote
 {
@@ -168,6 +169,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
                     objPQEntity.DeviceId = input.DeviceId;
                     objPQEntity.PQLeadId = input.PQLeadId;
                     objPQEntity.RefPQId = input.RefPQId;
+                    objPQEntity.ManufacturerCampaignPageId = input.SourceType == PQSources.Desktop ? ManufacturerCampaignServingPages.Desktop_DealerPriceQuote : ManufacturerCampaignServingPages.Mobile_DealerPriceQuote;
 
                     if (input.IsPersistance)
                     {

@@ -497,7 +497,7 @@ namespace Bikewale.BAL.PriceQuote
                                 {
                                     if (!isReload)
                                     {
-                                        Bikewale.Entities.BikeBooking.v2.PQOutputEntity priceQuote = objDealer.ProcessPQV3(pqInput);
+                                        Bikewale.Entities.BikeBooking.v2.PQOutputEntity priceQuote = objDealer.ProcessPQV2(pqInput);
                                         if (priceQuote != null)
                                         {
                                             pqOutput.PriceQuote = priceQuote;
@@ -514,7 +514,7 @@ namespace Bikewale.BAL.PriceQuote
                             {
                                 if (!isReload)
                                 {
-                                    pqOutput.PriceQuote = objDealer.ProcessPQV3(pqInput);
+                                    pqOutput.PriceQuote = objDealer.ProcessPQV2(pqInput);
                                 }
                             }
 
