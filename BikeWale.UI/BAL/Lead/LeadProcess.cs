@@ -799,7 +799,7 @@ namespace Bikewale.BAL.Lead
                         CityId = input.CityId,
                         VersionId = input.VersionId,
                         LeadId = input.LeadId,
-                        PlatformId = UInt16.TryParse(requestHeaders["platformid"], out platformId) ? platformId : Convert.ToUInt16(0),
+                        PlatformId = UInt16.TryParse(requestHeaders["platformid"], out platformId) ? platformId : input.PlatformId,
                         ClientIP = CurrentUser.GetClientIP(),
                         CampaignId = input.CampaignId
                     };

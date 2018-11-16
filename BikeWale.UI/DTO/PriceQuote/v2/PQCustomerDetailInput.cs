@@ -25,6 +25,8 @@ namespace Bikewale.DTO.PriceQuote.v2
         public string VersionId { get; set; }
         [JsonProperty("cityId")]
         public string CityId { get; set; }
+        [JsonProperty("areaId")]
+        public string AreaId { get; set; }
         //Added By  : Sadhana Upadhyay on 29 Dec 2015
         [JsonProperty("leadSourceId")]
         public ushort? LeadSourceId { get; set; }
