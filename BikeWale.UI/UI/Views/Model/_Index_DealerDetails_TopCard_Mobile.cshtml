@@ -102,7 +102,7 @@
         }
     </div>
                         }
-@if (Model.DetailedDealer != null && Model.DetailedDealer.SecondaryDealerCount > 0 && !(Model.IsManufacturerEMIAdShown || Model.IsManufacturerLeadAdShown))
+@if (Model.IsPrimaryDealer && Model.DetailedDealer != null && Model.DetailedDealer.SecondaryDealerCount > 0 && !(Model.IsManufacturerEMIAdShown || Model.IsManufacturerLeadAdShown))
 {
     <div class="padding-15-20 border-solid-top font16">
         <a href="javascript:void(0)" rel="nofollow" id="more-dealers-target">Prices from @Model.DetailedDealer.SecondaryDealerCount more partner dealers<span class="bwmsprite blue-right-arrow-icon"></span></a>
