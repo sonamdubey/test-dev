@@ -105,6 +105,23 @@
 			    "eventAction": "View_dealer_details_Clicked"
 			    }
 			    }
+                @if (!string.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink) && !Model.IsManufacturerLeadAdShown)
+                {
+                    <text>,
+                        "BankBazaarLink": {
+                        "on": "visible",
+                        "ni" :1,
+                        "request": "event",
+                        "vars": {
+                        "eventCategory": "Price_in_City_Page_AMP",
+                        "eventAction": "BankbazaarLink_Shown",
+                        "eventLabel": "@string.Format("{0}_{1}", Model.BikeName, Model.CityEntity.CityName)"
+                        },
+                        "extraUrlParams": {
+                        "ni": "1"
+                        }
+                        }</text>
+                }
 			    }
 			}
 		</script>
