@@ -354,8 +354,8 @@ namespace Bikewale.Mobile.PriceQuote
                     CustCity = objCustomer.objCustomerBase.cityDetails.CityName,
                     PlatformId = 2,  //Mobile
                     ApplicationId = 2, //Carwale
-                    RequestToPGUrl = String.Format("{0}/UI/bikebooking/RedirectToBillDesk.aspx", BWConfiguration.Instance.BwHostUrlForJs),
-                    ReturnUrl = String.Format("{0}/UI/bikebooking/billdeskresponse.aspx?sourceId=2&MPQ={1}", BWConfiguration.Instance.BwHostUrlForJs, EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.QueryString))
+                    RequestToPGUrl = String.Format("{0}/UI/bikebooking/RedirectToBillDesk.aspx", BWConfiguration.Instance.BwHostUrl),
+                    ReturnUrl = String.Format("{0}/UI/bikebooking/billdeskresponse.aspx?sourceId=2&MPQ={1}", BWConfiguration.Instance.BwHostUrl, EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.QueryString))
                 };
                 //PGCookie.PGAmount = transaction.Amount.ToString();
                 PGCookie.PGCarId = transaction.PGId.ToString();

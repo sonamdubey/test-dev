@@ -159,9 +159,8 @@ namespace Bikewale.PriceQuote
                     CustCity = objCustomer.objCustomerBase.cityDetails.CityName,
                     PlatformId = 1,  //Desktop
                     ApplicationId = 2, //bikewale
-                    RequestToPGUrl = "https://" + HttpContext.Current.Request.ServerVariables["HTTP_HOST"].ToString() + "/bikebooking/RedirectToBillDesk.aspx",
-                    ReturnUrl = "https://" + HttpContext.Current.Request.ServerVariables["HTTP_HOST"].ToString() + "/bikebooking/billdeskresponse.aspx?sourceId=1&"
-                        + "MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.QueryString)
+                    RequestToPGUrl = string.Format("{0}/UI/bikebooking/RedirectToBillDesk.aspx", BWConfiguration.Instance.BwHostUrl),
+                    ReturnUrl = string.Format("{0}/UI/bikebooking/billdeskresponse.aspx?sourceId=1&MPQ={1}", BWConfiguration.Instance.BwHostUrl, EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.QueryString))   
                 };
 
                 PGCookie.PGCarId = transaction.PGId.ToString();

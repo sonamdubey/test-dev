@@ -358,8 +358,8 @@ namespace Bikewale.BikeBooking
                         CustCity = objCustomer.objCustomerBase.cityDetails.CityName,
                         PlatformId = 1,  //Desktop
                         ApplicationId = 2, //Carwale
-                        RequestToPGUrl = string.Format("{0}/UI/bikebooking/RedirectToBillDesk.aspx", BWConfiguration.Instance.BwHostUrlForJs),
-                        ReturnUrl = string.Format("{0}/UI/bikebooking/billdeskresponse.aspx?sourceId=1&MPQ={1}", BWConfiguration.Instance.BwHostUrlForJs, EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.QueryString))
+                        RequestToPGUrl = string.Format("{0}/UI/bikebooking/RedirectToBillDesk.aspx", BWConfiguration.Instance.BwHostUrl),
+                        ReturnUrl = string.Format("{0}/UI/bikebooking/billdeskresponse.aspx?sourceId=1&MPQ={1}", BWConfiguration.Instance.BwHostUrl, EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.QueryString))
                     };
                     //PGCookie.PGAmount = transaction.Amount.ToString();
 

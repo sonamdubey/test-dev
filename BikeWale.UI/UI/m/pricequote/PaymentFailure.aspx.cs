@@ -20,8 +20,8 @@ namespace Bikewale.Mobile.PriceQuote
         protected Button btnTryAgain;
         protected PQCustomerDetail objCustomer = null;
         protected BookingAmountEntity objAmount = null;
-        protected string versionId = string.Empty, dealerId = string.Empty, MakeModel = string.Empty;
-        protected uint PqId = 0;
+        protected string versionId = string.Empty, dealerId = string.Empty, MakeModel = string.Empty, PqId = string.Empty;
+        // protected uint PqId = 0;
 
         protected override void OnInit(EventArgs e)
         {
@@ -32,11 +32,11 @@ namespace Bikewale.Mobile.PriceQuote
         protected void Page_Load(object sender, EventArgs e)
         {
 
-            PqId = Convert.ToUInt32(PriceQuoteQueryString.PQId);
+            PqId = PriceQuoteQueryString.PQId;
             dealerId = PriceQuoteQueryString.DealerId;
             versionId = PriceQuoteQueryString.VersionId;
 
-            if (!String.IsNullOrEmpty(dealerId) && Convert.ToUInt32(PriceQuoteQueryString.PQId) > 0 && PGCookie.PGTransId != "-1")
+            if (!String.IsNullOrEmpty(dealerId) && !string.IsNullOrEmpty(PriceQuoteQueryString.PQId) && PGCookie.PGTransId != "-1")
             {
                 GetDetailedQuote();
                 getCustomerDetails();
@@ -96,12 +96,8 @@ namespace Bikewale.Mobile.PriceQuote
                     CustCity = objCustomer.objCustomerBase.cityDetails.CityName,
                     PlatformId = 2,  //Desktop
                     ApplicationId = 2, //bikewale
-
-                    RequestToPGUrl = "https://" + HttpContext.Current.Request.ServerVariables["HTTP_HOST"].ToString() + "/bikebooking/RedirectToBillDesk.aspx",
-
-                    //sourceid = 2 to redirect response on mobile site 
-                    ReturnUrl = "https://" + HttpContext.Current.Request.ServerVariables["HTTP_HOST"].ToString() + "/bikebooking/billdeskresponse.aspx?sourceId=2&"
-                        + "MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.QueryString)
+                    RequestToPGUrl = string.Format("{0}/UI/bikebooking/RedirectToBillDesk.aspx", BWConfiguration.Instance.BwHostUrl),
+                    ReturnUrl = string.Format("{0}/UI/bikebooking/billdeskresponse.aspx?sourceId=1&MPQ={1}", BWConfiguration.Instance.BwHostUrl, EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.QueryString))
                 };
                 //PGCookie.PGAmount = transaction.Amount.ToString();
                 PGCookie.PGCarId = transaction.PGId.ToString();
