@@ -1665,12 +1665,12 @@ no-city-selection-carousel .swiper-container.card-container {
 }
 
 .brandlogosprite {
-    background-image: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/brand-type-sprite.png?18Oct20181539845270548);
+    background-image: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/brand-type-sprite.png?19Nov20181542599237756);
     background-repeat: no-repeat;
     display: inline-block;
 }
 
-.brand-2, .brand-1, .brand-40, .brand-3, .brand-4, .brand-11, .brand-20, .brand-5, .brand-39, .brand-6, .brand-7, .brand-8, .brand-34, .brand-17, .brand-9, .brand-19, .brand-10, .brand-12, .brand-22, .brand-15, .brand-16, .brand-13, .brand-14, .brand-41, .brand-42, .brand-80, .brand-81, .brand-71, .brand-21, .brand-38, .brand-23, .brand-72, .brand-73, .brand-74, .brand-75, .brand-76, .brand-77, .brand-79 {
+.brand-2, .brand-1, .brand-40, .brand-3, .brand-4, .brand-11, .brand-20, .brand-5, .brand-39, .brand-6, .brand-7, .brand-8, .brand-34, .brand-17, .brand-9, .brand-19, .brand-10, .brand-12, .brand-22, .brand-15, .brand-16, .brand-13, .brand-14, .brand-41, .brand-42, .brand-80, .brand-81, .brand-71, .brand-21, .brand-38, .brand-23, .brand-72, .brand-73, .brand-74, .brand-75, .brand-76, .brand-77, .brand-79, .brand-82 {
     height: 30px;
 }
 
@@ -1862,6 +1862,11 @@ no-city-selection-carousel .swiper-container.card-container {
 .brand-79 {
     width: 70px;
     background-position: -2316px 0;
+}
+
+.brand-82 {
+	width: 42px;
+	background-position: -2561px 0;
 }
 
 .brand-type-carousel .swiper-details-block {
