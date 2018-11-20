@@ -161,63 +161,76 @@
                             @Html.Partial("~/UI/Views/Model/_Index_DealerDetails_TopCard_Mobile.cshtml", Model)
                         }
 
-                        <div class="floating-btn clearfix">
-                            <div class="grid-12 alpha omega">
-                                @if (!Model.IsLocationSelected && Model.IsManufacturerLeadAdShown && !(Model.LeadCampaign.DealerId == Bikewale.Utility.BWConfiguration.Instance.CapitalFirstDealerId || Model.LeadCampaign.DealerId == Bikewale.Utility.BWConfiguration.Instance.BajajAutoFinanceDealerId))
-                                {
-                                    <a href="javascript:void(0)" class="btn btn-orange btn-full-width leadcapturebtn bw-ga" rel="nofollow" id="btnPanIndiaManufacturer" data-mfgcampid="@Model.LeadCampaign.CampaignId" data-item-id="@Model.LeadCampaign.DealerId" data-item-area="@Model.LeadCampaign.Area" data-leadsourceid="@Convert.ToInt16(LeadSourceEnum.ModelPage_Floating_Mobile)" data-pqsourceid="@Model.LeadCampaign.PqSourceId" data-act="@Model.LeadCampaign.GAAction" data-cat="@Model.LeadCampaign.GACategory" data-lab="@Model.LeadCampaign.GALabel" data-item-message="@String.Format(Model.LeadCampaign.PopupSuccessMessage, Model.LeadCampaign.Organization)" data-item-heading="@Model.LeadCampaign.PopupHeading" data-item-description="@Model.LeadCampaign.PopupDescription" data-ispincodrequired="@Model.LeadCampaign.PincodeRequired" data-dealersrequired="@Model.LeadCampaign.DealerRequired" data-item-name="@Model.BikeName" data-isemailrequired="@Model.LeadCampaign.EmailRequired" data-organization="@Model.LeadCampaign.Organization" data-item-organization="@Model.LeadCampaign.Organization" data-issendleadsmscustomer="@Model.LeadCampaign.SendLeadSMSCustomer">Get Best Offers</a>
-                                }
+                        
+                            @if (!Model.IsLocationSelected && Model.IsManufacturerLeadAdShown && !(Model.LeadCampaign.DealerId == Bikewale.Utility.BWConfiguration.Instance.CapitalFirstDealerId || Model.LeadCampaign.DealerId == Bikewale.Utility.BWConfiguration.Instance.BajajAutoFinanceDealerId))
+                            {
+                                <div class="floating-btn clearfix">
+                                    <div class="grid-12 alpha omega">
+                                        <a href="javascript:void(0)" class="btn btn-orange btn-full-width leadcapturebtn bw-ga" rel="nofollow" id="btnPanIndiaManufacturer" data-mfgcampid="@Model.LeadCampaign.CampaignId" data-item-id="@Model.LeadCampaign.DealerId" data-item-area="@Model.LeadCampaign.Area" data-leadsourceid="@Convert.ToInt16(LeadSourceEnum.ModelPage_Floating_Mobile)" data-pqsourceid="@Model.LeadCampaign.PqSourceId" data-act="@Model.LeadCampaign.GAAction" data-cat="@Model.LeadCampaign.GACategory" data-lab="@Model.LeadCampaign.GALabel" data-item-message="@String.Format(Model.LeadCampaign.PopupSuccessMessage, Model.LeadCampaign.Organization)" data-item-heading="@Model.LeadCampaign.PopupHeading" data-item-description="@Model.LeadCampaign.PopupDescription" data-ispincodrequired="@Model.LeadCampaign.PincodeRequired" data-dealersrequired="@Model.LeadCampaign.DealerRequired" data-item-name="@Model.BikeName" data-isemailrequired="@Model.LeadCampaign.EmailRequired" data-organization="@Model.LeadCampaign.Organization" data-item-organization="@Model.LeadCampaign.Organization" data-issendleadsmscustomer="@Model.LeadCampaign.SendLeadSMSCustomer">Get Best Offers</a>
+                                    </div>
+                                </div>
+                            }
 
-                                else if (!Model.IsLocationSelected && !Model.IsManufacturerLeadAdShown)
+                            else if (!Model.IsLocationSelected && !Model.IsManufacturerLeadAdShown)
+                            {
+                                if (Model.IsNearlyAllIndiaCampaign)
                                 {
-                                    if (Model.IsNearlyAllIndiaCampaign)
-                                    {
-                                        <a class="btn btn-orange btn-full-width getquotation bw-bhrigu" data-cat="Model_Page" data-act="FloatingLeadCTA_FullWidth_Click" data-bhrigulab="@Model.BikeName" href="javascript:void(0)" data-reload="true" data-persistent="true" data-modelid="@Model.ModelId" data-pqsourceid="@Convert.ToUInt16(Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_ModelPage)" data-leadsourceid="@Convert.ToInt16(LeadSourceEnum.ModelPage_Floating_Mobile)" data-popupsource="leadcapturebtn">Get Best Offers</a>
-                                    }
-                                    else
-                                    {
+                                    <div id="animate-btn" class="campaign__floating-btn floating-btn clearfix campaign-with-animation js-floating-btn">
+                                        <p class="grid-7 alpha btn__left-label campaign-with-animation__text"><span class="campaign-animation-text__content">@String.Format("Contact {0} Dealer", Model.ModelPageEntity.ModelDetails.MakeBase.MakeName)</span></p>
+                                        <div class="campagin-new__button grid-5 alpha omega campaign-with-animation__button">
+                                            <a class="btn btn-orange btn-full-32 getquotation js-mfg" href="javascript:void(0)" data-reload="true" data-persistent="true" data-modelid="@Model.ModelId" data-pqsourceid="@Convert.ToUInt16(Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_ModelPage)" data-leadsourceid="@Convert.ToInt16(LeadSourceEnum.ModelPage_Floating_Mobile)" data-popupsource="leadcapturebtn">Get Best Offers</a>
+                                        </div>
+                                    </div>
+
+                                }
+                                else
+                                {
+                                    <div class="floating-btn clearfix">
+                                        <div class="grid-12 alpha omega">
+                                            <a class="btn btn-orange btn-full-width getquotation" id="btnGetOnRoadPrice" href="javascript:void(0)" data-reload="true" data-persistent="true" data-modelid="@Model.ModelId">Check on-road price</a>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                            else if ((!Model.IsLocationSelected || Model.ShowOnRoadButton) && (Model.BikePrice > 0 || (Model.SelectedVersion != null && Model.SelectedVersion.AverageExShowroom > 0)) && !Model.IsManufacturerTopLeadAdShown)
+                            {
+                                <div class="floating-btn clearfix">
+                                    <div class="grid-12 alpha omega">
                                         <a class="btn btn-orange btn-full-width getquotation" id="btnGetOnRoadPrice" href="javascript:void(0)" data-reload="true" data-persistent="true" data-modelid="@Model.ModelId">Check on-road price</a>
-                                    }
-                                }
-                                else if ((!Model.IsLocationSelected || Model.ShowOnRoadButton) && (Model.BikePrice > 0 || (Model.SelectedVersion != null && Model.SelectedVersion.AverageExShowroom > 0)) && !Model.IsManufacturerTopLeadAdShown)
-                                {
-                                    <a class="btn btn-orange btn-full-width getquotation" id="btnGetOnRoadPrice" href="javascript:void(0)" data-reload="true" data-persistent="true" data-modelid="@Model.ModelId">Check on-road price</a>
-                                }
-                            </div>
-                        </div>
+                                    </div>
+                                </div>
+                            }
                     </div>
                 </div>
-
-                @if (Model.IsManufacturerLeadAdShown)
-                {
-                    <div class="cta-animation-container">
-                        @Html.Partial("~/UI/Views/Price/_ManufacturerCampaign_Mobile.cshtml", Model.LeadCampaign)
-                    </div>
-                }
-                else if (!Model.IsLocationSelected && !Model.IsManufacturerLeadAdShown)
-                {
-                    <link rel="stylesheet" type="text/css" href="/UI/m/css/nearby-dealers-top-card.css">
-                    if (Model.IsNearlyAllIndiaCampaign)
+                <div class="cta-animation-container">
+                    @if (Model.IsManufacturerLeadAdShown)
                     {
-                        <div class="dealer-campaign-wrapper card-bottom-margin nearby-dealers-top-card">
-                            <div class="margin-bottom10">
-                                <span class="campaign__icon"></span><p class="campaign__name inline-block">Contact <span name="mfg_organization">@Model.ModelPageEntity.ModelDetails.MakeBase.MakeName</span> Dealer</p>
-                            </div>
-                            <p class="font14 margin-bottom10">Get in touch with authorized dealer for:</p>
-                            <ul class="campaign__list item--50-percent margin-bottom15">
-                                <li class="campaign__list-item">Best offers</li>
-                                <li class="campaign__list-item">Test rides</li>
-                                <li class="campaign__list-item">EMI options</li>
-                                <li class="campaign__list-item">Exchange benefits</li>
-                            </ul>
-                            <a href="javascript:void(0)" class="btn btn-teal btn-180-32 margin-right20 getquotation bw-bhrigu" data-cat="Model_Page" data-act="TopCardCTA_Teal_GetOffersFromDealer_Click" data-bhrigulab="@Model.BikeName" data-reload="true" data-persistent="true" data-modelid="@Model.ModelId" data-pqsourceid="@Convert.ToUInt16(Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_ModelPage)" data-leadsourceid="@Convert.ToInt16(LeadSourceEnum.ModelPage_TopCard_Mobile)" data-popupsource="leadcapturebtn">Get offers from dealer</a>
-                        </div>
+                        @Html.Partial("~/UI/Views/Price/_ManufacturerCampaign_Mobile.cshtml", Model.LeadCampaign)
                     }
-                }
+                    else if (!Model.IsLocationSelected && !Model.IsManufacturerLeadAdShown)
+                    {
+                        if (Model.IsNearlyAllIndiaCampaign)
+                        {
+                            <div class="dealer-campaign-wrapper card-bottom-margin nearby-dealers-top-card">
+                                <div class="margin-bottom10">
+                                    <span class="campaign__icon"></span><p class="campaign__name inline-block">Contact <span name="mfg_organization">@Model.ModelPageEntity.ModelDetails.MakeBase.MakeName</span> Dealer</p>
+                                </div>
+                                <p class="font14 margin-bottom10">Get in touch with authorized dealer for:</p>
+                                <ul class="campaign__list item--50-percent margin-bottom15">
+                                    <li class="campaign__list-item">Best offers</li>
+                                    <li class="campaign__list-item">Test rides</li>
+                                    <li class="campaign__list-item">EMI options</li>
+                                    <li class="campaign__list-item">Exchange benefits</li>
+                                </ul>
+                                <a href="javascript:void(0)" class="btn btn-teal btn-180-32 margin-right20 getquotation bw-bhrigu" data-cat="Model_Page" data-act="TopCardCTA_Teal_GetOffersFromDealer_Click" data-bhrigulab="@Model.BikeName" data-reload="true" data-persistent="true" data-modelid="@Model.ModelId" data-pqsourceid="@Convert.ToUInt16(Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_ModelPage)" data-leadsourceid="@Convert.ToInt16(LeadSourceEnum.ModelPage_TopCard_Mobile)" data-popupsource="leadcapturebtn">Get offers from dealer</a>
+                            </div>
+                        }
+                    }
+                </div>
 
-                @if (Model.IsManufacturerTopLeadAdShown)
-                {
-                    <div class="campaign__floating-btn floating-btn clearfix">
+                    @if (Model.IsManufacturerTopLeadAdShown)
+                    {
+                        <div class="campaign__floating-btn floating-btn clearfix">
                             @if (Model.LeadCampaign.DealerId == Bikewale.Utility.BWConfiguration.Instance.CapitalFirstDealerId)
                             {
                                 <p class="grid-7 alpha btn__left-label">@String.Format(Model.LeadCampaign.LeadsPropertyTextMobile, Model.LeadCampaign.Organization)</p>
@@ -234,97 +247,97 @@
                             }
                             else
                             {
-                                isNonFinancePartner  = true;
+                                isNonFinancePartner = true;
                             }
-                        <div class="clear"></div>
-                    </div>
-                }
-
-                @if (isNonFinancePartner)
-                {
-                    if (Model.IsAnimatedCTA)
-                    {
-                        @Html.Partial("/UI/Views/Shared/_AnimatedCTA.cshtml", Model.LeadCampaign)
+                            <div class="clear"></div>
+                        </div>
                     }
-                    else if (String.Equals(Model.LeadCampaign.LeadsButtonTextMobile.ToLower(), "request callback"))
+
+                    @if (isNonFinancePartner)
                     {
+                        if (Model.IsAnimatedCTA)
+                        {
+                            @Html.Partial("/UI/Views/Shared/_AnimatedCTA.cshtml", Model.LeadCampaign)
+                        }
+                        else if (String.Equals(Model.LeadCampaign.LeadsButtonTextMobile.ToLower(), "request callback"))
+                        {
                         <div class="floating-btn clearfix js-floating-btn">
                             <div class="grid-12 alpha omega">
                                 <a data-group="fixedCTA" data-mfgcampid="@Model.LeadCampaign.CampaignId" data-item-id="@Model.LeadCampaign.DealerId" data-item-area="@Model.LeadCampaign.Area" data-leadsourceid="@Convert.ToInt16(LeadSourceEnum.ModelPage_Floating_Mobile)" data-campaignid="@Model.LeadCampaign.CampaignId" data-pqsourceid="@Model.LeadCampaign.PqSourceId" data-item-message="@String.Format(Model.LeadCampaign.PopupSuccessMessage, Model.LeadCampaign.Organization)" data-item-heading="@Model.LeadCampaign.PopupHeading" data-item-description="@Model.LeadCampaign.PopupDescription" data-ispincodrequired="@Model.LeadCampaign.PincodeRequired" data-dealersrequired="@Model.LeadCampaign.DealerRequired" data-item-name="@(String.Format(Model.LeadCampaign.LeadsButtonTextMobile, Model.LeadCampaign.Organization))" id="btnfloatingManufacturer" data-isemailrequired="@Model.LeadCampaign.EmailRequired" data-issendleadsmscustomer="@Model.LeadCampaign.SendLeadSMSCustomer" data-item-organization="@Model.LeadCampaign.Organization" data-cat="Model_Page" data-act="FloatingLeadCTA_FullWidth_Click" data-lab="@Model.BikeName" data-bhrigushownact="ES_FloatingLeadCTA_FullWidthShown" data-bhrigulab="versionId=@Model.VersionId" data-bhriguact="ES_FloatingLeadCTA_FullWidthClick" data-bhrigucat="BWModelPage" class="btn btn-orange btn-full-width leadcapturebtn bw-ga bw-shown-in-bhrighu bw-bhrigu js-mfg">Get Best Offers</a>
+                                </div>
+                                <div class="clear"></div>
                             </div>
-                            <div class="clear"></div>
-                        </div>
+                        }
+                        else
+                        {
+                            <div class="campaign__floating-btn floating-btn clearfix js-floating-btn">
+                                <p class="grid-7 alpha btn__left-label">@String.Format(Model.LeadCampaign.LeadsPropertyTextMobile, Model.LeadCampaign.Organization)</p>
+                                <div class="grid-5 alpha omega">
+                                    <a data-group="default" data-mfgcampid="@Model.LeadCampaign.CampaignId" data-item-id="@Model.LeadCampaign.DealerId" data-item-area="@Model.LeadCampaign.Area" data-leadsourceid="@Convert.ToInt16(LeadSourceEnum.ModelPage_Floating_Mobile)" data-campaignid="@Model.LeadCampaign.CampaignId" data-pqsourceid="@Model.LeadCampaign.PqSourceId" data-item-message="@String.Format(Model.LeadCampaign.PopupSuccessMessage, Model.LeadCampaign.Organization)" data-item-heading="@Model.LeadCampaign.PopupHeading" data-item-description="@Model.LeadCampaign.PopupDescription" data-ispincodrequired="@Model.LeadCampaign.PincodeRequired" data-dealersrequired="@Model.LeadCampaign.DealerRequired" data-item-name="@(String.Format(Model.LeadCampaign.LeadsButtonTextMobile, Model.LeadCampaign.Organization))" id="btnfloatingManufacturer" data-isemailrequired="@Model.LeadCampaign.EmailRequired" data-issendleadsmscustomer="@Model.LeadCampaign.SendLeadSMSCustomer" data-item-organization="@Model.LeadCampaign.Organization" data-cat="@Model.LeadCampaign.GACategory" data-act="FloatingLeadCTA_Partial_DefaultCTA_Click" data-lab="@Model.BikeName" data-bhrigushownact="ES_FloatingLeadCTA_PartialShown" data-bhriguact="ES_FloatingLeadCTA_PartialClick" data-bhrigulab="versionId=@Model.VersionId" data-bhrigucat="BWModelPage" class="btn btn-orange btn-full-32 leadcapturebtn bw-ga bw-shown-in-bhrighu bw-bhrigu js-mfg">@String.Format(Model.LeadCampaign.LeadsButtonTextMobile, Model.LeadCampaign.Organization)</a>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                        }
+
                     }
-                    else
+                    @if (Model.AdTags.Ad320x100ATF)
                     {
-                        <div class="campaign__floating-btn floating-btn clearfix js-floating-btn">
-                            <p class="grid-7 alpha btn__left-label">@String.Format(Model.LeadCampaign.LeadsPropertyTextMobile, Model.LeadCampaign.Organization)</p>
-                            <div class="grid-5 alpha omega">
-                                <a data-group="default" data-mfgcampid="@Model.LeadCampaign.CampaignId" data-item-id="@Model.LeadCampaign.DealerId" data-item-area="@Model.LeadCampaign.Area" data-leadsourceid="@Convert.ToInt16(LeadSourceEnum.ModelPage_Floating_Mobile)" data-campaignid="@Model.LeadCampaign.CampaignId" data-pqsourceid="@Model.LeadCampaign.PqSourceId" data-item-message="@String.Format(Model.LeadCampaign.PopupSuccessMessage, Model.LeadCampaign.Organization)" data-item-heading="@Model.LeadCampaign.PopupHeading" data-item-description="@Model.LeadCampaign.PopupDescription" data-ispincodrequired="@Model.LeadCampaign.PincodeRequired" data-dealersrequired="@Model.LeadCampaign.DealerRequired" data-item-name="@(String.Format(Model.LeadCampaign.LeadsButtonTextMobile, Model.LeadCampaign.Organization))" id="btnfloatingManufacturer" data-isemailrequired="@Model.LeadCampaign.EmailRequired" data-issendleadsmscustomer="@Model.LeadCampaign.SendLeadSMSCustomer" data-item-organization="@Model.LeadCampaign.Organization" data-cat="@Model.LeadCampaign.GACategory" data-act="FloatingLeadCTA_Partial_DefaultCTA_Click" data-lab="@Model.BikeName" data-bhrigushownact="ES_FloatingLeadCTA_PartialShown" data-bhriguact="ES_FloatingLeadCTA_PartialClick" data-bhrigulab="versionId=@Model.VersionId" data-bhrigucat="BWModelPage" class="btn btn-orange btn-full-32 leadcapturebtn bw-ga bw-shown-in-bhrighu bw-bhrigu js-mfg">@String.Format(Model.LeadCampaign.LeadsButtonTextMobile, Model.LeadCampaign.Organization)</a>
-                            </div>
-                            <div class="clear"></div>
+                        <div class="margin-bottom20 text-center">
+                            @{Html.RenderPartial("/UI/Views/Shared/Ads/Mobile/AdSlotGeneric.cshtml", Model.AdSlots[String.Format("{0}-6", Model.AdTags.AdId)]);}
                         </div>
                     }
 
-                }
-                @if (Model.AdTags.Ad320x100ATF)
-                {
-                    <div class="margin-bottom20 text-center">
-                        @{Html.RenderPartial("/UI/Views/Shared/Ads/Mobile/AdSlotGeneric.cshtml", Model.AdSlots[String.Format("{0}-6", Model.AdTags.AdId)]);}
-                    </div>
-                }
+                    @if (Model.ShowSeriesSlug && Model.SeriesSlug != null)
+                    {
+                        @Html.Partial("~/UI/Views/BikeSeries/_ModelSeriesSlug_Mobile.cshtml", Model.SeriesSlug);
+                    }
 
-                @if (Model.ShowSeriesSlug && Model.SeriesSlug != null)
-                {
-                    @Html.Partial("~/UI/Views/BikeSeries/_ModelSeriesSlug_Mobile.cshtml", Model.SeriesSlug);
-                }
-
-                @if (Model.ModelPageEntity != null && ((Model.ModelPageEntity.ModelVersions != null && Model.ModelPageEntity.ModelVersions.Count > 0 || Model.IsPriceInTopCitiesAvailable) || (Model.ModelPageEntity.ModelVersionMinSpecs != null)))
-                {
-                    <div>
-                        @if (Model.ModelPageEntity.ModelVersionMinSpecs != null)
-                        {
-                            @Html.Partial("~/UI/Views/Model/_Index_ModelSummary_Mobile.cshtml", Model)
-                        }
-
-                        @if (Model.IsQAModel)
-                        {
-                            if (Model.QASlug != null)
+                    @if (Model.ModelPageEntity != null && ((Model.ModelPageEntity.ModelVersions != null && Model.ModelPageEntity.ModelVersions.Count > 0 || Model.IsPriceInTopCitiesAvailable) || (Model.ModelPageEntity.ModelVersionMinSpecs != null)))
+                    {
+                        <div>
+                            @if (Model.ModelPageEntity.ModelVersionMinSpecs != null)
                             {
-                                @Html.Partial("~/UI/Views/QuestionAndAnswers/_QuestionAnswerSlug.cshtml", Model.QASlug)
+                                @Html.Partial("~/UI/Views/Model/_Index_ModelSummary_Mobile.cshtml", Model)
                             }
 
-                            if (Model.AskQuestionPopup != null)
+                            @if (Model.IsQAModel)
                             {
-                                @Html.Partial("~/UI/Views/m/Shared/_question-answer.cshtml", Model.AskQuestionPopup)
-                            }
-
-                        }
-
-                        @if (Model.ModelsBySeries != null && (Model.ModelsBySeries.IsNewAvailable || Model.ModelsBySeries.IsUpcomingAvailable))
-                        {
-                            <div id="modelsBySeriesWidget" data-id="overviewContent" class="margin-bottom15 bw-ga" data-cat="@Model.ModelsBySeries.Page" data-act="Series_WidgetShown" data-lab="@string.Format("{0} {1}", Model.ModelPageEntity.ModelDetails.MakeBase.MakeName, Model.ModelPageEntity.ModelDetails.ModelSeries.SeriesName)">
-                                @if (Model.ModelsBySeries.SeriesBase != null && Model.ModelPageEntity.ModelDetails.MakeBase != null && !string.IsNullOrEmpty(Model.ModelsBySeries.SeriesBase.MaskingName))
+                                if (Model.QASlug != null)
                                 {
-                                    if (!Model.ModelsBySeries.SeriesBase.IsSeriesPageUrl)
-                                    {
-                                        <div class="carousel-heading-content">
-                                            <h2>Explore other @Model.ModelsBySeries.SeriesBase.SeriesName @(Model.BodyStyle.Equals(Bikewale.Entities.GenericBikes.EnumBikeBodyStyles.Scooter) ? "scooters:" : "bikes:")</h2>
-                                        </div>
-                                        @Html.Partial("~/UI/Views/BikeSeries/_BikeModelsBySeries_Mobile.cshtml", Model.ModelsBySeries)
-                                    }
+                                    @Html.Partial("~/UI/Views/QuestionAndAnswers/_QuestionAnswerSlug.cshtml", Model.QASlug)
                                 }
 
+                                if (Model.AskQuestionPopup != null)
+                                {
+                                    @Html.Partial("~/UI/Views/m/Shared/_question-answer.cshtml", Model.AskQuestionPopup)
+                                }
 
-                            </div>
+                            }
+
+                            @if (Model.ModelsBySeries != null && (Model.ModelsBySeries.IsNewAvailable || Model.ModelsBySeries.IsUpcomingAvailable))
+                            {
+                                <div id="modelsBySeriesWidget" data-id="overviewContent" class="margin-bottom15 bw-ga" data-cat="@Model.ModelsBySeries.Page" data-act="Series_WidgetShown" data-lab="@string.Format("{0} {1}", Model.ModelPageEntity.ModelDetails.MakeBase.MakeName, Model.ModelPageEntity.ModelDetails.ModelSeries.SeriesName)">
+                                    @if (Model.ModelsBySeries.SeriesBase != null && Model.ModelPageEntity.ModelDetails.MakeBase != null && !string.IsNullOrEmpty(Model.ModelsBySeries.SeriesBase.MaskingName))
+                                    {
+                                        if (!Model.ModelsBySeries.SeriesBase.IsSeriesPageUrl)
+                                        {
+                                            <div class="carousel-heading-content">
+                                                <h2>Explore other @Model.ModelsBySeries.SeriesBase.SeriesName @(Model.BodyStyle.Equals(Bikewale.Entities.GenericBikes.EnumBikeBodyStyles.Scooter) ? "scooters:" : "bikes:")</h2>
+                                            </div>
+                                            @Html.Partial("~/UI/Views/BikeSeries/_BikeModelsBySeries_Mobile.cshtml", Model.ModelsBySeries)
+                                        }
+                                    }
 
 
-                        }
+                                </div>
 
 
-                    </div>
-                }
-            </div>
+                            }
+
+
+                        </div>
+                    }
+                </div>
 
 
 

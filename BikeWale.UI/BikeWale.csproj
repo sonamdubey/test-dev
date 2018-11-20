@@ -3704,6 +3704,7 @@
     <Content Include="UI\m\css\jqm-demos.css" />
     <Content Include="UI\m\css\jquery.mobile-1.4.2.min.css" />
     <Content Include="UI\m\css\leadcapture.css" />
+    <Content Include="UI\m\css\nearby-dealers-top-card.css" />
     <Content Include="UI\m\css\photos.css" />
     <Content Include="UI\m\css\specsandfeature.css" />
     <Content Include="UI\m\css\used\landing.css" />
