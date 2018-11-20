@@ -18,7 +18,7 @@ namespace Bikewale.Service.AutoMappers.ManufacturerCampaign
         /// <summary>
         /// Converts the specified platform identifier.
         /// Modifier    : Kartik Rathod on 16 may 2018, Pageurl for capitalfirst dealer added dealername and sendLeadSMSCustomer
-        /// Mofified by : Rajan Chauhan on 06 Nov 2018
+        /// Modified by : Rajan Chauhan on 06 Nov 2018
         /// Description : Added hash based on campaign LeadHtmlMobile
         /// </summary>
         /// <param name="platformId">The platform identifier.</param>
@@ -166,6 +166,8 @@ namespace Bikewale.Service.AutoMappers.ManufacturerCampaign
         /// Description : Versioning of template LeadCampaign.LeadsHtmlMobile
         /// Mofified by : Rajan Chauhan on 06 Nov 2018
         /// Description : Added hash based on campaign LeadHtmlMobile
+        /// Modified by : Rajan Chauhan on 20 Nov 2018
+        /// Description : Corrected leadcapture url to set pqguid
         /// </summary>
         /// <param name="platformId"></param>
         /// <param name="pqId"></param>
@@ -271,7 +273,7 @@ namespace Bikewale.Service.AutoMappers.ManufacturerCampaign
                 else
                 {
 
-                    string strDES = string.Format("modelid={0}&cityid={1}&areaid={2}&bikename={3}&location={4}&city={5}&area={6}&ismanufacturer={7}&dealerid={8}&dealername={9}&dealerarea={10}&versionid={11}&leadsourceid={12}&pqsourceid={13}&mfgcampid={14}&pqid={15}&pageurl={16}&clientip={17}&dealerheading={18}&dealermessage={19}&dealerdescription={20}&pincoderequired={21}&emailrequired={22}&dealersrequired={23}", 
+                    string strDES = string.Format("modelid={0}&cityid={1}&areaid={2}&bikename={3}&location={4}&city={5}&area={6}&ismanufacturer={7}&dealerid={8}&dealername={9}&dealerarea={10}&versionid={11}&leadsourceid={12}&pqsourceid={13}&mfgcampid={14}&pqguid={15}&pageurl={16}&clientip={17}&dealerheading={18}&dealermessage={19}&dealerdescription={20}&pincoderequired={21}&emailrequired={22}&dealersrequired={23}", 
                                     modelId, cityId, string.Empty, string.Format(LeadCampaign.BikeName), string.Empty, string.Empty, string.Empty, true, LeadCampaign.DealerId, String.Format(LeadCampaign.LeadsPropertyTextMobile, LeadCampaign.Organization), LeadCampaign.Area, versionId, LeadCampaign.LeadSourceId, LeadCampaign.PqSourceId, LeadCampaign.CampaignId, LeadCampaign.PQId, string.Empty, string.Empty, 
                                     LeadCampaign.PopupHeading, String.Format(LeadCampaign.PopupSuccessMessage, LeadCampaign.Organization), LeadCampaign.PopupDescription, LeadCampaign.PincodeRequired, LeadCampaign.EmailRequired, LeadCampaign.DealerRequired);
                     LeadCampaign.PageUrl = string.Format("{0}/m/popup/leadcapture/?q={1}&amp;platformid=3", BWConfiguration.Instance.BwHostUrl, Bikewale.Utility.TripleDES.EncryptTripleDES(strDES));

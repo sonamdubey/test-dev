@@ -514,7 +514,6 @@ namespace Bikewale.Service.Controllers.PriceQuote
 
                     if (objPQ != null && objPQ.PQId > 0)
                     {
-                        IEnumerable<string> ManufactureroffersList = null;
                         bpqOutput = _objPriceQuote.GetPriceQuoteById(objPQ.PQId);
                         //add bike make and model
                         objPQ.MakeName = bpqOutput.MakeName;

@@ -2745,6 +2745,8 @@ namespace Bikewale.Models.BikeModels
         /// Description : Corrected platformid tracking
         /// Modified by : Rajan Chauhan on 25 September 2018
         /// Description : Set PageUrl on LeadCampaign
+        /// Modified by : Rajan Chauhan on 20 Nov 2018
+        /// Description : Corrected leadcapture url to set pqguid
         /// </summary>
         private void BindManufacturerLeadAdAMP()
         {
@@ -2754,7 +2756,7 @@ namespace Bikewale.Models.BikeModels
                 try
                 {
                     _objData.LeadCampaign.IsAmp = true;
-                    string url = String.Format("{0}/m/popup/leadcapture/?q={1}&platformId={2}", BWConfiguration.Instance.BwHostUrl, Bikewale.Utility.TripleDES.EncryptTripleDES(string.Format(@"modelid={0}&cityid={1}&areaid={2}&bikename={3}&location={4}&city={5}&area={6}&ismanufacturer={7}&dealerid={8}&dealername={9}&dealerarea={10}&versionid={11}&leadsourceid={12}&pqsourceid={13}&mfgcampid={14}&pqid={15}&pageurl={16}&clientip={17}&dealerheading={18}&dealermessage={19}&dealerdescription={20}&pincoderequired={21}&emailrequired={22}&dealersrequired={23}&url={24}&sendLeadSMSCustomer={25}&organizationName={26}",
+                    string url = String.Format("{0}/m/popup/leadcapture/?q={1}&platformId={2}", BWConfiguration.Instance.BwHostUrl, Bikewale.Utility.TripleDES.EncryptTripleDES(string.Format(@"modelid={0}&cityid={1}&areaid={2}&bikename={3}&location={4}&city={5}&area={6}&ismanufacturer={7}&dealerid={8}&dealername={9}&dealerarea={10}&versionid={11}&leadsourceid={12}&pqsourceid={13}&mfgcampid={14}&pqguid={15}&pageurl={16}&clientip={17}&dealerheading={18}&dealermessage={19}&dealerdescription={20}&pincoderequired={21}&emailrequired={22}&dealersrequired={23}&url={24}&sendLeadSMSCustomer={25}&organizationName={26}",
                                                _objData.ModelId, _objData.CityId, string.Empty, string.Format(_objData.BikeName), string.Empty, string.Empty, string.Empty,
                                                _objData.IsManufacturerLeadAdShown, _objData.LeadCampaign.DealerId, String.Format(_objData.LeadCampaign.LeadsPropertyTextMobile,
                                                _objData.LeadCampaign.Organization), _objData.LeadCampaign.Area, _objData.VersionId, _objData.LeadCampaign.LeadSourceId, _objData.LeadCampaign.PqSourceId,
