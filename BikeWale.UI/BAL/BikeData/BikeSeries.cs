@@ -257,7 +257,7 @@ namespace Bikewale.BAL.BikeData
                         EnumSpecsFeaturesItems.FuelTankCapacity,
                         EnumSpecsFeaturesItems.FuelEfficiencyOverall,
                         EnumSpecsFeaturesItems.SeatHeight,
-                        EnumSpecsFeaturesItems.RearBrakeType,
+                        EnumSpecsFeaturesItems.FrontBrakeType,
                         EnumSpecsFeaturesItems.NoOfGears,
                         EnumSpecsFeaturesItems.MaxPowerBhp,
                         EnumSpecsFeaturesItems.MaxPowerRpm
@@ -300,7 +300,7 @@ namespace Bikewale.BAL.BikeData
                                         if (float.TryParse(spec.Value, out value))
                                             seriesBike.SeatHeight = value;
                                         break;
-                                    case EnumSpecsFeaturesItems.RearBrakeType:
+                                    case EnumSpecsFeaturesItems.FrontBrakeType:
                                         seriesBike.BrakeType = spec.Value;
                                         break;
                                     case EnumSpecsFeaturesItems.NoOfGears:
