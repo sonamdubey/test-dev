@@ -36,7 +36,7 @@
                     <div class="elevated-shadow-top">
                         @Html.Partial("~/UI/Views/Model/_Index_VersionsAndSpecs_Mobile.cshtml", Model)
                         <div class="clear"></div>
-                        <div class="padding-10-20" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+                        <div class="padding-10-20">
                             @if (Model.BikePrice > 0)
                             {
                                 string priceText = (Model.IsLocationSelected && !Model.ShowOnRoadButton ? "On-road price " : (Model.LocationCookie.CityId > 0 && !Model.IsLocationSelected ? "On-road price " : "Ex-showroom price "));
