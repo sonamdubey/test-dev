@@ -98,9 +98,12 @@
                                 </div>
                                 <div class="clear"></div>
                             </div>
-                            <div class="review-summary__link-content">
-                                <span class="review-summary__link js-review-summary__link">See Full Preview</span>
-                            </div>
+                            @if(Model.HasUnansweredQuestions)
+                            {
+                                <div class="review-summary__link-content">
+                                    <span class="review-summary__link js-review-summary__link">See Full Preview</span>
+                                </div>
+                            }
                             @if (Model.HasUnansweredQuestions)
                             { 
                                 <div class="answer-question-wrapper">
