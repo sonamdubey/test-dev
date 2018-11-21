@@ -37,5 +37,6 @@ sitemap: https://www.bikewale.com/sitemaps/priceincity/new-bike-prices-6.xml
 sitemap: https://www.bikewale.com/sitemaps/priceincity/new-bike-prices-7.xml
 sitemap: https://www.bikewale.com/sitemaps/priceincity/new-bike-prices-8.xml
 sitemap: https://www.bikewale.com/sitemaps/priceincity/new-bike-prices-9.xml
+sitemap: https://www.bikewale.com/sitemaps/priceincity/new-bike-prices-10.xml
 sitemap: https://www.bikewale.com/sitemaps/dealerlocator/dealer-locator-showrooms-1.xml
 sitemap: https://www.bikewale.com/sitemaps/servicecenter/service-center-locator-1.xml
