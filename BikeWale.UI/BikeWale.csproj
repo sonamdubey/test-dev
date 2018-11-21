@@ -4997,6 +4997,7 @@
     <Content Include="UI\Views\Shared\_leaderboard.cshtml" />
     <Content Include="UI\Views\Shared\ES\_RoyalEnfieldCountdown.cshtml" />
     <Content Include="UI\Views\Shared\ES\_RoyalEnfieldCountdown_Mobile.cshtml" />
+    <Content Include="UI\Views\QuestionAndAnswers\_UnansweredQuestion.cshtml" />
     <None Include="UI\Views\Shared\_Sidebar-section.cshtml" />
     <Content Include="UI\Views\BikeModels\_MultiTabsWidget.cshtml" />
     <Content Include="UI\Views\Shared\_ReviewPopup.cshtml" />
@@ -5026,6 +5027,7 @@
     <Content Include="UI\Views\Videos\_LazyLoadVideos.cshtml" />
     <Content Include="UI\Views\UserProfile\_UserProfileTargeting.cshtml" />
     <Content Include="UI\Views\UserReview\_AnswerQuestionList_Mobile.cshtml" />
+    <Content Include="UI\Views\UserReview\_AnswerQuestionList.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

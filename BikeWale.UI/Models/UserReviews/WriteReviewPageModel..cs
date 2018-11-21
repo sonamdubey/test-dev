@@ -40,10 +40,11 @@ namespace Bikewale.Models.UserReviews
         /// Description : Added interfaces for bikeinfo and user reviews 
         /// </summary>
         /// <param name="userReviews"></param>
-        public WriteReviewPageModel(IUserReviews userReviews, string encodedString)
+        public WriteReviewPageModel(IUserReviews userReviews, string encodedString, IQuestions questions)
         {
             _userReviews = userReviews;
             _encodedString = encodedString;
+            _questions = questions;
 
             if (!string.IsNullOrEmpty(encodedString))
             {
@@ -53,18 +54,7 @@ namespace Bikewale.Models.UserReviews
             else
                 Status = Entities.StatusCodes.ContentNotFound;
         }
-
-        /// <summary>
-        /// Created by  :   Sumit Kate on 03 Sep 2018
-        /// Description :   Passed the questions interface dependency
-        /// </summary>
-        /// <param name="userReviews"></param>
-        /// <param name="encodedString"></param>
-        /// <param name="questions"></param>
-        public WriteReviewPageModel(IUserReviews userReviews, string encodedString,IQuestions questions) : this(userReviews,encodedString)
-        {
-            _questions = questions;
-        }
+        
 
         public void ParseQueryString(string encodedQueryString)
         {

@@ -318,7 +318,7 @@ namespace Bikewale.Controllers
         [Route("user-reviews/write-review/")]
         public ActionResult WriteReview(string q)
         {
-            WriteReviewPageModel objPage = new WriteReviewPageModel(_userReviews, q);
+            WriteReviewPageModel objPage = new WriteReviewPageModel(_userReviews, q, _questions);
 
             if (!string.IsNullOrEmpty(q))
             {
@@ -434,7 +434,7 @@ namespace Bikewale.Controllers
                     }
                     else
                     {
-                        WriteReviewPageModel objPage = new WriteReviewPageModel(_userReviews, objReviewData.EncodedString);
+                        WriteReviewPageModel objPage = new WriteReviewPageModel(_userReviews, objReviewData.EncodedString, _questions);
                         var objData = objPage.GetData();
                         objData.SubmitResponse = objResponse;
 
@@ -496,7 +496,7 @@ namespace Bikewale.Controllers
         {
             if (reviewid > 0)
             {
-                UserReviewSummaryPage objData = new UserReviewSummaryPage(_userReviews, reviewid, q);
+                UserReviewSummaryPage objData = new UserReviewSummaryPage(_userReviews, reviewid, q, _questions);
                 objData.IsDesktop = true;
                 if (objData.status == Entities.StatusCodes.ContentNotFound)
                 {

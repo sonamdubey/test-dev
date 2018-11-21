@@ -838,6 +838,22 @@ docReady(function () {
         question.resetFeedback($(this));
     });
 
+    // Write review: answer a random unanswered question
+    $("#answerText").on("blur", function () {
+        validate.onBlur($(this));
+    })
+
+    // Review Summary
+    $(".js-review-summary__link").on('click', function () {
+        var summaryWrapper = $(this).closest('.js-review-summary__wrapper');
+        var summaryWrapperOffsetTop = summaryWrapper.offset().top;
+
+        summaryWrapper.addClass('review-summary--active');
+        $('html, body').animate({
+            scrollTop: summaryWrapperOffsetTop
+        });
+    });
+
 
     //rating-face
     $('.other-review__button-block').on('click', function () {

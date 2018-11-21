@@ -872,5 +872,46 @@
 			margin-bottom: 20px
 
 
+/* review summary preview */
+.review-summary__content
+    height: 78px // A fixed `78px` height that shows 4 lines of review
+    overflow: hidden
+
+.review-summary__link-content
+    text-align: center
+    position: relative
+    padding-top: 10px
+
+    &:before
+        content: ''
+        display: block
+        width: 100%
+        height: 50px
+        position: absolute;
+        top: -50px
+        left: 0
+        z-index: 1
+        background: linear-gradient(to bottom, color('white', 0) 0%, color('white') 100%)
+
+.review-summary__link
+	@include afterIcon-arrow-0288d1($fromRight: 0, $fromTop: 34%)
+	position: relative
+	padding-right: 15px
+	color: color('pacific-blue')
+	font-size: 14px
+	font-weight: $font-semibold
+	cursor: pointer
+
+	&:after
+		@include vendor-prefix(transform, rotate(90deg))
+
+// Active-Inactive state
+.answer-question--inactive,
+.review-summary--active
+	.review-summary__link-content
+		display: none
+
+	.review-summary__content
+		height: auto
 
 

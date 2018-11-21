@@ -33,18 +33,13 @@ namespace Bikewale.Models.UserReviews
         #endregion
 
         #region Constructor
-        public UserReviewSummaryPage(IUserReviews userReviews, uint reviewId, string q)
+        public UserReviewSummaryPage(IUserReviews userReviews, uint reviewId, string q, IQuestions questions)
         {
             _userReviews = userReviews;
             _reviewId = reviewId;
             _strEncoded = q;
-            CheckQueryString();
-        }
-
-        public UserReviewSummaryPage(IUserReviews userReviews, uint reviewId, string q, IQuestions questions)
-            : this(userReviews, reviewId, q)
-        {
             _questions = questions;
+            CheckQueryString();
         }
         #endregion
 

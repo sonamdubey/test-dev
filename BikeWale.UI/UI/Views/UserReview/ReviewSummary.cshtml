@@ -2,7 +2,7 @@
 @using Bikewale.Utility;
 @{
     Model.IsHeaderFix = false;
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/UI/sass/user-review/write-review.css' inline />";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/UI/sass/user-review/write-review.css' inline /> <link rel='stylesheet' type='text/css' href='/UI/sass/qna/answer-list.css' inline />";
     Model.Page_JS_Path = "/UI/src/user-review/write-review.js";
     Model.ExcludeContestSlug = true;
     Layout = "~/UI/Views/Shared/_Layout.cshtml";
@@ -39,7 +39,8 @@
     if (!string.IsNullOrEmpty(Model.Summary.Description))
     {
         <section>
-            <div class="container card-bottom-margin">
+            <div class="container card-bottom-margin review-summary__wrapper js-review-summary__wrapper">
+                @* TODO: Add `answer-question--inactive` class if unanswered questions are not available. *@
                 <div class="grid-12">
                     <div class="content-box-shadow">
                         <div class="content-inner-block-20">
@@ -48,59 +49,77 @@
                                 <span class="rating-badge" data-rate-bg="@Model.Summary.OverallRating.Value"><span class="bwsprite star-white"></span>@Model.Summary.OverallRating.Value</span>
                                 <p class="font18 text-black text-bold inline-block margin-right5"><span itemprop="name">@Model.Summary.Title.Truncate(45)</span></p>
                             </div>
-                            <div class="padding-right20 @((Model.RatingQuestions != null && Model.RatingQuestions.Count() > 0)?"grid-9 alpha border-light-right":"grid-12")">
-                                <div class="font14 text-slate-grey">
-                                    @Html.Raw(Model.Summary.Description)
-                                    @if (Model.ReviewQuestions != null && Model.ReviewQuestions.Count() > 0)
-                                    {
-                                        <ul class="rating-circle-list">
-                                            @foreach (var q in Model.ReviewQuestions)
-                                            {
-                                                if (q.SelectedRatingId > 0)
-                                                {
-                                                    <li>
-                                                        <div class="rating-circle circle-rate-@q.SelectedRatingId">
-                                                            <p class="circle-label">@q.SelectedRatingId</p>
-                                                            <span class="rating-progress">
-                                                            </span>
-                                                        </div>
-                                                        <p class="list-item-label">@q.Heading</p>
-                                                    </li>
-                                                }
-                                            }
-                                        </ul>
-                                    }
-                                    @if (Model.Summary.Tips.Length > 0)
-                                    {
-                                        <p class="font14 font-bold text-black margin-top20 margin-bottom10">Tips for @Model.Summary.Make.MakeName @Model.Summary.Model.ModelName</p>
-                                        <p class="margin-bottom15">@Model.Summary.Tips</p>
-                                    }
-                                </div>
-                                <a href="@Model.Summary.ReturnUrl" class="btn btn-orange btn-180-34 margin-top20">Done</a>
-                            </div>
-                            <div class="grid-3 omega padding-left20">
-                                <ul>
-                                    @foreach (var q in Model.RatingQuestions)
-                                    {
-                                        if (!string.IsNullOrEmpty(q.SelectedRatingText))
+                            <div class="review-summary__content">
+                                <div class="padding-right20 @((Model.RatingQuestions != null && Model.RatingQuestions.Any())?"grid-9 alpha border-light-right":"grid-12")">
+                                    <div class="font14 text-slate-grey">
+                                        @Html.Raw(Model.Summary.Description)
+                                        @if (Model.ReviewQuestions != null && Model.ReviewQuestions.Any())
                                         {
-                                            <li class="margin-bottom10">
-                                                <span class="bwsprite questionId-@q.Id"></span>
-                                                <div class="inline-block">
-                                                    <p class="font10 text-xt-light">@q.MinHeading</p>
-                                                    <p class="font14 text-slate-grey">@q.SelectedRatingText</p>
-                                                </div>
-                                            </li>
+                                            <ul class="rating-circle-list">
+                                                @foreach (var q in Model.ReviewQuestions)
+                                                {
+                                                    if (q.SelectedRatingId > 0)
+                                                    {
+                                                        <li>
+                                                            <div class="rating-circle circle-rate-@q.SelectedRatingId">
+                                                                <p class="circle-label">@q.SelectedRatingId</p>
+                                                                <span class="rating-progress">
+                                                                </span>
+                                                            </div>
+                                                            <p class="list-item-label">@q.Heading</p>
+                                                        </li>
+                                                    }
+                                                }
+                                            </ul>
                                         }
-                                    }
-                                </ul>
+                                        @if (!string.IsNullOrEmpty(Model.Summary.Tips))
+                                        {
+                                            <p class="font14 font-bold text-black margin-top20 margin-bottom10">Tips for @Model.Summary.Make.MakeName @Model.Summary.Model.ModelName</p>
+                                            <p class="margin-bottom15">@Model.Summary.Tips</p>
+                                        }
+                                    </div>
+                                </div>
+                                <div class="grid-3 omega padding-left20">
+                                    <ul>
+                                        @foreach (var q in Model.RatingQuestions)
+                                        {
+                                            if (!string.IsNullOrEmpty(q.SelectedRatingText))
+                                            {
+                                                <li class="margin-bottom10">
+                                                    <span class="bwsprite questionId-@q.Id"></span>
+                                                    <div class="inline-block">
+                                                        <p class="font10 text-xt-light">@q.MinHeading</p>
+                                                        <p class="font14 text-slate-grey">@q.SelectedRatingText</p>
+                                                    </div>
+                                                </li>
+                                            }
+                                        }
+                                    </ul>
+                                </div>
+                                <div class="clear"></div>
                             </div>
-                            <div class="clear"></div>
+                            <div class="review-summary__link-content">
+                                <span class="review-summary__link js-review-summary__link">See Full Preview</span>
+                            </div>
+                            @if (Model.HasUnansweredQuestions)
+                            { 
+                                <div class="answer-question-wrapper">
+                                    <h2 class="answer-question__title margin-bottom15">
+                                        Can you help your fellow riders?
+                                        <span class="answer-question__subtitle">
+                                            (Answer any of these questions on @string.Format("{0} {1}", Model.Summary.Make.MakeName, Model.Summary.Model.ModelName))
+                                        </span>
+                                    </h2>
+                                    @Html.Partial("~/UI/Views/UserReview/_AnswerQuestionList.cshtml", Model.UnansweredQuestions)
+                                </div>
+                            }
+                            <a href="@Model.Summary.ReturnUrl" class="btn btn-orange btn-180-34 margin-top20">Done</a>
                         </div>
                     </div>
                 </div>
                 <div class="clear"></div>
             </div>
+
         </section>
 
     }

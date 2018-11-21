@@ -1,0 +1,14 @@
+﻿@model Bikewale.Models.QuestionAndAnswers.UnansweredQuestionsVM
+
+@if (Model != null && Model.Questions != null && Model.Questions.Any())
+{
+    <ul id="answer-question__list" class="answer-question__list">
+        @foreach (var question in Model.Questions)
+        {
+            <li class="answer-question__item">
+                <p class="answer-question__item-title">@string.Format("Q: {0}", question.QuestionData.Text)</p>
+                <a href="@question.AnsweringUrl" title="Answer this Question">Answer this Question</a>
+            </li>
+        }
+    </ul>
+}

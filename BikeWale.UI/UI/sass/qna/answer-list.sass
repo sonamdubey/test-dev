@@ -4,7 +4,7 @@
 @import ../utils/index
 
 .answer-question-wrapper
-  @include vendor-prefix(box-shadow, 2px 2px 2px color('gainsboro-2'))
+  box-shadow: 2px 2px 2px color('gainsboro-2')
   background-color: color('old-lace')
   padding: 15px 20px
   font-size: 14px
@@ -20,7 +20,7 @@
   line-height: 22px
 
 .answer-question__item
-  @include vendor-prefix(box-shadow, 0 2px 4px 0 color('black', .14))
+  box-shadow: 0 2px 4px 0 color('black', .14)
   border-radius: 3px
   background-color: color('white')
   color: color('default')
@@ -58,3 +58,22 @@
   .area-control-box
     .form-control__input
       padding: 10px
+
+@media (min-width: 800px)
+    .answer-question-wrapper
+        padding: 20px 0 0
+        background-color: color('white')
+        box-shadow: none
+
+    .answer-question__title
+        display: inline-block
+        vertical-align: middle
+
+    .answer-question__subtitle
+        margin-bottom: 5px
+
+    .answer-question__item
+        padding-right: 0
+        padding-left: 0
+        box-shadow: none
+        margin-bottom: 0

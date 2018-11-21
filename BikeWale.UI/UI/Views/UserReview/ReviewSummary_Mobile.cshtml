@@ -36,7 +36,7 @@
         <section>
             <div id="review-summary-card" class="container review-summary @(!Model.HasUnansweredQuestions ? " answer-question--inactive" : "")">
 
-                <div class="review-summary__wrapper">
+                <div class="review-summary__wrapper js-review-summary__wrapper">
                     <div class="user-review-list content-box-shadow margin-top3 padding-10-20">
                         <div class="font14 text-light-grey margin-bottom10">
                             <p class="padding-bottom10">Check, how others will see your review!</p>
@@ -51,7 +51,7 @@
                                     <span class="review-title position-rel"><span itemprop="name">@Model.Summary.Title.Truncate(85)</span></span>
                                 </div>
                             </div>
-                           @if(Model.HasUnansweredQuestions){ <span class="review-summary__link">See Preview</span>}
+                           @if(Model.HasUnansweredQuestions){ <span class="review-summary__link js-review-summary__link">See Preview</span>}
                         </div>
                     </div>
                     @{ int quesCount = 0;

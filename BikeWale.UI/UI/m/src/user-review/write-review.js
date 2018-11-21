@@ -660,14 +660,13 @@ docReady(function () {
     }
 
     // Review Summary
-    $(".review-summary__link").on('click', function () {
-        var self, parentElement, parentElementPosition;
-        self = $(this);
-        parentElement = self.closest('.review-summary__wrapper');
-        parentElementPosition = parentElement.offset().top;
-        parentElement.addClass('review-summary--active');
+    $(".js-review-summary__link").on('click', function () {
+        var summaryWrapper = $(this).closest('.js-review-summary__wrapper');
+        var summaryWrapperOffsetTop = summaryWrapper.offset().top;
+
+        summaryWrapper.addClass('review-summary--active');
         $('html, body').animate({
-            scrollTop: parentElementPosition
+            scrollTop: summaryWrapperOffsetTop
         });
     });
 

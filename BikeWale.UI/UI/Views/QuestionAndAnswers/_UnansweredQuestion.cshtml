@@ -1,0 +1,17 @@
+﻿@model  Bikewale.Models.QuestionAndAnswers.UnansweredQuestionVM
+@if (Model != null && Model.Question != null)
+{
+    <p class="text-black margin-bottom20 text-bold"> @string.Format("Q: {0}", Model.Question.Text)</p>
+     <div class="input-box form-control-box">
+        <input type="text" name="AnswerText" id="answerText" />
+        <label for="getReviewTitle">Your answer here</label>
+        <span class="boundary"></span>
+        <span class="error-text"></span>
+    </div>       
+        <input type="hidden" value="@((ushort)Model.Platform)" id="qnaPlatform" name="PlatformId" />
+        <input type="hidden" value="@((ushort)Model.SourceId)" id="qnaSource" name="SourceId" />
+        <input type="hidden" value="@(Model.Question.Id)" id="qnaQuestionId" name="QuestionId" />
+}
+
+
+
