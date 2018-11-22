@@ -41,7 +41,7 @@
                             {
                                 string priceText = (Model.IsLocationSelected && !Model.ShowOnRoadButton ? "On-road price " : (Model.LocationCookie.CityId > 0 && !Model.IsLocationSelected ? "On-road price " : "Ex-showroom price "));
                                 string locationText = (Model.IsLocationSelected && !Model.ShowOnRoadButton ? Model.Location : (Model.LocationCookie.CityId > 0 ? Model.LocationCookie.City : Bikewale.Utility.BWConfiguration.Instance.DefaultName));
-                                if (Model.IsEditCityOption)
+                                if (Model.IsBlueEditCityOption || Model.IsBlackEditCityOption)
                                 {
                                     int lastIndex = locationText.LastIndexOf(',');
                                     string areaText = string.Empty, cityText = string.Empty;
@@ -54,7 +54,7 @@
                                     {
                                         cityText = locationText;
                                     }
-                                    <p class="font12 text-light-grey">@priceText in <a href="javascript:void(0)" data-reload="true" data-persistent="true" data-modelid='@Model.ModelId' data-cat="Model_Page" data-act="Edit_City_Initiated" data-lab="@string.Format("{0}in {1}",priceText,locationText)" class="getquotation bw-ga" rel="nofollow"><span class="edit-city-link">@areaText<span class="edit-city__text">@cityText<span class="edit-city__icon"></span></span></span></a></p>
+                                    <p class="font12 text-light-grey">@priceText in <a href="javascript:void(0)" data-reload="true" data-persistent="true" data-modelid='@Model.ModelId' data-bhrigucat="Model_Page" data-bhrigushownact="EditCityShown" data-bhriguact="EditCityInitiated" data-bhrigulab="@string.Format("versionId={0}|priceText={1} in {2}", Model.VersionId, priceText, locationText)" class="getquotation bw-bhrigu bw-shown-in-bhrighu" rel="nofollow"><span class="@String.Format("{0}", Model.IsBlueEditCityOption ? "edit-city-link" : "edit-city-link_black")">@areaText<span class="edit-city__text">@cityText<span class="@String.Format("{0}", Model.IsBlueEditCityOption ? "edit-city__icon" : "edit-city__icon_grey")"></span></span></span></a></p>
                                 }
                                 else
                                 {

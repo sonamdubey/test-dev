@@ -51,6 +51,8 @@ namespace Bikewale.Models.BikeModels
     /// Description : Removed IsNearByDealerCTA property
     /// Modified By : Rajan Chauhan on 19 October 2018
     /// Desciption  : Added UpfrontLoanCampaign flag for EMI Campaign link in place Calculate EMI
+    /// Modified By : Rajan Chauhan on 22 Nov 2018
+    /// Description : Added IsBlackEditCityOption and changed prev IsEditCityOption to IsBlueEditCityOption flag
     /// </summary>
     public class ModelPageVM : ModelBase
     {
@@ -184,7 +186,8 @@ namespace Bikewale.Models.BikeModels
         public string JSONEMISlider { get; set; }
 
         // for AB TEST
-        public bool IsEditCityOption { get; set; }
+        public bool IsBlueEditCityOption { get; set; }
+        public bool IsBlackEditCityOption { get; set; }
         public bool IsAnimatedCTA { get; set; }
         public bool IsNearlyAllIndiaCampaign { get; set; }
         public bool IsNonAnimatedCTA { get; set; }

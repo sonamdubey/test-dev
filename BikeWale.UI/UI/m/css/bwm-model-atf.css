@@ -823,11 +823,29 @@ a.btn:hover {
     font-weight: 600;
     cursor: pointer;
 }
+
+.edit-city-link_black {
+    color: #000000;
+    font-weight: 600;
+    cursor: pointer;
+}
+
 .edit-city__text{
     display: inline-block;
 }
 .edit-city__icon {
     background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/0288d1/edit.svg') center no-repeat;
+    width: 9px;
+    height: 9px;
+    margin-left: 5px;
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+    top: -1px;
+}
+
+.edit-city__icon_grey {
+    background: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/4d5057/edit.svg') center no-repeat;
     width: 9px;
     height: 9px;
     margin-left: 5px;

@@ -332,13 +332,16 @@ namespace Bikewale.Models.BikeModels
         /// Description : Added logic for IsTopSellingPitch
         /// Modified By : Prabhu Puredla on 1 nov 2018
         /// Description : Added logic for panindiamodels
+        /// Modified By : Rajan Chauhan on 22 Nov 2018
+        /// Description : Set BlackEditCityOption flag
         /// </summary>
         private void SetTestFlags()
         {
             ushort cookieValue;
             if (HttpContext.Current.Request.Cookies["_bwtest"] != null && ushort.TryParse(HttpContext.Current.Request.Cookies["_bwtest"].Value, out cookieValue))
             {
-                _objData.IsEditCityOption = cookieValue >= 41 && cookieValue <= 50;
+                _objData.IsBlackEditCityOption = cookieValue > 30 && cookieValue <= 40; 
+                _objData.IsBlueEditCityOption = cookieValue >= 41 && cookieValue <= 50;
                 _objData.IsAnimatedCTA = cookieValue > 10;
                 _objData.IsNearlyAllIndiaCampaign = cookieValue <= 80 && _objModel.CheckPanIndiaModel(_objData.ModelId);
                 _objData.IsNonAnimatedCTA = cookieValue > 5 && cookieValue <= 10;
