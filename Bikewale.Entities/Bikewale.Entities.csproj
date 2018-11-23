@@ -361,6 +361,7 @@
     <Compile Include="EditCMS\Photos\ModelImage.cs" />
     <Compile Include="EditorialWidgets\EditorialWidgetEntity.cs" />
     <Compile Include="EMISliderAMP.cs" />
+    <Compile Include="ESTopCardABTest.cs" />
     <Compile Include="Feedback\FeedbackTypeEnum.cs" />
     <Compile Include="Filters\CustomInputFilters.cs" />
     <Compile Include="Filters\FilterBase.cs" />

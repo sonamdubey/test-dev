@@ -562,6 +562,8 @@ namespace Bikewale.Models
         /// Description : Removed update of dealer id in pq table. Dealer id is inserted in pq table from the Referrer page of Price Quote page, No need to update here.
         /// Modified by : Rajan Chauhan on 14 Nov 2018
         /// Description : Added ABTest check on Offers
+        /// Modified by : Pratibha Verma on 22 November 2018
+        /// Description : set pageId in LeadCampaign entity
         /// </summary>
         private void GetManufacturerCampaign(DealerPriceQuotePageVM objData)
         {
@@ -624,7 +626,8 @@ namespace Bikewale.Models
                                 LoanAmount = Convert.ToUInt32((objData.TotalPrice) * 0.8),
                                 SendLeadSMSCustomer = campaigns.LeadCampaign.SendLeadSMSCustomer,
                                 FloatingBtnLeadSourceId = LeadSourceEnum.DPQ_Floating_Mobile,
-                                OffersList = manufacturerOffersList
+                                OffersList = manufacturerOffersList,
+                                PageId = ManufacturerCampaignPageId
                             };
                             objData.IsManufacturerLeadAdShown = true;
                         }

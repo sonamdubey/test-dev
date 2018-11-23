@@ -15,6 +15,8 @@ namespace Bikewale.Entities.manufacturecampaign.v2
     /// Description : Added  IsTopSellingPitch property
     /// Modified by : Pratibha Verma on 10 October 2018
     /// Description : Added OffersList property
+    /// Modified by : Pratibha Verma on 22 November 2018
+    /// Description : Added TopCardABTest and PageId properties for AB test
     /// </summary>
     public class ManufactureCampaignLeadEntity : ManufacturerCampaignLeadConfiguration
     {
@@ -38,5 +40,7 @@ namespace Bikewale.Entities.manufacturecampaign.v2
         public string TopSellingPitchText { set; get; }
         public IEnumerable<string> OffersList { get; set; }
         public uint OfferCount { get { return OffersList != null ? (uint)OffersList.Count() : 0; } }
+        public ESTopCardABTest TopCardABTest { get; set; }
+        public ManufacturerCampaignServingPages PageId { get; set; }
     }
 }

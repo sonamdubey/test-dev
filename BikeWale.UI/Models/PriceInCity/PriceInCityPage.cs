@@ -1402,6 +1402,8 @@ namespace Bikewale.Models
         /// Description : Using Manufacturer campaigns fetched at the time of processing pq. Removed update of dealer id in pq table.
         /// Modified by : Rajan Chauhan on 14 Nov 2018
         /// Description : Added ABTest check on Offers
+        /// Modified by : Pratibha Verma on 22 November 2018
+        /// Description : set pageId in LeadCampaign entity
         /// </summary>
         private void GetManufacturerCampaign(PriceInCityPageVM objData, Entities.BikeBooking.v2.PQOutputEntity pQOutput)
         {
@@ -1465,7 +1467,8 @@ namespace Bikewale.Models
                                 LoanAmount = Convert.ToUInt32((objData.FirstVersion.OnRoadPrice) * 0.8),
                                 SendLeadSMSCustomer = campaigns.LeadCampaign.SendLeadSMSCustomer,
                                 FloatingBtnLeadSourceId = LeadSourceEnum.PriceInCity_Floating_Mobile,
-                                OffersList = manufacturerOffersList
+                                OffersList = manufacturerOffersList,
+                                PageId = ManufacturerCampaignPageId
                             };
 
 

@@ -8,7 +8,7 @@ var backToTopBtn, halfBodyHeight, overViewContentHeight;
 var lastScrollTop = 0;
 var reg, vmUserReviews;
 var versionListGATriggered = false;
-
+var esTopCardBhriguTriggered = false;
 
 function getBikeVersion() {
     return versionName;
@@ -297,6 +297,10 @@ docReady(function () {
 
     });
 
+    $(".js_default_cta_abtest #btnManufacturer").on("click", function () {
+    
+        cwTracking.trackCustomData("BWModelPage", "ES_TopCardLeadCTA_Click", "VersionId=" + versionId + "|DealerId=" + dealerId);
+    });
     function isPriceListInView(elem) {
         var elemTop = elem.offset().top;
         var elemBottom = elem.offset().top + elem.outerHeight();
@@ -319,7 +323,6 @@ docReady(function () {
                 triggerNonInteractiveGA("Model_Page", "CheckOnRoad_VersionList_Shown", "");
             }            
         }
-
         var windowScrollTop = $window.scrollTop(),
             modelSpecsTabsOffsetTop = modelSpecsTabsContentWrapper.offset().top,
             modelSpecsFooterOffsetTop = modelSpecsFooter.offset().top;
@@ -390,7 +393,16 @@ docReady(function () {
         if (windowScrollTop < overViewContentHeight) {
             backToTopBtn.fadeOut();
         };
-
+        var campaignTopCardContainer = $(".cta-animation-container");
+        var floatingCTAContainer = $(".floating-btn");
+        if (campaignTopCardContainer.length > 0 && floatingCTAContainer.length > 0) {
+            var windowScrollHeight = $(window).scrollTop() + $(window).innerHeight();
+            var containerScrollTop = campaignTopCardContainer.offset().top + campaignTopCardContainer.height() + floatingCTAContainer.height();
+            if (windowScrollHeight > containerScrollTop && !esTopCardBhriguTriggered) {
+                esTopCardBhriguTriggered = true;
+                cwTracking.trackCustomData("BWModelPage", "ES_TopCardLeadCTA_Shown", "VersionId=" + versionId + "|DealerId=" + dealerId);
+            }
+        }
     });
 
     // version dropdown

@@ -334,6 +334,8 @@ namespace Bikewale.Models.BikeModels
         /// Description : Added logic for panindiamodels
         /// Modified By : Rajan Chauhan on 22 Nov 2018
         /// Description : Set BlackEditCityOption flag
+        /// Modified by : Pratibha Verma on 22 November 2018
+        /// Description : added abTest logic for ES Deafault campaign
         /// </summary>
         private void SetTestFlags()
         {
@@ -350,6 +352,8 @@ namespace Bikewale.Models.BikeModels
                 if(_objData.LeadCampaign !=null)
                 {
                     _objData.LeadCampaign.IsTopSellingPitch = cookieValue > 50 && cookieValue <= 60 && !string.IsNullOrEmpty(_objData.LeadCampaign.TopSellingPitchText);
+                    _objData.LeadCampaign.TopCardABTest = (cookieValue > 30 && cookieValue <= 40) ? ESTopCardABTest.RedCustom : ((cookieValue > 60 && cookieValue <= 70) ? ESTopCardABTest.RedDefault :
+                                                            ((cookieValue > 70 && cookieValue <= 80) ? ESTopCardABTest.TealCustom : ESTopCardABTest.Default));
                 }
             }
         }
@@ -1955,6 +1959,8 @@ namespace Bikewale.Models.BikeModels
         /// Summary:- added manufacturer campaign leadpopup changes
         /// Modified by : Ashutosh Sharma on 30 Aug 2017
         /// Description : Removed IsGstPrice flag
+        /// Modified by : Pratibha Verma on 22 November 2018
+        /// Description : set manufacturer's dealerId in `_objData.DealerId`
         /// </summary>
         private void FetchOnRoadPrice(BikeModelPageEntity modelPage)
         {
@@ -2035,10 +2041,16 @@ namespace Bikewale.Models.BikeModels
             }
             finally
             {
-                if (_pqOnRoad != null && _pqOnRoad.PriceQuote != null && _pqOnRoad.PriceQuote.IsDealerAvailable && _cityId > 0 && _objData.VersionId > 0)
+                if (_pqOnRoad != null && _pqOnRoad.PriceQuote != null)
                 {
-                    _objData.DetailedDealer = _objDealerDetails.GetDealerQuotationV2(_cityId, _objData.VersionId, _objData.DealerId, _areaId);
-
+                    if (_pqOnRoad.PriceQuote.IsDealerAvailable && _cityId > 0 && _objData.VersionId > 0)
+                    {
+                        _objData.DetailedDealer = _objDealerDetails.GetDealerQuotationV2(_cityId, _objData.VersionId, _objData.DealerId, _areaId);
+                    }
+                    else if (_pqOnRoad.PriceQuote.ManufacturerCampaign != null && _pqOnRoad.PriceQuote.ManufacturerCampaign.LeadCampaign != null)
+                    {
+                        _objData.DealerId = _pqOnRoad.PriceQuote.ManufacturerCampaign.LeadCampaign.DealerId; //set manufacturer dealerId
+                    }
                 }
             }
         }
@@ -2117,7 +2129,8 @@ namespace Bikewale.Models.BikeModels
                                 LoanAmount = Convert.ToUInt32((_objData.BikePrice) * 0.8),
                                 SendLeadSMSCustomer = campaigns.LeadCampaign.SendLeadSMSCustomer,
                                 FloatingBtnLeadSourceId = LeadSourceEnum.ModelPage_Floating_Mobile,
-                                OffersList = manufacturerOffersList
+                                OffersList = manufacturerOffersList,
+                                PageId = ManufacturerCampaignPageId
                             };
 
                             _objData.IsManufacturerTopLeadAdShown = !_objData.ShowOnRoadButton;
