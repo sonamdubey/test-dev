@@ -44,6 +44,8 @@ namespace Bikewale.Models.QuestionsAnswers
         /// Created By : Deepak Israni on 13 July 2018
         /// Description : Function to bind data on Thank You page after question is answered.
         /// </summary>
+        /// Modified By : Kumar Swapnil on 23 November 2018
+        /// Description : Set SourceName value for a corresponding Source (for server side ga data-attribute binding)
         /// <param name="queryString"></param>
         /// <returns></returns>
         public ThankYouPageVM GetData(string queryString)
@@ -64,6 +66,19 @@ namespace Bikewale.Models.QuestionsAnswers
                 if(this.Source != Sources.Invalid)
                 {
                     objData.Source = (ushort)this.Source;
+                    switch(this.Source)
+                    {
+                        case Sources.Rating_Thankyou: 
+                            objData.SourceName = "Rate_Bike_Thanks";
+                            break;
+                        case Sources.WriteReview_ThankYou:
+                            objData.SourceName = "Write_Review_Thanks";
+                            break;
+                        case Sources.UsedBike_Listing:
+                            objData.SourceName = "List_Used_Bike";
+                            break;
+                    }
+                    
                 }
 
                 #region Bind Question Data

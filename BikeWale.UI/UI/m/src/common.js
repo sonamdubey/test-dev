@@ -1573,6 +1573,15 @@ docReady(function () {
       $(".user-input-box").stop().animate({ 'left': '100%' }, 500);
     });
 
+
+    (function () {
+        var elemList = document.querySelectorAll(".js-ga-non-interactive");
+        var len = elemList.length;
+        for (var i = 0 ; i < len ; i++) {
+            triggerNonInteractiveGA(elemList[i].getAttribute("data-cat"), elemList[i].getAttribute("data-act"), elemList[i].getAttribute("data-lab"));
+        }
+    })();
+
 });
 
 docReady(function () {

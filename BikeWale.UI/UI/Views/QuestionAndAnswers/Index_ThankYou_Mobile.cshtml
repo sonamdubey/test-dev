@@ -28,7 +28,7 @@
             <div class="qna-question__content">
                 @if (Model.Questions != null && Model.Questions.Any())
                 {
-                    <h2 class="question-answer-wrapper__title">
+                    <h2 class="question-answer-wrapper__title js-ga-non-interactive" data-act="Answer_This_Question_Link_Displayed" data-lab="@string.Format("{0}_{1}", Model.MakeName, Model.ModelName)" data-cat="@Model.SourceName">
                         @{
                     String bikeMessage = "";
                     if (!String.IsNullOrEmpty(Model.BikeName))
