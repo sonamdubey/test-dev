@@ -3,6 +3,8 @@ namespace Bikewale.Entities.BikeBooking
 {
     /// <summary>
     /// Created By : Vivek Gupta on 29 aug 2016
+    /// Modifier: kartik on 19 nov 2018
+    /// Desc    : added MaskingNumber
     /// </summary>
     public enum LeadSourceEnum
     {
@@ -60,6 +62,7 @@ namespace Bikewale.Entities.BikeBooking
         ModelPage_TopCard_AMP = 80,
         ModelPage_MLA_AMP = 81,
         AdsLeadCapture = 82,
-        ModelPage_VersionPriceList_Mobile = 83
+        ModelPage_VersionPriceList_Mobile = 83,
+        MaskingNumber = 84
     }
 }

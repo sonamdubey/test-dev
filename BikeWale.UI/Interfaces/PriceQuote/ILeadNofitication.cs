@@ -16,12 +16,14 @@ namespace Bikewale.Interfaces.PriceQuote
     /// Description :   Push Lead To Gaadi.com external API
     /// Modified by : Pratibha Verma on 27 April 2018
     /// Description : Added parameters 'additionalNumbers' and 'additionalEmails' in Signature of NotifyDealer
+    /// Modified by : Kartik Rathod on 19 nov 2019
+    /// Desc        : modified PushtoAB added inquirySource = 39, string otherData = "", string comments = ""
     /// </summary>
     public interface ILeadNofitication
     {
         void NotifyCustomer(uint pqId, string bikeName, string bikeImage, string dealerName, string dealerEmail, string dealerMobileNo, string organization, string address, string customerName, string customerEmail, List<PQ_Price> priceList, List<OfferEntity> offerList, string pinCode, string stateName, string cityName, uint totalPrice, DPQSmsEntity objDPQSmsEntity, string requestUrl, uint? leadSourceId, string versionName, double dealerLat, double dealerLong, string workingHours, string platformId = "");
         void NotifyDealer(uint pqId, string makeName, string modelName, string versionName, string dealerName, string dealerEmail, string customerName, string customerEmail, string customerMobile, string areaName, string cityName, List<PQ_Price> priceList, int totalPrice, List<OfferEntity> offerList, string imagePath, string dealerMobile, string bikeName, string dealerArea, string additionalNumbers, string additionalEmails);
-        void PushtoAB(string dealerId, uint pqId, string customerName, string customerMobile, string customerEmail, string versionId, string cityId, string pqGuId, uint leadId, uint campaignId = 0);
+        void PushtoAB(string dealerId, uint pqId, string customerName, string customerMobile, string customerEmail, string versionId, string cityId, string pqGuId, uint leadId, uint campaignId = 0, ushort inquirySource = 39, string otherData = "", string comments = "");
         bool PushLeadToGaadi(ManufacturerLeadEntity leadEntity);
         void NotifyCustomerV2(string pqId, string bikeName, string bikeImage, string dealerName, string dealerEmail, string dealerMobileNo, string organization, string address, string customerName, string customerEmail, List<PQ_Price> priceList, List<OfferEntity> offerList, string pinCode, string stateName, string cityName, uint totalPrice, DPQSmsEntity objDPQSmsEntity, string requestUrl, uint? leadSourceId, string versionName, double dealerLat, double dealerLong, string workingHours, string platformId = "");
         void NotifyDealerV2(string pqId, string makeName, string modelName, string versionName, string dealerName, string dealerEmail, string customerName, string customerEmail, string customerMobile, string areaName, string cityName, List<PQ_Price> priceList, int totalPrice, List<OfferEntity> offerList, string imagePath, string dealerMobile, string bikeName, string dealerArea, string additionalNumbers, string additionalEmails);

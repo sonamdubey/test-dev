@@ -139,7 +139,7 @@
     <Compile Include="AutoComplete\Payload.cs" />
     <Compile Include="AutoComplete\SuggestionOutput.cs" />
     <Compile Include="AWS\Token.cs" />
-    <Compile Include="BhriguPages.cs" />
+    <Compile Include="Bhrigu\BhriguPages.cs" />
     <Compile Include="BikeBooking\AreaEntityBase.cs" />
     <Compile Include="BikeBooking\BikeBooking.cs" />
     <Compile Include="BikeBooking\BikeBookingListingEntity.cs" />
@@ -329,6 +329,7 @@
     <Compile Include="DealerLocator\Dealers.cs" />
     <Compile Include="DealerLocator\DealersList.cs" />
     <Compile Include="DealerLocator\DealerVersionPrices.cs" />
+    <Compile Include="Lead\LeadTypeEnum.cs" />
     <Compile Include="Dealer\MakeEnitityBase.cs" />
     <Compile Include="Dealer\NearByCityDealerCountEntity.cs" />
     <Compile Include="Dealer\CityWiseDealersCountEntity.cs" />
@@ -402,6 +403,7 @@
     <Compile Include="manufacturecampaign\ManufactureCampaignInput.cs" />
     <Compile Include="manufacturecampaign\ManufactureDealer.cs" />
     <Compile Include="manufacturecampaign\v2\ManufactureCampaignInput.cs" />
+    <Compile Include="MaskingNumber\MaskingNumberLeadEntity.cs" />
     <Compile Include="MobileAppAlert\AppFCMInput.cs" />
     <Compile Include="MobileAppAlert\FCMNotifications.cs" />
     <Compile Include="MobileAppAlert\MobileAppAlertData.cs" />
@@ -676,6 +678,7 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>if $(ConfigurationName) ==  Release (

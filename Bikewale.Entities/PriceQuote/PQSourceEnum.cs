@@ -152,7 +152,10 @@ namespace Bikewale.Entities.PriceQuote
         Desktop_DealerLocator_Detail = 118,
         Desktop_DealerLocator_Listing = 119,
         Desktop_PriceInCity = 120,
-        Mobile_PriceInCity = 121
+        Mobile_PriceInCity = 121,
+        Mobile_ModelPage_AMP = 122,
+        Mobile_QnA_OnRoadLink = 123,
+        MaskingNumber = 124
     }
 
 }

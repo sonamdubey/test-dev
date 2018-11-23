@@ -266,6 +266,8 @@ namespace Bikewale.BAL.PriceQuote
         /// Description : added parameters pqGuId and leadId
         /// Modified by : Pratibha Verma on 14 November 2018
         /// Description : added parameter campaignId
+        /// Modified by : Kartik Rathod on 19 nov 2019
+        /// Desc        : added inquirySource , otherData and comments
         /// </summary>
         /// <param name="dealerId"></param>
         /// <param name="pqId"></param>
@@ -277,7 +279,10 @@ namespace Bikewale.BAL.PriceQuote
         /// <param name="pqGuId"></param>
         /// <param name="leadId"></param>
         /// <param name="campaignId"></param>
-        public void PushtoAB(string dealerId, uint pqId, string customerName, string customerMobile, string customerEmail, string versionId, string cityId, string pqGuId, uint leadId, uint campaignId = 0)
+        /// <param name="inquirySource">39 for bikewale new lead by default</param>
+        /// <param name="otherData">extra datea send to autobiz api in others field</param>
+        /// <param name="comments">comment sent by ab</param>
+        public void PushtoAB(string dealerId, uint pqId, string customerName, string customerMobile, string customerEmail, string versionId, string cityId, string pqGuId, uint leadId, uint campaignId = 0, ushort inquirySource = 39, string otherData = "",string comments = "")
         {
             string abInquiryId = string.Empty, message = string.Empty;
             bool isNotFakeMobileNumber = false;
@@ -291,7 +296,7 @@ namespace Bikewale.BAL.PriceQuote
                 if (isNotFakeMobileNumber)
                 {
                     NameValueCollection objNVC = new NameValueCollection();
-                    objNVC.Add("pqId", pqId.ToString());
+                    objNVC.Add("pqId", Convert.ToString(pqId));
                     objNVC.Add("dealerId", dealerId);
                     objNVC.Add("customerName", customerName);
                     objNVC.Add("customerEmail", customerEmail);
@@ -301,6 +306,10 @@ namespace Bikewale.BAL.PriceQuote
                     objNVC.Add("pqGUId", pqGuId);
                     objNVC.Add("manufacturerLeadId", Convert.ToString(leadId));
                     objNVC.Add("campaignId", Convert.ToString(campaignId));
+                    objNVC.Add("others", otherData);
+                    objNVC.Add("inquirySource", Convert.ToString(inquirySource));
+                    objNVC.Add("comments", comments);
+
                     RabbitMqPublish objRMQPublish = new RabbitMqPublish();
                     objRMQPublish.PublishToQueue(Bikewale.Utility.BWConfiguration.Instance.LeadConsumerQueue, objNVC);
                 }

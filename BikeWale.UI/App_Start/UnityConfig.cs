@@ -55,6 +55,7 @@ using Bikewale.DAL.Dealer;
 using Bikewale.DAL.Finance.CapitalFirst;
 using Bikewale.DAL.HomePage;
 using Bikewale.DAL.Location;
+using Bikewale.DAL.MaskingNumber;
 using Bikewale.DAL.QuestionAndAnswers;
 using Bikewale.DAL.ServiceCenter;
 using Bikewale.DAL.Used;
@@ -84,6 +85,7 @@ using Bikewale.Interfaces.Finance.CapitalFirst;
 using Bikewale.Interfaces.HomePage;
 using Bikewale.Interfaces.Lead;
 using Bikewale.Interfaces.Location;
+using Bikewale.Interfaces.MaskingNumber;
 using Bikewale.Interfaces.NewBikeSearch;
 using Bikewale.Interfaces.Pager;
 using Bikewale.Interfaces.PriceQuote;
@@ -118,6 +120,8 @@ namespace Bikewale
     /// Description :   Registered IBikeVersionRepository
     /// Modified by : Sanskar Gupta on 03 July 2018
     /// Description : Registered `IUserProfileBAL`
+    /// Modified by : Kartik Rathod on 19 nov 2019
+    /// Desc        : added MaskingNumberDl mapping
     /// </summary>
     public static class UnityConfig
     {
@@ -230,6 +234,7 @@ namespace Bikewale
             container.RegisterType<IAnswers, Answers>();
             container.RegisterType<ICampaignBL, CampaignBL>();
             container.RegisterType<IPriceQuoteCacheHelper, PriceQuoteCacheHelper>();
+            container.RegisterType<IMaskingNumberDl, MaskingNumberDl>();
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }
     }

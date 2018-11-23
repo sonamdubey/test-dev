@@ -483,6 +483,7 @@
     <Compile Include="common\ManageVideos.cs" />
     <Compile Include="DAL\AppAlert\AppAlertRepository.cs" />
     <Compile Include="DAL\Finance\BajajAutoRepository.cs" />
+    <Compile Include="DAL\MaskingNumber\MaskingNumberDl.cs" />
     <Compile Include="DAL\QuestionAndAnswers\AnswerRepository.cs" />
     <Compile Include="DTO\Campaign\DealerCampaignDTO.cs" />
     <Compile Include="DTO\Campaign\ESDSCampaignDTO.cs" />
@@ -492,6 +493,7 @@
     <Compile Include="DTO\Dealer\NewBikeDealerDetails.cs" />
     <Compile Include="DTO\Finance\BajajAutoLeadResponseDto.cs" />
     <Compile Include="DTO\PriceQuote\v2\PQMobileVerificationInput.cs" />
+    <Compile Include="DTO\MaskingNumber\MaskingNumberLeadInput.cs" />
     <Compile Include="DTO\PriceQuote\v3\MLALeadDetails.cs" />
     <Compile Include="DTO\PriceQuote\v4\DPQuotationOutput.cs" />
     <Compile Include="DTO\PriceQuote\v4\PQCustomerDetailOutput.cs" />
@@ -507,6 +509,7 @@
     <Compile Include="Interfaces\Finance\IBajajAuto.cs" />
     <Compile Include="Interfaces\Finance\IBajajAutoCache.cs" />
     <Compile Include="Interfaces\Finance\IBajajAutoRepository.cs" />
+    <Compile Include="Interfaces\MaskingNumber\IMaskingNumberDl.cs" />
     <Compile Include="Interfaces\News\INews.cs" />
     <Compile Include="Interfaces\News\INewsCache.cs" />
     <Compile Include="Interfaces\PriceQuote\IPriceQuoteCacheHelper.cs" />
@@ -551,6 +554,7 @@
     <Compile Include="Services\AutoMappers\Make\MakeListMapper.cs" />
     <Compile Include="Services\AutoMappers\Make\MakePageEntityMapper.cs" />
     <Compile Include="Services\AutoMappers\ManufacturerCampaign\ManufacturerCampaignMapper.cs" />
+    <Compile Include="Services\AutoMappers\MaskingNumber\MaskingNumberMapper.cs" />
     <Compile Include="Services\AutoMappers\MobileAppAlert\FCMNotificationMapper.cs" />
     <Compile Include="Services\AutoMappers\Model\ModelMapper.cs" />
     <Compile Include="Services\AutoMappers\NewBikeSearch\SearchOutputMapper.cs" />
@@ -631,6 +635,7 @@
     <Compile Include="Services\Controllers\Make\MakeListController.cs" />
     <Compile Include="Services\Controllers\Make\MakePageController.cs" />
     <Compile Include="Services\Controllers\Manufacturer\ManufacturerCampaignController.cs" />
+    <Compile Include="Services\Controllers\MaskingNumber\MaskingNumberController.cs" />
     <Compile Include="Services\Controllers\MobileAppAlerts\PushMobileAppAlertController.cs" />
     <Compile Include="Services\Controllers\Model\ModelController.cs" />
     <Compile Include="Services\Controllers\Model\ModelDescriptionController.cs" />

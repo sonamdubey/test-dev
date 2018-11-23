@@ -55,6 +55,7 @@ using Bikewale.DAL.Feedback;
 using Bikewale.DAL.Finance.BajajAuto;
 using Bikewale.DAL.Images;
 using Bikewale.DAL.Location;
+using Bikewale.DAL.MaskingNumber;
 using Bikewale.DAL.NewBikeSearch;
 using Bikewale.DAL.Notifications;
 using Bikewale.DAL.QuestionAndAnswers;
@@ -87,6 +88,7 @@ using Bikewale.Interfaces.Finance.BajajAuto;
 using Bikewale.Interfaces.Images;
 using Bikewale.Interfaces.Lead;
 using Bikewale.Interfaces.Location;
+using Bikewale.Interfaces.MaskingNumber;
 using Bikewale.Interfaces.MobileAppAlert;
 using Bikewale.Interfaces.MobileVerification;
 using Bikewale.Interfaces.NewBikeSearch;
@@ -280,6 +282,7 @@ namespace Bikewale.Service.UnityConfiguration
             container.RegisterType<IUserProfileBAL, UserProfileBAL>();
             container.RegisterType<ICampaignBL, CampaignBL>();
             container.RegisterType<IPriceQuoteCacheHelper, PriceQuoteCacheHelper>();
+            container.RegisterType<IMaskingNumberDl, MaskingNumberDl>();
             return container;
 
         }
