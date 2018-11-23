@@ -395,7 +395,8 @@ docReady(function () {
         };
         var campaignTopCardContainer = $(".cta-animation-container");
         var floatingCTAContainer = $(".floating-btn");
-        if (campaignTopCardContainer.length > 0 && floatingCTAContainer.length > 0) {
+        var isDefaultTemplatePresent = $(".js_default_cta_abtest").length > 0;
+        if (campaignTopCardContainer.length > 0 && floatingCTAContainer.length > 0 && isDefaultTemplatePresent) {
             var windowScrollHeight = $(window).scrollTop() + $(window).innerHeight();
             var containerScrollTop = campaignTopCardContainer.offset().top + campaignTopCardContainer.height() + floatingCTAContainer.height();
             if (windowScrollHeight > containerScrollTop && !esTopCardBhriguTriggered) {
