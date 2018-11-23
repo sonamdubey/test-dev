@@ -965,6 +965,13 @@
                                         }
                                     </div>
                                     }
+                                    else if (Model.IsNearlyAllIndiaCampaign)
+                                    {
+                                        <div class="emi-quote__btn-block">
+                                        <a id="btnEmiQuote" href="@string.Format("{0}/m/popup/?queryString={1}", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, Bikewale.Utility.TripleDES.EncryptTripleDES(string.Format("pqsourceid={0}&pagecatid={1}&preselcity={2}&makeid={3}&makename={4}&modelid={5}&modelname={6}&isnearlypanindiamodel={7}&versionId={8}&origin=1&leadsourceid={9}&Url={10}{11}", (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_ModelPage, "9", "0", Model.ModelPageEntity.ModelDetails.MakeBase.MakeId, Model.ModelPageEntity.ModelDetails.MakeBase.MakeName, Model.ModelPageEntity.ModelDetails.ModelId, Model.ModelPageEntity.ModelDetails.ModelName, Model.IsNearlyAllIndiaCampaign, Model.VersionId, (uint)Bikewale.Entities.BikeBooking.LeadSourceEnum.ModelPage_EmiCalculator_AMP, Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, @String.Format("/m{0}#onRoadPriceAmp", Bikewale.Utility.UrlFormatter.BikePageUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName)))))" class="btn btn-white emi-quote-btn">Get Offers on Loans
+                                        </a>
+                                            </div>
+                                    }
                                 </div>
                             </div>
                             }
@@ -978,7 +985,16 @@
             {
                 <div class="floating-btn clearfix">
                     <div class="grid-12 alpha omega">
-                        <a id="btnGetOnRoadPrice" href="@string.Format("{0}/m/popup/?queryString={1}", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, Bikewale.Utility.TripleDES.EncryptTripleDES(string.Format("pqsourceid={0}&pagecatid={1}&preselcity={2}&makeid={3}&makename={4}&modelid={5}&modelname={6}&Url={7}{8}", (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_PriceInCity_SelectArea, "9", "0", Model.ModelPageEntity.ModelDetails.MakeBase.MakeId, Model.ModelPageEntity.ModelDetails.MakeBase.MakeName, Model.ModelPageEntity.ModelDetails.ModelId, Model.ModelPageEntity.ModelDetails.ModelName, Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, @String.Format("/m{0}#onRoadPriceAmp", Bikewale.Utility.UrlFormatter.BikePageUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName)))))" style="width: 100%" class="btn btn-orange getquotation">Check on-road price</a>
+                        <a id="btnGetOnRoadPrice" href="@string.Format("{0}/m/popup/?queryString={1}", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, Bikewale.Utility.TripleDES.EncryptTripleDES(string.Format("pqsourceid={0}&pagecatid={1}&preselcity={2}&makeid={3}&makename={4}&modelid={5}&modelname={6}&isnearlypanindiamodel={7}&versionId={8}&origin=2&leadsourceid={9}&Url={10}{11}", (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_ModelPage, "9", "0", Model.ModelPageEntity.ModelDetails.MakeBase.MakeId, Model.ModelPageEntity.ModelDetails.MakeBase.MakeName, Model.ModelPageEntity.ModelDetails.ModelId, Model.ModelPageEntity.ModelDetails.ModelName, Model.IsNearlyAllIndiaCampaign, Model.VersionId, (uint)Bikewale.Entities.BikeBooking.LeadSourceEnum.ModelPage_Floating_AMP, Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, @String.Format("/m{0}#onRoadPriceAmp", Bikewale.Utility.UrlFormatter.BikePageUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName)))))" style="width: 100%" class="btn btn-orange getquotation">
+                            @if(Model.IsNearlyAllIndiaCampaign)
+                            { 
+                                <text>Get Best Offers</text>
+                            }
+                            else
+                            {
+                                 <text>Check on-road price</text>
+                            }
+                        </a>
                     </div>
                 </div>
             }
@@ -992,6 +1008,25 @@
                 {
                     @Html.Raw(Model.LeadCapture.ManufacturerLeadAdAMPConvertedContent);
                 }
+
+            </div>
+        }
+        else if (Model.IsNewBike && Model.IsNearlyAllIndiaCampaign)
+        {
+            <div class="dealer-campaign-wrapper card-bottom-margin nearby-dealers-top-card">
+                <div class="margin-bottom10">
+                    <span class="campaign__icon"></span><p class="campaign__name inline-block">Contact <span >@Model.ModelPageEntity.ModelDetails.MakeBase.MakeName</span> Dealer</p>
+                </div>
+                <p class="font14 margin-bottom10">Get in touch with authorized dealer for:</p>
+                <ul class="campaign__list item--50-percent margin-bottom15">
+                    <li class="campaign__list-item">Best offers</li>
+                    <li class="campaign__list-item">Test rides</li>
+                    <li class="campaign__list-item">EMI options</li>
+                    <li class="campaign__list-item">Exchange benefits</li>
+                </ul>
+                <a id="btnGetOnRoadPrice" href="@string.Format("{0}/m/popup/?queryString={1}", Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, Bikewale.Utility.TripleDES.EncryptTripleDES(string.Format("pqsourceid={0}&pagecatid={1}&preselcity={2}&makeid={3}&makename={4}&modelid={5}&modelname={6}&isnearlypanindiamodel={7}&versionId={8}&origin=2&leadsourceid={9}&Url={10}{11}", (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_ModelPage, "9", "0", Model.ModelPageEntity.ModelDetails.MakeBase.MakeId, Model.ModelPageEntity.ModelDetails.MakeBase.MakeName, Model.ModelPageEntity.ModelDetails.ModelId, Model.ModelPageEntity.ModelDetails.ModelName, Model.IsNearlyAllIndiaCampaign, Model.VersionId, (uint)Bikewale.Entities.BikeBooking.LeadSourceEnum.ModelPage_TopCard_AMP, Bikewale.Utility.BWConfiguration.Instance.BwHostUrl, @String.Format("/m{0}#onRoadPriceAmp", Bikewale.Utility.UrlFormatter.BikePageUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName)))))" class="btn btn-teal btn-180-32 margin-right20">
+                    Get offers from dealer
+                </a>
 
             </div>
         }

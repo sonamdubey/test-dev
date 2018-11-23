@@ -163,10 +163,13 @@
         });
 
         self.setOptions = function (options, e) {
-
             if (options != null) {
                 self.popupTriggerSource( e != undefined && e.currentTarget != undefined && e.currentTarget.dataset!= undefined && e.currentTarget.dataset.popupsource === 'leadcapturebtn'? 
                     PopupTriggerSourceEnum.LeadCaptureButton : PopupTriggerSourceEnum.CitySelectionIcon);
+                if(options.isleadpopstateflow != undefined && options.isleadpopstateflow)
+                {
+                    self.popupTriggerSource(PopupTriggerSourceEnum.LeadCaptureButton);
+                }
 
                 if(self.isLeadPopupFlow()) {
                     self.subTitle("We will connect you to nearest authorized dealership.");
@@ -487,10 +490,11 @@
                 triggerGA("LocationPopUp", "CloseClick", leadBikeName);
                 cwTracking.trackCustomData("LocationPopUp", "CloseClick", "modelname=" + leadBikeName );
             }
-            else {
-                if (rUrl && rUrl != "")
-                    window.location=rUrl;
+            if (rUrl && rUrl != "")
+            {
+                window.location=rUrl;
             }
+            
             vmquotation.closeLocationPopup();
         });
 

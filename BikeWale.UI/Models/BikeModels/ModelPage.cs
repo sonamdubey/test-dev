@@ -345,7 +345,7 @@ namespace Bikewale.Models.BikeModels
                 _objData.IsBlackEditCityOption = cookieValue > 30 && cookieValue <= 40; 
                 _objData.IsBlueEditCityOption = cookieValue >= 41 && cookieValue <= 50;
                 _objData.IsAnimatedCTA = cookieValue > 10;
-                _objData.IsNearlyAllIndiaCampaign = cookieValue <= 80 && _objModel.CheckPanIndiaModel(_objData.ModelId);
+                _objData.IsNearlyAllIndiaCampaign = (cookieValue <= 80 || IsAmpPage) && _objModel.CheckPanIndiaModel(_objData.ModelId);
                 _objData.IsNonAnimatedCTA = cookieValue > 5 && cookieValue <= 10;
                 _objData.UpfrontLoanCampaign = cookieValue > 20 && cookieValue <= 30 && (_objData.EMICalculator != null && (_objData.EMICalculator.ESEMICampaign != null || _objData.EMICalculator.IsPremiumDealer));
                 _objData.IsOffersShownOnLeadPopup = cookieValue <= 90;

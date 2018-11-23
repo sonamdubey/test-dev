@@ -848,7 +848,7 @@
                     "customerName": self.fullName(),
                     "customerMobile": self.mobileNo(),
                     "customerEmail": self.emailId(),
-                    "clientIP": clientIP,
+                    "clientIP": clientIp ,
                     "PageUrl": pageUrl,
                     "leadSourceId": self.leadSourceId(),
                     "deviceId": getCookie('BWC'),
@@ -1553,7 +1553,14 @@
             $('body').removeClass('lock-browser-scroll');
             windowScreen.unlock();
             if(campaignLeadVm.isLeadPopupFlow()) {
-                window.location.reload(true);
+                if(typeof(redirectUrl) != "undefined" && redirectUrl != "")
+                {
+                    window.location=redirectUrl;
+                }
+                else
+                {
+                    window.location.reload(true);
+                }
             }
         };
 
@@ -1829,10 +1836,9 @@
                 "versionid": versionId,
                 "leadsourceid": dataCampaign.leadsourceId,
                 "pqsourceid": dataCampaign.pqsourceId,
-                "pqId": 0,
-                "pqguid": pqId,
+                "pqguid":  pqId,
                 "pageurl": pageUrl,
-                "clientip": clientIP,
+                "clientip": clientIp,
                 "eventcategory": "Model_Page",
                 "gaobject": {
                     cat: "Model_Page",
@@ -1856,7 +1862,7 @@
                 "pqId": 0,
                 "pqguid": pqId,
                 "pageurl": pageUrl,
-                "clientip": clientIP,
+                "clientip": clientIp,
                 "dealerHeading": dataCampaign.popupHeading,
                 "dealerMessage": dataCampaign.popupSuccessMessage,
                 "dealerDescription": dataCampaign.popupDescription,

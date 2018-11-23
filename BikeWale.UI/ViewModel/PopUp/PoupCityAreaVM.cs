@@ -30,6 +30,12 @@
 
         public string ExitUrl { set; get; }
 
+        public bool IsLeadPopStateFlow { set; get; }
 
+        public uint VersionId { set; get; }
+
+        public ushort Origin { set; get; }
+
+        public uint LeadSourceId { set; get; }
     }
 }

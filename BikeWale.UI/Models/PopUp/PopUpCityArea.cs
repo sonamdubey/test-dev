@@ -24,6 +24,10 @@ namespace Bikewale.Models
                 objPopupCityAreaVM.ModelName = Convert.ToString(queryCollection["modelname"]);
                 objPopupCityAreaVM.Url = Convert.ToString(queryCollection["Url"]);
                 objPopupCityAreaVM.ExitUrl = queryCollection["exitUrl"];
+                objPopupCityAreaVM.IsLeadPopStateFlow = SqlReaderConvertor.ToBoolean(queryCollection["isnearlypanindiamodel"]);
+                objPopupCityAreaVM.VersionId = SqlReaderConvertor.ToUInt16(queryCollection["versionId"]);
+                objPopupCityAreaVM.Origin = SqlReaderConvertor.ToUInt16(queryCollection["origin"]);
+                objPopupCityAreaVM.LeadSourceId = SqlReaderConvertor.ToUInt16(queryCollection["leadsourceid"]);
                 BindPageMetaTags(objPopupCityAreaVM.PageMetaTags);
             }
             catch (Exception ex)

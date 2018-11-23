@@ -1,35 +1,163 @@
 ﻿@model Bikewale.Models.PoupCityAreaVM
-
 @{
 
     Layout = "~/UI/Views/Shared/_Layout_Mobile.cshtml";
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/UI/css/PopUp/PopUpCityArea.css' />";
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/UI/css/PopUp/PopUpCityArea.css' /> <link rel='stylesheet' type='text/css' href='/UI/sass/partials/lead-popup.css' inline /> <link rel='stylesheet' type='text/css' href='/UI/m/css/new/bwm-modelprice-in-city.css' /> <link rel='stylesheet' type='text/css' href='/UI/sass/partials/response-popup.css' inline />";
 }
-
+@if(Model.IsLeadPopStateFlow)
+{
+    @Html.Partial("~/UI/Views/Shared/_LeadCapture_Mobile_New.cshtml", new Bikewale.Entities.PriceQuote.LeadCaptureEntity() { PlatformId = 
+    (ushort)Bikewale.DTO.PriceQuote.PQSources.Amp, PageId = (ushort)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_ModelPage, ModelId = Model.ModelId})
+}
 <script type="text/javascript">
 
-
+    var bikeModelId = @Model.ModelId, versionId =@Model.VersionId, pageUrl= "@string.Format("{0}/amp", Model.Url)", redirectUrl = "@Model.Url", 
+        clientIp = "", pqId="";
     docReady(function(){
         (function(){
-            vmquotation.CheckCookies();
-            var obj = {
+            try{
+                vmquotation.CheckCookies();
+                var obj = {
 
-                "modelId": @Model.ModelId,
-                "cityId": onCookieObj.PQCitySelectedId,
-                "areaId": onCookieObj.PQAreaSelectedId,
-                "city": (onCookieObj.PQCitySelectedId > 0) ? { 'id': onCookieObj.PQCitySelectedId, 'name': onCookieObj.PQCitySelectedName } : null,
-                "area": (onCookieObj.PQAreaSelectedId > 0) ? { 'id': onCookieObj.PQAreaSelectedId, 'name': onCookieObj.PQAreaSelectedName } : null,
-                "makename": "@Model.MakeName",
-                "modelname": "@Model.ModelName",
-                "pagecatid": "@Model.PageCategoryId",
-                "pagesrcid": "@Model.PQSourceId",
-                "redirectUrl": "@Model.Url",
-                "exitUrl": "@Model.ExitUrl"
-            };
-            obj.cityId = @Model.PreSelectedCity || obj.cityId;
-            vmquotation.setOptions(obj);
-            $('#popupWrapper .close-btn').attr("data-returnurl", "@Model.Url".replace("#onRoadPriceAmp", ""));
-            
+                    "modelId": @Model.ModelId,
+                    "cityId": onCookieObj.PQCitySelectedId,
+                    "areaId": onCookieObj.PQAreaSelectedId,
+                    "city": (onCookieObj.PQCitySelectedId > 0) ? { 'id': onCookieObj.PQCitySelectedId, 'name': onCookieObj.PQCitySelectedName } : null,
+                    "area": (onCookieObj.PQAreaSelectedId > 0) ? { 'id': onCookieObj.PQAreaSelectedId, 'name': onCookieObj.PQAreaSelectedName } : null,
+                    "makename": "@Model.MakeName",
+                    "modelname": "@Model.ModelName",
+                    "pagecatid": "@Model.PageCategoryId",
+                    "pagesrcid": "@Model.PQSourceId",
+                    "redirectUrl": "@Model.Url",
+                    "exitUrl": "@Model.ExitUrl",
+                    "isreload": true,
+                    "ispersistent": @(Model.IsLeadPopStateFlow ? "true" : "false"),
+                    "isleadpopstateflow": @(Model.IsLeadPopStateFlow ? "true" : "false"),
+                    "leadsourceid": "@Model.LeadSourceId",
+                    "origin": "@Model.Origin"
+                };
+                obj.cityId = @Model.PreSelectedCity || obj.cityId;
+                vmquotation.setOptions(obj);
+                $('#popupWrapper .close-btn').attr("data-returnurl", "@Model.Url".replace("#onRoadPriceAmp", ""));
+
+                dropdown = {
+                    setDropdown: function () {
+                        var selectDropdown = $('.dropdown-select');
+
+                        selectDropdown.each(function () {
+                            dropdown.setMenu($(this));
+                        });
+                    },
+
+                    setMenu: function (element) {
+                        $('<div class="dropdown-menu"></div>').insertAfter(element);
+                        dropdown.setStructure(element);
+                    },
+
+                    setStructure: function (element) {
+                        var elementText = element.find('option:selected').text(),
+                            menu = element.next('.dropdown-menu'),
+                            menuTitle = element.attr('data-title');
+
+                        menu.append('<p class="dropdown-label">' + elementText + '</p><div class="dropdown-list-wrapper"><p class="dropdown-menu-title">' + menuTitle + '</p><ul class="dropdown-menu-list dropdown-with-select"></ul></div>');
+
+                        dropdown.setOption(element);
+                    },
+
+                    setOption: function (element) {
+                        var selectedIndex = element.find('option:selected').index(),
+                            menu = element.next('.dropdown-menu'),
+                            menuList = menu.find('ul'),
+                            i;
+
+                        element.find('option').each(function (index) {
+                            if (selectedIndex == index) {
+                                menuList.append('<li class="active" data-option-value="' + $(this).val() + '">' + $(this).text() + '</li>');
+                            }
+                            else {
+                                menuList.append('<li data-option-value="' + $(this).val() + '">' + $(this).text() + '</li>');
+                            }
+                        });
+                    },
+
+                    active: function (label) {
+                        $('.dropdown-select-wrapper').find('.dropdown-menu').removeClass('dropdown-active');
+                        label.closest('.dropdown-menu').addClass('dropdown-active');
+                    },
+
+                    inactive: function () {
+                        $('.dropdown-select-wrapper').find('.dropdown-menu').removeClass('dropdown-active');
+                    },
+
+                    selectItem: function (element) {
+                        var elementText = element.text(),
+                            menu = element.closest('.dropdown-menu'),
+                            dropdownLabel = menu.find('.dropdown-label');
+
+                        element.siblings('li').removeClass('active');
+                        element.addClass('active');
+                        dropdownLabel.text(elementText);
+                    },
+
+                    selectOption: function (element) {
+                        var elementValue = element.attr('data-option-value'),
+                            wrapper = element.closest('.dropdown-select-wrapper'),
+                            selectDropdown = wrapper.find('.dropdown-select');
+
+                        selectDropdown.val(elementValue).trigger('change');
+
+                    }
+                };
+
+                // dropdown events
+                $('.dropdown-select-wrapper').on('click', '.dropdown-label', function () {
+                    dropdown.active($(this));
+                });
+
+                $('.dropdown-select-wrapper').on('click', '.dropdown-menu-list.dropdown-with-select li', function () {
+                    var element = $(this);
+                    if (!element.hasClass('active')) {
+                        dropdown.selectItem($(this));
+                        dropdown.selectOption($(this));
+                        dropdown.inactive();
+
+
+                    }
+                });
+
+                $('.dropdown-select-wrapper').on('change', '.dropdown-select',function () {
+                    try {
+                        var obj = $(this);
+                        if (obj.attr("data-lab") !== undefined) {
+                            triggerGA(obj.attr("data-cat"), obj.attr("data-act"), obj.attr("data-lab"));
+                        }
+                        else if (obj.attr("data-var") !== undefined) {
+                            triggerGA(obj.attr("data-cat"), obj.attr("data-act"), window[obj.attr("data-var")]);
+                        }
+                        else if (obj.attr("data-func") !== undefined) {
+                            triggerGA(obj.attr("data-cat"), obj.attr("data-act"), eval(obj.attr("data-func") + '()'));
+                        }
+                    }
+                    catch (e) {
+                    }
+                });
+
+                $(document).on('click', function (event) {
+                    var dropdownSelect = $('.dropdown-select-wrapper');
+
+                    if (dropdownSelect.find('.dropdown-menu').hasClass('dropdown-active') && dropdownSelect.find('.dropdown-list-wrapper').is(':visible')) {
+                        if (!dropdownSelect.is(event.target) && dropdownSelect.has(event.target).length === 0) {
+                            dropdown.inactive();
+                        }
+                    }
+                });
+
+                dropdown.setDropdown();
+
+            } catch (e) {
+                console.warn("Unable to get submit details : " + e.message);
+            }
+
         })();
 
     });
