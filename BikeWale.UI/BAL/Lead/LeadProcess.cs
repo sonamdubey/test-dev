@@ -55,7 +55,6 @@ namespace Bikewale.BAL.Lead
         private readonly ushort _spamSentinentalScore = 90;
         static ILog _logger = LogManager.GetLogger("SpamScoreLogger");
         private readonly IMaskingNumberDl _maskingNumberDl ;
-        private readonly ICityCacheRepository _citiCache;
 
         private const float SPAM_SCORE_THRESHOLD = 0.0f;
         #endregion
@@ -70,7 +69,7 @@ namespace Bikewale.BAL.Lead
             IMobileVerification mobileVerificetion,
             IDealer objDealer,
             IPriceQuote objPriceQuote, ILeadNofitication objLeadNofitication, IMobileVerificationCache mobileVerCacheRepo, Bikewale.Interfaces.AutoBiz.IDealers objAutobizDealer, IManufacturerCampaignRepository manufacturerCampaignRepo,
-            IApiGatewayCaller apiGatewayCaller,IMaskingNumberDl maskingNumberDl,ICityCacheRepository cityCache )
+            IApiGatewayCaller apiGatewayCaller,IMaskingNumberDl maskingNumberDl)
         {
             _objAuthCustomer = objAuthCustomer;
             _objCustomer = objCustomer;
@@ -85,7 +84,6 @@ namespace Bikewale.BAL.Lead
             _manufacturerCampaignRepo = manufacturerCampaignRepo;
             _apiGatewayCaller = apiGatewayCaller;
             _maskingNumberDl = maskingNumberDl;
-            _citiCache = cityCache;
         }
         #endregion
 
@@ -133,7 +131,7 @@ namespace Bikewale.BAL.Lead
                         pqCustomerDetailEntity.Dealer = pqCustomerDetailEntity.IsSuccess && objBookingPageDetailsEntity != null ? objBookingPageDetailsEntity.Dealer : null;
                         if (entity.SpamScore == _spamSentinentalScore)
                         {
-                            _logger.Debug(String.Format("Spam Score null for LeadId : {0}", pqInput.LeadId), null);
+                            _logger.Warn(String.Format("Spam Score null for LeadId : {0}", pqInput.LeadId), null);
                         }
                     }
                     else
@@ -214,7 +212,7 @@ namespace Bikewale.BAL.Lead
                         pqCustomerDetailEntity.Dealer = pqCustomerDetailEntity.IsSuccess && objBookingPageDetailsEntity != null ? objBookingPageDetailsEntity.Dealer : null;
                         if (entity.SpamScore == _spamSentinentalScore)
                         {
-                            _logger.Debug(String.Format("Spam Score null for LeadId : {0}", pqInput.LeadId), null);
+                            _logger.Warn(String.Format("Spam Score null for LeadId : {0}", pqInput.LeadId), null);
                         }
                     }
                     else
@@ -311,7 +309,7 @@ namespace Bikewale.BAL.Lead
                         objCust = pqCustomer != null ? pqCustomer.objCustomerBase : null;
                         pqCustomerDetailEntity = objCust != null ? NotifyCustomerAndDealer(pqInput, requestHeaders, objCust, true) : new PQCustomerDetailOutputEntity();
                         if(entity.SpamScore == _spamSentinentalScore) {
-                            _logger.Debug(String.Format("SpamScore returned null for LeadId : {0}", pqInput.LeadId));
+                            _logger.Warn(String.Format("SpamScore returned null for LeadId : {0}", pqInput.LeadId));
                         }
                     }
                     else
@@ -879,7 +877,7 @@ namespace Bikewale.BAL.Lead
                     input.LeadId = leadId = _manufacturerCampaignRepo.SaveManufacturerCampaignLead(leadInfo);
                     if (spamScore == null)
                     {
-                        _logger.Debug(String.Format("Spam Score null for LeadId : {0}", input.LeadId), null);
+                        _logger.Warn(String.Format("Spam Score null for LeadId : {0}", input.LeadId), null);
                     }
                     GlobalCityAreaEntity LocationEntity = GlobalCityArea.GetGlobalCityArea();
 
@@ -1118,7 +1116,7 @@ namespace Bikewale.BAL.Lead
                     
                     if (spamScore == null)
                     {
-                        _logger.Debug(String.Format("Spam Score null for LeadId : {0}", objLead.LeadId), null);
+                        _logger.Warn(String.Format("Spam Score null for LeadId : {0}", objLead.LeadId), null);
                     }
                     if (objLead.LeadId > 0 && objLead.IsAccepted)
                     {
@@ -1126,24 +1124,6 @@ namespace Bikewale.BAL.Lead
                     }
 
                 }
-
-                CityPriceEntity objCity = _citiCache.GetCityInfoByCityId(objLead.CityId);
-
-                NameValueCollection objNVC = new NameValueCollection();
-                objNVC.Add("leadId", Convert.ToString(objLead.LeadId));
-                objNVC.Add("leadSourceId", Convert.ToString((ushort)LeadSourceEnum.MaskingNumber));
-                objNVC.Add("platformId", Convert.ToString((ushort)PQSources.MaskingNumber));
-                objNVC.Add("versionId", Convert.ToString(objLead.VersionId));
-                objNVC.Add("dealerId", Convert.ToString(objLead.DealerId));
-                objNVC.Add("appVersion", string.Empty);
-                objNVC.Add("campaignId", Convert.ToString(objLead.CampaignId));
-                objNVC.Add("action", objLead.IsAccepted ? "Accepted" : "Rejected");
-                objNVC.Add("name", objLead.CustomerName);
-                objNVC.Add("mobile", objLead.CustomerMobile);
-                objNVC.Add("email", objLead.CustomerEmail);
-
-                BhriguLeadTracking(objNVC, null, objCity != null ? new GlobalCityAreaEntity() { City = objCity.CityName, CityId = objLead.CityId } : null);
-
             }
             catch (Exception ex)
             {
