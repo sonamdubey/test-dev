@@ -154,15 +154,7 @@ namespace Bikewale.Models.QuestionsAnswers
         /// <returns></returns>
         private IEnumerable<Bikewale.Entities.QuestionAndAnswers.Question> ConvertToBikewaleQuestionEntity(IEnumerable<Question> entity)
         {
-            Mapper.CreateMap<Customer, CustomerEntityBase>()
-                .ForMember(d => d.CustomerId, opt => opt.MapFrom(s => s.Id))
-                .ForMember(d => d.CustomerName, opt => opt.MapFrom(s => s.Name))
-                .ForMember(d => d.CustomerEmail, opt => opt.MapFrom(s => s.Email));
-
-            Mapper.CreateMap<AnswerBase, Bikewale.Entities.QuestionAndAnswers.Answer>();
-            Mapper.CreateMap<Tag, Bikewale.Entities.QuestionAndAnswers.Tag>();
-            Mapper.CreateMap<Question, Bikewale.Entities.QuestionAndAnswers.Question>();
-
+          
             return Mapper.Map<IEnumerable<Question>, IEnumerable<Bikewale.Entities.QuestionAndAnswers.Question>>(entity);
         }
 

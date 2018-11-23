@@ -9,7 +9,6 @@ namespace Bikewale.Service.AutoMappers.UsedBikes
     {
         internal static IEnumerable<PopularUsedBikesBase> Convert(IEnumerable<PopularUsedBikesEntity> objUsedBikesList)
         {
-            Mapper.CreateMap<PopularUsedBikesEntity, PopularUsedBikesBase>();
             return Mapper.Map<IEnumerable<PopularUsedBikesEntity>, IEnumerable<PopularUsedBikesBase>>(objUsedBikesList);
         }
     }

@@ -23,12 +23,7 @@ namespace Bikewale.Service.AutoMappers.Bikebooking
         /// <returns></returns>
         internal static IEnumerable<DTO.BikeBooking.BikeBookingListingDTO> Convert(IEnumerable<Entities.BikeBooking.BikeBookingListingEntity> lstEntity)
         {
-            Mapper.CreateMap<BikeMakeEntityBase, BBMakeBase>();
-            Mapper.CreateMap<BikeModelEntityBase, BBModelBase>();
-            Mapper.CreateMap<BikeVersionEntityBase, BBVersionBase>();
-            Mapper.CreateMap<OfferEntity, BikeBookingOfferDTO>();
-            Mapper.CreateMap<Entities.BikeBooking.BikeBookingListingEntity, DTO.BikeBooking.BikeBookingListingDTO>();
-            return Mapper.Map<IEnumerable<Entities.BikeBooking.BikeBookingListingEntity>, IEnumerable<DTO.BikeBooking.BikeBookingListingDTO>>(lstEntity);
+           return Mapper.Map<IEnumerable<Entities.BikeBooking.BikeBookingListingEntity>, IEnumerable<DTO.BikeBooking.BikeBookingListingDTO>>(lstEntity);
         }
     }
 }

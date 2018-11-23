@@ -14,7 +14,6 @@ namespace Bikewale.Services.AutoMappers.MaskingNumber
         /// <returns></returns>
         internal static MaskingNumberLeadEntity Convert(MaskingNumberLeadInputDto input)
         {
-            Mapper.CreateMap<MaskingNumberLeadInputDto, MaskingNumberLeadEntity>();
             return Mapper.Map<MaskingNumberLeadInputDto, MaskingNumberLeadEntity>(input); ;
         }
     }

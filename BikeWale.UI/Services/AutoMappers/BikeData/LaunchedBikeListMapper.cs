@@ -22,10 +22,7 @@ namespace Bikewale.Service.AutoMappers.BikeData
         {
             if (objRecent != null)
             {
-                Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
-                Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
-                Mapper.CreateMap<BikeSeriesEntityBase, SeriesBase>();
-                Mapper.CreateMap<NewLaunchedBikeEntity, LaunchedBike>();
+            
                 IEnumerable<DTO.BikeData.LaunchedBike> objDto = Mapper.Map<IEnumerable<NewLaunchedBikeEntity>, IEnumerable<LaunchedBike>>(objRecent);
                 if (objDto != null)
                 {
@@ -75,7 +72,6 @@ namespace Bikewale.Service.AutoMappers.BikeData
         /// <returns></returns>
         internal static Entities.BikeData.NewLaunched.InputFilter Convert(DTO.BikeData.NewLaunched.InputFilterDTO filter)
         {
-            Mapper.CreateMap<DTO.BikeData.NewLaunched.InputFilterDTO, Entities.BikeData.NewLaunched.InputFilter>();
             return Mapper.Map<DTO.BikeData.NewLaunched.InputFilterDTO, Entities.BikeData.NewLaunched.InputFilter>(filter);
         }
 
@@ -87,14 +83,7 @@ namespace Bikewale.Service.AutoMappers.BikeData
         /// <returns></returns>
         internal static DTO.BikeData.NewLaunched.NewLaunchedBikeResultDTO Convert(Entities.BikeData.NewLaunched.NewLaunchedBikeResult entity)
         {
-            Mapper.CreateMap<Entities.BikeData.NewLaunched.NewLaunchedBikeResult, DTO.BikeData.NewLaunched.NewLaunchedBikeResultDTO>();
-            Mapper.CreateMap<Entities.BikeData.NewLaunched.NewLaunchedBikeEntityBase, DTO.BikeData.NewLaunched.NewLaunchedBikeDTOBase>();
-            Mapper.CreateMap<Entities.BikeData.NewLaunched.InputFilter, DTO.BikeData.NewLaunched.InputFilterDTO>();
-            Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
-            Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
-            Mapper.CreateMap<SpecsItem, DTO.BikeData.v2.VersionMinSpecs>();
-            Mapper.CreateMap<Entities.Location.CityEntityBase, CityBase>();
-            return Mapper.Map<Entities.BikeData.NewLaunched.NewLaunchedBikeResult, DTO.BikeData.NewLaunched.NewLaunchedBikeResultDTO>(entity);
+             return Mapper.Map<Entities.BikeData.NewLaunched.NewLaunchedBikeResult, DTO.BikeData.NewLaunched.NewLaunchedBikeResultDTO>(entity);
         }
     }
 }

@@ -72,8 +72,6 @@ namespace Bikewale.Service.Controllers.Customer
                 }
                 else
                 {
-                    Mapper.CreateMap<CustomerEntity, RegisteredCustomer>();
-                    Mapper.CreateMap<CustomerEntityBase, CustomerBase>();
                     objRegCust = Mapper.Map<CustomerEntity, RegisteredCustomer>(objCust);
                     objRegCust.IsNewCustomer = false;
 

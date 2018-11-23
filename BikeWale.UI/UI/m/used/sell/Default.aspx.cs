@@ -35,6 +35,7 @@ using Bikewale.Utility;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
+using AutoMapper;
 
 namespace Bikewale.Mobile.Used.Sell
 {
@@ -235,14 +236,7 @@ namespace Bikewale.Mobile.Used.Sell
         /// </summary>
         private SellBikeAdDTO ConvertToDto(SellBikeAd inquiryDetailsObject)
         {
-            AutoMapper.Mapper.CreateMap<Bikewale.Entities.BikeData.BikeMakeEntityBase, BBMakeBase>();
-            AutoMapper.Mapper.CreateMap<Bikewale.Entities.BikeData.BikeModelEntityBase, BBModelBase>();
-            AutoMapper.Mapper.CreateMap<BikeVersionEntityBase, BBVersionBase>();
-            AutoMapper.Mapper.CreateMap<Bikewale.Entities.Used.SellAdStatus, Bikewale.DTO.UsedBikes.SellAdStatus>();
-            AutoMapper.Mapper.CreateMap<SellBikeAdOtherInformation, SellBikeAdOtherInformationDTO>();
-            AutoMapper.Mapper.CreateMap<SellerEntity, SellerDTO>();
-            AutoMapper.Mapper.CreateMap<BikePhoto, Bikewale.DTO.Used.Search.BikePhoto>();
-            AutoMapper.Mapper.CreateMap<SellBikeAd, SellBikeAdDTO>();
+           
             return AutoMapper.Mapper.Map<SellBikeAdDTO>(inquiryDetailsObject);
         }
 

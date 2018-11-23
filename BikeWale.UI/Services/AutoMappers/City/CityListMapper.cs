@@ -13,7 +13,6 @@ namespace Bikewale.Service.AutoMappers.City
     {
         internal static IEnumerable<DTO.City.CityBase> Convert(List<Entities.Location.CityEntityBase> objCityList)
         {
-            Mapper.CreateMap<CityEntityBase, CityBase>();
             return Mapper.Map<List<CityEntityBase>, List<CityBase>>(objCityList);
         }
 
@@ -25,13 +24,11 @@ namespace Bikewale.Service.AutoMappers.City
         /// <returns></returns>
         internal static IEnumerable<DTO.City.CityBase> Convert(IEnumerable<Entities.Location.CityEntityBase> objCityList)
         {
-            Mapper.CreateMap<CityEntityBase, CityBase>();
             return Mapper.Map<IEnumerable<CityEntityBase>, IEnumerable<CityBase>>(objCityList);
         }
 
 		internal static IEnumerable<CityFinance> MapCity(IEnumerable<CityEntityBase> objCityList)
 		{
-			Mapper.CreateMap<CityEntityBase, CityFinance>();
 			return Mapper.Map<IEnumerable<CityEntityBase>, IEnumerable<CityFinance>>(objCityList);
 		}
     }

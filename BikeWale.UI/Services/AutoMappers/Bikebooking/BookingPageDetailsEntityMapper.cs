@@ -28,15 +28,7 @@ namespace Bikewale.Service.AutoMappers.Bikebooking
             {
                 if (objBookingPageDetailsEntity != null)
                 {
-                    Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
-                    Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
-                    Mapper.CreateMap<BikeVersionMinSpecs, VersionMinSpecs>();
-                    Mapper.CreateMap<DealerVersionPriceItemEntity, DealerVersionPriceItemDTO>();
-                    Mapper.CreateMap<BikeDealerPriceDetail, BikeDealerPriceDetailDTO>();
-                    Mapper.CreateMap<BookingPageDetailsEntity, BookingPageDetailsDTO>();
-                    Mapper.CreateMap<DealerDetails, DealerDetailsDTO>();
-                    Mapper.CreateMap<DealerOfferEntity, DealerOfferDTO>();
-                    Mapper.CreateMap<BikeVersionColorsWithAvailability, BikeVersionColorsWithAvailabilityDTO>();
+                    
                     BookingPageDetailsDTO objBookingPageDetailsDTO = Mapper.Map<BookingPageDetailsEntity, BookingPageDetailsDTO>(objBookingPageDetailsEntity);
 
                     if (objBookingPageDetailsEntity.Varients != null)

@@ -15,57 +15,37 @@ namespace Bikewale.Automappers
     {
         public static List<DTO.CMS.Photos.CMSModelImageBase> Convert(IEnumerable<Entities.CMS.Photos.ModelImage> objImageList)
         {
-            Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
-            Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
-            Mapper.CreateMap<ModelImage, CMSModelImageBase>();
+            
             return Mapper.Map<IEnumerable<ModelImage>, List<CMSModelImageBase>>(objImageList);
         }
 
         public static DTO.CMS.Articles.CMSArticlePageDetails Convert(Entities.CMS.Articles.ArticlePageDetails objFeaturedArticles)
         {
-            Mapper.CreateMap<ArticlePageDetails, CMSArticlePageDetails>();
-            Mapper.CreateMap<ArticleBase, CMSArticleBase>();
-            Mapper.CreateMap<VehicleTag, CMSVehicleTag>();
-            Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
-            Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
-            Mapper.CreateMap<BikeVersionEntityBase, VersionBase>();
-            Mapper.CreateMap<Page, CMSPage>();
+           
             return Mapper.Map<ArticlePageDetails, CMSArticlePageDetails>(objFeaturedArticles);
         }
 
         public static CMSArticleDetails Convert(ArticleDetails objNews)
         {
-            Mapper.CreateMap<ArticleDetails, CMSArticleDetails>();
-            Mapper.CreateMap<ArticleBase, CMSArticleBase>();
-            Mapper.CreateMap<VehicleTag, CMSVehicleTag>();
-            Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
-            Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
-            Mapper.CreateMap<BikeVersionEntityBase, VersionBase>();
+           
             return Mapper.Map<ArticleDetails, CMSArticleDetails>(objNews);
         }
 
         public static List<CMSArticleSummary> Convert(IEnumerable<Entities.CMS.Articles.ArticleSummary> objRecentArticles)
         {
-            Mapper.CreateMap<ArticleBase, CMSArticleBase>();
-            Mapper.CreateMap<ArticleSummary, CMSArticleSummary>();
+         
             return Mapper.Map<IEnumerable<Entities.CMS.Articles.ArticleSummary>, List<CMSArticleSummary>>(objRecentArticles);
         }
 
         public static Bikewale.DTO.CMS.Articles.CMSContent Convert(Bikewale.Entities.CMS.Articles.CMSContent objFeaturedArticles)
         {
-            Mapper.CreateMap<Bikewale.Entities.CMS.Articles.CMSContent, Bikewale.DTO.CMS.Articles.CMSContent>();
-            Mapper.CreateMap<ArticleBase, CMSArticleBase>();
-            Mapper.CreateMap<ArticleSummary, CMSArticleSummary>();
-            Mapper.CreateMap<VehicleTag, CMSVehicleTag>();
+            
             return Mapper.Map<Bikewale.Entities.CMS.Articles.CMSContent, Bikewale.DTO.CMS.Articles.CMSContent>(objFeaturedArticles);
         }
 
         public static CMSImageList Convert(Bikewale.Entities.CMS.Photos.CMSImage objPhotos)
         {
-            Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
-            Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
-            Mapper.CreateMap<Bikewale.Entities.CMS.Photos.CMSImage, CMSImageList>();
-            Mapper.CreateMap<ModelImage, CMSModelImageBase>();
+          
             return Mapper.Map<Bikewale.Entities.CMS.Photos.CMSImage, CMSImageList>(objPhotos);
         }
 

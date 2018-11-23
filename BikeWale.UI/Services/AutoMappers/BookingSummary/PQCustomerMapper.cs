@@ -10,10 +10,7 @@ namespace Bikewale.Service.AutoMappers.BookingSummary
     {
         internal static DTO.PriceQuote.CustomerDetails.PQCustomer Convert(Entities.BikeBooking.PQCustomerDetail objCustomer)
         {
-            Mapper.CreateMap<CustomerEntityBase, PQCustomerBase>();
-            Mapper.CreateMap<VersionColor, PQColor>();
-            Mapper.CreateMap<PQCustomerDetail, PQCustomer>();
-            return Mapper.Map<PQCustomerDetail, PQCustomer>(objCustomer);
+           return Mapper.Map<PQCustomerDetail, PQCustomer>(objCustomer);
         }
     }
 }

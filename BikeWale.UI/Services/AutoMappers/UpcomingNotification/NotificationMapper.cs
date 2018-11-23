@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using AutoMapper;
 
 namespace Bikewale.Service.AutoMappers.UpcomingNotification
 {
@@ -24,10 +25,10 @@ namespace Bikewale.Service.AutoMappers.UpcomingNotification
         {
             try
             {
-                AutoMapper.Mapper.CreateMap<DTO.Upcoming.UpcomingNotificationDTO, Entities.UpcomingNotification.UpcomingBikeEntity>();
-                return AutoMapper.Mapper.Map<DTO.Upcoming.UpcomingNotificationDTO, Entities.UpcomingNotification.UpcomingBikeEntity>(dtonotif);
+            
+                return Mapper.Map<DTO.Upcoming.UpcomingNotificationDTO, Entities.UpcomingNotification.UpcomingBikeEntity>(dtonotif);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "Exception : Bikewale.Service.AutoMappers.UpcomingNotification.NotificationMapper");
             }

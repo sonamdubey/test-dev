@@ -13,26 +13,20 @@ namespace Bikewale.Service.AutoMappers.BikeData
     {
         public static List<BikeMakeModel> Convert(List<BikeMakeModelEntity> entity)
         {
-            Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
-            Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
-            Mapper.CreateMap<BikeMakeModelEntity, BikeMakeModel>();
+        
             return Mapper.Map<List<BikeMakeModelEntity>, List<BikeMakeModel>>(entity);
         }
 
         public static IEnumerable<MakeModelList> Convert(IEnumerable<MakeModelListEntity> entity)
         {
-            Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
-            Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
-            Mapper.CreateMap<MakeModelListEntity, MakeModelList>();
+           
             return Mapper.Map<IEnumerable<MakeModelListEntity>, IEnumerable<MakeModelList>>(entity);
         }
         internal static IEnumerable<MakeModelBase> Convert(IEnumerable<BikeMakeModelBase> enumerable)
         {
             if (enumerable != null)
             {
-                Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
-                Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
-                Mapper.CreateMap<BikeMakeModelBase, MakeModelBase>();
+              
                 return Mapper.Map<IEnumerable<BikeMakeModelBase>, IEnumerable<MakeModelBase>>(enumerable);
             }
             return null;
@@ -40,8 +34,7 @@ namespace Bikewale.Service.AutoMappers.BikeData
 
         public static IEnumerable<ModelSpecificationsDTO> Convert(IEnumerable<BikeModelVersionsDetails> entity)
         {
-            Mapper.CreateMap<BikeVersionSegmentDetails, VersionSegmentDTO>();
-            Mapper.CreateMap<BikeModelVersionsDetails, ModelSpecificationsDTO>();
+           
             return Mapper.Map<IEnumerable<BikeModelVersionsDetails>, IEnumerable<ModelSpecificationsDTO>>(entity);
         }
 
@@ -49,10 +42,7 @@ namespace Bikewale.Service.AutoMappers.BikeData
         {
             if (objModelList != null)
             {
-                Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
-                Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
-                Mapper.CreateMap<BikeVersionsListEntity, VersionBase>();
-                Mapper.CreateMap<MostPopularBikesBase, MostPopularBikes>();
+                
                 IEnumerable<MostPopularBikes> objModelListDto = Mapper.Map<IEnumerable<MostPopularBikesBase>, IEnumerable<MostPopularBikes>>(objModelList);
                 if (objModelListDto != null)
                 {
@@ -67,10 +57,7 @@ namespace Bikewale.Service.AutoMappers.BikeData
         {
             if (objModelList != null)
             {
-                Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
-                Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
-                Mapper.CreateMap<BikeVersionsListEntity, VersionBase>();
-                Mapper.CreateMap<MostPopularBikesBase, MostPopularBikes>();
+               
                 return Mapper.Map<IEnumerable<MostPopularBikesBase>, IEnumerable<MostPopularBikes>>(objModelList);
             }
             return null;

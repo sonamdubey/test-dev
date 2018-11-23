@@ -28,9 +28,6 @@ namespace Bikewale.BAL.Campaign
 			_dealerPriceQuote = dealerPriceQuote;
 			_cityCache = cityCache;
 			_objPqCache = pqCache;
-			Mapper.CreateMap<NewBikeDealers, DealerCampaignDto>().ForMember(output => output.Area, opt => opt.MapFrom(input => input.objArea.AreaName)).ForMember(output => output.AreaId, opt => opt.MapFrom(input => input.objArea.AreaId)).ForMember(output => output.City, opt => opt.MapFrom(input => input.objCity.CityName)).ForMember(output => output.CityId, opt => opt.MapFrom(input => input.objCity.CityId));
-			Mapper.CreateMap<ManufacturerCampaignLeadConfiguration, ManufacturerLeadCampaignDto>().ForMember(output => output.PopupSuccessMessage, opt => opt.MapFrom(input => string.Format(input.PopupSuccessMessage, input.Organization))).ForMember(output => output.LeadsButtonTextMobile, opt => opt.MapFrom(input => string.Format(input.LeadsButtonTextMobile, input.Organization)));
-            Mapper.CreateMap<ManufacturerCampaignEMIConfiguration, ManufacturerEmiCampaignDto>().ForMember(output => output.PopupSuccessMessage, opt => opt.MapFrom(input => string.Format(input.PopupSuccessMessage, input.Organization)));
             
 		}
 

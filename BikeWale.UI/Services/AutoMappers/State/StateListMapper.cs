@@ -9,8 +9,7 @@ namespace Bikewale.Service.AutoMappers.State
     {
         internal static IEnumerable<DTO.State.StateBase> Convert(List<Entities.Location.StateEntityBase> objStateList)
         {
-            Mapper.CreateMap<StateEntityBase, StateBase>();
-            return Mapper.Map<List<StateEntityBase>, List<StateBase>>(objStateList);
+          return Mapper.Map<List<StateEntityBase>, List<StateBase>>(objStateList);
         }
     }
 }

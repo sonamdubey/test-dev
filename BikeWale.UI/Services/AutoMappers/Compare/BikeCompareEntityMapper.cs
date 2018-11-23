@@ -25,16 +25,7 @@ namespace Bikewale.Service.AutoMappers.Compare
         {
             if (compareEntity != null)
             {
-                Mapper.CreateMap<BikeEntityBase, BikeDTOBase>();
-                Mapper.CreateMap<BikeColor, BikeColorDTO>();
-                Mapper.CreateMap<BikeCompareEntity, BikeCompareDTO>();
-                Mapper.CreateMap<BikeEntityBase, BikeDTOBase>();
-                Mapper.CreateMap<BikeFeature, BikeFeatureDTO>();
-                Mapper.CreateMap<Bikewale.Entities.Compare.BikeModelColor, BikeModelColorDTO>();
-                Mapper.CreateMap<BikeSpecification, BikeSpecificationDTO>();
-                Mapper.CreateMap<CompareBikeColor, CompareBikeColorDTO>();
-                Mapper.CreateMap<CompareBikeColorCategory, CompareBikeColorCategoryDTO>();
-                Mapper.CreateMap<CompareBikeData, CompareBikeDataDTO>();
+                
                 DTO.Compare.BikeCompareDTO objDto = Mapper.Map<BikeCompareEntity, BikeCompareDTO>(compareEntity);
                 if (compareEntity.VersionSpecsFeatures != null)
                 {

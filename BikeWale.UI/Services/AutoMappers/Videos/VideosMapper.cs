@@ -12,7 +12,6 @@ namespace Bikewale.Service.AutoMappers.Videos
     {
         internal static List<VideoBase> Convert(List<BikeVideoEntity> objVideoList)
         {
-            Mapper.CreateMap<BikeVideoEntity, VideoBase>();
             return Mapper.Map<List<BikeVideoEntity>, List<VideoBase>>(objVideoList);
         }
 

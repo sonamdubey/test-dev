@@ -19,7 +19,6 @@ namespace Bikewale.Service.AutoMappers.Bikebooking
         /// <returns></returns>
         internal static IEnumerable<BBCityBase> Convert(List<CityEntityBase> lstCity)
         {
-            Mapper.CreateMap<CityEntityBase, BBCityBase>();
             return Mapper.Map<List<CityEntityBase>, IEnumerable<BBCityBase>>(lstCity);
         }
     }

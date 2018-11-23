@@ -16,8 +16,7 @@ namespace Bikewale.Service.AutoMappers.Bikebooking
         /// <returns></returns>
         internal static Entities.BikeBooking.BookingListingFilterEntity Convert(DTO.BikeBooking.BookingListingFilterDTO filter)
         {
-            Mapper.CreateMap<DTO.BikeBooking.BookingListingFilterDTO, Entities.BikeBooking.BookingListingFilterEntity>();
-            return Mapper.Map<DTO.BikeBooking.BookingListingFilterDTO, Entities.BikeBooking.BookingListingFilterEntity>(filter);
+           return Mapper.Map<DTO.BikeBooking.BookingListingFilterDTO, Entities.BikeBooking.BookingListingFilterEntity>(filter);
         }
     }
 }

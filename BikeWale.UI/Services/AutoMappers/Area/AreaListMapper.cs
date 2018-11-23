@@ -9,7 +9,7 @@ namespace Bikewale.Service.AutoMappers.Area
     {
         internal static IEnumerable<DTO.Area.AreaBase> Convert(List<Entities.Location.AreaEntityBase> objAreaList)
         {
-            Mapper.CreateMap<AreaEntityBase, AreaBase>();
+
             return Mapper.Map<List<AreaEntityBase>, List<AreaBase>>(objAreaList);
         }
     }

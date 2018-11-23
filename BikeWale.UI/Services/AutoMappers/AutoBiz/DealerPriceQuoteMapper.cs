@@ -19,7 +19,7 @@ namespace Bikewale.Service.AutoMappers.AutoBiz
         /// <returns></returns>
         internal static IEnumerable<CityEntityBaseDTO> Convert(IEnumerable<CityEntityBase> objCityList)
         {
-            Mapper.CreateMap<CityEntityBase, CityEntityBaseDTO>();
+          
             return Mapper.Map<IEnumerable<CityEntityBase>, IEnumerable<CityEntityBaseDTO>>(objCityList);
         }
 
@@ -31,7 +31,7 @@ namespace Bikewale.Service.AutoMappers.AutoBiz
         /// <returns></returns>
         internal static IEnumerable<BBMakeBase> Convert(IEnumerable<BikeMakeEntityBase> objMakesList)
         {
-            Mapper.CreateMap<BikeMakeEntityBase, BBMakeBase>();
+            
             return Mapper.Map<IEnumerable<BikeMakeEntityBase>, IEnumerable<BBMakeBase>>(objMakesList);
         }
 
@@ -43,7 +43,7 @@ namespace Bikewale.Service.AutoMappers.AutoBiz
         /// <returns></returns>
         internal static OfferHtmlDTO Convert(OfferHtmlEntity objTerm)
         {
-            Mapper.CreateMap<OfferHtmlEntity, OfferHtmlDTO>();
+            
             return Mapper.Map<OfferHtmlEntity, OfferHtmlDTO>(objTerm);
         }
     }

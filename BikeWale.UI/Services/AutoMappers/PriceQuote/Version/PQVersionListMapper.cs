@@ -13,7 +13,6 @@ namespace Bikewale.Service.AutoMappers.PriceQuote.Version
     {
         internal static IEnumerable<PQVersionBase> Convert(IEnumerable<Entities.BikeData.BikeVersionsListEntity> objVersionList)
         {
-            Mapper.CreateMap<BikeVersionsListEntity, PQVersionBase>();
             return Mapper.Map<IEnumerable<BikeVersionsListEntity>, IEnumerable<PQVersionBase>>(objVersionList);
         }
 

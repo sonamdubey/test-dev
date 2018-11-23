@@ -9,7 +9,6 @@ namespace Bikewale.Service.AutoMappers.Compare
         {
             if (topBikeComapreList != null)
             {
-                Mapper.CreateMap<Entities.Compare.TopBikeCompareBase, DTO.Compare.TopBikeCompareDTO>();
                 return Mapper.Map<IEnumerable<Entities.Compare.TopBikeCompareBase>, IEnumerable<DTO.Compare.TopBikeCompareDTO>>(topBikeComapreList);
             }
             return null;

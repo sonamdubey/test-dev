@@ -9,8 +9,7 @@ namespace Bikewale.Service.AutoMappers.PriceQuote.Make
     {
         internal static IEnumerable<DTO.PriceQuote.Make.PQMakeBase> Convert(List<Entities.BikeData.BikeMakeEntityBase> objMakeList)
         {
-            Mapper.CreateMap<BikeMakeEntityBase, PQMakeBase>();
-            return Mapper.Map<List<BikeMakeEntityBase>, List<PQMakeBase>>(objMakeList);
+         return Mapper.Map<List<BikeMakeEntityBase>, List<PQMakeBase>>(objMakeList);
         }
     }
 }

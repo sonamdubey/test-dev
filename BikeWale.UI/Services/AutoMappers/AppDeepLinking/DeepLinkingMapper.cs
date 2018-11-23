@@ -17,8 +17,7 @@ namespace Bikewale.Service.AutoMappers.AppDeepLinking
         /// <param name="entity"></param>
         /// <returns></returns>
         internal static DTO.AppDeepLinking.DeepLinking Convert(Entities.AppDeepLinking.DeepLinkingEntity entity)
-        {
-            Mapper.CreateMap<Entities.AppDeepLinking.DeepLinkingEntity, DTO.AppDeepLinking.DeepLinking>();
+        { 
             return Mapper.Map<Entities.AppDeepLinking.DeepLinkingEntity, DTO.AppDeepLinking.DeepLinking>(entity);
         }
     }

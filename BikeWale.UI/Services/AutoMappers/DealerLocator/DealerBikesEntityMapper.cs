@@ -39,19 +39,6 @@ namespace Bikewale.Service.AutoMappers.DealerLocator
         /// <returns></returns>
         internal static DTO.DealerLocator.DealerBikes Convert(Entities.DealerLocator.DealerBikesEntity dealerBikes)
         {
-            Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
-            Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
-            Mapper.CreateMap<BikeVersionsListEntity, VersionBase>();
-            Mapper.CreateMap<MinSpecsEntity, Bikewale.DTO.BikeData.v2.MinSpecs>();
-            Mapper.CreateMap<MostPopularBikesBase, MostPopularBikes>();
-            Mapper.CreateMap<DealerBikesEntity, DealerBikes>();
-
-            Mapper.CreateMap<Bikewale.Entities.Location.AreaEntityBase, PQAreaBase>();
-            Mapper.CreateMap<Bikewale.Entities.PriceQuote.NewBikeDealerBase, DealerBase>();
-            Mapper.CreateMap<DealerPackageTypes, DealerPackageType>();
-            Mapper.CreateMap<DealerDetailEntity, DealerDetail>();
-
-
             return Mapper.Map<DealerBikesEntity, DealerBikes>(dealerBikes);
         }
 
@@ -63,8 +50,6 @@ namespace Bikewale.Service.AutoMappers.DealerLocator
         /// <returns></returns>
         internal static System.Collections.Generic.IEnumerable<DTO.DealerLocator.v2.DealerBikeBase> ConvertV2(System.Collections.Generic.IEnumerable<MostPopularBikesBase> enumerable)
         {
-            Mapper.CreateMap<Entities.BikeData.MostPopularBikesBase, DTO.DealerLocator.v2.DealerBikeBase>().ForMember(d => d.Bike, opt => opt.MapFrom(s => s.BikeName));
-            Mapper.CreateMap<Entities.BikeData.MostPopularBikesBase, DTO.DealerLocator.v2.DealerBikeBase>().ForMember(d => d.VersionId, opt => opt.MapFrom(s => s.objVersion.VersionId));
             return Mapper.Map<System.Collections.Generic.IEnumerable<MostPopularBikesBase>, System.Collections.Generic.IEnumerable<DTO.DealerLocator.v2.DealerBikeBase>>(enumerable);
         }
 
@@ -76,13 +61,6 @@ namespace Bikewale.Service.AutoMappers.DealerLocator
         /// <returns></returns>
         internal static DealerBikeModels Convert(DealerBikeModelsEntity dealerBikes)
         {
-            Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
-            Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
-            Mapper.CreateMap<BikeVersionsListEntity, VersionBase>();
-            Mapper.CreateMap<MinSpecsEntity, Bikewale.DTO.BikeData.v2.MinSpecs>();
-            Mapper.CreateMap<MostPopularBikesBase, MostPopularBikes>();
-            Mapper.CreateMap<DealerBikeModelsEntity, DealerBikeModels>();
-
             return Mapper.Map<DealerBikeModelsEntity, DealerBikeModels>(dealerBikes);
         }
 
@@ -136,9 +114,7 @@ namespace Bikewale.Service.AutoMappers.DealerLocator
 		
 		internal static DTO.Dealer.DealerVersionPricesDTO Convert(DealerVersionPrices versionPrice)
         {
-            Mapper.CreateMap<DealerVersionPrices, DealerVersionPricesDTO>();
-            Mapper.CreateMap<PQ_Price, DPQ_Price>();
-            return Mapper.Map<DealerVersionPrices, DealerVersionPricesDTO>(versionPrice);
+           return Mapper.Map<DealerVersionPrices, DealerVersionPricesDTO>(versionPrice);
         }
     }
 }

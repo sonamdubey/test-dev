@@ -11,9 +11,6 @@ namespace Bikewale.Service.AutoMappers.BikeData
     {
         internal static IEnumerable<DTO.BikeData.FeaturedBike> Convert(List<Entities.BikeData.FeaturedBikeEntity> objFeature)
         {
-            Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
-            Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
-            Mapper.CreateMap<FeaturedBikeEntity, FeaturedBike>();
 
             return Mapper.Map<List<FeaturedBikeEntity>, List<FeaturedBike>>(objFeature);
         }

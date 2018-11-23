@@ -26,15 +26,11 @@ namespace Bikewale.Service.AutoMappers.Version
         /// <returns></returns>
         internal static DTO.Version.VersionDetails Convert(Entities.BikeData.BikeVersionEntity objVersion)
         {
-            Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
-            Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
-            Mapper.CreateMap<BikeVersionEntity, VersionDetails>();
             return Mapper.Map<BikeVersionEntity, VersionDetails>(objVersion);
         }
 
         internal static VersionSpecifications Convert(BikeSpecificationEntity objSpecs)
         {
-            Mapper.CreateMap<BikeSpecificationEntity, VersionSpecifications>();
             return Mapper.Map<BikeSpecificationEntity, VersionSpecifications>(objSpecs);
         }
 
@@ -60,15 +56,11 @@ namespace Bikewale.Service.AutoMappers.Version
 
         internal static IEnumerable<VersionBase> Convert(List<BikeVersionsListEntity> objVersionList)
         {
-            Mapper.CreateMap<BikeVersionsListEntity, VersionBase>();
             return Mapper.Map<List<BikeVersionsListEntity>, List<VersionBase>>(objVersionList);
         }
 
         internal static DTO.Version.v2.VersionDetails ConvertV2(BikeVersionEntity objVersion)
         {
-            Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
-            Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
-            Mapper.CreateMap<BikeVersionEntity, DTO.Version.v2.VersionDetails>();
             return Mapper.Map<BikeVersionEntity, DTO.Version.v2.VersionDetails>(objVersion);
         }
 
@@ -80,8 +72,7 @@ namespace Bikewale.Service.AutoMappers.Version
         /// <returns></returns>
         internal static IEnumerable<DTO.BikeData.BikeColorsbyVersionsDTO> Convert(IEnumerable<Bikewale.Entities.BikeData.BikeColorsbyVersion> objVersionColors)
         {
-            Mapper.CreateMap<Bikewale.Entities.BikeData.BikeColorsbyVersion, Bikewale.DTO.BikeData.BikeColorsbyVersionsDTO>();
-            //Mapper.CreateMap<IEnumerable<Bikewale.Entities.BikeData.BikeColorsbyVersion>, BikeColorsbyVersion>();
+            //cfg.CreateMap<IEnumerable<Bikewale.Entities.BikeData.BikeColorsbyVersion>, BikeColorsbyVersion>();
             return Mapper.Map<IEnumerable<Bikewale.Entities.BikeData.BikeColorsbyVersion>, IEnumerable<BikeColorsbyVersionsDTO>>(objVersionColors);
 
         }

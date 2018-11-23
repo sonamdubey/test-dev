@@ -14,7 +14,7 @@ namespace Bikewale.Service.AutoMappers.Bikebooking
         /// <returns></returns>
         internal static DTO.BikeBooking.PagingUrl Convert(Entities.BikeBooking.PagingUrl PageUrlEntity)
         {
-            Mapper.CreateMap<Entities.BikeBooking.PagingUrl, DTO.BikeBooking.PagingUrl>();
+
             return Mapper.Map<Entities.BikeBooking.PagingUrl, DTO.BikeBooking.PagingUrl>(PageUrlEntity);
         }
     }

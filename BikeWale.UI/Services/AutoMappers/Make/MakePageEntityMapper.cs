@@ -16,12 +16,7 @@ namespace Bikewale.Service.AutoMappers.Make
         {
             if (entity != null)
             {
-                Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
-                Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
-                Mapper.CreateMap<MostPopularBikesBase, MostPopularBikes>();
-                Mapper.CreateMap<BikeVersionsListEntity, VersionBase>();
-                Mapper.CreateMap<BikeDescriptionEntity, BikeDescription>();
-                Mapper.CreateMap<BikeMakePageEntity, MakePage>();
+            
                 MakePage objDto = Mapper.Map<BikeMakePageEntity, MakePage>(entity);
                 if (objDto != null && objDto.PopularBikes != null)
                 {

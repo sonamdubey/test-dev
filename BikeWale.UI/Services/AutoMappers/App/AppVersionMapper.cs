@@ -11,7 +11,7 @@ namespace Bikewale.Service.AutoMappers.App
     {
         internal static DTO.App.AppVersion Convert(Entities.App.AppVersion entity)
         {
-            Mapper.CreateMap<Entities.App.AppVersion, DTO.App.AppVersion>();
+       
             return Mapper.Map<Entities.App.AppVersion, DTO.App.AppVersion>(entity);
         }
     }

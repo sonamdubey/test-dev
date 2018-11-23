@@ -23,10 +23,7 @@ namespace Bikewale.Service.AutoMappers.BikeData
         {
             if (objSimilarBikes != null)
             {
-                Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
-                Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
-                Mapper.CreateMap<BikeVersionEntityBase, VersionBase>();
-                Mapper.CreateMap<SimilarBikeEntity, SimilarBike>();
+
                 IEnumerable<SimilarBike> dtoSimilarBikeList = Mapper.Map<IEnumerable<SimilarBikeEntity>, IEnumerable<SimilarBike>>(objSimilarBikes);
                 if (dtoSimilarBikeList != null)
                 {

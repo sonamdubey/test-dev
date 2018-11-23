@@ -15,23 +15,12 @@ namespace Bikewale.Service.AutoMappers.NewBikeSearch
     {
         internal static SearchOutput Convert(SearchOutputEntity objSuggestion)
         {
-            Mapper.CreateMap<SearchOutputEntity, SearchOutput>();
-            Mapper.CreateMap<PagingUrl, Pager>();
-            Mapper.CreateMap<SearchOutputEntityBase, SearchOutputBase>();
-            Mapper.CreateMap<BikeModelEntity, ModelDetail>();
-            Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
-            Mapper.CreateMap<BikeSeriesEntityBase, SeriesBase>();
-
             return Mapper.Map<SearchOutputEntity, SearchOutput>(objSuggestion);
-        }      
+        }
 
         internal static SearchFilters Convert(SearchFilterDTO input)
         {
-                Mapper.CreateMap<SearchFilterDTO, SearchFilters>();
-                Mapper.CreateMap<PriceRangeDTO, PriceRangeEntity>();
-                Mapper.CreateMap<RangeDTO, RangeEntity>();
-                return Mapper.Map<SearchFilterDTO, SearchFilters>(input);
-            
+           return Mapper.Map<SearchFilterDTO, SearchFilters>(input);
         }
     }
 }

@@ -59,7 +59,7 @@ namespace Bikewale.Service.Controllers.Customer
 
                     if (objCust != null && objCust.IsExist == true)
                     {
-                        Mapper.CreateMap<CustomerEntity, AuthenticatedCustomer>();
+                     
                         objCustomer = Mapper.Map<CustomerEntity, AuthenticatedCustomer>(objCust);
 
                         objCustomer.IsAuthorized = true;

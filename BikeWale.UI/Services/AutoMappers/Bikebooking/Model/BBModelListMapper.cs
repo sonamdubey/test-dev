@@ -9,7 +9,6 @@ namespace Bikewale.Service.AutoMappers.Bikebooking.Model
     {
         internal static IEnumerable<DTO.BikeBooking.Model.BBModelBase> Convert(IEnumerable<Entities.BikeData.BikeModelEntityBase> objModelList)
         {
-            Mapper.CreateMap<BikeModelEntityBase, BBModelBase>();
             return Mapper.Map<IEnumerable<BikeModelEntityBase>, IEnumerable<BBModelBase>>(objModelList);
         }
     }

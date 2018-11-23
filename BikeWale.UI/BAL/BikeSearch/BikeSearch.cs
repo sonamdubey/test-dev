@@ -589,13 +589,7 @@ namespace Bikewale.BAL.BikeSearch
         /// <returns></returns>
         private IEnumerable<BikeModelDocumentEntity> Convert(IEnumerable<BikeModelDocument> objDocuments)
         {
-            Mapper.CreateMap<BikeModelDocument, BikeModelDocumentEntity>();
-            Mapper.CreateMap<Bikewale.ElasticSearch.Entities.MakeEntity, Bikewale.Entities.NewBikeSearch.MakeEntity>();
-            Mapper.CreateMap<Bikewale.ElasticSearch.Entities.ModelEntity, Bikewale.Entities.NewBikeSearch.ModelEntity>();
-            Mapper.CreateMap<Bikewale.ElasticSearch.Entities.VersionEntity, Bikewale.Entities.NewBikeSearch.VersionEntity>();
-            Mapper.CreateMap<Bikewale.ElasticSearch.Entities.ImageEntity, Bikewale.Entities.NewBikeSearch.ImageEntity>();
-            Mapper.CreateMap<Bikewale.ElasticSearch.Entities.PriceEntity, Bikewale.Entities.NewBikeSearch.PriceEntity>();
-
+         
             return Mapper.Map<IEnumerable<BikeModelDocument>, IEnumerable<BikeModelDocumentEntity>>(objDocuments);
         }
 
@@ -607,8 +601,6 @@ namespace Bikewale.BAL.BikeSearch
         /// <returns></returns>
         private IEnumerable<Bikewale.Entities.NewBikeSearch.PriceEntity> ConvertPrice(IEnumerable<Bikewale.ElasticSearch.Entities.PriceEntity> obj)
         {
-            Mapper.CreateMap<Bikewale.ElasticSearch.Entities.PriceEntity, Bikewale.Entities.NewBikeSearch.PriceEntity>();
-
             return Mapper.Map<IEnumerable<Bikewale.ElasticSearch.Entities.PriceEntity>, IEnumerable<Bikewale.Entities.NewBikeSearch.PriceEntity>>(obj);
         }
 

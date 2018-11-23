@@ -13,11 +13,7 @@ namespace Bikewale.Service.AutoMappers.PriceQuote
     {
         internal static DTO.PriceQuote.CustomerDetails.PQCustomer Convert(Entities.BikeBooking.PQCustomerDetail entity)
         {
-            Mapper.CreateMap<CustomerEntityBase, PQCustomerBase>();
-            Mapper.CreateMap<VersionColor, PQColor>();
-            Mapper.CreateMap<PQCustomerDetail, PQCustomer>();
-            Mapper.CreateMap<CityEntityBase, CityBase>();
-            Mapper.CreateMap<Bikewale.Entities.Location.AreaEntityBase, AreaBase>();
+           
             return Mapper.Map<PQCustomerDetail, PQCustomer>(entity);
         }
 
@@ -28,13 +24,13 @@ namespace Bikewale.Service.AutoMappers.PriceQuote
         /// <returns></returns>
         internal static Bikewale.Entities.PriceQuote.PQCustomerDetailInput Convert(Bikewale.DTO.PriceQuote.PQCustomerDetailInput entity)
         {
-            Mapper.CreateMap<Bikewale.DTO.PriceQuote.PQCustomerDetailInput, Bikewale.Entities.PriceQuote.PQCustomerDetailInput>();
+           
             return Mapper.Map<Bikewale.DTO.PriceQuote.PQCustomerDetailInput, Bikewale.Entities.PriceQuote.PQCustomerDetailInput>(entity);
         }
 
         internal static Bikewale.Entities.PriceQuote.v2.PQCustomerDetailInput Convert(Bikewale.DTO.PriceQuote.v3.PQCustomerDetailInput entity)
         {
-            Mapper.CreateMap<Bikewale.DTO.PriceQuote.v3.PQCustomerDetailInput, Bikewale.Entities.PriceQuote.v2.PQCustomerDetailInput>();
+           
             return Mapper.Map<Bikewale.DTO.PriceQuote.v3.PQCustomerDetailInput, Bikewale.Entities.PriceQuote.v2.PQCustomerDetailInput>(entity);
         }
 
@@ -46,15 +42,13 @@ namespace Bikewale.Service.AutoMappers.PriceQuote
         /// <returns></returns>
         internal static DTO.PriceQuote.v2.PQCustomerDetailOutput Convertv2(Entities.PriceQuote.PQCustomerDetailOutputEntity outEntity)
         {
-            Mapper.CreateMap<Entities.PriceQuote.PQCustomerDetailOutputEntity, DTO.PriceQuote.v2.PQCustomerDetailOutput>();
-            Mapper.CreateMap<Entities.PriceQuote.DealerDetails, DTO.PriceQuote.BikeBooking.DealerDetailsDTO>();
+         
             return Mapper.Map<Entities.PriceQuote.PQCustomerDetailOutputEntity, DTO.PriceQuote.v2.PQCustomerDetailOutput>(outEntity);
         }
 
         internal static DTO.PriceQuote.v4.PQCustomerDetailOutput Convertv3(Entities.PriceQuote.v2.PQCustomerDetailOutputEntity outEntity)
         {
-            Mapper.CreateMap<Entities.PriceQuote.v2.PQCustomerDetailOutputEntity, DTO.PriceQuote.v4.PQCustomerDetailOutput>();
-            Mapper.CreateMap<Entities.PriceQuote.DealerDetails, DTO.PriceQuote.BikeBooking.DealerDetailsDTO>();
+           
             return Mapper.Map<Entities.PriceQuote.v2.PQCustomerDetailOutputEntity, DTO.PriceQuote.v4.PQCustomerDetailOutput>(outEntity);
         }
 
@@ -64,27 +58,21 @@ namespace Bikewale.Service.AutoMappers.PriceQuote
         /// </summary>
         internal static DTO.PriceQuote.PQCustomerDetailOutput Convert(Entities.PriceQuote.PQCustomerDetailOutputEntity outEntity)
         {
-            Mapper.CreateMap<Entities.PriceQuote.PQCustomerDetailOutputEntity, DTO.PriceQuote.PQCustomerDetailOutput>();
-            Mapper.CreateMap<Entities.PriceQuote.DealerDetails, DTO.PriceQuote.BikeBooking.DealerDetailsDTO>();
             return Mapper.Map<Entities.PriceQuote.PQCustomerDetailOutputEntity, DTO.PriceQuote.PQCustomerDetailOutput>(outEntity);
         }
 
         internal static DTO.PriceQuote.v3.PQCustomerDetailOutput Convert(Entities.PriceQuote.v2.PQCustomerDetailOutputEntity outEntity)
         {
-            Mapper.CreateMap<Entities.PriceQuote.v2.PQCustomerDetailOutputEntity, DTO.PriceQuote.v3.PQCustomerDetailOutput>();
-            Mapper.CreateMap<Entities.PriceQuote.DealerDetails, DTO.PriceQuote.BikeBooking.DealerDetailsDTO>();
             return Mapper.Map<Entities.PriceQuote.v2.PQCustomerDetailOutputEntity, DTO.PriceQuote.v3.PQCustomerDetailOutput>(outEntity);
         }
 
         internal static Entities.PriceQuote.PQCustomerDetailInput Convert(DTO.PriceQuote.v2.PQCustomerDetailInput input)
         {
-            Mapper.CreateMap<DTO.PriceQuote.v2.PQCustomerDetailInput, Entities.PriceQuote.PQCustomerDetailInput>();
             return Mapper.Map<DTO.PriceQuote.v2.PQCustomerDetailInput, Entities.PriceQuote.PQCustomerDetailInput>(input);
         }
 
         internal static Entities.PriceQuote.v2.PQCustomerDetailInput Convertv2(DTO.PriceQuote.v2.PQCustomerDetailInput input)
         {
-            Mapper.CreateMap<DTO.PriceQuote.v2.PQCustomerDetailInput, Entities.PriceQuote.v2.PQCustomerDetailInput>();
             return Mapper.Map<DTO.PriceQuote.v2.PQCustomerDetailInput, Entities.PriceQuote.v2.PQCustomerDetailInput>(input);
         }
 

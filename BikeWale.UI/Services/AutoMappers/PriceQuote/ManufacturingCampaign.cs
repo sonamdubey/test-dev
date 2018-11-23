@@ -13,8 +13,7 @@ namespace Bikewale.Service.AutoMappers.PriceQuote
     {
         internal static IEnumerable<ManufactureDealerDTO> Convert(IEnumerable<ManufacturerDealer> objDealers)
         {
-            Mapper.CreateMap<ManufacturerDealer, ManufactureDealerDTO>();
-            return Mapper.Map<IEnumerable<ManufacturerDealer>, IEnumerable<ManufactureDealerDTO>>(objDealers);
+           return Mapper.Map<IEnumerable<ManufacturerDealer>, IEnumerable<ManufactureDealerDTO>>(objDealers);
         }
     }
 }

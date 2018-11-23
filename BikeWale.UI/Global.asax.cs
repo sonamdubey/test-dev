@@ -23,6 +23,7 @@ namespace Bikewale
         {
             ViewEngines.Engines.Add(new CustomViewEngine());
             UnityConfig.RegisterComponents();
+            AutoMapperConfig.ConfigureAutoMapper();
             Bikewale.Service.WebApiConfig.Register(GlobalConfiguration.Configuration);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             GlobalConfiguration.Configuration.EnsureInitialized();

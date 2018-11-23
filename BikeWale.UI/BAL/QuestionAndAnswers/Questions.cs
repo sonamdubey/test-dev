@@ -83,15 +83,7 @@ namespace Bikewale.BAL.QuestionAndAnswers
         /// <returns></returns>
         private QuestionsAnswers.Entities.Question ConvertToQNAQuestionEntity(Question entity)
         {
-            Mapper.CreateMap<CustomerEntityBase, QuestionsAnswers.Entities.Customer>()
-                .ForMember(d => d.Id, opt => opt.MapFrom(s => s.CustomerId))
-                .ForMember(d => d.Name, opt => opt.MapFrom(s => s.CustomerName))
-                .ForMember(d => d.Email, opt => opt.MapFrom(s => s.CustomerEmail));
-
-            Mapper.CreateMap<Answer, QuestionsAnswers.Entities.AnswerBase>();
-            Mapper.CreateMap<Bikewale.Entities.QuestionAndAnswers.Tag, QuestionsAnswers.Entities.Tag>();
-            Mapper.CreateMap<Question, QuestionsAnswers.Entities.Question>();
-
+         
             return Mapper.Map<Question, QuestionsAnswers.Entities.Question>(entity);
         }
 
@@ -103,15 +95,7 @@ namespace Bikewale.BAL.QuestionAndAnswers
         /// <returns></returns>
         private IEnumerable<Question> ConvertToBikewaleQuestionEntity(IEnumerable<QuestionsAnswers.Entities.Question> entity)
         {
-            Mapper.CreateMap<QuestionsAnswers.Entities.Customer, CustomerEntityBase>()
-                .ForMember(d => d.CustomerId, opt => opt.MapFrom(s => s.Id))
-                .ForMember(d => d.CustomerName, opt => opt.MapFrom(s => s.Name))
-                .ForMember(d => d.CustomerEmail, opt => opt.MapFrom(s => s.Email));
-
-            Mapper.CreateMap<QuestionsAnswers.Entities.AnswerBase, Answer>();
-            Mapper.CreateMap<QuestionsAnswers.Entities.Tag, Bikewale.Entities.QuestionAndAnswers.Tag>();
-            Mapper.CreateMap<QuestionsAnswers.Entities.Question, Question>();
-
+            
             return Mapper.Map<IEnumerable<QuestionsAnswers.Entities.Question>, IEnumerable<Question>>(entity);
         }
 

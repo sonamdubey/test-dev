@@ -14,8 +14,7 @@ namespace Bikewale.Service.AutoMappers.MobileAppAlert
         /// <returns></returns>
         internal static AppFCMInput Convert(AppIMEIDetailsInput input)
         {
-            Mapper.CreateMap<AppIMEIDetailsInput, AppFCMInput>();
-            return Mapper.Map<AppIMEIDetailsInput, AppFCMInput>(input);
+           return Mapper.Map<AppIMEIDetailsInput, AppFCMInput>(input);
         }
     }
 }

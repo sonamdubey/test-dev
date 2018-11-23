@@ -9,7 +9,6 @@ namespace Bikewale.Service.AutoMappers.PriceQuote.Model
     {
         internal static IEnumerable<DTO.PriceQuote.Model.PQModelBase> Convert(List<Entities.BikeData.BikeModelEntityBase> objModelList)
         {
-            Mapper.CreateMap<BikeModelEntityBase, PQModelBase>();
             return Mapper.Map<List<BikeModelEntityBase>, List<PQModelBase>>(objModelList);
         }
     }

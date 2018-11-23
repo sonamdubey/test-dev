@@ -16,12 +16,7 @@ namespace Bikewale.Service.AutoMappers.QuestionAndAnswers
         /// <returns></returns>
         public static Question Convert(QuestionDTO entity)
         {
-            Mapper.CreateMap<CustomerBase, CustomerEntityBase>();
-            Mapper.CreateMap<AnswerDTO, Answer>();
-            Mapper.CreateMap<Bikewale.DTO.QuestionAndAnswers.Tag, Bikewale.Entities.QuestionAndAnswers.Tag>();
-            Mapper.CreateMap<QuestionDTO, Question>();
-
-            return Mapper.Map<QuestionDTO, Question>(entity);
+          return Mapper.Map<QuestionDTO, Question>(entity);
         }
 
         /// <summary>
@@ -32,13 +27,6 @@ namespace Bikewale.Service.AutoMappers.QuestionAndAnswers
         /// <returns></returns>
         public static QuestionsDTO Convert(Questions questions)
         {
-            Mapper.CreateMap<CustomerEntityBase, CustomerBase>();
-            Mapper.CreateMap<Answer, AnswerDTO>();
-            Mapper.CreateMap<Entities.QuestionAndAnswers.Tag, Bikewale.DTO.QuestionAndAnswers.Tag>();
-            Mapper.CreateMap<QuestionAnswer, QuestionAnswerDTO>();
-            Mapper.CreateMap<QuestionBase, QuestionDTO>();
-            Mapper.CreateMap<Questions, QuestionsDTO>()
-                .ForMember(d => d.QuestionsAnswersList, opt => opt.MapFrom(s => s.QuestionList));
             return Mapper.Map<Questions, QuestionsDTO>(questions);
         }
 
@@ -50,15 +38,6 @@ namespace Bikewale.Service.AutoMappers.QuestionAndAnswers
         /// <returns></returns>
         public static TOut Convert<TIn, TOut>(TIn input)
         {
-            Mapper.CreateMap<CustomerEntityBase, CustomerBase>();
-            Mapper.CreateMap<Answer, AnswerDTO>();
-            Mapper.CreateMap<Entities.QuestionAndAnswers.Tag, Bikewale.DTO.QuestionAndAnswers.Tag>();
-            Mapper.CreateMap<QuestionAnswer, QuestionAnswerDTO>();
-            Mapper.CreateMap<QuestionBase, QuestionDTO>();
-            Mapper.CreateMap<Questions, QuestionsDTO>()
-                .ForMember(d => d.QuestionsAnswersList, opt => opt.MapFrom(s => s.QuestionList));
-
-            Mapper.CreateMap<QuestionUrl, QuestionURLDTO>();
             return Mapper.Map<TIn, TOut>(input);
         }
     }

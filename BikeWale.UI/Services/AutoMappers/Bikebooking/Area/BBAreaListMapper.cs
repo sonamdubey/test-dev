@@ -9,10 +9,9 @@ namespace Bikewale.Service.AutoMappers.Bikebooking.Area
     {
         internal static IEnumerable<BBAreaBase> Convert(IEnumerable<Entities.Location.AreaEntityBase> objAreaList)
         {
-            IEnumerable<BBAreaBase> dto = null;
-            Mapper.CreateMap<AreaEntityBase, BBAreaBase>();
-            dto = Mapper.Map<IEnumerable<AreaEntityBase>, IEnumerable<BBAreaBase>>(objAreaList);
-            return dto;
+      
+            return Mapper.Map<IEnumerable<AreaEntityBase>, IEnumerable<BBAreaBase>>(objAreaList);
+          
         }
     }
 }

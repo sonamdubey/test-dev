@@ -9,14 +9,12 @@ namespace Bikewale.Service.AutoMappers.PriceQuote.City
     {
         internal static IEnumerable<DTO.PriceQuote.City.PQCityBase> Convert(IEnumerable<Entities.Location.CityEntityBase> objCityList)
         {
-            Mapper.CreateMap<CityEntityBase, PQCityBase>();
-            return Mapper.Map<IEnumerable<CityEntityBase>, IEnumerable<PQCityBase>>(objCityList);
+           return Mapper.Map<IEnumerable<CityEntityBase>, IEnumerable<PQCityBase>>(objCityList);
         }
 
         internal static IEnumerable<DTO.PriceQuote.City.v2.PQCityBase> ConvertV2(IEnumerable<CityEntityBase> objCityList)
         {
-            Mapper.CreateMap<CityEntityBase, Bikewale.DTO.PriceQuote.City.v2.PQCityBase>();
-            return Mapper.Map<IEnumerable<CityEntityBase>, IEnumerable<Bikewale.DTO.PriceQuote.City.v2.PQCityBase>>(objCityList);
+          return Mapper.Map<IEnumerable<CityEntityBase>, IEnumerable<Bikewale.DTO.PriceQuote.City.v2.PQCityBase>>(objCityList);
             
         }
     }

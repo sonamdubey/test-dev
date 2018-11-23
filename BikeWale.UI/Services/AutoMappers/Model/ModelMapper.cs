@@ -44,51 +44,27 @@ namespace Bikewale.Service.AutoMappers.Model
         private static IList<string> _categoryDisplayNameList = new List<string> { "Summary", "Engine & Transmission", "Brakes, Wheels and Suspension", "Dimensions and Chassis", "Fuel efficiency and Performance" };
         internal static DTO.Model.ModelDetails Convert(Entities.BikeData.BikeModelEntity objModel)
         {
-            Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
-            Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
-            Mapper.CreateMap<Entities.BikeData.BikeModelEntity, ModelDetails>();
-            Mapper.CreateMap<BikeSeriesEntityBase, SeriesBase>();
-            return Mapper.Map<Entities.BikeData.BikeModelEntity, ModelDetails>(objModel);
+          return Mapper.Map<Entities.BikeData.BikeModelEntity, ModelDetails>(objModel);
         }
 
         internal static ModelDescription Convert(BikeDescriptionEntity objModelDesc)
         {
-            Mapper.CreateMap<BikeDescriptionEntity, ModelDescription>();
-            return Mapper.Map<BikeDescriptionEntity, ModelDescription>(objModelDesc);
+           return Mapper.Map<BikeDescriptionEntity, ModelDescription>(objModelDesc);
         }
 
         internal static List<DTO.Version.ModelVersionList> Convert(List<BikeVersionsListEntity> mvEntityList)
         {
-            Mapper.CreateMap<BikeVersionsListEntity, ModelVersionList>();
-            return Mapper.Map<List<BikeVersionsListEntity>, List<ModelVersionList>>(mvEntityList);
+           return Mapper.Map<List<BikeVersionsListEntity>, List<ModelVersionList>>(mvEntityList);
         }
 
         internal static DTO.Version.VersionSpecifications Convert(BikeSpecificationEntity objVersionSpecs)
         {
-            Mapper.CreateMap<BikeSpecificationEntity, VersionSpecifications>();
-            return Mapper.Map<BikeSpecificationEntity, VersionSpecifications>(objVersionSpecs);
+           return Mapper.Map<BikeSpecificationEntity, VersionSpecifications>(objVersionSpecs);
         }
 
         internal static Bikewale.DTO.Model.ModelPage Convert(BikeModelPageEntity objModelPage)
         {
-            Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
-            Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
-            Mapper.CreateMap<BikeSeriesEntityBase, SeriesBase>();
-            Mapper.CreateMap<BikeDescriptionEntity, ModelDescription>();
-            Mapper.CreateMap<Bikewale.Entities.BikeData.BikeModelEntity, ModelDetails>();
-            Mapper.CreateMap<BikeSpecificationEntity, VersionSpecifications>();
-            Mapper.CreateMap<BikeVersionsListEntity, ModelVersionList>();
-            Mapper.CreateMap<BikeVersionMinSpecs, VersionMinSpecs>();
-            Mapper.CreateMap<BikeModelPageEntity, Bikewale.DTO.Model.ModelPage>();
-            Mapper.CreateMap<NewBikeModelColor, ModelColor>();
-            Mapper.CreateMap<BikeDescriptionEntity, BikeDiscription>();
-            Mapper.CreateMap<UpcomingBikeEntity, UpcomingBike>();
-            Mapper.CreateMap<Bikewale.Entities.BikeData.Overview, Bikewale.DTO.Model.Overview>();
-            Mapper.CreateMap<Bikewale.Entities.BikeData.Features, Bikewale.DTO.Model.Features>();
-            Mapper.CreateMap<Bikewale.Entities.BikeData.Specifications, Bikewale.DTO.Model.Specifications>();
-            Mapper.CreateMap<Bikewale.Entities.BikeData.Specs, Bikewale.DTO.Model.Specs>();
-            Mapper.CreateMap<Bikewale.Entities.BikeData.SpecsCategory, Bikewale.DTO.Model.SpecsCategory>();
-            Mapper.CreateMap<Bikewale.Entities.CMS.Photos.ModelImage, Bikewale.DTO.CMS.Photos.CMSModelImageBase>();
+            
             var dto = Mapper.Map<BikeModelPageEntity, Bikewale.DTO.Model.ModelPage>(objModelPage);
 
             if (objModelPage.AllPhotos != null)
@@ -123,24 +99,7 @@ namespace Bikewale.Service.AutoMappers.Model
         /// <returns></returns>
         internal static Bikewale.DTO.Model.v2.ModelPage ConvertV2(BikeModelPageEntity objModelPage)
         {
-            Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
-            Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
-            Mapper.CreateMap<BikeSeriesEntityBase, SeriesBase>();
-            Mapper.CreateMap<BikeDescriptionEntity, ModelDescription>();
-            Mapper.CreateMap<Bikewale.Entities.BikeData.BikeModelEntity, ModelDetails>();
-            Mapper.CreateMap<BikeSpecificationEntity, VersionSpecifications>();
-            Mapper.CreateMap<BikeVersionsListEntity, ModelVersionList>();
-            Mapper.CreateMap<BikeVersionMinSpecs, VersionMinSpecs>();
-            Mapper.CreateMap<BikeModelPageEntity, Bikewale.DTO.Model.v2.ModelPage>();
-            Mapper.CreateMap<NewBikeModelColor, NewModelColor>();
-            Mapper.CreateMap<BikeDescriptionEntity, BikeDiscription>();
-            Mapper.CreateMap<UpcomingBikeEntity, UpcomingBike>();
-            Mapper.CreateMap<Bikewale.Entities.BikeData.Overview, Bikewale.DTO.Model.Overview>();
-            Mapper.CreateMap<Bikewale.Entities.BikeData.Features, Bikewale.DTO.Model.Features>();
-            Mapper.CreateMap<Bikewale.Entities.BikeData.Specifications, Bikewale.DTO.Model.Specifications>();
-            Mapper.CreateMap<Bikewale.Entities.BikeData.Specs, Bikewale.DTO.Model.Specs>();
-            Mapper.CreateMap<Bikewale.Entities.BikeData.SpecsCategory, Bikewale.DTO.Model.SpecsCategory>();
-            Mapper.CreateMap<Bikewale.Entities.CMS.Photos.ModelImage, Bikewale.DTO.CMS.Photos.CMSModelImageBase>();
+           
             var dto = Mapper.Map<BikeModelPageEntity, Bikewale.DTO.Model.v2.ModelPage>(objModelPage);
 
             if (objModelPage.AllPhotos != null)
@@ -170,13 +129,11 @@ namespace Bikewale.Service.AutoMappers.Model
 
         internal static ModelBase Convert(BikeModelEntityBase objModel)
         {
-            Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
             return Mapper.Map<BikeModelEntityBase, ModelBase>(objModel);
         }
 
         internal static IEnumerable<ModelBase> Convert(List<BikeModelEntityBase> objModelList)
         {
-            Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
             return Mapper.Map<List<BikeModelEntityBase>, List<ModelBase>>(objModelList);
         }
 
@@ -258,21 +215,7 @@ namespace Bikewale.Service.AutoMappers.Model
         {
             try
             {
-                Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
-                Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
-                Mapper.CreateMap<BikeSeriesEntityBase, SeriesBase>();
-                Mapper.CreateMap<BikeDescriptionEntity, ModelDescription>();
-                Mapper.CreateMap<BikeModelEntity, ModelDetails>();
-                Mapper.CreateMap<BikeSpecificationEntity, VersionSpecifications>();
-                Mapper.CreateMap<BikeVersionsListEntity, ModelVersionList>();
-                Mapper.CreateMap<BikeVersionMinSpecs, VersionDetail>();
-                Mapper.CreateMap<BikeModelPageEntity, BikeSpecs>();
-                Mapper.CreateMap<NewBikeModelColor, NewModelColor>();
-                Mapper.CreateMap<BikeDescriptionEntity, BikeDiscription>();
-                Mapper.CreateMap<UpcomingBikeEntity, UpcomingBike>();
-                Mapper.CreateMap<Entities.BikeData.Specs, DTO.Model.Specs>();
-                Mapper.CreateMap<Entities.BikeData.SpecsCategory, DTO.Model.v2.SpecsCategory>();
-
+               
                 IEnumerable<DTO.Model.Specs> featuresList = null;
                 IList<DTO.Model.v2.SpecsCategory> specsCategory = null;
                 if (objModelPage != null && objModelPage.VersionSpecsFeatures != null)
@@ -325,21 +268,6 @@ namespace Bikewale.Service.AutoMappers.Model
         {
             try
             {
-                Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
-                Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
-                Mapper.CreateMap<BikeSeriesEntityBase, SeriesBase>();
-                Mapper.CreateMap<BikeDescriptionEntity, ModelDescription>();
-                Mapper.CreateMap<BikeModelEntity, ModelDetails>();
-                Mapper.CreateMap<BikeSpecificationEntity, VersionSpecifications>();
-                Mapper.CreateMap<BikeVersionsListEntity, ModelVersionList>();
-                Mapper.CreateMap<BikeVersionMinSpecs, VersionDetail>();
-                Mapper.CreateMap<BikeModelPageEntity, BikeSpecs>();
-                Mapper.CreateMap<NewBikeModelColor, NewModelColor>();
-                Mapper.CreateMap<BikeDescriptionEntity, BikeDiscription>();
-                Mapper.CreateMap<UpcomingBikeEntity, UpcomingBike>();
-                Mapper.CreateMap<Entities.BikeData.Specs, DTO.Model.Specs>();
-                Mapper.CreateMap<Entities.BikeData.SpecsCategory, DTO.Model.v2.SpecsCategory>();
-
                 IEnumerable<DTO.Model.Specs> featuresList = null;
                 IList<DTO.Model.v2.SpecsCategory> specsCategory = null;
                 if (objModelPage != null && objModelPage.VersionSpecsFeatures != null)
@@ -682,8 +610,7 @@ namespace Bikewale.Service.AutoMappers.Model
         /// <returns></returns>
         private static List<VersionDetail> Convert(IEnumerable<BikeVersionMinSpecs> enumerable)
         {
-            Mapper.CreateMap<BikeVersionsListEntity, VersionBase>();
-            Mapper.CreateMap<BikeVersionMinSpecs, VersionDetail>();
+           
             return Mapper.Map<IEnumerable<BikeVersionMinSpecs>, List<VersionDetail>>(enumerable);
         }
 
@@ -696,10 +623,7 @@ namespace Bikewale.Service.AutoMappers.Model
 
         internal static PQByCityAreaDTO Convert(PQByCityAreaEntity pqEntity)
         {
-            Mapper.CreateMap<BikeVersionsListEntity, VersionBase>();
-            Mapper.CreateMap<BikeVersionMinSpecs, VersionDetail>();
-            Mapper.CreateMap<PQByCityAreaEntity, PQByCityAreaDTO>();
-            return Mapper.Map<PQByCityAreaEntity, PQByCityAreaDTO>(pqEntity);
+           return Mapper.Map<PQByCityAreaEntity, PQByCityAreaDTO>(pqEntity);
         }
 
         /// <summary>
@@ -711,17 +635,7 @@ namespace Bikewale.Service.AutoMappers.Model
 
         internal static BikeModelContentDTO Convert(BikeModelContent objContent)
         {
-            Mapper.CreateMap<BikeVersionsListEntity, VersionBase>();
-            Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
-            Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
-            Mapper.CreateMap<ReviewRatingEntityBase, ReviewRatingBase>();
-            Mapper.CreateMap<ReviewTaggedBikeEntity, ReviewTaggedBike>();
-            Mapper.CreateMap<BikeVersionEntityBase, VersionBase>();
-            Mapper.CreateMap<ReviewEntity, Review>();
-            Mapper.CreateMap<ArticleSummary, CMSArticleSummary>();
-            Mapper.CreateMap<BikeVideoEntity, VideoBase>();
-            Mapper.CreateMap<BikeModelContent, BikeModelContentDTO>();
-            return Mapper.Map<BikeModelContent, BikeModelContentDTO>(objContent);
+           return Mapper.Map<BikeModelContent, BikeModelContentDTO>(objContent);
         }
 
         /// <summary>
@@ -732,16 +646,6 @@ namespace Bikewale.Service.AutoMappers.Model
         /// <returns></returns>
         internal static Bikewale.DTO.Model.v2.BikeModelContentDTO ConvertV2(Bikewale.Entities.BikeData.v2.BikeModelContent objContent)
         {
-
-            Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
-            Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
-            Mapper.CreateMap<ArticleSummary, CMSArticleSummary>();
-            Mapper.CreateMap<BikeVideoEntity, VideoBase>();
-            Mapper.CreateMap<UserReviewRating, UserReviewRatingDto>();
-            Mapper.CreateMap<UserReviewSummary, UserReviewSummaryDto>().ForMember(x => x.ReviewAge, opt => opt.MapFrom(s => !string.IsNullOrEmpty(s.ReviewAge) ? string.Format("{0} ago", s.ReviewAge) : ""));
-            Mapper.CreateMap<UserReviewQuestion, UserReviewQuestionDto>();
-            Mapper.CreateMap<UserReviewOverallRating, UserReviewOverallRatingDto>();
-            Mapper.CreateMap<Bikewale.Entities.BikeData.v2.BikeModelContent, Bikewale.DTO.Model.v2.BikeModelContentDTO>();
             return Mapper.Map<Bikewale.Entities.BikeData.v2.BikeModelContent, Bikewale.DTO.Model.v2.BikeModelContentDTO>(objContent);
         }
 
@@ -753,13 +657,7 @@ namespace Bikewale.Service.AutoMappers.Model
         /// <returns></returns>
         internal static PQByCityAreaDTOV2 ConvertV2(PQByCityAreaEntity pqCityAea)
         {
-            Mapper.CreateMap<BikeVersionMinSpecs, VersionDetail>();
-            Mapper.CreateMap<DealerQuotationEntity, DealerBase>().ForMember(d => d.Name, opt => opt.MapFrom(s => s.DealerDetails.Organization));
-            Mapper.CreateMap<DealerQuotationEntity, DealerBase>().ForMember(d => d.DealerId, opt => opt.MapFrom(s => s.DealerDetails.DealerId));
-            Mapper.CreateMap<DealerQuotationEntity, DealerBase>().ForMember(d => d.Area, opt => opt.MapFrom(s => s.DealerDetails.objArea.AreaName));
-            Mapper.CreateMap<DealerQuotationEntity, DealerBase>().ForMember(d => d.MaskingNumber, opt => opt.MapFrom(s => s.DealerDetails.MaskingNumber));
-            Mapper.CreateMap<DealerQuotationEntity, DealerBase>().ForMember(d => d.DealerPkgType, opt => opt.MapFrom(s => s.DealerDetails.DealerPackageType));
-            Mapper.CreateMap<PQByCityAreaEntity, PQByCityAreaDTOV2>();
+          
             var versionPrices = Mapper.Map<PQByCityAreaEntity, PQByCityAreaDTOV2>(pqCityAea);
             versionPrices.VersionList = ConvertBikeVersionToVersionDetail(pqCityAea.VersionList);
             if (pqCityAea.PrimaryDealer != null && pqCityAea.PrimaryDealer.OfferList != null)
@@ -784,8 +682,6 @@ namespace Bikewale.Service.AutoMappers.Model
 
         internal static Bikewale.DTO.PriceQuote.Version.v3.PQByCityAreaDTO ConvertV3(PQByCityAreaEntity pqCityAea)
         {
-            Mapper.CreateMap<BikeVersionMinSpecs, VersionDetail>();
-            Mapper.CreateMap<PQByCityAreaEntity, Bikewale.DTO.PriceQuote.Version.v3.PQByCityAreaDTO>();
             var versionPrices = Mapper.Map<PQByCityAreaEntity, Bikewale.DTO.PriceQuote.Version.v3.PQByCityAreaDTO>(pqCityAea);
             versionPrices.VersionList = ConvertBikeVersionToVersionDetail(pqCityAea.VersionList);
             return versionPrices;
@@ -798,8 +694,6 @@ namespace Bikewale.Service.AutoMappers.Model
         /// <returns></returns>
         internal static Bikewale.DTO.PriceQuote.Version.v4.PQByCityAreaDTO ConvertV4(Bikewale.Entities.PriceQuote.v3.PQByCityAreaEntity pqCityAea)
         {
-            Mapper.CreateMap<BikeVersionMinSpecs, VersionDetail>();
-            Mapper.CreateMap<Entities.PriceQuote.v3.PQByCityAreaEntity, Bikewale.DTO.PriceQuote.Version.v4.PQByCityAreaDTO>();
             var versionPrices = Mapper.Map<Bikewale.Entities.PriceQuote.v3.PQByCityAreaEntity, Bikewale.DTO.PriceQuote.Version.v4.PQByCityAreaDTO>(pqCityAea);
             versionPrices.VersionList = ConvertBikeVersionToVersionDetail(pqCityAea.VersionList);
             return versionPrices;
@@ -814,11 +708,6 @@ namespace Bikewale.Service.AutoMappers.Model
         /// <returns></returns>
         internal static IEnumerable<MostPopularBikes> Convert(IEnumerable<MostPopularBikesBase> objModelList)
         {
-            Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
-            Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
-            Mapper.CreateMap<BikeVersionsListEntity, VersionBase>();
-            Mapper.CreateMap<MinSpecsEntity, MinSpecs>();
-            Mapper.CreateMap<MostPopularBikesBase, MostPopularBikes>();
             return Mapper.Map<IEnumerable<MostPopularBikesBase>, IEnumerable<MostPopularBikes>>(objModelList);
         }
 
@@ -830,8 +719,6 @@ namespace Bikewale.Service.AutoMappers.Model
         /// <returns></returns>
         internal static IEnumerable<ColorImageBaseDTO> Convert(IEnumerable<ColorImageBaseEntity> imageList)
         {
-            Mapper.CreateMap<ImageBaseEntity, ImageBaseDTO>();
-            Mapper.CreateMap<ColorImageBaseEntity, ColorImageBaseDTO>();
             return Mapper.Map<IEnumerable<ColorImageBaseEntity>, IEnumerable<ColorImageBaseDTO>>(imageList);
         }
 
@@ -1447,9 +1334,6 @@ namespace Bikewale.Service.AutoMappers.Model
         /// <returns></returns>
         internal static IEnumerable<ModelColorPhoto> Convert(IEnumerable<ModelColorImage> objAllPhotosEntity)
         {
-            Mapper.CreateMap<ColorCodeBase, ColorCode>();
-            Mapper.CreateMap<ModelColorImage, ModelColorPhoto>()
-                .ForMember(dest => dest.ModelColorId, opt => opt.MapFrom(src => src.Id));
             return Mapper.Map<IEnumerable<ModelColorImage>, IEnumerable<ModelColorPhoto>>(objAllPhotosEntity);
         }
 
