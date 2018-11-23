@@ -645,6 +645,8 @@ namespace Bikewale.Models
         /// Description : Function to create page level schema for breadcrum
         /// Modified by : Snehal Dange on 27th Dec 2017
         /// Description: Added 'new bikes' in breadcrumb
+        /// Modified by : Swapnil kumar 
+        /// Description : Set SchemaBreadcrumbList which is same as breadcrumblist except last element
         /// </summary>
         private void SetBreadcrumList(ref MakePageVM objData)
         {

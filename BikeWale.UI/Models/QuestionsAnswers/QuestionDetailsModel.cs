@@ -199,6 +199,8 @@ namespace Bikewale.Models.QuestionsAnswers
             }
         }
 
+        /// Modified by : Snehal Dange on 23 Nov 2018
+        /// Description : Set the prop `SchemaBreadcrumbList` which is used to bind breadcrumb in web page schema. Breadcrumbs in schema has all the previous links except the current page link.
         private void SetBreadCrumbs(QuestionDetailsVM objQuestionDetailsVM)
         {
             try
@@ -248,6 +250,7 @@ namespace Bikewale.Models.QuestionsAnswers
                 breadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, currentPageUrl, quesText));
 
                 objQuestionDetailsVM.BreadcrumbList.BreadcrumListItem = breadCrumbs;
+                objQuestionDetailsVM.SchemaBreadcrumbList.BreadcrumListItem = breadCrumbs.Take(breadCrumbs.Count - 1);
             }
             catch (Exception ex)
             {
@@ -255,12 +258,14 @@ namespace Bikewale.Models.QuestionsAnswers
             }
         }
 
+        /// Modified by : Snehal Dange on 23 Nov 2018
+        /// Desc :  Replaced prop `BreadcrumbList` with `SchemaBreadcrumbList` in GetWebpageSchema. This is done to remove the current page link from breadcrumb in webpage schema .
         private void SetJSONLDSchema(QuestionDetailsVM objQuestionDetailsVM)
         {
             try
             {
                 Question objQuestion = objQuestionDetailsVM.Question;
-                Bikewale.Entities.Schema.WebPage webpage = SchemaHelper.GetWebpageSchema(objQuestionDetailsVM.PageMetaTags, objQuestionDetailsVM.BreadcrumbList);
+                Bikewale.Entities.Schema.WebPage webpage = SchemaHelper.GetWebpageSchema(objQuestionDetailsVM.PageMetaTags, objQuestionDetailsVM.SchemaBreadcrumbList);
                 if (webpage != null && objQuestion != null)
                 {
                     IList<Entities.Schema.Answer> answerList = new List<Entities.Schema.Answer>();

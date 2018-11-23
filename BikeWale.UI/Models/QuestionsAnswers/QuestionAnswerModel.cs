@@ -206,7 +206,7 @@ namespace Bikewale.Models.QuestionsAnswers
                 var request = HttpContext.Current.Request;
                 var queryString = request != null ? request.QueryString : null;
 
-                if(queryString != null)
+                if (queryString != null)
                 {
                     if (!string.IsNullOrEmpty(queryString["pn"]))
                     {
@@ -351,6 +351,8 @@ namespace Bikewale.Models.QuestionsAnswers
         /// <summary>
         /// Created By : Deepak Israni on 26 June 2018
         /// Description : Add breadcrumbs information to page.
+        /// Modified by : Snehal Dange on 23 Nov 2018
+        /// Description : Set the prop `SchemaBreadcrumbList` which is used to bind breadcrumb schema. Breadcrumbs in schema has all the previous links     except the current page link.
         /// </summary>
         /// <param name="objPage"></param>
         private void SetBreadcrumbList(ModelQuestionsAnswersVM _objVM)
@@ -406,6 +408,7 @@ namespace Bikewale.Models.QuestionsAnswers
                     BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, String.Format("{0}questions-and-answers/", bikeUrl), _objVM.MakeModelBase.Model.ModelName + " Questions & Answers"));
 
                     _objVM.BreadcrumbList.BreadcrumListItem = BreadCrumbs;
+                    _objVM.SchemaBreadcrumbList.BreadcrumListItem = BreadCrumbs.Take(BreadCrumbs.Count - 1);
 
                 }
             }
@@ -471,11 +474,13 @@ namespace Bikewale.Models.QuestionsAnswers
         /// Description : Webpage schema
         /// Modified By : Kumar Swapnil on 18 July 2018
         /// Description : Added Questions Schema
+        /// Modified by : Snehal Dange on 23 Nov 2018
+        /// Desc :  Replaced prop `BreadcrumbList` with `SchemaBreadcrumbList` in GetWebpageSchema. This is done to remove the current page link from breadcrumb in webpage schema .
         /// </summary>
         private void SetPageJSONLDSchema(ModelQuestionsAnswersVM objPageMeta)
         {
             //set webpage schema for the model page
-            WebPage webpage = SchemaHelper.GetWebpageSchema(objPageMeta.PageMetaTags, objPageMeta.BreadcrumbList);
+            WebPage webpage = SchemaHelper.GetWebpageSchema(objPageMeta.PageMetaTags, objPageMeta.SchemaBreadcrumbList);
 
             ushort pos = 1;
             if (webpage != null)

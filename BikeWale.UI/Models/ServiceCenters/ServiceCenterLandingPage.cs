@@ -14,6 +14,7 @@ using Bikewale.ServiceCenters;
 using Bikewale.Utility;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Bikewale.Models.ServiceCenters
 {
@@ -169,12 +170,14 @@ namespace Bikewale.Models.ServiceCenters
         /// <summary>
         /// Created by : Snehal Dange on 12th Jan 2017
         /// Desc : Added breadcrum and webpage schema
+        /// Modified by : Snehal Dange on 23 Nov 2018
+        /// Desc :  Replaced prop `BreadcrumbList` with `SchemaBreadcrumbList` in schema. This is done to remove the current page link from breadcrumb in webpage schema .
         /// </summary>
         /// <param name="objPageMeta"></param>
         private void SetPageJSONLDSchema(ServiceCenterLandingPageVM objPageMeta)
         {
             //set webpage schema 
-            WebPage webpage = SchemaHelper.GetWebpageSchema(objPageMeta.PageMetaTags, objPageMeta.BreadcrumbList);
+            WebPage webpage = SchemaHelper.GetWebpageSchema(objPageMeta.PageMetaTags, objPageMeta.SchemaBreadcrumbList);
 
             if (webpage != null)
             {
@@ -185,6 +188,8 @@ namespace Bikewale.Models.ServiceCenters
         /// <summary>
         /// Created by : Snehal Dange on 12th Dec 2017
         /// Desc : Added breadcrumb for dealerpage
+        /// Modified by : Snehal Dange on 23 Nov 2018
+        /// Description : Set the prop `SchemaBreadcrumbList` which is used to bind breadcrumb in web page schema. Breadcrumbs in schema has all the previous links except the current page link. 
         /// </summary>
         /// <param name="objData"></param>
         private void SetBreadcrumList(ServiceCenterLandingPageVM objData)
@@ -206,6 +211,7 @@ namespace Bikewale.Models.ServiceCenters
                 BreadCrumbs.Add(SchemaHelper.SetBreadcrumbItem(position, null, "Service Center Locator"));
 
                 objData.BreadcrumbList.BreadcrumListItem = BreadCrumbs;
+                objData.SchemaBreadcrumbList.BreadcrumListItem = BreadCrumbs.Take(BreadCrumbs.Count - 1);
             }
             catch (Exception ex)
             {
