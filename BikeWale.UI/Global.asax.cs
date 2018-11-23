@@ -1,4 +1,6 @@
-﻿using Bikewale.Utility;
+﻿using ApiGatewayLibrary;
+using Bikewale.Utility;
+using log4net;
 using React;
 using System;
 using System.Web;
@@ -7,8 +9,6 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using WURFL;
 using WURFL.Config;
-using AEPLCore.Logging;
-using ApiGatewayLibrary;
 
 namespace Bikewale
 {
@@ -17,12 +17,11 @@ namespace Bikewale
         public const String WurflManagerCacheKey = "__WurflManager";
         public const string WurflDataFilePath = "~/App_Data/wurfl-latest.zip";
 
+        static ILog _logger = LogManager.GetLogger("Global");
+
         protected void Application_Start(object sender, EventArgs e)
         {
             ViewEngines.Engines.Add(new CustomViewEngine());
-            log4net.Config.XmlConfigurator.Configure();
-            Logger logger = LoggerFactory.GetLogger();
-            logger.LogInfo("Application Started");
             UnityConfig.RegisterComponents();
             Bikewale.Service.WebApiConfig.Register(GlobalConfiguration.Configuration);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
@@ -86,7 +85,7 @@ namespace Bikewale
         protected void Application_Error(object sender, EventArgs e)
         {
             Exception ex = Server.GetLastError();
-            Bikewale.Notifications.ErrorClass.LogError(ex, "Global.Application_Error");
+            Bikewale.Notifications.ErrorClass.LogError(ex, "Global.Application_Error", _logger);
         }
     }
 
