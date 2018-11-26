@@ -102,15 +102,15 @@
                                 <div class="review-summary__link-content">
                                     <span class="review-summary__link js-review-summary__link">See Full Preview</span>
                                 </div>
-                                <div class="answer-question-wrapper">
+                             <div class="answer-question-wrapper  js-ga-non-interactive" data-act="Answer_This_Question_Link_Displayed" data-lab="@string.Format("{0}_{1}", Model.Summary.Make.MakeName, Model.Summary.Model.ModelName)" data-cat="Write_Review_Thanks">
                                     <h2 class="answer-question__title margin-bottom15">
                                         Can you help your fellow riders?
                                         <span class="answer-question__subtitle">
                                             (Answer any of these questions on @string.Format("{0} {1}", Model.Summary.Make.MakeName, Model.Summary.Model.ModelName))
                                         </span>
                                     </h2>
-                                    @Html.Partial("~/UI/Views/UserReview/_AnswerQuestionList.cshtml", Model.UnansweredQuestions)
-                                </div>
+        @Html.Partial("~/UI/Views/UserReview/_AnswerQuestionList.cshtml", Model.UnansweredQuestions)
+    </div>
                             }
                             <a href="@Model.Summary.ReturnUrl" class="btn btn-orange btn-180-34 margin-top20">Done</a>
                         </div>
@@ -175,6 +175,8 @@
         </section>
     }
     <input id="pageSource" type="hidden" value="@Model.Summary.ReturnUrl" />
+    <input id="makeName" type="hidden" value="@Model.Summary.Make.MakeName" />
+    <input id="modelName" type="hidden" value="@Model.Summary.Model.ModelName" />
     <div id="review-summary-page"></div>
 
 }

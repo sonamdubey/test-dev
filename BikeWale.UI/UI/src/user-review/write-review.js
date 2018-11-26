@@ -1,7 +1,7 @@
 ﻿var ratingBox, page, userNameField, userEmailIdField, vmWriteReview, vmRateBike;
 var detailedReviewField, reviewTitleField, reviewQuestion, ratingOverAll, pageSourceID, contentSourceId;
 var isSubmit = false, reviewOverallRatingId, bikeRatingBox;
-var makeModelName, ratingErrorFields = "", reviewErrorFields = "", writeReviewForm, descReviewField;
+var makeModelName, ratingErrorFields = "", reviewErrorFields = "", writeReviewForm, descReviewField , makeModel;
 var bikeRating = {
     ratingCount: 0,
     overallRating: []
@@ -407,7 +407,7 @@ var writeReview = function () {
         }
 
     };
-
+   
     self.validateReviewForm = function () {
         var isValidDesc = self.validate.detailedReview();
         var isValidTitle = self.validate.reviewTitle();
@@ -421,9 +421,15 @@ var writeReview = function () {
         else if (!isValidDesc && !isValidTitle)
             reviewErrorFields = reviewErrorFields + '_' + 'Review_Title' + '_' + 'Review_Description';
 
+       
+
         var isValid = isValidDesc && isValidTitle && self.reviewCheckbox();
         if (isValid) {
             triggerGA('Write_Review', 'Review_Submit_Success', makeModelName + pageSourceID + '_' + (self.detailedReview().trim().length > 0) + '_' + self.detailedReview().trim().length);
+            var questionResponse = $('#answerText').val();
+            if (questionResponse != undefined && questionResponse.length > 0) {
+                triggerGA('Write_Review', 'Review_Submit_Success_Answer', makeModel);
+            }
         }
         else {
             triggerGA('Write_Review', 'Review_Submit_Error', makeModelName + pageSourceID + '_' + (self.detailedReview().trim().length > 0) + '_' + self.detailedReview().trim().length + reviewErrorFields);
@@ -678,7 +684,7 @@ docReady(function () {
     userEmailIdField = $('#txtEmailID');
 
     initKoSlider();
-
+    makeModel = $('#makeName').val() + "_" + $('#modelName').val();
 
     if ($('#review-question-list') && $('#review-question-list').text())
         reviewQuestion = JSON.parse($('#review-question-list').text());
@@ -854,6 +860,10 @@ docReady(function () {
         });
     });
 
+
+    $(".answer-question__item a").on('click', function () {
+        triggerGA("Write_Review", "Answer_This_Question_Link_Clicked", makeModel);
+    });
 
     //rating-face
     $('.other-review__button-block').on('click', function () {

@@ -39,8 +39,10 @@
                                 <input type="hidden" id="submittedAnswerText" name="submittedAnswerText" />
                                 <input type="hidden" name="encryptedUrl" value="@Model.EncryptedUrl" />
                                 <input type="hidden" name="platformId" value="@Model.Platform" />
-                                <input type="hidden" name="sourceId" value="@Model.Source" />
+                                <input type="hidden" id="sourceId" name="sourceId" value="@Model.Source" />
                                 <input type="hidden" name="returnUrl" value="@(Url.Encode(Model.ReturnUrl))" />
+                                <input type="hidden" id="makeName" value="@(Model.BikeMakeModel.MakeBase.MakeName)" />
+                                <input type="hidden" id="modelName" value="@(Model.BikeMakeModel.ModelName)" />
                                 @Html.AntiForgeryToken()
                                 <input type="submit" class="btn btn-blue" value="Submit">
                             </div>
