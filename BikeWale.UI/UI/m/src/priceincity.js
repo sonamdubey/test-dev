@@ -17,8 +17,16 @@ function formatPrice(price) {
 
     return price;
 }
-docReady(function () {
 
+docReady(function () {
+    // track PQ in bhrigu
+    var pqSourceId = getFilterFromQS("pqsourceid");
+    if (pqSourceId != "")
+    {
+        var pqId = $("#priceincity").data("pqguid");
+        trackPQSources(pqId, pqSourceId, 2, versionId);
+    }
+    
     if (document.getElementById('dealerProcessingFees')) {
         processingFees = parseInt($('#dealerProcessingFees').val());
     }
@@ -528,3 +536,5 @@ docReady(function () {
     });
     AnimateCTA.registerEvents();
 });
+
+

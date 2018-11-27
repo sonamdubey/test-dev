@@ -4,6 +4,7 @@ var objCity = new Object();
 var globalCityId = 0;
 var _makeName = '';
 var pqSourceId = "38";
+var globalCityPQSource = "125"
 var IsPriceQuoteLinkClicked = false;
 var ga_pg_id = '0', recentSearches, navDrawer, cityArea, quotationPage, playerState = '';
 var navContainer, effect = 'slide', directionLeft = { direction: 'left' }, duration = 500;
@@ -1218,7 +1219,13 @@ docReady(function () {
             dataLayer.push({ 'GlobalCity': cityName });
             ga('set', 'dimension3', cityName);
             if (city.cityId) {
-                location.reload();
+                if (typeof (gaObj) != "undefined" && gaObj.id == 3) // Model page
+                {
+                    window.location.href = "?versionId=" + versionId + "&pqsourceid=" + globalCityPQSource;
+                }
+                else {
+                    location.reload();
+                }
             }
 
         },
@@ -2237,5 +2244,42 @@ var triggerNonInteractiveGAWithinViewport = function (elem) {
     }
     
 }
+
+var trackPQSources = function (pqId, pqSourceId, platformId, bikeVersionId) {
+    var category = "BWPriceQuote";
+    var action = "PQTaken";
+    var label = "pqId=" + pqId + "|pqSourceId=" + pqSourceId + "|platformId=" + platformId + "|versionId=" + bikeVersionId;
+
+    cwTracking.trackCustomData(category, action, label);
+
+}
+
+var getFilterFromQS = function (name) {
+    var hash = location.href.split('?')[1];
+    var result = {};
+    var propval, filterName, value;
+    var isFound = false;
+    if (hash != undefined) {
+        var params = hash.split('&');
+        for (var i = 0; i < params.length; i++) {
+            var propval = params[i].split('=');
+            filterName = propval[0];
+            if (filterName == name) {
+                value = propval[1];
+                isFound = true;
+                break;
+            }
+        }
+    }
+    if (isFound && value.length > 0) {
+        //if (value.indexOf('+') > 0)
+        if ((/\+/).test(value))
+            return value.replace(/\+/g, " ");
+        else
+            return value;
+    }
+    else
+        return "";
+};
 
 

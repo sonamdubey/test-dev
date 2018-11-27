@@ -136,7 +136,7 @@
         else if (Model.IsNearlyAllIndiaCampaign)
         {
             <div class="emi-quote__btn-block">
-                <a id="btnEmiQuote" class="btn btn-white emi-quote-btn getquotation bw-ga" data-cat="Model_Page" data-act="Get_EMI_Quote_Clicked" data-lab="@Model.BikeName.Replace(" ", "_")" data-modelid="@Model.ModelId" href="javascript:void(0)" data-reload="true" data-persistent="true" data-pqsourceid="@Convert.ToUInt16(Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_ModelPage)" data-leadsourceid="@Convert.ToUInt16(Bikewale.Entities.BikeBooking.LeadSourceEnum.ModelPage_EmiCalculator_Mobile)" data-popupsource="leadcapturebtn" data-origin="1">Get Offers on Loans</a>
+                <a id="btnEmiQuote" class="btn btn-white emi-quote-btn getquotation bw-ga" data-cat="Model_Page" data-act="Get_EMI_Quote_Clicked" data-lab="@Model.BikeName.Replace(" ", "_")" data-modelid="@Model.ModelId" href="javascript:void(0)" data-reload="true" data-persistent="true" data-pqsourceid="@(Model.Page == Bikewale.Entities.Pages.BikewalePages.Mobile_ModelPage ? Convert.ToUInt16(Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_ModelPage_NearlyPanIndiaEMI) : Convert.ToUInt16(Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_ModelPage))" data-leadsourceid="@Convert.ToUInt16(Bikewale.Entities.BikeBooking.LeadSourceEnum.ModelPage_EmiCalculator_Mobile)" data-popupsource="leadcapturebtn" data-origin="1">Get Offers on Loans</a>
             </div>
         }
         

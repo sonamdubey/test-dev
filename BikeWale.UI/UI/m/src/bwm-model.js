@@ -9,6 +9,7 @@ var lastScrollTop = 0;
 var reg, vmUserReviews;
 var versionListGATriggered = false;
 var esTopCardBhriguTriggered = false;
+var mobileModelPQSourceId = 22;
 
 function getBikeVersion() {
     return versionName;
@@ -108,8 +109,6 @@ var findTopOffset = function () {
     return elem.outerHeight() + elem.offset().top - (window.innerHeight - floatBtnHeight);   
 }
 
-
-
 window.addEventListener('load', function () {
     // scroll to offset 
     if (window.location.href.indexOf("#") !== -1) {
@@ -142,6 +141,12 @@ window.addEventListener('load', function () {
     $('.bw-shown-in-bhrighu').each(function (index, element) {
       trackElementVisiblity(element);
     });
+    
+    if(pqId != "")
+    {
+        var pqSourceId = getFilterFromQS("pqsourceid").split("#")[0];
+        pqSourceId != "" ? trackPQSources(pqId, pqSourceId, 2, versionId) : trackPQSources(pqId, mobileModelPQSourceId, 2, versionId);
+    }
 });
 
 
@@ -415,10 +420,20 @@ docReady(function () {
 
     function handleVersionChange(dropdown) {
         var optionValue = dropdown.activeOption.value;
+        var pqsourceId = dropdown.activeOption.element[0].dataset.pqsourceid;
 
         $('#hdnVariant').val(optionValue);
         dataLayer.push({ "event": "Bikewale_all", "cat": "Model_Page", "act": "Version_Change", "lab": "" });
-        window.location.href = $(dropdown.container).data("pageurl") + "?versionId=" + optionValue;
+
+        if (pqsourceId != undefined)
+        {
+            window.location.href = $(dropdown.container).data("pageurl") + "?versionId=" + optionValue + "&pqsourceid=" + pqsourceId;
+        }
+        else 
+        {
+            window.location.href = $(dropdown.container).data("pageurl") + "?versionId=" + optionValue;
+        }
+
     }
 
     var versionDropdown = new DropdownMenu('#ddlNewVersionList', {

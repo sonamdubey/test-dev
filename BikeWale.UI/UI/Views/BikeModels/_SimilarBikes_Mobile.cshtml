@@ -46,7 +46,7 @@
                 @if (Model.ShowCheckOnRoadCTA)
                 {
                     <div class="swiper-btn-block">
-                        <a href="javascript:void(0)" data-pqsourceid="@((int)Model.PQSourceId)" data-modelid="@bike.ModelBase.ModelId" class="btn btn-card btn-full-width btn-white getquotation" rel="nofollow">Check on-road price</a>
+                        <a href="javascript:void(0)" data-pqsourceid="@Convert.ToUInt16(Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_ModelPage_SimilarBikes)" data-modelid="@bike.ModelBase.ModelId" class="btn btn-card btn-full-width btn-white getquotation" rel="nofollow">Check on-road price</a>
                     </div>
                 }
                 @if (Model.ShowPriceInCityCTA)
@@ -60,7 +60,7 @@
                     else
                     {
                         <div class="swiper-btn-block">
-                            <a href="javascript:void(0)" data-pqsourceid="@((int)Model.PQSourceId)" data-modelid="@bike.ModelBase.ModelId" class="btn btn-card btn-full-width btn-white getquotation" rel="nofollow">Check on-road price</a>
+                            <a href="javascript:void(0)" data-pqsourceid="@Convert.ToUInt16(Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_ModelPage_SimilarBikes)" data-modelid="@bike.ModelBase.ModelId" class="btn btn-card btn-full-width btn-white getquotation" rel="nofollow">Check on-road price</a>
                         </div>
                     }
                 }

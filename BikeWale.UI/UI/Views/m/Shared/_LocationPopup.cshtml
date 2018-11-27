@@ -104,11 +104,12 @@
     var pCityId = @CityId ,pAreaId = @AreaId ,onCookieObj = {},vmquotation;
 
     var mPopup = function () {
+        var modelPageSimilarBikesPQSource = "130";
         var self = this;
         self.MakeName = "";
         self.ModelName = "";
         self.PageCatId = "";
-        self.PageSourceId = "";
+        self.PQSourceId = "";
         self.SelectedModelId = ko.observable();
         self.SelectedCity = ko.observable();
         self.SelectedArea = ko.observable();
@@ -173,6 +174,7 @@
 
                 if(self.isLeadPopupFlow()) {
                     self.subTitle("We will connect you to nearest authorized dealership.");
+                    self.PQSourceId = options.pqsrcid;
                     appendState('fetchCampaign');
                 }
                 else {
@@ -195,7 +197,7 @@
                 self.ModelName = options.modelname || "";
                 self.MakeName = options.makename || "";
                 self.PageCatId = options.pagecatid || "";
-                self.PageSourceId = options.pagesrcid || "";
+                self.PQSourceId = options.pqsrcid || "";
                 self.IsPersistance(options.ispersistent || false);
                 self.IsReload(options.isreload || false);
                 self.DealerId(options.dealerid || 0);
@@ -234,7 +236,7 @@
                     "ClientIP":"",
                     "SourceType":"2",
                     "VersionId": self.VersionId(),
-                    "pQLeadId":self.PageSourceId,
+                    "pQLeadId":self.PQSourceId,
                     'deviceId': getCookie('BWC'),
                     'isPersistance' : self.IsPersistance()  ,
                     'refPQId': typeof pqId != 'undefined' ? pqId : '',
@@ -287,6 +289,12 @@
                             cityArea.close();
 
                             var jsonObj = _responseData.priceQuote;
+                            var platformId = 2; // hardcoded value for mobile platform
+
+                            if(self.PQSourceId == modelPageSimilarBikesPQSource)
+                            {
+                                trackPQSources(jsonObj.quoteId, self.PQSourceId, platformId, versionId);
+                            }
 
 
                             if (self.SelectedCityId() > 0 ) {
@@ -362,6 +370,10 @@
                                 }
                                 else if (self.VersionId() != 0){
                                     window.location.href = window.location.origin + window.location.pathname + "?versionId=" + self.VersionId() + "#onRoadPrice";
+                                }
+                                else if (typeof (gaObj) != "undefined" && gaObj.id == 3)
+                                {
+                                    window.location.href = "?versionId=" + versionId + "&pqsourceid=" + self.PQSourceId + window.location.hash;
                                 }
                                 else {
                                     window.location.reload(true);
@@ -511,7 +523,7 @@
                 "makename" : ele.attr('data-makeName'),
                 "modelname" : ele.attr('data-modelName'),
                 "pagecatid" : ele.attr('data-pagecatid'),
-                "pagesrcid" : ele.attr('data-pqSourceId'),
+                "pqsrcid" : ele.attr('data-pqSourceId'),
                 "ispersistent" : ele.attr('data-persistent') !=null ? true : false,
                 "isreload" : ele.attr("data-reload") !=null ? true : false,
                 "versionid" : ele.attr("data-versionid") != undefined ? ele.attr("data-versionid") : 0,

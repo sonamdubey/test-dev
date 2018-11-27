@@ -153,9 +153,21 @@ namespace Bikewale.Entities.PriceQuote
         Desktop_DealerLocator_Listing = 119,
         Desktop_PriceInCity = 120,
         Mobile_PriceInCity = 121,
-        Mobile_ModelPage_AMP = 122,
-        Mobile_QnA_OnRoadLink = 123,
-        MaskingNumber = 124
+        Mobile_ModelPage_AMP = 122, 
+        Mobile_QnA_OnRoadLink = 123, 
+        MaskingNumber = 124,
+        Mobile_GlobalCity = 125, 
+        Mobile_ModelPage_LocationSelector = 126,
+        Mobile_ModelPage_EditCityPencil = 127,
+        Mobile_ModelPage_CheckOnRoadLink = 128,
+        Mobile_ModelPage_CheckOnRoadFloating = 129,
+        Mobile_ModelPage_SimilarBikes = 130, 
+        Mobile_ModelPage_VersionSelector = 131,
+        Mobile_ModelPage_PriceInCityLink = 132,
+        Mobile_ModelPage_PanIndiaFloating = 133,
+        Mobile_ModelPage_NearlyPanIndiaFloating = 134,
+        Mobile_ModelPage_NearlyPanIndiaTopCard = 135,
+        Mobile_ModelPage_NearlyPanIndiaEMI = 136
     }
 
 }

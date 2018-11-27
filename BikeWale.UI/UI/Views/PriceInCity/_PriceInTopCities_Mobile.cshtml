@@ -6,7 +6,14 @@
     {
         <li>
             <span class="city-name">
-                <a title="@string.Format("{0} price in {1}", @Model.BikeName, @priceQuote.CityName)" href="@string.Format("/m{0}", @Bikewale.Utility.UrlFormatter.PriceInCityUrl(@priceQuote.MakeMaskingName, @priceQuote.ModelMaskingName, @priceQuote.CityMaskingName))">@priceQuote.CityName</a>
+                @if (Model.Page == Bikewale.Entities.Pages.BikewalePages.Mobile_ModelPage)
+                {
+                    <a title="@string.Format("{0} price in {1}", @Model.BikeName, @priceQuote.CityName)" href="@string.Format("/m{0}?pqsourceid={1}", @Bikewale.Utility.UrlFormatter.PriceInCityUrl(@priceQuote.MakeMaskingName, @priceQuote.ModelMaskingName, @priceQuote.CityMaskingName), @Convert.ToUInt16(Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_ModelPage_PriceInCityLink))">@priceQuote.CityName</a>
+                }
+                else
+                {
+                    <a title="@string.Format("{0} price in {1}", @Model.BikeName, @priceQuote.CityName)" href="@string.Format("/m{0}", @Bikewale.Utility.UrlFormatter.PriceInCityUrl(@priceQuote.MakeMaskingName, @priceQuote.ModelMaskingName, @priceQuote.CityMaskingName))">@priceQuote.CityName</a>
+                }
             </span>
             <span class="city-price">
                 @Html.Raw("<span>&#x20B9;</span>")&nbsp;@Bikewale.Utility.Format.FormatPrice(Convert.ToString(priceQuote.OnRoadPrice))

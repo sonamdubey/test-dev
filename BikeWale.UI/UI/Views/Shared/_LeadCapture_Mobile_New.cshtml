@@ -779,7 +779,7 @@
                     "clientIP": self.clientIP,
                     "pageUrl": self.pageUrl,
                     "sourceType": '@(Model.PlatformId != 0 ? Model.PlatformId : 2)',
-                    "pQLeadId": self.pqSourceId(),
+                    "pQLeadId": vmquotation.isLeadPopupFlow() ? vmquotation.PQSourceId : self.pqSourceId(),
                     "deviceId": getCookie('BWC')
                 };
                 return self.registerPQ(objData);

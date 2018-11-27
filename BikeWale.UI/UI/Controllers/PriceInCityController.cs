@@ -11,6 +11,7 @@ using Bikewale.ManufacturerCampaign.Interface;
 using Bikewale.Models;
 using Bikewale.Models.PriceInCity;
 using System.Web.Mvc;
+using System;
 
 namespace Bikewale.Controllers
 {
@@ -143,6 +144,7 @@ namespace Bikewale.Controllers
         public ActionResult Index_Mobile(string makeName, string modelName, string cityName)
         {
             PriceInCityPageVM objVM = null;
+            UInt16 pqSourceId =  0;
             PriceInCityPage model = new PriceInCityPage(_cityMaskingCache, _modelMaskingCache, _objPQ, _objPQCache, _objDealerCache, _objServiceCenterCache, _objVersion, _bikeInfo, _modelCache, _objDealerDetails, _objDealerPQ, _objCityCache, _objAreaCache, _objManufacturerCampaign, PQSourceEnum.Mobile_PriceInCity_AlternateBikes, modelName, cityName, _objModelEntity, _adSlot, makeName, _bikeSeries);
             if (model.Status == Entities.StatusCodes.ContentFound)
             {
@@ -151,6 +153,7 @@ namespace Bikewale.Controllers
                 model.IsMobile = true;
                 model.TopCount = 9;
                 model.PQSource = PQSourceEnum.Mobile_PriceInCity;
+                model.PQSourceId = UInt16.TryParse(Request.QueryString["pqsourceid"], out pqSourceId) ? pqSourceId : (UInt16)0; 
                 model.Platform = DTO.PriceQuote.PQSources.Mobile;
                 model.LeadSource = Entities.BikeBooking.LeadSourceEnum.DPQ_Mobile;
                 model.ManufacturerCampaignPageId = ManufacturerCampaign.Entities.ManufacturerCampaignServingPages.Mobile_PriceInCity;

@@ -74,6 +74,7 @@
         {
             var priceQuotesCities = Model.PriceInTopCities.PriceQuoteList;
             Model.PriceInTopCities.PriceQuoteList = priceQuotesCities.Take(4);
+            Model.PriceInTopCities.Page = Bikewale.Entities.Pages.BikewalePages.Mobile_ModelPage;
             <div id="prices-top-cities">
                 @if (Model.LocationCookie != null && Model.LocationCookie.City != null)
                 {

@@ -54,7 +54,7 @@
                                     {
                                         cityText = locationText;
                                     }
-                                    <p class="font12 text-light-grey">@priceText in <a href="javascript:void(0)" data-reload="true" data-persistent="true" data-modelid='@Model.ModelId' data-bhrigucat="Model_Page" data-bhrigushownact="EditCityShown" data-bhriguact="EditCityInitiated" data-bhrigulab="@string.Format("versionId={0}|priceText={1} in {2}", Model.VersionId, priceText, locationText)" class="getquotation bw-bhrigu bw-shown-in-bhrighu" rel="nofollow"><span class="@String.Format("{0}", Model.IsBlueEditCityOption ? "edit-city-link" : "edit-city-link_black")">@areaText<span class="edit-city__text">@cityText<span class="@String.Format("{0}", Model.IsBlueEditCityOption ? "edit-city__icon" : "edit-city__icon_grey")"></span></span></span></a></p>
+                                    <p class="font12 text-light-grey">@priceText in <a href="javascript:void(0)" data-reload="true" data-persistent="true" data-modelid='@Model.ModelId' data-bhrigucat="Model_Page" data-bhrigushownact="EditCityShown" data-bhriguact="EditCityInitiated" data-bhrigulab="@string.Format("versionId={0}|priceText={1} in {2}", Model.VersionId, priceText, locationText)" data-pqsourceid="@Convert.ToUInt16(Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_ModelPage_EditCityPencil)" class="getquotation bw-bhrigu bw-shown-in-bhrighu" rel="nofollow"><span class="@String.Format("{0}", Model.IsBlueEditCityOption ? "edit-city-link" : "edit-city-link_black")">@areaText<span class="edit-city__text">@cityText<span class="@String.Format("{0}", Model.IsBlueEditCityOption ? "edit-city__icon" : "edit-city__icon_grey")"></span></span></span></a></p>
                                 }
                                 else
                                 {
@@ -96,12 +96,13 @@
                                 }
                                 @if (!Model.IsLocationSelected && Model.IsManufacturerLeadAdShown && !(Model.LeadCampaign.DealerId == Bikewale.Utility.BWConfiguration.Instance.CapitalFirstDealerId || Model.LeadCampaign.DealerId == Bikewale.Utility.BWConfiguration.Instance.BajajAutoFinanceDealerId))
                                 {
-                                    <a id="btnGetOnRoadPrice" href="javascript:void(0)" data-reload="true" data-persistent="true" data-modelid="@Model.ModelId" style="width: 100%" class="font14 text-bold getquotation">Check on-road price</a>
+                                    <a id="btnGetOnRoadPrice" href="javascript:void(0)" data-pqsourceid="@Convert.ToUInt16(Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_ModelPage_CheckOnRoadLink)" data-reload="true" data-persistent="true" data-modelid="@Model.ModelId" style="width: 100%" class="font14 text-bold getquotation">Check on-road price</a>
                                 }
                                 @if (!Model.IsLocationSelected && !Model.IsManufacturerLeadAdShown && (Model.IsNearlyAllIndiaCampaign))
                                 {
-                                    <a id="btnGetOnRoadPrice" href="javascript:void(0)" data-reload="true" data-persistent="true" data-modelid="@Model.ModelId" style="width: 100%" class="font14 text-bold getquotation">Check on-road price</a>
+                                    <a id="btnGetOnRoadPrice" href="javascript:void(0)" data-pqsourceid="@Convert.ToUInt16(Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_ModelPage_CheckOnRoadLink)" data-reload="true" data-persistent="true" data-modelid="@Model.ModelId" style="width: 100%" class="font14 text-bold getquotation">Check on-road price</a>
                                 }
+
                             </div>
                         </div>
 
@@ -149,6 +150,7 @@
                                         EMICalculatorModel.IsBhriguTracking = true;
                                         EMICalculatorModel.IsNearlyAllIndiaCampaign = !Model.IsLocationSelected && Model.IsNearlyAllIndiaCampaign && !Model.IsManufacturerLeadAdShown;
                                         EMICalculatorModel.ModelId = Model.ModelId;
+                                        EMICalculatorModel.Page = Bikewale.Entities.Pages.BikewalePages.Mobile_ModelPage;
                                         @Html.Partial("~/UI/Views/Shared/_EmiCalculator.cshtml", EMICalculatorModel);
                                     }
                                     <span class="clear"></span>
@@ -166,7 +168,7 @@
                             {
                                 <div class="floating-btn clearfix">
                                     <div class="grid-12 alpha omega">
-                                        <a href="javascript:void(0)" class="btn btn-orange btn-full-width leadcapturebtn bw-ga" rel="nofollow" id="btnPanIndiaManufacturer" data-mfgcampid="@Model.LeadCampaign.CampaignId" data-item-id="@Model.LeadCampaign.DealerId" data-item-area="@Model.LeadCampaign.Area" data-leadsourceid="@Convert.ToInt16(LeadSourceEnum.ModelPage_Floating_Mobile)" data-pqsourceid="@Model.LeadCampaign.PqSourceId" data-act="@Model.LeadCampaign.GAAction" data-cat="@Model.LeadCampaign.GACategory" data-lab="@Model.LeadCampaign.GALabel" data-item-message="@String.Format(Model.LeadCampaign.PopupSuccessMessage, Model.LeadCampaign.Organization)" data-item-heading="@Model.LeadCampaign.PopupHeading" data-item-description="@Model.LeadCampaign.PopupDescription" data-ispincodrequired="@Model.LeadCampaign.PincodeRequired" data-dealersrequired="@Model.LeadCampaign.DealerRequired" data-item-name="@Model.BikeName" data-isemailrequired="@Model.LeadCampaign.EmailRequired" data-organization="@Model.LeadCampaign.Organization" data-item-organization="@Model.LeadCampaign.Organization" data-issendleadsmscustomer="@Model.LeadCampaign.SendLeadSMSCustomer">Get Best Offers</a>
+                                        <a href="javascript:void(0)" class="btn btn-orange btn-full-width leadcapturebtn bw-ga" rel="nofollow" id="btnPanIndiaManufacturer" data-mfgcampid="@Model.LeadCampaign.CampaignId" data-item-id="@Model.LeadCampaign.DealerId" data-item-area="@Model.LeadCampaign.Area" data-leadsourceid="@Convert.ToInt16(LeadSourceEnum.ModelPage_Floating_Mobile)" data-pqsourceid="@Convert.ToUInt16(Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_ModelPage_PanIndiaFloating)" data-act="@Model.LeadCampaign.GAAction" data-cat="@Model.LeadCampaign.GACategory" data-lab="@Model.LeadCampaign.GALabel" data-item-message="@String.Format(Model.LeadCampaign.PopupSuccessMessage, Model.LeadCampaign.Organization)" data-item-heading="@Model.LeadCampaign.PopupHeading" data-item-description="@Model.LeadCampaign.PopupDescription" data-ispincodrequired="@Model.LeadCampaign.PincodeRequired" data-dealersrequired="@Model.LeadCampaign.DealerRequired" data-item-name="@Model.BikeName" data-isemailrequired="@Model.LeadCampaign.EmailRequired" data-organization="@Model.LeadCampaign.Organization" data-item-organization="@Model.LeadCampaign.Organization" data-issendleadsmscustomer="@Model.LeadCampaign.SendLeadSMSCustomer">Get Best Offers</a>
                                     </div>
                                 </div>
                             }
@@ -178,16 +180,15 @@
                                     <div id="animate-btn" class="campaign__floating-btn floating-btn clearfix campaign-with-animation js-floating-btn">
                                         <p class="grid-7 alpha btn__left-label campaign-with-animation__text"><span class="campaign-animation-text__content">@String.Format("Contact {0} Dealer", Model.ModelPageEntity.ModelDetails.MakeBase.MakeName)</span></p>
                                         <div class="campagin-new__button grid-5 alpha omega campaign-with-animation__button">
-                                            <a class="btn btn-orange btn-full-32 getquotation js-mfg" href="javascript:void(0)" data-reload="true" data-persistent="true" data-modelid="@Model.ModelId" data-pqsourceid="@Convert.ToUInt16(Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_ModelPage)" data-leadsourceid="@Convert.ToInt16(LeadSourceEnum.ModelPage_Floating_Mobile)" data-popupsource="leadcapturebtn">Get Best Offers</a>
+                                            <a class="btn btn-orange btn-full-32 getquotation js-mfg" href="javascript:void(0)" data-reload="true" data-persistent="true" data-modelid="@Model.ModelId" data-pqsourceid="@Convert.ToUInt16(Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_ModelPage_NearlyPanIndiaFloating)" data-leadsourceid="@Convert.ToInt16(LeadSourceEnum.ModelPage_Floating_Mobile)" data-popupsource="leadcapturebtn">Get Best Offers</a>
                                         </div>
                                     </div>
-
                                 }
                                 else
                                 {
                                     <div class="floating-btn clearfix">
                                         <div class="grid-12 alpha omega">
-                                            <a class="btn btn-orange btn-full-width getquotation" id="btnGetOnRoadPrice" href="javascript:void(0)" data-reload="true" data-persistent="true" data-modelid="@Model.ModelId">Check on-road price</a>
+                                            <a class="btn btn-orange btn-full-width getquotation" id="btnGetOnRoadPrice" href="javascript:void(0)" data-pqsourceid="@Convert.ToUInt16(Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_ModelPage_CheckOnRoadFloating)" data-reload="true" data-persistent="true" data-modelid="@Model.ModelId">Check on-road price</a>
                                         </div>
                                     </div>
                                 }
@@ -222,7 +223,7 @@
                                     <li class="campaign__list-item">EMI options</li>
                                     <li class="campaign__list-item">Exchange benefits</li>
                                 </ul>
-                                <a href="javascript:void(0)" class="btn btn-teal btn-180-32 margin-right20 getquotation bw-bhrigu" data-cat="Model_Page" data-act="TopCardCTA_Teal_GetOffersFromDealer_Click" data-bhrigulab="@Model.BikeName" data-reload="true" data-persistent="true" data-modelid="@Model.ModelId" data-pqsourceid="@Convert.ToUInt16(Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_ModelPage)" data-leadsourceid="@Convert.ToInt16(LeadSourceEnum.ModelPage_TopCard_Mobile)" data-popupsource="leadcapturebtn">Get offers from dealer</a>
+                                <a href="javascript:void(0)" class="btn btn-teal btn-180-32 margin-right20 getquotation bw-bhrigu" data-cat="Model_Page" data-act="TopCardCTA_Teal_GetOffersFromDealer_Click" data-bhrigulab="@Model.BikeName" data-reload="true" data-persistent="true" data-modelid="@Model.ModelId" data-pqsourceid="@Convert.ToUInt16(Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_ModelPage_NearlyPanIndiaTopCard)" data-leadsourceid="@Convert.ToInt16(LeadSourceEnum.ModelPage_TopCard_Mobile)" data-popupsource="leadcapturebtn">Get offers from dealer</a>
                             </div>
                         }
                     }

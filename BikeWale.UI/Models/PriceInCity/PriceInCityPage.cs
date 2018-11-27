@@ -67,6 +67,7 @@ namespace Bikewale.Models
         public uint BikeInfoTabCount { get; set; }
         public uint TopCount { get; set; }
         public PQSourceEnum PQSource { get; set; }
+        public UInt16 PQSourceId { get; set; }
         public PQSources Platform { get; set; }
         public LeadSourceEnum LeadSource { get; set; }
         public ManufacturerCampaignServingPages ManufacturerCampaignPageId { get; set; }
@@ -1357,7 +1358,7 @@ namespace Bikewale.Models
                 objPQEntity.ClientIP = "";
                 objPQEntity.SourceId = Convert.ToUInt16(Platform);
                 objPQEntity.ModelId = modelId;
-                objPQEntity.PQLeadId = Convert.ToUInt16(PQSource);
+                objPQEntity.PQLeadId = PQSourceId != 0 ? PQSourceId : Convert.ToUInt16(PQSource);
                 objPQEntity.UTMA = HttpContext.Current.Request.Cookies["__utma"] != null ? HttpContext.Current.Request.Cookies["__utma"].Value : "";
                 objPQEntity.UTMZ = HttpContext.Current.Request.Cookies["_bwutmz"] != null ? HttpContext.Current.Request.Cookies["_bwutmz"].Value : "";
                 objPQEntity.DeviceId = HttpContext.Current.Request.Cookies["BWC"] != null ? HttpContext.Current.Request.Cookies["BWC"].Value : "";

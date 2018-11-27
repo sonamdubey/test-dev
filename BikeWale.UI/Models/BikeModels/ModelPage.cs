@@ -113,6 +113,7 @@ namespace Bikewale.Models.BikeModels
         public string RedirectUrl { get; set; }
         public StatusCodes Status { get; set; }
         public PQSources Source { get; set; }
+        public UInt16 PQSourceId { get; set; }
         public PQSourceEnum PQSource { get; set; }
         public LeadSourceEnum LeadSource { get; set; }
         public bool IsMobile { get; set; }
@@ -2248,7 +2249,7 @@ namespace Bikewale.Models.BikeModels
                 objPQEntity.SourceId = Convert.ToUInt16(Source);
                 objPQEntity.ModelId = _modelId;
                 objPQEntity.VersionId = _objData.VersionId;
-                objPQEntity.PQLeadId = Convert.ToUInt16(PQSource);
+                objPQEntity.PQLeadId = PQSourceId != 0 ? PQSourceId : Convert.ToUInt16(PQSource);
                 objPQEntity.UTMA = HttpContext.Current.Request.Cookies["__utma"] != null ? HttpContext.Current.Request.Cookies["__utma"].Value : "";
                 objPQEntity.UTMZ = HttpContext.Current.Request.Cookies["_bwutmz"] != null ? HttpContext.Current.Request.Cookies["_bwutmz"].Value : "";
                 objPQEntity.DeviceId = HttpContext.Current.Request.Cookies["BWC"] != null ? HttpContext.Current.Request.Cookies["BWC"].Value : "";

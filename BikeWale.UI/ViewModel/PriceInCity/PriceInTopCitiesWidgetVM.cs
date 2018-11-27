@@ -11,5 +11,6 @@ namespace Bikewale.Models.PriceInCity
     {
         public IEnumerable<PriceQuoteOfTopCities> PriceQuoteList { get; set; }
         public string BikeName { get; set; }
+        public Bikewale.Entities.Pages.BikewalePages Page { get; set; }
     }
 }

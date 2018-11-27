@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using System;
 using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.AdSlot;
@@ -163,12 +164,14 @@ namespace Bikewale.Controllers
         {
             ModelPage obj = new ModelPage(makeMasking, modelMasking, _userReviewsSearch, _userReviewsCache, _objModel, _objDealerPQ, _objAreaCache, _objCityCache, _objPQ, _objDealerCache, _objDealerDetails, _objVersion, _objArticles, _objVideos, _objUsedBikescache, _objServiceCenter, _objPQCache, _usedBikesCache, _upcoming, _objManufacturerCampaign, _bikeSeries, _adSlot, _bikeInfo, _bikeMakesCacheRepository, _apiGatewayCaller
                 , _cacheManager, _pager, _bikeModelsCacheHelper, _bikeModelsCacheRepository,_objQuestions);
+            UInt16 pqSourceId = 0;
 
             if (obj.Status.Equals(StatusCodes.ContentFound))
             {
                 obj.IsMobile = true;
                 obj.Source = DTO.PriceQuote.PQSources.Mobile;
                 obj.PQSource = Entities.PriceQuote.PQSourceEnum.Mobile_ModelPage;
+                obj.PQSourceId = UInt16.TryParse(Request.QueryString["pqsourceid"], out pqSourceId) ? pqSourceId : (UInt16)0;
                 obj.LeadSource = Entities.BikeBooking.LeadSourceEnum.Model_Mobile;
                 obj.ManufacturerCampaignPageId = ManufacturerCampaignServingPages.Mobile_Model_Page;
                 obj.CurrentPageUrl = Request.RawUrl;

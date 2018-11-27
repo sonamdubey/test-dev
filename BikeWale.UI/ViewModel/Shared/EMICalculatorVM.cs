@@ -27,5 +27,6 @@ namespace Bikewale.Models
         public bool IsBhriguTracking { set;get;}
         public bool IsNearlyAllIndiaCampaign { set; get; }
         public uint ModelId { get; set; }
+        public Bikewale.Entities.Pages.BikewalePages Page { get; set; }
     }
 }

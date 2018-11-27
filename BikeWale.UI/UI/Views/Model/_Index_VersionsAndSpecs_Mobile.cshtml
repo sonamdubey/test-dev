@@ -14,7 +14,7 @@
             @if (!Model.IsDiscontinuedBike)
             {       
                 <div class="font14 text-bold">
-                    <a href="javascript:void(0)" data-cat="Model_Page" data-act="City_Change_Svg_Initiated" data-lab="@Model.BikeName" data-reload="true" data-persistent=" true" data-modelid='@Model.ModelId' class="getquotation changeCity bw-ga @(Model.IsLocationSelected && !Model.ShowOnRoadButton ? "location--active" : (Model.LocationCookie.CityId > 0 ? "location--active" : ""))" rel="nofollow">
+                    <a href="javascript:void(0)" data-cat="Model_Page" data-act="City_Change_Svg_Initiated" data-lab="@Model.BikeName" data-reload="true" data-persistent=" true" data-modelid='@Model.ModelId' data-pqsourceid="@Convert.ToUInt16(Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_ModelPage_LocationSelector)" class="getquotation changeCity bw-ga @(Model.IsLocationSelected && !Model.ShowOnRoadButton ? "location--active" : (Model.LocationCookie.CityId > 0 ? "location--active" : ""))" rel="nofollow">
                         @* TODO: Add class location--active when city is selected. *@
                         <span class="selected-location-label inline-block text-default text-truncate">@(Model.IsLocationSelected && !Model.ShowOnRoadButton ? Model.Location : (Model.LocationCookie.CityId > 0 ? Model.LocationCookie.City : "Select city"))</span>
                         <span class="location-map-icon"></span>
@@ -32,7 +32,7 @@
             <ul class="dropdown-box__submenu-list">
                 @foreach (var version in Model.ModelPageEntity.ModelVersions)
                 {
-                    <li class="dropdown-box-submenu-list__item @(version.VersionId == Model.VersionId ? "submenu-list-item--active" : "")" data-value="@version.VersionId">
+                    <li class="dropdown-box-submenu-list__item @(version.VersionId == Model.VersionId ? "submenu-list-item--active" : "")" data-value="@version.VersionId" data-pqsourceid="@Convert.ToUInt16(Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_ModelPage_VersionSelector)">
                         <div class="submenu-list-item__title">
                             <p class="submenu-list-item-title__left-col">@version.VersionName</p>
                             <p class="submenu-list-item-title__right-col">@Html.Raw(version.Price != 0 ? string.Format("{0} {1}", "&#x20b9;", Format.FormatPrice(Convert.ToString(version.Price))) : (version.AverageExShowroom != 0 ? string.Format("{0} {1}", "&#x20b9;", Format.FormatPrice(Convert.ToString(version.AverageExShowroom))) : string.Empty))</p>
