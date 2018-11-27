@@ -52,7 +52,7 @@ namespace Bikewale.BAL.Lead
         private readonly Bikewale.Interfaces.AutoBiz.IDealers _objAutobizDealer = null;
         private readonly IManufacturerCampaignRepository _manufacturerCampaignRepo = null;
         private readonly IApiGatewayCaller _apiGatewayCaller;
-        private readonly ushort _spamSentinentalScore = 90;
+        private readonly ushort _spamSentinentalScore = 7;
         static ILog _logger = LogManager.GetLogger("SpamScoreLogger");
         private readonly IMaskingNumberDl _maskingNumberDl ;
 
