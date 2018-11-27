@@ -621,7 +621,7 @@
 
                 if (options.dealersRequired != null) {
                     var dealerRequiredType = typeof(options.dealersRequired);
-                    self.dealersRequired((dealerRequiredType === "boolean"  && options.dealersRequired) || (dealerRequiredType === "string" && options.dealersRequired.toLowerCase() != 'true' ? false : true));
+                    self.dealersRequired((dealerRequiredType === "boolean"  && options.dealersRequired) || (dealerRequiredType === "string" && options.dealersRequired.toLowerCase() != 'true') ? false : true);
                     if (self.cityId() && self.dealersRequired()) {
                         self.getDealersList(self.dealerId());
                     }
