@@ -1086,7 +1086,8 @@ namespace Bikewale.BAL.Lead
                     DealerId = objLead.DealerId,
                     ModelId = objLead.ModelId,
                     VersionId = objLead.VersionId,
-                    CampaignId = objLead.CampaignId
+                    CampaignId = objLead.CampaignId,
+                    PQLeadId = (ushort)PQSourceEnum.MaskingNumber
                 };
 
                 objLead.PqGuId = _objPriceQuote.RegisterPriceQuoteV2(objPQEntity);
