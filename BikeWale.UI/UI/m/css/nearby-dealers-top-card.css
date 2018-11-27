@@ -60,7 +60,7 @@
 color: #787878;
 }
 
-.campaign__list li:before {
+.campaign__list.list--bullet li:before {
     content: '';
     margin-right: 5px;
     height: 4px;
