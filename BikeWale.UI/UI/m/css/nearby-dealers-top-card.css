@@ -61,8 +61,16 @@ color: #787878;
 }
 
 .campaign__list li:before {
-    content: '\2022';
+    content: '';
     margin-right: 5px;
+    height: 4px;
+    width: 4px;
+    background-color: #82888b;
+    border-radius: 50%;
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+    top: -1px;
 }
 
 .item--50-percent li {
